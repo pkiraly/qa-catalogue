@@ -1,0 +1,39 @@
+package de.gwdg.metadataqa.marc;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ *
+ * @author Péter Király <peter.kiraly at gwdg.de>
+ */
+public class X035aSystemControlNumber {
+	private String code;
+	private String number;
+	private final static Pattern PATTERN = Pattern.compile("^\\((.+)\\)(.+)$");
+
+	public X035aSystemControlNumber(String code, String number) {
+		this.code = code;
+		this.number = number;
+	}
+
+	public X035aSystemControlNumber(String original) {
+		parse035a(original);
+	}
+
+	private void parse035a(String original) {
+		Matcher matcher = PATTERN.matcher(original);
+		if (matcher.find()) {
+			this.code = matcher.group(1);
+			this.number = matcher.group(2);
+		}
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+}

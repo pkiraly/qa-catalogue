@@ -1,0 +1,17 @@
+015     R       NATIONAL BIBLIOGRAPHY NUMBER
+ind1    blank   Undefined
+ind2    blank   Undefined
+a       R       National bibliography number
+q       R       Qualifying information
+z       R       Canceled/Invalid national bibliography number
+2       NR      Source
+6       NR      Linkage
+8       R       Field link and sequence number
+
+016     R       NATIONAL BIBLIOGRAPHIC AGENCY CONTROL NUMBER
+ind1    b7      National bibliographic agency
+ind2    blank   Undefined
+a       NR      Record control number
+z       R       Canceled or invalid record control number
+2       NR      Source
+8       R       Field link and sequence number

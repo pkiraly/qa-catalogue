@@ -1,0 +1,696 @@
+{
+   "leader":"02249cam a2200541Ii 4500",
+   "controlfield":[
+      {
+         "tag":"001",
+         "content":"ocm06783656 "
+      },
+      {
+         "tag":"003",
+         "content":"OCoLC"
+      },
+      {
+         "tag":"005",
+         "content":"20140808010151.9"
+      },
+      {
+         "tag":"008",
+         "content":"801003s1958    ja            000 0 jpn  "
+      }
+   ],
+   "datafield":[
+      {
+         "tag":"010",
+         "ind1":" ",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"a",
+               "content":"j  61000413 "
+            }
+         ]
+      },
+      {
+         "tag":"016",
+         "ind1":"7",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"a",
+               "content":"BN10063126"
+            },
+            {
+               "code":"2",
+               "content":"JP-ToKJK"
+            }
+         ]
+      },
+      {
+         "tag":"016",
+         "ind1":"7",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"a",
+               "content":"016396039"
+            },
+            {
+               "code":"2",
+               "content":"Uk"
+            }
+         ]
+      },
+      {
+         "tag":"019",
+         "ind1":" ",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"a",
+               "content":"33658528"
+            },
+            {
+               "code":"a",
+               "content":"67606250"
+            },
+            {
+               "code":"a",
+               "content":"214975495"
+            }
+         ]
+      },
+      {
+         "tag":"029",
+         "ind1":"1",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"a",
+               "content":"GEBAY"
+            },
+            {
+               "code":"b",
+               "content":"10740743"
+            }
+         ]
+      },
+      {
+         "tag":"029",
+         "ind1":"1",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"a",
+               "content":"NZ1"
+            },
+            {
+               "code":"b",
+               "content":"5803377"
+            }
+         ]
+      },
+      {
+         "tag":"035",
+         "ind1":" ",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"a",
+               "content":"(OCoLC)06783656"
+            },
+            {
+               "code":"z",
+               "content":"(OCoLC)33658528"
+            },
+            {
+               "code":"z",
+               "content":"(OCoLC)67606250"
+            },
+            {
+               "code":"z",
+               "content":"(OCoLC)214975495"
+            }
+         ]
+      },
+      {
+         "tag":"040",
+         "ind1":" ",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"a",
+               "content":"DLC"
+            },
+            {
+               "code":"b",
+               "content":"eng"
+            },
+            {
+               "code":"c",
+               "content":"VLW"
+            },
+            {
+               "code":"d",
+               "content":"OCL"
+            },
+            {
+               "code":"d",
+               "content":"OCLCG"
+            },
+            {
+               "code":"d",
+               "content":"CLU"
+            },
+            {
+               "code":"d",
+               "content":"LWU"
+            },
+            {
+               "code":"d",
+               "content":"EYM"
+            },
+            {
+               "code":"d",
+               "content":"UKMGB"
+            },
+            {
+               "code":"d",
+               "content":"OCLCF"
+            },
+            {
+               "code":"d",
+               "content":"OCLCQ"
+            }
+         ]
+      },
+      {
+         "tag":"041",
+         "ind1":"0",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"a",
+               "content":"jpn"
+            },
+            {
+               "code":"b",
+               "content":"eng"
+            }
+         ]
+      },
+      {
+         "tag":"049",
+         "ind1":" ",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"a",
+               "content":"L2UA"
+            }
+         ]
+      },
+      {
+         "tag":"050",
+         "ind1":" ",
+         "ind2":"4",
+         "subfield":[
+            {
+               "code":"a",
+               "content":"B162"
+            },
+            {
+               "code":"b",
+               "content":".S3"
+            }
+         ]
+      },
+      {
+         "tag":"066",
+         "ind1":" ",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"c",
+               "content":"$1"
+            }
+         ]
+      },
+      {
+         "tag":"100",
+         "ind1":"1",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"6",
+               "content":"880-01"
+            },
+            {
+               "code":"a",
+               "content":"Sasaki, Genjun,"
+            },
+            {
+               "code":"d",
+               "content":"1915-"
+            }
+         ]
+      },
+      {
+         "tag":"245",
+         "ind1":"1",
+         "ind2":"0",
+         "subfield":[
+            {
+               "code":"6",
+               "content":"880-02"
+            },
+            {
+               "code":"a",
+               "content":"Abidatsuma shiso\u0304 kenkyu\u0304 :"
+            },
+            {
+               "code":"b",
+               "content":"Bukkyo\u0304 jitsuzairon no rekishiteki hihanteki kenkyu\u0304 \/"
+            },
+            {
+               "code":"c",
+               "content":"Sasaki Genjun cho."
+            }
+         ]
+      },
+      {
+         "tag":"246",
+         "ind1":"3",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"a",
+               "content":"Study of Abhidharma philosophy; a historical and critical study of Buddhist realism"
+            }
+         ]
+      },
+      {
+         "tag":"260",
+         "ind1":" ",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"6",
+               "content":"880-03"
+            },
+            {
+               "code":"a",
+               "content":"To\u0304kyo\u0304 :"
+            },
+            {
+               "code":"b",
+               "content":"Ko\u0304bundo\u0304,"
+            },
+            {
+               "code":"c",
+               "content":"Sho\u0304wa 33 [1958]"
+            }
+         ]
+      },
+      {
+         "tag":"300",
+         "ind1":" ",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"a",
+               "content":"ix, 8, 603, 29, xlvi pages ;"
+            },
+            {
+               "code":"c",
+               "content":"22 cm"
+            }
+         ]
+      },
+      {
+         "tag":"336",
+         "ind1":" ",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"a",
+               "content":"text"
+            },
+            {
+               "code":"b",
+               "content":"txt"
+            },
+            {
+               "code":"2",
+               "content":"rdacontent"
+            }
+         ]
+      },
+      {
+         "tag":"337",
+         "ind1":" ",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"a",
+               "content":"unmediated"
+            },
+            {
+               "code":"b",
+               "content":"n"
+            },
+            {
+               "code":"2",
+               "content":"rdamedia"
+            }
+         ]
+      },
+      {
+         "tag":"338",
+         "ind1":" ",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"a",
+               "content":"volume"
+            },
+            {
+               "code":"b",
+               "content":"nc"
+            },
+            {
+               "code":"2",
+               "content":"rdacarrier"
+            }
+         ]
+      },
+      {
+         "tag":"500",
+         "ind1":" ",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"6",
+               "content":"880-04"
+            },
+            {
+               "code":"a",
+               "content":"Added t.p.: A study of Abhidharma Philosophy; a historical and critical study of Buddhist realism."
+            }
+         ]
+      },
+      {
+         "tag":"500",
+         "ind1":" ",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"a",
+               "content":"English summary: p. xxi-xlvi."
+            }
+         ]
+      },
+      {
+         "tag":"530",
+         "ind1":" ",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"a",
+               "content":"Also issued online."
+            }
+         ]
+      },
+      {
+         "tag":"590",
+         "ind1":" ",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"a",
+               "content":"m9SINOL"
+            }
+         ]
+      },
+      {
+         "tag":"591",
+         "ind1":" ",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"a",
+               "content":"08\/08\/2014"
+            }
+         ]
+      },
+      {
+         "tag":"593",
+         "ind1":" ",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"a",
+               "content":"NEW"
+            }
+         ]
+      },
+      {
+         "tag":"650",
+         "ind1":" ",
+         "ind2":"0",
+         "subfield":[
+            {
+               "code":"a",
+               "content":"Abhidharma."
+            }
+         ]
+      },
+      {
+         "tag":"650",
+         "ind1":" ",
+         "ind2":"7",
+         "subfield":[
+            {
+               "code":"a",
+               "content":"Abhidharma."
+            },
+            {
+               "code":"2",
+               "content":"fast"
+            },
+            {
+               "code":"0",
+               "content":"(OCoLC)fst00794375"
+            }
+         ]
+      },
+      {
+         "tag":"653",
+         "ind1":" ",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"6",
+               "content":"880-05"
+            },
+            {
+               "code":"a",
+               "content":"Abidatsuma."
+            }
+         ]
+      },
+      {
+         "tag":"653",
+         "ind1":" ",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"6",
+               "content":"880-06"
+            },
+            {
+               "code":"a",
+               "content":"Bukkyo\u0304"
+            },
+            {
+               "code":"a",
+               "content":"Kyo\u0304gi."
+            }
+         ]
+      },
+      {
+         "tag":"776",
+         "ind1":"0",
+         "ind2":"8",
+         "subfield":[
+            {
+               "code":"i",
+               "content":"Online version:"
+            },
+            {
+               "code":"a",
+               "content":"Sasaki, Genjun, 1915-"
+            },
+            {
+               "code":"t",
+               "content":"A Abidatsuma shiso\u0304 kenkyu\u0304."
+            },
+            {
+               "code":"d",
+               "content":"33 [1958]"
+            },
+            {
+               "code":"w",
+               "content":"(OCoLC)541300190"
+            }
+         ]
+      },
+      {
+         "tag":"880",
+         "ind1":"1",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"6",
+               "content":"100-01\/$1"
+            },
+            {
+               "code":"a",
+               "content":"\u4f50\u3005\u6728\u73fe\u9806,"
+            },
+            {
+               "code":"d",
+               "content":"1915-"
+            }
+         ]
+      },
+      {
+         "tag":"880",
+         "ind1":"1",
+         "ind2":"0",
+         "subfield":[
+            {
+               "code":"6",
+               "content":"245-02\/$1"
+            },
+            {
+               "code":"a",
+               "content":"\u963f\u6bd8\u9054\u78e8\u601d\u60f3\u784f\u7a76 :"
+            },
+            {
+               "code":"b",
+               "content":"\u4f5b\u654e\u5b9f\u5728\u8ad6\u306e\u6b77\u53f2\u7684\u6279\u5224\u7684\u784f\u7a76 \/"
+            },
+            {
+               "code":"c",
+               "content":"\u4f50\u3005\u6728\u73fe\u9806\u8457."
+            }
+         ]
+      },
+      {
+         "tag":"880",
+         "ind1":" ",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"6",
+               "content":"260-03\/$1"
+            },
+            {
+               "code":"a",
+               "content":"\u6771\u4eac :"
+            },
+            {
+               "code":"b",
+               "content":"\u5f18\u6587\u5802,"
+            },
+            {
+               "code":"c",
+               "content":"\u662d\u548c33 [1958]"
+            }
+         ]
+      },
+      {
+         "tag":"880",
+         "ind1":" ",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"6",
+               "content":"500-04\/$1"
+            },
+            {
+               "code":"a",
+               "content":"\u82f1\u8a9e\u66f8\u540d:A study of Abhidharma philosophy \u82f1\u6587\u4f75\u8a18 \u5e8f:E.\u30b3\u30f3\u30c5, I.B.\u30db\u30fc\u30ca \u6a19\u984c\u7d19\u30fb\u80cc\u306e\u66f8\u540d(\u8aa4\u690d):\u963f\u6bd8\u9054\u9ebf\u601d\u60f3\u7814\u7a76."
+            }
+         ]
+      },
+      {
+         "tag":"880",
+         "ind1":" ",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"6",
+               "content":"653-05\/$1"
+            },
+            {
+               "code":"a",
+               "content":"\u963f\u6bd8\u9054\u78e8."
+            }
+         ]
+      },
+      {
+         "tag":"880",
+         "ind1":" ",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"6",
+               "content":"653-06\/$1"
+            },
+            {
+               "code":"a",
+               "content":"\u4ecf\u654e"
+            },
+            {
+               "code":"a",
+               "content":"\u654e\u7fa9."
+            }
+         ]
+      },
+      {
+         "tag":"880",
+         "ind1":"1",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"6",
+               "content":"700-00\/$1"
+            },
+            {
+               "code":"a",
+               "content":"\u4f50\u3005\u6728\u73fe\u9806,"
+            },
+            {
+               "code":"d",
+               "content":"1915-"
+            }
+         ]
+      },
+      {
+         "tag":"994",
+         "ind1":" ",
+         "ind2":" ",
+         "subfield":[
+            {
+               "code":"a",
+               "content":"92"
+            },
+            {
+               "code":"b",
+               "content":"L2U"
+            }
+         ]
+      }
+   ]
+}

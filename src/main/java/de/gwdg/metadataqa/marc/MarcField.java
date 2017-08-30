@@ -1,5 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
+import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,10 +15,10 @@ public class MarcField {
 	private String code;
 	private String type;
 	private String label;
-	private MarcSubfield indicator1;
-	private MarcSubfield indicator2;
-	private Map<String, MarcSubfield> subfields = new HashMap<>();
-	private List<MarcSubfield> subfieldList = new ArrayList<>();
+	private SubfieldDefinition indicator1;
+	private SubfieldDefinition indicator2;
+	private Map<String, SubfieldDefinition> subfields = new HashMap<>();
+	private List<SubfieldDefinition> subfieldList = new ArrayList<>();
 	private List<String> validSubfieldCodes = new ArrayList<>();
 
 	public MarcField(String code, String type, String label) {
@@ -26,7 +28,7 @@ public class MarcField {
 	}
 
 	public void addSubfield(String code, String type, String label) {
-		MarcSubfield subfield = new MarcSubfield(code, type, label);
+		SubfieldDefinition subfield = new SubfieldDefinition(code, label, type);
 		switch (code) {
 			case "ind1": indicator1 = subfield; break;
 			case "ind2": indicator2 = subfield; break;
@@ -62,31 +64,31 @@ public class MarcField {
 		this.label = label;
 	}
 
-	public MarcSubfield getIndicator1() {
+	public SubfieldDefinition getIndicator1() {
 		return indicator1;
 	}
 
-	public void setIndicator1(MarcSubfield indicator1) {
+	public void setIndicator1(SubfieldDefinition indicator1) {
 		this.indicator1 = indicator1;
 	}
 
-	public MarcSubfield getIndicator2() {
+	public SubfieldDefinition getIndicator2() {
 		return indicator2;
 	}
 
-	public void setIndicator2(MarcSubfield indicator2) {
+	public void setIndicator2(SubfieldDefinition indicator2) {
 		this.indicator2 = indicator2;
 	}
 
-	public Map<String, MarcSubfield> getSubfields() {
+	public Map<String, SubfieldDefinition> getSubfields() {
 		return subfields;
 	}
 
-	public List<MarcSubfield> getSubfieldList() {
+	public List<SubfieldDefinition> getSubfieldList() {
 		return subfieldList;
 	}
 
-	public void setSubfieldList(List<MarcSubfield> subfields) {
+	public void setSubfieldList(List<SubfieldDefinition> subfields) {
 		this.subfieldList = subfields;
 	}
 

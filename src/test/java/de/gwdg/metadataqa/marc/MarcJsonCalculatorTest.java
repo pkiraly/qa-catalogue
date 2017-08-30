@@ -4,12 +4,13 @@ import de.gwdg.metadataqa.api.calculator.CompletenessCalculator;
 import de.gwdg.metadataqa.api.interfaces.Calculator;
 import de.gwdg.metadataqa.api.model.JsonPathCache;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
-import de.gwdg.metadataqa.api.util.CompressionLevel;
 import de.gwdg.metadataqa.api.util.FileUtils;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
+
+import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -47,7 +48,7 @@ public class MarcJsonCalculatorTest {
 		MarcStructureDefinitionReader reader = 
 			new MarcStructureDefinitionReader("general/marc-structure.txt");
 		List<MarcField> fields = reader.getFields();
-		Map<String, MarcSubfield> subfields = reader.getQualifiedSubfields();
+		Map<String, SubfieldDefinition> subfields = reader.getQualifiedSubfields();
 
 		MarcJsonCalculatorFacade calculatorFacade = new MarcJsonCalculatorFacade();
 		calculatorFacade.enableFieldExtractor(true);
@@ -71,7 +72,7 @@ public class MarcJsonCalculatorTest {
 				Map<String, Integer> cardinalityMap = ((CompletenessCalculator)calculator).getCardinalityMap();
 				for (String field : cardinalityMap.keySet()) {
 					if (cardinalityMap.get(field) > 0) {
-						MarcSubfield subfield = subfields.get(field);
+						SubfieldDefinition subfield = subfields.get(field);
 						System.err.println(
 							String.format(
 								"%s (%s): %d, %s",

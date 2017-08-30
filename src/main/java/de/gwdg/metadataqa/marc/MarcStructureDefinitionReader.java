@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.commons.lang3.StringUtils;
+
+import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 
 /**
  *
@@ -16,7 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 public class MarcStructureDefinitionReader {
 
 	List<MarcField> fields = new ArrayList<>();
-	Map<String, MarcSubfield> qualifiedSubfields = new HashMap<>();
+	Map<String, SubfieldDefinition> qualifiedSubfields = new HashMap<>();
 
 	public MarcStructureDefinitionReader(String fileName) 
 			throws URISyntaxException, IOException {
@@ -46,7 +47,7 @@ public class MarcStructureDefinitionReader {
 		return fields;
 	}
 
-	public Map<String, MarcSubfield> getQualifiedSubfields() {
+	public Map<String, SubfieldDefinition> getQualifiedSubfields() {
 		return qualifiedSubfields;
 	}
 
@@ -55,7 +56,7 @@ public class MarcStructureDefinitionReader {
 			String code = field.getCode();
 			qualifiedSubfields.put(code + "$ind1", field.getIndicator1());
 			qualifiedSubfields.put(code + "$ind2", field.getIndicator2());
-			for (MarcSubfield subfield : field.getSubfieldList()) {
+			for (SubfieldDefinition subfield : field.getSubfieldList()) {
 				qualifiedSubfields.put(code + "$" + subfield.getCode(), subfield);
 			}
 		}

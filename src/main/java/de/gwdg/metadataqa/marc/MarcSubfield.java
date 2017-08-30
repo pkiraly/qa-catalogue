@@ -1,67 +1,31 @@
 package de.gwdg.metadataqa.marc;
 
-import java.util.ArrayList;
-import java.util.List;
+import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 
-/**
- *
- * @author Péter Király <peter.kiraly at gwdg.de>
- */
 public class MarcSubfield {
-
+	private SubfieldDefinition definition;
 	private String code;
-	private String type;
-	private String label;
-	private List<String> allowedValues;
+	private String value;
 
-	/**
-	 * Create a MarcSubfield object
-	 *
-	 * @param code The subfield code
-	 * @param label The description of the code
-	 */
-	public MarcSubfield(String code, String label) {
+	public MarcSubfield(SubfieldDefinition definition, String code, String value) {
+		this.definition = definition;
 		this.code = code;
-		this.label = label;
-	}
-
-	public MarcSubfield(String code, String type, String label) {
-		this.code = code;
-		this.type = type;
-		this.label = label;
-		if (code.startsWith("ind")) {
-			processIndicatorType(type);
-		}
+		this.value = value;
 	}
 
 	public String getCode() {
 		return code;
 	}
 
-	public String getType() {
-		return type;
+	public String getValue() {
+		return value;
 	}
 
 	public String getLabel() {
-		return label;
+		return definition.getLabel();
 	}
 
-	public List<String> getAllowedValues() {
-		return allowedValues;
-	}
-
-	private void processIndicatorType(String types) {
-		allowedValues = new ArrayList<>();
-		if (types.equals("blank")) {
-			allowedValues.add(" ");
-		} else {
-			for (int i = 0, len = types.length(); i < len; i++) {
-				String type = String.valueOf(types.charAt(i));
-				if (type.equals("b")) {
-					type = " ";
-				}
-				allowedValues.add(type);
-			}
-		}
+	public String resolve() {
+		return definition.resolve(value);
 	}
 }

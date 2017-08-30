@@ -1,6 +1,8 @@
-package de.gwdg.metadataqa.marc;
+package de.gwdg.metadataqa.marc.definition;
 
 import java.util.Arrays;
+
+import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -12,9 +14,9 @@ import static org.junit.Assert.*;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class MarcSubfieldTest {
+public class SubfieldDefinitionTest {
 	
-	public MarcSubfieldTest() {
+	public SubfieldDefinitionTest() {
 	}
 	
 	@BeforeClass
@@ -35,47 +37,47 @@ public class MarcSubfieldTest {
 
 	@Test
 	public void TestConstructor() {
-		MarcSubfield subfield = new MarcSubfield("a", "NR", "Record control number");
+		SubfieldDefinition subfield = new SubfieldDefinition("a", "Record control number", "NR");
 		assertNotNull(subfield);
 		assertEquals("a", subfield.getCode());
-		assertEquals("NR", subfield.getType());
+		assertEquals("NR", subfield.getCardinalityCode());
 		assertEquals("Record control number", subfield.getLabel());
 	}
 
 	@Test
 	public void testIncidator() {
-		MarcSubfield subfield = new MarcSubfield("ind1", "012345", "Type of publisher number");
+		SubfieldDefinition subfield = new SubfieldDefinition("ind1", "Type of publisher number", "012345");
 		assertNotNull(subfield);
 		assertEquals("ind1", subfield.getCode());
-		assertEquals("012345", subfield.getType());
+		assertEquals("012345", subfield.getCardinalityCode());
 		assertEquals("Type of publisher number", subfield.getLabel());
 		assertEquals(
 			Arrays.asList("0", "1", "2", "3", "4", "5"), 
-			subfield.getAllowedValues()
+			subfield.getAllowedCodes()
 		);
 
-		subfield = new MarcSubfield("ind1", "b012345", "Type of publisher number");
+		subfield = new SubfieldDefinition("ind1", "Type of publisher number", "b012345");
 		assertEquals(
 			Arrays.asList(" ", "0", "1", "2", "3", "4", "5"), 
-			subfield.getAllowedValues()
+			subfield.getAllowedCodes()
 		);
 	}
 
 	@Test
 	public void testBlankIncidator() {
-		MarcSubfield subfield = new MarcSubfield("ind1", "blank", "Type of publisher number");
+		SubfieldDefinition subfield = new SubfieldDefinition("ind1", "Type of publisher number", "blank");
 		assertEquals(
 			Arrays.asList(" "), 
-			subfield.getAllowedValues()
+			subfield.getAllowedCodes()
 		);
 	}
 
 	@Test
 	public void testMixedBlankIncidator() {
-		MarcSubfield subfield = new MarcSubfield("ind1", "b7", "Type of publisher number");
+		SubfieldDefinition subfield = new SubfieldDefinition("ind1", "Type of publisher number", "b7");
 		assertEquals(
 			Arrays.asList(" ", "7"), 
-			subfield.getAllowedValues()
+			subfield.getAllowedCodes()
 		);
 	}
 

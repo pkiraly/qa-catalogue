@@ -279,12 +279,12 @@ public class Control007 {
 		return text;
 	}
 
-	public Map<ControlSubfield, String> getMap() {
-		return valuesMap;
-	}
-
 	public String getContent() {
 		return content;
+	}
+
+	public Map<ControlSubfield, String> getMap() {
+		return valuesMap;
 	}
 
 	public String getValueByPosition(int position) {

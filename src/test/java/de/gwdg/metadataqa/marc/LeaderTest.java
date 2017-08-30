@@ -35,24 +35,6 @@ public class LeaderTest {
 	}
 
 	@Test
-	public void hello() {
-		Leader leader;
-		List<String> leaders = Arrays.asList(
-			"00928nam a2200265 c 4500",
-			"03960cam a2200781   4500",
-			"01645nam  2200481 ir4500"
-		);
-		for (String input : leaders) {
-			leader = new Leader(input);
-			System.err.println("///// " + input + "/////");
-			System.err.println(leader.getType().getValue());
-			for (ControlSubfield key : leader.getMap().keySet()) {
-				System.err.println(String.format("%s: %s", key.getLabel(), leader.resolve(key)));
-			}
-		}
-	}
-
-	@Test
 	public void test00928nama2200265c4500() {
 		Leader leader = new Leader("00928nam a2200265 c 4500");
 		assertNotNull(leader);

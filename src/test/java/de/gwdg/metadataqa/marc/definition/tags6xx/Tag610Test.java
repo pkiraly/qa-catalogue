@@ -156,7 +156,6 @@ public class Tag610Test {
 		DataField field = new DataField(Tag610.getInstance(), "1", "0",
 				"a", "United States.", "b", "Army.", "b", "Cavalry, 7th.", "b", "Company E,", "e", "depicted.");
 		Map<String, List<String>> map = field.getHumanReadableMap();
-		System.err.println(field.getHumanReadableMap());
 		assertEquals(5, map.size());
 		assertEquals("Jurisdiction name", map.get("Type of corporate name entry element").get(0));
 		assertEquals("Library of Congress Subject Headings", map.get("Thesaurus").get(0));

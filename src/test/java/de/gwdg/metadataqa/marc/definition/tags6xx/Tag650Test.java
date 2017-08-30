@@ -132,7 +132,6 @@ public class Tag650Test {
 		DataField field = new DataField(Tag650.getInstance(), " ", "7",
 				"a", "Educational buildings", "z", "Washington (D.C.)", "y", "1890-1910.", "2", "lctgm");
 		Map<String, List<String>> map = field.getHumanReadableMap();
-		System.err.println(field.getHumanReadableMap());
 		assertEquals(6, map.size());
 		assertEquals("Source specified in subfield $2", map.get("Thesaurus").get(0));
 		assertEquals("Thesaurus for graphic materials: TGM I, Subject terms", map.get("Source of heading or term").get(0));

@@ -8,6 +8,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
@@ -34,19 +36,150 @@ public class Control008Test {
 	}
 
 	@Test
-	public void hello() {
-		Map<String, Leader.Type> inputs = new LinkedHashMap<>();
-		inputs.put("801003s1958    ja            000 0 jpn  ", Leader.Type.MAPS);
-		inputs.put("981123p19981996enkmun   efhi           d", Leader.Type.BOOKS);
+	public void test801003s1958ja0000jpn() {
+		Control008 field = new Control008("801003s1958    ja            000 0 jpn  ", Leader.Type.MAPS);
 
-		Control008 field;
-		for (Map.Entry<String, Leader.Type> input : inputs.entrySet()){
-			field = new Control008(input.getKey(), input.getValue());
-			System.err.println(String.format("[%s]", input.getKey()));
-			for (ControlSubfield subfield : field.getValueMap().keySet()) {
-				System.err.println(String.format("%s: %s", 
-					subfield.getLabel(), field.resolve(subfield)));
-			}
-		}
+		ControlSubfield subfield;
+		subfield = field.getSubfieldByPosition(0);
+		assertEquals("Date entered on file", subfield.getLabel());
+		assertEquals("801003", field.getMap().get(subfield));
+		assertEquals("801003", field.getTag008all00().resolve());
+
+		subfield = field.getSubfieldByPosition(6);
+		assertEquals("Type of date/Publication status", subfield.getLabel());
+		assertEquals("Single known date/probable date", field.resolve(subfield));
+		assertEquals("Single known date/probable date", field.getTag008all06().resolve());
+
+		subfield = field.getSubfieldByPosition(7);
+		assertEquals("Date 1", subfield.getLabel());
+		assertEquals("1958", field.resolve(subfield));
+		assertEquals("1958", field.getTag008all07().resolve());
+
+		subfield = field.getSubfieldByPosition(11);
+		assertEquals("Date 2", subfield.getLabel());
+		assertEquals("    ", field.resolve(subfield));
+		assertEquals("    ", field.getTag008all11().resolve());
+
+		subfield = field.getSubfieldByPosition(15);
+		assertEquals("Place of publication, production, or execution", subfield.getLabel());
+		assertEquals("ja ", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(35);
+		assertEquals("Language", subfield.getLabel());
+		assertEquals("jpn", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(38);
+		assertEquals("Modified record", subfield.getLabel());
+		assertEquals("Not modified", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(39);
+		assertEquals("Cataloging source", subfield.getLabel());
+		assertEquals("National bibliographic agency", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(18);
+		assertEquals("Relief", subfield.getLabel());
+		assertEquals("No relief shown", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(22);
+		assertEquals("Projection", subfield.getLabel());
+		assertEquals("Projection not specified", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(25);
+		assertEquals("Type of cartographic material", subfield.getLabel());
+		assertEquals(" ", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(28);
+		assertEquals("Government publication", subfield.getLabel());
+		assertEquals("Not a government publication", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(29);
+		assertEquals("Form of item", subfield.getLabel());
+		assertEquals("0", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(31);
+		assertEquals("Index", subfield.getLabel());
+		assertEquals("No index", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(33);
+		assertEquals("Special format characteristics", subfield.getLabel());
+		assertEquals("0, No specified special format characteristics", field.resolve(subfield));
+	}
+
+	@Test
+	public void test981123p19981996enkmunefhid() {
+		Control008 field = new Control008("981123p19981996enkmun   efhi           d", Leader.Type.BOOKS);
+
+		ControlSubfield subfield;
+		subfield = field.getSubfieldByPosition(0);
+		assertEquals("Date entered on file", subfield.getLabel());
+		assertEquals("981123", field.getMap().get(subfield));
+
+		subfield = field.getSubfieldByPosition(6);
+		assertEquals("Type of date/Publication status", subfield.getLabel());
+		assertEquals("Date of distribution/release/issue and production/recording session when different", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(7);
+		assertEquals("Date 1", subfield.getLabel());
+		assertEquals("1998", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(11);
+		assertEquals("Date 2", subfield.getLabel());
+		assertEquals("1996", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(15);
+		assertEquals("Place of publication, production, or execution", subfield.getLabel());
+		assertEquals("enk", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(35);
+		assertEquals("Language", subfield.getLabel());
+		assertEquals("   ", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(38);
+		assertEquals("Modified record", subfield.getLabel());
+		assertEquals("Not modified", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(39);
+		assertEquals("Cataloging source", subfield.getLabel());
+		assertEquals("Other", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(18);
+		assertEquals("Illustrations", subfield.getLabel());
+		assertEquals("Phonodisc, phonowire, etc., u, n, No illustrations", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(22);
+		assertEquals("Target audience", subfield.getLabel());
+		assertEquals("Unknown or not specified", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(23);
+		assertEquals("Form of item", subfield.getLabel());
+		assertEquals("None of the following", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(24);
+		assertEquals("Nature of contents", subfield.getLabel());
+		assertEquals("Encyclopedias, Handbooks, h, Indexes", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(28);
+		assertEquals("Government publication", subfield.getLabel());
+		assertEquals("Not a government publication", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(29);
+		assertEquals("Conference publication", subfield.getLabel());
+		assertEquals(" ", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(30);
+		assertEquals("Festschrift", subfield.getLabel());
+		assertEquals(" ", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(31);
+		assertEquals("Index", subfield.getLabel());
+		assertEquals(" ", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(33);
+		assertEquals("Literary form", subfield.getLabel());
+		assertEquals(" ", field.resolve(subfield));
+
+		subfield = field.getSubfieldByPosition(34);
+		assertEquals("Biography", subfield.getLabel());
+		assertEquals("No biographical material", field.resolve(subfield));
 	}
 }

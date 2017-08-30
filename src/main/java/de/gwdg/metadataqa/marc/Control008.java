@@ -4,11 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Control008Subfields;
 import de.gwdg.metadataqa.marc.definition.Control008Type;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -21,7 +17,6 @@ public class Control008 {
 
 	private String content;
 	private Leader.Type recordType;
-	private Map<ControlSubfield, Object> valueMap;
 
 	private ControlValue tag008all00;
 	private ControlValue tag008all06;
@@ -86,10 +81,13 @@ public class Control008 {
 
 	private ControlValue tag008mixed23;
 
+	private Map<ControlSubfield, String> valuesMap;
+	private Map<Integer, ControlSubfield> byPosition = new LinkedHashMap<>();
+
 	public Control008(String content, Leader.Type recordType) {
 		this.content = content;
 		this.recordType = recordType;
-		valueMap = new LinkedHashMap<>();
+		valuesMap = new LinkedHashMap<>();
 		process();
 	}
 
@@ -117,7 +115,8 @@ public class Control008 {
 						break;
 				}
 
-				valueMap.put(subfield, value);
+				valuesMap.put(subfield, value);
+				byPosition.put(subfield.getPositionStart(), subfield);
 			} catch (StringIndexOutOfBoundsException e) {
 				logger.severe(content.length() + " " + subfield.getPositionStart() + "-" + subfield.getPositionEnd());
 			}
@@ -190,7 +189,8 @@ public class Control008 {
 						break;
 				}
 
-				valueMap.put(subfield, value);
+				valuesMap.put(subfield, value);
+				byPosition.put(subfield.getPositionStart(), subfield);
 			} catch (StringIndexOutOfBoundsException e) {
 				logger.severe(content.length() + " " + subfield.getPositionStart() + "-" + subfield.getPositionEnd());
 			}
@@ -198,12 +198,252 @@ public class Control008 {
 	}
 
 	public String resolve(ControlSubfield key) {
-		String value = (String)valueMap.get(key);
+		String value = (String)valuesMap.get(key);
 		String text = key.resolve(value);
 		return text;
 	}
 
-	public Map<ControlSubfield, Object> getValueMap() {
-		return valueMap;
+	public Map<ControlSubfield, String> getMap() {
+		return valuesMap;
+	}
+
+	public String getValueByPosition(int position) {
+		return valuesMap.get(getSubfieldByPosition(position));
+	}
+
+	public ControlSubfield getSubfieldByPosition(int position) {
+		return byPosition.get(position);
+	}
+
+	public Set<Integer> getSubfieldPositions() {
+		return byPosition.keySet();
+	}
+
+	public Map<ControlSubfield, String> getValueMap() {
+		return valuesMap;
+	}
+
+	public Leader.Type getRecordType() {
+		return recordType;
+	}
+
+	public ControlValue getTag008all00() {
+		return tag008all00;
+	}
+
+	public ControlValue getTag008all06() {
+		return tag008all06;
+	}
+
+	public ControlValue getTag008all07() {
+		return tag008all07;
+	}
+
+	public ControlValue getTag008all11() {
+		return tag008all11;
+	}
+
+	public ControlValue getTag008all15() {
+		return tag008all15;
+	}
+
+	public ControlValue getTag008all35() {
+		return tag008all35;
+	}
+
+	public ControlValue getTag008all38() {
+		return tag008all38;
+	}
+
+	public ControlValue getTag008all39() {
+		return tag008all39;
+	}
+
+	public ControlValue getTag008book18() {
+		return tag008book18;
+	}
+
+	public ControlValue getTag008book22() {
+		return tag008book22;
+	}
+
+	public ControlValue getTag008book23() {
+		return tag008book23;
+	}
+
+	public ControlValue getTag008book24() {
+		return tag008book24;
+	}
+
+	public ControlValue getTag008book28() {
+		return tag008book28;
+	}
+
+	public ControlValue getTag008book29() {
+		return tag008book29;
+	}
+
+	public ControlValue getTag008book30() {
+		return tag008book30;
+	}
+
+	public ControlValue getTag008book31() {
+		return tag008book31;
+	}
+
+	public ControlValue getTag008book33() {
+		return tag008book33;
+	}
+
+	public ControlValue getTag008book34() {
+		return tag008book34;
+	}
+
+	public ControlValue getTag008computer22() {
+		return tag008computer22;
+	}
+
+	public ControlValue getTag008computer23() {
+		return tag008computer23;
+	}
+
+	public ControlValue getTag008computer26() {
+		return tag008computer26;
+	}
+
+	public ControlValue getTag008computer28() {
+		return tag008computer28;
+	}
+
+	public ControlValue getTag008map18() {
+		return tag008map18;
+	}
+
+	public ControlValue getTag008map22() {
+		return tag008map22;
+	}
+
+	public ControlValue getTag008map25() {
+		return tag008map25;
+	}
+
+	public ControlValue getTag008map28() {
+		return tag008map28;
+	}
+
+	public ControlValue getTag008map29() {
+		return tag008map29;
+	}
+
+	public ControlValue getTag008map31() {
+		return tag008map31;
+	}
+
+	public ControlValue getTag008map33() {
+		return tag008map33;
+	}
+
+	public ControlValue getTag008music18() {
+		return tag008music18;
+	}
+
+	public ControlValue getTag008music20() {
+		return tag008music20;
+	}
+
+	public ControlValue getTag008music21() {
+		return tag008music21;
+	}
+
+	public ControlValue getTag008music22() {
+		return tag008music22;
+	}
+
+	public ControlValue getTag008music23() {
+		return tag008music23;
+	}
+
+	public ControlValue getTag008music24() {
+		return tag008music24;
+	}
+
+	public ControlValue getTag008music30() {
+		return tag008music30;
+	}
+
+	public ControlValue getTag008music33() {
+		return tag008music33;
+	}
+
+	public ControlValue getTag008continuing18() {
+		return tag008continuing18;
+	}
+
+	public ControlValue getTag008continuing19() {
+		return tag008continuing19;
+	}
+
+	public ControlValue getTag008continuing21() {
+		return tag008continuing21;
+	}
+
+	public ControlValue getTag008continuing22() {
+		return tag008continuing22;
+	}
+
+	public ControlValue getTag008continuing23() {
+		return tag008continuing23;
+	}
+
+	public ControlValue getTag008continuing24() {
+		return tag008continuing24;
+	}
+
+	public ControlValue getTag008continuing25() {
+		return tag008continuing25;
+	}
+
+	public ControlValue getTag008continuing28() {
+		return tag008continuing28;
+	}
+
+	public ControlValue getTag008continuing29() {
+		return tag008continuing29;
+	}
+
+	public ControlValue getTag008continuing33() {
+		return tag008continuing33;
+	}
+
+	public ControlValue getTag008continuing34() {
+		return tag008continuing34;
+	}
+
+	public ControlValue getTag008visual18() {
+		return tag008visual18;
+	}
+
+	public ControlValue getTag008visual22() {
+		return tag008visual22;
+	}
+
+	public ControlValue getTag008visual28() {
+		return tag008visual28;
+	}
+
+	public ControlValue getTag008visual29() {
+		return tag008visual29;
+	}
+
+	public ControlValue getTag008visual33() {
+		return tag008visual33;
+	}
+
+	public ControlValue getTag008visual34() {
+		return tag008visual34;
+	}
+
+	public ControlValue getTag008mixed23() {
+		return tag008mixed23;
 	}
 }

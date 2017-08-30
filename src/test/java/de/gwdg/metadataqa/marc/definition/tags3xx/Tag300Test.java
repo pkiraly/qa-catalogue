@@ -104,7 +104,6 @@ public class Tag300Test {
 		DataField field = new DataField(Tag300.getInstance(), " ", " ",
 				"a", "1 reel of 1 (37 ft.) :", "b", "si., b&w ;", "c", "35 mm", "3", "dupe neg.");
 		Map<String, List<String>> map = field.getHumanReadableMap();
-		System.err.println(map);
 		assertEquals(4, map.size());
 		assertEquals("1 reel of 1 (37 ft.) :", map.get("Extent").get(0));
 		assertEquals("si., b&w ;", map.get("Other physical details").get(0));

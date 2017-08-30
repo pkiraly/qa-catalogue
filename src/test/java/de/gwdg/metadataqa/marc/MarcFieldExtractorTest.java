@@ -41,7 +41,7 @@ public class MarcFieldExtractorTest {
 	}
 
 	@Test
-	public void hello() throws URISyntaxException, IOException {
+	public void test() throws URISyntaxException, IOException {
 		MarcFieldExtractor calculator = new MarcFieldExtractor(new MarcJsonSchema());
 		calculator.measure(
 			new JsonPathCache(
@@ -112,19 +112,35 @@ public class MarcFieldExtractorTest {
 		Control007 x007 = calculator.getX007();
 		// assertEquals("0", x007.getValueMap().);
 
-
-		System.err.println("[007]");
-		for (ControlSubfield subfield : x007.getMap().keySet()) {
-			System.err.println(String.format("%s: %s", 
-				subfield.getLabel(), x007.resolve(subfield)));
-		}
+		assertEquals(2, x007.getMap().size());
+		assertEquals("Text", x007.getCategoryOfMaterial());
+		assertEquals("u", x007.getText01().getValue());
+		assertEquals("Unspecified", x007.getText01().resolve());
 
 		Control008 x008 = calculator.getX008();
-		System.err.println("[008]");
-		for (ControlSubfield subfield : x008.getValueMap().keySet()) {
-			System.err.println(String.format("%s: %s", 
-				subfield.getLabel(), x008.resolve(subfield)));
-		}
+		assertEquals(19, x008.getMap().size());
+		assertEquals("850101", x008.getTag008all00().resolve());
+		assertEquals("d", x008.getTag008all06().getValue());
+		assertEquals("Continuing resource ceased publication", x008.getTag008all06().resolve());
+		assertEquals("1991", x008.getTag008all07().getValue());
+		assertEquals("2003", x008.getTag008all11().getValue());
+		assertEquals("xx ", x008.getTag008all15().getValue());
+		assertEquals("ger", x008.getTag008all35().getValue());
+		assertEquals("ger", x008.getTag008all35().resolve());
+		assertEquals(" ", x008.getTag008all38().getValue());
+		assertEquals("Not modified", x008.getTag008all38().resolve());
+		assertEquals(Leader.Type.CONTINUING_RESOURCES, x008.getRecordType());
+		assertEquals("No determinable frequency", x008.getTag008continuing18().resolve());
+		assertEquals(" ", x008.getTag008continuing19().resolve());
+		assertEquals("Periodical", x008.getTag008continuing21().resolve());
+		assertEquals("None of the following", x008.getTag008continuing22().resolve());
+		assertEquals("None of the following", x008.getTag008continuing23().resolve());
+		assertEquals("Not specified", x008.getTag008continuing24().resolve());
+		assertEquals("Bibliographies, Not specified", x008.getTag008continuing25().resolve());
+		assertEquals("Not a government publication", x008.getTag008continuing28().resolve());
+		assertEquals("Not a conference publication", x008.getTag008continuing29().resolve());
+		assertEquals("No alphabet or script given/No key title", x008.getTag008continuing33().resolve());
+		assertEquals("Successive entry", x008.getTag008continuing34().resolve());
 	}
 }
 

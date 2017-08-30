@@ -15,7 +15,8 @@ public class Control008Subfields {
 	static {
 		subfields.put(Control008Type.ALL_MATERIALS, Arrays.asList(
 				new ControlSubfield("Date entered on file", 0, 6)
-					.setId("008all00"),
+					.setId("tag008all00"),
+				// pattern: yymmdd
 				new ControlSubfield("Type of date/Publication status", 6, 7,
 						Utils.generateCodes(
 								"b", "No dates given; B.C. date involved",
@@ -34,15 +35,15 @@ public class Control008Subfields {
 								"u", "Continuing resource status unknown",
 								"|", "No attempt to code"
 						))
-						.setId("008all06"),
+						.setId("tag008all06"),
 				new ControlSubfield("Date 1", 7, 11)
-						.setId("008all07"),
+						.setId("tag008all07"),
 				new ControlSubfield("Date 2", 11, 15)
-						.setId("008all11"),
+						.setId("tag008all11"),
 				new ControlSubfield("Place of publication, production, or execution", 15, 18)
-						.setId("008all15"),
+						.setId("tag008all15"),
 				new ControlSubfield("Language", 35, 38)
-						.setId("008all35"),
+						.setId("tag008all35"),
 				new ControlSubfield("Modified record", 38, 39,
 						Utils.generateCodes(
 								" ", "Not modified",
@@ -54,7 +55,7 @@ public class Control008Subfields {
 								"x", "Missing characters",
 								"|", "No attempt to code"
 						)
-				).setId("008all38"),
+				).setId("tag008all38"),
 				new ControlSubfield("Cataloging source", 39, 40,
 						Utils.generateCodes(
 								" ", "National bibliographic agency",
@@ -64,7 +65,7 @@ public class Control008Subfields {
 								"u", "Unknown",
 								"|", "No attempt to code"
 						)
-				).setId("008all39")
+				).setId("tag008all39")
 		));
 		subfields.put(Control008Type.BOOKS, Arrays.asList(
 				new ControlSubfield("Illustrations", 18, 22,
@@ -88,7 +89,7 @@ public class Control008Subfields {
 								"|", "No attempt to code"
 						)
 				).setRepeatableContent(true).setUnitLength(1)
-					.setId("008book18"),
+					.setId("tag008book18"),
 				new ControlSubfield("Target audience", 22, 23,
 						Utils.generateCodes(
 								" ", "Unknown or not specified",
@@ -102,7 +103,7 @@ public class Control008Subfields {
 								"j", "Juvenile",
 								"|", "No attempt to code"
 						)
-				).setId("008book22"),
+				).setId("tag008book22"),
 				new ControlSubfield("Form of item", 23, 24,
 						Utils.generateCodes(
 								" ", "None of the following",
@@ -112,7 +113,7 @@ public class Control008Subfields {
 								"d", "Large print",
 								"f", "Braille"
 						)
-				).setId("008book23"),
+				).setId("tag008book23"),
 				new ControlSubfield("Nature of contents", 24, 28,
 						Utils.generateCodes(
 								" ", "No specified nature of contents",
@@ -134,7 +135,7 @@ public class Control008Subfields {
 				)
 						.setRepeatableContent(true)
 						.setUnitLength(1)
-						.setId("008book24"),
+						.setId("tag008book24"),
 				new ControlSubfield("Government publication", 28, 29,
 						Utils.generateCodes(
 								" ", "Not a government publication",
@@ -150,28 +151,28 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("008book28"),
+				).setId("tag008book28"),
 				new ControlSubfield("Conference publication", 29, 30,
 						Utils.generateCodes(
 								"0", "Not a conference publication",
 								"1", "Conference publication",
 								"|", "No attempt to code"
 						)
-				).setId("008book29"),
+				).setId("tag008book29"),
 				new ControlSubfield("Festschrift", 30, 31,
 						Utils.generateCodes(
 								"0", "Not a festschrift",
 								"1", "Festschrift",
 								"|", "No attempt to code"
 						)
-				).setId("008book30"),
+				).setId("tag008book30"),
 				new ControlSubfield("Index", 31, 32,
 						Utils.generateCodes(
 								"0", "No index",
 								"1", "Index present",
 								"|", "No attempt to code"
 						)
-				).setId("008book31"),
+				).setId("tag008book31"),
 				// new ControlSubfield("undefined", 32, 33),
 				new ControlSubfield("Literary form", 33, 34,
 						Utils.generateCodes(
@@ -189,7 +190,7 @@ public class Control008Subfields {
 								"u", "Unknown",
 								"|", "No attempt to code"
 						)
-				).setId("008book33"),
+				).setId("tag008book33"),
 				new ControlSubfield("Biography", 34, 35,
 						Utils.generateCodes(
 								" ", "No biographical material",
@@ -199,7 +200,7 @@ public class Control008Subfields {
 								"d", "Contains biographical information",
 								"|", "No attempt to code"
 						)
-				).setId("008book34")
+				).setId("tag008book34")
 		));
 		subfields.put(Control008Type.COMPUTER_FILES, Arrays.asList(
 				// new ControlSubfield("undefined", 18, 21),
@@ -216,7 +217,7 @@ public class Control008Subfields {
 								"j", "Juvenile",
 								"|", "No attempt to code"
 						)
-				).setId("008computer22"),
+				).setId("tag008computer22"),
 				new ControlSubfield("Form of item", 23, 24,
 						Utils.generateCodes(
 								" ", "Unknown or not specified",
@@ -224,7 +225,7 @@ public class Control008Subfields {
 								"q", "Direct electronic",
 								"|", "No attempt to code"
 						)
-				).setId("008computer23"),
+				).setId("tag008computer23"),
 				// new ControlSubfield("undefined", 24, 25),
 				new ControlSubfield("Type of computer file", 26, 27,
 						Utils.generateCodes(
@@ -243,7 +244,7 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("008computer26"),
+				).setId("tag008computer26"),
 				// new ControlSubfield("undefined", 27, 28),
 				new ControlSubfield("Government publication", 28, 29,
 						Utils.generateCodes(
@@ -260,7 +261,7 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("008computer28")
+				).setId("tag008computer28")
 				// new ControlSubfield("undefined", 29, 35)
 		));
 		subfields.put(Control008Type.MAPS, Arrays.asList(
@@ -282,7 +283,7 @@ public class Control008Subfields {
 								"|", "No attempt to code"
 						)
 				).setUnitLength(1).setRepeatableContent(true)
-					.setId("008map18"),
+					.setId("tag008map18"),
 				new ControlSubfield("Projection", 22, 24,
 						Utils.generateCodes(
 								"  ", "Projection not specified",
@@ -334,7 +335,7 @@ public class Control008Subfields {
 								"zz", "Other",
 								"||", "No attempt to code"
 						)
-				).setId("008map22"),
+				).setId("tag008map22"),
 				// new ControlSubfield("undefined", 24, 25),
 				new ControlSubfield("Type of cartographic material", 25, 26,
 						Utils.generateCodes(
@@ -349,7 +350,7 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("008map25"),
+				).setId("tag008map25"),
 				// new ControlSubfield("undefined", 26, 28),
 				new ControlSubfield("Government publication", 28, 29,
 						Utils.generateCodes(
@@ -366,7 +367,7 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("008map28"),
+				).setId("tag008map28"),
 				new ControlSubfield("Form of item", 29, 30,
 						Utils.generateCodes(
 								" ", "None of the following",
@@ -381,7 +382,7 @@ public class Control008Subfields {
 								"s", "Electronic",
 								"|", "No attempt to code"
 						)
-				).setId("008map29"),
+				).setId("tag008map29"),
 				// new ControlSubfield("undefined", 30, 31),
 				new ControlSubfield("Index", 31, 32,
 						Utils.generateCodes(
@@ -389,7 +390,7 @@ public class Control008Subfields {
 								"1", "Index present",
 								"|", "No attempt to code"
 						)
-				).setId("008map31"),
+				).setId("tag008map31"),
 				// new ControlSubfield("undefined", 32, 33)
 				new ControlSubfield("Special format characteristics", 33, 35,
 						Utils.generateCodes(
@@ -406,7 +407,7 @@ public class Control008Subfields {
 								"||", "No attempt to code"
 						)
 				).setUnitLength(1).setRepeatableContent(true)
-						.setId("008map33")
+						.setId("tag008map33")
 		));
 		subfields.put(Control008Type.MUSIC, Arrays.asList(
 				new ControlSubfield("Form of composition", 18, 20,
@@ -485,7 +486,7 @@ public class Control008Subfields {
 								"zz", "Other",
 								"||", "No attempt to code"
 						)
-				).setId("008music18"),
+				).setId("tag008music18"),
 				new ControlSubfield("Format of music", 20, 21,
 						Utils.generateCodes(
 								"a", "Full score",
@@ -506,7 +507,7 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("008music20"),
+				).setId("tag008music20"),
 				new ControlSubfield("Music parts", 21, 22,
 						Utils.generateCodes(
 								" ", "No parts in hand or not specified",
@@ -517,7 +518,7 @@ public class Control008Subfields {
 								"u", "Unknown",
 								"|", "No attempt to code"
 						)
-				).setId("008music21"),
+				).setId("tag008music21"),
 				new ControlSubfield("Target audience", 22, 23,
 						Utils.generateCodes(
 								" ", "Unknown or unspecified",
@@ -531,7 +532,7 @@ public class Control008Subfields {
 								"j", "Juvenile",
 								"|", "No attempt to code"
 						)
-				).setId("008music22"),
+				).setId("tag008music22"),
 				new ControlSubfield("Form of item", 23, 24,
 						Utils.generateCodes(
 								" ", "None of the following",
@@ -546,7 +547,7 @@ public class Control008Subfields {
 								"s", "Electronic",
 								"|", "No attempt to code"
 						)
-				).setId("008music23"),
+				).setId("tag008music23"),
 				new ControlSubfield("Accompanying matter", 24, 30,
 						Utils.generateCodes(
 								" ", "No accompanying matter",
@@ -565,7 +566,7 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("008music24"),
+				).setId("tag008music24"),
 				new ControlSubfield("Literary text for sound recordings", 30, 32,
 						Utils.generateCodes(
 								" ", "Item is a music sound recording",
@@ -591,7 +592,7 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("008music30"),
+				).setId("tag008music30"),
 				// new ControlSubfield("Undefined", 32, 33),
 				new ControlSubfield("Transposition and arrangement", 33, 34,
 						Utils.generateCodes(
@@ -603,7 +604,7 @@ public class Control008Subfields {
 								"u", "Unknown",
 								"|", "No attempt to code"
 						)
-				).setId("008music33")
+				).setId("tag008music33")
 				// new ControlSubfield("Undefined", 34, 35)
 		));
 		subfields.put(Control008Type.CONTINUING_RESOURCES, Arrays.asList(
@@ -630,7 +631,7 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("008continuing18"),
+				).setId("tag008continuing18"),
 				new ControlSubfield("Regularity", 19, 20,
 						Utils.generateCodes(
 								"n", "Normalized irregular",
@@ -639,7 +640,7 @@ public class Control008Subfields {
 								"x", "Completely irregular",
 								"|", "No attempt to code"
 						)
-				).setId("008continuing19"),
+				).setId("tag008continuing19"),
 				// new ControlSubfield("Undefined", 20, 21),
 				new ControlSubfield("Type of continuing resource", 21, 22,
 						Utils.generateCodes(
@@ -652,7 +653,7 @@ public class Control008Subfields {
 								"w", "Updating Web site",
 								"|", "No attempt to code"
 						)
-				).setId("008continuing21"),
+				).setId("tag008continuing21"),
 				new ControlSubfield("Form of original item", 22, 23,
 						Utils.generateCodes(
 								" ", "None of the following",
@@ -667,7 +668,7 @@ public class Control008Subfields {
 								"s", "Electronic",
 								"|", "No attempt to code"
 						)
-				).setId("008continuing22"),
+				).setId("tag008continuing22"),
 				new ControlSubfield("Form of item", 23, 24,
 						Utils.generateCodes(
 								" ", "None of the following",
@@ -682,7 +683,7 @@ public class Control008Subfields {
 								"s", "Electronic",
 								"|", "No attempt to code"
 						)
-				).setId("008continuing23"),
+				).setId("tag008continuing23"),
 				new ControlSubfield("Nature of entire work", 24, 25,
 						Utils.generateCodes(
 								" ", "Not specified",
@@ -714,7 +715,7 @@ public class Control008Subfields {
 								"6", "Comics/graphic novels",
 								"|", "No attempt to code"
 						)
-				).setId("008continuing24"),
+				).setId("tag008continuing24"),
 				new ControlSubfield("Nature of contents", 25, 28,
 						Utils.generateCodes(
 								" ", "Not specified",
@@ -747,7 +748,7 @@ public class Control008Subfields {
 								"|", "No attempt to code"
 						)
 				).setUnitLength(1).setRepeatableContent(true)
-						.setId("008continuing25"),
+						.setId("tag008continuing25"),
 				new ControlSubfield("Government publication", 28, 29,
 						Utils.generateCodes(
 								" ", "Not a government publication",
@@ -763,14 +764,14 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("008continuing28"),
+				).setId("tag008continuing28"),
 				new ControlSubfield("Conference publication", 29, 30,
 						Utils.generateCodes(
 								"0", "Not a conference publication",
 								"1", "Conference publication",
 								"|", "No attempt to code"
 						)
-				).setId("008continuing29"),
+				).setId("tag008continuing29"),
 				// new ControlSubfield("Undefined", 30, 33),
 				new ControlSubfield("Original alphabet or script of title", 33, 34,
 						Utils.generateCodes(
@@ -791,7 +792,7 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("008continuing33"),
+				).setId("tag008continuing33"),
 				new ControlSubfield("Entry convention", 34, 35,
 						Utils.generateCodes(
 								"0", "Successive entry",
@@ -799,7 +800,7 @@ public class Control008Subfields {
 								"2", "Integrated entry",
 								"|", "No attempt to code"
 						)
-				).setId("008continuing34")
+				).setId("tag008continuing34")
 		));
 		subfields.put(Control008Type.VISUAL_MATERIALS, Arrays.asList(
 				new ControlSubfield("Running time for motion pictures and videorecordings", 18, 21,
@@ -810,7 +811,7 @@ public class Control008Subfields {
 								"---", "Unknown",
 								"|||", "No attempt to code "
 						)
-				).setId("008visual18"),
+				).setId("tag008visual18"),
 				// new ControlSubfield("Undefined", 21, 22),
 				new ControlSubfield("Target audience", 22, 23,
 						Utils.generateCodes(
@@ -825,7 +826,7 @@ public class Control008Subfields {
 								"j", "Juvenile",
 								"|", "No attempt to code"
 						)
-				).setId("008visual22"),
+				).setId("tag008visual22"),
 				// new ControlSubfield("Undefined", 23, 28),
 				new ControlSubfield("Government publication", 28, 29,
 						Utils.generateCodes(
@@ -842,7 +843,7 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("008visual28"),
+				).setId("tag008visual28"),
 				new ControlSubfield("Form of item", 29, 30,
 						Utils.generateCodes(
 								" ", "None of the following",
@@ -857,7 +858,7 @@ public class Control008Subfields {
 								"s", "Electronic",
 								"|", "No attempt to code"
 						)
-				).setId("008visual29"),
+				).setId("tag008visual29"),
 				// new ControlSubfield("Undefined", 30, 33),
 				new ControlSubfield("Type of visual material", 33, 34,
 						Utils.generateCodes(
@@ -883,7 +884,7 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("008visual33"),
+				).setId("tag008visual33"),
 				new ControlSubfield("Technique", 34, 35,
 						Utils.generateCodes(
 								"a", "Animation",
@@ -894,7 +895,7 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("008visual34")
+				).setId("tag008visual34")
 		));
 		subfields.put(Control008Type.MIXED_MATERIALS, Arrays.asList(
 				// new ControlSubfield("Undefined", 18, 23),
@@ -912,7 +913,7 @@ public class Control008Subfields {
 								"s", "Electronic",
 								"|", "No attempt to code"
 						)
-				).setId("008mixed23")
+				).setId("tag008mixed23")
 				// new ControlSubfield("Undefined", 24, 35),
 		));
 	}

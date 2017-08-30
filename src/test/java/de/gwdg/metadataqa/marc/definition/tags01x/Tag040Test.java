@@ -31,7 +31,6 @@ public class Tag040Test {
 	public void testCStH() {
 		DataField field = new DataField(Tag040.getInstance(), " ", " ", "a", "CSt-H", "c", "CSt-H", "e", "appm");
 		Map<String, List<String>> map = field.getHumanReadableMap();
-		System.err.println(field.getHumanReadableMap());
 
 		assertEquals(3, map.size());
 		assertEquals("Stanford University, Hoover Institution on War, Revolution, and Peace",
@@ -47,7 +46,6 @@ public class Tag040Test {
 	public void testMt() {
 		DataField field = new DataField(Tag040.getInstance(), " ", " ", "a", "Mt", "c", "Mt");
 		Map<String, List<String>> map = field.getHumanReadableMap();
-		System.err.println(field.getHumanReadableMap());
 
 		assertEquals(2, map.size());
 		assertEquals("Montana State Library",

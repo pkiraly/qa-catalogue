@@ -18,6 +18,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -48,41 +49,63 @@ public class MarcElasticsearchClientTest {
 	}
 
 	@Test
-	public void hello() throws IOException {
+	public void testElasticsearchRunning() throws IOException {
 		MarcElasticsearchClient client = new MarcElasticsearchClient();
 		HttpEntity response = client.rootRequest();
-		System.err.println("ContentEncoding: " + response.getContentEncoding());
-		System.err.println("ContentType: " + response.getContentType());
+		assertNull(response.getContentEncoding());
+		assertEquals("content-type", response.getContentType().getName());
+		assertEquals("application/json; charset=UTF-8", response.getContentType().getValue());
 		String content = EntityUtils.toString(response);
-		System.err.println("content: " + content);
 		Object jsonObject = jsonProvider.parse(content);
 		// JsonPath.read(jsonObject, jsonPath);
 		
 		// JsonPathCache<? extends XmlFieldInstance> cache = new JsonPathCache(content);
+		assertEquals("elasticsearch", JsonPath.read(jsonObject, "$.cluster_name"));
+		assertEquals("hTkN47N", JsonPath.read(jsonObject, "$.name"));
+		assertEquals("1gxeFwIRR5-tkEXwa2wVIw", JsonPath.read(jsonObject, "$.cluster_uuid"));
+		assertEquals("You Know, for Search", JsonPath.read(jsonObject, "$.tagline"));
 		assertEquals("5.5.1", JsonPath.read(jsonObject, "$.version.number"));
 		assertEquals("6.6.0", JsonPath.read(jsonObject, "$.version.lucene_version"));
-		System.out.println("NumberOfTweets: " + client.getNumberOfTweets());
+		assertEquals(2, client.getNumberOfTweets());
 	}
 
 	@Test
 	public void testIndexTweet() throws IOException {
 		MarcElasticsearchClient client = new MarcElasticsearchClient();
 		Response response = client.indexTweet(2, "kimchy", "trying out Elasticsearch");
-		System.err.println("[testIndexTweet]");
-		System.err.println("status line: " + response.getStatusLine());
-		System.err.println("headers:[\n" + StringUtils.join(response.getHeaders(), "\n") + "]\n");
-		System.out.println(EntityUtils.toString(response.getEntity()));
-		System.out.println("NumberOfTweets: " + client.getNumberOfTweets());
+		assertEquals("HTTP/1.1 201 Created", response.getStatusLine().toString());
+		assertEquals(3, response.getHeaders().length);
+
+		assertEquals("Location", response.getHeaders()[0].getName());
+		assertEquals("/twitter/tweet/2", response.getHeaders()[0].getValue());
+		assertEquals("content-type", response.getHeaders()[1].getName());
+		assertEquals("application/json; charset=UTF-8", response.getHeaders()[1].getValue());
+		assertEquals("content-length", response.getHeaders()[2].getName());
+		assertTrue(140 < Integer.parseInt(response.getHeaders()[2].getValue()));
+
+		String json = EntityUtils.toString(response.getEntity());
+		// {"_index":"twitter","_type":"tweet","_id":"2","_version":161,"result":"created","_shards":{"total":2,"successful":1,"failed":0},"created":true}
+		assertTrue(json.startsWith("{\"_index\":\"twitter\",\"_type\":\"tweet\",\"_id\":\"2\",\"_version\":"));
+		assertTrue(json.endsWith(",\"result\":\"created\",\"_shards\":{\"total\":2,\"successful\":1,\"failed\":0},\"created\":true}"));
+
+		// assertEquals(2, client.getNumberOfTweets());
 	}
 
 	@Test
 	public void testDeleteTweet() throws IOException {
 		MarcElasticsearchClient client = new MarcElasticsearchClient();
 		Response response = client.deleteTweet(2);
-		System.err.println("[testDeleteTweet]");
-		System.err.println("status line: " + response.getStatusLine());
-		System.err.println("headers:[\n" + StringUtils.join(response.getHeaders(), "\n") + "]\n");
-		System.out.println(EntityUtils.toString(response.getEntity()));
-		logger.info("NumberOfTweets: " + client.getNumberOfTweets());
+		assertEquals(org.apache.http.message.BasicStatusLine.class, response.getStatusLine().getClass());
+		assertEquals("HTTP/1.1 200 OK", response.getStatusLine().toString());
+		assertEquals(2, response.getHeaders().length);
+		assertEquals("content-type", response.getHeaders()[0].getName());
+		assertEquals("application/json; charset=UTF-8", response.getHeaders()[0].getValue());
+		assertEquals("content-length", response.getHeaders()[1].getName());
+		assertTrue(130 < Integer.parseInt(response.getHeaders()[1].getValue()));
+		String json = EntityUtils.toString(response.getEntity());
+		// '{"found":true,"_index":"twitter","_type":"tweet","_id":"2","_version":156,"result":"deleted","_shards":{"total":2,"successful":1,"failed":0}}'
+		assertTrue(json.startsWith("{\"found\":true,\"_index\":\"twitter\",\"_type\":\"tweet\",\"_id\":\"2\",\"_version\":"));
+		assertTrue(json.endsWith(",\"result\":\"deleted\",\"_shards\":{\"total\":2,\"successful\":1,\"failed\":0}}"));
+		assertEquals(2, client.getNumberOfTweets());
 	}
 }

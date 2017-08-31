@@ -19,6 +19,10 @@ import java.util.StringTokenizer;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import de.gwdg.metadataqa.marc.definition.general.CodeList;
+import de.gwdg.metadataqa.marc.definition.general.LanguageCodes;
+import de.gwdg.metadataqa.marc.definition.general.OrganizationCodes;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -32,7 +36,7 @@ public class MarcFieldExtractor implements Calculator, Serializable {
 	private static final Logger logger = Logger.getLogger(MarcFieldExtractor.class.getCanonicalName());
 	private static final List<String> authorFields = Arrays.asList("100$a", "110$a", "700$a", "710$a");
 
-	public String FIELD_NAME = "recordId";
+	public static final String FIELD_NAME = "recordId";
 	private String idPath;
 	protected FieldCounter<List<String>> resultMap;
 	protected Schema schema;
@@ -55,14 +59,16 @@ public class MarcFieldExtractor implements Calculator, Serializable {
 	private String volumeDesignation;
 	private String relatedParts;
 	private List<X035aSystemControlNumber> systemControlNumbers;
+	private Map<String, Object> oclcMap;
 	private boolean valid;
+
 
 	public MarcFieldExtractor() {
 	}
 
 	public MarcFieldExtractor(Schema schema) {
 		this.schema = schema;
-		setIdPath(schema.getExtractableFields().get(FIELD_NAME));
+		setIdPath(schema.getExtractableFields().get("001"));
 	}
 
 	public MarcFieldExtractor(String idPath) {
@@ -98,6 +104,7 @@ public class MarcFieldExtractor implements Calculator, Serializable {
 		volumeDesignation = null;
 		relatedParts = null;
 		systemControlNumbers = null;
+		oclcMap = null;
 
 		recordId = ((List<XmlFieldInstance>) cache.get(getIdPath())).get(0).getValue();
 		cache.setRecordId(recordId);
@@ -139,6 +146,7 @@ public class MarcFieldExtractor implements Calculator, Serializable {
 		processVolumeDesignation();
 		processRelatedParts();
 		processSystemControlNumbers();
+		processOclcFields();
 		createDuplumKeyMap();
 	}
 
@@ -367,6 +375,39 @@ public class MarcFieldExtractor implements Calculator, Serializable {
 		relatedParts = StringUtils.join(resultMap.get("773$g"), "; ");
 	}
 
+	private void processOclcFields() {
+		oclcMap = new LinkedHashMap<>();
+		oclcMap.put("oclcLibraryIdentifier", resolve(resultMap.get("029$a"), OrganizationCodes.getInstance()));
+		oclcMap.put("otherSystemControlNumber", resultMap.get("029$b"));
+		oclcMap.put("catalogingAgency", resolve(resultMap.get("040$a"), OrganizationCodes.getInstance()));
+		oclcMap.put("languageOfCataloging", resolve(resultMap.get("040$b"), LanguageCodes.getInstance()));
+		oclcMap.put("transcribingAgency", resolve(resultMap.get("040$c"), OrganizationCodes.getInstance()));
+		oclcMap.put("modifyingAgency", resolve(resultMap.get("040$d"), OrganizationCodes.getInstance()));
+		oclcMap.put("topicalTerm", resultMap.get("650$a"));
+		oclcMap.put("manifestId", resultMap.get("911$9"));
+		oclcMap.put("workId", resultMap.get("912$9"));
+		oclcMap.put("placeOfPublication", resultMap.get("260$a"));
+		oclcMap.put("nameOfPublisher", resultMap.get("260$b"));
+		// oclcMap.put("dateOfPublication", resultMap.get("260$c"));
+		oclcMap.put("sourceOfHeading", resultMap.get("650$2"));
+		oclcMap.put("title", resultMap.get("245$a"));
+		// oclcMap.put("extent", resultMap.get("300$a"));
+
+	}
+
+	private Object resolve(List<String> list, CodeList codeService) {
+		if (list == null || list.isEmpty())
+			return list;
+
+		List<String> resolvedList = new ArrayList<>();
+		for (String code : list)
+			if (codeService.isValid(code))
+				resolvedList.add(codeService.getCode(code).getLabel());
+			else
+				resolvedList.add(code);
+		return resolvedList;
+	}
+
 	public Map<String, Object> getDuplumKeyMap() {
 		if (duplumKeyMap == null) {
 			createDuplumKeyMap();
@@ -391,6 +432,9 @@ public class MarcFieldExtractor implements Calculator, Serializable {
 		duplumKeyMap.put("volumeDesignation", volumeDesignation);
 		duplumKeyMap.put("relatedParts", relatedParts);
 		duplumKeyMap.put("systemControlNumbers", systemControlNumbers);
+		for (String key : oclcMap.keySet()) {
+			duplumKeyMap.put(key, oclcMap.get(key));
+		}
 	}
 
 	public boolean isValid() {

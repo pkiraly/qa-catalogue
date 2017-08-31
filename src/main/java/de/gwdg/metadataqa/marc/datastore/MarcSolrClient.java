@@ -35,16 +35,32 @@ public class MarcSolrClient {
             Object value = objectMap.get(key);
             if (value != null) {
                 // System.err.printf("%s: class: %s\n", key, value.getClass());
-                document.addField(key, value);
+                document.addField(key + "_ss", value);
             }
         }
 
         try {
             UpdateResponse response = solr.add(document);
-            solr.commit();
+            // solr.commit();
         } catch (HttpSolrClient.RemoteSolrException ex) {
             System.err.printf("document: %s", document);
             System.err.printf("Commit exception: %s\n", ex.getMessage());
+        }
+    }
+
+    public void commit() {
+        try {
+            solr.commit();
+        } catch (IOException | SolrServerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void optimize() {
+        try {
+            solr.optimize();
+        } catch (IOException | SolrServerException e) {
+            e.printStackTrace();
         }
     }
 }

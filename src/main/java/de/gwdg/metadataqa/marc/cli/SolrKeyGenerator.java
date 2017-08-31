@@ -18,7 +18,8 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 /**
- *
+ * usage:
+ * java -cp target/metadata-qa-marc-0.1-SNAPSHOT-jar-with-dependencies.jar de.gwdg.metadataqa.marc.cli.SolrKeyGenerator http://localhost:8983/solr/tardit 0001.0000000.formatted.json
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class SolrKeyGenerator {
@@ -52,11 +53,15 @@ public class SolrKeyGenerator {
 				cache = new JsonPathCache(record);
 				extractor.measure(cache);
 				duplumKey = extractor.getDuplumKeyMap();
-				client.indexDuplumKey((String)duplumKey.get("recordId"), duplumKey);
+				client.indexDuplumKey((String)duplumKey.get(MarcFieldExtractor.FIELD_NAME), duplumKey);
 				if (i % 100 == 0) {
-					logger.info(String.format("%s/%d) %s", fileName, i, duplumKey.get("recordId")));
+					client.commit();
+					logger.info(String.format("%s/%d) %s", fileName, i, duplumKey.get(MarcFieldExtractor.FIELD_NAME)));
 				}
 			}
+			client.commit();
+			logger.info("optimize");
+			client.optimize();
 			logger.info("end of cycle");
 		} catch (IOException | SolrServerException ex) {
 			logger.severe(ex.toString());

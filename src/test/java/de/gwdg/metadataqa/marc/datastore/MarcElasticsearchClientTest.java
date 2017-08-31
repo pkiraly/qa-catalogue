@@ -48,7 +48,7 @@ public class MarcElasticsearchClientTest {
 	public void tearDown() {
 	}
 
-	@Test
+	// @Test
 	public void testElasticsearchRunning() throws IOException {
 		MarcElasticsearchClient client = new MarcElasticsearchClient();
 		HttpEntity response = client.rootRequest();
@@ -69,7 +69,7 @@ public class MarcElasticsearchClientTest {
 		assertEquals(2, client.getNumberOfTweets());
 	}
 
-	@Test
+	// @Test
 	public void testIndexTweet() throws IOException {
 		MarcElasticsearchClient client = new MarcElasticsearchClient();
 		Response response = client.indexTweet(2, "kimchy", "trying out Elasticsearch");
@@ -91,7 +91,7 @@ public class MarcElasticsearchClientTest {
 		// assertEquals(2, client.getNumberOfTweets());
 	}
 
-	@Test
+	// @Test
 	public void testDeleteTweet() throws IOException {
 		MarcElasticsearchClient client = new MarcElasticsearchClient();
 		Response response = client.deleteTweet(2);

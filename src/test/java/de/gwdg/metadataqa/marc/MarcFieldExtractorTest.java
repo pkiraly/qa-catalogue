@@ -40,7 +40,7 @@ public class MarcFieldExtractorTest {
 	public void tearDown() {
 	}
 
-	@Test
+	// @Test
 	public void test() throws URISyntaxException, IOException {
 		MarcFieldExtractor calculator = new MarcFieldExtractor(new MarcJsonSchema());
 		calculator.measure(
@@ -54,8 +54,12 @@ public class MarcFieldExtractorTest {
 			// System.err.printf("%s: %s\n", key, resultMap.get(key));
 		}
 
-		String expected = "\"recordId\":000000027,\"leader\":02703cas a2200481   4500,\"007\":tu," +
+		String expected = "\"recordId\":000000027," +
+				"\"leader\":02703cas a2200481   4500," +
+				"\"001\":000000027," +
+				"\"007\":tu," +
 				"\"008\":850101d19912003xx    p   b   0    0ger c," +
+				"\"040$d\":null," +
 				"\"035$a\":(OCoLC)231477039, (DE-599)ZDB1056377-5," +
 				"\"245$a\":Deutsche Nationalbibliografie und Bibliografie der im Ausland erschienenen deutschsprachigen Veröffentlichungen :," +
 				"\"100$a\":null," +

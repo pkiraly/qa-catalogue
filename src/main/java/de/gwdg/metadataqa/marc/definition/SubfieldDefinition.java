@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.definition;
 
+import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.definition.general.CodeList;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class SubfieldDefinition {
 	private String label;
 	private Validator validator;
 	private CodeList codeList;
+	private List<Code> codes;
 	private List<String> allowedCodes;
 	private Map<String, String> allowedValues = new HashMap<>();
 
@@ -43,6 +45,19 @@ public class SubfieldDefinition {
 
 	public String getCode() {
 		return code;
+	}
+
+	public SubfieldDefinition setCodes(List<Code> codes) {
+		this.codes = codes;
+		return this;
+	}
+
+	public SubfieldDefinition setCodes(String... input) {
+		codes = new ArrayList<>();
+		for (int i = 0; i<input.length; i+=2) {
+			codes.add(new Code(input[i], input[i+1]));
+		}
+		return this;
 	}
 
 	public String getCardinalityCode() {

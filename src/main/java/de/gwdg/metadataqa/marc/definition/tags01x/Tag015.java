@@ -4,30 +4,32 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 
-public class Tag010 extends DataFieldDefinition {
+public class Tag015 extends DataFieldDefinition {
 
-	private static Tag010 uniqueInstance;
+	private static Tag015 uniqueInstance;
 
-	private Tag010(){
+	private Tag015(){
 		initialize();
 	}
 
-	public static Tag010 getInstance() {
+	public static Tag015 getInstance() {
 		if (uniqueInstance == null)
-			uniqueInstance = new Tag010();
+			uniqueInstance = new Tag015();
 		return uniqueInstance;
 	}
 
 	private void initialize() {
-		tag = "010";
-		label = "Library of Congress Control Number";
-		cardinality = Cardinality.Nonrepeatable;
+		tag = "015";
+		label = "National Bibliography Number";
+		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("").setCodes(" ", "Undefined");
 		ind2 = new Indicator("").setCodes(" ", "Undefined");
 		setSubfieldsWithCardinality(
-				"a", "LC control number", "NR",
-				"b", "NUCMC control number", "R",
-				"z", "Canceled/invalid LC control number", "R",
+				"a", "National bibliography number", "R",
+				"q", "Qualifying information", "R",
+				"z", "Canceled/invalid national bibliography number", "R",
+				"2", "Source", "NR",
+				"6", "Linkage", "NR",
 				"8", "Field link and sequence number", "R"
 		);
 	}

@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.Code;
-import de.gwdg.metadataqa.marc.definition.general.CodeList;
+import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 
 import java.util.ArrayList;
 import java.util.HashMap;

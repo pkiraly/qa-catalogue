@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.general;
 
+import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
 import org.junit.*;
 
 import static junit.framework.TestCase.assertFalse;

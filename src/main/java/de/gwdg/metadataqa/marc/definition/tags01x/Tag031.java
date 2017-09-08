@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags01x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.general.codelist.MusicalIncipitSchemeSourceCodes;
 
 /**
  * Musical Incipits Information
@@ -56,7 +57,9 @@ public class Tag031 extends DataFieldDefinition {
 				"t", "the incipit has been transcribed (e.g. from mensural notation)",
 				"!", "incipit discrepancies have been commented on in subfield $q (General note)."
 		);
-		// TODO: 2 - code from http://www.loc.gov/standards/sourcelist/musical-incipit.html
+		// 2 - code from http://www.loc.gov/standards/sourcelist/musical-incipit.html
+		getSubfield("2").setCodeList(MusicalIncipitSchemeSourceCodes.getInstance());
+
 		// TODO: u - URL
 		// TODO: n - Letter “x” indicates sharps and the letter “b” indicates flats followed by capital letters to indicate the affected pitches.
 	}

@@ -1,11 +1,16 @@
 package de.gwdg.metadataqa.marc.definition.tags01x;
 
+import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.general.DescriptionConventionSourceCodes;
-import de.gwdg.metadataqa.marc.definition.general.LanguageCodes;
-import de.gwdg.metadataqa.marc.definition.general.OrganizationCodes;
+import de.gwdg.metadataqa.marc.definition.general.codelist.DescriptionConventionSourceCodes;
+import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
+import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 
+/**
+ * Cataloging Source
+ * http://www.loc.gov/marc/bibliographic/bd040.html
+ */
 public class Tag040 extends DataFieldDefinition {
 
 	private static Tag040 uniqueInstance;
@@ -23,6 +28,7 @@ public class Tag040 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "040";
 		label = "Cataloging Source";
+		cardinality = Cardinality.Nonrepeatable;
 		ind1 = new Indicator("").setCodes(" ", "Undefined");
 		ind2 = new Indicator("").setCodes(" ", "Undefined");
 		setSubfieldsWithCardinality(

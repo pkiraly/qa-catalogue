@@ -7,6 +7,8 @@ package de.gwdg.metadataqa.marc;
 public class Code {
 	private String code;
 	private String label;
+	private boolean isRange = false;
+	private boolean isRegex = false;
 
 	public Code(String code, String label) {
 		this.code = code;
@@ -19,6 +21,22 @@ public class Code {
 
 	public String getLabel() {
 		return label;
+	}
+
+	public boolean isRange() {
+		return isRange;
+	}
+
+	public void setRange(boolean range) {
+		isRange = range;
+	}
+
+	public boolean isRegex() {
+		return isRegex;
+	}
+
+	public void setRegex(boolean regex) {
+		isRegex = regex;
 	}
 
 	@Override

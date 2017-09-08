@@ -3,7 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags01x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.general.OrganizationCodes;
+import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 
 public class Tag016 extends DataFieldDefinition {
 

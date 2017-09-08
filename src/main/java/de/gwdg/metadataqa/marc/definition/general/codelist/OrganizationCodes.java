@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.definition.general;
+package de.gwdg.metadataqa.marc.definition.general.codelist;
 
 import de.gwdg.metadataqa.marc.Utils;
 

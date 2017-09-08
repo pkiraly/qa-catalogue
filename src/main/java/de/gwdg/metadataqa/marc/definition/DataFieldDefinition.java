@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DataFieldDefinition {
+public abstract class DataFieldDefinition {
 	protected String tag;
 	protected String label;
 	protected Cardinality cardinality = Cardinality.Nonrepeatable;

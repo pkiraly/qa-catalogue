@@ -2,8 +2,8 @@ package de.gwdg.metadataqa.marc.definition.tags6xx;
 
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.general.RelatorCodes;
-import de.gwdg.metadataqa.marc.definition.general.SubjectHeadingAndTermSourceCodes;
+import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
+import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTermSourceCodes;
 
 public class Tag650 extends DataFieldDefinition {
 

@@ -54,20 +54,21 @@ public class SolrKeyGenerator {
 				extractor.measure(cache);
 				duplumKey = extractor.getDuplumKeyMap();
 				client.indexDuplumKey((String)duplumKey.get(MarcFieldExtractor.FIELD_NAME), duplumKey);
-				if (i % 100 == 0) {
+				if (i % 1000 == 0) {
 					client.commit();
 					logger.info(String.format("%s/%d) %s", fileName, i, duplumKey.get(MarcFieldExtractor.FIELD_NAME)));
 				}
 			}
 			client.commit();
-			logger.info("optimize");
-			client.optimize();
+			// logger.info("optimize");
+			// client.optimize();
 			logger.info("end of cycle");
 		} catch (IOException | SolrServerException ex) {
 			logger.severe(ex.toString());
 			System.exit(0);
 		}
 		logger.info("Bye!");
+
 		System.exit(0);
 	}
 }

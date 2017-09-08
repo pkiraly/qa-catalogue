@@ -3,7 +3,6 @@ package de.gwdg.metadataqa.marc.definition.tags20x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.general.DescriptionConventionSourceCodes;
 
 /**
  * http://www.loc.gov/marc/bibliographic/bd245.html
@@ -33,6 +32,7 @@ public class Tag245 extends DataFieldDefinition {
 				"0", "No nonfiling characters",
 				"1-9", "Number of nonfiling characters"
 		);
+		ind2.getCode("1-9").setRange(true);
 		setSubfieldsWithCardinality(
 				"a", "Title", "NR",
 				"b", "Remainder of title", "NR",
@@ -47,6 +47,5 @@ public class Tag245 extends DataFieldDefinition {
 				"6", "Linkage", "NR",
 				"8", "Field link and sequence number", "R"
 		);
-		// TODO: "1-9" in ind2 is regex!
 	}
 }

@@ -1,8 +1,6 @@
-package de.gwdg.metadataqa.marc.definition.general;
+package de.gwdg.metadataqa.marc.definition.general.codelist;
 
 import de.gwdg.metadataqa.marc.Utils;
-
-import java.util.List;
 
 public class SubjectHeadingAndTermSourceCodes extends CodeList {
 

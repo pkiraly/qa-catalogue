@@ -10,19 +10,16 @@ import de.gwdg.metadataqa.api.util.CompressionLevel;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.TreeMap;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import de.gwdg.metadataqa.marc.definition.general.CodeList;
-import de.gwdg.metadataqa.marc.definition.general.LanguageCodes;
-import de.gwdg.metadataqa.marc.definition.general.OrganizationCodes;
+import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
+import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
+import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 import org.apache.commons.lang3.StringUtils;
 
 /**

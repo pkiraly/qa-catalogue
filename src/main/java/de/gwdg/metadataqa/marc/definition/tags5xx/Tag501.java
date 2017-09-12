@@ -5,33 +5,32 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 
 /**
- * General Note
- * http://www.loc.gov/marc/bibliographic/bd500.html
+ * With Note
+ * http://www.loc.gov/marc/bibliographic/bd501.html
  */
-public class Tag500 extends DataFieldDefinition {
+public class Tag501 extends DataFieldDefinition {
 
-	private static Tag500 uniqueInstance;
+	private static Tag501 uniqueInstance;
 
-	private Tag500(){
+	private Tag501(){
 		initialize();
 	}
 
-	public static Tag500 getInstance() {
+	public static Tag501 getInstance() {
 		if (uniqueInstance == null)
-			uniqueInstance = new Tag500();
+			uniqueInstance = new Tag501();
 		return uniqueInstance;
 	}
 
 	private void initialize() {
 
-		tag = "500";
-		label = "General Note";
+		tag = "501";
+		label = "With Note";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "General note", "NR",
-				"3", "Materials specified", "NR",
+				"a", "With note", "NR",
 				"5", "Institution to which field applies", "NR",
 				"6", "Linkage", "NR",
 				"8", "Field link and sequence number", "R"

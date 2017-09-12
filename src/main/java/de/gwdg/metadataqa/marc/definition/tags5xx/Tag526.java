@@ -46,5 +46,6 @@ public class Tag526 extends DataFieldDefinition {
 				"8", "Field link and sequence number", "R"
 		);
 		getSubfield("5").setCodeList(OrganizationCodes.getInstance());
+		getSubfield("a").setBibframeTag("studyProgramName");
 	}
 }

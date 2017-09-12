@@ -7,6 +7,7 @@ import java.util.Map;
 
 public abstract class DataFieldDefinition {
 	protected String tag;
+	protected String bibframeTag;
 	protected String label;
 	protected Cardinality cardinality = Cardinality.Nonrepeatable;
 	protected Indicator ind1;

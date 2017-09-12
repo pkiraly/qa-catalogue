@@ -51,5 +51,6 @@ public class Tag240 extends DataFieldDefinition {
 				"6", "Linkage", "NR",
 				"8", "Field link and sequence number", "R"
 		);
+		getSubfield("s").setBibframeTag("version");
 	}
 }

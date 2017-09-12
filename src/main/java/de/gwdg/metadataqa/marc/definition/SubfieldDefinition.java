@@ -15,6 +15,7 @@ import java.util.Map;
 public class SubfieldDefinition {
 
 	private String code;
+	private String bibframeTag;
 	private String cardinalityCode;
 	private String label;
 	private Validator validator;
@@ -105,6 +106,14 @@ public class SubfieldDefinition {
 		if (codeList != null && codeList.isValid(value))
 			return codeList.getCode(value).getLabel();
 		return allowedValues.getOrDefault(value, value);
+	}
+
+	public String getBibframeTag() {
+		return bibframeTag;
+	}
+
+	public void setBibframeTag(String bibframeTag) {
+		this.bibframeTag = bibframeTag;
 	}
 
 	@Override

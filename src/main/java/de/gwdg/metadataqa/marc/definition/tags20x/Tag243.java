@@ -52,5 +52,6 @@ public class Tag243 extends DataFieldDefinition {
 				"8", "Field link and sequence number", "R"
 		);
 		getSubfield("y").setCodeList(LanguageCodes.getInstance());
+		getSubfield("s").setBibframeTag("version");
 	}
 }

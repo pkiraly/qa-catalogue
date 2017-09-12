@@ -5,34 +5,36 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 
 /**
- * Type of Report and Period Covered Note
- * http://www.loc.gov/marc/bibliographic/bd513.html
+ * System Details Note
+ * http://www.loc.gov/marc/bibliographic/bd538.html
  */
-public class Tag513 extends DataFieldDefinition {
+public class Tag538 extends DataFieldDefinition {
 
-	private static Tag513 uniqueInstance;
+	private static Tag538 uniqueInstance;
 
-	private Tag513(){
+	private Tag538() {
 		initialize();
 	}
 
-	public static Tag513 getInstance() {
+	public static Tag538 getInstance() {
 		if (uniqueInstance == null)
-			uniqueInstance = new Tag513();
+			uniqueInstance = new Tag538();
 		return uniqueInstance;
 	}
 
 	private void initialize() {
 
-		tag = "513";
-		bibframeTag = "typeOfReport";
-		label = "Type of Report and Period Covered Note";
+		tag = "538";
+		label = "System Details Note";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Type of report", "NR",
-				"b", "Period covered", "NR",
+				"a", "System details note", "NR",
+				"i", "Display text", "NR",
+				"u", "Uniform Resource Identifier", "R",
+				"3", "Materials specified", "NR",
+				"5", "Institution to which field applies", "R",
 				"6", "Linkage", "NR",
 				"8", "Field link and sequence number", "R"
 		);

@@ -24,6 +24,7 @@ public class Tag035 extends DataFieldDefinition {
 
 	private void initialize() {
 		tag = "035";
+		bibframeTag = "systemControlNumber";
 		label = "System Control Number";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("").setCodes();

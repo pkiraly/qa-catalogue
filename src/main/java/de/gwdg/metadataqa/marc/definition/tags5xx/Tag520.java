@@ -50,5 +50,7 @@ public class Tag520 extends DataFieldDefinition {
 				"8", "Field link and sequence number", "R"
 		);
 		getSubfield("2").setCodeList(ContentAdviceClassificationSourceCodes.getInstance());
+		getSubfield("u").setBibframeTag("summaryURI");
+		getSubfield("a").setBibframeTag("summaryExpansion");
 	}
 }

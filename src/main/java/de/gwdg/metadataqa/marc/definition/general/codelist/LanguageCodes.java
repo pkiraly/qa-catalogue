@@ -2,6 +2,10 @@ package de.gwdg.metadataqa.marc.definition.general.codelist;
 
 import de.gwdg.metadataqa.marc.Utils;
 
+/**
+ * MARC Code List for Languages
+ * http://www.loc.gov/marc/languages/language_code.html
+ */
 public class LanguageCodes extends CodeList {
 
 	static {

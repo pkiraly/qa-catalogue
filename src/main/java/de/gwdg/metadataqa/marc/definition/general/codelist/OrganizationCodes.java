@@ -2,6 +2,12 @@ package de.gwdg.metadataqa.marc.definition.general.codelist;
 
 import de.gwdg.metadataqa.marc.Utils;
 
+/**
+ * MARC Organization Codes
+ * http://www.loc.gov/marc/organizations/orgshome.html
+ *
+ * Note: this is not a full list!
+ */
 public class OrganizationCodes extends CodeList {
 
 	static {
@@ -16491,8 +16497,94 @@ public class OrganizationCodes extends CodeList {
 				/*
 				*/
 				"NZWTU", "Alexander Turnbull Library - National Library of New Zealand",
-				"CGU", "University of Chicago Library"
+				"CGU", "University of Chicago Library",
+				"BTCTA", "Baker & Taylor Incorporated",
+				"BAKER", "Baker & Taylor",
+				"UKMGB", "The British Library, Group Batchload",
+				"BDX", "Brodart Books & Library Services",
+				"GWDNB", "Deutsche Nationalbibliothek, Leipzig / Frankfurt am Main",
+				"UKM", "The British Library",
+				"CUY", "UC Berkeley Libraries",
+				"MUQ", "Université de Montréal",
+				"STF", "Stanford University Libraries",
+				"LVB", "Bibliothèque de l’Université Laval",
+				"CLU", "University of California, Los Angeles",
+				"NLE", "National Library of Scotland",
+				"GZM", "University of Wisconsin - Madison, General Library System",
+				"KRTAS", "Kirtas Technologies Inc",
+				"WAU", "University of Washington Libraries",
+				"IG#", "Ingram Library Services",
+				"IXA", "University of Texas Libraries",
+				"YUS", "Yale University Library",
+				"IUL", "Indiana University",
+				"ZCU", "Columbia University in the City of New York",
+				"AGL", "National Agricultural Library",
+				"LGG", "McGill University Library",
+				"P4I", "Private Academic Library Network of Indiana",
+				"UBY", "Brigham Young University",
+				"OSU", "Ohio State University Libraries",
+				"OCLCO", "OCLC Database",
+				"OCLCF", "OCLC FAST Project",
+				"OCLCG", "OCLC Quality Control Section 2",
+				"OCLCA", "OCLC",
+				"BRI", "The British Library, On Demand",
+				"UIU", "University of Illinois at Urbana Champaign",
+				"OHX", "Harrassowitz",
+				"DRB", "Dartmouth College Library",
+				"UBA", "Universidade de São Paulo",
+				"EYM", "University of Michigan",
+				"NST", "Library of Congress, Serial Record Division",
+				"UPM", "Pennsylvania State University Libraries",
+				"SINLB", "National Library Board, Singapore",
+				"HLS", "Harvard College Library Technical Services",
+				"NYP", "New York Public Library System",
+				"CRU", "University of California, Riverside",
+				"NSD", "Library of Congress, National Series Data Program",
+				"TULIB", "Thammasat University Libraries",
+				"CUS", "University of California, San Diego",
+				"VOD", "Old Dominion University",
+				"UKV3G", "Linkuk",
+				"EUM", "University of Manchester Library",
+				"COO", "Cornell University Library",
+				"BUF", "SUNY at Buffalo",
+				"SYB", "Syracuse University",
+				"BDF", "Bibliothèque nationale de France",
+				"AMAZN", "Amazon.com",
+				"UBC", "University of British Columbia Library",
+				"PIT", "University of Pittsburgh",
+				"EL$", "EL Colegio de Mexico",
+				"VP@", "Vancouver Public Library",
+				"UAB", "University of Alberta",
+				"EUW", "The Wellcome Library",
+				"C3L", "Casalini Libri",
+				"NIALS", "Northern Idaho Academic Library BT",
+				"E7B", "Ebrary",
+				"PL#", "Puvill Libros SA",
+				"HUL", "Harvard University",
+				"IDEBK", "MyiLibrary",
+				"TOH", "Toronto Public Library",
+				"OL$", "University of South Africa",
+				"YDX", "YBP Library Services",
+				"TZT", "AMALIVRE",
+				"S3O", "LIBRIS",
+				"CUD", "University of Cambridge",
+				"MBB", "Brandeis University Library",
+				"BEDGE", "European Commission Libraries",
+				"EUX", "University of Edinburgh - Main Library",
+				"KIJ", "King's College London",
+				"EMI", "University of Michigan Law Library",
+				"DIBAM", "Dibam Biblioteca Nacional de Chile",
+				"B2Q", "Bibliothèque et Archives nationales du Québec",
+				"CRL", "Center for Research Libraries"
 
+		/*
+			"OCLCQ",42923448,
+        "OCL",7472445,
+        "SER",159085,
+        "C#P",146911,
+        "TEF",96936,
+        "CGC",91767,
+      */
 		);
 		indexCodes();
 	}

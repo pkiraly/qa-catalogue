@@ -4,8 +4,6 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.AuthenticationActionCodes;
-import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
-import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageSourceCodes;
 
 /**
  * Authentication Code

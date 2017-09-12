@@ -2,12 +2,12 @@ package de.gwdg.metadataqa.marc.definition.tags3xx;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Creator/Contributor Characteristics
+ * http://www.loc.gov/marc/bibliographic/bd386.html
+ */
 public class Tag386 extends DataFieldDefinition {
 
 	private static Tag386 uniqueInstance;

@@ -3,10 +3,8 @@ package de.gwdg.metadataqa.marc.definition.tags01x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.general.codelist.DescriptionConventionSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
-import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageSourceCodes;
-import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
+import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodeAndTermSourceCodes;
 
 /**
  * Language Code
@@ -66,6 +64,6 @@ public class Tag041 extends DataFieldDefinition {
 		getSubfield("k").setCodeList(LanguageCodes.getInstance());
 		getSubfield("m").setCodeList(LanguageCodes.getInstance());
 		getSubfield("n").setCodeList(LanguageCodes.getInstance());
-		getSubfield("2").setCodeList(LanguageSourceCodes.getInstance());
+		getSubfield("2").setCodeList(LanguageCodeAndTermSourceCodes.getInstance());
 	}
 }

@@ -2,6 +2,10 @@ package de.gwdg.metadataqa.marc.definition.general.codelist;
 
 import de.gwdg.metadataqa.marc.Utils;
 
+/**
+ * Temporal Term Source Codes
+ * http://www.loc.gov/standards/sourcelist/temporal.html
+ */
 public class TemporalTermSourceCodes  extends CodeList {
 
 	static {

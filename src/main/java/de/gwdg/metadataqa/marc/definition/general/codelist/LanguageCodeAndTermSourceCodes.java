@@ -2,7 +2,11 @@ package de.gwdg.metadataqa.marc.definition.general.codelist;
 
 import de.gwdg.metadataqa.marc.Utils;
 
-public class LanguageSourceCodes extends CodeList {
+/**
+ * Language Code and Term Source Codes
+ * http://www.loc.gov/standards/sourcelist/language.html
+ */
+public class LanguageCodeAndTermSourceCodes extends CodeList {
 
 	static {
 		codes = Utils.generateCodes(
@@ -19,13 +23,13 @@ public class LanguageSourceCodes extends CodeList {
 		indexCodes();
 	}
 
-	private static LanguageSourceCodes uniqueInstance;
+	private static LanguageCodeAndTermSourceCodes uniqueInstance;
 
-	private LanguageSourceCodes() {}
+	private LanguageCodeAndTermSourceCodes() {}
 
-	public static LanguageSourceCodes getInstance() {
+	public static LanguageCodeAndTermSourceCodes getInstance() {
 		if (uniqueInstance == null)
-			uniqueInstance = new LanguageSourceCodes();
+			uniqueInstance = new LanguageCodeAndTermSourceCodes();
 		return uniqueInstance;
 	}
 }

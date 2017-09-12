@@ -2,6 +2,10 @@ package de.gwdg.metadataqa.marc.definition.general.codelist;
 
 import de.gwdg.metadataqa.marc.Utils;
 
+/**
+ * Subject Heading and Term Source Codes
+ * http://www.loc.gov/standards/sourcelist/subject.html
+ */
 public class SubjectHeadingAndTermSourceCodes extends CodeList {
 
 	static {

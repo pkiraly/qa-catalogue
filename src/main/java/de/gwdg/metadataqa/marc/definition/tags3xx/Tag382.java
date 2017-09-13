@@ -12,7 +12,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.MusicalInstrumentatio
 public class Tag382 extends DataFieldDefinition {
 	private static Tag382 uniqueInstance;
 
-	private Tag382(){
+	private Tag382() {
 		initialize();
 	}
 

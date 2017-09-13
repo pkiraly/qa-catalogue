@@ -13,7 +13,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.PriceTypeCodeSourceCo
 public class Tag365 extends DataFieldDefinition {
 	private static Tag365 uniqueInstance;
 
-	private Tag365(){
+	private Tag365() {
 		initialize();
 	}
 

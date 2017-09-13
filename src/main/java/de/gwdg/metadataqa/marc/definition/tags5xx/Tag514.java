@@ -12,7 +12,7 @@ public class Tag514 extends DataFieldDefinition {
 
 	private static Tag514 uniqueInstance;
 
-	private Tag514(){
+	private Tag514() {
 		initialize();
 	}
 

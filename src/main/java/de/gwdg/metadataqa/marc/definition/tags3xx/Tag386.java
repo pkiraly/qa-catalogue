@@ -12,7 +12,7 @@ public class Tag386 extends DataFieldDefinition {
 
 	private static Tag386 uniqueInstance;
 
-	private Tag386(){
+	private Tag386() {
 		initialize();
 	}
 

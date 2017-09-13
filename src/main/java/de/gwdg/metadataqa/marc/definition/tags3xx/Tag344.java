@@ -11,7 +11,7 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
 public class Tag344 extends DataFieldDefinition {
 	private static Tag344 uniqueInstance;
 
-	private Tag344(){
+	private Tag344() {
 		initialize();
 	}
 

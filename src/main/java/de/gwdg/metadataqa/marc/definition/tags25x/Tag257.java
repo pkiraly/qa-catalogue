@@ -12,7 +12,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTerm
 public class Tag257 extends DataFieldDefinition {
 	private static Tag257 uniqueInstance;
 
-	private Tag257(){
+	private Tag257() {
 		initialize();
 	}
 

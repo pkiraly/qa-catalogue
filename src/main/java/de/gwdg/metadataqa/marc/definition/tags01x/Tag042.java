@@ -13,7 +13,7 @@ public class Tag042 extends DataFieldDefinition {
 
 	private static Tag042 uniqueInstance;
 
-	private Tag042(){
+	private Tag042() {
 		initialize();
 	}
 

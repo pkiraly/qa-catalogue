@@ -12,7 +12,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 public class Tag246 extends DataFieldDefinition {
 	private static Tag246 uniqueInstance;
 
-	private Tag246(){
+	private Tag246() {
 		initialize();
 	}
 

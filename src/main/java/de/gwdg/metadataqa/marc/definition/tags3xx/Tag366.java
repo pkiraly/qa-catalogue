@@ -13,7 +13,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
 public class Tag366 extends DataFieldDefinition {
 	private static Tag366 uniqueInstance;
 
-	private Tag366(){
+	private Tag366() {
 		initialize();
 	}
 

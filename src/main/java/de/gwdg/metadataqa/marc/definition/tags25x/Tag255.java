@@ -11,7 +11,7 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
 public class Tag255 extends DataFieldDefinition {
 	private static Tag255 uniqueInstance;
 
-	private Tag255(){
+	private Tag255() {
 		initialize();
 	}
 

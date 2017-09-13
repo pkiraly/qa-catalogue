@@ -12,7 +12,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.AbbreviatedTitleSourc
 public class Tag210 extends DataFieldDefinition {
 	private static Tag210 uniqueInstance;
 
-	private Tag210(){
+	private Tag210() {
 		initialize();
 	}
 

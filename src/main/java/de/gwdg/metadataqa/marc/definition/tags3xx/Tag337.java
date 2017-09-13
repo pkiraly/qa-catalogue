@@ -12,7 +12,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.GenreFormCodeAndTermS
 public class Tag337 extends DataFieldDefinition {
 	private static Tag337 uniqueInstance;
 
-	private Tag337(){
+	private Tag337() {
 		initialize();
 	}
 

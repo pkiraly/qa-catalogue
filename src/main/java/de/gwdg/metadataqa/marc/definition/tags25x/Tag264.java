@@ -12,7 +12,7 @@ public class Tag264 extends DataFieldDefinition {
 
 	private static Tag264 uniqueInstance;
 
-	private Tag264(){
+	private Tag264() {
 		initialize();
 	}
 

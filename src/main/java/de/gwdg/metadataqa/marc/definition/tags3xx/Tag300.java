@@ -10,7 +10,7 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
 public class Tag300 extends DataFieldDefinition {
 	private static Tag300 uniqueInstance;
 
-	private Tag300(){
+	private Tag300() {
 		initialize();
 	}
 

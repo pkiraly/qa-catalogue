@@ -12,7 +12,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
 public class Tag242 extends DataFieldDefinition {
 	private static Tag242 uniqueInstance;
 
-	private Tag242(){
+	private Tag242() {
 		initialize();
 	}
 

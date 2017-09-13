@@ -13,7 +13,7 @@ public class Tag111 extends DataFieldDefinition {
 
 	private static Tag111 uniqueInstance;
 
-	private Tag111(){
+	private Tag111() {
 		initialize();
 	}
 

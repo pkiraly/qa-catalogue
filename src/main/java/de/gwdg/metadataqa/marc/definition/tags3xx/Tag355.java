@@ -13,7 +13,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 public class Tag355 extends DataFieldDefinition {
 	private static Tag355 uniqueInstance;
 
-	private Tag355(){
+	private Tag355() {
 		initialize();
 	}
 

@@ -12,7 +12,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.ThematicIndexCodeSour
 public class Tag383 extends DataFieldDefinition {
 	private static Tag383 uniqueInstance;
 
-	private Tag383(){
+	private Tag383() {
 		initialize();
 	}
 

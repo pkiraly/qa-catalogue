@@ -12,7 +12,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodeAndTermSo
 public class Tag377 extends DataFieldDefinition {
 	private static Tag377 uniqueInstance;
 
-	private Tag377(){
+	private Tag377() {
 		initialize();
 	}
 

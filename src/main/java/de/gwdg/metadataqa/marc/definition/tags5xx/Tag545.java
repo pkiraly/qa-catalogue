@@ -28,7 +28,7 @@ public class Tag545 extends DataFieldDefinition {
 		label = "Biographical or Historical Data";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Type of data").setCodes(
-				"#", "No information provided",
+				" ", "No information provided",
 				"0", "Biographical sketch",
 				"1", "Administrative history"
 		);

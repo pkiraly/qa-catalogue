@@ -34,7 +34,7 @@ public class Tag505 extends DataFieldDefinition {
 				"8", "No display constant generated"
 		);
 		ind2 = new Indicator("Level of content designation").setCodes(
-				"#", "Basic",
+				" ", "Basic",
 				"0", "Enhanced"
 		);
 		setSubfieldsWithCardinality(

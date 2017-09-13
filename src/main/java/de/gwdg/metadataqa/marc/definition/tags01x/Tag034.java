@@ -34,7 +34,7 @@ public class Tag034 extends DataFieldDefinition {
 				"3", "Range of scales"
 		);
 		ind2 = new Indicator("Type of ring").setCodes(
-				"#", "Not applicable",
+				" ", "Not applicable",
 				"0", "Outer ring",
 				"1", "Exclusion ring"
 		);

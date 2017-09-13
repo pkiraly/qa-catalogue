@@ -8,7 +8,7 @@ public class Tag015 extends DataFieldDefinition {
 
 	private static Tag015 uniqueInstance;
 
-	private Tag015(){
+	private Tag015() {
 		initialize();
 	}
 

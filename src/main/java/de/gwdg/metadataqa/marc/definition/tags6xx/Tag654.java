@@ -6,57 +6,45 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTermSourceCodes;
 
 /**
- * Subject Added Entry - Topical Term
- * http://www.loc.gov/marc/bibliographic/bd650.html,
+ * Subject Added Entry - Faceted Topical Terms
+ * http://www.loc.gov/marc/bibliographic/bd654.html,
  */
-public class Tag650 extends DataFieldDefinition {
+public class Tag654 extends DataFieldDefinition {
 
-	private static Tag650 uniqueInstance;
+	private static Tag654 uniqueInstance;
 
-	private Tag650() {
+	private Tag654() {
 		initialize();
 	}
 
-	public static Tag650 getInstance() {
+	public static Tag654 getInstance() {
 		if (uniqueInstance == null)
-			uniqueInstance = new Tag650();
+			uniqueInstance = new Tag654();
 		return uniqueInstance;
 	}
 
 	private void initialize() {
-		tag = "650";
-		label = "Subject Added Entry - Topical Term";
+		tag = "654";
+		label = "Subject Added Entry - Faceted Topical Terms";
 		ind1 = new Indicator("Level of subject").setCodes(
 				" ", "No information provided",
 				"0", "No level specified",
 				"1", "Primary",
 				"2", "Secondary"
 		);
-		ind2 = new Indicator("Thesaurus").setCodes(
-				"0", "Library of Congress Subject Headings",
-				"1", "LC subject headings for children's literature",
-				"2", "Medical Subject Headings",
-				"3", "National Agricultural Library subject authority file",
-				"4", "Source not specified",
-				"5", "Canadian Subject Headings",
-				"6", "Répertoire de vedettes-matière",
-				"7", "Source specified in subfield $2"
-		);
+		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Topical term or geographic name entry element", "NR",
-				"b", "Topical term following geographic name entry element", "NR",
-				"c", "Location of event", "NR",
-				"d", "Active dates", "NR",
+				"a", "Focus term", "R",
+				"b", "Non-focus term", "R",
+				"c", "Facet/hierarchy designation", "R",
 				"e", "Relator term", "R",
-				"g", "Miscellaneous information", "R",
-				"4", "Relationship", "R",
 				"v", "Form subdivision", "R",
-				"x", "General subdivision", "R",
 				"y", "Chronological subdivision", "R",
 				"z", "Geographic subdivision", "R",
 				"0", "Authority record control number or standard number", "R",
 				"2", "Source of heading or term", "NR",
 				"3", "Materials specified", "NR",
+				"4", "Relationship", "R",
 				"6", "Linkage", "NR",
 				"8", "Field link and sequence number", "R"
 		);

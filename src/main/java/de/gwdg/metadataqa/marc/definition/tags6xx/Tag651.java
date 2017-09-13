@@ -6,32 +6,27 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTermSourceCodes;
 
 /**
- * Subject Added Entry - Topical Term
- * http://www.loc.gov/marc/bibliographic/bd650.html,
+ * Subject Added Entry - Geographic Name
+ * http://www.loc.gov/marc/bibliographic/bd651.html,
  */
-public class Tag650 extends DataFieldDefinition {
+public class Tag651 extends DataFieldDefinition {
 
-	private static Tag650 uniqueInstance;
+	private static Tag651 uniqueInstance;
 
-	private Tag650() {
+	private Tag651() {
 		initialize();
 	}
 
-	public static Tag650 getInstance() {
+	public static Tag651 getInstance() {
 		if (uniqueInstance == null)
-			uniqueInstance = new Tag650();
+			uniqueInstance = new Tag651();
 		return uniqueInstance;
 	}
 
 	private void initialize() {
-		tag = "650";
-		label = "Subject Added Entry - Topical Term";
-		ind1 = new Indicator("Level of subject").setCodes(
-				" ", "No information provided",
-				"0", "No level specified",
-				"1", "Primary",
-				"2", "Secondary"
-		);
+		tag = "651";
+		label = "Subject Added Entry - Geographic Name";
+		ind1 = new Indicator("");
 		ind2 = new Indicator("Thesaurus").setCodes(
 				"0", "Library of Congress Subject Headings",
 				"1", "LC subject headings for children's literature",
@@ -43,10 +38,7 @@ public class Tag650 extends DataFieldDefinition {
 				"7", "Source specified in subfield $2"
 		);
 		setSubfieldsWithCardinality(
-				"a", "Topical term or geographic name entry element", "NR",
-				"b", "Topical term following geographic name entry element", "NR",
-				"c", "Location of event", "NR",
-				"d", "Active dates", "NR",
+				"a", "Geographic name", "NR",
 				"e", "Relator term", "R",
 				"g", "Miscellaneous information", "R",
 				"4", "Relationship", "R",

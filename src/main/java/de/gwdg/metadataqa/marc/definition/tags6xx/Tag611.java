@@ -2,31 +2,30 @@ package de.gwdg.metadataqa.marc.definition.tags6xx;
 
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.tags3xx.Tag386;
 
 /**
- * Subject Added Entry - Corporate Name
- * http://www.loc.gov/marc/bibliographic/bd610.html,
+ * Subject Added Entry - Meeting Name
+ * http://www.loc.gov/marc/bibliographic/bd611.html,
  * http://www.loc.gov/marc/bibliographic/bdx10.html
  */
-public class Tag610 extends DataFieldDefinition {
+public class Tag611 extends DataFieldDefinition {
 
-	private static Tag610 uniqueInstance;
+	private static Tag611 uniqueInstance;
 
-	private Tag610() {
+	private Tag611() {
 		initialize();
 	}
 
-	public static Tag610 getInstance() {
+	public static Tag611 getInstance() {
 		if (uniqueInstance == null)
-			uniqueInstance = new Tag610();
+			uniqueInstance = new Tag611();
 		return uniqueInstance;
 	}
 
 	private void initialize() {
-		tag = "610";
-		label = "Subject Added Entry - Corporate Name";
-		ind1 = new Indicator("Type of corporate name entry element").setCodes(
+		tag = "611";
+		label = "Subject Added Entry - Meeting Name";
+		ind1 = new Indicator("Type of meeting name entry element").setCodes(
 			"0", "Inverted name",
 			"1", "Jurisdiction name",
 			"2", "Name in direct order"
@@ -42,21 +41,19 @@ public class Tag610 extends DataFieldDefinition {
 				"7", "Source specified in subfield $2"
 		);
 		setSubfieldsWithCardinality(
-				"a", "Corporate name or jurisdiction name as entry element", "NR",
-				"b", "Subordinate unit", "R",
+				"a", "Meeting name or jurisdiction name as entry element", "NR",
 				"c", "Location of meeting", "R",
-				"d", "Date of meeting or treaty signing", "R",
-				"e", "Relator term", "R",
+				"d", "Date of meeting", "NR",
+				"e", "Subordinate unit", "R",
 				"f", "Date of a work", "NR",
 				"g", "Miscellaneous information", "R",
 				"h", "Medium", "NR",
+				"j", "Relator term", "R",
 				"k", "Form subheading", "R",
 				"l", "Language of a work", "NR",
-				"m", "Medium of performance for music", "R",
 				"n", "Number of part/section/meeting", "R",
-				"o", "Arranged statement for music", "NR",
 				"p", "Name of part/section of a work", "R",
-				"r", "Key for music", "NR",
+				"q", "Name of meeting following jurisdiction name entry element", "NR",
 				"s", "Version", "NR",
 				"t", "Title of a work", "NR",
 				"u", "Affiliation", "NR",
@@ -71,6 +68,5 @@ public class Tag610 extends DataFieldDefinition {
 				"6", "Linkage", "NR",
 				"8", "Field link and sequence number", "R"
 		);
-
 	}
 }

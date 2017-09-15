@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags01x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.general.codelist.ClassificationSchemeSourceCodes;
 
 /**
  * Geographic Classification
@@ -40,6 +41,6 @@ public class Tag052 extends DataFieldDefinition {
 				"6", "Linkage", "NR",
 				"8", "Field link and sequence number", "R"
 		);
-		// TODO: $2 code from http://www.loc.gov/standards/sourcelist/classification.html
+		getSubfield("2").setCodeList(ClassificationSchemeSourceCodes.getInstance());
 	}
 }

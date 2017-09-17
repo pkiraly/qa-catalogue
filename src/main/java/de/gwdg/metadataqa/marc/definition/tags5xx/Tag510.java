@@ -28,22 +28,22 @@ public class Tag510 extends DataFieldDefinition {
 		label = "Citation/References Note";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Coverage/location in source").setCodes(
-				"0", "Coverage unknown",
-				"1", "Coverage complete",
-				"2", "Coverage is selective",
-				"3", "Location in source not given",
-				"4", "Location in source given"
+			"0", "Coverage unknown",
+			"1", "Coverage complete",
+			"2", "Coverage is selective",
+			"3", "Location in source not given",
+			"4", "Location in source given"
 		);
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Name of source", "NR",
-				"b", "Coverage of source", "NR",
-				"c", "Location within source", "NR",
-				"u", "Uniform Resource Identifier", "R",
-				"x", "International Standard Serial Number", "NR",
-				"3", "Materials specified", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Name of source", "NR",
+			"b", "Coverage of source", "NR",
+			"c", "Location within source", "NR",
+			"u", "Uniform Resource Identifier", "R",
+			"x", "International Standard Serial Number", "NR",
+			"3", "Materials specified", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

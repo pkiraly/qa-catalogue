@@ -30,14 +30,14 @@ public class Tag502 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Dissertation note", "NR",
-				"b", "Degree type", "NR",
-				"c", "Name of granting institution", "NR",
-				"d", "Year degree granted", "NR",
-				"g", "Miscellaneous information", "R",
-				"o", "Dissertation identifier", "R",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Dissertation note", "NR",
+			"b", "Degree type", "NR",
+			"c", "Name of granting institution", "NR",
+			"d", "Year degree granted", "NR",
+			"g", "Miscellaneous information", "R",
+			"o", "Dissertation identifier", "R",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

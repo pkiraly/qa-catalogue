@@ -30,19 +30,19 @@ public class Tag533 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Type of reproduction", "NR",
-				"b", "Place of reproduction", "R",
-				"c", "Agency responsible for reproduction", "R",
-				"d", "Date of reproduction", "NR",
-				"e", "Physical description of reproduction", "NR",
-				"f", "Series statement of reproduction", "R",
-				"m", "Dates and/or sequential designation of issues reproduced", "R",
-				"n", "Note about reproduction", "R",
-				"3", "Materials specified", "NR",
-				"5", "Institution to which field applies", "NR",
-				"7", "Fixed-length data elements of reproduction", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Type of reproduction", "NR",
+			"b", "Place of reproduction", "R",
+			"c", "Agency responsible for reproduction", "R",
+			"d", "Date of reproduction", "NR",
+			"e", "Physical description of reproduction", "NR",
+			"f", "Series statement of reproduction", "R",
+			"m", "Dates and/or sequential designation of issues reproduced", "R",
+			"n", "Note about reproduction", "R",
+			"3", "Materials specified", "NR",
+			"5", "Institution to which field applies", "NR",
+			"7", "Fixed-length data elements of reproduction", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		// TODO write parser for $7
 	}

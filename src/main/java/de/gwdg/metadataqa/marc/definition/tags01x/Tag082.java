@@ -28,23 +28,23 @@ public class Tag082 extends DataFieldDefinition {
 		label = "Dewey Decimal Classification Number";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Type of edition").setCodes(
-				"0", "Full edition",
-				"1", "Abridged edition",
-				"7", "Other edition specified in subfield $2"
+			"0", "Full edition",
+			"1", "Abridged edition",
+			"7", "Other edition specified in subfield $2"
 		);
 		ind2 = new Indicator("Source of classification number").setCodes(
-				" ", "No information provided",
-				"0", "Assigned by LC",
-				"4", "Assigned by agency other than LC"
+			" ", "No information provided",
+			"0", "Assigned by LC",
+			"4", "Assigned by agency other than LC"
 		);
 		setSubfieldsWithCardinality(
-				"a", "Classification number", "R",
-				"b", "Item number", "NR",
-				"m", "Standard or optional designation", "NR",
-				"q", "Assigning agency", "NR",
-				"2", "Edition number", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Classification number", "R",
+			"b", "Item number", "NR",
+			"m", "Standard or optional designation", "NR",
+			"q", "Assigning agency", "NR",
+			"2", "Edition number", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("q").setCodeList(OrganizationCodes.getInstance());
 	}

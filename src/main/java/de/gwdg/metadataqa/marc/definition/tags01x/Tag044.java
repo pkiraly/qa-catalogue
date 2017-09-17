@@ -31,12 +31,12 @@ public class Tag044 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "MARC country code", "R",
-				"b", "Local subentity code", "R",
-				"c", "ISO country code", "R",
-				"2", "Source of local subentity code", "R",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "MARC country code", "R",
+			"b", "Local subentity code", "R",
+			"c", "ISO country code", "R",
+			"2", "Source of local subentity code", "R",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("a").setCodeList(CountryCodes.getInstance());
 		getSubfield("2").setCodeList(CountrySourceCodes.getInstance());

@@ -27,35 +27,35 @@ public class Tag246 extends DataFieldDefinition {
 		label = "Varying Form of Title";
 		cardinality = Cardinality.Nonrepeatable;
 		ind1 = new Indicator("Note/added entry controller").setCodes(
-				"0", "Note, no added entry",
-				"1", "Note, added entry",
-				"2", "No note, no added entry",
-				"3", "No note, added entry"
+			"0", "Note, no added entry",
+			"1", "Note, added entry",
+			"2", "No note, no added entry",
+			"3", "No note, added entry"
 		);
 		ind2 = new Indicator("Type of title").setCodes(
-				" ", "No type specified",
-				"0", "Portion of title",
-				"1", "Parallel title",
-				"2", "Distinctive title",
-				"3", "Other title",
-				"4", "Cover title",
-				"5", "Added title page title",
-				"6", "Caption title",
-				"7", "Running title",
-				"8", "Spine title"
+			" ", "No type specified",
+			"0", "Portion of title",
+			"1", "Parallel title",
+			"2", "Distinctive title",
+			"3", "Other title",
+			"4", "Cover title",
+			"5", "Added title page title",
+			"6", "Caption title",
+			"7", "Running title",
+			"8", "Spine title"
 		);
 		setSubfieldsWithCardinality(
-				"a", "Title proper/short title", "NR",
-				"b", "Remainder of title", "NR",
-				"f", "Date or sequential designation", "NR",
-				"g", "Miscellaneous information", "R",
-				"h", "Medium", "NR",
-				"i", "Display text", "NR",
-				"n", "Number of part/section of a work", "R",
-				"p", "Name of part/section of a work", "R",
-				"5", "Institution to which field applies", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Title proper/short title", "NR",
+			"b", "Remainder of title", "NR",
+			"f", "Date or sequential designation", "NR",
+			"g", "Miscellaneous information", "R",
+			"h", "Medium", "NR",
+			"i", "Display text", "NR",
+			"n", "Number of part/section of a work", "R",
+			"p", "Name of part/section of a work", "R",
+			"5", "Institution to which field applies", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("5").setCodeList(OrganizationCodes.getInstance());
 	}

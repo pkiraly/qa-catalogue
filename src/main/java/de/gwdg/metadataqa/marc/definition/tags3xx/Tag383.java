@@ -29,14 +29,14 @@ public class Tag383 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Serial number", "R",
-				"b", "Opus number", "R",
-				"c", "Thematic index number", "R",
-				"d", "Thematic index code", "NR",
-				"e", "Publisher associated with opus number", "NR",
-				"2", "Source", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Serial number", "R",
+			"b", "Opus number", "R",
+			"c", "Thematic index number", "R",
+			"d", "Thematic index code", "NR",
+			"e", "Publisher associated with opus number", "NR",
+			"2", "Source", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("2").setCodeList(ThematicIndexCodeSourceCodes.getInstance());
 	}

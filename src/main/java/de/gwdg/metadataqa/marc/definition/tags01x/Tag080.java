@@ -27,18 +27,18 @@ public class Tag080 extends DataFieldDefinition {
 		label = "Universal Decimal Classification Number";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Type of edition").setCodes(
-				" ", "No information provided",
-				"0", "Full",
-				"1", "Abridged"
+			" ", "No information provided",
+			"0", "Full",
+			"1", "Abridged"
 		);
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Universal Decimal Classification number", "NR",
-				"b", "Item number", "NR",
-				"x", "Common auxiliary subdivision", "R",
-				"2", "Edition identifier", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Universal Decimal Classification number", "NR",
+			"b", "Item number", "NR",
+			"x", "Common auxiliary subdivision", "R",
+			"2", "Edition identifier", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

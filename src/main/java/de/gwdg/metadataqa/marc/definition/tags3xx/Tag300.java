@@ -27,15 +27,16 @@ public class Tag300 extends DataFieldDefinition {
 		ind1 = new Indicator("").setCodes();
 		ind2 = new Indicator("").setCodes();
 		setSubfieldsWithCardinality(
-				"a", "Extent", "R",
-				"b", "Other physical details", "NR",
-				"c", "Dimensions", "R",
-				"e", "Accompanying material", "NR",
-				"f", "Type of unit", "R",
-				"g", "Size of unit", "R",
-				"3", "Materials specified", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Extent", "R",
+			"b", "Other physical details", "NR",
+			"c", "Dimensions", "R",
+			"e", "Accompanying material", "NR",
+			"f", "Type of unit", "R",
+			"g", "Size of unit", "R",
+			"3", "Materials specified", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		// TODO: "1-9" in ind2 is regex!
-	}}
+	}
+}

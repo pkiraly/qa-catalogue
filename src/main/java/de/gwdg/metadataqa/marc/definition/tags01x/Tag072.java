@@ -28,15 +28,15 @@ public class Tag072 extends DataFieldDefinition {
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("");
 		ind2 = new Indicator("Code source").setCodes(
-				"0", "NAL subject category code list",
-				"7", "Source specified in subfield $2"
+			"0", "NAL subject category code list",
+			"7", "Source specified in subfield $2"
 		);
 		setSubfieldsWithCardinality(
-				"a", "Subject category code", "NR",
-				"x", "Subject category code subdivision", "R",
-				"2", "Source", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Subject category code", "NR",
+			"x", "Subject category code subdivision", "R",
+			"2", "Source", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		// TODO: $2 code from http://www.loc.gov/standards/sourcelist/subject-category.html
 	}

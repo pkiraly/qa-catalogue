@@ -27,15 +27,15 @@ public class Tag070 extends DataFieldDefinition {
 		label = "National Agricultural Library Call Number";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Existence in NAL collection").setCodes(
-				"0", "Item is in NAL",
-				"1", "Item is not in NAL"
+			"0", "Item is in NAL",
+			"1", "Item is not in NAL"
 		);
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Classification number", "R",
-				"b", "Item number", "NR",
-				// "6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Classification number", "R",
+			"b", "Item number", "NR",
+			// "6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

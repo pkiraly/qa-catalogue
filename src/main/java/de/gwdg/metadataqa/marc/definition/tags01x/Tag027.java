@@ -25,11 +25,11 @@ public class Tag027 extends DataFieldDefinition {
 		ind1 = new Indicator("").setCodes(" ", "Undefined");
 		ind2 = new Indicator("").setCodes(" ", "Undefined");
 		setSubfieldsWithCardinality(
-				"a", "Standard technical report number", "NR",
-				"q", "Qualifying information", "R",
-				"z", "Canceled/invalid number", "R",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Standard technical report number", "NR",
+			"q", "Qualifying information", "R",
+			"z", "Canceled/invalid number", "R",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		// getSubfield("5").setCodeList(OrganizationCodes.getInstance());
 	}

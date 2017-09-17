@@ -27,26 +27,26 @@ public class Tag654 extends DataFieldDefinition {
 		tag = "654";
 		label = "Subject Added Entry - Faceted Topical Terms";
 		ind1 = new Indicator("Level of subject").setCodes(
-				" ", "No information provided",
-				"0", "No level specified",
-				"1", "Primary",
-				"2", "Secondary"
+			" ", "No information provided",
+			"0", "No level specified",
+			"1", "Primary",
+			"2", "Secondary"
 		);
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Focus term", "R",
-				"b", "Non-focus term", "R",
-				"c", "Facet/hierarchy designation", "R",
-				"e", "Relator term", "R",
-				"v", "Form subdivision", "R",
-				"y", "Chronological subdivision", "R",
-				"z", "Geographic subdivision", "R",
-				"0", "Authority record control number or standard number", "R",
-				"2", "Source of heading or term", "NR",
-				"3", "Materials specified", "NR",
-				"4", "Relationship", "R",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Focus term", "R",
+			"b", "Non-focus term", "R",
+			"c", "Facet/hierarchy designation", "R",
+			"e", "Relator term", "R",
+			"v", "Form subdivision", "R",
+			"y", "Chronological subdivision", "R",
+			"z", "Geographic subdivision", "R",
+			"0", "Authority record control number or standard number", "R",
+			"2", "Source of heading or term", "NR",
+			"3", "Materials specified", "NR",
+			"4", "Relationship", "R",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
 		getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());

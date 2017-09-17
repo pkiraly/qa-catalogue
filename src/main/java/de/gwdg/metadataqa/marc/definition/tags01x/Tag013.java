@@ -25,14 +25,14 @@ public class Tag013 extends DataFieldDefinition {
 		ind1 = new Indicator("").setCodes(" ", "Undefined");
 		ind2 = new Indicator("").setCodes(" ", "Undefined");
 		setSubfieldsWithCardinality(
-				"a", "Number", "NR",
-				"b", "Country", "NR",
-				"c", "Type of number", "NR",
-				"d", "Date", "R",
-				"e", "Status", "R",
-				"f", "Party to document", "R",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Number", "NR",
+			"b", "Country", "NR",
+			"c", "Type of number", "NR",
+			"d", "Date", "R",
+			"e", "Status", "R",
+			"f", "Party to document", "R",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

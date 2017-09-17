@@ -30,7 +30,7 @@ public class Tag042 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Authentication code", "R"
+			"a", "Authentication code", "R"
 		);
 		getSubfield("a").setCodeList(AuthenticationActionCodes.getInstance());
 	}

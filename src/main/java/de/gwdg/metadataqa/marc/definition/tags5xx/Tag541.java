@@ -28,25 +28,25 @@ public class Tag541 extends DataFieldDefinition {
 		label = "Immediate Source of Acquisition Note";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Privacy").setCodes(
-				" ", "No information provided",
-				"0", "Private",
-				"1", "Not private"
+			" ", "No information provided",
+			"0", "Private",
+			"1", "Not private"
 		);
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Source of acquisition", "NR",
-				"b", "Address", "NR",
-				"c", "Method of acquisition", "NR",
-				"d", "Date of acquisition", "NR",
-				"e", "Accession number", "NR",
-				"f", "Owner", "NR",
-				"h", "Purchase price", "NR",
-				"n", "Extent", "R",
-				"o", "Type of unit", "R",
-				"3", "Materials specified", "NR",
-				"5", "Institution to which field applies", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Source of acquisition", "NR",
+			"b", "Address", "NR",
+			"c", "Method of acquisition", "NR",
+			"d", "Date of acquisition", "NR",
+			"e", "Accession number", "NR",
+			"f", "Owner", "NR",
+			"h", "Purchase price", "NR",
+			"n", "Extent", "R",
+			"o", "Type of unit", "R",
+			"3", "Materials specified", "NR",
+			"5", "Institution to which field applies", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

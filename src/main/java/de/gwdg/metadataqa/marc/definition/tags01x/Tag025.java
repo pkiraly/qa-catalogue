@@ -26,8 +26,8 @@ public class Tag025 extends DataFieldDefinition {
 		// TODO: set label
 		ind2 = new Indicator("").setCodes(" ", "Undefined");
 		setSubfieldsWithCardinality(
-				"a", "Overseas acquisition number", "R",
-				"8", "Field link and sequence number", "R"
+			"a", "Overseas acquisition number", "R",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

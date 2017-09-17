@@ -30,13 +30,13 @@ public class Tag538 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "System details note", "NR",
-				"i", "Display text", "NR",
-				"u", "Uniform Resource Identifier", "R",
-				"3", "Materials specified", "NR",
-				"5", "Institution to which field applies", "R",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "System details note", "NR",
+			"i", "Display text", "NR",
+			"u", "Uniform Resource Identifier", "R",
+			"3", "Materials specified", "NR",
+			"5", "Institution to which field applies", "R",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

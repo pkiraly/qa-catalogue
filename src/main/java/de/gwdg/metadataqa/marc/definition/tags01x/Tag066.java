@@ -29,11 +29,11 @@ public class Tag066 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Primary G0 character set", "NR",
-				"b", "Primary G1 character set", "NR",
-				"c", "Alternate G0 or G1 character set", "R"
-				// "6", "Linkage", "NR",
-				// "8", "Field link and sequence number", "R"
+			"a", "Primary G0 character set", "NR",
+			"b", "Primary G1 character set", "NR",
+			"c", "Alternate G0 or G1 character set", "R"
+			// "6", "Linkage", "NR",
+			// "8", "Field link and sequence number", "R"
 		);
 	}
 }

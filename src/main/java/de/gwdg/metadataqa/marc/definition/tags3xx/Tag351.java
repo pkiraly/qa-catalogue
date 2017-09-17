@@ -28,12 +28,12 @@ public class Tag351 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Organization", "R",
-				"b", "Arrangement", "R",
-				"c", "Hierarchical level", "NR",
-				"3", "Materials specified", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Organization", "R",
+			"b", "Arrangement", "R",
+			"c", "Hierarchical level", "NR",
+			"3", "Materials specified", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

@@ -28,16 +28,16 @@ public class Tag377 extends DataFieldDefinition {
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("");
 		ind2 = new Indicator("Source of code").setCodes(
-				" ", "MARC language code",
-				"7", "Source specified in $2"
+			" ", "MARC language code",
+			"7", "Source specified in $2"
 		);
 		setSubfieldsWithCardinality(
-				"a", "Language code", "R",
-				"l", "Language term", "R",
-				"0", "Authority record control number or standard number", "R",
-				"2", "Source", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Language code", "R",
+			"l", "Language term", "R",
+			"0", "Authority record control number or standard number", "R",
+			"2", "Source", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("2").setCodeList(LanguageCodeAndTermSourceCodes.getInstance());
 	}

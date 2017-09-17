@@ -26,19 +26,19 @@ public class Tag657 extends DataFieldDefinition {
 		label = "Index Term - Function";
 		ind1 = new Indicator("");
 		ind2 = new Indicator("Source of term").setCodes(
-				"7", "Source specified in subfield $2"
+			"7", "Source specified in subfield $2"
 		);
 		setSubfieldsWithCardinality(
-				"a", "Function", "NR",
-				"v", "Form subdivision", "R",
-				"x", "General subdivision", "R",
-				"y", "Chronological subdivision", "R",
-				"z", "Geographic subdivision", "R",
-				"0", "Authority record control number", "R",
-				"2", "Source of term", "NR",
-				"3", "Materials specified", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Function", "NR",
+			"v", "Form subdivision", "R",
+			"x", "General subdivision", "R",
+			"y", "Chronological subdivision", "R",
+			"z", "Geographic subdivision", "R",
+			"0", "Authority record control number", "R",
+			"2", "Source of term", "NR",
+			"3", "Materials specified", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		// TODO: $2 Function Term Source Codes http://www.loc.gov/standards/sourcelist/function.html
 		// getSubfield("2").setCodeList(GenreFormCodeAndTermSourceCodes.getInstance());

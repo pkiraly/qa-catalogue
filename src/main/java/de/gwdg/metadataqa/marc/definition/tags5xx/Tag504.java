@@ -30,10 +30,10 @@ public class Tag504 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Bibliography, etc. note", "NR",
-				"b", "Number of references", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Bibliography, etc. note", "NR",
+			"b", "Number of references", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

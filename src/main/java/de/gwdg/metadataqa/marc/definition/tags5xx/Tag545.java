@@ -28,17 +28,17 @@ public class Tag545 extends DataFieldDefinition {
 		label = "Biographical or Historical Data";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Type of data").setCodes(
-				" ", "No information provided",
-				"0", "Biographical sketch",
-				"1", "Administrative history"
+			" ", "No information provided",
+			"0", "Biographical sketch",
+			"1", "Administrative history"
 		);
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Biographical or historical data", "NR",
-				"b", "Expansion", "NR",
-				"u", "Uniform Resource Identifier", "R",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Biographical or historical data", "NR",
+			"b", "Expansion", "NR",
+			"u", "Uniform Resource Identifier", "R",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

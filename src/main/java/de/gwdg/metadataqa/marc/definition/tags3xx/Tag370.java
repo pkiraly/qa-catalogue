@@ -29,20 +29,20 @@ public class Tag370 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"c", "Associated country", "R",
-				"f", "Other associated place", "R",
-				"g", "Place of origin of work or expression", "R",
-				"i", "Relationship information", "R",
-				"s", "Start period", "NR",
-				"t", "End period", "NR",
-				"u", "Uniform Resource Identifier", "R",
-				"v", "Source of information", "R",
-				"0", "Authority record control number or standard number", "R",
-				"2", "Source of term", "NR",
-				"3", "Materials specified", "NR",
-				"4", "Relationship", "R",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"c", "Associated country", "R",
+			"f", "Other associated place", "R",
+			"g", "Place of origin of work or expression", "R",
+			"i", "Relationship information", "R",
+			"s", "Start period", "NR",
+			"t", "End period", "NR",
+			"u", "Uniform Resource Identifier", "R",
+			"v", "Source of information", "R",
+			"0", "Authority record control number or standard number", "R",
+			"2", "Source of term", "NR",
+			"3", "Materials specified", "NR",
+			"4", "Relationship", "R",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
 	}

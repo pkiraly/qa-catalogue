@@ -30,10 +30,10 @@ public class Tag035 extends DataFieldDefinition {
 		ind1 = new Indicator("").setCodes();
 		ind2 = new Indicator("").setCodes();
 		setSubfieldsWithCardinality(
-				"a", "System control number", "NR",
-				"z", "Canceled/invalid control number", "R",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "System control number", "NR",
+			"z", "Canceled/invalid control number", "R",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

@@ -30,11 +30,11 @@ public class Tag546 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Language note", "NR",
-				"b", "Information code or alphabet", "R",
-				"3", "Materials specified", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Language note", "NR",
+			"b", "Information code or alphabet", "R",
+			"3", "Materials specified", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

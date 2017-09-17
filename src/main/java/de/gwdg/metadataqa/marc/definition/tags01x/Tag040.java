@@ -32,13 +32,13 @@ public class Tag040 extends DataFieldDefinition {
 		ind1 = new Indicator("").setCodes(" ", "Undefined");
 		ind2 = new Indicator("").setCodes(" ", "Undefined");
 		setSubfieldsWithCardinality(
-				"a", "Original cataloging agency", "NR",
-				"b", "Language of cataloging", "NR",
-				"c", "Transcribing agency", "NR",
-				"d", "Modifying agency", "R",
-				"e", "Description conventions", "R",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Original cataloging agency", "NR",
+			"b", "Language of cataloging", "NR",
+			"c", "Transcribing agency", "NR",
+			"d", "Modifying agency", "R",
+			"e", "Description conventions", "R",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("b").setCodeList(LanguageCodes.getInstance());
 		getSubfield("e").setCodeList(DescriptionConventionSourceCodes.getInstance());

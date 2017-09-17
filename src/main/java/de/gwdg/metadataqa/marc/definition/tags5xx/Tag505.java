@@ -28,23 +28,23 @@ public class Tag505 extends DataFieldDefinition {
 		label = "Bibliography, etc. Note";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Display constant controller").setCodes(
-				"0", "Contents",
-				"1", "Incomplete contents",
-				"2", "Partial contents",
-				"8", "No display constant generated"
+			"0", "Contents",
+			"1", "Incomplete contents",
+			"2", "Partial contents",
+			"8", "No display constant generated"
 		);
 		ind2 = new Indicator("Level of content designation").setCodes(
-				" ", "Basic",
-				"0", "Enhanced"
+			" ", "Basic",
+			"0", "Enhanced"
 		);
 		setSubfieldsWithCardinality(
-				"a", "Formatted contents note", "NR",
-				"g", "Miscellaneous information", "R",
-				"r", "Statement of responsibility", "R",
-				"t", "Title", "R",
-				"u", "Uniform Resource Identifier", "R",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Formatted contents note", "NR",
+			"g", "Miscellaneous information", "R",
+			"r", "Statement of responsibility", "R",
+			"t", "Title", "R",
+			"u", "Uniform Resource Identifier", "R",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

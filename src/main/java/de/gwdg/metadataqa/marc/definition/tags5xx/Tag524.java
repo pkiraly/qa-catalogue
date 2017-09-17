@@ -29,16 +29,16 @@ public class Tag524 extends DataFieldDefinition {
 		label = "Preferred Citation of Described Materials Note";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Display constant controller").setCodes(
-				" ", "Cite as",
-				"8", "No display constant generated"
+			" ", "Cite as",
+			"8", "No display constant generated"
 		);
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Preferred citation of described materials note", "NR",
-				"2", "Source of schema used", "NR",
-				"3", "Materials specified", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Preferred citation of described materials note", "NR",
+			"2", "Source of schema used", "NR",
+			"3", "Materials specified", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("2").setCodeList(CitationSchemeSourceCodes.getInstance());
 	}

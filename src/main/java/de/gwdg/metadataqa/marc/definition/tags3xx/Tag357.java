@@ -28,12 +28,12 @@ public class Tag357 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Originator control term", "NR",
-				"b", "Originating agency", "R",
-				"c", "Authorized recipients of material", "R",
-				"g", "Other restrictions", "R",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Originator control term", "NR",
+			"b", "Originating agency", "R",
+			"c", "Authorized recipients of material", "R",
+			"g", "Other restrictions", "R",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

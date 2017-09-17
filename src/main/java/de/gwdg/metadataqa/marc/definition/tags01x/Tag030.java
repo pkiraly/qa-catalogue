@@ -7,7 +7,7 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
 /**
  * CODEN Designation
  * http://www.loc.gov/marc/bibliographic/bd030.html
- *
+ * <p>
  * CODEN is a unique identifier for scientific and technical periodical titles; it consists of
  * six characters. The CODEN is assigned by the International CODEN Section of Chemical Abstracts Service.
  */
@@ -32,11 +32,11 @@ public class Tag030 extends DataFieldDefinition {
 		ind1 = new Indicator("").setCodes();
 		ind2 = new Indicator("").setCodes();
 		setSubfieldsWithCardinality(
-				"a", "Publisher or distributor number", "NR",
-				"b", "Source", "NR",
-				"q", "Qualifying information", "R",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Publisher or distributor number", "NR",
+			"b", "Source", "NR",
+			"q", "Qualifying information", "R",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		// getSubfield("5").setCodeList(OrganizationCodes.getInstance());
 	}

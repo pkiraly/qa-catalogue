@@ -28,15 +28,15 @@ public class Tag586 extends DataFieldDefinition {
 		label = "Awards Note";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Display constant controller").setCodes(
-				" ", "Awards",
-				"8", "No display constant generated"
+			" ", "Awards",
+			"8", "No display constant generated"
 		);
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Awards note", "NR",
-				"3", "Materials specified", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Awards note", "NR",
+			"3", "Materials specified", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

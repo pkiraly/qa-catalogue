@@ -30,15 +30,15 @@ public class Tag562 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Identifying markings", "R",
-				"b", "Copy identification", "R",
-				"c", "Version identification", "R",
-				"d", "Presentation format", "R",
-				"e", "Number of copies", "R",
-				"3", "Materials specified", "NR",
-				"5", "Institution to which field applies", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Identifying markings", "R",
+			"b", "Copy identification", "R",
+			"c", "Version identification", "R",
+			"d", "Presentation format", "R",
+			"e", "Number of copies", "R",
+			"3", "Materials specified", "NR",
+			"5", "Institution to which field applies", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

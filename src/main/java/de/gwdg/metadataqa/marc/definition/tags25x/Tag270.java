@@ -28,37 +28,37 @@ public class Tag270 extends DataFieldDefinition {
 		label = "Address";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Level").setCodes(
-				" ", "No level specified",
-				"1", "Primary",
-				"2", "Secondary"
+			" ", "No level specified",
+			"1", "Primary",
+			"2", "Secondary"
 		);
 		ind2 = new Indicator("Type of address").setCodes(
-				" ", "No type specified",
-				"0", "Mailing",
-				"7", "Type specified in subfield $i"
+			" ", "No type specified",
+			"0", "Mailing",
+			"7", "Type specified in subfield $i"
 		);
 		setSubfieldsWithCardinality(
-				"a", "Address", "R",
-				"b", "City", "NR",
-				"c", "State or province", "NR",
-				"d", "Country", "NR",
-				"e", "Postal code", "NR",
-				"f", "Terms preceding attention name", "NR",
-				"g", "Attention name", "NR",
-				"h", "Attention position", "NR",
-				"i", "Type of address", "NR",
-				"j", "Specialized telephone number", "R",
-				"k", "Telephone number", "R",
-				"l", "Fax number", "R",
-				"m", "Electronic mail address", "R",
-				"n", "TDD or TTY number", "R",
-				"p", "Contact person", "R",
-				"q", "Title of contact person", "R",
-				"r", "Hours", "R",
-				"z", "Public note", "R",
-				"4", "Relationship", "R",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Address", "R",
+			"b", "City", "NR",
+			"c", "State or province", "NR",
+			"d", "Country", "NR",
+			"e", "Postal code", "NR",
+			"f", "Terms preceding attention name", "NR",
+			"g", "Attention name", "NR",
+			"h", "Attention position", "NR",
+			"i", "Type of address", "NR",
+			"j", "Specialized telephone number", "R",
+			"k", "Telephone number", "R",
+			"l", "Fax number", "R",
+			"m", "Electronic mail address", "R",
+			"n", "TDD or TTY number", "R",
+			"p", "Contact person", "R",
+			"q", "Title of contact person", "R",
+			"r", "Hours", "R",
+			"z", "Public note", "R",
+			"4", "Relationship", "R",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
 	}

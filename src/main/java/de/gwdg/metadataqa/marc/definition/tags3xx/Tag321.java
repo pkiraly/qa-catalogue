@@ -28,10 +28,10 @@ public class Tag321 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Former publication frequency", "NR",
-				"b", "Dates of former publication frequency", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Former publication frequency", "NR",
+			"b", "Dates of former publication frequency", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

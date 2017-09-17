@@ -28,9 +28,9 @@ public class Tag306 extends DataFieldDefinition {
 		ind1 = new Indicator("").setCodes();
 		ind2 = new Indicator("").setCodes();
 		setSubfieldsWithCardinality(
-				"a", "Playing time", "R",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Playing time", "R",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		// TODO: $a is regex: hhmmss
 	}

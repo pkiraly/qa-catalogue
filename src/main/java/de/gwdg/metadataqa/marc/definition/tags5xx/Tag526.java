@@ -29,21 +29,21 @@ public class Tag526 extends DataFieldDefinition {
 		label = "Study Program Information Note";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Display constant controller").setCodes(
-				"0", "Reading program",
-				"8", "No display constant generated"
+			"0", "Reading program",
+			"8", "No display constant generated"
 		);
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Program name", "NR",
-				"b", "Interest level", "NR",
-				"c", "Reading level", "NR",
-				"d", "Title point value", "NR",
-				"i", "Display text", "NR",
-				"x", "Nonpublic note", "R",
-				"z", "Public note", "R",
-				"5", "Institution to which field applies", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Program name", "NR",
+			"b", "Interest level", "NR",
+			"c", "Reading level", "NR",
+			"d", "Title point value", "NR",
+			"i", "Display text", "NR",
+			"x", "Nonpublic note", "R",
+			"z", "Public note", "R",
+			"5", "Institution to which field applies", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("5").setCodeList(OrganizationCodes.getInstance());
 		getSubfield("a").setBibframeTag("studyProgramName");

@@ -29,19 +29,19 @@ public class Tag535 extends DataFieldDefinition {
 		label = "Location of Originals/Duplicates Note";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Custodial role").setCodes(
-				"1", "Holder of originals",
-				"2", "Holder of duplicates"
+			"1", "Holder of originals",
+			"2", "Holder of duplicates"
 		);
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Custodian", "NR",
-				"b", "Postal address", "R",
-				"c", "Country", "R",
-				"d", "Telecommunications address", "R",
-				"g", "Repository location code", "NR",
-				"3", "Materials specified", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Custodian", "NR",
+			"b", "Postal address", "R",
+			"c", "Country", "R",
+			"d", "Telecommunications address", "R",
+			"g", "Repository location code", "NR",
+			"3", "Materials specified", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("g").setCodeList(CountryCodes.getInstance());
 	}

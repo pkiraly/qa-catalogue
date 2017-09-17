@@ -29,29 +29,29 @@ public class Tag041 extends DataFieldDefinition {
 		label = "Language Code";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Translation indication").setCodes(
-				" ", "No information provided",
-				"0", "Item not a translation/does not include a translation",
-				"1", "Item is or includes a translation"
+			" ", "No information provided",
+			"0", "Item not a translation/does not include a translation",
+			"1", "Item is or includes a translation"
 		);
 		ind2 = new Indicator("Source of code").setCodes(
-				" ", "MARC language code",
-				"7", "Source specified in subfield $2"
+			" ", "MARC language code",
+			"7", "Source specified in subfield $2"
 		);
 		setSubfieldsWithCardinality(
-				"a", "Language code of text/sound track or separate title", "R",
-				"b", "Language code of summary or abstract", "R",
-				"d", "Language code of sung or spoken text", "R",
-				"e", "Language code of librettos", "R",
-				"f", "Language code of table of contents", "R",
-				"g", "Language code of accompanying material other than librettos", "R",
-				"h", "Language code of original", "R",
-				"j", "Language code of subtitles or captions", "R",
-				"k", "Language code of intermediate translations", "R",
-				"m", "Language code of original accompanying materials other than librettos", "R",
-				"n", "Language code of original libretto", "R",
-				"2", "Source of code", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Language code of text/sound track or separate title", "R",
+			"b", "Language code of summary or abstract", "R",
+			"d", "Language code of sung or spoken text", "R",
+			"e", "Language code of librettos", "R",
+			"f", "Language code of table of contents", "R",
+			"g", "Language code of accompanying material other than librettos", "R",
+			"h", "Language code of original", "R",
+			"j", "Language code of subtitles or captions", "R",
+			"k", "Language code of intermediate translations", "R",
+			"m", "Language code of original accompanying materials other than librettos", "R",
+			"n", "Language code of original libretto", "R",
+			"2", "Source of code", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("a").setCodeList(LanguageCodes.getInstance());
 		getSubfield("b").setCodeList(LanguageCodes.getInstance());

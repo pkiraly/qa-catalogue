@@ -21,21 +21,22 @@ public class Tag017 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "017";
 		label = "Copyright or Legal Deposit Number";
+		bibframeTag = "identifiedBy/CopyrightNumber";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("").setCodes(" ", "Undefined");
 		ind2 = new Indicator("Display constant controller").setCodes(
-				" ", "Copyright or legal deposit number",
-				"8", "No display constant generated"
+			" ", "Copyright or legal deposit number",
+			"8", "No display constant generated"
 		);
 		setSubfieldsWithCardinality(
-				"a", "Copyright or legal deposit number", "R",
-				"b", "Assigning agency", "NR",
-				"d", "Date", "NR",
-				"i", "Display text", "NR",
-				"z", "Canceled/invalid copyright or legal deposit number", "R",
-				"2", "Source", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Copyright or legal deposit number", "R",
+			"b", "Assigning agency", "NR",
+			"d", "Date", "NR",
+			"i", "Display text", "NR",
+			"z", "Canceled/invalid copyright or legal deposit number", "R",
+			"2", "Source", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		// getSubfield("2").setCodeList(OrganizationCodes.getInstance());
 	}

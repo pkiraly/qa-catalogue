@@ -28,14 +28,14 @@ public class Tag511 extends DataFieldDefinition {
 		label = "Participant or Performer Note";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Display constant controller").setCodes(
-				"0", "No display constant generated",
-				"1", "Cast "
+			"0", "No display constant generated",
+			"1", "Cast "
 		);
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Participant or performer note", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Participant or performer note", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

@@ -30,15 +30,15 @@ public class Tag540 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Terms governing use and reproduction", "NR",
-				"b", "Jurisdiction", "NR",
-				"c", "Authorization", "NR",
-				"d", "Authorized users", "NR",
-				"u", "Uniform Resource Identifier", "R",
-				"3", "Materials specified", "NR",
-				"5", "Institution to which field applies", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Terms governing use and reproduction", "NR",
+			"b", "Jurisdiction", "NR",
+			"c", "Authorization", "NR",
+			"d", "Authorized users", "NR",
+			"u", "Uniform Resource Identifier", "R",
+			"3", "Materials specified", "NR",
+			"5", "Institution to which field applies", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

@@ -30,14 +30,14 @@ public class Tag530 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Additional physical form available note", "NR",
-				"b", "Availability source", "NR",
-				"c", "Availability conditions", "NR",
-				"d", "Order number", "NR",
-				"u", "Uniform Resource Identifier", "R",
-				"3", "Materials specified", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Additional physical form available note", "NR",
+			"b", "Availability source", "NR",
+			"c", "Availability conditions", "NR",
+			"d", "Order number", "NR",
+			"u", "Uniform Resource Identifier", "R",
+			"3", "Materials specified", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

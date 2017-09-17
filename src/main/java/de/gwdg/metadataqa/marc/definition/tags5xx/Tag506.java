@@ -29,24 +29,24 @@ public class Tag506 extends DataFieldDefinition {
 		label = "Restrictions on Access Note";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Restriction").setCodes(
-				" ", "No information provided",
-				"0", "No restrictions",
-				"1", "Restrictions apply"
+			" ", "No information provided",
+			"0", "No restrictions",
+			"1", "Restrictions apply"
 		);
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Terms governing access", "NR",
-				"b", "Jurisdiction", "R",
-				"c", "Physical access provisions", "R",
-				"d", "Authorized users", "R",
-				"e", "Authorization", "R",
-				"f", "Standardized terminology for access restriction", "R",
-				"u", "Uniform Resource Identifier", "R",
-				"2", "Source of term", "NR",
-				"3", "Materials specified", "NR",
-				"5", "Institution to which field applies", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Terms governing access", "NR",
+			"b", "Jurisdiction", "R",
+			"c", "Physical access provisions", "R",
+			"d", "Authorized users", "R",
+			"e", "Authorization", "R",
+			"f", "Standardized terminology for access restriction", "R",
+			"u", "Uniform Resource Identifier", "R",
+			"2", "Source of term", "NR",
+			"3", "Materials specified", "NR",
+			"5", "Institution to which field applies", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("2").setCodeList(AccessRestrictionTermSourceCodes.getInstance());
 	}

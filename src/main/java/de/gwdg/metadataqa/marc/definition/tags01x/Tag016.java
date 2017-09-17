@@ -22,18 +22,22 @@ public class Tag016 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "016";
 		label = "National Bibliographic Agency Control Number";
+		bibframeTag = "identifiedBy/Local";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("National bibliographic agency").setCodes(
-				" ", "Library and Archives Canada",
-				"7", "Source specified in subfield $2"
+			" ", "Library and Archives Canada",
+			"7", "Source specified in subfield $2"
 		);
 		ind2 = new Indicator("").setCodes(" ", "Undefined");
 		setSubfieldsWithCardinality(
-				"a", "Record control number", "NR",
-				"z", "Canceled/invalid control number", "R",
-				"2", "Source", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Record control number", "NR",
+			"z", "Canceled/invalid control number", "R",
+			"2", "Source", "NR",
+			"8", "Field link and sequence number", "R"
 		);
-		getSubfield("2").setCodeList(OrganizationCodes.getInstance());
+		getSubfield("2")
+			.setCodeList(OrganizationCodes.getInstance())
+			.setBibframeTag("source");
+		getSubfield("a").setBibframeTag("rdf:value");
 	}
 }

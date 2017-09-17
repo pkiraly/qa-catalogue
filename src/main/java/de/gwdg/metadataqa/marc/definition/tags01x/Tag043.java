@@ -31,13 +31,13 @@ public class Tag043 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Geographic area code", "R",
-				"b", "Local GAC code", "R",
-				"c", "ISO code", "R",
-				"0", "Authority record control number or standard number", "R",
-				"2", "Source of local code", "R",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Geographic area code", "R",
+			"b", "Local GAC code", "R",
+			"c", "ISO code", "R",
+			"0", "Authority record control number or standard number", "R",
+			"2", "Source of local code", "R",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("a").setCodeList(GeographicAreaCodes.getInstance());
 		getSubfield("2").setCodeList(GeographicAreaSourceCodes.getInstance());

@@ -29,11 +29,11 @@ public class Tag380 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Form of work", "R",
-				"0", "Record control number", "R",
-				"2", "Source of term", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Form of work", "R",
+			"0", "Record control number", "R",
+			"2", "Source of term", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
 	}

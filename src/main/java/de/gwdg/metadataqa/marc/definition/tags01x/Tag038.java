@@ -29,9 +29,9 @@ public class Tag038 extends DataFieldDefinition {
 		ind1 = new Indicator("").setCodes();
 		ind2 = new Indicator("").setCodes();
 		setSubfieldsWithCardinality(
-				"a", "Record content licensor", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Record content licensor", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

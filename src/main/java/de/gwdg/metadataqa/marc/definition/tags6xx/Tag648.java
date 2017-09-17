@@ -27,19 +27,19 @@ public class Tag648 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Named event", "NR",
-				"c", "Location of named event", "R",
-				"d", "Date of named event", "NR",
-				"g", "Miscellaneous information", "R",
-				"v", "Form subdivision", "R",
-				"x", "General subdivision", "R",
-				"y", "Chronological subdivision", "R",
-				"z", "Geographic subdivision", "R",
-				"0", "Authority record control number or standard number", "R",
-				"2", "Source of heading or term", "NR",
-				"3", "Materials specified", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Named event", "NR",
+			"c", "Location of named event", "R",
+			"d", "Date of named event", "NR",
+			"g", "Miscellaneous information", "R",
+			"v", "Form subdivision", "R",
+			"x", "General subdivision", "R",
+			"y", "Chronological subdivision", "R",
+			"z", "Geographic subdivision", "R",
+			"0", "Authority record control number or standard number", "R",
+			"2", "Source of heading or term", "NR",
+			"3", "Materials specified", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

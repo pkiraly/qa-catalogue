@@ -26,15 +26,15 @@ public class Tag307 extends DataFieldDefinition {
 		label = "Hours, etc.";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Display constant controller").setCodes(
-				" ", "Hours",
-				"8", "No display constant generated"
+			" ", "Hours",
+			"8", "No display constant generated"
 		);
 		ind2 = new Indicator("").setCodes();
 		setSubfieldsWithCardinality(
-				"a", "Hours", "NR",
-				"b", "Additional information", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Hours", "NR",
+			"b", "Additional information", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		// TODO: $a is complex := <days of the week>, <hours>[;]
 		// ';' if there is $b

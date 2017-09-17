@@ -28,15 +28,15 @@ public class Tag255 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Statement of scale", "NR",
-				"b", "Statement of projection", "NR",
-				"c", "Statement of coordinates", "NR",
-				"d", "Statement of zone", "NR",
-				"e", "Statement of equinox", "NR",
-				"f", "Outer G-ring coordinate pairs", "NR",
-				"g", "Exclusion G-ring coordinate pairs", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Statement of scale", "NR",
+			"b", "Statement of projection", "NR",
+			"c", "Statement of coordinates", "NR",
+			"d", "Statement of zone", "NR",
+			"e", "Statement of equinox", "NR",
+			"f", "Outer G-ring coordinate pairs", "NR",
+			"g", "Exclusion G-ring coordinate pairs", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

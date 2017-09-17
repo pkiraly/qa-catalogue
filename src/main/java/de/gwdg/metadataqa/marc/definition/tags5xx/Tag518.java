@@ -31,15 +31,15 @@ public class Tag518 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Date/time and place of an event note", "NR",
-				"d", "Date of event", "R",
-				"o", "Other event information", "R",
-				"p", "Place of event", "R",
-				"0", "Record control number", "R",
-				"2", "Source of term", "R",
-				"3", "Materials specified", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Date/time and place of an event note", "NR",
+			"d", "Date of event", "R",
+			"o", "Other event information", "R",
+			"p", "Place of event", "R",
+			"0", "Record control number", "R",
+			"2", "Source of term", "R",
+			"3", "Materials specified", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
 	}

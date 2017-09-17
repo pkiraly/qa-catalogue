@@ -29,13 +29,13 @@ public class Tag336 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Content type term", "R",
-				"b", "Content type code", "R",
-				"0", "Authority record control number or standard number", "R",
-				"2", "Source", "NR",
-				"3", "Materials specified", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Content type term", "R",
+			"b", "Content type code", "R",
+			"0", "Authority record control number or standard number", "R",
+			"2", "Source", "NR",
+			"3", "Materials specified", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("2").setCodeList(GenreFormCodeAndTermSourceCodes.getInstance());
 	}

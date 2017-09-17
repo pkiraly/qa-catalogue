@@ -3,7 +3,6 @@ package de.gwdg.metadataqa.marc.definition.tags20x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.general.codelist.AbbreviatedTitleSourceCodes;
 
 /**
  * Key Title
@@ -28,14 +27,14 @@ public class Tag222 extends DataFieldDefinition {
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("");
 		ind2 = new Indicator("Nonfiling characters").setCodes(
-				"0", "No nonfiling characters",
-				"1-9", "Number of nonfiling characters"
+			"0", "No nonfiling characters",
+			"1-9", "Number of nonfiling characters"
 		);
 		setSubfieldsWithCardinality(
-				"a", "Key title", "NR",
-				"b", "Qualifying information", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Key title", "NR",
+			"b", "Qualifying information", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

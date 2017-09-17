@@ -29,11 +29,11 @@ public class Tag071 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Classification number", "R",
-				"b", "Item number", "NR",
-				"c", "Copy information", "R",
-				// "6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Classification number", "R",
+			"b", "Item number", "NR",
+			"c", "Copy information", "R",
+			// "6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

@@ -61,6 +61,14 @@ public class SubfieldDefinition {
 		return this;
 	}
 
+	public Code getCode(String _code) {
+		for (Code code: codes) {
+			if (code.getCode().equals(_code))
+				return code;
+		}
+		return null;
+	}
+
 	public String getCardinalityCode() {
 		return cardinalityCode;
 	}

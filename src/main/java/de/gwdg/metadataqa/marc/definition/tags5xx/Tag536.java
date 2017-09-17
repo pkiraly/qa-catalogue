@@ -3,7 +3,6 @@ package de.gwdg.metadataqa.marc.definition.tags5xx;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
 
 /**
  * Funding Information Note
@@ -32,16 +31,16 @@ public class Tag536 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Text of note", "NR",
-				"b", "Contract number", "R",
-				"c", "Grant number", "R",
-				"d", "Undifferentiated number", "R",
-				"e", "Program element number", "R",
-				"f", "Project number", "R",
-				"g", "Task number", "R",
-				"h", "Work unit number", "R",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Text of note", "NR",
+			"b", "Contract number", "R",
+			"c", "Grant number", "R",
+			"d", "Undifferentiated number", "R",
+			"e", "Program element number", "R",
+			"f", "Project number", "R",
+			"g", "Task number", "R",
+			"h", "Work unit number", "R",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

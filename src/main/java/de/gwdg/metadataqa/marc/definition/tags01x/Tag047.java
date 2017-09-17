@@ -3,7 +3,6 @@ package de.gwdg.metadataqa.marc.definition.tags01x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.general.codelist.DateSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.MusicalCompositionSourceCodes;
 
 /**
@@ -30,13 +29,13 @@ public class Tag047 extends DataFieldDefinition {
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("");
 		ind2 = new Indicator("Source of code").setCodes(
-				" ", "MARC musical composition code",
-				"7", "Source specified in subfield $2"
+			" ", "MARC musical composition code",
+			"7", "Source specified in subfield $2"
 		);
 		setSubfieldsWithCardinality(
-				"a", "Form of musical composition code", "R",
-				"2", "Source of code", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Form of musical composition code", "R",
+			"2", "Source of code", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("2").setCodeList(MusicalCompositionSourceCodes.getInstance());
 	}

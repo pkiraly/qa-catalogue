@@ -27,38 +27,38 @@ public class Tag650 extends DataFieldDefinition {
 		tag = "650";
 		label = "Subject Added Entry - Topical Term";
 		ind1 = new Indicator("Level of subject").setCodes(
-				" ", "No information provided",
-				"0", "No level specified",
-				"1", "Primary",
-				"2", "Secondary"
+			" ", "No information provided",
+			"0", "No level specified",
+			"1", "Primary",
+			"2", "Secondary"
 		);
 		ind2 = new Indicator("Thesaurus").setCodes(
-				"0", "Library of Congress Subject Headings",
-				"1", "LC subject headings for children's literature",
-				"2", "Medical Subject Headings",
-				"3", "National Agricultural Library subject authority file",
-				"4", "Source not specified",
-				"5", "Canadian Subject Headings",
-				"6", "Répertoire de vedettes-matière",
-				"7", "Source specified in subfield $2"
+			"0", "Library of Congress Subject Headings",
+			"1", "LC subject headings for children's literature",
+			"2", "Medical Subject Headings",
+			"3", "National Agricultural Library subject authority file",
+			"4", "Source not specified",
+			"5", "Canadian Subject Headings",
+			"6", "Répertoire de vedettes-matière",
+			"7", "Source specified in subfield $2"
 		);
 		setSubfieldsWithCardinality(
-				"a", "Topical term or geographic name entry element", "NR",
-				"b", "Topical term following geographic name entry element", "NR",
-				"c", "Location of event", "NR",
-				"d", "Active dates", "NR",
-				"e", "Relator term", "R",
-				"g", "Miscellaneous information", "R",
-				"4", "Relationship", "R",
-				"v", "Form subdivision", "R",
-				"x", "General subdivision", "R",
-				"y", "Chronological subdivision", "R",
-				"z", "Geographic subdivision", "R",
-				"0", "Authority record control number or standard number", "R",
-				"2", "Source of heading or term", "NR",
-				"3", "Materials specified", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Topical term or geographic name entry element", "NR",
+			"b", "Topical term following geographic name entry element", "NR",
+			"c", "Location of event", "NR",
+			"d", "Active dates", "NR",
+			"e", "Relator term", "R",
+			"g", "Miscellaneous information", "R",
+			"4", "Relationship", "R",
+			"v", "Form subdivision", "R",
+			"x", "General subdivision", "R",
+			"y", "Chronological subdivision", "R",
+			"z", "Geographic subdivision", "R",
+			"0", "Authority record control number or standard number", "R",
+			"2", "Source of heading or term", "NR",
+			"3", "Materials specified", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
 		getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());

@@ -25,9 +25,9 @@ public class Tag018 extends DataFieldDefinition {
 		ind1 = new Indicator("").setCodes(" ", "Undefined");
 		ind2 = new Indicator("").setCodes(" ", "Undefined");
 		setSubfieldsWithCardinality(
-				"a", "Copyright article-fee code", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Copyright article-fee code", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		// getSubfield("2").setCodeList(OrganizationCodes.getInstance());
 	}

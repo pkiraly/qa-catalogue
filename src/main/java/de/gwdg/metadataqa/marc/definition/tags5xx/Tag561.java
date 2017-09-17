@@ -28,18 +28,18 @@ public class Tag561 extends DataFieldDefinition {
 		label = "Ownership and Custodial History";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Privacy").setCodes(
-				" ", "No information provided",
-				"0", "Private",
-				"1", "Not private"
+			" ", "No information provided",
+			"0", "Private",
+			"1", "Not private"
 		);
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "History", "NR",
-				"u", "Uniform Resource Identifier", "R",
-				"3", "Materials specified", "NR",
-				"5", "Institution to which field applies", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "History", "NR",
+			"u", "Uniform Resource Identifier", "R",
+			"3", "Materials specified", "NR",
+			"5", "Institution to which field applies", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

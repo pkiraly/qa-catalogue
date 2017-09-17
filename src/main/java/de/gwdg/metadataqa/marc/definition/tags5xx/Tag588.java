@@ -28,16 +28,16 @@ public class Tag588 extends DataFieldDefinition {
 		label = "Source of Description Note";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Display constant controller").setCodes(
-				" ", "No information provided",
-				"0", "Source of description",
-				"1", "Latest issue consulted"
+			" ", "No information provided",
+			"0", "Source of description",
+			"1", "Latest issue consulted"
 		);
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Source of description note", "NR",
-				"5", "Institution to which field applies", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Source of description note", "NR",
+			"5", "Institution to which field applies", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

@@ -28,17 +28,17 @@ public class Tag347 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "File type", "R",
-				"b", "Encoding format", "R",
-				"c", "File size", "R",
-				"d", "Resolution", "R",
-				"e", "Regional encoding", "R",
-				"f", "Encoded bitrate", "R",
-				"0", "Authority record control number or standard number", "R",
-				"2", "Source", "NR",
-				"3", "Materials specified", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "File type", "R",
+			"b", "Encoding format", "R",
+			"c", "File size", "R",
+			"d", "Resolution", "R",
+			"e", "Regional encoding", "R",
+			"f", "Encoded bitrate", "R",
+			"0", "Authority record control number or standard number", "R",
+			"2", "Source", "NR",
+			"3", "Materials specified", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

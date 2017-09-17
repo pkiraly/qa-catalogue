@@ -28,27 +28,27 @@ public class Tag355 extends DataFieldDefinition {
 		label = "Security Classification Control";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Controlled element").setCodes(
-				"0", "Document",
-				"1", "Title",
-				"2", "Abstract",
-				"3", "Contents note",
-				"4", "Author",
-				"5", "Record",
-				"8", "None of the above"
+			"0", "Document",
+			"1", "Title",
+			"2", "Abstract",
+			"3", "Contents note",
+			"4", "Author",
+			"5", "Record",
+			"8", "None of the above"
 		);
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Security classification", "NR",
-				"b", "Handling instructions", "R",
-				"c", "External dissemination information", "R",
-				"d", "Downgrading or declassification event", "NR",
-				"e", "Classification system", "NR",
-				"f", "Country of origin code", "NR",
-				"g", "Downgrading date", "NR",
-				"h", "Declassification date", "NR",
-				"j", "Authorization", "R",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Security classification", "NR",
+			"b", "Handling instructions", "R",
+			"c", "External dissemination information", "R",
+			"d", "Downgrading or declassification event", "NR",
+			"e", "Classification system", "NR",
+			"f", "Country of origin code", "NR",
+			"g", "Downgrading date", "NR",
+			"h", "Declassification date", "NR",
+			"j", "Authorization", "R",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("f").setCodeList(CountryCodes.getInstance());
 		getSubfield("j").setCodeList(OrganizationCodes.getInstance());

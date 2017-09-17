@@ -28,17 +28,17 @@ public class Tag343 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Planar coordinate encoding method", "NR",
-				"b", "Planar distance units", "NR",
-				"c", "Abscissa resolution", "NR",
-				"d", "Ordinate resolution", "NR",
-				"e", "Distance resolution", "NR",
-				"f", "Bearing resolution", "NR",
-				"g", "Bearing units", "NR",
-				"h", "Bearing reference direction", "NR",
-				"i", "Bearing reference meridian", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Planar coordinate encoding method", "NR",
+			"b", "Planar distance units", "NR",
+			"c", "Abscissa resolution", "NR",
+			"d", "Ordinate resolution", "NR",
+			"e", "Distance resolution", "NR",
+			"f", "Bearing resolution", "NR",
+			"g", "Bearing units", "NR",
+			"h", "Bearing reference direction", "NR",
+			"i", "Bearing reference meridian", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

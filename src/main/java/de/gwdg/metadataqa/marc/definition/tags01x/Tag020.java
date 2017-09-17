@@ -25,12 +25,12 @@ public class Tag020 extends DataFieldDefinition {
 		ind1 = new Indicator("").setCodes(" ", "Undefined");
 		ind2 = new Indicator("").setCodes(" ", "Undefined");
 		setSubfieldsWithCardinality(
-				"a", "International Standard Book Number", "NR",
-				"c", "Terms of availability", "NR",
-				"q", "Qualifying information", "R",
-				"z", "Canceled/invalid ISBN", "R",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "International Standard Book Number", "NR",
+			"c", "Terms of availability", "NR",
+			"q", "Qualifying information", "R",
+			"z", "Canceled/invalid ISBN", "R",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		// TODO validation ISO 2108
 		// getSubfield("2").setValidator(new ISBNValidator())

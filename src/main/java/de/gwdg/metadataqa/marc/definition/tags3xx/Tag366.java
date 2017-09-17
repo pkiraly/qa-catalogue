@@ -30,19 +30,19 @@ public class Tag366 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Publishers' compressed title identification", "NR",
-				"b", "Detailed date of publication", "NR",
-				"c", "Availability status code", "NR",
-				"d", "Expected next availability date", "NR",
-				"e", "Note", "NR",
-				"f", "Publisher's discount category", "NR",
-				"g", "Date made out of print", "NR",
-				"j", "ISO country code", "NR",
-				"k", "MARC country code", "NR",
-				"m", "Identification of agency", "NR",
-				"2", "Source of availability status code", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Publishers' compressed title identification", "NR",
+			"b", "Detailed date of publication", "NR",
+			"c", "Availability status code", "NR",
+			"d", "Expected next availability date", "NR",
+			"e", "Note", "NR",
+			"f", "Publisher's discount category", "NR",
+			"g", "Date made out of print", "NR",
+			"j", "ISO country code", "NR",
+			"k", "MARC country code", "NR",
+			"m", "Identification of agency", "NR",
+			"2", "Source of availability status code", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		// TODO $b - regex: yyyymmdd
 		// TODO $c - regex: yyyymmdd

@@ -3,7 +3,6 @@ package de.gwdg.metadataqa.marc.definition.tags25x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.tags20x.Tag245;
 
 public class Tag260 extends DataFieldDefinition {
 
@@ -24,21 +23,21 @@ public class Tag260 extends DataFieldDefinition {
 		label = "Publication, Distribution, etc. (Imprint)";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Sequence of publishing statements").setCodes(
-				" ", "Not applicable/No information provided/Earliest available publisher",
-				"2", "Intervening publisher",
-				"3", "Current/latest publisher"
+			" ", "Not applicable/No information provided/Earliest available publisher",
+			"2", "Intervening publisher",
+			"3", "Current/latest publisher"
 		);
 		ind2 = new Indicator("").setCodes(" ", "Undefined");
 		setSubfieldsWithCardinality(
-				"a", "Place of publication, distribution, etc.", "R",
-				"b", "Name of publisher, distributor, etc.", "R",
-				"c", "Date of publication, distribution, etc.", "R",
-				"e", "Place of manufacture", "R",
-				"f", "Manufacturer", "R",
-				"g", "Date of manufacture", "R",
-				"3", "Materials specified", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Place of publication, distribution, etc.", "R",
+			"b", "Name of publisher, distributor, etc.", "R",
+			"c", "Date of publication, distribution, etc.", "R",
+			"e", "Place of manufacture", "R",
+			"f", "Manufacturer", "R",
+			"g", "Date of manufacture", "R",
+			"3", "Materials specified", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

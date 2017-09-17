@@ -28,20 +28,20 @@ public class Tag555 extends DataFieldDefinition {
 		label = "Cumulative Index/Finding Aids Note";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Display constant controller").setCodes(
-				" ", "Indexes",
-				"0", "Finding aids",
-				"8", "No display constant generated"
+			" ", "Indexes",
+			"0", "Finding aids",
+			"8", "No display constant generated"
 		);
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Cumulative index/finding aids note", "NR",
-				"b", "Availability source", "R",
-				"c", "Degree of control", "NR",
-				"d", "Bibliographic reference", "NR",
-				"u", "Uniform Resource Identifier", "R",
-				"3", "Materials specified", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Cumulative index/finding aids note", "NR",
+			"b", "Availability source", "R",
+			"c", "Degree of control", "NR",
+			"d", "Bibliographic reference", "NR",
+			"u", "Uniform Resource Identifier", "R",
+			"3", "Materials specified", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

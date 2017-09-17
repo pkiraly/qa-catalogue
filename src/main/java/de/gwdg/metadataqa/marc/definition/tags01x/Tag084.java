@@ -31,12 +31,12 @@ public class Tag084 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Classification number", "R",
-				"b", "Item number", "NR",
-				"q", "Assigning agency", "NR",
-				"2", "Number source", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Classification number", "R",
+			"b", "Item number", "NR",
+			"q", "Assigning agency", "NR",
+			"2", "Number source", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("q").setCodeList(OrganizationCodes.getInstance());
 		// TODO: $2 code from http://www.loc.gov/standards/sourcelist/classification.html

@@ -28,17 +28,17 @@ public class Tag352 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Direct reference method", "NR",
-				"b", "Object type", "R",
-				"c", "Object count", "R",
-				"d", "Row count", "NR",
-				"e", "Column count", "NR",
-				"f", "Vertical count", "NR",
-				"g", "VPF topology level", "NR",
-				"i", "Indirect reference description", "NR",
-				"q", "Format of the digital image", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Direct reference method", "NR",
+			"b", "Object type", "R",
+			"c", "Object count", "R",
+			"d", "Row count", "NR",
+			"e", "Column count", "NR",
+			"f", "Vertical count", "NR",
+			"g", "VPF topology level", "NR",
+			"i", "Indirect reference description", "NR",
+			"q", "Format of the digital image", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

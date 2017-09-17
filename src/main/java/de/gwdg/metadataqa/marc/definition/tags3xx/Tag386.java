@@ -30,17 +30,17 @@ public class Tag386 extends DataFieldDefinition {
 		ind1 = new Indicator("").setCodes();
 		ind2 = new Indicator("").setCodes();
 		setSubfieldsWithCardinality(
-				"a", "Creator/contributor term", "R",
-				"b", "Creator/contributor code", "R",
-				"i", "Relationship information", "R",
-				"m", "Demographic group term", "NR",
-				"n", "Demographic group code", "NR",
-				"0", "Authority record control number or standard number", "R",
-				"2", "Source", "NR",
-				"3", "Materials specified", "NR",
-				"4", "Relationship", "R",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Creator/contributor term", "R",
+			"b", "Creator/contributor code", "R",
+			"i", "Relationship information", "R",
+			"m", "Demographic group term", "NR",
+			"n", "Demographic group code", "NR",
+			"0", "Authority record control number or standard number", "R",
+			"2", "Source", "NR",
+			"3", "Materials specified", "NR",
+			"4", "Relationship", "R",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

@@ -26,15 +26,15 @@ public class Tag384 extends DataFieldDefinition {
 		label = "Key";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Key type").setCodes(
-				" ", "Relationship to original unknown",
-				"0", "Original key",
-				"1", "Transposed key "
+			" ", "Relationship to original unknown",
+			"0", "Original key",
+			"1", "Transposed key "
 		);
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Key", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Key", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

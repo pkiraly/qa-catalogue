@@ -28,14 +28,14 @@ public class Tag522 extends DataFieldDefinition {
 		label = "Geographic Coverage Note";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Display constant controller").setCodes(
-				" ", "Geographic coverage",
-				"8", "No display constant generated"
+			" ", "Geographic coverage",
+			"8", "No display constant generated"
 		);
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Geographic coverage note", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Geographic coverage note", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

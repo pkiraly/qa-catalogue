@@ -27,19 +27,19 @@ public class Tag210 extends DataFieldDefinition {
 		label = "Abbreviated Title";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Title added entry").setCodes(
-				"0", "No added entry",
-				"1", "Added entry"
+			"0", "No added entry",
+			"1", "Added entry"
 		);
 		ind2 = new Indicator("Type").setCodes(
-				" ", "Abbreviated key title",
-				"0", "Other abbreviated title"
+			" ", "Abbreviated key title",
+			"0", "Other abbreviated title"
 		);
 		setSubfieldsWithCardinality(
-				"a", "Abbreviated title", "NR",
-				"b", "Qualifying information", "NR",
-				"2", "Source", "R",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Abbreviated title", "NR",
+			"b", "Qualifying information", "NR",
+			"2", "Source", "R",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("2").setCodeList(AbbreviatedTitleSourceCodes.getInstance());
 	}

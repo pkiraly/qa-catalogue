@@ -29,15 +29,15 @@ public class Tag385 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Audience term", "R",
-				"b", "Audience code", "R",
-				"m", "Demographic group term", "NR",
-				"n", "Demographic group code", "NR",
-				"0", "Authority record control number or standard number", "R",
-				"2", "Source", "NR",
-				"3", "Materials specified", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Audience term", "R",
+			"b", "Audience code", "R",
+			"m", "Demographic group term", "NR",
+			"n", "Demographic group code", "NR",
+			"0", "Authority record control number or standard number", "R",
+			"2", "Source", "NR",
+			"3", "Materials specified", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("2").setCodeList(ThematicIndexCodeSourceCodes.getInstance());
 	}

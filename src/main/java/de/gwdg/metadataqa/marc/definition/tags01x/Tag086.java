@@ -28,17 +28,17 @@ public class Tag086 extends DataFieldDefinition {
 		label = "Government Document Classification Number";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Number source").setCodes(
-				"#", "Source specified in subfield $2",
-				"0", "Superintendent of Documents Classification System",
-				"1", "Government of Canada Publications: Outline of Classification"
+			"#", "Source specified in subfield $2",
+			"0", "Superintendent of Documents Classification System",
+			"1", "Government of Canada Publications: Outline of Classification"
 		);
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Classification number", "NR",
-				"z", "Canceled/invalid classification number", "R",
-				"2", "Number source", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Classification number", "NR",
+			"z", "Canceled/invalid classification number", "R",
+			"2", "Number source", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("2").setCodeList(ClassificationSchemeSourceCodes.getInstance());
 	}

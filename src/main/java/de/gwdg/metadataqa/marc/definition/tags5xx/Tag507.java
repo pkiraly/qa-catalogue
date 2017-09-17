@@ -3,7 +3,6 @@ package de.gwdg.metadataqa.marc.definition.tags5xx;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.general.codelist.AccessRestrictionTermSourceCodes;
 
 /**
  * Scale Note for Graphic Material

@@ -27,24 +27,24 @@ public class Tag264 extends DataFieldDefinition {
 		label = "Production, Publication, Distribution, Manufacture, and Copyright Notice";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Sequence of statements").setCodes(
-				" ", "Not applicable/No information provided/Earliest",
-				"2", "Intervening",
-				"3", "Current/Latest"
+			" ", "Not applicable/No information provided/Earliest",
+			"2", "Intervening",
+			"3", "Current/Latest"
 		);
 		ind2 = new Indicator("Function of entity").setCodes(
-				"0", "Production",
-				"1", "Publication",
-				"2", "Distribution",
-				"3", "Manufacture",
-				"4", "Copyright notice date"
+			"0", "Production",
+			"1", "Publication",
+			"2", "Distribution",
+			"3", "Manufacture",
+			"4", "Copyright notice date"
 		);
 		setSubfieldsWithCardinality(
-				"a", "Place of production, publication, distribution, manufacture", "R",
-				"b", "Name of producer, publisher, distributor, manufacturer", "R",
-				"c", "Date of production, publication, distribution, manufacture, or copyright notice", "R",
-				"3", "Materials specified", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Place of production, publication, distribution, manufacture", "R",
+			"b", "Name of producer, publisher, distributor, manufacturer", "R",
+			"c", "Date of production, publication, distribution, manufacture, or copyright notice", "R",
+			"3", "Materials specified", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

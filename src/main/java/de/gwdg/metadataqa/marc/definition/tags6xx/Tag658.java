@@ -27,13 +27,13 @@ public class Tag658 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Main curriculum objective", "NR",
-				"b", "Subordinate curriculum objective", "R",
-				"c", "Curriculum code", "NR",
-				"d", "Correlation factor", "NR",
-				"2", "Source of term or code", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Main curriculum objective", "NR",
+			"b", "Subordinate curriculum objective", "R",
+			"c", "Curriculum code", "NR",
+			"d", "Correlation factor", "NR",
+			"2", "Source of term or code", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 		// TODO: $2 Curriculum Objective Term and Code Source Codes.
 		// http://www.loc.gov/standards/sourcelist/curriculum-objective.html

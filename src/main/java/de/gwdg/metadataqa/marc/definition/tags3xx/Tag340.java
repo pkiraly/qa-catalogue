@@ -28,25 +28,25 @@ public class Tag340 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Material base and configuration", "R",
-				"b", "Dimensions", "R",
-				"c", "Materials applied to surface", "R",
-				"d", "Information recording technique", "R",
-				"e", "Support", "R",
-				"f", "Production rate/ratio", "R",
-				"g", "Color content", "R",
-				"h", "Location within medium", "R",
-				"i", "Technical specifications of medium", "R",
-				"j", "Generation", "R",
-				"k", "Layout", "R",
-				"m", "Book format", "R",
-				"n", "Font size", "R",
-				"o", "Polarity", "R",
-				"0", "Authority record control number or standard number", "R",
-				"2", "Source", "NR",
-				"3", "Materials specified", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Material base and configuration", "R",
+			"b", "Dimensions", "R",
+			"c", "Materials applied to surface", "R",
+			"d", "Information recording technique", "R",
+			"e", "Support", "R",
+			"f", "Production rate/ratio", "R",
+			"g", "Color content", "R",
+			"h", "Location within medium", "R",
+			"i", "Technical specifications of medium", "R",
+			"j", "Generation", "R",
+			"k", "Layout", "R",
+			"m", "Book format", "R",
+			"n", "Font size", "R",
+			"o", "Polarity", "R",
+			"0", "Authority record control number or standard number", "R",
+			"2", "Source", "NR",
+			"3", "Materials specified", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

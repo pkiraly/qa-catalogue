@@ -30,22 +30,22 @@ public class Tag514 extends DataFieldDefinition {
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(
-				"a", "Attribute accuracy report", "NR",
-				"b", "Attribute accuracy value", "R",
-				"c", "Attribute accuracy explanation", "R",
-				"d", "Logical consistency report", "NR",
-				"e", "Completeness report", "NR",
-				"f", "Horizontal position accuracy report", "NR",
-				"g", "Horizontal position accuracy value", "R",
-				"h", "Horizontal position accuracy explanation", "R",
-				"i", "Vertical positional accuracy report", "NR",
-				"j", "Vertical positional accuracy value", "R",
-				"k", "Vertical positional accuracy explanation", "R",
-				"m", "Cloud cover", "NR",
-				"u", "Uniform Resource Identifier", "R",
-				"z", "Display note", "R",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Attribute accuracy report", "NR",
+			"b", "Attribute accuracy value", "R",
+			"c", "Attribute accuracy explanation", "R",
+			"d", "Logical consistency report", "NR",
+			"e", "Completeness report", "NR",
+			"f", "Horizontal position accuracy report", "NR",
+			"g", "Horizontal position accuracy value", "R",
+			"h", "Horizontal position accuracy explanation", "R",
+			"i", "Vertical positional accuracy report", "NR",
+			"j", "Vertical positional accuracy value", "R",
+			"k", "Vertical positional accuracy explanation", "R",
+			"m", "Cloud cover", "NR",
+			"u", "Uniform Resource Identifier", "R",
+			"z", "Display note", "R",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
 	}
 }

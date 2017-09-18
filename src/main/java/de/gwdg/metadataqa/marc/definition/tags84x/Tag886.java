@@ -1,9 +1,9 @@
 package de.gwdg.metadataqa.marc.definition.tags84x;
 
+import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.FormatSourceCodes;
-import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 
 /**
  * Foreign MARC Information Field
@@ -26,6 +26,7 @@ public class Tag886 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "886";
 		label = "Foreign MARC Information Field";
+		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Type of field").setCodes(
 			"0", "Leader",
 			"1", "Variable control fields (002-009)",

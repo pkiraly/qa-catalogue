@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags84x;
 
+import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.ElectronicAccessMethodsCodeList;
@@ -26,6 +27,7 @@ public class Tag856 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "856";
 		label = "Electronic Location and Access";
+		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Access method").setCodes(
 			" ", "No information provided",
 			"0", "Email",

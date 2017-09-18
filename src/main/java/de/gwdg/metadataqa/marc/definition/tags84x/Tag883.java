@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags84x;
 
+import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
@@ -25,6 +26,7 @@ public class Tag883 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "883";
 		label = "Machine-generated Metadata Provenance";
+		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Method of machine assignment").setCodes(
 			" ", "No information provided/not applicable",
 			"0", "Fully machine-generated",

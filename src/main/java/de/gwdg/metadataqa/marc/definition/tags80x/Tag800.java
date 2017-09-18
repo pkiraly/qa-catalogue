@@ -1,8 +1,8 @@
 package de.gwdg.metadataqa.marc.definition.tags80x;
 
+import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 
 /**
  * Series Added Entry - Personal Name
@@ -25,6 +25,7 @@ public class Tag800 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "800";
 		label = "Series Added Entry - Personal Name";
+		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Type of personal name entry element").setCodes(
 			"0", "Forename",
 			"1", "Surname",

@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags80x;
 
+import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 
@@ -24,6 +25,7 @@ public class Tag811 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "811";
 		label = "Series Added Entry - Meeting Name";
+		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Type of meeting name entry element").setCodes(
 			"0", "Inverted name",
 			"1", "Jurisdiction name",

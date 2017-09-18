@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags80x;
 
+import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 
@@ -24,6 +25,7 @@ public class Tag830 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "830";
 		label = "Series Added Entry - Uniform Title";
+		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("");
 		ind2 = new Indicator("Nonfiling characters").setCodes(
 			"0", "No nonfiling characters",

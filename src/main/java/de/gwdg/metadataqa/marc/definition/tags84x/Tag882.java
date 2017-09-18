@@ -26,7 +26,7 @@ public class Tag882 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "882";
 		label = "Replacement Record Information";
-		cardinality = Cardinality.Repeatable;
+		cardinality = Cardinality.Nonrepeatable;
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(

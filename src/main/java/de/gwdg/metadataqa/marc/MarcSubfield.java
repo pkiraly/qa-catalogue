@@ -22,10 +22,21 @@ public class MarcSubfield {
 	}
 
 	public String getLabel() {
-		return definition.getLabel();
+		String label = code;
+		if (definition == null)
+			System.err.printf("no definition for %s/%s\n", code, value);
+		else if (definition.getLabel() == null)
+			System.err.printf("no label for %s/%s\n", code, value);
+		else
+			label = definition.getLabel();
+		return label;
 	}
 
 	public String resolve() {
+		if (definition == null) {
+			System.err.printf("no definition for %s/%s\n", code, value);
+			return value;
+		}
 		return definition.resolve(value);
 	}
 }

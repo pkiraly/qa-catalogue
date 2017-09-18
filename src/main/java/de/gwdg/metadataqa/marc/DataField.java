@@ -106,4 +106,12 @@ public class DataField {
 	public List<MarcSubfield> getSubfield(String code) {
 		return subfieldIndex.getOrDefault(code, null);
 	}
+
+	public List<MarcSubfield> getSubfields() {
+		return subfields;
+	}
+
+	public DataFieldDefinition getDefinition() {
+		return definition;
+	}
 }

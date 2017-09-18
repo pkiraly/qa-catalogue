@@ -17,11 +17,14 @@ public class TagDefinitionLoader {
 	public static DataFieldDefinition load(String tag) {
 		DataFieldDefinition dataFieldDefinition = null;
 		try {
-			Class a = Class.forName(getClassName(tag));
-			Method getInstance = a.getMethod("getInstance");
-			dataFieldDefinition = (DataFieldDefinition)getInstance.invoke(a);
+			String className = getClassName(tag);
+			if (className != null) {
+				Class definitionClazz = Class.forName(className);
+				Method getInstance = definitionClazz.getMethod("getInstance");
+				dataFieldDefinition = (DataFieldDefinition) getInstance.invoke(definitionClazz);
+			}
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
@@ -32,9 +35,8 @@ public class TagDefinitionLoader {
 		return dataFieldDefinition;
 	}
 
-	@NotNull
 	public static String getClassName(String tag) {
-		String packageName = "tags01x";
+		String packageName = null;
 		if (tag.startsWith("0")) {
 			packageName = "tags01x";
 		} else if (tag.startsWith("1")) {
@@ -60,6 +62,10 @@ public class TagDefinitionLoader {
 		} else if (PATTERN_84x.matcher(tag).matches()) {
 			packageName = "tags84x";
 		}
+
+		if (packageName == null)
+			return null;
+
 		return String.format("de.gwdg.metadataqa.marc.definition.%s.Tag%s", packageName, tag);
 	}
 }

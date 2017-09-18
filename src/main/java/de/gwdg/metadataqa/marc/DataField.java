@@ -13,11 +13,32 @@ public class DataField {
 	private List<MarcSubfield> subfields;
 	private Map<String, List<MarcSubfield>> subfieldIndex = new LinkedHashMap<>();
 
-	public <T extends DataFieldDefinition> DataField(T definition, String ind1, String ind2, String... subfields) {
+	public <T extends DataFieldDefinition> DataField(T definition, String ind1, String ind2) {
 		this.definition = definition;
 		this.ind1 = ind1;
 		this.ind2 = ind2;
 		this.subfields = new ArrayList<>();
+	}
+
+	public <T extends DataFieldDefinition> DataField(T definition, String ind1, String ind2,
+																	 List<Map<String, String>> subfields) {
+		this(definition, ind1, ind2);
+		if (subfields != null) {
+			for (Map<String, String> subfield : subfields) {
+				String code = subfield.get("code");
+				String value = subfield.get("content");
+				SubfieldDefinition subfieldDefinition = definition.getSubfield(code);
+				MarcSubfield marcSubfield = new MarcSubfield(subfieldDefinition, code, value);
+				this.subfields.add(marcSubfield);
+				if (!subfieldIndex.containsKey(code))
+					subfieldIndex.put(code, new LinkedList<>());
+				subfieldIndex.get(code).add(marcSubfield);
+			}
+		}
+	}
+
+	public <T extends DataFieldDefinition> DataField(T definition, String ind1, String ind2, String... subfields) {
+		this(definition, ind1, ind2);
 		if (subfields != null) {
 			parseSubfieldArray(definition, subfields);
 		}

@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags6xx;
 
+import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.GenreFormCodeAndTermSourceCodes;
@@ -25,6 +26,7 @@ public class Tag655 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "655";
 		label = "Index Term - Genre/Form";
+		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Type of heading").setCodes(
 			" ", "Basic",
 			"0", "Faceted"

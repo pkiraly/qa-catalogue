@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags6xx;
 
+import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 
@@ -24,6 +25,7 @@ public class Tag658 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "658";
 		label = "Index Term - Curriculum Objective";
+		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
 		setSubfieldsWithCardinality(

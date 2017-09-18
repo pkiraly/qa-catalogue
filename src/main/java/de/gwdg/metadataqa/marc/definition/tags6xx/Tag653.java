@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags6xx;
 
+import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 
@@ -24,6 +25,7 @@ public class Tag653 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "653";
 		label = "Index Term - Uncontrolled";
+		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Level of index term").setCodes(
 			" ", "No information provided",
 			"0", "No level specified",

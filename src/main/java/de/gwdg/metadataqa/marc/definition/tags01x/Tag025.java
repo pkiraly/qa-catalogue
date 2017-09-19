@@ -21,6 +21,7 @@ public class Tag025 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "025";
 		label = "Overseas Acquisition Number";
+		bibframeTag = "LcOverseasAcq";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("").setCodes(" ", "Undefined");
 		// TODO: set label

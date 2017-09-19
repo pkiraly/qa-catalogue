@@ -71,8 +71,63 @@ public class DataField {
 		return map;
 	}
 
+	public String format() {
+		String output = "";
+		output += String.format("[%s: %s]\n", definition.getTag(), definition.getLabel());
+
+		if (definition.getInd1().exists())
+			output += String.format("%s: %s\n", definition.getInd1().getLabel(), resolveInd1());
+
+		if (definition.getInd2().exists())
+			output += String.format("%s: %s\n", definition.getInd2().getLabel(), resolveInd2());
+
+		for (MarcSubfield subfield : subfields) {
+			output += String.format("%s: %s\n", subfield.getLabel(), subfield.resolve());
+		}
+
+		return output;
+	}
+
+	public String formatAsMarc() {
+		String output = "";
+
+		if (definition.getInd1().exists())
+			output += String.format("%s_ind1: %s\n", definition.getTag(), resolveInd1());
+
+		if (definition.getInd2().exists())
+			output += String.format("%s_ind2: %s\n", definition.getTag(), resolveInd2());
+
+		for (MarcSubfield subfield : subfields) {
+			output += String.format("%s_%s: %s\n", definition.getTag(), subfield.getCode(), subfield.resolve());
+		}
+
+		return output;
+	}
+
+	public String formatForIndex() {
+		String output = "";
+
+		if (definition.getInd1().exists())
+			output += String.format("%s_ind1: %s\n", definition.getIndexTag(), resolveInd1());
+
+		if (definition.getInd2().exists())
+			output += String.format("%s_ind2: %s\n", definition.getIndexTag(), resolveInd2());
+
+		for (MarcSubfield subfield : subfields) {
+			output += String.format("%s_%s: %s\n", definition.getIndexTag(), subfield.getCode(), subfield.resolve());
+			if (subfield.getDefinition() != null && subfield.getDefinition().hasContentParser()) {
+				Map<String, String> extra = subfield.parseContent();
+				if (extra != null)
+					for (String key : extra.keySet())
+						output += String.format("%s_%s_%s: %s\n", definition.getIndexTag(), subfield.getCode(), key, extra.get(key));
+			}
+		}
+
+		return output;
+	}
+
 	public String resolveInd1() {
-		if (definition.getInd1().getLabel().equals(""))
+		if (!definition.getInd1().exists())
 			return "";
 
 		if (!definition.getInd1().hasCode(ind1))
@@ -114,4 +169,5 @@ public class DataField {
 	public DataFieldDefinition getDefinition() {
 		return definition;
 	}
+
 }

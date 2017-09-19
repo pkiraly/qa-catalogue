@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
+import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +20,7 @@ public class SubfieldDefinition {
 	private String cardinalityCode;
 	private String label;
 	private Validator validator;
+	private SubfieldContentParser contentParser;
 	private CodeList codeList;
 	private List<Code> codes;
 	private List<String> allowedCodes;
@@ -83,6 +85,18 @@ public class SubfieldDefinition {
 
 	public List<String> getAllowedCodes() {
 		return allowedCodes;
+	}
+
+	public SubfieldContentParser getContentParser() {
+		return contentParser;
+	}
+
+	public boolean hasContentParser() {
+		return contentParser != null;
+	}
+
+	public void setContentParser(SubfieldContentParser contentParser) {
+		this.contentParser = contentParser;
 	}
 
 	private void processIndicatorType(String types) {

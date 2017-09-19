@@ -21,6 +21,7 @@ public class Tag020 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "020";
 		label = "International Standard Book Number";
+		bibframeTag = "Isbn";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("").setCodes(" ", "Undefined");
 		ind2 = new Indicator("").setCodes(" ", "Undefined");

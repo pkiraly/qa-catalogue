@@ -34,13 +34,9 @@ public class MarcFactory {
 					Map fieldInstance = (Map) fieldInstances.get(fieldInsanceNr);
 					DataField field = MapToDatafield.parse(fieldInstance);
 					if (field != null) {
-						System.err.println(field.getTag() + " - " + field.getDefinition().getLabel());
-						System.err.printf("\t%s\n", field.resolveInd1());
-						System.err.printf("\t%s\n", field.resolveInd2());
-
-						for (MarcSubfield subfield : field.getSubfields()) {
-							System.err.printf("\t%s: %s\n", subfield.getLabel(), subfield.resolve());
-						}
+						record.addDataField(field);
+					} else {
+						record.addUnhandledTags(branch.getLabel());
 					}
 				}
 			}

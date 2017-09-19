@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 
 /**
  * Host Item Entry
@@ -69,5 +70,6 @@ public class Tag773 extends DataFieldDefinition {
 			"3", "Bibliographic level"
 		);
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
+		getSubfield("w").setContentParser(RecordControlNumberParser.getInstance());
 	}
 }

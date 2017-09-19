@@ -34,7 +34,9 @@ public class MarcFactoryTest {
 		MarcRecord record = MarcFactory.create(cache);
 		assertNotNull(record);
 		assertNotNull("Leader should not be null", record.getLeader());
-
+		// System.err.println(record.format());
+		// System.err.println(record.formatAsMarc());
+		System.err.println(record.formatForIndex());
 	}
 
 }

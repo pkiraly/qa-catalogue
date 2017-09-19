@@ -8,9 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 public class Indicator {
-	private String label;
+	private String label = null;
 	private List<Code> codes;
 	private Map<String, Code> codeIndex = new LinkedHashMap<>();
+
+	public Indicator() {}
 
 	public Indicator(String label) {
 		this.label = label;
@@ -43,6 +45,10 @@ public class Indicator {
 
 	public String getLabel() {
 		return label;
+	}
+
+	public boolean exists() {
+		return label != null && !label.equals("");
 	}
 
 	public List<Code> getCodes() {

@@ -2,6 +2,8 @@ package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 
+import java.util.Map;
+
 public class MarcSubfield {
 	private SubfieldDefinition definition;
 	private String code;
@@ -39,4 +41,15 @@ public class MarcSubfield {
 		}
 		return definition.resolve(value);
 	}
+
+	public SubfieldDefinition getDefinition() {
+		return definition;
+	}
+
+	public Map<String, String> parseContent() {
+		if (definition.hasContentParser())
+			return definition.getContentParser().parse(value);
+		return null;
+	}
+
 }

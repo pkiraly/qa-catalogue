@@ -8,6 +8,7 @@ import java.util.Map;
 public abstract class DataFieldDefinition {
 	protected String tag;
 	protected String bibframeTag;
+	protected String alternativeTag;
 	protected String label;
 	protected Cardinality cardinality = Cardinality.Nonrepeatable;
 	protected Indicator ind1;
@@ -16,6 +17,16 @@ public abstract class DataFieldDefinition {
 	protected Map<String, SubfieldDefinition> subfieldIndex = new LinkedHashMap<>();
 
 	public String getTag() {
+		return tag;
+	}
+
+	public String getIndexTag() {
+		if (bibframeTag != null)
+			return bibframeTag;
+
+		if (alternativeTag != null)
+			return alternativeTag;
+
 		return tag;
 	}
 

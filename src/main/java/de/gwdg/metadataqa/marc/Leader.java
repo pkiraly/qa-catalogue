@@ -217,10 +217,10 @@ public class Leader {
 	}
 
 	public String toString() {
-		String representation = String.format( "type: %s\n", type.getValue());
+		String output = String.format( "type: %s\n", type.getValue());
 		for (ControlSubfield key : LeaderSubfields.getSubfields()) {
-			representation += String.format("%s: %s\n", key.getLabel(), resolve(key));
+			output += String.format("%s: %s\n", key.getLabel(), resolve(key));
 		}
-		return representation;
+		return output;
 	}
 }

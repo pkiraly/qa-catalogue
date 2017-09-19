@@ -21,6 +21,7 @@ public class Tag022 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "022";
 		label = "International Standard Serial Number";
+		bibframeTag = "IssnL";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("").setCodes(
 			" ", "No level specified",

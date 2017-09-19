@@ -48,5 +48,8 @@ public class Tag024 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("2").setCodeList(StandardIdentifierSourceCodes.getInstance());
+		getSubfield("c").setBibframeTag("acquisitionTerms");
+		getSubfield("d").setBibframeTag("note");
+		getSubfield("q").setBibframeTag("qualifier");
 	}
 }

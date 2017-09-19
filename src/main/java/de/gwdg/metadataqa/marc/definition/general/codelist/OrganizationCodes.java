@@ -3771,10 +3771,12 @@ public class OrganizationCodes extends CodeList {
 				"DE-574", "Fachhochschule Schwäbisch Hall, Hochschule für Gestaltung, Fachhochschulbibliothek",
 				"DE-575", "Hochschule für Musik Detmold, Bibliothek",
 				"DE-575-1", "früher: Musikwissenschaftliches Seminar Detmold/Paderborn, Bibliothek",
+				*/
 				"DE-576", "Bibliotheksservice-Zentrum Baden-Württemberg (BSZ)",
 				"DE-576-1", "Bibliotheksservice-Zentrum Baden-Württemberg, Standort Stuttgart, Zentralkatalog",
 				"DE-576-2", "früher: Konstanz; Bibliotheksservice-Zentrum Baden-Württemberg, Autorenredaktion",
 				"DE-576-3", "Bibliotheksservice-Zentrum Baden-Württemberg (BSZ) / MusIS",
+				/*
 				"DE-578-1", "früher: Charité - Universitätsmedizin Berlin, Medizinische Bibliothek, Campus Benjamin Franklin",
 				"DE-578-2", "Charité - Universitätsmedizin Berlin, Medizinische Bibliothek, Campus Charité Mitte (CCM)",
 				"DE-578-3", "Charité - Universitätsmedizin Berlin, Medizinische Bibliothek, Campus Virchow-Klinikum",
@@ -4004,6 +4006,7 @@ public class OrganizationCodes extends CodeList {
 				"DE-6-P", "früher: Münster; Universitäts- und Landesbibliothek, Zweigbibliothek Physik",
 				"DE-6-Z", "Universitäts- und Landesbibliothek, Zeitungs- und Pressearchiv",
 				"DE-60", "Stadt- und Landesbibliothek Dortmund",
+				*/
 				"DE-600", "Zeitschriftendatenbank (ZDB)",
 				"DE-601", "Verbundzentrale des GBV (VZG)",
 				"DE-602", "Kooperativer Bibliotheksverbund Berlin-Brandenburg",
@@ -6585,6 +6588,7 @@ public class OrganizationCodes extends CodeList {
 				"DE-Ig2", "Deutsches Medizinhistorisches Museum, Bibliothek",
 				"DE-Ig3", "Museum für Konkrete Kunst, Bibliothek",
 				"DE-Ilm1", "Universitätsbibliothek Ilmenau",
+				/*
 				"DE-Ilt1", "Stadtarchiv Illertissen",
 				"DE-Ims1", "Stadtarchiv Immenstadt",
 				"DE-In1", "früher: Ingelheim; BI Pharma GmbH & Co. KG, A Quality  Records Management Scientific Library",
@@ -16435,6 +16439,7 @@ public class OrganizationCodes extends CodeList {
 				"ZDB-Test3", "Testbibliothek HBZ",
 				*/
 				"CSt-H", "Stanford University, Hoover Institution on War, Revolution, and Peace",
+				/*
 				"Mt", "Montana State Library",
 				"DLC", "United States, Library of Congress",
 				"ICU", "University of Chicago",

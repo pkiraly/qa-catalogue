@@ -25,6 +25,7 @@ public class Tag036 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "036";
 		label = "Original Study Number for Computer Data Files";
+		bibframeTag = "StudyNumber";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("").setCodes();
 		ind2 = new Indicator("").setCodes();
@@ -34,5 +35,6 @@ public class Tag036 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+		getSubfield("a").setBibframeTag("rdf:value");
 	}
 }

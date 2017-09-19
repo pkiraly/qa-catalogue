@@ -3814,7 +3814,9 @@ public class OrganizationCodes extends CodeList {
 				"DE-588b", "früher: Frankfurt/Main; Gemeinsame Normdatei - Gemeinsame Körperschaftsdatei",
 				"DE-588c", "früher: Frankfurt/Main; Gemeinsame Normdatei - Schlagwortnormdatei",
 				"DE-59", "Stadt Chemnitz, Kulturbetrieb, Stadtbibliothek",
+				*/
 				"DE-599", "Arbeitsgemeinschaft der Verbundsysteme",
+				/*
 				"DE-5N", "Universitäts- und Landesbibliothek, Abteilungsbibliothek Medizin, Naturwissenschaften und Landbau",
 				"DE-6", "Universitäts- und Landesbibliothek Münster",
 				"DE-6-001", "früher: Münster; Botanischer Garten, Bibliothek",

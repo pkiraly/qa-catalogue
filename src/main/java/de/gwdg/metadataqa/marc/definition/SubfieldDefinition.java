@@ -17,6 +17,7 @@ public class SubfieldDefinition {
 
 	private String code;
 	private String bibframeTag;
+	private String mqTag;
 	private String cardinalityCode;
 	private String label;
 	private Validator validator;
@@ -136,6 +137,14 @@ public class SubfieldDefinition {
 
 	public void setBibframeTag(String bibframeTag) {
 		this.bibframeTag = bibframeTag;
+	}
+
+	public String getMqTag() {
+		return mqTag;
+	}
+
+	public void setMqTag(String mqTag) {
+		this.mqTag = mqTag;
 	}
 
 	@Override

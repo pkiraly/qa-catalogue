@@ -4,6 +4,10 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 
+/**
+ * Publisher or Distributor Number
+ * http://www.loc.gov/marc/bibliographic/bd028.html
+ */
 public class Tag028 extends DataFieldDefinition {
 
 	private static Tag028 uniqueInstance;
@@ -31,6 +35,13 @@ public class Tag028 extends DataFieldDefinition {
 			"5", "Other publisher number",
 			"6", "Distributor number"
 		);
+		ind1.getCode("0").setBibframeTag("AudioIssueNumber");
+		ind1.getCode("1").setBibframeTag("MatrixNumber");
+		ind1.getCode("2").setBibframeTag("MusicPlate");
+		ind1.getCode("3").setBibframeTag("MusicPublisherNumber");
+		ind1.getCode("4").setBibframeTag("VideoRecordingNumber");
+		ind1.getCode("5").setBibframeTag("PublisherNumber");
+
 		ind2 = new Indicator("Note/added entry controller").setCodes(
 			"0", "No note, no added entry",
 			"1", "Note, added entry",
@@ -45,5 +56,8 @@ public class Tag028 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		// getSubfield("5").setCodeList(OrganizationCodes.getInstance());
+		getSubfield("a").setBibframeTag("rdf:value");
+		getSubfield("a").setBibframeTag("Source");
+		getSubfield("a").setBibframeTag("qualifier");
 	}
 }

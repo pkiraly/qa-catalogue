@@ -5,6 +5,10 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 
+/**
+ * National Bibliographic Agency Control Number
+ * http://www.loc.gov/marc/bibliographic/bd016.html
+ */
 public class Tag016 extends DataFieldDefinition {
 
 	private static Tag016 uniqueInstance;

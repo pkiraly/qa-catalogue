@@ -26,6 +26,7 @@ public class Tag034 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "034";
 		label = "Coded Cartographic Mathematical Data";
+		bibframeTag = "Scale";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Type of scale").setCodes(
 			"0", "Scale indeterminable/No scale recorded",

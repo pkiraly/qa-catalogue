@@ -5,6 +5,10 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 
+/**
+ * Fingerprint Identifier
+ * http://www.loc.gov/marc/bibliographic/bd026.html
+ */
 public class Tag026 extends DataFieldDefinition {
 
 	private static Tag026 uniqueInstance;
@@ -22,6 +26,7 @@ public class Tag026 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "026";
 		label = "Fingerprint Identifier";
+		bibframeTag = "Fingerprint";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("").setCodes(" ", "Undefined");
 		// TODO: set label
@@ -39,5 +44,7 @@ public class Tag026 extends DataFieldDefinition {
 		);
 		// TODO: 2 - code from http://www.loc.gov/standards/sourcelist/fingerprint.html
 		getSubfield("5").setCodeList(OrganizationCodes.getInstance());
+		getSubfield("a").setBibframeTag("rdf:value");
+		getSubfield("2").setBibframeTag("source");
 	}
 }

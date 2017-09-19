@@ -4,6 +4,10 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 
+/**
+ * Copyright Article-Fee Code
+ * http://www.loc.gov/marc/bibliographic/bd018.html
+ */
 public class Tag018 extends DataFieldDefinition {
 
 	private static Tag018 uniqueInstance;

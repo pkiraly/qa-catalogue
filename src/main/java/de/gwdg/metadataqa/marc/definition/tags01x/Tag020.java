@@ -4,6 +4,10 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 
+/**
+ * International Standard Book Number
+ * http://www.loc.gov/marc/bibliographic/bd020.html
+ */
 public class Tag020 extends DataFieldDefinition {
 
 	private static Tag020 uniqueInstance;

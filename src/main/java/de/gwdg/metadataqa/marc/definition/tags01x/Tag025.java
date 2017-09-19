@@ -4,6 +4,10 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 
+/**
+ * Overseas Acquisition Number
+ * http://www.loc.gov/marc/bibliographic/bd025.html
+ */
 public class Tag025 extends DataFieldDefinition {
 
 	private static Tag025 uniqueInstance;

@@ -4,6 +4,10 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 
+/**
+ * Standard Technical Report Number
+ * http://www.loc.gov/marc/bibliographic/bd027.html
+ */
 public class Tag027 extends DataFieldDefinition {
 
 	private static Tag027 uniqueInstance;
@@ -21,6 +25,7 @@ public class Tag027 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "027";
 		label = "Standard Technical Report Number";
+		bibframeTag = "Strn";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("").setCodes(" ", "Undefined");
 		ind2 = new Indicator("").setCodes(" ", "Undefined");

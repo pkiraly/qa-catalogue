@@ -4,6 +4,10 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 
+/**
+ * National Bibliography Number
+ * http://www.loc.gov/marc/bibliographic/bd015.html
+ */
 public class Tag015 extends DataFieldDefinition {
 
 	private static Tag015 uniqueInstance;

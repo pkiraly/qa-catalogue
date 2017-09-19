@@ -15,19 +15,22 @@ public abstract class DataFieldDefinition {
 	protected Indicator ind2;
 	protected List<SubfieldDefinition> subfields;
 	protected Map<String, SubfieldDefinition> subfieldIndex = new LinkedHashMap<>();
+	protected String indexTag = null;
 
 	public String getTag() {
 		return tag;
 	}
 
 	public String getIndexTag() {
-		if (bibframeTag != null)
-			return bibframeTag;
-
-		if (alternativeTag != null)
-			return alternativeTag;
-
-		return tag;
+		if (indexTag == null) {
+			if (bibframeTag != null)
+				indexTag = bibframeTag.replace("/", "");
+			else if (alternativeTag != null)
+				indexTag = alternativeTag;
+			else
+				indexTag = tag;
+		}
+		return indexTag;
 	}
 
 	public String getLabel() {

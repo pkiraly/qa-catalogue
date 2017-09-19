@@ -4,6 +4,10 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 
+/**
+ * International Standard Serial Number
+ * http://www.loc.gov/marc/bibliographic/bd022.html
+ */
 public class Tag022 extends DataFieldDefinition {
 
 	private static Tag022 uniqueInstance;
@@ -21,7 +25,7 @@ public class Tag022 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "022";
 		label = "International Standard Serial Number";
-		bibframeTag = "IssnL";
+		bibframeTag = "Issn";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("").setCodes(
 			" ", "No level specified",
@@ -41,5 +45,6 @@ public class Tag022 extends DataFieldDefinition {
 		);
 		// TODO check against ISSN National Centres code list http://www.issn.org/
 		// getSubfield("2").setCodeList();
+		getSubfield("a").setBibframeTag("rdf:value");
 	}
 }

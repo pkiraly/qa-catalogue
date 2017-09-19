@@ -28,6 +28,7 @@ public class Tag040 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "040";
 		label = "Cataloging Source";
+		bibframeTag = "AdminMetadata";
 		cardinality = Cardinality.Nonrepeatable;
 		ind1 = new Indicator("").setCodes(" ", "Undefined");
 		ind2 = new Indicator("").setCodes(" ", "Undefined");
@@ -46,5 +47,11 @@ public class Tag040 extends DataFieldDefinition {
 		getSubfield("a").setCodeList(orgCodes);
 		getSubfield("c").setCodeList(orgCodes);
 		getSubfield("d").setCodeList(orgCodes);
+
+		getSubfield("a").setMqTag("catalogingAgency");
+		getSubfield("b").setMqTag("language");
+		getSubfield("c").setMqTag("transcribingAgency");
+		getSubfield("d").setMqTag("modifyingAgency");
+		getSubfield("e").setMqTag("descriptionConventions");
 	}
 }

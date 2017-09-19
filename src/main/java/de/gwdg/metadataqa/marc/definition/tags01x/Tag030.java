@@ -28,6 +28,7 @@ public class Tag030 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "030";
 		label = "CODEN Designation";
+		bibframeTag = "Coden";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("").setCodes();
 		ind2 = new Indicator("").setCodes();
@@ -39,5 +40,6 @@ public class Tag030 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		// getSubfield("5").setCodeList(OrganizationCodes.getInstance());
+		getSubfield("a").setBibframeTag("rdf:value");
 	}
 }

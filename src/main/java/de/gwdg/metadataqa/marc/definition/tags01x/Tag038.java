@@ -25,6 +25,7 @@ public class Tag038 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "038";
 		label = "Record Content Licensor";
+		bibframeTag = "MetadataLicensor";
 		cardinality = Cardinality.Nonrepeatable;
 		ind1 = new Indicator("").setCodes();
 		ind2 = new Indicator("").setCodes();

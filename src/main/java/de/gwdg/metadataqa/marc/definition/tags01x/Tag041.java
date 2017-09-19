@@ -27,6 +27,7 @@ public class Tag041 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "041";
 		label = "Language Code";
+		bibframeTag = "Language";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Translation indication").setCodes(
 			" ", "No information provided",
@@ -54,6 +55,7 @@ public class Tag041 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("a").setCodeList(LanguageCodes.getInstance());
+		getSubfield("a").setBibframeTag("rdf:value");
 		getSubfield("b").setCodeList(LanguageCodes.getInstance());
 		getSubfield("d").setCodeList(LanguageCodes.getInstance());
 		getSubfield("e").setCodeList(LanguageCodes.getInstance());

@@ -4,6 +4,10 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 
+/**
+ * Patent Control Information
+ * http://www.loc.gov/marc/bibliographic/bd013.html
+ */
 public class Tag013 extends DataFieldDefinition {
 
 	private static Tag013 uniqueInstance;

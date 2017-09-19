@@ -5,6 +5,10 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.StandardIdentifierSourceCodes;
 
+/**
+ * Other Standard Identifier
+ * http://www.loc.gov/marc/bibliographic/bd024.html
+ */
 public class Tag024 extends DataFieldDefinition {
 
 	private static Tag024 uniqueInstance;

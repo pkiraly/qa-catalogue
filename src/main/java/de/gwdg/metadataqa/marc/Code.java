@@ -11,6 +11,7 @@ public class Code {
 	private String label;
 	private boolean isRange = false;
 	private boolean isRegex = false;
+	private String bibframeTag = null;
 
 	public Code(String code, String label) {
 		this.code = code;
@@ -39,6 +40,14 @@ public class Code {
 
 	public void setRegex(boolean regex) {
 		isRegex = regex;
+	}
+
+	public String getBibframeTag() {
+		return bibframeTag;
+	}
+
+	public void setBibframeTag(String bibframeTag) {
+		this.bibframeTag = bibframeTag;
 	}
 
 	@Override

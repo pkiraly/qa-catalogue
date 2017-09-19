@@ -4,6 +4,10 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 
+/**
+ * Copyright or Legal Deposit Number
+ * http://www.loc.gov/marc/bibliographic/bd017.html
+ */
 public class Tag017 extends DataFieldDefinition {
 
 	private static Tag017 uniqueInstance;
@@ -39,5 +43,9 @@ public class Tag017 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		// getSubfield("2").setCodeList(OrganizationCodes.getInstance());
+		getSubfield("a").setBibframeTag("rdf:value");
+		getSubfield("b").setBibframeTag("source");
+		getSubfield("d").setBibframeTag("date");
+		getSubfield("i").setBibframeTag("note");
 	}
 }

@@ -37,5 +37,6 @@ public class Tag035 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("a").setContentParser(RecordControlNumberParser.getInstance());
+		getSubfield("a").setBibframeTag("rdf:value");
 	}
 }

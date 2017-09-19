@@ -8,6 +8,7 @@ public class MarcSubfield {
 	private SubfieldDefinition definition;
 	private String code;
 	private String value;
+	private String codeForIndex = null;
 
 	public MarcSubfield(SubfieldDefinition definition, String code, String value) {
 		this.definition = definition;
@@ -44,6 +45,32 @@ public class MarcSubfield {
 
 	public SubfieldDefinition getDefinition() {
 		return definition;
+	}
+
+	public String getCodeForIndex() {
+		if (codeForIndex == null) {
+			codeForIndex = "_" + code;
+			if (definition != null) {
+				if (definition.getMqTag() != null) {
+					codeForIndex = "_" + definition.getMqTag();
+				} else {
+					String bibframeTag = definition.getBibframeTag();
+					if (bibframeTag != null)
+						switch (bibframeTag) {
+							case "rdf:value":
+								codeForIndex = "";
+								break;
+							case "rdfs:label":
+								codeForIndex = "label";
+								break;
+							default:
+								codeForIndex = "_" + bibframeTag;
+								break;
+						}
+				}
+			}
+		}
+		return codeForIndex;
 	}
 
 	public Map<String, String> parseContent() {

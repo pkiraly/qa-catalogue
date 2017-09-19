@@ -114,12 +114,13 @@ public class DataField {
 			output += String.format("%s_ind2: %s\n", definition.getIndexTag(), resolveInd2());
 
 		for (MarcSubfield subfield : subfields) {
-			output += String.format("%s_%s: %s\n", definition.getIndexTag(), subfield.getCode(), subfield.resolve());
+			String code = subfield.getCodeForIndex();
+			output += String.format("%s%s: %s\n", definition.getIndexTag(), code, subfield.resolve());
 			if (subfield.getDefinition() != null && subfield.getDefinition().hasContentParser()) {
 				Map<String, String> extra = subfield.parseContent();
 				if (extra != null)
 					for (String key : extra.keySet())
-						output += String.format("%s_%s_%s: %s\n", definition.getIndexTag(), subfield.getCode(), key, extra.get(key));
+						output += String.format("%s%s_%s: %s\n", definition.getIndexTag(), code, key, extra.get(key));
 			}
 		}
 

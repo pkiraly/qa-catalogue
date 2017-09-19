@@ -4,6 +4,10 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 
+/**
+ * Library of Congress Control Number
+ * http://www.loc.gov/marc/bibliographic/bd010.html
+ */
 public class Tag010 extends DataFieldDefinition {
 
 	private static Tag010 uniqueInstance;
@@ -31,5 +35,6 @@ public class Tag010 extends DataFieldDefinition {
 			"z", "Canceled/invalid LC control number", "R",
 			"8", "Field link and sequence number", "R"
 		);
+		getSubfield("a").setBibframeTag("rdf:value");
 	}
 }

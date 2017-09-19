@@ -25,6 +25,7 @@ public class Tag037 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "037";
 		label = "Source of Acquisition";
+		bibframeTag = "AcquisitionSource";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Source of acquisition sequence").setCodes(
 			" ", "Not applicable/No information provided/Earliest",
@@ -45,5 +46,10 @@ public class Tag037 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("a").setBibframeTag("stockNumber");
+		getSubfield("b").setBibframeTag("rdfs:label");
+		getSubfield("c").setBibframeTag("acquisitionTerms");
+		getSubfield("f").setBibframeTag("note");
+		getSubfield("g").setBibframeTag("note");
+		getSubfield("n").setBibframeTag("note");
 	}
 }

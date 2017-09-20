@@ -50,15 +50,16 @@ public class Tag245 extends DataFieldDefinition {
 		);
 		getSubfield("a").setBibframeTag("mainTitle");
 		getSubfield("b").setBibframeTag("subtitle");
-
 		getSubfield("c").setBibframeTag("responsibilityStatement");
+		getSubfield("f").setBibframeTag("originDate");
+		getSubfield("f").setMqTag("inclusiveDates");
+		getSubfield("g").setBibframeTag("originDate");
+		getSubfield("g").setMqTag("bulkDates");
 		getSubfield("h").setBibframeTag("genreForm");
+		getSubfield("h").setMqTag("medium");
+		getSubfield("k").setMqTag("form");
 		getSubfield("n").setBibframeTag("partNumber");
 		getSubfield("p").setBibframeTag("partName");
-		getSubfield("f").setBibframeTag("originDate");
-		getSubfield("g").setBibframeTag("originDate");
-		getSubfield("f").setMqTag("inclusiveDates");
-		getSubfield("g").setMqTag("bulkDates");
 		getSubfield("s").setMqTag("version");
 	}
 }

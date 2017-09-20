@@ -135,16 +135,18 @@ public class SubfieldDefinition {
 		return bibframeTag;
 	}
 
-	public void setBibframeTag(String bibframeTag) {
+	public SubfieldDefinition setBibframeTag(String bibframeTag) {
 		this.bibframeTag = bibframeTag;
+		return this;
 	}
 
 	public String getMqTag() {
 		return mqTag;
 	}
 
-	public void setMqTag(String mqTag) {
+	public SubfieldDefinition setMqTag(String mqTag) {
 		this.mqTag = mqTag;
+		return this;
 	}
 
 	@Override

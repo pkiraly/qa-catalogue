@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 
 /**
+ * Physical Description
  * http://www.loc.gov/marc/bibliographic/bd300.html
  */
 public class Tag300 extends DataFieldDefinition {
@@ -23,6 +24,8 @@ public class Tag300 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "300";
 		label = "Physical Description";
+		bibframeTag = "";
+		mqTag = "PhysicalDescription";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("").setCodes();
 		ind2 = new Indicator("").setCodes();
@@ -37,6 +40,13 @@ public class Tag300 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
-		// TODO: "1-9" in ind2 is regex!
+		getSubfield("a").setBibframeTag("extent");
+		getSubfield("b").setBibframeTag("note").setMqTag("otherPhysicalDetails");
+		getSubfield("c").setBibframeTag("dimensions");
+		getSubfield("e").setBibframeTag("note").setMqTag("accompanyingMaterial");
+		getSubfield("f").setMqTag("typeOfUnit");
+		getSubfield("g").setMqTag("sizeOfUnit");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setMqTag("linkage");
 	}
 }

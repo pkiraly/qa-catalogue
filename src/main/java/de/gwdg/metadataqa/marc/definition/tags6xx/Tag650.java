@@ -68,6 +68,20 @@ public class Tag650 extends DataFieldDefinition {
 		getSubfield("a").setMqTag("topicalTerm");
 		getSubfield("b").setMqTag("topicalTerm");
 		getSubfield("c").setMqTag("locationOfEvent");
+		getSubfield("d").setMqTag("activeDates");
+		getSubfield("e").setMqTag("relatorTerm");
+		getSubfield("g").setMqTag("miscellaneousInformation");
+
+		getSubfield("v").setMqTag("formSubdivision");
+		getSubfield("x").setMqTag("generalSubdivision");
+		getSubfield("y").setMqTag("chronologicalSubdivision");
+		getSubfield("z").setMqTag("geographicSubdivision");
+
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
 		getSubfield("2").setMqTag("sourceOfHeading");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("4").setMqTag("relationship");
+		getSubfield("6").setMqTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

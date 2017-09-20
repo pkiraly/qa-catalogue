@@ -26,13 +26,14 @@ public class Tag100 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "100";
 		label = "Main Entry - Personal Name";
+		mqTag = "MainPersonalName";
 		cardinality = Cardinality.Nonrepeatable;
 		ind1 = new Indicator("Type of personal name entry element").setCodes(
 			"0", "Forename",
 			"1", "Surname",
 			"3", "Family name"
 		);
-		ind2 = new Indicator("").setCodes(" ", "Undefined");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Personal name", "NR",
 			"b", "Numeration", "NR",
@@ -55,5 +56,24 @@ public class Tag100 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
+		getSubfield("a").setMqTag("personalName");
+		getSubfield("b").setMqTag("numeration");
+		getSubfield("c").setMqTag("titlesAndWords");
+		getSubfield("d").setMqTag("dates");
+		getSubfield("e").setMqTag("relatorTerm");
+		getSubfield("f").setMqTag("dateOfAWork");
+		getSubfield("g").setMqTag("miscellaneous");
+		getSubfield("j").setMqTag("attributionQualifier");
+		getSubfield("k").setMqTag("formSubheading");
+		getSubfield("l").setMqTag("language");
+		getSubfield("n").setMqTag("numberOfPart");
+		getSubfield("p").setMqTag("nameOfPart");
+		getSubfield("q").setMqTag("fullerForm");
+		getSubfield("t").setMqTag("titleOfAWork");
+		getSubfield("u").setMqTag("affiliation");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("4").setMqTag("relatorCode");
+		getSubfield("6").setMqTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

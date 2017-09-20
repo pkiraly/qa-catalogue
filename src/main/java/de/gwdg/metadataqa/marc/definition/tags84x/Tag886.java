@@ -26,6 +26,7 @@ public class Tag886 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "886";
 		label = "Foreign MARC Information Field";
+		mqTag = "ForeignMARCInformationField";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Type of field").setCodes(
 			"0", "Leader",
@@ -42,5 +43,8 @@ public class Tag886 extends DataFieldDefinition {
 		// * $a-z - Foreign MARC subfield (R)
 		// * $0-9 - Foreign MARC subfield (R)
 		getSubfield("2").setCodeList(FormatSourceCodes.getInstance());
+		getSubfield("a").setMqTag("tag");
+		getSubfield("b").setMqTag("content");
+		getSubfield("2").setMqTag("source");
 	}
 }

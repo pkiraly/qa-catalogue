@@ -25,6 +25,8 @@ public class Tag653 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "653";
 		label = "Index Term - Uncontrolled";
+		bibframeTag = "Subject";
+		mqTag = "UncontrolledIndexTerm";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Level of index term").setCodes(
 			" ", "No information provided",
@@ -47,5 +49,9 @@ public class Tag653 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("6").setMqTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
+
 	}
 }

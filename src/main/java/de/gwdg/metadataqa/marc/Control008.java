@@ -11,9 +11,12 @@ import java.util.logging.Logger;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class Control008 {
+public class Control008 implements Extractable {
 
 	private static final Logger logger = Logger.getLogger(Control008.class.getCanonicalName());
+
+	private String label = "General Information";
+	private String mqTag = "GeneralInformation";
 
 	private String content;
 	private Leader.Type recordType;
@@ -81,12 +84,16 @@ public class Control008 {
 
 	private ControlValue tag008mixed23;
 
+	private Map<Control008Type, List<ControlValue>> fieldGroups = new HashMap<>();
+
 	private Map<ControlSubfield, String> valuesMap;
 	private Map<Integer, ControlSubfield> byPosition = new LinkedHashMap<>();
+	private Control008Type actual008Type;
 
 	public Control008(String content, Leader.Type recordType) {
 		this.content = content;
 		this.recordType = recordType;
+		actual008Type = Control008Type.byCode(recordType.getValue().toString());
 		valuesMap = new LinkedHashMap<>();
 		process();
 	}
@@ -122,70 +129,108 @@ public class Control008 {
 			}
 		}
 
-		Control008Type actual = Control008Type.byCode(recordType.getValue().toString());
-		for (ControlSubfield subfield : Control008Subfields.get(actual)) {
+		for (ControlSubfield subfield : Control008Subfields.get(actual008Type)) {
 			int end = Math.min(content.length(), subfield.getPositionEnd());
 			try {
 
 				String value = content.substring(subfield.getPositionStart(), end);
 
-				switch (subfield.getId()) {
-					case "tag008book18": tag008book18 = new ControlValue(subfield, value); break;
-					case "tag008book22": tag008book22 = new ControlValue(subfield, value); break;
-					case "tag008book23": tag008book23 = new ControlValue(subfield, value); break;
-					case "tag008book24": tag008book24 = new ControlValue(subfield, value); break;
-					case "tag008book28": tag008book28 = new ControlValue(subfield, value); break;
-					case "tag008book29": tag008book29 = new ControlValue(subfield, value); break;
-					case "tag008book30": tag008book30 = new ControlValue(subfield, value); break;
-					case "tag008book31": tag008book31 = new ControlValue(subfield, value); break;
-					case "tag008book33": tag008book33 = new ControlValue(subfield, value); break;
-					case "tag008book34": tag008book34 = new ControlValue(subfield, value); break;
-
-					case "tag008computer22": tag008computer22 = new ControlValue(subfield, value); break;
-					case "tag008computer23": tag008computer23 = new ControlValue(subfield, value); break;
-					case "tag008computer26": tag008computer26 = new ControlValue(subfield, value); break;
-					case "tag008computer28": tag008computer28 = new ControlValue(subfield, value); break;
-
-					case "tag008map18": tag008map18 = new ControlValue(subfield, value); break;
-					case "tag008map22": tag008map22 = new ControlValue(subfield, value); break;
-					case "tag008map25": tag008map25 = new ControlValue(subfield, value); break;
-					case "tag008map28": tag008map28 = new ControlValue(subfield, value); break;
-					case "tag008map29": tag008map29 = new ControlValue(subfield, value); break;
-					case "tag008map31": tag008map31 = new ControlValue(subfield, value); break;
-					case "tag008map33": tag008map33 = new ControlValue(subfield, value); break;
-
-					case "tag008music18": tag008music18 = new ControlValue(subfield, value); break;
-					case "tag008music20": tag008music20 = new ControlValue(subfield, value); break;
-					case "tag008music21": tag008music21 = new ControlValue(subfield, value); break;
-					case "tag008music22": tag008music22 = new ControlValue(subfield, value); break;
-					case "tag008music23": tag008music23 = new ControlValue(subfield, value); break;
-					case "tag008music24": tag008music24 = new ControlValue(subfield, value); break;
-					case "tag008music30": tag008music30 = new ControlValue(subfield, value); break;
-					case "tag008music33": tag008music33 = new ControlValue(subfield, value); break;
-
-					case "tag008continuing18": tag008continuing18 = new ControlValue(subfield, value); break;
-					case "tag008continuing19": tag008continuing19 = new ControlValue(subfield, value); break;
-					case "tag008continuing21": tag008continuing21 = new ControlValue(subfield, value); break;
-					case "tag008continuing22": tag008continuing22 = new ControlValue(subfield, value); break;
-					case "tag008continuing23": tag008continuing23 = new ControlValue(subfield, value); break;
-					case "tag008continuing24": tag008continuing24 = new ControlValue(subfield, value); break;
-					case "tag008continuing25": tag008continuing25 = new ControlValue(subfield, value); break;
-					case "tag008continuing28": tag008continuing28 = new ControlValue(subfield, value); break;
-					case "tag008continuing29": tag008continuing29 = new ControlValue(subfield, value); break;
-					case "tag008continuing33": tag008continuing33 = new ControlValue(subfield, value); break;
-					case "tag008continuing34": tag008continuing34 = new ControlValue(subfield, value); break;
-
-					case "tag008visual18": tag008visual18 = new ControlValue(subfield, value); break;
-					case "tag008visual22": tag008visual22 = new ControlValue(subfield, value); break;
-					case "tag008visual28": tag008visual28 = new ControlValue(subfield, value); break;
-					case "tag008visual29": tag008visual29 = new ControlValue(subfield, value); break;
-					case "tag008visual33": tag008visual33 = new ControlValue(subfield, value); break;
-					case "tag008visual34": tag008visual34 = new ControlValue(subfield, value); break;
-
-					case "tag008mixed23": tag008mixed23 = new ControlValue(subfield, value); break;
-
-					default:
-						logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
+				switch (actual008Type) {
+					case BOOKS:
+						switch (subfield.getId()) {
+							case "tag008book18": tag008book18 = new ControlValue(subfield, value); break;
+							case "tag008book22": tag008book22 = new ControlValue(subfield, value); break;
+							case "tag008book23": tag008book23 = new ControlValue(subfield, value); break;
+							case "tag008book24": tag008book24 = new ControlValue(subfield, value); break;
+							case "tag008book28": tag008book28 = new ControlValue(subfield, value); break;
+							case "tag008book29": tag008book29 = new ControlValue(subfield, value); break;
+							case "tag008book30": tag008book30 = new ControlValue(subfield, value); break;
+							case "tag008book31": tag008book31 = new ControlValue(subfield, value); break;
+							case "tag008book33": tag008book33 = new ControlValue(subfield, value); break;
+							case "tag008book34": tag008book34 = new ControlValue(subfield, value); break;
+							default:
+								logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
+								break;
+						}
+						break;
+					case COMPUTER_FILES:
+						switch (subfield.getId()) {
+							case "tag008computer22": tag008computer22 = new ControlValue(subfield, value); break;
+							case "tag008computer23": tag008computer23 = new ControlValue(subfield, value); break;
+							case "tag008computer26": tag008computer26 = new ControlValue(subfield, value); break;
+							case "tag008computer28": tag008computer28 = new ControlValue(subfield, value); break;
+							default:
+								logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
+								break;
+						}
+						break;
+					case MAPS:
+						switch (subfield.getId()) {
+							case "tag008map18": tag008map18 = new ControlValue(subfield, value); break;
+							case "tag008map22": tag008map22 = new ControlValue(subfield, value); break;
+							case "tag008map25": tag008map25 = new ControlValue(subfield, value); break;
+							case "tag008map28": tag008map28 = new ControlValue(subfield, value); break;
+							case "tag008map29": tag008map29 = new ControlValue(subfield, value); break;
+							case "tag008map31": tag008map31 = new ControlValue(subfield, value); break;
+							case "tag008map33": tag008map33 = new ControlValue(subfield, value); break;
+							default:
+								logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
+								break;
+						}
+						break;
+					case MUSIC:
+						switch (subfield.getId()) {
+							case "tag008music18": tag008music18 = new ControlValue(subfield, value); break;
+							case "tag008music20": tag008music20 = new ControlValue(subfield, value); break;
+							case "tag008music21": tag008music21 = new ControlValue(subfield, value); break;
+							case "tag008music22": tag008music22 = new ControlValue(subfield, value); break;
+							case "tag008music23": tag008music23 = new ControlValue(subfield, value); break;
+							case "tag008music24": tag008music24 = new ControlValue(subfield, value); break;
+							case "tag008music30": tag008music30 = new ControlValue(subfield, value); break;
+							case "tag008music33": tag008music33 = new ControlValue(subfield, value); break;
+							default:
+								logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
+								break;
+						}
+						break;
+					case CONTINUING_RESOURCES:
+						switch (subfield.getId()) {
+							case "tag008continuing18": tag008continuing18 = new ControlValue(subfield, value); break;
+							case "tag008continuing19": tag008continuing19 = new ControlValue(subfield, value); break;
+							case "tag008continuing21": tag008continuing21 = new ControlValue(subfield, value); break;
+							case "tag008continuing22": tag008continuing22 = new ControlValue(subfield, value); break;
+							case "tag008continuing23": tag008continuing23 = new ControlValue(subfield, value); break;
+							case "tag008continuing24": tag008continuing24 = new ControlValue(subfield, value); break;
+							case "tag008continuing25": tag008continuing25 = new ControlValue(subfield, value); break;
+							case "tag008continuing28": tag008continuing28 = new ControlValue(subfield, value); break;
+							case "tag008continuing29": tag008continuing29 = new ControlValue(subfield, value); break;
+							case "tag008continuing33": tag008continuing33 = new ControlValue(subfield, value); break;
+							case "tag008continuing34": tag008continuing34 = new ControlValue(subfield, value); break;
+							default:
+								logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
+								break;
+						}
+						break;
+					case VISUAL_MATERIALS:
+						switch (subfield.getId()) {
+							case "tag008visual18": tag008visual18 = new ControlValue(subfield, value); break;
+							case "tag008visual22": tag008visual22 = new ControlValue(subfield, value); break;
+							case "tag008visual28": tag008visual28 = new ControlValue(subfield, value); break;
+							case "tag008visual29": tag008visual29 = new ControlValue(subfield, value); break;
+							case "tag008visual33": tag008visual33 = new ControlValue(subfield, value); break;
+							case "tag008visual34": tag008visual34 = new ControlValue(subfield, value); break;
+							default:
+								logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
+								break;
+						}
+						break;
+					case MIXED_MATERIALS:
+						switch (subfield.getId()) {
+							case "tag008mixed23": tag008mixed23 = new ControlValue(subfield, value); break;
+							default:
+								logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
+								break;
+						}
 						break;
 				}
 
@@ -445,5 +490,16 @@ public class Control008 {
 
 	public ControlValue getTag008mixed23() {
 		return tag008mixed23;
+	}
+
+	@Override
+	public Map<String, List<String>> getKeyValuePairs() {
+		Map<String, List<String>> map = new LinkedHashMap<>();
+		map.put(mqTag, Arrays.asList(content));
+		for (ControlSubfield controlSubfield : valuesMap.keySet()) {
+			map.put(controlSubfield.getId(), Arrays.asList(
+				controlSubfield.resolve(valuesMap.get(controlSubfield))));
+		}
+		return map;
 	}
 }

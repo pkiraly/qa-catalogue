@@ -3,9 +3,7 @@ package de.gwdg.metadataqa.marc;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
 import de.gwdg.metadataqa.marc.definition.LeaderSubfields;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,9 +13,11 @@ import java.util.logging.Logger;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class Leader {
+public class Leader implements Extractable {
 
 	private static final Logger logger = Logger.getLogger(Leader.class.getCanonicalName());
+
+	private String mqTag = "Leader";
 
 	enum Type {
 		BOOKS("Books"),
@@ -39,7 +39,7 @@ public class Leader {
 	};
 
 	private Type type;
-	private String leader;
+	private String content;
 	// private Map<String, Object> map;
 	private Map<ControlSubfield, String> valuesMap;
 	private ControlValue recordLength;
@@ -58,8 +58,8 @@ public class Leader {
 	private ControlValue lengthOfTheStartingCharacterPositionPortion;
 	private ControlValue lengthOfTheImplementationDefinedPortion;
 
-	public Leader(String leader) {
-		this.leader = leader;
+	public Leader(String content) {
+		this.content = content;
 		valuesMap = new LinkedHashMap<>();
 		process();
 		setType();
@@ -67,9 +67,9 @@ public class Leader {
 
 	private void process() {
 		for (ControlSubfield subfield : LeaderSubfields.getSubfields()) {
-			int end = Math.min(leader.length(), subfield.getPositionEnd());
+			int end = Math.min(content.length(), subfield.getPositionEnd());
 			try {
-				String value = leader.substring(subfield.getPositionStart(), end);
+				String value = content.substring(subfield.getPositionStart(), end);
 				switch (subfield.getId()) {
 					case "leader01": recordLength = new ControlValue(subfield, value); break;
 					case "leader05": recordStatus = new ControlValue(subfield, value); break;
@@ -92,7 +92,7 @@ public class Leader {
 				valuesMap.put(subfield, value);
 			} catch (StringIndexOutOfBoundsException e) {
 				logger.severe(String.format("%s: length: %d while reading position @%d-%d",
-					subfield.getLabel(), leader.length(), subfield.getPositionStart(), subfield.getPositionEnd()));
+					subfield.getLabel(), content.length(), subfield.getPositionStart(), subfield.getPositionEnd()));
 			}
 		}
 	}
@@ -153,7 +153,7 @@ public class Leader {
 	}
 
 	public String getLeaderString() {
-		return leader;
+		return content;
 	}
 
 	public ControlValue getRecordLength() {
@@ -222,5 +222,16 @@ public class Leader {
 			output += String.format("%s: %s\n", key.getLabel(), resolve(key));
 		}
 		return output;
+	}
+
+	@Override
+	public Map<String, List<String>> getKeyValuePairs() {
+		Map<String, List<String>> map = new LinkedHashMap<>();
+		map.put(mqTag, Arrays.asList(content));
+		for (ControlSubfield controlSubfield : valuesMap.keySet()) {
+			map.put(controlSubfield.getId(), Arrays.asList(
+				controlSubfield.resolve(valuesMap.get(controlSubfield))));
+		}
+		return map;
 	}
 }

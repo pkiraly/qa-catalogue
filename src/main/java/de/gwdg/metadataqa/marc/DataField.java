@@ -5,7 +5,7 @@ import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 
 import java.util.*;
 
-public class DataField {
+public class DataField implements Extractable {
 	private DataFieldDefinition definition;
 	private String tag;
 	private String ind1;
@@ -127,6 +127,7 @@ public class DataField {
 		return output;
 	}
 
+	@Override
 	public Map<String, List<String>> getKeyValuePairs() {
 		Map<String, List<String>> pairs = new HashMap<>();
 

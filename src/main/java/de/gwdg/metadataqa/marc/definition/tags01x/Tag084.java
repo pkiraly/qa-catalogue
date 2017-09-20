@@ -44,7 +44,7 @@ public class Tag084 extends DataFieldDefinition {
 		getSubfield("2").setCodeList(ClassificationSchemeSourceCodes.getInstance());
 		getSubfield("a").setBibframeTag("classificationPortion");
 		getSubfield("b").setBibframeTag("itemPortion");
-		getSubfield("c").setBibframeTag("assigner");
+		getSubfield("q").setBibframeTag("assigner");
 		getSubfield("2").setBibframeTag("source");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");

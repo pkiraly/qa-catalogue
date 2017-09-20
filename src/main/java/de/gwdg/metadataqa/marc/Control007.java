@@ -11,9 +11,12 @@ import java.util.logging.Logger;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class Control007 {
+public class Control007 implements Extractable {
 
 	private static final Logger logger = Logger.getLogger(Control007.class.getCanonicalName());
+
+	private String label = "Physical Description";
+	private String mqTag = "PhysicalDescription";
 
 	private String content;
 	private String categoryOfMaterial;
@@ -680,4 +683,16 @@ public class Control007 {
 				", map=" + valuesMap +
 				'}';
 	}
+
+	@Override
+	public Map<String, List<String>> getKeyValuePairs() {
+		Map<String, List<String>> map = new LinkedHashMap<>();
+		map.put(mqTag, Arrays.asList(content));
+		for (ControlSubfield controlSubfield : valuesMap.keySet()) {
+			map.put(controlSubfield.getId(), Arrays.asList(
+				controlSubfield.resolve(valuesMap.get(controlSubfield))));
+		}
+		return map;
+	}
+
 }

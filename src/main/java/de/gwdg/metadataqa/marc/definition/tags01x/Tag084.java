@@ -27,6 +27,8 @@ public class Tag084 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "084";
 		label = "Other Classificaton Number";
+		bibframeTag = "Classification";
+		// mqTag = "OtherClassificatonNumber";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
@@ -39,7 +41,12 @@ public class Tag084 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("q").setCodeList(OrganizationCodes.getInstance());
-		// TODO: $2 code from http://www.loc.gov/standards/sourcelist/classification.html
 		getSubfield("2").setCodeList(ClassificationSchemeSourceCodes.getInstance());
+		getSubfield("a").setBibframeTag("classificationPortion");
+		getSubfield("b").setBibframeTag("itemPortion");
+		getSubfield("c").setBibframeTag("assigner");
+		getSubfield("2").setBibframeTag("source");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

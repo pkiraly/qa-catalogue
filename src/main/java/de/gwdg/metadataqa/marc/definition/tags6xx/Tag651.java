@@ -27,6 +27,7 @@ public class Tag651 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "651";
 		label = "Subject Added Entry - Geographic Name";
+		bibframeTag = "Geographic";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("");
 		ind2 = new Indicator("Thesaurus").setCodes(
@@ -56,5 +57,18 @@ public class Tag651 extends DataFieldDefinition {
 		);
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
 		getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("e").setMqTag("relator");
+		getSubfield("g").setMqTag("miscellaneous");
+		getSubfield("v").setBibframeTag("formGenre").setMqTag("formSubdivision");
+		getSubfield("x").setBibframeTag("topic").setMqTag("generalSubdivision");
+		getSubfield("y").setBibframeTag("temporal").setMqTag("chronologicalSubdivision");
+		getSubfield("z").setBibframeTag("geographic").setMqTag("geographicSubdivision");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("2").setBibframeTag("source");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("4").setMqTag("relationship");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

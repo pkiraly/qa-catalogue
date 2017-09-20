@@ -25,6 +25,8 @@ public class Tag337 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "337";
 		label = "Media Type";
+		bibframeTag = "Media";
+		mqTag = "MediaType";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
@@ -38,5 +40,12 @@ public class Tag337 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("2").setCodeList(GenreFormCodeAndTermSourceCodes.getInstance());
+		getSubfield("a").setBibframeTag("rdfs:label");
+		getSubfield("b").setMqTag("mediaTypeCode");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("2").setBibframeTag("source");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

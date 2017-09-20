@@ -26,6 +26,8 @@ public class Tag500 extends DataFieldDefinition {
 
 		tag = "500";
 		label = "General Note";
+		bibframeTag = "Note";
+		mqTag = "GeneralNote";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
@@ -36,5 +38,10 @@ public class Tag500 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+		getSubfield("a").setBibframeTag("rdfs:label");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

@@ -27,6 +27,7 @@ public class Tag043 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "043";
 		label = "Geographic Area Code";
+		bibframeTag = "GeographicCoverage";
 		cardinality = Cardinality.Nonrepeatable;
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
@@ -41,5 +42,13 @@ public class Tag043 extends DataFieldDefinition {
 		);
 		getSubfield("a").setCodeList(GeographicAreaCodes.getInstance());
 		getSubfield("2").setCodeList(GeographicAreaSourceCodes.getInstance());
+
+		getSubfield("a").setMqTag("code");
+		getSubfield("b").setMqTag("localGACcode");
+		getSubfield("c").setMqTag("ISOcode");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("2").setMqTag("source");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

@@ -32,7 +32,7 @@ public class Tag016 extends DataFieldDefinition {
 			" ", "Library and Archives Canada",
 			"7", "Source specified in subfield $2"
 		);
-		ind2 = new Indicator("").setCodes(" ", "Undefined");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Record control number", "NR",
 			"z", "Canceled/invalid control number", "R",
@@ -43,5 +43,8 @@ public class Tag016 extends DataFieldDefinition {
 			.setCodeList(OrganizationCodes.getInstance())
 			.setBibframeTag("source");
 		getSubfield("a").setBibframeTag("rdf:value");
+		getSubfield("z").setMqTag("canceledOrInvalidControlNumber");
+		getSubfield("2").setBibframeTag("source");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

@@ -4,6 +4,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class TagDefinitionLoader {
@@ -13,6 +15,8 @@ public class TagDefinitionLoader {
 	private static final Pattern PATTERN_76x = Pattern.compile("^7[6-9]\\d$");
 	private static final Pattern PATTERN_80x = Pattern.compile("^8[0-3]\\d$");
 	private static final Pattern PATTERN_84x = Pattern.compile("^8[4-9]\\d$");
+
+	private static final List<String> OCLC_TAGS = Arrays.asList("029", "911", "912", "938");
 
 	public static DataFieldDefinition load(String tag) {
 		DataFieldDefinition dataFieldDefinition = null;
@@ -37,7 +41,9 @@ public class TagDefinitionLoader {
 
 	public static String getClassName(String tag) {
 		String packageName = null;
-		if (tag.startsWith("0")) {
+		if (OCLC_TAGS.contains(tag)) {
+			packageName = "oclctags";
+		} else if (tag.startsWith("0")) {
 			packageName = "tags01x";
 		} else if (tag.startsWith("1")) {
 			packageName = "tags1xx";

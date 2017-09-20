@@ -37,6 +37,7 @@ public class MarcFactoryTest {
 		// System.err.println(record.format());
 		// System.err.println(record.formatAsMarc());
 		System.err.println(record.formatForIndex());
+		System.err.println(record.getKeyValuePairs());
 	}
 
 }

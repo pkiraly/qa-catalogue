@@ -8,7 +8,7 @@ import java.util.Map;
 public abstract class DataFieldDefinition {
 	protected String tag;
 	protected String bibframeTag;
-	protected String alternativeTag;
+	protected String mqTag;
 	protected String label;
 	protected Cardinality cardinality = Cardinality.Nonrepeatable;
 	protected Indicator ind1;
@@ -25,8 +25,8 @@ public abstract class DataFieldDefinition {
 		if (indexTag == null) {
 			if (bibframeTag != null)
 				indexTag = bibframeTag.replace("/", "");
-			else if (alternativeTag != null)
-				indexTag = alternativeTag;
+			else if (mqTag != null)
+				indexTag = mqTag;
 			else
 				indexTag = tag;
 		}

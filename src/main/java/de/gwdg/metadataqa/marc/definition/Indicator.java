@@ -9,6 +9,8 @@ import java.util.Map;
 
 public class Indicator {
 	private String label = null;
+	private String bibframeTag = null;
+	private String mqTag = null;
 	private List<Code> codes;
 	private Map<String, Code> codeIndex = new LinkedHashMap<>();
 
@@ -45,6 +47,22 @@ public class Indicator {
 
 	public String getLabel() {
 		return label;
+	}
+
+	public String getBibframeTag() {
+		return bibframeTag;
+	}
+
+	public void setBibframeTag(String bibframeTag) {
+		this.bibframeTag = bibframeTag;
+	}
+
+	public String getMqTag() {
+		return mqTag;
+	}
+
+	public void setMqTag(String mqTag) {
+		this.mqTag = mqTag;
 	}
 
 	public boolean exists() {

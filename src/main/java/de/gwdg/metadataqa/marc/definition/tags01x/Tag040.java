@@ -49,7 +49,7 @@ public class Tag040 extends DataFieldDefinition {
 		getSubfield("d").setCodeList(orgCodes);
 
 		getSubfield("a").setMqTag("catalogingAgency");
-		getSubfield("b").setMqTag("language");
+		getSubfield("b").setMqTag("languageOfCataloging");
 		getSubfield("c").setMqTag("transcribingAgency");
 		getSubfield("d").setMqTag("modifyingAgency");
 		getSubfield("e").setMqTag("descriptionConventions");

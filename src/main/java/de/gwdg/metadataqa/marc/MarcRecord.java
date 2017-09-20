@@ -1,9 +1,6 @@
 package de.gwdg.metadataqa.marc;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class MarcRecord {
 	private Leader leader;
@@ -69,5 +66,14 @@ public class MarcRecord {
 			output += field.formatForIndex();
 		}
 		return output;
+	}
+
+	public Map<String, List<String>> getKeyValuePairs() {
+		Map<String, List<String>> mainKeyValuePairs = new LinkedHashMap<>();
+		for (DataField field : datafields) {
+			Map<String, List<String>> keyValuePairs = field.getKeyValuePairs();
+			mainKeyValuePairs.putAll(keyValuePairs);
+		}
+		return mainKeyValuePairs;
 	}
 }

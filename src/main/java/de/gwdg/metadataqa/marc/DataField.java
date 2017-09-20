@@ -127,6 +127,29 @@ public class DataField {
 		return output;
 	}
 
+	public Map<String, List<String>> getKeyValuePairs() {
+		Map<String, List<String>> pairs = new HashMap<>();
+
+		if (definition.getInd1().exists())
+			pairs.put(String.format("%s_ind1", definition.getIndexTag()), Arrays.asList(resolveInd1()));
+
+		if (definition.getInd2().exists())
+			pairs.put(String.format("%s_ind2", definition.getIndexTag()), Arrays.asList(resolveInd2()));
+
+		for (MarcSubfield subfield : subfields) {
+			String code = subfield.getCodeForIndex();
+			pairs.put(String.format("%s%s", definition.getIndexTag(), code), Arrays.asList(subfield.resolve()));
+			if (subfield.getDefinition() != null && subfield.getDefinition().hasContentParser()) {
+				Map<String, String> extra = subfield.parseContent();
+				if (extra != null)
+					for (String key : extra.keySet())
+						pairs.put(String.format("%s%s_%s", definition.getIndexTag(), code, key), Arrays.asList(extra.get(key)));
+			}
+		}
+
+		return pairs;
+	}
+
 	public String resolveInd1() {
 		if (!definition.getInd1().exists())
 			return "";

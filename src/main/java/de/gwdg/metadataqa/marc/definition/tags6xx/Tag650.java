@@ -27,6 +27,7 @@ public class Tag650 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "650";
 		label = "Subject Added Entry - Topical Term";
+		bibframeTag = "Topic";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Level of subject").setCodes(
 			" ", "No information provided",
@@ -64,5 +65,9 @@ public class Tag650 extends DataFieldDefinition {
 		);
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
 		getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
+		getSubfield("a").setMqTag("topicalTerm");
+		getSubfield("b").setMqTag("topicalTerm");
+		getSubfield("c").setMqTag("locationOfEvent");
+		getSubfield("2").setMqTag("sourceOfHeading");
 	}
 }

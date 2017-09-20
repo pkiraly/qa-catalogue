@@ -26,6 +26,7 @@ public class Tag700 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "700";
 		label = "Added Entry - Personal Name";
+		mqTag = "AddedPersonalName";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Type of personal name entry element").setCodes(
 			"0", "Forename",
@@ -67,5 +68,32 @@ public class Tag700 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
+		getSubfield("a").setMqTag("personalName");
+		getSubfield("b").setMqTag("numeration");
+		getSubfield("c").setMqTag("titlesAndWords");
+		getSubfield("d").setMqTag("dates");
+		getSubfield("e").setMqTag("relatorTerm");
+		getSubfield("f").setMqTag("dateOfAWork");
+		getSubfield("g").setMqTag("miscellaneous");
+		getSubfield("h").setMqTag("hedium");
+		getSubfield("i").setMqTag("relationship");
+		getSubfield("j").setMqTag("attributionQualifier");
+		getSubfield("k").setMqTag("formSubheading");
+		getSubfield("l").setMqTag("language");
+		getSubfield("m").setMqTag("mediumOfPerformance");
+		getSubfield("n").setMqTag("numberOfPart");
+		getSubfield("o").setMqTag("arrangedStatement");
+		getSubfield("p").setMqTag("nameOfPart");
+		getSubfield("q").setMqTag("fullerForm");
+		getSubfield("r").setMqTag("keyForMusic");
+		getSubfield("s").setMqTag("version");
+		getSubfield("t").setMqTag("titleOfAWork");
+		getSubfield("u").setMqTag("affiliation");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("4").setMqTag("relatorCode");
+		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
+		getSubfield("6").setMqTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

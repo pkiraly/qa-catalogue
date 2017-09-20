@@ -65,6 +65,8 @@ public class Tag655 extends DataFieldDefinition {
 		getSubfield("x").setBibframeTag("topic").setMqTag("generalSubdivision");
 		getSubfield("y").setBibframeTag("temporal").setMqTag("chronologicalSubdivision");
 		getSubfield("z").setBibframeTag("geographic").setMqTag("geographicSubdivision");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("2").setMqTag("source");
 		getSubfield("3").setMqTag("materialsSpecified");
 		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
 		getSubfield("6").setBibframeTag("linkage");

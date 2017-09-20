@@ -25,6 +25,7 @@ public class Tag050 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "050";
 		label = "Library of Congress Call Number";
+		bibframeTag = "ClassificationLcc";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Existence in LC collection").setCodes(
 			" ", "No information provided",
@@ -42,5 +43,10 @@ public class Tag050 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+		getSubfield("a").setBibframeTag("rdfs:label");
+		getSubfield("b").setBibframeTag("itemPortion");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

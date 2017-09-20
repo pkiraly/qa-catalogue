@@ -25,8 +25,9 @@ public class Tag830 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "830";
 		label = "Series Added Entry - Uniform Title";
+		mqTag = "SeriesAddedUniformTitle";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
+		ind1 = new Indicator();
 		ind2 = new Indicator("Nonfiling characters").setCodes(
 			"0", "No nonfiling characters",
 			"1-9", "Number of nonfiling characters"
@@ -62,5 +63,28 @@ public class Tag830 extends DataFieldDefinition {
 			"/0", "Type of record",
 			"/1", "Bibliographic level"
 		);
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("d").setMqTag("dateOfTreaty");
+		getSubfield("f").setMqTag("dateOfAWork");
+		getSubfield("g").setMqTag("miscellaneous");
+		getSubfield("h").setMqTag("medium");
+		getSubfield("k").setMqTag("formSubheading");
+		getSubfield("l").setMqTag("languageOfAWork");
+		getSubfield("m").setMqTag("mediumOfPerformance");
+		getSubfield("n").setMqTag("numberOfPart");
+		getSubfield("o").setMqTag("arrangedStatement");
+		getSubfield("p").setMqTag("nameOfPart");
+		getSubfield("r").setMqTag("keyForMusic");
+		getSubfield("s").setMqTag("version");
+		getSubfield("t").setMqTag("titleOfAWork");
+		getSubfield("v").setMqTag("volume");
+		getSubfield("w").setMqTag("biblControlNumber");
+		getSubfield("x").setMqTag("issn");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
+		getSubfield("6").setMqTag("linkage");
+		getSubfield("7").setMqTag("controlSubfield");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

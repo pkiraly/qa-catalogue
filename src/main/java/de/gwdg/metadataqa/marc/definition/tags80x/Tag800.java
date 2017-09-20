@@ -25,13 +25,14 @@ public class Tag800 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "800";
 		label = "Series Added Entry - Personal Name";
+		mqTag = "SeriesAddedPersonalName";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Type of personal name entry element").setCodes(
 			"0", "Forename",
 			"1", "Surname",
 			"3", "Family name"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Personal name", "NR",
 			"b", "Numeration", "NR",

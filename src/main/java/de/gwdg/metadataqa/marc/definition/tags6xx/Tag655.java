@@ -26,6 +26,7 @@ public class Tag655 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "655";
 		label = "Index Term - Genre/Form";
+		bibframeTag = "GenreForm";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Type of heading").setCodes(
 			" ", "Basic",
@@ -57,5 +58,16 @@ public class Tag655 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("2").setCodeList(GenreFormCodeAndTermSourceCodes.getInstance());
+		getSubfield("a").setBibframeTag("rdfs:label");
+		getSubfield("b").setMqTag("nonfocusTerm");
+		getSubfield("c").setMqTag("facet");
+		getSubfield("v").setBibframeTag("genreForm").setMqTag("formSubdivision");
+		getSubfield("x").setBibframeTag("topic").setMqTag("generalSubdivision");
+		getSubfield("y").setBibframeTag("temporal").setMqTag("chronologicalSubdivision");
+		getSubfield("z").setBibframeTag("geographic").setMqTag("geographicSubdivision");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

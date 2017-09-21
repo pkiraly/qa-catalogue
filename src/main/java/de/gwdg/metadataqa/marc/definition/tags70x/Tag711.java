@@ -26,6 +26,7 @@ public class Tag711 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "711";
 		label = "Added Entry - Meeting Name";
+		mqTag = "AddedMeetingName";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Type of meeting name entry element").setCodes(
 			"0", "Inverted name",
@@ -63,5 +64,29 @@ public class Tag711 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("c").setMqTag("locationOfMeeting");
+		getSubfield("d").setMqTag("dates");
+		getSubfield("e").setMqTag("subordinateUnit");
+		getSubfield("f").setMqTag("dateOfAWork");
+		getSubfield("g").setMqTag("miscellaneous");
+		getSubfield("h").setMqTag("medium");
+		getSubfield("i").setMqTag("relationship");
+		getSubfield("j").setMqTag("relatorTerm");
+		getSubfield("k").setMqTag("formSubheading");
+		getSubfield("l").setMqTag("language");
+		getSubfield("n").setMqTag("numberOfPart");
+		getSubfield("p").setMqTag("nameOfPart");
+		getSubfield("q").setMqTag("followingName");
+		getSubfield("s").setMqTag("version");
+		getSubfield("t").setMqTag("titleOfAWork");
+		getSubfield("u").setMqTag("affiliation");
+		getSubfield("x").setMqTag("issn");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("4").setMqTag("relatorCode");
+		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
+		getSubfield("6").setMqTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

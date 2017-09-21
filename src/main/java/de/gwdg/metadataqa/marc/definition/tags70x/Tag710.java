@@ -27,6 +27,7 @@ public class Tag710 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "710";
 		label = "Added Entry - Corporate Name";
+		mqTag = "AddedCorporateName";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Type of corporate name entry element").setCodes(
 			"0", "Inverted name",
@@ -67,6 +68,31 @@ public class Tag710 extends DataFieldDefinition {
 		);
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
 		getSubfield("0").setContentParser(RecordControlNumberParser.getInstance());
-
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("b").setMqTag("subordinateUnit");
+		getSubfield("c").setMqTag("locationOfMeeting");
+		getSubfield("d").setMqTag("dates");
+		getSubfield("e").setMqTag("relatorTerm");
+		getSubfield("f").setMqTag("dateOfAWork");
+		getSubfield("g").setMqTag("miscellaneous");
+		getSubfield("h").setMqTag("medium");
+		getSubfield("i").setMqTag("relationship");
+		getSubfield("k").setMqTag("formSubheading");
+		getSubfield("l").setMqTag("language");
+		getSubfield("m").setMqTag("mediumOfPerformance");
+		getSubfield("n").setMqTag("numberOfPart");
+		getSubfield("o").setMqTag("arrangedStatement");
+		getSubfield("p").setMqTag("nameOfPart");
+		getSubfield("r").setMqTag("keyForMusic");
+		getSubfield("s").setMqTag("version");
+		getSubfield("t").setMqTag("titleOfAWork");
+		getSubfield("u").setMqTag("affiliation");
+		getSubfield("x").setMqTag("issn");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("4").setMqTag("relatorCode");
+		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
+		getSubfield("6").setMqTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

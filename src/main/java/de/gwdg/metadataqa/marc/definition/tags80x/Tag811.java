@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags80x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 
 /**
  * Series Added Entry - Meeting Name
@@ -25,6 +26,7 @@ public class Tag811 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "811";
 		label = "Series Added Entry - Meeting Name";
+		mqTag = "SeriesAddedMeetingName";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Type of meeting name entry element").setCodes(
 			"0", "Inverted name",
@@ -65,5 +67,33 @@ public class Tag811 extends DataFieldDefinition {
 			"/0", "Type of record",
 			"/1", "Bibliographic level"
 		);
+		getSubfield("4").setCodeList(RelatorCodes.getInstance());
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("c").setMqTag("locationOfMeeting");
+		getSubfield("d").setMqTag("dates");
+		getSubfield("e").setMqTag("subordinateUnit");
+		getSubfield("f").setMqTag("dateOfAWork");
+		getSubfield("g").setMqTag("miscellaneous");
+		getSubfield("h").setMqTag("medium");
+		getSubfield("j").setMqTag("relatorTerm");
+		getSubfield("k").setMqTag("formSubheading");
+		getSubfield("l").setMqTag("language");
+		getSubfield("n").setMqTag("numberOfPart");
+		getSubfield("p").setMqTag("nameOfPart");
+		getSubfield("q").setMqTag("followingName");
+		getSubfield("s").setMqTag("version");
+		getSubfield("t").setMqTag("titleOfAWork");
+		getSubfield("u").setMqTag("affiliation");
+		getSubfield("u").setMqTag("affiliation");
+		getSubfield("v").setMqTag("volumeDesignation");
+		getSubfield("w").setMqTag("bibliographicRecordControlNumber");
+		getSubfield("x").setMqTag("issn");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("4").setMqTag("relatorCode");
+		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
+		getSubfield("6").setMqTag("linkage");
+		getSubfield("7").setMqTag("controlSubfield");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

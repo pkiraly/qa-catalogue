@@ -57,5 +57,6 @@ public class Tag730 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+		getSubfield("x").setMqTag("issn");
 	}
 }

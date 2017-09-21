@@ -25,6 +25,7 @@ public class Tag810 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "810";
 		label = "Series Added Entry - Corporate Name";
+		mqTag = "SeriesAddedCorporateName";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Type of corporate name entry element").setCodes(
 			"0", "Inverted name",

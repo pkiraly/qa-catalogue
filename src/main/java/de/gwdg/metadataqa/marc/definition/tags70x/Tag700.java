@@ -75,7 +75,7 @@ public class Tag700 extends DataFieldDefinition {
 		getSubfield("e").setMqTag("relatorTerm");
 		getSubfield("f").setMqTag("dateOfAWork");
 		getSubfield("g").setMqTag("miscellaneous");
-		getSubfield("h").setMqTag("hedium");
+		getSubfield("h").setMqTag("medium");
 		getSubfield("i").setMqTag("relationship");
 		getSubfield("j").setMqTag("attributionQualifier");
 		getSubfield("k").setMqTag("formSubheading");
@@ -89,6 +89,7 @@ public class Tag700 extends DataFieldDefinition {
 		getSubfield("s").setMqTag("version");
 		getSubfield("t").setMqTag("titleOfAWork");
 		getSubfield("u").setMqTag("affiliation");
+		getSubfield("x").setMqTag("issn");
 		getSubfield("0").setMqTag("authorityRecordControlNumber");
 		getSubfield("3").setMqTag("materialsSpecified");
 		getSubfield("4").setMqTag("relatorCode");

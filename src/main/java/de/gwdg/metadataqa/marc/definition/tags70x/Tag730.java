@@ -78,7 +78,6 @@ public class Tag730 extends DataFieldDefinition {
 		getSubfield("3").setMqTag("materialsSpecified");
 		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
 		getSubfield("6").setMqTag("linkage");
-		getSubfield("7").setMqTag("controlSubfield");
 		getSubfield("8").setMqTag("fieldLink");
 	}
 }

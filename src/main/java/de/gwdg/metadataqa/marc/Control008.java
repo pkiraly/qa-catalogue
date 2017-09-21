@@ -497,8 +497,12 @@ public class Control008 implements Extractable {
 		Map<String, List<String>> map = new LinkedHashMap<>();
 		map.put(mqTag, Arrays.asList(content));
 		for (ControlSubfield controlSubfield : valuesMap.keySet()) {
-			map.put(controlSubfield.getId(), Arrays.asList(
-				controlSubfield.resolve(valuesMap.get(controlSubfield))));
+			String code = controlSubfield.getMqTag() != null
+				? controlSubfield.getMqTag()
+				: controlSubfield.getId();
+			String key = String.format("%s_%s", mqTag, code);
+			String value = controlSubfield.resolve(valuesMap.get(controlSubfield));
+			map.put(key, Arrays.asList(value));
 		}
 		return map;
 	}

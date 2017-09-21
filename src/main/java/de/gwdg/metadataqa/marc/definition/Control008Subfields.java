@@ -15,7 +15,7 @@ public class Control008Subfields {
 	static {
 		subfields.put(Control008Type.ALL_MATERIALS, Arrays.asList(
 				new ControlSubfield("Date entered on file", 0, 6)
-					.setId("tag008all00"),
+					.setId("tag008all00").setMqTag("dateEnteredOnFile"),
 				// pattern: yymmdd
 				new ControlSubfield("Type of date/Publication status", 6, 7,
 						Utils.generateCodes(
@@ -35,15 +35,15 @@ public class Control008Subfields {
 								"u", "Continuing resource status unknown",
 								"|", "No attempt to code"
 						))
-						.setId("tag008all06"),
+						.setId("tag008all06").setMqTag("typeOfDateOrPublicationStatus"),
 				new ControlSubfield("Date 1", 7, 11)
-						.setId("tag008all07"),
+						.setId("tag008all07").setMqTag("date1"),
 				new ControlSubfield("Date 2", 11, 15)
-						.setId("tag008all11"),
+						.setId("tag008all11").setMqTag("date2"),
 				new ControlSubfield("Place of publication, production, or execution", 15, 18)
-						.setId("tag008all15"),
+						.setId("tag008all15").setMqTag("placeOfPublicationProductionOrExecution"),
 				new ControlSubfield("Language", 35, 38)
-						.setId("tag008all35"),
+						.setId("tag008all35").setMqTag("language"),
 				new ControlSubfield("Modified record", 38, 39,
 						Utils.generateCodes(
 								" ", "Not modified",
@@ -55,7 +55,7 @@ public class Control008Subfields {
 								"x", "Missing characters",
 								"|", "No attempt to code"
 						)
-				).setId("tag008all38"),
+				).setId("tag008all38").setMqTag("modifiedRecord"),
 				new ControlSubfield("Cataloging source", 39, 40,
 						Utils.generateCodes(
 								" ", "National bibliographic agency",
@@ -65,7 +65,7 @@ public class Control008Subfields {
 								"u", "Unknown",
 								"|", "No attempt to code"
 						)
-				).setId("tag008all39")
+				).setId("tag008all39").setMqTag("catalogingSource")
 		));
 		subfields.put(Control008Type.BOOKS, Arrays.asList(
 				new ControlSubfield("Illustrations", 18, 22,

@@ -65,6 +65,7 @@ public class Control007 implements Extractable {
 	private ControlValue tag007microform03;
 	private ControlValue tag007microform04;
 	private ControlValue tag007microform05;
+	private ControlValue tag007microform06;
 	private ControlValue tag007microform09;
 	private ControlValue tag007microform10;
 	private ControlValue tag007microform11;
@@ -198,6 +199,7 @@ public class Control007 implements Extractable {
 					case "tag007microform03": tag007microform03 = new ControlValue(subfield, value); break;
 					case "tag007microform04": tag007microform04 = new ControlValue(subfield, value); break;
 					case "tag007microform05": tag007microform05 = new ControlValue(subfield, value); break;
+					case "tag007microform06": tag007microform06 = new ControlValue(subfield, value); break;
 					case "tag007microform09": tag007microform09 = new ControlValue(subfield, value); break;
 					case "tag007microform10": tag007microform10 = new ControlValue(subfield, value); break;
 					case "tag007microform11": tag007microform11 = new ControlValue(subfield, value); break;
@@ -452,6 +454,10 @@ public class Control007 implements Extractable {
 
 	public ControlValue getMicroform05() {
 		return tag007microform05;
+	}
+
+	public ControlValue getMicroform06() {
+		return tag007microform06;
 	}
 
 	public ControlValue getMicroform09() {

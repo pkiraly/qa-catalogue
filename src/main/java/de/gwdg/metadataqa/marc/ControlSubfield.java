@@ -12,6 +12,8 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class ControlSubfield {
 	private String label;
+	private String bibframeTag;
+	private String mqTag;
 	private int positionStart;
 	private int positionEnd;
 	private String id;
@@ -41,6 +43,24 @@ public class ControlSubfield {
 
 	public String getLabel() {
 		return label;
+	}
+
+	public String getBibframeTag() {
+		return bibframeTag;
+	}
+
+	public ControlSubfield setBibframeTag(String bibframeTag) {
+		this.bibframeTag = bibframeTag;
+		return this;
+	}
+
+	public String getMqTag() {
+		return mqTag;
+	}
+
+	public ControlSubfield setMqTag(String mqTag) {
+		this.mqTag = mqTag;
+		return this;
 	}
 
 	public int getPositionStart() {

@@ -151,28 +151,28 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("tag008book28"),
+				).setId("tag008book28").setMqTag("governmentPublication"),
 				new ControlSubfield("Conference publication", 29, 30,
 						Utils.generateCodes(
 								"0", "Not a conference publication",
 								"1", "Conference publication",
 								"|", "No attempt to code"
 						)
-				).setId("tag008book29"),
+				).setId("tag008book29").setMqTag("conferencePublication"),
 				new ControlSubfield("Festschrift", 30, 31,
 						Utils.generateCodes(
 								"0", "Not a festschrift",
 								"1", "Festschrift",
 								"|", "No attempt to code"
 						)
-				).setId("tag008book30"),
+				).setId("tag008book30").setMqTag("festschrift"),
 				new ControlSubfield("Index", 31, 32,
 						Utils.generateCodes(
 								"0", "No index",
 								"1", "Index present",
 								"|", "No attempt to code"
 						)
-				).setId("tag008book31"),
+				).setId("tag008book31").setMqTag("index"),
 				// new ControlSubfield("undefined", 32, 33),
 				new ControlSubfield("Literary form", 33, 34,
 						Utils.generateCodes(
@@ -190,7 +190,7 @@ public class Control008Subfields {
 								"u", "Unknown",
 								"|", "No attempt to code"
 						)
-				).setId("tag008book33"),
+				).setId("tag008book33").setMqTag("literaryForm"),
 				new ControlSubfield("Biography", 34, 35,
 						Utils.generateCodes(
 								" ", "No biographical material",
@@ -200,7 +200,7 @@ public class Control008Subfields {
 								"d", "Contains biographical information",
 								"|", "No attempt to code"
 						)
-				).setId("tag008book34")
+				).setId("tag008book34").setMqTag("biography")
 		));
 		subfields.put(Control008Type.COMPUTER_FILES, Arrays.asList(
 				// new ControlSubfield("undefined", 18, 21),
@@ -217,7 +217,7 @@ public class Control008Subfields {
 								"j", "Juvenile",
 								"|", "No attempt to code"
 						)
-				).setId("tag008computer22"),
+				).setId("tag008computer22").setMqTag("targetAudience"),
 				new ControlSubfield("Form of item", 23, 24,
 						Utils.generateCodes(
 								" ", "Unknown or not specified",
@@ -225,7 +225,7 @@ public class Control008Subfields {
 								"q", "Direct electronic",
 								"|", "No attempt to code"
 						)
-				).setId("tag008computer23"),
+				).setId("tag008computer23").setMqTag("formOfItem"),
 				// new ControlSubfield("undefined", 24, 25),
 				new ControlSubfield("Type of computer file", 26, 27,
 						Utils.generateCodes(
@@ -244,7 +244,7 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("tag008computer26"),
+				).setId("tag008computer26").setMqTag("typeOfComputerFile"),
 				// new ControlSubfield("undefined", 27, 28),
 				new ControlSubfield("Government publication", 28, 29,
 						Utils.generateCodes(
@@ -261,7 +261,7 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("tag008computer28")
+				).setId("tag008computer28").setMqTag("governmentPublication")
 				// new ControlSubfield("undefined", 29, 35)
 		));
 		subfields.put(Control008Type.MAPS, Arrays.asList(
@@ -283,7 +283,7 @@ public class Control008Subfields {
 								"|", "No attempt to code"
 						)
 				).setUnitLength(1).setRepeatableContent(true)
-					.setId("tag008map18"),
+					.setId("tag008map18").setMqTag("relief"),
 				new ControlSubfield("Projection", 22, 24,
 						Utils.generateCodes(
 								"  ", "Projection not specified",
@@ -335,7 +335,7 @@ public class Control008Subfields {
 								"zz", "Other",
 								"||", "No attempt to code"
 						)
-				).setId("tag008map22"),
+				).setId("tag008map22").setMqTag("projection"),
 				// new ControlSubfield("undefined", 24, 25),
 				new ControlSubfield("Type of cartographic material", 25, 26,
 						Utils.generateCodes(
@@ -350,7 +350,7 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("tag008map25"),
+				).setId("tag008map25").setMqTag("typeOfCartographicMaterial"),
 				// new ControlSubfield("undefined", 26, 28),
 				new ControlSubfield("Government publication", 28, 29,
 						Utils.generateCodes(
@@ -367,7 +367,7 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("tag008map28"),
+				).setId("tag008map28").setMqTag("governmentPublication"),
 				new ControlSubfield("Form of item", 29, 30,
 						Utils.generateCodes(
 								" ", "None of the following",
@@ -382,7 +382,7 @@ public class Control008Subfields {
 								"s", "Electronic",
 								"|", "No attempt to code"
 						)
-				).setId("tag008map29"),
+				).setId("tag008map29").setMqTag("formOfItem"),
 				// new ControlSubfield("undefined", 30, 31),
 				new ControlSubfield("Index", 31, 32,
 						Utils.generateCodes(
@@ -390,7 +390,7 @@ public class Control008Subfields {
 								"1", "Index present",
 								"|", "No attempt to code"
 						)
-				).setId("tag008map31"),
+				).setId("tag008map31").setMqTag("index"),
 				// new ControlSubfield("undefined", 32, 33)
 				new ControlSubfield("Special format characteristics", 33, 35,
 						Utils.generateCodes(
@@ -407,7 +407,7 @@ public class Control008Subfields {
 								"||", "No attempt to code"
 						)
 				).setUnitLength(1).setRepeatableContent(true)
-						.setId("tag008map33")
+						.setId("tag008map33").setMqTag("specialFormatCharacteristics")
 		));
 		subfields.put(Control008Type.MUSIC, Arrays.asList(
 				new ControlSubfield("Form of composition", 18, 20,
@@ -486,7 +486,7 @@ public class Control008Subfields {
 								"zz", "Other",
 								"||", "No attempt to code"
 						)
-				).setId("tag008music18"),
+				).setId("tag008music18").setMqTag("formOfComposition"),
 				new ControlSubfield("Format of music", 20, 21,
 						Utils.generateCodes(
 								"a", "Full score",
@@ -507,7 +507,7 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("tag008music20"),
+				).setId("tag008music20").setMqTag("formatOfMusic"),
 				new ControlSubfield("Music parts", 21, 22,
 						Utils.generateCodes(
 								" ", "No parts in hand or not specified",
@@ -518,7 +518,7 @@ public class Control008Subfields {
 								"u", "Unknown",
 								"|", "No attempt to code"
 						)
-				).setId("tag008music21"),
+				).setId("tag008music21").setMqTag("musicParts"),
 				new ControlSubfield("Target audience", 22, 23,
 						Utils.generateCodes(
 								" ", "Unknown or unspecified",
@@ -532,7 +532,7 @@ public class Control008Subfields {
 								"j", "Juvenile",
 								"|", "No attempt to code"
 						)
-				).setId("tag008music22"),
+				).setId("tag008music22").setMqTag("targetAudience"),
 				new ControlSubfield("Form of item", 23, 24,
 						Utils.generateCodes(
 								" ", "None of the following",
@@ -547,7 +547,7 @@ public class Control008Subfields {
 								"s", "Electronic",
 								"|", "No attempt to code"
 						)
-				).setId("tag008music23"),
+				).setId("tag008music23").setMqTag("formOfItem"),
 				new ControlSubfield("Accompanying matter", 24, 30,
 						Utils.generateCodes(
 								" ", "No accompanying matter",
@@ -566,7 +566,7 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("tag008music24"),
+				).setId("tag008music24").setMqTag("accompanyingMatter"),
 				new ControlSubfield("Literary text for sound recordings", 30, 32,
 						Utils.generateCodes(
 								" ", "Item is a music sound recording",
@@ -592,7 +592,7 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("tag008music30"),
+				).setId("tag008music30").setMqTag("literaryTextForSoundRecordings"),
 				// new ControlSubfield("Undefined", 32, 33),
 				new ControlSubfield("Transposition and arrangement", 33, 34,
 						Utils.generateCodes(
@@ -604,7 +604,7 @@ public class Control008Subfields {
 								"u", "Unknown",
 								"|", "No attempt to code"
 						)
-				).setId("tag008music33")
+				).setId("tag008music33").setMqTag("transpositionAndArrangement")
 				// new ControlSubfield("Undefined", 34, 35)
 		));
 		subfields.put(Control008Type.CONTINUING_RESOURCES, Arrays.asList(
@@ -631,7 +631,7 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("tag008continuing18"),
+				).setId("tag008continuing18").setMqTag("frequency"),
 				new ControlSubfield("Regularity", 19, 20,
 						Utils.generateCodes(
 								"n", "Normalized irregular",
@@ -640,7 +640,7 @@ public class Control008Subfields {
 								"x", "Completely irregular",
 								"|", "No attempt to code"
 						)
-				).setId("tag008continuing19"),
+				).setId("tag008continuing19").setMqTag("regularity"),
 				// new ControlSubfield("Undefined", 20, 21),
 				new ControlSubfield("Type of continuing resource", 21, 22,
 						Utils.generateCodes(
@@ -653,7 +653,7 @@ public class Control008Subfields {
 								"w", "Updating Web site",
 								"|", "No attempt to code"
 						)
-				).setId("tag008continuing21"),
+				).setId("tag008continuing21").setMqTag("typeOfContinuingResource"),
 				new ControlSubfield("Form of original item", 22, 23,
 						Utils.generateCodes(
 								" ", "None of the following",
@@ -668,7 +668,7 @@ public class Control008Subfields {
 								"s", "Electronic",
 								"|", "No attempt to code"
 						)
-				).setId("tag008continuing22"),
+				).setId("tag008continuing22").setMqTag("formOfOriginalItem"),
 				new ControlSubfield("Form of item", 23, 24,
 						Utils.generateCodes(
 								" ", "None of the following",
@@ -683,7 +683,7 @@ public class Control008Subfields {
 								"s", "Electronic",
 								"|", "No attempt to code"
 						)
-				).setId("tag008continuing23"),
+				).setId("tag008continuing23").setMqTag("formOfItem"),
 				new ControlSubfield("Nature of entire work", 24, 25,
 						Utils.generateCodes(
 								" ", "Not specified",
@@ -715,7 +715,7 @@ public class Control008Subfields {
 								"6", "Comics/graphic novels",
 								"|", "No attempt to code"
 						)
-				).setId("tag008continuing24"),
+				).setId("tag008continuing24").setMqTag("natureOfEntireWork"),
 				new ControlSubfield("Nature of contents", 25, 28,
 						Utils.generateCodes(
 								" ", "Not specified",
@@ -748,7 +748,7 @@ public class Control008Subfields {
 								"|", "No attempt to code"
 						)
 				).setUnitLength(1).setRepeatableContent(true)
-						.setId("tag008continuing25"),
+						.setId("tag008continuing25").setMqTag("natureOfContents"),
 				new ControlSubfield("Government publication", 28, 29,
 						Utils.generateCodes(
 								" ", "Not a government publication",
@@ -764,14 +764,14 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("tag008continuing28"),
+				).setId("tag008continuing28").setMqTag("governmentPublication"),
 				new ControlSubfield("Conference publication", 29, 30,
 						Utils.generateCodes(
 								"0", "Not a conference publication",
 								"1", "Conference publication",
 								"|", "No attempt to code"
 						)
-				).setId("tag008continuing29"),
+				).setId("tag008continuing29").setMqTag("conferencePublication"),
 				// new ControlSubfield("Undefined", 30, 33),
 				new ControlSubfield("Original alphabet or script of title", 33, 34,
 						Utils.generateCodes(
@@ -792,7 +792,7 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("tag008continuing33"),
+				).setId("tag008continuing33").setMqTag("originalAlphabetOrScriptOfTitle"),
 				new ControlSubfield("Entry convention", 34, 35,
 						Utils.generateCodes(
 								"0", "Successive entry",
@@ -800,7 +800,7 @@ public class Control008Subfields {
 								"2", "Integrated entry",
 								"|", "No attempt to code"
 						)
-				).setId("tag008continuing34")
+				).setId("tag008continuing34").setMqTag("entryConvention")
 		));
 		subfields.put(Control008Type.VISUAL_MATERIALS, Arrays.asList(
 				new ControlSubfield("Running time for motion pictures and videorecordings", 18, 21,
@@ -811,7 +811,7 @@ public class Control008Subfields {
 								"---", "Unknown",
 								"|||", "No attempt to code "
 						)
-				).setId("tag008visual18"),
+				).setId("tag008visual18").setMqTag("runningTime"),
 				// new ControlSubfield("Undefined", 21, 22),
 				new ControlSubfield("Target audience", 22, 23,
 						Utils.generateCodes(
@@ -826,7 +826,7 @@ public class Control008Subfields {
 								"j", "Juvenile",
 								"|", "No attempt to code"
 						)
-				).setId("tag008visual22"),
+				).setId("tag008visual22").setMqTag("targetAudience"),
 				// new ControlSubfield("Undefined", 23, 28),
 				new ControlSubfield("Government publication", 28, 29,
 						Utils.generateCodes(
@@ -843,7 +843,7 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("tag008visual28"),
+				).setId("tag008visual28").setMqTag("governmentPublication"),
 				new ControlSubfield("Form of item", 29, 30,
 						Utils.generateCodes(
 								" ", "None of the following",
@@ -858,7 +858,7 @@ public class Control008Subfields {
 								"s", "Electronic",
 								"|", "No attempt to code"
 						)
-				).setId("tag008visual29"),
+				).setId("tag008visual29").setMqTag("formOfItem"),
 				// new ControlSubfield("Undefined", 30, 33),
 				new ControlSubfield("Type of visual material", 33, 34,
 						Utils.generateCodes(
@@ -884,7 +884,7 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("tag008visual33"),
+				).setId("tag008visual33").setMqTag("typeOfVisualMaterial"),
 				new ControlSubfield("Technique", 34, 35,
 						Utils.generateCodes(
 								"a", "Animation",
@@ -895,7 +895,7 @@ public class Control008Subfields {
 								"z", "Other",
 								"|", "No attempt to code"
 						)
-				).setId("tag008visual34")
+				).setId("tag008visual34").setMqTag("technique")
 		));
 		subfields.put(Control008Type.MIXED_MATERIALS, Arrays.asList(
 				// new ControlSubfield("Undefined", 18, 23),
@@ -913,7 +913,7 @@ public class Control008Subfields {
 								"s", "Electronic",
 								"|", "No attempt to code"
 						)
-				).setId("tag008mixed23")
+				).setId("tag008mixed23").setMqTag("formOfItem")
 				// new ControlSubfield("Undefined", 24, 35),
 		));
 	}

@@ -64,7 +64,12 @@ public abstract class DataFieldDefinition {
 	protected void setSubfieldsWithCardinality(String... input) {
 		subfields = new ArrayList<>();
 		for (int i = 0; i < input.length; i += 3) {
-			subfields.add(new SubfieldDefinition(input[i], input[i + 1], input[i + 2]));
+			String code = input[i];
+			String label = input[i + 1];
+			String cardinality = input[i + 2];
+			SubfieldDefinition definition = new SubfieldDefinition(code, label, cardinality);
+			definition.setParent(this);
+			subfields.add(definition);
 		}
 		indexSubfields();
 	}
@@ -75,6 +80,11 @@ public abstract class DataFieldDefinition {
 		}
 	}
 
+	/**
+	 *
+	 * @param code
+	 * @return The subfield definition or null
+	 */
 	public SubfieldDefinition getSubfield(String code) {
 		return subfieldIndex.getOrDefault(code, null);
 	}

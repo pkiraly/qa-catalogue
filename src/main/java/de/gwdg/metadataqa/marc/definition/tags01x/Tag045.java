@@ -3,7 +3,6 @@ package de.gwdg.metadataqa.marc.definition.tags01x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.general.codelist.CountrySourceCodes;
 
 /**
  * Time Period of Content
@@ -96,6 +95,5 @@ public class Tag045 extends DataFieldDefinition {
 			"x", "1900-1999",
 			"y", "2000-2099"
 		);
-		getSubfield("2").setCodeList(CountrySourceCodes.getInstance());
 	}
 }

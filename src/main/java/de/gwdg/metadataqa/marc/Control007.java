@@ -137,7 +137,8 @@ public class Control007 implements Extractable {
 	public Control007(String content) {
 		this.content = content;
 		valuesMap = new LinkedHashMap<>();
-		process();
+		if (content != null)
+			process();
 	}
 
 	private void process() {

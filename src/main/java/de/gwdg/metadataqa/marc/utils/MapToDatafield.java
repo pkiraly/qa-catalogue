@@ -18,7 +18,8 @@ public class MapToDatafield {
 
 		String ind1 = (String)fieldInstance.get("ind1");
 		String ind2 = (String)fieldInstance.get("ind2");
-		List<Map<String, String>> subfields = toMap(Converter.jsonObjectToList(fieldInstance.get("subfield")));
+		List<Map<String, String>> subfields = toMap(
+			Converter.jsonObjectToList(fieldInstance.get("subfield")));
 
 		DataField df = new DataField(definition, ind1, ind2, subfields);
 		return df;

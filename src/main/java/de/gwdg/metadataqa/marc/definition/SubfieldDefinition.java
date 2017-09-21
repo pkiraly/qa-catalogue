@@ -20,6 +20,7 @@ public class SubfieldDefinition {
 	private String mqTag;
 	private String cardinalityCode;
 	private String label;
+	private DataFieldDefinition parent;
 	private Validator validator;
 	private SubfieldContentParser contentParser;
 	private CodeList codeList;
@@ -142,6 +143,14 @@ public class SubfieldDefinition {
 
 	public String getMqTag() {
 		return mqTag;
+	}
+
+	public DataFieldDefinition getParent() {
+		return parent;
+	}
+
+	public void setParent(DataFieldDefinition parent) {
+		this.parent = parent;
 	}
 
 	public SubfieldDefinition setMqTag(String mqTag) {

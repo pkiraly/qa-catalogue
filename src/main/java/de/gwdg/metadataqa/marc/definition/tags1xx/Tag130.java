@@ -3,7 +3,6 @@ package de.gwdg.metadataqa.marc.definition.tags1xx;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 
 /**
  * Main Entry - Uniform Title
@@ -52,6 +51,5 @@ public class Tag130 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
-		getSubfield("4").setCodeList(RelatorCodes.getInstance());
 	}
 }

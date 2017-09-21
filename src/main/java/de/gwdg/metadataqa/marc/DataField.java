@@ -28,11 +28,18 @@ public class DataField implements Extractable {
 				String code = subfield.get("code");
 				String value = subfield.get("content");
 				SubfieldDefinition subfieldDefinition = definition.getSubfield(code);
-				MarcSubfield marcSubfield = new MarcSubfield(subfieldDefinition, code, value);
-				this.subfields.add(marcSubfield);
-				if (!subfieldIndex.containsKey(code))
-					subfieldIndex.put(code, new LinkedList<>());
-				subfieldIndex.get(code).add(marcSubfield);
+				if (subfieldDefinition == null) {
+					if (!(definition.getTag().equals("886") && code.equals("k")))
+						System.err.printf("no definition for %s$%s (value: '%s') %s %s\n",
+							definition.getTag(), code, value, definition.getTag().equals("886"),
+							code.equals("k"));
+				} else {
+					MarcSubfield marcSubfield = new MarcSubfield(subfieldDefinition, code, value);
+					this.subfields.add(marcSubfield);
+					if (!subfieldIndex.containsKey(code))
+						subfieldIndex.put(code, new LinkedList<>());
+					subfieldIndex.get(code).add(marcSubfield);
+				}
 			}
 		}
 	}

@@ -135,6 +135,7 @@ public class MarcRecord {
 	public Map<String, List<String>> getKeyValuePairs() {
 		Map<String, List<String>> mainKeyValuePairs = new LinkedHashMap<>();
 
+		mainKeyValuePairs.put("type", Arrays.asList(getType().getValue()));
 		mainKeyValuePairs.putAll(leader.getKeyValuePairs());
 
 		for (Extractable controlField : getControlfields()) {

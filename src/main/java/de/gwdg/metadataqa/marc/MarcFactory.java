@@ -24,40 +24,36 @@ public class MarcFactory {
 		for (JsonBranch branch : schema.getPaths()) {
 			if (branch.getParent() != null)
 				continue;
-			if (branch.getLabel().equals("leader")) {
-				record.setLeader(new Leader(extractFirst(cache, branch)));
-			} else if (branch.getLabel().startsWith("00")) switch (branch.getLabel()) {
+			switch (branch.getLabel()) {
+				case "leader":
+					record.setLeader(new Leader(extractFirst(cache, branch))); break;
 				case "001":
-					record.setControl001(new Control001(extractFirst(cache, branch)));
-					break;
+					record.setControl001(new Control001(extractFirst(cache, branch))); break;
 				case "003":
-					record.setControl003(new Control003(extractFirst(cache, branch)));
-					break;
+					record.setControl003(new Control003(extractFirst(cache, branch))); break;
 				case "005":
-					record.setControl005(new Control005(extractFirst(cache, branch)));
-					break;
+					record.setControl005(new Control005(extractFirst(cache, branch))); break;
 				case "006":
-					record.setControl006(new Control006(extractFirst(cache, branch), record.getType()));
-					break;
+					record.setControl006(
+						new Control006(extractFirst(cache, branch), record.getType())); break;
 				case "007":
-					record.setControl007(new Control007(extractFirst(cache, branch)));
-					break;
+					record.setControl007(new Control007(extractFirst(cache, branch))); break;
 				case "008":
 					record.setControl008(
-						new Control008(extractFirst(cache, branch), record.getType()));
-					break;
-			}
-			else {
-				JSONArray fieldInstances = (JSONArray) cache.getFragment(branch.getJsonPath());
-				for (int fieldInsanceNr = 0; fieldInsanceNr < fieldInstances.size(); fieldInsanceNr++) {
-					Map fieldInstance = (Map) fieldInstances.get(fieldInsanceNr);
-					DataField field = MapToDatafield.parse(fieldInstance);
-					if (field != null) {
-						record.addDataField(field);
-					} else {
-						record.addUnhandledTags(branch.getLabel());
+						new Control008(extractFirst(cache, branch), record.getType())); break;
+				default:
+					JSONArray fieldInstances = (JSONArray) cache.getFragment(branch.getJsonPath());
+					for (int fieldInsanceNr = 0; fieldInsanceNr < fieldInstances.size();
+						  fieldInsanceNr++) {
+						Map fieldInstance = (Map) fieldInstances.get(fieldInsanceNr);
+						DataField field = MapToDatafield.parse(fieldInstance);
+						if (field != null) {
+							record.addDataField(field);
+						} else {
+							record.addUnhandledTags(branch.getLabel());
+						}
 					}
-				}
+					break;
 			}
 		}
 		return record;

@@ -67,5 +67,9 @@ public class Tag630 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+		getSubfield("v").setBibframeTag("formGenre").setMqTag("formSubdivision");
+		getSubfield("x").setBibframeTag("topic").setMqTag("generalSubdivision");
+		getSubfield("y").setBibframeTag("temporal").setMqTag("chronologicalSubdivision");
+		getSubfield("z").setBibframeTag("geographic").setMqTag("geographicSubdivision");
 	}
 }

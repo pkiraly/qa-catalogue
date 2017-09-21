@@ -40,13 +40,13 @@ public class Tag852 extends DataFieldDefinition {
 			"6", "Shelved separately",
 			"7", "Source specified in subfield $2",
 			"8", "Other scheme "
-		);
+		).setMqTag("shelvingScheme");
 		ind2 = new Indicator("Shelving order").setCodes(
 			" ", "No information provided",
 			"0", "Not enumeration",
 			"1", "Primary enumeration",
 			"2", "Alternative enumeration"
-		);
+		).setMqTag("shelvingOrder");
 		setSubfieldsWithCardinality(
 			"a", "Location", "NR",
 			"b", "Sublocation or collection", "R",

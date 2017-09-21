@@ -31,8 +31,8 @@ public class Tag883 extends DataFieldDefinition {
 			" ", "No information provided/not applicable",
 			"0", "Fully machine-generated",
 			"1", "Partially machine-generated"
-		);
-		ind2 = new Indicator("");
+		).setMqTag("methodOfMachineAssignment");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Generation process", "NR",
 			"c", "Confidence value", "NR",

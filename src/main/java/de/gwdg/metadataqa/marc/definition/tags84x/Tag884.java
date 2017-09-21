@@ -27,8 +27,8 @@ public class Tag884 extends DataFieldDefinition {
 		tag = "884";
 		label = "Description Conversion Information";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Conversion process", "NR",
 			"g", "Conversion date", "NR",

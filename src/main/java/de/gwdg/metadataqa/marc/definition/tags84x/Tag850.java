@@ -27,8 +27,8 @@ public class Tag850 extends DataFieldDefinition {
 		tag = "850";
 		label = "Holding Institution";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Holding institution", "R",
 			"8", "Field link and sequence number", "R"

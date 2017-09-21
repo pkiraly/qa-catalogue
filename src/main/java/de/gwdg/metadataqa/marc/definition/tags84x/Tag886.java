@@ -32,8 +32,8 @@ public class Tag886 extends DataFieldDefinition {
 			"0", "Leader",
 			"1", "Variable control fields (002-009)",
 			"2", "Variable data fields (010-999)"
-		);
-		ind2 = new Indicator("");
+		).setMqTag("typeOfField");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Tag of the foreign MARC field", "NR",
 			"b", "Content of the foreign MARC field", "NR",

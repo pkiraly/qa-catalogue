@@ -52,5 +52,8 @@ public class Tag654 extends DataFieldDefinition {
 		);
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
 		getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
+		getSubfield("v").setBibframeTag("formGenre").setMqTag("formSubdivision");
+		getSubfield("y").setBibframeTag("temporal").setMqTag("chronologicalSubdivision");
+		getSubfield("z").setBibframeTag("geographic").setMqTag("geographicSubdivision");
 	}
 }

@@ -61,8 +61,9 @@ public class Indicator {
 		return mqTag;
 	}
 
-	public void setMqTag(String mqTag) {
+	public Indicator setMqTag(String mqTag) {
 		this.mqTag = mqTag;
+		return this;
 	}
 
 	public boolean exists() {

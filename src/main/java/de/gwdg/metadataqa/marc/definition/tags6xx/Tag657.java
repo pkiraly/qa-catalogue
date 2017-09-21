@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags6xx;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.general.codelist.FunctionTermSourceCodes;
 
 /**
  * Index Term - Function
@@ -42,7 +43,10 @@ public class Tag657 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
-		// TODO: $2 Function Term Source Codes http://www.loc.gov/standards/sourcelist/function.html
-		// getSubfield("2").setCodeList(GenreFormCodeAndTermSourceCodes.getInstance());
+		getSubfield("2").setCodeList(FunctionTermSourceCodes.getInstance());
+		getSubfield("v").setBibframeTag("formGenre").setMqTag("formSubdivision");
+		getSubfield("x").setBibframeTag("topic").setMqTag("generalSubdivision");
+		getSubfield("y").setBibframeTag("temporal").setMqTag("chronologicalSubdivision");
+		getSubfield("z").setBibframeTag("geographic").setMqTag("geographicSubdivision");
 	}
 }

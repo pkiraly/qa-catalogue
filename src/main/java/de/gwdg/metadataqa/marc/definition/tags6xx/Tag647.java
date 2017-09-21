@@ -38,10 +38,24 @@ public class Tag647 extends DataFieldDefinition {
 			"6", "Répertoire de vedettes-matière",
 			"7", "Source specified in subfield $2"
 		);
-		// TODO: something is missing here
 		setSubfieldsWithCardinality(
+			"a", "Named event", "NR",
+			"c", "Location of named event", "R",
+			"d", "Date of named event", "NR",
+			"g", "Miscellaneous information", "R",
+			"v", "Form subdivision", "R",
+			"x", "General subdivision", "R",
+			"y", "Chronological subdivision", "R",
+			"z", "Geographic subdivision", "R",
+			"0", "Authority record control number or standard number", "R",
+			"2", "Source of heading or term", "NR",
+			"3", "Materials specified", "NR",
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+		getSubfield("v").setBibframeTag("formGenre").setMqTag("formSubdivision");
+		getSubfield("x").setBibframeTag("topic").setMqTag("generalSubdivision");
+		getSubfield("y").setBibframeTag("temporal").setMqTag("chronologicalSubdivision");
+		getSubfield("z").setBibframeTag("geographic").setMqTag("geographicSubdivision");
 	}
 }

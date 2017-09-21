@@ -27,6 +27,7 @@ public class Tag856 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "856";
 		label = "Electronic Location and Access";
+		mqTag = "ElectronicLocationAndAccess";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Access method").setCodes(
 			" ", "No information provided",
@@ -36,14 +37,14 @@ public class Tag856 extends DataFieldDefinition {
 			"3", "Dial-up",
 			"4", "HTTP",
 			"7", "Method specified in subfield $2"
-		);
+		).setMqTag("accessMethod");
 		ind2 = new Indicator("Relationship").setCodes(
 			" ", "No information provided",
 			"0", "Resource",
 			"1", "Version of resource",
 			"2", "Related resource",
 			"8", "No display constant generated"
-		);
+		).setMqTag("relationship");
 		setSubfieldsWithCardinality(
 			"a", "Host name", "R",
 			"b", "Access number", "R",

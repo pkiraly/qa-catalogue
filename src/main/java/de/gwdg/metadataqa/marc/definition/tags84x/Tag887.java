@@ -27,8 +27,8 @@ public class Tag887 extends DataFieldDefinition {
 		tag = "887";
 		label = "Non-MARC Information Field";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Content of non-MARC field", "NR",
 			"2", "Source of data", "NR"

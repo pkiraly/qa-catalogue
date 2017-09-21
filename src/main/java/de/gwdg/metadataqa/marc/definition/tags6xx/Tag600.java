@@ -28,12 +28,13 @@ public class Tag600 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "600";
 		label = "Subject Added Entry - Personal Name";
+		mqTag = "PersonalNameSubject";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Type of personal name entry element").setCodes(
 			"0", "Forename",
 			"1", "Surname",
 			"3", "Family name"
-		);
+		).setMqTag("type");
 		ind2 = new Indicator("Thesaurus").setCodes(
 			"0", "Library of Congress Subject Headings",
 			"1", "LC subject headings for children's literature",
@@ -43,7 +44,7 @@ public class Tag600 extends DataFieldDefinition {
 			"5", "Canadian Subject Headings",
 			"6", "Répertoire de vedettes-matière",
 			"7", "Source specified in subfield $2"
-		);
+		).setMqTag("thesaurus");
 		setSubfieldsWithCardinality(
 			"a", "Personal name", "NR",
 			"b", "Numeration", "NR",
@@ -78,5 +79,35 @@ public class Tag600 extends DataFieldDefinition {
 		);
 		getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
+		getSubfield("a").setMqTag("personalName");
+		getSubfield("b").setMqTag("numeration");
+		getSubfield("c").setMqTag("titlesAndWords");
+		getSubfield("d").setMqTag("dates");
+		getSubfield("e").setMqTag("relatorTerm");
+		getSubfield("f").setMqTag("dateOfAWork");
+		getSubfield("g").setMqTag("miscellaneous");
+		getSubfield("h").setMqTag("medium");
+		getSubfield("j").setMqTag("attributionQualifier");
+		getSubfield("k").setMqTag("formSubheading");
+		getSubfield("l").setMqTag("languageOfAWork");
+		getSubfield("m").setMqTag("mediumOfPerformance");
+		getSubfield("n").setMqTag("numberOfPart");
+		getSubfield("o").setMqTag("arrangedStatement");
+		getSubfield("p").setMqTag("nameOfPart");
+		getSubfield("q").setMqTag("fullerForm");
+		getSubfield("r").setMqTag("keyForMusic");
+		getSubfield("s").setMqTag("version");
+		getSubfield("t").setMqTag("titleOfAWork");
+		getSubfield("u").setMqTag("affiliation");
+		getSubfield("v").setBibframeTag("formGenre").setMqTag("formSubdivision");
+		getSubfield("x").setBibframeTag("topic").setMqTag("generalSubdivision");
+		getSubfield("y").setBibframeTag("temporal").setMqTag("chronologicalSubdivision");
+		getSubfield("z").setBibframeTag("geographic").setMqTag("geographicSubdivision");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("2").setMqTag("source");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("4").setMqTag("relationship");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

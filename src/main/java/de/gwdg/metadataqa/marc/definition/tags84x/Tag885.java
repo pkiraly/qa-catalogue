@@ -27,8 +27,8 @@ public class Tag885 extends DataFieldDefinition {
 		tag = "885";
 		label = "Matching Information";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Matching information", "NR",
 			"b", "Status of matching and its checking", "NR",

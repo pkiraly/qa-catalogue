@@ -25,6 +25,7 @@ public class Tag648 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "648";
 		label = "Subject Added Entry - Chronological Term";
+		mqTag = "ChronologicalSubject";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
@@ -43,5 +44,9 @@ public class Tag648 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+		getSubfield("v").setBibframeTag("formGenre").setMqTag("formSubdivision");
+		getSubfield("x").setBibframeTag("topic").setMqTag("generalSubdivision");
+		getSubfield("y").setBibframeTag("temporal").setMqTag("chronologicalSubdivision");
+		getSubfield("z").setBibframeTag("geographic").setMqTag("geographicSubdivision");
 	}
 }

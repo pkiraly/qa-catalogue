@@ -92,7 +92,7 @@ public class MarcMongodbClientTest {
 		collection.remove(new BasicDBObject("name", "MongoDB"));
 	}
 
-	@Test
+	// @Test
 	public synchronized void testImport() throws URISyntaxException, IOException, InterruptedException {
 		MarcMongodbClient client = new MarcMongodbClient("localhost" , 27017, "sub_last_print");
 		DBCollection collection = client.getCollection("marc");

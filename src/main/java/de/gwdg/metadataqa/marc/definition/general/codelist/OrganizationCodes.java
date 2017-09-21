@@ -16441,7 +16441,6 @@ public class OrganizationCodes extends CodeList {
 				"ZDB-Test3", "Testbibliothek HBZ",
 				*/
 				"CSt-H", "Stanford University, Hoover Institution on War, Revolution, and Peace",
-				/*
 				"Mt", "Montana State Library",
 				"DLC", "United States, Library of Congress",
 				"ICU", "University of Chicago",

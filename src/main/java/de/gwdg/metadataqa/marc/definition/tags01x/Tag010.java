@@ -36,5 +36,8 @@ public class Tag010 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("a").setBibframeTag("rdf:value");
+		getSubfield("b").setMqTag("numcControlNumber");
+		getSubfield("z").setMqTag("canceled");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

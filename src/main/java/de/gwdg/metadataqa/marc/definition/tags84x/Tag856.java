@@ -77,5 +77,33 @@ public class Tag856 extends DataFieldDefinition {
 		);
 		getSubfield("w").setCodeList(OrganizationCodes.getInstance());
 		getSubfield("2").setCodeList(ElectronicAccessMethodsCodeList.getInstance());
+		getSubfield("a").setMqTag("host");
+		getSubfield("b").setMqTag("accessNumber");
+		getSubfield("c").setMqTag("compression");
+		getSubfield("d").setMqTag("path");
+		getSubfield("f").setMqTag("name");
+		getSubfield("h").setMqTag("processor");
+		getSubfield("i").setMqTag("instruction");
+		getSubfield("j").setMqTag("bitsPerSecond");
+		getSubfield("k").setMqTag("password");
+		getSubfield("l").setMqTag("logon");
+		getSubfield("m").setMqTag("contact");
+		getSubfield("n").setMqTag("location");
+		getSubfield("o").setMqTag("operatingSystem");
+		getSubfield("p").setMqTag("port");
+		getSubfield("q").setMqTag("format");
+		getSubfield("r").setMqTag("settings");
+		getSubfield("s").setMqTag("fileSize");
+		getSubfield("t").setMqTag("terminalEmulation");
+		getSubfield("u").setMqTag("uri");
+		getSubfield("v").setMqTag("hours");
+		getSubfield("w").setMqTag("recordControlNumber");
+		getSubfield("x").setMqTag("nonpublicNote");
+		getSubfield("y").setMqTag("linkText");
+		getSubfield("z").setMqTag("publicNote");
+		getSubfield("2").setMqTag("accessMethod");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

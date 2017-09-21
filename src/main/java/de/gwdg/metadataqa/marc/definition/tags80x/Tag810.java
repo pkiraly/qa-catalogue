@@ -3,6 +3,8 @@ package de.gwdg.metadataqa.marc.definition.tags80x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 
 /**
  * Series Added Entry - Corporate Name
@@ -68,5 +70,35 @@ public class Tag810 extends DataFieldDefinition {
 			"/0", "Type of record",
 			"/1", "Bibliographic level"
 		);
+		getSubfield("4").setCodeList(RelatorCodes.getInstance());
+		getSubfield("0").setContentParser(RecordControlNumberParser.getInstance());
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("b").setMqTag("subordinateUnit");
+		getSubfield("c").setMqTag("locationOfMeeting");
+		getSubfield("d").setMqTag("dates");
+		getSubfield("e").setMqTag("relatorTerm");
+		getSubfield("f").setMqTag("dateOfAWork");
+		getSubfield("g").setMqTag("miscellaneous");
+		getSubfield("h").setMqTag("medium");
+		getSubfield("k").setMqTag("formSubheading");
+		getSubfield("l").setMqTag("language");
+		getSubfield("m").setMqTag("mediumOfPerformance");
+		getSubfield("n").setMqTag("numberOfPart");
+		getSubfield("o").setMqTag("arrangedStatement");
+		getSubfield("p").setMqTag("nameOfPart");
+		getSubfield("r").setMqTag("keyForMusic");
+		getSubfield("s").setMqTag("version");
+		getSubfield("t").setMqTag("titleOfAWork");
+		getSubfield("u").setMqTag("affiliation");
+		getSubfield("v").setMqTag("volumeDesignation");
+		getSubfield("w").setMqTag("bibliographicRecordControlNumber");
+		getSubfield("x").setMqTag("issn");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("4").setMqTag("relatorCode");
+		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
+		getSubfield("6").setMqTag("linkage");
+		getSubfield("7").setMqTag("controlSubfield");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

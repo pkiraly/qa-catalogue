@@ -25,6 +25,7 @@ public class Tag730 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "730";
 		label = "Added Entry - Uniform Title";
+		mqTag = "AddedUniformTitle";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Nonfiling characters").setCodes(
 			"0-9", "Number of nonfiling characters"
@@ -57,6 +58,27 @@ public class Tag730 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("d").setMqTag("dateOfTreaty");
+		getSubfield("f").setMqTag("dateOfAWork");
+		getSubfield("g").setMqTag("miscellaneous");
+		getSubfield("h").setMqTag("medium");
+		getSubfield("i").setMqTag("relationship");
+		getSubfield("k").setMqTag("formSubheading");
+		getSubfield("l").setMqTag("languageOfAWork");
+		getSubfield("m").setMqTag("mediumOfPerformance");
+		getSubfield("n").setMqTag("numberOfPart");
+		getSubfield("o").setMqTag("arrangedStatement");
+		getSubfield("p").setMqTag("nameOfPart");
+		getSubfield("r").setMqTag("keyForMusic");
+		getSubfield("s").setMqTag("version");
+		getSubfield("t").setMqTag("titleOfAWork");
 		getSubfield("x").setMqTag("issn");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
+		getSubfield("6").setMqTag("linkage");
+		getSubfield("7").setMqTag("controlSubfield");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

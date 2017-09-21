@@ -26,6 +26,7 @@ public class Tag110 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "110";
 		label = "Main Entry - Corporate Name";
+		mqTag = "MainCorporateName";
 		cardinality = Cardinality.Nonrepeatable;
 		ind1 = new Indicator("Type of corporate name entry element").setCodes(
 			"0", "Inverted name",
@@ -53,5 +54,22 @@ public class Tag110 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("b").setMqTag("subordinateUnit");
+		getSubfield("c").setMqTag("locationOfMeeting");
+		getSubfield("d").setMqTag("dates");
+		getSubfield("e").setMqTag("relatorTerm");
+		getSubfield("f").setMqTag("dateOfAWork");
+		getSubfield("g").setMqTag("miscellaneous");
+		getSubfield("k").setMqTag("formSubheading");
+		getSubfield("l").setMqTag("language");
+		getSubfield("n").setMqTag("numberOfPart");
+		getSubfield("p").setMqTag("nameOfPart");
+		getSubfield("t").setMqTag("titleOfAWork");
+		getSubfield("u").setMqTag("affiliation");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("4").setMqTag("relatorCode");
+		getSubfield("6").setMqTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

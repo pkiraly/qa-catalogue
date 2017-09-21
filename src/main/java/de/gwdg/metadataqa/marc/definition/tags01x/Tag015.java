@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags01x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.general.codelist.NationalBibliographyNumberSourceCodes;
 
 /**
  * National Bibliography Number
@@ -37,8 +38,12 @@ public class Tag015 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+		getSubfield("2").setCodeList(NationalBibliographyNumberSourceCodes.getInstance());
 		getSubfield("a").setBibframeTag("rdf:value");
 		getSubfield("q").setBibframeTag("qualifier");
+		getSubfield("z").setMqTag("canceled");
 		getSubfield("2").setBibframeTag("source");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

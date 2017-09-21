@@ -15,7 +15,7 @@ public class Control007Subfields {
 	static {
 		subfields.put(Control007Category.Common, Arrays.asList(
 			new ControlSubfield("Category of material", 0, 1)
-				.setId("tag007common00")
+				.setId("tag007common00").setMqTag("categoryOfMaterial")
 		));
 		subfields.put(Control007Category.Map, Arrays.asList(
 			// new ControlSubField("Category of material", 0, 1),
@@ -33,7 +33,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007map01"),
+			).setId("tag007map01").setMqTag("specificMaterialDesignation"),
 			// new ControlSubField("Undefined", 2, 3),
 			new ControlSubfield("Color", 3, 4,
 				Utils.generateCodes(
@@ -41,7 +41,7 @@ public class Control007Subfields {
 					"c", "Multicolored",
 					"|", "No attempt to code"
 				)
-			).setId("tag007map03"),
+			).setId("tag007map03").setMqTag("color"),
 			new ControlSubfield("Physical medium", 4, 5,
 				Utils.generateCodes(
 					"a", "Paper",
@@ -67,7 +67,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007map04"),
+			).setId("tag007map04").setMqTag("physicalMedium"),
 			new ControlSubfield("Type of reproduction", 5, 6,
 				Utils.generateCodes(
 					"f", "Facsimile",
@@ -76,7 +76,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007map05"),
+			).setId("tag007map05").setMqTag("typeOfReproduction"),
 			new ControlSubfield("Production/reproduction details", 6, 7,
 				Utils.generateCodes(
 					"a", "Photocopy, blueline print",
@@ -87,7 +87,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007map06"),
+			).setId("tag007map06").setMqTag("productionOrReproductionDetails"),
 			new ControlSubfield("Positive/negative aspect", 7, 8,
 				Utils.generateCodes(
 					"a", "Positive",
@@ -96,7 +96,7 @@ public class Control007Subfields {
 					"n", "Not applicable",
 					"|", "No attempt to code"
 				)
-			).setId("tag007map07")
+			).setId("tag007map07").setMqTag("positiveNegativeAspect")
 		));
 		subfields.put(Control007Category.ElectronicResource, Arrays.asList(
 			// new ControlSubField("Category of material", 0, 1),
@@ -119,7 +119,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007electro01"),
+			).setId("tag007electro01").setMqTag("specificMaterialDesignation"),
 			// new ControlSubField("Undefined", 2, 3),
 			new ControlSubfield("Color", 3, 4,
 				Utils.generateCodes(
@@ -133,7 +133,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007electro03"),
+			).setId("tag007electro03").setMqTag("color"),
 			new ControlSubfield("Dimensions", 4, 5,
 				Utils.generateCodes(
 					"a", "3 1/2 in.",
@@ -148,7 +148,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007electro04"),
+			).setId("tag007electro04").setMqTag("dimensions"),
 			new ControlSubfield("Sound", 5, 6,
 				Utils.generateCodes(
 					" ", "No sound (silent)",
@@ -156,7 +156,7 @@ public class Control007Subfields {
 					"u", "Unknown",
 					"|", "No attempt to code"
 				)
-			).setId("tag007electro05"),
+			).setId("tag007electro05").setMqTag("sound"),
 			new ControlSubfield("Image bit depth", 6, 9,
 				Utils.generateCodes(
 					"001-999", "Exact bit depth", // pattern!
@@ -165,7 +165,7 @@ public class Control007Subfields {
 					"---", "Unknown",
 					"|||", "No attempt to code"
 				)
-			).setId("tag007electro06"),
+			).setId("tag007electro06").setMqTag("imageBitDepth"),
 			new ControlSubfield("File formats", 9, 10,
 				Utils.generateCodes(
 					"a", "One file format",
@@ -173,7 +173,7 @@ public class Control007Subfields {
 					"u", "Unknown",
 					"|", "No attempt to code"
 				)
-			).setId("tag007electro09"),
+			).setId("tag007electro09").setMqTag("fileFormats"),
 			new ControlSubfield("Quality assurance targets", 10, 11,
 				Utils.generateCodes(
 					"a", "Absent",
@@ -182,7 +182,7 @@ public class Control007Subfields {
 					"u", "Unknown",
 					"|", "No attempt to code"
 				)
-			).setId("tag007electro10"),
+			).setId("tag007electro10").setMqTag("qualityAssuranceTargets"),
 			new ControlSubfield("Antecedent/source", 11, 12,
 				Utils.generateCodes(
 					"a", "File reproduced from original",
@@ -194,7 +194,7 @@ public class Control007Subfields {
 					"u", "Unknown",
 					"|", "No attempt to code"
 				)
-			).setId("tag007electro11"),
+			).setId("tag007electro11").setMqTag("antecedentOrSource"),
 			new ControlSubfield("Level of compression", 12, 13,
 				Utils.generateCodes(
 					"a", "Uncompressed",
@@ -204,7 +204,7 @@ public class Control007Subfields {
 					"u", "Unknown",
 					"|", "No attempt to code"
 				)
-			).setId("tag007electro12"),
+			).setId("tag007electro12").setMqTag("levelOfCompression"),
 			new ControlSubfield("Reformatting quality", 13, 14,
 				Utils.generateCodes(
 					"a", "Access",
@@ -214,7 +214,7 @@ public class Control007Subfields {
 					"u", "Unknown",
 					"|", "No attempt to code"
 				)
-			).setId("tag007electro13")
+			).setId("tag007electro13").setMqTag("reformattingQuality")
 		));
 		subfields.put(Control007Category.Globe, Arrays.asList(
 			// new ControlSubField("Category of material", 0, 1),
@@ -228,7 +228,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007globe01"),
+			).setId("tag007globe01").setMqTag("specificMaterialDesignation"),
 			// new ControlSubField("Undefined", 2, 3),
 			new ControlSubfield("Color", 3, 4,
 				Utils.generateCodes(
@@ -236,7 +236,7 @@ public class Control007Subfields {
 					"c", "Multicolored",
 					"|", "No attempt to code"
 				)
-			).setId("tag007globe03"),
+			).setId("tag007globe03").setMqTag("color"),
 			new ControlSubfield("Physical medium", 4, 5,
 				Utils.generateCodes(
 					"a", "Paper",
@@ -256,7 +256,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007globe04"),
+			).setId("tag007globe04").setMqTag("physicalMedium"),
 			new ControlSubfield("Type of reproduction", 5, 6,
 				Utils.generateCodes(
 					"f", "Facsimile",
@@ -265,7 +265,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007Globe05")
+			).setId("tag007Globe05").setMqTag("typeOfReproduction")
 		));
 		subfields.put(Control007Category.TactileMaterial, Arrays.asList(
 			// new ControlSubField("Category of material", 0, 1),
@@ -280,7 +280,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007tactile01"),
+			).setId("tag007tactile01").setMqTag("specificMaterialDesignation"),
 			// new ControlSubField("Undefined", 2, 3),
 			new ControlSubfield("Class of braille writing", 3, 5,
 				Utils.generateCodes(
@@ -299,7 +299,7 @@ public class Control007Subfields {
 			)
 				.setUnitLength(1)
 				.setRepeatableContent(true)
-				.setId("tag007tactile03"),
+				.setId("tag007tactile03").setMqTag("classOfBrailleWriting"),
 			new ControlSubfield("Level of contraction", 5, 6,
 				Utils.generateCodes(
 					"a", "Uncontracted",
@@ -310,7 +310,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007tactile05"),
+			).setId("tag007tactile05").setMqTag("levelOfContraction"),
 			new ControlSubfield("Braille music format", 6, 9,
 				Utils.generateCodes(
 					" ", "No specified braille music format",
@@ -332,7 +332,7 @@ public class Control007Subfields {
 					"|", "No attempt to code"
 				)
 			).setUnitLength(1).setRepeatableContent(true)
-				.setId("tag007tactile06"),
+				.setId("tag007tactile06").setMqTag("brailleMusicFormat"),
 			new ControlSubfield("Special physical characteristics", 9, 10,
 				Utils.generateCodes(
 					"a", "Print/braille",
@@ -342,7 +342,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007tactile09")
+			).setId("tag007tactile09").setMqTag("specialPhysicalCharacteristics")
 		));
 		subfields.put(Control007Category.ProjectedGraphic, Arrays.asList(
 			// new ControlSubField("Category of material", 0, 1),
@@ -358,7 +358,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007projected01"),
+			).setId("tag007projected01").setMqTag("specificMaterialDesignation"),
 			// new ControlSubField("Undefined", 2, 3),
 			new ControlSubfield("Color", 3, 4,
 				Utils.generateCodes(
@@ -372,7 +372,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007projected03"),
+			).setId("tag007projected03").setMqTag("color"),
 			new ControlSubfield("Base of emulsion", 4, 5,
 				Utils.generateCodes(
 					"d", "Glass",
@@ -385,7 +385,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007projected04"),
+			).setId("tag007projected04").setMqTag("baseOfEmulsion"),
 			new ControlSubfield("Sound on medium or separate", 5, 6,
 				Utils.generateCodes(
 					" ", "No sound (silent)",
@@ -394,7 +394,7 @@ public class Control007Subfields {
 					"u", "Unknown",
 					"|", "No attempt to code"
 				)
-			).setId("tag007projected05"),
+			).setId("tag007projected05").setMqTag("soundOnMediumOrSeparate"),
 			new ControlSubfield("Medium for sound", 6, 7,
 				Utils.generateCodes(
 					" ", "No sound (silent)",
@@ -411,7 +411,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007projected06"),
+			).setId("tag007projected06").setMqTag("mediumForSound"),
 			new ControlSubfield("Dimensions", 7, 8,
 				Utils.generateCodes(
 					"a", "Standard 8 mm. film width",
@@ -433,7 +433,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007projected07"),
+			).setId("tag007projected07").setMqTag("dimensions"),
 			new ControlSubfield("Secondary support material", 8, 9,
 				Utils.generateCodes(
 					" ", "No secondary support",
@@ -448,7 +448,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007projected08")
+			).setId("tag007projected08").setMqTag("secondarySupportMaterial")
 		));
 		subfields.put(Control007Category.Microform, Arrays.asList(
 			// new ControlSubField("Category of material", 0, 1),
@@ -467,7 +467,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007microform01"),
+			).setId("tag007microform01").setMqTag("specificMaterialDesignation"),
 			// new ControlSubField("Undefined", 2, 3),
 			new ControlSubfield("Positive/negative aspect", 3, 4,
 				Utils.generateCodes(
@@ -477,7 +477,7 @@ public class Control007Subfields {
 					"u", "Unknown",
 					"|", "No attempt to code"
 				)
-			).setId("tag007microform03"),
+			).setId("tag007microform03").setMqTag("positiveNegativeAspect"),
 			new ControlSubfield("Dimensions", 4, 5,
 				Utils.generateCodes(
 					"a", "8 mm.",
@@ -493,7 +493,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007microform04"),
+			).setId("tag007microform04").setMqTag("dimensions"),
 			new ControlSubfield("Reduction ratio range", 5, 6,
 				Utils.generateCodes(
 					"a", "Low reduction ratio",
@@ -505,8 +505,9 @@ public class Control007Subfields {
 					"v", "Reduction rate varies",
 					"|", "No attempt to code"
 				)
-			).setId("tag007microform05"),
-			new ControlSubfield("Reduction ration", 6, 9).setId("tag007microform06"),
+			).setId("tag007microform05").setMqTag("reductionRatioRange"),
+			new ControlSubfield("Reduction ration", 6, 9)
+				.setId("tag007microform06").setMqTag("reductionRation"),
 			new ControlSubfield("Color", 9, 10,
 				Utils.generateCodes(
 					"b", "Black-and-white",
@@ -516,7 +517,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007microform09"),
+			).setId("tag007microform09").setMqTag("color"),
 			new ControlSubfield("Emulsion on film", 10, 11,
 				Utils.generateCodes(
 					"a", "Silver halide",
@@ -528,7 +529,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007microform10"),
+			).setId("tag007microform10").setMqTag("emulsionOnFilm"),
 			new ControlSubfield("Generation", 11, 12,
 				Utils.generateCodes(
 					"a", "First generation (master)",
@@ -538,7 +539,7 @@ public class Control007Subfields {
 					"u", "Unknown",
 					"|", "No attempt to code"
 				)
-			).setId("tag007microform11"),
+			).setId("tag007microform11").setMqTag("generation"),
 			new ControlSubfield("Base of film", 12, 13,
 				Utils.generateCodes(
 					"a", "Safety base, undetermined",
@@ -554,7 +555,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007microform12")
+			).setId("tag007microform12").setMqTag("baseOfFilm")
 		));
 		subfields.put(Control007Category.NonprojectedGraphic, Arrays.asList(
 			// new ControlSubField("Category of material", 0, 1),
@@ -582,7 +583,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007nonprojected01"),
+			).setId("tag007nonprojected01").setMqTag("specificMaterialDesignation"),
 			// new ControlSubField("Undefined", 2, 3),
 			new ControlSubfield("Color", 3, 4,
 				Utils.generateCodes(
@@ -595,7 +596,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007nonprojected03"),
+			).setId("tag007nonprojected03").setMqTag("color"),
 			new ControlSubfield("Primary support material", 4, 5,
 				Utils.generateCodes(
 					"a", "Canvas",
@@ -622,7 +623,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007nonprojected04"),
+			).setId("tag007nonprojected04").setMqTag("primarySupportMaterial"),
 			new ControlSubfield("Secondary support material", 5, 6,
 				Utils.generateCodes(
 					"#", "No secondary support",
@@ -650,7 +651,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007nonprojected05")
+			).setId("tag007nonprojected05").setMqTag("secondarySupportMaterial")
 		));
 		subfields.put(Control007Category.MotionPicture, Arrays.asList(
 			// new ControlSubField("Category of material", 0, 1),
@@ -664,7 +665,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007motionPicture01"),
+			).setId("tag007motionPicture01").setMqTag("specificMaterialDesignation"),
 			// new ControlSubField("Undefined", 2, 3),
 			new ControlSubfield("Color", 3, 4,
 				Utils.generateCodes(
@@ -677,7 +678,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007motionPicture03"),
+			).setId("tag007motionPicture03").setMqTag("color"),
 			new ControlSubfield("Motion picture presentation format", 4, 5,
 				Utils.generateCodes(
 					"a", "Standard sound aperture (reduced frame)",
@@ -690,7 +691,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007motionPicture04"),
+			).setId("tag007motionPicture04").setMqTag("motionPicturePresentationFormat"),
 			new ControlSubfield("Sound on medium or separate", 5, 6,
 				Utils.generateCodes(
 					" ", "No sound (silent)",
@@ -699,7 +700,7 @@ public class Control007Subfields {
 					"u", "Unknown",
 					"|", "No attempt to code"
 				)
-			).setId("tag007motionPicture05"),
+			).setId("tag007motionPicture05").setMqTag("soundOnMediumOrSeparate"),
 			new ControlSubfield("Medium for sound", 6, 7,
 				Utils.generateCodes(
 					" ", "No sound (silent)",
@@ -716,7 +717,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007motionPicture06"),
+			).setId("tag007motionPicture06").setMqTag("mediumForSound"),
 			new ControlSubfield("Dimensions", 7, 8,
 				Utils.generateCodes(
 					"a", "Standard 8 mm.",
@@ -730,7 +731,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007motionPicture07"),
+			).setId("tag007motionPicture07").setMqTag("dimensions"),
 			new ControlSubfield("Configuration of playback channels", 8, 9,
 				Utils.generateCodes(
 					"k", "Mixed",
@@ -742,7 +743,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007motionPicture08"),
+			).setId("tag007motionPicture08").setMqTag("configurationOfPlaybackChannels"),
 			new ControlSubfield("Production elements", 9, 10,
 				Utils.generateCodes(
 					"a", "Workprint",
@@ -756,7 +757,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007motionPicture09"),
+			).setId("tag007motionPicture09").setMqTag("productionElements"),
 			new ControlSubfield("Positive/negative aspect", 10, 11,
 				Utils.generateCodes(
 					"a", "Positive",
@@ -766,7 +767,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007motionPicture10"),
+			).setId("tag007motionPicture10").setMqTag("positiveNegativeAspect"),
 			new ControlSubfield("Generation", 11, 12,
 				Utils.generateCodes(
 					"d", "Duplicate",
@@ -777,7 +778,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007motionPicture11"),
+			).setId("tag007motionPicture11").setMqTag("generation"),
 			new ControlSubfield("Base of film", 12, 13,
 				Utils.generateCodes(
 					"a", "Safety base, undetermined",
@@ -793,7 +794,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007motionPicture12"),
+			).setId("tag007motionPicture12").setMqTag("baseOfFilm"),
 			new ControlSubfield("Refined categories of color", 13, 14,
 				Utils.generateCodes(
 					"a", "3 layer color",
@@ -820,7 +821,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007motionPicture13"),
+			).setId("tag007motionPicture13").setMqTag("refinedCategoriesOfColor"),
 			new ControlSubfield("Kind of color stock or print", 14, 15,
 				Utils.generateCodes(
 					"a", "Imbibition dye transfer prints",
@@ -832,7 +833,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007motionPicture14"),
+			).setId("tag007motionPicture14").setMqTag("kindOfColorStockOrPrint"),
 			new ControlSubfield("Deterioration stage", 15, 16,
 				Utils.generateCodes(
 					"a", "None apparent",
@@ -848,7 +849,7 @@ public class Control007Subfields {
 					"m", "Non-nitrate: disaster",
 					"|", "No attempt to code"
 				)
-			).setId("tag007motionPicture15"),
+			).setId("tag007motionPicture15").setMqTag("deteriorationStage"),
 			new ControlSubfield("Completeness", 16, 17,
 				Utils.generateCodes(
 					"c", "Complete",
@@ -857,9 +858,9 @@ public class Control007Subfields {
 					"u", "Unknown",
 					"|", "No attempt to code"
 				)
-			).setId("tag007motionPicture16"),
+			).setId("tag007motionPicture16").setMqTag("completeness"),
 			new ControlSubfield("Film inspection date", 17, 23)
-				.setId("tag007motionPicture17")
+				.setId("tag007motionPicture17").setMqTag("filmInspectionDate")
 		));
 		subfields.put(Control007Category.Kit, Arrays.asList(
 			// new ControlSubField("Category of material", 0, 1),
@@ -868,7 +869,7 @@ public class Control007Subfields {
 					"u", "Unspecified",
 					"|", "No attempt to code"
 				)
-			).setId("tag007kit01")
+			).setId("tag007kit01").setMqTag("specificMaterialDesignation")
 		));
 		subfields.put(Control007Category.NotatedMusic, Arrays.asList(
 			// new ControlSubField("Category of material", 0, 1),
@@ -877,7 +878,7 @@ public class Control007Subfields {
 					"u", "Unspecified",
 					"|", "No attempt to code"
 				)
-			).setId("tag007music01")
+			).setId("tag007music01").setMqTag("specificMaterialDesignation")
 		));
 		subfields.put(Control007Category.RemoteSensingImage, Arrays.asList(
 			// new ControlSubField("Category of material", 0, 1),
@@ -886,7 +887,7 @@ public class Control007Subfields {
 					"u", "Unspecified",
 					"|", "No attempt to code"
 				)
-			).setId("tag007remoteSensing01"),
+			).setId("tag007remoteSensing01").setMqTag("specificMaterialDesignation"),
 			// new ControlSubField("Undefined", 2, 3),
 			new ControlSubfield("Altitude of sensor", 3, 4,
 				Utils.generateCodes(
@@ -898,7 +899,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007remoteSensing03"),
+			).setId("tag007remoteSensing03").setMqTag("altitudeOfSensor"),
 			new ControlSubfield("Attitude of sensor", 4, 5,
 				Utils.generateCodes(
 					"a", "Low oblique",
@@ -908,7 +909,7 @@ public class Control007Subfields {
 					"u", "Unknown",
 					"|", "No attempt to code"
 				)
-			).setId("tag007remoteSensing04"),
+			).setId("tag007remoteSensing04").setMqTag("attitudeOfSensor"),
 			new ControlSubfield("Cloud cover", 5, 6,
 				Utils.generateCodes(
 					"0", "0-9%",
@@ -925,7 +926,7 @@ public class Control007Subfields {
 					"u", "Unknown",
 					"|", "No attempt to code"
 				)
-			).setId("tag007remoteSensing05"),
+			).setId("tag007remoteSensing05").setMqTag("cloudCover"),
 			new ControlSubfield("Platform construction type", 6, 7,
 				Utils.generateCodes(
 					"a", "Balloon",
@@ -942,7 +943,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007remoteSensing06"),
+			).setId("tag007remoteSensing06").setMqTag("platformConstructionType"),
 			new ControlSubfield("Platform use category", 7, 8,
 				Utils.generateCodes(
 					"a", "Meteorological",
@@ -954,7 +955,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007remoteSensing07"),
+			).setId("tag007remoteSensing07").setMqTag("platformUseCategory"),
 			new ControlSubfield("Sensor type", 8, 9,
 				Utils.generateCodes(
 					"a", "Active",
@@ -963,7 +964,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007remoteSensing08"),
+			).setId("tag007remoteSensing08").setMqTag("sensorType"),
 			new ControlSubfield("Data type", 9, 11,
 				Utils.generateCodes(
 					"aa", "Visible light",
@@ -1009,7 +1010,7 @@ public class Control007Subfields {
 					"zz", "Other",
 					"||", "No attempt to code"
 				)
-			).setId("tag007remoteSensing09")
+			).setId("tag007remoteSensing09").setMqTag("dataType")
 		));
 		subfields.put(Control007Category.SoundRecording, Arrays.asList(
 			// new ControlSubField("Category of material", 0, 1),
@@ -1022,7 +1023,7 @@ public class Control007Subfields {
 					"q", "Roll",
 					"r", "Remote"
 				)
-			).setId("tag007soundRecording01"),
+			).setId("tag007soundRecording01").setMqTag("specificMaterialDesignation"),
 			// new ControlSubField("Undefined", 2, 3),
 			new ControlSubfield("Speed", 3, 4,
 				Utils.generateCodes(
@@ -1045,7 +1046,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007soundRecording03"),
+			).setId("tag007soundRecording03").setMqTag("speed"),
 			new ControlSubfield("Configuration of playback channels", 4, 5,
 				Utils.generateCodes(
 					"m", "Monaural",
@@ -1055,7 +1056,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007soundRecording04"),
+			).setId("tag007soundRecording04").setMqTag("configurationOfPlaybackChannels"),
 			new ControlSubfield("Groove width/groove pitch", 5, 6,
 				Utils.generateCodes(
 					"m", "Microgroove/fine",
@@ -1065,7 +1066,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007soundRecording05"),
+			).setId("tag007soundRecording05").setMqTag("grooveWidthOrGroovePitch"),
 			new ControlSubfield("Dimensions", 6, 7,
 				Utils.generateCodes(
 					"a", "3 in. diameter",
@@ -1083,7 +1084,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007soundRecording06"),
+			).setId("tag007soundRecording06").setMqTag("dimensions"),
 			new ControlSubfield("Tape width", 7, 8,
 				Utils.generateCodes(
 					"l", "1/8 in.",
@@ -1095,7 +1096,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007soundRecording07"),
+			).setId("tag007soundRecording07").setMqTag("tapeWidth"),
 			new ControlSubfield("Tape configuration", 8, 9,
 				Utils.generateCodes(
 					"a", "Full (1) track",
@@ -1109,7 +1110,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007soundRecording08"),
+			).setId("tag007soundRecording08").setMqTag("tapeConfiguration"),
 			new ControlSubfield("Kind of disc, cylinder, or tape", 9, 10,
 				Utils.generateCodes(
 					"a", "Master tape",
@@ -1125,7 +1126,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007soundRecording09"),
+			).setId("tag007soundRecording09").setMqTag("kindOfDiscCylinderOrTape"),
 			new ControlSubfield("Kind of material", 10, 11,
 				Utils.generateCodes(
 					"a", "Lacquer coating",
@@ -1144,7 +1145,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007soundRecording10"),
+			).setId("tag007soundRecording10").setMqTag("kindOfMaterial"),
 			new ControlSubfield("Kind of cutting", 11, 12,
 				Utils.generateCodes(
 					"h", "Hill-and-dale cutting",
@@ -1153,7 +1154,7 @@ public class Control007Subfields {
 					"u", "Unknown",
 					"|", "No attempt to code"
 				)
-			).setId("tag007soundRecording11"),
+			).setId("tag007soundRecording11").setMqTag("kindOfCutting"),
 			new ControlSubfield("Special playback characteristics", 12, 13,
 				Utils.generateCodes(
 					"a", "NAB standard",
@@ -1169,7 +1170,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007soundRecording12"),
+			).setId("tag007soundRecording12").setMqTag("specialPlaybackCharacteristics"),
 			new ControlSubfield("Capture and storage technique", 13, 14,
 				Utils.generateCodes(
 					"a", "Acoustical capture, direct storage",
@@ -1180,7 +1181,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007soundRecording13")
+			).setId("tag007soundRecording13").setMqTag("captureAndStorageTechnique")
 		));
 		subfields.put(Control007Category.Text, Arrays.asList(
 			// new ControlSubField("Category of material", 0, 1),
@@ -1194,7 +1195,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007text01")
+			).setId("tag007text01").setMqTag("specificMaterialDesignation")
 		));
 		subfields.put(Control007Category.Videorecording, Arrays.asList(
 			// new ControlSubField("Category of material", 0, 1),
@@ -1208,7 +1209,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007video01"),
+			).setId("tag007video01").setMqTag("specificMaterialDesignation"),
 			// new ControlSubField("Undefined", 2, 3),
 			new ControlSubfield("Color", 3, 4,
 				Utils.generateCodes(
@@ -1221,7 +1222,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007video03"),
+			).setId("tag007video03").setMqTag("color"),
 			new ControlSubfield("Videorecording format", 4, 5,
 				Utils.generateCodes(
 					"a", "Beta (1/2 in., videocassette)",
@@ -1245,7 +1246,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007video04"),
+			).setId("tag007video04").setMqTag("videorecordingFormat"),
 			new ControlSubfield("Sound on medium or separate", 5, 6,
 				Utils.generateCodes(
 					" ", "No sound (silent)",
@@ -1254,7 +1255,7 @@ public class Control007Subfields {
 					"u", "Unknown",
 					"|", "No attempt to code"
 				)
-			).setId("tag007video05"),
+			).setId("tag007video05").setMqTag("soundOnMediumOrSeparate"),
 			new ControlSubfield("Medium for sound", 6, 7,
 				Utils.generateCodes(
 					" ", "No sound (silent)",
@@ -1271,7 +1272,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007video06"),
+			).setId("tag007video06").setMqTag("mediumForSound"),
 			new ControlSubfield("Dimensions", 7, 8,
 				Utils.generateCodes(
 					"a", "8 mm.",
@@ -1284,7 +1285,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007video07"),
+			).setId("tag007video07").setMqTag("dimensions"),
 			new ControlSubfield("Configuration of playback channels", 8, 9,
 				Utils.generateCodes(
 					"k", "Mixed",
@@ -1296,7 +1297,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007video08")
+			).setId("tag007video08").setMqTag("configurationOfPlaybackChannels")
 		));
 		subfields.put(Control007Category.Unspecified, Arrays.asList(
 			// new ControlSubField("Category of material", 0, 1),
@@ -1307,7 +1308,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007unspecified01")
+			).setId("tag007unspecified01").setMqTag("specificMaterialDesignation")
 		));
 	}
 

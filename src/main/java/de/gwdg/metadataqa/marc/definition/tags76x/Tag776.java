@@ -26,6 +26,7 @@ public class Tag776 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "776";
 		label = "Additional Physical Form Entry";
+		bibframeTag = "OtherPhysicalFormat";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Note controller").setCodes(
 			"0", "Display note",
@@ -67,5 +68,28 @@ public class Tag776 extends DataFieldDefinition {
 			"3", "Bibliographic level"
 		);
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
+		getSubfield("a").setBibframeTag("rdfs:label");
+		getSubfield("b").setBibframeTag("editionStatement");
+		getSubfield("c").setBibframeTag("qualifier");
+		getSubfield("d").setBibframeTag("provisionActivityStatement");
+		getSubfield("g").setBibframeTag("part");
+		getSubfield("h").setBibframeTag("extent");
+		getSubfield("i").setBibframeTag("relation");
+		getSubfield("k").setBibframeTag("seriesStatement");
+		getSubfield("m").setBibframeTag("note").setMqTag("materialSpecificDetails");
+		getSubfield("n").setBibframeTag("note");
+		getSubfield("o").setMqTag("otherItemIdentifier");
+		getSubfield("r").setMqTag("reportNumber");
+		getSubfield("s").setBibframeTag("title").setMqTag("uniformTitle");
+		getSubfield("t").setBibframeTag("title");
+		getSubfield("u").setBibframeTag("strn");
+		getSubfield("w").setMqTag("recordControlNumber");
+		getSubfield("x").setBibframeTag("issn");
+		getSubfield("y").setBibframeTag("coden");
+		getSubfield("z").setBibframeTag("isbn");
+		getSubfield("4").setMqTag("relationship");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("7").setMqTag("controlSubfield");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

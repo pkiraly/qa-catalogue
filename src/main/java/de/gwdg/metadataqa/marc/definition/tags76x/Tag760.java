@@ -26,6 +26,7 @@ public class Tag760 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "760";
 		label = "Main Series Entry";
+		mqTag = "Series";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Note controller").setCodes(
 			"0", "Display note",
@@ -62,5 +63,24 @@ public class Tag760 extends DataFieldDefinition {
 			"2", "Type of record",
 			"3", "Bibliographic level"
 		);
+		getSubfield("a").setBibframeTag("rdfs:label");
+		getSubfield("b").setBibframeTag("editionStatement");
+		getSubfield("c").setBibframeTag("qualifier");
+		getSubfield("d").setBibframeTag("provisionActivityStatement");
+		getSubfield("g").setBibframeTag("part");
+		getSubfield("h").setBibframeTag("extent");
+		getSubfield("i").setBibframeTag("relation");
+		getSubfield("m").setBibframeTag("note").setMqTag("materialSpecificDetails");
+		getSubfield("n").setBibframeTag("note");
+		getSubfield("o").setMqTag("otherItemIdentifier");
+		getSubfield("s").setBibframeTag("title").setMqTag("uniformTitle");
+		getSubfield("t").setBibframeTag("title");
+		getSubfield("w").setMqTag("recordControlNumber");
+		getSubfield("x").setBibframeTag("issn");
+		getSubfield("y").setBibframeTag("coden");
+		getSubfield("4").setMqTag("relationship");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("7").setMqTag("controlSubfield");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

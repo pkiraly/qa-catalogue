@@ -23,10 +23,10 @@ public abstract class DataFieldDefinition {
 
 	public String getIndexTag() {
 		if (indexTag == null) {
-			if (bibframeTag != null)
-				indexTag = bibframeTag.replace("/", "");
-			else if (mqTag != null)
+			if (mqTag != null)
 				indexTag = mqTag;
+			else if (bibframeTag != null)
+				indexTag = bibframeTag.replace("/", "");
 			else
 				indexTag = tag;
 		}

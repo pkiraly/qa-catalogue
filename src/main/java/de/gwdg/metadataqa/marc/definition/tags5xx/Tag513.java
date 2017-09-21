@@ -28,8 +28,8 @@ public class Tag513 extends DataFieldDefinition {
 		bibframeTag = "typeOfReport";
 		label = "Type of Report and Period Covered Note";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Type of report", "NR",
 			"b", "Period covered", "NR",

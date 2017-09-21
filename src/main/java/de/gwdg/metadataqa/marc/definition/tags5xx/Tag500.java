@@ -29,8 +29,8 @@ public class Tag500 extends DataFieldDefinition {
 		bibframeTag = "Note";
 		mqTag = "GeneralNote";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "General note", "NR",
 			"3", "Materials specified", "NR",

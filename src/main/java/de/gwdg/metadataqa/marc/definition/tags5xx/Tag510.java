@@ -34,7 +34,7 @@ public class Tag510 extends DataFieldDefinition {
 			"3", "Location in source not given",
 			"4", "Location in source given"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Name of source", "NR",
 			"b", "Coverage of source", "NR",

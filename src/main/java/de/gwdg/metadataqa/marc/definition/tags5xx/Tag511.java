@@ -31,7 +31,7 @@ public class Tag511 extends DataFieldDefinition {
 			"0", "No display constant generated",
 			"1", "Cast "
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Participant or performer note", "NR",
 			"6", "Linkage", "NR",

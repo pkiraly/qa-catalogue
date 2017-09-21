@@ -27,13 +27,14 @@ public class Tag506 extends DataFieldDefinition {
 
 		tag = "506";
 		label = "Restrictions on Access Note";
+		bibframeTag = "UsageAndAccessPolicy";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Restriction").setCodes(
 			" ", "No information provided",
 			"0", "No restrictions",
 			"1", "Restrictions apply"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Terms governing access", "NR",
 			"b", "Jurisdiction", "R",

@@ -27,8 +27,8 @@ public class Tag514 extends DataFieldDefinition {
 		tag = "514";
 		label = "Data Quality Note";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Attribute accuracy report", "NR",
 			"b", "Attribute accuracy value", "R",

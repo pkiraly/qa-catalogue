@@ -26,9 +26,10 @@ public class Tag508 extends DataFieldDefinition {
 
 		tag = "508";
 		label = "Creation/Production Credits Note";
+		mqTag = "Credits";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Creation/production credits note", "NR",
 			"6", "Linkage", "NR",

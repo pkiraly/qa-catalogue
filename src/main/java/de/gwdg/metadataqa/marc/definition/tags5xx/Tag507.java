@@ -26,9 +26,10 @@ public class Tag507 extends DataFieldDefinition {
 
 		tag = "507";
 		label = "Scale Note for Graphic Material";
+		mqTag = "Scale";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 				"a", "Representative fraction of scale note", "NR",
 				"b", "Remainder of scale note", "NR",

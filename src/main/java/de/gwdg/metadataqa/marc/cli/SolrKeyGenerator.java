@@ -3,7 +3,9 @@ package de.gwdg.metadataqa.marc.cli;
 import de.gwdg.metadataqa.api.model.JsonPathCache;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.api.schema.MarcJsonSchema;
+import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcFieldExtractor;
+import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.datastore.MarcElasticsearchClient;
 import de.gwdg.metadataqa.marc.datastore.MarcSolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -51,12 +53,16 @@ public class SolrKeyGenerator {
 			for (String record : records) {
 				i++;
 				cache = new JsonPathCache(record);
-				extractor.measure(cache);
-				duplumKey = extractor.getDuplumKeyMap();
-				client.indexDuplumKey((String)duplumKey.get(MarcFieldExtractor.FIELD_NAME), duplumKey);
+				MarcRecord marcRecord = MarcFactory.create(cache);
+				client.indexMap(marcRecord.getId(), marcRecord.getKeyValuePairs());
+
+				// extractor.measure(cache);
+				// duplumKey = extractor.getDuplumKeyMap();
+				// client.indexDuplumKey((String)duplumKey.get(MarcFieldExtractor.FIELD_NAME), duplumKey);
 				if (i % 1000 == 0) {
 					client.commit();
-					logger.info(String.format("%s/%d) %s", fileName, i, duplumKey.get(MarcFieldExtractor.FIELD_NAME)));
+					// logger.info(String.format("%s/%d) %s", fileName, i, duplumKey.get(MarcFieldExtractor.FIELD_NAME)));
+					logger.info(String.format("%s/%d) %s", fileName, i, marcRecord.getId()));
 				}
 			}
 			client.commit();

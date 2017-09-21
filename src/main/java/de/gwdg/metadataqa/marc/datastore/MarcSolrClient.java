@@ -9,6 +9,7 @@ import org.apache.solr.common.SolrInputDocument;
 import org.elasticsearch.client.Response;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 public class MarcSolrClient {
@@ -25,6 +26,27 @@ public class MarcSolrClient {
 
     private void initialize(String url) {
         solr = new HttpSolrClient.Builder(url).build();
+    }
+
+    public void indexMap(String id, Map<String, List<String>> objectMap)
+       throws IOException, SolrServerException {
+        SolrInputDocument document = new SolrInputDocument();
+        document.addField("id", id);
+        for (String key : objectMap.keySet()) {
+            Object value = objectMap.get(key);
+            if (value != null) {
+                // System.err.printf("%s: class: %s\n", key, value.getClass());
+                document.addField(key + "_ss", value);
+            }
+        }
+
+        try {
+            UpdateResponse response = solr.add(document);
+            // solr.commit();
+        } catch (HttpSolrClient.RemoteSolrException ex) {
+            System.err.printf("document: %s", document);
+            System.err.printf("Commit exception: %s\n", ex.getMessage());
+        }
     }
 
     public void indexDuplumKey(String id, Map<String, Object> objectMap)

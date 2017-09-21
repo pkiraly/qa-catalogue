@@ -103,6 +103,10 @@ public class MarcRecord {
 		return true;
 	}
 
+	public String getId() {
+		return control001.getContent();
+	}
+
 	private List<Extractable> getControlfields() {
 		return Arrays.asList(
 			control001, control003, control005, control006, control007, control008);

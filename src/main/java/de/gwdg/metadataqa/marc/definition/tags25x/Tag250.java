@@ -24,6 +24,7 @@ public class Tag250 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "250";
 		label = "Edition Statement";
+		mqTag = "Edition";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");
@@ -34,5 +35,9 @@ public class Tag250 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
-	}
+		getSubfield("a").setBibframeTag("editionStatement");
+		getSubfield("b").setMqTag("remainder");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");	}
 }

@@ -59,9 +59,9 @@ public class DataField implements Extractable {
 
 	public Map<String, List<String>> getHumanReadableMap() {
 		Map<String, List<String>> map = new LinkedHashMap<>();
-		if (!definition.getInd1().getLabel().equals(""))
+		if (definition.getInd1().exists())
 			map.put(definition.getInd1().getLabel(), Arrays.asList(resolveInd1()));
-		if (!definition.getInd2().getLabel().equals(""))
+		if (definition.getInd2().exists())
 			map.put(definition.getInd2().getLabel(), Arrays.asList(resolveInd2()));
 		for (MarcSubfield subfield : subfields) {
 			if (!map.containsKey(subfield.getLabel()))

@@ -26,6 +26,7 @@ public class Tag502 extends DataFieldDefinition {
 
 		tag = "502";
 		label = "Dissertation Note";
+		bibframeTag = "Dissertation";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("");
 		ind2 = new Indicator("");

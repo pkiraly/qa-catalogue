@@ -5,7 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 
 /**
- * Bibliography, etc. Note
+ * Formatted Contents Note
  * http://www.loc.gov/marc/bibliographic/bd505.html
  */
 public class Tag505 extends DataFieldDefinition {
@@ -25,7 +25,8 @@ public class Tag505 extends DataFieldDefinition {
 	private void initialize() {
 
 		tag = "505";
-		label = "Bibliography, etc. Note";
+		label = "Formatted Contents Note";
+		bibframeTag = "TableOfContents";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Display constant controller").setCodes(
 			"0", "Contents",
@@ -46,5 +47,12 @@ public class Tag505 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("g").setMqTag("miscellaneous");
+		getSubfield("r").setMqTag("responsibility");
+		getSubfield("t").setMqTag("title");
+		getSubfield("u").setMqTag("uri");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

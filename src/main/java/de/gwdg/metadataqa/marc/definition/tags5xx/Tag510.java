@@ -26,7 +26,9 @@ public class Tag510 extends DataFieldDefinition {
 
 		tag = "510";
 		label = "Citation/References Note";
+		mqTag = "Citation";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Coverage/location in source").setCodes(
 			"0", "Coverage unknown",
 			"1", "Coverage complete",
@@ -35,6 +37,7 @@ public class Tag510 extends DataFieldDefinition {
 			"4", "Location in source given"
 		);
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Name of source", "NR",
 			"b", "Coverage of source", "NR",
@@ -45,7 +48,14 @@ public class Tag510 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setMqTag("name");
+		getSubfield("b").setMqTag("coverage");
+		getSubfield("c").setMqTag("location");
 		getSubfield("u").setMqTag("uri");
 		getSubfield("x").setMqTag("issn");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

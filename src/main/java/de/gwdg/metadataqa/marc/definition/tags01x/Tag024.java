@@ -26,7 +26,10 @@ public class Tag024 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "024";
 		label = "Other Standard Identifier";
+		bibframeTag = "IdentifiedBy";
+		mqTag = "OtherStandardIdentifier";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Type of standard number or code").setCodes(
 			"0", "International Standard Recording Code",
 			"1", "Universal Product Code",
@@ -36,11 +39,13 @@ public class Tag024 extends DataFieldDefinition {
 			"7", "Source specified in subfield $2",
 			"8", "Unspecified type of standard number or code"
 		);
+
 		ind2 = new Indicator("Difference indicator").setCodes(
 			" ", "No information provided",
 			"0", "No difference",
 			"1", "Difference"
 		);
+
 		setSubfieldsWithCardinality(
 			"a", "Standard number or code", "NR",
 			"c", "Terms of availability", "NR",
@@ -51,9 +56,17 @@ public class Tag024 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("2").setCodeList(StandardIdentifierSourceCodes.getInstance());
+
+		getSubfield("a").setBibframeTag("rdf:value");
 		getSubfield("c").setBibframeTag("acquisitionTerms");
 		getSubfield("d").setBibframeTag("note");
 		getSubfield("q").setBibframeTag("qualifier");
+		getSubfield("z").setMqTag("canceledNumber");
+		getSubfield("2").setMqTag("source");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

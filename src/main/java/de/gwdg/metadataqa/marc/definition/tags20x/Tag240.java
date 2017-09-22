@@ -24,11 +24,12 @@ public class Tag240 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "240";
 		label = "Uniform Title";
+		mqTag = "UniformTitle";
 		cardinality = Cardinality.Nonrepeatable;
 		ind1 = new Indicator("Uniform title printed or displayed").setCodes(
 			"0", "Not printed or displayed",
 			"1", "Printed or displayed"
-		);
+		).setMqTag("printedOrDisplayed");;
 		ind2 = new Indicator("Nonfiling characters").setCodes(
 			"0-9", "Number of nonfiling characters"
 		).setMqTag("nonfilingCharacters");
@@ -51,6 +52,21 @@ public class Tag240 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+		getSubfield("a").setBibframeTag("mainTitle");
+		getSubfield("d").setMqTag("dateOfTreaty");
+		getSubfield("f").setMqTag("dateOfAWork");
+		getSubfield("g").setMqTag("miscellaneous");
+		getSubfield("h").setMqTag("medium");
+		getSubfield("k").setMqTag("formSubheading");
+		getSubfield("l").setMqTag("languageOfAWork");
+		getSubfield("m").setMqTag("mediumOfPerformance");
+		getSubfield("n").setBibframeTag("partNumber");
+		getSubfield("o").setMqTag("arrangedStatement");
+		getSubfield("p").setMqTag("nameOfPart");
+		getSubfield("r").setMqTag("keyForMusic");
 		getSubfield("s").setBibframeTag("version");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

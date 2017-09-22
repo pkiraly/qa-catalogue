@@ -25,6 +25,8 @@ public class Tag242 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "242";
 		label = "Translation of Title by Cataloging Agency";
+		bibframeTag = "VariantTitle";
+		mqTag = "TitleTranslation";
 		cardinality = Cardinality.Nonrepeatable;
 		ind1 = new Indicator("Title added entry").setCodes(
 			"0", "No added entry",
@@ -47,5 +49,14 @@ public class Tag242 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("y").setCodeList(LanguageCodes.getInstance());
+		getSubfield("a").setBibframeTag("mainTitle");
+		getSubfield("b").setBibframeTag("subTitle");
+		getSubfield("c").setMqTag("responsibility");
+		getSubfield("h").setMqTag("medium");
+		getSubfield("n").setBibframeTag("partNumber");
+		getSubfield("p").setBibframeTag("partName");
+		getSubfield("y").setBibframeTag("language");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

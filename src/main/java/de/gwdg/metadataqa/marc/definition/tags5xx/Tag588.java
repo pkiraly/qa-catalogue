@@ -31,7 +31,7 @@ public class Tag588 extends DataFieldDefinition {
 			" ", "No information provided",
 			"0", "Source of description",
 			"1", "Latest issue consulted"
-		);
+		).setMqTag("displayConstant");
 		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Source of description note", "NR",

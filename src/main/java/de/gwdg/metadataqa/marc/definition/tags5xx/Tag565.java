@@ -31,7 +31,7 @@ public class Tag565 extends DataFieldDefinition {
 			" ", "File size",
 			"0", "Case file characteristics",
 			"8", "No display constant generated"
-		);
+		).setMqTag("displayConstant");
 		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Number of cases/variables", "NR",

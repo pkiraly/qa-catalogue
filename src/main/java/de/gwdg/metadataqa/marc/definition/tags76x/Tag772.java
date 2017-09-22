@@ -36,7 +36,7 @@ public class Tag772 extends DataFieldDefinition {
 			" ", "Supplement to",
 			"0", "Parent",
 			"8", "No display constant generated"
-		);
+		).setMqTag("displayConstant");
 		setSubfieldsWithCardinality(
 			"a", "Main entry heading", "NR",
 			"b", "Edition", "NR",

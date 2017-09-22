@@ -31,7 +31,7 @@ public class Tag017 extends DataFieldDefinition {
 		ind2 = new Indicator("Display constant controller").setCodes(
 			" ", "Copyright or legal deposit number",
 			"8", "No display constant generated"
-		);
+		).setMqTag("displayConstant");
 		setSubfieldsWithCardinality(
 			"a", "Copyright or legal deposit number", "R",
 			"b", "Assigning agency", "NR",

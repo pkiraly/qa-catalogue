@@ -30,7 +30,7 @@ public class Tag516 extends DataFieldDefinition {
 		ind1 = new Indicator("Display constant controller").setCodes(
 			" ", "Type of file",
 			"8", "No display constant generated"
-		);
+		).setMqTag("displayConstant");
 		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Type of computer file or data note", "NR",

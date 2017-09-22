@@ -35,7 +35,7 @@ public class Tag762 extends DataFieldDefinition {
 		ind2 = new Indicator("Display constant controller").setCodes(
 			" ", "Has subseries",
 			"8", "No display constant generated"
-		);
+		).setMqTag("displayConstant");
 		setSubfieldsWithCardinality(
 			"a", "Main entry heading", "NR",
 			"b", "Edition", "NR",

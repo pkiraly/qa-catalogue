@@ -28,7 +28,7 @@ public class Tag307 extends DataFieldDefinition {
 		ind1 = new Indicator("Display constant controller").setCodes(
 			" ", "Hours",
 			"8", "No display constant generated"
-		);
+		).setMqTag("displayConstant");
 		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Hours", "NR",

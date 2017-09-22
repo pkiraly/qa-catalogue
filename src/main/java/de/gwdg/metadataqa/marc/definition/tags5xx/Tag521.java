@@ -35,7 +35,7 @@ public class Tag521 extends DataFieldDefinition {
 			"3", "Special audience characteristics",
 			"4", "Motivation/interest level",
 			"8", "No display constant generated"
-		);
+		).setMqTag("displayConstant");
 		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Target audience note", "R",

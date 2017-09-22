@@ -33,7 +33,7 @@ public class Tag505 extends DataFieldDefinition {
 			"1", "Incomplete contents",
 			"2", "Partial contents",
 			"8", "No display constant generated"
-		);
+		).setMqTag("displayConstant");
 		ind2 = new Indicator("Level of content designation").setCodes(
 			" ", "Basic",
 			"0", "Enhanced"

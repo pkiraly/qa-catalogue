@@ -31,7 +31,7 @@ public class Tag526 extends DataFieldDefinition {
 		ind1 = new Indicator("Display constant controller").setCodes(
 			"0", "Reading program",
 			"8", "No display constant generated"
-		);
+		).setMqTag("displayConstant");
 		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Program name", "NR",

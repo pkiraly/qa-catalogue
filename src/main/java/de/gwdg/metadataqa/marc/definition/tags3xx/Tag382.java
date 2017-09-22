@@ -30,7 +30,7 @@ public class Tag382 extends DataFieldDefinition {
 			" ", "No information provided",
 			"0", "Medium of performance",
 			"1", "Partial medium of performance"
-		);
+		).setMqTag("displayConstant");
 		ind2 = new Indicator("Access control").setCodes(
 			" ", "No information provided",
 			"0", "Not intended for access",

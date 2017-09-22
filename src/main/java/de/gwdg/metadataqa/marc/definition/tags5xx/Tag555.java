@@ -31,7 +31,7 @@ public class Tag555 extends DataFieldDefinition {
 			" ", "Indexes",
 			"0", "Finding aids",
 			"8", "No display constant generated"
-		);
+		).setMqTag("displayConstant");
 		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Cumulative index/finding aids note", "NR",

@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags01x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectCategoryCodeSourceCodes;
 
 /**
  * Subject Category Code
@@ -26,7 +27,7 @@ public class Tag072 extends DataFieldDefinition {
 		tag = "072";
 		label = "Subject Category Code";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
+		ind1 = new Indicator();
 		ind2 = new Indicator("Code source").setCodes(
 			"0", "NAL subject category code list",
 			"7", "Source specified in subfield $2"
@@ -38,6 +39,6 @@ public class Tag072 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
-		// TODO: $2 code from http://www.loc.gov/standards/sourcelist/subject-category.html
+		getSubfield("2").setCodeList(SubjectCategoryCodeSourceCodes.getInstance());
 	}
 }

@@ -29,8 +29,10 @@ public class Tag500 extends DataFieldDefinition {
 		bibframeTag = "Note";
 		mqTag = "GeneralNote";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "General note", "NR",
 			"3", "Materials specified", "NR",
@@ -38,6 +40,7 @@ public class Tag500 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("a").setBibframeTag("rdfs:label");
 		getSubfield("3").setMqTag("materialsSpecified");
 		getSubfield("5").setMqTag("institutionToWhichFieldApplies");

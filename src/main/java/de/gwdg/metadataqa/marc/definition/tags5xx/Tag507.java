@@ -28,13 +28,20 @@ public class Tag507 extends DataFieldDefinition {
 		label = "Scale Note for Graphic Material";
 		mqTag = "Scale";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 				"a", "Representative fraction of scale note", "NR",
 				"b", "Remainder of scale note", "NR",
 				"6", "Linkage", "NR",
 				"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("b").setMqTag("remainder");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

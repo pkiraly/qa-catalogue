@@ -28,8 +28,10 @@ public class Tag502 extends DataFieldDefinition {
 		label = "Dissertation Note";
 		bibframeTag = "Dissertation";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Dissertation note", "NR",
 			"b", "Degree type", "NR",
@@ -40,5 +42,14 @@ public class Tag502 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
+		getSubfield("b").setBibframeTag("degree");
+		getSubfield("c").setBibframeTag("grantingInstitution");
+		getSubfield("d").setBibframeTag("date");
+		getSubfield("g").setBibframeTag("note");
+		getSubfield("o").setBibframeTag("identifiedBy");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

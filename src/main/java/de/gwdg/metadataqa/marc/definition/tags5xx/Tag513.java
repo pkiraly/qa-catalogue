@@ -25,16 +25,23 @@ public class Tag513 extends DataFieldDefinition {
 	private void initialize() {
 
 		tag = "513";
-		bibframeTag = "typeOfReport";
 		label = "Type of Report and Period Covered Note";
+		bibframeTag = "TypeOfReport";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Type of report", "NR",
 			"b", "Period covered", "NR",
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
+		getSubfield("b").setMqTag("period");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

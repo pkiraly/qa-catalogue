@@ -29,12 +29,14 @@ public class Tag506 extends DataFieldDefinition {
 		label = "Restrictions on Access Note";
 		bibframeTag = "UsageAndAccessPolicy";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Restriction").setCodes(
 			" ", "No information provided",
 			"0", "No restrictions",
 			"1", "Restrictions apply"
-		);
+		).setMqTag("restriction");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Terms governing access", "NR",
 			"b", "Jurisdiction", "R",
@@ -50,5 +52,18 @@ public class Tag506 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("2").setCodeList(AccessRestrictionTermSourceCodes.getInstance());
+
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("b").setMqTag("jurisdiction");
+		getSubfield("c").setMqTag("physicalAccessProvisions");
+		getSubfield("d").setMqTag("authorizedUsers");
+		getSubfield("e").setMqTag("authorization");
+		getSubfield("f").setMqTag("terminology");
+		getSubfield("u").setMqTag("uri");
+		getSubfield("2").setMqTag("source");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

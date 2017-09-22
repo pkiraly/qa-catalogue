@@ -28,14 +28,17 @@ public class Tag504 extends DataFieldDefinition {
 		label = "Bibliography, etc. Note";
 		mqTag = "Bibliography";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Bibliography, etc. note", "NR",
 			"b", "Number of references", "NR",
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("b").setBibframeTag("count");
 		getSubfield("6").setBibframeTag("linkage");

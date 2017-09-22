@@ -26,9 +26,12 @@ public class Tag514 extends DataFieldDefinition {
 
 		tag = "514";
 		label = "Data Quality Note";
+		mqTag = "DataQuality";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Attribute accuracy report", "NR",
 			"b", "Attribute accuracy value", "R",
@@ -47,5 +50,22 @@ public class Tag514 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setMqTag("accuracyReport");
+		getSubfield("b").setMqTag("accuracyValue");
+		getSubfield("c").setMqTag("accuracyExplanation");
+		getSubfield("d").setMqTag("logicalConsistency");
+		getSubfield("e").setMqTag("completeness");
+		getSubfield("f").setMqTag("horizontalPositionAccuracyReport");
+		getSubfield("g").setMqTag("horizontalPositionAccuracyValue");
+		getSubfield("h").setMqTag("horizontalPositionAccuracyExplanation");
+		getSubfield("i").setMqTag("verticalPositionalAccuracyReport");
+		getSubfield("j").setMqTag("verticalPositionalAccuracyValue");
+		getSubfield("k").setMqTag("verticalPositionalAccuracyExplanation");
+		getSubfield("m").setMqTag("cloudCover");
+		getSubfield("u").setMqTag("uri");
+		getSubfield("z").setMqTag("display");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

@@ -27,9 +27,12 @@ public class Tag044 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "044";
 		label = "Country of Publishing/Producing Entity Code";
+		bibframeTag = "Place";
 		cardinality = Cardinality.Nonrepeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "MARC country code", "R",
 			"b", "Local subentity code", "R",
@@ -40,5 +43,12 @@ public class Tag044 extends DataFieldDefinition {
 		);
 		getSubfield("a").setCodeList(CountryCodes.getInstance());
 		getSubfield("2").setCodeList(CountrySourceCodes.getInstance());
+
+		getSubfield("a").setMqTag("country");
+		getSubfield("b").setMqTag("subentityCode");
+		getSubfield("c").setMqTag("isoCode");
+		getSubfield("2").setMqTag("source");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

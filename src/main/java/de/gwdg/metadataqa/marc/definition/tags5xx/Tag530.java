@@ -26,9 +26,12 @@ public class Tag530 extends DataFieldDefinition {
 
 		tag = "530";
 		label = "Additional Physical Form available Note";
+		mqTag = "AdditionalPhysicalFormAvailable";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Additional physical form available note", "NR",
 			"b", "Availability source", "NR",
@@ -39,5 +42,14 @@ public class Tag530 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("b").setMqTag("source");
+		getSubfield("c").setMqTag("conditions");
+		getSubfield("d").setMqTag("orderNumber");
+		getSubfield("u").setMqTag("uri");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

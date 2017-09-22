@@ -23,17 +23,23 @@ public class Tag066 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "066";
 		label = "Character Sets Present";
+		mqTag = "CharacterSets";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Primary G0 character set", "NR",
 			"b", "Primary G1 character set", "NR",
 			"c", "Alternate G0 or G1 character set", "R"
-			// "6", "Linkage", "NR",
-			// "8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setMqTag("g0");
+		getSubfield("b").setMqTag("g1");
+		getSubfield("c").setMqTag("alternate");
 	}
 }

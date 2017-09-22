@@ -26,9 +26,12 @@ public class Tag546 extends DataFieldDefinition {
 
 		tag = "546";
 		label = "Language Note";
+		bibframeTag = "Language";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Language note", "NR",
 			"b", "Information code or alphabet", "R",
@@ -36,5 +39,11 @@ public class Tag546 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
+		getSubfield("b").setBibframeTag("notation").setMqTag("informationCodeOrAlphabet");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

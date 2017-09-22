@@ -24,17 +24,23 @@ public class Tag222 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "222";
 		label = "Key Title";
+		bibframeTag = "KeyTitle";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
+		ind1 = new Indicator();
 		ind2 = new Indicator("Nonfiling characters").setCodes(
 			"0", "No nonfiling characters",
 			"1-9", "Number of nonfiling characters"
-		);
+		).setMqTag("nonfilingCharacters");
+		ind2.getCode("1-9").setRange(true);
 		setSubfieldsWithCardinality(
 			"a", "Key title", "NR",
 			"b", "Qualifying information", "NR",
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+		getSubfield("a").setBibframeTag("mainTitle");
+		getSubfield("b").setBibframeTag("qualifier");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

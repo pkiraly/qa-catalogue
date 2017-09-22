@@ -25,7 +25,7 @@ public class Tag210 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "210";
 		label = "Abbreviated Title";
-		mqTag = "AbbreviatedTitle";
+		bibframeTag = "AbbreviatedTitle";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Title added entry").setCodes(
 			"0", "No added entry",

@@ -24,6 +24,7 @@ public class Tag247 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "247";
 		label = "Former Title";
+		bibframeTag = "VariantTitle";
 		cardinality = Cardinality.Nonrepeatable;
 		ind1 = new Indicator("Title added entry").setCodes(
 			"0", "No added entry",
@@ -45,5 +46,16 @@ public class Tag247 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+		getSubfield("a").setBibframeTag("mainTitle");
+		getSubfield("b").setMqTag("remainder");
+		getSubfield("f").setBibframeTag("date");
+		getSubfield("g").setBibframeTag("qualifier").setMqTag("miscellaneous");
+		getSubfield("h").setMqTag("medium");
+		getSubfield("i").setMqTag("displayText");
+		getSubfield("n").setBibframeTag("partNumber");
+		getSubfield("p").setBibframeTag("partName");
+		getSubfield("x").setMqTag("issn");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

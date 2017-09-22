@@ -55,6 +55,7 @@ public class Tag041 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("a").setCodeList(LanguageCodes.getInstance());
+		getSubfield("2").setCodeList(LanguageCodeAndTermSourceCodes.getInstance());
 		getSubfield("a").setBibframeTag("rdf:value");
 		getSubfield("b").setCodeList(LanguageCodes.getInstance());
 		getSubfield("d").setCodeList(LanguageCodes.getInstance());
@@ -66,6 +67,8 @@ public class Tag041 extends DataFieldDefinition {
 		getSubfield("k").setCodeList(LanguageCodes.getInstance());
 		getSubfield("m").setCodeList(LanguageCodes.getInstance());
 		getSubfield("n").setCodeList(LanguageCodes.getInstance());
-		getSubfield("2").setCodeList(LanguageCodeAndTermSourceCodes.getInstance());
+		getSubfield("2").setMqTag("source");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

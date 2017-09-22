@@ -25,15 +25,16 @@ public class Tag210 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "210";
 		label = "Abbreviated Title";
+		mqTag = "AbbreviatedTitle";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Title added entry").setCodes(
 			"0", "No added entry",
 			"1", "Added entry"
-		);
+		).setMqTag("titleAddedEntry");
 		ind2 = new Indicator("Type").setCodes(
 			" ", "Abbreviated key title",
 			"0", "Other abbreviated title"
-		);
+		).setMqTag("type");
 		setSubfieldsWithCardinality(
 			"a", "Abbreviated title", "NR",
 			"b", "Qualifying information", "NR",
@@ -42,5 +43,10 @@ public class Tag210 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("2").setCodeList(AbbreviatedTitleSourceCodes.getInstance());
+		getSubfield("a").setBibframeTag("mainTitle");
+		getSubfield("b").setBibframeTag("qualifier");
+		getSubfield("2").setBibframeTag("source");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

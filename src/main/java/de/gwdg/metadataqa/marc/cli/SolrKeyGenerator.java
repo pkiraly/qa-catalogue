@@ -17,6 +17,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -33,6 +34,7 @@ public class SolrKeyGenerator {
 			System.err.println("Please provide a Solr URL and file name!");
 			System.exit(0);
 		}
+		long start = System.currentTimeMillis();
 
 		String url = args[0];
 
@@ -73,7 +75,9 @@ public class SolrKeyGenerator {
 			logger.severe(ex.toString());
 			System.exit(0);
 		}
-		logger.info("Bye!");
+		long end = System.currentTimeMillis();
+
+		logger.info(String.format("Bye! It took: %d ms", (end-start) / 1000));
 
 		System.exit(0);
 	}

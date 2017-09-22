@@ -1,5 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.*;
 
 public class MarcRecord {
@@ -150,6 +152,25 @@ public class MarcRecord {
 			Map<String, List<String>> keyValuePairs = field.getKeyValuePairs();
 			mainKeyValuePairs.putAll(keyValuePairs);
 		}
+
 		return mainKeyValuePairs;
+		/*
+		Map<String, Object> finalKeyValuePairs = new LinkedHashMap<>();
+		for (String key : mainKeyValuePairs.keySet()) {
+			List<String> values = mainKeyValuePairs.get(key);
+			if (values != null && !values.isEmpty()) {
+				List<String> filtered = new ArrayList<>();
+				for (String value : values)
+					if (StringUtils.isNotBlank(value))
+						filtered.add(value);
+				if (filtered.size() == 1)
+					finalKeyValuePairs.put(key, filtered.get(0));
+				else
+					finalKeyValuePairs.put(key, filtered);
+			}
+		}
+
+		return finalKeyValuePairs;
+		*/
 	}
 }

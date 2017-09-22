@@ -52,7 +52,11 @@ public class MarcSubfield {
 			codeForIndex = "_" + code;
 			if (definition != null) {
 				if (definition.getMqTag() != null) {
-					codeForIndex = "_" + definition.getMqTag();
+					String mqTag = definition.getMqTag();
+					if (mqTag.equals("rdf:value"))
+						codeForIndex = "";
+					else
+						codeForIndex = "_" + mqTag;
 				} else {
 					String bibframeTag = definition.getBibframeTag();
 					if (bibframeTag != null)

@@ -29,11 +29,11 @@ public class Tag242 extends DataFieldDefinition {
 		ind1 = new Indicator("Title added entry").setCodes(
 			"0", "No added entry",
 			"1", "Added entry"
-		);
+		).setMqTag("titleAddedEntry");
 		ind2 = new Indicator("Nonfiling characters").setCodes(
 			"0", "No nonfiling characters",
 			"1-9", "Number of nonfiling characters"
-		);
+		).setMqTag("nonfilingCharacters");
 		ind2.getCode("1-9").setRange(true);
 		setSubfieldsWithCardinality(
 			"a", "Title", "NR",

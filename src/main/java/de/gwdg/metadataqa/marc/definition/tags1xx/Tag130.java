@@ -29,7 +29,7 @@ public class Tag130 extends DataFieldDefinition {
 		cardinality = Cardinality.Nonrepeatable;
 		ind1 = new Indicator("Nonfiling characters").setCodes(
 			"0-9", "Number of nonfiling characters"
-		);
+		).setMqTag("nonfilingCharacters");
 		ind1.getCode("0-9").setRange(true);
 		ind2 = new Indicator();
 		setSubfieldsWithCardinality(

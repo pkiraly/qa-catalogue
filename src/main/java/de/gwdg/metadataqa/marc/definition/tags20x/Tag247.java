@@ -28,11 +28,11 @@ public class Tag247 extends DataFieldDefinition {
 		ind1 = new Indicator("Title added entry").setCodes(
 			"0", "No added entry",
 			"1", "Added entry"
-		);
+		).setMqTag("titleAddedEntry");
 		ind2 = new Indicator("Note controller").setCodes(
 			"0", "Display note",
 			"1", "Do not display note"
-		);
+		).setMqTag("noteController");
 		setSubfieldsWithCardinality(
 			"a", "Title", "NR",
 			"b", "Remainder of title", "NR",

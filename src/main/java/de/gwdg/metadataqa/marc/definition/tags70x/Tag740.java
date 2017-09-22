@@ -29,7 +29,7 @@ public class Tag740 extends DataFieldDefinition {
 		ind1 = new Indicator("Nonfiling characters").setCodes(
 			"0", "No nonfiling characters",
 			"1-9", "Number of nonfiling characters"
-		);
+		).setMqTag("nonfilingCharacters");
 		ind1.getCode("1-9").setRange(true);
 		ind2 = new Indicator("Type of added entry").setCodes(
 			" ", "No information provided",

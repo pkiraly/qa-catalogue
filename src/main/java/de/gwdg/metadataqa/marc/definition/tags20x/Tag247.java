@@ -51,7 +51,6 @@ public class Tag247 extends DataFieldDefinition {
 		getSubfield("f").setBibframeTag("date");
 		getSubfield("g").setBibframeTag("qualifier").setMqTag("miscellaneous");
 		getSubfield("h").setMqTag("medium");
-		getSubfield("i").setMqTag("displayText");
 		getSubfield("n").setBibframeTag("partNumber");
 		getSubfield("p").setBibframeTag("partName");
 		getSubfield("x").setMqTag("issn");

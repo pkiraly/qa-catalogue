@@ -81,7 +81,6 @@ public class Tag777 extends DataFieldDefinition {
 		getSubfield("w").setMqTag("recordControlNumber");
 		getSubfield("x").setBibframeTag("issn");
 		getSubfield("y").setBibframeTag("coden");
-		getSubfield("z").setBibframeTag("isbn");
 		getSubfield("4").setMqTag("relationship");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("7").setMqTag("controlSubfield");

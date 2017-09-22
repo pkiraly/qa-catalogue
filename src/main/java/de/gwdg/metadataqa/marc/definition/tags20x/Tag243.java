@@ -34,7 +34,7 @@ public class Tag243 extends DataFieldDefinition {
 		ind2 = new Indicator("Nonfiling characters").setCodes(
 			"0-9", "Number of nonfiling characters"
 		).setMqTag("nonfilingCharacters");
-		ind2.getCode("1-9").setRange(true);
+		ind2.getCode("0-9").setRange(true);
 		setSubfieldsWithCardinality(
 			"a", "Uniform title", "NR",
 			"d", "Date of treaty signing", "R",
@@ -52,7 +52,7 @@ public class Tag243 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
-		getSubfield("y").setCodeList(LanguageCodes.getInstance());
+		// getSubfield("y").setCodeList(LanguageCodes.getInstance());
 		getSubfield("a").setBibframeTag("mainTitle");
 		getSubfield("d").setMqTag("dateOfTreaty");
 		getSubfield("f").setMqTag("dateOfAWork");

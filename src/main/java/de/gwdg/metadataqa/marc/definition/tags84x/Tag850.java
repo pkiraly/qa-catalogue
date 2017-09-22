@@ -37,7 +37,7 @@ public class Tag850 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 
-		getSubfield("2").setCodeList(OrganizationCodes.getInstance());
+		getSubfield("a").setCodeList(OrganizationCodes.getInstance());
 
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("8").setMqTag("fieldLink");

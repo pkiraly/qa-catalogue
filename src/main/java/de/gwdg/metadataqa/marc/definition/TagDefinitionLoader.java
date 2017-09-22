@@ -5,10 +5,15 @@ import org.jetbrains.annotations.NotNull;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 public class TagDefinitionLoader {
+
+	private static final Logger logger = Logger.getLogger(TagDefinitionLoader.class.getCanonicalName());
 	private static final Pattern PATTERN_20x = Pattern.compile("^2[0-4]\\d$");
 	private static final Pattern PATTERN_25x = Pattern.compile("^2[5-9]\\d$");
 	private static final Pattern PATTERN_70x = Pattern.compile("^7[0-5]\\d$");
@@ -17,26 +22,30 @@ public class TagDefinitionLoader {
 	private static final Pattern PATTERN_84x = Pattern.compile("^8[4-9]\\d$");
 
 	private static final List<String> OCLC_TAGS = Arrays.asList("019", "029", "539", "911", "912", "938");
+	private static Map<String, DataFieldDefinition> cache = new HashMap<>();
 
 	public static DataFieldDefinition load(String tag) {
-		DataFieldDefinition dataFieldDefinition = null;
-		try {
-			String className = getClassName(tag);
-			if (className != null) {
-				Class definitionClazz = Class.forName(className);
-				Method getInstance = definitionClazz.getMethod("getInstance");
-				dataFieldDefinition = (DataFieldDefinition) getInstance.invoke(definitionClazz);
+		if (!cache.containsKey(tag)) {
+			DataFieldDefinition dataFieldDefinition = null;
+			try {
+				String className = getClassName(tag);
+				if (className != null) {
+					Class definitionClazz = Class.forName(className);
+					Method getInstance = definitionClazz.getMethod("getInstance");
+					dataFieldDefinition = (DataFieldDefinition) getInstance.invoke(definitionClazz);
+				}
+			} catch (ClassNotFoundException e) {
+				// e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
 			}
-		} catch (ClassNotFoundException e) {
-			// e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			cache.put(tag, dataFieldDefinition);
 		}
-		return dataFieldDefinition;
+		return cache.get(tag);
 	}
 
 	public static String getClassName(String tag) {

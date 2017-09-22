@@ -42,6 +42,7 @@ public class Tag655 extends DataFieldDefinition {
 			"6", "Répertoire de vedettes-matière",
 			"7", "Source specified in subfield $2"
 		).setMqTag("thesaurus");
+
 		setSubfieldsWithCardinality(
 			"a", "Genre/form data or focus term", "NR",
 			"b", "Non-focus term", "R",
@@ -58,7 +59,7 @@ public class Tag655 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("2").setCodeList(GenreFormCodeAndTermSourceCodes.getInstance());
-		getSubfield("a").setBibframeTag("rdfs:label");
+		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
 		getSubfield("b").setMqTag("nonfocusTerm");
 		getSubfield("c").setMqTag("facet");
 		getSubfield("v").setBibframeTag("genreForm").setMqTag("formSubdivision");

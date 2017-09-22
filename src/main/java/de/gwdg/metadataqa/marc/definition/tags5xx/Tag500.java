@@ -41,7 +41,7 @@ public class Tag500 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 
-		getSubfield("a").setBibframeTag("rdfs:label");
+		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
 		getSubfield("3").setMqTag("materialsSpecified");
 		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
 		getSubfield("6").setBibframeTag("linkage");

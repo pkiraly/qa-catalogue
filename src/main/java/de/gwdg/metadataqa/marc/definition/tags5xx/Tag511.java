@@ -42,7 +42,7 @@ public class Tag511 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 
-		getSubfield("a").setMqTag("rdfs:label");
+		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
 	}

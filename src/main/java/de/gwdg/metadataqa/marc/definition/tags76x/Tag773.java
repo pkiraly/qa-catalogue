@@ -77,7 +77,7 @@ public class Tag773 extends DataFieldDefinition {
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
 		getSubfield("w").setContentParser(RecordControlNumberParser.getInstance());
 
-		getSubfield("a").setBibframeTag("rdfs:label");
+		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
 		getSubfield("b").setBibframeTag("editionStatement");
 		getSubfield("d").setBibframeTag("provisionActivityStatement");
 		getSubfield("g").setBibframeTag("part");

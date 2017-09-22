@@ -42,7 +42,7 @@ public class Tag490 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
-		getSubfield("a").setMqTag("rdfs:label");
+		getSubfield("a").setMqTag("rdfs:label").setMqTag("rdf:value");
 		getSubfield("l").setMqTag("lccn");
 		getSubfield("v").setMqTag("volume");
 		getSubfield("x").setMqTag("issn");

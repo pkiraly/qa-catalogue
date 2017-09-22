@@ -63,7 +63,7 @@ public class Tag760 extends DataFieldDefinition {
 			"2", "Type of record",
 			"3", "Bibliographic level"
 		);
-		getSubfield("a").setBibframeTag("rdfs:label");
+		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
 		getSubfield("b").setBibframeTag("editionStatement");
 		getSubfield("c").setBibframeTag("qualifier");
 		getSubfield("d").setBibframeTag("provisionActivityStatement");

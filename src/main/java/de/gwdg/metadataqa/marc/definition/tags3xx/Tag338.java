@@ -40,7 +40,7 @@ public class Tag338 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("2").setCodeList(GenreFormCodeAndTermSourceCodes.getInstance());
-		getSubfield("a").setBibframeTag("rdfs:label");
+		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
 		getSubfield("b").setMqTag("carrierTypeCode");
 		getSubfield("0").setMqTag("authorityRecordControlNumber");
 		getSubfield("2").setBibframeTag("source");

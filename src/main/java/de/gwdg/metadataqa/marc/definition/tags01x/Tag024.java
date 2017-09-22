@@ -65,7 +65,6 @@ public class Tag024 extends DataFieldDefinition {
 		getSubfield("q").setBibframeTag("qualifier");
 		getSubfield("z").setMqTag("canceledNumber");
 		getSubfield("2").setMqTag("source");
-		getSubfield("3").setMqTag("materialsSpecified");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
 	}

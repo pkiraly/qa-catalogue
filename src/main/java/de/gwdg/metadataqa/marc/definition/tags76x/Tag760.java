@@ -31,7 +31,7 @@ public class Tag760 extends DataFieldDefinition {
 		ind1 = new Indicator("Note controller").setCodes(
 			"0", "Display note",
 			"1", "Do not display note"
-		);
+		).setMqTag("noteController");;
 		ind2 = new Indicator("Display constant controller").setCodes(
 			" ", "Main series",
 			"8", "No display constant generated"

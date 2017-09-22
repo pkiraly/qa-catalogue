@@ -25,10 +25,12 @@ public class Tag630 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "630";
 		label = "Subject Added Entry - Uniform Title";
 		mqTag = "SubjectAddedUniformTitle";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Nonfiling characters").setCodes(
 			"0-9", "Number of nonfiling characters"
 		).setMqTag("nonfilingCharacters");
@@ -42,7 +44,8 @@ public class Tag630 extends DataFieldDefinition {
 			"5", "Canadian Subject Headings",
 			"6", "Répertoire de vedettes-matière",
 			"7", "Source specified in subfield $2"
-		);
+		).setMqTag("thesaurus");
+
 		setSubfieldsWithCardinality(
 			"a", "Uniform title", "NR",
 			"d", "Date of treaty signing", "R",

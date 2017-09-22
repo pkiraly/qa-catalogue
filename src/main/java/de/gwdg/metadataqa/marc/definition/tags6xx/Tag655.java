@@ -41,7 +41,7 @@ public class Tag655 extends DataFieldDefinition {
 			"5", "Canadian Subject Headings",
 			"6", "Répertoire de vedettes-matière",
 			"7", "Source specified in subfield $2"
-		);
+		).setMqTag("thesaurus");
 		setSubfieldsWithCardinality(
 			"a", "Genre/form data or focus term", "NR",
 			"b", "Non-focus term", "R",

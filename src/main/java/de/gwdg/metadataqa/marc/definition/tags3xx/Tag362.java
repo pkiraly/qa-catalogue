@@ -22,19 +22,28 @@ public class Tag362 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "362";
 		label = "Dates of Publication and/or Sequential Designation";
+		mqTag = "DatesOfPublication";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Format of date").setCodes(
 			"0", "Formatted style",
 			"1", "Unformatted note"
-		);
+		).setMqTag("format");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Dates of publication and/or sequential designation", "NR",
 			"z", "Source of information", "NR",
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("z").setMqTag("source");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

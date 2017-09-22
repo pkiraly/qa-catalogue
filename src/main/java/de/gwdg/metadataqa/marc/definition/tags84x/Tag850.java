@@ -26,13 +26,20 @@ public class Tag850 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "850";
 		label = "Holding Institution";
+		bibframeTag = "HeldBy";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Holding institution", "R",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("2").setCodeList(OrganizationCodes.getInstance());
+
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

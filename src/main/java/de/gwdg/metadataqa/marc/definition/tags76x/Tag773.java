@@ -25,18 +25,21 @@ public class Tag773 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "773";
 		label = "Host Item Entry";
 		bibframeTag = "PartOf";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Note controller").setCodes(
 			"0", "Display note",
 			"1", "Do not display note"
-		);
+		).setMqTag("noteController");
 		ind2 = new Indicator("Display constant controller").setCodes(
 			" ", "In",
 			"8", "No display constant generated"
 		).setMqTag("displayConstant");
+
 		setSubfieldsWithCardinality(
 			"a", "Main entry heading", "NR",
 			"b", "Edition", "NR",
@@ -64,6 +67,7 @@ public class Tag773 extends DataFieldDefinition {
 			"7", "Control subfield", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("7").setCodes(
 			"0", "Type of main entry heading",
 			"1", "Form of name",
@@ -72,6 +76,7 @@ public class Tag773 extends DataFieldDefinition {
 		);
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
 		getSubfield("w").setContentParser(RecordControlNumberParser.getInstance());
+
 		getSubfield("a").setBibframeTag("rdfs:label");
 		getSubfield("b").setBibframeTag("editionStatement");
 		getSubfield("d").setBibframeTag("provisionActivityStatement");
@@ -83,6 +88,7 @@ public class Tag773 extends DataFieldDefinition {
 		getSubfield("n").setBibframeTag("note");
 		getSubfield("o").setMqTag("otherItemIdentifier");
 		getSubfield("p").setMqTag("abbreviatedTitle");
+		getSubfield("q").setMqTag("enumeration");
 		getSubfield("r").setMqTag("reportNumber");
 		getSubfield("s").setBibframeTag("title").setMqTag("uniformTitle");
 		getSubfield("t").setBibframeTag("title");
@@ -91,6 +97,7 @@ public class Tag773 extends DataFieldDefinition {
 		getSubfield("x").setBibframeTag("issn");
 		getSubfield("y").setBibframeTag("coden");
 		getSubfield("z").setBibframeTag("isbn");
+		getSubfield("3").setMqTag("materialsSpecified");
 		getSubfield("4").setMqTag("relationship");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("7").setMqTag("controlSubfield");

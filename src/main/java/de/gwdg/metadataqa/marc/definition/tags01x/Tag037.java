@@ -23,16 +23,19 @@ public class Tag037 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "037";
 		label = "Source of Acquisition";
 		bibframeTag = "AcquisitionSource";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Source of acquisition sequence").setCodes(
 			" ", "Not applicable/No information provided/Earliest",
 			"2", "Intervening",
 			"3", "Current/Latest"
-		);
+		).setMqTag("source");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Stock number", "NR",
 			"b", "Source of stock number/acquisition", "NR",
@@ -45,11 +48,16 @@ public class Tag037 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("a").setBibframeTag("stockNumber");
 		getSubfield("b").setBibframeTag("rdfs:label");
 		getSubfield("c").setBibframeTag("acquisitionTerms");
-		getSubfield("f").setBibframeTag("note");
-		getSubfield("g").setBibframeTag("note");
+		getSubfield("f").setBibframeTag("note").setMqTag("formOfIssue");
+		getSubfield("g").setBibframeTag("note").setMqTag("format");
 		getSubfield("n").setBibframeTag("note");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

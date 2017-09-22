@@ -31,7 +31,7 @@ public class Tag785 extends DataFieldDefinition {
 		ind1 = new Indicator("Note controller").setCodes(
 			"0", "Display note",
 			"1", "Do not display note"
-		);
+		).setMqTag("noteController");;
 		ind2 = new Indicator("Type of relationship").setCodes(
 			"0", "Continued by",
 			"1", "Continued in part by",

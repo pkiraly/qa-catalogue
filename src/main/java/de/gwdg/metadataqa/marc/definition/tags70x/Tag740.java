@@ -23,9 +23,12 @@ public class Tag740 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "740";
 		label = "Added Entry - Uncontrolled Related/Analytical Title";
+		mqTag = "AddedUncontrolledRelatedOrAnalyticalTitle";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Nonfiling characters").setCodes(
 			"0", "No nonfiling characters",
 			"1-9", "Number of nonfiling characters"
@@ -34,7 +37,8 @@ public class Tag740 extends DataFieldDefinition {
 		ind2 = new Indicator("Type of added entry").setCodes(
 			" ", "No information provided",
 			"2", "Analytical entry"
-		);
+		).setMqTag("type");
+
 		setSubfieldsWithCardinality(
 			"a", "Uncontrolled related/analytical title", "NR",
 			"h", "Medium", "NR",
@@ -44,6 +48,13 @@ public class Tag740 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("h").setMqTag("medium");
 		getSubfield("n").setBibframeTag("partNumber");
+		getSubfield("p").setMqTag("nameOfPart");
+		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

@@ -24,14 +24,19 @@ public class Tag072 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "072";
 		label = "Subject Category Code";
+		bibframeTag = "Subject";
+		mqTag = "SubjectCategoryCode";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator("Code source").setCodes(
 			"0", "NAL subject category code list",
 			"7", "Source specified in subfield $2"
-		);
+		).setMqTag("codeSource");
+
 		setSubfieldsWithCardinality(
 			"a", "Subject category code", "NR",
 			"x", "Subject category code subdivision", "R",
@@ -39,6 +44,13 @@ public class Tag072 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("2").setCodeList(SubjectCategoryCodeSourceCodes.getInstance());
+
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("x").setMqTag("subdivision");
+		getSubfield("2").setMqTag("source");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

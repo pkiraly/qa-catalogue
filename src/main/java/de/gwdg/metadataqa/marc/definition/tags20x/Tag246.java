@@ -25,13 +25,14 @@ public class Tag246 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "246";
 		label = "Varying Form of Title";
+		bibframeTag = "ParallelTitle";
 		cardinality = Cardinality.Nonrepeatable;
 		ind1 = new Indicator("Note/added entry controller").setCodes(
 			"0", "Note, no added entry",
 			"1", "Note, added entry",
 			"2", "No note, no added entry",
 			"3", "No note, added entry"
-		);
+		).setMqTag("noteAndAddedEntry");
 		ind2 = new Indicator("Type of title").setCodes(
 			" ", "No type specified",
 			"0", "Portion of title",
@@ -43,7 +44,7 @@ public class Tag246 extends DataFieldDefinition {
 			"6", "Caption title",
 			"7", "Running title",
 			"8", "Spine title"
-		);
+		).setMqTag("type");
 		setSubfieldsWithCardinality(
 			"a", "Title proper/short title", "NR",
 			"b", "Remainder of title", "NR",
@@ -58,5 +59,16 @@ public class Tag246 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("5").setCodeList(OrganizationCodes.getInstance());
+		getSubfield("a").setBibframeTag("mainTitle");
+		getSubfield("b").setBibframeTag("subtitle");
+		getSubfield("f").setBibframeTag("date");
+		getSubfield("g").setBibframeTag("miscellaneous");
+		getSubfield("h").setMqTag("medium");
+		getSubfield("i").setMqTag("displayText");
+		getSubfield("n").setBibframeTag("partNumber");
+		getSubfield("p").setBibframeTag("partName");
+		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

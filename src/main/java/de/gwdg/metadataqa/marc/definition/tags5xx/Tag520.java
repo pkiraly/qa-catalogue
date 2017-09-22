@@ -27,7 +27,9 @@ public class Tag520 extends DataFieldDefinition {
 
 		tag = "520";
 		label = "Summary, etc.";
+		bibframeTag = "Summary";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Display constant controller").setCodes(
 			" ", "Summary",
 			"0", "Subject",
@@ -36,8 +38,9 @@ public class Tag520 extends DataFieldDefinition {
 			"3", "Abstract",
 			"4", "Content advice",
 			"8", "No display constant generated"
-		);
+		).setMqTag("displayConstant");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Summary, etc.", "NR",
 			"b", "Expansion of summary note", "NR",
@@ -49,7 +52,14 @@ public class Tag520 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("2").setCodeList(ContentAdviceClassificationSourceCodes.getInstance());
-		getSubfield("u").setBibframeTag("summaryURI");
-		getSubfield("a").setBibframeTag("summaryExpansion");
+
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("b").setMqTag("expansion");
+		getSubfield("c").setMqTag("assigningSource");
+		getSubfield("u").setMqTag("uri");
+		getSubfield("2").setMqTag("source");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

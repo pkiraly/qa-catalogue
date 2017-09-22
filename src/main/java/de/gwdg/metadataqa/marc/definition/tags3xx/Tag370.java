@@ -26,8 +26,8 @@ public class Tag370 extends DataFieldDefinition {
 		tag = "370";
 		label = "Associated Place";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"c", "Associated country", "R",
 			"f", "Other associated place", "R",

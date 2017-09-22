@@ -32,7 +32,7 @@ public class Tag524 extends DataFieldDefinition {
 			" ", "Cite as",
 			"8", "No display constant generated"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Preferred citation of described materials note", "NR",
 			"2", "Source of schema used", "NR",

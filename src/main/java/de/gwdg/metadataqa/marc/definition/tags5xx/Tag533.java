@@ -27,8 +27,8 @@ public class Tag533 extends DataFieldDefinition {
 		tag = "533";
 		label = "Reproduction Note";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Type of reproduction", "NR",
 			"b", "Place of reproduction", "R",

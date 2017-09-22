@@ -25,8 +25,8 @@ public class Tag352 extends DataFieldDefinition {
 		tag = "352";
 		label = "Digital Graphic Representation";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Direct reference method", "NR",
 			"b", "Object type", "R",

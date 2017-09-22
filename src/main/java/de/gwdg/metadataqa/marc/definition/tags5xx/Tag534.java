@@ -27,8 +27,8 @@ public class Tag534 extends DataFieldDefinition {
 		tag = "534";
 		label = "Original Version Note";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Main entry of original", "NR",
 			"b", "Edition statement of original", "NR",
@@ -48,5 +48,6 @@ public class Tag534 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+		getSubfield("x").setMqTag("issn");
 	}
 }

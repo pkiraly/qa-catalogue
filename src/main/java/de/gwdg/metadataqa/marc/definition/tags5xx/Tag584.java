@@ -27,8 +27,8 @@ public class Tag584 extends DataFieldDefinition {
 		tag = "584";
 		label = "Accumulation and Frequency of Use Note";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Accumulation", "R",
 			"b", "Frequency of use", "R",

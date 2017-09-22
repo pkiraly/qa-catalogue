@@ -34,7 +34,7 @@ public class Tag654 extends DataFieldDefinition {
 			"1", "Primary",
 			"2", "Secondary"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Focus term", "R",
 			"b", "Non-focus term", "R",

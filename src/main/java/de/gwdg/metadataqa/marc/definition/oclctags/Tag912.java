@@ -27,8 +27,8 @@ public class Tag912 extends DataFieldDefinition {
 		label = "Work identifier";
 		mqTag = "WorkIdentifier";
 		cardinality = Cardinality.Nonrepeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"9", "OCLC work identifier", "NR"
 		);

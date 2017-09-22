@@ -28,8 +28,8 @@ public class Tag337 extends DataFieldDefinition {
 		bibframeTag = "Media";
 		mqTag = "MediaType";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Media type term", "R",
 			"b", "Media type code", "R",

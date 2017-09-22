@@ -25,8 +25,8 @@ public class Tag344 extends DataFieldDefinition {
 		tag = "344";
 		label = "Sound Characteristics";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Type of recording", "R",
 			"b", "Recording medium", "R",

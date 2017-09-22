@@ -27,8 +27,8 @@ public class Tag753 extends DataFieldDefinition {
 		tag = "753";
 		label = "System Details Access to Computer Files";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Make and model of machine", "NR",
 			"b", "Programming language", "NR",

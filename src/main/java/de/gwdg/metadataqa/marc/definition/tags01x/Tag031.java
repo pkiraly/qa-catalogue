@@ -27,8 +27,8 @@ public class Tag031 extends DataFieldDefinition {
 		tag = "031";
 		label = "Musical Incipits Information";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("").setCodes();
-		ind2 = new Indicator("").setCodes();
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Number of work", "NR",
 			"b", "Number of movement", "NR",

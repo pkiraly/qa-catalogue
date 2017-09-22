@@ -25,8 +25,8 @@ public class Tag345 extends DataFieldDefinition {
 		tag = "345";
 		label = "Projection Characteristics of Moving Image";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Presentation format", "R",
 			"b", "Projection speed", "R",

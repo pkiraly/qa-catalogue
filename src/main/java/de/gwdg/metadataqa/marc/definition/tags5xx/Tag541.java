@@ -32,7 +32,7 @@ public class Tag541 extends DataFieldDefinition {
 			"0", "Private",
 			"1", "Not private"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Source of acquisition", "NR",
 			"b", "Address", "NR",

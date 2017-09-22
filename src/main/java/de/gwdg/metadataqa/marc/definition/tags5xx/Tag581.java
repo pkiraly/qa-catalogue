@@ -31,7 +31,7 @@ public class Tag581 extends DataFieldDefinition {
 			" ", "Publications",
 			"8", "No display constant generated"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Publications about described materials note", "NR",
 			"z", "International Standard Book Number", "R",

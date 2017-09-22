@@ -32,7 +32,7 @@ public class Tag588 extends DataFieldDefinition {
 			"0", "Source of description",
 			"1", "Latest issue consulted"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Source of description note", "NR",
 			"5", "Institution to which field applies", "NR",

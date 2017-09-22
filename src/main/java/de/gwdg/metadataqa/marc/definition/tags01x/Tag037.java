@@ -32,7 +32,7 @@ public class Tag037 extends DataFieldDefinition {
 			"2", "Intervening",
 			"3", "Current/Latest"
 		);
-		ind2 = new Indicator("").setCodes();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Stock number", "NR",
 			"b", "Source of stock number/acquisition", "NR",

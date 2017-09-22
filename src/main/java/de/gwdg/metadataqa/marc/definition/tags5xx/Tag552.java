@@ -27,8 +27,8 @@ public class Tag552 extends DataFieldDefinition {
 		tag = "552";
 		label = "Entity and Attribute Information Note";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Entity type label", "NR",
 			"b", "Entity type definition and source", "NR",

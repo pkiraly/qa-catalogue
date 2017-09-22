@@ -32,7 +32,7 @@ public class Tag535 extends DataFieldDefinition {
 			"1", "Holder of originals",
 			"2", "Holder of duplicates"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Custodian", "NR",
 			"b", "Postal address", "R",

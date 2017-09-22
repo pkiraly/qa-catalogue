@@ -28,8 +28,8 @@ public class Tag751 extends DataFieldDefinition {
 		tag = "751";
 		label = "Added Entry - Geographic Name";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Geographic name", "NR",
 			"e", "Relator term", "R",

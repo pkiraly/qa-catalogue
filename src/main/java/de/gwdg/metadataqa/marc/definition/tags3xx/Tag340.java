@@ -25,8 +25,8 @@ public class Tag340 extends DataFieldDefinition {
 		tag = "340";
 		label = "Physical Medium";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Material base and configuration", "R",
 			"b", "Dimensions", "R",

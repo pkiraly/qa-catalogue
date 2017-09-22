@@ -25,8 +25,8 @@ public class Tag306 extends DataFieldDefinition {
 		tag = "306";
 		label = "Playing Time";
 		cardinality = Cardinality.Nonrepeatable;
-		ind1 = new Indicator("").setCodes();
-		ind2 = new Indicator("").setCodes();
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Playing time", "R",
 			"6", "Linkage", "NR",

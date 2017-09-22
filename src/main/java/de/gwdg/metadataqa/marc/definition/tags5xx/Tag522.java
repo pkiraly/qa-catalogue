@@ -31,7 +31,7 @@ public class Tag522 extends DataFieldDefinition {
 			" ", "Geographic coverage",
 			"8", "No display constant generated"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Geographic coverage note", "NR",
 			"6", "Linkage", "NR",

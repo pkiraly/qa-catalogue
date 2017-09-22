@@ -32,7 +32,7 @@ public class Tag545 extends DataFieldDefinition {
 			"0", "Biographical sketch",
 			"1", "Administrative history"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Biographical or historical data", "NR",
 			"b", "Expansion", "NR",

@@ -28,8 +28,8 @@ public class Tag015 extends DataFieldDefinition {
 		label = "National Bibliography Number";
 		cardinality = Cardinality.Repeatable;
 		bibframeTag = "identifiedBy/Nbn";
-		ind1 = new Indicator("").setCodes(" ", "Undefined");
-		ind2 = new Indicator("").setCodes(" ", "Undefined");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "National bibliography number", "R",
 			"q", "Qualifying information", "R",

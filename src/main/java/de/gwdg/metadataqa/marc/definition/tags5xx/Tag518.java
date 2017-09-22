@@ -28,8 +28,8 @@ public class Tag518 extends DataFieldDefinition {
 		tag = "518";
 		label = "Date/Time and Place of an Event Note";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Date/time and place of an event note", "NR",
 			"d", "Date of event", "R",

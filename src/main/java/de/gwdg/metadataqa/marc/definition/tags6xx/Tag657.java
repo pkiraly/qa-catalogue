@@ -27,7 +27,7 @@ public class Tag657 extends DataFieldDefinition {
 		tag = "657";
 		label = "Index Term - Function";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
+		ind1 = new Indicator();
 		ind2 = new Indicator("Source of term").setCodes(
 			"7", "Source specified in subfield $2"
 		);

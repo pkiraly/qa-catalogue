@@ -26,8 +26,8 @@ public class Tag383 extends DataFieldDefinition {
 		tag = "383";
 		label = "Numeric Designation of Musical Work";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Serial number", "R",
 			"b", "Opus number", "R",

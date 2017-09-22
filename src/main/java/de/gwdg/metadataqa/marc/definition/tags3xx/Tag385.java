@@ -26,8 +26,8 @@ public class Tag385 extends DataFieldDefinition {
 		tag = "385";
 		label = "Audience Characteristics";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Audience term", "R",
 			"b", "Audience code", "R",

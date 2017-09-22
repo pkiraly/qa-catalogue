@@ -27,12 +27,12 @@ public class Tag022 extends DataFieldDefinition {
 		label = "International Standard Serial Number";
 		bibframeTag = "Issn";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("").setCodes(
+		ind1 = new Indicator("Level of international interest").setCodes(
 			" ", "No level specified",
 			"0", "Continuing resource of international interest",
 			"1", "Continuing resource not of international interest"
 		);
-		ind2 = new Indicator("").setCodes(" ", "Undefined");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "International Standard Serial Number", "NR",
 			"l", "ISSN-L", "NR",

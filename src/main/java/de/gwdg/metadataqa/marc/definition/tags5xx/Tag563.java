@@ -27,8 +27,8 @@ public class Tag563 extends DataFieldDefinition {
 		tag = "563";
 		label = "Binding Information";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Binding note", "NR",
 			"u", "Uniform Resource Identifier", "R",

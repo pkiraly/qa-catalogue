@@ -27,8 +27,8 @@ public class Tag036 extends DataFieldDefinition {
 		label = "Original Study Number for Computer Data Files";
 		bibframeTag = "StudyNumber";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("").setCodes();
-		ind2 = new Indicator("").setCodes();
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Original study number", "NR",
 			"b", "Source agency assigning number", "NR",

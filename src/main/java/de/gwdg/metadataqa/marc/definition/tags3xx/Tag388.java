@@ -33,7 +33,7 @@ public class Tag388 extends DataFieldDefinition {
 			"1", "Creation of work",
 			"2", "Creation of aggregate work"
 		);
-		ind2 = new Indicator("").setCodes();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Time period of creation term", "R",
 			"0", "Authority record control number or standard number", "R",

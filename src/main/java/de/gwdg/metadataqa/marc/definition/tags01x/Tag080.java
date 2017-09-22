@@ -31,7 +31,7 @@ public class Tag080 extends DataFieldDefinition {
 			"0", "Full",
 			"1", "Abridged"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Universal Decimal Classification number", "NR",
 			"b", "Item number", "NR",

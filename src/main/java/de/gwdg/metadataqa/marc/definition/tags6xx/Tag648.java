@@ -27,8 +27,8 @@ public class Tag648 extends DataFieldDefinition {
 		label = "Subject Added Entry - Chronological Term";
 		mqTag = "ChronologicalSubject";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Named event", "NR",
 			"c", "Location of named event", "R",

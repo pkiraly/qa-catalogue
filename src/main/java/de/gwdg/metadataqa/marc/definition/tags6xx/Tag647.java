@@ -26,8 +26,7 @@ public class Tag647 extends DataFieldDefinition {
 		tag = "647";
 		label = "Subject Added Entry - Named Event";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind1.getCode("0-9").setRange(true);
+		ind1 = new Indicator();
 		ind2 = new Indicator("Thesaurus").setCodes(
 			"0", "Library of Congress Subject Headings",
 			"1", "LC subject headings for children's literature",

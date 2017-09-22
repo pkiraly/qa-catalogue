@@ -25,8 +25,8 @@ public class Tag310 extends DataFieldDefinition {
 		tag = "310";
 		label = "Current Publication Frequency";
 		cardinality = Cardinality.Nonrepeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Current publication frequency", "NR",
 			"b", "Date of current publication frequency", "NR",

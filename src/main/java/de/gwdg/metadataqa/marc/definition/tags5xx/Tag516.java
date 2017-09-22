@@ -31,7 +31,7 @@ public class Tag516 extends DataFieldDefinition {
 			" ", "Type of file",
 			"8", "No display constant generated"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Type of computer file or data note", "NR",
 			"6", "Linkage", "NR",

@@ -32,7 +32,7 @@ public class Tag045 extends DataFieldDefinition {
 			"1", "Multiple single dates/times",
 			"2", "Range of dates/times"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Time period code", "R",
 			"b", "Formatted 9999 B.C. through C.E. time period", "R",

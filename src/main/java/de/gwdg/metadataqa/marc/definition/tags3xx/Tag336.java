@@ -28,8 +28,8 @@ public class Tag336 extends DataFieldDefinition {
 		bibframeTag = "Content";
 		mqTag = "ContentType";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Content type term", "R",
 			"b", "Content type code", "R",

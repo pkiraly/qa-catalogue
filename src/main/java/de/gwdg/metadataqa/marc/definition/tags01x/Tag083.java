@@ -32,7 +32,7 @@ public class Tag083 extends DataFieldDefinition {
 			"1", "Abridged edition",
 			"7", "Other edition specified in subfield $2"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Classification number", "R",
 			"c", "Classification number--Ending number of span", "R",

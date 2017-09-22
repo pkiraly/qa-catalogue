@@ -32,7 +32,7 @@ public class Tag544 extends DataFieldDefinition {
 			"0", "Associated materials",
 			"1", "Related materials"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Custodian", "R",
 			"b", "Address", "R",

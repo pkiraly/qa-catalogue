@@ -26,8 +26,8 @@ public class Tag074 extends DataFieldDefinition {
 		tag = "074";
 		label = "GPO Item Number";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "GPO item number", "NR",
 			"z", "Canceled/invalid GPO item number", "R",

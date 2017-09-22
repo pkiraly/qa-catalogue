@@ -27,7 +27,7 @@ public class Tag017 extends DataFieldDefinition {
 		label = "Copyright or Legal Deposit Number";
 		bibframeTag = "identifiedBy/CopyrightNumber";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("").setCodes(" ", "Undefined");
+		ind1 = new Indicator();
 		ind2 = new Indicator("Display constant controller").setCodes(
 			" ", "Copyright or legal deposit number",
 			"8", "No display constant generated"

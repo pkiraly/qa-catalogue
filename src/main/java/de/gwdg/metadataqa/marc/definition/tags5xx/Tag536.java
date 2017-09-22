@@ -28,8 +28,8 @@ public class Tag536 extends DataFieldDefinition {
 		bibframeTag = "fundingInformation";
 		label = "Funding Information Note";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Text of note", "NR",
 			"b", "Contract number", "R",

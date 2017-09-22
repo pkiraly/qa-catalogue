@@ -44,5 +44,6 @@ public class Tag740 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+		getSubfield("n").setBibframeTag("partNumber");
 	}
 }

@@ -26,8 +26,8 @@ public class Tag088 extends DataFieldDefinition {
 		tag = "088";
 		label = "Report Number";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Report number", "NR",
 			"z", "Canceled/invalid report number", "R",

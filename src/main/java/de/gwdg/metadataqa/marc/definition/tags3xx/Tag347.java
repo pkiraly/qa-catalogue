@@ -25,8 +25,8 @@ public class Tag347 extends DataFieldDefinition {
 		tag = "347";
 		label = "Digital File Characteristics";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "File type", "R",
 			"b", "Encoding format", "R",

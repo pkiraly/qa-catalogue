@@ -36,7 +36,7 @@ public class Tag521 extends DataFieldDefinition {
 			"4", "Motivation/interest level",
 			"8", "No display constant generated"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Target audience note", "R",
 			"b", "Source", "NR",

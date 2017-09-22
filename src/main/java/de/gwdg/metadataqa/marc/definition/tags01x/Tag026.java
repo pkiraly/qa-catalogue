@@ -28,9 +28,8 @@ public class Tag026 extends DataFieldDefinition {
 		label = "Fingerprint Identifier";
 		bibframeTag = "Fingerprint";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("").setCodes(" ", "Undefined");
-		// TODO: set label
-		ind2 = new Indicator("").setCodes(" ", "Undefined");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "First and second groups of characters", "NR",
 			"b", "Third and fourth groups of characters", "NR",

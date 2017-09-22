@@ -27,8 +27,8 @@ public class Tag300 extends DataFieldDefinition {
 		bibframeTag = "";
 		mqTag = "PhysicalDescription";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("").setCodes();
-		ind2 = new Indicator("").setCodes();
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Extent", "R",
 			"b", "Other physical details", "NR",

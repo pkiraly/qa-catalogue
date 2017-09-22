@@ -28,8 +28,8 @@ public class Tag044 extends DataFieldDefinition {
 		tag = "044";
 		label = "Country of Publishing/Producing Entity Code";
 		cardinality = Cardinality.Nonrepeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "MARC country code", "R",
 			"b", "Local subentity code", "R",

@@ -32,7 +32,7 @@ public class Tag086 extends DataFieldDefinition {
 			"0", "Superintendent of Documents Classification System",
 			"1", "Government of Canada Publications: Outline of Classification"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Classification number", "NR",
 			"z", "Canceled/invalid classification number", "R",

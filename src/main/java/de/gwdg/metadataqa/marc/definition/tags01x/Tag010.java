@@ -27,8 +27,8 @@ public class Tag010 extends DataFieldDefinition {
 		label = "Library of Congress Control Number";
 		bibframeTag = "identifiedBy/Lccn";
 		cardinality = Cardinality.Nonrepeatable;
-		ind1 = new Indicator("").setCodes(" ", "Undefined");
-		ind2 = new Indicator("").setCodes(" ", "Undefined");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "LC control number", "NR",
 			"b", "NUCMC control number", "R",

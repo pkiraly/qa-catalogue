@@ -28,8 +28,8 @@ public class Tag754 extends DataFieldDefinition {
 		tag = "754";
 		label = "Added Entry - Taxonomic Identification";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Taxonomic name", "R",
 			"c", "Taxonomic category", "R",

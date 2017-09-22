@@ -29,7 +29,7 @@ public class Tag362 extends DataFieldDefinition {
 			"0", "Formatted style",
 			"1", "Unformatted note"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Dates of publication and/or sequential designation", "NR",
 			"z", "Source of information", "NR",

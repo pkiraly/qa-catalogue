@@ -45,5 +45,7 @@ public class Tag510 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+		getSubfield("u").setMqTag("uri");
+		getSubfield("x").setMqTag("issn");
 	}
 }

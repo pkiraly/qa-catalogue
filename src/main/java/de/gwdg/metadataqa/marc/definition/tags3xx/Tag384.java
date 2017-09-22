@@ -30,7 +30,7 @@ public class Tag384 extends DataFieldDefinition {
 			"0", "Original key",
 			"1", "Transposed key "
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Key", "NR",
 			"6", "Linkage", "NR",

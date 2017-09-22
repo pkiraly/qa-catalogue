@@ -26,8 +26,8 @@ public class Tag381 extends DataFieldDefinition {
 		tag = "381";
 		label = "Other Distinguishing Characteristics of Work or Expression";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Other distinguishing characteristic", "R",
 			"u", "Uniform Resource Identifier", "R",

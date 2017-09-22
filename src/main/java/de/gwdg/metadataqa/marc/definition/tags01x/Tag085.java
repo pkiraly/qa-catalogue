@@ -26,8 +26,8 @@ public class Tag085 extends DataFieldDefinition {
 		tag = "085";
 		label = "Synthesized Classification Number Components";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Number where instructions are found-single number or beginning number of span", "R",
 			"b", "Base number", "R",

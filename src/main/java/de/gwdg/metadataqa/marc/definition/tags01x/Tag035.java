@@ -25,11 +25,11 @@ public class Tag035 extends DataFieldDefinition {
 
 	private void initialize() {
 		tag = "035";
-		bibframeTag = "systemControlNumber";
 		label = "System Control Number";
+		bibframeTag = "SystemControlNumber";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("").setCodes();
-		ind2 = new Indicator("").setCodes();
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "System control number", "NR",
 			"z", "Canceled/invalid control number", "R",

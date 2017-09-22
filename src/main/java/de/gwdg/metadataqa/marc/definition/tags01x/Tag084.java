@@ -30,8 +30,8 @@ public class Tag084 extends DataFieldDefinition {
 		bibframeTag = "Classification";
 		// mqTag = "OtherClassificatonNumber";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Classification number", "R",
 			"b", "Item number", "NR",

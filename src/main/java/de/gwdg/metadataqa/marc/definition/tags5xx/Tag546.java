@@ -27,8 +27,8 @@ public class Tag546 extends DataFieldDefinition {
 		tag = "546";
 		label = "Language Note";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Language note", "NR",
 			"b", "Information code or alphabet", "R",

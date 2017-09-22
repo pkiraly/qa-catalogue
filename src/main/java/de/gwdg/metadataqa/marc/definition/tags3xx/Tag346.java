@@ -25,8 +25,8 @@ public class Tag346 extends DataFieldDefinition {
 		tag = "346";
 		label = "Video Characteristics";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Video format", "R",
 			"b", "Broadcast standard", "R",

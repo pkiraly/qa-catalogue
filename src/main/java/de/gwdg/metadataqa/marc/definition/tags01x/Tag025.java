@@ -27,9 +27,8 @@ public class Tag025 extends DataFieldDefinition {
 		label = "Overseas Acquisition Number";
 		bibframeTag = "LcOverseasAcq";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("").setCodes(" ", "Undefined");
-		// TODO: set label
-		ind2 = new Indicator("").setCodes(" ", "Undefined");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Overseas acquisition number", "R",
 			"8", "Field link and sequence number", "R"

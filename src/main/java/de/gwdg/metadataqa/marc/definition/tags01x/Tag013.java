@@ -26,8 +26,8 @@ public class Tag013 extends DataFieldDefinition {
 		tag = "013";
 		label = "Patent Control Information";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("").setCodes(" ", "Undefined");
-		ind2 = new Indicator("").setCodes(" ", "Undefined");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Number", "NR",
 			"b", "Country", "NR",

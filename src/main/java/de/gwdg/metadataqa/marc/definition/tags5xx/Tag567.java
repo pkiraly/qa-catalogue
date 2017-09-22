@@ -31,7 +31,7 @@ public class Tag567 extends DataFieldDefinition {
 			" ", "Methodology",
 			"8", "No display constant generated"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Methodology note", "NR",
 			"b", "Controlled term", "R",

@@ -29,8 +29,8 @@ public class Tag043 extends DataFieldDefinition {
 		label = "Geographic Area Code";
 		bibframeTag = "GeographicCoverage";
 		cardinality = Cardinality.Nonrepeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Geographic area code", "R",
 			"b", "Local GAC code", "R",

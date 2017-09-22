@@ -31,7 +31,7 @@ public class Tag029 extends DataFieldDefinition {
 			"0", "Primary control number",
 			"1", "Secondary control number"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "OCLC library identifier", "NR",
 			"b", "System control number", "NR",

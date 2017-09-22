@@ -34,7 +34,7 @@ public class Tag810 extends DataFieldDefinition {
 			"1", "Jurisdiction name",
 			"2", "Name in direct order"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Corporate name or jurisdiction name as entry element", "NR",
 			"b", "Subordinate unit", "R",

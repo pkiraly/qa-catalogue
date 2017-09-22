@@ -36,7 +36,7 @@ public class Tag355 extends DataFieldDefinition {
 			"5", "Record",
 			"8", "None of the above"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Security classification", "NR",
 			"b", "Handling instructions", "R",

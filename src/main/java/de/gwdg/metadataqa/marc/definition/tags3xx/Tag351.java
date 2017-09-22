@@ -25,8 +25,8 @@ public class Tag351 extends DataFieldDefinition {
 		tag = "351";
 		label = "Organization and Arrangement of Materials";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Organization", "R",
 			"b", "Arrangement", "R",

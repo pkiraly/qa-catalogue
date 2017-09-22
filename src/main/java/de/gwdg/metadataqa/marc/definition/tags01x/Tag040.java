@@ -30,8 +30,8 @@ public class Tag040 extends DataFieldDefinition {
 		label = "Cataloging Source";
 		bibframeTag = "AdminMetadata";
 		cardinality = Cardinality.Nonrepeatable;
-		ind1 = new Indicator("").setCodes(" ", "Undefined");
-		ind2 = new Indicator("").setCodes(" ", "Undefined");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Original cataloging agency", "NR",
 			"b", "Language of cataloging", "NR",

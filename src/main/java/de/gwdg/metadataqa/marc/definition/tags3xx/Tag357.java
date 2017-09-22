@@ -25,8 +25,8 @@ public class Tag357 extends DataFieldDefinition {
 		tag = "357";
 		label = "Originator Dissemination Control";
 		cardinality = Cardinality.Nonrepeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Originator control term", "NR",
 			"b", "Originating agency", "R",

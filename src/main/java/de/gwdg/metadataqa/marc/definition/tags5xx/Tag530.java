@@ -27,8 +27,8 @@ public class Tag530 extends DataFieldDefinition {
 		tag = "530";
 		label = "Additional Physical Form available Note";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Additional physical form available note", "NR",
 			"b", "Availability source", "NR",

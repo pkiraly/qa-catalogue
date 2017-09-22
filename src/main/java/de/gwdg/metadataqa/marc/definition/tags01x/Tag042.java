@@ -27,8 +27,8 @@ public class Tag042 extends DataFieldDefinition {
 		tag = "042";
 		label = "Authentication Code";
 		cardinality = Cardinality.Nonrepeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Authentication code", "R"
 		);

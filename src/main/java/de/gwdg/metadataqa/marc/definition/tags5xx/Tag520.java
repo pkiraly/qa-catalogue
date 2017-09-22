@@ -37,7 +37,7 @@ public class Tag520 extends DataFieldDefinition {
 			"4", "Content advice",
 			"8", "No display constant generated"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Summary, etc.", "NR",
 			"b", "Expansion of summary note", "NR",

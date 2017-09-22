@@ -30,7 +30,7 @@ public class Tag070 extends DataFieldDefinition {
 			"0", "Item is in NAL",
 			"1", "Item is not in NAL"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Classification number", "R",
 			"b", "Item number", "NR",

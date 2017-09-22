@@ -25,8 +25,8 @@ public class Tag348 extends DataFieldDefinition {
 		tag = "348";
 		label = "Format of Notated Music";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Format of notated music term", "R",
 			"b", "Format of notated music code", "R",

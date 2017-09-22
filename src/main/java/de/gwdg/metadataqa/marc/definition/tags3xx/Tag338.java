@@ -28,8 +28,8 @@ public class Tag338 extends DataFieldDefinition {
 		bibframeTag = "Carrier";
 		mqTag = "CarrierType";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Carrier type term", "R",
 			"b", "Carrier type code", "R",

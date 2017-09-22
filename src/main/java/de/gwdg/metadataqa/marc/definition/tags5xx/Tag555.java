@@ -32,7 +32,7 @@ public class Tag555 extends DataFieldDefinition {
 			"0", "Finding aids",
 			"8", "No display constant generated"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Cumulative index/finding aids note", "NR",
 			"b", "Availability source", "R",

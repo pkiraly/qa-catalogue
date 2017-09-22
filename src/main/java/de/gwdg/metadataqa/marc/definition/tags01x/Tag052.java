@@ -32,7 +32,7 @@ public class Tag052 extends DataFieldDefinition {
 			"1", "U.S. Dept. of Defense Classification",
 			"7", "Source specified in subfield $2"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Geographic classification area code", "NR",
 			"b", "Geographic classification subarea code", "R",

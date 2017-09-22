@@ -26,8 +26,8 @@ public class Tag380 extends DataFieldDefinition {
 		tag = "380";
 		label = "Form of Work";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Form of work", "R",
 			"0", "Record control number", "R",

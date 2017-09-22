@@ -26,8 +26,8 @@ public class Tag051 extends DataFieldDefinition {
 		tag = "051";
 		label = "Library of Congress Copy, Issue, Offprint Statement";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Classification number", "NR",
 			"b", "Item number", "NR",

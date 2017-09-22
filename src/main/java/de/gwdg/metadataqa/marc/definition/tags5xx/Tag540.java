@@ -27,8 +27,8 @@ public class Tag540 extends DataFieldDefinition {
 		tag = "540";
 		label = "Terms Governing Use and Reproduction Note";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Terms governing use and reproduction", "NR",
 			"b", "Jurisdiction", "NR",

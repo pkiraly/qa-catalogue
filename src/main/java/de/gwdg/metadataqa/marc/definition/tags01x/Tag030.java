@@ -30,8 +30,8 @@ public class Tag030 extends DataFieldDefinition {
 		label = "CODEN Designation";
 		bibframeTag = "Coden";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("").setCodes();
-		ind2 = new Indicator("").setCodes();
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Publisher or distributor number", "NR",
 			"b", "Source", "NR",

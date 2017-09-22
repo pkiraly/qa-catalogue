@@ -32,7 +32,7 @@ public class Tag526 extends DataFieldDefinition {
 			"0", "Reading program",
 			"8", "No display constant generated"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Program name", "NR",
 			"b", "Interest level", "NR",

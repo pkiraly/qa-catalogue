@@ -29,7 +29,7 @@ public class Tag651 extends DataFieldDefinition {
 		label = "Subject Added Entry - Geographic Name";
 		bibframeTag = "Geographic";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
+		ind1 = new Indicator();
 		ind2 = new Indicator("Thesaurus").setCodes(
 			"0", "Library of Congress Subject Headings",
 			"1", "LC subject headings for children's literature",

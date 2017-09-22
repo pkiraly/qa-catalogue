@@ -27,7 +27,7 @@ public class Tag047 extends DataFieldDefinition {
 		tag = "047";
 		label = "Form of Musical Composition Code";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
+		ind1 = new Indicator();
 		ind2 = new Indicator("Source of code").setCodes(
 			" ", "MARC musical composition code",
 			"7", "Source specified in subfield $2"

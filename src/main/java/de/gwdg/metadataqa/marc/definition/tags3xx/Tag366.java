@@ -27,8 +27,8 @@ public class Tag366 extends DataFieldDefinition {
 		tag = "366";
 		label = "Trade Availability Information";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Publishers' compressed title identification", "NR",
 			"b", "Detailed date of publication", "NR",

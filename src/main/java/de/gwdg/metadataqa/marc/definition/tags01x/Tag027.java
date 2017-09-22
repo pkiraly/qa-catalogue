@@ -27,8 +27,8 @@ public class Tag027 extends DataFieldDefinition {
 		label = "Standard Technical Report Number";
 		bibframeTag = "Strn";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("").setCodes(" ", "Undefined");
-		ind2 = new Indicator("").setCodes(" ", "Undefined");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Standard technical report number", "NR",
 			"q", "Qualifying information", "R",

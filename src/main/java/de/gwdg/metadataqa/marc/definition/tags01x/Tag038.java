@@ -27,8 +27,8 @@ public class Tag038 extends DataFieldDefinition {
 		label = "Record Content Licensor";
 		bibframeTag = "MetadataLicensor";
 		cardinality = Cardinality.Nonrepeatable;
-		ind1 = new Indicator("").setCodes();
-		ind2 = new Indicator("").setCodes();
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Record content licensor", "NR",
 			"6", "Linkage", "NR",

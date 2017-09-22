@@ -29,7 +29,7 @@ public class Tag307 extends DataFieldDefinition {
 			" ", "Hours",
 			"8", "No display constant generated"
 		);
-		ind2 = new Indicator("").setCodes();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Hours", "NR",
 			"b", "Additional information", "NR",

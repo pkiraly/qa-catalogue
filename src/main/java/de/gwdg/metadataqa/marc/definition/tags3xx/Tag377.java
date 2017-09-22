@@ -26,7 +26,7 @@ public class Tag377 extends DataFieldDefinition {
 		tag = "377";
 		label = "Associated Language";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
+		ind1 = new Indicator();
 		ind2 = new Indicator("Source of code").setCodes(
 			" ", "MARC language code",
 			"7", "Source specified in $2"

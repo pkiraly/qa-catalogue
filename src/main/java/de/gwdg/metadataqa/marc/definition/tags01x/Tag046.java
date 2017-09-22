@@ -27,8 +27,8 @@ public class Tag046 extends DataFieldDefinition {
 		tag = "046";
 		label = "Special Coded Dates";
 		cardinality = Cardinality.Nonrepeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Type of date code", "NR",
 			"b", "Date 1, B.C.E. date", "NR",

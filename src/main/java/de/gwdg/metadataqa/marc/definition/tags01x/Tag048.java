@@ -27,7 +27,7 @@ public class Tag048 extends DataFieldDefinition {
 		tag = "048";
 		label = "Number of Musical Instruments or Voices Codes";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
+		ind1 = new Indicator();
 		ind2 = new Indicator("Source of code").setCodes(
 			" ", "MARC code",
 			"7", "Source specified in subfield $2"

@@ -27,8 +27,8 @@ public class Tag562 extends DataFieldDefinition {
 		tag = "562";
 		label = "Copy and Version Identification Note";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Identifying markings", "R",
 			"b", "Copy identification", "R",

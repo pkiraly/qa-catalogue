@@ -27,8 +27,8 @@ public class Tag538 extends DataFieldDefinition {
 		tag = "538";
 		label = "System Details Note";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "System details note", "NR",
 			"i", "Display text", "NR",

@@ -26,8 +26,8 @@ public class Tag018 extends DataFieldDefinition {
 		tag = "018";
 		label = "Copyright Article-Fee Code";
 		cardinality = Cardinality.Nonrepeatable;
-		ind1 = new Indicator("").setCodes(" ", "Undefined");
-		ind2 = new Indicator("").setCodes(" ", "Undefined");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Copyright article-fee code", "NR",
 			"6", "Linkage", "NR",

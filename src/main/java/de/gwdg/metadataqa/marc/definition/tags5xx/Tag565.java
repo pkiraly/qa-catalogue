@@ -32,7 +32,7 @@ public class Tag565 extends DataFieldDefinition {
 			"0", "Case file characteristics",
 			"8", "No display constant generated"
 		);
-		ind2 = new Indicator("");
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Number of cases/variables", "NR",
 			"b", "Name of variable", "R",

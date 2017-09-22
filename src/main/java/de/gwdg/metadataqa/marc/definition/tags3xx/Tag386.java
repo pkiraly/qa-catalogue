@@ -27,8 +27,8 @@ public class Tag386 extends DataFieldDefinition {
 		tag = "386";
 		label = "Creator/Contributor Characteristics";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("").setCodes();
-		ind2 = new Indicator("").setCodes();
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Creator/contributor term", "R",
 			"b", "Creator/contributor code", "R",

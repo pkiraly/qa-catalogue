@@ -26,8 +26,8 @@ public class Tag061 extends DataFieldDefinition {
 		tag = "061";
 		label = "National Library of Medicine Copy Statement";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Classification number", "R",
 			"b", "Item number", "NR",

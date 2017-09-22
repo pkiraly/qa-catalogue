@@ -27,8 +27,8 @@ public class Tag580 extends DataFieldDefinition {
 		tag = "580";
 		label = "Linking Entry Complexity Note";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Linking entry complexity note", "NR",
 			"6", "Linkage", "NR",

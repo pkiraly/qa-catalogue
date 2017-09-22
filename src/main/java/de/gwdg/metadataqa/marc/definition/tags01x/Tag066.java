@@ -26,8 +26,8 @@ public class Tag066 extends DataFieldDefinition {
 		tag = "066";
 		label = "Character Sets Present";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Primary G0 character set", "NR",
 			"b", "Primary G1 character set", "NR",

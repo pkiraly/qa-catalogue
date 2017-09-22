@@ -28,8 +28,8 @@ public class Tag662 extends DataFieldDefinition {
 		tag = "662";
 		label = "Subject Added Entry - Hierarchical Place Name";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Country or larger entity", "R",
 			"b", "First-order political jurisdiction", "NR",

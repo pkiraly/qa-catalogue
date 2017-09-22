@@ -26,6 +26,8 @@ public class Tag042 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "042";
 		label = "Authentication Code";
+		bibframeTag = "DescriptionAuthentication";
+		mqTag = "AuthenticationCode";
 		cardinality = Cardinality.Nonrepeatable;
 		ind1 = new Indicator();
 		ind2 = new Indicator();
@@ -33,5 +35,7 @@ public class Tag042 extends DataFieldDefinition {
 			"a", "Authentication code", "R"
 		);
 		getSubfield("a").setCodeList(AuthenticationActionCodes.getInstance());
+
+		getSubfield("a").setMqTag("rdf:value");
 	}
 }

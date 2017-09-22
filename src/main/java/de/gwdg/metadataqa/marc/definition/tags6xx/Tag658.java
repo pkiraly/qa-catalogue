@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags6xx;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.general.codelist.CurriculumObjectiveTermAndCodeSourceCodes;
 
 /**
  * Index Term - Curriculum Objective
@@ -26,8 +27,8 @@ public class Tag658 extends DataFieldDefinition {
 		tag = "658";
 		label = "Index Term - Curriculum Objective";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Main curriculum objective", "NR",
 			"b", "Subordinate curriculum objective", "R",
@@ -37,8 +38,6 @@ public class Tag658 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
-		// TODO: $2 Curriculum Objective Term and Code Source Codes.
-		// http://www.loc.gov/standards/sourcelist/curriculum-objective.html
-		// getSubfield("2").setCodeList(GenreFormCodeAndTermSourceCodes.getInstance());
+		getSubfield("2").setCodeList(CurriculumObjectiveTermAndCodeSourceCodes.getInstance());
 	}
 }

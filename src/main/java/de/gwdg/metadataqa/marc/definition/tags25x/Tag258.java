@@ -24,14 +24,19 @@ public class Tag258 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "258";
 		label = "Philatelic Issue Data";
+		mqTag = "PhilatelicIssue";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Issuing jurisdiction", "NR",
 			"b", "Denomination", "NR",
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+		getSubfield("a").setMqTag("jurisdiction");
+		getSubfield("b").setMqTag("denomination");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

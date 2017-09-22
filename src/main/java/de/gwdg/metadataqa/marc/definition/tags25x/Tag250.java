@@ -26,8 +26,8 @@ public class Tag250 extends DataFieldDefinition {
 		label = "Edition Statement";
 		mqTag = "Edition";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("");
-		ind2 = new Indicator("");
+		ind1 = new Indicator();
+		ind2 = new Indicator();
 		setSubfieldsWithCardinality(
 			"a", "Edition statement", "NR",
 			"b", "Remainder of edition statement", "NR",

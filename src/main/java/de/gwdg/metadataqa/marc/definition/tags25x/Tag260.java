@@ -50,7 +50,8 @@ public class Tag260 extends DataFieldDefinition {
 		getSubfield("e").setMqTag("placeOfManufacture");
 		getSubfield("f").setMqTag("manufacturer");
 		getSubfield("g").setMqTag("dateOfManufacture");
+		getSubfield("3").setMqTag("materialsSpecified");
 		getSubfield("6").setMqTag("linkage");
-		getSubfield("6").setMqTag("materialsSpecified");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

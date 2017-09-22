@@ -25,19 +25,20 @@ public class Tag264 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "264";
 		label = "Production, Publication, Distribution, Manufacture, and Copyright Notice";
+		mqTag = "ProvisionActivity";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Sequence of statements").setCodes(
 			" ", "Not applicable/No information provided/Earliest",
 			"2", "Intervening",
 			"3", "Current/Latest"
-		);
+		).setMqTag("sequenceOfStatements");
 		ind2 = new Indicator("Function of entity").setCodes(
 			"0", "Production",
 			"1", "Publication",
 			"2", "Distribution",
 			"3", "Manufacture",
 			"4", "Copyright notice date"
-		);
+		).setMqTag("function");
 		setSubfieldsWithCardinality(
 			"a", "Place of production, publication, distribution, manufacture", "R",
 			"b", "Name of producer, publisher, distributor, manufacturer", "R",
@@ -46,5 +47,11 @@ public class Tag264 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+		getSubfield("a").setBibframeTag("place");
+		getSubfield("b").setBibframeTag("agent");
+		getSubfield("c").setBibframeTag("date");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setMqTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

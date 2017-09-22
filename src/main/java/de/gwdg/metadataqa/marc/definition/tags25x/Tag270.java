@@ -26,17 +26,18 @@ public class Tag270 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "270";
 		label = "Address";
+		mqTag = "Address";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Level").setCodes(
 			" ", "No level specified",
 			"1", "Primary",
 			"2", "Secondary"
-		);
+		).setMqTag("level");
 		ind2 = new Indicator("Type of address").setCodes(
 			" ", "No type specified",
 			"0", "Mailing",
 			"7", "Type specified in subfield $i"
-		);
+		).setMqTag("type");
 		setSubfieldsWithCardinality(
 			"a", "Address", "R",
 			"b", "City", "NR",
@@ -61,5 +62,26 @@ public class Tag270 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("b").setMqTag("city");
+		getSubfield("c").setMqTag("state");
+		getSubfield("d").setMqTag("country");
+		getSubfield("e").setMqTag("postalCode");
+		getSubfield("f").setMqTag("precedingTerms");
+		getSubfield("g").setMqTag("attentionName");
+		getSubfield("h").setMqTag("attentionPosition");
+		getSubfield("i").setMqTag("typeOfAddress");
+		getSubfield("j").setMqTag("specializedPhone");
+		getSubfield("k").setMqTag("phone");
+		getSubfield("l").setMqTag("fax");
+		getSubfield("m").setMqTag("email");
+		getSubfield("n").setMqTag("tddOrTty");
+		getSubfield("p").setMqTag("contactPerson");
+		getSubfield("q").setMqTag("contactPersonTitle");
+		getSubfield("r").setMqTag("hours");
+		getSubfield("z").setMqTag("note");
+		getSubfield("4").setMqTag("relationship");
+		getSubfield("6").setMqTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

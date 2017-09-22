@@ -26,9 +26,12 @@ public class Tag533 extends DataFieldDefinition {
 
 		tag = "533";
 		label = "Reproduction Note";
+		mqTag = "Reproduction";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Type of reproduction", "NR",
 			"b", "Place of reproduction", "R",
@@ -45,5 +48,28 @@ public class Tag533 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		// TODO write parser for $7
+		/*
+		 /0 - Type of date/Publication status
+       /1-4 - Date 1
+       /5-8 - Date 2
+       /9-11 - Place of publication, production, or execution
+       /12 - Frequency
+       /13 - Regularity
+       /14 - Form of item
+	   */
+
+		getSubfield("a").setMqTag("type");
+		getSubfield("b").setMqTag("place");
+		getSubfield("c").setMqTag("agency");
+		getSubfield("d").setMqTag("date");
+		getSubfield("e").setMqTag("physicalDescription");
+		getSubfield("f").setMqTag("series");
+		getSubfield("m").setMqTag("datesAndOrSequentialDesignation");
+		getSubfield("n").setMqTag("note");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("7").setMqTag("controlSubfield");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

@@ -24,15 +24,23 @@ public class Tag887 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "887";
 		label = "Non-MARC Information Field";
+		mqTag = "NonMARCField";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Content of non-MARC field", "NR",
 			"2", "Source of data", "NR"
 		);
+
 		getSubfield("2").setCodeList(FormatSourceCodes.getInstance());
+
+		getSubfield("a").setMqTag("content");
+		getSubfield("2").setMqTag("source");
 	}
 }

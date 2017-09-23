@@ -25,11 +25,15 @@ public class Tag752 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "752";
 		label = "Added Entry - Hierarchical Place Name";
+		bibframeTag = "HierarchicalGeographic";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Country or larger entity", "R",
 			"b", "First-order political jurisdiction", "NR",
@@ -45,7 +49,22 @@ public class Tag752 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("2").setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
+
+		getSubfield("a").setBibframeTag("country");
+		getSubfield("b").setBibframeTag("country").setMqTag("firstOrderJurisdiction");
+		getSubfield("c").setBibframeTag("state");
+		getSubfield("d").setBibframeTag("city");
+		getSubfield("e").setBibframeTag("relatorTerm");
+		getSubfield("f").setBibframeTag("citySection");
+		getSubfield("g").setBibframeTag("region");
+		getSubfield("h").setBibframeTag("extraterrestrialArea");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("2").setMqTag("source");
+		getSubfield("4").setMqTag("relationship");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

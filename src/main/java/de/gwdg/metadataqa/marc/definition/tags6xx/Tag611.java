@@ -26,14 +26,17 @@ public class Tag611 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "611";
 		label = "Subject Added Entry - Meeting Name";
+		mqTag = "SubjectAddedMeetingName";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Type of meeting name entry element").setCodes(
 			"0", "Inverted name",
 			"1", "Jurisdiction name",
 			"2", "Name in direct order"
-		);
+		).setMqTag("type");
 		ind2 = new Indicator("Thesaurus").setCodes(
 			"0", "Library of Congress Subject Headings",
 			"1", "LC subject headings for children's literature",
@@ -44,6 +47,7 @@ public class Tag611 extends DataFieldDefinition {
 			"6", "Répertoire de vedettes-matière",
 			"7", "Source specified in subfield $2"
 		).setMqTag("thesaurus");
+
 		setSubfieldsWithCardinality(
 			"a", "Meeting name or jurisdiction name as entry element", "NR",
 			"c", "Location of meeting", "R",
@@ -74,6 +78,7 @@ public class Tag611 extends DataFieldDefinition {
 		);
 		getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
+
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("c").setMqTag("locationOfMeeting");
 		getSubfield("d").setMqTag("dates");

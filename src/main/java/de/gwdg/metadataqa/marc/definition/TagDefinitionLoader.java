@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 public class TagDefinitionLoader {
 
 	private static final Logger logger = Logger.getLogger(TagDefinitionLoader.class.getCanonicalName());
+
 	private static final Pattern PATTERN_20x = Pattern.compile("^2[0-4]\\d$");
 	private static final Pattern PATTERN_25x = Pattern.compile("^2[5-9]\\d$");
 	private static final Pattern PATTERN_70x = Pattern.compile("^7[0-5]\\d$");

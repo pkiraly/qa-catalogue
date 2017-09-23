@@ -23,10 +23,12 @@ public class Tag730 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "730";
 		label = "Added Entry - Uniform Title";
 		mqTag = "AddedUniformTitle";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Nonfiling characters").setCodes(
 			"0-9", "Number of nonfiling characters"
 		).setMqTag("nonfilingCharacters");
@@ -34,7 +36,8 @@ public class Tag730 extends DataFieldDefinition {
 		ind2 = new Indicator("Type of added entry").setCodes(
 			" ", "No information provided",
 			"2", "Analytical entry"
-		);
+		).setMqTag("type");
+
 		setSubfieldsWithCardinality(
 			"a", "Uniform title", "NR",
 			"d", "Date of treaty signing", "R",
@@ -58,6 +61,7 @@ public class Tag730 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("d").setMqTag("dateOfTreaty");
 		getSubfield("f").setMqTag("dateOfAWork");

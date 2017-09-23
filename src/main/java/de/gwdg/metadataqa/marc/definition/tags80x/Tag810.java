@@ -25,16 +25,19 @@ public class Tag810 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "810";
 		label = "Series Added Entry - Corporate Name";
 		mqTag = "SeriesAddedCorporateName";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Type of corporate name entry element").setCodes(
 			"0", "Inverted name",
 			"1", "Jurisdiction name",
 			"2", "Name in direct order"
-		);
+		).setMqTag("type");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Corporate name or jurisdiction name as entry element", "NR",
 			"b", "Subordinate unit", "R",
@@ -70,8 +73,10 @@ public class Tag810 extends DataFieldDefinition {
 			"/0", "Type of record",
 			"/1", "Bibliographic level"
 		);
+
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
 		getSubfield("0").setContentParser(RecordControlNumberParser.getInstance());
+
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("b").setMqTag("subordinateUnit");
 		getSubfield("c").setMqTag("locationOfMeeting");

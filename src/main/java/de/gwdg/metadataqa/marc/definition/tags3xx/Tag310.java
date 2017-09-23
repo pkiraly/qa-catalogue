@@ -22,16 +22,25 @@ public class Tag310 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "310";
 		label = "Current Publication Frequency";
+		bibframeTag = "Frequency";
 		cardinality = Cardinality.Nonrepeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Current publication frequency", "NR",
 			"b", "Date of current publication frequency", "NR",
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
+		getSubfield("b").setBibframeTag("date");
+		getSubfield("6").setMqTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

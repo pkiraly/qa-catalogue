@@ -23,18 +23,22 @@ public class Tag010 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "010";
 		label = "Library of Congress Control Number";
 		bibframeTag = "identifiedBy/Lccn";
 		cardinality = Cardinality.Nonrepeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "LC control number", "NR",
 			"b", "NUCMC control number", "R",
 			"z", "Canceled/invalid LC control number", "R",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("a").setBibframeTag("rdf:value");
 		getSubfield("b").setMqTag("numcControlNumber");
 		getSubfield("z").setMqTag("canceled");

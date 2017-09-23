@@ -23,15 +23,18 @@ public class Tag130 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "130";
 		label = "Main Entry - Uniform Title";
 		mqTag = "MainUniformTitle";
 		cardinality = Cardinality.Nonrepeatable;
+
 		ind1 = new Indicator("Nonfiling characters").setCodes(
 			"0-9", "Number of nonfiling characters"
 		).setMqTag("nonfilingCharacters");
 		ind1.getCode("0-9").setRange(true);
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Uniform title", "NR",
 			"d", "Date of treaty signing", "R",
@@ -51,6 +54,7 @@ public class Tag130 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("d").setMqTag("dateOfTreaty");
 		getSubfield("f").setMqTag("dateOfAWork");

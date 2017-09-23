@@ -24,16 +24,19 @@ public class Tag111 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "111";
 		label = "Main Entry - Meeting Name";
 		mqTag = "MainMeetingName";
 		cardinality = Cardinality.Nonrepeatable;
+
 		ind1 = new Indicator("Type of meeting name entry element").setCodes(
 			"0", "Inverted name",
 			"1", "Jurisdiction name",
 			"2", "Name in direct order"
-		);
+		).setMqTag("type");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Meeting name or jurisdiction name as entry element", "NR",
 			"c", "Location of meeting", "R",
@@ -54,7 +57,9 @@ public class Tag111 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
+
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("c").setMqTag("locationOfMeeting");
 		getSubfield("d").setMqTag("dates");

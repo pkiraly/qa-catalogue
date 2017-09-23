@@ -24,16 +24,19 @@ public class Tag100 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "100";
 		label = "Main Entry - Personal Name";
 		mqTag = "MainPersonalName";
 		cardinality = Cardinality.Nonrepeatable;
+
 		ind1 = new Indicator("Type of personal name entry element").setCodes(
 			"0", "Forename",
 			"1", "Surname",
 			"3", "Family name"
-		);
+		).setMqTag("type");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Personal name", "NR",
 			"b", "Numeration", "NR",
@@ -55,7 +58,9 @@ public class Tag100 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
+
 		getSubfield("a").setMqTag("personalName");
 		getSubfield("b").setMqTag("numeration");
 		getSubfield("c").setMqTag("titlesAndWords");

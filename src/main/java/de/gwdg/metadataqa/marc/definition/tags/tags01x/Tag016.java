@@ -27,7 +27,7 @@ public class Tag016 extends DataFieldDefinition {
 
 		tag = "016";
 		label = "National Bibliographic Agency Control Number";
-		bibframeTag = "idIntifiedBy/Local";
+		bibframeTag = "IdIntifiedBy/Local";
 		cardinality = Cardinality.Repeatable;
 
 		ind1 = new Indicator("National bibliographic agency").setCodes(

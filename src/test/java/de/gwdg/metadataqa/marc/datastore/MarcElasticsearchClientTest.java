@@ -1,14 +1,10 @@
 package de.gwdg.metadataqa.marc.datastore;
 
-import de.gwdg.metadataqa.marc.datastore.MarcElasticsearchClient;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.spi.json.JsonProvider;
-import de.gwdg.metadataqa.api.model.JsonPathCache;
-import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import java.io.IOException;
 import java.util.logging.Logger;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.util.EntityUtils;
 import org.elasticsearch.client.Response;
@@ -16,7 +12,6 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 

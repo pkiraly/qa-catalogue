@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.utils;
 
 import de.gwdg.metadataqa.marc.DataField;
-import de.gwdg.metadataqa.marc.definition.tags20x.Tag245;
+import de.gwdg.metadataqa.marc.definition.tags.tags20x.Tag245;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

@@ -11,6 +11,7 @@ public class Indicator {
 	private String label = null;
 	private String bibframeTag = null;
 	private String mqTag = null;
+	private String indexTag = null;
 	private List<Code> codes;
 	private Map<String, Code> codeIndex = new LinkedHashMap<>();
 
@@ -20,10 +21,23 @@ public class Indicator {
 		this.label = label;
 	}
 
+
 	public Indicator(String label, List<Code> codes) {
 		this.label = label;
 		this.codes = codes;
 		index();
+	}
+
+	public String getIndexTag(String defaultTag) {
+		if (indexTag == null) {
+			if (mqTag != null)
+				indexTag = mqTag;
+			else if (bibframeTag != null)
+				indexTag = bibframeTag.replace("/", "");
+			else
+				indexTag = defaultTag;
+		}
+		return indexTag;
 	}
 
 	public Indicator setLabel(String label) {

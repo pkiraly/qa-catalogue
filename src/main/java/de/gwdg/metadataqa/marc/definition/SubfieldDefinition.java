@@ -27,6 +27,27 @@ public class SubfieldDefinition {
 	private List<Code> codes;
 	private List<String> allowedCodes;
 	private Map<String, String> allowedValues = new HashMap<>();
+	private String codeForIndex = null;
+
+	public String getCodeForIndex() {
+		if (codeForIndex == null) {
+			if (mqTag != null) {
+				if (mqTag.equals("rdf:value"))
+					codeForIndex = "";
+				else
+					codeForIndex = "_" + mqTag;
+			} else if (bibframeTag != null) {
+				switch (bibframeTag) {
+					case "rdf:value": codeForIndex = ""; break;
+					case "rdfs:label": codeForIndex = "label"; break;
+					default: codeForIndex = "_" + bibframeTag; break;
+				}
+			} else {
+				codeForIndex = "_" + code;
+			}
+		}
+		return codeForIndex;
+	}
 
 	/**
 	 * Create a MarcSubfield object

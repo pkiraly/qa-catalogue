@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition;
 
-import org.jetbrains.annotations.NotNull;
+import de.gwdg.metadataqa.marc.utils.MarcTagLister;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -24,6 +24,34 @@ public class TagDefinitionLoader {
 
 	private static final List<String> OCLC_TAGS = Arrays.asList("019", "029", "539", "911", "912", "938");
 	private static Map<String, DataFieldDefinition> cache = new HashMap<>();
+
+	static {
+		findAndCacheTags();
+	}
+
+	private static void findAndCacheTags() {
+		List<Class<? extends DataFieldDefinition>> tags = MarcTagLister.listTags();
+		for (Class<? extends DataFieldDefinition> definitionClazz : tags) {
+			loadAndCacheTag(definitionClazz);
+		}
+	}
+
+	private static void loadAndCacheTag(Class<? extends DataFieldDefinition> definitionClazz) {
+		DataFieldDefinition dataFieldDefinition = null;
+		Method getInstance = null;
+		try {
+			getInstance = definitionClazz.getMethod("getInstance");
+			dataFieldDefinition = (DataFieldDefinition) getInstance.invoke(definitionClazz);
+			if (dataFieldDefinition != null)
+				cache.put(dataFieldDefinition.getTag(), dataFieldDefinition);
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static DataFieldDefinition load(String tag) {
 		if (!cache.containsKey(tag)) {
@@ -82,6 +110,6 @@ public class TagDefinitionLoader {
 		if (packageName == null)
 			return null;
 
-		return String.format("de.gwdg.metadataqa.marc.definition.%s.Tag%s", packageName, tag);
+		return String.format("de.gwdg.metadataqa.marc.definition.tags.%s.Tag%s", packageName, tag);
 	}
 }

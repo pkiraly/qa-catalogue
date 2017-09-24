@@ -1,7 +1,6 @@
 package de.gwdg.metadataqa.marc.datastore;
 
 import com.jayway.jsonpath.Configuration;
-import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.spi.json.JsonProvider;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
@@ -13,12 +12,10 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.util.List;
-import net.minidev.json.JSONArray;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**

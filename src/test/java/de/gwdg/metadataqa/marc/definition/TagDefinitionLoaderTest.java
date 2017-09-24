@@ -11,18 +11,18 @@ public class TagDefinitionLoaderTest {
 
 	@Test
 	public void testGetClassName() {
-		assertEquals("de.gwdg.metadataqa.marc.definition.tags01x.Tag017", TagDefinitionLoader.getClassName("017"));
-		assertEquals("de.gwdg.metadataqa.marc.definition.tags1xx.Tag111", TagDefinitionLoader.getClassName("111"));
-		assertEquals("de.gwdg.metadataqa.marc.definition.tags20x.Tag222", TagDefinitionLoader.getClassName("222"));
-		assertEquals("de.gwdg.metadataqa.marc.definition.tags25x.Tag250", TagDefinitionLoader.getClassName("250"));
-		assertEquals("de.gwdg.metadataqa.marc.definition.tags3xx.Tag351", TagDefinitionLoader.getClassName("351"));
-		// assertEquals("de.gwdg.metadataqa.marc.definition.tags4xx.Tag451", TagDefinitionLoader.getClassName("451"));
-		assertEquals("de.gwdg.metadataqa.marc.definition.tags5xx.Tag552", TagDefinitionLoader.getClassName("552"));
-		assertEquals("de.gwdg.metadataqa.marc.definition.tags6xx.Tag651", TagDefinitionLoader.getClassName("651"));
-		assertEquals("de.gwdg.metadataqa.marc.definition.tags70x.Tag751", TagDefinitionLoader.getClassName("751"));
-		assertEquals("de.gwdg.metadataqa.marc.definition.tags76x.Tag760", TagDefinitionLoader.getClassName("760"));
-		assertEquals("de.gwdg.metadataqa.marc.definition.tags80x.Tag830", TagDefinitionLoader.getClassName("830"));
-		assertEquals("de.gwdg.metadataqa.marc.definition.tags84x.Tag856", TagDefinitionLoader.getClassName("856"));
+		assertEquals("de.gwdg.metadataqa.marc.definition.tags.tags01x.Tag017", TagDefinitionLoader.getClassName("017"));
+		assertEquals("de.gwdg.metadataqa.marc.definition.tags.tags1xx.Tag111", TagDefinitionLoader.getClassName("111"));
+		assertEquals("de.gwdg.metadataqa.marc.definition.tags.tags20x.Tag222", TagDefinitionLoader.getClassName("222"));
+		assertEquals("de.gwdg.metadataqa.marc.definition.tags.tags25x.Tag250", TagDefinitionLoader.getClassName("250"));
+		assertEquals("de.gwdg.metadataqa.marc.definition.tags.tags3xx.Tag351", TagDefinitionLoader.getClassName("351"));
+		// assertEquals("de.gwdg.metadataqa.marc.definition.tags.tags4xx.Tag451", TagDefinitionLoader.getClassName("451"));
+		assertEquals("de.gwdg.metadataqa.marc.definition.tags.tags5xx.Tag552", TagDefinitionLoader.getClassName("552"));
+		assertEquals("de.gwdg.metadataqa.marc.definition.tags.tags6xx.Tag651", TagDefinitionLoader.getClassName("651"));
+		assertEquals("de.gwdg.metadataqa.marc.definition.tags.tags70x.Tag751", TagDefinitionLoader.getClassName("751"));
+		assertEquals("de.gwdg.metadataqa.marc.definition.tags.tags76x.Tag760", TagDefinitionLoader.getClassName("760"));
+		assertEquals("de.gwdg.metadataqa.marc.definition.tags.tags80x.Tag830", TagDefinitionLoader.getClassName("830"));
+		assertEquals("de.gwdg.metadataqa.marc.definition.tags.tags84x.Tag856", TagDefinitionLoader.getClassName("856"));
 	}
 
 	@Test

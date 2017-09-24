@@ -50,28 +50,8 @@ public class MarcSubfield {
 	public String getCodeForIndex() {
 		if (codeForIndex == null) {
 			codeForIndex = "_" + code;
-			if (definition != null) {
-				if (definition.getMqTag() != null) {
-					String mqTag = definition.getMqTag();
-					if (mqTag.equals("rdf:value"))
-						codeForIndex = "";
-					else
-						codeForIndex = "_" + mqTag;
-				} else {
-					String bibframeTag = definition.getBibframeTag();
-					if (bibframeTag != null)
-						switch (bibframeTag) {
-							case "rdf:value":
-								codeForIndex = "";
-								break;
-							case "rdfs:label":
-								codeForIndex = "label";
-								break;
-							default:
-								codeForIndex = "_" + bibframeTag;
-								break;
-						}
-				}
+			if (definition != null && definition.getCodeForIndex() != null) {
+				codeForIndex = definition.getCodeForIndex();
 			}
 		}
 		return codeForIndex;

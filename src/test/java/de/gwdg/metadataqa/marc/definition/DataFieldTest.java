@@ -1,8 +1,8 @@
 package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.DataField;
-import de.gwdg.metadataqa.marc.definition.tags01x.Tag040;
-import de.gwdg.metadataqa.marc.definition.tags20x.Tag245;
+import de.gwdg.metadataqa.marc.definition.tags.tags01x.Tag040;
+import de.gwdg.metadataqa.marc.definition.tags.tags20x.Tag245;
 import de.gwdg.metadataqa.marc.utils.SubfieldParser;
 import org.junit.Test;
 

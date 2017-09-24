@@ -13,7 +13,7 @@ public class MappingToHtml {
 	public static void main(String[] args) {
 		List<Class<? extends DataFieldDefinition>> tags = MarcTagLister.listTags();
 
-		System.out.println("<table>");
+		System.out.println("<table id=\"mapping\">");
 		System.out.println("<thead>" +
 			"<tr>" +
 			"<th>MARC code</th>" +
@@ -78,8 +78,8 @@ public class MappingToHtml {
 	private static String row(String marc, String mq, String label) {
 		return String.format(
 			"<tr>" +
-				"<td>%s</td>" +
-				"<td>%s</td>" +
+				"<td class=\"marc\">%s</td>" +
+				"<td class=\"mq\">%s</td>" +
 				"<td>%s</td>" +
 				"</tr>\n",
 			marc, mq, label);

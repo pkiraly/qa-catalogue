@@ -27,7 +27,7 @@ public class Tag015 extends DataFieldDefinition {
 		tag = "015";
 		label = "National Bibliography Number";
 		cardinality = Cardinality.Repeatable;
-		bibframeTag = "identifiedBy/Nbn";
+		bibframeTag = "IdentifiedBy/Nbn";
 		ind1 = new Indicator();
 		ind2 = new Indicator();
 		setSubfieldsWithCardinality(

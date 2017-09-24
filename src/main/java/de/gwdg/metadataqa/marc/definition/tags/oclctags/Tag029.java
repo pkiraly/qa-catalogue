@@ -25,7 +25,7 @@ public class Tag029 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "029";
 		label = "Other System Control Number";
-		bibframeTag = "identifiedBy/Lccn";
+		bibframeTag = "IdentifiedBy/Lccn";
 		cardinality = Cardinality.Nonrepeatable;
 		ind1 = new Indicator("The type of system control number").setCodes(
 			"0", "Primary control number",

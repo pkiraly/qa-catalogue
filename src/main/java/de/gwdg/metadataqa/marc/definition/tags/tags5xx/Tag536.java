@@ -25,8 +25,8 @@ public class Tag536 extends DataFieldDefinition {
 	private void initialize() {
 
 		tag = "536";
-		bibframeTag = "fundingInformation";
 		label = "Funding Information Note";
+		bibframeTag = "FundingInformation";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator();
 		ind2 = new Indicator();

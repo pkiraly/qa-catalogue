@@ -27,11 +27,13 @@ public class Tag017 extends DataFieldDefinition {
 		label = "Copyright or Legal Deposit Number";
 		bibframeTag = "CopyrightNumber";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator("Display constant controller").setCodes(
 			" ", "Copyright or legal deposit number",
 			"8", "No display constant generated"
 		).setMqTag("displayConstant");
+
 		setSubfieldsWithCardinality(
 			"a", "Copyright or legal deposit number", "R",
 			"b", "Assigning agency", "NR",
@@ -42,7 +44,10 @@ public class Tag017 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		// TODO $2 Copyright and Legal Deposit Number Source Codes. http://www.loc.gov/standards/sourcelist/copyright-legal-deposit.html
 		// getSubfield("2").setCodeList(OrganizationCodes.getInstance());
+
 		getSubfield("a").setBibframeTag("rdf:value");
 		getSubfield("b").setBibframeTag("source");
 		getSubfield("d").setBibframeTag("date");

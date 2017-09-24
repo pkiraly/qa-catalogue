@@ -25,7 +25,7 @@ public class Tag017 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "017";
 		label = "Copyright or Legal Deposit Number";
-		bibframeTag = "identifiedBy/CopyrightNumber";
+		bibframeTag = "CopyrightNumber";
 		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator();
 		ind2 = new Indicator("Display constant controller").setCodes(

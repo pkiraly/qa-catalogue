@@ -23,15 +23,19 @@ public class Tag080 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "080";
 		label = "Universal Decimal Classification Number";
+		mqTag = "Udc";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Type of edition").setCodes(
 			" ", "No information provided",
 			"0", "Full",
 			"1", "Abridged"
-		);
+		).setMqTag("type");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Universal Decimal Classification number", "NR",
 			"b", "Item number", "NR",
@@ -40,5 +44,12 @@ public class Tag080 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("b").setMqTag("number");
+		getSubfield("x").setMqTag("commonAuxiliarySubdivision");
+		getSubfield("2").setMqTag("edition");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

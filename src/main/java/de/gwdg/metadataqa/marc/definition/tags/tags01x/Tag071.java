@@ -23,17 +23,25 @@ public class Tag071 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "071";
 		label = "National Agricultural Library Copy Statement";
+		mqTag = "NalCopy";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Classification number", "R",
 			"b", "Item number", "NR",
 			"c", "Copy information", "R",
-			// "6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setBibframeTag("classificationPortion").setMqTag("classification");
+		getSubfield("b").setBibframeTag("itemPortion").setMqTag("item");
+		getSubfield("0").setMqTag("copy");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

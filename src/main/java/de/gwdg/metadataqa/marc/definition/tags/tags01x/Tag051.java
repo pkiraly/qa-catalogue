@@ -23,16 +23,25 @@ public class Tag051 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "051";
 		label = "Library of Congress Copy, Issue, Offprint Statement";
+		bibframeTag = "ShelfMarkLcc";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Classification number", "NR",
 			"b", "Item number", "NR",
 			"c", "Copy information", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
+		getSubfield("b").setMqTag("itemNumber");
+		getSubfield("c").setMqTag("copy");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

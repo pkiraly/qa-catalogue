@@ -24,20 +24,23 @@ public class Tag082 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "082";
 		label = "Dewey Decimal Classification Number";
 		bibframeTag = "ClassificationDdc";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Type of edition").setCodes(
 			"0", "Full edition",
 			"1", "Abridged edition",
 			"7", "Other edition specified in subfield $2"
-		);
+		).setMqTag("editionType");
 		ind2 = new Indicator("Source of classification number").setCodes(
 			" ", "No information provided",
 			"0", "Assigned by LC",
 			"4", "Assigned by agency other than LC"
-		);
+		).setMqTag("classificationSource");
+
 		setSubfieldsWithCardinality(
 			"a", "Classification number", "R",
 			"b", "Item number", "NR",
@@ -47,7 +50,9 @@ public class Tag082 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("q").setCodeList(OrganizationCodes.getInstance());
+
 		getSubfield("a").setBibframeTag("classificationPortion").setMqTag("rdf:value");
 		getSubfield("b").setBibframeTag("itemPortion");
 		getSubfield("m").setMqTag("standard");

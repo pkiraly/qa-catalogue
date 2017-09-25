@@ -11,7 +11,7 @@ import de.gwdg.metadataqa.marc.Utils;
  */
 public class CurriculumObjectiveTermAndCodeSourceCodes extends CodeList {
 
-	static {
+	private void initialize() {
 		codes = Utils.generateCodes(
 			"abledata", "ABLEDATA thesaurus (Silver Spring, MD: National Rehabilitation Information Center)",
 			"acccp", "Australian Cross-curriculum Priorities (Australian Curriculum, Assessment and Reporting Authority (ACARA))",
@@ -35,7 +35,9 @@ public class CurriculumObjectiveTermAndCodeSourceCodes extends CodeList {
 
 	private static CurriculumObjectiveTermAndCodeSourceCodes uniqueInstance;
 
-	private CurriculumObjectiveTermAndCodeSourceCodes() {}
+	private CurriculumObjectiveTermAndCodeSourceCodes() {
+		initialize();
+	}
 
 	public static CurriculumObjectiveTermAndCodeSourceCodes getInstance() {
 		if (uniqueInstance == null)

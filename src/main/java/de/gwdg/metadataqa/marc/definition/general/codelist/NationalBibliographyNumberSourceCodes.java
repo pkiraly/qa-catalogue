@@ -8,7 +8,7 @@ import de.gwdg.metadataqa.marc.Utils;
  */
 public class NationalBibliographyNumberSourceCodes extends CodeList {
 
-	static {
+	private void initialize() {
 		codes = Utils.generateCodes(
 			"abc", "Anuario bibliográfico colombiano (Calí: Biblioteca Jorge García B.)",
 			"abd", "Anuario bibliográfico dominicana (Ciudad Trujillo: Biblioteca Nacional)",
@@ -71,7 +71,9 @@ public class NationalBibliographyNumberSourceCodes extends CodeList {
 
 	private static NationalBibliographyNumberSourceCodes uniqueInstance;
 
-	private NationalBibliographyNumberSourceCodes() {}
+	private NationalBibliographyNumberSourceCodes() {
+		initialize();
+	}
 
 	public static NationalBibliographyNumberSourceCodes getInstance() {
 		if (uniqueInstance == null)

@@ -9,7 +9,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
  */
 public class Frequency extends CodeList {
 
-	static {
+	private void initialize() {
 		codes = Utils.generateCodes(
 			" ", "No determinable frequency. The item has no determinable frequency. Use when the frequency is known to be intentionally irregular.",
 			"a", "Annual. The item is issued or updated once a year.",
@@ -36,7 +36,9 @@ public class Frequency extends CodeList {
 
 	private static Frequency uniqueInstance;
 
-	private Frequency() {}
+	private Frequency() {
+		initialize();
+	}
 
 	public static Frequency getInstance() {
 		if (uniqueInstance == null)

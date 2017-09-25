@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 public class CodeList implements Validator {
-	protected static List<Code> codes;
-	private static Map<String, Code> index = new HashMap<>();
+	protected List<Code> codes;
+	protected Map<String, Code> index = new HashMap<>();
 
-	protected static void indexCodes() {
+	protected void indexCodes() {
 		for (Code code : codes) {
 			index.put(code.getCode(), code);
 		}

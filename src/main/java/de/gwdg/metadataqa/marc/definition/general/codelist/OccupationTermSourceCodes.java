@@ -8,7 +8,7 @@ import de.gwdg.metadataqa.marc.Utils;
  */
 public class OccupationTermSourceCodes extends CodeList {
 
-	static {
+	private void initialize() {
 		codes = Utils.generateCodes(
 			"dot", "Dictionary of occupational titles (Washington: United States Dept. of Labor, Employment and Training Administration, United States Employment Service)",
 			"iaat", "IAA thesaurus: terminologie der Arbeit, Beschüftigung und Ausbildung (Genf: Internationales arbeitsamt)",
@@ -28,6 +28,7 @@ public class OccupationTermSourceCodes extends CodeList {
 	private static OccupationTermSourceCodes uniqueInstance;
 
 	private OccupationTermSourceCodes() {
+		initialize();
 	}
 
 	public static OccupationTermSourceCodes getInstance() {

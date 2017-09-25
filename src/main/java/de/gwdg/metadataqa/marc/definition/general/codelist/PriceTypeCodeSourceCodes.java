@@ -7,9 +7,10 @@ import de.gwdg.metadataqa.marc.Utils;
  * http://www.loc.gov/standards/sourcelist/price-type.html
  */
 public class PriceTypeCodeSourceCodes extends CodeList {
-	static {
+
+	private void initialize() {
 		codes = Utils.generateCodes(
-				"onixpt", "ONIX Price Type Codes List number 58"
+			"onixpt", "ONIX Price Type Codes List number 58"
 		);
 		indexCodes();
 	}
@@ -17,6 +18,7 @@ public class PriceTypeCodeSourceCodes extends CodeList {
 	private static PriceTypeCodeSourceCodes uniqueInstance;
 
 	private PriceTypeCodeSourceCodes() {
+		initialize();
 	}
 
 	public static PriceTypeCodeSourceCodes getInstance() {

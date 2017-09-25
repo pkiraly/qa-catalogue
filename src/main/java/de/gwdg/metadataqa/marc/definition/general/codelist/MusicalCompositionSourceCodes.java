@@ -3,10 +3,11 @@ package de.gwdg.metadataqa.marc.definition.general.codelist;
 import de.gwdg.metadataqa.marc.Utils;
 
 public class MusicalCompositionSourceCodes extends CodeList {
-	static {
+
+	private void initialize() {
 		codes = Utils.generateCodes(
-				"iamlmf", "International Association of Music Libraries Musical forms codes External Link",
-				"marcmuscomp", "MARC Form of Musical Composition Code List"
+			"iamlmf", "International Association of Music Libraries Musical forms codes External Link",
+			"marcmuscomp", "MARC Form of Musical Composition Code List"
 		);
 		indexCodes();
 	}
@@ -14,6 +15,7 @@ public class MusicalCompositionSourceCodes extends CodeList {
 	private static MusicalCompositionSourceCodes uniqueInstance;
 
 	private MusicalCompositionSourceCodes() {
+		initialize();
 	}
 
 	public static MusicalCompositionSourceCodes getInstance() {

@@ -7,7 +7,8 @@ import de.gwdg.metadataqa.marc.Utils;
  * http://www.loc.gov/standards/sourcelist/genre-form.html
  */
 public class GenreFormCodeAndTermSourceCodes extends CodeList {
-	static {
+
+	private void initialize() {
 		codes = Utils.generateCodes(
 				"alett", "An alphabetical list of English text types (Berlin; New York: Mouton de Gruyter)",
 				"amg", "Audiovisual material glossary (Dublin, OH: Online Computer Library Center, Inc.)",
@@ -97,6 +98,7 @@ public class GenreFormCodeAndTermSourceCodes extends CodeList {
 	private static GenreFormCodeAndTermSourceCodes uniqueInstance;
 
 	private GenreFormCodeAndTermSourceCodes() {
+		initialize();
 	}
 
 	public static GenreFormCodeAndTermSourceCodes getInstance() {

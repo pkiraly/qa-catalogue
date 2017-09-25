@@ -28,10 +28,12 @@ public class Tag040Test {
 
 	@Test
 	public void testCStH() {
-		DataField field = new DataField(Tag040.getInstance(), " ", " ", "a", "CSt-H", "c", "CSt-H", "e", "appm");
+		DataField field = new DataField(Tag040.getInstance(), " ", " ", "a", "CSt-H", "b", "eng", "c", "CSt-H", "e", "appm");
 		Map<String, List<String>> map = field.getHumanReadableMap();
 
-		assertEquals(3, map.size());
+		System.err.println(map);
+
+		assertEquals(4, map.size());
 		assertEquals("Stanford University, Hoover Institution on War, Revolution, and Peace",
 				map.get("Original cataloging agency").get(0));
 		assertEquals("Stanford University, Hoover Institution on War, Revolution, and Peace",

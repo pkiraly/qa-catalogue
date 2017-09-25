@@ -9,7 +9,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
  */
 public class TypeOfDateOrPublicationStatus extends CodeList {
 
-	static {
+	private void initialize() {
 		codes = Utils.generateCodes(
 			"b", "B.C. date",
 			"e", "Detailed date",
@@ -28,7 +28,9 @@ public class TypeOfDateOrPublicationStatus extends CodeList {
 
 	private static TypeOfDateOrPublicationStatus uniqueInstance;
 
-	private TypeOfDateOrPublicationStatus() {}
+	private TypeOfDateOrPublicationStatus() {
+		initialize();
+	}
 
 	public static TypeOfDateOrPublicationStatus getInstance() {
 		if (uniqueInstance == null)

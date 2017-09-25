@@ -9,21 +9,23 @@ import de.gwdg.metadataqa.marc.Utils;
  */
 public class AbbreviatedTitleSourceCodes extends CodeList {
 
-	static {
+	private void initialize() {
 		codes = Utils.generateCodes(
-				"din1430", "Key Title nach DIN 1430 (Berlin: Beuth)",
-				"din1502", "Regeln für das Kürzen von Wörtern in Titeln und für das Kürzen der Titel von Veröffentlichungen: DIN 1502 (Berlin; Köln: Beuth)",
-				"dnlm", "National Library of Medicine Locatorplus (Bethesda, MD: National Library of Medicine)",
-				"hlasja", "HLAS journal abbreviations (Washington, DC: Library of Congress, Hispanic Division",
-				"inisaljt", "INIS: authority list for journal titles",
-				"issnkey", "Abbreviated Key Titles"
+			"din1430", "Key Title nach DIN 1430 (Berlin: Beuth)",
+			"din1502", "Regeln für das Kürzen von Wörtern in Titeln und für das Kürzen der Titel von Veröffentlichungen: DIN 1502 (Berlin; Köln: Beuth)",
+			"dnlm", "National Library of Medicine Locatorplus (Bethesda, MD: National Library of Medicine)",
+			"hlasja", "HLAS journal abbreviations (Washington, DC: Library of Congress, Hispanic Division",
+			"inisaljt", "INIS: authority list for journal titles",
+			"issnkey", "Abbreviated Key Titles"
 		);
 		indexCodes();
 	}
 
 	private static AbbreviatedTitleSourceCodes uniqueInstance;
 
-	private AbbreviatedTitleSourceCodes() {}
+	private AbbreviatedTitleSourceCodes() {
+		initialize();
+	}
 
 	public static AbbreviatedTitleSourceCodes getInstance() {
 		if (uniqueInstance == null)

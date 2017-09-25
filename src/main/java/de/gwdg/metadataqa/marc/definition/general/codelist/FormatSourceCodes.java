@@ -8,7 +8,7 @@ import de.gwdg.metadataqa.marc.Utils;
  */
 public class FormatSourceCodes extends CodeList {
 
-	static {
+	private void initialize() {
 		codes = Utils.generateCodes(
 			"annamarc", "ANNAMARC: specifiche relative ai nastri magnetici contententi i record della Biblioteca Nazionale Italiana nel formato ANNAMARC ([Roma]: Istituto Centrale per il Catalogo Unico delle Biblioteche Italiane e per le Informazioni Bibliografiche)",
 			"ausmarc", "AUSMARC bibliographic format (Canberra: National Library of Australia",
@@ -69,7 +69,9 @@ public class FormatSourceCodes extends CodeList {
 
 	private static FormatSourceCodes uniqueInstance;
 
-	private FormatSourceCodes() {}
+	private FormatSourceCodes() {
+		initialize();
+	}
 
 	public static FormatSourceCodes getInstance() {
 		if (uniqueInstance == null)

@@ -7,7 +7,8 @@ import de.gwdg.metadataqa.marc.Utils;
  * https://www.loc.gov/standards/sourcelist/name-title.html
  */
 public class NameAndTitleAuthoritySourceCodes extends CodeList {
-	static {
+
+	private void initialize() {
 		codes = Utils.generateCodes(
 			"abne", "Autoridades de la Biblioteca Nacional de España (Madrid: Biblioteca Nacional de España)",
 			"banqa", "Fichier d'autorité local de Bibliothèque et Archives nationales du Québec (Bibliothèque et Archives nationales du Québec)",
@@ -35,6 +36,7 @@ public class NameAndTitleAuthoritySourceCodes extends CodeList {
 	private static NameAndTitleAuthoritySourceCodes uniqueInstance;
 
 	private NameAndTitleAuthoritySourceCodes() {
+		initialize();
 	}
 
 	public static NameAndTitleAuthoritySourceCodes getInstance() {

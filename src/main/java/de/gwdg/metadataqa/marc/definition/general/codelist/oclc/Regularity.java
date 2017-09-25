@@ -9,7 +9,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
  */
 public class Regularity extends CodeList {
 
-	static {
+	private void initialize() {
 		codes = Utils.generateCodes(
 			"n", "Normalized irregular",
 			"r", "Regular",
@@ -22,7 +22,9 @@ public class Regularity extends CodeList {
 
 	private static Regularity uniqueInstance;
 
-	private Regularity() {}
+	private Regularity() {
+		initialize();
+	}
 
 	public static Regularity getInstance() {
 		if (uniqueInstance == null)

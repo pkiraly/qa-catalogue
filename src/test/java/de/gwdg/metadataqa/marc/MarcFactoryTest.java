@@ -6,7 +6,10 @@ import org.junit.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class MarcFactoryTest {
@@ -38,6 +41,28 @@ public class MarcFactoryTest {
 		// System.err.println(record.formatAsMarc());
 		// System.err.println(record.formatForIndex());
 		System.err.println(record.getKeyValuePairs());
+	}
+
+	@Test
+	public void marc2Test() throws IOException, URISyntaxException {
+		JsonPathCache cache = new JsonPathCache(FileUtils.readFirstLine("general/marc2.json"));
+
+		MarcRecord record = MarcFactory.create(cache);
+		assertNotNull(record);
+		assertNotNull("Leader should not be null", record.getLeader());
+
+		List<DataField> admins = record.getDatafield("040");
+		assertEquals(1, admins.size());
+		DataField adminMeta = admins.get(0);
+		List<MarcSubfield> subfields = adminMeta.getSubfields();
+		for (MarcSubfield subfield : subfields) {
+			if (subfield.getCode().equals("b")) {
+				assertEquals("LanguageCodes", subfield.getDefinition().getCodeList().getClass().getSimpleName());
+				assertEquals("English", subfield.resolve());
+			}
+		}
+
+		assertEquals(Arrays.asList("English"), record.getKeyValuePairs().get("AdminMetadata_languageOfCataloging"));
 	}
 
 }

@@ -9,17 +9,19 @@ import de.gwdg.metadataqa.marc.Utils;
  */
 public class ContentAdviceClassificationSourceCodes extends CodeList {
 
-	static {
+	private void initialize() {
 		codes = Utils.generateCodes(
-				"bbfc", "British Board of Film Classification",
-				"mpaa", "Motion Picture Association of America Film Ratings"
+			"bbfc", "British Board of Film Classification",
+			"mpaa", "Motion Picture Association of America Film Ratings"
 		);
 		indexCodes();
 	}
 
 	private static ContentAdviceClassificationSourceCodes uniqueInstance;
 
-	private ContentAdviceClassificationSourceCodes() {}
+	private ContentAdviceClassificationSourceCodes() {
+		initialize();
+	}
 
 	public static ContentAdviceClassificationSourceCodes getInstance() {
 		if (uniqueInstance == null)

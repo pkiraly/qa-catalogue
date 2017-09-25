@@ -7,7 +7,8 @@ import de.gwdg.metadataqa.marc.Utils;
  * http://www.loc.gov/standards/sourcelist/geographic-area.html
  */
 public class GeographicAreaSourceCodes extends CodeList {
-	static {
+
+	private void initialize() {
 		codes = Utils.generateCodes(
 				"ccga", "Cadre de classement geographique actuel (Paris: Bibliothèque Nationale)",
 				"marcgac", "MARC Code List for Geographic Areas"
@@ -18,6 +19,7 @@ public class GeographicAreaSourceCodes extends CodeList {
 	private static GeographicAreaSourceCodes uniqueInstance;
 
 	private GeographicAreaSourceCodes() {
+		initialize();
 	}
 
 	public static GeographicAreaSourceCodes getInstance() {

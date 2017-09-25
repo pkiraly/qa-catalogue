@@ -6,9 +6,9 @@ import de.gwdg.metadataqa.marc.Utils;
  * Temporal Term Source Codes
  * http://www.loc.gov/standards/sourcelist/temporal.html
  */
-public class TemporalTermSourceCodes  extends CodeList {
+public class TemporalTermSourceCodes extends CodeList {
 
-	static {
+	private void initialize() {
 		codes = Utils.generateCodes(
 		);
 		indexCodes();
@@ -16,7 +16,9 @@ public class TemporalTermSourceCodes  extends CodeList {
 
 	private static TemporalTermSourceCodes uniqueInstance;
 
-	private TemporalTermSourceCodes() {}
+	private TemporalTermSourceCodes() {
+		initialize();
+	}
 
 	public static TemporalTermSourceCodes getInstance() {
 		if (uniqueInstance == null)

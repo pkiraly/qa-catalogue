@@ -9,7 +9,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
  */
 public class FormOfItem extends CodeList {
 
-	static {
+	private void initialize() {
 		codes = Utils.generateCodes(
 			" ", "None of the following",
 			"a", "Microfilm",
@@ -29,7 +29,9 @@ public class FormOfItem extends CodeList {
 
 	private static FormOfItem uniqueInstance;
 
-	private FormOfItem() {}
+	private FormOfItem() {
+		initialize();
+	}
 
 	public static FormOfItem getInstance() {
 		if (uniqueInstance == null)

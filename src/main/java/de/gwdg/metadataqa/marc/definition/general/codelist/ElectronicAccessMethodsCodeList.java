@@ -8,7 +8,7 @@ import de.gwdg.metadataqa.marc.Utils;
  */
 public class ElectronicAccessMethodsCodeList extends CodeList {
 
-	static {
+	private void initialize() {
 		codes = Utils.generateCodes(
 			"acap", "Application configuration access protocol",
 			"afs", "Andrew File System global file names",
@@ -50,7 +50,9 @@ public class ElectronicAccessMethodsCodeList extends CodeList {
 
 	private static ElectronicAccessMethodsCodeList uniqueInstance;
 
-	private ElectronicAccessMethodsCodeList() {}
+	private ElectronicAccessMethodsCodeList() {
+		initialize();
+	}
 
 	public static ElectronicAccessMethodsCodeList getInstance() {
 		if (uniqueInstance == null)

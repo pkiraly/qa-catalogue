@@ -4,7 +4,7 @@ import de.gwdg.metadataqa.marc.Utils;
 
 public class DescriptionConventionSourceCodes extends CodeList {
 
-	static {
+	private void initialize() {
 		codes = Utils.generateCodes(
 				"aacr", "Anglo-American cataloguing rules (Chicago: American Library Association)",
 				"amim", "Archival moving image materials (Washington: Library of Congress)",
@@ -69,7 +69,9 @@ public class DescriptionConventionSourceCodes extends CodeList {
 
 	private static DescriptionConventionSourceCodes uniqueInstance;
 
-	private DescriptionConventionSourceCodes() {}
+	private DescriptionConventionSourceCodes() {
+		initialize();
+	}
 
 	public static DescriptionConventionSourceCodes getInstance() {
 		if (uniqueInstance == null)

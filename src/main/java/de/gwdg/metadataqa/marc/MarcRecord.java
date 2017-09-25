@@ -15,6 +15,8 @@ public class MarcRecord {
 	private Control008 control008;
 	private List<DataField> datafields;
 	private Map<String, List<DataField>> datafieldIndex;
+	Map<String, List<String>> mainKeyValuePairs;
+
 	private List<String> unhandledTags;
 
 	public MarcRecord() {
@@ -138,39 +140,27 @@ public class MarcRecord {
 		return output;
 	}
 
+	public List<DataField> getDatafield(String tag) {
+		return datafieldIndex.getOrDefault(tag, null);
+	}
+
 	public Map<String, List<String>> getKeyValuePairs() {
-		Map<String, List<String>> mainKeyValuePairs = new LinkedHashMap<>();
+		if (mainKeyValuePairs == null) {
+			mainKeyValuePairs = new LinkedHashMap<>();
 
-		mainKeyValuePairs.put("type", Arrays.asList(getType().getValue()));
-		mainKeyValuePairs.putAll(leader.getKeyValuePairs());
+			mainKeyValuePairs.put("type", Arrays.asList(getType().getValue()));
+			mainKeyValuePairs.putAll(leader.getKeyValuePairs());
 
-		for (Extractable controlField : getControlfields()) {
-			mainKeyValuePairs.putAll(controlField.getKeyValuePairs());
-		}
+			for (Extractable controlField : getControlfields()) {
+				mainKeyValuePairs.putAll(controlField.getKeyValuePairs());
+			}
 
-		for (DataField field : datafields) {
-			Map<String, List<String>> keyValuePairs = field.getKeyValuePairs();
-			mainKeyValuePairs.putAll(keyValuePairs);
-		}
-
-		return mainKeyValuePairs;
-		/*
-		Map<String, Object> finalKeyValuePairs = new LinkedHashMap<>();
-		for (String key : mainKeyValuePairs.keySet()) {
-			List<String> values = mainKeyValuePairs.get(key);
-			if (values != null && !values.isEmpty()) {
-				List<String> filtered = new ArrayList<>();
-				for (String value : values)
-					if (StringUtils.isNotBlank(value))
-						filtered.add(value);
-				if (filtered.size() == 1)
-					finalKeyValuePairs.put(key, filtered.get(0));
-				else
-					finalKeyValuePairs.put(key, filtered);
+			for (DataField field : datafields) {
+				Map<String, List<String>> keyValuePairs = field.getKeyValuePairs();
+				mainKeyValuePairs.putAll(keyValuePairs);
 			}
 		}
 
-		return finalKeyValuePairs;
-		*/
+		return mainKeyValuePairs;
 	}
 }

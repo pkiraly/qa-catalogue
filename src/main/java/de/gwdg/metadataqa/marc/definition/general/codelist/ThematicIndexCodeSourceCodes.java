@@ -8,16 +8,18 @@ import de.gwdg.metadataqa.marc.Utils;
  */
 public class ThematicIndexCodeSourceCodes extends CodeList {
 
-	static {
+	private void initialize() {
 		codes = Utils.generateCodes(
-				"mlati", "Thematic Indexes Used in the Library of Congress/NACO Authority File (Compiled by the Music Library Association)"
+			"mlati", "Thematic Indexes Used in the Library of Congress/NACO Authority File (Compiled by the Music Library Association)"
 		);
 		indexCodes();
 	}
 
 	private static ThematicIndexCodeSourceCodes uniqueInstance;
 
-	private ThematicIndexCodeSourceCodes() {}
+	private ThematicIndexCodeSourceCodes() {
+		initialize();
+	}
 
 	public static ThematicIndexCodeSourceCodes getInstance() {
 		if (uniqueInstance == null)

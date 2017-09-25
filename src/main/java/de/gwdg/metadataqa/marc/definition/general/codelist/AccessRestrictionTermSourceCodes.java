@@ -7,11 +7,12 @@ import de.gwdg.metadataqa.marc.Utils;
  * https://www.loc.gov/standards/sourcelist/access-restriction.html
  */
 public class AccessRestrictionTermSourceCodes extends CodeList {
-	static {
+
+	private void initialize() {
 		codes = Utils.generateCodes(
-				"cc", "Creative Commons",
-				"rs", "Rights Statements",
-				"star", "Standardized terminology for access restriction (DLF/OCLC Registry of Digital Masters Working Group)"
+			"cc", "Creative Commons",
+			"rs", "Rights Statements",
+			"star", "Standardized terminology for access restriction (DLF/OCLC Registry of Digital Masters Working Group)"
 		);
 		indexCodes();
 	}
@@ -19,6 +20,7 @@ public class AccessRestrictionTermSourceCodes extends CodeList {
 	private static AccessRestrictionTermSourceCodes uniqueInstance;
 
 	private AccessRestrictionTermSourceCodes() {
+		initialize();
 	}
 
 	public static AccessRestrictionTermSourceCodes getInstance() {

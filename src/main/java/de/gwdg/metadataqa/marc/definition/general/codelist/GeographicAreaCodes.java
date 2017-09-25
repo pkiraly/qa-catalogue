@@ -8,7 +8,8 @@ import de.gwdg.metadataqa.marc.Utils;
  * http://www.loc.gov/marc/geoareas/gacs_code.html
  */
 public class GeographicAreaCodes extends CodeList {
-	static {
+
+	private void initialize() {
 		codes = Utils.generateCodes(
 				"a", "Asia",
 				"a-af", "Afghanistan",
@@ -602,6 +603,7 @@ public class GeographicAreaCodes extends CodeList {
 	private static GeographicAreaCodes uniqueInstance;
 
 	private GeographicAreaCodes() {
+		initialize();
 	}
 
 	public static GeographicAreaCodes getInstance() {

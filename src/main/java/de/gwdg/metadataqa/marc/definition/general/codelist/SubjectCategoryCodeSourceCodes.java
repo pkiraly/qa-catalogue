@@ -8,7 +8,7 @@ import de.gwdg.metadataqa.marc.Utils;
  */
 public class SubjectCategoryCodeSourceCodes extends CodeList {
 
-	static {
+	private void initialize() {
 		codes = Utils.generateCodes(
 			"aat", "Art & architecture thesaurus (Los Angeles, CA: Getty Research Institute, Getty Vocabulary Program",
 			"agricola", "AGRICOLA subject category codes (Agriculture Network Information Center)",
@@ -72,7 +72,9 @@ public class SubjectCategoryCodeSourceCodes extends CodeList {
 
 	private static SubjectCategoryCodeSourceCodes uniqueInstance;
 
-	private SubjectCategoryCodeSourceCodes() {}
+	private SubjectCategoryCodeSourceCodes() {
+		initialize();
+	}
 
 	public static SubjectCategoryCodeSourceCodes getInstance() {
 		if (uniqueInstance == null)

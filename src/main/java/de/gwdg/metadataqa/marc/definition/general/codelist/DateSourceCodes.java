@@ -8,7 +8,7 @@ import de.gwdg.metadataqa.marc.Utils;
  */
 public class DateSourceCodes extends CodeList {
 
-	static {
+	private void initialize() {
 		codes = Utils.generateCodes(
 			"edtf", "Extended Date/Time Format",
 			"iso8601", "Code identifies formatted dates allowed in ISO 8601 which use the alternative described as \"basic\" (i.e., with minimum number of separators) rather than \"extended\" (i.e., with separators). This alternative specified in the standard uses the following date patterns: YYYY; YYYY-MM if only year and month given; YYYYMMDD if year, month, and day are included (hours, minutes, seconds may also be added: Thhmmss.s). It is also used for other encodings specified in ISO 8601, e.g., date ranges, which are in the form of <date/time>/<date/time>.",
@@ -21,7 +21,9 @@ public class DateSourceCodes extends CodeList {
 
 	private static DateSourceCodes uniqueInstance;
 
-	private DateSourceCodes() {}
+	private DateSourceCodes() {
+		initialize();
+	}
 
 	public static DateSourceCodes getInstance() {
 		if (uniqueInstance == null)

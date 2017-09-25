@@ -7,9 +7,10 @@ import de.gwdg.metadataqa.marc.Utils;
  * http://www.loc.gov/standards/sourcelist/price-type.html
  */
 public class AvailabilityStatusCodeSourceCodes extends CodeList {
-	static {
+
+	private void initialize() {
 		codes = Utils.generateCodes(
-				"onixas", "ONIX Product Availability Codes List number 54"
+			"onixas", "ONIX Product Availability Codes List number 54"
 		);
 		indexCodes();
 	}
@@ -17,6 +18,7 @@ public class AvailabilityStatusCodeSourceCodes extends CodeList {
 	private static AvailabilityStatusCodeSourceCodes uniqueInstance;
 
 	private AvailabilityStatusCodeSourceCodes() {
+		initialize();
 	}
 
 	public static AvailabilityStatusCodeSourceCodes getInstance() {

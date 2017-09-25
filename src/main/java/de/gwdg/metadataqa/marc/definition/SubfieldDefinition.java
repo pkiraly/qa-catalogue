@@ -23,7 +23,7 @@ public class SubfieldDefinition {
 	private DataFieldDefinition parent;
 	private Validator validator;
 	private SubfieldContentParser contentParser;
-	private CodeList codeList;
+	protected CodeList codeList;
 	private List<Code> codes;
 	private List<String> allowedCodes;
 	private Map<String, String> allowedValues = new HashMap<>();
@@ -147,9 +147,14 @@ public class SubfieldDefinition {
 		return this;
 	}
 
+	public CodeList getCodeList() {
+		return codeList;
+	}
+
 	public String resolve(String value) {
 		if (codeList != null && codeList.isValid(value))
 			return codeList.getCode(value).getLabel();
+
 		return allowedValues.getOrDefault(value, value);
 	}
 

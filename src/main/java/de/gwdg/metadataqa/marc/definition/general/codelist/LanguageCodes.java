@@ -8,7 +8,7 @@ import de.gwdg.metadataqa.marc.Utils;
  */
 public class LanguageCodes extends CodeList {
 
-	static {
+	private void initialize() {
 		codes = Utils.generateCodes(
 				"aar", "Afar",
 				"abk", "Abkhaz",
@@ -531,7 +531,9 @@ public class LanguageCodes extends CodeList {
 
 	private static LanguageCodes uniqueInstance;
 
-	private LanguageCodes() {}
+	private LanguageCodes() {
+		initialize();
+	}
 
 	public static LanguageCodes getInstance() {
 		if (uniqueInstance == null)

@@ -23,19 +23,29 @@ public class Tag070 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "070";
 		label = "National Agricultural Library Call Number";
+		bibframeTag = "Classification";
+		mqTag = "NalCallNumber";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Existence in NAL collection").setCodes(
 			"0", "Item is in NAL",
 			"1", "Item is not in NAL"
 		);
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Classification number", "R",
 			"b", "Item number", "NR",
-			// "6", "Linkage", "NR",
+			"0", "Authority record control number or standard number", "R",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setBibframeTag("classificationPortion").setMqTag("classification");
+		getSubfield("b").setBibframeTag("itemPortion").setMqTag("item");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

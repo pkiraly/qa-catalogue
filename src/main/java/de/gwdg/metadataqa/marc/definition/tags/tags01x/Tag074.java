@@ -23,16 +23,23 @@ public class Tag074 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "074";
 		label = "GPO Item Number";
+		mqTag = "GPOItemNumber";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "GPO item number", "NR",
 			"z", "Canceled/invalid GPO item number", "R",
-			// "6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setBibframeTag("rdf:value");
+		getSubfield("z").setMqTag("canceled");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

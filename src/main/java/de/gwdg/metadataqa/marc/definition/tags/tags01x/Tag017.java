@@ -3,9 +3,10 @@ package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.general.codelist.CopyrightAndLegalDepositNumberSourceCodes;
 
 /**
- * Copyright or Legal Deposit Number
+ * CopyrightAnd or Legal Deposit Number
  * http://www.loc.gov/marc/bibliographic/bd017.html
  */
 public class Tag017 extends DataFieldDefinition {
@@ -45,12 +46,15 @@ public class Tag017 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 
-		// TODO $2 Copyright and Legal Deposit Number Source Codes. http://www.loc.gov/standards/sourcelist/copyright-legal-deposit.html
-		// getSubfield("2").setCodeList(OrganizationCodes.getInstance());
+		getSubfield("2").setCodeList(CopyrightAndLegalDepositNumberSourceCodes.getInstance());
 
 		getSubfield("a").setBibframeTag("rdf:value");
 		getSubfield("b").setBibframeTag("source");
 		getSubfield("d").setBibframeTag("date");
 		getSubfield("i").setBibframeTag("note");
+		getSubfield("z").setMqTag("canceled");
+		getSubfield("2").setBibframeTag("source");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

@@ -23,11 +23,15 @@ public class Tag085 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "085";
 		label = "Synthesized Classification Number Components";
+		mqTag = "SynthesizedClassificationNumber";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Number where instructions are found-single number or beginning number of span", "R",
 			"b", "Base number", "R",
@@ -41,8 +45,25 @@ public class Tag085 extends DataFieldDefinition {
 			"w", "Table identification-Internal subarrangement or add table", "R",
 			"y", "Table sequence number for internal subarrangement or add table", "R",
 			"z", "Table identification", "R",
+			"0", "Authority record control number or standard number", "R",
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setMqTag("classificationPortion");
+		getSubfield("b").setMqTag("baseNumber");
+		getSubfield("c").setMqTag("endingNumber");
+		getSubfield("f").setMqTag("facet");
+		getSubfield("r").setMqTag("rootNumber");
+		getSubfield("s").setMqTag("fromClassification");
+		getSubfield("t").setMqTag("subarrangement");
+		getSubfield("u").setMqTag("analyzedNumber");
+		getSubfield("v").setMqTag("numberInSubarrangement");
+		getSubfield("w").setMqTag("tableIdentificationInternal");
+		getSubfield("y").setMqTag("tableSequenceNumber");
+		getSubfield("z").setMqTag("tableIdentification");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

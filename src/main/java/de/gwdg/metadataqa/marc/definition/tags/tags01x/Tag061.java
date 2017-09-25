@@ -23,17 +23,25 @@ public class Tag061 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "061";
 		label = "National Library of Medicine Copy Statement";
+		mqTag = "NlmCopy";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Classification number", "R",
 			"b", "Item number", "NR",
 			"c", "Copy information", "NR",
-			// "6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setMqTag("classificationPortion");
+		getSubfield("b").setMqTag("itemPortion");
+		getSubfield("c").setMqTag("copy");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

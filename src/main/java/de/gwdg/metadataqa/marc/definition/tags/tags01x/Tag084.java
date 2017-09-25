@@ -25,13 +25,16 @@ public class Tag084 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "084";
 		label = "Other Classificaton Number";
 		bibframeTag = "Classification";
 		// mqTag = "OtherClassificatonNumber";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Classification number", "R",
 			"b", "Item number", "NR",
@@ -40,8 +43,10 @@ public class Tag084 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("q").setCodeList(OrganizationCodes.getInstance());
 		getSubfield("2").setCodeList(ClassificationSchemeSourceCodes.getInstance());
+
 		getSubfield("a").setBibframeTag("classificationPortion");
 		getSubfield("b").setBibframeTag("itemPortion");
 		getSubfield("q").setBibframeTag("assigner");

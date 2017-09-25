@@ -26,13 +26,17 @@ public class Tag052 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "052";
 		label = "Geographic Classification";
+		bibframeTag = "Place";
+		mqTag = "GeographicClassification";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Code source").setCodes(
 			" ", "Library of Congress Classification",
 			"1", "U.S. Dept. of Defense Classification",
 			"7", "Source specified in subfield $2"
-		);
+		).setMqTag("codeSource");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Geographic classification area code", "NR",
 			"b", "Geographic classification subarea code", "R",
@@ -41,6 +45,14 @@ public class Tag052 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("2").setCodeList(ClassificationSchemeSourceCodes.getInstance());
+
+		getSubfield("a").setBibframeTag("rdf:value");
+		getSubfield("b").setMqTag("subarea");
+		getSubfield("d").setBibframeTag("rdfs:label");
+		getSubfield("2").setMqTag("source");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

@@ -23,16 +23,25 @@ public class Tag088 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "088";
 		label = "Report Number";
+		bibframeTag = "ReportNumber";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Report number", "NR",
 			"z", "Canceled/invalid report number", "R",
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setBibframeTag("rdf:value");
+		getSubfield("z").setMqTag("canceled");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

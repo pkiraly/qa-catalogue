@@ -15,8 +15,8 @@ public class Control006 implements Extractable {
 
 	private static final Logger logger = Logger.getLogger(Control006.class.getCanonicalName());
 
-	private String label = "Additional Material Characteristics";
-	private String mqTag = "AdditionalMaterialCharacteristics";
+	private static final String label = "Additional Material Characteristics";
+	private static final String mqTag = "AdditionalMaterialCharacteristics";
 
 	private String content;
 	private Leader.Type recordType;
@@ -428,5 +428,13 @@ public class Control006 implements Extractable {
 			}
 		}
 		return map;
+	}
+
+	public static String getLabel() {
+		return label;
+	}
+
+	public static String getMqTag() {
+		return mqTag;
 	}
 }

@@ -15,8 +15,8 @@ public class Control003 implements Extractable {
 
 	private Map<ControlSubfield, String> valuesMap;
 	private Map<Integer, ControlSubfield> byPosition = new LinkedHashMap<>();
-	private String label = "Control Number Identifier";
-	private String mqTag = "ControlNumberIdentifier";
+	private static final String label = "Control Number Identifier";
+	private static final String mqTag = "ControlNumberIdentifier";
 
 	public Control003(String content) {
 		this.content = content;
@@ -51,6 +51,14 @@ public class Control003 implements Extractable {
 
 	public Set<Integer> getSubfieldPositions() {
 		return byPosition.keySet();
+	}
+
+	public static String getLabel() {
+		return label;
+	}
+
+	public static String getMqTag() {
+		return mqTag;
 	}
 
 	@Override

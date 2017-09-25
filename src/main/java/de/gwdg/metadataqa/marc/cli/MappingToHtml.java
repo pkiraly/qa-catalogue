@@ -1,7 +1,8 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
+import de.gwdg.metadataqa.marc.*;
+import de.gwdg.metadataqa.marc.Leader.Type;
+import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.utils.MarcTagLister;
 
 import java.lang.reflect.InvocationTargetException;
@@ -23,6 +24,45 @@ public class MappingToHtml {
 			"</thead>");
 
 		System.out.println("<tbody>");
+		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "Leader");
+		for (ControlSubfield subfield : LeaderSubfields.getSubfields()) {
+			ControlSubfieldToHtml(subfield, "Leader", "Leader");
+		}
+
+		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "001");
+		System.out.print(row("001", Control001.getMqTag(), Control001.getLabel()));
+
+		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "003");
+		System.out.print(row("003", Control003.getMqTag(), Control003.getLabel()));
+
+		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "005");
+		System.out.print(row("005", Control005.getMqTag(), Control005.getLabel()));
+
+		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "006");
+		System.out.print(row("006", Control006.getMqTag(), Control006.getLabel()));
+		for (Control008Type type : Control006Subfields.getSubfields().keySet()) {
+			System.out.printf("<tr><td colspan=\"3\"><em>%s</em></td></tr>\n", type.getValue());
+			for (ControlSubfield subfield : Control006Subfields.getSubfields().get(type))
+				ControlSubfieldToHtml(subfield, "006", Control006.getMqTag());
+		}
+
+		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "007");
+		System.out.print(row("007", Control007.getMqTag(), Control007.getLabel()));
+		for (Control007Category category : Control007Subfields.getSubfields().keySet()) {
+			System.out.printf("<tr><td colspan=\"3\"><em>%s</em></td></tr>\n", category.getLabel());
+			for (ControlSubfield subfield : Control007Subfields.getSubfields().get(category))
+				ControlSubfieldToHtml(subfield, "007", Control007.getMqTag());
+		}
+
+		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "008");
+		System.out.print(row("008", Control008.getMqTag(), Control008.getLabel()));
+		for (Control008Type type : Control008Subfields.getSubfields().keySet()) {
+			System.out.printf("<tr><td colspan=\"3\"><em>%s</em></td></tr>\n", type.getValue());
+			for (ControlSubfield subfield : Control008Subfields.getSubfields().get(type))
+				ControlSubfieldToHtml(subfield, "008", Control008.getMqTag());
+		}
+
+
 		for (Class<? extends DataFieldDefinition> tagClass : tags) {
 			if (tagClass.getCanonicalName().contains("oclctags"))
 				continue;
@@ -43,6 +83,14 @@ public class MappingToHtml {
 		}
 		System.out.println("</tbody>");
 		System.out.println("</table>");
+	}
+
+	private static void ControlSubfieldToHtml(ControlSubfield subfield, String marcTag, String mqTag) {
+		int start = subfield.getPositionStart();
+		int end = subfield.getPositionEnd() - 1;
+		String suffix = (start == end) ? String.format("%02d", start) : String.format("%02d-%02d", start, end);
+		String code = subfield.getMqTag() != null ? subfield.getMqTag() : subfield.getId();
+		System.out.print(row(marcTag + "/" + suffix, mqTag + "_" + code, subfield.getLabel()));
 	}
 
 	private static void tagToHtml(DataFieldDefinition tag) {

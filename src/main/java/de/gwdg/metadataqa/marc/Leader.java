@@ -19,7 +19,7 @@ public class Leader implements Extractable {
 
 	private String mqTag = "Leader";
 
-	enum Type {
+	public enum Type {
 		BOOKS("Books"),
 		CONTINUING_RESOURCES("Continuing Resources"),
 		MUSIC("Music"),
@@ -238,4 +238,5 @@ public class Leader implements Extractable {
 		}
 		return map;
 	}
+
 }

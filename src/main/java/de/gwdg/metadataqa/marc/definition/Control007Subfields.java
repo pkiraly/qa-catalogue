@@ -1312,6 +1312,10 @@ public class Control007Subfields {
 		));
 	}
 
+	public static Map<Control007Category, List<ControlSubfield>> getSubfields() {
+		return subfields;
+	}
+
 	public static List<ControlSubfield> get(Control007Category category) {
 		return subfields.get(category);
 	}

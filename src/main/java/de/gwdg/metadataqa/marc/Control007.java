@@ -15,8 +15,8 @@ public class Control007 implements Extractable {
 
 	private static final Logger logger = Logger.getLogger(Control007.class.getCanonicalName());
 
-	private String label = "Physical Description";
-	private String mqTag = "PhysicalDescription";
+	private static final String label = "Physical Description";
+	private static final String mqTag = "PhysicalDescription";
 
 	private String content;
 	private String categoryOfMaterial;
@@ -706,4 +706,11 @@ public class Control007 implements Extractable {
 		return map;
 	}
 
+	public static String getLabel() {
+		return label;
+	}
+
+	public static String getMqTag() {
+		return mqTag;
+	}
 }

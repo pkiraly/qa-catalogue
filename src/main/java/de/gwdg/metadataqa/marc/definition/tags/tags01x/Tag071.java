@@ -41,7 +41,7 @@ public class Tag071 extends DataFieldDefinition {
 
 		getSubfield("a").setBibframeTag("classificationPortion").setMqTag("classification");
 		getSubfield("b").setBibframeTag("itemPortion").setMqTag("item");
-		getSubfield("0").setMqTag("copy");
+		getSubfield("c").setMqTag("copy");
 		getSubfield("8").setMqTag("fieldLink");
 	}
 }

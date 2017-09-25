@@ -15,8 +15,8 @@ public class Control008 implements Extractable {
 
 	private static final Logger logger = Logger.getLogger(Control008.class.getCanonicalName());
 
-	private String label = "General Information";
-	private String mqTag = "GeneralInformation";
+	private static final String label = "General Information";
+	private static final String mqTag = "GeneralInformation";
 
 	private String content;
 	private Leader.Type recordType;
@@ -505,5 +505,13 @@ public class Control008 implements Extractable {
 			map.put(key, Arrays.asList(value));
 		}
 		return map;
+	}
+
+	public static String getLabel() {
+		return label;
+	}
+
+	public static String getMqTag() {
+		return mqTag;
 	}
 }

@@ -24,19 +24,29 @@ public class Tag047 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "047";
 		label = "Form of Musical Composition Code";
+		bibframeTag = "GenreForm";
+		mqTag = "MusicalCompositionForm";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator("Source of code").setCodes(
 			" ", "MARC musical composition code",
 			"7", "Source specified in subfield $2"
-		);
+		).setMqTag("sourceOfCode");
+
 		setSubfieldsWithCardinality(
 			"a", "Form of musical composition code", "R",
 			"2", "Source of code", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("2").setCodeList(MusicalCompositionSourceCodes.getInstance());
+
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("2").setMqTag("source");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

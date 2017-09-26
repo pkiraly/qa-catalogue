@@ -23,16 +23,20 @@ public class Tag045 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "045";
 		label = "Time Period of Content";
+		bibframeTag = "TemporalCoverage";
 		cardinality = Cardinality.Nonrepeatable;
+
 		ind1 = new Indicator("Type of time period in subfield $b or $c").setCodes(
 			" ", "Subfield $b or $c not present",
 			"0", "Single date/time",
 			"1", "Multiple single dates/times",
 			"2", "Range of dates/times"
-		);
+		).setMqTag("type");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Time period code", "R",
 			"b", "Formatted 9999 B.C. through C.E. time period", "R",
@@ -40,6 +44,7 @@ public class Tag045 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		// TODO: set a parser, move the codes there
 		getSubfield("a").setCodes(
 			"a0", "before 2999",
@@ -95,5 +100,11 @@ public class Tag045 extends DataFieldDefinition {
 			"x", "1900-1999",
 			"y", "2000-2099"
 		);
+
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("b").setMqTag("timePeriod");
+		getSubfield("c").setMqTag("preBC9999TimePeriod");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

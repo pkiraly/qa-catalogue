@@ -30,7 +30,7 @@ public class SolrKeyGenerator {
 	private static final Logger logger = Logger.getLogger(SolrKeyGenerator.class.getCanonicalName());
 
 	public static void main(String[] args) {
-		if (args.length != 2) {
+		if (args.length < 2) {
 			System.err.println("Please provide a Solr URL and file name!");
 			System.exit(0);
 		}
@@ -42,7 +42,15 @@ public class SolrKeyGenerator {
 		Path path = Paths.get(relativeFileName);
 		String fileName = path.getFileName().toString();
 
-		logger.info(String.format("Solr URL: %s, file: %s", url, fileName));
+		boolean doCommits = true;
+		if (args.length > 2) {
+			if (args[2].equals("doCommit=true"))
+				doCommits = true;
+			else if (args[2].equals("doCommit=false"))
+				doCommits = false;
+		}
+
+		logger.info(String.format("Solr URL: %s, file: %s (do commits: %s)", url, fileName, doCommits));
 
 		MarcSolrClient client = new MarcSolrClient(url);
 		JsonPathCache<? extends XmlFieldInstance> cache;
@@ -62,12 +70,14 @@ public class SolrKeyGenerator {
 				// duplumKey = extractor.getDuplumKeyMap();
 				// client.indexDuplumKey((String)duplumKey.get(MarcFieldExtractor.FIELD_NAME), duplumKey);
 				if (i % 1000 == 0) {
-					client.commit();
+					if (doCommits)
+						client.commit();
 					// logger.info(String.format("%s/%d) %s", fileName, i, duplumKey.get(MarcFieldExtractor.FIELD_NAME)));
 					logger.info(String.format("%s/%d) %s", fileName, i, marcRecord.getId()));
 				}
 			}
-			client.commit();
+			if (doCommits)
+				client.commit();
 			// logger.info("optimize");
 			// client.optimize();
 			logger.info("end of cycle");

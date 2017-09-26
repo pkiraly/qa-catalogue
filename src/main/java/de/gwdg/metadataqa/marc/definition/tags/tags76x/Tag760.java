@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags76x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 
 /**
  * Main Series Entry
@@ -68,6 +69,7 @@ public class Tag760 extends DataFieldDefinition {
 			"2", "Type of record",
 			"3", "Bibliographic level"
 		);
+		getSubfield("4").setCodeList(RelatorCodes.getInstance());
 
 		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
 		getSubfield("b").setBibframeTag("editionStatement");

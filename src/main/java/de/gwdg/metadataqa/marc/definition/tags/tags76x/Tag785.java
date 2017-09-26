@@ -24,10 +24,12 @@ public class Tag785 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "785";
 		label = "Succeeding Entry";
 		bibframeTag = "SucceededBy";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Note controller").setCodes(
 			"0", "Display note",
 			"1", "Do not display note"
@@ -42,7 +44,8 @@ public class Tag785 extends DataFieldDefinition {
 			"6", "Split into ... and ...",
 			"7", "Merged with ... to form ...",
 			"8", "Changed back to"
-		);
+		).setMqTag("typeOfRelationship");
+
 		setSubfieldsWithCardinality(
 			"a", "Main entry heading", "NR",
 			"b", "Edition", "NR",
@@ -68,6 +71,9 @@ public class Tag785 extends DataFieldDefinition {
 			"7", "Control subfield", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		// TODO: this requires position parser!
+		// see http://www.loc.gov/marc/bibliographic/bd76x78x.html
 		getSubfield("7").setCodes(
 			"0", "Type of main entry heading",
 			"1", "Form of name",
@@ -75,6 +81,7 @@ public class Tag785 extends DataFieldDefinition {
 			"3", "Bibliographic level"
 		);
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
+
 		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
 		getSubfield("b").setBibframeTag("editionStatement");
 		getSubfield("c").setBibframeTag("qualifier");

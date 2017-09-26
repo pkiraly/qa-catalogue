@@ -24,16 +24,19 @@ public class Tag800 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "800";
 		label = "Series Added Entry - Personal Name";
 		mqTag = "SeriesAddedPersonalName";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Type of personal name entry element").setCodes(
 			"0", "Forename",
 			"1", "Surname",
 			"3", "Family name"
-		);
+		).setMqTag("type");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Personal name", "NR",
 			"b", "Numeration", "NR",
@@ -66,12 +69,14 @@ public class Tag800 extends DataFieldDefinition {
 			"7", "Control subfield", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		// TODO: check these values
 		getSubfield("7").setCodes(
 			"/0", "Type of record",
 			"/1", "Bibliographic level"
 		);
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
+
 		getSubfield("a").setMqTag("personalName");
 		getSubfield("b").setMqTag("numeration");
 		getSubfield("c").setMqTag("titlesAndWords");

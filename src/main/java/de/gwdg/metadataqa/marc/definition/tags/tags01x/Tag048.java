@@ -24,20 +24,26 @@ public class Tag048 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "048";
 		label = "Number of Musical Instruments or Voices Codes";
+		mqTag = "NumberOfMusicalInstrumentsOrVoices";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator("Source of code").setCodes(
 			" ", "MARC code",
 			"7", "Source specified in subfield $2"
-		);
+		).setMqTag("sourceOfCode");
+
 		setSubfieldsWithCardinality(
 			"a", "Performer or ensemble", "R",
 			"b", "Soloist", "R",
 			"2", "Source of code", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		// TODO: check this
 		getSubfield("2").setCodeList(MusicalInstrumentationAndVoiceSourceCodes.getInstance());
 		getSubfield("2").setCodes(
 			"ba", "Brass - Horn",
@@ -140,5 +146,10 @@ public class Tag048 extends DataFieldDefinition {
 			"zn", "Unspecified instruments",
 			"zu", "Unknown"
 		);
+
+		getSubfield("a").setMqTag("performerOrEnsemble");
+		getSubfield("b").setMqTag("soloist");
+		getSubfield("2").setMqTag("source");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

@@ -24,11 +24,15 @@ public class Tag046 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "046";
 		label = "Special Coded Dates";
+		mqTag = "SpecialCodedDates";
 		cardinality = Cardinality.Nonrepeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Type of date code", "NR",
 			"b", "Date 1, B.C.E. date", "NR",
@@ -46,6 +50,7 @@ public class Tag046 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("a").setCodes(
 			"r", "Reissue and original date",
 			"s", "Single date",
@@ -63,5 +68,22 @@ public class Tag046 extends DataFieldDefinition {
 			"n", "Unknown date"
 		);
 		getSubfield("2").setCodeList(DateSourceCodes.getInstance());
+
+		getSubfield("a").setMqTag("type");
+		getSubfield("b").setMqTag("bceDate1");
+		getSubfield("c").setMqTag("bcDate1");
+		getSubfield("d").setMqTag("bceDate2");
+		getSubfield("e").setMqTag("ceDate2");
+		getSubfield("j").setMqTag("modified");
+		getSubfield("k").setMqTag("beginningCreated");
+		getSubfield("l").setMqTag("endingCreated");
+		getSubfield("m").setMqTag("beginningOfDateValid");
+		getSubfield("n").setMqTag("endOfDateValid");
+		getSubfield("o").setMqTag("startingDateForAggregated");
+		getSubfield("p").setMqTag("endingDateForAggregated");
+		getSubfield("2").setMqTag("source");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
+
 	}
 }

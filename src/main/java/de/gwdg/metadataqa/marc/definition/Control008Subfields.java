@@ -89,7 +89,7 @@ public class Control008Subfields {
 								"|", "No attempt to code"
 						)
 				).setRepeatableContent(true).setUnitLength(1)
-					.setId("tag008book18"),
+					.setId("tag008book18").setMqTag("illustrations"),
 				new ControlSubfield("Target audience", 22, 23,
 						Utils.generateCodes(
 								" ", "Unknown or not specified",
@@ -103,7 +103,7 @@ public class Control008Subfields {
 								"j", "Juvenile",
 								"|", "No attempt to code"
 						)
-				).setId("tag008book22"),
+				).setId("tag008book22").setMqTag("targetAudience"),
 				new ControlSubfield("Form of item", 23, 24,
 						Utils.generateCodes(
 								" ", "None of the following",
@@ -113,7 +113,7 @@ public class Control008Subfields {
 								"d", "Large print",
 								"f", "Braille"
 						)
-				).setId("tag008book23"),
+				).setId("tag008book23").setMqTag("formOfItem"),
 				new ControlSubfield("Nature of contents", 24, 28,
 						Utils.generateCodes(
 								" ", "No specified nature of contents",
@@ -135,7 +135,7 @@ public class Control008Subfields {
 				)
 						.setRepeatableContent(true)
 						.setUnitLength(1)
-						.setId("tag008book24"),
+						.setId("tag008book24").setMqTag("natureOfContents"),
 				new ControlSubfield("Government publication", 28, 29,
 						Utils.generateCodes(
 								" ", "Not a government publication",

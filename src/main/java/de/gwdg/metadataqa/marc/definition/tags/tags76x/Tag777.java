@@ -58,6 +58,8 @@ public class Tag777 extends DataFieldDefinition {
 			"7", "Control subfield", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+		// TODO: this requires position parser!
+		// see http://www.loc.gov/marc/bibliographic/bd76x78x.html
 		getSubfield("7").setCodes(
 			"0", "Type of main entry heading",
 			"1", "Form of name",

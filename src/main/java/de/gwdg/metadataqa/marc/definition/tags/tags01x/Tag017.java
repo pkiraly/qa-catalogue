@@ -24,6 +24,7 @@ public class Tag017 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "017";
 		label = "Copyright or Legal Deposit Number";
 		bibframeTag = "CopyrightNumber";

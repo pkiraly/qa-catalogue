@@ -38,13 +38,13 @@ public class Tag024 extends DataFieldDefinition {
 			"4", "Serial Item and Contribution Identifier",
 			"7", "Source specified in subfield $2",
 			"8", "Unspecified type of standard number or code"
-		);
+		).setMqTag("type");
 
 		ind2 = new Indicator("Difference indicator").setCodes(
 			" ", "No information provided",
 			"0", "No difference",
 			"1", "Difference"
-		);
+		).setMqTag("differenceIndicator");
 
 		setSubfieldsWithCardinality(
 			"a", "Standard number or code", "NR",

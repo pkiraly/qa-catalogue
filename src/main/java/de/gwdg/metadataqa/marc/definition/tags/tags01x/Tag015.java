@@ -24,12 +24,15 @@ public class Tag015 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "015";
 		label = "National Bibliography Number";
-		cardinality = Cardinality.Repeatable;
 		bibframeTag = "IdentifiedBy/Nbn";
+		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "National bibliography number", "R",
 			"q", "Qualifying information", "R",
@@ -38,6 +41,7 @@ public class Tag015 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("2").setCodeList(NationalBibliographyNumberSourceCodes.getInstance());
 		getSubfield("a").setBibframeTag("rdf:value");
 		getSubfield("q").setBibframeTag("qualifier");

@@ -3,6 +3,8 @@ package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
+import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 
 /**
  * Patent Control Information
@@ -43,8 +45,10 @@ public class Tag013 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 
+		getSubfield("b").setCodeList(CountryCodes.getInstance());
 		// TODO
 		// $f - Codes from: MARC Code List for Countries and MARC Code List for Organizations.
+		getSubfield("f").setCodeList(OrganizationCodes.getInstance());
 
 		getSubfield("a").setMqTag("number");
 		getSubfield("b").setMqTag("country");

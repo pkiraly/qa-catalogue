@@ -43,9 +43,7 @@ public class Tag016 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 
-		getSubfield("2")
-			.setCodeList(OrganizationCodes.getInstance())
-			.setBibframeTag("source");
+		getSubfield("2").setCodeList(OrganizationCodes.getInstance());
 
 		getSubfield("a").setBibframeTag("rdf:value");
 		getSubfield("z").setMqTag("canceledOrInvalidControlNumber");

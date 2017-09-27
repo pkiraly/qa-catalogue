@@ -23,15 +23,21 @@ public class Tag025 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "025";
 		label = "Overseas Acquisition Number";
 		bibframeTag = "LcOverseasAcq";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Overseas acquisition number", "R",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setBibframeTag("rdf:value");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

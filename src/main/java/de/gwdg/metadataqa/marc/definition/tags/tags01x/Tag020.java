@@ -23,12 +23,15 @@ public class Tag020 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "020";
 		label = "International Standard Book Number";
 		bibframeTag = "Isbn";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "International Standard Book Number", "NR",
 			"c", "Terms of availability", "NR",
@@ -39,7 +42,7 @@ public class Tag020 extends DataFieldDefinition {
 		);
 		// TODO validation ISO 2108
 		// getSubfield("2").setValidator(new ISBNValidator())
-		// getSubfield("2").setCodeList(OrganizationCodes.getInstance());
+
 		getSubfield("a").setBibframeTag("rdf:value");
 		getSubfield("c").setBibframeTag("acquisitionTerms");
 		getSubfield("q").setBibframeTag("qualifier");

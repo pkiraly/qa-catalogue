@@ -22,7 +22,7 @@ public class TagDefinitionLoader {
 	private static final Pattern PATTERN_80x = Pattern.compile("^8[0-3]\\d$");
 	private static final Pattern PATTERN_84x = Pattern.compile("^8[4-9]\\d$");
 
-	private static final List<String> OCLC_TAGS = Arrays.asList("019", "029", "539", "911", "912", "938");
+	private static final List<String> OCLC_TAGS = Arrays.asList("012", "019", "029", "539", "911", "912", "938");
 	private static Map<String, DataFieldDefinition> cache = new HashMap<>();
 
 	static {

@@ -24,10 +24,12 @@ public class Tag270 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "270";
 		label = "Address";
 		mqTag = "Address";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Level").setCodes(
 			" ", "No level specified",
 			"1", "Primary",
@@ -38,6 +40,7 @@ public class Tag270 extends DataFieldDefinition {
 			"0", "Mailing",
 			"7", "Type specified in subfield $i"
 		).setMqTag("type");
+
 		setSubfieldsWithCardinality(
 			"a", "Address", "R",
 			"b", "City", "NR",
@@ -61,7 +64,9 @@ public class Tag270 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
+
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("b").setMqTag("city");
 		getSubfield("c").setMqTag("state");

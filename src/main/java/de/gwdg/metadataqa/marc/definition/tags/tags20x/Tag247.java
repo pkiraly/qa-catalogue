@@ -22,10 +22,12 @@ public class Tag247 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "247";
 		label = "Former Title";
 		bibframeTag = "VariantTitle";
 		cardinality = Cardinality.Nonrepeatable;
+
 		ind1 = new Indicator("Title added entry").setCodes(
 			"0", "No added entry",
 			"1", "Added entry"
@@ -34,6 +36,7 @@ public class Tag247 extends DataFieldDefinition {
 			"0", "Display note",
 			"1", "Do not display note"
 		).setMqTag("noteController");
+
 		setSubfieldsWithCardinality(
 			"a", "Title", "NR",
 			"b", "Remainder of title", "NR",
@@ -46,6 +49,7 @@ public class Tag247 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("a").setBibframeTag("mainTitle");
 		getSubfield("b").setMqTag("remainder");
 		getSubfield("f").setBibframeTag("date");

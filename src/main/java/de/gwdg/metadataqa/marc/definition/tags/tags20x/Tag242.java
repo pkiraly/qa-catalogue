@@ -23,11 +23,13 @@ public class Tag242 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "242";
 		label = "Translation of Title by Cataloging Agency";
 		bibframeTag = "VariantTitle";
 		mqTag = "TitleTranslation";
 		cardinality = Cardinality.Nonrepeatable;
+
 		ind1 = new Indicator("Title added entry").setCodes(
 			"0", "No added entry",
 			"1", "Added entry"
@@ -37,6 +39,7 @@ public class Tag242 extends DataFieldDefinition {
 			"1-9", "Number of nonfiling characters"
 		).setMqTag("nonfilingCharacters");
 		ind2.getCode("1-9").setRange(true);
+
 		setSubfieldsWithCardinality(
 			"a", "Title", "NR",
 			"b", "Remainder of title", "NR",
@@ -48,7 +51,9 @@ public class Tag242 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("y").setCodeList(LanguageCodes.getInstance());
+
 		getSubfield("a").setBibframeTag("mainTitle");
 		getSubfield("b").setBibframeTag("subTitle");
 		getSubfield("c").setMqTag("responsibility");

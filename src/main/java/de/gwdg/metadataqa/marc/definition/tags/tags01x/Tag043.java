@@ -42,6 +42,7 @@ public class Tag043 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("a").setCodeList(GeographicAreaCodes.getInstance());
 		getSubfield("2").setCodeList(GeographicAreaSourceCodes.getInstance());
 

@@ -26,12 +26,15 @@ public class Tag040 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "040";
 		label = "Cataloging Source";
 		bibframeTag = "AdminMetadata";
 		cardinality = Cardinality.Nonrepeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Original cataloging agency", "NR",
 			"b", "Language of cataloging", "NR",
@@ -41,6 +44,7 @@ public class Tag040 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("b").setCodeList(LanguageCodes.getInstance());
 		getSubfield("e").setCodeList(DescriptionConventionSourceCodes.getInstance());
 		OrganizationCodes orgCodes = OrganizationCodes.getInstance();
@@ -53,5 +57,7 @@ public class Tag040 extends DataFieldDefinition {
 		getSubfield("c").setMqTag("transcribingAgency");
 		getSubfield("d").setMqTag("modifyingAgency");
 		getSubfield("e").setMqTag("descriptionConventions");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

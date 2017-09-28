@@ -51,6 +51,7 @@ public class Tag520 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("2").setCodeList(ContentAdviceClassificationSourceCodes.getInstance());
 
 		getSubfield("a").setMqTag("rdf:value");

@@ -27,9 +27,13 @@ public class Tag518 extends DataFieldDefinition {
 
 		tag = "518";
 		label = "Date/Time and Place of an Event Note";
+		bibframeTag = "Capture";
+		mqTag = "DateTimeAndPlaceOfAnEventNote";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Date/time and place of an event note", "NR",
 			"d", "Date of event", "R",
@@ -41,6 +45,17 @@ public class Tag518 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
+
+		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
+		getSubfield("d").setBibframeTag("rdfs:label").setMqTag("date");
+		getSubfield("o").setBibframeTag("rdfs:label").setMqTag("otherInformation");
+		getSubfield("p").setBibframeTag("rdfs:label").setMqTag("place");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("2").setMqTag("source");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

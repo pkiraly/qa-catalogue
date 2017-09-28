@@ -45,6 +45,7 @@ public class Tag026 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("2").setCodeList(FingerprintSchemeSourceCodes.getInstance());
 		getSubfield("5").setCodeList(OrganizationCodes.getInstance());
 
@@ -54,6 +55,7 @@ public class Tag026 extends DataFieldDefinition {
 		getSubfield("d").setBibframeTag("rdf:value").setMqTag("volume");
 		getSubfield("e").setBibframeTag("rdf:value").setMqTag("unparsed");
 		getSubfield("2").setBibframeTag("source");
+		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
 	}

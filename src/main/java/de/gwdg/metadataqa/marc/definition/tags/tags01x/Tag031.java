@@ -24,11 +24,15 @@ public class Tag031 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "031";
 		label = "Musical Incipits Information";
+		mqTag = "MusicalIncipits";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Number of work", "NR",
 			"b", "Number of movement", "NR",
@@ -51,16 +55,37 @@ public class Tag031 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("s").setCodes(
 			"?", "there is a mistake in the incipit that has not been corrected",
 			"+", "there is a mistake in the incipit that has been corrected",
 			"t", "the incipit has been transcribed (e.g. from mensural notation)",
 			"!", "incipit discrepancies have been commented on in subfield $q (General note)."
 		);
-		// 2 - code from http://www.loc.gov/standards/sourcelist/musical-incipit.html
+
 		getSubfield("2").setCodeList(MusicalIncipitSchemeSourceCodes.getInstance());
 
 		// TODO: u - URL
 		// TODO: n - Letter “x” indicates sharps and the letter “b” indicates flats followed by capital letters to indicate the affected pitches.
+
+		getSubfield("a").setMqTag("numberOfWork");
+		getSubfield("b").setMqTag("numberOfMovement");
+		getSubfield("c").setMqTag("numberOfExcerpt");
+		getSubfield("d").setMqTag("caption");
+		getSubfield("e").setMqTag("role");
+		getSubfield("g").setMqTag("clef");
+		getSubfield("m").setMqTag("voiceOrInstrument");
+		getSubfield("n").setMqTag("keySignature");
+		getSubfield("o").setMqTag("timeSignature");
+		getSubfield("p").setMqTag("musicalNotation");
+		getSubfield("q").setMqTag("generalNote");
+		getSubfield("r").setMqTag("keyOrMode");
+		getSubfield("s").setMqTag("codedValidity");
+		getSubfield("t").setMqTag("incipit");
+		getSubfield("u").setMqTag("uri");
+		getSubfield("y").setMqTag("linkText");
+		getSubfield("z").setMqTag("publicNote");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

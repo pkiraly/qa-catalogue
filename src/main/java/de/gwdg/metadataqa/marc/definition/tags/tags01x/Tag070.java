@@ -30,10 +30,10 @@ public class Tag070 extends DataFieldDefinition {
 		mqTag = "NalCallNumber";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Existence in NAL collection").setCodes(
+		ind1 = new Indicator(" collection").setCodes(
 			"0", "Item is in NAL",
 			"1", "Item is not in NAL"
-		);
+		).setMqTag("existenceInNAL");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

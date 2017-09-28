@@ -28,11 +28,13 @@ public class Tag490 extends DataFieldDefinition {
 		label = "Series Statement";
 		mqTag = "SeriesStatement";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Series tracing policy").setCodes(
 			"0", "Series not traced",
 			"1", "Series traced"
-		);
+		).setMqTag("seriesTracing");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Series statement", "R",
 			"l", "Library of Congress call number", "NR",
@@ -42,6 +44,7 @@ public class Tag490 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("a").setMqTag("rdfs:label").setMqTag("rdf:value");
 		getSubfield("l").setMqTag("lccn");
 		getSubfield("v").setMqTag("volume");

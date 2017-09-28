@@ -27,18 +27,23 @@ public class Tag029 extends DataFieldDefinition {
 		label = "Other System Control Number";
 		bibframeTag = "IdentifiedBy/Lccn";
 		cardinality = Cardinality.Nonrepeatable;
+
 		ind1 = new Indicator("The type of system control number").setCodes(
 			"0", "Primary control number",
 			"1", "Secondary control number"
-		);
+		).setMqTag("type");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "OCLC library identifier", "NR",
 			"b", "System control number", "NR",
 			"c", "OAI set name", "NR",
 			"t", "Content type identifier", "NR"
 		);
+
 		getSubfield("a").setMqTag("oclcLibraryIdentifier");
 		getSubfield("b").setMqTag("otherSystemControlNumber");
+		getSubfield("c").setMqTag("oaiSet");
+		getSubfield("t").setMqTag("contentTypeIdentifier");
 	}
 }

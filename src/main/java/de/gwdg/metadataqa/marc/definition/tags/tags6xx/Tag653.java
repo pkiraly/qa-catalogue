@@ -23,17 +23,19 @@ public class Tag653 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "653";
 		label = "Index Term - Uncontrolled";
 		bibframeTag = "Subject";
 		mqTag = "UncontrolledIndexTerm";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Level of index term").setCodes(
 			" ", "No information provided",
 			"0", "No level specified",
 			"1", "Primary",
 			"2", "Secondary"
-		);
+		).setMqTag("level");
 		ind2 = new Indicator("Type of term or name").setCodes(
 			" ", "No information provided",
 			"0", "Topical term",
@@ -43,15 +45,16 @@ public class Tag653 extends DataFieldDefinition {
 			"4", "Chronological term",
 			"5", "Geographic name",
 			"6", "Genre/form term"
-		);
+		).setMqTag("type");
+
 		setSubfieldsWithCardinality(
 			"a", "Uncontrolled term", "R",
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("6").setMqTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
-
 	}
 }

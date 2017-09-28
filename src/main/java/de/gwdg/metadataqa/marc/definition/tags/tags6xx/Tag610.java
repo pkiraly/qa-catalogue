@@ -30,11 +30,12 @@ public class Tag610 extends DataFieldDefinition {
 		label = "Subject Added Entry - Corporate Name";
 		mqTag = "CorporateNameSubject";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Type of corporate name entry element").setCodes(
 			"0", "Inverted name",
 			"1", "Jurisdiction name",
 			"2", "Name in direct order"
-		);
+		).setMqTag("type");
 		ind2 = new Indicator("Thesaurus").setCodes(
 			"0", "Library of Congress Subject Headings",
 			"1", "LC subject headings for children's literature",
@@ -45,6 +46,7 @@ public class Tag610 extends DataFieldDefinition {
 			"6", "Répertoire de vedettes-matière",
 			"7", "Source specified in subfield $2"
 		).setMqTag("thesaurus");
+
 		setSubfieldsWithCardinality(
 			"a", "Corporate name or jurisdiction name as entry element", "NR",
 			"b", "Subordinate unit", "R",
@@ -75,8 +77,10 @@ public class Tag610 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
 		getSubfield("0").setContentParser(RecordControlNumberParser.getInstance());
+
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("b").setMqTag("subordinateUnit");
 		getSubfield("c").setMqTag("locationOfMeeting");

@@ -35,7 +35,7 @@ public class Tag539 extends DataFieldDefinition {
 		ind1 = new Indicator("The type of system control number").setCodes(
 			"0", "Primary control number",
 			"1", "Secondary control number"
-		);
+		).setMqTag("controlNumberType");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

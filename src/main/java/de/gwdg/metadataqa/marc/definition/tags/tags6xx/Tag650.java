@@ -25,16 +25,18 @@ public class Tag650 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "650";
 		label = "Subject Added Entry - Topical Term";
 		bibframeTag = "Topic";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Level of subject").setCodes(
 			" ", "No information provided",
 			"0", "No level specified",
 			"1", "Primary",
 			"2", "Secondary"
-		);
+		).setMqTag("subjectLevel");
 		ind2 = new Indicator("Thesaurus").setCodes(
 			"0", "Library of Congress Subject Headings",
 			"1", "LC subject headings for children's literature",
@@ -45,6 +47,7 @@ public class Tag650 extends DataFieldDefinition {
 			"6", "Répertoire de vedettes-matière",
 			"7", "Source specified in subfield $2"
 		).setMqTag("thesaurus");
+
 		setSubfieldsWithCardinality(
 			"a", "Topical term or geographic name entry element", "NR",
 			"b", "Topical term following geographic name entry element", "NR",
@@ -63,8 +66,10 @@ public class Tag650 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
 		getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
+
 		getSubfield("a").setMqTag("topicalTerm");
 		getSubfield("b").setMqTag("topicalTerm");
 		getSubfield("c").setMqTag("locationOfEvent");

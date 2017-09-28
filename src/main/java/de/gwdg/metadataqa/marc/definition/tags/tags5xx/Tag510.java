@@ -35,7 +35,7 @@ public class Tag510 extends DataFieldDefinition {
 			"2", "Coverage is selective",
 			"3", "Location in source not given",
 			"4", "Location in source given"
-		);
+		).setMqTag("coverageOrLocationInSource");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

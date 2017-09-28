@@ -33,7 +33,7 @@ public class Tag022 extends DataFieldDefinition {
 			" ", "No level specified",
 			"0", "Continuing resource of international interest",
 			"1", "Continuing resource not of international interest"
-		);
+		).setMqTag("levelOfInternationalInterest");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

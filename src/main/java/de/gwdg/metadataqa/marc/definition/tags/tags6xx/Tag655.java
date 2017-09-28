@@ -24,14 +24,16 @@ public class Tag655 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "655";
 		label = "Index Term - Genre/Form";
 		bibframeTag = "GenreForm";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Type of heading").setCodes(
 			" ", "Basic",
 			"0", "Faceted"
-		);
+		).setMqTag("type");
 		ind2 = new Indicator("Thesaurus").setCodes(
 			"0", "Library of Congress Subject Headings",
 			"1", "LC subject headings for children's literature",
@@ -58,7 +60,9 @@ public class Tag655 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("2").setCodeList(GenreFormCodeAndTermSourceCodes.getInstance());
+
 		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
 		getSubfield("b").setMqTag("nonfocusTerm");
 		getSubfield("c").setMqTag("facet");

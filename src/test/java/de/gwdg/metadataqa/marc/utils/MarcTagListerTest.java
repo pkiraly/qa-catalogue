@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.utils;
 
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
 import org.junit.Test;
 
 import java.util.List;
@@ -18,5 +19,19 @@ public class MarcTagListerTest {
 		assertNotEquals(0, tags.size());
 		assertEquals(216, tags.size());
 		assertEquals("Tag010", tags.get(0).getSimpleName());
+
+		for (Class<? extends DataFieldDefinition> tag : tags) {
+			DataFieldDefinition definition = TagDefinitionLoader.load(tag.getSimpleName().replace("Tag", ""));
+			if (!definition.getIndexTag().equals(definition.getTag())) {
+				if (definition.getInd1().exists()) {
+					assertNotEquals(String.format("Bad indicator1 tag at %s", definition.getTag()),
+						"ind1", definition.getInd1().getIndexTag("ind1"));
+				}
+				if (definition.getInd2().exists()) {
+					assertNotEquals(String.format("Bad indicator2 tag at %s", definition.getTag()),
+						"ind2", definition.getInd2().getIndexTag("ind2"));
+				}
+			}
+		}
 	}
 }

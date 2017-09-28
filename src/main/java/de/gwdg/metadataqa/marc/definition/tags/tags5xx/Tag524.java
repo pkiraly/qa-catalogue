@@ -27,12 +27,15 @@ public class Tag524 extends DataFieldDefinition {
 
 		tag = "524";
 		label = "Preferred Citation of Described Materials Note";
+		bibframeTag = "PreferredCitation";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Display constant controller").setCodes(
 			" ", "Cite as",
 			"8", "No display constant generated"
 		).setMqTag("displayConstant");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Preferred citation of described materials note", "NR",
 			"2", "Source of schema used", "NR",
@@ -40,6 +43,13 @@ public class Tag524 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("2").setCodeList(CitationSchemeSourceCodes.getInstance());
+
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("2").setMqTag("source");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

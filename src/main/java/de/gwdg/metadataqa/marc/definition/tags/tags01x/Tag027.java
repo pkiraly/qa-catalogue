@@ -23,12 +23,15 @@ public class Tag027 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "027";
 		label = "Standard Technical Report Number";
 		bibframeTag = "Strn";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Standard technical report number", "NR",
 			"q", "Qualifying information", "R",
@@ -36,6 +39,11 @@ public class Tag027 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
-		// getSubfield("5").setCodeList(OrganizationCodes.getInstance());
+
+		getSubfield("a").setBibframeTag("rdf:value");
+		getSubfield("q").setMqTag("qualifyer");
+		getSubfield("z").setMqTag("canceled");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

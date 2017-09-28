@@ -25,19 +25,22 @@ public class Tag041 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "041";
 		label = "Language Code";
 		bibframeTag = "Language";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Translation indication").setCodes(
 			" ", "No information provided",
 			"0", "Item not a translation/does not include a translation",
 			"1", "Item is or includes a translation"
-		);
+		).setMqTag("translationIndication");
 		ind2 = new Indicator("Source of code").setCodes(
 			" ", "MARC language code",
 			"7", "Source specified in subfield $2"
-		);
+		).setMqTag("sourceOfCode");
+
 		setSubfieldsWithCardinality(
 			"a", "Language code of text/sound track or separate title", "R",
 			"b", "Language code of summary or abstract", "R",
@@ -54,9 +57,8 @@ public class Tag041 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("a").setCodeList(LanguageCodes.getInstance());
-		getSubfield("2").setCodeList(LanguageCodeAndTermSourceCodes.getInstance());
-		getSubfield("a").setBibframeTag("rdf:value");
 		getSubfield("b").setCodeList(LanguageCodes.getInstance());
 		getSubfield("d").setCodeList(LanguageCodes.getInstance());
 		getSubfield("e").setCodeList(LanguageCodes.getInstance());
@@ -67,6 +69,19 @@ public class Tag041 extends DataFieldDefinition {
 		getSubfield("k").setCodeList(LanguageCodes.getInstance());
 		getSubfield("m").setCodeList(LanguageCodes.getInstance());
 		getSubfield("n").setCodeList(LanguageCodes.getInstance());
+		getSubfield("2").setCodeList(LanguageCodeAndTermSourceCodes.getInstance());
+
+		getSubfield("a").setBibframeTag("rdf:value");
+		getSubfield("b").setMqTag("ofSummary");
+		getSubfield("d").setMqTag("ofSungOrSpokenText");
+		getSubfield("e").setMqTag("ofLibrettos");
+		getSubfield("f").setMqTag("ofTableOfContents");
+		getSubfield("g").setMqTag("ofAccompanyingMaterial");
+		getSubfield("h").setMqTag("ofOriginal");
+		getSubfield("j").setMqTag("ofSubtitles");
+		getSubfield("k").setMqTag("ofTranslations");
+		getSubfield("m").setMqTag("ofOriginalAccompanyingMaterial");
+		getSubfield("n").setMqTag("ofOriginalLibretto");
 		getSubfield("2").setMqTag("source");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");

@@ -6,8 +6,8 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTermSourceCodes;
 
 /**
- * Musical Incipits Information
- * http://www.loc.gov/marc/bibliographic/bd031.html
+ * Date/Time and Place of an Event
+ * http://www.loc.gov/marc/bibliographic/bd033.html
  */
 public class Tag033 extends DataFieldDefinition {
 

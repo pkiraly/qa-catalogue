@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags5xx;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.general.codelist.ResourceActionTermSourceCodes;
 
 /**
  * Action Note
@@ -26,12 +27,15 @@ public class Tag583 extends DataFieldDefinition {
 
 		tag = "583";
 		label = "Action Note";
+		mqTag = "Action";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Privacy").setCodes(
 			" ", "Publications",
 			"8", "No display constant generated"
-		);
+		).setMqTag("privacy");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Action", "NR",
 			"b", "Action identification", "R",
@@ -55,6 +59,29 @@ public class Tag583 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
-		// TODO: $2 Resource Action Term Source Codes. https://www.loc.gov/standards/sourcelist/resource-action.html
+
+		getSubfield("2").setCodeList(ResourceActionTermSourceCodes.getInstance());
+
+		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
+		getSubfield("b").setMqTag("identification");
+		getSubfield("c").setMqTag("timeOrDate");
+		getSubfield("d").setMqTag("interval");
+		getSubfield("e").setMqTag("contingency");
+		getSubfield("f").setMqTag("authorization");
+		getSubfield("h").setMqTag("jurisdiction");
+		getSubfield("i").setMqTag("method");
+		getSubfield("j").setMqTag("site");
+		getSubfield("k").setBibframeTag("agent");
+		getSubfield("l").setBibframeTag("status");
+		getSubfield("n").setMqTag("extent");
+		getSubfield("o").setMqTag("typeOfUnit");
+		getSubfield("u").setMqTag("uri");
+		getSubfield("x").setMqTag("nonpublicNote");
+		getSubfield("z").setBibframeTag("publicNote");
+		getSubfield("2").setMqTag("source");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

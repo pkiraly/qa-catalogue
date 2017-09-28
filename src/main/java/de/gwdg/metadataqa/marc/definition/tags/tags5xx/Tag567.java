@@ -26,12 +26,15 @@ public class Tag567 extends DataFieldDefinition {
 
 		tag = "567";
 		label = "Methodology Note";
+		mqTag = "Methodology";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Display constant controller").setCodes(
 			" ", "Methodology",
 			"8", "No display constant generated"
 		).setMqTag("displayConstant");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Methodology note", "NR",
 			"b", "Controlled term", "R",
@@ -40,5 +43,12 @@ public class Tag567 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("b").setMqTag("controlledTerm");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("2").setMqTag("source");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

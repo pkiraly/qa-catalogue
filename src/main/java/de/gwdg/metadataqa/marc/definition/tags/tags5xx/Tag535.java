@@ -27,12 +27,15 @@ public class Tag535 extends DataFieldDefinition {
 
 		tag = "535";
 		label = "Location of Originals/Duplicates Note";
+		mqTag = "LocationOfOriginalsOrDuplicates";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Custodial role").setCodes(
 			"1", "Holder of originals",
 			"2", "Holder of duplicates"
-		);
+		).setMqTag("custodialRole");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Custodian", "NR",
 			"b", "Postal address", "R",
@@ -43,6 +46,16 @@ public class Tag535 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("g").setCodeList(CountryCodes.getInstance());
+
+		getSubfield("a").setMqTag("custodian");
+		getSubfield("b").setMqTag("postalAddress");
+		getSubfield("c").setMqTag("country");
+		getSubfield("d").setMqTag("telecommunicationsAddress");
+		getSubfield("g").setMqTag("repositoryLocation");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

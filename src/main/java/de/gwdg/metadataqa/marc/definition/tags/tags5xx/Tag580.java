@@ -26,13 +26,20 @@ public class Tag580 extends DataFieldDefinition {
 
 		tag = "580";
 		label = "Linking Entry Complexity Note";
+		mqTag = "LinkingEntryComplexity";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Linking entry complexity note", "NR",
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

@@ -26,9 +26,12 @@ public class Tag585 extends DataFieldDefinition {
 
 		tag = "585";
 		label = "Exhibitions Note";
+		mqTag = "Exhibitions";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Exhibitions note", "NR",
 			"3", "Materials specified", "NR",
@@ -36,5 +39,11 @@ public class Tag585 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

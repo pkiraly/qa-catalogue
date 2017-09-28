@@ -26,9 +26,12 @@ public class Tag540 extends DataFieldDefinition {
 
 		tag = "540";
 		label = "Terms Governing Use and Reproduction Note";
+		bibframeTag = "UsePolicy";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Terms governing use and reproduction", "NR",
 			"b", "Jurisdiction", "NR",
@@ -40,5 +43,15 @@ public class Tag540 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
+		getSubfield("b").setMqTag("jurisdiction");
+		getSubfield("c").setBibframeTag("source");
+		getSubfield("d").setMqTag("authorizedUsers");
+		getSubfield("u").setBibframeTag("rdfs:label").setMqTag("uri");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

@@ -26,13 +26,16 @@ public class Tag565 extends DataFieldDefinition {
 
 		tag = "565";
 		label = "Case File Characteristics Note";
+		mqTag = "CaseFileCharacteristics";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Display constant controller").setCodes(
 			" ", "File size",
 			"0", "Case file characteristics",
 			"8", "No display constant generated"
 		).setMqTag("displayConstant");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Number of cases/variables", "NR",
 			"b", "Name of variable", "R",
@@ -43,5 +46,14 @@ public class Tag565 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setMqTag("numberOfCases");
+		getSubfield("b").setMqTag("variableName");
+		getSubfield("c").setMqTag("analysisUnit");
+		getSubfield("d").setMqTag("universeOfData");
+		getSubfield("e").setMqTag("filingScheme");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

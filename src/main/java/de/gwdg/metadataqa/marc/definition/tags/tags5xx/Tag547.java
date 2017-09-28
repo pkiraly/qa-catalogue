@@ -26,13 +26,20 @@ public class Tag547 extends DataFieldDefinition {
 
 		tag = "547";
 		label = "Former Title Complexity Note";
+		mqTag = "FormerTitleComplexity";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Former title complexity note", "NR",
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

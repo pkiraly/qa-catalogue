@@ -28,8 +28,10 @@ public class Tag536 extends DataFieldDefinition {
 		label = "Funding Information Note";
 		bibframeTag = "FundingInformation";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Text of note", "NR",
 			"b", "Contract number", "R",
@@ -42,5 +44,16 @@ public class Tag536 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
+		getSubfield("b").setMqTag("contract");
+		getSubfield("c").setMqTag("grant");
+		getSubfield("d").setMqTag("undifferentiatedNumber");
+		getSubfield("e").setMqTag("program");
+		getSubfield("f").setMqTag("project");
+		getSubfield("g").setMqTag("tast");
+		getSubfield("h").setMqTag("workUnit");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

@@ -26,9 +26,12 @@ public class Tag562 extends DataFieldDefinition {
 
 		tag = "562";
 		label = "Copy and Version Identification Note";
+		mqTag = "CopyAndVersionIdentification";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Identifying markings", "R",
 			"b", "Copy identification", "R",
@@ -40,5 +43,15 @@ public class Tag562 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setMqTag("identifyingMarkings");
+		getSubfield("b").setMqTag("copyIdentification");
+		getSubfield("c").setMqTag("versionIdentification");
+		getSubfield("d").setMqTag("presentationFormat");
+		getSubfield("e").setMqTag("numberOfCopies");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

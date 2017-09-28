@@ -26,9 +26,12 @@ public class Tag552 extends DataFieldDefinition {
 
 		tag = "552";
 		label = "Entity and Attribute Information Note";
+		mqTag = "EntityAndAttributeInformation";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Entity type label", "NR",
 			"b", "Entity type definition and source", "NR",
@@ -51,5 +54,25 @@ public class Tag552 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setMqTag("entityType");
+		getSubfield("b").setMqTag("entityTypeDefinition");
+		getSubfield("c").setMqTag("attribute");
+		getSubfield("d").setMqTag("attributeDefinition");
+		getSubfield("e").setMqTag("enumeratedDomainValue");
+		getSubfield("f").setMqTag("enumeratedDomainValueDefinition");
+		getSubfield("g").setMqTag("range");
+		getSubfield("h").setMqTag("codeset");
+		getSubfield("i").setMqTag("unrepresentableDomain");
+		getSubfield("j").setMqTag("attributeUnits");
+		getSubfield("k").setMqTag("date");
+		getSubfield("l").setMqTag("attributeValueAccuracy");
+		getSubfield("m").setMqTag("attributeValueAccuracyExplanation");
+		getSubfield("n").setMqTag("attributeMeasurementFrequency");
+		getSubfield("o").setMqTag("overview");
+		getSubfield("p").setMqTag("detailCitation");
+		getSubfield("u").setMqTag("uri");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

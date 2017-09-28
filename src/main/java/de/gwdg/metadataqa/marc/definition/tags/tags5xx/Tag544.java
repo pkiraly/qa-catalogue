@@ -26,13 +26,16 @@ public class Tag544 extends DataFieldDefinition {
 
 		tag = "544";
 		label = "Location of Other Archival Materials Note";
+		mqTag = "LocationOfOtherArchivalMaterials";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Relationship").setCodes(
 			" ", "No information provided",
 			"0", "Associated materials",
 			"1", "Related materials"
-		);
+		).setMqTag("relationship");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Custodian", "R",
 			"b", "Address", "R",
@@ -44,5 +47,15 @@ public class Tag544 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setMqTag("custodian");
+		getSubfield("b").setMqTag("address");
+		getSubfield("c").setMqTag("country");
+		getSubfield("d").setMqTag("title");
+		getSubfield("e").setMqTag("provenance");
+		getSubfield("n").setMqTag("note");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

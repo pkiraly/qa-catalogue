@@ -26,13 +26,16 @@ public class Tag561 extends DataFieldDefinition {
 
 		tag = "561";
 		label = "Ownership and Custodial History";
+		mqTag = "CustodialHistory";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Privacy").setCodes(
 			" ", "No information provided",
 			"0", "Private",
 			"1", "Not private"
-		);
+		).setMqTag("privacy");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "History", "NR",
 			"u", "Uniform Resource Identifier", "R",
@@ -41,5 +44,12 @@ public class Tag561 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setBibframeTag("custodialHistory").setMqTag("rdf:value");
+		getSubfield("u").setMqTag("uri");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

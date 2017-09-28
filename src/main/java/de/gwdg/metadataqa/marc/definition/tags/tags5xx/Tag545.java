@@ -26,13 +26,16 @@ public class Tag545 extends DataFieldDefinition {
 
 		tag = "545";
 		label = "Biographical or Historical Data";
+		mqTag = "BiographicalOrHistoricalData";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Type of data").setCodes(
 			" ", "No information provided",
 			"0", "Biographical sketch",
 			"1", "Administrative history"
-		);
+		).setMqTag("type");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Biographical or historical data", "NR",
 			"b", "Expansion", "NR",
@@ -40,5 +43,11 @@ public class Tag545 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("b").setMqTag("expansion");
+		getSubfield("u").setMqTag("uri");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

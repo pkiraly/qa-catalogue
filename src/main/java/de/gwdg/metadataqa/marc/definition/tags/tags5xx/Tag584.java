@@ -26,9 +26,12 @@ public class Tag584 extends DataFieldDefinition {
 
 		tag = "584";
 		label = "Accumulation and Frequency of Use Note";
+		mqTag = "AccumulationAndFrequencyOfUse";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Accumulation", "R",
 			"b", "Frequency of use", "R",
@@ -37,5 +40,12 @@ public class Tag584 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("b").setMqTag("frequency");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

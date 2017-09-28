@@ -24,22 +24,26 @@ public class Tag033 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "033";
 		label = "Date/Time and Place of an Event";
 		bibframeTag = "Capture";
+		mqTag = "EventDateTimeAndPlace";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Type of date in subfield $a").setCodes(
 			" ", "No date information",
 			"0", "Single date",
 			"1", "Multiple single dates",
 			"2", "Range of dates"
-		);
+		).setMqTag("dateType");
 		ind2 = new Indicator("Type of event").setCodes(
 			" ", "No information provided",
 			"0", "Capture",
 			"1", "Broadcast",
 			"2", "Finding"
-		);
+		).setMqTag("eventType");
+
 		setSubfieldsWithCardinality(
 			"a", "Formatted date/time", "R",
 			"b", "Geographic classification area code", "R",
@@ -51,6 +55,17 @@ public class Tag033 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
+
+		getSubfield("a").setBibframeTag("date");
+		getSubfield("b").setBibframeTag("place").setMqTag("area");
+		getSubfield("c").setMqTag("subarea");
+		getSubfield("p").setBibframeTag("place");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("2").setMqTag("source");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

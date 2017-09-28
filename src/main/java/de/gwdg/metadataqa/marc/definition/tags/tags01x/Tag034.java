@@ -6,8 +6,8 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CartographicDataSourceCodes;
 
 /**
- * Musical Incipits Information
- * http://www.loc.gov/marc/bibliographic/bd031.html
+ * Coded Cartographic Mathematical Data
+ * http://www.loc.gov/marc/bibliographic/bd034.html
  */
 public class Tag034 extends DataFieldDefinition {
 

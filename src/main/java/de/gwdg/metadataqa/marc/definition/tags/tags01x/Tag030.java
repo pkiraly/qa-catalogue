@@ -26,20 +26,25 @@ public class Tag030 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "030";
 		label = "CODEN Designation";
 		bibframeTag = "Coden";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Publisher or distributor number", "NR",
-			"b", "Source", "NR",
-			"q", "Qualifying information", "R",
+			"z", "Canceled/invalid CODEN", "R",
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
-		// getSubfield("5").setCodeList(OrganizationCodes.getInstance());
+
 		getSubfield("a").setBibframeTag("rdf:value");
+		getSubfield("z").setBibframeTag("canceled");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

@@ -24,20 +24,23 @@ public class Tag034 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "034";
 		label = "Coded Cartographic Mathematical Data";
 		bibframeTag = "Scale";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Type of scale").setCodes(
 			"0", "Scale indeterminable/No scale recorded",
 			"1", "Single scale",
 			"3", "Range of scales"
-		);
+		).setMqTag("typeOfScale");
 		ind2 = new Indicator("Type of ring").setCodes(
 			" ", "Not applicable",
 			"0", "Outer ring",
 			"1", "Exclusion ring"
-		);
+		).setMqTag("typeOfRing");
+
 		setSubfieldsWithCardinality(
 			"a", "Category of scale", "NR",
 			"b", "Constant ratio linear horizontal scale", "R",
@@ -64,11 +67,37 @@ public class Tag034 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("a").setCodes(
 			"a", "Linear scale",
 			"b", "Angular scale",
 			"z", "Other type of scale"
 		);
 		getSubfield("2").setCodeList(CartographicDataSourceCodes.getInstance());
+
+		getSubfield("a").setMqTag("category");
+		getSubfield("b").setMqTag("linearHorizontalScale");
+		getSubfield("c").setMqTag("linearVerticalScale");
+		getSubfield("d").setMqTag("westernmostLongitude");
+		getSubfield("e").setMqTag("easternmostLongitude");
+		getSubfield("f").setMqTag("northernmostLatitude");
+		getSubfield("g").setMqTag("southernmostLatitude");
+		getSubfield("h").setMqTag("angularScale");
+		getSubfield("j").setMqTag("declinationNorthernLimit");
+		getSubfield("k").setMqTag("declinationSouthernLimit");
+		getSubfield("m").setMqTag("rightAscensionEasternLimit");
+		getSubfield("n").setMqTag("rightAscensionWesternLimit");
+		getSubfield("p").setMqTag("equinox");
+		getSubfield("r").setMqTag("distanceFromEarth");
+		getSubfield("s").setMqTag("gRingLatitude");
+		getSubfield("t").setMqTag("gRingLongitude");
+		getSubfield("x").setMqTag("beginningDate");
+		getSubfield("y").setMqTag("endingDate");
+		getSubfield("z").setMqTag("extraterrestrialBody");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("2").setMqTag("source");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

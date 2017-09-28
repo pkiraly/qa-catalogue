@@ -23,9 +23,12 @@ public class Tag028 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "028";
 		label = "Publisher or Distributor Number";
+		mqTag = "PublisherNumber";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Type of number").setCodes(
 			"0", "Issue number",
 			"1", "Matrix number",
@@ -34,7 +37,8 @@ public class Tag028 extends DataFieldDefinition {
 			"4", "Video recording publisher number",
 			"5", "Other publisher number",
 			"6", "Distributor number"
-		);
+		).setMqTag("type");
+		// TODO: overwrite getIndexTag to use these values:
 		ind1.getCode("0").setBibframeTag("AudioIssueNumber");
 		ind1.getCode("1").setBibframeTag("MatrixNumber");
 		ind1.getCode("2").setBibframeTag("MusicPlate");
@@ -47,7 +51,8 @@ public class Tag028 extends DataFieldDefinition {
 			"1", "Note, added entry",
 			"2", "Note, no added entry",
 			"3", "No note, added entry"
-		);
+		).setMqTag("noteController");
+
 		setSubfieldsWithCardinality(
 			"a", "Publisher or distributor number", "NR",
 			"b", "Source", "NR",
@@ -55,9 +60,11 @@ public class Tag028 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
-		// getSubfield("5").setCodeList(OrganizationCodes.getInstance());
+
 		getSubfield("a").setBibframeTag("rdf:value");
-		getSubfield("a").setBibframeTag("Source");
-		getSubfield("a").setBibframeTag("qualifier");
+		getSubfield("b").setBibframeTag("source");
+		getSubfield("q").setBibframeTag("qualifier");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

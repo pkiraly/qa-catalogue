@@ -26,9 +26,12 @@ public class Tag534 extends DataFieldDefinition {
 
 		tag = "534";
 		label = "Original Version Note";
+		mqTag = "OriginalVersion";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Main entry of original", "NR",
 			"b", "Edition statement of original", "NR",
@@ -48,6 +51,23 @@ public class Tag534 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setMqTag("mainEntry");
+		getSubfield("b").setMqTag("edition");
+		getSubfield("c").setMqTag("publication");
+		getSubfield("e").setMqTag("physicalDescription");
+		getSubfield("f").setMqTag("series");
+		getSubfield("k").setMqTag("keyTitle");
+		getSubfield("l").setMqTag("location");
+		getSubfield("m").setMqTag("material");
+		getSubfield("n").setMqTag("note");
+		getSubfield("o").setMqTag("otherIdentifier");
+		getSubfield("p").setMqTag("introductoryPhrase");
+		getSubfield("t").setMqTag("title");
 		getSubfield("x").setMqTag("issn");
+		getSubfield("z").setMqTag("isbn");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

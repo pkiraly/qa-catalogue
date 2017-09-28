@@ -27,12 +27,15 @@ public class Tag526 extends DataFieldDefinition {
 
 		tag = "526";
 		label = "Study Program Information Note";
+		mqTag = "StudyProgram";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Display constant controller").setCodes(
 			"0", "Reading program",
 			"8", "No display constant generated"
 		).setMqTag("displayConstant");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Program name", "NR",
 			"b", "Interest level", "NR",
@@ -45,7 +48,18 @@ public class Tag526 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("5").setCodeList(OrganizationCodes.getInstance());
+
 		getSubfield("a").setBibframeTag("studyProgramName");
+		getSubfield("b").setBibframeTag("interestLevel");
+		getSubfield("c").setBibframeTag("readingLevel");
+		getSubfield("d").setBibframeTag("titlePoint");
+		getSubfield("i").setBibframeTag("displayText");
+		getSubfield("x").setBibframeTag("nonpublicNote");
+		getSubfield("z").setBibframeTag("publicNote");
+		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

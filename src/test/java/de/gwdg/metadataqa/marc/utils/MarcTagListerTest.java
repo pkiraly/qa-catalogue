@@ -16,7 +16,7 @@ public class MarcTagListerTest {
 		List<Class<? extends DataFieldDefinition>> tags = MarcTagLister.listTags();
 		assertNotNull(tags);
 		assertNotEquals(0, tags.size());
-		assertEquals(215, tags.size());
+		assertEquals(216, tags.size());
 		assertEquals("Tag010", tags.get(0).getSimpleName());
 	}
 }

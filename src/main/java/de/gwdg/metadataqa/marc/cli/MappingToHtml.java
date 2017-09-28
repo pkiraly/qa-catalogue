@@ -1,7 +1,6 @@
 package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.*;
-import de.gwdg.metadataqa.marc.Leader.Type;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.utils.MarcTagLister;
 

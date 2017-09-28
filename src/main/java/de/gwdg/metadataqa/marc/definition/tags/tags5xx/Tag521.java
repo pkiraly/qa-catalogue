@@ -26,7 +26,9 @@ public class Tag521 extends DataFieldDefinition {
 
 		tag = "521";
 		label = "Target Audience Note";
+		bibframeTag = "IntendedAudience";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Display constant controller").setCodes(
 			" ", "Audience",
 			"0", "Reading grade level",
@@ -37,6 +39,7 @@ public class Tag521 extends DataFieldDefinition {
 			"8", "No display constant generated"
 		).setMqTag("displayConstant");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Target audience note", "R",
 			"b", "Source", "NR",
@@ -44,5 +47,11 @@ public class Tag521 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
+		getSubfield("b").setBibframeTag("source");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

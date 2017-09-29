@@ -26,9 +26,12 @@ public class Tag754 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "754";
 		label = "Added Entry - Taxonomic Identification";
+		mqTag = "TaxonomicIdentification";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Taxonomic name", "R",
 			"c", "Taxonomic category", "R",
@@ -40,6 +43,17 @@ public class Tag754 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("2").setCodeList(TaxonomicClassificationSourceCodes.getInstance());
+
+		getSubfield("a").setMqTag("name");
+		getSubfield("c").setMqTag("category");
+		getSubfield("d").setMqTag("commonOrAlternativeName");
+		getSubfield("x").setMqTag("nonPublicNote");
+		getSubfield("z").setMqTag("publicNote");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("2").setMqTag("source");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

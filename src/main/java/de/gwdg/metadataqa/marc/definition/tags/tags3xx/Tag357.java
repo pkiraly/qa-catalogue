@@ -22,11 +22,15 @@ public class Tag357 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "357";
 		label = "Originator Dissemination Control";
+		mqTag = "OriginatorDisseminationControl";
 		cardinality = Cardinality.Nonrepeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Originator control term", "NR",
 			"b", "Originating agency", "R",
@@ -35,5 +39,12 @@ public class Tag357 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("b").setMqTag("originatingAgency");
+		getSubfield("c").setMqTag("authorizedRecipients");
+		getSubfield("g").setMqTag("otherRestrictions");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

@@ -22,19 +22,23 @@ public class Tag363 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "363";
 		label = "Normalized Date and Sequential Designation";
+		mqTag = "NormalizedDateAndSequentialDesignation";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Start/End designator").setCodes(
 			" ", "No information provided",
 			"0", "Starting information",
 			"1", "Ending information"
-		);
+		).setMqTag("startOrEndDesignator");
 		ind2 = new Indicator("State of issuance").setCodes(
 			" ", "Not specified",
 			"0", "Closed",
 			"1", "Open"
-		);
+		).setMqTag("stateOfIssuance");
+
 		setSubfieldsWithCardinality(
 			"a", "First level of enumeration", "NR",
 			"b", "Second level of enumeration", "NR",
@@ -56,5 +60,26 @@ public class Tag363 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setMqTag("firstLevel");
+		getSubfield("b").setMqTag("secondLevel");
+		getSubfield("c").setMqTag("thirdLevel");
+		getSubfield("d").setMqTag("fourthLevel");
+		getSubfield("e").setMqTag("fifthLevel");
+		getSubfield("f").setMqTag("sixthLevel");
+		getSubfield("g").setMqTag("alternativeFirstLevel");
+		getSubfield("h").setMqTag("alternativeSecondLevel");
+		getSubfield("i").setMqTag("firstLevelOfChronology");
+		getSubfield("j").setMqTag("secondLevelOfChronology");
+		getSubfield("k").setMqTag("thirdLevelOfChronology");
+		getSubfield("l").setMqTag("fourthLevelOfChronology");
+		getSubfield("m").setMqTag("alternativeNumberingAndChronology");
+		getSubfield("u").setMqTag("firstLevelTextualDesignation");
+		getSubfield("v").setMqTag("firstLevelOfChronologyIssuance");
+		getSubfield("x").setMqTag("nonPublicNote");
+		getSubfield("z").setMqTag("publicNote");
+		getSubfield("z").setMqTag("source");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

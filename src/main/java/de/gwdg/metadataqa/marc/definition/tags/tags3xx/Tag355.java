@@ -24,9 +24,12 @@ public class Tag355 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "355";
 		label = "Security Classification Control";
+		mqTag = "SecurityClassificationControl";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Controlled element").setCodes(
 			"0", "Document",
 			"1", "Title",
@@ -35,8 +38,9 @@ public class Tag355 extends DataFieldDefinition {
 			"4", "Author",
 			"5", "Record",
 			"8", "None of the above"
-		);
+		).setMqTag("controlledElement");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Security classification", "NR",
 			"b", "Handling instructions", "R",
@@ -50,7 +54,20 @@ public class Tag355 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("f").setCodeList(CountryCodes.getInstance());
 		getSubfield("j").setCodeList(OrganizationCodes.getInstance());
+
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("b").setMqTag("handlingInstructions");
+		getSubfield("c").setMqTag("externalDissemination");
+		getSubfield("d").setMqTag("downgradingEvent");
+		getSubfield("e").setMqTag("classificationSystem");
+		getSubfield("f").setMqTag("countryOfOrigin");
+		getSubfield("g").setMqTag("downgradingDate");
+		getSubfield("h").setMqTag("declassificationDate");
+		getSubfield("j").setBibframeTag("authorization");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

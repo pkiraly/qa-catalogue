@@ -27,13 +27,16 @@ public class Tag388 extends DataFieldDefinition {
 
 		tag = "388";
 		label = "Time Period of Creation";
+		mqTag = "TimePeriodOfCreation";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Type of time period").setCodes(
 			" ", "No information provided",
 			"1", "Creation of work",
 			"2", "Creation of aggregate work"
-		);
+		).setMqTag("type");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Time period of creation term", "R",
 			"0", "Authority record control number or standard number", "R",
@@ -43,5 +46,12 @@ public class Tag388 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		getSubfield("2").setCodeList(TemporalTermSourceCodes.getInstance());
+
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("2").setMqTag("source");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

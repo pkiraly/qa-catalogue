@@ -25,7 +25,9 @@ public class Tag382 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "382";
 		label = "Medium of Performance";
+		bibframeTag = "MusicMedium";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Display constant controller").setCodes(
 			" ", "No information provided",
 			"0", "Medium of performance",
@@ -35,7 +37,8 @@ public class Tag382 extends DataFieldDefinition {
 			" ", "No information provided",
 			"0", "Not intended for access",
 			"1", "Intended for access"
-		);
+		).setMqTag("accessControl");
+
 		setSubfieldsWithCardinality(
 			"a", "Medium of performance", "R",
 			"b", "Soloist", "R",
@@ -53,6 +56,23 @@ public class Tag382 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("2").setCodeList(MusicalInstrumentationAndVoiceSourceCodes.getInstance());
+
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("b").setMqTag("Soloist");
+		getSubfield("d").setMqTag("doublingInstrument");
+		getSubfield("e").setMqTag("numberOfEnsembles");
+		getSubfield("n").setMqTag("numberOfPerformers");
+		getSubfield("p").setMqTag("alternativeMedium");
+		getSubfield("r").setMqTag("totalNumberOfIndividuals");
+		getSubfield("s").setMqTag("totalNumberOfPerformers");
+		getSubfield("t").setMqTag("totalNumberOfEnsembles");
+		getSubfield("v").setMqTag("note");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("2").setMqTag("source");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags3xx;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTermSourceCodes;
 
 /**
  * Creator/Contributor Characteristics
@@ -26,9 +27,12 @@ public class Tag386 extends DataFieldDefinition {
 
 		tag = "386";
 		label = "Creator/Contributor Characteristics";
+		bibframeTag = "CreatorCharacteristic";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Creator/contributor term", "R",
 			"b", "Creator/contributor code", "R",
@@ -42,5 +46,19 @@ public class Tag386 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
+
+		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
+		getSubfield("b").setMqTag("code");
+		getSubfield("i").setMqTag("relationshipInformation");
+		getSubfield("m").setMqTag("demographicGroupTerm");
+		getSubfield("n").setMqTag("demographicGroupCode");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("2").setMqTag("source");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("4").setMqTag("relationship");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

@@ -26,13 +26,16 @@ public class Tag720 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "720";
 		label = "Added Entry - Uncontrolled Name";
+		mqTag = "UncontrolledName";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Type of name").setCodes(
 			" ", "Not specified",
 			"1", "Personal",
 			"2", "Other"
-		);
+		).setMqTag("type");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Name", "NR",
 			"e", "Relator term", "R",
@@ -40,6 +43,12 @@ public class Tag720 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
-	}
+
+		getSubfield("4").setBibframeTag("rdfs:label").setMqTag("rdf:value");
+		getSubfield("4").setMqTag("relator");
+		getSubfield("4").setMqTag("relationship");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");	}
 }

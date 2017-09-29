@@ -35,8 +35,9 @@ public class Tag654 extends DataFieldDefinition {
 			"0", "No level specified",
 			"1", "Primary",
 			"2", "Secondary"
-		);
+		).setMqTag("subjectLevel");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Focus term", "R",
 			"b", "Non-focus term", "R",

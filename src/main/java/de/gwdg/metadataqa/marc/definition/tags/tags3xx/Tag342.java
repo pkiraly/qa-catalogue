@@ -24,11 +24,13 @@ public class Tag342 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "342";
 		label = "Geospatial Reference Data";
+		mqTag = "GeospatialReferenceData";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Geospatial reference dimension").setCodes(
 			"0", "Horizontal coordinate system",
 			"1", "Vertical coordinate system"
-		);
+		).setMqTag("dimension");
 		ind2 = new Indicator("Geospatial reference method").setCodes(
 			"0", "Geographic",
 			"1", "Map projection",
@@ -39,7 +41,8 @@ public class Tag342 extends DataFieldDefinition {
 			"6", "Altitude",
 			"7", "Method specified in $2",
 			"8", "Depth"
-		);
+		).setMqTag("method");
+
 		setSubfieldsWithCardinality(
 			"a", "Name", "NR",
 			"b", "Coordinate units or distance units", "NR",
@@ -68,5 +71,32 @@ public class Tag342 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setMqTag("name");
+		getSubfield("b").setMqTag("units");
+		getSubfield("c").setMqTag("latitudeResolution");
+		getSubfield("d").setMqTag("longitudeResolution");
+		getSubfield("e").setMqTag("obliqueLineLatitude");
+		getSubfield("f").setMqTag("obliqueLineLongitude");
+		getSubfield("g").setMqTag("longitudeOfCentralMeridian");
+		getSubfield("h").setMqTag("latitudeOfProjectionCenter");
+		getSubfield("i").setMqTag("falseEasting");
+		getSubfield("j").setMqTag("falseNorthing");
+		getSubfield("k").setMqTag("scaleFactor");
+		getSubfield("l").setMqTag("heightOfPerspective");
+		getSubfield("m").setMqTag("azimuthalAngle");
+		getSubfield("n").setMqTag("azimuthMeasurePoint");
+		getSubfield("o").setMqTag("landsatNumber");
+		getSubfield("p").setMqTag("zoneIdentifier");
+		getSubfield("q").setMqTag("ellipsoidName");
+		getSubfield("r").setMqTag("semiMajorAxis");
+		getSubfield("s").setMqTag("denominatorOfFlatteningRatio");
+		getSubfield("t").setMqTag("verticalResolution");
+		getSubfield("u").setMqTag("verticalEncodingMethod");
+		getSubfield("v").setMqTag("localProjection");
+		getSubfield("w").setMqTag("georeference");
+		getSubfield("2").setBibframeTag("source");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

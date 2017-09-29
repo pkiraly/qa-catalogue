@@ -22,11 +22,15 @@ public class Tag346 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "346";
 		label = "Video Characteristics";
+		bibframeTag = "VideoCharacteristic";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Video format", "R",
 			"b", "Broadcast standard", "R",
@@ -36,5 +40,13 @@ public class Tag346 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setBibframeTag("videoFormat");
+		getSubfield("b").setBibframeTag("broadcastStandard");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("2").setBibframeTag("source");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

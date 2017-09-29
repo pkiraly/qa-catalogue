@@ -46,14 +46,14 @@ public class Tag344 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 
-		getSubfield("a").setMqTag("recordingMethod");
-		getSubfield("b").setMqTag("recordingMedium");
-		getSubfield("c").setMqTag("playingSpeed");
-		getSubfield("d").setMqTag("grooveCharacteristics");
-		getSubfield("e").setMqTag("trackConfig");
-		getSubfield("f").setMqTag("tapeConfig");
-		getSubfield("g").setMqTag("playbackChannels");
-		getSubfield("h").setMqTag("playbackCharacteristic");
+		getSubfield("a").setBibframeTag("recordingMethod");
+		getSubfield("b").setBibframeTag("recordingMedium");
+		getSubfield("c").setBibframeTag("playingSpeed");
+		getSubfield("d").setBibframeTag("grooveCharacteristics");
+		getSubfield("e").setBibframeTag("trackConfig");
+		getSubfield("f").setBibframeTag("tapeConfig");
+		getSubfield("g").setBibframeTag("playbackChannels");
+		getSubfield("h").setBibframeTag("playbackCharacteristic");
 		getSubfield("0").setMqTag("authorityRecordControlNumber");
 		getSubfield("2").setBibframeTag("source");
 		getSubfield("3").setMqTag("materialsSpecified");

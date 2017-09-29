@@ -22,11 +22,15 @@ public class Tag345 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "345";
 		label = "Projection Characteristics of Moving Image";
+		bibframeTag = "ProjectionCharacteristic";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Presentation format", "R",
 			"b", "Projection speed", "R",
@@ -36,5 +40,13 @@ public class Tag345 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setBibframeTag("presentationFormat");
+		getSubfield("b").setBibframeTag("projectionSpeed");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("2").setBibframeTag("source");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

@@ -28,8 +28,10 @@ public class Tag337 extends DataFieldDefinition {
 		bibframeTag = "Media";
 		mqTag = "MediaType";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Media type term", "R",
 			"b", "Media type code", "R",
@@ -39,7 +41,9 @@ public class Tag337 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("2").setCodeList(GenreFormCodeAndTermSourceCodes.getInstance());
+
 		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
 		getSubfield("b").setMqTag("mediaTypeCode");
 		getSubfield("0").setMqTag("authorityRecordControlNumber");

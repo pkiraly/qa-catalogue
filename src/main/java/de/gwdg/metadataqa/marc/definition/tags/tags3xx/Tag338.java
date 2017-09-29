@@ -28,8 +28,10 @@ public class Tag338 extends DataFieldDefinition {
 		bibframeTag = "Carrier";
 		mqTag = "CarrierType";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Carrier type term", "R",
 			"b", "Carrier type code", "R",
@@ -39,7 +41,9 @@ public class Tag338 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("2").setCodeList(GenreFormCodeAndTermSourceCodes.getInstance());
+
 		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
 		getSubfield("b").setMqTag("carrierTypeCode");
 		getSubfield("0").setMqTag("authorityRecordControlNumber");

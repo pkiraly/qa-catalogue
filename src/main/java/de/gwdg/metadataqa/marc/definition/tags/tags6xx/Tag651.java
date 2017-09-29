@@ -29,6 +29,7 @@ public class Tag651 extends DataFieldDefinition {
 		label = "Subject Added Entry - Geographic Name";
 		bibframeTag = "Geographic";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator("Thesaurus").setCodes(
 			"0", "Library of Congress Subject Headings",
@@ -40,6 +41,7 @@ public class Tag651 extends DataFieldDefinition {
 			"6", "Répertoire de vedettes-matière",
 			"7", "Source specified in subfield $2"
 		).setMqTag("thesaurus");
+
 		setSubfieldsWithCardinality(
 			"a", "Geographic name", "NR",
 			"e", "Relator term", "R",
@@ -57,6 +59,7 @@ public class Tag651 extends DataFieldDefinition {
 		);
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
 		getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
+
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("e").setMqTag("relator");
 		getSubfield("g").setMqTag("miscellaneous");

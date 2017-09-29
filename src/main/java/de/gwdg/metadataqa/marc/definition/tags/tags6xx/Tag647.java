@@ -26,6 +26,7 @@ public class Tag647 extends DataFieldDefinition {
 		tag = "647";
 		label = "Subject Added Entry - Named Event";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator("Thesaurus").setCodes(
 			"0", "Library of Congress Subject Headings",
@@ -37,6 +38,7 @@ public class Tag647 extends DataFieldDefinition {
 			"6", "Répertoire de vedettes-matière",
 			"7", "Source specified in subfield $2"
 		).setMqTag("thesaurus");
+
 		setSubfieldsWithCardinality(
 			"a", "Named event", "NR",
 			"c", "Location of named event", "R",
@@ -52,6 +54,7 @@ public class Tag647 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("v").setBibframeTag("formGenre").setMqTag("formSubdivision");
 		getSubfield("x").setBibframeTag("topic").setMqTag("generalSubdivision");
 		getSubfield("y").setBibframeTag("temporal").setMqTag("chronologicalSubdivision");

@@ -27,7 +27,9 @@ public class Tag654 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "654";
 		label = "Subject Added Entry - Faceted Topical Terms";
+		mqTag = "FacetedTopicalTerms";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Level of subject").setCodes(
 			" ", "No information provided",
 			"0", "No level specified",
@@ -50,10 +52,23 @@ public class Tag654 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
 		getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
+
+		getSubfield("a").setMqTag("focusTerm");
+		getSubfield("b").setMqTag("nonFocusTerm");
+		getSubfield("c").setMqTag("facetOrHierarchy");
+		getSubfield("e").setMqTag("relator");
 		getSubfield("v").setBibframeTag("formGenre").setMqTag("formSubdivision");
 		getSubfield("y").setBibframeTag("temporal").setMqTag("chronologicalSubdivision");
 		getSubfield("z").setBibframeTag("geographic").setMqTag("geographicSubdivision");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("2").setMqTag("source");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("4").setMqTag("relationship");
+		getSubfield("6").setMqTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
+
 	}
 }

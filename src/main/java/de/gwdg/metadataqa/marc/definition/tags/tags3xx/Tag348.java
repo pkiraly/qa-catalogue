@@ -24,9 +24,12 @@ public class Tag348 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "348";
 		label = "Format of Notated Music";
+		bibframeTag = "MusicFormat";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Format of notated music term", "R",
 			"b", "Format of notated music code", "R",
@@ -36,5 +39,13 @@ public class Tag348 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
+		getSubfield("b").setBibframeTag("code");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("2").setBibframeTag("source");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

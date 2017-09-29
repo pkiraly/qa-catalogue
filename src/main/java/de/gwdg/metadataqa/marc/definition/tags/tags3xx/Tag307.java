@@ -22,20 +22,25 @@ public class Tag307 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "307";
 		label = "Hours, etc.";
+		mqTag = "Hours";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Display constant controller").setCodes(
 			" ", "Hours",
 			"8", "No display constant generated"
 		).setMqTag("displayConstant");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Hours", "NR",
 			"b", "Additional information", "NR",
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		// TODO: $a is complex := <days of the week>, <hours>[;]
 		// ';' if there is $b
 		// <days of the week> :=
@@ -46,5 +51,10 @@ public class Tag307 extends DataFieldDefinition {
 		// Thursday 	Th
 		// Friday 	F
 		// Saturday 	Sa
+
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("b").setMqTag("additionalInformation");
+		getSubfield("6").setMqTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

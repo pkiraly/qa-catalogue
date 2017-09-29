@@ -26,11 +26,15 @@ public class Tag656 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "656";
 		label = "Index Term - Occupation";
+		bibframeTag = "ComplexSubject";
+		mqTag = "Occupation";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator("Source of term").setCodes(
 			"7", "Source specified in subfield $2"
-		);
+		).setMqTag("sourceOfTerm");
+
 		setSubfieldsWithCardinality(
 			"a", "Occupation", "NR",
 			"k", "Form", "NR",
@@ -44,10 +48,20 @@ public class Tag656 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("2").setCodeList(OccupationTermSourceCodes.getInstance());
+
+		getSubfield("a").setBibframeTag("occupation");
+		getSubfield("k").setBibframeTag("genreForm").setMqTag("form");
 		getSubfield("v").setBibframeTag("formGenre").setMqTag("formSubdivision");
 		getSubfield("x").setBibframeTag("topic").setMqTag("generalSubdivision");
 		getSubfield("y").setBibframeTag("temporal").setMqTag("chronologicalSubdivision");
 		getSubfield("z").setBibframeTag("geographic").setMqTag("geographicSubdivision");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("2").setMqTag("source");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

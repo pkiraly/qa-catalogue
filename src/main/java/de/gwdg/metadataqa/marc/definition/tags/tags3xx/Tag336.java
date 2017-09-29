@@ -28,8 +28,10 @@ public class Tag336 extends DataFieldDefinition {
 		bibframeTag = "Content";
 		mqTag = "ContentType";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Content type term", "R",
 			"b", "Content type code", "R",
@@ -39,7 +41,9 @@ public class Tag336 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("2").setCodeList(GenreFormCodeAndTermSourceCodes.getInstance());
+
 		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
 		getSubfield("b").setMqTag("contentTypeCode");
 		getSubfield("0").setMqTag("authorityRecordControlNumber");

@@ -24,15 +24,19 @@ public class Tag883 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "883";
 		label = "Machine-generated Metadata Provenance";
+		mqTag = "MachineGeneratedMetadataProvenance";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator("Method of machine assignment").setCodes(
 			" ", "No information provided/not applicable",
 			"0", "Fully machine-generated",
 			"1", "Partially machine-generated"
 		).setMqTag("methodOfMachineAssignment");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Generation process", "NR",
 			"c", "Confidence value", "NR",
@@ -44,6 +48,17 @@ public class Tag883 extends DataFieldDefinition {
 			"0", "Authority record control number or standard number", "R",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("q").setCodeList(OrganizationCodes.getInstance());
+
+		getSubfield("a").setMqTag("generationProcess");
+		getSubfield("c").setMqTag("confidence");
+		getSubfield("d").setMqTag("date");
+		getSubfield("q").setMqTag("agency");
+		getSubfield("x").setMqTag("validityEndDate");
+		getSubfield("u").setMqTag("uri");
+		getSubfield("w").setMqTag("bibliographicRecordControlNumber");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

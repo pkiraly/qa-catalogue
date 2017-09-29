@@ -22,10 +22,12 @@ public class Tag243 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "243";
 		label = "Collective Uniform Title";
 		bibframeTag = "CollectiveTitle";
 		cardinality = Cardinality.Nonrepeatable;
+
 		ind1 = new Indicator("Uniform title printed or displayed").setCodes(
 			"0", "Not printed or displayed",
 			"1", "Printed or displayed"
@@ -34,6 +36,7 @@ public class Tag243 extends DataFieldDefinition {
 			"0-9", "Number of nonfiling characters"
 		).setMqTag("nonfilingCharacters");
 		ind2.getCode("0-9").setRange(true);
+
 		setSubfieldsWithCardinality(
 			"a", "Uniform title", "NR",
 			"d", "Date of treaty signing", "R",
@@ -51,7 +54,7 @@ public class Tag243 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
-		// getSubfield("y").setCodeList(LanguageCodes.getInstance());
+
 		getSubfield("a").setBibframeTag("mainTitle");
 		getSubfield("d").setMqTag("dateOfTreaty");
 		getSubfield("f").setMqTag("dateOfAWork");

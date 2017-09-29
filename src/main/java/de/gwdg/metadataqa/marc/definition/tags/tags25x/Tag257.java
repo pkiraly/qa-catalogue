@@ -27,8 +27,10 @@ public class Tag257 extends DataFieldDefinition {
 		label = "Country of Producing Entity";
 		mqTag = "Country";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Country of producing entity", "R",
 			"0", "Authority record control number or standard number", "R",
@@ -36,7 +38,9 @@ public class Tag257 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
+
 		getSubfield("a").setBibframeTag("Place").setMqTag("rdf:value");
 		getSubfield("0").setMqTag("authorityRecordControlNumber");
 		getSubfield("2").setMqTag("source");

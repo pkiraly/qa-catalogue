@@ -22,16 +22,24 @@ public class Tag306 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "306";
 		label = "Playing Time";
+		bibframeTag = "Duration";
 		cardinality = Cardinality.Nonrepeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Playing time", "R",
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
 		// TODO: $a is regex: hhmmss
+
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("6").setMqTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

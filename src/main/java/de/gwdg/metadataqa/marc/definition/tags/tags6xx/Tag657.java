@@ -26,11 +26,14 @@ public class Tag657 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "657";
 		label = "Index Term - Function";
+		mqTag = "Function";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator("Source of term").setCodes(
 			"7", "Source specified in subfield $2"
-		);
+		).setMqTag("sourceOfTerm");
+
 		setSubfieldsWithCardinality(
 			"a", "Function", "NR",
 			"v", "Form subdivision", "R",
@@ -43,10 +46,18 @@ public class Tag657 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("2").setCodeList(FunctionTermSourceCodes.getInstance());
+
+		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("v").setBibframeTag("formGenre").setMqTag("formSubdivision");
 		getSubfield("x").setBibframeTag("topic").setMqTag("generalSubdivision");
 		getSubfield("y").setBibframeTag("temporal").setMqTag("chronologicalSubdivision");
 		getSubfield("z").setBibframeTag("geographic").setMqTag("geographicSubdivision");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("2").setMqTag("source");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

@@ -27,9 +27,12 @@ public class Tag662 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "662";
 		label = "Subject Added Entry - Hierarchical Place Name";
+		bibframeTag = "HierarchicalGeographic";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Country or larger entity", "R",
 			"b", "First-order political jurisdiction", "NR",
@@ -45,7 +48,20 @@ public class Tag662 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
+
+		getSubfield("a").setBibframeTag("country");
+		getSubfield("b").setBibframeTag("state");
+		getSubfield("c").setBibframeTag("county");
+		getSubfield("d").setBibframeTag("city");
+		getSubfield("e").setBibframeTag("relator");
+		getSubfield("f").setBibframeTag("citySection");
+		getSubfield("g").setBibframeTag("region");
+		getSubfield("h").setBibframeTag("extraterrestrialArea");
+		getSubfield("2").setMqTag("source");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

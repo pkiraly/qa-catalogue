@@ -26,8 +26,10 @@ public class Tag255 extends DataFieldDefinition {
 		label = "Cartographic Mathematical Data";
 		bibframeTag = "Cartographic";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Statement of scale", "NR",
 			"b", "Statement of projection", "NR",
@@ -39,6 +41,7 @@ public class Tag255 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("a").setBibframeTag("scale");
 		getSubfield("b").setBibframeTag("projection");
 		getSubfield("c").setBibframeTag("coordinates");
@@ -48,6 +51,5 @@ public class Tag255 extends DataFieldDefinition {
 		getSubfield("g").setBibframeTag("exclusionGRing");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
-
 	}
 }

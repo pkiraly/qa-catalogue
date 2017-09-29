@@ -25,6 +25,7 @@ public class Tag647 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "647";
 		label = "Subject Added Entry - Named Event";
+		mqTag = "NamedEvent";
 		cardinality = Cardinality.Repeatable;
 
 		ind1 = new Indicator();
@@ -55,9 +56,18 @@ public class Tag647 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 
+		getSubfield("a").setMqTag("rdf:value");
+		getSubfield("c").setMqTag("location");
+		getSubfield("d").setMqTag("date");
+		getSubfield("g").setMqTag("miscellaneous");
 		getSubfield("v").setBibframeTag("formGenre").setMqTag("formSubdivision");
 		getSubfield("x").setBibframeTag("topic").setMqTag("generalSubdivision");
 		getSubfield("y").setBibframeTag("temporal").setMqTag("chronologicalSubdivision");
 		getSubfield("z").setBibframeTag("geographic").setMqTag("geographicSubdivision");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("2").setMqTag("source");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

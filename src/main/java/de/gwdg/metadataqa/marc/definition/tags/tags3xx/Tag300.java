@@ -24,11 +24,12 @@ public class Tag300 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "300";
 		label = "Physical Description";
-		bibframeTag = "";
 		mqTag = "PhysicalDescription";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Extent", "R",
 			"b", "Other physical details", "NR",
@@ -40,6 +41,7 @@ public class Tag300 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("a").setBibframeTag("extent");
 		getSubfield("b").setBibframeTag("note").setMqTag("otherPhysicalDetails");
 		getSubfield("c").setBibframeTag("dimensions");

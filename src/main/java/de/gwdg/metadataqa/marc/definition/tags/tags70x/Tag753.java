@@ -26,9 +26,12 @@ public class Tag753 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "753";
 		label = "System Details Access to Computer Files";
+		bibframeTag = "SystemRequirement";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Make and model of machine", "NR",
 			"b", "Programming language", "NR",
@@ -38,6 +41,15 @@ public class Tag753 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
+
+		getSubfield("a").setBibframeTag("machineModel");
+		getSubfield("b").setBibframeTag("programmingLanguage");
+		getSubfield("c").setBibframeTag("operatingSystem");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("2").setMqTag("source");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

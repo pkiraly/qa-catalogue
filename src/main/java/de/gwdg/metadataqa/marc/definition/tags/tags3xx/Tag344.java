@@ -24,9 +24,12 @@ public class Tag344 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "344";
 		label = "Sound Characteristics";
+		bibframeTag = "SoundCharacteristic";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Type of recording", "R",
 			"b", "Recording medium", "R",
@@ -42,5 +45,19 @@ public class Tag344 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setMqTag("recordingMethod");
+		getSubfield("b").setMqTag("recordingMedium");
+		getSubfield("c").setMqTag("playingSpeed");
+		getSubfield("d").setMqTag("grooveCharacteristics");
+		getSubfield("e").setMqTag("trackConfig");
+		getSubfield("f").setMqTag("tapeConfig");
+		getSubfield("g").setMqTag("playbackChannels");
+		getSubfield("h").setMqTag("playbackCharacteristic");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("2").setBibframeTag("source");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

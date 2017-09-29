@@ -22,11 +22,14 @@ public class Tag343 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "343";
 		label = "Planar Coordinate Data";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Planar coordinate encoding method", "NR",
 			"b", "Planar distance units", "NR",

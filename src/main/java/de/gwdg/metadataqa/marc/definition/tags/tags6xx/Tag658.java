@@ -26,9 +26,12 @@ public class Tag658 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "658";
 		label = "Index Term - Curriculum Objective";
+		mqTag = "CurriculumObjective";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Main curriculum objective", "NR",
 			"b", "Subordinate curriculum objective", "R",
@@ -38,6 +41,15 @@ public class Tag658 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("2").setCodeList(CurriculumObjectiveTermAndCodeSourceCodes.getInstance());
+
+		getSubfield("a").setMqTag("main");
+		getSubfield("b").setMqTag("subordinate");
+		getSubfield("c").setMqTag("code");
+		getSubfield("d").setMqTag("correlationFactor");
+		getSubfield("2").setMqTag("source");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

@@ -22,11 +22,15 @@ public class Tag340 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "340";
 		label = "Physical Medium";
+		mqTag = "PhysicalMedium";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Material base and configuration", "R",
 			"b", "Dimensions", "R",
@@ -48,5 +52,25 @@ public class Tag340 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("a").setBibframeTag("baseMaterial");
+		getSubfield("b").setBibframeTag("dimensions");
+		getSubfield("c").setBibframeTag("appliedMaterial");
+		getSubfield("d").setMqTag("productionMethod");
+		getSubfield("e").setMqTag("mount");
+		getSubfield("f").setMqTag("reductionRatio");
+		getSubfield("g").setMqTag("colorContent");
+		getSubfield("h").setMqTag("location");
+		getSubfield("i").setMqTag("systemRequirement");
+		getSubfield("j").setMqTag("generation");
+		getSubfield("k").setMqTag("layout");
+		getSubfield("m").setMqTag("bookFormat");
+		getSubfield("n").setMqTag("fontSize");
+		getSubfield("o").setMqTag("polarity");
+		getSubfield("0").setMqTag("authorityRecordControlNumber");
+		getSubfield("2").setBibframeTag("source");
+		getSubfield("3").setMqTag("materialsSpecified");
+		getSubfield("6").setBibframeTag("linkage");
+		getSubfield("8").setMqTag("fieldLink");
 	}
 }

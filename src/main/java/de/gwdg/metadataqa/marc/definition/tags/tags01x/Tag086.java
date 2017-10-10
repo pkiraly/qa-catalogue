@@ -32,7 +32,7 @@ public class Tag086 extends DataFieldDefinition {
 		cardinality = Cardinality.Repeatable;
 
 		ind1 = new Indicator("Number source").setCodes(
-			"#", "Source specified in subfield $2",
+			" ", "Source specified in subfield $2",
 			"0", "Superintendent of Documents Classification System",
 			"1", "Government of Canada Publications: Outline of Classification"
 		).setMqTag("numberSource");

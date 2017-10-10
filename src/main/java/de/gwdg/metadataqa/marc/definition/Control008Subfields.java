@@ -47,7 +47,6 @@ public class Control008Subfields {
 				new ControlSubfield("Modified record", 38, 39,
 						Utils.generateCodes(
 								" ", "Not modified",
-								"#", "Not modified",
 								"d", "Dashed-on information omitted",
 								"o", "Completely romanized/printed cards romanized",
 								"r", "Completely romanized/printed cards in script",
@@ -59,7 +58,6 @@ public class Control008Subfields {
 				new ControlSubfield("Cataloging source", 39, 40,
 						Utils.generateCodes(
 								" ", "National bibliographic agency",
-								"#", "National bibliographic agency",
 								"c", "Cooperative cataloging program",
 								"d", "Other",
 								"u", "Unknown",

@@ -91,8 +91,10 @@ public class Leader implements Extractable {
 				}
 				valuesMap.put(subfield, value);
 			} catch (StringIndexOutOfBoundsException e) {
-				logger.severe(String.format("%s: length: %d while reading position @%d-%d",
-					subfield.getLabel(), content.length(), subfield.getPositionStart(), subfield.getPositionEnd()));
+				logger.severe(String.format("Problem with processing Leader ('%s'). " +
+						"The content length is only %d while reading position @%d-%d (for %s)",
+					content,
+					content.length(), subfield.getPositionStart(), subfield.getPositionEnd(), subfield.getLabel()));
 			}
 		}
 	}

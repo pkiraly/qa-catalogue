@@ -173,7 +173,8 @@ public class Control007Subfields {
 					"u", "Unknown",
 					"|", "No attempt to code"
 				)
-			).setId("tag007electro09").setMqTag("fileFormats"),
+			).setId("tag007electro09").setMqTag("fileFormats")
+				.setDefaultCode("|"),
 			new ControlSubfield("Quality assurance targets", 10, 11,
 				Utils.generateCodes(
 					"a", "Absent",
@@ -181,8 +182,11 @@ public class Control007Subfields {
 					"p", "Present",
 					"u", "Unknown",
 					"|", "No attempt to code"
-				)
-			).setId("tag007electro10").setMqTag("qualityAssuranceTargets"),
+					)
+				).setId("tag007electro10")
+				.setMqTag("qualityAssuranceTargets")
+				.setDefaultCode("|"),
+
 			new ControlSubfield("Antecedent/source", 11, 12,
 				Utils.generateCodes(
 					"a", "File reproduced from original",
@@ -194,7 +198,10 @@ public class Control007Subfields {
 					"u", "Unknown",
 					"|", "No attempt to code"
 				)
-			).setId("tag007electro11").setMqTag("antecedentOrSource"),
+				).setId("tag007electro11")
+				.setMqTag("antecedentOrSource")
+				.setDefaultCode("|"),
+
 			new ControlSubfield("Level of compression", 12, 13,
 				Utils.generateCodes(
 					"a", "Uncompressed",
@@ -204,7 +211,10 @@ public class Control007Subfields {
 					"u", "Unknown",
 					"|", "No attempt to code"
 				)
-			).setId("tag007electro12").setMqTag("levelOfCompression"),
+				).setId("tag007electro12")
+				.setMqTag("levelOfCompression")
+				.setDefaultCode("|"),
+
 			new ControlSubfield("Reformatting quality", 13, 14,
 				Utils.generateCodes(
 					"a", "Access",
@@ -214,23 +224,30 @@ public class Control007Subfields {
 					"u", "Unknown",
 					"|", "No attempt to code"
 				)
-			).setId("tag007electro13").setMqTag("reformattingQuality")
+				).setId("tag007electro13")
+				.setMqTag("reformattingQuality")
+				.setDefaultCode("|")
 		));
-		subfields.put(Control007Category.Globe, Arrays.asList(
-			// new ControlSubField("Category of material", 0, 1),
-			new ControlSubfield("Specific material designation", 1, 2,
-				Utils.generateCodes(
-					"a", "Celestial globe",
-					"b", "Planetary or lunar globe",
-					"c", "Terrestrial globe",
-					"e", "Earth moon globe",
-					"u", "Unspecified",
-					"z", "Other",
-					"|", "No attempt to code"
-				)
-			).setId("tag007globe01").setMqTag("specificMaterialDesignation"),
-			// new ControlSubField("Undefined", 2, 3),
-			new ControlSubfield("Color", 3, 4,
+
+		subfields.put(
+			Control007Category.Globe,
+			Arrays.asList(
+				// new ControlSubField("Category of material", 0, 1),
+				new ControlSubfield("Specific material designation", 1, 2,
+					Utils.generateCodes(
+						"a", "Celestial globe",
+						"b", "Planetary or lunar globe",
+						"c", "Terrestrial globe",
+						"e", "Earth moon globe",
+						"u", "Unspecified",
+						"z", "Other",
+						"|", "No attempt to code"
+					)
+					).setId("tag007globe01")
+					.setMqTag("specificMaterialDesignation"),
+
+				// new ControlSubField("Undefined", 2, 3),
+				new ControlSubfield("Color", 3, 4,
 				Utils.generateCodes(
 					"a", "One color",
 					"c", "Multicolored",
@@ -626,7 +643,7 @@ public class Control007Subfields {
 			).setId("tag007nonprojected04").setMqTag("primarySupportMaterial"),
 			new ControlSubfield("Secondary support material", 5, 6,
 				Utils.generateCodes(
-					"#", "No secondary support",
+					" ", "No secondary support",
 					"a", "Canvas",
 					"b", "Bristol board",
 					"c", "Cardboard/illustration board",
@@ -651,7 +668,7 @@ public class Control007Subfields {
 					"z", "Other",
 					"|", "No attempt to code"
 				)
-			).setId("tag007nonprojected05").setMqTag("secondarySupportMaterial")
+			).setId("tag007nonprojected05").setMqTag("secondarySupportMaterial").setDefaultCode("|")
 		));
 		subfields.put(Control007Category.MotionPicture, Arrays.asList(
 			// new ControlSubField("Category of material", 0, 1),
@@ -1012,6 +1029,7 @@ public class Control007Subfields {
 				)
 			).setId("tag007remoteSensing09").setMqTag("dataType")
 		));
+
 		subfields.put(Control007Category.SoundRecording, Arrays.asList(
 			// new ControlSubField("Category of material", 0, 1),
 			new ControlSubfield("Specific material designation", 1, 2,

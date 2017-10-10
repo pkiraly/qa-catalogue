@@ -21,6 +21,7 @@ public class ControlSubfield {
 	private List<String> validCodes;
 	private int unitLength = -1;
 	private boolean repeatableContent = false;
+	private String defaultCode;
 
 	public ControlSubfield(String label, int positionStart, int positionEnd) {
 		this.label = label;
@@ -99,6 +100,15 @@ public class ControlSubfield {
 
 	public ControlSubfield setRepeatableContent(boolean repeatableContent) {
 		this.repeatableContent = repeatableContent;
+		return this;
+	}
+
+	public String getDefaultCode() {
+		return defaultCode;
+	}
+
+	public ControlSubfield setDefaultCode(String defaultCode) {
+		this.defaultCode = defaultCode;
 		return this;
 	}
 

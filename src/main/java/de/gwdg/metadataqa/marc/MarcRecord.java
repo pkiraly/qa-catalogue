@@ -116,6 +116,10 @@ public class MarcRecord {
 			control001, control003, control005, control006, control007, control008);
 	}
 
+	public List<String> getUnhandledTags() {
+		return unhandledTags;
+	}
+
 	public String format() {
 		String output = "";
 		for (DataField field : datafields) {
@@ -152,7 +156,8 @@ public class MarcRecord {
 			mainKeyValuePairs.putAll(leader.getKeyValuePairs());
 
 			for (Extractable controlField : getControlfields()) {
-				mainKeyValuePairs.putAll(controlField.getKeyValuePairs());
+				if (controlField != null)
+					mainKeyValuePairs.putAll(controlField.getKeyValuePairs());
 			}
 
 			for (DataField field : datafields) {

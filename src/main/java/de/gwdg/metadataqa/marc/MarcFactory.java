@@ -5,17 +5,27 @@ import de.gwdg.metadataqa.api.model.JsonPathCache;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.api.schema.MarcJsonSchema;
 import de.gwdg.metadataqa.api.schema.Schema;
+import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
+import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
 import de.gwdg.metadataqa.marc.utils.MapToDatafield;
 import net.minidev.json.JSONArray;
+import org.jetbrains.annotations.NotNull;
+import org.marc4j.marc.ControlField;
+import org.marc4j.marc.Record;
+import org.marc4j.marc.Subfield;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * Factory class to create MarcRecord from JsonPathCache
  */
 public class MarcFactory {
+
+	private static final Logger logger = Logger.getLogger(MarcFactory.class.getCanonicalName());
 
 	private static Schema schema = new MarcJsonSchema();
 
@@ -64,6 +74,68 @@ public class MarcFactory {
 			}
 		}
 		return record;
+	}
+
+	public static MarcRecord createFromMarc4j(Record marc4jRecord) {
+		MarcRecord record = new MarcRecord();
+
+		record.setLeader(new Leader(marc4jRecord.getLeader().marshal()));
+		importMarc4jControlFields(marc4jRecord, record);
+		importMarc4jDataFields(marc4jRecord, record);
+
+		return record;
+	}
+
+	private static void importMarc4jDataFields(Record marc4jRecord, MarcRecord record) {
+		for (org.marc4j.marc.DataField dataField : marc4jRecord.getDataFields()) {
+			DataFieldDefinition definition = TagDefinitionLoader.load(dataField.getTag());
+			if (definition == null) {
+				record.addUnhandledTags(dataField.getTag());
+			} else {
+				DataField field = extractDataField(dataField, definition, record.getControl001().getContent());
+				record.addDataField(field);
+			}
+		}
+	}
+
+	@NotNull
+	private static DataField extractDataField(org.marc4j.marc.DataField dataField,
+															DataFieldDefinition definition,
+															String identifier) {
+		DataField field = new DataField(definition, Character.toString(dataField.getIndicator1()), Character.toString(dataField.getIndicator2()));
+		for (Subfield subfield : dataField.getSubfields()) {
+			String code = Character.toString(subfield.getCode());
+			SubfieldDefinition subfieldDefinition = definition.getSubfield(code);
+			if (subfieldDefinition == null) {
+				if (!(definition.getTag().equals("886") && code.equals("k")))
+					logger.warning(String.format(
+						"Problem in record '%s': %s$%s is not a valid subfield (value: '%s')",
+						identifier, definition.getTag(), code, subfield.getData()));
+			} else {
+				field.getSubfields().add(new MarcSubfield(subfieldDefinition, code, subfield.getData()));
+			}
+		}
+		return field;
+	}
+
+	private static void importMarc4jControlFields(Record marc4jRecord, MarcRecord record) {
+		for (ControlField controlField : marc4jRecord.getControlFields()) {
+			String data = controlField.getData();
+			switch (controlField.getTag()) {
+				case "001":
+					record.setControl001(new Control001(data)); break;
+				case "003":
+					record.setControl003(new Control003(data)); break;
+				case "005":
+					record.setControl005(new Control005(data)); break;
+				case "006":
+					record.setControl006(new Control006(data, record.getType())); break;
+				case "007":
+					record.setControl007(new Control007(data)); break;
+				case "008":
+					record.setControl008(new Control008(data, record.getType())); break;
+			}
+		}
 	}
 
 	private static List<String> extractList(JsonPathCache cache, JsonBranch branch) {

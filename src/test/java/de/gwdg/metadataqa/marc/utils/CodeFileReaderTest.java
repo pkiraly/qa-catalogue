@@ -9,13 +9,13 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class CsvReaderTest {
+public class CodeFileReaderTest {
 
 	@Test
 	public void test() {
 		Map<String, String> dict = null;
 		try {
-			dict = CsvReader.read("general/csv-test.csv");
+			dict = CodeFileReader.fileToDict("general/csv-test.csv");
 		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();
 		}

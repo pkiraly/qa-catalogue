@@ -52,7 +52,7 @@ public class MarcElasticsearchClientTest {
 		assertEquals("application/json; charset=UTF-8", response.getContentType().getValue());
 		String content = EntityUtils.toString(response);
 		Object jsonObject = jsonProvider.parse(content);
-		// JsonPath.read(jsonObject, jsonPath);
+		// JsonPath.fileToDict(jsonObject, jsonPath);
 		
 		// JsonPathCache<? extends XmlFieldInstance> cache = new JsonPathCache(content);
 		assertEquals("elasticsearch", JsonPath.read(jsonObject, "$.cluster_name"));

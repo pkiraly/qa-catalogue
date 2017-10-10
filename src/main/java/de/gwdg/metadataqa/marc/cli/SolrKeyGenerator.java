@@ -87,7 +87,7 @@ public class SolrKeyGenerator {
 		}
 		long end = System.currentTimeMillis();
 
-		logger.info(String.format("Bye! It took: %d ms", (end-start) / 1000));
+		logger.info(String.format("Bye! It took: %.1f s", (float)(end-start) / 1000));
 
 		System.exit(0);
 	}

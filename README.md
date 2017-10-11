@@ -1,10 +1,9 @@
 # metadata-qa-marc
-Metadata assessment for MARC records
-
-Notes: 
+Metadata quality assessment for MARC records
 
 * If you would like to play with this project, but you don't have MARC21 I suggest to download records from the Library of Congress: https://www.loc.gov/cds/products/MDSConnect-books_all.html
 * this is an early phase of the project, nor the software, neighter the documentation are ready. But still it is in a state which I thought worth sharing
+* for more info see the main project page: [Metadata Quality Assurance Framework](http://pkiraly.github.io)
 
 ## build
 
@@ -64,7 +63,7 @@ Error in '   00010971 ':
 ...
 ```
 
-### Indexing with Solr
+### Indexing MARC records with Solr
 ```
 java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr [Solr url] [file]
 ```
@@ -164,6 +163,14 @@ The Solr URL is something like this: http://localhost:8983/solr/loc. It uses the
 ```
 
 I have created a distinct project [metadata-qa-marc-web](https://github.com/pkiraly/metadata-qa-marc-web), which provised a single page web application to build a facetted search interface for this type of Solr index.
+
+### Indexing MARC JSON records with Solr
+
+```
+java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcJsonToSolr [Solr url] [MARC JSON file]
+```
+
+The MARC JSON file is a JSON serialization of binary MARC file. See more the [MARC Pipeline](https://github.com/pkiraly/marc-pipeline/) project.
 
 ### Export mapping table
 

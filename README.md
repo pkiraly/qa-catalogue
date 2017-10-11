@@ -82,7 +82,7 @@ Error in '   00010971 ':
 
 Set autocommit the following way in solrconfig.xml (inside Solr):
 
-```
+```XML
     <autoCommit>
       <maxTime>${solr.autoCommit.maxTime:15000}</maxTime>
       <maxDocs>5000</maxDocs>

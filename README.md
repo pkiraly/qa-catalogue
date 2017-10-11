@@ -64,7 +64,7 @@ Error in '   00010971 ':
 java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr [Solr url] [file]
 ```
 
-The Solr URL is something like this: http://localhost:8983/solr/loc. It uses the [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/), so a record looks like this:
+The Solr URL is something like this: http://localhost:8983/solr/loc. It uses the [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/), in which encoded values are decoded to human readble values (e.g. Leader/5 = "c" becames Leader_recordStatus = "Corrected or revised") so a record looks like this:
 
 ```JSON
 {
@@ -157,3 +157,5 @@ The Solr URL is something like this: http://localhost:8983/solr/loc. It uses the
         "_version_":1580884716765052928},
 }
 ```
+
+I have created a distinct project [metadata-qa-marc-web](https://github.com/pkiraly/metadata-qa-marc-web), which provised a single page web application to build a facetted search interface for this type of Solr index.

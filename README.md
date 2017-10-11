@@ -1,6 +1,8 @@
 # metadata-qa-marc
 Metadata assessment for MARC records
 
+Note: this is an early phase of the project. The documentation is far from ready.
+
 ## build
 
 ```
@@ -159,3 +161,13 @@ The Solr URL is something like this: http://localhost:8983/solr/loc. It uses the
 ```
 
 I have created a distinct project [metadata-qa-marc-web](https://github.com/pkiraly/metadata-qa-marc-web), which provised a single page web application to build a facetted search interface for this type of Solr index.
+
+### Export mapping table
+
+To export the HTML table described at [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/)
+
+```
+java -cp $JAR de.gwdg.metadataqa.marc.cli.MappingToHtml > mapping.html
+```
+
+Any feedbacks are welcome!

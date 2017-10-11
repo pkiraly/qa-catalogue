@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class Control005 implements Extractable {
+public class Control005 implements Extractable, Validatable {
 
 	private static final Logger logger = Logger.getLogger(Control005.class.getCanonicalName());
 	private static final Pattern DATE_TIME = Pattern.compile("^(\\d{4})(\\d{2})(\\d{2})(\\d{2})(\\d{2})(\\d{2})\\.(\\d)$");
@@ -75,5 +75,15 @@ public class Control005 implements Extractable {
 		Map<String, List<String>> map = new LinkedHashMap<>();
 		map.put(mqTag, Arrays.asList(content));
 		return map;
+	}
+
+	@Override
+	public boolean validate() {
+		return false;
+	}
+
+	@Override
+	public List<String> getErrors() {
+		return null;
 	}
 }

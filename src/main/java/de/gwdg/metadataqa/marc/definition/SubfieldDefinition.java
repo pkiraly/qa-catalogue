@@ -87,11 +87,18 @@ public class SubfieldDefinition {
 	}
 
 	public Code getCode(String _code) {
-		for (Code code: codes) {
-			if (code.getCode().equals(_code))
+		for (Code code : codes) {
+			if (code.getCode().equals(_code)) {
 				return code;
+			} else if (code.isRange() && code.getRange().isValid(_code)) {
+				return code;
+			}
 		}
 		return null;
+	}
+
+	public List<Code> getCodes() {
+		return codes;
 	}
 
 	public String getCardinalityCode() {

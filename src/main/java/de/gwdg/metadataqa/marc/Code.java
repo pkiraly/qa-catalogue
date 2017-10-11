@@ -12,6 +12,7 @@ public class Code {
 	private boolean isRange = false;
 	private boolean isRegex = false;
 	private String bibframeTag = null;
+	private Range range = null;
 
 	public Code(String code, String label) {
 		this.code = code;
@@ -30,8 +31,15 @@ public class Code {
 		return isRange;
 	}
 
-	public void setRange(boolean range) {
-		isRange = range;
+	public void setRange(boolean isRange) {
+		if (isRange) {
+			this.range = new Range(code);
+		}
+		this.isRange = isRange;
+	}
+
+	public Range getRange() {
+		return range;
 	}
 
 	public boolean isRegex() {

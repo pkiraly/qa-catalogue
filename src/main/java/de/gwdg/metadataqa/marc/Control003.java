@@ -7,7 +7,7 @@ import java.util.logging.Logger;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class Control003 implements Extractable {
+public class Control003 implements Extractable, Validatable {
 
 	private static final Logger logger = Logger.getLogger(Control003.class.getCanonicalName());
 
@@ -74,5 +74,15 @@ public class Control003 implements Extractable {
 		Map<String, List<String>> map = new LinkedHashMap<>();
 		map.put(mqTag, Arrays.asList(content));
 		return map;
+	}
+
+	@Override
+	public boolean validate() {
+		return false;
+	}
+
+	@Override
+	public List<String> getErrors() {
+		return null;
 	}
 }

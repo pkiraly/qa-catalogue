@@ -17,18 +17,18 @@ public class MarcTagListerTest {
 		List<Class<? extends DataFieldDefinition>> tags = MarcTagLister.listTags();
 		assertNotNull(tags);
 		assertNotEquals(0, tags.size());
-		assertEquals(224, tags.size());
+		assertEquals(225, tags.size());
 		assertEquals("Tag010", tags.get(0).getSimpleName());
 
 		for (Class<? extends DataFieldDefinition> tag : tags) {
 			DataFieldDefinition definition = TagDefinitionLoader.load(tag.getSimpleName().replace("Tag", ""));
 			if (!definition.getIndexTag().equals(definition.getTag())) {
 				if (definition.getInd1().exists()) {
-					assertNotEquals(String.format("Bad indicator1 tag at %s", definition.getTag()),
+					assertNotEquals(String.format("Undefined index tag for indicator1 at %s", definition.getTag()),
 						"ind1", definition.getInd1().getIndexTag("ind1"));
 				}
 				if (definition.getInd2().exists()) {
-					assertNotEquals(String.format("Bad indicator2 tag at %s", definition.getTag()),
+					assertNotEquals(String.format("Undefined index tag for indicator2 at %s", definition.getTag()),
 						"ind2", definition.getInd2().getIndexTag("ind2"));
 				}
 			}

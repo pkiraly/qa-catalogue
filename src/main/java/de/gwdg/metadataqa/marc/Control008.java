@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class Control008 implements Extractable {
+public class Control008 implements Extractable, Validatable {
 
 	private static final Logger logger = Logger.getLogger(Control008.class.getCanonicalName());
 
@@ -513,5 +513,15 @@ public class Control008 implements Extractable {
 
 	public static String getMqTag() {
 		return mqTag;
+	}
+
+	@Override
+	public boolean validate() {
+		return false;
+	}
+
+	@Override
+	public List<String> getErrors() {
+		return null;
 	}
 }

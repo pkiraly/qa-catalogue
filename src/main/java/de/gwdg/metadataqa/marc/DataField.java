@@ -1,17 +1,25 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
+import java.util.logging.Logger;
 
-public class DataField implements Extractable {
+public class DataField implements Extractable, Validatable {
+
+	private static final Logger logger = Logger.getLogger(DataField.class.getCanonicalName());
+
 	private DataFieldDefinition definition;
 	private String tag;
 	private String ind1;
 	private String ind2;
 	private List<MarcSubfield> subfields;
 	private Map<String, List<MarcSubfield>> subfieldIndex = new LinkedHashMap<>();
+	private List<String> errors = null;
+	private List<String> unhandledSubfields = null;
 
 	public <T extends DataFieldDefinition> DataField(T definition, String ind1, String ind2) {
 		this.definition = definition;
@@ -159,23 +167,26 @@ public class DataField implements Extractable {
 	}
 
 	public String resolveInd1() {
-		if (!definition.getInd1().exists())
-			return "";
-
-		if (!definition.getInd1().hasCode(ind1))
-			return ind1;
-
-		return definition.getInd1().getCode(ind1).getLabel();
+		return resolveIndicator(definition.getInd1(), ind1);
 	}
 
 	public String resolveInd2() {
-		if (definition.getInd2().getLabel().equals(""))
+		return resolveIndicator(definition.getInd2(), ind2);
+	}
+
+	public String resolveIndicator(Indicator indicatorDefinition, String indicator) {
+		if (indicatorDefinition.getLabel().equals(""))
 			return "";
 
-		if (!definition.getInd2().hasCode(ind2))
-			return ind2;
+		if (!indicatorDefinition.hasCode(indicator))
+			return indicator;
 
-		return definition.getInd2().getCode(ind2).getLabel();
+		Code indCode = indicatorDefinition.getCode(indicator);
+		assert(indCode != null);
+		if (indCode.isRange()) {
+			return indCode.getLabel() + ": " + indicator;
+		}
+		return indCode.getLabel();
 	}
 
 	public String getTag() {
@@ -202,4 +213,66 @@ public class DataField implements Extractable {
 		return definition;
 	}
 
+	@Override
+	public boolean validate() {
+		boolean isValid = true;
+		errors = new ArrayList<>();
+
+		if (unhandledSubfields != null) {
+			errors.add(String.format("%s has invalid %s: %s",
+				definition.getTag(),
+				(unhandledSubfields.size() == 1 ? "subfield" : "subfields"),
+				StringUtils.join(unhandledSubfields, ", ")));
+			isValid = false;
+		}
+
+		if (ind1 != null) {
+			if (!validateIndicator("ind1", definition.getInd1(), ind1))
+				isValid = false;
+		}
+
+		if (ind2 != null) {
+			if (!validateIndicator("ind2", definition.getInd2(), ind2))
+				isValid = false;
+		}
+
+		for (MarcSubfield subfield : subfields) {
+			if (!subfield.validate()) {
+				// logger.warning(String.format("%s$%s error", definition.getTag(), subfield.getDefinition().getCode()));
+				errors.addAll(subfield.getErrors());
+				isValid = false;
+			}
+		}
+
+		return isValid;
+	}
+
+	private boolean validateIndicator(String prefix, Indicator indicatorDefinition, String value) {
+		boolean isValid = true;
+		if (indicatorDefinition.exists()) {
+			if (!indicatorDefinition.hasCode(value)) {
+				// logger.warning(String.format("%s$ind2 has invalid code: %s", definition.getTag(), value));
+				errors.add(String.format("%s$%s has invalid code: '%s'", definition.getTag(), prefix, value));
+				isValid = false;
+			}//
+		} else {
+			if (!value.equals(" ")) {
+				// logger.warning(String.format("%s should not have ind2", definition.getTag()));
+				errors.add(String.format("%s$%s should be empty, it has '%s'", definition.getTag(), prefix, value));
+				isValid = false;
+			}
+		}
+		return isValid;
+	}
+
+	@Override
+	public List<String> getErrors() {
+		return errors;
+	}
+
+	public void addUnhandledSubfields(String code) {
+		if (unhandledSubfields == null)
+			unhandledSubfields = new ArrayList<>();
+		unhandledSubfields.add(code);
+	}
 }

@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class Leader implements Extractable {
+public class Leader implements Extractable, Validatable {
 
 	private static final Logger logger = Logger.getLogger(Leader.class.getCanonicalName());
 
@@ -241,4 +241,13 @@ public class Leader implements Extractable {
 		return map;
 	}
 
+	@Override
+	public boolean validate() {
+		return false;
+	}
+
+	@Override
+	public List<String> getErrors() {
+		return null;
+	}
 }

@@ -2,13 +2,16 @@ package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
-public class MarcSubfield {
+public class MarcSubfield implements Validatable {
 	private SubfieldDefinition definition;
 	private String code;
 	private String value;
 	private String codeForIndex = null;
+	private List<String> errors = null;
 
 	public MarcSubfield(SubfieldDefinition definition, String code, String value) {
 		this.definition = definition;
@@ -61,6 +64,35 @@ public class MarcSubfield {
 		if (definition.hasContentParser())
 			return definition.getContentParser().parse(value);
 		return null;
+	}
+
+	@Override
+	public boolean validate() {
+		boolean isValid = true;
+		errors = new ArrayList<>();
+
+		if (definition == null) {
+			errors.add(String.format("no definition for %s", code));
+			isValid = false;
+		} else {
+			if (code == null) {
+				errors.add(String.format("code is null for %s", definition.getCode()));
+				isValid = false;
+			} else {
+				if (definition.getCodes() != null && definition.getCode(value) == null) {
+					errors.add(String.format("%s$%s not a valid value: %s",
+						definition.getParent().getTag(), definition.getCode(), value));
+					isValid = false;
+				}
+			}
+		}
+
+		return isValid;
+	}
+
+	@Override
+	public List<String> getErrors() {
+		return errors;
 	}
 
 }

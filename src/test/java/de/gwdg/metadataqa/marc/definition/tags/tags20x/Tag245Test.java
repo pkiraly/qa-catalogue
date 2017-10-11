@@ -71,7 +71,7 @@ public class Tag245Test {
 		assertEquals("4", field.getInd2());
 		Map<String, List<String>> map = field.getHumanReadableMap();
 		assertEquals(3, map.size());
-		assertEquals("4", map.get("Nonfiling characters").get(0));
+		assertEquals("Number of nonfiling characters: 4", map.get("Nonfiling characters").get(0));
 	}
 
 	// 12$aA report to the legislature for the year ...
@@ -81,7 +81,7 @@ public class Tag245Test {
 		assertEquals("2", field.getInd2());
 		Map<String, List<String>> map = field.getHumanReadableMap();
 		assertEquals(3, map.size());
-		assertEquals("2", map.get("Nonfiling characters").get(0));
+		assertEquals("Number of nonfiling characters: 2", map.get("Nonfiling characters").get(0));
 	}
 
 	// 16$a--the serpent--snapping eye.
@@ -90,7 +90,7 @@ public class Tag245Test {
 		DataField field = SubfieldParser.parseField(Tag245.getInstance(), "16$a--the serpent--snapping eye.");
 		assertEquals("6", field.getInd2());
 		Map<String, List<String>> map = field.getHumanReadableMap();
-		assertEquals("6", map.get("Nonfiling characters").get(0));
+		assertEquals("Number of nonfiling characters: 6", map.get("Nonfiling characters").get(0));
 	}
 
 	// 03$aLe Bureau$h[filmstrip] =$bLa Oficina = Das Büro.

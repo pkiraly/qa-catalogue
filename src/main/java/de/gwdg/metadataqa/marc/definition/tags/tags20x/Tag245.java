@@ -21,10 +21,12 @@ public class Tag245 extends DataFieldDefinition {
 	}
 
 	private void initialize() {
+
 		tag = "245";
 		label = "Title Statement";
 		bibframeTag = "Title";
 		cardinality = Cardinality.Nonrepeatable;
+
 		ind1 = new Indicator("Title added entry").setCodes(
 			"0", "No added entry",
 			"1", "Added entry"
@@ -34,6 +36,7 @@ public class Tag245 extends DataFieldDefinition {
 			"1-9", "Number of nonfiling characters"
 		).setMqTag("nonfilingCharacters");
 		ind2.getCode("1-9").setRange(true);
+
 		setSubfieldsWithCardinality(
 			"a", "Title", "NR",
 			"b", "Remainder of title", "NR",
@@ -48,6 +51,7 @@ public class Tag245 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("a").setBibframeTag("mainTitle");
 		getSubfield("b").setBibframeTag("subtitle");
 		getSubfield("c").setBibframeTag("responsibilityStatement");

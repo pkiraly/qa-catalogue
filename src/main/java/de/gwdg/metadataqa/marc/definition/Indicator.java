@@ -1,11 +1,9 @@
 package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.Range;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Indicator {
 	private String label = null;
@@ -14,13 +12,13 @@ public class Indicator {
 	private String indexTag = null;
 	private List<Code> codes;
 	private Map<String, Code> codeIndex = new LinkedHashMap<>();
+	private Map<Range, Code> ranges;
 
 	public Indicator() {}
 
 	public Indicator(String label) {
 		this.label = label;
 	}
-
 
 	public Indicator(String label, List<Code> codes) {
 		this.label = label;
@@ -89,15 +87,38 @@ public class Indicator {
 	}
 
 	public Code getCode(String codeString) {
-		for (Code code : codes) {
-			if (code.getCode().equals(codeString))
-				return code;
+		if (codeIndex.containsKey(codeString))
+			return codeIndex.get(codeString);
+
+		for (Range range : getRanges().keySet()) {
+			if (range.isValid(codeString))
+				return ranges.get(range);
 		}
+
 		return null;
 	}
 
 	public boolean hasCode(String code) {
-		return codeIndex.containsKey(code);
+		if (codeIndex.containsKey(code))
+			return true;
+		for (Range range : getRanges().keySet()) {
+			if (range.isValid(code))
+				return true;
+		}
+
+		return false;
+	}
+
+	private Map<Range, Code> getRanges() {
+		if (ranges == null) {
+			ranges = new HashMap<>();
+			for (Code code : codes) {
+				if (code.isRange()) {
+					ranges.put(code.getRange(), code);
+				}
+			}
+		}
+		return ranges;
 	}
 
 	private void index() {
@@ -106,5 +127,4 @@ public class Indicator {
 			codeIndex.put(code.getCode(), code);
 		}
 	}
-
 }

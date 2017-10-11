@@ -3,8 +3,11 @@ package de.gwdg.metadataqa.marc;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
+import java.util.logging.Logger;
 
-public class MarcRecord {
+public class MarcRecord implements Extractable, Validatable {
+
+	private static final Logger logger = Logger.getLogger(MarcRecord.class.getCanonicalName());
 
 	private Leader leader;
 	private Control001 control001;
@@ -16,6 +19,7 @@ public class MarcRecord {
 	private List<DataField> datafields;
 	private Map<String, List<DataField>> datafieldIndex;
 	Map<String, List<String>> mainKeyValuePairs;
+	private List<String> errors = null;
 
 	private List<String> unhandledTags;
 
@@ -103,10 +107,6 @@ public class MarcRecord {
 		this.control008 = control008;
 	}
 
-	public boolean validate() {
-		return true;
-	}
-
 	public String getId() {
 		return control001.getContent();
 	}
@@ -114,6 +114,10 @@ public class MarcRecord {
 	private List<Extractable> getControlfields() {
 		return Arrays.asList(
 			control001, control003, control005, control006, control007, control008);
+	}
+
+	public List<DataField> getDatafield(String tag) {
+		return datafieldIndex.getOrDefault(tag, null);
 	}
 
 	public List<String> getUnhandledTags() {
@@ -144,10 +148,6 @@ public class MarcRecord {
 		return output;
 	}
 
-	public List<DataField> getDatafield(String tag) {
-		return datafieldIndex.getOrDefault(tag, null);
-	}
-
 	public Map<String, List<String>> getKeyValuePairs() {
 		if (mainKeyValuePairs == null) {
 			mainKeyValuePairs = new LinkedHashMap<>();
@@ -167,5 +167,51 @@ public class MarcRecord {
 		}
 
 		return mainKeyValuePairs;
+	}
+
+	@Override
+	public boolean validate() {
+		errors = new ArrayList<>();
+		boolean isValidRecord = true;
+		boolean isValidComponent;
+
+		/*
+		boolean isComponentvalid = leader.validate();
+		if (!isComponentvalid)
+			isRecodValid = isComponentvalid;
+		*/
+
+		if (!unhandledTags.isEmpty()) {
+			errors.add(String.format("Unhandled %s: %s",
+				(unhandledTags.size() == 1 ? "tag" : "tags"),
+				StringUtils.join(unhandledTags, ", ")));
+			isValidRecord = false;
+		}
+
+		/*
+		for (Extractable controlField : getControlfields()) {
+			if (controlField != null) {
+				isComponentvalid = ((Validatable)controlField).validate();
+				if (!isComponentvalid)
+					isRecodValid = isComponentvalid;
+			}
+		}
+		*/
+
+		for (DataField field : datafields) {
+			isValidComponent = field.validate();
+			if (!isValidComponent) {
+				// logger.warning("error in " + field.getDefinition().getTag());
+				isValidRecord = isValidComponent;
+				errors.addAll(field.getErrors());
+			}
+		}
+
+		return isValidRecord;
+	}
+
+	@Override
+	public List<String> getErrors() {
+		return errors;
 	}
 }

@@ -6,7 +6,6 @@ import de.gwdg.metadataqa.api.schema.MarcJsonSchema;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcFieldExtractor;
 import de.gwdg.metadataqa.marc.MarcRecord;
-import de.gwdg.metadataqa.marc.datastore.MarcElasticsearchClient;
 import de.gwdg.metadataqa.marc.datastore.MarcSolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 
@@ -17,7 +16,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -25,9 +23,9 @@ import java.util.logging.Logger;
  * java -cp target/metadata-qa-marc-0.1-SNAPSHOT-jar-with-dependencies.jar de.gwdg.metadataqa.marc.cli.SolrKeyGenerator http://localhost:8983/solr/tardit 0001.0000000.formatted.json
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class SolrKeyGenerator {
+public class MarcJsonToSolr {
 
-	private static final Logger logger = Logger.getLogger(SolrKeyGenerator.class.getCanonicalName());
+	private static final Logger logger = Logger.getLogger(MarcJsonToSolr.class.getCanonicalName());
 
 	public static void main(String[] args) {
 		if (args.length < 2) {

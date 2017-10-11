@@ -2,18 +2,33 @@
 Metadata quality assessment for MARC records
 
 * If you would like to play with this project, but you don't have MARC21 I suggest to download records from the Library of Congress: https://www.loc.gov/cds/products/MDSConnect-books_all.html
-* this is an early phase of the project, nor the software, neighter the documentation are ready. But still it is in a state which I thought worth sharing
-* for more info see the main project page: [Metadata Quality Assurance Framework](http://pkiraly.github.io)
+* This is an early phase of the project, nor the software, neighter the documentation are ready. But still it is in a state which I thought worth sharing
+* For more info see the main project page: [Metadata Quality Assurance Framework](http://pkiraly.github.io)
 
 ## build
 
+Prerequisites: Java 8 (I use OpenJDK), and Maven 3
+
+First clone and build the parent library, metadata-qa-api project:
+
 ```
-git clone git@github.com:pkiraly/metadata-qa-marc.git
+git clone https://github.com/pkiraly/metadata-qa-api.git
+cd metadata-qa-api
+mvn clean install
+cd ..
+```
+
+then the current metadata-qa-marc project
+```
+git clone https://github.com/pkiraly/metadata-qa-marc.git
 cd metadata-qa-marc
 mvn clean install
 ```
 
 ## run
+
+We will use the same jar file in every command, so we save its path into a variable.
+
 ```
 export JAR=target/metadata-qa-marc-0.1-SNAPSHOT-jar-with-dependencies.jar
 ```
@@ -64,6 +79,23 @@ Error in '   00010971 ':
 ```
 
 ### Indexing MARC records with Solr
+
+Set autocommit the following way in solrconfig.xml (inside Solr):
+
+```XML
+    <autoCommit>
+      <maxTime>${solr.autoCommit.maxTime:15000}</maxTime>
+      <maxDocs>5000</maxDocs>
+      <openSearcher>true</openSearcher>
+    </autoCommit>
+...
+    <autoSoftCommit>
+      <maxTime>${solr.autoSoftCommit.maxTime:-1}</maxTime>
+    </autoSoftCommit>
+```
+It needs because in the library's code there is no commit, which makes the parallel indexing faster.
+
+Run indexer:
 ```
 java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr [Solr url] [file]
 ```

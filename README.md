@@ -79,6 +79,23 @@ Error in '   00010971 ':
 ```
 
 ### Indexing MARC records with Solr
+
+Set autocommit the following way in solrconfig.xml (inside Solr):
+
+```
+    <autoCommit>
+      <maxTime>${solr.autoCommit.maxTime:15000}</maxTime>
+      <maxDocs>5000</maxDocs>
+      <openSearcher>true</openSearcher>
+    </autoCommit>
+...
+    <autoSoftCommit>
+      <maxTime>${solr.autoSoftCommit.maxTime:-1}</maxTime>
+    </autoSoftCommit>
+```
+It needs because in the library's code there is no commit, which makes the parallel indexing faster.
+
+Run indexer:
 ```
 java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr [Solr url] [file]
 ```

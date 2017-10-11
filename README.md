@@ -7,19 +7,28 @@ Metadata quality assessment for MARC records
 
 ## build
 
+Prerequisites: Java 8 (I use OpenJDK), and Maven 3
+
+First clone and build the parent library, metadata-qa-api project:
+
 ```
-# build first metadata-qa-api project
 git clone https://github.com/pkiraly/metadata-qa-api.git
 cd metadata-qa-api
 mvn clean install
 cd ..
-# then the current metadata-qa-marc project
+```
+
+then the current metadata-qa-marc project
+```
 git clone https://github.com/pkiraly/metadata-qa-marc.git
 cd metadata-qa-marc
 mvn clean install
 ```
 
 ## run
+
+We will use the same jar file in every command, so we save its path into a variable.
+
 ```
 export JAR=target/metadata-qa-marc-0.1-SNAPSHOT-jar-with-dependencies.jar
 ```

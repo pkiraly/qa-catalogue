@@ -14,7 +14,7 @@ mvn clean install
 export JAR=target/metadata-qa-marc-0.1-SNAPSHOT-jar-with-dependencies.jar
 ```
 
-### validate MARC file
+### Validating MARC records
 ```
 java -cp $JAR de.gwdg.metadataqa.marc.cli.Validator [file]
 ```
@@ -64,9 +64,10 @@ Error in '   00010971 ':
 java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr [Solr url] [file]
 ```
 
-The Solr URL is something like this: http://localhost:8983/solr/loc. It uses the (Self Descriptive MARC code)[http://pkiraly.github.io/2017/09/24/mapping/], so a record looks like this:
+The Solr URL is something like this: http://localhost:8983/solr/loc. It uses the [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/), so a record looks like this:
 
 ```JSON
+{
         "id":"   00004081 ",
         "type_ss":["Books"],
         "Leader_ss":["00928cam a22002531  4500"],
@@ -154,4 +155,5 @@ The Solr URL is something like this: http://localhost:8983/solr/loc. It uses the
         "ElectronicLocationAndAccess_uri_ss":["http://hdl.loc.gov/loc.gdc/scd0001.20000719001an.2"],
         "ElectronicLocationAndAccess_ind1_ss":["HTTP"],
         "_version_":1580884716765052928},
+}
 ```

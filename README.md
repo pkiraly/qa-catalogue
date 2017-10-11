@@ -8,7 +8,13 @@ Metadata quality assessment for MARC records
 ## build
 
 ```
-git clone git@github.com:pkiraly/metadata-qa-marc.git
+# build first metadata-qa-api project
+git clone https://github.com/pkiraly/metadata-qa-api.git
+cd metadata-qa-api
+mvn clean install
+cd ..
+# then the current metadata-qa-marc project
+git clone https://github.com/pkiraly/metadata-qa-marc.git
 cd metadata-qa-marc
 mvn clean install
 ```

@@ -46,7 +46,7 @@ public class Tag260Test {
 		assertNotNull("subfield should not be null", a);
 		assertEquals("a", a.getCode());
 		assertEquals("Place of publication, distribution, etc.", a.getLabel());
-		assertEquals(Cardinality.Repeatable, a.getType());
+		assertEquals(Cardinality.Repeatable, a.getCardinality());
 	}
 
 	// ##$aParis :$bGauthier-Villars ;$aChicago :$bUniversity of Chicago Press,$c1955.

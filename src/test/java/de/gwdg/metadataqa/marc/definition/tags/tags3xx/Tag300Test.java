@@ -41,7 +41,7 @@ public class Tag300Test {
 		assertNotNull("subfield should not be null", a);
 		assertEquals("a", a.getCode());
 		assertEquals("Extent", a.getLabel());
-		assertEquals(Cardinality.Repeatable, a.getType());
+		assertEquals(Cardinality.Repeatable, a.getCardinality());
 	}
 
 	// ##$a149 p. ;$c23 cm

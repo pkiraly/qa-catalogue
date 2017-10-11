@@ -46,7 +46,7 @@ public class Tag245Test {
 		assertNotNull("subfield should not be null", a);
 		assertEquals("a", a.getCode());
 		assertEquals("Title", a.getLabel());
-		assertEquals(Cardinality.Nonrepeatable, a.getType());
+		assertEquals(Cardinality.Nonrepeatable, a.getCardinality());
 	}
 
 	// 00$a[Man smoking at window].

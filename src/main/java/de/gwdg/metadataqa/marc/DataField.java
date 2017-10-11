@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc;
 
+import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
@@ -236,10 +237,26 @@ public class DataField implements Extractable, Validatable {
 				isValid = false;
 		}
 
+		Map<SubfieldDefinition, Integer> counter = new HashMap<>();
 		for (MarcSubfield subfield : subfields) {
+			if (!counter.containsKey(subfield.getDefinition())) {
+				counter.put(subfield.getDefinition(), 0);
+			}
+			counter.put(subfield.getDefinition(), counter.get(subfield.getDefinition()) + 1);
+
 			if (!subfield.validate()) {
 				// logger.warning(String.format("%s$%s error", definition.getTag(), subfield.getDefinition().getCode()));
 				errors.addAll(subfield.getErrors());
+				isValid = false;
+			}
+		}
+		for (SubfieldDefinition subfieldDefinition : counter.keySet()) {
+			if (counter.get(subfieldDefinition) > 1
+				&& subfieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
+				errors.add(String.format(
+					"%s$%s is not repeatable, however there are %d instances",
+					definition.getTag(), subfieldDefinition.getCode(),
+					counter.get(subfieldDefinition)));
 				isValid = false;
 			}
 		}

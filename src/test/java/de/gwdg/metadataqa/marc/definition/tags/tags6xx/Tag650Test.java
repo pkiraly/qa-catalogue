@@ -40,7 +40,7 @@ public class Tag650Test {
 		assertNotNull("subfield should not be null", a);
 		assertEquals("a", a.getCode());
 		assertEquals("Topical term or geographic name entry element", a.getLabel());
-		assertEquals(Cardinality.Nonrepeatable, a.getType());
+		assertEquals(Cardinality.Nonrepeatable, a.getCardinality());
 	}
 
 	// #0$aAmish.

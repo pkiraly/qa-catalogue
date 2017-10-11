@@ -40,7 +40,7 @@ public class Tag610Test {
 		assertNotNull("subfield should not be null", a);
 		assertEquals("a", a.getCode());
 		assertEquals("Corporate name or jurisdiction name as entry element", a.getLabel());
-		assertEquals(Cardinality.Nonrepeatable, a.getType());
+		assertEquals(Cardinality.Nonrepeatable, a.getCardinality());
 	}
 
 	/*

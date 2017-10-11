@@ -1,5 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
+import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
@@ -198,12 +200,27 @@ public class MarcRecord implements Extractable, Validatable {
 		}
 		*/
 
+		Map<DataFieldDefinition, Integer> counter = new HashMap<>();
 		for (DataField field : datafields) {
+			if (!counter.containsKey(field.getDefinition())) {
+				counter.put(field.getDefinition(), 0);
+			}
+			counter.put(field.getDefinition(), counter.get(field.getDefinition()) + 1);
 			isValidComponent = field.validate();
 			if (!isValidComponent) {
 				// logger.warning("error in " + field.getDefinition().getTag());
 				isValidRecord = isValidComponent;
 				errors.addAll(field.getErrors());
+			}
+		}
+		for (DataFieldDefinition fieldDefinition : counter.keySet()) {
+			if (counter.get(fieldDefinition) > 1
+				&& fieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
+				errors.add(String.format(
+					"%s is not repeatable, however there are %d instances",
+					fieldDefinition.getTag(),
+					counter.get(fieldDefinition)));
+				isValidRecord = false;
 			}
 		}
 

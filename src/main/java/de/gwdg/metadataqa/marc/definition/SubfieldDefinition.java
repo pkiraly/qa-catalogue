@@ -105,7 +105,7 @@ public class SubfieldDefinition {
 		return cardinalityCode;
 	}
 
-	public Cardinality getType() {
+	public Cardinality getCardinality() {
 		return Cardinality.byCode(cardinalityCode);
 	}
 

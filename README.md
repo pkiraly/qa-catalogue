@@ -58,3 +58,10 @@ Error in '   00010971 ':
  - 260 has invalid subfield: d
 ...
 ```
+
+## Indexing with Solr
+```
+java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr [Solr url] [file]
+```
+
+The Solr URL is something like this: http://localhost:8983/solr/loc.

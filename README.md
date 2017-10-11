@@ -1,7 +1,10 @@
 # metadata-qa-marc
 Metadata assessment for MARC records
 
-Note: this is an early phase of the project. The documentation is far from ready.
+Notes: 
+
+* If you would like to play with this project, but you don't have MARC21 I suggest to download records from the Library of Congress: https://www.loc.gov/cds/products/MDSConnect-books_all.html
+* this is an early phase of the project, nor the software, neighter the documentation are ready. But still it is in a state which I thought worth sharing
 
 ## build
 

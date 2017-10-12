@@ -3,6 +3,10 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 
+/**
+ * Form of item
+ * https://www.loc.gov/marc/bibliographic/bd008b.html
+ */
 public class Tag008book23 extends ControlSubfield {
 	private static Tag008book23 uniqueInstance;
 
@@ -23,6 +27,7 @@ public class Tag008book23 extends ControlSubfield {
 		mqTag = "formOfItem";
 		positionStart = 23;
 		positionEnd = 24;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd008b.html";
 		codes = Utils.generateCodes(
 			" ", "None of the following",
 			"a", "Microfilm",

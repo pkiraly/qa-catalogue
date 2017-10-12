@@ -3,6 +3,10 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 
+/**
+ * Nature of contents
+ * https://www.loc.gov/marc/bibliographic/bd008b.html
+ */
 public class Tag008book24 extends ControlSubfield {
 	private static Tag008book24 uniqueInstance;
 
@@ -23,6 +27,7 @@ public class Tag008book24 extends ControlSubfield {
 		mqTag = "natureOfContents";
 		positionStart = 24;
 		positionEnd = 28;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd008b.html";
 		codes = Utils.generateCodes(
 			" ", "No specified nature of contents",
 			"a", "Abstracts/summaries",

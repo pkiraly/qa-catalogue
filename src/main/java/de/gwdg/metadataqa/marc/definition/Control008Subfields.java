@@ -38,64 +38,12 @@ public class Control008Subfields {
 		));
 		subfields.put(Control008Type.COMPUTER_FILES, Arrays.asList(
 			// new ControlSubfield("undefined", 18, 21),
-			new ControlSubfield("Target audience", 22, 23,
-				Utils.generateCodes(
-					" ", "Unknown or not specified",
-					"a", "Preschool",
-					"b", "Primary",
-					"c", "Pre-adolescent",
-					"d", "Adolescent",
-					"e", "Adult",
-					"f", "Specialized",
-					"g", "General",
-					"j", "Juvenile",
-					"|", "No attempt to code"
-				)
-			).setId("tag008computer22").setMqTag("targetAudience"),
-			new ControlSubfield("Form of item", 23, 24,
-				Utils.generateCodes(
-					" ", "Unknown or not specified",
-					"o", "Online",
-					"q", "Direct electronic",
-					"|", "No attempt to code"
-				)
-			).setId("tag008computer23").setMqTag("formOfItem"),
+			Tag008computer22.getInstance(),
+			Tag008computer23.getInstance(),
 			// new ControlSubfield("undefined", 24, 25),
-			new ControlSubfield("Type of computer file", 26, 27,
-				Utils.generateCodes(
-					"a", "Numeric data",
-					"b", "Computer program",
-					"c", "Representational",
-					"d", "Document",
-					"e", "Bibliographic data",
-					"f", "Font",
-					"g", "Game",
-					"h", "Sound",
-					"i", "Interactive multimedia",
-					"j", "Online system or service",
-					"m", "Combination",
-					"u", "Unknown",
-					"z", "Other",
-					"|", "No attempt to code"
-				)
-			).setId("tag008computer26").setMqTag("typeOfComputerFile"),
+			Tag008computer26.getInstance(),
 			// new ControlSubfield("undefined", 27, 28),
-			new ControlSubfield("Government publication", 28, 29,
-				Utils.generateCodes(
-					" ", "Not a government publication",
-					"a", "Autonomous or semi-autonomous component",
-					"c", "Multilocal",
-					"f", "Federal/national",
-					"i", "International intergovernmental",
-					"l", "Local",
-					"m", "Multistate",
-					"o", "Government publication-level undetermined",
-					"s", "State, provincial, territorial, dependent, etc.",
-					"u", "Unknown if item is government publication",
-					"z", "Other",
-					"|", "No attempt to code"
-				)
-			).setId("tag008computer28").setMqTag("governmentPublication")
+			Tag008computer28.getInstance()
 			// new ControlSubfield("undefined", 29, 35)
 		));
 		subfields.put(Control008Type.MAPS, Arrays.asList(

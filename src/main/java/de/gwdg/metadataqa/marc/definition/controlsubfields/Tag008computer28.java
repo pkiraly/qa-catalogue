@@ -5,29 +5,29 @@ import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 
 /**
  * Government publication
- * https://www.loc.gov/marc/bibliographic/bd008b.html
+ * https://www.loc.gov/marc/bibliographic/bd008c.html
  */
-public class Tag008book28 extends ControlSubfield {
-	private static Tag008book28 uniqueInstance;
+public class Tag008computer28 extends ControlSubfield {
+	private static Tag008computer28 uniqueInstance;
 
-	private Tag008book28() {
+	private Tag008computer28() {
 		initialize();
 		extractValidCodes();
 	}
 
-	public static Tag008book28 getInstance() {
+	public static Tag008computer28 getInstance() {
 		if (uniqueInstance == null)
-			uniqueInstance = new Tag008book28();
+			uniqueInstance = new Tag008computer28();
 		return uniqueInstance;
 	}
 
 	private void initialize() {
 		label = "Government publication";
-		id = "tag008book28";
+		id = "tag008computer28";
 		mqTag = "governmentPublication";
 		positionStart = 28;
 		positionEnd = 29;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd008b.html";
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd008c.html";
 		codes = Utils.generateCodes(
 			" ", "Not a government publication",
 			"a", "Autonomous or semi-autonomous component",

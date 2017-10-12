@@ -3,6 +3,10 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 
+/**
+ * Illustrations
+ * https://www.loc.gov/marc/bibliographic/bd008b.html
+ */
 public class Tag008book18 extends ControlSubfield {
 	private static Tag008book18 uniqueInstance;
 
@@ -23,6 +27,7 @@ public class Tag008book18 extends ControlSubfield {
 		mqTag = "illustrations";
 		positionStart = 18;
 		positionEnd = 22;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd008b.html";
 		codes = Utils.generateCodes(
 			" ", "No illustrations",
 			"a", "Illustrations",

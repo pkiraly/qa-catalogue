@@ -3,6 +3,10 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 
+/**
+ * Index
+ * https://www.loc.gov/marc/bibliographic/bd008b.html
+ */
 public class Tag008book31 extends ControlSubfield {
 	private static Tag008book31 uniqueInstance;
 
@@ -23,6 +27,7 @@ public class Tag008book31 extends ControlSubfield {
 		mqTag = "index";
 		positionStart = 31;
 		positionEnd = 32;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd008b.html";
 		codes = Utils.generateCodes(
 			"0", "No index",
 			"1", "Index present",

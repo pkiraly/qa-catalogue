@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.Control006Subfields;
 import de.gwdg.metadataqa.marc.definition.Control008Type;
+import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
 
 import java.util.*;
@@ -78,17 +79,21 @@ public class Control006 implements Extractable, Validatable {
 	private ControlValue tag006mixed06;
 
 	private Map<ControlSubfield, String> valuesMap;
+	private List<ControlValue> valuesList;
 	private Map<Integer, ControlSubfield> byPosition = new LinkedHashMap<>();
+	private List<String> errors;
 
 	public Control006(String content, Leader.Type recordType) {
 		this.content = content;
 		this.recordType = recordType;
 		valuesMap = new LinkedHashMap<>();
+		valuesList = new ArrayList<>();
 		if (content != null)
 			process();
 	}
 
 	private void process() {
+
 		for (ControlSubfield subfield : Control006Subfields.get(Control008Type.ALL_MATERIALS)) {
 			int end = Math.min(content.length(), subfield.getPositionEnd());
 			if (end < 0) {
@@ -96,9 +101,11 @@ public class Control006 implements Extractable, Validatable {
 			}
 			try {
 				String value = content.substring(subfield.getPositionStart(), end);
+				ControlValue controlValue = new ControlValue(subfield, value);
+				valuesList.add(controlValue);
 
 				switch (subfield.getId()) {
-					case "tag006all00": tag006all00 = new ControlValue(subfield, value); break;
+					case "tag006all00": tag006all00 = controlValue; break;
 
 					default:
 						logger.severe(String.format("Unhandled 006 subfield: %s", subfield.getId()));
@@ -118,61 +125,63 @@ public class Control006 implements Extractable, Validatable {
 			try {
 
 				String value = content.substring(subfield.getPositionStart(), end);
+				ControlValue controlValue = new ControlValue(subfield, value);
+				valuesList.add(controlValue);
 
 				switch (subfield.getId()) {
-					case "tag006book01": tag006book01 = new ControlValue(subfield, value); break;
-					case "tag006book05": tag006book05 = new ControlValue(subfield, value); break;
-					case "tag006book06": tag006book06 = new ControlValue(subfield, value); break;
-					case "tag006book07": tag006book07 = new ControlValue(subfield, value); break;
-					case "tag006book11": tag006book11 = new ControlValue(subfield, value); break;
-					case "tag006book12": tag006book12 = new ControlValue(subfield, value); break;
-					case "tag006book13": tag006book13 = new ControlValue(subfield, value); break;
-					case "tag006book14": tag006book14 = new ControlValue(subfield, value); break;
-					case "tag006book16": tag006book16 = new ControlValue(subfield, value); break;
-					case "tag006book17": tag006book17 = new ControlValue(subfield, value); break;
+					case "tag006book01": tag006book01 = controlValue; break;
+					case "tag006book05": tag006book05 = controlValue; break;
+					case "tag006book06": tag006book06 = controlValue; break;
+					case "tag006book07": tag006book07 = controlValue; break;
+					case "tag006book11": tag006book11 = controlValue; break;
+					case "tag006book12": tag006book12 = controlValue; break;
+					case "tag006book13": tag006book13 = controlValue; break;
+					case "tag006book14": tag006book14 = controlValue; break;
+					case "tag006book16": tag006book16 = controlValue; break;
+					case "tag006book17": tag006book17 = controlValue; break;
 
-					case "tag006computer05": tag006computer05 = new ControlValue(subfield, value); break;
-					case "tag006computer06": tag006computer06 = new ControlValue(subfield, value); break;
-					case "tag006computer09": tag006computer09 = new ControlValue(subfield, value); break;
-					case "tag006computer11": tag006computer11 = new ControlValue(subfield, value); break;
+					case "tag006computer05": tag006computer05 = controlValue; break;
+					case "tag006computer06": tag006computer06 = controlValue; break;
+					case "tag006computer09": tag006computer09 = controlValue; break;
+					case "tag006computer11": tag006computer11 = controlValue; break;
 
-					case "tag006map01": tag006map01 = new ControlValue(subfield, value); break;
-					case "tag006map05": tag006map05 = new ControlValue(subfield, value); break;
-					case "tag006map08": tag006map08 = new ControlValue(subfield, value); break;
-					case "tag006map11": tag006map11 = new ControlValue(subfield, value); break;
-					case "tag006map12": tag006map12 = new ControlValue(subfield, value); break;
-					case "tag006map14": tag006map14 = new ControlValue(subfield, value); break;
-					case "tag006map16": tag006map16 = new ControlValue(subfield, value); break;
+					case "tag006map01": tag006map01 = controlValue; break;
+					case "tag006map05": tag006map05 = controlValue; break;
+					case "tag006map08": tag006map08 = controlValue; break;
+					case "tag006map11": tag006map11 = controlValue; break;
+					case "tag006map12": tag006map12 = controlValue; break;
+					case "tag006map14": tag006map14 = controlValue; break;
+					case "tag006map16": tag006map16 = controlValue; break;
 
-					case "tag006music01": tag006music01 = new ControlValue(subfield, value); break;
-					case "tag006music03": tag006music03 = new ControlValue(subfield, value); break;
-					case "tag006music04": tag006music04 = new ControlValue(subfield, value); break;
-					case "tag006music05": tag006music05 = new ControlValue(subfield, value); break;
-					case "tag006music06": tag006music06 = new ControlValue(subfield, value); break;
-					case "tag006music07": tag006music07 = new ControlValue(subfield, value); break;
-					case "tag006music13": tag006music13 = new ControlValue(subfield, value); break;
-					case "tag006music16": tag006music16 = new ControlValue(subfield, value); break;
+					case "tag006music01": tag006music01 = controlValue; break;
+					case "tag006music03": tag006music03 = controlValue; break;
+					case "tag006music04": tag006music04 = controlValue; break;
+					case "tag006music05": tag006music05 = controlValue; break;
+					case "tag006music06": tag006music06 = controlValue; break;
+					case "tag006music07": tag006music07 = controlValue; break;
+					case "tag006music13": tag006music13 = controlValue; break;
+					case "tag006music16": tag006music16 = controlValue; break;
 
-					case "tag006continuing01": tag006continuing01 = new ControlValue(subfield, value); break;
-					case "tag006continuing02": tag006continuing02 = new ControlValue(subfield, value); break;
-					case "tag006continuing04": tag006continuing04 = new ControlValue(subfield, value); break;
-					case "tag006continuing05": tag006continuing05 = new ControlValue(subfield, value); break;
-					case "tag006continuing06": tag006continuing06 = new ControlValue(subfield, value); break;
-					case "tag006continuing07": tag006continuing07 = new ControlValue(subfield, value); break;
-					case "tag006continuing08": tag006continuing08 = new ControlValue(subfield, value); break;
-					case "tag006continuing11": tag006continuing11 = new ControlValue(subfield, value); break;
-					case "tag006continuing12": tag006continuing12 = new ControlValue(subfield, value); break;
-					case "tag006continuing16": tag006continuing16 = new ControlValue(subfield, value); break;
-					case "tag006continuing17": tag006continuing17 = new ControlValue(subfield, value); break;
+					case "tag006continuing01": tag006continuing01 = controlValue; break;
+					case "tag006continuing02": tag006continuing02 = controlValue; break;
+					case "tag006continuing04": tag006continuing04 = controlValue; break;
+					case "tag006continuing05": tag006continuing05 = controlValue; break;
+					case "tag006continuing06": tag006continuing06 = controlValue; break;
+					case "tag006continuing07": tag006continuing07 = controlValue; break;
+					case "tag006continuing08": tag006continuing08 = controlValue; break;
+					case "tag006continuing11": tag006continuing11 = controlValue; break;
+					case "tag006continuing12": tag006continuing12 = controlValue; break;
+					case "tag006continuing16": tag006continuing16 = controlValue; break;
+					case "tag006continuing17": tag006continuing17 = controlValue; break;
 
-					case "tag006visual01": tag006visual01 = new ControlValue(subfield, value); break;
-					case "tag006visual05": tag006visual05 = new ControlValue(subfield, value); break;
-					case "tag006visual11": tag006visual11 = new ControlValue(subfield, value); break;
-					case "tag006visual12": tag006visual12 = new ControlValue(subfield, value); break;
-					case "tag006visual16": tag006visual16 = new ControlValue(subfield, value); break;
-					case "tag006visual17": tag006visual17 = new ControlValue(subfield, value); break;
+					case "tag006visual01": tag006visual01 = controlValue; break;
+					case "tag006visual05": tag006visual05 = controlValue; break;
+					case "tag006visual11": tag006visual11 = controlValue; break;
+					case "tag006visual12": tag006visual12 = controlValue; break;
+					case "tag006visual16": tag006visual16 = controlValue; break;
+					case "tag006visual17": tag006visual17 = controlValue; break;
 
-					case "tag006mixed06": tag006mixed06 = new ControlValue(subfield, value); break;
+					case "tag006mixed06": tag006mixed06 = controlValue; break;
 
 					default:
 						logger.severe(String.format("Unhandled 006 subfield: %s", subfield.getId()));
@@ -440,11 +449,19 @@ public class Control006 implements Extractable, Validatable {
 
 	@Override
 	public boolean validate() {
-		return false;
+		boolean isValid = true;
+		errors = new ArrayList<>();
+		for (ControlValue controlValue : valuesList) {
+			if (!controlValue.validate()) {
+				errors.addAll(controlValue.getErrors());
+				isValid = false;
+			}
+		}
+		return isValid;
 	}
 
 	@Override
 	public List<String> getErrors() {
-		return null;
+		return errors;
 	}
 }

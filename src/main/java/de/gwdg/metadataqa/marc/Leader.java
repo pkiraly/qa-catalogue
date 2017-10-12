@@ -1,12 +1,10 @@
 package de.gwdg.metadataqa.marc;
 
+import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
 import de.gwdg.metadataqa.marc.definition.LeaderSubfields;
 
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -57,6 +55,7 @@ public class Leader implements Extractable, Validatable {
 	private ControlValue lengthOfTheLengthOfFieldPortion;
 	private ControlValue lengthOfTheStartingCharacterPositionPortion;
 	private ControlValue lengthOfTheImplementationDefinedPortion;
+	private List<String> errors;
 
 	public Leader(String content) {
 		this.content = content;
@@ -243,11 +242,26 @@ public class Leader implements Extractable, Validatable {
 
 	@Override
 	public boolean validate() {
-		return false;
+		boolean isValid = true;
+		errors = new ArrayList<>();
+
+		for (ControlSubfield controlSubfield : valuesMap.keySet()) {
+			String value = valuesMap.get(controlSubfield);
+			if (!controlSubfield.getValidCodes().isEmpty()
+				&& !controlSubfield.getValidCodes().contains(value)) {
+				errors.add(String.format("Leader/%s has an invalid value: '%s'",
+					(controlSubfield.getPositionStart() == controlSubfield.getPositionEnd() - 1
+						? controlSubfield.getPositionStart()
+						: controlSubfield.getPositionStart() + "-" + controlSubfield.getPositionEnd()),
+					value));
+				isValid = false;
+			}
+		}
+		return isValid;
 	}
 
 	@Override
 	public List<String> getErrors() {
-		return null;
+		return errors;
 	}
 }

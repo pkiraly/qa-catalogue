@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.Control007Category;
 import de.gwdg.metadataqa.marc.definition.Control007Subfields;
+import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
 
 import java.util.*;
@@ -132,11 +133,14 @@ public class Control007 implements Extractable, Validatable {
 	private ControlValue tag007unspecified01;
 
 	private Map<ControlSubfield, String> valuesMap;
+	private List<ControlValue> valuesList;
 	private Map<Integer, ControlSubfield> byPosition = new LinkedHashMap<>();
+	private List<String> errors;
 
 	public Control007(String content) {
 		this.content = content;
 		valuesMap = new LinkedHashMap<>();
+		valuesList = new ArrayList<>();
 		if (content != null)
 			process();
 	}
@@ -181,114 +185,116 @@ public class Control007 implements Extractable, Validatable {
 					value = "";
 				}
 			}
+			ControlValue controlValue = new ControlValue(subfield, value);
+			valuesList.add(controlValue);
 
 			switch (subfield.getId()) {
-				case "tag007map01": tag007map01 = new ControlValue(subfield, value); break;
-				case "tag007map03": tag007map03 = new ControlValue(subfield, value); break;
-				case "tag007map04": tag007map04 = new ControlValue(subfield, value); break;
-				case "tag007map05": tag007map05 = new ControlValue(subfield, value); break;
-				case "tag007map06": tag007map06 = new ControlValue(subfield, value); break;
-				case "tag007map07": tag007map07 = new ControlValue(subfield, value); break;
+				case "tag007map01": tag007map01 = controlValue; break;
+				case "tag007map03": tag007map03 = controlValue; break;
+				case "tag007map04": tag007map04 = controlValue; break;
+				case "tag007map05": tag007map05 = controlValue; break;
+				case "tag007map06": tag007map06 = controlValue; break;
+				case "tag007map07": tag007map07 = controlValue; break;
 
-				case "tag007electro01": tag007electro01 = new ControlValue(subfield, value); break;
-				case "tag007electro03": tag007electro03 = new ControlValue(subfield, value); break;
-				case "tag007electro04": tag007electro04 = new ControlValue(subfield, value); break;
-				case "tag007electro05": tag007electro05 = new ControlValue(subfield, value); break;
-				case "tag007electro06": tag007electro06 = new ControlValue(subfield, value); break;
-				case "tag007electro09": tag007electro09 = new ControlValue(subfield, value); break;
-				case "tag007electro10": tag007electro10 = new ControlValue(subfield, value); break;
-				case "tag007electro11": tag007electro11 = new ControlValue(subfield, value); break;
-				case "tag007electro12": tag007electro12 = new ControlValue(subfield, value); break;
-				case "tag007electro13": tag007electro13 = new ControlValue(subfield, value); break;
+				case "tag007electro01": tag007electro01 = controlValue; break;
+				case "tag007electro03": tag007electro03 = controlValue; break;
+				case "tag007electro04": tag007electro04 = controlValue; break;
+				case "tag007electro05": tag007electro05 = controlValue; break;
+				case "tag007electro06": tag007electro06 = controlValue; break;
+				case "tag007electro09": tag007electro09 = controlValue; break;
+				case "tag007electro10": tag007electro10 = controlValue; break;
+				case "tag007electro11": tag007electro11 = controlValue; break;
+				case "tag007electro12": tag007electro12 = controlValue; break;
+				case "tag007electro13": tag007electro13 = controlValue; break;
 
-				case "tag007globe01": tag007globe01 = new ControlValue(subfield, value); break;
-				case "tag007globe03": tag007globe03 = new ControlValue(subfield, value); break;
-				case "tag007globe04": tag007globe04 = new ControlValue(subfield, value); break;
-				case "tag007globe05": tag007globe05 = new ControlValue(subfield, value); break;
+				case "tag007globe01": tag007globe01 = controlValue; break;
+				case "tag007globe03": tag007globe03 = controlValue; break;
+				case "tag007globe04": tag007globe04 = controlValue; break;
+				case "tag007globe05": tag007globe05 = controlValue; break;
 
-				case "tag007tactile01": tag007tactile01 = new ControlValue(subfield, value); break;
-				case "tag007tactile03": tag007tactile03 = new ControlValue(subfield, value); break;
-				case "tag007tactile05": tag007tactile05 = new ControlValue(subfield, value); break;
-				case "tag007tactile06": tag007tactile06 = new ControlValue(subfield, value); break;
-				case "tag007tactile09": tag007tactile09 = new ControlValue(subfield, value); break;
+				case "tag007tactile01": tag007tactile01 = controlValue; break;
+				case "tag007tactile03": tag007tactile03 = controlValue; break;
+				case "tag007tactile05": tag007tactile05 = controlValue; break;
+				case "tag007tactile06": tag007tactile06 = controlValue; break;
+				case "tag007tactile09": tag007tactile09 = controlValue; break;
 
-				case "tag007projected01": tag007projected01 = new ControlValue(subfield, value); break;
-				case "tag007projected03": tag007projected03 = new ControlValue(subfield, value); break;
-				case "tag007projected04": tag007projected04 = new ControlValue(subfield, value); break;
-				case "tag007projected05": tag007projected05 = new ControlValue(subfield, value); break;
-				case "tag007projected06": tag007projected06 = new ControlValue(subfield, value); break;
-				case "tag007projected07": tag007projected07 = new ControlValue(subfield, value); break;
-				case "tag007projected08": tag007projected08 = new ControlValue(subfield, value); break;
+				case "tag007projected01": tag007projected01 = controlValue; break;
+				case "tag007projected03": tag007projected03 = controlValue; break;
+				case "tag007projected04": tag007projected04 = controlValue; break;
+				case "tag007projected05": tag007projected05 = controlValue; break;
+				case "tag007projected06": tag007projected06 = controlValue; break;
+				case "tag007projected07": tag007projected07 = controlValue; break;
+				case "tag007projected08": tag007projected08 = controlValue; break;
 
-				case "tag007microform01": tag007microform01 = new ControlValue(subfield, value); break;
-				case "tag007microform03": tag007microform03 = new ControlValue(subfield, value); break;
-				case "tag007microform04": tag007microform04 = new ControlValue(subfield, value); break;
-				case "tag007microform05": tag007microform05 = new ControlValue(subfield, value); break;
-				case "tag007microform06": tag007microform06 = new ControlValue(subfield, value); break;
-				case "tag007microform09": tag007microform09 = new ControlValue(subfield, value); break;
-				case "tag007microform10": tag007microform10 = new ControlValue(subfield, value); break;
-				case "tag007microform11": tag007microform11 = new ControlValue(subfield, value); break;
-				case "tag007microform12": tag007microform12 = new ControlValue(subfield, value); break;
+				case "tag007microform01": tag007microform01 = controlValue; break;
+				case "tag007microform03": tag007microform03 = controlValue; break;
+				case "tag007microform04": tag007microform04 = controlValue; break;
+				case "tag007microform05": tag007microform05 = controlValue; break;
+				case "tag007microform06": tag007microform06 = controlValue; break;
+				case "tag007microform09": tag007microform09 = controlValue; break;
+				case "tag007microform10": tag007microform10 = controlValue; break;
+				case "tag007microform11": tag007microform11 = controlValue; break;
+				case "tag007microform12": tag007microform12 = controlValue; break;
 
-				case "tag007nonprojected01": tag007nonprojected01 = new ControlValue(subfield, value); break;
-				case "tag007nonprojected03": tag007nonprojected03 = new ControlValue(subfield, value); break;
-				case "tag007nonprojected04": tag007nonprojected04 = new ControlValue(subfield, value); break;
-				case "tag007nonprojected05": tag007nonprojected05 = new ControlValue(subfield, value); break;
+				case "tag007nonprojected01": tag007nonprojected01 = controlValue; break;
+				case "tag007nonprojected03": tag007nonprojected03 = controlValue; break;
+				case "tag007nonprojected04": tag007nonprojected04 = controlValue; break;
+				case "tag007nonprojected05": tag007nonprojected05 = controlValue; break;
 
-				case "tag007motionPicture01": tag007motionPicture01 = new ControlValue(subfield, value); break;
-				case "tag007motionPicture03": tag007motionPicture03 = new ControlValue(subfield, value); break;
-				case "tag007motionPicture04": tag007motionPicture04 = new ControlValue(subfield, value); break;
-				case "tag007motionPicture05": tag007motionPicture05 = new ControlValue(subfield, value); break;
-				case "tag007motionPicture06": tag007motionPicture06 = new ControlValue(subfield, value); break;
-				case "tag007motionPicture07": tag007motionPicture07 = new ControlValue(subfield, value); break;
-				case "tag007motionPicture08": tag007motionPicture08 = new ControlValue(subfield, value); break;
-				case "tag007motionPicture09": tag007motionPicture09 = new ControlValue(subfield, value); break;
-				case "tag007motionPicture10": tag007motionPicture10 = new ControlValue(subfield, value); break;
-				case "tag007motionPicture11": tag007motionPicture11 = new ControlValue(subfield, value); break;
-				case "tag007motionPicture12": tag007motionPicture12 = new ControlValue(subfield, value); break;
-				case "tag007motionPicture13": tag007motionPicture13 = new ControlValue(subfield, value); break;
-				case "tag007motionPicture14": tag007motionPicture14 = new ControlValue(subfield, value); break;
-				case "tag007motionPicture15": tag007motionPicture15 = new ControlValue(subfield, value); break;
-				case "tag007motionPicture16": tag007motionPicture16 = new ControlValue(subfield, value); break;
-				case "tag007motionPicture17": tag007motionPicture17 = new ControlValue(subfield, value); break;
+				case "tag007motionPicture01": tag007motionPicture01 = controlValue; break;
+				case "tag007motionPicture03": tag007motionPicture03 = controlValue; break;
+				case "tag007motionPicture04": tag007motionPicture04 = controlValue; break;
+				case "tag007motionPicture05": tag007motionPicture05 = controlValue; break;
+				case "tag007motionPicture06": tag007motionPicture06 = controlValue; break;
+				case "tag007motionPicture07": tag007motionPicture07 = controlValue; break;
+				case "tag007motionPicture08": tag007motionPicture08 = controlValue; break;
+				case "tag007motionPicture09": tag007motionPicture09 = controlValue; break;
+				case "tag007motionPicture10": tag007motionPicture10 = controlValue; break;
+				case "tag007motionPicture11": tag007motionPicture11 = controlValue; break;
+				case "tag007motionPicture12": tag007motionPicture12 = controlValue; break;
+				case "tag007motionPicture13": tag007motionPicture13 = controlValue; break;
+				case "tag007motionPicture14": tag007motionPicture14 = controlValue; break;
+				case "tag007motionPicture15": tag007motionPicture15 = controlValue; break;
+				case "tag007motionPicture16": tag007motionPicture16 = controlValue; break;
+				case "tag007motionPicture17": tag007motionPicture17 = controlValue; break;
 
-				case "tag007kit01": tag007kit01 = new ControlValue(subfield, value); break;
+				case "tag007kit01": tag007kit01 = controlValue; break;
 
-				case "tag007music01": tag007music01 = new ControlValue(subfield, value); break;
+				case "tag007music01": tag007music01 = controlValue; break;
 
-				case "tag007remoteSensing01": tag007remoteSensing01 = new ControlValue(subfield, value); break;
-				case "tag007remoteSensing03": tag007remoteSensing03 = new ControlValue(subfield, value); break;
-				case "tag007remoteSensing04": tag007remoteSensing04 = new ControlValue(subfield, value); break;
-				case "tag007remoteSensing05": tag007remoteSensing05 = new ControlValue(subfield, value); break;
-				case "tag007remoteSensing06": tag007remoteSensing06 = new ControlValue(subfield, value); break;
-				case "tag007remoteSensing07": tag007remoteSensing07 = new ControlValue(subfield, value); break;
-				case "tag007remoteSensing08": tag007remoteSensing08 = new ControlValue(subfield, value); break;
-				case "tag007remoteSensing09": tag007remoteSensing09 = new ControlValue(subfield, value); break;
+				case "tag007remoteSensing01": tag007remoteSensing01 = controlValue; break;
+				case "tag007remoteSensing03": tag007remoteSensing03 = controlValue; break;
+				case "tag007remoteSensing04": tag007remoteSensing04 = controlValue; break;
+				case "tag007remoteSensing05": tag007remoteSensing05 = controlValue; break;
+				case "tag007remoteSensing06": tag007remoteSensing06 = controlValue; break;
+				case "tag007remoteSensing07": tag007remoteSensing07 = controlValue; break;
+				case "tag007remoteSensing08": tag007remoteSensing08 = controlValue; break;
+				case "tag007remoteSensing09": tag007remoteSensing09 = controlValue; break;
 
-				case "tag007soundRecording01": tag007soundRecording01 = new ControlValue(subfield, value); break;
-				case "tag007soundRecording03": tag007soundRecording03 = new ControlValue(subfield, value); break;
-				case "tag007soundRecording04": tag007soundRecording04 = new ControlValue(subfield, value); break;
-				case "tag007soundRecording05": tag007soundRecording05 = new ControlValue(subfield, value); break;
-				case "tag007soundRecording06": tag007soundRecording06 = new ControlValue(subfield, value); break;
-				case "tag007soundRecording07": tag007soundRecording07 = new ControlValue(subfield, value); break;
-				case "tag007soundRecording08": tag007soundRecording08 = new ControlValue(subfield, value); break;
-				case "tag007soundRecording09": tag007soundRecording09 = new ControlValue(subfield, value); break;
-				case "tag007soundRecording10": tag007soundRecording10 = new ControlValue(subfield, value); break;
-				case "tag007soundRecording11": tag007soundRecording11 = new ControlValue(subfield, value); break;
-				case "tag007soundRecording12": tag007soundRecording12 = new ControlValue(subfield, value); break;
-				case "tag007soundRecording13": tag007soundRecording13 = new ControlValue(subfield, value); break;
+				case "tag007soundRecording01": tag007soundRecording01 = controlValue; break;
+				case "tag007soundRecording03": tag007soundRecording03 = controlValue; break;
+				case "tag007soundRecording04": tag007soundRecording04 = controlValue; break;
+				case "tag007soundRecording05": tag007soundRecording05 = controlValue; break;
+				case "tag007soundRecording06": tag007soundRecording06 = controlValue; break;
+				case "tag007soundRecording07": tag007soundRecording07 = controlValue; break;
+				case "tag007soundRecording08": tag007soundRecording08 = controlValue; break;
+				case "tag007soundRecording09": tag007soundRecording09 = controlValue; break;
+				case "tag007soundRecording10": tag007soundRecording10 = controlValue; break;
+				case "tag007soundRecording11": tag007soundRecording11 = controlValue; break;
+				case "tag007soundRecording12": tag007soundRecording12 = controlValue; break;
+				case "tag007soundRecording13": tag007soundRecording13 = controlValue; break;
 
-				case "tag007text01": tag007text01 = new ControlValue(subfield, value); break;
+				case "tag007text01": tag007text01 = controlValue; break;
 
-				case "tag007video01": tag007video01 = new ControlValue(subfield, value); break;
-				case "tag007video03": tag007video03 = new ControlValue(subfield, value); break;
-				case "tag007video04": tag007video04 = new ControlValue(subfield, value); break;
-				case "tag007video05": tag007video05 = new ControlValue(subfield, value); break;
-				case "tag007video06": tag007video06 = new ControlValue(subfield, value); break;
-				case "tag007video07": tag007video07 = new ControlValue(subfield, value); break;
-				case "tag007video08": tag007video08 = new ControlValue(subfield, value); break;
+				case "tag007video01": tag007video01 = controlValue; break;
+				case "tag007video03": tag007video03 = controlValue; break;
+				case "tag007video04": tag007video04 = controlValue; break;
+				case "tag007video05": tag007video05 = controlValue; break;
+				case "tag007video06": tag007video06 = controlValue; break;
+				case "tag007video07": tag007video07 = controlValue; break;
+				case "tag007video08": tag007video08 = controlValue; break;
 
-				case "tag007unspecified01": tag007unspecified01 = new ControlValue(subfield, value); break;
+				case "tag007unspecified01": tag007unspecified01 = controlValue; break;
 
 				default:
 					logger.severe(String.format("Unhandled 007 subfield: %s", subfield.getId()));
@@ -736,11 +742,19 @@ public class Control007 implements Extractable, Validatable {
 
 	@Override
 	public boolean validate() {
-		return false;
+		boolean isValid = true;
+		errors = new ArrayList<>();
+		for (ControlValue controlValue : valuesList) {
+			if (!controlValue.validate()) {
+				errors.addAll(controlValue.getErrors());
+				isValid = false;
+			}
+		}
+		return isValid;
 	}
 
 	@Override
 	public List<String> getErrors() {
-		return null;
+		return errors;
 	}
 }

@@ -1,5 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
+import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+
 import java.util.*;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -79,7 +81,7 @@ public class Control005 implements Extractable, Validatable {
 
 	@Override
 	public boolean validate() {
-		return false;
+		return true;
 	}
 
 	@Override

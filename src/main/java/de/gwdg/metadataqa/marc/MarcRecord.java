@@ -177,11 +177,11 @@ public class MarcRecord implements Extractable, Validatable {
 		boolean isValidRecord = true;
 		boolean isValidComponent;
 
-		/*
-		boolean isComponentvalid = leader.validate();
-		if (!isComponentvalid)
-			isRecodValid = isComponentvalid;
-		*/
+		isValidComponent = leader.validate();
+		if (!leader.validate()) {
+			errors.addAll(leader.getErrors());
+			isValidRecord = isValidComponent;
+		}
 
 		if (!unhandledTags.isEmpty()) {
 			errors.add(String.format("Unhandled %s: %s",
@@ -190,15 +190,15 @@ public class MarcRecord implements Extractable, Validatable {
 			isValidRecord = false;
 		}
 
-		/*
 		for (Extractable controlField : getControlfields()) {
 			if (controlField != null) {
-				isComponentvalid = ((Validatable)controlField).validate();
-				if (!isComponentvalid)
-					isRecodValid = isComponentvalid;
+				isValidComponent = ((Validatable)controlField).validate();
+				if (!isValidComponent) {
+					errors.addAll(((Validatable)controlField).getErrors());
+					isValidRecord = isValidComponent;
+				}
 			}
 		}
-		*/
 
 		Map<DataFieldDefinition, Integer> counter = new HashMap<>();
 		for (DataField field : datafields) {

@@ -1,9 +1,9 @@
-package de.gwdg.metadataqa.marc;
+package de.gwdg.metadataqa.marc.definition;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
+import de.gwdg.metadataqa.marc.Code;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -166,6 +166,17 @@ public class ControlSubfield {
 		for (Code code : codes)
 			validCodes.add(code.getCode());
 	}
+
+	public List<String> getValidCodes() {
+		return validCodes;
+	}
+
+	public String formatPositon() {
+		return (positionStart == positionEnd - 1)
+			? String.valueOf(positionStart)
+			: positionStart + "-" + positionEnd;
+	}
+
 
 	@Override
 	public String toString() {

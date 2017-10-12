@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc.definition;
 
-import de.gwdg.metadataqa.marc.ControlSubfield;
 import de.gwdg.metadataqa.marc.Utils;
 
 import java.util.Arrays;

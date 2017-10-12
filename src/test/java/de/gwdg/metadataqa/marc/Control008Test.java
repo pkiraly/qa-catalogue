@@ -1,7 +1,6 @@
 package de.gwdg.metadataqa.marc;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

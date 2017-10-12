@@ -47,25 +47,7 @@ public class Control008Subfields {
 			// new ControlSubfield("undefined", 29, 35)
 		));
 		subfields.put(Control008Type.MAPS, Arrays.asList(
-			new ControlSubfield("Relief", 18, 22,
-				Utils.generateCodes(
-					" ", "No relief shown",
-					"a", "Contours",
-					"b", "Shading",
-					"c", "Gradient and bathymetric tints",
-					"d", "Hachures",
-					"e", "Bathymetry/soundings",
-					"f", "Form lines",
-					"g", "Spot heights",
-					"i", "Pictorially",
-					"j", "Land forms",
-					"k", "Bathymetry/isolines",
-					"m", "Rock drawings",
-					"z", "Other",
-					"|", "No attempt to code"
-				)
-			).setUnitLength(1).setRepeatableContent(true)
-				.setId("tag008map18").setMqTag("relief"),
+			Tag008map18.getInstance(),
 			new ControlSubfield("Projection", 22, 24,
 				Utils.generateCodes(
 					"  ", "Projection not specified",

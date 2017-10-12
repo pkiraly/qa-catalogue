@@ -14,56 +14,14 @@ public class Control008Subfields {
 
 	static {
 		subfields.put(Control008Type.ALL_MATERIALS, Arrays.asList(
-			new ControlSubfield("Date entered on file", 0, 6)
-				.setId("tag008all00").setMqTag("dateEnteredOnFile"),
-			// pattern: yymmdd
-			new ControlSubfield("Type of date/Publication status", 6, 7,
-				Utils.generateCodes(
-					"b", "No dates given; B.C. date involved",
-					"c", "Continuing resource currently published",
-					"d", "Continuing resource ceased publication",
-					"e", "Detailed date",
-					"i", "Inclusive dates of collection",
-					"k", "Range of years of bulk of collection",
-					"m", "Multiple dates",
-					"n", "Dates unknown",
-					"p", "Date of distribution/release/issue and production/recording session when different",
-					"q", "Questionable date",
-					"r", "Reprint/reissue date and original date",
-					"s", "Single known date/probable date",
-					"t", "Publication date and copyright date",
-					"u", "Continuing resource status unknown",
-					"|", "No attempt to code"
-				))
-				.setId("tag008all06").setMqTag("typeOfDateOrPublicationStatus"),
-			new ControlSubfield("Date 1", 7, 11)
-				.setId("tag008all07").setMqTag("date1"),
-			new ControlSubfield("Date 2", 11, 15)
-				.setId("tag008all11").setMqTag("date2"),
-			new ControlSubfield("Place of publication, production, or execution", 15, 18)
-				.setId("tag008all15").setMqTag("placeOfPublicationProductionOrExecution"),
-			new ControlSubfield("Language", 35, 38)
-				.setId("tag008all35").setMqTag("language"),
-			new ControlSubfield("Modified record", 38, 39,
-				Utils.generateCodes(
-					" ", "Not modified",
-					"d", "Dashed-on information omitted",
-					"o", "Completely romanized/printed cards romanized",
-					"r", "Completely romanized/printed cards in script",
-					"s", "Shortened",
-					"x", "Missing characters",
-					"|", "No attempt to code"
-				)
-			).setId("tag008all38").setMqTag("modifiedRecord"),
-			new ControlSubfield("Cataloging source", 39, 40,
-				Utils.generateCodes(
-					" ", "National bibliographic agency",
-					"c", "Cooperative cataloging program",
-					"d", "Other",
-					"u", "Unknown",
-					"|", "No attempt to code"
-				)
-			).setId("tag008all39").setMqTag("catalogingSource")
+			Tag008all00.getInstance(),
+			Tag008all06.getInstance(),
+			Tag008all07.getInstance(),
+			Tag008all11.getInstance(),
+			Tag008all15.getInstance(),
+			Tag008all35.getInstance(),
+			Tag008all38.getInstance(),
+			Tag008all39.getInstance()
 		));
 		subfields.put(Control008Type.BOOKS, Arrays.asList(
 			Tag008book18.getInstance(),

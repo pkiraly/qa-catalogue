@@ -22,6 +22,7 @@ public class ControlSubfield {
 	protected int unitLength = -1;
 	protected boolean repeatableContent = false;
 	protected String defaultCode;
+	protected String descriptionUrl;
 
 	public ControlSubfield() {}
 
@@ -165,6 +166,8 @@ public class ControlSubfield {
 	}
 
 	protected void extractValidCodes() {
+		if (codes == null)
+			return;
 		for (Code code : codes)
 			validCodes.add(code.getCode());
 	}

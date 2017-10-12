@@ -52,62 +52,12 @@ public class Control008Subfields {
 			// new ControlSubfield("undefined", 24, 25),
 			Tag008map25.getInstance(),
 			// new ControlSubfield("undefined", 26, 28),
-			new ControlSubfield("Government publication", 28, 29,
-				Utils.generateCodes(
-					" ", "Not a government publication",
-					"a", "Autonomous or semi-autonomous component",
-					"c", "Multilocal",
-					"f", "Federal/national",
-					"i", "International intergovernmental",
-					"l", "Local",
-					"m", "Multistate",
-					"o", "Government publication-level undetermined",
-					"s", "State, provincial, territorial, dependent, etc.",
-					"u", "Unknown if item is government publication",
-					"z", "Other",
-					"|", "No attempt to code"
-				)
-			).setId("tag008map28").setMqTag("governmentPublication"),
-			new ControlSubfield("Form of item", 29, 30,
-				Utils.generateCodes(
-					" ", "None of the following",
-					"a", "Microfilm",
-					"b", "Microfiche",
-					"c", "Microopaque",
-					"d", "Large print",
-					"f", "Braille",
-					"o", "Online",
-					"q", "Direct electronic",
-					"r", "Regular print reproduction",
-					"s", "Electronic",
-					"|", "No attempt to code"
-				)
-			).setId("tag008map29").setMqTag("formOfItem"),
+			Tag008map28.getInstance(),
+			Tag008map29.getInstance(),
 			// new ControlSubfield("undefined", 30, 31),
-			new ControlSubfield("Index", 31, 32,
-				Utils.generateCodes(
-					"0", "No index",
-					"1", "Index present",
-					"|", "No attempt to code"
-				)
-			).setId("tag008map31").setMqTag("index"),
+			Tag008map31.getInstance(),
 			// new ControlSubfield("undefined", 32, 33)
-			new ControlSubfield("Special format characteristics", 33, 35,
-				Utils.generateCodes(
-					" ", "No specified special format characteristics",
-					"e", "Manuscript",
-					"j", "Picture card, post card",
-					"k", "Calendar",
-					"l", "Puzzle",
-					"n", "Game",
-					"o", "Wall map",
-					"p", "Playing cards",
-					"r", "Loose-leaf",
-					"z", "Other",
-					"||", "No attempt to code"
-				)
-			).setUnitLength(1).setRepeatableContent(true)
-				.setId("tag008map33").setMqTag("specialFormatCharacteristics")
+			Tag008map33.getInstance()
 		));
 		subfields.put(Control008Type.MUSIC, Arrays.asList(
 			new ControlSubfield("Form of composition", 18, 20,

@@ -87,117 +87,19 @@ public class Control008Subfields {
 			Tag008continuing34.getInstance()
 		));
 		subfields.put(Control008Type.VISUAL_MATERIALS, Arrays.asList(
-			new ControlSubfield("Running time for motion pictures and videorecordings", 18, 21,
-				Utils.generateCodes(
-					"000", "Running time exceeds three characters",
-					"001-999", "Running time", // TODO: handle this as RegEx!
-					"nnn", "Not applicable",
-					"---", "Unknown",
-					"|||", "No attempt to code "
-				)
-			).setId("tag008visual18").setMqTag("runningTime"),
+			Tag008visual18.getInstance(),
 			// new ControlSubfield("Undefined", 21, 22),
-			new ControlSubfield("Target audience", 22, 23,
-				Utils.generateCodes(
-					" ", "Unknown or not specified",
-					"a", "Preschool",
-					"b", "Primary",
-					"c", "Pre-adolescent",
-					"d", "Adolescent",
-					"e", "Adult",
-					"f", "Specialized",
-					"g", "General",
-					"j", "Juvenile",
-					"|", "No attempt to code"
-				)
-			).setId("tag008visual22").setMqTag("targetAudience"),
+			Tag008visual22.getInstance(),
 			// new ControlSubfield("Undefined", 23, 28),
-			new ControlSubfield("Government publication", 28, 29,
-				Utils.generateCodes(
-					" ", "Not a government publication",
-					"a", "Autonomous or semi-autonomous component",
-					"c", "Multilocal",
-					"f", "Federal/national",
-					"i", "International intergovernmental",
-					"l", "Local",
-					"m", "Multistate",
-					"o", "Government publication-level undetermined",
-					"s", "State, provincial, territorial, dependent, etc.",
-					"u", "Unknown if item is government publication",
-					"z", "Other",
-					"|", "No attempt to code"
-				)
-			).setId("tag008visual28").setMqTag("governmentPublication"),
-			new ControlSubfield("Form of item", 29, 30,
-				Utils.generateCodes(
-					" ", "None of the following",
-					"a", "Microfilm",
-					"b", "Microfiche",
-					"c", "Microopaque",
-					"d", "Large print",
-					"f", "Braille",
-					"o", "Online",
-					"q", "Direct electronic",
-					"r", "Regular print reproduction",
-					"s", "Electronic",
-					"|", "No attempt to code"
-				)
-			).setId("tag008visual29").setMqTag("formOfItem"),
+			Tag008visual28.getInstance(),
+			Tag008visual29.getInstance(),
 			// new ControlSubfield("Undefined", 30, 33),
-			new ControlSubfield("Type of visual material", 33, 34,
-				Utils.generateCodes(
-					"a", "Art original",
-					"b", "Kit",
-					"c", "Art reproduction",
-					"d", "Diorama",
-					"f", "Filmstrip",
-					"g", "Game",
-					"i", "Picture",
-					"k", "Graphic",
-					"l", "Technical drawing",
-					"m", "Motion picture",
-					"n", "Chart",
-					"o", "Flash card",
-					"p", "Microscope slide",
-					"q", "Model",
-					"r", "Realia",
-					"s", "Slide",
-					"t", "Transparency",
-					"v", "Videorecording",
-					"w", "Toy",
-					"z", "Other",
-					"|", "No attempt to code"
-				)
-			).setId("tag008visual33").setMqTag("typeOfVisualMaterial"),
-			new ControlSubfield("Technique", 34, 35,
-				Utils.generateCodes(
-					"a", "Animation",
-					"c", "Animation and live action",
-					"l", "Live action",
-					"n", "Not applicable",
-					"u", "Unknown",
-					"z", "Other",
-					"|", "No attempt to code"
-				)
-			).setId("tag008visual34").setMqTag("technique")
+			Tag008visual33.getInstance(),
+			Tag008visual34.getInstance()
 		));
 		subfields.put(Control008Type.MIXED_MATERIALS, Arrays.asList(
 			// new ControlSubfield("Undefined", 18, 23),
-			new ControlSubfield("Form of item", 23, 24,
-				Utils.generateCodes(
-					" ", "None of the following",
-					"a", "Microfilm",
-					"b", "Microfiche",
-					"c", "Microopaque",
-					"d", "Large print",
-					"f", "Braille",
-					"o", "Online",
-					"q", "Direct electronic",
-					"r", "Regular print reproduction",
-					"s", "Electronic",
-					"|", "No attempt to code"
-				)
-			).setId("tag008mixed23").setMqTag("formOfItem")
+			Tag008mixed23.getInstance()
 			// new ControlSubfield("Undefined", 24, 35),
 		));
 	}

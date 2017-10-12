@@ -26,7 +26,7 @@ public class ControlValueTest {
 
 	@Test
 	public void generateCode() {
-		List<ControlSubfield> subfields = Control007Subfields.get(Control007Category.Kit);
+		List<ControlSubfield> subfields = Control007Subfields.get(Control007Category.Unspecified);
 		for (ControlSubfield subfield : subfields) {
 			System.err.printf("===== [%s%s] ====\n", subfield.getId().substring(0, 1).toUpperCase(), subfield.getId().substring(1));
 			System.err.printf("label = \"%s\";\n", subfield.getLabel());
@@ -34,7 +34,7 @@ public class ControlValueTest {
 			System.err.printf("mqTag = \"%s\";\n", subfield.getMqTag());
 			System.err.printf("positionStart = %d;\n", subfield.getPositionStart());
 			System.err.printf("positionEnd = %d;\n", subfield.getPositionEnd());
-			System.err.printf("descriptionUrl = \"https://www.loc.gov/marc/bibliographic/bd007o.html\";\n", subfield.getMqTag());
+			System.err.printf("descriptionUrl = \"https://www.loc.gov/marc/bibliographic/bd007z.html\";\n", subfield.getMqTag());
 			if (subfield.getCodes() != null) {
 				System.err.printf("codes = Utils.generateCodes(\n");
 				for (Code code : subfield.getCodes()) {

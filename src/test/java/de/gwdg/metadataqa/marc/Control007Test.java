@@ -48,7 +48,8 @@ public class Control007Test {
 		ControlSubfield subfield;
 		subfield = field.getSubfieldByPosition(0);
 		assertEquals("Category of material", subfield.getLabel());
-		assertEquals("Text", field.getMap().get(subfield));
+		assertEquals("t", field.getMap().get(subfield));
+		assertEquals("Text", field.resolve(subfield));
 
 		subfield = field.getSubfieldByPosition(1);
 		assertEquals("Specific material designation", subfield.getLabel());
@@ -72,7 +73,8 @@ public class Control007Test {
 		ControlSubfield subfield;
 		subfield = field.getSubfieldByPosition(0);
 		assertEquals("Category of material", subfield.getLabel());
-		assertEquals("Electronic resource", field.getMap().get(subfield));
+		assertEquals("c", field.getMap().get(subfield));
+		assertEquals("Electronic resource", field.resolve(subfield));
 
 		subfield = field.getSubfieldByPosition(1);
 		assertEquals("Specific material designation", subfield.getLabel());
@@ -145,7 +147,8 @@ public class Control007Test {
 		ControlSubfield subfield;
 		subfield = field.getSubfieldByPosition(0);
 		assertEquals("Category of material", subfield.getLabel());
-		assertEquals("Sound recording", field.getMap().get(subfield));
+		assertEquals("s", field.getMap().get(subfield));
+		assertEquals("Sound recording", field.resolve(subfield));
 
 		subfield = field.getSubfieldByPosition(1);
 		assertEquals("Specific material designation", subfield.getLabel());

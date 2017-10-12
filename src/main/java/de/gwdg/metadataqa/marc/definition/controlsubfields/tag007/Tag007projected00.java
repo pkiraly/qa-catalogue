@@ -29,7 +29,7 @@ public class Tag007projected00 extends ControlSubfield {
 		positionEnd = 1;
 		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007g.html";
 		codes = Utils.generateCodes(
-			"f", "Tactile material"
+			"g", "Projected graphic"
 		);
 	}
 }

@@ -5,31 +5,31 @@ import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 
 /**
  * Category of material
- * https://www.loc.gov/marc/bibliographic/bd007m.html
+ * https://www.loc.gov/marc/bibliographic/bd007v.html
  */
-public class Tag007motionPicture00 extends ControlSubfield {
-	private static Tag007motionPicture00 uniqueInstance;
+public class Tag007video00 extends ControlSubfield {
+	private static Tag007video00 uniqueInstance;
 
-	private Tag007motionPicture00() {
+	private Tag007video00() {
 		initialize();
 		extractValidCodes();
 	}
 
-	public static Tag007motionPicture00 getInstance() {
+	public static Tag007video00 getInstance() {
 		if (uniqueInstance == null)
-			uniqueInstance = new Tag007motionPicture00();
+			uniqueInstance = new Tag007video00();
 		return uniqueInstance;
 	}
 
 	private void initialize() {
 		label = "Category of material";
-		id = "tag007motionPicture00";
+		id = "tag007video00";
 		mqTag = "categoryOfMaterial";
 		positionStart = 0;
 		positionEnd = 1;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007m.html";
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007v.html";
 		codes = Utils.generateCodes(
-			"m", "Motion picture"
+			"v", "Videorecording"
 		);
 	}
 }

@@ -25,6 +25,7 @@ public class Control007 implements Extractable, Validatable {
 
 	private ControlValue common;
 
+	private ControlValue tag007map00;
 	private ControlValue tag007map01;
 	private ControlValue tag007map03;
 	private ControlValue tag007map04;
@@ -32,6 +33,7 @@ public class Control007 implements Extractable, Validatable {
 	private ControlValue tag007map06;
 	private ControlValue tag007map07;
 
+	private ControlValue tag007electro00;
 	private ControlValue tag007electro01;
 	private ControlValue tag007electro03;
 	private ControlValue tag007electro04;
@@ -43,17 +45,20 @@ public class Control007 implements Extractable, Validatable {
 	private ControlValue tag007electro12;
 	private ControlValue tag007electro13;
 
+	private ControlValue tag007globe00;
 	private ControlValue tag007globe01;
 	private ControlValue tag007globe03;
 	private ControlValue tag007globe04;
 	private ControlValue tag007globe05;
 
+	private ControlValue tag007tactile00;
 	private ControlValue tag007tactile01;
 	private ControlValue tag007tactile03;
 	private ControlValue tag007tactile05;
 	private ControlValue tag007tactile06;
 	private ControlValue tag007tactile09;
 
+	private ControlValue tag007projected00;
 	private ControlValue tag007projected01;
 	private ControlValue tag007projected03;
 	private ControlValue tag007projected04;
@@ -62,6 +67,7 @@ public class Control007 implements Extractable, Validatable {
 	private ControlValue tag007projected07;
 	private ControlValue tag007projected08;
 
+	private ControlValue tag007microform00;
 	private ControlValue tag007microform01;
 	private ControlValue tag007microform03;
 	private ControlValue tag007microform04;
@@ -72,11 +78,13 @@ public class Control007 implements Extractable, Validatable {
 	private ControlValue tag007microform11;
 	private ControlValue tag007microform12;
 
+	private ControlValue tag007nonprojected00;
 	private ControlValue tag007nonprojected01;
 	private ControlValue tag007nonprojected03;
 	private ControlValue tag007nonprojected04;
 	private ControlValue tag007nonprojected05;
 
+	private ControlValue tag007motionPicture00;
 	private ControlValue tag007motionPicture01;
 	private ControlValue tag007motionPicture03;
 	private ControlValue tag007motionPicture04;
@@ -94,10 +102,13 @@ public class Control007 implements Extractable, Validatable {
 	private ControlValue tag007motionPicture16;
 	private ControlValue tag007motionPicture17;
 
+	private ControlValue tag007kit00;
 	private ControlValue tag007kit01;
 
+	private ControlValue tag007music00;
 	private ControlValue tag007music01;
 
+	private ControlValue tag007remoteSensing00;
 	private ControlValue tag007remoteSensing01;
 	private ControlValue tag007remoteSensing03;
 	private ControlValue tag007remoteSensing04;
@@ -107,6 +118,7 @@ public class Control007 implements Extractable, Validatable {
 	private ControlValue tag007remoteSensing08;
 	private ControlValue tag007remoteSensing09;
 
+	private ControlValue tag007soundRecording00;
 	private ControlValue tag007soundRecording01;
 	private ControlValue tag007soundRecording03;
 	private ControlValue tag007soundRecording04;
@@ -120,8 +132,10 @@ public class Control007 implements Extractable, Validatable {
 	private ControlValue tag007soundRecording12;
 	private ControlValue tag007soundRecording13;
 
+	private ControlValue tag007text00;
 	private ControlValue tag007text01;
 
+	private ControlValue tag007video00;
 	private ControlValue tag007video01;
 	private ControlValue tag007video03;
 	private ControlValue tag007video04;
@@ -130,6 +144,7 @@ public class Control007 implements Extractable, Validatable {
 	private ControlValue tag007video07;
 	private ControlValue tag007video08;
 
+	private ControlValue tag007unspecified00;
 	private ControlValue tag007unspecified01;
 
 	private Map<ControlSubfield, String> valuesMap;
@@ -149,12 +164,15 @@ public class Control007 implements Extractable, Validatable {
 		String categoryCode = content.substring(0, 1);
 		category = Control007Category.byCode(categoryCode);
 		categoryOfMaterial = category.getLabel();
-		ControlSubfield subfieldCommon = Control007Subfields.get(Control007Category.Common).get(0);
 
+		/*
+		ControlSubfield subfieldCommon = Control007Subfields.get(Control007Category.Common).get(0);
 		common = new ControlValue(subfieldCommon, category.getLabel());
 
 		valuesMap.put(subfieldCommon, category.getLabel());
 		byPosition.put(subfieldCommon.getPositionStart(), subfieldCommon);
+		*/
+
 		for (ControlSubfield subfield : Control007Subfields.get(category)) {
 			byPosition.put(subfield.getPositionStart(), subfield);
 			int end = Math.min(content.length(), subfield.getPositionEnd());
@@ -185,10 +203,12 @@ public class Control007 implements Extractable, Validatable {
 					value = "";
 				}
 			}
+
 			ControlValue controlValue = new ControlValue(subfield, value);
 			valuesList.add(controlValue);
 
 			switch (subfield.getId()) {
+				case "tag007map00": tag007map00 = controlValue; break;
 				case "tag007map01": tag007map01 = controlValue; break;
 				case "tag007map03": tag007map03 = controlValue; break;
 				case "tag007map04": tag007map04 = controlValue; break;
@@ -196,6 +216,7 @@ public class Control007 implements Extractable, Validatable {
 				case "tag007map06": tag007map06 = controlValue; break;
 				case "tag007map07": tag007map07 = controlValue; break;
 
+				case "tag007electro00": tag007electro00 = controlValue; break;
 				case "tag007electro01": tag007electro01 = controlValue; break;
 				case "tag007electro03": tag007electro03 = controlValue; break;
 				case "tag007electro04": tag007electro04 = controlValue; break;
@@ -207,17 +228,20 @@ public class Control007 implements Extractable, Validatable {
 				case "tag007electro12": tag007electro12 = controlValue; break;
 				case "tag007electro13": tag007electro13 = controlValue; break;
 
+				case "tag007globe00": tag007globe00 = controlValue; break;
 				case "tag007globe01": tag007globe01 = controlValue; break;
 				case "tag007globe03": tag007globe03 = controlValue; break;
 				case "tag007globe04": tag007globe04 = controlValue; break;
 				case "tag007globe05": tag007globe05 = controlValue; break;
 
+				case "tag007tactile00": tag007tactile00 = controlValue; break;
 				case "tag007tactile01": tag007tactile01 = controlValue; break;
 				case "tag007tactile03": tag007tactile03 = controlValue; break;
 				case "tag007tactile05": tag007tactile05 = controlValue; break;
 				case "tag007tactile06": tag007tactile06 = controlValue; break;
 				case "tag007tactile09": tag007tactile09 = controlValue; break;
 
+				case "tag007projected00": tag007projected00 = controlValue; break;
 				case "tag007projected01": tag007projected01 = controlValue; break;
 				case "tag007projected03": tag007projected03 = controlValue; break;
 				case "tag007projected04": tag007projected04 = controlValue; break;
@@ -226,6 +250,7 @@ public class Control007 implements Extractable, Validatable {
 				case "tag007projected07": tag007projected07 = controlValue; break;
 				case "tag007projected08": tag007projected08 = controlValue; break;
 
+				case "tag007microform00": tag007microform00 = controlValue; break;
 				case "tag007microform01": tag007microform01 = controlValue; break;
 				case "tag007microform03": tag007microform03 = controlValue; break;
 				case "tag007microform04": tag007microform04 = controlValue; break;
@@ -236,11 +261,13 @@ public class Control007 implements Extractable, Validatable {
 				case "tag007microform11": tag007microform11 = controlValue; break;
 				case "tag007microform12": tag007microform12 = controlValue; break;
 
+				case "tag007nonprojected00": tag007nonprojected00 = controlValue; break;
 				case "tag007nonprojected01": tag007nonprojected01 = controlValue; break;
 				case "tag007nonprojected03": tag007nonprojected03 = controlValue; break;
 				case "tag007nonprojected04": tag007nonprojected04 = controlValue; break;
 				case "tag007nonprojected05": tag007nonprojected05 = controlValue; break;
 
+				case "tag007motionPicture00": tag007motionPicture00 = controlValue; break;
 				case "tag007motionPicture01": tag007motionPicture01 = controlValue; break;
 				case "tag007motionPicture03": tag007motionPicture03 = controlValue; break;
 				case "tag007motionPicture04": tag007motionPicture04 = controlValue; break;
@@ -258,10 +285,13 @@ public class Control007 implements Extractable, Validatable {
 				case "tag007motionPicture16": tag007motionPicture16 = controlValue; break;
 				case "tag007motionPicture17": tag007motionPicture17 = controlValue; break;
 
+				case "tag007kit00": tag007kit00 = controlValue; break;
 				case "tag007kit01": tag007kit01 = controlValue; break;
 
+				case "tag007music00": tag007music00 = controlValue; break;
 				case "tag007music01": tag007music01 = controlValue; break;
 
+				case "tag007remoteSensing00": tag007remoteSensing00 = controlValue; break;
 				case "tag007remoteSensing01": tag007remoteSensing01 = controlValue; break;
 				case "tag007remoteSensing03": tag007remoteSensing03 = controlValue; break;
 				case "tag007remoteSensing04": tag007remoteSensing04 = controlValue; break;
@@ -271,6 +301,7 @@ public class Control007 implements Extractable, Validatable {
 				case "tag007remoteSensing08": tag007remoteSensing08 = controlValue; break;
 				case "tag007remoteSensing09": tag007remoteSensing09 = controlValue; break;
 
+				case "tag007soundRecording00": tag007soundRecording00 = controlValue; break;
 				case "tag007soundRecording01": tag007soundRecording01 = controlValue; break;
 				case "tag007soundRecording03": tag007soundRecording03 = controlValue; break;
 				case "tag007soundRecording04": tag007soundRecording04 = controlValue; break;
@@ -284,8 +315,10 @@ public class Control007 implements Extractable, Validatable {
 				case "tag007soundRecording12": tag007soundRecording12 = controlValue; break;
 				case "tag007soundRecording13": tag007soundRecording13 = controlValue; break;
 
+				case "tag007text00": tag007text00 = controlValue; break;
 				case "tag007text01": tag007text01 = controlValue; break;
 
+				case "tag007video00": tag007video00 = controlValue; break;
 				case "tag007video01": tag007video01 = controlValue; break;
 				case "tag007video03": tag007video03 = controlValue; break;
 				case "tag007video04": tag007video04 = controlValue; break;
@@ -294,6 +327,7 @@ public class Control007 implements Extractable, Validatable {
 				case "tag007video07": tag007video07 = controlValue; break;
 				case "tag007video08": tag007video08 = controlValue; break;
 
+				case "tag007unspecified00": tag007unspecified00 = controlValue; break;
 				case "tag007unspecified01": tag007unspecified01 = controlValue; break;
 
 				default:

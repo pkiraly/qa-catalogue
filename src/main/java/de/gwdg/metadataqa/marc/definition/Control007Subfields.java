@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.Utils;
+import de.gwdg.metadataqa.marc.definition.controlsubfields.tag007.Tag007common00;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,9 +14,9 @@ public class Control007Subfields {
 
 	static {
 		subfields.put(Control007Category.Common, Arrays.asList(
-			new ControlSubfield("Category of material", 0, 1)
-				.setId("tag007common00").setMqTag("categoryOfMaterial")
+			Tag007common00.getInstance()
 		));
+
 		subfields.put(Control007Category.Map, Arrays.asList(
 			// new ControlSubField("Category of material", 0, 1),
 			new ControlSubfield("Specific material designation", 1, 2,

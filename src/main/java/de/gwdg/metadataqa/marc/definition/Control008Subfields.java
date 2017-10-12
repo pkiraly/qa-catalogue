@@ -1,7 +1,6 @@
 package de.gwdg.metadataqa.marc.definition;
 
-import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.controlsubfields.*;
+import de.gwdg.metadataqa.marc.definition.controlsubfields.tag008.*;
 
 import java.util.Arrays;
 import java.util.HashMap;

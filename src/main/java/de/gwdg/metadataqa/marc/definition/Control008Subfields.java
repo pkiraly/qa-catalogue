@@ -50,20 +50,7 @@ public class Control008Subfields {
 			Tag008map18.getInstance(),
 			Tag008map22.getInstance(),
 			// new ControlSubfield("undefined", 24, 25),
-			new ControlSubfield("Type of cartographic material", 25, 26,
-				Utils.generateCodes(
-					"a", "Single map",
-					"b", "Map series",
-					"c", "Map serial",
-					"d", "Globe",
-					"e", "Atlas",
-					"f", "Separate supplement to another work",
-					"g", "Bound as part of another work",
-					"u", "Unknown",
-					"z", "Other",
-					"|", "No attempt to code"
-				)
-			).setId("tag008map25").setMqTag("typeOfCartographicMaterial"),
+			Tag008map25.getInstance(),
 			// new ControlSubfield("undefined", 26, 28),
 			new ControlSubfield("Government publication", 28, 29,
 				Utils.generateCodes(

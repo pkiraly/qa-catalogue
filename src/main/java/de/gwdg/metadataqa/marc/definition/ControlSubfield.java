@@ -11,17 +11,19 @@ import org.apache.commons.lang3.StringUtils;
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class ControlSubfield {
-	private String label;
-	private String bibframeTag;
-	private String mqTag;
-	private int positionStart;
-	private int positionEnd;
-	private String id;
-	private List<Code> codes;
-	private List<String> validCodes;
-	private int unitLength = -1;
-	private boolean repeatableContent = false;
-	private String defaultCode;
+	protected String label;
+	protected String bibframeTag;
+	protected String mqTag;
+	protected int positionStart;
+	protected int positionEnd;
+	protected String id;
+	protected List<Code> codes;
+	protected List<String> validCodes = new ArrayList<>();
+	protected int unitLength = -1;
+	protected boolean repeatableContent = false;
+	protected String defaultCode;
+
+	public ControlSubfield() {}
 
 	public ControlSubfield(String label, int positionStart, int positionEnd) {
 		this.label = label;
@@ -162,7 +164,7 @@ public class ControlSubfield {
 		return inputCode;
 	}
 
-	private void extractValidCodes() {
+	protected void extractValidCodes() {
 		for (Code code : codes)
 			validCodes.add(code.getCode());
 	}

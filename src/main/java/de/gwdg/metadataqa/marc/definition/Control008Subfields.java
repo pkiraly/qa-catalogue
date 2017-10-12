@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.Utils;
+import de.gwdg.metadataqa.marc.definition.controlsubfields.*;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -65,141 +66,17 @@ public class Control008Subfields {
 			).setId("tag008all39").setMqTag("catalogingSource")
 		));
 		subfields.put(Control008Type.BOOKS, Arrays.asList(
-			new ControlSubfield("Illustrations", 18, 22,
-				Utils.generateCodes(
-					" ", "No illustrations",
-					"a", "Illustrations",
-					"b", "Maps",
-					"c", "Portraits",
-					"d", "Charts",
-					"e", "Plans",
-					"f", "Plates",
-					"g", "Music",
-					"h", "Facsimiles",
-					"i", "Coats of arms",
-					"j", "Genealogical tables",
-					"k", "Forms",
-					"l", "Samples",
-					"m", "Phonodisc, phonowire, etc.",
-					"o", "Photographs",
-					"p", "Illuminations",
-					"|", "No attempt to code"
-				)
-			).setRepeatableContent(true)
-				.setUnitLength(1)
-				.setId("tag008book18").setMqTag("illustrations"),
-
-			new ControlSubfield("Target audience", 22, 23,
-				Utils.generateCodes(
-					" ", "Unknown or not specified",
-					"a", "Preschool",
-					"b", "Primary",
-					"c", "Pre-adolescent",
-					"d", "Adolescent",
-					"e", "Adult",
-					"f", "Specialized",
-					"g", "General",
-					"j", "Juvenile",
-					"|", "No attempt to code"
-				)
-			).setId("tag008book22").setMqTag("targetAudience"),
-			new ControlSubfield("Form of item", 23, 24,
-				Utils.generateCodes(
-					" ", "None of the following",
-					"a", "Microfilm",
-					"b", "Microfiche",
-					"c", "Microopaque",
-					"d", "Large print",
-					"f", "Braille"
-				)
-			).setId("tag008book23").setMqTag("formOfItem"),
-			new ControlSubfield("Nature of contents", 24, 28,
-				Utils.generateCodes(
-					" ", "No specified nature of contents",
-					"a", "Abstracts/summaries",
-					"b", "Bibliographies",
-					"c", "Catalogs",
-					"d", "Dictionaries",
-					"e", "Encyclopedias",
-					"f", "Handbooks",
-					"g", "Legal articles",
-					"i", "Indexes",
-					"j", "Patent document",
-					"k", "Discographies",
-					"l", "Legislation",
-					"m", "Theses",
-					"n", "Surveys of literature in a subject area",
-					"o", "Reviews"
-				)
-			)
-				.setRepeatableContent(true)
-				.setUnitLength(1)
-				.setId("tag008book24").setMqTag("natureOfContents"),
-			new ControlSubfield("Government publication", 28, 29,
-				Utils.generateCodes(
-					" ", "Not a government publication",
-					"a", "Autonomous or semi-autonomous component",
-					"c", "Multilocal",
-					"f", "Federal/national",
-					"i", "International intergovernmental",
-					"l", "Local",
-					"m", "Multistate",
-					"o", "Government publication-level undetermined",
-					"s", "State, provincial, territorial, dependent, etc.",
-					"u", "Unknown if item is government publication",
-					"z", "Other",
-					"|", "No attempt to code"
-				)
-			).setId("tag008book28").setMqTag("governmentPublication"),
-			new ControlSubfield("Conference publication", 29, 30,
-				Utils.generateCodes(
-					"0", "Not a conference publication",
-					"1", "Conference publication",
-					"|", "No attempt to code"
-				)
-			).setId("tag008book29").setMqTag("conferencePublication"),
-			new ControlSubfield("Festschrift", 30, 31,
-				Utils.generateCodes(
-					"0", "Not a festschrift",
-					"1", "Festschrift",
-					"|", "No attempt to code"
-				)
-			).setId("tag008book30").setMqTag("festschrift"),
-			new ControlSubfield("Index", 31, 32,
-				Utils.generateCodes(
-					"0", "No index",
-					"1", "Index present",
-					"|", "No attempt to code"
-				)
-			).setId("tag008book31").setMqTag("index"),
+			Tag008book18.getInstance(),
+			Tag008book22.getInstance(),
+			Tag008book23.getInstance(),
+			Tag008book24.getInstance(),
+			Tag008book28.getInstance(),
+			Tag008book29.getInstance(),
+			Tag008book30.getInstance(),
+			Tag008book31.getInstance(),
 			// new ControlSubfield("undefined", 32, 33),
-			new ControlSubfield("Literary form", 33, 34,
-				Utils.generateCodes(
-					"0", "Not fiction (not further specified)",
-					"1", "Fiction (not further specified)",
-					"d", "Dramas",
-					"e", "Essays",
-					"f", "Novels",
-					"h", "Humor, satires, etc.",
-					"i", "Letters",
-					"j", "Short stories",
-					"m", "Mixed forms",
-					"p", "Poetry",
-					"s", "Speeches",
-					"u", "Unknown",
-					"|", "No attempt to code"
-				)
-			).setId("tag008book33").setMqTag("literaryForm"),
-			new ControlSubfield("Biography", 34, 35,
-				Utils.generateCodes(
-					" ", "No biographical material",
-					"a", "Autobiography",
-					"b", "Individual biography",
-					"c", "Collective biography",
-					"d", "Contains biographical information",
-					"|", "No attempt to code"
-				)
-			).setId("tag008book34").setMqTag("biography")
+			Tag008book33.getInstance(),
+			Tag008book34.getInstance()
 		));
 		subfields.put(Control008Type.COMPUTER_FILES, Arrays.asList(
 			// new ControlSubfield("undefined", 18, 21),

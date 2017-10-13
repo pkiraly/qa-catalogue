@@ -43,6 +43,8 @@ public abstract class Control00XSubfieldsTest {
 							),
 							code.getCode().length(), length
 						);
+
+			assertNotNull(subfield.getId() + " should have an URL", subfield.getDescriptionUrl());
 		}
 	}
 

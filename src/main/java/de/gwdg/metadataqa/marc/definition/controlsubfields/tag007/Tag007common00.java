@@ -4,8 +4,8 @@ import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 
 /**
- * Date entered on file
- * https://www.loc.gov/marc/bibliographic/bd008a.html
+ * Category of material
+ * https://www.loc.gov/marc/bibliographic/bd007c.html
  */
 public class Tag007common00 extends ControlSubfield {
 	private static Tag007common00 uniqueInstance;
@@ -27,7 +27,7 @@ public class Tag007common00 extends ControlSubfield {
 		mqTag = "categoryOfMaterial";
 		positionStart = 0;
 		positionEnd = 1;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd008a.html";
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007c.html";
 		codes = Utils.generateCodes(
 			"c", "Electronic resource"
 		);

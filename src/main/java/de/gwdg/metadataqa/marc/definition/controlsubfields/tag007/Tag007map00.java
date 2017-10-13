@@ -5,7 +5,7 @@ import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 
 /**
  * Category of material
- * https://www.loc.gov/marc/bibliographic/bd008a.html
+ * https://www.loc.gov/marc/bibliographic/bd007a.html
  */
 public class Tag007map00 extends ControlSubfield {
 	private static Tag007map00 uniqueInstance;
@@ -27,7 +27,7 @@ public class Tag007map00 extends ControlSubfield {
 		mqTag = "categoryOfMaterial";
 		positionStart = 0;
 		positionEnd = 1;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd008a.html";
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007a.html";
 		codes = Utils.generateCodes(
 			"a", "Map"
 		);

@@ -115,6 +115,10 @@ public class ControlSubfield {
 		return this;
 	}
 
+	public String getDescriptionUrl() {
+		return descriptionUrl;
+	}
+
 	public boolean validate(String code) {
 		if (isRepeatableContent()) {
 			return validateRepeatable(code);
@@ -182,6 +186,9 @@ public class ControlSubfield {
 			: positionStart + "-" + positionEnd;
 	}
 
+	public String getControlField() {
+		return this.getClass().getSimpleName().substring(3, 6);
+	}
 
 	@Override
 	public String toString() {

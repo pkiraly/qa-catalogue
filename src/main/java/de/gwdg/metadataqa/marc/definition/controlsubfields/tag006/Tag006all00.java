@@ -27,7 +27,7 @@ public class Tag006all00 extends ControlSubfield {
 		mqTag = "formOfMaterial";
 		positionStart = 0;
 		positionEnd = 1;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007z.html";
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd006.html";
 		codes = Utils.generateCodes(
 			"a", "Language material",
 			"c", "Notated music",

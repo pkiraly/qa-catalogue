@@ -26,6 +26,7 @@ public class Tag008all07 extends ControlSubfield {
 		mqTag = "date1";
 		positionStart = 7;
 		positionEnd = 11;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd008a.html";
 
 		// TODO: pattern?
 

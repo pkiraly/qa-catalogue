@@ -1,33 +1,33 @@
-package de.gwdg.metadataqa.marc.definition.controlsubfields.tag008;
+package de.gwdg.metadataqa.marc.definition.controlsubfields.tag006;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 
 /**
  * Accompanying matter
- * https://www.loc.gov/marc/bibliographic/bd008m.html
+ * https://www.loc.gov/marc/bibliographic/bd006.html
  */
-public class Tag008music24 extends ControlSubfield {
-	private static Tag008music24 uniqueInstance;
+public class Tag006music07 extends ControlSubfield {
+	private static Tag006music07 uniqueInstance;
 
-	private Tag008music24() {
+	private Tag006music07() {
 		initialize();
 		extractValidCodes();
 	}
 
-	public static Tag008music24 getInstance() {
+	public static Tag006music07 getInstance() {
 		if (uniqueInstance == null)
-			uniqueInstance = new Tag008music24();
+			uniqueInstance = new Tag006music07();
 		return uniqueInstance;
 	}
 
 	private void initialize() {
 		label = "Accompanying matter";
-		id = "tag008music24";
+		id = "tag006music07";
 		mqTag = "accompanyingMatter";
-		positionStart = 24;
-		positionEnd = 30;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd008m.html";
+		positionStart = 7;
+		positionEnd = 13;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd006.html";
 		codes = Utils.generateCodes(
 			" ", "No accompanying matter",
 			"a", "Discography",

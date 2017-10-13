@@ -25,8 +25,8 @@ public class Tag007tactile03 extends ControlSubfield {
 		label = "Class of braille writing";
 		id = "tag007tactile03";
 		mqTag = "classOfBrailleWriting";
-		positionStart = 0;
-		positionEnd = 1;
+		positionStart = 3;
+		positionEnd = 5;
 		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007f.html";
 		codes = Utils.generateCodes(
 			" ", "No specified class of braille writing",
@@ -41,7 +41,6 @@ public class Tag007tactile03 extends ControlSubfield {
 			"z", "Other",
 			"||", "No attempt to code"
 		);
-
 		repeatableContent = true;
 		unitLength = 1;
 	}

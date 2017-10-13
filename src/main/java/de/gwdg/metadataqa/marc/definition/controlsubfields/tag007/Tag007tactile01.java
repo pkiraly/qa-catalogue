@@ -29,7 +29,6 @@ public class Tag007tactile01 extends ControlSubfield {
 		positionEnd = 2;
 		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007f.html";
 		codes = Utils.generateCodes(
-			"01", "Specific material designation",
 			"a", "Moon",
 			"b", "Braille",
 			"c", "Combination",

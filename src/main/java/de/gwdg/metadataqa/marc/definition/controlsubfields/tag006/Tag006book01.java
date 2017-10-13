@@ -1,0 +1,53 @@
+package de.gwdg.metadataqa.marc.definition.controlsubfields.tag006;
+
+import de.gwdg.metadataqa.marc.Utils;
+import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+
+/**
+ * Illustrations
+ * https://www.loc.gov/marc/bibliographic/bd006.html
+ */
+public class Tag006book01 extends ControlSubfield {
+	private static Tag006book01 uniqueInstance;
+
+	private Tag006book01() {
+		initialize();
+		extractValidCodes();
+	}
+
+	public static Tag006book01 getInstance() {
+		if (uniqueInstance == null)
+			uniqueInstance = new Tag006book01();
+		return uniqueInstance;
+	}
+
+	private void initialize() {
+		label = "Illustrations";
+		id = "tag006book01";
+		mqTag = "illustrations";
+		positionStart = 1;
+		positionEnd = 5;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd006.html";
+		codes = Utils.generateCodes(
+			" ", "No illustrations",
+			"a", "Illustrations",
+			"b", "Maps",
+			"c", "Portraits",
+			"d", "Charts",
+			"e", "Plans",
+			"f", "Plates",
+			"g", "Music",
+			"h", "Facsimiles",
+			"i", "Coats of arms",
+			"j", "Genealogical tables",
+			"k", "Forms",
+			"l", "Samples",
+			"m", "Phonodisc, phonowire, etc.",
+			"o", "Photographs",
+			"p", "Illuminations",
+			"|", "No attempt to code"
+		);
+		repeatableContent = true;
+		unitLength = 1;
+	}
+}

@@ -41,6 +41,9 @@ public class Control007Test {
 	@Test
 	public void testTu() {
 		Control007 field = new Control007("tu");
+		assertEquals(2, field.getMap().size());
+		assertEquals("0, 1", StringUtils.join(field.getSubfieldPositions(), ", "));
+
 		assertEquals("tu", field.getContent());
 		assertEquals(Control007Category.TEXT, field.getCategory());
 		assertEquals("Text", field.getCategoryOfMaterial());

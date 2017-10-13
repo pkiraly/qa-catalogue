@@ -104,8 +104,6 @@ public class Leader implements Extractable, Validatable {
 	}
 
 	private void setType() {
-		// typeOfRecord = valuesMap.get(LeaderSubfields.getByLabel("Type of record"));
-		// bibliographicLevel = valuesMap.get(LeaderSubfields.getByLabel("Bibliographic level"));
 		if (typeOfRecord.getValue().equals("a") && bibliographicLevel.getValue().matches("^(a|c|d|m)$")) {
 			type = Type.BOOKS;
 		} else if (typeOfRecord.getValue().equals("a") && bibliographicLevel.getValue().matches("^(b|i|s)$")) {

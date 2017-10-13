@@ -190,18 +190,7 @@ public class Control007 implements Extractable, Validatable {
 						subfield.getId(), subfield.getLabel()));
 				}
 			} else {
-				logger.severe(String.format("Problem with processing 007 ('%s'). " +
-						"The content length is only %d while reading position @%d-%d" +
-						" (for %s '%s')",
-					content,
-					content.length(), subfield.getPositionStart(), subfield.getPositionEnd(),
-					subfield.getId(), subfield.getLabel()));
-				if (subfield.getDefaultCode() != null) {
-					value = subfield.getDefaultCode();
-					logger.warning(String.format("Applying default value: '%s'. ", subfield.getDefaultCode()));
-				} else {
-					value = "";
-				}
+				break;
 			}
 
 			ControlValue controlValue = new ControlValue(subfield, value);

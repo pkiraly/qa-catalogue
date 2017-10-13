@@ -42,7 +42,7 @@ public class Control007Test {
 	public void testTu() {
 		Control007 field = new Control007("tu");
 		assertEquals("tu", field.getContent());
-		assertEquals(Control007Category.Text, field.getCategory());
+		assertEquals(Control007Category.TEXT, field.getCategory());
 		assertEquals("Text", field.getCategoryOfMaterial());
 
 		ControlSubfield subfield;
@@ -62,7 +62,7 @@ public class Control007Test {
 		Control007 field = new Control007("cr uuu---uuuuu");
 		assertEquals("cr uuu---uuuuu", field.getContent());
 
-		assertEquals(Control007Category.ElectronicResource, field.getCategory());
+		assertEquals(Control007Category.ELECTRONIC_RESOURCE, field.getCategory());
 		assertEquals("Electronic resource", field.getCategoryOfMaterial());
 
 		assertEquals(11, field.getMap().size());
@@ -136,7 +136,7 @@ public class Control007Test {
 		Control007 field = new Control007("sd fsngnn   ed");
 		assertEquals("sd fsngnn   ed", field.getContent());
 
-		assertEquals(Control007Category.SoundRecording, field.getCategory());
+		assertEquals(Control007Category.SOUND_RECORDING, field.getCategory());
 		assertEquals("Sound recording", field.getCategoryOfMaterial());
 
 		assertEquals(13, field.getMap().size());

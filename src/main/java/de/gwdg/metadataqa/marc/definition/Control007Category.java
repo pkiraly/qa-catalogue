@@ -1,22 +1,22 @@
 package de.gwdg.metadataqa.marc.definition;
 
 public enum Control007Category {
-	Common("common", "Common"),
-	Map("a", "Map"),
-	ElectronicResource("c", "Electronic resource"),
-	Globe("d", "Globe"),
-	TactileMaterial("f", "Tactile material"),
-	ProjectedGraphic("g", "Projected graphic"),
-	Microform("h", "Microform"),
-	NonprojectedGraphic("k", "Nonprojected graphic"),
-	MotionPicture("m", "Motion picture"),
-	Kit("o", "Kit"),
-	NotatedMusic("q", "Notated music"),
-	RemoteSensingImage("r", "Remote-sensing image"),
-	SoundRecording("s", "Sound recording"),
-	Text("t", "Text"),
-	Videorecording("v", "Videorecording"),
-	Unspecified("z", "Unspecified");
+	COMMON("common", "Common"),
+	MAP("a", "Map"),
+	ELECTRONIC_RESOURCE("c", "Electronic resource"),
+	GLOBE("d", "Globe"),
+	TACTILE_MATERIAL("f", "Tactile material"),
+	PROJECTED_GRAPHIC("g", "Projected graphic"),
+	MICROFORM("h", "Microform"),
+	NONPROJECTED_GRAPHIC("k", "Nonprojected graphic"),
+	MOTION_PICTURE("m", "Motion picture"),
+	KIT("o", "Kit"),
+	NOTATED_MUSIC("q", "Notated music"),
+	REMOTE_SENSING_IMAGE("r", "Remote-sensing image"),
+	SOUND_RECORDING("s", "Sound recording"),
+	TEXT("t", "Text"),
+	VIDEO_RECORDING("v", "Videorecording"),
+	UNSPECIFIED("z", "Unspecified");
 
 	String code;
 	String label;

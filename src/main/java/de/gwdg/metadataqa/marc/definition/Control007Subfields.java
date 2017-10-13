@@ -13,14 +13,14 @@ public class Control007Subfields {
 
 	static {
 		subfields.put(
-			Control007Category.Common,
+			Control007Category.COMMON,
 			Arrays.asList(
 				Tag007common00.getInstance()
 			)
 		);
 
 		subfields.put(
-			Control007Category.Map,
+			Control007Category.MAP,
 			Arrays.asList(
 				Tag007map00.getInstance(),
 				Tag007map01.getInstance(),
@@ -34,7 +34,7 @@ public class Control007Subfields {
 		);
 
 		subfields.put(
-			Control007Category.ElectronicResource,
+			Control007Category.ELECTRONIC_RESOURCE,
 			Arrays.asList(
 				Tag007electro00.getInstance(),
 				Tag007electro01.getInstance(),
@@ -52,7 +52,7 @@ public class Control007Subfields {
 		);
 
 		subfields.put(
-			Control007Category.Globe,
+			Control007Category.GLOBE,
 			Arrays.asList(
 				Tag007globe00.getInstance(),
 				Tag007globe01.getInstance(),
@@ -64,7 +64,7 @@ public class Control007Subfields {
 		);
 
 		subfields.put(
-			Control007Category.TactileMaterial,
+			Control007Category.TACTILE_MATERIAL,
 			Arrays.asList(
 				Tag007tactile00.getInstance(),
 				Tag007tactile01.getInstance(),
@@ -77,7 +77,7 @@ public class Control007Subfields {
 		);
 
 		subfields.put(
-			Control007Category.ProjectedGraphic,
+			Control007Category.PROJECTED_GRAPHIC,
 			Arrays.asList(
 				Tag007projected00.getInstance(),
 				Tag007projected01.getInstance(),
@@ -92,7 +92,7 @@ public class Control007Subfields {
 		);
 
 		subfields.put(
-			Control007Category.Microform,
+			Control007Category.MICROFORM,
 			Arrays.asList(
 				Tag007microform00.getInstance(),
 				Tag007microform01.getInstance(),
@@ -109,7 +109,7 @@ public class Control007Subfields {
 		);
 
 		subfields.put(
-			Control007Category.NonprojectedGraphic,
+			Control007Category.NONPROJECTED_GRAPHIC,
 			Arrays.asList(
 				Tag007nonprojected00.getInstance(),
 				Tag007nonprojected01.getInstance(),
@@ -121,7 +121,7 @@ public class Control007Subfields {
 		);
 
 		subfields.put(
-			Control007Category.MotionPicture,
+			Control007Category.MOTION_PICTURE,
 			Arrays.asList(
 				Tag007motionPicture00.getInstance(),
 				Tag007motionPicture01.getInstance(),
@@ -145,7 +145,7 @@ public class Control007Subfields {
 		);
 
 		subfields.put(
-			Control007Category.Kit,
+			Control007Category.KIT,
 			Arrays.asList(
 				Tag007kit00.getInstance(),
 				Tag007kit01.getInstance()
@@ -153,7 +153,7 @@ public class Control007Subfields {
 		);
 
 		subfields.put(
-			Control007Category.NotatedMusic,
+			Control007Category.NOTATED_MUSIC,
 			Arrays.asList(
 				Tag007music00.getInstance(),
 				Tag007music01.getInstance()
@@ -161,7 +161,7 @@ public class Control007Subfields {
 		);
 
 		subfields.put(
-			Control007Category.RemoteSensingImage,
+			Control007Category.REMOTE_SENSING_IMAGE,
 			Arrays.asList(
 				Tag007remoteSensing00.getInstance(),
 				Tag007remoteSensing01.getInstance(),
@@ -177,7 +177,7 @@ public class Control007Subfields {
 		);
 
 		subfields.put(
-			Control007Category.SoundRecording,
+			Control007Category.SOUND_RECORDING,
 			Arrays.asList(
 				Tag007soundRecording00.getInstance(),
 				Tag007soundRecording01.getInstance(),
@@ -197,7 +197,7 @@ public class Control007Subfields {
 		);
 
 		subfields.put(
-			Control007Category.Text,
+			Control007Category.TEXT,
 			Arrays.asList(
 				Tag007text00.getInstance(),
 				Tag007text01.getInstance()
@@ -205,7 +205,7 @@ public class Control007Subfields {
 		);
 
 		subfields.put(
-			Control007Category.Videorecording,
+			Control007Category.VIDEO_RECORDING,
 			Arrays.asList(
 				Tag007video00.getInstance(),
 				Tag007video01.getInstance(),
@@ -220,7 +220,7 @@ public class Control007Subfields {
 		);
 
 		subfields.put(
-			Control007Category.Unspecified,
+			Control007Category.UNSPECIFIED,
 			Arrays.asList(
 				Tag007unspecified00.getInstance(),
 				Tag007unspecified01.getInstance()

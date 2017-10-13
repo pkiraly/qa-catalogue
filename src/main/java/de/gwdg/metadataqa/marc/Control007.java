@@ -12,14 +12,13 @@ import java.util.logging.Logger;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class Control007 implements Extractable, Validatable {
+public class Control007 extends PositionalControlField implements Extractable {
 
 	private static final Logger logger = Logger.getLogger(Control007.class.getCanonicalName());
 
 	private static final String label = "Physical Description";
-	private static final String mqTag = "PhysicalDescription";
+	protected static String mqTag = "PhysicalDescription";
 
-	private String content;
 	private String categoryOfMaterial;
 	private Control007Category category;
 
@@ -147,10 +146,7 @@ public class Control007 implements Extractable, Validatable {
 	private ControlValue tag007unspecified00;
 	private ControlValue tag007unspecified01;
 
-	private Map<ControlSubfield, String> valuesMap;
-	private List<ControlValue> valuesList;
 	private Map<Integer, ControlSubfield> byPosition = new LinkedHashMap<>();
-	private List<String> errors;
 
 	public Control007(String content) {
 		this.content = content;
@@ -730,54 +726,11 @@ public class Control007 implements Extractable, Validatable {
 		return tag007unspecified01;
 	}
 
-	@Override
-	public String toString() {
-		return "Control007{" +
-				"content='" + content + '\'' +
-				", categoryOfMaterial='" + categoryOfMaterial + '\'' +
-				", category=" + category +
-				", map=" + valuesMap +
-				'}';
-	}
-
-	@Override
-	public Map<String, List<String>> getKeyValuePairs() {
-		Map<String, List<String>> map = new LinkedHashMap<>();
-		map.put(mqTag, Arrays.asList(content));
-		for (ControlSubfield controlSubfield : valuesMap.keySet()) {
-			String code = controlSubfield.getMqTag() != null
-				? controlSubfield.getMqTag()
-				: controlSubfield.getId();
-			String key = String.format("%s_%s", mqTag, code);
-			String value = controlSubfield.resolve(valuesMap.get(controlSubfield));
-			map.put(key, Arrays.asList(value));
-		}
-		return map;
-	}
-
 	public static String getLabel() {
 		return label;
 	}
 
 	public static String getMqTag() {
 		return mqTag;
-	}
-
-	@Override
-	public boolean validate() {
-		boolean isValid = true;
-		errors = new ArrayList<>();
-		for (ControlValue controlValue : valuesList) {
-			if (!controlValue.validate()) {
-				errors.addAll(controlValue.getErrors());
-				isValid = false;
-			}
-		}
-		return isValid;
-	}
-
-	@Override
-	public List<String> getErrors() {
-		return errors;
 	}
 }

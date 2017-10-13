@@ -12,14 +12,13 @@ import java.util.logging.Logger;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class Control008 implements Extractable, Validatable {
+public class Control008 extends PositionalControlField implements Extractable {
 
 	private static final Logger logger = Logger.getLogger(Control008.class.getCanonicalName());
 
 	private static final String label = "General Information";
-	private static final String mqTag = "GeneralInformation";
+	protected static final String mqTag = "GeneralInformation";
 
-	private String content;
 	private Leader.Type recordType;
 
 	private ControlValue tag008all00;
@@ -87,11 +86,8 @@ public class Control008 implements Extractable, Validatable {
 
 	private Map<Control008Type, List<ControlValue>> fieldGroups = new HashMap<>();
 
-	private Map<ControlSubfield, String> valuesMap;
-	private List<ControlValue> valuesList;
 	private Map<Integer, ControlSubfield> byPosition = new LinkedHashMap<>();
 	private Control008Type actual008Type;
-	private List<String> errors;
 
 	public Control008(String content, Leader.Type recordType) {
 		this.content = content;
@@ -500,44 +496,11 @@ public class Control008 implements Extractable, Validatable {
 		return tag008mixed23;
 	}
 
-	@Override
-	public Map<String, List<String>> getKeyValuePairs() {
-		Map<String, List<String>> map = new LinkedHashMap<>();
-		map.put(mqTag, Arrays.asList(content));
-		for (ControlSubfield controlSubfield : valuesMap.keySet()) {
-			String code = controlSubfield.getMqTag() != null
-				? controlSubfield.getMqTag()
-				: controlSubfield.getId();
-			String key = String.format("%s_%s", mqTag, code);
-			String value = controlSubfield.resolve(valuesMap.get(controlSubfield));
-			map.put(key, Arrays.asList(value));
-		}
-		return map;
-	}
-
 	public static String getLabel() {
 		return label;
 	}
 
 	public static String getMqTag() {
 		return mqTag;
-	}
-
-	@Override
-	public boolean validate() {
-		boolean isValid = true;
-		errors = new ArrayList<>();
-		for (ControlValue controlValue : valuesList) {
-			if (!controlValue.validate()) {
-				errors.addAll(controlValue.getErrors());
-				isValid = false;
-			}
-		}
-		return isValid;
-	}
-
-	@Override
-	public List<String> getErrors() {
-		return errors;
 	}
 }

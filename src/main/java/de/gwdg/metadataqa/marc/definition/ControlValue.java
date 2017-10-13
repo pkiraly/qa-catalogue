@@ -47,14 +47,24 @@ public class ControlValue implements Validatable {
 				for (int i = 0; i < value.length(); i += unitLength) {
 					String unit = value.substring(i, i+unitLength);
 					if (!definition.getValidCodes().contains(unit)) {
-						errors.add(String.format("008/%s (%s) contains an invalid code: '%s' in '%s'",
-							definition.formatPositon(), definition.getId(), unit, value));
+						errors.add(
+							String.format(
+								"%s/%s (%s) contains an invalid code: '%s' in '%s'",
+								definition.getControlField(), definition.formatPositon(), definition.getId(),
+								unit, value
+							)
+						);
 						isValid = false;
 					}
 				}
 			} else {
-				errors.add(String.format("008/%s (%s) has an invalid value: '%s'",
-					definition.formatPositon(), definition.getId(), value));
+				errors.add(
+					String.format(
+						"%s/%s (%s) has an invalid value: '%s'",
+						definition.getControlField(), definition.formatPositon(), definition.getId(),
+						value
+					)
+				);
 				isValid = false;
 			}
 		}

@@ -38,8 +38,9 @@ public class Leader implements Extractable, Validatable {
 
 	private Type type;
 	private String content;
-	// private Map<String, Object> map;
 	private Map<ControlSubfield, String> valuesMap;
+	private List<ControlValue> valuesList;
+
 	private ControlValue recordLength;
 	private ControlValue recordStatus;
 	private ControlValue typeOfRecord;
@@ -60,6 +61,7 @@ public class Leader implements Extractable, Validatable {
 	public Leader(String content) {
 		this.content = content;
 		valuesMap = new LinkedHashMap<>();
+		valuesList = new ArrayList<>();
 		process();
 		setType();
 	}
@@ -69,22 +71,25 @@ public class Leader implements Extractable, Validatable {
 			int end = Math.min(content.length(), subfield.getPositionEnd());
 			try {
 				String value = content.substring(subfield.getPositionStart(), end);
+				ControlValue controlValue = new ControlValue(subfield, value);
+				valuesList.add(controlValue);
+
 				switch (subfield.getId()) {
-					case "leader00": recordLength = new ControlValue(subfield, value); break;
-					case "leader05": recordStatus = new ControlValue(subfield, value); break;
-					case "leader06": typeOfRecord = new ControlValue(subfield, value); break;
-					case "leader07": bibliographicLevel = new ControlValue(subfield, value); break;
-					case "leader08": typeOfControl = new ControlValue(subfield, value); break;
-					case "leader09": characterCodingScheme = new ControlValue(subfield, value); break;
-					case "leader10": indicatorCount = new ControlValue(subfield, value); break;
-					case "leader11": subfieldCodeCount = new ControlValue(subfield, value); break;
-					case "leader12": baseAddressOfData = new ControlValue(subfield, value); break;
-					case "leader17": encodingLevel = new ControlValue(subfield, value); break;
-					case "leader18": descriptiveCatalogingForm = new ControlValue(subfield, value); break;
-					case "leader19": multipartResourceRecordLevel = new ControlValue(subfield, value); break;
-					case "leader20": lengthOfTheLengthOfFieldPortion = new ControlValue(subfield, value); break;
-					case "leader21": lengthOfTheStartingCharacterPositionPortion = new ControlValue(subfield, value); break;
-					case "leader22": lengthOfTheImplementationDefinedPortion = new ControlValue(subfield, value); break;
+					case "leader00": recordLength = controlValue; break;
+					case "leader05": recordStatus = controlValue; break;
+					case "leader06": typeOfRecord = controlValue; break;
+					case "leader07": bibliographicLevel = controlValue; break;
+					case "leader08": typeOfControl = controlValue; break;
+					case "leader09": characterCodingScheme = controlValue; break;
+					case "leader10": indicatorCount = controlValue; break;
+					case "leader11": subfieldCodeCount = controlValue; break;
+					case "leader12": baseAddressOfData = controlValue; break;
+					case "leader17": encodingLevel = controlValue; break;
+					case "leader18": descriptiveCatalogingForm = controlValue; break;
+					case "leader19": multipartResourceRecordLevel = controlValue; break;
+					case "leader20": lengthOfTheLengthOfFieldPortion = controlValue; break;
+					case "leader21": lengthOfTheStartingCharacterPositionPortion = controlValue; break;
+					case "leader22": lengthOfTheImplementationDefinedPortion = controlValue; break;
 					default:
 						break;
 				}
@@ -245,18 +250,13 @@ public class Leader implements Extractable, Validatable {
 		boolean isValid = true;
 		errors = new ArrayList<>();
 
-		for (ControlSubfield controlSubfield : valuesMap.keySet()) {
-			String value = valuesMap.get(controlSubfield);
-			if (!controlSubfield.getValidCodes().isEmpty()
-				&& !controlSubfield.getValidCodes().contains(value)) {
-				errors.add(String.format("Leader/%s has an invalid value: '%s'",
-					(controlSubfield.getPositionStart() == controlSubfield.getPositionEnd() - 1
-						? controlSubfield.getPositionStart()
-						: controlSubfield.getPositionStart() + "-" + controlSubfield.getPositionEnd()),
-					value));
+		for (ControlValue controlValue : valuesList) {
+			if (!controlValue.validate()) {
+				errors.addAll(controlValue.getErrors());
 				isValid = false;
 			}
 		}
+
 		return isValid;
 	}
 

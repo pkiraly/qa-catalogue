@@ -18,7 +18,13 @@ public abstract class Control00XSubfieldsTest {
 			if (lastEnd != -1)
 				assertTrue(lastEnd <= subfield.getPositionStart());
 			lastEnd = subfield.getPositionStart();
-			assertTrue(subfield.getId().endsWith(String.valueOf(subfield.getPositionStart())));
+			assertTrue(
+				String.format(
+					"%s should ends with %s",
+					subfield.getId(), subfield.getPositionStart()
+				),
+				subfield.getId().endsWith(String.valueOf(subfield.getPositionStart()))
+			);
 
 			int length = subfield.getPositionEnd() - subfield.getPositionStart();
 

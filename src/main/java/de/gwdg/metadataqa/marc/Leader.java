@@ -70,7 +70,7 @@ public class Leader implements Extractable, Validatable {
 			try {
 				String value = content.substring(subfield.getPositionStart(), end);
 				switch (subfield.getId()) {
-					case "leader01": recordLength = new ControlValue(subfield, value); break;
+					case "leader00": recordLength = new ControlValue(subfield, value); break;
 					case "leader05": recordStatus = new ControlValue(subfield, value); break;
 					case "leader06": typeOfRecord = new ControlValue(subfield, value); break;
 					case "leader07": bibliographicLevel = new ControlValue(subfield, value); break;

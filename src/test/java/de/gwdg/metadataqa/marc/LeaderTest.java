@@ -40,7 +40,7 @@ public class LeaderTest {
 		assertNotNull(leader);
 		assertEquals(Leader.Type.BOOKS, leader.getType());
 
-		assertEquals("00928", leader.getById("leader01"));
+		assertEquals("00928", leader.getById("leader00"));
 		assertEquals("00928", leader.getByLabel("Record length"));
 		assertEquals("00928", leader.getRecordLength().getValue());
 
@@ -121,7 +121,7 @@ public class LeaderTest {
 		assertNotNull(leader);
 		assertEquals(Leader.Type.BOOKS, leader.getType());
 
-		assertEquals("03960", leader.getById("leader01"));
+		assertEquals("03960", leader.getById("leader00"));
 		assertEquals("03960", leader.getByLabel("Record length"));
 		assertEquals("03960", leader.getRecordLength().getValue());
 
@@ -202,7 +202,7 @@ public class LeaderTest {
 		assertNotNull(leader);
 		assertEquals(Leader.Type.BOOKS, leader.getType());
 
-		assertEquals("01645", leader.getById("leader01"));
+		assertEquals("01645", leader.getById("leader00"));
 		assertEquals("01645", leader.getByLabel("Record length"));
 		assertEquals("01645", leader.getRecordLength().getValue());
 

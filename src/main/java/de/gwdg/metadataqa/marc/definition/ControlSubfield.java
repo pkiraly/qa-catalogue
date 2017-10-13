@@ -187,6 +187,9 @@ public class ControlSubfield {
 	}
 
 	public String getControlField() {
+		String className = this.getClass().getSimpleName();
+		if (className.startsWith("Leader"))
+			return "Leader";
 		return this.getClass().getSimpleName().substring(3, 6);
 	}
 

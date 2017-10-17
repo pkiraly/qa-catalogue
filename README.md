@@ -78,6 +78,39 @@ Error in '   00010971 ':
 ...
 ```
 
+Currently it detects the following errors:
+
+Leader specific errors:
+
+* Leader/[position] has an invalid value: '[value]' (e.g. `Leader/19 (leader19) has an invalid value: '4'`)
+
+Control field specific errors:
+
+* 006/[position] ([name]) contains an invalid code: '[code]' in '[value]'
+* 006/[position] ([name]) has an invalid value: '[value]'
+* 007/[position] ([name]) contains an invalid code: '[code]' in '[value]'
+* 007/[position] ([name]) has an invalid value: '[value]'
+* 008/[position] ([name]) contains an invalid code: '[code]' in '[value]'
+* 008/[position] ([name]) has an invalid value: '[value]'
+
+Data field specific errors
+
+* Unhandled tag(s): [tags]
+* [tag] is not repeatable, however there are [number] instances
+* [tag] has invalid subfield(s): [subfield codes]
+* [tag]$[indicator] has invalid code: '[code]'
+* [tag]$[indicator] should be empty, it has '[code]'
+* [tag]$[subfield codes] is not repeatable, however there are [number] instances
+* [tag]$[subfield codes] has an invalid value: [value]
+
+Errors of specific fields:
+
+* 045$a error in '[value]': length is not 4 char
+* 045$a error in '[value]': '[part]' does not match any patterns
+* 880 should have subfield $a
+* 880 refers to field [tag], which is not defined
+
+
 ### Indexing MARC records with Solr
 
 Set autocommit the following way in solrconfig.xml (inside Solr):

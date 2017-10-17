@@ -15,6 +15,7 @@ public class Tag015 extends DataFieldDefinition {
 
 	private Tag015() {
 		initialize();
+		postCreation();
 	}
 
 	public static Tag015 getInstance() {

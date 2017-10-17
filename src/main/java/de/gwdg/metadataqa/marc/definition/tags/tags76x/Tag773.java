@@ -16,6 +16,7 @@ public class Tag773 extends DataFieldDefinition {
 
 	private Tag773() {
 		initialize();
+		postCreation();
 	}
 
 	public static Tag773 getInstance() {

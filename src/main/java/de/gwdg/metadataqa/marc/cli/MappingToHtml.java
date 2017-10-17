@@ -101,13 +101,13 @@ public class MappingToHtml {
 		if (tag.getInd1().exists())
 			text += row(
 				String.format("%s$ind1", tag.getTag()),
-				String.format("%s_%s", tag.getIndexTag(), tag.getInd1().getIndexTag("ind1")),
+				String.format("%s_%s", tag.getIndexTag(), tag.getInd1().getIndexTag()),
 				tag.getInd1().getLabel()
 			);
 		if (tag.getInd2().exists())
 			text += row(
 				String.format("%s$ind2", tag.getTag()),
-				String.format("%s_%s", tag.getIndexTag(), tag.getInd2().getIndexTag("ind2")),
+				String.format("%s_%s", tag.getIndexTag(), tag.getInd2().getIndexTag()),
 				tag.getInd2().getLabel()
 			);
 		text += "<tr><td colspan=\"3\"><em>data subfields</em></td></tr>\n";

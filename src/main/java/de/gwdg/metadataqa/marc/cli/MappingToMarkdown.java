@@ -45,12 +45,12 @@ public class MappingToMarkdown {
 		if (tag.getInd1().exists())
 			System.out.printf("| `%s$ind1` | `%s_%s` | %s |\n",
 				tag.getTag(),
-				tag.getIndexTag(), tag.getInd1().getIndexTag("ind1"),
+				tag.getIndexTag(), tag.getInd1().getIndexTag(),
 				tag.getInd1().getLabel());
 		if (tag.getInd2().exists())
 			System.out.printf("| `%s$ind2` | `%s_%s` | %s |\n",
 				tag.getTag(),
-				tag.getIndexTag(), tag.getInd2().getIndexTag("ind2"),
+				tag.getIndexTag(), tag.getInd2().getIndexTag(),
 				tag.getInd2().getLabel());
 		System.out.printf("|  | data subfields |  |\n");
 		for (SubfieldDefinition subfield : tag.getSubfields()) {

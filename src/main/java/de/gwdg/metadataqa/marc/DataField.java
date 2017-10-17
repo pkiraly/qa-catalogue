@@ -168,10 +168,10 @@ public class DataField implements Extractable, Validatable {
 		Map<String, List<String>> pairs = new HashMap<>();
 
 		if (definition.getInd1().exists())
-			pairs.put(String.format("%s_ind1", definition.getIndexTag()), Arrays.asList(resolveInd1()));
+			pairs.put(String.format("%s_%s", definition.getIndexTag(), definition.getInd1().getIndexTag()), Arrays.asList(resolveInd1()));
 
 		if (definition.getInd2().exists())
-			pairs.put(String.format("%s_ind2", definition.getIndexTag()), Arrays.asList(resolveInd2()));
+			pairs.put(String.format("%s_%s", definition.getIndexTag(), definition.getInd2().getIndexTag()), Arrays.asList(resolveInd2()));
 
 		for (MarcSubfield subfield : subfields) {
 			String code = subfield.getCodeForIndex();

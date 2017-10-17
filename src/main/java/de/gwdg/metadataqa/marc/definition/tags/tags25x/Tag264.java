@@ -14,6 +14,7 @@ public class Tag264 extends DataFieldDefinition {
 
 	private Tag264() {
 		initialize();
+		postCreation();
 	}
 
 	public static Tag264 getInstance() {

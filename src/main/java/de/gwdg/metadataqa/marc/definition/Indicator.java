@@ -13,6 +13,7 @@ public class Indicator {
 	private List<Code> codes;
 	private Map<String, Code> codeIndex = new LinkedHashMap<>();
 	private Map<Range, Code> ranges;
+	private String indicatorFlag;
 
 	public Indicator() {}
 
@@ -26,14 +27,14 @@ public class Indicator {
 		index();
 	}
 
-	public String getIndexTag(String defaultTag) {
+	public String getIndexTag() {
 		if (indexTag == null) {
 			if (mqTag != null)
 				indexTag = mqTag;
 			else if (bibframeTag != null)
 				indexTag = bibframeTag.replace("/", "");
 			else
-				indexTag = defaultTag;
+				indexTag = indicatorFlag;
 		}
 		return indexTag;
 	}
@@ -126,5 +127,9 @@ public class Indicator {
 		for (Code code : codes) {
 			codeIndex.put(code.getCode(), code);
 		}
+	}
+
+	public void setIndicatorFlag(String indicatorFlag) {
+		this.indicatorFlag = indicatorFlag;
 	}
 }

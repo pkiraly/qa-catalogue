@@ -17,6 +17,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -86,7 +87,8 @@ public class MarcToSolr {
 		}
 		long end = System.currentTimeMillis();
 
-		logger.info(String.format("Bye! It took: %.1f s", (float) (end - start) / 1000));
+		long duration = (end - start) / 1000;
+		logger.info(String.format("Bye! It took: %s", LocalTime.MIN.plusSeconds(duration).toString()));
 
 		System.exit(0);
 	}

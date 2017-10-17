@@ -15,6 +15,7 @@ public class Tag754 extends DataFieldDefinition {
 
 	private Tag754() {
 		initialize();
+		postCreation();
 	}
 
 	public static Tag754 getInstance() {

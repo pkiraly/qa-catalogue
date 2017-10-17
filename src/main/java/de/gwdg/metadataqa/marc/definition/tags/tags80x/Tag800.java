@@ -15,6 +15,7 @@ public class Tag800 extends DataFieldDefinition {
 
 	private Tag800() {
 		initialize();
+		postCreation();
 	}
 
 	public static Tag800 getInstance() {

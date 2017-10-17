@@ -13,6 +13,7 @@ public class Tag255 extends DataFieldDefinition {
 
 	private Tag255() {
 		initialize();
+		postCreation();
 	}
 
 	public static Tag255 getInstance() {

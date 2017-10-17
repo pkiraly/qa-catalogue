@@ -49,6 +49,17 @@ public abstract class DataFieldDefinition {
 		return ind2;
 	}
 
+	protected void postCreation() {
+		setIndicatorFlags();
+	}
+
+	protected void setIndicatorFlags() {
+		if (ind1 != null)
+			ind1.setIndicatorFlag("ind1");
+		if (ind2 != null)
+			ind2.setIndicatorFlag("ind2");
+	}
+
 	public List<SubfieldDefinition> getSubfields() {
 		return subfields;
 	}

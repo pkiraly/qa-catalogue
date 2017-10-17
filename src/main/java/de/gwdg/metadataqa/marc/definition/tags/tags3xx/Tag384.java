@@ -13,6 +13,7 @@ public class Tag384 extends DataFieldDefinition {
 
 	private Tag384() {
 		initialize();
+		postCreation();
 	}
 
 	public static Tag384 getInstance() {

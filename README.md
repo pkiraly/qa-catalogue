@@ -38,45 +38,82 @@ export JAR=target/metadata-qa-marc-0.1-SNAPSHOT-jar-with-dependencies.jar
 java -cp $JAR de.gwdg.metadataqa.marc.cli.Validator [file]
 ```
 
-it creates `validation-report.txt` which looks like this
+It creates `validation-report.txt` file.
+
+Currently it detects the following errors:
+
+Leader specific errors:
+
+* Leader/[position] has an invalid value: '[value]' (e.g. `Leader/19 (leader19) has an invalid value: '4'`)
+
+Control field specific errors:
+
+* 006/[position] ([name]) contains an invalid code: '[code]' in '[value]' (e.g. `	006/01-05 (tag006book01) contains an invalid code: 'n' in '  n '`)
+* 006/[position] ([name]) has an invalid value: '[value]' (e.g. `006/13 (tag006book13) has an invalid value: ' '`)
+* 007/[position] ([name]) contains an invalid code: '[code]' in '[value]'
+* 007/[position] ([name]) has an invalid value: '[value]' (e.g. `007/01 (tag007microform01) has an invalid value: ' '`)
+* 008/[position] ([name]) contains an invalid code: '[code]' in '[value]' (e.g. `008/18-22 (tag008book18) contains an invalid code: 'u' in 'u   '`)
+* 008/[position] ([name]) has an invalid value: '[value]' (e.g. `008/06 (tag008all06) has an invalid value: ' '`)
+
+Data field specific errors
+
+* Unhandled tag(s): [tags] (e.g. `Unhandled tag: 265`)
+* [tag] is not repeatable, however there are [number] instances
+* [tag] has invalid subfield(s): [subfield codes] (e.g. `110 has invalid subfield: s`)
+* [tag]$[indicator] has invalid code: '[code]' (e.g. `110$ind1 has invalid code: '2'`)
+* [tag]$[indicator] should be empty, it has '[code]' (e.g. `110$ind2 should be empty, it has '0'`)
+* [tag]$[subfield code] is not repeatable, however there are [number] instances (e.g. `072$a is not repeatable, however there are 2 instances`)
+* [tag]$[subfield code] has an invalid value: [value] (e.g. `046$a has an invalid value: 'fb-----'`)
+
+Errors of specific fields:
+
+* 045$a error in '[value]': length is not 4 char (e.g. `045$a error in '2209668': length is not 4 char`)
+* 045$a error in '[value]': '[part]' does not match any patterns
+* 880 should have subfield $a
+* 880 refers to field [tag], which is not defined (e.g. `880 refers to field 590, which is not defined`)
+
+An example:
 
 ```
-Error in '   00000034 ':
- - 110$ind1 has invalid code: '2'
-Error in '   00000056 ':
- - 110$ind1 has invalid code: '2'
-Error in '   00000057 ':
- - 082$ind1 has invalid code: ' '
-Error in '   00000086 ':
- - 110$ind1 has invalid code: '2'
-Error in '   00000119 ':
- - 700$ind1 has invalid code: '2'
-Error in '   00000234 ':
- - 082$ind1 has invalid code: ' '
-Errors in '   00000294 ':
- - 050$ind2 has invalid code: ' '
- - 260$ind1 has invalid code: '0'
- - 710$ind2 has invalid code: '0'
- - 710$ind2 has invalid code: '0'
- - 710$ind2 has invalid code: '0'
- - 740$ind2 has invalid code: '1'
-Error in '   00000322 ':
- - 110$ind1 has invalid code: '2'
-Error in '   00000328 ':
- - 082$ind1 has invalid code: ' '
-Error in '   00000374 ':
- - 082$ind1 has invalid code: ' '
-Error in '   00000395 ':
- - 082$ind1 has invalid code: ' '
-Error in '   00000514 ':
- - 082$ind1 has invalid code: ' '
-Errors in '   00000547 ':
- - 100$ind2 should be empty, it has '0'
- - 260$ind1 has invalid code: '0'
-Error in '   00010971 ': 
- - 260 has invalid subfield: d
+Error in '   00000034 ': 
+	110$ind1 has invalid code: '2'
+Error in '   00000056 ': 
+	110$ind1 has invalid code: '2'
+Error in '   00000057 ': 
+	082$ind1 has invalid code: ' '
+Error in '   00000086 ': 
+	110$ind1 has invalid code: '2'
+Error in '   00000119 ': 
+	700$ind1 has invalid code: '2'
+Error in '   00000234 ': 
+	082$ind1 has invalid code: ' '
+Errors in '   00000294 ': 
+	050$ind2 has invalid code: ' '
+	260$ind1 has invalid code: '0'
+	710$ind2 has invalid code: '0'
+	710$ind2 has invalid code: '0'
+	710$ind2 has invalid code: '0'
+	740$ind2 has invalid code: '1'
+Error in '   00000322 ': 
+	110$ind1 has invalid code: '2'
+Error in '   00000328 ': 
+	082$ind1 has invalid code: ' '
+Error in '   00000374 ': 
+	082$ind1 has invalid code: ' '
+Error in '   00000395 ': 
+	082$ind1 has invalid code: ' '
+Error in '   00000514 ': 
+	082$ind1 has invalid code: ' '
+Errors in '   00000547 ': 
+	100$ind2 should be empty, it has '0'
+	260$ind1 has invalid code: '0'
+Errors in '   00000571 ': 
+	050$ind2 has invalid code: ' '
+	100$ind2 should be empty, it has '0'
+	260$ind1 has invalid code: '0'
 ...
 ```
+
 
 ### Indexing MARC records with Solr
 

@@ -29,7 +29,7 @@ public class Tag007unspecified00 extends ControlSubfield {
 		positionEnd = 1;
 		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007z.html";
 		codes = Utils.generateCodes(
-			"z", "Unspecified "
+			"z", "Unspecified"
 		);
 	}
 }

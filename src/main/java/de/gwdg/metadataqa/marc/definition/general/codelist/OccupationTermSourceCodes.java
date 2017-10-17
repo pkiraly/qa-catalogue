@@ -14,7 +14,7 @@ public class OccupationTermSourceCodes extends CodeList {
 			"iaat", "IAA thesaurus: terminologie der Arbeit, Beschüftigung und Ausbildung (Genf: Internationales arbeitsamt)",
 			"ilot", "ILO thesaurus: labour, employment and training terminology (Geneva: International Labour Office)",
 			"itoamc", "Index terms for occupations in archival and manuscript collections (Washington, DC: Library of Congress, Manuscript Division)",
-			"lcdgt", "LC Demographic Group Terms (Washington, DC: Library of Congress) ",
+			"lcdgt", "LC Demographic Group Terms (Washington, DC: Library of Congress)",
 			"onet", "ONET - Occupational Information Network",
 			"raam", "Register of Australian Archives & Manuscripts Occupations Thesaurus (Canberra: National Library of Australia)",
 			"rvmgd", "Thésaurus des descripteurs de groupes démographiques de l'Université Laval Québec: Université Laval)",

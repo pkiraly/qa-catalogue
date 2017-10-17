@@ -63,7 +63,7 @@ public class LanguageCodes extends CodeList {
 				"ben", "Bengali",
 				"ber", "Berber (Other)",
 				"bho", "Bhojpuri",
-				"bih", "Bihari (Other) ",
+				"bih", "Bihari (Other)",
 				"bik", "Bikol",
 				"bin", "Edo",
 				"bis", "Bislama",

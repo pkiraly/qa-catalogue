@@ -26,7 +26,7 @@ public class Tag246 extends DataFieldDefinition {
 		tag = "246";
 		label = "Varying Form of Title";
 		bibframeTag = "ParallelTitle";
-		cardinality = Cardinality.Nonrepeatable;
+		cardinality = Cardinality.Repeatable;
 		ind1 = new Indicator("Note/added entry controller").setCodes(
 			"0", "Note, no added entry",
 			"1", "Note, added entry",

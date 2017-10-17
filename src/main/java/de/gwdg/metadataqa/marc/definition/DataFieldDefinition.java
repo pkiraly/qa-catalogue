@@ -74,7 +74,7 @@ public abstract class DataFieldDefinition {
 		indexSubfields();
 	}
 
-	private void indexSubfields() {
+	protected void indexSubfields() {
 		for (SubfieldDefinition subfield : subfields) {
 			subfieldIndex.put(subfield.getCode(), subfield);
 		}

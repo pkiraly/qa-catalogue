@@ -37,7 +37,7 @@ public class Tag006continuing11 extends ControlSubfield {
 			"l", "Local",
 			"m", "Multistate",
 			"o", "Government publication-level undetermined",
-			"s", "State, provincial, territorial, dependent, etc. ",
+			"s", "State, provincial, territorial, dependent, etc.",
 			"u", "Unknown if item is government publication",
 			"z", "Other",
 			"|", "No attempt to code"

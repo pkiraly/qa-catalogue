@@ -39,7 +39,7 @@ public class Tag852 extends DataFieldDefinition {
 			"5", "Title",
 			"6", "Shelved separately",
 			"7", "Source specified in subfield $2",
-			"8", "Other scheme "
+			"8", "Other scheme"
 		).setMqTag("shelvingScheme");
 		ind2 = new Indicator("Shelving order").setCodes(
 			" ", "No information provided",

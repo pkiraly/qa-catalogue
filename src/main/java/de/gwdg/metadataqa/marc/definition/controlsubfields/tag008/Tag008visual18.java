@@ -33,7 +33,7 @@ public class Tag008visual18 extends ControlSubfield {
 			"001-999", "Running time", // TODO: handle this as RegEx!
 			"nnn", "Not applicable",
 			"---", "Unknown",
-			"|||", "No attempt to code "
+			"|||", "No attempt to code"
 		);
 		// codes.get("001-999").setRange(true);
 	}

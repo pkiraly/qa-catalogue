@@ -28,4 +28,9 @@ public class CodeList implements Validator {
 	public boolean isValid(String code) {
 		return index.containsKey(code);
 	}
+
+	@Override
+	public List<String> getErrors() {
+		return null;
+	}
 }

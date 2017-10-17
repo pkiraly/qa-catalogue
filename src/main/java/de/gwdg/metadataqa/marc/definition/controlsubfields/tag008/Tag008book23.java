@@ -34,7 +34,12 @@ public class Tag008book23 extends ControlSubfield {
 			"b", "Microfiche",
 			"c", "Microopaque",
 			"d", "Large print",
-			"f", "Braille"
+			"f", "Braille",
+			"o", "Online",
+			"q", "Direct electronic",
+			"r", "Regular print reproduction",
+			"s", "Electronic",
+			"|", "No attempt to code"
 		);
 	}
 }

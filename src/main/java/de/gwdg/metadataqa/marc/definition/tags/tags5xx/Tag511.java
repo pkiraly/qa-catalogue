@@ -32,7 +32,7 @@ public class Tag511 extends DataFieldDefinition {
 
 		ind1 = new Indicator("Display constant controller").setCodes(
 			"0", "No display constant generated",
-			"1", "Cast "
+			"1", "Cast"
 		).setMqTag("displayConstant");
 		ind2 = new Indicator();
 

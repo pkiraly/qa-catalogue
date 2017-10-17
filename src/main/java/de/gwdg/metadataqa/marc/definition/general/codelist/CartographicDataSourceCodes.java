@@ -8,7 +8,7 @@ public class CartographicDataSourceCodes extends CodeList {
 		codes = Utils.generateCodes(
 			"aadcg", "Australian Antarctic Data Centre Antarctic Gazetteer (Australian Antarctic Data Centre)",
 			"acgms", "Atlas of Canada Gazetteer Map Service (Natural Resources Canada)",
-			"ahcb", "Atlas of Historical County Boundaries (Newberry Library) ",
+			"ahcb", "Atlas of Historical County Boundaries (Newberry Library)",
 			"bcgnis", "BC Geographical Names Information System (BCGNIS) (Government of British Columbia)",
 			"bound", "Bounding Box (Klokan Technologies)",
 			"cbf", "Cartographic Boundary Files (U.S. Census Bureau)",
@@ -44,7 +44,7 @@ public class CartographicDataSourceCodes extends CodeList {
 			"mapland", "Maplandia.com: Google maps world gazetteer",
 			"mwgd", "Merriam-Webster's Geographical Dictionary (Springfield, MA: Merriam-Webster, Inc.)",
 			"natmap", "The National Map-Boundaries (USGS) (U.S. Geological Survey)",
-			"nlaci", "Newfoundland and Labrador abandoned communities index ",
+			"nlaci", "Newfoundland and Labrador abandoned communities index",
 			"nsgn", "Nova Scotia Geographical Names (Province of Nova Scotia)",
 			"ntpnr", "NT Place Names Register (Place Names Committee for the Northern Territory)",
 			"nws", "Northwest Waterfall Survey",

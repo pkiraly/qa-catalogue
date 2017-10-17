@@ -1,14 +1,19 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
-import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.*;
+
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Time Period of Content
  * http://www.loc.gov/marc/bibliographic/bd045.html
  */
 public class Tag045 extends DataFieldDefinition {
+
+	private static final Pattern BC = Pattern.compile("^([a-d])(-)$");
+	private static final Pattern CE = Pattern.compile("^([e-y])(\\d|-)$");
 
 	private static Tag045 uniqueInstance;
 
@@ -100,11 +105,71 @@ public class Tag045 extends DataFieldDefinition {
 			"x", "1900-1999",
 			"y", "2000-2099"
 		);
+		getSubfield("a").setValidator(new SubfieldAValidator());
 
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("b").setMqTag("timePeriod");
 		getSubfield("c").setMqTag("preBC9999TimePeriod");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
+	}
+
+	class SubfieldAValidator implements Validator {
+
+		private List<String> errors;
+		private String subfieldCode;
+		private SubfieldDefinition subfield;
+		Map<String, String> bc = new HashMap<>();
+
+		public SubfieldAValidator() {
+			subfieldCode = "a";
+			subfield = getSubfield(subfieldCode);
+
+			/*
+			Map<String, String> bc = new HashMap<>();
+			bc.put("a", "-3000");
+			bc.put("b", "2999-2000");
+			bc.put("c", "1999-1000");
+			bc.put("d", "999-1");
+			*/
+		}
+
+		@Override
+		public boolean isValid(String value) {
+
+			boolean isValid = true;
+			errors = new ArrayList<>();
+
+			if (value.length() != 4) {
+				errors.add(String.format("%s$%s error in '%s': length is not 4 char",
+					tag, subfieldCode, value));
+				isValid = false;
+			} else {
+				List<String> parts = Arrays.asList(
+					value.substring(0, 2),
+					value.substring(2, 4)
+				);
+
+				Matcher matcher;
+				for (String part : parts) {
+					if (subfield.getCode(part) == null) {
+						matcher = BC.matcher(part);
+						if (!matcher.find()) {
+							matcher = CE.matcher(part);
+							if (!matcher.find()) {
+								errors.add(String.format("%s$%s error in '%s': '%s' does not match any patterns\n",
+									tag, subfieldCode, value, part));
+							}
+						}
+					}
+				}
+			}
+			return isValid;
+		}
+
+		@Override
+		public List<String> getErrors() {
+			return errors;
+		}
 	}
 }

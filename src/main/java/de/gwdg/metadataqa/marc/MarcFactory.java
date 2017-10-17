@@ -116,6 +116,7 @@ public class MarcFactory {
 				field.getSubfields().add(new MarcSubfield(subfieldDefinition, code, subfield.getData()));
 			}
 		}
+		field.indexSubfields();
 		return field;
 	}
 

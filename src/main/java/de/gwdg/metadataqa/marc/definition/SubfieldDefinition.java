@@ -149,6 +149,10 @@ public class SubfieldDefinition {
 		return this;
 	}
 
+	public Validator getValidator() {
+		return validator;
+	}
+
 	public SubfieldDefinition setCodeList(CodeList codeList) {
 		this.codeList = codeList;
 		return this;

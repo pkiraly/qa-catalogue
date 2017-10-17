@@ -5,7 +5,9 @@ import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 
 /**
  * Conference publication
+ * same as 008/29
  * https://www.loc.gov/marc/bibliographic/bd006.html
+ * https://www.loc.gov/marc/bibliographic/bd008b.html
  */
 public class Tag006book12 extends ControlSubfield {
 	private static Tag006book12 uniqueInstance;

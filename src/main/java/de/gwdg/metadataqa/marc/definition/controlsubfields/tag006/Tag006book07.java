@@ -5,7 +5,9 @@ import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 
 /**
  * Nature of contents
+ * same as 008/24-27
  * https://www.loc.gov/marc/bibliographic/bd006.html
+ * https://www.loc.gov/marc/bibliographic/bd008b.html
  */
 public class Tag006book07 extends ControlSubfield {
 	private static Tag006book07 uniqueInstance;
@@ -43,7 +45,21 @@ public class Tag006book07 extends ControlSubfield {
 			"l", "Legislation",
 			"m", "Theses",
 			"n", "Surveys of literature in a subject area",
-			"o", "Reviews"
+			"o", "Reviews",
+			"p", "Programmed texts",
+			"q", "Filmographies",
+			"r", "Directories",
+			"s", "Statistics",
+			"t", "Technical reports",
+			"u", "Standards/specifications",
+			"v", "Legal cases and case notes",
+			"w", "Law reports and digests",
+			"y", "Yearbooks",
+			"z", "Treaties",
+			"2", "Offprints",
+			"5", "Calendars",
+			"6", "Comics/graphic novels",
+			"|", "No attempt to code"
 		);
 		repeatableContent = true;
 		unitLength = 1;

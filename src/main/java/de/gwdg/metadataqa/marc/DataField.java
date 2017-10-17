@@ -1,9 +1,8 @@
 package de.gwdg.metadataqa.marc;
 
-import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
+import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.general.Linkage;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
@@ -45,12 +44,21 @@ public class DataField implements Extractable, Validatable {
 				} else {
 					MarcSubfield marcSubfield = new MarcSubfield(subfieldDefinition, code, value);
 					this.subfields.add(marcSubfield);
-					if (!subfieldIndex.containsKey(code))
-						subfieldIndex.put(code, new LinkedList<>());
-					subfieldIndex.get(code).add(marcSubfield);
+					indexSubfield(code, marcSubfield);
 				}
 			}
 		}
+	}
+
+	public void indexSubfields() {
+		for (MarcSubfield marcSubfield : subfields)
+			indexSubfield(marcSubfield.getCode(), marcSubfield);
+	}
+
+	private void indexSubfield(String code, MarcSubfield marcSubfield) {
+		if (!subfieldIndex.containsKey(code))
+			subfieldIndex.put(code, new LinkedList<>());
+		subfieldIndex.get(code).add(marcSubfield);
 	}
 
 	public <T extends DataFieldDefinition> DataField(T definition, String ind1, String ind2, String... subfields) {
@@ -65,11 +73,9 @@ public class DataField implements Extractable, Validatable {
 			String code = subfields[i];
 			String value = subfields[i + 1];
 			SubfieldDefinition subfieldDefinition = definition.getSubfield(code);
-			MarcSubfield subfield = new MarcSubfield(subfieldDefinition, code, value);
-			this.subfields.add(subfield);
-			if (!subfieldIndex.containsKey(code))
-				subfieldIndex.put(code, new LinkedList<>());
-			subfieldIndex.get(code).add(subfield);
+			MarcSubfield marcSubfield = new MarcSubfield(subfieldDefinition, code, value);
+			this.subfields.add(marcSubfield);
+			indexSubfield(code, marcSubfield);
 		}
 	}
 
@@ -85,6 +91,20 @@ public class DataField implements Extractable, Validatable {
 			map.get(subfield.getLabel()).add(subfield.resolve());
 		}
 		return map;
+	}
+
+	public String simpleFormat() {
+		String output = "";
+
+		output += ind1;
+		output += ind2;
+		output += " ";
+
+		for (MarcSubfield subfield : subfields) {
+			output += String.format("$%s%s", subfield.getDefinition().getCode(), subfield.getValue());
+		}
+
+		return output;
 	}
 
 	public String format() {
@@ -218,6 +238,35 @@ public class DataField implements Extractable, Validatable {
 	public boolean validate() {
 		boolean isValid = true;
 		errors = new ArrayList<>();
+		DataFieldDefinition _definition = null;
+		List<MarcSubfield> _subfields = null;
+		if (definition.getTag().equals("880")) {
+			List<MarcSubfield> subfield6s = getSubfield("6");
+			if (subfield6s == null) {
+				errors.add(String.format("%s should have subfield $a", definition.getTag()));
+			} else {
+				if (!subfield6s.isEmpty() && subfield6s.size() == 1) {
+					MarcSubfield subfield6 = subfield6s.get(0);
+					Linkage linkage = LinkageParser.getInstance().create(subfield6.getValue());
+					_definition = definition;
+					definition = TagDefinitionLoader.load(linkage.getLinkingTag());
+					if (definition == null) {
+						definition = _definition;
+						errors.add(String.format("%s refers to field %s, which is not defined",
+							definition.getTag(), linkage.getLinkingTag()));
+						isValid = false;
+					} else {
+						_subfields = subfields;
+						List<MarcSubfield> _subfieldsNew = new ArrayList<>();
+						for (MarcSubfield subfield : subfields) {
+							_subfieldsNew.add(new MarcSubfield(definition.getSubfield(
+								subfield.getCode()), subfield.getCode(), subfield.getValue()));
+						}
+						subfields = _subfieldsNew;
+					}
+				}
+			}
+		}
 
 		if (unhandledSubfields != null) {
 			errors.add(String.format("%s has invalid %s: %s",
@@ -239,15 +288,19 @@ public class DataField implements Extractable, Validatable {
 
 		Map<SubfieldDefinition, Integer> counter = new HashMap<>();
 		for (MarcSubfield subfield : subfields) {
-			if (!counter.containsKey(subfield.getDefinition())) {
-				counter.put(subfield.getDefinition(), 0);
-			}
-			counter.put(subfield.getDefinition(), counter.get(subfield.getDefinition()) + 1);
-
-			if (!subfield.validate()) {
-				// logger.warning(String.format("%s$%s error", definition.getTag(), subfield.getDefinition().getCode()));
-				errors.addAll(subfield.getErrors());
+			if (subfield.getDefinition() == null) {
+				errors.add(String.format("%s has invalid subfield %s", definition.getTag(), subfield.getCode()));
 				isValid = false;
+			} else {
+				if (!counter.containsKey(subfield.getDefinition())) {
+					counter.put(subfield.getDefinition(), 0);
+				}
+				counter.put(subfield.getDefinition(), counter.get(subfield.getDefinition()) + 1);
+
+				if (!subfield.validate()) {
+					errors.addAll(subfield.getErrors());
+					isValid = false;
+				}
 			}
 		}
 		for (SubfieldDefinition subfieldDefinition : counter.keySet()) {
@@ -260,6 +313,11 @@ public class DataField implements Extractable, Validatable {
 				isValid = false;
 			}
 		}
+
+		if (_definition != null)
+			definition = _definition;
+		if (_subfields != null)
+			subfields = _subfields;
 
 		return isValid;
 	}

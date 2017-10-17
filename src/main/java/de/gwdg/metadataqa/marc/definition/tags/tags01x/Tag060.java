@@ -40,7 +40,7 @@ public class Tag060 extends DataFieldDefinition {
 		).setMqTag("source");
 
 		setSubfieldsWithCardinality(
-			"a", "Classification number", "NR",
+			"a", "Classification number", "R",
 			"b", "Item number", "NR",
 			"0", "Authority record control number or standard number", "R",
 			"8", "Field link and sequence number", "R"

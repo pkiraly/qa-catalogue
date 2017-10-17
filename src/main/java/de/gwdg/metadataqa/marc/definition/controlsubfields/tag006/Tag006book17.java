@@ -5,7 +5,9 @@ import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 
 /**
  * Biography
+ * same as 008/34
  * https://www.loc.gov/marc/bibliographic/bd006.html
+ * https://www.loc.gov/marc/bibliographic/bd008b.html
  */
 public class Tag006book17 extends ControlSubfield {
 	private static Tag006book17 uniqueInstance;

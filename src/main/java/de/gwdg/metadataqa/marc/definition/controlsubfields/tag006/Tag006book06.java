@@ -5,7 +5,9 @@ import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 
 /**
  * Form of item
+ * same as 008/23
  * https://www.loc.gov/marc/bibliographic/bd006.html
+ * https://www.loc.gov/marc/bibliographic/bd008b.html
  */
 public class Tag006book06 extends ControlSubfield {
 	private static Tag006book06 uniqueInstance;
@@ -34,7 +36,12 @@ public class Tag006book06 extends ControlSubfield {
 			"b", "Microfiche",
 			"c", "Microopaque",
 			"d", "Large print",
-			"f", "Braille"
+			"f", "Braille",
+			"o", "Online",
+			"q", "Direct electronic",
+			"r", "Regular print reproduction",
+			"s", "Electronic",
+			"|", "No attempt to code"
 		);
 	}
 }

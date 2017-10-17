@@ -36,7 +36,7 @@ public class Tag007electro01 extends ControlSubfield {
 			"e", "Computer disc cartridge, type unspecified",
 			"f", "Tape cassette",
 			"h", "Tape reel",
-			"j", "Magnetic disk ",
+			"j", "Magnetic disk",
 			"k", "Computer card",
 			"m", "Magneto-optical disc",
 			"o", "Optical disc",

@@ -43,7 +43,21 @@ public class Tag008book24 extends ControlSubfield {
 			"l", "Legislation",
 			"m", "Theses",
 			"n", "Surveys of literature in a subject area",
-			"o", "Reviews"
+			"o", "Reviews",
+			"p", "Programmed texts",
+			"q", "Filmographies",
+			"r", "Directories",
+			"s", "Statistics",
+			"t", "Technical reports",
+			"u", "Standards/specifications",
+			"v", "Legal cases and case notes",
+			"w", "Law reports and digests",
+			"y", "Yearbooks",
+			"z", "Treaties",
+			"2", "Offprints",
+			"5", "Calendars",
+			"6", "Comics/graphic novels",
+			"|", "No attempt to code"
 		);
 
 		repeatableContent = true;

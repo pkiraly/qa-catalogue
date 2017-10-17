@@ -182,8 +182,8 @@ public class ControlSubfield {
 
 	public String formatPositon() {
 		return (positionStart == positionEnd - 1)
-			? String.valueOf(positionStart)
-			: positionStart + "-" + positionEnd;
+			? String.format("%02d", positionStart)
+			: String.format("%02d-%02d", positionStart, positionEnd);
 	}
 
 	public String getControlField() {

@@ -200,26 +200,26 @@ public class MarcRecord implements Extractable, Validatable {
 			}
 		}
 
-		Map<DataFieldDefinition, Integer> counter = new HashMap<>();
+		Map<DataFieldDefinition, Integer> repetitionCounter = new HashMap<>();
 		for (DataField field : datafields) {
-			if (!counter.containsKey(field.getDefinition())) {
-				counter.put(field.getDefinition(), 0);
+			if (!repetitionCounter.containsKey(field.getDefinition())) {
+				repetitionCounter.put(field.getDefinition(), 0);
 			}
-			counter.put(field.getDefinition(), counter.get(field.getDefinition()) + 1);
-			isValidComponent = field.validate();
-			if (!isValidComponent) {
+			repetitionCounter.put(field.getDefinition(), repetitionCounter.get(field.getDefinition()) + 1);
+			if (!field.validate()) {
 				// logger.warning("error in " + field.getDefinition().getTag());
-				isValidRecord = isValidComponent;
+				isValidRecord = false;
 				errors.addAll(field.getErrors());
 			}
 		}
-		for (DataFieldDefinition fieldDefinition : counter.keySet()) {
-			if (counter.get(fieldDefinition) > 1
+
+		for (DataFieldDefinition fieldDefinition : repetitionCounter.keySet()) {
+			if (repetitionCounter.get(fieldDefinition) > 1
 				&& fieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
 				errors.add(String.format(
 					"%s is not repeatable, however there are %d instances",
 					fieldDefinition.getTag(),
-					counter.get(fieldDefinition)));
+					repetitionCounter.get(fieldDefinition)));
 				isValidRecord = false;
 			}
 		}

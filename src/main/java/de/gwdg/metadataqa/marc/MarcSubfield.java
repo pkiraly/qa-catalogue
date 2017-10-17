@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
+import de.gwdg.metadataqa.marc.definition.Validator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,8 +80,14 @@ public class MarcSubfield implements Validatable {
 				errors.add(String.format("code is null for %s", definition.getCode()));
 				isValid = false;
 			} else {
-				if (definition.getCodes() != null && definition.getCode(value) == null) {
-					errors.add(String.format("%s$%s not a valid value: %s",
+				if (definition.getValidator() != null) {
+					Validator validator = definition.getValidator();
+					if (!validator.isValid(value)) {
+						errors.addAll(validator.getErrors());
+						isValid = false;
+					}
+				} else if (definition.getCodes() != null && definition.getCode(value) == null) {
+					errors.add(String.format("%s$%s has an invalid value: '%s'",
 						definition.getParent().getTag(), definition.getCode(), value));
 					isValid = false;
 				}

@@ -86,29 +86,29 @@ Leader specific errors:
 
 Control field specific errors:
 
-* 006/[position] ([name]) contains an invalid code: '[code]' in '[value]'
-* 006/[position] ([name]) has an invalid value: '[value]'
+* 006/[position] ([name]) contains an invalid code: '[code]' in '[value]' (e.g. `	006/01-05 (tag006book01) contains an invalid code: 'n' in '  n '`)
+* 006/[position] ([name]) has an invalid value: '[value]' (e.g. `006/13 (tag006book13) has an invalid value: ' '`)
 * 007/[position] ([name]) contains an invalid code: '[code]' in '[value]'
-* 007/[position] ([name]) has an invalid value: '[value]'
-* 008/[position] ([name]) contains an invalid code: '[code]' in '[value]'
-* 008/[position] ([name]) has an invalid value: '[value]'
+* 007/[position] ([name]) has an invalid value: '[value]' (e.g. `007/01 (tag007microform01) has an invalid value: ' '`)
+* 008/[position] ([name]) contains an invalid code: '[code]' in '[value]' (e.g. `008/18-22 (tag008book18) contains an invalid code: 'u' in 'u   '`)
+* 008/[position] ([name]) has an invalid value: '[value]' (e.g. `008/06 (tag008all06) has an invalid value: ' '`)
 
 Data field specific errors
 
-* Unhandled tag(s): [tags]
+* Unhandled tag(s): [tags] (e.g. `Unhandled tag: 265`)
 * [tag] is not repeatable, however there are [number] instances
-* [tag] has invalid subfield(s): [subfield codes]
-* [tag]$[indicator] has invalid code: '[code]'
-* [tag]$[indicator] should be empty, it has '[code]'
-* [tag]$[subfield codes] is not repeatable, however there are [number] instances
-* [tag]$[subfield codes] has an invalid value: [value]
+* [tag] has invalid subfield(s): [subfield codes] (e.g. `110 has invalid subfield: s`)
+* [tag]$[indicator] has invalid code: '[code]' (e.g. `110$ind1 has invalid code: '2'`)
+* [tag]$[indicator] should be empty, it has '[code]' (e.g. `110$ind2 should be empty, it has '0'`)
+* [tag]$[subfield code] is not repeatable, however there are [number] instances (e.g. `072$a is not repeatable, however there are 2 instances`)
+* [tag]$[subfield code] has an invalid value: [value] (e.g. `046$a has an invalid value: 'fb-----'`)
 
 Errors of specific fields:
 
-* 045$a error in '[value]': length is not 4 char
+* 045$a error in '[value]': length is not 4 char (e.g. `045$a error in '2209668': length is not 4 char`)
 * 045$a error in '[value]': '[part]' does not match any patterns
 * 880 should have subfield $a
-* 880 refers to field [tag], which is not defined
+* 880 refers to field [tag], which is not defined (e.g. `880 refers to field 590, which is not defined`)
 
 
 ### Indexing MARC records with Solr

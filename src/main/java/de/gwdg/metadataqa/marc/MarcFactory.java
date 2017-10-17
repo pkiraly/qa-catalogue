@@ -15,6 +15,7 @@ import org.marc4j.marc.ControlField;
 import org.marc4j.marc.Record;
 import org.marc4j.marc.Subfield;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -79,7 +80,15 @@ public class MarcFactory {
 	public static MarcRecord createFromMarc4j(Record marc4jRecord) {
 		MarcRecord record = new MarcRecord();
 
+		;
+
 		record.setLeader(new Leader(marc4jRecord.getLeader().marshal()));
+		if (record.getType() == null) {
+			throw new InvalidParameterException(
+				String.format(
+				"Error in '%s': no type has been detected. Leader: '%s'",
+					marc4jRecord.getControlNumberField(), record.getLeader().getLeaderString()));
+		}
 		importMarc4jControlFields(marc4jRecord, record);
 		importMarc4jDataFields(marc4jRecord, record);
 
@@ -109,9 +118,11 @@ public class MarcFactory {
 			if (subfieldDefinition == null) {
 				if (!(definition.getTag().equals("886") && code.equals("k")))
 					field.addUnhandledSubfields(code);
+					/*
 					logger.warning(String.format(
 						"Problem in record '%s': %s$%s is not a valid subfield (value: '%s')",
 						identifier, definition.getTag(), code, subfield.getData()));
+					*/
 			} else {
 				field.getSubfields().add(new MarcSubfield(subfieldDefinition, code, subfield.getData()));
 			}

@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.Control008Type;
 import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
 
+import java.security.InvalidParameterException;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -92,6 +93,9 @@ public class Control008 extends PositionalControlField implements Extractable {
 	public Control008(String content, Leader.Type recordType) {
 		this.content = content;
 		this.recordType = recordType;
+		if (recordType == null) {
+			throw new InvalidParameterException(String.format("Record type is null. 008 content: '%s'", content));
+		}
 		actual008Type = Control008Type.byCode(recordType.getValue().toString());
 		valuesMap = new LinkedHashMap<>();
 		valuesList = new ArrayList<>();

@@ -120,6 +120,11 @@ public class Leader implements Extractable, Validatable {
 			type = Type.COMPUTER_FILES;
 		} else if (typeOfRecord.getValue().equals("p")) {
 			type = Type.MIXED_MATERIALS;
+		} else {
+			throw new IllegalArgumentException(
+				String.format(
+					"No type is detectable. typeOfRecord: '%s', bibliographicLevel: '%s'",
+					typeOfRecord.getValue(), bibliographicLevel.getValue()));
 		}
 	}
 

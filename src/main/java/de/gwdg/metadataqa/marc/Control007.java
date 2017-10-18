@@ -17,7 +17,7 @@ public class Control007 extends PositionalControlField implements Extractable {
 	private static final Logger logger = Logger.getLogger(Control007.class.getCanonicalName());
 
 	private static final String label = "Physical Description";
-	protected static String mqTag = "PhysicalDescription";
+	protected static final String mqTag = "PhysicalDescription";
 
 	private String categoryOfMaterial;
 	private Control007Category category;
@@ -732,5 +732,10 @@ public class Control007 extends PositionalControlField implements Extractable {
 
 	public static String getMqTag() {
 		return mqTag;
+	}
+
+	@Override
+	public Map<String, List<String>> getKeyValuePairs() {
+		return getKeyValuePairs(mqTag);
 	}
 }

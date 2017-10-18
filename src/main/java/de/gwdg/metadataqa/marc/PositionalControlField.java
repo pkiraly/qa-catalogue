@@ -5,9 +5,8 @@ import de.gwdg.metadataqa.marc.definition.ControlValue;
 
 import java.util.*;
 
-public class PositionalControlField extends ControlField implements Extractable, Validatable  {
+public abstract class PositionalControlField extends ControlField implements Extractable, Validatable  {
 
-	protected static String mqTag;
 	protected String content;
 	protected Map<ControlSubfield, String> valuesMap;
 	protected List<ControlValue> valuesList;
@@ -31,8 +30,7 @@ public class PositionalControlField extends ControlField implements Extractable,
 		return errors;
 	}
 
-	@Override
-	public Map<String, List<String>> getKeyValuePairs() {
+	public Map<String, List<String>> getKeyValuePairs(String mqTag) {
 		Map<String, List<String>> map = new LinkedHashMap<>();
 		if (content != null) {
 			map.put(mqTag, Arrays.asList(content));

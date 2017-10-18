@@ -425,4 +425,9 @@ public class Control006 extends PositionalControlField implements Extractable {
 	public static String getMqTag() {
 		return mqTag;
 	}
+
+	@Override
+	public Map<String, List<String>> getKeyValuePairs() {
+		return getKeyValuePairs(mqTag);
+	}
 }

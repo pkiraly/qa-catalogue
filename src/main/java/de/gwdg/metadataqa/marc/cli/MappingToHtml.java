@@ -37,6 +37,7 @@ public class MappingToHtml {
 		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "005");
 		System.out.print(row("005", Control005.getMqTag(), Control005.getLabel()));
 
+
 		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "006");
 		System.out.print(row("006", Control006.getMqTag(), Control006.getLabel()));
 		for (Control008Type type : Control006Subfields.getSubfields().keySet()) {

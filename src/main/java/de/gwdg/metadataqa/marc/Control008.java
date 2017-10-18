@@ -114,14 +114,30 @@ public class Control008 extends PositionalControlField implements Extractable {
 				valuesList.add(controlValue);
 
 				switch (subfield.getId()) {
-					case "tag008all00": tag008all00 = controlValue; break;
-					case "tag008all06": tag008all06 = controlValue; break;
-					case "tag008all07": tag008all07 = controlValue; break;
-					case "tag008all11": tag008all11 = controlValue; break;
-					case "tag008all15": tag008all15 = controlValue; break;
-					case "tag008all35": tag008all35 = controlValue; break;
-					case "tag008all38": tag008all38 = controlValue; break;
-					case "tag008all39": tag008all39 = controlValue; break;
+					case "tag008all00":
+						tag008all00 = controlValue;
+						break;
+					case "tag008all06":
+						tag008all06 = controlValue;
+						break;
+					case "tag008all07":
+						tag008all07 = controlValue;
+						break;
+					case "tag008all11":
+						tag008all11 = controlValue;
+						break;
+					case "tag008all15":
+						tag008all15 = controlValue;
+						break;
+					case "tag008all35":
+						tag008all35 = controlValue;
+						break;
+					case "tag008all38":
+						tag008all38 = controlValue;
+						break;
+					case "tag008all39":
+						tag008all39 = controlValue;
+						break;
 
 					default:
 						logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
@@ -146,16 +162,36 @@ public class Control008 extends PositionalControlField implements Extractable {
 				switch (actual008Type) {
 					case BOOKS:
 						switch (subfield.getId()) {
-							case "tag008book18": tag008book18 = controlValue; break;
-							case "tag008book22": tag008book22 = controlValue; break;
-							case "tag008book23": tag008book23 = controlValue; break;
-							case "tag008book24": tag008book24 = controlValue; break;
-							case "tag008book28": tag008book28 = controlValue; break;
-							case "tag008book29": tag008book29 = controlValue; break;
-							case "tag008book30": tag008book30 = controlValue; break;
-							case "tag008book31": tag008book31 = controlValue; break;
-							case "tag008book33": tag008book33 = controlValue; break;
-							case "tag008book34": tag008book34 = controlValue; break;
+							case "tag008book18":
+								tag008book18 = controlValue;
+								break;
+							case "tag008book22":
+								tag008book22 = controlValue;
+								break;
+							case "tag008book23":
+								tag008book23 = controlValue;
+								break;
+							case "tag008book24":
+								tag008book24 = controlValue;
+								break;
+							case "tag008book28":
+								tag008book28 = controlValue;
+								break;
+							case "tag008book29":
+								tag008book29 = controlValue;
+								break;
+							case "tag008book30":
+								tag008book30 = controlValue;
+								break;
+							case "tag008book31":
+								tag008book31 = controlValue;
+								break;
+							case "tag008book33":
+								tag008book33 = controlValue;
+								break;
+							case "tag008book34":
+								tag008book34 = controlValue;
+								break;
 							default:
 								logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
 								break;
@@ -163,10 +199,18 @@ public class Control008 extends PositionalControlField implements Extractable {
 						break;
 					case COMPUTER_FILES:
 						switch (subfield.getId()) {
-							case "tag008computer22": tag008computer22 = controlValue; break;
-							case "tag008computer23": tag008computer23 = controlValue; break;
-							case "tag008computer26": tag008computer26 = controlValue; break;
-							case "tag008computer28": tag008computer28 = controlValue; break;
+							case "tag008computer22":
+								tag008computer22 = controlValue;
+								break;
+							case "tag008computer23":
+								tag008computer23 = controlValue;
+								break;
+							case "tag008computer26":
+								tag008computer26 = controlValue;
+								break;
+							case "tag008computer28":
+								tag008computer28 = controlValue;
+								break;
 							default:
 								logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
 								break;
@@ -174,13 +218,27 @@ public class Control008 extends PositionalControlField implements Extractable {
 						break;
 					case MAPS:
 						switch (subfield.getId()) {
-							case "tag008map18": tag008map18 = controlValue; break;
-							case "tag008map22": tag008map22 = controlValue; break;
-							case "tag008map25": tag008map25 = controlValue; break;
-							case "tag008map28": tag008map28 = controlValue; break;
-							case "tag008map29": tag008map29 = controlValue; break;
-							case "tag008map31": tag008map31 = controlValue; break;
-							case "tag008map33": tag008map33 = controlValue; break;
+							case "tag008map18":
+								tag008map18 = controlValue;
+								break;
+							case "tag008map22":
+								tag008map22 = controlValue;
+								break;
+							case "tag008map25":
+								tag008map25 = controlValue;
+								break;
+							case "tag008map28":
+								tag008map28 = controlValue;
+								break;
+							case "tag008map29":
+								tag008map29 = controlValue;
+								break;
+							case "tag008map31":
+								tag008map31 = controlValue;
+								break;
+							case "tag008map33":
+								tag008map33 = controlValue;
+								break;
 							default:
 								logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
 								break;
@@ -188,14 +246,30 @@ public class Control008 extends PositionalControlField implements Extractable {
 						break;
 					case MUSIC:
 						switch (subfield.getId()) {
-							case "tag008music18": tag008music18 = controlValue; break;
-							case "tag008music20": tag008music20 = controlValue; break;
-							case "tag008music21": tag008music21 = controlValue; break;
-							case "tag008music22": tag008music22 = controlValue; break;
-							case "tag008music23": tag008music23 = controlValue; break;
-							case "tag008music24": tag008music24 = controlValue; break;
-							case "tag008music30": tag008music30 = controlValue; break;
-							case "tag008music33": tag008music33 = controlValue; break;
+							case "tag008music18":
+								tag008music18 = controlValue;
+								break;
+							case "tag008music20":
+								tag008music20 = controlValue;
+								break;
+							case "tag008music21":
+								tag008music21 = controlValue;
+								break;
+							case "tag008music22":
+								tag008music22 = controlValue;
+								break;
+							case "tag008music23":
+								tag008music23 = controlValue;
+								break;
+							case "tag008music24":
+								tag008music24 = controlValue;
+								break;
+							case "tag008music30":
+								tag008music30 = controlValue;
+								break;
+							case "tag008music33":
+								tag008music33 = controlValue;
+								break;
 							default:
 								logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
 								break;
@@ -203,17 +277,39 @@ public class Control008 extends PositionalControlField implements Extractable {
 						break;
 					case CONTINUING_RESOURCES:
 						switch (subfield.getId()) {
-							case "tag008continuing18": tag008continuing18 = controlValue; break;
-							case "tag008continuing19": tag008continuing19 = controlValue; break;
-							case "tag008continuing21": tag008continuing21 = controlValue; break;
-							case "tag008continuing22": tag008continuing22 = controlValue; break;
-							case "tag008continuing23": tag008continuing23 = controlValue; break;
-							case "tag008continuing24": tag008continuing24 = controlValue; break;
-							case "tag008continuing25": tag008continuing25 = controlValue; break;
-							case "tag008continuing28": tag008continuing28 = controlValue; break;
-							case "tag008continuing29": tag008continuing29 = controlValue; break;
-							case "tag008continuing33": tag008continuing33 = controlValue; break;
-							case "tag008continuing34": tag008continuing34 = controlValue; break;
+							case "tag008continuing18":
+								tag008continuing18 = controlValue;
+								break;
+							case "tag008continuing19":
+								tag008continuing19 = controlValue;
+								break;
+							case "tag008continuing21":
+								tag008continuing21 = controlValue;
+								break;
+							case "tag008continuing22":
+								tag008continuing22 = controlValue;
+								break;
+							case "tag008continuing23":
+								tag008continuing23 = controlValue;
+								break;
+							case "tag008continuing24":
+								tag008continuing24 = controlValue;
+								break;
+							case "tag008continuing25":
+								tag008continuing25 = controlValue;
+								break;
+							case "tag008continuing28":
+								tag008continuing28 = controlValue;
+								break;
+							case "tag008continuing29":
+								tag008continuing29 = controlValue;
+								break;
+							case "tag008continuing33":
+								tag008continuing33 = controlValue;
+								break;
+							case "tag008continuing34":
+								tag008continuing34 = controlValue;
+								break;
 							default:
 								logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
 								break;
@@ -221,12 +317,24 @@ public class Control008 extends PositionalControlField implements Extractable {
 						break;
 					case VISUAL_MATERIALS:
 						switch (subfield.getId()) {
-							case "tag008visual18": tag008visual18 = controlValue; break;
-							case "tag008visual22": tag008visual22 = controlValue; break;
-							case "tag008visual28": tag008visual28 = controlValue; break;
-							case "tag008visual29": tag008visual29 = controlValue; break;
-							case "tag008visual33": tag008visual33 = controlValue; break;
-							case "tag008visual34": tag008visual34 = controlValue; break;
+							case "tag008visual18":
+								tag008visual18 = controlValue;
+								break;
+							case "tag008visual22":
+								tag008visual22 = controlValue;
+								break;
+							case "tag008visual28":
+								tag008visual28 = controlValue;
+								break;
+							case "tag008visual29":
+								tag008visual29 = controlValue;
+								break;
+							case "tag008visual33":
+								tag008visual33 = controlValue;
+								break;
+							case "tag008visual34":
+								tag008visual34 = controlValue;
+								break;
 							default:
 								logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
 								break;
@@ -234,7 +342,9 @@ public class Control008 extends PositionalControlField implements Extractable {
 						break;
 					case MIXED_MATERIALS:
 						switch (subfield.getId()) {
-							case "tag008mixed23": tag008mixed23 = controlValue; break;
+							case "tag008mixed23":
+								tag008mixed23 = controlValue;
+								break;
 							default:
 								logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
 								break;
@@ -251,7 +361,7 @@ public class Control008 extends PositionalControlField implements Extractable {
 	}
 
 	public String resolve(ControlSubfield key) {
-		String value = (String)valuesMap.get(key);
+		String value = (String) valuesMap.get(key);
 		String text = key.resolve(value);
 		return text;
 	}
@@ -506,5 +616,10 @@ public class Control008 extends PositionalControlField implements Extractable {
 
 	public static String getMqTag() {
 		return mqTag;
+	}
+
+	@Override
+	public Map<String, List<String>> getKeyValuePairs() {
+		return getKeyValuePairs(mqTag);
 	}
 }

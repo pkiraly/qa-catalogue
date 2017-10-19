@@ -184,9 +184,23 @@ public class MarcRecord implements Extractable, Validatable {
 		}
 
 		if (!unhandledTags.isEmpty()) {
+			Map<String, Integer> tags = new LinkedHashMap<>();
+			for (String tag : unhandledTags) {
+				if (!tags.containsKey(tag))
+					tags.put(tag, 0);
+				tags.put(tag, tags.get(tag) + 1);
+			}
+			List<String> unhandledTagsList = new ArrayList<>();
+			for (String tag : tags.keySet()) {
+				if (tags.get(tag) == 1)
+					unhandledTagsList.add(tag);
+				else
+					unhandledTagsList.add(String.format("%s (%d*)", tag, tags.get(tag)));
+			}
+
 			errors.add(String.format("Unhandled %s: %s",
 				(unhandledTags.size() == 1 ? "tag" : "tags"),
-				StringUtils.join(unhandledTags, ", ")));
+				StringUtils.join(unhandledTagsList, ", ")));
 			isValidRecord = false;
 		}
 

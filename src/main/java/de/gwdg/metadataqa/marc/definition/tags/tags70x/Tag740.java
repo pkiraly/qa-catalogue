@@ -33,11 +33,17 @@ public class Tag740 extends DataFieldDefinition {
 		ind1 = new Indicator("Nonfiling characters").setCodes(
 			"0", "No nonfiling characters",
 			"1-9", "Number of nonfiling characters"
+		).setHistoricalCodes(
+			" ", "Nonfiling characters not specified [OBSOLETE, 1980]"
 		).setMqTag("nonfilingCharacters");
 		ind1.getCode("1-9").setRange(true);
 		ind2 = new Indicator("Type of added entry").setCodes(
 			" ", "No information provided",
 			"2", "Analytical entry"
+		).setHistoricalCodes(
+			"0", "Alternative entry (BK, AM, CF, MP, MU) [OBSOLETE, 1993]",
+			"1", "Secondary entry (BK, AM, CF, MP, MU) / Printed on card (VM) [OBSOLETE, 1993]",
+			"3", "Not printed on card [OBSOLETE, 1993]"
 		).setMqTag("type");
 
 		setSubfieldsWithCardinality(

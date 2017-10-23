@@ -34,6 +34,9 @@ public class Tag260 extends DataFieldDefinition {
 			" ", "Not applicable/No information provided/Earliest available publisher",
 			"2", "Intervening publisher",
 			"3", "Current/latest publisher"
+		).setHistoricalCodes(
+			"0", "Publisher, distributor, etc. is present",
+			"1", "Publisher, distributor, etc. not present"
 		).setMqTag("sequenceOfPublishingStatements");
 		ind2 = new Indicator();
 

@@ -322,18 +322,24 @@ public class DataField implements Extractable, Validatable {
 		return isValid;
 	}
 
-	private boolean validateIndicator(String prefix, Indicator indicatorDefinition, String value) {
+	private boolean validateIndicator(String prefix, Indicator indicatorDefinition,
+	                                  String value) {
 		boolean isValid = true;
 		if (indicatorDefinition.exists()) {
 			if (!indicatorDefinition.hasCode(value)) {
-				// logger.warning(String.format("%s$ind2 has invalid code: %s", definition.getTag(), value));
-				errors.add(String.format("%s$%s has invalid code: '%s'", definition.getTag(), prefix, value));
 				isValid = false;
-			}//
+				if (indicatorDefinition.isHistoricalCode(value)) {
+					errors.add(String.format("%s$%s has obsolete code: '%s'",
+						definition.getTag(), prefix, value));
+				} else {
+					errors.add(String.format("%s$%s has invalid code: '%s'",
+						definition.getTag(), prefix, value));
+				}
+			}
 		} else {
 			if (!value.equals(" ")) {
-				// logger.warning(String.format("%s should not have ind2", definition.getTag()));
-				errors.add(String.format("%s$%s should be empty, it has '%s'", definition.getTag(), prefix, value));
+				errors.add(String.format("%s$%s should be empty, it has '%s'",
+					definition.getTag(), prefix, value));
 				isValid = false;
 			}
 		}

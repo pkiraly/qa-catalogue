@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.Range;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 
@@ -11,7 +12,9 @@ public class Indicator {
 	private String mqTag = null;
 	private String indexTag = null;
 	private List<Code> codes;
+	protected List<Code> historicalCodes;
 	private Map<String, Code> codeIndex = new LinkedHashMap<>();
+	private Map<String, Code> historicalCodeIndex = new LinkedHashMap<>();
 	private Map<Range, Code> ranges;
 	private String indicatorFlag;
 
@@ -24,7 +27,7 @@ public class Indicator {
 	public Indicator(String label, List<Code> codes) {
 		this.label = label;
 		this.codes = codes;
-		index();
+		indexCodes();
 	}
 
 	public String getIndexTag() {
@@ -54,7 +57,16 @@ public class Indicator {
 		for (int i = 0; i<input.length; i+=2) {
 			codes.add(new Code(input[i], input[i+1]));
 		}
-		index();
+		indexCodes();
+		return this;
+	}
+
+	public Indicator setHistoricalCodes(String... input) {
+		historicalCodes = new ArrayList<>();
+		for (int i = 0; i<input.length; i+=2) {
+			historicalCodes.add(new Code(input[i], input[i+1]));
+		}
+		indexHistoricalCodes();
 		return this;
 	}
 
@@ -122,11 +134,24 @@ public class Indicator {
 		return ranges;
 	}
 
-	private void index() {
+	private void indexCodes() {
 		codeIndex = new LinkedHashMap<>();
 		for (Code code : codes) {
 			codeIndex.put(code.getCode(), code);
 		}
+	}
+
+	private void indexHistoricalCodes() {
+		historicalCodeIndex = new LinkedHashMap<>();
+		for (Code code : historicalCodes) {
+			historicalCodeIndex.put(code.getCode(), code);
+		}
+	}
+
+	public boolean isHistoricalCode(String code) {
+		return historicalCodes != null
+			&& !historicalCodes.isEmpty()
+			&& historicalCodeIndex.containsKey(code);
 	}
 
 	public void setIndicatorFlag(String indicatorFlag) {

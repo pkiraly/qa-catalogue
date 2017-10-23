@@ -38,6 +38,8 @@ public class Tag050 extends DataFieldDefinition {
 		ind2 = new Indicator("Source of call number").setCodes(
 			"0", "Assigned by LC",
 			"4", "Assigned by agency other than LC"
+		).setHistoricalCodes(
+			" ", "No information provided"
 		).setMqTag("source");
 
 		setSubfieldsWithCardinality(

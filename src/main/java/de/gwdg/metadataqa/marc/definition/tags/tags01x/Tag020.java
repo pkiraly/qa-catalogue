@@ -50,5 +50,9 @@ public class Tag020 extends DataFieldDefinition {
 		getSubfield("z").setMqTag("canceledOrInvalidISBN");
 		getSubfield("6").setMqTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
+
+		setHistoricalSubfields(
+			"b", "Binding information (BK, MP, MU) [OBSOLETE]"
+		);
 	}
 }

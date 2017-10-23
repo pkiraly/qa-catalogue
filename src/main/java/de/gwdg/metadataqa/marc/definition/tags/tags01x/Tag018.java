@@ -38,6 +38,7 @@ public class Tag018 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+		// TODO: add parser for $a
 
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("6").setBibframeTag("linkage");

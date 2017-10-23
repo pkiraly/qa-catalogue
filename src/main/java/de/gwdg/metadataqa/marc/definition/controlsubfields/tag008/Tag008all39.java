@@ -35,5 +35,13 @@ public class Tag008all39 extends ControlSubfield {
 			"u", "Unknown",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			"a", "National Agricultural Library [OBSOLETE, 1997] [USMARC only]",
+			"b", "National Library of Medicine [OBSOLETE, 1997] [USMARC only]",
+			"l", "Library of Congress cataloguing [OBSOLETE, 1997] [CAN/MARC only]",
+			"o", "Other institution cataloguing [OBSOLETE, 1997] [CAN/MARC only]",
+			"n", "Report to New serials titles [OBSOLETE, 1997] [USMARC only]",
+			"r", "Reporting library [OBSOLETE, 1997] [CAN/MARC only]"
+		);
 	}
 }

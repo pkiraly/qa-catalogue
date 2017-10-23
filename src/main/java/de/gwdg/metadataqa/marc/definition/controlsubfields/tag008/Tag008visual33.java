@@ -51,5 +51,8 @@ public class Tag008visual33 extends ControlSubfield {
 			"z", "Other",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			"e", "Electronic videorecording [OBSOLETE, 1975]"
+		);
 	}
 }

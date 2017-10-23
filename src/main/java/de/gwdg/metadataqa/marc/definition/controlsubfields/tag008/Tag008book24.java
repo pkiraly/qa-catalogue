@@ -59,6 +59,12 @@ public class Tag008book24 extends ControlSubfield {
 			"6", "Comics/graphic novels",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			"h", "Handbooks [OBSOLETE]",
+			"x", "Technical reports [OBSOLETE, 1997]",
+			"3", "Discographies [OBSOLETE, 1997]",
+			"4", "Filmographies [OBSOLETE, 1997]"
+		);
 
 		repeatableContent = true;
 		unitLength = 1;

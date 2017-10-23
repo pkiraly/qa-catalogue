@@ -58,6 +58,10 @@ public class Tag008continuing25 extends ControlSubfield {
 			"6", "Comics/graphic novels",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			"3", "Discographies [OBSOLETE, 1997]",
+			"4", "Filmographies [OBSOLETE, 1997]"
+		);
 
 		repeatableContent = true;
 		unitLength = 1;

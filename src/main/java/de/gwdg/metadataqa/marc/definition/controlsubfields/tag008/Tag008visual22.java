@@ -40,5 +40,17 @@ public class Tag008visual22 extends ControlSubfield {
 			"j", "Juvenile",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			"f", "General [OBSOLETE]",
+			"g", "Specialized [OBSOLETE]",
+			"h", "Secondary (grades 10-12) [OBSOLETE] [CAN/MARC only]",
+			"k", "Preschool and Kindergarten [OBSOLETE] [CAN/MARC only]",
+			"m", "Primary (grades 4-6) [OBSOLETE] [CAN/MARC only]",
+			"p", "Special education - general [OBSOLETE] [CAN/MARC only]",
+			"q", "Physically handicapped [OBSOLETE] [CAN/MARC only]",
+			"r", "Mentally retarded [OBSOLETE] [CAN/MARC only]",
+			"s", "Simplified works for adults [OBSOLETE] [CAN/MARC only]",
+			"t", "Gifted [OBSOLETE] [CAN/MARC only]"
+		);
 	}
 }

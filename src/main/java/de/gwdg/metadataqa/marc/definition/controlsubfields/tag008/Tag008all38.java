@@ -37,5 +37,8 @@ public class Tag008all38 extends ControlSubfield {
 			"x", "Missing characters",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			"u", "Unknown [OBSOLETE] [CAN/MARC only]"
+		);
 	}
 }

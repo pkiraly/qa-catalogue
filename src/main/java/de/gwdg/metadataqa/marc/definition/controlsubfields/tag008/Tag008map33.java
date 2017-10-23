@@ -41,6 +41,18 @@ public class Tag008map33 extends ControlSubfield {
 			"z", "Other",
 			"||", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			"a", "Photocopy, blue line print [OBSOLETE, 1982]",
+			"b", "Photocopy [OBSOLETE, 1982]",
+			"c", "Negative photocopy [OBSOLETE, 1982]",
+			"d", "Film negative [OBSOLETE, 1982]",
+			"f", "Facsimile [OBSOLETE, 1982]",
+			"g", "Relief model [OBSOLETE, 1982]",
+			"h", "Rare [OBSOLETE, 1982]",
+			"m", "Braille [OBSOLETE, 1998]",
+			"q", "Large print [OBSOLETE, 1998]"
+		);
+
 		repeatableContent = true;
 		unitLength = 1;
 	}

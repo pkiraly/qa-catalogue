@@ -41,5 +41,14 @@ public class Tag008mixed23 extends ControlSubfield {
 			"s", "Electronic",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			"g", "Punched paper tape [OBSOLETE, 1987]",
+			"h", "Magnetic tape [OBSOLETE, 1987]",
+			"i", "Multimedia [OBSOLETE, 1987]",
+			"j", "Handwritten transcript [OBSOLETE, 1987]",
+			"p", "Photocopy [OBSOLETE, 1987]",
+			"t", "Typewritten transcript [OBSOLETE, 1987]",
+			"z", "Other form of reproduction [OBSOLETE, 1987]"
+		);
 	}
 }

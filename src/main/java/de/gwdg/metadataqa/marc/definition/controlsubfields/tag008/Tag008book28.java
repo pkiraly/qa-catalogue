@@ -42,5 +42,8 @@ public class Tag008book28 extends ControlSubfield {
 			"z", "Other",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			"n", "Government publication-level undetermined [OBSOLETE]"
+		);
 	}
 }

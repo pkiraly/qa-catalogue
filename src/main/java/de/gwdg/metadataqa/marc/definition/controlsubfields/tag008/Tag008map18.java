@@ -44,6 +44,9 @@ public class Tag008map18 extends ControlSubfield {
 			"z", "Other",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			"h", "Color [OBSOLETE, 1980]"
+		);
 
 		repeatableContent = true;
 		unitLength = 1;

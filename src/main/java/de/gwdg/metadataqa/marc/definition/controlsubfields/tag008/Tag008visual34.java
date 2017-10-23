@@ -37,5 +37,8 @@ public class Tag008visual34 extends ControlSubfield {
 			"z", "Other",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			" ", "Not applicable [OBSOLETE, 1980]"
+		);
 	}
 }

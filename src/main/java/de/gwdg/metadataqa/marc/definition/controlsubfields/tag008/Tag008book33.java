@@ -43,5 +43,9 @@ public class Tag008book33 extends ControlSubfield {
 			"u", "Unknown",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			" ", "Non-fiction [OBSOLETE, 1997]",
+			"c", "Comic strips [OBSOLETE, 2008]"
+		);
 	}
 }

@@ -40,5 +40,9 @@ public class Tag008book22 extends ControlSubfield {
 			"j", "Juvenile",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			"u", "School material at first level [OBSOLETE]",
+			"v", "School material at second level [OBSOLETE]"
+		);
 	}
 }

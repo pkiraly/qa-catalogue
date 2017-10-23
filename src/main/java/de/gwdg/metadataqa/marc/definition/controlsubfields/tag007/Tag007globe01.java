@@ -37,5 +37,8 @@ public class Tag007globe01 extends ControlSubfield {
 			"z", "Other",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			"d", "Satellite globe (of our solar system), excluding the earth moon [OBSOLETE, 1997] [CAN/MARC only]"
+		);
 	}
 }

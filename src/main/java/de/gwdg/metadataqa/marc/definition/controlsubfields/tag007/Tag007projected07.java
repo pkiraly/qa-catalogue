@@ -48,5 +48,9 @@ public class Tag007projected07 extends ControlSubfield {
 			"z", "Other",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			"u", "7x7 in. or 18x18 cm. [OBSOLETE, 1980]",
+			"y", "Unknown [OBSOLETE, 1980]"
+		);
 	}
 }

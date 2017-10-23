@@ -41,5 +41,23 @@ public class Tag007map01 extends ControlSubfield {
 			"z", "Other",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			"a", "Aerial chart",
+			"b", "Aerial remote-sensing image",
+			"c", "Anamorphic map",
+			"e", "Celestial chart",
+			"f", "Chart",
+			"h", "Hydrographic chart",
+			"i", "Imaginative map",
+			"j", "Orthophoto",
+			"m", "Photo mosaic (controlled)",
+			"n", "Photo mosaic (uncontrolled)",
+			"o", "Photomap",
+			"p", "Plan",
+			"t", "Space remote-sensing image",
+			"v", "Terrestrial remote-sensing image",
+			"w", "Topographical drawing",
+			"x", "Topographical print"
+		);
 	}
 }

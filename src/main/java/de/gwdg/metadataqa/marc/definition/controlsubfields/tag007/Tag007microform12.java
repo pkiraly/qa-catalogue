@@ -42,5 +42,8 @@ public class Tag007microform12 extends ControlSubfield {
 			"z", "Other",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			"b", "Not safety base [OBSOLETE, 1991]"
+		);
 	}
 }

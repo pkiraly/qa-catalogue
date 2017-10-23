@@ -38,5 +38,10 @@ public class Tag007soundRecording07 extends ControlSubfield {
 			"z", "Other",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			"a", "1/4 in. [OBSOLETE]",
+			"b", "1/2 in. [OBSOLETE]",
+			"c", "1 in. [OBSOLETE]"
+		);
 	}
 }

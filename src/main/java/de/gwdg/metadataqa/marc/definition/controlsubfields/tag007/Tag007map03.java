@@ -33,5 +33,8 @@ public class Tag007map03 extends ControlSubfield {
 			"c", "Multicolored",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			"b", "Multicolored [OBSOLETE, 1982]"
+		);
 	}
 }

@@ -32,5 +32,8 @@ public class Tag007remoteSensing01 extends ControlSubfield {
 			"u", "Unspecified",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			" ", "No type specified [OBSOLETE, 1998]"
+		);
 	}
 }

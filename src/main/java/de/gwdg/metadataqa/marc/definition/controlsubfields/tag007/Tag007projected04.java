@@ -39,5 +39,9 @@ public class Tag007projected04 extends ControlSubfield {
 			"z", "Other",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			" ", "Not applicable or no attempt to code [OBSOLETE, 1980]",
+			"n", "Not applicable [OBSOLETE, 1981]"
+		);
 	}
 }

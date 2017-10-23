@@ -35,5 +35,8 @@ public class Tag007map07 extends ControlSubfield {
 			"n", "Not applicable",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			"u", "Unknown [OBSOLETE, 1997] [CAN/MARC only]"
+		);
 	}
 }

@@ -36,5 +36,10 @@ public class Tag007soundRecording01 extends ControlSubfield {
 			"q", "Roll",
 			"r", "Remote"
 		);
+		historicalCodes = Utils.generateCodes(
+			"c", "Cylinder [OBSOLETE]",
+			"f", "Sound-track film [OBSOLETE]",
+			"r", "Roll [OBSOLETE]"
+		);
 	}
 }

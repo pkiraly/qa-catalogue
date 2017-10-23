@@ -43,5 +43,8 @@ public class Tag007video06 extends ControlSubfield {
 			"z", "Other",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			"g", "Other [OBSOLETE, 1980]"
+		);
 	}
 }

@@ -39,5 +39,8 @@ public class Tag007electro03 extends ControlSubfield {
 			"z", "Other",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			"h", "Hand coloured [OBSOLETE, 1997] [CAN/MARC only]"
+		);
 	}
 }

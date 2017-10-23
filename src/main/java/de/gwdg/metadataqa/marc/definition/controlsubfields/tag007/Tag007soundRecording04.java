@@ -36,5 +36,13 @@ public class Tag007soundRecording04 extends ControlSubfield {
 			"z", "Other",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			"a", "Acoustic [OBSOLETE]",
+			"f", "Monaural (digital) [OBSOLETE]",
+			"g", "Quadraphonic (digital) [OBSOLETE]",
+			"j", "Stereophonic (digital) [OBSOLETE]",
+			"k", "Other (digital) [OBSOLETE]",
+			"o", "Other (electric) [OBSOLETE]"
+		);
 	}
 }

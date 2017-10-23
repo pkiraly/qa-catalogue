@@ -39,5 +39,8 @@ public class Tag007motionPicture04 extends ControlSubfield {
 			"z", "Other",
 			"|", "No attempt to code"
 		);
+		historicalCodes = Utils.generateCodes(
+			"n", "Not applicable [OBSOLETE, 1983]"
+		);
 	}
 }

@@ -58,5 +58,10 @@ public class Tag022 extends DataFieldDefinition {
 		getSubfield("2").setMqTag("source");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
+
+		setHistoricalSubfields(
+			"b", "Form of issue [OBSOLETE] [CAN/MARC only]",
+			"c", "Price [OBSOLETE] [CAN/MARC only]"
+		);
 	}
 }

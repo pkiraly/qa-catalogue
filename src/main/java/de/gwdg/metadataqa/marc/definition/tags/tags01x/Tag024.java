@@ -68,5 +68,9 @@ public class Tag024 extends DataFieldDefinition {
 		getSubfield("2").setMqTag("source");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
+
+		setHistoricalSubfields(
+			"b", "Additional codes following the standard number [OBSOLETE]"
+		);
 	}
 }

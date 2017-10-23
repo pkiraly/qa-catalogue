@@ -47,5 +47,12 @@ public class Tag008music24 extends ControlSubfield {
 		);
 		repeatableContent = true;
 		unitLength = 1;
+
+		historicalCodes = Utils.generateCodes(
+			"g", "Punched paper tape [OBSOLETE, 1987]",
+			"n", "Not applicable [OBSOLETE, 1980]",
+			"j", "Historical information other than music [OBSOLETE, 1980]",
+			"l", "Biography of arranger or transcriber [OBSOLETE, 1997]"
+		);
 	}
 }

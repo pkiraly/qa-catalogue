@@ -206,6 +206,12 @@ public class ControlSubfield {
 		return null;
 	}
 
+	public boolean isHistoricalCode(String code) {
+		return historicalCodes != null
+		       && !historicalCodes.isEmpty()
+		       && historicalCodes.contains(code);
+	}
+
 	@Override
 	public String toString() {
 		return "ControlSubField{" +

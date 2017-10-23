@@ -41,31 +41,44 @@ public class ControlValue implements Validatable {
 		boolean isValid = true;
 		errors = new ArrayList<>();
 		if (!definition.getValidCodes().isEmpty()
-			&& (!definition.getValidCodes().contains(value) && definition.getCode(value) == null)) {
-			if (definition.isRepeatableContent()) {
-				int unitLength = definition.getUnitLength();
-				for (int i = 0; i < value.length(); i += unitLength) {
-					String unit = value.substring(i, i+unitLength);
-					if (!definition.getValidCodes().contains(unit)) {
-						errors.add(
-							String.format(
-								"%s/%s (%s) contains an invalid code: '%s' in '%s'",
-								definition.getControlField(), definition.formatPositon(), definition.getId(),
-								unit, value
-							)
-						);
-						isValid = false;
-					}
-				}
-			} else {
+			&& (!definition.getValidCodes().contains(value)
+			    && definition.getCode(value) == null)) {
+			if (definition.isHistoricalCode(value)) {
 				errors.add(
 					String.format(
-						"%s/%s (%s) has an invalid value: '%s'",
+						"%s/%s (%s) has an obsolete value: '%s'",
 						definition.getControlField(), definition.formatPositon(), definition.getId(),
 						value
 					)
 				);
 				isValid = false;
+
+			} else {
+				if (definition.isRepeatableContent()) {
+					int unitLength = definition.getUnitLength();
+					for (int i = 0; i < value.length(); i += unitLength) {
+						String unit = value.substring(i, i + unitLength);
+						if (!definition.getValidCodes().contains(unit)) {
+							errors.add(
+								String.format(
+									"%s/%s (%s) contains an invalid code: '%s' in '%s'",
+									definition.getControlField(), definition.formatPositon(), definition.getId(),
+									unit, value
+								)
+							);
+							isValid = false;
+						}
+					}
+				} else {
+					errors.add(
+						String.format(
+							"%s/%s (%s) has an invalid value: '%s'",
+							definition.getControlField(), definition.formatPositon(), definition.getId(),
+							value
+						)
+					);
+					isValid = false;
+				}
 			}
 		}
 

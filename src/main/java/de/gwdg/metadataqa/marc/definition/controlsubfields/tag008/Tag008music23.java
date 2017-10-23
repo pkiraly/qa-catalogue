@@ -41,5 +41,13 @@ public class Tag008music23 extends ControlSubfield {
 			"s", "Electronic",
 			"|", "No attempt to code"
 		);
+
+		historicalCodes = Utils.generateCodes(
+			"g", "Punched paper tape [OBSOLETE, 1987]",
+			"h", "Magnetic tape [OBSOLETE, 1987]",
+			"i", "Multimedia [OBSOLETE, 1987]",
+			"x", "Other form of reproduction [OBSOLETE] [USMARC only]",
+			"z", "Other form of reproduction [OBSOLETE]"
+		);
 	}
 }

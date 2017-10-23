@@ -37,5 +37,9 @@ public class Tag008music21 extends ControlSubfield {
 			"u", "Unknown",
 			"|", "No attempt to code"
 		);
+
+		historicalCodes = Utils.generateCodes(
+			"a", "Parts exist"
+		);
 	}
 }

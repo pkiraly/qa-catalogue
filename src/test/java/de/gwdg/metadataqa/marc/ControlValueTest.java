@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.*;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class ControlValueTest {
 			}
 		}
 		ControlValue value = new ControlValue(subfield, "af  ");
-		assertTrue(value.validate());
+		assertTrue(StringUtils.join(value.getErrors(), "; "), value.validate());
 	}
 
 	@Test

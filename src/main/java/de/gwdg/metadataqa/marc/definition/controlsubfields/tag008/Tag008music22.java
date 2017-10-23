@@ -40,5 +40,10 @@ public class Tag008music22 extends ControlSubfield {
 			"j", "Juvenile",
 			"|", "No attempt to code"
 		);
+
+		historicalCodes = Utils.generateCodes(
+			"u", "School material at first level [OBSOLETE] [CAN/MARC only]",
+			 "v", "School material at second level [OBSOLETE] [CAN/MARC only]"
+		);
 	}
 }

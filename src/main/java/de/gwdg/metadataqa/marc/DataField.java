@@ -269,10 +269,10 @@ public class DataField implements Extractable, Validatable {
 		}
 
 		if (unhandledSubfields != null) {
-			errors.add(String.format("%s has invalid %s: %s",
+			errors.add(String.format("%s has invalid %s: '%s'",
 				definition.getTag(),
 				(unhandledSubfields.size() == 1 ? "subfield" : "subfields"),
-				StringUtils.join(unhandledSubfields, ", ")));
+				StringUtils.join(unhandledSubfields, "', '")));
 			isValid = false;
 		}
 

@@ -18,6 +18,8 @@ public class ControlSubfield {
 	protected int positionEnd;
 	protected String id;
 	protected List<Code> codes;
+	protected List<Code> historicalCodes;
+
 	protected List<String> validCodes = new ArrayList<>();
 	protected int unitLength = -1;
 	protected boolean repeatableContent = false;
@@ -191,6 +193,17 @@ public class ControlSubfield {
 		if (className.startsWith("Leader"))
 			return "Leader";
 		return this.getClass().getSimpleName().substring(3, 6);
+	}
+
+	public Code getCode(String _code) {
+		for (Code code : codes) {
+			if (code.getCode().equals(_code)) {
+				return code;
+			} else if (code.isRange() && code.getRange().isValid(_code)) {
+				return code;
+			}
+		}
+		return null;
 	}
 
 	@Override

@@ -41,7 +41,7 @@ public class ControlValue implements Validatable {
 		boolean isValid = true;
 		errors = new ArrayList<>();
 		if (!definition.getValidCodes().isEmpty()
-			&& !definition.getValidCodes().contains(value)) {
+			&& (!definition.getValidCodes().contains(value) && definition.getCode(value) == null)) {
 			if (definition.isRepeatableContent()) {
 				int unitLength = definition.getUnitLength();
 				for (int i = 0; i < value.length(); i += unitLength) {

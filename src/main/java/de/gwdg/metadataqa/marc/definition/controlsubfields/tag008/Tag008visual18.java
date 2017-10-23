@@ -30,11 +30,11 @@ public class Tag008visual18 extends ControlSubfield {
 		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd008v.html";
 		codes = Utils.generateCodes(
 			"000", "Running time exceeds three characters",
-			"001-999", "Running time", // TODO: handle this as RegEx!
+			"001-999", "Running time",
 			"nnn", "Not applicable",
 			"---", "Unknown",
 			"|||", "No attempt to code"
 		);
-		// codes.get("001-999").setRange(true);
+		getCode("001-999").setRange(true);
 	}
 }

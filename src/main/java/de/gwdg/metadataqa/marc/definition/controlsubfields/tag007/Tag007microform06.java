@@ -4,7 +4,7 @@ import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 
 /**
- * Reduction ration
+ * Reduction ratio
  * https://www.loc.gov/marc/bibliographic/bd007h.html
  */
 public class Tag007microform06 extends ControlSubfield {
@@ -22,9 +22,9 @@ public class Tag007microform06 extends ControlSubfield {
 	}
 
 	private void initialize() {
-		label = "Reduction ration";
+		label = "Reduction ratio";
 		id = "tag007microform06";
-		mqTag = "reductionRation";
+		mqTag = "reductionRatio";
 		positionStart = 6;
 		positionEnd = 9;
 		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007h.html";

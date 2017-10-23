@@ -40,5 +40,10 @@ public class Leader17 extends ControlSubfield {
 			"u", "Unknown",
 			"z", "Not applicable"
 		);
+
+		historicalCodes = Utils.generateCodes(
+			"0", "Full level with item [OBSOLETE, 1997] [CAN/MARC only]",
+			"6", "Minimal level [OBSOLETE, 1997] [CAN/MARC only]"
+		);
 	}
 }

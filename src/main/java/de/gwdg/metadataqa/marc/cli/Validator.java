@@ -4,7 +4,6 @@ import de.gwdg.metadataqa.api.model.JsonPathCache;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcRecord;
-import de.gwdg.metadataqa.marc.datastore.MarcSolrClient;
 import de.gwdg.metadataqa.marc.utils.ReadMarc;
 import org.apache.commons.cli.*;
 import org.apache.commons.io.FileUtils;
@@ -17,14 +16,14 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalTime;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 
 /**
  * usage:
- * java -cp target/metadata-qa-marc-0.1-SNAPSHOT-jar-with-dependencies.jar de.gwdg.metadataqa.marc.cli.SolrKeyGenerator http://localhost:8983/solr/tardit 0001.0000000.formatted.json
+ * java -cp target/metadata-qa-marc-0.1-SNAPSHOT-jar-with-dependencies.jar de.gwdg.metadataqa.marc.cli.Validator [MARC21 file]
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class Validator {
@@ -44,7 +43,7 @@ public class Validator {
 		}
 
 		long start = System.currentTimeMillis();
-		Map<String, Integer> errorCounter = new LinkedHashMap<>();
+		Map<String, Integer> errorCounter = new TreeMap<>();
 
 		String relativeFileName = cmd.getArgs()[0];
 		System.err.println("relativeFileName: " + relativeFileName);
@@ -98,7 +97,7 @@ public class Validator {
 
 			if (cmd.hasOption("summary")) {
 				for (String error : errorCounter.keySet()) {
-					FileUtils.writeStringToFile(output, String.format("%s (%d)\n", error, errorCounter.get(error)), true);
+					FileUtils.writeStringToFile(output, String.format("%s (%d times)\n", error, errorCounter.get(error)), true);
 				}
 			}
 		} catch(SolrServerException ex){

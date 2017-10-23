@@ -36,5 +36,10 @@ public class Leader18 extends ControlSubfield {
 			"n", "Non-ISBD punctuation omitted",
 			"u", "Unknown"
 		);
+
+		historicalCodes = Utils.generateCodes(
+			"p", "Record is in partial ISBD form [OBSOLETE, 1987]",
+			"r", "Record is in provisional form [OBSOLETE, 1981]"
+		);
 	}
 }

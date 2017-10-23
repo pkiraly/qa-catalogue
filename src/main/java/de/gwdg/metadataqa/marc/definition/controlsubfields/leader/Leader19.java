@@ -34,5 +34,10 @@ public class Leader19 extends ControlSubfield {
 			"b", "Part with independent title",
 			"c", "Part with dependent title"
 		);
+
+		historicalCodes = Utils.generateCodes(
+			"r", "Linked record requirement [OBSOLETE, 2007]",
+			"2", "Open entry for a collection [OBSOLETE, 1984] [CAN/MARC only]"
+		);
 	}
 }

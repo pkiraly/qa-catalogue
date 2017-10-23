@@ -44,5 +44,11 @@ public class Leader06 extends ControlSubfield {
 			"r", "Three-dimensional artifact or naturally occurring object",
 			"t", "Manuscript language material"
 		);
+
+		historicalCodes = Utils.generateCodes(
+			"b", "Archival and manuscripts control [OBSOLETE, 1995]",
+			"h", "Microform publications [OBSOLETE, 1972] [USMARC only]",
+			"n", "Special instructional material"
+		);
 	}
 }

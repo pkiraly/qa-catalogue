@@ -37,5 +37,9 @@ public class Leader07 extends ControlSubfield {
 			"m", "Monograph/Item",
 			"s", "Serial"
 		);
+
+		historicalCodes = Utils.generateCodes(
+			"p", "Pamphlet [OBSOLETE, 1988] [CAN/MARC only]"
+		);
 	}
 }

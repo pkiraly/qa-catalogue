@@ -1,5 +1,7 @@
 package de.gwdg.metadataqa.marc.definition;
 
+import de.gwdg.metadataqa.marc.Code;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -15,6 +17,8 @@ public abstract class DataFieldDefinition {
 	protected Indicator ind2;
 	protected List<SubfieldDefinition> subfields;
 	protected Map<String, SubfieldDefinition> subfieldIndex = new LinkedHashMap<>();
+	protected List<Code> historicalSubfields;
+	protected Map<String, Code> historicalSubfieldsIndex;
 	protected String indexTag = null;
 
 	public String getTag() {
@@ -89,6 +93,28 @@ public abstract class DataFieldDefinition {
 		for (SubfieldDefinition subfield : subfields) {
 			subfieldIndex.put(subfield.getCode(), subfield);
 		}
+	}
+
+	protected DataFieldDefinition setHistoricalSubfields(String... input) {
+		historicalSubfields = new ArrayList<>();
+		for (int i = 0; i<input.length; i+=2) {
+			historicalSubfields.add(new Code(input[i], input[i+1]));
+		}
+		indexHistoricalSubfields();
+		return this;
+	}
+
+	private void indexHistoricalSubfields() {
+		historicalSubfieldsIndex = new LinkedHashMap<>();
+		for (Code code : historicalSubfields) {
+			historicalSubfieldsIndex.put(code.getCode(), code);
+		}
+	}
+
+	public boolean isHistoricalSubfield(String code) {
+		return historicalSubfields != null
+			&& !historicalSubfields.isEmpty()
+			&& historicalSubfieldsIndex.containsKey(code);
 	}
 
 	/**

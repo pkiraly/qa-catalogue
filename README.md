@@ -262,8 +262,10 @@ Here is a list of data sources I am aware of so far:
 * Bibliotheksservice-Zentrum Baden Würtemberg -- https://wiki.bsz-bw.de/doku.php?id=v-team:daten:openaccess:swb. 17,5 records, MARCXML format, CC0 licence.
 * Bibliotheksverbundes Bayern -- https://www.bib-bvb.de/web/b3kat/open-data. 27M records, MARCXML format, CC0 licence.
 * University of Michigan Library -- https://www.lib.umich.edu/open-access-bibliographic-records. 1,3M records, MARC21 and MARCXML formats, CC0 licence.
+* Toronto Public Library -- https://opendata.tplcs.ca/. MARC21 records, [Open Data Policy](http://www.torontopubliclibrary.ca/terms-of-use/library-policies/open-data.jsp)
+* Leibniz-Informationszentrum Technik und Naturwissenschaften Universitätsbibliothek (TIB) -- https://www.tib.eu/de/die-tib/bereitstellung-von-daten/katalogdaten-als-open-data/. (no download link, use OAI-PMH instead) Dublin Core, MARC21, MARCXML, CC0 licence.
 
-Thanks [Johann Rolschewski](https://twitter.com/johrols) for his help in collecting this list! Do you know some more data sources? Please let me know.
+Thanks [Johann Rolschewski](https://twitter.com/johrols) and [Phú](https://twitter.com/herr_tu) for their help in collecting this list! Do you know some more data sources? Please let me know.
 
 There are two more datasource worth mention, however they do not provide MARC records, but derivatives:
 

@@ -254,13 +254,14 @@ java -cp $JAR de.gwdg.metadataqa.marc.cli.MappingToHtml > mapping.html
 
 Here is a list of data sources I am aware of so far:
 
-* Library of Congress -- https://www.loc.gov/cds/products/marcDist.php. MARC21 (UTF-8 and MARC8 encoding), MARCXML formats.
-* Harvard University Library -- https://library.harvard.edu/open-metadata. MARC21 format, CC0 license. Institution specific features are documented [here](http://library.harvard.edu/sites/default/files/news_uploaded/Harvard_Library_Bibliographic_Dataset_Documentation.pdf)
-* Columbia University  Library -- https://library.columbia.edu/bts/clio-data.html. 10M records, MARC21 and MARCXML format, CC0 license.
-* Deutsche Nationalbibliothek -- http://www.dnb.de/EN/Service/DigitaleDienste/Datendienst/datendienst_node.html (note: it is not a direct link, you have to register and contact with librarians to get access to the downloadable dataset). 16.7M records, MARC21 and MARCXML format, CC0 license.
+* Library of Congress -- https://www.loc.gov/cds/products/marcDist.php. MARC21 (UTF-8 and MARC8 encoding), MARCXML formats, open access.
+* Harvard University Library -- https://library.harvard.edu/open-metadata. MARC21 format, CC0 licence. Institution specific features are documented [here](http://library.harvard.edu/sites/default/files/news_uploaded/Harvard_Library_Bibliographic_Dataset_Documentation.pdf)
+* Columbia University  Library -- https://library.columbia.edu/bts/clio-data.html. 10M records, MARC21 and MARCXML format, CC0 licence.
+* Deutsche Nationalbibliothek -- http://www.dnb.de/EN/Service/DigitaleDienste/Datendienst/datendienst_node.html (note: it is not a direct link, you have to register and contact with librarians to get access to the downloadable dataset). 16.7M records, MARC21 and MARCXML format, CC0 licence.
 * Universiteits Bibliotheek Gent: https://lib.ugent.be/info/exports. Weeky data dump in Aleph Sequential format. It contains some Aleph fields above the standard MARC21 fields. Open Data Commons Open Database License.
-* Bibliotheksservice-Zentrum Baden Würtemberg -- https://wiki.bsz-bw.de/doku.php?id=v-team:daten:openaccess:swb. 17,5 records, MARCXML format, CC0 license.
-* Bibliotheksverbundes Bayern -- https://www.bib-bvb.de/web/b3kat/open-data. 27M records, MARCXML format, CC0 license.
+* Bibliotheksservice-Zentrum Baden Würtemberg -- https://wiki.bsz-bw.de/doku.php?id=v-team:daten:openaccess:swb. 17,5 records, MARCXML format, CC0 licence.
+* Bibliotheksverbundes Bayern -- https://www.bib-bvb.de/web/b3kat/open-data. 27M records, MARCXML format, CC0 licence.
+* University of Michigan Library -- https://www.lib.umich.edu/open-access-bibliographic-records. 1,3M records, MARC21 and MARCXML formats, CC0 licence.
 
 Thanks [Johann Rolschewski](https://twitter.com/johrols) for his help in collecting this list! Do you know some more data sources? Please let me know.
 

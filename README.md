@@ -249,4 +249,19 @@ To export the HTML table described at [Self Descriptive MARC code](http://pkiral
 java -cp $JAR de.gwdg.metadataqa.marc.cli.MappingToHtml > mapping.html
 ```
 
+<a name="datasources"></a>
+## Appendix: Where can I get MARC records?
+
+Here is a list of data sources I found so far:
+
+* Library of Congress
+* Harvard University Library -- https://library.harvard.edu/open-metadata
+* Columbia University  Library -- https://library.columbia.edu/bts/clio-data.html. 10M records, MARC21 and MARCXML format, CC0 license.
+* Deutsche Nationalbibliothek
+* British Library
+* Universiteits Bibliotheek Gent: https://lib.ugent.be/info/exports. Weeky data dump in Aleph Sequential format. It contains some Aleph fields above the standard MARC21 fields. Open Data Commons Open Database License.
+* Bibliotheksservice-Zentrum Baden Würtemberg -- https://wiki.bsz-bw.de/doku.php?id=v-team:daten:openaccess:swb. 17,5 records, MARCXML format, CC0 license.
+* Bibliotheksverbundes Bayern -- https://www.bib-bvb.de/web/b3kat/open-data. 27M records, MARCXML format, CC0 license.
+
+
 Any feedbacks are welcome!

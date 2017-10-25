@@ -58,5 +58,9 @@ public class Tag440 extends DataFieldDefinition {
 		getSubfield("0").setMqTag("authorityRecordControlNumber");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
+
+		setHistoricalSubfields(
+			"h", "General material designation [OBSOLETE, 1997] [CAN/MARC only]"
+		);
 	}
 }

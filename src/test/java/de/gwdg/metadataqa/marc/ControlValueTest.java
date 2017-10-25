@@ -22,7 +22,7 @@ public class ControlValueTest {
 			}
 		}
 		ControlValue value = new ControlValue(subfield, "af  ");
-		assertTrue(StringUtils.join(value.getErrors(), "; "), value.validate());
+		assertTrue(StringUtils.join(value.getErrors(), "; "), value.validate(null));
 	}
 
 	@Test

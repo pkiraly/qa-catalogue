@@ -39,13 +39,13 @@ public class Tag029 extends DataFieldDefinition {
 				"0", "Primary control number",
 				"1", "Secondary control number"
 			)
-			.putAdditionalSubfields(MarcVersion.DNB, Arrays.asList(
+			.putVersionSpecificCodes(MarcVersion.DNB, Arrays.asList(
 				new Code("a", "ISSN formal richtig"),
 				new Code("b", "ISSN formal falsch")
 			))
 			.setMqTag("type");
 		ind2 = new Indicator()
-			.putAdditionalSubfields(MarcVersion.DNB, Arrays.asList(
+			.putVersionSpecificCodes(MarcVersion.DNB, Arrays.asList(
 				new Code(" ", "Nicht spezifiziert (bei fehlerhaften ISSN)"),
 				new Code("a", "Autorisierte ISSN"),
 				new Code("b", "ISSN der Ausgabe auf anderem Datenträger"),

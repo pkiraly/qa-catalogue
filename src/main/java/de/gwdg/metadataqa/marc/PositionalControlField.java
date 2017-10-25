@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 
 import java.util.*;
 
@@ -13,11 +14,11 @@ public abstract class PositionalControlField extends ControlField implements Ext
 	protected List<String> errors;
 
 	@Override
-	public boolean validate() {
+	public boolean validate(MarcVersion marcVersion) {
 		boolean isValid = true;
 		errors = new ArrayList<>();
 		for (ControlValue controlValue : valuesList) {
-			if (!controlValue.validate()) {
+			if (!controlValue.validate(marcVersion)) {
 				errors.addAll(controlValue.getErrors());
 				isValid = false;
 			}

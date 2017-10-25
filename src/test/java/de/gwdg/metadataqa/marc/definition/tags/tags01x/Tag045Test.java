@@ -57,9 +57,9 @@ public class Tag045Test {
 			DataField field = new DataField(Tag045.getInstance(), " ", " ", "a", value);
 			MarcSubfield subfield = field.getSubfield("a").get(0);
 			if (badValues.contains(value))
-				assertFalse(subfield.validate());
+				assertFalse(subfield.validate(null));
 			else
-				assertTrue(subfield.validate());
+				assertTrue(subfield.validate(null));
 		}
 	}
 }

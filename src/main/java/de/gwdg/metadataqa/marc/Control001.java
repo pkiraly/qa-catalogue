@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -79,7 +80,7 @@ public class Control001 implements Extractable, Validatable {
 	}
 
 	@Override
-	public boolean validate() {
+	public boolean validate(MarcVersion marcVersion) {
 		return true;
 	}
 

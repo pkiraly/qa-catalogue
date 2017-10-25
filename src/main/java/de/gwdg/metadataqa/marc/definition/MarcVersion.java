@@ -18,4 +18,12 @@ public enum MarcVersion {
 				return version;
 		return null;
 	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public String getLabel() {
+		return label;
+	}
 }

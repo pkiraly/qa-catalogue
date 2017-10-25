@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc;
 
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Validator;
 
@@ -68,7 +69,7 @@ public class MarcSubfield implements Validatable {
 	}
 
 	@Override
-	public boolean validate() {
+	public boolean validate(MarcVersion marcVersion) {
 		boolean isValid = true;
 		errors = new ArrayList<>();
 

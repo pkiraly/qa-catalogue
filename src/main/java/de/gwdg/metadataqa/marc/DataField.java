@@ -235,7 +235,7 @@ public class DataField implements Extractable, Validatable {
 	}
 
 	@Override
-	public boolean validate() {
+	public boolean validate(MarcVersion marcVersion) {
 		boolean isValid = true;
 		errors = new ArrayList<>();
 		DataFieldDefinition _definition = null;
@@ -277,12 +277,12 @@ public class DataField implements Extractable, Validatable {
 		}
 
 		if (ind1 != null) {
-			if (!validateIndicator("ind1", definition.getInd1(), ind1))
+			if (!validateIndicator("ind1", definition.getInd1(), ind1, marcVersion))
 				isValid = false;
 		}
 
 		if (ind2 != null) {
-			if (!validateIndicator("ind2", definition.getInd2(), ind2))
+			if (!validateIndicator("ind2", definition.getInd2(), ind2, marcVersion))
 				isValid = false;
 		}
 
@@ -298,7 +298,7 @@ public class DataField implements Extractable, Validatable {
 				}
 				counter.put(subfield.getDefinition(), counter.get(subfield.getDefinition()) + 1);
 
-				if (!subfield.validate()) {
+				if (!subfield.validate(marcVersion)) {
 					errors.addAll(subfield.getErrors());
 					isValid = false;
 				}
@@ -324,17 +324,19 @@ public class DataField implements Extractable, Validatable {
 	}
 
 	private boolean validateIndicator(String prefix, Indicator indicatorDefinition,
-	                                  String value) {
+	                                  String value, MarcVersion marcVersion) {
 		boolean isValid = true;
 		if (indicatorDefinition.exists()) {
 			if (!indicatorDefinition.hasCode(value)) {
-				isValid = false;
-				if (indicatorDefinition.isHistoricalCode(value)) {
-					errors.add(String.format("%s$%s has obsolete code: '%s' (%s)",
-						definition.getTag(), prefix, value, definition.getDescriptionUrl()));
-				} else {
-					errors.add(String.format("%s$%s has invalid code: '%s' (%s)",
-						definition.getTag(), prefix, value, definition.getDescriptionUrl()));
+				if (!indicatorDefinition.isVersionSpecificCode(marcVersion, value)) {
+					isValid = false;
+					if (indicatorDefinition.isHistoricalCode(value)) {
+						errors.add(String.format("%s$%s has obsolete code: '%s' (%s)",
+							definition.getTag(), prefix, value, definition.getDescriptionUrl()));
+					} else {
+						errors.add(String.format("%s$%s has invalid code: '%s' (%s)",
+							definition.getTag(), prefix, value, definition.getDescriptionUrl()));
+					}
 				}
 			}
 		} else {

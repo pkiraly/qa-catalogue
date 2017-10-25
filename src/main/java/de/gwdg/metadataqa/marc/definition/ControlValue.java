@@ -37,7 +37,7 @@ public class ControlValue implements Validatable {
 	}
 
 	@Override
-	public boolean validate() {
+	public boolean validate(MarcVersion marcVersion) {
 		boolean isValid = true;
 		errors = new ArrayList<>();
 		if (!definition.getValidCodes().isEmpty()

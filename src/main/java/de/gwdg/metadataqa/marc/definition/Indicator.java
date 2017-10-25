@@ -2,7 +2,6 @@ package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.Range;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 
@@ -17,7 +16,7 @@ public class Indicator {
 	private Map<String, Code> historicalCodeIndex = new LinkedHashMap<>();
 	private Map<Range, Code> ranges;
 	private String indicatorFlag;
-	private Map<MarcVersion, List<Code>> additionalCodes;
+	private Map<MarcVersion, List<Code>> versionSpecificCodes;
 
 	public Indicator() {}
 
@@ -159,10 +158,22 @@ public class Indicator {
 		this.indicatorFlag = indicatorFlag;
 	}
 
-	public Indicator putAdditionalSubfields(MarcVersion marcVersion, List<Code> subfieldDefinitions) {
-		if (additionalCodes == null)
-			additionalCodes = new HashMap<>();
-		additionalCodes.put(marcVersion, subfieldDefinitions);
+	public Indicator putVersionSpecificCodes(MarcVersion marcVersion, List<Code> codeList) {
+		if (versionSpecificCodes == null)
+			versionSpecificCodes = new HashMap<>();
+		versionSpecificCodes.put(marcVersion, codeList);
 		return this;
+	}
+
+	public boolean hasVersionSpecificCodes(MarcVersion marcVersion) {
+		return versionSpecificCodes.containsKey(marcVersion);
+	}
+
+	public boolean isVersionSpecificCode(MarcVersion marcVersion, String code) {
+		return versionSpecificCodes != null
+		       && !versionSpecificCodes.isEmpty()
+		       && versionSpecificCodes.containsKey(marcVersion)
+		       && !versionSpecificCodes.get(marcVersion).isEmpty()
+		       && !versionSpecificCodes.get(marcVersion).contains(code);
 	}
 }

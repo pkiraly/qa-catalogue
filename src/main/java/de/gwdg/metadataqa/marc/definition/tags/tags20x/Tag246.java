@@ -55,7 +55,7 @@ public class Tag246 extends DataFieldDefinition {
 				"7", "Running title",
 				"8", "Spine title"
 			)
-			.putAdditionalSubfields(MarcVersion.DNB, Arrays.asList(
+			.putVersionSpecificCodes(MarcVersion.DNB, Arrays.asList(
 				new Code("9", "Ansetzungstitel")
 			))
 			.setMqTag("type");

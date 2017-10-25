@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
@@ -172,13 +173,13 @@ public class MarcRecord implements Extractable, Validatable {
 	}
 
 	@Override
-	public boolean validate() {
+	public boolean validate(MarcVersion marcVersion) {
 		errors = new ArrayList<>();
 		boolean isValidRecord = true;
 		boolean isValidComponent;
 
-		isValidComponent = leader.validate();
-		if (!leader.validate()) {
+		isValidComponent = leader.validate(marcVersion);
+		if (!isValidComponent) {
 			errors.addAll(leader.getErrors());
 			isValidRecord = isValidComponent;
 		}
@@ -206,7 +207,7 @@ public class MarcRecord implements Extractable, Validatable {
 
 		for (Extractable controlField : getControlfields()) {
 			if (controlField != null) {
-				isValidComponent = ((Validatable)controlField).validate();
+				isValidComponent = ((Validatable)controlField).validate(marcVersion);
 				if (!isValidComponent) {
 					errors.addAll(((Validatable)controlField).getErrors());
 					isValidRecord = isValidComponent;
@@ -220,7 +221,7 @@ public class MarcRecord implements Extractable, Validatable {
 				repetitionCounter.put(field.getDefinition(), 0);
 			}
 			repetitionCounter.put(field.getDefinition(), repetitionCounter.get(field.getDefinition()) + 1);
-			if (!field.validate()) {
+			if (!field.validate(marcVersion)) {
 				// logger.warning("error in " + field.getDefinition().getTag());
 				isValidRecord = false;
 				errors.addAll(field.getErrors());

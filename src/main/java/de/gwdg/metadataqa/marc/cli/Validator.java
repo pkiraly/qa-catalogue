@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.api.model.JsonPathCache;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.utils.ReadMarc;
 import org.apache.commons.cli.*;
 import org.apache.commons.io.FileUtils;
@@ -45,6 +46,12 @@ public class Validator {
 		long start = System.currentTimeMillis();
 		Map<String, Integer> errorCounter = new TreeMap<>();
 
+		MarcVersion marcVersion = null;
+		if (cmd.hasOption("marcVersion")) {
+			marcVersion = MarcVersion.byCode(cmd.getOptionValue("marcVersion"));
+		}
+		System.err.println("marcVersion: " + marcVersion.getCode() + ", " + marcVersion.getLabel());
+
 		String relativeFileName = cmd.getArgs()[0];
 		System.err.println("relativeFileName: " + relativeFileName);
 		Path path = Paths.get(relativeFileName);
@@ -65,7 +72,7 @@ public class Validator {
 				Record marc4jRecord = reader.next();
 				try {
 					MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
-					boolean isValid = marcRecord.validate();
+					boolean isValid = marcRecord.validate(marcVersion);
 					if (!isValid) {
 						if (cmd.hasOption("summary")) {
 							for (String error : marcRecord.getErrors()) {
@@ -119,6 +126,7 @@ public class Validator {
 	private static CommandLine processCommandLine(String[] args) throws ParseException {
 		options = new Options();
 		options.addOption("s", "summary", false, "show summary instead of record level display");
+		options.addOption("m", "marcVersion", true, "MARC version ('OCLC' or DNB')");
 		options.addOption("h", "help", false, "display help");
 
 		CommandLineParser parser = new DefaultParser();

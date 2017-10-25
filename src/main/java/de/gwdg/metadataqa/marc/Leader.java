@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc;
 import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
 import de.gwdg.metadataqa.marc.definition.LeaderSubfields;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -249,12 +250,12 @@ public class Leader implements Extractable, Validatable {
 	}
 
 	@Override
-	public boolean validate() {
+	public boolean validate(MarcVersion marcVersion) {
 		boolean isValid = true;
 		errors = new ArrayList<>();
 
 		for (ControlValue controlValue : valuesList) {
-			if (!controlValue.validate()) {
+			if (!controlValue.validate(marcVersion)) {
 				errors.addAll(controlValue.getErrors());
 				isValid = false;
 			}

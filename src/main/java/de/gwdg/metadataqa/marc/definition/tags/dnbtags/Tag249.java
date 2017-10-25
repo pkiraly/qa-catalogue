@@ -36,7 +36,7 @@ public class Tag249 extends DataFieldDefinition {
 		setSubfieldsWithCardinality(
 			"a", "Weiterer Titel bei Zusammenstellungen", "R",
 			"b", "Titelzusätze zur gesamten Zusammenstellung", "NR",
-			"v", "Verantwortlichkeitsangabe zum weiteren Titel", "NR"
+			"v", "Verantwortlichkeitsangabe zum weiteren Titel", "R"
 		);
 
 		getSubfield("a").setMqTag("rdf:value");

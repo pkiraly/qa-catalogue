@@ -1,10 +1,14 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags80x;
 
+import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
+
+import java.util.Arrays;
 
 /**
  * Series Added Entry - Corporate Name
@@ -72,14 +76,38 @@ public class Tag810 extends DataFieldDefinition {
 			"7", "Control subfield", "NR",
 			"8", "Field link and sequence number", "R"
 		);
-		// TODO: check these values
-		getSubfield("7").setCodes(
-			"/0", "Type of record",
-			"/1", "Bibliographic level"
-		);
 
-		getSubfield("4").setCodeList(RelatorCodes.getInstance());
 		getSubfield("0").setContentParser(RecordControlNumberParser.getInstance());
+		getSubfield("4").setCodeList(RelatorCodes.getInstance());
+		getSubfield("7").setPositions(Arrays.asList(
+			new ControlSubfield("Type of record", 0, 1)
+				.setCodes(Utils.generateCodes(
+					"a", "Language material",
+					"c", "Notated music",
+					"d", "Manuscript notated music",
+					"e", "Cartographic material",
+					"f", "Manuscript cartographic material",
+					"g", "Projected medium",
+					"i", "Nonmusical sound recording",
+					"j", "Musical sound recording",
+					"k", "Two-dimensional nonprojectable graphic",
+					"m", "Computer file",
+					"o", "Kit",
+					"p", "Mixed material",
+					"r", "Three-dimensional artifact or naturally occurring object",
+					"t", "Manuscript language material"
+				)),
+			new ControlSubfield("Bibliographic level", 1, 2)
+				.setCodes(Utils.generateCodes(
+					"a", "Monographic component part",
+					"b", "Serial component part",
+					"c", "Collection",
+					"d", "Subunit",
+					"i", "Integrating resource",
+					"m", "Monograph/item",
+					"s", "Serial"
+				))
+		));
 
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("b").setMqTag("subordinateUnit");

@@ -39,6 +39,7 @@ public class Tag689 extends DataFieldDefinition {
 		ind1.getCode("0-9").setRange(true);
 		ind2 = new Indicator("Nummer des Kettengliedes")
 			.setCodes(
+				" ", "Abschluss einer RSWK-Kettenfolge, Feld enthält dann zwei $5",
 				"0-9", "Nummer des Kettengliedes"
 			)
 			.setMqTag("nummerDesKettengliedes");

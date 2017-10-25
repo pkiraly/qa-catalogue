@@ -28,6 +28,7 @@ public class SubfieldDefinition {
 	private List<String> allowedCodes;
 	private Map<String, String> allowedValues = new HashMap<>();
 	private String codeForIndex = null;
+	private List<ControlSubfield> positions;
 
 	public String getCodeForIndex() {
 		if (codeForIndex == null) {
@@ -193,6 +194,10 @@ public class SubfieldDefinition {
 	public SubfieldDefinition setMqTag(String mqTag) {
 		this.mqTag = mqTag;
 		return this;
+	}
+
+	public void setPositions(List<ControlSubfield> positions) {
+
 	}
 
 	@Override

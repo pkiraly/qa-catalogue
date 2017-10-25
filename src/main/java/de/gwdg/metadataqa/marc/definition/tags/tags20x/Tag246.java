@@ -1,9 +1,12 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags20x;
 
+import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
+
+import java.util.Arrays;
 
 /**
  * Varying Form of Title
@@ -51,6 +54,9 @@ public class Tag246 extends DataFieldDefinition {
 				"7", "Running title",
 				"8", "Spine title"
 			)
+			.putAdditionalSubfields("dnb", Arrays.asList(
+				new Code("9", "Ansetzungstitel")
+			))
 			.setMqTag("type");
 
 		setSubfieldsWithCardinality(

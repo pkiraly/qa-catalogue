@@ -17,6 +17,7 @@ public class Indicator {
 	private Map<String, Code> historicalCodeIndex = new LinkedHashMap<>();
 	private Map<Range, Code> ranges;
 	private String indicatorFlag;
+	private Map<String, List<Code>> additionalCodes;
 
 	public Indicator() {}
 
@@ -156,5 +157,12 @@ public class Indicator {
 
 	public void setIndicatorFlag(String indicatorFlag) {
 		this.indicatorFlag = indicatorFlag;
+	}
+
+	public Indicator putAdditionalSubfields(String libraryCode, List<Code> subfieldDefinitions) {
+		if (additionalCodes == null)
+			additionalCodes = new HashMap<>();
+		additionalCodes.put(libraryCode, subfieldDefinitions);
+		return this;
 	}
 }

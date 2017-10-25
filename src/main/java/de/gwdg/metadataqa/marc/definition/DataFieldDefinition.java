@@ -2,10 +2,7 @@ package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.Code;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class DataFieldDefinition {
 	protected String tag;
@@ -21,6 +18,7 @@ public abstract class DataFieldDefinition {
 	protected List<Code> historicalSubfields;
 	protected Map<String, Code> historicalSubfieldsIndex;
 	protected String indexTag = null;
+	protected Map<String, List<SubfieldDefinition>> additionalSubfields;
 
 	public String getTag() {
 		return tag;
@@ -129,5 +127,11 @@ public abstract class DataFieldDefinition {
 	 */
 	public SubfieldDefinition getSubfield(String code) {
 		return subfieldIndex.getOrDefault(code, null);
+	}
+
+	public void putAdditionalSubfields(String libraryCode, List<SubfieldDefinition> subfieldDefinitions) {
+		if (additionalSubfields == null)
+			additionalSubfields = new HashMap<>();
+		additionalSubfields.put(libraryCode, subfieldDefinitions);
 	}
 }

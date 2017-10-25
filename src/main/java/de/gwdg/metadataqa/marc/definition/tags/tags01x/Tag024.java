@@ -3,7 +3,10 @@ package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.general.codelist.StandardIdentifierSourceCodes;
+
+import java.util.Arrays;
 
 /**
  * Other Standard Identifier
@@ -77,5 +80,9 @@ public class Tag024 extends DataFieldDefinition {
 		setHistoricalSubfields(
 			"b", "Additional codes following the standard number [OBSOLETE]"
 		);
+
+		putAdditionalSubfields("dnb", Arrays.asList(
+			new SubfieldDefinition("9", "Standardnummer (mit Bindestrichen)", "NR")
+		));
 	}
 }

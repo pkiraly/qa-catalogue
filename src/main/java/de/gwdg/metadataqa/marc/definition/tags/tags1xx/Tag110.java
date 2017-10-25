@@ -36,7 +36,7 @@ public class Tag110 extends DataFieldDefinition {
 			.setCodes(
 				"0", "Inverted name",
 				"1", "Jurisdiction name",
-				"3", "Name in direct order"
+				"2", "Name in direct order"
 			)
 			.setMqTag("type");
 		ind2 = new Indicator();

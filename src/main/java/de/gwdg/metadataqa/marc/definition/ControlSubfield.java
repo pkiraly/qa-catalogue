@@ -42,9 +42,10 @@ public class ControlSubfield {
 		extractValidCodes();
 	}
 
-	public void setCodes(List<Code> codes) {
+	public ControlSubfield setCodes(List<Code> codes) {
 		this.codes = codes;
 		extractValidCodes();
+		return this;
 	}
 
 	public String getLabel() {

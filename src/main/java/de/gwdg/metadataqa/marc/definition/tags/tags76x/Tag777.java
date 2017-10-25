@@ -29,14 +29,25 @@ public class Tag777 extends DataFieldDefinition {
 		label = "Issued With Entry";
 		bibframeTag = "IssuedWith";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("Note controller").setCodes(
-			"0", "Display note",
-			"1", "Do not display note"
-		).setMqTag("noteController");;
-		ind2 = new Indicator("Display constant controller").setCodes(
-			" ", "Issued with",
-			"8", "No display constant generated"
-		).setMqTag("displayConstant");
+
+		ind1 = new Indicator("Note controller")
+			.setCodes(
+				"0", "Display note",
+				"1", "Do not display note"
+			)
+			.setMqTag("noteController");;
+		ind2 = new Indicator("Display constant controller")
+			.setCodes(
+				" ", "Issued with",
+				"8", "No display constant generated"
+			)
+			.setHistoricalCodes(
+				"0", "Issued with [OBSOLETE] [CAN/MARC only]",
+				"1", "With [OBSOLETE] [CAN/MARC only]",
+				"2", "Bound with [OBSOLETE] [CAN/MARC only]"
+			)
+			.setMqTag("displayConstant");
+
 		setSubfieldsWithCardinality(
 			"a", "Main entry heading", "NR",
 			"b", "Edition", "NR",

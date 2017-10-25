@@ -31,15 +31,22 @@ public class Tag772 extends DataFieldDefinition {
 		bibframeTag = "SupplementTo";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Note controller").setCodes(
-			"0", "Display note",
-			"1", "Do not display note"
-		).setMqTag("noteController");;
-		ind2 = new Indicator("Display constant controller").setCodes(
-			" ", "Supplement to",
-			"0", "Parent",
-			"8", "No display constant generated"
-		).setMqTag("displayConstant");
+		ind1 = new Indicator("Note controller")
+			.setCodes(
+				"0", "Display note",
+				"1", "Do not display note"
+			)
+			.setMqTag("noteController");;
+		ind2 = new Indicator("Display constant controller")
+			.setCodes(
+				" ", "Supplement to",
+				"0", "Parent",
+				"8", "No display constant generated"
+			)
+			.setHistoricalCodes(
+				"1", "Special issue [OBSOLETE] [CAN/MARC only]"
+			)
+			.setMqTag("displayConstant");
 
 		setSubfieldsWithCardinality(
 			"a", "Main entry heading", "NR",

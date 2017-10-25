@@ -31,14 +31,23 @@ public class Tag775 extends DataFieldDefinition {
 		bibframeTag = "OtherEdition";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Note controller").setCodes(
-			"0", "Display note",
-			"1", "Do not display note"
-		).setMqTag("noteController");;
-		ind2 = new Indicator("Display constant controller").setCodes(
-			" ", "Other edition available",
-			"8", "No display constant generated"
-		).setMqTag("displayConstant");
+		ind1 = new Indicator("Note controller")
+			.setCodes(
+				"0", "Display note",
+				"1", "Do not display note"
+			)
+			.setMqTag("noteController");;
+		ind2 = new Indicator("Display constant controller")
+			.setCodes(
+				" ", "Other edition available",
+				"8", "No display constant generated"
+			)
+			.setHistoricalCodes(
+				"0", "Entry not the same",
+				"1", "Entry is the same as title",
+				"2", "Entry is the same as main entry and title"
+			)
+			.setMqTag("displayConstant");
 
 		setSubfieldsWithCardinality(
 			"a", "Main entry heading", "NR",

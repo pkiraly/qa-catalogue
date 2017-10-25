@@ -61,5 +61,11 @@ public class Tag247 extends DataFieldDefinition {
 		getSubfield("x").setMqTag("issn");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
+
+		setHistoricalSubfields(
+			"d", "Designation of section/part/series (SE) [OBSOLETE, 1979]",
+			"e", "Name of section/part/series (SE) [OBSOLETE, 1979]",
+			"c", "Remainder of Title Page transcription [OBSOLETE] [CAN/MARC only]"
+		);
 	}
 }

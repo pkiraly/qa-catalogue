@@ -30,10 +30,18 @@ public class Tag222 extends DataFieldDefinition {
 		cardinality = Cardinality.Repeatable;
 
 		ind1 = new Indicator();
-		ind2 = new Indicator("Nonfiling characters").setCodes(
-			"0", "No nonfiling characters",
-			"1-9", "Number of nonfiling characters"
-		).setMqTag("nonfilingCharacters");
+		ind2 = new Indicator("Nonfiling characters")
+			.setCodes(
+				"0", "No nonfiling characters",
+				"1-9", "Number of nonfiling characters"
+			)
+			.setHistoricalCodes(
+				"0", "Key title is same as field 245 / No key title added entry; title proper same",
+				"1", "Key title is not the same as field 245 / Key title added entry; title proper different",
+				"2", "Key title added entry; title proper same",
+				"3", "No key title added entry; title proper different"
+			)
+			.setMqTag("nonfilingCharacters");
 		ind2.getCode("1-9").setRange(true);
 
 		setSubfieldsWithCardinality(

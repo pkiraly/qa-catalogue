@@ -29,13 +29,21 @@ public class Tag240 extends DataFieldDefinition {
 		mqTag = "UniformTitle";
 		cardinality = Cardinality.Nonrepeatable;
 
-		ind1 = new Indicator("Uniform title printed or displayed").setCodes(
-			"0", "Not printed or displayed",
-			"1", "Printed or displayed"
-		).setMqTag("printedOrDisplayed");;
-		ind2 = new Indicator("Nonfiling characters").setCodes(
-			"0-9", "Number of nonfiling characters"
-		).setMqTag("nonfilingCharacters");
+		ind1 = new Indicator("Uniform title printed or displayed")
+			.setCodes(
+				"0", "Not printed or displayed",
+				"1", "Printed or displayed"
+			)
+			.setHistoricalCodes(
+				"2", "Not printed on card, title added entry (MU) [OBSOLETE, 1993]",
+				"3", "Printed on card, title added entry (MU) [OBSOLETE, 1993]"
+			)
+			.setMqTag("printedOrDisplayed");;
+		ind2 = new Indicator("Nonfiling characters")
+			.setCodes(
+				"0-9", "Number of nonfiling characters"
+			)
+			.setMqTag("nonfilingCharacters");
 		ind2.getCode("0-9").setRange(true);
 
 		setSubfieldsWithCardinality(

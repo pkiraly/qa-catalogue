@@ -29,13 +29,21 @@ public class Tag243 extends DataFieldDefinition {
 		bibframeTag = "CollectiveTitle";
 		cardinality = Cardinality.Nonrepeatable;
 
-		ind1 = new Indicator("Uniform title printed or displayed").setCodes(
-			"0", "Not printed or displayed",
-			"1", "Printed or displayed"
-		).setMqTag("printedOrDisplayed");
-		ind2 = new Indicator("Nonfiling characters").setCodes(
-			"0-9", "Number of nonfiling characters"
-		).setMqTag("nonfilingCharacters");
+		ind1 = new Indicator("Uniform title printed or displayed")
+			.setCodes(
+				"0", "Not printed or displayed",
+				"1", "Printed or displayed"
+			)
+			.setHistoricalCodes(
+				"2", "Not printed on card, title added entry (MU) [USMARC only] [OBSOLETE, 1993] / Selections (extracts) [CAN/MARC only] [OBSOLETE]",
+				"3", "Printed on card, title added entry (MU) [USMARC only] [OBSOLETE, 1993] / Other collective titles [CAN/MARC only] [OBSOLETE]"
+			)
+			.setMqTag("printedOrDisplayed");
+		ind2 = new Indicator("Nonfiling characters")
+			.setCodes(
+				"0-9", "Number of nonfiling characters"
+			)
+			.setMqTag("nonfilingCharacters");
 		ind2.getCode("0-9").setRange(true);
 
 		setSubfieldsWithCardinality(

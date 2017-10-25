@@ -31,14 +31,18 @@ public class Tag242 extends DataFieldDefinition {
 		mqTag = "TitleTranslation";
 		cardinality = Cardinality.Nonrepeatable;
 
-		ind1 = new Indicator("Title added entry").setCodes(
-			"0", "No added entry",
-			"1", "Added entry"
-		).setMqTag("titleAddedEntry");
-		ind2 = new Indicator("Nonfiling characters").setCodes(
-			"0", "No nonfiling characters",
-			"1-9", "Number of nonfiling characters"
-		).setMqTag("nonfilingCharacters");
+		ind1 = new Indicator("Title added entry")
+			.setCodes(
+				"0", "No added entry",
+				"1", "Added entry"
+			)
+			.setMqTag("titleAddedEntry");
+		ind2 = new Indicator("Nonfiling characters")
+			.setCodes(
+				"0", "No nonfiling characters",
+				"1-9", "Number of nonfiling characters"
+			)
+			.setMqTag("nonfilingCharacters");
 		ind2.getCode("1-9").setRange(true);
 
 		setSubfieldsWithCardinality(
@@ -64,5 +68,10 @@ public class Tag242 extends DataFieldDefinition {
 		getSubfield("y").setBibframeTag("language");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
+
+		setHistoricalSubfields(
+			"d", "Designation of section (BK, AM, MP, MU, VM, SE) [OBSOLETE, 1979]",
+			"e", "Name of part/section (BK, AM, MP, MU, VM, SE) [OBSOLETE, 1979]"
+		);
 	}
 }

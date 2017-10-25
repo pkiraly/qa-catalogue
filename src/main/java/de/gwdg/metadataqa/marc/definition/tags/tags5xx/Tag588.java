@@ -30,11 +30,13 @@ public class Tag588 extends DataFieldDefinition {
 		mqTag = "SourceOfDescription";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Display constant controller").setCodes(
-			" ", "No information provided",
-			"0", "Source of description",
-			"1", "Latest issue consulted"
-		).setMqTag("displayConstant");
+		ind1 = new Indicator("Display constant controller")
+			.setCodes(
+				" ", "No information provided",
+				"0", "Source of description",
+				"1", "Latest issue consulted"
+			)
+			.setMqTag("displayConstant");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

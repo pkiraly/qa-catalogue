@@ -28,12 +28,16 @@ public class Tag830 extends DataFieldDefinition {
 		label = "Series Added Entry - Uniform Title";
 		mqTag = "SeriesAddedUniformTitle";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
-		ind2 = new Indicator("Nonfiling characters").setCodes(
-			"0", "No nonfiling characters",
-			"1-9", "Number of nonfiling characters"
-		).setMqTag("nonfilingCharacters");
+		ind2 = new Indicator("Nonfiling characters")
+			.setCodes(
+				"0", "No nonfiling characters",
+				"1-9", "Number of nonfiling characters"
+			)
+			.setMqTag("nonfilingCharacters");
 		ind2.getCode("1-9").setRange(true);
+
 		setSubfieldsWithCardinality(
 			"a", "Uniform title", "NR",
 			"d", "Date of treaty signing", "R",

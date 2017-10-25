@@ -31,10 +31,12 @@ public class Tag377 extends DataFieldDefinition {
 		cardinality = Cardinality.Repeatable;
 
 		ind1 = new Indicator();
-		ind2 = new Indicator("Source of code").setCodes(
-			" ", "MARC language code",
-			"7", "Source specified in $2"
-		).setMqTag("sourceOfCode");
+		ind2 = new Indicator("Source of code")
+			.setCodes(
+				" ", "MARC language code",
+				"7", "Source specified in $2"
+			)
+			.setMqTag("sourceOfCode");
 
 		setSubfieldsWithCardinality(
 			"a", "Language code", "R",

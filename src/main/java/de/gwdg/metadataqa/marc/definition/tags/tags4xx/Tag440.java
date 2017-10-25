@@ -31,10 +31,12 @@ public class Tag440 extends DataFieldDefinition {
 		cardinality = Cardinality.Repeatable;
 
 		ind1 = new Indicator();
-		ind2 = new Indicator("Nonfiling characters").setCodes(
-			"0", "No nonfiling characters",
-			"1-9", "Number of nonfiling characters"
-		).setMqTag("nonfilingCharacters");
+		ind2 = new Indicator("Nonfiling characters")
+			.setCodes(
+				"0", "No nonfiling characters",
+				"1-9", "Number of nonfiling characters"
+			)
+			.setMqTag("nonfilingCharacters");
 		ind2.getCode("1-9").setRange(true);
 
 		setSubfieldsWithCardinality(

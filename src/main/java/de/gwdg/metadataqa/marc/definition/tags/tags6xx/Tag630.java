@@ -8,7 +8,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTerm
 
 /**
  * Subject Added Entry - Uniform Title
- * http://www.loc.gov/marc/bibliographic/bd630.html,
+ * http://www.loc.gov/marc/bibliographic/bd630.html
  */
 public class Tag630 extends DataFieldDefinition {
 
@@ -32,20 +32,24 @@ public class Tag630 extends DataFieldDefinition {
 		mqTag = "SubjectAddedUniformTitle";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Nonfiling characters").setCodes(
-			"0-9", "Number of nonfiling characters"
-		).setMqTag("nonfilingCharacters");
+		ind1 = new Indicator("Nonfiling characters")
+			.setCodes(
+				"0-9", "Number of nonfiling characters"
+			)
+			.setMqTag("nonfilingCharacters");
 		ind1.getCode("0-9").setRange(true);
-		ind2 = new Indicator("Thesaurus").setCodes(
-			"0", "Library of Congress Subject Headings",
-			"1", "LC subject headings for children's literature",
-			"2", "Medical Subject Headings",
-			"3", "National Agricultural Library subject authority file",
-			"4", "Source not specified",
-			"5", "Canadian Subject Headings",
-			"6", "Répertoire de vedettes-matière",
-			"7", "Source specified in subfield $2"
-		).setMqTag("thesaurus");
+		ind2 = new Indicator("Thesaurus")
+			.setCodes(
+				"0", "Library of Congress Subject Headings",
+				"1", "LC subject headings for children's literature",
+				"2", "Medical Subject Headings",
+				"3", "National Agricultural Library subject authority file",
+				"4", "Source not specified",
+				"5", "Canadian Subject Headings",
+				"6", "Répertoire de vedettes-matière",
+				"7", "Source specified in subfield $2"
+			)
+			.setMqTag("thesaurus");
 
 		setSubfieldsWithCardinality(
 			"a", "Uniform title", "NR",

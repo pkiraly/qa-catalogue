@@ -30,10 +30,12 @@ public class Tag490 extends DataFieldDefinition {
 		mqTag = "SeriesStatement";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Series tracing policy").setCodes(
-			"0", "Series not traced",
-			"1", "Series traced"
-		).setMqTag("seriesTracing");
+		ind1 = new Indicator("Series tracing policy")
+			.setCodes(
+				"0", "Series not traced",
+				"1", "Series traced"
+			)
+			.setMqTag("seriesTracing");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

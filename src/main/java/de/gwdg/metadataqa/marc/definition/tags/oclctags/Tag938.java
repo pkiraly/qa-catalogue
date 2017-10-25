@@ -28,8 +28,10 @@ public class Tag938 extends DataFieldDefinition {
 		label = "Vendor-Specific Ordering Data";
 		mqTag = "VendorSpecificOrderingData";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Full name of vendor", "NR",
 			"b", "OCLC-defined symbol for vendor", "NR",
@@ -40,6 +42,7 @@ public class Tag938 extends DataFieldDefinition {
 			"s", "Vendor status", "NR",
 			"z", "Note", "NR"
 		);
+
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("b").setMqTag("oclcSymbol");
 		getSubfield("c").setMqTag("termsOfAvailability");

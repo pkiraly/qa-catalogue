@@ -30,15 +30,17 @@ public class Tag028 extends DataFieldDefinition {
 		mqTag = "PublisherNumber";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Type of number").setCodes(
-			"0", "Issue number",
-			"1", "Matrix number",
-			"2", "Plate number",
-			"3", "Other music publisher number",
-			"4", "Video recording publisher number",
-			"5", "Other publisher number",
-			"6", "Distributor number"
-		).setMqTag("type");
+		ind1 = new Indicator("Type of number")
+			.setCodes(
+				"0", "Issue number",
+				"1", "Matrix number",
+				"2", "Plate number",
+				"3", "Other music publisher number",
+				"4", "Video recording publisher number",
+				"5", "Other publisher number",
+				"6", "Distributor number"
+			)
+			.setMqTag("type");
 		// TODO: overwrite getIndexTag to use these values:
 		ind1.getCode("0").setBibframeTag("AudioIssueNumber");
 		ind1.getCode("1").setBibframeTag("MatrixNumber");
@@ -47,12 +49,14 @@ public class Tag028 extends DataFieldDefinition {
 		ind1.getCode("4").setBibframeTag("VideoRecordingNumber");
 		ind1.getCode("5").setBibframeTag("PublisherNumber");
 
-		ind2 = new Indicator("Note/added entry controller").setCodes(
-			"0", "No note, no added entry",
-			"1", "Note, added entry",
-			"2", "Note, no added entry",
-			"3", "No note, added entry"
-		).setMqTag("noteController");
+		ind2 = new Indicator("Note/added entry controller")
+			.setCodes(
+				"0", "No note, no added entry",
+				"1", "Note, added entry",
+				"2", "Note, no added entry",
+				"3", "No note, added entry"
+			)
+			.setMqTag("noteController");
 
 		setSubfieldsWithCardinality(
 			"a", "Publisher or distributor number", "NR",

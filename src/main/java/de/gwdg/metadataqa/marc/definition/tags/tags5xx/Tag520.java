@@ -31,15 +31,17 @@ public class Tag520 extends DataFieldDefinition {
 		bibframeTag = "Summary";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Display constant controller").setCodes(
-			" ", "Summary",
-			"0", "Subject",
-			"1", "Review",
-			"2", "Scope and content",
-			"3", "Abstract",
-			"4", "Content advice",
-			"8", "No display constant generated"
-		).setMqTag("displayConstant");
+		ind1 = new Indicator("Display constant controller")
+			.setCodes(
+				" ", "Summary",
+				"0", "Subject",
+				"1", "Review",
+				"2", "Scope and content",
+				"3", "Abstract",
+				"4", "Content advice",
+				"8", "No display constant generated"
+			)
+			.setMqTag("displayConstant");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

@@ -30,13 +30,15 @@ public class Tag510 extends DataFieldDefinition {
 		mqTag = "Citation";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Coverage/location in source").setCodes(
-			"0", "Coverage unknown",
-			"1", "Coverage complete",
-			"2", "Coverage is selective",
-			"3", "Location in source not given",
-			"4", "Location in source given"
-		).setMqTag("coverageOrLocationInSource");
+		ind1 = new Indicator("Coverage/location in source")
+			.setCodes(
+				"0", "Coverage unknown",
+				"1", "Coverage complete",
+				"2", "Coverage is selective",
+				"3", "Location in source not given",
+				"4", "Location in source given"
+			)
+			.setMqTag("coverageOrLocationInSource");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

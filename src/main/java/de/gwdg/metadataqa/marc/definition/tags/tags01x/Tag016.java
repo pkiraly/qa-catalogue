@@ -31,10 +31,12 @@ public class Tag016 extends DataFieldDefinition {
 		bibframeTag = "IdIntifiedBy/Local";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("National bibliographic agency").setCodes(
-			" ", "Library and Archives Canada",
-			"7", "Source specified in subfield $2"
-		).setMqTag("agency");
+		ind1 = new Indicator("National bibliographic agency")
+			.setCodes(
+				" ", "Library and Archives Canada",
+				"7", "Source specified in subfield $2"
+			)
+			.setMqTag("agency");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

@@ -31,21 +31,25 @@ public class Tag785 extends DataFieldDefinition {
 		bibframeTag = "SucceededBy";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Note controller").setCodes(
-			"0", "Display note",
-			"1", "Do not display note"
-		).setMqTag("noteController");;
-		ind2 = new Indicator("Type of relationship").setCodes(
-			"0", "Continued by",
-			"1", "Continued in part by",
-			"2", "Superseded by",
-			"3", "Superseded in part by",
-			"4", "Absorbed by",
-			"5", "Absorbed in part by",
-			"6", "Split into ... and ...",
-			"7", "Merged with ... to form ...",
-			"8", "Changed back to"
-		).setMqTag("typeOfRelationship");
+		ind1 = new Indicator("Note controller")
+			.setCodes(
+				"0", "Display note",
+				"1", "Do not display note"
+			)
+			.setMqTag("noteController");
+		ind2 = new Indicator("Type of relationship")
+			.setCodes(
+				"0", "Continued by",
+				"1", "Continued in part by",
+				"2", "Superseded by",
+				"3", "Superseded in part by",
+				"4", "Absorbed by",
+				"5", "Absorbed in part by",
+				"6", "Split into ... and ...",
+				"7", "Merged with ... to form ...",
+				"8", "Changed back to"
+			)
+			.setMqTag("typeOfRelationship");
 
 		setSubfieldsWithCardinality(
 			"a", "Main entry heading", "NR",

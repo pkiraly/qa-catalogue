@@ -28,8 +28,10 @@ public class Tag885 extends DataFieldDefinition {
 		tag = "885";
 		label = "Matching Information";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Matching information", "NR",
 			"b", "Status of matching and its checking", "NR",
@@ -42,6 +44,7 @@ public class Tag885 extends DataFieldDefinition {
 			"2", "Source", "NR",
 			"5", "Institution to which field applies", "NR"
 		);
+
 		getSubfield("2").setCodeList(OrganizationCodes.getInstance());
 	}
 }

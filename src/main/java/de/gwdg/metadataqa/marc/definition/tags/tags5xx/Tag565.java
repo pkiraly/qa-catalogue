@@ -30,11 +30,13 @@ public class Tag565 extends DataFieldDefinition {
 		mqTag = "CaseFileCharacteristics";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Display constant controller").setCodes(
-			" ", "File size",
-			"0", "Case file characteristics",
-			"8", "No display constant generated"
-		).setMqTag("displayConstant");
+		ind1 = new Indicator("Display constant controller")
+			.setCodes(
+				" ", "File size",
+				"0", "Case file characteristics",
+				"8", "No display constant generated"
+			)
+			.setMqTag("displayConstant");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

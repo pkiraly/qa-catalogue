@@ -30,11 +30,13 @@ public class Tag720 extends DataFieldDefinition {
 		mqTag = "UncontrolledName";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Type of name").setCodes(
-			" ", "Not specified",
-			"1", "Personal",
-			"2", "Other"
-		).setMqTag("type");
+		ind1 = new Indicator("Type of name")
+			.setCodes(
+				" ", "Not specified",
+				"1", "Personal",
+				"2", "Other"
+			)
+			.setMqTag("type");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

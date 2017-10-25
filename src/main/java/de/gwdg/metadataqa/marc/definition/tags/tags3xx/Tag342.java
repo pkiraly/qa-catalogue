@@ -28,21 +28,25 @@ public class Tag342 extends DataFieldDefinition {
 		mqTag = "GeospatialReferenceData";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Geospatial reference dimension").setCodes(
-			"0", "Horizontal coordinate system",
-			"1", "Vertical coordinate system"
-		).setMqTag("dimension");
-		ind2 = new Indicator("Geospatial reference method").setCodes(
-			"0", "Geographic",
-			"1", "Map projection",
-			"2", "Grid coordinate system",
-			"3", "Local planar",
-			"4", "Local",
-			"5", "Geodetic model",
-			"6", "Altitude",
-			"7", "Method specified in $2",
-			"8", "Depth"
-		).setMqTag("method");
+		ind1 = new Indicator("Geospatial reference dimension")
+			.setCodes(
+				"0", "Horizontal coordinate system",
+				"1", "Vertical coordinate system"
+			)
+			.setMqTag("dimension");
+		ind2 = new Indicator("Geospatial reference method")
+			.setCodes(
+				"0", "Geographic",
+				"1", "Map projection",
+				"2", "Grid coordinate system",
+				"3", "Local planar",
+				"4", "Local",
+				"5", "Geodetic model",
+				"6", "Altitude",
+				"7", "Method specified in $2",
+				"8", "Depth"
+			)
+			.setMqTag("method");
 
 		setSubfieldsWithCardinality(
 			"a", "Name", "NR",

@@ -29,16 +29,20 @@ public class Tag382 extends DataFieldDefinition {
 		bibframeTag = "MusicMedium";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Display constant controller").setCodes(
-			" ", "No information provided",
-			"0", "Medium of performance",
-			"1", "Partial medium of performance"
-		).setMqTag("displayConstant");
-		ind2 = new Indicator("Access control").setCodes(
-			" ", "No information provided",
-			"0", "Not intended for access",
-			"1", "Intended for access"
-		).setMqTag("accessControl");
+		ind1 = new Indicator("Display constant controller")
+			.setCodes(
+				" ", "No information provided",
+				"0", "Medium of performance",
+				"1", "Partial medium of performance"
+			)
+			.setMqTag("displayConstant");
+		ind2 = new Indicator("Access control")
+			.setCodes(
+				" ", "No information provided",
+				"0", "Not intended for access",
+				"1", "Intended for access"
+			)
+			.setMqTag("accessControl");
 
 		setSubfieldsWithCardinality(
 			"a", "Medium of performance", "R",

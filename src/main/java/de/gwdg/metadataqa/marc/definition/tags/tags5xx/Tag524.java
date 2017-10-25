@@ -31,10 +31,12 @@ public class Tag524 extends DataFieldDefinition {
 		bibframeTag = "PreferredCitation";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Display constant controller").setCodes(
-			" ", "Cite as",
-			"8", "No display constant generated"
-		).setMqTag("displayConstant");
+		ind1 = new Indicator("Display constant controller")
+			.setCodes(
+				" ", "Cite as",
+				"8", "No display constant generated"
+			)
+			.setMqTag("displayConstant");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

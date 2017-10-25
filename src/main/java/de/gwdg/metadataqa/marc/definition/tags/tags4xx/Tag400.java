@@ -31,15 +31,19 @@ public class Tag400 extends DataFieldDefinition {
 		mqTag = "SeriesStatementAddedEntryPersonalName";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Type of personal name entry element").setCodes(
-			"0", "Forename",
-			"1", "Surname",
-			"3", "Family name"
-		).setMqTag("type");
-		ind2 = new Indicator("Pronoun represents main entry").setCodes(
-			"0", "Main entry not represented by pronoun",
-			"9", "Main entry represented by pronoun"
-		).setMqTag("pronounRepresentsMainEntry");
+		ind1 = new Indicator("Type of personal name entry element")
+			.setCodes(
+				"0", "Forename",
+				"1", "Surname",
+				"3", "Family name"
+			)
+			.setMqTag("type");
+		ind2 = new Indicator("Pronoun represents main entry")
+			.setCodes(
+				"0", "Main entry not represented by pronoun",
+				"9", "Main entry represented by pronoun"
+			)
+			.setMqTag("pronounRepresentsMainEntry");
 
 		setSubfieldsWithCardinality(
 			"a", "Personal name", "NR",

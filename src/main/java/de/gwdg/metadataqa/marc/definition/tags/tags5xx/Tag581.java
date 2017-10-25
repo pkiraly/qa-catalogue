@@ -30,10 +30,12 @@ public class Tag581 extends DataFieldDefinition {
 		mqTag = "PublicationsAboutDescribedMaterials";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Display constant controller").setCodes(
-			" ", "Publications",
-			"8", "No display constant generated"
-		).setMqTag("displayConstant");
+		ind1 = new Indicator("Display constant controller")
+			.setCodes(
+				" ", "Publications",
+				"8", "No display constant generated"
+			)
+			.setMqTag("displayConstant");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

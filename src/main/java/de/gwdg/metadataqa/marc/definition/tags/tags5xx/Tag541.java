@@ -30,11 +30,13 @@ public class Tag541 extends DataFieldDefinition {
 		bibframeTag = "ImmediateAcquisition";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Privacy").setCodes(
-			" ", "No information provided",
-			"0", "Private",
-			"1", "Not private"
-		).setMqTag("privacy");
+		ind1 = new Indicator("Privacy")
+			.setCodes(
+				" ", "No information provided",
+				"0", "Private",
+				"1", "Not private"
+			)
+			.setMqTag("privacy");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

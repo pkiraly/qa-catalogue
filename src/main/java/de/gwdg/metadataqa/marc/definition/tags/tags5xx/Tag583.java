@@ -31,10 +31,12 @@ public class Tag583 extends DataFieldDefinition {
 		mqTag = "Action";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Privacy").setCodes(
-			" ", "Publications",
-			"8", "No display constant generated"
-		).setMqTag("privacy");
+		ind1 = new Indicator("Privacy")
+			.setCodes(
+				" ", "Publications",
+				"8", "No display constant generated"
+			)
+			.setMqTag("privacy");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

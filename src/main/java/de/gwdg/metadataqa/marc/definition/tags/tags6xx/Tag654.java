@@ -8,7 +8,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTerm
 
 /**
  * Subject Added Entry - Faceted Topical Terms
- * http://www.loc.gov/marc/bibliographic/bd654.html,
+ * http://www.loc.gov/marc/bibliographic/bd654.html
  */
 public class Tag654 extends DataFieldDefinition {
 
@@ -31,12 +31,14 @@ public class Tag654 extends DataFieldDefinition {
 		mqTag = "FacetedTopicalTerms";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Level of subject").setCodes(
-			" ", "No information provided",
-			"0", "No level specified",
-			"1", "Primary",
-			"2", "Secondary"
-		).setMqTag("subjectLevel");
+		ind1 = new Indicator("Level of subject")
+			.setCodes(
+				" ", "No information provided",
+				"0", "No level specified",
+				"1", "Primary",
+				"2", "Secondary"
+			)
+			.setMqTag("subjectLevel");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

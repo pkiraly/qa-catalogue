@@ -29,16 +29,20 @@ public class Tag363 extends DataFieldDefinition {
 		mqTag = "NormalizedDateAndSequentialDesignation";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Start/End designator").setCodes(
-			" ", "No information provided",
-			"0", "Starting information",
-			"1", "Ending information"
-		).setMqTag("startOrEndDesignator");
-		ind2 = new Indicator("State of issuance").setCodes(
-			" ", "Not specified",
-			"0", "Closed",
-			"1", "Open"
-		).setMqTag("stateOfIssuance");
+		ind1 = new Indicator("Start/End designator")
+			.setCodes(
+				" ", "No information provided",
+				"0", "Starting information",
+				"1", "Ending information"
+			)
+			.setMqTag("startOrEndDesignator");
+		ind2 = new Indicator("State of issuance")
+			.setCodes(
+				" ", "Not specified",
+				"0", "Closed",
+				"1", "Open"
+			)
+			.setMqTag("stateOfIssuance");
 
 		setSubfieldsWithCardinality(
 			"a", "First level of enumeration", "NR",

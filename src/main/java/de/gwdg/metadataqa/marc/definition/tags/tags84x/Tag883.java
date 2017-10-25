@@ -31,11 +31,13 @@ public class Tag883 extends DataFieldDefinition {
 		mqTag = "MachineGeneratedMetadataProvenance";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Method of machine assignment").setCodes(
-			" ", "No information provided/not applicable",
-			"0", "Fully machine-generated",
-			"1", "Partially machine-generated"
-		).setMqTag("methodOfMachineAssignment");
+		ind1 = new Indicator("Method of machine assignment")
+			.setCodes(
+				" ", "No information provided/not applicable",
+				"0", "Fully machine-generated",
+				"1", "Partially machine-generated"
+			)
+			.setMqTag("methodOfMachineAssignment");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

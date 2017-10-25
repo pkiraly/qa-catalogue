@@ -29,12 +29,16 @@ public class Tag886 extends DataFieldDefinition {
 		label = "Foreign MARC Information Field";
 		mqTag = "ForeignMARCInformationField";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("Type of field").setCodes(
-			"0", "Leader",
-			"1", "Variable control fields (002-009)",
-			"2", "Variable data fields (010-999)"
-		).setMqTag("typeOfField");
+
+		ind1 = new Indicator("Type of field")
+			.setCodes(
+				"0", "Leader",
+				"1", "Variable control fields (002-009)",
+				"2", "Variable data fields (010-999)"
+			)
+			.setMqTag("typeOfField");
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Tag of the foreign MARC field", "NR",
 			"b", "Content of the foreign MARC field", "NR",

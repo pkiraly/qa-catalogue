@@ -35,12 +35,14 @@ public class Tag045 extends DataFieldDefinition {
 		bibframeTag = "TemporalCoverage";
 		cardinality = Cardinality.Nonrepeatable;
 
-		ind1 = new Indicator("Type of time period in subfield $b or $c").setCodes(
-			" ", "Subfield $b or $c not present",
-			"0", "Single date/time",
-			"1", "Multiple single dates/times",
-			"2", "Range of dates/times"
-		).setMqTag("type");
+		ind1 = new Indicator("Type of time period in subfield $b or $c")
+			.setCodes(
+				" ", "Subfield $b or $c not present",
+				"0", "Single date/time",
+				"1", "Multiple single dates/times",
+				"2", "Range of dates/times"
+			)
+			.setMqTag("type");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

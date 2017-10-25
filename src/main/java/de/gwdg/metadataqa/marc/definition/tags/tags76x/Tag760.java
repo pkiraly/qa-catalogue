@@ -31,14 +31,18 @@ public class Tag760 extends DataFieldDefinition {
 		mqTag = "Series";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Note controller").setCodes(
-			"0", "Display note",
-			"1", "Do not display note"
-		).setMqTag("noteController");;
-		ind2 = new Indicator("Display constant controller").setCodes(
-			" ", "Main series",
-			"8", "No display constant generated"
-		).setMqTag("displayConstant");
+		ind1 = new Indicator("Note controller")
+			.setCodes(
+				"0", "Display note",
+				"1", "Do not display note"
+			)
+			.setMqTag("noteController");;
+		ind2 = new Indicator("Display constant controller")
+			.setCodes(
+				" ", "Main series",
+				"8", "No display constant generated"
+			)
+			.setMqTag("displayConstant");
 
 		setSubfieldsWithCardinality(
 			"a", "Main entry heading", "NR",

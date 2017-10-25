@@ -31,16 +31,20 @@ public class Tag270 extends DataFieldDefinition {
 		mqTag = "Address";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Level").setCodes(
-			" ", "No level specified",
-			"1", "Primary",
-			"2", "Secondary"
-		).setMqTag("level");
-		ind2 = new Indicator("Type of address").setCodes(
-			" ", "No type specified",
-			"0", "Mailing",
-			"7", "Type specified in subfield $i"
-		).setMqTag("type");
+		ind1 = new Indicator("Level")
+			.setCodes(
+				" ", "No level specified",
+				"1", "Primary",
+				"2", "Secondary"
+			)
+			.setMqTag("level");
+		ind2 = new Indicator("Type of address")
+			.setCodes(
+				" ", "No type specified",
+				"0", "Mailing",
+				"7", "Type specified in subfield $i"
+			)
+			.setMqTag("type");
 
 		setSubfieldsWithCardinality(
 			"a", "Address", "R",

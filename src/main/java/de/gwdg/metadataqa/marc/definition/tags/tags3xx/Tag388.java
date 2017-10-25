@@ -31,11 +31,13 @@ public class Tag388 extends DataFieldDefinition {
 		mqTag = "TimePeriodOfCreation";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Type of time period").setCodes(
-			" ", "No information provided",
-			"1", "Creation of work",
-			"2", "Creation of aggregate work"
-		).setMqTag("type");
+		ind1 = new Indicator("Type of time period")
+			.setCodes(
+				" ", "No information provided",
+				"1", "Creation of work",
+				"2", "Creation of aggregate work"
+			)
+			.setMqTag("type");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

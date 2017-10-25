@@ -30,11 +30,13 @@ public class Tag545 extends DataFieldDefinition {
 		mqTag = "BiographicalOrHistoricalData";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Type of data").setCodes(
-			" ", "No information provided",
-			"0", "Biographical sketch",
-			"1", "Administrative history"
-		).setMqTag("type");
+		ind1 = new Indicator("Type of data")
+			.setCodes(
+				" ", "No information provided",
+				"0", "Biographical sketch",
+				"1", "Administrative history"
+			)
+			.setMqTag("type");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

@@ -7,7 +7,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTerm
 
 /**
  * Subject Added Entry - Chronological Term
- * http://www.loc.gov/marc/bibliographic/bd648.html,
+ * http://www.loc.gov/marc/bibliographic/bd648.html
  */
 public class Tag648 extends DataFieldDefinition {
 

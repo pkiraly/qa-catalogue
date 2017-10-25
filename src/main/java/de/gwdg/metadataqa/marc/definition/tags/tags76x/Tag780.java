@@ -32,20 +32,24 @@ public class Tag780 extends DataFieldDefinition {
 		bibframeTag = "PrecededBy";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Note controller").setCodes(
-			"0", "Display note",
-			"1", "Do not display note"
-		).setMqTag("noteController");;
-		ind2 = new Indicator("Type of relationship").setCodes(
-			"0", "Continues",
-			"1", "Continues in part",
-			"2", "Supersedes",
-			"3", "Supersedes in part",
-			"4", "Formed by the union of ... and ...",
-			"5", "Absorbed",
-			"6", "Absorbed in part",
-			"7", "Separated from"
-		).setMqTag("typeOfRelationship");;
+		ind1 = new Indicator("Note controller")
+			.setCodes(
+				"0", "Display note",
+				"1", "Do not display note"
+			)
+			.setMqTag("noteController");
+		ind2 = new Indicator("Type of relationship")
+			.setCodes(
+				"0", "Continues",
+				"1", "Continues in part",
+				"2", "Supersedes",
+				"3", "Supersedes in part",
+				"4", "Formed by the union of ... and ...",
+				"5", "Absorbed",
+				"6", "Absorbed in part",
+				"7", "Separated from"
+			)
+			.setMqTag("typeOfRelationship");
 
 		setSubfieldsWithCardinality(
 			"a", "Main entry heading", "NR",

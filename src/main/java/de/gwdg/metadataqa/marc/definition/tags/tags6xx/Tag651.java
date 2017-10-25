@@ -8,7 +8,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTerm
 
 /**
  * Subject Added Entry - Geographic Name
- * http://www.loc.gov/marc/bibliographic/bd651.html,
+ * http://www.loc.gov/marc/bibliographic/bd651.html
  */
 public class Tag651 extends DataFieldDefinition {
 

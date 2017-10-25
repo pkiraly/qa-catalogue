@@ -6,7 +6,7 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
 
 /**
  * Index Term - Uncontrolled
- * http://www.loc.gov/marc/bibliographic/bd653.html,
+ * http://www.loc.gov/marc/bibliographic/bd653.html
  */
 public class Tag653 extends DataFieldDefinition {
 
@@ -31,22 +31,26 @@ public class Tag653 extends DataFieldDefinition {
 		mqTag = "UncontrolledIndexTerm";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Level of index term").setCodes(
-			" ", "No information provided",
-			"0", "No level specified",
-			"1", "Primary",
-			"2", "Secondary"
-		).setMqTag("level");
-		ind2 = new Indicator("Type of term or name").setCodes(
-			" ", "No information provided",
-			"0", "Topical term",
-			"1", "Personal name",
-			"2", "Corporate name",
-			"3", "Meeting name",
-			"4", "Chronological term",
-			"5", "Geographic name",
-			"6", "Genre/form term"
-		).setMqTag("type");
+		ind1 = new Indicator("Level of index term")
+			.setCodes(
+				" ", "No information provided",
+				"0", "No level specified",
+				"1", "Primary",
+				"2", "Secondary"
+			)
+			.setMqTag("level");
+		ind2 = new Indicator("Type of term or name")
+			.setCodes(
+				" ", "No information provided",
+				"0", "Topical term",
+				"1", "Personal name",
+				"2", "Corporate name",
+				"3", "Meeting name",
+				"4", "Chronological term",
+				"5", "Geographic name",
+				"6", "Genre/form term"
+			)
+			.setMqTag("type");
 
 		setSubfieldsWithCardinality(
 			"a", "Uncontrolled term", "R",

@@ -29,10 +29,12 @@ public class Tag362 extends DataFieldDefinition {
 		mqTag = "DatesOfPublication";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Format of date").setCodes(
-			"0", "Formatted style",
-			"1", "Unformatted note"
-		).setMqTag("format");
+		ind1 = new Indicator("Format of date")
+			.setCodes(
+				"0", "Formatted style",
+				"1", "Unformatted note"
+			)
+			.setMqTag("format");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

@@ -30,11 +30,13 @@ public class Tag037 extends DataFieldDefinition {
 		bibframeTag = "AcquisitionSource";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Source of acquisition sequence").setCodes(
-			" ", "Not applicable/No information provided/Earliest",
-			"2", "Intervening",
-			"3", "Current/Latest"
-		).setMqTag("source");
+		ind1 = new Indicator("Source of acquisition sequence")
+			.setCodes(
+				" ", "Not applicable/No information provided/Earliest",
+				"2", "Intervening",
+				"3", "Current/Latest"
+			)
+			.setMqTag("source");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

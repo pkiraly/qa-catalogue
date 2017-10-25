@@ -32,15 +32,19 @@ public class Tag710 extends DataFieldDefinition {
 		mqTag = "AddedCorporateName";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Type of corporate name entry element").setCodes(
-			"0", "Inverted name",
-			"1", "Jurisdiction name",
-			"2", "Name in direct order"
-		).setMqTag("nameType");
-		ind2 = new Indicator("Type of added entry").setCodes(
-			" ", "No information provided",
-			"2", "Analytical entry"
-		).setMqTag("entryType");
+		ind1 = new Indicator("Type of corporate name entry element")
+			.setCodes(
+				"0", "Inverted name",
+				"1", "Jurisdiction name",
+				"2", "Name in direct order"
+			)
+			.setMqTag("nameType");
+		ind2 = new Indicator("Type of added entry")
+			.setCodes(
+				" ", "No information provided",
+				"2", "Analytical entry"
+			)
+			.setMqTag("entryType");
 
 		setSubfieldsWithCardinality(
 			"a", "Corporate name or jurisdiction name as entry element", "NR",

@@ -31,11 +31,13 @@ public class Tag111 extends DataFieldDefinition {
 		mqTag = "MainMeetingName";
 		cardinality = Cardinality.Nonrepeatable;
 
-		ind1 = new Indicator("Type of meeting name entry element").setCodes(
-			"0", "Inverted name",
-			"1", "Jurisdiction name",
-			"2", "Name in direct order"
-		).setMqTag("type");
+		ind1 = new Indicator("Type of meeting name entry element")
+			.setCodes(
+				"0", "Inverted name",
+				"1", "Jurisdiction name",
+				"2", "Name in direct order"
+			)
+			.setMqTag("type");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

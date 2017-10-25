@@ -32,18 +32,22 @@ public class Tag033 extends DataFieldDefinition {
 		mqTag = "EventDateTimeAndPlace";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Type of date in subfield $a").setCodes(
-			" ", "No date information",
-			"0", "Single date",
-			"1", "Multiple single dates",
-			"2", "Range of dates"
-		).setMqTag("dateType");
-		ind2 = new Indicator("Type of event").setCodes(
-			" ", "No information provided",
-			"0", "Capture",
-			"1", "Broadcast",
-			"2", "Finding"
-		).setMqTag("eventType");
+		ind1 = new Indicator("Type of date in subfield $a")
+			.setCodes(
+				" ", "No date information",
+				"0", "Single date",
+				"1", "Multiple single dates",
+				"2", "Range of dates"
+			)
+			.setMqTag("dateType");
+		ind2 = new Indicator("Type of event")
+			.setCodes(
+				" ", "No information provided",
+				"0", "Capture",
+				"1", "Broadcast",
+				"2", "Finding"
+			)
+			.setMqTag("eventType");
 
 		setSubfieldsWithCardinality(
 			"a", "Formatted date/time", "R",

@@ -30,14 +30,18 @@ public class Tag730 extends DataFieldDefinition {
 		mqTag = "AddedUniformTitle";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Nonfiling characters").setCodes(
-			"0-9", "Number of nonfiling characters"
-		).setMqTag("nonfilingCharacters");
+		ind1 = new Indicator("Nonfiling characters")
+			.setCodes(
+				"0-9", "Number of nonfiling characters"
+			)
+			.setMqTag("nonfilingCharacters");
 		ind1.getCode("0-9").setRange(true);
-		ind2 = new Indicator("Type of added entry").setCodes(
-			" ", "No information provided",
-			"2", "Analytical entry"
-		).setMqTag("type");
+		ind2 = new Indicator("Type of added entry")
+			.setCodes(
+				" ", "No information provided",
+				"2", "Analytical entry"
+			)
+			.setMqTag("type");
 
 		setSubfieldsWithCardinality(
 			"a", "Uniform title", "NR",

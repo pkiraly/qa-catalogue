@@ -30,24 +30,30 @@ public class Tag852 extends DataFieldDefinition {
 		tag = "852";
 		label = "Location";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("Shelving scheme").setCodes(
-			" ", "No information provided",
-			"0", "Library of Congress classification",
-			"1", "Dewey Decimal classification",
-			"2", "National Library of Medicine classification",
-			"3", "Superintendent of Documents classification",
-			"4", "Shelving control number",
-			"5", "Title",
-			"6", "Shelved separately",
-			"7", "Source specified in subfield $2",
-			"8", "Other scheme"
-		).setMqTag("shelvingScheme");
-		ind2 = new Indicator("Shelving order").setCodes(
-			" ", "No information provided",
-			"0", "Not enumeration",
-			"1", "Primary enumeration",
-			"2", "Alternative enumeration"
-		).setMqTag("shelvingOrder");
+
+		ind1 = new Indicator("Shelving scheme")
+			.setCodes(
+				" ", "No information provided",
+				"0", "Library of Congress classification",
+				"1", "Dewey Decimal classification",
+				"2", "National Library of Medicine classification",
+				"3", "Superintendent of Documents classification",
+				"4", "Shelving control number",
+				"5", "Title",
+				"6", "Shelved separately",
+				"7", "Source specified in subfield $2",
+				"8", "Other scheme"
+			)
+			.setMqTag("shelvingScheme");
+		ind2 = new Indicator("Shelving order")
+			.setCodes(
+				" ", "No information provided",
+				"0", "Not enumeration",
+				"1", "Primary enumeration",
+				"2", "Alternative enumeration"
+			)
+			.setMqTag("shelvingOrder");
+
 		setSubfieldsWithCardinality(
 			"a", "Location", "NR",
 			"b", "Sublocation or collection", "R",

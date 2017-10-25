@@ -6,7 +6,7 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
 
 /**
  * Subject Added Entry - Named Event
- * http://www.loc.gov/marc/bibliographic/bd647.html,
+ * http://www.loc.gov/marc/bibliographic/bd647.html
  */
 public class Tag647 extends DataFieldDefinition {
 
@@ -30,16 +30,18 @@ public class Tag647 extends DataFieldDefinition {
 		cardinality = Cardinality.Repeatable;
 
 		ind1 = new Indicator();
-		ind2 = new Indicator("Thesaurus").setCodes(
-			"0", "Library of Congress Subject Headings",
-			"1", "LC subject headings for children's literature",
-			"2", "Medical Subject Headings",
-			"3", "National Agricultural Library subject authority file",
-			"4", "Source not specified",
-			"5", "Canadian Subject Headings",
-			"6", "Répertoire de vedettes-matière",
-			"7", "Source specified in subfield $2"
-		).setMqTag("thesaurus");
+		ind2 = new Indicator("Thesaurus")
+			.setCodes(
+				"0", "Library of Congress Subject Headings",
+				"1", "LC subject headings for children's literature",
+				"2", "Medical Subject Headings",
+				"3", "National Agricultural Library subject authority file",
+				"4", "Source not specified",
+				"5", "Canadian Subject Headings",
+				"6", "Répertoire de vedettes-matière",
+				"7", "Source specified in subfield $2"
+			)
+			.setMqTag("thesaurus");
 
 		setSubfieldsWithCardinality(
 			"a", "Named event", "NR",

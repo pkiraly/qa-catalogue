@@ -7,7 +7,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.OccupationTermSourceC
 
 /**
  * Index Term - Occupation
- * http://www.loc.gov/marc/bibliographic/bd656.html,
+ * http://www.loc.gov/marc/bibliographic/bd656.html
  */
 public class Tag656 extends DataFieldDefinition {
 
@@ -32,9 +32,11 @@ public class Tag656 extends DataFieldDefinition {
 		cardinality = Cardinality.Repeatable;
 
 		ind1 = new Indicator();
-		ind2 = new Indicator("Source of term").setCodes(
-			"7", "Source specified in subfield $2"
-		).setMqTag("sourceOfTerm");
+		ind2 = new Indicator("Source of term")
+			.setCodes(
+				"7", "Source specified in subfield $2"
+			)
+			.setMqTag("sourceOfTerm");
 
 		setSubfieldsWithCardinality(
 			"a", "Occupation", "NR",

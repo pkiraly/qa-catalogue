@@ -30,11 +30,13 @@ public class Tag022 extends DataFieldDefinition {
 		bibframeTag = "Issn";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Level of international interest").setCodes(
-			" ", "No level specified",
-			"0", "Continuing resource of international interest",
-			"1", "Continuing resource not of international interest"
-		).setMqTag("levelOfInternationalInterest");
+		ind1 = new Indicator("Level of international interest")
+			.setCodes(
+				" ", "No level specified",
+				"0", "Continuing resource of international interest",
+				"1", "Continuing resource not of international interest"
+			)
+			.setMqTag("levelOfInternationalInterest");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

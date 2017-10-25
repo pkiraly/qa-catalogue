@@ -28,11 +28,13 @@ public class Tag384 extends DataFieldDefinition {
 		mqTag = "Key";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Key type").setCodes(
-			" ", "Relationship to original unknown",
-			"0", "Original key",
-			"1", "Transposed key"
-		).setMqTag("type");
+		ind1 = new Indicator("Key type")
+			.setCodes(
+				" ", "Relationship to original unknown",
+				"0", "Original key",
+				"1", "Transposed key"
+			)
+			.setMqTag("type");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

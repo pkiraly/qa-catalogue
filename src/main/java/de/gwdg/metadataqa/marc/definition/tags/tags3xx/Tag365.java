@@ -27,17 +27,22 @@ public class Tag365 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "365";
 		label = "Trade Price";
+		mqTag = "TradePrice";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("Start/End designator").setCodes(
-			" ", "No information provided",
-			"0", "Starting information",
-			"1", "Ending information"
-		);
-		ind2 = new Indicator("State of issuance").setCodes(
-			" ", "Not specified",
-			"0", "Closed",
-			"1", "Open"
-		);
+
+		ind1 = new Indicator("Start/End designator")
+			.setCodes(
+				" ", "No information provided",
+				"0", "Starting information",
+				"1", "Ending information"
+			);
+		ind2 = new Indicator("State of issuance")
+			.setCodes(
+				" ", "Not specified",
+				"0", "Closed",
+				"1", "Open"
+			);
+
 		setSubfieldsWithCardinality(
 			"a", "Price type code", "NR",
 			"b", "Price amount", "NR",

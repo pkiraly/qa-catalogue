@@ -31,21 +31,25 @@ public class Tag024 extends DataFieldDefinition {
 		mqTag = "OtherStandardIdentifier";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Type of standard number or code").setCodes(
-			"0", "International Standard Recording Code",
-			"1", "Universal Product Code",
-			"2", "International Standard Music Number",
-			"3", "International Article Number",
-			"4", "Serial Item and Contribution Identifier",
-			"7", "Source specified in subfield $2",
-			"8", "Unspecified type of standard number or code"
-		).setMqTag("type");
+		ind1 = new Indicator("Type of standard number or code")
+			.setCodes(
+				"0", "International Standard Recording Code",
+				"1", "Universal Product Code",
+				"2", "International Standard Music Number",
+				"3", "International Article Number",
+				"4", "Serial Item and Contribution Identifier",
+				"7", "Source specified in subfield $2",
+				"8", "Unspecified type of standard number or code"
+			)
+			.setMqTag("type");
 
-		ind2 = new Indicator("Difference indicator").setCodes(
-			" ", "No information provided",
-			"0", "No difference",
-			"1", "Difference"
-		).setMqTag("differenceIndicator");
+		ind2 = new Indicator("Difference indicator")
+			.setCodes(
+				" ", "No information provided",
+				"0", "No difference",
+				"1", "Difference"
+			)
+			.setMqTag("differenceIndicator");
 
 		setSubfieldsWithCardinality(
 			"a", "Standard number or code", "NR",

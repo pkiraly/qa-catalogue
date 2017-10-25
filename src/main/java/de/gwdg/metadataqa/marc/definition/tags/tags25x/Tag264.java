@@ -30,18 +30,22 @@ public class Tag264 extends DataFieldDefinition {
 		mqTag = "ProvisionActivity";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Sequence of statements").setCodes(
-			" ", "Not applicable/No information provided/Earliest",
-			"2", "Intervening",
-			"3", "Current/Latest"
-		).setMqTag("sequenceOfStatements");
-		ind2 = new Indicator("Function of entity").setCodes(
-			"0", "Production",
-			"1", "Publication",
-			"2", "Distribution",
-			"3", "Manufacture",
-			"4", "Copyright notice date"
-		).setMqTag("function");
+		ind1 = new Indicator("Sequence of statements")
+			.setCodes(
+				" ", "Not applicable/No information provided/Earliest",
+				"2", "Intervening",
+				"3", "Current/Latest"
+			)
+			.setMqTag("sequenceOfStatements");
+		ind2 = new Indicator("Function of entity")
+			.setCodes(
+				"0", "Production",
+				"1", "Publication",
+				"2", "Distribution",
+				"3", "Manufacture",
+				"4", "Copyright notice date"
+			)
+			.setMqTag("function");
 
 		setSubfieldsWithCardinality(
 			"a", "Place of production, publication, distribution, manufacture", "R",

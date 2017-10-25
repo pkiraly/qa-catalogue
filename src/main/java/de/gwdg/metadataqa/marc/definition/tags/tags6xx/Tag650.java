@@ -8,7 +8,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTerm
 
 /**
  * Subject Added Entry - Topical Term
- * http://www.loc.gov/marc/bibliographic/bd650.html,
+ * http://www.loc.gov/marc/bibliographic/bd650.html
  */
 public class Tag650 extends DataFieldDefinition {
 

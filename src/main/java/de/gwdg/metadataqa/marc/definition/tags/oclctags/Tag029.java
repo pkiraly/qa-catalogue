@@ -29,10 +29,12 @@ public class Tag029 extends DataFieldDefinition {
 		bibframeTag = "IdentifiedBy/Lccn";
 		cardinality = Cardinality.Nonrepeatable;
 
-		ind1 = new Indicator("The type of system control number").setCodes(
-			"0", "Primary control number",
-			"1", "Secondary control number"
-		).setMqTag("type");
+		ind1 = new Indicator("The type of system control number")
+			.setCodes(
+				"0", "Primary control number",
+				"1", "Secondary control number"
+			)
+			.setMqTag("type");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

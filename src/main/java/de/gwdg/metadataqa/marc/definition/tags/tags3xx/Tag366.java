@@ -27,9 +27,12 @@ public class Tag366 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "366";
 		label = "Trade Availability Information";
+		mqTag = "TradeAvailabilityInformation";
 		cardinality = Cardinality.Repeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "Publishers' compressed title identification", "NR",
 			"b", "Detailed date of publication", "NR",
@@ -49,6 +52,7 @@ public class Tag366 extends DataFieldDefinition {
 		// TODO $c - regex: yyyymmdd
 		// TODO $d - regex: yyyymmdd
 		// TODO $g - regex: yyyymmdd
+
 		getSubfield("k").setCodeList(CountryCodes.getInstance());
 		getSubfield("2").setCodeList(AvailabilityStatusCodeSourceCodes.getInstance());
 	}

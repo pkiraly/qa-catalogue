@@ -32,15 +32,19 @@ public class Tag041 extends DataFieldDefinition {
 		bibframeTag = "Language";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Translation indication").setCodes(
-			" ", "No information provided",
-			"0", "Item not a translation/does not include a translation",
-			"1", "Item is or includes a translation"
-		).setMqTag("translationIndication");
-		ind2 = new Indicator("Source of code").setCodes(
-			" ", "MARC language code",
-			"7", "Source specified in subfield $2"
-		).setMqTag("sourceOfCode");
+		ind1 = new Indicator("Translation indication")
+			.setCodes(
+				" ", "No information provided",
+				"0", "Item not a translation/does not include a translation",
+				"1", "Item is or includes a translation"
+			)
+			.setMqTag("translationIndication");
+		ind2 = new Indicator("Source of code")
+			.setCodes(
+				" ", "MARC language code",
+				"7", "Source specified in subfield $2"
+			)
+			.setMqTag("sourceOfCode");
 
 		setSubfieldsWithCardinality(
 			"a", "Language code of text/sound track or separate title", "R",

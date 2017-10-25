@@ -31,15 +31,18 @@ public class Tag017 extends DataFieldDefinition {
 		bibframeTag = "CopyrightNumber";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator().setHistoricalCodes(
-			"0", "United States [OBSOLETE]",
-			"1", "Canada [OBSOLETE]",
-			"2", "France [OBSOLETE] [CAN/MARC only]"
-		);
-		ind2 = new Indicator("Display constant controller").setCodes(
-			" ", "Copyright or legal deposit number",
-			"8", "No display constant generated"
-		).setMqTag("displayConstant");
+		ind1 = new Indicator()
+			.setHistoricalCodes(
+				"0", "United States [OBSOLETE]",
+				"1", "Canada [OBSOLETE]",
+				"2", "France [OBSOLETE] [CAN/MARC only]"
+			);
+		ind2 = new Indicator("Display constant controller")
+			.setCodes(
+				" ", "Copyright or legal deposit number",
+				"8", "No display constant generated"
+			)
+			.setMqTag("displayConstant");
 
 		setSubfieldsWithCardinality(
 			"a", "Copyright or legal deposit number", "R",

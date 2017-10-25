@@ -7,7 +7,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.CurriculumObjectiveTe
 
 /**
  * Index Term - Curriculum Objective
- * http://www.loc.gov/marc/bibliographic/bd658.html,
+ * http://www.loc.gov/marc/bibliographic/bd658.html
  */
 public class Tag658 extends DataFieldDefinition {
 

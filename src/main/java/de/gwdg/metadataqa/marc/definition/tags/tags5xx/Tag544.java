@@ -30,11 +30,13 @@ public class Tag544 extends DataFieldDefinition {
 		mqTag = "LocationOfOtherArchivalMaterials";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Relationship").setCodes(
-			" ", "No information provided",
-			"0", "Associated materials",
-			"1", "Related materials"
-		).setMqTag("relationship");
+		ind1 = new Indicator("Relationship")
+			.setCodes(
+				" ", "No information provided",
+				"0", "Associated materials",
+				"1", "Related materials"
+			)
+			.setMqTag("relationship");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

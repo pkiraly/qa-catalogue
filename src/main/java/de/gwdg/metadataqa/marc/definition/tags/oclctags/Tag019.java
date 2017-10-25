@@ -28,11 +28,14 @@ public class Tag019 extends DataFieldDefinition {
 		label = "OCLC Control Number Cross-Reference";
 		mqTag = "OCLCControlNumber";
 		cardinality = Cardinality.Nonrepeatable;
+
 		ind1 = new Indicator();
 		ind2 = new Indicator();
+
 		setSubfieldsWithCardinality(
 			"a", "OCLC control number of merged and deleted record", "NR"
 		);
+
 		getSubfield("a").setMqTag("rdf:value");
 	}
 }

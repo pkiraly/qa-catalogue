@@ -8,7 +8,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTerm
 
 /**
  * Subject Added Entry - Hierarchical Place Name
- * http://www.loc.gov/marc/bibliographic/bd662.html,
+ * http://www.loc.gov/marc/bibliographic/bd662.html
  */
 public class Tag662 extends DataFieldDefinition {
 

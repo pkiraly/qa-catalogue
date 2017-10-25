@@ -31,18 +31,23 @@ public class Tag034 extends DataFieldDefinition {
 		bibframeTag = "Scale";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Type of scale").setCodes(
-			"0", "Scale indeterminable/No scale recorded",
-			"1", "Single scale",
-			"3", "Range of scales"
-		).setHistoricalCodes(
-			"2", "Two or more scales (BK, MP, SE) [OBSOLETE]"
-		).setMqTag("typeOfScale");
-		ind2 = new Indicator("Type of ring").setCodes(
-			" ", "Not applicable",
-			"0", "Outer ring",
-			"1", "Exclusion ring"
-		).setMqTag("typeOfRing");
+		ind1 = new Indicator("Type of scale")
+			.setCodes(
+				"0", "Scale indeterminable/No scale recorded",
+				"1", "Single scale",
+				"3", "Range of scales"
+			)
+			.setHistoricalCodes(
+				"2", "Two or more scales (BK, MP, SE) [OBSOLETE]"
+			)
+			.setMqTag("typeOfScale");
+		ind2 = new Indicator("Type of ring")
+			.setCodes(
+				" ", "Not applicable",
+				"0", "Outer ring",
+				"1", "Exclusion ring"
+			)
+			.setMqTag("typeOfRing");
 
 		setSubfieldsWithCardinality(
 			"a", "Category of scale", "NR",

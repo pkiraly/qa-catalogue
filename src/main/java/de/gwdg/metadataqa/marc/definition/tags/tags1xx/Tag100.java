@@ -31,11 +31,13 @@ public class Tag100 extends DataFieldDefinition {
 		mqTag = "MainPersonalName";
 		cardinality = Cardinality.Nonrepeatable;
 
-		ind1 = new Indicator("Type of personal name entry element").setCodes(
-			"0", "Forename",
-			"1", "Surname",
-			"3", "Family name"
-		).setMqTag("type");
+		ind1 = new Indicator("Type of personal name entry element")
+			.setCodes(
+				"0", "Forename",
+				"1", "Surname",
+				"3", "Family name"
+			)
+			.setMqTag("type");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

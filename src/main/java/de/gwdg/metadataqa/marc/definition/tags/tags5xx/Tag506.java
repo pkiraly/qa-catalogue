@@ -31,11 +31,13 @@ public class Tag506 extends DataFieldDefinition {
 		bibframeTag = "UsageAndAccessPolicy";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Restriction").setCodes(
-			" ", "No information provided",
-			"0", "No restrictions",
-			"1", "Restrictions apply"
-		).setMqTag("restriction");
+		ind1 = new Indicator("Restriction")
+			.setCodes(
+				" ", "No information provided",
+				"0", "No restrictions",
+				"1", "Restrictions apply"
+			)
+			.setMqTag("restriction");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

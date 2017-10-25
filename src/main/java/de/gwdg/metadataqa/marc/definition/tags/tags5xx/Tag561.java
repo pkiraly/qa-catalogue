@@ -30,11 +30,13 @@ public class Tag561 extends DataFieldDefinition {
 		mqTag = "CustodialHistory";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Privacy").setCodes(
-			" ", "No information provided",
-			"0", "Private",
-			"1", "Not private"
-		).setMqTag("privacy");
+		ind1 = new Indicator("Privacy")
+			.setCodes(
+				" ", "No information provided",
+				"0", "Private",
+				"1", "Not private"
+			)
+			.setMqTag("privacy");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(
@@ -52,5 +54,9 @@ public class Tag561 extends DataFieldDefinition {
 		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
+
+		setHistoricalSubfields(
+			"b", "Time of collation (NR) [OBSOLETE, 1997]"
+		);
 	}
 }

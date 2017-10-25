@@ -31,10 +31,16 @@ public class Tag511 extends DataFieldDefinition {
 		mqTag = "ParticipantOrPerformer";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Display constant controller").setCodes(
-			"0", "No display constant generated",
-			"1", "Cast"
-		).setMqTag("displayConstant");
+		ind1 = new Indicator("Display constant controller")
+			.setCodes(
+				"0", "No display constant generated",
+				"1", "Cast"
+			)
+			.setHistoricalCodes(
+				"2", "Presenter (VM, MU) [OBSOLETE, 1993]",
+				"3", "Narrator (VM, MU) [OBSOLETE, 1993]"
+			)
+			.setMqTag("displayConstant");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

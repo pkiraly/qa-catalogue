@@ -30,7 +30,11 @@ public class Tag534 extends DataFieldDefinition {
 		mqTag = "OriginalVersion";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator();
+		ind1 = new Indicator()
+			.setHistoricalCodes(
+				"0", "Note exclude series of original",
+				"1", "Note includes series of original"
+			);
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

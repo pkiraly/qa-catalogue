@@ -31,10 +31,16 @@ public class Tag535 extends DataFieldDefinition {
 		mqTag = "LocationOfOriginalsOrDuplicates";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Custodial role").setCodes(
-			"1", "Holder of originals",
-			"2", "Holder of duplicates"
-		).setMqTag("custodialRole");
+		ind1 = new Indicator("Custodial role")
+			.setCodes(
+				"1", "Holder of originals",
+				"2", "Holder of duplicates"
+			)
+			.setHistoricalCodes(
+				"0", "Repository (AM) [OBSOLETE, 1984]",
+				"3", "Holder of oral tapes (AM) [OBSOLETE, 1984]"
+			)
+			.setMqTag("custodialRole");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

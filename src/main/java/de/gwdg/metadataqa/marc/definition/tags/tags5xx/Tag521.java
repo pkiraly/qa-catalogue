@@ -30,15 +30,17 @@ public class Tag521 extends DataFieldDefinition {
 		bibframeTag = "IntendedAudience";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Display constant controller").setCodes(
-			" ", "Audience",
-			"0", "Reading grade level",
-			"1", "Interest age level",
-			"2", "Interest grade level",
-			"3", "Special audience characteristics",
-			"4", "Motivation/interest level",
-			"8", "No display constant generated"
-		).setMqTag("displayConstant");
+		ind1 = new Indicator("Display constant controller")
+			.setCodes(
+				" ", "Audience",
+				"0", "Reading grade level",
+				"1", "Interest age level",
+				"2", "Interest grade level",
+				"3", "Special audience characteristics",
+				"4", "Motivation/interest level",
+				"8", "No display constant generated"
+			)
+			.setMqTag("displayConstant");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

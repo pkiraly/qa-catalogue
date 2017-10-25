@@ -30,16 +30,20 @@ public class Tag505 extends DataFieldDefinition {
 		bibframeTag = "TableOfContents";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Display constant controller").setCodes(
-			"0", "Contents",
-			"1", "Incomplete contents",
-			"2", "Partial contents",
-			"8", "No display constant generated"
-		).setMqTag("displayConstant");
-		ind2 = new Indicator("Level of content designation").setCodes(
-			" ", "Basic",
-			"0", "Enhanced"
-		).setMqTag("level");
+		ind1 = new Indicator("Display constant controller")
+			.setCodes(
+				"0", "Contents",
+				"1", "Incomplete contents",
+				"2", "Partial contents",
+				"8", "No display constant generated"
+			)
+			.setMqTag("displayConstant");
+		ind2 = new Indicator("Level of content designation")
+			.setCodes(
+				" ", "Basic",
+				"0", "Enhanced"
+			)
+			.setMqTag("level");
 
 		setSubfieldsWithCardinality(
 			"a", "Formatted contents note", "NR",

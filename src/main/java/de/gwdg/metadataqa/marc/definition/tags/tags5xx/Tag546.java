@@ -46,5 +46,9 @@ public class Tag546 extends DataFieldDefinition {
 		getSubfield("3").setMqTag("materialsSpecified");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
+
+		setHistoricalSubfields(
+			"z", "Source of note information (SE) [OBSOLETE, 1990]"
+		);
 	}
 }

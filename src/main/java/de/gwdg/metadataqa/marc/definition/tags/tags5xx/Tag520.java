@@ -63,5 +63,9 @@ public class Tag520 extends DataFieldDefinition {
 		getSubfield("3").setMqTag("materialsSpecified");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
+
+		setHistoricalSubfields(
+			"z", "Source of note information (BK, AM, CF, SE) [OBSOLETE, 1990]"
+		);
 	}
 }

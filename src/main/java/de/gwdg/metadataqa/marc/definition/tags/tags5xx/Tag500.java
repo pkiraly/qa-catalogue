@@ -47,5 +47,11 @@ public class Tag500 extends DataFieldDefinition {
 		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
+
+		setHistoricalSubfields(
+			"l", "Library of Congress call number (SE) [OBSOLETE, 1990]",
+			"x", "International Standard Serial Number (SE) [OBSOLETE, 1990]",
+			"z", "Source of note information (AM, SE) [OBSOLETE, 1990]"
+		);
 	}
 }

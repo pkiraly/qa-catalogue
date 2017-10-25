@@ -30,7 +30,11 @@ public class Tag550 extends DataFieldDefinition {
 		mqTag = "IssuingBody";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator();
+		ind1 = new Indicator()
+			.setHistoricalCodes(
+				"0", "Repetitious",
+				"1", "Not repetitious"
+			);
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(
@@ -42,5 +46,9 @@ public class Tag550 extends DataFieldDefinition {
 		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
+
+		setHistoricalSubfields(
+			"z", "Source of note information (SE) [OBSOLETE, 1990]"
+		);
 	}
 }

@@ -32,22 +32,26 @@ public class Tag650 extends DataFieldDefinition {
 		bibframeTag = "Topic";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Level of subject").setCodes(
-			" ", "No information provided",
-			"0", "No level specified",
-			"1", "Primary",
-			"2", "Secondary"
-		).setMqTag("subjectLevel");
-		ind2 = new Indicator("Thesaurus").setCodes(
-			"0", "Library of Congress Subject Headings",
-			"1", "LC subject headings for children's literature",
-			"2", "Medical Subject Headings",
-			"3", "National Agricultural Library subject authority file",
-			"4", "Source not specified",
-			"5", "Canadian Subject Headings",
-			"6", "Répertoire de vedettes-matière",
-			"7", "Source specified in subfield $2"
-		).setMqTag("thesaurus");
+		ind1 = new Indicator("Level of subject")
+			.setCodes(
+				" ", "No information provided",
+				"0", "No level specified",
+				"1", "Primary",
+				"2", "Secondary"
+			)
+			.setMqTag("subjectLevel");
+		ind2 = new Indicator("Thesaurus")
+			.setCodes(
+				"0", "Library of Congress Subject Headings",
+				"1", "LC subject headings for children's literature",
+				"2", "Medical Subject Headings",
+				"3", "National Agricultural Library subject authority file",
+				"4", "Source not specified",
+				"5", "Canadian Subject Headings",
+				"6", "Répertoire de vedettes-matière",
+				"7", "Source specified in subfield $2"
+			)
+			.setMqTag("thesaurus");
 
 		setSubfieldsWithCardinality(
 			"a", "Topical term or geographic name entry element", "NR",
@@ -87,5 +91,9 @@ public class Tag650 extends DataFieldDefinition {
 		getSubfield("4").setMqTag("relationship");
 		getSubfield("6").setMqTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
+
+		setHistoricalSubfields(
+			"b", "Topical term following geographic name as entry element [OBSOLETE, 1981]"
+		);
 	}
 }

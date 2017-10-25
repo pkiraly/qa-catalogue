@@ -32,21 +32,28 @@ public class Tag600 extends DataFieldDefinition {
 		mqTag = "PersonalNameSubject";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Type of personal name entry element").setCodes(
-			"0", "Forename",
-			"1", "Surname",
-			"3", "Family name"
-		).setMqTag("type");
-		ind2 = new Indicator("Thesaurus").setCodes(
-			"0", "Library of Congress Subject Headings",
-			"1", "LC subject headings for children's literature",
-			"2", "Medical Subject Headings",
-			"3", "National Agricultural Library subject authority file",
-			"4", "Source not specified",
-			"5", "Canadian Subject Headings",
-			"6", "Répertoire de vedettes-matière",
-			"7", "Source specified in subfield $2"
-		).setMqTag("thesaurus");
+		ind1 = new Indicator("Type of personal name entry element")
+			.setCodes(
+				"0", "Forename",
+				"1", "Surname",
+				"3", "Family name"
+			)
+			.setHistoricalCodes(
+				"2", "Multiple surname [OBSOLETE, 1996]"
+			)
+			.setMqTag("type");
+		ind2 = new Indicator("Thesaurus")
+			.setCodes(
+				"0", "Library of Congress Subject Headings",
+				"1", "LC subject headings for children's literature",
+				"2", "Medical Subject Headings",
+				"3", "National Agricultural Library subject authority file",
+				"4", "Source not specified",
+				"5", "Canadian Subject Headings",
+				"6", "Répertoire de vedettes-matière",
+				"7", "Source specified in subfield $2"
+			)
+			.setMqTag("thesaurus");
 
 		setSubfieldsWithCardinality(
 			"a", "Personal name", "NR",

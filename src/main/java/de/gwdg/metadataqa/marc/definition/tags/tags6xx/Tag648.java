@@ -31,7 +31,12 @@ public class Tag648 extends DataFieldDefinition {
 		mqTag = "ChronologicalSubject";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator();
+		ind1 = new Indicator()
+			.setHistoricalCodes(
+				" ", "No information provided [OBSOLETE, 2014]",
+				"0", "Date or time period depicted [OBSOLETE, 2014]",
+				"1", "Date or time period of creation or origin [OBSOLETE, 2014]"
+			);
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

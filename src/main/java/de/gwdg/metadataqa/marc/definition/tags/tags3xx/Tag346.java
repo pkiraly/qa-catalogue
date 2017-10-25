@@ -28,6 +28,7 @@ public class Tag346 extends DataFieldDefinition {
 		label = "Video Characteristics";
 		bibframeTag = "VideoCharacteristic";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd346.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

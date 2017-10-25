@@ -27,8 +27,8 @@ public class Tag365 extends DataFieldDefinition {
 	private void initialize() {
 		tag = "365";
 		label = "Trade Price";
-		mqTag = "TradePrice";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd365.html";
 
 		ind1 = new Indicator("Start/End designator")
 			.setCodes(

@@ -29,6 +29,7 @@ public class Tag010 extends DataFieldDefinition {
 		label = "Library of Congress Control Number";
 		bibframeTag = "IdentifiedBy/Lccn";
 		cardinality = Cardinality.Nonrepeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd010.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

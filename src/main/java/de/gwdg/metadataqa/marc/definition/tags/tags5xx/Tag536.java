@@ -29,6 +29,7 @@ public class Tag536 extends DataFieldDefinition {
 		label = "Funding Information Note";
 		bibframeTag = "FundingInformation";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd536.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

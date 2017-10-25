@@ -29,6 +29,7 @@ public class Tag546 extends DataFieldDefinition {
 		label = "Language Note";
 		bibframeTag = "Language";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd546.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

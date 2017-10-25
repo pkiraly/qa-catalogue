@@ -29,6 +29,7 @@ public class Tag051 extends DataFieldDefinition {
 		label = "Library of Congress Copy, Issue, Offprint Statement";
 		bibframeTag = "ShelfMarkLcc";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd051.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator()

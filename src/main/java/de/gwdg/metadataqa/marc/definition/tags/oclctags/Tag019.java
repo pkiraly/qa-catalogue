@@ -28,6 +28,7 @@ public class Tag019 extends DataFieldDefinition {
 		label = "OCLC Control Number Cross-Reference";
 		mqTag = "OCLCControlNumber";
 		cardinality = Cardinality.Nonrepeatable;
+		descriptionUrl = "http://www.oclc.org/bibformats/en/0xx/019.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

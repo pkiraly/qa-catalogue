@@ -29,6 +29,7 @@ public class Tag018 extends DataFieldDefinition {
 		label = "Copyright Article-Fee Code";
 		mqTag = "CopyrightArticleFee";
 		cardinality = Cardinality.Nonrepeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd018.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

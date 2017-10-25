@@ -29,6 +29,7 @@ public class Tag066 extends DataFieldDefinition {
 		label = "Character Sets Present";
 		mqTag = "CharacterSets";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd066.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

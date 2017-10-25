@@ -28,7 +28,8 @@ public class Tag994 extends DataFieldDefinition {
 		tag = "994";
 		label = "OCLC-MARC Transaction Code";
 		mqTag = "OCLCMARCTransactionCode";
-		cardinality = Cardinality.Repeatable;
+		cardinality = Cardinality.Nonrepeatable;
+		descriptionUrl = "http://www.oclc.org/bibformats/en/9xx/994.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

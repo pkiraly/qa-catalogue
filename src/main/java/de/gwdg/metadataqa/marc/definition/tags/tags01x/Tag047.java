@@ -31,6 +31,7 @@ public class Tag047 extends DataFieldDefinition {
 		bibframeTag = "GenreForm";
 		mqTag = "MusicalCompositionForm";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd047.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator("Source of code")

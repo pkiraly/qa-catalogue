@@ -30,6 +30,7 @@ public class Tag654 extends DataFieldDefinition {
 		label = "Subject Added Entry - Faceted Topical Terms";
 		mqTag = "FacetedTopicalTerms";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd654.html";
 
 		ind1 = new Indicator("Level of subject")
 			.setCodes(

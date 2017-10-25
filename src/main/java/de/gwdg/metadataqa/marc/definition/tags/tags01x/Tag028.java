@@ -29,6 +29,7 @@ public class Tag028 extends DataFieldDefinition {
 		label = "Publisher or Distributor Number";
 		mqTag = "PublisherNumber";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd028.html";
 
 		ind1 = new Indicator("Type of number")
 			.setCodes(

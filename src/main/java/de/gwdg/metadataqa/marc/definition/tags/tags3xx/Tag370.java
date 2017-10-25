@@ -29,6 +29,7 @@ public class Tag370 extends DataFieldDefinition {
 		label = "Associated Place";
 		mqTag = "AssociatedPlace";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd370.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

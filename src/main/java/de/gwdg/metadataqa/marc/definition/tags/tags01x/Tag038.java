@@ -30,6 +30,7 @@ public class Tag038 extends DataFieldDefinition {
 		label = "Record Content Licensor";
 		bibframeTag = "MetadataLicensor";
 		cardinality = Cardinality.Nonrepeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd038.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

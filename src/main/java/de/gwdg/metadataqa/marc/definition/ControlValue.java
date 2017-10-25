@@ -46,9 +46,9 @@ public class ControlValue implements Validatable {
 			if (definition.isHistoricalCode(value)) {
 				errors.add(
 					String.format(
-						"%s/%s (%s) has an obsolete value: '%s'",
+						"%s/%s (%s) has an obsolete value: '%s' (%s)",
 						definition.getControlField(), definition.formatPositon(), definition.getId(),
-						value
+						value, definition.getDescriptionUrl()
 					)
 				);
 				isValid = false;
@@ -61,9 +61,9 @@ public class ControlValue implements Validatable {
 						if (!definition.getValidCodes().contains(unit)) {
 							errors.add(
 								String.format(
-									"%s/%s (%s) contains an invalid code: '%s' in '%s'",
+									"%s/%s (%s) contains an invalid code: '%s' in '%s' (%s)",
 									definition.getControlField(), definition.formatPositon(), definition.getId(),
-									unit, value
+									unit, value, definition.getDescriptionUrl()
 								)
 							);
 							isValid = false;
@@ -72,9 +72,9 @@ public class ControlValue implements Validatable {
 				} else {
 					errors.add(
 						String.format(
-							"%s/%s (%s) has an invalid value: '%s'",
+							"%s/%s (%s) has an invalid value: '%s' (%s)",
 							definition.getControlField(), definition.formatPositon(), definition.getId(),
-							value
+							value, definition.getDescriptionUrl()
 						)
 					);
 					isValid = false;

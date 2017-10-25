@@ -29,6 +29,7 @@ public class Tag850 extends DataFieldDefinition {
 		label = "Holding Institution";
 		bibframeTag = "HeldBy";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd850.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

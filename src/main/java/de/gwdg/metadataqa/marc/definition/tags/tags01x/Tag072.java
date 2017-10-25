@@ -31,6 +31,7 @@ public class Tag072 extends DataFieldDefinition {
 		bibframeTag = "Subject";
 		mqTag = "SubjectCategoryCode";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd072.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator("Code source")

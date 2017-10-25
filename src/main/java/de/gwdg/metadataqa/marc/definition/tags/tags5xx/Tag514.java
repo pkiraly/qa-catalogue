@@ -29,6 +29,7 @@ public class Tag514 extends DataFieldDefinition {
 		label = "Data Quality Note";
 		mqTag = "DataQuality";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd514.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

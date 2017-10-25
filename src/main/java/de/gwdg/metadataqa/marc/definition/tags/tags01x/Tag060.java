@@ -29,6 +29,7 @@ public class Tag060 extends DataFieldDefinition {
 		label = "National Library of Medicine Call Number";
 		bibframeTag = "ClassificationNlm";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd060.html";
 
 		ind1 = new Indicator("Existence in NLM collection")
 			.setCodes(

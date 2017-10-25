@@ -27,7 +27,8 @@ public class Tag851 extends DataFieldDefinition {
 		tag = "851";
 		label = "Physical Location";
 		mqTag = "PhysicalLocation";
-		cardinality = Cardinality.Nonrepeatable;
+		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "http://www.oclc.org/bibformats/en/8xx/851.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

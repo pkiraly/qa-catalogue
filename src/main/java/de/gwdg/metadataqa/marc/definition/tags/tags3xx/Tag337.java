@@ -29,6 +29,7 @@ public class Tag337 extends DataFieldDefinition {
 		bibframeTag = "Media";
 		mqTag = "MediaType";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd337.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

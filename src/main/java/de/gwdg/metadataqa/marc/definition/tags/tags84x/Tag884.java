@@ -28,6 +28,7 @@ public class Tag884 extends DataFieldDefinition {
 		tag = "884";
 		label = "Description Conversion Information";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd884.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

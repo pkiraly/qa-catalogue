@@ -31,6 +31,7 @@ public class Tag780 extends DataFieldDefinition {
 		label = "Preceding Entry";
 		bibframeTag = "PrecededBy";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd780.html";
 
 		ind1 = new Indicator("Note controller")
 			.setCodes(

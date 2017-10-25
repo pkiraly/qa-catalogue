@@ -30,6 +30,7 @@ public class Tag386 extends DataFieldDefinition {
 		label = "Creator/Contributor Characteristics";
 		bibframeTag = "CreatorCharacteristic";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd386.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

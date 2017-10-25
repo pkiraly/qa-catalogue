@@ -29,6 +29,7 @@ public class Tag545 extends DataFieldDefinition {
 		label = "Biographical or Historical Data";
 		mqTag = "BiographicalOrHistoricalData";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd545.html";
 
 		ind1 = new Indicator("Type of data")
 			.setCodes(

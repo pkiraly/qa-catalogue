@@ -30,6 +30,7 @@ public class Tag520 extends DataFieldDefinition {
 		label = "Summary, etc.";
 		bibframeTag = "Summary";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd520.html";
 
 		ind1 = new Indicator("Display constant controller")
 			.setCodes(

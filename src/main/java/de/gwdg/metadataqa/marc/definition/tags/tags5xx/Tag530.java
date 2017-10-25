@@ -29,6 +29,7 @@ public class Tag530 extends DataFieldDefinition {
 		label = "Additional Physical Form available Note";
 		mqTag = "AdditionalPhysicalFormAvailable";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd530.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

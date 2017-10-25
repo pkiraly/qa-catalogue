@@ -30,6 +30,7 @@ public class Tag380 extends DataFieldDefinition {
 		bibframeTag = "GenreForm";
 		mqTag = "FormOfWork";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd380.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

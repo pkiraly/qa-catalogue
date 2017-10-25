@@ -31,6 +31,7 @@ public class Tag773 extends DataFieldDefinition {
 		label = "Host Item Entry";
 		bibframeTag = "PartOf";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd773.html";
 
 		ind1 = new Indicator("Note controller")
 			.setCodes(

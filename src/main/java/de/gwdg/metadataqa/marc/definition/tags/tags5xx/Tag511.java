@@ -30,6 +30,7 @@ public class Tag511 extends DataFieldDefinition {
 		bibframeTag = "Credits";
 		mqTag = "ParticipantOrPerformer";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd511.html";
 
 		ind1 = new Indicator("Display constant controller")
 			.setCodes(

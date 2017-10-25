@@ -29,6 +29,7 @@ public class Tag550 extends DataFieldDefinition {
 		label = "Issuing Body Note";
 		mqTag = "IssuingBody";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd550.html";
 
 		ind1 = new Indicator()
 			.setHistoricalCodes(

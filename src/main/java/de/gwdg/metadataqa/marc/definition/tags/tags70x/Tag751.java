@@ -31,6 +31,7 @@ public class Tag751 extends DataFieldDefinition {
 		label = "Added Entry - Geographic Name";
 		mqTag = "AddedGeographicName";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd751.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

@@ -30,6 +30,7 @@ public class Tag100 extends DataFieldDefinition {
 		label = "Main Entry - Personal Name";
 		mqTag = "MainPersonalName";
 		cardinality = Cardinality.Nonrepeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd100.html";
 
 		ind1 = new Indicator("Type of personal name entry element")
 			.setCodes(

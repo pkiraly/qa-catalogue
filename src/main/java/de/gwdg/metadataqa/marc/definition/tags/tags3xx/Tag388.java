@@ -30,6 +30,7 @@ public class Tag388 extends DataFieldDefinition {
 		label = "Time Period of Creation";
 		mqTag = "TimePeriodOfCreation";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd388.html";
 
 		ind1 = new Indicator("Type of time period")
 			.setCodes(

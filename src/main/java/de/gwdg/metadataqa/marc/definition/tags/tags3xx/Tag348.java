@@ -27,6 +27,7 @@ public class Tag348 extends DataFieldDefinition {
 		label = "Format of Notated Music";
 		bibframeTag = "MusicFormat";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd348.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

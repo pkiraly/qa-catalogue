@@ -29,6 +29,7 @@ public class Tag513 extends DataFieldDefinition {
 		label = "Type of Report and Period Covered Note";
 		bibframeTag = "TypeOfReport";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd513.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

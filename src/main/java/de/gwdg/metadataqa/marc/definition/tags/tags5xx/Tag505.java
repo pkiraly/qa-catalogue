@@ -29,6 +29,7 @@ public class Tag505 extends DataFieldDefinition {
 		label = "Formatted Contents Note";
 		bibframeTag = "TableOfContents";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd505.html";
 
 		ind1 = new Indicator("Display constant controller")
 			.setCodes(

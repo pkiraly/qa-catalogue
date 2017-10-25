@@ -29,6 +29,7 @@ public class Tag440 extends DataFieldDefinition {
 		label = "Series Statement/Added Entry-Title";
 		mqTag = "SeriesStatementAddedEntryTitle";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd440.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator("Nonfiling characters")

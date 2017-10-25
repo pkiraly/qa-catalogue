@@ -29,6 +29,7 @@ public class Tag740 extends DataFieldDefinition {
 		label = "Added Entry - Uncontrolled Related/Analytical Title";
 		mqTag = "AddedUncontrolledRelatedOrAnalyticalTitle";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd740.html";
 
 		ind1 = new Indicator("Nonfiling characters")
 			.setCodes(

@@ -28,6 +28,7 @@ public class Tag363 extends DataFieldDefinition {
 		label = "Normalized Date and Sequential Designation";
 		mqTag = "NormalizedDateAndSequentialDesignation";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd363.html";
 
 		ind1 = new Indicator("Start/End designator")
 			.setCodes(

@@ -28,6 +28,7 @@ public class Tag243 extends DataFieldDefinition {
 		label = "Collective Uniform Title";
 		bibframeTag = "CollectiveTitle";
 		cardinality = Cardinality.Nonrepeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd243.html";
 
 		ind1 = new Indicator("Uniform title printed or displayed")
 			.setCodes(

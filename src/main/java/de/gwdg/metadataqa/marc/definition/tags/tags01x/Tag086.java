@@ -31,6 +31,7 @@ public class Tag086 extends DataFieldDefinition {
 		bibframeTag = "Classification";
 		mqTag = "GovernmentDocumentClassification";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd086.html";
 
 		ind1 = new Indicator("Number source")
 			.setCodes(

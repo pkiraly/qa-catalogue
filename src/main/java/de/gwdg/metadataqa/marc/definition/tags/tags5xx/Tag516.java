@@ -29,6 +29,7 @@ public class Tag516 extends DataFieldDefinition {
 		label = "Type of Computer File or Data Note";
 		mqTag = "TypeOfComputerFileOrData";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd516.html";
 
 		ind1 = new Indicator("Display constant controller")
 			.setCodes(

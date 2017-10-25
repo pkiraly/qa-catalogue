@@ -29,6 +29,7 @@ public class Tag022 extends DataFieldDefinition {
 		label = "International Standard Serial Number";
 		bibframeTag = "Issn";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd022.html";
 
 		ind1 = new Indicator("Level of international interest")
 			.setCodes(

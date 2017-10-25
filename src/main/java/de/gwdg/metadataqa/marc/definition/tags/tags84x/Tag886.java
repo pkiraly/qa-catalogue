@@ -29,6 +29,7 @@ public class Tag886 extends DataFieldDefinition {
 		label = "Foreign MARC Information Field";
 		mqTag = "ForeignMARCInformationField";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd886.html";
 
 		ind1 = new Indicator("Type of field")
 			.setCodes(

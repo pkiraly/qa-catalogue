@@ -29,6 +29,7 @@ public class Tag522 extends DataFieldDefinition {
 		label = "Geographic Coverage Note";
 		bibframeTag = "GeographicCoverage";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd522.html";
 
 		ind1 = new Indicator("Display constant controller")
 			.setCodes(

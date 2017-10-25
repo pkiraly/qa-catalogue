@@ -30,6 +30,7 @@ public class Tag055 extends DataFieldDefinition {
 		label = "Classification Numbers Assigned in Canada";
 		bibframeTag = "ClassificationLcc";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd055.html";
 
 		ind1 = new Indicator("Existence in LAC collection")
 			.setCodes(

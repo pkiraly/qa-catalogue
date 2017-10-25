@@ -29,6 +29,7 @@ public class Tag020 extends DataFieldDefinition {
 		label = "International Standard Book Number";
 		bibframeTag = "Isbn";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd020.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

@@ -30,6 +30,7 @@ public class Tag775 extends DataFieldDefinition {
 		label = "Other Edition Entry";
 		bibframeTag = "OtherEdition";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd775.html";
 
 		ind1 = new Indicator("Note controller")
 			.setCodes(

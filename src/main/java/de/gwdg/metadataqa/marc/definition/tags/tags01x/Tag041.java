@@ -31,6 +31,7 @@ public class Tag041 extends DataFieldDefinition {
 		label = "Language Code";
 		bibframeTag = "Language";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd041.html";
 
 		ind1 = new Indicator("Translation indication")
 			.setCodes(

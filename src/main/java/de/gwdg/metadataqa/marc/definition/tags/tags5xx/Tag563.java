@@ -29,6 +29,7 @@ public class Tag563 extends DataFieldDefinition {
 		label = "Binding Information";
 		mqTag = "Binding";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd563.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

@@ -30,6 +30,7 @@ public class Tag242 extends DataFieldDefinition {
 		bibframeTag = "VariantTitle";
 		mqTag = "TitleTranslation";
 		cardinality = Cardinality.Nonrepeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd242.html";
 
 		ind1 = new Indicator("Title added entry")
 			.setCodes(

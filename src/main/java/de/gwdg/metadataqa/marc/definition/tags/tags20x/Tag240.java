@@ -28,6 +28,7 @@ public class Tag240 extends DataFieldDefinition {
 		label = "Uniform Title";
 		mqTag = "UniformTitle";
 		cardinality = Cardinality.Nonrepeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd240.html";
 
 		ind1 = new Indicator("Uniform title printed or displayed")
 			.setCodes(

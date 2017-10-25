@@ -30,6 +30,7 @@ public class Tag506 extends DataFieldDefinition {
 		label = "Restrictions on Access Note";
 		bibframeTag = "UsageAndAccessPolicy";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd506.html";
 
 		ind1 = new Indicator("Restriction")
 			.setCodes(

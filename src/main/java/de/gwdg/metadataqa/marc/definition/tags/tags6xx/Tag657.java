@@ -29,6 +29,7 @@ public class Tag657 extends DataFieldDefinition {
 		label = "Index Term - Function";
 		mqTag = "Function";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd657.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator("Source of term")

@@ -28,7 +28,8 @@ public class Tag090 extends DataFieldDefinition {
 		tag = "090";
 		label = "Locally Assigned LC-type Call Number";
 		mqTag = "LocallyAssignedCallNumber";
-		cardinality = Cardinality.Nonrepeatable;
+		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "http://www.oclc.org/bibformats/en/0xx/090.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

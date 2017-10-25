@@ -27,6 +27,7 @@ public class Tag256 extends DataFieldDefinition {
 		label = "Computer File Characteristics";
 		mqTag = "ComputerFile";
 		cardinality = Cardinality.Nonrepeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd256.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

@@ -28,6 +28,7 @@ public class Tag830 extends DataFieldDefinition {
 		label = "Series Added Entry - Uniform Title";
 		mqTag = "SeriesAddedUniformTitle";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd830.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator("Nonfiling characters")

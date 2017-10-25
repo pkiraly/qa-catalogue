@@ -29,6 +29,7 @@ public class Tag080 extends DataFieldDefinition {
 		label = "Universal Decimal Classification Number";
 		mqTag = "Udc";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd080.html";
 
 		ind1 = new Indicator("Type of edition")
 			.setCodes(

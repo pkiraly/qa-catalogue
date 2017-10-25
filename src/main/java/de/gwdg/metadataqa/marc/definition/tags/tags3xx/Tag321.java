@@ -28,6 +28,7 @@ public class Tag321 extends DataFieldDefinition {
 		label = "Former Publication Frequency";
 		bibframeTag = "Frequency";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd321.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

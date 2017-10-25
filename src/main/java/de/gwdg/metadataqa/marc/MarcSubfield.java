@@ -77,7 +77,8 @@ public class MarcSubfield implements Validatable {
 			isValid = false;
 		} else {
 			if (code == null) {
-				errors.add(String.format("code is null for %s", definition.getCode()));
+				errors.add(String.format("code is null for %s (%s)", definition.getCode(),
+					definition.getParent().getDescriptionUrl()));
 				isValid = false;
 			} else {
 				if (definition.getValidator() != null) {
@@ -87,8 +88,8 @@ public class MarcSubfield implements Validatable {
 						isValid = false;
 					}
 				} else if (definition.getCodes() != null && definition.getCode(value) == null) {
-					errors.add(String.format("%s$%s has an invalid value: '%s'",
-						definition.getParent().getTag(), definition.getCode(), value));
+					errors.add(String.format("%s$%s has an invalid value: '%s' (%s)",
+						definition.getParent().getTag(), definition.getCode(), value, definition.getParent().getDescriptionUrl()));
 					isValid = false;
 				}
 			}

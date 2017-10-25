@@ -31,6 +31,7 @@ public class Tag026 extends DataFieldDefinition {
 		label = "Fingerprint Identifier";
 		bibframeTag = "Fingerprint";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd026.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

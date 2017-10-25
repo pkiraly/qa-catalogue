@@ -28,6 +28,7 @@ public class Tag357 extends DataFieldDefinition {
 		label = "Originator Dissemination Control";
 		mqTag = "OriginatorDisseminationControl";
 		cardinality = Cardinality.Nonrepeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd357.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

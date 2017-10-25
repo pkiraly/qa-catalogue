@@ -30,6 +30,7 @@ public class Tag034 extends DataFieldDefinition {
 		label = "Coded Cartographic Mathematical Data";
 		bibframeTag = "Scale";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd034.html";
 
 		ind1 = new Indicator("Type of scale")
 			.setCodes(

@@ -30,6 +30,7 @@ public class Tag852 extends DataFieldDefinition {
 		tag = "852";
 		label = "Location";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd852.html";
 
 		ind1 = new Indicator("Shelving scheme")
 			.setCodes(

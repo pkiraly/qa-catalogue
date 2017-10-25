@@ -29,6 +29,7 @@ public class Tag092 extends DataFieldDefinition {
 		label = "Locally Assigned Dewey Call Number";
 		mqTag = "LocallyAssignedDeweyCallNumber";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "http://www.oclc.org/bibformats/en/0xx/092.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

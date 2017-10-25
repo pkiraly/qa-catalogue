@@ -29,6 +29,7 @@ public class Tag542 extends DataFieldDefinition {
 		label = "Information Relating to Copyright Status";
 		mqTag = "CopyrightStatus";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd542.html";
 
 		ind1 = new Indicator("Privacy")
 			.setCodes(

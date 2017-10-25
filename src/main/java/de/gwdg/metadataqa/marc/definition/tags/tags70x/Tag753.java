@@ -29,6 +29,7 @@ public class Tag753 extends DataFieldDefinition {
 		label = "System Details Access to Computer Files";
 		bibframeTag = "SystemRequirement";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd753.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

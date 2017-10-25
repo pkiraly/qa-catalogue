@@ -30,6 +30,7 @@ public class Tag524 extends DataFieldDefinition {
 		label = "Preferred Citation of Described Materials Note";
 		bibframeTag = "PreferredCitation";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd524.html";
 
 		ind1 = new Indicator("Display constant controller")
 			.setCodes(

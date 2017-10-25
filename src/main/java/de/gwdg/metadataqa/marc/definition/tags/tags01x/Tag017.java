@@ -30,6 +30,7 @@ public class Tag017 extends DataFieldDefinition {
 		label = "Copyright or Legal Deposit Number";
 		bibframeTag = "CopyrightNumber";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd017.html";
 
 		ind1 = new Indicator()
 			.setHistoricalCodes(

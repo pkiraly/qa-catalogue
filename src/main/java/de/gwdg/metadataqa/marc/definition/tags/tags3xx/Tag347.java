@@ -28,6 +28,7 @@ public class Tag347 extends DataFieldDefinition {
 		label = "Digital File Characteristics";
 		bibframeTag = "DigitalCharacteristic";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd347.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

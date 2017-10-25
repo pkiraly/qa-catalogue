@@ -27,7 +27,8 @@ public class Tag029 extends DataFieldDefinition {
 		tag = "029";
 		label = "Other System Control Number";
 		bibframeTag = "IdentifiedBy/Lccn";
-		cardinality = Cardinality.Nonrepeatable;
+		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "http://www.oclc.org/bibformats/en/0xx/029.html";
 
 		ind1 = new Indicator("The type of system control number")
 			.setCodes(

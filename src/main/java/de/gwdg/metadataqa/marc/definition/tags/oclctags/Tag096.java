@@ -29,6 +29,7 @@ public class Tag096 extends DataFieldDefinition {
 		label = "Locally Assigned NLM-type Call Number";
 		mqTag = "LocallyAssignedNLMTypeCallNumber";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "http://www.oclc.org/bibformats/en/0xx/096.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

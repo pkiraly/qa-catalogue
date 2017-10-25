@@ -30,6 +30,7 @@ public class Tag762 extends DataFieldDefinition {
 		label = "Subseries Entry";
 		mqTag = "Subseries";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd762.html";
 
 		ind1 = new Indicator("Note controller")
 			.setCodes(

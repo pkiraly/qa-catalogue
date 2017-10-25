@@ -30,6 +30,7 @@ public class Tag052 extends DataFieldDefinition {
 		bibframeTag = "Place";
 		mqTag = "GeographicClassification";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd052.html";
 
 		ind1 = new Indicator("Code source")
 			.setCodes(

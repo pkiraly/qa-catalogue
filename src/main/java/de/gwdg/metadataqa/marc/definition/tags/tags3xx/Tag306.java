@@ -28,6 +28,7 @@ public class Tag306 extends DataFieldDefinition {
 		label = "Playing Time";
 		bibframeTag = "Duration";
 		cardinality = Cardinality.Nonrepeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd306.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

@@ -28,6 +28,7 @@ public class Tag362 extends DataFieldDefinition {
 		label = "Dates of Publication and/or Sequential Designation";
 		mqTag = "DatesOfPublication";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd362.html";
 
 		ind1 = new Indicator("Format of date")
 			.setCodes(

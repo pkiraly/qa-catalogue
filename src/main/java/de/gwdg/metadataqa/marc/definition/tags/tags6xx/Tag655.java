@@ -30,6 +30,7 @@ public class Tag655 extends DataFieldDefinition {
 		label = "Index Term - Genre/Form";
 		bibframeTag = "GenreForm";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd655.html";
 
 		ind1 = new Indicator("Type of heading")
 			.setCodes(

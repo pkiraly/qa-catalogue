@@ -31,6 +31,7 @@ public class Tag650 extends DataFieldDefinition {
 		label = "Subject Added Entry - Topical Term";
 		bibframeTag = "Topic";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd650.html";
 
 		ind1 = new Indicator("Level of subject")
 			.setCodes(

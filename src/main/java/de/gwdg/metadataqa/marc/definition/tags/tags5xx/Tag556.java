@@ -29,6 +29,7 @@ public class Tag556 extends DataFieldDefinition {
 		label = "Information About Documentation Note";
 		mqTag = "Documentation";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd556.html";
 
 		ind1 = new Indicator("Display constant controller")
 			.setCodes(

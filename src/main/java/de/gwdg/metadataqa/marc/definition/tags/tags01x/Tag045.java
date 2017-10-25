@@ -34,6 +34,7 @@ public class Tag045 extends DataFieldDefinition {
 		label = "Time Period of Content";
 		bibframeTag = "TemporalCoverage";
 		cardinality = Cardinality.Nonrepeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd045.html";
 
 		ind1 = new Indicator("Type of time period in subfield $b or $c")
 			.setCodes(
@@ -144,8 +145,8 @@ public class Tag045 extends DataFieldDefinition {
 			errors = new ArrayList<>();
 
 			if (value.length() != 4) {
-				errors.add(String.format("%s$%s error in '%s': length is not 4 char",
-					tag, subfieldCode, value));
+				errors.add(String.format("%s$%s error in '%s': length is not 4 char (%s)",
+					tag, subfieldCode, value, getDescriptionUrl()));
 				isValid = false;
 			} else {
 				List<String> parts = Arrays.asList(
@@ -160,8 +161,8 @@ public class Tag045 extends DataFieldDefinition {
 						if (!matcher.find()) {
 							matcher = CE.matcher(part);
 							if (!matcher.find()) {
-								errors.add(String.format("%s$%s error in '%s': '%s' does not match any patterns\n",
-									tag, subfieldCode, value, part));
+								errors.add(String.format("%s$%s error in '%s': '%s' does not match any patterns (%s)\n",
+									tag, subfieldCode, value, part, getDescriptionUrl()));
 							}
 						}
 					}

@@ -30,6 +30,7 @@ public class Tag776 extends DataFieldDefinition {
 		label = "Additional Physical Form Entry";
 		bibframeTag = "OtherPhysicalFormat";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd776.html";
 
 		ind1 = new Indicator("Note controller")
 			.setCodes(

@@ -29,6 +29,7 @@ public class Tag130 extends DataFieldDefinition {
 		label = "Main Entry - Uniform Title";
 		mqTag = "MainUniformTitle";
 		cardinality = Cardinality.Nonrepeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd130.html";
 
 		ind1 = new Indicator("Nonfiling characters")
 			.setCodes(

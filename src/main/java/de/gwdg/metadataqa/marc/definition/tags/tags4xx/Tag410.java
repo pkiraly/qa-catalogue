@@ -30,6 +30,7 @@ public class Tag410 extends DataFieldDefinition {
 		label = "Series Statement/Added Entry-Corporate Name";
 		mqTag = "SeriesStatementAddedEntryCorporateName";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd410.html";
 
 		ind1 = new Indicator("Type of corporate name entry element")
 			.setCodes(

@@ -29,6 +29,7 @@ public class Tag507 extends DataFieldDefinition {
 		label = "Scale Note for Graphic Material";
 		mqTag = "Scale";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd507.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

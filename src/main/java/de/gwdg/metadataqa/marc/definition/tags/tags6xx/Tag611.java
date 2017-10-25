@@ -32,6 +32,7 @@ public class Tag611 extends DataFieldDefinition {
 		label = "Subject Added Entry - Meeting Name";
 		mqTag = "SubjectAddedMeetingName";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd611.html";
 
 		ind1 = new Indicator("Type of meeting name entry element")
 			.setCodes(

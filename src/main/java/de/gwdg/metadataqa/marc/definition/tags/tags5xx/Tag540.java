@@ -29,6 +29,7 @@ public class Tag540 extends DataFieldDefinition {
 		label = "Terms Governing Use and Reproduction Note";
 		bibframeTag = "UsePolicy";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd540.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

@@ -30,6 +30,7 @@ public class Tag787 extends DataFieldDefinition {
 		label = "Other Relationship Entry";
 		bibframeTag = "RelatedTo";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd787.html";
 
 		ind1 = new Indicator("Note controller")
 			.setCodes(

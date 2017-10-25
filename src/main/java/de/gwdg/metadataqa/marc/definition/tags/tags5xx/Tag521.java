@@ -29,6 +29,7 @@ public class Tag521 extends DataFieldDefinition {
 		label = "Target Audience Note";
 		bibframeTag = "IntendedAudience";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd521.html";
 
 		ind1 = new Indicator("Display constant controller")
 			.setCodes(

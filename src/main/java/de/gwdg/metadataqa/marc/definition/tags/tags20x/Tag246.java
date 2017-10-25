@@ -28,6 +28,7 @@ public class Tag246 extends DataFieldDefinition {
 		label = "Varying Form of Title";
 		bibframeTag = "ParallelTitle";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd246.html";
 
 		ind1 = new Indicator("Note/added entry controller")
 			.setCodes(

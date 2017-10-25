@@ -30,6 +30,7 @@ public class Tag856 extends DataFieldDefinition {
 		label = "Electronic Location and Access";
 		mqTag = "ElectronicLocationAndAccess";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd856.html";
 
 		ind1 = new Indicator("Access method")
 			.setCodes(

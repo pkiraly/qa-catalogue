@@ -27,7 +27,8 @@ public class Tag891 extends DataFieldDefinition {
 		tag = "891";
 		label = "Publication Pattern Data";
 		mqTag = "PublicationPatternData";
-		cardinality = Cardinality.Nonrepeatable;
+		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "http://www.oclc.org/bibformats/en/8xx/891.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

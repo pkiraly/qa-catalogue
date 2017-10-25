@@ -29,6 +29,7 @@ public class Tag338 extends DataFieldDefinition {
 		bibframeTag = "Carrier";
 		mqTag = "CarrierType";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd338.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

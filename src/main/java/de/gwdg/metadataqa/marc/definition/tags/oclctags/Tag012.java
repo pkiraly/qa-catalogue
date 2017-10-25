@@ -33,6 +33,7 @@ public class Tag012 extends DataFieldDefinition {
 		label = "CONSER Fixed Length Field";
 		mqTag = "CONSER";
 		cardinality = Cardinality.Nonrepeatable;
+		descriptionUrl = "http://www.oclc.org/bibformats/en/0xx/012.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

@@ -29,6 +29,7 @@ public class Tag508 extends DataFieldDefinition {
 		label = "Creation/Production Credits Note";
 		mqTag = "Credits";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd508.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

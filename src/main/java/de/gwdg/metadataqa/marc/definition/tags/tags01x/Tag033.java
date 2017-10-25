@@ -31,6 +31,7 @@ public class Tag033 extends DataFieldDefinition {
 		bibframeTag = "Capture";
 		mqTag = "EventDateTimeAndPlace";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd033.html";
 
 		ind1 = new Indicator("Type of date in subfield $a")
 			.setCodes(

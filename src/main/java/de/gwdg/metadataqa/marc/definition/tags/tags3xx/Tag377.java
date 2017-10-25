@@ -29,6 +29,7 @@ public class Tag377 extends DataFieldDefinition {
 		label = "Associated Language";
 		mqTag = "AssociatedLanguage";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd377.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator("Source of code")

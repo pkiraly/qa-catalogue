@@ -29,6 +29,7 @@ public class Tag264 extends DataFieldDefinition {
 		label = "Production, Publication, Distribution, Manufacture, and Copyright Notice";
 		mqTag = "ProvisionActivity";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd264.html";
 
 		ind1 = new Indicator("Sequence of statements")
 			.setCodes(

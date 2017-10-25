@@ -30,6 +30,7 @@ public class Tag774 extends DataFieldDefinition {
 		label = "Constituent Unit Entry";
 		bibframeTag = "HasPart";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd774.html";
 
 		ind1 = new Indicator("Note controller")
 			.setCodes(

@@ -28,6 +28,7 @@ public class Tag307 extends DataFieldDefinition {
 		label = "Hours, etc.";
 		mqTag = "Hours";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd307.html";
 
 		ind1 = new Indicator("Display constant controller")
 			.setCodes(

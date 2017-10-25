@@ -28,6 +28,7 @@ public class Tag222 extends DataFieldDefinition {
 		label = "Key Title";
 		bibframeTag = "KeyTitle";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd222.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator("Nonfiling characters")

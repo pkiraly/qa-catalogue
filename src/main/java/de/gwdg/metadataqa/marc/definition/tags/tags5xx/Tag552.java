@@ -29,6 +29,7 @@ public class Tag552 extends DataFieldDefinition {
 		label = "Entity and Attribute Information Note";
 		mqTag = "EntityAndAttributeInformation";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd552.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

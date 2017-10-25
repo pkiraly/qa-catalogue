@@ -29,6 +29,7 @@ public class Tag565 extends DataFieldDefinition {
 		label = "Case File Characteristics Note";
 		mqTag = "CaseFileCharacteristics";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd565.html";
 
 		ind1 = new Indicator("Display constant controller")
 			.setCodes(

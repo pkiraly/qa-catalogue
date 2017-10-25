@@ -27,6 +27,7 @@ public class Tag258 extends DataFieldDefinition {
 		label = "Philatelic Issue Data";
 		mqTag = "PhilatelicIssue";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd258.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

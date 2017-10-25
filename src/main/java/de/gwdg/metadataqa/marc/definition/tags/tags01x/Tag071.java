@@ -29,6 +29,7 @@ public class Tag071 extends DataFieldDefinition {
 		label = "National Agricultural Library Copy Statement";
 		mqTag = "NalCopy";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd071.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator()

@@ -29,6 +29,7 @@ public class Tag538 extends DataFieldDefinition {
 		label = "System Details Note";
 		bibframeTag = "SystemRequirement";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd538.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

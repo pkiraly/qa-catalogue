@@ -31,6 +31,7 @@ public class Tag035 extends DataFieldDefinition {
 		bibframeTag = "IdentifiedBy/Local";
 		mqTag = "SystemControlNumber";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd035.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

@@ -29,6 +29,7 @@ public class Tag085 extends DataFieldDefinition {
 		label = "Synthesized Classification Number Components";
 		mqTag = "SynthesizedClassificationNumber";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd085.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

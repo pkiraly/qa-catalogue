@@ -27,6 +27,7 @@ public class Tag344 extends DataFieldDefinition {
 		label = "Sound Characteristics";
 		bibframeTag = "SoundCharacteristic";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd344.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

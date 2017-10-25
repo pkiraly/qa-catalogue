@@ -30,6 +30,7 @@ public class Tag887 extends DataFieldDefinition {
 		label = "Non-MARC Information Field";
 		mqTag = "NonMARCField";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd887.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

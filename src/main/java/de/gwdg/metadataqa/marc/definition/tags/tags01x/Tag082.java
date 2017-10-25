@@ -30,6 +30,7 @@ public class Tag082 extends DataFieldDefinition {
 		label = "Dewey Decimal Classification Number";
 		bibframeTag = "ClassificationDdc";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd082.html";
 
 		ind1 = new Indicator("Type of edition")
 			.setCodes(

@@ -28,6 +28,7 @@ public class Tag885 extends DataFieldDefinition {
 		tag = "885";
 		label = "Matching Information";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd885.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

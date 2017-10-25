@@ -27,6 +27,7 @@ public class Tag250 extends DataFieldDefinition {
 		label = "Edition Statement";
 		mqTag = "Edition";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd250.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

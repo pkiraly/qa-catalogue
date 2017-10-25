@@ -30,6 +30,7 @@ public class Tag535 extends DataFieldDefinition {
 		label = "Location of Originals/Duplicates Note";
 		mqTag = "LocationOfOriginalsOrDuplicates";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd535.html";
 
 		ind1 = new Indicator("Custodial role")
 			.setCodes(

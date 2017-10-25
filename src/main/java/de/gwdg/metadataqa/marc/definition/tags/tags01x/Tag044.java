@@ -30,6 +30,7 @@ public class Tag044 extends DataFieldDefinition {
 		label = "Country of Publishing/Producing Entity Code";
 		bibframeTag = "Place";
 		cardinality = Cardinality.Nonrepeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd044.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

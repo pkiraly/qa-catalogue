@@ -32,6 +32,7 @@ public class Tag030 extends DataFieldDefinition {
 		label = "CODEN Designation";
 		bibframeTag = "Coden";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd030.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

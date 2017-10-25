@@ -243,7 +243,7 @@ public class DataField implements Extractable, Validatable {
 		if (definition.getTag().equals("880")) {
 			List<MarcSubfield> subfield6s = getSubfield("6");
 			if (subfield6s == null) {
-				errors.add(String.format("%s should have subfield $a", definition.getTag()));
+				errors.add(String.format("%s should have subfield $a (%s)", definition.getTag(), definition.getDescriptionUrl()));
 			} else {
 				if (!subfield6s.isEmpty() && subfield6s.size() == 1) {
 					MarcSubfield subfield6 = subfield6s.get(0);
@@ -252,8 +252,8 @@ public class DataField implements Extractable, Validatable {
 					definition = TagDefinitionLoader.load(linkage.getLinkingTag());
 					if (definition == null) {
 						definition = _definition;
-						errors.add(String.format("%s refers to field %s, which is not defined",
-							definition.getTag(), linkage.getLinkingTag()));
+						errors.add(String.format("%s refers to field %s, which is not defined (%s)",
+							definition.getTag(), linkage.getLinkingTag(), definition.getDescriptionUrl()));
 						isValid = false;
 					} else {
 						_subfields = subfields;
@@ -269,10 +269,10 @@ public class DataField implements Extractable, Validatable {
 		}
 
 		if (unhandledSubfields != null) {
-			errors.add(String.format("%s has invalid %s: '%s'",
+			errors.add(String.format("%s has invalid %s: '%s' (%s)",
 				definition.getTag(),
 				(unhandledSubfields.size() == 1 ? "subfield" : "subfields"),
-				StringUtils.join(unhandledSubfields, "', '")));
+				StringUtils.join(unhandledSubfields, "', '"), definition.getDescriptionUrl()));
 			isValid = false;
 		}
 
@@ -289,7 +289,8 @@ public class DataField implements Extractable, Validatable {
 		Map<SubfieldDefinition, Integer> counter = new HashMap<>();
 		for (MarcSubfield subfield : subfields) {
 			if (subfield.getDefinition() == null) {
-				errors.add(String.format("%s has invalid subfield %s", definition.getTag(), subfield.getCode()));
+				errors.add(String.format("%s has invalid subfield %s (%s)", definition.getTag(), subfield.getCode(),
+					definition.getDescriptionUrl()));
 				isValid = false;
 			} else {
 				if (!counter.containsKey(subfield.getDefinition())) {
@@ -307,9 +308,9 @@ public class DataField implements Extractable, Validatable {
 			if (counter.get(subfieldDefinition) > 1
 				&& subfieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
 				errors.add(String.format(
-					"%s$%s is not repeatable, however there are %d instances",
+					"%s$%s is not repeatable, however there are %d instances (%s)",
 					definition.getTag(), subfieldDefinition.getCode(),
-					counter.get(subfieldDefinition)));
+					counter.get(subfieldDefinition), definition.getDescriptionUrl()));
 				isValid = false;
 			}
 		}
@@ -329,17 +330,17 @@ public class DataField implements Extractable, Validatable {
 			if (!indicatorDefinition.hasCode(value)) {
 				isValid = false;
 				if (indicatorDefinition.isHistoricalCode(value)) {
-					errors.add(String.format("%s$%s has obsolete code: '%s'",
-						definition.getTag(), prefix, value));
+					errors.add(String.format("%s$%s has obsolete code: '%s' (%s)",
+						definition.getTag(), prefix, value, definition.getDescriptionUrl()));
 				} else {
-					errors.add(String.format("%s$%s has invalid code: '%s'",
-						definition.getTag(), prefix, value));
+					errors.add(String.format("%s$%s has invalid code: '%s' (%s)",
+						definition.getTag(), prefix, value, definition.getDescriptionUrl()));
 				}
 			}
 		} else {
 			if (!value.equals(" ")) {
-				errors.add(String.format("%s$%s should be empty, it has '%s'",
-					definition.getTag(), prefix, value));
+				errors.add(String.format("%s$%s should be empty, it has '%s' (%s)",
+					definition.getTag(), prefix, value, definition.getDescriptionUrl()));
 				isValid = false;
 			}
 		}

@@ -28,6 +28,7 @@ public class Tag647 extends DataFieldDefinition {
 		label = "Subject Added Entry - Named Event";
 		mqTag = "NamedEvent";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd647.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator("Thesaurus")

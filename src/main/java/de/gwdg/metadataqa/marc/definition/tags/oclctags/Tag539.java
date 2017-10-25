@@ -31,7 +31,8 @@ public class Tag539 extends DataFieldDefinition {
 		tag = "539";
 		label = "Fixed-Length Data Elements of Reproduction Note";
 		mqTag = "Reproduction";
-		cardinality = Cardinality.Nonrepeatable;
+		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "http://www.oclc.org/bibformats/en/5xx/539.html";
 
 		ind1 = new Indicator("The type of system control number")
 			.setCodes(

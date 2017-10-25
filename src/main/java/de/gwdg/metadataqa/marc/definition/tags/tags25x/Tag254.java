@@ -27,6 +27,7 @@ public class Tag254 extends DataFieldDefinition {
 		label = "Musical Presentation Statement";
 		mqTag = "MusicalPresentation";
 		cardinality = Cardinality.Nonrepeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd254.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

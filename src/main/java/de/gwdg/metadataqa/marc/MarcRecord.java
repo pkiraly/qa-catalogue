@@ -231,9 +231,9 @@ public class MarcRecord implements Extractable, Validatable {
 			if (repetitionCounter.get(fieldDefinition) > 1
 				&& fieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
 				errors.add(String.format(
-					"%s is not repeatable, however there are %d instances",
+					"%s is not repeatable, however there are %d instances (%s)",
 					fieldDefinition.getTag(),
-					repetitionCounter.get(fieldDefinition)));
+					repetitionCounter.get(fieldDefinition), fieldDefinition.getDescriptionUrl()));
 				isValidRecord = false;
 			}
 		}

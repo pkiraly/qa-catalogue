@@ -31,6 +31,7 @@ public class Tag880 extends DataFieldDefinition {
 		label = "Alternate Graphic Representation";
 		mqTag = "Alternate Graphic Representation";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd880.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

@@ -30,6 +30,7 @@ public class Tag400 extends DataFieldDefinition {
 		label = "Series Statement/Added Entry-Personal Name";
 		mqTag = "SeriesStatementAddedEntryPersonalName";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd400.html";
 
 		ind1 = new Indicator("Type of personal name entry element")
 			.setCodes(

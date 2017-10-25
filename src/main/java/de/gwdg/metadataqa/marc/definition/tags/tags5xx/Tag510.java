@@ -29,6 +29,7 @@ public class Tag510 extends DataFieldDefinition {
 		label = "Citation/References Note";
 		mqTag = "Citation";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd510.html";
 
 		ind1 = new Indicator("Coverage/location in source")
 			.setCodes(

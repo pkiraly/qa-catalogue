@@ -30,6 +30,7 @@ public class Tag883 extends DataFieldDefinition {
 		label = "Machine-generated Metadata Provenance";
 		mqTag = "MachineGeneratedMetadataProvenance";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd883.html";
 
 		ind1 = new Indicator("Method of machine assignment")
 			.setCodes(

@@ -29,6 +29,7 @@ public class Tag381 extends DataFieldDefinition {
 		label = "Other Distinguishing Characteristics of Work or Expression";
 		mqTag = "OtherDistinguishingCharacteristics";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd381.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

@@ -30,6 +30,7 @@ public class Tag772 extends DataFieldDefinition {
 		label = "Supplement Parent Entry";
 		bibframeTag = "SupplementTo";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd772.html";
 
 		ind1 = new Indicator("Note controller")
 			.setCodes(

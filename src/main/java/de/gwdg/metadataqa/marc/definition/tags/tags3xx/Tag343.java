@@ -27,6 +27,7 @@ public class Tag343 extends DataFieldDefinition {
 		tag = "343";
 		label = "Planar Coordinate Data";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd343.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

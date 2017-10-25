@@ -27,6 +27,7 @@ public class Tag255 extends DataFieldDefinition {
 		label = "Cartographic Mathematical Data";
 		bibframeTag = "Cartographic";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd255.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

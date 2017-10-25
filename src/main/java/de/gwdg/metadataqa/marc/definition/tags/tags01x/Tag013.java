@@ -31,6 +31,7 @@ public class Tag013 extends DataFieldDefinition {
 		label = "Patent Control Information";
 		mqTag = "PatentControl";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd013.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

@@ -28,6 +28,7 @@ public class Tag938 extends DataFieldDefinition {
 		label = "Vendor-Specific Ordering Data";
 		mqTag = "VendorSpecificOrderingData";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "http://www.oclc.org/bibformats/en/9xx/938.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

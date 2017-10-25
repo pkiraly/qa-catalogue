@@ -29,6 +29,7 @@ public class Tag547 extends DataFieldDefinition {
 		label = "Former Title Complexity Note";
 		mqTag = "FormerTitleComplexity";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd547.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

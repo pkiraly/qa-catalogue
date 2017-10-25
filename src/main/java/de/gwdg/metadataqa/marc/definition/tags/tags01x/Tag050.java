@@ -29,6 +29,7 @@ public class Tag050 extends DataFieldDefinition {
 		label = "Library of Congress Call Number";
 		bibframeTag = "ClassificationLcc";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd050.html";
 
 		ind1 = new Indicator("Existence in LC collection")
 			.setCodes(

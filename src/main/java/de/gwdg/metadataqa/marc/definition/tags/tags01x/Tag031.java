@@ -30,6 +30,7 @@ public class Tag031 extends DataFieldDefinition {
 		label = "Musical Incipits Information";
 		mqTag = "MusicalIncipits";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd031.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

@@ -29,6 +29,7 @@ public class Tag567 extends DataFieldDefinition {
 		label = "Methodology Note";
 		mqTag = "Methodology";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd567.html";
 
 		ind1 = new Indicator("Display constant controller")
 			.setCodes(

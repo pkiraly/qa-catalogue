@@ -28,6 +28,7 @@ public class Tag936 extends DataFieldDefinition {
 		label = "CONSER/OCLC Miscellaneous Data";
 		mqTag = "ConserOrOclcMiscellaneousData";
 		cardinality = Cardinality.Nonrepeatable;
+		descriptionUrl = "http://www.oclc.org/bibformats/en/9xx/936.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

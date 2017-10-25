@@ -29,6 +29,7 @@ public class Tag061 extends DataFieldDefinition {
 		label = "National Library of Medicine Copy Statement";
 		mqTag = "NlmCopy";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd061.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator()

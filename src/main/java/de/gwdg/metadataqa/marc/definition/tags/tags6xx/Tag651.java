@@ -30,6 +30,7 @@ public class Tag651 extends DataFieldDefinition {
 		label = "Subject Added Entry - Geographic Name";
 		bibframeTag = "Geographic";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd651.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator("Thesaurus")

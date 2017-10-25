@@ -29,6 +29,7 @@ public class Tag754 extends DataFieldDefinition {
 		label = "Added Entry - Taxonomic Identification";
 		mqTag = "TaxonomicIdentification";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd754.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

@@ -30,6 +30,7 @@ public class Tag046 extends DataFieldDefinition {
 		label = "Special Coded Dates";
 		mqTag = "SpecialCodedDates";
 		cardinality = Cardinality.Nonrepeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd046.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

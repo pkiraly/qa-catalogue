@@ -30,6 +30,7 @@ public class Tag700 extends DataFieldDefinition {
 		label = "Added Entry - Personal Name";
 		mqTag = "AddedPersonalName";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd700.html";
 
 		ind1 = new Indicator("Type of personal name entry element")
 			.setCodes(

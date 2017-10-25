@@ -27,6 +27,7 @@ public class Tag351 extends DataFieldDefinition {
 		label = "Organization and Arrangement of Materials";
 		bibframeTag = "Arrangement";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd351.html";
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();

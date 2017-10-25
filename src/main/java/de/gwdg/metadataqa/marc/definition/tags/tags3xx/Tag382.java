@@ -28,6 +28,7 @@ public class Tag382 extends DataFieldDefinition {
 		label = "Medium of Performance";
 		bibframeTag = "MusicMedium";
 		cardinality = Cardinality.Repeatable;
+		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd382.html";
 
 		ind1 = new Indicator("Display constant controller")
 			.setCodes(

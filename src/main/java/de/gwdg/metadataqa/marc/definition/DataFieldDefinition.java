@@ -15,6 +15,7 @@ public abstract class DataFieldDefinition {
 	protected Cardinality cardinality = Cardinality.Nonrepeatable;
 	protected Indicator ind1;
 	protected Indicator ind2;
+	protected String descriptionUrl;
 	protected List<SubfieldDefinition> subfields;
 	protected Map<String, SubfieldDefinition> subfieldIndex = new LinkedHashMap<>();
 	protected List<Code> historicalSubfields;
@@ -115,6 +116,10 @@ public abstract class DataFieldDefinition {
 		return historicalSubfields != null
 			&& !historicalSubfields.isEmpty()
 			&& historicalSubfieldsIndex.containsKey(code);
+	}
+
+	public String getDescriptionUrl() {
+		return descriptionUrl;
 	}
 
 	/**

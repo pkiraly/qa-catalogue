@@ -32,12 +32,28 @@ public class Tag086 extends DataFieldDefinition {
 		mqTag = "GovernmentDocumentClassification";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Number source").setCodes(
-			" ", "Source specified in subfield $2",
-			"0", "Superintendent of Documents Classification System",
-			"1", "Government of Canada Publications: Outline of Classification"
-		).setMqTag("numberSource");
-		ind2 = new Indicator();
+		ind1 = new Indicator("Number source")
+			.setCodes(
+				" ", "Source specified in subfield $2",
+				"0", "Superintendent of Documents Classification System",
+				"1", "Government of Canada Publications: Outline of Classification"
+			)
+			.setHistoricalCodes(
+				"0", "United States",
+				"1", "Canada",
+				"2-9", "Reserved"
+			)
+			.setMqTag("numberSource");
+		ind2 = new Indicator()
+			.setHistoricalCodes(
+				" ", "when first indicator is not \"1\"",
+				"0", "IC cat. no.",
+				"1", "Cat. IC, no.",
+				"2", "QP cat. no.",
+				"3", "Cat. IR, no.",
+				"4", "DSS cat. no.",
+				"5", "Cat. MAS, no."
+			);
 
 		setSubfieldsWithCardinality(
 			"a", "Classification number", "NR",

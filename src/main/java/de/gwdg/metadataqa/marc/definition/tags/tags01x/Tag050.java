@@ -30,17 +30,26 @@ public class Tag050 extends DataFieldDefinition {
 		bibframeTag = "ClassificationLcc";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Existence in LC collection").setCodes(
-			" ", "No information provided",
-			"0", "Item is in LC",
-			"1", "Item is not in LC"
-		).setMqTag("existenceInLC");
-		ind2 = new Indicator("Source of call number").setCodes(
-			"0", "Assigned by LC",
-			"4", "Assigned by agency other than LC"
-		).setHistoricalCodes(
-			" ", "No information provided"
-		).setMqTag("source");
+		ind1 = new Indicator("Existence in LC collection")
+			.setCodes(
+				" ", "No information provided",
+				"0", "Item is in LC",
+				"1", "Item is not in LC"
+			)
+			.setMqTag("existenceInLC");
+		ind2 = new Indicator("Source of call number")
+			.setCodes(
+				"0", "Assigned by LC",
+				"4", "Assigned by agency other than LC"
+			)
+			.setHistoricalCodes(
+				" ", "No information provided",
+				"0", "No series involved",
+				"1", "Main series",
+				"2", "Subseries",
+				"3", "Sub-subseries"
+			)
+			.setMqTag("source");
 
 		setSubfieldsWithCardinality(
 			"a", "Classification number", "R",
@@ -55,5 +64,9 @@ public class Tag050 extends DataFieldDefinition {
 		getSubfield("3").setMqTag("materialsSpecified");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
+
+		setHistoricalSubfields(
+			"d", "Supplementary class number (MU) [OBSOLETE, 1981]"
+		);
 	}
 }

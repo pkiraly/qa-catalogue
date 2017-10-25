@@ -33,10 +33,15 @@ public class Tag072 extends DataFieldDefinition {
 		cardinality = Cardinality.Repeatable;
 
 		ind1 = new Indicator();
-		ind2 = new Indicator("Code source").setCodes(
-			"0", "NAL subject category code list",
-			"7", "Source specified in subfield $2"
-		).setMqTag("codeSource");
+		ind2 = new Indicator("Code source")
+			.setCodes(
+				"0", "NAL subject category code list",
+				"7", "Source specified in subfield $2"
+			)
+			.setHistoricalCodes(
+				" ", "undefined"
+			)
+			.setMqTag("codeSource");
 
 		setSubfieldsWithCardinality(
 			"a", "Subject category code", "NR",

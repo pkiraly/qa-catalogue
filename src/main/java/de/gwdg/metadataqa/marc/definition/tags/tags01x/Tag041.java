@@ -86,5 +86,9 @@ public class Tag041 extends DataFieldDefinition {
 		getSubfield("2").setMqTag("source");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
+
+		setHistoricalSubfields(
+			"c", "Languages of separate titles (VM) [OBSOLETE, 1972], Languages of available translation (SE) [OBSOLETE, 1977]"
+		);
 	}
 }

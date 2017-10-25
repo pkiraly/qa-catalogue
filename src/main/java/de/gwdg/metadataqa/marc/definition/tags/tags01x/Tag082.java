@@ -31,21 +31,27 @@ public class Tag082 extends DataFieldDefinition {
 		bibframeTag = "ClassificationDdc";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Type of edition").setCodes(
-			"0", "Full edition",
-			"1", "Abridged edition",
-			"7", "Other edition specified in subfield $2"
-		).setHistoricalCodes(
-			" ", "No edition information recorded (BK, MU, VM, SE) [OBSOLETE]",
-			"2", "Abridged NST version (BK, MU, VM, SE) [OBSOLETE]"
-		).setMqTag("editionType");
-		ind2 = new Indicator("Source of classification number").setCodes(
-			" ", "No information provided",
-			"0", "Assigned by LC",
-			"4", "Assigned by agency other than LC"
-		).setHistoricalCodes(
-			" ", "No information provided [OBSOLETE] [USMARC only, BK, CF, MU, VM, SE]"
-		).setMqTag("classificationSource");
+		ind1 = new Indicator("Type of edition")
+			.setCodes(
+				"0", "Full edition",
+				"1", "Abridged edition",
+				"7", "Other edition specified in subfield $2"
+			)
+			.setHistoricalCodes(
+				" ", "No edition information recorded (BK, MU, VM, SE) [OBSOLETE]",
+				"2", "Abridged NST version (BK, MU, VM, SE) [OBSOLETE]"
+			)
+			.setMqTag("editionType");
+		ind2 = new Indicator("Source of classification number")
+			.setCodes(
+				" ", "No information provided",
+				"0", "Assigned by LC",
+				"4", "Assigned by agency other than LC"
+			)
+			.setHistoricalCodes(
+				" ", "No information provided [OBSOLETE] [USMARC only, BK, CF, MU, VM, SE]"
+			)
+			.setMqTag("classificationSource");
 
 		setSubfieldsWithCardinality(
 			"a", "Classification number", "R",
@@ -66,5 +72,9 @@ public class Tag082 extends DataFieldDefinition {
 		getSubfield("2").setBibframeTag("edition");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
+
+		setHistoricalSubfields(
+			"b", "DDC number-abridged NST version (SE) [OBSOLETE]"
+		);
 	}
 }

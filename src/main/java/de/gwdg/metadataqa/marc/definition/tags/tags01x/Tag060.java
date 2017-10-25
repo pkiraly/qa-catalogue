@@ -30,15 +30,26 @@ public class Tag060 extends DataFieldDefinition {
 		bibframeTag = "ClassificationNlm";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Existence in NLM collection").setCodes(
-			" ", "No information provided",
-			"0", "Item is in NLM",
-			"1", "Item is not in NLM"
-		).setMqTag("existenceInNLM");
-		ind2 = new Indicator("Source of call number").setCodes(
-			"0", "Assigned by NLM",
-			"4", "Assigned by agency other than NLM"
-		).setMqTag("source");
+		ind1 = new Indicator("Existence in NLM collection")
+			.setCodes(
+				" ", "No information provided",
+				"0", "Item is in NLM",
+				"1", "Item is not in NLM"
+			)
+			.setMqTag("existenceInNLM");
+		ind2 = new Indicator("Source of call number")
+			.setCodes(
+				"0", "Assigned by NLM",
+				"4", "Assigned by agency other than NLM"
+			)
+			.setHistoricalCodes(
+				"0", "No series involved",
+				"1", "Main series",
+				"2", "Subseries",
+				"3", "Sub-subseries",
+				" ", "No information provided [OBSOLETE]"
+			)
+			.setMqTag("source");
 
 		setSubfieldsWithCardinality(
 			"a", "Classification number", "R",

@@ -30,11 +30,13 @@ public class Tag080 extends DataFieldDefinition {
 		mqTag = "Udc";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Type of edition").setCodes(
-			" ", "No information provided",
-			"0", "Full",
-			"1", "Abridged"
-		).setMqTag("type");
+		ind1 = new Indicator("Type of edition")
+			.setCodes(
+				" ", "No information provided",
+				"0", "Full",
+				"1", "Abridged"
+			)
+			.setMqTag("type");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(

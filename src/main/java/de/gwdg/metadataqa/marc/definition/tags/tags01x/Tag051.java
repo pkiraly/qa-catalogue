@@ -31,7 +31,13 @@ public class Tag051 extends DataFieldDefinition {
 		cardinality = Cardinality.Repeatable;
 
 		ind1 = new Indicator();
-		ind2 = new Indicator();
+		ind2 = new Indicator()
+			.setHistoricalCodes(
+				"0", "No series involved",
+				"1", "Main series",
+				"2", "Subseries",
+				"3", "Sub-subseries"
+			);
 
 		setSubfieldsWithCardinality(
 			"a", "Classification number", "NR",

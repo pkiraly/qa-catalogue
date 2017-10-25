@@ -31,11 +31,16 @@ public class Tag052 extends DataFieldDefinition {
 		mqTag = "GeographicClassification";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Code source").setCodes(
-			" ", "Library of Congress Classification",
-			"1", "U.S. Dept. of Defense Classification",
-			"7", "Source specified in subfield $2"
-		).setMqTag("codeSource");
+		ind1 = new Indicator("Code source")
+			.setCodes(
+				" ", "Library of Congress Classification",
+				"1", "U.S. Dept. of Defense Classification",
+				"7", "Source specified in subfield $2"
+			)
+			.setHistoricalCodes(
+				"0", "U.S. Dept. of Defense Classification [OBSOLETE, 2002]"
+			)
+			.setMqTag("codeSource");
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(
@@ -55,5 +60,9 @@ public class Tag052 extends DataFieldDefinition {
 		getSubfield("2").setMqTag("source");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
+
+		setHistoricalSubfields(
+			"c", "Subject (MP) [OBSOLETE]"
+		);
 	}
 }

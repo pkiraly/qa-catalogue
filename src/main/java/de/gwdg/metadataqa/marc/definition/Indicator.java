@@ -17,7 +17,7 @@ public class Indicator {
 	private Map<String, Code> historicalCodeIndex = new LinkedHashMap<>();
 	private Map<Range, Code> ranges;
 	private String indicatorFlag;
-	private Map<String, List<Code>> additionalCodes;
+	private Map<MarcVersion, List<Code>> additionalCodes;
 
 	public Indicator() {}
 
@@ -159,10 +159,10 @@ public class Indicator {
 		this.indicatorFlag = indicatorFlag;
 	}
 
-	public Indicator putAdditionalSubfields(String libraryCode, List<Code> subfieldDefinitions) {
+	public Indicator putAdditionalSubfields(MarcVersion marcVersion, List<Code> subfieldDefinitions) {
 		if (additionalCodes == null)
 			additionalCodes = new HashMap<>();
-		additionalCodes.put(libraryCode, subfieldDefinitions);
+		additionalCodes.put(marcVersion, subfieldDefinitions);
 		return this;
 	}
 }

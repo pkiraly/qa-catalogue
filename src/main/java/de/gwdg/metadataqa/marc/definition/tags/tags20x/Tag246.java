@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 
 import java.util.Arrays;
@@ -54,7 +55,7 @@ public class Tag246 extends DataFieldDefinition {
 				"7", "Running title",
 				"8", "Spine title"
 			)
-			.putAdditionalSubfields("dnb", Arrays.asList(
+			.putAdditionalSubfields(MarcVersion.DNB, Arrays.asList(
 				new Code("9", "Ansetzungstitel")
 			))
 			.setMqTag("type");

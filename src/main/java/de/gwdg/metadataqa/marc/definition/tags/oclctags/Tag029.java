@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 
 import java.util.Arrays;
 
@@ -38,13 +39,13 @@ public class Tag029 extends DataFieldDefinition {
 				"0", "Primary control number",
 				"1", "Secondary control number"
 			)
-			.putAdditionalSubfields("dnb", Arrays.asList(
+			.putAdditionalSubfields(MarcVersion.DNB, Arrays.asList(
 				new Code("a", "ISSN formal richtig"),
 				new Code("b", "ISSN formal falsch")
 			))
 			.setMqTag("type");
 		ind2 = new Indicator()
-			.putAdditionalSubfields("dnb", Arrays.asList(
+			.putAdditionalSubfields(MarcVersion.DNB, Arrays.asList(
 				new Code(" ", "Nicht spezifiziert (bei fehlerhaften ISSN)"),
 				new Code("a", "Autorisierte ISSN"),
 				new Code("b", "ISSN der Ausgabe auf anderem Datenträger"),

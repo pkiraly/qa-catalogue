@@ -1,9 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
-import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
+import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.codelist.StandardIdentifierSourceCodes;
 
 import java.util.Arrays;
@@ -81,7 +78,7 @@ public class Tag024 extends DataFieldDefinition {
 			"b", "Additional codes following the standard number [OBSOLETE]"
 		);
 
-		putAdditionalSubfields("dnb", Arrays.asList(
+		putAdditionalSubfields(MarcVersion.DNB, Arrays.asList(
 			new SubfieldDefinition("9", "Standardnummer (mit Bindestrichen)", "NR")
 		));
 	}

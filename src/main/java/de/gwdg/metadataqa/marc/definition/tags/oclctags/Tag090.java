@@ -1,9 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.oclctags;
 
-import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
+import de.gwdg.metadataqa.marc.definition.*;
 
 import java.util.Arrays;
 
@@ -49,7 +46,7 @@ public class Tag090 extends DataFieldDefinition {
 		getSubfield("e").setMqTag("featureHeading");
 		getSubfield("f").setMqTag("filingSuffix");
 
-		putAdditionalSubfields("dnb", Arrays.asList(
+		putAdditionalSubfields(MarcVersion.DNB, Arrays.asList(
 			new SubfieldDefinition("i", "Angaben der Freiwilligen Selbstkontrollen der Filmwirtschaft", "NR"),
 			new SubfieldDefinition("n", "Veröffentlichungsart und Inhalt", "R").setCodes(
 				"ao", "Zeitungen für die allgemeine Öffentlichkeit",

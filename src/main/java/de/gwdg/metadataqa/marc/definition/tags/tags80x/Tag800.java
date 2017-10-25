@@ -138,7 +138,7 @@ public class Tag800 extends DataFieldDefinition {
 		getSubfield("6").setMqTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
 
-		putAdditionalSubfields("dnb", Arrays.asList(
+		putAdditionalSubfields(MarcVersion.DNB, Arrays.asList(
 			new SubfieldDefinition("9", "Sortierzählung", "R")
 		));
 	}

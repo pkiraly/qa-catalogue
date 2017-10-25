@@ -18,7 +18,7 @@ public abstract class DataFieldDefinition {
 	protected List<Code> historicalSubfields;
 	protected Map<String, Code> historicalSubfieldsIndex;
 	protected String indexTag = null;
-	protected Map<String, List<SubfieldDefinition>> additionalSubfields;
+	protected Map<MarcVersion, List<SubfieldDefinition>> additionalSubfields;
 
 	public String getTag() {
 		return tag;
@@ -129,9 +129,9 @@ public abstract class DataFieldDefinition {
 		return subfieldIndex.getOrDefault(code, null);
 	}
 
-	public void putAdditionalSubfields(String libraryCode, List<SubfieldDefinition> subfieldDefinitions) {
+	public void putAdditionalSubfields(MarcVersion marcVersion, List<SubfieldDefinition> subfieldDefinitions) {
 		if (additionalSubfields == null)
 			additionalSubfields = new HashMap<>();
-		additionalSubfields.put(libraryCode, subfieldDefinitions);
+		additionalSubfields.put(marcVersion, subfieldDefinitions);
 	}
 }

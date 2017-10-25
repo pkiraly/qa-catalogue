@@ -30,15 +30,22 @@ public class Tag260 extends DataFieldDefinition {
 		bibframeTag = "Publication";
 		cardinality = Cardinality.Repeatable;
 
-		ind1 = new Indicator("Sequence of publishing statements").setCodes(
-			" ", "Not applicable/No information provided/Earliest available publisher",
-			"2", "Intervening publisher",
-			"3", "Current/latest publisher"
-		).setHistoricalCodes(
-			"0", "Publisher, distributor, etc. is present",
-			"1", "Publisher, distributor, etc. not present"
-		).setMqTag("sequenceOfPublishingStatements");
-		ind2 = new Indicator();
+		ind1 = new Indicator("Sequence of publishing statements")
+			.setCodes(
+				" ", "Not applicable/No information provided/Earliest available publisher",
+				"2", "Intervening publisher",
+				"3", "Current/latest publisher"
+			)
+			.setHistoricalCodes(
+				"0", "Publisher, distributor, etc. is present",
+				"1", "Publisher, distributor, etc. not present"
+			)
+			.setMqTag("sequenceOfPublishingStatements");
+		ind2 = new Indicator()
+			.setHistoricalCodes(
+				"0", "Publisher, distributor, etc. not same as issuing body in added entry",
+				"1", "Publisher, distributor, etc. same as issuing body in added entry"
+			);
 
 		setSubfieldsWithCardinality(
 			"a", "Place of publication, distribution, etc.", "R",
@@ -61,5 +68,11 @@ public class Tag260 extends DataFieldDefinition {
 		getSubfield("3").setMqTag("materialsSpecified");
 		getSubfield("6").setMqTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
+
+		setHistoricalSubfields(
+			"d", "Plate or publisher's number for music (Pre-AACR2) [OBSOLETE, 1981] [CAN/MARC only] / Plate or publisher's number for music (Pre-AACR2) [OBSOLETE, 1999] [USMARC only]",
+			"k", "Identification/manufacturer number [OBSOLETE, 1988] [CAN/MARC only]",
+			"l", "Matrix and/or take number [OBSOLETE, 1988] [CAN/MARC only]"
+		);
 	}
 }

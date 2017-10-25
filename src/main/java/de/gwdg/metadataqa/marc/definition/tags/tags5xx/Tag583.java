@@ -34,8 +34,9 @@ public class Tag583 extends DataFieldDefinition {
 
 		ind1 = new Indicator("Privacy")
 			.setCodes(
-				" ", "Publications",
-				"8", "No display constant generated"
+				" ", "No information provided",
+				"0", "Private",
+				"1", "Not private"
 			)
 			.setMqTag("privacy");
 		ind2 = new Indicator();

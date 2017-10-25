@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags.dnbtags;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 
 /**
  * RSWK-Kette
@@ -51,6 +52,9 @@ public class Tag689 extends DataFieldDefinition {
 			"0", "Authority record control number(IDN des Normdatensatzes)", "R",
 			"5", "Herkunft", "R"
 		);
+		for (char c = 'a'; c <= 'z'; c++)
+			subfields.add(new SubfieldDefinition(String.valueOf(c), "Same as associated field", "R"));
+		indexSubfields();
 
 		getSubfield("A").setCodes(
 			"f", "Formschlagwort",

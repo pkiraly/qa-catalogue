@@ -38,7 +38,19 @@ public class Tag648 extends DataFieldDefinition {
 				"0", "Date or time period depicted [OBSOLETE, 2014]",
 				"1", "Date or time period of creation or origin [OBSOLETE, 2014]"
 			);
-		ind2 = new Indicator();
+		ind2 = new Indicator("Thesaurus")
+			.setCodes(
+				"0", "Library of Congress Subject Headings",
+				"1", "LC subject headings for children's literature",
+				"2", "Medical Subject Headings",
+				"3", "National Agricultural Library subject authority file",
+				"4", "Source not specified",
+				"5", "Canadian Subject Headings",
+				"6", "Répertoire de vedettes-matière",
+				"7", "Source specified in subfield $2"
+			)
+			.setMqTag("thesaurus");
+
 
 		setSubfieldsWithCardinality(
 			"a", "Chronological term", "NR",

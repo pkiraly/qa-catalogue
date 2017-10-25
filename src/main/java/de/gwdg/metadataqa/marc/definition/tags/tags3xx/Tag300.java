@@ -51,5 +51,11 @@ public class Tag300 extends DataFieldDefinition {
 		getSubfield("g").setMqTag("sizeOfUnit");
 		getSubfield("3").setMqTag("materialsSpecified");
 		getSubfield("6").setMqTag("linkage");
+
+		setHistoricalSubfields(
+			"d", "Accompanying material [OBSOLETE, 1997] [CAN/MARC only]",
+			"m", "Identification/manufacturer number [pre-AACR2 records only] [OBSOLETE, 1988] [CAN/MARC only]",
+			"n", "Matrix and/or take number [Sound recordings, pre-AACR2 records only] [OBSOLETE, 1988] [CAN/MARC only]"
+		);
 	}
 }

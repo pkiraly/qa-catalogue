@@ -42,5 +42,11 @@ public class Tag850 extends DataFieldDefinition {
 
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("8").setMqTag("fieldLink");
+
+		setHistoricalSubfields(
+			"b", "Holdings (MU, VM, SE) [OBSOLETE, 1990]",
+			"d", "Inclusive dates (MU, VM, SE) [OBSOLETE, 1990]",
+			"e", "Retention statement (CF, MU, VM, SE) [OBSOLETE, 1990]"
+		);
 	}
 }

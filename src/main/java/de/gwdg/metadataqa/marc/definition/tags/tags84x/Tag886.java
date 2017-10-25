@@ -43,9 +43,16 @@ public class Tag886 extends DataFieldDefinition {
 		// TODO:
 		// * $a-z - Foreign MARC subfield (R)
 		// * $0-9 - Foreign MARC subfield (R)
+
 		getSubfield("2").setCodeList(FormatSourceCodes.getInstance());
+
 		getSubfield("a").setMqTag("tag");
 		getSubfield("b").setMqTag("content");
 		getSubfield("2").setMqTag("source");
+
+		setHistoricalSubfields(
+			"c", "Content of the foreign MARC control fields 002-009 [OBSOLETE, 1997] [CAN/MARC only]",
+			"d", "Content designators and data elements of the foreign MARC variable fields 010-999 [OBSOLETE, 1997] [CAN/MARC only]"
+		);
 	}
 }

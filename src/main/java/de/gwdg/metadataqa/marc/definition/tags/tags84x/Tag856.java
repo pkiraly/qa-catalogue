@@ -30,22 +30,28 @@ public class Tag856 extends DataFieldDefinition {
 		label = "Electronic Location and Access";
 		mqTag = "ElectronicLocationAndAccess";
 		cardinality = Cardinality.Repeatable;
-		ind1 = new Indicator("Access method").setCodes(
-			" ", "No information provided",
-			"0", "Email",
-			"1", "FTP",
-			"2", "Remote login (Telnet)",
-			"3", "Dial-up",
-			"4", "HTTP",
-			"7", "Method specified in subfield $2"
-		).setMqTag("accessMethod");
-		ind2 = new Indicator("Relationship").setCodes(
-			" ", "No information provided",
-			"0", "Resource",
-			"1", "Version of resource",
-			"2", "Related resource",
-			"8", "No display constant generated"
-		).setMqTag("relationship");
+
+		ind1 = new Indicator("Access method")
+			.setCodes(
+				" ", "No information provided",
+				"0", "Email",
+				"1", "FTP",
+				"2", "Remote login (Telnet)",
+				"3", "Dial-up",
+				"4", "HTTP",
+				"7", "Method specified in subfield $2"
+			)
+			.setMqTag("accessMethod");
+		ind2 = new Indicator("Relationship")
+			.setCodes(
+				" ", "No information provided",
+				"0", "Resource",
+				"1", "Version of resource",
+				"2", "Related resource",
+				"8", "No display constant generated"
+			)
+			.setMqTag("relationship");
+
 		setSubfieldsWithCardinality(
 			"a", "Host name", "R",
 			"b", "Access number", "R",
@@ -76,8 +82,10 @@ public class Tag856 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("w").setCodeList(OrganizationCodes.getInstance());
 		getSubfield("2").setCodeList(ElectronicAccessMethodsCodeList.getInstance());
+
 		getSubfield("a").setMqTag("host");
 		getSubfield("b").setMqTag("accessNumber");
 		getSubfield("c").setMqTag("compression");
@@ -106,5 +114,9 @@ public class Tag856 extends DataFieldDefinition {
 		getSubfield("3").setMqTag("materialsSpecified");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
+
+		setHistoricalSubfields(
+			"g", "Uniform Resource Name [OBSOLETE, 2000]"
+		);
 	}
 }

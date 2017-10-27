@@ -38,12 +38,17 @@ export JAR=target/metadata-qa-marc-0.1-SNAPSHOT-jar-with-dependencies.jar
 java -cp $JAR de.gwdg.metadataqa.marc.cli.Validator [options] [file]
 ```
 
-options
+options:
 
 * `-s`, `--summary` creating a summary report instead of record level reports
-* `-v [MarcVersion]`, `--marcVersion [MarcVersion]` specify a MARC version (currently only `DNB`, the Deuthche Nationalbibliothek's version is supported)
+* `-m [MARC version name]`, `--marcVersion [MARC version name]` specify a MARC version (currently only `DNB`, the Deuthche Nationalbibliothek's version is supported)
+* `-l [number]`, `--limit [number]` validates only given number of records
+* `-o [number]`, `--offset [number]` starts validation at the given Nth record
+* `-f [file name]`, `--fileName [file name]` the name of report the program produces. Default is `validation-report.txt`.
 
-It creates `validation-report.txt` file.
+The `file` argument might contain any wildcard the operating system supports ('*', '?', etc.)
+
+It creates a file given at `fileName` parameter.
 
 Currently it detects the following errors:
 

@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.api.model.JsonPathCache;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.utils.ReadMarc;
 import org.apache.commons.cli.*;
@@ -34,6 +35,7 @@ public class Validator {
 
 	public static void main(String[] args) throws ParseException {
 		CommandLine cmd = processCommandLine(args);
+		ValidatorParameters parameters = new ValidatorParameters(cmd);
 		if (cmd.getArgs().length < 1) {
 			System.err.println("Please provide a MARC file name!");
 			System.exit(0);
@@ -46,11 +48,14 @@ public class Validator {
 		long start = System.currentTimeMillis();
 		Map<String, Integer> errorCounter = new TreeMap<>();
 
-		MarcVersion marcVersion = null;
-		if (cmd.hasOption("marcVersion")) {
-			marcVersion = MarcVersion.byCode(cmd.getOptionValue("marcVersion"));
-		}
+		MarcVersion marcVersion = parameters.getMarcVersion();
 		System.err.println("marcVersion: " + marcVersion.getCode() + ", " + marcVersion.getLabel());
+
+		int limit = parameters.getLimit();
+		System.err.println("limit: " + limit);
+
+		int offset = parameters.getOffset();
+		System.err.println("offset: " + offset);
 
 		String relativeFileName = cmd.getArgs()[0];
 		System.err.println("relativeFileName: " + relativeFileName);
@@ -62,13 +67,20 @@ public class Validator {
 		try {
 			MarcReader reader = ReadMarc.getReader(path.toString());
 
-			File output = new File("validation-report.txt");
+			File output = new File(parameters.getFileName());
 			if (output.exists())
 				output.delete();
 
 			int i = 0;
 			while (reader.hasNext()) {
 				i++;
+				if (isUnderOffset(offset, i)) {
+					continue;
+				}
+				if (isOverLimit(limit, i)) {
+					break;
+				}
+
 				Record marc4jRecord = reader.next();
 				try {
 					MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
@@ -92,7 +104,7 @@ public class Validator {
 						}
 					}
 
-					if (i % 1000 == 0)
+					if (i % 10000 == 0)
 						logger.info(String.format("%s/%d) %s", fileName, i, marcRecord.getId()));
 				} catch (IllegalArgumentException e) {
 					logger.severe(String.format("Error with record '%s'. %s", marc4jRecord.getControlNumber(), e.getMessage()));
@@ -123,10 +135,22 @@ public class Validator {
 		System.exit(0);
 	}
 
+	private static boolean isOverLimit(int limit, int i) {
+		return limit > -1 && i > limit;
+	}
+
+	private static boolean isUnderOffset(int offset, int i) {
+		return offset > -1 && offset < i;
+	}
+
 	private static CommandLine processCommandLine(String[] args) throws ParseException {
 		options = new Options();
 		options.addOption("s", "summary", false, "show summary instead of record level display");
 		options.addOption("m", "marcVersion", true, "MARC version ('OCLC' or DNB')");
+		options.addOption("l", "limit", true, "limit the number of records to process");
+		options.addOption("o", "offset", true, "the first record to process");
+		options.addOption("f", "fileName", true,
+			String.format("the report file name (default is %s)", ValidatorParameters.DEFAULT_FILE_NAME));
 		options.addOption("h", "help", false, "display help");
 
 		CommandLineParser parser = new DefaultParser();

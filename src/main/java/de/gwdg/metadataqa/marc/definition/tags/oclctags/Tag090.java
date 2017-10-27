@@ -46,46 +46,50 @@ public class Tag090 extends DataFieldDefinition {
 		getSubfield("e").setMqTag("featureHeading");
 		getSubfield("f").setMqTag("filingSuffix");
 
-		putAdditionalSubfields(MarcVersion.DNB, Arrays.asList(
-			new SubfieldDefinition("i", "Angaben der Freiwilligen Selbstkontrollen der Filmwirtschaft", "NR"),
-			new SubfieldDefinition("n", "Veröffentlichungsart und Inhalt", "R").setCodes(
-				"ao", "Zeitungen für die allgemeine Öffentlichkeit",
-				"az", "Anzeigenblatt",
-				"eo", "Zeitungen für eine eingeschränkte Öffentlichkeit",
-				"fb", "Fortschrittsbericht",
-				"ft", "Fachzeitung",
-				"fz", "Firmenzeitschrift/-zeitung",
-				"ha", "Haushaltsplan",
-				"il", "Illustrierte",
-				"lp", "Lokale Zeitungen",
-				"me", "Messeblatt",
-				"mg", "Magazin",
-				"re", "Report-Serie",
-				"rp", "Regionale Zeitungen",
-				"sc", "Schulschrift",
-				"ub", "Übersetzungszeitschrift",
-				"up", "Überregionale Zeitungen",
-				"ad", "DFG-geförderte Allianzlizenz",
-				"ag", "Aggregatordatenbank",
-				"al", "Allianzlizenz",
-				"dm", "Digitalisierungsmaster",
-				"fn", "zeitungsähnliche Periodika oder früher Zeitung (wird ab Nov. 2016 nicht mehr erfasst)",
-				"fp", "früher Zeitschrift oder zeitschriftenartige Reihe",
-				"fr", "früher Schriftenreihe",
-				"la", "Langzeitarchivierung elektronischer Ressourcen",
-				"ld", "layoutgetreue Digitalisierung",
-				"mw", "mehrbändiges Werk",
-				"nk", "Nationalkonsortium",
-				"nl", "Nationallizenz",
-				"pa", "Parlamentaria",
-				"pt", "Paket-Titelaufnahme",
-				"pu", "Pay-per-use-Datenbank",
-				"rs", "Restitutionsbestand vorhanden",
-				"sm", "sekundäre Mikroform",
-				"sw", "Software",
-				"wk", "Webclient-Katalogisat (m)",
-				"wl", "Weblog"
+		putVersionSpecificSubfields(MarcVersion.DNB, Arrays.asList(
+			new SubfieldDefinition("i", "Angaben der Freiwilligen Selbstkontrollen der Filmwirtschaft", "NR")
+				.setParent(this),
+			new SubfieldDefinition("n", "Veröffentlichungsart und Inhalt", "R")
+				.setParent(this)
+				.setCodes(
+					"ao", "Zeitungen für die allgemeine Öffentlichkeit",
+					"az", "Anzeigenblatt",
+					"eo", "Zeitungen für eine eingeschränkte Öffentlichkeit",
+					"fb", "Fortschrittsbericht",
+					"ft", "Fachzeitung",
+					"fz", "Firmenzeitschrift/-zeitung",
+					"ha", "Haushaltsplan",
+					"il", "Illustrierte",
+					"lp", "Lokale Zeitungen",
+					"me", "Messeblatt",
+					"mg", "Magazin",
+					"re", "Report-Serie",
+					"rp", "Regionale Zeitungen",
+					"sc", "Schulschrift",
+					"ub", "Übersetzungszeitschrift",
+					"up", "Überregionale Zeitungen",
+					"ad", "DFG-geförderte Allianzlizenz",
+					"ag", "Aggregatordatenbank",
+					"al", "Allianzlizenz",
+					"dm", "Digitalisierungsmaster",
+					"fn", "zeitungsähnliche Periodika oder früher Zeitung (wird ab Nov. 2016 nicht mehr erfasst)",
+					"fp", "früher Zeitschrift oder zeitschriftenartige Reihe",
+					"fr", "früher Schriftenreihe",
+					"la", "Langzeitarchivierung elektronischer Ressourcen",
+					"ld", "layoutgetreue Digitalisierung",
+					"mw", "mehrbändiges Werk",
+					"nk", "Nationalkonsortium",
+					"nl", "Nationallizenz",
+					"pa", "Parlamentaria",
+					"pt", "Paket-Titelaufnahme",
+					"pu", "Pay-per-use-Datenbank",
+					"rs", "Restitutionsbestand vorhanden",
+					"sm", "sekundäre Mikroform",
+					"sw", "Software",
+					"wk", "Webclient-Katalogisat (m)",
+					"wl", "Weblog"
+				)
 			)
-		));
+		);
 	}
 }

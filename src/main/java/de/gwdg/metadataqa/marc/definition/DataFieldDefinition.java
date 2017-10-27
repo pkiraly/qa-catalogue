@@ -18,7 +18,7 @@ public abstract class DataFieldDefinition {
 	protected List<Code> historicalSubfields;
 	protected Map<String, Code> historicalSubfieldsIndex;
 	protected String indexTag = null;
-	protected Map<MarcVersion, List<SubfieldDefinition>> additionalSubfields;
+	protected Map<MarcVersion, List<SubfieldDefinition>> versionSpecificSubfields;
 
 	public String getTag() {
 		return tag;
@@ -129,9 +129,36 @@ public abstract class DataFieldDefinition {
 		return subfieldIndex.getOrDefault(code, null);
 	}
 
-	public void putAdditionalSubfields(MarcVersion marcVersion, List<SubfieldDefinition> subfieldDefinitions) {
-		if (additionalSubfields == null)
-			additionalSubfields = new HashMap<>();
-		additionalSubfields.put(marcVersion, subfieldDefinitions);
+	public void putVersionSpecificSubfields(MarcVersion marcVersion, List<SubfieldDefinition> subfieldDefinitions) {
+		if (versionSpecificSubfields == null)
+			versionSpecificSubfields = new HashMap<>();
+		versionSpecificSubfields.put(marcVersion, subfieldDefinitions);
+	}
+
+	public boolean hasVersionSpecificSubfields(MarcVersion marcVersion) {
+		return versionSpecificSubfields.containsKey(marcVersion);
+	}
+
+	public boolean isVersionSpecificSubfields(MarcVersion marcVersion, String code) {
+		if (versionSpecificSubfields != null
+			&& !versionSpecificSubfields.isEmpty()
+			&& versionSpecificSubfields.containsKey(marcVersion)
+			&& !versionSpecificSubfields.get(marcVersion).isEmpty()) {
+			for (SubfieldDefinition subfieldDefinition : versionSpecificSubfields.get(marcVersion)) {
+				if (subfieldDefinition.getCode().equals(code))
+					return true;
+			}
+		}
+		return false;
+	}
+
+	public SubfieldDefinition getVersionSpecificSubfield(MarcVersion marcVersion, String code) {
+		if (isVersionSpecificSubfields(marcVersion, code)) {
+			for (SubfieldDefinition subfieldDefinition : versionSpecificSubfields.get(marcVersion)) {
+				if (subfieldDefinition.getCode().equals(code))
+					return subfieldDefinition;
+			}
+		}
+		return null;
 	}
 }

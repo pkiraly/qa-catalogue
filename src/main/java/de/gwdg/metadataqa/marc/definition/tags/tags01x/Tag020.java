@@ -56,7 +56,7 @@ public class Tag020 extends DataFieldDefinition {
 			"b", "Binding information (BK, MP, MU) [OBSOLETE]"
 		);
 
-		putAdditionalSubfields(MarcVersion.DNB, Arrays.asList(
+		putVersionSpecificSubfields(MarcVersion.DNB, Arrays.asList(
 			new SubfieldDefinition("9", "ISBN mit Bindestrichen", "R")
 		));
 	}

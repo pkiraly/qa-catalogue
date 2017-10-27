@@ -187,8 +187,9 @@ public class SubfieldDefinition {
 		return parent;
 	}
 
-	public void setParent(DataFieldDefinition parent) {
+	public SubfieldDefinition setParent(DataFieldDefinition parent) {
 		this.parent = parent;
+		return this;
 	}
 
 	public SubfieldDefinition setMqTag(String mqTag) {

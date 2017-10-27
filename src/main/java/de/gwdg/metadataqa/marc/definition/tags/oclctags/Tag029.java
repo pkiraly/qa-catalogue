@@ -44,6 +44,7 @@ public class Tag029 extends DataFieldDefinition {
 				new Code("b", "ISSN formal falsch")
 			))
 			.setMqTag("type");
+
 		ind2 = new Indicator()
 			.putVersionSpecificCodes(MarcVersion.DNB, Arrays.asList(
 				new Code(" ", "Nicht spezifiziert (bei fehlerhaften ISSN)"),

@@ -78,7 +78,7 @@ public class Tag024 extends DataFieldDefinition {
 			"b", "Additional codes following the standard number [OBSOLETE]"
 		);
 
-		putAdditionalSubfields(MarcVersion.DNB, Arrays.asList(
+		putVersionSpecificSubfields(MarcVersion.DNB, Arrays.asList(
 			new SubfieldDefinition("9", "Standardnummer (mit Bindestrichen)", "NR")
 		));
 	}

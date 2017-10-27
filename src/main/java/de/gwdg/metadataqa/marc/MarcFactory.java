@@ -116,13 +116,14 @@ public class MarcFactory {
 			String code = Character.toString(subfield.getCode());
 			SubfieldDefinition subfieldDefinition = definition.getSubfield(code);
 			if (subfieldDefinition == null) {
-				if (!(definition.getTag().equals("886") && code.equals("k")))
-					field.addUnhandledSubfields(code);
+				// if (!(definition.getTag().equals("886") && code.equals("k")))
+					// field.addUnhandledSubfields(code);
 					/*
 					logger.warning(String.format(
 						"Problem in record '%s': %s$%s is not a valid subfield (value: '%s')",
 						identifier, definition.getTag(), code, subfield.getData()));
 					*/
+				field.getSubfields().add(new MarcSubfield(null, code, subfield.getData()));
 			} else {
 				field.getSubfields().add(new MarcSubfield(subfieldDefinition, code, subfield.getData()));
 			}

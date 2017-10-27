@@ -289,21 +289,30 @@ public class DataField implements Extractable, Validatable {
 		Map<SubfieldDefinition, Integer> counter = new HashMap<>();
 		for (MarcSubfield subfield : subfields) {
 			if (subfield.getDefinition() == null) {
-				errors.add(String.format("%s has invalid subfield %s (%s)", definition.getTag(), subfield.getCode(),
-					definition.getDescriptionUrl()));
-				isValid = false;
-			} else {
-				if (!counter.containsKey(subfield.getDefinition())) {
-					counter.put(subfield.getDefinition(), 0);
-				}
-				counter.put(subfield.getDefinition(), counter.get(subfield.getDefinition()) + 1);
-
-				if (!subfield.validate(marcVersion)) {
-					errors.addAll(subfield.getErrors());
+				if (definition.isVersionSpecificSubfields(marcVersion, subfield.getCode())) {
+					subfield.setDefinition(
+						definition.getVersionSpecificSubfield(
+							marcVersion, subfield.getCode()));
+				} else {
+					errors.add(String.format("%s has invalid subfield %s (%s)",
+						definition.getTag(),
+						subfield.getCode(),
+						definition.getDescriptionUrl()));
 					isValid = false;
+					continue;
 				}
 			}
+			if (!counter.containsKey(subfield.getDefinition())) {
+				counter.put(subfield.getDefinition(), 0);
+			}
+			counter.put(subfield.getDefinition(), counter.get(subfield.getDefinition()) + 1);
+
+			if (!subfield.validate(marcVersion)) {
+				errors.addAll(subfield.getErrors());
+				isValid = false;
+			}
 		}
+
 		for (SubfieldDefinition subfieldDefinition : counter.keySet()) {
 			if (counter.get(subfieldDefinition) > 1
 				&& subfieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
@@ -341,9 +350,11 @@ public class DataField implements Extractable, Validatable {
 			}
 		} else {
 			if (!value.equals(" ")) {
-				errors.add(String.format("%s$%s should be empty, it has '%s' (%s)",
-					definition.getTag(), prefix, value, definition.getDescriptionUrl()));
-				isValid = false;
+				if (!indicatorDefinition.isVersionSpecificCode(marcVersion, value)) {
+					errors.add(String.format("%s$%s should be empty, it has '%s' (%s)",
+						definition.getTag(), prefix, value, definition.getDescriptionUrl()));
+					isValid = false;
+				}
 			}
 		}
 		return isValid;

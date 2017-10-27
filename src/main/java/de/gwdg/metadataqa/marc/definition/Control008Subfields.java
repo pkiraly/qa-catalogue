@@ -2,14 +2,11 @@ package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.definition.controlsubfields.tag008.*;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Control008Subfields {
 
-	private static final Map<Control008Type, List<ControlSubfield>> subfields = new HashMap<>();
+	private static final Map<Control008Type, List<ControlSubfield>> subfields = new TreeMap<>();
 
 	static {
 		subfields.put(Control008Type.ALL_MATERIALS, Arrays.asList(

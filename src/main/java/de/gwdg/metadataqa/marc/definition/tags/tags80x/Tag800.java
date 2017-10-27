@@ -4,9 +4,7 @@ import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Series Added Entry - Personal Name
@@ -138,7 +136,7 @@ public class Tag800 extends DataFieldDefinition {
 		getSubfield("6").setMqTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
 
-		putAdditionalSubfields(MarcVersion.DNB, Arrays.asList(
+		putVersionSpecificSubfields(MarcVersion.DNB, Arrays.asList(
 			new SubfieldDefinition("9", "Sortierzählung", "R")
 		));
 	}

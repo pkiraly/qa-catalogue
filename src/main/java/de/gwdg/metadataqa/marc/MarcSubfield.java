@@ -52,6 +52,10 @@ public class MarcSubfield implements Validatable {
 		return definition;
 	}
 
+	public void setDefinition(SubfieldDefinition definition) {
+		this.definition = definition;
+	}
+
 	public String getCodeForIndex() {
 		if (codeForIndex == null) {
 			codeForIndex = "_" + code;
@@ -90,7 +94,10 @@ public class MarcSubfield implements Validatable {
 					}
 				} else if (definition.getCodes() != null && definition.getCode(value) == null) {
 					errors.add(String.format("%s$%s has an invalid value: '%s' (%s)",
-						definition.getParent().getTag(), definition.getCode(), value, definition.getParent().getDescriptionUrl()));
+						definition.getParent().getTag(),
+						definition.getCode(),
+						value,
+						definition.getParent().getDescriptionUrl()));
 					isValid = false;
 				}
 			}

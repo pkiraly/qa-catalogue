@@ -34,7 +34,13 @@ public class Tag007soundRecording01 extends ControlSubfield {
 			"g", "Sound cartridge",
 			"i", "Sound-track film",
 			"q", "Roll",
-			"r", "Remote"
+			"r", "Remote",
+			"s", "Sound cassette",
+			"t", "Sound-tape reel",
+			"u", "Unspecified",
+			"w", "Wire recording",
+			"z", "Other",
+			"|", "No attempt to code"
 		);
 		historicalCodes = Utils.generateCodes(
 			"c", "Cylinder [OBSOLETE]",

@@ -56,7 +56,7 @@ public class Formatter {
 		System.err.println("id: " + id);
 
 		String inputFileName = cmd.getArgs()[0];
-		System.err.println("relativeFileName: " + inputFileName);
+		System.err.println("inputFileName: " + inputFileName);
 		Path path = Paths.get(inputFileName);
 		String fileName = path.getFileName().toString();
 
@@ -73,7 +73,7 @@ public class Formatter {
 				try {
 					System.err.println(marc4jRecord.getControlNumber());
 					if (marc4jRecord.getControlNumber().equals(id)) {
-						System.err.println(marc4jRecord.toString());
+						System.out.println(marc4jRecord.toString());
 						break;
 					}
 				} catch (IllegalArgumentException e) {

@@ -110,7 +110,8 @@ public class Control008 extends PositionalControlField implements Extractable {
 				logger.severe(content.length() + " " + subfield.getPositionEnd());
 			}
 			String value = null;
-			if (subfield.getPositionStart() <= content.length()) {
+			if (subfield.getPositionStart() <= content.length()
+				&& subfield.getPositionStart() < end) {
 				try {
 					value = content.substring(subfield.getPositionStart(), end);
 				} catch (StringIndexOutOfBoundsException e) {

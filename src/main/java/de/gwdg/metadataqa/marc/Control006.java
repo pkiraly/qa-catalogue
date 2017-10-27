@@ -120,7 +120,8 @@ public class Control006 extends PositionalControlField implements Extractable {
 			int end = Math.min(content.length(), subfield.getPositionEnd());
 
 			String value = null;
-			if (subfield.getPositionStart() <= content.length()) {
+			if (subfield.getPositionStart() <= content.length()
+				&& subfield.getPositionStart() < end) {
 				try {
 					value = content.substring(subfield.getPositionStart(), end);
 				} catch (StringIndexOutOfBoundsException e) {

@@ -35,8 +35,13 @@ export JAR=target/metadata-qa-marc-0.1-SNAPSHOT-jar-with-dependencies.jar
 
 ### Validating MARC records
 ```
-java -cp $JAR de.gwdg.metadataqa.marc.cli.Validator [file]
+java -cp $JAR de.gwdg.metadataqa.marc.cli.Validator [options] [file]
 ```
+
+options
+
+* `-s`, `--summary` creating a summary report instead of record level reports
+* `-v [MarcVersion]`, `--marcVersion [MarcVersion]` specify a MARC version (currently only `DNB`, the Deuthche Nationalbibliothek's version is supported)
 
 It creates `validation-report.txt` file.
 

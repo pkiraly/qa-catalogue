@@ -132,6 +132,10 @@ public abstract class DataFieldDefinition {
 	public void putVersionSpecificSubfields(MarcVersion marcVersion, List<SubfieldDefinition> subfieldDefinitions) {
 		if (versionSpecificSubfields == null)
 			versionSpecificSubfields = new HashMap<>();
+
+		for (SubfieldDefinition subfieldDefinition : subfieldDefinitions)
+			subfieldDefinition.setParent(this);
+
 		versionSpecificSubfields.put(marcVersion, subfieldDefinitions);
 	}
 

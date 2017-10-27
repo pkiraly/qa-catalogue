@@ -107,7 +107,6 @@ public class MarcFactory {
 		}
 	}
 
-	@NotNull
 	private static DataField extractDataField(org.marc4j.marc.DataField dataField,
 															DataFieldDefinition definition,
 															String identifier) {

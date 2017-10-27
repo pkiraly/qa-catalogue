@@ -1,8 +1,8 @@
 package de.gwdg.metadataqa.marc.definition.tags.oclctags;
 
-import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.*;
+
+import java.util.Arrays;
 
 /**
  * Work identifier
@@ -27,7 +27,7 @@ public class Tag912 extends DataFieldDefinition {
 		tag = "912";
 		label = "Work identifier";
 		mqTag = "WorkIdentifier";
-		cardinality = Cardinality.Nonrepeatable;
+		cardinality = Cardinality.Repeatable; // according to DNB
 
 		ind1 = new Indicator();
 		ind2 = new Indicator();
@@ -37,5 +37,9 @@ public class Tag912 extends DataFieldDefinition {
 		);
 
 		getSubfield("9").setMqTag("rdf:value");
+
+		putVersionSpecificSubfields(MarcVersion.DNB, Arrays.asList(
+			new SubfieldDefinition("a", "Kennzeichnung", "NR")
+		));
 	}
 }

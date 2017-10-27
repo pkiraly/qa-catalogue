@@ -125,36 +125,25 @@ public class Control008 extends PositionalControlField implements Extractable {
 				break;
 			}
 
-			/*
-			int end = Math.min(content.length(), subfield.getPositionEnd());
-			if (end < 0) {
-				logger.severe(content.length() + " " + subfield.getPositionEnd());
+			ControlValue controlValue = new ControlValue(subfield, value);
+			valuesList.add(controlValue);
+
+			switch (subfield.getId()) {
+				case "tag008all00": tag008all00 = controlValue; break;
+				case "tag008all06": tag008all06 = controlValue; break;
+				case "tag008all07": tag008all07 = controlValue; break;
+				case "tag008all11": tag008all11 = controlValue; break;
+				case "tag008all15": tag008all15 = controlValue; break;
+				case "tag008all35": tag008all35 = controlValue; break;
+				case "tag008all38": tag008all38 = controlValue; break;
+				case "tag008all39": tag008all39 = controlValue; break;
+				default:
+					logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
+					break;
 			}
-			try {
-				String value = content.substring(subfield.getPositionStart(), end);
-				*/
-				ControlValue controlValue = new ControlValue(subfield, value);
-				valuesList.add(controlValue);
 
-				switch (subfield.getId()) {
-					case "tag008all00": tag008all00 = controlValue; break;
-					case "tag008all06": tag008all06 = controlValue; break;
-					case "tag008all07": tag008all07 = controlValue; break;
-					case "tag008all11": tag008all11 = controlValue; break;
-					case "tag008all15": tag008all15 = controlValue; break;
-					case "tag008all35": tag008all35 = controlValue; break;
-					case "tag008all38": tag008all38 = controlValue; break;
-					case "tag008all39": tag008all39 = controlValue; break;
-					default:
-						logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
-						break;
-				}
-
-				valuesMap.put(subfield, value);
-				byPosition.put(subfield.getPositionStart(), subfield);
-			// } catch (StringIndexOutOfBoundsException e) {
-			// 	logger.severe(content.length() + " " + subfield.getPositionStart() + "-" + subfield.getPositionEnd());
-			// }
+			valuesMap.put(subfield, value);
+			byPosition.put(subfield.getPositionStart(), subfield);
 		}
 
 		for (ControlSubfield subfield : Control008Subfields.get(actual008Type)) {

@@ -47,10 +47,8 @@ public class Tag090 extends DataFieldDefinition {
 		getSubfield("f").setMqTag("filingSuffix");
 
 		putVersionSpecificSubfields(MarcVersion.DNB, Arrays.asList(
-			new SubfieldDefinition("i", "Angaben der Freiwilligen Selbstkontrollen der Filmwirtschaft", "NR")
-				.setParent(this),
+			new SubfieldDefinition("i", "Angaben der Freiwilligen Selbstkontrollen der Filmwirtschaft", "NR"),
 			new SubfieldDefinition("n", "Veröffentlichungsart und Inhalt", "R")
-				.setParent(this)
 				.setCodes(
 					"ao", "Zeitungen für die allgemeine Öffentlichkeit",
 					"az", "Anzeigenblatt",

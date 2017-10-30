@@ -277,7 +277,7 @@ Here is a list of data sources I am aware of so far:
 * Répertoire International des Sources Musicales &mdash; https://opac.rism.info/index.php?id=8&id=8&L=1. 800K records, MARCXML, RDF/XML, CC-BY licence.
 * ETH-Bibliothek (Swiss Federal Institute of Technology in Zurich) &mdash; http://www.library.ethz.ch/ms/Open-Data-an-der-ETH-Bibliothek/Downloads. 2.5M records, MARCXML format.
 * British library &mdash; http://www.bl.uk/bibliographic/datafree.html#m21z3950 (no download link, use z39.50 instead after asking for permission). MARC21, usage will be strictly for non-commercial purposes.
-* Talis &mdash; https://archive.org/download/talis_openlibrary_contribution/talis-openlibrary-contribution.mrc  5.5 million MARC21 records contributed by Talis to Open Library under the ODC PDDL 
+* Talis &mdash; https://archive.org/details/talis_openlibrary_contribution  5.5 million MARC21 records contributed by Talis to Open Library under the ODC PDDL 
 
 Thanks [Johann Rolschewski](https://github.com/jorol/) and [Phú](https://twitter.com/herr_tu) for their help in collecting this list! Do you know some more data sources? Please let me know.
 

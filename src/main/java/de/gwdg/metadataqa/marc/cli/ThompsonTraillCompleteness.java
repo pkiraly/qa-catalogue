@@ -65,6 +65,7 @@ public class ThompsonTraillCompleteness {
 
 		String[] inputFileNames = cmd.getArgs();
 
+		String message;
 		int i = 0;
 		for (String inputFileName : inputFileNames) {
 			Path path = Paths.get(inputFileName);
@@ -72,6 +73,11 @@ public class ThompsonTraillCompleteness {
 			logger.info("processing: " + fileName);
 
 			try {
+				if (i == 0) {
+					message = StringUtils.join(ThompsonTraillAnalysis.getHeader(), ",") + "\n";
+					FileUtils.writeStringToFile(output, message, true);
+				}
+
 				MarcReader reader = ReadMarc.getReader(path.toString());
 				while (reader.hasNext()) {
 					i++;
@@ -86,10 +92,12 @@ public class ThompsonTraillCompleteness {
 					try {
 						MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
 						List<Integer> scores = ThompsonTraillAnalysis.getScores(marcRecord);
-						String message = StringUtils.join(scores, ",") + "\n";
+						message = String.format("\"%s\",%s\n",
+							marc4jRecord.getControlNumber(),
+							StringUtils.join(scores, ","));
 						FileUtils.writeStringToFile(output, message, true);
 
-						if (i % 10000 == 0)
+						if (i % 100000 == 0)
 							logger.info(String.format("%s/%d) %s", fileName, i, marcRecord.getId()));
 					} catch (IllegalArgumentException e) {
 						logger.severe(String.format("Error with record '%s'. %s", marc4jRecord.getControlNumber(), e.getMessage()));

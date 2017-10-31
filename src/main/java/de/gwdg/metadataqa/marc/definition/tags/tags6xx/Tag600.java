@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags6xx;
 
+import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
@@ -121,5 +122,12 @@ public class Tag600 extends DataFieldDefinition {
 		getSubfield("4").setMqTag("relationship");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
+	}
+
+	public String getSource(DataField field) {
+		if (field.getInd2().equals("7")) {
+			return field.getSubfield("2").get(0).getValue();
+		}
+		return getInd2().getCode(field.getInd2()).getLabel();
 	}
 }

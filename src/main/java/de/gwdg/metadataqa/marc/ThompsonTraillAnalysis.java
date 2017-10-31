@@ -2,10 +2,12 @@ package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
+import de.gwdg.metadataqa.marc.definition.tags.tags6xx.Tag600;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * Implementation of the scoring algorithm described in
@@ -16,6 +18,16 @@ import java.util.List;
  */
 public class ThompsonTraillAnalysis {
 
+	private static final Pattern datePattern = Pattern.compile("^(14[5-9]\\d|1[5-9]\\d\\d|200\\d|201[0-7])$");
+
+	public static List<String> getHeader() {
+		return Arrays.asList(
+			"id", "ISBN", "Authors", "Alternative Titles", "Edition",
+			"Contributors", "Series", "TOC", "Date 008", "Date 26X", "LC/NLM",
+			"LoC", "Mesh", "Fast", "GND", "Other", "Online", "Language of Resource",
+			"Country of Publication", "noLanguageOrEnglish", "RDA", "total"
+		);
+	}
 
 	public static List<Integer> getScores(MarcRecord marcRecord) {
 		List<Integer> scores = new ArrayList<>();
@@ -41,26 +53,91 @@ public class ThompsonTraillAnalysis {
 		// Table of Contents and Abstract
 		// 505, 520	2 points if both fields exist; 1 point if either field exists
 		int score = 0;
-		score += exists(marcRecord, "505") ? 0 : 1;
-		score += exists(marcRecord, "520") ? 0 : 1;
+		score += exists(marcRecord, "505") ? 1 : 0;
+		score += exists(marcRecord, "520") ? 1 : 0;
 		scores.add(score);
 
 		// Date (MARC 008)	008/7-10	1 point if valid coded date exists
+		String date008 = marcRecord.getControl008().getTag008all07().getValue();
+		score = datePattern.matcher(date008).matches() ? 1 : 0;
+		scores.add(score);
 
-		// Date (MARC 26X)	260$c or 264$c	1 point if 4-digit date exists; 1 point if matches 008 date.
+		// Date (MARC 26X)
+		// 	260$c or 264$c
+		// 	1 point if 4-digit date exists; 1 point if matches 008 date.
+		score = 0;
+		if (exists(marcRecord, "260")) {
+			List<DataField> fields = marcRecord.getDatafield("260");
+			for (DataField field : fields) {
+				List<MarcSubfield> subfields = field.getSubfield("c");
+				if (subfields != null && !subfields.isEmpty()) {
+					for (MarcSubfield subfield : subfields) {
+						if (score == 0)
+							score = 1;
+						if (score < 2 && subfield.getValue().contains(date008))
+							score = 2;
+					}
+				}
+			}
+		}
+		if (exists(marcRecord, "264")) {
+			List<DataField> fields = marcRecord.getDatafield("264");
+			for (DataField field : fields) {
+				List<MarcSubfield> subfields = field.getSubfield("c");
+				if (subfields != null && !subfields.isEmpty()) {
+					for (MarcSubfield subfield : subfields) {
+						if (score == 0)
+							score = 1;
+						if (score < 2 && subfield.getValue().contains(date008))
+							score = 2;
+					}
+				}
+			}
+		}
+		scores.add(score);
+
 
 		// LC/NLM Classification	050, 060, 090	1 point if any field exists
 		score = (exists(marcRecord, "050") || exists(marcRecord, "060") || exists(marcRecord, "090")) ? 1 : 0;
 		scores.add(score);
 
 		// Subject Headings: Library of Congress
-		// 600, 610, 611, 630, 650, 651 second indicator 0	1 point for each field up to 10 total points
-
+		// 600, 610, 611, 630, 650, 651 second indicator 0
+		// 	1 point for each field up to 10 total points
 		// Subject Headings: MeSH	600, 610, 611, 630, 650, 651 second indicator 2	1 point for each field up to 10 total points
-
 		// Subject Headings: FAST	600, 610, 611, 630, 650, 651 second indicator 7, $2 fast	1 point for each field up to 10 total points
-
 		// Subject Headings: Other	600, 610, 611, 630, 650, 651, 653 if above criteria are not met	1 point for each field up to 5 total points
+		int lcScore = 0;
+		int meshScore = 0;
+		int fastScore = 0;
+		int gndScore = 0;
+		int otherScore = 0;
+		for (String tag : Arrays.asList("600", "610", "611", "630", "650", "651", "653")) {
+			if (exists(marcRecord, "600")) {
+				List<DataField> fields = marcRecord.getDatafield("600");
+				for (DataField field : fields) {
+					if (field.getInd2().equals("0"))
+						lcScore++;
+					else if (field.getInd2().equals("2"))
+						meshScore++;
+					else if (field.getInd2().equals("7")) {
+						switch (field.getSubfield("2").get(0).getValue()) {
+							case "fast": fastScore++; break;
+							case "gnd": gndScore++; break;
+							default: otherScore++; break;
+						}
+					}
+					else {
+						otherScore++;
+					}
+				}
+			}
+		}
+		scores.add(Math.min(lcScore, 10));
+		scores.add(Math.min(meshScore, 10));
+		scores.add(Math.min(fastScore, 10));
+		scores.add(Math.min(gndScore, 10));
+		scores.add(Math.min(otherScore, 15));
 
 		// Description	008/23=o and 300$a “online resource”	2 points if both elements exist; 1 point if either exists
 		String formOfItem = null;

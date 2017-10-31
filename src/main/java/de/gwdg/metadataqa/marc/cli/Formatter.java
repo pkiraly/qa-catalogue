@@ -71,7 +71,7 @@ public class Formatter {
 
 				Record marc4jRecord = reader.next();
 				try {
-					System.err.println(marc4jRecord.getControlNumber());
+					// System.err.println(marc4jRecord.getControlNumber());
 					if (marc4jRecord.getControlNumber().equals(id)) {
 						System.out.println(marc4jRecord.toString());
 						break;

@@ -37,7 +37,7 @@ public class DataField implements Extractable, Validatable {
 				String value = subfield.get("content");
 				SubfieldDefinition subfieldDefinition = definition.getSubfield(code);
 				if (subfieldDefinition == null) {
-					if (!(definition.getTag().equals("886") && code.equals("k")))
+					if (!(definition.getTag().equals("886") && code.equals("k")) && !definition.getTag().equals("936"))
 						System.err.printf("no definition for %s$%s (value: '%s') %s %s\n",
 							definition.getTag(), code, value, definition.getTag().equals("886"),
 							code.equals("k"));

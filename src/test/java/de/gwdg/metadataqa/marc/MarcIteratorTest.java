@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
 
 public class MarcIteratorTest {
@@ -55,23 +56,12 @@ public class MarcIteratorTest {
 			// List<Map<String, List<String>>> expectedList = fixedValues.get(branch.getLabel());
 			JSONArray fieldInstances = (JSONArray) cache.getFragment(branch.getJsonPath());
 			for (int fieldInsanceNr = 0; fieldInsanceNr < fieldInstances.size(); fieldInsanceNr++) {
-				// Map<String, List<String>> expectedInstances = expectedList.get(fieldInsanceNr);
 				Map fieldInstance = (Map)fieldInstances.get(fieldInsanceNr);
 				DataField field = MapToDatafield.parse(fieldInstance);
-				System.err.println(field);
-
-				// new DataField(fieldInstance.get("tag"), )
-
-				// System.err.println(fieldInstance.get("subfield"));
-				// List<Object> subfields = Converter.jsonObjectToList(fieldInstance.get("subfield"));
-				// System.err.println(subfields.get(0).getClass());
-				/*
-				for(JsonBranch subfieldDef : branch.getChildren()) {
-					List<EdmFieldInstance> childInstances = (List<EdmFieldInstance>)
-						cache.get(subfieldDef.getAbsoluteJsonPath(fieldInsanceNr),
-							subfieldDef.getJsonPath(), fieldInstance);
+				if (!fieldInstance.get("tag").equals("935")) {
+					assertNotNull(field);
+					assertEquals(fieldInstance.get("tag"), field.getTag());
 				}
-				*/
 			}
 		}
 	}

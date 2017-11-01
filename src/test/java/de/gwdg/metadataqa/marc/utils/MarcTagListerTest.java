@@ -8,9 +8,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 import static junit.framework.TestCase.assertFalse;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class MarcTagListerTest {
 
@@ -19,7 +17,7 @@ public class MarcTagListerTest {
 		List<Class<? extends DataFieldDefinition>> tags = MarcTagLister.listTags();
 		assertNotNull(tags);
 		assertNotEquals(0, tags.size());
-		assertEquals(239, tags.size());
+		assertEquals(240, tags.size());
 		assertEquals("Tag010", tags.get(0).getSimpleName());
 
 		for (Class<? extends DataFieldDefinition> tag : tags) {
@@ -43,6 +41,9 @@ public class MarcTagListerTest {
 
 	@Test
 	public void testDate() {
-		System.err.println(LocalTime.MIN.plusSeconds(808).toString());
+		assertEquals("00:00:59", LocalTime.MIN.plusSeconds(59).toString());
+		assertEquals("00:01:01", LocalTime.MIN.plusSeconds(61).toString());
+		assertEquals("00:10:01", LocalTime.MIN.plusSeconds(601).toString());
+		assertEquals("00:13:28", LocalTime.MIN.plusSeconds(808).toString());
 	}
 }

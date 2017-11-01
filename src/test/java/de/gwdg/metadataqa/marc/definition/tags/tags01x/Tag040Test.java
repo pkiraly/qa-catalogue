@@ -31,16 +31,15 @@ public class Tag040Test {
 		DataField field = new DataField(Tag040.getInstance(), " ", " ", "a", "CSt-H", "b", "eng", "c", "CSt-H", "e", "appm");
 		Map<String, List<String>> map = field.getHumanReadableMap();
 
-		System.err.println(map);
-
 		assertEquals(4, map.size());
 		assertEquals("Stanford University, Hoover Institution on War, Revolution, and Peace",
 				map.get("Original cataloging agency").get(0));
+		assertEquals("English",
+			map.get("Language of cataloging").get(0));
 		assertEquals("Stanford University, Hoover Institution on War, Revolution, and Peace",
 				map.get("Transcribing agency").get(0));
 		assertEquals("Hensen, Steven L. Archives, personal papers, and manuscripts (Washington: Library of Congress)",
 				map.get("Description conventions").get(0));
-
 	}
 
 	@Test

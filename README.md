@@ -259,6 +259,30 @@ To export the HTML table described at [Self Descriptive MARC code](http://pkiral
 java -cp $JAR de.gwdg.metadataqa.marc.cli.MappingToHtml > mapping.html
 ```
 
+### Extending the functionalities
+
+The project is available from Maven Central, the central respository of open source Java projects as jar files. If you want to use it in your Java or Scala application, put this code snippet into the list of dependencies:
+
+pom.xml
+
+```
+<dependency>
+  <groupId>de.gwdg.metadataqa</groupId>
+  <artifactId>metadata-qa-marc</artifactId>
+  <version>0.1</version>
+</dependency>
+```
+
+build.sbt
+
+```
+libraryDependencies += "de.gwdg.metadataqa" % "metadata-qa-marc" % "0.1"
+```
+
+
+or you can directly download the jars from [http://repo1.maven.org](http://repo1.maven.org/maven2/de/gwdg/metadataqa/metadata-qa-marc/0.1/)
+
+
 <a name="datasources"></a>
 ## Appendix: Where can I get MARC records?
 

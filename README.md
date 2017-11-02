@@ -141,6 +141,46 @@ or with a bash script
 * `-f`, `--format` the name of the format (at time of writing there is no any)
 * `-d [record ID]`, `--id [record ID]` specify a MARC record ID (field 001)
 
+The output of the script is something like this one:
+
+```
+LEADER 01697pam a2200433 c 4500
+001 1023012219
+003 DE-101
+005 20160912065830.0
+007 tu
+008 120604s2012    gw ||||| |||| 00||||ger  
+015   $a14,B04$z12,N24$2dnb
+016 7 $2DE-101$a1023012219
+020   $a9783860124352$cPp. : EUR 19.50 (DE), EUR 20.10 (AT)$9978-3-86012-435-2
+024 3 $a9783860124352
+035   $a(DE-599)DNB1023012219
+035   $a(OCoLC)864553265
+035   $a(OCoLC)864553328
+040   $a1145$bger$cDE-101$d1140
+041   $ager
+044   $cXA-DE-SN
+082 04$81\u$a622.0943216$qDE-101$222/ger
+083 7 $a620$a660$qDE-101$222sdnb
+084   $a620$a660$qDE-101$2sdnb
+085   $81\u$b622
+085   $81\u$z2$s43216
+090   $ab
+110 1 $0(DE-588)4665669-8$0http://d-nb.info/gnd/4665669-8$0(DE-101)963486896$aHalsbrücke$4aut
+245 00$aHalsbrücke$bzur Geschichte von Gemeinde, Bergbau und Hütten$chrsg. von der Gemeinde Halsbrücke anlässlich des Jubliäums "400 Jahre Hüttenstandort Halsbrücke". [Hrsg.: Ulrich Thiel]
+264  1$a[Freiberg]$b[Techn. Univ. Bergakad.]$c2012
+300   $a151 S.$bIll., Kt.$c31 cm, 1000 g
+653   $a(Produktform)Hardback
+653   $aGemeinde Halsbrücke
+653   $aHüttengeschichte
+653   $aFreiberger Bergbau
+653   $a(VLB-WN)1943: Hardcover, Softcover / Sachbücher/Geschichte/Regionalgeschichte, Ländergeschichte
+700 1 $0(DE-588)1113208554$0http://d-nb.info/gnd/1113208554$0(DE-101)1113208554$aThiel, Ulrich$d1955-$4edt$eHrsg.
+850   $aDE-101a$aDE-101b
+856 42$mB:DE-101$qapplication/pdf$uhttp://d-nb.info/1023012219/04$3Inhaltsverzeichnis
+925 r $arb
+```
+
 ### Calculating Thompson-Traill completeness
 
 Kelly Thompson and Stacie Traill recently published their approach to calculate the quality of ebook records comming from different data sources. Their article is _Implementation of the scoring algorithm described in Leveraging Python to improve ebook metadata selection, ingest, and management._ In Code4Lib Journal, Issue 38, 2017-10-18. http://journal.code4lib.org/articles/12828
@@ -157,6 +197,18 @@ or with a bash script
 * `-o [number]`, `--offset [number]` starts validation at the given Nth record
 * `-f [file name]`, `--fileName [file name]` the name of report the program produces. Default is `tt-completeness.csv`.
 
+It produces a CSV file like this:
+
+```
+id,ISBN,Authors,Alternative Titles,Edition,Contributors,Series,TOC,Date 008,Date 26X,LC/NLM, \
+LoC,Mesh,Fast,GND,Other,Online,Language of Resource,Country of Publication,noLanguageOrEnglish,RDA,total
+"010002197",0,0,0,0,0,0,0,1,2,0,0,0,0,0,0,0,1,0,0,0,4
+"01000288X",0,0,1,0,0,1,0,1,2,0,0,0,0,0,0,0,0,0,0,0,5
+"010004483",0,0,1,0,0,0,0,1,2,0,0,0,0,0,0,0,1,0,0,0,5
+"010018883",0,0,0,0,1,0,0,1,2,0,0,0,0,0,0,0,1,1,0,0,6
+"010023623",0,0,3,0,0,0,0,1,2,0,0,0,0,0,0,0,1,0,0,0,7
+"010027734",0,0,3,0,1,2,0,1,2,0,0,0,0,0,0,0,1,0,0,0,10
+```
 
 ### Indexing MARC records with Solr
 

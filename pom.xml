@@ -161,4 +161,20 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>travis</id>
+			<properties>
+				<skipSource>true</skipSource>
+				<skipGpg>true</skipGpg>
+				<skipCobertura>true</skipCobertura>
+				<skipStaging>true</skipStaging>
+				<skipJavadoc>true</skipJavadoc>
+			</properties>
+			<reporting>
+				<excludeDefaults>true</excludeDefaults>
+			</reporting>
+		</profile>
+	</profiles>
 </project>

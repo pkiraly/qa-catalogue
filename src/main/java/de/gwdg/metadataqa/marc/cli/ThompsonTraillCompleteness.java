@@ -48,8 +48,8 @@ public class ThompsonTraillCompleteness {
 		long start = System.currentTimeMillis();
 		Map<String, Integer> errorCounter = new TreeMap<>();
 
-		MarcVersion marcVersion = parameters.getMarcVersion();
-		logger.info("marcVersion: " + marcVersion.getCode() + ", " + marcVersion.getLabel());
+		// MarcVersion marcVersion = parameters.getMarcVersion();
+		// logger.info("marcVersion: " + marcVersion.getCode() + ", " + marcVersion.getLabel());
 
 		int limit = parameters.getLimit();
 		logger.info("limit: " + limit);
@@ -98,13 +98,13 @@ public class ThompsonTraillCompleteness {
 						FileUtils.writeStringToFile(output, message, true);
 
 						if (i % 100000 == 0)
-							logger.info(String.format("%s/%d) %s", fileName, i, marcRecord.getId()));
+							logger.info(String.format("%s/%d (id: %s)", fileName, i, marcRecord.getId()));
 					} catch (IllegalArgumentException e) {
 						logger.severe(String.format("Error with record '%s'. %s", marc4jRecord.getControlNumber(), e.getMessage()));
 						continue;
 					}
 				}
-				logger.info(String.format("End of cycle. Validated %d records.", i));
+				logger.info(String.format("End of cycle. Calculated %d records.", i));
 
 			} catch(SolrServerException ex){
 				logger.severe(ex.toString());

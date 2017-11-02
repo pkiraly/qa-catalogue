@@ -6,7 +6,7 @@ import org.apache.commons.cli.CommandLine;
 public class ValidatorParameters {
 	public static final String DEFAULT_FILE_NAME = "validation-report.txt";
 
-	private MarcVersion marcVersion = null;
+	private MarcVersion marcVersion = MarcVersion.MARC21;
 	private int limit = -1;
 	private int offset = -1;
 	private String fileName = DEFAULT_FILE_NAME;

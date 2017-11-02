@@ -1,0 +1,3 @@
+# Calling MARC formatter
+. ./common-script
+java -cp $JAR de.gwdg.metadataqa.marc.cli.Formatter $@

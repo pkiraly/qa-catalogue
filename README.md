@@ -30,12 +30,16 @@ mvn clean install
 We will use the same jar file in every command, so we save its path into a variable.
 
 ```
-export JAR=target/metadata-qa-marc-0.1-SNAPSHOT-jar-with-dependencies.jar
+export JAR=target/metadata-qa-marc-0.2-SNAPSHOT-jar-with-dependencies.jar
 ```
 
 ### Validating MARC records
 ```
 java -cp $JAR de.gwdg.metadataqa.marc.cli.Validator [options] [file]
+```
+or with a bash script
+```
+./validator [options] [file]
 ```
 
 options:
@@ -123,6 +127,35 @@ Errors in '   00000571 ':
 	260$ind1 has invalid code: '0'
 ...
 ```
+
+### Display one MARC record
+
+```
+java -cp $JAR de.gwdg.metadataqa.marc.cli.Formatter [options] [file]
+```
+or with a bash script
+```
+./formatter [options] [file]
+```
+
+* `-f`, `--format` the name of the format (at time of writing there is no any)
+* `-d [record ID]`, `--id [record ID]` specify a MARC record ID (field 001)
+
+### Calculating Thompson-Traill completeness
+
+Kelly Thompson and Stacie Traill recently published their approach to calculate the quality of ebook records comming from different data sources. Their article is _Implementation of the scoring algorithm described in Leveraging Python to improve ebook metadata selection, ingest, and management._ In Code4Lib Journal, Issue 38, 2017-10-18. http://journal.code4lib.org/articles/12828
+
+```
+java -cp $JAR de.gwdg.metadataqa.marc.cli.ThompsonTraillCompleteness [options] [file]
+```
+or with a bash script
+```
+./tt-completeness [options] [file]
+```
+
+* `-l [number]`, `--limit [number]` validates only given number of records
+* `-o [number]`, `--offset [number]` starts validation at the given Nth record
+* `-f [file name]`, `--fileName [file name]` the name of report the program produces. Default is `tt-completeness.csv`.
 
 
 ### Indexing MARC records with Solr

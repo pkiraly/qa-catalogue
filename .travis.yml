@@ -1,0 +1,22 @@
+language: java
+
+jdk:
+  - oraclejdk8
+
+install: mvn clean test -Ptravis -X
+
+before_install:
+  - sed -i.bak -e 's|https://nexus.codehaus.org/snapshots/|https://oss.sonatype.org/content/repositories/codehaus-snapshots/|g' ~/.m2/settings.xml
+  # prevent OutOfMemoryError: unable to create new native thread
+  - ulimit -t 166384
+  # get the actually set values
+  - ulimit -a
+  - export MAVEN_OPTS="-Xms512m -Xmx2g -XX:PermSize=256m $MAVEN_OPTS" 
+  - echo $HOME
+  - echo JAVA_OPTS $JAVA_OPTS
+  - echo MAVEN_OPTS $MAVEN_OPTS
+
+env:
+  global:
+    # - MAVEN_OPTS=-Xmx2g
+    - JAVA_OPTS=-Xmx2g

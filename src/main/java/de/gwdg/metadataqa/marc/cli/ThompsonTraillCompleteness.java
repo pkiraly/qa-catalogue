@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.cli;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.ThompsonTraillAnalysis;
+import de.gwdg.metadataqa.marc.cli.parameters.ThompsonTraillCompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.utils.ReadMarc;
@@ -35,7 +36,7 @@ public class ThompsonTraillCompleteness {
 
 	public static void main(String[] args) throws ParseException {
 		CommandLine cmd = processCommandLine(args);
-		ValidatorParameters parameters = new ValidatorParameters(cmd);
+		ThompsonTraillCompletenessParameters parameters = new ThompsonTraillCompletenessParameters(cmd);
 		if (cmd.getArgs().length < 1) {
 			System.err.println("Please provide a MARC file name!");
 			System.exit(0);

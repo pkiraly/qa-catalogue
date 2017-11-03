@@ -35,13 +35,12 @@ public class Validator {
 	private static Options options;
 
 	public static void main(String[] args) throws ParseException {
-		CommandLine cmd = processCommandLine(args);
-		ValidatorParameters parameters = new ValidatorParameters(cmd);
-		if (cmd.getArgs().length < 1) {
+		ValidatorParameters parameters = new ValidatorParameters(args);
+		if (parameters.getArgs().length < 1) {
 			System.err.println("Please provide a MARC file name!");
 			System.exit(0);
 		}
-		if (cmd.hasOption("help")) {
+		if (parameters.doHelp()) {
 			printHelp();
 			System.exit(0);
 		}
@@ -58,13 +57,13 @@ public class Validator {
 		int offset = parameters.getOffset();
 		logger.info("offset: " + offset);
 
-		logger.info("MARC files: " + StringUtils.join(cmd.getArgs(), ", "));
+		logger.info("MARC files: " + StringUtils.join(parameters.getArgs(), ", "));
 
 		File output = new File(parameters.getFileName());
 		if (output.exists())
 			output.delete();
 
-		String[] inputFileNames = cmd.getArgs();
+		String[] inputFileNames = parameters.getArgs();
 
 		int i = 0;
 		for (String inputFileName : inputFileNames) {
@@ -86,9 +85,9 @@ public class Validator {
 					Record marc4jRecord = reader.next();
 					try {
 						MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
-						boolean isValid = marcRecord.validate(marcVersion);
+						boolean isValid = marcRecord.validate(marcVersion, parameters.doSummary());
 						if (!isValid) {
-							if (cmd.hasOption("summary")) {
+							if (parameters.doSummary()) {
 								for (String error : marcRecord.getErrors()) {
 									if (!errorCounter.containsKey(error)) {
 										errorCounter.put(error, 0);
@@ -107,7 +106,7 @@ public class Validator {
 						}
 
 						if (i % 10000 == 0)
-							logger.info(String.format("%s/%d) %s", fileName, i, marcRecord.getId()));
+							logger.info(String.format("%s/%d (%s)", fileName, i, marcRecord.getId()));
 					} catch (IllegalArgumentException e) {
 						logger.severe(String.format("Error with record '%s'. %s", marc4jRecord.getControlNumber(), e.getMessage()));
 						continue;
@@ -125,7 +124,7 @@ public class Validator {
 			}
 		}
 
-		if (cmd.hasOption("summary")) {
+		if (parameters.doSummary()) {
 			try {
 				for (String error : errorCounter.keySet()) {
 					FileUtils.writeStringToFile(output, String.format("%s (%d times)\n", error, errorCounter.get(error)), true);
@@ -169,6 +168,7 @@ public class Validator {
 
 	private static void printHelp() {
 		HelpFormatter formatter = new HelpFormatter();
-		formatter.printHelp("java -cp metadata-qa-marc.jar de.gwdg.metadataqa.marc.cli.Validator [options] [file]", options);
+		formatter.printHelp("java -cp metadata-qa-marc.jar de.gwdg.metadataqa.marc.cli.Validator [options] [file]",
+			ValidatorParameters.getOptions());
 	}
 }

@@ -174,6 +174,10 @@ public class MarcRecord implements Extractable, Validatable {
 
 	@Override
 	public boolean validate(MarcVersion marcVersion) {
+		return validate(marcVersion, false);
+	}
+
+	public boolean validate(MarcVersion marcVersion, boolean isSummary) {
 		errors = new ArrayList<>();
 		boolean isValidRecord = true;
 		boolean isValidComponent;
@@ -185,23 +189,28 @@ public class MarcRecord implements Extractable, Validatable {
 		}
 
 		if (!unhandledTags.isEmpty()) {
-			Map<String, Integer> tags = new LinkedHashMap<>();
-			for (String tag : unhandledTags) {
-				if (!tags.containsKey(tag))
-					tags.put(tag, 0);
-				tags.put(tag, tags.get(tag) + 1);
-			}
-			List<String> unhandledTagsList = new ArrayList<>();
-			for (String tag : tags.keySet()) {
-				if (tags.get(tag) == 1)
-					unhandledTagsList.add(tag);
-				else
-					unhandledTagsList.add(String.format("%s (%d*)", tag, tags.get(tag)));
+			if (isSummary) {
+				for (String tag : unhandledTags)
+					errors.add(String.format("Unhandled tag: %s", tag));
+			} else {
+				Map<String, Integer> tags = new LinkedHashMap<>();
+				for (String tag : unhandledTags) {
+					if (!tags.containsKey(tag))
+						tags.put(tag, 0);
+					tags.put(tag, tags.get(tag) + 1);
+				}
+				List<String> unhandledTagsList = new ArrayList<>();
+				for (String tag : tags.keySet()) {
+					if (tags.get(tag) == 1)
+						unhandledTagsList.add(tag);
+					else
+						unhandledTagsList.add(String.format("%s (%d*)", tag, tags.get(tag)));
+				}
+				errors.add(String.format("Unhandled %s: %s",
+					(unhandledTags.size() == 1 ? "tag" : "tags"),
+					StringUtils.join(unhandledTagsList, ", ")));
 			}
 
-			errors.add(String.format("Unhandled %s: %s",
-				(unhandledTags.size() == 1 ? "tag" : "tags"),
-				StringUtils.join(unhandledTagsList, ", ")));
 			isValidRecord = false;
 		}
 

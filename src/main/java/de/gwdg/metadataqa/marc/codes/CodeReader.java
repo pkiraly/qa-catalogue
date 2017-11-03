@@ -16,11 +16,11 @@ public class CodeReader {
 
 	public static Map<String, StandardIdentifier> readStandardIdentifiers() 
 			throws URISyntaxException, IOException {
-		List<String> lines = FileUtils.readLines("standard-identifier.csv");
+		List<String> lines = FileUtils.readLines("marc/standard-identifier.csv");
 		Map<String, StandardIdentifier> standardIdentifiers = new HashMap<>();
 
 		for (String line : lines) {
-			String[] fields = line.split(";");
+			String[] fields = line.split(";", 6);
 			standardIdentifiers.put(
 				fields[0],
 				new StandardIdentifier(

@@ -3,6 +3,8 @@ package de.gwdg.metadataqa.marc;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.general.validator.ClassificationReferenceValidator;
+import de.gwdg.metadataqa.marc.definition.ValidatorResponse;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
@@ -123,6 +125,11 @@ public class MarcRecord implements Extractable, Validatable {
 		return datafieldIndex.getOrDefault(tag, null);
 	}
 
+	public boolean exists(String tag) {
+		List<DataField> fields = getDatafield(tag);
+		return (fields != null && !fields.isEmpty());
+	}
+
 	public List<String> getUnhandledTags() {
 		return unhandledTags;
 	}
@@ -214,6 +221,16 @@ public class MarcRecord implements Extractable, Validatable {
 			isValidRecord = false;
 		}
 
+		// TODO: use reflection to get all validator class
+		ValidatorResponse validatorResponse;
+		/*
+		validatorResponse = ClassificationReferenceValidator.validate(this);
+		if (!validatorResponse.isValid()) {
+			errors.addAll(validatorResponse.getErrors());
+			isValidRecord = false;
+		}
+		*/
+
 		for (Extractable controlField : getControlfields()) {
 			if (controlField != null) {
 				isValidComponent = ((Validatable)controlField).validate(marcVersion);
@@ -231,9 +248,14 @@ public class MarcRecord implements Extractable, Validatable {
 			}
 			repetitionCounter.put(field.getDefinition(), repetitionCounter.get(field.getDefinition()) + 1);
 			if (!field.validate(marcVersion)) {
-				// logger.warning("error in " + field.getDefinition().getTag());
 				isValidRecord = false;
 				errors.addAll(field.getErrors());
+			}
+
+			validatorResponse = ClassificationReferenceValidator.validate(field);
+			if (!validatorResponse.isValid()) {
+				errors.addAll(validatorResponse.getErrors());
+				isValidRecord = false;
 			}
 		}
 

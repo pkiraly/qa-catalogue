@@ -2,11 +2,11 @@ package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
-import de.gwdg.metadataqa.marc.definition.tags.tags6xx.Tag600;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 /**
@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
  */
 public class ThompsonTraillAnalysis {
 
+	private static final Logger logger = Logger.getLogger(ThompsonTraillAnalysis.class.getCanonicalName());
 	private static final Pattern datePattern = Pattern.compile("^(14[5-9]\\d|1[5-9]\\d\\d|200\\d|201[0-7])$");
 
 	public static List<String> getHeader() {
@@ -101,6 +102,13 @@ public class ThompsonTraillAnalysis {
 		score = (exists(marcRecord, "050") || exists(marcRecord, "060") || exists(marcRecord, "090")) ? 1 : 0;
 		scores.add(score);
 
+		// 600 - Personal Name
+		// 610 - Corporate Name
+		// 611 - Meeting Name
+		// 630 - Uniform Title
+		// 650 - Topical Term
+		// 651 - Geographic Name
+		// 653 - Uncontrolled Index Term
 		// Subject Headings: Library of Congress
 		// 600, 610, 611, 630, 650, 651 second indicator 0
 		// 	1 point for each field up to 10 total points
@@ -113,19 +121,25 @@ public class ThompsonTraillAnalysis {
 		int gndScore = 0;
 		int otherScore = 0;
 		for (String tag : Arrays.asList("600", "610", "611", "630", "650", "651", "653")) {
-			if (exists(marcRecord, "600")) {
-				List<DataField> fields = marcRecord.getDatafield("600");
+			if (exists(marcRecord, tag)) {
+				List<DataField> fields = marcRecord.getDatafield(tag);
 				for (DataField field : fields) {
 					if (field.getInd2().equals("0"))
 						lcScore++;
 					else if (field.getInd2().equals("2"))
 						meshScore++;
 					else if (field.getInd2().equals("7")) {
-						switch (field.getSubfield("2").get(0).getValue()) {
-							case "fast": fastScore++; break;
-							case "gnd": gndScore++; break;
-							default: otherScore++; break;
-						}
+						List<MarcSubfield> subfield2 = field.getSubfield("2");
+						if (subfield2 == null) {
+							logger.severe(String.format(
+								"Error in %s: ind2 = 7, but there is no $2",
+								marcRecord.getControl001().getContent()));
+						} else
+							switch (field.getSubfield("2").get(0).getValue()) {
+								case "fast": fastScore++; break;
+								case "gnd": gndScore++; break;
+								default: otherScore++; break;
+							}
 					}
 					else {
 						otherScore++;

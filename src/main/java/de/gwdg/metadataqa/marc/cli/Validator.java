@@ -59,9 +59,12 @@ public class Validator {
 
 		logger.info("MARC files: " + StringUtils.join(parameters.getArgs(), ", "));
 
-		File output = new File(parameters.getFileName());
-		if (output.exists())
-			output.delete();
+		File output = null;
+		if (!parameters.useStandardOutput()) {
+			output = new File(parameters.getFileName());
+			if (output.exists())
+				output.delete();
+		}
 
 		String[] inputFileNames = parameters.getArgs();
 
@@ -101,7 +104,10 @@ public class Validator {
 									marcRecord.getControl001().getContent(),
 									StringUtils.join(marcRecord.getErrors(), "\n\t")
 								);
-								FileUtils.writeStringToFile(output, message, true);
+								if (parameters.useStandardOutput())
+									System.out.print(message);
+								else
+									FileUtils.writeStringToFile(output, message, true);
 							}
 						}
 
@@ -126,8 +132,13 @@ public class Validator {
 
 		if (parameters.doSummary()) {
 			try {
+				String message;
 				for (String error : errorCounter.keySet()) {
-					FileUtils.writeStringToFile(output, String.format("%s (%d times)\n", error, errorCounter.get(error)), true);
+					message = String.format("%s (%d times)\n", error, errorCounter.get(error));
+					if (parameters.useStandardOutput())
+						System.out.print(message);
+					else
+						FileUtils.writeStringToFile(output, message, true);
 				}
 			} catch (IOException ex) {
 				logger.severe(ex.toString());

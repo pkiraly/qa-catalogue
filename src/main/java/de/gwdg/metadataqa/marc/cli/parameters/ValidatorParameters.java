@@ -13,6 +13,7 @@ public class ValidatorParameters {
 	private boolean doHelp;
 	private boolean doSummary;
 	private String[] args;
+	private boolean useStandardOutput = false;
 
 	private static Options options = new Options();
 	private static CommandLineParser parser = new DefaultParser();
@@ -35,6 +36,9 @@ public class ValidatorParameters {
 
 		if (cmd.hasOption("fileName"))
 			fileName = cmd.getOptionValue("fileName");
+
+		if (fileName.equals("stdout"))
+			useStandardOutput = true;
 
 		if (cmd.hasOption("limit"))
 			limit = Integer.parseInt(cmd.getOptionValue("limit"));
@@ -80,5 +84,9 @@ public class ValidatorParameters {
 
 	public static Options getOptions() {
 		return options;
+	}
+
+	public boolean useStandardOutput() {
+		return useStandardOutput;
 	}
 }

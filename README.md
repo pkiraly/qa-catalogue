@@ -48,7 +48,7 @@ options:
 * `-m [MARC version name]`, `--marcVersion [MARC version name]` specify a MARC version (currently only `DNB`, the Deuthche Nationalbibliothek's version is supported)
 * `-l [number]`, `--limit [number]` validates only given number of records
 * `-o [number]`, `--offset [number]` starts validation at the given Nth record
-* `-f [file name]`, `--fileName [file name]` the name of report the program produces. Default is `validation-report.txt`.
+* `-f [file name]`, `--fileName [file name]` the name of report the program produces. Default is `validation-report.txt`. If you use "stdout", it won't create file, but put results into the standard output.
 
 The `file` argument might contain any wildcard the operating system supports ('*', '?', etc.)
 

@@ -43,6 +43,7 @@ public class MarcFactoryTest {
 		// System.err.println(record.formatForIndex());
 		// System.err.println(record.getKeyValuePairs());
 		Map<String, List<String>> pairs = record.getKeyValuePairs();
+		assertEquals(119, pairs.size());
 		assertEquals("Continuing Resources", pairs.get("type").get(0));
 		assertEquals("02703cas a2200481   4500", pairs.get("Leader").get(0));
 		assertEquals("02703", pairs.get("Leader_recordLength").get(0));

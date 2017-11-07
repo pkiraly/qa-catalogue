@@ -1,6 +1,11 @@
 package de.gwdg.metadataqa.marc;
 
 import java.util.List;
+
+import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.controlsubfields.tag007.Tag007nonprojected00;
+import de.gwdg.metadataqa.marc.definition.controlsubfields.tag007.Tag007nonprojected01;
+import de.gwdg.metadataqa.marc.definition.controlsubfields.tag007.Tag007nonprojected02;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -51,5 +56,14 @@ public class UtilsTest {
 	@Test(expected=IllegalArgumentException.class)
 	public void testGenerateImpairCodes() {
 		List<Code> codes = Utils.generateCodes("a", "dummy", "b");
+	}
+
+	public void testGenerateControlSubfieldList() {
+		List<ControlSubfield> list = Utils.generateControlSubfieldList(
+			Tag007nonprojected00.getInstance(),
+			Tag007nonprojected01.getInstance());
+		assertNotNull(list);
+		assertEquals(2, list.size());
+		assertEquals(Tag007nonprojected00.getInstance(), list.get(0));
 	}
 }

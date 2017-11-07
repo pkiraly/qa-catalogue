@@ -1,19 +1,20 @@
 package de.gwdg.metadataqa.marc;
 
-import de.gwdg.metadataqa.marc.definition.MarcVersion;
-import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
-import de.gwdg.metadataqa.marc.definition.Validator;
+import de.gwdg.metadataqa.marc.definition.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class MarcSubfield implements Validatable {
+	private MarcRecord record;
+	private DataField field;
 	private SubfieldDefinition definition;
 	private String code;
 	private String value;
 	private String codeForIndex = null;
 	private List<String> errors = null;
+	private List<ValidationError> validationErrors = null;
 
 	public MarcSubfield(SubfieldDefinition definition, String code, String value) {
 		this.definition = definition;
@@ -27,6 +28,14 @@ public class MarcSubfield implements Validatable {
 
 	public String getValue() {
 		return value;
+	}
+
+	public DataField getField() {
+		return field;
+	}
+
+	public void setField(DataField field) {
+		this.field = field;
 	}
 
 	public String getLabel() {
@@ -56,6 +65,14 @@ public class MarcSubfield implements Validatable {
 		this.definition = definition;
 	}
 
+	public MarcRecord getRecord() {
+		return record;
+	}
+
+	public void setRecord(MarcRecord record) {
+		this.record = record;
+	}
+
 	public String getCodeForIndex() {
 		if (codeForIndex == null) {
 			codeForIndex = "_" + code;
@@ -76,8 +93,11 @@ public class MarcSubfield implements Validatable {
 	public boolean validate(MarcVersion marcVersion) {
 		boolean isValid = true;
 		errors = new ArrayList<>();
+		validationErrors = new ArrayList<>();
 
 		if (definition == null) {
+			validationErrors.add(new ValidationError(record.getId(), field.getDefinition().getTag(),
+				ValidationErrorType.UndefinedSubfield, code, field.getDefinition().getDescriptionUrl()));
 			errors.add(String.format("no definition for %s", code));
 			isValid = false;
 		} else {
@@ -88,14 +108,16 @@ public class MarcSubfield implements Validatable {
 			} else {
 				if (definition.getValidator() != null) {
 					Validator validator = definition.getValidator();
-					if (!validator.isValid(value)) {
+					if (!validator.isValid(value, this)) {
 						errors.addAll(validator.getErrors());
+						validationErrors.addAll(validator.getValidationErrors());
 						isValid = false;
 					}
 				} else if (definition.getCodes() != null && definition.getCode(value) == null) {
-					errors.add(String.format("%s$%s has an invalid value: '%s' (%s)",
-						definition.getParent().getTag(),
-						definition.getCode(),
+					validationErrors.add(new ValidationError(record.getId(), definition.getPath(),
+						ValidationErrorType.HasInvalidValue, value, definition.getParent().getDescriptionUrl()));
+					errors.add(String.format("%s has an invalid value: '%s' (%s)",
+						definition.getPath(),
 						value,
 						definition.getParent().getDescriptionUrl()));
 					isValid = false;
@@ -111,4 +133,8 @@ public class MarcSubfield implements Validatable {
 		return errors;
 	}
 
+	@Override
+	public List<ValidationError> getValidationErrors() {
+		return validationErrors;
+	}
 }

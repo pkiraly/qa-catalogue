@@ -74,6 +74,10 @@ public class SubfieldDefinition {
 		return code;
 	}
 
+	public String getPath() {
+		return String.format("%s$%s", getParent().getTag(), getCode());
+	}
+
 	public SubfieldDefinition setCodes(List<Code> codes) {
 		this.codes = codes;
 		return this;

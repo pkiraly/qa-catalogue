@@ -1,9 +1,6 @@
 package de.gwdg.metadataqa.marc;
 
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
-import de.gwdg.metadataqa.marc.definition.ControlValue;
-import de.gwdg.metadataqa.marc.definition.LeaderSubfields;
-import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.*;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -37,6 +34,7 @@ public class Leader implements Extractable, Validatable {
 		}
 	};
 
+	private MarcRecord marcRecord;
 	private Type type;
 	private String content;
 	private Map<ControlSubfield, String> valuesMap;
@@ -58,6 +56,7 @@ public class Leader implements Extractable, Validatable {
 	private ControlValue lengthOfTheStartingCharacterPositionPortion;
 	private ControlValue lengthOfTheImplementationDefinedPortion;
 	private List<String> errors;
+	private List<ValidationError> validationErrors;
 
 	public Leader(String content) {
 		this.content = content;
@@ -226,6 +225,10 @@ public class Leader implements Extractable, Validatable {
 		return lengthOfTheImplementationDefinedPortion;
 	}
 
+	protected void setMarcRecord(MarcRecord marcRecord) {
+		this.marcRecord = marcRecord;
+	}
+
 	public String toString() {
 		String output = String.format( "type: %s\n", type.getValue());
 		for (ControlSubfield key : LeaderSubfields.getSubfields()) {
@@ -253,10 +256,12 @@ public class Leader implements Extractable, Validatable {
 	public boolean validate(MarcVersion marcVersion) {
 		boolean isValid = true;
 		errors = new ArrayList<>();
+		validationErrors = new ArrayList<>();
 
 		for (ControlValue controlValue : valuesList) {
 			if (!controlValue.validate(marcVersion)) {
 				errors.addAll(controlValue.getErrors());
+				validationErrors.addAll(controlValue.getValidationErrors());
 				isValid = false;
 			}
 		}
@@ -268,4 +273,10 @@ public class Leader implements Extractable, Validatable {
 	public List<String> getErrors() {
 		return errors;
 	}
+
+	@Override
+	public List<ValidationError> getValidationErrors() {
+		return validationErrors;
+	}
+
 }

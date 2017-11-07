@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
 import de.gwdg.metadataqa.marc.DataField;
+import de.gwdg.metadataqa.marc.MarcRecord;
 import org.junit.*;
 
 import java.util.List;
@@ -28,7 +29,10 @@ public class Tag040Test {
 
 	@Test
 	public void testCStH() {
+		MarcRecord record = new MarcRecord("test");
 		DataField field = new DataField(Tag040.getInstance(), " ", " ", "a", "CSt-H", "b", "eng", "c", "CSt-H", "e", "appm");
+		field.setRecord(record);
+
 		Map<String, List<String>> map = field.getHumanReadableMap();
 
 		assertEquals(4, map.size());

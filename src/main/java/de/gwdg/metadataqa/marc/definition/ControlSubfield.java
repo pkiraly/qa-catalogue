@@ -213,6 +213,10 @@ public class ControlSubfield {
 		       && historicalCodes.contains(code);
 	}
 
+	public String getPath() {
+		return String.format("%s/%s (%s)", getControlField(), formatPositon(), getId());
+	}
+
 	@Override
 	public String toString() {
 		return "ControlSubField{" +

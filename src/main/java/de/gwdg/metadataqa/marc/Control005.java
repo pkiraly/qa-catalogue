@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.ValidationError;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -87,6 +88,11 @@ public class Control005 implements Extractable, Validatable {
 
 	@Override
 	public List<String> getErrors() {
+		return null;
+	}
+
+	@Override
+	public List<ValidationError> getValidationErrors() {
 		return null;
 	}
 }

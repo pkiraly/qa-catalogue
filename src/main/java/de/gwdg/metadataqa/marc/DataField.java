@@ -13,13 +13,14 @@ public class DataField implements Extractable, Validatable {
 	private static final Logger logger = Logger.getLogger(DataField.class.getCanonicalName());
 
 	private DataFieldDefinition definition;
-	private String tag;
 	private String ind1;
 	private String ind2;
 	private List<MarcSubfield> subfields;
 	private Map<String, List<MarcSubfield>> subfieldIndex = new LinkedHashMap<>();
 	private List<String> errors = null;
+	private List<ValidationError> validationErrors = null;
 	private List<String> unhandledSubfields = null;
+	private MarcRecord record;
 
 	public <T extends DataFieldDefinition> DataField(T definition, String ind1, String ind2) {
 		this.definition = definition;
@@ -43,11 +44,22 @@ public class DataField implements Extractable, Validatable {
 							code.equals("k"));
 				} else {
 					MarcSubfield marcSubfield = new MarcSubfield(subfieldDefinition, code, value);
+					marcSubfield.setField(this);
 					this.subfields.add(marcSubfield);
 					indexSubfield(code, marcSubfield);
 				}
 			}
 		}
+	}
+
+	public MarcRecord getRecord() {
+		return record;
+	}
+
+	public void setRecord(MarcRecord record) {
+		this.record = record;
+		for (MarcSubfield marcSubfield : subfields)
+			marcSubfield.setRecord(record);
 	}
 
 	public void indexSubfields() {
@@ -74,6 +86,7 @@ public class DataField implements Extractable, Validatable {
 			String value = subfields[i + 1];
 			SubfieldDefinition subfieldDefinition = definition.getSubfield(code);
 			MarcSubfield marcSubfield = new MarcSubfield(subfieldDefinition, code, value);
+			marcSubfield.setField(this);
 			this.subfields.add(marcSubfield);
 			indexSubfield(code, marcSubfield);
 		}
@@ -238,11 +251,14 @@ public class DataField implements Extractable, Validatable {
 	public boolean validate(MarcVersion marcVersion) {
 		boolean isValid = true;
 		errors = new ArrayList<>();
+		validationErrors = new ArrayList<>();
 		DataFieldDefinition _definition = null;
 		List<MarcSubfield> _subfields = null;
 		if (definition.getTag().equals("880")) {
 			List<MarcSubfield> subfield6s = getSubfield("6");
 			if (subfield6s == null) {
+				validationErrors.add(new ValidationError(record.getId(), definition.getTag(),
+					ValidationErrorType.MissingSubfield, "$6", definition.getDescriptionUrl()));
 				errors.add(String.format("%s should have subfield $a (%s)", definition.getTag(), definition.getDescriptionUrl()));
 			} else {
 				if (!subfield6s.isEmpty() && subfield6s.size() == 1) {
@@ -252,6 +268,12 @@ public class DataField implements Extractable, Validatable {
 					definition = TagDefinitionLoader.load(linkage.getLinkingTag());
 					if (definition == null) {
 						definition = _definition;
+						validationErrors.add(
+							new ValidationError(
+								record.getId(), definition.getTag() + "$6",
+								ValidationErrorType.InvalidReference,
+								String.format("refers to field %s, which is not defined", linkage.getLinkingTag()),
+								definition.getDescriptionUrl()));
 						errors.add(String.format("%s refers to field %s, which is not defined (%s)",
 							definition.getTag(), linkage.getLinkingTag(), definition.getDescriptionUrl()));
 						isValid = false;
@@ -259,8 +281,9 @@ public class DataField implements Extractable, Validatable {
 						_subfields = subfields;
 						List<MarcSubfield> _subfieldsNew = new ArrayList<>();
 						for (MarcSubfield subfield : subfields) {
-							_subfieldsNew.add(new MarcSubfield(definition.getSubfield(
-								subfield.getCode()), subfield.getCode(), subfield.getValue()));
+							MarcSubfield alternativeSubfield = new MarcSubfield(definition.getSubfield(
+								subfield.getCode()), subfield.getCode(), subfield.getValue());
+							_subfieldsNew.add(alternativeSubfield);
 						}
 						subfields = _subfieldsNew;
 					}
@@ -269,6 +292,9 @@ public class DataField implements Extractable, Validatable {
 		}
 
 		if (unhandledSubfields != null) {
+			validationErrors.add(new ValidationError(record.getId(), definition.getTag(),
+				ValidationErrorType.UndefinedSubfield, StringUtils.join(unhandledSubfields, ", "),
+				definition.getDescriptionUrl()));
 			errors.add(String.format("%s has invalid %s: '%s' (%s)",
 				definition.getTag(),
 				(unhandledSubfields.size() == 1 ? "subfield" : "subfields"),
@@ -294,6 +320,11 @@ public class DataField implements Extractable, Validatable {
 						definition.getVersionSpecificSubfield(
 							marcVersion, subfield.getCode()));
 				} else {
+					validationErrors.add(
+						new ValidationError(
+							record.getId(), definition.getTag(),
+							ValidationErrorType.UndefinedSubfield, subfield.getCode(), definition.getDescriptionUrl()));
+
 					errors.add(String.format("%s has invalid subfield %s (%s)",
 						definition.getTag(),
 						subfield.getCode(),
@@ -308,6 +339,7 @@ public class DataField implements Extractable, Validatable {
 			counter.put(subfield.getDefinition(), counter.get(subfield.getDefinition()) + 1);
 
 			if (!subfield.validate(marcVersion)) {
+				validationErrors.addAll(subfield.getValidationErrors());
 				errors.addAll(subfield.getErrors());
 				isValid = false;
 			}
@@ -316,6 +348,10 @@ public class DataField implements Extractable, Validatable {
 		for (SubfieldDefinition subfieldDefinition : counter.keySet()) {
 			if (counter.get(subfieldDefinition) > 1
 				&& subfieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
+				validationErrors.add(new ValidationError(record.getId(), subfieldDefinition.getPath(),
+					ValidationErrorType.NonrepeatableSubfield, String.format(
+					"non-repeatable, however there are %d instances", counter.get(subfieldDefinition)),
+					definition.getDescriptionUrl()));
 				errors.add(String.format(
 					"%s$%s is not repeatable, however there are %d instances (%s)",
 					definition.getTag(), subfieldDefinition.getCode(),
@@ -340,19 +376,30 @@ public class DataField implements Extractable, Validatable {
 				if (!indicatorDefinition.isVersionSpecificCode(marcVersion, value)) {
 					isValid = false;
 					if (indicatorDefinition.isHistoricalCode(value)) {
-						errors.add(String.format("%s$%s has obsolete code: '%s' (%s)",
-							definition.getTag(), prefix, value, definition.getDescriptionUrl()));
+						validationErrors.add(
+							new ValidationError(
+								record.getId(),
+								indicatorDefinition.getPath(),
+								ValidationErrorType.Obsolete,
+								value,
+								definition.getDescriptionUrl()));
+						errors.add(String.format("%s has obsolete code: '%s' (%s)",
+							indicatorDefinition.getPath(), value, definition.getDescriptionUrl()));
 					} else {
-						errors.add(String.format("%s$%s has invalid code: '%s' (%s)",
-							definition.getTag(), prefix, value, definition.getDescriptionUrl()));
+						validationErrors.add(new ValidationError(record.getId(), indicatorDefinition.getPath(),
+							ValidationErrorType.HasInvalidValue, value, definition.getDescriptionUrl()));
+						errors.add(String.format("%s has invalid code: '%s' (%s)",
+							indicatorDefinition.getPath(), value, definition.getDescriptionUrl()));
 					}
 				}
 			}
 		} else {
 			if (!value.equals(" ")) {
 				if (!indicatorDefinition.isVersionSpecificCode(marcVersion, value)) {
-					errors.add(String.format("%s$%s should be empty, it has '%s' (%s)",
-						definition.getTag(), prefix, value, definition.getDescriptionUrl()));
+					validationErrors.add(new ValidationError(record.getId(), indicatorDefinition.getPath(),
+						ValidationErrorType.NonEmptyIndicator, value, definition.getDescriptionUrl()));
+					errors.add(String.format("%s should be empty, it has '%s' (%s)",
+						indicatorDefinition.getPath(), value, definition.getDescriptionUrl()));
 					isValid = false;
 				}
 			}
@@ -363,6 +410,11 @@ public class DataField implements Extractable, Validatable {
 	@Override
 	public List<String> getErrors() {
 		return errors;
+	}
+
+	@Override
+	public List<ValidationError> getValidationErrors() {
+		return validationErrors;
 	}
 
 	public void addUnhandledSubfields(String code) {

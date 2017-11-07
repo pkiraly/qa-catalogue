@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.definition;
 
+import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.Validatable;
 
 import java.util.ArrayList;
@@ -9,11 +10,17 @@ public class ControlValue implements Validatable {
 
 	private ControlSubfield definition;
 	private String value;
+	private MarcRecord record;
 	private List<String> errors;
+	private List<ValidationError> validationErrors;
 
 	public ControlValue(ControlSubfield definition, String value) {
 		this.definition = definition;
 		this.value = value;
+	}
+
+	public void setRecord(MarcRecord record) {
+		this.record = record;
 	}
 
 	public String getLabel() {
@@ -40,10 +47,13 @@ public class ControlValue implements Validatable {
 	public boolean validate(MarcVersion marcVersion) {
 		boolean isValid = true;
 		errors = new ArrayList<>();
+		validationErrors = new ArrayList<>();
 		if (!definition.getValidCodes().isEmpty()
 			&& (!definition.getValidCodes().contains(value)
 			    && definition.getCode(value) == null)) {
 			if (definition.isHistoricalCode(value)) {
+				validationErrors.add(new ValidationError(record.getId(), definition.getPath(), ValidationErrorType.Obsolete,
+					value, definition.getDescriptionUrl()));
 				errors.add(
 					String.format(
 						"%s/%s (%s) has an obsolete value: '%s' (%s)",
@@ -59,6 +69,8 @@ public class ControlValue implements Validatable {
 					for (int i = 0; i < value.length(); i += unitLength) {
 						String unit = value.substring(i, i + unitLength);
 						if (!definition.getValidCodes().contains(unit)) {
+							validationErrors.add(new ValidationError(record.getId(), definition.getPath(), ValidationErrorType.ContainsInvalidCode,
+								String.format("'%s' in '%s'", unit, value), definition.getDescriptionUrl()));
 							errors.add(
 								String.format(
 									"%s/%s (%s) contains an invalid code: '%s' in '%s' (%s)",
@@ -70,6 +82,8 @@ public class ControlValue implements Validatable {
 						}
 					}
 				} else {
+					validationErrors.add(new ValidationError(record.getId(), definition.getPath(), ValidationErrorType.HasInvalidValue,
+						value, definition.getDescriptionUrl()));
 					errors.add(
 						String.format(
 							"%s/%s (%s) has an invalid value: '%s' (%s)",
@@ -88,5 +102,10 @@ public class ControlValue implements Validatable {
 	@Override
 	public List<String> getErrors() {
 		return errors;
+	}
+
+	@Override
+	public List<ValidationError> getValidationErrors() {
+		return validationErrors;
 	}
 }

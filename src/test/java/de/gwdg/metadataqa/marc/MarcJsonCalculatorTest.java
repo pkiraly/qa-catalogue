@@ -137,7 +137,7 @@ public class MarcJsonCalculatorTest {
 		assertFalse(calculatorFacade.getSchema().getCollectionPaths().isEmpty());
 		for (Calculator calculator : calculatorFacade.getCalculators()) {
 			if (calculator.getCalculatorName().equals(CompletenessCalculator.CALCULATOR_NAME)) {
-				Map<String, Integer> cardinalityMap = ((CompletenessCalculator)calculator).getCardinalityMap();
+				Map<String, Integer> cardinalityMap = (Map<String, Integer>)((CompletenessCalculator)calculator).getCardinalityMap();
 				assertNotNull(cardinalityMap);
 				assertEquals(1743, cardinalityMap.size());
 				testCardinalityMap(cardinalityMap);

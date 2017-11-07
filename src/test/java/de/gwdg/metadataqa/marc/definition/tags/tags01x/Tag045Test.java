@@ -1,6 +1,8 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
+import de.gwdg.metadataqa.marc.Control001;
 import de.gwdg.metadataqa.marc.DataField;
+import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 import org.junit.*;
@@ -39,6 +41,8 @@ public class Tag045Test {
 
 	@Test
 	public void testCStH() {
+		MarcRecord record = new MarcRecord("test");
+
 		List<String> values = Arrays.asList(
 			"d7d9",
 			"0-0-", "2209668", "a-cc---", "a-w1", "a0b0", "a0t4", "b0d3", "c5v8", "d1764", "d4i-",
@@ -55,6 +59,7 @@ public class Tag045Test {
 		List<String> badValues = Arrays.asList("2209668", "a-cc---", "d1764", "n-us---", "q1", "v v");
 		for (String value : values) {
 			DataField field = new DataField(Tag045.getInstance(), " ", " ", "a", value);
+			field.setRecord(record);
 			MarcSubfield subfield = field.getSubfield("a").get(0);
 			if (badValues.contains(value))
 				assertFalse(subfield.validate(null));

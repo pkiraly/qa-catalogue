@@ -1,6 +1,8 @@
 package de.gwdg.metadataqa.marc.definition.general.codelist;
 
 import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.MarcSubfield;
+import de.gwdg.metadataqa.marc.definition.ValidationError;
 import de.gwdg.metadataqa.marc.definition.Validator;
 
 import java.util.HashMap;
@@ -29,8 +31,17 @@ public class CodeList implements Validator {
 		return index.containsKey(code);
 	}
 
+	public boolean isValid(String code, MarcSubfield field) {
+		return index.containsKey(code);
+	}
+
 	@Override
 	public List<String> getErrors() {
+		return null;
+	}
+
+	@Override
+	public List<ValidationError> getValidationErrors() {
 		return null;
 	}
 }

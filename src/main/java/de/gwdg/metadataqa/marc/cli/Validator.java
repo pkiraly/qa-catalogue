@@ -96,6 +96,12 @@ public class Validator {
 						MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
 						boolean isValid = marcRecord.validate(marcVersion, parameters.doSummary());
 						if (!isValid) {
+							if (marcRecord.getErrors().size() != marcRecord.getValidationErrors().size()) {
+								logger.severe(String.format("differents!! string: %d vs obj: %d",
+									marcRecord.getErrors().size(),
+									marcRecord.getValidationErrors().size()));
+								logger.severe(StringUtils.join(marcRecord.getErrors(), ","));
+							}
 							if (parameters.doSummary()) {
 								for (String error : marcRecord.getErrors()) {
 									if (!errorCounter.containsKey(error)) {

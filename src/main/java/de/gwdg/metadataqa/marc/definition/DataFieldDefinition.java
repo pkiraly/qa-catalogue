@@ -57,10 +57,14 @@ public abstract class DataFieldDefinition {
 	}
 
 	protected void setIndicatorFlags() {
-		if (ind1 != null)
+		if (ind1 != null) {
+			ind1.setParent(this);
 			ind1.setIndicatorFlag("ind1");
-		if (ind2 != null)
+		}
+		if (ind2 != null) {
+			ind2.setParent(this);
 			ind2.setIndicatorFlag("ind2");
+		}
 	}
 
 	public List<SubfieldDefinition> getSubfields() {

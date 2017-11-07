@@ -67,6 +67,7 @@ public class MarcFactory {
 						DataField field = MapToDatafield.parse(fieldInstance);
 						if (field != null) {
 							record.addDataField(field);
+							field.setRecord(record);
 						} else {
 							record.addUnhandledTags(branch.getLabel());
 						}
@@ -80,8 +81,6 @@ public class MarcFactory {
 	public static MarcRecord createFromMarc4j(Record marc4jRecord) {
 		MarcRecord record = new MarcRecord();
 
-		;
-
 		record.setLeader(new Leader(marc4jRecord.getLeader().marshal()));
 		if (record.getType() == null) {
 			throw new InvalidParameterException(
@@ -89,10 +88,32 @@ public class MarcFactory {
 				"Error in '%s': no type has been detected. Leader: '%s'",
 					marc4jRecord.getControlNumberField(), record.getLeader().getLeaderString()));
 		}
+
 		importMarc4jControlFields(marc4jRecord, record);
+
 		importMarc4jDataFields(marc4jRecord, record);
 
 		return record;
+	}
+
+	private static void importMarc4jControlFields(Record marc4jRecord, MarcRecord record) {
+		for (ControlField controlField : marc4jRecord.getControlFields()) {
+			String data = controlField.getData();
+			switch (controlField.getTag()) {
+				case "001":
+					record.setControl001(new Control001(data)); break;
+				case "003":
+					record.setControl003(new Control003(data)); break;
+				case "005":
+					record.setControl005(new Control005(data)); break;
+				case "006":
+					record.setControl006(new Control006(data, record.getType())); break;
+				case "007":
+					record.setControl007(new Control007(data)); break;
+				case "008":
+					record.setControl008(new Control008(data, record.getType())); break;
+			}
+		}
 	}
 
 	private static void importMarc4jDataFields(Record marc4jRecord, MarcRecord record) {
@@ -129,26 +150,6 @@ public class MarcFactory {
 		}
 		field.indexSubfields();
 		return field;
-	}
-
-	private static void importMarc4jControlFields(Record marc4jRecord, MarcRecord record) {
-		for (ControlField controlField : marc4jRecord.getControlFields()) {
-			String data = controlField.getData();
-			switch (controlField.getTag()) {
-				case "001":
-					record.setControl001(new Control001(data)); break;
-				case "003":
-					record.setControl003(new Control003(data)); break;
-				case "005":
-					record.setControl005(new Control005(data)); break;
-				case "006":
-					record.setControl006(new Control006(data, record.getType())); break;
-				case "007":
-					record.setControl007(new Control007(data)); break;
-				case "008":
-					record.setControl008(new Control008(data, record.getType())); break;
-			}
-		}
 	}
 
 	private static List<String> extractList(JsonPathCache cache, JsonBranch branch) {

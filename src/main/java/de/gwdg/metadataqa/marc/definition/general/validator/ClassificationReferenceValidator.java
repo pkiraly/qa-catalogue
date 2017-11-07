@@ -3,9 +3,7 @@ package de.gwdg.metadataqa.marc.definition.general.validator;
 import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
-import de.gwdg.metadataqa.marc.definition.FieldValidator;
-import de.gwdg.metadataqa.marc.definition.RecordValidator;
-import de.gwdg.metadataqa.marc.definition.ValidatorResponse;
+import de.gwdg.metadataqa.marc.definition.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -50,6 +48,15 @@ public class ClassificationReferenceValidator implements RecordValidator, FieldV
 				List<MarcSubfield> subfield2 = field.getSubfield("2");
 				if (subfield2 == null) {
 					response.setValid(false);
+					response.addValidationError(
+						new ValidationError(
+							field.getRecord().getId() + "$ind2",
+							field.getTag(),
+							ValidationErrorType.InvalidReference,
+							"ind2 is '7' which means that the value should be found in subfield $2, but it is missing",
+							field.getDefinition().getDescriptionUrl()
+						)
+					);
 					response.addError(
 						String.format(
 							"%s has a reference error. ind2 is '7' which means that the value should be found in subfield $2, but it is missing",

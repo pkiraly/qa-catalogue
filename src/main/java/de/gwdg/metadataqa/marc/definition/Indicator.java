@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.Range;
 import java.util.*;
 
 public class Indicator {
+	private DataFieldDefinition parent;
 	private String label = null;
 	private String bibframeTag = null;
 	private String mqTag = null;
@@ -28,6 +29,10 @@ public class Indicator {
 		this.label = label;
 		this.codes = codes;
 		indexCodes();
+	}
+
+	public String getPath() {
+		return String.format("%s$%s", parent.getTag(), indicatorFlag);
 	}
 
 	public String getIndexTag() {
@@ -156,6 +161,10 @@ public class Indicator {
 
 	public void setIndicatorFlag(String indicatorFlag) {
 		this.indicatorFlag = indicatorFlag;
+	}
+
+	public void setParent(DataFieldDefinition parent) {
+		this.parent = parent;
 	}
 
 	public Indicator putVersionSpecificCodes(MarcVersion marcVersion, List<Code> codeList) {

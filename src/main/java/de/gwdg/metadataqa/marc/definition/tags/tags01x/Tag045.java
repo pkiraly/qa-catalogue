@@ -1,5 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
+import de.gwdg.metadataqa.marc.DataField;
+import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.definition.*;
 
 import java.util.*;
@@ -121,13 +123,14 @@ public class Tag045 extends DataFieldDefinition {
 	class SubfieldAValidator implements Validator {
 
 		private List<String> errors;
+		private List<ValidationError> validationErrors;
 		private String subfieldCode;
-		private SubfieldDefinition subfield;
+		private SubfieldDefinition subfieldDefinition;
 		Map<String, String> bc = new HashMap<>();
 
 		public SubfieldAValidator() {
 			subfieldCode = "a";
-			subfield = getSubfield(subfieldCode);
+			subfieldDefinition = getSubfield(subfieldCode);
 
 			/*
 			Map<String, String> bc = new HashMap<>();
@@ -140,11 +143,19 @@ public class Tag045 extends DataFieldDefinition {
 
 		@Override
 		public boolean isValid(String value) {
+			return false;
+		}
+
+			@Override
+		public boolean isValid(String value, MarcSubfield subfield) {
 
 			boolean isValid = true;
 			errors = new ArrayList<>();
+			validationErrors = new ArrayList<>();
 
 			if (value.length() != 4) {
+				validationErrors.add(new ValidationError(subfield.getRecord().getId(), subfield.getDefinition().getPath(),
+					ValidationErrorType.InvalidLength, String.format("'%s': length is not 4 char", value), descriptionUrl));
 				errors.add(String.format("%s$%s error in '%s': length is not 4 char (%s)",
 					tag, subfieldCode, value, getDescriptionUrl()));
 				isValid = false;
@@ -156,11 +167,20 @@ public class Tag045 extends DataFieldDefinition {
 
 				Matcher matcher;
 				for (String part : parts) {
-					if (subfield.getCode(part) == null) {
+					if (subfieldDefinition.getCode(part) == null) {
 						matcher = BC.matcher(part);
 						if (!matcher.find()) {
 							matcher = CE.matcher(part);
 							if (!matcher.find()) {
+								validationErrors.add(
+									new ValidationError(
+										subfield.getRecord().getId(),
+										subfield.getDefinition().getPath(),
+										ValidationErrorType.PatternMismatch,
+										String.format("mismatched part '%s' in '%s'", part, value),
+										descriptionUrl
+									)
+								);
 								errors.add(String.format("%s$%s error in '%s': '%s' does not match any patterns (%s)\n",
 									tag, subfieldCode, value, part, getDescriptionUrl()));
 							}
@@ -174,6 +194,11 @@ public class Tag045 extends DataFieldDefinition {
 		@Override
 		public List<String> getErrors() {
 			return errors;
+		}
+
+		@Override
+		public List<ValidationError> getValidationErrors() {
+			return validationErrors;
 		}
 	}
 }

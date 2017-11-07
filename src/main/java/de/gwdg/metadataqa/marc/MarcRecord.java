@@ -1,10 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
-import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.validator.ClassificationReferenceValidator;
-import de.gwdg.metadataqa.marc.definition.ValidatorResponse;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
@@ -25,6 +22,7 @@ public class MarcRecord implements Extractable, Validatable {
 	private Map<String, List<DataField>> datafieldIndex;
 	Map<String, List<String>> mainKeyValuePairs;
 	private List<String> errors = null;
+	private List<ValidationError> validationErrors = null;
 
 	private List<String> unhandledTags;
 
@@ -34,7 +32,13 @@ public class MarcRecord implements Extractable, Validatable {
 		unhandledTags = new ArrayList<>();
 	}
 
+	public MarcRecord(String id) {
+		this();
+		control001 = new Control001(id);
+	}
+
 	public void addDataField(DataField dataField) {
+		dataField.setRecord(this);
 		indexField(dataField);
 		datafields.add(dataField);
 	}
@@ -54,6 +58,7 @@ public class MarcRecord implements Extractable, Validatable {
 
 	public void setLeader(Leader leader) {
 		this.leader = leader;
+		leader.setMarcRecord(this);
 	}
 
 	public Leader getLeader() {
@@ -68,8 +73,9 @@ public class MarcRecord implements Extractable, Validatable {
 		return control001;
 	}
 
-	public void setControl001(Control001 control001) {
+	public MarcRecord setControl001(Control001 control001) {
 		this.control001 = control001;
+		return this;
 	}
 
 	public Control003 getControl003() {
@@ -94,6 +100,7 @@ public class MarcRecord implements Extractable, Validatable {
 
 	public void setControl006(Control006 control006) {
 		this.control006 = control006;
+		control006.setMarcRecord(this);
 	}
 
 	public Control007 getControl007() {
@@ -102,6 +109,7 @@ public class MarcRecord implements Extractable, Validatable {
 
 	public void setControl007(Control007 control007) {
 		this.control007 = control007;
+		control007.setMarcRecord(this);
 	}
 
 	public Control008 getControl008() {
@@ -110,6 +118,7 @@ public class MarcRecord implements Extractable, Validatable {
 
 	public void setControl008(Control008 control008) {
 		this.control008 = control008;
+		control008.setMarcRecord(this);
 	}
 
 	public String getId() {
@@ -186,12 +195,14 @@ public class MarcRecord implements Extractable, Validatable {
 
 	public boolean validate(MarcVersion marcVersion, boolean isSummary) {
 		errors = new ArrayList<>();
+		validationErrors = new ArrayList<>();
 		boolean isValidRecord = true;
 		boolean isValidComponent;
 
 		isValidComponent = leader.validate(marcVersion);
 		if (!isValidComponent) {
 			errors.addAll(leader.getErrors());
+			validationErrors.addAll(leader.getValidationErrors());
 			isValidRecord = isValidComponent;
 		}
 
@@ -249,11 +260,13 @@ public class MarcRecord implements Extractable, Validatable {
 			repetitionCounter.put(field.getDefinition(), repetitionCounter.get(field.getDefinition()) + 1);
 			if (!field.validate(marcVersion)) {
 				isValidRecord = false;
+				validationErrors.addAll(field.getValidationErrors());
 				errors.addAll(field.getErrors());
 			}
 
 			validatorResponse = ClassificationReferenceValidator.validate(field);
 			if (!validatorResponse.isValid()) {
+				validationErrors.addAll(validatorResponse.getValidationErrors());
 				errors.addAll(validatorResponse.getErrors());
 				isValidRecord = false;
 			}
@@ -276,5 +289,10 @@ public class MarcRecord implements Extractable, Validatable {
 	@Override
 	public List<String> getErrors() {
 		return errors;
+	}
+
+	@Override
+	public List<ValidationError> getValidationErrors() {
+		return validationErrors;
 	}
 }

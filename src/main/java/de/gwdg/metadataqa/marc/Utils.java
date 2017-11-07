@@ -12,6 +12,8 @@ import java.util.List;
  */
 public class Utils {
 
+	private Utils(){}
+
 	public static List<Code> generateCodes(String... input) {
 		if (input.length % 2 != 0) {
 			throw new IllegalArgumentException("Number of input should be even");

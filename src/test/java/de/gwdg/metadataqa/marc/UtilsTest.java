@@ -47,4 +47,9 @@ public class UtilsTest {
 		assertEquals("b", codes.get(1).getCode());
 		assertEquals("dummy2", codes.get(1).getLabel());
 	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void testGenerateImpairCodes() {
+		List<Code> codes = Utils.generateCodes("a", "dummy", "b");
+	}
 }

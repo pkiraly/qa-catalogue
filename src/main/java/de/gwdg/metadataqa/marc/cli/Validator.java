@@ -41,7 +41,7 @@ public class Validator {
 			System.exit(0);
 		}
 		if (parameters.doHelp()) {
-			printHelp();
+			printHelp(parameters.getOptions());
 			System.exit(0);
 		}
 
@@ -49,15 +49,19 @@ public class Validator {
 		Map<String, Integer> errorCounter = new TreeMap<>();
 
 		MarcVersion marcVersion = parameters.getMarcVersion();
-		logger.info("marcVersion: " + marcVersion.getCode() + ", " + marcVersion.getLabel());
+		if (parameters.doLog())
+			logger.info("marcVersion: " + marcVersion.getCode() + ", " + marcVersion.getLabel());
 
 		int limit = parameters.getLimit();
-		logger.info("limit: " + limit);
+		if (parameters.doLog())
+			logger.info("limit: " + limit);
 
 		int offset = parameters.getOffset();
-		logger.info("offset: " + offset);
+		if (parameters.doLog())
+			logger.info("offset: " + offset);
 
-		logger.info("MARC files: " + StringUtils.join(parameters.getArgs(), ", "));
+		if (parameters.doLog())
+			logger.info("MARC files: " + StringUtils.join(parameters.getArgs(), ", "));
 
 		File output = null;
 		if (!parameters.useStandardOutput()) {
@@ -72,7 +76,9 @@ public class Validator {
 		for (String inputFileName : inputFileNames) {
 			Path path = Paths.get(inputFileName);
 			String fileName = path.getFileName().toString();
-			logger.info("processing: " + fileName);
+
+			if (parameters.doLog())
+				logger.info("processing: " + fileName);
 
 			try {
 				MarcReader reader = ReadMarc.getReader(path.toString());
@@ -111,20 +117,24 @@ public class Validator {
 							}
 						}
 
-						if (i % 10000 == 0)
+						if (i % 10000 == 0 && parameters.doLog())
 							logger.info(String.format("%s/%d (%s)", fileName, i, marcRecord.getId()));
 					} catch (IllegalArgumentException e) {
-						logger.severe(String.format("Error with record '%s'. %s", marc4jRecord.getControlNumber(), e.getMessage()));
+						if (parameters.doLog())
+							logger.severe(String.format("Error with record '%s'. %s", marc4jRecord.getControlNumber(), e.getMessage()));
 						continue;
 					}
 				}
-				logger.info(String.format("End of cycle. Validated %d records.", i));
+				if (parameters.doLog())
+					logger.info(String.format("End of cycle. Validated %d records.", i));
 
 			} catch(SolrServerException ex){
-				logger.severe(ex.toString());
+				if (parameters.doLog())
+					logger.severe(ex.toString());
 				System.exit(0);
 			} catch(Exception ex){
-				logger.severe(ex.toString());
+				if (parameters.doLog())
+					logger.severe(ex.toString());
 				ex.printStackTrace();
 				System.exit(0);
 			}
@@ -141,7 +151,8 @@ public class Validator {
 						FileUtils.writeStringToFile(output, message, true);
 				}
 			} catch (IOException ex) {
-				logger.severe(ex.toString());
+				if (parameters.doLog())
+					logger.severe(ex.toString());
 				ex.printStackTrace();
 				System.exit(0);
 			}
@@ -149,8 +160,9 @@ public class Validator {
 
 		long end = System.currentTimeMillis();
 		long duration = (end - start) / 1000;
-		logger.info(String.format("Bye! It took: %s",
-			LocalTime.MIN.plusSeconds(duration).toString()));
+		if (parameters.doLog())
+			logger.info(String.format("Bye! It took: %s",
+				LocalTime.MIN.plusSeconds(duration).toString()));
 
 		System.exit(0);
 	}
@@ -163,23 +175,9 @@ public class Validator {
 		return offset > -1 && offset < i;
 	}
 
-	private static CommandLine processCommandLine(String[] args) throws ParseException {
-		options = new Options();
-		options.addOption("s", "summary", false, "show summary instead of record level display");
-		options.addOption("m", "marcVersion", true, "MARC version ('OCLC' or DNB')");
-		options.addOption("l", "limit", true, "limit the number of records to process");
-		options.addOption("o", "offset", true, "the first record to process");
-		options.addOption("f", "fileName", true,
-			String.format("the report file name (default is %s)", ValidatorParameters.DEFAULT_FILE_NAME));
-		options.addOption("h", "help", false, "display help");
-
-		CommandLineParser parser = new DefaultParser();
-		return parser.parse(options, args);
-	}
-
-	private static void printHelp() {
+	private static void printHelp(Options opions) {
 		HelpFormatter formatter = new HelpFormatter();
 		formatter.printHelp("java -cp metadata-qa-marc.jar de.gwdg.metadataqa.marc.cli.Validator [options] [file]",
-			ValidatorParameters.getOptions());
+			opions);
 	}
 }

@@ -32,17 +32,16 @@ import java.util.logging.Logger;
 public class Formatter {
 
 	private static final Logger logger = Logger.getLogger(Formatter.class.getCanonicalName());
-	private static Options options;
 
 	public static void main(String[] args) throws ParseException {
-		CommandLine cmd = processCommandLine(args);
-		FormatterParameters parameters = new FormatterParameters(cmd);
-		if (cmd.getArgs().length < 1) {
+		FormatterParameters parameters = new FormatterParameters(args);
+
+		if (parameters.getArgs().length < 1) {
 			System.err.println("Please provide a MARC file name!");
 			System.exit(0);
 		}
-		if (cmd.hasOption("help")) {
-			printHelp();
+		if (parameters.doHelp()) {
+			printHelp(parameters.getOptions());
 			System.exit(0);
 		}
 
@@ -55,7 +54,7 @@ public class Formatter {
 		String id = parameters.getId();
 		System.err.println("id: " + id);
 
-		String inputFileName = cmd.getArgs()[0];
+		String inputFileName = parameters.getArgs()[0];
 		System.err.println("inputFileName: " + inputFileName);
 		Path path = Paths.get(inputFileName);
 		String fileName = path.getFileName().toString();
@@ -99,17 +98,7 @@ public class Formatter {
 		System.exit(0);
 	}
 
-	private static CommandLine processCommandLine(String[] args) throws ParseException {
-		options = new Options();
-		options.addOption("f", "format", false, "show summary instead of record level display");
-		options.addOption("i", "id", true, "MARC version ('OCLC' or DNB')");
-		options.addOption("h", "help", false, "display help");
-
-		CommandLineParser parser = new DefaultParser();
-		return parser.parse(options, args);
-	}
-
-	private static void printHelp() {
+	private static void printHelp(Options options) {
 		HelpFormatter formatter = new HelpFormatter();
 		formatter.printHelp("java -cp metadata-qa-marc.jar de.gwdg.metadataqa.marc.cli.Validator [options] [file]", options);
 	}

@@ -3,7 +3,7 @@ package de.gwdg.metadataqa.marc.cli.parameters;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import org.apache.commons.cli.*;
 
-public class ValidatorParameters {
+public class ValidatorParameters extends CommonParameters {
 	public static final String DEFAULT_FILE_NAME = "validation-report.txt";
 
 	private MarcVersion marcVersion = MarcVersion.MARC21;
@@ -14,25 +14,22 @@ public class ValidatorParameters {
 	private boolean doSummary;
 	private String[] args;
 	private boolean useStandardOutput = false;
+	private boolean isOptionSet;
 
-	private static Options options = new Options();
-	private static CommandLineParser parser = new DefaultParser();
-
-	static {
-		options.addOption("s", "summary", false, "show summary instead of record level display");
-		options.addOption("m", "marcVersion", true, "MARC version ('OCLC' or DNB')");
-		options.addOption("l", "limit", true, "limit the number of records to process");
-		options.addOption("o", "offset", true, "the first record to process");
-		options.addOption("f", "fileName", true,
-			String.format("the report file name (default is %s)", ValidatorParameters.DEFAULT_FILE_NAME));
-		options.addOption("h", "help", false, "display help");
+	protected void setOptions() {
+		if (!isOptionSet) {
+			super.setOptions();
+			options.addOption("s", "summary", false, "show summary instead of record level display");
+			options.addOption("l", "limit", true, "limit the number of records to process");
+			options.addOption("o", "offset", true, "the first record to process");
+			options.addOption("f", "fileName", true,
+				String.format("the report file name (default is '%s')", ValidatorParameters.DEFAULT_FILE_NAME));
+			isOptionSet = true;
+		}
 	}
 
 	public ValidatorParameters(String[] arguments) throws ParseException {
-		CommandLine cmd = parser.parse(options, arguments);
-
-		if (cmd.hasOption("marcVersion"))
-			marcVersion = MarcVersion.byCode(cmd.getOptionValue("marcVersion"));
+		super(arguments);
 
 		if (cmd.hasOption("fileName"))
 			fileName = cmd.getOptionValue("fileName");
@@ -49,13 +46,7 @@ public class ValidatorParameters {
 		if (offset > -1 && limit > -1)
 			limit += offset;
 
-		doHelp = cmd.hasOption("help");
-		args = cmd.getArgs();
 		doSummary = cmd.hasOption("summary");
-	}
-
-	public MarcVersion getMarcVersion() {
-		return marcVersion;
 	}
 
 	public String getFileName() {
@@ -70,20 +61,8 @@ public class ValidatorParameters {
 		return offset;
 	}
 
-	public boolean doHelp() {
-		return doHelp;
-	}
-
 	public boolean doSummary() {
 		return doSummary;
-	}
-
-	public String[] getArgs() {
-		return args;
-	}
-
-	public static Options getOptions() {
-		return options;
 	}
 
 	public boolean useStandardOutput() {

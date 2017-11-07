@@ -49,6 +49,7 @@ options:
 * `-l [number]`, `--limit [number]` validates only given number of records
 * `-o [number]`, `--offset [number]` starts validation at the given Nth record
 * `-f [file name]`, `--fileName [file name]` the name of report the program produces. Default is `validation-report.txt`. If you use "stdout", it won't create file, but put results into the standard output.
+* `-n`, `--nolog` do not display log messages
 
 The `file` argument might contain any wildcard the operating system supports ('*', '?', etc.)
 
@@ -140,6 +141,7 @@ or with a bash script
 
 * `-f`, `--format` the name of the format (at time of writing there is no any)
 * `-d [record ID]`, `--id [record ID]` specify a MARC record ID (field 001)
+* `-n`, `--nolog` do not display log messages
 
 The output of the script is something like this one:
 
@@ -196,6 +198,7 @@ or with a bash script
 * `-l [number]`, `--limit [number]` validates only given number of records
 * `-o [number]`, `--offset [number]` starts validation at the given Nth record
 * `-f [file name]`, `--fileName [file name]` the name of report the program produces. Default is `tt-completeness.csv`.
+* `-n`, `--nolog` do not display log messages
 
 It produces a CSV file like this:
 

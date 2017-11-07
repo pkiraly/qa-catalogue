@@ -58,6 +58,7 @@ public class UtilsTest {
 		List<Code> codes = Utils.generateCodes("a", "dummy", "b");
 	}
 
+	@Test
 	public void testGenerateControlSubfieldList() {
 		List<ControlSubfield> list = Utils.generateControlSubfieldList(
 			Tag007nonprojected00.getInstance(),

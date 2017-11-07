@@ -1,5 +1,8 @@
 package de.gwdg.metadataqa.marc;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.util.List;
 
 import de.gwdg.metadataqa.marc.definition.ControlSubfield;
@@ -66,5 +69,16 @@ public class UtilsTest {
 		assertNotNull(list);
 		assertEquals(2, list.size());
 		assertEquals(Tag007nonprojected00.getInstance(), list.get(0));
+	}
+
+	@Test
+	public void testConstructorIsPrivate() throws NoSuchMethodException,
+			IllegalAccessException,
+			InvocationTargetException,
+			InstantiationException {
+		Constructor<Utils> constructor = Utils.class.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 }

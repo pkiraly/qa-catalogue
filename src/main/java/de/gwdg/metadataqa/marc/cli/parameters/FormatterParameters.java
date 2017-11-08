@@ -6,13 +6,15 @@ public class FormatterParameters extends CommonParameters {
 
 	private String format = null;
 	private String id = null;
+	private int countNr = -1;
 	private boolean isOptionSet = false;
 
 	protected void setOptions() {
 		if (!isOptionSet) {
 			super.setOptions();
 			options.addOption("f", "format", true, "specify a format");
-			options.addOption("i", "id", true, "MARC version ('OCLC' or 'DNB')");
+			options.addOption("i", "id", true, "the MARC identifier (content of 001)");
+			options.addOption("c", "countNr", true, "count number of the record (e.g. 1 means the first record)");
 			isOptionSet = true;
 		}
 	}
@@ -25,6 +27,9 @@ public class FormatterParameters extends CommonParameters {
 
 		if (cmd.hasOption("id"))
 			id = cmd.getOptionValue("id");
+
+		if (cmd.hasOption("countNr"))
+			countNr = Integer.parseInt(cmd.getOptionValue("countNr"));
 	}
 
 	public String getFormat() {
@@ -33,5 +38,9 @@ public class FormatterParameters extends CommonParameters {
 
 	public String getId() {
 		return id;
+	}
+
+	public int getCountNr() {
+		return countNr;
 	}
 }

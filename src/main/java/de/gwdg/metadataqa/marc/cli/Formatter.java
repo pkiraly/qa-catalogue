@@ -54,42 +54,57 @@ public class Formatter {
 		String id = parameters.getId();
 		System.err.println("id: " + id);
 
-		String inputFileName = parameters.getArgs()[0];
-		System.err.println("inputFileName: " + inputFileName);
-		Path path = Paths.get(inputFileName);
-		String fileName = path.getFileName().toString();
+		String[] inputFileNames = parameters.getArgs();
 
-		JsonPathCache<? extends XmlFieldInstance> cache;
-		List<String> records;
-		try {
-			MarcReader reader = ReadMarc.getReader(path.toString());
+		if (parameters.hasSearch()) {
+			System.err.printf("path: %s, query: %s\n", parameters.getPath(), parameters.getQuery());
+		}
 
-			int i = 0;
-			while (reader.hasNext()) {
-				i++;
+		int i = 0;
+		for (String inputFileName : inputFileNames) {
+			Path path = Paths.get(inputFileName);
+			String fileName = path.getFileName().toString();
 
-				Record marc4jRecord = reader.next();
-				try {
-					// System.err.println(marc4jRecord.getControlNumber());
-					if (marc4jRecord.getControlNumber().equals(id)
-						|| (parameters.getCountNr() > -1 && parameters.getCountNr() == i)) {
-						System.out.println(marc4jRecord.toString());
-						break;
+			if (parameters.doLog())
+				logger.info("processing: " + fileName);
+
+			try {
+				MarcReader reader = ReadMarc.getReader(path.toString());
+
+				while (reader.hasNext()) {
+					i++;
+
+					Record marc4jRecord = reader.next();
+					try {
+						// System.err.println(marc4jRecord.getControlNumber());
+						if ((marc4jRecord.getControlNumber() != null && marc4jRecord.getControlNumber().equals(id))
+							|| (parameters.getCountNr() > -1 && parameters.getCountNr() == i)) {
+							System.out.println(marc4jRecord.toString());
+							break;
+						}
+						if (parameters.hasSearch()) {
+							MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
+							List<String> results = marcRecord.search(parameters.getPath(), parameters.getQuery());
+							if (!results.isEmpty()) {
+								System.out.println(marc4jRecord.toString());
+								break;
+							}
+						}
+					} catch (IllegalArgumentException e) {
+						logger.severe(String.format("Error with record '%s'. %s", marc4jRecord.getControlNumber(), e.getMessage()));
+						continue;
 					}
-				} catch (IllegalArgumentException e) {
-					logger.severe(String.format("Error with record '%s'. %s", marc4jRecord.getControlNumber(), e.getMessage()));
-					continue;
 				}
-			}
 
-			logger.info(String.format("End of cycle. Validated %d records.", i));
-		} catch(SolrServerException ex){
-			logger.severe(ex.toString());
-			System.exit(0);
-		} catch(Exception ex){
-			logger.severe(ex.toString());
-			ex.printStackTrace();
-			System.exit(0);
+				logger.info(String.format("End of cycle. Validated %d records.", i));
+			} catch(SolrServerException ex){
+				logger.severe(ex.toString());
+				System.exit(0);
+			} catch(Exception ex){
+				logger.severe(ex.toString());
+				ex.printStackTrace();
+				System.exit(0);
+			}
 		}
 
 		long end = System.currentTimeMillis();

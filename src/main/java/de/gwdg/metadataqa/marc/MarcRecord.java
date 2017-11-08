@@ -308,4 +308,16 @@ public class MarcRecord implements Extractable, Validatable {
 	public List<ValidationError> getValidationErrors() {
 		return validationErrors;
 	}
+
+	public List<String> search(String path, String query) {
+		List<String> results = new ArrayList<>();
+		if (path.equals("tag006book01")) {
+			if (control006 != null && control006.getTag006book01() != null) {
+				// System.err.printf("tag006book01: '%s'\n", control006.getTag006book01().getValue());
+				if (control006.getTag006book01().getValue().equals(query))
+					results.add(control006.getTag006book01().getValue());
+			}
+		}
+		return results;
+	}
 }

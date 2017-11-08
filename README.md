@@ -141,6 +141,7 @@ or with a bash script
 
 * `-f`, `--format` the name of the format (at time of writing there is no any)
 * `-d [record ID]`, `--id [record ID]` specify a MARC record ID (field 001)
+* `-c [count number]`, `-countNr [count number]` count number of the record (e.g. 1 means the first record)
 * `-n`, `--nolog` do not display log messages
 
 The output of the script is something like this one:

@@ -142,10 +142,11 @@ or with a bash script
 * `-f`, `--format` the name of the format (at time of writing there is no any)
 * `-d [record ID]`, `--id [record ID]` specify a MARC record ID (field 001)
 * `-c [count number]`, `-countNr [count number]` count number of the record (e.g. 1 means the first record)
-* `-s [path=query]`, `-search [path=query]` print records matching the query. Right now it supports the following types of path:
-1. control field tag (e.g. 001, 002, 003)
-2. control field position (e.g. Leader/0, 008/1-2)
-3. data field (655\$2=z, 655\$ind1=z)
+* `-s [path=query]`, `-search [path=query]` print records matching the query. The query part is the content of the element. The path should be one of the following types:
+1. control field tag (e.g. `001`, `002`, `003`)
+2. control field position (e.g. `Leader/0`, `008/1-2`)
+3. data field (`655\$2`, `655\$ind1`)
+4. named control field position (`tag006book01`)
 * `-n`, `--nolog` do not display log messages
 
 The output of the script is something like this one:

@@ -283,6 +283,9 @@ public class DataField implements Extractable, Validatable {
 						for (MarcSubfield subfield : subfields) {
 							MarcSubfield alternativeSubfield = new MarcSubfield(definition.getSubfield(
 								subfield.getCode()), subfield.getCode(), subfield.getValue());
+							alternativeSubfield.setRecord(record);
+							alternativeSubfield.setLinkage(linkage);
+							alternativeSubfield.setReferencePath(_definition.getTag());
 							_subfieldsNew.add(alternativeSubfield);
 						}
 						subfields = _subfieldsNew;
@@ -349,8 +352,11 @@ public class DataField implements Extractable, Validatable {
 			if (counter.get(subfieldDefinition) > 1
 				&& subfieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
 				validationErrors.add(new ValidationError(record.getId(), subfieldDefinition.getPath(),
-					ValidationErrorType.NonrepeatableSubfield, String.format(
-					"non-repeatable, however there are %d instances", counter.get(subfieldDefinition)),
+					ValidationErrorType.NonrepeatableSubfield,
+					String.format(
+					"non-repeatable, however there are %d instances",
+						counter.get(subfieldDefinition)
+					),
 					definition.getDescriptionUrl()));
 				errors.add(String.format(
 					"%s$%s is not repeatable, however there are %d instances (%s)",

@@ -73,6 +73,7 @@ public class Validator {
 		String[] inputFileNames = parameters.getArgs();
 
 		int i = 0;
+		String lastKnownId = "";
 		for (String inputFileName : inputFileNames) {
 			Path path = Paths.get(inputFileName);
 			String fileName = path.getFileName().toString();
@@ -83,6 +84,7 @@ public class Validator {
 			try {
 				MarcReader reader = ReadMarc.getReader(path.toString());
 				while (reader.hasNext()) {
+					Record marc4jRecord = reader.next();
 					i++;
 					if (isUnderOffset(offset, i)) {
 						continue;
@@ -91,16 +93,26 @@ public class Validator {
 						break;
 					}
 
-					Record marc4jRecord = reader.next();
+					if (marc4jRecord.getControlNumber() == null) {
+						logger.severe("No record number at " + i + ", last known ID: " + lastKnownId);
+						System.err.println(marc4jRecord);
+					} else {
+						lastKnownId = marc4jRecord.getControlNumber();
+					}
+
+					MarcRecord marcRecord = null;
 					try {
-						MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
+						marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
+						if (marcRecord.getId() == null)
+							logger.severe("No record number at " + i);
 						boolean isValid = marcRecord.validate(marcVersion, parameters.doSummary());
 						if (!isValid) {
 							if (marcRecord.getErrors().size() != marcRecord.getValidationErrors().size()) {
 								logger.severe(String.format("differents!! string: %d vs obj: %d",
 									marcRecord.getErrors().size(),
 									marcRecord.getValidationErrors().size()));
-								logger.severe(StringUtils.join(marcRecord.getErrors(), ","));
+								logger.severe("strings\n" + StringUtils.join(marcRecord.getErrors(), "\n"));
+								logger.severe("objects\n" + StringUtils.join(marcRecord.getValidationErrors(), "\n"));
 							}
 							if (parameters.doSummary()) {
 								for (String error : marcRecord.getErrors()) {
@@ -123,16 +135,18 @@ public class Validator {
 							}
 						}
 
-						if (i % 10000 == 0 && parameters.doLog())
+						if (i % 100000 == 0 && parameters.doLog())
 							logger.info(String.format("%s/%d (%s)", fileName, i, marcRecord.getId()));
 					} catch (IllegalArgumentException e) {
+						if (marc4jRecord.getControlNumber() == null)
+							logger.severe("No record number at " + i);
 						if (parameters.doLog())
 							logger.severe(String.format("Error with record '%s'. %s", marc4jRecord.getControlNumber(), e.getMessage()));
 						continue;
 					}
 				}
 				if (parameters.doLog())
-					logger.info(String.format("End of cycle. Validated %d records.", i));
+					logger.info(String.format("Finished processing file. Validated %d records.", i));
 
 			} catch(SolrServerException ex){
 				if (parameters.doLog())
@@ -178,7 +192,7 @@ public class Validator {
 	}
 
 	private static boolean isUnderOffset(int offset, int i) {
-		return offset > -1 && offset < i;
+		return offset > -1 && i < offset;
 	}
 
 	private static void printHelp(Options opions) {

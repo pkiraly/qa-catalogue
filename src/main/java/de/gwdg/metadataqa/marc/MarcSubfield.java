@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.general.Linkage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,8 @@ public class MarcSubfield implements Validatable {
 	private String codeForIndex = null;
 	private List<String> errors = null;
 	private List<ValidationError> validationErrors = null;
+	private Linkage linkage;
+	private String referencePath;
 
 	public MarcSubfield(SubfieldDefinition definition, String code, String value) {
 		this.definition = definition;
@@ -36,6 +39,22 @@ public class MarcSubfield implements Validatable {
 
 	public void setField(DataField field) {
 		this.field = field;
+	}
+
+	public Linkage getLinkage() {
+		return linkage;
+	}
+
+	public void setLinkage(Linkage linkage) {
+		this.linkage = linkage;
+	}
+
+	public String getReferencePath() {
+		return referencePath;
+	}
+
+	public void setReferencePath(String referencePath) {
+		this.referencePath = referencePath;
 	}
 
 	public String getLabel() {
@@ -114,12 +133,27 @@ public class MarcSubfield implements Validatable {
 						isValid = false;
 					}
 				} else if (definition.getCodes() != null && definition.getCode(value) == null) {
-					validationErrors.add(new ValidationError(record.getId(), definition.getPath(),
-						ValidationErrorType.HasInvalidValue, value, definition.getParent().getDescriptionUrl()));
-					errors.add(String.format("%s has an invalid value: '%s' (%s)",
-						definition.getPath(),
-						value,
-						definition.getParent().getDescriptionUrl()));
+					String message = value;
+					if (referencePath != null) {
+						message += String.format(" (the field is embedded in %s)", referencePath);
+					}
+					String path = (referencePath == null ? definition.getPath() : referencePath + "->" + definition.getPath());
+					validationErrors.add(
+						new ValidationError(
+							record.getId(),
+							path,
+							ValidationErrorType.HasInvalidValue,
+							message,
+							definition.getParent().getDescriptionUrl()
+						)
+					);
+					message = String.format("%s has an invalid value: '%s'", path, value);
+					if (linkage != null) {
+						message += String.format(" (the field is a reference in %s)", referencePath);
+					}
+					message += " (%s)";
+
+					errors.add(String.format(message, definition.getParent().getDescriptionUrl()));
 					isValid = false;
 				}
 			}

@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags76x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.general.Tag76xSubfield7PositionsGenerator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 
 /**
@@ -78,15 +79,10 @@ public class Tag785 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 
+		getSubfield("4").setCodeList(RelatorCodes.getInstance());
 		// TODO: this requires position parser!
 		// see http://www.loc.gov/marc/bibliographic/bd76x78x.html
-		getSubfield("7").setCodes(
-			"0", "Type of main entry heading",
-			"1", "Form of name",
-			"2", "Type of record",
-			"3", "Bibliographic level"
-		);
-		getSubfield("4").setCodeList(RelatorCodes.getInstance());
+		getSubfield("7").setPositions(Tag76xSubfield7PositionsGenerator.getPositions());
 
 		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
 		getSubfield("b").setBibframeTag("editionStatement");

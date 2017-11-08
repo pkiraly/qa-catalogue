@@ -79,6 +79,10 @@ public class MarcFactory {
 	}
 
 	public static MarcRecord createFromMarc4j(Record marc4jRecord) {
+		return createFromMarc4j(marc4jRecord, null);
+	}
+
+	public static MarcRecord createFromMarc4j(Record marc4jRecord, Leader.Type defaultType) {
 		MarcRecord record = new MarcRecord();
 
 		record.setLeader(new Leader(marc4jRecord.getLeader().marshal()));

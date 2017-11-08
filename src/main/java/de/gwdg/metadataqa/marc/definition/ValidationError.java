@@ -38,4 +38,15 @@ public class ValidationError {
 	public String getUrl() {
 		return url;
 	}
+
+	@Override
+	public String toString() {
+		return "ValidationError{" +
+			"recordId='" + recordId + '\'' +
+			", marcPath='" + marcPath + '\'' +
+			", type=" + type +
+			", message='" + message + '\'' +
+			", url='" + url + '\'' +
+			'}';
+	}
 }

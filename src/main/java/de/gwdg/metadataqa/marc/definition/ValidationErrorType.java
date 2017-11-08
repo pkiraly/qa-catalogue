@@ -11,7 +11,10 @@ public enum ValidationErrorType {
 	InvalidReference("invalidReference", "invalid reference"),
 	NonEmptyIndicator("nonEmptyIndicator", "non-empty indicator"),
 	PatternMismatch("patternMismatch", "does not match any patterns"),
-	NonrepeatableSubfield("NonrepeatableSubfield", "non-repeatable subfield");
+	NonrepeatableSubfield("nonrepeatableSubfield", "non-repeatable subfield"),
+	NonrepeatableField("nonrepeatableField", "non-repeatable field"),
+	UndefinedField("undefinedField", "undefined field")
+	;
 
 	private String code;
 	private String message;

@@ -227,6 +227,8 @@ public class Leader implements Extractable, Validatable {
 
 	protected void setMarcRecord(MarcRecord marcRecord) {
 		this.marcRecord = marcRecord;
+		for (ControlValue value : valuesList)
+			value.setRecord(marcRecord);
 	}
 
 	public String toString() {

@@ -208,8 +208,10 @@ public class MarcRecord implements Extractable, Validatable {
 
 		if (!unhandledTags.isEmpty()) {
 			if (isSummary) {
-				for (String tag : unhandledTags)
+				for (String tag : unhandledTags) {
+					validationErrors.add(new ValidationError(getId(), tag, ValidationErrorType.UndefinedField, tag, null));
 					errors.add(String.format("Unhandled tag: %s", tag));
+				}
 			} else {
 				Map<String, Integer> tags = new LinkedHashMap<>();
 				for (String tag : unhandledTags) {
@@ -224,9 +226,11 @@ public class MarcRecord implements Extractable, Validatable {
 					else
 						unhandledTagsList.add(String.format("%s (%d*)", tag, tags.get(tag)));
 				}
+				String tagList = StringUtils.join(unhandledTagsList, ", ");
+				validationErrors.add(new ValidationError(getId(), null, ValidationErrorType.UndefinedField, tagList, null));
 				errors.add(String.format("Unhandled %s: %s",
 					(unhandledTags.size() == 1 ? "tag" : "tags"),
-					StringUtils.join(unhandledTagsList, ", ")));
+					tagList));
 			}
 
 			isValidRecord = false;
@@ -246,6 +250,7 @@ public class MarcRecord implements Extractable, Validatable {
 			if (controlField != null) {
 				isValidComponent = ((Validatable)controlField).validate(marcVersion);
 				if (!isValidComponent) {
+					validationErrors.addAll(((Validatable)controlField).getValidationErrors());
 					errors.addAll(((Validatable)controlField).getErrors());
 					isValidRecord = isValidComponent;
 				}
@@ -275,6 +280,14 @@ public class MarcRecord implements Extractable, Validatable {
 		for (DataFieldDefinition fieldDefinition : repetitionCounter.keySet()) {
 			if (repetitionCounter.get(fieldDefinition) > 1
 				&& fieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
+				validationErrors.add(new ValidationError(getId(), fieldDefinition.getTag(),
+					ValidationErrorType.NonrepeatableField,
+					String.format(
+						"non-repeatable, however there are %d instances",
+						repetitionCounter.get(fieldDefinition)
+					),
+					fieldDefinition.getDescriptionUrl()
+				));
 				errors.add(String.format(
 					"%s is not repeatable, however there are %d instances (%s)",
 					fieldDefinition.getTag(),

@@ -48,6 +48,7 @@ public class ControlValue implements Validatable {
 		boolean isValid = true;
 		errors = new ArrayList<>();
 		validationErrors = new ArrayList<>();
+
 		if (!definition.getValidCodes().isEmpty()
 			&& (!definition.getValidCodes().contains(value)
 			    && definition.getCode(value) == null)) {
@@ -82,7 +83,10 @@ public class ControlValue implements Validatable {
 						}
 					}
 				} else {
-					validationErrors.add(new ValidationError(record.getId(), definition.getPath(), ValidationErrorType.HasInvalidValue,
+					validationErrors.add(
+						new ValidationError(
+							record.getId(),
+							definition.getPath(), ValidationErrorType.HasInvalidValue,
 						value, definition.getDescriptionUrl()));
 					errors.add(
 						String.format(

@@ -10,7 +10,6 @@ import java.util.*;
 public abstract class PositionalControlField extends ControlField implements Extractable, Validatable  {
 
 	protected MarcRecord marcRecord;
-	protected String content;
 	protected Map<ControlSubfield, String> valuesMap;
 	protected List<ControlValue> valuesList;
 	protected List<String> errors;
@@ -62,5 +61,9 @@ public abstract class PositionalControlField extends ControlField implements Ext
 			}
 		}
 		return map;
+	}
+
+	public Map<ControlSubfield, String> getMap() {
+		return valuesMap;
 	}
 }

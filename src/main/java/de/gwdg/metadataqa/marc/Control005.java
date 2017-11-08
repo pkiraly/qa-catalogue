@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class Control005 implements Extractable, Validatable {
+public class Control005  extends ControlField implements Extractable, Validatable {
 
 	private static final Logger logger = Logger.getLogger(Control005.class.getCanonicalName());
 	private static final Pattern DATE_TIME = Pattern.compile("^(\\d{4})(\\d{2})(\\d{2})(\\d{2})(\\d{2})(\\d{2})\\.(\\d)$");

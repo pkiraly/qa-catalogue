@@ -6,10 +6,14 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MarcRecord implements Extractable, Validatable {
 
 	private static final Logger logger = Logger.getLogger(MarcRecord.class.getCanonicalName());
+	private static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
+	private static final Pattern positionalPattern = Pattern.compile("^(Leader|00[678])/(.*)$");
 
 	private Leader leader;
 	private Control001 control001;
@@ -311,13 +315,105 @@ public class MarcRecord implements Extractable, Validatable {
 
 	public List<String> search(String path, String query) {
 		List<String> results = new ArrayList<>();
-		if (path.equals("tag006book01")) {
-			if (control006 != null && control006.getTag006book01() != null) {
-				// System.err.printf("tag006book01: '%s'\n", control006.getTag006book01().getValue());
-				if (control006.getTag006book01().getValue().equals(query))
-					results.add(control006.getTag006book01().getValue());
+		if (path.equals("001") || path.equals("003") || path.equals("005")) {
+			searchControlField(path, query, results);
+		} else if (path.startsWith("tag006")) {
+			searchPositionalControlField(control006, path, query, results);
+		} else if (path.startsWith("tag007")) {
+			searchPositionalControlField(control007, path, query, results);
+		} else if (path.startsWith("tag008")) {
+			searchPositionalControlField(control008, path, query, results);
+		} else {
+			Matcher matcher = dataFieldPattern.matcher(path);
+			if (matcher.matches()) {
+				String tag = matcher.group(1);
+				String subfieldCode = matcher.group(2);
+				if (datafieldIndex.containsKey(tag)) {
+					for (DataField field : datafieldIndex.get(tag)) {
+						if (searchDatafield(query, results, subfieldCode, field)) break;
+					}
+				}
+			}
+			matcher = positionalPattern.matcher(path);
+			if (matcher.matches()) {
+				searchByPosition(query, results, matcher);
 			}
 		}
 		return results;
+	}
+
+	private void searchByPosition(String query, List<String> results, Matcher matcher) {
+		String tag = matcher.group(1);
+		String position = matcher.group(2);
+		int start, end;
+		if (position.contains("-")) {
+			String[] parts = position.split("-", 2);
+			start = Integer.parseInt(parts[0]);
+			end = Integer.parseInt(parts[1]);
+		} else {
+			start = Integer.parseInt(position);
+			end = start + 1;
+		}
+		String content = null;
+		if (tag.equals("Leader")) {
+			content = leader.getLeaderString();
+		} else {
+			ControlField controlField = null;
+			switch (tag) {
+				case "006": controlField = control006; break;
+				case "007": controlField = control007; break;
+				case "008": controlField = control008; break;
+			}
+			if (controlField != null)
+				content = controlField.getContent();
+		}
+
+		if (content != null && content.substring(start, end).equals(query)) {
+			results.add(content.substring(start, end));
+		}
+	}
+
+	private boolean searchDatafield(String query, List<String> results,
+											  String subfieldCode, DataField field) {
+		if (subfieldCode.equals("ind1") && field.getInd1().equals(query)) {
+			results.add(field.getInd1());
+			return true;
+		} else if (subfieldCode.equals("ind2") && field.getInd2().equals(query)) {
+			results.add(field.getInd2());
+			return true;
+		} else {
+			for (MarcSubfield subfield : field.getSubfield(subfieldCode)) {
+				if (subfield.getValue().equals(query)) {
+					results.add(subfield.getValue());
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	private void searchControlField(String path, String query, List<String> results) {
+		ControlField controlField = null;
+		switch (path) {
+			case "001": controlField = control001; break;
+			case "003": controlField = control003; break;
+			case "005": controlField = control005; break;
+		}
+		if (controlField.getContent().equals(query))
+			results.add(controlField.getContent());
+	}
+
+	private void searchPositionalControlField(PositionalControlField controlField,
+															String path, String query, List<String> results) {
+		if (controlField != null) {
+			Map<ControlSubfield, String> map = controlField.getMap();
+			for (ControlSubfield subfield : controlField.getMap().keySet()) {
+				if (subfield.getId().equals(path)) {
+					if (map.get(subfield).equals(query))
+						results.add(map.get(subfield));
+					break;
+				}
+			}
+		}
 	}
 }

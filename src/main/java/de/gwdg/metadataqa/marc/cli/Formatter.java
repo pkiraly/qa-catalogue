@@ -57,7 +57,8 @@ public class Formatter {
 		String[] inputFileNames = parameters.getArgs();
 
 		if (parameters.hasSearch()) {
-			System.err.printf("path: %s, query: %s\n", parameters.getPath(), parameters.getQuery());
+			System.err.printf("search: %s, path: %s, query: %s\n",
+				parameters.getSearch(), parameters.getPath(), parameters.getQuery());
 		}
 
 		int i = 0;

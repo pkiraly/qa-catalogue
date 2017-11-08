@@ -100,9 +100,8 @@ public class Validator {
 						lastKnownId = marc4jRecord.getControlNumber();
 					}
 
-					MarcRecord marcRecord = null;
 					try {
-						marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
+						MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
 						if (marcRecord.getId() == null)
 							logger.severe("No record number at " + i);
 						boolean isValid = marcRecord.validate(marcVersion, parameters.doSummary());

@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class Control001 implements Extractable, Validatable {
+public class Control001 extends ControlField implements Extractable, Validatable {
 
 	private static final Logger logger = Logger.getLogger(Control001.class.getCanonicalName());
 

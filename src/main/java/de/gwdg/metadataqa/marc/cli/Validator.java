@@ -116,7 +116,7 @@ public class Validator {
 								logger.severe("objects\n" + StringUtils.join(marcRecord.getValidationErrors(), "\n"));
 							}
 							if (parameters.doSummary()) {
-								for (String error : marcRecord.getErrors()) {
+								for (String error : ValidationErrorFormatter.formatForSummary(marcRecord.getValidationErrors(), parameters.getFormat())) {
 									if (!errorCounter.containsKey(error)) {
 										errorCounter.put(error, 0);
 									}
@@ -124,14 +124,6 @@ public class Validator {
 								}
 							} else {
 								String message = ValidationErrorFormatter.format(marcRecord.getValidationErrors(), parameters.getFormat());
-								/*
-								String message = String.format(
-									"%s in '%s': \n\t%s\n",
-									(marcRecord.getErrors().size() == 1 ? "Error" : "Errors"),
-									marcRecord.getControl001().getContent(),
-									StringUtils.join(marcRecord.getErrors(), "\n\t")
-								);
-								*/
 								if (parameters.useStandardOutput())
 									System.out.print(message);
 								else

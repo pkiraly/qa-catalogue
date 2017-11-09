@@ -399,7 +399,6 @@ public class DataField implements Extractable, Validatable {
 						errors.add(String.format("%s has obsolete code: '%s' (%s)",
 							path, value, definition.getDescriptionUrl()));
 					} else {
-						System.err.printf("value: '%s'", value);
 						validationErrors.add(new ValidationError(record.getId(), path,
 							ValidationErrorType.HasInvalidValue, value, definition.getDescriptionUrl()));
 						errors.add(String.format("%s has invalid code: '%s' (%s)",

@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.definition;
+package de.gwdg.metadataqa.marc.model.validation;
 
 public enum ValidationErrorFormat {
 

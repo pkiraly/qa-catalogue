@@ -18,7 +18,7 @@ public class CommonParameters {
 
 	protected void setOptions() {
 		if (!isOptionSet) {
-			options.addOption("m", "marcVersion", true, "MARC version ('OCLC' or DNB')");
+			options.addOption("m", "marcVersion", true, "MARC version ('OCLC' or 'DNB')");
 			options.addOption("h", "help", false, "display help");
 			options.addOption("n", "nolog", false, "do not display log messages");
 			isOptionSet = true;

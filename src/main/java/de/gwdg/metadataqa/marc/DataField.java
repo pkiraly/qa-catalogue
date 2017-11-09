@@ -3,6 +3,8 @@ package de.gwdg.metadataqa.marc;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.Linkage;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
+import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;

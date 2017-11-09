@@ -6,6 +6,8 @@ import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
+import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormatter;
 import de.gwdg.metadataqa.marc.utils.ReadMarc;
 import org.apache.commons.cli.*;
 import org.apache.commons.io.FileUtils;
@@ -121,12 +123,15 @@ public class Validator {
 									errorCounter.put(error, errorCounter.get(error) + 1);
 								}
 							} else {
+								String message = ValidationErrorFormatter.format(marcRecord.getValidationErrors(), parameters.getFormat());
+								/*
 								String message = String.format(
 									"%s in '%s': \n\t%s\n",
 									(marcRecord.getErrors().size() == 1 ? "Error" : "Errors"),
 									marcRecord.getControl001().getContent(),
 									StringUtils.join(marcRecord.getErrors(), "\n\t")
 								);
+								*/
 								if (parameters.useStandardOutput())
 									System.out.print(message);
 								else

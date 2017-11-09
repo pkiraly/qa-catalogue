@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.definition.general.codelist;
 
 import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.MarcSubfield;
-import de.gwdg.metadataqa.marc.definition.ValidationError;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.definition.Validator;
 
 import java.util.HashMap;

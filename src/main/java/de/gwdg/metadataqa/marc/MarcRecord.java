@@ -2,6 +2,8 @@ package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.validator.ClassificationReferenceValidator;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
+import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
@@ -287,7 +289,7 @@ public class MarcRecord implements Extractable, Validatable {
 				validationErrors.add(new ValidationError(getId(), fieldDefinition.getTag(),
 					ValidationErrorType.NonrepeatableField,
 					String.format(
-						"non-repeatable, however there are %d instances",
+						"there are %d instances",
 						repetitionCounter.get(fieldDefinition)
 					),
 					fieldDefinition.getDescriptionUrl()

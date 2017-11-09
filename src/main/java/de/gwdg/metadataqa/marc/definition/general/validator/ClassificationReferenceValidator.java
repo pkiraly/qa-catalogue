@@ -4,6 +4,8 @@ import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
+import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 
 import java.util.Arrays;
 import java.util.List;

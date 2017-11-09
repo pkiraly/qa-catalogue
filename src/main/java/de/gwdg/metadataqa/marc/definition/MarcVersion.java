@@ -3,7 +3,9 @@ package de.gwdg.metadataqa.marc.definition;
 public enum MarcVersion {
 	MARC21("MARC21", "MARC21"),
 	DNB("DNB", "Deutsche Nationalbibliothek"),
-	OCLC("OCLC", "OCLC");
+	OCLC("OCLC", "OCLC"),
+	GENT("GENT", "Universiteitsbibliotheek Gent")
+	;
 
 	String code;
 	String label;

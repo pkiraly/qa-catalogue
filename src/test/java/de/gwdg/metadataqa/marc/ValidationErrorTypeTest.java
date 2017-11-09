@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc;
 
-import de.gwdg.metadataqa.marc.definition.ValidationErrorType;
+import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

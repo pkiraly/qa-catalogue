@@ -1,8 +1,7 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
-import de.gwdg.metadataqa.marc.definition.ValidationErrorFormat;
-import de.gwdg.metadataqa.marc.definition.ValidationErrorType;
+import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import org.apache.commons.cli.*;
 
 public class ValidatorParameters extends CommonParameters {

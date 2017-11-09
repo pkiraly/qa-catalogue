@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 
 import java.util.*;
 import java.util.logging.Logger;

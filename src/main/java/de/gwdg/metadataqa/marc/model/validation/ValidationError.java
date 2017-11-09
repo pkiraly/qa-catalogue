@@ -1,7 +1,4 @@
-package de.gwdg.metadataqa.marc.definition;
-
-import java.util.ArrayList;
-import java.util.List;
+package de.gwdg.metadataqa.marc.model.validation;
 
 public class ValidationError {
 

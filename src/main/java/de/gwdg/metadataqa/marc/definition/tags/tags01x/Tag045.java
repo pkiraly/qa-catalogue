@@ -1,8 +1,9 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
-import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
+import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 
 import java.util.*;
 import java.util.regex.Matcher;

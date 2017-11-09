@@ -254,7 +254,7 @@ public class DataField implements Extractable, Validatable {
 		boolean isValid = true;
 		errors = new ArrayList<>();
 		validationErrors = new ArrayList<>();
-		DataFieldDefinition _definition = null;
+		DataFieldDefinition referencerDefinition = null;
 		List<MarcSubfield> _subfields = null;
 		if (definition.getTag().equals("880")) {
 			List<MarcSubfield> subfield6s = getSubfield("6");
@@ -266,10 +266,10 @@ public class DataField implements Extractable, Validatable {
 				if (!subfield6s.isEmpty() && subfield6s.size() == 1) {
 					MarcSubfield subfield6 = subfield6s.get(0);
 					Linkage linkage = LinkageParser.getInstance().create(subfield6.getValue());
-					_definition = definition;
+					referencerDefinition = definition;
 					definition = TagDefinitionLoader.load(linkage.getLinkingTag());
 					if (definition == null) {
-						definition = _definition;
+						definition = referencerDefinition;
 						validationErrors.add(
 							new ValidationError(
 								record.getId(), definition.getTag() + "$6",
@@ -287,7 +287,7 @@ public class DataField implements Extractable, Validatable {
 								subfield.getCode()), subfield.getCode(), subfield.getValue());
 							alternativeSubfield.setRecord(record);
 							alternativeSubfield.setLinkage(linkage);
-							alternativeSubfield.setReferencePath(_definition.getTag());
+							alternativeSubfield.setReferencePath(referencerDefinition.getTag());
 							_subfieldsNew.add(alternativeSubfield);
 						}
 						subfields = _subfieldsNew;
@@ -308,12 +308,12 @@ public class DataField implements Extractable, Validatable {
 		}
 
 		if (ind1 != null) {
-			if (!validateIndicator("ind1", definition.getInd1(), ind1, marcVersion))
+			if (!validateIndicator("ind1", definition.getInd1(), ind1, marcVersion, referencerDefinition))
 				isValid = false;
 		}
 
 		if (ind2 != null) {
-			if (!validateIndicator("ind2", definition.getInd2(), ind2, marcVersion))
+			if (!validateIndicator("ind2", definition.getInd2(), ind2, marcVersion, referencerDefinition))
 				isValid = false;
 		}
 
@@ -368,8 +368,8 @@ public class DataField implements Extractable, Validatable {
 			}
 		}
 
-		if (_definition != null)
-			definition = _definition;
+		if (referencerDefinition != null)
+			definition = referencerDefinition;
 		if (_subfields != null)
 			subfields = _subfields;
 
@@ -377,8 +377,13 @@ public class DataField implements Extractable, Validatable {
 	}
 
 	private boolean validateIndicator(String prefix, Indicator indicatorDefinition,
-	                                  String value, MarcVersion marcVersion) {
+	                                  String value, MarcVersion marcVersion,
+												 DataFieldDefinition referencerDefinition) {
 		boolean isValid = true;
+		String path = indicatorDefinition.getPath();
+		if (referencerDefinition != null)
+			path = String.format("%s->%s", referencerDefinition.getTag(), path);
+
 		if (indicatorDefinition.exists()) {
 			if (!indicatorDefinition.hasCode(value)) {
 				if (!indicatorDefinition.isVersionSpecificCode(marcVersion, value)) {
@@ -387,27 +392,28 @@ public class DataField implements Extractable, Validatable {
 						validationErrors.add(
 							new ValidationError(
 								record.getId(),
-								indicatorDefinition.getPath(),
+								path,
 								ValidationErrorType.Obsolete,
 								value,
 								definition.getDescriptionUrl()));
 						errors.add(String.format("%s has obsolete code: '%s' (%s)",
-							indicatorDefinition.getPath(), value, definition.getDescriptionUrl()));
+							path, value, definition.getDescriptionUrl()));
 					} else {
-						validationErrors.add(new ValidationError(record.getId(), indicatorDefinition.getPath(),
+						System.err.printf("value: '%s'", value);
+						validationErrors.add(new ValidationError(record.getId(), path,
 							ValidationErrorType.HasInvalidValue, value, definition.getDescriptionUrl()));
 						errors.add(String.format("%s has invalid code: '%s' (%s)",
-							indicatorDefinition.getPath(), value, definition.getDescriptionUrl()));
+							path, value, definition.getDescriptionUrl()));
 					}
 				}
 			}
 		} else {
 			if (!value.equals(" ")) {
 				if (!indicatorDefinition.isVersionSpecificCode(marcVersion, value)) {
-					validationErrors.add(new ValidationError(record.getId(), indicatorDefinition.getPath(),
+					validationErrors.add(new ValidationError(record.getId(), path,
 						ValidationErrorType.NonEmptyIndicator, value, definition.getDescriptionUrl()));
 					errors.add(String.format("%s should be empty, it has '%s' (%s)",
-						indicatorDefinition.getPath(), value, definition.getDescriptionUrl()));
+						path, value, definition.getDescriptionUrl()));
 					isValid = false;
 				}
 			}

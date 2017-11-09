@@ -49,6 +49,7 @@ options:
 * `-l [number]`, `--limit [number]` validates only given number of records
 * `-o [number]`, `--offset [number]` starts validation at the given Nth record
 * `-f [file name]`, `--fileName [file name]` the name of report the program produces. Default is `validation-report.txt`. If you use "stdout", it won't create file, but put results into the standard output.
+* `-r [format]`, `--format [format]` format specification of the output. Possible values: `text`, `tab-separated` or , `comma-separated`
 * `-n`, `--nolog` do not display log messages
 
 The `file` argument might contain any wildcard the operating system supports ('*', '?', etc.)

@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
+import de.gwdg.metadataqa.marc.definition.ValidationErrorFormat;
 import org.apache.commons.cli.ParseException;
 import org.junit.Test;
 
@@ -27,6 +28,8 @@ public class ValidatorParametersTest {
 			assertEquals(-1, parameters.getOffset());
 
 			assertFalse(parameters.doSummary());
+
+			assertEquals(ValidationErrorFormat.TEXT, parameters.getFormat());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -86,6 +89,28 @@ public class ValidatorParametersTest {
 		try {
 			ValidatorParameters parameters = new ValidatorParameters(arguments);
 			assertTrue(parameters.doSummary());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testValidFormat() {
+		String[] arguments = new String[]{"--format", "tab-separated", "a-marc-file.mrc"};
+		try {
+			ValidatorParameters parameters = new ValidatorParameters(arguments);
+			assertEquals(ValidationErrorFormat.TAB_SEPARATED, parameters.getFormat());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testInValidFormat() {
+		String[] arguments = new String[]{"--format", "iso", "a-marc-file.mrc"};
+		try {
+			ValidatorParameters parameters = new ValidatorParameters(arguments);
+			assertEquals(ValidationErrorFormat.TEXT, parameters.getFormat());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

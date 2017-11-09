@@ -1,6 +1,8 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.ValidationErrorFormat;
+import de.gwdg.metadataqa.marc.definition.ValidationErrorType;
 import org.apache.commons.cli.*;
 
 public class ValidatorParameters extends CommonParameters {
@@ -12,6 +14,8 @@ public class ValidatorParameters extends CommonParameters {
 	private String fileName = DEFAULT_FILE_NAME;
 	private boolean doHelp;
 	private boolean doSummary;
+	private ValidationErrorFormat format = ValidationErrorFormat.TEXT;
+
 	private String[] args;
 	private boolean useStandardOutput = false;
 	private boolean isOptionSet;
@@ -24,6 +28,7 @@ public class ValidatorParameters extends CommonParameters {
 			options.addOption("o", "offset", true, "the first record to process");
 			options.addOption("f", "fileName", true,
 				String.format("the report file name (default is '%s')", ValidatorParameters.DEFAULT_FILE_NAME));
+			options.addOption("f", "format", true, "specify a format");
 			isOptionSet = true;
 		}
 	}
@@ -42,6 +47,15 @@ public class ValidatorParameters extends CommonParameters {
 
 		if (cmd.hasOption("offset"))
 			offset = Integer.parseInt(cmd.getOptionValue("offset"));
+
+		if (cmd.hasOption("format")) {
+			for (ValidationErrorFormat registeredFormat : ValidationErrorFormat.values()) {
+				if (registeredFormat.getName().equals(cmd.getOptionValue("format"))) {
+					format = registeredFormat;
+					break;
+				}
+			}
+		}
 
 		if (offset > -1 && limit > -1)
 			limit += offset;
@@ -67,5 +81,9 @@ public class ValidatorParameters extends CommonParameters {
 
 	public boolean useStandardOutput() {
 		return useStandardOutput;
+	}
+
+	public ValidationErrorFormat getFormat() {
+		return format;
 	}
 }

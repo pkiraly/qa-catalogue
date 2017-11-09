@@ -27,7 +27,7 @@ public class ValidatorParameters extends CommonParameters {
 			options.addOption("o", "offset", true, "the first record to process");
 			options.addOption("f", "fileName", true,
 				String.format("the report file name (default is '%s')", ValidatorParameters.DEFAULT_FILE_NAME));
-			options.addOption("f", "format", true, "specify a format");
+			options.addOption("r", "format", true, "specify a format");
 			isOptionSet = true;
 		}
 	}

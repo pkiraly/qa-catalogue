@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.cli.parameters;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import org.apache.commons.cli.*;
+import org.apache.commons.lang3.StringUtils;
 
 public class ValidatorParameters extends CommonParameters {
 	public static final String DEFAULT_FILE_NAME = "validation-report.txt";
@@ -10,6 +11,7 @@ public class ValidatorParameters extends CommonParameters {
 	private MarcVersion marcVersion = MarcVersion.MARC21;
 	private int limit = -1;
 	private int offset = -1;
+	private String id = null;
 	private String fileName = DEFAULT_FILE_NAME;
 	private boolean doHelp;
 	private boolean doSummary;
@@ -22,6 +24,7 @@ public class ValidatorParameters extends CommonParameters {
 	protected void setOptions() {
 		if (!isOptionSet) {
 			super.setOptions();
+			options.addOption("i", "id", true, "the MARC identifier (content of 001)");
 			options.addOption("s", "summary", false, "show summary instead of record level display");
 			options.addOption("l", "limit", true, "limit the number of records to process");
 			options.addOption("o", "offset", true, "the first record to process");
@@ -60,6 +63,9 @@ public class ValidatorParameters extends CommonParameters {
 			limit += offset;
 
 		doSummary = cmd.hasOption("summary");
+
+		if (cmd.hasOption("id"))
+			id = cmd.getOptionValue("id");
 	}
 
 	public String getFileName() {
@@ -84,5 +90,13 @@ public class ValidatorParameters extends CommonParameters {
 
 	public ValidationErrorFormat getFormat() {
 		return format;
+	}
+
+	public boolean hasId() {
+		return StringUtils.isNotBlank(id);
+	}
+
+	public String getId() {
+		return id;
 	}
 }

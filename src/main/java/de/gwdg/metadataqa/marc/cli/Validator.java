@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.api.model.JsonPathCache;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
+import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
@@ -65,6 +66,9 @@ public class Validator {
 		if (parameters.doLog())
 			logger.info("MARC files: " + StringUtils.join(parameters.getArgs(), ", "));
 
+		if (parameters.doLog())
+			logger.info("id: " + parameters.getId());
+
 		File output = null;
 		if (!parameters.useStandardOutput()) {
 			output = new File(parameters.getFileName());
@@ -95,17 +99,23 @@ public class Validator {
 						break;
 					}
 
+
 					if (marc4jRecord.getControlNumber() == null) {
 						logger.severe("No record number at " + i + ", last known ID: " + lastKnownId);
 						System.err.println(marc4jRecord);
+						continue;
 					} else {
 						lastKnownId = marc4jRecord.getControlNumber();
 					}
+
+					if (parameters.hasId() && !marc4jRecord.getControlNumber().equals(parameters.getId()))
+						continue;
 
 					try {
 						MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
 						if (marcRecord.getId() == null)
 							logger.severe("No record number at " + i);
+
 						boolean isValid = marcRecord.validate(marcVersion, parameters.doSummary());
 						if (!isValid) {
 							if (marcRecord.getErrors().size() != marcRecord.getValidationErrors().size()) {

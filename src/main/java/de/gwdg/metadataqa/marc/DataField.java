@@ -355,10 +355,7 @@ public class DataField implements Extractable, Validatable {
 				&& subfieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
 				validationErrors.add(new ValidationError(record.getId(), subfieldDefinition.getPath(),
 					ValidationErrorType.NonrepeatableSubfield,
-					String.format(
-					"non-repeatable, however there are %d instances",
-						counter.get(subfieldDefinition)
-					),
+					String.format("there are %d instances", counter.get(subfieldDefinition)),
 					definition.getDescriptionUrl()));
 				errors.add(String.format(
 					"%s$%s is not repeatable, however there are %d instances (%s)",

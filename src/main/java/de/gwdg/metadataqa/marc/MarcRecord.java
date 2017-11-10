@@ -215,7 +215,9 @@ public class MarcRecord implements Extractable, Validatable {
 		if (!unhandledTags.isEmpty()) {
 			if (isSummary) {
 				for (String tag : unhandledTags) {
-					validationErrors.add(new ValidationError(getId(), tag, ValidationErrorType.UndefinedField, tag, null));
+					validationErrors.add(
+						new ValidationError(getId(), tag,
+							ValidationErrorType.UndefinedField, tag, null));
 					errors.add(String.format("Unhandled tag: %s", tag));
 				}
 			} else {
@@ -232,11 +234,11 @@ public class MarcRecord implements Extractable, Validatable {
 					else
 						unhandledTagsList.add(String.format("%s (%d*)", tag, tags.get(tag)));
 				}
-				String tagList = StringUtils.join(unhandledTagsList, ", ");
-				validationErrors.add(new ValidationError(getId(), null, ValidationErrorType.UndefinedField, tagList, null));
-				errors.add(String.format("Unhandled %s: %s",
-					(unhandledTags.size() == 1 ? "tag" : "tags"),
-					tagList));
+				for (String tag : unhandledTagsList) {
+					validationErrors.add(new ValidationError(
+						getId(), tag, ValidationErrorType.UndefinedField, tag, null));
+					errors.add(String.format("Unhandled tag: %s", tag));
+				}
 			}
 
 			isValidRecord = false;

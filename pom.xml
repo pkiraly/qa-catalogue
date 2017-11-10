@@ -57,6 +57,11 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<skipSource>true</skipSource>
+		<skipGpg>true</skipGpg>
+		<skipCobertura>true</skipCobertura>
+		<skipStaging>true</skipStaging>
+		<skipJavadoc>true</skipJavadoc>
 	</properties>
 
 	<dependencies>
@@ -287,7 +292,7 @@
 						<format>html</format>
 						<format>xml</format>
 					</formats>
-					<skip></skip>
+					<skip>${skipCobertura}</skip>
 				</configuration>
 				<reportSets>
 					<reportSet>
@@ -309,6 +314,19 @@
 				<skipCobertura>true</skipCobertura>
 				<skipStaging>true</skipStaging>
 				<skipJavadoc>true</skipJavadoc>
+			</properties>
+			<reporting>
+				<excludeDefaults>true</excludeDefaults>
+			</reporting>
+		</profile>
+		<profile>
+			<id>deploy</id>
+			<properties>
+				<skipSource>false</skipSource>
+				<skipGpg>false</skipGpg>
+				<skipCobertura>false</skipCobertura>
+				<skipStaging>false</skipStaging>
+				<skipJavadoc>false</skipJavadoc>
 			</properties>
 			<reporting>
 				<excludeDefaults>true</excludeDefaults>

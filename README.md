@@ -409,7 +409,7 @@ There are two more datasource worth mention, however they do not provide MARC re
 
 "deployment" build (when deploying artifacts to Maven Central)
 ```
-mvn clean install -Pdeploy
+mvn clean deploy -Pdeploy
 ```
 
 Any feedbacks are welcome!

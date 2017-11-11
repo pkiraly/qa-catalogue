@@ -79,10 +79,10 @@ public class LeaderTest {
 		assertEquals("2", leader.getSubfieldCodeCount().getValue());
 		assertEquals("2", leader.getSubfieldCodeCount().resolve());
 
-		assertEquals("0026", leader.getById("leader12"));
-		assertEquals("0026", leader.getByLabel("Base address of data"));
-		assertEquals("0026", leader.getBaseAddressOfData().getValue());
-		assertEquals("0026", leader.getBaseAddressOfData().resolve());
+		assertEquals("00265", leader.getById("leader12"));
+		assertEquals("00265", leader.getByLabel("Base address of data"));
+		assertEquals("00265", leader.getBaseAddressOfData().getValue());
+		assertEquals("00265", leader.getBaseAddressOfData().resolve());
 
 		assertEquals(" ", leader.getById("leader17"));
 		assertEquals(" ", leader.getByLabel("Encoding level"));
@@ -160,10 +160,10 @@ public class LeaderTest {
 		assertEquals("2", leader.getSubfieldCodeCount().getValue());
 		assertEquals("2", leader.getSubfieldCodeCount().resolve());
 
-		assertEquals("0078", leader.getById("leader12"));
-		assertEquals("0078", leader.getByLabel("Base address of data"));
-		assertEquals("0078", leader.getBaseAddressOfData().getValue());
-		assertEquals("0078", leader.getBaseAddressOfData().resolve());
+		assertEquals("00781", leader.getById("leader12"));
+		assertEquals("00781", leader.getByLabel("Base address of data"));
+		assertEquals("00781", leader.getBaseAddressOfData().getValue());
+		assertEquals("00781", leader.getBaseAddressOfData().resolve());
 
 		assertEquals(" ", leader.getById("leader17"));
 		assertEquals(" ", leader.getByLabel("Encoding level"));
@@ -241,10 +241,10 @@ public class LeaderTest {
 		assertEquals("2", leader.getSubfieldCodeCount().getValue());
 		assertEquals("2", leader.getSubfieldCodeCount().resolve());
 
-		assertEquals("0048", leader.getById("leader12"));
-		assertEquals("0048", leader.getByLabel("Base address of data"));
-		assertEquals("0048", leader.getBaseAddressOfData().getValue());
-		assertEquals("0048", leader.getBaseAddressOfData().resolve());
+		assertEquals("00481", leader.getById("leader12"));
+		assertEquals("00481", leader.getByLabel("Base address of data"));
+		assertEquals("00481", leader.getBaseAddressOfData().getValue());
+		assertEquals("00481", leader.getBaseAddressOfData().resolve());
 
 		assertEquals(" ", leader.getById("leader17"));
 		assertEquals(" ", leader.getByLabel("Encoding level"));

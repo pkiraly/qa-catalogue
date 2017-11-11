@@ -19,6 +19,7 @@ public class Control001 extends ControlField implements Extractable, Validatable
 
 	private Map<ControlSubfield, String> valuesMap;
 	private Map<Integer, ControlSubfield> byPosition = new LinkedHashMap<>();
+	private static final String tag = "001";
 	private static final String label = "Control Number";
 	private static final String mqTag = "ControlNumber";
 
@@ -75,8 +76,13 @@ public class Control001 extends ControlField implements Extractable, Validatable
 
 	@Override
 	public Map<String, List<String>> getKeyValuePairs() {
+		return getKeyValuePairs(false);
+	}
+
+	public Map<String, List<String>> getKeyValuePairs(boolean withMarcTags) {
 		Map<String, List<String>> map = new LinkedHashMap<>();
-		map.put(mqTag, Arrays.asList(content));
+		String key = withMarcTags ? String.format("%s_%s", tag, mqTag) : mqTag;
+		map.put(key, Arrays.asList(content));
 		return map;
 	}
 

@@ -242,14 +242,23 @@ public class Leader implements Extractable, Validatable {
 
 	@Override
 	public Map<String, List<String>> getKeyValuePairs() {
+		return getKeyValuePairs(false);
+	}
+
+	public Map<String, List<String>> getKeyValuePairs(boolean withMarcTags) {
 		Map<String, List<String>> map = new LinkedHashMap<>();
 		map.put(mqTag, Arrays.asList(content));
 		for (ControlSubfield controlSubfield : valuesMap.keySet()) {
 			String code = controlSubfield.getMqTag() != null
 				? controlSubfield.getMqTag()
 				: controlSubfield.getId();
-			String key = String.format("%s_%s", mqTag, code);
+
+			String key = withMarcTags
+				? String.format("%s_%s_%s", mqTag, controlSubfield.formatPositon(), code)
+				: String.format("%s_%s", mqTag, code);
+
 			String value = controlSubfield.resolve(valuesMap.get(controlSubfield));
+
 			map.put(key, Arrays.asList(value));
 		}
 		return map;

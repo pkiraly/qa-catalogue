@@ -174,19 +174,23 @@ public class MarcRecord implements Extractable, Validatable {
 	}
 
 	public Map<String, List<String>> getKeyValuePairs() {
+		return getKeyValuePairs(false);
+	}
+
+	public Map<String, List<String>> getKeyValuePairs(boolean withMarcTags) {
 		if (mainKeyValuePairs == null) {
 			mainKeyValuePairs = new LinkedHashMap<>();
 
 			mainKeyValuePairs.put("type", Arrays.asList(getType().getValue()));
-			mainKeyValuePairs.putAll(leader.getKeyValuePairs());
+			mainKeyValuePairs.putAll(leader.getKeyValuePairs(withMarcTags));
 
 			for (Extractable controlField : getControlfields()) {
 				if (controlField != null)
-					mainKeyValuePairs.putAll(controlField.getKeyValuePairs());
+					mainKeyValuePairs.putAll(controlField.getKeyValuePairs(withMarcTags));
 			}
 
 			for (DataField field : datafields) {
-				Map<String, List<String>> keyValuePairs = field.getKeyValuePairs();
+				Map<String, List<String>> keyValuePairs = field.getKeyValuePairs(withMarcTags);
 				mainKeyValuePairs.putAll(keyValuePairs);
 			}
 		}

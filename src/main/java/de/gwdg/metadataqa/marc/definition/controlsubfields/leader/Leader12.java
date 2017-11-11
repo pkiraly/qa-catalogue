@@ -25,7 +25,7 @@ public class Leader12 extends ControlSubfield {
 		id = "leader12";
 		mqTag = "baseAddressOfData";
 		positionStart = 12;
-		positionEnd = 16;
+		positionEnd = 17;
 		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bdleader.html";
 	}
 }

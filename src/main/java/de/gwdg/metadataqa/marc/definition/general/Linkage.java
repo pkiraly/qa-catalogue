@@ -13,7 +13,6 @@ public class Linkage implements Extractable {
 	private static Map<String, String> scriptIdentificationCodes;
 	private static Map<String, String> fieldOrientationCodes;
 
-
 	static {
 		scriptIdentificationCodes = new HashMap<>();
 		scriptIdentificationCodes.put("(3", "Arabic");
@@ -42,6 +41,11 @@ public class Linkage implements Extractable {
 
 	@Override
 	public Map<String, List<String>> getKeyValuePairs() {
+		return getKeyValuePairs(false);
+	}
+
+	@Override
+	public Map<String, List<String>> getKeyValuePairs(boolean withMarcTag) {
 		Map<String, List<String>> map = new LinkedHashMap<>();
 		Map<String, String> simpleMap = getMap();
 		for (String key : simpleMap.keySet()) {

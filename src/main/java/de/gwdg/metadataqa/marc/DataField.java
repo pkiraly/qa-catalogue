@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.general.Linkage;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
+import de.gwdg.metadataqa.marc.utils.DataFieldKeyFormatter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
@@ -180,22 +181,33 @@ public class DataField implements Extractable, Validatable {
 
 	@Override
 	public Map<String, List<String>> getKeyValuePairs() {
+		return getKeyValuePairs(false);
+	}
+
+	@Override
+	public Map<String, List<String>> getKeyValuePairs(boolean withMarcTag) {
 		Map<String, List<String>> pairs = new HashMap<>();
+		DataFieldKeyFormatter keyFormatter = new DataFieldKeyFormatter(definition, withMarcTag);
 
 		if (definition.getInd1().exists())
-			pairs.put(String.format("%s_%s", definition.getIndexTag(), definition.getInd1().getIndexTag()), Arrays.asList(resolveInd1()));
+			pairs.put(keyFormatter.forInd1(), Arrays.asList(resolveInd1()));
 
-		if (definition.getInd2().exists())
-			pairs.put(String.format("%s_%s", definition.getIndexTag(), definition.getInd2().getIndexTag()), Arrays.asList(resolveInd2()));
+		if (definition.getInd2().exists()) {
+			pairs.put(keyFormatter.forInd2(), Arrays.asList(resolveInd2()));
+		}
 
 		for (MarcSubfield subfield : subfields) {
-			String code = subfield.getCodeForIndex();
-			pairs.put(String.format("%s%s", definition.getIndexTag(), code), Arrays.asList(subfield.resolve()));
-			if (subfield.getDefinition() != null && subfield.getDefinition().hasContentParser()) {
+			pairs.put(keyFormatter.forSubfield(subfield), Arrays.asList(subfield.resolve()));
+
+			if (subfield.getDefinition() != null
+				&& subfield.getDefinition().hasContentParser()) {
 				Map<String, String> extra = subfield.parseContent();
 				if (extra != null)
 					for (String key : extra.keySet())
-						pairs.put(String.format("%s%s_%s", definition.getIndexTag(), code, key), Arrays.asList(extra.get(key)));
+						pairs.put(
+							keyFormatter.forSubfield(subfield, key),
+							Arrays.asList(extra.get(key))
+						);
 			}
 		}
 
@@ -285,6 +297,7 @@ public class DataField implements Extractable, Validatable {
 						for (MarcSubfield subfield : subfields) {
 							MarcSubfield alternativeSubfield = new MarcSubfield(definition.getSubfield(
 								subfield.getCode()), subfield.getCode(), subfield.getValue());
+							alternativeSubfield.setField(this);
 							alternativeSubfield.setRecord(record);
 							alternativeSubfield.setLinkage(linkage);
 							alternativeSubfield.setReferencePath(referencerDefinition.getTag());

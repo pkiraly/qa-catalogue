@@ -47,16 +47,23 @@ public abstract class PositionalControlField extends ControlField implements Ext
 		return validationErrors;
 	}
 
-	public Map<String, List<String>> getKeyValuePairs(String mqTag) {
+	public Map<String, List<String>> getKeyValuePairs(String tag, String mqTag, boolean withMarcTags) {
 		Map<String, List<String>> map = new LinkedHashMap<>();
 		if (content != null) {
-			map.put(mqTag, Arrays.asList(content));
+			String key = withMarcTags ? String.format("%s_", tag) : "";
+			key += mqTag;
+			map.put(key, Arrays.asList(content));
 			for (ControlSubfield controlSubfield : valuesMap.keySet()) {
+
 				String code = controlSubfield.getMqTag() != null
 					? controlSubfield.getMqTag()
 					: controlSubfield.getId();
-				String key = String.format("%s_%s", mqTag, code);
+
+				key = withMarcTags ? String.format("%s_%s_", tag, controlSubfield.formatPositon()) : "";
+				key += String.format("%s_%s", mqTag, code);
+
 				String value = controlSubfield.resolve(valuesMap.get(controlSubfield));
+
 				map.put(key, Arrays.asList(value));
 			}
 		}

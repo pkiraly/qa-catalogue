@@ -61,18 +61,13 @@ public class MarcSubfield implements Validatable {
 
 	public String getLabel() {
 		String label = code;
-		if (definition == null)
-			System.err.printf("no definition for %s/%s\n", code, value);
-		else if (definition.getLabel() == null)
-			System.err.printf("no label for %s/%s\n", code, value);
-		else
+		if (definition != null && definition.getLabel() != null)
 			label = definition.getLabel();
 		return label;
 	}
 
 	public String resolve() {
 		if (definition == null) {
-			System.err.printf("no definition for %s/%s\n", code, value);
 			return value;
 		}
 		return definition.resolve(value);

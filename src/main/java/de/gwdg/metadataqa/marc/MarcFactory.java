@@ -147,7 +147,9 @@ public class MarcFactory {
 						"Problem in record '%s': %s$%s is not a valid subfield (value: '%s')",
 						identifier, definition.getTag(), code, subfield.getData()));
 					*/
-				field.getSubfields().add(new MarcSubfield(null, code, subfield.getData()));
+				MarcSubfield marcSubfield = new MarcSubfield(null, code, subfield.getData());
+				marcSubfield.setField(field);
+				field.getSubfields().add(marcSubfield);
 			} else {
 				field.getSubfields().add(new MarcSubfield(subfieldDefinition, code, subfield.getData()));
 			}

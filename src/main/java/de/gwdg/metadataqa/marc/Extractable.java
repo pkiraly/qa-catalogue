@@ -6,4 +6,5 @@ import java.util.Map;
 public interface Extractable {
 
 	public Map<String, List<String>> getKeyValuePairs();
+	public Map<String, List<String>> getKeyValuePairs(boolean withMarcTag);
 }

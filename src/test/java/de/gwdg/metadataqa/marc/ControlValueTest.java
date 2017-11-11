@@ -163,7 +163,7 @@ public class ControlValueTest {
 		assertEquals("leader12", subfield.getId());
 		assertEquals("baseAddressOfData", subfield.getMqTag());
 		assertEquals(12, subfield.getPositionStart());
-		assertEquals(16, subfield.getPositionEnd());
+		assertEquals(17, subfield.getPositionEnd());
 		assertEquals("https://www.loc.gov/marc/bibliographic/bdleader.html", subfield.getDescriptionUrl());
 		assertNull(subfield.getCodes());
 	}

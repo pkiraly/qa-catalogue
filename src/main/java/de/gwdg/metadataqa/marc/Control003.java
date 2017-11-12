@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 
 import java.util.*;
@@ -62,6 +63,10 @@ public class Control003 extends ControlField implements Extractable, Validatable
 		return label;
 	}
 
+	public static String getTag() {
+		return mqTag;
+	}
+
 	public static String getMqTag() {
 		return mqTag;
 	}
@@ -76,13 +81,12 @@ public class Control003 extends ControlField implements Extractable, Validatable
 
 	@Override
 	public Map<String, List<String>> getKeyValuePairs() {
-		return getKeyValuePairs(false);
+		return getKeyValuePairs(SolrFieldType.MARC);
 	}
 
-	public Map<String, List<String>> getKeyValuePairs(boolean withMarcTags) {
+	public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
 		Map<String, List<String>> map = new LinkedHashMap<>();
-		String key = withMarcTags ? String.format("%s_%s", tag, mqTag) : mqTag;
-		map.put(key, Arrays.asList(content));
+		map.put(getSolrKey(type, tag, mqTag), Arrays.asList(content));
 		return map;
 	}
 

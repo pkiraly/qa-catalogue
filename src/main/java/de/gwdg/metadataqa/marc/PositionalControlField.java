@@ -3,7 +3,9 @@ package de.gwdg.metadataqa.marc;
 import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
+import de.gwdg.metadataqa.marc.utils.keygenerator.PositionalControlFieldKeyGenerator;
 
 import java.util.*;
 
@@ -47,24 +49,21 @@ public abstract class PositionalControlField extends ControlField implements Ext
 		return validationErrors;
 	}
 
-	public Map<String, List<String>> getKeyValuePairs(String tag, String mqTag, boolean withMarcTags) {
+	@Override
+	public Map<String, List<String>> getKeyValuePairs() {
+		return getKeyValuePairs(SolrFieldType.MARC);
+	}
+
+	public Map<String, List<String>> getKeyValuePairs(
+			String tag, String mqTag, SolrFieldType type) {
 		Map<String, List<String>> map = new LinkedHashMap<>();
+		PositionalControlFieldKeyGenerator keyGenerator = new PositionalControlFieldKeyGenerator(
+			tag, mqTag, type);
 		if (content != null) {
-			String key = withMarcTags ? String.format("%s_", tag) : "";
-			key += mqTag;
-			map.put(key, Arrays.asList(content));
+			map.put(keyGenerator.forTag(), Arrays.asList(content));
 			for (ControlSubfield controlSubfield : valuesMap.keySet()) {
-
-				String code = controlSubfield.getMqTag() != null
-					? controlSubfield.getMqTag()
-					: controlSubfield.getId();
-
-				key = withMarcTags ? String.format("%s_%s_", tag, controlSubfield.formatPositon()) : "";
-				key += String.format("%s_%s", mqTag, code);
-
 				String value = controlSubfield.resolve(valuesMap.get(controlSubfield));
-
-				map.put(key, Arrays.asList(value));
+				map.put(keyGenerator.forSubfield(controlSubfield), Arrays.asList(value));
 			}
 		}
 		return map;

@@ -3,9 +3,10 @@ package de.gwdg.metadataqa.marc;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.Linkage;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
-import de.gwdg.metadataqa.marc.utils.DataFieldKeyFormatter;
+import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
@@ -181,23 +182,23 @@ public class DataField implements Extractable, Validatable {
 
 	@Override
 	public Map<String, List<String>> getKeyValuePairs() {
-		return getKeyValuePairs(false);
+		return getKeyValuePairs(SolrFieldType.MARC);
 	}
 
 	@Override
-	public Map<String, List<String>> getKeyValuePairs(boolean withMarcTag) {
+	public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
 		Map<String, List<String>> pairs = new HashMap<>();
-		DataFieldKeyFormatter keyFormatter = new DataFieldKeyFormatter(definition, withMarcTag);
+		DataFieldKeyGenerator keyGenerator = new DataFieldKeyGenerator(definition, type);
 
 		if (definition.getInd1().exists())
-			pairs.put(keyFormatter.forInd1(), Arrays.asList(resolveInd1()));
+			pairs.put(keyGenerator.forInd1(), Arrays.asList(resolveInd1()));
 
 		if (definition.getInd2().exists()) {
-			pairs.put(keyFormatter.forInd2(), Arrays.asList(resolveInd2()));
+			pairs.put(keyGenerator.forInd2(), Arrays.asList(resolveInd2()));
 		}
 
 		for (MarcSubfield subfield : subfields) {
-			pairs.put(keyFormatter.forSubfield(subfield), Arrays.asList(subfield.resolve()));
+			pairs.put(keyGenerator.forSubfield(subfield), Arrays.asList(subfield.resolve()));
 
 			if (subfield.getDefinition() != null
 				&& subfield.getDefinition().hasContentParser()) {
@@ -205,7 +206,7 @@ public class DataField implements Extractable, Validatable {
 				if (extra != null)
 					for (String key : extra.keySet())
 						pairs.put(
-							keyFormatter.forSubfield(subfield, key),
+							keyGenerator.forSubfield(subfield, key),
 							Arrays.asList(extra.get(key))
 						);
 			}

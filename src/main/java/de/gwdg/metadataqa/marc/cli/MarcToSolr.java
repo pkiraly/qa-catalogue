@@ -55,11 +55,13 @@ public class MarcToSolr {
 					Record marc4jRecord = reader.next();
 					try {
 						MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
-						client.indexMap(marcRecord.getId(), marcRecord.getKeyValuePairs());
+						client.indexMap(
+							marcRecord.getId(),
+							marcRecord.getKeyValuePairs(parameters.getSolrFieldType()));
 						if (i % 1000 == 0) {
 							if (parameters.doCommit())
 								client.commit();
-							logger.info(String.format("%s/%d) %s", fileName, i, marcRecord.getId()));
+							logger.info(String.format("%s/%d (%s)", fileName, i, marcRecord.getId()));
 						}
 					} catch (IllegalArgumentException e) {
 						logger.severe(e.getMessage());

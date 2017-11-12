@@ -1,7 +1,9 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
+import de.gwdg.metadataqa.marc.utils.keygenerator.PositionalControlFieldKeyGenerator;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -14,6 +16,7 @@ public class Leader implements Extractable, Validatable {
 
 	private static final Logger logger = Logger.getLogger(Leader.class.getCanonicalName());
 
+	private String tag = "Leader";
 	private String mqTag = "Leader";
 
 	public enum Type {
@@ -242,24 +245,17 @@ public class Leader implements Extractable, Validatable {
 
 	@Override
 	public Map<String, List<String>> getKeyValuePairs() {
-		return getKeyValuePairs(false);
+		return getKeyValuePairs(SolrFieldType.MARC);
 	}
 
-	public Map<String, List<String>> getKeyValuePairs(boolean withMarcTags) {
+	public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
 		Map<String, List<String>> map = new LinkedHashMap<>();
-		map.put(mqTag, Arrays.asList(content));
+		PositionalControlFieldKeyGenerator keyGenerator = new PositionalControlFieldKeyGenerator(
+			tag, mqTag, type);
+		map.put(keyGenerator.forTag(), Arrays.asList(content));
 		for (ControlSubfield controlSubfield : valuesMap.keySet()) {
-			String code = controlSubfield.getMqTag() != null
-				? controlSubfield.getMqTag()
-				: controlSubfield.getId();
-
-			String key = withMarcTags
-				? String.format("%s_%s_%s", mqTag, controlSubfield.formatPositon(), code)
-				: String.format("%s_%s", mqTag, code);
-
 			String value = controlSubfield.resolve(valuesMap.get(controlSubfield));
-
-			map.put(key, Arrays.asList(value));
+			map.put(keyGenerator.forSubfield(controlSubfield), Arrays.asList(value));
 		}
 		return map;
 	}

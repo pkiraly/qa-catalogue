@@ -227,6 +227,8 @@ public class ControlSubfield {
 				", validCodes=" + validCodes +
 				", unitLength=" + unitLength +
 				", repeatableContent=" + repeatableContent +
+				", mqTag=" + mqTag +
+				", id=" + id +
 				'}';
 	}
 }

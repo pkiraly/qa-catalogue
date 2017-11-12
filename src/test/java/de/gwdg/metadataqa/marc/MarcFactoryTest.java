@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.api.model.JsonPathCache;
 import de.gwdg.metadataqa.api.util.FileUtils;
+import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.*;
 
@@ -44,7 +45,7 @@ public class MarcFactoryTest {
 		// System.err.println(record.formatAsMarc());
 		// System.err.println(record.formatForIndex());
 		// System.err.println(record.getKeyValuePairs());
-		Map<String, List<String>> pairs = record.getKeyValuePairs();
+		Map<String, List<String>> pairs = record.getKeyValuePairs(SolrFieldType.HUMAN);
 		assertEquals(119, pairs.size());
 		Set<String> keys = pairs.keySet();
 		keys.remove("GentLocallyDefinedField");
@@ -230,7 +231,9 @@ public class MarcFactoryTest {
 			}
 		}
 
-		assertEquals(Arrays.asList("English"), record.getKeyValuePairs().get("AdminMetadata_languageOfCataloging"));
+		assertEquals(Arrays.asList("English"), record
+			.getKeyValuePairs(SolrFieldType.HUMAN)
+			.get("AdminMetadata_languageOfCataloging"));
 	}
 
 	@Test
@@ -238,7 +241,7 @@ public class MarcFactoryTest {
 		JsonPathCache cache = new JsonPathCache(FileUtils.readFirstLine("general/verbund-tit.001.0000000.formatted.json"));
 
 		MarcRecord record = MarcFactory.create(cache);
-		Map<String, List<String>> pairs = record.getKeyValuePairs(true);
+		Map<String, List<String>> pairs = record.getKeyValuePairs(SolrFieldType.MIXED);
 		assertEquals(119, pairs.size());
 
 		Set<String> keys = pairs.keySet();

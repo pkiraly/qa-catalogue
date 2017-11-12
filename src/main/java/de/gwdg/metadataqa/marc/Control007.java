@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Control007Category;
 import de.gwdg.metadataqa.marc.definition.Control007Subfields;
 import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
+import de.gwdg.metadataqa.marc.model.SolrFieldType;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -732,16 +733,15 @@ public class Control007 extends PositionalControlField implements Extractable {
 		return label;
 	}
 
+	public static String getTag() {
+		return mqTag;
+	}
+
 	public static String getMqTag() {
 		return mqTag;
 	}
 
-	@Override
-	public Map<String, List<String>> getKeyValuePairs() {
-		return getKeyValuePairs(false);
-	}
-
-	public Map<String, List<String>> getKeyValuePairs(boolean withMarcTags) {
-		return getKeyValuePairs(tag, mqTag, withMarcTags);
+	public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
+		return getKeyValuePairs(tag, mqTag, type);
 	}
 }

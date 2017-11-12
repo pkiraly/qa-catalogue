@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.validator.ClassificationReferenceValidator;
+import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import org.apache.commons.lang3.StringUtils;
@@ -174,23 +175,23 @@ public class MarcRecord implements Extractable, Validatable {
 	}
 
 	public Map<String, List<String>> getKeyValuePairs() {
-		return getKeyValuePairs(false);
+		return getKeyValuePairs(SolrFieldType.MARC);
 	}
 
-	public Map<String, List<String>> getKeyValuePairs(boolean withMarcTags) {
+	public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
 		if (mainKeyValuePairs == null) {
 			mainKeyValuePairs = new LinkedHashMap<>();
 
 			mainKeyValuePairs.put("type", Arrays.asList(getType().getValue()));
-			mainKeyValuePairs.putAll(leader.getKeyValuePairs(withMarcTags));
+			mainKeyValuePairs.putAll(leader.getKeyValuePairs(type));
 
 			for (Extractable controlField : getControlfields()) {
 				if (controlField != null)
-					mainKeyValuePairs.putAll(controlField.getKeyValuePairs(withMarcTags));
+					mainKeyValuePairs.putAll(controlField.getKeyValuePairs(type));
 			}
 
 			for (DataField field : datafields) {
-				Map<String, List<String>> keyValuePairs = field.getKeyValuePairs(withMarcTags);
+				Map<String, List<String>> keyValuePairs = field.getKeyValuePairs(type);
 				mainKeyValuePairs.putAll(keyValuePairs);
 			}
 		}

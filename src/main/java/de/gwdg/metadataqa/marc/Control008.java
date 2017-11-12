@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Control008Subfields;
 import de.gwdg.metadataqa.marc.definition.Control008Type;
 import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
+import de.gwdg.metadataqa.marc.model.SolrFieldType;
 
 import java.security.InvalidParameterException;
 import java.util.*;
@@ -528,16 +529,15 @@ public class Control008 extends PositionalControlField implements Extractable {
 		return label;
 	}
 
+	public static String getTag() {
+		return tag;
+	}
+
 	public static String getMqTag() {
 		return mqTag;
 	}
 
-	@Override
-	public Map<String, List<String>> getKeyValuePairs() {
-		return getKeyValuePairs(false);
-	}
-
-	public Map<String, List<String>> getKeyValuePairs(boolean withMarcTags) {
-		return getKeyValuePairs(tag, mqTag, withMarcTags);
+	public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
+		return getKeyValuePairs(tag, mqTag, type);
 	}
 }

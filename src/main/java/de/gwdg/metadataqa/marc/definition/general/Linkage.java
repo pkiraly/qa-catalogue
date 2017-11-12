@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.general;
 
 import de.gwdg.metadataqa.marc.Extractable;
+import de.gwdg.metadataqa.marc.model.SolrFieldType;
 
 import java.util.*;
 
@@ -41,11 +42,11 @@ public class Linkage implements Extractable {
 
 	@Override
 	public Map<String, List<String>> getKeyValuePairs() {
-		return getKeyValuePairs(false);
+		return getKeyValuePairs(SolrFieldType.MARC);
 	}
 
 	@Override
-	public Map<String, List<String>> getKeyValuePairs(boolean withMarcTag) {
+	public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
 		Map<String, List<String>> map = new LinkedHashMap<>();
 		Map<String, String> simpleMap = getMap();
 		for (String key : simpleMap.keySet()) {

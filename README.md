@@ -239,8 +239,18 @@ It needs because in the library's code there is no commit, which makes the paral
 
 Run indexer:
 ```
-java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr [Solr url] [file]
+java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr [options] [file]
 ```
+
+options
+
+* `-s [Solr URL]`, `--solrUrl [Solr URL]` the URL of Solr server
+* `-c`, `--doCommit` send commits to Solr regularly (not needed if you set up Solr the above described way)
+* `-t [Solr field type]`, `--solrFieldType [Solr field type]` a Solr field type, one of the predefined values. See examples below.
+   * `marc-tags` - the field names are MARC codes
+   * `human-readable` - the field names are [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/)
+   * `mixed` - the field names are mixed of the aboves (e.g. `245a_Title_mainTitle`)
+* `-n`, `--nolog` do not display log messages
 
 The Solr URL is something like this: http://localhost:8983/solr/loc. It uses the [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/), in which encoded values are decoded to human readble values (e.g. Leader/5 = "c" becames Leader_recordStatus = "Corrected or revised") so a record looks like this:
 
@@ -334,6 +344,51 @@ The Solr URL is something like this: http://localhost:8983/solr/loc. It uses the
         "ElectronicLocationAndAccess_ind1_ss":["HTTP"],
         "_version_":1580884716765052928},
 }
+```
+
+#### "marc-tags" format
+```
+"100a_ss":["Jung-Baek, Myong Ja"],
+"100ind1_ss":["Surname"],
+"245c_ss":["Vorgelegt von Myong Ja Jung-Baek."],
+"245ind2_ss":["No nonfiling characters"],
+"245a_ss":["S. Tret'jakov und China /"],
+"245ind1_ss":["Added entry"],
+"260c_ss":["1987."],
+"260b_ss":["Georg-August-Universität Göttingen,"],
+"260a_ss":["Göttingen :"],
+"260ind1_ss":["Not applicable/No information provided/Earliest available publisher"],
+"300a_ss":["141 p."],
+```
+
+#### "human-readable" format
+```
+"MainPersonalName_type_ss":["Surname"],
+"MainPersonalName_personalName_ss":["Jung-Baek, Myong Ja"],
+"Title_responsibilityStatement_ss":["Vorgelegt von Myong Ja Jung-Baek."],
+"Title_mainTitle_ss":["S. Tret'jakov und China /"],
+"Title_titleAddedEntry_ss":["Added entry"],
+"Title_nonfilingCharacters_ss":["No nonfiling characters"],
+"Publication_sequenceOfPublishingStatements_ss":["Not applicable/No information provided/Earliest available publisher"],
+"Publication_agent_ss":["Georg-August-Universität Göttingen,"],
+"Publication_place_ss":["Göttingen :"],
+"Publication_date_ss":["1987."],
+"PhysicalDescription_extent_ss":["141 p."],
+```
+
+#### "mixed" format
+```
+"100a_MainPersonalName_personalName_ss":["Jung-Baek, Myong Ja"],
+"100ind1_MainPersonalName_type_ss":["Surname"],
+"245a_Title_mainTitle_ss":["S. Tret'jakov und China /"],
+"245ind1_Title_titleAddedEntry_ss":["Added entry"],
+"245ind2_Title_nonfilingCharacters_ss":["No nonfiling characters"],
+"245c_Title_responsibilityStatement_ss":["Vorgelegt von Myong Ja Jung-Baek."],
+"260b_Publication_agent_ss":["Georg-August-Universität Göttingen,"],
+"260a_Publication_place_ss":["Göttingen :"],
+"260ind1_Publication_sequenceOfPublishingStatements_ss":["Not applicable/No information provided/Earliest available publisher"],
+"260c_Publication_date_ss":["1987."],
+"300a_PhysicalDescription_extent_ss":["141 p."],
 ```
 
 I have created a distinct project [metadata-qa-marc-web](https://github.com/pkiraly/metadata-qa-marc-web), which provised a single page web application to build a facetted search interface for this type of Solr index.

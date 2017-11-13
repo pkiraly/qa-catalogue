@@ -1,9 +1,7 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
-import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.lang3.StringUtils;
 
 public class MarcToSolrParameters extends CommonParameters {
 

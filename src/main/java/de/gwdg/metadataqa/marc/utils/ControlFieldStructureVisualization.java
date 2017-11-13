@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc.utils;
 
-import de.gwdg.metadataqa.marc.Control008;
 import de.gwdg.metadataqa.marc.definition.*;
 
 import java.util.List;

@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc;
 
-import de.gwdg.metadataqa.marc.definition.Control008Type;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 

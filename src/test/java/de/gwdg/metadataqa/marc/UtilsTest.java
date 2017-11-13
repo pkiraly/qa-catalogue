@@ -8,7 +8,6 @@ import java.util.List;
 import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.tag007.Tag007nonprojected00;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.tag007.Tag007nonprojected01;
-import de.gwdg.metadataqa.marc.definition.controlsubfields.tag007.Tag007nonprojected02;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

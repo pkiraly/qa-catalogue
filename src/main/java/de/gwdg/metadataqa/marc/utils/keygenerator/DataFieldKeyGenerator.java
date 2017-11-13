@@ -7,7 +7,6 @@ import de.gwdg.metadataqa.marc.model.SolrFieldType;
 public class DataFieldKeyGenerator {
 	private DataFieldDefinition definition;
 	private SolrFieldType type;
-	private boolean withMarcTag;
 	private String tag;
 	private String indexTag;
 

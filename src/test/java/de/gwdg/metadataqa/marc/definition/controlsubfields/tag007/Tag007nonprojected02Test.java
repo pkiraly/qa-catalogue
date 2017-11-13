@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.tag007;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

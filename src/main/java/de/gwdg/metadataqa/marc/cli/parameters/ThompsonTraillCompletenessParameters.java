@@ -1,7 +1,5 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
-import de.gwdg.metadataqa.marc.definition.MarcVersion;
-import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.ParseException;
 
 public class ThompsonTraillCompletenessParameters extends CommonParameters {

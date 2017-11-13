@@ -1,7 +1,5 @@
 package de.gwdg.metadataqa.marc;
 
-import java.util.Arrays;
-import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

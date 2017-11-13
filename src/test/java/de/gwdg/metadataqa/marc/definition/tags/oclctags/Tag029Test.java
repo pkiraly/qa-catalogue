@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc.definition.tags.oclctags;
 
-import de.gwdg.metadataqa.marc.Control001;
 import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;

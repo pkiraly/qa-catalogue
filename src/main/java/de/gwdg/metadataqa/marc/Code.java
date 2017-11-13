@@ -1,7 +1,5 @@
 package de.gwdg.metadataqa.marc;
 
-import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
-
 /**
  *
  * @author Péter Király <peter.kiraly at gwdg.de>

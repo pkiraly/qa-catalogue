@@ -1,14 +1,11 @@
 package de.gwdg.metadataqa.marc.definition.general.validator;
 
-import de.gwdg.metadataqa.marc.Control001;
 import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.definition.ValidatorResponse;
-import de.gwdg.metadataqa.marc.definition.tags.tags01x.Tag045;
 import de.gwdg.metadataqa.marc.definition.tags.tags6xx.Tag650;
 import org.junit.Test;
 
-import static de.gwdg.metadataqa.marc.definition.general.validator.ClassificationReferenceValidator.*;
 import static org.junit.Assert.assertFalse;
 
 public class ClassificationReferenceValidatorTest {

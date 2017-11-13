@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc.utils;
 
-import de.gwdg.metadataqa.api.model.EdmFieldInstance;
 import de.gwdg.metadataqa.api.model.JsonPathCache;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import org.apache.commons.lang3.StringUtils;
@@ -8,7 +7,6 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class MarcCacheWrapper {
 

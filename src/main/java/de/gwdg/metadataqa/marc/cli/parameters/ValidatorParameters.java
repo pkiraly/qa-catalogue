@@ -60,4 +60,14 @@ public class ValidatorParameters extends CommonParameters {
 	public ValidationErrorFormat getFormat() {
 		return format;
 	}
+
+
+	@Override
+	public String formatParameters() {
+		String text = super.formatParameters();
+		text += String.format("summary: %s\n", doSummary);
+		text += String.format("fileName: %s\n", fileName);
+		text += String.format("format: %s\n", format);
+		return text;
+	}
 }

@@ -62,7 +62,6 @@ public class Validator implements MarcFileProcessor {
 
 	@Override
 	public void beforeIteration() {
-		logger.info(parameters.getFileName());
 		logger.info(parameters.formatParameters());
 		if (!parameters.useStandardOutput()) {
 			output = new File(parameters.getFileName());

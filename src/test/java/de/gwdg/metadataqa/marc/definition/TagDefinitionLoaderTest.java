@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class TagDefinitionLoaderTest {
 
@@ -68,5 +69,23 @@ public class TagDefinitionLoaderTest {
 		for (String tag : tags)
 			assertEquals(tag, TagDefinitionLoader.load(tag).getTag());
 
+	}
+
+	@Test
+	public void test591Gent() {
+		DataFieldDefinition definition = TagDefinitionLoader.load("591", MarcVersion.GENT);
+		assertEquals("de.gwdg.metadataqa.marc.definition.tags.genttags.Tag591", definition.getClass().getCanonicalName());
+	}
+
+	@Test
+	public void test591DNB() {
+		DataFieldDefinition definition = TagDefinitionLoader.load("591", MarcVersion.DNB);
+		assertEquals("de.gwdg.metadataqa.marc.definition.tags.dnbtags.Tag591", definition.getClass().getCanonicalName());
+	}
+
+	@Test
+	public void test591MARC21() {
+		DataFieldDefinition definition = TagDefinitionLoader.load("591", MarcVersion.MARC21);
+		assertNull(definition);
 	}
 }

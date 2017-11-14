@@ -24,7 +24,8 @@ public class TagDefinitionLoader {
 
 	private static final List<String> OCLC_TAGS = Arrays.asList("012", "019", "029", "090", "092", "096", "366", "539",
 		"891", "911", "912", "936", "938", "994");
-	private static Map<String, DataFieldDefinition> cache = new HashMap<>();
+	private static Map<String, DataFieldDefinition> commonCache = new HashMap<>();
+	private static Map<String, Map<MarcVersion, DataFieldDefinition>> versionedCache = new HashMap<>();
 
 	static {
 		findAndCacheTags();
@@ -43,8 +44,15 @@ public class TagDefinitionLoader {
 		try {
 			getInstance = definitionClazz.getMethod("getInstance");
 			dataFieldDefinition = (DataFieldDefinition) getInstance.invoke(definitionClazz);
-			if (dataFieldDefinition != null)
-				cache.put(dataFieldDefinition.getTag(), dataFieldDefinition);
+			if (dataFieldDefinition != null) {
+				String tag = dataFieldDefinition.getTag();
+				commonCache.put(tag, dataFieldDefinition);
+				MarcVersion version = getMarcVersion(definitionClazz);
+				if (!versionedCache.containsKey(tag)) {
+					versionedCache.put(tag, new HashMap<>());
+				}
+				versionedCache.get(tag).put(version, dataFieldDefinition);
+			}
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
@@ -54,8 +62,20 @@ public class TagDefinitionLoader {
 		}
 	}
 
+	private static MarcVersion getMarcVersion(Class<? extends DataFieldDefinition> definitionClazz) {
+		MarcVersion version = MarcVersion.MARC21;
+		if (definitionClazz.getCanonicalName().contains(".oclctags.")) {
+			version = MarcVersion.OCLC;
+		} else if (definitionClazz.getCanonicalName().contains(".dnbtags.")) {
+			version = MarcVersion.DNB;
+		} else if (definitionClazz.getCanonicalName().contains(".genttags.")) {
+			version = MarcVersion.GENT;
+		}
+		return version;
+	}
+
 	public static DataFieldDefinition load(String tag) {
-		if (!cache.containsKey(tag)) {
+		if (!commonCache.containsKey(tag)) {
 			DataFieldDefinition dataFieldDefinition = null;
 			try {
 				String className = getClassName(tag);
@@ -73,9 +93,27 @@ public class TagDefinitionLoader {
 			} catch (InvocationTargetException e) {
 				e.printStackTrace();
 			}
-			cache.put(tag, dataFieldDefinition);
+			commonCache.put(tag, dataFieldDefinition);
 		}
-		return cache.get(tag);
+		return commonCache.get(tag);
+	}
+
+	public static DataFieldDefinition load(String tag, MarcVersion marcVersion) {
+		Map<MarcVersion, DataFieldDefinition> map = versionedCache.get(tag);
+		if (map.containsKey(marcVersion)) {
+			return map.get(marcVersion);
+		}
+		if (marcVersion.equals(MarcVersion.MARC21)) {
+			// no fallback for MARC21
+			return null;
+		} else {
+			// fallbacks for other MARC versions
+			if (map.containsKey(MarcVersion.MARC21))
+				return map.get(MarcVersion.MARC21);
+			if (map.containsKey(MarcVersion.OCLC))
+				return map.get(MarcVersion.OCLC);
+		}
+		return null;
 	}
 
 	public static String getClassName(String tag) {

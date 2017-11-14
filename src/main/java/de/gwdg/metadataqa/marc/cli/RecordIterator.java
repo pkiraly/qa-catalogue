@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.cli;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.utils.ReadMarc;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
@@ -13,8 +14,6 @@ import org.marc4j.marc.Record;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalTime;
-import java.util.Map;
-import java.util.TreeMap;
 import java.util.logging.Logger;
 
 /**
@@ -36,6 +35,11 @@ public class RecordIterator {
 
 		long start = System.currentTimeMillis();
 		processor.beforeIteration();
+
+		MarcVersion marcVersion = processor.getParameters().getMarcVersion();
+		if (processor.getParameters().doLog())
+			logger.info("marcVersion: " + marcVersion.getCode() + ", " + marcVersion.getLabel());
+
 		String[] inputFileNames = processor.getParameters().getArgs();
 
 		int i = 0;
@@ -71,7 +75,7 @@ public class RecordIterator {
 						continue;
 
 					try {
-						MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
+						MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, processor.getParameters().getMarcVersion());
 						processor.processRecord(marcRecord, i);
 
 						if (i % 100000 == 0 && processor.getParameters().doLog())

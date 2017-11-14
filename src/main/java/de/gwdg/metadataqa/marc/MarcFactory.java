@@ -6,11 +6,11 @@ import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.api.schema.MarcJsonSchema;
 import de.gwdg.metadataqa.api.schema.Schema;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
 import de.gwdg.metadataqa.marc.utils.MapToDatafield;
 import net.minidev.json.JSONArray;
-import org.jetbrains.annotations.NotNull;
 import org.marc4j.marc.ControlField;
 import org.marc4j.marc.Record;
 import org.marc4j.marc.Subfield;
@@ -29,6 +29,7 @@ public class MarcFactory {
 	private static final Logger logger = Logger.getLogger(MarcFactory.class.getCanonicalName());
 
 	private static Schema schema = new MarcJsonSchema();
+	private static boolean alreadyWritten = false;
 
 	public static MarcRecord create(JsonPathCache cache) {
 		MarcRecord record = new MarcRecord();
@@ -79,10 +80,18 @@ public class MarcFactory {
 	}
 
 	public static MarcRecord createFromMarc4j(Record marc4jRecord) {
-		return createFromMarc4j(marc4jRecord, null);
+		return createFromMarc4j(marc4jRecord, null, null);
 	}
 
 	public static MarcRecord createFromMarc4j(Record marc4jRecord, Leader.Type defaultType) {
+		return createFromMarc4j(marc4jRecord, defaultType, null);
+	}
+
+	public static MarcRecord createFromMarc4j(Record marc4jRecord, MarcVersion marcVersion) {
+		return createFromMarc4j(marc4jRecord, null, marcVersion);
+	}
+
+	public static MarcRecord createFromMarc4j(Record marc4jRecord, Leader.Type defaultType, MarcVersion marcVersion) {
 		MarcRecord record = new MarcRecord();
 
 		record.setLeader(new Leader(marc4jRecord.getLeader().marshal()));
@@ -95,7 +104,7 @@ public class MarcFactory {
 
 		importMarc4jControlFields(marc4jRecord, record);
 
-		importMarc4jDataFields(marc4jRecord, record);
+		importMarc4jDataFields(marc4jRecord, record, marcVersion);
 
 		return record;
 	}
@@ -120,9 +129,9 @@ public class MarcFactory {
 		}
 	}
 
-	private static void importMarc4jDataFields(Record marc4jRecord, MarcRecord record) {
+	private static void importMarc4jDataFields(Record marc4jRecord, MarcRecord record, MarcVersion marcVersion) {
 		for (org.marc4j.marc.DataField dataField : marc4jRecord.getDataFields()) {
-			DataFieldDefinition definition = TagDefinitionLoader.load(dataField.getTag());
+			DataFieldDefinition definition = getDataFieldDefinition(dataField, marcVersion);
 			if (definition == null) {
 				record.addUnhandledTags(dataField.getTag());
 			} else {
@@ -130,6 +139,19 @@ public class MarcFactory {
 				record.addDataField(field);
 			}
 		}
+	}
+
+	private static DataFieldDefinition getDataFieldDefinition(org.marc4j.marc.DataField dataField, MarcVersion marcVersion) {
+		DataFieldDefinition definition = null;
+		if (marcVersion == null)
+			definition = TagDefinitionLoader.load(dataField.getTag());
+		else
+			definition = TagDefinitionLoader.load(dataField.getTag(), marcVersion);
+		if (!alreadyWritten && dataField.getTag().equals("591")) {
+			System.err.println(definition.getClass().getCanonicalName());
+			alreadyWritten = true;
+		}
+		return definition;
 	}
 
 	private static DataField extractDataField(org.marc4j.marc.DataField dataField,

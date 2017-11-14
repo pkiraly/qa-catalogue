@@ -213,7 +213,11 @@ public class MarcRecord implements Extractable, Validatable {
 		isValidComponent = leader.validate(marcVersion);
 		if (!isValidComponent) {
 			errors.addAll(leader.getErrors());
-			validationErrors.addAll(leader.getValidationErrors());
+			List<ValidationError> leaderErrors = leader.getValidationErrors();
+			for (ValidationError leaderError : leaderErrors)
+				if (leaderError.getRecordId() == null)
+					leaderError.setRecordId(getId());
+			validationErrors.addAll(leaderErrors);
 			isValidRecord = isValidComponent;
 		}
 

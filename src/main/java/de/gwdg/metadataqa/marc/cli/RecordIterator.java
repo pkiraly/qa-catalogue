@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.cli;
 
+import de.gwdg.metadataqa.marc.Leader;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
@@ -37,6 +38,7 @@ public class RecordIterator {
 		processor.beforeIteration();
 
 		MarcVersion marcVersion = processor.getParameters().getMarcVersion();
+		Leader.Type defaultRecordType = processor.getParameters().getDefaultRecordType();
 		if (processor.getParameters().doLog())
 			logger.info("marcVersion: " + marcVersion.getCode() + ", " + marcVersion.getLabel());
 
@@ -75,7 +77,7 @@ public class RecordIterator {
 						continue;
 
 					try {
-						MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, processor.getParameters().getMarcVersion());
+						MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, defaultRecordType, marcVersion);
 						processor.processRecord(marcRecord, i);
 
 						if (i % 100000 == 0 && processor.getParameters().doLog())

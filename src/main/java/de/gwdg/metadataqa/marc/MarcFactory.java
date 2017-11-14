@@ -29,7 +29,6 @@ public class MarcFactory {
 	private static final Logger logger = Logger.getLogger(MarcFactory.class.getCanonicalName());
 
 	private static Schema schema = new MarcJsonSchema();
-	private static boolean alreadyWritten = false;
 
 	public static MarcRecord create(JsonPathCache cache) {
 		MarcRecord record = new MarcRecord();
@@ -94,7 +93,11 @@ public class MarcFactory {
 	public static MarcRecord createFromMarc4j(Record marc4jRecord, Leader.Type defaultType, MarcVersion marcVersion) {
 		MarcRecord record = new MarcRecord();
 
-		record.setLeader(new Leader(marc4jRecord.getLeader().marshal()));
+		if (defaultType == null)
+			record.setLeader(new Leader(marc4jRecord.getLeader().marshal()));
+		else
+			record.setLeader(new Leader(marc4jRecord.getLeader().marshal(), defaultType));
+
 		if (record.getType() == null) {
 			throw new InvalidParameterException(
 				String.format(
@@ -147,10 +150,6 @@ public class MarcFactory {
 			definition = TagDefinitionLoader.load(dataField.getTag());
 		else
 			definition = TagDefinitionLoader.load(dataField.getTag(), marcVersion);
-		if (!alreadyWritten && dataField.getTag().equals("591")) {
-			System.err.println(definition.getClass().getCanonicalName());
-			alreadyWritten = true;
-		}
 		return definition;
 	}
 

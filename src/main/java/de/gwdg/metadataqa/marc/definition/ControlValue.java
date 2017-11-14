@@ -87,7 +87,7 @@ public class ControlValue implements Validatable {
 				} else {
 					validationErrors.add(
 						new ValidationError(
-							record.getId(),
+							((record == null) ? null : record.getId()),
 							definition.getPath(), ValidationErrorType.HasInvalidValue,
 						value, definition.getDescriptionUrl()));
 					errors.add(

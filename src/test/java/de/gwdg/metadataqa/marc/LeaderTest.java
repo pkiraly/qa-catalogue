@@ -1,10 +1,19 @@
 package de.gwdg.metadataqa.marc;
 
+import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
+import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
+import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormatter;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.List;
+import java.util.Map;
+
 import static org.junit.Assert.*;
 
 /**
@@ -273,5 +282,23 @@ public class LeaderTest {
 		assertEquals("0", leader.getByLabel("Length of the implementation-defined portion"));
 		assertEquals("0", leader.getLengthOfTheImplementationDefinedPortion().getValue());
 		assertEquals("0", leader.getLengthOfTheImplementationDefinedPortion().resolve());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testBadLeader() {
+		Leader leader = new Leader("01136cnm a2200253ui 4500");
+	}
+
+	@Test
+	public void testBadLeaderWithDefaultType() {
+		Leader leader = new Leader("01136cnm a2200253ui 4500", Leader.Type.BOOKS);
+		assertEquals("n", leader.getTypeOfRecord().resolve());
+		assertEquals("Monograph/Item", leader.getBibliographicLevel().resolve());
+		assertFalse(leader.validate(MarcVersion.MARC21));
+		List<ValidationError> errors = leader.getValidationErrors();
+		assertFalse(errors.isEmpty());
+		assertEquals(2, errors.size());
+		assertEquals("\tLeader\tundetectable record type\tLeader/06 (typeOfRecord): 'n', Leader/07 (bibliographicLevel): 'm'\thttps://www.loc.gov/marc/bibliographic/bdleader.html", ValidationErrorFormatter.format(errors.get(0), ValidationErrorFormat.TAB_SEPARATED));
+		assertEquals("\tLeader/06 (leader06)\tinvalid value\tn\thttps://www.loc.gov/marc/bibliographic/bdleader.html", ValidationErrorFormatter.format(errors.get(1), ValidationErrorFormat.TAB_SEPARATED));
 	}
 }

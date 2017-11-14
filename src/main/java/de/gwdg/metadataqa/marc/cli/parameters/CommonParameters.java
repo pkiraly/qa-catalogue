@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
+import de.gwdg.metadataqa.marc.Leader;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import org.apache.commons.cli.*;
 import org.apache.commons.lang3.StringUtils;
@@ -14,6 +15,7 @@ public class CommonParameters {
 	private int limit = -1;
 	private int offset = -1;
 	private String id = null;
+	protected Leader.Type defaultRecordType = null;
 
 	protected Options options = new Options();
 	protected static CommandLineParser parser = new DefaultParser();
@@ -28,6 +30,7 @@ public class CommonParameters {
 			options.addOption("l", "limit", true, "limit the number of records to process");
 			options.addOption("o", "offset", true, "the first record to process");
 			options.addOption("i", "id", true, "the MARC identifier (content of 001)");
+			options.addOption("d", "defaultRecordType", true, "the default record type if the record's type is undetectable");
 			isOptionSet = true;
 		}
 	}
@@ -55,6 +58,9 @@ public class CommonParameters {
 
 		if (cmd.hasOption("id"))
 			id = cmd.getOptionValue("id");
+
+		if (cmd.hasOption("defaultRecordType"))
+			defaultRecordType = Leader.Type.valueOf(cmd.getOptionValue("defaultRecordType"));
 
 		args = cmd.getArgs();
 	}
@@ -95,5 +101,21 @@ public class CommonParameters {
 
 	public String getId() {
 		return id;
+	}
+
+	public Leader.Type getDefaultRecordType() {
+		return defaultRecordType;
+	}
+
+	public String formatParameters() {
+		String text = "";
+		text += String.format("marcVersion: %s, %s\n", marcVersion.getCode(), marcVersion.getLabel());
+		text += String.format("limit: %d\n", limit);
+		text += String.format("offset: %s\n", offset);
+		text += String.format("MARC files: %s\n", StringUtils.join(args, ", "));
+		text += String.format("id: %s\n", id);
+		text += String.format("defaultRecordType: %s\n", defaultRecordType);
+
+		return text;
 	}
 }

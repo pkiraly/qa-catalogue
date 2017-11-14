@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
+import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import de.gwdg.metadataqa.marc.utils.keygenerator.PositionalControlFieldKeyGenerator;
 
 import java.util.*;
@@ -60,14 +61,38 @@ public class Leader implements Extractable, Validatable {
 	private ControlValue lengthOfTheStartingCharacterPositionPortion;
 	private ControlValue lengthOfTheImplementationDefinedPortion;
 	private List<String> errors;
+	private List<ValidationError> initializationErrors;
 	private List<ValidationError> validationErrors;
 
 	public Leader(String content) {
+		initialize(content);
+		setType();
+	}
+
+	private void initialize(String content) {
 		this.content = content;
 		valuesMap = new LinkedHashMap<>();
 		valuesList = new ArrayList<>();
+		initializationErrors = new ArrayList<>();
 		process();
-		setType();
+	}
+
+	public Leader(String content, Type defaultType) {
+		initialize(content);
+		try {
+			setType();
+		} catch (IllegalArgumentException e) {
+			initializationErrors.add(
+				new ValidationError(
+					null,
+					tag,
+					ValidationErrorType.UndetectableType,
+					e.getMessage(),
+					LeaderSubfields.getSubfields().get(0).getDescriptionUrl()
+				)
+			);
+			type = defaultType;
+		}
 	}
 
 	private void process() {
@@ -127,8 +152,13 @@ public class Leader implements Extractable, Validatable {
 		} else {
 			throw new IllegalArgumentException(
 				String.format(
-					"No type is detectable. typeOfRecord: '%s', bibliographicLevel: '%s'",
-					typeOfRecord.getValue(), bibliographicLevel.getValue()));
+					"Leader/%s (%s): '%s', Leader/%s (%s): '%s'",
+					typeOfRecord.getDefinition().formatPositon(),
+					typeOfRecord.getDefinition().getMqTag(),
+					typeOfRecord.getValue(),
+					bibliographicLevel.getDefinition().formatPositon(),
+					bibliographicLevel.getDefinition().getMqTag(),
+					bibliographicLevel.getValue()));
 		}
 	}
 
@@ -265,6 +295,8 @@ public class Leader implements Extractable, Validatable {
 		boolean isValid = true;
 		errors = new ArrayList<>();
 		validationErrors = new ArrayList<>();
+		if (!initializationErrors.isEmpty())
+			validationErrors.addAll(initializationErrors);
 
 		for (ControlValue controlValue : valuesList) {
 			if (!controlValue.validate(marcVersion)) {

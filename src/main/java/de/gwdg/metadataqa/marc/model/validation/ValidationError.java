@@ -46,4 +46,8 @@ public class ValidationError {
 			", url='" + url + '\'' +
 			'}';
 	}
+
+	public void setRecordId(String recordId) {
+		this.recordId = recordId;
+	}
 }

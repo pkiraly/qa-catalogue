@@ -13,7 +13,8 @@ public enum ValidationErrorType {
 	PatternMismatch("patternMismatch", "does not match any patterns"),
 	NonrepeatableSubfield("nonrepeatableSubfield", "non-repeatable subfield"),
 	NonrepeatableField("nonrepeatableField", "non-repeatable field"),
-	UndefinedField("undefinedField", "undefined field")
+	UndefinedField("undefinedField", "undefined field"),
+	UndetectableType("undetectableType", "undetectable record type")
 	;
 
 	private String code;

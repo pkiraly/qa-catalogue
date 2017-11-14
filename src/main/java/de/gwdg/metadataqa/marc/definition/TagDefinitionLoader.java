@@ -100,6 +100,10 @@ public class TagDefinitionLoader {
 
 	public static DataFieldDefinition load(String tag, MarcVersion marcVersion) {
 		Map<MarcVersion, DataFieldDefinition> map = versionedCache.get(tag);
+
+		if (map == null)
+			return null;
+
 		if (map.containsKey(marcVersion)) {
 			return map.get(marcVersion);
 		}

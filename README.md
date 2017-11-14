@@ -1,7 +1,7 @@
 # metadata-qa-marc
 Metadata quality assessment for MARC records
 
-* If you would like to play with this project, but you don't have MARC21 I suggest to download some recordset mentioned in [Appendix I: Where can I get MARC records?](#datasources)
+* If you would like to play with this project, but you don't have MARC21 please to download some recordsets mentioned in [Appendix I: Where can I get MARC records?](#datasources) of this document.
 * This is an early phase of the project, nor the software, neighter the documentation are ready. But still it is in a state which I thought worth sharing
 * For more info see the main project page: [Metadata Quality Assurance Framework](http://pkiraly.github.io)
 
@@ -63,7 +63,11 @@ or with a bash script
 options:
 
 * `-s`, `--summary` creating a summary report instead of record level reports
-* `-m [MARC version name]`, `--marcVersion [MARC version name]` specify a MARC version (currently only `DNB`, the Deuthche Nationalbibliothek's version is supported)
+* `-m [MARC version name]`, `--marcVersion [MARC version name]` specify a MARC version. Crrently supported version names:
+   * `MARC21`, Library of Congress MARC21
+   * `DNB`, the Deuthche Nationalbibliothek's MARC version
+   * `OCLC`, the OCLCMARC
+   * `GENT`, fields available in the Gent catalog
 * `-l [number]`, `--limit [number]` validates only given number of records
 * `-o [number]`, `--offset [number]` starts validation at the given Nth record
 * `-f [file name]`, `--fileName [file name]` the name of report the program produces. Default is `validation-report.txt`. If you use "stdout", it won't create file, but put results into the standard output.

@@ -1,7 +1,7 @@
 # metadata-qa-marc
 Metadata quality assessment for MARC records
 
-* If you would like to play with this project, but you don't have MARC21 I suggest to download records from the Library of Congress: https://www.loc.gov/cds/products/MDSConnect-books_all.html
+* If you would like to play with this project, but you don't have MARC21 I suggest to download some recordset mentioned in [Appendix I: Where can I get MARC records?](#datasources)
 * This is an early phase of the project, nor the software, neighter the documentation are ready. But still it is in a state which I thought worth sharing
 * For more info see the main project page: [Metadata Quality Assurance Framework](http://pkiraly.github.io)
 

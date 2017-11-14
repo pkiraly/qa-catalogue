@@ -69,7 +69,7 @@ options:
 * `-f [file name]`, `--fileName [file name]` the name of report the program produces. Default is `validation-report.txt`. If you use "stdout", it won't create file, but put results into the standard output.
 * `-r [format]`, `--format [format]` format specification of the output. Possible values: `text`, `tab-separated` or , `comma-separated`
 * `-n`, `--nolog` do not display log messages
-* `-d`, `--defaultRecordType` the default record type to be used if the record's type is undetectable. Possible values:
+* `-d [record type]`, `--defaultRecordType [record type]` the default record type to be used if the record's type is undetectable. The record type is calculated from the combination of Leader/06 (Type of record) and Leader/07 (bibliographic level), however sometimes the combination doesn't fit to the standard. In this case the tool will use the given record type. Possible values of the record type argument:
    * BOOKS
    * CONTINUING_RESOURCES
    * MUSIC

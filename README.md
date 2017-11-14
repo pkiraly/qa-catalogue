@@ -69,6 +69,14 @@ options:
 * `-f [file name]`, `--fileName [file name]` the name of report the program produces. Default is `validation-report.txt`. If you use "stdout", it won't create file, but put results into the standard output.
 * `-r [format]`, `--format [format]` format specification of the output. Possible values: `text`, `tab-separated` or , `comma-separated`
 * `-n`, `--nolog` do not display log messages
+* `-d`, `--defaultRecordType` the default record type to be used if the record's type is undetectable. Possible values:
+   * BOOKS
+   * CONTINUING_RESOURCES
+   * MUSIC
+   * MAPS
+   * VISUAL_MATERIALS
+   * COMPUTER_FILES
+   * MIXED_MATERIALS
 
 The `file` argument might contain any wildcard the operating system supports ('*', '?', etc.)
 

@@ -9,7 +9,7 @@ Metadata quality assessment for MARC records
 
 Prerequisites: Java 8 (I use OpenJDK), and Maven 3
 
-First clone and build the parent library, metadata-qa-api project:
+1. Optional step: clone and build the parent library, metadata-qa-api project:
 
 ```
 git clone https://github.com/pkiraly/metadata-qa-api.git
@@ -18,12 +18,30 @@ mvn clean install
 cd ..
 ```
 
-then the current metadata-qa-marc project
+2. Mandatory step: clone and build the current metadata-qa-marc project
+
 ```
 git clone https://github.com/pkiraly/metadata-qa-marc.git
 cd metadata-qa-marc
 mvn clean install
 ```
+
+### ... or download
+
+The released versions of the software is available from Maven Central repository. The stable releases (currently 0.1) is available from all Maven repos, the developer version (0.2-SNAPSHOT) is avalable from the [Sonatype Maven repository](https://oss.sonatype.org/content/repositories/snapshots/de/gwdg/metadataqa/metadata-qa-marc/0.2-SNAPSHOT/). What you need to select is the file `metadata-qa-marc-0.2-[timestamp]-1-jar-with-dependencies.jar`. 
+
+Be aware that no automation exists for creating a this current developer version as nightly build, so there is a chance that the latest features are not available in this version. If you want to use the latest version, do build it.
+
+Since the jar file doesn't contain the helper scipts, you might also consider to download them from this GitHib repository:
+
+```
+wget https://raw.githubusercontent.com/pkiraly/metadata-qa-marc/master/common-script
+wget https://raw.githubusercontent.com/pkiraly/metadata-qa-marc/master/validator
+wget https://raw.githubusercontent.com/pkiraly/metadata-qa-marc/master/formatter
+wget https://raw.githubusercontent.com/pkiraly/metadata-qa-marc/master/tt-completeness
+```
+
+You should adjust `common-script` to point to the jar file you just downloaded.
 
 ## run
 

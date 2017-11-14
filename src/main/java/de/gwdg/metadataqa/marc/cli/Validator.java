@@ -8,7 +8,7 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
+import org.marc4j.marc.Record;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,6 +33,26 @@ public class Validator implements MarcFileProcessor {
 	public Validator(String[] args) throws ParseException {
 		parameters = new ValidatorParameters(args);
 		errorCounter = new TreeMap<>();
+	}
+
+	public static void main(String[] args) throws ParseException {
+		MarcFileProcessor processor = new Validator(args);
+		if (processor.getParameters().getArgs().length < 1) {
+			System.err.println("Please provide a MARC file name!");
+			System.exit(0);
+		}
+		if (processor.getParameters().doHelp()) {
+			processor.printHelp(processor.getParameters().getOptions());
+			System.exit(0);
+		}
+		RecordIterator iterator = new RecordIterator(processor);
+		iterator.start();
+	}
+
+	public void printHelp(Options opions) {
+		HelpFormatter formatter = new HelpFormatter();
+		String message = String.format("java -cp metadata-qa-marc.jar %s [options] [file]", this.getClass().getCanonicalName());
+		formatter.printHelp(message, options);
 	}
 
 	@Override
@@ -84,6 +104,11 @@ public class Validator implements MarcFileProcessor {
 	}
 
 	@Override
+	public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
+
+	}
+
+	@Override
 	public void processRecord(MarcRecord marcRecord, int i) throws IOException {
 		if (marcRecord.getId() == null)
 			logger.severe("No record number at " + i);
@@ -107,23 +132,4 @@ public class Validator implements MarcFileProcessor {
 		}
 	}
 
-	private static void printHelp(Options opions) {
-		HelpFormatter formatter = new HelpFormatter();
-		formatter.printHelp("java -cp metadata-qa-marc.jar de.gwdg.metadataqa.marc.cli.Validator [options] [file]",
-			opions);
-	}
-
-	public static void main(String[] args) throws ParseException {
-		MarcFileProcessor processor = new Validator(args);
-		if (processor.getParameters().getArgs().length < 1) {
-			System.err.println("Please provide a MARC file name!");
-			System.exit(0);
-		}
-		if (processor.getParameters().doHelp()) {
-			printHelp(processor.getParameters().getOptions());
-			System.exit(0);
-		}
-		RecordIterator iterator = new RecordIterator(processor);
-		iterator.start();
-	}
 }

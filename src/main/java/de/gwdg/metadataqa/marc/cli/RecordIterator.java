@@ -77,6 +77,7 @@ public class RecordIterator {
 						continue;
 
 					try {
+						processor.processRecord(marc4jRecord, i);
 						MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, defaultRecordType, marcVersion);
 						processor.processRecord(marcRecord, i);
 

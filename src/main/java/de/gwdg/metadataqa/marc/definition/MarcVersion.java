@@ -4,8 +4,8 @@ public enum MarcVersion {
 	MARC21("MARC21", "MARC21"),
 	DNB("DNB", "Deutsche Nationalbibliothek"),
 	OCLC("OCLC", "OCLC"),
-	GENT("GENT", "Universiteitsbibliotheek Gent")
-	;
+	GENT("GENT", "Universiteitsbibliotheek Gent"),
+	SZTE("SZTE", "Szegedi Tudományegyetem");
 
 	String code;
 	String label;

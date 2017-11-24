@@ -1,8 +1,12 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags20x;
 
+import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
+
+import java.util.Arrays;
 
 /**
  * Uniform Title
@@ -35,6 +39,9 @@ public class Tag240 extends DataFieldDefinition {
 				"0", "Not printed or displayed",
 				"1", "Printed or displayed"
 			)
+			.putVersionSpecificCodes(MarcVersion.SZTE, Arrays.asList(
+				new Code(" ", "Not specified")
+			))
 			.setHistoricalCodes(
 				"2", "Not printed on card, title added entry (MU) [OBSOLETE, 1993]",
 				"3", "Printed on card, title added entry (MU) [OBSOLETE, 1993]"

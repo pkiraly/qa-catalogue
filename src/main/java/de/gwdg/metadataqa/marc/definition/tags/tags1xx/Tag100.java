@@ -1,9 +1,13 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags1xx;
 
+import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
+
+import java.util.Arrays;
 
 /**
  * Main Entry - Personal Name
@@ -38,6 +42,9 @@ public class Tag100 extends DataFieldDefinition {
 				"1", "Surname",
 				"3", "Family name"
 			)
+			.putVersionSpecificCodes(MarcVersion.SZTE, Arrays.asList(
+				new Code("2", "Multiple surname")
+			))
 			.setMqTag("type");
 		ind2 = new Indicator();
 

@@ -41,7 +41,11 @@ public class Tag246 extends DataFieldDefinition {
 				"2", "No note, no added entry",
 				"3", "No note, added entry"
 			)
+			.putVersionSpecificCodes(MarcVersion.SZTE, Arrays.asList(
+				new Code(" ", "Not specified")
+			))
 			.setMqTag("noteAndAddedEntry");
+
 		ind2 = new Indicator("Type of title")
 			.setCodes(
 				" ", "No type specified",

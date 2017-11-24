@@ -1,11 +1,15 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags6xx;
 
+import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTermSourceCodes;
+
+import java.util.Arrays;
 
 /**
  * Subject Added Entry - Personal Name
@@ -40,6 +44,9 @@ public class Tag600 extends DataFieldDefinition {
 				"1", "Surname",
 				"3", "Family name"
 			)
+			.putVersionSpecificCodes(MarcVersion.SZTE, Arrays.asList(
+				new Code("2", "Multiple surname")
+			))
 			.setHistoricalCodes(
 				"2", "Multiple surname [OBSOLETE, 1996]"
 			)

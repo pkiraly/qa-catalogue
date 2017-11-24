@@ -38,6 +38,6 @@ public class Tag092 extends DataFieldDefinition {
 		);
 
 		getSubfield("a").setMqTag("rdf:value");
-		getSubfield("a").setMqTag("cutter");
+		getSubfield("b").setMqTag("cutter");
 	}
 }

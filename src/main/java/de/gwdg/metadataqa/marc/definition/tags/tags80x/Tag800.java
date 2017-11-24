@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags80x;
 
+import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
@@ -39,6 +40,9 @@ public class Tag800 extends DataFieldDefinition {
 				"1", "Surname",
 				"3", "Family name"
 			)
+			.putVersionSpecificCodes(MarcVersion.SZTE, Arrays.asList(
+				new Code("2", "Multiple surname")
+			))
 			.setMqTag("type");
 		ind2 = new Indicator();
 

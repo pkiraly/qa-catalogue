@@ -70,6 +70,8 @@ public class TagDefinitionLoader {
 			version = MarcVersion.DNB;
 		} else if (definitionClazz.getCanonicalName().contains(".genttags.")) {
 			version = MarcVersion.GENT;
+		} else if (definitionClazz.getCanonicalName().contains(".sztetags.")) {
+			version = MarcVersion.SZTE;
 		}
 		return version;
 	}

@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.api.model.JsonPathCache;
 import de.gwdg.metadataqa.api.schema.MarcJsonSchema;
 import de.gwdg.metadataqa.api.schema.Schema;
 import de.gwdg.metadataqa.api.util.FileUtils;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.utils.MapToDatafield;
 import net.minidev.json.JSONArray;
 import org.junit.AfterClass;
@@ -55,9 +56,9 @@ public class MarcIteratorTest {
 			JSONArray fieldInstances = (JSONArray) cache.getFragment(branch.getJsonPath());
 			for (int fieldInsanceNr = 0; fieldInsanceNr < fieldInstances.size(); fieldInsanceNr++) {
 				Map fieldInstance = (Map)fieldInstances.get(fieldInsanceNr);
-				DataField field = MapToDatafield.parse(fieldInstance);
+				DataField field = MapToDatafield.parse(fieldInstance, MarcVersion.DNB);
 				if (!fieldInstance.get("tag").equals("935")) {
-					assertNotNull(field);
+					assertNotNull(fieldInstance.get("tag").toString() + " should not be null", field);
 					assertEquals(fieldInstance.get("tag"), field.getTag());
 				}
 			}

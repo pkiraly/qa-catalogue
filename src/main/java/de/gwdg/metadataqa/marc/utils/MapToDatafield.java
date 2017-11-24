@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.utils;
 import de.gwdg.metadataqa.api.util.Converter;
 import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
 
 import java.util.ArrayList;
@@ -11,8 +12,8 @@ import java.util.Map;
 
 public class MapToDatafield {
 
-	public static DataField parse(Map<String, Object> fieldInstance) {
-		DataFieldDefinition definition = TagDefinitionLoader.load((String)fieldInstance.get("tag"));
+	public static DataField parse(Map<String, Object> fieldInstance, MarcVersion version) {
+		DataFieldDefinition definition = TagDefinitionLoader.load((String)fieldInstance.get("tag"), version);
 		if (definition == null)
 			return null;
 

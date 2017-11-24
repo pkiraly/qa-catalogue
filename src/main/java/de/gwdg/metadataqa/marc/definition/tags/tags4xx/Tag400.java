@@ -39,6 +39,7 @@ public class Tag400 extends DataFieldDefinition {
 				"3", "Family name"
 			)
 			.setMqTag("type");
+
 		ind2 = new Indicator("Pronoun represents main entry")
 			.setCodes(
 				"0", "Main entry not represented by pronoun",

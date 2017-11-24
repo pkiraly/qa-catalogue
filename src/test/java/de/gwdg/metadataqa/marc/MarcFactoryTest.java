@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.api.model.JsonPathCache;
 import de.gwdg.metadataqa.api.util.FileUtils;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.*;
@@ -38,7 +39,7 @@ public class MarcFactoryTest {
 	public void mainTest() throws IOException, URISyntaxException {
 		JsonPathCache cache = new JsonPathCache(FileUtils.readFirstLine("general/verbund-tit.001.0000000.formatted.json"));
 
-		MarcRecord record = MarcFactory.create(cache);
+		MarcRecord record = MarcFactory.create(cache, MarcVersion.DNB);
 		assertNotNull(record);
 		assertNotNull("Leader should not be null", record.getLeader());
 		// System.err.println(record.format());
@@ -240,7 +241,7 @@ public class MarcFactoryTest {
 	public void getKeyValuePairTest() throws IOException, URISyntaxException {
 		JsonPathCache cache = new JsonPathCache(FileUtils.readFirstLine("general/verbund-tit.001.0000000.formatted.json"));
 
-		MarcRecord record = MarcFactory.create(cache);
+		MarcRecord record = MarcFactory.create(cache, MarcVersion.DNB);
 		Map<String, List<String>> pairs = record.getKeyValuePairs(SolrFieldType.MIXED);
 		assertEquals(119, pairs.size());
 

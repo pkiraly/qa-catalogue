@@ -31,6 +31,10 @@ public class MarcFactory {
 	private static Schema schema = new MarcJsonSchema();
 
 	public static MarcRecord create(JsonPathCache cache) {
+		return create(cache, MarcVersion.MARC21);
+	}
+
+	public static MarcRecord create(JsonPathCache cache, MarcVersion version) {
 		MarcRecord record = new MarcRecord();
 		for (JsonBranch branch : schema.getPaths()) {
 			if (branch.getParent() != null)
@@ -64,7 +68,7 @@ public class MarcFactory {
 					for (int fieldInsanceNr = 0; fieldInsanceNr < fieldInstances.size();
 						  fieldInsanceNr++) {
 						Map fieldInstance = (Map) fieldInstances.get(fieldInsanceNr);
-						DataField field = MapToDatafield.parse(fieldInstance);
+						DataField field = MapToDatafield.parse(fieldInstance, version);
 						if (field != null) {
 							record.addDataField(field);
 							field.setRecord(record);

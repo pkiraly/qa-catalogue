@@ -2,6 +2,8 @@ package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.Validatable;
+import de.gwdg.metadataqa.marc.definition.general.parser.ParserException;
+import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 
@@ -99,6 +101,21 @@ public class ControlValue implements Validatable {
 					);
 					isValid = false;
 				}
+			}
+		}
+
+		if (definition.hasParser()) {
+			try {
+				SubfieldContentParser parser = definition.getParser();
+				parser.parse(value);
+			} catch (ParserException e) {
+				validationErrors.add(
+					new ValidationError(
+						((record == null) ? null : record.getId()),
+						definition.getPath(), ValidationErrorType.HasInvalidValue,
+						e.getMessage(), definition.getDescriptionUrl()));
+				// e.printStackTrace();
+				isValid = false;
 			}
 		}
 

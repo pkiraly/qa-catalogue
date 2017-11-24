@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -25,6 +26,7 @@ public class ControlSubfield {
 	protected boolean repeatableContent = false;
 	protected String defaultCode;
 	protected String descriptionUrl;
+	protected SubfieldContentParser parser;
 
 	public ControlSubfield() {}
 
@@ -215,6 +217,14 @@ public class ControlSubfield {
 
 	public String getPath() {
 		return String.format("%s/%s (%s)", getControlField(), formatPositon(), getId());
+	}
+
+	public boolean hasParser() {
+		return parser != null;
+	}
+
+	public SubfieldContentParser getParser() {
+		return parser;
 	}
 
 	@Override

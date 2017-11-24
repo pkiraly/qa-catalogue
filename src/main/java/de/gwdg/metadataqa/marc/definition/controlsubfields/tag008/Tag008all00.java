@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.tag008;
 
 import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.general.parser.Control008All00DateParser;
 
 /**
  * Date entered on file
@@ -29,5 +30,6 @@ public class Tag008all00 extends ControlSubfield {
 		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd008a.html";
 
 		// TODO: pattern: yymmdd
+		parser = new Control008All00DateParser();
 	}
 }

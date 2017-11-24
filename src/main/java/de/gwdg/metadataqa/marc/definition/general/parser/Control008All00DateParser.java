@@ -44,7 +44,7 @@ public class Control008All00DateParser implements SubfieldContentParser {
 			extra.put("normalized", date.format(iso));
 		} catch(DateTimeParseException e) {
 			throw new ParserException(String.format(
-				"Invalid content: '%s' at %d. %s", content, e.getErrorIndex(), e.getMessage()));
+				"Invalid content: '%s'. %s", content, e.getMessage()));
 		}
 		return extra;
 	}

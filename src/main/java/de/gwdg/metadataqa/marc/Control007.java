@@ -161,6 +161,10 @@ public class Control007 extends PositionalControlField implements Extractable {
 	private void process() {
 		String categoryCode = content.substring(0, 1);
 		category = Control007Category.byCode(categoryCode);
+		if (category == null) {
+			logger.severe(String.format("invalid category for 007: '%s'", categoryCode));
+			category = Control007Category.TEXT;
+		}
 		categoryOfMaterial = category.getLabel();
 
 		/*

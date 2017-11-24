@@ -39,7 +39,7 @@ public class Tag240 extends DataFieldDefinition {
 				"2", "Not printed on card, title added entry (MU) [OBSOLETE, 1993]",
 				"3", "Printed on card, title added entry (MU) [OBSOLETE, 1993]"
 			)
-			.setMqTag("printedOrDisplayed");;
+			.setMqTag("printedOrDisplayed");
 		ind2 = new Indicator("Nonfiling characters")
 			.setCodes(
 				"0-9", "Number of nonfiling characters"

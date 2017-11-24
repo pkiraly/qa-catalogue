@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.Linkage;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import de.gwdg.metadataqa.marc.definition.general.parser.ParserException;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
@@ -278,33 +279,55 @@ public class DataField implements Extractable, Validatable {
 			} else {
 				if (!subfield6s.isEmpty() && subfield6s.size() == 1) {
 					MarcSubfield subfield6 = subfield6s.get(0);
-					Linkage linkage = LinkageParser.getInstance().create(subfield6.getValue());
-					referencerDefinition = definition;
-					definition = TagDefinitionLoader.load(linkage.getLinkingTag());
-					if (definition == null) {
-						definition = referencerDefinition;
+					Linkage linkage = null;
+					try {
+						linkage = LinkageParser.getInstance().create(subfield6.getValue());
+						if (linkage == null || linkage.getLinkingTag() == null) {
+							validationErrors.add(
+								new ValidationError(
+									record.getId(), definition.getTag() + "$6",
+									ValidationErrorType.InvalidReference,
+									String.format("Unparseable reference: '%s'", subfield6.getValue()),
+									definition.getDescriptionUrl()
+								)
+							);
+						} else {
+							referencerDefinition = definition;
+							definition = TagDefinitionLoader.load(linkage.getLinkingTag());
+							if (definition == null) {
+								definition = referencerDefinition;
+								validationErrors.add(
+									new ValidationError(
+										record.getId(), definition.getTag() + "$6",
+										ValidationErrorType.InvalidReference,
+										String.format("refers to field %s, which is not defined", linkage.getLinkingTag()),
+										definition.getDescriptionUrl()));
+								errors.add(String.format("%s refers to field %s, which is not defined (%s)",
+									definition.getTag(), linkage.getLinkingTag(), definition.getDescriptionUrl()));
+								isValid = false;
+							} else {
+								_subfields = subfields;
+								List<MarcSubfield> _subfieldsNew = new ArrayList<>();
+								for (MarcSubfield subfield : subfields) {
+									MarcSubfield alternativeSubfield = new MarcSubfield(definition.getSubfield(
+										subfield.getCode()), subfield.getCode(), subfield.getValue());
+									alternativeSubfield.setField(this);
+									alternativeSubfield.setRecord(record);
+									alternativeSubfield.setLinkage(linkage);
+									alternativeSubfield.setReferencePath(referencerDefinition.getTag());
+									_subfieldsNew.add(alternativeSubfield);
+								}
+								subfields = _subfieldsNew;
+							}
+						}
+					} catch (ParserException e) {
 						validationErrors.add(
 							new ValidationError(
 								record.getId(), definition.getTag() + "$6",
-								ValidationErrorType.InvalidReference,
-								String.format("refers to field %s, which is not defined", linkage.getLinkingTag()),
-								definition.getDescriptionUrl()));
-						errors.add(String.format("%s refers to field %s, which is not defined (%s)",
-							definition.getTag(), linkage.getLinkingTag(), definition.getDescriptionUrl()));
-						isValid = false;
-					} else {
-						_subfields = subfields;
-						List<MarcSubfield> _subfieldsNew = new ArrayList<>();
-						for (MarcSubfield subfield : subfields) {
-							MarcSubfield alternativeSubfield = new MarcSubfield(definition.getSubfield(
-								subfield.getCode()), subfield.getCode(), subfield.getValue());
-							alternativeSubfield.setField(this);
-							alternativeSubfield.setRecord(record);
-							alternativeSubfield.setLinkage(linkage);
-							alternativeSubfield.setReferencePath(referencerDefinition.getTag());
-							_subfieldsNew.add(alternativeSubfield);
-						}
-						subfields = _subfieldsNew;
+								ValidationErrorType.InvalidReference, e.getMessage(),
+								definition.getDescriptionUrl()
+							)
+						);
 					}
 				}
 			}

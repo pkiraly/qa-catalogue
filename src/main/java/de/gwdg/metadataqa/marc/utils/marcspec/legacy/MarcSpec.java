@@ -1,8 +1,10 @@
-package de.gwdg.metadataqa.marc.utils.marcspec;
+package de.gwdg.metadataqa.marc.utils.marcspec.legacy;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -156,6 +158,10 @@ public class MarcSpec {
 
 	public Map<String, String> getSubfields() {
 		return subfields;
+	}
+
+	public List<String> getSubfieldsAsList() {
+		return new ArrayList<>(subfields.keySet());
 	}
 
 	public String getIndicator1() {

@@ -38,7 +38,7 @@ public class Tag765 extends DataFieldDefinition {
 				"0", "Display note",
 				"1", "Do not display note"
 			)
-			.setMqTag("noteController");;
+			.setMqTag("noteController");
 		ind2 = new Indicator("Display constant controller")
 			.setCodes(
 				" ", "Translation of",

@@ -5,10 +5,13 @@ import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.FormatterParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 import org.apache.commons.cli.*;
+import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.Record;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -28,6 +31,7 @@ public class Formatter implements MarcFileProcessor {
 	}
 
 	public static void main(String[] args) throws ParseException {
+		System.err.println("'" + StringUtils.join(args, "', '") + "'");
 		MarcFileProcessor processor = new Formatter(args);
 		if (processor.getParameters().getArgs().length < 1) {
 			System.err.println("Please provide a MARC file name!");
@@ -38,6 +42,7 @@ public class Formatter implements MarcFileProcessor {
 			System.exit(0);
 		}
 		RecordIterator iterator = new RecordIterator(processor);
+		logger.info(processor.getParameters().formatParameters());
 		iterator.start();
 	}
 
@@ -49,13 +54,24 @@ public class Formatter implements MarcFileProcessor {
 	}
 
 	@Override
-	public CommonParameters getParameters() {
+	public FormatterParameters getParameters() {
 		return parameters;
 	}
 
 	@Override
 	public void beforeIteration() {
 		logger.info(parameters.formatParameters());
+
+		// print headers
+		if (parameters.hasSelector()) {
+			List<String> values = new ArrayList<>();
+			if (parameters.withId())
+				values.add("id");
+			for (MarcSpec marcSpec : parameters.getSelector()) {
+				values.add(marcSpec.encode());
+			}
+			System.out.println(StringUtils.join(values, "\t"));
+		}
 	}
 
 	@Override
@@ -65,8 +81,16 @@ public class Formatter implements MarcFileProcessor {
 
 	@Override
 	public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
-		if ((marc4jRecord.getControlNumber() != null && marc4jRecord.getControlNumber().equals(parameters.getId()))
-			|| (parameters.getCountNr() > -1 && parameters.getCountNr() == recordNumber)) {
+		System.err.println(marc4jRecord.getControlNumber());
+		if (
+			  (
+				marc4jRecord.getControlNumber() != null
+				&& marc4jRecord.getControlNumber().equals(parameters.getId())
+			  )
+			||
+			  (
+			  	parameters.getCountNr() > -1
+			  	&& parameters.getCountNr() == recordNumber)) {
 			System.out.println(marc4jRecord.toString());
 		}
 		if (parameters.hasSearch()) {
@@ -75,6 +99,17 @@ public class Formatter implements MarcFileProcessor {
 			if (!results.isEmpty()) {
 				System.out.println(marc4jRecord.toString());
 			}
+		}
+		if (parameters.hasSelector()) {
+			MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
+			List<String> values = new ArrayList<>();
+			if (parameters.withId())
+				values.add(marcRecord.getId());
+			for (MarcSpec marcSpec : parameters.getSelector()) {
+				List<String> results = marcRecord.select(marcSpec);
+				values.add(results.isEmpty() ? "" : StringUtils.join(results, "|"));
+			}
+			System.out.println(StringUtils.join(values, "\t"));
 		}
 	}
 

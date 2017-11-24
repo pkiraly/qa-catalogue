@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.Linkage;
+import de.gwdg.metadataqa.marc.definition.general.parser.ParserException;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 
@@ -101,7 +102,11 @@ public class MarcSubfield implements Validatable {
 
 	public Map<String, String> parseContent() {
 		if (definition.hasContentParser())
-			return definition.getContentParser().parse(value);
+			try {
+				return definition.getContentParser().parse(value);
+			} catch (ParserException e) {
+				e.printStackTrace();
+			}
 		return null;
 	}
 

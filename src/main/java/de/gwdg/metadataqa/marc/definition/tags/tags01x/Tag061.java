@@ -47,8 +47,8 @@ public class Tag061 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 
-		getSubfield("a").setMqTag("classificationPortion").setMqTag("classification");;
-		getSubfield("b").setMqTag("itemPortion").setMqTag("item");;
+		getSubfield("a").setMqTag("classificationPortion").setMqTag("classification");
+		getSubfield("b").setMqTag("itemPortion").setMqTag("item");
 		getSubfield("c").setMqTag("copy");
 		getSubfield("8").setMqTag("fieldLink");
 	}

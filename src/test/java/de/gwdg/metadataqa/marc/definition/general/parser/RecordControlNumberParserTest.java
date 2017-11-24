@@ -10,7 +10,7 @@ import static org.junit.Assert.assertNotNull;
 public class RecordControlNumberParserTest {
 
 	@Test
-	public void test() {
+	public void test() throws ParserException {
 		SubfieldContentParser parser = RecordControlNumberParser.getInstance();
 		Map<String, String> extra = parser.parse("(DE-576)025087622");
 		assertNotNull(extra);

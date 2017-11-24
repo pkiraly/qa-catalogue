@@ -40,7 +40,8 @@ public class ValidationErrorFormatter {
 		return message;
 	}
 
-	public static List<String> formatForSummary(List<ValidationError> validationErrors, ValidationErrorFormat format) {
+	public static List<String> formatForSummary(List<ValidationError> validationErrors,
+															  ValidationErrorFormat format) {
 		List<String> messages = new ArrayList<>();
 
 		for (ValidationError error : validationErrors)
@@ -53,8 +54,10 @@ public class ValidationErrorFormatter {
 		String message = "";
 		switch (format) {
 			case TAB_SEPARATED:
+				message = StringUtils.join(asListWithoutId(error), "\t");
+				break;
 			case COMMA_SEPARATED:
-				message = StringUtils.join(asListWithoutId(error), ",");;
+				message = StringUtils.join(asListWithoutId(error), ",");
 				break;
 			case TEXT:
 				message = formatTextWithoutId(error);

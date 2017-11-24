@@ -1,21 +1,30 @@
 package de.gwdg.metadataqa.marc.definition.general.parser;
 
 import de.gwdg.metadataqa.marc.definition.general.Linkage;
+import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LinkageParser implements SubfieldContentParser {
 
+	public static final Pattern INVALID_CHAR = Pattern.compile("[^0-9\\-\\/\\($BNSr]");
+
 	private static final Pattern REGEX = Pattern.compile("^(\\d{3})-(\\d{2})(?:/(.*?))?(?:/(.*?))?$");
 
-	public Map<String, String> parse(String input) {
+	@Override
+	public Map<String, String> parse(String input) throws ParserException {
 		Linkage linkage = create(input);
+		if (linkage == null)
+			throw new ParserException(String.format("'%s' is not parsable", input));
 		return linkage.getMap();
 	}
 
-	public Linkage create(String input) {
+	public Linkage create(String input) throws ParserException {
+		checkInvalidCharacters(input);
 		Matcher matcher = REGEX.matcher(input);
 		if (matcher.find()) {
 			if (matcher.group(1) != null) {
@@ -30,6 +39,19 @@ public class LinkageParser implements SubfieldContentParser {
 		}
 
 		return null;
+	}
+
+	private void checkInvalidCharacters(String input) throws ParserException {
+		Matcher matcher = INVALID_CHAR.matcher(input);
+		boolean hasInvalidCharacters = false;
+		List<String> invalidChars = new ArrayList<>();
+		while (matcher.find()) {
+			hasInvalidCharacters = true;
+			invalidChars.add(String.format("\\u%04X", (int)matcher.group().charAt(0)));
+		}
+		if (hasInvalidCharacters) {
+			throw new ParserException("Invalid characters: " + StringUtils.join(invalidChars, ", "));
+		}
 	}
 
 	private static LinkageParser uniqueInstance;

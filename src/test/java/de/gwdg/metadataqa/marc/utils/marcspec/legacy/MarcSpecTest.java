@@ -1,7 +1,10 @@
-package de.gwdg.metadataqa.marc.utils.marcspec;
+package de.gwdg.metadataqa.marc.utils.marcspec.legacy;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -170,4 +173,64 @@ public class MarcSpecTest {
 		assertEquals(null, marcSpec.getCharLength());
 		assertEquals("650", marcSpec.encode());
 	}
+
+	@Test
+	public void testGetters_tag() {
+		MarcSpec marcSpec = new MarcSpec("650");
+		assertEquals("650", marcSpec.getFieldTag());
+	}
+
+	@Test
+	public void testGetters_subfield() {
+		MarcSpec marcSpec = new MarcSpec("650a");
+		assertEquals("650", marcSpec.getFieldTag());
+		List<String> list = new ArrayList(marcSpec.getSubfields().keySet());
+		assertEquals(1, list.size());
+		assertEquals("a", list.get(0));
+	}
+
+	@Test
+	public void testGetters_subfields() {
+		MarcSpec marcSpec = new MarcSpec("650ab");
+		assertEquals("650", marcSpec.getFieldTag());
+		List<String> list = new ArrayList(marcSpec.getSubfields().keySet());
+		assertEquals(2, list.size());
+		assertEquals("a", list.get(0));
+		assertEquals("b", list.get(1));
+	}
+
+	@Test
+	public void testMultiple() {
+
+
+		String input = "650ab;651x";
+		String[] paths = input.split(";");
+
+		MarcSpec marcSpec;
+		List<String> list;
+
+		marcSpec = new MarcSpec(paths[0]);
+		assertEquals("650", marcSpec.getFieldTag());
+		list = new ArrayList(marcSpec.getSubfields().keySet());
+		assertEquals(2, list.size());
+		assertEquals("a", list.get(0));
+		assertEquals("b", list.get(1));
+
+		marcSpec = new MarcSpec(paths[1]);
+		assertEquals("651", marcSpec.getFieldTag());
+		list = new ArrayList(marcSpec.getSubfields().keySet());
+		assertEquals(1, list.size());
+		assertEquals("x", list.get(0));
+	}
+
+	@Test
+	public void testCharPosition() {
+		MarcSpec marcSpec = new MarcSpec("008~0-5");
+		assertEquals(0, (int)marcSpec.getCharStart());
+		assertEquals(5, (int)marcSpec.getCharEnd());
+		assertEquals(6, (int)marcSpec.getCharLength());
+		assertEquals("008~0-5", marcSpec.encode());
+	}
+
+
 }

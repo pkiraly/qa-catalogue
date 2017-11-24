@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.general.validator.ClassificationRefere
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
+import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
@@ -351,6 +352,29 @@ public class MarcRecord implements Extractable, Validatable {
 			if (matcher.matches()) {
 				searchByPosition(query, results, matcher);
 			}
+		}
+		return results;
+	}
+
+	public List<String> select(MarcSpec selector) {
+		List<String> results = new ArrayList<>();
+		if (datafieldIndex.containsKey(selector.getFieldTag())) {
+			for (DataField field : datafieldIndex.get(selector.getFieldTag())) {
+				if (field == null)
+					continue;
+				for (String subfieldCode : selector.getSubfieldsAsList()) {
+					List<MarcSubfield> subfields = field.getSubfield(subfieldCode);
+					if (subfields == null)
+						continue;
+					for (MarcSubfield subfield : subfields) {
+						results.add(subfield.getValue());
+					}
+				}
+			}
+		}
+		else if (selector.getFieldTag().equals("008")) {
+			ControlSubfield definition = control008.getSubfieldByPosition(selector.getCharStart());
+			results.add(control008.getMap().get(definition));
 		}
 		return results;
 	}

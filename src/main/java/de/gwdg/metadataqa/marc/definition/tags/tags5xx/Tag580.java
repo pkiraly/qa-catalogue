@@ -1,8 +1,8 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags5xx;
 
-import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.*;
+
+import java.util.Arrays;
 
 /**
  * Linking Entry Complexity Note
@@ -47,5 +47,10 @@ public class Tag580 extends DataFieldDefinition {
 		setHistoricalSubfields(
 			"z", "Source of note information [OBSOLETE, 1990]"
 		);
+
+		putVersionSpecificSubfields(MarcVersion.SZTE, Arrays.asList(
+			new SubfieldDefinition("5", "Az intézmény és példány, amelyre a megjegyzés vonatkozik", "NR")
+		));
+
 	}
 }

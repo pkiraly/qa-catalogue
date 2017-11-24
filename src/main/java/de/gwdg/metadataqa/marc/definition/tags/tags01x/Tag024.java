@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
+import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.codelist.StandardIdentifierSourceCodes;
 
@@ -42,6 +43,9 @@ public class Tag024 extends DataFieldDefinition {
 				"7", "Source specified in subfield $2",
 				"8", "Unspecified type of standard number or code"
 			)
+			.putVersionSpecificCodes(MarcVersion.SZTE, Arrays.asList(
+				new Code(" ", "Not specified")
+			))
 			.setMqTag("type");
 
 		ind2 = new Indicator("Difference indicator")

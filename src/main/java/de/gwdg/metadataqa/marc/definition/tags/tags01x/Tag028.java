@@ -1,8 +1,12 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
+import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
+
+import java.util.Arrays;
 
 /**
  * Publisher or Distributor Number
@@ -41,7 +45,11 @@ public class Tag028 extends DataFieldDefinition {
 				"5", "Other publisher number",
 				"6", "Distributor number"
 			)
+			.putVersionSpecificCodes(MarcVersion.SZTE, Arrays.asList(
+				new Code(" ", "Not specified")
+			))
 			.setMqTag("type");
+
 		// TODO: overwrite getIndexTag to use these values:
 		ind1.getCode("0").setBibframeTag("AudioIssueNumber");
 		ind1.getCode("1").setBibframeTag("MatrixNumber");

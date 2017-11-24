@@ -1,9 +1,13 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
+import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CartographicDataSourceCodes;
+
+import java.util.Arrays;
 
 /**
  * Coded Cartographic Mathematical Data
@@ -38,6 +42,9 @@ public class Tag034 extends DataFieldDefinition {
 				"1", "Single scale",
 				"3", "Range of scales"
 			)
+			.putVersionSpecificCodes(MarcVersion.SZTE, Arrays.asList(
+				new Code(" ", "Not specified")
+			))
 			.setHistoricalCodes(
 				"2", "Two or more scales (BK, MP, SE) [OBSOLETE]"
 			)

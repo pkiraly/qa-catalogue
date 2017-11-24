@@ -78,7 +78,7 @@ public class LinkageParserTest {
 	@Test
 	public void test13001AndInvalidChar() throws ParserException {
 		expectedEx.expect(ParserException.class);
-		expectedEx.expectMessage("Invalid characters: \\u200F");
+		expectedEx.expectMessage("Invalid characters in '130-01\u200F': \\u200F");
 		Map<String, String> linkage = parser.parse("130-01\u200F");
 	}
 
@@ -120,7 +120,7 @@ public class LinkageParserTest {
 	@Test
 	public void testInvalidCharException() throws ParserException {
 		expectedEx.expect(ParserException.class);
-		expectedEx.expectMessage("Invalid characters: \\u200F");
+		expectedEx.expectMessage("Invalid characters in '130-01\u200F': \\u200F");
 		String codeWithWrongChar = "130-01\u200F";
 		parser.create(codeWithWrongChar);
 	}

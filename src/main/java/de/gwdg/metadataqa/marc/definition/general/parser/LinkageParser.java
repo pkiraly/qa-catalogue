@@ -50,7 +50,8 @@ public class LinkageParser implements SubfieldContentParser {
 			invalidChars.add(String.format("\\u%04X", (int)matcher.group().charAt(0)));
 		}
 		if (hasInvalidCharacters) {
-			throw new ParserException("Invalid characters: " + StringUtils.join(invalidChars, ", "));
+			throw new ParserException(String.format(
+				"Invalid characters in '%s': %s", input, StringUtils.join(invalidChars, ", ")));
 		}
 	}
 

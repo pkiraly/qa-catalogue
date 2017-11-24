@@ -286,7 +286,7 @@ public class DataField implements Extractable, Validatable {
 							validationErrors.add(
 								new ValidationError(
 									record.getId(), definition.getTag() + "$6",
-									ValidationErrorType.InvalidReference,
+									ValidationErrorType.InvalidLinkage,
 									String.format("Unparseable reference: '%s'", subfield6.getValue()),
 									definition.getDescriptionUrl()
 								)
@@ -299,7 +299,7 @@ public class DataField implements Extractable, Validatable {
 								validationErrors.add(
 									new ValidationError(
 										record.getId(), definition.getTag() + "$6",
-										ValidationErrorType.InvalidReference,
+										ValidationErrorType.InvalidLinkage,
 										String.format("refers to field %s, which is not defined", linkage.getLinkingTag()),
 										definition.getDescriptionUrl()));
 								errors.add(String.format("%s refers to field %s, which is not defined (%s)",
@@ -324,7 +324,7 @@ public class DataField implements Extractable, Validatable {
 						validationErrors.add(
 							new ValidationError(
 								record.getId(), definition.getTag() + "$6",
-								ValidationErrorType.InvalidReference, e.getMessage(),
+								ValidationErrorType.InvalidLinkage, e.getMessage(),
 								definition.getDescriptionUrl()
 							)
 						);

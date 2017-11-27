@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags5xx;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.general.validator.ISBNValidator;
 
 /**
  * Publications About Described Materials Note
@@ -46,6 +47,8 @@ public class Tag581 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("z").setValidator(ISBNValidator.getInstance());
 
 		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
 		getSubfield("z").setMqTag("isbn");

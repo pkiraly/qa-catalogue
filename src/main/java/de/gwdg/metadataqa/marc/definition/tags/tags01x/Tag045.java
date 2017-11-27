@@ -2,6 +2,8 @@ package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.general.validator.SubfieldValidator;
+import de.gwdg.metadataqa.marc.definition.general.validator.Tag054AValidator;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 
@@ -14,9 +16,6 @@ import java.util.regex.Pattern;
  * http://www.loc.gov/marc/bibliographic/bd045.html
  */
 public class Tag045 extends DataFieldDefinition {
-
-	private static final Pattern BC = Pattern.compile("^([a-d])(-)$");
-	private static final Pattern CE = Pattern.compile("^([e-y])(\\d|-)$");
 
 	private static Tag045 uniqueInstance;
 
@@ -112,94 +111,12 @@ public class Tag045 extends DataFieldDefinition {
 			"x", "1900-1999",
 			"y", "2000-2099"
 		);
-		getSubfield("a").setValidator(new SubfieldAValidator());
+		getSubfield("a").setValidator(new Tag054AValidator());
 
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("b").setMqTag("timePeriod");
 		getSubfield("c").setMqTag("preBC9999TimePeriod");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
-	}
-
-	class SubfieldAValidator implements Validator {
-
-		private List<String> errors;
-		private List<ValidationError> validationErrors;
-		private String subfieldCode;
-		private SubfieldDefinition subfieldDefinition;
-		Map<String, String> bc = new HashMap<>();
-
-		public SubfieldAValidator() {
-			subfieldCode = "a";
-			subfieldDefinition = getSubfield(subfieldCode);
-
-			/*
-			Map<String, String> bc = new HashMap<>();
-			bc.put("a", "-3000");
-			bc.put("b", "2999-2000");
-			bc.put("c", "1999-1000");
-			bc.put("d", "999-1");
-			*/
-		}
-
-		@Override
-		public boolean isValid(String value) {
-			return false;
-		}
-
-			@Override
-		public boolean isValid(String value, MarcSubfield subfield) {
-
-			boolean isValid = true;
-			errors = new ArrayList<>();
-			validationErrors = new ArrayList<>();
-
-			if (value.length() != 4) {
-				validationErrors.add(new ValidationError(subfield.getRecord().getId(), subfield.getDefinition().getPath(),
-					ValidationErrorType.InvalidLength, String.format("'%s': length is not 4 char", value), descriptionUrl));
-				errors.add(String.format("%s$%s error in '%s': length is not 4 char (%s)",
-					tag, subfieldCode, value, getDescriptionUrl()));
-				isValid = false;
-			} else {
-				List<String> parts = Arrays.asList(
-					value.substring(0, 2),
-					value.substring(2, 4)
-				);
-
-				Matcher matcher;
-				for (String part : parts) {
-					if (subfieldDefinition.getCode(part) == null) {
-						matcher = BC.matcher(part);
-						if (!matcher.find()) {
-							matcher = CE.matcher(part);
-							if (!matcher.find()) {
-								validationErrors.add(
-									new ValidationError(
-										subfield.getRecord().getId(),
-										subfield.getDefinition().getPath(),
-										ValidationErrorType.PatternMismatch,
-										String.format("mismatched part '%s' in '%s'", part, value),
-										descriptionUrl
-									)
-								);
-								errors.add(String.format("%s$%s error in '%s': '%s' does not match any patterns (%s)\n",
-									tag, subfieldCode, value, part, getDescriptionUrl()));
-							}
-						}
-					}
-				}
-			}
-			return isValid;
-		}
-
-		@Override
-		public List<String> getErrors() {
-			return errors;
-		}
-
-		@Override
-		public List<ValidationError> getValidationErrors() {
-			return validationErrors;
-		}
 	}
 }

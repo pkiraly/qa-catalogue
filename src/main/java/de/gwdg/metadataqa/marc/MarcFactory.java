@@ -164,6 +164,7 @@ public class MarcFactory {
 		for (Subfield subfield : dataField.getSubfields()) {
 			String code = Character.toString(subfield.getCode());
 			SubfieldDefinition subfieldDefinition = definition.getSubfield(code);
+			MarcSubfield marcSubfield = null;
 			if (subfieldDefinition == null) {
 				// if (!(definition.getTag().equals("886") && code.equals("k")))
 					// field.addUnhandledSubfields(code);
@@ -172,12 +173,12 @@ public class MarcFactory {
 						"Problem in record '%s': %s$%s is not a valid subfield (value: '%s')",
 						identifier, definition.getTag(), code, subfield.getData()));
 					*/
-				MarcSubfield marcSubfield = new MarcSubfield(null, code, subfield.getData());
-				marcSubfield.setField(field);
-				field.getSubfields().add(marcSubfield);
+				marcSubfield = new MarcSubfield(null, code, subfield.getData());
 			} else {
-				field.getSubfields().add(new MarcSubfield(subfieldDefinition, code, subfield.getData()));
+				marcSubfield = new MarcSubfield(subfieldDefinition, code, subfield.getData());
 			}
+			marcSubfield.setField(field);
+			field.getSubfields().add(marcSubfield);
 		}
 		field.indexSubfields();
 		return field;

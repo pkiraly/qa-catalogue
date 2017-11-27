@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition;
 import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
+import de.gwdg.metadataqa.marc.definition.general.validator.SubfieldValidator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +22,7 @@ public class SubfieldDefinition {
 	private String cardinalityCode;
 	private String label;
 	private DataFieldDefinition parent;
-	private Validator validator;
+	private SubfieldValidator validator;
 	private SubfieldContentParser contentParser;
 	protected CodeList codeList;
 	private List<Code> codes;
@@ -149,12 +150,16 @@ public class SubfieldDefinition {
 		}
 	}
 
-	public SubfieldDefinition setValidator(Validator validator) {
+	public SubfieldDefinition setValidator(SubfieldValidator validator) {
 		this.validator = validator;
 		return this;
 	}
 
-	public Validator getValidator() {
+	public boolean hasValidator() {
+		return validator != null;
+	}
+
+	public SubfieldValidator getValidator() {
 		return validator;
 	}
 

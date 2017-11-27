@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.Linkage;
 import de.gwdg.metadataqa.marc.definition.general.parser.ParserException;
+import de.gwdg.metadataqa.marc.definition.general.validator.SubfieldValidator;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 
@@ -127,11 +128,12 @@ public class MarcSubfield implements Validatable {
 					definition.getParent().getDescriptionUrl()));
 				isValid = false;
 			} else {
-				if (definition.getValidator() != null) {
-					Validator validator = definition.getValidator();
-					if (!validator.isValid(value, this)) {
-						errors.addAll(validator.getErrors());
-						validationErrors.addAll(validator.getValidationErrors());
+				if (definition.hasValidator()) {
+					SubfieldValidator validator = definition.getValidator();
+					ValidatorResponse response = validator.isValid(this);
+					if (!response.isValid()) {
+						errors.addAll(response.getErrors());
+						validationErrors.addAll(response.getValidationErrors());
 						isValid = false;
 					}
 				} else if (definition.getCodes() != null && definition.getCode(value) == null) {

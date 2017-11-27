@@ -15,7 +15,8 @@ public enum ValidationErrorType {
 	NonrepeatableField("nonrepeatableField", "non-repeatable field"),
 	UndefinedField("undefinedField", "undefined field"),
 	UndetectableType("undetectableType", "undetectable record type"),
-	InvalidLinkage("invalidLinkage", "invalid linkage");
+	InvalidLinkage("invalidLinkage", "invalid linkage"),
+	ISBN("invalidISBN", "invalid ISBN");
 
 	private String code;
 	private String message;

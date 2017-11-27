@@ -160,6 +160,22 @@ Errors in '   00000571 ':
 ...
 ```
 
+#### some post processing usage examples
+
+After running the validation as tab separated file `validation-report.txt`
+
+get the number of errors:
+
+```
+wc -l validation-report.txt
+```
+
+get the number of records having errors
+
+```
+awk -F "\t" '{print $1}' validation-report.txt | uniq -c | wc -l
+```
+
 ### Display one MARC record
 
 ```

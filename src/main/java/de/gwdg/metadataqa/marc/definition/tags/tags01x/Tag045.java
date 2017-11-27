@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.SubfieldValidator;
 import de.gwdg.metadataqa.marc.definition.general.validator.Tag054AValidator;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
@@ -112,6 +113,8 @@ public class Tag045 extends DataFieldDefinition {
 			"y", "2000-2099"
 		);
 		getSubfield("a").setValidator(new Tag054AValidator());
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("b").setMqTag("timePeriod");

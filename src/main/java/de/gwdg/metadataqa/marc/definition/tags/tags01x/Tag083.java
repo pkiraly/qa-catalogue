@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Additional Dewey Decimal Classification Number
@@ -54,6 +55,8 @@ public class Tag083 extends DataFieldDefinition {
 		);
 
 		getSubfield("q").setCodeList(OrganizationCodes.getInstance());
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("c").setMqTag("endingNumber");

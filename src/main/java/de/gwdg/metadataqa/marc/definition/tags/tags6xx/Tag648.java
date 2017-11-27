@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTermSourceCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Subject Added Entry - Chronological Term
@@ -66,6 +67,8 @@ public class Tag648 extends DataFieldDefinition {
 		);
 
 		getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setBibframeTag("Temporal").setMqTag("rdf:value");
 		getSubfield("v").setBibframeTag("formGenre").setMqTag("formSubdivision");

@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.MusicalInstrumentationAndVoiceSourceCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Medium of Performance
@@ -64,6 +65,8 @@ public class Tag382 extends DataFieldDefinition {
 		);
 
 		getSubfield("2").setCodeList(MusicalInstrumentationAndVoiceSourceCodes.getInstance());
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("b").setMqTag("Soloist");

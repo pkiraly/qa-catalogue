@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.ClassificationSchemeSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Other Classificaton Number
@@ -48,6 +49,8 @@ public class Tag084 extends DataFieldDefinition {
 
 		getSubfield("q").setCodeList(OrganizationCodes.getInstance());
 		getSubfield("2").setCodeList(ClassificationSchemeSourceCodes.getInstance());
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setBibframeTag("classificationPortion");
 		getSubfield("b").setBibframeTag("itemPortion");

@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Added Entry - Uncontrolled Name
@@ -49,6 +50,8 @@ public class Tag720 extends DataFieldDefinition {
 		);
 
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("4").setBibframeTag("rdfs:label").setMqTag("rdf:value");
 		getSubfield("4").setMqTag("relator");

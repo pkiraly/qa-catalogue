@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Security Classification Control
@@ -61,6 +62,8 @@ public class Tag355 extends DataFieldDefinition {
 
 		getSubfield("f").setCodeList(CountryCodes.getInstance());
 		getSubfield("j").setCodeList(OrganizationCodes.getInstance());
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("b").setMqTag("handlingInstructions");

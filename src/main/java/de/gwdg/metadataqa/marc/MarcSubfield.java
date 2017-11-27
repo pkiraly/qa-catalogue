@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.Linkage;
 import de.gwdg.metadataqa.marc.definition.general.parser.ParserException;
+import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.SubfieldValidator;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
@@ -124,18 +125,18 @@ public class MarcSubfield implements Validatable {
 			isValid = false;
 		} else {
 			if (code == null) {
+				validationErrors.add(new ValidationError(record.getId(), field.getDefinition().getTag(),
+					ValidationErrorType.NullCode, code, field.getDefinition().getDescriptionUrl()));
 				errors.add(String.format("code is null for %s (%s)", definition.getCode(),
 					definition.getParent().getDescriptionUrl()));
 				isValid = false;
 			} else {
 				if (definition.hasValidator()) {
-					SubfieldValidator validator = definition.getValidator();
-					ValidatorResponse response = validator.isValid(this);
-					if (!response.isValid()) {
-						errors.addAll(response.getErrors());
-						validationErrors.addAll(response.getValidationErrors());
+					if (!validateWithValidator())
 						isValid = false;
-					}
+				} else if (definition.hasContentParser()) {
+					if (!validateWithParser())
+						isValid = false;
 				} else if (definition.getCodes() != null && definition.getCode(value) == null) {
 					String message = value;
 					if (referencePath != null) {
@@ -163,6 +164,38 @@ public class MarcSubfield implements Validatable {
 			}
 		}
 
+		return isValid;
+	}
+
+	private boolean validateWithValidator() {
+		boolean isValid = true;
+		SubfieldValidator validator = definition.getValidator();
+		ValidatorResponse response = validator.isValid(this);
+		if (!response.isValid()) {
+			errors.addAll(response.getErrors());
+			validationErrors.addAll(response.getValidationErrors());
+			isValid = false;
+		}
+		return isValid;
+	}
+
+	private boolean validateWithParser() {
+		boolean isValid = true;
+		SubfieldContentParser parser = definition.getContentParser();
+		Map<String, String> response = null;
+		try {
+			response = parser.parse(getValue());
+		} catch (ParserException e) {
+			// errors.addAll(response.getErrors());
+			validationErrors.add(new ValidationError(
+				record.getId(),
+				definition.getPath(),
+				ValidationErrorType.UnparsableContent,
+				e.getMessage(),
+				definition.getParent().getDescriptionUrl()
+			));
+			isValid = false;
+		}
 		return isValid;
 	}
 

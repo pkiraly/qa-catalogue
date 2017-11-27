@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags3xx;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Digital File Characteristics
@@ -46,6 +47,8 @@ public class Tag347 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setBibframeTag("fileType");
 		getSubfield("b").setBibframeTag("encodingFormat");

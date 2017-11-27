@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.FingerprintSchemeSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Fingerprint Identifier
@@ -50,6 +51,7 @@ public class Tag026 extends DataFieldDefinition {
 
 		getSubfield("2").setCodeList(FingerprintSchemeSourceCodes.getInstance());
 		getSubfield("5").setCodeList(OrganizationCodes.getInstance());
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setBibframeTag("rdf:value").setMqTag("firstAndSecondGroups");
 		getSubfield("b").setBibframeTag("rdf:value").setMqTag("thirdAndFourthGroups");

@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.NameAndTitleAuthoritySourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Added Entry - Hierarchical Place Name
@@ -54,6 +55,8 @@ public class Tag752 extends DataFieldDefinition {
 
 		getSubfield("2").setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setBibframeTag("country");
 		getSubfield("b").setBibframeTag("country").setMqTag("firstOrderJurisdiction");

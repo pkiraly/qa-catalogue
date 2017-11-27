@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.GeographicAreaSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.GeographicAreaCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Geographic Area Code
@@ -47,6 +48,8 @@ public class Tag043 extends DataFieldDefinition {
 
 		getSubfield("a").setCodeList(GeographicAreaCodes.getInstance());
 		getSubfield("2").setCodeList(GeographicAreaSourceCodes.getInstance());
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setMqTag("code");
 		getSubfield("b").setMqTag("localGACcode");

@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CopyrightAndLegalDepositNumberSourceCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * CopyrightAnd or Legal Deposit Number
@@ -57,6 +58,7 @@ public class Tag017 extends DataFieldDefinition {
 		);
 
 		getSubfield("2").setCodeList(CopyrightAndLegalDepositNumberSourceCodes.getInstance());
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setBibframeTag("rdf:value");
 		getSubfield("b").setBibframeTag("source");

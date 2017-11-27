@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 import java.util.Arrays;
 
@@ -79,6 +80,8 @@ public class Tag246 extends DataFieldDefinition {
 		);
 
 		getSubfield("5").setCodeList(OrganizationCodes.getInstance());
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setBibframeTag("mainTitle");
 		getSubfield("b").setBibframeTag("subtitle");

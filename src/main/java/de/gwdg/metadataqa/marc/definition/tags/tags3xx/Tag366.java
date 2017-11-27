@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.AvailabilityStatusCodeSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Trade Availability Information
@@ -55,5 +56,7 @@ public class Tag366 extends DataFieldDefinition {
 
 		getSubfield("k").setCodeList(CountryCodes.getInstance());
 		getSubfield("2").setCodeList(AvailabilityStatusCodeSourceCodes.getInstance());
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 	}
 }

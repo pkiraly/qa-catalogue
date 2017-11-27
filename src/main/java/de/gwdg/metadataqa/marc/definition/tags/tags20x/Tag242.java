@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Translation of Title by Cataloging Agency
@@ -59,6 +60,8 @@ public class Tag242 extends DataFieldDefinition {
 		);
 
 		getSubfield("y").setCodeList(LanguageCodes.getInstance());
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setBibframeTag("mainTitle");
 		getSubfield("b").setBibframeTag("subTitle");

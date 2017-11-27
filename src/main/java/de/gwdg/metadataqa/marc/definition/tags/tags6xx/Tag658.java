@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CurriculumObjectiveTermAndCodeSourceCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Index Term - Curriculum Objective
@@ -45,6 +46,8 @@ public class Tag658 extends DataFieldDefinition {
 		);
 
 		getSubfield("2").setCodeList(CurriculumObjectiveTermAndCodeSourceCodes.getInstance());
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setMqTag("main");
 		getSubfield("b").setMqTag("subordinate");

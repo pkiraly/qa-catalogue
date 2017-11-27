@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.TaxonomicClassificationSourceCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Added Entry - Taxonomic Identification
@@ -47,6 +48,8 @@ public class Tag754 extends DataFieldDefinition {
 		);
 
 		getSubfield("2").setCodeList(TaxonomicClassificationSourceCodes.getInstance());
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setMqTag("name");
 		getSubfield("c").setMqTag("category");

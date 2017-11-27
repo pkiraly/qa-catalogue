@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTermSourceCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Date/Time and Place of an Event
@@ -63,6 +64,7 @@ public class Tag033 extends DataFieldDefinition {
 		);
 
 		getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setBibframeTag("date");
 		getSubfield("b").setBibframeTag("place").setMqTag("area");

@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodeAndTermSourceCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Language Code
@@ -76,6 +77,8 @@ public class Tag041 extends DataFieldDefinition {
 		getSubfield("m").setCodeList(LanguageCodes.getInstance());
 		getSubfield("n").setCodeList(LanguageCodes.getInstance());
 		getSubfield("2").setCodeList(LanguageCodeAndTermSourceCodes.getInstance());
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setBibframeTag("rdf:value");
 		getSubfield("b").setMqTag("ofSummary");

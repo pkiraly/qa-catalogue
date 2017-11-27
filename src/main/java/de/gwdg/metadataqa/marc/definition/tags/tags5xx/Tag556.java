@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags5xx;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.ISBNValidator;
 
 /**
@@ -48,6 +49,7 @@ public class Tag556 extends DataFieldDefinition {
 		);
 
 		getSubfield("z").setValidator(ISBNValidator.getInstance());
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
 		getSubfield("z").setMqTag("isbn");

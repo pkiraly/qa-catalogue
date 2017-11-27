@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags5xx;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Scale Note for Graphic Material
@@ -35,11 +36,13 @@ public class Tag507 extends DataFieldDefinition {
 		ind2 = new Indicator();
 
 		setSubfieldsWithCardinality(
-				"a", "Representative fraction of scale note", "NR",
-				"b", "Remainder of scale note", "NR",
-				"6", "Linkage", "NR",
-				"8", "Field link and sequence number", "R"
+			"a", "Representative fraction of scale note", "NR",
+			"b", "Remainder of scale note", "NR",
+			"6", "Linkage", "NR",
+			"8", "Field link and sequence number", "R"
 		);
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("b").setMqTag("remainder");

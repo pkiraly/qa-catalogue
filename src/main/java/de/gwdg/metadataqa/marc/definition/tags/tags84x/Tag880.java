@@ -61,6 +61,5 @@ public class Tag880 extends DataFieldDefinition {
 
 	public void validate(String tag) {
 		DataFieldDefinition definition = TagDefinitionLoader.load(tag);
-
 	}
 }

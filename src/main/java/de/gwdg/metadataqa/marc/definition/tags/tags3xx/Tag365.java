@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.PriceTypeCodeSourceCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Trade Price
@@ -60,11 +61,14 @@ public class Tag365 extends DataFieldDefinition {
 			"6", "Linkage", "NR",
 			"8", "Field link and sequence number", "R"
 		);
+
 		getSubfield("d").setCodes(
 			"00", "Per copy of whole product [default value]",
 			"01", "Per page for printed loose-leaf content only"
 		);
 		getSubfield("k").setCodeList(CountryCodes.getInstance());
 		getSubfield("2").setCodeList(PriceTypeCodeSourceCodes.getInstance());
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 	}
 }

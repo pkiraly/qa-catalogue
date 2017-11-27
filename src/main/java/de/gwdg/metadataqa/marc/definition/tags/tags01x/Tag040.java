@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.DescriptionConventionSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Cataloging Source
@@ -53,6 +54,8 @@ public class Tag040 extends DataFieldDefinition {
 		getSubfield("a").setCodeList(orgCodes);
 		getSubfield("c").setCodeList(orgCodes);
 		getSubfield("d").setCodeList(orgCodes);
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setMqTag("catalogingAgency");
 		getSubfield("b").setMqTag("languageOfCataloging");

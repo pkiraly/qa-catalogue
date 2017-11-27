@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 import java.util.Arrays;
 
@@ -98,6 +99,8 @@ public class Tag830 extends DataFieldDefinition {
 					"s", "Serial"
 				))
 		));
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("d").setMqTag("dateOfTreaty");

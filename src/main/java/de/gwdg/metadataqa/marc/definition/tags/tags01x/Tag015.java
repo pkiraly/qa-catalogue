@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.NationalBibliographyNumberSourceCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * National Bibliography Number
@@ -45,6 +46,8 @@ public class Tag015 extends DataFieldDefinition {
 		);
 
 		getSubfield("2").setCodeList(NationalBibliographyNumberSourceCodes.getInstance());
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
+
 		getSubfield("a").setBibframeTag("rdf:value");
 		getSubfield("q").setBibframeTag("qualifier");
 		getSubfield("z").setMqTag("canceled");

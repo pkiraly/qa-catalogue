@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CountrySourceCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Country of Publishing/Producing Entity Code
@@ -45,6 +46,8 @@ public class Tag044 extends DataFieldDefinition {
 		);
 		getSubfield("a").setCodeList(CountryCodes.getInstance());
 		getSubfield("2").setCodeList(CountrySourceCodes.getInstance());
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setMqTag("country");
 		getSubfield("b").setMqTag("subentityCode");

@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.Tag76xSubfield7PositionsGenerator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Issued With Entry
@@ -77,7 +78,9 @@ public class Tag777 extends DataFieldDefinition {
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
 		// TODO: this requires position parser!
 		// see http://www.loc.gov/marc/bibliographic/bd76x78x.html
+
 		getSubfield("7").setPositions(Tag76xSubfield7PositionsGenerator.getPositions());
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
 		getSubfield("b").setBibframeTag("editionStatement");

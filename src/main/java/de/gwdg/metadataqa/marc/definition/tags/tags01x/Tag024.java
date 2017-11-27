@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.codelist.StandardIdentifierSourceCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 import java.util.Arrays;
 
@@ -68,6 +69,7 @@ public class Tag024 extends DataFieldDefinition {
 		);
 
 		getSubfield("2").setCodeList(StandardIdentifierSourceCodes.getInstance());
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setBibframeTag("rdf:value");
 		getSubfield("c").setBibframeTag("acquisitionTerms");

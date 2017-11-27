@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Patent Control Information
@@ -51,6 +52,7 @@ public class Tag013 extends DataFieldDefinition {
 		// TODO
 		// $f - Codes from: MARC Code List for Countries and MARC Code List for Organizations.
 		getSubfield("f").setCodeList(OrganizationCodes.getInstance());
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setMqTag("number");
 		getSubfield("b").setMqTag("country");

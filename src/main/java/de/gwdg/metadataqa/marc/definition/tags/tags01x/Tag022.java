@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * International Standard Serial Number
@@ -52,6 +53,7 @@ public class Tag022 extends DataFieldDefinition {
 		);
 		// TODO check against ISSN National Centres code list http://www.issn.org/
 		// getSubfield("2").setCodeList();
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setBibframeTag("rdf:value");
 		getSubfield("l").setBibframeTag("issnL");

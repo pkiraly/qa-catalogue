@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Location of Originals/Duplicates Note
@@ -56,6 +57,8 @@ public class Tag535 extends DataFieldDefinition {
 		);
 
 		getSubfield("g").setCodeList(CountryCodes.getInstance());
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setMqTag("custodian");
 		getSubfield("b").setMqTag("postalAddress");

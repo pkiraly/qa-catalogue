@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.ClassificationSchemeSourceCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Classification Numbers Assigned in Canada
@@ -64,6 +65,8 @@ public class Tag055 extends DataFieldDefinition {
 		);
 
 		getSubfield("2").setCodeList(ClassificationSchemeSourceCodes.getInstance());
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setBibframeTag("classificationPortion").setMqTag("rdf:value");
 		getSubfield("b").setBibframeTag("itemPortion");

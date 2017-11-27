@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.ClassificationSchemeSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.HoldingSchemeSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Holding Institution
@@ -60,6 +61,7 @@ public class Tag866 extends DataFieldDefinition {
 		);
 
 		getSubfield("2").setCodeList(HoldingSchemeSourceCodes.getInstance());
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("6").setMqTag("linkage");

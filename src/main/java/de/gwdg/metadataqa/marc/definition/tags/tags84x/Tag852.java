@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.ClassificationSchemeSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Location
@@ -97,5 +98,8 @@ public class Tag852 extends DataFieldDefinition {
 			"i", "Issue(s) part",
 			"s", "Supplement(s) part"
 		).getCode("1-9").setRange(true);
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
+
 	}
 }

@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OccupationTermSourceCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Index Term - Occupation
@@ -54,6 +55,8 @@ public class Tag656 extends DataFieldDefinition {
 		);
 
 		getSubfield("2").setCodeList(OccupationTermSourceCodes.getInstance());
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setBibframeTag("occupation");
 		getSubfield("k").setBibframeTag("genreForm").setMqTag("form");

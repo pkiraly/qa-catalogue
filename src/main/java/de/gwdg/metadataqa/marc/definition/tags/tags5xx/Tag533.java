@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags5xx;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Reproduction Note
@@ -59,6 +60,8 @@ public class Tag533 extends DataFieldDefinition {
        /13 - Regularity
        /14 - Form of item
 	   */
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setMqTag("type");
 		getSubfield("b").setMqTag("place");

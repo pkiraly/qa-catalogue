@@ -16,7 +16,9 @@ public enum ValidationErrorType {
 	UndefinedField("undefinedField", "undefined field"),
 	UndetectableType("undetectableType", "undetectable record type"),
 	InvalidLinkage("invalidLinkage", "invalid linkage"),
-	ISBN("invalidISBN", "invalid ISBN");
+	ISBN("invalidISBN", "invalid ISBN"),
+	UnparsableContent("unparsableContent", "invalid format"),
+	NullCode("nullCode", "null subfield code");
 
 	private String code;
 	private String message;

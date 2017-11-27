@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags3xx;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Playing Time
@@ -39,6 +40,8 @@ public class Tag306 extends DataFieldDefinition {
 			"8", "Field link and sequence number", "R"
 		);
 		// TODO: $a is regex: hhmmss
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("6").setMqTag("linkage");

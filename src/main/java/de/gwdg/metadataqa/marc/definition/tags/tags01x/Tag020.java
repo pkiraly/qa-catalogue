@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
 import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.ISBNValidator;
 
 import java.util.Arrays;
@@ -46,6 +47,7 @@ public class Tag020 extends DataFieldDefinition {
 		// TODO validation ISO 2108
 
 		getSubfield("a").setValidator(ISBNValidator.getInstance());
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setBibframeTag("rdf:value");
 		getSubfield("c").setBibframeTag("acquisitionTerms");

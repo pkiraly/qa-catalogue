@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.ElectronicAccessMethodsCodeList;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Electronic Location and Access
@@ -86,6 +87,8 @@ public class Tag856 extends DataFieldDefinition {
 
 		getSubfield("w").setCodeList(OrganizationCodes.getInstance());
 		getSubfield("2").setCodeList(ElectronicAccessMethodsCodeList.getInstance());
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setMqTag("host");
 		getSubfield("b").setMqTag("accessNumber");

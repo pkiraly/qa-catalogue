@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CartographicDataSourceCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 import java.util.Arrays;
 
@@ -90,6 +91,8 @@ public class Tag034 extends DataFieldDefinition {
 			"z", "Other type of scale"
 		);
 		getSubfield("2").setCodeList(CartographicDataSourceCodes.getInstance());
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setMqTag("category");
 		getSubfield("b").setMqTag("linearHorizontalScale");

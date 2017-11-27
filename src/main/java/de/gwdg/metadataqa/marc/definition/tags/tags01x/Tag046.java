@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.DateSourceCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
  * Special Coded Dates
@@ -70,6 +71,8 @@ public class Tag046 extends DataFieldDefinition {
 			"n", "Unknown date"
 		);
 		getSubfield("2").setCodeList(DateSourceCodes.getInstance());
+
+		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setMqTag("type");
 		getSubfield("b").setMqTag("bceDate1");

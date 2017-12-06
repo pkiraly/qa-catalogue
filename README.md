@@ -515,36 +515,42 @@ mvn clean deploy -Pdeploy
 ```
 ## Appendix III: handling MARC versions
 
-```Java
-Indicator:
-putVersionSpecificCodes(MarcVersion, List<Code>)
-
 DataFieldDefinition:
+```Java
 putVersionSpecificSubfields(MarcVersion, List<SubfieldDefinition>)
 ```
 
+```Java
+setHistoricalSubfields(List<String>)
+```
+
+Indicator:
+
+```Java
+putVersionSpecificCodes(MarcVersion, List<Code>)
+```
+
 examples:
+
+Defining version specific indicator codes:
 ```Java
 public class Tag024 extends DataFieldDefinition {
-
    ...
    ind1 = new Indicator("Type of standard number or code")
-             .setCodes(
-                "0", "International Standard Recording Code",
-                "1", "Universal Product Code",
-                "2", "International Standard Music Number",
-                "3", "International Article Number",
-                "4", "Serial Item and Contribution Identifier",
-                "7", "Source specified in subfield $2",
-                "8", "Unspecified type of standard number or code"
-              )
+             .setCodes(...)
               .putVersionSpecificCodes(
                  MarcVersion.SZTE,
                  Arrays.asList(
                     new Code(" ", "Not specified")
                  )
               )
+   ...
+}
+```
 
+Defining version specific subfields:
+```Java
+public class Tag024 extends DataFieldDefinition {
    ...
    putVersionSpecificSubfields(
       MarcVersion.DNB,
@@ -555,6 +561,29 @@ public class Tag024 extends DataFieldDefinition {
 }
 ```
 
+Marking subfields as obsolete:
+```Java
+public class Tag020 extends DataFieldDefinition {
+   ...
+   setHistoricalSubfields(
+      "b", "Binding information (BK, MP, MU) [OBSOLETE]"
+   );
+}
+```
+
+Marking indicator codes as obsolete:
+```Java
+public class Tag082 extends DataFieldDefinition {
+   ...
+   ind1 = new Indicator("Type of edition")
+              .setCodes(...)
+              .setHistoricalCodes(
+                 " ", "No edition information recorded (BK, MU, VM, SE) [OBSOLETE]",
+                 "2", "Abridged NST version (BK, MU, VM, SE) [OBSOLETE]"
+              )
+   ...
+}
+```
 
 Any feedbacks are welcome!
 

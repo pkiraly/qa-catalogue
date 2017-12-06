@@ -571,6 +571,8 @@ public class Tag024 extends DataFieldDefinition {
 DataFieldDefinition::putVersionSpecificSubfields(MarcVersion, List<SubfieldDefinition>)
 ```
 
+SubfieldDefinition contains a definition of a subfield. You can construct it with three String parameters: a code, a label and a cardinality code which denotes whether the subfield can be repeatable ("R") or not ("NR").
+
 example:
 
 ```Java
@@ -610,7 +612,6 @@ public class Tag082 extends DataFieldDefinition {
 ```Java
 DataFieldDefinition::setHistoricalSubfields(List<String>)
 ```
-
 The list should be pairs of code and description.
 
 ```Java

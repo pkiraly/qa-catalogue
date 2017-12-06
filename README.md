@@ -507,13 +507,7 @@ There are two more datasource worth mention, however they do not provide MARC re
 * [Linked Open British National Bibliography](https://data.bl.uk/lodbnb/) 3.2M book records in N-Triplets and RDF/XML format, CC0 license
 * [Linked data of Bibliothèque nationale de France](http://data.bnf.fr/semanticweb). N3, NT and RDF/XML formats, [Licence Ouverte/Open Licence](http://data.bnf.fr/docs/Licence-Ouverte-Open-Licence-ENG.pdf)
 
-## Appendix II: Special build process
-
-"deployment" build (when deploying artifacts to Maven Central)
-```
-mvn clean deploy -Pdeploy
-```
-## Appendix III: handling MARC versions
+## Appendix II: handling MARC versions
 
 The tool provides two levels of customization: 
 
@@ -623,6 +617,12 @@ public class Tag020 extends DataFieldDefinition {
 }
 ```
 
+## Appendix III: Special build process
+
+"deployment" build (when deploying artifacts to Maven Central)
+```
+mvn clean deploy -Pdeploy
+```
 
 Any feedbacks are welcome!
 

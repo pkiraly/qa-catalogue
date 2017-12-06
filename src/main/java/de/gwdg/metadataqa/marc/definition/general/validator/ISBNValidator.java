@@ -2,10 +2,14 @@ package de.gwdg.metadataqa.marc.definition.general.validator;
 
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.definition.ValidatorResponse;
-import de.gwdg.metadataqa.marc.definition.tags.tags76x.Tag775;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 
+/**
+ * The original code was created by Steve Claridge
+ * https://www.moreofless.co.uk/validate-isbn-10-java/
+ * https://www.moreofless.co.uk/validate-isbn-13-java/
+ */
 public class ISBNValidator implements SubfieldValidator {
 
 	public static final String URL = "https://en.wikipedia.org/wiki/International_Standard_Book_Number";

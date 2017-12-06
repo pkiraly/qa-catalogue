@@ -1,10 +1,10 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
-import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
+
+import java.util.Arrays;
 
 /**
  * System Control Number
@@ -51,5 +51,9 @@ public class Tag035 extends DataFieldDefinition {
 		getSubfield("z").setMqTag("canceled");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
+
+		putVersionSpecificSubfields(MarcVersion.FENNICA, Arrays.asList(
+			new SubfieldDefinition("9", "Voyager-osakenttä", "NR")
+		));
 	}
 }

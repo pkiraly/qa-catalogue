@@ -146,5 +146,8 @@ public class Tag800 extends DataFieldDefinition {
 		putVersionSpecificSubfields(MarcVersion.DNB, Arrays.asList(
 			new SubfieldDefinition("9", "Sortierzählung", "R")
 		));
+		putVersionSpecificSubfields(MarcVersion.FENNICA, Arrays.asList(
+			new SubfieldDefinition("9", "Artikkeli", "NR")
+		));
 	}
 }

@@ -1,11 +1,11 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags6xx;
 
-import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
+
+import java.util.Arrays;
 
 /**
  * Subject Added Entry - Corporate Name
@@ -117,5 +117,9 @@ public class Tag610 extends DataFieldDefinition {
 		getSubfield("4").setMqTag("relatorCode");
 		getSubfield("6").setMqTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
+
+		putVersionSpecificSubfields(MarcVersion.FENNICA, Arrays.asList(
+			new SubfieldDefinition("9", "Artikkeli", "NR")
+		));
 	}
 }

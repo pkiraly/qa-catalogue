@@ -72,6 +72,8 @@ public class TagDefinitionLoader {
 			version = MarcVersion.GENT;
 		} else if (definitionClazz.getCanonicalName().contains(".sztetags.")) {
 			version = MarcVersion.SZTE;
+		} else if (definitionClazz.getCanonicalName().contains(".fennicatags.")) {
+			version = MarcVersion.FENNICA;
 		}
 		return version;
 	}

@@ -5,7 +5,9 @@ public enum MarcVersion {
 	DNB("DNB", "Deutsche Nationalbibliothek"),
 	OCLC("OCLC", "OCLC"),
 	GENT("GENT", "Universiteitsbibliotheek Gent"),
-	SZTE("SZTE", "Szegedi Tudományegyetem");
+	SZTE("SZTE", "Szegedi Tudományegyetem"),
+	FENNICA("FENNICA", "National Library of Finland")
+	;
 
 	String code;
 	String label;

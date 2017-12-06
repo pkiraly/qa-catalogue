@@ -1,9 +1,13 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags1xx;
 
+import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+
+import java.util.Arrays;
 
 /**
  * Main Entry - Uniform Title
@@ -38,7 +42,10 @@ public class Tag130 extends DataFieldDefinition {
 			)
 			.setMqTag("nonfilingCharacters");
 		ind1.getCode("0-9").setRange(true);
-		ind2 = new Indicator();
+		ind2 = new Indicator()
+			.putVersionSpecificCodes(MarcVersion.FENNICA, Arrays.asList(
+				new Code("9", "Kokoelma")
+			));
 
 		setSubfieldsWithCardinality(
 			"a", "Uniform title", "NR",

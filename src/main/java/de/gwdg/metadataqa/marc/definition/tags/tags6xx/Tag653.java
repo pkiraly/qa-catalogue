@@ -1,9 +1,9 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags6xx;
 
-import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+
+import java.util.Arrays;
 
 /**
  * Index Term - Uncontrolled
@@ -65,5 +65,9 @@ public class Tag653 extends DataFieldDefinition {
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("6").setMqTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
+
+		putVersionSpecificSubfields(MarcVersion.FENNICA, Arrays.asList(
+			new SubfieldDefinition("9", "Sanastokoodi", "NR")
+		));
 	}
 }

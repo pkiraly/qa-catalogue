@@ -2,10 +2,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags6xx;
 
 import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.DataField;
-import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTermSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
@@ -133,6 +130,10 @@ public class Tag600 extends DataFieldDefinition {
 		getSubfield("4").setMqTag("relationship");
 		getSubfield("6").setBibframeTag("linkage");
 		getSubfield("8").setMqTag("fieldLink");
+
+		putVersionSpecificSubfields(MarcVersion.FENNICA, Arrays.asList(
+			new SubfieldDefinition("9", "Artikkeli", "NR")
+		));
 	}
 
 	public String getSource(DataField field) {

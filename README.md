@@ -94,7 +94,7 @@ Leader specific errors:
 
 Control field specific errors:
 
-* 006/[position] ([name]) contains an invalid code: '[code]' in '[value]' (e.g. `	006/01-05 (tag006book01) contains an invalid code: 'n' in '  n '`)
+* 006/[position] ([name]) contains an invalid code: '[code]' in '[value]' (e.g. ` 006/01-05 (tag006book01) contains an invalid code: 'n' in '  n '`)
 * 006/[position] ([name]) has an invalid value: '[value]' (e.g. `006/13 (tag006book13) has an invalid value: ' '`)
 * 007/[position] ([name]) contains an invalid code: '[code]' in '[value]'
 * 007/[position] ([name]) has an invalid value: '[value]' (e.g. `007/01 (tag007microform01) has an invalid value: ' '`)
@@ -122,41 +122,41 @@ An example:
 
 ```
 Error in '   00000034 ': 
-	110$ind1 has invalid code: '2'
+  110$ind1 has invalid code: '2'
 Error in '   00000056 ': 
-	110$ind1 has invalid code: '2'
+  110$ind1 has invalid code: '2'
 Error in '   00000057 ': 
-	082$ind1 has invalid code: ' '
+  082$ind1 has invalid code: ' '
 Error in '   00000086 ': 
-	110$ind1 has invalid code: '2'
+  110$ind1 has invalid code: '2'
 Error in '   00000119 ': 
-	700$ind1 has invalid code: '2'
+  700$ind1 has invalid code: '2'
 Error in '   00000234 ': 
-	082$ind1 has invalid code: ' '
+  082$ind1 has invalid code: ' '
 Errors in '   00000294 ': 
-	050$ind2 has invalid code: ' '
-	260$ind1 has invalid code: '0'
-	710$ind2 has invalid code: '0'
-	710$ind2 has invalid code: '0'
-	710$ind2 has invalid code: '0'
-	740$ind2 has invalid code: '1'
+  050$ind2 has invalid code: ' '
+  260$ind1 has invalid code: '0'
+  710$ind2 has invalid code: '0'
+  710$ind2 has invalid code: '0'
+  710$ind2 has invalid code: '0'
+  740$ind2 has invalid code: '1'
 Error in '   00000322 ': 
-	110$ind1 has invalid code: '2'
+  110$ind1 has invalid code: '2'
 Error in '   00000328 ': 
-	082$ind1 has invalid code: ' '
+  082$ind1 has invalid code: ' '
 Error in '   00000374 ': 
-	082$ind1 has invalid code: ' '
+  082$ind1 has invalid code: ' '
 Error in '   00000395 ': 
-	082$ind1 has invalid code: ' '
+  082$ind1 has invalid code: ' '
 Error in '   00000514 ': 
-	082$ind1 has invalid code: ' '
+  082$ind1 has invalid code: ' '
 Errors in '   00000547 ': 
-	100$ind2 should be empty, it has '0'
-	260$ind1 has invalid code: '0'
+  100$ind2 should be empty, it has '0'
+  260$ind1 has invalid code: '0'
 Errors in '   00000571 ': 
-	050$ind2 has invalid code: ' '
-	100$ind2 should be empty, it has '0'
-	260$ind1 has invalid code: '0'
+  050$ind2 has invalid code: ' '
+  100$ind2 should be empty, it has '0'
+  260$ind1 has invalid code: '0'
 ...
 ```
 
@@ -498,6 +498,7 @@ Here is a list of data sources I am aware of so far:
 * ETH-Bibliothek (Swiss Federal Institute of Technology in Zurich) &mdash; http://www.library.ethz.ch/ms/Open-Data-an-der-ETH-Bibliothek/Downloads. 2.5M records, MARCXML format.
 * British library &mdash; http://www.bl.uk/bibliographic/datafree.html#m21z3950 (no download link, use z39.50 instead after asking for permission). MARC21, usage will be strictly for non-commercial purposes.
 * Talis &mdash; https://archive.org/details/talis_openlibrary_contribution. 5.5 million MARC21 records contributed by Talis to Open Library under the [ODC PDDL](https://opendatacommons.org/licenses/pddl/).
+* Fennica - the Finnish National Bibliography provided by the Finnish National Library &mdash; http://data.nationallibrary.fi/download/. 1 million  records, MARCXML, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/).
 
 Thanks [Johann Rolschewski](https://github.com/jorol/) and [Phú](https://twitter.com/herr_tu) for their help in collecting this list! Do you know some more data sources? Please let me know.
 
@@ -506,7 +507,117 @@ There are two more datasource worth mention, however they do not provide MARC re
 * [Linked Open British National Bibliography](https://data.bl.uk/lodbnb/) 3.2M book records in N-Triplets and RDF/XML format, CC0 license
 * [Linked data of Bibliothèque nationale de France](http://data.bnf.fr/semanticweb). N3, NT and RDF/XML formats, [Licence Ouverte/Open Licence](http://data.bnf.fr/docs/Licence-Ouverte-Open-Licence-ENG.pdf)
 
-## Appendix II: Special build process
+## Appendix II: handling MARC versions
+
+The tool provides two levels of customization: 
+
+* project specific tags can be defined in their own Java package, such as these classes for Gent data:
+https://github.com/pkiraly/metadata-qa-marc/tree/master/src/main/java/de/gwdg/metadataqa/marc/definition/tags/genttags
+* for existing tags one can use the API described below
+
+The different MARC versions has an identifier. This is defined in the code as an enumeration:
+
+
+```Java
+public enum MarcVersion {
+  MARC21("MARC21", "MARC21"),
+  DNB("DNB", "Deutsche Nationalbibliothek"),
+  OCLC("OCLC", "OCLC"),
+  GENT("GENT", "Universiteitsbibliotheek Gent"),
+  SZTE("SZTE", "Szegedi Tudományegyetem"),
+  FENNICA("FENNICA", "National Library of Finland")
+  ;
+  ...
+}
+```
+
+When you add version specific modification, you have to use one of these values.
+
+
+1. Defining version specific indicator codes:
+
+```Java
+Indicator::putVersionSpecificCodes(MarcVersion, List<Code>)
+```
+
+Code is a simple object, it has two property: code and label.
+
+example:
+
+```Java
+public class Tag024 extends DataFieldDefinition {
+   ...
+   ind1 = new Indicator("Type of standard number or code")
+             .setCodes(...)
+              .putVersionSpecificCodes(
+                 MarcVersion.SZTE,
+                 Arrays.asList(
+                    new Code(" ", "Not specified")
+                 )
+              )
+   ...
+}
+```
+
+2. Defining version specific subfields:
+
+```Java
+DataFieldDefinition::putVersionSpecificSubfields(MarcVersion, List<SubfieldDefinition>)
+```
+
+SubfieldDefinition contains a definition of a subfield. You can construct it with three String parameters: a code, a label and a cardinality code which denotes whether the subfield can be repeatable ("R") or not ("NR").
+
+example:
+
+```Java
+public class Tag024 extends DataFieldDefinition {
+   ...
+   putVersionSpecificSubfields(
+      MarcVersion.DNB,
+      Arrays.asList(
+         new SubfieldDefinition("9", "Standardnummer (mit Bindestrichen)", "NR")
+      )
+   );
+}
+```
+
+3. Marking indicator codes as obsolete:
+```Java
+Indicator::setHistoricalCodes(List<String>)
+```
+
+The list should be pairs of code and description.
+
+```Java
+public class Tag082 extends DataFieldDefinition {
+   ...
+   ind1 = new Indicator("Type of edition")
+              .setCodes(...)
+              .setHistoricalCodes(
+                 " ", "No edition information recorded (BK, MU, VM, SE) [OBSOLETE]",
+                 "2", "Abridged NST version (BK, MU, VM, SE) [OBSOLETE]"
+              )
+   ...
+}
+```
+
+4. Marking subfields as obsolete:
+
+```Java
+DataFieldDefinition::setHistoricalSubfields(List<String>)
+```
+The list should be pairs of code and description.
+
+```Java
+public class Tag020 extends DataFieldDefinition {
+   ...
+   setHistoricalSubfields(
+      "b", "Binding information (BK, MP, MU) [OBSOLETE]"
+   );
+}
+```
+
+## Appendix III: Special build process
 
 "deployment" build (when deploying artifacts to Maven Central)
 ```

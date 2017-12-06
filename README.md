@@ -94,7 +94,7 @@ Leader specific errors:
 
 Control field specific errors:
 
-* 006/[position] ([name]) contains an invalid code: '[code]' in '[value]' (e.g. `	006/01-05 (tag006book01) contains an invalid code: 'n' in '  n '`)
+* 006/[position] ([name]) contains an invalid code: '[code]' in '[value]' (e.g. ` 006/01-05 (tag006book01) contains an invalid code: 'n' in '  n '`)
 * 006/[position] ([name]) has an invalid value: '[value]' (e.g. `006/13 (tag006book13) has an invalid value: ' '`)
 * 007/[position] ([name]) contains an invalid code: '[code]' in '[value]'
 * 007/[position] ([name]) has an invalid value: '[value]' (e.g. `007/01 (tag007microform01) has an invalid value: ' '`)
@@ -122,41 +122,41 @@ An example:
 
 ```
 Error in '   00000034 ': 
-	110$ind1 has invalid code: '2'
+  110$ind1 has invalid code: '2'
 Error in '   00000056 ': 
-	110$ind1 has invalid code: '2'
+  110$ind1 has invalid code: '2'
 Error in '   00000057 ': 
-	082$ind1 has invalid code: ' '
+  082$ind1 has invalid code: ' '
 Error in '   00000086 ': 
-	110$ind1 has invalid code: '2'
+  110$ind1 has invalid code: '2'
 Error in '   00000119 ': 
-	700$ind1 has invalid code: '2'
+  700$ind1 has invalid code: '2'
 Error in '   00000234 ': 
-	082$ind1 has invalid code: ' '
+  082$ind1 has invalid code: ' '
 Errors in '   00000294 ': 
-	050$ind2 has invalid code: ' '
-	260$ind1 has invalid code: '0'
-	710$ind2 has invalid code: '0'
-	710$ind2 has invalid code: '0'
-	710$ind2 has invalid code: '0'
-	740$ind2 has invalid code: '1'
+  050$ind2 has invalid code: ' '
+  260$ind1 has invalid code: '0'
+  710$ind2 has invalid code: '0'
+  710$ind2 has invalid code: '0'
+  710$ind2 has invalid code: '0'
+  740$ind2 has invalid code: '1'
 Error in '   00000322 ': 
-	110$ind1 has invalid code: '2'
+  110$ind1 has invalid code: '2'
 Error in '   00000328 ': 
-	082$ind1 has invalid code: ' '
+  082$ind1 has invalid code: ' '
 Error in '   00000374 ': 
-	082$ind1 has invalid code: ' '
+  082$ind1 has invalid code: ' '
 Error in '   00000395 ': 
-	082$ind1 has invalid code: ' '
+  082$ind1 has invalid code: ' '
 Error in '   00000514 ': 
-	082$ind1 has invalid code: ' '
+  082$ind1 has invalid code: ' '
 Errors in '   00000547 ': 
-	100$ind2 should be empty, it has '0'
-	260$ind1 has invalid code: '0'
+  100$ind2 should be empty, it has '0'
+  260$ind1 has invalid code: '0'
 Errors in '   00000571 ': 
-	050$ind2 has invalid code: ' '
-	100$ind2 should be empty, it has '0'
-	260$ind1 has invalid code: '0'
+  050$ind2 has invalid code: ' '
+  100$ind2 should be empty, it has '0'
+  260$ind1 has invalid code: '0'
 ...
 ```
 
@@ -515,24 +515,41 @@ mvn clean deploy -Pdeploy
 ```
 ## Appendix III: handling MARC versions
 
-DataFieldDefinition:
-```Java
-putVersionSpecificSubfields(MarcVersion, List<SubfieldDefinition>)
-```
+The tool provides two levels of customization: 
+
+* project specific tags can be defined in their own Java package, such as these classes for Gent data:
+https://github.com/pkiraly/metadata-qa-marc/tree/master/src/main/java/de/gwdg/metadataqa/marc/definition/tags/genttags
+* for existing tags one can use the API described below
+
+The different MARC versions has an identifier. This is defined in the code as an enumeration:
+
 
 ```Java
-setHistoricalSubfields(List<String>)
+public enum MarcVersion {
+  MARC21("MARC21", "MARC21"),
+  DNB("DNB", "Deutsche Nationalbibliothek"),
+  OCLC("OCLC", "OCLC"),
+  GENT("GENT", "Universiteitsbibliotheek Gent"),
+  SZTE("SZTE", "Szegedi Tudományegyetem"),
+  FENNICA("FENNICA", "National Library of Finland")
+  ;
+  ...
+}
 ```
 
-Indicator:
+When you add version specific modification, you have to use one of these values.
+
+
+1. Defining version specific indicator codes:
 
 ```Java
-putVersionSpecificCodes(MarcVersion, List<Code>)
+Indicator::putVersionSpecificCodes(MarcVersion, List<Code>)
 ```
 
-examples:
+Code is a simple object, it has two property: code and label.
 
-Defining version specific indicator codes:
+example:
+
 ```Java
 public class Tag024 extends DataFieldDefinition {
    ...
@@ -548,7 +565,14 @@ public class Tag024 extends DataFieldDefinition {
 }
 ```
 
-Defining version specific subfields:
+2. Defining version specific subfields:
+
+```Java
+DataFieldDefinition::putVersionSpecificSubfields(MarcVersion, List<SubfieldDefinition>)
+```
+
+example:
+
 ```Java
 public class Tag024 extends DataFieldDefinition {
    ...
@@ -561,17 +585,13 @@ public class Tag024 extends DataFieldDefinition {
 }
 ```
 
-Marking subfields as obsolete:
+3. Marking indicator codes as obsolete:
 ```Java
-public class Tag020 extends DataFieldDefinition {
-   ...
-   setHistoricalSubfields(
-      "b", "Binding information (BK, MP, MU) [OBSOLETE]"
-   );
-}
+Indicator::setHistoricalCodes(List<String>)
 ```
 
-Marking indicator codes as obsolete:
+The list should be pairs of code and description.
+
 ```Java
 public class Tag082 extends DataFieldDefinition {
    ...
@@ -584,6 +604,24 @@ public class Tag082 extends DataFieldDefinition {
    ...
 }
 ```
+
+4. Marking subfields as obsolete:
+
+```Java
+DataFieldDefinition::setHistoricalSubfields(List<String>)
+```
+
+The list should be pairs of code and description.
+
+```Java
+public class Tag020 extends DataFieldDefinition {
+   ...
+   setHistoricalSubfields(
+      "b", "Binding information (BK, MP, MU) [OBSOLETE]"
+   );
+}
+```
+
 
 Any feedbacks are welcome!
 

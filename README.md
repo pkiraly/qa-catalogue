@@ -516,19 +516,43 @@ mvn clean deploy -Pdeploy
 ## Appendix III: handling MARC versions
 
 ```Java
-		ind1 = new Indicator("Type of standard number or code")
-			.setCodes(
-				"0", "International Standard Recording Code",
-				"1", "Universal Product Code",
-				"2", "International Standard Music Number",
-				"3", "International Article Number",
-				"4", "Serial Item and Contribution Identifier",
-				"7", "Source specified in subfield $2",
-				"8", "Unspecified type of standard number or code"
-			)
-			.putVersionSpecificCodes(MarcVersion.SZTE, Arrays.asList(
-				new Code(" ", "Not specified")
-			))
+Indicator:
+putVersionSpecificCodes(MarcVersion, List<Code>)
+
+DataFieldDefinition:
+putVersionSpecificSubfields(MarcVersion, List<SubfieldDefinition>)
+```
+
+examples:
+```Java
+public class Tag024 extends DataFieldDefinition {
+
+   ...
+   ind1 = new Indicator("Type of standard number or code")
+             .setCodes(
+                "0", "International Standard Recording Code",
+                "1", "Universal Product Code",
+                "2", "International Standard Music Number",
+                "3", "International Article Number",
+                "4", "Serial Item and Contribution Identifier",
+                "7", "Source specified in subfield $2",
+                "8", "Unspecified type of standard number or code"
+              )
+              .putVersionSpecificCodes(
+                 MarcVersion.SZTE,
+                 Arrays.asList(
+                    new Code(" ", "Not specified")
+                 )
+              )
+
+   ...
+   putVersionSpecificSubfields(
+      MarcVersion.DNB,
+      Arrays.asList(
+         new SubfieldDefinition("9", "Standardnummer (mit Bindestrichen)", "NR")
+      )
+   );
+}
 ```
 
 

@@ -67,7 +67,9 @@ options:
    * `MARC21`, Library of Congress MARC21
    * `DNB`, the Deuthche Nationalbibliothek's MARC version
    * `OCLC`, the OCLCMARC
-   * `GENT`, fields available in the Gent catalog
+   * `GENT`, fields available in the catalog of Gent University (Belgium)
+   * `SZTE`, fields available in the catalog of Szegedi Tudományegyetem (Hungary)
+   * `FENNICA`, fields available in the Fennica catalog of Finnish National Library
 * `-l [number]`, `--limit [number]` validates only given number of records
 * `-o [number]`, `--offset [number]` starts validation at the given Nth record
 * `-f [file name]`, `--fileName [file name]` the name of report the program produces. Default is `validation-report.txt`. If you use "stdout", it won't create file, but put results into the standard output.
@@ -81,6 +83,8 @@ options:
    * VISUAL_MATERIALS
    * COMPUTER_FILES
    * MIXED_MATERIALS
+* `-q`, `--fixAlephseq` ALEPH export contains '^' characters instead spaces in control fields (006, 007, 008). This flag replace them to spaces before the validation
+* `-x`, `--marcxml` the input files are not binary MARC, but MARCXML files
 
 The `file` argument might contain any wildcard the operating system supports ('*', '?', etc.)
 

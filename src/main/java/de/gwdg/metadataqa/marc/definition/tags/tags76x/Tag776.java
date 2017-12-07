@@ -7,6 +7,7 @@ import de.gwdg.metadataqa.marc.definition.general.Tag76xSubfield7PositionsGenera
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.ISBNValidator;
+import de.gwdg.metadataqa.marc.definition.general.validator.ISSNValidator;
 
 /**
  * Additional Physical Form Entry
@@ -80,6 +81,7 @@ public class Tag776 extends DataFieldDefinition {
 		getSubfield("7").setPositions(Tag76xSubfield7PositionsGenerator.getPositions());
 
 		getSubfield("z").setValidator(ISBNValidator.getInstance());
+		getSubfield("x").setValidator(ISSNValidator.getInstance());
 		getSubfield("6").setContentParser(LinkageParser.getInstance());
 
 		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");

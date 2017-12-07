@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import de.gwdg.metadataqa.marc.definition.general.validator.ISSNValidator;
 
 import java.util.Arrays;
 
@@ -85,6 +86,7 @@ public class Tag700 extends DataFieldDefinition {
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
 
 		getSubfield("6").setContentParser(LinkageParser.getInstance());
+		getSubfield("x").setValidator(ISSNValidator.getInstance());
 
 		getSubfield("a").setMqTag("personalName");
 		getSubfield("b").setMqTag("numeration");

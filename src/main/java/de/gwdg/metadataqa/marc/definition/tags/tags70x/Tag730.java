@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import de.gwdg.metadataqa.marc.definition.general.validator.ISSNValidator;
 
 /**
  * Added Entry - Uniform Title
@@ -70,6 +71,7 @@ public class Tag730 extends DataFieldDefinition {
 		);
 
 		getSubfield("6").setContentParser(LinkageParser.getInstance());
+		getSubfield("x").setValidator(ISSNValidator.getInstance());
 
 		getSubfield("a").setMqTag("rdf:value");
 		getSubfield("d").setMqTag("dateOfTreaty");

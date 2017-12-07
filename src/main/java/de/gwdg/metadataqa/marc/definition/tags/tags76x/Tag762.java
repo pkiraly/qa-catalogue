@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.Tag76xSubfield7PositionsGenerator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import de.gwdg.metadataqa.marc.definition.general.validator.ISSNValidator;
 
 /**
  * Subseries Entry
@@ -75,6 +76,7 @@ public class Tag762 extends DataFieldDefinition {
 		getSubfield("7").setPositions(Tag76xSubfield7PositionsGenerator.getPositions());
 
 		getSubfield("6").setContentParser(LinkageParser.getInstance());
+		getSubfield("x").setValidator(ISSNValidator.getInstance());
 
 		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
 		getSubfield("b").setBibframeTag("editionStatement");

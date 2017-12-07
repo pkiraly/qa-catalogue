@@ -17,6 +17,7 @@ import org.marc4j.marc.Subfield;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -27,6 +28,7 @@ import java.util.logging.Logger;
 public class MarcFactory {
 
 	private static final Logger logger = Logger.getLogger(MarcFactory.class.getCanonicalName());
+	private static final List<String> fixableControlFields = Arrays.asList("006", "007", "008");
 
 	private static Schema schema = new MarcJsonSchema();
 
@@ -95,6 +97,10 @@ public class MarcFactory {
 	}
 
 	public static MarcRecord createFromMarc4j(Record marc4jRecord, Leader.Type defaultType, MarcVersion marcVersion) {
+		return createFromMarc4j(marc4jRecord, defaultType, marcVersion, false);
+	}
+
+	public static MarcRecord createFromMarc4j(Record marc4jRecord, Leader.Type defaultType, MarcVersion marcVersion, boolean fixAlephseq) {
 		MarcRecord record = new MarcRecord();
 
 		if (defaultType == null)
@@ -109,16 +115,18 @@ public class MarcFactory {
 					marc4jRecord.getControlNumberField(), record.getLeader().getLeaderString()));
 		}
 
-		importMarc4jControlFields(marc4jRecord, record);
+		importMarc4jControlFields(marc4jRecord, record, fixAlephseq);
 
 		importMarc4jDataFields(marc4jRecord, record, marcVersion);
 
 		return record;
 	}
 
-	private static void importMarc4jControlFields(Record marc4jRecord, MarcRecord record) {
+	private static void importMarc4jControlFields(Record marc4jRecord, MarcRecord record, boolean fixAlephseq) {
 		for (ControlField controlField : marc4jRecord.getControlFields()) {
 			String data = controlField.getData();
+			if (fixAlephseq && isFixable(controlField.getTag()))
+				data = data.replace("^", " ");
 			switch (controlField.getTag()) {
 				case "001":
 					record.setControl001(new Control001(data)); break;
@@ -134,6 +142,10 @@ public class MarcFactory {
 					record.setControl008(new Control008(data, record.getType())); break;
 			}
 		}
+	}
+
+	private static boolean isFixable(String tag) {
+		return fixableControlFields.contains(tag);
 	}
 
 	private static void importMarc4jDataFields(Record marc4jRecord, MarcRecord record, MarcVersion marcVersion) {

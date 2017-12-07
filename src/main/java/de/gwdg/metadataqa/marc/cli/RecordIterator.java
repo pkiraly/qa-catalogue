@@ -39,6 +39,7 @@ public class RecordIterator {
 
 		MarcVersion marcVersion = processor.getParameters().getMarcVersion();
 		Leader.Type defaultRecordType = processor.getParameters().getDefaultRecordType();
+		boolean fixAlephseq = processor.getParameters().fixAlephseq();
 		if (processor.getParameters().doLog())
 			logger.info("marcVersion: " + marcVersion.getCode() + ", " + marcVersion.getLabel());
 
@@ -78,7 +79,7 @@ public class RecordIterator {
 
 					try {
 						processor.processRecord(marc4jRecord, i);
-						MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, defaultRecordType, marcVersion);
+						MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, defaultRecordType, marcVersion, fixAlephseq);
 						processor.processRecord(marcRecord, i);
 
 						if (i % 100000 == 0 && processor.getParameters().doLog())

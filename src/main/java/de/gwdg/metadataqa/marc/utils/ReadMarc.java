@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.utils;
 
 import org.marc4j.MarcReader;
 import org.marc4j.MarcStreamReader;
+import org.marc4j.MarcXmlReader;
 import org.marc4j.marc.Record;
 
 import java.io.FileInputStream;
@@ -27,6 +28,12 @@ public class ReadMarc {
 	public static MarcReader getReader(String fileName) throws Exception {
 		InputStream in = new FileInputStream(fileName);
 		MarcReader reader = new MarcStreamReader(in);
+		return reader;
+	}
+
+	public static MarcReader getXmlReader(String fileName) throws Exception {
+		InputStream in = new FileInputStream(fileName);
+		MarcReader reader = new MarcXmlReader(in);
 		return reader;
 	}
 

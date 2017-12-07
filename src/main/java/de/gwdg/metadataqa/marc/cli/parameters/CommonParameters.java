@@ -17,6 +17,7 @@ public class CommonParameters {
 	private String id = null;
 	protected Leader.Type defaultRecordType = null;
 	protected boolean fixAlephseq = false;
+	protected boolean marcxml = false;
 
 	protected Options options = new Options();
 	protected static CommandLineParser parser = new DefaultParser();
@@ -33,6 +34,7 @@ public class CommonParameters {
 			options.addOption("i", "id", true, "the MARC identifier (content of 001)");
 			options.addOption("d", "defaultRecordType", true, "the default record type if the record's type is undetectable");
 			options.addOption("q", "fixAlephseq", false, "fix the known issues of Alephseq format");
+			options.addOption("x", "marcxml", false, "the source is in MARCXML format");
 			isOptionSet = true;
 		}
 	}
@@ -65,6 +67,8 @@ public class CommonParameters {
 			defaultRecordType = Leader.Type.valueOf(cmd.getOptionValue("defaultRecordType"));
 
 		fixAlephseq = cmd.hasOption("fixAlephseq");
+
+		marcxml = cmd.hasOption("marcxml");
 
 		args = cmd.getArgs();
 	}
@@ -115,6 +119,10 @@ public class CommonParameters {
 		return fixAlephseq;
 	}
 
+	public boolean isMarcxml() {
+		return marcxml;
+	}
+
 	public String formatParameters() {
 		String text = "";
 		text += String.format("marcVersion: %s, %s\n", marcVersion.getCode(), marcVersion.getLabel());
@@ -124,6 +132,7 @@ public class CommonParameters {
 		text += String.format("id: %s\n", id);
 		text += String.format("defaultRecordType: %s\n", defaultRecordType);
 		text += String.format("fixAlephseq: %s\n", fixAlephseq);
+		text += String.format("marcxml: %s\n", marcxml);
 
 		return text;
 	}

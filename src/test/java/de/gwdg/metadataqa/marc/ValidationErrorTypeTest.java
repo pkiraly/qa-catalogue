@@ -9,7 +9,7 @@ public class ValidationErrorTypeTest {
 
 	@Test
 	public void test() {
-		assertEquals(17, ValidationErrorType.values().length);
+		assertEquals(18, ValidationErrorType.values().length);
 	}
 
 	@Test

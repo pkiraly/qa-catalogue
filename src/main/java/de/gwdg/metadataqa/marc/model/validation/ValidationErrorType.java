@@ -17,8 +17,10 @@ public enum ValidationErrorType {
 	UndetectableType("undetectableType", "undetectable record type"),
 	InvalidLinkage("invalidLinkage", "invalid linkage"),
 	ISBN("invalidISBN", "invalid ISBN"),
+	ISSN("invalidISSN", "invalid ISSN"),
 	UnparsableContent("unparsableContent", "invalid format"),
-	NullCode("nullCode", "null subfield code");
+	NullCode("nullCode", "null subfield code"),
+	;
 
 	private String code;
 	private String message;

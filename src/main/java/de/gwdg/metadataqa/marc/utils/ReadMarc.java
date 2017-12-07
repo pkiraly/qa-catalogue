@@ -25,7 +25,7 @@ public class ReadMarc {
 		return records;
 	}
 
-	public static MarcReader getReader(String fileName) throws Exception {
+	public static MarcReader getStreamReader(String fileName) throws Exception {
 		InputStream in = new FileInputStream(fileName);
 		MarcReader reader = new MarcStreamReader(in);
 		return reader;
@@ -34,6 +34,14 @@ public class ReadMarc {
 	public static MarcReader getXmlReader(String fileName) throws Exception {
 		InputStream in = new FileInputStream(fileName);
 		MarcReader reader = new MarcXmlReader(in);
+		return reader;
+	}
+
+	public static MarcReader getReader(String fileName, boolean isMarcxml) throws Exception {
+		MarcReader reader = (isMarcxml)
+			? ReadMarc.getXmlReader(fileName)
+			: ReadMarc.getStreamReader(fileName);
+
 		return reader;
 	}
 

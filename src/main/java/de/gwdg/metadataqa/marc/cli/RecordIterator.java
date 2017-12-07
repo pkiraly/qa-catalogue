@@ -57,9 +57,7 @@ public class RecordIterator {
 				logger.info("processing: " + fileName);
 
 			try {
-				MarcReader reader = (isMarcxml)
-				                  ? ReadMarc.getXmlReader(path.toString())
-				                  : ReadMarc.getReader(path.toString());
+				MarcReader reader = ReadMarc.getReader(path.toString(), isMarcxml);
 				while (reader.hasNext()) {
 					Record marc4jRecord = reader.next();
 					i++;

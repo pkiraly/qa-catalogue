@@ -49,7 +49,7 @@ public class MarcToSolr {
 				logger.info("processing: " + fileName);
 
 			try {
-				MarcReader reader = ReadMarc.getReader(path.toString());
+				MarcReader reader = ReadMarc.getStreamReader(path.toString());
 				while (reader.hasNext()) {
 					i++;
 					Record marc4jRecord = reader.next();

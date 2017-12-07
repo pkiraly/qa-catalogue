@@ -4,8 +4,6 @@ import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.ThompsonTraillAnalysis;
 import de.gwdg.metadataqa.marc.cli.parameters.ThompsonTraillCompletenessParameters;
-import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
-import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.utils.ReadMarc;
 import org.apache.commons.cli.*;
 import org.apache.commons.io.FileUtils;
@@ -15,13 +13,10 @@ import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 import java.util.logging.Logger;
 
 /**
@@ -79,7 +74,7 @@ public class ThompsonTraillCompleteness {
 					FileUtils.writeStringToFile(output, message, true);
 				}
 
-				MarcReader reader = ReadMarc.getReader(path.toString());
+				MarcReader reader = ReadMarc.getStreamReader(path.toString());
 				while (reader.hasNext()) {
 					i++;
 					if (isUnderOffset(offset, i)) {

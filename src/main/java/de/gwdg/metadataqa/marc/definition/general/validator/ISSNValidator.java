@@ -73,7 +73,7 @@ public class ISSNValidator implements SubfieldValidator {
 			// .replaceAll(" ", "")
 			// .replaceAll("[ :-]", "")
 			.replaceAll(" \\(ISSN\\)$", "")
-      .replaceAll("[\\s;:-]+$", "")
+      			.replaceAll("[\\s;:-]+$", "")
 			.trim();
 		return value;
 	}

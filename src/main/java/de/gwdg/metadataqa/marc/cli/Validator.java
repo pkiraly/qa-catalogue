@@ -12,6 +12,7 @@ import org.marc4j.marc.Record;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Logger;
@@ -21,7 +22,7 @@ import java.util.logging.Logger;
  * java -cp target/metadata-qa-marc-0.1-SNAPSHOT-jar-with-dependencies.jar de.gwdg.metadataqa.marc.cli.Validator [MARC21 file]
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class Validator implements MarcFileProcessor {
+public class Validator implements MarcFileProcessor, Serializable {
 
 	private static final Logger logger = Logger.getLogger(Validator.class.getCanonicalName());
 	private static Options options;
@@ -29,6 +30,7 @@ public class Validator implements MarcFileProcessor {
 	private ValidatorParameters parameters;
 	private Map<String, Integer> errorCounter = new TreeMap<>();
 	private File output = null;
+	private boolean doPrintInProcessRecord = true;
 
 	public Validator(String[] args) throws ParseException {
 		parameters = new ValidatorParameters(args);
@@ -113,7 +115,7 @@ public class Validator implements MarcFileProcessor {
 			logger.severe("No record number at " + i);
 
 		boolean isValid = marcRecord.validate(parameters.getMarcVersion(), parameters.doSummary());
-		if (!isValid) {
+		if (!isValid && doPrintInProcessRecord) {
 			if (parameters.doSummary()) {
 				for (String error : ValidationErrorFormatter.formatForSummary(marcRecord.getValidationErrors(), parameters.getFormat())) {
 					if (!errorCounter.containsKey(error)) {
@@ -125,10 +127,18 @@ public class Validator implements MarcFileProcessor {
 				String message = ValidationErrorFormatter.format(marcRecord.getValidationErrors(), parameters.getFormat());
 				if (parameters.useStandardOutput())
 					System.out.print(message);
-				else
+				else {
 					FileUtils.writeStringToFile(output, message, true);
+				}
 			}
 		}
 	}
 
+	public boolean doPrintInProcessRecord() {
+		return doPrintInProcessRecord;
+	}
+
+	public void setDoPrintInProcessRecord(boolean doPrintInProcessRecord) {
+		this.doPrintInProcessRecord = doPrintInProcessRecord;
+	}
 }

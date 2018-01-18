@@ -5,7 +5,9 @@ import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import org.apache.commons.cli.*;
 import org.apache.commons.lang3.StringUtils;
 
-public class CommonParameters {
+import java.io.Serializable;
+
+public class CommonParameters implements Serializable {
 
 	protected String[] args;
 
@@ -18,6 +20,7 @@ public class CommonParameters {
 	protected Leader.Type defaultRecordType = null;
 	protected boolean fixAlephseq = false;
 	protected boolean marcxml = false;
+	protected boolean lineSeparated = false;
 
 	protected Options options = new Options();
 	protected static CommandLineParser parser = new DefaultParser();
@@ -35,11 +38,13 @@ public class CommonParameters {
 			options.addOption("d", "defaultRecordType", true, "the default record type if the record's type is undetectable");
 			options.addOption("q", "fixAlephseq", false, "fix the known issues of Alephseq format");
 			options.addOption("x", "marcxml", false, "the source is in MARCXML format");
+			options.addOption("y", "lineSeparated", false, "the source is in line separated MARC format");
 			isOptionSet = true;
 		}
 	}
 
-	public CommonParameters() {}
+	public CommonParameters() {
+	}
 
 	public CommonParameters(String[] arguments)  throws ParseException {
 		cmd = parser.parse(getOptions(), arguments);
@@ -69,6 +74,8 @@ public class CommonParameters {
 		fixAlephseq = cmd.hasOption("fixAlephseq");
 
 		marcxml = cmd.hasOption("marcxml");
+
+		lineSeparated = cmd.hasOption("lineSeparated");
 
 		args = cmd.getArgs();
 	}
@@ -123,6 +130,10 @@ public class CommonParameters {
 		return marcxml;
 	}
 
+	public boolean isLineSeparated() {
+		return lineSeparated;
+	}
+
 	public String formatParameters() {
 		String text = "";
 		text += String.format("marcVersion: %s, %s\n", marcVersion.getCode(), marcVersion.getLabel());
@@ -133,6 +144,7 @@ public class CommonParameters {
 		text += String.format("defaultRecordType: %s\n", defaultRecordType);
 		text += String.format("fixAlephseq: %s\n", fixAlephseq);
 		text += String.format("marcxml: %s\n", marcxml);
+		text += String.format("lineSeparated: %s\n", lineSeparated);
 
 		return text;
 	}

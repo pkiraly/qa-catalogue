@@ -5,8 +5,7 @@ import org.marc4j.MarcStreamReader;
 import org.marc4j.MarcXmlReader;
 import org.marc4j.marc.Record;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,12 +36,31 @@ public class ReadMarc {
 		return reader;
 	}
 
+	public static MarcReader getLineSeparatedMarcReader(String fileName) throws Exception {
+		MarcReader reader = new LineSeparatedMarcReader(fileName);
+		return reader;
+	}
+
+	public static MarcReader getMarcStringReader(String content) throws Exception {
+		InputStream is = new ByteArrayInputStream(content.getBytes());
+		MarcReader reader = new MarcStreamReader(is);
+		return reader;
+	}
+
 	public static MarcReader getReader(String fileName, boolean isMarcxml) throws Exception {
-		MarcReader reader = (isMarcxml)
-			? ReadMarc.getXmlReader(fileName)
-			: ReadMarc.getStreamReader(fileName);
+		return getReader(fileName, isMarcxml, false);
+	}
+
+	public static MarcReader getReader(String fileName, boolean isMarcxml, boolean isLineSeaparated) throws Exception {
+		MarcReader reader = null;
+		if (isLineSeaparated)
+			reader = ReadMarc.getLineSeparatedMarcReader(fileName);
+		else
+			reader = (isMarcxml) ? ReadMarc.getXmlReader(fileName) : ReadMarc.getStreamReader(fileName);
 
 		return reader;
 	}
+
+
 
 }

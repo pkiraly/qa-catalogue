@@ -81,7 +81,7 @@ public class Formatter implements MarcFileProcessor {
 
 	@Override
 	public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
-		System.err.println(marc4jRecord.getControlNumber());
+		// System.err.println(marc4jRecord.getControlNumber());
 		if (
 			  (
 				marc4jRecord.getControlNumber() != null
@@ -107,7 +107,7 @@ public class Formatter implements MarcFileProcessor {
 				values.add(marcRecord.getId());
 			for (MarcSpec marcSpec : parameters.getSelector()) {
 				List<String> results = marcRecord.select(marcSpec);
-				values.add(results.isEmpty() ? "" : StringUtils.join(results, "|"));
+				values.add(results.isEmpty() ? "" : StringUtils.join(results, "||"));
 			}
 			System.out.println(StringUtils.join(values, "\t"));
 		}

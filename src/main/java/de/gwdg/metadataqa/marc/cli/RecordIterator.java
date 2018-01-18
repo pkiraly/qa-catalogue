@@ -41,6 +41,7 @@ public class RecordIterator {
 		Leader.Type defaultRecordType = processor.getParameters().getDefaultRecordType();
 		boolean fixAlephseq = processor.getParameters().fixAlephseq();
 		boolean isMarcxml = processor.getParameters().isMarcxml();
+		boolean isLineSeparated = processor.getParameters().isLineSeparated();
 
 		if (processor.getParameters().doLog())
 			logger.info("marcVersion: " + marcVersion.getCode() + ", " + marcVersion.getLabel());
@@ -57,7 +58,7 @@ public class RecordIterator {
 				logger.info("processing: " + fileName);
 
 			try {
-				MarcReader reader = ReadMarc.getReader(path.toString(), isMarcxml);
+				MarcReader reader = ReadMarc.getReader(path.toString(), isMarcxml, isLineSeparated);
 				while (reader.hasNext()) {
 					Record marc4jRecord = reader.next();
 					i++;

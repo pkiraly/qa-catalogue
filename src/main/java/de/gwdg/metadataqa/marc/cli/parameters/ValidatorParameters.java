@@ -3,14 +3,14 @@ package de.gwdg.metadataqa.marc.cli.parameters;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import org.apache.commons.cli.*;
 
-public class ValidatorParameters extends CommonParameters {
+import java.io.Serializable;
+
+public class ValidatorParameters extends CommonParameters implements Serializable {
 	public static final String DEFAULT_FILE_NAME = "validation-report.txt";
 
 	private String fileName = DEFAULT_FILE_NAME;
-	private boolean doSummary;
+	private boolean doSummary = false;
 	private ValidationErrorFormat format = ValidationErrorFormat.TEXT;
-
-	private String[] args;
 	private boolean useStandardOutput = false;
 	private boolean isOptionSet;
 
@@ -23,6 +23,10 @@ public class ValidatorParameters extends CommonParameters {
 			options.addOption("r", "format", true, "specify a format");
 			isOptionSet = true;
 		}
+	}
+
+	public ValidatorParameters() {
+		super();
 	}
 
 	public ValidatorParameters(String[] arguments) throws ParseException {
@@ -60,7 +64,6 @@ public class ValidatorParameters extends CommonParameters {
 	public ValidationErrorFormat getFormat() {
 		return format;
 	}
-
 
 	@Override
 	public String formatParameters() {

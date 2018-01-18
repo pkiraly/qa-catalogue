@@ -54,5 +54,23 @@ public class ISSNValidatorTest {
 		assertEquals(0, response.getValidationErrors().size());
 	}
 
+ 	@Test
+	public void testNormalization() {
+		MarcRecord record = new MarcRecord("test");
+		DataField field = new DataField(Tag411.getInstance(), " ", " ", "x", "0024-9319 ;");
+		field.setRecord(record);
+		MarcSubfield subfield = field.getSubfield("x").get(0);
+		ValidatorResponse response = subfield.getDefinition().getValidator().isValid(subfield);
+		assertTrue(response.isValid());
+		assertEquals(0, response.getValidationErrors().size());
+
+		DataField fieldWithText = new DataField(Tag411.getInstance(), " ", " ", "x", "1040-0400 (ISSN)");
+		fieldWithText.setRecord(record);
+		subfield = fieldWithText.getSubfield("x").get(0);
+		response = subfield.getDefinition().getValidator().isValid(subfield);
+		assertTrue(response.isValid());
+		assertEquals(0, response.getValidationErrors().size());
+	}
+
 	// TODO test it: "1572-9001 (ESSN), 1040-0400 (ISSN). -"
 }

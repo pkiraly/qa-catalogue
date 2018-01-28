@@ -9,6 +9,8 @@ import de.gwdg.metadataqa.marc.Utils;
 public class MusicalInstrumentsOrVoicesCodes extends CodeList {
 
 	private void initialize() {
+		name = "Instruments or Voices Codes";
+		url = "http://www.loc.gov/marc/bibliographic/bd048.html";
 		codes = Utils.generateCodes(
 			"ba", "Brass - Horn",
 			"bb", "Brass - Trumpet",

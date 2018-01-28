@@ -9,6 +9,8 @@ import de.gwdg.metadataqa.marc.Utils;
 public class SubjectHeadingAndTermSourceCodes extends CodeList {
 
 	private void initialize() {
+		name = "Subject Heading and Term Source Codes";
+		url = "http://www.loc.gov/standards/sourcelist/subject.html";
 		codes = Utils.generateCodes(
 			"aass", "Asian American Studies Library subject headings in A Guide for establishing Asian American core collections (Berkeley, CA: Asian American Studies Library, University of California, Berkeley)",
 			"aat", "Art & architecture thesaurus (Los Angeles, CA: Getty Research Institute, Getty Vocabulary Program)",

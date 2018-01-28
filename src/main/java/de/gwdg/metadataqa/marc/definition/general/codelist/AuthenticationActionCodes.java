@@ -9,6 +9,8 @@ import de.gwdg.metadataqa.marc.Utils;
 public class AuthenticationActionCodes extends CodeList {
 
 	private void initialize() {
+		name = "MARC Authentication Action Code List";
+		url = "http://www.loc.gov/standards/valuelist/marcauthen.html";
 		codes = Utils.generateCodes(
 			"anuc", "Australian National Union Catalog",
 			"croatica", "Croatian National Bibliography",

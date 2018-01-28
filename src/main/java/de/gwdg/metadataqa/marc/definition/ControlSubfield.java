@@ -227,6 +227,10 @@ public class ControlSubfield {
 		return parser;
 	}
 
+	public List<Code> getHistoricalCodes() {
+		return historicalCodes;
+	}
+
 	@Override
 	public String toString() {
 		return "ControlSubField{" +

@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.*;
 import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.utils.MarcTagLister;
 import org.apache.commons.lang.StringUtils;
 
@@ -11,7 +12,7 @@ import java.util.*;
 
 public class MappingToJson {
 
-	private static boolean exportSubfieldCodes = false;
+	private static boolean exportSubfieldCodes = true;
 	private static List<String> nonMarc21TagLibraries = Arrays.asList(
 		"oclctags", "fennicatags", "dnbtags", "sztetags", "genttags", "holdings"
 	);
@@ -79,7 +80,7 @@ public class MappingToJson {
 			try {
 				getInstance = tagClass.getMethod("getInstance");
 				tag = (DataFieldDefinition) getInstance.invoke(tagClass);
-				items.add(tagToJson(tag));
+				items.add(dataFieldToJson(tag));
 			} catch (NoSuchMethodException
 			       | IllegalAccessException
 			       | InvocationTargetException e) {
@@ -115,6 +116,13 @@ public class MappingToJson {
 			}
 			text += ",\"codes\":[\n" + StringUtils.join(codes, ",\n") + "\n]";
 		}
+		if (subfield.getHistoricalCodes() != null) {
+			List<String> codes = new ArrayList<>();
+			for (Code code : subfield.getHistoricalCodes()) {
+				codes.add(toJson(true, "code", code.getCode(), "label", code.getLabel()));
+			}
+			text += ",\"historical-codes\":[\n" + StringUtils.join(codes, ",\n") + "\n]";
+		}
 		return "{" + text + "}";
 	}
 
@@ -131,7 +139,7 @@ public class MappingToJson {
 			return StringUtils.join(entries, ",");
 	}
 
-	private static String tagToJson(DataFieldDefinition tag) {
+	private static String dataFieldToJson(DataFieldDefinition tag) {
 		String text = "{" + toJson(false,
 			"tag", tag.getTag(),
 			"label", tag.getLabel(),
@@ -152,13 +160,23 @@ public class MappingToJson {
 			text += "}\n";
 		}
 
-		text += ",\"subfields\":[\n";
 		List<String> subfields = new ArrayList<>();
 		for (SubfieldDefinition subfield : tag.getSubfields()) {
 			subfields.add(subfieldToJson(subfield));
 		}
-		text += StringUtils.join(subfields, ",\n");
-		text += "]";
+		text += ",\"subfields\":[\n" + StringUtils.join(subfields, ",\n") + "]\n";
+
+		if (tag.getHistoricalSubfields() != null) {
+			subfields = new ArrayList<>();
+			for (Code code : tag.getHistoricalSubfields()) {
+				subfields.add(toJson(true,
+					"code", code.getCode(),
+					"label", code.getLabel()
+				));
+			}
+			text += ",\"historical-subfields\":[\n" + StringUtils.join(subfields, ",\n") + "]\n";
+		}
+
 		text += "}";
 
 		return text;
@@ -175,11 +193,22 @@ public class MappingToJson {
 		if (MappingToJson.exportSubfieldCodes) {
 			if (subfield.getCodeList() != null
 				&& !subfield.getCodeList().getCodes().isEmpty()) {
-				List<String> codes = new ArrayList<>();
-				for (Code code : subfield.getCodeList().getCodes()) {
-					codes.add(code.getCode());
+				CodeList codeList = subfield.getCodeList();
+				String meta = toJson(false,
+					"name", codeList.getName(),
+					"url", codeList.getUrl()
+				);
+				if (!codeList.getName().equals("MARC Organization Codes")) {
+					List<String> codes = new ArrayList<>();
+					for (Code code : subfield.getCodeList().getCodes()) {
+						codes.add(toJson(true,
+							"code", code.getCode(),
+							"label", code.getLabel().replace("\"", "\\\"")
+						));
+					}
+					meta += ",\"codes\":[" + StringUtils.join(codes, ",\n") + "]\n";
 				}
-				text += ",\"codes\":\"" + StringUtils.join(codes, "\",\"") + "\"";
+				text += ",\"codelist\":{" + meta + "}\n";
 			}
 		}
 		text += "}";

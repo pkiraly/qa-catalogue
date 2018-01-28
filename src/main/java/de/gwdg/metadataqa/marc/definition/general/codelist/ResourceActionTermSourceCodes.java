@@ -9,10 +9,12 @@ import de.gwdg.metadataqa.marc.Utils;
 public class ResourceActionTermSourceCodes extends CodeList {
 
 	private void initialize() {
+		name = "Resource Action Term Source Codes";
+		url = "https://www.loc.gov/standards/sourcelist/resource-action.html";
 		codes = Utils.generateCodes(
-			"pda", "    Preservation & digitization actions: terminology for MARC 21 Field 583 (Mountain View, CA: RLG/ARL/LC Task Force on 583 Field)",
+			"pda", "Preservation & digitization actions: terminology for MARC 21 Field 583 (Mountain View, CA: RLG/ARL/LC Task Force on 583 Field)",
 			"pet", "Preservation event types (Washington, DC: Library of Congress)",
-			"stmanf", "    Standard terminology for the MARC 21 Actions Note Field (Washington, DC: Library of Congress, Network Development and MARC Standards Office)"
+			"stmanf", "Standard terminology for the MARC 21 Actions Note Field (Washington, DC: Library of Congress, Network Development and MARC Standards Office)"
 		);
 		indexCodes();
 	}

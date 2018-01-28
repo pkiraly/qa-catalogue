@@ -15,6 +15,8 @@ import de.gwdg.metadataqa.marc.Utils;
 public class ClassificationSchemeSourceCodes extends CodeList {
 
 	private void initialize() {
+		name = "Classification Scheme Source Codes";
+		url = "http://www.loc.gov/standards/sourcelist/classification.html";
 		codes = Utils.generateCodes(
 			"accs", "Annehurst curriculum classification system (West Lafayette, IN: Kappa Delta Pi)",
 			"acmccs", "ACM Computing Classification System [2008 Version]",
@@ -86,7 +88,7 @@ public class ClassificationSchemeSourceCodes extends CodeList {
 			"mmlcc", "Manual of map library classification and cataloguing (London: Ministry of Defence)",
 			"modocs", "Missouri state documents classification: post-reorganization agency codes and form divisions  (Jefferson City: Missouri State Library)",
 			"moys", "Moys, Elizabeth M. Moys classification and thesaurus for legal materials (London: Bowker-Saur)",
-			"mpilcs", "  MPI Luxembourg Classification System  (Max Planck Institute Luxembourg)",
+			"mpilcs", "MPI Luxembourg Classification System  (Max Planck Institute Luxembourg)",
 			"mpkkl", "Maanpuolustuskorkeakoulun kirjaston luokitusjärjestelmä",
 			"msc", "Mathematical subject classification (Providence, RI: American Mathematical Society)",
 			"msdocs", "Mississippi state government publications. Vol. 1, July 1975/June 1980 (Jackson: Mississippi Library Commission)",

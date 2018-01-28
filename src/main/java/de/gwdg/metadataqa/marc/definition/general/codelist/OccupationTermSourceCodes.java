@@ -9,6 +9,8 @@ import de.gwdg.metadataqa.marc.Utils;
 public class OccupationTermSourceCodes extends CodeList {
 
 	private void initialize() {
+		name = "Occupation Term Source Codes";
+		url = "http://www.loc.gov/standards/sourcelist/occupation.html";
 		codes = Utils.generateCodes(
 			"dot", "Dictionary of occupational titles (Washington: United States Dept. of Labor, Employment and Training Administration, United States Employment Service)",
 			"iaat", "IAA thesaurus: terminologie der Arbeit, Beschüftigung und Ausbildung (Genf: Internationales arbeitsamt)",

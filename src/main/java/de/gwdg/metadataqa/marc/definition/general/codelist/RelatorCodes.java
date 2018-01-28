@@ -2,9 +2,15 @@ package de.gwdg.metadataqa.marc.definition.general.codelist;
 
 import de.gwdg.metadataqa.marc.Utils;
 
+/**
+ * MARC Code List for Relators
+ * https://www.loc.gov/marc/relators/relaterm.html
+ */
 public class RelatorCodes extends CodeList {
 
 	private void initialize() {
+		name = "MARC Code List for Relators";
+		url = "https://www.loc.gov/marc/relators/relaterm.html";
 		codes = Utils.generateCodes(
 			"abr", "Abridger",
 			"acp", "Art copyist",

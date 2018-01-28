@@ -9,6 +9,8 @@ import de.gwdg.metadataqa.marc.Utils;
 public class TaxonomicClassificationSourceCodes extends CodeList {
 
 	private void initialize() {
+		name = "Taxonomic Classification Source Codes";
+		url = "https://www.loc.gov/standards/sourcelist/taxonomic.html";
 		codes = Utils.generateCodes(
 			"adw", "Animal Diversity Web (University of Michigan, Museum of Zoology)",
 			"ampw", "AmphibiaWeb",

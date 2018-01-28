@@ -169,4 +169,8 @@ public abstract class DataFieldDefinition {
 		}
 		return null;
 	}
+
+	public List<Code> getHistoricalSubfields() {
+		return historicalSubfields;
+	}
 }

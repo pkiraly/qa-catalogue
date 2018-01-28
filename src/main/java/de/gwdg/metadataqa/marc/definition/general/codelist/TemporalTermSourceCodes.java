@@ -9,6 +9,8 @@ import de.gwdg.metadataqa.marc.Utils;
 public class TemporalTermSourceCodes extends CodeList {
 
 	private void initialize() {
+		name = "Temporal Term Source Codes";
+		url = "http://www.loc.gov/standards/sourcelist/temporal.html";
 		codes = Utils.generateCodes(
 		);
 		indexCodes();

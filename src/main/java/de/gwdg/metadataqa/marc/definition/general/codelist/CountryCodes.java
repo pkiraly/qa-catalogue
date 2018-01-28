@@ -9,6 +9,8 @@ import de.gwdg.metadataqa.marc.Utils;
 public class CountryCodes extends CodeList {
 
 	private void initialize() {
+		name = "MARC Code List for Countries";
+		url = "http://www.loc.gov/marc/countries/countries_code.html";
 		codes = Utils.generateCodes(
 			"aa", "Albania",
 			"abc", "Alberta",

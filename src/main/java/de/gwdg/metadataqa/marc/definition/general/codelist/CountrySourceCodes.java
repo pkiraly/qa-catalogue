@@ -9,6 +9,8 @@ import de.gwdg.metadataqa.marc.Utils;
 public class CountrySourceCodes extends CodeList {
 
 	private void initialize() {
+		name = "Country Code and Term Source Codes";
+		url = "http://www.loc.gov/standards/sourcelist/country.html";
 		codes = Utils.generateCodes(
 			"marccountry", "MARC Code List for Countries (Washington, DC: Library of Congress)",
 			"iso3166", "Codes for the representation of names of countries and their subdivisions-Part 1, Country codes (Geneva: International Organization for Standardization)",

@@ -11,6 +11,8 @@ import de.gwdg.metadataqa.marc.utils.CodeFileReader;
 public class OrganizationCodes extends CodeList {
 
 	private void initialize() {
+		name = "MARC Organization Codes";
+		url = "http://www.loc.gov/marc/organizations/orgshome.html";
 		codes = CodeFileReader.fileToCodeList("marc/organization-codes.csv");
 		indexCodes();
 	}

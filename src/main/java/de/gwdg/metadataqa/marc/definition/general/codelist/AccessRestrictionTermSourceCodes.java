@@ -9,6 +9,8 @@ import de.gwdg.metadataqa.marc.Utils;
 public class AccessRestrictionTermSourceCodes extends CodeList {
 
 	private void initialize() {
+		name = "Access Restriction Term Source Codes";
+		url = "https://www.loc.gov/standards/sourcelist/access-restriction.html";
 		codes = Utils.generateCodes(
 			"cc", "Creative Commons",
 			"rs", "Rights Statements",

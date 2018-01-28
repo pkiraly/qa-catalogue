@@ -2,9 +2,15 @@ package de.gwdg.metadataqa.marc.definition.general.codelist;
 
 import de.gwdg.metadataqa.marc.Utils;
 
+/**
+ * Standard Identifier Source Codes
+ * https://www.loc.gov/standards/sourcelist/standard-identifier.html
+ */
 public class StandardIdentifierSourceCodes extends CodeList {
 
 	private void initialize() {
+		name = "Standard Identifier Source Codes";
+		url = "https://www.loc.gov/standards/sourcelist/standard-identifier.html";
 		codes = Utils.generateCodes(
 			"agorha", "AGORHA (Accès Global et Organisé aux Ressources en Histoire de l'Art)",
 			"agrovoc", "AGROVOC multilingual agricultural thesaurus (Rome: APIMONDIA)",

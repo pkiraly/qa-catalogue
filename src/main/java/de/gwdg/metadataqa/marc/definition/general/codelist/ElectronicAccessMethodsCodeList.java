@@ -9,6 +9,8 @@ import de.gwdg.metadataqa.marc.Utils;
 public class ElectronicAccessMethodsCodeList extends CodeList {
 
 	private void initialize() {
+		name = "Electronic Access Methods Code List";
+		url = "http://www.loc.gov/standards/valuelist/electronaccess.html";
 		codes = Utils.generateCodes(
 			"acap", "Application configuration access protocol",
 			"afs", "Andrew File System global file names",

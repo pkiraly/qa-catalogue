@@ -13,6 +13,8 @@ import de.gwdg.metadataqa.marc.Utils;
 public class HoldingSchemeSourceCodes extends CodeList {
 
 	private void initialize() {
+		name = "Holding Scheme Source Codes";
+		url = "http://www.loc.gov/standards/sourcelist/holding-scheme.html";
 		codes = Utils.generateCodes(
 			"iso10324", "Holdings Statements-Summary Level (ISO 10324) [holdings statements for Bbbliographic items (ANSI/NISO Z39.71)]",
 			"z39-42", "Serial Holdings Statements at the Summary Level (ANSI Z39.42) [replaced by Z39.44]",

@@ -12,6 +12,8 @@ import de.gwdg.metadataqa.marc.Utils;
 public class CurriculumObjectiveTermAndCodeSourceCodes extends CodeList {
 
 	private void initialize() {
+		name = "Curriculum Objective Term and Code Source Codes";
+		url = "http://www.loc.gov/standards/sourcelist/curriculum-objective.html";
 		codes = Utils.generateCodes(
 			"abledata", "ABLEDATA thesaurus (Silver Spring, MD: National Rehabilitation Information Center)",
 			"acccp", "Australian Cross-curriculum Priorities (Australian Curriculum, Assessment and Reporting Authority (ACARA))",

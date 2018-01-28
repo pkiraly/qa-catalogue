@@ -10,6 +10,8 @@ import de.gwdg.metadataqa.marc.Utils;
 public class CitationSchemeSourceCodes extends CodeList {
 
 	private void initialize() {
+		name = "Citation Scheme Source Codes";
+		url = "https://www.loc.gov/standards/sourcelist/citation.html";
 		codes = Utils.generateCodes(
 			"bdlc", "Bieber's dictionary of legal citation (Buffalo, NY: W.S.Hein)",
 			"flr", "Fundamentals of legal research (Westbury, NY: Foundation Press)",

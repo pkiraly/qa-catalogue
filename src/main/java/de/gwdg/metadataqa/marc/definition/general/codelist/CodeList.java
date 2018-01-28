@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 public class CodeList implements Validator {
+	protected String name;
+	protected String url;
 	protected List<Code> codes;
 	protected Map<String, Code> index = new HashMap<>();
 
@@ -33,6 +35,14 @@ public class CodeList implements Validator {
 
 	public boolean isValid(String code, MarcSubfield field) {
 		return index.containsKey(code);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getUrl() {
+		return url;
 	}
 
 	@Override

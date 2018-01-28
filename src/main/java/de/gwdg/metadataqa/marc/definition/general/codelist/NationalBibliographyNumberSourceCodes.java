@@ -9,6 +9,8 @@ import de.gwdg.metadataqa.marc.Utils;
 public class NationalBibliographyNumberSourceCodes extends CodeList {
 
 	private void initialize() {
+		name = "National Bibliography Number Source Codes";
+		url = "http://www.loc.gov/standards/sourcelist/national-bibliography.html";
 		codes = Utils.generateCodes(
 			"abc", "Anuario bibliográfico colombiano (Calí: Biblioteca Jorge García B.)",
 			"abd", "Anuario bibliográfico dominicana (Ciudad Trujillo: Biblioteca Nacional)",

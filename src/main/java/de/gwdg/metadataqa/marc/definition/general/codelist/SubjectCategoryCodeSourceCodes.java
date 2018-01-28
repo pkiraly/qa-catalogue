@@ -9,6 +9,8 @@ import de.gwdg.metadataqa.marc.Utils;
 public class SubjectCategoryCodeSourceCodes extends CodeList {
 
 	private void initialize() {
+		name = "Subject Category Code Source Codes";
+		url = "http://www.loc.gov/standards/sourcelist/subject-category.html";
 		codes = Utils.generateCodes(
 			"aat", "Art & architecture thesaurus (Los Angeles, CA: Getty Research Institute, Getty Vocabulary Program",
 			"agricola", "AGRICOLA subject category codes (Agriculture Network Information Center)",

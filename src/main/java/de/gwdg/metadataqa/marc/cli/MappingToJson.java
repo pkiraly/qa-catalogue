@@ -20,9 +20,9 @@ public class MappingToJson {
 	public static void main(String[] args) {
 		List<Class<? extends DataFieldDefinition>> tags = MarcTagLister.listTags();
 
-		System.out.println("[");
+		System.out.println("{");
 
-		System.out.println("{\"tag\":\"Leader\",\"positions\":[");
+		System.out.println("\"Leader\":{\"positions\":[");
 		List<String> positions = new ArrayList<>();
 		for (ControlSubfield subfield : LeaderSubfields.getSubfields()) {
 			positions.add(controlSubfieldToJson(subfield));
@@ -30,11 +30,11 @@ public class MappingToJson {
 		System.out.println(StringUtils.join(positions, ",\n"));
 		System.out.println("]},");
 
-		System.out.println(toJson(true, "tag", "001", "label", Control001.getLabel()) + ",");
-		System.out.println(toJson(true, "tag", "003", "label", Control003.getLabel()) + ",");
-		System.out.println(toJson(true, "tag", "005", "label", Control005.getLabel()) + ",");
+		System.out.println("\"001\":" + toJson(true, "label", Control001.getLabel()) + ",");
+		System.out.println("\"003\":" + toJson(true, "label", Control003.getLabel()) + ",");
+		System.out.println("\"005\":" + toJson(true, "label", Control005.getLabel()) + ",");
 
-		System.out.printf("{\"tag\":\"006\",\"label\":\"%s\",\"types\":[\n", Control006.getLabel());
+		System.out.printf("\"006\":{\"label\":\"%s\",\"types\":[\n", Control006.getLabel());
 		int i = Control006Subfields.getSubfields().keySet().size();
 		for (Control008Type type : Control006Subfields.getSubfields().keySet()) {
 			System.out.printf("{\"type\":\"%s\",\"positions\":[\n", type.getValue());
@@ -46,7 +46,7 @@ public class MappingToJson {
 		}
 		System.out.println("]},");
 
-		System.out.printf("{\"tag\":\"007\",\"label\":\"%s\",\"categories\":[\n", Control007.getLabel());
+		System.out.printf("\"007\":{\"label\":\"%s\",\"categories\":[\n", Control007.getLabel());
 		i = Control007Subfields.getSubfields().keySet().size();
 		for (Control007Category category : Control007Subfields.getSubfields().keySet()) {
 			System.out.printf("{\"type\":\"%s\",\"positions\":[\n", category.getLabel());
@@ -58,7 +58,7 @@ public class MappingToJson {
 		}
 		System.out.println("]},");
 
-		System.out.printf("{\"tag\":\"008\",\"label\":\"%s\",\"types\":[", Control008.getLabel());
+		System.out.printf("\"008\":{\"label\":\"%s\",\"types\":[", Control008.getLabel());
 		i = Control008Subfields.getSubfields().keySet().size();
 		for (Control008Type type : Control008Subfields.getSubfields().keySet()) {
 			System.out.printf("{\"type\":\"%s\",\"positions\":[\n", type.getValue());
@@ -88,7 +88,7 @@ public class MappingToJson {
 			}
 		}
 		System.out.println(StringUtils.join(items, ",\n"));
-		System.out.println("]");
+		System.out.println("}");
 	}
 
 	private static boolean isNonMarc21Tag(Class<? extends DataFieldDefinition> tagClass) {
@@ -140,8 +140,7 @@ public class MappingToJson {
 	}
 
 	private static String dataFieldToJson(DataFieldDefinition tag) {
-		String text = "{" + toJson(false,
-			"tag", tag.getTag(),
+		String text = "\"" + tag.getTag() + "\":{" + toJson(false,
 			"label", tag.getLabel(),
 			"URL", tag.getDescriptionUrl(),
 			"cardinality", (tag.getCardinality().getCode().equals("R")

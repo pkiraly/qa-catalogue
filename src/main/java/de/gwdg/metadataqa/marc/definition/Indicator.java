@@ -178,6 +178,10 @@ public class Indicator {
 		return versionSpecificCodes.containsKey(marcVersion);
 	}
 
+	public List<Code> getHistoricalCodes() {
+		return historicalCodes;
+	}
+
 	public boolean isVersionSpecificCode(MarcVersion marcVersion, String code) {
 		return versionSpecificCodes != null
 		       && !versionSpecificCodes.isEmpty()

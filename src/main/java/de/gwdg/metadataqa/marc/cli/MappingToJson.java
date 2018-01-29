@@ -131,7 +131,8 @@ public class MappingToJson {
 		for (Map.Entry value : values.entrySet()) {
 			String jsonEntry;
 			if (value.getValue().equals("true")
-				|| value.getValue().equals("false"))
+				|| value.getValue().equals("false")
+				|| value.getValue().equals("null"))
 				jsonEntry = String.format("\"%s\":%s", value.getKey(), value.getValue());
 			else
 				jsonEntry = String.format("\"%s\":\"%s\"", value.getKey(), value.getValue());
@@ -149,6 +150,10 @@ public class MappingToJson {
 			"url", tag.getDescriptionUrl(),
 			"repeatable", (tag.getCardinality().getCode().equals("R") ? "false" : "true")
 		);
+		text += ",\"indicator1\":" + indicatorToJson("ind1", tag.getInd1());
+		text += ",\"indicator2\":" + indicatorToJson("ind2", tag.getInd2());
+
+		/*
 		if (tag.getInd1().exists() || tag.getInd2().exists()) {
 			text += ",\"indicators\":{";
 
@@ -161,6 +166,7 @@ public class MappingToJson {
 			text += StringUtils.join(indicators, ",\n");
 			text += "}\n";
 		}
+		*/
 
 		List<String> subfields = new ArrayList<>();
 		for (SubfieldDefinition subfield : tag.getSubfields()) {
@@ -215,8 +221,28 @@ public class MappingToJson {
 	}
 
 	private static String indicatorToJson(String label, Indicator indicator) {
-		String text = String.format("\"%s\":{", label);
-		text += String.format("\"label\": \"%s\"", indicator.getLabel());
+		if (!indicator.exists())
+			return "null";
+		String text = "{";
+		text += toJson(false, "label", indicator.getLabel());
+		List<String> codes = new ArrayList<>();
+		for (Code code : indicator.getCodes()) {
+			codes.add(toJson(true,
+				"code", code.getCode(),
+				"label", code.getLabel().replace("\"", "\\\"")
+			));
+		}
+		text += ",\"codes\":[" + StringUtils.join(codes, ",\n") + "]\n";
+		if (indicator.getHistoricalCodes() != null) {
+			codes = new ArrayList<>();
+			for (Code code : indicator.getHistoricalCodes()) {
+				codes.add(toJson(true,
+					"code", code.getCode(),
+					"label", code.getLabel().replace("\"", "\\\"")
+				));
+			}
+			text += ",\"historical-codes\":[" + StringUtils.join(codes, ",\n") + "]\n";
+		}
 		text += "}";
 		return text;
 	}

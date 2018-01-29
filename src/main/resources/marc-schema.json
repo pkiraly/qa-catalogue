@@ -2954,13 +2954,13 @@
 ]}
 ]}
 ]},
-"010":{"label":"Library of Congress Control Number","url":"https://www.loc.gov/marc/bibliographic/bd010.html","repeatable":true,"subfields":{
+"010":{"label":"Library of Congress Control Number","url":"https://www.loc.gov/marc/bibliographic/bd010.html","repeatable":true,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"LC control number","repeatable":true},
 "b":{"label":"NUCMC control number","repeatable":false},
 "z":{"label":"Canceled/invalid LC control number","repeatable":false},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"013":{"label":"Patent Control Information","url":"https://www.loc.gov/marc/bibliographic/bd013.html","repeatable":false,"subfields":{
+"013":{"label":"Patent Control Information","url":"https://www.loc.gov/marc/bibliographic/bd013.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Number","repeatable":true},
 "b":{"label":"Country","repeatable":true},
 "c":{"label":"Type of number","repeatable":true},
@@ -2970,7 +2970,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"015":{"label":"National Bibliography Number","url":"https://www.loc.gov/marc/bibliographic/bd015.html","repeatable":false,"subfields":{
+"015":{"label":"National Bibliography Number","url":"https://www.loc.gov/marc/bibliographic/bd015.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"National bibliography number","repeatable":false},
 "q":{"label":"Qualifying information","repeatable":false},
 "z":{"label":"Canceled/invalid national bibliography number","repeatable":false},
@@ -2978,15 +2978,17 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"016":{"label":"National Bibliographic Agency Control Number","url":"https://www.loc.gov/marc/bibliographic/bd016.html","repeatable":false,"indicators":{"ind1":{"label": "National bibliographic agency"}}
-,"subfields":{
+"016":{"label":"National Bibliographic Agency Control Number","url":"https://www.loc.gov/marc/bibliographic/bd016.html","repeatable":false,"indicator1":{"label":"National bibliographic agency","codes":[{"code":" ","label":"Library and Archives Canada"},
+{"code":"7","label":"Source specified in subfield $2"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Record control number","repeatable":true},
 "z":{"label":"Canceled/invalid control number","repeatable":false},
 "2":{"label":"Source","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"017":{"label":"Copyright or Legal Deposit Number","url":"https://www.loc.gov/marc/bibliographic/bd017.html","repeatable":false,"indicators":{"ind2":{"label": "Display constant controller"}}
-,"subfields":{
+"017":{"label":"Copyright or Legal Deposit Number","url":"https://www.loc.gov/marc/bibliographic/bd017.html","repeatable":false,"indicator1":null,"indicator2":{"label":"Display constant controller","codes":[{"code":" ","label":"Copyright or legal deposit number"},
+{"code":"8","label":"No display constant generated"}]
+},"subfields":{
 "a":{"label":"Copyright or legal deposit number","repeatable":false},
 "b":{"label":"Assigning agency","repeatable":true},
 "d":{"label":"Date","repeatable":true},
@@ -2996,12 +2998,12 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"018":{"label":"Copyright Article-Fee Code","url":"https://www.loc.gov/marc/bibliographic/bd018.html","repeatable":true,"subfields":{
+"018":{"label":"Copyright Article-Fee Code","url":"https://www.loc.gov/marc/bibliographic/bd018.html","repeatable":true,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Copyright article-fee code","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"020":{"label":"International Standard Book Number","url":"https://www.loc.gov/marc/bibliographic/bd020.html","repeatable":false,"subfields":{
+"020":{"label":"International Standard Book Number","url":"https://www.loc.gov/marc/bibliographic/bd020.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"International Standard Book Number","repeatable":true},
 "c":{"label":"Terms of availability","repeatable":true},
 "q":{"label":"Qualifying information","repeatable":false},
@@ -3011,8 +3013,10 @@
 ,"historical-subfields":{
 "b":{"label":"Binding information (BK, MP, MU) [OBSOLETE]"}}
 },
-"022":{"label":"International Standard Serial Number","url":"https://www.loc.gov/marc/bibliographic/bd022.html","repeatable":false,"indicators":{"ind1":{"label": "Level of international interest"}}
-,"subfields":{
+"022":{"label":"International Standard Serial Number","url":"https://www.loc.gov/marc/bibliographic/bd022.html","repeatable":false,"indicator1":{"label":"Level of international interest","codes":[{"code":" ","label":"No level specified"},
+{"code":"0","label":"Continuing resource of international interest"},
+{"code":"1","label":"Continuing resource not of international interest"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"International Standard Serial Number","repeatable":true},
 "l":{"label":"ISSN-L","repeatable":true},
 "m":{"label":"Canceled ISSN-L","repeatable":false},
@@ -3025,9 +3029,17 @@
 "b":{"label":"Form of issue [OBSOLETE] [CAN/MARC only]"},
 "c":{"label":"Price [OBSOLETE] [CAN/MARC only]"}}
 },
-"024":{"label":"Other Standard Identifier","url":"https://www.loc.gov/marc/bibliographic/bd024.html","repeatable":false,"indicators":{"ind1":{"label": "Type of standard number or code"},
-"ind2":{"label": "Difference indicator"}}
-,"subfields":{
+"024":{"label":"Other Standard Identifier","url":"https://www.loc.gov/marc/bibliographic/bd024.html","repeatable":false,"indicator1":{"label":"Type of standard number or code","codes":[{"code":"0","label":"International Standard Recording Code"},
+{"code":"1","label":"Universal Product Code"},
+{"code":"2","label":"International Standard Music Number"},
+{"code":"3","label":"International Article Number"},
+{"code":"4","label":"Serial Item and Contribution Identifier"},
+{"code":"7","label":"Source specified in subfield $2"},
+{"code":"8","label":"Unspecified type of standard number or code"}]
+},"indicator2":{"label":"Difference indicator","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"No difference"},
+{"code":"1","label":"Difference"}]
+},"subfields":{
 "a":{"label":"Standard number or code","repeatable":true},
 "c":{"label":"Terms of availability","repeatable":true},
 "d":{"label":"Additional codes following the standard number or code","repeatable":true},
@@ -3039,11 +3051,11 @@
 ,"historical-subfields":{
 "b":{"label":"Additional codes following the standard number [OBSOLETE]"}}
 },
-"025":{"label":"Overseas Acquisition Number","url":"https://www.loc.gov/marc/bibliographic/bd025.html","repeatable":false,"subfields":{
+"025":{"label":"Overseas Acquisition Number","url":"https://www.loc.gov/marc/bibliographic/bd025.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Overseas acquisition number","repeatable":false},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"026":{"label":"Fingerprint Identifier","url":"https://www.loc.gov/marc/bibliographic/bd026.html","repeatable":false,"subfields":{
+"026":{"label":"Fingerprint Identifier","url":"https://www.loc.gov/marc/bibliographic/bd026.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"First and second groups of characters","repeatable":true},
 "b":{"label":"Third and fourth groups of characters","repeatable":true},
 "c":{"label":"Date","repeatable":true},
@@ -3054,29 +3066,38 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"027":{"label":"Standard Technical Report Number","url":"https://www.loc.gov/marc/bibliographic/bd027.html","repeatable":false,"subfields":{
+"027":{"label":"Standard Technical Report Number","url":"https://www.loc.gov/marc/bibliographic/bd027.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Standard technical report number","repeatable":true},
 "q":{"label":"Qualifying information","repeatable":false},
 "z":{"label":"Canceled/invalid number","repeatable":false},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"028":{"label":"Publisher or Distributor Number","url":"https://www.loc.gov/marc/bibliographic/bd028.html","repeatable":false,"indicators":{"ind1":{"label": "Type of number"},
-"ind2":{"label": "Note/added entry controller"}}
-,"subfields":{
+"028":{"label":"Publisher or Distributor Number","url":"https://www.loc.gov/marc/bibliographic/bd028.html","repeatable":false,"indicator1":{"label":"Type of number","codes":[{"code":"0","label":"Issue number"},
+{"code":"1","label":"Matrix number"},
+{"code":"2","label":"Plate number"},
+{"code":"3","label":"Other music publisher number"},
+{"code":"4","label":"Video recording publisher number"},
+{"code":"5","label":"Other publisher number"},
+{"code":"6","label":"Distributor number"}]
+},"indicator2":{"label":"Note/added entry controller","codes":[{"code":"0","label":"No note, no added entry"},
+{"code":"1","label":"Note, added entry"},
+{"code":"2","label":"Note, no added entry"},
+{"code":"3","label":"No note, added entry"}]
+},"subfields":{
 "a":{"label":"Publisher or distributor number","repeatable":true},
 "b":{"label":"Source","repeatable":true},
 "q":{"label":"Qualifying information","repeatable":false},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"030":{"label":"CODEN Designation","url":"https://www.loc.gov/marc/bibliographic/bd030.html","repeatable":false,"subfields":{
+"030":{"label":"CODEN Designation","url":"https://www.loc.gov/marc/bibliographic/bd030.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Publisher or distributor number","repeatable":true},
 "z":{"label":"Canceled/invalid CODEN","repeatable":false},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"031":{"label":"Musical Incipits Information","url":"https://www.loc.gov/marc/bibliographic/bd031.html","repeatable":false,"subfields":{
+"031":{"label":"Musical Incipits Information","url":"https://www.loc.gov/marc/bibliographic/bd031.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Number of work","repeatable":true},
 "b":{"label":"Number of movement","repeatable":true},
 "c":{"label":"Number of excerpt","repeatable":true},
@@ -3098,15 +3119,21 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"032":{"label":"Postal Registration Number","url":"https://www.loc.gov/marc/bibliographic/bd032.html","repeatable":false,"subfields":{
+"032":{"label":"Postal Registration Number","url":"https://www.loc.gov/marc/bibliographic/bd032.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Postal registration number","repeatable":true},
 "b":{"label":"Source agency assigning number","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"033":{"label":"Date/Time and Place of an Event","url":"https://www.loc.gov/marc/bibliographic/bd033.html","repeatable":false,"indicators":{"ind1":{"label": "Type of date in subfield $a"},
-"ind2":{"label": "Type of event"}}
-,"subfields":{
+"033":{"label":"Date/Time and Place of an Event","url":"https://www.loc.gov/marc/bibliographic/bd033.html","repeatable":false,"indicator1":{"label":"Type of date in subfield $a","codes":[{"code":" ","label":"No date information"},
+{"code":"0","label":"Single date"},
+{"code":"1","label":"Multiple single dates"},
+{"code":"2","label":"Range of dates"}]
+},"indicator2":{"label":"Type of event","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"Capture"},
+{"code":"1","label":"Broadcast"},
+{"code":"2","label":"Finding"}]
+},"subfields":{
 "a":{"label":"Formatted date/time","repeatable":false},
 "b":{"label":"Geographic classification area code","repeatable":false},
 "c":{"label":"Geographic classification subarea code","repeatable":false},
@@ -3117,9 +3144,14 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"034":{"label":"Coded Cartographic Mathematical Data","url":"https://www.loc.gov/marc/bibliographic/bd034.html","repeatable":false,"indicators":{"ind1":{"label": "Type of scale"},
-"ind2":{"label": "Type of ring"}}
-,"subfields":{
+"034":{"label":"Coded Cartographic Mathematical Data","url":"https://www.loc.gov/marc/bibliographic/bd034.html","repeatable":false,"indicator1":{"label":"Type of scale","codes":[{"code":"0","label":"Scale indeterminable/No scale recorded"},
+{"code":"1","label":"Single scale"},
+{"code":"3","label":"Range of scales"}]
+,"historical-codes":[{"code":"2","label":"Two or more scales (BK, MP, SE) [OBSOLETE]"}]
+},"indicator2":{"label":"Type of ring","codes":[{"code":" ","label":"Not applicable"},
+{"code":"0","label":"Outer ring"},
+{"code":"1","label":"Exclusion ring"}]
+},"subfields":{
 "a":{"label":"Category of scale","repeatable":true},
 "b":{"label":"Constant ratio linear horizontal scale","repeatable":false},
 "c":{"label":"Constant ratio linear vertical scale","repeatable":false},
@@ -3145,20 +3177,22 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"035":{"label":"System Control Number","url":"https://www.loc.gov/marc/bibliographic/bd035.html","repeatable":false,"subfields":{
+"035":{"label":"System Control Number","url":"https://www.loc.gov/marc/bibliographic/bd035.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"System control number","repeatable":true},
 "z":{"label":"Canceled/invalid control number","repeatable":false},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"036":{"label":"Original Study Number for Computer Data Files","url":"https://www.loc.gov/marc/bibliographic/bd036.html","repeatable":false,"subfields":{
+"036":{"label":"Original Study Number for Computer Data Files","url":"https://www.loc.gov/marc/bibliographic/bd036.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Original study number","repeatable":true},
 "b":{"label":"Source agency assigning number","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"037":{"label":"Source of Acquisition","url":"https://www.loc.gov/marc/bibliographic/bd037.html","repeatable":false,"indicators":{"ind1":{"label": "Source of acquisition sequence"}}
-,"subfields":{
+"037":{"label":"Source of Acquisition","url":"https://www.loc.gov/marc/bibliographic/bd037.html","repeatable":false,"indicator1":{"label":"Source of acquisition sequence","codes":[{"code":" ","label":"Not applicable/No information provided/Earliest"},
+{"code":"2","label":"Intervening"},
+{"code":"3","label":"Current/Latest"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Stock number","repeatable":true},
 "b":{"label":"Source of stock number/acquisition","repeatable":true},
 "c":{"label":"Terms of availability","repeatable":false},
@@ -3170,12 +3204,12 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"038":{"label":"Record Content Licensor","url":"https://www.loc.gov/marc/bibliographic/bd038.html","repeatable":true,"subfields":{
+"038":{"label":"Record Content Licensor","url":"https://www.loc.gov/marc/bibliographic/bd038.html","repeatable":true,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Record content licensor","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"040":{"label":"Cataloging Source","url":"https://www.loc.gov/marc/bibliographic/bd040.html","repeatable":true,"subfields":{
+"040":{"label":"Cataloging Source","url":"https://www.loc.gov/marc/bibliographic/bd040.html","repeatable":true,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Original cataloging agency","repeatable":true},
 "b":{"label":"Language of cataloging","repeatable":true},
 "c":{"label":"Transcribing agency","repeatable":true},
@@ -3184,9 +3218,12 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"041":{"label":"Language Code","url":"https://www.loc.gov/marc/bibliographic/bd041.html","repeatable":false,"indicators":{"ind1":{"label": "Translation indication"},
-"ind2":{"label": "Source of code"}}
-,"subfields":{
+"041":{"label":"Language Code","url":"https://www.loc.gov/marc/bibliographic/bd041.html","repeatable":false,"indicator1":{"label":"Translation indication","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"Item not a translation/does not include a translation"},
+{"code":"1","label":"Item is or includes a translation"}]
+},"indicator2":{"label":"Source of code","codes":[{"code":" ","label":"MARC language code"},
+{"code":"7","label":"Source specified in subfield $2"}]
+},"subfields":{
 "a":{"label":"Language code of text/sound track or separate title","repeatable":false},
 "b":{"label":"Language code of summary or abstract","repeatable":false},
 "d":{"label":"Language code of sung or spoken text","repeatable":false},
@@ -3204,10 +3241,10 @@
 ,"historical-subfields":{
 "c":{"label":"Languages of separate titles (VM) [OBSOLETE, 1972], Languages of available translation (SE) [OBSOLETE, 1977]"}}
 },
-"042":{"label":"Authentication Code","url":"https://www.loc.gov/marc/bibliographic/bd042.html","repeatable":true,"subfields":{
+"042":{"label":"Authentication Code","url":"https://www.loc.gov/marc/bibliographic/bd042.html","repeatable":true,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Authentication code","repeatable":false}}
 },
-"043":{"label":"Geographic Area Code","url":"https://www.loc.gov/marc/bibliographic/bd043.html","repeatable":true,"subfields":{
+"043":{"label":"Geographic Area Code","url":"https://www.loc.gov/marc/bibliographic/bd043.html","repeatable":true,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Geographic area code","repeatable":false},
 "b":{"label":"Local GAC code","repeatable":false},
 "c":{"label":"ISO code","repeatable":false},
@@ -3216,7 +3253,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"044":{"label":"Country of Publishing/Producing Entity Code","url":"https://www.loc.gov/marc/bibliographic/bd044.html","repeatable":true,"subfields":{
+"044":{"label":"Country of Publishing/Producing Entity Code","url":"https://www.loc.gov/marc/bibliographic/bd044.html","repeatable":true,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"MARC country code","repeatable":false},
 "b":{"label":"Local subentity code","repeatable":false},
 "c":{"label":"ISO country code","repeatable":false},
@@ -3224,15 +3261,18 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"045":{"label":"Time Period of Content","url":"https://www.loc.gov/marc/bibliographic/bd045.html","repeatable":true,"indicators":{"ind1":{"label": "Type of time period in subfield $b or $c"}}
-,"subfields":{
+"045":{"label":"Time Period of Content","url":"https://www.loc.gov/marc/bibliographic/bd045.html","repeatable":true,"indicator1":{"label":"Type of time period in subfield $b or $c","codes":[{"code":" ","label":"Subfield $b or $c not present"},
+{"code":"0","label":"Single date/time"},
+{"code":"1","label":"Multiple single dates/times"},
+{"code":"2","label":"Range of dates/times"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Time period code","repeatable":false},
 "b":{"label":"Formatted 9999 B.C. through C.E. time period","repeatable":false},
 "c":{"label":"Formatted pre-9999 B.C. time period","repeatable":false},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"046":{"label":"Special Coded Dates","url":"https://www.loc.gov/marc/bibliographic/bd046.html","repeatable":true,"subfields":{
+"046":{"label":"Special Coded Dates","url":"https://www.loc.gov/marc/bibliographic/bd046.html","repeatable":true,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Type of date code","repeatable":true},
 "b":{"label":"Date 1, B.C.E. date","repeatable":true},
 "c":{"label":"Date 1, C.E. date","repeatable":true},
@@ -3249,22 +3289,32 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"047":{"label":"Form of Musical Composition Code","url":"https://www.loc.gov/marc/bibliographic/bd047.html","repeatable":false,"indicators":{"ind2":{"label": "Source of code"}}
-,"subfields":{
+"047":{"label":"Form of Musical Composition Code","url":"https://www.loc.gov/marc/bibliographic/bd047.html","repeatable":false,"indicator1":null,"indicator2":{"label":"Source of code","codes":[{"code":" ","label":"MARC musical composition code"},
+{"code":"7","label":"Source specified in subfield $2"}]
+},"subfields":{
 "a":{"label":"Form of musical composition code","repeatable":false},
 "2":{"label":"Source of code","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"048":{"label":"Number of Musical Instruments or Voices Codes","url":"https://www.loc.gov/marc/bibliographic/bd048.html","repeatable":false,"indicators":{"ind2":{"label": "Source of code"}}
-,"subfields":{
+"048":{"label":"Number of Musical Instruments or Voices Codes","url":"https://www.loc.gov/marc/bibliographic/bd048.html","repeatable":false,"indicator1":null,"indicator2":{"label":"Source of code","codes":[{"code":" ","label":"MARC code"},
+{"code":"7","label":"Source specified in subfield $2"}]
+},"subfields":{
 "a":{"label":"Performer or ensemble","repeatable":false},
 "b":{"label":"Soloist","repeatable":false},
 "2":{"label":"Source of code","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"050":{"label":"Library of Congress Call Number","url":"https://www.loc.gov/marc/bibliographic/bd050.html","repeatable":false,"indicators":{"ind1":{"label": "Existence in LC collection"},
-"ind2":{"label": "Source of call number"}}
-,"subfields":{
+"050":{"label":"Library of Congress Call Number","url":"https://www.loc.gov/marc/bibliographic/bd050.html","repeatable":false,"indicator1":{"label":"Existence in LC collection","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"Item is in LC"},
+{"code":"1","label":"Item is not in LC"}]
+},"indicator2":{"label":"Source of call number","codes":[{"code":"0","label":"Assigned by LC"},
+{"code":"4","label":"Assigned by agency other than LC"}]
+,"historical-codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"No series involved"},
+{"code":"1","label":"Main series"},
+{"code":"2","label":"Subseries"},
+{"code":"3","label":"Sub-subseries"}]
+},"subfields":{
 "a":{"label":"Classification number","repeatable":false},
 "b":{"label":"Item number","repeatable":true},
 "3":{"label":"Materials specified","repeatable":true},
@@ -3273,14 +3323,17 @@
 ,"historical-subfields":{
 "d":{"label":"Supplementary class number (MU) [OBSOLETE, 1981]"}}
 },
-"051":{"label":"Library of Congress Copy, Issue, Offprint Statement","url":"https://www.loc.gov/marc/bibliographic/bd051.html","repeatable":false,"subfields":{
+"051":{"label":"Library of Congress Copy, Issue, Offprint Statement","url":"https://www.loc.gov/marc/bibliographic/bd051.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Classification number","repeatable":true},
 "b":{"label":"Item number","repeatable":true},
 "c":{"label":"Copy information","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"052":{"label":"Geographic Classification","url":"https://www.loc.gov/marc/bibliographic/bd052.html","repeatable":false,"indicators":{"ind1":{"label": "Code source"}}
-,"subfields":{
+"052":{"label":"Geographic Classification","url":"https://www.loc.gov/marc/bibliographic/bd052.html","repeatable":false,"indicator1":{"label":"Code source","codes":[{"code":" ","label":"Library of Congress Classification"},
+{"code":"1","label":"U.S. Dept. of Defense Classification"},
+{"code":"7","label":"Source specified in subfield $2"}]
+,"historical-codes":[{"code":"0","label":"U.S. Dept. of Defense Classification [OBSOLETE, 2002]"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Geographic classification area code","repeatable":true},
 "b":{"label":"Geographic classification subarea code","repeatable":false},
 "d":{"label":"Populated place name","repeatable":false},
@@ -3290,9 +3343,20 @@
 ,"historical-subfields":{
 "c":{"label":"Subject (MP) [OBSOLETE]"}}
 },
-"055":{"label":"Classification Numbers Assigned in Canada","url":"https://www.loc.gov/marc/bibliographic/bd055.html","repeatable":false,"indicators":{"ind1":{"label": "Existence in LAC collection"},
-"ind2":{"label": "Type, completeness, source of class/call number"}}
-,"subfields":{
+"055":{"label":"Classification Numbers Assigned in Canada","url":"https://www.loc.gov/marc/bibliographic/bd055.html","repeatable":false,"indicator1":{"label":"Existence in LAC collection","codes":[{"code":" ","label":"Information not provided"},
+{"code":"0","label":"Work held by LAC"},
+{"code":"1","label":"Work not held by LAC"}]
+},"indicator2":{"label":"Type, completeness, source of class/call number","codes":[{"code":"0","label":"LC-based call number assigned by LAC"},
+{"code":"1","label":"Complete LC class number assigned by LAC"},
+{"code":"2","label":"Incomplete LC class number assigned by LAC"},
+{"code":"3","label":"LC-based call number assigned by the contributing library"},
+{"code":"4","label":"Complete LC class number assigned by the contributing library"},
+{"code":"5","label":"Incomplete LC class number assigned by the contributing library"},
+{"code":"6","label":"Other call number assigned by LAC"},
+{"code":"7","label":"Other class number assigned by LAC"},
+{"code":"8","label":"Other call number assigned by the contributing library"},
+{"code":"9","label":"Other class number assigned by the contributing library"}]
+},"subfields":{
 "a":{"label":"Classification number","repeatable":true},
 "b":{"label":"Item number","repeatable":true},
 "0":{"label":"Authority record control number or standard number","repeatable":false},
@@ -3300,53 +3364,66 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"060":{"label":"National Library of Medicine Call Number","url":"https://www.loc.gov/marc/bibliographic/bd060.html","repeatable":false,"indicators":{"ind1":{"label": "Existence in NLM collection"},
-"ind2":{"label": "Source of call number"}}
-,"subfields":{
+"060":{"label":"National Library of Medicine Call Number","url":"https://www.loc.gov/marc/bibliographic/bd060.html","repeatable":false,"indicator1":{"label":"Existence in NLM collection","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"Item is in NLM"},
+{"code":"1","label":"Item is not in NLM"}]
+},"indicator2":{"label":"Source of call number","codes":[{"code":"0","label":"Assigned by NLM"},
+{"code":"4","label":"Assigned by agency other than NLM"}]
+,"historical-codes":[{"code":"0","label":"No series involved"},
+{"code":"1","label":"Main series"},
+{"code":"2","label":"Subseries"},
+{"code":"3","label":"Sub-subseries"},
+{"code":" ","label":"No information provided [OBSOLETE]"}]
+},"subfields":{
 "a":{"label":"Classification number","repeatable":false},
 "b":{"label":"Item number","repeatable":true},
 "0":{"label":"Authority record control number or standard number","repeatable":false},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"061":{"label":"National Library of Medicine Copy Statement","url":"https://www.loc.gov/marc/bibliographic/bd061.html","repeatable":false,"subfields":{
+"061":{"label":"National Library of Medicine Copy Statement","url":"https://www.loc.gov/marc/bibliographic/bd061.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Classification number","repeatable":false},
 "b":{"label":"Item number","repeatable":true},
 "c":{"label":"Copy information","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"066":{"label":"Character Sets Present","url":"https://www.loc.gov/marc/bibliographic/bd066.html","repeatable":false,"subfields":{
+"066":{"label":"Character Sets Present","url":"https://www.loc.gov/marc/bibliographic/bd066.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Primary G0 character set","repeatable":true},
 "b":{"label":"Primary G1 character set","repeatable":true},
 "c":{"label":"Alternate G0 or G1 character set","repeatable":false}}
 },
-"070":{"label":"National Agricultural Library Call Number","url":"https://www.loc.gov/marc/bibliographic/bd070.html","repeatable":false,"indicators":{"ind1":{"label": " collection"}}
-,"subfields":{
+"070":{"label":"National Agricultural Library Call Number","url":"https://www.loc.gov/marc/bibliographic/bd070.html","repeatable":false,"indicator1":{"label":" collection","codes":[{"code":"0","label":"Item is in NAL"},
+{"code":"1","label":"Item is not in NAL"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Classification number","repeatable":false},
 "b":{"label":"Item number","repeatable":true},
 "0":{"label":"Authority record control number or standard number","repeatable":false},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"071":{"label":"National Agricultural Library Copy Statement","url":"https://www.loc.gov/marc/bibliographic/bd071.html","repeatable":false,"subfields":{
+"071":{"label":"National Agricultural Library Copy Statement","url":"https://www.loc.gov/marc/bibliographic/bd071.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Classification number","repeatable":false},
 "b":{"label":"Item number","repeatable":true},
 "c":{"label":"Copy information","repeatable":false},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"072":{"label":"Subject Category Code","url":"https://www.loc.gov/marc/bibliographic/bd072.html","repeatable":false,"indicators":{"ind2":{"label": "Code source"}}
-,"subfields":{
+"072":{"label":"Subject Category Code","url":"https://www.loc.gov/marc/bibliographic/bd072.html","repeatable":false,"indicator1":null,"indicator2":{"label":"Code source","codes":[{"code":"0","label":"NAL subject category code list"},
+{"code":"7","label":"Source specified in subfield $2"}]
+,"historical-codes":[{"code":" ","label":"undefined"}]
+},"subfields":{
 "a":{"label":"Subject category code","repeatable":true},
 "x":{"label":"Subject category code subdivision","repeatable":false},
 "2":{"label":"Source","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"074":{"label":"GPO Item Number","url":"https://www.loc.gov/marc/bibliographic/bd074.html","repeatable":false,"subfields":{
+"074":{"label":"GPO Item Number","url":"https://www.loc.gov/marc/bibliographic/bd074.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"GPO item number","repeatable":true},
 "z":{"label":"Canceled/invalid GPO item number","repeatable":false},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"080":{"label":"Universal Decimal Classification Number","url":"https://www.loc.gov/marc/bibliographic/bd080.html","repeatable":false,"indicators":{"ind1":{"label": "Type of edition"}}
-,"subfields":{
+"080":{"label":"Universal Decimal Classification Number","url":"https://www.loc.gov/marc/bibliographic/bd080.html","repeatable":false,"indicator1":{"label":"Type of edition","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"Full"},
+{"code":"1","label":"Abridged"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Universal Decimal Classification number","repeatable":true},
 "b":{"label":"Item number","repeatable":true},
 "x":{"label":"Common auxiliary subdivision","repeatable":false},
@@ -3354,9 +3431,16 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"082":{"label":"Dewey Decimal Classification Number","url":"https://www.loc.gov/marc/bibliographic/bd082.html","repeatable":false,"indicators":{"ind1":{"label": "Type of edition"},
-"ind2":{"label": "Source of classification number"}}
-,"subfields":{
+"082":{"label":"Dewey Decimal Classification Number","url":"https://www.loc.gov/marc/bibliographic/bd082.html","repeatable":false,"indicator1":{"label":"Type of edition","codes":[{"code":"0","label":"Full edition"},
+{"code":"1","label":"Abridged edition"},
+{"code":"7","label":"Other edition specified in subfield $2"}]
+,"historical-codes":[{"code":" ","label":"No edition information recorded (BK, MU, VM, SE) [OBSOLETE]"},
+{"code":"2","label":"Abridged NST version (BK, MU, VM, SE) [OBSOLETE]"}]
+},"indicator2":{"label":"Source of classification number","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"Assigned by LC"},
+{"code":"4","label":"Assigned by agency other than LC"}]
+,"historical-codes":[{"code":" ","label":"No information provided [OBSOLETE] [USMARC only, BK, CF, MU, VM, SE]"}]
+},"subfields":{
 "a":{"label":"Classification number","repeatable":false},
 "b":{"label":"Item number","repeatable":true},
 "m":{"label":"Standard or optional designation","repeatable":true},
@@ -3367,8 +3451,10 @@
 ,"historical-subfields":{
 "b":{"label":"DDC number-abridged NST version (SE) [OBSOLETE]"}}
 },
-"083":{"label":"Additional Dewey Decimal Classification Number","url":"https://www.loc.gov/marc/bibliographic/bd083.html","repeatable":false,"indicators":{"ind1":{"label": "Type of edition"}}
-,"subfields":{
+"083":{"label":"Additional Dewey Decimal Classification Number","url":"https://www.loc.gov/marc/bibliographic/bd083.html","repeatable":false,"indicator1":{"label":"Type of edition","codes":[{"code":"0","label":"Full edition"},
+{"code":"1","label":"Abridged edition"},
+{"code":"7","label":"Other edition specified in subfield $2"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Classification number","repeatable":false},
 "c":{"label":"Classification number--Ending number of span","repeatable":false},
 "m":{"label":"Standard or optional designation","repeatable":true},
@@ -3379,7 +3465,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"084":{"label":"Other Classificaton Number","url":"https://www.loc.gov/marc/bibliographic/bd084.html","repeatable":false,"subfields":{
+"084":{"label":"Other Classificaton Number","url":"https://www.loc.gov/marc/bibliographic/bd084.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Classification number","repeatable":false},
 "b":{"label":"Item number","repeatable":true},
 "q":{"label":"Assigning agency","repeatable":true},
@@ -3387,7 +3473,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"085":{"label":"Synthesized Classification Number Components","url":"https://www.loc.gov/marc/bibliographic/bd085.html","repeatable":false,"subfields":{
+"085":{"label":"Synthesized Classification Number Components","url":"https://www.loc.gov/marc/bibliographic/bd085.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Number where instructions are found-single number or beginning number of span","repeatable":false},
 "b":{"label":"Base number","repeatable":false},
 "c":{"label":"Classification number-ending number of span","repeatable":false},
@@ -3404,22 +3490,29 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"086":{"label":"Government Document Classification Number","url":"https://www.loc.gov/marc/bibliographic/bd086.html","repeatable":false,"indicators":{"ind1":{"label": "Number source"}}
-,"subfields":{
+"086":{"label":"Government Document Classification Number","url":"https://www.loc.gov/marc/bibliographic/bd086.html","repeatable":false,"indicator1":{"label":"Number source","codes":[{"code":" ","label":"Source specified in subfield $2"},
+{"code":"0","label":"Superintendent of Documents Classification System"},
+{"code":"1","label":"Government of Canada Publications: Outline of Classification"}]
+,"historical-codes":[{"code":"0","label":"United States"},
+{"code":"1","label":"Canada"},
+{"code":"2-9","label":"Reserved"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Classification number","repeatable":true},
 "z":{"label":"Canceled/invalid classification number","repeatable":false},
 "2":{"label":"Number source","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"088":{"label":"Report Number","url":"https://www.loc.gov/marc/bibliographic/bd088.html","repeatable":false,"subfields":{
+"088":{"label":"Report Number","url":"https://www.loc.gov/marc/bibliographic/bd088.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Report number","repeatable":true},
 "z":{"label":"Canceled/invalid report number","repeatable":false},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"100":{"label":"Main Entry - Personal Name","url":"https://www.loc.gov/marc/bibliographic/bd100.html","repeatable":true,"indicators":{"ind1":{"label": "Type of personal name entry element"}}
-,"subfields":{
+"100":{"label":"Main Entry - Personal Name","url":"https://www.loc.gov/marc/bibliographic/bd100.html","repeatable":true,"indicator1":{"label":"Type of personal name entry element","codes":[{"code":"0","label":"Forename"},
+{"code":"1","label":"Surname"},
+{"code":"3","label":"Family name"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Personal name","repeatable":true},
 "b":{"label":"Numeration","repeatable":true},
 "c":{"label":"Titles and words associated with a name","repeatable":false},
@@ -3440,8 +3533,10 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"110":{"label":"Main Entry - Corporate Name","url":"https://www.loc.gov/marc/bibliographic/bd110.html","repeatable":true,"indicators":{"ind1":{"label": "Type of corporate name entry element"}}
-,"subfields":{
+"110":{"label":"Main Entry - Corporate Name","url":"https://www.loc.gov/marc/bibliographic/bd110.html","repeatable":true,"indicator1":{"label":"Type of corporate name entry element","codes":[{"code":"0","label":"Inverted name"},
+{"code":"1","label":"Jurisdiction name"},
+{"code":"2","label":"Name in direct order"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Corporate name or jurisdiction name as entry element","repeatable":true},
 "b":{"label":"Subordinate unit","repeatable":false},
 "c":{"label":"Location of meeting","repeatable":false},
@@ -3460,8 +3555,10 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"111":{"label":"Main Entry - Meeting Name","url":"https://www.loc.gov/marc/bibliographic/bd111.html","repeatable":true,"indicators":{"ind1":{"label": "Type of meeting name entry element"}}
-,"subfields":{
+"111":{"label":"Main Entry - Meeting Name","url":"https://www.loc.gov/marc/bibliographic/bd111.html","repeatable":true,"indicator1":{"label":"Type of meeting name entry element","codes":[{"code":"0","label":"Inverted name"},
+{"code":"1","label":"Jurisdiction name"},
+{"code":"2","label":"Name in direct order"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Meeting name or jurisdiction name as entry element","repeatable":true},
 "c":{"label":"Location of meeting","repeatable":false},
 "d":{"label":"Date of meeting","repeatable":true},
@@ -3481,8 +3578,8 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"130":{"label":"Main Entry - Uniform Title","url":"https://www.loc.gov/marc/bibliographic/bd130.html","repeatable":true,"indicators":{"ind1":{"label": "Nonfiling characters"}}
-,"subfields":{
+"130":{"label":"Main Entry - Uniform Title","url":"https://www.loc.gov/marc/bibliographic/bd130.html","repeatable":true,"indicator1":{"label":"Nonfiling characters","codes":[{"code":"0-9","label":"Number of nonfiling characters"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Uniform title","repeatable":true},
 "d":{"label":"Date of treaty signing","repeatable":false},
 "f":{"label":"Date of a work","repeatable":true},
@@ -3501,25 +3598,35 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"210":{"label":"Abbreviated Title","url":"https://www.loc.gov/marc/bibliographic/bd210.html","repeatable":false,"indicators":{"ind1":{"label": "Title added entry"},
-"ind2":{"label": "Type"}}
-,"subfields":{
+"210":{"label":"Abbreviated Title","url":"https://www.loc.gov/marc/bibliographic/bd210.html","repeatable":false,"indicator1":{"label":"Title added entry","codes":[{"code":"0","label":"No added entry"},
+{"code":"1","label":"Added entry"}]
+},"indicator2":{"label":"Type","codes":[{"code":" ","label":"Abbreviated key title"},
+{"code":"0","label":"Other abbreviated title"}]
+},"subfields":{
 "a":{"label":"Abbreviated title","repeatable":true},
 "b":{"label":"Qualifying information","repeatable":true},
 "2":{"label":"Source","repeatable":false},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"222":{"label":"Key Title","url":"https://www.loc.gov/marc/bibliographic/bd222.html","repeatable":false,"indicators":{"ind2":{"label": "Nonfiling characters"}}
-,"subfields":{
+"222":{"label":"Key Title","url":"https://www.loc.gov/marc/bibliographic/bd222.html","repeatable":false,"indicator1":null,"indicator2":{"label":"Nonfiling characters","codes":[{"code":"0","label":"No nonfiling characters"},
+{"code":"1-9","label":"Number of nonfiling characters"}]
+,"historical-codes":[{"code":"0","label":"Key title is same as field 245 / No key title added entry; title proper same"},
+{"code":"1","label":"Key title is not the same as field 245 / Key title added entry; title proper different"},
+{"code":"2","label":"Key title added entry; title proper same"},
+{"code":"3","label":"No key title added entry; title proper different"}]
+},"subfields":{
 "a":{"label":"Key title","repeatable":true},
 "b":{"label":"Qualifying information","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"240":{"label":"Uniform Title","url":"https://www.loc.gov/marc/bibliographic/bd240.html","repeatable":true,"indicators":{"ind1":{"label": "Uniform title printed or displayed"},
-"ind2":{"label": "Nonfiling characters"}}
-,"subfields":{
+"240":{"label":"Uniform Title","url":"https://www.loc.gov/marc/bibliographic/bd240.html","repeatable":true,"indicator1":{"label":"Uniform title printed or displayed","codes":[{"code":"0","label":"Not printed or displayed"},
+{"code":"1","label":"Printed or displayed"}]
+,"historical-codes":[{"code":"2","label":"Not printed on card, title added entry (MU) [OBSOLETE, 1993]"},
+{"code":"3","label":"Printed on card, title added entry (MU) [OBSOLETE, 1993]"}]
+},"indicator2":{"label":"Nonfiling characters","codes":[{"code":"0-9","label":"Number of nonfiling characters"}]
+},"subfields":{
 "a":{"label":"Uniform title","repeatable":true},
 "d":{"label":"Date of treaty signing","repeatable":false},
 "f":{"label":"Date of a work","repeatable":true},
@@ -3537,9 +3644,11 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"242":{"label":"Translation of Title by Cataloging Agency","url":"https://www.loc.gov/marc/bibliographic/bd242.html","repeatable":false,"indicators":{"ind1":{"label": "Title added entry"},
-"ind2":{"label": "Nonfiling characters"}}
-,"subfields":{
+"242":{"label":"Translation of Title by Cataloging Agency","url":"https://www.loc.gov/marc/bibliographic/bd242.html","repeatable":false,"indicator1":{"label":"Title added entry","codes":[{"code":"0","label":"No added entry"},
+{"code":"1","label":"Added entry"}]
+},"indicator2":{"label":"Nonfiling characters","codes":[{"code":"0","label":"No nonfiling characters"},
+{"code":"1-9","label":"Number of nonfiling characters"}]
+},"subfields":{
 "a":{"label":"Title","repeatable":true},
 "b":{"label":"Remainder of title","repeatable":true},
 "c":{"label":"Statement of responsibility, etc.","repeatable":true},
@@ -3553,9 +3662,12 @@
 "d":{"label":"Designation of section (BK, AM, MP, MU, VM, SE) [OBSOLETE, 1979]"},
 "e":{"label":"Name of part/section (BK, AM, MP, MU, VM, SE) [OBSOLETE, 1979]"}}
 },
-"243":{"label":"Collective Uniform Title","url":"https://www.loc.gov/marc/bibliographic/bd243.html","repeatable":true,"indicators":{"ind1":{"label": "Uniform title printed or displayed"},
-"ind2":{"label": "Nonfiling characters"}}
-,"subfields":{
+"243":{"label":"Collective Uniform Title","url":"https://www.loc.gov/marc/bibliographic/bd243.html","repeatable":true,"indicator1":{"label":"Uniform title printed or displayed","codes":[{"code":"0","label":"Not printed or displayed"},
+{"code":"1","label":"Printed or displayed"}]
+,"historical-codes":[{"code":"2","label":"Not printed on card, title added entry (MU) [USMARC only] [OBSOLETE, 1993] / Selections (extracts) [CAN/MARC only] [OBSOLETE]"},
+{"code":"3","label":"Printed on card, title added entry (MU) [USMARC only] [OBSOLETE, 1993] / Other collective titles [CAN/MARC only] [OBSOLETE]"}]
+},"indicator2":{"label":"Nonfiling characters","codes":[{"code":"0-9","label":"Number of nonfiling characters"}]
+},"subfields":{
 "a":{"label":"Uniform title","repeatable":true},
 "d":{"label":"Date of treaty signing","repeatable":false},
 "f":{"label":"Date of a work","repeatable":true},
@@ -3572,9 +3684,11 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"245":{"label":"Title Statement","url":"https://www.loc.gov/marc/bibliographic/bd245.html","repeatable":true,"indicators":{"ind1":{"label": "Title added entry"},
-"ind2":{"label": "Nonfiling characters"}}
-,"subfields":{
+"245":{"label":"Title Statement","url":"https://www.loc.gov/marc/bibliographic/bd245.html","repeatable":true,"indicator1":{"label":"Title added entry","codes":[{"code":"0","label":"No added entry"},
+{"code":"1","label":"Added entry"}]
+},"indicator2":{"label":"Nonfiling characters","codes":[{"code":"0","label":"No nonfiling characters"},
+{"code":"1-9","label":"Number of nonfiling characters"}]
+},"subfields":{
 "a":{"label":"Title","repeatable":true},
 "b":{"label":"Remainder of title","repeatable":true},
 "c":{"label":"Statement of responsibility, etc.","repeatable":true},
@@ -3591,9 +3705,21 @@
 "d":{"label":"Designation of section/part/series (SE) [OBSOLETE, 1979]"},
 "e":{"label":"Name of part/section/series (SE) [OBSOLETE, 1979]"}}
 },
-"246":{"label":"Varying Form of Title","url":"https://www.loc.gov/marc/bibliographic/bd246.html","repeatable":false,"indicators":{"ind1":{"label": "Note/added entry controller"},
-"ind2":{"label": "Type of title"}}
-,"subfields":{
+"246":{"label":"Varying Form of Title","url":"https://www.loc.gov/marc/bibliographic/bd246.html","repeatable":false,"indicator1":{"label":"Note/added entry controller","codes":[{"code":"0","label":"Note, no added entry"},
+{"code":"1","label":"Note, added entry"},
+{"code":"2","label":"No note, no added entry"},
+{"code":"3","label":"No note, added entry"}]
+},"indicator2":{"label":"Type of title","codes":[{"code":" ","label":"No type specified"},
+{"code":"0","label":"Portion of title"},
+{"code":"1","label":"Parallel title"},
+{"code":"2","label":"Distinctive title"},
+{"code":"3","label":"Other title"},
+{"code":"4","label":"Cover title"},
+{"code":"5","label":"Added title page title"},
+{"code":"6","label":"Caption title"},
+{"code":"7","label":"Running title"},
+{"code":"8","label":"Spine title"}]
+},"subfields":{
 "a":{"label":"Title proper/short title","repeatable":true},
 "b":{"label":"Remainder of title","repeatable":true},
 "f":{"label":"Date or sequential designation","repeatable":true},
@@ -3610,9 +3736,11 @@
 "d":{"label":"Designation of section/part/series (SE) [OBSOLETE, 1979]"},
 "e":{"label":"Name of section/part/series (SE) [OBSOLETE, 1979]"}}
 },
-"247":{"label":"Former Title","url":"https://www.loc.gov/marc/bibliographic/bd247.html","repeatable":false,"indicators":{"ind1":{"label": "Title added entry"},
-"ind2":{"label": "Note controller"}}
-,"subfields":{
+"247":{"label":"Former Title","url":"https://www.loc.gov/marc/bibliographic/bd247.html","repeatable":false,"indicator1":{"label":"Title added entry","codes":[{"code":"0","label":"No added entry"},
+{"code":"1","label":"Added entry"}]
+},"indicator2":{"label":"Note controller","codes":[{"code":"0","label":"Display note"},
+{"code":"1","label":"Do not display note"}]
+},"subfields":{
 "a":{"label":"Title","repeatable":true},
 "b":{"label":"Remainder of title","repeatable":true},
 "f":{"label":"Date or sequential designation","repeatable":true},
@@ -3628,19 +3756,19 @@
 "e":{"label":"Name of section/part/series (SE) [OBSOLETE, 1979]"},
 "c":{"label":"Remainder of Title Page transcription [OBSOLETE] [CAN/MARC only]"}}
 },
-"250":{"label":"Edition Statement","url":"https://www.loc.gov/marc/bibliographic/bd250.html","repeatable":false,"subfields":{
+"250":{"label":"Edition Statement","url":"https://www.loc.gov/marc/bibliographic/bd250.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Edition statement","repeatable":true},
 "b":{"label":"Remainder of edition statement","repeatable":true},
 "3":{"label":"Materials specified","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"254":{"label":"Musical Presentation Statement","url":"https://www.loc.gov/marc/bibliographic/bd254.html","repeatable":true,"subfields":{
+"254":{"label":"Musical Presentation Statement","url":"https://www.loc.gov/marc/bibliographic/bd254.html","repeatable":true,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Musical presentation statement","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"255":{"label":"Cartographic Mathematical Data","url":"https://www.loc.gov/marc/bibliographic/bd255.html","repeatable":false,"subfields":{
+"255":{"label":"Cartographic Mathematical Data","url":"https://www.loc.gov/marc/bibliographic/bd255.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Statement of scale","repeatable":true},
 "b":{"label":"Statement of projection","repeatable":true},
 "c":{"label":"Statement of coordinates","repeatable":true},
@@ -3651,26 +3779,30 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"256":{"label":"Computer File Characteristics","url":"https://www.loc.gov/marc/bibliographic/bd256.html","repeatable":true,"subfields":{
+"256":{"label":"Computer File Characteristics","url":"https://www.loc.gov/marc/bibliographic/bd256.html","repeatable":true,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Computer file characteristics","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"257":{"label":"Country of Producing Entity","url":"https://www.loc.gov/marc/bibliographic/bd257.html","repeatable":false,"subfields":{
+"257":{"label":"Country of Producing Entity","url":"https://www.loc.gov/marc/bibliographic/bd257.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Country of producing entity","repeatable":false},
 "0":{"label":"Authority record control number or standard number","repeatable":false},
 "2":{"label":"Source","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"258":{"label":"Philatelic Issue Data","url":"https://www.loc.gov/marc/bibliographic/bd258.html","repeatable":false,"subfields":{
+"258":{"label":"Philatelic Issue Data","url":"https://www.loc.gov/marc/bibliographic/bd258.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Issuing jurisdiction","repeatable":true},
 "b":{"label":"Denomination","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"260":{"label":"Publication, Distribution, etc. (Imprint)","url":"https://www.loc.gov/marc/bibliographic/bd260.html","repeatable":false,"indicators":{"ind1":{"label": "Sequence of publishing statements"}}
-,"subfields":{
+"260":{"label":"Publication, Distribution, etc. (Imprint)","url":"https://www.loc.gov/marc/bibliographic/bd260.html","repeatable":false,"indicator1":{"label":"Sequence of publishing statements","codes":[{"code":" ","label":"Not applicable/No information provided/Earliest available publisher"},
+{"code":"2","label":"Intervening publisher"},
+{"code":"3","label":"Current/latest publisher"}]
+,"historical-codes":[{"code":"0","label":"Publisher, distributor, etc. is present"},
+{"code":"1","label":"Publisher, distributor, etc. not present"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Place of publication, distribution, etc.","repeatable":false},
 "b":{"label":"Name of publisher, distributor, etc.","repeatable":false},
 "c":{"label":"Date of publication, distribution, etc.","repeatable":false},
@@ -3685,14 +3817,20 @@
 "k":{"label":"Identification/manufacturer number [OBSOLETE, 1988] [CAN/MARC only]"},
 "l":{"label":"Matrix and/or take number [OBSOLETE, 1988] [CAN/MARC only]"}}
 },
-"263":{"label":"Projected Publication Date","url":"https://www.loc.gov/marc/bibliographic/bd263.html","repeatable":true,"subfields":{
+"263":{"label":"Projected Publication Date","url":"https://www.loc.gov/marc/bibliographic/bd263.html","repeatable":true,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Projected publication date","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"264":{"label":"Production, Publication, Distribution, Manufacture, and Copyright Notice","url":"https://www.loc.gov/marc/bibliographic/bd264.html","repeatable":false,"indicators":{"ind1":{"label": "Sequence of statements"},
-"ind2":{"label": "Function of entity"}}
-,"subfields":{
+"264":{"label":"Production, Publication, Distribution, Manufacture, and Copyright Notice","url":"https://www.loc.gov/marc/bibliographic/bd264.html","repeatable":false,"indicator1":{"label":"Sequence of statements","codes":[{"code":" ","label":"Not applicable/No information provided/Earliest"},
+{"code":"2","label":"Intervening"},
+{"code":"3","label":"Current/Latest"}]
+},"indicator2":{"label":"Function of entity","codes":[{"code":"0","label":"Production"},
+{"code":"1","label":"Publication"},
+{"code":"2","label":"Distribution"},
+{"code":"3","label":"Manufacture"},
+{"code":"4","label":"Copyright notice date"}]
+},"subfields":{
 "a":{"label":"Place of production, publication, distribution, manufacture","repeatable":false},
 "b":{"label":"Name of producer, publisher, distributor, manufacturer","repeatable":false},
 "c":{"label":"Date of production, publication, distribution, manufacture, or copyright notice","repeatable":false},
@@ -3700,9 +3838,13 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"270":{"label":"Address","url":"https://www.loc.gov/marc/bibliographic/bd270.html","repeatable":false,"indicators":{"ind1":{"label": "Level"},
-"ind2":{"label": "Type of address"}}
-,"subfields":{
+"270":{"label":"Address","url":"https://www.loc.gov/marc/bibliographic/bd270.html","repeatable":false,"indicator1":{"label":"Level","codes":[{"code":" ","label":"No level specified"},
+{"code":"1","label":"Primary"},
+{"code":"2","label":"Secondary"}]
+},"indicator2":{"label":"Type of address","codes":[{"code":" ","label":"No type specified"},
+{"code":"0","label":"Mailing"},
+{"code":"7","label":"Type specified in subfield $i"}]
+},"subfields":{
 "a":{"label":"Address","repeatable":false},
 "b":{"label":"City","repeatable":true},
 "c":{"label":"State or province","repeatable":true},
@@ -3725,7 +3867,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"300":{"label":"Physical Description","url":"https://www.loc.gov/marc/bibliographic/bd300.html","repeatable":false,"subfields":{
+"300":{"label":"Physical Description","url":"https://www.loc.gov/marc/bibliographic/bd300.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Extent","repeatable":false},
 "b":{"label":"Other physical details","repeatable":true},
 "c":{"label":"Dimensions","repeatable":false},
@@ -3740,31 +3882,32 @@
 "m":{"label":"Identification/manufacturer number [pre-AACR2 records only] [OBSOLETE, 1988] [CAN/MARC only]"},
 "n":{"label":"Matrix and/or take number [Sound recordings, pre-AACR2 records only] [OBSOLETE, 1988] [CAN/MARC only]"}}
 },
-"306":{"label":"Playing Time","url":"https://www.loc.gov/marc/bibliographic/bd306.html","repeatable":true,"subfields":{
+"306":{"label":"Playing Time","url":"https://www.loc.gov/marc/bibliographic/bd306.html","repeatable":true,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Playing time","repeatable":false},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"307":{"label":"Hours, etc.","url":"https://www.loc.gov/marc/bibliographic/bd307.html","repeatable":false,"indicators":{"ind1":{"label": "Display constant controller"}}
-,"subfields":{
+"307":{"label":"Hours, etc.","url":"https://www.loc.gov/marc/bibliographic/bd307.html","repeatable":false,"indicator1":{"label":"Display constant controller","codes":[{"code":" ","label":"Hours"},
+{"code":"8","label":"No display constant generated"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Hours","repeatable":true},
 "b":{"label":"Additional information","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"310":{"label":"Current Publication Frequency","url":"https://www.loc.gov/marc/bibliographic/bd310.html","repeatable":true,"subfields":{
+"310":{"label":"Current Publication Frequency","url":"https://www.loc.gov/marc/bibliographic/bd310.html","repeatable":true,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Current publication frequency","repeatable":true},
 "b":{"label":"Date of current publication frequency","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"321":{"label":"Former Publication Frequency","url":"https://www.loc.gov/marc/bibliographic/bd321.html","repeatable":false,"subfields":{
+"321":{"label":"Former Publication Frequency","url":"https://www.loc.gov/marc/bibliographic/bd321.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Former publication frequency","repeatable":true},
 "b":{"label":"Dates of former publication frequency","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"336":{"label":"Content Type","url":"https://www.loc.gov/marc/bibliographic/bd336.html","repeatable":false,"subfields":{
+"336":{"label":"Content Type","url":"https://www.loc.gov/marc/bibliographic/bd336.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Content type term","repeatable":false},
 "b":{"label":"Content type code","repeatable":false},
 "0":{"label":"Authority record control number or standard number","repeatable":false},
@@ -3773,7 +3916,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"337":{"label":"Media Type","url":"https://www.loc.gov/marc/bibliographic/bd337.html","repeatable":false,"subfields":{
+"337":{"label":"Media Type","url":"https://www.loc.gov/marc/bibliographic/bd337.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Media type term","repeatable":false},
 "b":{"label":"Media type code","repeatable":false},
 "0":{"label":"Authority record control number or standard number","repeatable":false},
@@ -3782,7 +3925,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"338":{"label":"Carrier Type","url":"https://www.loc.gov/marc/bibliographic/bd338.html","repeatable":false,"subfields":{
+"338":{"label":"Carrier Type","url":"https://www.loc.gov/marc/bibliographic/bd338.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Carrier type term","repeatable":false},
 "b":{"label":"Carrier type code","repeatable":false},
 "0":{"label":"Authority record control number or standard number","repeatable":false},
@@ -3791,7 +3934,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"340":{"label":"Physical Medium","url":"https://www.loc.gov/marc/bibliographic/bd340.html","repeatable":false,"subfields":{
+"340":{"label":"Physical Medium","url":"https://www.loc.gov/marc/bibliographic/bd340.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Material base and configuration","repeatable":false},
 "b":{"label":"Dimensions","repeatable":false},
 "c":{"label":"Materials applied to surface","repeatable":false},
@@ -3812,9 +3955,18 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"342":{"label":"Geospatial Reference Data","url":"https://www.loc.gov/marc/bibliographic/bd342.html","repeatable":false,"indicators":{"ind1":{"label": "Geospatial reference dimension"},
-"ind2":{"label": "Geospatial reference method"}}
-,"subfields":{
+"342":{"label":"Geospatial Reference Data","url":"https://www.loc.gov/marc/bibliographic/bd342.html","repeatable":false,"indicator1":{"label":"Geospatial reference dimension","codes":[{"code":"0","label":"Horizontal coordinate system"},
+{"code":"1","label":"Vertical coordinate system"}]
+},"indicator2":{"label":"Geospatial reference method","codes":[{"code":"0","label":"Geographic"},
+{"code":"1","label":"Map projection"},
+{"code":"2","label":"Grid coordinate system"},
+{"code":"3","label":"Local planar"},
+{"code":"4","label":"Local"},
+{"code":"5","label":"Geodetic model"},
+{"code":"6","label":"Altitude"},
+{"code":"7","label":"Method specified in $2"},
+{"code":"8","label":"Depth"}]
+},"subfields":{
 "a":{"label":"Name","repeatable":true},
 "b":{"label":"Coordinate units or distance units","repeatable":true},
 "c":{"label":"Latitude resolution","repeatable":true},
@@ -3842,7 +3994,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"343":{"label":"Planar Coordinate Data","url":"https://www.loc.gov/marc/bibliographic/bd343.html","repeatable":false,"subfields":{
+"343":{"label":"Planar Coordinate Data","url":"https://www.loc.gov/marc/bibliographic/bd343.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Planar coordinate encoding method","repeatable":true},
 "b":{"label":"Planar distance units","repeatable":true},
 "c":{"label":"Abscissa resolution","repeatable":true},
@@ -3855,7 +4007,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"344":{"label":"Sound Characteristics","url":"https://www.loc.gov/marc/bibliographic/bd344.html","repeatable":false,"subfields":{
+"344":{"label":"Sound Characteristics","url":"https://www.loc.gov/marc/bibliographic/bd344.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Type of recording","repeatable":false},
 "b":{"label":"Recording medium","repeatable":false},
 "c":{"label":"Playing speed","repeatable":false},
@@ -3870,7 +4022,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"345":{"label":"Projection Characteristics of Moving Image","url":"https://www.loc.gov/marc/bibliographic/bd345.html","repeatable":false,"subfields":{
+"345":{"label":"Projection Characteristics of Moving Image","url":"https://www.loc.gov/marc/bibliographic/bd345.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Presentation format","repeatable":false},
 "b":{"label":"Projection speed","repeatable":false},
 "0":{"label":"Authority record control number or standard number","repeatable":false},
@@ -3879,7 +4031,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"346":{"label":"Video Characteristics","url":"https://www.loc.gov/marc/bibliographic/bd346.html","repeatable":false,"subfields":{
+"346":{"label":"Video Characteristics","url":"https://www.loc.gov/marc/bibliographic/bd346.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Video format","repeatable":false},
 "b":{"label":"Broadcast standard","repeatable":false},
 "0":{"label":"Authority record control number or standard number","repeatable":false},
@@ -3888,7 +4040,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"347":{"label":"Digital File Characteristics","url":"https://www.loc.gov/marc/bibliographic/bd347.html","repeatable":false,"subfields":{
+"347":{"label":"Digital File Characteristics","url":"https://www.loc.gov/marc/bibliographic/bd347.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"File type","repeatable":false},
 "b":{"label":"Encoding format","repeatable":false},
 "c":{"label":"File size","repeatable":false},
@@ -3901,7 +4053,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"348":{"label":"Format of Notated Music","url":"https://www.loc.gov/marc/bibliographic/bd348.html","repeatable":false,"subfields":{
+"348":{"label":"Format of Notated Music","url":"https://www.loc.gov/marc/bibliographic/bd348.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Format of notated music term","repeatable":false},
 "b":{"label":"Format of notated music code","repeatable":false},
 "0":{"label":"Authority record control number or standard number","repeatable":false},
@@ -3910,7 +4062,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"351":{"label":"Organization and Arrangement of Materials","url":"https://www.loc.gov/marc/bibliographic/bd351.html","repeatable":false,"subfields":{
+"351":{"label":"Organization and Arrangement of Materials","url":"https://www.loc.gov/marc/bibliographic/bd351.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Organization","repeatable":false},
 "b":{"label":"Arrangement","repeatable":false},
 "c":{"label":"Hierarchical level","repeatable":true},
@@ -3918,7 +4070,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"352":{"label":"Digital Graphic Representation","url":"https://www.loc.gov/marc/bibliographic/bd352.html","repeatable":false,"subfields":{
+"352":{"label":"Digital Graphic Representation","url":"https://www.loc.gov/marc/bibliographic/bd352.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Direct reference method","repeatable":true},
 "b":{"label":"Object type","repeatable":false},
 "c":{"label":"Object count","repeatable":false},
@@ -3931,8 +4083,14 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"355":{"label":"Security Classification Control","url":"https://www.loc.gov/marc/bibliographic/bd355.html","repeatable":false,"indicators":{"ind1":{"label": "Controlled element"}}
-,"subfields":{
+"355":{"label":"Security Classification Control","url":"https://www.loc.gov/marc/bibliographic/bd355.html","repeatable":false,"indicator1":{"label":"Controlled element","codes":[{"code":"0","label":"Document"},
+{"code":"1","label":"Title"},
+{"code":"2","label":"Abstract"},
+{"code":"3","label":"Contents note"},
+{"code":"4","label":"Author"},
+{"code":"5","label":"Record"},
+{"code":"8","label":"None of the above"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Security classification","repeatable":true},
 "b":{"label":"Handling instructions","repeatable":false},
 "c":{"label":"External dissemination information","repeatable":false},
@@ -3945,7 +4103,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"357":{"label":"Originator Dissemination Control","url":"https://www.loc.gov/marc/bibliographic/bd357.html","repeatable":true,"subfields":{
+"357":{"label":"Originator Dissemination Control","url":"https://www.loc.gov/marc/bibliographic/bd357.html","repeatable":true,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Originator control term","repeatable":true},
 "b":{"label":"Originating agency","repeatable":false},
 "c":{"label":"Authorized recipients of material","repeatable":false},
@@ -3953,16 +4111,21 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"362":{"label":"Dates of Publication and/or Sequential Designation","url":"https://www.loc.gov/marc/bibliographic/bd362.html","repeatable":false,"indicators":{"ind1":{"label": "Format of date"}}
-,"subfields":{
+"362":{"label":"Dates of Publication and/or Sequential Designation","url":"https://www.loc.gov/marc/bibliographic/bd362.html","repeatable":false,"indicator1":{"label":"Format of date","codes":[{"code":"0","label":"Formatted style"},
+{"code":"1","label":"Unformatted note"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Dates of publication and/or sequential designation","repeatable":true},
 "z":{"label":"Source of information","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"363":{"label":"Normalized Date and Sequential Designation","url":"https://www.loc.gov/marc/bibliographic/bd363.html","repeatable":false,"indicators":{"ind1":{"label": "Start/End designator"},
-"ind2":{"label": "State of issuance"}}
-,"subfields":{
+"363":{"label":"Normalized Date and Sequential Designation","url":"https://www.loc.gov/marc/bibliographic/bd363.html","repeatable":false,"indicator1":{"label":"Start/End designator","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"Starting information"},
+{"code":"1","label":"Ending information"}]
+},"indicator2":{"label":"State of issuance","codes":[{"code":" ","label":"Not specified"},
+{"code":"0","label":"Closed"},
+{"code":"1","label":"Open"}]
+},"subfields":{
 "a":{"label":"First level of enumeration","repeatable":true},
 "b":{"label":"Second level of enumeration","repeatable":true},
 "c":{"label":"Third level of enumeration","repeatable":true},
@@ -3983,9 +4146,13 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"365":{"label":"Trade Price","url":"https://www.loc.gov/marc/bibliographic/bd365.html","repeatable":false,"indicators":{"ind1":{"label": "Start/End designator"},
-"ind2":{"label": "State of issuance"}}
-,"subfields":{
+"365":{"label":"Trade Price","url":"https://www.loc.gov/marc/bibliographic/bd365.html","repeatable":false,"indicator1":{"label":"Start/End designator","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"Starting information"},
+{"code":"1","label":"Ending information"}]
+},"indicator2":{"label":"State of issuance","codes":[{"code":" ","label":"Not specified"},
+{"code":"0","label":"Closed"},
+{"code":"1","label":"Open"}]
+},"subfields":{
 "a":{"label":"Price type code","repeatable":true},
 "b":{"label":"Price amount","repeatable":true},
 "c":{"label":"Currency code","repeatable":true},
@@ -4002,7 +4169,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"366":{"label":"Trade Availability Information","url":"https://www.loc.gov/marc/bibliographic/bd366.html","repeatable":false,"subfields":{
+"366":{"label":"Trade Availability Information","url":"https://www.loc.gov/marc/bibliographic/bd366.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Publishers' compressed title identification","repeatable":true},
 "b":{"label":"Detailed date of publication","repeatable":true},
 "c":{"label":"Availability status code","repeatable":true},
@@ -4017,7 +4184,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"370":{"label":"Associated Place","url":"https://www.loc.gov/marc/bibliographic/bd370.html","repeatable":false,"subfields":{
+"370":{"label":"Associated Place","url":"https://www.loc.gov/marc/bibliographic/bd370.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "c":{"label":"Associated country","repeatable":false},
 "f":{"label":"Other associated place","repeatable":false},
 "g":{"label":"Place of origin of work or expression","repeatable":false},
@@ -4033,8 +4200,9 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"377":{"label":"Associated Language","url":"https://www.loc.gov/marc/bibliographic/bd377.html","repeatable":false,"indicators":{"ind2":{"label": "Source of code"}}
-,"subfields":{
+"377":{"label":"Associated Language","url":"https://www.loc.gov/marc/bibliographic/bd377.html","repeatable":false,"indicator1":null,"indicator2":{"label":"Source of code","codes":[{"code":" ","label":"MARC language code"},
+{"code":"7","label":"Source specified in $2"}]
+},"subfields":{
 "a":{"label":"Language code","repeatable":false},
 "l":{"label":"Language term","repeatable":false},
 "0":{"label":"Authority record control number or standard number","repeatable":false},
@@ -4042,14 +4210,14 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"380":{"label":"Form of Work","url":"https://www.loc.gov/marc/bibliographic/bd380.html","repeatable":false,"subfields":{
+"380":{"label":"Form of Work","url":"https://www.loc.gov/marc/bibliographic/bd380.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Form of work","repeatable":false},
 "0":{"label":"Record control number","repeatable":false},
 "2":{"label":"Source of term","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"381":{"label":"Other Distinguishing Characteristics of Work or Expression","url":"https://www.loc.gov/marc/bibliographic/bd381.html","repeatable":false,"subfields":{
+"381":{"label":"Other Distinguishing Characteristics of Work or Expression","url":"https://www.loc.gov/marc/bibliographic/bd381.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Other distinguishing characteristic","repeatable":false},
 "u":{"label":"Uniform Resource Identifier","repeatable":false},
 "v":{"label":"Source of information","repeatable":false},
@@ -4058,9 +4226,13 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"382":{"label":"Medium of Performance","url":"https://www.loc.gov/marc/bibliographic/bd382.html","repeatable":false,"indicators":{"ind1":{"label": "Display constant controller"},
-"ind2":{"label": "Access control"}}
-,"subfields":{
+"382":{"label":"Medium of Performance","url":"https://www.loc.gov/marc/bibliographic/bd382.html","repeatable":false,"indicator1":{"label":"Display constant controller","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"Medium of performance"},
+{"code":"1","label":"Partial medium of performance"}]
+},"indicator2":{"label":"Access control","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"Not intended for access"},
+{"code":"1","label":"Intended for access"}]
+},"subfields":{
 "a":{"label":"Medium of performance","repeatable":false},
 "b":{"label":"Soloist","repeatable":false},
 "d":{"label":"Doubling instrument","repeatable":false},
@@ -4077,7 +4249,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"383":{"label":"Numeric Designation of Musical Work","url":"https://www.loc.gov/marc/bibliographic/bd383.html","repeatable":false,"subfields":{
+"383":{"label":"Numeric Designation of Musical Work","url":"https://www.loc.gov/marc/bibliographic/bd383.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Serial number","repeatable":false},
 "b":{"label":"Opus number","repeatable":false},
 "c":{"label":"Thematic index number","repeatable":false},
@@ -4087,13 +4259,15 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"384":{"label":"Key","url":"https://www.loc.gov/marc/bibliographic/bd384.html","repeatable":false,"indicators":{"ind1":{"label": "Key type"}}
-,"subfields":{
+"384":{"label":"Key","url":"https://www.loc.gov/marc/bibliographic/bd384.html","repeatable":false,"indicator1":{"label":"Key type","codes":[{"code":" ","label":"Relationship to original unknown"},
+{"code":"0","label":"Original key"},
+{"code":"1","label":"Transposed key"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Key","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"385":{"label":"Audience Characteristics","url":"https://www.loc.gov/marc/bibliographic/bd385.html","repeatable":false,"subfields":{
+"385":{"label":"Audience Characteristics","url":"https://www.loc.gov/marc/bibliographic/bd385.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Audience term","repeatable":false},
 "b":{"label":"Audience code","repeatable":false},
 "m":{"label":"Demographic group term","repeatable":true},
@@ -4104,7 +4278,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"386":{"label":"Creator/Contributor Characteristics","url":"https://www.loc.gov/marc/bibliographic/bd386.html","repeatable":false,"subfields":{
+"386":{"label":"Creator/Contributor Characteristics","url":"https://www.loc.gov/marc/bibliographic/bd386.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Creator/contributor term","repeatable":false},
 "b":{"label":"Creator/contributor code","repeatable":false},
 "i":{"label":"Relationship information","repeatable":false},
@@ -4117,8 +4291,10 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"388":{"label":"Time Period of Creation","url":"https://www.loc.gov/marc/bibliographic/bd388.html","repeatable":false,"indicators":{"ind1":{"label": "Type of time period"}}
-,"subfields":{
+"388":{"label":"Time Period of Creation","url":"https://www.loc.gov/marc/bibliographic/bd388.html","repeatable":false,"indicator1":{"label":"Type of time period","codes":[{"code":" ","label":"No information provided"},
+{"code":"1","label":"Creation of work"},
+{"code":"2","label":"Creation of aggregate work"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Time period of creation term","repeatable":false},
 "0":{"label":"Authority record control number or standard number","repeatable":false},
 "2":{"label":"Source","repeatable":true},
@@ -4126,9 +4302,12 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"400":{"label":"Series Statement/Added Entry-Personal Name","url":"https://www.loc.gov/marc/bibliographic/bd400.html","repeatable":false,"indicators":{"ind1":{"label": "Type of personal name entry element"},
-"ind2":{"label": "Pronoun represents main entry"}}
-,"subfields":{
+"400":{"label":"Series Statement/Added Entry-Personal Name","url":"https://www.loc.gov/marc/bibliographic/bd400.html","repeatable":false,"indicator1":{"label":"Type of personal name entry element","codes":[{"code":"0","label":"Forename"},
+{"code":"1","label":"Surname"},
+{"code":"3","label":"Family name"}]
+},"indicator2":{"label":"Pronoun represents main entry","codes":[{"code":"0","label":"Main entry not represented by pronoun"},
+{"code":"1","label":"Main entry represented by pronoun"}]
+},"subfields":{
 "a":{"label":"Personal name","repeatable":true},
 "b":{"label":"Numeration","repeatable":true},
 "c":{"label":"Titles and other words associated with a name","repeatable":false},
@@ -4148,9 +4327,12 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"410":{"label":"Series Statement/Added Entry-Corporate Name","url":"https://www.loc.gov/marc/bibliographic/bd410.html","repeatable":false,"indicators":{"ind1":{"label": "Type of corporate name entry element"},
-"ind2":{"label": "Pronoun represents main entry"}}
-,"subfields":{
+"410":{"label":"Series Statement/Added Entry-Corporate Name","url":"https://www.loc.gov/marc/bibliographic/bd410.html","repeatable":false,"indicator1":{"label":"Type of corporate name entry element","codes":[{"code":"0","label":"Inverted name"},
+{"code":"1","label":"Jurisdiction name"},
+{"code":"2","label":"Name in direct order"}]
+},"indicator2":{"label":"Pronoun represents main entry","codes":[{"code":"0","label":"Main entry not represented by pronoun"},
+{"code":"1","label":"Main entry represented by pronoun"}]
+},"subfields":{
 "a":{"label":"Corporate name or jurisdiction name as entry element","repeatable":true},
 "b":{"label":"Subordinate unit","repeatable":false},
 "c":{"label":"Location of meeting","repeatable":true},
@@ -4170,9 +4352,12 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"411":{"label":"Series Statement/Added Entry Meeting Name","url":"https://www.loc.gov/marc/bibliographic/bd411.html","repeatable":false,"indicators":{"ind1":{"label": "Type of meeting name entry element"},
-"ind2":{"label": "Pronoun represents main entry"}}
-,"subfields":{
+"411":{"label":"Series Statement/Added Entry Meeting Name","url":"https://www.loc.gov/marc/bibliographic/bd411.html","repeatable":false,"indicator1":{"label":"Type of meeting name entry element","codes":[{"code":"0","label":"Inverted name"},
+{"code":"1","label":"Jurisdiction name"},
+{"code":"2","label":"Name in direct order"}]
+},"indicator2":{"label":"Pronoun represents main entry","codes":[{"code":"0","label":"Main entry not represented by pronoun"},
+{"code":"9","label":"Main entry represented by pronoun"}]
+},"subfields":{
 "a":{"label":"Meeting name or jurisdiction name as entry element","repeatable":true},
 "c":{"label":"Location of meeting","repeatable":true},
 "d":{"label":"Date of meeting","repeatable":true},
@@ -4192,8 +4377,9 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"440":{"label":"Series Statement/Added Entry-Title","url":"https://www.loc.gov/marc/bibliographic/bd440.html","repeatable":false,"indicators":{"ind2":{"label": "Nonfiling characters"}}
-,"subfields":{
+"440":{"label":"Series Statement/Added Entry-Title","url":"https://www.loc.gov/marc/bibliographic/bd440.html","repeatable":false,"indicator1":null,"indicator2":{"label":"Nonfiling characters","codes":[{"code":"0","label":"No nonfiling characters"},
+{"code":"1-9","label":"Number of nonfiling characters"}]
+},"subfields":{
 "a":{"label":"Title","repeatable":true},
 "n":{"label":"Number of part/section of a work","repeatable":false},
 "p":{"label":"Name of part/section of a work","repeatable":false},
@@ -4206,8 +4392,9 @@
 ,"historical-subfields":{
 "h":{"label":"General material designation [OBSOLETE, 1997] [CAN/MARC only]"}}
 },
-"490":{"label":"Series Statement","url":"https://www.loc.gov/marc/bibliographic/bd490.html","repeatable":false,"indicators":{"ind1":{"label": "Series tracing policy"}}
-,"subfields":{
+"490":{"label":"Series Statement","url":"https://www.loc.gov/marc/bibliographic/bd490.html","repeatable":false,"indicator1":{"label":"Series tracing policy","codes":[{"code":"0","label":"Series not traced"},
+{"code":"1","label":"Series traced"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Series statement","repeatable":false},
 "l":{"label":"Library of Congress call number","repeatable":true},
 "v":{"label":"Volume/sequential designation","repeatable":false},
@@ -4216,7 +4403,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"500":{"label":"General Note","url":"https://www.loc.gov/marc/bibliographic/bd500.html","repeatable":false,"subfields":{
+"500":{"label":"General Note","url":"https://www.loc.gov/marc/bibliographic/bd500.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"General note","repeatable":true},
 "3":{"label":"Materials specified","repeatable":true},
 "5":{"label":"Institution to which field applies","repeatable":true},
@@ -4227,13 +4414,13 @@
 "x":{"label":"International Standard Serial Number (SE) [OBSOLETE, 1990]"},
 "z":{"label":"Source of note information (AM, SE) [OBSOLETE, 1990]"}}
 },
-"501":{"label":"With Note","url":"https://www.loc.gov/marc/bibliographic/bd501.html","repeatable":false,"subfields":{
+"501":{"label":"With Note","url":"https://www.loc.gov/marc/bibliographic/bd501.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"With note","repeatable":true},
 "5":{"label":"Institution to which field applies","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"502":{"label":"Dissertation Note","url":"https://www.loc.gov/marc/bibliographic/bd502.html","repeatable":false,"subfields":{
+"502":{"label":"Dissertation Note","url":"https://www.loc.gov/marc/bibliographic/bd502.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Dissertation note","repeatable":true},
 "b":{"label":"Degree type","repeatable":true},
 "c":{"label":"Name of granting institution","repeatable":true},
@@ -4243,15 +4430,19 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"504":{"label":"Bibliography, etc. Note","url":"https://www.loc.gov/marc/bibliographic/bd504.html","repeatable":false,"subfields":{
+"504":{"label":"Bibliography, etc. Note","url":"https://www.loc.gov/marc/bibliographic/bd504.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Bibliography, etc. note","repeatable":true},
 "b":{"label":"Number of references","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"505":{"label":"Formatted Contents Note","url":"https://www.loc.gov/marc/bibliographic/bd505.html","repeatable":false,"indicators":{"ind1":{"label": "Display constant controller"},
-"ind2":{"label": "Level of content designation"}}
-,"subfields":{
+"505":{"label":"Formatted Contents Note","url":"https://www.loc.gov/marc/bibliographic/bd505.html","repeatable":false,"indicator1":{"label":"Display constant controller","codes":[{"code":"0","label":"Contents"},
+{"code":"1","label":"Incomplete contents"},
+{"code":"2","label":"Partial contents"},
+{"code":"8","label":"No display constant generated"}]
+},"indicator2":{"label":"Level of content designation","codes":[{"code":" ","label":"Basic"},
+{"code":"0","label":"Enhanced"}]
+},"subfields":{
 "a":{"label":"Formatted contents note","repeatable":true},
 "g":{"label":"Miscellaneous information","repeatable":false},
 "r":{"label":"Statement of responsibility","repeatable":false},
@@ -4260,8 +4451,10 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"506":{"label":"Restrictions on Access Note","url":"https://www.loc.gov/marc/bibliographic/bd506.html","repeatable":false,"indicators":{"ind1":{"label": "Restriction"}}
-,"subfields":{
+"506":{"label":"Restrictions on Access Note","url":"https://www.loc.gov/marc/bibliographic/bd506.html","repeatable":false,"indicator1":{"label":"Restriction","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"No restrictions"},
+{"code":"1","label":"Restrictions apply"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Terms governing access","repeatable":true},
 "b":{"label":"Jurisdiction","repeatable":false},
 "c":{"label":"Physical access provisions","repeatable":false},
@@ -4275,19 +4468,23 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"507":{"label":"Scale Note for Graphic Material","url":"https://www.loc.gov/marc/bibliographic/bd507.html","repeatable":false,"subfields":{
+"507":{"label":"Scale Note for Graphic Material","url":"https://www.loc.gov/marc/bibliographic/bd507.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Representative fraction of scale note","repeatable":true},
 "b":{"label":"Remainder of scale note","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"508":{"label":"Creation/Production Credits Note","url":"https://www.loc.gov/marc/bibliographic/bd508.html","repeatable":false,"subfields":{
+"508":{"label":"Creation/Production Credits Note","url":"https://www.loc.gov/marc/bibliographic/bd508.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Creation/production credits note","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"510":{"label":"Citation/References Note","url":"https://www.loc.gov/marc/bibliographic/bd510.html","repeatable":false,"indicators":{"ind1":{"label": "Coverage/location in source"}}
-,"subfields":{
+"510":{"label":"Citation/References Note","url":"https://www.loc.gov/marc/bibliographic/bd510.html","repeatable":false,"indicator1":{"label":"Coverage/location in source","codes":[{"code":"0","label":"Coverage unknown"},
+{"code":"1","label":"Coverage complete"},
+{"code":"2","label":"Coverage is selective"},
+{"code":"3","label":"Location in source not given"},
+{"code":"4","label":"Location in source given"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Name of source","repeatable":true},
 "b":{"label":"Coverage of source","repeatable":true},
 "c":{"label":"Location within source","repeatable":true},
@@ -4297,19 +4494,22 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"511":{"label":"Participant or Performer Note","url":"https://www.loc.gov/marc/bibliographic/bd511.html","repeatable":false,"indicators":{"ind1":{"label": "Display constant controller"}}
-,"subfields":{
+"511":{"label":"Participant or Performer Note","url":"https://www.loc.gov/marc/bibliographic/bd511.html","repeatable":false,"indicator1":{"label":"Display constant controller","codes":[{"code":"0","label":"No display constant generated"},
+{"code":"1","label":"Cast"}]
+,"historical-codes":[{"code":"2","label":"Presenter (VM, MU) [OBSOLETE, 1993]"},
+{"code":"3","label":"Narrator (VM, MU) [OBSOLETE, 1993]"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Participant or performer note","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"513":{"label":"Type of Report and Period Covered Note","url":"https://www.loc.gov/marc/bibliographic/bd513.html","repeatable":false,"subfields":{
+"513":{"label":"Type of Report and Period Covered Note","url":"https://www.loc.gov/marc/bibliographic/bd513.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Type of report","repeatable":true},
 "b":{"label":"Period covered","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"514":{"label":"Data Quality Note","url":"https://www.loc.gov/marc/bibliographic/bd514.html","repeatable":false,"subfields":{
+"514":{"label":"Data Quality Note","url":"https://www.loc.gov/marc/bibliographic/bd514.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Attribute accuracy report","repeatable":true},
 "b":{"label":"Attribute accuracy value","repeatable":false},
 "c":{"label":"Attribute accuracy explanation","repeatable":false},
@@ -4327,20 +4527,21 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"515":{"label":"Numbering Peculiarities Note","url":"https://www.loc.gov/marc/bibliographic/bd515.html","repeatable":false,"subfields":{
+"515":{"label":"Numbering Peculiarities Note","url":"https://www.loc.gov/marc/bibliographic/bd515.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Numbering peculiarities note","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 ,"historical-subfields":{
 "z":{"label":"Source of note information (SE) [OBSOLETE, 1990]"}}
 },
-"516":{"label":"Type of Computer File or Data Note","url":"https://www.loc.gov/marc/bibliographic/bd516.html","repeatable":false,"indicators":{"ind1":{"label": "Display constant controller"}}
-,"subfields":{
+"516":{"label":"Type of Computer File or Data Note","url":"https://www.loc.gov/marc/bibliographic/bd516.html","repeatable":false,"indicator1":{"label":"Display constant controller","codes":[{"code":" ","label":"Type of file"},
+{"code":"8","label":"No display constant generated"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Type of computer file or data note","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"518":{"label":"Date/Time and Place of an Event Note","url":"https://www.loc.gov/marc/bibliographic/bd518.html","repeatable":false,"subfields":{
+"518":{"label":"Date/Time and Place of an Event Note","url":"https://www.loc.gov/marc/bibliographic/bd518.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Date/time and place of an event note","repeatable":true},
 "d":{"label":"Date of event","repeatable":false},
 "o":{"label":"Other event information","repeatable":false},
@@ -4351,8 +4552,14 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"520":{"label":"Summary, etc.","url":"https://www.loc.gov/marc/bibliographic/bd520.html","repeatable":false,"indicators":{"ind1":{"label": "Display constant controller"}}
-,"subfields":{
+"520":{"label":"Summary, etc.","url":"https://www.loc.gov/marc/bibliographic/bd520.html","repeatable":false,"indicator1":{"label":"Display constant controller","codes":[{"code":" ","label":"Summary"},
+{"code":"0","label":"Subject"},
+{"code":"1","label":"Review"},
+{"code":"2","label":"Scope and content"},
+{"code":"3","label":"Abstract"},
+{"code":"4","label":"Content advice"},
+{"code":"8","label":"No display constant generated"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Summary, etc.","repeatable":true},
 "b":{"label":"Expansion of summary note","repeatable":true},
 "c":{"label":"Assigning source","repeatable":true},
@@ -4364,37 +4571,46 @@
 ,"historical-subfields":{
 "z":{"label":"Source of note information (BK, AM, CF, SE) [OBSOLETE, 1990]"}}
 },
-"521":{"label":"Target Audience Note","url":"https://www.loc.gov/marc/bibliographic/bd521.html","repeatable":false,"indicators":{"ind1":{"label": "Display constant controller"}}
-,"subfields":{
+"521":{"label":"Target Audience Note","url":"https://www.loc.gov/marc/bibliographic/bd521.html","repeatable":false,"indicator1":{"label":"Display constant controller","codes":[{"code":" ","label":"Audience"},
+{"code":"0","label":"Reading grade level"},
+{"code":"1","label":"Interest age level"},
+{"code":"2","label":"Interest grade level"},
+{"code":"3","label":"Special audience characteristics"},
+{"code":"4","label":"Motivation/interest level"},
+{"code":"8","label":"No display constant generated"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Target audience note","repeatable":false},
 "b":{"label":"Source","repeatable":true},
 "3":{"label":"Materials specified","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"522":{"label":"Geographic Coverage Note","url":"https://www.loc.gov/marc/bibliographic/bd522.html","repeatable":false,"indicators":{"ind1":{"label": "Display constant controller"}}
-,"subfields":{
+"522":{"label":"Geographic Coverage Note","url":"https://www.loc.gov/marc/bibliographic/bd522.html","repeatable":false,"indicator1":{"label":"Display constant controller","codes":[{"code":" ","label":"Geographic coverage"},
+{"code":"8","label":"No display constant generated"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Geographic coverage note","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"524":{"label":"Preferred Citation of Described Materials Note","url":"https://www.loc.gov/marc/bibliographic/bd524.html","repeatable":false,"indicators":{"ind1":{"label": "Display constant controller"}}
-,"subfields":{
+"524":{"label":"Preferred Citation of Described Materials Note","url":"https://www.loc.gov/marc/bibliographic/bd524.html","repeatable":false,"indicator1":{"label":"Display constant controller","codes":[{"code":" ","label":"Cite as"},
+{"code":"8","label":"No display constant generated"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Preferred citation of described materials note","repeatable":true},
 "2":{"label":"Source of schema used","repeatable":true},
 "3":{"label":"Materials specified","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"525":{"label":"Supplement Note","url":"https://www.loc.gov/marc/bibliographic/bd525.html","repeatable":false,"subfields":{
+"525":{"label":"Supplement Note","url":"https://www.loc.gov/marc/bibliographic/bd525.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Supplement note","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 ,"historical-subfields":{
 "z":{"label":"Source of note information (SE) [OBSOLETE, 1990]"}}
 },
-"526":{"label":"Study Program Information Note","url":"https://www.loc.gov/marc/bibliographic/bd526.html","repeatable":false,"indicators":{"ind1":{"label": "Display constant controller"}}
-,"subfields":{
+"526":{"label":"Study Program Information Note","url":"https://www.loc.gov/marc/bibliographic/bd526.html","repeatable":false,"indicator1":{"label":"Display constant controller","codes":[{"code":"0","label":"Reading program"},
+{"code":"8","label":"No display constant generated"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Program name","repeatable":true},
 "b":{"label":"Interest level","repeatable":true},
 "c":{"label":"Reading level","repeatable":true},
@@ -4406,7 +4622,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"530":{"label":"Additional Physical Form available Note","url":"https://www.loc.gov/marc/bibliographic/bd530.html","repeatable":false,"subfields":{
+"530":{"label":"Additional Physical Form available Note","url":"https://www.loc.gov/marc/bibliographic/bd530.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Additional physical form available note","repeatable":true},
 "b":{"label":"Availability source","repeatable":true},
 "c":{"label":"Availability conditions","repeatable":true},
@@ -4418,7 +4634,7 @@
 ,"historical-subfields":{
 "z":{"label":"Source of note information (AM, CF, VM, SE) [OBSOLETE, 1990]"}}
 },
-"533":{"label":"Reproduction Note","url":"https://www.loc.gov/marc/bibliographic/bd533.html","repeatable":false,"subfields":{
+"533":{"label":"Reproduction Note","url":"https://www.loc.gov/marc/bibliographic/bd533.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Type of reproduction","repeatable":true},
 "b":{"label":"Place of reproduction","repeatable":false},
 "c":{"label":"Agency responsible for reproduction","repeatable":false},
@@ -4433,7 +4649,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"534":{"label":"Original Version Note","url":"https://www.loc.gov/marc/bibliographic/bd534.html","repeatable":false,"subfields":{
+"534":{"label":"Original Version Note","url":"https://www.loc.gov/marc/bibliographic/bd534.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Main entry of original","repeatable":true},
 "b":{"label":"Edition statement of original","repeatable":true},
 "c":{"label":"Publication, distribution, etc. of original","repeatable":true},
@@ -4452,8 +4668,11 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"535":{"label":"Location of Originals/Duplicates Note","url":"https://www.loc.gov/marc/bibliographic/bd535.html","repeatable":false,"indicators":{"ind1":{"label": "Custodial role"}}
-,"subfields":{
+"535":{"label":"Location of Originals/Duplicates Note","url":"https://www.loc.gov/marc/bibliographic/bd535.html","repeatable":false,"indicator1":{"label":"Custodial role","codes":[{"code":"1","label":"Holder of originals"},
+{"code":"2","label":"Holder of duplicates"}]
+,"historical-codes":[{"code":"0","label":"Repository (AM) [OBSOLETE, 1984]"},
+{"code":"3","label":"Holder of oral tapes (AM) [OBSOLETE, 1984]"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Custodian","repeatable":true},
 "b":{"label":"Postal address","repeatable":false},
 "c":{"label":"Country","repeatable":false},
@@ -4463,7 +4682,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"536":{"label":"Funding Information Note","url":"https://www.loc.gov/marc/bibliographic/bd536.html","repeatable":false,"subfields":{
+"536":{"label":"Funding Information Note","url":"https://www.loc.gov/marc/bibliographic/bd536.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Text of note","repeatable":true},
 "b":{"label":"Contract number","repeatable":false},
 "c":{"label":"Grant number","repeatable":false},
@@ -4475,7 +4694,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"538":{"label":"System Details Note","url":"https://www.loc.gov/marc/bibliographic/bd538.html","repeatable":false,"subfields":{
+"538":{"label":"System Details Note","url":"https://www.loc.gov/marc/bibliographic/bd538.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"System details note","repeatable":true},
 "i":{"label":"Display text","repeatable":true},
 "u":{"label":"Uniform Resource Identifier","repeatable":false},
@@ -4484,7 +4703,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"540":{"label":"Terms Governing Use and Reproduction Note","url":"https://www.loc.gov/marc/bibliographic/bd540.html","repeatable":false,"subfields":{
+"540":{"label":"Terms Governing Use and Reproduction Note","url":"https://www.loc.gov/marc/bibliographic/bd540.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Terms governing use and reproduction","repeatable":true},
 "b":{"label":"Jurisdiction","repeatable":true},
 "c":{"label":"Authorization","repeatable":true},
@@ -4495,8 +4714,10 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"541":{"label":"Immediate Source of Acquisition Note","url":"https://www.loc.gov/marc/bibliographic/bd541.html","repeatable":false,"indicators":{"ind1":{"label": "Privacy"}}
-,"subfields":{
+"541":{"label":"Immediate Source of Acquisition Note","url":"https://www.loc.gov/marc/bibliographic/bd541.html","repeatable":false,"indicator1":{"label":"Privacy","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"Private"},
+{"code":"1","label":"Not private"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Source of acquisition","repeatable":true},
 "b":{"label":"Address","repeatable":true},
 "c":{"label":"Method of acquisition","repeatable":true},
@@ -4511,8 +4732,10 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"542":{"label":"Information Relating to Copyright Status","url":"https://www.loc.gov/marc/bibliographic/bd542.html","repeatable":false,"indicators":{"ind1":{"label": "Privacy"}}
-,"subfields":{
+"542":{"label":"Information Relating to Copyright Status","url":"https://www.loc.gov/marc/bibliographic/bd542.html","repeatable":false,"indicator1":{"label":"Privacy","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"Private"},
+{"code":"1","label":"Not private"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Personal creator","repeatable":true},
 "b":{"label":"Personal creator death date","repeatable":true},
 "c":{"label":"Corporate creator","repeatable":true},
@@ -4537,8 +4760,10 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"544":{"label":"Location of Other Archival Materials Note","url":"https://www.loc.gov/marc/bibliographic/bd544.html","repeatable":false,"indicators":{"ind1":{"label": "Relationship"}}
-,"subfields":{
+"544":{"label":"Location of Other Archival Materials Note","url":"https://www.loc.gov/marc/bibliographic/bd544.html","repeatable":false,"indicator1":{"label":"Relationship","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"Associated materials"},
+{"code":"1","label":"Related materials"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Custodian","repeatable":false},
 "b":{"label":"Address","repeatable":false},
 "c":{"label":"Country","repeatable":false},
@@ -4549,15 +4774,17 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"545":{"label":"Biographical or Historical Data","url":"https://www.loc.gov/marc/bibliographic/bd545.html","repeatable":false,"indicators":{"ind1":{"label": "Type of data"}}
-,"subfields":{
+"545":{"label":"Biographical or Historical Data","url":"https://www.loc.gov/marc/bibliographic/bd545.html","repeatable":false,"indicator1":{"label":"Type of data","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"Biographical sketch"},
+{"code":"1","label":"Administrative history"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Biographical or historical data","repeatable":true},
 "b":{"label":"Expansion","repeatable":true},
 "u":{"label":"Uniform Resource Identifier","repeatable":false},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"546":{"label":"Language Note","url":"https://www.loc.gov/marc/bibliographic/bd546.html","repeatable":false,"subfields":{
+"546":{"label":"Language Note","url":"https://www.loc.gov/marc/bibliographic/bd546.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Language note","repeatable":true},
 "b":{"label":"Information code or alphabet","repeatable":false},
 "3":{"label":"Materials specified","repeatable":true},
@@ -4566,21 +4793,21 @@
 ,"historical-subfields":{
 "z":{"label":"Source of note information (SE) [OBSOLETE, 1990]"}}
 },
-"547":{"label":"Former Title Complexity Note","url":"https://www.loc.gov/marc/bibliographic/bd547.html","repeatable":false,"subfields":{
+"547":{"label":"Former Title Complexity Note","url":"https://www.loc.gov/marc/bibliographic/bd547.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Former title complexity note","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 ,"historical-subfields":{
 "z":{"label":"Source of note information (SE) [OBSOLETE, 1990]"}}
 },
-"550":{"label":"Issuing Body Note","url":"https://www.loc.gov/marc/bibliographic/bd550.html","repeatable":false,"subfields":{
+"550":{"label":"Issuing Body Note","url":"https://www.loc.gov/marc/bibliographic/bd550.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Issuing body note","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 ,"historical-subfields":{
 "z":{"label":"Source of note information (SE) [OBSOLETE, 1990]"}}
 },
-"552":{"label":"Entity and Attribute Information Note","url":"https://www.loc.gov/marc/bibliographic/bd552.html","repeatable":false,"subfields":{
+"552":{"label":"Entity and Attribute Information Note","url":"https://www.loc.gov/marc/bibliographic/bd552.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Entity type label","repeatable":true},
 "b":{"label":"Entity type definition and source","repeatable":true},
 "c":{"label":"Attribute label","repeatable":true},
@@ -4602,8 +4829,10 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"555":{"label":"Cumulative Index/Finding Aids Note","url":"https://www.loc.gov/marc/bibliographic/bd555.html","repeatable":false,"indicators":{"ind1":{"label": "Display constant controller"}}
-,"subfields":{
+"555":{"label":"Cumulative Index/Finding Aids Note","url":"https://www.loc.gov/marc/bibliographic/bd555.html","repeatable":false,"indicator1":{"label":"Display constant controller","codes":[{"code":" ","label":"Indexes"},
+{"code":"0","label":"Finding aids"},
+{"code":"8","label":"No display constant generated"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Cumulative index/finding aids note","repeatable":true},
 "b":{"label":"Availability source","repeatable":false},
 "c":{"label":"Degree of control","repeatable":true},
@@ -4613,15 +4842,18 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"556":{"label":"Information About Documentation Note","url":"https://www.loc.gov/marc/bibliographic/bd556.html","repeatable":false,"indicators":{"ind1":{"label": "Display constant controller"}}
-,"subfields":{
+"556":{"label":"Information About Documentation Note","url":"https://www.loc.gov/marc/bibliographic/bd556.html","repeatable":false,"indicator1":{"label":"Display constant controller","codes":[{"code":" ","label":"Documentation"},
+{"code":"8","label":"No display constant generated"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Information about documentation note","repeatable":true},
 "z":{"label":"International Standard Book Number","repeatable":false},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"561":{"label":"Ownership and Custodial History","url":"https://www.loc.gov/marc/bibliographic/bd561.html","repeatable":false,"indicators":{"ind1":{"label": "Privacy"}}
-,"subfields":{
+"561":{"label":"Ownership and Custodial History","url":"https://www.loc.gov/marc/bibliographic/bd561.html","repeatable":false,"indicator1":{"label":"Privacy","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"Private"},
+{"code":"1","label":"Not private"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"History","repeatable":true},
 "u":{"label":"Uniform Resource Identifier","repeatable":false},
 "3":{"label":"Materials specified","repeatable":true},
@@ -4631,7 +4863,7 @@
 ,"historical-subfields":{
 "b":{"label":"Time of collation (NR) [OBSOLETE, 1997]"}}
 },
-"562":{"label":"Copy and Version Identification Note","url":"https://www.loc.gov/marc/bibliographic/bd562.html","repeatable":false,"subfields":{
+"562":{"label":"Copy and Version Identification Note","url":"https://www.loc.gov/marc/bibliographic/bd562.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Identifying markings","repeatable":false},
 "b":{"label":"Copy identification","repeatable":false},
 "c":{"label":"Version identification","repeatable":false},
@@ -4642,7 +4874,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"563":{"label":"Binding Information","url":"https://www.loc.gov/marc/bibliographic/bd563.html","repeatable":false,"subfields":{
+"563":{"label":"Binding Information","url":"https://www.loc.gov/marc/bibliographic/bd563.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Binding note","repeatable":true},
 "u":{"label":"Uniform Resource Identifier","repeatable":false},
 "3":{"label":"Materials specified","repeatable":true},
@@ -4650,8 +4882,10 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"565":{"label":"Case File Characteristics Note","url":"https://www.loc.gov/marc/bibliographic/bd565.html","repeatable":false,"indicators":{"ind1":{"label": "Display constant controller"}}
-,"subfields":{
+"565":{"label":"Case File Characteristics Note","url":"https://www.loc.gov/marc/bibliographic/bd565.html","repeatable":false,"indicator1":{"label":"Display constant controller","codes":[{"code":" ","label":"File size"},
+{"code":"0","label":"Case file characteristics"},
+{"code":"8","label":"No display constant generated"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Number of cases/variables","repeatable":true},
 "b":{"label":"Name of variable","repeatable":false},
 "c":{"label":"Unit of analysis","repeatable":false},
@@ -4661,8 +4895,9 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"567":{"label":"Methodology Note","url":"https://www.loc.gov/marc/bibliographic/bd567.html","repeatable":false,"indicators":{"ind1":{"label": "Display constant controller"}}
-,"subfields":{
+"567":{"label":"Methodology Note","url":"https://www.loc.gov/marc/bibliographic/bd567.html","repeatable":false,"indicator1":{"label":"Display constant controller","codes":[{"code":" ","label":"Methodology"},
+{"code":"8","label":"No display constant generated"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Methodology note","repeatable":true},
 "b":{"label":"Controlled term","repeatable":false},
 "0":{"label":"Authority record control number or standard number","repeatable":false},
@@ -4670,23 +4905,26 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"580":{"label":"Linking Entry Complexity Note","url":"https://www.loc.gov/marc/bibliographic/bd580.html","repeatable":false,"subfields":{
+"580":{"label":"Linking Entry Complexity Note","url":"https://www.loc.gov/marc/bibliographic/bd580.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Linking entry complexity note","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 ,"historical-subfields":{
 "z":{"label":"Source of note information [OBSOLETE, 1990]"}}
 },
-"581":{"label":"Publications About Described Materials Note","url":"https://www.loc.gov/marc/bibliographic/bd581.html","repeatable":false,"indicators":{"ind1":{"label": "Display constant controller"}}
-,"subfields":{
+"581":{"label":"Publications About Described Materials Note","url":"https://www.loc.gov/marc/bibliographic/bd581.html","repeatable":false,"indicator1":{"label":"Display constant controller","codes":[{"code":" ","label":"Publications"},
+{"code":"8","label":"No display constant generated"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Publications about described materials note","repeatable":true},
 "z":{"label":"International Standard Book Number","repeatable":false},
 "3":{"label":"Materials specified","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"583":{"label":"Action Note","url":"https://www.loc.gov/marc/bibliographic/bd583.html","repeatable":false,"indicators":{"ind1":{"label": "Privacy"}}
-,"subfields":{
+"583":{"label":"Action Note","url":"https://www.loc.gov/marc/bibliographic/bd583.html","repeatable":false,"indicator1":{"label":"Privacy","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"Private"},
+{"code":"1","label":"Not private"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Action","repeatable":true},
 "b":{"label":"Action identification","repeatable":false},
 "c":{"label":"Time/date of action","repeatable":false},
@@ -4709,7 +4947,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"584":{"label":"Accumulation and Frequency of Use Note","url":"https://www.loc.gov/marc/bibliographic/bd584.html","repeatable":false,"subfields":{
+"584":{"label":"Accumulation and Frequency of Use Note","url":"https://www.loc.gov/marc/bibliographic/bd584.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Accumulation","repeatable":false},
 "b":{"label":"Frequency of use","repeatable":false},
 "3":{"label":"Materials specified","repeatable":true},
@@ -4717,30 +4955,43 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"585":{"label":"Exhibitions Note","url":"https://www.loc.gov/marc/bibliographic/bd585.html","repeatable":false,"subfields":{
+"585":{"label":"Exhibitions Note","url":"https://www.loc.gov/marc/bibliographic/bd585.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Exhibitions note","repeatable":true},
 "3":{"label":"Materials specified","repeatable":true},
 "5":{"label":"Institution to which field applies","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"586":{"label":"Awards Note","url":"https://www.loc.gov/marc/bibliographic/bd586.html","repeatable":false,"indicators":{"ind1":{"label": "Display constant controller"}}
-,"subfields":{
+"586":{"label":"Awards Note","url":"https://www.loc.gov/marc/bibliographic/bd586.html","repeatable":false,"indicator1":{"label":"Display constant controller","codes":[{"code":" ","label":"Awards"},
+{"code":"8","label":"No display constant generated"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Awards note","repeatable":true},
 "3":{"label":"Materials specified","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"588":{"label":"Source of Description Note","url":"https://www.loc.gov/marc/bibliographic/bd588.html","repeatable":false,"indicators":{"ind1":{"label": "Display constant controller"}}
-,"subfields":{
+"588":{"label":"Source of Description Note","url":"https://www.loc.gov/marc/bibliographic/bd588.html","repeatable":false,"indicator1":{"label":"Display constant controller","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"Source of description"},
+{"code":"1","label":"Latest issue consulted"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Source of description note","repeatable":true},
 "5":{"label":"Institution to which field applies","repeatable":true},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"600":{"label":"Subject Added Entry - Personal Name","url":"https://www.loc.gov/marc/bibliographic/bd600.html","repeatable":false,"indicators":{"ind1":{"label": "Type of personal name entry element"},
-"ind2":{"label": "Thesaurus"}}
-,"subfields":{
+"600":{"label":"Subject Added Entry - Personal Name","url":"https://www.loc.gov/marc/bibliographic/bd600.html","repeatable":false,"indicator1":{"label":"Type of personal name entry element","codes":[{"code":"0","label":"Forename"},
+{"code":"1","label":"Surname"},
+{"code":"3","label":"Family name"}]
+,"historical-codes":[{"code":"2","label":"Multiple surname [OBSOLETE, 1996]"}]
+},"indicator2":{"label":"Thesaurus","codes":[{"code":"0","label":"Library of Congress Subject Headings"},
+{"code":"1","label":"LC subject headings for children's literature"},
+{"code":"2","label":"Medical Subject Headings"},
+{"code":"3","label":"National Agricultural Library subject authority file"},
+{"code":"4","label":"Source not specified"},
+{"code":"5","label":"Canadian Subject Headings"},
+{"code":"6","label":"Répertoire de vedettes-matière"},
+{"code":"7","label":"Source specified in subfield $2"}]
+},"subfields":{
 "a":{"label":"Personal name","repeatable":true},
 "b":{"label":"Numeration","repeatable":true},
 "c":{"label":"Titles and other words associated with a name","repeatable":false},
@@ -4772,9 +5023,18 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"610":{"label":"Subject Added Entry - Corporate Name","url":"https://www.loc.gov/marc/bibliographic/bd610.html","repeatable":false,"indicators":{"ind1":{"label": "Type of corporate name entry element"},
-"ind2":{"label": "Thesaurus"}}
-,"subfields":{
+"610":{"label":"Subject Added Entry - Corporate Name","url":"https://www.loc.gov/marc/bibliographic/bd610.html","repeatable":false,"indicator1":{"label":"Type of corporate name entry element","codes":[{"code":"0","label":"Inverted name"},
+{"code":"1","label":"Jurisdiction name"},
+{"code":"2","label":"Name in direct order"}]
+},"indicator2":{"label":"Thesaurus","codes":[{"code":"0","label":"Library of Congress Subject Headings"},
+{"code":"1","label":"LC subject headings for children's literature"},
+{"code":"2","label":"Medical Subject Headings"},
+{"code":"3","label":"National Agricultural Library subject authority file"},
+{"code":"4","label":"Source not specified"},
+{"code":"5","label":"Canadian Subject Headings"},
+{"code":"6","label":"Répertoire de vedettes-matière"},
+{"code":"7","label":"Source specified in subfield $2"}]
+},"subfields":{
 "a":{"label":"Corporate name or jurisdiction name as entry element","repeatable":true},
 "b":{"label":"Subordinate unit","repeatable":false},
 "c":{"label":"Location of meeting","repeatable":false},
@@ -4804,9 +5064,18 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"611":{"label":"Subject Added Entry - Meeting Name","url":"https://www.loc.gov/marc/bibliographic/bd611.html","repeatable":false,"indicators":{"ind1":{"label": "Type of meeting name entry element"},
-"ind2":{"label": "Thesaurus"}}
-,"subfields":{
+"611":{"label":"Subject Added Entry - Meeting Name","url":"https://www.loc.gov/marc/bibliographic/bd611.html","repeatable":false,"indicator1":{"label":"Type of meeting name entry element","codes":[{"code":"0","label":"Inverted name"},
+{"code":"1","label":"Jurisdiction name"},
+{"code":"2","label":"Name in direct order"}]
+},"indicator2":{"label":"Thesaurus","codes":[{"code":"0","label":"Library of Congress Subject Headings"},
+{"code":"1","label":"LC subject headings for children's literature"},
+{"code":"2","label":"Medical Subject Headings"},
+{"code":"3","label":"National Agricultural Library subject authority file"},
+{"code":"4","label":"Source not specified"},
+{"code":"5","label":"Canadian Subject Headings"},
+{"code":"6","label":"Répertoire de vedettes-matière"},
+{"code":"7","label":"Source specified in subfield $2"}]
+},"subfields":{
 "a":{"label":"Meeting name or jurisdiction name as entry element","repeatable":true},
 "c":{"label":"Location of meeting","repeatable":false},
 "d":{"label":"Date of meeting","repeatable":true},
@@ -4834,9 +5103,16 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"630":{"label":"Subject Added Entry - Uniform Title","url":"https://www.loc.gov/marc/bibliographic/bd630.html","repeatable":false,"indicators":{"ind1":{"label": "Nonfiling characters"},
-"ind2":{"label": "Thesaurus"}}
-,"subfields":{
+"630":{"label":"Subject Added Entry - Uniform Title","url":"https://www.loc.gov/marc/bibliographic/bd630.html","repeatable":false,"indicator1":{"label":"Nonfiling characters","codes":[{"code":"0-9","label":"Number of nonfiling characters"}]
+},"indicator2":{"label":"Thesaurus","codes":[{"code":"0","label":"Library of Congress Subject Headings"},
+{"code":"1","label":"LC subject headings for children's literature"},
+{"code":"2","label":"Medical Subject Headings"},
+{"code":"3","label":"National Agricultural Library subject authority file"},
+{"code":"4","label":"Source not specified"},
+{"code":"5","label":"Canadian Subject Headings"},
+{"code":"6","label":"Répertoire de vedettes-matière"},
+{"code":"7","label":"Source specified in subfield $2"}]
+},"subfields":{
 "a":{"label":"Uniform title","repeatable":true},
 "d":{"label":"Date of treaty signing","repeatable":false},
 "e":{"label":"Relator term","repeatable":false},
@@ -4863,8 +5139,15 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"647":{"label":"Subject Added Entry - Named Event","url":"https://www.loc.gov/marc/bibliographic/bd647.html","repeatable":false,"indicators":{"ind2":{"label": "Thesaurus"}}
-,"subfields":{
+"647":{"label":"Subject Added Entry - Named Event","url":"https://www.loc.gov/marc/bibliographic/bd647.html","repeatable":false,"indicator1":null,"indicator2":{"label":"Thesaurus","codes":[{"code":"0","label":"Library of Congress Subject Headings"},
+{"code":"1","label":"LC subject headings for children's literature"},
+{"code":"2","label":"Medical Subject Headings"},
+{"code":"3","label":"National Agricultural Library subject authority file"},
+{"code":"4","label":"Source not specified"},
+{"code":"5","label":"Canadian Subject Headings"},
+{"code":"6","label":"Répertoire de vedettes-matière"},
+{"code":"7","label":"Source specified in subfield $2"}]
+},"subfields":{
 "a":{"label":"Named event","repeatable":true},
 "c":{"label":"Location of named event","repeatable":false},
 "d":{"label":"Date of named event","repeatable":true},
@@ -4879,8 +5162,15 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"648":{"label":"Subject Added Entry - Chronological Term","url":"https://www.loc.gov/marc/bibliographic/bd648.html","repeatable":false,"indicators":{"ind2":{"label": "Thesaurus"}}
-,"subfields":{
+"648":{"label":"Subject Added Entry - Chronological Term","url":"https://www.loc.gov/marc/bibliographic/bd648.html","repeatable":false,"indicator1":null,"indicator2":{"label":"Thesaurus","codes":[{"code":"0","label":"Library of Congress Subject Headings"},
+{"code":"1","label":"LC subject headings for children's literature"},
+{"code":"2","label":"Medical Subject Headings"},
+{"code":"3","label":"National Agricultural Library subject authority file"},
+{"code":"4","label":"Source not specified"},
+{"code":"5","label":"Canadian Subject Headings"},
+{"code":"6","label":"Répertoire de vedettes-matière"},
+{"code":"7","label":"Source specified in subfield $2"}]
+},"subfields":{
 "a":{"label":"Chronological term","repeatable":true},
 "v":{"label":"Form subdivision","repeatable":false},
 "x":{"label":"General subdivision","repeatable":false},
@@ -4892,9 +5182,19 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"650":{"label":"Subject Added Entry - Topical Term","url":"https://www.loc.gov/marc/bibliographic/bd650.html","repeatable":false,"indicators":{"ind1":{"label": "Level of subject"},
-"ind2":{"label": "Thesaurus"}}
-,"subfields":{
+"650":{"label":"Subject Added Entry - Topical Term","url":"https://www.loc.gov/marc/bibliographic/bd650.html","repeatable":false,"indicator1":{"label":"Level of subject","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"No level specified"},
+{"code":"1","label":"Primary"},
+{"code":"2","label":"Secondary"}]
+},"indicator2":{"label":"Thesaurus","codes":[{"code":"0","label":"Library of Congress Subject Headings"},
+{"code":"1","label":"LC subject headings for children's literature"},
+{"code":"2","label":"Medical Subject Headings"},
+{"code":"3","label":"National Agricultural Library subject authority file"},
+{"code":"4","label":"Source not specified"},
+{"code":"5","label":"Canadian Subject Headings"},
+{"code":"6","label":"Répertoire de vedettes-matière"},
+{"code":"7","label":"Source specified in subfield $2"}]
+},"subfields":{
 "a":{"label":"Topical term or geographic name entry element","repeatable":true},
 "b":{"label":"Topical term following geographic name entry element","repeatable":true},
 "c":{"label":"Location of event","repeatable":true},
@@ -4914,8 +5214,15 @@
 ,"historical-subfields":{
 "b":{"label":"Topical term following geographic name as entry element [OBSOLETE, 1981]"}}
 },
-"651":{"label":"Subject Added Entry - Geographic Name","url":"https://www.loc.gov/marc/bibliographic/bd651.html","repeatable":false,"indicators":{"ind2":{"label": "Thesaurus"}}
-,"subfields":{
+"651":{"label":"Subject Added Entry - Geographic Name","url":"https://www.loc.gov/marc/bibliographic/bd651.html","repeatable":false,"indicator1":null,"indicator2":{"label":"Thesaurus","codes":[{"code":"0","label":"Library of Congress Subject Headings"},
+{"code":"1","label":"LC subject headings for children's literature"},
+{"code":"2","label":"Medical Subject Headings"},
+{"code":"3","label":"National Agricultural Library subject authority file"},
+{"code":"4","label":"Source not specified"},
+{"code":"5","label":"Canadian Subject Headings"},
+{"code":"6","label":"Répertoire de vedettes-matière"},
+{"code":"7","label":"Source specified in subfield $2"}]
+},"subfields":{
 "a":{"label":"Geographic name","repeatable":true},
 "e":{"label":"Relator term","repeatable":false},
 "g":{"label":"Miscellaneous information","repeatable":false},
@@ -4932,15 +5239,28 @@
 ,"historical-subfields":{
 "b":{"label":"Geographic name following place entry element [OBSOLETE, 1981]"}}
 },
-"653":{"label":"Index Term - Uncontrolled","url":"https://www.loc.gov/marc/bibliographic/bd653.html","repeatable":false,"indicators":{"ind1":{"label": "Level of index term"},
-"ind2":{"label": "Type of term or name"}}
-,"subfields":{
+"653":{"label":"Index Term - Uncontrolled","url":"https://www.loc.gov/marc/bibliographic/bd653.html","repeatable":false,"indicator1":{"label":"Level of index term","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"No level specified"},
+{"code":"1","label":"Primary"},
+{"code":"2","label":"Secondary"}]
+},"indicator2":{"label":"Type of term or name","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"Topical term"},
+{"code":"1","label":"Personal name"},
+{"code":"2","label":"Corporate name"},
+{"code":"3","label":"Meeting name"},
+{"code":"4","label":"Chronological term"},
+{"code":"5","label":"Geographic name"},
+{"code":"6","label":"Genre/form term"}]
+},"subfields":{
 "a":{"label":"Uncontrolled term","repeatable":false},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"654":{"label":"Subject Added Entry - Faceted Topical Terms","url":"https://www.loc.gov/marc/bibliographic/bd654.html","repeatable":false,"indicators":{"ind1":{"label": "Level of subject"}}
-,"subfields":{
+"654":{"label":"Subject Added Entry - Faceted Topical Terms","url":"https://www.loc.gov/marc/bibliographic/bd654.html","repeatable":false,"indicator1":{"label":"Level of subject","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"No level specified"},
+{"code":"1","label":"Primary"},
+{"code":"2","label":"Secondary"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Focus term","repeatable":false},
 "b":{"label":"Non-focus term","repeatable":false},
 "c":{"label":"Facet/hierarchy designation","repeatable":false},
@@ -4955,9 +5275,17 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"655":{"label":"Index Term - Genre/Form","url":"https://www.loc.gov/marc/bibliographic/bd655.html","repeatable":false,"indicators":{"ind1":{"label": "Type of heading"},
-"ind2":{"label": "Thesaurus"}}
-,"subfields":{
+"655":{"label":"Index Term - Genre/Form","url":"https://www.loc.gov/marc/bibliographic/bd655.html","repeatable":false,"indicator1":{"label":"Type of heading","codes":[{"code":" ","label":"Basic"},
+{"code":"0","label":"Faceted"}]
+},"indicator2":{"label":"Thesaurus","codes":[{"code":"0","label":"Library of Congress Subject Headings"},
+{"code":"1","label":"LC subject headings for children's literature"},
+{"code":"2","label":"Medical Subject Headings"},
+{"code":"3","label":"National Agricultural Library subject authority file"},
+{"code":"4","label":"Source not specified"},
+{"code":"5","label":"Canadian Subject Headings"},
+{"code":"6","label":"Répertoire de vedettes-matière"},
+{"code":"7","label":"Source specified in subfield $2"}]
+},"subfields":{
 "a":{"label":"Genre/form data or focus term","repeatable":true},
 "b":{"label":"Non-focus term","repeatable":false},
 "c":{"label":"Facet/hierarchy designation","repeatable":false},
@@ -4972,8 +5300,8 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"656":{"label":"Index Term - Occupation","url":"https://www.loc.gov/marc/bibliographic/bd656.html","repeatable":false,"indicators":{"ind2":{"label": "Source of term"}}
-,"subfields":{
+"656":{"label":"Index Term - Occupation","url":"https://www.loc.gov/marc/bibliographic/bd656.html","repeatable":false,"indicator1":null,"indicator2":{"label":"Source of term","codes":[{"code":"7","label":"Source specified in subfield $2"}]
+},"subfields":{
 "a":{"label":"Occupation","repeatable":true},
 "k":{"label":"Form","repeatable":true},
 "v":{"label":"Form subdivision","repeatable":false},
@@ -4986,8 +5314,8 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"657":{"label":"Index Term - Function","url":"https://www.loc.gov/marc/bibliographic/bd657.html","repeatable":false,"indicators":{"ind2":{"label": "Source of term"}}
-,"subfields":{
+"657":{"label":"Index Term - Function","url":"https://www.loc.gov/marc/bibliographic/bd657.html","repeatable":false,"indicator1":null,"indicator2":{"label":"Source of term","codes":[{"code":"7","label":"Source specified in subfield $2"}]
+},"subfields":{
 "a":{"label":"Function","repeatable":true},
 "v":{"label":"Form subdivision","repeatable":false},
 "x":{"label":"General subdivision","repeatable":false},
@@ -4999,7 +5327,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"658":{"label":"Index Term - Curriculum Objective","url":"https://www.loc.gov/marc/bibliographic/bd658.html","repeatable":false,"subfields":{
+"658":{"label":"Index Term - Curriculum Objective","url":"https://www.loc.gov/marc/bibliographic/bd658.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Main curriculum objective","repeatable":true},
 "b":{"label":"Subordinate curriculum objective","repeatable":false},
 "c":{"label":"Curriculum code","repeatable":true},
@@ -5008,7 +5336,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"662":{"label":"Subject Added Entry - Hierarchical Place Name","url":"https://www.loc.gov/marc/bibliographic/bd662.html","repeatable":false,"subfields":{
+"662":{"label":"Subject Added Entry - Hierarchical Place Name","url":"https://www.loc.gov/marc/bibliographic/bd662.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Country or larger entity","repeatable":false},
 "b":{"label":"First-order political jurisdiction","repeatable":true},
 "c":{"label":"Intermediate political jurisdiction","repeatable":false},
@@ -5023,9 +5351,12 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"700":{"label":"Added Entry - Personal Name","url":"https://www.loc.gov/marc/bibliographic/bd700.html","repeatable":false,"indicators":{"ind1":{"label": "Type of personal name entry element"},
-"ind2":{"label": "Type of added entry"}}
-,"subfields":{
+"700":{"label":"Added Entry - Personal Name","url":"https://www.loc.gov/marc/bibliographic/bd700.html","repeatable":false,"indicator1":{"label":"Type of personal name entry element","codes":[{"code":"0","label":"Forename"},
+{"code":"1","label":"Surname"},
+{"code":"3","label":"Family name"}]
+},"indicator2":{"label":"Type of added entry","codes":[{"code":" ","label":"No information provided"},
+{"code":"2","label":"Analytical entry"}]
+},"subfields":{
 "a":{"label":"Personal name","repeatable":true},
 "b":{"label":"Numeration","repeatable":true},
 "c":{"label":"Titles and other words associated with a name","repeatable":false},
@@ -5055,9 +5386,12 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"710":{"label":"Added Entry - Corporate Name","url":"https://www.loc.gov/marc/bibliographic/bd710.html","repeatable":false,"indicators":{"ind1":{"label": "Type of corporate name entry element"},
-"ind2":{"label": "Type of added entry"}}
-,"subfields":{
+"710":{"label":"Added Entry - Corporate Name","url":"https://www.loc.gov/marc/bibliographic/bd710.html","repeatable":false,"indicator1":{"label":"Type of corporate name entry element","codes":[{"code":"0","label":"Inverted name"},
+{"code":"1","label":"Jurisdiction name"},
+{"code":"2","label":"Name in direct order"}]
+},"indicator2":{"label":"Type of added entry","codes":[{"code":" ","label":"No information provided"},
+{"code":"2","label":"Analytical entry"}]
+},"subfields":{
 "a":{"label":"Corporate name or jurisdiction name as entry element","repeatable":true},
 "b":{"label":"Subordinate unit","repeatable":false},
 "c":{"label":"Location of meeting","repeatable":false},
@@ -5085,9 +5419,12 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"711":{"label":"Added Entry - Meeting Name","url":"https://www.loc.gov/marc/bibliographic/bd711.html","repeatable":false,"indicators":{"ind1":{"label": "Type of meeting name entry element"},
-"ind2":{"label": "Type of added entry"}}
-,"subfields":{
+"711":{"label":"Added Entry - Meeting Name","url":"https://www.loc.gov/marc/bibliographic/bd711.html","repeatable":false,"indicator1":{"label":"Type of meeting name entry element","codes":[{"code":"0","label":"Inverted name"},
+{"code":"1","label":"Jurisdiction name"},
+{"code":"2","label":"Name in direct order"}]
+},"indicator2":{"label":"Type of added entry","codes":[{"code":" ","label":"No information provided"},
+{"code":"2","label":"Analytical entry"}]
+},"subfields":{
 "a":{"label":"Meeting name or jurisdiction name as entry element","repeatable":true},
 "c":{"label":"Location of meeting","repeatable":false},
 "d":{"label":"Date of meeting","repeatable":true},
@@ -5113,17 +5450,20 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"720":{"label":"Added Entry - Uncontrolled Name","url":"https://www.loc.gov/marc/bibliographic/bd720.html","repeatable":false,"indicators":{"ind1":{"label": "Type of name"}}
-,"subfields":{
+"720":{"label":"Added Entry - Uncontrolled Name","url":"https://www.loc.gov/marc/bibliographic/bd720.html","repeatable":false,"indicator1":{"label":"Type of name","codes":[{"code":" ","label":"Not specified"},
+{"code":"1","label":"Personal"},
+{"code":"2","label":"Other"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Name","repeatable":true},
 "e":{"label":"Relator term","repeatable":false},
 "4":{"label":"Relationship","repeatable":false},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"730":{"label":"Added Entry - Uniform Title","url":"https://www.loc.gov/marc/bibliographic/bd730.html","repeatable":false,"indicators":{"ind1":{"label": "Nonfiling characters"},
-"ind2":{"label": "Type of added entry"}}
-,"subfields":{
+"730":{"label":"Added Entry - Uniform Title","url":"https://www.loc.gov/marc/bibliographic/bd730.html","repeatable":false,"indicator1":{"label":"Nonfiling characters","codes":[{"code":"0-9","label":"Number of nonfiling characters"}]
+},"indicator2":{"label":"Type of added entry","codes":[{"code":" ","label":"No information provided"},
+{"code":"2","label":"Analytical entry"}]
+},"subfields":{
 "a":{"label":"Uniform title","repeatable":true},
 "d":{"label":"Date of treaty signing","repeatable":false},
 "f":{"label":"Date of a work","repeatable":true},
@@ -5146,9 +5486,15 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"740":{"label":"Added Entry - Uncontrolled Related/Analytical Title","url":"https://www.loc.gov/marc/bibliographic/bd740.html","repeatable":false,"indicators":{"ind1":{"label": "Nonfiling characters"},
-"ind2":{"label": "Type of added entry"}}
-,"subfields":{
+"740":{"label":"Added Entry - Uncontrolled Related/Analytical Title","url":"https://www.loc.gov/marc/bibliographic/bd740.html","repeatable":false,"indicator1":{"label":"Nonfiling characters","codes":[{"code":"0","label":"No nonfiling characters"},
+{"code":"1-9","label":"Number of nonfiling characters"}]
+,"historical-codes":[{"code":" ","label":"Nonfiling characters not specified [OBSOLETE, 1980]"}]
+},"indicator2":{"label":"Type of added entry","codes":[{"code":" ","label":"No information provided"},
+{"code":"2","label":"Analytical entry"}]
+,"historical-codes":[{"code":"0","label":"Alternative entry (BK, AM, CF, MP, MU) [OBSOLETE, 1993]"},
+{"code":"1","label":"Secondary entry (BK, AM, CF, MP, MU) / Printed on card (VM) [OBSOLETE, 1993]"},
+{"code":"3","label":"Not printed on card [OBSOLETE, 1993]"}]
+},"subfields":{
 "a":{"label":"Uncontrolled related/analytical title","repeatable":true},
 "h":{"label":"Medium","repeatable":true},
 "n":{"label":"Number of part/section of a work","repeatable":false},
@@ -5157,7 +5503,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"751":{"label":"Added Entry - Geographic Name","url":"https://www.loc.gov/marc/bibliographic/bd751.html","repeatable":false,"subfields":{
+"751":{"label":"Added Entry - Geographic Name","url":"https://www.loc.gov/marc/bibliographic/bd751.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Geographic name","repeatable":true},
 "e":{"label":"Relator term","repeatable":false},
 "0":{"label":"Authority record control number or standard number","repeatable":false},
@@ -5167,7 +5513,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"752":{"label":"Added Entry - Hierarchical Place Name","url":"https://www.loc.gov/marc/bibliographic/bd752.html","repeatable":false,"subfields":{
+"752":{"label":"Added Entry - Hierarchical Place Name","url":"https://www.loc.gov/marc/bibliographic/bd752.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Country or larger entity","repeatable":false},
 "b":{"label":"First-order political jurisdiction","repeatable":true},
 "c":{"label":"Intermediate political jurisdiction","repeatable":false},
@@ -5182,7 +5528,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"753":{"label":"System Details Access to Computer Files","url":"https://www.loc.gov/marc/bibliographic/bd753.html","repeatable":false,"subfields":{
+"753":{"label":"System Details Access to Computer Files","url":"https://www.loc.gov/marc/bibliographic/bd753.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Make and model of machine","repeatable":true},
 "b":{"label":"Programming language","repeatable":true},
 "c":{"label":"Operating system","repeatable":true},
@@ -5191,7 +5537,7 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"754":{"label":"Added Entry - Taxonomic Identification","url":"https://www.loc.gov/marc/bibliographic/bd754.html","repeatable":false,"subfields":{
+"754":{"label":"Added Entry - Taxonomic Identification","url":"https://www.loc.gov/marc/bibliographic/bd754.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Taxonomic name","repeatable":false},
 "c":{"label":"Taxonomic category","repeatable":false},
 "d":{"label":"Common or alternative name","repeatable":false},
@@ -5202,9 +5548,11 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"760":{"label":"Main Series Entry","url":"https://www.loc.gov/marc/bibliographic/bd760.html","repeatable":false,"indicators":{"ind1":{"label": "Note controller"},
-"ind2":{"label": "Display constant controller"}}
-,"subfields":{
+"760":{"label":"Main Series Entry","url":"https://www.loc.gov/marc/bibliographic/bd760.html","repeatable":false,"indicator1":{"label":"Note controller","codes":[{"code":"0","label":"Display note"},
+{"code":"1","label":"Do not display note"}]
+},"indicator2":{"label":"Display constant controller","codes":[{"code":" ","label":"Main series"},
+{"code":"8","label":"No display constant generated"}]
+},"subfields":{
 "a":{"label":"Main entry heading","repeatable":true},
 "b":{"label":"Edition","repeatable":true},
 "c":{"label":"Qualifying information","repeatable":true},
@@ -5225,9 +5573,11 @@
 "7":{"label":"Control subfield","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"762":{"label":"Subseries Entry","url":"https://www.loc.gov/marc/bibliographic/bd762.html","repeatable":false,"indicators":{"ind1":{"label": "Note controller"},
-"ind2":{"label": "Display constant controller"}}
-,"subfields":{
+"762":{"label":"Subseries Entry","url":"https://www.loc.gov/marc/bibliographic/bd762.html","repeatable":false,"indicator1":{"label":"Note controller","codes":[{"code":"0","label":"Display note"},
+{"code":"1","label":"Do not display note"}]
+},"indicator2":{"label":"Display constant controller","codes":[{"code":" ","label":"Has subseries"},
+{"code":"8","label":"No display constant generated"}]
+},"subfields":{
 "a":{"label":"Main entry heading","repeatable":true},
 "b":{"label":"Edition","repeatable":true},
 "c":{"label":"Qualifying information","repeatable":true},
@@ -5248,36 +5598,11 @@
 "7":{"label":"Control subfield","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"765":{"label":"Original Language Entry","url":"https://www.loc.gov/marc/bibliographic/bd765.html","repeatable":false,"indicators":{"ind1":{"label": "Note controller"},
-"ind2":{"label": "Display constant controller"}}
-,"subfields":{
-"a":{"label":"Main entry heading","repeatable":true},
-"b":{"label":"Edition","repeatable":true},
-"c":{"label":"Qualifying information","repeatable":true},
-"d":{"label":"Place, publisher, and date of publication","repeatable":true},
-"g":{"label":"Related parts","repeatable":false},
-"h":{"label":"Physical description","repeatable":true},
-"i":{"label":"Relationship information","repeatable":false},
-"k":{"label":"Series data for related item","repeatable":false},
-"m":{"label":"Material-specific details","repeatable":true},
-"n":{"label":"Note","repeatable":false},
-"o":{"label":"Other item identifier","repeatable":false},
-"r":{"label":"Report number","repeatable":false},
-"s":{"label":"Uniform title","repeatable":true},
-"t":{"label":"Title","repeatable":true},
-"u":{"label":"Standard Technical Report Number","repeatable":true},
-"w":{"label":"Record control number","repeatable":false},
-"x":{"label":"International Standard Serial Number","repeatable":true},
-"y":{"label":"CODEN designation","repeatable":true},
-"z":{"label":"International Standard Book Number","repeatable":false},
-"4":{"label":"Relationship","repeatable":false},
-"6":{"label":"Linkage","repeatable":true},
-"7":{"label":"Control subfield","repeatable":true},
-"8":{"label":"Field link and sequence number","repeatable":false}}
-},
-"767":{"label":"Translation Entry","url":"https://www.loc.gov/marc/bibliographic/bd767.html","repeatable":false,"indicators":{"ind1":{"label": "Note controller"},
-"ind2":{"label": "Display constant controller"}}
-,"subfields":{
+"765":{"label":"Original Language Entry","url":"https://www.loc.gov/marc/bibliographic/bd765.html","repeatable":false,"indicator1":{"label":"Note controller","codes":[{"code":"0","label":"Display note"},
+{"code":"1","label":"Do not display note"}]
+},"indicator2":{"label":"Display constant controller","codes":[{"code":" ","label":"Translation of"},
+{"code":"8","label":"No display constant generated"}]
+},"subfields":{
 "a":{"label":"Main entry heading","repeatable":true},
 "b":{"label":"Edition","repeatable":true},
 "c":{"label":"Qualifying information","repeatable":true},
@@ -5302,9 +5627,11 @@
 "7":{"label":"Control subfield","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"770":{"label":"Supplement/Special Issue Entry","url":"https://www.loc.gov/marc/bibliographic/bd770.html","repeatable":false,"indicators":{"ind1":{"label": "Note controller"},
-"ind2":{"label": "Display constant controller"}}
-,"subfields":{
+"767":{"label":"Translation Entry","url":"https://www.loc.gov/marc/bibliographic/bd767.html","repeatable":false,"indicator1":{"label":"Note controller","codes":[{"code":"0","label":"Display note"},
+{"code":"1","label":"Do not display note"}]
+},"indicator2":{"label":"Display constant controller","codes":[{"code":" ","label":"Translated as"},
+{"code":"8","label":"No display constant generated"}]
+},"subfields":{
 "a":{"label":"Main entry heading","repeatable":true},
 "b":{"label":"Edition","repeatable":true},
 "c":{"label":"Qualifying information","repeatable":true},
@@ -5329,9 +5656,11 @@
 "7":{"label":"Control subfield","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"772":{"label":"Supplement Parent Entry","url":"https://www.loc.gov/marc/bibliographic/bd772.html","repeatable":false,"indicators":{"ind1":{"label": "Note controller"},
-"ind2":{"label": "Display constant controller"}}
-,"subfields":{
+"770":{"label":"Supplement/Special Issue Entry","url":"https://www.loc.gov/marc/bibliographic/bd770.html","repeatable":false,"indicator1":{"label":"Note controller","codes":[{"code":"0","label":"Display note"},
+{"code":"1","label":"Do not display note"}]
+},"indicator2":{"label":"Display constant controller","codes":[{"code":" ","label":"Has supplement"},
+{"code":"8","label":"No display constant generated"}]
+},"subfields":{
 "a":{"label":"Main entry heading","repeatable":true},
 "b":{"label":"Edition","repeatable":true},
 "c":{"label":"Qualifying information","repeatable":true},
@@ -5356,9 +5685,42 @@
 "7":{"label":"Control subfield","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"773":{"label":"Host Item Entry","url":"https://www.loc.gov/marc/bibliographic/bd773.html","repeatable":false,"indicators":{"ind1":{"label": "Note controller"},
-"ind2":{"label": "Display constant controller"}}
-,"subfields":{
+"772":{"label":"Supplement Parent Entry","url":"https://www.loc.gov/marc/bibliographic/bd772.html","repeatable":false,"indicator1":{"label":"Note controller","codes":[{"code":"0","label":"Display note"},
+{"code":"1","label":"Do not display note"}]
+},"indicator2":{"label":"Display constant controller","codes":[{"code":" ","label":"Supplement to"},
+{"code":"0","label":"Parent"},
+{"code":"8","label":"No display constant generated"}]
+,"historical-codes":[{"code":"1","label":"Special issue [OBSOLETE] [CAN/MARC only]"}]
+},"subfields":{
+"a":{"label":"Main entry heading","repeatable":true},
+"b":{"label":"Edition","repeatable":true},
+"c":{"label":"Qualifying information","repeatable":true},
+"d":{"label":"Place, publisher, and date of publication","repeatable":true},
+"g":{"label":"Related parts","repeatable":false},
+"h":{"label":"Physical description","repeatable":true},
+"i":{"label":"Relationship information","repeatable":false},
+"k":{"label":"Series data for related item","repeatable":false},
+"m":{"label":"Material-specific details","repeatable":true},
+"n":{"label":"Note","repeatable":false},
+"o":{"label":"Other item identifier","repeatable":false},
+"r":{"label":"Report number","repeatable":false},
+"s":{"label":"Uniform title","repeatable":true},
+"t":{"label":"Title","repeatable":true},
+"u":{"label":"Standard Technical Report Number","repeatable":true},
+"w":{"label":"Record control number","repeatable":false},
+"x":{"label":"International Standard Serial Number","repeatable":true},
+"y":{"label":"CODEN designation","repeatable":true},
+"z":{"label":"International Standard Book Number","repeatable":false},
+"4":{"label":"Relationship","repeatable":false},
+"6":{"label":"Linkage","repeatable":true},
+"7":{"label":"Control subfield","repeatable":true},
+"8":{"label":"Field link and sequence number","repeatable":false}}
+},
+"773":{"label":"Host Item Entry","url":"https://www.loc.gov/marc/bibliographic/bd773.html","repeatable":false,"indicator1":{"label":"Note controller","codes":[{"code":"0","label":"Display note"},
+{"code":"1","label":"Do not display note"}]
+},"indicator2":{"label":"Display constant controller","codes":[{"code":" ","label":"In"},
+{"code":"8","label":"No display constant generated"}]
+},"subfields":{
 "a":{"label":"Main entry heading","repeatable":true},
 "b":{"label":"Edition","repeatable":true},
 "d":{"label":"Place, publisher, and date of publication","repeatable":true},
@@ -5385,9 +5747,12 @@
 "7":{"label":"Control subfield","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"774":{"label":"Constituent Unit Entry","url":"https://www.loc.gov/marc/bibliographic/bd774.html","repeatable":false,"indicators":{"ind1":{"label": "Note controller"},
-"ind2":{"label": "Display constant controller"}}
-,"subfields":{
+"774":{"label":"Constituent Unit Entry","url":"https://www.loc.gov/marc/bibliographic/bd774.html","repeatable":false,"indicator1":{"label":"Note controller","codes":[{"code":"0","label":"Display note"},
+{"code":"1","label":"Do not display note"}]
+},"indicator2":{"label":"Display constant controller","codes":[{"code":" ","label":"Constituent unit"},
+{"code":"8","label":"No display constant generated"}]
+,"historical-codes":[{"code":"0","label":"Includes [OBSOLETE] [CAN/MARC only]"}]
+},"subfields":{
 "a":{"label":"Main entry heading","repeatable":true},
 "b":{"label":"Edition","repeatable":true},
 "c":{"label":"Qualifying information","repeatable":true},
@@ -5412,9 +5777,14 @@
 "7":{"label":"Control subfield","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"775":{"label":"Other Edition Entry","url":"https://www.loc.gov/marc/bibliographic/bd775.html","repeatable":false,"indicators":{"ind1":{"label": "Note controller"},
-"ind2":{"label": "Display constant controller"}}
-,"subfields":{
+"775":{"label":"Other Edition Entry","url":"https://www.loc.gov/marc/bibliographic/bd775.html","repeatable":false,"indicator1":{"label":"Note controller","codes":[{"code":"0","label":"Display note"},
+{"code":"1","label":"Do not display note"}]
+},"indicator2":{"label":"Display constant controller","codes":[{"code":" ","label":"Other edition available"},
+{"code":"8","label":"No display constant generated"}]
+,"historical-codes":[{"code":"0","label":"Entry not the same"},
+{"code":"1","label":"Entry is the same as title"},
+{"code":"2","label":"Entry is the same as main entry and title"}]
+},"subfields":{
 "a":{"label":"Main entry heading","repeatable":true},
 "b":{"label":"Edition","repeatable":true},
 "c":{"label":"Qualifying information","repeatable":true},
@@ -5441,9 +5811,11 @@
 "7":{"label":"Control subfield","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"776":{"label":"Additional Physical Form Entry","url":"https://www.loc.gov/marc/bibliographic/bd776.html","repeatable":false,"indicators":{"ind1":{"label": "Note controller"},
-"ind2":{"label": "Display constant controller"}}
-,"subfields":{
+"776":{"label":"Additional Physical Form Entry","url":"https://www.loc.gov/marc/bibliographic/bd776.html","repeatable":false,"indicator1":{"label":"Note controller","codes":[{"code":"0","label":"Display note"},
+{"code":"1","label":"Do not display note"}]
+},"indicator2":{"label":"Display constant controller","codes":[{"code":" ","label":"Available in another form"},
+{"code":"8","label":"No display constant generated"}]
+},"subfields":{
 "a":{"label":"Main entry heading","repeatable":true},
 "b":{"label":"Edition","repeatable":true},
 "c":{"label":"Qualifying information","repeatable":true},
@@ -5468,9 +5840,14 @@
 "7":{"label":"Control subfield","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"777":{"label":"Issued With Entry","url":"https://www.loc.gov/marc/bibliographic/bd777.html","repeatable":false,"indicators":{"ind1":{"label": "Note controller"},
-"ind2":{"label": "Display constant controller"}}
-,"subfields":{
+"777":{"label":"Issued With Entry","url":"https://www.loc.gov/marc/bibliographic/bd777.html","repeatable":false,"indicator1":{"label":"Note controller","codes":[{"code":"0","label":"Display note"},
+{"code":"1","label":"Do not display note"}]
+},"indicator2":{"label":"Display constant controller","codes":[{"code":" ","label":"Issued with"},
+{"code":"8","label":"No display constant generated"}]
+,"historical-codes":[{"code":"0","label":"Issued with [OBSOLETE] [CAN/MARC only]"},
+{"code":"1","label":"With [OBSOLETE] [CAN/MARC only]"},
+{"code":"2","label":"Bound with [OBSOLETE] [CAN/MARC only]"}]
+},"subfields":{
 "a":{"label":"Main entry heading","repeatable":true},
 "b":{"label":"Edition","repeatable":true},
 "c":{"label":"Qualifying information","repeatable":true},
@@ -5492,36 +5869,17 @@
 "7":{"label":"Control subfield","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"780":{"label":"Preceding Entry","url":"https://www.loc.gov/marc/bibliographic/bd780.html","repeatable":false,"indicators":{"ind1":{"label": "Note controller"},
-"ind2":{"label": "Type of relationship"}}
-,"subfields":{
-"a":{"label":"Main entry heading","repeatable":true},
-"b":{"label":"Edition","repeatable":true},
-"c":{"label":"Qualifying information","repeatable":true},
-"d":{"label":"Place, publisher, and date of publication","repeatable":true},
-"g":{"label":"Related parts","repeatable":false},
-"h":{"label":"Physical description","repeatable":true},
-"i":{"label":"Relationship information","repeatable":false},
-"k":{"label":"Series data for related item","repeatable":false},
-"m":{"label":"Material-specific details","repeatable":true},
-"n":{"label":"Note","repeatable":false},
-"o":{"label":"Other item identifier","repeatable":false},
-"r":{"label":"Report number","repeatable":false},
-"s":{"label":"Uniform title","repeatable":true},
-"t":{"label":"Title","repeatable":true},
-"u":{"label":"Standard Technical Report Number","repeatable":true},
-"w":{"label":"Record control number","repeatable":false},
-"x":{"label":"International Standard Serial Number","repeatable":true},
-"y":{"label":"CODEN designation","repeatable":true},
-"z":{"label":"International Standard Book Number","repeatable":false},
-"4":{"label":"Relationship","repeatable":false},
-"6":{"label":"Linkage","repeatable":true},
-"7":{"label":"Control subfield","repeatable":true},
-"8":{"label":"Field link and sequence number","repeatable":false}}
-},
-"785":{"label":"Succeeding Entry","url":"https://www.loc.gov/marc/bibliographic/bd785.html","repeatable":false,"indicators":{"ind1":{"label": "Note controller"},
-"ind2":{"label": "Type of relationship"}}
-,"subfields":{
+"780":{"label":"Preceding Entry","url":"https://www.loc.gov/marc/bibliographic/bd780.html","repeatable":false,"indicator1":{"label":"Note controller","codes":[{"code":"0","label":"Display note"},
+{"code":"1","label":"Do not display note"}]
+},"indicator2":{"label":"Type of relationship","codes":[{"code":"0","label":"Continues"},
+{"code":"1","label":"Continues in part"},
+{"code":"2","label":"Supersedes"},
+{"code":"3","label":"Supersedes in part"},
+{"code":"4","label":"Formed by the union of ... and ..."},
+{"code":"5","label":"Absorbed"},
+{"code":"6","label":"Absorbed in part"},
+{"code":"7","label":"Separated from"}]
+},"subfields":{
 "a":{"label":"Main entry heading","repeatable":true},
 "b":{"label":"Edition","repeatable":true},
 "c":{"label":"Qualifying information","repeatable":true},
@@ -5546,9 +5904,47 @@
 "7":{"label":"Control subfield","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"786":{"label":"Data Source Entry","url":"https://www.loc.gov/marc/bibliographic/bd786.html","repeatable":false,"indicators":{"ind1":{"label": "Note controller"},
-"ind2":{"label": "Display constant controller"}}
-,"subfields":{
+"785":{"label":"Succeeding Entry","url":"https://www.loc.gov/marc/bibliographic/bd785.html","repeatable":false,"indicator1":{"label":"Note controller","codes":[{"code":"0","label":"Display note"},
+{"code":"1","label":"Do not display note"}]
+},"indicator2":{"label":"Type of relationship","codes":[{"code":"0","label":"Continued by"},
+{"code":"1","label":"Continued in part by"},
+{"code":"2","label":"Superseded by"},
+{"code":"3","label":"Superseded in part by"},
+{"code":"4","label":"Absorbed by"},
+{"code":"5","label":"Absorbed in part by"},
+{"code":"6","label":"Split into ... and ..."},
+{"code":"7","label":"Merged with ... to form ..."},
+{"code":"8","label":"Changed back to"}]
+},"subfields":{
+"a":{"label":"Main entry heading","repeatable":true},
+"b":{"label":"Edition","repeatable":true},
+"c":{"label":"Qualifying information","repeatable":true},
+"d":{"label":"Place, publisher, and date of publication","repeatable":true},
+"g":{"label":"Related parts","repeatable":false},
+"h":{"label":"Physical description","repeatable":true},
+"i":{"label":"Relationship information","repeatable":false},
+"k":{"label":"Series data for related item","repeatable":false},
+"m":{"label":"Material-specific details","repeatable":true},
+"n":{"label":"Note","repeatable":false},
+"o":{"label":"Other item identifier","repeatable":false},
+"r":{"label":"Report number","repeatable":false},
+"s":{"label":"Uniform title","repeatable":true},
+"t":{"label":"Title","repeatable":true},
+"u":{"label":"Standard Technical Report Number","repeatable":true},
+"w":{"label":"Record control number","repeatable":false},
+"x":{"label":"International Standard Serial Number","repeatable":true},
+"y":{"label":"CODEN designation","repeatable":true},
+"z":{"label":"International Standard Book Number","repeatable":false},
+"4":{"label":"Relationship","repeatable":false},
+"6":{"label":"Linkage","repeatable":true},
+"7":{"label":"Control subfield","repeatable":true},
+"8":{"label":"Field link and sequence number","repeatable":false}}
+},
+"786":{"label":"Data Source Entry","url":"https://www.loc.gov/marc/bibliographic/bd786.html","repeatable":false,"indicator1":{"label":"Note controller","codes":[{"code":"0","label":"Display note"},
+{"code":"1","label":"Do not display note"}]
+},"indicator2":{"label":"Display constant controller","codes":[{"code":" ","label":"Data source"},
+{"code":"8","label":"No display constant generated"}]
+},"subfields":{
 "a":{"label":"Main entry heading","repeatable":true},
 "b":{"label":"Edition","repeatable":true},
 "c":{"label":"Qualifying information","repeatable":true},
@@ -5576,9 +5972,11 @@
 "7":{"label":"Control subfield","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"787":{"label":"Other Relationship Entry","url":"https://www.loc.gov/marc/bibliographic/bd787.html","repeatable":false,"indicators":{"ind1":{"label": "Note controller"},
-"ind2":{"label": "Display constant controller"}}
-,"subfields":{
+"787":{"label":"Other Relationship Entry","url":"https://www.loc.gov/marc/bibliographic/bd787.html","repeatable":false,"indicator1":{"label":"Note controller","codes":[{"code":"0","label":"Display note"},
+{"code":"1","label":"Do not display note"}]
+},"indicator2":{"label":"Display constant controller","codes":[{"code":" ","label":"Related item"},
+{"code":"8","label":"No display constant generated"}]
+},"subfields":{
 "a":{"label":"Main entry heading","repeatable":true},
 "b":{"label":"Edition","repeatable":true},
 "c":{"label":"Qualifying information","repeatable":true},
@@ -5603,8 +6001,10 @@
 "7":{"label":"Control subfield","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"800":{"label":"Series Added Entry - Personal Name","url":"https://www.loc.gov/marc/bibliographic/bd800.html","repeatable":false,"indicators":{"ind1":{"label": "Type of personal name entry element"}}
-,"subfields":{
+"800":{"label":"Series Added Entry - Personal Name","url":"https://www.loc.gov/marc/bibliographic/bd800.html","repeatable":false,"indicator1":{"label":"Type of personal name entry element","codes":[{"code":"0","label":"Forename"},
+{"code":"1","label":"Surname"},
+{"code":"3","label":"Family name"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Personal name","repeatable":true},
 "b":{"label":"Numeration","repeatable":true},
 "c":{"label":"Titles and other words associated with a name","repeatable":false},
@@ -5636,8 +6036,10 @@
 "7":{"label":"Control subfield","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"810":{"label":"Series Added Entry - Corporate Name","url":"https://www.loc.gov/marc/bibliographic/bd810.html","repeatable":false,"indicators":{"ind1":{"label": "Type of corporate name entry element"}}
-,"subfields":{
+"810":{"label":"Series Added Entry - Corporate Name","url":"https://www.loc.gov/marc/bibliographic/bd810.html","repeatable":false,"indicator1":{"label":"Type of corporate name entry element","codes":[{"code":"0","label":"Inverted name"},
+{"code":"1","label":"Jurisdiction name"},
+{"code":"2","label":"Name in direct order"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Corporate name or jurisdiction name as entry element","repeatable":true},
 "b":{"label":"Subordinate unit","repeatable":false},
 "c":{"label":"Location of meeting","repeatable":false},
@@ -5667,8 +6069,10 @@
 "7":{"label":"Control subfield","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"811":{"label":"Series Added Entry - Meeting Name","url":"https://www.loc.gov/marc/bibliographic/bd811.html","repeatable":false,"indicators":{"ind1":{"label": "Type of meeting name entry element"}}
-,"subfields":{
+"811":{"label":"Series Added Entry - Meeting Name","url":"https://www.loc.gov/marc/bibliographic/bd811.html","repeatable":false,"indicator1":{"label":"Type of meeting name entry element","codes":[{"code":"0","label":"Inverted name"},
+{"code":"1","label":"Jurisdiction name"},
+{"code":"2","label":"Name in direct order"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Meeting name or jurisdiction name as entry element","repeatable":true},
 "c":{"label":"Location of meeting","repeatable":false},
 "d":{"label":"Date of meeting","repeatable":true},
@@ -5696,8 +6100,9 @@
 "7":{"label":"Control subfield","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"830":{"label":"Series Added Entry - Uniform Title","url":"https://www.loc.gov/marc/bibliographic/bd830.html","repeatable":false,"indicators":{"ind2":{"label": "Nonfiling characters"}}
-,"subfields":{
+"830":{"label":"Series Added Entry - Uniform Title","url":"https://www.loc.gov/marc/bibliographic/bd830.html","repeatable":false,"indicator1":null,"indicator2":{"label":"Nonfiling characters","codes":[{"code":"0","label":"No nonfiling characters"},
+{"code":"1-9","label":"Number of nonfiling characters"}]
+},"subfields":{
 "a":{"label":"Uniform title","repeatable":true},
 "d":{"label":"Date of treaty signing","repeatable":false},
 "f":{"label":"Date of a work","repeatable":true},
@@ -5722,7 +6127,7 @@
 "7":{"label":"Control subfield","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"850":{"label":"Holding Institution","url":"https://www.loc.gov/marc/bibliographic/bd850.html","repeatable":false,"subfields":{
+"850":{"label":"Holding Institution","url":"https://www.loc.gov/marc/bibliographic/bd850.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Holding institution","repeatable":false},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 ,"historical-subfields":{
@@ -5730,9 +6135,21 @@
 "d":{"label":"Inclusive dates (MU, VM, SE) [OBSOLETE, 1990]"},
 "e":{"label":"Retention statement (CF, MU, VM, SE) [OBSOLETE, 1990]"}}
 },
-"852":{"label":"Location","url":"https://www.loc.gov/marc/bibliographic/bd852.html","repeatable":false,"indicators":{"ind1":{"label": "Shelving scheme"},
-"ind2":{"label": "Shelving order"}}
-,"subfields":{
+"852":{"label":"Location","url":"https://www.loc.gov/marc/bibliographic/bd852.html","repeatable":false,"indicator1":{"label":"Shelving scheme","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"Library of Congress classification"},
+{"code":"1","label":"Dewey Decimal classification"},
+{"code":"2","label":"National Library of Medicine classification"},
+{"code":"3","label":"Superintendent of Documents classification"},
+{"code":"4","label":"Shelving control number"},
+{"code":"5","label":"Title"},
+{"code":"6","label":"Shelved separately"},
+{"code":"7","label":"Source specified in subfield $2"},
+{"code":"8","label":"Other scheme"}]
+},"indicator2":{"label":"Shelving order","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"Not enumeration"},
+{"code":"1","label":"Primary enumeration"},
+{"code":"2","label":"Alternative enumeration"}]
+},"subfields":{
 "a":{"label":"Location","repeatable":true},
 "b":{"label":"Sublocation or collection","repeatable":false},
 "c":{"label":"Shelving location","repeatable":false},
@@ -5759,9 +6176,19 @@
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"856":{"label":"Electronic Location and Access","url":"https://www.loc.gov/marc/bibliographic/bd856.html","repeatable":false,"indicators":{"ind1":{"label": "Access method"},
-"ind2":{"label": "Relationship"}}
-,"subfields":{
+"856":{"label":"Electronic Location and Access","url":"https://www.loc.gov/marc/bibliographic/bd856.html","repeatable":false,"indicator1":{"label":"Access method","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"Email"},
+{"code":"1","label":"FTP"},
+{"code":"2","label":"Remote login (Telnet)"},
+{"code":"3","label":"Dial-up"},
+{"code":"4","label":"HTTP"},
+{"code":"7","label":"Method specified in subfield $2"}]
+},"indicator2":{"label":"Relationship","codes":[{"code":" ","label":"No information provided"},
+{"code":"0","label":"Resource"},
+{"code":"1","label":"Version of resource"},
+{"code":"2","label":"Related resource"},
+{"code":"8","label":"No display constant generated"}]
+},"subfields":{
 "a":{"label":"Host name","repeatable":false},
 "b":{"label":"Access number","repeatable":false},
 "c":{"label":"Compression information","repeatable":false},
@@ -5793,7 +6220,7 @@
 ,"historical-subfields":{
 "g":{"label":"Uniform Resource Name [OBSOLETE, 2000]"}}
 },
-"880":{"label":"Alternate Graphic Representation","url":"https://www.loc.gov/marc/bibliographic/bd880.html","repeatable":false,"subfields":{
+"880":{"label":"Alternate Graphic Representation","url":"https://www.loc.gov/marc/bibliographic/bd880.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "6":{"label":"Linkage","repeatable":true},
 "a":{"label":"Same as associated field","repeatable":false},
 "b":{"label":"Same as associated field","repeatable":false},
@@ -5831,15 +6258,17 @@
 "8":{"label":"Same as associated field","repeatable":false},
 "9":{"label":"Same as associated field","repeatable":false}}
 },
-"882":{"label":"Replacement Record Information","url":"https://www.loc.gov/marc/bibliographic/bd882.html","repeatable":true,"subfields":{
+"882":{"label":"Replacement Record Information","url":"https://www.loc.gov/marc/bibliographic/bd882.html","repeatable":true,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Replacement title","repeatable":false},
 "i":{"label":"Explanatory text","repeatable":false},
 "w":{"label":"Replacement bibliographic record control number","repeatable":false},
 "6":{"label":"Linkage","repeatable":true},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"883":{"label":"Machine-generated Metadata Provenance","url":"https://www.loc.gov/marc/bibliographic/bd883.html","repeatable":false,"indicators":{"ind1":{"label": "Method of machine assignment"}}
-,"subfields":{
+"883":{"label":"Machine-generated Metadata Provenance","url":"https://www.loc.gov/marc/bibliographic/bd883.html","repeatable":false,"indicator1":{"label":"Method of machine assignment","codes":[{"code":" ","label":"No information provided/not applicable"},
+{"code":"0","label":"Fully machine-generated"},
+{"code":"1","label":"Partially machine-generated"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Generation process","repeatable":true},
 "c":{"label":"Confidence value","repeatable":true},
 "d":{"label":"Generation date","repeatable":true},
@@ -5850,14 +6279,14 @@
 "0":{"label":"Authority record control number or standard number","repeatable":false},
 "8":{"label":"Field link and sequence number","repeatable":false}}
 },
-"884":{"label":"Description Conversion Information","url":"https://www.loc.gov/marc/bibliographic/bd884.html","repeatable":false,"subfields":{
+"884":{"label":"Description Conversion Information","url":"https://www.loc.gov/marc/bibliographic/bd884.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Conversion process","repeatable":true},
 "g":{"label":"Conversion date","repeatable":true},
 "k":{"label":"Identifier of source metadata","repeatable":true},
 "q":{"label":"Conversion agency","repeatable":true},
 "u":{"label":"Uniform Resource Identifier","repeatable":false}}
 },
-"885":{"label":"Matching Information","url":"https://www.loc.gov/marc/bibliographic/bd885.html","repeatable":false,"subfields":{
+"885":{"label":"Matching Information","url":"https://www.loc.gov/marc/bibliographic/bd885.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Matching information","repeatable":true},
 "b":{"label":"Status of matching and its checking","repeatable":true},
 "c":{"label":"Confidence value","repeatable":true},
@@ -5869,8 +6298,10 @@
 "2":{"label":"Source","repeatable":true},
 "5":{"label":"Institution to which field applies","repeatable":true}}
 },
-"886":{"label":"Foreign MARC Information Field","url":"https://www.loc.gov/marc/bibliographic/bd886.html","repeatable":false,"indicators":{"ind1":{"label": "Type of field"}}
-,"subfields":{
+"886":{"label":"Foreign MARC Information Field","url":"https://www.loc.gov/marc/bibliographic/bd886.html","repeatable":false,"indicator1":{"label":"Type of field","codes":[{"code":"0","label":"Leader"},
+{"code":"1","label":"Variable control fields (002-009)"},
+{"code":"2","label":"Variable data fields (010-999)"}]
+},"indicator2":null,"subfields":{
 "a":{"label":"Tag of the foreign MARC field","repeatable":true},
 "b":{"label":"Content of the foreign MARC field","repeatable":true},
 "2":{"label":"Source of data","repeatable":true}}
@@ -5878,7 +6309,7 @@
 "c":{"label":"Content of the foreign MARC control fields 002-009 [OBSOLETE, 1997] [CAN/MARC only]"},
 "d":{"label":"Content designators and data elements of the foreign MARC variable fields 010-999 [OBSOLETE, 1997] [CAN/MARC only]"}}
 },
-"887":{"label":"Non-MARC Information Field","url":"https://www.loc.gov/marc/bibliographic/bd887.html","repeatable":false,"subfields":{
+"887":{"label":"Non-MARC Information Field","url":"https://www.loc.gov/marc/bibliographic/bd887.html","repeatable":false,"indicator1":null,"indicator2":null,"subfields":{
 "a":{"label":"Content of non-MARC field","repeatable":true},
 "2":{"label":"Source of data","repeatable":true}}
 }

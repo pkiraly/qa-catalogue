@@ -12,7 +12,7 @@ import java.util.*;
 
 public class MappingToJson {
 
-	private static boolean exportSubfieldCodes = true;
+	private static boolean exportSubfieldCodes = false;
 	private static List<String> nonMarc21TagLibraries = Arrays.asList(
 		"oclctags", "fennicatags", "dnbtags", "sztetags", "genttags", "holdings"
 	);
@@ -166,17 +166,16 @@ public class MappingToJson {
 		for (SubfieldDefinition subfield : tag.getSubfields()) {
 			subfields.add(subfieldToJson(subfield));
 		}
-		text += ",\"subfields\":[\n" + StringUtils.join(subfields, ",\n") + "]\n";
+		text += ",\"subfields\":{\n" + StringUtils.join(subfields, ",\n") + "}\n";
 
 		if (tag.getHistoricalSubfields() != null) {
 			subfields = new ArrayList<>();
 			for (Code code : tag.getHistoricalSubfields()) {
-				subfields.add(toJson(true,
-					"code", code.getCode(),
+				subfields.add('"' + code.getCode() + "\":" + toJson(true,
 					"label", code.getLabel()
 				));
 			}
-			text += ",\"historical-subfields\":[\n" + StringUtils.join(subfields, ",\n") + "]\n";
+			text += ",\"historical-subfields\":{\n" + StringUtils.join(subfields, ",\n") + "}\n";
 		}
 
 		text += "}";
@@ -185,8 +184,7 @@ public class MappingToJson {
 	}
 
 	private static String subfieldToJson(SubfieldDefinition subfield) {
-		String text = '{' + toJson(false,
-			"code", subfield.getCode(),
+		String text = '"' + subfield.getCode() + "\":{" + toJson(false,
 			"label", subfield.getLabel(),
 			"repeatable", (subfield.getCardinalityCode().equals("R") ? "false" : "true")
 		);

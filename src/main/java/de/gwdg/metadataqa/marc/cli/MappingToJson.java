@@ -129,9 +129,13 @@ public class MappingToJson {
 	private static String mapToJson(Map<String, String> values, boolean isAUnit) {
 		List<String> entries = new ArrayList<>();
 		for (Map.Entry value : values.entrySet()) {
-			entries.add(
-				String.format("\"%s\":\"%s\"", value.getKey(), value.getValue())
-			);
+			String jsonEntry;
+			if (value.getValue().equals("true")
+				|| value.getValue().equals("false"))
+				jsonEntry = String.format("\"%s\":%s", value.getKey(), value.getValue());
+			else
+				jsonEntry = String.format("\"%s\":\"%s\"", value.getKey(), value.getValue());
+			entries.add(jsonEntry);
 		}
 		if (isAUnit)
 			return '{' + StringUtils.join(entries, ",") + '}';
@@ -143,8 +147,7 @@ public class MappingToJson {
 		String text = "\"" + tag.getTag() + "\":{" + toJson(false,
 			"label", tag.getLabel(),
 			"url", tag.getDescriptionUrl(),
-			"cardinality", (tag.getCardinality().getCode().equals("R")
-				? "repeatable" : "non-repeatable")
+			"repeatable", (tag.getCardinality().getCode().equals("R") ? "false" : "true")
 		);
 		if (tag.getInd1().exists() || tag.getInd2().exists()) {
 			text += ",\"indicators\":{";
@@ -185,8 +188,7 @@ public class MappingToJson {
 		String text = '{' + toJson(false,
 			"code", subfield.getCode(),
 			"label", subfield.getLabel(),
-			"cardinality", (subfield.getCardinalityCode().equals("R")
-				? "repeatable" : "non-repeatable")
+			"repeatable", (subfield.getCardinalityCode().equals("R") ? "false" : "true")
 		);
 
 		if (MappingToJson.exportSubfieldCodes) {

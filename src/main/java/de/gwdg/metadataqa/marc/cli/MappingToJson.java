@@ -106,7 +106,7 @@ public class MappingToJson {
 		Map<String, String> values = new LinkedHashMap<>();
 		values.put("position", subfield.formatPositon());
 		values.put("label", subfield.getLabel());
-		values.put("URL", subfield.getDescriptionUrl());
+		values.put("url", subfield.getDescriptionUrl());
 		String text = mapToJson(values, false);
 
 		if (subfield.getCodes() != null) {
@@ -142,7 +142,7 @@ public class MappingToJson {
 	private static String dataFieldToJson(DataFieldDefinition tag) {
 		String text = "\"" + tag.getTag() + "\":{" + toJson(false,
 			"label", tag.getLabel(),
-			"URL", tag.getDescriptionUrl(),
+			"url", tag.getDescriptionUrl(),
 			"cardinality", (tag.getCardinality().getCode().equals("R")
 				? "repeatable" : "non-repeatable")
 		);

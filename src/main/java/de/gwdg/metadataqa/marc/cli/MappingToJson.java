@@ -22,7 +22,7 @@ public class MappingToJson {
 
 		System.out.println("{");
 
-		System.out.println("\"Leader\":{\"positions\":[");
+		System.out.println("\"Leader\":{\"repeatable\":false,\"positions\":[");
 		List<String> positions = new ArrayList<>();
 		for (ControlSubfield subfield : LeaderSubfields.getSubfields()) {
 			positions.add(controlSubfieldToJson(subfield));
@@ -30,11 +30,21 @@ public class MappingToJson {
 		System.out.println(StringUtils.join(positions, ",\n"));
 		System.out.println("]},");
 
-		System.out.println("\"001\":" + toJson(true, "label", Control001.getLabel()) + ",");
-		System.out.println("\"003\":" + toJson(true, "label", Control003.getLabel()) + ",");
-		System.out.println("\"005\":" + toJson(true, "label", Control005.getLabel()) + ",");
+		System.out.println("\"001\":" + toJson(true,
+			"label", Control001.getLabel(),
+			"repeatable", resolveCardinality(Control001.getCardinality())
+		) + ",");
+		System.out.println("\"003\":" + toJson(true,
+			"label", Control003.getLabel(),
+			"repeatable", resolveCardinality(Control003.getCardinality())
+		) + ",");
+		System.out.println("\"005\":" + toJson(true,
+			"label", Control005.getLabel(),
+			"repeatable", resolveCardinality(Control005.getCardinality())
+		) + ",");
 
-		System.out.printf("\"006\":{\"label\":\"%s\",\"types\":[\n", Control006.getLabel());
+		System.out.printf("\"006\":{\"label\":\"%s\",\"repeatable\":%s,\"types\":[\n",
+			Control006.getLabel(), resolveCardinality(Control006.getCardinality()));
 		int i = Control006Subfields.getSubfields().keySet().size();
 		for (Control008Type type : Control006Subfields.getSubfields().keySet()) {
 			System.out.printf("{\"type\":\"%s\",\"positions\":[\n", type.getValue());
@@ -46,7 +56,8 @@ public class MappingToJson {
 		}
 		System.out.println("]},");
 
-		System.out.printf("\"007\":{\"label\":\"%s\",\"categories\":[\n", Control007.getLabel());
+		System.out.printf("\"007\":{\"label\":\"%s\",\"repeatable\":%s,\"categories\":[\n",
+			Control007.getLabel(), resolveCardinality(Control007.getCardinality()));
 		i = Control007Subfields.getSubfields().keySet().size();
 		for (Control007Category category : Control007Subfields.getSubfields().keySet()) {
 			System.out.printf("{\"type\":\"%s\",\"positions\":[\n", category.getLabel());
@@ -58,7 +69,8 @@ public class MappingToJson {
 		}
 		System.out.println("]},");
 
-		System.out.printf("\"008\":{\"label\":\"%s\",\"types\":[", Control008.getLabel());
+		System.out.printf("\"008\":{\"label\":\"%s\",\"repeatable\":%s,\"types\":[",
+			Control008.getLabel(), resolveCardinality(Control005.getCardinality()));
 		i = Control008Subfields.getSubfields().keySet().size();
 		for (Control008Type type : Control008Subfields.getSubfields().keySet()) {
 			System.out.printf("{\"type\":\"%s\",\"positions\":[\n", type.getValue());
@@ -148,7 +160,7 @@ public class MappingToJson {
 		String text = "\"" + tag.getTag() + "\":{" + toJson(false,
 			"label", tag.getLabel(),
 			"url", tag.getDescriptionUrl(),
-			"repeatable", (tag.getCardinality().getCode().equals("R") ? "false" : "true")
+			"repeatable", resolveCardinality(tag.getCardinality())
 		);
 		text += ",\"indicator1\":" + indicatorToJson("ind1", tag.getInd1());
 		text += ",\"indicator2\":" + indicatorToJson("ind2", tag.getInd2());
@@ -192,7 +204,7 @@ public class MappingToJson {
 	private static String subfieldToJson(SubfieldDefinition subfield) {
 		String text = '"' + subfield.getCode() + "\":{" + toJson(false,
 			"label", subfield.getLabel(),
-			"repeatable", (subfield.getCardinalityCode().equals("R") ? "false" : "true")
+			"repeatable", resolveCardinality(subfield.getCardinality())
 		);
 
 		if (MappingToJson.exportSubfieldCodes) {
@@ -253,5 +265,9 @@ public class MappingToJson {
 			values.put(args[i], args[i+1]);
 		}
 		return mapToJson(values, isAUnit);
+	}
+
+	private static String resolveCardinality(Cardinality cardinality) {
+		return cardinality.getCode().equals("R") ? "true" : "false";
 	}
 }

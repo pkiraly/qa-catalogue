@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc;
 
+import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
@@ -23,6 +24,7 @@ public class Control001 extends ControlField implements Extractable, Validatable
 	private static final String tag = "001";
 	private static final String label = "Control Number";
 	private static final String mqTag = "ControlNumber";
+	private static final Cardinality cardinality = Cardinality.Nonrepeatable;
 
 	public Control001(String content) {
 		this.content = content;
@@ -71,9 +73,13 @@ public class Control001 extends ControlField implements Extractable, Validatable
 		return mqTag;
 	}
 
+	public static Cardinality getCardinality() {
+		return cardinality;
+	}
+
 	@Override
 	public String toString() {
-		return "Control007{" +
+		return "Control001{" +
 				"content='" + content + '\'' +
 				", map=" + valuesMap +
 				'}';

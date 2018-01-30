@@ -1,9 +1,6 @@
 package de.gwdg.metadataqa.marc;
 
-import de.gwdg.metadataqa.marc.definition.Control008Subfields;
-import de.gwdg.metadataqa.marc.definition.Control008Type;
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
-import de.gwdg.metadataqa.marc.definition.ControlValue;
+import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 
 import java.security.InvalidParameterException;
@@ -21,6 +18,7 @@ public class Control008 extends PositionalControlField implements Extractable {
 	private static final String tag = "008";
 	private static final String label = "General Information";
 	protected static final String mqTag = "GeneralInformation";
+	private static final Cardinality cardinality = Cardinality.Nonrepeatable;
 
 	private Leader.Type recordType;
 
@@ -535,6 +533,10 @@ public class Control008 extends PositionalControlField implements Extractable {
 
 	public static String getMqTag() {
 		return mqTag;
+	}
+
+	public static Cardinality getCardinality() {
+		return cardinality;
 	}
 
 	public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {

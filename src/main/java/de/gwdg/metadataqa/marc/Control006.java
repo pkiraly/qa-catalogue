@@ -1,9 +1,6 @@
 package de.gwdg.metadataqa.marc;
 
-import de.gwdg.metadataqa.marc.definition.Control006Subfields;
-import de.gwdg.metadataqa.marc.definition.Control008Type;
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
-import de.gwdg.metadataqa.marc.definition.ControlValue;
+import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 
 import java.util.*;
@@ -20,6 +17,7 @@ public class Control006 extends PositionalControlField implements Extractable {
 	private static final String tag = "006";
 	private static final String label = "Additional Material Characteristics";
 	protected static final String mqTag = "AdditionalMaterialCharacteristics";
+	private static final Cardinality cardinality = Cardinality.Repeatable;
 
 	private Leader.Type recordType;
 
@@ -484,6 +482,10 @@ public class Control006 extends PositionalControlField implements Extractable {
 
 	public static String getMqTag() {
 		return mqTag;
+	}
+
+	public static Cardinality getCardinality() {
+		return cardinality;
 	}
 
 	public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {

@@ -4,7 +4,7 @@ import de.gwdg.metadataqa.marc.*;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.utils.MarcTagLister;
-import org.apache.commons.lang.StringUtils;
+import net.minidev.json.JSONValue;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -12,95 +12,114 @@ import java.util.*;
 
 public class MappingToJson {
 
-	private static boolean exportSubfieldCodes = false;
+	private boolean exportSubfieldCodes = false;
 	private static List<String> nonMarc21TagLibraries = Arrays.asList(
 		"oclctags", "fennicatags", "dnbtags", "sztetags", "genttags", "holdings"
 	);
+	private Map<String, Object> mapping;
 
-	public static void main(String[] args) {
-		List<Class<? extends DataFieldDefinition>> tags = MarcTagLister.listTags();
+	public MappingToJson() {
+		mapping = new LinkedHashMap<>();
+	}
 
-		System.out.println("{");
+	public void setExportSubfieldCodes(boolean exportSubfieldCodes) {
+		this.exportSubfieldCodes = exportSubfieldCodes;
+	}
 
-		System.out.println("\"Leader\":{\"repeatable\":false,\"positions\":[");
-		List<String> positions = new ArrayList<>();
+	public String toJson() {
+		return JSONValue.toJSONString(mapping);
+	}
+
+	public void build() {
+
+		Map<String, Object> tag = new LinkedHashMap<>();
+		tag.put("repeatable", false);
+		List<Object> positions = new ArrayList<>();
 		for (ControlSubfield subfield : LeaderSubfields.getSubfields()) {
 			positions.add(controlSubfieldToJson(subfield));
 		}
-		System.out.println(StringUtils.join(positions, ",\n"));
-		System.out.println("]},");
+		tag.put("positions", positions);
+		mapping.put("Leader", tag);
 
-		System.out.println("\"001\":" + toJson(true,
-			"label", Control001.getLabel(),
-			"repeatable", resolveCardinality(Control001.getCardinality())
-		) + ",");
-		System.out.println("\"003\":" + toJson(true,
-			"label", Control003.getLabel(),
-			"repeatable", resolveCardinality(Control003.getCardinality())
-		) + ",");
-		System.out.println("\"005\":" + toJson(true,
-			"label", Control005.getLabel(),
-			"repeatable", resolveCardinality(Control005.getCardinality())
-		) + ",");
+		tag = new LinkedHashMap<>();
+		tag.put("label", Control001.getLabel());
+		tag.put("repeatable", resolveCardinality(Control001.getCardinality()));
+		mapping.put("001", tag);
 
-		System.out.printf("\"006\":{\"label\":\"%s\",\"repeatable\":%s,\"types\":[\n",
-			Control006.getLabel(), resolveCardinality(Control006.getCardinality()));
-		int i = Control006Subfields.getSubfields().keySet().size();
+		tag = new LinkedHashMap<>();
+		tag.put("label", Control003.getLabel());
+		tag.put("repeatable", resolveCardinality(Control003.getCardinality()));
+		mapping.put("003", tag);
+
+		tag = new LinkedHashMap<>();
+		tag.put("label", Control005.getLabel());
+		tag.put("repeatable", resolveCardinality(Control005.getCardinality()));
+		mapping.put("005", tag);
+
+		tag = new LinkedHashMap<>();
+		tag.put("label", Control006.getLabel());
+		tag.put("repeatable", resolveCardinality(Control006.getCardinality()));
+		List<Object> types = new ArrayList<>();
 		for (Control008Type type : Control006Subfields.getSubfields().keySet()) {
-			System.out.printf("{\"type\":\"%s\",\"positions\":[\n", type.getValue());
+			Map<String, Object> typeMap = new LinkedHashMap<>();
+			typeMap.put("type", type.getValue());
 			positions = new ArrayList<>();
 			for (ControlSubfield subfield : Control006Subfields.getSubfields().get(type))
 				positions.add(controlSubfieldToJson(subfield));
-			System.out.println(StringUtils.join(positions, ",\n"));
-			System.out.println("]}" + (--i > 0 ? "," : ""));
+			typeMap.put("positions", positions);
+			types.add(typeMap);
 		}
-		System.out.println("]},");
+		tag.put("types", types);
+		mapping.put("006", tag);
 
-		System.out.printf("\"007\":{\"label\":\"%s\",\"repeatable\":%s,\"categories\":[\n",
-			Control007.getLabel(), resolveCardinality(Control007.getCardinality()));
-		i = Control007Subfields.getSubfields().keySet().size();
+		tag = new LinkedHashMap<>();
+		tag.put("label", Control007.getLabel());
+		tag.put("repeatable", resolveCardinality(Control007.getCardinality()));
+		types = new ArrayList<>();
 		for (Control007Category category : Control007Subfields.getSubfields().keySet()) {
-			System.out.printf("{\"type\":\"%s\",\"positions\":[\n", category.getLabel());
+			Map<String, Object> typeMap = new LinkedHashMap<>();
+			typeMap.put("type", category.getLabel());
 			positions = new ArrayList<>();
 			for (ControlSubfield subfield : Control007Subfields.getSubfields().get(category))
 				positions.add(controlSubfieldToJson(subfield));
-			System.out.println(StringUtils.join(positions, ",\n"));
-			System.out.println("]}" + (--i > 0 ? "," : ""));
+			typeMap.put("positions", positions);
+			types.add(typeMap);
 		}
-		System.out.println("]},");
+		tag.put("categories", types);
+		mapping.put("007", tag);
 
-		System.out.printf("\"008\":{\"label\":\"%s\",\"repeatable\":%s,\"types\":[",
-			Control008.getLabel(), resolveCardinality(Control005.getCardinality()));
-		i = Control008Subfields.getSubfields().keySet().size();
+		tag = new LinkedHashMap<>();
+		tag.put("label", Control008.getLabel());
+		tag.put("repeatable", resolveCardinality(Control008.getCardinality()));
+		types = new ArrayList<>();
 		for (Control008Type type : Control008Subfields.getSubfields().keySet()) {
-			System.out.printf("{\"type\":\"%s\",\"positions\":[\n", type.getValue());
+			Map<String, Object> typeMap = new LinkedHashMap<>();
+			typeMap.put("type", type.getValue());
 			positions = new ArrayList<>();
 			for (ControlSubfield subfield : Control008Subfields.getSubfields().get(type))
 				positions.add(controlSubfieldToJson(subfield));
-			System.out.println(StringUtils.join(positions, ",\n"));
-			System.out.println("]}" + (--i > 0 ? "," : ""));
+			typeMap.put("positions", positions);
+			types.add(typeMap);
 		}
-		System.out.println("]},");
+		tag.put("types", types);
+		mapping.put("008", tag);
 
-		List<String> items = new ArrayList<>();
-		for (Class<? extends DataFieldDefinition> tagClass : tags) {
+		for (Class<? extends DataFieldDefinition> tagClass : MarcTagLister.listTags()) {
 			if (isNonMarc21Tag(tagClass))
 				continue;
 
 			Method getInstance;
-			DataFieldDefinition tag;
+			DataFieldDefinition fieldTag;
 			try {
 				getInstance = tagClass.getMethod("getInstance");
-				tag = (DataFieldDefinition) getInstance.invoke(tagClass);
-				items.add(dataFieldToJson(tag));
+				fieldTag = (DataFieldDefinition) getInstance.invoke(tagClass);
+				dataFieldToJson(fieldTag);
 			} catch (NoSuchMethodException
-			       | IllegalAccessException
-			       | InvocationTargetException e) {
+				| IllegalAccessException
+				| InvocationTargetException e) {
 				e.printStackTrace();
 			}
 		}
-		System.out.println(StringUtils.join(items, ",\n"));
-		System.out.println("}");
 	}
 
 	private static boolean isNonMarc21Tag(Class<? extends DataFieldDefinition> tagClass) {
@@ -114,160 +133,125 @@ public class MappingToJson {
 		return isNonMarc21Tag;
 	}
 
-	private static String controlSubfieldToJson(ControlSubfield subfield) {
-		Map<String, String> values = new LinkedHashMap<>();
+	private static Map<String, Object> controlSubfieldToJson(ControlSubfield subfield) {
+		Map<String, Object> values = new LinkedHashMap<>();
 		values.put("position", subfield.formatPositon());
 		values.put("label", subfield.getLabel());
 		values.put("url", subfield.getDescriptionUrl());
-		String text = mapToJson(values, false);
 
 		if (subfield.getCodes() != null) {
-			List<String> codes = new ArrayList<>();
+			List<Object> codes = new ArrayList<>();
 			for (Code code : subfield.getCodes()) {
-				codes.add(toJson(true, "code", code.getCode(), "label", code.getLabel()));
+				Map<String, Object> codeMap = new LinkedHashMap<>();
+				codeMap.put("code", code.getCode());
+				codeMap.put("label", code.getLabel());
+				codes.add(codeMap);
 			}
-			text += ",\"codes\":[\n" + StringUtils.join(codes, ",\n") + "\n]";
+			values.put("codes", codes);
 		}
 		if (subfield.getHistoricalCodes() != null) {
-			List<String> codes = new ArrayList<>();
+			List<Object> codes = new ArrayList<>();
 			for (Code code : subfield.getHistoricalCodes()) {
-				codes.add(toJson(true, "code", code.getCode(), "label", code.getLabel()));
+				Map<String, Object> codeMap = new LinkedHashMap<>();
+				codeMap.put("code", code.getCode());
+				codeMap.put("label", code.getLabel());
+				codes.add(codeMap);
 			}
-			text += ",\"historical-codes\":[\n" + StringUtils.join(codes, ",\n") + "\n]";
+			values.put("historical-codes", codes);
 		}
-		return "{" + text + "}";
+		return values;
 	}
 
-	private static String mapToJson(Map<String, String> values, boolean isAUnit) {
-		List<String> entries = new ArrayList<>();
-		for (Map.Entry value : values.entrySet()) {
-			String jsonEntry;
-			if (value.getValue().equals("true")
-				|| value.getValue().equals("false")
-				|| value.getValue().equals("null"))
-				jsonEntry = String.format("\"%s\":%s", value.getKey(), value.getValue());
-			else
-				jsonEntry = String.format("\"%s\":\"%s\"", value.getKey(), value.getValue());
-			entries.add(jsonEntry);
-		}
-		if (isAUnit)
-			return '{' + StringUtils.join(entries, ",") + '}';
-		else
-			return StringUtils.join(entries, ",");
-	}
+	private void dataFieldToJson(DataFieldDefinition tag) {
+		Map<String, Object> tagMap = new LinkedHashMap<>();
+		tagMap.put("label", tag.getLabel());
+		tagMap.put("url", tag.getDescriptionUrl());
+		tagMap.put("repeatable", resolveCardinality(tag.getCardinality()));
+		tagMap.put("indicator1", indicatorToJson(tag.getInd1()));
+		tagMap.put("indicator2", indicatorToJson(tag.getInd2()));
 
-	private static String dataFieldToJson(DataFieldDefinition tag) {
-		String text = "\"" + tag.getTag() + "\":{" + toJson(false,
-			"label", tag.getLabel(),
-			"url", tag.getDescriptionUrl(),
-			"repeatable", resolveCardinality(tag.getCardinality())
-		);
-		text += ",\"indicator1\":" + indicatorToJson("ind1", tag.getInd1());
-		text += ",\"indicator2\":" + indicatorToJson("ind2", tag.getInd2());
-
-		/*
-		if (tag.getInd1().exists() || tag.getInd2().exists()) {
-			text += ",\"indicators\":{";
-
-			List<String> indicators = new ArrayList<>();
-			if (tag.getInd1().exists())
-				indicators.add(indicatorToJson("ind1", tag.getInd1()));
-
-			if (tag.getInd2().exists())
-				indicators.add(indicatorToJson("ind2", tag.getInd2()));
-			text += StringUtils.join(indicators, ",\n");
-			text += "}\n";
-		}
-		*/
-
-		List<String> subfields = new ArrayList<>();
+		Map<String, Object> subfields = new LinkedHashMap<>();
 		for (SubfieldDefinition subfield : tag.getSubfields()) {
-			subfields.add(subfieldToJson(subfield));
+			subfields.put(subfield.getCode(), subfieldToJson(subfield));
 		}
-		text += ",\"subfields\":{\n" + StringUtils.join(subfields, ",\n") + "}\n";
+		tagMap.put("subfields", subfields);
 
 		if (tag.getHistoricalSubfields() != null) {
-			subfields = new ArrayList<>();
+			subfields = new LinkedHashMap<>();
 			for (Code code : tag.getHistoricalSubfields()) {
-				subfields.add('"' + code.getCode() + "\":" + toJson(true,
-					"label", code.getLabel()
-				));
+				Map<String, Object> labelMap = new LinkedHashMap<>();
+				labelMap.put("label", code.getLabel());
+				subfields.put(code.getCode(), labelMap);
 			}
-			text += ",\"historical-subfields\":{\n" + StringUtils.join(subfields, ",\n") + "}\n";
+			tagMap.put("historical-subfields", subfields);
 		}
 
-		text += "}";
-
-		return text;
+		mapping.put(tag.getTag(), tagMap);
 	}
 
-	private static String subfieldToJson(SubfieldDefinition subfield) {
-		String text = '"' + subfield.getCode() + "\":{" + toJson(false,
-			"label", subfield.getLabel(),
-			"repeatable", resolveCardinality(subfield.getCardinality())
-		);
+	private Map<String, Object> subfieldToJson(SubfieldDefinition subfield) {
+		Map<String, Object> codeMap = new LinkedHashMap<>();
+		codeMap.put("label", subfield.getLabel());
+		codeMap.put("repeatable", resolveCardinality(subfield.getCardinality()));
 
-		if (MappingToJson.exportSubfieldCodes) {
-			if (subfield.getCodeList() != null
-				&& !subfield.getCodeList().getCodes().isEmpty()) {
-				CodeList codeList = subfield.getCodeList();
-				String meta = toJson(false,
-					"name", codeList.getName(),
-					"url", codeList.getUrl()
-				);
-				if (!codeList.getName().equals("MARC Organization Codes")) {
-					List<String> codes = new ArrayList<>();
-					for (Code code : subfield.getCodeList().getCodes()) {
-						codes.add(toJson(true,
-							"code", code.getCode(),
-							"label", code.getLabel().replace("\"", "\\\"")
-						));
-					}
-					meta += ",\"codes\":[" + StringUtils.join(codes, ",\n") + "]\n";
+		if (subfield.getCodeList() != null
+		    && !subfield.getCodeList().getCodes().isEmpty()) {
+			CodeList codeList = subfield.getCodeList();
+			Map<String, Object> meta = new LinkedHashMap<>();
+			meta.put("name", codeList.getName());
+			meta.put("url", codeList.getUrl());
+			if (exportSubfieldCodes
+			    && !codeList.getName().equals("MARC Organization Codes")) {
+				Map<String, Object> codes = new LinkedHashMap<>();
+				for (Code code : subfield.getCodeList().getCodes()) {
+					Map<String, Object> codeListMap = new LinkedHashMap<>();
+					codeListMap.put("label", code.getLabel());
+					codes.put(code.getCode(), codeListMap);
 				}
-				text += ",\"codelist\":{" + meta + "}\n";
+				meta.put("codes", codes);
 			}
+			codeMap.put("codelist", meta);
 		}
-		text += "}";
-		return text;
+		return codeMap;
 	}
 
-	private static String indicatorToJson(String label, Indicator indicator) {
-		if (!indicator.exists())
-			return "null";
-		String text = "{";
-		text += toJson(false, "label", indicator.getLabel());
-		List<String> codes = new ArrayList<>();
+	private static Map<String, Object> indicatorToJson(Indicator indicator) {
+		if (!indicator.exists()) {
+			return null;
+		}
+		Map<String, Object> value = new LinkedHashMap<>();
+		value.put("label", indicator.getLabel());
+		Map<String, Object> codes = new LinkedHashMap<>();
 		for (Code code : indicator.getCodes()) {
-			codes.add(toJson(true,
-				"code", code.getCode(),
-				"label", code.getLabel().replace("\"", "\\\"")
-			));
+			Map<String, Object> map = new LinkedHashMap<>();
+			map.put("label", code.getLabel());
+			codes.put(code.getCode(), map);
 		}
-		text += ",\"codes\":[" + StringUtils.join(codes, ",\n") + "]\n";
+		value.put("codes", codes);
 		if (indicator.getHistoricalCodes() != null) {
-			codes = new ArrayList<>();
+			codes = new LinkedHashMap<>();
 			for (Code code : indicator.getHistoricalCodes()) {
-				codes.add(toJson(true,
-					"code", code.getCode(),
-					"label", code.getLabel().replace("\"", "\\\"")
-				));
+				Map<String, Object> map = new LinkedHashMap<>();
+				map.put("label", code.getLabel());
+				codes.put(code.getCode(), map);
 			}
-			text += ",\"historical-codes\":[" + StringUtils.join(codes, ",\n") + "]\n";
+			value.put("historical-codes", codes);
 		}
-		text += "}";
-		return text;
+		return value;
 	}
 
-	private static String toJson(boolean isAUnit, String... args) {
-		Map<String, String> values = new LinkedHashMap<>();
-		for (int i = 0; i < args.length; i += 2) {
-			values.put(args[i], args[i+1]);
-		}
-		return mapToJson(values, isAUnit);
+	private boolean resolveCardinality(Cardinality cardinality) {
+		return cardinality.getCode().equals("R");
 	}
 
-	private static String resolveCardinality(Cardinality cardinality) {
-		return cardinality.getCode().equals("R") ? "true" : "false";
+	public static void main(String[] args) {
+		System.err.println(args.length);
+		// System.err.println(args[0]);
+		boolean exportSubfieldCodes = (args.length > 0 && args[0].equals("exportSubfieldCodes"));
+
+		MappingToJson mapping = new MappingToJson();
+		mapping.setExportSubfieldCodes(exportSubfieldCodes);
+		mapping.build();
+		System.out.println(mapping.toJson());
 	}
 }

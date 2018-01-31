@@ -245,7 +245,7 @@ public class MappingToJson {
 	}
 
 	public static void main(String[] args) {
-		boolean exportSubfieldCodes = (args.length > 0 && args[0].equals("exportSubfieldCodes"));
+		boolean exportSubfieldCodes = (args.length > 0 && args[0].equals("--with-subfield-codelists"));
 
 		MappingToJson mapping = new MappingToJson();
 		mapping.setExportSubfieldCodes(exportSubfieldCodes);

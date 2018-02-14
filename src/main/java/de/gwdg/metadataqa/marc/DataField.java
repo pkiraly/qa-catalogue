@@ -270,64 +270,81 @@ public class DataField implements Extractable, Validatable {
 		validationErrors = new ArrayList<>();
 		DataFieldDefinition referencerDefinition = null;
 		List<MarcSubfield> _subfields = null;
+		boolean ambiguousLinkage = false;
 		if (definition.getTag().equals("880")) {
 			List<MarcSubfield> subfield6s = getSubfield("6");
 			if (subfield6s == null) {
 				validationErrors.add(new ValidationError(record.getId(), definition.getTag(),
 					ValidationErrorType.MissingSubfield, "$6", definition.getDescriptionUrl()));
 				errors.add(String.format("%s should have subfield $a (%s)", definition.getTag(), definition.getDescriptionUrl()));
+				isValid = false;
 			} else {
-				if (!subfield6s.isEmpty() && subfield6s.size() == 1) {
-					MarcSubfield subfield6 = subfield6s.get(0);
-					Linkage linkage = null;
-					try {
-						linkage = LinkageParser.getInstance().create(subfield6.getValue());
-						if (linkage == null || linkage.getLinkingTag() == null) {
-							validationErrors.add(
-								new ValidationError(
-									record.getId(), definition.getTag() + "$6",
-									ValidationErrorType.InvalidLinkage,
-									String.format("Unparseable reference: '%s'", subfield6.getValue()),
-									definition.getDescriptionUrl()
-								)
-							);
-						} else {
-							referencerDefinition = definition;
-							definition = TagDefinitionLoader.load(linkage.getLinkingTag());
-							if (definition == null) {
-								definition = referencerDefinition;
+				if (!subfield6s.isEmpty()) {
+					if (subfield6s.size() != 1) {
+						validationErrors.add(
+							new ValidationError(
+								record.getId(), definition.getTag() + "$6",
+								ValidationErrorType.AmbiguousLinkage, "There are multiple $6",
+								definition.getDescriptionUrl()
+							)
+						);
+						isValid = false;
+						ambiguousLinkage = true;
+					} else {
+						MarcSubfield subfield6 = subfield6s.get(0);
+						Linkage linkage = null;
+						try {
+							linkage = LinkageParser.getInstance().create(subfield6.getValue());
+							if (linkage == null || linkage.getLinkingTag() == null) {
 								validationErrors.add(
 									new ValidationError(
 										record.getId(), definition.getTag() + "$6",
 										ValidationErrorType.InvalidLinkage,
-										String.format("refers to field %s, which is not defined", linkage.getLinkingTag()),
-										definition.getDescriptionUrl()));
-								errors.add(String.format("%s refers to field %s, which is not defined (%s)",
-									definition.getTag(), linkage.getLinkingTag(), definition.getDescriptionUrl()));
-								isValid = false;
+										String.format("Unparseable reference: '%s'", subfield6.getValue()),
+										definition.getDescriptionUrl()
+									)
+								);
 							} else {
-								_subfields = subfields;
-								List<MarcSubfield> _subfieldsNew = new ArrayList<>();
-								for (MarcSubfield subfield : subfields) {
-									MarcSubfield alternativeSubfield = new MarcSubfield(definition.getSubfield(
-										subfield.getCode()), subfield.getCode(), subfield.getValue());
-									alternativeSubfield.setField(this);
-									alternativeSubfield.setRecord(record);
-									alternativeSubfield.setLinkage(linkage);
-									alternativeSubfield.setReferencePath(referencerDefinition.getTag());
-									_subfieldsNew.add(alternativeSubfield);
+								referencerDefinition = definition;
+								definition = TagDefinitionLoader.load(linkage.getLinkingTag());
+								if (definition == null) {
+									definition = referencerDefinition;
+									validationErrors.add(
+										new ValidationError(
+											record.getId(), definition.getTag() + "$6",
+											ValidationErrorType.InvalidLinkage,
+											String.format("refers to field %s, which is not defined", linkage.getLinkingTag()),
+											definition.getDescriptionUrl()));
+									errors.add(String.format("%s refers to field %s, which is not defined (%s)",
+										definition.getTag(), linkage.getLinkingTag(), definition.getDescriptionUrl()));
+									isValid = false;
+								} else {
+									_subfields = subfields;
+									List<MarcSubfield> _subfieldsNew = new ArrayList<>();
+									for (MarcSubfield subfield : subfields) {
+										MarcSubfield alternativeSubfield = new MarcSubfield(
+											definition.getSubfield(subfield.getCode()),
+											subfield.getCode(),
+											subfield.getValue()
+										);
+										alternativeSubfield.setField(this);
+										alternativeSubfield.setRecord(record);
+										alternativeSubfield.setLinkage(linkage);
+										alternativeSubfield.setReferencePath(referencerDefinition.getTag());
+										_subfieldsNew.add(alternativeSubfield);
+									}
+									subfields = _subfieldsNew;
 								}
-								subfields = _subfieldsNew;
 							}
+						} catch (ParserException e) {
+							validationErrors.add(
+								new ValidationError(
+									record.getId(), definition.getTag() + "$6",
+									ValidationErrorType.InvalidLinkage, e.getMessage(),
+									definition.getDescriptionUrl()
+								)
+							);
 						}
-					} catch (ParserException e) {
-						validationErrors.add(
-							new ValidationError(
-								record.getId(), definition.getTag() + "$6",
-								ValidationErrorType.InvalidLinkage, e.getMessage(),
-								definition.getDescriptionUrl()
-							)
-						);
 					}
 				}
 			}
@@ -354,51 +371,53 @@ public class DataField implements Extractable, Validatable {
 				isValid = false;
 		}
 
-		Map<SubfieldDefinition, Integer> counter = new HashMap<>();
-		for (MarcSubfield subfield : subfields) {
-			if (subfield.getDefinition() == null) {
-				if (definition.isVersionSpecificSubfields(marcVersion, subfield.getCode())) {
-					subfield.setDefinition(
-						definition.getVersionSpecificSubfield(
-							marcVersion, subfield.getCode()));
-				} else {
-					validationErrors.add(
-						new ValidationError(
-							record.getId(), definition.getTag(),
-							ValidationErrorType.UndefinedSubfield, subfield.getCode(), definition.getDescriptionUrl()));
+		if (!ambiguousLinkage) {
+			Map<SubfieldDefinition, Integer> counter = new HashMap<>();
+			for (MarcSubfield subfield : subfields) {
+				if (subfield.getDefinition() == null) {
+					if (definition.isVersionSpecificSubfields(marcVersion, subfield.getCode())) {
+						subfield.setDefinition(
+							definition.getVersionSpecificSubfield(
+								marcVersion, subfield.getCode()));
+					} else {
+						validationErrors.add(
+							new ValidationError(
+								record.getId(), definition.getTag(),
+								ValidationErrorType.UndefinedSubfield, subfield.getCode(), definition.getDescriptionUrl()));
 
-					errors.add(String.format("%s has invalid subfield %s (%s)",
-						definition.getTag(),
-						subfield.getCode(),
-						definition.getDescriptionUrl()));
+						errors.add(String.format("%s has invalid subfield %s (%s)",
+							definition.getTag(),
+							subfield.getCode(),
+							definition.getDescriptionUrl()));
+						isValid = false;
+						continue;
+					}
+				}
+				if (!counter.containsKey(subfield.getDefinition())) {
+					counter.put(subfield.getDefinition(), 0);
+				}
+				counter.put(subfield.getDefinition(), counter.get(subfield.getDefinition()) + 1);
+
+				if (!subfield.validate(marcVersion)) {
+					validationErrors.addAll(subfield.getValidationErrors());
+					errors.addAll(subfield.getErrors());
 					isValid = false;
-					continue;
 				}
 			}
-			if (!counter.containsKey(subfield.getDefinition())) {
-				counter.put(subfield.getDefinition(), 0);
-			}
-			counter.put(subfield.getDefinition(), counter.get(subfield.getDefinition()) + 1);
 
-			if (!subfield.validate(marcVersion)) {
-				validationErrors.addAll(subfield.getValidationErrors());
-				errors.addAll(subfield.getErrors());
-				isValid = false;
-			}
-		}
-
-		for (SubfieldDefinition subfieldDefinition : counter.keySet()) {
-			if (counter.get(subfieldDefinition) > 1
-				&& subfieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
-				validationErrors.add(new ValidationError(record.getId(), subfieldDefinition.getPath(),
-					ValidationErrorType.NonrepeatableSubfield,
-					String.format("there are %d instances", counter.get(subfieldDefinition)),
-					definition.getDescriptionUrl()));
-				errors.add(String.format(
-					"%s$%s is not repeatable, however there are %d instances (%s)",
-					definition.getTag(), subfieldDefinition.getCode(),
-					counter.get(subfieldDefinition), definition.getDescriptionUrl()));
-				isValid = false;
+			for (SubfieldDefinition subfieldDefinition : counter.keySet()) {
+				if (counter.get(subfieldDefinition) > 1
+					&& subfieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
+					validationErrors.add(new ValidationError(record.getId(), subfieldDefinition.getPath(),
+						ValidationErrorType.NonrepeatableSubfield,
+						String.format("there are %d instances", counter.get(subfieldDefinition)),
+						definition.getDescriptionUrl()));
+					errors.add(String.format(
+						"%s$%s is not repeatable, however there are %d instances (%s)",
+						definition.getTag(), subfieldDefinition.getCode(),
+						counter.get(subfieldDefinition), definition.getDescriptionUrl()));
+					isValid = false;
+				}
 			}
 		}
 

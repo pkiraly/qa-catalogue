@@ -189,4 +189,13 @@ public class Indicator {
 		       && !versionSpecificCodes.get(marcVersion).isEmpty()
 		       && !versionSpecificCodes.get(marcVersion).contains(code);
 	}
+
+	@Override
+	public String toString() {
+		return "Indicator{" +
+			"label='" + label + '\'' +
+			", codes=" + codes +
+			", indicatorFlag='" + indicatorFlag + '\'' +
+			'}';
+	}
 }

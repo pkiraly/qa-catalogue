@@ -94,4 +94,14 @@ public class Linkage implements Extractable {
 	public String getFieldOrientationCode() {
 		return fieldOrientationCode;
 	}
+
+	@Override
+	public String toString() {
+		return "Linkage{" +
+			"linkingTag='" + linkingTag + '\'' +
+			", occurrenceNumber='" + occurrenceNumber + '\'' +
+			", scriptIdentificationCode='" + resolveScriptIdentificationCode() + '\'' +
+			", fieldOrientationCode='" + fieldOrientationCode + '\'' +
+			'}';
+	}
 }

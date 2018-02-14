@@ -173,4 +173,17 @@ public abstract class DataFieldDefinition {
 	public List<Code> getHistoricalSubfields() {
 		return historicalSubfields;
 	}
+
+	@Override
+	public String toString() {
+		return "DataFieldDefinition{" +
+			"tag='" + tag + '\'' +
+			", label='" + label + '\'' +
+			", cardinality=" + cardinality +
+			// ", ind1=" + ind1 +
+			// ", ind2=" + ind2 +
+			", descriptionUrl='" + descriptionUrl + '\'' +
+			// ", subfields=" + subfields +
+			'}';
+	}
 }

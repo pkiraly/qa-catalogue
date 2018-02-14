@@ -9,6 +9,7 @@ import de.gwdg.metadataqa.marc.utils.ReadMarc;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.marc4j.MarcException;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
 
@@ -60,8 +61,19 @@ public class RecordIterator {
 			try {
 				MarcReader reader = ReadMarc.getReader(path.toString(), isMarcxml, isLineSeparated);
 				while (reader.hasNext()) {
-					Record marc4jRecord = reader.next();
+					Record marc4jRecord = null;
+					try {
+						marc4jRecord = reader.next();
+					} catch (MarcException | NegativeArraySizeException e) {
+						logger.severe(
+							String.format(
+								"MARC record parsing problem at record #%d (last known ID: %s): %s",
+								(i+1), lastKnownId, e.getLocalizedMessage()));
+					}
 					i++;
+					if (marc4jRecord == null)
+						continue;
+
 					if (isUnderOffset(processor.getParameters().getOffset(), i)) {
 						continue;
 					}

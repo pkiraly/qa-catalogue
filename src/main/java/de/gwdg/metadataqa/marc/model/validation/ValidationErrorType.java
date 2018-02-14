@@ -16,6 +16,7 @@ public enum ValidationErrorType {
 	UndefinedField("undefinedField", "undefined field"),
 	UndetectableType("undetectableType", "undetectable record type"),
 	InvalidLinkage("invalidLinkage", "invalid linkage"),
+	AmbiguousLinkage("ambiguousLinkage", "ambiguous linkage"),
 	ISBN("invalidISBN", "invalid ISBN"),
 	ISSN("invalidISSN", "invalid ISSN"),
 	UnparsableContent("unparsableContent", "invalid format"),

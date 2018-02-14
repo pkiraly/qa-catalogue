@@ -11,6 +11,8 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertNotNull;
@@ -19,11 +21,7 @@ public class ISBNValidatorTest {
 
 	@Test
 	public void testInvalid() {
-		MarcRecord record = new MarcRecord("test");
-		DataField field = new DataField(Tag020.getInstance(), " ", " ", "a", "3p");
-		field.setRecord(record);
-
-		MarcSubfield subfield = field.getSubfield("a").get(0);
+		MarcSubfield subfield = createMarcSubfield("3p");
 		assertNotNull(subfield);
 		assertTrue(subfield.getDefinition().hasValidator());
 		SubfieldValidator validator = subfield.getDefinition().getValidator();
@@ -35,18 +33,14 @@ public class ISBNValidatorTest {
 		assertEquals("test", validationError.getRecordId());
 		assertEquals("020$a", validationError.getMarcPath());
 		assertEquals(ValidationErrorType.ISBN, validationError.getType());
-		assertEquals("'3p' is not a valid ISBN value: length should be either 10 or 13, but it is 2",
+		assertEquals("'3p' does not a have an ISBN value, it does not fit the pattern \\d[\\d-]+[\\dxX].",
 			validationError.getMessage());
 		assertEquals("https://en.wikipedia.org/wiki/International_Standard_Book_Number", validationError.getUrl());
 	}
 
 	@Test
 	public void test9992158107() {
-		MarcRecord record = new MarcRecord("test");
-		DataField field = new DataField(Tag020.getInstance(), " ", " ", "a", "99921-58-10-7");
-		field.setRecord(record);
-
-		MarcSubfield subfield = field.getSubfield("a").get(0);
+		MarcSubfield subfield = createMarcSubfield("99921-58-10-7");
 		ValidatorResponse response = subfield.getDefinition().getValidator().isValid(subfield);
 		assertTrue(response.isValid());
 		assertEquals(0, response.getValidationErrors().size());
@@ -54,11 +48,7 @@ public class ISBNValidatorTest {
 
 	@Test
 	public void test9971502100() {
-		MarcRecord record = new MarcRecord("test");
-		DataField field = new DataField(Tag020.getInstance(), " ", " ", "a", "9971-5-0210-0");
-		field.setRecord(record);
-
-		MarcSubfield subfield = field.getSubfield("a").get(0);
+		MarcSubfield subfield = createMarcSubfield("9971-5-0210-0");
 		ValidatorResponse response = subfield.getDefinition().getValidator().isValid(subfield);
 		assertTrue(response.isValid());
 		assertEquals(0, response.getValidationErrors().size());
@@ -66,11 +56,7 @@ public class ISBNValidatorTest {
 
 	@Test
 	public void test9604250590() {
-		MarcRecord record = new MarcRecord("test");
-		DataField field = new DataField(Tag020.getInstance(), " ", " ", "a", "960-425-059-0");
-		field.setRecord(record);
-
-		MarcSubfield subfield = field.getSubfield("a").get(0);
+		MarcSubfield subfield = createMarcSubfield("960-425-059-0");
 		ValidatorResponse response = subfield.getDefinition().getValidator().isValid(subfield);
 		assertTrue(response.isValid());
 		assertEquals(0, response.getValidationErrors().size());
@@ -78,11 +64,7 @@ public class ISBNValidatorTest {
 
 	@Test
 	public void test8090273416() {
-		MarcRecord record = new MarcRecord("test");
-		DataField field = new DataField(Tag020.getInstance(), " ", " ", "a", "80-902734-1-6");
-		field.setRecord(record);
-
-		MarcSubfield subfield = field.getSubfield("a").get(0);
+		MarcSubfield subfield = createMarcSubfield("80-902734-1-6");
 		ValidatorResponse response = subfield.getDefinition().getValidator().isValid(subfield);
 		assertTrue(response.isValid());
 		assertEquals(0, response.getValidationErrors().size());
@@ -90,11 +72,7 @@ public class ISBNValidatorTest {
 
 	@Test
 	public void test8535902775() {
-		MarcRecord record = new MarcRecord("test");
-		DataField field = new DataField(Tag020.getInstance(), " ", " ", "a", "85-359-0277-5");
-		field.setRecord(record);
-
-		MarcSubfield subfield = field.getSubfield("a").get(0);
+		MarcSubfield subfield = createMarcSubfield("85-359-0277-5");
 		ValidatorResponse response = subfield.getDefinition().getValidator().isValid(subfield);
 		assertTrue(response.isValid());
 		assertEquals(0, response.getValidationErrors().size());
@@ -102,11 +80,7 @@ public class ISBNValidatorTest {
 
 	@Test
 	public void test1843560283() {
-		MarcRecord record = new MarcRecord("test");
-		DataField field = new DataField(Tag020.getInstance(), " ", " ", "a", "1-84356-028-3");
-		field.setRecord(record);
-
-		MarcSubfield subfield = field.getSubfield("a").get(0);
+		MarcSubfield subfield = createMarcSubfield("1-84356-028-3");
 		ValidatorResponse response = subfield.getDefinition().getValidator().isValid(subfield);
 		assertTrue(response.isValid());
 		assertEquals(0, response.getValidationErrors().size());
@@ -114,11 +88,7 @@ public class ISBNValidatorTest {
 
 	@Test
 	public void test0684843285() {
-		MarcRecord record = new MarcRecord("test");
-		DataField field = new DataField(Tag020.getInstance(), " ", " ", "a", "0684843285");
-		field.setRecord(record);
-
-		MarcSubfield subfield = field.getSubfield("a").get(0);
+		MarcSubfield subfield = createMarcSubfield("0684843285");
 		ValidatorResponse response = subfield.getDefinition().getValidator().isValid(subfield);
 		assertTrue(response.isValid());
 		assertEquals(0, response.getValidationErrors().size());
@@ -126,11 +96,7 @@ public class ISBNValidatorTest {
 
 	@Test
 	public void test080442957X() {
-		MarcRecord record = new MarcRecord("test");
-		DataField field = new DataField(Tag020.getInstance(), " ", " ", "a", "0-8044-2957-X");
-		field.setRecord(record);
-
-		MarcSubfield subfield = field.getSubfield("a").get(0);
+		MarcSubfield subfield = createMarcSubfield("0-8044-2957-X");
 		ValidatorResponse response = subfield.getDefinition().getValidator().isValid(subfield);
 		assertTrue(response.isValid());
 		assertEquals(0, response.getValidationErrors().size());
@@ -138,11 +104,7 @@ public class ISBNValidatorTest {
 
 	@Test
 	public void test0851310419() {
-		MarcRecord record = new MarcRecord("test");
-		DataField field = new DataField(Tag020.getInstance(), " ", " ", "a", "0851310419");
-		field.setRecord(record);
-
-		MarcSubfield subfield = field.getSubfield("a").get(0);
+		MarcSubfield subfield = createMarcSubfield("0851310419");
 		ValidatorResponse response = subfield.getDefinition().getValidator().isValid(subfield);
 		assertTrue(response.isValid());
 		assertEquals(0, response.getValidationErrors().size());
@@ -150,11 +112,7 @@ public class ISBNValidatorTest {
 
 	@Test
 	public void test0943396042() {
-		MarcRecord record = new MarcRecord("test");
-		DataField field = new DataField(Tag020.getInstance(), " ", " ", "a", "0943396042");
-		field.setRecord(record);
-
-		MarcSubfield subfield = field.getSubfield("a").get(0);
+		MarcSubfield subfield = createMarcSubfield("0943396042");
 		ValidatorResponse response = subfield.getDefinition().getValidator().isValid(subfield);
 		assertTrue(response.isValid());
 		assertEquals(0, response.getValidationErrors().size());
@@ -165,16 +123,27 @@ public class ISBNValidatorTest {
 		List<String> isbns = Arrays.asList("0-9752298-0-X", "0-9752298-0-X (fűzött)");
 
 		for (String ISBN : isbns) {
-			MarcRecord record = new MarcRecord("test");
-			DataField field = new DataField(Tag020.getInstance(), " ", " ", "a", ISBN);
-			field.setRecord(record);
-
-			MarcSubfield subfield = field.getSubfield("a").get(0);
+			MarcSubfield subfield = createMarcSubfield(ISBN);
 			ValidatorResponse response = subfield.getDefinition().getValidator().isValid(subfield);
 			assertTrue(ISBN, response.isValid());
 			assertEquals(0, response.getValidationErrors().size());
 		}
+	}
 
+	@Test
+	public void testSuffixes() {
+		MarcSubfield subfield = createMarcSubfield("9782070769148 (broché) :");
+		ValidatorResponse response = subfield.getDefinition().getValidator().isValid(subfield);
+		assertTrue(response.isValid());
+		assertEquals(0, response.getValidationErrors().size());
+	}
+
+	private MarcSubfield createMarcSubfield(String ISBN) {
+		MarcRecord record = new MarcRecord("test");
+		DataField field = new DataField(Tag020.getInstance(), " ", " ", "a", ISBN);
+		field.setRecord(record);
+
+		return field.getSubfield("a").get(0);
 	}
 
 }

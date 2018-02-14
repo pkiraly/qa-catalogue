@@ -5,6 +5,9 @@ import de.gwdg.metadataqa.marc.definition.ValidatorResponse;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * The original code was created by Steve Claridge
  * https://www.moreofless.co.uk/validate-isbn-10-java/
@@ -13,6 +16,7 @@ import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 public class ISBNValidator implements SubfieldValidator {
 
 	public static final String URL = "https://en.wikipedia.org/wiki/International_Standard_Book_Number";
+	public static final Pattern ISBN = Pattern.compile("\\d[\\d-]+[\\dxX]");
 
 	private static ISBNValidator uniqueInstance;
 
@@ -26,37 +30,65 @@ public class ISBNValidator implements SubfieldValidator {
 
 	@Override
 	public ValidatorResponse isValid(MarcSubfield subfield) {
-		String value = normalize(subfield.getValue());
+		String value = subfield.getValue();
+		// String value = normalize(subfield.getValue());
 		ValidatorResponse response = new ValidatorResponse();
 		String message = null;
-		boolean isValid;
-		if (value.length() == 10) {
-			isValid = validateIsbn10(value);
-			if (!isValid)
-				message = String.format("'%s' is not a valid ISBN 10 value", subfield.getValue());
-		} else if (value.length() == 13) {
-			isValid = validateIsbn13(value);
-			if (!isValid)
-				message = String.format("'%s' is not a valid ISBN 13 value", subfield.getValue());
-		} else {
-			isValid = false;
+
+		boolean found = false;
+		Matcher matcher = ISBN.matcher(value);
+		while (matcher.find()) {
+			found = true;
+			String match = matcher.group();
+			value = match.replace("-", "").toUpperCase();
+
+			message = null;
+			if (value.length() == 10) {
+				if (!validateIsbn10(value)) {
+					message = String.format("'%s' is not a valid ISBN 10 value", value);
+					if (!value.equals(subfield.getValue()))
+						message += String.format(" (in \"%s\")", subfield.getValue());
+				}
+			} else if (value.length() == 13) {
+				if (!validateIsbn13(value)) {
+					message = String.format("'%s' is not a valid ISBN 13 value", value);
+					if (!value.equals(subfield.getValue()))
+						message += String.format(" (in \"%s\")", subfield.getValue());
+				}
+			} else {
+				message = String.format(
+					"'%s' is not a valid ISBN value: length should be either 10 or 13, but it is %d",
+					value, value.length());
+				if (!value.equals(subfield.getValue()))
+					message += String.format(" (in \"%s\")", subfield.getValue());
+			}
+			if (message != null) {
+				addValidationError(response, subfield, message);
+			}
+		}
+		if (!found) {
 			message = String.format(
-				"'%s' is not a valid ISBN value: length should be either 10 or 13, but it is %d",
-				subfield.getValue(), value.length());
+				"'%s' does not a have an ISBN value, it does not fit the pattern \\d[\\d-]+[\\dxX].",
+				subfield.getValue()
+			);
+			addValidationError(response, subfield, message);
 		}
 
-		response.setValid(isValid);
-		if (!isValid) {
-			response.addValidationError(new ValidationError(
+		response.setValid(response.getValidationErrors().isEmpty());
+
+		return response;
+	}
+
+	private void addValidationError(ValidatorResponse response, MarcSubfield subfield, String message) {
+		response.addValidationError(
+			new ValidationError(
 				subfield.getField().getRecord().getId(),
 				subfield.getDefinition().getPath(),
 				ValidationErrorType.ISBN,
 				message,
 				URL
-			));
-		}
-
-		return response;
+			)
+		);
 	}
 
 	private static String normalize(String value) {

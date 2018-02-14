@@ -4,14 +4,8 @@ import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.definition.ValidatorResponse;
-import de.gwdg.metadataqa.marc.definition.tags.tags01x.Tag020;
 import de.gwdg.metadataqa.marc.definition.tags.tags4xx.Tag411;
-import de.gwdg.metadataqa.marc.model.validation.ValidationError;
-import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import org.junit.Test;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -19,11 +13,7 @@ public class ISSNValidatorTest {
 
 	@Test
 	public void test03785955() {
-		MarcRecord record = new MarcRecord("test");
-		DataField field = new DataField(Tag411.getInstance(), " ", " ", "x", "0378-5955");
-		field.setRecord(record);
-
-		MarcSubfield subfield = field.getSubfield("x").get(0);
+		MarcSubfield subfield = createMarcSubfield("0378-5955");
 		ValidatorResponse response = subfield.getDefinition().getValidator().isValid(subfield);
 		assertTrue(response.isValid());
 		assertEquals(0, response.getValidationErrors().size());
@@ -31,24 +21,17 @@ public class ISSNValidatorTest {
 
 	@Test
 	public void test03785954() {
-		MarcRecord record = new MarcRecord("test");
-		DataField field = new DataField(Tag411.getInstance(), " ", " ", "x", "0378-5954");
-		field.setRecord(record);
-
-		MarcSubfield subfield = field.getSubfield("x").get(0);
+		MarcSubfield subfield = createMarcSubfield("0378-5954");
 		ValidatorResponse response = subfield.getDefinition().getValidator().isValid(subfield);
 		assertFalse(response.isValid());
 		assertEquals(1, response.getValidationErrors().size());
-		assertEquals("'0378-5954' is not a valid ISSN value, it failed in integrity check", response.getValidationErrors().get(0).getMessage());
+		assertEquals("'0378-5954' is not a valid ISSN value, it failed in integrity check",
+			response.getValidationErrors().get(0).getMessage());
 	}
 
 	@Test
 	public void test00249319() {
-		MarcRecord record = new MarcRecord("test");
-		DataField field = new DataField(Tag411.getInstance(), " ", " ", "x", "0024-9319");
-		field.setRecord(record);
-
-		MarcSubfield subfield = field.getSubfield("x").get(0);
+		MarcSubfield subfield = createMarcSubfield("0024-9319");
 		ValidatorResponse response = subfield.getDefinition().getValidator().isValid(subfield);
 		assertTrue(response.isValid());
 		assertEquals(0, response.getValidationErrors().size());
@@ -56,21 +39,46 @@ public class ISSNValidatorTest {
 
  	@Test
 	public void testNormalization() {
-		MarcRecord record = new MarcRecord("test");
-		DataField field = new DataField(Tag411.getInstance(), " ", " ", "x", "0024-9319 ;");
-		field.setRecord(record);
-		MarcSubfield subfield = field.getSubfield("x").get(0);
+		MarcSubfield subfield = createMarcSubfield("0024-9319 ;");
+
 		ValidatorResponse response = subfield.getDefinition().getValidator().isValid(subfield);
 		assertTrue(response.isValid());
 		assertEquals(0, response.getValidationErrors().size());
 
-		DataField fieldWithText = new DataField(Tag411.getInstance(), " ", " ", "x", "1040-0400 (ISSN)");
-		fieldWithText.setRecord(record);
-		subfield = fieldWithText.getSubfield("x").get(0);
+		subfield = createMarcSubfield("1040-0400 (ISSN)");
 		response = subfield.getDefinition().getValidator().isValid(subfield);
 		assertTrue(response.isValid());
 		assertEquals(0, response.getValidationErrors().size());
 	}
+
+	@Test
+	public void testPoint() {
+		MarcSubfield subfield = createMarcSubfield("0024-9319.");
+		ValidatorResponse response = subfield.getDefinition().getValidator().isValid(subfield);
+		assertTrue("0024-9319. should be valid", response.isValid());
+		assertEquals(0, response.getValidationErrors().size());
+	}
+
+
+	/**
+	 * See https://github.com/pkiraly/metadata-qa-marc/pull/43#issuecomment-351627027
+	 */
+	@Test
+	public void testExtraText() {
+		MarcSubfield subfield = createMarcSubfield("0024-9319 [print]");
+		ValidatorResponse response = subfield.getDefinition().getValidator().isValid(subfield);
+		assertTrue(response.isValid());
+		assertEquals(0, response.getValidationErrors().size());
+	}
+
+	private MarcSubfield createMarcSubfield(String s) {
+		MarcRecord record = new MarcRecord("test");
+		DataField field = new DataField(Tag411.getInstance(), " ", " ", "x", s);
+		field.setRecord(record);
+
+		return field.getSubfield("x").get(0);
+	}
+
 
 	// TODO test it: "1572-9001 (ESSN), 1040-0400 (ISSN). -"
 }

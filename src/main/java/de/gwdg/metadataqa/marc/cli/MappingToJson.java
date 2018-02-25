@@ -171,22 +171,22 @@ public class MappingToJson {
 		values.put("url", subfield.getDescriptionUrl());
 
 		if (subfield.getCodes() != null) {
-			List<Object> codes = new ArrayList<>();
+			LinkedHashMap<String, Object> codes = new LinkedHashMap<>();
 			for (Code code : subfield.getCodes()) {
 				Map<String, Object> codeMap = new LinkedHashMap<>();
-				codeMap.put("code", code.getCode());
+				// codeMap.put("code", code.getCode());
 				codeMap.put("label", code.getLabel());
-				codes.add(codeMap);
+				codes.put(code.getCode(), codeMap);
 			}
 			values.put("codes", codes);
 		}
 		if (subfield.getHistoricalCodes() != null) {
-			List<Object> codes = new ArrayList<>();
+			LinkedHashMap<String, Object> codes = new LinkedHashMap<>();
 			for (Code code : subfield.getHistoricalCodes()) {
 				Map<String, Object> codeMap = new LinkedHashMap<>();
-				codeMap.put("code", code.getCode());
+				// codeMap.put("code", code.getCode());
 				codeMap.put("label", code.getLabel());
-				codes.add(codeMap);
+				codes.put(code.getCode(), codeMap);
 			}
 			values.put("historical-codes", codes);
 		}

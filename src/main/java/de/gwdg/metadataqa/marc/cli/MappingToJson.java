@@ -40,9 +40,12 @@ public class MappingToJson {
 
 		Map<String, Object> tag = new LinkedHashMap<>();
 		tag.put("repeatable", false);
-		List<Object> positions = new ArrayList<>();
+		Map<String, Object> positions = new LinkedHashMap<>();
 		for (ControlSubfield subfield : LeaderSubfields.getSubfields()) {
-			positions.add(controlSubfieldToJson(subfield));
+			Map<String, Object> position = controlSubfieldToJson(subfield);
+			String key = (String) position.remove("position");
+			// position.remove("position");
+			positions.put(key, position);
 		}
 		tag.put("positions", positions);
 		fields.put("LDR", tag);
@@ -73,9 +76,14 @@ public class MappingToJson {
 		for (Control008Type type : Control006Subfields.getSubfields().keySet()) {
 			Map<String, Object> typeMap = new LinkedHashMap<>();
 			typeMap.put("type", type.getValue());
-			positions = new ArrayList<>();
-			for (ControlSubfield subfield : Control006Subfields.getSubfields().get(type))
-				positions.add(controlSubfieldToJson(subfield));
+			positions = new LinkedHashMap<>();
+			for (ControlSubfield subfield : Control006Subfields.getSubfields().get(type)) {
+				Map<String, Object> position = controlSubfieldToJson(subfield);
+				String key = (String) position.remove("position");
+				// position.remove("position");
+				positions.put(key, position);
+			}
+			// positions.add(controlSubfieldToJson(subfield));
 			typeMap.put("positions", positions);
 			types.add(typeMap);
 		}
@@ -90,9 +98,14 @@ public class MappingToJson {
 		for (Control007Category category : Control007Subfields.getSubfields().keySet()) {
 			Map<String, Object> typeMap = new LinkedHashMap<>();
 			typeMap.put("type", category.getLabel());
-			positions = new ArrayList<>();
-			for (ControlSubfield subfield : Control007Subfields.getSubfields().get(category))
-				positions.add(controlSubfieldToJson(subfield));
+			positions = new LinkedHashMap<>();
+			for (ControlSubfield subfield : Control007Subfields.getSubfields().get(category)) {
+				Map<String, Object> position = controlSubfieldToJson(subfield);
+				String key = (String) position.remove("position");
+				// position.remove("position");
+				positions.put(key, position);
+			}
+				// positions.add(controlSubfieldToJson(subfield));
 			typeMap.put("positions", positions);
 			types.add(typeMap);
 		}
@@ -107,9 +120,14 @@ public class MappingToJson {
 		for (Control008Type type : Control008Subfields.getSubfields().keySet()) {
 			Map<String, Object> typeMap = new LinkedHashMap<>();
 			typeMap.put("type", type.getValue());
-			positions = new ArrayList<>();
-			for (ControlSubfield subfield : Control008Subfields.getSubfields().get(type))
-				positions.add(controlSubfieldToJson(subfield));
+			positions = new LinkedHashMap<>();
+			for (ControlSubfield subfield : Control008Subfields.getSubfields().get(type)) {
+				Map<String, Object> position = controlSubfieldToJson(subfield);
+				String key = (String) position.remove("position");
+				// position.remove("position");
+				positions.put(key, position);
+				// positions.add(controlSubfieldToJson(subfield));
+			}
 			typeMap.put("positions", positions);
 			types.add(typeMap);
 		}

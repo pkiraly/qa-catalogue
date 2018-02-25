@@ -14,12 +14,17 @@ public class MappingToJson {
 
 	private boolean exportSubfieldCodes = false;
 	private static List<String> nonMarc21TagLibraries = Arrays.asList(
-		"oclctags", "fennicatags", "dnbtags", "sztetags", "genttags", "holdings"
+		"oclctags", "fennicatags", "dnbtags", "sztetags", "genttags",
+		"holdings"
 	);
 	private Map<String, Object> mapping;
 
 	public MappingToJson() {
 		mapping = new LinkedHashMap<>();
+		mapping.put("$schema", "https://format.gbv.de/schema/avram/schema.json");
+		mapping.put("title", "MARC 21 Format for Bibliographic Data.");
+		mapping.put("description", "MARC 21 Format for Bibliographic Data.");
+		mapping.put("url", "https://www.loc.gov/marc/bibliographic/");
 	}
 
 	public void setExportSubfieldCodes(boolean exportSubfieldCodes) {
@@ -31,6 +36,7 @@ public class MappingToJson {
 	}
 
 	public void build() {
+		Map fields = new LinkedHashMap<>();
 
 		Map<String, Object> tag = new LinkedHashMap<>();
 		tag.put("repeatable", false);
@@ -39,24 +45,28 @@ public class MappingToJson {
 			positions.add(controlSubfieldToJson(subfield));
 		}
 		tag.put("positions", positions);
-		mapping.put("Leader", tag);
+		fields.put("LDR", tag);
 
 		tag = new LinkedHashMap<>();
+		tag.put("tag", Control001.getTag());
 		tag.put("label", Control001.getLabel());
 		tag.put("repeatable", resolveCardinality(Control001.getCardinality()));
-		mapping.put("001", tag);
+		fields.put("001", tag);
 
 		tag = new LinkedHashMap<>();
+		tag.put("tag", Control003.getTag());
 		tag.put("label", Control003.getLabel());
 		tag.put("repeatable", resolveCardinality(Control003.getCardinality()));
-		mapping.put("003", tag);
+		fields.put("003", tag);
 
 		tag = new LinkedHashMap<>();
+		tag.put("tag", Control005.getTag());
 		tag.put("label", Control005.getLabel());
 		tag.put("repeatable", resolveCardinality(Control005.getCardinality()));
-		mapping.put("005", tag);
+		fields.put("005", tag);
 
 		tag = new LinkedHashMap<>();
+		tag.put("tag", Control006.getTag());
 		tag.put("label", Control006.getLabel());
 		tag.put("repeatable", resolveCardinality(Control006.getCardinality()));
 		List<Object> types = new ArrayList<>();
@@ -70,9 +80,10 @@ public class MappingToJson {
 			types.add(typeMap);
 		}
 		tag.put("types", types);
-		mapping.put("006", tag);
+		fields.put("006", tag);
 
 		tag = new LinkedHashMap<>();
+		tag.put("tag", Control007.getTag());
 		tag.put("label", Control007.getLabel());
 		tag.put("repeatable", resolveCardinality(Control007.getCardinality()));
 		types = new ArrayList<>();
@@ -86,9 +97,10 @@ public class MappingToJson {
 			types.add(typeMap);
 		}
 		tag.put("categories", types);
-		mapping.put("007", tag);
+		fields.put("007", tag);
 
 		tag = new LinkedHashMap<>();
+		tag.put("tag", Control008.getTag());
 		tag.put("label", Control008.getLabel());
 		tag.put("repeatable", resolveCardinality(Control008.getCardinality()));
 		types = new ArrayList<>();
@@ -102,7 +114,7 @@ public class MappingToJson {
 			types.add(typeMap);
 		}
 		tag.put("types", types);
-		mapping.put("008", tag);
+		fields.put("008", tag);
 
 		for (Class<? extends DataFieldDefinition> tagClass : MarcTagLister.listTags()) {
 			if (isNonMarc21Tag(tagClass))
@@ -113,13 +125,14 @@ public class MappingToJson {
 			try {
 				getInstance = tagClass.getMethod("getInstance");
 				fieldTag = (DataFieldDefinition) getInstance.invoke(tagClass);
-				dataFieldToJson(fieldTag);
+				dataFieldToJson(fields, fieldTag);
 			} catch (NoSuchMethodException
 				| IllegalAccessException
 				| InvocationTargetException e) {
 				e.printStackTrace();
 			}
 		}
+		mapping.put("fields", fields);
 	}
 
 	private static boolean isNonMarc21Tag(Class<? extends DataFieldDefinition> tagClass) {
@@ -162,8 +175,9 @@ public class MappingToJson {
 		return values;
 	}
 
-	private void dataFieldToJson(DataFieldDefinition tag) {
+	private void dataFieldToJson(Map fields, DataFieldDefinition tag) {
 		Map<String, Object> tagMap = new LinkedHashMap<>();
+		tagMap.put("tag", tag.getTag());
 		tagMap.put("label", tag.getLabel());
 		tagMap.put("url", tag.getDescriptionUrl());
 		tagMap.put("repeatable", resolveCardinality(tag.getCardinality()));
@@ -186,7 +200,7 @@ public class MappingToJson {
 			tagMap.put("historical-subfields", subfields);
 		}
 
-		mapping.put(tag.getTag(), tagMap);
+		fields.put(tag.getTag(), tagMap);
 	}
 
 	private Map<String, Object> subfieldToJson(SubfieldDefinition subfield) {

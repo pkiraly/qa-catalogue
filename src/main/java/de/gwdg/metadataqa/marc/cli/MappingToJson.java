@@ -50,25 +50,25 @@ public class MappingToJson {
 		fields.put("LDR", tag);
 
 		tag = new LinkedHashMap<>();
-		tag.put("tag", Control001.getTag());
+		tag.put("tag", "001");
 		tag.put("label", Control001.getLabel());
 		tag.put("repeatable", resolveCardinality(Control001.getCardinality()));
 		fields.put("001", tag);
 
 		tag = new LinkedHashMap<>();
-		tag.put("tag", Control003.getTag());
+		tag.put("tag", "003");
 		tag.put("label", Control003.getLabel());
 		tag.put("repeatable", resolveCardinality(Control003.getCardinality()));
 		fields.put("003", tag);
 
 		tag = new LinkedHashMap<>();
-		tag.put("tag", Control005.getTag());
+		tag.put("tag", "005");
 		tag.put("label", Control005.getLabel());
 		tag.put("repeatable", resolveCardinality(Control005.getCardinality()));
 		fields.put("005", tag);
 
 		tag = new LinkedHashMap<>();
-		tag.put("tag", Control006.getTag());
+		tag.put("tag", "006");
 		tag.put("label", Control006.getLabel());
 		tag.put("repeatable", resolveCardinality(Control006.getCardinality()));
 		Map<String, Object> types = new LinkedHashMap<>();
@@ -87,7 +87,7 @@ public class MappingToJson {
 		fields.put("006", tag);
 
 		tag = new LinkedHashMap<>();
-		tag.put("tag", Control007.getTag());
+		tag.put("tag", "007");
 		tag.put("label", Control007.getLabel());
 		tag.put("repeatable", resolveCardinality(Control007.getCardinality()));
 		types = new LinkedHashMap<>();
@@ -106,7 +106,7 @@ public class MappingToJson {
 		fields.put("007", tag);
 
 		tag = new LinkedHashMap<>();
-		tag.put("tag", Control008.getTag());
+		tag.put("tag", "008");
 		tag.put("label", Control008.getLabel());
 		tag.put("repeatable", resolveCardinality(Control008.getCardinality()));
 		types = new LinkedHashMap<>();

@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.controlsubfields.LeaderSubfields;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
@@ -9,16 +10,18 @@ import de.gwdg.metadataqa.marc.utils.keygenerator.PositionalControlFieldKeyGener
 import java.util.*;
 import java.util.logging.Logger;
 
+import static org.apache.hadoop.metrics2.lib.DefaultMetricsSystem.initialize;
+
 /**
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class Leader implements Extractable, Validatable {
+public class Leader extends MarcPositionalControlField implements Extractable, Validatable {
 
 	private static final Logger logger = Logger.getLogger(Leader.class.getCanonicalName());
 
-	private String tag = "Leader";
-	private String mqTag = "Leader";
+	// private String tag = "Leader";
+	// private String mqTag = "Leader";
 
 	public enum Type {
 		BOOKS("Books"),
@@ -39,11 +42,11 @@ public class Leader implements Extractable, Validatable {
 		}
 	};
 
-	private MarcRecord marcRecord;
+	// private String content;
+	// private Map<ControlSubfieldDefinition, String> valuesMap;
+	// private List<ControlValue> valuesList;
 	private Type type;
-	private String content;
-	private Map<ControlSubfield, String> valuesMap;
-	private List<ControlValue> valuesList;
+	private Type defaultType = null;
 
 	private ControlValue recordLength;
 	private ControlValue recordStatus;
@@ -65,38 +68,36 @@ public class Leader implements Extractable, Validatable {
 	private List<ValidationError> validationErrors;
 
 	public Leader(String content) {
-		initialize(content);
-		setType();
-	}
-
-	private void initialize(String content) {
-		this.content = content;
-		valuesMap = new LinkedHashMap<>();
-		valuesList = new ArrayList<>();
-		initializationErrors = new ArrayList<>();
-		process();
+		super(de.gwdg.metadataqa.marc.definition.Leader.getInstance(), content);
+		initialize();
 	}
 
 	public Leader(String content, Type defaultType) {
-		initialize(content);
+		super(de.gwdg.metadataqa.marc.definition.Leader.getInstance(), content);
+		this.defaultType = defaultType;
+		initialize();
+	}
+
+	private void initialize() {
+		initializationErrors = new ArrayList<>();
+		processContent();
 		try {
 			setType();
 		} catch (IllegalArgumentException e) {
 			initializationErrors.add(
 				new ValidationError(
 					null,
-					tag,
+					definition.getTag(),
 					ValidationErrorType.UndetectableType,
 					e.getMessage(),
-					LeaderSubfields.getSubfields().get(0).getDescriptionUrl()
+					LeaderSubfields.getSubfieldList().get(0).getDescriptionUrl()
 				)
 			);
-			type = defaultType;
 		}
 	}
 
-	private void process() {
-		for (ControlSubfield subfield : LeaderSubfields.getSubfields()) {
+	protected void processContent() {
+		for (ControlSubfieldDefinition subfield : LeaderSubfields.getSubfieldList()) {
 			int end = Math.min(content.length(), subfield.getPositionEnd());
 			try {
 				String value = content.substring(subfield.getPositionStart(), end);
@@ -150,6 +151,8 @@ public class Leader implements Extractable, Validatable {
 		} else if (typeOfRecord.getValue().equals("p")) {
 			type = Type.MIXED_MATERIALS;
 		} else {
+			if (defaultType != null)
+				type = defaultType;
 			throw new IllegalArgumentException(
 				String.format(
 					"Leader/%s (%s): '%s', Leader/%s (%s): '%s'",
@@ -162,7 +165,7 @@ public class Leader implements Extractable, Validatable {
 		}
 	}
 
-	public String resolve(ControlSubfield key) {
+	public String resolve(ControlSubfieldDefinition key) {
 		String value = valuesMap.get(key);
 		String text = key.resolve(value);
 		return text;
@@ -172,11 +175,11 @@ public class Leader implements Extractable, Validatable {
 		return resolve(LeaderSubfields.getByLabel(key));
 	}
 
-	public Map<ControlSubfield, String> getMap() {
+	public Map<ControlSubfieldDefinition, String> getMap() {
 		return valuesMap;
 	}
 
-	public String get(ControlSubfield key) {
+	public String get(ControlSubfieldDefinition key) {
 		return valuesMap.get(key);
 	}
 
@@ -259,7 +262,7 @@ public class Leader implements Extractable, Validatable {
 		return lengthOfTheImplementationDefinedPortion;
 	}
 
-	protected void setMarcRecord(MarcRecord marcRecord) {
+	public void setMarcRecord(MarcRecord marcRecord) {
 		this.marcRecord = marcRecord;
 		for (ControlValue value : valuesList)
 			value.setRecord(marcRecord);
@@ -267,7 +270,7 @@ public class Leader implements Extractable, Validatable {
 
 	public String toString() {
 		String output = String.format( "type: %s\n", type.getValue());
-		for (ControlSubfield key : LeaderSubfields.getSubfields()) {
+		for (ControlSubfieldDefinition key : LeaderSubfields.getSubfieldList()) {
 			output += String.format("%s: %s\n", key.getLabel(), resolve(key));
 		}
 		return output;
@@ -281,9 +284,9 @@ public class Leader implements Extractable, Validatable {
 	public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
 		Map<String, List<String>> map = new LinkedHashMap<>();
 		PositionalControlFieldKeyGenerator keyGenerator = new PositionalControlFieldKeyGenerator(
-			tag, mqTag, type);
+			definition.getTag(), definition.getMqTag(), type);
 		map.put(keyGenerator.forTag(), Arrays.asList(content));
-		for (ControlSubfield controlSubfield : valuesMap.keySet()) {
+		for (ControlSubfieldDefinition controlSubfield : valuesMap.keySet()) {
 			String value = controlSubfield.resolve(valuesMap.get(controlSubfield));
 			map.put(keyGenerator.forSubfield(controlSubfield), Arrays.asList(value));
 		}

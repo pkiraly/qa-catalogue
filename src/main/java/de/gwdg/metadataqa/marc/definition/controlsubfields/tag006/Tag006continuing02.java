@@ -1,13 +1,13 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.tag006;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
 /**
  * Regularity
  * https://www.loc.gov/marc/bibliographic/bd006.html
  */
-public class Tag006continuing02 extends ControlSubfield {
+public class Tag006continuing02 extends ControlSubfieldDefinition {
 	private static Tag006continuing02 uniqueInstance;
 
 	private Tag006continuing02() {

@@ -1,10 +1,10 @@
 package de.gwdg.metadataqa.marc;
 
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormatter;
+import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -12,7 +12,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -284,9 +283,17 @@ public class LeaderTest {
 		assertEquals("0", leader.getLengthOfTheImplementationDefinedPortion().resolve());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testBadLeader() {
 		Leader leader = new Leader("01136cnm a2200253ui 4500");
+		leader.validate(MarcVersion.MARC21);
+		assertNotEquals(1, leader.getValidationErrors().size());
+		ValidationError error = leader.getValidationErrors().get(0);
+		assertNotNull(error);
+		assertEquals(ValidationErrorType.UndetectableType, error.getType());
+		assertEquals(
+			"Leader/06 (typeOfRecord): 'n', Leader/07 (bibliographicLevel): 'm'",
+			error.getMessage());
 	}
 
 	@Test

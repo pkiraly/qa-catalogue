@@ -1,13 +1,13 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.tag008;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
 /**
  * Type of continuing resource
  * https://www.loc.gov/marc/bibliographic/bd008s.html
  */
-public class Tag008continuing21 extends ControlSubfield {
+public class Tag008continuing21 extends ControlSubfieldDefinition {
 	private static Tag008continuing21 uniqueInstance;
 
 	private Tag008continuing21() {

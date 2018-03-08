@@ -1,13 +1,13 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.tag007;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
 /**
  * Special physical characteristics
  * https://www.loc.gov/marc/bibliographic/bd007f.html
  */
-public class Tag007tactile09 extends ControlSubfield {
+public class Tag007tactile09 extends ControlSubfieldDefinition {
 	private static Tag007tactile09 uniqueInstance;
 
 	private Tag007tactile09() {

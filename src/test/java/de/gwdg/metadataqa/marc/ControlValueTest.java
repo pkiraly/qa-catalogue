@@ -1,6 +1,9 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.controlsubfields.Control008Subfields;
+import de.gwdg.metadataqa.marc.definition.controlsubfields.LeaderSubfields;
+import de.gwdg.metadataqa.marc.definition.controltype.Control008Type;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
@@ -14,9 +17,9 @@ public class ControlValueTest {
 
 	@Test
 	public void testValidate() {
-		List<ControlSubfield> subfields = Control008Subfields.get(Control008Type.BOOKS);
-		ControlSubfield subfield = null;
-		for (ControlSubfield _subfield : subfields) {
+		List<ControlSubfieldDefinition> subfields = Control008Subfields.get(Control008Type.BOOKS);
+		ControlSubfieldDefinition subfield = null;
+		for (ControlSubfieldDefinition _subfield : subfields) {
 			if (_subfield.getId().equals("tag008book18")) {
 				subfield = _subfield;
 				break;
@@ -29,8 +32,8 @@ public class ControlValueTest {
 	@Test
 	public void generateCode() {
 		// List<ControlSubfield> subfields = Control006Subfields.get(Control008Type.MIXED_MATERIALS);
-		List<ControlSubfield> subfields = LeaderSubfields.getSubfields();
-		for (ControlSubfield subfield : subfields) {
+		List<ControlSubfieldDefinition> subfields = LeaderSubfields.getSubfieldList();
+		for (ControlSubfieldDefinition subfield : subfields) {
 			switch (subfield.getId()) {
 				case "leader00": testLeader00(subfield); break;
 				case "leader05": testLeader05(subfield); break;
@@ -78,7 +81,7 @@ public class ControlValueTest {
 		}
 	}
 
-	private void testLeader00(ControlSubfield subfield) {
+	private void testLeader00(ControlSubfieldDefinition subfield) {
 		assertEquals("Record length", subfield.getLabel());
 		assertEquals("leader00", subfield.getId());
 		assertEquals("recordLength", subfield.getMqTag());
@@ -88,7 +91,7 @@ public class ControlValueTest {
 		assertNull(subfield.getCodes());
 	}
 
-	private void testLeader05(ControlSubfield subfield) {
+	private void testLeader05(ControlSubfieldDefinition subfield) {
 		assertEquals("Record status", subfield.getLabel());
 		assertEquals("leader05", subfield.getId());
 		assertEquals("recordStatus", subfield.getMqTag());
@@ -98,7 +101,7 @@ public class ControlValueTest {
 		assertEquals(5, subfield.getCodes().size());
 	}
 
-	private void testLeader06(ControlSubfield subfield) {
+	private void testLeader06(ControlSubfieldDefinition subfield) {
 		assertEquals("Type of record", subfield.getLabel());
 		assertEquals("leader06", subfield.getId());
 		assertEquals("typeOfRecord", subfield.getMqTag());
@@ -108,7 +111,7 @@ public class ControlValueTest {
 		assertEquals(14, subfield.getCodes().size());
 	}
 
-	private void testLeader07(ControlSubfield subfield) {
+	private void testLeader07(ControlSubfieldDefinition subfield) {
 		assertEquals("Bibliographic level", subfield.getLabel());
 		assertEquals("leader07", subfield.getId());
 		assertEquals("bibliographicLevel", subfield.getMqTag());
@@ -118,7 +121,7 @@ public class ControlValueTest {
 		assertEquals(7, subfield.getCodes().size());
 	}
 
-	private void testLeader08(ControlSubfield subfield) {
+	private void testLeader08(ControlSubfieldDefinition subfield) {
 		assertEquals("Type of control", subfield.getLabel());
 		assertEquals("leader08", subfield.getId());
 		assertEquals("typeOfControl", subfield.getMqTag());
@@ -128,7 +131,7 @@ public class ControlValueTest {
 		assertEquals(2, subfield.getCodes().size());
 	}
 
-	private void testLeader09(ControlSubfield subfield) {
+	private void testLeader09(ControlSubfieldDefinition subfield) {
 		assertEquals("Character coding scheme", subfield.getLabel());
 		assertEquals("leader09", subfield.getId());
 		assertEquals("characterCodingScheme", subfield.getMqTag());
@@ -138,7 +141,7 @@ public class ControlValueTest {
 		assertEquals(2, subfield.getCodes().size());
 	}
 
-	private void testLeader10(ControlSubfield subfield) {
+	private void testLeader10(ControlSubfieldDefinition subfield) {
 		assertEquals("Indicator count", subfield.getLabel());
 		assertEquals("leader10", subfield.getId());
 		assertEquals("indicatorCount", subfield.getMqTag());
@@ -148,7 +151,7 @@ public class ControlValueTest {
 		assertNull(subfield.getCodes());
 	}
 
-	private void testLeader11(ControlSubfield subfield) {
+	private void testLeader11(ControlSubfieldDefinition subfield) {
 		assertEquals("Subfield code count", subfield.getLabel());
 		assertEquals("leader11", subfield.getId());
 		assertEquals("subfieldCodeCount", subfield.getMqTag());
@@ -158,7 +161,7 @@ public class ControlValueTest {
 		assertNull(subfield.getCodes());
 	}
 
-	private void testLeader12(ControlSubfield subfield) {
+	private void testLeader12(ControlSubfieldDefinition subfield) {
 		assertEquals("Base address of data", subfield.getLabel());
 		assertEquals("leader12", subfield.getId());
 		assertEquals("baseAddressOfData", subfield.getMqTag());
@@ -168,7 +171,7 @@ public class ControlValueTest {
 		assertNull(subfield.getCodes());
 	}
 
-	private void testLeader17(ControlSubfield subfield) {
+	private void testLeader17(ControlSubfieldDefinition subfield) {
 		assertEquals("Encoding level", subfield.getLabel());
 		assertEquals("leader17", subfield.getId());
 		assertEquals("encodingLevel", subfield.getMqTag());
@@ -178,7 +181,7 @@ public class ControlValueTest {
 		assertEquals(10, subfield.getCodes().size());
 	}
 
-	private void testLeader18(ControlSubfield subfield) {
+	private void testLeader18(ControlSubfieldDefinition subfield) {
 		assertEquals("Descriptive cataloging form", subfield.getLabel());
 		assertEquals("leader18", subfield.getId());
 		assertEquals("descriptiveCatalogingForm", subfield.getMqTag());
@@ -188,7 +191,7 @@ public class ControlValueTest {
 		assertEquals(6, subfield.getCodes().size());
 	}
 
-	private void testLeader19(ControlSubfield subfield) {
+	private void testLeader19(ControlSubfieldDefinition subfield) {
 		assertEquals("Multipart resource record level", subfield.getLabel());
 		assertEquals("leader19", subfield.getId());
 		assertEquals("multipartResourceRecordLevel", subfield.getMqTag());
@@ -198,7 +201,7 @@ public class ControlValueTest {
 		assertEquals(4, subfield.getCodes().size());
 	}
 
-	private void testLeader20(ControlSubfield subfield) {
+	private void testLeader20(ControlSubfieldDefinition subfield) {
 		assertEquals("Length of the length-of-field portion", subfield.getLabel());
 		assertEquals("leader20", subfield.getId());
 		assertEquals("lengthOfTheLengthOfFieldPortion", subfield.getMqTag());
@@ -208,7 +211,7 @@ public class ControlValueTest {
 		assertNull(subfield.getCodes());
 	}
 
-	private void testLeader21(ControlSubfield subfield) {
+	private void testLeader21(ControlSubfieldDefinition subfield) {
 		assertEquals("Length of the starting-character-position portion", subfield.getLabel());
 		assertEquals("leader21", subfield.getId());
 		assertEquals("lengthOfTheStartingCharacterPositionPortion", subfield.getMqTag());
@@ -218,7 +221,7 @@ public class ControlValueTest {
 		assertNull(subfield.getCodes());
 	}
 
-	private void testLeader22(ControlSubfield subfield) {
+	private void testLeader22(ControlSubfieldDefinition subfield) {
 		assertEquals("Length of the implementation-defined portion", subfield.getLabel());
 		assertEquals("leader22", subfield.getId());
 		assertEquals("lengthOfTheImplementationDefinedPortion", subfield.getMqTag());

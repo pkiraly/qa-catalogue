@@ -1,13 +1,13 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.tag007;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
 /**
  * Color
  * https://www.loc.gov/marc/bibliographic/bd007v.html
  */
-public class Tag007video03 extends ControlSubfield {
+public class Tag007video03 extends ControlSubfieldDefinition {
 	private static Tag007video03 uniqueInstance;
 
 	private Tag007video03() {

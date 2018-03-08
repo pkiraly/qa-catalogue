@@ -9,7 +9,16 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
+// import de.gwdg.metadataqa.marc.definition.Leader;
+import de.gwdg.metadataqa.marc.definition.Control001;
+import de.gwdg.metadataqa.marc.definition.Control003;
+import de.gwdg.metadataqa.marc.definition.Control005;
+// import de.gwdg.metadataqa.marc.definition.Control006;
+// import de.gwdg.metadataqa.marc.definition.Control007;
+// import de.gwdg.metadataqa.marc.definition.Control008;
+
 import de.gwdg.metadataqa.marc.utils.MapToDatafield;
+
 import net.minidev.json.JSONArray;
 import org.marc4j.marc.ControlField;
 import org.marc4j.marc.Record;
@@ -46,20 +55,21 @@ public class MarcFactory {
 					record.setLeader(new Leader(extractFirst(cache, branch)));
 					break;
 				case "001":
-					record.setControl001(new Control001(extractFirst(cache, branch)));
+					record.setControl001(new MarcControlField(Control001.getInstance(), extractFirst(cache, branch)));
 					break;
 				case "003":
-					record.setControl003(new Control003(extractFirst(cache, branch)));
+					record.setControl003(new MarcControlField(Control003.getInstance(), extractFirst(cache, branch)));
 					break;
 				case "005":
-					record.setControl005(new Control005(extractFirst(cache, branch)));
+					record.setControl005(new MarcControlField(Control005.getInstance(), extractFirst(cache, branch)));
 					break;
 				case "006":
 					record.setControl006(
 						new Control006(extractFirst(cache, branch), record.getType()));
 					break;
 				case "007":
-					record.setControl007(new Control007(extractFirst(cache, branch)));
+					record.setControl007(
+						new Control007(extractFirst(cache, branch)));
 					break;
 				case "008":
 					record.setControl008(
@@ -88,25 +98,29 @@ public class MarcFactory {
 		return createFromMarc4j(marc4jRecord, null, null);
 	}
 
-	public static MarcRecord createFromMarc4j(Record marc4jRecord, Leader.Type defaultType) {
+	public static MarcRecord createFromMarc4j(Record marc4jRecord,
+															Leader.Type defaultType) {
 		return createFromMarc4j(marc4jRecord, defaultType, null);
 	}
 
-	public static MarcRecord createFromMarc4j(Record marc4jRecord, MarcVersion marcVersion) {
+	public static MarcRecord createFromMarc4j(Record marc4jRecord,
+															MarcVersion marcVersion) {
 		return createFromMarc4j(marc4jRecord, null, marcVersion);
 	}
 
-	public static MarcRecord createFromMarc4j(Record marc4jRecord, Leader.Type defaultType, MarcVersion marcVersion) {
+	public static MarcRecord createFromMarc4j(Record marc4jRecord,
+															Leader.Type defaultType,
+															MarcVersion marcVersion) {
 		return createFromMarc4j(marc4jRecord, defaultType, marcVersion, false);
 	}
 
-	public static MarcRecord createFromMarc4j(Record marc4jRecord, Leader.Type defaultType, MarcVersion marcVersion, boolean fixAlephseq) {
+	public static MarcRecord createFromMarc4j(Record marc4jRecord,
+															Leader.Type defaultType,
+															MarcVersion marcVersion,
+															boolean fixAlephseq) {
 		MarcRecord record = new MarcRecord();
 
-		if (defaultType == null)
-			record.setLeader(new Leader(marc4jRecord.getLeader().marshal()));
-		else
-			record.setLeader(new Leader(marc4jRecord.getLeader().marshal(), defaultType));
+		record.setLeader(new Leader(marc4jRecord.getLeader().marshal(), defaultType));
 
 		if (record.getType() == null) {
 			throw new InvalidParameterException(
@@ -122,18 +136,23 @@ public class MarcFactory {
 		return record;
 	}
 
-	private static void importMarc4jControlFields(Record marc4jRecord, MarcRecord record, boolean fixAlephseq) {
+	private static void importMarc4jControlFields(Record marc4jRecord,
+																 MarcRecord record,
+																 boolean fixAlephseq) {
 		for (ControlField controlField : marc4jRecord.getControlFields()) {
 			String data = controlField.getData();
 			if (fixAlephseq && isFixable(controlField.getTag()))
 				data = data.replace("^", " ");
 			switch (controlField.getTag()) {
 				case "001":
-					record.setControl001(new Control001(data)); break;
+					record.setControl001(new MarcControlField(
+						Control001.getInstance(), data)); break;
 				case "003":
-					record.setControl003(new Control003(data)); break;
+					record.setControl003(new MarcControlField(
+						Control003.getInstance(), data)); break;
 				case "005":
-					record.setControl005(new Control005(data)); break;
+					record.setControl005(new MarcControlField(
+						Control005.getInstance(), data)); break;
 				case "006":
 					record.setControl006(new Control006(data, record.getType())); break;
 				case "007":

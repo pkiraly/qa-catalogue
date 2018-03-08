@@ -83,7 +83,7 @@ public class Tag800 extends DataFieldDefinition {
 
 		getSubfield("4").setCodeList(RelatorCodes.getInstance());
 		getSubfield("7").setPositions(Arrays.asList(
-			new ControlSubfield("Type of record", 0, 1)
+			new ControlSubfieldDefinition("Type of record", 0, 1)
 				.setCodes(Utils.generateCodes(
 					"a", "Language material",
 					"c", "Notated music",
@@ -100,7 +100,7 @@ public class Tag800 extends DataFieldDefinition {
 					"r", "Three-dimensional artifact or naturally occurring object",
 					"t", "Manuscript language material"
 				)),
-			new ControlSubfield("Bibliographic level", 1, 2)
+			new ControlSubfieldDefinition("Bibliographic level", 1, 2)
 				.setCodes(Utils.generateCodes(
 					"a", "Monographic component part",
 					"b", "Serial component part",

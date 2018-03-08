@@ -1,13 +1,13 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.tag007;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
 /**
  * Kind of color stock or print
  * https://www.loc.gov/marc/bibliographic/bd007m.html
  */
-public class Tag007motionPicture14 extends ControlSubfield {
+public class Tag007motionPicture14 extends ControlSubfieldDefinition {
 	private static Tag007motionPicture14 uniqueInstance;
 
 	private Tag007motionPicture14() {

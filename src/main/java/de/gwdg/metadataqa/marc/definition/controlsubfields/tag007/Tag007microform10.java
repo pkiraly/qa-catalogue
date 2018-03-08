@@ -1,13 +1,13 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.tag007;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
 /**
  * Emulsion on film
  * https://www.loc.gov/marc/bibliographic/bd007h.html
  */
-public class Tag007microform10 extends ControlSubfield {
+public class Tag007microform10 extends ControlSubfieldDefinition {
 	private static Tag007microform10 uniqueInstance;
 
 	private Tag007microform10() {

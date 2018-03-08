@@ -1,13 +1,13 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.tag007;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
 /**
  * Level of compression
  * https://www.loc.gov/marc/bibliographic/bd007c.html
  */
-public class Tag007electro12 extends ControlSubfield {
+public class Tag007electro12 extends ControlSubfieldDefinition {
 	private static Tag007electro12 uniqueInstance;
 
 	private Tag007electro12() {

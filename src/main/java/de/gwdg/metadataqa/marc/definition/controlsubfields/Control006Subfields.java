@@ -1,15 +1,19 @@
-package de.gwdg.metadataqa.marc.definition;
+package de.gwdg.metadataqa.marc.definition.controlsubfields;
 
-import de.gwdg.metadataqa.marc.Utils;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.tag006.*;
+import de.gwdg.metadataqa.marc.definition.controltype.Control007Category;
+import de.gwdg.metadataqa.marc.definition.controltype.Control008Type;
+import de.gwdg.metadataqa.marc.definition.controltype.ControlType;
 
 import java.util.*;
 
-public class Control006Subfields {
+public class Control006Subfields extends ControlSubfieldList {
 
-	private static final Map<Control008Type, List<ControlSubfield>> subfields = new TreeMap<>();
+	private static final Map<Control008Type, List<ControlSubfieldDefinition>> subfields = new TreeMap<>();
 
 	static {
+
 		subfields.put(
 			Control008Type.ALL_MATERIALS,
 			Arrays.asList(
@@ -125,11 +129,13 @@ public class Control006Subfields {
 		);
 	}
 
-	public static Map<Control008Type, List<ControlSubfield>> getSubfields() {
+	/*
+	public static Map<Control008Type, List<ControlSubfieldDefinition>> getSubfieldList() {
 		return subfields;
 	}
+	*/
 
-	public static List<ControlSubfield> get(Control008Type category) {
+	public static List<ControlSubfieldDefinition> get(Control008Type category) {
 		return subfields.get(category);
 	}
 }

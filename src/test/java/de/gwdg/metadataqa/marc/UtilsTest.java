@@ -5,7 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.List;
 
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.tag007.Tag007nonprojected00;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.tag007.Tag007nonprojected01;
 import org.junit.After;
@@ -62,7 +62,7 @@ public class UtilsTest {
 
 	@Test
 	public void testGenerateControlSubfieldList() {
-		List<ControlSubfield> list = Utils.generateControlSubfieldList(
+		List<ControlSubfieldDefinition> list = Utils.generateControlSubfieldList(
 			Tag007nonprojected00.getInstance(),
 			Tag007nonprojected01.getInstance());
 		assertNotNull(list);

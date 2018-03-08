@@ -1,13 +1,13 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.tag008;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
 /**
  * Frequency
  * https://www.loc.gov/marc/bibliographic/bd008s.html
  */
-public class Tag008continuing18 extends ControlSubfield {
+public class Tag008continuing18 extends ControlSubfieldDefinition {
 	private static Tag008continuing18 uniqueInstance;
 
 	private Tag008continuing18() {

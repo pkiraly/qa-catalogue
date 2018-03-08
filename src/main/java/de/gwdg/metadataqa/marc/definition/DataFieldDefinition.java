@@ -174,6 +174,10 @@ public abstract class DataFieldDefinition {
 		return historicalSubfields;
 	}
 
+	public String getMqTag() {
+		return mqTag;
+	}
+
 	@Override
 	public String toString() {
 		return "DataFieldDefinition{" +

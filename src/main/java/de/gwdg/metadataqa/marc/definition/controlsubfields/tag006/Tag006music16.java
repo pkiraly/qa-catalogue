@@ -1,13 +1,13 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.tag006;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
 /**
  * Transposition and arrangement
  * https://www.loc.gov/marc/bibliographic/bd006.html
  */
-public class Tag006music16 extends ControlSubfield {
+public class Tag006music16 extends ControlSubfieldDefinition {
 	private static Tag006music16 uniqueInstance;
 
 	private Tag006music16() {

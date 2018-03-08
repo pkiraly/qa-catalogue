@@ -6,7 +6,8 @@ import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
-import org.apache.commons.lang3.StringUtils;
+
+import de.gwdg.metadataqa.marc.definition.Control001;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -20,9 +21,9 @@ public class MarcRecord implements Extractable, Validatable {
 	private static final Pattern positionalPattern = Pattern.compile("^(Leader|00[678])/(.*)$");
 
 	private Leader leader;
-	private Control001 control001;
-	private Control003 control003;
-	private Control005 control005;
+	private MarcControlField control001;
+	private MarcControlField control003;
+	private MarcControlField control005;
 	private Control006 control006;
 	private Control007 control007;
 	private Control008 control008;
@@ -42,7 +43,7 @@ public class MarcRecord implements Extractable, Validatable {
 
 	public MarcRecord(String id) {
 		this();
-		control001 = new Control001(id);
+		control001 = new MarcControlField(Control001.getInstance(), id);
 	}
 
 	public void addDataField(DataField dataField) {
@@ -77,28 +78,28 @@ public class MarcRecord implements Extractable, Validatable {
 		return leader.getType();
 	}
 
-	public Control001 getControl001() {
+	public MarcControlField getControl001() {
 		return control001;
 	}
 
-	public MarcRecord setControl001(Control001 control001) {
+	public MarcRecord setControl001(MarcControlField control001) {
 		this.control001 = control001;
 		return this;
 	}
 
-	public Control003 getControl003() {
+	public MarcControlField getControl003() {
 		return control003;
 	}
 
-	public void setControl003(Control003 control003) {
+	public void setControl003(MarcControlField control003) {
 		this.control003 = control003;
 	}
 
-	public Control005 getControl005() {
+	public MarcControlField getControl005() {
 		return control005;
 	}
 
-	public void setControl005(Control005 control005) {
+	public void setControl005(MarcControlField control005) {
 		this.control005 = control005;
 	}
 
@@ -133,7 +134,7 @@ public class MarcRecord implements Extractable, Validatable {
 		return control001.getContent();
 	}
 
-	private List<Extractable> getControlfields() {
+	private List<MarcControlField> getControlfields() {
 		return Arrays.asList(
 			control001, control003, control005, control006, control007, control008);
 	}
@@ -186,7 +187,7 @@ public class MarcRecord implements Extractable, Validatable {
 			mainKeyValuePairs.put("type", Arrays.asList(getType().getValue()));
 			mainKeyValuePairs.putAll(leader.getKeyValuePairs(type));
 
-			for (Extractable controlField : getControlfields()) {
+			for (MarcControlField controlField : getControlfields()) {
 				if (controlField != null)
 					mainKeyValuePairs.putAll(controlField.getKeyValuePairs(type));
 			}
@@ -264,7 +265,7 @@ public class MarcRecord implements Extractable, Validatable {
 		}
 		*/
 
-		for (Extractable controlField : getControlfields()) {
+		for (MarcControlField controlField : getControlfields()) {
 			if (controlField != null) {
 				isValidComponent = ((Validatable)controlField).validate(marcVersion);
 				if (!isValidComponent) {
@@ -373,7 +374,7 @@ public class MarcRecord implements Extractable, Validatable {
 			}
 		}
 		else if (selector.getFieldTag().equals("008")) {
-			ControlSubfield definition = control008.getSubfieldByPosition(selector.getCharStart());
+			ControlSubfieldDefinition definition = control008.getSubfieldByPosition(selector.getCharStart());
 			results.add(control008.getMap().get(definition));
 		}
 		return results;
@@ -395,7 +396,7 @@ public class MarcRecord implements Extractable, Validatable {
 		if (tag.equals("Leader")) {
 			content = leader.getLeaderString();
 		} else {
-			ControlField controlField = null;
+			MarcControlField controlField = null;
 			switch (tag) {
 				case "006": controlField = control006; break;
 				case "007": controlField = control007; break;
@@ -430,7 +431,7 @@ public class MarcRecord implements Extractable, Validatable {
 	}
 
 	private void searchControlField(String path, String query, List<String> results) {
-		ControlField controlField = null;
+		MarcControlField controlField = null;
 		switch (path) {
 			case "001": controlField = control001; break;
 			case "003": controlField = control003; break;
@@ -440,11 +441,11 @@ public class MarcRecord implements Extractable, Validatable {
 			results.add(controlField.getContent());
 	}
 
-	private void searchPositionalControlField(PositionalControlField controlField,
+	private void searchPositionalControlField(MarcPositionalControlField controlField,
 															String path, String query, List<String> results) {
 		if (controlField != null) {
-			Map<ControlSubfield, String> map = controlField.getMap();
-			for (ControlSubfield subfield : controlField.getMap().keySet()) {
+			Map<ControlSubfieldDefinition, String> map = controlField.getMap();
+			for (ControlSubfieldDefinition subfield : controlField.getMap().keySet()) {
 				if (subfield.getId().equals(path)) {
 					if (map.get(subfield).equals(query))
 						results.add(map.get(subfield));

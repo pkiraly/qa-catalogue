@@ -1,13 +1,13 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.tag008;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
 /**
  * Format of music
  * https://www.loc.gov/marc/bibliographic/bd008m.html
  */
-public class Tag008music20 extends ControlSubfield {
+public class Tag008music20 extends ControlSubfieldDefinition {
 	private static Tag008music20 uniqueInstance;
 
 	private Tag008music20() {

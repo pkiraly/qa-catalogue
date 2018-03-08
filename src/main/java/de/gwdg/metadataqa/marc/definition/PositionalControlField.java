@@ -1,18 +1,18 @@
-package de.gwdg.metadataqa.marc;
+package de.gwdg.metadataqa.marc.definition;
 
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
-import de.gwdg.metadataqa.marc.definition.ControlValue;
-import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.Extractable;
+import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.Validatable;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.utils.keygenerator.PositionalControlFieldKeyGenerator;
 
 import java.util.*;
 
-public abstract class PositionalControlField extends ControlField implements Extractable, Validatable  {
+public abstract class PositionalControlField extends ControlField implements Extractable, Validatable {
 
 	protected MarcRecord marcRecord;
-	protected Map<ControlSubfield, String> valuesMap;
+	protected Map<ControlSubfieldDefinition, String> valuesMap;
 	protected List<ControlValue> valuesList;
 	protected List<String> errors;
 	protected List<ValidationError> validationErrors;
@@ -61,7 +61,7 @@ public abstract class PositionalControlField extends ControlField implements Ext
 			tag, mqTag, type);
 		if (content != null) {
 			map.put(keyGenerator.forTag(), Arrays.asList(content));
-			for (ControlSubfield controlSubfield : valuesMap.keySet()) {
+			for (ControlSubfieldDefinition controlSubfield : valuesMap.keySet()) {
 				String value = controlSubfield.resolve(valuesMap.get(controlSubfield));
 				map.put(keyGenerator.forSubfield(controlSubfield), Arrays.asList(value));
 			}
@@ -69,7 +69,7 @@ public abstract class PositionalControlField extends ControlField implements Ext
 		return map;
 	}
 
-	public Map<ControlSubfield, String> getMap() {
+	public Map<ControlSubfieldDefinition, String> getMap() {
 		return valuesMap;
 	}
 }

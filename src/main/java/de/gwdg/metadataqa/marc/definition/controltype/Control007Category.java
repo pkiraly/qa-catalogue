@@ -1,6 +1,6 @@
-package de.gwdg.metadataqa.marc.definition;
+package de.gwdg.metadataqa.marc.definition.controltype;
 
-public enum Control007Category {
+public enum Control007Category implements ControlType {
 	COMMON("common", "Common"),
 	MAP("a", "Map"),
 	ELECTRONIC_RESOURCE("c", "Electronic resource"),
@@ -31,6 +31,10 @@ public enum Control007Category {
 	}
 
 	public String getLabel() {
+		return label;
+	}
+
+	public String getValue() {
 		return label;
 	}
 

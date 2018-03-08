@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc;
+package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 

@@ -1,12 +1,12 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.leader;
 
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
 /**
  * Indicator count
  * https://www.loc.gov/marc/bibliographic/bdleader.html
  */
-public class Leader10 extends ControlSubfield {
+public class Leader10 extends ControlSubfieldDefinition {
 	private static Leader10 uniqueInstance;
 
 	private Leader10() {

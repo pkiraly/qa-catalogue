@@ -1,13 +1,13 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.tag007;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
 /**
  * Production elements
  * https://www.loc.gov/marc/bibliographic/bd007m.html
  */
-public class Tag007motionPicture09 extends ControlSubfield {
+public class Tag007motionPicture09 extends ControlSubfieldDefinition {
 	private static Tag007motionPicture09 uniqueInstance;
 
 	private Tag007motionPicture09() {

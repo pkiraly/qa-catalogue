@@ -1,13 +1,13 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.tag007;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
 /**
  * Sound on medium or separate
  * https://www.loc.gov/marc/bibliographic/bd007v.html
  */
-public class Tag007video05 extends ControlSubfield {
+public class Tag007video05 extends ControlSubfieldDefinition {
 	private static Tag007video05 uniqueInstance;
 
 	private Tag007video05() {

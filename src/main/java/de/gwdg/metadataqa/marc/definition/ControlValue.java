@@ -12,13 +12,13 @@ import java.util.List;
 
 public class ControlValue implements Validatable {
 
-	private ControlSubfield definition;
+	private ControlSubfieldDefinition definition;
 	private String value;
 	private MarcRecord record;
 	private List<String> errors;
 	private List<ValidationError> validationErrors;
 
-	public ControlValue(ControlSubfield definition, String value) {
+	public ControlValue(ControlSubfieldDefinition definition, String value) {
 		this.definition = definition;
 		this.value = value;
 	}
@@ -39,7 +39,7 @@ public class ControlValue implements Validatable {
 		return definition.resolve(value);
 	}
 
-	public ControlSubfield getDefinition() {
+	public ControlSubfieldDefinition getDefinition() {
 		return definition;
 	}
 

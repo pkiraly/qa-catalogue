@@ -1,13 +1,13 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.tag007;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
 /**
  * Specific material designation
  * https://www.loc.gov/marc/bibliographic/bd007h.html
  */
-public class Tag007microform01 extends ControlSubfield {
+public class Tag007microform01 extends ControlSubfieldDefinition {
 	private static Tag007microform01 uniqueInstance;
 
 	private Tag007microform01() {

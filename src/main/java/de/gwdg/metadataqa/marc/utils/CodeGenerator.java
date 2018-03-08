@@ -1,8 +1,8 @@
 package de.gwdg.metadataqa.marc.utils;
 
 import de.gwdg.metadataqa.marc.Code;
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
-import de.gwdg.metadataqa.marc.definition.LeaderSubfields;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import de.gwdg.metadataqa.marc.definition.controlsubfields.LeaderSubfields;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ public class CodeGenerator {
 
 	public void generateCode() {
 		// List<ControlSubfield> subfields = Control006Subfields.get(Control008Type.MIXED_MATERIALS);
-		List<ControlSubfield> subfields = LeaderSubfields.getSubfields();
-		for (ControlSubfield subfield : subfields) {
+		List<ControlSubfieldDefinition> subfields = LeaderSubfields.getSubfieldList();
+		for (ControlSubfieldDefinition subfield : subfields) {
 			System.err.printf("===== [%s%s] ====\n", subfield.getId().substring(0, 1).toUpperCase(), subfield.getId().substring(1));
 			System.err.printf("label = \"%s\";\n", subfield.getLabel());
 			System.err.printf("id = \"%s\";\n", subfield.getId());

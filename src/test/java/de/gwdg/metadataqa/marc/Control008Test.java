@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc;
 
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -38,7 +38,7 @@ public class Control008Test {
 	public void test801003s1958ja0000jpn() {
 		Control008 field = new Control008("801003s1958    ja            000 0 jpn  ", Leader.Type.MAPS);
 
-		ControlSubfield subfield;
+		ControlSubfieldDefinition subfield;
 		subfield = field.getSubfieldByPosition(0);
 		assertEquals("Date entered on file", subfield.getLabel());
 		assertEquals("801003", field.getMap().get(subfield));
@@ -108,7 +108,7 @@ public class Control008Test {
 	public void test981123p19981996enkmunefhid() {
 		Control008 field = new Control008("981123p19981996enkmun   efhi           d", Leader.Type.BOOKS);
 
-		ControlSubfield subfield;
+		ControlSubfieldDefinition subfield;
 		subfield = field.getSubfieldByPosition(0);
 		assertEquals("Date entered on file", subfield.getLabel());
 		assertEquals("981123", field.getMap().get(subfield));

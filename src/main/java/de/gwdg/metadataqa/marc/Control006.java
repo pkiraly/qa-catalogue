@@ -1,6 +1,8 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.controlsubfields.Control006Subfields;
+import de.gwdg.metadataqa.marc.definition.controltype.Control008Type;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 
 import java.util.*;
@@ -10,16 +12,16 @@ import java.util.logging.Logger;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class Control006 extends PositionalControlField implements Extractable {
+public class Control006 extends MarcPositionalControlField {
 
 	private static final Logger logger = Logger.getLogger(Control006.class.getCanonicalName());
 
-	private static final String tag = "006";
-	private static final String label = "Additional Material Characteristics";
-	protected static final String mqTag = "AdditionalMaterialCharacteristics";
-	private static final Cardinality cardinality = Cardinality.Repeatable;
+	// private static final String tag = "006";
+	// private static final String label = "Additional Material Characteristics";
+	// protected static final String mqTag = "AdditionalMaterialCharacteristics";
+	// private static final Cardinality cardinality = Cardinality.Repeatable;
 
-	private Leader.Type recordType;
+	// private Leader.Type recordType;
 
 	private ControlValue tag006all00;
 
@@ -77,20 +79,17 @@ public class Control006 extends PositionalControlField implements Extractable {
 
 	private ControlValue tag006mixed06;
 
-	private Map<Integer, ControlSubfield> byPosition = new LinkedHashMap<>();
+	private Map<Integer, ControlSubfieldDefinition> byPosition = new LinkedHashMap<>();
 
 	public Control006(String content, Leader.Type recordType) {
-		this.content = content;
-		this.recordType = recordType;
-		valuesMap = new LinkedHashMap<>();
-		valuesList = new ArrayList<>();
+		super(de.gwdg.metadataqa.marc.definition.Control006.getInstance(), content, recordType);
 		if (content != null)
 			process();
 	}
 
 	private void process() {
 
-		for (ControlSubfield subfield : Control006Subfields.get(Control008Type.ALL_MATERIALS)) {
+		for (ControlSubfieldDefinition subfield : Control006Subfields.get(Control008Type.ALL_MATERIALS)) {
 			int end = Math.min(content.length(), subfield.getPositionEnd());
 			if (end < 0) {
 				logger.severe(content.length() + " " + subfield.getPositionEnd());
@@ -116,7 +115,7 @@ public class Control006 extends PositionalControlField implements Extractable {
 		}
 
 		Control008Type actual = Control008Type.byCode(recordType.getValue().toString());
-		for (ControlSubfield subfield : Control006Subfields.get(actual)) {
+		for (ControlSubfieldDefinition subfield : Control006Subfields.get(actual)) {
 			int end = Math.min(content.length(), subfield.getPositionEnd());
 
 			String value = null;
@@ -246,13 +245,13 @@ public class Control006 extends PositionalControlField implements Extractable {
 		}
 	}
 
-	public String resolve(ControlSubfield key) {
+	public String resolve(ControlSubfieldDefinition key) {
 		String value = (String)valuesMap.get(key);
 		String text = key.resolve(value);
 		return text;
 	}
 
-	public Map<ControlSubfield, String> getMap() {
+	public Map<ControlSubfieldDefinition, String> getMap() {
 		return valuesMap;
 	}
 
@@ -260,7 +259,7 @@ public class Control006 extends PositionalControlField implements Extractable {
 		return valuesMap.get(getSubfieldByPosition(position));
 	}
 
-	public ControlSubfield getSubfieldByPosition(int position) {
+	public ControlSubfieldDefinition getSubfieldByPosition(int position) {
 		return byPosition.get(position);
 	}
 
@@ -268,7 +267,7 @@ public class Control006 extends PositionalControlField implements Extractable {
 		return byPosition.keySet();
 	}
 
-	public Map<ControlSubfield, String> getValueMap() {
+	public Map<ControlSubfieldDefinition, String> getValueMap() {
 		return valuesMap;
 	}
 
@@ -470,25 +469,5 @@ public class Control006 extends PositionalControlField implements Extractable {
 
 	public ControlValue getTag006mixed06() {
 		return tag006mixed06;
-	}
-
-	public static String getLabel() {
-		return label;
-	}
-
-	public static String getTag() {
-		return mqTag;
-	}
-
-	public static String getMqTag() {
-		return mqTag;
-	}
-
-	public static Cardinality getCardinality() {
-		return cardinality;
-	}
-
-	public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
-		return getKeyValuePairs(tag, mqTag, type);
 	}
 }

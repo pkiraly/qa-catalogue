@@ -11,7 +11,8 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class ControlSubfield {
+public class ControlSubfieldDefinition {
+
 	protected String label;
 	protected String bibframeTag;
 	protected String mqTag;
@@ -28,23 +29,23 @@ public class ControlSubfield {
 	protected String descriptionUrl;
 	protected SubfieldContentParser parser;
 
-	public ControlSubfield() {}
+	public ControlSubfieldDefinition() {}
 
-	public ControlSubfield(String label, int positionStart, int positionEnd) {
+	public ControlSubfieldDefinition(String label, int positionStart, int positionEnd) {
 		this.label = label;
 		this.positionStart = positionStart;
 		this.positionEnd = positionEnd;
 		validCodes = new ArrayList<>();
 	}
 
-	public ControlSubfield(String label, int positionStart, int positionEnd,
-			List<Code> codes) {
+	public ControlSubfieldDefinition(String label, int positionStart, int positionEnd,
+												List<Code> codes) {
 		this(label, positionStart, positionEnd);
 		this.codes = codes;
 		extractValidCodes();
 	}
 
-	public ControlSubfield setCodes(List<Code> codes) {
+	public ControlSubfieldDefinition setCodes(List<Code> codes) {
 		this.codes = codes;
 		extractValidCodes();
 		return this;
@@ -58,7 +59,7 @@ public class ControlSubfield {
 		return bibframeTag;
 	}
 
-	public ControlSubfield setBibframeTag(String bibframeTag) {
+	public ControlSubfieldDefinition setBibframeTag(String bibframeTag) {
 		this.bibframeTag = bibframeTag;
 		return this;
 	}
@@ -67,7 +68,7 @@ public class ControlSubfield {
 		return mqTag;
 	}
 
-	public ControlSubfield setMqTag(String mqTag) {
+	public ControlSubfieldDefinition setMqTag(String mqTag) {
 		this.mqTag = mqTag;
 		return this;
 	}
@@ -92,12 +93,12 @@ public class ControlSubfield {
 		return id;
 	}
 
-	public ControlSubfield setId(String id) {
+	public ControlSubfieldDefinition setId(String id) {
 		this.id = id;
 		return this;
 	}
 
-	public ControlSubfield setUnitLength(int unitLength) {
+	public ControlSubfieldDefinition setUnitLength(int unitLength) {
 		this.unitLength = unitLength;
 		return this;
 	}
@@ -106,7 +107,7 @@ public class ControlSubfield {
 		return repeatableContent;
 	}
 
-	public ControlSubfield setRepeatableContent(boolean repeatableContent) {
+	public ControlSubfieldDefinition setRepeatableContent(boolean repeatableContent) {
 		this.repeatableContent = repeatableContent;
 		return this;
 	}
@@ -115,7 +116,7 @@ public class ControlSubfield {
 		return defaultCode;
 	}
 
-	public ControlSubfield setDefaultCode(String defaultCode) {
+	public ControlSubfieldDefinition setDefaultCode(String defaultCode) {
 		this.defaultCode = defaultCode;
 		return this;
 	}

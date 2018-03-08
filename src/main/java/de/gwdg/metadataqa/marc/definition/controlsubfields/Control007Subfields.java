@@ -1,12 +1,14 @@
-package de.gwdg.metadataqa.marc.definition;
+package de.gwdg.metadataqa.marc.definition.controlsubfields;
 
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.tag007.*;
+import de.gwdg.metadataqa.marc.definition.controltype.Control007Category;
 
 import java.util.*;
 
-public class Control007Subfields {
+public class Control007Subfields extends ControlSubfieldList {
 
-	private static final Map<Control007Category, List<ControlSubfield>> subfields = new TreeMap<>();
+	private static final Map<Control007Category, List<ControlSubfieldDefinition>> subfields = new TreeMap<>();
 
 	static {
 		subfields.put(
@@ -225,11 +227,13 @@ public class Control007Subfields {
 		);
 	}
 
-	public static Map<Control007Category, List<ControlSubfield>> getSubfields() {
+	/*
+	public static Map<Control007Category, List<ControlSubfieldDefinition>> getSubfieldList() {
 		return subfields;
 	}
+	*/
 
-	public static List<ControlSubfield> get(Control007Category category) {
+	public static List<ControlSubfieldDefinition> get(Control007Category category) {
 		return subfields.get(category);
 	}
 }

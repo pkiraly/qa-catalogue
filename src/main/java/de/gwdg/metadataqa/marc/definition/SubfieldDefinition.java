@@ -29,7 +29,7 @@ public class SubfieldDefinition {
 	private List<String> allowedCodes;
 	private Map<String, String> allowedValues = new HashMap<>();
 	private String codeForIndex = null;
-	private List<ControlSubfield> positions;
+	private List<ControlSubfieldDefinition> positions;
 
 	public String getCodeForIndex() {
 		if (codeForIndex == null) {
@@ -206,7 +206,7 @@ public class SubfieldDefinition {
 		return this;
 	}
 
-	public void setPositions(List<ControlSubfield> positions) {
+	public void setPositions(List<ControlSubfieldDefinition> positions) {
 
 	}
 

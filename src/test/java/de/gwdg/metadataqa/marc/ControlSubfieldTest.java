@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc;
 
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -35,7 +35,7 @@ public class ControlSubfieldTest {
 
 	@Test
 	public void constructorTest() {
-		ControlSubfield subfield = new ControlSubfield("Category of material", 0, 1);
+		ControlSubfieldDefinition subfield = new ControlSubfieldDefinition("Category of material", 0, 1);
 		assertEquals(0, subfield.getPositionStart());
 		assertEquals(1, subfield.getPositionEnd());
 		assertEquals("Category of material", subfield.getLabel());
@@ -54,7 +54,7 @@ public class ControlSubfieldTest {
 
 	@Test
 	public void validationTest() {
-		ControlSubfield subfield = new ControlSubfield("Category of material", 0, 1,
+		ControlSubfieldDefinition subfield = new ControlSubfieldDefinition("Category of material", 0, 1,
 			Utils.generateCodes("a", "date 1", "b", "date 2"));
 		assertTrue(subfield.validate("a"));
 		assertFalse(subfield.validate("c"));
@@ -62,7 +62,7 @@ public class ControlSubfieldTest {
 
 	@Test
 	public void repeatableContentTest() {
-		ControlSubfield subfield = new ControlSubfield("Category of material", 0, 1,
+		ControlSubfieldDefinition subfield = new ControlSubfieldDefinition("Category of material", 0, 1,
 			Utils.generateCodes("a", "date 1", "b", "date 2"))
 			.setUnitLength(1).setRepeatableContent(true);
 		assertTrue(subfield.validate("a"));
@@ -73,7 +73,7 @@ public class ControlSubfieldTest {
 
 	@Test
 	public void testResolve() {
-		ControlSubfield subfield = new ControlSubfield("Category of material", 0, 1,
+		ControlSubfieldDefinition subfield = new ControlSubfieldDefinition("Category of material", 0, 1,
 			Utils.generateCodes("a", "date 1", "b", "date 2"))
 			.setUnitLength(1).setRepeatableContent(true);
 		assertEquals("date 1", subfield.resolve("a"));

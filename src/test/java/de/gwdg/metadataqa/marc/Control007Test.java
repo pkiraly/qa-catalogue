@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
-import de.gwdg.metadataqa.marc.definition.Control007Category;
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.controltype.Control007Category;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -48,7 +48,7 @@ public class Control007Test {
 		assertEquals(Control007Category.TEXT, field.getCategory());
 		assertEquals("Text", field.getCategoryOfMaterial());
 
-		ControlSubfield subfield;
+		ControlSubfieldDefinition subfield;
 		subfield = field.getSubfieldByPosition(0);
 		assertEquals("Category of material", subfield.getLabel());
 		assertEquals("t", field.getMap().get(subfield));
@@ -73,7 +73,7 @@ public class Control007Test {
 		assertEquals("0, 1, 3, 4, 5, 6, 9, 10, 11, 12, 13",
 				StringUtils.join(subfieldPositions, ", "));
 
-		ControlSubfield subfield;
+		ControlSubfieldDefinition subfield;
 		subfield = field.getSubfieldByPosition(0);
 		assertEquals("Category of material", subfield.getLabel());
 		assertEquals("c", field.getMap().get(subfield));
@@ -147,7 +147,7 @@ public class Control007Test {
 		assertEquals("0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13",
 				StringUtils.join(subfieldPositions, ", "));
 
-		ControlSubfield subfield;
+		ControlSubfieldDefinition subfield;
 		subfield = field.getSubfieldByPosition(0);
 		assertEquals("Category of material", subfield.getLabel());
 		assertEquals("s", field.getMap().get(subfield));

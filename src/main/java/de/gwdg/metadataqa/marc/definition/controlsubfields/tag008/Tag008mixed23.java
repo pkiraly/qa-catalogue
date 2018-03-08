@@ -1,13 +1,13 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.tag008;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
 /**
  * Form of item
  * https://www.loc.gov/marc/bibliographic/bd008x.html
  */
-public class Tag008mixed23 extends ControlSubfield {
+public class Tag008mixed23 extends ControlSubfieldDefinition {
 	private static Tag008mixed23 uniqueInstance;
 
 	private Tag008mixed23() {

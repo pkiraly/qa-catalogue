@@ -1,13 +1,13 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.tag008;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
 /**
  * Technique
  * https://www.loc.gov/marc/bibliographic/bd008v.html
  */
-public class Tag008visual34 extends ControlSubfield {
+public class Tag008visual34 extends ControlSubfieldDefinition {
 	private static Tag008visual34 uniqueInstance;
 
 	private Tag008visual34() {

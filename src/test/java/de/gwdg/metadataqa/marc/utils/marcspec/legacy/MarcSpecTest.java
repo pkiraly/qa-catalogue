@@ -52,7 +52,7 @@ public class MarcSpecTest {
 		assertEquals("a,b,c", StringUtils.join(marcSpec.getSubfields().keySet(), ","));
 
 		// marcSpec.decode("245!\"#$%&\\()*+-./:;<=>?");
-		// assertEquals("a,b,c", StringUtils.join(marcSpec.getSubfields().keySet(), ","));
+		// assertEquals("a,b,c", StringUtils.join(marcSpec.getSubfieldList().keySet(), ","));
 
 		marcSpec.decode("245ab_1a");
 		assertEquals("1", marcSpec.getIndicator1());
@@ -113,7 +113,7 @@ public class MarcSpecTest {
 		assertEquals("245", marcSpec.getFieldTag());
 		assertEquals("x", marcSpec.getIndicator1());
 		assertEquals("0", marcSpec.getIndicator2());
-		// assertEquals(array("a"=>"a","b"=>"b","c"=>"c"), marcSpec.getSubfields());
+		// assertEquals(array("a"=>"a","b"=>"b","c"=>"c"), marcSpec.getSubfieldList());
 	}
 
 	@Test

@@ -36,7 +36,7 @@ public class Tag300Test {
 		assertFalse(field.getSubfields().isEmpty());
 		assertNotEquals(0, field.getSubfields().size());
 
-		// System.err.println(field.getSubfields());
+		// System.err.println(field.getSubfieldList());
 		SubfieldDefinition a = field.getSubfield("a");
 		assertNotNull("subfield should not be null", a);
 		assertEquals("a", a.getCode());

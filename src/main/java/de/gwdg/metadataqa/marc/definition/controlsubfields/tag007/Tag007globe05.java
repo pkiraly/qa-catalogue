@@ -1,13 +1,13 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.tag007;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
 /**
  * Type of reproduction
  * https://www.loc.gov/marc/bibliographic/bd007d.html
  */
-public class Tag007globe05 extends ControlSubfield {
+public class Tag007globe05 extends ControlSubfieldDefinition {
 	private static Tag007globe05 uniqueInstance;
 
 	private Tag007globe05() {

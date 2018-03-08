@@ -1,13 +1,13 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.tag007;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
 /**
  * Altitude of sensor
  * https://www.loc.gov/marc/bibliographic/bd007r.html
  */
-public class Tag007remoteSensing03 extends ControlSubfield {
+public class Tag007remoteSensing03 extends ControlSubfieldDefinition {
 	private static Tag007remoteSensing03 uniqueInstance;
 
 	private Tag007remoteSensing03() {

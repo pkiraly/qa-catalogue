@@ -1,6 +1,9 @@
 package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.definition.controlsubfields.Control007Subfields;
+import de.gwdg.metadataqa.marc.definition.controltype.Control007Category;
+import de.gwdg.metadataqa.marc.definition.controltype.ControlType;
 import org.junit.Test;
 
 import java.util.List;
@@ -11,15 +14,15 @@ import static org.junit.Assert.assertTrue;
 public class Control007SubfieldsTest extends Control00XSubfieldsTest {
 	@Test
 	public void test() {
-		for (Control007Category type : Control007Subfields.getSubfields().keySet()) {
-			List<ControlSubfield> subfields = Control007Subfields.get(type);
+		for (ControlType type : Control007Subfields.getSubfields().keySet()) {
+			List<ControlSubfieldDefinition> subfields = Control007Subfields.get(type);
 			testControlSubfields(subfields);
 			testGetControlField(subfields);
 		}
 	}
 
-	private void testGetControlField(List<ControlSubfield> subfields) {
-		for (ControlSubfield subfield : subfields) {
+	private void testGetControlField(List<ControlSubfieldDefinition> subfields) {
+		for (ControlSubfieldDefinition subfield : subfields) {
 			assertTrue(
 				String.format("%s: %s  should contain 007", subfield.getId(), subfield.getDescriptionUrl()),
 				subfield.getDescriptionUrl().contains("007")
@@ -29,7 +32,7 @@ public class Control007SubfieldsTest extends Control00XSubfieldsTest {
 		}
 	}
 
-	protected boolean isException(ControlSubfield subfield, Code code) {
+	protected boolean isException(ControlSubfieldDefinition subfield, Code code) {
 		return (
 			   (subfield.getId().equals("tag007tactile03") && code.getCode().equals("||"))
 			|| (subfield.getId().equals("tag007electro06") && code.getCode().equals("001-999"))

@@ -1,7 +1,14 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.*;
+import de.gwdg.metadataqa.marc.Control001;
+import de.gwdg.metadataqa.marc.Control003;
+import de.gwdg.metadataqa.marc.Control005;
 import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.controlsubfields.Control006Subfields;
+import de.gwdg.metadataqa.marc.definition.controlsubfields.Control007Subfields;
+import de.gwdg.metadataqa.marc.definition.controlsubfields.Control008Subfields;
+import de.gwdg.metadataqa.marc.definition.controlsubfields.LeaderSubfields;
+import de.gwdg.metadataqa.marc.definition.controltype.ControlType;
 import de.gwdg.metadataqa.marc.utils.MarcTagLister;
 
 import java.lang.reflect.InvocationTargetException;
@@ -24,7 +31,7 @@ public class MappingToHtml {
 
 		System.out.println("<tbody>");
 		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "Leader");
-		for (ControlSubfield subfield : LeaderSubfields.getSubfields()) {
+		for (ControlSubfieldDefinition subfield : LeaderSubfields.getSubfieldList()) {
 			ControlSubfieldToHtml(subfield, "Leader", "Leader");
 		}
 
@@ -39,27 +46,27 @@ public class MappingToHtml {
 
 
 		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "006");
-		System.out.print(row("006", Control006.getMqTag(), Control006.getLabel()));
-		for (Control008Type type : Control006Subfields.getSubfields().keySet()) {
+		System.out.print(row("006", Control006.getInstance().getMqTag(), Control006.getInstance().getLabel()));
+		for (ControlType type : Control006Subfields.getSubfields().keySet()) {
 			System.out.printf("<tr><td colspan=\"3\"><em>%s</em></td></tr>\n", type.getValue());
-			for (ControlSubfield subfield : Control006Subfields.getSubfields().get(type))
-				ControlSubfieldToHtml(subfield, "006", Control006.getMqTag());
+			for (ControlSubfieldDefinition subfield : Control006Subfields.getSubfields().get(type))
+				ControlSubfieldToHtml(subfield, "006", Control006.getInstance().getMqTag());
 		}
 
 		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "007");
-		System.out.print(row("007", Control007.getMqTag(), Control007.getLabel()));
-		for (Control007Category category : Control007Subfields.getSubfields().keySet()) {
-			System.out.printf("<tr><td colspan=\"3\"><em>%s</em></td></tr>\n", category.getLabel());
-			for (ControlSubfield subfield : Control007Subfields.getSubfields().get(category))
-				ControlSubfieldToHtml(subfield, "007", Control007.getMqTag());
+		System.out.print(row("007", Control007.getInstance().getMqTag(), Control007.getInstance().getLabel()));
+		for (ControlType category : Control007Subfields.getSubfields().keySet()) {
+			System.out.printf("<tr><td colspan=\"3\"><em>%s</em></td></tr>\n", category.getValue());
+			for (ControlSubfieldDefinition subfield : Control007Subfields.getSubfields().get(category))
+				ControlSubfieldToHtml(subfield, "007", Control007.getInstance().getMqTag());
 		}
 
 		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "008");
-		System.out.print(row("008", Control008.getMqTag(), Control008.getLabel()));
-		for (Control008Type type : Control008Subfields.getSubfields().keySet()) {
+		System.out.print(row("008", Control008.getInstance().getMqTag(), Control008.getInstance().getLabel()));
+		for (ControlType type : Control008Subfields.getSubfields().keySet()) {
 			System.out.printf("<tr><td colspan=\"3\"><em>%s</em></td></tr>\n", type.getValue());
-			for (ControlSubfield subfield : Control008Subfields.getSubfields().get(type))
-				ControlSubfieldToHtml(subfield, "008", Control008.getMqTag());
+			for (ControlSubfieldDefinition subfield : Control008Subfields.getSubfields().get(type))
+				ControlSubfieldToHtml(subfield, "008", Control008.getInstance().getMqTag());
 		}
 
 
@@ -85,7 +92,7 @@ public class MappingToHtml {
 		System.out.println("</table>");
 	}
 
-	private static void ControlSubfieldToHtml(ControlSubfield subfield, String marcTag, String mqTag) {
+	private static void ControlSubfieldToHtml(ControlSubfieldDefinition subfield, String marcTag, String mqTag) {
 		int start = subfield.getPositionStart();
 		int end = subfield.getPositionEnd() - 1;
 		String suffix = (start == end) ? String.format("%02d", start) : String.format("%02d-%02d", start, end);

@@ -1,13 +1,13 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.tag008;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
 /**
  * Running time for motion pictures and videorecordings
  * https://www.loc.gov/marc/bibliographic/bd008v.html
  */
-public class Tag008visual18 extends ControlSubfield {
+public class Tag008visual18 extends ControlSubfieldDefinition {
 	private static Tag008visual18 uniqueInstance;
 
 	private Tag008visual18() {

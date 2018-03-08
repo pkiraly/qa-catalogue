@@ -1,6 +1,11 @@
 package de.gwdg.metadataqa.marc.utils;
 
 import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.controlsubfields.Control006Subfields;
+import de.gwdg.metadataqa.marc.definition.controlsubfields.Control007Subfields;
+import de.gwdg.metadataqa.marc.definition.controlsubfields.Control008Subfields;
+import de.gwdg.metadataqa.marc.definition.controltype.Control007Category;
+import de.gwdg.metadataqa.marc.definition.controltype.Control008Type;
 
 import java.util.List;
 import java.util.Map;
@@ -9,7 +14,8 @@ public class ControlFieldStructureVisualization {
 	public static void main(String[] args) {
 		String undefPattern = "\\";
 
-		Map<Control008Type, List<ControlSubfield>> allSubfields = Control008Subfields.getSubfields();
+		Map<Control008Type, List<ControlSubfieldDefinition>> allSubfields =
+			(Map<Control008Type, List<ControlSubfieldDefinition>>) Control008Subfields.getSubfields();
 		for (Control008Type type : allSubfields.keySet()) {
 			System.err.println(type.getValue());
 			boolean isFirst = true;
@@ -18,7 +24,7 @@ public class ControlFieldStructureVisualization {
 			if (!type.equals(Control008Type.ALL_MATERIALS))
 				for (int i = 0; i<18; i++)
 					System.err.print(" ");
-			for (ControlSubfield subfield : allSubfields.get(type)) {
+			for (ControlSubfieldDefinition subfield : allSubfields.get(type)) {
 
 				if (lastEnd != -1 && lastEnd != subfield.getPositionStart())
 					for (int i = lastEnd; i<subfield.getPositionStart(); i++)
@@ -38,13 +44,14 @@ public class ControlFieldStructureVisualization {
 			System.err.println();
 		}
 
-		Map<Control007Category, List<ControlSubfield>> all007Subfields = Control007Subfields.getSubfields();
+		Map<Control007Category, List<ControlSubfieldDefinition>> all007Subfields =
+			(Map<Control007Category, List<ControlSubfieldDefinition>>)Control007Subfields.getSubfields();
 		for (Control007Category type : all007Subfields.keySet()) {
 			System.err.println(type.getLabel());
 			boolean isFirst = true;
 			int lastEnd = -1;
 			char chr = type.equals(Control007Category.COMMON) ? 'a' : 'a';
-			for (ControlSubfield subfield : all007Subfields.get(type)) {
+			for (ControlSubfieldDefinition subfield : all007Subfields.get(type)) {
 
 				if (lastEnd != -1 && lastEnd != subfield.getPositionStart())
 					for (int i = lastEnd; i<subfield.getPositionStart(); i++)
@@ -65,13 +72,14 @@ public class ControlFieldStructureVisualization {
 		}
 
 		System.err.println("-------------------------------------");
-		Map<Control008Type, List<ControlSubfield>> all006Subfields = Control006Subfields.getSubfields();
+		Map<Control008Type, List<ControlSubfieldDefinition>> all006Subfields =
+			(Map<Control008Type, List<ControlSubfieldDefinition>>)Control006Subfields.getSubfields();
 		for (Control008Type type : all006Subfields.keySet()) {
 			System.err.println(type.getValue());
 			boolean isFirst = true;
 			int lastEnd = 0;
 			char chr = type.equals(Control008Type.ALL_MATERIALS) ? 'a' : 'i';
-			for (ControlSubfield subfield : all006Subfields.get(type)) {
+			for (ControlSubfieldDefinition subfield : all006Subfields.get(type)) {
 
 				if (lastEnd != subfield.getPositionStart())
 					for (int i = lastEnd; i<subfield.getPositionStart(); i++)

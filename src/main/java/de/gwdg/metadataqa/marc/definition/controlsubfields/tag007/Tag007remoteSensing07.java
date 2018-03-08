@@ -1,13 +1,13 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.tag007;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
 /**
  * Platform use category
  * https://www.loc.gov/marc/bibliographic/bd007r.html
  */
-public class Tag007remoteSensing07 extends ControlSubfield {
+public class Tag007remoteSensing07 extends ControlSubfieldDefinition {
 	private static Tag007remoteSensing07 uniqueInstance;
 
 	private Tag007remoteSensing07() {

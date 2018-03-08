@@ -45,7 +45,7 @@ public class Tag880 extends DataFieldDefinition {
 		);
 		*/
 		// getSubfield("a-z")
-		//getSubfields()
+		//getSubfieldList()
 		// List<String> subfieldCodes = new ArrayList<>();
 		subfields = new ArrayList<>();
 		subfields.add(new SubfieldDefinition("6", "Linkage", "NR"));

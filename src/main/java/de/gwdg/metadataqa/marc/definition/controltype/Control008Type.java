@@ -1,8 +1,6 @@
-package de.gwdg.metadataqa.marc.definition;
+package de.gwdg.metadataqa.marc.definition.controltype;
 
-import de.gwdg.metadataqa.marc.Control008;
-
-public enum Control008Type {
+public enum Control008Type implements ControlType {
 
 	ALL_MATERIALS("All Materials"),
 	BOOKS("Books"),

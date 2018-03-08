@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags80x;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.ControlSubfield;
+import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
@@ -72,7 +72,7 @@ public class Tag830 extends DataFieldDefinition {
 		);
 
 		getSubfield("7").setPositions(Arrays.asList(
-			new ControlSubfield("Type of record", 0, 1)
+			new ControlSubfieldDefinition("Type of record", 0, 1)
 				.setCodes(Utils.generateCodes(
 					"a", "Language material",
 					"c", "Notated music",
@@ -89,7 +89,7 @@ public class Tag830 extends DataFieldDefinition {
 					"r", "Three-dimensional artifact or naturally occurring object",
 					"t", "Manuscript language material"
 				)),
-			new ControlSubfield("Bibliographic level", 1, 2)
+			new ControlSubfieldDefinition("Bibliographic level", 1, 2)
 				.setCodes(Utils.generateCodes(
 					"a", "Monographic component part",
 					"b", "Serial component part",

@@ -1,7 +1,6 @@
 package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.Code;
-import org.junit.Test;
 
 import java.util.List;
 
@@ -10,9 +9,9 @@ import static org.junit.Assert.*;
 
 public abstract class Control00XSubfieldsTest {
 
-	public void testControlSubfields(List<ControlSubfield> subfields) {
+	public void testControlSubfields(List<ControlSubfieldDefinition> subfields) {
 		int lastEnd = -1;
-		for (ControlSubfield subfield : subfields) {
+		for (ControlSubfieldDefinition subfield : subfields) {
 			assertTrue(subfield.getPositionStart() < subfield.getPositionEnd());
 
 			if (lastEnd != -1)
@@ -54,5 +53,5 @@ public abstract class Control00XSubfieldsTest {
 		}
 	}
 
-	abstract boolean isException(ControlSubfield subfield, Code code);
+	abstract boolean isException(ControlSubfieldDefinition subfield, Code code);
 }

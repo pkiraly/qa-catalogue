@@ -1,21 +1,24 @@
-package de.gwdg.metadataqa.marc.definition;
+package de.gwdg.metadataqa.marc.definition.tags.control;
+
+import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 
 /**
  * Control Number Identifier
  * https://www.loc.gov/marc/bibliographic/bd005.html
  */
-public class Control005 extends DataFieldDefinition {
+public class Control005Definition extends DataFieldDefinition {
 
-	private static Control005 uniqueInstance;
+	private static Control005Definition uniqueInstance;
 
-	private Control005() {
+	private Control005Definition() {
 		initialize();
 		postCreation();
 	}
 
-	public static Control005 getInstance() {
+	public static Control005Definition getInstance() {
 		if (uniqueInstance == null)
-			uniqueInstance = new Control005();
+			uniqueInstance = new Control005Definition();
 		return uniqueInstance;
 	}
 

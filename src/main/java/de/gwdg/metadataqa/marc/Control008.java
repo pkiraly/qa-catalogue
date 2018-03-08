@@ -3,7 +3,7 @@ package de.gwdg.metadataqa.marc;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.Control008Subfields;
 import de.gwdg.metadataqa.marc.definition.controltype.Control008Type;
-import de.gwdg.metadataqa.marc.model.SolrFieldType;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control008Definition;
 
 import java.security.InvalidParameterException;
 import java.util.*;
@@ -91,7 +91,7 @@ public class Control008 extends MarcPositionalControlField {
 	private Control008Type actual008Type;
 
 	public Control008(String content, Leader.Type recordType) {
-		super(de.gwdg.metadataqa.marc.definition.Control008.getInstance(), content, recordType);
+		super(Control008Definition.getInstance(), content, recordType);
 		initialize();
 	}
 

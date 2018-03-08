@@ -10,7 +10,8 @@ public class MarcTagLister {
 	public static List<Class<? extends DataFieldDefinition>> listTags() {
 		Reflections reflections = new Reflections("de.gwdg.metadataqa.marc.definition.tags");
 
-		Set<Class<? extends DataFieldDefinition>> subTypes = reflections.getSubTypesOf(DataFieldDefinition.class);
+		Set<Class<? extends DataFieldDefinition>> subTypes = reflections
+			.getSubTypesOf(DataFieldDefinition.class);
 
 		Comparator<Class<? extends DataFieldDefinition>> byTag = (e1, e2) ->
 			e1.getSimpleName().compareTo(e2.getSimpleName());
@@ -19,6 +20,10 @@ public class MarcTagLister {
 
 		subTypes
 			.stream()
+			.filter((Class tagClass) ->
+				   !tagClass.getCanonicalName().endsWith("ControlFieldDefinition")
+				&& !tagClass.getCanonicalName().contains("tags.control.")
+			)
 			.sorted(byTag)
 			.forEach((Class tagClass) -> {
 				tags.add(tagClass);

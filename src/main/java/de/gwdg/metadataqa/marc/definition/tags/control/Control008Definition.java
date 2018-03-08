@@ -1,23 +1,25 @@
-package de.gwdg.metadataqa.marc.definition;
+package de.gwdg.metadataqa.marc.definition.tags.control;
 
+import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.ControlFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.Control008Subfields;
 
 /**
  * Control Number Identifier
  * https://www.loc.gov/marc/bibliographic/bd008.html
  */
-public class Control008 extends ControlFieldDefinition {
+public class Control008Definition extends ControlFieldDefinition {
 
-	private static Control008 uniqueInstance;
+	private static Control008Definition uniqueInstance;
 
-	private Control008() {
+	private Control008Definition() {
 		initialize();
 		postCreation();
 	}
 
-	public static Control008 getInstance() {
+	public static Control008Definition getInstance() {
 		if (uniqueInstance == null)
-			uniqueInstance = new Control008();
+			uniqueInstance = new Control008Definition();
 		return uniqueInstance;
 	}
 

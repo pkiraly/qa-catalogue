@@ -19,7 +19,6 @@ public class ReadMarc {
 		while (reader.hasNext()) {
 			Record marc4jRecord = reader.next();
 			records.add(marc4jRecord);
-			// System.out.println(record.toString());
 		}
 		return records;
 	}

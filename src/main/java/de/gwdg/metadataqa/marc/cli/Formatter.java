@@ -81,7 +81,6 @@ public class Formatter implements MarcFileProcessor {
 
 	@Override
 	public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
-		// System.err.println(marc4jRecord.getControlNumber());
 		if (
 			  (
 				marc4jRecord.getControlNumber() != null

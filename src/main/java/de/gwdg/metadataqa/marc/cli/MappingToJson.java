@@ -4,11 +4,10 @@ import de.gwdg.metadataqa.marc.*;
 import de.gwdg.metadataqa.marc.Control001;
 import de.gwdg.metadataqa.marc.Control003;
 import de.gwdg.metadataqa.marc.Control005;
-// import de.gwdg.metadataqa.marc.Control006;
 import de.gwdg.metadataqa.marc.definition.*;
-import de.gwdg.metadataqa.marc.definition.Control006;
-import de.gwdg.metadataqa.marc.definition.Control007;
-import de.gwdg.metadataqa.marc.definition.Control008;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control006Definition;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control007Definition;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control008Definition;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.Control006Subfields;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.Control007Subfields;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.Control008Subfields;
@@ -81,8 +80,8 @@ public class MappingToJson {
 
 		tag = new LinkedHashMap<>();
 		tag.put("tag", "006");
-		tag.put("label", Control006.getInstance().getLabel());
-		tag.put("repeatable", resolveCardinality(Control006.getInstance().getCardinality()));
+		tag.put("label", Control006Definition.getInstance().getLabel());
+		tag.put("repeatable", resolveCardinality(Control006Definition.getInstance().getCardinality()));
 		Map<String, Object> types = new LinkedHashMap<>();
 		for (ControlType type : Control006Subfields.getSubfields().keySet()) {
 			Map<String, Object> typeMap = new LinkedHashMap<>();
@@ -100,8 +99,8 @@ public class MappingToJson {
 
 		tag = new LinkedHashMap<>();
 		tag.put("tag", "007");
-		tag.put("label", Control007.getInstance().getLabel());
-		tag.put("repeatable", resolveCardinality(Control007.getInstance().getCardinality()));
+		tag.put("label", Control007Definition.getInstance().getLabel());
+		tag.put("repeatable", resolveCardinality(Control007Definition.getInstance().getCardinality()));
 		types = new LinkedHashMap<>();
 		for (ControlType category : Control007Subfields.getSubfields().keySet()) {
 			Map<String, Object> typeMap = new LinkedHashMap<>();
@@ -119,8 +118,8 @@ public class MappingToJson {
 
 		tag = new LinkedHashMap<>();
 		tag.put("tag", "008");
-		tag.put("label", Control008.getInstance().getLabel());
-		tag.put("repeatable", resolveCardinality(Control008.getInstance().getCardinality()));
+		tag.put("label", Control008Definition.getInstance().getLabel());
+		tag.put("repeatable", resolveCardinality(Control008Definition.getInstance().getCardinality()));
 		types = new LinkedHashMap<>();
 		for (ControlType type : Control008Subfields.getSubfields().keySet()) {
 			Map<String, Object> typeMap = new LinkedHashMap<>();

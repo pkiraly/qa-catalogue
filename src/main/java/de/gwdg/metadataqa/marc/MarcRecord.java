@@ -7,7 +7,7 @@ import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 
-import de.gwdg.metadataqa.marc.definition.Control001;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control001Definition;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -43,7 +43,7 @@ public class MarcRecord implements Extractable, Validatable {
 
 	public MarcRecord(String id) {
 		this();
-		control001 = new MarcControlField(Control001.getInstance(), id);
+		control001 = new MarcControlField(Control001Definition.getInstance(), id);
 	}
 
 	public void addDataField(DataField dataField) {

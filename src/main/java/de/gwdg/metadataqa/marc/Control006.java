@@ -3,7 +3,7 @@ package de.gwdg.metadataqa.marc;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.Control006Subfields;
 import de.gwdg.metadataqa.marc.definition.controltype.Control008Type;
-import de.gwdg.metadataqa.marc.model.SolrFieldType;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control006Definition;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -82,7 +82,7 @@ public class Control006 extends MarcPositionalControlField {
 	private Map<Integer, ControlSubfieldDefinition> byPosition = new LinkedHashMap<>();
 
 	public Control006(String content, Leader.Type recordType) {
-		super(de.gwdg.metadataqa.marc.definition.Control006.getInstance(), content, recordType);
+		super(Control006Definition.getInstance(), content, recordType);
 		if (content != null)
 			process();
 	}

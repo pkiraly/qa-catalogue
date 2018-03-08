@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.LeaderSubfields;
+import de.gwdg.metadataqa.marc.definition.tags.control.LeaderDefinition;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
@@ -9,8 +10,6 @@ import de.gwdg.metadataqa.marc.utils.keygenerator.PositionalControlFieldKeyGener
 
 import java.util.*;
 import java.util.logging.Logger;
-
-import static org.apache.hadoop.metrics2.lib.DefaultMetricsSystem.initialize;
 
 /**
  *
@@ -68,12 +67,12 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
 	private List<ValidationError> validationErrors;
 
 	public Leader(String content) {
-		super(de.gwdg.metadataqa.marc.definition.Leader.getInstance(), content);
+		super(LeaderDefinition.getInstance(), content);
 		initialize();
 	}
 
 	public Leader(String content, Type defaultType) {
-		super(de.gwdg.metadataqa.marc.definition.Leader.getInstance(), content);
+		super(LeaderDefinition.getInstance(), content);
 		this.defaultType = defaultType;
 		initialize();
 	}

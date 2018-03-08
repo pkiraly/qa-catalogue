@@ -9,13 +9,9 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
-// import de.gwdg.metadataqa.marc.definition.Leader;
-import de.gwdg.metadataqa.marc.definition.Control001;
-import de.gwdg.metadataqa.marc.definition.Control003;
-import de.gwdg.metadataqa.marc.definition.Control005;
-// import de.gwdg.metadataqa.marc.definition.Control006;
-// import de.gwdg.metadataqa.marc.definition.Control007;
-// import de.gwdg.metadataqa.marc.definition.Control008;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control001Definition;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control003Definition;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control005Definition;
 
 import de.gwdg.metadataqa.marc.utils.MapToDatafield;
 
@@ -55,13 +51,13 @@ public class MarcFactory {
 					record.setLeader(new Leader(extractFirst(cache, branch)));
 					break;
 				case "001":
-					record.setControl001(new MarcControlField(Control001.getInstance(), extractFirst(cache, branch)));
+					record.setControl001(new MarcControlField(Control001Definition.getInstance(), extractFirst(cache, branch)));
 					break;
 				case "003":
-					record.setControl003(new MarcControlField(Control003.getInstance(), extractFirst(cache, branch)));
+					record.setControl003(new MarcControlField(Control003Definition.getInstance(), extractFirst(cache, branch)));
 					break;
 				case "005":
-					record.setControl005(new MarcControlField(Control005.getInstance(), extractFirst(cache, branch)));
+					record.setControl005(new MarcControlField(Control005Definition.getInstance(), extractFirst(cache, branch)));
 					break;
 				case "006":
 					record.setControl006(
@@ -146,13 +142,13 @@ public class MarcFactory {
 			switch (controlField.getTag()) {
 				case "001":
 					record.setControl001(new MarcControlField(
-						Control001.getInstance(), data)); break;
+						Control001Definition.getInstance(), data)); break;
 				case "003":
 					record.setControl003(new MarcControlField(
-						Control003.getInstance(), data)); break;
+						Control003Definition.getInstance(), data)); break;
 				case "005":
 					record.setControl005(new MarcControlField(
-						Control005.getInstance(), data)); break;
+						Control005Definition.getInstance(), data)); break;
 				case "006":
 					record.setControl006(new Control006(data, record.getType())); break;
 				case "007":

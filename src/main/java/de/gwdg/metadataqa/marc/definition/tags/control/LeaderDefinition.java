@@ -1,23 +1,25 @@
-package de.gwdg.metadataqa.marc.definition;
+package de.gwdg.metadataqa.marc.definition.tags.control;
 
+import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.ControlFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.LeaderSubfields;
 
 /**
  * Leader
  * https://www.loc.gov/marc/bibliographic/bdleader.html
  */
-public class Leader extends ControlFieldDefinition {
+public class LeaderDefinition extends ControlFieldDefinition {
 
-	private static Leader uniqueInstance;
+	private static LeaderDefinition uniqueInstance;
 
-	private Leader() {
+	private LeaderDefinition() {
 		initialize();
 		postCreation();
 	}
 
-	public static Leader getInstance() {
+	public static LeaderDefinition getInstance() {
 		if (uniqueInstance == null)
-			uniqueInstance = new Leader();
+			uniqueInstance = new LeaderDefinition();
 		return uniqueInstance;
 	}
 

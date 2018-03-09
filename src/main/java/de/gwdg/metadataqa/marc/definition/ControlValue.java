@@ -74,8 +74,13 @@ public class ControlValue implements Validatable {
 					for (int i = 0; i < value.length(); i += unitLength) {
 						String unit = value.substring(i, i + unitLength);
 						if (!definition.getValidCodes().contains(unit)) {
-							validationErrors.add(new ValidationError(record.getId(), definition.getPath(), ValidationErrorType.ContainsInvalidCode,
-								String.format("'%s' in '%s'", unit, value), definition.getDescriptionUrl()));
+							validationErrors.add(
+								new ValidationError(
+									record.getId(),
+									definition.getPath(),
+									ValidationErrorType.ContainsInvalidCode,
+									String.format("'%s' in '%s'", unit, value),
+									definition.getDescriptionUrl()));
 							errors.add(
 								String.format(
 									"%s/%s (%s) contains an invalid code: '%s' in '%s' (%s)",

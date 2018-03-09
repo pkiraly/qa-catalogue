@@ -267,6 +267,7 @@ public class MarcRecord implements Extractable, Validatable {
 
 		for (MarcControlField controlField : getControlfields()) {
 			if (controlField != null) {
+				// System.err.println(controlField.definition.getTag());
 				isValidComponent = ((Validatable)controlField).validate(marcVersion);
 				if (!isValidComponent) {
 					validationErrors.addAll(((Validatable)controlField).getValidationErrors());

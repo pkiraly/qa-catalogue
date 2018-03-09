@@ -1,9 +1,6 @@
 package de.gwdg.metadataqa.marc;
 
-import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.ControlFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
-import de.gwdg.metadataqa.marc.definition.ControlValue;
+import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.utils.keygenerator.PositionalControlFieldKeyGenerator;
@@ -36,6 +33,9 @@ public class MarcPositionalControlField extends MarcControlField {
 
 	public void setMarcRecord(MarcRecord record) {
 		this.marcRecord = record;
+		for (ControlValue value : valuesList) {
+			value.setRecord(marcRecord);
+		}
 	}
 
 	protected void processContent() {}
@@ -78,5 +78,30 @@ public class MarcPositionalControlField extends MarcControlField {
 
 	public Cardinality getCardinality() {
 		return definition.getCardinality();
+	}
+
+	@Override
+	public boolean validate(MarcVersion marcVersion) {
+		boolean isValid = true;
+		errors = new ArrayList<>();
+		validationErrors = new ArrayList<>();
+		for (ControlValue controlValue : valuesList) {
+			if (!controlValue.validate(marcVersion)) {
+				errors.addAll(controlValue.getErrors());
+				validationErrors.addAll(controlValue.getValidationErrors());
+				isValid = false;
+			}
+		}
+		return isValid;
+	}
+
+	@Override
+	public List<String> getErrors() {
+		return errors;
+	}
+
+	@Override
+	public List<ValidationError> getValidationErrors() {
+		return validationErrors;
 	}
 }

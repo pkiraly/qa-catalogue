@@ -19,12 +19,8 @@ public class Control001 extends MarcControlField implements Extractable {
 
 	private static final Logger logger = Logger.getLogger(Control001.class.getCanonicalName());
 
-	private Map<ControlSubfieldDefinition, String> valuesMap;
-	private Map<Integer, ControlSubfieldDefinition> byPosition = new LinkedHashMap<>();
-
 	public Control001(String content) {
 		super(Control001Definition.getInstance(), content);
-		valuesMap = new LinkedHashMap<>();
 		process();
 	}
 
@@ -35,27 +31,10 @@ public class Control001 extends MarcControlField implements Extractable {
 		return content;
 	}
 
-	public Map<ControlSubfieldDefinition, String> getMap() {
-		return valuesMap;
-	}
-
-	public String getValueByPosition(int position) {
-		return valuesMap.get(getSubfieldByPosition(position));
-	}
-
-	public ControlSubfieldDefinition getSubfieldByPosition(int position) {
-		return byPosition.get(position);
-	}
-
-	public Set<Integer> getSubfieldPositions() {
-		return byPosition.keySet();
-	}
-
 	@Override
 	public String toString() {
 		return "Control001{" +
 			"content='" + content + '\'' +
-			", map=" + valuesMap +
 			'}';
 	}
 

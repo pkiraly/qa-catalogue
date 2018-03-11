@@ -29,6 +29,6 @@ public class Control006Definition extends ControlFieldDefinition {
 		mqTag = "AdditionalMaterialCharacteristics";
 		cardinality = Cardinality.Repeatable;
 		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd006.html";
-		subfields = Control006Subfields.getSubfields();
+		controlSubfields = Control006Subfields.getInstance();
 	}
 }

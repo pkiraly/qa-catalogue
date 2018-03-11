@@ -15,8 +15,8 @@ public class Control006SubfieldsTest extends Control00XSubfieldsTest {
 
 	@Test
 	public void testSubfields() {
-		for (ControlType type : Control006Subfields.getSubfields().keySet()) {
-			List<ControlSubfieldDefinition> subfields = Control006Subfields.get(type);
+		for (String type : Control006Subfields.getInstance().getSubfields().keySet()) {
+			List<ControlSubfieldDefinition> subfields = Control006Subfields.getInstance().get(type);
 			testControlSubfields(subfields);
 			testGetControlField(subfields);
 		}

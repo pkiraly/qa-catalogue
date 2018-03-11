@@ -53,25 +53,25 @@ public class MappingToHtml {
 
 		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "006");
 		System.out.print(row("006", Control006Definition.getInstance().getMqTag(), Control006Definition.getInstance().getLabel()));
-		for (ControlType type : Control006Subfields.getSubfields().keySet()) {
-			System.out.printf("<tr><td colspan=\"3\"><em>%s</em></td></tr>\n", type.getValue());
-			for (ControlSubfieldDefinition subfield : Control006Subfields.getSubfields().get(type))
+		for (String type : Control006Subfields.getInstance().getSubfields().keySet()) {
+			System.out.printf("<tr><td colspan=\"3\"><em>%s</em></td></tr>\n", type);
+			for (ControlSubfieldDefinition subfield : Control006Subfields.getInstance().getSubfields().get(type))
 				ControlSubfieldToHtml(subfield, "006", Control006Definition.getInstance().getMqTag());
 		}
 
 		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "007");
 		System.out.print(row("007", Control007Definition.getInstance().getMqTag(), Control007Definition.getInstance().getLabel()));
-		for (ControlType category : Control007Subfields.getSubfields().keySet()) {
-			System.out.printf("<tr><td colspan=\"3\"><em>%s</em></td></tr>\n", category.getValue());
-			for (ControlSubfieldDefinition subfield : Control007Subfields.getSubfields().get(category))
+		for (String category : Control007Subfields.getInstance().getSubfields().keySet()) {
+			System.out.printf("<tr><td colspan=\"3\"><em>%s</em></td></tr>\n", category);
+			for (ControlSubfieldDefinition subfield : Control007Subfields.getInstance().getSubfields().get(category))
 				ControlSubfieldToHtml(subfield, "007", Control007Definition.getInstance().getMqTag());
 		}
 
 		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "008");
 		System.out.print(row("008", Control008Definition.getInstance().getMqTag(), Control008Definition.getInstance().getLabel()));
-		for (ControlType type : Control008Subfields.getSubfields().keySet()) {
-			System.out.printf("<tr><td colspan=\"3\"><em>%s</em></td></tr>\n", type.getValue());
-			for (ControlSubfieldDefinition subfield : Control008Subfields.getSubfields().get(type))
+		for (String type : Control008Subfields.getInstance().getSubfields().keySet()) {
+			System.out.printf("<tr><td colspan=\"3\"><em>%s</em></td></tr>\n", type);
+			for (ControlSubfieldDefinition subfield : Control008Subfields.getInstance().getSubfields().get(type))
 				ControlSubfieldToHtml(subfield, "008", Control008Definition.getInstance().getMqTag());
 		}
 

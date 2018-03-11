@@ -8,14 +8,26 @@ import java.util.*;
 
 public class LeaderSubfields extends ControlSubfieldList {
 
-	private static Map<Control008Type, List<ControlSubfieldDefinition>> subfields = new TreeMap<>();
+	// private static Map<Control008Type, List<ControlSubfieldDefinition>> subfields = new TreeMap<>();
 
 	private static List<ControlSubfieldDefinition> subfieldList = new ArrayList<>();
 
 	private static final Map<String, ControlSubfieldDefinition> subfieldLabelMap = new HashMap<>();
 	private static final Map<String, ControlSubfieldDefinition> subfieldIdMap = new HashMap<>();
 
-	static {
+	private static LeaderSubfields uniqueInstance;
+
+	private LeaderSubfields() {
+		initialize();
+	}
+
+	public static LeaderSubfields getInstance() {
+		if (uniqueInstance == null)
+			uniqueInstance = new LeaderSubfields();
+		return uniqueInstance;
+	}
+
+	private void initialize() {
 
 		// subfieldList.put(Control008Type.ALL_MATERIALS, Arrays.asList());
 
@@ -38,7 +50,10 @@ public class LeaderSubfields extends ControlSubfieldList {
 			// new ControlSubField("undefined", 23, 24)
 		);
 		addAllSubfields(subfieldList);
-		subfields.put(Control008Type.ALL_MATERIALS, subfieldList);
+		subfields.put(
+			Control008Type.ALL_MATERIALS.getValue(),
+			subfieldList
+		);
 	}
 
 	private static void addAllSubfields(List<ControlSubfieldDefinition> _subfields) {
@@ -59,5 +74,4 @@ public class LeaderSubfields extends ControlSubfieldList {
 	public static ControlSubfieldDefinition getById(String key) {
 		return subfieldIdMap.get(key);
 	}
-
 }

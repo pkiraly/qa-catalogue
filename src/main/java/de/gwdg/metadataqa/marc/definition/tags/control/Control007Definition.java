@@ -29,6 +29,6 @@ public class Control007Definition extends ControlFieldDefinition {
 		mqTag = "PhysicalDescription";
 		cardinality = Cardinality.Repeatable;
 		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007.html";
-		subfields = Control007Subfields.getSubfields();
+		controlSubfields = Control007Subfields.getInstance();
 	}
 }

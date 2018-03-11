@@ -10,6 +10,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class ControlFieldKeyGeneratorTest {
+
 	Control008 field = new Control008(
 		"981123p19981996enkmun   efhi           d",
 		Leader.Type.BOOKS

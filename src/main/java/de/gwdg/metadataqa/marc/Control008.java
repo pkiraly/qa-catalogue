@@ -17,11 +17,6 @@ public class Control008 extends MarcPositionalControlField {
 
 	private static final Logger logger = Logger.getLogger(Control008.class.getCanonicalName());
 
-	// private static final String tag = "008";
-	// private static final String label = "General Information";
-	// protected static final String mqTag = "GeneralInformation";
-	// private static final Cardinality cardinality = Cardinality.Nonrepeatable;
-
 	private ControlValue tag008all00;
 	private ControlValue tag008all06;
 	private ControlValue tag008all07;
@@ -104,7 +99,7 @@ public class Control008 extends MarcPositionalControlField {
 	}
 
 	protected void processContent() {
-		for (ControlSubfieldDefinition subfield : Control008Subfields.get(Control008Type.ALL_MATERIALS)) {
+		for (ControlSubfieldDefinition subfield : Control008Subfields.getInstance().get(Control008Type.ALL_MATERIALS)) {
 
 			int end = Math.min(content.length(), subfield.getPositionEnd());
 			if (end < 0) {
@@ -148,7 +143,7 @@ public class Control008 extends MarcPositionalControlField {
 			byPosition.put(subfield.getPositionStart(), subfield);
 		}
 
-		for (ControlSubfieldDefinition subfield : Control008Subfields.get(actual008Type)) {
+		for (ControlSubfieldDefinition subfield : Control008Subfields.getInstance().get(actual008Type)) {
 			int end = Math.min(content.length(), subfield.getPositionEnd());
 
 			String value = null;

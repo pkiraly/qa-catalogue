@@ -22,13 +22,11 @@ public class MarcPositionalControlField extends MarcControlField {
 	public MarcPositionalControlField(ControlFieldDefinition definition,
 												 String content,
 												 Leader.Type recordType) {
-		super();
+		super(definition, content);
 		this.definition = definition;
-		this.content = content;
 		this.recordType = recordType;
 		valuesMap = new LinkedHashMap<>();
 		valuesList = new ArrayList<>();
-		// process();
 	}
 
 	public void setMarcRecord(MarcRecord record) {
@@ -62,6 +60,10 @@ public class MarcPositionalControlField extends MarcControlField {
 
 	public Map<ControlSubfieldDefinition, String> getMap() {
 		return valuesMap;
+	}
+
+	public List<ControlValue> getValuesList() {
+		return valuesList;
 	}
 
 	public String getLabel() {

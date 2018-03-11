@@ -5,24 +5,37 @@ import de.gwdg.metadataqa.marc.definition.controlsubfields.tag006.*;
 import de.gwdg.metadataqa.marc.definition.controltype.Control007Category;
 import de.gwdg.metadataqa.marc.definition.controltype.Control008Type;
 import de.gwdg.metadataqa.marc.definition.controltype.ControlType;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control006Definition;
 
 import java.util.*;
 
 public class Control006Subfields extends ControlSubfieldList {
 
-	private static final Map<Control008Type, List<ControlSubfieldDefinition>> subfields = new TreeMap<>();
+	// protected static final Map<Control008Type, List<ControlSubfieldDefinition>> subfields = new TreeMap<>();
 
-	static {
+	private static Control006Subfields uniqueInstance;
+
+	private Control006Subfields() {
+		initialize();
+	}
+
+	public static Control006Subfields getInstance() {
+		if (uniqueInstance == null)
+			uniqueInstance = new Control006Subfields();
+		return uniqueInstance;
+	}
+
+	private void initialize() {
 
 		subfields.put(
-			Control008Type.ALL_MATERIALS,
+			Control008Type.ALL_MATERIALS.getValue(),
 			Arrays.asList(
 				Tag006all00.getInstance()
 			)
 		);
 
 		subfields.put(
-			Control008Type.BOOKS,
+			Control008Type.BOOKS.getValue(),
 			Arrays.asList(
 				Tag006book01.getInstance(),
 				Tag006book05.getInstance(),
@@ -39,7 +52,7 @@ public class Control006Subfields extends ControlSubfieldList {
 		);
 
 		subfields.put(
-			Control008Type.COMPUTER_FILES,
+			Control008Type.COMPUTER_FILES.getValue(),
 			Arrays.asList(
 				// new ControlSubfield("undefined", 1, 5),
 				Tag006computer05.getInstance(),
@@ -53,7 +66,7 @@ public class Control006Subfields extends ControlSubfieldList {
 		);
 
 		subfields.put(
-			Control008Type.MAPS,
+			Control008Type.MAPS.getValue(),
 			Arrays.asList(
 				Tag006map01.getInstance(),
 				Tag006map05.getInstance(),
@@ -70,7 +83,7 @@ public class Control006Subfields extends ControlSubfieldList {
 		);
 
 		subfields.put(
-			Control008Type.MUSIC,
+			Control008Type.MUSIC.getValue(),
 			Arrays.asList(
 				Tag006music01.getInstance(),
 				Tag006music03.getInstance(),
@@ -86,7 +99,7 @@ public class Control006Subfields extends ControlSubfieldList {
 		);
 
 		subfields.put(
-			Control008Type.CONTINUING_RESOURCES,
+			Control008Type.CONTINUING_RESOURCES.getValue(),
 			Arrays.asList(
 				Tag006continuing01.getInstance(),
 				Tag006continuing02.getInstance(),
@@ -105,7 +118,7 @@ public class Control006Subfields extends ControlSubfieldList {
 		);
 
 		subfields.put(
-			Control008Type.VISUAL_MATERIALS,
+			Control008Type.VISUAL_MATERIALS.getValue(),
 			Arrays.asList(
 				Tag006visual01.getInstance(),
 				// new ControlSubfield("Undefined", 4, 5),
@@ -120,7 +133,7 @@ public class Control006Subfields extends ControlSubfieldList {
 		);
 
 		subfields.put(
-			Control008Type.MIXED_MATERIALS,
+			Control008Type.MIXED_MATERIALS.getValue(),
 			Arrays.asList(
 				// new ControlSubfield("Undefined", 1, 6),
 				Tag006mixed06.getInstance()
@@ -135,7 +148,7 @@ public class Control006Subfields extends ControlSubfieldList {
 	}
 	*/
 
-	public static List<ControlSubfieldDefinition> get(Control008Type category) {
-		return subfields.get(category);
+	public List<ControlSubfieldDefinition> get(Control008Type category) {
+		return subfields.get(category.getValue());
 	}
 }

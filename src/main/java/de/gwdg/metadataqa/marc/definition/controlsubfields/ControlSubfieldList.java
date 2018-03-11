@@ -9,13 +9,13 @@ import java.util.TreeMap;
 
 public class ControlSubfieldList {
 
-	static Map<? extends ControlType, List<ControlSubfieldDefinition>> subfields = new TreeMap<>();
+	protected Map<String, List<ControlSubfieldDefinition>> subfields = new TreeMap<>();
 
-	public static Map<? extends ControlType, List<ControlSubfieldDefinition>> getSubfields() {
+	public Map<String, List<ControlSubfieldDefinition>> getSubfields() {
 		return subfields;
 	}
 
-	public static <T extends ControlType> List<ControlSubfieldDefinition> get(T category) {
+	public List<ControlSubfieldDefinition> get(String category) {
 		return subfields.get(category);
 	}
 }

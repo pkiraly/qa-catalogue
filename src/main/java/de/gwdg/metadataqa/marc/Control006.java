@@ -16,13 +16,6 @@ public class Control006 extends MarcPositionalControlField {
 
 	private static final Logger logger = Logger.getLogger(Control006.class.getCanonicalName());
 
-	// private static final String tag = "006";
-	// private static final String label = "Additional Material Characteristics";
-	// protected static final String mqTag = "AdditionalMaterialCharacteristics";
-	// private static final Cardinality cardinality = Cardinality.Repeatable;
-
-	// private Leader.Type recordType;
-
 	private ControlValue tag006all00;
 
 	private ControlValue tag006book01;
@@ -89,7 +82,7 @@ public class Control006 extends MarcPositionalControlField {
 
 	private void process() {
 
-		for (ControlSubfieldDefinition subfield : Control006Subfields.get(Control008Type.ALL_MATERIALS)) {
+		for (ControlSubfieldDefinition subfield : Control006Subfields.getInstance().get(Control008Type.ALL_MATERIALS)) {
 			int end = Math.min(content.length(), subfield.getPositionEnd());
 			if (end < 0) {
 				logger.severe(content.length() + " " + subfield.getPositionEnd());
@@ -115,7 +108,7 @@ public class Control006 extends MarcPositionalControlField {
 		}
 
 		Control008Type actual = Control008Type.byCode(recordType.getValue().toString());
-		for (ControlSubfieldDefinition subfield : Control006Subfields.get(actual)) {
+		for (ControlSubfieldDefinition subfield : Control006Subfields.getInstance().get(actual)) {
 			int end = Math.min(content.length(), subfield.getPositionEnd());
 
 			String value = null;
@@ -255,6 +248,10 @@ public class Control006 extends MarcPositionalControlField {
 		return valuesMap;
 	}
 
+	public Map<ControlSubfieldDefinition, String> getValueMap() {
+		return valuesMap;
+	}
+
 	public String getValueByPosition(int position) {
 		return valuesMap.get(getSubfieldByPosition(position));
 	}
@@ -265,10 +262,6 @@ public class Control006 extends MarcPositionalControlField {
 
 	public Set<Integer> getSubfieldPositions() {
 		return byPosition.keySet();
-	}
-
-	public Map<ControlSubfieldDefinition, String> getValueMap() {
-		return valuesMap;
 	}
 
 	public Leader.Type getRecordType() {

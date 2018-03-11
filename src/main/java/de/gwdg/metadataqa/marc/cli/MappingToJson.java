@@ -76,16 +76,16 @@ public class MappingToJson {
 		tag.put("label", Control006Definition.getInstance().getLabel());
 		tag.put("repeatable", resolveCardinality(Control006Definition.getInstance().getCardinality()));
 		Map<String, Object> types = new LinkedHashMap<>();
-		for (ControlType type : Control006Subfields.getSubfields().keySet()) {
+		for (String type : Control006Subfields.getInstance().getSubfields().keySet()) {
 			Map<String, Object> typeMap = new LinkedHashMap<>();
 			positions = new LinkedHashMap<>();
-			for (ControlSubfieldDefinition subfield : Control006Subfields.getSubfields().get(type)) {
+			for (ControlSubfieldDefinition subfield : Control006Subfields.getInstance().getSubfields().get(type)) {
 				Map<String, Object> position = controlSubfieldToJson(subfield);
 				String key = (String) position.remove("position");
 				positions.put(key, position);
 			}
 			typeMap.put("positions", positions);
-			types.put(type.getValue(), typeMap);
+			types.put(type, typeMap);
 		}
 		tag.put("types", types);
 		fields.put("006", tag);
@@ -95,16 +95,16 @@ public class MappingToJson {
 		tag.put("label", Control007Definition.getInstance().getLabel());
 		tag.put("repeatable", resolveCardinality(Control007Definition.getInstance().getCardinality()));
 		types = new LinkedHashMap<>();
-		for (ControlType category : Control007Subfields.getSubfields().keySet()) {
+		for (String category : Control007Subfields.getInstance().getSubfields().keySet()) {
 			Map<String, Object> typeMap = new LinkedHashMap<>();
 			positions = new LinkedHashMap<>();
-			for (ControlSubfieldDefinition subfield : Control007Subfields.getSubfields().get(category)) {
+			for (ControlSubfieldDefinition subfield : Control007Subfields.getInstance().getSubfields().get(category)) {
 				Map<String, Object> position = controlSubfieldToJson(subfield);
 				String key = (String) position.remove("position");
 				positions.put(key, position);
 			}
 			typeMap.put("positions", positions);
-			types.put(category.getValue(), typeMap);
+			types.put(category, typeMap);
 		}
 		tag.put("types", types);
 		fields.put("007", tag);
@@ -114,16 +114,16 @@ public class MappingToJson {
 		tag.put("label", Control008Definition.getInstance().getLabel());
 		tag.put("repeatable", resolveCardinality(Control008Definition.getInstance().getCardinality()));
 		types = new LinkedHashMap<>();
-		for (ControlType type : Control008Subfields.getSubfields().keySet()) {
+		for (String type : Control008Subfields.getInstance().getSubfields().keySet()) {
 			Map<String, Object> typeMap = new LinkedHashMap<>();
 			positions = new LinkedHashMap<>();
-			for (ControlSubfieldDefinition subfield : Control008Subfields.getSubfields().get(type)) {
+			for (ControlSubfieldDefinition subfield : Control008Subfields.getInstance().getSubfields().get(type)) {
 				Map<String, Object> position = controlSubfieldToJson(subfield);
 				String key = (String) position.remove("position");
 				positions.put(key, position);
 			}
 			typeMap.put("positions", positions);
-			types.put(type.getValue(), typeMap);
+			types.put(type, typeMap);
 		}
 		tag.put("types", types);
 		fields.put("008", tag);

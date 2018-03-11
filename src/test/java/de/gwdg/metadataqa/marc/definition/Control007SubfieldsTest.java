@@ -14,8 +14,8 @@ import static org.junit.Assert.assertTrue;
 public class Control007SubfieldsTest extends Control00XSubfieldsTest {
 	@Test
 	public void test() {
-		for (ControlType type : Control007Subfields.getSubfields().keySet()) {
-			List<ControlSubfieldDefinition> subfields = Control007Subfields.get(type);
+		for (String type : Control007Subfields.getInstance().getSubfields().keySet()) {
+			List<ControlSubfieldDefinition> subfields = Control007Subfields.getInstance().get(type);
 			testControlSubfields(subfields);
 			testGetControlField(subfields);
 		}

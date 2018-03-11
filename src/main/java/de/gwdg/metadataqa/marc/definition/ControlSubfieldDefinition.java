@@ -13,12 +13,12 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class ControlSubfieldDefinition {
 
+	protected String id;
 	protected String label;
 	protected String bibframeTag;
 	protected String mqTag;
 	protected int positionStart;
 	protected int positionEnd;
-	protected String id;
 	protected List<Code> codes;
 	protected List<Code> historicalCodes;
 

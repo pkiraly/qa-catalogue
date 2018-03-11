@@ -29,7 +29,6 @@ public class LeaderDefinition extends ControlFieldDefinition {
 		mqTag = "Leader";
 		cardinality = Cardinality.Nonrepeatable;
 		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bdleader.html";
-		subfields = LeaderSubfields.getSubfields();
+		controlSubfields = LeaderSubfields.getInstance();
 	}
-
 }

@@ -6,17 +6,20 @@ import de.gwdg.metadataqa.marc.definition.controlsubfields.Control007Subfields;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.Control008Subfields;
 import de.gwdg.metadataqa.marc.definition.controltype.Control007Category;
 import de.gwdg.metadataqa.marc.definition.controltype.Control008Type;
+import de.gwdg.metadataqa.marc.definition.controltype.ControlType;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ControlFieldStructureVisualization {
 	public static void main(String[] args) {
 		String undefPattern = "\\";
 
-		Map<Control008Type, List<ControlSubfieldDefinition>> allSubfields =
-			(Map<Control008Type, List<ControlSubfieldDefinition>>) Control008Subfields.getSubfields();
-		for (Control008Type type : allSubfields.keySet()) {
+		Map<String, List<ControlSubfieldDefinition>> allSubfields =
+			Control008Subfields.getInstance().getSubfields();
+		for (String typeKey : allSubfields.keySet()) {
+			Control008Type type = Control008Type.byCode(typeKey);
 			System.err.println(type.getValue());
 			boolean isFirst = true;
 			int lastEnd = 18;
@@ -44,9 +47,10 @@ public class ControlFieldStructureVisualization {
 			System.err.println();
 		}
 
-		Map<Control007Category, List<ControlSubfieldDefinition>> all007Subfields =
-			(Map<Control007Category, List<ControlSubfieldDefinition>>)Control007Subfields.getSubfields();
-		for (Control007Category type : all007Subfields.keySet()) {
+		Map<String, List<ControlSubfieldDefinition>> all007Subfields =
+			Control007Subfields.getInstance().getSubfields();
+		for (String typeKey : all007Subfields.keySet()) {
+			Control007Category type = Control007Category.byCode(typeKey);
 			System.err.println(type.getLabel());
 			boolean isFirst = true;
 			int lastEnd = -1;
@@ -72,9 +76,10 @@ public class ControlFieldStructureVisualization {
 		}
 
 		System.err.println("-------------------------------------");
-		Map<Control008Type, List<ControlSubfieldDefinition>> all006Subfields =
-			(Map<Control008Type, List<ControlSubfieldDefinition>>)Control006Subfields.getSubfields();
-		for (Control008Type type : all006Subfields.keySet()) {
+		Map<String, List<ControlSubfieldDefinition>> all006Subfields =
+			Control006Subfields.getInstance().getSubfields();
+		for (String typeKey : all006Subfields.keySet()) {
+			Control008Type type = Control008Type.byCode(typeKey);
 			System.err.println(type.getValue());
 			boolean isFirst = true;
 			int lastEnd = 0;

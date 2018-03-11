@@ -16,11 +16,6 @@ public class Control007 extends MarcPositionalControlField {
 
 	private static final Logger logger = Logger.getLogger(Control007.class.getCanonicalName());
 
-	// private static final String tag = "007";
-	// private static final String label = "Physical Description";
-	// protected static final String mqTag = "PhysicalDescription";
-	// private static final Cardinality cardinality = Cardinality.Repeatable;
-
 	private String categoryOfMaterial;
 	private Control007Category category;
 
@@ -173,7 +168,7 @@ public class Control007 extends MarcPositionalControlField {
 		byPosition.put(subfieldCommon.getPositionStart(), subfieldCommon);
 		*/
 
-		for (ControlSubfieldDefinition subfield : Control007Subfields.get(category)) {
+		for (ControlSubfieldDefinition subfield : Control007Subfields.getInstance().get(category)) {
 			byPosition.put(subfield.getPositionStart(), subfield);
 			int end = Math.min(content.length(), subfield.getPositionEnd());
 

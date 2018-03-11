@@ -17,7 +17,7 @@ public class ControlValueTest {
 
 	@Test
 	public void testValidate() {
-		List<ControlSubfieldDefinition> subfields = Control008Subfields.get(Control008Type.BOOKS);
+		List<ControlSubfieldDefinition> subfields = Control008Subfields.getInstance().get(Control008Type.BOOKS);
 		ControlSubfieldDefinition subfield = null;
 		for (ControlSubfieldDefinition _subfield : subfields) {
 			if (_subfield.getId().equals("tag008book18")) {

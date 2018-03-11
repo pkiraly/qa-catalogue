@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 public class ISBNValidator implements SubfieldValidator {
 
 	public static final String URL = "https://en.wikipedia.org/wiki/International_Standard_Book_Number";
-	public static final Pattern ISBN = Pattern.compile("\\d[\\d-]+[\\dxX]");
+	public static final Pattern ISBN = Pattern.compile("\\d[\\d-]{8,}[\\dxX]");
 
 	private static ISBNValidator uniqueInstance;
 

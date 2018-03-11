@@ -7,7 +7,6 @@ import static org.junit.Assert.assertEquals;
 
 public class Control006Test {
 
-
 	@Test
 	public void testSa() {
 		Control006 field = new Control006("sa", Leader.Type.CONTINUING_RESOURCES);

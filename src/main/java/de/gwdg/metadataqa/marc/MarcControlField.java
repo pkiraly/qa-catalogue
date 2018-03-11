@@ -10,7 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MarcControlField implements Validatable {
+public class MarcControlField implements Validatable, Extractable {
 
 	protected DataFieldDefinition definition;
 	protected String content;
@@ -45,6 +45,12 @@ public class MarcControlField implements Validatable {
 		return key;
 	}
 
+	@Override
+	public Map<String, List<String>> getKeyValuePairs() {
+		return getKeyValuePairs(SolrFieldType.MARC);
+	}
+
+	@Override
 	public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
 		Map<String, List<String>> map = new LinkedHashMap<>();
 		map.put(

@@ -9,9 +9,7 @@ import de.gwdg.metadataqa.marc.definition.controlsubfields.Control007Subfields;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.Control008Subfields;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.LeaderSubfields;
 import de.gwdg.metadataqa.marc.definition.controltype.ControlType;
-import de.gwdg.metadataqa.marc.definition.tags.control.Control006Definition;
-import de.gwdg.metadataqa.marc.definition.tags.control.Control007Definition;
-import de.gwdg.metadataqa.marc.definition.tags.control.Control008Definition;
+import de.gwdg.metadataqa.marc.definition.tags.control.*;
 import de.gwdg.metadataqa.marc.utils.MarcTagLister;
 
 import java.lang.reflect.InvocationTargetException;
@@ -39,14 +37,19 @@ public class MappingToHtml {
 		}
 
 		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "001");
-		System.out.print(row("001", Control001.getMqTag(), Control001.getLabel()));
+		System.out.print(row("001",
+			Control001Definition.getInstance().getMqTag(),
+			Control001Definition.getInstance().getLabel()));
 
 		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "003");
-		System.out.print(row("003", Control003.getMqTag(), Control003.getLabel()));
+		System.out.print(row("003",
+			Control003Definition.getInstance().getMqTag(),
+			Control003Definition.getInstance().getLabel()));
 
 		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "005");
-		System.out.print(row("005", Control005.getMqTag(), Control005.getLabel()));
-
+		System.out.print(row("005",
+			Control005Definition.getInstance().getMqTag(),
+			Control005Definition.getInstance().getLabel()));
 
 		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "006");
 		System.out.print(row("006", Control006Definition.getInstance().getMqTag(), Control006Definition.getInstance().getLabel()));

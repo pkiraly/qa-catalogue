@@ -5,9 +5,7 @@ import de.gwdg.metadataqa.marc.Control001;
 import de.gwdg.metadataqa.marc.Control003;
 import de.gwdg.metadataqa.marc.Control005;
 import de.gwdg.metadataqa.marc.definition.*;
-import de.gwdg.metadataqa.marc.definition.tags.control.Control006Definition;
-import de.gwdg.metadataqa.marc.definition.tags.control.Control007Definition;
-import de.gwdg.metadataqa.marc.definition.tags.control.Control008Definition;
+import de.gwdg.metadataqa.marc.definition.tags.control.*;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.Control006Subfields;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.Control007Subfields;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.Control008Subfields;
@@ -60,23 +58,18 @@ public class MappingToJson {
 		tag.put("positions", positions);
 		fields.put("LDR", tag);
 
-		tag = new LinkedHashMap<>();
-		tag.put("tag", "001");
-		tag.put("label", Control001.getLabel());
-		tag.put("repeatable", resolveCardinality(Control001.getCardinality()));
-		fields.put("001", tag);
-
-		tag = new LinkedHashMap<>();
-		tag.put("tag", "003");
-		tag.put("label", Control003.getLabel());
-		tag.put("repeatable", resolveCardinality(Control003.getCardinality()));
-		fields.put("003", tag);
-
-		tag = new LinkedHashMap<>();
-		tag.put("tag", "005");
-		tag.put("label", Control005.getLabel());
-		tag.put("repeatable", resolveCardinality(Control005.getCardinality()));
-		fields.put("005", tag);
+		List<DataFieldDefinition> simpleControlFields = Arrays.asList(
+			Control001Definition.getInstance(),
+			Control003Definition.getInstance(),
+			Control005Definition.getInstance()
+		);
+		for (DataFieldDefinition field : simpleControlFields) {
+			tag = new LinkedHashMap<>();
+			tag.put("tag", field.getTag());
+			tag.put("label", field.getLabel());
+			tag.put("repeatable", resolveCardinality(field.getCardinality()));
+			fields.put(field.getTag(), tag);
+		}
 
 		tag = new LinkedHashMap<>();
 		tag.put("tag", "006");

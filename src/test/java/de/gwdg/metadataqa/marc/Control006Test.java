@@ -308,6 +308,17 @@ public class Control006Test {
 	}
 
 	@Test
+	public void testPr() {
+		Control006 field = new Control006("p     r           ", Leader.Type.MIXED_MATERIALS);
+
+		assertEquals(2, field.getValuesList().size());
+		assertEquals("Form of material", field.getValuesList().get(0).getDefinition().getLabel());
+		assertEquals("Mixed materials", field.getValuesList().get(0).resolve());
+		assertEquals("Form of item", field.getValuesList().get(1).getDefinition().getLabel());
+		assertEquals("Regular print reproduction", field.getValuesList().get(1).resolve());
+	}
+
+	@Test
 	public void testResolveWithDefinition() {
 		Control006 field = new Control006("r|||            ou", Leader.Type.VISUAL_MATERIALS);
 		assertEquals("Flash card", field.resolve(Tag006visual16.getInstance()));
@@ -622,4 +633,19 @@ public class Control006Test {
 		assertEquals("Unknown", value.resolve());
 	}
 
+	@Test
+	public void testMixedMaterialsGetters() {
+		Control006 field = new Control006("p     r           ", Leader.Type.MIXED_MATERIALS);
+
+		ControlValue value = field.getTag006all00();
+		assertEquals("Form of material", value.getDefinition().getLabel());
+		assertEquals("p", value.getValue());
+		assertEquals("Mixed materials", value.resolve());
+
+		value = field.getTag006mixed06();
+		assertEquals("Form of item", value.getDefinition().getLabel());
+		assertEquals("r", value.getValue());
+		assertEquals("Regular print reproduction", value.resolve());
+
+	}
 }

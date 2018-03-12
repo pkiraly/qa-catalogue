@@ -268,10 +268,6 @@ public class Control006 extends MarcPositionalControlField {
 		return recordType;
 	}
 
-	public ControlValue getTag008all00() {
-		return tag006all00;
-	}
-
 	public ControlValue getTag006all00() {
 		return tag006all00;
 	}

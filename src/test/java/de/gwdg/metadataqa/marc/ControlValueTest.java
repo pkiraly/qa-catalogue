@@ -7,6 +7,7 @@ import de.gwdg.metadataqa.marc.definition.controltype.Control008Type;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -27,6 +28,9 @@ public class ControlValueTest {
 		}
 		ControlValue value = new ControlValue(subfield, "af  ");
 		assertTrue(StringUtils.join(value.getErrors(), "; "), value.validate(null));
+		assertTrue(value.validate(MarcVersion.MARC21));
+		assertEquals(Arrays.asList(), value.getErrors());
+		assertEquals(Arrays.asList(), value.getValidationErrors());
 	}
 
 	@Test
@@ -79,6 +83,20 @@ public class ControlValueTest {
 				System.err.printf("defaultCode = \"%s\";\n", subfield.getDefaultCode());
 			*/
 		}
+	}
+
+	@Test
+	public void testGetLabel() {
+		Control006 field = new Control006("e|||||||a|||||||||", Leader.Type.MAPS);
+		ControlValue value = field.getTag006all00();
+		assertEquals("Form of material", value.getLabel());
+	}
+
+	@Test
+	public void testId() {
+		Control006 field = new Control006("e|||||||a|||||||||", Leader.Type.MAPS);
+		ControlValue value = field.getTag006all00();
+		assertEquals("tag006all00", value.getId());
 	}
 
 	private void testLeader00(ControlSubfieldDefinition subfield) {

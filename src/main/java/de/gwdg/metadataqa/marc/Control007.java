@@ -386,6 +386,10 @@ public class Control007 extends MarcPositionalControlField {
 		return tag007map07;
 	}
 
+	public ControlValue getElectro00() {
+		return tag007electro00;
+	}
+
 	public ControlValue getElectro01() {
 		return tag007electro01;
 	}

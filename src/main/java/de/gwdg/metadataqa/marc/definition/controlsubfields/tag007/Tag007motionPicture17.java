@@ -27,5 +27,11 @@ public class Tag007motionPicture17 extends ControlSubfieldDefinition {
 		positionStart = 17;
 		positionEnd = 23;
 		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007m.html";
+
+		// TODO: check documentation
+		// it should handle:
+		// * ccyymm (century/year/month)
+		// * ccyymm (century/year/month) with - in unknown parts
+		// * |||||| for "No attempt to code"
 	}
 }

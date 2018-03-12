@@ -623,6 +623,7 @@ public class Control007Test {
 	@Test
 	public void testText() {
 		Control007 field = new Control007("tu");
+
 		assertEquals(2, field.getMap().size());
 		assertEquals("0, 1", StringUtils.join(field.getSubfieldPositions(), ", "));
 
@@ -635,11 +636,13 @@ public class Control007Test {
 		assertEquals("Category of material", subfield.getLabel());
 		assertEquals("t", field.getMap().get(subfield));
 		assertEquals("Text", field.resolve(subfield));
+		assertEquals("Text", field.getText00().resolve());
 
 		subfield = field.getSubfieldByPosition(1);
 		assertEquals("Specific material designation", subfield.getLabel());
 		assertEquals("u", field.getMap().get(subfield));
 		assertEquals("Unspecified", field.resolve(subfield));
+		assertEquals("Unspecified", field.getText01().resolve());
 	}
 
 	@Test
@@ -661,56 +664,71 @@ public class Control007Test {
 		assertEquals("Category of material", subfield.getLabel());
 		assertEquals("c", field.getMap().get(subfield));
 		assertEquals("Electronic resource", field.resolve(subfield));
+		assertEquals("Electronic resource", field.getElectro00().resolve());
 
 		subfield = field.getSubfieldByPosition(1);
 		assertEquals("Specific material designation", subfield.getLabel());
 		assertEquals("r", field.getMap().get(subfield));
 		assertEquals("Remote", field.resolve(subfield));
+		assertEquals("Remote", field.getElectro01().resolve());
 
 		subfield = field.getSubfieldByPosition(3);
 		assertEquals("Color", subfield.getLabel());
 		assertEquals("u", field.getMap().get(subfield));
 		assertEquals("Unknown", field.resolve(subfield));
+		assertEquals("Unknown", field.getElectro03().resolve());
 
 		subfield = field.getSubfieldByPosition(4);
 		assertEquals("Dimensions", subfield.getLabel());
 		assertEquals("u", field.getMap().get(subfield));
 		assertEquals("Unknown", field.resolve(subfield));
+		assertEquals("Unknown", field.getElectro04().resolve());
 
 		subfield = field.getSubfieldByPosition(5);
 		assertEquals("Sound", subfield.getLabel());
 		assertEquals("u", field.getMap().get(subfield));
 		assertEquals("Unknown", field.resolve(subfield));
+		assertEquals("Unknown", field.getElectro05().resolve());
 
 		subfield = field.getSubfieldByPosition(6);
 		assertEquals("Image bit depth", subfield.getLabel());
 		assertEquals("---", field.getMap().get(subfield));
 		assertEquals("Unknown", field.resolve(subfield));
+		assertEquals("Unknown", field.getElectro06().resolve());
 
 		subfield = field.getSubfieldByPosition(9);
 		assertEquals("File formats", subfield.getLabel());
 		assertEquals("u", field.getMap().get(subfield));
 		assertEquals("Unknown", field.resolve(subfield));
+		assertEquals("Unknown", field.getElectro09().resolve());
 
 		subfield = field.getSubfieldByPosition(10);
 		assertEquals("Quality assurance targets", subfield.getLabel());
 		assertEquals("u", field.getMap().get(subfield));
 		assertEquals("Unknown", field.resolve(subfield));
+		assertEquals("Unknown", field.getElectro10().resolve());
 
 		subfield = field.getSubfieldByPosition(11);
 		assertEquals("Antecedent/source", subfield.getLabel());
 		assertEquals("u", field.getMap().get(subfield));
 		assertEquals("Unknown", field.resolve(subfield));
+		assertEquals("Unknown", field.getElectro11().resolve());
 
 		subfield = field.getSubfieldByPosition(12);
 		assertEquals("Level of compression", subfield.getLabel());
 		assertEquals("u", field.getMap().get(subfield));
 		assertEquals("Unknown", field.resolve(subfield));
+		assertEquals("Unknown", field.getElectro12().resolve());
 
 		subfield = field.getSubfieldByPosition(13);
 		assertEquals("Reformatting quality", subfield.getLabel());
 		assertEquals("u", field.getMap().get(subfield));
 		assertEquals("Unknown", field.resolve(subfield));
+		assertEquals("Unknown", field.getElectro13().resolve());
+
+		assertTrue(field.validate(MarcVersion.MARC21));
+		assertEquals(0, field.getErrors().size());
+		assertEquals(0, field.getValidationErrors().size());
 	}
 
 	@Test
@@ -735,6 +753,7 @@ public class Control007Test {
 		assertEquals("Category of material", subfield.getLabel());
 		assertEquals("s", field.getMap().get(subfield));
 		assertEquals("Sound recording", field.resolve(subfield));
+		assertEquals("Sound recording", field.getSoundRecording00().resolve());
 
 		subfield = field.getSubfieldByPosition(1);
 		assertEquals("Specific material designation", subfield.getLabel());
@@ -761,45 +780,100 @@ public class Control007Test {
 		assertEquals("Groove width/groove pitch", subfield.getLabel());
 		assertEquals("n", field.getMap().get(subfield));
 		assertEquals("Not applicable", field.resolve(subfield));
+		assertEquals("Not applicable", field.getSoundRecording05().resolve());
 
 		subfield = field.getSubfieldByPosition(6);
 		assertEquals("Dimensions", subfield.getLabel());
 		assertEquals("g", field.getMap().get(subfield));
 		assertEquals("4 3/4 in. or 12 cm. diameter", field.resolve(subfield));
+		assertEquals("4 3/4 in. or 12 cm. diameter", field.getSoundRecording06().resolve());
 
 		subfield = field.getSubfieldByPosition(7);
 		assertEquals("Tape width", subfield.getLabel());
 		assertEquals("n", field.getMap().get(subfield));
 		assertEquals("Not applicable", field.resolve(subfield));
+		assertEquals("Not applicable", field.getSoundRecording07().resolve());
 
 		subfield = field.getSubfieldByPosition(8);
 		assertEquals("Tape configuration", subfield.getLabel());
 		assertEquals("n", field.getMap().get(subfield));
 		assertEquals("Not applicable", field.resolve(subfield));
+		assertEquals("Not applicable", field.getSoundRecording08().resolve());
 
 		subfield = field.getSubfieldByPosition(9);
 		assertEquals("Kind of disc, cylinder, or tape", subfield.getLabel());
 		assertEquals(" ", field.getMap().get(subfield));
 		assertEquals(" ", field.resolve(subfield));
+		assertEquals(" ", field.getSoundRecording09().resolve());
 
 		subfield = field.getSubfieldByPosition(10);
 		assertEquals("Kind of material", subfield.getLabel());
 		assertEquals(" ", field.getMap().get(subfield));
 		assertEquals(" ", field.resolve(subfield));
+		assertEquals(" ", field.getSoundRecording10().resolve());
 
 		subfield = field.getSubfieldByPosition(11);
 		assertEquals("Kind of cutting", subfield.getLabel());
 		assertEquals(" ", field.getMap().get(subfield));
 		assertEquals(" ", field.resolve(subfield));
+		assertEquals(" ", field.getSoundRecording11().resolve());
 
 		subfield = field.getSubfieldByPosition(12);
 		assertEquals("Special playback characteristics", subfield.getLabel());
 		assertEquals("e", field.getMap().get(subfield));
 		assertEquals("Digital recording", field.resolve(subfield));
+		assertEquals("Digital recording", field.getSoundRecording12().resolve());
 
 		subfield = field.getSubfieldByPosition(13);
 		assertEquals("Capture and storage technique", subfield.getLabel());
 		assertEquals("d", field.getMap().get(subfield));
 		assertEquals("Digital storage", field.resolve(subfield));
+		assertEquals("Digital storage", field.getSoundRecording13().resolve());
+
+		assertFalse(field.validate(MarcVersion.MARC21));
+		assertEquals(3, field.getErrors().size());
+		assertEquals(3, field.getValidationErrors().size());
+
+		assertEquals("007/09 (tag007soundRecording09) has an invalid value: ' ' " +
+				"(https://www.loc.gov/marc/bibliographic/bd007s.html)",
+			field.getErrors().get(0));
+		assertEquals("007/09 (tag007soundRecording09)",
+			field.getValidationErrors().get(0).getMarcPath());
+		assertEquals(" ",
+			field.getValidationErrors().get(0).getMessage());
+		assertEquals("hasInvalidValue",
+			field.getValidationErrors().get(0).getType().getCode());
+		assertEquals(ValidationErrorType.HasInvalidValue,
+			field.getValidationErrors().get(0).getType());
+		assertEquals("https://www.loc.gov/marc/bibliographic/bd007s.html",
+			field.getValidationErrors().get(0).getUrl());
+
+		assertEquals("007/10 (tag007soundRecording10) has an invalid value: ' ' " +
+				"(https://www.loc.gov/marc/bibliographic/bd007s.html)",
+			field.getErrors().get(1));
+		assertEquals("007/10 (tag007soundRecording10)",
+			field.getValidationErrors().get(1).getMarcPath());
+		assertEquals(" ",
+			field.getValidationErrors().get(1).getMessage());
+		assertEquals("hasInvalidValue",
+			field.getValidationErrors().get(1).getType().getCode());
+		assertEquals(ValidationErrorType.HasInvalidValue,
+			field.getValidationErrors().get(1).getType());
+		assertEquals("https://www.loc.gov/marc/bibliographic/bd007s.html",
+			field.getValidationErrors().get(1).getUrl());
+
+		assertEquals("007/11 (tag007soundRecording11) has an invalid value: ' ' " +
+				"(https://www.loc.gov/marc/bibliographic/bd007s.html)",
+			field.getErrors().get(2));
+		assertEquals("007/11 (tag007soundRecording11)",
+			field.getValidationErrors().get(2).getMarcPath());
+		assertEquals(" ",
+			field.getValidationErrors().get(2).getMessage());
+		assertEquals("hasInvalidValue",
+			field.getValidationErrors().get(2).getType().getCode());
+		assertEquals(ValidationErrorType.HasInvalidValue,
+			field.getValidationErrors().get(2).getType());
+		assertEquals("https://www.loc.gov/marc/bibliographic/bd007s.html",
+			field.getValidationErrors().get(2).getUrl());
 	}
 }

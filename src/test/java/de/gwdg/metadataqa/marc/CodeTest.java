@@ -2,6 +2,8 @@ package de.gwdg.metadataqa.marc;
 
 import org.junit.Test;
 
+import java.security.InvalidParameterException;
+
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -46,6 +48,19 @@ public class CodeTest {
 		assertTrue(range.isValid("00999"));
 	}
 
+	@Test(expected = InvalidParameterException.class)
+	public void testInvalidRange() {
+		Code code = new Code("001999", "Running time");
+		code.setRange(true);
+	}
+
+	@Test
+	public void testInvalidRangeValue() {
+		Code code = new Code("001-999", "Running time");
+		code.setRange(true);
+		assertFalse(code.getRange().isValid("a"));
+	}
+
 	@Test
 	public void testRegex() {
 		Code code = new Code("^\\d+$", "Running time");
@@ -53,4 +68,5 @@ public class CodeTest {
 		code.setRegex(true);
 		assertTrue(code.isRegex());
 	}
+
 }

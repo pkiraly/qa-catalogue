@@ -86,10 +86,6 @@ public class Control006Test {
 	public void testSrw() {
 		Control006 field = new Control006("swr n|      0   b0", Leader.Type.CONTINUING_RESOURCES);
 		assertEquals(12, field.getValuesList().size());
-		for (ControlValue controlValue : field.getValuesList()) {
-			System.err.println(controlValue.getDefinition().getLabel()
-				+ " " + controlValue.resolve());
-		}
 		assertEquals("Form of material", field.getValuesList().get(0).getDefinition().getLabel());
 		assertEquals("Serial/Integrating resource", field.getValuesList().get(0).resolve());
 		assertEquals("Frequency", field.getValuesList().get(1).getDefinition().getLabel());
@@ -138,5 +134,175 @@ public class Control006Test {
 		assertEquals("Fiction, No attempt to code", field.getValuesList().get(7).resolve());
 		assertEquals("Transposition and arrangement", field.getValuesList().get(8).getDefinition().getLabel());
 		assertEquals("No attempt to code", field.getValuesList().get(8).resolve());
+	}
+
+	@Test
+	public void testCsgg() {
+		Control006 field = new Control006("csgg         nn   ", Leader.Type.MUSIC);
+		assertEquals(9, field.getValuesList().size());
+		assertEquals("Form of material", field.getValuesList().get(0).getDefinition().getLabel());
+		assertEquals("Notated music", field.getValuesList().get(0).resolve());
+		assertEquals("Form of composition", field.getValuesList().get(1).getDefinition().getLabel());
+		assertEquals("Songs", field.getValuesList().get(1).resolve());
+		assertEquals("Format of music", field.getValuesList().get(2).getDefinition().getLabel());
+		assertEquals("Close score", field.getValuesList().get(2).resolve());
+		assertEquals("Music parts", field.getValuesList().get(3).getDefinition().getLabel());
+		assertEquals("No parts in hand or not specified", field.getValuesList().get(3).resolve());
+		assertEquals("Target audience", field.getValuesList().get(4).getDefinition().getLabel());
+		assertEquals("Unknown or unspecified", field.getValuesList().get(4).resolve());
+		assertEquals("Form of item", field.getValuesList().get(5).getDefinition().getLabel());
+		assertEquals("None of the following", field.getValuesList().get(5).resolve());
+		assertEquals("Accompanying matter", field.getValuesList().get(6).getDefinition().getLabel());
+		assertEquals("No accompanying matter", field.getValuesList().get(6).resolve());
+		assertEquals("Literary text for sound recordings", field.getValuesList().get(7).getDefinition().getLabel());
+		assertEquals("Not applicable", field.getValuesList().get(7).resolve());
+		assertEquals("Transposition and arrangement", field.getValuesList().get(8).getDefinition().getLabel());
+		assertEquals("Not arrangement or transposition or not specified", field.getValuesList().get(8).resolve());
+	}
+
+	@Test
+	public void testD() {
+		Control006 field = new Control006("d|||||||||||||||||", Leader.Type.MUSIC);
+		assertEquals(9, field.getValuesList().size());
+		assertEquals("Form of material", field.getValuesList().get(0).getDefinition().getLabel());
+		assertEquals("Manuscript notated music", field.getValuesList().get(0).resolve());
+		assertEquals("Form of composition", field.getValuesList().get(1).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(1).resolve());
+		assertEquals("Format of music", field.getValuesList().get(2).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(2).resolve());
+		assertEquals("Music parts", field.getValuesList().get(3).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(3).resolve());
+		assertEquals("Target audience", field.getValuesList().get(4).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(4).resolve());
+		assertEquals("Form of item", field.getValuesList().get(5).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(5).resolve());
+		assertEquals("Accompanying matter", field.getValuesList().get(6).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(6).resolve());
+		assertEquals("Literary text for sound recordings", field.getValuesList().get(7).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(7).resolve());
+		assertEquals("Transposition and arrangement", field.getValuesList().get(8).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(8).resolve());
+	}
+
+	@Test
+	public void testEa() {
+		Control006 field = new Control006("e|||||||a|||||||||", Leader.Type.MAPS);
+		assertEquals(8, field.getValuesList().size());
+		assertEquals("Form of material", field.getValuesList().get(0).getDefinition().getLabel());
+		assertEquals("Cartographic material", field.getValuesList().get(0).resolve());
+		assertEquals("Relief", field.getValuesList().get(1).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(1).resolve());
+		assertEquals("Projection", field.getValuesList().get(2).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(2).resolve());
+		assertEquals("Type of cartographic material", field.getValuesList().get(3).getDefinition().getLabel());
+		assertEquals("Single map", field.getValuesList().get(3).resolve());
+		assertEquals("Government publication", field.getValuesList().get(4).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(4).resolve());
+		assertEquals("Form of item", field.getValuesList().get(5).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(5).resolve());
+		assertEquals("Index", field.getValuesList().get(6).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(6).resolve());
+		assertEquals("Special format characteristics", field.getValuesList().get(7).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(7).resolve());
+	}
+
+	@Test
+	public void testGqv() {
+		Control006 field = new Control006("g|||       |q   v|", Leader.Type.VISUAL_MATERIALS);
+		assertEquals(7, field.getValuesList().size());
+		assertEquals("Form of material", field.getValuesList().get(0).getDefinition().getLabel());
+		assertEquals("Projected medium", field.getValuesList().get(0).resolve());
+		assertEquals("Running time for motion pictures and videorecordings", field.getValuesList().get(1).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(1).resolve());
+		assertEquals("Target audience", field.getValuesList().get(2).getDefinition().getLabel());
+		assertEquals("Unknown or not specified", field.getValuesList().get(2).resolve());
+		assertEquals("Government publication", field.getValuesList().get(3).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(3).resolve());
+		assertEquals("Form of item", field.getValuesList().get(4).getDefinition().getLabel());
+		assertEquals("Direct electronic", field.getValuesList().get(4).resolve());
+		assertEquals("Type of visual material", field.getValuesList().get(5).getDefinition().getLabel());
+		assertEquals("Videorecording", field.getValuesList().get(5).resolve());
+		assertEquals("Technique", field.getValuesList().get(6).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(6).resolve());
+	}
+
+	@Test
+	public void testJfmnnnn() {
+		Control006 field = new Control006("jfmnn        nn | ", Leader.Type.MUSIC);
+		assertEquals(9, field.getValuesList().size());
+		assertEquals("Form of material", field.getValuesList().get(0).getDefinition().getLabel());
+		assertEquals("Musical sound recording", field.getValuesList().get(0).resolve());
+		assertEquals("Form of composition", field.getValuesList().get(1).getDefinition().getLabel());
+		assertEquals("Folk music", field.getValuesList().get(1).resolve());
+		assertEquals("Format of music", field.getValuesList().get(2).getDefinition().getLabel());
+		assertEquals("Not applicable", field.getValuesList().get(2).resolve());
+		assertEquals("Music parts", field.getValuesList().get(3).getDefinition().getLabel());
+		assertEquals("Not applicable", field.getValuesList().get(3).resolve());
+		assertEquals("Target audience", field.getValuesList().get(4).getDefinition().getLabel());
+		assertEquals("Unknown or unspecified", field.getValuesList().get(4).resolve());
+		assertEquals("Form of item", field.getValuesList().get(5).getDefinition().getLabel());
+		assertEquals("None of the following", field.getValuesList().get(5).resolve());
+		assertEquals("Accompanying matter", field.getValuesList().get(6).getDefinition().getLabel());
+		assertEquals("No accompanying matter", field.getValuesList().get(6).resolve());
+		assertEquals("Literary text for sound recordings", field.getValuesList().get(7).getDefinition().getLabel());
+		assertEquals("Not applicable", field.getValuesList().get(7).resolve());
+		assertEquals("Transposition and arrangement", field.getValuesList().get(8).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(8).resolve());
+	}
+
+	@Test
+	public void testKr() {
+		Control006 field = new Control006("k|||||||||||||||r|", Leader.Type.VISUAL_MATERIALS);
+		assertEquals(7, field.getValuesList().size());
+		assertEquals("Form of material", field.getValuesList().get(0).getDefinition().getLabel());
+		assertEquals("Two-dimensional nonprojectable graphic", field.getValuesList().get(0).resolve());
+		assertEquals("Running time for motion pictures and videorecordings", field.getValuesList().get(1).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(1).resolve());
+		assertEquals("Target audience", field.getValuesList().get(2).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(2).resolve());
+		assertEquals("Government publication", field.getValuesList().get(3).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(3).resolve());
+		assertEquals("Form of item", field.getValuesList().get(4).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(4).resolve());
+		assertEquals("Type of visual material", field.getValuesList().get(5).getDefinition().getLabel());
+		assertEquals("Realia", field.getValuesList().get(5).resolve());
+		assertEquals("Technique", field.getValuesList().get(6).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(6).resolve());
+	}
+
+	@Test
+	public void testMbqi() {
+		Control006 field = new Control006("m    bq  i |      ", Leader.Type.COMPUTER_FILES);
+		assertEquals(5, field.getValuesList().size());
+		assertEquals("Form of material", field.getValuesList().get(0).getDefinition().getLabel());
+		assertEquals("Computer file", field.getValuesList().get(0).resolve());
+		assertEquals("Target audience", field.getValuesList().get(1).getDefinition().getLabel());
+		assertEquals("Primary", field.getValuesList().get(1).resolve());
+		assertEquals("Form of item", field.getValuesList().get(2).getDefinition().getLabel());
+		assertEquals("Direct electronic", field.getValuesList().get(2).resolve());
+		assertEquals("Type of computer file", field.getValuesList().get(3).getDefinition().getLabel());
+		assertEquals("Interactive multimedia", field.getValuesList().get(3).resolve());
+		assertEquals("Government publication", field.getValuesList().get(4).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(4).resolve());
+	}
+
+	@Test
+	public void testRou() {
+		Control006 field = new Control006("r|||            ou", Leader.Type.VISUAL_MATERIALS);
+		assertEquals(7, field.getValuesList().size());
+		assertEquals("Form of material", field.getValuesList().get(0).getDefinition().getLabel());
+		assertEquals("Three-dimensional artifact or naturally occurring object", field.getValuesList().get(0).resolve());
+		assertEquals("Running time for motion pictures and videorecordings", field.getValuesList().get(1).getDefinition().getLabel());
+		assertEquals("No attempt to code", field.getValuesList().get(1).resolve());
+		assertEquals("Target audience", field.getValuesList().get(2).getDefinition().getLabel());
+		assertEquals("Unknown or not specified", field.getValuesList().get(2).resolve());
+		assertEquals("Government publication", field.getValuesList().get(3).getDefinition().getLabel());
+		assertEquals("Not a government publication", field.getValuesList().get(3).resolve());
+		assertEquals("Form of item", field.getValuesList().get(4).getDefinition().getLabel());
+		assertEquals("None of the following", field.getValuesList().get(4).resolve());
+		assertEquals("Type of visual material", field.getValuesList().get(5).getDefinition().getLabel());
+		assertEquals("Flash card", field.getValuesList().get(5).resolve());
+		assertEquals("Technique", field.getValuesList().get(6).getDefinition().getLabel());
+		assertEquals("Unknown", field.getValuesList().get(6).resolve());
 	}
 }

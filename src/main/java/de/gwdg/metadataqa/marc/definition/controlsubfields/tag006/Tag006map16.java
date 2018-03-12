@@ -39,7 +39,7 @@ public class Tag006map16 extends ControlSubfieldDefinition {
 			"p", "Playing cards",
 			"r", "Loose-leaf",
 			"z", "Other",
-			"||", "No attempt to code"
+			"|", "No attempt to code"
 		);
 		repeatableContent = true;
 		unitLength = 1;

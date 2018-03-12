@@ -358,6 +358,10 @@ public class Control007 extends MarcPositionalControlField {
 		return category;
 	}
 
+	public ControlValue getMap00() {
+		return tag007map00;
+	}
+
 	public ControlValue getMap01() {
 		return tag007map01;
 	}
@@ -422,6 +426,10 @@ public class Control007 extends MarcPositionalControlField {
 		return tag007electro13;
 	}
 
+	public ControlValue getGlobe00() {
+		return tag007globe00;
+	}
+
 	public ControlValue getGlobe01() {
 		return tag007globe01;
 	}
@@ -438,24 +446,32 @@ public class Control007 extends MarcPositionalControlField {
 		return tag007globe05;
 	}
 
-	public ControlValue getTactile0101() {
+	public ControlValue getTactile00() {
+		return tag007tactile00;
+	}
+
+	public ControlValue getTactile01() {
 		return tag007tactile01;
 	}
 
-	public ControlValue getTactile0103() {
+	public ControlValue getTactile03() {
 		return tag007tactile03;
 	}
 
-	public ControlValue getTactile0105() {
+	public ControlValue getTactile05() {
 		return tag007tactile05;
 	}
 
-	public ControlValue getTactile0106() {
+	public ControlValue getTactile06() {
 		return tag007tactile06;
 	}
 
-	public ControlValue getTactile0109() {
+	public ControlValue getTactile09() {
 		return tag007tactile09;
+	}
+
+	public ControlValue getProjected00() {
+		return tag007projected00;
 	}
 
 	public ControlValue getProjected01() {
@@ -484,6 +500,10 @@ public class Control007 extends MarcPositionalControlField {
 
 	public ControlValue getProjected08() {
 		return tag007projected08;
+	}
+
+	public ControlValue getMicroform00() {
+		return tag007microform00;
 	}
 
 	public ControlValue getMicroform01() {
@@ -522,6 +542,10 @@ public class Control007 extends MarcPositionalControlField {
 		return tag007microform12;
 	}
 
+	public ControlValue getNonprojected00() {
+		return tag007nonprojected00;
+	}
+
 	public ControlValue getNonprojected01() {
 		return tag007nonprojected01;
 	}
@@ -536,6 +560,10 @@ public class Control007 extends MarcPositionalControlField {
 
 	public ControlValue getNonprojected05() {
 		return tag007nonprojected05;
+	}
+
+	public ControlValue getMotionPicture00() {
+		return tag007motionPicture00;
 	}
 
 	public ControlValue getMotionPicture01() {
@@ -602,12 +630,24 @@ public class Control007 extends MarcPositionalControlField {
 		return tag007motionPicture17;
 	}
 
+	public ControlValue getKit00() {
+		return tag007kit00;
+	}
+
 	public ControlValue getKit01() {
 		return tag007kit01;
 	}
 
+	public ControlValue getMusic00() {
+		return tag007music00;
+	}
+
 	public ControlValue getMusic01() {
 		return tag007music01;
+	}
+
+	public ControlValue getRemoteSensing00() {
+		return tag007remoteSensing00;
 	}
 
 	public ControlValue getRemoteSensing01() {
@@ -640,6 +680,10 @@ public class Control007 extends MarcPositionalControlField {
 
 	public ControlValue getRemoteSensing09() {
 		return tag007remoteSensing09;
+	}
+
+	public ControlValue getSoundRecording00() {
+		return tag007soundRecording00;
 	}
 
 	public ControlValue getSoundRecording01() {
@@ -690,8 +734,16 @@ public class Control007 extends MarcPositionalControlField {
 		return tag007soundRecording13;
 	}
 
+	public ControlValue getText00() {
+		return tag007text00;
+	}
+
 	public ControlValue getText01() {
 		return tag007text01;
+	}
+
+	public ControlValue getVideo00() {
+		return tag007video00;
 	}
 
 	public ControlValue getVideo01() {

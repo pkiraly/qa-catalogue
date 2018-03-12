@@ -1,22 +1,22 @@
 package de.gwdg.metadataqa.marc.definition.controltype;
 
 public enum Control007Category implements ControlType {
-	COMMON("common", "Common"),
-	MAP("a", "Map"),
-	ELECTRONIC_RESOURCE("c", "Electronic resource"),
-	GLOBE("d", "Globe"),
-	TACTILE_MATERIAL("f", "Tactile material"),
-	PROJECTED_GRAPHIC("g", "Projected graphic"),
-	MICROFORM("h", "Microform"),
+	COMMON         ("common", "Common"),
+	MAP                 ("a", "Map"),
+	ELECTRONIC_RESOURCE ("c", "Electronic resource"),
+	GLOBE               ("d", "Globe"),
+	TACTILE_MATERIAL    ("f", "Tactile material"),
+	PROJECTED_GRAPHIC   ("g", "Projected graphic"),
+	MICROFORM           ("h", "Microform"),
 	NONPROJECTED_GRAPHIC("k", "Nonprojected graphic"),
-	MOTION_PICTURE("m", "Motion picture"),
-	KIT("o", "Kit"),
-	NOTATED_MUSIC("q", "Notated music"),
+	MOTION_PICTURE      ("m", "Motion picture"),
+	KIT                 ("o", "Kit"),
+	NOTATED_MUSIC       ("q", "Notated music"),
 	REMOTE_SENSING_IMAGE("r", "Remote-sensing image"),
-	SOUND_RECORDING("s", "Sound recording"),
-	TEXT("t", "Text"),
-	VIDEO_RECORDING("v", "Videorecording"),
-	UNSPECIFIED("z", "Unspecified");
+	SOUND_RECORDING     ("s", "Sound recording"),
+	TEXT                ("t", "Text"),
+	VIDEO_RECORDING     ("v", "Videorecording"),
+	UNSPECIFIED         ("z", "Unspecified");
 
 	String code;
 	String label;

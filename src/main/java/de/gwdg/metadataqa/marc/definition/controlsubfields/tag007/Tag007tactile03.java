@@ -39,7 +39,7 @@ public class Tag007tactile03 extends ControlSubfieldDefinition {
 			"n", "Not applicable",
 			"u", "Unknown",
 			"z", "Other",
-			"||", "No attempt to code"
+			"|", "No attempt to code"
 		);
 		repeatableContent = true;
 		unitLength = 1;

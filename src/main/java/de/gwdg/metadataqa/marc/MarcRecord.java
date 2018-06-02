@@ -447,10 +447,13 @@ public class MarcRecord implements Extractable, Validatable {
 			results.add(field.getInd2());
 			return true;
 		} else {
-			for (MarcSubfield subfield : field.getSubfield(subfieldCode)) {
-				if (subfield.getValue().equals(query)) {
-					results.add(subfield.getValue());
-					return true;
+			List<MarcSubfield> subfields = field.getSubfield(subfieldCode);
+			if (subfields != null) {
+				for (MarcSubfield subfield : subfields) {
+					if (subfield.getValue().equals(query)) {
+						results.add(subfield.getValue());
+						return true;
+					}
 				}
 			}
 		}

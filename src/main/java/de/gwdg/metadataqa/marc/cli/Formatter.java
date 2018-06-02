@@ -82,9 +82,9 @@ public class Formatter implements MarcFileProcessor {
 	@Override
 	public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
 		if (
-			  (
-				marc4jRecord.getControlNumber() != null
-				&& marc4jRecord.getControlNumber().equals(parameters.getId())
+			  (parameters.hasId()
+				&& marc4jRecord.getControlNumber() != null
+				&& marc4jRecord.getControlNumber().trim().equals(parameters.getId())
 			  )
 			||
 			  (
@@ -92,6 +92,7 @@ public class Formatter implements MarcFileProcessor {
 			  	&& parameters.getCountNr() == recordNumber)) {
 			System.out.println(marc4jRecord.toString());
 		}
+
 		if (parameters.hasSearch()) {
 			MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
 			List<String> results = marcRecord.search(parameters.getPath(), parameters.getQuery());
@@ -114,7 +115,6 @@ public class Formatter implements MarcFileProcessor {
 
 	@Override
 	public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
-
 	}
 
 	@Override

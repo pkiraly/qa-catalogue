@@ -66,7 +66,7 @@ public class CommonParameters implements Serializable {
 			limit += offset;
 
 		if (cmd.hasOption("id"))
-			id = cmd.getOptionValue("id");
+			id = cmd.getOptionValue("id").trim();
 
 		if (cmd.hasOption("defaultRecordType"))
 			defaultRecordType = Leader.Type.valueOf(cmd.getOptionValue("defaultRecordType"));

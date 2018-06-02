@@ -89,7 +89,7 @@ public class RecordIterator {
 						lastKnownId = marc4jRecord.getControlNumber();
 					}
 
-					if (processor.getParameters().hasId() && !marc4jRecord.getControlNumber().equals(processor.getParameters().getId()))
+					if (processor.getParameters().hasId() && !marc4jRecord.getControlNumber().trim().equals(processor.getParameters().getId()))
 						continue;
 
 					try {

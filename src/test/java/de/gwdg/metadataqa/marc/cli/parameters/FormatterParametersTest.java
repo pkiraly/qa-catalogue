@@ -82,4 +82,21 @@ public class FormatterParametersTest {
 			e.printStackTrace();
 		}
 	}
+
+	@Test
+	public void testSearchWithSpace() {
+		String[] arguments = new String[]{"--search", "920$a=color book", "a-marc-file.mrc"};
+		try {
+			FormatterParameters parameters = new FormatterParameters(arguments);
+
+			assertNotNull(parameters.getSearch());
+			assertTrue(parameters.hasSearch());
+			assertEquals("920$a=color book", parameters.getSearch());
+			assertEquals("920$a", parameters.getPath());
+			assertEquals("color book", parameters.getQuery());
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
 }

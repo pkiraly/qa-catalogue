@@ -445,7 +445,7 @@ public class MARCspecParserTest {
 		assertEquals("?020$a", matcher.group(1));
 	}
 
-cd 	@Test
+ 	@Test
 	public void test_subspecs3() {
 		Matcher matcher;
 		matcher = MARCspecParser.SUBFIELD.matcher("$s{?020$a}");

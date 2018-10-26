@@ -12,11 +12,10 @@ public enum ValidationErrorFormat {
 	;
 
 	private List<String> names;
-	private String description;
-	private String abbreviation = null;
+	private String label;
 
-	ValidationErrorFormat(String description, String... names) {
-		this.description = description;
+	ValidationErrorFormat(String label, String... names) {
+		this.label = label;
 		this.names = Arrays.asList(names);
 	}
 
@@ -28,7 +27,7 @@ public enum ValidationErrorFormat {
 		return names;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getLabel() {
+		return label;
 	}
 }

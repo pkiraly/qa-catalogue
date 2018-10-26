@@ -3,10 +3,8 @@ package de.gwdg.metadataqa.marc.datastore;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
-import org.apache.solr.client.solrj.impl.HttpSolrClient.Builder;
 import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrInputDocument;
-import org.elasticsearch.client.Response;
 
 import java.io.IOException;
 import java.util.List;
@@ -35,14 +33,12 @@ public class MarcSolrClient {
         for (String key : objectMap.keySet()) {
             Object value = objectMap.get(key);
             if (value != null) {
-                // System.err.printf("%s: class: %s\n", key, value.getClass());
                 document.addField(key + "_ss", value);
             }
         }
 
         try {
             UpdateResponse response = solr.add(document);
-            // solr.commit();
         } catch (HttpSolrClient.RemoteSolrException ex) {
             System.err.printf("document: %s", document);
             System.err.printf("Commit exception: %s\n", ex.getMessage());
@@ -56,14 +52,12 @@ public class MarcSolrClient {
         for (String key : objectMap.keySet()) {
             Object value = objectMap.get(key);
             if (value != null) {
-                // System.err.printf("%s: class: %s\n", key, value.getClass());
                 document.addField(key + "_ss", value);
             }
         }
 
         try {
             UpdateResponse response = solr.add(document);
-            // solr.commit();
         } catch (HttpSolrClient.RemoteSolrException ex) {
             System.err.printf("document: %s", document);
             System.err.printf("Commit exception: %s\n", ex.getMessage());

@@ -12,7 +12,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -21,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class ElasticsearchKeyGenerator {
 
-		private static final Logger logger = Logger.getLogger(ElasticsearchKeyGenerator.class.getCanonicalName());
+	private static final Logger logger = Logger.getLogger(ElasticsearchKeyGenerator.class.getCanonicalName());
 
 	public static void main(String[] args) {
 		if (args.length != 3) {

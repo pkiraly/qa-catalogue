@@ -7,7 +7,6 @@ import com.mongodb.DBCollection;
 import de.gwdg.metadataqa.api.model.JsonPathCache;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.api.schema.MarcJsonSchema;
-import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFieldExtractor;
 import de.gwdg.metadataqa.marc.datastore.MarcMongodbClient;
 import java.io.IOException;

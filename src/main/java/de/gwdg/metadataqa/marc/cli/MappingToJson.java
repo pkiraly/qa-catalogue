@@ -1,16 +1,12 @@
 package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.*;
-import de.gwdg.metadataqa.marc.Control001;
-import de.gwdg.metadataqa.marc.Control003;
-import de.gwdg.metadataqa.marc.Control005;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.tags.control.*;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.Control006Subfields;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.Control007Subfields;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.Control008Subfields;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.LeaderSubfields;
-import de.gwdg.metadataqa.marc.definition.controltype.ControlType;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.utils.MarcTagLister;
 import net.minidev.json.JSONValue;

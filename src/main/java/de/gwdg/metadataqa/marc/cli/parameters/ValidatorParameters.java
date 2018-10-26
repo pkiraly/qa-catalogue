@@ -70,7 +70,7 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
 		String text = super.formatParameters();
 		text += String.format("summary: %s\n", doSummary);
 		text += String.format("fileName: %s\n", fileName);
-		text += String.format("format: %s\n", format);
+		text += String.format("format: %s\n", format.getLabel());
 		return text;
 	}
 }

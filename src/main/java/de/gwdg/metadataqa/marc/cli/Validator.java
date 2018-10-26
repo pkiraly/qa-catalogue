@@ -13,6 +13,7 @@ import org.marc4j.marc.Record;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Logger;
@@ -117,7 +118,10 @@ public class Validator implements MarcFileProcessor, Serializable {
 		boolean isValid = marcRecord.validate(parameters.getMarcVersion(), parameters.doSummary());
 		if (!isValid && doPrintInProcessRecord) {
 			if (parameters.doSummary()) {
-				for (String error : ValidationErrorFormatter.formatForSummary(marcRecord.getValidationErrors(), parameters.getFormat())) {
+				List<String> errors = ValidationErrorFormatter.formatForSummary(
+					marcRecord.getValidationErrors(), parameters.getFormat()
+				);
+				for (String error : errors) {
 					if (!errorCounter.containsKey(error)) {
 						errorCounter.put(error, 0);
 					}

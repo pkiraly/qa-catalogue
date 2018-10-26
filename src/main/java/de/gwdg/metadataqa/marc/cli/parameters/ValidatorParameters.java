@@ -40,7 +40,7 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
 
 		if (cmd.hasOption("format"))
 			for (ValidationErrorFormat registeredFormat : ValidationErrorFormat.values()) {
-				if (registeredFormat.getName().equals(cmd.getOptionValue("format"))) {
+				if (registeredFormat.getNames().contains(cmd.getOptionValue("format"))) {
 					format = registeredFormat;
 					break;
 				}

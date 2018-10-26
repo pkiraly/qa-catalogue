@@ -1,7 +1,9 @@
 package de.gwdg.metadataqa.marc.model.validation;
 
+import com.opencsv.CSVWriter;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,9 +35,9 @@ public class ValidationErrorFormatter {
 	public static String format(ValidationError error, ValidationErrorFormat format) {
 		String message = "";
 		if (format.equals(ValidationErrorFormat.TAB_SEPARATED)) {
-			message = StringUtils.join(asList(error), "\t");
+			message = createCvsRow(asArray(error), '\t');
 		} else if (format.equals(ValidationErrorFormat.COMMA_SEPARATED)) {
-			message = StringUtils.join(asList(error), ",");
+			message = createCvsRow(asArray(error), ',');
 		}
 		return message;
 	}
@@ -54,10 +56,10 @@ public class ValidationErrorFormatter {
 		String message = "";
 		switch (format) {
 			case TAB_SEPARATED:
-				message = StringUtils.join(asListWithoutId(error), "\t");
+				message = createCvsRow(asArrayWithoutId(error), '\t');
 				break;
 			case COMMA_SEPARATED:
-				message = StringUtils.join(asListWithoutId(error), ",");
+				message = createCvsRow(asArrayWithoutId(error), ',');
 				break;
 			case TEXT:
 				message = formatTextWithoutId(error);
@@ -65,6 +67,13 @@ public class ValidationErrorFormatter {
 				break;
 		}
 		return message;
+	}
+
+	private static String createCvsRow(String[] strings, char separator) {
+		StringWriter stringWriter = new StringWriter();
+		CSVWriter csvWriter = new CSVWriter(stringWriter, separator);
+		csvWriter.writeNext(strings);
+		return stringWriter.toString().trim();
 	}
 
 
@@ -75,6 +84,15 @@ public class ValidationErrorFormatter {
 			error.getMessage(),
 			error.getUrl()
 		);
+	}
+
+	private static String[] asArrayWithoutId(ValidationError error) {
+		return new String[]{
+			error.getMarcPath(),
+			error.getType().getMessage(),
+			error.getMessage(),
+			error.getUrl()
+		};
 	}
 
 	private static List<String> asListWithoutId(ValidationError error) {
@@ -94,5 +112,15 @@ public class ValidationErrorFormatter {
 			error.getMessage(),
 			error.getUrl()
 		);
+	}
+
+	private static String[] asArray(ValidationError error) {
+		return new String[]{
+			error.getRecordId(),
+			error.getMarcPath(),
+			error.getType().getMessage(),
+			error.getMessage(),
+			error.getUrl()
+		};
 	}
 }

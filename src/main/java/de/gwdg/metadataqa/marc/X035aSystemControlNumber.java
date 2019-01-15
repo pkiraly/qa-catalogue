@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc;
 
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -7,7 +8,7 @@ import java.util.regex.Pattern;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class X035aSystemControlNumber {
+public class X035aSystemControlNumber implements Serializable {
 	private String code;
 	private String number;
 	private final static Pattern PATTERN = Pattern.compile("^\\((.+)\\)(.+)$");

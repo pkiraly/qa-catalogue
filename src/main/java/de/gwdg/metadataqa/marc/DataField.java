@@ -10,10 +10,11 @@ import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.logging.Logger;
 
-public class DataField implements Extractable, Validatable {
+public class DataField implements Extractable, Validatable, Serializable {
 
 	private static final Logger logger = Logger.getLogger(DataField.class.getCanonicalName());
 
@@ -44,7 +45,7 @@ public class DataField implements Extractable, Validatable {
 				SubfieldDefinition subfieldDefinition = definition.getSubfield(code);
 				if (subfieldDefinition == null) {
 					if (!(definition.getTag().equals("886") && code.equals("k")) && !definition.getTag().equals("936"))
-						System.err.printf("no definition for %s$%s (value: '%s') %s %s\n",
+						System.err.printf("no definition for %s$%s (value: '%s') %s %s%n",
 							definition.getTag(), code, value, definition.getTag().equals("886"),
 							code.equals("k"));
 				} else {
@@ -112,73 +113,81 @@ public class DataField implements Extractable, Validatable {
 	}
 
 	public String simpleFormat() {
-		String output = "";
+		StringBuffer output = new StringBuffer();
 
-		output += ind1;
-		output += ind2;
-		output += " ";
+		output.append(ind1);
+		output.append(ind2);
+		output.append(" ");
 
 		for (MarcSubfield subfield : subfields) {
-			output += String.format("$%s%s", subfield.getDefinition().getCode(), subfield.getValue());
+			output.append(String.format(
+				"$%s%s",
+				subfield.getDefinition().getCode(), subfield.getValue()
+			));
 		}
 
-		return output;
+		return output.toString();
 	}
 
 	public String format() {
-		String output = "";
-		output += String.format("[%s: %s]\n", definition.getTag(), definition.getLabel());
+		StringBuffer output = new StringBuffer();
+		output.append(String.format("[%s: %s]%n", definition.getTag(), definition.getLabel()));
 
 		if (definition.getInd1().exists())
-			output += String.format("%s: %s\n", definition.getInd1().getLabel(), resolveInd1());
+			output.append(String.format("%s: %s%n", definition.getInd1().getLabel(), resolveInd1()));
 
 		if (definition.getInd2().exists())
-			output += String.format("%s: %s\n", definition.getInd2().getLabel(), resolveInd2());
+			output.append(String.format("%s: %s%n", definition.getInd2().getLabel(), resolveInd2()));
 
 		for (MarcSubfield subfield : subfields) {
-			output += String.format("%s: %s\n", subfield.getLabel(), subfield.resolve());
+			output.append(String.format("%s: %s%n", subfield.getLabel(), subfield.resolve()));
 		}
 
-		return output;
+		return output.toString();
 	}
 
 	public String formatAsMarc() {
-		String output = "";
+		StringBuffer output = new StringBuffer();
 
 		if (definition.getInd1().exists())
-			output += String.format("%s_ind1: %s\n", definition.getTag(), resolveInd1());
+			output.append(String.format("%s_ind1: %s%n", definition.getTag(), resolveInd1()));
 
 		if (definition.getInd2().exists())
-			output += String.format("%s_ind2: %s\n", definition.getTag(), resolveInd2());
+			output.append(String.format("%s_ind2: %s%n", definition.getTag(), resolveInd2()));
 
 		for (MarcSubfield subfield : subfields) {
-			output += String.format("%s_%s: %s\n", definition.getTag(), subfield.getCode(), subfield.resolve());
+			output.append(String.format("%s_%s: %s%n", definition.getTag(), subfield.getCode(), subfield.resolve()));
 		}
 
-		return output;
+		return output.toString();
 	}
 
 	public String formatForIndex() {
-		String output = "";
+		StringBuffer output = new StringBuffer();
 
 		if (definition.getInd1().exists())
-			output += String.format("%s_ind1: %s\n", definition.getIndexTag(), resolveInd1());
+			output.append(String.format("%s_ind1: %s%n", definition.getIndexTag(), resolveInd1()));
 
 		if (definition.getInd2().exists())
-			output += String.format("%s_ind2: %s\n", definition.getIndexTag(), resolveInd2());
+			output.append(String.format("%s_ind2: %s%n", definition.getIndexTag(), resolveInd2()));
 
 		for (MarcSubfield subfield : subfields) {
 			String code = subfield.getCodeForIndex();
-			output += String.format("%s%s: %s\n", definition.getIndexTag(), code, subfield.resolve());
+			output.append(String.format("%s%s: %s%n", definition.getIndexTag(), code, subfield.resolve()));
 			if (subfield.getDefinition() != null && subfield.getDefinition().hasContentParser()) {
 				Map<String, String> extra = subfield.parseContent();
-				if (extra != null)
-					for (String key : extra.keySet())
-						output += String.format("%s%s_%s: %s\n", definition.getIndexTag(), code, key, extra.get(key));
+				if (extra != null) {
+					for (Map.Entry<String, String> entry : extra.entrySet()) {
+						output.append(String.format(
+							"%s%s_%s: %s%n",
+							definition.getIndexTag(), code, entry.getKey(), entry.getValue()
+						));
+					}
+				}
 			}
 		}
 
-		return output;
+		return output.toString();
 	}
 
 	@Override
@@ -205,10 +214,10 @@ public class DataField implements Extractable, Validatable {
 				&& subfield.getDefinition().hasContentParser()) {
 				Map<String, String> extra = subfield.parseContent();
 				if (extra != null)
-					for (String key : extra.keySet())
+					for (Map.Entry<String, String> entry : extra.entrySet())
 						pairs.put(
-							keyGenerator.forSubfield(subfield, key),
-							Arrays.asList(extra.get(key))
+							keyGenerator.forSubfield(subfield, entry.getKey()),
+							Arrays.asList(entry.getValue())
 						);
 			}
 		}
@@ -405,17 +414,19 @@ public class DataField implements Extractable, Validatable {
 				}
 			}
 
-			for (SubfieldDefinition subfieldDefinition : counter.keySet()) {
-				if (counter.get(subfieldDefinition) > 1
+			for (Map.Entry<SubfieldDefinition, Integer> entry : counter.entrySet()) {
+				SubfieldDefinition subfieldDefinition = entry.getKey();
+				Integer count = entry.getValue();
+				if (count > 1
 					&& subfieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
 					validationErrors.add(new ValidationError(record.getId(), subfieldDefinition.getPath(),
 						ValidationErrorType.NonrepeatableSubfield,
-						String.format("there are %d instances", counter.get(subfieldDefinition)),
+						String.format("there are %d instances", count),
 						definition.getDescriptionUrl()));
 					errors.add(String.format(
 						"%s$%s is not repeatable, however there are %d instances (%s)",
 						definition.getTag(), subfieldDefinition.getCode(),
-						counter.get(subfieldDefinition), definition.getDescriptionUrl()));
+						count, definition.getDescriptionUrl()));
 					isValid = false;
 				}
 			}

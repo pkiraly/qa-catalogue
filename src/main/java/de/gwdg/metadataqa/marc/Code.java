@@ -1,10 +1,12 @@
 package de.gwdg.metadataqa.marc;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class Code {
+public class Code implements Serializable {
 	private String code;
 	private String label;
 	private boolean isRange = false;

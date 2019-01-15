@@ -3,12 +3,13 @@ package de.gwdg.metadataqa.marc.definition.general.parser;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RecordControlNumberParser implements SubfieldContentParser {
+public class RecordControlNumberParser implements SubfieldContentParser, Serializable {
 
 	private static final Pattern REGEX = Pattern.compile("^\\((.*?)\\)(.*?)$");
 	private CodeList codeList = OrganizationCodes.getInstance();

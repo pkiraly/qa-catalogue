@@ -58,7 +58,7 @@ public class InvalidMARCspecException extends IllegalArgumentException {
 
 	private static String createMessage(String message, String context) {
 		context = StringUtils.isNotBlank(context)
-			? String.format("\n%s\"%s\"", ARGUMENT, context)
+			? String.format("%n%s\"%s\"", ARGUMENT, context)
 			: null;
 
 		return "Detected invalid " + message + context;

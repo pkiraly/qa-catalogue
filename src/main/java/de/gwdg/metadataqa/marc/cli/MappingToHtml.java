@@ -27,46 +27,46 @@ public class MappingToHtml {
 			"</thead>");
 
 		System.out.println("<tbody>");
-		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "Leader");
+		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>%n", "Leader");
 		for (ControlSubfieldDefinition subfield : LeaderSubfields.getSubfieldList()) {
 			ControlSubfieldToHtml(subfield, "Leader", "Leader");
 		}
 
-		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "001");
+		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>%n", "001");
 		System.out.print(row("001",
 			Control001Definition.getInstance().getMqTag(),
 			Control001Definition.getInstance().getLabel()));
 
-		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "003");
+		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>%n", "003");
 		System.out.print(row("003",
 			Control003Definition.getInstance().getMqTag(),
 			Control003Definition.getInstance().getLabel()));
 
-		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "005");
+		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>%n", "005");
 		System.out.print(row("005",
 			Control005Definition.getInstance().getMqTag(),
 			Control005Definition.getInstance().getLabel()));
 
-		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "006");
+		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>%n", "006");
 		System.out.print(row("006", Control006Definition.getInstance().getMqTag(), Control006Definition.getInstance().getLabel()));
 		for (String type : Control006Subfields.getInstance().getSubfields().keySet()) {
-			System.out.printf("<tr><td colspan=\"3\"><em>%s</em></td></tr>\n", type);
+			System.out.printf("<tr><td colspan=\"3\"><em>%s</em></td></tr>%n", type);
 			for (ControlSubfieldDefinition subfield : Control006Subfields.getInstance().getSubfields().get(type))
 				ControlSubfieldToHtml(subfield, "006", Control006Definition.getInstance().getMqTag());
 		}
 
-		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "007");
+		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>%n", "007");
 		System.out.print(row("007", Control007Definition.getInstance().getMqTag(), Control007Definition.getInstance().getLabel()));
 		for (String category : Control007Subfields.getInstance().getSubfields().keySet()) {
-			System.out.printf("<tr><td colspan=\"3\"><em>%s</em></td></tr>\n", category);
+			System.out.printf("<tr><td colspan=\"3\"><em>%s</em></td></tr>%n", category);
 			for (ControlSubfieldDefinition subfield : Control007Subfields.getInstance().getSubfields().get(category))
 				ControlSubfieldToHtml(subfield, "007", Control007Definition.getInstance().getMqTag());
 		}
 
-		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n", "008");
+		System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>%n", "008");
 		System.out.print(row("008", Control008Definition.getInstance().getMqTag(), Control008Definition.getInstance().getLabel()));
 		for (String type : Control008Subfields.getInstance().getSubfields().keySet()) {
-			System.out.printf("<tr><td colspan=\"3\"><em>%s</em></td></tr>\n", type);
+			System.out.printf("<tr><td colspan=\"3\"><em>%s</em></td></tr>%n", type);
 			for (ControlSubfieldDefinition subfield : Control008Subfields.getInstance().getSubfields().get(type))
 				ControlSubfieldToHtml(subfield, "008", Control008Definition.getInstance().getMqTag());
 		}
@@ -103,33 +103,37 @@ public class MappingToHtml {
 	}
 
 	private static void tagToHtml(DataFieldDefinition tag) {
-		String text = String.format("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>\n",
-			tag.getTag());
-		text += row(tag.getTag(), tag.getIndexTag(), tag.getLabel());
+		StringBuffer text = new StringBuffer(
+			String.format(
+				"<tr><td colspan=\"3\"><strong>%s</strong></td></tr>%n",
+				tag.getTag()
+			)
+		);
+		text.append(row(tag.getTag(), tag.getIndexTag(), tag.getLabel()));
 		if (tag.getInd1().exists() || tag.getInd2().exists())
-			text += "<tr><td colspan=\"3\"><em>indicators</em></td></tr>\n";
+			text.append("<tr><td colspan=\"3\"><em>indicators</em></td></tr>\n");
 		if (tag.getInd1().exists())
-			text += row(
+			text.append(row(
 				String.format("%s$ind1", tag.getTag()),
 				String.format("%s_%s", tag.getIndexTag(), tag.getInd1().getIndexTag()),
 				tag.getInd1().getLabel()
-			);
+			));
 		if (tag.getInd2().exists())
-			text += row(
+			text.append(row(
 				String.format("%s$ind2", tag.getTag()),
 				String.format("%s_%s", tag.getIndexTag(), tag.getInd2().getIndexTag()),
 				tag.getInd2().getLabel()
-			);
-		text += "<tr><td colspan=\"3\"><em>data subfields</em></td></tr>\n";
+			));
+		text.append("<tr><td colspan=\"3\"><em>data subfields</em></td></tr>%n");
 		for (SubfieldDefinition subfield : tag.getSubfields()) {
-			text += row(
+			text.append(row(
 				String.format("%s$%s", tag.getTag(), subfield.getCode()),
 				String.format("%s%s", tag.getIndexTag(), subfield.getCodeForIndex()),
 				subfield.getLabel()
-			);
+			));
 		}
 
-		System.out.print(text);
+		System.out.print(text.toString());
 	}
 
 	private static String row(String marc, String mq, String label) {
@@ -138,7 +142,7 @@ public class MappingToHtml {
 				"<td class=\"marc\">%s</td>" +
 				"<td class=\"mq\">%s</td>" +
 				"<td>%s</td>" +
-				"</tr>\n",
+				"</tr>%n",
 			marc, mq, label);
 	}
 }

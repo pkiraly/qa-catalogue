@@ -1,16 +1,15 @@
 package de.gwdg.metadataqa.marc.definition.general.parser;
 
-import java.text.ParseException;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
-public class Control008All00DateParser implements SubfieldContentParser {
+public class Control008All00DateParser implements SubfieldContentParser, Serializable {
 
 	private String dateFormat = "yyMMdd";
 	private DateTimeFormatter marc;

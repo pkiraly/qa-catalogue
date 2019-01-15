@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.SubfieldValidator;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.Map;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class SubfieldDefinition {
+public class SubfieldDefinition implements Serializable {
 
 	private String code;
 	private String bibframeTag;

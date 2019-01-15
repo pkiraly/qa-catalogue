@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.definition;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class ControlSubfieldDefinition {
+public class ControlSubfieldDefinition implements Serializable {
 
 	protected String id;
 	protected String label;
@@ -210,10 +211,10 @@ public class ControlSubfieldDefinition {
 		return null;
 	}
 
-	public boolean isHistoricalCode(String code) {
+	public boolean isHistoricalCode(String inputCode) {
 		return historicalCodes != null
 		       && !historicalCodes.isEmpty()
-		       && historicalCodes.contains(code);
+		       && historicalCodes.contains(inputCode);
 	}
 
 	public String getPath() {

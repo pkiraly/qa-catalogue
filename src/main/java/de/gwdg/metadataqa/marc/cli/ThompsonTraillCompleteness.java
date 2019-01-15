@@ -70,7 +70,7 @@ public class ThompsonTraillCompleteness {
 
 			try {
 				if (i == 0) {
-					message = StringUtils.join(ThompsonTraillAnalysis.getHeader(), ",") + "\n";
+					message = StringUtils.join(ThompsonTraillAnalysis.getHeader(), ",") + "%n";
 					FileUtils.writeStringToFile(output, message, true);
 				}
 
@@ -88,7 +88,7 @@ public class ThompsonTraillCompleteness {
 					try {
 						MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
 						List<Integer> scores = ThompsonTraillAnalysis.getScores(marcRecord);
-						message = String.format("\"%s\",%s\n",
+						message = String.format("\"%s\",%s%n",
 							marc4jRecord.getControlNumber(),
 							StringUtils.join(scores, ","));
 						FileUtils.writeStringToFile(output, message, true);

@@ -5,11 +5,12 @@ import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.definition.Validator;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CodeList implements Validator {
+public class CodeList implements Validator, Serializable {
 	protected String name;
 	protected String url;
 	protected List<Code> codes;

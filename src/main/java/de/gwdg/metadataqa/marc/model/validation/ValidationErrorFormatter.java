@@ -10,35 +10,37 @@ import java.util.List;
 public class ValidationErrorFormatter {
 
 	public static String format(List<ValidationError> errors, ValidationErrorFormat format) {
-		String message = "";
+    StringBuffer message = new StringBuffer();
 		switch (format) {
 			case TAB_SEPARATED:
 			case COMMA_SEPARATED:
 				for (ValidationError error : errors)
-					message += format(error, format) + "\n";
+					message.append(format(error, format) + "%n");
 				break;
 			case TEXT:
-				message += String.format("%s in '%s':\n",
+				message.append(String.format("%s in '%s':%n",
 					(errors.size() == 1 ? "Error" : "Errors"),
-					errors.get(0).getRecordId());
+					errors.get(0).getRecordId()
+				));
 				for (ValidationError error : errors) {
-					message += "\t" + formatTextWithoutId(error) + "\n";
+					message.append(String.format("\t%s%n", formatTextWithoutId(error)));
 				}
+				break;
 			default:
 				break;
 		}
 
-		return message;
+		return message.toString();
 	}
 
 	public static String format(ValidationError error, ValidationErrorFormat format) {
-		String message = "";
+    StringBuffer message = new StringBuffer();
 		if (format.equals(ValidationErrorFormat.TAB_SEPARATED)) {
-			message = createCvsRow(asArray(error), '\t');
+			message.append(createCvsRow(asArray(error), '\t'));
 		} else if (format.equals(ValidationErrorFormat.COMMA_SEPARATED)) {
-			message = createCvsRow(asArray(error), ',');
+			message.append(createCvsRow(asArray(error), ','));
 		}
-		return message;
+		return message.toString();
 	}
 
 	public static List<String> formatForSummary(List<ValidationError> validationErrors,

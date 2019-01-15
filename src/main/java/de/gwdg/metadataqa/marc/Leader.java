@@ -8,6 +8,7 @@ import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import de.gwdg.metadataqa.marc.utils.keygenerator.PositionalControlFieldKeyGenerator;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -15,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class Leader extends MarcPositionalControlField implements Extractable, Validatable {
+public class Leader extends MarcPositionalControlField implements Extractable, Validatable, Serializable {
 
 	private static final Logger logger = Logger.getLogger(Leader.class.getCanonicalName());
 
@@ -268,11 +269,11 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
 	}
 
 	public String toString() {
-		String output = String.format( "type: %s\n", type.getValue());
+		StringBuffer output = new StringBuffer(String.format("type: %s%n", type.getValue()));
 		for (ControlSubfieldDefinition key : LeaderSubfields.getSubfieldList()) {
-			output += String.format("%s: %s\n", key.getLabel(), resolve(key));
+			output.append(String.format("%s: %s%n", key.getLabel(), resolve(key)));
 		}
-		return output;
+		return output.toString();
 	}
 
 	@Override
@@ -285,8 +286,9 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
 		PositionalControlFieldKeyGenerator keyGenerator = new PositionalControlFieldKeyGenerator(
 			definition.getTag(), definition.getMqTag(), type);
 		map.put(keyGenerator.forTag(), Arrays.asList(content));
-		for (ControlSubfieldDefinition controlSubfield : valuesMap.keySet()) {
-			String value = controlSubfield.resolve(valuesMap.get(controlSubfield));
+		for (Map.Entry<ControlSubfieldDefinition, String> entry : valuesMap.entrySet()) {
+			ControlSubfieldDefinition controlSubfield = entry.getKey();
+			String value = controlSubfield.resolve(entry.getValue());
 			map.put(keyGenerator.forSubfield(controlSubfield), Arrays.asList(value));
 		}
 		return map;

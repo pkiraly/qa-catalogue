@@ -5,13 +5,14 @@ import de.gwdg.metadataqa.marc.definition.ValidatorResponse;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * Validation of ISSN (International_Standard_Serial_Number)
  */
-public class ISSNValidator implements SubfieldValidator {
+public class ISSNValidator implements SubfieldValidator, Serializable {
 
 	public static final String URL = "https://en.wikipedia.org/wiki/International_Standard_Serial_Number";
 	public static final Pattern ISSN = Pattern.compile("\\d{4}-\\d{3}[\\dxX]");

@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.ValidatorResponse;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,7 +14,7 @@ import java.util.regex.Pattern;
  * https://www.moreofless.co.uk/validate-isbn-10-java/
  * https://www.moreofless.co.uk/validate-isbn-13-java/
  */
-public class ISBNValidator implements SubfieldValidator {
+public class ISBNValidator implements SubfieldValidator, Serializable {
 
 	public static final String URL = "https://en.wikipedia.org/wiki/International_Standard_Book_Number";
 	public static final Pattern ISBN = Pattern.compile("\\d[\\d-]{8,}[\\dxX]");

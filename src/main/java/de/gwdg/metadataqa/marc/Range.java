@@ -1,10 +1,11 @@
 package de.gwdg.metadataqa.marc;
 
+import java.io.Serializable;
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Range {
+public class Range implements Serializable {
 
 	private static final Pattern numericRangePattern = Pattern.compile("^(\\d+)-(\\d+)$");
 

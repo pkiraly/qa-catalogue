@@ -3,9 +3,10 @@ package de.gwdg.metadataqa.marc.definition.general;
 import de.gwdg.metadataqa.marc.Extractable;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Linkage implements Extractable {
+public class Linkage implements Extractable, Serializable {
 
 	private String linkingTag;
 	private String occurrenceNumber;
@@ -49,8 +50,8 @@ public class Linkage implements Extractable {
 	public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
 		Map<String, List<String>> map = new LinkedHashMap<>();
 		Map<String, String> simpleMap = getMap();
-		for (String key : simpleMap.keySet()) {
-			map.put(key, Arrays.asList(simpleMap.get(key)));
+		for (Map.Entry<String, String> entry : simpleMap.entrySet()) {
+			map.put(entry.getKey(), Arrays.asList(entry.getValue()));
 		}
 		return map;
 	}

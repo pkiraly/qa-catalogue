@@ -43,7 +43,7 @@ public abstract class Control00XSubfieldsTest {
 					if (!isException(subfield, code))
 						assertEquals(
 							String.format(
-								"field: %s, code: '%s' (length should be %d)\n",
+								"field: %s, code: '%s' (length should be %d)%n",
 								subfield.getId(), code.getCode(), length
 							),
 							code.getCode().length(), length

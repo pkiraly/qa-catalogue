@@ -3,13 +3,14 @@ package de.gwdg.metadataqa.marc.definition.general.parser;
 import de.gwdg.metadataqa.marc.definition.general.Linkage;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class LinkageParser implements SubfieldContentParser {
+public class LinkageParser implements SubfieldContentParser, Serializable {
 
 	public static final Pattern INVALID_CHAR = Pattern.compile("[^0-9\\-\\/\\($BNSr]");
 

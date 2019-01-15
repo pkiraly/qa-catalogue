@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.general.parser;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -9,7 +10,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class YYYYMMDDDateParser implements SubfieldContentParser {
+public class YYYYMMDDDateParser implements SubfieldContentParser, Serializable {
 
 	private String dateFormat = "yyyyMMdd";
 	private DateTimeFormatter marc;

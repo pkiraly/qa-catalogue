@@ -155,6 +155,8 @@ public class MarcFactory {
 					record.setControl007(new Control007(data)); break;
 				case "008":
 					record.setControl008(new Control008(data, record.getType())); break;
+				default:
+					break;
 			}
 		}
 	}

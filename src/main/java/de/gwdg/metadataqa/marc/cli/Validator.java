@@ -89,8 +89,9 @@ public class Validator implements MarcFileProcessor, Serializable {
 		if (parameters.doSummary()) {
 			try {
 				String message;
-				for (String error : errorCounter.keySet()) {
-					message = String.format("%s (%d times)\n", error, errorCounter.get(error));
+				for (Map.Entry<String, Integer> entry : errorCounter.entrySet()) {
+					String error = entry.getKey();
+					message = String.format("%s (%d times)%n", error, entry.getValue());
 					if (parameters.useStandardOutput())
 						System.out.print(message);
 					else

@@ -7,10 +7,11 @@ import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ControlValue implements Validatable {
+public class ControlValue implements Validatable, Serializable {
 
 	private ControlSubfieldDefinition definition;
 	private String value;

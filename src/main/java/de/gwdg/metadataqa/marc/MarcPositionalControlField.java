@@ -50,8 +50,9 @@ public class MarcPositionalControlField extends MarcControlField {
 			new PositionalControlFieldKeyGenerator(tag, mqTag, type);
 		if (content != null) {
 			map.put(keyGenerator.forTag(), Arrays.asList(content));
-			for (ControlSubfieldDefinition controlSubfield : valuesMap.keySet()) {
-				String value = controlSubfield.resolve(valuesMap.get(controlSubfield));
+			for (Map.Entry<ControlSubfieldDefinition, String> entry : valuesMap.entrySet()) {
+				ControlSubfieldDefinition controlSubfield = entry.getKey();
+				String value = controlSubfield.resolve(entry.getValue());
 				map.put(keyGenerator.forSubfield(controlSubfield), Arrays.asList(value));
 			}
 		}

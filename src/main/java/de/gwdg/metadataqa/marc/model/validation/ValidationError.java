@@ -1,6 +1,8 @@
 package de.gwdg.metadataqa.marc.model.validation;
 
-public class ValidationError {
+import java.io.Serializable;
+
+public class ValidationError implements Serializable {
 
 	private String recordId;
 	private String marcPath;

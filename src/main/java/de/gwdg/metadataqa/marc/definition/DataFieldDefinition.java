@@ -2,9 +2,10 @@ package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.Code;
 
+import java.io.Serializable;
 import java.util.*;
 
-public abstract class DataFieldDefinition {
+public abstract class DataFieldDefinition implements Serializable {
 	protected String tag;
 	protected String bibframeTag;
 	protected String mqTag;

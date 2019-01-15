@@ -10,12 +10,13 @@ import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 import de.gwdg.metadataqa.marc.definition.tags.control.Control001Definition;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MarcRecord implements Extractable, Validatable {
+public class MarcRecord implements Extractable, Validatable, Serializable {
 
 	private static final Logger logger = Logger.getLogger(MarcRecord.class.getCanonicalName());
 	private static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
@@ -163,27 +164,27 @@ public class MarcRecord implements Extractable, Validatable {
 	}
 
 	public String format() {
-		String output = "";
+		StringBuffer output = new StringBuffer();
 		for (DataField field : datafields) {
-			output += field.format();
+			output.append(field.format());
 		}
-		return output;
+		return output.toString();
 	}
 
 	public String formatAsMarc() {
-		String output = "";
+		StringBuffer output = new StringBuffer();
 		for (DataField field : datafields) {
-			output += field.formatAsMarc();
+			output.append(field.formatAsMarc());
 		}
-		return output;
+		return output.toString();
 	}
 
 	public String formatForIndex() {
-		String output = "";
+		StringBuffer output = new StringBuffer();
 		for (DataField field : datafields) {
-			output += field.formatForIndex();
+			output.append(field.formatForIndex());
 		}
-		return output;
+		return output.toString();
 	}
 
 	public Map<String, List<String>> getKeyValuePairs() {
@@ -249,11 +250,12 @@ public class MarcRecord implements Extractable, Validatable {
 					tags.put(tag, tags.get(tag) + 1);
 				}
 				List<String> unhandledTagsList = new ArrayList<>();
-				for (String tag : tags.keySet()) {
-					if (tags.get(tag) == 1)
+				for (Map.Entry<String, Integer> entry : tags.entrySet()) {
+					String tag = entry.getKey();
+					if (entry.getValue() == 1)
 						unhandledTagsList.add(tag);
 					else
-						unhandledTagsList.add(String.format("%s (%d*)", tag, tags.get(tag)));
+						unhandledTagsList.add(String.format("%s (%d*)", tag, entry.getValue()));
 				}
 				for (String tag : unhandledTagsList) {
 					validationErrors.add(new ValidationError(
@@ -307,21 +309,21 @@ public class MarcRecord implements Extractable, Validatable {
 			}
 		}
 
-		for (DataFieldDefinition fieldDefinition : repetitionCounter.keySet()) {
-			if (repetitionCounter.get(fieldDefinition) > 1
+		for (Map.Entry<DataFieldDefinition, Integer> entry : repetitionCounter.entrySet()) {
+			DataFieldDefinition fieldDefinition = entry.getKey();
+			Integer count = entry.getValue();
+			if (count > 1
 				&& fieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
 				validationErrors.add(new ValidationError(getId(), fieldDefinition.getTag(),
 					ValidationErrorType.NonrepeatableField,
-					String.format(
-						"there are %d instances",
-						repetitionCounter.get(fieldDefinition)
-					),
+					String.format("there are %d instances", count),
 					fieldDefinition.getDescriptionUrl()
 				));
 				errors.add(String.format(
 					"%s is not repeatable, however there are %d instances (%s)",
 					fieldDefinition.getTag(),
-					repetitionCounter.get(fieldDefinition), fieldDefinition.getDescriptionUrl()));
+					count, fieldDefinition.getDescriptionUrl()
+				));
 				isValidRecord = false;
 			}
 		}
@@ -374,12 +376,10 @@ public class MarcRecord implements Extractable, Validatable {
 			for (MarcControlField field : controlfieldIndex.get(selector.getFieldTag())) {
 				if (field == null)
 					continue;
-				if (simpleControlTags.contains(field.definition.getTag())) {
-					results.add(field.getContent());
-				} else {
+				if (!simpleControlTags.contains(field.definition.getTag())) {
 					// TODO: check control subfields
-					results.add(field.getContent());
 				}
+				results.add(field.getContent());
 			}
 
 		} else if (datafieldIndex.containsKey(selector.getFieldTag())) {
@@ -428,6 +428,7 @@ public class MarcRecord implements Extractable, Validatable {
 				case "006": controlField = control006; break;
 				case "007": controlField = control007; break;
 				case "008": controlField = control008; break;
+				default: break;
 			}
 			if (controlField != null)
 				content = controlField.getContent();
@@ -466,8 +467,9 @@ public class MarcRecord implements Extractable, Validatable {
 			case "001": controlField = control001; break;
 			case "003": controlField = control003; break;
 			case "005": controlField = control005; break;
+			default: break;
 		}
-		if (controlField.getContent().equals(query))
+		if (controlField != null && controlField.getContent().equals(query))
 			results.add(controlField.getContent());
 	}
 

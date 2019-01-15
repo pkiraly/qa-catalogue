@@ -23,7 +23,7 @@ public class CommonParameters implements Serializable {
 	protected boolean lineSeparated = false;
 
 	protected Options options = new Options();
-	protected static CommandLineParser parser = new DefaultParser();
+	protected static final CommandLineParser parser = new DefaultParser();
 	protected CommandLine cmd;
 	private boolean isOptionSet = false;
 
@@ -136,15 +136,15 @@ public class CommonParameters implements Serializable {
 
 	public String formatParameters() {
 		String text = "";
-		text += String.format("marcVersion: %s, %s\n", marcVersion.getCode(), marcVersion.getLabel());
-		text += String.format("limit: %d\n", limit);
-		text += String.format("offset: %s\n", offset);
-		text += String.format("MARC files: %s\n", StringUtils.join(args, ", "));
-		text += String.format("id: %s\n", id);
-		text += String.format("defaultRecordType: %s\n", defaultRecordType);
-		text += String.format("fixAlephseq: %s\n", fixAlephseq);
-		text += String.format("marcxml: %s\n", marcxml);
-		text += String.format("lineSeparated: %s\n", lineSeparated);
+		text += String.format("marcVersion: %s, %s%n", marcVersion.getCode(), marcVersion.getLabel());
+		text += String.format("limit: %d%n", limit);
+		text += String.format("offset: %s%n", offset);
+		text += String.format("MARC files: %s%n", StringUtils.join(args, ", "));
+		text += String.format("id: %s%n", id);
+		text += String.format("defaultRecordType: %s%n", defaultRecordType);
+		text += String.format("fixAlephseq: %s%n", fixAlephseq);
+		text += String.format("marcxml: %s%n", marcxml);
+		text += String.format("lineSeparated: %s%n", lineSeparated);
 
 		return text;
 	}

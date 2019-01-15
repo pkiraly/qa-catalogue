@@ -429,8 +429,8 @@ public class MarcFieldExtractor implements Calculator, Serializable {
 		duplumKeyMap.put("volumeDesignation", volumeDesignation);
 		duplumKeyMap.put("relatedParts", relatedParts);
 		duplumKeyMap.put("systemControlNumbers", systemControlNumbers);
-		for (String key : oclcMap.keySet()) {
-			duplumKeyMap.put(key, oclcMap.get(key));
+		for (Map.Entry<String, Object> entry : oclcMap.entrySet()) {
+			duplumKeyMap.put(entry.getKey(), entry.getValue());
 		}
 	}
 

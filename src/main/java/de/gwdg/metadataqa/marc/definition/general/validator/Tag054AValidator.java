@@ -6,12 +6,13 @@ import de.gwdg.metadataqa.marc.definition.ValidatorResponse;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Tag054AValidator implements SubfieldValidator {
+public class Tag054AValidator implements SubfieldValidator, Serializable {
 
 	private static final Pattern BC = Pattern.compile("^([a-d])(-)$");
 	private static final Pattern CE = Pattern.compile("^([e-y])(\\d|-)$");
@@ -59,7 +60,7 @@ public class Tag054AValidator implements SubfieldValidator {
 									descriptionUrl
 								)
 							);
-							response.addError(String.format("%s error in '%s': '%s' does not match any patterns (%s)\n",
+							response.addError(String.format("%s error in '%s': '%s' does not match any patterns (%s)%n",
 								definition.getPath(), value, part, descriptionUrl));
 						}
 					}

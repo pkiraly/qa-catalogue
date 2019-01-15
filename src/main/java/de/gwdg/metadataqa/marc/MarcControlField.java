@@ -5,12 +5,13 @@ import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MarcControlField implements Validatable, Extractable {
+public class MarcControlField implements Validatable, Extractable, Serializable {
 
 	protected DataFieldDefinition definition;
 	protected String content;

@@ -30,8 +30,9 @@ public class MarcSolrClient {
        throws IOException, SolrServerException {
         SolrInputDocument document = new SolrInputDocument();
         document.addField("id", id);
-        for (String key : objectMap.keySet()) {
-            Object value = objectMap.get(key);
+        for (Map.Entry<String, List<String>> entry : objectMap.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
             if (value != null) {
                 document.addField(key + "_ss", value);
             }
@@ -41,7 +42,7 @@ public class MarcSolrClient {
             UpdateResponse response = solr.add(document);
         } catch (HttpSolrClient.RemoteSolrException ex) {
             System.err.printf("document: %s", document);
-            System.err.printf("Commit exception: %s\n", ex.getMessage());
+            System.err.printf("Commit exception: %s%n", ex.getMessage());
         }
     }
 
@@ -49,8 +50,9 @@ public class MarcSolrClient {
             throws IOException, SolrServerException {
         SolrInputDocument document = new SolrInputDocument();
         document.addField("id", id);
-        for (String key : objectMap.keySet()) {
-            Object value = objectMap.get(key);
+        for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
             if (value != null) {
                 document.addField(key + "_ss", value);
             }
@@ -60,7 +62,7 @@ public class MarcSolrClient {
             UpdateResponse response = solr.add(document);
         } catch (HttpSolrClient.RemoteSolrException ex) {
             System.err.printf("document: %s", document);
-            System.err.printf("Commit exception: %s\n", ex.getMessage());
+            System.err.printf("Commit exception: %s%n", ex.getMessage());
         }
     }
 

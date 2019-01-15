@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.utils.marcspec.legacy;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.regex.Pattern;
  * Java port of Carsten Klee's PHP MarcSpec class
  * https://github.com/MARCspec/php-marc-spec/blob/26f33207fbe2745c692a70a2832ca48cfc0d68e8/MarcSpec.php
  */
-public class MarcSpec {
+public class MarcSpec implements Serializable {
 
 	private static final Pattern fieldTagPattern = Pattern.compile("[X0-9]{3,3}|LDR");
 	private static final Pattern hasSpacePattern = Pattern.compile("\\s");
@@ -343,7 +344,7 @@ public class MarcSpec {
 		subfields = new HashMap<>();
 	}
 
-	private void checkIfString(String arg) {
+	private void checkIfString(Object arg) {
 		if (!(arg instanceof String))
 			throw new IllegalArgumentException(String.format(
 				"Method decode only accepts string as argument. Given %s.", arg.getClass().getSimpleName()

@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.controlsubfields.Control006Subfields;
 import de.gwdg.metadataqa.marc.definition.controltype.Control008Type;
 import de.gwdg.metadataqa.marc.definition.tags.control.Control006Definition;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -12,7 +13,7 @@ import java.util.logging.Logger;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class Control006 extends MarcPositionalControlField {
+public class Control006 extends MarcPositionalControlField implements Serializable {
 
 	private static final Logger logger = Logger.getLogger(Control006.class.getCanonicalName());
 

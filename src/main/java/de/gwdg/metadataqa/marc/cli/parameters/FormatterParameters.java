@@ -97,9 +97,9 @@ public class FormatterParameters extends CommonParameters {
 	@Override
 	public String formatParameters() {
 		String text = super.formatParameters();
-		text += String.format("format: %s\n", format);
-		text += String.format("countNr: %s\n", countNr);
-		text += String.format("search: %s\n", search);
+		text += String.format("format: %s%n", format);
+		text += String.format("countNr: %s%n", countNr);
+		text += String.format("search: %s%n", search);
 		return text;
 	}
 }

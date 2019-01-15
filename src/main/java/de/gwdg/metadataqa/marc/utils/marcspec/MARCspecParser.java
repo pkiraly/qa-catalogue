@@ -414,8 +414,8 @@ public class MARCspecParser {
 		if (matcher.matches()) {
 			// _fieldMatches
 			parsed = extractValues(matcher);
-			for (String key : parsed.keySet()) {
-				field.put(key, (Object)parsed.get(key));
+			for (Map.Entry<String, String> entry : parsed.entrySet()) {
+				field.put(entry.getKey(), (Object)entry.getValue());
 			}
 
 			if (!parsed.containsKey("field")) { // TODO: check if 'tag' is the required key
@@ -464,13 +464,13 @@ public class MARCspecParser {
 		List<Map<String, String>> _subfieldMatches = null;
 		Matcher matcher = SUBFIELD.matcher(subfieldspec);
 		if (matcher.groupCount() > 1) {
-			String test = "";
+      StringBuffer test = new StringBuffer();
 			List<Map<String, String>> subfields = new ArrayList<>();
 			while (matcher.find()) {
 				Map<String, String> _subfield = extractValues(matcher);
 				subfields.add(_subfield);
 
-				test += _subfield.get("subfield");
+				test.append(_subfield.get("subfield"));
 				if (_subfield.containsKey("subspecs")) {
 					List<Object> _ss = new ArrayList<>();
 					/*
@@ -494,7 +494,7 @@ public class MARCspecParser {
 					*/
 				}
 			}
-			if (!test.equals(subfieldspec)) {
+			if (!test.toString().equals(subfieldspec)) {
 				throw new InvalidMARCspecException(InvalidMARCspecException.SF + InvalidMARCspecException.USELESS, subfieldspec);
 			}
 

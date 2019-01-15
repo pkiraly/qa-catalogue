@@ -8,11 +8,12 @@ import de.gwdg.metadataqa.marc.definition.general.validator.SubfieldValidator;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class MarcSubfield implements Validatable {
+public class MarcSubfield implements Validatable, Serializable {
 	private MarcRecord record;
 	private DataField field;
 	private SubfieldDefinition definition;

@@ -64,11 +64,14 @@ public class RecordIterator {
 					Record marc4jRecord = null;
 					try {
 						marc4jRecord = reader.next();
-					} catch (MarcException | NegativeArraySizeException e) {
+					} catch (MarcException | NegativeArraySizeException | NumberFormatException e) {
 						logger.severe(
 							String.format(
 								"MARC record parsing problem at record #%d (last known ID: %s): %s",
 								(i+1), lastKnownId, e.getLocalizedMessage()));
+					} catch (Exception e) {
+						logger.severe("another exception");
+						e.printStackTrace();
 					}
 					i++;
 					if (marc4jRecord == null)
@@ -105,6 +108,12 @@ public class RecordIterator {
 						if (processor.getParameters().doLog())
 							logger.severe(String.format("Error with record '%s'. %s", marc4jRecord.getControlNumber(), e.getMessage()));
 						continue;
+					} catch (Exception e) {
+						if (marc4jRecord.getControlNumber() == null)
+							logger.severe("No record number at " + i);
+						if (processor.getParameters().doLog())
+							logger.severe(String.format("Error with record '%s'. %s", marc4jRecord.getControlNumber(), e.getMessage()));
+						continue;
 					}
 				}
 				if (processor.getParameters().doLog())
@@ -115,8 +124,21 @@ public class RecordIterator {
 					logger.severe(ex.toString());
 				System.exit(0);
 			} catch(Exception ex){
-				if (processor.getParameters().doLog())
-					logger.severe(ex.toString());
+				if (processor.getParameters().doLog()) {
+					logger.severe("Other exception: " + ex.toString());
+
+					for (StackTraceElement element : ex.getStackTrace()) {
+						System.err.println(element.toString());
+					}
+					Throwable exa = ex;
+					while (exa.getCause() != null) {
+						System.err.println("cause");
+						exa = exa.getCause();
+						for (StackTraceElement element : exa.getStackTrace()) {
+							System.err.println(element.toString());
+						}
+					}
+				}
 				ex.printStackTrace();
 				System.exit(0);
 			}

@@ -38,8 +38,14 @@ public class Validator implements MarcFileProcessor, Serializable {
 		errorCounter = new TreeMap<>();
 	}
 
-	public static void main(String[] args) throws ParseException {
-		MarcFileProcessor processor = new Validator(args);
+	public static void main(String[] args) {
+		MarcFileProcessor processor = null;
+		try {
+			processor = new Validator(args);
+		} catch (ParseException e) {
+			System.err.println("ERROR. " + e.getLocalizedMessage());
+			System.exit(0);
+		}
 		if (processor.getParameters().getArgs().length < 1) {
 			System.err.println("Please provide a MARC file name!");
 			System.exit(0);
@@ -72,6 +78,19 @@ public class Validator implements MarcFileProcessor, Serializable {
 				output.delete();
 			logger.info("output: " + output.getPath());
 		}
+		if (!parameters.doSummary()) {
+			String message = ValidationErrorFormatter.formatHeader(parameters.getFormat());
+			if (parameters.useStandardOutput())
+				System.out.print(message);
+			else {
+				try {
+					FileUtils.writeStringToFile(output, message, true);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
 	}
 
 	@Override
@@ -88,7 +107,10 @@ public class Validator implements MarcFileProcessor, Serializable {
 	public void afterIteration() {
 		if (parameters.doSummary()) {
 			try {
-				String message;
+				String message = ValidationErrorFormatter.formatHeaderForSummary(
+					parameters.getFormat()
+				);
+				FileUtils.writeStringToFile(output, message, true);
 				for (Map.Entry<String, Integer> entry : errorCounter.entrySet()) {
 					String error = entry.getKey();
 					message = String.format("%s (%d times)%n", error, entry.getValue());
@@ -129,7 +151,9 @@ public class Validator implements MarcFileProcessor, Serializable {
 					errorCounter.put(error, errorCounter.get(error) + 1);
 				}
 			} else {
-				String message = ValidationErrorFormatter.format(marcRecord.getValidationErrors(), parameters.getFormat());
+				String message = ValidationErrorFormatter.format(
+					marcRecord.getValidationErrors(), parameters.getFormat()
+				);
 				if (parameters.useStandardOutput())
 					System.out.print(message);
 				else {

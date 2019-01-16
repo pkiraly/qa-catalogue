@@ -49,8 +49,14 @@ public class CommonParameters implements Serializable {
 	public CommonParameters(String[] arguments)  throws ParseException {
 		cmd = parser.parse(getOptions(), arguments);
 
-		if (cmd.hasOption("marcVersion"))
+		if (cmd.hasOption("marcVersion")) {
 			marcVersion = MarcVersion.byCode(cmd.getOptionValue("marcVersion"));
+			if (marcVersion == null)
+				throw new ParseException(
+					String.format(
+						"Unrecognized marcVersion parameter value: '%s'",
+						cmd.getOptionValue("marcVersion")));
+		}
 
 		doHelp = cmd.hasOption("help");
 

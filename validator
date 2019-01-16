@@ -1,3 +1,3 @@
 # Calling Validator
 . ./common-script
-java -cp $JAR de.gwdg.metadataqa.marc.cli.Validator $@
+java -Xmx2g -cp $JAR de.gwdg.metadataqa.marc.cli.Validator $@

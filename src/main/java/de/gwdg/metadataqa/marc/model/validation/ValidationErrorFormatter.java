@@ -15,7 +15,7 @@ public class ValidationErrorFormatter {
 			case TAB_SEPARATED:
 			case COMMA_SEPARATED:
 				for (ValidationError error : errors)
-					message.append(format(error, format) + "%n");
+					message.append(format(error, format) + "\n");
 				break;
 			case TEXT:
 				message.append(String.format("%s in '%s':%n",
@@ -32,6 +32,17 @@ public class ValidationErrorFormatter {
 
 		return message.toString();
 	}
+
+	public static String formatHeader(ValidationErrorFormat format) {
+		StringBuffer message = new StringBuffer();
+		if (format.equals(ValidationErrorFormat.TAB_SEPARATED)) {
+			message.append(createCvsRow(headerArray(), '\t'));
+		} else if (format.equals(ValidationErrorFormat.COMMA_SEPARATED)) {
+			message.append(createCvsRow(headerArray(), ','));
+		}
+		return message.toString();
+	}
+
 
 	public static String format(ValidationError error, ValidationErrorFormat format) {
     StringBuffer message = new StringBuffer();
@@ -51,6 +62,21 @@ public class ValidationErrorFormatter {
 			messages.add(formatForSummary(error, format));
 
 		return messages;
+	}
+
+	public static String formatHeaderForSummary(ValidationErrorFormat format) {
+		String message = "";
+		switch (format) {
+			case TAB_SEPARATED:
+				message = createCvsRow(headerForSummary(), '\t');
+				break;
+			case COMMA_SEPARATED:
+			case TEXT:
+				message = createCvsRow(headerForSummary(), ',');
+			default:
+				break;
+		}
+		return message;
 	}
 
 	public static String formatForSummary(ValidationError error, ValidationErrorFormat format) {
@@ -85,6 +111,10 @@ public class ValidationErrorFormatter {
 			error.getMessage(),
 			error.getUrl()
 		);
+	}
+
+	private static String[] headerForSummary() {
+		return new String[]{"MarcPath", "type", "message", "url"};
 	}
 
 	private static String[] asArrayWithoutId(ValidationError error) {
@@ -123,5 +153,9 @@ public class ValidationErrorFormatter {
 			error.getMessage(),
 			error.getUrl()
 		};
+	}
+
+	private static String[] headerArray() {
+		return new String[]{"recordId", "MarcPath", "Type", "Message", "Url"};
 	}
 }

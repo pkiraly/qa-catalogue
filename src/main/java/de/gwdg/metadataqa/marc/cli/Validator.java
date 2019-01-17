@@ -26,15 +26,17 @@ import java.util.logging.Logger;
 public class Validator implements MarcFileProcessor, Serializable {
 
 	private static final Logger logger = Logger.getLogger(Validator.class.getCanonicalName());
-	private static Options options;
+	private Options options;
 
 	private ValidatorParameters parameters;
 	private Map<String, Integer> errorCounter = new TreeMap<>();
-	private File output = null;
+	private File detailsFile = null;
+	private File summaryFile = null;
 	private boolean doPrintInProcessRecord = true;
 
 	public Validator(String[] args) throws ParseException {
 		parameters = new ValidatorParameters(args);
+		options = parameters.getOptions();
 		errorCounter = new TreeMap<>();
 	}
 
@@ -44,10 +46,12 @@ public class Validator implements MarcFileProcessor, Serializable {
 			processor = new Validator(args);
 		} catch (ParseException e) {
 			System.err.println("ERROR. " + e.getLocalizedMessage());
+			// processor.printHelp(processor.getParameters().getOptions());
 			System.exit(0);
 		}
 		if (processor.getParameters().getArgs().length < 1) {
 			System.err.println("Please provide a MARC file name!");
+			processor.printHelp(processor.getParameters().getOptions());
 			System.exit(0);
 		}
 		if (processor.getParameters().doHelp()) {
@@ -73,24 +77,27 @@ public class Validator implements MarcFileProcessor, Serializable {
 	public void beforeIteration() {
 		logger.info(parameters.formatParameters());
 		if (!parameters.useStandardOutput()) {
-			output = new File(parameters.getFileName());
-			if (output.exists())
-				output.delete();
-			logger.info("output: " + output.getPath());
-		}
-		if (!parameters.doSummary()) {
-			String message = ValidationErrorFormatter.formatHeader(parameters.getFormat());
-			if (parameters.useStandardOutput())
-				System.out.print(message);
-			else {
-				try {
-					FileUtils.writeStringToFile(output, message, true);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+			detailsFile = prepareReportFile(parameters.getFileName());
+			logger.info("details output: " + detailsFile.getPath());
+			if (parameters.getSummaryFileName() != null) {
+				summaryFile = prepareReportFile(parameters.getSummaryFileName());
+				logger.info("summary output: " + summaryFile.getPath());
+			} else {
+				if (parameters.doSummary())
+					summaryFile = detailsFile;
 			}
 		}
+		if (parameters.doDetails()) {
+			String header = ValidationErrorFormatter.formatHeader(parameters.getFormat());
+			print(detailsFile, header + "\n");
+		}
+	}
 
+	private File prepareReportFile(String fileName) {
+		File reportFile = new File(fileName);
+		if (reportFile.exists())
+			reportFile.delete();
+		return reportFile;
 	}
 
 	@Override
@@ -106,24 +113,26 @@ public class Validator implements MarcFileProcessor, Serializable {
 	@Override
 	public void afterIteration() {
 		if (parameters.doSummary()) {
+			String header = ValidationErrorFormatter.formatHeaderForSummary(
+				parameters.getFormat()
+			);
+			print(summaryFile, header + "\n");
+			for (Map.Entry<String, Integer> entry : errorCounter.entrySet()) {
+				print(summaryFile, String.format("%s (%d times)%n", entry.getKey(), entry.getValue()));
+			}
+		}
+	}
+
+	private void print(File file, String message) {
+		if (parameters.useStandardOutput())
+			System.out.print(message);
+		else {
 			try {
-				String message = ValidationErrorFormatter.formatHeaderForSummary(
-					parameters.getFormat()
-				);
-				FileUtils.writeStringToFile(output, message, true);
-				for (Map.Entry<String, Integer> entry : errorCounter.entrySet()) {
-					String error = entry.getKey();
-					message = String.format("%s (%d times)%n", error, entry.getValue());
-					if (parameters.useStandardOutput())
-						System.out.print(message);
-					else
-						FileUtils.writeStringToFile(output, message, true);
-				}
-			} catch (IOException ex) {
+				FileUtils.writeStringToFile(file, message, true);
+			} catch (IOException e) {
 				if (parameters.doLog())
-					logger.severe(ex.toString());
-				ex.printStackTrace();
-				System.exit(0);
+					logger.severe(e.toString());
+				e.printStackTrace();
 			}
 		}
 	}
@@ -134,7 +143,7 @@ public class Validator implements MarcFileProcessor, Serializable {
 	}
 
 	@Override
-	public void processRecord(MarcRecord marcRecord, int i) throws IOException {
+	public void processRecord(MarcRecord marcRecord, int i) {
 		if (marcRecord.getId() == null)
 			logger.severe("No record number at " + i);
 
@@ -150,15 +159,12 @@ public class Validator implements MarcFileProcessor, Serializable {
 					}
 					errorCounter.put(error, errorCounter.get(error) + 1);
 				}
-			} else {
+			}
+			if (parameters.doDetails()) {
 				String message = ValidationErrorFormatter.format(
 					marcRecord.getValidationErrors(), parameters.getFormat()
 				);
-				if (parameters.useStandardOutput())
-					System.out.print(message);
-				else {
-					FileUtils.writeStringToFile(output, message, true);
-				}
+				print(detailsFile, message);
 			}
 		}
 	}

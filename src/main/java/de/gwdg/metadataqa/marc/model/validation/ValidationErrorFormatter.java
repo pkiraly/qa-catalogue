@@ -156,6 +156,6 @@ public class ValidationErrorFormatter {
 	}
 
 	private static String[] headerArray() {
-		return new String[]{"recordId", "MarcPath", "Type", "Message", "Url"};
+		return new String[]{"recordId", "MarcPath", "type", "message", "url"};
 	}
 }

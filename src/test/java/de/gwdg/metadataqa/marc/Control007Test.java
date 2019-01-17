@@ -106,7 +106,7 @@ public class Control007Test {
 			field.getValidationErrors().get(0).getMessage());
 		assertEquals("hasInvalidValue",
 			field.getValidationErrors().get(0).getType().getCode());
-		assertEquals(ValidationErrorType.HasInvalidValue,
+		assertEquals(ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE,
 			field.getValidationErrors().get(0).getType());
 		assertEquals("https://www.loc.gov/marc/bibliographic/bd007a.html",
 			field.getValidationErrors().get(0).getUrl());
@@ -120,7 +120,7 @@ public class Control007Test {
 			field.getValidationErrors().get(1).getMessage());
 		assertEquals("hasInvalidValue",
 			field.getValidationErrors().get(1).getType().getCode());
-		assertEquals(ValidationErrorType.HasInvalidValue,
+		assertEquals(ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE,
 			field.getValidationErrors().get(1).getType());
 		assertEquals("https://www.loc.gov/marc/bibliographic/bd007a.html",
 			field.getValidationErrors().get(1).getUrl());
@@ -843,7 +843,7 @@ public class Control007Test {
 			field.getValidationErrors().get(0).getMessage());
 		assertEquals("hasInvalidValue",
 			field.getValidationErrors().get(0).getType().getCode());
-		assertEquals(ValidationErrorType.HasInvalidValue,
+		assertEquals(ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE,
 			field.getValidationErrors().get(0).getType());
 		assertEquals("https://www.loc.gov/marc/bibliographic/bd007s.html",
 			field.getValidationErrors().get(0).getUrl());
@@ -857,7 +857,7 @@ public class Control007Test {
 			field.getValidationErrors().get(1).getMessage());
 		assertEquals("hasInvalidValue",
 			field.getValidationErrors().get(1).getType().getCode());
-		assertEquals(ValidationErrorType.HasInvalidValue,
+		assertEquals(ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE,
 			field.getValidationErrors().get(1).getType());
 		assertEquals("https://www.loc.gov/marc/bibliographic/bd007s.html",
 			field.getValidationErrors().get(1).getUrl());
@@ -871,7 +871,7 @@ public class Control007Test {
 			field.getValidationErrors().get(2).getMessage());
 		assertEquals("hasInvalidValue",
 			field.getValidationErrors().get(2).getType().getCode());
-		assertEquals(ValidationErrorType.HasInvalidValue,
+		assertEquals(ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE,
 			field.getValidationErrors().get(2).getType());
 		assertEquals("https://www.loc.gov/marc/bibliographic/bd007s.html",
 			field.getValidationErrors().get(2).getUrl());

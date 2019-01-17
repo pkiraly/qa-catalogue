@@ -290,7 +290,7 @@ public class LeaderTest {
 		assertNotEquals(1, leader.getValidationErrors().size());
 		ValidationError error = leader.getValidationErrors().get(0);
 		assertNotNull(error);
-		assertEquals(ValidationErrorType.UndetectableType, error.getType());
+		assertEquals(ValidationErrorType.RECORD_UNDETECTABLE_TYPE, error.getType());
 		assertEquals(
 			"Leader/06 (typeOfRecord): 'n', Leader/07 (bibliographicLevel): 'm'",
 			error.getMessage());
@@ -306,7 +306,7 @@ public class LeaderTest {
 		assertFalse(errors.isEmpty());
 		assertEquals(2, errors.size());
 		assertEquals(
-			"\"Leader\"\t\"undetectable record type\"\t\"Leader/06 (typeOfRecord): 'n', Leader/07 (bibliographicLevel): 'm'\"\t\"https://www.loc.gov/marc/bibliographic/bdleader.html\"",
+			"\"Leader\"\t\"record: undetectable type\"\t\"Leader/06 (typeOfRecord): 'n', Leader/07 (bibliographicLevel): 'm'\"\t\"https://www.loc.gov/marc/bibliographic/bdleader.html\"",
 			ValidationErrorFormatter.format(
 				errors.get(0), ValidationErrorFormat.TAB_SEPARATED
 			)

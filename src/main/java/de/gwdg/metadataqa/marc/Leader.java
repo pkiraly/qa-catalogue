@@ -88,7 +88,7 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
 				new ValidationError(
 					null,
 					definition.getTag(),
-					ValidationErrorType.UndetectableType,
+					ValidationErrorType.RECORD_UNDETECTABLE_TYPE,
 					e.getMessage(),
 					LeaderSubfields.getSubfieldList().get(0).getDescriptionUrl()
 				)

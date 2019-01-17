@@ -58,7 +58,7 @@ public class ControlValue implements Validatable, Serializable {
 			&& (!definition.getValidCodes().contains(value)
 			    && definition.getCode(value) == null)) {
 			if (definition.isHistoricalCode(value)) {
-				validationErrors.add(new ValidationError(record.getId(), definition.getPath(), ValidationErrorType.Obsolete,
+				validationErrors.add(new ValidationError(record.getId(), definition.getPath(), ValidationErrorType.CONTROL_SUBFIELD_OBSOLETE_CODE,
 					value, definition.getDescriptionUrl()));
 				errors.add(
 					String.format(
@@ -79,7 +79,7 @@ public class ControlValue implements Validatable, Serializable {
 								new ValidationError(
 									record.getId(),
 									definition.getPath(),
-									ValidationErrorType.ContainsInvalidCode,
+									ValidationErrorType.CONTROL_SUBFIELD_INVALID_CODE,
 									String.format("'%s' in '%s'", unit, value),
 									definition.getDescriptionUrl()));
 							errors.add(
@@ -96,7 +96,7 @@ public class ControlValue implements Validatable, Serializable {
 					validationErrors.add(
 						new ValidationError(
 							((record == null) ? null : record.getId()),
-							definition.getPath(), ValidationErrorType.HasInvalidValue,
+							definition.getPath(), ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE,
 						value, definition.getDescriptionUrl()));
 					errors.add(
 						String.format(
@@ -118,7 +118,7 @@ public class ControlValue implements Validatable, Serializable {
 				validationErrors.add(
 					new ValidationError(
 						((record == null) ? null : record.getId()),
-						definition.getPath(), ValidationErrorType.HasInvalidValue,
+						definition.getPath(), ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE,
 						e.getMessage(), definition.getDescriptionUrl()));
 				// e.printStackTrace();
 				isValid = false;

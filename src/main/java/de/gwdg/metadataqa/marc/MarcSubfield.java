@@ -121,13 +121,13 @@ public class MarcSubfield implements Validatable, Serializable {
 
 		if (definition == null) {
 			validationErrors.add(new ValidationError(record.getId(), field.getDefinition().getTag(),
-				ValidationErrorType.UndefinedSubfield, code, field.getDefinition().getDescriptionUrl()));
+				ValidationErrorType.SUBFIELD_UNDEFINED, code, field.getDefinition().getDescriptionUrl()));
 			errors.add(String.format("no definition for %s", code));
 			isValid = false;
 		} else {
 			if (code == null) {
 				validationErrors.add(new ValidationError(record.getId(), field.getDefinition().getTag(),
-					ValidationErrorType.NullCode, code, field.getDefinition().getDescriptionUrl()));
+					ValidationErrorType.SUBFIELD_NULL_CODE, code, field.getDefinition().getDescriptionUrl()));
 				errors.add(String.format("code is null for %s (%s)", definition.getCode(),
 					definition.getParent().getDescriptionUrl()));
 				isValid = false;
@@ -148,7 +148,7 @@ public class MarcSubfield implements Validatable, Serializable {
 						new ValidationError(
 							record.getId(),
 							path,
-							ValidationErrorType.HasInvalidValue,
+							ValidationErrorType.SUBFIELD_INVALID_VALUE,
 							message,
 							definition.getParent().getDescriptionUrl()
 						)
@@ -191,7 +191,7 @@ public class MarcSubfield implements Validatable, Serializable {
 			validationErrors.add(new ValidationError(
 				record.getId(),
 				definition.getPath(),
-				ValidationErrorType.UnparsableContent,
+				ValidationErrorType.SUBFIELD_UNPARSABLE_CONTENT,
 				e.getMessage(),
 				definition.getParent().getDescriptionUrl()
 			));

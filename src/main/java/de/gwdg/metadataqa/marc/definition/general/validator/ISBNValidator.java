@@ -85,7 +85,7 @@ public class ISBNValidator implements SubfieldValidator, Serializable {
 			new ValidationError(
 				subfield.getField().getRecord().getId(),
 				subfield.getDefinition().getPath(),
-				ValidationErrorType.ISBN,
+				ValidationErrorType.SUBFIELD_ISBN,
 				message,
 				URL
 			)

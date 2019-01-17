@@ -8,7 +8,6 @@ import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 
 import de.gwdg.metadataqa.marc.definition.tags.control.Control001Definition;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.*;
@@ -239,7 +238,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
 				for (String tag : unhandledTags) {
 					validationErrors.add(
 						new ValidationError(getId(), tag,
-							ValidationErrorType.UndefinedField, tag, null));
+							ValidationErrorType.FIELD_UNDEFINED, tag, null));
 					errors.add(String.format("Unhandled tag: %s", tag));
 				}
 			} else {
@@ -259,7 +258,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
 				}
 				for (String tag : unhandledTagsList) {
 					validationErrors.add(new ValidationError(
-						getId(), tag, ValidationErrorType.UndefinedField, tag, null));
+						getId(), tag, ValidationErrorType.FIELD_UNDEFINED, tag, null));
 					errors.add(String.format("Unhandled tag: %s", tag));
 				}
 			}
@@ -315,7 +314,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
 			if (count > 1
 				&& fieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
 				validationErrors.add(new ValidationError(getId(), fieldDefinition.getTag(),
-					ValidationErrorType.NonrepeatableField,
+					ValidationErrorType.FIELD_NONREPEATABLE,
 					String.format("there are %d instances", count),
 					fieldDefinition.getDescriptionUrl()
 				));

@@ -284,7 +284,7 @@ public class DataField implements Extractable, Validatable, Serializable {
 			List<MarcSubfield> subfield6s = getSubfield("6");
 			if (subfield6s == null) {
 				validationErrors.add(new ValidationError(record.getId(), definition.getTag(),
-					ValidationErrorType.MissingSubfield, "$6", definition.getDescriptionUrl()));
+					ValidationErrorType.FIELD_MISSING_REFERENCE_SUBFIELD, "$6", definition.getDescriptionUrl()));
 				errors.add(String.format("%s should have subfield $a (%s)", definition.getTag(), definition.getDescriptionUrl()));
 				isValid = false;
 			} else {
@@ -293,7 +293,7 @@ public class DataField implements Extractable, Validatable, Serializable {
 						validationErrors.add(
 							new ValidationError(
 								record.getId(), definition.getTag() + "$6",
-								ValidationErrorType.AmbiguousLinkage, "There are multiple $6",
+								ValidationErrorType.RECORD_AMBIGUOUS_LINKAGE, "There are multiple $6",
 								definition.getDescriptionUrl()
 							)
 						);
@@ -308,7 +308,7 @@ public class DataField implements Extractable, Validatable, Serializable {
 								validationErrors.add(
 									new ValidationError(
 										record.getId(), definition.getTag() + "$6",
-										ValidationErrorType.InvalidLinkage,
+										ValidationErrorType.RECORD_INVALID_LINKAGE,
 										String.format("Unparseable reference: '%s'", subfield6.getValue()),
 										definition.getDescriptionUrl()
 									)
@@ -321,7 +321,7 @@ public class DataField implements Extractable, Validatable, Serializable {
 									validationErrors.add(
 										new ValidationError(
 											record.getId(), definition.getTag() + "$6",
-											ValidationErrorType.InvalidLinkage,
+											ValidationErrorType.RECORD_INVALID_LINKAGE,
 											String.format("refers to field %s, which is not defined", linkage.getLinkingTag()),
 											definition.getDescriptionUrl()));
 									errors.add(String.format("%s refers to field %s, which is not defined (%s)",
@@ -349,7 +349,7 @@ public class DataField implements Extractable, Validatable, Serializable {
 							validationErrors.add(
 								new ValidationError(
 									record.getId(), definition.getTag() + "$6",
-									ValidationErrorType.InvalidLinkage, e.getMessage(),
+									ValidationErrorType.RECORD_INVALID_LINKAGE, e.getMessage(),
 									definition.getDescriptionUrl()
 								)
 							);
@@ -361,7 +361,7 @@ public class DataField implements Extractable, Validatable, Serializable {
 
 		if (unhandledSubfields != null) {
 			validationErrors.add(new ValidationError(record.getId(), definition.getTag(),
-				ValidationErrorType.UndefinedSubfield, StringUtils.join(unhandledSubfields, ", "),
+				ValidationErrorType.SUBFIELD_UNDEFINED, StringUtils.join(unhandledSubfields, ", "),
 				definition.getDescriptionUrl()));
 			errors.add(String.format("%s has invalid %s: '%s' (%s)",
 				definition.getTag(),
@@ -392,7 +392,7 @@ public class DataField implements Extractable, Validatable, Serializable {
 						validationErrors.add(
 							new ValidationError(
 								record.getId(), definition.getTag(),
-								ValidationErrorType.UndefinedSubfield, subfield.getCode(), definition.getDescriptionUrl()));
+								ValidationErrorType.SUBFIELD_UNDEFINED, subfield.getCode(), definition.getDescriptionUrl()));
 
 						errors.add(String.format("%s has invalid subfield %s (%s)",
 							definition.getTag(),
@@ -420,7 +420,7 @@ public class DataField implements Extractable, Validatable, Serializable {
 				if (count > 1
 					&& subfieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
 					validationErrors.add(new ValidationError(record.getId(), subfieldDefinition.getPath(),
-						ValidationErrorType.NonrepeatableSubfield,
+						ValidationErrorType.SUBFIELD_NONREPEATABLE,
 						String.format("there are %d instances", count),
 						definition.getDescriptionUrl()));
 					errors.add(String.format(
@@ -457,14 +457,14 @@ public class DataField implements Extractable, Validatable, Serializable {
 							new ValidationError(
 								record.getId(),
 								path,
-								ValidationErrorType.Obsolete,
+								ValidationErrorType.INDICATOR_OBSOLETE,
 								value,
 								definition.getDescriptionUrl()));
 						errors.add(String.format("%s has obsolete code: '%s' (%s)",
 							path, value, definition.getDescriptionUrl()));
 					} else {
 						validationErrors.add(new ValidationError(record.getId(), path,
-							ValidationErrorType.HasInvalidValue, value, definition.getDescriptionUrl()));
+							ValidationErrorType.INDICATOR_INVALID_VALUE, value, definition.getDescriptionUrl()));
 						errors.add(String.format("%s has invalid code: '%s' (%s)",
 							path, value, definition.getDescriptionUrl()));
 					}
@@ -474,7 +474,7 @@ public class DataField implements Extractable, Validatable, Serializable {
 			if (!value.equals(" ")) {
 				if (!indicatorDefinition.isVersionSpecificCode(marcVersion, value)) {
 					validationErrors.add(new ValidationError(record.getId(), path,
-						ValidationErrorType.NonEmptyIndicator, value, definition.getDescriptionUrl()));
+						ValidationErrorType.INDICATOR_NON_EMPTY, value, definition.getDescriptionUrl()));
 					errors.add(String.format("%s should be empty, it has '%s' (%s)",
 						path, value, definition.getDescriptionUrl()));
 					isValid = false;

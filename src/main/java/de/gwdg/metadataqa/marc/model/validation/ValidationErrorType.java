@@ -9,7 +9,7 @@ public enum ValidationErrorType {
 	// control subfield
 	CONTROL_SUBFIELD_OBSOLETE_CODE("obsoleteControlSubfield", "control subfield: obsolete code"),
 	CONTROL_SUBFIELD_INVALID_CODE("controlValueContainsInvalidCode", "control subfield: invalid code"),
-	CONTROL_SUBFIELD_INVALID_VALUE("hasInvalidValue", "invalid value"),
+	CONTROL_SUBFIELD_INVALID_VALUE("hasInvalidValue", "control subfield: invalid value"),
 	// field
 	FIELD_MISSING_REFERENCE_SUBFIELD("missingSubfield", "field: missing reference subfield (880$6)"),
 	FIELD_NONREPEATABLE("nonrepeatableField", "field: repetition of non-repeatable field"),

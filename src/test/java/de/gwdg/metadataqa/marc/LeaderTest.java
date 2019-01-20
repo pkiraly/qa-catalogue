@@ -312,7 +312,7 @@ public class LeaderTest {
 			)
 		);
 		assertEquals(
-			"\"Leader/06 (leader06)\"\t\"invalid value\"\t\"n\"\t\"https://www.loc.gov/marc/bibliographic/bdleader.html\"",
+			"\"Leader/06 (leader06)\"\t\"control subfield: invalid value\"\t\"n\"\t\"https://www.loc.gov/marc/bibliographic/bdleader.html\"",
 			ValidationErrorFormatter.format(
 				errors.get(1), ValidationErrorFormat.TAB_SEPARATED
 			)

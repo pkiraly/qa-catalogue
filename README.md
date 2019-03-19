@@ -241,6 +241,23 @@ LEADER 01697pam a2200433 c 4500
 ```
 
 ### Calculating Thompson-Traill completeness
+```
+java -cp $JAR de.gwdg.metadataqa.marc.cli.Completeness [options] [file]
+```
+or with a bash script
+```
+./completeness [options] [file]
+```
+
+* `-t [directory]`, `--outputDir [directory]` the directory inside which the output files will be created
+* `-r [format]`, `--format [format]` format specification of the output. Possible values: `tab-separated` or `tsv`, `comma-separated` or `csv`
+
+The process will create two files in the output directory:
+
+* marc-elements.csv is list of MARC elements (field$subfield) and their occurences in two ways: 'number-of-record' means how many records they are available, 'number-of-instances' means how many instances are there in total (some records might contain more than one instances, while others don't have them at all)
+* libraries.csv list the content of the 852$a (it is useful only if the catalog is an aggregated catalog)
+
+### Calculating Thompson-Traill completeness
 
 Kelly Thompson and Stacie Traill recently published their approach to calculate the quality of ebook records comming from different data sources. Their article is _Implementation of the scoring algorithm described in Leveraging Python to improve ebook metadata selection, ingest, and management._ In Code4Lib Journal, Issue 38, 2017-10-18. http://journal.code4lib.org/articles/12828
 

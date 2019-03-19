@@ -18,6 +18,8 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 
+import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat.TAB_SEPARATED;
+
 /**
  * usage:
  * java -cp target/metadata-qa-marc-0.1-SNAPSHOT-jar-with-dependencies.jar de.gwdg.metadataqa.marc.cli.Validator [MARC21 file]
@@ -112,13 +114,14 @@ public class Validator implements MarcFileProcessor, Serializable {
 
 	@Override
 	public void afterIteration() {
+		char separator = parameters.getFormat().equals(TAB_SEPARATED) ? '\t' : ',';
 		if (parameters.doSummary()) {
 			String header = ValidationErrorFormatter.formatHeaderForSummary(
 				parameters.getFormat()
 			);
 			print(summaryFile, header + "\n");
 			for (Map.Entry<String, Integer> entry : errorCounter.entrySet()) {
-				print(summaryFile, String.format("%s (%d times)%n", entry.getKey(), entry.getValue()));
+				print(summaryFile, String.format("%s%s%d%n", entry.getKey(), separator, entry.getValue()));
 			}
 		}
 	}

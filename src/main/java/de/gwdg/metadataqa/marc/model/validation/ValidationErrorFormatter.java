@@ -114,7 +114,7 @@ public class ValidationErrorFormatter {
 	}
 
 	private static String[] headerForSummary() {
-		return new String[]{"MarcPath", "type", "message", "url"};
+		return new String[]{"MarcPath", "type", "message", "url", "count"};
 	}
 
 	private static String[] asArrayWithoutId(ValidationError error) {

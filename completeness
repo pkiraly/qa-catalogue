@@ -1,0 +1,3 @@
+# Calling Validator
+. ./common-script
+java -Xmx2g -cp $JAR de.gwdg.metadataqa.marc.cli.Completeness $@

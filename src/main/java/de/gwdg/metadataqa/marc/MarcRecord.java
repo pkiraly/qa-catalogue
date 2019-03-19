@@ -153,6 +153,10 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
 		return datafieldIndex.getOrDefault(tag, null);
 	}
 
+	public List<DataField> getDatafields() {
+		return datafields;
+	}
+
 	public boolean exists(String tag) {
 		List<DataField> fields = getDatafield(tag);
 		return (fields != null && !fields.isEmpty());

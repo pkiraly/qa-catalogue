@@ -15,6 +15,7 @@ import org.marc4j.marc.Record;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.time.LocalTime;
 import java.util.logging.Logger;
 
@@ -43,6 +44,7 @@ public class RecordIterator {
 		boolean fixAlephseq = processor.getParameters().fixAlephseq();
 		boolean isMarcxml = processor.getParameters().isMarcxml();
 		boolean isLineSeparated = processor.getParameters().isLineSeparated();
+		DecimalFormat decimalFormat = new DecimalFormat();
 
 		if (processor.getParameters().doLog())
 			logger.info("marcVersion: " + marcVersion.getCode() + ", " + marcVersion.getLabel());
@@ -96,23 +98,27 @@ public class RecordIterator {
 						continue;
 
 					try {
+
 						processor.processRecord(marc4jRecord, i);
 						MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, defaultRecordType, marcVersion, fixAlephseq);
 						processor.processRecord(marcRecord, i);
 
 						if (i % 100000 == 0 && processor.getParameters().doLog())
-							logger.info(String.format("%s/%d (%s)", fileName, i, marcRecord.getId()));
+							logger.info(String.format("%s/%s (%s)", fileName, decimalFormat.format(i), marcRecord.getId()));
+
 					} catch (IllegalArgumentException e) {
 						if (marc4jRecord.getControlNumber() == null)
 							logger.severe("No record number at " + i);
 						if (processor.getParameters().doLog())
-							logger.severe(String.format("Error with record '%s'. %s", marc4jRecord.getControlNumber(), e.getMessage()));
+							logger.severe(String.format("Error (illegal argument) with record '%s'. %s", marc4jRecord.getControlNumber(), e.getMessage()));
+						e.printStackTrace();
 						continue;
 					} catch (Exception e) {
 						if (marc4jRecord.getControlNumber() == null)
 							logger.severe("No record number at " + i);
 						if (processor.getParameters().doLog())
-							logger.severe(String.format("Error with record '%s'. %s", marc4jRecord.getControlNumber(), e.getMessage()));
+							logger.severe(String.format("Error (general) with record '%s'. %s", marc4jRecord.getControlNumber(), e.getMessage()));
+						e.printStackTrace();
 						continue;
 					}
 				}

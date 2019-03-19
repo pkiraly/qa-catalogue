@@ -80,4 +80,11 @@ public class UtilsTest {
 		constructor.setAccessible(true);
 		constructor.newInstance();
 	}
+
+	@Test
+	public void testReplace() {
+		String text = "tags80x/810$9 (Series Added Entry > Series Added Entry - Corporate Name > 9)";
+		String result = text.replaceAll("^[^/]+/", "");
+		assertEquals("810$9 (Series Added Entry > Series Added Entry - Corporate Name > 9)", result);
+	}
 }

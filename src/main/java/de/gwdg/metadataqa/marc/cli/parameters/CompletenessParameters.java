@@ -15,7 +15,7 @@ public class CompletenessParameters extends CommonParameters implements Serializ
 	protected void setOptions() {
 		if (!isOptionSet) {
 			super.setOptions();
-			options.addOption("t", "outputDir", false, "show record level display");
+			options.addOption("t", "outputDir", true, "show record level display");
 			options.addOption("r", "format", true, "specify a format");
 			isOptionSet = true;
 		}

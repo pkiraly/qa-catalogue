@@ -11,6 +11,7 @@ import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.Record;
 
 import java.io.BufferedWriter;
@@ -21,6 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +37,8 @@ public class Completeness implements MarcFileProcessor, Serializable {
   private CompletenessParameters parameters;
   private Map<String, Integer> library003Counter = new TreeMap<>();
   private Map<String, Integer> libraryCounter = new TreeMap<>();
-  private Map<String, Integer> elementCounter = new TreeMap<>();
+  private Map<String, Integer> elementCardinality = new TreeMap<>();
+  private Map<String, Integer> elementFrequency = new TreeMap<>();
   private Map<String, String> tagCache = new HashMap<>();
 
   public Completeness(String[] args) throws ParseException {
@@ -76,6 +79,8 @@ public class Completeness implements MarcFileProcessor, Serializable {
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
+    Map<String, Integer> recordFrequency = new TreeMap<>();
+
     count(marcRecord.getControl003().getContent(), library003Counter);
     for (String library : extract(marcRecord, "852", "a")) {
       count(library, libraryCounter);
@@ -87,8 +92,12 @@ public class Completeness implements MarcFileProcessor, Serializable {
           packageName, field.getTag(), subfield.getCode(),
           TagCategories.getPackage(packageName), field.getDefinition().getLabel(), subfield.getLabel()
         );
-        count(key, elementCounter);
+        count(key, elementCardinality);
+        count(key, recordFrequency);
       }
+    }
+    for (String key : recordFrequency.keySet()) {
+      count(key, elementFrequency);
     }
   }
 
@@ -169,7 +178,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
     System.err.println("Libraries");
     path = Paths.get(parameters.getOutputDir(), "libraries" + fileExtension);
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-      writer.write("library;count\n");
+      writer.write("library" + separator + "count\n");
       libraryCounter
         .entrySet()
         .stream()
@@ -187,16 +196,29 @@ public class Completeness implements MarcFileProcessor, Serializable {
     System.err.println("MARC elements");
     path = Paths.get(parameters.getOutputDir(), "marc-elements" + fileExtension);
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-      writer.write("library;count\n");
-      elementCounter
+      writer.write(
+        String.format(
+          "%s\n",
+          StringUtils.join(
+            Arrays.asList("library", "number-of-record", "number-of-instances"),
+            separator
+          )
+        )
+      );
+      elementCardinality
         .entrySet()
         .stream()
         .forEach(entry -> {
           String key = entry.getKey().replaceAll("^[^/]+/", "");
-          // String number = format.format(entry.getValue());
-          Integer number = entry.getValue();
+          Integer cardinality = entry.getValue();
+          Integer frequency = elementFrequency.get(entry.getKey());
           try {
-            writer.write(String.format("%s%s%d%n", key, separator, number));
+            writer.write(
+              String.format(
+                "\"%s\"%s%d%s%d%n",
+                key, separator, frequency, separator, cardinality
+              )
+            );
           } catch (IOException e) {
             e.printStackTrace();
           }

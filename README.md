@@ -240,7 +240,7 @@ LEADER 01697pam a2200433 c 4500
 925 r $arb
 ```
 
-### Calculating Thompson-Traill completeness
+### Calculating simple completeness
 ```
 java -cp $JAR de.gwdg.metadataqa.marc.cli.Completeness [options] [file]
 ```

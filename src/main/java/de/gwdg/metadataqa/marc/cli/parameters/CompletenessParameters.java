@@ -6,53 +6,63 @@ import org.apache.commons.cli.ParseException;
 import java.io.Serializable;
 
 public class CompletenessParameters extends CommonParameters implements Serializable {
-	public static final String DEFAULT_OUTPUT_DIR = ".";
+  public static final String DEFAULT_OUTPUT_DIR = ".";
 
-	private String outputDir = DEFAULT_OUTPUT_DIR;
-	private ValidationErrorFormat format = ValidationErrorFormat.COMMA_SEPARATED;
-	private boolean isOptionSet;
+  private String outputDir = DEFAULT_OUTPUT_DIR;
+  private ValidationErrorFormat format = ValidationErrorFormat.COMMA_SEPARATED;
+  private boolean advanced = false;
+  private boolean isOptionSet;
 
-	protected void setOptions() {
-		if (!isOptionSet) {
-			super.setOptions();
-			options.addOption("t", "outputDir", true, "show record level display");
-			options.addOption("r", "format", true, "specify a format");
-			isOptionSet = true;
-		}
-	}
+  protected void setOptions() {
+    if (!isOptionSet) {
+      super.setOptions();
+      options.addOption("t", "outputDir", true, "show record level display");
+      options.addOption("r", "format", true, "specify a format");
+      options.addOption("v", "advanced", false, "advanced mode");
+      isOptionSet = true;
+    }
+  }
 
-	public CompletenessParameters() {
-		super();
-	}
+  public CompletenessParameters() {
+    super();
+  }
 
-	public CompletenessParameters(String[] arguments) throws ParseException {
-		super(arguments);
+  public CompletenessParameters(String[] arguments) throws ParseException {
+    super(arguments);
 
-		if (cmd.hasOption("outputDir"))
-			outputDir = cmd.getOptionValue("outputDir");
+    if (cmd.hasOption("outputDir"))
+      outputDir = cmd.getOptionValue("outputDir");
 
-		if (cmd.hasOption("format"))
-			for (ValidationErrorFormat registeredFormat : ValidationErrorFormat.values()) {
-				if (registeredFormat.getNames().contains(cmd.getOptionValue("format"))) {
-					format = registeredFormat;
-					break;
-				}
-			}
-	}
+    if (cmd.hasOption("advanced"))
+      advanced = true;
 
-	public String getOutputDir() {
-		return outputDir;
-	}
+    if (cmd.hasOption("format"))
+      for (ValidationErrorFormat registeredFormat : ValidationErrorFormat.values()) {
+        if (registeredFormat.getNames().contains(cmd.getOptionValue("format"))) {
+          format = registeredFormat;
+          break;
+        }
+      }
+  }
 
-	public ValidationErrorFormat getFormat() {
-		return format;
-	}
+  public String getOutputDir() {
+    return outputDir;
+  }
 
-	@Override
-	public String formatParameters() {
-		String text = super.formatParameters();
-		text += String.format("outputDir: %s%n", outputDir);
-		text += String.format("format: %s%n", format.getLabel());
-		return text;
-	}
+  public ValidationErrorFormat getFormat() {
+    return format;
+  }
+
+  public boolean isAdvanced() {
+    return advanced;
+  }
+
+  @Override
+  public String formatParameters() {
+    String text = super.formatParameters();
+    text += String.format("outputDir: %s%n", outputDir);
+    text += String.format("format: %s%n", format.getLabel());
+    text += String.format("advanced: %s%n", advanced);
+    return text;
+  }
 }

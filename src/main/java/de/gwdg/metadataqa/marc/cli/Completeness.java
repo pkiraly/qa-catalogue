@@ -8,6 +8,7 @@ import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
 import de.gwdg.metadataqa.marc.definition.tags.TagCategories;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
+import de.gwdg.metadataqa.marc.utils.BasicStatistics;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -40,6 +41,9 @@ public class Completeness implements MarcFileProcessor, Serializable {
   private Map<String, Integer> elementCardinality = new TreeMap<>();
   private Map<String, Integer> elementFrequency = new TreeMap<>();
   private Map<String, String> tagCache = new HashMap<>();
+  private Map<String, Integer> libraryMap = new HashMap<>();
+  private Map<String, Integer> fieldMap = new HashMap<>();
+  private Map<String, Map<Integer, Integer>> fieldHistogram = new HashMap<>();
 
   public Completeness(String[] args) throws ParseException {
     parameters = new CompletenessParameters(args);
@@ -88,16 +92,23 @@ public class Completeness implements MarcFileProcessor, Serializable {
     for (DataField field : marcRecord.getDatafields()) {
       String packageName = extractPackageName(field);
       for (MarcSubfield subfield : field.getSubfields()) {
-        String key = String.format("%s/%s$%s (%s > %s > %s)",
-          packageName, field.getTag(), subfield.getCode(),
-          TagCategories.getPackage(packageName), field.getDefinition().getLabel(), subfield.getLabel()
-        );
+        String key = String.format("%s$%s", field.getTag(), subfield.getCode());
+          /*
+          String key = String.format("%s/%s$%s (%s > %s > %s)",
+            packageName, field.getTag(), subfield.getCode(),
+            TagCategories.getPackage(packageName), field.getDefinition().getLabel(), subfield.getLabel()
+          );
+          */
         count(key, elementCardinality);
         count(key, recordFrequency);
       }
     }
     for (String key : recordFrequency.keySet()) {
       count(key, elementFrequency);
+      if (!fieldHistogram.containsKey(key)) {
+        fieldHistogram.put(key, new TreeMap<>());
+      }
+      count(recordFrequency.get(key), fieldHistogram.get(key));
     }
   }
 
@@ -126,11 +137,18 @@ public class Completeness implements MarcFileProcessor, Serializable {
     return values;
   }
 
-  private void count(String key, Map<String, Integer> counter) {
+  private <T extends Object> void count(T key, Map<T, Integer> counter) {
     if (!counter.containsKey(key)) {
       counter.put(key, 0);
     }
     counter.put(key, counter.get(key) + 1);
+  }
+
+  private void mapItem(String key, Map<String, Integer> counter) {
+    if (!counter.containsKey(key)) {
+      counter.put(key, counter.size() + 1);
+    }
+    counter.get(key);
   }
 
   @Override
@@ -200,7 +218,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
         String.format(
           "%s\n",
           StringUtils.join(
-            Arrays.asList("library", "number-of-record", "number-of-instances"),
+            Arrays.asList("library", "number-of-record", "number-of-instances", "min", "max", "mean", "histogram"),
             separator
           )
         )
@@ -212,11 +230,15 @@ public class Completeness implements MarcFileProcessor, Serializable {
           String key = entry.getKey().replaceAll("^[^/]+/", "");
           Integer cardinality = entry.getValue();
           Integer frequency = elementFrequency.get(entry.getKey());
+          BasicStatistics statistics = new BasicStatistics(fieldHistogram.get(key));
           try {
             writer.write(
               String.format(
-                "\"%s\"%s%d%s%d%n",
-                key, separator, frequency, separator, cardinality
+                "\"%s\"%s%d%s%d%s%d%s%d%s%f%s%s%n",
+                key, separator, frequency, separator, cardinality,
+                separator, statistics.getMin(), separator, statistics.getMax(),
+                separator, statistics.getMean(), separator,
+                statistics.formatHistogram()
               )
             );
           } catch (IOException e) {
@@ -232,7 +254,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
     if (format.equals(ValidationErrorFormat.TAB_SEPARATED)) {
       return '\t';
     } else {
-      return ';';
+      return ',';
     }
   }
 

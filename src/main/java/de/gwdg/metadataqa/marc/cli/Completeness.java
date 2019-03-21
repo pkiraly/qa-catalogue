@@ -3,16 +3,21 @@ package de.gwdg.metadataqa.marc.cli;
 import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
+import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
 import de.gwdg.metadataqa.marc.definition.tags.TagCategories;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.utils.BasicStatistics;
+import de.gwdg.metadataqa.marc.utils.TagHierarchy;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.marc4j.marc.Record;
 
 import java.io.BufferedWriter;
@@ -29,10 +34,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Completeness implements MarcFileProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(Completeness.class.getCanonicalName());
+  private static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
 
   private final Options options;
   private CompletenessParameters parameters;
@@ -90,7 +98,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
       count(library, libraryCounter);
     }
     for (DataField field : marcRecord.getDatafields()) {
-      String packageName = extractPackageName(field);
+      // String packageName = Utils.extractPackageName(field);
       for (MarcSubfield subfield : field.getSubfields()) {
         String key = String.format("%s$%s", field.getTag(), subfield.getCode());
           /*
@@ -110,15 +118,6 @@ public class Completeness implements MarcFileProcessor, Serializable {
       }
       count(recordFrequency.get(key), fieldHistogram.get(key));
     }
-  }
-
-  private String extractPackageName(DataField field) {
-    if (!tagCache.containsKey(field.getTag())) {
-      String packageName = field.getDefinition().getClass().getPackage().getName()
-        .replace("de.gwdg.metadataqa.marc.definition.tags.", "");
-      tagCache.put(field.getTag(), packageName);
-    }
-    return tagCache.get(field.getTag());
   }
 
   private List<String> extract(MarcRecord marcRecord, String tag, String subfield) {
@@ -217,7 +216,8 @@ public class Completeness implements MarcFileProcessor, Serializable {
       writer.write(
         StringUtils.join(
           Arrays.asList(
-            "library", "number-of-record", "number-of-instances",
+            "path", "package", "tag", "subfield",
+            "number-of-record", "number-of-instances",
             "min", "max", "mean", "stddev", "histogram"
           ),
           separator
@@ -227,20 +227,8 @@ public class Completeness implements MarcFileProcessor, Serializable {
         .entrySet()
         .stream()
         .forEach(entry -> {
-          String key = entry.getKey().replaceAll("^[^/]+/", "");
-          Integer cardinality = entry.getValue();
-          Integer frequency = elementFrequency.get(entry.getKey());
-          BasicStatistics statistics = new BasicStatistics(fieldHistogram.get(key));
           try {
-            writer.write(
-              StringUtils.join(
-                Arrays.asList(key, frequency, cardinality,
-                  statistics.getMin(), statistics.getMax(),
-                  statistics.getMean(), statistics.getStdDev(),
-                  statistics.formatHistogram()),
-                separator
-              ) + "\n"
-            );
+            writer.write(formatCardinality(separator, entry));
           } catch (IOException e) {
             e.printStackTrace();
           }
@@ -248,6 +236,38 @@ public class Completeness implements MarcFileProcessor, Serializable {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  @NotNull
+  private String formatCardinality(char separator, Map.Entry<String, Integer> entry) {
+    String key = entry.getKey().replaceAll("^[^/]+/", "");
+
+    TagHierarchy tagHierarchy = TagHierarchy.createFromPath(entry.getKey());
+    String packageLabel = "";
+    String tagLabel = "";
+    String subfieldLabel = "";
+    if (tagHierarchy != null) {
+      packageLabel = tagHierarchy.getPackageLabel();
+      tagLabel = tagHierarchy.getTagLabel();
+      subfieldLabel = tagHierarchy.getSubfieldLabel();
+    }
+
+    Integer cardinality = entry.getValue();
+    Integer frequency = elementFrequency.get(entry.getKey());
+    BasicStatistics statistics = new BasicStatistics(fieldHistogram.get(key));
+
+    String record = StringUtils.join(
+        Arrays.asList(key,
+          '"' + packageLabel + '"',
+          '"' + tagLabel + '"',
+          '"' + subfieldLabel + '"',
+          frequency, cardinality,
+          statistics.getMin(), statistics.getMax(),
+          statistics.getMean(), statistics.getStdDev(),
+          statistics.formatHistogram()),
+        separator
+      ) + "\n";
+    return record;
   }
 
   private char getSeparator(ValidationErrorFormat format) {

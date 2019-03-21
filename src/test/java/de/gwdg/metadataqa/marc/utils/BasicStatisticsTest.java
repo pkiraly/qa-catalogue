@@ -5,8 +5,6 @@ import org.junit.Test;
 import java.util.Map;
 import java.util.TreeMap;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertEquals;
 
 public class BasicStatisticsTest {

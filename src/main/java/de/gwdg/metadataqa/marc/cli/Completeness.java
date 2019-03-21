@@ -215,13 +215,13 @@ public class Completeness implements MarcFileProcessor, Serializable {
     path = Paths.get(parameters.getOutputDir(), "marc-elements" + fileExtension);
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write(
-        String.format(
-          "%s\n",
-          StringUtils.join(
-            Arrays.asList("library", "number-of-record", "number-of-instances", "min", "max", "mean", "histogram"),
-            separator
-          )
-        )
+        StringUtils.join(
+          Arrays.asList(
+            "library", "number-of-record", "number-of-instances",
+            "min", "max", "mean", "stddev", "histogram"
+          ),
+          separator
+        ) + "\n"
       );
       elementCardinality
         .entrySet()
@@ -233,13 +233,13 @@ public class Completeness implements MarcFileProcessor, Serializable {
           BasicStatistics statistics = new BasicStatistics(fieldHistogram.get(key));
           try {
             writer.write(
-              String.format(
-                "\"%s\"%s%d%s%d%s%d%s%d%s%f%s%s%n",
-                key, separator, frequency, separator, cardinality,
-                separator, statistics.getMin(), separator, statistics.getMax(),
-                separator, statistics.getMean(), separator,
-                statistics.formatHistogram()
-              )
+              StringUtils.join(
+                Arrays.asList(key, frequency, cardinality,
+                  statistics.getMin(), statistics.getMax(),
+                  statistics.getMean(), statistics.getStdDev(),
+                  statistics.formatHistogram()),
+                separator
+              ) + "\n"
             );
           } catch (IOException e) {
             e.printStackTrace();

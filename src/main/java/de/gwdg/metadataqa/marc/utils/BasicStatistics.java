@@ -11,6 +11,9 @@ public class BasicStatistics {
   private Integer min = null;
   private Integer max = null;
   private Double mean = null;
+  private Double stdDev = null;
+  private long count = 0;
+  private long sum = 0;
 
   public BasicStatistics(Map<Integer, Integer> histogram) {
     this.histogram = histogram;
@@ -18,8 +21,8 @@ public class BasicStatistics {
   }
 
   private void calculate() {
-    double count = 0;
-    double sum = 0;
+    count = 0;
+    sum = 0;
     for (Map.Entry<Integer, Integer> entry : histogram.entrySet()) {
       if (min == null) {
         min = entry.getKey();
@@ -36,7 +39,19 @@ public class BasicStatistics {
       count += entry.getValue();
       sum += entry.getKey() * entry.getValue();
     }
-    mean = sum / count;
+    mean = sum * 1.0 / count;
+    calculateStdDevAndMedian();
+  }
+
+  private void calculateStdDevAndMedian() {
+    double sum = 0.0;
+    long aggregatedSum = 0;
+    for (Map.Entry<Integer, Integer> entry : histogram.entrySet()) {
+      sum += Math.pow(entry.getKey() - mean, 2);
+      aggregatedSum += entry.getValue();
+      // if ()
+    }
+    stdDev = Math.sqrt(sum) / count;
   }
 
   public Integer getMin() {
@@ -57,5 +72,9 @@ public class BasicStatistics {
       histogramList.add(histogram.getKey() + "=" + histogram.getValue());
     }
     return StringUtils.join(histogramList, "; ");
+  }
+
+  public Double getStdDev() {
+    return stdDev;
   }
 }

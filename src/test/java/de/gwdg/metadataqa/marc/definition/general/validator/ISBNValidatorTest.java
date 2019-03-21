@@ -117,6 +117,14 @@ public class ISBNValidatorTest {
 	}
 
 	@Test
+	public void testWithSpaces() {
+		MarcSubfield subfield = createMarcSubfield("0 405 05352 5");
+		ValidatorResponse response = subfield.getDefinition().getValidator().isValid(subfield);
+		assertTrue(response.isValid());
+		assertEquals(0, response.getValidationErrors().size());
+	}
+
+	@Test
 	public void testMultiple() {
 		List<String> isbns = Arrays.asList("0-9752298-0-X", "0-9752298-0-X (fűzött)");
 

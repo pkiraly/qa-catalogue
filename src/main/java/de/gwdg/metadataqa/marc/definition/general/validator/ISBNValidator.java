@@ -41,7 +41,7 @@ public class ISBNValidator implements SubfieldValidator, Serializable {
 		while (matcher.find()) {
 			found = true;
 			String match = matcher.group();
-			value = match.replace("-", "").toUpperCase();
+			value = match.replace("-", "").replace(" ", "").toUpperCase();
 
 			message = null;
 			if (value.length() == 10) {

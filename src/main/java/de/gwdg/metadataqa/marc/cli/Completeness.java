@@ -156,7 +156,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
   }
 
   @Override
-  public void fileOpened() {
+  public void fileOpened(Path file) {
 
   }
 

@@ -61,6 +61,7 @@ public class RecordIterator {
 				logger.info("processing: " + fileName);
 
 			try {
+				processor.fileOpened(path);
 				MarcReader reader = ReadMarc.getReader(path.toString(), isMarcxml, isLineSeparated);
 				while (reader.hasNext()) {
 					Record marc4jRecord = null;
@@ -94,8 +95,10 @@ public class RecordIterator {
 						lastKnownId = marc4jRecord.getControlNumber();
 					}
 
-					if (processor.getParameters().hasId() && !marc4jRecord.getControlNumber().trim().equals(processor.getParameters().getId()))
+					if (processor.getParameters().hasId()
+						&& !marc4jRecord.getControlNumber().trim().equals(processor.getParameters().getId())) {
 						continue;
+					}
 
 					try {
 
@@ -123,13 +126,13 @@ public class RecordIterator {
 					}
 				}
 				if (processor.getParameters().doLog())
-					logger.info(String.format("Finished processing file. Validated %d records.", i));
+					logger.info(String.format("Finished processing file. Processed %d records.", i));
 
-			} catch(SolrServerException ex){
+			} catch (SolrServerException ex){
 				if (processor.getParameters().doLog())
 					logger.severe(ex.toString());
 				System.exit(0);
-			} catch(Exception ex){
+			} catch (Exception ex){
 				if (processor.getParameters().doLog()) {
 					logger.severe("Other exception: " + ex.toString());
 

@@ -24,4 +24,19 @@ public class TagHierarchyTest {
     assertEquals("Title Statement", tagHierarchy.getTagLabel());
     assertEquals("", tagHierarchy.getSubfieldLabel());
   }
+
+  @Test
+  public void testIssueWith366() {
+    TagHierarchy tagHierarchy = TagHierarchy.createFromPath("366$2");
+    assertNotNull(tagHierarchy);
+    assertEquals("Physical Description", tagHierarchy.getPackageLabel());
+    assertEquals("Trade Availability Information", tagHierarchy.getTagLabel());
+    assertEquals("Source of availability status code", tagHierarchy.getSubfieldLabel());
+
+    tagHierarchy = TagHierarchy.createFromPath("366$c");
+    assertNotNull(tagHierarchy);
+    assertEquals("Physical Description", tagHierarchy.getPackageLabel());
+    assertEquals("Trade Availability Information", tagHierarchy.getTagLabel());
+    assertEquals("Availability status code", tagHierarchy.getSubfieldLabel());
+  }
 }

@@ -93,7 +93,8 @@ public class Completeness implements MarcFileProcessor, Serializable {
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
     Map<String, Integer> recordFrequency = new TreeMap<>();
 
-    count(marcRecord.getControl003().getContent(), library003Counter);
+    if (marcRecord.getControl003() != null)
+      count(marcRecord.getControl003().getContent(), library003Counter);
     for (String library : extract(marcRecord, "852", "a")) {
       count(library, libraryCounter);
     }

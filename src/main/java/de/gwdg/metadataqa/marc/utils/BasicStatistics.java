@@ -23,24 +23,31 @@ public class BasicStatistics {
   private void calculate() {
     count = 0;
     sum = 0;
-    for (Map.Entry<Integer, Integer> entry : histogram.entrySet()) {
-      if (min == null) {
-        min = entry.getKey();
-      } else {
-        min = Math.min(min, entry.getKey());
-      }
+    if (histogram == null || histogram.isEmpty()) {
+      mean = 0.0;
+      stdDev = 0.0;
+      min = 0;
+      max = 0;
+    } else {
+      for (Map.Entry<Integer, Integer> entry : histogram.entrySet()) {
+        if (min == null) {
+          min = entry.getKey();
+        } else {
+          min = Math.min(min, entry.getKey());
+        }
 
-      if (max == null) {
-        max = entry.getKey();
-      } else {
-        max = Math.max(max, entry.getKey());
-      }
+        if (max == null) {
+          max = entry.getKey();
+        } else {
+          max = Math.max(max, entry.getKey());
+        }
 
-      count += entry.getValue();
-      sum += entry.getKey() * entry.getValue();
+        count += entry.getValue();
+        sum += entry.getKey() * entry.getValue();
+      }
+      mean = sum * 1.0 / count;
+      calculateStdDevAndMedian();
     }
-    mean = sum * 1.0 / count;
-    calculateStdDevAndMedian();
   }
 
   private void calculateStdDevAndMedian() {
@@ -68,8 +75,10 @@ public class BasicStatistics {
 
   public String formatHistogram() {
     List<String> histogramList = new ArrayList<>();
-    for (Map.Entry histogram : histogram.entrySet()) {
-      histogramList.add(histogram.getKey() + "=" + histogram.getValue());
+    if (histogram != null && !histogram.isEmpty()) {
+      for (Map.Entry histogram : histogram.entrySet()) {
+        histogramList.add(histogram.getKey() + "=" + histogram.getValue());
+      }
     }
     return StringUtils.join(histogramList, "; ");
   }

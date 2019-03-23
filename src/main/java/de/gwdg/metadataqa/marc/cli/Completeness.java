@@ -241,9 +241,12 @@ public class Completeness implements MarcFileProcessor, Serializable {
 
   @NotNull
   private String formatCardinality(char separator, Map.Entry<String, Integer> entry) {
-    String key = entry.getKey().replaceAll("^[^/]+/", "");
+    String key = entry.getKey();
+    if (key.equals("")) {
+      logger.severe("Empty key from " + key);
+    }
 
-    TagHierarchy tagHierarchy = TagHierarchy.createFromPath(entry.getKey());
+    TagHierarchy tagHierarchy = TagHierarchy.createFromPath(key);
     String packageLabel = "";
     String tagLabel = "";
     String subfieldLabel = "";
@@ -254,8 +257,12 @@ public class Completeness implements MarcFileProcessor, Serializable {
     }
 
     Integer cardinality = entry.getValue();
-    Integer frequency = elementFrequency.get(entry.getKey());
+    Integer frequency = elementFrequency.get(key);
     BasicStatistics statistics = new BasicStatistics(fieldHistogram.get(key));
+    if (!fieldHistogram.containsKey(key)) {
+      logger.warning(String.format(
+        "Field %s is not registered in histogram", key));
+    }
 
     String record = StringUtils.join(
         Arrays.asList(key,

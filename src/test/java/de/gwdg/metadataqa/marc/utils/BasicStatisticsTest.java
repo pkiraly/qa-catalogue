@@ -37,6 +37,30 @@ public class BasicStatisticsTest {
     assertEquals(20, (int) statistics.getMax());
     assertEquals(1.16654, (double) statistics.getMean(), 0.0001);
     assertEquals(5.267561587768387E-4, (double) statistics.getStdDev(), 0.0001);
+    assertEquals(
+      "1=71429; 2=7033; 3=1362; 4=423; 5=180; 6=85; 7=56; 8=29; 9=39;"
+      + " 10=13; 11=12; 12=2; 13=3; 14=1; 15=4; 16=1; 17=1; 20=1",
+      statistics.formatHistogram()
+    );
   }
 
+  @Test
+  public void testNullImput() {
+    BasicStatistics statistics = new BasicStatistics(null);
+    assertEquals(0, (int) statistics.getMin());
+    assertEquals(0, (int) statistics.getMax());
+    assertEquals(0.0, (double) statistics.getMean(), 0.0001);
+    assertEquals(0.0, (double) statistics.getStdDev(), 0.0001);
+    assertEquals("", statistics.formatHistogram());
+  }
+
+  @Test
+  public void testEmptyImput() {
+    BasicStatistics statistics = new BasicStatistics(new TreeMap<Integer, Integer>());
+    assertEquals(0, (int) statistics.getMin());
+    assertEquals(0, (int) statistics.getMax());
+    assertEquals(0.0, (double) statistics.getMean(), 0.0001);
+    assertEquals(0.0, (double) statistics.getStdDev(), 0.0001);
+    assertEquals("", statistics.formatHistogram());
+  }
 }

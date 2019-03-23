@@ -68,12 +68,12 @@ public class MarcToSolr implements MarcFileProcessor, Serializable {
     } catch (SolrServerException e) {
       e.printStackTrace();
     }
-    if (recordNumber % 1000 == 0) {
+    if (recordNumber % 5000 == 0) {
       if (parameters.doCommit())
         client.commit();
       logger.info(
         String.format(
-          "%s/%d (%s)",
+          "%s/%s (%s)",
           currentFile.getFileName().toString(),
           decimalFormat.format(recordNumber),
           marcRecord.getId()

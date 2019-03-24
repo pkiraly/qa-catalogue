@@ -49,8 +49,8 @@ public class MarcFactoryTest {
 		Map<String, List<String>> pairs = record.getKeyValuePairs(SolrFieldType.HUMAN);
 		assertEquals(119, pairs.size());
 		Set<String> keys = pairs.keySet();
-		keys.remove("GentLocallyDefinedField");
-		keys.remove("BemerkungenZurTitelaufnahme");
+		// keys.remove("GentLocallyDefinedField");
+		// keys.remove("BemerkungenZurTitelaufnahme");
 		assertEquals(
 			"type, Leader, Leader_recordLength, Leader_recordStatus, Leader_typeOfRecord, " +
 			"Leader_bibliographicLevel, Leader_typeOfControl, Leader_characterCodingScheme, " +
@@ -83,6 +83,7 @@ public class MarcFactoryTest {
 			"ParallelTitle_displayText, ParallelTitle_noteAndAddedEntry, " +
 			"Publication_sequenceOfPublishingStatements, Publication_agent, Publication_place, " +
 			"DatesOfPublication, DatesOfPublication_format, NumberingPeculiarities, " +
+			"BemerkungenZurTitelaufnahme, " +
 			"RSWKKette_nummerDesKettengliedes, RSWKKette_0, RSWKKette_a, " +
 			"RSWKKette_nummerDerRSWKKette, RSWKKette_D, RSWKKette_5, AddedCorporateName, " +
 			"AddedCorporateName_authorityRecordControlNumber, " +
@@ -143,73 +144,289 @@ public class MarcFactoryTest {
 		assertEquals("Not a conference publication", pairs.get("GeneralInformation_conferencePublication").get(0));
 		assertEquals("No alphabet or script given/No key title", pairs.get("GeneralInformation_originalAlphabetOrScriptOfTitle").get(0));
 		assertEquals("Successive entry", pairs.get("GeneralInformation_entryConvention").get(0));
-		assertEquals("Zeitschriftendatenbank (ZDB)", pairs.get("IdIntifiedByLocal_source").get(0));
-		assertEquals("1056377-5", pairs.get("IdIntifiedByLocal").get(0));
-		assertEquals("Source specified in subfield $2", pairs.get("IdIntifiedByLocal_agency").get(0));
+
+		assertEquals(2, pairs.get("IdIntifiedByLocal_source").size());
+		assertEquals("Deutsche Nationalbibliothek", pairs.get("IdIntifiedByLocal_source").get(0));
+		assertEquals("Zeitschriftendatenbank (ZDB)", pairs.get("IdIntifiedByLocal_source").get(1));
+
+		assertEquals(2, pairs.get("IdIntifiedByLocal").size());
+		assertEquals("01588046X", pairs.get("IdIntifiedByLocal").get(0));
+		assertEquals("1056377-5", pairs.get("IdIntifiedByLocal").get(1));
+
+		assertEquals(2, pairs.get("IdIntifiedByLocal_agency").size());
+		assertEquals("Source specified in subfield $2",
+			pairs.get("IdIntifiedByLocal_agency").get(0));
+		assertEquals("Source specified in subfield $2",
+			pairs.get("IdIntifiedByLocal_agency").get(1));
+
+		assertEquals(1, pairs.get("Issn_levelOfInternationalInterest").size());
 		assertEquals("No level specified", pairs.get("Issn_levelOfInternationalInterest").get(0));
+
+		assertEquals(1, pairs.get("Issn").size());
 		assertEquals("0939-0480", pairs.get("Issn").get(0));
-		assertEquals("DE-599", pairs.get("SystemControlNumber_organizationCode").get(0));
-		assertEquals("(DE-599)ZDB1056377-5", pairs.get("SystemControlNumber").get(0));
-		assertEquals("ZDB1056377-5", pairs.get("SystemControlNumber_recordNumber").get(0));
+
+		assertEquals(2, pairs.get("SystemControlNumber_organizationCode").size());
+		assertEquals("OCoLC", pairs.get("SystemControlNumber_organizationCode").get(0));
+		assertEquals("DE-599", pairs.get("SystemControlNumber_organizationCode").get(1));
+
+		assertEquals(2, pairs.get("SystemControlNumber").size());
+		assertEquals("(OCoLC)231477039", pairs.get("SystemControlNumber").get(0));
+		assertEquals("(DE-599)ZDB1056377-5", pairs.get("SystemControlNumber").get(1));
+
+		assertEquals(2, pairs.get("SystemControlNumber_recordNumber").size());
+		assertEquals("231477039", pairs.get("SystemControlNumber_recordNumber").get(0));
+		assertEquals("ZDB1056377-5", pairs.get("SystemControlNumber_recordNumber").get(1));
+
+		assertEquals(1, pairs.get("SystemControlNumber_organization").size());
 		assertEquals("Arbeitsgemeinschaft der Verbundsysteme", pairs.get("SystemControlNumber_organization").get(0));
+
+		assertEquals(1, pairs.get("AdminMetadata_languageOfCataloging").size());
 		assertEquals("German", pairs.get("AdminMetadata_languageOfCataloging").get(0));
-		assertEquals("Regeln für die alphabetische Katalogisierung an wissenschaftlichen Bibliotheken (Berlin: Deutsches Bibliotheksinstitut)", pairs.get("AdminMetadata_descriptionConventions").get(0));
-		assertEquals("Bibliotheksservice-Zentrum Baden-Württemberg (BSZ)", pairs.get("AdminMetadata_transcribingAgency").get(0));
-		assertEquals("Bibliotheksservice-Zentrum Baden-Württemberg (BSZ)", pairs.get("AdminMetadata_catalogingAgency").get(0));
+
+		assertEquals(1, pairs.get("AdminMetadata_descriptionConventions").size());
+		assertEquals(
+			"Regeln für die alphabetische Katalogisierung an wissenschaftlichen Bibliotheken (Berlin: Deutsches Bibliotheksinstitut)",
+			pairs.get("AdminMetadata_descriptionConventions").get(0));
+
+		assertEquals(1, pairs.get("AdminMetadata_transcribingAgency").size());
+		assertEquals("Bibliotheksservice-Zentrum Baden-Württemberg (BSZ)",
+			pairs.get("AdminMetadata_transcribingAgency").get(0));
+
+		assertEquals(1, pairs.get("AdminMetadata_catalogingAgency").size());
+		assertEquals("Bibliotheksservice-Zentrum Baden-Württemberg (BSZ)",
+			pairs.get("AdminMetadata_catalogingAgency").get(0));
+
+		assertEquals(1, pairs.get("Language_translationIndication").size());
 		assertEquals("No information provided", pairs.get("Language_translationIndication").get(0));
+
+		assertEquals(1, pairs.get("Language").size());
 		assertEquals("German", pairs.get("Language").get(0));
+
+		assertEquals(1, pairs.get("Language_sourceOfCode").size());
 		assertEquals("MARC language code", pairs.get("Language_sourceOfCode").get(0));
+
+		assertEquals(1, pairs.get("Place_country").size());
 		assertEquals("XA-DE", pairs.get("Place_country").get(0));
+
+		assertEquals(1, pairs.get("ClassificationDdc_editionType").size());
 		assertEquals("Full edition", pairs.get("ClassificationDdc_editionType").get(0));
-		assertEquals("No information provided", pairs.get("ClassificationDdc_classificationSource").get(0));
+
+		assertEquals(1, pairs.get("ClassificationDdc_classificationSource").size());
+		assertEquals("No information provided",
+			pairs.get("ClassificationDdc_classificationSource").get(0));
+
+		assertEquals(1, pairs.get("ClassificationDdc").size());
 		assertEquals("010", pairs.get("ClassificationDdc").get(0));
+
+		assertEquals(1, pairs.get("Classification_classificationPortion").size());
 		assertEquals("110", pairs.get("Classification_classificationPortion").get(0));
-		assertEquals("ZDB-Systematik = ZDB-Classification", pairs.get("Classification_source").get(0));
+
+		assertEquals(1, pairs.get("Classification_source").size());
+		assertEquals("ZDB-Systematik = ZDB-Classification",
+			pairs.get("Classification_source").get(0));
+
+		assertEquals(1, pairs.get("Title_subtitle").size());
 		assertEquals("Amtsblatt /", pairs.get("Title_subtitle").get(0));
-		assertEquals("Bearb. u. Hrsg.: Die Deutsche Bibliothek (Deutsche Bücherei Leipzig, Deutsche Bibliothek Frankfurt a.M., Deutsches Musikarchiv Berlin).", pairs.get("Title_responsibilityStatement").get(0));
-		assertEquals("Deutsche Nationalbibliografie und Bibliografie der im Ausland erschienenen deutschsprachigen Veröffentlichungen :", pairs.get("Title_mainTitle").get(0));
+
+		assertEquals(1, pairs.get("Title_responsibilityStatement").size());
+		assertEquals("Bearb. u. Hrsg.: Die Deutsche Bibliothek (Deutsche Bücherei Leipzig, Deutsche Bibliothek Frankfurt a.M., Deutsches Musikarchiv Berlin).",
+			pairs.get("Title_responsibilityStatement").get(0));
+
+		assertEquals(1, pairs.get("Title_mainTitle").size());
+		assertEquals("Deutsche Nationalbibliografie und Bibliografie der im Ausland erschienenen deutschsprachigen Veröffentlichungen :",
+			pairs.get("Title_mainTitle").get(0));
+
+		assertEquals(1, pairs.get("Title_titleAddedEntry").size());
 		assertEquals("Added entry", pairs.get("Title_titleAddedEntry").get(0));
-		assertEquals("No nonfiling characters", pairs.get("Title_nonfilingCharacters").get(0));
-		assertEquals("A B, Monographien und Periodika des Verlagsbuchhandels und außerhalb des Verlagsbuchhandels : wöchentliches Verzeichnis ; Register", pairs.get("Title_partName").get(0));
-		assertEquals("Deutsche Nationalbibliografie und Bibliografie der im Ausland erschienenen deutschsprachigen Veröffentlichungen / A B", pairs.get("ParallelTitle_mainTitle").get(0));
+
+		assertEquals(1, pairs.get("Title_nonfilingCharacters").size());
+		assertEquals("No nonfiling characters",
+			pairs.get("Title_nonfilingCharacters").get(0));
+
+		assertEquals(1, pairs.get("Title_partName").size());
+		assertEquals("A B, Monographien und Periodika des Verlagsbuchhandels und außerhalb des Verlagsbuchhandels : wöchentliches Verzeichnis ; Register",
+			pairs.get("Title_partName").get(0));
+
+		assertEquals(4, pairs.get("ParallelTitle_mainTitle").size());
+		assertEquals(
+			"Deutsche Nationalbibliographie und Bibliographie der im Ausland erschienenen deutschsprachigen Veröffentlichungen",
+			pairs.get("ParallelTitle_mainTitle").get(0));
+		assertEquals("Register",
+			pairs.get("ParallelTitle_mainTitle").get(1));
+		assertEquals("Deutsche Nationalbibliographie und Bibliographie der im Ausland erschienenen deutschsprachigen Veröffentlichungen",
+			pairs.get("ParallelTitle_mainTitle").get(2));
+		assertEquals("Deutsche Nationalbibliografie und Bibliografie der im Ausland erschienenen deutschsprachigen Veröffentlichungen / A B",
+			pairs.get("ParallelTitle_mainTitle").get(3));
+
+		assertEquals(4, pairs.get("ParallelTitle_type").size());
 		assertEquals("No type specified", pairs.get("ParallelTitle_type").get(0));
+		assertEquals("No type specified", pairs.get("ParallelTitle_type").get(1));
+		assertEquals("No type specified", pairs.get("ParallelTitle_type").get(2));
+		assertEquals("No type specified", pairs.get("ParallelTitle_type").get(3));
+
+		assertEquals(1, pairs.get("ParallelTitle_displayText").size());
 		assertEquals("Hauptsacht. anfangs: ", pairs.get("ParallelTitle_displayText").get(0));
-		assertEquals("9", pairs.get("ParallelTitle_noteAndAddedEntry").get(0));
-		assertEquals("Not applicable/No information provided/Earliest available publisher", pairs.get("Publication_sequenceOfPublishingStatements").get(0));
+
+		assertEquals(4, pairs.get("ParallelTitle_noteAndAddedEntry").size());
+		assertEquals("Note, added entry",
+			pairs.get("ParallelTitle_noteAndAddedEntry").get(0));
+		assertEquals("No note, added entry",
+			pairs.get("ParallelTitle_noteAndAddedEntry").get(1));
+		assertEquals("No note, added entry", pairs.get("ParallelTitle_noteAndAddedEntry").get(2));
+		assertEquals("9", pairs.get("ParallelTitle_noteAndAddedEntry").get(3));
+
+		assertEquals(1, pairs.get("Publication_sequenceOfPublishingStatements").size());
+		assertEquals("Not applicable/No information provided/Earliest available publisher",
+			pairs.get("Publication_sequenceOfPublishingStatements").get(0));
+
+		assertEquals(1, pairs.get("Publication_agent").size());
 		assertEquals("Buchhändler-Vereinigung", pairs.get("Publication_agent").get(0));
+
+		assertEquals(1, pairs.get("Publication_place").size());
 		assertEquals("Frankfurt, M. :", pairs.get("Publication_place").get(0));
+
+		assertEquals(1, pairs.get("DatesOfPublication").size());
 		assertEquals("1991 - 2003; damit Ersch. eingest.", pairs.get("DatesOfPublication").get(0));
+
+		assertEquals(1, pairs.get("DatesOfPublication_format").size());
 		assertEquals("Unformatted note", pairs.get("DatesOfPublication_format").get(0));
-		assertEquals("Ersch. wöchentlich, jedes 4.-5. Heft als Monatsregister", pairs.get("NumberingPeculiarities").get(0));
-		// assertEquals("84!(09-02-04)", pairs.get("BemerkungenZurTitelaufnahme").get(0)); //
-		assertEquals("Abschluss einer RSWK-Kettenfolge, Feld enthält dann zwei $5", pairs.get("RSWKKette_nummerDesKettengliedes").get(0));
-		assertEquals("(DE-576)208865578", pairs.get("RSWKKette_0").get(0));
-		assertEquals("Bibliografie", pairs.get("RSWKKette_a").get(0));
-		assertEquals("Nummer der RSWK-Kette: 0", pairs.get("RSWKKette_nummerDerRSWKKette").get(0));
-		assertEquals("s", pairs.get("RSWKKette_D").get(0));
+
+		assertEquals(1, pairs.get("NumberingPeculiarities").size());
+		assertEquals("Ersch. wöchentlich, jedes 4.-5. Heft als Monatsregister",
+			pairs.get("NumberingPeculiarities").get(0));
+
+		assertEquals(2, pairs.get("BemerkungenZurTitelaufnahme").size());
+		assertEquals("84!(09-02-04)", pairs.get("BemerkungenZurTitelaufnahme").get(0));
+		assertEquals("84!(09-02-04)", pairs.get("BemerkungenZurTitelaufnahme").get(1));
+
+		assertEquals(4, pairs.get("RSWKKette_nummerDesKettengliedes").size());
+		assertEquals("Nummer des Kettengliedes: 0",
+			pairs.get("RSWKKette_nummerDesKettengliedes").get(0));
+		assertEquals("Nummer des Kettengliedes: 1",
+			pairs.get("RSWKKette_nummerDesKettengliedes").get(1));
+		assertEquals("Nummer des Kettengliedes: 2",
+			pairs.get("RSWKKette_nummerDesKettengliedes").get(2));
+		assertEquals("Abschluss einer RSWK-Kettenfolge, Feld enthält dann zwei $5",
+			pairs.get("RSWKKette_nummerDesKettengliedes").get(3));
+
+		assertEquals(3, pairs.get("RSWKKette_0").size());
+		assertEquals("(DE-576)208896155", pairs.get("RSWKKette_0").get(0));
+		assertEquals("(DE-576)208901906", pairs.get("RSWKKette_0").get(1));
+		assertEquals("(DE-576)208865578", pairs.get("RSWKKette_0").get(2));
+
+		assertEquals(3, pairs.get("RSWKKette_a").size());
+		assertEquals("Deutschland", pairs.get("RSWKKette_a").get(0));
+		assertEquals("Druckwerk", pairs.get("RSWKKette_a").get(1));
+		assertEquals("Bibliografie", pairs.get("RSWKKette_a").get(2));
+
+		assertEquals(4, pairs.get("RSWKKette_nummerDerRSWKKette").size());
+		assertEquals("Nummer der RSWK-Kette: 0",
+			pairs.get("RSWKKette_nummerDerRSWKKette").get(0));
+		assertEquals("Nummer der RSWK-Kette: 0",
+			pairs.get("RSWKKette_nummerDerRSWKKette").get(1));
+		assertEquals("Nummer der RSWK-Kette: 0",
+			pairs.get("RSWKKette_nummerDerRSWKKette").get(2));
+		assertEquals("Nummer der RSWK-Kette: 0",
+			pairs.get("RSWKKette_nummerDerRSWKKette").get(3));
+
+		assertEquals(3, pairs.get("RSWKKette_D").size());
+		assertEquals("g", pairs.get("RSWKKette_D").get(0));
+		assertEquals("s", pairs.get("RSWKKette_D").get(1));
+		assertEquals("s", pairs.get("RSWKKette_D").get(2));
+
+		assertEquals(1, pairs.get("RSWKKette_5").size());
 		assertEquals("DE-101", pairs.get("RSWKKette_5").get(0));
+
+		assertEquals(1, pairs.get("AddedCorporateName").size());
 		assertEquals("Deutsche Bibliothek", pairs.get("AddedCorporateName").get(0));
-		assertEquals("(DE-576)190187867", pairs.get("AddedCorporateName_authorityRecordControlNumber").get(0));
+
+		assertEquals(1, pairs.get("AddedCorporateName_authorityRecordControlNumber").size());
+		assertEquals("(DE-576)190187867",
+			pairs.get("AddedCorporateName_authorityRecordControlNumber").get(0));
+
+		assertEquals(1, pairs.get("AddedCorporateName_authorityRecordControlNumber_recordNumber").size());
 		assertEquals("190187867", pairs.get("AddedCorporateName_authorityRecordControlNumber_recordNumber").get(0));
-		assertEquals("Bibliotheksservice-Zentrum Baden-Württemberg (BSZ)", pairs.get("AddedCorporateName_authorityRecordControlNumber_organization").get(0));
-		assertEquals("DE-576", pairs.get("AddedCorporateName_authorityRecordControlNumber_organizationCode").get(0));
+
+		assertEquals(1, pairs.get("AddedCorporateName_authorityRecordControlNumber_organization").size());
+		assertEquals("Bibliotheksservice-Zentrum Baden-Württemberg (BSZ)",
+			pairs.get("AddedCorporateName_authorityRecordControlNumber_organization").get(0));
+
+		assertEquals(1, pairs.get("AddedCorporateName_authorityRecordControlNumber_organizationCode").size());
+		assertEquals("DE-576",
+			pairs.get("AddedCorporateName_authorityRecordControlNumber_organizationCode").get(0));
+
+		assertEquals(1, pairs.get("AddedCorporateName_entryType").size());
 		assertEquals("No information provided", pairs.get("AddedCorporateName_entryType").get(0));
+
+		assertEquals(1, pairs.get("AddedCorporateName_nameType").size());
 		assertEquals("Name in direct order", pairs.get("AddedCorporateName_nameType").get(0));
+
+		assertEquals(2, pairs.get("PartOf_relation").size());
 		assertEquals("Index zu", pairs.get("PartOf_relation").get(0));
-		assertEquals("No display constant generated", pairs.get("PartOf_displayConstant").get(0));
-		assertEquals("(DE-600)1056366-0", pairs.get("PartOf_recordControlNumber").get(0));
+		assertEquals("Index zu", pairs.get("PartOf_relation").get(1));
+
+		assertEquals(2, pairs.get("PartOf_displayConstant").size());
+		assertEquals("No display constant generated",
+			pairs.get("PartOf_displayConstant").get(0));
+		assertEquals("No display constant generated",
+			pairs.get("PartOf_displayConstant").get(1));
+
+		assertEquals(2, pairs.get("PartOf_recordControlNumber").size());
+		assertEquals("(DE-600)1056339-8", pairs.get("PartOf_recordControlNumber").get(0));
+		assertEquals("(DE-600)1056366-0", pairs.get("PartOf_recordControlNumber").get(1));
+
+		assertEquals(2, pairs.get("PartOf_noteController").size());
 		assertEquals("Display note", pairs.get("PartOf_noteController").get(0));
-		assertEquals("1056366-0", pairs.get("PartOf_recordControlNumber_recordNumber").get(0));
-		assertEquals("Zeitschriftendatenbank (ZDB)", pairs.get("PartOf_recordControlNumber_organization").get(0));
-		assertEquals("DE-600", pairs.get("PartOf_recordControlNumber_organizationCode").get(0));
-		assertEquals("Deutsche Nationalbibliografie und Bibliografie der im Ausland erschienenen deutschsprachigen Veröffentlichungen / B", pairs.get("PartOf").get(0));
-		assertEquals("Deutsche Bibliographie. Wöchentliches Verzeichnis. Reihe A und Reihe B, Erscheinungen des Verlagsbuchhandels und außerhalb des Verlagsbuchhandels : Register", pairs.get("PrecededBy").get(0));
+		assertEquals("Display note", pairs.get("PartOf_noteController").get(1));
+
+		assertEquals(2, pairs.get("PartOf_recordControlNumber_recordNumber").size());
+		assertEquals("1056339-8",
+			pairs.get("PartOf_recordControlNumber_recordNumber").get(0));
+		assertEquals("1056366-0",
+			pairs.get("PartOf_recordControlNumber_recordNumber").get(1));
+
+		assertEquals(2, pairs.get("PartOf_recordControlNumber_organization").size());
+		assertEquals("Zeitschriftendatenbank (ZDB)",
+			pairs.get("PartOf_recordControlNumber_organization").get(0));
+		assertEquals("Zeitschriftendatenbank (ZDB)",
+			pairs.get("PartOf_recordControlNumber_organization").get(1));
+
+		assertEquals(2, pairs.get("PartOf_recordControlNumber_organizationCode").size());
+		assertEquals("DE-600",
+			pairs.get("PartOf_recordControlNumber_organizationCode").get(0));
+		assertEquals("DE-600",
+			pairs.get("PartOf_recordControlNumber_organizationCode").get(1));
+
+		assertEquals(2, pairs.get("PartOf").size());
+		assertEquals("Deutsche Nationalbibliografie und Bibliografie der im Ausland erschienenen deutschsprachigen Veröffentlichungen / A",
+			pairs.get("PartOf").get(0));
+		assertEquals("Deutsche Nationalbibliografie und Bibliografie der im Ausland erschienenen deutschsprachigen Veröffentlichungen / B",
+			pairs.get("PartOf").get(1));
+
+		assertEquals(1, pairs.get("PrecededBy").size());
+		assertEquals("Deutsche Bibliographie. Wöchentliches Verzeichnis. Reihe A und Reihe B, Erscheinungen des Verlagsbuchhandels und außerhalb des Verlagsbuchhandels : Register",
+			pairs.get("PrecededBy").get(0));
+
+		assertEquals(1, pairs.get("PrecededBy_relation").size());
 		assertEquals("Vorg.", pairs.get("PrecededBy_relation").get(0));
-		assertEquals("Zeitschriftendatenbank (ZDB)", pairs.get("PrecededBy_recordControlNumber_organization").get(0));
+
+		assertEquals(1, pairs.get("PrecededBy_recordControlNumber_organization").size());
+		assertEquals("Zeitschriftendatenbank (ZDB)",
+			pairs.get("PrecededBy_recordControlNumber_organization").get(0));
+
+		assertEquals(1, pairs.get("PrecededBy_recordControlNumber_recordNumber").size());
 		assertEquals("1429255", pairs.get("PrecededBy_recordControlNumber_recordNumber").get(0));
+
+		assertEquals(1, pairs.get("PrecededBy_typeOfRelationship").size());
 		assertEquals("Continues", pairs.get("PrecededBy_typeOfRelationship").get(0));
+
+		assertEquals(1, pairs.get("PrecededBy_recordControlNumber").size());
 		assertEquals("(DE-600)1429255", pairs.get("PrecededBy_recordControlNumber").get(0));
+
+		assertEquals(1, pairs.get("PrecededBy_recordControlNumber_organizationCode").size());
 		assertEquals("DE-600", pairs.get("PrecededBy_recordControlNumber_organizationCode").get(0));
+
+		assertEquals(1, pairs.get("PrecededBy_noteController").size());
 		assertEquals("Display note", pairs.get("PrecededBy_noteController").get(0));
 	}
 

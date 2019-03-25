@@ -264,17 +264,17 @@ public class Completeness implements MarcFileProcessor, Serializable {
         "Field %s is not registered in histogram", key));
     }
 
-    String record = StringUtils.join(
-        Arrays.asList(key,
-          '"' + packageLabel + '"',
-          '"' + tagLabel + '"',
-          '"' + subfieldLabel + '"',
-          frequency, cardinality,
-          statistics.getMin(), statistics.getMax(),
-          statistics.getMean(), statistics.getStdDev(),
-          statistics.formatHistogram()),
-        separator
-      ) + "\n";
+    List<Object> values = Utils.quote(
+      Arrays.asList(
+        key, packageLabel, tagLabel, subfieldLabel,
+        frequency, cardinality,
+        statistics.getMin(), statistics.getMax(),
+        statistics.getMean(), statistics.getStdDev(),
+        statistics.formatHistogram()
+      )
+    );
+
+    String record = StringUtils.join(values, separator) + "\n";
     return record;
   }
 

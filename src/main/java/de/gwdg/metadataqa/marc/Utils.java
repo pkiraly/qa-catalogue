@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,5 +41,20 @@ public class Utils {
     String packageName = field.getClass().getPackage().getName()
       .replace("de.gwdg.metadataqa.marc.definition.tags.", "");
     return packageName;
+  }
+
+  public static List<Object> quote(List<? extends Serializable> values) {
+    List<Object> quoted = new ArrayList<>();
+    for (Serializable value : values) {
+      quoted.add(Utils.quote(value));
+    }
+    return quoted;
+  }
+
+  public static Object quote(Object value) {
+    if (value instanceof String) {
+      return '"' + ((String) value).replace("\\", "\\\\") + '"';
+    }
+    return value;
   }
 }

@@ -98,11 +98,10 @@ public class ValidationErrorFormatter {
 
 	private static String createCvsRow(String[] strings, char separator) {
 		StringWriter stringWriter = new StringWriter();
-		CSVWriter csvWriter = new CSVWriter(stringWriter, separator);
+		CSVWriter csvWriter = new CSVWriter(stringWriter, separator, '"');
 		csvWriter.writeNext(strings);
-		return stringWriter.toString().trim();
+		return stringWriter.toString().trim().replace("\\", "\\\\");
 	}
-
 
 	private static String formatTextWithoutId(ValidationError error) {
 		return String.format("%s: %s '%s' (%s)",

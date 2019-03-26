@@ -99,8 +99,7 @@ public class MarcToSolr implements MarcFileProcessor, Serializable {
 
   @Override
   public void afterIteration() {
-    if (parameters.doCommit())
-      client.commit();
+    client.commit();
   }
 
   @Override

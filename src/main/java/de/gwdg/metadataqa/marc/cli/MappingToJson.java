@@ -1,6 +1,8 @@
 package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.*;
+import de.gwdg.metadataqa.marc.cli.parameters.MappingParameters;
+import de.gwdg.metadataqa.marc.cli.parameters.MarcToSolrParameters;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.tags.control.*;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.Control006Subfields;
@@ -9,7 +11,10 @@ import de.gwdg.metadataqa.marc.definition.controlsubfields.Control008Subfields;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.LeaderSubfields;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.utils.MarcTagLister;
+import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
 import net.minidev.json.JSONValue;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -17,14 +22,24 @@ import java.util.*;
 
 public class MappingToJson {
 
-  private boolean exportSubfieldCodes = false;
-  private static List<String> nonMarc21TagLibraries = Arrays.asList(
+  private final static List<String> nonMarc21TagLibraries = Arrays.asList(
     "oclctags", "fennicatags", "dnbtags", "sztetags", "genttags",
     "holdings"
   );
-  private Map<String, Object> mapping;
 
-  public MappingToJson() {
+  private boolean exportSubfieldCodes = false;
+  private boolean exportSelfDescriptiveCodes = false;
+  private Map<String, Object> mapping;
+  private final Options options;
+  private MappingParameters parameters;
+
+  public MappingToJson(String args[]) throws ParseException {
+    parameters = new MappingParameters(args);
+    options = parameters.getOptions();
+
+    exportSubfieldCodes = parameters.isExportSubfieldCodes();
+    exportSelfDescriptiveCodes = parameters.isExportSelfDescriptiveCodes();
+
     mapping = new LinkedHashMap<>();
     mapping.put("$schema", "https://format.gbv.de/schema/avram/schema.json");
     mapping.put("title", "MARC 21 Format for Bibliographic Data.");
@@ -184,6 +199,8 @@ public class MappingToJson {
   }
 
   private void dataFieldToJson(Map fields, DataFieldDefinition tag) {
+    DataFieldKeyGenerator keyGenerator = new DataFieldKeyGenerator(tag, parameters.getSolrFieldType());
+
     Map<String, Object> tagMap = new LinkedHashMap<>();
     tagMap.put("tag", tag.getTag());
     tagMap.put("label", tag.getLabel());
@@ -194,7 +211,7 @@ public class MappingToJson {
 
     Map<String, Object> subfields = new LinkedHashMap<>();
     for (SubfieldDefinition subfield : tag.getSubfields()) {
-      subfields.put(subfield.getCode(), subfieldToJson(subfield));
+      subfields.put(subfield.getCode(), subfieldToJson(subfield, keyGenerator));
     }
     tagMap.put("subfields", subfields);
 
@@ -211,19 +228,23 @@ public class MappingToJson {
     fields.put(tag.getTag(), tagMap);
   }
 
-  private Map<String, Object> subfieldToJson(SubfieldDefinition subfield) {
+  private Map<String, Object> subfieldToJson(SubfieldDefinition subfield, DataFieldKeyGenerator keyGenerator) {
     Map<String, Object> codeMap = new LinkedHashMap<>();
     codeMap.put("label", subfield.getLabel());
     codeMap.put("repeatable", resolveCardinality(subfield.getCardinality()));
 
+    if (exportSelfDescriptiveCodes)
+      codeMap.put("solr", keyGenerator.forSubfield(subfield));
+
     if (subfield.getCodeList() != null
-      && !subfield.getCodeList().getCodes().isEmpty()) {
+        && !subfield.getCodeList().getCodes().isEmpty()) {
       CodeList codeList = subfield.getCodeList();
       Map<String, Object> meta = new LinkedHashMap<>();
       meta.put("name", codeList.getName());
       meta.put("url", codeList.getUrl());
+
       if (exportSubfieldCodes
-        && !codeList.getName().equals("MARC Organization Codes")) {
+          && !codeList.getName().equals("MARC Organization Codes")) {
         Map<String, Object> codes = new LinkedHashMap<>();
         for (Code code : subfield.getCodeList().getCodes()) {
           Map<String, Object> codeListMap = new LinkedHashMap<>();
@@ -266,11 +287,9 @@ public class MappingToJson {
     return cardinality.getCode().equals("R");
   }
 
-  public static void main(String[] args) {
-    boolean exportSubfieldCodes = (args.length > 0 && args[0].equals("--with-subfield-codelists"));
+  public static void main(String[] args) throws ParseException {
 
-    MappingToJson mapping = new MappingToJson();
-    mapping.setExportSubfieldCodes(exportSubfieldCodes);
+    MappingToJson mapping = new MappingToJson(args);
     mapping.build();
     System.out.println(mapping.toJson());
   }

@@ -209,7 +209,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
 
       for (DataField field : datafields) {
         Map<String, List<String>> keyValuePairs = field.getKeyValuePairs(type);
-        for (Map.Entry<String, List<String>> entry : field.getKeyValuePairs(type).entrySet()) {
+        for (Map.Entry<String, List<String>> entry : keyValuePairs.entrySet()) {
           String key = entry.getKey();
           List<String> value = entry.getValue();
           if (mainKeyValuePairs.containsKey(key)) {

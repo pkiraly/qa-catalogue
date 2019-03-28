@@ -304,6 +304,12 @@ Set autocommit the following way in solrconfig.xml (inside Solr):
 ```
 It needs because in the library's code there is no commit, which makes the parallel indexing faster.
 
+In schema.xml (or in Solr web interface):
+```XML
+<dynamicField name="*_sni" type="string" indexed="false" stored="true"/>
+<copyField source="*_ss" dest="_text_"/>
+```
+
 Run indexer:
 ```
 java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr [options] [file]

@@ -1,5 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.validator.ClassificationReferenceValidator;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
@@ -8,7 +10,6 @@ import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 
 import de.gwdg.metadataqa.marc.definition.tags.control.Control001Definition;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.*;
@@ -147,7 +148,8 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
 
   private List<MarcControlField> getControlfields() {
     return Arrays.asList(
-      control001, control003, control005, control006, control007, control008);
+      control001, control003, control005, control006, control007, control008
+    );
   }
 
   public List<DataField> getDatafield(String tag) {
@@ -221,9 +223,46 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
           }
         }
       }
+
+      mainKeyValuePairs.put("record", Arrays.asList(asJson()));
     }
 
     return mainKeyValuePairs;
+  }
+
+  public String asJson() {
+    ObjectMapper mapper = new ObjectMapper();
+
+    StringBuilder text = new StringBuilder();
+    Map<String, Object> map = new LinkedHashMap<>();
+    map.put("leader", Arrays.asList(leader.getContent()));
+    for (MarcControlField field : getControlfields()) {
+      if (field != null)
+        map.put(field.getDefinition().getTag(), field.getContent());
+    }
+    for (DataField field : datafields) {
+      if (field != null) {
+        Map<String, Object> fieldMap = new LinkedHashMap<>();
+        fieldMap.put("ind1", field.getInd1());
+        fieldMap.put("ind2", field.getInd2());
+
+        Map<String, String> subfields = new LinkedHashMap<>();
+        for (MarcSubfield subfield : field.getSubfields()) {
+          subfields.put(subfield.getCode(), subfield.getValue());
+        }
+        fieldMap.put("subfields", subfields);
+        map.put(field.getDefinition().getTag(), fieldMap);
+      }
+    }
+
+    String json = null;
+    try {
+      json = mapper.writeValueAsString(map);
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
+    }
+
+    return json;
   }
 
   @Override

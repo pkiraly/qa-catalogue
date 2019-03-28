@@ -64,7 +64,8 @@ public class MarcToSolr implements MarcFileProcessor, Serializable {
     try {
       client.indexMap(
         marcRecord.getId(),
-        marcRecord.getKeyValuePairs(parameters.getSolrFieldType()));
+        marcRecord.getKeyValuePairs(parameters.getSolrFieldType())
+      );
     } catch (SolrServerException e) {
       e.printStackTrace();
     }

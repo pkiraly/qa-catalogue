@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Path;
 import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -62,10 +65,11 @@ public class MarcToSolr implements MarcFileProcessor, Serializable {
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
     try {
-      client.indexMap(
-        marcRecord.getId(),
-        marcRecord.getKeyValuePairs(parameters.getSolrFieldType())
-      );
+      Map<String, List<String>> map = marcRecord.getKeyValuePairs(
+        parameters.getSolrFieldType());
+      map.put("record_sni", Arrays.asList(marcRecord.asJson()));
+
+      client.indexMap(marcRecord.getId(), map);
     } catch (SolrServerException e) {
       e.printStackTrace();
     }

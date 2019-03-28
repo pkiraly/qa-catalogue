@@ -223,8 +223,6 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
           }
         }
       }
-
-      mainKeyValuePairs.put("record", Arrays.asList(asJson()));
     }
 
     return mainKeyValuePairs;

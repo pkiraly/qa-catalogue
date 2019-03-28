@@ -198,6 +198,11 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   }
 
   public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
+    return getKeyValuePairs(type, false);
+  }
+
+  public Map<String, List<String>> getKeyValuePairs(SolrFieldType type,
+                                                    boolean withDeduplication) {
     if (mainKeyValuePairs == null) {
       mainKeyValuePairs = new LinkedHashMap<>();
 
@@ -213,13 +218,21 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
         Map<String, List<String>> keyValuePairs = field.getKeyValuePairs(type);
         for (Map.Entry<String, List<String>> entry : keyValuePairs.entrySet()) {
           String key = entry.getKey();
-          List<String> value = entry.getValue();
+          List<String> values = entry.getValue();
           if (mainKeyValuePairs.containsKey(key)) {
             ArrayList<String> mergedList = new ArrayList<String>(mainKeyValuePairs.get(key));
-            mergedList.addAll(value);
+            if (withDeduplication) {
+              for (String value : values) {
+                if (!mergedList.contains(value)) {
+                  mergedList.add(value);
+                }
+              }
+            } else {
+              mergedList.addAll(values);
+            }
             mainKeyValuePairs.put(key, mergedList);
           } else {
-            mainKeyValuePairs.put(key, value);
+            mainKeyValuePairs.put(key, values);
           }
         }
       }

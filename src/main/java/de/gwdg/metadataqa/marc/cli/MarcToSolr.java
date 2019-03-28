@@ -66,9 +66,9 @@ public class MarcToSolr implements MarcFileProcessor, Serializable {
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
     try {
       Map<String, List<String>> map = marcRecord.getKeyValuePairs(
-        parameters.getSolrFieldType());
+        parameters.getSolrFieldType(), true
+      );
       map.put("record_sni", Arrays.asList(marcRecord.asJson()));
-
       client.indexMap(marcRecord.getId(), map);
     } catch (SolrServerException e) {
       e.printStackTrace();

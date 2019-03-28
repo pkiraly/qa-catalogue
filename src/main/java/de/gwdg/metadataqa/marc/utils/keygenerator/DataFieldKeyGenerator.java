@@ -84,6 +84,10 @@ public class DataFieldKeyGenerator {
     return key;
   }
 
+  public String getIndexTag() {
+    return indexTag;
+  }
+
   public String forSubfield(MarcSubfield subfield, String extra) {
     return String.format("%s_%s", forSubfield(subfield), extra);
   }

@@ -206,6 +206,9 @@ public class MappingToJson {
     tagMap.put("label", tag.getLabel());
     tagMap.put("url", tag.getDescriptionUrl());
     tagMap.put("repeatable", resolveCardinality(tag.getCardinality()));
+    if (exportSelfDescriptiveCodes)
+      tagMap.put("solr", keyGenerator.getIndexTag());
+
     tagMap.put("indicator1", indicatorToJson(tag.getInd1()));
     tagMap.put("indicator2", indicatorToJson(tag.getInd2()));
 

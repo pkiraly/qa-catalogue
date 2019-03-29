@@ -33,12 +33,14 @@ public class MarcToSolr implements MarcFileProcessor, Serializable {
   private MarcToSolrParameters parameters;
   private MarcSolrClient client;
   private Path currentFile;
+  private boolean readyToProcess;
   private DecimalFormat decimalFormat = new DecimalFormat();
 
   public MarcToSolr(String[] args) throws ParseException {
     parameters = new MarcToSolrParameters(args);
     options = parameters.getOptions();
     client = new MarcSolrClient(parameters.getSolrUrl());
+    readyToProcess = true;
   }
 
   public static void main(String[] args) throws ParseException {
@@ -71,6 +73,10 @@ public class MarcToSolr implements MarcFileProcessor, Serializable {
       map.put("record_sni", Arrays.asList(marcRecord.asJson()));
       client.indexMap(marcRecord.getId(), map);
     } catch (SolrServerException e) {
+      if (e.getMessage().contains("Server refused connection at")) {
+        // end process;
+        readyToProcess = false;
+      }
       e.printStackTrace();
     }
     if (recordNumber % 5000 == 0) {
@@ -110,5 +116,10 @@ public class MarcToSolr implements MarcFileProcessor, Serializable {
   @Override
   public void printHelp(Options options) {
 
+  }
+
+  @Override
+  public boolean readyToProcess() {
+    return readyToProcess;
   }
 }

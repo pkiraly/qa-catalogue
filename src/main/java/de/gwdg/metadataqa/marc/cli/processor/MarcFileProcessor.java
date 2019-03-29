@@ -10,13 +10,13 @@ import java.nio.file.Path;
 
 public interface MarcFileProcessor {
 
-	CommonParameters getParameters();
-	void processRecord(Record marc4jRecord, int recordNumber) throws IOException;
-	void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException;
-	void beforeIteration();
-	void fileOpened(Path path);
-	void fileProcessed();
-	void afterIteration();
-
-	void printHelp(Options options);
+  CommonParameters getParameters();
+  void processRecord(Record marc4jRecord, int recordNumber) throws IOException;
+  void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException;
+  void beforeIteration();
+  void fileOpened(Path path);
+  void fileProcessed();
+  void afterIteration();
+  void printHelp(Options options);
+  boolean readyToProcess();
 }

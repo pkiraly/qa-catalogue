@@ -38,11 +38,13 @@ public class Validator implements MarcFileProcessor, Serializable {
   private File summaryFile = null;
   private boolean doPrintInProcessRecord = true;
   private Path currentFile;
+  private boolean readyToProcess;
 
   public Validator(String[] args) throws ParseException {
     parameters = new ValidatorParameters(args);
     options = parameters.getOptions();
     errorCounter = new TreeMap<>();
+    readyToProcess = true;
   }
 
   public static void main(String[] args) {
@@ -181,5 +183,10 @@ public class Validator implements MarcFileProcessor, Serializable {
 
   public void setDoPrintInProcessRecord(boolean doPrintInProcessRecord) {
     this.doPrintInProcessRecord = doPrintInProcessRecord;
+  }
+
+  @Override
+  public boolean readyToProcess() {
+    return readyToProcess;
   }
 }

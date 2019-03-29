@@ -7,9 +7,6 @@ import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
-import de.gwdg.metadataqa.marc.definition.tags.TagCategories;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.utils.BasicStatistics;
 import de.gwdg.metadataqa.marc.utils.TagHierarchy;
@@ -34,7 +31,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Completeness implements MarcFileProcessor, Serializable {
@@ -52,10 +48,12 @@ public class Completeness implements MarcFileProcessor, Serializable {
   private Map<String, Integer> libraryMap = new HashMap<>();
   private Map<String, Integer> fieldMap = new HashMap<>();
   private Map<String, Map<Integer, Integer>> fieldHistogram = new HashMap<>();
+  private boolean readyToProcess;
 
   public Completeness(String[] args) throws ParseException {
     parameters = new CompletenessParameters(args);
     options = parameters.getOptions();
+    readyToProcess = true;
   }
 
   public static void main(String[] args) {
@@ -291,5 +289,10 @@ public class Completeness implements MarcFileProcessor, Serializable {
     HelpFormatter formatter = new HelpFormatter();
     String message = String.format("java -cp metadata-qa-marc.jar %s [options] [file]", this.getClass().getCanonicalName());
     formatter.printHelp(message, options);
+  }
+
+  @Override
+  public boolean readyToProcess() {
+    return readyToProcess;
   }
 }

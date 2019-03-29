@@ -2,7 +2,6 @@ package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.*;
 import de.gwdg.metadataqa.marc.cli.parameters.MappingParameters;
-import de.gwdg.metadataqa.marc.cli.parameters.MarcToSolrParameters;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.tags.control.*;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.Control006Subfields;

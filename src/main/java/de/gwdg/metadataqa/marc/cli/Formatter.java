@@ -26,9 +26,11 @@ public class Formatter implements MarcFileProcessor {
   private static final Logger logger = Logger.getLogger(Formatter.class.getCanonicalName());
 
   private FormatterParameters parameters;
+  private boolean readyToProcess;
 
   public Formatter(String[] args) throws ParseException {
     parameters = new FormatterParameters(args);
+    readyToProcess = true;
   }
 
   public static void main(String[] args) throws ParseException {
@@ -126,5 +128,10 @@ public class Formatter implements MarcFileProcessor {
   @Override
   public void afterIteration() {
 
+  }
+
+  @Override
+  public boolean readyToProcess() {
+    return readyToProcess;
   }
 }

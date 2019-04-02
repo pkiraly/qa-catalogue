@@ -11,6 +11,7 @@ public class CompletenessParameters extends CommonParameters implements Serializ
   private String outputDir = DEFAULT_OUTPUT_DIR;
   private ValidationErrorFormat format = ValidationErrorFormat.COMMA_SEPARATED;
   private boolean advanced = false;
+  private boolean onlyPackages = false;
   private boolean isOptionSet;
 
   protected void setOptions() {
@@ -19,6 +20,7 @@ public class CompletenessParameters extends CommonParameters implements Serializ
       options.addOption("t", "outputDir", true, "show record level display");
       options.addOption("r", "format", true, "specify a format");
       options.addOption("v", "advanced", false, "advanced mode");
+      options.addOption("p", "onlyPackages", false, "only packages");
       isOptionSet = true;
     }
   }
@@ -35,6 +37,9 @@ public class CompletenessParameters extends CommonParameters implements Serializ
 
     if (cmd.hasOption("advanced"))
       advanced = true;
+
+    if (cmd.hasOption("onlyPackages"))
+      onlyPackages = true;
 
     if (cmd.hasOption("format"))
       for (ValidationErrorFormat registeredFormat : ValidationErrorFormat.values()) {
@@ -55,6 +60,10 @@ public class CompletenessParameters extends CommonParameters implements Serializ
 
   public boolean isAdvanced() {
     return advanced;
+  }
+
+  public boolean isOnlyPackages() {
+    return onlyPackages;
   }
 
   @Override

@@ -7,6 +7,7 @@ import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.definition.tags.TagCategories;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.utils.BasicStatistics;
 import de.gwdg.metadataqa.marc.utils.TagHierarchy;
@@ -42,6 +43,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
   private CompletenessParameters parameters;
   private Map<String, Integer> library003Counter = new TreeMap<>();
   private Map<String, Integer> libraryCounter = new TreeMap<>();
+  private Map<String, Integer> packageCounter = new TreeMap<>();
   private Map<String, Integer> elementCardinality = new TreeMap<>();
   private Map<String, Integer> elementFrequency = new TreeMap<>();
   private Map<String, String> tagCache = new HashMap<>();
@@ -90,6 +92,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
     Map<String, Integer> recordFrequency = new TreeMap<>();
+    Map<String, Integer> recordPackageCounter = new TreeMap<>();
 
     if (marcRecord.getControl003() != null)
       count(marcRecord.getControl003().getContent(), library003Counter);
@@ -97,15 +100,16 @@ public class Completeness implements MarcFileProcessor, Serializable {
       count(library, libraryCounter);
     }
     for (DataField field : marcRecord.getDatafields()) {
-      // String packageName = Utils.extractPackageName(field);
+      if (field.getDefinition() != null) {
+        String packageName = Utils.extractPackageName(field);
+        if (StringUtils.isBlank(packageName)) {
+          System.err.println(field + " has no package. /" + field.getDefinition().getClass());
+        }
+        count(packageName, recordPackageCounter);
+      }
+
       for (MarcSubfield subfield : field.getSubfields()) {
         String key = String.format("%s$%s", field.getTag(), subfield.getCode());
-          /*
-          String key = String.format("%s/%s$%s (%s > %s > %s)",
-            packageName, field.getTag(), subfield.getCode(),
-            TagCategories.getPackage(packageName), field.getDefinition().getLabel(), subfield.getLabel()
-          );
-          */
         count(key, elementCardinality);
         count(key, recordFrequency);
       }
@@ -116,6 +120,10 @@ public class Completeness implements MarcFileProcessor, Serializable {
         fieldHistogram.put(key, new TreeMap<>());
       }
       count(recordFrequency.get(key), fieldHistogram.get(key));
+    }
+
+    for (String key : recordPackageCounter.keySet()) {
+      count(key, packageCounter);
     }
   }
 
@@ -173,6 +181,13 @@ public class Completeness implements MarcFileProcessor, Serializable {
       fileExtension = ".tsv";
     }
 
+    saveLibraries003(fileExtension, separator);
+    saveLibraries(fileExtension, separator);
+    savePackages(fileExtension, separator);
+    saveMarcElements(fileExtension, separator);
+  }
+
+  private void saveLibraries003(String fileExtension, char separator) {
     System.err.println("Libraries003");
     Path path = Paths.get(parameters.getOutputDir(), "libraries003" + fileExtension);
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
@@ -190,25 +205,10 @@ public class Completeness implements MarcFileProcessor, Serializable {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
 
-    System.err.println("Libraries");
-    path = Paths.get(parameters.getOutputDir(), "libraries" + fileExtension);
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-      writer.write("library" + separator + "count\n");
-      libraryCounter
-        .entrySet()
-        .stream()
-        .forEach(entry -> {
-          try {
-            writer.write(String.format("\"%s\"%s%d%n", entry.getKey(), separator, entry.getValue()));
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
-        });
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
+  private void saveMarcElements(String fileExtension, char separator) {
+    Path path;
     System.err.println("MARC elements");
     path = Paths.get(parameters.getOutputDir(), "marc-elements" + fileExtension);
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
@@ -228,6 +228,51 @@ public class Completeness implements MarcFileProcessor, Serializable {
         .forEach(entry -> {
           try {
             writer.write(formatCardinality(separator, entry));
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        });
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void savePackages(String fileExtension, char separator) {
+    Path path;
+    System.err.println("Packages");
+    path = Paths.get(parameters.getOutputDir(), "packages" + fileExtension);
+    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+      writer.write("name" + separator + "label" + separator + "count\n");
+      packageCounter
+        .entrySet()
+        .stream()
+        .forEach(entry -> {
+          try {
+            String name = entry.getKey();
+            String label = TagCategories.getPackage(name);
+            writer.write(String.format("\"%s\"%s\"%s\"%s%d%n",
+              name, separator, label, separator, entry.getValue()));
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        });
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void saveLibraries(String fileExtension, char separator) {
+    Path path;
+    System.err.println("Libraries");
+    path = Paths.get(parameters.getOutputDir(), "libraries" + fileExtension);
+    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+      writer.write("library" + separator + "count\n");
+      libraryCounter
+        .entrySet()
+        .stream()
+        .forEach(entry -> {
+          try {
+            writer.write(String.format("\"%s\"%s%d%n", entry.getKey(), separator, entry.getValue()));
           } catch (IOException e) {
             e.printStackTrace();
           }

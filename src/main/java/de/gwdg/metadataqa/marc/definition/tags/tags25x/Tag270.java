@@ -92,17 +92,28 @@ public class Tag270 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoveryObtain);
     getSubfield("g").setMqTag("attentionName")
       .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("h").setMqTag("attentionPosition");
-    getSubfield("i").setMqTag("typeOfAddress");
-    getSubfield("j").setMqTag("specializedPhone");
-    getSubfield("k").setMqTag("phone");
-    getSubfield("l").setMqTag("fax");
-    getSubfield("m").setMqTag("email");
-    getSubfield("n").setMqTag("tddOrTty");
-    getSubfield("p").setMqTag("contactPerson");
-    getSubfield("q").setMqTag("contactPersonTitle");
-    getSubfield("r").setMqTag("hours");
-    getSubfield("z").setMqTag("note");
+    getSubfield("h").setMqTag("attentionPosition")
+      .setFrbrFunctions(DiscoveryObtain);
+    getSubfield("i").setMqTag("typeOfAddress")
+      .setFrbrFunctions(ManagementDisplay);
+    getSubfield("j").setMqTag("specializedPhone")
+      .setFrbrFunctions(DiscoveryObtain);
+    getSubfield("k").setMqTag("phone")
+      .setFrbrFunctions(DiscoveryObtain);
+    getSubfield("l").setMqTag("fax")
+      .setFrbrFunctions(DiscoveryObtain);
+    getSubfield("m").setMqTag("email")
+      .setFrbrFunctions(DiscoveryObtain);
+    getSubfield("n").setMqTag("tddOrTty")
+      .setFrbrFunctions(DiscoveryObtain);
+    getSubfield("p").setMqTag("contactPerson")
+      .setFrbrFunctions(DiscoveryObtain);
+    getSubfield("q").setMqTag("contactPersonTitle")
+      .setFrbrFunctions(DiscoveryObtain);
+    getSubfield("r").setMqTag("hours")
+      .setFrbrFunctions(DiscoveryObtain);
+    getSubfield("z").setMqTag("note")
+      .setFrbrFunctions(DiscoveryObtain);
     getSubfield("4").setMqTag("relationship");
     getSubfield("6").setMqTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);

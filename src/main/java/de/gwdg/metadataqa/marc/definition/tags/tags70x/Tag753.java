@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTermSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
  * System Details Access to Computer Files
@@ -12,49 +13,54 @@ import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
  */
 public class Tag753 extends DataFieldDefinition {
 
-	private static Tag753 uniqueInstance;
+  private static Tag753 uniqueInstance;
 
-	private Tag753() {
-		initialize();
-		postCreation();
-	}
+  private Tag753() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag753 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag753();
-		return uniqueInstance;
-	}
+  public static Tag753 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag753();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "753";
-		label = "System Details Access to Computer Files";
-		bibframeTag = "SystemRequirement";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd753.html";
+  private void initialize() {
+    tag = "753";
+    label = "System Details Access to Computer Files";
+    bibframeTag = "SystemRequirement";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd753.html";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Make and model of machine", "NR",
-			"b", "Programming language", "NR",
-			"c", "Operating system", "NR",
-			"0", "Authority record control number or standard number", "R",
-			"2", "Source of term", "NR",
-			"6", "Linkage", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Make and model of machine", "NR",
+      "b", "Programming language", "NR",
+      "c", "Operating system", "NR",
+      "0", "Authority record control number or standard number", "R",
+      "2", "Source of term", "NR",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
+    getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
 
-		getSubfield("6").setContentParser(LinkageParser.getInstance());
+    getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-		getSubfield("a").setBibframeTag("machineModel");
-		getSubfield("b").setBibframeTag("programmingLanguage");
-		getSubfield("c").setBibframeTag("operatingSystem");
-		getSubfield("0").setMqTag("authorityRecordControlNumber");
-		getSubfield("2").setMqTag("source");
-		getSubfield("6").setBibframeTag("linkage");
-		getSubfield("8").setMqTag("fieldLink");
-	}
+    getSubfield("a").setBibframeTag("machineModel")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
+    getSubfield("b").setBibframeTag("programmingLanguage")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
+    getSubfield("c").setBibframeTag("operatingSystem")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
+    getSubfield("0").setMqTag("authorityRecordControlNumber");
+    getSubfield("2").setMqTag("source");
+    getSubfield("6").setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("8").setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+  }
 }

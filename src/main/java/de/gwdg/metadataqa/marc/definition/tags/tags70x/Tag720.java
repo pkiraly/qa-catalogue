@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
  * Added Entry - Uncontrolled Name
@@ -12,50 +13,57 @@ import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
  */
 public class Tag720 extends DataFieldDefinition {
 
-	private static Tag720 uniqueInstance;
+  private static Tag720 uniqueInstance;
 
-	private Tag720() {
-		initialize();
-		postCreation();
-	}
+  private Tag720() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag720 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag720();
-		return uniqueInstance;
-	}
+  public static Tag720 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag720();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "720";
-		label = "Added Entry - Uncontrolled Name";
-		mqTag = "UncontrolledName";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd720.html";
+  private void initialize() {
+    tag = "720";
+    label = "Added Entry - Uncontrolled Name";
+    mqTag = "UncontrolledName";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd720.html";
 
-		ind1 = new Indicator("Type of name")
-			.setCodes(
-				" ", "Not specified",
-				"1", "Personal",
-				"2", "Other"
-			)
-			.setMqTag("type");
-		ind2 = new Indicator();
+    ind1 = new Indicator("Type of name")
+      .setCodes(
+        " ", "Not specified",
+        "1", "Personal",
+        "2", "Other"
+      )
+      .setMqTag("type")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Name", "NR",
-			"e", "Relator term", "R",
-			"4", "Relationship", "R",
-			"6", "Linkage", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Name", "NR",
+      "e", "Relator term", "R",
+      "4", "Relationship", "R",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("4").setCodeList(RelatorCodes.getInstance());
+    getSubfield("4").setCodeList(RelatorCodes.getInstance());
 
-		getSubfield("6").setContentParser(LinkageParser.getInstance());
+    getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-		getSubfield("4").setBibframeTag("rdfs:label").setMqTag("rdf:value");
-		getSubfield("4").setMqTag("relator");
-		getSubfield("4").setMqTag("relationship");
-		getSubfield("6").setBibframeTag("linkage");
-		getSubfield("8").setMqTag("fieldLink");	}
+    getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
+    getSubfield("e").setMqTag("relator")
+      .setFrbrFunctions(DiscoveryIdentify);
+    getSubfield("4").setMqTag("relationship")
+      .setFrbrFunctions(DiscoveryIdentify);
+    getSubfield("6").setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("8").setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+  }
 }

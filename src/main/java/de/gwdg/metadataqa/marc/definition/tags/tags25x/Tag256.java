@@ -4,45 +4,49 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
  * Computer File Characteristics
  * http://www.loc.gov/marc/bibliographic/bd256.html
  */
 public class Tag256 extends DataFieldDefinition {
-	private static Tag256 uniqueInstance;
+  private static Tag256 uniqueInstance;
 
-	private Tag256() {
-		initialize();
-		postCreation();
-	}
+  private Tag256() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag256 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag256();
-		return uniqueInstance;
-	}
+  public static Tag256 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag256();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "256";
-		label = "Computer File Characteristics";
-		mqTag = "ComputerFile";
-		cardinality = Cardinality.Nonrepeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd256.html";
+  private void initialize() {
+    tag = "256";
+    label = "Computer File Characteristics";
+    mqTag = "ComputerFile";
+    cardinality = Cardinality.Nonrepeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd256.html";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Computer file characteristics", "NR",
-			"6", "Linkage", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Computer file characteristics", "NR",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("6").setContentParser(LinkageParser.getInstance());
+    getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-		getSubfield("a").setMqTag("rdf:value");
-		getSubfield("6").setBibframeTag("linkage");
-		getSubfield("8").setMqTag("fieldLink");
-	}
+    getSubfield("a").setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageManage, UsageOperate);
+    getSubfield("6").setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("8").setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+  }
 }

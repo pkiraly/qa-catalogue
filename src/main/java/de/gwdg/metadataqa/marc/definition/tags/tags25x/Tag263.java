@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
  * Projected Publication Date
@@ -11,42 +12,46 @@ import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
  */
 public class Tag263 extends DataFieldDefinition {
 
-	private static Tag263 uniqueInstance;
+  private static Tag263 uniqueInstance;
 
-	private Tag263() {
-		initialize();
-		postCreation();
-	}
+  private Tag263() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag263 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag263();
-		return uniqueInstance;
-	}
+  public static Tag263 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag263();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
+  private void initialize() {
 
-		tag = "263";
-		label = "Projected Publication Date";
-		mqTag = "ProjectedPublicationDate";
-		cardinality = Cardinality.Nonrepeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd263.html";
+    tag = "263";
+    label = "Projected Publication Date";
+    mqTag = "ProjectedPublicationDate";
+    cardinality = Cardinality.Nonrepeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd263.html";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Projected publication date", "NR",
-			"6", "Linkage", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Projected publication date", "NR",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("6").setContentParser(LinkageParser.getInstance());
+    getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-		// TODO $a - regex: yyyymm and '-' for the unknown portion of the date.
+    // TODO $a - regex: yyyymm and '-' for the unknown portion of the date.
 
-		getSubfield("a").setBibframeTag("projectedProvisionDate").setMqTag("rdf:value");
-		getSubfield("6").setBibframeTag("linkage");
-		getSubfield("8").setMqTag("fieldLink");
-	}
+    getSubfield("a").setBibframeTag("projectedProvisionDate")
+      .setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoverySelect, DiscoveryObtain);
+    getSubfield("6").setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("8").setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+  }
 }

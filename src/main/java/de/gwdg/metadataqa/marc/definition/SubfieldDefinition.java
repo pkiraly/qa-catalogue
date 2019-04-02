@@ -7,6 +7,7 @@ import de.gwdg.metadataqa.marc.definition.general.validator.SubfieldValidator;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ public class SubfieldDefinition implements Serializable {
   private Map<String, String> allowedValues = new HashMap<>();
   private String codeForIndex = null;
   private List<ControlSubfieldDefinition> positions;
+  private List<FRBRFunction> functions;
 
   public String getCodeForIndex() {
     if (codeForIndex == null) {
@@ -197,6 +199,10 @@ public class SubfieldDefinition implements Serializable {
     return parent;
   }
 
+  public List<FRBRFunction> getFunctions() {
+    return functions;
+  }
+
   public SubfieldDefinition setParent(DataFieldDefinition parent) {
     this.parent = parent;
     return this;
@@ -219,5 +225,10 @@ public class SubfieldDefinition implements Serializable {
         ", label='" + label + '\'' +
         ", allowedValues=" + allowedValues +
         '}';
+  }
+
+  public SubfieldDefinition setFrbrFunctions(FRBRFunction... functions) {
+    this.functions = Arrays.asList(functions);
+    return this;
   }
 }

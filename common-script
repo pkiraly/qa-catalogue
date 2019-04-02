@@ -1,2 +1,50 @@
-JAR=target/metadata-qa-marc-0.2-SNAPSHOT-jar-with-dependencies.jar
-DIR=.
+#!/usr/bin/env bash
+
+echo "$PATH"
+
+do_validate() {
+  GENERAL_PARAMS="--details --summary --format csv --defaultRecordType BOOKS" 
+  OUTPUT_PARAMS="--fileName ${PREFIX}-details.csv --summaryFileName ${PREFIX}-summary.csv"
+
+  echo "./validator ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${TYPE_PARAMS} ${MARC_DIR}/${MASK} 2> ${PREFIX}.log"
+
+  ./validator ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${TYPE_PARAMS} ${MARC_DIR}/$MASK 2> ${PREFIX}.log
+}
+
+do_index() {
+  ./index $NAME ${MARC_DIR} $MASK 2> ${PREFIX}.log
+}
+
+do_completeness() {
+  if [ ! -d ~/temp/marc21/${NAME} ]; then
+    mkdir -p ~/temp/marc21/${NAME}
+  fi
+  echo "  ./completeness --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ~/temp/marc21/${NAME}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}.log"
+  ./completeness --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ~/temp/marc21/${NAME}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}.log
+}
+
+do_tt_completeness() {
+  ./tt-completeness --defaultRecordType BOOKS --outputDir ~/temp/marc21/${NAME}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}.log
+}
+
+do_format() {
+  ./formatter --defaultRecordType BOOKS ${MARC_DIR}/${MASK}
+}
+
+case "$1" in
+  validate)
+    do_validate
+    ;;
+  index)
+    do_index
+    ;;
+  completeness)
+    do_completeness
+    ;;
+  tt-completeness)
+    do_tt_completeness
+    ;;
+  format)
+    do_format
+    ;;
+esac

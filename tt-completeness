@@ -1,3 +1,4 @@
 # Calling Thompson-Traill completeness calculator
-. ./common-script
+. ./common-variables
+
 java -cp $JAR de.gwdg.metadataqa.marc.cli.ThompsonTraillCompleteness $@

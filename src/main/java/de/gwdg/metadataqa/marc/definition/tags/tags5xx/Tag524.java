@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CitationSchemeSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
  * Preferred Citation of Described Materials Note
@@ -12,51 +13,57 @@ import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
  */
 public class Tag524 extends DataFieldDefinition {
 
-	private static Tag524 uniqueInstance;
+  private static Tag524 uniqueInstance;
 
-	private Tag524() {
-		initialize();
-		postCreation();
-	}
+  private Tag524() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag524 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag524();
-		return uniqueInstance;
-	}
+  public static Tag524 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag524();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
+  private void initialize() {
 
-		tag = "524";
-		label = "Preferred Citation of Described Materials Note";
-		bibframeTag = "PreferredCitation";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd524.html";
+    tag = "524";
+    label = "Preferred Citation of Described Materials Note";
+    bibframeTag = "PreferredCitation";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd524.html";
 
-		ind1 = new Indicator("Display constant controller")
-			.setCodes(
-				" ", "Cite as",
-				"8", "No display constant generated"
-			)
-			.setMqTag("displayConstant");
-		ind2 = new Indicator();
+    ind1 = new Indicator("Display constant controller")
+      .setCodes(
+        " ", "Cite as",
+        "8", "No display constant generated"
+      )
+      .setMqTag("displayConstant")
+      .setFrbrFunctions(ManagementDisplay);
 
-		setSubfieldsWithCardinality(
-			"a", "Preferred citation of described materials note", "NR",
-			"2", "Source of schema used", "NR",
-			"3", "Materials specified", "NR",
-			"6", "Linkage", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    ind2 = new Indicator();
 
-		getSubfield("2").setCodeList(CitationSchemeSourceCodes.getInstance());
+    setSubfieldsWithCardinality(
+      "a", "Preferred citation of described materials note", "NR",
+      "2", "Source of schema used", "NR",
+      "3", "Materials specified", "NR",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("6").setContentParser(LinkageParser.getInstance());
+    getSubfield("2").setCodeList(CitationSchemeSourceCodes.getInstance());
 
-		getSubfield("a").setMqTag("rdf:value");
-		getSubfield("2").setMqTag("source");
-		getSubfield("3").setMqTag("materialsSpecified");
-		getSubfield("6").setBibframeTag("linkage");
-		getSubfield("8").setMqTag("fieldLink");
-	}
+    getSubfield("6").setContentParser(LinkageParser.getInstance());
+
+    getSubfield("a").setMqTag("rdf:value");
+    getSubfield("2").setMqTag("source")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("3").setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify);
+    getSubfield("6").setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("8").setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+  }
 }

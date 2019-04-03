@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.ISSNValidator;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
  * Series Statement
@@ -12,54 +13,62 @@ import de.gwdg.metadataqa.marc.definition.general.validator.ISSNValidator;
  */
 public class Tag490 extends DataFieldDefinition {
 
-	private static Tag490 uniqueInstance;
+  private static Tag490 uniqueInstance;
 
-	private Tag490() {
-		initialize();
-		postCreation();
-	}
+  private Tag490() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag490 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag490();
-		return uniqueInstance;
-	}
+  public static Tag490 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag490();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
+  private void initialize() {
 
-		tag = "490";
-		label = "Series Statement";
-		mqTag = "SeriesStatement";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd490.html";
+    tag = "490";
+    label = "Series Statement";
+    mqTag = "SeriesStatement";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd490.html";
 
-		ind1 = new Indicator("Series tracing policy")
-			.setCodes(
-				"0", "Series not traced",
-				"1", "Series traced"
-			)
-			.setMqTag("seriesTracing");
-		ind2 = new Indicator();
+    ind1 = new Indicator("Series tracing policy")
+      .setCodes(
+        "0", "Series not traced",
+        "1", "Series traced"
+      )
+      .setMqTag("seriesTracing")
+      .setFrbrFunctions(ManagementProcess, ManagementDisplay);
 
-		setSubfieldsWithCardinality(
-			"a", "Series statement", "R",
-			"l", "Library of Congress call number", "NR",
-			"v", "Volume/sequential designation", "R",
-			"x", "International Standard Serial Number", "R",
-			"3", "Materials specified", "NR",
-			"6", "Linkage", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    ind2 = new Indicator();
 
-		getSubfield("6").setContentParser(LinkageParser.getInstance());
-		getSubfield("x").setValidator(ISSNValidator.getInstance());
+    setSubfieldsWithCardinality(
+      "a", "Series statement", "R",
+      "l", "Library of Congress call number", "NR",
+      "v", "Volume/sequential designation", "R",
+      "x", "International Standard Serial Number", "R",
+      "3", "Materials specified", "NR",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
-		getSubfield("l").setMqTag("lccn");
-		getSubfield("v").setMqTag("volume");
-		getSubfield("x").setMqTag("issn");
-		getSubfield("3").setMqTag("materialsSpecified");
-		getSubfield("6").setBibframeTag("linkage");
-		getSubfield("8").setMqTag("fieldLink");
-	}
+    getSubfield("6").setContentParser(LinkageParser.getInstance());
+    getSubfield("x").setValidator(ISSNValidator.getInstance());
+
+    getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
+    getSubfield("l").setMqTag("lccn")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
+    getSubfield("v").setMqTag("volume")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
+    getSubfield("x").setMqTag("issn")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
+    getSubfield("3").setMqTag("materialsSpecified");
+    getSubfield("6").setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("8").setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+  }
 }

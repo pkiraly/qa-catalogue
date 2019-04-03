@@ -7,6 +7,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.parser.YYYYMMDDDateParser;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
  * Patent Control Information
@@ -14,55 +15,58 @@ import de.gwdg.metadataqa.marc.definition.general.parser.YYYYMMDDDateParser;
  */
 public class Tag013 extends DataFieldDefinition {
 
-	private static Tag013 uniqueInstance;
+  private static Tag013 uniqueInstance;
 
-	private Tag013() {
-		initialize();
-		postCreation();
-	}
+  private Tag013() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag013 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag013();
-		return uniqueInstance;
-	}
+  public static Tag013 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag013();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
+  private void initialize() {
 
-		tag = "013";
-		label = "Patent Control Information";
-		mqTag = "PatentControl";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd013.html";
+    tag = "013";
+    label = "Patent Control Information";
+    mqTag = "PatentControl";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd013.html";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Number", "NR",
-			"b", "Country", "NR",
-			"c", "Type of number", "NR",
-			"d", "Date", "R",
-			"e", "Status", "R",
-			"f", "Party to document", "R",
-			"6", "Linkage", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Number", "NR",
+      "b", "Country", "NR",
+      "c", "Type of number", "NR",
+      "d", "Date", "R",
+      "e", "Status", "R",
+      "f", "Party to document", "R",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("b").setCodeList(CountryCodes.getInstance());
-		// TODO
-		// $f - Codes from: MARC Code List for Countries and MARC Code List for Organizations.
-		getSubfield("f").setCodeList(OrganizationCodes.getInstance());
-		getSubfield("d").setContentParser(YYYYMMDDDateParser.getInstance());
-		getSubfield("6").setContentParser(LinkageParser.getInstance());
+    getSubfield("b").setCodeList(CountryCodes.getInstance());
+    // TODO
+    // $f - Codes from: MARC Code List for Countries and MARC Code List for Organizations.
+    getSubfield("f").setCodeList(OrganizationCodes.getInstance());
+    getSubfield("d").setContentParser(YYYYMMDDDateParser.getInstance());
+    getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-		getSubfield("a").setMqTag("number");
-		getSubfield("b").setMqTag("country");
-		getSubfield("c").setMqTag("type");
-		getSubfield("d").setMqTag("date");
-		getSubfield("e").setMqTag("status");
-		getSubfield("f").setMqTag("partyToDocument");
-		getSubfield("6").setBibframeTag("linkage");
-		getSubfield("8").setMqTag("fieldLink");
-	}
+    getSubfield("a").setMqTag("number")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
+    getSubfield("b").setMqTag("country")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
+    getSubfield("c").setMqTag("type")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("d").setMqTag("date");
+    getSubfield("e").setMqTag("status");
+    getSubfield("f").setMqTag("partyToDocument");
+    getSubfield("6").setBibframeTag("linkage");
+    getSubfield("8").setMqTag("fieldLink");
+  }
 }

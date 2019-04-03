@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.AuthenticationActionCodes;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
  * Authentication Code
@@ -11,38 +12,39 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.AuthenticationActionC
  */
 public class Tag042 extends DataFieldDefinition {
 
-	private static Tag042 uniqueInstance;
+  private static Tag042 uniqueInstance;
 
-	private Tag042() {
-		initialize();
-		postCreation();
-	}
+  private Tag042() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag042 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag042();
-		return uniqueInstance;
-	}
+  public static Tag042 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag042();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
+  private void initialize() {
 
-		tag = "042";
-		label = "Authentication Code";
-		bibframeTag = "DescriptionAuthentication";
-		mqTag = "AuthenticationCode";
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd042.html";
+    tag = "042";
+    label = "Authentication Code";
+    bibframeTag = "DescriptionAuthentication";
+    mqTag = "AuthenticationCode";
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd042.html";
 
-		cardinality = Cardinality.Nonrepeatable;
+    cardinality = Cardinality.Nonrepeatable;
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Authentication code", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Authentication code", "R"
+    );
 
-		getSubfield("a").setCodeList(AuthenticationActionCodes.getInstance());
+    getSubfield("a").setCodeList(AuthenticationActionCodes.getInstance());
 
-		getSubfield("a").setMqTag("rdf:value");
-	}
+    getSubfield("a").setMqTag("rdf:value")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+  }
 }

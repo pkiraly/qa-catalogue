@@ -134,8 +134,9 @@ public class SubfieldDefinition implements Serializable {
     return contentParser != null;
   }
 
-  public void setContentParser(SubfieldContentParser contentParser) {
+  public SubfieldDefinition setContentParser(SubfieldContentParser contentParser) {
     this.contentParser = contentParser;
+    return this;
   }
 
   private void processIndicatorType(String types) {

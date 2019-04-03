@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
  * National Agricultural Library Copy Statement
@@ -10,46 +11,49 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
  */
 public class Tag071 extends DataFieldDefinition {
 
-	private static Tag071 uniqueInstance;
+  private static Tag071 uniqueInstance;
 
-	private Tag071() {
-		initialize();
-		postCreation();
-	}
+  private Tag071() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag071 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag071();
-		return uniqueInstance;
-	}
+  public static Tag071 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag071();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
+  private void initialize() {
 
-		tag = "071";
-		label = "National Agricultural Library Copy Statement";
-		mqTag = "NalCopy";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd071.html";
+    tag = "071";
+    label = "National Agricultural Library Copy Statement";
+    mqTag = "NalCopy";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd071.html";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator()
-			.setHistoricalCodes(
-				"0", "No series involved",
-				"1", "Main series",
-				"2", "Subseries",
-				"3", "Sub-subseries"
-			);
+    ind1 = new Indicator();
+    ind2 = new Indicator()
+      .setHistoricalCodes(
+        "0", "No series involved",
+        "1", "Main series",
+        "2", "Subseries",
+        "3", "Sub-subseries"
+      );
 
-		setSubfieldsWithCardinality(
-			"a", "Classification number", "R",
-			"b", "Item number", "NR",
-			"c", "Copy information", "R",
-			"8", "Field link and sequence number", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Classification number", "R",
+      "b", "Item number", "NR",
+      "c", "Copy information", "R",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("a").setBibframeTag("classificationPortion").setMqTag("classification");
-		getSubfield("b").setBibframeTag("itemPortion").setMqTag("item");
-		getSubfield("c").setMqTag("copy");
-		getSubfield("8").setMqTag("fieldLink");
-	}
+    getSubfield("a").setBibframeTag("classificationPortion").setMqTag("classification")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
+    getSubfield("b").setBibframeTag("itemPortion").setMqTag("item")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
+    getSubfield("c").setMqTag("copy");
+    getSubfield("8").setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+  }
 }

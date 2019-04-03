@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CopyrightAndLegalDepositNumberSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
  * CopyrightAnd or Legal Deposit Number
@@ -12,61 +13,66 @@ import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
  */
 public class Tag017 extends DataFieldDefinition {
 
-	private static Tag017 uniqueInstance;
+  private static Tag017 uniqueInstance;
 
-	private Tag017() {
-		initialize();
-		postCreation();
-	}
+  private Tag017() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag017 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag017();
-		return uniqueInstance;
-	}
+  public static Tag017 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag017();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
+  private void initialize() {
 
-		tag = "017";
-		label = "Copyright or Legal Deposit Number";
-		bibframeTag = "CopyrightNumber";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd017.html";
+    tag = "017";
+    label = "Copyright or Legal Deposit Number";
+    bibframeTag = "CopyrightNumber";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd017.html";
 
-		ind1 = new Indicator()
-			.setHistoricalCodes(
-				"0", "United States [OBSOLETE]",
-				"1", "Canada [OBSOLETE]",
-				"2", "France [OBSOLETE] [CAN/MARC only]"
-			);
-		ind2 = new Indicator("Display constant controller")
-			.setCodes(
-				" ", "Copyright or legal deposit number",
-				"8", "No display constant generated"
-			)
-			.setMqTag("displayConstant");
+    ind1 = new Indicator()
+      .setHistoricalCodes(
+        "0", "United States [OBSOLETE]",
+        "1", "Canada [OBSOLETE]",
+        "2", "France [OBSOLETE] [CAN/MARC only]"
+      );
+    ind2 = new Indicator("Display constant controller")
+      .setCodes(
+        " ", "Copyright or legal deposit number",
+        "8", "No display constant generated"
+      )
+      .setMqTag("displayConstant")
+      .setFrbrFunctions(ManagementDisplay);
 
-		setSubfieldsWithCardinality(
-			"a", "Copyright or legal deposit number", "R",
-			"b", "Assigning agency", "NR",
-			"d", "Date", "NR",
-			"i", "Display text", "NR",
-			"z", "Canceled/invalid copyright or legal deposit number", "R",
-			"2", "Source", "NR",
-			"6", "Linkage", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Copyright or legal deposit number", "R",
+      "b", "Assigning agency", "NR",
+      "d", "Date", "NR",
+      "i", "Display text", "NR",
+      "z", "Canceled/invalid copyright or legal deposit number", "R",
+      "2", "Source", "NR",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("2").setCodeList(CopyrightAndLegalDepositNumberSourceCodes.getInstance());
-		getSubfield("6").setContentParser(LinkageParser.getInstance());
+    getSubfield("2").setCodeList(CopyrightAndLegalDepositNumberSourceCodes.getInstance());
+    getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-		getSubfield("a").setBibframeTag("rdf:value");
-		getSubfield("b").setBibframeTag("source");
-		getSubfield("d").setBibframeTag("date");
-		getSubfield("i").setBibframeTag("note");
-		getSubfield("z").setMqTag("canceled");
-		getSubfield("2").setBibframeTag("source");
-		getSubfield("6").setBibframeTag("linkage");
-		getSubfield("8").setMqTag("fieldLink");
-	}
+    getSubfield("a").setBibframeTag("rdf:value");
+    getSubfield("b").setBibframeTag("source")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("d").setBibframeTag("date");
+    getSubfield("i").setBibframeTag("note");
+    getSubfield("z").setMqTag("canceled");
+    getSubfield("2").setBibframeTag("source")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("6").setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("8").setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+  }
 }

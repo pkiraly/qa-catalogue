@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
  * Location of Other Archival Materials Note
@@ -11,58 +12,66 @@ import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
  */
 public class Tag544 extends DataFieldDefinition {
 
-	private static Tag544 uniqueInstance;
+  private static Tag544 uniqueInstance;
 
-	private Tag544() {
-		initialize();
-		postCreation();
-	}
+  private Tag544() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag544 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag544();
-		return uniqueInstance;
-	}
+  public static Tag544 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag544();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
+  private void initialize() {
 
-		tag = "544";
-		label = "Location of Other Archival Materials Note";
-		mqTag = "LocationOfOtherArchivalMaterials";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd544.html";
+    tag = "544";
+    label = "Location of Other Archival Materials Note";
+    mqTag = "LocationOfOtherArchivalMaterials";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd544.html";
 
-		ind1 = new Indicator("Relationship")
-			.setCodes(
-				" ", "No information provided",
-				"0", "Associated materials",
-				"1", "Related materials"
-			)
-			.setMqTag("relationship");
-		ind2 = new Indicator();
+    ind1 = new Indicator("Relationship")
+      .setCodes(
+        " ", "No information provided",
+        "0", "Associated materials",
+        "1", "Related materials"
+      )
+      .setMqTag("relationship");
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Custodian", "R",
-			"b", "Address", "R",
-			"c", "Country", "R",
-			"d", "Title", "R",
-			"e", "Provenance", "R",
-			"n", "Note", "R",
-			"3", "Materials specified", "NR",
-			"6", "Linkage", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Custodian", "R",
+      "b", "Address", "R",
+      "c", "Country", "R",
+      "d", "Title", "R",
+      "e", "Provenance", "R",
+      "n", "Note", "R",
+      "3", "Materials specified", "NR",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("6").setContentParser(LinkageParser.getInstance());
+    getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-		getSubfield("a").setMqTag("custodian");
-		getSubfield("b").setMqTag("address");
-		getSubfield("c").setMqTag("country");
-		getSubfield("d").setMqTag("title");
-		getSubfield("e").setMqTag("provenance");
-		getSubfield("n").setMqTag("note");
-		getSubfield("3").setMqTag("materialsSpecified");
-		getSubfield("6").setBibframeTag("linkage");
-		getSubfield("8").setMqTag("fieldLink");
-	}
+    getSubfield("a").setMqTag("custodian")
+      .setFrbrFunctions(DiscoveryObtain);
+    getSubfield("b").setMqTag("address")
+      .setFrbrFunctions(DiscoveryObtain);
+    getSubfield("c").setMqTag("country")
+      .setFrbrFunctions(DiscoveryObtain);
+    getSubfield("d").setMqTag("title")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
+    getSubfield("e").setMqTag("provenance")
+      .setFrbrFunctions(DiscoveryIdentify);
+    getSubfield("n").setMqTag("note");
+    getSubfield("3").setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify);
+    getSubfield("6").setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("8").setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+  }
 }

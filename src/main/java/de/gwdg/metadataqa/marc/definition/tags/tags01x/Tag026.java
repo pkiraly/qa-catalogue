@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.FingerprintSchemeSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
  * Fingerprint Identifier
@@ -13,54 +14,61 @@ import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
  */
 public class Tag026 extends DataFieldDefinition {
 
-	private static Tag026 uniqueInstance;
+  private static Tag026 uniqueInstance;
 
-	private Tag026() {
-		initialize();
-		postCreation();
-	}
+  private Tag026() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag026 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag026();
-		return uniqueInstance;
-	}
+  public static Tag026 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag026();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
+  private void initialize() {
 
-		tag = "026";
-		label = "Fingerprint Identifier";
-		bibframeTag = "Fingerprint";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd026.html";
+    tag = "026";
+    label = "Fingerprint Identifier";
+    bibframeTag = "Fingerprint";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd026.html";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "First and second groups of characters", "NR",
-			"b", "Third and fourth groups of characters", "NR",
-			"c", "Date", "NR",
-			"d", "Number of volume or part", "R",
-			"e", "Unparsed fingerprint", "NR",
-			"2", "Source", "NR",
-			"5", "Institution to which field applies", "R",
-			"6", "Linkage", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "First and second groups of characters", "NR",
+      "b", "Third and fourth groups of characters", "NR",
+      "c", "Date", "NR",
+      "d", "Number of volume or part", "R",
+      "e", "Unparsed fingerprint", "NR",
+      "2", "Source", "NR",
+      "5", "Institution to which field applies", "R",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("2").setCodeList(FingerprintSchemeSourceCodes.getInstance());
-		getSubfield("5").setCodeList(OrganizationCodes.getInstance());
-		getSubfield("6").setContentParser(LinkageParser.getInstance());
+    getSubfield("2").setCodeList(FingerprintSchemeSourceCodes.getInstance());
+    getSubfield("5").setCodeList(OrganizationCodes.getInstance());
+    getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-		getSubfield("a").setBibframeTag("rdf:value").setMqTag("firstAndSecondGroups");
-		getSubfield("b").setBibframeTag("rdf:value").setMqTag("thirdAndFourthGroups");
-		getSubfield("c").setBibframeTag("rdf:value").setMqTag("date");
-		getSubfield("d").setBibframeTag("rdf:value").setMqTag("volume");
-		getSubfield("e").setBibframeTag("rdf:value").setMqTag("unparsed");
-		getSubfield("2").setBibframeTag("source");
-		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
-		getSubfield("6").setBibframeTag("linkage");
-		getSubfield("8").setMqTag("fieldLink");
-	}
+    getSubfield("a").setBibframeTag("rdf:value").setMqTag("firstAndSecondGroups")
+      .setFrbrFunctions(DiscoveryIdentify);
+    getSubfield("b").setBibframeTag("rdf:value").setMqTag("thirdAndFourthGroups")
+      .setFrbrFunctions(DiscoveryIdentify);
+    getSubfield("c").setBibframeTag("rdf:value").setMqTag("date");
+    getSubfield("d").setBibframeTag("rdf:value").setMqTag("volume")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect);
+    getSubfield("e").setBibframeTag("rdf:value").setMqTag("unparsed")
+      .setFrbrFunctions(DiscoveryIdentify);
+    getSubfield("2").setBibframeTag("source");
+    getSubfield("5").setMqTag("institutionToWhichFieldApplies")
+      .setFrbrFunctions(ManagementProcess, ManagementDisplay);
+    getSubfield("6").setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("8").setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+  }
 }

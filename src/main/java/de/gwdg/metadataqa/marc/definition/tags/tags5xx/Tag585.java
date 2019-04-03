@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
  * Exhibitions Note
@@ -11,44 +12,49 @@ import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
  */
 public class Tag585 extends DataFieldDefinition {
 
-	private static Tag585 uniqueInstance;
+  private static Tag585 uniqueInstance;
 
-	private Tag585() {
-		initialize();
-		postCreation();
-	}
+  private Tag585() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag585 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag585();
-		return uniqueInstance;
-	}
+  public static Tag585 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag585();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
+  private void initialize() {
 
-		tag = "585";
-		label = "Exhibitions Note";
-		mqTag = "Exhibitions";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd585.html";
+    tag = "585";
+    label = "Exhibitions Note";
+    mqTag = "Exhibitions";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd585.html";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Exhibitions note", "NR",
-			"3", "Materials specified", "NR",
-			"5", "Institution to which field applies", "NR",
-			"6", "Linkage", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Exhibitions note", "NR",
+      "3", "Materials specified", "NR",
+      "5", "Institution to which field applies", "NR",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("6").setContentParser(LinkageParser.getInstance());
+    getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
-		getSubfield("3").setMqTag("materialsSpecified");
-		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
-		getSubfield("6").setBibframeTag("linkage");
-		getSubfield("8").setMqTag("fieldLink");
-	}
+    getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value")
+      .setFrbrFunctions(UsageManage);
+    getSubfield("3").setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify);
+    getSubfield("5").setMqTag("institutionToWhichFieldApplies")
+      .setFrbrFunctions(ManagementProcess, ManagementDisplay);
+    getSubfield("6").setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("8").setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+  }
 }

@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
  * Bibliography, etc. Note
@@ -11,42 +12,45 @@ import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
  */
 public class Tag504 extends DataFieldDefinition {
 
-	private static Tag504 uniqueInstance;
+  private static Tag504 uniqueInstance;
 
-	private Tag504() {
-		initialize();
-		postCreation();
-	}
+  private Tag504() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag504 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag504();
-		return uniqueInstance;
-	}
+  public static Tag504 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag504();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
+  private void initialize() {
 
-		tag = "504";
-		label = "Bibliography, etc. Note";
-		mqTag = "Bibliography";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd504.html";
+    tag = "504";
+    label = "Bibliography, etc. Note";
+    mqTag = "Bibliography";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd504.html";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Bibliography, etc. note", "NR",
-			"b", "Number of references", "NR",
-			"6", "Linkage", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Bibliography, etc. note", "NR",
+      "b", "Number of references", "NR",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("6").setContentParser(LinkageParser.getInstance());
+    getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-		getSubfield("a").setMqTag("rdf:value");
-		getSubfield("b").setBibframeTag("count");
-		getSubfield("6").setBibframeTag("linkage");
-		getSubfield("8").setMqTag("fieldLink");
-	}
+    getSubfield("a").setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoverySelect);
+    getSubfield("b").setBibframeTag("count");
+    getSubfield("6").setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("8").setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+  }
 }

@@ -12,38 +12,38 @@ import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
  */
 public class Tag882 extends DataFieldDefinition {
 
-	private static Tag882 uniqueInstance;
+  private static Tag882 uniqueInstance;
 
-	private Tag882() {
-		initialize();
-		postCreation();
-	}
+  private Tag882() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag882 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag882();
-		return uniqueInstance;
-	}
+  public static Tag882 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag882();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "882";
-		label = "Replacement Record Information";
-		cardinality = Cardinality.Nonrepeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd882.html";
+  private void initialize() {
+    tag = "882";
+    label = "Replacement Record Information";
+    cardinality = Cardinality.Nonrepeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd882.html";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Replacement title", "R",
-			"i", "Explanatory text", "R",
-			"w", "Replacement bibliographic record control number", "R",
-			"6", "Linkage", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Replacement title", "R",
+      "i", "Explanatory text", "R",
+      "w", "Replacement bibliographic record control number", "R",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("w").setCodeList(OrganizationCodes.getInstance());
+    getSubfield("w").setCodeList(OrganizationCodes.getInstance());
 
-		getSubfield("6").setContentParser(LinkageParser.getInstance());
-	}
+    getSubfield("6").setContentParser(LinkageParser.getInstance());
+  }
 }

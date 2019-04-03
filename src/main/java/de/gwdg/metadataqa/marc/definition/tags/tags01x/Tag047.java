@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.MusicalCompositionSourceCodes;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
  * Form of Musical Composition Code
@@ -11,46 +12,48 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.MusicalCompositionSou
  */
 public class Tag047 extends DataFieldDefinition {
 
-	private static Tag047 uniqueInstance;
+  private static Tag047 uniqueInstance;
 
-	private Tag047() {
-		initialize();
-		postCreation();
-	}
+  private Tag047() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag047 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag047();
-		return uniqueInstance;
-	}
+  public static Tag047 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag047();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
+  private void initialize() {
 
-		tag = "047";
-		label = "Form of Musical Composition Code";
-		bibframeTag = "GenreForm";
-		mqTag = "MusicalCompositionForm";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd047.html";
+    tag = "047";
+    label = "Form of Musical Composition Code";
+    bibframeTag = "GenreForm";
+    mqTag = "MusicalCompositionForm";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd047.html";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator("Source of code")
-			.setCodes(
-				" ", "MARC musical composition code",
-				"7", "Source specified in subfield $2"
-			)
-			.setMqTag("sourceOfCode");
+    ind1 = new Indicator();
+    ind2 = new Indicator("Source of code")
+      .setCodes(
+        " ", "MARC musical composition code",
+        "7", "Source specified in subfield $2"
+      )
+      .setMqTag("sourceOfCode");
 
-		setSubfieldsWithCardinality(
-			"a", "Form of musical composition code", "R",
-			"2", "Source of code", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Form of musical composition code", "R",
+      "2", "Source of code", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("2").setCodeList(MusicalCompositionSourceCodes.getInstance());
+    getSubfield("2").setCodeList(MusicalCompositionSourceCodes.getInstance());
 
-		getSubfield("a").setMqTag("rdf:value");
-		getSubfield("2").setMqTag("source");
-		getSubfield("8").setMqTag("fieldLink");
-	}
+    getSubfield("a").setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect);
+    getSubfield("2").setMqTag("source");
+    getSubfield("8").setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+  }
 }

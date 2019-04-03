@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
  * CODEN Designation
@@ -14,42 +15,46 @@ import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
  */
 public class Tag030 extends DataFieldDefinition {
 
-	private static Tag030 uniqueInstance;
+  private static Tag030 uniqueInstance;
 
-	private Tag030() {
-		initialize();
-		postCreation();
-	}
+  private Tag030() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag030 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag030();
-		return uniqueInstance;
-	}
+  public static Tag030 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag030();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
+  private void initialize() {
 
-		tag = "030";
-		label = "CODEN Designation";
-		bibframeTag = "Coden";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd030.html";
+    tag = "030";
+    label = "CODEN Designation";
+    bibframeTag = "Coden";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd030.html";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Publisher or distributor number", "NR",
-			"z", "Canceled/invalid CODEN", "R",
-			"6", "Linkage", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Publisher or distributor number", "NR",
+      "z", "Canceled/invalid CODEN", "R",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("6").setContentParser(LinkageParser.getInstance());
+    getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-		getSubfield("a").setBibframeTag("rdf:value");
-		getSubfield("z").setBibframeTag("canceled");
-		getSubfield("6").setBibframeTag("linkage");
-		getSubfield("8").setMqTag("fieldLink");
-	}
+    getSubfield("a").setBibframeTag("rdf:value")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
+    getSubfield("z").setBibframeTag("canceled")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
+    getSubfield("6").setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("8").setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+  }
 }

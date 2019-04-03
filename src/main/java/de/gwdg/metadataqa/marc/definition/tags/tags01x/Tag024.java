@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.codelist.StandardIdentifierSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 import java.util.Arrays;
 
@@ -13,79 +14,87 @@ import java.util.Arrays;
  */
 public class Tag024 extends DataFieldDefinition {
 
-	private static Tag024 uniqueInstance;
+  private static Tag024 uniqueInstance;
 
-	private Tag024() {
-		initialize();
-		postCreation();
-	}
+  private Tag024() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag024 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag024();
-		return uniqueInstance;
-	}
+  public static Tag024 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag024();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "024";
-		label = "Other Standard Identifier";
-		bibframeTag = "IdentifiedBy";
-		mqTag = "OtherStandardIdentifier";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd024.html";
+  private void initialize() {
+    tag = "024";
+    label = "Other Standard Identifier";
+    bibframeTag = "IdentifiedBy";
+    mqTag = "OtherStandardIdentifier";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd024.html";
 
-		ind1 = new Indicator("Type of standard number or code")
-			.setCodes(
-				"0", "International Standard Recording Code",
-				"1", "Universal Product Code",
-				"2", "International Standard Music Number",
-				"3", "International Article Number",
-				"4", "Serial Item and Contribution Identifier",
-				"7", "Source specified in subfield $2",
-				"8", "Unspecified type of standard number or code"
-			)
-			.putVersionSpecificCodes(MarcVersion.SZTE, Arrays.asList(
-				new Code(" ", "Not specified")
-			))
-			.setMqTag("type");
+    ind1 = new Indicator("Type of standard number or code")
+      .setCodes(
+        "0", "International Standard Recording Code",
+        "1", "Universal Product Code",
+        "2", "International Standard Music Number",
+        "3", "International Article Number",
+        "4", "Serial Item and Contribution Identifier",
+        "7", "Source specified in subfield $2",
+        "8", "Unspecified type of standard number or code"
+      )
+      .putVersionSpecificCodes(MarcVersion.SZTE, Arrays.asList(
+        new Code(" ", "Not specified")
+      ))
+      .setMqTag("type")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementDisplay);
 
-		ind2 = new Indicator("Difference indicator")
-			.setCodes(
-				" ", "No information provided",
-				"0", "No difference",
-				"1", "Difference"
-			)
-			.setMqTag("differenceIndicator");
+    ind2 = new Indicator("Difference indicator")
+      .setCodes(
+        " ", "No information provided",
+        "0", "No difference",
+        "1", "Difference"
+      )
+      .setMqTag("differenceIndicator")
+      .setFrbrFunctions(ManagementProcess, ManagementDisplay);
 
-		setSubfieldsWithCardinality(
-			"a", "Standard number or code", "NR",
-			"c", "Terms of availability", "NR",
-			"d", "Additional codes following the standard number or code", "NR",
-			"q", "Qualifying information", "R",
-			"z", "Canceled/invalid standard number or code", "R",
-			"2", "Source of number or code", "NR",
-			"6", "Linkage", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Standard number or code", "NR",
+      "c", "Terms of availability", "NR",
+      "d", "Additional codes following the standard number or code", "NR",
+      "q", "Qualifying information", "R",
+      "z", "Canceled/invalid standard number or code", "R",
+      "2", "Source of number or code", "NR",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("2").setCodeList(StandardIdentifierSourceCodes.getInstance());
-		getSubfield("6").setContentParser(LinkageParser.getInstance());
+    getSubfield("2").setCodeList(StandardIdentifierSourceCodes.getInstance());
+    getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-		getSubfield("a").setBibframeTag("rdf:value");
-		getSubfield("c").setBibframeTag("acquisitionTerms");
-		getSubfield("d").setBibframeTag("note");
-		getSubfield("q").setBibframeTag("qualifier");
-		getSubfield("z").setMqTag("canceledNumber");
-		getSubfield("2").setMqTag("source");
-		getSubfield("6").setBibframeTag("linkage");
-		getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a").setBibframeTag("rdf:value")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
+    getSubfield("c").setBibframeTag("acquisitionTerms")
+      .setFrbrFunctions(DiscoverySelect, DiscoveryObtain);
+    getSubfield("d").setBibframeTag("note");
+    getSubfield("q").setBibframeTag("qualifier");
+    getSubfield("z").setMqTag("canceledNumber")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
+    getSubfield("2").setMqTag("source")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("6").setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("8").setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
-		setHistoricalSubfields(
-			"b", "Additional codes following the standard number [OBSOLETE]"
-		);
+    setHistoricalSubfields(
+      "b", "Additional codes following the standard number [OBSOLETE]"
+    );
 
-		putVersionSpecificSubfields(MarcVersion.DNB, Arrays.asList(
-			new SubfieldDefinition("9", "Standardnummer (mit Bindestrichen)", "NR")
-		));
-	}
+    putVersionSpecificSubfields(MarcVersion.DNB, Arrays.asList(
+      new SubfieldDefinition("9", "Standardnummer (mit Bindestrichen)", "NR")
+    ));
+  }
 }

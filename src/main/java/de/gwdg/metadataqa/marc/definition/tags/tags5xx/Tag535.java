@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
  * Location of Originals/Duplicates Note
@@ -12,61 +13,69 @@ import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
  */
 public class Tag535 extends DataFieldDefinition {
 
-	private static Tag535 uniqueInstance;
+  private static Tag535 uniqueInstance;
 
-	private Tag535() {
-		initialize();
-		postCreation();
-	}
+  private Tag535() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag535 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag535();
-		return uniqueInstance;
-	}
+  public static Tag535 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag535();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
+  private void initialize() {
 
-		tag = "535";
-		label = "Location of Originals/Duplicates Note";
-		mqTag = "LocationOfOriginalsOrDuplicates";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd535.html";
+    tag = "535";
+    label = "Location of Originals/Duplicates Note";
+    mqTag = "LocationOfOriginalsOrDuplicates";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd535.html";
 
-		ind1 = new Indicator("Custodial role")
-			.setCodes(
-				"1", "Holder of originals",
-				"2", "Holder of duplicates"
-			)
-			.setHistoricalCodes(
-				"0", "Repository (AM) [OBSOLETE, 1984]",
-				"3", "Holder of oral tapes (AM) [OBSOLETE, 1984]"
-			)
-			.setMqTag("custodialRole");
-		ind2 = new Indicator();
+    ind1 = new Indicator("Custodial role")
+      .setCodes(
+        "1", "Holder of originals",
+        "2", "Holder of duplicates"
+      )
+      .setHistoricalCodes(
+        "0", "Repository (AM) [OBSOLETE, 1984]",
+        "3", "Holder of oral tapes (AM) [OBSOLETE, 1984]"
+      )
+      .setMqTag("custodialRole");
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Custodian", "NR",
-			"b", "Postal address", "R",
-			"c", "Country", "R",
-			"d", "Telecommunications address", "R",
-			"g", "Repository location code", "NR",
-			"3", "Materials specified", "NR",
-			"6", "Linkage", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Custodian", "NR",
+      "b", "Postal address", "R",
+      "c", "Country", "R",
+      "d", "Telecommunications address", "R",
+      "g", "Repository location code", "NR",
+      "3", "Materials specified", "NR",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("g").setCodeList(CountryCodes.getInstance());
+    getSubfield("g").setCodeList(CountryCodes.getInstance());
 
-		getSubfield("6").setContentParser(LinkageParser.getInstance());
+    getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-		getSubfield("a").setMqTag("custodian");
-		getSubfield("b").setMqTag("postalAddress");
-		getSubfield("c").setMqTag("country");
-		getSubfield("d").setMqTag("telecommunicationsAddress");
-		getSubfield("g").setMqTag("repositoryLocation");
-		getSubfield("3").setMqTag("materialsSpecified");
-		getSubfield("6").setBibframeTag("linkage");
-		getSubfield("8").setMqTag("fieldLink");
-	}
+    getSubfield("a").setMqTag("custodian")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
+    getSubfield("b").setMqTag("postalAddress")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
+    getSubfield("c").setMqTag("country")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
+    getSubfield("d").setMqTag("telecommunicationsAddress")
+      .setFrbrFunctions(DiscoveryObtain);
+    getSubfield("g").setMqTag("repositoryLocation")
+      .setFrbrFunctions(DiscoveryObtain);
+    getSubfield("3").setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify);
+    getSubfield("6").setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("8").setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+  }
 }

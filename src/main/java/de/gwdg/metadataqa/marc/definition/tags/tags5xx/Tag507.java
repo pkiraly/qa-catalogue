@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
  * Scale Note for Graphic Material
@@ -11,42 +12,46 @@ import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
  */
 public class Tag507 extends DataFieldDefinition {
 
-	private static Tag507 uniqueInstance;
+  private static Tag507 uniqueInstance;
 
-	private Tag507() {
-		initialize();
-		postCreation();
-	}
+  private Tag507() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag507 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag507();
-		return uniqueInstance;
-	}
+  public static Tag507 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag507();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
+  private void initialize() {
 
-		tag = "507";
-		label = "Scale Note for Graphic Material";
-		mqTag = "Scale";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd507.html";
+    tag = "507";
+    label = "Scale Note for Graphic Material";
+    mqTag = "Scale";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd507.html";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Representative fraction of scale note", "NR",
-			"b", "Remainder of scale note", "NR",
-			"6", "Linkage", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Representative fraction of scale note", "NR",
+      "b", "Remainder of scale note", "NR",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("6").setContentParser(LinkageParser.getInstance());
+    getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-		getSubfield("a").setMqTag("rdf:value");
-		getSubfield("b").setMqTag("remainder");
-		getSubfield("6").setBibframeTag("linkage");
-		getSubfield("8").setMqTag("fieldLink");
-	}
+    getSubfield("a").setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UsageInterpret);
+    getSubfield("b").setMqTag("remainder")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UsageInterpret);
+    getSubfield("6").setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("8").setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+  }
 }

@@ -11,48 +11,48 @@ import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
  */
 public class Tag588 extends DataFieldDefinition {
 
-	private static Tag588 uniqueInstance;
+  private static Tag588 uniqueInstance;
 
-	private Tag588() {
-		initialize();
-		postCreation();
-	}
+  private Tag588() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag588 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag588();
-		return uniqueInstance;
-	}
+  public static Tag588 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag588();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
+  private void initialize() {
 
-		tag = "588";
-		label = "Source of Description Note";
-		mqTag = "SourceOfDescription";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd588.html";
+    tag = "588";
+    label = "Source of Description Note";
+    mqTag = "SourceOfDescription";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd588.html";
 
-		ind1 = new Indicator("Display constant controller")
-			.setCodes(
-				" ", "No information provided",
-				"0", "Source of description",
-				"1", "Latest issue consulted"
-			)
-			.setMqTag("displayConstant");
-		ind2 = new Indicator();
+    ind1 = new Indicator("Display constant controller")
+      .setCodes(
+        " ", "No information provided",
+        "0", "Source of description",
+        "1", "Latest issue consulted"
+      )
+      .setMqTag("displayConstant");
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Source of description note", "NR",
-			"5", "Institution to which field applies", "NR",
-			"6", "Linkage", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Source of description note", "NR",
+      "5", "Institution to which field applies", "NR",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("6").setContentParser(LinkageParser.getInstance());
+    getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
-		getSubfield("5").setMqTag("institutionToWhichFieldApplies");
-		getSubfield("6").setBibframeTag("linkage");
-		getSubfield("8").setMqTag("fieldLink");
-	}
+    getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
+    getSubfield("5").setMqTag("institutionToWhichFieldApplies");
+    getSubfield("6").setBibframeTag("linkage");
+    getSubfield("8").setMqTag("fieldLink");
+  }
 }

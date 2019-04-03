@@ -4,62 +4,73 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
  * Physical Description
  * http://www.loc.gov/marc/bibliographic/bd300.html
  */
 public class Tag300 extends DataFieldDefinition {
-	private static Tag300 uniqueInstance;
+  private static Tag300 uniqueInstance;
 
-	private Tag300() {
-		initialize();
-		postCreation();
-	}
+  private Tag300() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag300 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag300();
-		return uniqueInstance;
-	}
+  public static Tag300 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag300();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "300";
-		label = "Physical Description";
-		mqTag = "PhysicalDescription";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd300.html";
+  private void initialize() {
+    tag = "300";
+    label = "Physical Description";
+    mqTag = "PhysicalDescription";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd300.html";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Extent", "R",
-			"b", "Other physical details", "NR",
-			"c", "Dimensions", "R",
-			"e", "Accompanying material", "NR",
-			"f", "Type of unit", "R",
-			"g", "Size of unit", "R",
-			"3", "Materials specified", "NR",
-			"6", "Linkage", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Extent", "R",
+      "b", "Other physical details", "NR",
+      "c", "Dimensions", "R",
+      "e", "Accompanying material", "NR",
+      "f", "Type of unit", "R",
+      "g", "Size of unit", "R",
+      "3", "Materials specified", "NR",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("6").setContentParser(LinkageParser.getInstance());
+    getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-		getSubfield("a").setBibframeTag("extent");
-		getSubfield("b").setBibframeTag("note").setMqTag("otherPhysicalDetails");
-		getSubfield("c").setBibframeTag("dimensions");
-		getSubfield("e").setBibframeTag("note").setMqTag("accompanyingMaterial");
-		getSubfield("f").setMqTag("typeOfUnit");
-		getSubfield("g").setMqTag("sizeOfUnit");
-		getSubfield("3").setMqTag("materialsSpecified");
-		getSubfield("6").setMqTag("linkage");
+    getSubfield("a").setBibframeTag("extent")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect);
+    getSubfield("b").setBibframeTag("note").setMqTag("otherPhysicalDetails")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageManage, UsageOperate);
+    getSubfield("c").setBibframeTag("dimensions")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageOperate);
+    getSubfield("e").setBibframeTag("note").setMqTag("accompanyingMaterial")
+      .setFrbrFunctions(DiscoverySelect);
+    getSubfield("f").setMqTag("typeOfUnit")
+      .setFrbrFunctions(UsageManage, UsageOperate);
+    getSubfield("g").setMqTag("sizeOfUnit")
+      .setFrbrFunctions(UsageManage, UsageOperate);
+    getSubfield("3").setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify);
+    getSubfield("6").setMqTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("8").setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
-		setHistoricalSubfields(
-			"d", "Accompanying material [OBSOLETE, 1997] [CAN/MARC only]",
-			"m", "Identification/manufacturer number [pre-AACR2 records only] [OBSOLETE, 1988] [CAN/MARC only]",
-			"n", "Matrix and/or take number [Sound recordings, pre-AACR2 records only] [OBSOLETE, 1988] [CAN/MARC only]"
-		);
-	}
+    setHistoricalSubfields(
+      "d", "Accompanying material [OBSOLETE, 1997] [CAN/MARC only]",
+      "m", "Identification/manufacturer number [pre-AACR2 records only] [OBSOLETE, 1988] [CAN/MARC only]",
+      "n", "Matrix and/or take number [Sound recordings, pre-AACR2 records only] [OBSOLETE, 1988] [CAN/MARC only]"
+    );
+  }
 }

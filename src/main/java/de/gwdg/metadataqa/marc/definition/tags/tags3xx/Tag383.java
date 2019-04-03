@@ -11,41 +11,41 @@ import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
  * http://www.loc.gov/marc/bibliographic/bd383.html
  */
 public class Tag383 extends DataFieldDefinition {
-	private static Tag383 uniqueInstance;
+  private static Tag383 uniqueInstance;
 
-	private Tag383() {
-		initialize();
-		postCreation();
-	}
+  private Tag383() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag383 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag383();
-		return uniqueInstance;
-	}
+  public static Tag383 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag383();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "383";
-		label = "Numeric Designation of Musical Work";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd383.html";
+  private void initialize() {
+    tag = "383";
+    label = "Numeric Designation of Musical Work";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd383.html";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Serial number", "R",
-			"b", "Opus number", "R",
-			"c", "Thematic index number", "R",
-			"d", "Thematic index code", "NR",
-			"e", "Publisher associated with opus number", "NR",
-			"2", "Source", "NR",
-			"6", "Linkage", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Serial number", "R",
+      "b", "Opus number", "R",
+      "c", "Thematic index number", "R",
+      "d", "Thematic index code", "NR",
+      "e", "Publisher associated with opus number", "NR",
+      "2", "Source", "NR",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("2").setCodeList(ThematicIndexCodeSourceCodes.getInstance());
+    getSubfield("2").setCodeList(ThematicIndexCodeSourceCodes.getInstance());
 
-		getSubfield("6").setContentParser(LinkageParser.getInstance());
-	}
+    getSubfield("6").setContentParser(LinkageParser.getInstance());
+  }
 }

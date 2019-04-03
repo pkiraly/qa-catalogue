@@ -74,7 +74,7 @@ public class Tag760 extends DataFieldDefinition {
     );
 
     getSubfield("4").setCodeList(RelatorCodes.getInstance());
-    // TODO: this requires position parser!
+    // TODO: this requires position parser! see e.g. Tag830
     // see http://www.loc.gov/marc/bibliographic/bd76x78x.html
     getSubfield("7").setPositions(Tag76xSubfield7PositionsGenerator.getPositions());
 

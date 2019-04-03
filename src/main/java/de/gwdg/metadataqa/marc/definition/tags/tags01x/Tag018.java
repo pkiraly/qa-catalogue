@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
  * Copyright Article-Fee Code
@@ -11,41 +12,44 @@ import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
  */
 public class Tag018 extends DataFieldDefinition {
 
-	private static Tag018 uniqueInstance;
+  private static Tag018 uniqueInstance;
 
-	private Tag018() {
-		initialize();
-		postCreation();
-	}
+  private Tag018() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag018 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag018();
-		return uniqueInstance;
-	}
+  public static Tag018 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag018();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
+  private void initialize() {
 
-		tag = "018";
-		label = "Copyright Article-Fee Code";
-		mqTag = "CopyrightArticleFee";
-		cardinality = Cardinality.Nonrepeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd018.html";
+    tag = "018";
+    label = "Copyright Article-Fee Code";
+    mqTag = "CopyrightArticleFee";
+    cardinality = Cardinality.Nonrepeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd018.html";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Copyright article-fee code", "NR",
-			"6", "Linkage", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Copyright article-fee code", "NR",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		// TODO: add parser for $a
-		getSubfield("6").setContentParser(LinkageParser.getInstance());
+    // TODO: add parser for $a
+    getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-		getSubfield("a").setMqTag("rdf:value");
-		getSubfield("6").setBibframeTag("linkage");
-		getSubfield("8").setMqTag("fieldLink");
-	}
+    getSubfield("a").setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UsageManage);
+    getSubfield("6").setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("8").setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+  }
 }

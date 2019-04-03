@@ -4,64 +4,70 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
  * Hours, etc.
  * http://www.loc.gov/marc/bibliographic/bd307.html
  */
 public class Tag307 extends DataFieldDefinition {
-	private static Tag307 uniqueInstance;
+  private static Tag307 uniqueInstance;
 
-	private Tag307() {
-		initialize();
-		postCreation();
-	}
+  private Tag307() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag307 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag307();
-		return uniqueInstance;
-	}
+  public static Tag307 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag307();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
+  private void initialize() {
 
-		tag = "307";
-		label = "Hours, etc.";
-		mqTag = "Hours";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd307.html";
+    tag = "307";
+    label = "Hours, etc.";
+    mqTag = "Hours";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd307.html";
 
-		ind1 = new Indicator("Display constant controller")
-			.setCodes(
-				" ", "Hours",
-				"8", "No display constant generated"
-			)
-			.setMqTag("displayConstant");
-		ind2 = new Indicator();
+    ind1 = new Indicator("Display constant controller")
+      .setCodes(
+        " ", "Hours",
+        "8", "No display constant generated"
+      )
+      .setMqTag("displayConstant")
+      .setFrbrFunctions(ManagementDisplay);
 
-		setSubfieldsWithCardinality(
-			"a", "Hours", "NR",
-			"b", "Additional information", "NR",
-			"6", "Linkage", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    ind2 = new Indicator();
 
-		getSubfield("6").setContentParser(LinkageParser.getInstance());
+    setSubfieldsWithCardinality(
+      "a", "Hours", "NR",
+      "b", "Additional information", "NR",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		// TODO: $a is complex := <days of the week>, <hours>[;]
-		// ';' if there is $b
-		// <days of the week> :=
-		// Sunday 	Su
-		// Monday 	M
-		// Tuesday 	Tu
-		// Wednesday 	W
-		// Thursday 	Th
-		// Friday 	F
-		// Saturday 	Sa
+    getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-		getSubfield("a").setMqTag("rdf:value");
-		getSubfield("b").setMqTag("additionalInformation");
-		getSubfield("6").setMqTag("linkage");
-		getSubfield("8").setMqTag("fieldLink");
-	}
+    // TODO: $a is complex := <days of the week>, <hours>[;]
+    // ';' if there is $b
+    // <days of the week> :=
+    // Sunday   Su
+    // Monday   M
+    // Tuesday   Tu
+    // Wednesday   W
+    // Thursday   Th
+    // Friday   F
+    // Saturday   Sa
+
+    getSubfield("a").setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoverySelect, DiscoveryObtain);
+    getSubfield("b").setMqTag("additionalInformation");
+    getSubfield("6").setMqTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("8").setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+  }
 }

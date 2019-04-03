@@ -9,6 +9,7 @@ import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.ISBNValidator;
 import de.gwdg.metadataqa.marc.definition.general.validator.ISSNValidator;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
  * Host Item Entry
@@ -16,103 +17,131 @@ import de.gwdg.metadataqa.marc.definition.general.validator.ISSNValidator;
  */
 public class Tag773 extends DataFieldDefinition {
 
-	private static Tag773 uniqueInstance;
+  private static Tag773 uniqueInstance;
 
-	private Tag773() {
-		initialize();
-		postCreation();
-	}
+  private Tag773() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag773 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag773();
-		return uniqueInstance;
-	}
+  public static Tag773 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag773();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
+  private void initialize() {
 
-		tag = "773";
-		label = "Host Item Entry";
-		bibframeTag = "PartOf";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd773.html";
+    tag = "773";
+    label = "Host Item Entry";
+    bibframeTag = "PartOf";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd773.html";
 
-		ind1 = new Indicator("Note controller")
-			.setCodes(
-				"0", "Display note",
-				"1", "Do not display note"
-			)
-			.setMqTag("noteController");
-		ind2 = new Indicator("Display constant controller")
-			.setCodes(
-				" ", "In",
-				"8", "No display constant generated"
-			)
-			.setMqTag("displayConstant");
+    ind1 = new Indicator("Note controller")
+      .setCodes(
+        "0", "Display note",
+        "1", "Do not display note"
+      )
+      .setMqTag("noteController")
+      .setFrbrFunctions(ManagementProcess, ManagementDisplay);
 
-		setSubfieldsWithCardinality(
-			"a", "Main entry heading", "NR",
-			"b", "Edition", "NR",
-			"d", "Place, publisher, and date of publication", "NR",
-			"g", "Related parts", "R",
-			"h", "Physical description", "NR",
-			"i", "Relationship information", "R",
-			"k", "Series data for related item", "R",
-			"m", "Material-specific details", "NR",
-			"n", "Note", "R",
-			"o", "Other item identifier", "R",
-			"p", "Abbreviated title", "NR",
-			"q", "Enumeration and first page", "NR",
-			"r", "Report number", "R",
-			"s", "Uniform title", "NR",
-			"t", "Title", "NR",
-			"u", "Standard Technical Report Number", "NR",
-			"w", "Record control number", "R",
-			"x", "International Standard Serial Number", "NR",
-			"y", "CODEN designation", "NR",
-			"z", "International Standard Book Number", "R",
-			"3", "Materials specified", "NR",
-			"4", "Relationship code", "R",
-			"6", "Linkage", "NR",
-			"7", "Control subfield", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    ind2 = new Indicator("Display constant controller")
+      .setCodes(
+        " ", "In",
+        "8", "No display constant generated"
+      )
+      .setMqTag("displayConstant")
+      .setFrbrFunctions(ManagementDisplay);
 
-		getSubfield("4").setCodeList(RelatorCodes.getInstance());
-		// TODO: this requires position parser!
-		// see http://www.loc.gov/marc/bibliographic/bd76x78x.html
-		getSubfield("7").setPositions(Tag76xSubfield7PositionsGenerator.getPositions());
+    setSubfieldsWithCardinality(
+      "a", "Main entry heading", "NR",
+      "b", "Edition", "NR",
+      "d", "Place, publisher, and date of publication", "NR",
+      "g", "Related parts", "R",
+      "h", "Physical description", "NR",
+      "i", "Relationship information", "R",
+      "k", "Series data for related item", "R",
+      "m", "Material-specific details", "NR",
+      "n", "Note", "R",
+      "o", "Other item identifier", "R",
+      "p", "Abbreviated title", "NR",
+      "q", "Enumeration and first page", "NR",
+      "r", "Report number", "R",
+      "s", "Uniform title", "NR",
+      "t", "Title", "NR",
+      "u", "Standard Technical Report Number", "NR",
+      "w", "Record control number", "R",
+      "x", "International Standard Serial Number", "NR",
+      "y", "CODEN designation", "NR",
+      "z", "International Standard Book Number", "R",
+      "3", "Materials specified", "NR",
+      "4", "Relationship code", "R",
+      "6", "Linkage", "NR",
+      "7", "Control subfield", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("z").setValidator(ISBNValidator.getInstance());
-		getSubfield("x").setValidator(ISSNValidator.getInstance());
+    getSubfield("4").setCodeList(RelatorCodes.getInstance());
+    // TODO: this requires position parser!
+    // see http://www.loc.gov/marc/bibliographic/bd76x78x.html
+    getSubfield("7").setPositions(Tag76xSubfield7PositionsGenerator.getPositions());
 
-		getSubfield("w").setContentParser(RecordControlNumberParser.getInstance());
-		getSubfield("6").setContentParser(LinkageParser.getInstance());
+    getSubfield("z").setValidator(ISBNValidator.getInstance());
+    getSubfield("x").setValidator(ISSNValidator.getInstance());
 
-		getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
-		getSubfield("b").setBibframeTag("editionStatement");
-		getSubfield("d").setBibframeTag("provisionActivityStatement");
-		getSubfield("g").setBibframeTag("part");
-		getSubfield("h").setBibframeTag("extent");
-		getSubfield("i").setBibframeTag("relation");
-		getSubfield("k").setBibframeTag("seriesStatement");
-		getSubfield("m").setBibframeTag("note").setMqTag("materialSpecificDetails");
-		getSubfield("n").setBibframeTag("note");
-		getSubfield("o").setMqTag("otherItemIdentifier");
-		getSubfield("p").setMqTag("abbreviatedTitle");
-		getSubfield("q").setMqTag("enumeration");
-		getSubfield("r").setMqTag("reportNumber");
-		getSubfield("s").setBibframeTag("title").setMqTag("uniformTitle");
-		getSubfield("t").setBibframeTag("title");
-		getSubfield("u").setBibframeTag("strn");
-		getSubfield("w").setMqTag("recordControlNumber");
-		getSubfield("x").setBibframeTag("issn");
-		getSubfield("y").setBibframeTag("coden");
-		getSubfield("z").setBibframeTag("isbn");
-		getSubfield("3").setMqTag("materialsSpecified");
-		getSubfield("4").setMqTag("relationship");
-		getSubfield("6").setBibframeTag("linkage");
-		getSubfield("7").setMqTag("controlSubfield");
-		getSubfield("8").setMqTag("fieldLink");
-	}
+    getSubfield("w").setContentParser(RecordControlNumberParser.getInstance());
+    getSubfield("6").setContentParser(LinkageParser.getInstance());
+
+    getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
+    getSubfield("b").setBibframeTag("editionStatement")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
+    getSubfield("d").setBibframeTag("provisionActivityStatement")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
+    getSubfield("g").setBibframeTag("part");
+    getSubfield("h").setBibframeTag("extent")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
+    getSubfield("i").setBibframeTag("relation")
+      .setFrbrFunctions(DiscoveryIdentify);
+    getSubfield("k").setBibframeTag("seriesStatement")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
+    getSubfield("m").setBibframeTag("note").setMqTag("materialSpecificDetails");
+    getSubfield("n").setBibframeTag("note");
+    getSubfield("o").setMqTag("otherItemIdentifier")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
+    getSubfield("p").setMqTag("abbreviatedTitle")
+      .setFrbrFunctions(DiscoveryIdentify);
+    getSubfield("q").setMqTag("enumeration")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, ManagementProcess);
+    getSubfield("r").setMqTag("reportNumber")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
+    getSubfield("s").setBibframeTag("title").setMqTag("uniformTitle")
+      .setFrbrFunctions(DiscoveryIdentify);
+    getSubfield("t").setBibframeTag("title")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
+    getSubfield("u").setBibframeTag("strn")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
+    getSubfield("w").setMqTag("recordControlNumber")
+      .setFrbrFunctions(ManagementIdentify);
+    getSubfield("x").setBibframeTag("issn")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
+    getSubfield("y").setBibframeTag("coden")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
+    getSubfield("z").setBibframeTag("isbn")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
+    getSubfield("3").setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify);
+    getSubfield("4").setMqTag("relationship");
+    getSubfield("6").setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    /** TODO
+     *  7/00  .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort)
+     *  7/01  .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort)
+     *  7/02  .setFrbrFunctions(ManagementProcess)
+     *  7/03  .setFrbrFunctions(ManagementProcess)
+     */
+    getSubfield("7").setMqTag("controlSubfield");
+    getSubfield("8").setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+  }
 }

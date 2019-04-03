@@ -41,15 +41,16 @@ public class Tag760 extends DataFieldDefinition {
         "0", "Display note",
         "1", "Do not display note"
       )
-      .setMqTag("noteController");
-    // TODO check FRBR functions
+      .setMqTag("noteController")
+      .setFrbrFunctions(ManagementProcess, ManagementDisplay);
+
     ind2 = new Indicator("Display constant controller")
       .setCodes(
         " ", "Main series",
         "8", "No display constant generated"
       )
-      .setMqTag("displayConstant");
-    // TODO check FRBR functions
+      .setMqTag("displayConstant")
+      .setFrbrFunctions(ManagementDisplay);
 
     setSubfieldsWithCardinality(
       "a", "Main entry heading", "NR",
@@ -109,6 +110,12 @@ public class Tag760 extends DataFieldDefinition {
     getSubfield("4").setMqTag("relationship");
     getSubfield("6").setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    /*
+     7/00  .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort)
+     7/01  .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort)
+     7/02  .setFrbrFunctions(ManagementProcess)
+     7/03  .setFrbrFunctions(ManagementProcess)
+    */
     getSubfield("7").setMqTag("controlSubfield"); // TODO check FRBR functions
     getSubfield("8").setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);

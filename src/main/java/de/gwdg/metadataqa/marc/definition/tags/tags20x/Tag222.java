@@ -33,6 +33,7 @@ public class Tag222 extends DataFieldDefinition {
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd222.html";
 
     ind1 = new Indicator();
+
     ind2 = new Indicator("Nonfiling characters")
       .setCodes(
         "0", "No nonfiling characters",

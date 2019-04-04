@@ -38,6 +38,7 @@ public class Tag363 extends DataFieldDefinition {
         "1", "Ending information"
       )
       .setMqTag("startOrEndDesignator");
+
     ind2 = new Indicator("State of issuance")
       .setCodes(
         " ", "Not specified",

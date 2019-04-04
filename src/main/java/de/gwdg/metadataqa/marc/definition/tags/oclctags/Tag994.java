@@ -10,36 +10,36 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
  */
 public class Tag994 extends DataFieldDefinition {
 
-	private static Tag994 uniqueInstance;
+  private static Tag994 uniqueInstance;
 
-	private Tag994() {
-		initialize();
-		postCreation();
-	}
+  private Tag994() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag994 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag994();
-		return uniqueInstance;
-	}
+  public static Tag994 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag994();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
+  private void initialize() {
 
-		tag = "994";
-		label = "OCLC-MARC Transaction Code";
-		mqTag = "OCLCMARCTransactionCode";
-		cardinality = Cardinality.Nonrepeatable;
-		descriptionUrl = "http://www.oclc.org/bibformats/en/9xx/994.html";
+    tag = "994";
+    label = "OCLC-MARC Transaction Code";
+    mqTag = "OCLCMARCTransactionCode";
+    cardinality = Cardinality.Nonrepeatable;
+    descriptionUrl = "http://www.oclc.org/bibformats/en/9xx/994.html";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Transaction code", "NR",
-			"b", "Institution symbol", "NR"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Transaction code", "NR",
+      "b", "Institution symbol", "NR"
+    );
 
-		getSubfield("a").setMqTag("rdf:value");
-		getSubfield("b").setMqTag("institutionSymbol");
-	}
+    getSubfield("a").setMqTag("rdf:value");
+    getSubfield("b").setMqTag("institutionSymbol");
+  }
 }

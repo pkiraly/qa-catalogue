@@ -40,6 +40,7 @@ public class Tag017 extends DataFieldDefinition {
         "1", "Canada [OBSOLETE]",
         "2", "France [OBSOLETE] [CAN/MARC only]"
       );
+
     ind2 = new Indicator("Display constant controller")
       .setCodes(
         " ", "Copyright or legal deposit number",
@@ -62,7 +63,8 @@ public class Tag017 extends DataFieldDefinition {
     getSubfield("2").setCodeList(CopyrightAndLegalDepositNumberSourceCodes.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("rdf:value");
+    getSubfield("a").setBibframeTag("rdf:value")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
     getSubfield("b").setBibframeTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("d").setBibframeTag("date");

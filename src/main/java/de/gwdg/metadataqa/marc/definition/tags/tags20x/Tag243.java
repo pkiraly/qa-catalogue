@@ -43,6 +43,7 @@ public class Tag243 extends DataFieldDefinition {
       )
       .setMqTag("printedOrDisplayed")
       .setFrbrFunctions(ManagementProcess, ManagementDisplay);
+
     ind2 = new Indicator("Nonfiling characters")
       .setCodes(
         "0-9", "Number of nonfiling characters"

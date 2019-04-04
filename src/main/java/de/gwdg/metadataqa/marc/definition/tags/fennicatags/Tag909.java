@@ -9,36 +9,36 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
  */
 public class Tag909 extends DataFieldDefinition {
 
-	private static Tag909 uniqueInstance;
+  private static Tag909 uniqueInstance;
 
-	private Tag909() {
-		initialize();
-		postCreation();
-	}
+  private Tag909() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag909 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag909();
-		return uniqueInstance;
-	}
+  public static Tag909 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag909();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "909";
-		label = "REPLIKOINTIKENTTÄ";
-		mqTag = "Replikointikenttä";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.kansalliskirjasto.fi/extra/marc21/bib/omat.htm#909";
+  private void initialize() {
+    tag = "909";
+    label = "REPLIKOINTIKENTTÄ";
+    mqTag = "Replikointikenttä";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.kansalliskirjasto.fi/extra/marc21/bib/omat.htm#909";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Fennican luettelointikäytäntö", "NR",
-			"b", "Replikoituvat kentät/kenttäryhmät", "NR",
-			"c", "Aikaleima", "NR",
-			"5", "Tietokantatunnus", "NR"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Fennican luettelointikäytäntö", "NR",
+      "b", "Replikoituvat kentät/kenttäryhmät", "NR",
+      "c", "Aikaleima", "NR",
+      "5", "Tietokantatunnus", "NR"
+    );
 
-		getSubfield("a").setMqTag("rdf:value");
-	}
+    getSubfield("a").setMqTag("rdf:value");
+  }
 }

@@ -10,25 +10,25 @@ import de.gwdg.metadataqa.marc.definition.controlsubfields.LeaderSubfields;
  */
 public class LeaderDefinition extends ControlFieldDefinition {
 
-	private static LeaderDefinition uniqueInstance;
+  private static LeaderDefinition uniqueInstance;
 
-	private LeaderDefinition() {
-		initialize();
-		postCreation();
-	}
+  private LeaderDefinition() {
+    initialize();
+    postCreation();
+  }
 
-	public static LeaderDefinition getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new LeaderDefinition();
-		return uniqueInstance;
-	}
+  public static LeaderDefinition getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new LeaderDefinition();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "Leader";
-		label = "Leader";
-		mqTag = "Leader";
-		cardinality = Cardinality.Nonrepeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bdleader.html";
-		controlSubfields = LeaderSubfields.getInstance();
-	}
+  private void initialize() {
+    tag = "Leader";
+    label = "Leader";
+    mqTag = "Leader";
+    cardinality = Cardinality.Nonrepeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bdleader.html";
+    controlSubfields = LeaderSubfields.getInstance();
+  }
 }

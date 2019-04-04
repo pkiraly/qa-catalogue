@@ -200,7 +200,7 @@ public class SubfieldDefinition implements Serializable {
     return parent;
   }
 
-  public List<FRBRFunction> getFunctions() {
+  public List<FRBRFunction> getFrbrFunctions() {
     return functions;
   }
 

@@ -10,34 +10,34 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
  */
 public class Tag019 extends DataFieldDefinition {
 
-	private static Tag019 uniqueInstance;
+  private static Tag019 uniqueInstance;
 
-	private Tag019() {
-		initialize();
-		postCreation();
-	}
+  private Tag019() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag019 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag019();
-		return uniqueInstance;
-	}
+  public static Tag019 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag019();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "019";
-		label = "FINUC-TUNNUS";
-		mqTag = "FINUCTunnus";
-		cardinality = Cardinality.Nonrepeatable;
-		descriptionUrl = "https://www.kansalliskirjasto.fi/extra/marc21/bib/omat.htm#019";
+  private void initialize() {
+    tag = "019";
+    label = "FINUC-TUNNUS";
+    mqTag = "FINUCTunnus";
+    cardinality = Cardinality.Nonrepeatable;
+    descriptionUrl = "https://www.kansalliskirjasto.fi/extra/marc21/bib/omat.htm#019";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Finuc-tunnus", "NR"
-		);
-		// TODO: "The badge begins with small fs, followed by six digits."
+    setSubfieldsWithCardinality(
+      "a", "Finuc-tunnus", "NR"
+    );
+    // TODO: "The badge begins with small fs, followed by six digits."
 
-		getSubfield("a").setMqTag("rdf:value");
-	}
+    getSubfield("a").setMqTag("rdf:value");
+  }
 }

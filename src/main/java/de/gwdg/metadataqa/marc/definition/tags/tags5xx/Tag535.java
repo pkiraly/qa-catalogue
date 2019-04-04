@@ -44,6 +44,7 @@ public class Tag535 extends DataFieldDefinition {
         "3", "Holder of oral tapes (AM) [OBSOLETE, 1984]"
       )
       .setMqTag("custodialRole");
+
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(

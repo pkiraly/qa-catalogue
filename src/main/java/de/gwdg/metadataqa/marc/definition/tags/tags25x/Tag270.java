@@ -41,6 +41,7 @@ public class Tag270 extends DataFieldDefinition {
         "2", "Secondary"
       )
       .setMqTag("level");
+
     ind2 = new Indicator("Type of address")
       .setCodes(
         " ", "No type specified",

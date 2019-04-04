@@ -9,24 +9,24 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
  */
 public class Control005Definition extends DataFieldDefinition {
 
-	private static Control005Definition uniqueInstance;
+  private static Control005Definition uniqueInstance;
 
-	private Control005Definition() {
-		initialize();
-		postCreation();
-	}
+  private Control005Definition() {
+    initialize();
+    postCreation();
+  }
 
-	public static Control005Definition getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Control005Definition();
-		return uniqueInstance;
-	}
+  public static Control005Definition getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Control005Definition();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "005";
-		label = "Date and Time of Latest Transaction";
-		mqTag = "LatestTransactionTime";
-		cardinality = Cardinality.Nonrepeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd005.html";
-	}
+  private void initialize() {
+    tag = "005";
+    label = "Date and Time of Latest Transaction";
+    mqTag = "LatestTransactionTime";
+    cardinality = Cardinality.Nonrepeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd005.html";
+  }
 }

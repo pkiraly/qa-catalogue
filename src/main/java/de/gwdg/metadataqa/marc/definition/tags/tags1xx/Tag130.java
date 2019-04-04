@@ -44,6 +44,7 @@ public class Tag130 extends DataFieldDefinition {
       .setMqTag("nonfilingCharacters")
       .setFrbrFunctions(ManagementProcess, ManagementSort);
     ind1.getCode("0-9").setRange(true);
+
     ind2 = new Indicator()
       .putVersionSpecificCodes(MarcVersion.FENNICA, Arrays.asList(
         new Code("9", "Kokoelma")

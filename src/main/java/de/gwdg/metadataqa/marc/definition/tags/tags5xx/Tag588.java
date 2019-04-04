@@ -39,6 +39,7 @@ public class Tag588 extends DataFieldDefinition {
         "1", "Latest issue consulted"
       )
       .setMqTag("displayConstant");
+
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(

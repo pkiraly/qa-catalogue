@@ -113,7 +113,8 @@ public class Tag786 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
     getSubfield("r").setMqTag("reportNumber")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("s").setBibframeTag("title").setMqTag("uniformTitle");
+    getSubfield("s").setBibframeTag("title").setMqTag("uniformTitle")
+      .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("t").setBibframeTag("title")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
     getSubfield("u").setBibframeTag("strn")

@@ -10,32 +10,32 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
  */
 public class Tag911 extends DataFieldDefinition {
 
-	private static Tag911 uniqueInstance;
+  private static Tag911 uniqueInstance;
 
-	private Tag911() {
-		initialize();
-		postCreation();
-	}
+  private Tag911() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag911 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag911();
-		return uniqueInstance;
-	}
+  public static Tag911 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag911();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "911";
-		label = "Manifestation identifier";
-		mqTag = "ManifestationIdentifier";
-		cardinality = Cardinality.Nonrepeatable;
+  private void initialize() {
+    tag = "911";
+    label = "Manifestation identifier";
+    mqTag = "ManifestationIdentifier";
+    cardinality = Cardinality.Nonrepeatable;
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"9", "OCLC manifestation identifier", "NR"
-		);
+    setSubfieldsWithCardinality(
+      "9", "OCLC manifestation identifier", "NR"
+    );
 
-		getSubfield("9").setMqTag("rdf:value");
-	}
+    getSubfield("9").setMqTag("rdf:value");
+  }
 }

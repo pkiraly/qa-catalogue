@@ -9,33 +9,33 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
  */
 public class Tag995 extends DataFieldDefinition {
 
-	private static Tag995 uniqueInstance;
+  private static Tag995 uniqueInstance;
 
-	private Tag995() {
-		initialize();
-		postCreation();
-	}
+  private Tag995() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag995 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag995();
-		return uniqueInstance;
-	}
+  public static Tag995 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag995();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "995";
-		label = "ARTON TIEDONTUOTTAJATUNNUS";
-		mqTag = "ArtonTiedontuottajatunnus";
-		cardinality = Cardinality.Nonrepeatable;
-		descriptionUrl = "https://www.kansalliskirjasto.fi/extra/marc21/bib/omat.htm#995";
+  private void initialize() {
+    tag = "995";
+    label = "ARTON TIEDONTUOTTAJATUNNUS";
+    mqTag = "ArtonTiedontuottajatunnus";
+    cardinality = Cardinality.Nonrepeatable;
+    descriptionUrl = "https://www.kansalliskirjasto.fi/extra/marc21/bib/omat.htm#995";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "ARTOn tiedontuottajatunnus", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "ARTOn tiedontuottajatunnus", "R"
+    );
 
-		getSubfield("a").setMqTag("rdf:value");
-	}
+    getSubfield("a").setMqTag("rdf:value");
+  }
 }

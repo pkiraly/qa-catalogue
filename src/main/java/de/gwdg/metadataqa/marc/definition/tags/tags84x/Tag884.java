@@ -11,36 +11,36 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
  */
 public class Tag884 extends DataFieldDefinition {
 
-	private static Tag884 uniqueInstance;
+  private static Tag884 uniqueInstance;
 
-	private Tag884() {
-		initialize();
-		postCreation();
-	}
+  private Tag884() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag884 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag884();
-		return uniqueInstance;
-	}
+  public static Tag884 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag884();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "884";
-		label = "Description Conversion Information";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd884.html";
+  private void initialize() {
+    tag = "884";
+    label = "Description Conversion Information";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd884.html";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Conversion process", "NR",
-			"g", "Conversion date", "NR",
-			"k", "Identifier of source metadata", "NR",
-			"q", "Conversion agency", "NR",
-			"u", "Uniform Resource Identifier", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Conversion process", "NR",
+      "g", "Conversion date", "NR",
+      "k", "Identifier of source metadata", "NR",
+      "q", "Conversion agency", "NR",
+      "u", "Uniform Resource Identifier", "R"
+    );
 
-		getSubfield("q").setCodeList(OrganizationCodes.getInstance());
-	}
+    getSubfield("q").setCodeList(OrganizationCodes.getInstance());
+  }
 }

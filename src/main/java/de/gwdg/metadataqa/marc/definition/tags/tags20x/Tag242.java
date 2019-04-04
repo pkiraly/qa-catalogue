@@ -41,6 +41,7 @@ public class Tag242 extends DataFieldDefinition {
       )
       .setMqTag("titleAddedEntry")
       .setFrbrFunctions(ManagementProcess, ManagementDisplay);
+
     ind2 = new Indicator("Nonfiling characters")
       .setCodes(
         "0", "No nonfiling characters",

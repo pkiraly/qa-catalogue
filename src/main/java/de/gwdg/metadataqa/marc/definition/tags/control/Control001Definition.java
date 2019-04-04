@@ -9,24 +9,24 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
  */
 public class Control001Definition extends DataFieldDefinition {
 
-	private static Control001Definition uniqueInstance;
+  private static Control001Definition uniqueInstance;
 
-	private Control001Definition() {
-		initialize();
-		postCreation();
-	}
+  private Control001Definition() {
+    initialize();
+    postCreation();
+  }
 
-	public static Control001Definition getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Control001Definition();
-		return uniqueInstance;
-	}
+  public static Control001Definition getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Control001Definition();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "001";
-		label = "Control Number";
-		mqTag = "ControlNumber";
-		cardinality = Cardinality.Nonrepeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd001.html";
-	}
+  private void initialize() {
+    tag = "001";
+    label = "Control Number";
+    mqTag = "ControlNumber";
+    cardinality = Cardinality.Nonrepeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd001.html";
+  }
 }

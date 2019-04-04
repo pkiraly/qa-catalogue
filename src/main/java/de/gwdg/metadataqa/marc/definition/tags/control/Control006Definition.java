@@ -10,25 +10,25 @@ import de.gwdg.metadataqa.marc.definition.controlsubfields.Control006Subfields;
  */
 public class Control006Definition extends ControlFieldDefinition {
 
-	private static Control006Definition uniqueInstance;
+  private static Control006Definition uniqueInstance;
 
-	private Control006Definition() {
-		initialize();
-		postCreation();
-	}
+  private Control006Definition() {
+    initialize();
+    postCreation();
+  }
 
-	public static Control006Definition getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Control006Definition();
-		return uniqueInstance;
-	}
+  public static Control006Definition getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Control006Definition();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "006";
-		label = "Additional Material Characteristics";
-		mqTag = "AdditionalMaterialCharacteristics";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd006.html";
-		controlSubfields = Control006Subfields.getInstance();
-	}
+  private void initialize() {
+    tag = "006";
+    label = "Additional Material Characteristics";
+    mqTag = "AdditionalMaterialCharacteristics";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd006.html";
+    controlSubfields = Control006Subfields.getInstance();
+  }
 }

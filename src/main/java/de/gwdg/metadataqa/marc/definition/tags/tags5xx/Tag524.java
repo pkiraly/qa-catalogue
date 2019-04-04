@@ -56,7 +56,8 @@ public class Tag524 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value");
+    getSubfield("a").setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
     getSubfield("2").setMqTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("3").setMqTag("materialsSpecified")

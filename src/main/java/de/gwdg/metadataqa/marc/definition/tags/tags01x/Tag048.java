@@ -40,6 +40,7 @@ public class Tag048 extends DataFieldDefinition {
         "1", "More than one performer to some parts or all parts",
         "2", "Soloist with type of ensemble referred to in 1 above"
       );
+
     ind2 = new Indicator("Source of code")
       .setCodes(
         " ", "MARC code",

@@ -9,33 +9,33 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
  */
 public class Tag960 extends DataFieldDefinition {
 
-	private static Tag960 uniqueInstance;
+  private static Tag960 uniqueInstance;
 
-	private Tag960() {
-		initialize();
-		postCreation();
-	}
+  private Tag960() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag960 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag960();
-		return uniqueInstance;
-	}
+  public static Tag960 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag960();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "960";
-		label = "KOKOELMA";
-		mqTag = "Kokoelma";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.kansalliskirjasto.fi/extra/marc21/bib/omat.htm#960";
+  private void initialize() {
+    tag = "960";
+    label = "KOKOELMA";
+    mqTag = "Kokoelma";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.kansalliskirjasto.fi/extra/marc21/bib/omat.htm#960";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Kokoelma", "NR"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Kokoelma", "NR"
+    );
 
-		getSubfield("a").setMqTag("rdf:value");
-	}
+    getSubfield("a").setMqTag("rdf:value");
+  }
 }

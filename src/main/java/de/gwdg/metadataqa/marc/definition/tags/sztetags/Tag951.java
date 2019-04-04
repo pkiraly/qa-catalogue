@@ -9,33 +9,33 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
  */
 public class Tag951 extends DataFieldDefinition {
 
-	private static Tag951 uniqueInstance;
+  private static Tag951 uniqueInstance;
 
-	private Tag951() {
-		initialize();
-		postCreation();
-	}
+  private Tag951() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag951 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag951();
-		return uniqueInstance;
-	}
+  public static Tag951 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag951();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "951";
-		label = "Picture";
-		mqTag = "Picture";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "";
+  private void initialize() {
+    tag = "951";
+    label = "Picture";
+    mqTag = "Picture";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"f", "File name", "NR",
-			"x", "ID", "NR",
-			"z", "Access type", "NR"
-		);
-	}
+    setSubfieldsWithCardinality(
+      "f", "File name", "NR",
+      "x", "ID", "NR",
+      "z", "Access type", "NR"
+    );
+  }
 }

@@ -10,40 +10,40 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
  */
 public class Tag096 extends DataFieldDefinition {
 
-	private static Tag096 uniqueInstance;
+  private static Tag096 uniqueInstance;
 
-	private Tag096() {
-		initialize();
-		postCreation();
-	}
+  private Tag096() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag096 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag096();
-		return uniqueInstance;
-	}
+  public static Tag096 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag096();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
+  private void initialize() {
 
-		tag = "096";
-		label = "Locally Assigned NLM-type Call Number";
-		mqTag = "LocallyAssignedNLMTypeCallNumber";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "http://www.oclc.org/bibformats/en/0xx/096.html";
+    tag = "096";
+    label = "Locally Assigned NLM-type Call Number";
+    mqTag = "LocallyAssignedNLMTypeCallNumber";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "http://www.oclc.org/bibformats/en/0xx/096.html";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Classification number", "NR",
-			"b", "Item number", "NR",
-			"e", "Feature heading", "NR",
-			"f", "Filing suffix", "NR"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Classification number", "NR",
+      "b", "Item number", "NR",
+      "e", "Feature heading", "NR",
+      "f", "Filing suffix", "NR"
+    );
 
-		getSubfield("a").setMqTag("classificationNumber");
-		getSubfield("b").setMqTag("itemNumber");
-		getSubfield("e").setMqTag("featureHeading");
-		getSubfield("f").setMqTag("filingSuffix");
-	}
+    getSubfield("a").setMqTag("classificationNumber");
+    getSubfield("b").setMqTag("itemNumber");
+    getSubfield("e").setMqTag("featureHeading");
+    getSubfield("f").setMqTag("filingSuffix");
+  }
 }

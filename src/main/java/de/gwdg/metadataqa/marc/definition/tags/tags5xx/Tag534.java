@@ -40,6 +40,7 @@ public class Tag534 extends DataFieldDefinition {
         "0", "Note exclude series of original",
         "1", "Note includes series of original"
       );
+
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(

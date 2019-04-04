@@ -10,33 +10,33 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
  */
 public class Tag936 extends DataFieldDefinition {
 
-	private static Tag936 uniqueInstance;
+  private static Tag936 uniqueInstance;
 
-	private Tag936() {
-		initialize();
-		postCreation();
-	}
+  private Tag936() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag936 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag936();
-		return uniqueInstance;
-	}
+  public static Tag936 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag936();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "936";
-		label = "CONSER/OCLC Miscellaneous Data";
-		mqTag = "ConserOrOclcMiscellaneousData";
-		cardinality = Cardinality.Nonrepeatable;
-		descriptionUrl = "http://www.oclc.org/bibformats/en/9xx/936.html";
+  private void initialize() {
+    tag = "936";
+    label = "CONSER/OCLC Miscellaneous Data";
+    mqTag = "ConserOrOclcMiscellaneousData";
+    cardinality = Cardinality.Nonrepeatable;
+    descriptionUrl = "http://www.oclc.org/bibformats/en/9xx/936.html";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "CONSER/OCLC miscellaneous data", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "CONSER/OCLC miscellaneous data", "R"
+    );
 
-		getSubfield("a").setMqTag("rdf:value");
-	}
+    getSubfield("a").setMqTag("rdf:value");
+  }
 }

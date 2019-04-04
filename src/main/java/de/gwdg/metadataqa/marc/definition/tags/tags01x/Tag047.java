@@ -35,6 +35,7 @@ public class Tag047 extends DataFieldDefinition {
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd047.html";
 
     ind1 = new Indicator();
+
     ind2 = new Indicator("Source of code")
       .setCodes(
         " ", "MARC musical composition code",

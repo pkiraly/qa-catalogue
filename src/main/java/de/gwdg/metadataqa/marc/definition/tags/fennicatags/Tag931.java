@@ -9,33 +9,33 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
  */
 public class Tag931 extends DataFieldDefinition {
 
-	private static Tag931 uniqueInstance;
+  private static Tag931 uniqueInstance;
 
-	private Tag931() {
-		initialize();
-		postCreation();
-	}
+  private Tag931() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag931 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag931();
-		return uniqueInstance;
-	}
+  public static Tag931 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag931();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "931";
-		label = "KOMITEAN MIETINNÖN LUOVUTTAMISPÄIVÄ - VOYAGER-KENTTÄ";
-		mqTag = "KomiteanmietinnönLuovuttamispäivä";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.kansalliskirjasto.fi/extra/marc21/bib/omat.htm#931";
+  private void initialize() {
+    tag = "931";
+    label = "KOMITEAN MIETINNÖN LUOVUTTAMISPÄIVÄ - VOYAGER-KENTTÄ";
+    mqTag = "KomiteanmietinnönLuovuttamispäivä";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.kansalliskirjasto.fi/extra/marc21/bib/omat.htm#931";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Komiteanmietinnön luovuttamispäivä", "NR"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Komiteanmietinnön luovuttamispäivä", "NR"
+    );
 
-		getSubfield("a").setMqTag("rdf:value");
-	}
+    getSubfield("a").setMqTag("rdf:value");
+  }
 }

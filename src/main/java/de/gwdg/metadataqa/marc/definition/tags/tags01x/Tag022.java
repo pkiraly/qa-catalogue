@@ -42,6 +42,7 @@ public class Tag022 extends DataFieldDefinition {
       )
       .setMqTag("levelOfInternationalInterest")
       .setFrbrFunctions(DiscoverySelect, ManagementProcess);
+
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(

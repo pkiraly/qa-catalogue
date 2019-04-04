@@ -40,6 +40,7 @@ public class Tag037 extends DataFieldDefinition {
         "3", "Current/Latest"
       )
       .setMqTag("source");
+
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(

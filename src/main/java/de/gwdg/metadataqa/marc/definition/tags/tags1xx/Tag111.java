@@ -42,6 +42,7 @@ public class Tag111 extends DataFieldDefinition {
       )
       .setMqTag("type")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort);
+
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(

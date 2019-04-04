@@ -9,33 +9,33 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
  */
 public class Tag903 extends DataFieldDefinition {
 
-	private static Tag903 uniqueInstance;
+  private static Tag903 uniqueInstance;
 
-	private Tag903() {
-		initialize();
-		postCreation();
-	}
+  private Tag903() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag903 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag903();
-		return uniqueInstance;
-	}
+  public static Tag903 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag903();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "903";
-		label = "KIRJASTOKOHTAINEN KOODI";
-		mqTag = "KirjastokohtainenKoodi";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.kansalliskirjasto.fi/extra/marc21/bib/omat.htm#903";
+  private void initialize() {
+    tag = "903";
+    label = "KIRJASTOKOHTAINEN KOODI";
+    mqTag = "KirjastokohtainenKoodi";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.kansalliskirjasto.fi/extra/marc21/bib/omat.htm#903";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Koodi", "NR"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Koodi", "NR"
+    );
 
-		getSubfield("a").setMqTag("rdf:value");
-	}
+    getSubfield("a").setMqTag("rdf:value");
+  }
 }

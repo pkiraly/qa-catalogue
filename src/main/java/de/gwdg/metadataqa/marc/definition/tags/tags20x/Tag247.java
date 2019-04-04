@@ -40,6 +40,7 @@ public class Tag247 extends DataFieldDefinition {
       )
       .setMqTag("titleAddedEntry")
       .setFrbrFunctions(ManagementProcess, ManagementDisplay);
+
     ind2 = new Indicator("Note controller")
       .setCodes(
         "0", "Display note",

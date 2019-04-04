@@ -9,35 +9,35 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
  */
 public class Tag092 extends DataFieldDefinition {
 
-	private static Tag092 uniqueInstance;
+  private static Tag092 uniqueInstance;
 
-	private Tag092() {
-		initialize();
-		postCreation();
-	}
+  private Tag092() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag092 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag092();
-		return uniqueInstance;
-	}
+  public static Tag092 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag092();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "092";
-		label = "Szakjelzet";
-		mqTag = "ClassificationNumber";
-		cardinality = Cardinality.Nonrepeatable;
-		descriptionUrl = "http://vocal.lib.klte.hu/marc/bib/092.html";
+  private void initialize() {
+    tag = "092";
+    label = "Szakjelzet";
+    mqTag = "ClassificationNumber";
+    cardinality = Cardinality.Nonrepeatable;
+    descriptionUrl = "http://vocal.lib.klte.hu/marc/bib/092.html";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Osztályozási szám", "NR",
-			"b", "Cutter", "NR"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Osztályozási szám", "NR",
+      "b", "Cutter", "NR"
+    );
 
-		getSubfield("a").setMqTag("rdf:value");
-		getSubfield("b").setMqTag("cutter");
-	}
+    getSubfield("a").setMqTag("rdf:value");
+    getSubfield("b").setMqTag("cutter");
+  }
 }

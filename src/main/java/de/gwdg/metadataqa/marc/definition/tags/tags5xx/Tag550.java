@@ -38,6 +38,7 @@ public class Tag550 extends DataFieldDefinition {
         "0", "Repetitious",
         "1", "Not repetitious"
       );
+
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(

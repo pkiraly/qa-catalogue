@@ -204,4 +204,8 @@ public class Indicator {
     this.functions = Arrays.asList(functions);
     return this;
   }
+
+  public List<FRBRFunction> getFrbrFunctions() {
+    return functions;
+  }
 }

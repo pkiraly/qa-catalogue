@@ -114,7 +114,7 @@ public class Tag767 extends DataFieldDefinition {
     getSubfield("u").setBibframeTag("strn")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
     getSubfield("w").setMqTag("recordControlNumber")
-      .setFrbrFunctions(DiscoveryIdentify);
+      .setFrbrFunctions(ManagementIdentify);
     getSubfield("x").setBibframeTag("issn")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
     getSubfield("y").setBibframeTag("coden")

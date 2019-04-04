@@ -45,6 +45,7 @@ public class Tag260 extends DataFieldDefinition {
       )
       .setMqTag("sequenceOfPublishingStatements")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
+
     ind2 = new Indicator()
       .setHistoricalCodes(
         "0", "Publisher, distributor, etc. not same as issuing body in added entry",

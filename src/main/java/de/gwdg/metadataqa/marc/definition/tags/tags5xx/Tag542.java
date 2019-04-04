@@ -39,6 +39,7 @@ public class Tag542 extends DataFieldDefinition {
         "1", "Not private"
       )
       .setMqTag("privacy");
+
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(

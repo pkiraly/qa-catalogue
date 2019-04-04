@@ -10,34 +10,34 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
  */
 public class Tag931 extends DataFieldDefinition {
 
-	private static Tag931 uniqueInstance;
+  private static Tag931 uniqueInstance;
 
-	private Tag931() {
-		initialize();
-		postCreation();
-	}
+  private Tag931() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag931 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag931();
-		return uniqueInstance;
-	}
+  public static Tag931 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag931();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "931";
-		label = "Gravierende Korrektur - ZDB";
-		mqTag = "GravierendeKorrekturZDB";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "http://swbtools.bsz-bw.de/cgi-bin/help.pl?cmd=kat&val=4010";
+  private void initialize() {
+    tag = "931";
+    label = "Gravierende Korrektur - ZDB";
+    mqTag = "GravierendeKorrekturZDB";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "http://swbtools.bsz-bw.de/cgi-bin/help.pl?cmd=kat&val=4010";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Datum (JJ-MM-TT)", "NR",
-			"b", "Selektionsschlüssel", "NR"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Datum (JJ-MM-TT)", "NR",
+      "b", "Selektionsschlüssel", "NR"
+    );
 
-		getSubfield("a").setMqTag("rdf:value");
-	}
+    getSubfield("a").setMqTag("rdf:value");
+  }
 }

@@ -9,33 +9,33 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
  */
 public class Tag930 extends DataFieldDefinition {
 
-	private static Tag930 uniqueInstance;
+  private static Tag930 uniqueInstance;
 
-	private Tag930() {
-		initialize();
-		postCreation();
-	}
+  private Tag930() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag930 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag930();
-		return uniqueInstance;
-	}
+  public static Tag930 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag930();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "930";
-		label = "KOMITEAN ASETTAMISPÄIVÄ - VOYAGER-KENTTÄ";
-		mqTag = "KomiteanAsettamispäivä";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.kansalliskirjasto.fi/extra/marc21/bib/omat.htm#930";
+  private void initialize() {
+    tag = "930";
+    label = "KOMITEAN ASETTAMISPÄIVÄ - VOYAGER-KENTTÄ";
+    mqTag = "KomiteanAsettamispäivä";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.kansalliskirjasto.fi/extra/marc21/bib/omat.htm#930";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Komitean asettamispäivä", "NR"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Komitean asettamispäivä", "NR"
+    );
 
-		getSubfield("a").setMqTag("rdf:value");
-	}
+    getSubfield("a").setMqTag("rdf:value");
+  }
 }

@@ -10,33 +10,33 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
  */
 public class Tag259 extends DataFieldDefinition {
 
-	private static Tag259 uniqueInstance;
+  private static Tag259 uniqueInstance;
 
-	private Tag259() {
-		initialize();
-		postCreation();
-	}
+  private Tag259() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag259 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag259();
-		return uniqueInstance;
-	}
+  public static Tag259 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag259();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "259";
-		label = "Ausgabebezeichnung in normierter Form";
-		mqTag = "WeitereTitel";
-		cardinality = Cardinality.Nonrepeatable;
-		// descriptionUrl = "http://swbtools.bsz-bw.de/cgi-bin/help.pl?cmd=kat&val=4010";
+  private void initialize() {
+    tag = "259";
+    label = "Ausgabebezeichnung in normierter Form";
+    mqTag = "WeitereTitel";
+    cardinality = Cardinality.Nonrepeatable;
+    // descriptionUrl = "http://swbtools.bsz-bw.de/cgi-bin/help.pl?cmd=kat&val=4010";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Ausgabebezeichnung in normierter Form", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Ausgabebezeichnung in normierter Form", "R"
+    );
 
-		getSubfield("a").setMqTag("rdf:value");
-	}
+    getSubfield("a").setMqTag("rdf:value");
+  }
 }

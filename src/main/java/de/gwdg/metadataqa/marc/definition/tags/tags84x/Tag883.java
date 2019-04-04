@@ -11,58 +11,58 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
  */
 public class Tag883 extends DataFieldDefinition {
 
-	private static Tag883 uniqueInstance;
+  private static Tag883 uniqueInstance;
 
-	private Tag883() {
-		initialize();
-		postCreation();
-	}
+  private Tag883() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag883 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag883();
-		return uniqueInstance;
-	}
+  public static Tag883 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag883();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
+  private void initialize() {
 
-		tag = "883";
-		label = "Machine-generated Metadata Provenance";
-		mqTag = "MachineGeneratedMetadataProvenance";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd883.html";
+    tag = "883";
+    label = "Machine-generated Metadata Provenance";
+    mqTag = "MachineGeneratedMetadataProvenance";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd883.html";
 
-		ind1 = new Indicator("Method of machine assignment")
-			.setCodes(
-				" ", "No information provided/not applicable",
-				"0", "Fully machine-generated",
-				"1", "Partially machine-generated"
-			)
-			.setMqTag("methodOfMachineAssignment");
-		ind2 = new Indicator();
+    ind1 = new Indicator("Method of machine assignment")
+      .setCodes(
+        " ", "No information provided/not applicable",
+        "0", "Fully machine-generated",
+        "1", "Partially machine-generated"
+      )
+      .setMqTag("methodOfMachineAssignment");
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Generation process", "NR",
-			"c", "Confidence value", "NR",
-			"d", "Generation date", "NR",
-			"q", "Generation agency", "NR",
-			"x", "Validity end date", "NR",
-			"u", "Uniform Resource Identifier", "NR",
-			"w", "Bibliographic record control number", "R",
-			"0", "Authority record control number or standard number", "R",
-			"8", "Field link and sequence number", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Generation process", "NR",
+      "c", "Confidence value", "NR",
+      "d", "Generation date", "NR",
+      "q", "Generation agency", "NR",
+      "x", "Validity end date", "NR",
+      "u", "Uniform Resource Identifier", "NR",
+      "w", "Bibliographic record control number", "R",
+      "0", "Authority record control number or standard number", "R",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("q").setCodeList(OrganizationCodes.getInstance());
+    getSubfield("q").setCodeList(OrganizationCodes.getInstance());
 
-		getSubfield("a").setMqTag("generationProcess");
-		getSubfield("c").setMqTag("confidence");
-		getSubfield("d").setMqTag("date");
-		getSubfield("q").setMqTag("agency");
-		getSubfield("x").setMqTag("validityEndDate");
-		getSubfield("u").setMqTag("uri");
-		getSubfield("w").setMqTag("bibliographicRecordControlNumber");
-		getSubfield("0").setMqTag("authorityRecordControlNumber");
-		getSubfield("8").setMqTag("fieldLink");
-	}
+    getSubfield("a").setMqTag("generationProcess");
+    getSubfield("c").setMqTag("confidence");
+    getSubfield("d").setMqTag("date");
+    getSubfield("q").setMqTag("agency");
+    getSubfield("x").setMqTag("validityEndDate");
+    getSubfield("u").setMqTag("uri");
+    getSubfield("w").setMqTag("bibliographicRecordControlNumber");
+    getSubfield("0").setMqTag("authorityRecordControlNumber");
+    getSubfield("8").setMqTag("fieldLink");
+  }
 }

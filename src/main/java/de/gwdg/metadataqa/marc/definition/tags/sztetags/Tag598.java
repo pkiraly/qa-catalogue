@@ -9,31 +9,31 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
  */
 public class Tag598 extends DataFieldDefinition {
 
-	private static Tag598 uniqueInstance;
+  private static Tag598 uniqueInstance;
 
-	private Tag598() {
-		initialize();
-		postCreation();
-	}
+  private Tag598() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag598 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag598();
-		return uniqueInstance;
-	}
+  public static Tag598 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag598();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "598";
-		label = "Collection";
-		mqTag = "Collection";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "http://vocal.lib.klte.hu/marc/bib/596.html";
+  private void initialize() {
+    tag = "598";
+    label = "Collection";
+    mqTag = "Collection";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "http://vocal.lib.klte.hu/marc/bib/596.html";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Name of the collection", "NR"
-		);
-	}
+    setSubfieldsWithCardinality(
+      "a", "Name of the collection", "NR"
+    );
+  }
 }

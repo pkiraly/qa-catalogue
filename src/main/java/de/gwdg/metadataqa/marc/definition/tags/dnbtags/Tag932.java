@@ -10,33 +10,33 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
  */
 public class Tag932 extends DataFieldDefinition {
 
-	private static Tag932 uniqueInstance;
+  private static Tag932 uniqueInstance;
 
-	private Tag932() {
-		initialize();
-		postCreation();
-	}
+  private Tag932() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag932 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag932();
-		return uniqueInstance;
-	}
+  public static Tag932 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag932();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "932";
-		label = "Online-Contents-Ausschnittskennung - ZDB";
-		mqTag = "OnlineContentsAusschnittskennungZDB";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "http://swbtools.bsz-bw.de/cgi-bin/help.pl?cmd=kat&val=4010";
+  private void initialize() {
+    tag = "932";
+    label = "Online-Contents-Ausschnittskennung - ZDB";
+    mqTag = "OnlineContentsAusschnittskennungZDB";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "http://swbtools.bsz-bw.de/cgi-bin/help.pl?cmd=kat&val=4010";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"a", "Online-Contents-Ausschnittskennung", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Online-Contents-Ausschnittskennung", "R"
+    );
 
-		getSubfield("a").setMqTag("rdf:value");
-	}
+    getSubfield("a").setMqTag("rdf:value");
+  }
 }

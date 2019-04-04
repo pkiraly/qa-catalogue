@@ -11,60 +11,61 @@ import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
  */
 public class Tag264 extends DataFieldDefinition {
 
-	private static Tag264 uniqueInstance;
+  private static Tag264 uniqueInstance;
 
-	private Tag264() {
-		initialize();
-		postCreation();
-	}
+  private Tag264() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag264 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag264();
-		return uniqueInstance;
-	}
+  public static Tag264 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag264();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
+  private void initialize() {
 
-		tag = "264";
-		label = "Production, Publication, Distribution, Manufacture, and Copyright Notice";
-		mqTag = "ProvisionActivity";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd264.html";
+    tag = "264";
+    label = "Production, Publication, Distribution, Manufacture, and Copyright Notice";
+    mqTag = "ProvisionActivity";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd264.html";
 
-		ind1 = new Indicator("Sequence of statements")
-			.setCodes(
-				" ", "Not applicable/No information provided/Earliest",
-				"2", "Intervening",
-				"3", "Current/Latest"
-			)
-			.setMqTag("sequenceOfStatements");
-		ind2 = new Indicator("Function of entity")
-			.setCodes(
-				"0", "Production",
-				"1", "Publication",
-				"2", "Distribution",
-				"3", "Manufacture",
-				"4", "Copyright notice date"
-			)
-			.setMqTag("function");
+    ind1 = new Indicator("Sequence of statements")
+      .setCodes(
+        " ", "Not applicable/No information provided/Earliest",
+        "2", "Intervening",
+        "3", "Current/Latest"
+      )
+      .setMqTag("sequenceOfStatements");
 
-		setSubfieldsWithCardinality(
-			"a", "Place of production, publication, distribution, manufacture", "R",
-			"b", "Name of producer, publisher, distributor, manufacturer", "R",
-			"c", "Date of production, publication, distribution, manufacture, or copyright notice", "R",
-			"3", "Materials specified", "NR",
-			"6", "Linkage", "NR",
-			"8", "Field link and sequence number", "R"
-		);
+    ind2 = new Indicator("Function of entity")
+      .setCodes(
+        "0", "Production",
+        "1", "Publication",
+        "2", "Distribution",
+        "3", "Manufacture",
+        "4", "Copyright notice date"
+      )
+      .setMqTag("function");
 
-		getSubfield("6").setContentParser(LinkageParser.getInstance());
+    setSubfieldsWithCardinality(
+      "a", "Place of production, publication, distribution, manufacture", "R",
+      "b", "Name of producer, publisher, distributor, manufacturer", "R",
+      "c", "Date of production, publication, distribution, manufacture, or copyright notice", "R",
+      "3", "Materials specified", "NR",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
 
-		getSubfield("a").setBibframeTag("place");
-		getSubfield("b").setBibframeTag("agent");
-		getSubfield("c").setBibframeTag("date");
-		getSubfield("3").setMqTag("materialsSpecified");
-		getSubfield("6").setMqTag("linkage");
-		getSubfield("8").setMqTag("fieldLink");
-	}
+    getSubfield("6").setContentParser(LinkageParser.getInstance());
+
+    getSubfield("a").setBibframeTag("place");
+    getSubfield("b").setBibframeTag("agent");
+    getSubfield("c").setBibframeTag("date");
+    getSubfield("3").setMqTag("materialsSpecified");
+    getSubfield("6").setMqTag("linkage");
+    getSubfield("8").setMqTag("fieldLink");
+  }
 }

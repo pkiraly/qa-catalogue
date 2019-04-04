@@ -10,33 +10,33 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
  */
 public class Tag889 extends DataFieldDefinition {
 
-	private static Tag889 uniqueInstance;
+  private static Tag889 uniqueInstance;
 
-	private Tag889() {
-		initialize();
-		postCreation();
-	}
+  private Tag889() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag889 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag889();
-		return uniqueInstance;
-	}
+  public static Tag889 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag889();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "889";
-		label = "Angaben zum umgelenkten Datensatz";
-		mqTag = "AngabenZumUmgelenktenDatensatz";
-		cardinality = Cardinality.Repeatable;
-		// descriptionUrl = "http://swbtools.bsz-bw.de/cgi-bin/help.pl?cmd=kat&val=4010";
+  private void initialize() {
+    tag = "889";
+    label = "Angaben zum umgelenkten Datensatz";
+    mqTag = "AngabenZumUmgelenktenDatensatz";
+    cardinality = Cardinality.Repeatable;
+    // descriptionUrl = "http://swbtools.bsz-bw.de/cgi-bin/help.pl?cmd=kat&val=4010";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"w", "Replacement bibliographic record control number (Kontrollnummer des Zielsatzes)", "R"
-		);
+    setSubfieldsWithCardinality(
+      "w", "Replacement bibliographic record control number (Kontrollnummer des Zielsatzes)", "R"
+    );
 
-		getSubfield("w").setMqTag("rdf:value");
-	}
+    getSubfield("w").setMqTag("rdf:value");
+  }
 }

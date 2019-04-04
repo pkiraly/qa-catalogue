@@ -10,36 +10,36 @@ import java.util.Arrays;
  */
 public class Tag912 extends DataFieldDefinition {
 
-	private static Tag912 uniqueInstance;
+  private static Tag912 uniqueInstance;
 
-	private Tag912() {
-		initialize();
-		postCreation();
-	}
+  private Tag912() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag912 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag912();
-		return uniqueInstance;
-	}
+  public static Tag912 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag912();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "912";
-		label = "Work identifier";
-		mqTag = "WorkIdentifier";
-		cardinality = Cardinality.Repeatable; // according to DNB
+  private void initialize() {
+    tag = "912";
+    label = "Work identifier";
+    mqTag = "WorkIdentifier";
+    cardinality = Cardinality.Repeatable; // according to DNB
 
-		ind1 = new Indicator();
-		ind2 = new Indicator();
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
-		setSubfieldsWithCardinality(
-			"9", "OCLC work identifier", "NR"
-		);
+    setSubfieldsWithCardinality(
+      "9", "OCLC work identifier", "NR"
+    );
 
-		getSubfield("9").setMqTag("rdf:value");
+    getSubfield("9").setMqTag("rdf:value");
 
-		putVersionSpecificSubfields(MarcVersion.DNB, Arrays.asList(
-			new SubfieldDefinition("a", "Kennzeichnung", "NR")
-		));
-	}
+    putVersionSpecificSubfields(MarcVersion.DNB, Arrays.asList(
+      new SubfieldDefinition("a", "Kennzeichnung", "NR")
+    ));
+  }
 }

@@ -40,6 +40,7 @@ public class Tag210 extends DataFieldDefinition {
       )
       .setMqTag("titleAddedEntry")
       .setFrbrFunctions(ManagementProcess, ManagementDisplay);
+
     ind2 = new Indicator("Type")
       .setCodes(
         " ", "Abbreviated key title",

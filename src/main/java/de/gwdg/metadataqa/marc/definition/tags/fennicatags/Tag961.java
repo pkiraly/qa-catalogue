@@ -9,40 +9,40 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
  */
 public class Tag961 extends DataFieldDefinition {
 
-	private static Tag961 uniqueInstance;
+  private static Tag961 uniqueInstance;
 
-	private Tag961() {
-		initialize();
-		postCreation();
-	}
+  private Tag961() {
+    initialize();
+    postCreation();
+  }
 
-	public static Tag961 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag961();
-		return uniqueInstance;
-	}
+  public static Tag961 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag961();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		tag = "961";
-		label = "KIRJASTOKOHTAINEN HUOMAUTUS KOKOELMASTA";
-		mqTag = "KirjastokohtainenHuomautusKokoelmasta";
-		cardinality = Cardinality.Repeatable;
-		descriptionUrl = "https://www.kansalliskirjasto.fi/extra/marc21/bib/omat.htm#961";
+  private void initialize() {
+    tag = "961";
+    label = "KIRJASTOKOHTAINEN HUOMAUTUS KOKOELMASTA";
+    mqTag = "KirjastokohtainenHuomautusKokoelmasta";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.kansalliskirjasto.fi/extra/marc21/bib/omat.htm#961";
 
-		ind1 = new Indicator();
-		ind2 = new Indicator("Virtuaalikokoelma")
-			.setCodes(
-				"8", "Virtuaalikokoelma"
-			)
-			.setMqTag("virtuaalikokoelma");
+    ind1 = new Indicator();
+    ind2 = new Indicator("Virtuaalikokoelma")
+      .setCodes(
+        "8", "Virtuaalikokoelma"
+      )
+      .setMqTag("virtuaalikokoelma");
 
-		setSubfieldsWithCardinality(
-			"a", "Fraasi/Virtuaalikokoelman nimi", "NR",
-			"u", "Uniform Resource Identifier", "R",
-			"x", "Sisäinen huomautus", "R",
-			"z", "Julkinen huomautus", "R"
-		);
+    setSubfieldsWithCardinality(
+      "a", "Fraasi/Virtuaalikokoelman nimi", "NR",
+      "u", "Uniform Resource Identifier", "R",
+      "x", "Sisäinen huomautus", "R",
+      "z", "Julkinen huomautus", "R"
+    );
 
-		getSubfield("a").setMqTag("rdf:value");
-	}
+    getSubfield("a").setMqTag("rdf:value");
+  }
 }

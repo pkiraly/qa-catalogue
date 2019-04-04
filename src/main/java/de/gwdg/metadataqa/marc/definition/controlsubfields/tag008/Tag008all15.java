@@ -7,27 +7,27 @@ import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
  * https://www.loc.gov/marc/bibliographic/bd008a.html
  */
 public class Tag008all15 extends ControlSubfieldDefinition {
-	private static Tag008all15 uniqueInstance;
+  private static Tag008all15 uniqueInstance;
 
-	private Tag008all15() {
-		initialize();
-		extractValidCodes();
-	}
+  private Tag008all15() {
+    initialize();
+    extractValidCodes();
+  }
 
-	public static Tag008all15 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag008all15();
-		return uniqueInstance;
-	}
+  public static Tag008all15 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag008all15();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		label = "Place of publication, production, or execution";
-		id = "tag008all15";
-		mqTag = "placeOfPublicationProductionOrExecution";
-		positionStart = 15;
-		positionEnd = 18;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd008a.html";
+  private void initialize() {
+    label = "Place of publication, production, or execution";
+    id = "tag008all15";
+    mqTag = "placeOfPublicationProductionOrExecution";
+    positionStart = 15;
+    positionEnd = 18;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd008a.html";
 
-		// TODO: pattern?
-	}
+    // TODO: pattern?
+  }
 }

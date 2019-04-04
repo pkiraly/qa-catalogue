@@ -8,31 +8,31 @@ import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
  * https://www.loc.gov/marc/bibliographic/bd008c.html
  */
 public class Tag008computer23 extends ControlSubfieldDefinition {
-	private static Tag008computer23 uniqueInstance;
+  private static Tag008computer23 uniqueInstance;
 
-	private Tag008computer23() {
-		initialize();
-		extractValidCodes();
-	}
+  private Tag008computer23() {
+    initialize();
+    extractValidCodes();
+  }
 
-	public static Tag008computer23 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag008computer23();
-		return uniqueInstance;
-	}
+  public static Tag008computer23 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag008computer23();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		label = "Form of item";
-		id = "tag008computer23";
-		mqTag = "formOfItem";
-		positionStart = 23;
-		positionEnd = 24;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd008c.html";
-		codes = Utils.generateCodes(
-			" ", "Unknown or not specified",
-			"o", "Online",
-			"q", "Direct electronic",
-			"|", "No attempt to code"
-		);
-	}
+  private void initialize() {
+    label = "Form of item";
+    id = "tag008computer23";
+    mqTag = "formOfItem";
+    positionStart = 23;
+    positionEnd = 24;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd008c.html";
+    codes = Utils.generateCodes(
+      " ", "Unknown or not specified",
+      "o", "Online",
+      "q", "Direct electronic",
+      "|", "No attempt to code"
+    );
+  }
 }

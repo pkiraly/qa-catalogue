@@ -12,30 +12,30 @@ import static org.junit.Assert.*;
 
 public class Control008SubfieldsTest extends Control00XSubfieldsTest {
 
-	@Test
-	public void test() {
-		for (String type : Control008Subfields.getInstance().getSubfields().keySet()) {
-			List<ControlSubfieldDefinition> subfields = Control008Subfields.getInstance().get(type);
-			testControlSubfields(subfields);
-			testGetControlField(subfields);
-		}
-	}
+  @Test
+  public void test() {
+    for (String type : Control008Subfields.getInstance().getSubfields().keySet()) {
+      List<ControlSubfieldDefinition> subfields = Control008Subfields.getInstance().get(type);
+      testControlSubfields(subfields);
+      testGetControlField(subfields);
+    }
+  }
 
-	private void testGetControlField(List<ControlSubfieldDefinition> subfields) {
-		for (ControlSubfieldDefinition subfield : subfields) {
-			assertTrue(
-				String.format("%s: %s  should contain 008", subfield.getId(), subfield.getDescriptionUrl()),
-				subfield.getDescriptionUrl().contains("008")
-			);
-			assertEquals("tag008", subfield.getId().substring(0, 6));
-			assertEquals(subfield.getId(), "008", subfield.getControlField());
-		}
-	}
+  private void testGetControlField(List<ControlSubfieldDefinition> subfields) {
+    for (ControlSubfieldDefinition subfield : subfields) {
+      assertTrue(
+        String.format("%s: %s  should contain 008", subfield.getId(), subfield.getDescriptionUrl()),
+        subfield.getDescriptionUrl().contains("008")
+      );
+      assertEquals("tag008", subfield.getId().substring(0, 6));
+      assertEquals(subfield.getId(), "008", subfield.getControlField());
+    }
+  }
 
-	protected boolean isException(ControlSubfieldDefinition subfield, Code code) {
-		return (
-			   (subfield.getId().equals("tag008map33") && code.getCode().equals("||"))
-			|| (subfield.getId().equals("tag008visual18") && code.getCode().equals("001-999"))
-		);
-	}
+  protected boolean isException(ControlSubfieldDefinition subfield, Code code) {
+    return (
+         (subfield.getId().equals("tag008map33") && code.getCode().equals("||"))
+      || (subfield.getId().equals("tag008visual18") && code.getCode().equals("001-999"))
+    );
+  }
 }

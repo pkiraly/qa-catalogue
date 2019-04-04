@@ -8,37 +8,37 @@ import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
  * https://www.loc.gov/marc/bibliographic/bd006.html
  */
 public class Tag006music05 extends ControlSubfieldDefinition {
-	private static Tag006music05 uniqueInstance;
+  private static Tag006music05 uniqueInstance;
 
-	private Tag006music05() {
-		initialize();
-		extractValidCodes();
-	}
+  private Tag006music05() {
+    initialize();
+    extractValidCodes();
+  }
 
-	public static Tag006music05 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag006music05();
-		return uniqueInstance;
-	}
+  public static Tag006music05 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag006music05();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		label = "Target audience";
-		id = "tag006music05";
-		mqTag = "targetAudience";
-		positionStart = 5;
-		positionEnd = 6;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd006.html";
-		codes = Utils.generateCodes(
-			" ", "Unknown or unspecified",
-			"a", "Preschool",
-			"b", "Primary",
-			"c", "Pre-adolescent",
-			"d", "Adolescent",
-			"e", "Adult",
-			"f", "Specialized",
-			"g", "General",
-			"j", "Juvenile",
-			"|", "No attempt to code"
-		);
-	}
+  private void initialize() {
+    label = "Target audience";
+    id = "tag006music05";
+    mqTag = "targetAudience";
+    positionStart = 5;
+    positionEnd = 6;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd006.html";
+    codes = Utils.generateCodes(
+      " ", "Unknown or unspecified",
+      "a", "Preschool",
+      "b", "Primary",
+      "c", "Pre-adolescent",
+      "d", "Adolescent",
+      "e", "Adult",
+      "f", "Specialized",
+      "g", "General",
+      "j", "Juvenile",
+      "|", "No attempt to code"
+    );
+  }
 }

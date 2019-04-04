@@ -9,24 +9,24 @@ import de.gwdg.metadataqa.marc.Utils;
  */
 public class CopyrightAndLegalDepositNumberSourceCodes extends CodeList {
 
-	private void initialize() {
-		name = "Copyright and Legal Deposit Number Source Codes";
-		url = "http://www.loc.gov/standards/sourcelist/copyright-legal-deposit.html";
-		codes = Utils.generateCodes(
-			"rocgpt", "R.O.C. Government Publications Catalogue (Taipei: Research, Development and Evaluation Commission, Executive Yuan)"
-		);
-		indexCodes();
-	}
+  private void initialize() {
+    name = "Copyright and Legal Deposit Number Source Codes";
+    url = "http://www.loc.gov/standards/sourcelist/copyright-legal-deposit.html";
+    codes = Utils.generateCodes(
+      "rocgpt", "R.O.C. Government Publications Catalogue (Taipei: Research, Development and Evaluation Commission, Executive Yuan)"
+    );
+    indexCodes();
+  }
 
-	private static CopyrightAndLegalDepositNumberSourceCodes uniqueInstance;
+  private static CopyrightAndLegalDepositNumberSourceCodes uniqueInstance;
 
-	private CopyrightAndLegalDepositNumberSourceCodes() {
-		initialize();
-	}
+  private CopyrightAndLegalDepositNumberSourceCodes() {
+    initialize();
+  }
 
-	public static CopyrightAndLegalDepositNumberSourceCodes getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new CopyrightAndLegalDepositNumberSourceCodes();
-		return uniqueInstance;
-	}
+  public static CopyrightAndLegalDepositNumberSourceCodes getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new CopyrightAndLegalDepositNumberSourceCodes();
+    return uniqueInstance;
+  }
 }

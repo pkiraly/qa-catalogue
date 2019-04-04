@@ -12,9 +12,9 @@ import static org.junit.Assert.assertEquals;
 
 public class CodeReaderTest {
 
-	@Test
-	public void test() throws IOException, URISyntaxException {
-		Map<String, StandardIdentifier> map = CodeReader.readStandardIdentifiers();
-		assertEquals(106, map.size());
-	}
+  @Test
+  public void test() throws IOException, URISyntaxException {
+    Map<String, StandardIdentifier> map = CodeReader.readStandardIdentifiers();
+    assertEquals(106, map.size());
+  }
 }

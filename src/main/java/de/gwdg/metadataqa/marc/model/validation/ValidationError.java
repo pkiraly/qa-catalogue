@@ -4,52 +4,52 @@ import java.io.Serializable;
 
 public class ValidationError implements Serializable {
 
-	private String recordId;
-	private String marcPath;
-	private ValidationErrorType type;
-	private String message;
-	private String url;
+  private String recordId;
+  private String marcPath;
+  private ValidationErrorType type;
+  private String message;
+  private String url;
 
-	public ValidationError(String recordId, String marcPath, ValidationErrorType type, String message, String url) {
-		this.recordId = recordId;
-		this.marcPath = marcPath;
-		this.type = type;
-		this.message = message;
-		this.url = url;
-	}
+  public ValidationError(String recordId, String marcPath, ValidationErrorType type, String message, String url) {
+    this.recordId = recordId;
+    this.marcPath = marcPath;
+    this.type = type;
+    this.message = message;
+    this.url = url;
+  }
 
-	public String getRecordId() {
-		return recordId;
-	}
+  public String getRecordId() {
+    return recordId;
+  }
 
-	public String getMarcPath() {
-		return marcPath;
-	}
+  public String getMarcPath() {
+    return marcPath;
+  }
 
-	public ValidationErrorType getType() {
-		return type;
-	}
+  public ValidationErrorType getType() {
+    return type;
+  }
 
-	public String getMessage() {
-		return message;
-	}
+  public String getMessage() {
+    return message;
+  }
 
-	public String getUrl() {
-		return url;
-	}
+  public String getUrl() {
+    return url;
+  }
 
-	@Override
-	public String toString() {
-		return "ValidationError{" +
-			"recordId='" + recordId + '\'' +
-			", marcPath='" + marcPath + '\'' +
-			", type=" + type +
-			", message='" + message + '\'' +
-			", url='" + url + '\'' +
-			'}';
-	}
+  @Override
+  public String toString() {
+    return "ValidationError{" +
+      "recordId='" + recordId + '\'' +
+      ", marcPath='" + marcPath + '\'' +
+      ", type=" + type +
+      ", message='" + message + '\'' +
+      ", url='" + url + '\'' +
+      '}';
+  }
 
-	public void setRecordId(String recordId) {
-		this.recordId = recordId;
-	}
+  public void setRecordId(String recordId) {
+    this.recordId = recordId;
+  }
 }

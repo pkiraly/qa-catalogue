@@ -18,309 +18,309 @@ import java.util.logging.Logger;
  */
 public class Leader extends MarcPositionalControlField implements Extractable, Validatable, Serializable {
 
-	private static final Logger logger = Logger.getLogger(Leader.class.getCanonicalName());
+  private static final Logger logger = Logger.getLogger(Leader.class.getCanonicalName());
 
-	// private String tag = "Leader";
-	// private String mqTag = "Leader";
+  // private String tag = "Leader";
+  // private String mqTag = "Leader";
 
-	public enum Type {
-		BOOKS("Books"),
-		CONTINUING_RESOURCES("Continuing Resources"),
-		MUSIC("Music"),
-		MAPS("Maps"),
-		VISUAL_MATERIALS("Visual Materials"),
-		COMPUTER_FILES("Computer Files"),
-		MIXED_MATERIALS("Mixed Materials");
+  public enum Type {
+    BOOKS("Books"),
+    CONTINUING_RESOURCES("Continuing Resources"),
+    MUSIC("Music"),
+    MAPS("Maps"),
+    VISUAL_MATERIALS("Visual Materials"),
+    COMPUTER_FILES("Computer Files"),
+    MIXED_MATERIALS("Mixed Materials");
 
-		String value;
-		Type(String value) {
-			this.value = value;
-		}
+    String value;
+    Type(String value) {
+      this.value = value;
+    }
 
-		public String getValue() {
-			return value;
-		}
-	};
+    public String getValue() {
+      return value;
+    }
+  };
 
-	// private String content;
-	// private Map<ControlSubfieldDefinition, String> valuesMap;
-	// private List<ControlValue> valuesList;
-	private Type type;
-	private Type defaultType = null;
+  // private String content;
+  // private Map<ControlSubfieldDefinition, String> valuesMap;
+  // private List<ControlValue> valuesList;
+  private Type type;
+  private Type defaultType = null;
 
-	private ControlValue recordLength;
-	private ControlValue recordStatus;
-	private ControlValue typeOfRecord;
-	private ControlValue bibliographicLevel;
-	private ControlValue typeOfControl;
-	private ControlValue characterCodingScheme;
-	private ControlValue indicatorCount;
-	private ControlValue subfieldCodeCount;
-	private ControlValue baseAddressOfData;
-	private ControlValue encodingLevel;
-	private ControlValue descriptiveCatalogingForm;
-	private ControlValue multipartResourceRecordLevel;
-	private ControlValue lengthOfTheLengthOfFieldPortion;
-	private ControlValue lengthOfTheStartingCharacterPositionPortion;
-	private ControlValue lengthOfTheImplementationDefinedPortion;
-	private List<String> errors;
-	private List<ValidationError> initializationErrors;
-	private List<ValidationError> validationErrors;
+  private ControlValue recordLength;
+  private ControlValue recordStatus;
+  private ControlValue typeOfRecord;
+  private ControlValue bibliographicLevel;
+  private ControlValue typeOfControl;
+  private ControlValue characterCodingScheme;
+  private ControlValue indicatorCount;
+  private ControlValue subfieldCodeCount;
+  private ControlValue baseAddressOfData;
+  private ControlValue encodingLevel;
+  private ControlValue descriptiveCatalogingForm;
+  private ControlValue multipartResourceRecordLevel;
+  private ControlValue lengthOfTheLengthOfFieldPortion;
+  private ControlValue lengthOfTheStartingCharacterPositionPortion;
+  private ControlValue lengthOfTheImplementationDefinedPortion;
+  private List<String> errors;
+  private List<ValidationError> initializationErrors;
+  private List<ValidationError> validationErrors;
 
-	public Leader(String content) {
-		super(LeaderDefinition.getInstance(), content);
-		initialize();
-	}
+  public Leader(String content) {
+    super(LeaderDefinition.getInstance(), content);
+    initialize();
+  }
 
-	public Leader(String content, Type defaultType) {
-		super(LeaderDefinition.getInstance(), content);
-		this.defaultType = defaultType;
-		initialize();
-	}
+  public Leader(String content, Type defaultType) {
+    super(LeaderDefinition.getInstance(), content);
+    this.defaultType = defaultType;
+    initialize();
+  }
 
-	private void initialize() {
-		initializationErrors = new ArrayList<>();
-		processContent();
-		try {
-			setType();
-		} catch (IllegalArgumentException e) {
-			initializationErrors.add(
-				new ValidationError(
-					null,
-					definition.getTag(),
-					ValidationErrorType.RECORD_UNDETECTABLE_TYPE,
-					e.getMessage(),
-					LeaderSubfields.getSubfieldList().get(0).getDescriptionUrl()
-				)
-			);
-		}
-	}
+  private void initialize() {
+    initializationErrors = new ArrayList<>();
+    processContent();
+    try {
+      setType();
+    } catch (IllegalArgumentException e) {
+      initializationErrors.add(
+        new ValidationError(
+          null,
+          definition.getTag(),
+          ValidationErrorType.RECORD_UNDETECTABLE_TYPE,
+          e.getMessage(),
+          LeaderSubfields.getSubfieldList().get(0).getDescriptionUrl()
+        )
+      );
+    }
+  }
 
-	protected void processContent() {
-		for (ControlSubfieldDefinition subfield : LeaderSubfields.getSubfieldList()) {
-			int end = Math.min(content.length(), subfield.getPositionEnd());
-			try {
-				String value = content.substring(subfield.getPositionStart(), end);
-				ControlValue controlValue = new ControlValue(subfield, value);
-				valuesList.add(controlValue);
+  protected void processContent() {
+    for (ControlSubfieldDefinition subfield : LeaderSubfields.getSubfieldList()) {
+      int end = Math.min(content.length(), subfield.getPositionEnd());
+      try {
+        String value = content.substring(subfield.getPositionStart(), end);
+        ControlValue controlValue = new ControlValue(subfield, value);
+        valuesList.add(controlValue);
 
-				switch (subfield.getId()) {
-					case "leader00": recordLength = controlValue; break;
-					case "leader05": recordStatus = controlValue; break;
-					case "leader06": typeOfRecord = controlValue; break;
-					case "leader07": bibliographicLevel = controlValue; break;
-					case "leader08": typeOfControl = controlValue; break;
-					case "leader09": characterCodingScheme = controlValue; break;
-					case "leader10": indicatorCount = controlValue; break;
-					case "leader11": subfieldCodeCount = controlValue; break;
-					case "leader12": baseAddressOfData = controlValue; break;
-					case "leader17": encodingLevel = controlValue; break;
-					case "leader18": descriptiveCatalogingForm = controlValue; break;
-					case "leader19": multipartResourceRecordLevel = controlValue; break;
-					case "leader20": lengthOfTheLengthOfFieldPortion = controlValue; break;
-					case "leader21": lengthOfTheStartingCharacterPositionPortion = controlValue; break;
-					case "leader22": lengthOfTheImplementationDefinedPortion = controlValue; break;
-					default:
-						break;
-				}
-				valuesMap.put(subfield, value);
-			} catch (StringIndexOutOfBoundsException e) {
-				logger.severe(String.format("Problem with processing Leader ('%s'). " +
-						"The content length is only %d while reading position @%d-%d (for %s)",
-					content,
-					content.length(), subfield.getPositionStart(), subfield.getPositionEnd(), subfield.getLabel()));
-			}
-		}
-	}
+        switch (subfield.getId()) {
+          case "leader00": recordLength = controlValue; break;
+          case "leader05": recordStatus = controlValue; break;
+          case "leader06": typeOfRecord = controlValue; break;
+          case "leader07": bibliographicLevel = controlValue; break;
+          case "leader08": typeOfControl = controlValue; break;
+          case "leader09": characterCodingScheme = controlValue; break;
+          case "leader10": indicatorCount = controlValue; break;
+          case "leader11": subfieldCodeCount = controlValue; break;
+          case "leader12": baseAddressOfData = controlValue; break;
+          case "leader17": encodingLevel = controlValue; break;
+          case "leader18": descriptiveCatalogingForm = controlValue; break;
+          case "leader19": multipartResourceRecordLevel = controlValue; break;
+          case "leader20": lengthOfTheLengthOfFieldPortion = controlValue; break;
+          case "leader21": lengthOfTheStartingCharacterPositionPortion = controlValue; break;
+          case "leader22": lengthOfTheImplementationDefinedPortion = controlValue; break;
+          default:
+            break;
+        }
+        valuesMap.put(subfield, value);
+      } catch (StringIndexOutOfBoundsException e) {
+        logger.severe(String.format("Problem with processing Leader ('%s'). " +
+            "The content length is only %d while reading position @%d-%d (for %s)",
+          content,
+          content.length(), subfield.getPositionStart(), subfield.getPositionEnd(), subfield.getLabel()));
+      }
+    }
+  }
 
-	private void setType() {
-		if (typeOfRecord.getValue().equals("a") && bibliographicLevel.getValue().matches("^(a|c|d|m)$")) {
-			type = Type.BOOKS;
-		} else if (typeOfRecord.getValue().equals("a") && bibliographicLevel.getValue().matches("^(b|i|s)$")) {
-			type = Type.CONTINUING_RESOURCES;
-		} else if (typeOfRecord.getValue().equals("t")) {
-			type = Type.BOOKS;
-		} else if (typeOfRecord.getValue().matches("^[cdij]$")) {
-			type = Type.MUSIC;
-		} else if (typeOfRecord.getValue().matches("^[ef]$")) {
-			type = Type.MAPS;
-		} else if (typeOfRecord.getValue().matches("^[gkor]$")) {
-			type = Type.VISUAL_MATERIALS;
-		} else if (typeOfRecord.getValue().equals("m")) {
-			type = Type.COMPUTER_FILES;
-		} else if (typeOfRecord.getValue().equals("p")) {
-			type = Type.MIXED_MATERIALS;
-		} else {
-			if (defaultType != null)
-				type = defaultType;
-			throw new IllegalArgumentException(
-				String.format(
-					"Leader/%s (%s): '%s', Leader/%s (%s): '%s'",
-					typeOfRecord.getDefinition().formatPositon(),
-					typeOfRecord.getDefinition().getMqTag(),
-					typeOfRecord.getValue(),
-					bibliographicLevel.getDefinition().formatPositon(),
-					bibliographicLevel.getDefinition().getMqTag(),
-					bibliographicLevel.getValue()));
-		}
-	}
+  private void setType() {
+    if (typeOfRecord.getValue().equals("a") && bibliographicLevel.getValue().matches("^(a|c|d|m)$")) {
+      type = Type.BOOKS;
+    } else if (typeOfRecord.getValue().equals("a") && bibliographicLevel.getValue().matches("^(b|i|s)$")) {
+      type = Type.CONTINUING_RESOURCES;
+    } else if (typeOfRecord.getValue().equals("t")) {
+      type = Type.BOOKS;
+    } else if (typeOfRecord.getValue().matches("^[cdij]$")) {
+      type = Type.MUSIC;
+    } else if (typeOfRecord.getValue().matches("^[ef]$")) {
+      type = Type.MAPS;
+    } else if (typeOfRecord.getValue().matches("^[gkor]$")) {
+      type = Type.VISUAL_MATERIALS;
+    } else if (typeOfRecord.getValue().equals("m")) {
+      type = Type.COMPUTER_FILES;
+    } else if (typeOfRecord.getValue().equals("p")) {
+      type = Type.MIXED_MATERIALS;
+    } else {
+      if (defaultType != null)
+        type = defaultType;
+      throw new IllegalArgumentException(
+        String.format(
+          "Leader/%s (%s): '%s', Leader/%s (%s): '%s'",
+          typeOfRecord.getDefinition().formatPositon(),
+          typeOfRecord.getDefinition().getMqTag(),
+          typeOfRecord.getValue(),
+          bibliographicLevel.getDefinition().formatPositon(),
+          bibliographicLevel.getDefinition().getMqTag(),
+          bibliographicLevel.getValue()));
+    }
+  }
 
-	public String resolve(ControlSubfieldDefinition key) {
-		String value = valuesMap.get(key);
-		String text = key.resolve(value);
-		return text;
-	}
+  public String resolve(ControlSubfieldDefinition key) {
+    String value = valuesMap.get(key);
+    String text = key.resolve(value);
+    return text;
+  }
 
-	public String resolve(String key) {
-		return resolve(LeaderSubfields.getByLabel(key));
-	}
+  public String resolve(String key) {
+    return resolve(LeaderSubfields.getByLabel(key));
+  }
 
-	public Map<ControlSubfieldDefinition, String> getMap() {
-		return valuesMap;
-	}
+  public Map<ControlSubfieldDefinition, String> getMap() {
+    return valuesMap;
+  }
 
-	public String get(ControlSubfieldDefinition key) {
-		return valuesMap.get(key);
-	}
+  public String get(ControlSubfieldDefinition key) {
+    return valuesMap.get(key);
+  }
 
-	public String getByLabel(String key) {
-		return get(LeaderSubfields.getByLabel(key));
-	}
-	public String getById(String key) {
-		return get(LeaderSubfields.getById(key));
-	}
+  public String getByLabel(String key) {
+    return get(LeaderSubfields.getByLabel(key));
+  }
+  public String getById(String key) {
+    return get(LeaderSubfields.getById(key));
+  }
 
-	/**
-	 * Return Tpye
-	 * @return
-	 */
-	public Type getType() {
-		return type;
-	}
+  /**
+   * Return Tpye
+   * @return
+   */
+  public Type getType() {
+    return type;
+  }
 
-	public String getLeaderString() {
-		return content;
-	}
+  public String getLeaderString() {
+    return content;
+  }
 
-	public ControlValue getRecordLength() {
-		return recordLength;
-	}
+  public ControlValue getRecordLength() {
+    return recordLength;
+  }
 
-	public ControlValue getRecordStatus() {
-		return recordStatus;
-	}
+  public ControlValue getRecordStatus() {
+    return recordStatus;
+  }
 
-	public ControlValue getTypeOfRecord() {
-		return typeOfRecord;
-	}
+  public ControlValue getTypeOfRecord() {
+    return typeOfRecord;
+  }
 
-	public ControlValue getBibliographicLevel() {
-		return bibliographicLevel;
-	}
+  public ControlValue getBibliographicLevel() {
+    return bibliographicLevel;
+  }
 
-	public ControlValue getTypeOfControl() {
-		return typeOfControl;
-	}
+  public ControlValue getTypeOfControl() {
+    return typeOfControl;
+  }
 
-	public ControlValue getCharacterCodingScheme() {
-		return characterCodingScheme;
-	}
+  public ControlValue getCharacterCodingScheme() {
+    return characterCodingScheme;
+  }
 
-	public ControlValue getIndicatorCount() {
-		return indicatorCount;
-	}
+  public ControlValue getIndicatorCount() {
+    return indicatorCount;
+  }
 
-	public ControlValue getSubfieldCodeCount() {
-		return subfieldCodeCount;
-	}
+  public ControlValue getSubfieldCodeCount() {
+    return subfieldCodeCount;
+  }
 
-	public ControlValue getBaseAddressOfData() {
-		return baseAddressOfData;
-	}
+  public ControlValue getBaseAddressOfData() {
+    return baseAddressOfData;
+  }
 
-	public ControlValue getEncodingLevel() {
-		return encodingLevel;
-	}
+  public ControlValue getEncodingLevel() {
+    return encodingLevel;
+  }
 
-	public ControlValue getDescriptiveCatalogingForm() {
-		return descriptiveCatalogingForm;
-	}
+  public ControlValue getDescriptiveCatalogingForm() {
+    return descriptiveCatalogingForm;
+  }
 
-	public ControlValue getMultipartResourceRecordLevel() {
-		return multipartResourceRecordLevel;
-	}
+  public ControlValue getMultipartResourceRecordLevel() {
+    return multipartResourceRecordLevel;
+  }
 
-	public ControlValue getLengthOfTheLengthOfFieldPortion() {
-		return lengthOfTheLengthOfFieldPortion;
-	}
+  public ControlValue getLengthOfTheLengthOfFieldPortion() {
+    return lengthOfTheLengthOfFieldPortion;
+  }
 
-	public ControlValue getLengthOfTheStartingCharacterPositionPortion() {
-		return lengthOfTheStartingCharacterPositionPortion;
-	}
+  public ControlValue getLengthOfTheStartingCharacterPositionPortion() {
+    return lengthOfTheStartingCharacterPositionPortion;
+  }
 
-	public ControlValue getLengthOfTheImplementationDefinedPortion() {
-		return lengthOfTheImplementationDefinedPortion;
-	}
+  public ControlValue getLengthOfTheImplementationDefinedPortion() {
+    return lengthOfTheImplementationDefinedPortion;
+  }
 
-	public void setMarcRecord(MarcRecord marcRecord) {
-		this.marcRecord = marcRecord;
-		for (ControlValue value : valuesList)
-			value.setRecord(marcRecord);
-	}
+  public void setMarcRecord(MarcRecord marcRecord) {
+    this.marcRecord = marcRecord;
+    for (ControlValue value : valuesList)
+      value.setRecord(marcRecord);
+  }
 
-	public String toString() {
-		StringBuffer output = new StringBuffer(String.format("type: %s%n", type.getValue()));
-		for (ControlSubfieldDefinition key : LeaderSubfields.getSubfieldList()) {
-			output.append(String.format("%s: %s%n", key.getLabel(), resolve(key)));
-		}
-		return output.toString();
-	}
+  public String toString() {
+    StringBuffer output = new StringBuffer(String.format("type: %s%n", type.getValue()));
+    for (ControlSubfieldDefinition key : LeaderSubfields.getSubfieldList()) {
+      output.append(String.format("%s: %s%n", key.getLabel(), resolve(key)));
+    }
+    return output.toString();
+  }
 
-	@Override
-	public Map<String, List<String>> getKeyValuePairs() {
-		return getKeyValuePairs(SolrFieldType.MARC);
-	}
+  @Override
+  public Map<String, List<String>> getKeyValuePairs() {
+    return getKeyValuePairs(SolrFieldType.MARC);
+  }
 
-	public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
-		Map<String, List<String>> map = new LinkedHashMap<>();
-		PositionalControlFieldKeyGenerator keyGenerator = new PositionalControlFieldKeyGenerator(
-			definition.getTag(), definition.getMqTag(), type);
-		map.put(keyGenerator.forTag(), Arrays.asList(content));
-		for (Map.Entry<ControlSubfieldDefinition, String> entry : valuesMap.entrySet()) {
-			ControlSubfieldDefinition controlSubfield = entry.getKey();
-			String value = controlSubfield.resolve(entry.getValue());
-			map.put(keyGenerator.forSubfield(controlSubfield), Arrays.asList(value));
-		}
-		return map;
-	}
+  public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
+    Map<String, List<String>> map = new LinkedHashMap<>();
+    PositionalControlFieldKeyGenerator keyGenerator = new PositionalControlFieldKeyGenerator(
+      definition.getTag(), definition.getMqTag(), type);
+    map.put(keyGenerator.forTag(), Arrays.asList(content));
+    for (Map.Entry<ControlSubfieldDefinition, String> entry : valuesMap.entrySet()) {
+      ControlSubfieldDefinition controlSubfield = entry.getKey();
+      String value = controlSubfield.resolve(entry.getValue());
+      map.put(keyGenerator.forSubfield(controlSubfield), Arrays.asList(value));
+    }
+    return map;
+  }
 
-	@Override
-	public boolean validate(MarcVersion marcVersion) {
-		boolean isValid = true;
-		errors = new ArrayList<>();
-		validationErrors = new ArrayList<>();
-		if (!initializationErrors.isEmpty())
-			validationErrors.addAll(initializationErrors);
+  @Override
+  public boolean validate(MarcVersion marcVersion) {
+    boolean isValid = true;
+    errors = new ArrayList<>();
+    validationErrors = new ArrayList<>();
+    if (!initializationErrors.isEmpty())
+      validationErrors.addAll(initializationErrors);
 
-		for (ControlValue controlValue : valuesList) {
-			if (!controlValue.validate(marcVersion)) {
-				errors.addAll(controlValue.getErrors());
-				validationErrors.addAll(controlValue.getValidationErrors());
-				isValid = false;
-			}
-		}
+    for (ControlValue controlValue : valuesList) {
+      if (!controlValue.validate(marcVersion)) {
+        errors.addAll(controlValue.getErrors());
+        validationErrors.addAll(controlValue.getValidationErrors());
+        isValid = false;
+      }
+    }
 
-		return isValid;
-	}
+    return isValid;
+  }
 
-	@Override
-	public List<String> getErrors() {
-		return errors;
-	}
+  @Override
+  public List<String> getErrors() {
+    return errors;
+  }
 
-	@Override
-	public List<ValidationError> getValidationErrors() {
-		return validationErrors;
-	}
+  @Override
+  public List<ValidationError> getValidationErrors() {
+    return validationErrors;
+  }
 
 }

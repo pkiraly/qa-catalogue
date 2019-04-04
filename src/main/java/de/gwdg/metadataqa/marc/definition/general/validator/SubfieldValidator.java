@@ -6,5 +6,5 @@ import de.gwdg.metadataqa.marc.definition.ValidatorResponse;
 import java.io.Serializable;
 
 public interface SubfieldValidator {
-	ValidatorResponse isValid(MarcSubfield subfield);
+  ValidatorResponse isValid(MarcSubfield subfield);
 }

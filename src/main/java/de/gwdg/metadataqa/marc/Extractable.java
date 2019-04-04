@@ -7,6 +7,6 @@ import java.util.Map;
 
 public interface Extractable {
 
-	public Map<String, List<String>> getKeyValuePairs();
-	public Map<String, List<String>> getKeyValuePairs(SolrFieldType type);
+  public Map<String, List<String>> getKeyValuePairs();
+  public Map<String, List<String>> getKeyValuePairs(SolrFieldType type);
 }

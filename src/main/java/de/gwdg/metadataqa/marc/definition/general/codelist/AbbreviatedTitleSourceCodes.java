@@ -9,29 +9,29 @@ import de.gwdg.metadataqa.marc.Utils;
  */
 public class AbbreviatedTitleSourceCodes extends CodeList {
 
-	private void initialize() {
-		name = "Abbreviated Title Source Codes";
-		url = "http://www.loc.gov/standards/sourcelist/abbreviated-title.html";
-		codes = Utils.generateCodes(
-			"din1430", "Key Title nach DIN 1430 (Berlin: Beuth)",
-			"din1502", "Regeln für das Kürzen von Wörtern in Titeln und für das Kürzen der Titel von Veröffentlichungen: DIN 1502 (Berlin; Köln: Beuth)",
-			"dnlm", "National Library of Medicine Locatorplus (Bethesda, MD: National Library of Medicine)",
-			"hlasja", "HLAS journal abbreviations (Washington, DC: Library of Congress, Hispanic Division",
-			"inisaljt", "INIS: authority list for journal titles",
-			"issnkey", "Abbreviated Key Titles"
-		);
-		indexCodes();
-	}
+  private void initialize() {
+    name = "Abbreviated Title Source Codes";
+    url = "http://www.loc.gov/standards/sourcelist/abbreviated-title.html";
+    codes = Utils.generateCodes(
+      "din1430", "Key Title nach DIN 1430 (Berlin: Beuth)",
+      "din1502", "Regeln für das Kürzen von Wörtern in Titeln und für das Kürzen der Titel von Veröffentlichungen: DIN 1502 (Berlin; Köln: Beuth)",
+      "dnlm", "National Library of Medicine Locatorplus (Bethesda, MD: National Library of Medicine)",
+      "hlasja", "HLAS journal abbreviations (Washington, DC: Library of Congress, Hispanic Division",
+      "inisaljt", "INIS: authority list for journal titles",
+      "issnkey", "Abbreviated Key Titles"
+    );
+    indexCodes();
+  }
 
-	private static AbbreviatedTitleSourceCodes uniqueInstance;
+  private static AbbreviatedTitleSourceCodes uniqueInstance;
 
-	private AbbreviatedTitleSourceCodes() {
-		initialize();
-	}
+  private AbbreviatedTitleSourceCodes() {
+    initialize();
+  }
 
-	public static AbbreviatedTitleSourceCodes getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new AbbreviatedTitleSourceCodes();
-		return uniqueInstance;
-	}
+  public static AbbreviatedTitleSourceCodes getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new AbbreviatedTitleSourceCodes();
+    return uniqueInstance;
+  }
 }

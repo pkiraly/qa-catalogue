@@ -9,33 +9,33 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
  */
 public class FormOfItem extends CodeList {
 
-	private void initialize() {
-		codes = Utils.generateCodes(
-			" ", "None of the following",
-			"a", "Microfilm",
-			"b", "Microfiche",
-			"c", "Microopaque",
-			"d", "Large print",
-			"f", "Braille",
-			"o", "Online",
-			"q", "Direct electronic",
-			"r", "Regular print reproduction",
-			"s", "Electronic",
-			"o", "Online",
-			"q", "Direct electronic"
-		);
-		indexCodes();
-	}
+  private void initialize() {
+    codes = Utils.generateCodes(
+      " ", "None of the following",
+      "a", "Microfilm",
+      "b", "Microfiche",
+      "c", "Microopaque",
+      "d", "Large print",
+      "f", "Braille",
+      "o", "Online",
+      "q", "Direct electronic",
+      "r", "Regular print reproduction",
+      "s", "Electronic",
+      "o", "Online",
+      "q", "Direct electronic"
+    );
+    indexCodes();
+  }
 
-	private static FormOfItem uniqueInstance;
+  private static FormOfItem uniqueInstance;
 
-	private FormOfItem() {
-		initialize();
-	}
+  private FormOfItem() {
+    initialize();
+  }
 
-	public static FormOfItem getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new FormOfItem();
-		return uniqueInstance;
-	}
+  public static FormOfItem getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new FormOfItem();
+    return uniqueInstance;
+  }
 }

@@ -18,20 +18,20 @@ import java.util.logging.Logger;
  */
 public class Control003 extends MarcControlField implements Extractable {
 
-	private static final Logger logger = Logger.getLogger(Control003.class.getCanonicalName());
+  private static final Logger logger = Logger.getLogger(Control003.class.getCanonicalName());
 
-	public Control003(String content) {
-		super(Control003Definition.getInstance(), content);
-		process();
-	}
+  public Control003(String content) {
+    super(Control003Definition.getInstance(), content);
+    process();
+  }
 
-	private void process() {
-	}
+  private void process() {
+  }
 
-	@Override
-	public String toString() {
-		return "Control003{" +
-				"content='" + content + '\'' +
-				'}';
-	}
+  @Override
+  public String toString() {
+    return "Control003{" +
+      "content='" + content + '\'' +
+    '}';
+  }
 }

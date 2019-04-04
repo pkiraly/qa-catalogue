@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface Validatable {
 
-	public boolean validate(MarcVersion marcVersion);
-	public List<String> getErrors();
-	public List<ValidationError> getValidationErrors();
+  public boolean validate(MarcVersion marcVersion);
+  public List<String> getErrors();
+  public List<ValidationError> getValidationErrors();
 }

@@ -8,33 +8,33 @@ import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
  * https://www.loc.gov/marc/bibliographic/bd007f.html
  */
 public class Tag007tactile09 extends ControlSubfieldDefinition {
-	private static Tag007tactile09 uniqueInstance;
+  private static Tag007tactile09 uniqueInstance;
 
-	private Tag007tactile09() {
-		initialize();
-		extractValidCodes();
-	}
+  private Tag007tactile09() {
+    initialize();
+    extractValidCodes();
+  }
 
-	public static Tag007tactile09 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag007tactile09();
-		return uniqueInstance;
-	}
+  public static Tag007tactile09 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag007tactile09();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		label = "Special physical characteristics";
-		id = "tag007tactile09";
-		mqTag = "specialPhysicalCharacteristics";
-		positionStart = 9;
-		positionEnd = 10;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007f.html";
-		codes = Utils.generateCodes(
-			"a", "Print/braille",
-			"b", "Jumbo or enlarged braille",
-			"n", "Not applicable",
-			"u", "Unknown",
-			"z", "Other",
-			"|", "No attempt to code"
-		);
-	}
+  private void initialize() {
+    label = "Special physical characteristics";
+    id = "tag007tactile09";
+    mqTag = "specialPhysicalCharacteristics";
+    positionStart = 9;
+    positionEnd = 10;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007f.html";
+    codes = Utils.generateCodes(
+      "a", "Print/braille",
+      "b", "Jumbo or enlarged braille",
+      "n", "Not applicable",
+      "u", "Unknown",
+      "z", "Other",
+      "|", "No attempt to code"
+    );
+  }
 }

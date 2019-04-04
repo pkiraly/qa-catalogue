@@ -4,5 +4,5 @@ import java.util.Map;
 
 public interface SubfieldContentParser {
 
-	Map<String, String> parse(String content) throws ParserException;
+  Map<String, String> parse(String content) throws ParserException;
 }

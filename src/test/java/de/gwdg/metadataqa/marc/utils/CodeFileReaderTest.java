@@ -11,18 +11,18 @@ import static org.junit.Assert.assertNotNull;
 
 public class CodeFileReaderTest {
 
-	@Test
-	public void test() {
-		Map<String, String> dict = null;
-		try {
-			dict = CodeFileReader.fileToDict("general/csv-test.csv");
-		} catch (IOException | URISyntaxException e) {
-			e.printStackTrace();
-		}
-		assertNotNull(dict);
-		assertEquals(3, dict.size());
-		assertEquals("früher: Mödling; Theologische Hochschule St. Gabriel, Bibliothek St. Gabriel", dict.get("AT-3:BStG"));
-		assertEquals("früher: Wien; Österreichisches Ost- und Südosteuropa-Institut, Bibliothek", dict.get("AT-9:OeOSI"));
-		assertEquals("Bundesanstalt für Agrarwirtschaft, Bibliothek", dict.get("AT-AGWI"));
-	}
+  @Test
+  public void test() {
+    Map<String, String> dict = null;
+    try {
+      dict = CodeFileReader.fileToDict("general/csv-test.csv");
+    } catch (IOException | URISyntaxException e) {
+      e.printStackTrace();
+    }
+    assertNotNull(dict);
+    assertEquals(3, dict.size());
+    assertEquals("früher: Mödling; Theologische Hochschule St. Gabriel, Bibliothek St. Gabriel", dict.get("AT-3:BStG"));
+    assertEquals("früher: Wien; Österreichisches Ost- und Südosteuropa-Institut, Bibliothek", dict.get("AT-9:OeOSI"));
+    assertEquals("Bundesanstalt für Agrarwirtschaft, Bibliothek", dict.get("AT-AGWI"));
+  }
 }

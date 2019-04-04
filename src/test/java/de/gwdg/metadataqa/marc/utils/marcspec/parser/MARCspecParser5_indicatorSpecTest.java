@@ -11,24 +11,24 @@ import static org.junit.Assert.assertTrue;
 
 public class MARCspecParser5_indicatorSpecTest {
 
-	@Test
-	public void testMARCspecParserB_Example25() {
-		MARCspecParser parser = new MARCspecParser();
-		MARCspec marcSpec = parser.parse("880^1");
+  @Test
+  public void testMARCspecParserB_Example25() {
+    MARCspecParser parser = new MARCspecParser();
+    MARCspec marcSpec = parser.parse("880^1");
 
-		assertEquals("880", marcSpec.getField().getTag());
-		assertTrue(marcSpec.getField().hasIndicator1());
-	}
+    assertEquals("880", marcSpec.getField().getTag());
+    assertTrue(marcSpec.getField().hasIndicator1());
+  }
 
-	@Test
-	public void testMARCspecParserB_Example26() {
-		MARCspecParser parser = new MARCspecParser();
-		MARCspec marcSpec = parser.parse("880[1]^2");
+  @Test
+  public void testMARCspecParserB_Example26() {
+    MARCspecParser parser = new MARCspecParser();
+    MARCspec marcSpec = parser.parse("880[1]^2");
 
-		assertEquals("880", marcSpec.getField().getTag());
-		assertEquals(1, marcSpec.getField().getStartIndex().value());
-		assertNull(marcSpec.getField().getEndIndex());
-		assertFalse(marcSpec.getField().hasIndicator1());
-		assertTrue(marcSpec.getField().hasIndicator2());
-	}
+    assertEquals("880", marcSpec.getField().getTag());
+    assertEquals(1, marcSpec.getField().getStartIndex().value());
+    assertNull(marcSpec.getField().getEndIndex());
+    assertFalse(marcSpec.getField().hasIndicator1());
+    assertTrue(marcSpec.getField().hasIndicator2());
+  }
 }

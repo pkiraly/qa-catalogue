@@ -11,40 +11,40 @@ import java.util.Map;
 
 public class Control008All00DateParser implements SubfieldContentParser, Serializable {
 
-	private String dateFormat = "yyMMdd";
-	private DateTimeFormatter marc;
-	DateTimeFormatter iso = DateTimeFormatter.ISO_DATE;
+  private String dateFormat = "yyMMdd";
+  private DateTimeFormatter marc;
+  DateTimeFormatter iso = DateTimeFormatter.ISO_DATE;
 
-	public Control008All00DateParser() {
-		initialize();
-	}
+  public Control008All00DateParser() {
+    initialize();
+  }
 
-	public Control008All00DateParser(String dateFormat) {
-		this.dateFormat = dateFormat;
-		initialize();
-	}
+  public Control008All00DateParser(String dateFormat) {
+    this.dateFormat = dateFormat;
+    initialize();
+  }
 
-	private void initialize() {
-		// marc = DateTimeFormatter.ofPattern(dateFormat, Locale.getDefault());
+  private void initialize() {
+    // marc = DateTimeFormatter.ofPattern(dateFormat, Locale.getDefault());
 
-		marc = new DateTimeFormatterBuilder()
-			.appendValueReduced(ChronoField.YEAR_OF_ERA, 2, 2,
-				LocalDate.now().minusYears(80))
-			.appendPattern("MMdd")
-			.toFormatter();
-	}
+    marc = new DateTimeFormatterBuilder()
+      .appendValueReduced(ChronoField.YEAR_OF_ERA, 2, 2,
+        LocalDate.now().minusYears(80))
+      .appendPattern("MMdd")
+      .toFormatter();
+  }
 
-	@Override
-	public Map<String, String> parse(String content) throws ParserException {
-		Map<String, String> extra = new HashMap<>();
+  @Override
+  public Map<String, String> parse(String content) throws ParserException {
+    Map<String, String> extra = new HashMap<>();
 
-		try {
-			LocalDate date = LocalDate.parse(content, marc);
-			extra.put("normalized", date.format(iso));
-		} catch(DateTimeParseException e) {
-			throw new ParserException(String.format(
-				"Invalid content: '%s'. %s", content, e.getMessage()));
-		}
-		return extra;
-	}
+    try {
+      LocalDate date = LocalDate.parse(content, marc);
+      extra.put("normalized", date.format(iso));
+    } catch(DateTimeParseException e) {
+      throw new ParserException(String.format(
+        "Invalid content: '%s'. %s", content, e.getMessage()));
+    }
+    return extra;
+  }
 }

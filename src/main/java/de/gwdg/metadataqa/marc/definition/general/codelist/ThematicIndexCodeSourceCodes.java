@@ -8,24 +8,24 @@ import de.gwdg.metadataqa.marc.Utils;
  */
 public class ThematicIndexCodeSourceCodes extends CodeList {
 
-																	private void initialize() {
-		name = "Thematic Index Code Source Codes";
-		url = "http://www.loc.gov/standards/sourcelist/thematic-index.html";
-		codes = Utils.generateCodes(
-			"mlati", "Thematic Indexes Used in the Library of Congress/NACO Authority File (Compiled by the Music Library Association)"
-		);
-		indexCodes();
-	}
+  private void initialize() {
+    name = "Thematic Index Code Source Codes";
+    url = "http://www.loc.gov/standards/sourcelist/thematic-index.html";
+    codes = Utils.generateCodes(
+      "mlati", "Thematic Indexes Used in the Library of Congress/NACO Authority File (Compiled by the Music Library Association)"
+    );
+    indexCodes();
+  }
 
-	private static ThematicIndexCodeSourceCodes uniqueInstance;
+  private static ThematicIndexCodeSourceCodes uniqueInstance;
 
-	private ThematicIndexCodeSourceCodes() {
-		initialize();
-	}
+  private ThematicIndexCodeSourceCodes() {
+    initialize();
+  }
 
-	public static ThematicIndexCodeSourceCodes getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new ThematicIndexCodeSourceCodes();
-		return uniqueInstance;
-	}
+  public static ThematicIndexCodeSourceCodes getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new ThematicIndexCodeSourceCodes();
+    return uniqueInstance;
+  }
 }

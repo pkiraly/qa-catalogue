@@ -11,31 +11,31 @@ import java.util.regex.Pattern;
 
 public class RecordControlNumberParser implements SubfieldContentParser, Serializable {
 
-	private static final Pattern REGEX = Pattern.compile("^\\((.*?)\\)(.*?)$");
-	private CodeList codeList = OrganizationCodes.getInstance();
+  private static final Pattern REGEX = Pattern.compile("^\\((.*?)\\)(.*?)$");
+  private CodeList codeList = OrganizationCodes.getInstance();
 
-	@Override
-	public Map<String, String> parse(String content) {
-		Map<String, String> extra = new HashMap<>();
-		Matcher matcher = REGEX.matcher(content);
-		if (matcher.find()) {
-			extra.put("organizationCode", matcher.group(1));
-			extra.put("recordNumber", matcher.group(2));
-			if (codeList.isValid(matcher.group(1))) {
-				extra.put("organization", codeList.getCode(matcher.group(1)).getLabel());
-			}
-		}
-		return extra;
-	}
+  @Override
+  public Map<String, String> parse(String content) {
+    Map<String, String> extra = new HashMap<>();
+    Matcher matcher = REGEX.matcher(content);
+    if (matcher.find()) {
+      extra.put("organizationCode", matcher.group(1));
+      extra.put("recordNumber", matcher.group(2));
+      if (codeList.isValid(matcher.group(1))) {
+        extra.put("organization", codeList.getCode(matcher.group(1)).getLabel());
+      }
+    }
+    return extra;
+  }
 
-	private static RecordControlNumberParser uniqueInstance;
+  private static RecordControlNumberParser uniqueInstance;
 
-	private RecordControlNumberParser() {}
+  private RecordControlNumberParser() {}
 
-	public static RecordControlNumberParser getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new RecordControlNumberParser();
-		return uniqueInstance;
-	}
+  public static RecordControlNumberParser getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new RecordControlNumberParser();
+    return uniqueInstance;
+  }
 
 }

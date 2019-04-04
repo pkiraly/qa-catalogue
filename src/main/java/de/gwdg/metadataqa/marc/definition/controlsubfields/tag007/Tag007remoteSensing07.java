@@ -8,35 +8,35 @@ import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
  * https://www.loc.gov/marc/bibliographic/bd007r.html
  */
 public class Tag007remoteSensing07 extends ControlSubfieldDefinition {
-	private static Tag007remoteSensing07 uniqueInstance;
+  private static Tag007remoteSensing07 uniqueInstance;
 
-	private Tag007remoteSensing07() {
-		initialize();
-		extractValidCodes();
-	}
+  private Tag007remoteSensing07() {
+    initialize();
+    extractValidCodes();
+  }
 
-	public static Tag007remoteSensing07 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag007remoteSensing07();
-		return uniqueInstance;
-	}
+  public static Tag007remoteSensing07 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag007remoteSensing07();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		label = "Platform use category";
-		id = "tag007remoteSensing07";
-		mqTag = "platformUseCategory";
-		positionStart = 7;
-		positionEnd = 8;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007r.html";
-		codes = Utils.generateCodes(
-			"a", "Meteorological",
-			"b", "Surface observing",
-			"c", "Space observing",
-			"m", "Mixed uses",
-			"n", "Not applicable",
-			"u", "Unknown",
-			"z", "Other",
-			"|", "No attempt to code"
-		);
-	}
+  private void initialize() {
+    label = "Platform use category";
+    id = "tag007remoteSensing07";
+    mqTag = "platformUseCategory";
+    positionStart = 7;
+    positionEnd = 8;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007r.html";
+    codes = Utils.generateCodes(
+      "a", "Meteorological",
+      "b", "Surface observing",
+      "c", "Space observing",
+      "m", "Mixed uses",
+      "n", "Not applicable",
+      "u", "Unknown",
+      "z", "Other",
+      "|", "No attempt to code"
+    );
+  }
 }

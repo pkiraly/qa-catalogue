@@ -7,13 +7,13 @@ import java.util.Map;
 
 public abstract class ControlFieldDefinition extends DataFieldDefinition {
 
-	protected ControlSubfieldList controlSubfields;
+  protected ControlSubfieldList controlSubfields;
 
-	public Map<String, List<ControlSubfieldDefinition>> getControlSubfields() {
-		return controlSubfields.getSubfields();
-	}
+  public Map<String, List<ControlSubfieldDefinition>> getControlSubfields() {
+    return controlSubfields.getSubfields();
+  }
 
-	public List<ControlSubfieldDefinition> getControlSubfields(String key) {
-		return controlSubfields.get(key);
-	}
+  public List<ControlSubfieldDefinition> getControlSubfields(String key) {
+    return controlSubfields.get(key);
+  }
 }

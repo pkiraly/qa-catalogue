@@ -11,226 +11,226 @@ import static org.junit.Assert.assertTrue;
 
 public class MarcSpecTest {
 
-	public void decoder(String arg) {
-		MarcSpec ms = new MarcSpec();
-		ms.decode(arg);
-	}
+  public void decoder(String arg) {
+    MarcSpec ms = new MarcSpec();
+    ms.decode(arg);
+  }
 
-	public MarcSpec marcspec() {
-		return new MarcSpec();
-	}
+  public MarcSpec marcspec() {
+    return new MarcSpec();
+  }
 
-	@Test(expected=IllegalArgumentException.class)
-	public void testInvalidMarcSpec1() {
-		decoder(" 24 ");
-	}
+  @Test(expected=IllegalArgumentException.class)
+  public void testInvalidMarcSpec1() {
+    decoder(" 24 ");
+  }
 
-	@Test(expected=IllegalArgumentException.class)
-	public void testInvalidMarcSpec2() {
-		decoder("24/");
-	}
+  @Test(expected=IllegalArgumentException.class)
+  public void testInvalidMarcSpec2() {
+    decoder("24/");
+  }
 
-	@Test(expected=IllegalArgumentException.class)
-	public void testInvalidMarcSpec3() {
-		decoder("24x");
-	}
+  @Test(expected=IllegalArgumentException.class)
+  public void testInvalidMarcSpec3() {
+    decoder("24x");
+  }
 
-	@Test
-	public void testValidMarcSpec1() {
-		MarcSpec marcSpec = new MarcSpec();
-		marcSpec.decode("LDR");
-		assertEquals("LDR", marcSpec.getFieldTag());
+  @Test
+  public void testValidMarcSpec1() {
+    MarcSpec marcSpec = new MarcSpec();
+    marcSpec.decode("LDR");
+    assertEquals("LDR", marcSpec.getFieldTag());
 
-		marcSpec.decode("245");
-		assertEquals("245", marcSpec.getFieldTag());
+    marcSpec.decode("245");
+    assertEquals("245", marcSpec.getFieldTag());
 
-		marcSpec.decode("XXX");
-		assertEquals("XXX", marcSpec.getFieldTag());
+    marcSpec.decode("XXX");
+    assertEquals("XXX", marcSpec.getFieldTag());
 
-		marcSpec.decode("245abc");
-		assertEquals("245", marcSpec.getFieldTag());
-		assertEquals("a,b,c", StringUtils.join(marcSpec.getSubfields().keySet(), ","));
+    marcSpec.decode("245abc");
+    assertEquals("245", marcSpec.getFieldTag());
+    assertEquals("a,b,c", StringUtils.join(marcSpec.getSubfields().keySet(), ","));
 
-		// marcSpec.decode("245!\"#$%&\\()*+-./:;<=>?");
-		// assertEquals("a,b,c", StringUtils.join(marcSpec.getSubfieldList().keySet(), ","));
+    // marcSpec.decode("245!\"#$%&\\()*+-./:;<=>?");
+    // assertEquals("a,b,c", StringUtils.join(marcSpec.getSubfieldList().keySet(), ","));
 
-		marcSpec.decode("245ab_1a");
-		assertEquals("1", marcSpec.getIndicator1());
-		assertEquals("a", marcSpec.getIndicator2());
-	}
+    marcSpec.decode("245ab_1a");
+    assertEquals("1", marcSpec.getIndicator1());
+    assertEquals("a", marcSpec.getIndicator2());
+  }
 
-	@Test(expected=IllegalArgumentException.class)
-	public void testInvalidMarcSpec4() {
-		decoder("007~");
-	}
+  @Test(expected=IllegalArgumentException.class)
+  public void testInvalidMarcSpec4() {
+    decoder("007~");
+  }
 
-	@Test(expected=IllegalArgumentException.class)
-	public void testInvalidMarcSpec5() {
-		decoder("007~1-2-");
-	}
+  @Test(expected=IllegalArgumentException.class)
+  public void testInvalidMarcSpec5() {
+    decoder("007~1-2-");
+  }
 
-	@Test
-	public void testValidMarcSpec2() {
-		MarcSpec marcSpec = new MarcSpec();
-		marcSpec.decode("LDR~0-3");
-		assertEquals("LDR", marcSpec.getFieldTag());
-		assertEquals(0, (int)marcSpec.getCharStart());
-		assertEquals(3, (int)marcSpec.getCharEnd());
-		assertEquals(4, (int)marcSpec.getCharLength());
-	}
+  @Test
+  public void testValidMarcSpec2() {
+    MarcSpec marcSpec = new MarcSpec();
+    marcSpec.decode("LDR~0-3");
+    assertEquals("LDR", marcSpec.getFieldTag());
+    assertEquals(0, (int)marcSpec.getCharStart());
+    assertEquals(3, (int)marcSpec.getCharEnd());
+    assertEquals(4, (int)marcSpec.getCharLength());
+  }
 
-	@Test(expected=IllegalArgumentException.class)
-	public void testInvalidMarcSpec6() {
-		decoder("245aX");
-	}
+  @Test(expected=IllegalArgumentException.class)
+  public void testInvalidMarcSpec6() {
+    decoder("245aX");
+  }
 
-	@Test(expected=IllegalArgumentException.class)
-	public void testInvalidMarcSpec7() {
-		decoder("245ab_1+");
-	}
+  @Test(expected=IllegalArgumentException.class)
+  public void testInvalidMarcSpec7() {
+    decoder("245ab_1+");
+  }
 
-	@Test(expected=IllegalArgumentException.class)
-	public void testInvalidMarcSpec8() {
-		decoder("245ab_123");
-	}
+  @Test(expected=IllegalArgumentException.class)
+  public void testInvalidMarcSpec8() {
+    decoder("245ab_123");
+  }
 
-	@Test
-	public void testSetAndGet() {
-		MarcSpec marcSpec = new MarcSpec();
-		marcSpec.setFieldTag("LDR");
-		marcSpec.setCharStart(0);
-		marcSpec.setCharEnd(3);
-		assertEquals("LDR", marcSpec.getFieldTag());
-		assertEquals(0, (int)marcSpec.getCharStart());
-		assertEquals(3, (int)marcSpec.getCharEnd());
-		assertEquals(4, (int)marcSpec.getCharLength());
+  @Test
+  public void testSetAndGet() {
+    MarcSpec marcSpec = new MarcSpec();
+    marcSpec.setFieldTag("LDR");
+    marcSpec.setCharStart(0);
+    marcSpec.setCharEnd(3);
+    assertEquals("LDR", marcSpec.getFieldTag());
+    assertEquals(0, (int)marcSpec.getCharStart());
+    assertEquals(3, (int)marcSpec.getCharEnd());
+    assertEquals(4, (int)marcSpec.getCharLength());
 
-		marcSpec = new MarcSpec();
-		marcSpec.setFieldTag("245");
-		marcSpec.addSubfields("abc");
-		marcSpec.setIndicator1("x");
-		marcSpec.setIndicator2("0");
-		assertEquals("245", marcSpec.getFieldTag());
-		assertEquals("x", marcSpec.getIndicator1());
-		assertEquals("0", marcSpec.getIndicator2());
-		// assertEquals(array("a"=>"a","b"=>"b","c"=>"c"), marcSpec.getSubfieldList());
-	}
+    marcSpec = new MarcSpec();
+    marcSpec.setFieldTag("245");
+    marcSpec.addSubfields("abc");
+    marcSpec.setIndicator1("x");
+    marcSpec.setIndicator2("0");
+    assertEquals("245", marcSpec.getFieldTag());
+    assertEquals("x", marcSpec.getIndicator1());
+    assertEquals("0", marcSpec.getIndicator2());
+    // assertEquals(array("a"=>"a","b"=>"b","c"=>"c"), marcSpec.getSubfieldList());
+  }
 
-	@Test
-	public void testEncode() {
-		MarcSpec marcSpec;
-		marcSpec = new MarcSpec("245");
-		assertEquals("245", marcSpec.encode());
+  @Test
+  public void testEncode() {
+    MarcSpec marcSpec;
+    marcSpec = new MarcSpec("245");
+    assertEquals("245", marcSpec.encode());
 
-		marcSpec = new MarcSpec("245a");
-		assertEquals("245a", marcSpec.encode());
+    marcSpec = new MarcSpec("245a");
+    assertEquals("245a", marcSpec.encode());
 
-		marcSpec = new MarcSpec("245_1");
-		assertEquals("245_1", marcSpec.encode());
+    marcSpec = new MarcSpec("245_1");
+    assertEquals("245_1", marcSpec.encode());
 
-		marcSpec = new MarcSpec("245__0");
-		assertEquals("245__0", marcSpec.encode());
+    marcSpec = new MarcSpec("245__0");
+    assertEquals("245__0", marcSpec.encode());
 
-		marcSpec = new MarcSpec("245_1_");
-		assertEquals("245_1", marcSpec.encode());
+    marcSpec = new MarcSpec("245_1_");
+    assertEquals("245_1", marcSpec.encode());
 
-		marcSpec = new MarcSpec("007~1");
-		assertEquals("007~1-1", marcSpec.encode());
+    marcSpec = new MarcSpec("007~1");
+    assertEquals("007~1-1", marcSpec.encode());
 
-		marcSpec = new MarcSpec("007~1-3");
-		assertEquals("007~1-3", marcSpec.encode());
-	}
+    marcSpec = new MarcSpec("007~1-3");
+    assertEquals("007~1-3", marcSpec.encode());
+  }
 
-	@Test
-	public void testValidity() {
-		MarcSpec marcSpec = new MarcSpec();
-		assertTrue(marcSpec.validate("245"));
-		assertTrue(marcSpec.validate("245ab"));
-		assertTrue(marcSpec.validate("XXXab"));
-		assertTrue(marcSpec.validate("245ab_1"));
-		assertTrue(marcSpec.validate("245ab__0"));
-		assertTrue(marcSpec.validate("245ab_10"));
-		assertTrue(marcSpec.validate("245ab_1_"));
-	}
+  @Test
+  public void testValidity() {
+    MarcSpec marcSpec = new MarcSpec();
+    assertTrue(marcSpec.validate("245"));
+    assertTrue(marcSpec.validate("245ab"));
+    assertTrue(marcSpec.validate("XXXab"));
+    assertTrue(marcSpec.validate("245ab_1"));
+    assertTrue(marcSpec.validate("245ab__0"));
+    assertTrue(marcSpec.validate("245ab_10"));
+    assertTrue(marcSpec.validate("245ab_1_"));
+  }
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testInValidity() {
-		MarcSpec marcSpec = new MarcSpec();
-		assertTrue(marcSpec.validate("24"));
-		assertTrue(marcSpec.validate("LXR"));
-		assertTrue(marcSpec.validate("245ab_123"));
-		assertTrue(marcSpec.validate("245ab__."));
-		assertTrue(marcSpec.validate("004ab~1"));
-		assertTrue(marcSpec.validate("004~-1"));
-	}
-
-
-	@Test
-	public void testCharConsistency1() {
-		MarcSpec marcSpec = new MarcSpec("650");
-		assertEquals(null, marcSpec.getCharStart());
-		assertEquals(null, marcSpec.getCharEnd());
-		assertEquals(null, marcSpec.getCharLength());
-		assertEquals("650", marcSpec.encode());
-	}
-
-	@Test
-	public void testGetters_tag() {
-		MarcSpec marcSpec = new MarcSpec("650");
-		assertEquals("650", marcSpec.getFieldTag());
-	}
-
-	@Test
-	public void testGetters_subfield() {
-		MarcSpec marcSpec = new MarcSpec("650a");
-		assertEquals("650", marcSpec.getFieldTag());
-		List<String> list = new ArrayList(marcSpec.getSubfields().keySet());
-		assertEquals(1, list.size());
-		assertEquals("a", list.get(0));
-	}
-
-	@Test
-	public void testGetters_subfields() {
-		MarcSpec marcSpec = new MarcSpec("650ab");
-		assertEquals("650", marcSpec.getFieldTag());
-		List<String> list = new ArrayList(marcSpec.getSubfields().keySet());
-		assertEquals(2, list.size());
-		assertEquals("a", list.get(0));
-		assertEquals("b", list.get(1));
-	}
-
-	@Test
-	public void testMultiple() {
+  @Test(expected = IllegalArgumentException.class)
+  public void testInValidity() {
+    MarcSpec marcSpec = new MarcSpec();
+    assertTrue(marcSpec.validate("24"));
+    assertTrue(marcSpec.validate("LXR"));
+    assertTrue(marcSpec.validate("245ab_123"));
+    assertTrue(marcSpec.validate("245ab__."));
+    assertTrue(marcSpec.validate("004ab~1"));
+    assertTrue(marcSpec.validate("004~-1"));
+  }
 
 
-		String input = "650ab;651x";
-		String[] paths = input.split(";");
+  @Test
+  public void testCharConsistency1() {
+    MarcSpec marcSpec = new MarcSpec("650");
+    assertEquals(null, marcSpec.getCharStart());
+    assertEquals(null, marcSpec.getCharEnd());
+    assertEquals(null, marcSpec.getCharLength());
+    assertEquals("650", marcSpec.encode());
+  }
 
-		MarcSpec marcSpec;
-		List<String> list;
+  @Test
+  public void testGetters_tag() {
+    MarcSpec marcSpec = new MarcSpec("650");
+    assertEquals("650", marcSpec.getFieldTag());
+  }
 
-		marcSpec = new MarcSpec(paths[0]);
-		assertEquals("650", marcSpec.getFieldTag());
-		list = new ArrayList(marcSpec.getSubfields().keySet());
-		assertEquals(2, list.size());
-		assertEquals("a", list.get(0));
-		assertEquals("b", list.get(1));
+  @Test
+  public void testGetters_subfield() {
+    MarcSpec marcSpec = new MarcSpec("650a");
+    assertEquals("650", marcSpec.getFieldTag());
+    List<String> list = new ArrayList(marcSpec.getSubfields().keySet());
+    assertEquals(1, list.size());
+    assertEquals("a", list.get(0));
+  }
 
-		marcSpec = new MarcSpec(paths[1]);
-		assertEquals("651", marcSpec.getFieldTag());
-		list = new ArrayList(marcSpec.getSubfields().keySet());
-		assertEquals(1, list.size());
-		assertEquals("x", list.get(0));
-	}
+  @Test
+  public void testGetters_subfields() {
+    MarcSpec marcSpec = new MarcSpec("650ab");
+    assertEquals("650", marcSpec.getFieldTag());
+    List<String> list = new ArrayList(marcSpec.getSubfields().keySet());
+    assertEquals(2, list.size());
+    assertEquals("a", list.get(0));
+    assertEquals("b", list.get(1));
+  }
 
-	@Test
-	public void testCharPosition() {
-		MarcSpec marcSpec = new MarcSpec("008~0-5");
-		assertEquals(0, (int)marcSpec.getCharStart());
-		assertEquals(5, (int)marcSpec.getCharEnd());
-		assertEquals(6, (int)marcSpec.getCharLength());
-		assertEquals("008~0-5", marcSpec.encode());
-	}
+  @Test
+  public void testMultiple() {
+
+
+    String input = "650ab;651x";
+    String[] paths = input.split(";");
+
+    MarcSpec marcSpec;
+    List<String> list;
+
+    marcSpec = new MarcSpec(paths[0]);
+    assertEquals("650", marcSpec.getFieldTag());
+    list = new ArrayList(marcSpec.getSubfields().keySet());
+    assertEquals(2, list.size());
+    assertEquals("a", list.get(0));
+    assertEquals("b", list.get(1));
+
+    marcSpec = new MarcSpec(paths[1]);
+    assertEquals("651", marcSpec.getFieldTag());
+    list = new ArrayList(marcSpec.getSubfields().keySet());
+    assertEquals(1, list.size());
+    assertEquals("x", list.get(0));
+  }
+
+  @Test
+  public void testCharPosition() {
+    MarcSpec marcSpec = new MarcSpec("008~0-5");
+    assertEquals(0, (int)marcSpec.getCharStart());
+    assertEquals(5, (int)marcSpec.getCharEnd());
+    assertEquals(6, (int)marcSpec.getCharLength());
+    assertEquals("008~0-5", marcSpec.encode());
+  }
 
 
 }

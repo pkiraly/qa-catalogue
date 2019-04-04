@@ -4,6 +4,6 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 
 public class SimpleControlField extends MarcControlField {
 
-	private DataFieldDefinition definition;
+  private DataFieldDefinition definition;
 
 }

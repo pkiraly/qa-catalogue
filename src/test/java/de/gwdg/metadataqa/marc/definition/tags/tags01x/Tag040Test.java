@@ -11,50 +11,50 @@ import static org.junit.Assert.assertEquals;
 
 public class Tag040Test {
 
-	@BeforeClass
-	public static void setUpClass() {
-	}
+  @BeforeClass
+  public static void setUpClass() {
+  }
 
-	@AfterClass
-	public static void tearDownClass() {
-	}
+  @AfterClass
+  public static void tearDownClass() {
+  }
 
-	@Before
-	public void setUp() {
-	}
+  @Before
+  public void setUp() {
+  }
 
-	@After
-	public void tearDown() {
-	}
+  @After
+  public void tearDown() {
+  }
 
-	@Test
-	public void testCStH() {
-		MarcRecord record = new MarcRecord("test");
-		DataField field = new DataField(Tag040.getInstance(), " ", " ", "a", "CSt-H", "b", "eng", "c", "CSt-H", "e", "appm");
-		field.setRecord(record);
+  @Test
+  public void testCStH() {
+    MarcRecord record = new MarcRecord("test");
+    DataField field = new DataField(Tag040.getInstance(), " ", " ", "a", "CSt-H", "b", "eng", "c", "CSt-H", "e", "appm");
+    field.setRecord(record);
 
-		Map<String, List<String>> map = field.getHumanReadableMap();
+    Map<String, List<String>> map = field.getHumanReadableMap();
 
-		assertEquals(4, map.size());
-		assertEquals("Stanford University, Hoover Institution on War, Revolution, and Peace",
-				map.get("Original cataloging agency").get(0));
-		assertEquals("English",
-			map.get("Language of cataloging").get(0));
-		assertEquals("Stanford University, Hoover Institution on War, Revolution, and Peace",
-				map.get("Transcribing agency").get(0));
-		assertEquals("Hensen, Steven L. Archives, personal papers, and manuscripts (Washington: Library of Congress)",
-				map.get("Description conventions").get(0));
-	}
+    assertEquals(4, map.size());
+    assertEquals("Stanford University, Hoover Institution on War, Revolution, and Peace",
+        map.get("Original cataloging agency").get(0));
+    assertEquals("English",
+      map.get("Language of cataloging").get(0));
+    assertEquals("Stanford University, Hoover Institution on War, Revolution, and Peace",
+        map.get("Transcribing agency").get(0));
+    assertEquals("Hensen, Steven L. Archives, personal papers, and manuscripts (Washington: Library of Congress)",
+        map.get("Description conventions").get(0));
+  }
 
-	@Test
-	public void testMt() {
-		DataField field = new DataField(Tag040.getInstance(), " ", " ", "a", "Mt", "c", "Mt");
-		Map<String, List<String>> map = field.getHumanReadableMap();
+  @Test
+  public void testMt() {
+    DataField field = new DataField(Tag040.getInstance(), " ", " ", "a", "Mt", "c", "Mt");
+    Map<String, List<String>> map = field.getHumanReadableMap();
 
-		assertEquals(2, map.size());
-		assertEquals("Montana State Library",
-				map.get("Original cataloging agency").get(0));
-		assertEquals("Montana State Library",
-				map.get("Transcribing agency").get(0));
-	}
+    assertEquals(2, map.size());
+    assertEquals("Montana State Library",
+        map.get("Original cataloging agency").get(0));
+    assertEquals("Montana State Library",
+        map.get("Transcribing agency").get(0));
+  }
 }

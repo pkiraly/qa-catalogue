@@ -9,15 +9,15 @@ import static org.junit.Assert.assertEquals;
 
 public class ValidationErrorTest {
 
-	@Test
-	public void test() {
-		ValidationError error = new ValidationError("123", "007/01", ValidationErrorType.CONTROL_SUBFIELD_OBSOLETE_CODE,
-			"c", Tag007nonprojected01.getInstance().getDescriptionUrl());
-		assertEquals("123", error.getRecordId());
-		assertEquals("007/01", error.getMarcPath());
-		assertEquals(ValidationErrorType.CONTROL_SUBFIELD_OBSOLETE_CODE, error.getType());
-		assertEquals("c", error.getMessage());
-		assertEquals("https://www.loc.gov/marc/bibliographic/bd007k.html", error.getUrl());
-	}
+  @Test
+  public void test() {
+    ValidationError error = new ValidationError("123", "007/01", ValidationErrorType.CONTROL_SUBFIELD_OBSOLETE_CODE,
+      "c", Tag007nonprojected01.getInstance().getDescriptionUrl());
+    assertEquals("123", error.getRecordId());
+    assertEquals("007/01", error.getMarcPath());
+    assertEquals(ValidationErrorType.CONTROL_SUBFIELD_OBSOLETE_CODE, error.getType());
+    assertEquals("c", error.getMessage());
+    assertEquals("https://www.loc.gov/marc/bibliographic/bd007k.html", error.getUrl());
+  }
 
 }

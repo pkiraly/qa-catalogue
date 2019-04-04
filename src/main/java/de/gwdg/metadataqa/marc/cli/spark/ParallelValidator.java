@@ -19,41 +19,41 @@ import java.util.logging.Logger;
 
 public class ParallelValidator {
 
-	private static final Logger logger = Logger.getLogger(
-		ParallelValidator.class.getCanonicalName());
-	private static Options options = new Options();
+  private static final Logger logger = Logger.getLogger(
+    ParallelValidator.class.getCanonicalName());
+  private static Options options = new Options();
 
-	public static void main(String[] args) throws ParseException {
+  public static void main(String[] args) throws ParseException {
 
-		final Validator validator = new Validator(args);
-		ValidatorParameters params = validator.getParameters();
-		validator.setDoPrintInProcessRecord(false);
+    final Validator validator = new Validator(args);
+    ValidatorParameters params = validator.getParameters();
+    validator.setDoPrintInProcessRecord(false);
 
-		logger.info("Input file is " + params.getFileName());
-		SparkConf conf = new SparkConf().setAppName("MarcCompletenessCount");
-		JavaSparkContext context = new JavaSparkContext(conf);
+    logger.info("Input file is " + params.getFileName());
+    SparkConf conf = new SparkConf().setAppName("MarcCompletenessCount");
+    JavaSparkContext context = new JavaSparkContext(conf);
 
-		System.err.println(validator.getParameters().formatParameters());
+    System.err.println(validator.getParameters().formatParameters());
 
-		JavaRDD<String> inputFile = context.textFile(validator.getParameters().getArgs()[0]);
+    JavaRDD<String> inputFile = context.textFile(validator.getParameters().getArgs()[0]);
 
-		JavaRDD<String> baseCountsRDD = inputFile
-			.flatMap(content -> {
-				MarcReader reader = ReadMarc.getMarcStringReader(content);
-				Record marc4jRecord = reader.next();
-				MarcRecord marcRecord = MarcFactory.createFromMarc4j(
-					marc4jRecord, params.getDefaultRecordType(), params.getMarcVersion(), params.fixAlephseq());
-				validator.processRecord(marcRecord, 1);
-				return ValidationErrorFormatter
-					.formatForSummary(marcRecord.getValidationErrors(), params.getFormat())
-					.iterator();
-			}
-		);
-		baseCountsRDD.saveAsTextFile(validator.getParameters().getFileName());
-	}
+    JavaRDD<String> baseCountsRDD = inputFile
+      .flatMap(content -> {
+        MarcReader reader = ReadMarc.getMarcStringReader(content);
+        Record marc4jRecord = reader.next();
+        MarcRecord marcRecord = MarcFactory.createFromMarc4j(
+          marc4jRecord, params.getDefaultRecordType(), params.getMarcVersion(), params.fixAlephseq());
+        validator.processRecord(marcRecord, 1);
+        return ValidationErrorFormatter
+          .formatForSummary(marcRecord.getValidationErrors(), params.getFormat())
+          .iterator();
+      }
+    );
+    baseCountsRDD.saveAsTextFile(validator.getParameters().getFileName());
+  }
 
-	private static void help() {
-		HelpFormatter formatter = new HelpFormatter();
-		formatter.printHelp("java -cp [jar] de.gwdg.europeanaqa.spark.MarcCompletenessCount [options]", options);
-	}
+  private static void help() {
+    HelpFormatter formatter = new HelpFormatter();
+    formatter.printHelp("java -cp [jar] de.gwdg.europeanaqa.spark.MarcCompletenessCount [options]", options);
+  }
 }

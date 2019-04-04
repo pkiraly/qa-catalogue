@@ -8,38 +8,38 @@ import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
  * https://www.loc.gov/marc/bibliographic/bd006.html
  */
 public class Tag006mixed06 extends ControlSubfieldDefinition {
-	private static Tag006mixed06 uniqueInstance;
+  private static Tag006mixed06 uniqueInstance;
 
-	private Tag006mixed06() {
-		initialize();
-		extractValidCodes();
-	}
+  private Tag006mixed06() {
+    initialize();
+    extractValidCodes();
+  }
 
-	public static Tag006mixed06 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag006mixed06();
-		return uniqueInstance;
-	}
+  public static Tag006mixed06 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag006mixed06();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		label = "Form of item";
-		id = "tag006mixed06";
-		mqTag = "formOfItem";
-		positionStart = 6;
-		positionEnd = 7;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd006.html";
-		codes = Utils.generateCodes(
-			" ", "None of the following",
-			"a", "Microfilm",
-			"b", "Microfiche",
-			"c", "Microopaque",
-			"d", "Large print",
-			"f", "Braille",
-			"o", "Online",
-			"q", "Direct electronic",
-			"r", "Regular print reproduction",
-			"s", "Electronic",
-			"|", "No attempt to code"
-		);
-	}
+  private void initialize() {
+    label = "Form of item";
+    id = "tag006mixed06";
+    mqTag = "formOfItem";
+    positionStart = 6;
+    positionEnd = 7;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd006.html";
+    codes = Utils.generateCodes(
+      " ", "None of the following",
+      "a", "Microfilm",
+      "b", "Microfiche",
+      "c", "Microopaque",
+      "d", "Large print",
+      "f", "Braille",
+      "o", "Online",
+      "q", "Direct electronic",
+      "r", "Regular print reproduction",
+      "s", "Electronic",
+      "|", "No attempt to code"
+    );
+  }
 }

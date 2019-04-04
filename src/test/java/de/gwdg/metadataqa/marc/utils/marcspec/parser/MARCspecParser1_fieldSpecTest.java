@@ -13,42 +13,42 @@ import static org.junit.Assert.assertTrue;
  */
 public class MARCspecParser1_fieldSpecTest {
 
-	@Test
-	public void testMARCspecParser_Example1() {
-		MARCspecParser parser = new MARCspecParser();
-		MARCspec marcSpec = parser.parse("LDR");
+  @Test
+  public void testMARCspecParser_Example1() {
+    MARCspecParser parser = new MARCspecParser();
+    MARCspec marcSpec = parser.parse("LDR");
 
-		assertEquals("LDR", marcSpec.getField().getTag());
-		assertEquals(0, marcSpec.getSubfields().size());
-	}
+    assertEquals("LDR", marcSpec.getField().getTag());
+    assertEquals(0, marcSpec.getSubfields().size());
+  }
 
-	@Test
-	public void testMARCspecParser_Example2() {
-		MARCspecParser parser = new MARCspecParser();
-		MARCspec marcSpec = parser.parse("00.");
+  @Test
+  public void testMARCspecParser_Example2() {
+    MARCspecParser parser = new MARCspecParser();
+    MARCspec marcSpec = parser.parse("00.");
 
-		assertEquals("00.", marcSpec.getField().getTag());
-		assertEquals(0, marcSpec.getSubfields().size());
-		assertTrue(marcSpec.getField().hasWildchar());
-	}
+    assertEquals("00.", marcSpec.getField().getTag());
+    assertEquals(0, marcSpec.getSubfields().size());
+    assertTrue(marcSpec.getField().hasWildchar());
+  }
 
-	@Test
-	public void testMARCspecParser_Example3() {
-		MARCspecParser parser = new MARCspecParser();
-		MARCspec marcSpec = parser.parse("7..");
+  @Test
+  public void testMARCspecParser_Example3() {
+    MARCspecParser parser = new MARCspecParser();
+    MARCspec marcSpec = parser.parse("7..");
 
-		assertEquals("7..", marcSpec.getField().getTag());
-		assertEquals(0, marcSpec.getSubfields().size());
-		assertTrue(marcSpec.getField().hasWildchar());
-	}
+    assertEquals("7..", marcSpec.getField().getTag());
+    assertEquals(0, marcSpec.getSubfields().size());
+    assertTrue(marcSpec.getField().hasWildchar());
+  }
 
-	@Test
-	public void testMARCspecParser_Example4() {
-		MARCspecParser parser = new MARCspecParser();
-		MARCspec marcSpec = parser.parse("100");
+  @Test
+  public void testMARCspecParser_Example4() {
+    MARCspecParser parser = new MARCspecParser();
+    MARCspec marcSpec = parser.parse("100");
 
-		assertEquals("100", marcSpec.getField().getTag());
-		assertEquals(0, marcSpec.getSubfields().size());
-		assertFalse(marcSpec.getField().hasWildchar());
-	}
+    assertEquals("100", marcSpec.getField().getTag());
+    assertEquals(0, marcSpec.getSubfields().size());
+    assertFalse(marcSpec.getField().hasWildchar());
+  }
 }

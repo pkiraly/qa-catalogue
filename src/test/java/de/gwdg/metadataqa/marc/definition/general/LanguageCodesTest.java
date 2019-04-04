@@ -8,26 +8,26 @@ import static org.junit.Assert.assertTrue;
 
 public class LanguageCodesTest {
 
-	@BeforeClass
-	public static void setUpClass() {
-	}
+  @BeforeClass
+  public static void setUpClass() {
+  }
 
-	@AfterClass
-	public static void tearDownClass() {
-	}
+  @AfterClass
+  public static void tearDownClass() {
+  }
 
-	@Before
-	public void setUp() {
-	}
+  @Before
+  public void setUp() {
+  }
 
-	@After
-	public void tearDown() {
-	}
+  @After
+  public void tearDown() {
+  }
 
-	@Test
-	public void testDefinition() {
-		LanguageCodes codes = LanguageCodes.getInstance();
-		assertTrue(codes.isValid("aar"));
-		assertFalse(codes.isValid("aarx"));
-	}
+  @Test
+  public void testDefinition() {
+    LanguageCodes codes = LanguageCodes.getInstance();
+    assertTrue(codes.isValid("aar"));
+    assertFalse(codes.isValid("aarx"));
+  }
 }

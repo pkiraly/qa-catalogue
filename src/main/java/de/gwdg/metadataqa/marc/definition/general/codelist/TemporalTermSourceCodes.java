@@ -8,24 +8,24 @@ import de.gwdg.metadataqa.marc.Utils;
  */
 public class TemporalTermSourceCodes extends CodeList {
 
-	private void initialize() {
-		name = "Temporal Term Source Codes";
-		url = "http://www.loc.gov/standards/sourcelist/temporal.html";
-		codes = Utils.generateCodes(
-		);
-		indexCodes();
-	}
+  private void initialize() {
+    name = "Temporal Term Source Codes";
+    url = "http://www.loc.gov/standards/sourcelist/temporal.html";
+    codes = Utils.generateCodes(
+    );
+    indexCodes();
+  }
 
-	private static TemporalTermSourceCodes uniqueInstance;
+  private static TemporalTermSourceCodes uniqueInstance;
 
-	private TemporalTermSourceCodes() {
-		initialize();
-	}
+  private TemporalTermSourceCodes() {
+    initialize();
+  }
 
-	public static TemporalTermSourceCodes getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new TemporalTermSourceCodes();
-		return uniqueInstance;
-	}
+  public static TemporalTermSourceCodes getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new TemporalTermSourceCodes();
+    return uniqueInstance;
+  }
 
 }

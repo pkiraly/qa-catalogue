@@ -13,19 +13,19 @@ import java.util.Map;
  */
 public class CodeReader {
 
-	public static Map<String, StandardIdentifier> readStandardIdentifiers() 
-			throws URISyntaxException, IOException {
-		List<String> lines = FileUtils.readLines("marc/standard-identifier.csv");
-		Map<String, StandardIdentifier> standardIdentifiers = new HashMap<>();
+  public static Map<String, StandardIdentifier> readStandardIdentifiers() 
+      throws URISyntaxException, IOException {
+    List<String> lines = FileUtils.readLines("marc/standard-identifier.csv");
+    Map<String, StandardIdentifier> standardIdentifiers = new HashMap<>();
 
-		for (String line : lines) {
-			String[] fields = line.split(";", 6);
-			standardIdentifiers.put(
-				fields[0],
-				new StandardIdentifier(
-					fields[0], fields[1], fields[2], fields[3], fields[4], fields[5]));
-		}
+    for (String line : lines) {
+      String[] fields = line.split(";", 6);
+      standardIdentifiers.put(
+        fields[0],
+        new StandardIdentifier(
+          fields[0], fields[1], fields[2], fields[3], fields[4], fields[5]));
+    }
 
-		return standardIdentifiers;
-	}
+    return standardIdentifiers;
+  }
 }

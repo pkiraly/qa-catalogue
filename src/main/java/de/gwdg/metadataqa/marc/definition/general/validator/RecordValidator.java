@@ -5,7 +5,7 @@ import de.gwdg.metadataqa.marc.definition.ValidatorResponse;
 
 public interface RecordValidator {
 
-	public static ValidatorResponse isValid(MarcRecord record) {
-		return new ValidatorResponse();
-	}
+  public static ValidatorResponse isValid(MarcRecord record) {
+    return new ValidatorResponse();
+  }
 }

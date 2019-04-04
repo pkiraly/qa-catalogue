@@ -8,27 +8,27 @@ import de.gwdg.metadataqa.marc.Utils;
  */
 public class CountrySourceCodes extends CodeList {
 
-	private void initialize() {
-		name = "Country Code and Term Source Codes";
-		url = "http://www.loc.gov/standards/sourcelist/country.html";
-		codes = Utils.generateCodes(
-			"marccountry", "MARC Code List for Countries (Washington, DC: Library of Congress)",
-			"iso3166", "Codes for the representation of names of countries and their subdivisions-Part 1, Country codes (Geneva: International Organization for Standardization)",
-			"iso3166-2", "Codes for the representation of names of countries and their subdivisions-Part 2, Country subdivision codes (Geneva: International Organization for Standardization)",
-			"swdl", "Ländercode der Schlagwortnormdatei (SWD) (Leipzig, Frankfurt am Main, Berlin: Deutsche Nationalbibliothek)"
-		);
-		indexCodes();
-	}
+  private void initialize() {
+    name = "Country Code and Term Source Codes";
+    url = "http://www.loc.gov/standards/sourcelist/country.html";
+    codes = Utils.generateCodes(
+      "marccountry", "MARC Code List for Countries (Washington, DC: Library of Congress)",
+      "iso3166", "Codes for the representation of names of countries and their subdivisions-Part 1, Country codes (Geneva: International Organization for Standardization)",
+      "iso3166-2", "Codes for the representation of names of countries and their subdivisions-Part 2, Country subdivision codes (Geneva: International Organization for Standardization)",
+      "swdl", "Ländercode der Schlagwortnormdatei (SWD) (Leipzig, Frankfurt am Main, Berlin: Deutsche Nationalbibliothek)"
+    );
+    indexCodes();
+  }
 
-	private static CountrySourceCodes uniqueInstance;
+  private static CountrySourceCodes uniqueInstance;
 
-	private CountrySourceCodes() {
-		initialize();
-	}
+  private CountrySourceCodes() {
+    initialize();
+  }
 
-	public static CountrySourceCodes getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new CountrySourceCodes();
-		return uniqueInstance;
-	}
+  public static CountrySourceCodes getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new CountrySourceCodes();
+    return uniqueInstance;
+  }
 }

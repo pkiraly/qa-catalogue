@@ -6,8 +6,8 @@ import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import java.util.List;
 
 public interface Validator {
-	public boolean isValid(String value);
-	public boolean isValid(String value, MarcSubfield field);
-	public List<String> getErrors();
-	public List<ValidationError> getValidationErrors();
+  public boolean isValid(String value);
+  public boolean isValid(String value, MarcSubfield field);
+  public List<String> getErrors();
+  public List<ValidationError> getValidationErrors();
 }

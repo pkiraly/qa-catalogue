@@ -8,28 +8,28 @@ import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
  * https://www.loc.gov/marc/bibliographic/bd007m.html
  */
 public class Tag007motionPicture00 extends ControlSubfieldDefinition {
-	private static Tag007motionPicture00 uniqueInstance;
+  private static Tag007motionPicture00 uniqueInstance;
 
-	private Tag007motionPicture00() {
-		initialize();
-		extractValidCodes();
-	}
+  private Tag007motionPicture00() {
+    initialize();
+    extractValidCodes();
+  }
 
-	public static Tag007motionPicture00 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag007motionPicture00();
-		return uniqueInstance;
-	}
+  public static Tag007motionPicture00 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag007motionPicture00();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		label = "Category of material";
-		id = "tag007motionPicture00";
-		mqTag = "categoryOfMaterial";
-		positionStart = 0;
-		positionEnd = 1;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007m.html";
-		codes = Utils.generateCodes(
-			"m", "Motion picture"
-		);
-	}
+  private void initialize() {
+    label = "Category of material";
+    id = "tag007motionPicture00";
+    mqTag = "categoryOfMaterial";
+    positionStart = 0;
+    positionEnd = 1;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007m.html";
+    codes = Utils.generateCodes(
+      "m", "Motion picture"
+    );
+  }
 }

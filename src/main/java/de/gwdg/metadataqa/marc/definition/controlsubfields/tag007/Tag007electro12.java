@@ -8,34 +8,34 @@ import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
  * https://www.loc.gov/marc/bibliographic/bd007c.html
  */
 public class Tag007electro12 extends ControlSubfieldDefinition {
-	private static Tag007electro12 uniqueInstance;
+  private static Tag007electro12 uniqueInstance;
 
-	private Tag007electro12() {
-		initialize();
-		extractValidCodes();
-	}
+  private Tag007electro12() {
+    initialize();
+    extractValidCodes();
+  }
 
-	public static Tag007electro12 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag007electro12();
-		return uniqueInstance;
-	}
+  public static Tag007electro12 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag007electro12();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		label = "Level of compression";
-		id = "tag007electro12";
-		mqTag = "levelOfCompression";
-		positionStart = 12;
-		positionEnd = 13;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007c.html";
-		codes = Utils.generateCodes(
-			"a", "Uncompressed",
-			"b", "Lossless",
-			"d", "Lossy",
-			"m", "Mixed",
-			"u", "Unknown",
-			"|", "No attempt to code"
-		);
-		defaultCode = "|";
-	}
+  private void initialize() {
+    label = "Level of compression";
+    id = "tag007electro12";
+    mqTag = "levelOfCompression";
+    positionStart = 12;
+    positionEnd = 13;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007c.html";
+    codes = Utils.generateCodes(
+      "a", "Uncompressed",
+      "b", "Lossless",
+      "d", "Lossy",
+      "m", "Mixed",
+      "u", "Unknown",
+      "|", "No attempt to code"
+    );
+    defaultCode = "|";
+  }
 }

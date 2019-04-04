@@ -8,38 +8,38 @@ import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
  * https://www.loc.gov/marc/bibliographic/bd007g.html
  */
 public class Tag007projected08 extends ControlSubfieldDefinition {
-	private static Tag007projected08 uniqueInstance;
+  private static Tag007projected08 uniqueInstance;
 
-	private Tag007projected08() {
-		initialize();
-		extractValidCodes();
-	}
+  private Tag007projected08() {
+    initialize();
+    extractValidCodes();
+  }
 
-	public static Tag007projected08 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag007projected08();
-		return uniqueInstance;
-	}
+  public static Tag007projected08 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag007projected08();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		label = "Secondary support material";
-		id = "tag007projected08";
-		mqTag = "secondarySupportMaterial";
-		positionStart = 8;
-		positionEnd = 9;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007g.html";
-		codes = Utils.generateCodes(
-			" ", "No secondary support",
-			"c", "Cardboard",
-			"d", "Glass",
-			"e", "Synthetic",
-			"h", "Metal",
-			"j", "Metal and glass",
-			"k", "Synthetic and glass",
-			"m", "Mixed collection",
-			"u", "Unknown",
-			"z", "Other",
-			"|", "No attempt to code"
-		);
-	}
+  private void initialize() {
+    label = "Secondary support material";
+    id = "tag007projected08";
+    mqTag = "secondarySupportMaterial";
+    positionStart = 8;
+    positionEnd = 9;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007g.html";
+    codes = Utils.generateCodes(
+      " ", "No secondary support",
+      "c", "Cardboard",
+      "d", "Glass",
+      "e", "Synthetic",
+      "h", "Metal",
+      "j", "Metal and glass",
+      "k", "Synthetic and glass",
+      "m", "Mixed collection",
+      "u", "Unknown",
+      "z", "Other",
+      "|", "No attempt to code"
+    );
+  }
 }

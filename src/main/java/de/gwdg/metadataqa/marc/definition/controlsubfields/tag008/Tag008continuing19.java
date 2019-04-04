@@ -8,32 +8,32 @@ import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
  * https://www.loc.gov/marc/bibliographic/bd008s.html
  */
 public class Tag008continuing19 extends ControlSubfieldDefinition {
-	private static Tag008continuing19 uniqueInstance;
+  private static Tag008continuing19 uniqueInstance;
 
-	private Tag008continuing19() {
-		initialize();
-		extractValidCodes();
-	}
+  private Tag008continuing19() {
+    initialize();
+    extractValidCodes();
+  }
 
-	public static Tag008continuing19 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag008continuing19();
-		return uniqueInstance;
-	}
+  public static Tag008continuing19 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag008continuing19();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		label = "Regularity";
-		id = "tag008continuing19";
-		mqTag = "regularity";
-		positionStart = 19;
-		positionEnd = 20;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd008s.html";
-		codes = Utils.generateCodes(
-			"n", "Normalized irregular",
-			"r", "Regular",
-			"u", "Unknown",
-			"x", "Completely irregular",
-			"|", "No attempt to code"
-		);
-	}
+  private void initialize() {
+    label = "Regularity";
+    id = "tag008continuing19";
+    mqTag = "regularity";
+    positionStart = 19;
+    positionEnd = 20;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd008s.html";
+    codes = Utils.generateCodes(
+      "n", "Normalized irregular",
+      "r", "Regular",
+      "u", "Unknown",
+      "x", "Completely irregular",
+      "|", "No attempt to code"
+    );
+  }
 }

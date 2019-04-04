@@ -8,35 +8,35 @@ import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
  * https://www.loc.gov/marc/bibliographic/bd006.html
  */
 public class Tag006continuing04 extends ControlSubfieldDefinition {
-	private static Tag006continuing04 uniqueInstance;
+  private static Tag006continuing04 uniqueInstance;
 
-	private Tag006continuing04() {
-		initialize();
-		extractValidCodes();
-	}
+  private Tag006continuing04() {
+    initialize();
+    extractValidCodes();
+  }
 
-	public static Tag006continuing04 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag006continuing04();
-		return uniqueInstance;
-	}
+  public static Tag006continuing04 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag006continuing04();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		label = "Type of continuing resource";
-		id = "tag006continuing04";
-		mqTag = "typeOfContinuingResource";
-		positionStart = 4;
-		positionEnd = 5;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd006.html";
-		codes = Utils.generateCodes(
-			" ", "None of the following",
-			"d", "Updating database",
-			"l", "Updating loose-leaf",
-			"m", "Monographic series",
-			"n", "Newspaper",
-			"p", "Periodical",
-			"w", "Updating Web site",
-			"|", "No attempt to code"
-		);
-	}
+  private void initialize() {
+    label = "Type of continuing resource";
+    id = "tag006continuing04";
+    mqTag = "typeOfContinuingResource";
+    positionStart = 4;
+    positionEnd = 5;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd006.html";
+    codes = Utils.generateCodes(
+      " ", "None of the following",
+      "d", "Updating database",
+      "l", "Updating loose-leaf",
+      "m", "Monographic series",
+      "n", "Newspaper",
+      "p", "Periodical",
+      "w", "Updating Web site",
+      "|", "No attempt to code"
+    );
+  }
 }

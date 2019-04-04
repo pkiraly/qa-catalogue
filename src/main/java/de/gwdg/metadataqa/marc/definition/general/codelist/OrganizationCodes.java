@@ -10,22 +10,22 @@ import de.gwdg.metadataqa.marc.utils.CodeFileReader;
  */
 public class OrganizationCodes extends CodeList {
 
-	private void initialize() {
-		name = "MARC Organization Codes";
-		url = "http://www.loc.gov/marc/organizations/orgshome.html";
-		codes = CodeFileReader.fileToCodeList("marc/organization-codes.csv");
-		indexCodes();
-	}
+  private void initialize() {
+    name = "MARC Organization Codes";
+    url = "http://www.loc.gov/marc/organizations/orgshome.html";
+    codes = CodeFileReader.fileToCodeList("marc/organization-codes.csv");
+    indexCodes();
+  }
 
-	private static OrganizationCodes uniqueInstance;
+  private static OrganizationCodes uniqueInstance;
 
-	private OrganizationCodes() {
-		initialize();
-	}
+  private OrganizationCodes() {
+    initialize();
+  }
 
-	public static OrganizationCodes getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new OrganizationCodes();
-		return uniqueInstance;
-	}
+  public static OrganizationCodes getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new OrganizationCodes();
+    return uniqueInstance;
+  }
 }

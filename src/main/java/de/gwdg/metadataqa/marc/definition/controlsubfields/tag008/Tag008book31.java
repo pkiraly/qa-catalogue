@@ -8,30 +8,30 @@ import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
  * https://www.loc.gov/marc/bibliographic/bd008b.html
  */
 public class Tag008book31 extends ControlSubfieldDefinition {
-	private static Tag008book31 uniqueInstance;
+  private static Tag008book31 uniqueInstance;
 
-	private Tag008book31() {
-		initialize();
-		extractValidCodes();
-	}
+  private Tag008book31() {
+    initialize();
+    extractValidCodes();
+  }
 
-	public static Tag008book31 getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Tag008book31();
-		return uniqueInstance;
-	}
+  public static Tag008book31 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag008book31();
+    return uniqueInstance;
+  }
 
-	private void initialize() {
-		label = "Index";
-		id = "tag008book31";
-		mqTag = "index";
-		positionStart = 31;
-		positionEnd = 32;
-		descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd008b.html";
-		codes = Utils.generateCodes(
-			"0", "No index",
-			"1", "Index present",
-			"|", "No attempt to code"
-		);
-	}
+  private void initialize() {
+    label = "Index";
+    id = "tag008book31";
+    mqTag = "index";
+    positionStart = 31;
+    positionEnd = 32;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd008b.html";
+    codes = Utils.generateCodes(
+      "0", "No index",
+      "1", "Index present",
+      "|", "No attempt to code"
+    );
+  }
 }

@@ -9,26 +9,26 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
  */
 public class Regularity extends CodeList {
 
-	private void initialize() {
-		codes = Utils.generateCodes(
-			"n", "Normalized irregular",
-			"r", "Regular",
-			"u", "Unknown",
-			"x", "Completely irregular",
-			" ", "No attempt to code"
-		);
-		indexCodes();
-	}
+  private void initialize() {
+    codes = Utils.generateCodes(
+      "n", "Normalized irregular",
+      "r", "Regular",
+      "u", "Unknown",
+      "x", "Completely irregular",
+      " ", "No attempt to code"
+    );
+    indexCodes();
+  }
 
-	private static Regularity uniqueInstance;
+  private static Regularity uniqueInstance;
 
-	private Regularity() {
-		initialize();
-	}
+  private Regularity() {
+    initialize();
+  }
 
-	public static Regularity getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new Regularity();
-		return uniqueInstance;
-	}
+  public static Regularity getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Regularity();
+    return uniqueInstance;
+  }
 }

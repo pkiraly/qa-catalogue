@@ -13,128 +13,128 @@ import java.util.List;
 
 public class ControlValue implements Validatable, Serializable {
 
-	private ControlSubfieldDefinition definition;
-	private String value;
-	private MarcRecord record;
-	private List<String> errors;
-	private List<ValidationError> validationErrors;
+  private ControlSubfieldDefinition definition;
+  private String value;
+  private MarcRecord record;
+  private List<String> errors;
+  private List<ValidationError> validationErrors;
 
-	public ControlValue(ControlSubfieldDefinition definition, String value) {
-		this.definition = definition;
-		this.value = value;
-	}
+  public ControlValue(ControlSubfieldDefinition definition, String value) {
+    this.definition = definition;
+    this.value = value;
+  }
 
-	public void setRecord(MarcRecord record) {
-		this.record = record;
-	}
+  public void setRecord(MarcRecord record) {
+    this.record = record;
+  }
 
-	public String getLabel() {
-		return definition.getLabel();
-	}
+  public String getLabel() {
+    return definition.getLabel();
+  }
 
-	public String getId() {
-		return definition.getId();
-	}
+  public String getId() {
+    return definition.getId();
+  }
 
-	public String resolve() {
-		return definition.resolve(value);
-	}
+  public String resolve() {
+    return definition.resolve(value);
+  }
 
-	public ControlSubfieldDefinition getDefinition() {
-		return definition;
-	}
+  public ControlSubfieldDefinition getDefinition() {
+    return definition;
+  }
 
-	public String getValue() {
-		return value;
-	}
+  public String getValue() {
+    return value;
+  }
 
-	@Override
-	public boolean validate(MarcVersion marcVersion) {
-		boolean isValid = true;
-		errors = new ArrayList<>();
-		validationErrors = new ArrayList<>();
+  @Override
+  public boolean validate(MarcVersion marcVersion) {
+    boolean isValid = true;
+    errors = new ArrayList<>();
+    validationErrors = new ArrayList<>();
 
-		if (!definition.getValidCodes().isEmpty()
-			&& (!definition.getValidCodes().contains(value)
-			    && definition.getCode(value) == null)) {
-			if (definition.isHistoricalCode(value)) {
-				validationErrors.add(new ValidationError(record.getId(), definition.getPath(), ValidationErrorType.CONTROL_SUBFIELD_OBSOLETE_CODE,
-					value, definition.getDescriptionUrl()));
-				errors.add(
-					String.format(
-						"%s/%s (%s) has an obsolete value: '%s' (%s)",
-						definition.getControlField(), definition.formatPositon(), definition.getId(),
-						value, definition.getDescriptionUrl()
-					)
-				);
-				isValid = false;
+    if (!definition.getValidCodes().isEmpty()
+      && (!definition.getValidCodes().contains(value)
+          && definition.getCode(value) == null)) {
+      if (definition.isHistoricalCode(value)) {
+        validationErrors.add(new ValidationError(record.getId(), definition.getPath(), ValidationErrorType.CONTROL_SUBFIELD_OBSOLETE_CODE,
+          value, definition.getDescriptionUrl()));
+        errors.add(
+          String.format(
+            "%s/%s (%s) has an obsolete value: '%s' (%s)",
+            definition.getControlField(), definition.formatPositon(), definition.getId(),
+            value, definition.getDescriptionUrl()
+          )
+        );
+        isValid = false;
 
-			} else {
-				if (definition.isRepeatableContent()) {
-					int unitLength = definition.getUnitLength();
-					for (int i = 0; i < value.length(); i += unitLength) {
-						String unit = value.substring(i, i + unitLength);
-						if (!definition.getValidCodes().contains(unit)) {
-							validationErrors.add(
-								new ValidationError(
-									record.getId(),
-									definition.getPath(),
-									ValidationErrorType.CONTROL_SUBFIELD_INVALID_CODE,
-									String.format("'%s' in '%s'", unit, value),
-									definition.getDescriptionUrl()));
-							errors.add(
-								String.format(
-									"%s/%s (%s) contains an invalid code: '%s' in '%s' (%s)",
-									definition.getControlField(), definition.formatPositon(), definition.getId(),
-									unit, value, definition.getDescriptionUrl()
-								)
-							);
-							isValid = false;
-						}
-					}
-				} else {
-					validationErrors.add(
-						new ValidationError(
-							((record == null) ? null : record.getId()),
-							definition.getPath(), ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE,
-						value, definition.getDescriptionUrl()));
-					errors.add(
-						String.format(
-							"%s/%s (%s) has an invalid value: '%s' (%s)",
-							definition.getControlField(), definition.formatPositon(), definition.getId(),
-							value, definition.getDescriptionUrl()
-						)
-					);
-					isValid = false;
-				}
-			}
-		}
+      } else {
+        if (definition.isRepeatableContent()) {
+          int unitLength = definition.getUnitLength();
+          for (int i = 0; i < value.length(); i += unitLength) {
+            String unit = value.substring(i, i + unitLength);
+            if (!definition.getValidCodes().contains(unit)) {
+              validationErrors.add(
+                new ValidationError(
+                  record.getId(),
+                  definition.getPath(),
+                  ValidationErrorType.CONTROL_SUBFIELD_INVALID_CODE,
+                  String.format("'%s' in '%s'", unit, value),
+                  definition.getDescriptionUrl()));
+              errors.add(
+                String.format(
+                  "%s/%s (%s) contains an invalid code: '%s' in '%s' (%s)",
+                  definition.getControlField(), definition.formatPositon(), definition.getId(),
+                  unit, value, definition.getDescriptionUrl()
+                )
+              );
+              isValid = false;
+            }
+          }
+        } else {
+          validationErrors.add(
+            new ValidationError(
+              ((record == null) ? null : record.getId()),
+              definition.getPath(), ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE,
+            value, definition.getDescriptionUrl()));
+          errors.add(
+            String.format(
+              "%s/%s (%s) has an invalid value: '%s' (%s)",
+              definition.getControlField(), definition.formatPositon(), definition.getId(),
+              value, definition.getDescriptionUrl()
+            )
+          );
+          isValid = false;
+        }
+      }
+    }
 
-		if (definition.hasParser()) {
-			try {
-				SubfieldContentParser parser = definition.getParser();
-				parser.parse(value);
-			} catch (ParserException e) {
-				validationErrors.add(
-					new ValidationError(
-						((record == null) ? null : record.getId()),
-						definition.getPath(), ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE,
-						e.getMessage(), definition.getDescriptionUrl()));
-				// e.printStackTrace();
-				isValid = false;
-			}
-		}
+    if (definition.hasParser()) {
+      try {
+        SubfieldContentParser parser = definition.getParser();
+        parser.parse(value);
+      } catch (ParserException e) {
+        validationErrors.add(
+          new ValidationError(
+            ((record == null) ? null : record.getId()),
+            definition.getPath(), ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE,
+            e.getMessage(), definition.getDescriptionUrl()));
+        // e.printStackTrace();
+        isValid = false;
+      }
+    }
 
-		return isValid;
-	}
+    return isValid;
+  }
 
-	@Override
-	public List<String> getErrors() {
-		return errors;
-	}
+  @Override
+  public List<String> getErrors() {
+    return errors;
+  }
 
-	@Override
-	public List<ValidationError> getValidationErrors() {
-		return validationErrors;
-	}
+  @Override
+  public List<ValidationError> getValidationErrors() {
+    return validationErrors;
+  }
 }

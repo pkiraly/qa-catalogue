@@ -8,24 +8,24 @@ import de.gwdg.metadataqa.marc.Utils;
  */
 public class AvailabilityStatusCodeSourceCodes extends CodeList {
 
-	private void initialize() {
-		name = "Price Type Code Source Codes";
-		url = "http://www.loc.gov/standards/sourcelist/price-type.html";
-		codes = Utils.generateCodes(
-			"onixas", "ONIX Product Availability Codes List number 54"
-		);
-		indexCodes();
-	}
+  private void initialize() {
+    name = "Price Type Code Source Codes";
+    url = "http://www.loc.gov/standards/sourcelist/price-type.html";
+    codes = Utils.generateCodes(
+      "onixas", "ONIX Product Availability Codes List number 54"
+    );
+    indexCodes();
+  }
 
-	private static AvailabilityStatusCodeSourceCodes uniqueInstance;
+  private static AvailabilityStatusCodeSourceCodes uniqueInstance;
 
-	private AvailabilityStatusCodeSourceCodes() {
-		initialize();
-	}
+  private AvailabilityStatusCodeSourceCodes() {
+    initialize();
+  }
 
-	public static AvailabilityStatusCodeSourceCodes getInstance() {
-		if (uniqueInstance == null)
-			uniqueInstance = new AvailabilityStatusCodeSourceCodes();
-		return uniqueInstance;
-	}
+  public static AvailabilityStatusCodeSourceCodes getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new AvailabilityStatusCodeSourceCodes();
+    return uniqueInstance;
+  }
 }

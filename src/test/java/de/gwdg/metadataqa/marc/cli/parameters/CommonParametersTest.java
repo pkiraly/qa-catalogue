@@ -7,43 +7,43 @@ import static junit.framework.TestCase.*;
 
 public class CommonParametersTest {
 
-	@Test
-	public void testDefaults() {
-		String[] arguments = new String[]{"a-marc-file.mrc"};
-		try {
-			CommonParameters parameters = new CommonParameters(arguments);
-			assertFalse(parameters.doHelp());
+  @Test
+  public void testDefaults() {
+    String[] arguments = new String[]{"a-marc-file.mrc"};
+    try {
+      CommonParameters parameters = new CommonParameters(arguments);
+      assertFalse(parameters.doHelp());
 
-			assertTrue(parameters.doLog);
+      assertTrue(parameters.doLog);
 
-			assertNotNull(parameters.getArgs());
-			assertEquals(1, parameters.getArgs().length);
-			assertEquals("a-marc-file.mrc", parameters.getArgs()[0]);
+      assertNotNull(parameters.getArgs());
+      assertEquals(1, parameters.getArgs().length);
+      assertEquals("a-marc-file.mrc", parameters.getArgs()[0]);
 
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-	}
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+  }
 
-	@Test
-	public void testHelp() {
-		String[] arguments = new String[]{"--help", "a-marc-file.mrc"};
-		try {
-			CommonParameters parameters = new CommonParameters(arguments);
-			assertTrue(parameters.doHelp());
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-	}
+  @Test
+  public void testHelp() {
+    String[] arguments = new String[]{"--help", "a-marc-file.mrc"};
+    try {
+      CommonParameters parameters = new CommonParameters(arguments);
+      assertTrue(parameters.doHelp());
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+  }
 
-	@Test
-	public void testNoLog() {
-		String[] arguments = new String[]{"--nolog", "a-marc-file.mrc"};
-		try {
-			CommonParameters parameters = new CommonParameters(arguments);
-			assertFalse(parameters.doLog());
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-	}
+  @Test
+  public void testNoLog() {
+    String[] arguments = new String[]{"--nolog", "a-marc-file.mrc"};
+    try {
+      CommonParameters parameters = new CommonParameters(arguments);
+      assertFalse(parameters.doLog());
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+  }
 }

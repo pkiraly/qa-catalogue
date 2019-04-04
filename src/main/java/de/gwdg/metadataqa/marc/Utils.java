@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Péter Király <peter.kiraly at gwdg.de>
@@ -57,4 +58,12 @@ public class Utils {
     }
     return value;
   }
+
+  public static <T extends Object> void count(T key, Map<T, Integer> counter) {
+    if (!counter.containsKey(key)) {
+      counter.put(key, 0);
+    }
+    counter.put(key, counter.get(key) + 1);
+  }
+
 }

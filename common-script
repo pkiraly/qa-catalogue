@@ -31,6 +31,14 @@ do_format() {
   ./formatter --defaultRecordType BOOKS ${MARC_DIR}/${MASK}
 }
 
+do_function_scores() {
+  if [ ! -d ~/temp/marc21/${NAME} ]; then
+    mkdir -p ~/temp/marc21/${NAME}
+  fi
+  echo "  ./completeness --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ~/temp/marc21/${NAME}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}.log"
+  ./frbr-function-scores --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ~/temp/marc21/${NAME}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}.log
+}
+
 case "$1" in
   validate)
     do_validate
@@ -46,5 +54,8 @@ case "$1" in
     ;;
   format)
     do_format
+    ;;
+  frbr-function-scores)
+    do_function_scores
     ;;
 esac

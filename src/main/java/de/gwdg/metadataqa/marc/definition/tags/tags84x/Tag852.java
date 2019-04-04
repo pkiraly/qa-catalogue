@@ -143,7 +143,7 @@ public class Tag852 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UsageManage);
     getSubfield("u").setMqTag("uri");
     getSubfield("x").setMqTag("nonpublicNote");
-    getSubfield("y").setMqTag("note");
+    getSubfield("z").setMqTag("note");
     getSubfield("2").setMqTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("3").setMqTag("materials")

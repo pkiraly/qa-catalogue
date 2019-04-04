@@ -208,4 +208,8 @@ public class Indicator {
   public List<FRBRFunction> getFrbrFunctions() {
     return functions;
   }
+
+  public String getIndicatorFlag() {
+    return indicatorFlag;
+  }
 }

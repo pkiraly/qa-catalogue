@@ -53,6 +53,10 @@ public abstract class DataFieldDefinition implements Serializable {
     return ind2;
   }
 
+  public List<Indicator> getIndicators() {
+    return Arrays.asList(ind1, ind2);
+  }
+
   protected void postCreation() {
     setIndicatorFlags();
   }

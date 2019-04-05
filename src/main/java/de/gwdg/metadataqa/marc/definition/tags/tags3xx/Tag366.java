@@ -85,6 +85,5 @@ public class Tag366 extends DataFieldDefinition {
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-
   }
 }

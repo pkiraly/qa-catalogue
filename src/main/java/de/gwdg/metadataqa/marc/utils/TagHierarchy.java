@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.utils;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
 import de.gwdg.metadataqa.marc.definition.tags.TagCategories;
@@ -39,12 +40,16 @@ public class TagHierarchy {
   }
 
   public static TagHierarchy createFromPath(String path) {
+    return createFromPath(path, MarcVersion.MARC21);
+  }
+
+  public static TagHierarchy createFromPath(String path, MarcVersion version) {
     Matcher matcher = dataFieldPattern.matcher(path);
     if (matcher.matches()) {
       String tag = matcher.group(1);
       String subfieldCode = matcher.group(2);
 
-      DataFieldDefinition definition = TagDefinitionLoader.load(tag);
+      DataFieldDefinition definition = TagDefinitionLoader.load(tag, version);
       String tagLabel = definition.getLabel();
 
       SubfieldDefinition subfield = definition.getSubfield(subfieldCode);

@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.utils;
 
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -27,7 +28,7 @@ public class TagHierarchyTest {
 
   @Test
   public void testIssueWith366() {
-    TagHierarchy tagHierarchy = TagHierarchy.createFromPath("366$2");
+    TagHierarchy tagHierarchy = TagHierarchy.createFromPath("366$2", MarcVersion.MARC21);
     assertNotNull(tagHierarchy);
     assertEquals("Physical Description", tagHierarchy.getPackageLabel());
     assertEquals("Trade Availability Information", tagHierarchy.getTagLabel());

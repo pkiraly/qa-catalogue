@@ -2,6 +2,9 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.tag006;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Index
@@ -35,5 +38,6 @@ public class Tag006book14 extends ControlSubfieldDefinition {
       "1", "Index present",
       "|", "No attempt to code"
     );
+    functions = Arrays.asList(DiscoverySelect);
   }
 }

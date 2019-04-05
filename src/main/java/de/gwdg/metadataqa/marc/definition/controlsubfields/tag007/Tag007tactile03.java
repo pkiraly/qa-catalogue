@@ -2,6 +2,9 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.tag007;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Class of braille writing
@@ -43,5 +46,6 @@ public class Tag007tactile03 extends ControlSubfieldDefinition {
     );
     repeatableContent = true;
     unitLength = 1;
+    functions = Arrays.asList(DiscoverySelect);
   }
 }

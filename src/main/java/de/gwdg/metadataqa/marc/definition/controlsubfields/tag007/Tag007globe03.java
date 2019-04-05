@@ -2,6 +2,9 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.tag007;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Color
@@ -33,6 +36,7 @@ public class Tag007globe03 extends ControlSubfieldDefinition {
       "c", "Multicolored",
       "|", "No attempt to code"
     );
+    functions = Arrays.asList(DiscoverySelect);
     historicalCodes = Utils.generateCodes(
       "b", "Multicolored [OBSOLETE, 1982]"
     );

@@ -3,6 +3,10 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.leader;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
+import java.util.Arrays;
+
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
+
 /**
  * Record status
  * https://www.loc.gov/marc/bibliographic/bdleader.html
@@ -35,5 +39,6 @@ public class Leader05 extends ControlSubfieldDefinition {
       "n", "New",
       "p", "Increase in encoding level from prepublication"
     );
+    functions = Arrays.asList(ManagementProcess);
   }
 }

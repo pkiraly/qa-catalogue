@@ -2,6 +2,9 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.tag008;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Modified record
@@ -37,6 +40,7 @@ public class Tag008all38 extends ControlSubfieldDefinition {
       "x", "Missing characters",
       "|", "No attempt to code"
     );
+    functions = Arrays.asList(ManagementProcess);
     historicalCodes = Utils.generateCodes(
       "u", "Unknown [OBSOLETE] [CAN/MARC only]"
     );

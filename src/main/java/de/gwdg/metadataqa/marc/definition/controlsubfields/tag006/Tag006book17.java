@@ -2,6 +2,9 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.tag006;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Biography
@@ -38,5 +41,6 @@ public class Tag006book17 extends ControlSubfieldDefinition {
       "d", "Contains biographical information",
       "|", "No attempt to code"
     );
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect);
   }
 }

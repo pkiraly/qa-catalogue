@@ -3,6 +3,10 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.leader;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
+import java.util.Arrays;
+
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
+
 /**
  * Bibliographic level
  * https://www.loc.gov/marc/bibliographic/bdleader.html
@@ -37,6 +41,7 @@ public class Leader07 extends ControlSubfieldDefinition {
       "m", "Monograph/Item",
       "s", "Serial"
     );
+    functions = Arrays.asList(ManagementProcess);
 
     historicalCodes = Utils.generateCodes(
       "p", "Pamphlet [OBSOLETE, 1988] [CAN/MARC only]"

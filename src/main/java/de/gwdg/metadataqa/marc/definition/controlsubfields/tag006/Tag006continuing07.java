@@ -2,6 +2,9 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.tag006;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Nature of entire work
@@ -58,5 +61,6 @@ public class Tag006continuing07 extends ControlSubfieldDefinition {
       "6", "Comics/graphic novels",
       "|", "No attempt to code"
     );
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect);
   }
 }

@@ -3,6 +3,10 @@ package de.gwdg.metadataqa.marc.definition.tags.control;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 
+import java.util.Arrays;
+
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementIdentify;
+
 /**
  * Control Number Identifier
  * https://www.loc.gov/marc/bibliographic/bd003.html
@@ -28,5 +32,6 @@ public class Control003Definition extends DataFieldDefinition {
     mqTag = "ControlNumberIdentifier";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd003.html";
+    functions = Arrays.asList(ManagementIdentify);
   }
 }

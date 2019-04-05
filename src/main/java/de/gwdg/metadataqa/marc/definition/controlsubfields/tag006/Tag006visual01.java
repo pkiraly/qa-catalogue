@@ -2,6 +2,9 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.tag006;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Running time for motion pictures and videorecordings
@@ -36,5 +39,6 @@ public class Tag006visual01 extends ControlSubfieldDefinition {
       "|||", "No attempt to code"
     );
     getCode("001-999").setRange(true);
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect);
   }
 }

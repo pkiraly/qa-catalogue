@@ -2,6 +2,9 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.tag006;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Conference publication
@@ -33,5 +36,6 @@ public class Tag006continuing12 extends ControlSubfieldDefinition {
       "1", "Conference publication",
       "|", "No attempt to code"
     );
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
   }
 }

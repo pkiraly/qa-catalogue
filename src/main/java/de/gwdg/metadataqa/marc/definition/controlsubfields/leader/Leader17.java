@@ -3,6 +3,10 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.leader;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
+import java.util.Arrays;
+
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
+
 /**
  * Encoding level
  * https://www.loc.gov/marc/bibliographic/bdleader.html
@@ -40,6 +44,7 @@ public class Leader17 extends ControlSubfieldDefinition {
       "u", "Unknown",
       "z", "Not applicable"
     );
+    functions = Arrays.asList(ManagementProcess);
 
     historicalCodes = Utils.generateCodes(
       "0", "Full level with item [OBSOLETE, 1997] [CAN/MARC only]",

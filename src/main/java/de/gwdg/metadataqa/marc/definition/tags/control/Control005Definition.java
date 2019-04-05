@@ -28,5 +28,11 @@ public class Control005Definition extends DataFieldDefinition {
     mqTag = "LatestTransactionTime";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd005.html";
+
+    /** TODO
+     * parse datetime: yyyymmddhhmmss.f
+     * 005/00-07:[ManagementProcess]
+     * 005/08-15:[ManagementProcess]
+     */
   }
 }

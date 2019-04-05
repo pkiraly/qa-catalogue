@@ -3,6 +3,10 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.tag006;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
+import java.util.Arrays;
+
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoverySelect;
+
 /**
  * Illustrations
  * same as 008/18-21
@@ -51,5 +55,6 @@ public class Tag006book01 extends ControlSubfieldDefinition {
     );
     repeatableContent = true;
     unitLength = 1;
+    functions = Arrays.asList(DiscoverySelect);
   }
 }

@@ -3,6 +3,10 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.leader;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
+import java.util.Arrays;
+
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
+
 /**
  * Type of record
  * https://www.loc.gov/marc/bibliographic/bdleader.html
@@ -44,6 +48,7 @@ public class Leader06 extends ControlSubfieldDefinition {
       "r", "Three-dimensional artifact or naturally occurring object",
       "t", "Manuscript language material"
     );
+    functions = Arrays.asList(ManagementProcess);
 
     historicalCodes = Utils.generateCodes(
       "b", "Archival and manuscripts control [OBSOLETE, 1995]",

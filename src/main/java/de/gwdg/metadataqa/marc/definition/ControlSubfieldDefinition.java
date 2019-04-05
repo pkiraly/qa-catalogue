@@ -29,6 +29,7 @@ public class ControlSubfieldDefinition implements Serializable {
   protected String defaultCode;
   protected String descriptionUrl;
   protected SubfieldContentParser parser;
+  protected List<FRBRFunction> functions;
 
   public ControlSubfieldDefinition() {}
 

@@ -1,6 +1,9 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.tag007;
 
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Reduction ratio
@@ -27,6 +30,7 @@ public class Tag007microform06 extends ControlSubfieldDefinition {
     positionStart = 6;
     positionEnd = 9;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007h.html";
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageOperate);
 
     // TODO: pattern
   }

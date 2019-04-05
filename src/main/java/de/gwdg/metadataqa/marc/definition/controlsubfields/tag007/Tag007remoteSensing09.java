@@ -2,6 +2,9 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.tag007;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Data type
@@ -72,5 +75,6 @@ public class Tag007remoteSensing09 extends ControlSubfieldDefinition {
       "zz", "Other",
       "||", "No attempt to code"
     );
+    functions = Arrays.asList(UsageInterpret);
   }
 }

@@ -2,6 +2,9 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.tag007;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Sound on medium or separate
@@ -35,5 +38,6 @@ public class Tag007video05 extends ControlSubfieldDefinition {
       "u", "Unknown",
       "|", "No attempt to code"
     );
+    functions = Arrays.asList(DiscoverySelect, UsageManage, UsageOperate);
   }
 }

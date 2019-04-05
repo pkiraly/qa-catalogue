@@ -2,6 +2,9 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.tag006;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Type of continuing resource
@@ -38,5 +41,6 @@ public class Tag006continuing04 extends ControlSubfieldDefinition {
       "w", "Updating Web site",
       "|", "No attempt to code"
     );
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect);
   }
 }

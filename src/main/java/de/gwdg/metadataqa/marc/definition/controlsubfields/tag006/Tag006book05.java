@@ -3,6 +3,10 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.tag006;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
+import java.util.Arrays;
+
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
 /**
  * Target audience
  * same as 008/22
@@ -42,5 +46,6 @@ public class Tag006book05 extends ControlSubfieldDefinition {
       "j", "Juvenile",
       "|", "No attempt to code"
     );
+    functions = Arrays.asList(DiscoverySelect);
   }
 }

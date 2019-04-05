@@ -2,6 +2,10 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.leader;
 
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
+import java.util.Arrays;
+
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
+
 /**
  * Length of the implementation-defined portion
  * https://www.loc.gov/marc/bibliographic/bdleader.html
@@ -27,5 +31,6 @@ public class Leader22 extends ControlSubfieldDefinition {
     positionStart = 22;
     positionEnd = 23;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bdleader.html";
+    functions = Arrays.asList(ManagementProcess);
   }
 }

@@ -3,6 +3,10 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.leader;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
+import java.util.Arrays;
+
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
+
 /**
  * Descriptive cataloging form
  * https://www.loc.gov/marc/bibliographic/bdleader.html
@@ -36,6 +40,7 @@ public class Leader18 extends ControlSubfieldDefinition {
       "n", "Non-ISBD punctuation omitted",
       "u", "Unknown"
     );
+    functions = Arrays.asList(ManagementProcess);
 
     historicalCodes = Utils.generateCodes(
       "p", "Record is in partial ISBD form [OBSOLETE, 1987]",

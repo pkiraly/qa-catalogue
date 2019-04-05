@@ -2,6 +2,9 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.tag007;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Category of material
@@ -31,5 +34,6 @@ public class Tag007music00 extends ControlSubfieldDefinition {
     codes = Utils.generateCodes(
       "q", "Notated music"
     );
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
   }
 }

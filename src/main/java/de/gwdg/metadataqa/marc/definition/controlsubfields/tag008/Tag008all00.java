@@ -2,6 +2,9 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.tag008;
 
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.general.parser.Control008All00DateParser;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Date entered on file
@@ -31,5 +34,6 @@ public class Tag008all00 extends ControlSubfieldDefinition {
 
     // TODO: pattern: yymmdd
     parser = new Control008All00DateParser();
+    functions = Arrays.asList(ManagementProcess);
   }
 }

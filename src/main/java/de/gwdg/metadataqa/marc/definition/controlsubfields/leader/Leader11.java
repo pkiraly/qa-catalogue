@@ -2,6 +2,10 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.leader;
 
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
+import java.util.Arrays;
+
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
+
 /**
  * Subfield code count
  * https://www.loc.gov/marc/bibliographic/bdleader.html
@@ -27,5 +31,6 @@ public class Leader11 extends ControlSubfieldDefinition {
     positionStart = 11;
     positionEnd = 12;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bdleader.html";
+    functions = Arrays.asList(ManagementProcess);
   }
 }

@@ -2,6 +2,9 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.tag006;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Literary text for sound recordings
@@ -54,5 +57,6 @@ public class Tag006music13 extends ControlSubfieldDefinition {
     );
     repeatableContent = true;
     unitLength = 1;
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect);
   }
 }

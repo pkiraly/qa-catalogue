@@ -2,6 +2,9 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.tag008;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Cataloging source
@@ -35,6 +38,7 @@ public class Tag008all39 extends ControlSubfieldDefinition {
       "u", "Unknown",
       "|", "No attempt to code"
     );
+    functions = Arrays.asList(ManagementProcess);
     historicalCodes = Utils.generateCodes(
       "a", "National Agricultural Library [OBSOLETE, 1997] [USMARC only]",
       "b", "National Library of Medicine [OBSOLETE, 1997] [USMARC only]",

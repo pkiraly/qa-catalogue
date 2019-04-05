@@ -2,6 +2,9 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.tag007;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Positive/negative aspect
@@ -35,6 +38,7 @@ public class Tag007map07 extends ControlSubfieldDefinition {
       "n", "Not applicable",
       "|", "No attempt to code"
     );
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
     historicalCodes = Utils.generateCodes(
       "u", "Unknown [OBSOLETE, 1997] [CAN/MARC only]"
     );

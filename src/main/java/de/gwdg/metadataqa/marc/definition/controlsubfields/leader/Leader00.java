@@ -1,6 +1,9 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.leader;
 
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Record length
@@ -27,5 +30,6 @@ public class Leader00 extends ControlSubfieldDefinition {
     positionStart = 0;
     positionEnd = 5;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bdleader.html";
+    functions = Arrays.asList(ManagementProcess);
   }
 }

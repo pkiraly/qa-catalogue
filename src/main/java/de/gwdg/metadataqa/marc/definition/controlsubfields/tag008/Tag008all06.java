@@ -2,6 +2,9 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.tag008;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Type of date/Publication status
@@ -45,5 +48,6 @@ public class Tag008all06 extends ControlSubfieldDefinition {
       "u", "Continuing resource status unknown",
       "|", "No attempt to code"
     );
+    functions = Arrays.asList(ManagementProcess);
   }
 }

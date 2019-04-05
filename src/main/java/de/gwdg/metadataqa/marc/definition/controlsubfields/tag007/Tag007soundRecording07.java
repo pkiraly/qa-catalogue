@@ -2,6 +2,9 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.tag007;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Tape width
@@ -38,6 +41,7 @@ public class Tag007soundRecording07 extends ControlSubfieldDefinition {
       "z", "Other",
       "|", "No attempt to code"
     );
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageOperate);
     historicalCodes = Utils.generateCodes(
       "a", "1/4 in. [OBSOLETE]",
       "b", "1/2 in. [OBSOLETE]",

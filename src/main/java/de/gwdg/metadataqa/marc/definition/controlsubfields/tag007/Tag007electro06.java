@@ -2,6 +2,9 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.tag007;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Image bit depth
@@ -36,5 +39,6 @@ public class Tag007electro06 extends ControlSubfieldDefinition {
       "|||", "No attempt to code"
     );
     getCode("001-999").setRange(true);
+    functions = Arrays.asList(DiscoverySelect);
   }
 }

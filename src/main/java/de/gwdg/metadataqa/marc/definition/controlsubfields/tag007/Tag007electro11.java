@@ -2,6 +2,9 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.tag007;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Antecedent/source
@@ -39,5 +42,6 @@ public class Tag007electro11 extends ControlSubfieldDefinition {
       "|", "No attempt to code"
     );
     defaultCode = "|";
+    functions = Arrays.asList(DiscoverySelect);
   }
 }

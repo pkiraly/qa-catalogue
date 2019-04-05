@@ -1,6 +1,9 @@
 package de.gwdg.metadataqa.marc.definition.controlsubfields.tag008;
 
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Place of publication, production, or execution
@@ -27,7 +30,7 @@ public class Tag008all15 extends ControlSubfieldDefinition {
     positionStart = 15;
     positionEnd = 18;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd008a.html";
-
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
     // TODO: pattern?
   }
 }

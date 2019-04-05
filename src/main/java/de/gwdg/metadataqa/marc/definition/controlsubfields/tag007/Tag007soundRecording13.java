@@ -2,6 +2,9 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.tag007;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Capture and storage technique
@@ -37,5 +40,6 @@ public class Tag007soundRecording13 extends ControlSubfieldDefinition {
       "z", "Other",
       "|", "No attempt to code"
     );
+    functions = Arrays.asList(DiscoverySelect, UsageManage, UsageOperate);
   }
 }

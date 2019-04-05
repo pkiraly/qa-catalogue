@@ -2,6 +2,9 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.tag007;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Dimensions
@@ -48,6 +51,7 @@ public class Tag007projected07 extends ControlSubfieldDefinition {
       "z", "Other",
       "|", "No attempt to code"
     );
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageOperate);
     historicalCodes = Utils.generateCodes(
       "u", "7x7 in. or 18x18 cm. [OBSOLETE, 1980]",
       "y", "Unknown [OBSOLETE, 1980]"

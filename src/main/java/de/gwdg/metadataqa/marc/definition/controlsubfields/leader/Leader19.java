@@ -3,6 +3,10 @@ package de.gwdg.metadataqa.marc.definition.controlsubfields.leader;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 
+import java.util.Arrays;
+
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
+
 /**
  * Multipart resource record level
  * https://www.loc.gov/marc/bibliographic/bdleader.html
@@ -34,6 +38,7 @@ public class Leader19 extends ControlSubfieldDefinition {
       "b", "Part with independent title",
       "c", "Part with dependent title"
     );
+    functions = Arrays.asList(ManagementProcess);
 
     historicalCodes = Utils.generateCodes(
       "r", "Linked record requirement [OBSOLETE, 2007]",

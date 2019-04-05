@@ -61,19 +61,19 @@ public class Tag037 extends DataFieldDefinition {
     getSubfield("a").setBibframeTag("stockNumber")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
     getSubfield("b").setBibframeTag("rdfs:label")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("c").setBibframeTag("acquisitionTerms")
       .setFrbrFunctions(DiscoverySelect, DiscoveryObtain);
     getSubfield("f").setBibframeTag("note").setMqTag("formOfIssue")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageManage, UsageOperate);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate);
     getSubfield("g").setBibframeTag("note").setMqTag("format")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageManage, UsageOperate);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate);
     getSubfield("n").setBibframeTag("note");
     getSubfield("3").setMqTag("materialsSpecified");
     getSubfield("5").setMqTag("institutionToWhichFieldApplies");
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

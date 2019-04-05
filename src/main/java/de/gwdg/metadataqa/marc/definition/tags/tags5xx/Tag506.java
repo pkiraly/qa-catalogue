@@ -64,15 +64,15 @@ public class Tag506 extends DataFieldDefinition {
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a").setMqTag("rdf:value")
-      .setFrbrFunctions(UsageRestrict);
+      .setFrbrFunctions(UseRestrict);
     getSubfield("b").setMqTag("jurisdiction")
-      .setFrbrFunctions(UsageRestrict);
+      .setFrbrFunctions(UseRestrict);
     getSubfield("c").setMqTag("physicalAccessProvisions")
-      .setFrbrFunctions(UsageRestrict);
+      .setFrbrFunctions(UseRestrict);
     getSubfield("d").setMqTag("authorizedUsers")
-      .setFrbrFunctions(UsageRestrict);
+      .setFrbrFunctions(UseRestrict);
     getSubfield("e").setMqTag("authorization")
-      .setFrbrFunctions(UsageRestrict);
+      .setFrbrFunctions(UseRestrict);
     getSubfield("f").setMqTag("terminology");
     getSubfield("u").setMqTag("uri")
       .setFrbrFunctions(DiscoveryObtain);
@@ -82,8 +82,8 @@ public class Tag506 extends DataFieldDefinition {
     getSubfield("5").setMqTag("institutionToWhichFieldApplies")
       .setFrbrFunctions(ManagementProcess, ManagementDisplay);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

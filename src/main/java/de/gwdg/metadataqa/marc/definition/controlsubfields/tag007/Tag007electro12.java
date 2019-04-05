@@ -40,6 +40,6 @@ public class Tag007electro12 extends ControlSubfieldDefinition {
       "|", "No attempt to code"
     );
     defaultCode = "|";
-    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageManage, UsageOperate);
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate);
   }
 }

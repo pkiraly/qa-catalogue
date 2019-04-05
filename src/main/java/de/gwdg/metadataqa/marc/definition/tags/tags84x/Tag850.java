@@ -45,7 +45,7 @@ public class Tag850 extends DataFieldDefinition {
     getSubfield("a").setMqTag("rdf:value")
       .setFrbrFunctions(DiscoveryObtain);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
 
     setHistoricalSubfields(
       "b", "Holdings (MU, VM, SE) [OBSOLETE, 1990]",

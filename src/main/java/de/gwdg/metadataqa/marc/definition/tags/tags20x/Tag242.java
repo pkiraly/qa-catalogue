@@ -81,9 +81,9 @@ public class Tag242 extends DataFieldDefinition {
     getSubfield("y").setBibframeTag("language")
       .setFrbrFunctions(ManagementProcess);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
 
     setHistoricalSubfields(
       "d", "Designation of section (BK, AM, MP, MU, VM, SE) [OBSOLETE, 1979]",

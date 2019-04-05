@@ -47,8 +47,8 @@ public class Tag306 extends DataFieldDefinition {
     getSubfield("a").setMqTag("rdf:value")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect);
     getSubfield("6").setMqTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

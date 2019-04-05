@@ -53,8 +53,8 @@ public class Tag030 extends DataFieldDefinition {
     getSubfield("z").setBibframeTag("canceled")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

@@ -62,42 +62,42 @@ public class Tag552 extends DataFieldDefinition {
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a").setMqTag("entityType")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("b").setMqTag("entityTypeDefinition")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("c").setMqTag("attribute")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("d").setMqTag("attributeDefinition")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("e").setMqTag("enumeratedDomainValue")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("f").setMqTag("enumeratedDomainValueDefinition")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("g").setMqTag("range")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("h").setMqTag("codeset")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("i").setMqTag("unrepresentableDomain")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("j").setMqTag("attributeUnits")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("k").setMqTag("date")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("l").setMqTag("attributeValueAccuracy")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("m").setMqTag("attributeValueAccuracyExplanation")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("n").setMqTag("attributeMeasurementFrequency")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("o").setMqTag("overview")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("p").setMqTag("detailCitation")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("u").setMqTag("uri")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

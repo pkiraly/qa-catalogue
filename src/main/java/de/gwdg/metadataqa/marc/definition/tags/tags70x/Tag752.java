@@ -76,11 +76,11 @@ public class Tag752 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
     getSubfield("0").setMqTag("authorityRecordControlNumber");
     getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("4").setMqTag("relationship");
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

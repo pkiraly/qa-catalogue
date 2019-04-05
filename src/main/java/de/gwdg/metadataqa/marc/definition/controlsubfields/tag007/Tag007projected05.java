@@ -38,6 +38,6 @@ public class Tag007projected05 extends ControlSubfieldDefinition {
       "u", "Unknown",
       "|", "No attempt to code"
     );
-    functions = Arrays.asList(DiscoverySelect, UsageManage, UsageOperate);
+    functions = Arrays.asList(DiscoverySelect, UseManage, UseOperate);
   }
 }

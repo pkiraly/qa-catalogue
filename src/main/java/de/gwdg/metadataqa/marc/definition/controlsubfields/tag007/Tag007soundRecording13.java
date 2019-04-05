@@ -40,6 +40,6 @@ public class Tag007soundRecording13 extends ControlSubfieldDefinition {
       "z", "Other",
       "|", "No attempt to code"
     );
-    functions = Arrays.asList(DiscoverySelect, UsageManage, UsageOperate);
+    functions = Arrays.asList(DiscoverySelect, UseManage, UseOperate);
   }
 }

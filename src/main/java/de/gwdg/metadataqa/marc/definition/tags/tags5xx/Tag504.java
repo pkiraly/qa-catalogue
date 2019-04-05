@@ -49,8 +49,8 @@ public class Tag504 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoverySelect);
     getSubfield("b").setBibframeTag("count");
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

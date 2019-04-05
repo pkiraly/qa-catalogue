@@ -50,8 +50,8 @@ public class Tag513 extends DataFieldDefinition {
     getSubfield("b").setMqTag("period")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

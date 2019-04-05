@@ -41,8 +41,8 @@ public class Tag025 extends DataFieldDefinition {
     );
 
     getSubfield("a").setBibframeTag("rdf:value")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, UsageManage);
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, UseManage);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

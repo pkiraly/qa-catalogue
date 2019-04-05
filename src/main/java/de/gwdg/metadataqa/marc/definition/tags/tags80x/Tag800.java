@@ -47,7 +47,7 @@ public class Tag800 extends DataFieldDefinition {
         new Code("2", "Multiple surname")
       ))
       .setMqTag("type")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort);
+      .setFrbrFunctions(UseIdentify, ManagementProcess, ManagementSort);
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
@@ -166,9 +166,9 @@ public class Tag800 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("5").setMqTag("institutionToWhichFieldApplies");
     getSubfield("6").setMqTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
 
     putVersionSpecificSubfields(MarcVersion.DNB, Arrays.asList(
       new SubfieldDefinition("9", "Sortierzählung", "R")

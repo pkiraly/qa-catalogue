@@ -77,24 +77,24 @@ public class Tag533 extends DataFieldDefinition {
     getSubfield("f").setMqTag("series")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
     getSubfield("m").setMqTag("datesAndOrSequentialDesignation")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UsageManage);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage);
     getSubfield("n").setMqTag("note");
     getSubfield("3").setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("5").setMqTag("institutionToWhichFieldApplies");
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     /** TODO check FRBR functions for the subfields
      * 533$7/0:    [ManagementProcess]
      * 533$7/1-4:  [DiscoveryIdentify, DiscoverySelect, DiscoveryObtain]
-     * 533$7/12:   [DiscoveryIdentify, DiscoverySelect, UsageManage]
-     * 533$7/13:   [DiscoveryIdentify, DiscoverySelect, UsageManage]
+     * 533$7/12:   [DiscoveryIdentify, DiscoverySelect, UseManage]
+     * 533$7/13:   [DiscoveryIdentify, DiscoverySelect, UseManage]
      * 533$7/14:   [DiscoveryIdentify]
      * 533$7/5-8:  [DiscoveryIdentify, DiscoverySelect, DiscoveryObtain]
      * 533$7/9-11: [DiscoveryIdentify, DiscoverySelect, DiscoveryObtain]
      */
     getSubfield("7").setMqTag("controlSubfield");
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

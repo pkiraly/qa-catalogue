@@ -61,29 +61,29 @@ public class Tag366 extends DataFieldDefinition {
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a").setMqTag("compressedTitle")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseIdentify);
     getSubfield("b").setMqTag("detailedDateOfPublication")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseIdentify);
     getSubfield("c").setMqTag("availability")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseIdentify);
     getSubfield("d").setMqTag("nextAvailabilityDate")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseIdentify);
     getSubfield("e").setMqTag("note");
     getSubfield("f").setMqTag("discountCategory")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseIdentify);
     getSubfield("g").setMqTag("dateMadeOutOfPrint")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseIdentify);
     getSubfield("j").setMqTag("isoCountryCode")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseIdentify);
     getSubfield("k").setMqTag("marcCountryCode")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseIdentify);
     getSubfield("m").setMqTag("agency")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseIdentify);
     getSubfield("2").setBibframeTag("source")
-      .setFrbrFunctions(ManagementIdentify);
+      .setFrbrFunctions(UseIdentify);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

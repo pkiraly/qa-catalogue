@@ -46,14 +46,14 @@ public class Tag700 extends DataFieldDefinition {
         new Code("2", "Multiple surname")
       ))
       .setMqTag("nameType")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort);
+      .setFrbrFunctions(UseIdentify, ManagementProcess, ManagementSort);
     ind2 = new Indicator("Type of added entry")
       .setCodes(
         " ", "No information provided",
         "2", "Analytical entry"
       )
       .setMqTag("entryType")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
 
     setSubfieldsWithCardinality(
       "a", "Personal name", "NR",
@@ -141,9 +141,9 @@ public class Tag700 extends DataFieldDefinition {
     getSubfield("5").setMqTag("institutionToWhichFieldApplies")
       .setFrbrFunctions(ManagementProcess, ManagementDisplay);
     getSubfield("6").setMqTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
 
     putVersionSpecificSubfields(MarcVersion.FENNICA, Arrays.asList(
       new SubfieldDefinition("9", "Artikkeli", "NR")

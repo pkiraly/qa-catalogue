@@ -52,9 +52,9 @@ public class Tag550 extends DataFieldDefinition {
     getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value")
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
 
     setHistoricalSubfields(
       "z", "Source of note information (SE) [OBSOLETE, 1990]"

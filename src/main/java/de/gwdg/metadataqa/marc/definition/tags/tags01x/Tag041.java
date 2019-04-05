@@ -49,7 +49,7 @@ public class Tag041 extends DataFieldDefinition {
         "7", "Source specified in subfield $2"
       )
       .setMqTag("sourceOfCode")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
 
     setSubfieldsWithCardinality(
       "a", "Language code of text/sound track or separate title", "R",
@@ -84,17 +84,17 @@ public class Tag041 extends DataFieldDefinition {
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a").setBibframeTag("rdf:value")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageInterpret);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseInterpret);
     getSubfield("b").setMqTag("ofSummary")
-      .setFrbrFunctions(DiscoverySelect, UsageInterpret);
+      .setFrbrFunctions(DiscoverySelect, UseInterpret);
     getSubfield("d").setMqTag("ofSungOrSpokenText")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageInterpret);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseInterpret);
     getSubfield("e").setMqTag("ofLibrettos")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageInterpret);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseInterpret);
     getSubfield("f").setMqTag("ofTableOfContents")
-      .setFrbrFunctions(DiscoverySelect, UsageInterpret);
+      .setFrbrFunctions(DiscoverySelect, UseInterpret);
     getSubfield("g").setMqTag("ofAccompanyingMaterial")
-      .setFrbrFunctions(DiscoverySelect, UsageInterpret);
+      .setFrbrFunctions(DiscoverySelect, UseInterpret);
     getSubfield("h").setMqTag("ofOriginal")
       .setFrbrFunctions(DiscoverySelect);
     getSubfield("j").setMqTag("ofSubtitles");
@@ -102,11 +102,11 @@ public class Tag041 extends DataFieldDefinition {
     getSubfield("m").setMqTag("ofOriginalAccompanyingMaterial");
     getSubfield("n").setMqTag("ofOriginalLibretto");
     getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
 
     setHistoricalSubfields(
       "c", "Languages of separate titles (VM) [OBSOLETE, 1972], Languages of available translation (SE) [OBSOLETE, 1977]"

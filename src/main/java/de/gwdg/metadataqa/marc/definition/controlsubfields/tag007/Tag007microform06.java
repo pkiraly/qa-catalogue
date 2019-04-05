@@ -30,7 +30,7 @@ public class Tag007microform06 extends ControlSubfieldDefinition {
     positionStart = 6;
     positionEnd = 9;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007h.html";
-    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageOperate);
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseOperate);
 
     // TODO: pattern
   }

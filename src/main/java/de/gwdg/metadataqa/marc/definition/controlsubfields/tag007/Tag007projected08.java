@@ -44,6 +44,6 @@ public class Tag007projected08 extends ControlSubfieldDefinition {
       "z", "Other",
       "|", "No attempt to code"
     );
-    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageManage);
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage);
   }
 }

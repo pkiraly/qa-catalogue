@@ -41,7 +41,7 @@ public class Tag007soundRecording07 extends ControlSubfieldDefinition {
       "z", "Other",
       "|", "No attempt to code"
     );
-    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageOperate);
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseOperate);
     historicalCodes = Utils.generateCodes(
       "a", "1/4 in. [OBSOLETE]",
       "b", "1/2 in. [OBSOLETE]",

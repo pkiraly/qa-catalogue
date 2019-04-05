@@ -51,7 +51,7 @@ public class Tag866 extends DataFieldDefinition {
         "7", "Source specified in subfield $2"
       )
       .setMqTag("notationType")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
 
     setSubfieldsWithCardinality(
       "a", "Textual holdings", "NR",
@@ -67,8 +67,8 @@ public class Tag866 extends DataFieldDefinition {
 
     getSubfield("a").setMqTag("rdf:value");
     getSubfield("6").setMqTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

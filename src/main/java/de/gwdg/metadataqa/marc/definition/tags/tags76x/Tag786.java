@@ -121,7 +121,7 @@ public class Tag786 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
     getSubfield("v").setBibframeTag("note").setMqTag("sourceContribution");
     getSubfield("w").setMqTag("recordControlNumber")
-      .setFrbrFunctions(ManagementIdentify);
+      .setFrbrFunctions(UseIdentify);
     getSubfield("x").setBibframeTag("issn")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
     getSubfield("y").setBibframeTag("coden")
@@ -130,15 +130,15 @@ public class Tag786 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
     getSubfield("4").setMqTag("relationship");
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     /** TODO
-     *  7/00  .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort)
-     *  7/01  .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort)
+     *  7/00  .setFrbrFunctions(UseIdentify, ManagementProcess, ManagementSort)
+     *  7/01  .setFrbrFunctions(UseIdentify, ManagementProcess, ManagementSort)
      *  7/02  .setFrbrFunctions(ManagementProcess)
      *  7/03  .setFrbrFunctions(ManagementProcess)
      */
     getSubfield("7").setMqTag("controlSubfield");
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

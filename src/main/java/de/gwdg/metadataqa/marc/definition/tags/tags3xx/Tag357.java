@@ -47,16 +47,16 @@ public class Tag357 extends DataFieldDefinition {
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a").setMqTag("rdf:value")
-      .setFrbrFunctions(UsageRestrict);
+      .setFrbrFunctions(UseRestrict);
     getSubfield("b").setMqTag("originatingAgency")
-      .setFrbrFunctions(UsageRestrict);
+      .setFrbrFunctions(UseRestrict);
     getSubfield("c").setMqTag("authorizedRecipients")
-      .setFrbrFunctions(UsageRestrict);
+      .setFrbrFunctions(UseRestrict);
     getSubfield("g").setMqTag("otherRestrictions")
-      .setFrbrFunctions(UsageRestrict);
+      .setFrbrFunctions(UseRestrict);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

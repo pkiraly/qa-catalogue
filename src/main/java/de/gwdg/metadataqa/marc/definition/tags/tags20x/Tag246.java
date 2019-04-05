@@ -66,7 +66,7 @@ public class Tag246 extends DataFieldDefinition {
         new Code("9", "Ansetzungstitel")
       ))
       .setMqTag("type")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort);
+      .setFrbrFunctions(UseIdentify, ManagementProcess, ManagementSort);
 
     setSubfieldsWithCardinality(
       "a", "Title proper/short title", "NR",
@@ -101,9 +101,9 @@ public class Tag246 extends DataFieldDefinition {
     getSubfield("5").setMqTag("institutionToWhichFieldApplies")
       .setFrbrFunctions(ManagementProcess, ManagementDisplay);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
 
     setHistoricalSubfields(
       "c", "Remainder of title page transcription [OBSOLETE, 1991] [CAN/MARC only]",

@@ -34,6 +34,6 @@ public class Tag007video00 extends ControlSubfieldDefinition {
     codes = Utils.generateCodes(
       "v", "Videorecording"
     );
-    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageManage, UsageOperate);
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate);
   }
 }

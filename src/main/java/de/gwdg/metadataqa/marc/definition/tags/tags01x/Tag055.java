@@ -57,7 +57,7 @@ public class Tag055 extends DataFieldDefinition {
         "9", "Other class number assigned by the contributing library"
       )
       .setMqTag("type")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
 
     setSubfieldsWithCardinality(
       "a", "Classification number", "NR",
@@ -78,9 +78,9 @@ public class Tag055 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
     getSubfield("0").setMqTag("authorityRecordControlNumber");
     getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("6").setBibframeTag("linkage");
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

@@ -107,8 +107,8 @@ public class Tag240 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect);
     getSubfield("0").setMqTag("authorityRecordControlNumber");
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

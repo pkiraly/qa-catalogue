@@ -66,15 +66,15 @@ public class Tag017 extends DataFieldDefinition {
     getSubfield("a").setBibframeTag("rdf:value")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
     getSubfield("b").setBibframeTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("d").setBibframeTag("date");
     getSubfield("i").setBibframeTag("note");
     getSubfield("z").setMqTag("canceled");
     getSubfield("2").setBibframeTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

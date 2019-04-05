@@ -51,13 +51,13 @@ public class Tag540 extends DataFieldDefinition {
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value")
-      .setFrbrFunctions(UsageRestrict);
+      .setFrbrFunctions(UseRestrict);
     getSubfield("b").setMqTag("jurisdiction")
-      .setFrbrFunctions(UsageRestrict);
+      .setFrbrFunctions(UseRestrict);
     getSubfield("c").setBibframeTag("source")
-      .setFrbrFunctions(UsageRestrict);
+      .setFrbrFunctions(UseRestrict);
     getSubfield("d").setMqTag("authorizedUsers")
-      .setFrbrFunctions(UsageRestrict);
+      .setFrbrFunctions(UseRestrict);
     getSubfield("u").setBibframeTag("rdfs:label").setMqTag("uri")
       .setFrbrFunctions(DiscoverySelect);
     getSubfield("3").setMqTag("materialsSpecified")
@@ -65,8 +65,8 @@ public class Tag540 extends DataFieldDefinition {
     getSubfield("5").setMqTag("institutionToWhichFieldApplies")
       .setFrbrFunctions(ManagementProcess, ManagementDisplay);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

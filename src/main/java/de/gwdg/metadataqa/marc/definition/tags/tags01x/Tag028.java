@@ -51,7 +51,7 @@ public class Tag028 extends DataFieldDefinition {
         new Code(" ", "Not specified")
       ))
       .setMqTag("type")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementDisplay);
+      .setFrbrFunctions(UseIdentify, ManagementProcess, ManagementDisplay);
 
     // TODO: overwrite getIndexTag to use these values:
     ind1.getCode("0").setBibframeTag("AudioIssueNumber");
@@ -84,11 +84,11 @@ public class Tag028 extends DataFieldDefinition {
     getSubfield("a").setBibframeTag("rdf:value")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
     getSubfield("b").setBibframeTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("q").setBibframeTag("qualifier");
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

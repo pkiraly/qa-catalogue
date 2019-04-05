@@ -49,7 +49,7 @@ public class Tag024 extends DataFieldDefinition {
         new Code(" ", "Not specified")
       ))
       .setMqTag("type")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementDisplay);
+      .setFrbrFunctions(UseIdentify, ManagementProcess, ManagementDisplay);
 
     ind2 = new Indicator("Difference indicator")
       .setCodes(
@@ -83,11 +83,11 @@ public class Tag024 extends DataFieldDefinition {
     getSubfield("z").setMqTag("canceledNumber")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
     getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
 
     setHistoricalSubfields(
       "b", "Additional codes following the standard number [OBSOLETE]"

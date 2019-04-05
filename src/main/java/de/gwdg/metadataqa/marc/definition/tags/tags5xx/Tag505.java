@@ -74,8 +74,8 @@ public class Tag505 extends DataFieldDefinition {
     getSubfield("u").setMqTag("uri")
       .setFrbrFunctions(DiscoveryObtain);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

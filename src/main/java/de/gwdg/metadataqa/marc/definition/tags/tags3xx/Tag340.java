@@ -60,22 +60,22 @@ public class Tag340 extends DataFieldDefinition {
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a").setBibframeTag("baseMaterial")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageManage);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage);
     getSubfield("b").setBibframeTag("dimensions")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageOperate);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseOperate);
     getSubfield("c").setBibframeTag("appliedMaterial")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageManage);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage);
     getSubfield("d").setMqTag("productionMethod")
-      .setFrbrFunctions(DiscoverySelect, UsageManage, UsageOperate);
+      .setFrbrFunctions(DiscoverySelect, UseManage, UseOperate);
     getSubfield("e").setMqTag("mount")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageManage);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage);
     getSubfield("f").setMqTag("reductionRatio")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageOperate);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseOperate);
     getSubfield("g").setMqTag("colorContent");
     getSubfield("h").setMqTag("location")
-      .setFrbrFunctions(DiscoveryIdentify, UsageManage);
+      .setFrbrFunctions(DiscoveryIdentify, UseManage);
     getSubfield("i").setMqTag("systemRequirement")
-      .setFrbrFunctions(DiscoverySelect, UsageOperate);
+      .setFrbrFunctions(DiscoverySelect, UseOperate);
     getSubfield("j").setMqTag("generation");
     getSubfield("k").setMqTag("layout");
     getSubfield("m").setMqTag("bookFormat");
@@ -86,8 +86,8 @@ public class Tag340 extends DataFieldDefinition {
     getSubfield("3").setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

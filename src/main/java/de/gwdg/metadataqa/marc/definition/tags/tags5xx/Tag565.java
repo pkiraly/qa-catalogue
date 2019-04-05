@@ -58,20 +58,20 @@ public class Tag565 extends DataFieldDefinition {
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a").setMqTag("numberOfCases")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("b").setMqTag("variableName")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("c").setMqTag("analysisUnit")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("d").setMqTag("universeOfData")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("e").setMqTag("filingScheme")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("3").setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

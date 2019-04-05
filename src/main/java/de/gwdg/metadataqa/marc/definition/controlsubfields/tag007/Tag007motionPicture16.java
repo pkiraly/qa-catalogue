@@ -38,6 +38,6 @@ public class Tag007motionPicture16 extends ControlSubfieldDefinition {
       "u", "Unknown",
       "|", "No attempt to code"
     );
-    functions = Arrays.asList(DiscoverySelect, UsageManage);
+    functions = Arrays.asList(DiscoverySelect, UseManage);
   }
 }

@@ -47,10 +47,10 @@ public class Tag321 extends DataFieldDefinition {
     getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect);
     getSubfield("b").setBibframeTag("date")
-      .setFrbrFunctions(UsageManage);
+      .setFrbrFunctions(UseManage);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

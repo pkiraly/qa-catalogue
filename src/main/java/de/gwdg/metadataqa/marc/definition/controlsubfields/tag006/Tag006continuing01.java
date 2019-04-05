@@ -53,6 +53,6 @@ public class Tag006continuing01 extends ControlSubfieldDefinition {
       "z", "Other",
       "|", "No attempt to code"
     );
-    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, UsageManage);
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, UseManage);
   }
 }

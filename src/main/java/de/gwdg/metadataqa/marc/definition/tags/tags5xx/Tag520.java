@@ -74,9 +74,9 @@ public class Tag520 extends DataFieldDefinition {
     getSubfield("3").setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
 
     setHistoricalSubfields(
       "z", "Source of note information (BK, AM, CF, SE) [OBSOLETE, 1990]"

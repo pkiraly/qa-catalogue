@@ -34,6 +34,6 @@ public class Tag007microform00 extends ControlSubfieldDefinition {
     codes = Utils.generateCodes(
       "h", "Microform"
     );
-    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageManage, UsageOperate);
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate);
   }
 }

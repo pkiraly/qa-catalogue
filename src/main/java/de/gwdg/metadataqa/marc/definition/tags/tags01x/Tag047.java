@@ -55,6 +55,6 @@ public class Tag047 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect);
     getSubfield("2").setMqTag("source");
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

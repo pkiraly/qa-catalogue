@@ -234,6 +234,10 @@ public class ControlSubfieldDefinition implements Serializable {
     return historicalCodes;
   }
 
+  public List<FRBRFunction> getFrbrFunctions() {
+    return functions;
+  }
+
   @Override
   public String toString() {
     return "ControlSubField{" +

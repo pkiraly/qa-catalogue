@@ -34,6 +34,6 @@ public class Tag007motionPicture00 extends ControlSubfieldDefinition {
     codes = Utils.generateCodes(
       "m", "Motion picture"
     );
-    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageManage, UsageOperate);
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate);
   }
 }

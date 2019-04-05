@@ -40,7 +40,7 @@ public class Tag007globe01 extends ControlSubfieldDefinition {
       "z", "Other",
       "|", "No attempt to code"
     );
-    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageManage, UsageOperate);
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate);
     historicalCodes = Utils.generateCodes(
       "d", "Satellite globe (of our solar system), excluding the earth moon [OBSOLETE, 1997] [CAN/MARC only]"
     );

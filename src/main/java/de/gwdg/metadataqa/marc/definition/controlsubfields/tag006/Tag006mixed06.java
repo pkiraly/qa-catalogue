@@ -44,6 +44,6 @@ public class Tag006mixed06 extends ControlSubfieldDefinition {
       "s", "Electronic",
       "|", "No attempt to code"
     );
-    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageManage, UsageOperate);
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate);
   }
 }

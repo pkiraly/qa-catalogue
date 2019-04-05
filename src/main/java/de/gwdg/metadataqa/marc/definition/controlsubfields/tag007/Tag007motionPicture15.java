@@ -45,6 +45,6 @@ public class Tag007motionPicture15 extends ControlSubfieldDefinition {
       "m", "Non-nitrate: disaster",
       "|", "No attempt to code"
     );
-    functions = Arrays.asList(DiscoverySelect, UsageManage);
+    functions = Arrays.asList(DiscoverySelect, UseManage);
   }
 }

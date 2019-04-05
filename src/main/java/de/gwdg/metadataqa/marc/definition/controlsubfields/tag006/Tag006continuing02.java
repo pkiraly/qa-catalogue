@@ -38,6 +38,6 @@ public class Tag006continuing02 extends ControlSubfieldDefinition {
       "x", "Completely irregular",
       "|", "No attempt to code"
     );
-    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, UsageManage);
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, UseManage);
   }
 }

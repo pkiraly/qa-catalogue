@@ -47,6 +47,6 @@ public class Tag006computer09 extends ControlSubfieldDefinition {
       "z", "Other",
       "|", "No attempt to code"
     );
-    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, UsageOperate);
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, UseOperate);
   }
 }

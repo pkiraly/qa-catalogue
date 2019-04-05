@@ -40,7 +40,7 @@ public class Tag655 extends DataFieldDefinition {
         "0", "Faceted"
       )
       .setMqTag("type")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
 
     ind2 = new Indicator("Thesaurus")
       .setCodes(
@@ -54,7 +54,7 @@ public class Tag655 extends DataFieldDefinition {
         "7", "Source specified in subfield $2"
       )
       .setMqTag("thesaurus")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
 
     setSubfieldsWithCardinality(
       "a", "Genre/form data or focus term", "NR",
@@ -81,7 +81,7 @@ public class Tag655 extends DataFieldDefinition {
     getSubfield("b").setMqTag("nonfocusTerm")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
     getSubfield("c").setMqTag("facet")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("v").setBibframeTag("genreForm").setMqTag("formSubdivision")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
     getSubfield("x").setBibframeTag("topic").setMqTag("generalSubdivision")
@@ -92,14 +92,14 @@ public class Tag655 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
     getSubfield("0").setMqTag("authorityRecordControlNumber");
     getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("3").setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("5").setMqTag("institutionToWhichFieldApplies")
       .setFrbrFunctions(ManagementProcess);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

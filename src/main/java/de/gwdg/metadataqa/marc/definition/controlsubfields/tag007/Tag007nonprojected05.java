@@ -58,6 +58,6 @@ public class Tag007nonprojected05 extends ControlSubfieldDefinition {
       "|", "No attempt to code"
     );
     defaultCode = "|";
-    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageManage);
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage);
   }
 }

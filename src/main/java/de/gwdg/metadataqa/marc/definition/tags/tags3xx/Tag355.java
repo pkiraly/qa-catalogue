@@ -69,26 +69,26 @@ public class Tag355 extends DataFieldDefinition {
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a").setMqTag("rdf:value")
-      .setFrbrFunctions(UsageRestrict);
+      .setFrbrFunctions(UseRestrict);
     getSubfield("b").setMqTag("handlingInstructions")
-      .setFrbrFunctions(UsageRestrict);
+      .setFrbrFunctions(UseRestrict);
     getSubfield("c").setMqTag("externalDissemination")
-      .setFrbrFunctions(UsageRestrict);
+      .setFrbrFunctions(UseRestrict);
     getSubfield("d").setMqTag("downgradingEvent")
-      .setFrbrFunctions(UsageRestrict);
+      .setFrbrFunctions(UseRestrict);
     getSubfield("e").setMqTag("classificationSystem")
-      .setFrbrFunctions(UsageRestrict);
+      .setFrbrFunctions(UseRestrict);
     getSubfield("f").setMqTag("countryOfOrigin")
-      .setFrbrFunctions(UsageRestrict);
+      .setFrbrFunctions(UseRestrict);
     getSubfield("g").setMqTag("downgradingDate")
-      .setFrbrFunctions(UsageRestrict);
+      .setFrbrFunctions(UseRestrict);
     getSubfield("h").setMqTag("declassificationDate")
-      .setFrbrFunctions(UsageRestrict);
+      .setFrbrFunctions(UseRestrict);
     getSubfield("j").setBibframeTag("authorization")
-      .setFrbrFunctions(UsageRestrict);
+      .setFrbrFunctions(UseRestrict);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

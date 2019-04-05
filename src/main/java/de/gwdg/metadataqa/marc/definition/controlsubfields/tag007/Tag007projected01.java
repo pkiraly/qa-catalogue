@@ -42,7 +42,7 @@ public class Tag007projected01 extends ControlSubfieldDefinition {
       "z", "Other",
       "|", "No attempt to code"
     );
-    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageManage, UsageOperate);
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate);
     historicalCodes = Utils.generateCodes(
       " ", "Not applicable or no attempt to code [OBSOLETE, 1980]",
       "n", "Not applicable [OBSOLETE, 1981] [USMARC only]"

@@ -49,17 +49,17 @@ public class Tag538 extends DataFieldDefinition {
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoverySelect, UsageOperate);
+      .setFrbrFunctions(DiscoverySelect, UseOperate);
     getSubfield("i").setMqTag("displayText")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseIdentify);
     getSubfield("u").setBibframeTag("rdfs:label").setMqTag("uri")
-      .setFrbrFunctions(DiscoveryIdentify, ManagementIdentify);
+      .setFrbrFunctions(DiscoveryIdentify, UseIdentify);
     getSubfield("3").setMqTag("materialsSpecified")
-      .setFrbrFunctions(DiscoveryIdentify, ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(DiscoveryIdentify, UseIdentify, ManagementProcess);
     getSubfield("5").setMqTag("institutionToWhichFieldApplies");
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

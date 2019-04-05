@@ -46,16 +46,16 @@ public class Tag351 extends DataFieldDefinition {
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a").setBibframeTag("organization")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("b").setBibframeTag("pattern")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("c").setBibframeTag("hierarchicalLevel")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("3").setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

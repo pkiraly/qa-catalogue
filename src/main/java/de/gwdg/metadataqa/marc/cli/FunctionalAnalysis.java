@@ -1,14 +1,15 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.DataField;
-import de.gwdg.metadataqa.marc.MarcRecord;
-import de.gwdg.metadataqa.marc.MarcSubfield;
+import de.gwdg.metadataqa.marc.*;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.definition.ControlFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.ControlValue;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.FRBRFunction;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.utils.FrbrFunctionLister;
+import de.gwdg.metadataqa.marc.utils.marcspec.Subfield;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
@@ -25,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class MeasureFrbrFunctions implements MarcFileProcessor, Serializable {
+public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
 
   private final Options options;
   private final boolean readyToProcess;
@@ -33,7 +34,7 @@ public class MeasureFrbrFunctions implements MarcFileProcessor, Serializable {
   private FrbrFunctionLister frbrFunctionLister;
   private int recordNumber;
 
-  public MeasureFrbrFunctions(String[] args) throws ParseException {
+  public FunctionalAnalysis(String[] args) throws ParseException {
     parameters = new CompletenessParameters(args);
     options = parameters.getOptions();
     readyToProcess = true;
@@ -43,7 +44,7 @@ public class MeasureFrbrFunctions implements MarcFileProcessor, Serializable {
   public static void main(String[] args) {
     MarcFileProcessor processor = null;
     try {
-      processor = new MeasureFrbrFunctions(args);
+      processor = new FunctionalAnalysis(args);
     } catch (ParseException e) {
       System.err.println("ERROR. " + e.getLocalizedMessage());
       System.exit(0);
@@ -76,6 +77,25 @@ public class MeasureFrbrFunctions implements MarcFileProcessor, Serializable {
     this.recordNumber = recordNumber;
     Map<FRBRFunction, Integer> recordCounter = new TreeMap<>();
     Map<DataFieldDefinition, Boolean> cache = new HashMap<>();
+
+    for (ControlValue controlValue : marcRecord.getLeader().getValuesList()) {
+      FrbrFunctionLister.countFunctions(controlValue.getDefinition().getFrbrFunctions(), recordCounter);
+    }
+
+    for (MarcControlField controlField : marcRecord.getControlfields()) {
+      if (controlField == null) {
+        continue;
+      }
+      if (controlField instanceof MarcPositionalControlField) {
+        MarcPositionalControlField positionalControlField = (MarcPositionalControlField) controlField;
+        for (ControlValue controlValue : positionalControlField.getValuesList()) {
+          FrbrFunctionLister.countFunctions(controlValue.getDefinition().getFrbrFunctions(), recordCounter);
+        }
+      } else {
+        FrbrFunctionLister.countFunctions(controlField.getDefinition().getFrbrFunctions(), recordCounter);
+      }
+    }
+
     for (DataField dataField : marcRecord.getDatafields()) {
       DataFieldDefinition definition = dataField.getDefinition();
       if (!cache.containsKey(definition)) {
@@ -95,6 +115,7 @@ public class MeasureFrbrFunctions implements MarcFileProcessor, Serializable {
         }
       }
     }
+
     Map<FRBRFunction, Double> percent = frbrFunctionLister.percent(recordCounter);
     frbrFunctionLister.add(percent);
   }
@@ -130,10 +151,10 @@ public class MeasureFrbrFunctions implements MarcFileProcessor, Serializable {
 
   private void saveResult(Map<FRBRFunction, Double> result, String fileExtension, char separator) {
     Path path;
-    System.err.println("Libraries");
-    path = Paths.get(parameters.getOutputDir(), "frbr-function-scores" + fileExtension);
+    System.err.println("Functional analysis");
+    path = Paths.get(parameters.getOutputDir(), "functional-analysis" + fileExtension);
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-      writer.write("function" + separator + "score\n");
+      writer.write("frbr-function" + separator + "score\n");
       result
         .entrySet()
         .stream()

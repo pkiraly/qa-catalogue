@@ -72,11 +72,11 @@ public class Tag022 extends DataFieldDefinition {
     getSubfield("z").setMqTag("canceled")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
     getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(DiscoveryIdentify, ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(DiscoveryIdentify, UseIdentify, ManagementProcess);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
 
     setHistoricalSubfields(
       "b", "Form of issue [OBSOLETE] [CAN/MARC only]",

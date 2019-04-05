@@ -91,7 +91,7 @@ public class Tag031 extends DataFieldDefinition {
     getSubfield("o").setMqTag("timeSignature")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
     getSubfield("p").setMqTag("musicalNotation")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("q").setMqTag("generalNote");
     getSubfield("r").setMqTag("keyOrMode")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
@@ -104,10 +104,10 @@ public class Tag031 extends DataFieldDefinition {
     getSubfield("z").setMqTag("publicNote")
       .setFrbrFunctions(DiscoveryObtain);
     getSubfield("2").setBibframeTag("systemCode")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

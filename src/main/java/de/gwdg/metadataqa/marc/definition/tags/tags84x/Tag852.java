@@ -48,7 +48,7 @@ public class Tag852 extends DataFieldDefinition {
         "8", "Other scheme"
       )
       .setMqTag("shelvingScheme")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
 
     ind2 = new Indicator("Shelving order")
       .setCodes(
@@ -90,7 +90,7 @@ public class Tag852 extends DataFieldDefinition {
     getSubfield("a").setCodeList(OrganizationCodes.getInstance());
     getSubfield("n").setCodeList(CountryCodes.getInstance());
     getSubfield("2").setCodeList(ClassificationSchemeSourceCodes.getInstance())
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("f").setCodes(
       "l", "Latest",
       "p", "Previous",
@@ -107,50 +107,50 @@ public class Tag852 extends DataFieldDefinition {
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a").setMqTag("location")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UsageManage);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage);
     getSubfield("b").setMqTag("sublocation")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UsageManage);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage);
     getSubfield("c").setMqTag("shelvingLocation")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UsageManage);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage);
     getSubfield("d").setMqTag("formerShelvingLocation");
     getSubfield("e").setMqTag("address")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UsageManage);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage);
     getSubfield("f").setMqTag("qualifier")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UsageManage);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage);
     getSubfield("g").setMqTag("nonCodedQualifier")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UsageManage);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage);
     getSubfield("h").setMqTag("classification")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UsageManage);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage);
     getSubfield("i").setMqTag("item")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UsageManage);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage);
     getSubfield("j").setMqTag("shelvingControlNumber")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UsageManage);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage);
     getSubfield("k").setMqTag("prefix")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UsageManage);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage);
     getSubfield("l").setMqTag("title")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UsageManage);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage);
     getSubfield("m").setMqTag("suffix")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UsageManage);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage);
     getSubfield("n").setMqTag("country")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UsageManage);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage);
     getSubfield("p").setMqTag("pieceDesignation")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UsageManage);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage);
     getSubfield("q").setMqTag("physicalCondition")
-      .setFrbrFunctions(DiscoverySelect, UsageManage);
+      .setFrbrFunctions(DiscoverySelect, UseManage);
     getSubfield("s").setMqTag("feeCode")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UsageManage);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage);
     getSubfield("t").setMqTag("copyNumber")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UsageManage);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage);
     getSubfield("u").setMqTag("uri");
     getSubfield("x").setMqTag("nonpublicNote");
     getSubfield("z").setMqTag("note");
     getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("3").setMqTag("materials")
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

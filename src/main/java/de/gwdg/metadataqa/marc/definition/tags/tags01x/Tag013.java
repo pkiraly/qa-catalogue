@@ -62,7 +62,7 @@ public class Tag013 extends DataFieldDefinition {
     getSubfield("b").setMqTag("country")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
     getSubfield("c").setMqTag("type")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("d").setMqTag("date");
     getSubfield("e").setMqTag("status");
     getSubfield("f").setMqTag("partyToDocument");

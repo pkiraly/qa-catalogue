@@ -41,6 +41,6 @@ public class Tag007microform05 extends ControlSubfieldDefinition {
       "v", "Reduction rate varies",
       "|", "No attempt to code"
     );
-    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageOperate);
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseOperate);
   }
 }

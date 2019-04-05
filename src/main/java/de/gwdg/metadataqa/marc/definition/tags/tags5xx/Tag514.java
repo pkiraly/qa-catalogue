@@ -58,35 +58,35 @@ public class Tag514 extends DataFieldDefinition {
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a").setMqTag("accuracyReport")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("b").setMqTag("accuracyValue")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("c").setMqTag("accuracyExplanation")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("d").setMqTag("logicalConsistency")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("e").setMqTag("completeness")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("f").setMqTag("horizontalPositionAccuracyReport")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("g").setMqTag("horizontalPositionAccuracyValue")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("h").setMqTag("horizontalPositionAccuracyExplanation")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("i").setMqTag("verticalPositionalAccuracyReport")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("j").setMqTag("verticalPositionalAccuracyValue")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("k").setMqTag("verticalPositionalAccuracyExplanation")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("m").setMqTag("cloudCover")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("u").setMqTag("uri")
       .setFrbrFunctions(DiscoveryObtain);
     getSubfield("z").setMqTag("display");
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

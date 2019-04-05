@@ -46,7 +46,7 @@ public class Tag072 extends DataFieldDefinition {
         " ", "undefined"
       )
       .setMqTag("codeSource")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
 
     setSubfieldsWithCardinality(
       "a", "Subject category code", "NR",
@@ -65,10 +65,10 @@ public class Tag072 extends DataFieldDefinition {
     getSubfield("x").setMqTag("subdivision")
       .setFrbrFunctions(DiscoverySearch, DiscoverySelect);
     getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

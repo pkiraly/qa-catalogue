@@ -41,6 +41,6 @@ public class Tag007remoteSensing07 extends ControlSubfieldDefinition {
       "z", "Other",
       "|", "No attempt to code"
     );
-    functions = Arrays.asList(UsageInterpret);
+    functions = Arrays.asList(UseInterpret);
   }
 }

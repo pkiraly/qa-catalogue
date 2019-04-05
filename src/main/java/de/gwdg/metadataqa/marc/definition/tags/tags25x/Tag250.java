@@ -50,8 +50,8 @@ public class Tag250 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
     getSubfield("3").setMqTag("materialsSpecified");
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

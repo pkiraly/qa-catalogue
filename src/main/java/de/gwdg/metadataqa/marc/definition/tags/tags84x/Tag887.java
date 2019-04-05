@@ -45,6 +45,6 @@ public class Tag887 extends DataFieldDefinition {
 
     getSubfield("a").setMqTag("content");
     getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

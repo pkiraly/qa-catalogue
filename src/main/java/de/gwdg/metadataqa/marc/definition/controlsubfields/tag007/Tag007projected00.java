@@ -34,6 +34,6 @@ public class Tag007projected00 extends ControlSubfieldDefinition {
     codes = Utils.generateCodes(
       "g", "Projected graphic"
     );
-    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageManage, UsageOperate);
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate);
   }
 }

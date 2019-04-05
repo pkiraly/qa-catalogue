@@ -46,7 +46,7 @@ public class Tag007video06 extends ControlSubfieldDefinition {
       "z", "Other",
       "|", "No attempt to code"
     );
-    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageManage, UsageOperate);
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate);
     historicalCodes = Utils.generateCodes(
       "g", "Other [OBSOLETE, 1980]"
     );

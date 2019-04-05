@@ -57,8 +57,8 @@ public class Tag502 extends DataFieldDefinition {
     getSubfield("g").setBibframeTag("note");
     getSubfield("o").setBibframeTag("identifiedBy");
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

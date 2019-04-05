@@ -30,7 +30,7 @@ public class Tag007motionPicture17 extends ControlSubfieldDefinition {
     positionStart = 17;
     positionEnd = 23;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007m.html";
-    functions = Arrays.asList(UsageManage);
+    functions = Arrays.asList(UseManage);
 
     // TODO: check documentation
     // it should handle:

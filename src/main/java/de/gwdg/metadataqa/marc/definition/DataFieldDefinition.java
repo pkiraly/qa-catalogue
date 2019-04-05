@@ -184,6 +184,10 @@ public abstract class DataFieldDefinition implements Serializable {
     return mqTag;
   }
 
+  public List<FRBRFunction> getFrbrFunctions() {
+    return functions;
+  }
+
   @Override
   public String toString() {
     return "DataFieldDefinition{" +

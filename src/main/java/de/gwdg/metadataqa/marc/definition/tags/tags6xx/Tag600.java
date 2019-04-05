@@ -50,7 +50,7 @@ public class Tag600 extends DataFieldDefinition {
         "2", "Multiple surname [OBSOLETE, 1996]"
       )
       .setMqTag("type")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort);
+      .setFrbrFunctions(UseIdentify, ManagementProcess, ManagementSort);
 
     ind2 = new Indicator("Thesaurus")
       .setCodes(
@@ -64,7 +64,7 @@ public class Tag600 extends DataFieldDefinition {
         "7", "Source specified in subfield $2"
       )
       .setMqTag("thesaurus")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
 
     setSubfieldsWithCardinality(
       "a", "Personal name", "NR",
@@ -153,15 +153,15 @@ public class Tag600 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
     getSubfield("0").setMqTag("authorityRecordControlNumber");
     getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("3").setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("4").setMqTag("relationship")
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
 
     putVersionSpecificSubfields(MarcVersion.FENNICA, Arrays.asList(
       new SubfieldDefinition("9", "Artikkeli", "NR")

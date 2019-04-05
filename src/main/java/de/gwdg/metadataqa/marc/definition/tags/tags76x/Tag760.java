@@ -102,22 +102,22 @@ public class Tag760 extends DataFieldDefinition {
     getSubfield("t").setBibframeTag("title")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
     getSubfield("w").setMqTag("recordControlNumber")
-      .setFrbrFunctions(ManagementIdentify);
+      .setFrbrFunctions(UseIdentify);
     getSubfield("x").setBibframeTag("issn")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
     getSubfield("y").setBibframeTag("coden")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
     getSubfield("4").setMqTag("relationship");
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     /*
-     7/00  .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort)
-     7/01  .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort)
+     7/00  .setFrbrFunctions(UseIdentify, ManagementProcess, ManagementSort)
+     7/01  .setFrbrFunctions(UseIdentify, ManagementProcess, ManagementSort)
      7/02  .setFrbrFunctions(ManagementProcess)
      7/03  .setFrbrFunctions(ManagementProcess)
     */
     getSubfield("7").setMqTag("controlSubfield"); // TODO check FRBR functions
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

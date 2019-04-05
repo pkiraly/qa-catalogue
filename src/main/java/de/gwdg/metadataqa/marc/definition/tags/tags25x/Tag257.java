@@ -52,8 +52,8 @@ public class Tag257 extends DataFieldDefinition {
     getSubfield("0").setMqTag("authorityRecordControlNumber");
     getSubfield("2").setMqTag("source");
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

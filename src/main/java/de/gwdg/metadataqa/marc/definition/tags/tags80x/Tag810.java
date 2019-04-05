@@ -44,7 +44,7 @@ public class Tag810 extends DataFieldDefinition {
         "2", "Name in direct order"
       )
       .setMqTag("type")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort);
+      .setFrbrFunctions(UseIdentify, ManagementProcess, ManagementSort);
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
@@ -158,10 +158,10 @@ public class Tag810 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("5").setMqTag("institutionToWhichFieldApplies");
     getSubfield("6").setMqTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("7").setMqTag("controlSubfield");
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
 
     putVersionSpecificSubfields(MarcVersion.FENNICA, Arrays.asList(
       new SubfieldDefinition("9", "Artikkeli", "NR")

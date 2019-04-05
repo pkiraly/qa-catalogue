@@ -51,7 +51,7 @@ public class Tag007projected07 extends ControlSubfieldDefinition {
       "z", "Other",
       "|", "No attempt to code"
     );
-    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageOperate);
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseOperate);
     historicalCodes = Utils.generateCodes(
       "u", "7x7 in. or 18x18 cm. [OBSOLETE, 1980]",
       "y", "Unknown [OBSOLETE, 1980]"

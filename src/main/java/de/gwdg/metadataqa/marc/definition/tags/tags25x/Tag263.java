@@ -50,8 +50,8 @@ public class Tag263 extends DataFieldDefinition {
       .setMqTag("rdf:value")
       .setFrbrFunctions(DiscoverySelect, DiscoveryObtain);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

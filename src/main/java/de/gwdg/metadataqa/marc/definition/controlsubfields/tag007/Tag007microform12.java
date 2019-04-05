@@ -45,7 +45,7 @@ public class Tag007microform12 extends ControlSubfieldDefinition {
       "z", "Other",
       "|", "No attempt to code"
     );
-    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageManage);
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage);
     historicalCodes = Utils.generateCodes(
       "b", "Not safety base [OBSOLETE, 1991]"
     );

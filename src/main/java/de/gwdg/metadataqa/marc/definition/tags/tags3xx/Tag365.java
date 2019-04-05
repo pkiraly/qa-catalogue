@@ -76,32 +76,32 @@ public class Tag365 extends DataFieldDefinition {
     getSubfield("a").setMqTag("priceTypeCode")
       .setFrbrFunctions(DiscoveryIdentify, ManagementProcess);
     getSubfield("b").setMqTag("priceAmount")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseIdentify);
     getSubfield("c").setMqTag("currencyCode")
-      .setFrbrFunctions(DiscoveryIdentify, ManagementIdentify);
+      .setFrbrFunctions(DiscoveryIdentify, UseIdentify);
     getSubfield("d").setMqTag("unitOfPricing")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, UsageInterpret, ManagementIdentify);
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, UseInterpret, UseIdentify);
     getSubfield("e").setMqTag("priceNote")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("f").setMqTag("priceEffectiveFrom")
-      .setFrbrFunctions(DiscoverySearch, DiscoverySelect, ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(DiscoverySearch, DiscoverySelect, UseIdentify, ManagementProcess);
     getSubfield("g").setMqTag("priceEffectiveUntil")
-      .setFrbrFunctions(DiscoverySearch, DiscoverySelect, ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(DiscoverySearch, DiscoverySelect, UseIdentify, ManagementProcess);
     getSubfield("h").setMqTag("taxRate1")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("i").setMqTag("taxRate2")
-      .setFrbrFunctions(UsageInterpret);
+      .setFrbrFunctions(UseInterpret);
     getSubfield("j").setMqTag("isoCountryCode")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseIdentify);
     getSubfield("k").setMqTag("marcCountryCode")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseIdentify);
     getSubfield("m").setMqTag("identificationOfPricingEntity")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, UsageInterpret);
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, UseInterpret);
     getSubfield("2").setBibframeTag("source")
-      .setFrbrFunctions(ManagementIdentify);
+      .setFrbrFunctions(UseIdentify);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

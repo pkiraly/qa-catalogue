@@ -49,9 +49,9 @@ public class Tag255 extends DataFieldDefinition {
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a").setBibframeTag("scale")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UsageInterpret);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseInterpret);
     getSubfield("b").setBibframeTag("projection")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UsageInterpret);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseInterpret);
     getSubfield("c").setBibframeTag("coordinates")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect);
     getSubfield("d").setBibframeTag("ascensionAndDeclination")
@@ -62,8 +62,8 @@ public class Tag255 extends DataFieldDefinition {
     getSubfield("g").setBibframeTag("exclusionGRing")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

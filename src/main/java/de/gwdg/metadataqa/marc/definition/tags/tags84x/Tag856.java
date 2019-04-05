@@ -138,9 +138,9 @@ public class Tag856 extends DataFieldDefinition {
     getSubfield("2").setMqTag("accessMethod");
     getSubfield("3").setMqTag("materialsSpecified");
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
 
     setHistoricalSubfields(
       "g", "Uniform Resource Name [OBSOLETE, 2000]"

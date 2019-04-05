@@ -62,30 +62,30 @@ public class Tag541 extends DataFieldDefinition {
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value")
-      .setFrbrFunctions(UsageManage);
+      .setFrbrFunctions(UseManage);
     getSubfield("b").setMqTag("address")
-      .setFrbrFunctions(UsageManage);
+      .setFrbrFunctions(UseManage);
     getSubfield("c").setMqTag("method")
-      .setFrbrFunctions(UsageManage);
+      .setFrbrFunctions(UseManage);
     getSubfield("d").setMqTag("date")
-      .setFrbrFunctions(UsageManage);
+      .setFrbrFunctions(UseManage);
     getSubfield("e").setMqTag("accessionNumber")
-      .setFrbrFunctions(DiscoveryIdentify, UsageManage);
+      .setFrbrFunctions(DiscoveryIdentify, UseManage);
     getSubfield("f").setMqTag("owner")
-      .setFrbrFunctions(UsageManage);
+      .setFrbrFunctions(UseManage);
     getSubfield("h").setMqTag("price")
-      .setFrbrFunctions(UsageManage);
+      .setFrbrFunctions(UseManage);
     getSubfield("n").setMqTag("extent")
-      .setFrbrFunctions(UsageManage);
+      .setFrbrFunctions(UseManage);
     getSubfield("o").setMqTag("typeOfUnit")
-      .setFrbrFunctions(UsageManage);
+      .setFrbrFunctions(UseManage);
     getSubfield("3").setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("5").setMqTag("institutionToWhichFieldApplies")
       .setFrbrFunctions(ManagementProcess, ManagementDisplay);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

@@ -94,8 +94,8 @@ public class Tag534 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("3").setMqTag("materialsSpecified");
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
   }
 }

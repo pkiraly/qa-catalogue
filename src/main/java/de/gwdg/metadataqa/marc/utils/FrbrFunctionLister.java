@@ -1,13 +1,13 @@
 package de.gwdg.metadataqa.marc.utils;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.FRBRFunction;
-import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
+import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.controlsubfields.LeaderSubfields;
+import de.gwdg.metadataqa.marc.definition.tags.control.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -26,6 +26,34 @@ public class FrbrFunctionLister {
   public void getBaseline() {
     baseline = new TreeMap<>();
     functionByMarcPath = new TreeMap<>();
+
+    for (ControlSubfieldDefinition subfield : LeaderSubfields.getSubfieldList()) {
+      processFunctions(subfield.getFrbrFunctions(), LeaderDefinition.getInstance().getTag()+ "/" + subfield.getPositionStart());
+    }
+
+    List<DataFieldDefinition> simpleControlFields = Arrays.asList(
+      Control001Definition.getInstance(),
+      Control003Definition.getInstance(),
+      Control005Definition.getInstance()
+    );
+
+    for (DataFieldDefinition subfield : simpleControlFields) {
+      processFunctions(subfield.getFrbrFunctions(), subfield.getTag());
+    }
+
+    List<ControlFieldDefinition> controlFields = Arrays.asList(
+      Control006Definition.getInstance(),
+      Control007Definition.getInstance(),
+      Control008Definition.getInstance()
+    );
+    for (ControlFieldDefinition controlField : controlFields) {
+      for (Map.Entry<String, List<ControlSubfieldDefinition>> entry : controlField.getControlSubfields().entrySet()) {
+        String category = entry.getKey();
+        for (ControlSubfieldDefinition subfield : entry.getValue()) {
+          processFunctions(subfield.getFrbrFunctions(), category+ "/" + subfield.getPositionStart());
+        }
+      }
+    }
 
     for (Class<? extends DataFieldDefinition> tagClass : MarcTagLister.listTags()) {
 
@@ -58,8 +86,10 @@ public class FrbrFunctionLister {
   }
 
   public static void countFunctions(List<FRBRFunction> functions, Map<FRBRFunction, Integer> map) {
-    for (FRBRFunction function : functions) {
-      Utils.count(function, map);
+    if (functions != null) {
+      for (FRBRFunction function : functions) {
+        Utils.count(function, map);
+      }
     }
   }
 

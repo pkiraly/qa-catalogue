@@ -45,12 +45,12 @@ public class Tag310 extends DataFieldDefinition {
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UsageManage);
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseManage);
     getSubfield("b").setBibframeTag("date")
-      .setFrbrFunctions(UsageManage);
+      .setFrbrFunctions(UseManage);
     getSubfield("6").setMqTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess) ;
+      .setFrbrFunctions(UseIdentify, ManagementProcess) ;
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess) ;
+      .setFrbrFunctions(UseIdentify, ManagementProcess) ;
   }
 }

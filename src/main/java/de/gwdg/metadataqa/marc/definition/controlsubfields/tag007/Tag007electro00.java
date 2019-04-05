@@ -34,6 +34,6 @@ public class Tag007electro00 extends ControlSubfieldDefinition {
     codes = Utils.generateCodes(
       "c", "Electronic resource"
     );
-    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageManage, UsageOperate);
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate);
   }
 }

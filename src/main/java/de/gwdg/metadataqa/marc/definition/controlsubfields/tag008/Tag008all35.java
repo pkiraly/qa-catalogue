@@ -30,7 +30,7 @@ public class Tag008all35 extends ControlSubfieldDefinition {
     positionStart = 35;
     positionEnd = 38;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd008a.html";
-    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UsageInterpret);
+    functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseInterpret);
     // TODO: pattern?
   }
 }

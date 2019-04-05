@@ -67,9 +67,9 @@ public class Tag653 extends DataFieldDefinition {
     getSubfield("a").setMqTag("rdf:value")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
     getSubfield("6").setMqTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(UseIdentify, ManagementProcess);
 
     putVersionSpecificSubfields(MarcVersion.FENNICA, Arrays.asList(
       new SubfieldDefinition("9", "Sanastokoodi", "NR")

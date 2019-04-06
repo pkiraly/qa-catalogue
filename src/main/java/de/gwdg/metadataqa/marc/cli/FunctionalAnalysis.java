@@ -3,13 +3,12 @@ package de.gwdg.metadataqa.marc.cli;
 import de.gwdg.metadataqa.marc.*;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
-import de.gwdg.metadataqa.marc.definition.ControlFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.FRBRFunction;
+import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.utils.FrbrFunctionLister;
-import de.gwdg.metadataqa.marc.utils.marcspec.Subfield;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
@@ -22,9 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
 
@@ -78,46 +75,68 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
     Map<FRBRFunction, Integer> recordCounter = new TreeMap<>();
     Map<DataFieldDefinition, Boolean> cache = new HashMap<>();
 
-    for (ControlValue controlValue : marcRecord.getLeader().getValuesList()) {
-      FrbrFunctionLister.countFunctions(controlValue.getDefinition().getFrbrFunctions(), recordCounter);
-    }
+    countPositionalControlField(recordCounter, marcRecord.getLeader());
+    countControlFields(recordCounter, marcRecord.getControlfields());
+    countDataFields(recordCounter, marcRecord.getDatafields(), cache);
 
-    for (MarcControlField controlField : marcRecord.getControlfields()) {
-      if (controlField == null) {
-        continue;
-      }
-      if (controlField instanceof MarcPositionalControlField) {
-        MarcPositionalControlField positionalControlField = (MarcPositionalControlField) controlField;
-        for (ControlValue controlValue : positionalControlField.getValuesList()) {
-          FrbrFunctionLister.countFunctions(controlValue.getDefinition().getFrbrFunctions(), recordCounter);
-        }
-      } else {
-        FrbrFunctionLister.countFunctions(controlField.getDefinition().getFrbrFunctions(), recordCounter);
-      }
-    }
+    Map<FRBRFunction, Double> percent = frbrFunctionLister.percent(recordCounter);
+    frbrFunctionLister.add(percent);
+    frbrFunctionLister.addToHistogram(percent);
+  }
 
-    for (DataField dataField : marcRecord.getDatafields()) {
+  private void countDataFields(Map<FRBRFunction, Integer> recordCounter,
+                               List<DataField> dataFields,
+                               Map<DataFieldDefinition, Boolean> cache) {
+    for (DataField dataField : dataFields) {
       DataFieldDefinition definition = dataField.getDefinition();
       if (!cache.containsKey(definition)) {
         cache.put(definition, true);
-        if (definition.getInd1().getFrbrFunctions() != null
-            && StringUtils.isNotBlank(dataField.getInd1())) {
-          FrbrFunctionLister.countFunctions(definition.getInd1().getFrbrFunctions(), recordCounter);
-        }
-        if (definition.getInd2().getFrbrFunctions() != null
-            && StringUtils.isNotBlank(dataField.getInd2())) {
-          FrbrFunctionLister.countFunctions(definition.getInd2().getFrbrFunctions(), recordCounter);
-        }
+        countIndicator(recordCounter, definition.getInd1(), dataField.getInd1());
+        countIndicator(recordCounter, definition.getInd2(), dataField.getInd2());
         for (MarcSubfield subfield : dataField.getSubfields()) {
-          if (subfield.getDefinition() != null && subfield.getDefinition().getFrbrFunctions() != null) {
-            FrbrFunctionLister.countFunctions(subfield.getDefinition().getFrbrFunctions(), recordCounter);
+          if (subfield.getDefinition() != null
+              && subfield.getDefinition().getFrbrFunctions() != null) {
+            FrbrFunctionLister.countFunctions(
+              subfield.getDefinition().getFrbrFunctions(), recordCounter);
           }
         }
       }
     }
+  }
 
-    Map<FRBRFunction, Double> percent = frbrFunctionLister.percent(recordCounter);
-    frbrFunctionLister.add(percent);
+  private void countIndicator(Map<FRBRFunction, Integer> recordCounter,
+                              Indicator definition,
+                              String value) {
+    if (definition.getFrbrFunctions() != null
+        && StringUtils.isNotBlank(value)) {
+      FrbrFunctionLister.countFunctions(
+        definition.getFrbrFunctions(), recordCounter);
+    }
+  }
+
+  private void countControlFields(Map<FRBRFunction, Integer> recordCounter,
+                                  List<MarcControlField> controlFields) {
+    for (MarcControlField controlField : controlFields) {
+      if (controlField == null) {
+        continue;
+      }
+      if (controlField instanceof MarcPositionalControlField) {
+        countPositionalControlField(recordCounter, (MarcPositionalControlField) controlField);
+      } else {
+        FrbrFunctionLister.countFunctions(
+          controlField.getDefinition().getFrbrFunctions(), recordCounter
+        );
+      }
+    }
+  }
+
+  private void countPositionalControlField(Map<FRBRFunction, Integer> recordCounter,
+                                           MarcPositionalControlField leader) {
+    for (ControlValue controlValue : leader.getValuesList()) {
+      FrbrFunctionLister.countFunctions(
+        controlValue.getDefinition().getFrbrFunctions(), recordCounter
+      );
+    }
   }
 
   @Override
@@ -137,22 +156,62 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
 
   @Override
   public void afterIteration() {
-    Map<FRBRFunction, Double> result = frbrFunctionLister.percentOf(recordNumber);
-
-    DecimalFormat format = new DecimalFormat();
+    // DecimalFormat format = new DecimalFormat();
     String fileExtension = ".csv";
     final char separator = getSeparator(parameters.getFormat());
     if (parameters.getFormat().equals(ValidationErrorFormat.TAB_SEPARATED)) {
       fileExtension = ".tsv";
     }
 
+    Map<FRBRFunction, Double> result = frbrFunctionLister.percentOf(recordNumber);
     saveResult(result, fileExtension, separator);
+
+    Map<FRBRFunction, Map<Double, Integer>> histogram = frbrFunctionLister.getHistogram();
+    saveHistogram(histogram, fileExtension, separator);
   }
 
-  private void saveResult(Map<FRBRFunction, Double> result, String fileExtension, char separator) {
-    Path path;
+  private void saveHistogram(Map<FRBRFunction, Map<Double, Integer>> histogram,
+                             String fileExtension,
+                             char separator) {
+    System.err.println("Functional analysis histogram");
+    Path path = Paths.get(
+      parameters.getOutputDir(),
+      "functional-analysis-histogram" + fileExtension
+    );
+    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+      writer.write("frbrfunction" + separator + "score" + separator + "count\n");
+      histogram
+        .entrySet()
+        .stream()
+        .forEach(entry -> {
+          try {
+            String function = entry.getKey().name();
+            Map<Double, Integer> histogramOfFunction = entry.getValue();
+            for (Map.Entry<Double, Integer> histogramEntry : histogramOfFunction.entrySet()) {
+              Double score = histogramEntry.getKey();
+              Integer count = histogramEntry.getValue();
+              writer.write(
+                StringUtils.join(
+                  Arrays.asList(function, score, count),
+                  separator
+                ) + "\n"
+              );
+            }
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        });
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void saveResult(Map<FRBRFunction, Double> result,
+                          String fileExtension,
+                          char separator) {
+
     System.err.println("Functional analysis");
-    path = Paths.get(parameters.getOutputDir(), "functional-analysis" + fileExtension);
+    Path path = Paths.get(parameters.getOutputDir(), "functional-analysis" + fileExtension);
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write("frbr-function" + separator + "score\n");
       result

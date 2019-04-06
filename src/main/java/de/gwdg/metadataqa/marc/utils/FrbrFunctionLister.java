@@ -14,13 +14,20 @@ import java.util.TreeMap;
 
 public class FrbrFunctionLister {
 
-  Map<FRBRFunction, Double> collector;
-  Map<FRBRFunction, Integer> baseline;
-  Map<String, List<FRBRFunction>> functionByMarcPath;
+  private Map<FRBRFunction, Double> collector;
+  private Map<FRBRFunction, Integer> baseline;
+  private Map<FRBRFunction, Map<Double, Integer>> histogram;
+
+  private Map<String, List<FRBRFunction>> functionByMarcPath;
 
   public FrbrFunctionLister() {
     getBaseline();
     prepareCollector();
+    prepareHistogram();
+  }
+
+  public Map<FRBRFunction, Map<Double, Integer>> getHistogram() {
+    return histogram;
   }
 
   public void getBaseline() {
@@ -100,6 +107,13 @@ public class FrbrFunctionLister {
     }
   }
 
+  private void prepareHistogram() {
+    histogram = new TreeMap<>();
+    for (FRBRFunction key : baseline.keySet()) {
+      histogram.put(key, new TreeMap<>());
+    }
+  }
+
   public Map<FRBRFunction, Double> percent(Map<FRBRFunction, Integer> other) {
     Map<FRBRFunction, Double> percents = new TreeMap<>();
     for (FRBRFunction key : baseline.keySet()) {
@@ -124,5 +138,11 @@ public class FrbrFunctionLister {
       result.put(key, collector.get(key) / total);
     }
     return result;
+  }
+
+  public void addToHistogram(Map<FRBRFunction, Double> percent) {
+    for (Map.Entry<FRBRFunction, Double> entry : percent.entrySet()) {
+      Utils.count(entry.getValue(), histogram.get(entry.getKey()));
+    }
   }
 }

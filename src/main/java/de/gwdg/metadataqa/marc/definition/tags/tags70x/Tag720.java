@@ -40,7 +40,7 @@ public class Tag720 extends DataFieldDefinition {
         "2", "Other"
       )
       .setMqTag("type")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
@@ -62,8 +62,8 @@ public class Tag720 extends DataFieldDefinition {
     getSubfield("4").setMqTag("relationship")
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

@@ -64,8 +64,8 @@ public class Tag518 extends DataFieldDefinition {
     getSubfield("3").setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

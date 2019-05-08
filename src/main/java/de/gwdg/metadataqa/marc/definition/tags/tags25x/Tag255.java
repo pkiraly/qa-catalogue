@@ -62,8 +62,8 @@ public class Tag255 extends DataFieldDefinition {
     getSubfield("g").setBibframeTag("exclusionGRing")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

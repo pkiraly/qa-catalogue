@@ -42,14 +42,14 @@ public class Tag711 extends DataFieldDefinition {
         "2", "Name in direct order"
       )
       .setMqTag("meetingNameType")
-      .setFrbrFunctions(UseIdentify, ManagementProcess, ManagementSort);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort);
     ind2 = new Indicator("Type of added entry")
       .setCodes(
         " ", "No information provided",
         "2", "Analytical entry"
       )
       .setMqTag("type")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     setSubfieldsWithCardinality(
       "a", "Meeting name or jurisdiction name as entry element", "NR",
@@ -124,9 +124,9 @@ public class Tag711 extends DataFieldDefinition {
     getSubfield("5").setMqTag("institutionToWhichFieldApplies")
       .setFrbrFunctions(ManagementProcess, ManagementDisplay);
     getSubfield("6").setMqTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     putVersionSpecificSubfields(MarcVersion.FENNICA, Arrays.asList(
       new SubfieldDefinition("9", "Artikkeli", "NR")

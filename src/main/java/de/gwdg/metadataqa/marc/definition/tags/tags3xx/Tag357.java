@@ -55,8 +55,8 @@ public class Tag357 extends DataFieldDefinition {
     getSubfield("g").setMqTag("otherRestrictions")
       .setFrbrFunctions(UseRestrict);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

@@ -49,7 +49,7 @@ public class Tag041 extends DataFieldDefinition {
         "7", "Source specified in subfield $2"
       )
       .setMqTag("sourceOfCode")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     setSubfieldsWithCardinality(
       "a", "Language code of text/sound track or separate title", "R",
@@ -102,11 +102,11 @@ public class Tag041 extends DataFieldDefinition {
     getSubfield("m").setMqTag("ofOriginalAccompanyingMaterial");
     getSubfield("n").setMqTag("ofOriginalLibretto");
     getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     setHistoricalSubfields(
       "c", "Languages of separate titles (VM) [OBSOLETE, 1972], Languages of available translation (SE) [OBSOLETE, 1977]"

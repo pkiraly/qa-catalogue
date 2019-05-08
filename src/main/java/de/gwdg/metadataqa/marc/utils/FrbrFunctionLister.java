@@ -16,22 +16,26 @@ public class FrbrFunctionLister {
 
   private Map<FRBRFunction, Double> collector;
   private Map<FRBRFunction, Integer> baseline;
+  private int elementsWithoutFunctions;
   private Map<FRBRFunction, Map<Double, Integer>> histogram;
 
   private Map<String, List<FRBRFunction>> functionByMarcPath;
 
   public FrbrFunctionLister() {
-    getBaseline();
+    prepareBaseline();
     prepareCollector();
     prepareHistogram();
+    System.err.println("Covered elements: " + functionByMarcPath.size());
+    System.err.println("Uncovered elements: " + elementsWithoutFunctions);
   }
 
   public Map<FRBRFunction, Map<Double, Integer>> getHistogram() {
     return histogram;
   }
 
-  public void getBaseline() {
+  public void prepareBaseline() {
     baseline = new TreeMap<>();
+    elementsWithoutFunctions = 0;
     functionByMarcPath = new TreeMap<>();
 
     for (ControlSubfieldDefinition subfield : LeaderSubfields.getSubfieldList()) {
@@ -67,6 +71,7 @@ public class FrbrFunctionLister {
       Method getInstance;
       DataFieldDefinition fieldTag;
       try {
+        elementsWithoutFunctions++;
         getInstance = tagClass.getMethod("getInstance");
         fieldTag = (DataFieldDefinition) getInstance.invoke(tagClass);
 
@@ -89,6 +94,8 @@ public class FrbrFunctionLister {
     if (functions != null) {
       functionByMarcPath.put(key, functions);
       countFunctions(functions, baseline);
+    } else {
+      elementsWithoutFunctions++;
     }
   }
 
@@ -144,5 +151,9 @@ public class FrbrFunctionLister {
     for (Map.Entry<FRBRFunction, Double> entry : percent.entrySet()) {
       Utils.count(entry.getValue(), histogram.get(entry.getKey()));
     }
+  }
+
+  public Map<FRBRFunction, Integer> getBaseline() {
+    return baseline;
   }
 }

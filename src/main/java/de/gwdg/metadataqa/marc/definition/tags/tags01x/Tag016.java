@@ -39,7 +39,7 @@ public class Tag016 extends DataFieldDefinition {
         "7", "Source specified in subfield $2"
       )
       .setMqTag("agency")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
@@ -52,12 +52,12 @@ public class Tag016 extends DataFieldDefinition {
     getSubfield("2").setCodeList(OrganizationCodes.getInstance());
 
     getSubfield("a").setBibframeTag("rdf:value")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("z").setMqTag("canceledOrInvalidControlNumber")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("2").setBibframeTag("source")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

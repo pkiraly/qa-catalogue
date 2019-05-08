@@ -80,9 +80,9 @@ public class Tag247 extends DataFieldDefinition {
     getSubfield("x").setMqTag("issn")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     setHistoricalSubfields(
       "d", "Designation of section/part/series (SE) [OBSOLETE, 1979]",

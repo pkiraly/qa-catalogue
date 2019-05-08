@@ -58,9 +58,9 @@ public class Tag020 extends DataFieldDefinition {
     getSubfield("z").setMqTag("canceledOrInvalidISBN")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
     getSubfield("6").setMqTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     setHistoricalSubfields(
       "b", "Binding information (BK, MP, MU) [OBSOLETE]"

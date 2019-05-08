@@ -57,10 +57,10 @@ public class Tag044 extends DataFieldDefinition {
     getSubfield("c").setMqTag("isoCode")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
     getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

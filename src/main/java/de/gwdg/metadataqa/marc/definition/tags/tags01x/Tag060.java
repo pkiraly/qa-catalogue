@@ -54,7 +54,7 @@ public class Tag060 extends DataFieldDefinition {
         " ", "No information provided [OBSOLETE]"
       )
       .setMqTag("source")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     setSubfieldsWithCardinality(
       "a", "Classification number", "R",
@@ -69,6 +69,6 @@ public class Tag060 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
     getSubfield("0").setMqTag("authorityRecordControlNumber");
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

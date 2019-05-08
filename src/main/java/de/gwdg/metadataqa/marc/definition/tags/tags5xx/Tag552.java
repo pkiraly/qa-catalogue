@@ -96,8 +96,8 @@ public class Tag552 extends DataFieldDefinition {
     getSubfield("u").setMqTag("uri")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

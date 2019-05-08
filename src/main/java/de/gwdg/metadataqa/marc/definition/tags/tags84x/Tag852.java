@@ -48,7 +48,7 @@ public class Tag852 extends DataFieldDefinition {
         "8", "Other scheme"
       )
       .setMqTag("shelvingScheme")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     ind2 = new Indicator("Shelving order")
       .setCodes(
@@ -90,7 +90,7 @@ public class Tag852 extends DataFieldDefinition {
     getSubfield("a").setCodeList(OrganizationCodes.getInstance());
     getSubfield("n").setCodeList(CountryCodes.getInstance());
     getSubfield("2").setCodeList(ClassificationSchemeSourceCodes.getInstance())
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("f").setCodes(
       "l", "Latest",
       "p", "Previous",
@@ -145,12 +145,12 @@ public class Tag852 extends DataFieldDefinition {
     getSubfield("x").setMqTag("nonpublicNote");
     getSubfield("z").setMqTag("note");
     getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("3").setMqTag("materials")
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

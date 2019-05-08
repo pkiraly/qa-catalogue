@@ -41,7 +41,7 @@ public class Tag111 extends DataFieldDefinition {
         "2", "Name in direct order"
       )
       .setMqTag("type")
-      .setFrbrFunctions(UseIdentify, ManagementProcess, ManagementSort);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort);
 
     ind2 = new Indicator();
 
@@ -100,8 +100,8 @@ public class Tag111 extends DataFieldDefinition {
     getSubfield("4").setMqTag("relatorCode")
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("6").setMqTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

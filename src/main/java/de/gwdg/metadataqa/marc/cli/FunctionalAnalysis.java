@@ -20,7 +20,6 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.DecimalFormat;
 import java.util.*;
 
 public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
@@ -36,6 +35,8 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
     options = parameters.getOptions();
     readyToProcess = true;
     frbrFunctionLister = new FrbrFunctionLister();
+
+    System.err.println(frbrFunctionLister.getBaseline());
   }
 
   public static void main(String[] args) {

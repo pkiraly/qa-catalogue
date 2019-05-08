@@ -48,7 +48,7 @@ public class Tag100 extends DataFieldDefinition {
         new Code("2", "Multiple surname")
       ))
       .setMqTag("type")
-      .setFrbrFunctions(UseIdentify, ManagementProcess, ManagementSort);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort);
 
     ind2 = new Indicator();
 
@@ -111,8 +111,8 @@ public class Tag100 extends DataFieldDefinition {
     getSubfield("4").setMqTag("relatorCode")
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("6").setMqTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

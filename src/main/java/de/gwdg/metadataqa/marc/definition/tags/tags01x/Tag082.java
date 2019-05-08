@@ -45,7 +45,7 @@ public class Tag082 extends DataFieldDefinition {
         "2", "Abridged NST version (BK, MU, VM, SE) [OBSOLETE]"
       )
       .setMqTag("editionType")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     ind2 = new Indicator("Source of classification number")
       .setCodes(
@@ -57,7 +57,7 @@ public class Tag082 extends DataFieldDefinition {
         " ", "No information provided [OBSOLETE] [USMARC only, BK, CF, MU, VM, SE]"
       )
       .setMqTag("classificationSource")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     setSubfieldsWithCardinality(
       "a", "Classification number", "R",
@@ -80,11 +80,11 @@ public class Tag082 extends DataFieldDefinition {
     getSubfield("m").setMqTag("standard");
     getSubfield("q").setBibframeTag("source");
     getSubfield("2").setBibframeTag("edition")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     setHistoricalSubfields(
       "b", "DDC number-abridged NST version (SE) [OBSOLETE]"

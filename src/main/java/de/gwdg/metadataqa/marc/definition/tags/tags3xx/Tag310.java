@@ -49,8 +49,8 @@ public class Tag310 extends DataFieldDefinition {
     getSubfield("b").setBibframeTag("date")
       .setFrbrFunctions(UseManage);
     getSubfield("6").setMqTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess) ;
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess) ;
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess) ;
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess) ;
   }
 }

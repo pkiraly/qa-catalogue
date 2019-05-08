@@ -38,7 +38,7 @@ public class Tag362 extends DataFieldDefinition {
         "1", "Unformatted note"
       )
       .setMqTag("format")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     ind2 = new Indicator();
 
@@ -54,10 +54,10 @@ public class Tag362 extends DataFieldDefinition {
     getSubfield("a").setMqTag("rdf:value")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage);
     getSubfield("z").setMqTag("source")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

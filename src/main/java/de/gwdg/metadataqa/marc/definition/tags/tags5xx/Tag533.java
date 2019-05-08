@@ -83,7 +83,7 @@ public class Tag533 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("5").setMqTag("institutionToWhichFieldApplies");
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     /** TODO check FRBR functions for the subfields
      * 533$7/0:    [ManagementProcess]
      * 533$7/1-4:  [DiscoveryIdentify, DiscoverySelect, DiscoveryObtain]
@@ -95,6 +95,6 @@ public class Tag533 extends DataFieldDefinition {
      */
     getSubfield("7").setMqTag("controlSubfield");
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

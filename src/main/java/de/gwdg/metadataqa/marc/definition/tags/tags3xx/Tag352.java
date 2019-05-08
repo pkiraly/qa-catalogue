@@ -69,8 +69,8 @@ public class Tag352 extends DataFieldDefinition {
     getSubfield("q").setBibframeTag("encodingFormat")
       .setFrbrFunctions(DiscoveryIdentify, UseOperate, UseInterpret);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

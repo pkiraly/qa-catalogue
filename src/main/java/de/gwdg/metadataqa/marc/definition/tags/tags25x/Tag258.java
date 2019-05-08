@@ -46,8 +46,8 @@ public class Tag258 extends DataFieldDefinition {
     getSubfield("a").setMqTag("jurisdiction");
     getSubfield("b").setMqTag("denomination");
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

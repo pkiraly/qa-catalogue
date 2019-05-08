@@ -47,7 +47,7 @@ public class Tag210 extends DataFieldDefinition {
         "0", "Other abbreviated title"
       )
       .setMqTag("type")
-      .setFrbrFunctions(UseIdentify, ManagementProcess, ManagementSort);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort);
 
     setSubfieldsWithCardinality(
       "a", "Abbreviated title", "NR",
@@ -65,10 +65,10 @@ public class Tag210 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
     getSubfield("b").setBibframeTag("qualifier");
     getSubfield("2").setBibframeTag("source")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

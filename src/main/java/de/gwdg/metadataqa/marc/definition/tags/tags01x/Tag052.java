@@ -44,7 +44,7 @@ public class Tag052 extends DataFieldDefinition {
         "0", "U.S. Dept. of Defense Classification [OBSOLETE, 2002]"
       )
       .setMqTag("codeSource")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     ind2 = new Indicator();
 
@@ -68,11 +68,11 @@ public class Tag052 extends DataFieldDefinition {
     getSubfield("d").setBibframeTag("rdfs:label")
       .setFrbrFunctions(DiscoverySearch, DiscoverySelect);
     getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     setHistoricalSubfields(
       "c", "Subject (MP) [OBSOLETE]"

@@ -85,8 +85,8 @@ public class Tag514 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoveryObtain);
     getSubfield("z").setMqTag("display");
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

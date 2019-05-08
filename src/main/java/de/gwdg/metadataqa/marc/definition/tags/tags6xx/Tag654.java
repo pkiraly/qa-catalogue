@@ -71,7 +71,7 @@ public class Tag654 extends DataFieldDefinition {
     getSubfield("b").setMqTag("nonFocusTerm")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
     getSubfield("c").setMqTag("facetOrHierarchy")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("e").setMqTag("relator")
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("v").setBibframeTag("formGenre").setMqTag("formSubdivision")
@@ -82,14 +82,14 @@ public class Tag654 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
     getSubfield("0").setMqTag("authorityRecordControlNumber");
     getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("3").setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("4").setMqTag("relationship")
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("6").setMqTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

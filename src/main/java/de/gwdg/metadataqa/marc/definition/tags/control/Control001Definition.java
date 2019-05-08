@@ -5,7 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 
 import java.util.Arrays;
 
-import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementIdentify;
 
 /**
  * Control Number
@@ -32,6 +32,6 @@ public class Control001Definition extends DataFieldDefinition {
     mqTag = "ControlNumber";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd001.html";
-    functions = Arrays.asList(UseIdentify);
+    functions = Arrays.asList(ManagementIdentify);
   }
 }

@@ -50,8 +50,8 @@ public class Tag507 extends DataFieldDefinition {
     getSubfield("b").setMqTag("remainder")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseInterpret);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

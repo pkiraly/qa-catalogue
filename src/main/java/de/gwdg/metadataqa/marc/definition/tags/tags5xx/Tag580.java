@@ -46,9 +46,9 @@ public class Tag580 extends DataFieldDefinition {
 
     getSubfield("a").setMqTag("rdf:value");
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     setHistoricalSubfields(
       "z", "Source of note information [OBSOLETE, 1990]"

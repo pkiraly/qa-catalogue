@@ -61,7 +61,7 @@ public class Tag037 extends DataFieldDefinition {
     getSubfield("a").setBibframeTag("stockNumber")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
     getSubfield("b").setBibframeTag("rdfs:label")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("c").setBibframeTag("acquisitionTerms")
       .setFrbrFunctions(DiscoverySelect, DiscoveryObtain);
     getSubfield("f").setBibframeTag("note").setMqTag("formOfIssue")
@@ -72,8 +72,8 @@ public class Tag037 extends DataFieldDefinition {
     getSubfield("3").setMqTag("materialsSpecified");
     getSubfield("5").setMqTag("institutionToWhichFieldApplies");
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

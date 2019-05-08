@@ -49,7 +49,7 @@ public class Tag270 extends DataFieldDefinition {
         "7", "Type specified in subfield $i"
       )
       .setMqTag("type")
-      .setFrbrFunctions(UseIdentify);
+      .setFrbrFunctions(ManagementIdentify);
 
     setSubfieldsWithCardinality(
       "a", "Address", "R",
@@ -117,8 +117,8 @@ public class Tag270 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoveryObtain);
     getSubfield("4").setMqTag("relationship");
     getSubfield("6").setMqTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

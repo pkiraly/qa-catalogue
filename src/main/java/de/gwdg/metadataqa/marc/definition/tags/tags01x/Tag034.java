@@ -51,7 +51,7 @@ public class Tag034 extends DataFieldDefinition {
         "2", "Two or more scales (BK, MP, SE) [OBSOLETE]"
       )
       .setMqTag("typeOfScale")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     ind2 = new Indicator("Type of ring")
       .setCodes(
@@ -60,7 +60,7 @@ public class Tag034 extends DataFieldDefinition {
         "1", "Exclusion ring"
       )
       .setMqTag("typeOfRing")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     setSubfieldsWithCardinality(
       "a", "Category of scale", "NR",
@@ -99,7 +99,7 @@ public class Tag034 extends DataFieldDefinition {
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a").setMqTag("category")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("b").setMqTag("linearHorizontalScale")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseInterpret);
     getSubfield("c").setMqTag("linearVerticalScale")
@@ -136,8 +136,8 @@ public class Tag034 extends DataFieldDefinition {
     getSubfield("2").setMqTag("source");
     getSubfield("3").setMqTag("materialsSpecified");
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

@@ -80,9 +80,9 @@ public class Tag260 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
     getSubfield("3").setMqTag("materialsSpecified");
     getSubfield("6").setMqTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     setHistoricalSubfields(
       "d", "Plate or publisher's number for music (Pre-AACR2) [OBSOLETE, 1981] [CAN/MARC only] / Plate or publisher's number for music (Pre-AACR2) [OBSOLETE, 1999] [USMARC only]",

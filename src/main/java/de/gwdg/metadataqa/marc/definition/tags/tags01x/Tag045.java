@@ -40,7 +40,7 @@ public class Tag045 extends DataFieldDefinition {
         "2", "Range of dates/times"
       )
       .setMqTag("type")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     ind2 = new Indicator();
 
@@ -118,8 +118,8 @@ public class Tag045 extends DataFieldDefinition {
     getSubfield("c").setMqTag("preBC9999TimePeriod")
       .setFrbrFunctions(DiscoverySearch, DiscoverySelect);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

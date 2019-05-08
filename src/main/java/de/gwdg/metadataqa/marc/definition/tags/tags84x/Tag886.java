@@ -39,7 +39,7 @@ public class Tag886 extends DataFieldDefinition {
         "2", "Variable data fields (010-999)"
       )
       .setMqTag("typeOfField")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
@@ -54,10 +54,10 @@ public class Tag886 extends DataFieldDefinition {
     getSubfield("2").setCodeList(FormatSourceCodes.getInstance());
 
     getSubfield("a").setMqTag("tag")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("b").setMqTag("content");
     getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     setHistoricalSubfields(
       "c", "Content of the foreign MARC control fields 002-009 [OBSOLETE, 1997] [CAN/MARC only]",

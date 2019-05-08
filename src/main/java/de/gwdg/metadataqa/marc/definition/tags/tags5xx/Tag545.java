@@ -40,7 +40,7 @@ public class Tag545 extends DataFieldDefinition {
         "1", "Administrative history"
       )
       .setMqTag("type")
-      .setFrbrFunctions(UseIdentify, ManagementProcess, ManagementSort);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort);
 
     ind2 = new Indicator();
 
@@ -61,8 +61,8 @@ public class Tag545 extends DataFieldDefinition {
     getSubfield("u").setMqTag("uri")
       .setFrbrFunctions(DiscoveryObtain);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

@@ -37,7 +37,7 @@ public class Tag342 extends DataFieldDefinition {
         "1", "Vertical coordinate system"
       )
       .setMqTag("dimension")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     ind2 = new Indicator("Geospatial reference method")
       .setCodes(
@@ -133,8 +133,8 @@ public class Tag342 extends DataFieldDefinition {
     getSubfield("2").setBibframeTag("source")
       .setFrbrFunctions(UseInterpret);
     getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(UseIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

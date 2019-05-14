@@ -54,7 +54,7 @@ public class ThompsonTraillCompleteness {
     if (parameters.doLog())
       logger.info("MARC files: " + StringUtils.join(parameters.getArgs(), ", "));
 
-    File output = new File(parameters.getFileName());
+    File output = new File(parameters.getOutputDir(), parameters.getFileName());
     if (output.exists())
       output.delete();
 

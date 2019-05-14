@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.LeaderSubfields;
 import de.gwdg.metadataqa.marc.definition.tags.control.*;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -18,6 +19,14 @@ public class FrbrFunctionLister {
   private Map<FRBRFunction, Integer> baseline;
   private int elementsWithoutFunctions;
   private Map<FRBRFunction, Map<Double, Integer>> histogram;
+  private int controlFields = 0;
+  private int controlSubfields = 0;
+  private int coreFields = 0;
+  private int localFields = 0;
+  private int coreIndicators = 0;
+  private int localIndicators = 0;
+  private int coreSubfields = 0;
+  private int localSubfields = 0;
 
   private Map<String, List<FRBRFunction>> functionByMarcPath;
 
@@ -27,6 +36,17 @@ public class FrbrFunctionLister {
     prepareHistogram();
     System.err.println("Covered elements: " + functionByMarcPath.size());
     System.err.println("Uncovered elements: " + elementsWithoutFunctions);
+
+    System.err.println("control fields: " + controlFields);
+    System.err.println("control subfields: " + controlSubfields);
+
+    System.err.println("core fields: " + coreFields);
+    System.err.println("core indicators: " + coreIndicators);
+    System.err.println("core subfields: " + coreSubfields);
+
+    System.err.println("local fields: " + localFields);
+    System.err.println("local indicators: " + localIndicators);
+    System.err.println("local subfields: " + localSubfields);
   }
 
   public Map<FRBRFunction, Map<Double, Integer>> getHistogram() {
@@ -38,7 +58,9 @@ public class FrbrFunctionLister {
     elementsWithoutFunctions = 0;
     functionByMarcPath = new TreeMap<>();
 
+    controlFields++;
     for (ControlSubfieldDefinition subfield : LeaderSubfields.getSubfieldList()) {
+      controlSubfields++;
       processFunctions(subfield.getFrbrFunctions(), LeaderDefinition.getInstance().getTag()+ "/" + subfield.getPositionStart());
     }
 
@@ -49,18 +71,21 @@ public class FrbrFunctionLister {
     );
 
     for (DataFieldDefinition subfield : simpleControlFields) {
+      controlFields++;
       processFunctions(subfield.getFrbrFunctions(), subfield.getTag());
     }
 
-    List<ControlFieldDefinition> controlFields = Arrays.asList(
+    List<ControlFieldDefinition> complexControlFields = Arrays.asList(
       Control006Definition.getInstance(),
       Control007Definition.getInstance(),
       Control008Definition.getInstance()
     );
-    for (ControlFieldDefinition controlField : controlFields) {
+    for (ControlFieldDefinition controlField : complexControlFields) {
+      controlFields++;
       for (Map.Entry<String, List<ControlSubfieldDefinition>> entry : controlField.getControlSubfields().entrySet()) {
         String category = entry.getKey();
         for (ControlSubfieldDefinition subfield : entry.getValue()) {
+          controlSubfields++;
           processFunctions(subfield.getFrbrFunctions(), category+ "/" + subfield.getPositionStart());
         }
       }
@@ -71,15 +96,32 @@ public class FrbrFunctionLister {
       Method getInstance;
       DataFieldDefinition fieldTag;
       try {
-        elementsWithoutFunctions++;
         getInstance = tagClass.getMethod("getInstance");
         fieldTag = (DataFieldDefinition) getInstance.invoke(tagClass);
+        boolean isCore = true;
+        if (fieldTag.getClass().getCanonicalName().contains("fennicatags")
+           || fieldTag.getClass().getCanonicalName().contains("oclctags")
+           || fieldTag.getClass().getCanonicalName().contains("genttags")
+           || fieldTag.getClass().getCanonicalName().contains("dnbtags")
+           || fieldTag.getClass().getCanonicalName().contains("sztetags")) {
+          isCore = false;
+          localFields++;
+        } else {
+          coreFields++;
+        }
+        System.err.println(fieldTag.getClass());
+
+        elementsWithoutFunctions++;
 
         for (Indicator indicator : fieldTag.getIndicators()) {
+          if (indicator != null && StringUtils.isNotBlank(indicator.getLabel())) {
+            if (isCore) coreIndicators++; else localIndicators++;
+          }
           processFunctions(indicator.getFrbrFunctions(), fieldTag.getTag() + "$" + indicator.getIndicatorFlag());
         }
 
         for (SubfieldDefinition subfield : fieldTag.getSubfields()) {
+          if (isCore) coreSubfields++; else localSubfields++;
           processFunctions(subfield.getFrbrFunctions(), fieldTag.getTag() + "$" + subfield.getCode());
         }
       } catch (NoSuchMethodException

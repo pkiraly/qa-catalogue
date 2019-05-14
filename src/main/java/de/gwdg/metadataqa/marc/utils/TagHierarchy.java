@@ -50,15 +50,17 @@ public class TagHierarchy {
       String subfieldCode = matcher.group(2);
 
       DataFieldDefinition definition = TagDefinitionLoader.load(tag, version);
-      String tagLabel = definition.getLabel();
+      if (definition != null) {
+        String tagLabel = definition.getLabel();
 
-      SubfieldDefinition subfield = definition.getSubfield(subfieldCode);
-      String subfieldLabel = subfield != null ? subfield.getLabel() : "";
+        SubfieldDefinition subfield = definition.getSubfield(subfieldCode);
+        String subfieldLabel = subfield != null ? subfield.getLabel() : "";
 
-      String packageName = Utils.extractPackageName(definition);
-      String packageLabel = TagCategories.getPackage(packageName);
+        String packageName = Utils.extractPackageName(definition);
+        String packageLabel = TagCategories.getPackage(packageName);
 
-      return new TagHierarchy(packageLabel, tagLabel, subfieldLabel);
+        return new TagHierarchy(packageLabel, tagLabel, subfieldLabel);
+      }
     }
     return null;
   }

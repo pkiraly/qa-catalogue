@@ -297,6 +297,8 @@ public class Completeness implements MarcFileProcessor, Serializable {
       packageLabel = tagHierarchy.getPackageLabel();
       tagLabel = tagHierarchy.getTagLabel();
       subfieldLabel = tagHierarchy.getSubfieldLabel();
+    } else {
+      logger.severe("Key can not be found in the TagHierarchy: " + key);
     }
 
     Integer cardinality = entry.getValue();

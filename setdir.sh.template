@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-DIR=/media/kiru/Elements/projects/marc21
+# set your path to root MARC directories
+DIR=your/path

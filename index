@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+. ./common-variables
+DB=$1
+FILE_PATH=$2
+FILE_MASK=$3
+WITH_DELETE=$4
+
+export SOLR=http://localhost:8983/solr/${DB}
+
+if [ "${WITH_DELETE}" == "--with-delete" ]; then
+  curl $SOLR/update -H "Content-type: text/xml" --data-binary '<delete><query>*:*</query></delete>'
+fi
+
+curl $SOLR/update -H "Content-type: text/xml" --data-binary '<commit/>'
+
+/usr/bin/java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr \
+     --solrUrl ${SOLR} \
+     --solrFieldType mixed \
+     --defaultRecordType BOOKS \
+     ${FILE_PATH}/${FILE_MASK}

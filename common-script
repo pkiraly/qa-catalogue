@@ -10,7 +10,7 @@ do_validate() {
 }
 
 do_index() {
-  ./index $NAME ${MARC_DIR} $MASK 2> ${PREFIX}.log
+  ./index $NAME ${MARC_DIR} $MASK --with-delete 2> ${PREFIX}.log
 }
 
 do_completeness() {

@@ -24,3 +24,6 @@ hs_err_pid*
 target/*
 .idea/*
 metadata-qa-marc.iml
+
+# copy setdir.sh.template to setdir.sh. Do not add this into git
+setdir.sh

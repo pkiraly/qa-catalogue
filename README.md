@@ -660,5 +660,3 @@ Any feedbacks are welcome!
 
 [![Build Status](https://travis-ci.org/pkiraly/metadata-qa-marc.svg?branch=master)](https://travis-ci.org/pkiraly/metadata-qa-marc)
 [![Coverage Status](https://coveralls.io/repos/github/pkiraly/metadata-qa-marc/badge.svg?branch=master)](https://coveralls.io/github/pkiraly/metadata-qa-marc?branch=master)
-
-<script src="https://data.gro.uni-goettingen.de/resources/js/widgets.js?persistentId=doi:10.25625/AMF8JC&amp;dvUrl=https://data.gro.uni-goettingen.de&amp;widget=citation&amp;heightPx=150"></script>

@@ -18,6 +18,10 @@ do_validate() {
   ./validator ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${TYPE_PARAMS} ${MARC_DIR}/$MASK 2> ${PREFIX}.log
 }
 
+do_prepare_solr() {
+  ./prepare-solr.sh $NAME 2> ${PREFIX}.log
+}
+
 do_index() {
   ./index $NAME ${MARC_DIR} $MASK --with-delete 2> ${PREFIX}.log
 }
@@ -46,6 +50,9 @@ do_functional_analysis() {
 case "$1" in
   validate)
     do_validate
+    ;;
+  prepare-solr)
+    do_prepare_solr
     ;;
   index)
     do_index

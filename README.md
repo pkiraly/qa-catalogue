@@ -310,6 +310,28 @@ In schema.xml (or in Solr web interface):
 <copyField source="*_ss" dest="_text_"/>
 ```
 
+or use Solr API:
+
+```bash
+NAME=dnb
+SOLR=http://localhost:8983/solr/$NAME/schema
+
+// add copy field
+curl -X POST -H 'Content-type:application/json' --data-binary '{
+  "add-dynamic-field":{
+     "name":"*_sni",
+     "type":"string",
+     "indexed":false,
+     "stored":true}
+}' $SOLR
+
+curl -X POST -H 'Content-type:application/json' --data-binary '{
+  "add-copy-field":{
+     "source":"*_ss",
+     "dest":["_text_"]}
+}' $SOLR
+```
+
 Run indexer:
 ```
 java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr [options] [file]

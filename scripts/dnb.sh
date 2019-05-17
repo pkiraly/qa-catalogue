@@ -3,7 +3,7 @@
 . ./setdir.sh
 NAME=dnb
 TYPE_PARAMS="--marcVersion DNB"
-MARC_DIR=${DIR}/dnb/marc
+MARC_DIR=${BASE_INPUT_DIR}/dnb/marc
 MASK=*.mrc
 
 . ./common-script

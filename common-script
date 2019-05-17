@@ -69,4 +69,10 @@ case "$1" in
   functional-analysis)
     do_functional_analysis
     ;;
+  all-analyses)
+    do_validate
+    do_completeness
+    do_tt_completeness
+    do_functional_analysis
+    ;;
 esac

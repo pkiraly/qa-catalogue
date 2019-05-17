@@ -19,7 +19,7 @@ do_validate() {
 }
 
 do_prepare_solr() {
-  ./prepare-solr.sh $NAME 2> ${PREFIX}.log
+  ./prepare-solr $NAME 2> ${PREFIX}.log
 }
 
 do_index() {

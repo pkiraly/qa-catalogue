@@ -2,7 +2,7 @@
 
 . ./setdir.sh
 NAME=bayern
-MARC_DIR=${DIR}/bibliotheksverbundes-bayern
+MARC_DIR=${BASE_INPUT_DIR}/bibliotheksverbundes-bayern
 MASK=*.mrc
 
 . ./common-script

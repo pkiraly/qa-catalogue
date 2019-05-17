@@ -2,7 +2,7 @@
 
 . ./setdir.sh
 NAME=harvard
-MARC_DIR=${DIR}/harvard
+MARC_DIR=${BASE_INPUT_DIR}/harvard
 MASK=*.mrc
 
 . ./common-script

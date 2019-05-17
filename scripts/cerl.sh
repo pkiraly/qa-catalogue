@@ -2,7 +2,7 @@
 
 . ./setdir.sh
 NAME=cerl
-MARC_DIR=${DIR}/cerl/20150803
+MARC_DIR=${BASE_INPUT_DIR}/cerl/20150803
 MASK=*.mrc
 
 . ./common-script

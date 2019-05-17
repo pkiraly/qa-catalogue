@@ -3,7 +3,7 @@
 . ./setdir.sh
 NAME=gent
 TYPE_PARAMS="--marcVersion GENT"
-MARC_DIR=${DIR}/gent/marc
+MARC_DIR=${BASE_INPUT_DIR}/gent/marc
 MASK=*.mrc
 
 . ./common-script

@@ -3,7 +3,7 @@
 . ./setdir.sh
 NAME=nfi
 TYPE_PARAMS="--marcVersion FENNICA"
-MARC_DIR=${DIR}/nationallibrary.fi
+MARC_DIR=${BASE_INPUT_DIR}/nationallibrary.fi
 MASK=*.mrc
 
 . ./common-script

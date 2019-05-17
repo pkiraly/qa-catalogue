@@ -2,7 +2,7 @@
 
 . ./setdir.sh
 NAME=columbia
-MARC_DIR=${DIR}/columbia
+MARC_DIR=${BASE_INPUT_DIR}/columbia
 MASK=*.mrc
 
 . ./common-script

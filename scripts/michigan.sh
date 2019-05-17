@@ -2,7 +2,7 @@
 
 . ./setdir.sh
 NAME=michigan
-MARC_DIR=${DIR}/michigan
+MARC_DIR=${BASE_INPUT_DIR}/michigan
 MASK=*.marc
 
 . ./common-script

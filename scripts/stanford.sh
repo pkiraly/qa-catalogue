@@ -2,7 +2,7 @@
 
 . ./setdir.sh
 NAME=stanford
-MARC_DIR=${DIR}/stanford
+MARC_DIR=${BASE_INPUT_DIR}/stanford
 MASK=*.marc
 
 . ./common-script

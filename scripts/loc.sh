@@ -2,7 +2,7 @@
 
 . ./setdir.sh
 NAME=loc
-MARC_DIR=${DIR}/loc/marc
+MARC_DIR=${BASE_INPUT_DIR}/loc/marc
 MASK=*.mrc
 
 . ./common-script

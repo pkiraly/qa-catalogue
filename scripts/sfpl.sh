@@ -2,7 +2,7 @@
 
 . ./setdir.sh
 NAME=sfpl
-MARC_DIR=${DIR}/san-francisco-public-library/marc
+MARC_DIR=${BASE_INPUT_DIR}/san-francisco-public-library/marc
 MASK=*.mrc
 
 . ./common-script

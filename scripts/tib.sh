@@ -2,7 +2,7 @@
 
 . ./setdir.sh
 NAME=tib
-MARC_DIR=${DIR}/tib/mrc
+MARC_DIR=${BASE_INPUT_DIR}/tib/mrc
 MASK=*.mrc
 
 . ./common-script

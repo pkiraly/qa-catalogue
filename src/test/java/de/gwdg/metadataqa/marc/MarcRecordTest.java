@@ -29,40 +29,43 @@ public class MarcRecordTest {
     List<Record> records = ReadMarc.read(path.toString());
     MarcRecord record = MarcFactory.createFromMarc4j(records.get(0));
 
-    String expected = "{\"leader\":[\"00720cam a22002051  4500\"]," +
+    String expected = "{\"leader\":\"00720cam a22002051  4500\"," +
       "\"001\":\"   00000002 \"," +
       "\"003\":\"DLC\"," +
       "\"005\":\"20040505165105.0\"," +
       "\"008\":\"800108s1899    ilu           000 0 eng  \"," +
-      "\"010\":{\"ind1\":\" \",\"ind2\":\" \",\"subfields\":{" +
-        "\"a\":\"   00000002 \"}}," +
-      "\"035\":{\"ind1\":\" \",\"ind2\":\" \",\"subfields\":{" +
-        "\"a\":\"(OCoLC)5853149\"}}," +
-      "\"040\":{\"ind1\":\" \",\"ind2\":\" \",\"subfields\":{" +
+      "\"010\":[{\"ind1\":\" \",\"ind2\":\" \",\"subfields\":{" +
+        "\"a\":\"   00000002 \"}}]," +
+      "\"035\":[{\"ind1\":\" \",\"ind2\":\" \",\"subfields\":{" +
+        "\"a\":\"(OCoLC)5853149\"}}]," +
+      "\"040\":[{\"ind1\":\" \",\"ind2\":\" \",\"subfields\":{" +
         "\"a\":\"DLC\"," +
         "\"c\":\"DSI\"," +
-        "\"d\":\"DLC\"}}," +
-      "\"050\":{\"ind1\":\"0\",\"ind2\":\"0\",\"subfields\":{" +
+        "\"d\":\"DLC\"}}]," +
+      "\"050\":[{\"ind1\":\"0\",\"ind2\":\"0\",\"subfields\":{" +
         "\"a\":\"RX671\"," +
-        "\"b\":\".A92\"}}," +
-      "\"100\":{\"ind1\":\"1\",\"ind2\":\" \",\"subfields\":{" +
-        "\"a\":\"Aurand, Samuel Herbert,\",\"d\":\"1854-\"}}," +
-      "\"245\":{\"ind1\":\"1\",\"ind2\":\"0\",\"subfields\":{" +
+        "\"b\":\".A92\"}}]," +
+      "\"100\":[{\"ind1\":\"1\",\"ind2\":\" \",\"subfields\":{" +
+        "\"a\":\"Aurand, Samuel Herbert,\",\"d\":\"1854-\"}}]," +
+      "\"245\":[{\"ind1\":\"1\",\"ind2\":\"0\",\"subfields\":{" +
         "\"a\":\"Botanical materia medica and pharmacology;\"," +
         "\"b\":\"drugs considered from a botanical, pharmaceutical, physiological, therapeutical and toxicological standpoint.\"," +
-        "\"c\":\"By S. H. Aurand.\"}}," +
-      "\"260\":{\"ind1\":\" \",\"ind2\":\" \",\"subfields\":{" +
+        "\"c\":\"By S. H. Aurand.\"}}]," +
+      "\"260\":[{\"ind1\":\" \",\"ind2\":\" \",\"subfields\":{" +
         "\"a\":\"Chicago,\"," +
         "\"b\":\"P. H. Mallen Company,\"," +
-        "\"c\":\"1899.\"}}," +
-      "\"300\":{\"ind1\":\" \",\"ind2\":\" \",\"subfields\":{" +
+        "\"c\":\"1899.\"}}]," +
+      "\"300\":[{\"ind1\":\" \",\"ind2\":\" \",\"subfields\":{" +
         "\"a\":\"406 p.\"," +
-        "\"c\":\"24 cm.\"}}," +
-      "\"500\":{\"ind1\":\" \",\"ind2\":\" \",\"subfields\":{" +
-        "\"a\":\"Homeopathic formulae.\"}}," +
-      "\"650\":{\"ind1\":\" \",\"ind2\":\"0\",\"subfields\":{" +
-        "\"a\":\"Homeopathy\"," +
-        "\"x\":\"Materia medica and therapeutics.\"}}}";
+        "\"c\":\"24 cm.\"}}]," +
+      "\"500\":[{\"ind1\":\" \",\"ind2\":\" \",\"subfields\":{" +
+        "\"a\":\"Homeopathic formulae.\"}}]," +
+      "\"650\":[" +
+        "{\"ind1\":\" \",\"ind2\":\"0\",\"subfields\":{" +
+          "\"a\":\"Botany, Medical.\"}}," +
+        "{\"ind1\":\" \",\"ind2\":\"0\",\"subfields\":{" +
+          "\"a\":\"Homeopathy\"," +
+          "\"x\":\"Materia medica and therapeutics.\"}}]}";
     assertEquals(expected, record.asJson());
   }
 }

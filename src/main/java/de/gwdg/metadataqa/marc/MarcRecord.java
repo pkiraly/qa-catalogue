@@ -258,7 +258,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
 
     StringBuilder text = new StringBuilder();
     Map<String, Object> map = new LinkedHashMap<>();
-    map.put("leader", Arrays.asList(leader.getContent()));
+    map.put("leader", leader.getContent());
     for (MarcControlField field : getControlfields()) {
       if (field != null)
         map.put(field.getDefinition().getTag(), field.getContent());
@@ -274,7 +274,11 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
           subfields.put(subfield.getCode(), subfield.getValue());
         }
         fieldMap.put("subfields", subfields);
-        map.put(field.getDefinition().getTag(), fieldMap);
+        String tag = field.getDefinition().getTag();
+        if (!map.containsKey(tag)) {
+          map.put(tag, new ArrayList<Map<String, Object>>());
+        }
+        ((ArrayList)map.get(tag)).add(fieldMap);
       }
     }
 

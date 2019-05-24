@@ -12,8 +12,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class MarcSubfield implements Validatable, Serializable {
+
+  private static final Logger logger = Logger.getLogger(MarcRecord.class.getCanonicalName());
+
   private MarcRecord record;
   private DataField field;
   private SubfieldDefinition definition;
@@ -108,7 +112,12 @@ public class MarcSubfield implements Validatable, Serializable {
       try {
         return definition.getContentParser().parse(value);
       } catch (ParserException e) {
-        e.printStackTrace();
+        String msg = String.format(
+          "Error in record: '%s' %s$%s: '%s'. Error message: '%s'",
+          record.getId(), field.getTag(), definition.getCode(), value, e.getMessage()
+        );
+        logger.severe(msg);
+        // e.printStackTrace();
       }
     return null;
   }
@@ -183,17 +192,16 @@ public class MarcSubfield implements Validatable, Serializable {
   private boolean validateWithParser() {
     boolean isValid = true;
     SubfieldContentParser parser = definition.getContentParser();
-    Map<String, String> response = null;
     try {
-      response = parser.parse(getValue());
+      parser.parse(getValue());
     } catch (ParserException e) {
-      // errors.addAll(response.getErrors());
-      validationErrors.add(new ValidationError(
-        record.getId(),
-        definition.getPath(),
-        ValidationErrorType.SUBFIELD_UNPARSABLE_CONTENT,
-        e.getMessage(),
-        definition.getParent().getDescriptionUrl()
+      validationErrors.add(
+        new ValidationError(
+          record.getId(),
+          definition.getPath(),
+          ValidationErrorType.SUBFIELD_UNPARSABLE_CONTENT,
+          e.getMessage(),
+          definition.getParent().getDescriptionUrl()
       ));
       isValid = false;
     }

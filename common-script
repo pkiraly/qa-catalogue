@@ -27,11 +27,13 @@ do_index() {
 }
 
 do_completeness() {
-  if [ ! -d ~/temp/marc21/${NAME} ]; then
-    mkdir -p ~/temp/marc21/${NAME}
-  fi
-  echo "  ./completeness --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}.log"
+  echo "./completeness --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}.log"
   ./completeness --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}.log
+}
+
+do_classifications() {
+  echo "./classifications --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}.log"
+  ./classifications --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}.log
 }
 
 do_tt_completeness() {
@@ -59,6 +61,9 @@ case "$1" in
     ;;
   completeness)
     do_completeness
+    ;;
+  classifications)
+    do_classifications
     ;;
   tt-completeness)
     do_tt_completeness

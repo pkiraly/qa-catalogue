@@ -164,6 +164,10 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     );
   }
 
+  public boolean hasDatafield(String tag) {
+    return datafieldIndex.containsKey(tag);
+  }
+
   public List<DataField> getDatafield(String tag) {
     return datafieldIndex.getOrDefault(tag, null);
   }
@@ -175,6 +179,44 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   public boolean exists(String tag) {
     List<DataField> fields = getDatafield(tag);
     return (fields != null && !fields.isEmpty());
+  }
+
+  public List<String> extract(String tag, String subfield) {
+    return extract(tag, subfield, false);
+  }
+
+  public List<String> extract(String tag, String subfield, boolean doResolve) {
+    List<String> values = new ArrayList<>();
+    List<DataField> fields = getDatafield(tag);
+    if (fields != null && !fields.isEmpty()) {
+      for (DataField field : fields) {
+        if (subfield.equals("ind1") || subfield.equals("ind2")) {
+          String value;
+          Indicator indicator;
+          if (subfield.equals("ind1")) {
+            value = field.getInd1();
+            indicator = field.getDefinition().getInd1();
+          } else {
+            value = field.getInd2();
+            indicator = field.getDefinition().getInd2();
+          }
+          values.add(indicator.getCode(value).getLabel());
+        } else {
+          List<MarcSubfield> subfieldInstances = field.getSubfield(subfield);
+          if (subfieldInstances != null) {
+            for (MarcSubfield subfieldInstance : subfieldInstances) {
+              String value;
+              if (doResolve)
+                value = subfieldInstance.resolve();
+              else
+                value = subfieldInstance.getValue();
+              values.add(value);
+            }
+          }
+        }
+      }
+    }
+    return values;
   }
 
   public List<String> getUnhandledTags() {

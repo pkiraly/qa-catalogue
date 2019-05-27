@@ -8,6 +8,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 /**
  * GPO Item Number
  * http://www.loc.gov/marc/bibliographic/bd074.html
+ * GPO = U.S. Government Printing Office
  */
 public class Tag074 extends DataFieldDefinition {
 

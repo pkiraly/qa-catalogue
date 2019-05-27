@@ -10,6 +10,7 @@ import java.io.Serializable;
 public class CommonParameters implements Serializable {
 
   protected String[] args;
+  public static final String DEFAULT_OUTPUT_DIR = ".";
 
   protected MarcVersion marcVersion = MarcVersion.MARC21;
   protected boolean doHelp;
@@ -21,6 +22,7 @@ public class CommonParameters implements Serializable {
   protected boolean fixAlephseq = false;
   protected boolean marcxml = false;
   protected boolean lineSeparated = false;
+  private String outputDir = DEFAULT_OUTPUT_DIR;
 
   protected Options options = new Options();
   protected static final CommandLineParser parser = new DefaultParser();
@@ -39,6 +41,7 @@ public class CommonParameters implements Serializable {
       options.addOption("q", "fixAlephseq", false, "fix the known issues of Alephseq format");
       options.addOption("x", "marcxml", false, "the source is in MARCXML format");
       options.addOption("y", "lineSeparated", false, "the source is in line separated MARC format");
+      options.addOption("t", "outputDir", true, "output directory");
       isOptionSet = true;
     }
   }
@@ -82,6 +85,9 @@ public class CommonParameters implements Serializable {
     marcxml = cmd.hasOption("marcxml");
 
     lineSeparated = cmd.hasOption("lineSeparated");
+
+    if (cmd.hasOption("outputDir"))
+      outputDir = cmd.getOptionValue("outputDir");
 
     args = cmd.getArgs();
   }
@@ -140,6 +146,10 @@ public class CommonParameters implements Serializable {
     return lineSeparated;
   }
 
+  public String getOutputDir() {
+    return outputDir;
+  }
+
   public String formatParameters() {
     String text = "";
     text += String.format("marcVersion: %s, %s%n", marcVersion.getCode(), marcVersion.getLabel());
@@ -151,6 +161,7 @@ public class CommonParameters implements Serializable {
     text += String.format("fixAlephseq: %s%n", fixAlephseq);
     text += String.format("marcxml: %s%n", marcxml);
     text += String.format("lineSeparated: %s%n", lineSeparated);
+    text += String.format("outputDir: %s%n", outputDir);
 
     return text;
   }

@@ -6,9 +6,7 @@ import org.apache.commons.cli.ParseException;
 import java.io.Serializable;
 
 public class CompletenessParameters extends CommonParameters implements Serializable {
-  public static final String DEFAULT_OUTPUT_DIR = ".";
 
-  private String outputDir = DEFAULT_OUTPUT_DIR;
   private ValidationErrorFormat format = ValidationErrorFormat.COMMA_SEPARATED;
   private boolean advanced = false;
   private boolean onlyPackages = false;
@@ -17,7 +15,6 @@ public class CompletenessParameters extends CommonParameters implements Serializ
   protected void setOptions() {
     if (!isOptionSet) {
       super.setOptions();
-      options.addOption("t", "outputDir", true, "show record level display");
       options.addOption("r", "format", true, "specify a format");
       options.addOption("v", "advanced", false, "advanced mode");
       options.addOption("p", "onlyPackages", false, "only packages");
@@ -32,9 +29,6 @@ public class CompletenessParameters extends CommonParameters implements Serializ
   public CompletenessParameters(String[] arguments) throws ParseException {
     super(arguments);
 
-    if (cmd.hasOption("outputDir"))
-      outputDir = cmd.getOptionValue("outputDir");
-
     if (cmd.hasOption("advanced"))
       advanced = true;
 
@@ -48,10 +42,6 @@ public class CompletenessParameters extends CommonParameters implements Serializ
           break;
         }
       }
-  }
-
-  public String getOutputDir() {
-    return outputDir;
   }
 
   public ValidationErrorFormat getFormat() {
@@ -69,7 +59,6 @@ public class CompletenessParameters extends CommonParameters implements Serializ
   @Override
   public String formatParameters() {
     String text = super.formatParameters();
-    text += String.format("outputDir: %s%n", outputDir);
     text += String.format("format: %s%n", format.getLabel());
     text += String.format("advanced: %s%n", advanced);
     return text;

@@ -116,7 +116,11 @@ public class RecordIterator {
             p2 = true;
             MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, defaultRecordType, marcVersion, fixAlephseq);
             p3 = true;
-            processor.processRecord(marcRecord, i);
+            try {
+              processor.processRecord(marcRecord, i);
+            } catch(Exception e) {
+              e.printStackTrace();
+            }
             p4 = true;
 
             if (i % 100000 == 0 && processor.getParameters().doLog())

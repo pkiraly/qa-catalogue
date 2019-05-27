@@ -190,7 +190,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
             e2.getValue().compareTo(e1.getValue()))
           .forEach(
             e -> {
-              System.err.printf("\t%s (%d)\n", e.getKey(), e.getValue());
+              System.err.printf(" - '%s' (%d)\n", e.getKey(), e.getValue());
             }
           );
         }
@@ -204,7 +204,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
         e2.getValue().compareTo(e1.getValue()))
       .forEach(
         e -> {
-          System.err.printf("\t%s (%d)\n", e.getKey(), e.getValue());
+          System.err.printf(" - '%s' (%d)\n", e.getKey(), e.getValue());
         }
       );
   }

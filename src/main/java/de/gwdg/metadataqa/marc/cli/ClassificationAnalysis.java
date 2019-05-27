@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.cli;
 
+import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
@@ -118,12 +119,16 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     }
 
     for (Map.Entry<String, String> entry : fieldsWithScheme.entrySet()) {
-      if (!marcRecord.hasDatafield(entry.getKey()))
+      final String field = entry.getKey();
+      if (!marcRecord.hasDatafield(field))
         continue;
 
       hasSchema = true;
-      Map<String, Integer> fieldStatistics = getFieldStatistics(entry.getKey());
-      addSchemesToStatistics(fieldStatistics, Arrays.asList(entry.getValue()));
+      Map<String, Integer> fieldStatistics = getFieldStatistics(field);
+      List<DataField> fields = marcRecord.getDatafield(field);
+      for (DataField dataField : fields){
+        addSchemesToStatistics(fieldStatistics, Arrays.asList(entry.getValue()));
+      }
     }
 
     if (!hasClassifications.containsKey(hasSchema)) {

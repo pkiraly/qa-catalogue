@@ -204,6 +204,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     char separator = ',';
     Path path = Paths.get(parameters.getOutputDir(), "classifications-by-field.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+      writer.write(String.format("field%sscheme%scount\n", separator, separator));
       classifications
         .entrySet()
         .stream()
@@ -217,7 +218,9 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
               .forEach(
                 e -> {
                   try {
-                    writer.write(entry.getKey() + separator + "'" + e.getKey() + "'" + separator + e.getValue());
+                    writer.write(String.format("%s%s'%s'%s%d\n",
+                      entry.getKey(), separator, e.getKey(), separator, e.getValue()
+                    ));
                   } catch (IOException ex) {
                     ex.printStackTrace();
                   }
@@ -231,6 +234,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
     path = Paths.get(parameters.getOutputDir(), "classifications-by-records.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+      writer.write(String.format("records-with-classification%scount\n", separator));
       hasClassifications
         .entrySet()
         .stream()
@@ -239,7 +243,9 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
         .forEach(
           e -> {
             try {
-              writer.write(e.getKey().toString() + separator + e.getValue());
+              writer.write(String.format("%s%s%d\n",
+                e.getKey().toString(), separator, e.getValue()
+              ));
             } catch (IOException ex) {
               ex.printStackTrace();
             }

@@ -200,7 +200,11 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
             value = field.getInd2();
             indicator = field.getDefinition().getInd2();
           }
-          values.add(indicator.getCode(value).getLabel());
+          if (indicator.getCode(value) == null) {
+            values.add(value);
+          } else {
+            values.add(indicator.getCode(value).getLabel());
+          }
         } else {
           List<MarcSubfield> subfieldInstances = field.getSubfield(subfield);
           if (subfieldInstances != null) {

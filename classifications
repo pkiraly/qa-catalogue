@@ -1,0 +1,4 @@
+# Calling Validator
+. ./common-variables
+
+/usr/bin/java -Xmx2g -cp $JAR de.gwdg.metadataqa.marc.cli.ClassificationAnalysis $@

@@ -9,9 +9,12 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.marc4j.marc.Record;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -198,43 +201,53 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
   @Override
   public void afterIteration() {
-    /*
-    for (String field : classifications.keySet()) {
-      System.err.println(field);
-      for (Map.Entry entry : classifications.get(field).entrySet()) {
-        System.err.printf("\t%s (%d)\n", entry.getKey(), entry.getValue());
-      }
+    char separator = ',';
+    Path path = Paths.get(parameters.getOutputDir(), "classifications-by-field.csv");
+    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+      classifications
+        .entrySet()
+        .stream()
+        .forEach(entry -> {
+            // System.err.println(entry.getKey());
+            entry.getValue()
+              .entrySet()
+              .stream()
+              .sorted((e1, e2) ->
+                e2.getValue().compareTo(e1.getValue()))
+              .forEach(
+                e -> {
+                  try {
+                    writer.write(entry.getKey() + separator + "'" + e.getKey() + "'" + separator + e.getValue());
+                  } catch (IOException ex) {
+                    ex.printStackTrace();
+                  }
+                }
+              );
+          }
+        );
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-    */
-    classifications
-      .entrySet()
-      .stream()
-      .forEach(entry -> {
-        System.err.println(entry.getKey());
-        entry.getValue()
-          .entrySet()
-          .stream()
-          .sorted((e1, e2) ->
-            e2.getValue().compareTo(e1.getValue()))
-          .forEach(
-            e -> {
-              System.err.printf(" - '%s' (%d)\n", e.getKey(), e.getValue());
-            }
-          );
-        }
-      );
 
-    System.err.println("Has classifications?");
-    hasClassifications
-      .entrySet()
-      .stream()
-      .sorted((e1, e2) ->
-        e2.getValue().compareTo(e1.getValue()))
-      .forEach(
-        e -> {
-          System.err.printf(" - '%s' (%d)\n", e.getKey(), e.getValue());
-        }
-      );
+    path = Paths.get(parameters.getOutputDir(), "classifications-by-records.csv");
+    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+      hasClassifications
+        .entrySet()
+        .stream()
+        .sorted((e1, e2) ->
+          e2.getValue().compareTo(e1.getValue()))
+        .forEach(
+          e -> {
+            try {
+              writer.write(e.getKey().toString() + separator + e.getValue());
+            } catch (IOException ex) {
+              ex.printStackTrace();
+            }
+          }
+        );
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   @Override

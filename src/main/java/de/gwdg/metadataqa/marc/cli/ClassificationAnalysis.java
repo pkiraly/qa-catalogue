@@ -170,17 +170,43 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
   @Override
   public void afterIteration() {
+    /*
     for (String field : classifications.keySet()) {
       System.err.println(field);
       for (Map.Entry entry : classifications.get(field).entrySet()) {
         System.err.printf("\t%s (%d)\n", entry.getKey(), entry.getValue());
       }
     }
+    */
+    classifications
+      .entrySet()
+      .stream()
+      .forEach(entry -> {
+        System.err.println(entry.getKey());
+        entry.getValue()
+          .entrySet()
+          .stream()
+          .sorted((e1, e2) ->
+            e1.getValue().compareTo(e2.getValue()))
+          .forEach(
+            entry2 -> {
+              System.err.printf("\t%s (%d)\n", entry2.getKey(), entry2.getValue());
+            }
+          );
+        }
+      );
 
     System.err.println("Has classifications?");
-    for (Map.Entry<Boolean, Integer> entry : hasClassifications.entrySet()) {
-      System.err.printf("\t%s (%d)\n", entry.getKey(), entry.getValue());
-    }
+    hasClassifications
+      .entrySet()
+      .stream()
+      .sorted((e1, e2) ->
+        e1.getValue().compareTo(e2.getValue()))
+      .forEach(
+        entry -> {
+          System.err.printf("\t%s (%d)\n", entry.getKey(), entry.getValue());
+        }
+      );
   }
 
   @Override

@@ -25,6 +25,10 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   private Map<Boolean, Integer> hasClassifications = new HashMap<>();
   private boolean readyToProcess;
 
+  private static final List<String> fieldsWithIndicator2AndSubfield1 = Arrays.asList(
+    "852"
+  );
+
   private static final List<String> fieldsWithIndicator2AndSubfield2 = Arrays.asList(
     "600", "610", "611", "630", "647", "648", "650", "651", "655", "852"
   );
@@ -83,6 +87,30 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
     boolean hasSchema = false;
+    for (String field : fieldsWithIndicator2AndSubfield1) {
+      if (!marcRecord.hasDatafield(field))
+        continue;
+
+      hasSchema = true;
+      Map<String, Integer> fieldStatistics = getFieldStatistics(field);
+      List<String> schemes = new ArrayList<>();
+      for (String scheme : marcRecord.extract(field, "ind1")) {
+        if (scheme.equals("Source specified in subfield $2")) {
+          List<String> altSchemes = marcRecord.extract(field, "2", true);
+          if (altSchemes.isEmpty()) {
+            schemes.add("undetectable");
+          } else {
+            for (String altScheme : altSchemes) {
+              schemes.add(altScheme);
+            }
+          }
+        } else {
+          schemes.add(scheme);
+        }
+      }
+      addSchemesToStatistics(fieldStatistics, schemes);
+    }
+
     for (String field : fieldsWithIndicator2AndSubfield2) {
       if (!marcRecord.hasDatafield(field))
         continue;

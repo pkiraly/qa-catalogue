@@ -187,10 +187,10 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
           .entrySet()
           .stream()
           .sorted((e1, e2) ->
-            e1.getValue().compareTo(e2.getValue()))
+            e2.getValue().compareTo(e1.getValue()))
           .forEach(
-            entry2 -> {
-              System.err.printf("\t%s (%d)\n", entry2.getKey(), entry2.getValue());
+            e -> {
+              System.err.printf("\t%s (%d)\n", e.getKey(), e.getValue());
             }
           );
         }
@@ -201,10 +201,10 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       .entrySet()
       .stream()
       .sorted((e1, e2) ->
-        e1.getValue().compareTo(e2.getValue()))
+        e2.getValue().compareTo(e1.getValue()))
       .forEach(
-        entry -> {
-          System.err.printf("\t%s (%d)\n", entry.getKey(), entry.getValue());
+        e -> {
+          System.err.printf("\t%s (%d)\n", e.getKey(), e.getValue());
         }
       );
   }

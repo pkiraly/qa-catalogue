@@ -33,7 +33,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   );
 
   private static final List<String> fieldsWithIndicator2AndSubfield2 = Arrays.asList(
-    "600", "610", "611", "630", "647", "648", "650", "651", "655", "852"
+    "600", "610", "611", "630", "647", "648", "650", "651", "655"
   );
 
   private static final List<String> fieldsWithSubfield2 = Arrays.asList(

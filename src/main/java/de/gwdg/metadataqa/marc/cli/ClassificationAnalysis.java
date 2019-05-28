@@ -98,8 +98,9 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       List<String> schemes = new ArrayList<>();
       for (String scheme : marcRecord.extract(field, "ind1")) {
         if (scheme.equals("No information provided")) {
-          System.err.print(".");
           continue;
+        } else {
+          System.err.printf("'%s'\n", scheme);
         }
 
         hasSchema = true;
@@ -116,7 +117,10 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
           schemes.add(scheme);
         }
       }
-      addSchemesToStatistics(fieldStatistics, schemes);
+      if (!schemes.isEmpty()) {
+        System.err.println(schemes.size() + " / 1: " + schemes.get(0));
+        addSchemesToStatistics(fieldStatistics, schemes);
+      }
     }
 
     for (String field : fieldsWithIndicator2AndSubfield2) {

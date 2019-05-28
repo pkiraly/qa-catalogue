@@ -97,11 +97,10 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       Map<String, Integer> fieldStatistics = getFieldStatistics(field);
       List<String> schemes = new ArrayList<>();
       for (String scheme : marcRecord.extract(field, "ind1")) {
-        if (scheme.contains("No information provided"))
-          System.err.printf("'%s'\n", scheme);
-
-        if (scheme.equals("No information provided"))
+        if (scheme.equals("No information provided")) {
+          System.err.print(".");
           continue;
+        }
 
         hasSchema = true;
         if (scheme.equals("Source specified in subfield $2")) {

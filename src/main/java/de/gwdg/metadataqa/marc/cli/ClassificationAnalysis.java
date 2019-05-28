@@ -94,13 +94,13 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       if (!marcRecord.hasDatafield(field))
         continue;
 
-      hasSchema = true;
       Map<String, Integer> fieldStatistics = getFieldStatistics(field);
       List<String> schemes = new ArrayList<>();
       for (String scheme : marcRecord.extract(field, "ind1")) {
         if (scheme.equals("No information provided"))
           continue;
 
+        hasSchema = true;
         if (scheme.equals("Source specified in subfield $2")) {
           List<String> altSchemes = marcRecord.extract(field, "2", true);
           if (altSchemes.isEmpty()) {
@@ -172,11 +172,13 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   }
 
   private void addSchemesToStatistics(Map<String, Integer> fieldStatistics, List<String> schemes) {
-    for (String scheme : schemes) {
-      if (!fieldStatistics.containsKey(scheme)) {
-        fieldStatistics.put(scheme, 0);
+    if (!schemes.isEmpty()) {
+      for (String scheme : schemes) {
+        if (!fieldStatistics.containsKey(scheme)) {
+          fieldStatistics.put(scheme, 0);
+        }
+        fieldStatistics.put(scheme, fieldStatistics.get(scheme) + 1);
       }
-      fieldStatistics.put(scheme, fieldStatistics.get(scheme) + 1);
     }
   }
 

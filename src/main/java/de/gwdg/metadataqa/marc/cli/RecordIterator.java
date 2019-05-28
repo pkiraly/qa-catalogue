@@ -106,22 +106,14 @@ public class RecordIterator {
             continue;
           }
 
-          boolean p1 = false;
-          boolean p2 = false;
-          boolean p3 = false;
-          boolean p4 = false;
           try {
-            p1 = true;
             processor.processRecord(marc4jRecord, i);
-            p2 = true;
             MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, defaultRecordType, marcVersion, fixAlephseq);
-            p3 = true;
             try {
               processor.processRecord(marcRecord, i);
             } catch(Exception e) {
               e.printStackTrace();
             }
-            p4 = true;
 
             if (i % 100000 == 0 && processor.getParameters().doLog())
               logger.info(String.format("%s/%s (%s)", fileName, decimalFormat.format(i), marcRecord.getId()));
@@ -130,16 +122,19 @@ public class RecordIterator {
             if (marc4jRecord.getControlNumber() == null)
               logger.severe("No record number at " + i);
             if (processor.getParameters().doLog())
-              logger.severe(String.format("Error (illegal argument) with record '%s'. %s", marc4jRecord.getControlNumber(), e.getMessage()));
+              logger.severe(String.format(
+                "Error (illegal argument) with record '%s'. %s",
+                marc4jRecord.getControlNumber(), e.getMessage()));
             e.printStackTrace();
             continue;
           } catch (Exception e) {
-            e.printStackTrace();
-            System.err.printf("1: %s, 2: %s, 3: %s, 4: %s\n", p1, p2, p3, p4);
             if (marc4jRecord.getControlNumber() == null)
               logger.severe("No record number at " + i);
             if (processor.getParameters().doLog())
-              logger.severe(String.format("Error (general) with record '%s'. %s", marc4jRecord.getControlNumber(), e.getMessage()));
+              logger.severe(String.format(
+                "Error (general) with record '%s'. %s",
+                marc4jRecord.getControlNumber(), e.getMessage()));
+            e.printStackTrace();
             continue;
           }
         }

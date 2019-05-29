@@ -29,7 +29,7 @@ public class ParallelValidator {
     ValidatorParameters params = validator.getParameters();
     validator.setDoPrintInProcessRecord(false);
 
-    logger.info("Input file is " + params.getFileName());
+    logger.info("Input file is " + params.getDetailsFileName());
     SparkConf conf = new SparkConf().setAppName("MarcCompletenessCount");
     JavaSparkContext context = new JavaSparkContext(conf);
 
@@ -49,7 +49,7 @@ public class ParallelValidator {
           .iterator();
       }
     );
-    baseCountsRDD.saveAsTextFile(validator.getParameters().getFileName());
+    baseCountsRDD.saveAsTextFile(validator.getParameters().getDetailsFileName());
   }
 
   private static void help() {

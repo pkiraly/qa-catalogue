@@ -20,8 +20,8 @@ public class ValidatorParametersTest {
 
       assertFalse(parameters.doHelp());
 
-      assertNotNull(parameters.getFileName());
-      assertEquals("validation-report.txt", parameters.getFileName());
+      assertNotNull(parameters.getDetailsFileName());
+      assertEquals("validation-report.txt", parameters.getDetailsFileName());
       assertFalse(parameters.useStandardOutput());
 
       assertEquals(-1, parameters.getLimit());
@@ -52,8 +52,8 @@ public class ValidatorParametersTest {
     try {
       ValidatorParameters parameters = new ValidatorParameters(arguments);
 
-      assertNotNull(parameters.getFileName());
-      assertEquals("stdout", parameters.getFileName());
+      assertNotNull(parameters.getDetailsFileName());
+      assertEquals("stdout", parameters.getDetailsFileName());
       assertTrue(parameters.useStandardOutput());
 
     } catch (ParseException e) {

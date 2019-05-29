@@ -11,7 +11,7 @@ fi
 
 do_validate() {
   GENERAL_PARAMS="--details --trimId --summary --format csv --defaultRecordType BOOKS" 
-  OUTPUT_PARAMS="--fileName ${OUTPUT_DIR}/details.csv --summaryFileName ${OUTPUT_DIR}/summary.csv"
+  OUTPUT_PARAMS="--outputDir ${OUTPUT_DIR} --detailsFileName issue-details.csv --summaryFileName issue-summary.csv"
 
   echo "./validator ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${TYPE_PARAMS} ${MARC_DIR}/${MASK} 2> ${PREFIX}.log"
   ./validator ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${TYPE_PARAMS} ${MARC_DIR}/$MASK 2> ${PREFIX}.log

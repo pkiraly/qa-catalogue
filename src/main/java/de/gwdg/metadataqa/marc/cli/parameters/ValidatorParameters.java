@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class ValidatorParameters extends CommonParameters implements Serializable {
   public static final String DEFAULT_FILE_NAME = "validation-report.txt";
 
-  private String fileName = DEFAULT_FILE_NAME;
+  private String detailsFileName = DEFAULT_FILE_NAME;
   private String summaryFileName;
   private boolean doDetails = true;
   private boolean doSummary = false;
@@ -22,7 +22,7 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
       options.addOption("g", "summaryFileName", true, "show summary instead of record level display");
       options.addOption("s", "summary", false, "show summary instead of record level display");
       options.addOption("t", "details", false, "show record level display");
-      options.addOption("f", "fileName", true,
+      options.addOption("f", "detailsFileName", true,
         String.format("the report file name (default is '%s')", ValidatorParameters.DEFAULT_FILE_NAME));
       options.addOption("r", "format", true, "specify a format");
       isOptionSet = true;
@@ -36,15 +36,15 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
   public ValidatorParameters(String[] arguments) throws ParseException {
     super(arguments);
 
-    if (cmd.hasOption("fileName"))
-      fileName = cmd.getOptionValue("fileName");
+    if (cmd.hasOption("detailsFileName"))
+      detailsFileName = cmd.getOptionValue("detailsFileName");
 
     if (cmd.hasOption("summaryFileName")) {
       summaryFileName = cmd.getOptionValue("summaryFileName");
       doSummary = true;
     }
 
-    if (fileName.equals("stdout"))
+    if (detailsFileName.equals("stdout"))
       useStandardOutput = true;
 
     if (cmd.hasOption("format"))
@@ -65,8 +65,8 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
       throw new ParseException("If the details and summary is requested, summaryFileName must be provided!");
   }
 
-  public String getFileName() {
-    return fileName;
+  public String getDetailsFileName() {
+    return detailsFileName;
   }
 
   public boolean doSummary() {
@@ -94,7 +94,7 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
     String text = super.formatParameters();
     text += String.format("details: %s%n", doSummary);
     text += String.format("summary: %s%n", doSummary);
-    text += String.format("fileName: %s%n", fileName);
+    text += String.format("detailsFileName: %s%n", detailsFileName);
     text += String.format("summaryFileName: %s%n", summaryFileName);
     text += String.format("format: %s%n", format.getLabel());
     return text;

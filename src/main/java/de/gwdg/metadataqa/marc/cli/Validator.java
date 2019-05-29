@@ -84,10 +84,10 @@ public class Validator implements MarcFileProcessor, Serializable {
   public void beforeIteration() {
     logger.info(parameters.formatParameters());
     if (!parameters.useStandardOutput()) {
-      detailsFile = prepareReportFile(parameters.getFileName());
+      detailsFile = prepareReportFile(parameters.getOutputDir(), parameters.getDetailsFileName());
       logger.info("details output: " + detailsFile.getPath());
       if (parameters.getSummaryFileName() != null) {
-        summaryFile = prepareReportFile(parameters.getSummaryFileName());
+        summaryFile = prepareReportFile(parameters.getOutputDir(), parameters.getSummaryFileName());
         logger.info("summary output: " + summaryFile.getPath());
       } else {
         if (parameters.doSummary())
@@ -100,8 +100,8 @@ public class Validator implements MarcFileProcessor, Serializable {
     }
   }
 
-  private File prepareReportFile(String fileName) {
-    File reportFile = new File(fileName);
+  private File prepareReportFile(String outputDir, String fileName) {
+    File reportFile = new File(outputDir, fileName);
     if (reportFile.exists())
       reportFile.delete();
     return reportFile;

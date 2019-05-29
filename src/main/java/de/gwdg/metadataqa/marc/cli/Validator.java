@@ -8,15 +8,14 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.Record;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat.TAB_SEPARATED;
@@ -33,18 +32,22 @@ public class Validator implements MarcFileProcessor, Serializable {
   private Options options;
 
   private ValidatorParameters parameters;
-  private Map<String, Integer> errorCounter = new TreeMap<>();
+  private Map<String, Counter> errorCounter = new TreeMap<>();
+  private Map<Integer, List<String>> errorCollector = new TreeMap<>();
   private File detailsFile = null;
   private File summaryFile = null;
+  private File collectorFile = null;
   private boolean doPrintInProcessRecord = true;
   private Path currentFile;
   private boolean readyToProcess;
+  private int counter;
 
   public Validator(String[] args) throws ParseException {
     parameters = new ValidatorParameters(args);
     options = parameters.getOptions();
     errorCounter = new TreeMap<>();
     readyToProcess = true;
+    counter = 0;
   }
 
   public static void main(String[] args) {
@@ -89,6 +92,7 @@ public class Validator implements MarcFileProcessor, Serializable {
       if (parameters.getSummaryFileName() != null) {
         summaryFile = prepareReportFile(parameters.getOutputDir(), parameters.getSummaryFileName());
         logger.info("summary output: " + summaryFile.getPath());
+        collectorFile = prepareReportFile(parameters.getOutputDir(), "issue-collector.csv");
       } else {
         if (parameters.doSummary())
           summaryFile = detailsFile;
@@ -125,8 +129,25 @@ public class Validator implements MarcFileProcessor, Serializable {
         parameters.getFormat()
       );
       print(summaryFile, header + "\n");
-      for (Map.Entry<String, Integer> entry : errorCounter.entrySet()) {
-        print(summaryFile, String.format("%s%s%d%n", entry.getKey(), separator, entry.getValue()));
+      for (Map.Entry<String, Counter> entry : errorCounter.entrySet()) {
+        Counter counter = entry.getValue();
+        print(summaryFile, String.format(
+          "%d%s%s%s%d%n",
+          counter.id, separator, entry.getKey(), separator, counter.count, separator));
+      }
+
+      header = ValidationErrorFormatter.formatHeaderForCollector(
+        parameters.getFormat()
+      );
+      print(collectorFile, header + "\n");
+      for (Map.Entry<Integer, List<String>> entry : errorCollector.entrySet()) {
+        print(
+          collectorFile,
+          String.format(
+            "%d%s%s%n",
+            entry.getKey(), separator, StringUtils.join(entry.getValue(), ";")
+          )
+        );
       }
     }
   }
@@ -163,9 +184,15 @@ public class Validator implements MarcFileProcessor, Serializable {
         );
         for (String error : errors) {
           if (!errorCounter.containsKey(error)) {
-            errorCounter.put(error, 0);
+            errorCounter.put(error, new Counter(0, counter++));
           }
-          errorCounter.put(error, errorCounter.get(error) + 1);
+          errorCounter.get(error).count++;
+
+          int current = errorCounter.get(error).id;
+          if (!errorCollector.containsKey(current)) {
+            errorCollector.put(current, new ArrayList<String>());
+          }
+          errorCollector.get(current).add(marcRecord.getId().trim());
         }
       }
       if (parameters.doDetails()) {
@@ -188,5 +215,16 @@ public class Validator implements MarcFileProcessor, Serializable {
   @Override
   public boolean readyToProcess() {
     return readyToProcess;
+  }
+
+  private class Counter {
+    int id;
+    int count;
+
+
+    public Counter(int count, int id) {
+      this.count = count;
+      this.id = id;
+    }
   }
 }

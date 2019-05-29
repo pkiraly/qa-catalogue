@@ -88,6 +88,21 @@ public class ValidationErrorFormatter {
     return message;
   }
 
+  public static String formatHeaderForCollector(ValidationErrorFormat format) {
+    String message = "";
+    switch (format) {
+      case TAB_SEPARATED:
+        message = createCvsRow(headerForCollector(), '\t');
+        break;
+      case COMMA_SEPARATED:
+      case TEXT:
+        message = createCvsRow(headerForCollector(), ',');
+      default:
+        break;
+    }
+    return message;
+  }
+
   public static String formatForSummary(ValidationError error, ValidationErrorFormat format) {
     String message = "";
     switch (format) {
@@ -122,7 +137,11 @@ public class ValidationErrorFormatter {
   }
 
   private static String[] headerForSummary() {
-    return new String[]{"MarcPath", "type", "message", "url", "count"};
+    return new String[]{"id", "MarcPath", "type", "message", "url", "count"};
+  }
+
+  private static String[] headerForCollector() {
+    return new String[]{"errorId", "recordIds"};
   }
 
   private static String[] asArrayWithoutId(ValidationError error) {

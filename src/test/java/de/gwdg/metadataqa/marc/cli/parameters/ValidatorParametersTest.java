@@ -48,7 +48,7 @@ public class ValidatorParametersTest {
 
   @Test
   public void testStdOut() {
-    String[] arguments = new String[]{"--fileName", "stdout", "a-marc-file.mrc"};
+    String[] arguments = new String[]{"--detailsFileName", "stdout", "a-marc-file.mrc"};
     try {
       ValidatorParameters parameters = new ValidatorParameters(arguments);
 

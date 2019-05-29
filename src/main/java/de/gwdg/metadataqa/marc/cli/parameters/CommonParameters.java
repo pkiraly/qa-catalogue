@@ -22,6 +22,7 @@ public class CommonParameters implements Serializable {
   protected boolean fixAlephseq = false;
   protected boolean marcxml = false;
   protected boolean lineSeparated = false;
+  protected boolean trimId = false;
   private String outputDir = DEFAULT_OUTPUT_DIR;
 
   protected Options options = new Options();
@@ -42,6 +43,7 @@ public class CommonParameters implements Serializable {
       options.addOption("x", "marcxml", false, "the source is in MARCXML format");
       options.addOption("y", "lineSeparated", false, "the source is in line separated MARC format");
       options.addOption("t", "outputDir", true, "output directory");
+      options.addOption("r", "trimId", false, "remove spaces from the end of record IDs");
       isOptionSet = true;
     }
   }
@@ -88,6 +90,8 @@ public class CommonParameters implements Serializable {
 
     if (cmd.hasOption("outputDir"))
       outputDir = cmd.getOptionValue("outputDir");
+
+    trimId = cmd.hasOption("trimId");
 
     args = cmd.getArgs();
   }
@@ -150,6 +154,10 @@ public class CommonParameters implements Serializable {
     return outputDir;
   }
 
+  public boolean getTrimId() {
+    return trimId;
+  }
+
   public String formatParameters() {
     String text = "";
     text += String.format("marcVersion: %s, %s%n", marcVersion.getCode(), marcVersion.getLabel());
@@ -162,6 +170,7 @@ public class CommonParameters implements Serializable {
     text += String.format("marcxml: %s%n", marcxml);
     text += String.format("lineSeparated: %s%n", lineSeparated);
     text += String.format("outputDir: %s%n", outputDir);
+    text += String.format("trimId: %s%n", trimId);
 
     return text;
   }

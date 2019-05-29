@@ -13,6 +13,7 @@ import java.util.Map;
 public class MarcSolrClient {
   private String defaultUrl = "http://localhost:8983/solr/techproducts";
   private SolrClient solr;
+  private boolean trimId = false;
 
   public MarcSolrClient() {
     initialize(defaultUrl);
@@ -29,7 +30,7 @@ public class MarcSolrClient {
   public void indexMap(String id, Map<String, List<String>> objectMap)
       throws IOException, SolrServerException {
     SolrInputDocument document = new SolrInputDocument();
-    document.addField("id", id.trim());
+    document.addField("id", (trimId ? id.trim() : id));
     for (Map.Entry<String, List<String>> entry : objectMap.entrySet()) {
       String key = entry.getKey();
       Object value = entry.getValue();
@@ -84,5 +85,13 @@ public class MarcSolrClient {
     } catch (IOException | SolrServerException e) {
       e.printStackTrace();
     }
+  }
+
+  public boolean getTrimId() {
+    return trimId;
+  }
+
+  public void setTrimId(boolean trimId) {
+    this.trimId = trimId;
   }
 }

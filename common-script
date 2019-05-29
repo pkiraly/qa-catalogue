@@ -10,11 +10,10 @@ if [ ! -d ${OUTPUT_DIR} ]; then
 fi
 
 do_validate() {
-  GENERAL_PARAMS="--details --summary --format csv --defaultRecordType BOOKS" 
+  GENERAL_PARAMS="--details --trimId --summary --format csv --defaultRecordType BOOKS" 
   OUTPUT_PARAMS="--fileName ${OUTPUT_DIR}/details.csv --summaryFileName ${OUTPUT_DIR}/summary.csv"
 
   echo "./validator ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${TYPE_PARAMS} ${MARC_DIR}/${MASK} 2> ${PREFIX}.log"
-
   ./validator ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${TYPE_PARAMS} ${MARC_DIR}/$MASK 2> ${PREFIX}.log
 }
 
@@ -23,6 +22,7 @@ do_prepare_solr() {
 }
 
 do_index() {
+  echo "./index $NAME ${MARC_DIR} $MASK --with-delete --trimId 2> ${PREFIX}.log"
   ./index $NAME ${MARC_DIR} $MASK --with-delete 2> ${PREFIX}.log
 }
 
@@ -37,6 +37,7 @@ do_classifications() {
 }
 
 do_tt_completeness() {
+  echo "./tt-completeness --defaultRecordType BOOKS --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}.log"
   ./tt-completeness --defaultRecordType BOOKS --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}.log
 }
 
@@ -77,6 +78,7 @@ case "$1" in
   all-analyses)
     do_validate
     do_completeness
+    do_classification
     do_tt_completeness
     do_functional_analysis
     ;;

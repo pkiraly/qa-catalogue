@@ -9,6 +9,7 @@ public class ValidationError implements Serializable {
   private ValidationErrorType type;
   private String message;
   private String url;
+  private boolean trimId = false;
 
   public ValidationError(String recordId, String marcPath, ValidationErrorType type, String message, String url) {
     this.recordId = recordId;
@@ -19,7 +20,7 @@ public class ValidationError implements Serializable {
   }
 
   public String getRecordId() {
-    return recordId;
+    return trimId ? recordId.trim() : recordId;
   }
 
   public String getMarcPath() {
@@ -36,6 +37,14 @@ public class ValidationError implements Serializable {
 
   public String getUrl() {
     return url;
+  }
+
+  public boolean getTrimId() {
+    return trimId;
+  }
+
+  public void setTrimId(boolean trimId) {
+    this.trimId = trimId;
   }
 
   @Override

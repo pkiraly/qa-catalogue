@@ -10,17 +10,26 @@ import java.util.List;
 public class ValidationErrorFormatter {
 
   public static String format(List<ValidationError> errors, ValidationErrorFormat format) {
+    return format(errors, format, false);
+  }
+
+  public static String format(List<ValidationError> errors, ValidationErrorFormat format, boolean trimId) {
     StringBuffer message = new StringBuffer();
     switch (format) {
       case TAB_SEPARATED:
       case COMMA_SEPARATED:
-        for (ValidationError error : errors)
+        for (ValidationError error : errors) {
+          error.setTrimId(trimId);
           message.append(format(error, format) + "\n");
+        }
         break;
       case TEXT:
+        String id = errors.get(0).getRecordId();
+        if (trimId)
+          id = id.trim();
         message.append(String.format("%s in '%s':%n",
           (errors.size() == 1 ? "Error" : "Errors"),
-          errors.get(0).getRecordId()
+          id
         ));
         for (ValidationError error : errors) {
           message.append(String.format("\t%s%n", formatTextWithoutId(error)));

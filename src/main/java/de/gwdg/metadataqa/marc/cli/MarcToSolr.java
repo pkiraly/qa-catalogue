@@ -40,6 +40,7 @@ public class MarcToSolr implements MarcFileProcessor, Serializable {
     parameters = new MarcToSolrParameters(args);
     options = parameters.getOptions();
     client = new MarcSolrClient(parameters.getSolrUrl());
+    client.setTrimId(parameters.getTrimId());
     readyToProcess = true;
   }
 

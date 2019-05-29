@@ -170,7 +170,7 @@ public class Validator implements MarcFileProcessor, Serializable {
       }
       if (parameters.doDetails()) {
         String message = ValidationErrorFormatter.format(
-          marcRecord.getValidationErrors(), parameters.getFormat()
+          marcRecord.getValidationErrors(), parameters.getFormat(), parameters.getTrimId()
         );
         print(detailsFile, message);
       }

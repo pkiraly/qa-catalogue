@@ -89,16 +89,21 @@ public class ThompsonTraillCompleteness {
           try {
             MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
             List<Integer> scores = ThompsonTraillAnalysis.getScores(marcRecord);
-            message = String.format("\"%s\",%s%n",
-              marc4jRecord.getControlNumber(),
-              StringUtils.join(scores, ","));
+            String id = parameters.getTrimId() ? marc4jRecord.getControlNumber().trim() : marc4jRecord.getControlNumber();
+            message = String.format(
+              "\"%s\",%s%n",
+              id, StringUtils.join(scores, ",")
+            );
             FileUtils.writeStringToFile(output, message, true);
 
             if (i % 100000 == 0 && parameters.doLog())
               logger.info(String.format("%s/%d (id: %s)", fileName, i, marcRecord.getId()));
           } catch (IllegalArgumentException e) {
             if (parameters.doLog())
-              logger.severe(String.format("Error with record '%s'. %s", marc4jRecord.getControlNumber(), e.getMessage()));
+              logger.severe(String.format(
+                "Error with record '%s'. %s",
+                marc4jRecord.getControlNumber().trim(), e.getMessage())
+              );
             continue;
           }
         }

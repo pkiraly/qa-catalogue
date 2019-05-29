@@ -29,7 +29,7 @@ public class MarcSolrClient {
   public void indexMap(String id, Map<String, List<String>> objectMap)
       throws IOException, SolrServerException {
     SolrInputDocument document = new SolrInputDocument();
-    document.addField("id", id);
+    document.addField("id", id.trim());
     for (Map.Entry<String, List<String>> entry : objectMap.entrySet()) {
       String key = entry.getKey();
       Object value = entry.getValue();

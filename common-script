@@ -78,7 +78,7 @@ case "$1" in
   all-analyses)
     do_validate
     do_completeness
-    do_classification
+    do_classifications
     do_tt_completeness
     do_functional_analysis
     ;;

@@ -71,7 +71,7 @@ public class ThompsonTraillCompleteness {
 
       try {
         if (i == 0) {
-          message = StringUtils.join(ThompsonTraillAnalysis.getHeader(), ",") + "%n";
+          message = StringUtils.join(ThompsonTraillAnalysis.getHeader(), ",") + "\n";
           FileUtils.writeStringToFile(output, message, true);
         }
 
@@ -97,7 +97,7 @@ public class ThompsonTraillCompleteness {
             FileUtils.writeStringToFile(output, message, true);
 
             if (i % 100000 == 0 && parameters.doLog())
-              logger.info(String.format("%s/%d (id: %s)", fileName, i, marcRecord.getId()));
+              logger.info(String.format("%s/%d (id: %s)", fileName, i, id));
           } catch (IllegalArgumentException e) {
             if (parameters.doLog())
               logger.severe(String.format(

@@ -37,7 +37,7 @@ do_classifications() {
 }
 
 do_tt_completeness() {
-  echo "./tt-completeness --defaultRecordType BOOKS --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}.log"
+  echo "./tt-completeness --defaultRecordType BOOKS --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}.log"
   ./tt-completeness --defaultRecordType BOOKS --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}.log
 }
 

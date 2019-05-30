@@ -188,11 +188,13 @@ public class Validator implements MarcFileProcessor, Serializable {
           }
           errorCounter.get(error).count++;
 
+          /*
           int current = errorCounter.get(error).id;
           if (!errorCollector.containsKey(current)) {
             errorCollector.put(current, new ArrayList<String>());
           }
           errorCollector.get(current).add(marcRecord.getId().trim());
+          */
         }
       }
       if (parameters.doDetails()) {

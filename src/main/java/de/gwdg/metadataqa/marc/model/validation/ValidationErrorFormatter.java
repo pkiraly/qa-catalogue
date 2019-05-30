@@ -124,7 +124,11 @@ public class ValidationErrorFormatter {
     StringWriter stringWriter = new StringWriter();
     CSVWriter csvWriter = new CSVWriter(stringWriter, separator, '"');
     csvWriter.writeNext(strings);
-    return stringWriter.toString().trim().replace("\\", "\\\\");
+    String row = stringWriter.toString().trim();
+    if (row.contains("\\")) {
+      row = row.replace("\\", "\\\\");
+    }
+    return row;
   }
 
   private static String formatTextWithoutId(ValidationError error) {

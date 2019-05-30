@@ -152,7 +152,7 @@ public class MarcFactory {
         case "006":
           record.setControl006(new Control006(data, record.getType())); break;
         case "007":
-          record.setControl007(new Control007(data)); break;
+          record.setControl007(new Control007(record, data)); break;
         case "008":
           record.setControl008(new Control008(data, record.getType())); break;
         default:

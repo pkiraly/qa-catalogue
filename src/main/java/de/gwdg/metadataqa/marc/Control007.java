@@ -146,14 +146,30 @@ public class Control007 extends MarcPositionalControlField implements Serializab
   private ControlValue tag007unspecified01;
 
   private Map<Integer, ControlSubfieldDefinition> byPosition = new LinkedHashMap<>();
+  private MarcRecord record = null;
 
-  public Control007(String content) {
+  public Control007(MarcRecord record, String content) {
     super(Control007Definition.getInstance(), content);
+    this.record = record;
+    handleContent(content);
+  }
+
+  private void handleContent(String content) {
     if (StringUtil.isNotBlank(content)) {
       process();
     } else {
-      logger.severe("007 control field is empty");
+      StringBuffer msg = new StringBuffer();
+      if (record != null) {
+        msg.append(record.getId().trim()).append(": ");
+      }
+      msg.append("007 control field is empty");
+      logger.severe(msg.toString());
     }
+  }
+
+  public Control007(String content) {
+    super(Control007Definition.getInstance(), content);
+    handleContent(content);
   }
 
   private void process() {

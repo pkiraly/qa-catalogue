@@ -41,6 +41,8 @@ public class Validator implements MarcFileProcessor, Serializable {
   private Path currentFile;
   private boolean readyToProcess;
   private int counter;
+  private char separator;
+  private boolean hasSeparator = false;
 
   public Validator(String[] args) throws ParseException {
     parameters = new ValidatorParameters(args);
@@ -93,6 +95,11 @@ public class Validator implements MarcFileProcessor, Serializable {
         summaryFile = prepareReportFile(parameters.getOutputDir(), parameters.getSummaryFileName());
         logger.info("summary output: " + summaryFile.getPath());
         collectorFile = prepareReportFile(parameters.getOutputDir(), "issue-collector.csv");
+        String header = ValidationErrorFormatter.formatHeaderForCollector(
+          parameters.getFormat()
+        );
+        print(collectorFile, header + "\n");
+
       } else {
         if (parameters.doSummary())
           summaryFile = detailsFile;
@@ -123,7 +130,7 @@ public class Validator implements MarcFileProcessor, Serializable {
 
   @Override
   public void afterIteration() {
-    char separator = parameters.getFormat().equals(TAB_SEPARATED) ? '\t' : ',';
+    char separator = getSeparator();
     if (parameters.doSummary()) {
       String header = ValidationErrorFormatter.formatHeaderForSummary(
         parameters.getFormat()
@@ -141,15 +148,26 @@ public class Validator implements MarcFileProcessor, Serializable {
       );
       print(collectorFile, header + "\n");
       for (Map.Entry<Integer, List<String>> entry : errorCollector.entrySet()) {
-        print(
-          collectorFile,
-          String.format(
-            "%d%s%s%n",
-            entry.getKey(), separator, StringUtils.join(entry.getValue(), ";")
-          )
-        );
+        printCollectorEntry(separator, entry.getKey(), entry.getValue());
       }
     }
+  }
+
+  private char getSeparator() {
+    if (!hasSeparator) {
+      separator = parameters.getFormat().equals(TAB_SEPARATED) ? '\t' : ',';
+    }
+    return separator;
+  }
+
+  private void printCollectorEntry(char separator, Integer errorId, List<String> recordIds) {
+    print(
+      collectorFile,
+      String.format(
+        "%d%s%s%n",
+        errorId, separator, StringUtils.join(recordIds, ";")
+      )
+    );
   }
 
   private void print(File file, String message) {
@@ -188,13 +206,16 @@ public class Validator implements MarcFileProcessor, Serializable {
           }
           errorCounter.get(error).count++;
 
-          /*
           int current = errorCounter.get(error).id;
           if (!errorCollector.containsKey(current)) {
             errorCollector.put(current, new ArrayList<String>());
+          } else {
+            if (errorCollector.get(current).size() >= 100) {
+              printCollectorEntry(separator, current, errorCollector.get(current));
+              errorCollector.put(current, new ArrayList<String>());
+            }
           }
           errorCollector.get(current).add(marcRecord.getId().trim());
-          */
         }
       }
       if (parameters.doDetails()) {

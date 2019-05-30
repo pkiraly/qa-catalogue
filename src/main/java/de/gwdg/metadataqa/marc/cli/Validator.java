@@ -43,6 +43,7 @@ public class Validator implements MarcFileProcessor, Serializable {
   private int counter;
   private char separator;
   private boolean hasSeparator = false;
+  private boolean emptyLargeCollectors = false;
 
   public Validator(String[] args) throws ParseException {
     parameters = new ValidatorParameters(args);
@@ -143,10 +144,12 @@ public class Validator implements MarcFileProcessor, Serializable {
           counter.id, separator, entry.getKey(), separator, counter.count, separator));
       }
 
+      /*
       header = ValidationErrorFormatter.formatHeaderForCollector(
         parameters.getFormat()
       );
       print(collectorFile, header + "\n");
+      */
       for (Map.Entry<Integer, List<String>> entry : errorCollector.entrySet()) {
         printCollectorEntry(separator, entry.getKey(), entry.getValue());
       }
@@ -209,7 +212,7 @@ public class Validator implements MarcFileProcessor, Serializable {
           int current = errorCounter.get(error).id;
           if (!errorCollector.containsKey(current)) {
             errorCollector.put(current, new ArrayList<String>());
-          } else {
+          } else if (emptyLargeCollectors) {
             if (errorCollector.get(current).size() >= 100) {
               printCollectorEntry(separator, current, errorCollector.get(current));
               errorCollector.put(current, new ArrayList<String>());

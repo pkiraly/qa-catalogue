@@ -42,6 +42,7 @@ public class ThompsonTraillCompleteness implements MarcFileProcessor, Serializab
   }
 
   public static void main(String[] args) throws ParseException {
+    System.err.println("main(): " + StringUtils.join(args, " "));
     MarcFileProcessor processor = null;
     try {
       processor = new ThompsonTraillCompleteness(args);

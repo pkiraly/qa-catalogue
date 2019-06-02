@@ -1,21 +1,19 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.ThompsonTraillAnalysis;
+import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ThompsonTraillCompletenessParameters;
-import de.gwdg.metadataqa.marc.utils.ReadMarc;
+import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
 import org.apache.commons.cli.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.Serializable;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -26,121 +24,112 @@ import java.util.logging.Logger;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class ThompsonTraillCompleteness {
+public class ThompsonTraillCompleteness implements MarcFileProcessor, Serializable {
 
-  private static final Logger logger = Logger.getLogger(ThompsonTraillCompleteness.class.getCanonicalName());
+  private static final Logger logger = Logger.getLogger(
+    ThompsonTraillCompleteness.class.getCanonicalName()
+  );
+  private final Options options;
+  private final boolean readyToProcess;
+  private ThompsonTraillCompletenessParameters parameters;
+  private File output = null;
+
+  public ThompsonTraillCompleteness(String[] args) throws ParseException {
+    parameters = new ThompsonTraillCompletenessParameters(args);
+    options = parameters.getOptions();
+    readyToProcess = true;
+  }
 
   public static void main(String[] args) throws ParseException {
-    ThompsonTraillCompletenessParameters parameters = new ThompsonTraillCompletenessParameters(args);
-    if (parameters.getArgs().length < 1) {
+    MarcFileProcessor processor = null;
+    try {
+      processor = new ThompsonTraillCompleteness(args);
+    } catch (ParseException e) {
+      System.err.println("ERROR. " + e.getLocalizedMessage());
+      processor.printHelp(processor.getParameters().getOptions());
+      System.exit(0);
+    }
+
+    if (processor.getParameters().getArgs().length < 1) {
       System.err.println("Please provide a MARC file name!");
       System.exit(0);
     }
-    if (parameters.doHelp()) {
-      printHelp(parameters.getOptions());
+    if (processor.getParameters().doHelp()) {
+      processor.printHelp(processor.getParameters().getOptions());
       System.exit(0);
     }
 
-    long start = System.currentTimeMillis();
+    RecordIterator iterator = new RecordIterator(processor);
+    iterator.start();
+  }
 
-    int limit = parameters.getLimit();
-    if (parameters.doLog())
-      logger.info("limit: " + limit);
+  @Override
+  public CommonParameters getParameters() {
+    return parameters;
+  }
 
-    int offset = parameters.getOffset();
-    if (parameters.doLog())
-      logger.info("offset: " + offset);
-
-    if (parameters.doLog())
-      logger.info("MARC files: " + StringUtils.join(parameters.getArgs(), ", "));
-
-    File output = new File(parameters.getOutputDir(), parameters.getFileName());
+  @Override
+  public void beforeIteration() {
+    output = new File(parameters.getOutputDir(), parameters.getFileName());
     if (output.exists())
       output.delete();
 
-    String[] inputFileNames = parameters.getArgs();
-
-    String message;
-    int i = 0;
-    for (String inputFileName : inputFileNames) {
-      Path path = Paths.get(inputFileName);
-      String fileName = path.getFileName().toString();
-
-      if (parameters.doLog())
-        logger.info("processing: " + fileName);
-
-      try {
-        if (i == 0) {
-          message = StringUtils.join(ThompsonTraillAnalysis.getHeader(), ",") + "\n";
-          FileUtils.writeStringToFile(output, message, true);
-        }
-
-        MarcReader reader = ReadMarc.getStreamReader(path.toString());
-        while (reader.hasNext()) {
-          i++;
-          if (isUnderOffset(offset, i)) {
-            continue;
-          }
-          if (isOverLimit(limit, i)) {
-            break;
-          }
-
-          Record marc4jRecord = reader.next();
-          try {
-            MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
-            List<Integer> scores = ThompsonTraillAnalysis.getScores(marcRecord);
-            String id = parameters.getTrimId() ? marc4jRecord.getControlNumber().trim() : marc4jRecord.getControlNumber();
-            message = String.format(
-              "\"%s\",%s%n",
-              id, StringUtils.join(scores, ",")
-            );
-            FileUtils.writeStringToFile(output, message, true);
-
-            if (i % 100000 == 0 && parameters.doLog())
-              logger.info(String.format("%s/%d (id: %s)", fileName, i, id));
-          } catch (IllegalArgumentException e) {
-            if (parameters.doLog())
-              logger.severe(String.format(
-                "Error with record '%s'. %s",
-                marc4jRecord.getControlNumber().trim(), e.getMessage())
-              );
-            continue;
-          }
-        }
-        if (parameters.doLog())
-          logger.info(String.format("End of cycle. Calculated %d records.", i));
-
-      } catch (SolrServerException ex) {
-        if (parameters.doLog())
-          logger.severe(ex.toString());
-        System.exit(0);
-      } catch (Exception ex) {
-        if (parameters.doLog())
-          logger.severe(ex.toString());
-        ex.printStackTrace();
-        System.exit(0);
-      }
-    }
-
-    long end = System.currentTimeMillis();
-    long duration = (end - start) / 1000;
-    if (parameters.doLog())
-      logger.info(String.format("Bye! It took: %s",
-        LocalTime.MIN.plusSeconds(duration).toString()));
-
-    System.exit(0);
+    String header = StringUtils.join(ThompsonTraillAnalysis.getHeader(), ",") + "\n";
+    print(header);
   }
 
-  private static boolean isOverLimit(int limit, int i) {
-    return limit > -1 && i > limit;
+  @Override
+  public void fileOpened(Path path) {
   }
 
-  private static boolean isUnderOffset(int offset, int i) {
-    return offset > -1 && offset < i;
+  @Override
+  public void processRecord(Record marc4jRecord, int recordNumber) {
+
   }
 
-  private static void printHelp(Options options) {
+  @Override
+  public void processRecord(MarcRecord marcRecord, int recordNumber) {
+    List<Integer> scores = ThompsonTraillAnalysis.getScores(marcRecord);
+    String id = parameters.getTrimId()
+              ? marcRecord.getId().trim()
+              : marcRecord.getId();
+    String message = String.format(
+      "\"%s\",%s%n",
+      id, StringUtils.join(scores, ",")
+    );
+    print(message);
+  }
+
+  @Override
+  public void fileProcessed() {
+
+  }
+
+  @Override
+  public void afterIteration() {
+
+  }
+
+  @Override
+  public boolean readyToProcess() {
+    return readyToProcess;
+  }
+
+  public void printHelp(Options options) {
     HelpFormatter formatter = new HelpFormatter();
-    formatter.printHelp("java -cp metadata-qa-marc.jar de.gwdg.metadataqa.marc.cli.Validator [options] [file]", options);
+    String message = String.format(
+      "java -cp metadata-qa-marc.jar %s [options] [file]",
+      this.getClass().getCanonicalName()
+    );
+    formatter.printHelp(message, options);
   }
+
+  private void print(String message) {
+    try {
+      FileUtils.writeStringToFile(output, message, true);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
 }

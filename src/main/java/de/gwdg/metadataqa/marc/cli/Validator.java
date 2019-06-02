@@ -77,7 +77,8 @@ public class Validator implements MarcFileProcessor, Serializable {
 
   public void printHelp(Options opions) {
     HelpFormatter formatter = new HelpFormatter();
-    String message = String.format("java -cp metadata-qa-marc.jar %s [options] [file]", this.getClass().getCanonicalName());
+    String message = String.format("java -cp metadata-qa-marc.jar %s [options] [file]",
+      this.getClass().getCanonicalName());
     formatter.printHelp(message, options);
   }
 

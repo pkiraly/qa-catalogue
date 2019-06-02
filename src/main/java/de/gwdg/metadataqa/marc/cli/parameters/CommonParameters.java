@@ -52,6 +52,7 @@ public class CommonParameters implements Serializable {
   }
 
   public CommonParameters(String[] arguments)  throws ParseException {
+    System.err.println("CommonParameters");
     cmd = parser.parse(getOptions(), arguments);
 
     if (cmd.hasOption("marcVersion")) {
@@ -85,6 +86,7 @@ public class CommonParameters implements Serializable {
     fixAlephseq = cmd.hasOption("fixAlephseq");
 
     marcxml = cmd.hasOption("marcxml");
+    System.err.println("marcxml: " + marcxml);
 
     lineSeparated = cmd.hasOption("lineSeparated");
 

@@ -36,6 +36,7 @@ public class ThompsonTraillCompleteness implements MarcFileProcessor, Serializab
 
   public ThompsonTraillCompleteness(String[] args) throws ParseException {
     parameters = new ThompsonTraillCompletenessParameters(args);
+    System.err.println("tt().marcxml: " + parameters.isMarcxml());
     options = parameters.getOptions();
     readyToProcess = true;
   }

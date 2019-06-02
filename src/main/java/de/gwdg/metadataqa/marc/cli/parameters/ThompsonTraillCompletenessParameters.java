@@ -25,6 +25,7 @@ public class ThompsonTraillCompletenessParameters extends CommonParameters {
 
   public ThompsonTraillCompletenessParameters(String[] arguments) throws ParseException {
     super(arguments);
+    System.err.println("ThompsonTraillCompletenessParameters");
 
     if (cmd.hasOption("fileName"))
       fileName = cmd.getOptionValue("fileName");

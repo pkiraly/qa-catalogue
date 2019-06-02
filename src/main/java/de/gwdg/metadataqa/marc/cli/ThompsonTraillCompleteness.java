@@ -70,6 +70,7 @@ public class ThompsonTraillCompleteness implements MarcFileProcessor, Serializab
 
   @Override
   public void beforeIteration() {
+    logger.info(parameters.formatParameters());
     output = new File(parameters.getOutputDir(), parameters.getFileName());
     if (output.exists())
       output.delete();

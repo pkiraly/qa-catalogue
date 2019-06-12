@@ -97,9 +97,11 @@ public class ThompsonTraillAnalysis {
     }
     scores.add(score);
 
-
     // LC/NLM Classification  050, 060, 090  1 point if any field exists
-    score = (exists(marcRecord, "050") || exists(marcRecord, "060") || exists(marcRecord, "090")) ? 1 : 0;
+    score = (
+      exists(marcRecord, "050") ||
+      exists(marcRecord, "060") ||
+      exists(marcRecord, "090")) ? 1 : 0;
     scores.add(score);
 
     // 600 - Personal Name

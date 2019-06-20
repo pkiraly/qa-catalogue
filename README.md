@@ -3,7 +3,7 @@ Metadata quality assessment for MARC records
 
 * If you would like to play with this project, but you don't have MARC21 please to download some recordsets mentioned in [Appendix I: Where can I get MARC records?](#datasources) of this document.
 * This is an early phase of the project, nor the software, neighter the documentation are ready. But still it is in a state which I thought worth sharing
-* For more info see the main project page: [Metadata Quality Assurance Framework](http://pkiraly.github.io)
+* For more info see the main project page: [Validating 126 million MARC records](http://bit.ly/qa-datech2019) (presentation at DATeCH 2019), [Metadata Quality Assurance Framework](http://pkiraly.github.io)
 
 ## build
 

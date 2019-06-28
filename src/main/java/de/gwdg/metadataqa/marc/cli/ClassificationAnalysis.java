@@ -7,6 +7,7 @@ import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.jetbrains.annotations.NotNull;
 import org.marc4j.marc.Record;
 
 import java.io.BufferedWriter;
@@ -24,7 +25,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
   private final Options options;
   private CommonParameters parameters;
-  private Map<Schema, Integer> schemaInstanceStatistics = new TreeMap<>();
+  private Map<Schema, Integer> schemaInstanceStatistics = new HashMap<>();
   private Map<String, Map<String[], Integer>> fieldInstanceStatistics = new TreeMap<>();
   private Map<Boolean, Integer> hasClassifications = new HashMap<>();
   private Map<String[], Integer> fieldInRecordsStatistics = new HashMap<>();
@@ -375,6 +376,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       this.location = location;
       this.schema = schema;
     }
+
   }
 
   private class Counter {

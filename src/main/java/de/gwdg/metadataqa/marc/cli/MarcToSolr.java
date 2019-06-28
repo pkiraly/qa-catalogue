@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.MarcToSolrParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
 import de.gwdg.metadataqa.marc.datastore.MarcSolrClient;
+import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
@@ -46,6 +47,7 @@ public class MarcToSolr implements MarcFileProcessor, Serializable {
 
   public static void main(String[] args) throws ParseException {
     MarcToSolr processor = new MarcToSolr(args);
+    processor.options.toString();
     if (StringUtils.isBlank(((MarcToSolrParameters) processor.getParameters()).getSolrUrl())) {
       System.err.println("Please provide a Solr URL and file name!");
       System.exit(0);
@@ -96,7 +98,7 @@ public class MarcToSolr implements MarcFileProcessor, Serializable {
 
   @Override
   public void beforeIteration() {
-
+    logger.info(parameters.formatParameters());
   }
 
   @Override
@@ -116,7 +118,9 @@ public class MarcToSolr implements MarcFileProcessor, Serializable {
 
   @Override
   public void printHelp(Options options) {
-
+    HelpFormatter formatter = new HelpFormatter();
+    String message = String.format("java -cp metadata-qa-marc.jar %s [options] [file]", this.getClass().getCanonicalName());
+    formatter.printHelp(message, options);
   }
 
   @Override

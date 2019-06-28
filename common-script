@@ -10,10 +10,10 @@ if [ ! -d ${OUTPUT_DIR} ]; then
 fi
 
 do_validate() {
-  GENERAL_PARAMS="--details --trimId --summary --format csv --defaultRecordType BOOKS" 
+  GENERAL_PARAMS="--details --trimId --summary --format csv --defaultRecordType BOOKS"
   OUTPUT_PARAMS="--outputDir ${OUTPUT_DIR} --detailsFileName issue-details.csv --summaryFileName issue-summary.csv"
 
-  echo "./validator ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${TYPE_PARAMS} ${MARC_DIR}/${MASK} 2> ${PREFIX}.log"
+  echo "./validator -Xms8g ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${TYPE_PARAMS} ${MARC_DIR}/${MASK} 2> ${PREFIX}.log"
   ./validator ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${TYPE_PARAMS} ${MARC_DIR}/$MASK 2> ${PREFIX}.log
 }
 
@@ -37,8 +37,8 @@ do_classifications() {
 }
 
 do_tt_completeness() {
-  echo "./tt-completeness --defaultRecordType BOOKS --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}.log"
-  ./tt-completeness --defaultRecordType BOOKS --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}.log
+  echo "./tt-completeness --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}.log"
+  ./tt-completeness --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}.log
 }
 
 do_format() {

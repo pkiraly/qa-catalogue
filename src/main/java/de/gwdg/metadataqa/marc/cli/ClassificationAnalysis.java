@@ -294,6 +294,19 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       schemaInstanceStatistics
         .entrySet()
         .stream()
+        .sorted((e1, e2) -> {
+            int i = e1.getKey().field.compareTo(e2.getKey().field);
+            if (i != 0)
+              return i;
+            else {
+              i = e1.getKey().location.compareTo(e2.getKey().location);
+              if (i != i)
+                return i;
+              else
+                return e2.getValue().compareTo(e1.getValue());
+            }
+          }
+        )
         .forEach(
           entry -> {
             Schema schema = entry.getKey();

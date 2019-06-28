@@ -299,8 +299,8 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
             try {
               writer.write(String.format("%s\n",
                 StringUtils.join(
-                  separator,
-                  Arrays.asList(schema.field, schema.location, '"' + schema.schema + '"', count))
+                  Arrays.asList(schema.field, schema.location, '"' + schema.schema + '"', count)),
+                  separator
               ));
             } catch (IOException ex) {
               ex.printStackTrace();

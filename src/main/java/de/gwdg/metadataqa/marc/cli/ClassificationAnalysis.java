@@ -24,6 +24,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
   private final Options options;
   private CommonParameters parameters;
+  private Map<Schema, Integer> schemaInstanceStatistics = new TreeMap<>();
   private Map<String, Map<String[], Integer>> fieldInstanceStatistics = new TreeMap<>();
   private Map<Boolean, Integer> hasClassifications = new HashMap<>();
   private Map<String[], Integer> fieldInRecordsStatistics = new HashMap<>();
@@ -96,6 +97,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
         continue;
 
       Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(field);
+      List<Schema> schemas = new ArrayList<>();
       List<String[]> schemes = new ArrayList<>();
       for (String scheme : marcRecord.extract(field, "ind1")) {
         if (scheme.equals("No information provided"))
@@ -106,16 +108,20 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
           List<String> altSchemes = marcRecord.extract(field, "2", true);
           if (altSchemes.isEmpty()) {
             schemes.add(new String[]{"undetectable", "$2"});
+            schemas.add(new Schema(field, "$2", "undetectable"));
           } else {
             for (String altScheme : altSchemes) {
               schemes.add(new String[]{altScheme, "$2"});
+              schemas.add(new Schema(field, "$2", altScheme));
             }
           }
         } else {
           schemes.add(new String[]{scheme, "ind1"});
+          schemas.add(new Schema(field, "ind1", scheme));
         }
       }
       addSchemesToStatistics(fieldStatistics, schemes);
+      addSchemasToStatistics(schemaInstanceStatistics, schemas);
     }
 
     for (String field : fieldsWithIndicator2AndSubfield2) {
@@ -124,22 +130,27 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
       hasSchema = true;
       Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(field);
+      List<Schema> schemas = new ArrayList<>();
       List<String[]> schemes = new ArrayList<>();
       for (String scheme : marcRecord.extract(field, "ind2")) {
         if (scheme.equals("Source specified in subfield $2")) {
           List<String> altSchemes = marcRecord.extract(field, "2", true);
           if (altSchemes.isEmpty()) {
             schemes.add(new String[]{"undetectable", "$2"});
+            schemas.add(new Schema(field, "$2", "undetectable"));
           } else {
             for (String altScheme : altSchemes) {
               schemes.add(new String[]{altScheme, "$2"});
+              schemas.add(new Schema(field, "$2", altScheme));
             }
           }
         } else {
           schemes.add(new String[]{scheme, "ind2"});
+          schemas.add(new Schema(field, "ind1", scheme));
         }
       }
       addSchemesToStatistics(fieldStatistics, schemes);
+      addSchemasToStatistics(schemaInstanceStatistics, schemas);
     }
 
     for (String field : fieldsWithSubfield2) {
@@ -151,11 +162,14 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       List<String> schemes = marcRecord.extract(field, "2", true);
       if (schemes.isEmpty())
         schemes.add("undetectable");
+      List<Schema> schemasWithLocation = new ArrayList<>();
       List<String[]> schemesWithLocation = new ArrayList<>();
       for (String scheme : schemes) {
         schemesWithLocation.add(new String[]{scheme, "$2"});
+        schemasWithLocation.add(new Schema(field, "$2", scheme));
       }
       addSchemesToStatistics(fieldStatistics, schemesWithLocation);
+      addSchemasToStatistics(schemaInstanceStatistics, schemasWithLocation);
     }
 
     for (Map.Entry<String, String> entry : fieldsWithScheme.entrySet()) {
@@ -170,6 +184,10 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
         List<String[]> list = new ArrayList<>();
         list.add(new String[]{entry.getValue(), "$a"});
         addSchemesToStatistics(fieldStatistics, list);
+
+        List<Schema> schemas = new ArrayList<>();
+        schemas.add(new Schema(field, "$a", entry.getValue()));
+        addSchemasToStatistics(schemaInstanceStatistics, schemas);
       }
     }
 
@@ -177,6 +195,17 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       hasClassifications.put(hasSchema, 0);
     }
     hasClassifications.put(hasSchema, hasClassifications.get(hasSchema) + 1);
+  }
+
+  private void addSchemasToStatistics(Map<Schema, Integer> fieldStatistics, List<Schema> schemes) {
+    if (!schemes.isEmpty()) {
+      for (Schema scheme : schemes) {
+        if (!fieldStatistics.containsKey(scheme)) {
+          fieldStatistics.put(scheme, 0);
+        }
+        fieldStatistics.put(scheme, fieldStatistics.get(scheme) + 1);
+      }
+    }
   }
 
   private void addSchemesToStatistics(Map<String[], Integer> fieldStatistics, List<String[]> schemes) {
@@ -225,19 +254,22 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       fieldInstanceStatistics
         .entrySet()
         .stream()
-        .forEach(entry -> {
+        .forEach(fieldEntry -> {
             // System.err.println(entry.getKey());
-            entry.getValue()
+            fieldEntry.getValue()
               .entrySet()
               .stream()
               .sorted((e1, e2) ->
                 e2.getValue().compareTo(e1.getValue()))
               .forEach(
-                e -> {
+                classificationStatistics -> {
                   try {
                     // int perRecord = fieldInRecordsStatistics.get(entry.getKey());
+                    String schema = classificationStatistics.getKey()[0];
+                    String location = classificationStatistics.getKey()[1];
+                    int count = classificationStatistics.getValue();
                     writer.write(String.format("%s%s'%s'%s%d\n",
-                      entry.getKey(), separator, e.getKey()[0] + '-' + e.getKey()[1], separator, e.getValue()
+                      fieldEntry.getKey(), separator, location, separator, schema, separator, count
                     ));
                   } catch (IOException ex) {
                     ex.printStackTrace();
@@ -245,6 +277,55 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
                 }
               );
           }
+        );
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+
+    path = Paths.get(parameters.getOutputDir(), "classifications-by-schema.csv");
+    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+      writer.write(String.format("field%slocation%sscheme%scount\n", separator, separator));
+      schemaInstanceStatistics
+        .entrySet()
+        .stream()
+        .forEach(
+          entry -> {
+            Schema schema = entry.getKey();
+            int count = entry.getValue();
+            try {
+              writer.write(String.format("%s%s'%s'%s%d\n",
+                schema.field, separator, schema.location, separator, schema.schema, separator, count
+              ));
+            } catch (IOException ex) {
+              ex.printStackTrace();
+            }
+          }
+
+          /*
+            schemaEntry. -> {
+            // System.err.println(entry.getKey());
+              schemaEntry.entrySet()
+              .stream()
+              .sorted((e1, e2) ->
+                e2.getValue().compareTo(e1.getValue()))
+              .forEach(
+                classificationStatistics -> {
+                  try {
+                    // int perRecord = fieldInRecordsStatistics.get(entry.getKey());
+                    String schema = classificationStatistics.getKey()[0];
+                    String location = classificationStatistics.getKey()[1];
+                    int count = classificationStatistics.getValue();
+                    writer.write(String.format("%s%s'%s'%s%d\n",
+                      fieldEntry.getKey(), separator, location, separator, schema, separator, count
+                    ));
+                  } catch (IOException ex) {
+                    ex.printStackTrace();
+                  }
+                }
+              );
+          }
+           */
         );
     } catch (IOException e) {
       e.printStackTrace();
@@ -288,10 +369,18 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     String field;
     String location;
     String schema;
+
+    public Schema(String field, String location, String schema) {
+      this.field = field;
+      this.location = location;
+      this.schema = schema;
+    }
   }
 
   private class Counter {
     int recordCount;
     int instanceCount;
   }
+
+  // private
 }

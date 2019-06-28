@@ -185,6 +185,13 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     return extract(tag, subfield, false);
   }
 
+  /**
+   * Extact field value
+   * @param tag
+   * @param subfield
+   * @param doResolve
+   * @return
+   */
   public List<String> extract(String tag, String subfield, boolean doResolve) {
     List<String> values = new ArrayList<>();
     List<DataField> fields = getDatafield(tag);

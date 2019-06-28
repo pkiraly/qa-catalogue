@@ -7,6 +7,7 @@ import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.marc4j.marc.Record;
 
@@ -296,8 +297,10 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
             Schema schema = entry.getKey();
             int count = entry.getValue();
             try {
-              writer.write(String.format("%s%s'%s'%s%d\n",
-                schema.field, separator, schema.location, separator, schema.schema, separator, count
+              writer.write(String.format("%s\n",
+                StringUtils.join(
+                  separator,
+                  Arrays.asList(schema.field, schema.location, '"' + schema.schema + '"', count))
               ));
             } catch (IOException ex) {
               ex.printStackTrace();

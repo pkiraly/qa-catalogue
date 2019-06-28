@@ -8,6 +8,8 @@ import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.jetbrains.annotations.NotNull;
 import org.marc4j.marc.Record;
 
@@ -299,8 +301,9 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
             try {
               writer.write(String.format("%s\n",
                 StringUtils.join(
-                  Arrays.asList(schema.field, schema.location, '"' + schema.schema + '"', count)),
+                  Arrays.asList(schema.field, schema.location, '"' + schema.schema + '"', count),
                   separator
+                )
               ));
             } catch (IOException ex) {
               ex.printStackTrace();
@@ -381,6 +384,29 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       this.schema = schema;
     }
 
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) return true;
+
+      if (o == null || getClass() != o.getClass()) return false;
+
+      Schema schema1 = (Schema) o;
+
+      return new EqualsBuilder()
+        .append(field, schema1.field)
+        .append(location, schema1.location)
+        .append(schema, schema1.schema)
+        .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+      return new HashCodeBuilder(17, 37)
+        .append(field)
+        .append(location)
+        .append(schema)
+        .toHashCode();
+    }
   }
 
   private class Counter {

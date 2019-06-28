@@ -250,6 +250,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   public void afterIteration() {
     char separator = ',';
     Path path = Paths.get(parameters.getOutputDir(), "classifications-by-field.csv");
+    /*
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write(String.format("field%sscheme%scount\n", separator, separator));
       fieldInstanceStatistics
@@ -282,7 +283,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     } catch (IOException e) {
       e.printStackTrace();
     }
-
+    */
 
     path = Paths.get(parameters.getOutputDir(), "classifications-by-schema.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {

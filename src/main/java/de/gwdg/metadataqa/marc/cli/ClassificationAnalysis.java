@@ -287,7 +287,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
     path = Paths.get(parameters.getOutputDir(), "classifications-by-schema.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-      writer.write(String.format("field%slocation%sscheme%scount\n", separator, separator));
+      writer.write(String.format("field%slocation%sscheme%scount\n", separator, separator, separator));
       schemaInstanceStatistics
         .entrySet()
         .stream()

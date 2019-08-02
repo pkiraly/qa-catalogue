@@ -34,18 +34,18 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   private Map<String[], Integer> fieldInRecordsStatistics = new HashMap<>();
   private boolean readyToProcess;
 
-  private static final List<String> fieldsWithIndicator2AndSubfield1 = Arrays.asList(
-    "852"
+  private static final List<String> fieldsWithIndicator1AndSubfield2 = Arrays.asList(
+    "052", "086", "852"
   );
 
   private static final List<String> fieldsWithIndicator2AndSubfield2 = Arrays.asList(
-    "600", "610", "611", "630", "647", "648", "650", "651", "655"
+    "055", "072", "600", "610", "611", "630", "647", "648", "650", "651", "655"
   );
 
   // 052 is bad here
   // 055 $2 -- Used only when the second indicator contains value 6 (Other call number assigned by LAC), 7 (Other class number assigned by LAC), 8 (Other call number assigned by the contributing library), or 9 (Other class number assigned by the contributing library).
   private static final List<String> fieldsWithSubfield2 = Arrays.asList(
-    "052", "055", "072", "084", "086"
+    "084"
   );
 
   private static final Map<String, String> fieldsWithScheme = new HashMap<>();
@@ -54,7 +54,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     fieldsWithScheme.put("082", "Dewey Decimal Classification");
     fieldsWithScheme.put("083", "Dewey Decimal Classification");
     fieldsWithScheme.put("085", "Dewey Decimal Classification");
-    fieldsWithScheme.put("086", "Government Document Classification");
+    // fieldsWithScheme.put("086", "Government Document Classification");
   }
 
   public ClassificationAnalysis(String[] args) throws ParseException {
@@ -98,35 +98,32 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
     boolean hasSchema = false;
-    for (String field : fieldsWithIndicator2AndSubfield1) {
+    for (String field : fieldsWithIndicator1AndSubfield2) {
       if (!marcRecord.hasDatafield(field))
         continue;
 
       Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(field);
       List<Schema> schemas = new ArrayList<>();
-      List<String[]> schemes = new ArrayList<>();
       for (String scheme : marcRecord.extract(field, "ind1")) {
         if (scheme.equals("No information provided"))
           continue;
 
-        hasSchema = true;
-        if (scheme.equals("Source specified in subfield $2")) {
+        if (!field.equals("852"))
+          hasSchema = true;
+
+        if (isAReferenceToSubfield2(field, scheme)) {
           List<String> altSchemes = marcRecord.extract(field, "2", true);
           if (altSchemes.isEmpty()) {
-            schemes.add(new String[]{"undetectable", "$2"});
             schemas.add(new Schema(field, "$2", "undetectable"));
           } else {
             for (String altScheme : altSchemes) {
-              schemes.add(new String[]{altScheme, "$2"});
               schemas.add(new Schema(field, "$2", altScheme));
             }
           }
         } else {
-          schemes.add(new String[]{scheme, "ind1"});
           schemas.add(new Schema(field, "ind1", scheme));
         }
       }
-      addSchemesToStatistics(fieldStatistics, schemes);
       addSchemasToStatistics(schemaInstanceStatistics, schemas);
     }
 
@@ -137,25 +134,20 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       hasSchema = true;
       Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(field);
       List<Schema> schemas = new ArrayList<>();
-      List<String[]> schemes = new ArrayList<>();
       for (String scheme : marcRecord.extract(field, "ind2")) {
-        if (scheme.equals("Source specified in subfield $2")) {
+        if (isAReferenceToSubfield2(field, scheme)) {
           List<String> altSchemes = marcRecord.extract(field, "2", true);
           if (altSchemes.isEmpty()) {
-            schemes.add(new String[]{"undetectable", "$2"});
             schemas.add(new Schema(field, "$2", "undetectable"));
           } else {
             for (String altScheme : altSchemes) {
-              schemes.add(new String[]{altScheme, "$2"});
               schemas.add(new Schema(field, "$2", altScheme));
             }
           }
         } else {
-          schemes.add(new String[]{scheme, "ind2"});
-          schemas.add(new Schema(field, "ind1", scheme));
+          schemas.add(new Schema(field, "ind2", scheme));
         }
       }
-      addSchemesToStatistics(fieldStatistics, schemes);
       addSchemasToStatistics(schemaInstanceStatistics, schemas);
     }
 
@@ -169,12 +161,9 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       if (schemes.isEmpty())
         schemes.add("undetectable");
       List<Schema> schemasWithLocation = new ArrayList<>();
-      List<String[]> schemesWithLocation = new ArrayList<>();
       for (String scheme : schemes) {
-        schemesWithLocation.add(new String[]{scheme, "$2"});
         schemasWithLocation.add(new Schema(field, "$2", scheme));
       }
-      addSchemesToStatistics(fieldStatistics, schemesWithLocation);
       addSchemasToStatistics(schemaInstanceStatistics, schemasWithLocation);
     }
 
@@ -187,10 +176,6 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(field);
       List<DataField> fields = marcRecord.getDatafield(field);
       for (DataField dataField : fields){
-        List<String[]> list = new ArrayList<>();
-        list.add(new String[]{entry.getValue(), "$a"});
-        addSchemesToStatistics(fieldStatistics, list);
-
         List<Schema> schemas = new ArrayList<>();
         schemas.add(new Schema(field, "$a", entry.getValue()));
         addSchemasToStatistics(schemaInstanceStatistics, schemas);
@@ -201,6 +186,17 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       hasClassifications.put(hasSchema, 0);
     }
     hasClassifications.put(hasSchema, hasClassifications.get(hasSchema) + 1);
+  }
+
+  private boolean isAReferenceToSubfield2(String field, String scheme) {
+    return ((field.equals("055") && isAReferenceFrom055(scheme)) || scheme.equals("Source specified in subfield $2"));
+  }
+
+  private boolean isAReferenceFrom055(String scheme) {
+    return (scheme.equals("Other call number assigned by LAC")
+            || scheme.equals("Other class number assigned by LAC")
+            || scheme.equals("Other call number assigned by the contributing library")
+            || scheme.equals("Other class number assigned by the contributing library"));
   }
 
   private void addSchemasToStatistics(Map<Schema, Integer> fieldStatistics, List<Schema> schemes) {
@@ -316,7 +312,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
             try {
               writer.write(String.format("%s\n",
                 StringUtils.join(
-                  Arrays.asList(schema.field, schema.location, '"' + schema.schema + '"', count),
+                  Arrays.asList(schema.field, schema.location, '"' + schema.schema.replace("\"", "\\\"") + '"', count),
                   separator
                 )
               ));

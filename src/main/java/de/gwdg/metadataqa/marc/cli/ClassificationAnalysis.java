@@ -42,6 +42,8 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     "600", "610", "611", "630", "647", "648", "650", "651", "655"
   );
 
+  // 052 is bad here
+  // 055 $2 -- Used only when the second indicator contains value 6 (Other call number assigned by LAC), 7 (Other class number assigned by LAC), 8 (Other call number assigned by the contributing library), or 9 (Other class number assigned by the contributing library).
   private static final List<String> fieldsWithSubfield2 = Arrays.asList(
     "052", "055", "072", "084", "086"
   );

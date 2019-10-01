@@ -10,6 +10,7 @@ import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 
 import de.gwdg.metadataqa.marc.definition.tags.control.Control001Definition;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.*;
@@ -285,17 +286,11 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
           String key = entry.getKey();
           List<String> values = entry.getValue();
           if (mainKeyValuePairs.containsKey(key)) {
-            ArrayList<String> mergedList = new ArrayList<String>(mainKeyValuePairs.get(key));
-            if (withDeduplication) {
-              for (String value : values) {
-                if (!mergedList.contains(value)) {
-                  mergedList.add(value);
-                }
-              }
-            } else {
-              mergedList.addAll(values);
-            }
-            mainKeyValuePairs.put(key, mergedList);
+            mainKeyValuePairs.put(key, mergeValues(
+              new ArrayList<String>(mainKeyValuePairs.get(key)),
+              values,
+              withDeduplication
+            ));
           } else {
             mainKeyValuePairs.put(key, values);
           }
@@ -304,6 +299,22 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     }
 
     return mainKeyValuePairs;
+  }
+
+  @NotNull
+  private List<String> mergeValues(List<String> existingValues,
+                                   List<String> values,
+                                   boolean withDeduplication) {
+    if (withDeduplication) {
+      for (String value : values) {
+        if (!existingValues.contains(value)) {
+          existingValues.add(value);
+        }
+      }
+    } else {
+      existingValues.addAll(values);
+    }
+    return existingValues;
   }
 
   public String asJson() {

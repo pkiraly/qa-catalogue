@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
 
 import java.io.Serializable;
 import java.util.*;
@@ -21,6 +22,7 @@ public abstract class DataFieldDefinition implements Serializable {
   protected String indexTag = null;
   protected Map<MarcVersion, List<SubfieldDefinition>> versionSpecificSubfields;
   protected List<FRBRFunction> functions;
+  protected FieldIndexer fieldIndexer = null;
 
   public String getTag() {
     return tag;
@@ -186,6 +188,10 @@ public abstract class DataFieldDefinition implements Serializable {
 
   public List<FRBRFunction> getFrbrFunctions() {
     return functions;
+  }
+
+  public FieldIndexer getFieldIndexer() {
+    return fieldIndexer;
   }
 
   @Override

@@ -224,6 +224,10 @@ public class DataField implements Extractable, Validatable, Serializable {
       }
     }
 
+    if (definition.getFieldIndexer() != null) {
+      pairs.putAll(definition.getFieldIndexer().index(this, keyGenerator));
+    }
+
     return pairs;
   }
 

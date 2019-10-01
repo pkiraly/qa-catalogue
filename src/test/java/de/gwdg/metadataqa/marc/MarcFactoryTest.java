@@ -47,7 +47,7 @@ public class MarcFactoryTest {
     // System.err.println(record.formatForIndex());
     // System.err.println(record.getKeyValuePairs());
     Map<String, List<String>> pairs = record.getKeyValuePairs(SolrFieldType.HUMAN);
-    assertEquals(119, pairs.size());
+    assertEquals(120, pairs.size());
     Set<String> keys = pairs.keySet();
     // keys.remove("GentLocallyDefinedField");
     // keys.remove("BemerkungenZurTitelaufnahme");
@@ -77,7 +77,8 @@ public class MarcFactoryTest {
       "AdminMetadata_transcribingAgency, AdminMetadata_catalogingAgency, " +
       "Language_translationIndication, Language, Language_sourceOfCode, Place_country, " +
       "ClassificationDdc_editionType, ClassificationDdc_classificationSource, ClassificationDdc, " +
-      "Classification_classificationPortion, Classification_source, Title_subtitle, " +
+      "Classification_classificationPortion, Classification_classificationPortion_zdbs, " +
+      "Classification_source, Title_subtitle, " +
       "Title_responsibilityStatement, Title_mainTitle, Title_titleAddedEntry, " +
       "Title_nonfilingCharacters, Title_partName, ParallelTitle_mainTitle, ParallelTitle_type, " +
       "ParallelTitle_displayText, ParallelTitle_noteAndAddedEntry, " +
@@ -460,7 +461,7 @@ public class MarcFactoryTest {
 
     MarcRecord record = MarcFactory.create(cache, MarcVersion.DNB);
     Map<String, List<String>> pairs = record.getKeyValuePairs(SolrFieldType.MIXED);
-    assertEquals(119, pairs.size());
+    assertEquals(120, pairs.size());
 
     Set<String> keys = pairs.keySet();
     keys.remove("591a_GentLocallyDefinedField");
@@ -532,6 +533,7 @@ public class MarcFactoryTest {
         "082a_ClassificationDdc, " +
         "0842_Classification_source, " +
         "084a_Classification_classificationPortion, " +
+        "084a_Classification_classificationPortion_zdbs, " +
         "245a_Title_mainTitle, " +
         "245ind1_Title_titleAddedEntry, " +
         "245ind2_Title_nonfilingCharacters, " +

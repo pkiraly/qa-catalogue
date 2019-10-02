@@ -46,7 +46,8 @@ abstract class SubjectIndexer {
       List<MarcSubfield> subfields = dataField.getSubfield("a");
       if (subfields == null || subfields.isEmpty()) {
         success = false;
-        logger.warning("No subfield a in the field: " + dataField.toString());
+        if (!dataField.getDefinition().getTag().equals("852"))
+          logger.warning("No subfield a in the field: " + dataField.toString());
       } else {
         key = keyGenerator.forSubfield(subfields.get(0)) + "_" + schemaAbbreviation;
 

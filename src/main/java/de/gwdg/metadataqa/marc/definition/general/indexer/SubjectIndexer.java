@@ -2,12 +2,16 @@ package de.gwdg.metadataqa.marc.definition.general.indexer;
 
 import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.MarcSubfield;
+import de.gwdg.metadataqa.marc.cli.ClassificationAnalysis;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 abstract class SubjectIndexer {
+
+  private static final Logger logger = Logger.getLogger(ClassificationAnalysis.class.getCanonicalName());
 
   protected void addUniqueValues(List<String> values, MarcSubfield subfield) {
     String value = subfield.resolve();
@@ -40,8 +44,10 @@ abstract class SubjectIndexer {
 
     public KeyValuesExtractor invoke() {
       List<MarcSubfield> subfields = dataField.getSubfield("a");
-      success = false;
-      if (subfields != null && !subfields.isEmpty()) {
+      if (subfields == null || subfields.isEmpty()) {
+        success = false;
+        logger.warning("No subfield a in the field: " + dataField.toString());
+      } else {
         key = keyGenerator.forSubfield(subfields.get(0)) + "_" + schemaAbbreviation;
 
         values = new ArrayList<>();

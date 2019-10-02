@@ -3,7 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags6xx;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.general.indexer.SubjectIndexerWithSchemaFromInd2AndSubfield2;
+import de.gwdg.metadataqa.marc.definition.general.indexer.subject.SchemaFromInd2AndSubfield2;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 /**
@@ -78,6 +78,6 @@ public class Tag647 extends DataFieldDefinition {
     getSubfield("6").setBibframeTag("linkage");
     getSubfield("8").setMqTag("fieldLink");
 
-    fieldIndexer = SubjectIndexerWithSchemaFromInd2AndSubfield2.getInstance();
+    fieldIndexer = SchemaFromInd2AndSubfield2.getInstance();
   }
 }

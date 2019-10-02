@@ -1,5 +1,6 @@
-package de.gwdg.metadataqa.marc.definition.general.indexer;
+package de.gwdg.metadataqa.marc.definition.general.indexer.subject;
 
+import de.gwdg.metadataqa.marc.definition.general.indexer.subject.ClassificationSchemes;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;

@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.definition.general.indexer;
+package de.gwdg.metadataqa.marc.definition.general.indexer.subject;
 
 import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.definition.tags.tags01x.Tag086;
@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * 086: Government Document Classification (http://www.loc.gov/marc/bibliographic/bd086.html)
  */
-public class SubjectIndexerWithSchemaFromInd1OrIfEmptyFromSubfield2Test extends SubjectIndexerTest {
+public class SchemaFromInd1OrIfEmptyFromSubfield2Test extends SubjectIndexerTest {
 
   @Test
   public void test086asssertIndexer() {
@@ -23,7 +23,7 @@ public class SubjectIndexerWithSchemaFromInd1OrIfEmptyFromSubfield2Test extends 
       "2", "dnb"
     );
     assertEquals(
-      SubjectIndexerWithSchemaFromInd1OrIfEmptyFromSubfield2.class,
+      SchemaFromInd1OrIfEmptyFromSubfield2.class,
       field.getDefinition().getFieldIndexer().getClass()
     );
   }

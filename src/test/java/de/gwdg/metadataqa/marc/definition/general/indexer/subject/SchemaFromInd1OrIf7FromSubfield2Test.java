@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.definition.general.indexer;
+package de.gwdg.metadataqa.marc.definition.general.indexer.subject;
 
 import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.definition.tags.tags01x.Tag052;
@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
  * 052: Geographic Classification (http://www.loc.gov/marc/bibliographic/bd052.html)
  * 852: Location (http://www.loc.gov/marc/bibliographic/bd852.html)
  */
-public class SubjectIndexerWithSchemaFromInd1OrIf7FromSubfield2Test extends SubjectIndexerTest {
+public class SchemaFromInd1OrIf7FromSubfield2Test extends SubjectIndexerTest {
 
   @Test
   public void test052asssertIndexer() {
@@ -24,7 +24,7 @@ public class SubjectIndexerWithSchemaFromInd1OrIf7FromSubfield2Test extends Subj
       "2", "dnb"
     );
     assertEquals(
-      SubjectIndexerWithSchemaFromInd1OrIf7FromSubfield2.class,
+      SchemaFromInd1OrIf7FromSubfield2.class,
       field.getDefinition().getFieldIndexer().getClass()
     );
   }
@@ -37,7 +37,7 @@ public class SubjectIndexerWithSchemaFromInd1OrIf7FromSubfield2Test extends Subj
       "2", "dnb"
     );
     assertEquals(
-      SubjectIndexerWithSchemaFromInd1OrIf7FromSubfield2.class,
+      SchemaFromInd1OrIf7FromSubfield2.class,
       field.getDefinition().getFieldIndexer().getClass()
     );
   }

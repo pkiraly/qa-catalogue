@@ -1,12 +1,13 @@
-package de.gwdg.metadataqa.marc.definition.general.indexer;
+package de.gwdg.metadataqa.marc.definition.general.indexer.subject;
 
 import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.MarcSubfield;
+import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
 
 import java.util.*;
 
-public class SubjectIndexerWithSchemaFromSubfield2 extends SubjectIndexer implements FieldIndexer {
+public class SchemaFromSubfield2 extends SubjectIndexer implements FieldIndexer {
 
   @Override
   public Map<String, List<String>> index(DataField dataField, DataFieldKeyGenerator keyGenerator) {
@@ -24,13 +25,13 @@ public class SubjectIndexerWithSchemaFromSubfield2 extends SubjectIndexer implem
     return indexEntries;
   }
 
-  private static SubjectIndexerWithSchemaFromSubfield2 uniqueInstance;
+  private static SchemaFromSubfield2 uniqueInstance;
 
-  private SubjectIndexerWithSchemaFromSubfield2() {}
+  private SchemaFromSubfield2() {}
 
-  public static SubjectIndexerWithSchemaFromSubfield2 getInstance() {
+  public static SchemaFromSubfield2 getInstance() {
     if (uniqueInstance == null)
-      uniqueInstance = new SubjectIndexerWithSchemaFromSubfield2();
+      uniqueInstance = new SchemaFromSubfield2();
     return uniqueInstance;
   }
 

@@ -6,7 +6,7 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.ClassificationSchemeSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
-import de.gwdg.metadataqa.marc.definition.general.indexer.SubjectIndexerWithSchemaFromInd1OrIf7FromSubfield2;
+import de.gwdg.metadataqa.marc.definition.general.indexer.subject.SchemaFromInd1OrIf7FromSubfield2;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
@@ -155,6 +155,6 @@ public class Tag852 extends DataFieldDefinition {
     getSubfield("8").setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
-    fieldIndexer = SubjectIndexerWithSchemaFromInd1OrIf7FromSubfield2.getInstance();
+    fieldIndexer = SchemaFromInd1OrIf7FromSubfield2.getInstance();
   }
 }

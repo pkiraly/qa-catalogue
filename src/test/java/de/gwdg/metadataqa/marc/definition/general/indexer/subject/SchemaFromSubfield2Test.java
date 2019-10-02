@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.definition.general.indexer;
+package de.gwdg.metadataqa.marc.definition.general.indexer.subject;
 
 import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.definition.tags.tags01x.Tag084;
@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * 084: Other Classificaton Number (http://www.loc.gov/marc/bibliographic/bd084.html)
  */
-public class SubjectIndexerWithSchemaFromSubfield2Test extends SubjectIndexerTest {
+public class SchemaFromSubfield2Test extends SubjectIndexerTest {
 
   @Test
   public void test084asssertIndexer() {
@@ -22,7 +22,7 @@ public class SubjectIndexerWithSchemaFromSubfield2Test extends SubjectIndexerTes
       "2", "dnb"
     );
     assertEquals(
-      SubjectIndexerWithSchemaFromSubfield2.class,
+      SchemaFromSubfield2.class,
       field.getDefinition().getFieldIndexer().getClass()
     );
   }

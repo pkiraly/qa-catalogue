@@ -1,6 +1,4 @@
-package de.gwdg.metadataqa.marc.definition.general.indexer;
-
-import de.gwdg.metadataqa.marc.definition.general.codelist.GenreFormCodeAndTermSourceCodes;
+package de.gwdg.metadataqa.marc.definition.general.indexer.subject;
 
 import java.util.HashMap;
 import java.util.Map;

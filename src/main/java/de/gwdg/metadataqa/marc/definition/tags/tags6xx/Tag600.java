@@ -5,7 +5,7 @@ import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTermSourceCodes;
-import de.gwdg.metadataqa.marc.definition.general.indexer.SubjectIndexerWithSchemaFromInd2AndSubfield2;
+import de.gwdg.metadataqa.marc.definition.general.indexer.subject.SchemaFromInd2AndSubfield2;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
@@ -168,7 +168,7 @@ public class Tag600 extends DataFieldDefinition {
       new SubfieldDefinition("9", "Artikkeli", "NR")
     ));
 
-    fieldIndexer = SubjectIndexerWithSchemaFromInd2AndSubfield2.getInstance();
+    fieldIndexer = SchemaFromInd2AndSubfield2.getInstance();
   }
 
   public String getSource(DataField field) {

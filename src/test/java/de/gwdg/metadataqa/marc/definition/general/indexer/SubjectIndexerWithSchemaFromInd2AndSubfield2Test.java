@@ -185,4 +185,19 @@ public class SubjectIndexerWithSchemaFromInd2AndSubfield2Test extends SubjectInd
     assertEquals("value2", indexEntries.get(solrField).get(1));
   }
 
+  @Test
+  public void test072_ind2Equals7without2() {
+    DataField field = new DataField(
+      Tag072.getInstance(), " ", "7",
+      "a", "value1",
+      "a", "value2",
+      "3", "dnb"
+    );
+
+    Map<String, List<String>> indexEntries = getIndexEntries(field);
+
+    String solrField = "072a_SubjectCategoryCode_dnb";
+    assertEquals(0, indexEntries.size());
+  }
+
 }

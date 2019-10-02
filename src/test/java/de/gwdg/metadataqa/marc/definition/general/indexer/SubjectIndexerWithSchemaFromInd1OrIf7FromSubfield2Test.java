@@ -193,6 +193,16 @@ public class SubjectIndexerWithSchemaFromInd1OrIf7FromSubfield2Test extends Subj
   }
 
   @Test
+  public void test852_ind1_7without2() {
+    Map<String, List<String>> indexEntries = getIndexEntries(new DataField(
+      Tag852.getInstance(), "7", " ",
+      "a", "value",
+      "3", "dnb"
+    ));
+    assertEquals(0, indexEntries.size());
+  }
+
+  @Test
   public void test852_ind1_8() {
     Map<String, List<String>> indexEntries = getIndexEntries(new DataField(
       Tag852.getInstance(), "8", " ",

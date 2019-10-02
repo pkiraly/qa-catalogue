@@ -76,4 +76,17 @@ public class SubjectIndexerWithSchemaFromSubfield2Test extends SubjectIndexerTes
     assertEquals("value", indexEntries.get("084a_Classification_classificationPortion_dnb").get(0));
   }
 
+  @Test
+  public void test084_withoutSubfield2() {
+    DataField field = new DataField(
+      Tag084.getInstance(), " ", " ",
+      "a", "value",
+      "3", "dnb"
+    );
+
+    Map<String, List<String>> indexEntries = getIndexEntries(field);
+
+    assertEquals(0, indexEntries.size());
+  }
+
 }

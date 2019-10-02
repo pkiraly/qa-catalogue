@@ -6,12 +6,12 @@ import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.definition.general.indexer.subject.ClassificationSchemes;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.jetbrains.annotations.NotNull;
 import org.marc4j.marc.Record;
 
 import java.io.BufferedWriter;
@@ -35,6 +35,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   private Map<Boolean, Integer> hasClassifications = new HashMap<>();
   private Map<String[], Integer> fieldInRecordsStatistics = new HashMap<>();
   private boolean readyToProcess;
+  private ClassificationSchemes classificationSchemes = ClassificationSchemes.getInstance();
 
   private static final List<String> fieldsWithIndicator1AndSubfield2 = Arrays.asList(
     "052", // Geographic Classification
@@ -125,17 +126,18 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
         if (!field.equals("852"))
           hasSchema = true;
 
-        if (isAReferenceToSubfield2(field, scheme)) {
-          List<String> altSchemes = marcRecord.extract(field, "2", MarcRecord.RESOLVE.RESOLVE);
+        if (isaReferenceToSubfield2(field, scheme)) {
+          List<String> altSchemes = marcRecord.extract(field, "2", MarcRecord.RESOLVE.BOTH);
           if (altSchemes.isEmpty()) {
             schemas.add(new Schema(field, "$2", "undetectable"));
           } else {
             for (String altScheme : altSchemes) {
-              schemas.add(new Schema(field, "$2", altScheme));
+              String[] parts = altScheme.split("##");
+              schemas.add(new Schema(field, "$2", parts[0], parts[1]));
             }
           }
         } else {
-          schemas.add(new Schema(field, "ind1", scheme));
+          schemas.add(new Schema(field, "ind1", scheme, classificationSchemes.resolve(scheme)));
         }
       }
       addSchemasToStatistics(schemaInstanceStatistics, schemas);
@@ -150,17 +152,18 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(field);
       List<Schema> schemas = new ArrayList<>();
       for (String scheme : marcRecord.extract(field, "ind2")) {
-        if (isAReferenceToSubfield2(field, scheme)) {
-          List<String> altSchemes = marcRecord.extract(field, "2", MarcRecord.RESOLVE.RESOLVE);
+        if (isaReferenceToSubfield2(field, scheme)) {
+          List<String> altSchemes = marcRecord.extract(field, "2", MarcRecord.RESOLVE.BOTH);
           if (altSchemes.isEmpty()) {
             schemas.add(new Schema(field, "$2", "undetectable"));
           } else {
             for (String altScheme : altSchemes) {
-              schemas.add(new Schema(field, "$2", altScheme));
+              String[] parts = altScheme.split("##");
+              schemas.add(new Schema(field, "$2", parts[0], parts[1]));
             }
           }
         } else {
-          schemas.add(new Schema(field, "ind2", scheme));
+          schemas.add(new Schema(field, "ind2", scheme, classificationSchemes.resolve(scheme)));
         }
       }
       addSchemasToStatistics(schemaInstanceStatistics, schemas);
@@ -173,12 +176,13 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
       hasSchema = true;
       Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(field);
-      List<String> schemes = marcRecord.extract(field, "2", MarcRecord.RESOLVE.RESOLVE);
+      List<String> schemes = marcRecord.extract(field, "2", MarcRecord.RESOLVE.BOTH);
       if (schemes.isEmpty())
         schemes.add("undetectable");
       List<Schema> schemas = new ArrayList<>();
       for (String scheme : schemes) {
-        schemas.add(new Schema(field, "$2", scheme));
+        String[] parts = scheme.split("##");
+        schemas.add(new Schema(field, "$2", parts[0], parts[1]));
       }
       addSchemasToStatistics(schemaInstanceStatistics, schemas);
       addSchemasToStatistics(schemaRecordStatistics, deduplicateSchema(schemas));
@@ -231,7 +235,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     return deduplicated;
   }
 
-  private boolean isAReferenceToSubfield2(String field, String scheme) {
+  private boolean isaReferenceToSubfield2(String field, String scheme) {
     return ((field.equals("055") && isAReferenceFrom055(scheme)) || scheme.equals("Source specified in subfield $2"));
   }
 
@@ -333,7 +337,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write(String.format("%s\n", // field%slocation%sscheme%scount\n", separator, separator, separator));
         StringUtils.join(
-          Arrays.asList("field", "location", "scheme", "recordcount", "count"),
+          Arrays.asList("field", "location", "scheme", "abbreviation", "recordcount", "count"),
           separator
       )));
 
@@ -365,6 +369,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
                     schema.field,
                     schema.location,
                     '"' + schema.schema.replace("\"", "\\\"") + '"',
+                    schema.abbreviation,
                     recordCount,
                     count
                   ),
@@ -443,11 +448,17 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     String field;
     String location;
     String schema;
+    String abbreviation;
 
     public Schema(String field, String location, String schema) {
       this.field = field;
       this.location = location;
       this.schema = schema;
+    }
+
+    public Schema(String field, String location, String schema, String abbreviation) {
+      this(field, location, schema);
+      this.abbreviation = abbreviation;
     }
 
     @Override

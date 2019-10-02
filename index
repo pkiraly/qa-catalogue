@@ -19,7 +19,8 @@ curl $SOLR/update -H "Content-type: text/xml" --data-binary '<commit/>'
      --solrFieldType mixed \
      --defaultRecordType BOOKS \
      --trimId \
-     --marcxml \
      ${FILE_PATH}/${FILE_MASK}
+
+#     --marcxml \
 
 curl "$SOLR/update?optimize=true" -H 'Content-type: text/xml' --data-binary '<commit/>'

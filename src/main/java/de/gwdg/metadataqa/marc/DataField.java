@@ -501,4 +501,13 @@ public class DataField implements Extractable, Validatable, Serializable {
       unhandledSubfields = new ArrayList<>();
     unhandledSubfields.add(code);
   }
+
+  @Override
+  public String toString() {
+    return "DataField{" +
+            ", ind1='" + ind1 + '\'' +
+            ", ind2='" + ind2 + '\'' +
+            ", subfields=" + subfields +
+            '}';
+  }
 }

@@ -217,4 +217,12 @@ public class MarcSubfield implements Validatable, Serializable {
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
   }
+
+  @Override
+  public String toString() {
+    return "MarcSubfield{" +
+            "code='" + code + '\'' +
+            ", value='" + value + '\'' +
+            '}';
+  }
 }

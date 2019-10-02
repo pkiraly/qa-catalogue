@@ -44,7 +44,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   );
 
   private static final List<String> fieldsWithIndicator2AndSubfield2 = Arrays.asList(
-    "055", // Classification Numbers Assigned in Canada
+    // "055", // Classification Numbers Assigned in Canada
     "072", // Subject Category Code
     "600", // Subject Added Entry - Personal Name
     "610", // Subject Added Entry - Corporate Name
@@ -341,7 +341,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
           separator
       )));
 
-              schemaInstanceStatistics
+      schemaInstanceStatistics
         .entrySet()
         .stream()
         .sorted((e1, e2) -> {

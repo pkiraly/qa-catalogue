@@ -82,5 +82,7 @@ public class Tag055 extends DataFieldDefinition {
     getSubfield("6").setBibframeTag("linkage");
     getSubfield("8").setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+
+    // fieldIndexer = SubjectIndexerWithSchemaFromInd2AndSubfield2.getInstance();
   }
 }

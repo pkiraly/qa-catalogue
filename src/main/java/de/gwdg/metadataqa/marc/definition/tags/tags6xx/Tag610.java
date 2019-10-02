@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags6xx;
 
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
+import de.gwdg.metadataqa.marc.definition.general.indexer.SubjectIndexerWithSchemaFromInd2AndSubfield2;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
@@ -148,6 +149,8 @@ public class Tag610 extends DataFieldDefinition {
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+
+    fieldIndexer = SubjectIndexerWithSchemaFromInd2AndSubfield2.getInstance();
 
     putVersionSpecificSubfields(MarcVersion.FENNICA, Arrays.asList(
       new SubfieldDefinition("9", "Artikkeli", "NR")

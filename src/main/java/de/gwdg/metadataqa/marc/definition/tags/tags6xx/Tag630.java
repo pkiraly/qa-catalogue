@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTermSourceCodes;
+import de.gwdg.metadataqa.marc.definition.general.indexer.SubjectIndexerWithSchemaFromInd2AndSubfield2;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
@@ -138,5 +139,7 @@ public class Tag630 extends DataFieldDefinition {
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+
+    fieldIndexer = SubjectIndexerWithSchemaFromInd2AndSubfield2.getInstance();
   }
 }

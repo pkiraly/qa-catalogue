@@ -12,11 +12,11 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public class ClassificationIndexerWithSubfield2Test {
+public class SubjectIndexerWithSchemaFromSubfield2Test {
 
   @Test
   public void test084() throws ParserException {
-    FieldIndexer indexer = ClassificationIndexerWithSubfield2.getInstance();
+    FieldIndexer indexer = SubjectIndexerWithSchemaFromSubfield2.getInstance();
 
     DataField field = new DataField(
       Tag084.getInstance(), " ", " ",
@@ -36,7 +36,7 @@ public class ClassificationIndexerWithSubfield2Test {
 
   @Test
   public void test084_multivalue() throws ParserException {
-    FieldIndexer indexer = ClassificationIndexerWithSubfield2.getInstance();
+    FieldIndexer indexer = SubjectIndexerWithSchemaFromSubfield2.getInstance();
 
     DataField field = new DataField(
       Tag084.getInstance(), " ", " ",

@@ -41,7 +41,7 @@ abstract class SubjectIndexer {
     public KeyValuesExtractor invoke() {
       List<MarcSubfield> subfields = dataField.getSubfield("a");
       success = false;
-      if (subfields != null && subfields.isEmpty()) {
+      if (subfields != null && !subfields.isEmpty()) {
         key = keyGenerator.forSubfield(subfields.get(0)) + "_" + schemaAbbreviation;
 
         values = new ArrayList<>();

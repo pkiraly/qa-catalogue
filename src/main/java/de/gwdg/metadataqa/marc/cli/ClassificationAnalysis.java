@@ -126,7 +126,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
           hasSchema = true;
 
         if (isAReferenceToSubfield2(field, scheme)) {
-          List<String> altSchemes = marcRecord.extract(field, "2", true);
+          List<String> altSchemes = marcRecord.extract(field, "2", MarcRecord.RESOLVE.RESOLVE);
           if (altSchemes.isEmpty()) {
             schemas.add(new Schema(field, "$2", "undetectable"));
           } else {
@@ -151,7 +151,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       List<Schema> schemas = new ArrayList<>();
       for (String scheme : marcRecord.extract(field, "ind2")) {
         if (isAReferenceToSubfield2(field, scheme)) {
-          List<String> altSchemes = marcRecord.extract(field, "2", true);
+          List<String> altSchemes = marcRecord.extract(field, "2", MarcRecord.RESOLVE.RESOLVE);
           if (altSchemes.isEmpty()) {
             schemas.add(new Schema(field, "$2", "undetectable"));
           } else {
@@ -173,7 +173,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
       hasSchema = true;
       Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(field);
-      List<String> schemes = marcRecord.extract(field, "2", true);
+      List<String> schemes = marcRecord.extract(field, "2", MarcRecord.RESOLVE.RESOLVE);
       if (schemes.isEmpty())
         schemes.add("undetectable");
       List<Schema> schemas = new ArrayList<>();
@@ -361,7 +361,13 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
             try {
               writer.write(String.format("%s\n",
                 StringUtils.join(
-                  Arrays.asList(schema.field, schema.location, '"' + schema.schema.replace("\"", "\\\"") + '"', recordCount, count),
+                  Arrays.asList(
+                    schema.field,
+                    schema.location,
+                    '"' + schema.schema.replace("\"", "\\\"") + '"',
+                    recordCount,
+                    count
+                  ),
                   separator
                 )
               ));

@@ -39,6 +39,12 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   private List<String> errors = null;
   private List<ValidationError> validationErrors = null;
 
+  public enum RESOLVE {
+    NONE,
+    RESOLVE,
+    BOTH;
+  }
+
   private List<String> unhandledTags;
 
   public MarcRecord() {
@@ -183,7 +189,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   }
 
   public List<String> extract(String tag, String subfield) {
-    return extract(tag, subfield, false);
+    return extract(tag, subfield, RESOLVE.NONE);
   }
 
   /**
@@ -193,7 +199,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
    * @param doResolve
    * @return
    */
-  public List<String> extract(String tag, String subfield, boolean doResolve) {
+  public List<String> extract(String tag, String subfield, RESOLVE doResolve) {
     List<String> values = new ArrayList<>();
     List<DataField> fields = getDatafield(tag);
     if (fields != null && !fields.isEmpty()) {
@@ -217,11 +223,12 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
           List<MarcSubfield> subfieldInstances = field.getSubfield(subfield);
           if (subfieldInstances != null) {
             for (MarcSubfield subfieldInstance : subfieldInstances) {
-              String value;
-              if (doResolve)
-                value = subfieldInstance.resolve();
-              else
-                value = subfieldInstance.getValue();
+              String value = null;
+              switch (doResolve) {
+                case RESOLVE: value = subfieldInstance.resolve(); break;
+                case NONE: value = subfieldInstance.getValue(); break;
+                case BOTH: value = subfieldInstance.resolve() + "##" + subfieldInstance.getValue(); break;
+              }
               values.add(value);
             }
           }

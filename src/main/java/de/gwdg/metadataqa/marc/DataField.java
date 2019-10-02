@@ -224,6 +224,10 @@ public class DataField implements Extractable, Validatable, Serializable {
       }
     }
 
+    if (definition.getFieldIndexer() != null) {
+      pairs.putAll(definition.getFieldIndexer().index(this, keyGenerator));
+    }
+
     return pairs;
   }
 
@@ -484,6 +488,10 @@ public class DataField implements Extractable, Validatable, Serializable {
       }
     }
     return isValid;
+  }
+
+  public DataFieldKeyGenerator getKeyGenerator(SolrFieldType type) {
+    return new DataFieldKeyGenerator(getDefinition(), type);
   }
 
   @Override

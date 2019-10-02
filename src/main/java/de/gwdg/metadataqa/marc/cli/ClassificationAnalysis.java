@@ -37,15 +37,29 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   private boolean readyToProcess;
 
   private static final List<String> fieldsWithIndicator1AndSubfield2 = Arrays.asList(
-    "052", "086", "852"
+    "052", // Geographic Classification
+    "086", // Government Document Classification Number
+    "852"  // Location
   );
 
   private static final List<String> fieldsWithIndicator2AndSubfield2 = Arrays.asList(
-    "055", "072", "600", "610", "611", "630", "647", "648", "650", "651", "655"
+    "055", // Classification Numbers Assigned in Canada
+    "072", // Subject Category Code
+    "600", // Subject Added Entry - Personal Name
+    "610", // Subject Added Entry - Corporate Name
+    "611", // Subject Added Entry - Meeting Name
+    "630", // Subject Added Entry - Uniform Title
+    "647", // Subject Added Entry - Named Event
+    "648", // Subject Added Entry - Chronological Term
+    "650", // Subject Added Entry - Topical Term
+    "651", // Subject Added Entry - Geographic Name
+    "655"  // Index Term - Genre/Form
   );
 
+  // 052 is bad here
+  // 055 $2 -- Used only when the second indicator contains value 6 (Other call number assigned by LAC), 7 (Other class number assigned by LAC), 8 (Other call number assigned by the contributing library), or 9 (Other class number assigned by the contributing library).
   private static final List<String> fieldsWithSubfield2 = Arrays.asList(
-    "084"
+    "084"  // Other Classificaton Number
   );
 
   private static final Map<String, String> fieldsWithScheme = new HashMap<>();

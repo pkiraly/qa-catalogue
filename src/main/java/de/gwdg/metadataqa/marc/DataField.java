@@ -512,10 +512,11 @@ public class DataField implements Extractable, Validatable, Serializable {
 
   @Override
   public String toString() {
-    return "DataField{" +
-            ", ind1='" + ind1 + '\'' +
-            ", ind2='" + ind2 + '\'' +
-            ", subfields=" + subfields +
-            '}';
+    return "DataField{"
+      + definition.getTag()
+      + ", ind1='" + ind1 + '\''
+      + ", ind2='" + ind2 + '\''
+      + ", subfields=" + subfields
+      + '}';
   }
 }

@@ -113,6 +113,20 @@ public class SubjectIndexerWithSchemaFromInd1OrIf7FromSubfield2Test extends Subj
   }
 
   @Test
+  public void test052_withoutSubfieldA() {
+    DataField field = new DataField(
+      Tag052.getInstance(), " ", " ",
+      "b", "value1",
+      "c", "value2",
+      "2", "dnb"
+    );
+
+    Map<String, List<String>> indexEntries = getIndexEntries(field);
+    assertEquals(0, indexEntries.size());
+  }
+
+
+    @Test
   public void test852_ind1_empty() {
     Map<String, List<String>> indexEntries = getIndexEntries(new DataField(
       Tag852.getInstance(), " ", " ",
@@ -210,5 +224,15 @@ public class SubjectIndexerWithSchemaFromInd1OrIf7FromSubfield2Test extends Subj
       "2", "dnb"
     ));
     assertEquals("852a_Location_location_other", indexEntries.keySet().toArray()[0]);
+  }
+
+  @Test
+  public void test852_withoutSubfieldA() {
+    Map<String, List<String>> indexEntries = getIndexEntries(new DataField(
+      Tag852.getInstance(), "7", " ",
+      "b", "value",
+      "2", "dnb"
+    ));
+    assertEquals(0, indexEntries.size());
   }
 }

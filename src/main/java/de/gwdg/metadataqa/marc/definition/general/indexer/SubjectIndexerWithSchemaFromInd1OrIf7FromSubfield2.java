@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SubjectIndexerWithSchemaFromInd1OrIf7FromSubfield2 implements FieldIndexer {
+public class SubjectIndexerWithSchemaFromInd1OrIf7FromSubfield2 extends SubjectIndexer implements FieldIndexer {
 
   @Override
   public Map<String, List<String>> index(DataField dataField, DataFieldKeyGenerator keyGenerator) {
@@ -26,14 +26,8 @@ public class SubjectIndexerWithSchemaFromInd1OrIf7FromSubfield2 implements Field
       schemaAbbreviation = ClassificationSchemes.getInstance().resolve(dataField.resolveInd1());
     }
 
-    String key = null;
-    List<String> values = new ArrayList<>();
-    for (MarcSubfield subfield : dataField.getSubfield("a")) {
-      if (key == null)
-        key = keyGenerator.forSubfield(subfield) + "_" + schemaAbbreviation;
-      values.add(subfield.resolve());
-    }
-    indexEntries.put(key, values);
+    KeyValuesExtractor extractor = new KeyValuesExtractor(dataField, keyGenerator, schemaAbbreviation).invoke();
+    indexEntries.put(extractor.getKey(), extractor.getValues());
 
     return indexEntries;
   }

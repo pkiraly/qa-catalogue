@@ -9,6 +9,9 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * 086: Government Document Classification (http://www.loc.gov/marc/bibliographic/bd086.html)
+ */
 public class SubjectIndexerWithSchemaFromInd1OrIfEmptyFromSubfield2Test extends SubjectIndexerTest {
 
   @Test

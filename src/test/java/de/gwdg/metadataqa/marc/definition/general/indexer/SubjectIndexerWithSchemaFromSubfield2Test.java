@@ -9,6 +9,9 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * 084: Other Classificaton Number (http://www.loc.gov/marc/bibliographic/bd084.html)
+ */
 public class SubjectIndexerWithSchemaFromSubfield2Test extends SubjectIndexerTest {
 
   @Test
@@ -54,6 +57,23 @@ public class SubjectIndexerWithSchemaFromSubfield2Test extends SubjectIndexerTes
     assertEquals(2, indexEntries.get("084a_Classification_classificationPortion_dnb").size());
     assertEquals("value1", indexEntries.get("084a_Classification_classificationPortion_dnb").get(0));
     assertEquals("value2", indexEntries.get("084a_Classification_classificationPortion_dnb").get(1));
+  }
+
+  @Test
+  public void test084_repeatingMultivalue() {
+    DataField field = new DataField(
+      Tag084.getInstance(), " ", " ",
+      "a", "value",
+      "a", "value",
+      "2", "dnb"
+    );
+
+    Map<String, List<String>> indexEntries = getIndexEntries(field);
+
+    assertEquals(1, indexEntries.size());
+    assertEquals("084a_Classification_classificationPortion_dnb", indexEntries.keySet().toArray()[0]);
+    assertEquals(1, indexEntries.get("084a_Classification_classificationPortion_dnb").size());
+    assertEquals("value", indexEntries.get("084a_Classification_classificationPortion_dnb").get(0));
   }
 
 }

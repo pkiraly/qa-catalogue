@@ -1,11 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -13,28 +9,8 @@ import static org.junit.Assert.*;
  */
 public class X035aSystemControlNumberTest {
 
-  public X035aSystemControlNumberTest() {
-  }
-
-  @BeforeClass
-  public static void setUpClass() {
-  }
-
-  @AfterClass
-  public static void tearDownClass() {
-  }
-
-  @Before
-  public void setUp() {
-  }
-
-  @After
-  public void tearDown() {
-  }
-
   @Test
-  public void testConstructor() {
-
+  public void testConstructor_withSingleString() {
     X035aSystemControlNumber field = new X035aSystemControlNumber("(OCoLC)255973508");
     assertEquals("OCoLC", field.getCode());
     assertEquals("255973508", field.getNumber());
@@ -42,6 +18,12 @@ public class X035aSystemControlNumberTest {
     field = new X035aSystemControlNumber("(DE-599)GBV010016783");
     assertEquals("DE-599", field.getCode());
     assertEquals("GBV010016783", field.getNumber());
+  }
 
+  @Test
+  public void testConstructor_withCodeAndNumber() {
+    X035aSystemControlNumber field = new X035aSystemControlNumber("DE-599", "GBV010016783");
+    assertEquals("DE-599", field.getCode());
+    assertEquals("GBV010016783", field.getNumber());
   }
 }

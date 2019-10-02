@@ -22,6 +22,7 @@ abstract class SubjectIndexer {
     private String schemaAbbreviation;
     private String key;
     private List<String> values;
+    private boolean success = false;
 
     public KeyValuesExtractor(DataField dataField, DataFieldKeyGenerator keyGenerator, String schemaAbbreviation) {
       this.dataField = dataField;
@@ -39,15 +40,25 @@ abstract class SubjectIndexer {
 
     public KeyValuesExtractor invoke() {
       List<MarcSubfield> subfields = dataField.getSubfield("a");
-      key = keyGenerator.forSubfield(subfields.get(0)) + "_" + schemaAbbreviation;
+      success = false;
+      if (subfields != null && subfields.isEmpty()) {
+        key = keyGenerator.forSubfield(subfields.get(0)) + "_" + schemaAbbreviation;
 
-      values = new ArrayList<>();
-      for (MarcSubfield subfield : subfields) {
-        addUniqueValues(values, subfield);
+        values = new ArrayList<>();
+        for (MarcSubfield subfield : subfields) {
+          addUniqueValues(values, subfield);
+        }
+        success = true;
       }
 
       return this;
     }
+
+    public boolean hadSuccess() {
+      return success;
+    }
   }
+
+
 
 }

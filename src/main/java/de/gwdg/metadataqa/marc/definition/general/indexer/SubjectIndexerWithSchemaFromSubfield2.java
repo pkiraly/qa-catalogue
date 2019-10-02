@@ -18,7 +18,8 @@ public class SubjectIndexerWithSchemaFromSubfield2 extends SubjectIndexer implem
     String schemaAbbreviation = subfield2s.get(0).getValue();
 
     KeyValuesExtractor extractor = new KeyValuesExtractor(dataField, keyGenerator, schemaAbbreviation).invoke();
-    indexEntries.put(extractor.getKey(), extractor.getValues());
+    if (extractor.hadSuccess())
+      indexEntries.put(extractor.getKey(), extractor.getValues());
 
     return indexEntries;
   }

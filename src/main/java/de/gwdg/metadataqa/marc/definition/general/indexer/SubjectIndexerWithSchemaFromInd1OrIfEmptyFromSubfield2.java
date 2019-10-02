@@ -27,7 +27,8 @@ public class SubjectIndexerWithSchemaFromInd1OrIfEmptyFromSubfield2 extends Subj
     }
 
     KeyValuesExtractor extractor = new KeyValuesExtractor(dataField, keyGenerator, schemaAbbreviation).invoke();
-    indexEntries.put(extractor.getKey(), extractor.getValues());
+    if (extractor.hadSuccess())
+      indexEntries.put(extractor.getKey(), extractor.getValues());
 
     return indexEntries;
   }

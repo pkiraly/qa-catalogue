@@ -9,21 +9,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SubjectIndexerWithSchemaFromInd2AndSubfield2 implements FieldIndexer {
+public class SubjectIndexerWithSchemaFromInd1OrIfEmptyFromSubfield2 implements FieldIndexer {
 
   @Override
   public Map<String, List<String>> index(DataField dataField, DataFieldKeyGenerator keyGenerator) {
     Map<String, List<String>> indexEntries = new HashMap<>();
-    String schemaCode = dataField.getInd2();
+    String schemaCode = dataField.getInd1();
     String schemaAbbreviation;
-    if (schemaCode.equals("7")) {
+    if (schemaCode.equals(" ")) {
       List<MarcSubfield> subfield2s = dataField.getSubfield("2");
       if (subfield2s == null || subfield2s.isEmpty())
         return indexEntries;
 
       schemaAbbreviation = subfield2s.get(0).getValue();
     } else {
-      schemaAbbreviation = ClassificationSchemes.getInstance().resolve(dataField.resolveInd2());
+      schemaAbbreviation = ClassificationSchemes.getInstance().resolve(dataField.resolveInd1());
     }
 
     String key = null;
@@ -38,13 +38,13 @@ public class SubjectIndexerWithSchemaFromInd2AndSubfield2 implements FieldIndexe
     return indexEntries;
   }
 
-  private static SubjectIndexerWithSchemaFromInd2AndSubfield2 uniqueInstance;
+  private static SubjectIndexerWithSchemaFromInd1OrIfEmptyFromSubfield2 uniqueInstance;
 
-  private SubjectIndexerWithSchemaFromInd2AndSubfield2() {}
+  private SubjectIndexerWithSchemaFromInd1OrIfEmptyFromSubfield2() {}
 
-  public static SubjectIndexerWithSchemaFromInd2AndSubfield2 getInstance() {
+  public static SubjectIndexerWithSchemaFromInd1OrIfEmptyFromSubfield2 getInstance() {
     if (uniqueInstance == null)
-      uniqueInstance = new SubjectIndexerWithSchemaFromInd2AndSubfield2();
+      uniqueInstance = new SubjectIndexerWithSchemaFromInd1OrIfEmptyFromSubfield2();
     return uniqueInstance;
   }
 }

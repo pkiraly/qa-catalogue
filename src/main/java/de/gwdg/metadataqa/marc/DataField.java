@@ -490,6 +490,10 @@ public class DataField implements Extractable, Validatable, Serializable {
     return isValid;
   }
 
+  public DataFieldKeyGenerator getKeyGenerator(SolrFieldType type) {
+    return new DataFieldKeyGenerator(getDefinition(), type);
+  }
+
   @Override
   public List<String> getErrors() {
     return errors;

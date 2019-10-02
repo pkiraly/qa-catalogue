@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.ClassificationSchemeSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
+import de.gwdg.metadataqa.marc.definition.general.indexer.SubjectIndexerWithSchemaFromInd1OrIf7FromSubfield2;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
@@ -31,6 +32,7 @@ public class Tag852 extends DataFieldDefinition {
   private void initialize() {
     tag = "852";
     label = "Location";
+    mqTag = "Location";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd852.html";
 
@@ -152,5 +154,7 @@ public class Tag852 extends DataFieldDefinition {
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+
+    fieldIndexer = SubjectIndexerWithSchemaFromInd1OrIf7FromSubfield2.getInstance();
   }
 }

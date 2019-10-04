@@ -249,7 +249,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   private Schema extractSchemaFromSubfield2(String tag, List<Schema> schemas, DataField field) {
     Schema currentSchema = null;
     List<MarcSubfield> altSchemes = field.getSubfield("2");
-    if (altSchemes.isEmpty()) {
+    if (altSchemes == null || altSchemes.isEmpty()) {
       currentSchema = new Schema(tag, "$2", "undetectable");
       schemas.add(currentSchema);
     } else {

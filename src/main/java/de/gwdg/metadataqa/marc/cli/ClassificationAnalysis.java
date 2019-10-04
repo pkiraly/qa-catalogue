@@ -12,6 +12,7 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.jetbrains.annotations.NotNull;
 import org.marc4j.marc.Record;
 
 import java.io.BufferedWriter;
@@ -31,11 +32,14 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   private CommonParameters parameters;
   private Map<Schema, Integer> schemaInstanceStatistics = new HashMap<>();
   private Map<Schema, Integer> schemaRecordStatistics = new HashMap<>();
+  private Map<Schema, Map<List<String>, Integer>> schemaSubfieldsStatistics = new HashMap<>();
   private Map<String, Map<String[], Integer>> fieldInstanceStatistics = new TreeMap<>();
   private Map<Boolean, Integer> hasClassifications = new HashMap<>();
   private Map<String[], Integer> fieldInRecordsStatistics = new HashMap<>();
   private boolean readyToProcess;
   private ClassificationSchemes classificationSchemes = ClassificationSchemes.getInstance();
+  private static char separator = ',';
+
 
   private static final List<String> fieldsWithIndicator1AndSubfield2 = Arrays.asList(
     "052", // Geographic Classification
@@ -83,7 +87,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     try {
       processor = new ClassificationAnalysis(args);
     } catch (ParseException e) {
-      System.err.println("ERROR. " + e.getLocalizedMessage());
+      System.err.println(createRow("ERROR. ", e.getLocalizedMessage()));
       // processor.printHelp(processor.getParameters().getOptions());
       System.exit(0);
     }
@@ -113,119 +117,166 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
     boolean hasSchema = false;
-    for (String field : fieldsWithIndicator1AndSubfield2) {
-      if (!marcRecord.hasDatafield(field))
-        continue;
-
-      Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(field);
-      List<Schema> schemas = new ArrayList<>();
-      for (String scheme : marcRecord.extract(field, "ind1")) {
-        if (scheme.equals("No information provided"))
-          continue;
-
-        if (!field.equals("852"))
-          hasSchema = true;
-
-        if (isaReferenceToSubfield2(field, scheme)) {
-          List<String> altSchemes = marcRecord.extract(field, "2", MarcRecord.RESOLVE.BOTH);
-          if (altSchemes.isEmpty()) {
-            schemas.add(new Schema(field, "$2", "undetectable"));
-          } else {
-            for (String altScheme : altSchemes) {
-              String[] parts = altScheme.split("##");
-              schemas.add(new Schema(field, "$2", parts[0], parts[1]));
-            }
-          }
-        } else {
-          schemas.add(new Schema(field, "ind1", scheme, classificationSchemes.resolve(scheme)));
-        }
-      }
-      addSchemasToStatistics(schemaInstanceStatistics, schemas);
-      addSchemasToStatistics(schemaRecordStatistics, deduplicateSchema(schemas));
+    for (String tag : fieldsWithIndicator1AndSubfield2) {
+      hasSchema = processFieldWithIndicator1AndSubfield2(marcRecord, hasSchema, tag);
     }
 
-    for (String field : fieldsWithIndicator2AndSubfield2) {
-      if (!marcRecord.hasDatafield(field))
-        continue;
-
-      hasSchema = true;
-      Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(field);
-      List<Schema> schemas = new ArrayList<>();
-      for (String scheme : marcRecord.extract(field, "ind2")) {
-        if (isaReferenceToSubfield2(field, scheme)) {
-          List<String> altSchemes = marcRecord.extract(field, "2", MarcRecord.RESOLVE.BOTH);
-          if (altSchemes.isEmpty()) {
-            schemas.add(new Schema(field, "$2", "undetectable"));
-          } else {
-            for (String altScheme : altSchemes) {
-              String[] parts = altScheme.split("##");
-              schemas.add(new Schema(field, "$2", parts[0], parts[1]));
-            }
-          }
-        } else {
-          schemas.add(new Schema(field, "ind2", scheme, classificationSchemes.resolve(scheme)));
-        }
-      }
-      addSchemasToStatistics(schemaInstanceStatistics, schemas);
-      addSchemasToStatistics(schemaRecordStatistics, deduplicateSchema(schemas));
+    for (String tag : fieldsWithIndicator2AndSubfield2) {
+      hasSchema = processFieldWithIndicator2AndSubfield2(marcRecord, hasSchema, tag);
     }
 
-    for (String field : fieldsWithSubfield2) {
-      if (!marcRecord.hasDatafield(field))
-        continue;
-
-      hasSchema = true;
-      Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(field);
-      List<String> schemes = marcRecord.extract(field, "2", MarcRecord.RESOLVE.BOTH);
-      if (schemes.isEmpty())
-        schemes.add("undetectable");
-      List<Schema> schemas = new ArrayList<>();
-      for (String scheme : schemes) {
-        String[] parts = scheme.split("##");
-        schemas.add(new Schema(field, "$2", parts[0], parts[1]));
-      }
-      addSchemasToStatistics(schemaInstanceStatistics, schemas);
-      addSchemasToStatistics(schemaRecordStatistics, deduplicateSchema(schemas));
+    for (String tag : fieldsWithSubfield2) {
+      hasSchema = processFieldWithSubfield2(marcRecord, hasSchema, tag);
     }
 
-    for (Map.Entry<String, String> entry : fieldsWithScheme.entrySet()) {
-      final String field = entry.getKey();
-      if (!marcRecord.hasDatafield(field))
-        continue;
-
-      hasSchema = true;
-      Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(field);
-      List<DataField> fields = marcRecord.getDatafield(field);
-      List<Schema> schemas = new ArrayList<>();
-      for (DataField dataField : fields) {
-        // System.err.println(dataField.getInd1());
-        String first = null;
-        String alt = null;
-        for (MarcSubfield subfield : dataField.getSubfields()) {
-          String code = subfield.getCode();
-          if (!code.equals("1") && !code.equals("2") && !code.equals("6") && !code.equals("8")) {
-            first = "$" + code;
-            break;
-          } else {
-            if (alt == null)
-              alt = "$" + code;
-          }
-        }
-        if (first != null) {
-          // first = alt;
-          schemas.add(new Schema(field, first, entry.getValue()));
-        } else {
-          System.err.println(dataField);
-        }
-      }
-      addSchemasToStatistics(schemaInstanceStatistics, schemas);
-      addSchemasToStatistics(schemaRecordStatistics, deduplicateSchema(schemas));
+    for (Map.Entry<String, String> fieldEntry : fieldsWithScheme.entrySet()) {
+      hasSchema = processFieldWithScheme(marcRecord, hasSchema, fieldEntry);
     }
 
     if (!hasClassifications.containsKey(hasSchema)) {
       hasClassifications.put(hasSchema, 0);
     }
     hasClassifications.put(hasSchema, hasClassifications.get(hasSchema) + 1);
+  }
+
+  private boolean processFieldWithScheme(MarcRecord marcRecord, boolean hasSchema, Map.Entry<String, String> fieldEntry) {
+    final String tag = fieldEntry.getKey();
+    if (!marcRecord.hasDatafield(tag))
+      return hasSchema;
+
+    hasSchema = true;
+    Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(tag);
+    List<DataField> fields = marcRecord.getDatafield(tag);
+    List<Schema> schemas = new ArrayList<>();
+    for (DataField field : fields) {
+      // System.err.println(dataField.getInd1());
+      String first = null;
+      String alt = null;
+      for (MarcSubfield subfield : field.getSubfields()) {
+        String code = subfield.getCode();
+        if (!code.equals("1") && !code.equals("2") && !code.equals("6") && !code.equals("8")) {
+          first = "$" + code;
+          break;
+        } else {
+          if (alt == null)
+            alt = "$" + code;
+        }
+      }
+      if (first != null) {
+        Schema currentSchema = new Schema(tag, first, fieldEntry.getValue());
+        schemas.add(currentSchema);
+        updateSchemaSubfieldStatistics(field, currentSchema);
+      } else {
+        logger.severe("undetected subfield: " + field.toString());
+      }
+    }
+    addSchemasToStatistics(schemaInstanceStatistics, schemas);
+    addSchemasToStatistics(schemaRecordStatistics, deduplicateSchema(schemas));
+    return hasSchema;
+  }
+
+  private boolean processFieldWithIndicator1AndSubfield2(MarcRecord marcRecord, boolean hasSchema, String tag) {
+    if (!marcRecord.hasDatafield(tag))
+      return hasSchema;
+
+    Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(tag);
+    List<Schema> schemas = new ArrayList<>();
+    List<DataField> fields = marcRecord.getDatafield(tag);
+    for (DataField field : fields) {
+      String scheme = field.resolveInd1();
+      if (scheme.equals("No information provided"))
+        continue;
+
+      if (!tag.equals("852"))
+        hasSchema = true;
+
+      Schema currentSchema = null;
+      if (isaReferenceToSubfield2(tag, scheme)) {
+        currentSchema = extractSchemaFromSubfield2(tag, schemas, field);
+      } else {
+        currentSchema = new Schema(tag, "ind1", scheme, classificationSchemes.resolve(scheme));
+        schemas.add(currentSchema);
+      }
+      updateSchemaSubfieldStatistics(field, currentSchema);
+    }
+
+    addSchemasToStatistics(schemaInstanceStatistics, schemas);
+    addSchemasToStatistics(schemaRecordStatistics, deduplicateSchema(schemas));
+    return hasSchema;
+  }
+
+  private boolean processFieldWithIndicator2AndSubfield2(MarcRecord marcRecord, boolean hasSchema, String tag) {
+    if (!marcRecord.hasDatafield(tag))
+      return false;
+
+    hasSchema = true;
+    Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(tag);
+    List<Schema> schemas = new ArrayList<>();
+    List<DataField> fields = marcRecord.getDatafield(tag);
+    for (DataField field : fields) {
+      String scheme = field.resolveInd2();
+      Schema currentSchema = null;
+      if (isaReferenceToSubfield2(tag, scheme)) {
+        currentSchema = extractSchemaFromSubfield2(tag, schemas, field);
+      } else {
+        currentSchema = new Schema(tag, "ind2", scheme, classificationSchemes.resolve(scheme));
+        schemas.add(currentSchema);
+      }
+      updateSchemaSubfieldStatistics(field, currentSchema);
+    }
+    addSchemasToStatistics(schemaInstanceStatistics, schemas);
+    addSchemasToStatistics(schemaRecordStatistics, deduplicateSchema(schemas));
+    return hasSchema;
+  }
+
+  private boolean processFieldWithSubfield2(MarcRecord marcRecord, boolean hasSchema, String tag) {
+    if (!marcRecord.hasDatafield(tag))
+      return false;
+
+    hasSchema = true;
+    List<DataField> fields = marcRecord.getDatafield(tag);
+    List<Schema> schemas = new ArrayList<>();
+    for (DataField field : fields) {
+      Schema currentSchema = extractSchemaFromSubfield2(tag, schemas, field);
+      updateSchemaSubfieldStatistics(field, currentSchema);
+    }
+    addSchemasToStatistics(schemaInstanceStatistics, schemas);
+    addSchemasToStatistics(schemaRecordStatistics, deduplicateSchema(schemas));
+    return hasSchema;
+  }
+
+  @NotNull
+  private Schema extractSchemaFromSubfield2(String tag, List<Schema> schemas, DataField field) {
+    Schema currentSchema = null;
+    List<MarcSubfield> altSchemes = field.getSubfield("2");
+    if (altSchemes.isEmpty()) {
+      currentSchema = new Schema(tag, "$2", "undetectable");
+      schemas.add(currentSchema);
+    } else {
+      for (MarcSubfield altScheme : altSchemes) {
+        currentSchema = new Schema(tag, "$2", altScheme.getValue(), altScheme.resolve());
+        schemas.add(currentSchema);
+      }
+    }
+    return currentSchema;
+  }
+
+  private void updateSchemaSubfieldStatistics(DataField field, Schema currentSchema) {
+    if (currentSchema == null)
+      return;
+    List<String> subfields = new ArrayList<>();
+    for (MarcSubfield subfield : field.getSubfields()) {
+      subfields.add(subfield.getCode());
+    }
+    if (!schemaSubfieldsStatistics.containsKey(currentSchema)) {
+      schemaSubfieldsStatistics.put(currentSchema, new HashMap<List<String>, Integer>());
+    }
+    Map<List<String>, Integer> subfieldsStatistics = schemaSubfieldsStatistics.get(currentSchema);
+    if (!subfieldsStatistics.containsKey(subfields)) {
+      subfieldsStatistics.put(subfields, 1);
+    } else {
+      subfieldsStatistics.put(subfields, subfieldsStatistics.get(subfields) + 1);
+    }
   }
 
   private List<Schema> deduplicateSchema(List<Schema> schemas) {
@@ -296,7 +347,6 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
   @Override
   public void afterIteration() {
-    char separator = ',';
     Path path = Paths.get(parameters.getOutputDir(), "classifications-by-field.csv");
     /*
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
@@ -421,9 +471,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
         .forEach(
           e -> {
             try {
-              writer.write(String.format("%s%s%d\n",
-                e.getKey().toString(), separator, e.getValue()
-              ));
+              writer.write(createRow(e.getKey().toString(), e.getValue()));
             } catch (IOException ex) {
               ex.printStackTrace();
             }
@@ -432,6 +480,56 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     } catch (IOException e) {
       e.printStackTrace();
     }
+
+    path = Paths.get(parameters.getOutputDir(), "classifications-by-schema-subfields.csv");
+    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+      final List<String> header = Arrays.asList("field", "location", "label", "abbreviation", "subfields", "scount");
+      writer.write(createRow(header));
+      schemaSubfieldsStatistics
+        .entrySet()
+        .stream()
+        .sorted((e1, e2) ->
+          e2.getKey().field.compareTo(e1.getKey().field))
+        .forEach(
+          schemaEntry -> {
+              Schema schema = schemaEntry.getKey();
+              Map<List<String>, Integer> val = schemaEntry.getValue();
+              val
+                .entrySet()
+                .stream()
+                .sorted((count1, count2) -> count2.getValue().compareTo(count1.getValue()))
+                .forEach(
+                  countEntry -> {
+                    List<String> subfields = countEntry.getKey();
+                    int count = countEntry.getValue();
+                    try {
+                      writer.write(createRow(
+                        schema.field,
+                        schema.location,
+                        '"' + schema.schema.replace("\"", "\\\"") + '"',
+                        schema.abbreviation,
+                        StringUtils.join(subfields, ';'),
+                        count
+                      ));
+                    } catch (IOException ex) {
+                      ex.printStackTrace();
+                    }
+                  }
+                );
+          }
+        );
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @NotNull
+  private static String createRow(List<String> fields) {
+    return StringUtils.join(fields, separator) + "\n";
+  }
+
+  private static String createRow(Object... fields) {
+    return StringUtils.join(fields, separator) + "\n";
   }
 
   @Override

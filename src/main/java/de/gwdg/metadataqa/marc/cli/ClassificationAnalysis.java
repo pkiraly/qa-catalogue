@@ -168,7 +168,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
         schemas.add(currentSchema);
         updateSchemaSubfieldStatistics(field, currentSchema);
       } else {
-        logger.severe("undetected subfield: " + field.toString());
+        logger.severe(String.format("undetected subfield in record %s %s", marcRecord.getId(), field.toString()));
       }
     }
     addSchemasToStatistics(schemaInstanceStatistics, schemas);

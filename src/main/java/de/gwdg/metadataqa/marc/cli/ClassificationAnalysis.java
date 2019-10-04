@@ -163,7 +163,8 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
         }
       }
       if (first != null) {
-        Schema currentSchema = new Schema(tag, first, fieldEntry.getValue());
+        String scheme = fieldEntry.getValue();
+        Schema currentSchema = new Schema(tag, first, scheme, classificationSchemes.resolve(scheme));
         schemas.add(currentSchema);
         updateSchemaSubfieldStatistics(field, currentSchema);
       } else {
@@ -385,12 +386,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
     path = Paths.get(parameters.getOutputDir(), "classifications-by-schema.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-      writer.write(String.format("%s\n", // field%slocation%sscheme%scount\n", separator, separator, separator));
-        StringUtils.join(
-          Arrays.asList("field", "location", "scheme", "abbreviation", "recordcount", "count"),
-          separator
-      )));
-
+      writer.write(createRow("field", "location", "scheme", "abbreviation", "recordcount", "instancecount"));
       schemaInstanceStatistics
         .entrySet()
         .stream()
@@ -410,21 +406,16 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
         .forEach(
           entry -> {
             Schema schema = entry.getKey();
-            int count = entry.getValue();
+            int instanceCount = entry.getValue();
             int recordCount = schemaRecordStatistics.get(schema);
             try {
-              writer.write(String.format("%s\n",
-                StringUtils.join(
-                  Arrays.asList(
-                    schema.field,
-                    schema.location,
-                    '"' + schema.schema.replace("\"", "\\\"") + '"',
-                    schema.abbreviation,
-                    recordCount,
-                    count
-                  ),
-                  separator
-                )
+              writer.write(createRow(
+                schema.field,
+                schema.location,
+                '"' + schema.schema.replace("\"", "\\\"") + '"',
+                schema.abbreviation,
+                recordCount,
+                instanceCount
               ));
             } catch (IOException ex) {
               ex.printStackTrace();
@@ -462,7 +453,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
     path = Paths.get(parameters.getOutputDir(), "classifications-by-records.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-      writer.write(String.format("records-with-classification%scount\n", separator));
+      writer.write(createRow("records-with-classification", "count"));
       hasClassifications
         .entrySet()
         .stream()
@@ -489,7 +480,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
         .entrySet()
         .stream()
         .sorted((e1, e2) ->
-          e2.getKey().field.compareTo(e1.getKey().field))
+          e1.getKey().field.compareTo(e2.getKey().field))
         .forEach(
           schemaEntry -> {
               Schema schema = schemaEntry.getKey();

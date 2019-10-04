@@ -365,6 +365,13 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
   @Override
   public void afterIteration() {
+    printClassificationsByField();
+    printClassificationsBySchema();
+    printClassificationsByRecords();
+    printSchemaSubfieldsStatistics();
+  }
+
+  private void printClassificationsByField() {
     Path path = Paths.get(parameters.getOutputDir(), "classifications-by-field.csv");
     /*
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
@@ -400,7 +407,10 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       e.printStackTrace();
     }
     */
+  }
 
+  private void printClassificationsBySchema() {
+    Path path;
     path = Paths.get(parameters.getOutputDir(), "classifications-by-schema.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("field", "location", "scheme", "abbreviation", "recordcount", "instancecount"));
@@ -421,53 +431,33 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
           }
         )
         .forEach(
-          entry -> {
-            Schema schema = entry.getKey();
-            int instanceCount = entry.getValue();
-            int recordCount = schemaRecordStatistics.get(schema);
-            try {
-              writer.write(createRow(
-                schema.field,
-                schema.location,
-                '"' + schema.schema.replace("\"", "\\\"") + '"',
-                schema.abbreviation,
-                recordCount,
-                instanceCount
-              ));
-            } catch (IOException ex) {
-              ex.printStackTrace();
-            }
-          }
-
-          /*
-            schemaEntry. -> {
-            // System.err.println(entry.getKey());
-              schemaEntry.entrySet()
-              .stream()
-              .sorted((e1, e2) ->
-                e2.getValue().compareTo(e1.getValue()))
-              .forEach(
-                classificationStatistics -> {
-                  try {
-                    // int perRecord = fieldInRecordsStatistics.get(entry.getKey());
-                    String schema = classificationStatistics.getKey()[0];
-                    String location = classificationStatistics.getKey()[1];
-                    int count = classificationStatistics.getValue();
-                    writer.write(String.format("%s%s'%s'%s%d\n",
-                      fieldEntry.getKey(), separator, location, separator, schema, separator, count
-                    ));
-                  } catch (IOException ex) {
-                    ex.printStackTrace();
-                  }
-                }
-              );
-          }
-           */
+          entry -> printSingleClassificationBySchema(writer, entry)
         );
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
 
+  private void printSingleClassificationBySchema(BufferedWriter writer, Map.Entry<Schema, Integer> entry) {
+    Schema schema = entry.getKey();
+    int instanceCount = entry.getValue();
+    int recordCount = schemaRecordStatistics.get(schema);
+    try {
+      writer.write(createRow(
+        schema.field,
+        schema.location,
+        '"' + schema.schema.replace("\"", "\\\"") + '"',
+        schema.abbreviation,
+        recordCount,
+        instanceCount
+      ));
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+
+  private void printClassificationsByRecords() {
+    Path path;
     path = Paths.get(parameters.getOutputDir(), "classifications-by-records.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("records-with-classification", "count"));
@@ -488,7 +478,10 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
 
+  private void printSchemaSubfieldsStatistics() {
+    Path path;
     path = Paths.get(parameters.getOutputDir(), "classifications-by-schema-subfields.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       final List<String> header = Arrays.asList("field", "location", "label", "abbreviation", "subfields", "scount");
@@ -499,36 +492,38 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
         .sorted((e1, e2) ->
           e1.getKey().field.compareTo(e2.getKey().field))
         .forEach(
-          schemaEntry -> {
-              Schema schema = schemaEntry.getKey();
-              Map<List<String>, Integer> val = schemaEntry.getValue();
-              val
-                .entrySet()
-                .stream()
-                .sorted((count1, count2) -> count2.getValue().compareTo(count1.getValue()))
-                .forEach(
-                  countEntry -> {
-                    List<String> subfields = countEntry.getKey();
-                    int count = countEntry.getValue();
-                    try {
-                      writer.write(createRow(
-                        schema.field,
-                        schema.location,
-                        '"' + schema.schema.replace("\"", "\\\"") + '"',
-                        schema.abbreviation,
-                        StringUtils.join(subfields, ';'),
-                        count
-                      ));
-                    } catch (IOException ex) {
-                      ex.printStackTrace();
-                    }
-                  }
-                );
-          }
+          schemaEntry -> printSingleSchemaSubfieldsStatistics(writer, schemaEntry)
         );
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  private void printSingleSchemaSubfieldsStatistics(BufferedWriter writer, Map.Entry<Schema, Map<List<String>, Integer>> schemaEntry) {
+    Schema schema = schemaEntry.getKey();
+    Map<List<String>, Integer> val = schemaEntry.getValue();
+    val
+      .entrySet()
+      .stream()
+      .sorted((count1, count2) -> count2.getValue().compareTo(count1.getValue()))
+      .forEach(
+        countEntry -> {
+          List<String> subfields = countEntry.getKey();
+          int count = countEntry.getValue();
+          try {
+            writer.write(createRow(
+              schema.field,
+              schema.location,
+              '"' + schema.schema.replace("\"", "\\\"") + '"',
+              schema.abbreviation,
+              StringUtils.join(subfields, ';'),
+              count
+            ));
+          } catch (IOException ex) {
+            ex.printStackTrace();
+          }
+        }
+      );
   }
 
   @NotNull

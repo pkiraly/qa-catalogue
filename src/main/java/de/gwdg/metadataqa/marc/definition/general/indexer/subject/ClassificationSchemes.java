@@ -31,6 +31,7 @@ public class ClassificationSchemes {
 
     // name in 080 (udc), 082, 083, 085 (ddc)
     schemes.put("Universal Decimal Classification", "udc");
+    schemes.put("Dewey Decimal Classification", "ddc");
   }
 
   public String resolve(String key) {

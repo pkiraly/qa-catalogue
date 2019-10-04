@@ -229,7 +229,10 @@ public class DataField implements Extractable, Validatable, Serializable {
         Map<String, List<String>> extra = definition.getFieldIndexer().index(this, keyGenerator);
         pairs.putAll(extra);
       } catch (IllegalArgumentException e) {
-        logger.severe(this.toString() + ": " + e.getLocalizedMessage());
+        logger.severe(String.format(
+          "%s  in record %s %s",
+          e.getLocalizedMessage(), record.getId(), this.toString()
+        ));
       }
     }
 

@@ -28,6 +28,9 @@ public class ClassificationSchemes {
     schemes.put("Title", "title");
     schemes.put("Shelved separately", "shelfs");
     schemes.put("Other scheme", "other");
+
+    // name in 080 (udc), 082, 083, 085 (ddc)
+    schemes.put("Universal Decimal Classification", "udc");
   }
 
   public String resolve(String key) {

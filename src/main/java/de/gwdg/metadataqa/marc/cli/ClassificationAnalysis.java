@@ -220,8 +220,12 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       if (isaReferenceToSubfield2(tag, scheme)) {
         currentSchema = extractSchemaFromSubfield2(tag, schemas, field);
       } else {
-        currentSchema = new Schema(tag, "ind2", scheme, classificationSchemes.resolve(scheme));
-        schemas.add(currentSchema);
+        if (scheme.equals(" ")) {
+          logger.severe(marcRecord.getId() + " " + field.toString());
+        } else {
+          currentSchema = new Schema(tag, "ind2", scheme, classificationSchemes.resolve(scheme));
+          schemas.add(currentSchema);
+        }
       }
       updateSchemaSubfieldStatistics(field, currentSchema);
     }

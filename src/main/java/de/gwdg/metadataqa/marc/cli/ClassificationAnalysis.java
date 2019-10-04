@@ -266,9 +266,22 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     if (currentSchema == null)
       return;
     List<String> subfields = new ArrayList<>();
+    Set<String> multiFields = new HashSet<>();
     for (MarcSubfield subfield : field.getSubfields()) {
-      subfields.add(subfield.getCode());
+      String code = subfield.getCode();
+      if (!subfields.contains(code))
+        subfields.add(code);
+      else
+        multiFields.add(code);
     }
+    if (!multiFields.isEmpty()) {
+      for (String code : multiFields)
+        subfields.remove(code);
+      for (String code : multiFields)
+        subfields.add(code + "+");
+    }
+    Collections.sort(subfields);
+
     if (!schemaSubfieldsStatistics.containsKey(currentSchema)) {
       schemaSubfieldsStatistics.put(currentSchema, new HashMap<List<String>, Integer>());
     }

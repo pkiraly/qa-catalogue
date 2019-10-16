@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags6xx;
 
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
+import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTermSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.indexer.subject.SchemaFromInd2AndSubfield2;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
@@ -90,6 +91,7 @@ public class Tag610 extends DataFieldDefinition {
       "8", "Field link and sequence number", "R"
     );
 
+    getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
     getSubfield("4").setCodeList(RelatorCodes.getInstance());
 
     getSubfield("0").setContentParser(RecordControlNumberParser.getInstance());

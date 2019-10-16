@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 
 public class MarcSubfield implements Validatable, Serializable {
 
-  private static final Logger logger = Logger.getLogger(MarcRecord.class.getCanonicalName());
+  private static final Logger logger = Logger.getLogger(MarcSubfield.class.getCanonicalName());
 
   private MarcRecord record;
   private DataField field;
@@ -75,9 +75,9 @@ public class MarcSubfield implements Validatable, Serializable {
   }
 
   public String resolve() {
-    if (definition == null) {
+    if (definition == null)
       return value;
-    }
+
     return definition.resolve(value);
   }
 

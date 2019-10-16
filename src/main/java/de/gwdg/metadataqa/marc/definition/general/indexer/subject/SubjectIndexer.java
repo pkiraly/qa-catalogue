@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.definition.general.indexer.subject;
 
 import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.MarcSubfield;
+import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.cli.ClassificationAnalysis;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
 
@@ -49,7 +50,7 @@ abstract class SubjectIndexer {
         if (!dataField.getDefinition().getTag().equals("852"))
           logger.warning("No subfield a in the field: " + dataField.toString());
       } else {
-        key = keyGenerator.forSubfield(subfields.get(0)) + "_" + schemaAbbreviation;
+        key = keyGenerator.forSubfield(subfields.get(0)) + "_" + Utils.solarize(schemaAbbreviation);
 
         values = new ArrayList<>();
         for (MarcSubfield subfield : subfields) {
@@ -65,7 +66,4 @@ abstract class SubjectIndexer {
       return success;
     }
   }
-
-
-
 }

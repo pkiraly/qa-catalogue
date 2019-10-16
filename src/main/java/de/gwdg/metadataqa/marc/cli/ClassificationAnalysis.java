@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.cli;
 import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
+import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
@@ -263,7 +264,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     Schema currentSchema = null;
     List<MarcSubfield> altSchemes = field.getSubfield("2");
     if (altSchemes == null || altSchemes.isEmpty()) {
-      currentSchema = new Schema(tag, "$2", "undetectable");
+      currentSchema = new Schema(tag, "$2", "undetectable", "undetectable");
       schemas.add(currentSchema);
     } else {
       for (MarcSubfield altScheme : altSchemes) {
@@ -444,7 +445,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     Path path;
     path = Paths.get(parameters.getOutputDir(), "classifications-by-schema.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-      writer.write(createRow("id", "field", "location", "scheme", "abbreviation", "recordcount", "instancecount"));
+      writer.write(createRow("id", "field", "location", "scheme", "abbreviation", "abbreviation4solr", "recordcount", "instancecount"));
       schemaInstanceStatistics
         .entrySet()
         .stream()
@@ -480,11 +481,16 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
         schema.location,
         '"' + schema.schema.replace("\"", "\\\"") + '"',
         schema.abbreviation,
+        Utils.solarize(schema.abbreviation),
         recordCount,
         instanceCount
       ));
     } catch (IOException ex) {
       ex.printStackTrace();
+      System.err.println(schema);
+    } catch (NullPointerException ex) {
+      ex.printStackTrace();
+      System.err.println(schema);
     }
   }
 
@@ -627,6 +633,17 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
         .append(location)
         .append(schema)
         .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+      return "Schema{" +
+              "id=" + id +
+              ", field='" + field + '\'' +
+              ", location='" + location + '\'' +
+              ", schema='" + schema + '\'' +
+              ", abbreviation='" + abbreviation + '\'' +
+              '}';
     }
   }
 

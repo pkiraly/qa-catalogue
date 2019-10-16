@@ -91,5 +91,4 @@ public class DataFieldKeyGenerator {
   public String forSubfield(MarcSubfield subfield, String extra) {
     return String.format("%s_%s", forSubfield(subfield), extra);
   }
-
 }

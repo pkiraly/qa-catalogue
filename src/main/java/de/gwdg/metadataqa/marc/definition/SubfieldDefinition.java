@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.SubfieldValidator;
@@ -11,12 +12,15 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class SubfieldDefinition implements Serializable {
+
+  private static final Logger logger = Logger.getLogger(SubfieldDefinition.class.getCanonicalName());
 
   private String code;
   private String bibframeTag;

@@ -3,6 +3,8 @@ package de.gwdg.metadataqa.marc;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,4 +68,9 @@ public class Utils {
     counter.put(key, counter.get(key) + 1);
   }
 
+  public static String solarize(String abbreviation) {
+    abbreviation = StringUtils.stripAccents(abbreviation);
+    abbreviation = abbreviation.replaceAll("\\W", "_").toLowerCase();
+    return abbreviation;
+  }
 }

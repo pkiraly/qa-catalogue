@@ -90,4 +90,11 @@ public class UtilsTest {
     String result = text.replaceAll("^[^/]+/", "");
     assertEquals("810$9 (Series Added Entry > Series Added Entry - Corporate Name > 9)", result);
   }
+
+  @Test
+  public void testSolarize() {
+    assertEquals("kssb_5", Utils.solarize("kssb/5"));
+    assertEquals("kssb_8__machine_generated_", Utils.solarize("kssb/8 (machine generated)"));
+    assertEquals("generikus_targyszo", Utils.solarize("Generikus tárgyszó"));
+  }
 }

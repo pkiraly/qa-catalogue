@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.cli;
 import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
+import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
@@ -23,14 +24,17 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(ClassificationAnalysis.class.getCanonicalName());
 
+  private static int SCHEMA_COUNTER = 0;
   private final Options options;
   private CommonParameters parameters;
   private Map<Schema, Integer> schemaInstanceStatistics = new HashMap<>();
+  private Map<Schema, Integer> schemaCounter = new HashMap<>();
   private Map<Schema, Integer> schemaRecordStatistics = new HashMap<>();
   private Map<Schema, Map<List<String>, Integer>> schemaSubfieldsStatistics = new HashMap<>();
   private Map<String, Map<String[], Integer>> fieldInstanceStatistics = new TreeMap<>();
@@ -39,7 +43,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   private boolean readyToProcess;
   private ClassificationSchemes classificationSchemes = ClassificationSchemes.getInstance();
   private static char separator = ',';
-
+  private static Pattern NUMERIC = Pattern.compile("^\\d");
 
   private static final List<String> fieldsWithIndicator1AndSubfield2 = Arrays.asList(
     "052", // Geographic Classification
@@ -150,21 +154,21 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     List<Schema> schemas = new ArrayList<>();
     for (DataField field : fields) {
       // System.err.println(dataField.getInd1());
-      String first = null;
+      String firstSubfield = null;
       String alt = null;
       for (MarcSubfield subfield : field.getSubfields()) {
         String code = subfield.getCode();
         if (!code.equals("1") && !code.equals("2") && !code.equals("6") && !code.equals("8")) {
-          first = "$" + code;
+          firstSubfield = "$" + code;
           break;
         } else {
           if (alt == null)
             alt = "$" + code;
         }
       }
-      if (first != null) {
+      if (firstSubfield != null) {
         String scheme = fieldEntry.getValue();
-        Schema currentSchema = new Schema(tag, first, scheme, classificationSchemes.resolve(scheme));
+        Schema currentSchema = new Schema(tag, firstSubfield, classificationSchemes.resolve(scheme), scheme);
         schemas.add(currentSchema);
         updateSchemaSubfieldStatistics(field, currentSchema);
       } else {
@@ -227,7 +231,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
         currentSchema = extractSchemaFromSubfield2(tag, schemas, field);
       } else {
         try {
-          currentSchema = new Schema(tag, "ind2", scheme, classificationSchemes.resolve(scheme));
+          currentSchema = new Schema(tag, "ind2", classificationSchemes.resolve(scheme), scheme);
           schemas.add(currentSchema);
         } catch (IllegalArgumentException e) {
           // logger.severe(String.format("%s in record %s %s", e.getLocalizedMessage(), marcRecord.getId(), field.toString()));
@@ -261,7 +265,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     Schema currentSchema = null;
     List<MarcSubfield> altSchemes = field.getSubfield("2");
     if (altSchemes == null || altSchemes.isEmpty()) {
-      currentSchema = new Schema(tag, "$2", "undetectable");
+      currentSchema = new Schema(tag, "$2", "undetectable", "undetectable");
       schemas.add(currentSchema);
     } else {
       for (MarcSubfield altScheme : altSchemes) {
@@ -275,9 +279,24 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   private void updateSchemaSubfieldStatistics(DataField field, Schema currentSchema) {
     if (currentSchema == null)
       return;
+    List<String> subfields = orderSubfields(field.getSubfields());
+
+    if (!schemaSubfieldsStatistics.containsKey(currentSchema)) {
+      schemaSubfieldsStatistics.put(currentSchema, new HashMap<List<String>, Integer>());
+    }
+    Map<List<String>, Integer> subfieldsStatistics = schemaSubfieldsStatistics.get(currentSchema);
+    if (!subfieldsStatistics.containsKey(subfields)) {
+      subfieldsStatistics.put(subfields, 1);
+    } else {
+      subfieldsStatistics.put(subfields, subfieldsStatistics.get(subfields) + 1);
+    }
+  }
+
+  @NotNull
+  private List<String> orderSubfields(List<MarcSubfield> originalSubfields) {
     List<String> subfields = new ArrayList<>();
     Set<String> multiFields = new HashSet<>();
-    for (MarcSubfield subfield : field.getSubfields()) {
+    for (MarcSubfield subfield : originalSubfields) {
       String code = subfield.getCode();
       if (!subfields.contains(code))
         subfields.add(code);
@@ -290,17 +309,25 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       for (String code : multiFields)
         subfields.add(code + "+");
     }
-    Collections.sort(subfields);
 
-    if (!schemaSubfieldsStatistics.containsKey(currentSchema)) {
-      schemaSubfieldsStatistics.put(currentSchema, new HashMap<List<String>, Integer>());
+    List<String> alphabetic = new ArrayList<>();
+    List<String> numeric = new ArrayList<>();
+    for (String subfield : subfields) {
+      if (NUMERIC.matcher(subfield).matches()) {
+        numeric.add(subfield);
+      } else {
+        alphabetic.add(subfield);
+      }
     }
-    Map<List<String>, Integer> subfieldsStatistics = schemaSubfieldsStatistics.get(currentSchema);
-    if (!subfieldsStatistics.containsKey(subfields)) {
-      subfieldsStatistics.put(subfields, 1);
+    if (!numeric.isEmpty()) {
+      Collections.sort(alphabetic);
+      Collections.sort(numeric);
+      subfields = alphabetic;
+      subfields.addAll(numeric);
     } else {
-      subfieldsStatistics.put(subfields, subfieldsStatistics.get(subfields) + 1);
+      Collections.sort(subfields);
     }
+    return subfields;
   }
 
   private List<Schema> deduplicateSchema(List<Schema> schemas) {
@@ -419,7 +446,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     Path path;
     path = Paths.get(parameters.getOutputDir(), "classifications-by-schema.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-      writer.write(createRow("field", "location", "scheme", "abbreviation", "recordcount", "instancecount"));
+      writer.write(createRow("id", "field", "location", "scheme", "abbreviation", "abbreviation4solr", "recordcount", "instancecount"));
       schemaInstanceStatistics
         .entrySet()
         .stream()
@@ -450,15 +477,21 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     int recordCount = schemaRecordStatistics.get(schema);
     try {
       writer.write(createRow(
+        schema.id,
         schema.field,
         schema.location,
         '"' + schema.schema.replace("\"", "\\\"") + '"',
         schema.abbreviation,
+        Utils.solarize(schema.abbreviation),
         recordCount,
         instanceCount
       ));
     } catch (IOException ex) {
       ex.printStackTrace();
+      System.err.println(schema);
+    } catch (NullPointerException ex) {
+      ex.printStackTrace();
+      System.err.println(schema);
     }
   }
 
@@ -490,7 +523,8 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     Path path;
     path = Paths.get(parameters.getOutputDir(), "classifications-by-schema-subfields.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-      final List<String> header = Arrays.asList("field", "location", "label", "abbreviation", "subfields", "scount");
+      // final List<String> header = Arrays.asList("field", "location", "label", "abbreviation", "subfields", "scount");
+      final List<String> header = Arrays.asList("id", "subfields", "count");
       writer.write(createRow(header));
       schemaSubfieldsStatistics
         .entrySet()
@@ -518,10 +552,11 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
           int count = countEntry.getValue();
           try {
             writer.write(createRow(
-              schema.field,
-              schema.location,
-              '"' + schema.schema.replace("\"", "\\\"") + '"',
-              schema.abbreviation,
+              schema.id,
+              // schema.field,
+              // schema.location,
+              // '"' + schema.schema.replace("\"", "\\\"") + '"',
+              // schema.abbreviation,
               StringUtils.join(subfields, ';'),
               count
             ));
@@ -552,6 +587,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   }
 
   private class Schema {
+    int id;
     String field;
     String location;
     String schema;
@@ -561,11 +597,19 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       this.field = field;
       this.location = location;
       this.schema = schema;
+      setId();
     }
 
-    public Schema(String field, String location, String schema, String abbreviation) {
+    public Schema(String field, String location, String abbreviation, String schema) {
       this(field, location, schema);
       this.abbreviation = abbreviation;
+    }
+
+    private void setId() {
+      if (!schemaCounter.containsKey(this)) {
+        schemaCounter.put(this, ++SCHEMA_COUNTER);
+      }
+      this.id = schemaCounter.get(this);
     }
 
     @Override
@@ -590,6 +634,17 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
         .append(location)
         .append(schema)
         .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+      return "Schema{" +
+              "id=" + id +
+              ", field='" + field + '\'' +
+              ", location='" + location + '\'' +
+              ", schema='" + schema + '\'' +
+              ", abbreviation='" + abbreviation + '\'' +
+              '}';
     }
   }
 

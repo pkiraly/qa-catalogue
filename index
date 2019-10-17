@@ -31,4 +31,5 @@ curl $SOLR/update -H "Content-type: text/xml" --data-binary '<commit/>'
 
 #     --marcxml \
 
+
 curl "$SOLR/update?optimize=true" -H 'Content-type: text/xml' --data-binary '<commit/>'

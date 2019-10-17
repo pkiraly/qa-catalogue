@@ -194,8 +194,14 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       Schema currentSchema = null;
       if (isaReferenceToSubfield2(tag, scheme)) {
         currentSchema = extractSchemaFromSubfield2(tag, schemas, field);
+        // } else if (scheme.equals("9")) {
       } else {
-        currentSchema = new Schema(tag, "ind1", scheme, classificationSchemes.resolve(scheme));
+        try {
+          currentSchema = new Schema(tag, "ind1", scheme, classificationSchemes.resolve(scheme));
+        } catch (IllegalArgumentException e) {
+          logger.severe(String.format("Invalid scheme in ind1: %s. %s", e.getLocalizedMessage(), field));
+          currentSchema = new Schema(tag, "ind1", scheme, field.getInd1());
+        }
         schemas.add(currentSchema);
       }
       updateSchemaSubfieldStatistics(field, currentSchema);

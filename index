@@ -8,6 +8,13 @@ WITH_DELETE=$4
 
 export SOLR=http://localhost:8983/solr/${DB}
 
+# check if the files are XMLs
+if [[ $FILE_MASK =~ "xml" ]]; then
+  MARCXML_FLAG="--marcxml"
+else
+  MARCXML_FLAG=""
+fi
+
 if [ "${WITH_DELETE}" == "--with-delete" ]; then
   curl $SOLR/update -H "Content-type: text/xml" --data-binary '<delete><query>*:*</query></delete>'
 fi
@@ -19,6 +26,7 @@ curl $SOLR/update -H "Content-type: text/xml" --data-binary '<commit/>'
      --solrFieldType mixed \
      --defaultRecordType BOOKS \
      --trimId \
+     $MARCXML_FLAG \
      ${FILE_PATH}/${FILE_MASK}
 
 #     --marcxml \

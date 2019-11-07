@@ -243,22 +243,22 @@ public class Serial {
     // Automatic Discards:
     // Discard any that are not "o" for electronic
     if (!record.getControl008().getValueByPosition(23).equals("o")) {
-      scores.add(new Tuple2("not-online", -100));
-      score = score * 0 - 100;
+      // scores.add(new Tuple2("not-online", -100));
+      // score = score * 0 - 100;
     }
 
     // Discard any that are not active titles
     if (record.getControl008().getTag008all11().getValue().matches("[0-8].+")
        || record.getControl008().getTag008all11().getValue().matches("u.+")) {
-      scores.add(new Tuple2("not-active", -100));
-      score = score * 0 - 100;
+      // scores.add(new Tuple2("not-active", -100));
+      // score = score * 0 - 100;
     }
 
     // Discard any that are RECORD REPORTED FOR DELETION
     List<DataField> notes = record.getDatafield("936");
     if (!empty(notes) && notes.get(0).getSubfield("0").get(0).getValue().contains("DELETION")) {
-      scores.add(new Tuple2("deletion", -100));
-      score = score * 0 - 100;
+      // scores.add(new Tuple2("deletion", -100));
+      // score = score * 0 - 100;
     }
 
     // Discard any with a first date of "0"
@@ -270,7 +270,8 @@ public class Serial {
     // Discard any with an encoding level of "3"
     if (encodingLevel.equals("3")) { // Abbreviated level
       scores.add(new Tuple2("abbreviated", -100));
-      score = score * 0 - 100;
+      // score = score * 0 - 100;
+      score = score - 100;
     }
 
     this.score = score;

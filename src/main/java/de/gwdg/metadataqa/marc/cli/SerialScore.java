@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.Leader;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.ThompsonTraillAnalysis;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
+import de.gwdg.metadataqa.marc.cli.parameters.SerialScoreParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ThompsonTraillCompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
 import de.gwdg.metadataqa.marc.utils.Serial;
@@ -35,12 +36,12 @@ public class SerialScore implements MarcFileProcessor, Serializable {
   );
   private final Options options;
   private final boolean readyToProcess;
-  private ThompsonTraillCompletenessParameters parameters;
+  private SerialScoreParameters parameters;
   private File output = null;
 
   public SerialScore(String[] args) throws ParseException {
-    parameters = new ThompsonTraillCompletenessParameters(args);
-    System.err.println("tt().marcxml: " + parameters.isMarcxml());
+    parameters = new SerialScoreParameters(args);
+    System.err.println("marcxml: " + parameters.isMarcxml());
     options = parameters.getOptions();
     readyToProcess = true;
   }

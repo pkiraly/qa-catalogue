@@ -5,7 +5,6 @@ import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.ThompsonTraillAnalysis;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.SerialScoreParameters;
-import de.gwdg.metadataqa.marc.cli.parameters.ThompsonTraillCompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
 import de.gwdg.metadataqa.marc.utils.Serial;
 import org.apache.commons.cli.HelpFormatter;
@@ -19,7 +18,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Path;
-import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -100,8 +98,8 @@ public class SerialScore implements MarcFileProcessor, Serializable {
       Serial serial = new Serial(marcRecord);
       int score = serial.determineRecordQualityScore();
       String message = String.format(
-        "\"%s\",%d%n",
-        marcRecord.getId(), score
+        "\"%s\",%d,%s%n",
+        marcRecord.getId().trim(), score, StringUtils.join(serial.getFormattedScores(), ",")
       );
       print(message);
     }

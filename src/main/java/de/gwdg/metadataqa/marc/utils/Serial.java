@@ -2,7 +2,9 @@ package de.gwdg.metadataqa.marc.utils;
 
 import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.MarcRecord;
+import scala.Tuple2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +16,7 @@ import java.util.List;
 public class Serial {
   private MarcRecord record;
   private int score;
+  private List<Tuple2> scores;
 
   public Serial(MarcRecord record) {
     this.record = record;
@@ -122,19 +125,23 @@ public class Serial {
   }
 
   public int determineRecordQualityScore() {
+    scores = new ArrayList<>();
     int score = 0;
     // Date 1 is totally unknown
     if (record.getControl008().getTag008all07().getValue().equals("uuuu")) {
+      scores.add(new Tuple2("date1-u", -3));
       score = score - 3;
     }
 
     // Country of publication is totally unknown
     if (record.getControl008().getTag008all15().getValue().matches("xx.+")) {
+      scores.add(new Tuple2("country", -1));
       score = score - 1;
     }
 
     // Publication language is totally unknown
     if (record.getControl008().getTag008all35().getValue().matches("xxx.+")) {
+      scores.add(new Tuple2("language", -1));
       score = score - 1;
     }
 
@@ -143,6 +150,7 @@ public class Serial {
     if (!empty(authenticationcode)
         && !authenticationcode.get(0).getSubfield("a").isEmpty()
         && authenticationcode.get(0).getSubfield("a").get(0).getValue() != "") {
+      scores.add(new Tuple2("auth", 7));
       score = score + 7;
     }
 
@@ -153,6 +161,7 @@ public class Serial {
         || encodingLevel.equals("1") // Full level, material not examined
         || encodingLevel.equals("I") // oclc: Full level input by OCLC participants
     ) {
+      scores.add(new Tuple2("enc-1", 5));
       score = score + 5;
     }
 
@@ -162,52 +171,62 @@ public class Serial {
         || encodingLevel.equals("K") // oclc: Minimal level input by OCLC participants
         || encodingLevel.equals("7") // Minimal level
     ) {
+      scores.add(new Tuple2("enc-2", 1));
       score = score + 1;
     }
 
     // 006 is present
     if (record.getControl006() != null
         && record.getControl006().getContent() != "") {
+      scores.add(new Tuple2("006", 1));
       score = score + 1;
     }
 
     // Record has publisher AACR2
     if (!empty(record.getDatafield("260"))) {
+      scores.add(new Tuple2("260", 1));
       score = score + 1;
     }
 
     // Record has publisher RDA
     if (!empty(record.getDatafield("264"))) {
+      scores.add(new Tuple2("264", 1));
       score = score + 1;
     }
 
     // Publication frequency
     if (!empty(record.getDatafield("310"))) {
+      scores.add(new Tuple2("310", 1));
       score = score + 1;
     }
 
     // RDA fields
     if (!empty(record.getDatafield("336"))) {
+      scores.add(new Tuple2("336", 1));
       score = score + 1;
     }
 
     // Begins with... (datesOfPublication362)
     if (!empty(record.getDatafield("362"))) {
+      scores.add(new Tuple2("332", 1));
       score = score + 1;
     }
 
     // Description based on/ Latest issue consulted notes (sourceOfDescription588)
     if (!empty(record.getDatafield("588"))) {
+      scores.add(new Tuple2("588", 1));
       score = score + 1;
     }
 
     // Has a Library of Congress subject heading (6XX_0)
     List<DataField> subjects = record.getSubject6xx();
     if (subjects.isEmpty()) {
+      scores.add(new Tuple2("no-subject", -5));
       score = score - 5;
     } else {
       for (DataField subject : subjects) {
         if (subject.getInd2().equals("0") && subject.getSubfield("a") != null) {
+          scores.add(new Tuple2("subject", 2));
           score = score + 2;
           break;
         }
@@ -217,34 +236,40 @@ public class Serial {
     // Any PCC record should automatically be kept unless it is not online and/or a ceased title
     if (!empty(record.getDatafield("042"))
         && record.getDatafield("042").get(0).getSubfield("a").equals("pcc")) {
+      scores.add(new Tuple2("pcc", 100));
       score = score + 100;
     }
 
     // Automatic Discards:
     // Discard any that are not "o" for electronic
     if (!record.getControl008().getValueByPosition(23).equals("o")) {
+      scores.add(new Tuple2("not-online", -100));
       score = score * 0 - 100;
     }
 
     // Discard any that are not active titles
     if (record.getControl008().getTag008all11().getValue().matches("[0-8].+")
        || record.getControl008().getTag008all11().getValue().matches("u.+")) {
+      scores.add(new Tuple2("not-active", -100));
       score = score * 0 - 100;
     }
 
     // Discard any that are RECORD REPORTED FOR DELETION
     List<DataField> notes = record.getDatafield("936");
     if (!empty(notes) && notes.get(0).getSubfield("0").get(0).getValue().contains("DELETION")) {
+      scores.add(new Tuple2("deletion", -100));
       score = score * 0 - 100;
     }
 
     // Discard any with a first date of "0"
     if (record.getControl008().getTag008all07().getValue().matches("0.+")) {
+      scores.add(new Tuple2("date1-0", -100));
       score = score * 0 - 100;
     }
 
     // Discard any with an encoding level of "3"
     if (encodingLevel.equals("3")) { // Abbreviated level
+      scores.add(new Tuple2("abbreviated", -100));
       score = score * 0 - 100;
     }
 
@@ -264,5 +289,16 @@ public class Serial {
         // + ", title: " + record.getDatafield("245").get(0).toString()
         + ", " + score
     );
+  }
+
+  public List<Tuple2> getScores() {
+    return scores;
+  }
+  public List<String> getFormattedScores() {
+    List<String> scores = new ArrayList<>();
+    for (Tuple2 score : this.scores) {
+      scores.add(score._1.toString() + "=" + score._2.toString());
+    }
+    return scores;
   }
 }

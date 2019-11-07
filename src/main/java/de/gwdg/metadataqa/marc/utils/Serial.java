@@ -224,13 +224,14 @@ public class Serial {
       scores.add(new Tuple2("no-subject", -5));
       score = score - 5;
     } else {
+      int subjectCount = 0;
       for (DataField subject : subjects) {
-        if (subject.getInd2().equals("0") && subject.getSubfield("a") != null) {
-          scores.add(new Tuple2("subject", 2));
-          score = score + 2;
-          break;
-        }
+        // if (subject.getInd2().equals("0") && subject.getSubfield("a") != null) {
+        subjectCount++;
+        score = score + 2;
+        // }
       }
+      scores.add(new Tuple2("subject", (2 * subjectCount)));
     }
 
     // Any PCC record should automatically be kept unless it is not online and/or a ceased title

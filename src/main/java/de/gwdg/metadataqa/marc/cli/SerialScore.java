@@ -18,6 +18,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -98,8 +100,8 @@ public class SerialScore implements MarcFileProcessor, Serializable {
       Serial serial = new Serial(marcRecord);
       int score = serial.determineRecordQualityScore();
       String message = String.format(
-        "\"%s\",%d,%s%n",
-        marcRecord.getId().trim(), score, StringUtils.join(serial.getFormattedScores(), ",")
+        "\"%s\",%d,\"%s\"%n",
+        marcRecord.getId().trim(), score, StringUtils.join(serial.getFormattedScores(), ";")
       );
       print(message);
     }
@@ -136,4 +138,11 @@ public class SerialScore implements MarcFileProcessor, Serializable {
       e.printStackTrace();
     }
   }
+
+  public static List<String> getHeader() {
+    return Arrays.asList(
+      "id", "score", "explanations"
+    );
+  }
+
 }

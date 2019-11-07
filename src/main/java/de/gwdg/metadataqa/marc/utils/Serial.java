@@ -166,7 +166,8 @@ public class Serial {
     }
 
     // 006 is present
-    if (record.getControl006().getContent() != "") {
+    if (record.getControl006() != null
+        && record.getControl006().getContent() != "") {
       score = score + 1;
     }
 

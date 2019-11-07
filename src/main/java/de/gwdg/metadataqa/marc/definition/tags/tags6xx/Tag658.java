@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CurriculumObjectiveTermAndCodeSourceCodes;
+import de.gwdg.metadataqa.marc.definition.general.indexer.subject.SchemaFromSubfield2;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
@@ -63,5 +64,7 @@ public class Tag658 extends DataFieldDefinition {
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+
+    fieldIndexer = SchemaFromSubfield2.getInstance();
   }
 }

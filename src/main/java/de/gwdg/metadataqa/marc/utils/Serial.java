@@ -219,7 +219,7 @@ public class Serial {
     }
 
     // Has a Library of Congress subject heading (6XX_0)
-    List<DataField> subjects = record.getSubject6xx();
+    List<DataField> subjects = record.getSubjects();
     if (subjects.isEmpty()) {
       scores.add(new Tuple2("no-subject", -5));
       score = score - 5;

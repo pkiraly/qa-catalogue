@@ -638,6 +638,21 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     }
   }
 
+  public List<DataField> getSubjects() {
+    List<DataField> subjects = new ArrayList<>();
+    List<String> tags = Arrays.asList(
+      "052", "055", "072", "080", "082", "083", "084", "085", "086",
+      "600", "610", "611", "630", "647", "648", "650", "651",
+      "653", "654", "655", "656", "657", "658", "662"
+    );
+    for (String tag : tags) {
+      List<DataField> fields = getDatafield(tag);
+      if (fields != null && !fields.isEmpty())
+        subjects.addAll(fields);
+    }
+    return subjects;
+  }
+
   public List<DataField> getSubject6xx() {
     List<DataField> subjects = new ArrayList<>();
     List<String> tags = Arrays.asList("600", "610", "611", "630", "648", "650", "651");

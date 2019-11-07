@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class Serial {
   private MarcRecord record;
+  private int score;
 
   public Serial(MarcRecord record) {
     this.record = record;
@@ -116,6 +117,10 @@ public class Serial {
     return record.getDatafield("588");
   }
 
+  public String getEncodingLevel() {
+    return record.getLeader().getEncodingLevel().getValue();
+  }
+
   public int determineRecordQualityScore() {
     int score = 0;
     // Date 1 is totally unknown
@@ -143,7 +148,7 @@ public class Serial {
 
     // Encoding level is blank or I (fully cataloged)
     // OCLC: https://www.oclc.org/bibformats/en/fixedfield/elvl.html
-    String encodingLevel = record.getLeader().getEncodingLevel().getValue();
+    String encodingLevel = getEncodingLevel();
     if (encodingLevel.equals(" ")     // Full level
         || encodingLevel.equals("1") // Full level, material not examined
         || encodingLevel.equals("I") // oclc: Full level input by OCLC participants
@@ -241,18 +246,22 @@ public class Serial {
     if (encodingLevel.equals("3")) { // Abbreviated level
       score = score * 0 - 100;
     }
+
+    this.score = score;
+
+    return score;
+  }
+
+  public void print() {
     System.out.print(
       record.getId()
-      + ", form of item: " + record.getControl008().getValueByPosition(23) // record.getControl008().getControlValueByPosition(23).resolve()
-      + ", issn: " + record.getDatafield("022").get(0).getSubfield("a").get(0).getValue()
-      + ", date1: " + record.getControl008().getTag008all07().getValue()
-      + ", date2: " + record.getControl008().getTag008all11().getValue()
-      // Encoding level
-      + ", encodingLevel: " + encodingLevel
-      // Title
-      // + ", " + record.getDatafield("245").get(0).toString()
-      + ", " + score
+        + ", form of item: " + record.getControl008().getValueByPosition(23) // record.getControl008().getControlValueByPosition(23).resolve()
+        + ", issn: " + record.getDatafield("022").get(0).getSubfield("a").get(0).getValue()
+        + ", date1: " + record.getControl008().getTag008all07().getValue()
+        + ", date2: " + record.getControl008().getTag008all11().getValue()
+        + ", encodingLevel: " + getEncodingLevel()
+        // + ", title: " + record.getDatafield("245").get(0).toString()
+        + ", " + score
     );
-    return score;
   }
 }

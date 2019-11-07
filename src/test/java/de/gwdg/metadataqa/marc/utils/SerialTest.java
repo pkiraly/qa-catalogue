@@ -30,13 +30,12 @@ public class SerialTest {
     record.addDataField(new DataField("650", " 7$aBiology.$2fast$0(OCoLC)fst00832383"));
     record.addDataField(new DataField("650", "17$aBiologie.$2gtt"));
     record.addDataField(new DataField("650", "17$aTheorievorming.$2gtt"));
+    assertEquals("text", record.getDatafield("336").get(0).getSubfield("a").get(0).getValue());
 
-    System.err.println(record.getType());
+    assertEquals(Leader.Type.CONTINUING_RESOURCES, record.getType());
 
     Serial serial = new Serial(record);
     int score = serial.determineRecordQualityScore();
-    System.err.println("score: " + score);
-
-    assertEquals("text", record.getDatafield("336").get(0).getSubfield("a").get(0).getValue());
+    assertEquals(9, score);
   }
 }

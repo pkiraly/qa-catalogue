@@ -36,6 +36,8 @@ public class SerialTest {
 
     Serial serial = new Serial(record);
     int score = serial.determineRecordQualityScore();
-    assertEquals(9, score);
+    assertEquals(14, score);
+    assertEquals("[(enc-2,1), (006,1), (260,1), (310,1), (336,1), (332,1), (588,1), (subject,7)]", serial.getScores().toString());
+
   }
 }

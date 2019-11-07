@@ -41,6 +41,11 @@ do_tt_completeness() {
   ./tt-completeness --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}.log
 }
 
+do_serial_score() {
+  echo "./serial-score --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}.log"
+  ./serial-score --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}.log
+}
+
 do_format() {
   ./formatter --defaultRecordType BOOKS ${MARC_DIR}/${MASK}
 }
@@ -68,6 +73,9 @@ case "$1" in
     ;;
   tt-completeness)
     do_tt_completeness
+    ;;
+  serial-score)
+    do_serial_score
     ;;
   format)
     do_format

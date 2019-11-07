@@ -1,0 +1,4 @@
+# Calling Serial score calculator
+. ./common-variables
+
+java -cp $JAR de.gwdg.metadataqa.marc.cli.SerialScore $@

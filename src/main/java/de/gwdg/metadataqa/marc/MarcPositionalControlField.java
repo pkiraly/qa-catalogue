@@ -13,6 +13,7 @@ public class MarcPositionalControlField extends MarcControlField {
   protected MarcRecord marcRecord;
   protected Map<ControlSubfieldDefinition, String> valuesMap;
   protected List<ControlValue> valuesList;
+  private Map<Integer, ControlValue> valuesByPosition = new LinkedHashMap<>();
   protected Leader.Type recordType;
 
   public MarcPositionalControlField(ControlFieldDefinition definition, String content) {
@@ -106,5 +107,14 @@ public class MarcPositionalControlField extends MarcControlField {
   @Override
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
+  }
+
+  protected void registerControlValue(ControlValue controlValue) {
+    valuesList.add(controlValue);
+    valuesByPosition.put(controlValue.getDefinition().getPositionStart(), controlValue);
+  }
+
+  public ControlValue getControlValueByPosition(int position) {
+    return valuesByPosition.get(position);
   }
 }

@@ -238,6 +238,10 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
     return baseAddressOfData;
   }
 
+  /**
+   * Leader17
+   * @return
+   */
   public ControlValue getEncodingLevel() {
     return encodingLevel;
   }

@@ -32,5 +32,12 @@ public class Tag008all15 extends ControlSubfieldDefinition {
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd008a.html";
     functions = Arrays.asList(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
     // TODO: pattern?
+
+    /*
+    xx# - No place, unknown, or undetermined
+    vp# - Various places
+    [aaa] - Three-character alphabetic code
+    [aa#] - Two-character alphabetic code
+     */
   }
 }

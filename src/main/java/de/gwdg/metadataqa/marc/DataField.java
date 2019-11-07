@@ -35,8 +35,10 @@ public class DataField implements Extractable, Validatable, Serializable {
     this.subfields = new ArrayList<>();
   }
 
-  public <T extends DataFieldDefinition> DataField(T definition, String ind1, String ind2,
-                                   List<Map<String, String>> subfields) {
+  public <T extends DataFieldDefinition> DataField(T definition,
+                                                   String ind1,
+                                                   String ind2,
+                                                   List<Map<String, String>> subfields) {
     this(definition, ind1, ind2);
     if (subfields != null) {
       for (Map<String, String> subfield : subfields) {
@@ -56,6 +58,46 @@ public class DataField implements Extractable, Validatable, Serializable {
         }
       }
     }
+  }
+
+  public <T extends DataFieldDefinition> DataField(T definition, String ind1, String ind2, String... subfields) {
+    this(definition, ind1, ind2);
+    if (subfields != null) {
+      parseSubfieldArray(subfields);
+    }
+  }
+
+  public DataField(String tag, String input) {
+    definition = TagDefinitionLoader.load(tag);
+    this.subfields = new ArrayList<>();
+
+    boolean codeFlag = false;
+    String code = null;
+    StringBuffer value = new StringBuffer();
+    for (int i = 0; i < input.length(); i++) {
+      String c = Character.toString(input.charAt(i));
+      if (i == 0)
+        ind1 = c;
+      else if (i == 1)
+        ind2 = c;
+      else {
+        if (c.equals("$")) {
+          codeFlag = true;
+          if (code != null)
+            addSubfield(code, value.toString());
+          code = null;
+          value = new StringBuffer();
+        } else {
+          if (codeFlag) {
+            code = c;
+            codeFlag = false;
+          } else {
+            value.append(c);
+          }
+        }
+      }
+    }
+    addSubfield(code, value.toString());
   }
 
   public MarcRecord getRecord() {
@@ -79,23 +121,20 @@ public class DataField implements Extractable, Validatable, Serializable {
     subfieldIndex.get(code).add(marcSubfield);
   }
 
-  public <T extends DataFieldDefinition> DataField(T definition, String ind1, String ind2, String... subfields) {
-    this(definition, ind1, ind2);
-    if (subfields != null) {
-      parseSubfieldArray(definition, subfields);
-    }
-  }
-
-  private <T extends DataFieldDefinition> void parseSubfieldArray(T definition, String[] subfields) {
+  private void parseSubfieldArray(String[] subfields) {
     for (int i = 0; i < subfields.length; i += 2) {
       String code = subfields[i];
       String value = subfields[i + 1];
-      SubfieldDefinition subfieldDefinition = definition.getSubfield(code);
-      MarcSubfield marcSubfield = new MarcSubfield(subfieldDefinition, code, value);
-      marcSubfield.setField(this);
-      this.subfields.add(marcSubfield);
-      indexSubfield(code, marcSubfield);
+      addSubfield(code, value);
     }
+  }
+
+  private void addSubfield(String code, String value) {
+    SubfieldDefinition subfieldDefinition = definition.getSubfield(code);
+    MarcSubfield marcSubfield = new MarcSubfield(subfieldDefinition, code, value);
+    marcSubfield.setField(this);
+    this.subfields.add(marcSubfield);
+    indexSubfield(code, marcSubfield);
   }
 
   public Map<String, List<String>> getHumanReadableMap() {

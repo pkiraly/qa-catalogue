@@ -124,7 +124,7 @@ public class Control008 extends MarcPositionalControlField implements Serializab
       }
 
       ControlValue controlValue = new ControlValue(subfield, value);
-      valuesList.add(controlValue);
+      registerControlValue(controlValue);
 
       switch (subfield.getId()) {
         case "tag008all00": tag008all00 = controlValue; break;
@@ -164,7 +164,7 @@ public class Control008 extends MarcPositionalControlField implements Serializab
       }
 
       ControlValue controlValue = new ControlValue(subfield, value);
-      valuesList.add(controlValue);
+      registerControlValue(controlValue);
 
       switch (actual008Type) {
         case BOOKS:

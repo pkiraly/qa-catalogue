@@ -47,6 +47,8 @@ public class Tag080 extends DataFieldDefinition {
       "a", "Universal Decimal Classification number", "NR",
       "b", "Item number", "NR",
       "x", "Common auxiliary subdivision", "R",
+      "0", "Authority record control number or standard number", "NR",
+      "1", "Real World Object URI", "NR",
       "2", "Edition identifier", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
@@ -60,6 +62,8 @@ public class Tag080 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
     getSubfield("x").setMqTag("commonAuxiliarySubdivision")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
+    getSubfield("0").setMqTag("authorityRecordControlNumber");
+    getSubfield("1").setMqTag("uri");
     getSubfield("2").setMqTag("edition")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("6").setBibframeTag("linkage")

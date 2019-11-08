@@ -1,10 +1,8 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags1xx;
 
 import de.gwdg.metadataqa.marc.Code;
-import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.general.codelist.NameAndTitleAuthoritySourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
@@ -66,10 +64,12 @@ public class Tag130 extends DataFieldDefinition {
       "s", "Version", "NR",
       "t", "Title of a work", "NR",
       "0", "Authority record control number or standard number", "R",
+      "2", "Source of heading or term", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
     );
 
+    getSubfield("2").setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a").setMqTag("rdf:value")
@@ -100,9 +100,12 @@ public class Tag130 extends DataFieldDefinition {
     getSubfield("t").setMqTag("titleOfAWork")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
     getSubfield("0").setMqTag("authorityRecordControlNumber");
+    getSubfield("2").setMqTag("source");
     getSubfield("6").setMqTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+
+    sourceSpecificationType = SourceSpecificationType.Subfield2;
   }
 }

@@ -3,6 +3,8 @@ package de.gwdg.metadataqa.marc.definition.tags.tags70x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
+import de.gwdg.metadataqa.marc.definition.general.codelist.NameAndTitleAuthoritySourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.ISSNValidator;
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
@@ -67,11 +69,14 @@ public class Tag730 extends DataFieldDefinition {
       "t", "Title of a work", "NR",
       "x", "International Standard Serial Number", "NR",
       "0", "Authority record control number or standard number", "R",
+      "2", "Source of heading or term", "NR",
       "3", "Materials specified", "NR",
       "5", "Institution to which field applies", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
     );
+
+    getSubfield("2").setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
     getSubfield("x").setValidator(ISSNValidator.getInstance());
@@ -107,6 +112,7 @@ public class Tag730 extends DataFieldDefinition {
     getSubfield("x").setMqTag("issn")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
     getSubfield("0").setMqTag("authorityRecordControlNumber");
+    getSubfield("2").setMqTag("source");
     getSubfield("3").setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("5").setMqTag("institutionToWhichFieldApplies")
@@ -115,5 +121,7 @@ public class Tag730 extends DataFieldDefinition {
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+
+    sourceSpecificationType = SourceSpecificationType.Subfield2;
   }
 }

@@ -195,6 +195,10 @@ public abstract class DataFieldDefinition implements Serializable {
     return fieldIndexer;
   }
 
+  public SourceSpecificationType getSourceSpecificationType() {
+    return sourceSpecificationType;
+  }
+
   @Override
   public String toString() {
     return "DataFieldDefinition{" +

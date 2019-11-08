@@ -1,7 +1,9 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags70x;
 
 import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.general.codelist.NameAndTitleAuthoritySourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
+import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTermSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.ISSNValidator;
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
@@ -71,6 +73,7 @@ public class Tag711 extends DataFieldDefinition {
       "u", "Affiliation", "NR",
       "x", "International Standard Serial Number", "NR",
       "0", "Authority record control number or standard number", "R",
+      "2", "Source of heading or term", "NR",
       "3", "Materials specified", "NR",
       "4", "Relationship", "R",
       "5", "Institution to which field applies", "NR",
@@ -78,6 +81,7 @@ public class Tag711 extends DataFieldDefinition {
       "8", "Field link and sequence number", "R"
     );
 
+    getSubfield("2").setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());
     getSubfield("4").setCodeList(RelatorCodes.getInstance());
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
@@ -117,6 +121,7 @@ public class Tag711 extends DataFieldDefinition {
     getSubfield("x").setMqTag("issn")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
     getSubfield("0").setMqTag("authorityRecordControlNumber");
+    getSubfield("2").setMqTag("source");
     getSubfield("3").setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify);
     getSubfield("4").setMqTag("relatorCode")
@@ -127,6 +132,8 @@ public class Tag711 extends DataFieldDefinition {
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
     getSubfield("8").setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+
+    sourceSpecificationType = SourceSpecificationType.Subfield2;
 
     putVersionSpecificSubfields(MarcVersion.FENNICA, Arrays.asList(
       new SubfieldDefinition("9", "Artikkeli", "NR")

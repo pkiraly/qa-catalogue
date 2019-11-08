@@ -2,7 +2,9 @@ package de.gwdg.metadataqa.marc.definition.tags.tags80x;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.general.codelist.NameAndTitleAuthoritySourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
+import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTermSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.ISSNValidator;
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
@@ -67,6 +69,7 @@ public class Tag811 extends DataFieldDefinition {
       "w", "Bibliographic record control number", "R",
       "x", "International Standard Serial Number", "NR",
       "0", "Authority record control number or standard number", "R",
+      "2", "Source of heading or term", "NR",
       "3", "Materials specified", "NR",
       "4", "Relationship", "R",
       "5", "Institution to which field applies", "R",
@@ -74,7 +77,10 @@ public class Tag811 extends DataFieldDefinition {
       "7", "Control subfield", "NR",
       "8", "Field link and sequence number", "R"
     );
+
+    getSubfield("2").setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());
     getSubfield("4").setCodeList(RelatorCodes.getInstance());
+
     getSubfield("7").setPositions(Arrays.asList(
       new ControlSubfieldDefinition("Type of record", 0, 1)
         .setCodes(Utils.generateCodes(
@@ -143,6 +149,7 @@ public class Tag811 extends DataFieldDefinition {
     getSubfield("w").setMqTag("bibliographicRecordControlNumber");
     getSubfield("x").setMqTag("issn");
     getSubfield("0").setMqTag("authorityRecordControlNumber");
+    getSubfield("2").setMqTag("source");
     getSubfield("3").setMqTag("materialsSpecified");
     getSubfield("4").setMqTag("relatorCode")
       .setFrbrFunctions(DiscoveryIdentify);
@@ -152,6 +159,8 @@ public class Tag811 extends DataFieldDefinition {
     getSubfield("7").setMqTag("controlSubfield");
     getSubfield("8").setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+
+    sourceSpecificationType = SourceSpecificationType.Subfield2;
 
     putVersionSpecificSubfields(MarcVersion.FENNICA, Arrays.asList(
       new SubfieldDefinition("9", "Artikkeli", "NR")

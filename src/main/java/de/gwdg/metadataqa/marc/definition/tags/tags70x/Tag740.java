@@ -44,6 +44,7 @@ public class Tag740 extends DataFieldDefinition {
       .setMqTag("nonfilingCharacters")
       .setFrbrFunctions(ManagementProcess, ManagementSort);
     ind1.getCode("1-9").setRange(true);
+
     ind2 = new Indicator("Type of added entry")
       .setCodes(
         " ", "No information provided",

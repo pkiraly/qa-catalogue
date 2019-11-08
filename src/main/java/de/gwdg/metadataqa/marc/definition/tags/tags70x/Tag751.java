@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags70x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
 import de.gwdg.metadataqa.marc.definition.general.codelist.NameAndTitleAuthoritySourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
@@ -61,5 +62,7 @@ public class Tag751 extends DataFieldDefinition {
     getSubfield("4").setMqTag("relationship");
     getSubfield("6").setBibframeTag("linkage");
     getSubfield("8").setMqTag("fieldLink");
+
+    sourceSpecificationType = SourceSpecificationType.Subfield2;
   }
 }

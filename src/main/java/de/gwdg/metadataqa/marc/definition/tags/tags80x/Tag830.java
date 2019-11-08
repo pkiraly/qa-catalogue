@@ -1,10 +1,8 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags80x;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.general.codelist.NameAndTitleAuthoritySourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.ISSNValidator;
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
@@ -66,6 +64,7 @@ public class Tag830 extends DataFieldDefinition {
       "w", "Bibliographic record control number", "R",
       "x", "International Standard Serial Number", "NR",
       "0", "Authority record control number or standard number", "R",
+      "2", "Source of heading or term", "NR",
       "3", "Materials specified", "NR",
       "5", "Institution to which field applies", "R",
       "6", "Linkage", "NR",
@@ -103,6 +102,7 @@ public class Tag830 extends DataFieldDefinition {
         ))
     ));
 
+    getSubfield("2").setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
     getSubfield("x").setValidator(ISSNValidator.getInstance());
 
@@ -138,6 +138,7 @@ public class Tag830 extends DataFieldDefinition {
     getSubfield("w").setMqTag("biblControlNumber");
     getSubfield("x").setMqTag("issn");
     getSubfield("0").setMqTag("authorityRecordControlNumber");
+    getSubfield("2").setMqTag("source");
     getSubfield("3").setMqTag("materialsSpecified");
     getSubfield("5").setMqTag("institutionToWhichFieldApplies");
     getSubfield("6").setMqTag("linkage")
@@ -145,5 +146,7 @@ public class Tag830 extends DataFieldDefinition {
     getSubfield("7").setMqTag("controlSubfield");
     getSubfield("8").setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+
+    sourceSpecificationType = SourceSpecificationType.Subfield2;
   }
 }

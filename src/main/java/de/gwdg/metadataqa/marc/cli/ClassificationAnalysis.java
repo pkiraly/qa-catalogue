@@ -26,6 +26,8 @@ import java.util.*;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
+import static de.gwdg.metadataqa.marc.Utils.count;
+
 public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(ClassificationAnalysis.class.getCanonicalName());
@@ -47,8 +49,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
   private static final List<String> fieldsWithIndicator1AndSubfield2 = Arrays.asList(
     "052", // Geographic Classification
-    "086", // Government Document Classification Number
-    "852"  // Location
+    "086"  // Government Document Classification Number
   );
 
   // 055 $2 -- Used only when the second indicator contains value 6 (Other call number assigned by LAC), 7 (Other class number assigned by LAC), 8 (Other call number assigned by the contributing library), or 9 (Other class number assigned by the contributing library).
@@ -63,9 +64,9 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     "648", // Subject Added Entry - Chronological Term
     "650", // Subject Added Entry - Topical Term
     "651", // Subject Added Entry - Geographic Name
-    "655",  // Index Term - Genre/Form
-    "656",  // Index Term - Occupation
-    "657"   // Index Term - Function
+    "655", // Index Term - Genre/Form
+    "656", // Index Term - Occupation
+    "657"  // Index Term - Function
   );
 
   private static final List<String> fieldsWithSubfield2 = Arrays.asList(
@@ -141,10 +142,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       hasSchema = processFieldWithScheme(marcRecord, hasSchema, fieldEntry);
     }
 
-    if (!hasClassifications.containsKey(hasSchema)) {
-      hasClassifications.put(hasSchema, 0);
-    }
-    hasClassifications.put(hasSchema, hasClassifications.get(hasSchema) + 1);
+    count(hasSchema, hasClassifications);
   }
 
   private boolean processFieldWithScheme(MarcRecord marcRecord, boolean hasSchema, Map.Entry<String, String> fieldEntry) {
@@ -196,8 +194,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       if (scheme.equals("No information provided"))
         continue;
 
-      if (!tag.equals("852"))
-        hasSchema = true;
+      hasSchema = true;
 
       Schema currentSchema = null;
       if (isaReferenceToSubfield2(tag, scheme)) {

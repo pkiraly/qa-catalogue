@@ -48,7 +48,6 @@ public class SerialScore implements MarcFileProcessor, Serializable {
 
   public SerialScore(String[] args) throws ParseException {
     parameters = new SerialScoreParameters(args);
-    System.err.println("marcxml: " + parameters.isMarcxml());
     options = parameters.getOptions();
     readyToProcess = true;
   }
@@ -129,7 +128,7 @@ public class SerialScore implements MarcFileProcessor, Serializable {
 
   private void printHistogram() {
     Path path;
-    path = Paths.get(parameters.getOutputDir(), "schema-histogram.csv");
+    path = Paths.get(parameters.getOutputDir(), "serial-histogram.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("score", "frequency"));
       histogram

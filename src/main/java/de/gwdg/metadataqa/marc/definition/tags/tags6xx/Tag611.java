@@ -145,6 +145,7 @@ public class Tag611 extends DataFieldDefinition {
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     fieldIndexer = SchemaFromInd2AndSubfield2.getInstance();
+    sourceSpecificationType = SourceSpecificationType.Indicator2AndSubfield2;
 
     putVersionSpecificSubfields(MarcVersion.FENNICA, Arrays.asList(
       new SubfieldDefinition("9", "Artikkeli", "NR")

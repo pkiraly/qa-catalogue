@@ -169,6 +169,7 @@ public class Tag600 extends DataFieldDefinition {
     ));
 
     fieldIndexer = SchemaFromInd2AndSubfield2.getInstance();
+    sourceSpecificationType = SourceSpecificationType.Indicator2AndSubfield2;
   }
 
   public String getSource(DataField field) {

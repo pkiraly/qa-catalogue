@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags6xx;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
 import de.gwdg.metadataqa.marc.definition.general.codelist.FunctionTermSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.indexer.subject.SchemaFromInd2AndSubfield2;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
@@ -81,5 +82,6 @@ public class Tag657 extends DataFieldDefinition {
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     fieldIndexer = SchemaFromInd2AndSubfield2.getInstance();
+    sourceSpecificationType = SourceSpecificationType.Indicator2AndSubfield2;
   }
 }

@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags6xx;
 
+import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTermSourceCodes;
@@ -153,6 +154,7 @@ public class Tag610 extends DataFieldDefinition {
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     fieldIndexer = SchemaFromInd2AndSubfield2.getInstance();
+    sourceSpecificationType = SourceSpecificationType.Indicator2AndSubfield2;
 
     putVersionSpecificSubfields(MarcVersion.FENNICA, Arrays.asList(
       new SubfieldDefinition("9", "Artikkeli", "NR")

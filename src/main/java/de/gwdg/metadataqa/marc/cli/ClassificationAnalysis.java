@@ -27,6 +27,7 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import static de.gwdg.metadataqa.marc.Utils.count;
+import static de.gwdg.metadataqa.marc.Utils.createRow;
 
 public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
@@ -38,6 +39,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   private Map<Schema, Integer> schemaInstanceStatistics = new HashMap<>();
   private Map<Schema, Integer> schemaCounter = new HashMap<>();
   private Map<Schema, Integer> schemaRecordStatistics = new HashMap<>();
+  private Map<Integer, Integer> schemaHistogram = new HashMap<>();
   private Map<Schema, Map<List<String>, Integer>> schemaSubfieldsStatistics = new HashMap<>();
   private Map<String, Map<String[], Integer>> fieldInstanceStatistics = new TreeMap<>();
   private Map<Boolean, Integer> hasClassifications = new HashMap<>();
@@ -52,7 +54,11 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     "086"  // Government Document Classification Number
   );
 
-  // 055 $2 -- Used only when the second indicator contains value 6 (Other call number assigned by LAC), 7 (Other class number assigned by LAC), 8 (Other call number assigned by the contributing library), or 9 (Other class number assigned by the contributing library).
+  // 055 $2 -- Used only when the second indicator contains value
+  // 6 (Other call number assigned by LAC),
+  // 7 (Other class number assigned by LAC),
+  // 8 (Other call number assigned by the contributing library),
+  // 9 (Other class number assigned by the contributing library).
   private static final List<String> fieldsWithIndicator2AndSubfield2 = Arrays.asList(
     "055", // Classification Numbers Assigned in Canada
     "072", // Subject Category Code
@@ -74,6 +80,10 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     "654", // Subject Added Entry - Faceted Topical Terms
     "658", // Index Term - Curriculum Objective
     "662"  // Subject Added Entry - Hierarchical Place Name
+  );
+
+  private static final List<String> fieldsWithoutSource = Arrays.asList(
+    "653"  // Index Term - Uncontrolled
   );
 
   private static final Map<String, String> fieldsWithScheme = new HashMap<>();
@@ -125,37 +135,41 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
-    boolean hasSchema = false;
+    int count = 0;
     for (String tag : fieldsWithIndicator1AndSubfield2) {
-      hasSchema = processFieldWithIndicator1AndSubfield2(marcRecord, hasSchema, tag);
+      count += processFieldWithIndicator1AndSubfield2(marcRecord, tag);
     }
 
     for (String tag : fieldsWithIndicator2AndSubfield2) {
-      hasSchema = processFieldWithIndicator2AndSubfield2(marcRecord, hasSchema, tag);
+      count += processFieldWithIndicator2AndSubfield2(marcRecord, tag);
     }
 
     for (String tag : fieldsWithSubfield2) {
-      hasSchema = processFieldWithSubfield2(marcRecord, hasSchema, tag);
+      count += processFieldWithSubfield2(marcRecord, tag);
+    }
+
+    for (String tag : fieldsWithoutSource) {
+      count += processFieldWithoutSource(marcRecord, tag);
     }
 
     for (Map.Entry<String, String> fieldEntry : fieldsWithScheme.entrySet()) {
-      hasSchema = processFieldWithScheme(marcRecord, hasSchema, fieldEntry);
+      count += processFieldWithScheme(marcRecord, fieldEntry);
     }
 
-    count(hasSchema, hasClassifications);
+    count((count == 1), hasClassifications);
+    count(count, schemaHistogram);
   }
 
-  private boolean processFieldWithScheme(MarcRecord marcRecord, boolean hasSchema, Map.Entry<String, String> fieldEntry) {
+  private int processFieldWithScheme(MarcRecord marcRecord, Map.Entry<String, String> fieldEntry) {
+    int count = 0;
     final String tag = fieldEntry.getKey();
     if (!marcRecord.hasDatafield(tag))
-      return hasSchema;
+      return count;
 
-    hasSchema = true;
     Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(tag);
     List<DataField> fields = marcRecord.getDatafield(tag);
     List<Schema> schemas = new ArrayList<>();
     for (DataField field : fields) {
-      // System.err.println(dataField.getInd1());
       String firstSubfield = null;
       String alt = null;
       for (MarcSubfield subfield : field.getSubfields()) {
@@ -173,18 +187,20 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
         Schema currentSchema = new Schema(tag, firstSubfield, classificationSchemes.resolve(scheme), scheme);
         schemas.add(currentSchema);
         updateSchemaSubfieldStatistics(field, currentSchema);
+        count++;
       } else {
         logger.severe(String.format("undetected subfield in record %s %s", marcRecord.getId(), field.toString()));
       }
     }
     addSchemasToStatistics(schemaInstanceStatistics, schemas);
     addSchemasToStatistics(schemaRecordStatistics, deduplicateSchema(schemas));
-    return hasSchema;
+    return count;
   }
 
-  private boolean processFieldWithIndicator1AndSubfield2(MarcRecord marcRecord, boolean hasSchema, String tag) {
+  private int processFieldWithIndicator1AndSubfield2(MarcRecord marcRecord, String tag) {
+    int count = 0;
     if (!marcRecord.hasDatafield(tag))
-      return hasSchema;
+      return count;
 
     Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(tag);
     List<Schema> schemas = new ArrayList<>();
@@ -194,8 +210,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       if (scheme.equals("No information provided"))
         continue;
 
-      hasSchema = true;
-
+      count++;
       Schema currentSchema = null;
       if (isaReferenceToSubfield2(tag, scheme)) {
         currentSchema = extractSchemaFromSubfield2(tag, schemas, field);
@@ -214,14 +229,14 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
     addSchemasToStatistics(schemaInstanceStatistics, schemas);
     addSchemasToStatistics(schemaRecordStatistics, deduplicateSchema(schemas));
-    return hasSchema;
+    return count;
   }
 
-  private boolean processFieldWithIndicator2AndSubfield2(MarcRecord marcRecord, boolean hasSchema, String tag) {
+  private int processFieldWithIndicator2AndSubfield2(MarcRecord marcRecord, String tag) {
+    int count = 0;
     if (!marcRecord.hasDatafield(tag))
-      return false;
+      return count;
 
-    hasSchema = true;
     Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(tag);
     List<Schema> schemas = new ArrayList<>();
     List<DataField> fields = marcRecord.getDatafield(tag);
@@ -234,6 +249,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
         try {
           currentSchema = new Schema(tag, "ind2", classificationSchemes.resolve(scheme), scheme);
           schemas.add(currentSchema);
+          count++;
         } catch (IllegalArgumentException e) {
           // logger.severe(String.format("%s in record %s %s", e.getLocalizedMessage(), marcRecord.getId(), field.toString()));
         }
@@ -242,23 +258,41 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     }
     addSchemasToStatistics(schemaInstanceStatistics, schemas);
     addSchemasToStatistics(schemaRecordStatistics, deduplicateSchema(schemas));
-    return hasSchema;
+    return count;
   }
 
-  private boolean processFieldWithSubfield2(MarcRecord marcRecord, boolean hasSchema, String tag) {
+  private int processFieldWithSubfield2(MarcRecord marcRecord, String tag) {
+    int count = 0;
     if (!marcRecord.hasDatafield(tag))
-      return false;
+      return count;
 
-    hasSchema = true;
     List<DataField> fields = marcRecord.getDatafield(tag);
     List<Schema> schemas = new ArrayList<>();
     for (DataField field : fields) {
       Schema currentSchema = extractSchemaFromSubfield2(tag, schemas, field);
       updateSchemaSubfieldStatistics(field, currentSchema);
+      count++;
     }
     addSchemasToStatistics(schemaInstanceStatistics, schemas);
     addSchemasToStatistics(schemaRecordStatistics, deduplicateSchema(schemas));
-    return hasSchema;
+    return count;
+  }
+
+  private int processFieldWithoutSource(MarcRecord marcRecord, String tag) {
+    int count = 0;
+    if (!marcRecord.hasDatafield(tag))
+      return count;
+
+    List<DataField> fields = marcRecord.getDatafield(tag);
+    List<Schema> schemas = new ArrayList<>();
+    for (DataField field : fields) {
+      Schema currentSchema = new Schema(tag, "$2", "uncontrolled_" + field.getInd2(), field.resolveInd2());
+      updateSchemaSubfieldStatistics(field, currentSchema);
+      count++;
+    }
+    addSchemasToStatistics(schemaInstanceStatistics, schemas);
+    addSchemasToStatistics(schemaRecordStatistics, deduplicateSchema(schemas));
+    return count;
   }
 
   @NotNull
@@ -402,6 +436,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     printClassificationsByField();
     printClassificationsBySchema();
     printClassificationsByRecords();
+    printClassificationsHistogram();
     printSchemaSubfieldsStatistics();
   }
 
@@ -519,6 +554,31 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       e.printStackTrace();
     }
   }
+
+  private void printClassificationsHistogram() {
+    Path path = Paths.get(parameters.getOutputDir(), "classifications-histogram.csv");
+    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+      writer.write(createRow("count", "frequency"));
+      schemaHistogram
+        .entrySet()
+        .stream()
+        .sorted((e1, e2) -> {
+          return e1.getKey().compareTo(e2.getKey());
+        })
+        .forEach(
+          entry -> {
+            try {
+              writer.write(createRow(entry.getKey(), entry.getValue()));
+            } catch (IOException e) {
+              e.printStackTrace();
+            }
+          }
+        );
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
 
   private void printSchemaSubfieldsStatistics() {
     Path path;

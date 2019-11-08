@@ -23,6 +23,7 @@ public abstract class DataFieldDefinition implements Serializable {
   protected Map<MarcVersion, List<SubfieldDefinition>> versionSpecificSubfields;
   protected List<FRBRFunction> functions;
   protected FieldIndexer fieldIndexer = null;
+  protected SourceSpecificationType sourceSpecificationType = null;
 
   public String getTag() {
     return tag;

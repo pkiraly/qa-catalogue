@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
 import de.gwdg.metadataqa.marc.definition.general.codelist.ClassificationSchemeSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
@@ -84,5 +85,6 @@ public class Tag055 extends DataFieldDefinition {
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     // fieldIndexer = SubjectIndexerWithSchemaFromInd2AndSubfield2.getInstance();
+    sourceSpecificationType = SourceSpecificationType.Indicator2For055AndSubfield2;
   }
 }

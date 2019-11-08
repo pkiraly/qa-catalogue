@@ -2,7 +2,6 @@ package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.Leader;
 import de.gwdg.metadataqa.marc.MarcRecord;
-import de.gwdg.metadataqa.marc.ThompsonTraillAnalysis;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.SerialScoreParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
@@ -14,21 +13,25 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.Record;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
-import static de.gwdg.metadataqa.marc.Utils.createRow;
-import static de.gwdg.metadataqa.marc.Utils.quote;
+import static de.gwdg.metadataqa.marc.Utils.*;
 
 /**
  * usage:
  * java -cp target/metadata-qa-marc-0.1-SNAPSHOT-jar-with-dependencies.jar \
- * de.gwdg.metadataqa.marc.cli.ThompsonTraillCompleteness [MARC21 file]
+ * de.gwdg.metadataqa.marc.cli.SerialScore [MARC21 file]
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
@@ -41,6 +44,7 @@ public class SerialScore implements MarcFileProcessor, Serializable {
   private final boolean readyToProcess;
   private SerialScoreParameters parameters;
   private File output = null;
+  private Map<Integer, Integer> histogram = new HashMap<>();
 
   public SerialScore(String[] args) throws ParseException {
     parameters = new SerialScoreParameters(args);
@@ -84,8 +88,9 @@ public class SerialScore implements MarcFileProcessor, Serializable {
     if (output.exists())
       output.delete();
 
-    String header = StringUtils.join(getHeader(), ",") + "\n";
-    print(header);
+    print(createRow(getHeader()));
+
+    histogram = new HashMap<>();
   }
 
   @Override
@@ -108,6 +113,7 @@ public class SerialScore implements MarcFileProcessor, Serializable {
         quote(StringUtils.join(serial.getFormattedScores(), ";"))
       );
       print(message);
+      count(score, histogram);
     }
   }
 
@@ -118,7 +124,32 @@ public class SerialScore implements MarcFileProcessor, Serializable {
 
   @Override
   public void afterIteration() {
+    printHistogram();
+  }
 
+  private void printHistogram() {
+    Path path;
+    path = Paths.get(parameters.getOutputDir(), "schema-histogram.csv");
+    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+      writer.write(createRow("score", "frequency"));
+      histogram
+        .entrySet()
+        .stream()
+        .sorted((e1, e2) -> {
+          return e1.getKey().compareTo(e2.getKey());
+        })
+        .forEach(
+          entry -> {
+            try {
+              writer.write(createRow(entry.getKey(), entry.getValue()));
+            } catch (IOException e) {
+              e.printStackTrace();
+            }
+          }
+        );
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   @Override

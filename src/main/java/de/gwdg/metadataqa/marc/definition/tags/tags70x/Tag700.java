@@ -80,6 +80,7 @@ public class Tag700 extends DataFieldDefinition {
       "u", "Affiliation", "NR",
       "x", "International Standard Serial Number", "NR",
       "0", "Authority record control number or standard number", "R",
+      "2", "Source of heading or term", "NR",
       "3", "Materials specified", "NR",
       "4", "Relationship", "R",
       "5", "Institution to which field applies", "NR",

@@ -22,6 +22,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
+import static de.gwdg.metadataqa.marc.Utils.createRow;
+import static de.gwdg.metadataqa.marc.Utils.quote;
+
 /**
  * usage:
  * java -cp target/metadata-qa-marc-0.1-SNAPSHOT-jar-with-dependencies.jar \
@@ -81,7 +84,7 @@ public class SerialScore implements MarcFileProcessor, Serializable {
     if (output.exists())
       output.delete();
 
-    String header = StringUtils.join(ThompsonTraillAnalysis.getHeader(), ",") + "\n";
+    String header = StringUtils.join(getHeader(), ",") + "\n";
     print(header);
   }
 
@@ -99,9 +102,10 @@ public class SerialScore implements MarcFileProcessor, Serializable {
     if (marcRecord.getType().equals(Leader.Type.CONTINUING_RESOURCES)) {
       Serial serial = new Serial(marcRecord);
       int score = serial.determineRecordQualityScore();
-      String message = String.format(
-        "\"%s\",%d,\"%s\"%n",
-        marcRecord.getId().trim(), score, StringUtils.join(serial.getFormattedScores(), ";")
+      String message = createRow(
+        marcRecord.getId().trim(),
+        score,
+        quote(StringUtils.join(serial.getFormattedScores(), ";"))
       );
       print(message);
     }
@@ -141,8 +145,7 @@ public class SerialScore implements MarcFileProcessor, Serializable {
 
   public static List<String> getHeader() {
     return Arrays.asList(
-      "id", "score", "explanations"
+      "id", "score", "description"
     );
   }
-
 }

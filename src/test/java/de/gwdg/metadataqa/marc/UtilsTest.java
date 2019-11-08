@@ -97,4 +97,10 @@ public class UtilsTest {
     assertEquals("kssb_8__machine_generated_", Utils.solarize("kssb/8 (machine generated)"));
     assertEquals("generikus_targyszo", Utils.solarize("Generikus tárgyszó"));
   }
+
+  @Test
+  public void testCreateRow() {
+    assertEquals("a,b,c\n", Utils.createRow("a", "b", "c"));
+    assertEquals("a;b;c\n", Utils.createRow(';', "a", "b", "c"));
+  }
 }

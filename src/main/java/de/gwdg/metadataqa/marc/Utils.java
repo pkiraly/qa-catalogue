@@ -73,4 +73,17 @@ public class Utils {
     abbreviation = abbreviation.replaceAll("\\W", "_").toLowerCase();
     return abbreviation;
   }
+
+  public static String createRow(Object... fields) {
+    char separator = ',';
+    if (fields[0].getClass() == Character.class) {
+      separator = (char) fields[0];
+      fields = Arrays.copyOfRange(fields, 1, fields.length);
+    }
+    return createRowWithSep(separator, fields);
+  }
+
+  public static String createRowWithSep(char separator, Object... fields) {
+    return StringUtils.join(fields, separator) + "\n";
+  }
 }

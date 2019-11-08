@@ -156,7 +156,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       count += processFieldWithScheme(marcRecord, fieldEntry);
     }
 
-    count((count == 1), hasClassifications);
+    count((count > 0), hasClassifications);
     count(count, schemaHistogram);
   }
 

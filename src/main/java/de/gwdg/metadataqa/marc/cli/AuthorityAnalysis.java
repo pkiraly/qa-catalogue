@@ -98,7 +98,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
       }
     }
 
-    count((count == 1), hasClassifications);
+    count((count > 0), hasClassifications);
     count(count, histogram);
   }
 

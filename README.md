@@ -603,6 +603,11 @@ libraryDependencies += "de.gwdg.metadataqa" % "metadata-qa-marc" % "0.1"
 
 or you can directly download the jars from [http://repo1.maven.org](http://repo1.maven.org/maven2/de/gwdg/metadataqa/metadata-qa-marc/0.1/)
 
+## User interface
+
+There is a web application for displaying and navigation through the output of the tool (written in PHP):
+
+https://github.com/pkiraly/metadata-qa-marc-web/
 
 <a name="datasources"></a>
 ## Appendix I: Where can I get MARC records?

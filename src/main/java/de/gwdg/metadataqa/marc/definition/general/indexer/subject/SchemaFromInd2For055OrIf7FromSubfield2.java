@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SchemaFromInd1OrIf7FromSubfield2 extends SubjectIndexer implements FieldIndexer {
+public class SchemaFromInd2For055OrIf7FromSubfield2 extends SubjectIndexer implements FieldIndexer {
 
   @Override
   public Map<String, List<String>> index(DataField dataField,
@@ -17,7 +17,11 @@ public class SchemaFromInd1OrIf7FromSubfield2 extends SubjectIndexer implements 
     Map<String, List<String>> indexEntries = new HashMap<>();
     String schemaCode = dataField.getInd1();
     String schemaAbbreviation;
-    if (schemaCode.equals("7")) {
+    if (schemaCode.equals("6")
+       || schemaCode.equals("7")
+       || schemaCode.equals("8")
+       || schemaCode.equals("9"))
+    {
       List<MarcSubfield> subfield2s = dataField.getSubfield("2");
       if (subfield2s == null || subfield2s.isEmpty())
         return indexEntries;
@@ -34,13 +38,13 @@ public class SchemaFromInd1OrIf7FromSubfield2 extends SubjectIndexer implements 
     return indexEntries;
   }
 
-  private static SchemaFromInd1OrIf7FromSubfield2 uniqueInstance;
+  private static SchemaFromInd2For055OrIf7FromSubfield2 uniqueInstance;
 
-  private SchemaFromInd1OrIf7FromSubfield2() {}
+  private SchemaFromInd2For055OrIf7FromSubfield2() {}
 
-  public static SchemaFromInd1OrIf7FromSubfield2 getInstance() {
+  public static SchemaFromInd2For055OrIf7FromSubfield2 getInstance() {
     if (uniqueInstance == null)
-      uniqueInstance = new SchemaFromInd1OrIf7FromSubfield2();
+      uniqueInstance = new SchemaFromInd2For055OrIf7FromSubfield2();
     return uniqueInstance;
   }
 }

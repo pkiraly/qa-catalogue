@@ -48,7 +48,29 @@ You should adjust `common-script` to point to the jar file you just downloaded.
 <a name="helper-scripts"></a>
 ### Helper scripts
 
-The tool comes with some bash helper scripts to run all these with default values. The generic scripts locate in the root directory and library specific configuration like scripts exist in the `scripts` directory. If you want to run it, first you have to configure it.
+The tool comes with some bash helper scripts to run all these with default values. The generic scripts locate in the root directory and library specific configuration like scripts exist in the `scripts` directory. You can find predefined scripts for 19 library catalogues (if you want to run it, first you have to configure it).
+
+#### run
+
+```
+scripts/[your script] [command]
+```
+
+The following commands are supported:
+
+* `validate` -- runs validation
+* `completeness` -- runs completeness analysis
+* `classifications` -- runs classification analysis
+* `authorities` -- runs authorities analysis
+* `tt-completeness` -- runs Thomson-Trail completeness analysis
+* `serial-score` -- calculates the serial scores
+* `format` -- runs formatting records
+* `functional-analysis` -- runs functional analysis
+* `prepare-solr` -- prepare Solr index (you should already have Solr running, and index created)
+* `index` -- runs indexing with Solr
+* `all-analyses` this runs the following commands in one step: validate, completeness, classifications, authorities, tt_completeness, serial_score, functional_analysis
+
+You can find information about these functionalities below this document.
 
 #### configuration
 
@@ -97,26 +119,6 @@ TYPE_PARAMS="--marcVersion DNB --marcxml"
 ```
 
 This line sets the DNB's MARC version (to cover fields defined within DNB's MARC version), and XML as input format.
-
-#### run
-
-```
-scripts/[your script] [command]
-```
-
-The following commands are supported:
-
-* `validate` -- do validation
-* `prepare-solr` -- prepare Solr index (you should already have Solr running, and index created)
-* `index` -- run indexing
-* `completeness` -- run completeness analysis
-* `classifications` -- runs classification analysis
-* `authorities` -- runs authorities analysis
-* `tt-completeness` -- runs Thomson-Trail completeness analysis
-* `serial-score` -- calculates the serial scores
-* `format` -- runs formatting records
-* `functional-analysis` -- runs functional analysis
-* `all-analyses` this runs the following commands in one step: validate, completeness, classifications, authorities, tt_completeness, serial_score, functional_analysis
 
 ## Detailed instructions
 

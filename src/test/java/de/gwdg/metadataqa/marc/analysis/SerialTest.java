@@ -1,6 +1,7 @@
-package de.gwdg.metadataqa.marc.utils;
+package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.marc.*;
+import de.gwdg.metadataqa.marc.analysis.Serial;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

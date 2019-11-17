@@ -38,11 +38,11 @@ transformed_names <- vector("character", length(names))
 for (i in seq_along(names)) {
   name <- names[[i]]
   # field transformation
-  field <- gsub(" ", "-", name) %>%
-    gsub("/", "-", .) %>%
-    str_replace_all(., "([a-z])([A-Z])", "\\1-\\2") %>%
-    tolower()
-  transformed_names[[i]] <- field
+  # field <- gsub(" ", "-", name) %>%
+  #   gsub("/", "-", .) %>%
+  #   str_replace_all(., "([a-z])([A-Z])", "\\1-\\2") %>%
+  #   tolower()
+  # transformed_names[[i]] <- field
 
   col <- rlang::sym(name)
   histogram <- df %>% 
@@ -52,11 +52,11 @@ for (i in seq_along(names)) {
     rename(count = name, frequency = n)
   # print(count)
   histogram_file <- sprintf("%s/%s/%s-histogram-%s.csv",
-                            base_output_dir, catalogue, prefix, field)
+                            base_output_dir, catalogue, prefix, name)
   write_csv(histogram, histogram_file)
 }
 
-df_names <- tibble(names = names, transformed = transformed_names)
-histogram_file <- sprintf("%s/%s/%s-names.csv",
-                          base_output_dir, catalogue, prefix)
-write_csv(df_names, histogram_file)
+# df_names <- tibble(names = names, transformed = transformed_names)
+# histogram_file <- sprintf("%s/%s/%s-names.csv",
+#                           base_output_dir, catalogue, prefix)
+# write_csv(df_names, histogram_file)

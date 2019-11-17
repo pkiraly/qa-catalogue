@@ -5,7 +5,7 @@ import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.SerialScoreParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
-import de.gwdg.metadataqa.marc.utils.Serial;
+import de.gwdg.metadataqa.marc.analysis.Serial;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;

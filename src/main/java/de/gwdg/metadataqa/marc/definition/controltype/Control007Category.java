@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.controltype;
 
 public enum Control007Category implements ControlType {
-  COMMON         ("common", "Common"),
+  COMMON              ("common", "Common"),
   MAP                 ("a", "Map"),
   ELECTRONIC_RESOURCE ("c", "Electronic resource"),
   GLOBE               ("d", "Globe"),

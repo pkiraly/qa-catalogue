@@ -61,6 +61,12 @@ public class Utils {
     return value;
   }
 
+  /**
+   * Increment a counter with 1. The counter is a key in a map.
+   * @param key
+   * @param counter
+   * @param <T>
+   */
   public static <T extends Object> void count(T key, Map<T, Integer> counter) {
     if (!counter.containsKey(key)) {
       counter.put(key, 0);
@@ -84,6 +90,10 @@ public class Utils {
   }
 
   public static String createRowWithSep(char separator, Object... fields) {
-    return StringUtils.join(fields, separator) + "\n";
+    if (fields.length == 1 && fields[0] instanceof List) {
+      return StringUtils.join(((List)fields[0]), separator) + "\n";
+    } else {
+      return StringUtils.join(fields, separator) + "\n";
+    }
   }
 }

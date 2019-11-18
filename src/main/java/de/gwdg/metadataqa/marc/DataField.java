@@ -2,6 +2,8 @@ package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.Linkage;
+import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
+import de.gwdg.metadataqa.marc.definition.general.indexer.subject.*;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.parser.ParserException;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
@@ -13,6 +15,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.Serializable;
 import java.util.*;
 import java.util.logging.Logger;
+
+import static de.gwdg.metadataqa.marc.definition.SourceSpecificationType.Indicator1Is7AndSubfield2;
 
 public class DataField implements Extractable, Validatable, Serializable {
 
@@ -263,9 +267,9 @@ public class DataField implements Extractable, Validatable, Serializable {
       }
     }
 
-    if (definition.getFieldIndexer() != null) {
+    if (getFieldIndexer() != null) {
       try {
-        Map<String, List<String>> extra = definition.getFieldIndexer().index(this, keyGenerator);
+        Map<String, List<String>> extra = getFieldIndexer().index(this, keyGenerator);
         pairs.putAll(extra);
       } catch (IllegalArgumentException e) {
         logger.severe(String.format(
@@ -276,6 +280,33 @@ public class DataField implements Extractable, Validatable, Serializable {
     }
 
     return pairs;
+  }
+
+  public FieldIndexer getFieldIndexer() {
+    FieldIndexer fieldIndexer = null;
+    if (definition.getFieldIndexer() != null) {
+      fieldIndexer = definition.getFieldIndexer();
+    } else if (definition.getSourceSpecificationType() != null) {
+      SourceSpecificationType specificationType = definition.getSourceSpecificationType();
+      switch (specificationType) {
+        case Indicator1Is7AndSubfield2:
+          fieldIndexer = SchemaFromInd1OrIf7FromSubfield2.getInstance();
+          break;
+        case Indicator1IsSpaceAndSubfield2:
+          fieldIndexer = SchemaFromInd1OrIfEmptyFromSubfield2.getInstance();
+          break;
+        case Indicator2AndSubfield2:
+          fieldIndexer = SchemaFromInd2AndSubfield2.getInstance();
+          break;
+        case Indicator2For055AndSubfield2:
+          fieldIndexer = SchemaFromInd2For055OrIf7FromSubfield2.getInstance();
+          break;
+        case Subfield2:
+          fieldIndexer = SchemaFromSubfield2.getInstance();
+          break;
+      }
+    }
+    return fieldIndexer;
   }
 
   public String resolveInd1() {

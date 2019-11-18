@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.MarcRecord;
-import de.gwdg.metadataqa.marc.ThompsonTraillAnalysis;
+import de.gwdg.metadataqa.marc.analysis.ThompsonTraillAnalysis;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ThompsonTraillCompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
@@ -10,12 +10,17 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.Record;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.logging.Logger;
+
+import static de.gwdg.metadataqa.marc.Utils.createRow;
 
 /**
  * usage:
@@ -72,12 +77,13 @@ public class ThompsonTraillCompleteness implements MarcFileProcessor, Serializab
   @Override
   public void beforeIteration() {
     logger.info(parameters.formatParameters());
+    printFields();
+
     output = new File(parameters.getOutputDir(), parameters.getFileName());
     if (output.exists())
       output.delete();
 
-    String header = StringUtils.join(ThompsonTraillAnalysis.getHeader(), ",") + "\n";
-    print(header);
+    print(createRow(ThompsonTraillAnalysis.getHeader()));
   }
 
   @Override
@@ -134,4 +140,24 @@ public class ThompsonTraillCompleteness implements MarcFileProcessor, Serializab
     }
   }
 
+  private void printFields() {
+    Path path = Paths.get(parameters.getOutputDir(), "tt-completeness-fields.csv");
+    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+      writer.write(createRow("name", "transformed"));
+      ThompsonTraillAnalysis.getFields()
+        .entrySet()
+        .stream()
+        .forEach(
+          entry -> {
+            try {
+              writer.write(createRow(entry.getKey(), entry.getValue()));
+            } catch (IOException e) {
+              e.printStackTrace();
+            }
+          }
+        );
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 }

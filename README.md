@@ -45,6 +45,84 @@ You should adjust `common-script` to point to the jar file you just downloaded.
 
 ## run
 
+<a name="helper-scripts"></a>
+### Helper scripts
+
+The tool comes with some bash helper scripts to run all these with default values. The generic scripts locate in the root directory and library specific configuration like scripts exist in the `scripts` directory. You can find predefined scripts for 19 library catalogues (if you want to run it, first you have to configure it).
+
+#### run
+
+```
+scripts/[your script] [command]
+```
+
+The following commands are supported:
+
+* `validate` -- runs validation
+* `completeness` -- runs completeness analysis
+* `classifications` -- runs classification analysis
+* `authorities` -- runs authorities analysis
+* `tt-completeness` -- runs Thomson-Trail completeness analysis
+* `serial-score` -- calculates the serial scores
+* `format` -- runs formatting records
+* `functional-analysis` -- runs functional analysis
+* `prepare-solr` -- prepare Solr index (you should already have Solr running, and index created)
+* `index` -- runs indexing with Solr
+* `all-analyses` this runs the following commands in one step: validate, completeness, classifications, authorities, tt_completeness, serial_score, functional_analysis
+
+You can find information about these functionalities below this document.
+
+#### configuration
+
+1. create the configuration file (setdir.sh)
+```
+cp setdir.sh.template setdir.sh
+```
+
+2. edit the file configuration file. Two lines are important here
+
+```
+BASE_INPUT_DIR=your/path
+BASE_OUTPUT_DIR=your/path
+```
+
+* `BASE_INPUT_DIR` is the parent directory where your MARC records exists
+* `BASE_OUTPUT_DIR` is where the analysis results will be stored
+
+3. edit the library specific file
+
+Here is an example file for analysing Library of Congress' MARC records
+
+```
+#!/usr/bin/env bash
+
+. ./setdir.sh
+NAME=loc
+MARC_DIR=${BASE_INPUT_DIR}/loc/marc
+MASK=*.mrc
+
+. ./common-script
+
+echo "DONE"
+exit 0
+```
+Three variable are important here:
+
+1. `NAME` is a name for the output directory. The analysis result will land under $BASE_OUTPUT_DIR/$NAME directory
+2. `MARC_DIR` is the location of MARC files. All the files should be in the same direcory
+3. `MASK` is a file mask, such as *.mrc or *.marc
+
+You can add here any other parameters this document mentioned at the description of individual command, wrapped in TYPE_PARAMS variable e.g. for the Deutche Nationalbibliothek's config file, one can find this
+
+```
+TYPE_PARAMS="--marcVersion DNB --marcxml"
+```
+
+This line sets the DNB's MARC version (to cover fields defined within DNB's MARC version), and XML as input format.
+
+## Detailed instructions
+
+
 We will use the same jar file in every command, so we save its path into a variable.
 
 ```
@@ -496,7 +574,7 @@ java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcJsonToSolr [Solr url] [MARC JSON f
 
 The MARC JSON file is a JSON serialization of binary MARC file. See more the [MARC Pipeline](https://github.com/pkiraly/marc-pipeline/) project.
 
-### Export mapping table
+## Export mapping table
 
 To export the HTML table described at [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/)
 
@@ -504,7 +582,7 @@ To export the HTML table described at [Self Descriptive MARC code](http://pkiral
 java -cp $JAR de.gwdg.metadataqa.marc.cli.MappingToHtml > mapping.html
 ```
 
-### Extending the functionalities
+## Extending the functionalities
 
 The project is available from Maven Central, the central respository of open source Java projects as jar files. If you want to use it in your Java or Scala application, put this code snippet into the list of dependencies:
 
@@ -527,6 +605,11 @@ libraryDependencies += "de.gwdg.metadataqa" % "metadata-qa-marc" % "0.1"
 
 or you can directly download the jars from [http://repo1.maven.org](http://repo1.maven.org/maven2/de/gwdg/metadataqa/metadata-qa-marc/0.1/)
 
+## User interface
+
+There is a web application for displaying and navigation through the output of the tool (written in PHP):
+
+https://github.com/pkiraly/metadata-qa-marc-web/
 
 <a name="datasources"></a>
 ## Appendix I: Where can I get MARC records?

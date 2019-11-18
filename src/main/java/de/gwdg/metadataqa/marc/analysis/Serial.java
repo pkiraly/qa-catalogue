@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.utils;
+package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.MarcRecord;

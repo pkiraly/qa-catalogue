@@ -227,8 +227,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
   }
 
   private void printAuthoritiesBySchema() {
-    Path path;
-    path = Paths.get(parameters.getOutputDir(), "authorities-by-schema.csv");
+    Path path = Paths.get(parameters.getOutputDir(), "authorities-by-schema.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("id", "field", "location", "scheme", "abbreviation", "abbreviation4solr", "recordcount", "instancecount"));
       authoritiesInstanceStatistics

@@ -2,6 +2,8 @@ package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.Leader;
 import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.analysis.SerialFields;
+import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.SerialScoreParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
@@ -83,6 +85,8 @@ public class SerialScore implements MarcFileProcessor, Serializable {
   @Override
   public void beforeIteration() {
     logger.info(parameters.formatParameters());
+    printFields();
+
     output = new File(parameters.getOutputDir(), parameters.getFileName());
     if (output.exists())
       output.delete();
@@ -167,4 +171,21 @@ public class SerialScore implements MarcFileProcessor, Serializable {
       e.printStackTrace();
     }
   }
+
+  private void printFields() {
+    Path path = Paths.get(parameters.getOutputDir(), "serial-score-fields.csv");
+    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+      writer.write(createRow("name", "transformed"));
+      for (SerialFields field : SerialFields.values()) {
+        try {
+          writer.write(createRow(field.getLabel(), field.getMachine()));
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
 }

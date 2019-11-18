@@ -40,8 +40,10 @@ public class SerialTest {
 
     Serial serial = new Serial(record);
     List<Integer> scores = serial.determineRecordQualityScore();
-    assertEquals(20, scores.size());
-    assertEquals("0,0,0,0,0,0,1,1,1,0,1,1,1,1,0,7,0,0,0,14", StringUtils.join(scores, ','));
+    assertEquals(19, scores.size());
+    assertEquals(19, serial.getScores().getScores().size());
+
+    assertEquals("0,0,0,0,0,1,1,1,0,1,1,1,1,0,7,0,0,0,14", StringUtils.join(scores, ','));
     assertEquals(0, serial.getScores().get(SerialFields.EncodingLevelFull));
     assertEquals(1, serial.getScores().get(SerialFields.EncodingLevelMinimal));
     assertEquals(1, serial.getScores().get(SerialFields.Has006));
@@ -51,6 +53,7 @@ public class SerialTest {
     assertEquals(1, serial.getScores().get(SerialFields.HasDatesOfPublication362));
     assertEquals(1, serial.getScores().get(SerialFields.HasSourceOfDescription588));
     assertEquals(7, serial.getScores().get(SerialFields.HasSubject));
+    assertEquals(14, serial.getScores().get(SerialFields.TOTAL));
     // assertEquals("[(enc-2,1), (006,1), (260,1), (310,1), (336,1), (332,1), (588,1), (subject,7)]", serial.getScores().toString());
 
   }

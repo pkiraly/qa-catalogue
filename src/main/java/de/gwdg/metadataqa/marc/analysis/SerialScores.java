@@ -13,7 +13,7 @@ public class SerialScores {
   public SerialScores() {
     scores = new LinkedHashMap<>();
     for (SerialFields field : SerialFields.values()) {
-      if (!field.equals(ThompsonTraillFields.ID)) {
+      if (!field.equals(SerialFields.ID)) {
         scores.put(field, 0);
       }
     }
@@ -55,5 +55,9 @@ public class SerialScores {
         list.add(entry.getValue());
     }
     return list;
+  }
+
+  public Map<SerialFields, Integer> getScores() {
+    return scores;
   }
 }

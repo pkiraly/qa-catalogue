@@ -6,7 +6,6 @@ import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -25,34 +24,10 @@ public class ThompsonTraillAnalysis {
   private static final Pattern datePattern = Pattern.compile(
     "^(14[5-9]\\d|1[5-9]\\d\\d|200\\d|201[0-7])$"
   );
-  private static Map<String, String> fields = new LinkedHashMap<>();
   private static List<String> headers = new LinkedList<>();
   static {
-    fields.put("id", "id");
-    fields.put("ISBN", "isbn");
-    fields.put("Authors", "authors");
-    fields.put("Alternative Titles", "alternative-titles");
-    fields.put("Edition", "edition");
-    fields.put("Contributors", "contributors");
-    fields.put("Series", "series");
-    fields.put("Table of Contents and Abstract", "toc-and-abstract");
-    fields.put("Date 008", "date-008");
-    fields.put("Date 26X", "date-26x");
-    fields.put("LC/NLM Classification", "classification-lc-nlm");
-    fields.put("Subject Headings: Library of Congress", "classification-loc");
-    fields.put("Subject Headings: Mesh", "classification-mesh");
-    fields.put("Subject Headings: Fast", "classification-fast");
-    fields.put("Subject Headings: GND", "classification-gnd");
-    fields.put("Subject Headings: Other", "classification-other");
-    fields.put("Online", "online");
-    fields.put("Language of Resource", "language-of-resource");
-    fields.put("Country of Publication", "country-of-publication");
-    fields.put("Language of Cataloging", "no-language-or-english");
-    fields.put("Descriptive cataloging standard is RDA", "rda");
-    fields.put("total", "total");
-
-    for (Map.Entry<String, String> field : fields.entrySet()) {
-      headers.add(field.getValue());
+    for (ThompsonTraillFields field : ThompsonTraillFields.values()) {
+      headers.add(field.getMachine());
     }
   }
 
@@ -60,37 +35,33 @@ public class ThompsonTraillAnalysis {
     return headers;
   }
 
-  public static Map<String, String> getFields() {
-    return fields;
-  }
-
   public static List<Integer> getScores(MarcRecord marcRecord) {
-    ThompsonTrailScores ttScores = new ThompsonTrailScores(fields);
+    ThompsonTraillScores ttScores = new ThompsonTraillScores();
     List<Integer> scores = new ArrayList<>();
 
     Control008 control008 = marcRecord.getControl008();
 
-    ttScores.set("isbn", countFields(marcRecord, Arrays.asList("020")));
-    ttScores.set("authors", countFields(marcRecord, Arrays.asList("100", "110", "111")));
-    ttScores.set("alternative-titles", countFields(marcRecord, Arrays.asList("246")));
-    ttScores.set("edition", countFields(marcRecord, Arrays.asList("250")));
-    ttScores.set("contributors",
+    ttScores.set(ThompsonTraillFields.ISBN, countFields(marcRecord, Arrays.asList("020")));
+    ttScores.set(ThompsonTraillFields.Authors, countFields(marcRecord, Arrays.asList("100", "110", "111")));
+    ttScores.set(ThompsonTraillFields.AlternativeTitles, countFields(marcRecord, Arrays.asList("246")));
+    ttScores.set(ThompsonTraillFields.Edition, countFields(marcRecord, Arrays.asList("250")));
+    ttScores.set(ThompsonTraillFields.Contributors,
       countFields(marcRecord, Arrays.asList("700", "710", "711", "720")));
-    ttScores.set("series",
+    ttScores.set(ThompsonTraillFields.Series,
       countFields(marcRecord, Arrays.asList("440", "490", "800", "810", "830")));
-    ttScores.set("toc-and-abstract", calculateTocAndAbstract(marcRecord));
+    ttScores.set(ThompsonTraillFields.TOC, calculateTocAndAbstract(marcRecord));
 
     String date008 = extractDate008(control008);
-    ttScores.set("date-008", calculateDate008(date008));
-    ttScores.set("date-26x", calculateDate26x(marcRecord, date008));
+    ttScores.set(ThompsonTraillFields.Date008, calculateDate008(date008));
+    ttScores.set(ThompsonTraillFields.Date26X, calculateDate26x(marcRecord, date008));
 
-    ttScores.set("classification-lc-nlm", calculateClassificationLcNlm(marcRecord));
+    ttScores.set(ThompsonTraillFields.LcNlm, calculateClassificationLcNlm(marcRecord));
 
     calculateClassifications(marcRecord, ttScores);
 
-    ttScores.set("online", calculateIsOnlineResource(marcRecord, control008));
-    ttScores.set("language-of-resource", calculateLanguageOfResource(control008));
-    ttScores.set("country-of-publication", calculateCountryOfPublication(control008));
+    ttScores.set(ThompsonTraillFields.Online, calculateIsOnlineResource(marcRecord, control008));
+    ttScores.set(ThompsonTraillFields.LanguageOfResource, calculateLanguageOfResource(control008));
+    ttScores.set(ThompsonTraillFields.CountryOfPublication, calculateCountryOfPublication(control008));
     calculateLanguageAndRda(marcRecord, ttScores);
 
     ttScores.calculateTotal();
@@ -101,7 +72,7 @@ public class ThompsonTraillAnalysis {
   // or if English is specified
   // Descriptive cataloging standard  040$e  1 point if value is “rda”
   private static void calculateLanguageAndRda(MarcRecord marcRecord,
-                                              ThompsonTrailScores ttScores) {
+                                              ThompsonTraillScores ttScores) {
     List<DataField> fields040 = marcRecord.getDatafield("040");
     boolean noLanguageOrEnglish = false;
     boolean isRDA = false;
@@ -121,8 +92,8 @@ public class ThompsonTraillAnalysis {
               isRDA = true;
       }
     }
-    ttScores.set("no-language-or-english", (noLanguageOrEnglish ? 1 : 0));
-    ttScores.set("rda", (isRDA ? 1 : 0));
+    ttScores.set(ThompsonTraillFields.LanguageOfCataloging, (noLanguageOrEnglish ? 1 : 0));
+    ttScores.set(ThompsonTraillFields.RDA, (isRDA ? 1 : 0));
   }
 
   // LC/NLM Classification  050, 060, 090  1 point if any field exists
@@ -198,7 +169,7 @@ public class ThompsonTraillAnalysis {
   }
 
   private static void calculateClassifications(MarcRecord marcRecord,
-                                               ThompsonTrailScores ttScores) {
+                                               ThompsonTraillScores ttScores) {
     // 600 - Personal Name
     // 610 - Corporate Name
     // 611 - Meeting Name
@@ -217,9 +188,9 @@ public class ThompsonTraillAnalysis {
         List<DataField> fields = marcRecord.getDatafield(tag);
         for (DataField field : fields) {
           if (field.getInd2().equals("0"))
-            ttScores.count("classification-lc-nlm");
+            ttScores.count(ThompsonTraillFields.LcNlm);
           else if (field.getInd2().equals("2"))
-            ttScores.count("classification-mesh");
+            ttScores.count(ThompsonTraillFields.Mesh);
           else if (field.getInd2().equals("7")) {
             List<MarcSubfield> subfield2 = field.getSubfield("2");
             if (subfield2 == null) {
@@ -228,13 +199,13 @@ public class ThompsonTraillAnalysis {
                 marcRecord.getControl001().getContent()));
             } else
               switch (field.getSubfield("2").get(0).getValue()) {
-                case "fast": ttScores.count("classification-fast"); break;
-                case "gnd": ttScores.count("classification-gnd"); break;
-                default: ttScores.count("classification-other"); break;
+                case "fast": ttScores.count(ThompsonTraillFields.Fast); break;
+                case "gnd": ttScores.count(ThompsonTraillFields.GND); break;
+                default: ttScores.count(ThompsonTraillFields.Other); break;
               }
           }
           else {
-            ttScores.count("classification-other");
+            ttScores.count(ThompsonTraillFields.Other);
           }
         }
       }
@@ -269,22 +240,36 @@ public class ThompsonTraillAnalysis {
     if (control008 != null) {
       switch (marcRecord.getType()) {
         case BOOKS:
-          formOfItem = control008.getTag008book23().getValue(); break;
+          if (control008.getTag008book23() != null)
+            formOfItem = control008.getTag008book23().getValue();
+          break;
         case COMPUTER_FILES:
-          formOfItem = control008.getTag008computer23().getValue(); break;
+          if (control008.getTag008computer23() != null)
+            formOfItem = control008.getTag008computer23().getValue();
+          break;
         case CONTINUING_RESOURCES:
-          formOfItem = control008.getTag008continuing23().getValue(); break;
+          if (control008.getTag008continuing23() != null)
+            formOfItem = control008.getTag008continuing23().getValue();
+          break;
         case MAPS:
-          formOfItem = control008.getTag008map29().getValue(); break;
+          if (control008.getTag008map29() != null)
+            formOfItem = control008.getTag008map29().getValue();
+          break;
         case MIXED_MATERIALS:
-          formOfItem = control008.getTag008mixed23().getValue(); break;
+          if (control008.getTag008mixed23() != null)
+            formOfItem = control008.getTag008mixed23().getValue();
+          break;
         case MUSIC:
-          formOfItem = control008.getTag008music23().getValue(); break;
+          if (control008.getTag008music23() != null)
+            formOfItem = control008.getTag008music23().getValue();
+          break;
         case VISUAL_MATERIALS:
-          formOfItem = control008.getTag008visual29().getValue(); break;
+          if (control008.getTag008visual29() != null)
+            formOfItem = control008.getTag008visual29().getValue();
+          break;
       }
     }
-    int score = formOfItem != null && formOfItem.equals("o") ? 1 : 0;
+    int score = (formOfItem != null && formOfItem.equals("o")) ? 1 : 0;
     return score;
   }
 
@@ -330,8 +315,4 @@ public class ThompsonTraillAnalysis {
     return counter;
   }
 
-  class BoardEntry {
-    String recordElement;
-    Integer count;
-  }
 }

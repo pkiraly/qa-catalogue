@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
 import de.gwdg.metadataqa.marc.analysis.ThompsonTraillAnalysis;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ThompsonTraillCompletenessParameters;
@@ -144,18 +145,13 @@ public class ThompsonTraillCompleteness implements MarcFileProcessor, Serializab
     Path path = Paths.get(parameters.getOutputDir(), "tt-completeness-fields.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("name", "transformed"));
-      ThompsonTraillAnalysis.getFields()
-        .entrySet()
-        .stream()
-        .forEach(
-          entry -> {
-            try {
-              writer.write(createRow(entry.getKey(), entry.getValue()));
-            } catch (IOException e) {
-              e.printStackTrace();
-            }
-          }
-        );
+      for (ThompsonTraillFields field : ThompsonTraillFields.values()) {
+        try {
+          writer.write(createRow(field.getLabel(), field.getMachine()));
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
     } catch (IOException e) {
       e.printStackTrace();
     }

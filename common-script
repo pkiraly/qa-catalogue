@@ -51,6 +51,8 @@ do_tt_completeness() {
 do_serial_score() {
   echo "./serial-score --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}.log"
   ./serial-score --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}.log
+  echo "Rscript scripts/serial-histogram.R ${NAME} 2>> ${PREFIX}.log"
+  Rscript scripts/serial-scores-histogram.R ${NAME} 2>> ${PREFIX}.log
 }
 
 do_format() {

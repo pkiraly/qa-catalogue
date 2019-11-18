@@ -2,6 +2,8 @@ package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.Leader;
 import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.analysis.SerialFields;
+import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.SerialScoreParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
@@ -83,13 +85,13 @@ public class SerialScore implements MarcFileProcessor, Serializable {
   @Override
   public void beforeIteration() {
     logger.info(parameters.formatParameters());
+    printFields();
+
     output = new File(parameters.getOutputDir(), parameters.getFileName());
     if (output.exists())
       output.delete();
 
-    print(createRow(getHeader()));
-
-    histogram = new HashMap<>();
+    print(createRow(Serial.getHeader()));
   }
 
   @Override
@@ -105,14 +107,11 @@ public class SerialScore implements MarcFileProcessor, Serializable {
   public void processRecord(MarcRecord marcRecord, int recordNumber) {
     if (marcRecord.getType().equals(Leader.Type.CONTINUING_RESOURCES)) {
       Serial serial = new Serial(marcRecord);
-      int score = serial.determineRecordQualityScore();
+      List<Integer> scores = serial.determineRecordQualityScore();
       String message = createRow(
-        marcRecord.getId().trim(),
-        score,
-        quote(StringUtils.join(serial.getFormattedScores(), ";"))
+        quote(marcRecord.getId().trim()), StringUtils.join(scores, ",")
       );
       print(message);
-      count(score, histogram);
     }
   }
 
@@ -173,9 +172,20 @@ public class SerialScore implements MarcFileProcessor, Serializable {
     }
   }
 
-  public static List<String> getHeader() {
-    return Arrays.asList(
-      "id", "score", "description"
-    );
+  private void printFields() {
+    Path path = Paths.get(parameters.getOutputDir(), "serial-score-fields.csv");
+    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+      writer.write(createRow("name", "transformed"));
+      for (SerialFields field : SerialFields.values()) {
+        try {
+          writer.write(createRow(field.getLabel(), field.getMachine()));
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
+
 }

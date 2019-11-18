@@ -2,7 +2,10 @@ package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.marc.*;
 import de.gwdg.metadataqa.marc.analysis.Serial;
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
+
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -36,9 +39,22 @@ public class SerialTest {
     assertEquals(Leader.Type.CONTINUING_RESOURCES, record.getType());
 
     Serial serial = new Serial(record);
-    int score = serial.determineRecordQualityScore();
-    assertEquals(14, score);
-    assertEquals("[(enc-2,1), (006,1), (260,1), (310,1), (336,1), (332,1), (588,1), (subject,7)]", serial.getScores().toString());
+    List<Integer> scores = serial.determineRecordQualityScore();
+    assertEquals(19, scores.size());
+    assertEquals(19, serial.getScores().getScores().size());
+
+    assertEquals("0,0,0,0,0,1,1,1,0,1,1,1,1,0,7,0,0,0,14", StringUtils.join(scores, ','));
+    assertEquals(0, serial.getScores().get(SerialFields.EncodingLevelFull));
+    assertEquals(1, serial.getScores().get(SerialFields.EncodingLevelMinimal));
+    assertEquals(1, serial.getScores().get(SerialFields.Has006));
+    assertEquals(1, serial.getScores().get(SerialFields.HasPublisher260));
+    assertEquals(1, serial.getScores().get(SerialFields.HasPublicationFrequency310));
+    assertEquals(1, serial.getScores().get(SerialFields.HasContentType336));
+    assertEquals(1, serial.getScores().get(SerialFields.HasDatesOfPublication362));
+    assertEquals(1, serial.getScores().get(SerialFields.HasSourceOfDescription588));
+    assertEquals(7, serial.getScores().get(SerialFields.HasSubject));
+    assertEquals(14, serial.getScores().get(SerialFields.TOTAL));
+    // assertEquals("[(enc-2,1), (006,1), (260,1), (310,1), (336,1), (332,1), (588,1), (subject,7)]", serial.getScores().toString());
 
   }
 }

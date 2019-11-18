@@ -178,7 +178,7 @@ public class SerialScore implements MarcFileProcessor, Serializable {
       writer.write(createRow("name", "transformed"));
       for (SerialFields field : SerialFields.values()) {
         try {
-          writer.write(createRow(field.getLabel(), field.getMachine()));
+          writer.write(createRow(quote(field.getLabel()), field.getMachine()));
         } catch (IOException e) {
           e.printStackTrace();
         }

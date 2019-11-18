@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.analysis;
 
+import de.gwdg.metadataqa.marc.Control008;
 import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.MarcRecord;
 
@@ -15,6 +16,7 @@ import java.util.List;
 public class Serial {
   private MarcRecord record;
   private SerialScores scores;
+  private Control008 control008;
 
   private static List<String> headers = new LinkedList<>();
   static {
@@ -135,18 +137,26 @@ public class Serial {
   }
 
   public List<Integer> determineRecordQualityScore() {
+    control008 = record.getControl008();
+
     // Date 1 is totally unknown
-    if (record.getControl008().getTag008all07().getValue().equals("uuuu")) {
+    if (control008 != null
+        && control008.getTag008all07() != null
+        && control008.getTag008all07().getValue().equals("uuuu")) {
       scores.set(SerialFields.Date1Unknown, -3);
     }
 
     // Country of publication is totally unknown
-    if (record.getControl008().getTag008all15().getValue().matches("xx.+")) {
+    if (control008 != null
+        && control008.getTag008all15() != null
+        && control008.getTag008all15().getValue().matches("xx.+")) {
       scores.set(SerialFields.CountryUnknown, -1);
     }
 
     // Publication language is totally unknown
-    if (record.getControl008().getTag008all35().getValue().matches("xxx.+")) {
+    if (control008 != null
+      && control008.getTag008all35() != null
+      && control008.getTag008all35().getValue().matches("xxx.+")) {
       scores.set(SerialFields.Language, -1);
     }
 
@@ -235,14 +245,18 @@ public class Serial {
 
     // Automatic Discards:
     // Discard any that are not "o" for electronic
-    if (!record.getControl008().getValueByPosition(23).equals("o")) {
+    if (control008 != null
+        && control008.getValueByPosition(23) != null
+        && !control008.getValueByPosition(23).equals("o")) {
       // scores.add(new Tuple2("not-online", -100));
       // score = score * 0 - 100;
     }
 
     // Discard any that are not active titles
-    if (record.getControl008().getTag008all11().getValue().matches("[0-8].+")
-       || record.getControl008().getTag008all11().getValue().matches("u.+")) {
+    if (control008 != null
+       && control008.getTag008all11() != null
+       && (control008.getTag008all11().getValue().matches("[0-8].+")
+           || control008.getTag008all11().getValue().matches("u.+"))) {
       // scores.add(new Tuple2("not-active", -100));
       // score = score * 0 - 100;
     }
@@ -255,7 +269,9 @@ public class Serial {
     }
 
     // Discard any with a first date of "0"
-    if (record.getControl008().getTag008all07().getValue().matches("0.+")) {
+    if (control008 != null
+        && control008.getTag008all07() != null
+        && control008.getTag008all07().getValue().matches("0.+")) {
       scores.set(SerialFields.Date1StartsWith0, -100);
     }
 

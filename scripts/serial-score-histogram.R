@@ -1,14 +1,10 @@
 library(tidyverse)
-#' Reads tt-completeness.csv and creates histogram files for all
+#' Reads serial-score and creates histogram files for all
 #' column. The files are saved under the BASE_OUTPUT_DIR directory specified
-#' in setdir.sh in tt-completeness-histogram-[column name].csv name form where
+#' in setdir.sh in serial-score-histogram-[column name].csv name form where
 #' [column name] is a lower case, hypen separated form of the column name stored
 #' in the input file. Each file has a 'count' and a 'frequency' column.
 #' 
-#' The script also create a tt-completeness-names.csv file with two columns:
-#' 'name' contains the original name (from the input file), 'transformed' contains
-#' the transformated names.
-
 #' In RStudio you can run this script in the console:
 #' system("Rscript scripts/scores-histogram.R szte")
 
@@ -44,7 +40,7 @@ for (i in seq_along(names)) {
     group_by(!!col) %>% 
     count() %>%
     rename(count = name, frequency = n)
-  # print(count)
+
   histogram_file <- sprintf("%s/%s/%s-histogram-%s.csv",
                             base_output_dir, catalogue, prefix, name)
   write_csv(histogram, histogram_file)

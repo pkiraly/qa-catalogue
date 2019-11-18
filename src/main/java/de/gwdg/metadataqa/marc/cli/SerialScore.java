@@ -87,9 +87,7 @@ public class SerialScore implements MarcFileProcessor, Serializable {
     if (output.exists())
       output.delete();
 
-    print(createRow(getHeader()));
-
-    histogram = new HashMap<>();
+    print(createRow(Serial.getHeader()));
   }
 
   @Override
@@ -105,14 +103,11 @@ public class SerialScore implements MarcFileProcessor, Serializable {
   public void processRecord(MarcRecord marcRecord, int recordNumber) {
     if (marcRecord.getType().equals(Leader.Type.CONTINUING_RESOURCES)) {
       Serial serial = new Serial(marcRecord);
-      int score = serial.determineRecordQualityScore();
+      List<Integer> scores = serial.determineRecordQualityScore();
       String message = createRow(
-        marcRecord.getId().trim(),
-        score,
-        quote(StringUtils.join(serial.getFormattedScores(), ";"))
+        quote(marcRecord.getId().trim()), StringUtils.join(scores, ",")
       );
       print(message);
-      count(score, histogram);
     }
   }
 
@@ -171,11 +166,5 @@ public class SerialScore implements MarcFileProcessor, Serializable {
     } catch (IOException e) {
       e.printStackTrace();
     }
-  }
-
-  public static List<String> getHeader() {
-    return Arrays.asList(
-      "id", "score", "description"
-    );
   }
 }

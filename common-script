@@ -45,7 +45,7 @@ do_tt_completeness() {
   echo "./tt-completeness --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}.log"
   ./tt-completeness --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}.log
   echo "Rscript scripts/tt-histogram.R ${NAME} &>> ${PREFIX}.log"
-  Rscript scripts/tt-histogram.R ${NAME} 2>> ${PREFIX}.log
+  Rscript scripts/tt-histogram.R ${NAME} &>> ${PREFIX}.log
 }
 
 do_serial_score() {

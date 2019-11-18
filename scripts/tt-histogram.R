@@ -5,10 +5,6 @@ library(tidyverse)
 #' [column name] is a lower case, hypen separated form of the column name stored
 #' in the input file. Each file has a 'count' and a 'frequency' column.
 #' 
-#' The script also create a tt-completeness-names.csv file with two columns:
-#' 'name' contains the original name (from the input file), 'transformed' contains
-#' the transformated names.
-
 #' In RStudio you can run this script in the console:
 #' system("Rscript scripts/tt-histogram.R szte")
 
@@ -37,26 +33,16 @@ names <- names(df)
 transformed_names <- vector("character", length(names))
 for (i in seq_along(names)) {
   name <- names[[i]]
-  # field transformation
-  # field <- gsub(" ", "-", name) %>%
-  #   gsub("/", "-", .) %>%
-  #   str_replace_all(., "([a-z])([A-Z])", "\\1-\\2") %>%
-  #   tolower()
-  # transformed_names[[i]] <- field
-
   col <- rlang::sym(name)
   histogram <- df %>% 
     select(!!col) %>% 
     group_by(!!col) %>% 
     count() %>%
     rename(count = name, frequency = n)
-  # print(count)
+
   histogram_file <- sprintf("%s/%s/%s-histogram-%s.csv",
                             base_output_dir, catalogue, prefix, name)
   write_csv(histogram, histogram_file)
+  print(sprintf("saving %s into %s", name, histogram_file))
 }
-
-# df_names <- tibble(names = names, transformed = transformed_names)
-# histogram_file <- sprintf("%s/%s/%s-names.csv",
-#                           base_output_dir, catalogue, prefix)
-# write_csv(df_names, histogram_file)
+print("DONE with tt-histogram.R")

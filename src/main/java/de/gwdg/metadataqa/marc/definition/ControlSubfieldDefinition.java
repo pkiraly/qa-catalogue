@@ -3,8 +3,10 @@ package de.gwdg.metadataqa.marc.definition;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
 import org.apache.commons.lang3.StringUtils;
 
@@ -14,6 +16,8 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class ControlSubfieldDefinition implements Serializable {
 
+  protected static final Pattern TRIMMABLE = Pattern.compile("^[^ ]+ +$");
+
   protected String id;
   protected String label;
   protected String bibframeTag;
@@ -22,6 +26,7 @@ public class ControlSubfieldDefinition implements Serializable {
   protected int positionEnd;
   protected List<Code> codes;
   protected List<Code> historicalCodes;
+  protected CodeList codeList;
 
   protected List<String> validCodes = new ArrayList<>();
   protected int unitLength = -1;
@@ -118,6 +123,16 @@ public class ControlSubfieldDefinition implements Serializable {
     return defaultCode;
   }
 
+  public ControlSubfieldDefinition setCodeList(CodeList codeList) {
+    this.codeList = codeList;
+    return this;
+  }
+
+  public CodeList getCodeList() {
+    return codeList;
+  }
+
+
   public ControlSubfieldDefinition setDefaultCode(String defaultCode) {
     this.defaultCode = defaultCode;
     return this;
@@ -145,7 +160,7 @@ public class ControlSubfieldDefinition implements Serializable {
   }
 
   public String resolve(String inputCode) {
-    if (codes != null) {
+    if (codes != null || codeList != null) {
       if (repeatableContent) {
         inputCode = resolveRepeatable(inputCode);
       } else {
@@ -171,9 +186,22 @@ public class ControlSubfieldDefinition implements Serializable {
   }
 
   private String resolveSingleCode(String inputCode) {
-    for (Code code : codes)
-      if (code.getCode().equals(inputCode))
-        return code.getLabel();
+    if (codeList != null) {
+      if (inputCode.length() > 1 && TRIMMABLE.matcher(inputCode).matches()) {
+        String trimmed = inputCode.trim();
+        if (codeList.isValid(trimmed))
+          return codeList.getCode(trimmed).getLabel();
+      }
+      if (codeList.isValid(inputCode.trim()))
+        return codeList.getCode(inputCode.trim()).getLabel();
+    }
+
+    if (codes != null) {
+      for (Code code : codes)
+        if (code.getCode().equals(inputCode))
+          return code.getLabel();
+    }
+
     return inputCode;
   }
 

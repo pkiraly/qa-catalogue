@@ -61,11 +61,11 @@ public class Control008Test {
 
     subfield = field.getSubfieldByPosition(15);
     assertEquals("Place of publication, production, or execution", subfield.getLabel());
-    assertEquals("ja ", field.resolve(subfield));
+    assertEquals("Japan", field.resolve(subfield));
 
     subfield = field.getSubfieldByPosition(35);
     assertEquals("Language", subfield.getLabel());
-    assertEquals("jpn", field.resolve(subfield));
+    assertEquals("Japanese", field.resolve(subfield));
 
     subfield = field.getSubfieldByPosition(38);
     assertEquals("Modified record", subfield.getLabel());
@@ -127,7 +127,7 @@ public class Control008Test {
 
     subfield = field.getSubfieldByPosition(15);
     assertEquals("Place of publication, production, or execution", subfield.getLabel());
-    assertEquals("enk", field.resolve(subfield));
+    assertEquals("England", field.resolve(subfield));
 
     subfield = field.getSubfieldByPosition(35);
     assertEquals("Language", subfield.getLabel());

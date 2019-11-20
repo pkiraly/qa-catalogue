@@ -130,8 +130,8 @@ public class MarcFactoryTest {
     assertEquals("Continuing resource ceased publication", pairs.get("GeneralInformation_typeOfDateOrPublicationStatus").get(0));
     assertEquals("1991", pairs.get("GeneralInformation_date1").get(0));
     assertEquals("2003", pairs.get("GeneralInformation_date2").get(0));
-    assertEquals("xx ", pairs.get("GeneralInformation_placeOfPublicationProductionOrExecution").get(0));
-    assertEquals("ger", pairs.get("GeneralInformation_language").get(0));
+    assertEquals("No place, unknown, or undetermined", pairs.get("GeneralInformation_placeOfPublicationProductionOrExecution").get(0));
+    assertEquals("German", pairs.get("GeneralInformation_language").get(0));
     assertEquals("Not modified", pairs.get("GeneralInformation_modifiedRecord").get(0));
     assertEquals("Cooperative cataloging program", pairs.get("GeneralInformation_catalogingSource").get(0));
     assertEquals("No determinable frequency", pairs.get("GeneralInformation_frequency").get(0));

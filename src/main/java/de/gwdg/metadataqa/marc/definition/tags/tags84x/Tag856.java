@@ -85,7 +85,15 @@ public class Tag856 extends DataFieldDefinition {
       "2", "Access method", "NR",
       "3", "Materials specified", "NR",
       "6", "Linkage", "NR",
+      "7", "Access status", "NR",
       "8", "Field link and sequence number", "R"
+    );
+
+    getSubfield("7").setCodes(
+      "0", "Open access",
+      "1", "Restricted access",
+      "u", "Unspecified",
+      "z", "Other"
     );
 
     getSubfield("w").setCodeList(OrganizationCodes.getInstance());
@@ -139,6 +147,7 @@ public class Tag856 extends DataFieldDefinition {
     getSubfield("3").setMqTag("materialsSpecified");
     getSubfield("6").setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("7").setMqTag("accessStatus");
     getSubfield("8").setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 

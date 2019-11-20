@@ -32,6 +32,7 @@ public class Tag007soundRecording01 extends ControlSubfieldDefinition {
     positionEnd = 2;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007s.html";
     codes = Utils.generateCodes(
+      "b", "Belt",
       "d", "Sound disc",
       "e", "Cylinder",
       "g", "Sound cartridge",

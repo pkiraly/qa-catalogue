@@ -146,5 +146,12 @@ public class MarcFieldExtractorTest {
     assertEquals("No alphabet or script given/No key title", x008.getTag008continuing33().resolve());
     assertEquals("Successive entry", x008.getTag008continuing34().resolve());
   }
+
+  @Test
+  public void test008() {
+    Control008 x008 = new Control008("850101d19912003xx    p   b   0    0ger c", Leader.Type.BOOKS);
+    assertEquals("ger", x008.getTag008all35().getValue());
+    assertEquals("German", x008.getTag008all35().resolve());
+  }
 }
 

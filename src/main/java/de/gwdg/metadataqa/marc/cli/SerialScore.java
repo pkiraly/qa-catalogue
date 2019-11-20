@@ -3,11 +3,11 @@ package de.gwdg.metadataqa.marc.cli;
 import de.gwdg.metadataqa.marc.Leader;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.analysis.SerialFields;
-import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.SerialScoreParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
 import de.gwdg.metadataqa.marc.analysis.Serial;
+import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -22,7 +22,6 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -121,7 +120,7 @@ public class SerialScore implements MarcFileProcessor, Serializable {
   }
 
   @Override
-  public void afterIteration() {
+  public void afterIteration(int numberOfprocessedRecords) {
     printHistogram();
   }
 

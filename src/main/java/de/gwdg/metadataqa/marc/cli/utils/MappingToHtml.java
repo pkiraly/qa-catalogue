@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.cli;
+package de.gwdg.metadataqa.marc.cli.utils;
 
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.Control006Subfields;

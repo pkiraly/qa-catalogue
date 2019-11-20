@@ -569,7 +569,7 @@ I have created a distinct project [metadata-qa-marc-web](https://github.com/pkir
 ### Indexing MARC JSON records with Solr
 
 ```
-java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcJsonToSolr [Solr url] [MARC JSON file]
+java -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MarcJsonToSolr [Solr url] [MARC JSON file]
 ```
 
 The MARC JSON file is a JSON serialization of binary MARC file. See more the [MARC Pipeline](https://github.com/pkiraly/marc-pipeline/) project.
@@ -579,7 +579,7 @@ The MARC JSON file is a JSON serialization of binary MARC file. See more the [MA
 To export the HTML table described at [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/)
 
 ```
-java -cp $JAR de.gwdg.metadataqa.marc.cli.MappingToHtml > mapping.html
+java -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MappingToHtml > mapping.html
 ```
 
 ## Extending the functionalities

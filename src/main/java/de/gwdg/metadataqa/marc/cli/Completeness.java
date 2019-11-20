@@ -7,6 +7,7 @@ import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.definition.tags.TagCategories;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.utils.BasicStatistics;
@@ -173,7 +174,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
   }
 
   @Override
-  public void afterIteration() {
+  public void afterIteration(int numberOfprocessedRecords) {
     DecimalFormat format = new DecimalFormat();
     String fileExtension = ".csv";
     final char separator = getSeparator(parameters.getFormat());

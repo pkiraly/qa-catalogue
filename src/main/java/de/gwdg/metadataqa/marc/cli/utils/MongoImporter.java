@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.cli;
+package de.gwdg.metadataqa.marc.cli.utils;
 
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.spi.json.JsonProvider;

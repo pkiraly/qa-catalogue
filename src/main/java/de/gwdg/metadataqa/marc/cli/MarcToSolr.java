@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.MarcToSolrParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.datastore.MarcSolrClient;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
@@ -112,7 +113,7 @@ public class MarcToSolr implements MarcFileProcessor, Serializable {
   }
 
   @Override
-  public void afterIteration() {
+  public void afterIteration(int numberOfprocessedRecords) {
     client.commit();
   }
 

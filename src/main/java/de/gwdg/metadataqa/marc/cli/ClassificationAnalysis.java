@@ -7,6 +7,7 @@ import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.definition.general.indexer.subject.ClassificationSchemes;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -27,7 +28,6 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import static de.gwdg.metadataqa.marc.Utils.count;
-import static de.gwdg.metadataqa.marc.Utils.createRow;
 
 public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
@@ -432,7 +432,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   }
 
   @Override
-  public void afterIteration() {
+  public void afterIteration(int numberOfprocessedRecords) {
     printClassificationsByField();
     printClassificationsBySchema();
     printClassificationsByRecords();

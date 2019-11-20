@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.cli;
+package de.gwdg.metadataqa.marc.cli.utils;
 
 import de.gwdg.metadataqa.marc.Leader;
 import de.gwdg.metadataqa.marc.MarcFactory;
@@ -139,7 +139,7 @@ public class RecordIterator {
           }
         }
         if (processor.getParameters().doLog())
-          logger.info(String.format("Finished processing file. Processed %d records.", i));
+          logger.info(String.format("Finished processing file. Processed %s records.", decimalFormat.format(i)));
 
       } catch (SolrServerException ex){
         if (processor.getParameters().doLog())
@@ -166,7 +166,7 @@ public class RecordIterator {
       }
     }
 
-    processor.afterIteration();
+    processor.afterIteration(i);
 
     long end = System.currentTimeMillis();
     long duration = (end - start) / 1000;

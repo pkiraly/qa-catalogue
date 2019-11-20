@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.FormatterParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 import org.apache.commons.cli.*;
 import org.apache.commons.lang3.StringUtils;
@@ -126,7 +127,7 @@ public class Formatter implements MarcFileProcessor {
   }
 
   @Override
-  public void afterIteration() {
+  public void afterIteration(int numberOfprocessedRecords) {
 
   }
 

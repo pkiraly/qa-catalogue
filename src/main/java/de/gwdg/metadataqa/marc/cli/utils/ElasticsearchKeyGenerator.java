@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.cli;
+package de.gwdg.metadataqa.marc.cli.utils;
 
 import de.gwdg.metadataqa.api.model.JsonPathCache;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;

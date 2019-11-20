@@ -16,7 +16,7 @@ public interface MarcFileProcessor {
   void beforeIteration();
   void fileOpened(Path path);
   void fileProcessed();
-  void afterIteration();
+  void afterIteration(int numberOfprocessedRecords);
   void printHelp(Options options);
   boolean readyToProcess();
 }

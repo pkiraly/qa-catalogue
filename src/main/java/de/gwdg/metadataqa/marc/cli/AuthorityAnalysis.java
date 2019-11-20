@@ -7,8 +7,8 @@ import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
-import de.gwdg.metadataqa.marc.definition.general.indexer.subject.ClassificationSchemes;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
@@ -219,7 +219,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
   }
 
   @Override
-  public void afterIteration() {
+  public void afterIteration(int numberOfprocessedRecords) {
     printAuthoritiesBySchema();
     printAuthoritiesByRecords();
     printAuthoritiesHistogram();

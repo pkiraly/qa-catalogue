@@ -1,6 +1,8 @@
 package de.gwdg.metadataqa.marc.model.validation;
 
 import com.opencsv.CSVWriter;
+import de.gwdg.metadataqa.marc.Utils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -40,6 +42,18 @@ public class ValidationErrorFormatter {
     }
 
     return message.toString();
+  }
+
+  /**
+   * Creates a [recordId]<separator>[errorId1];[errorId2]...\n string
+   * @param recordId
+   * @param format
+   * @param errorIds
+   * @return
+   */
+  public static String formatSimple(String recordId, ValidationErrorFormat format, List<Integer> errorIds) {
+    char separator = format.equals(ValidationErrorFormat.TAB_SEPARATED) ? '\t' : ',';
+    return Utils.createRow(separator, recordId, StringUtils.join(errorIds, ';'));
   }
 
   public static String formatHeader(ValidationErrorFormat format) {

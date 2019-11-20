@@ -153,6 +153,13 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     return control001.getContent();
   }
 
+  public String getId(boolean trim) {
+    String id = getId();
+    if (trim)
+      id = id.trim();
+    return id;
+  }
+
   public List<MarcControlField> getControlfields() {
     return Arrays.asList(
       control001, control003, control005, control006, control007, control008

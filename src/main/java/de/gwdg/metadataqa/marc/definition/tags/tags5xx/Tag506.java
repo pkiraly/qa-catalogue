@@ -51,6 +51,8 @@ public class Tag506 extends DataFieldDefinition {
       "d", "Authorized users", "R",
       "e", "Authorization", "R",
       "f", "Standardized terminology for access restriction", "R",
+      "g", "Availability date", "R",
+      "q", "Supplying agency", "NR",
       "u", "Uniform Resource Identifier", "R",
       "2", "Source of term", "NR",
       "3", "Materials specified", "NR",
@@ -74,6 +76,8 @@ public class Tag506 extends DataFieldDefinition {
     getSubfield("e").setMqTag("authorization")
       .setFrbrFunctions(UseRestrict);
     getSubfield("f").setMqTag("terminology");
+    getSubfield("g").setMqTag("availabilityDate");
+    getSubfield("q").setMqTag("supplyingAgency");
     getSubfield("u").setMqTag("uri")
       .setFrbrFunctions(DiscoveryObtain);
     getSubfield("2").setMqTag("source");

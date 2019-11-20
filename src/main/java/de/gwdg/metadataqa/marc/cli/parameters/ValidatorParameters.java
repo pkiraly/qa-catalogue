@@ -15,6 +15,7 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
   private ValidationErrorFormat format = ValidationErrorFormat.TEXT;
   private boolean useStandardOutput = false;
   private boolean isOptionSet;
+  private boolean emptyLargeCollectors = false;
 
   protected void setOptions() {
     if (!isOptionSet) {
@@ -25,6 +26,7 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
       options.addOption("f", "detailsFileName", true,
         String.format("the report file name (default is '%s')", ValidatorParameters.DEFAULT_FILE_NAME));
       options.addOption("r", "format", true, "specify a format");
+      options.addOption("y", "emptyLargeCollectors", false, "empty large collectors");
       isOptionSet = true;
     }
   }
@@ -63,6 +65,9 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
 
     if (doDetails && doSummary && !useStandardOutput && (summaryFileName == null))
       throw new ParseException("If the details and summary is requested, summaryFileName must be provided!");
+
+    if (cmd.hasOption("emptyLargeCollectors"))
+      emptyLargeCollectors = true;
   }
 
   public String getDetailsFileName() {
@@ -87,6 +92,10 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
 
   public String getSummaryFileName() {
     return summaryFileName;
+  }
+
+  public boolean doEmptyLargeCollectors() {
+    return emptyLargeCollectors;
   }
 
   @Override

@@ -49,7 +49,6 @@ public class Validator implements MarcFileProcessor, Serializable {
   private int counter;
   private char separator;
   private boolean hasSeparator = false;
-  private boolean emptyLargeCollectors = false;
   private int vErrorId = 1;
 
   public Validator(String[] args) throws ParseException {
@@ -58,6 +57,7 @@ public class Validator implements MarcFileProcessor, Serializable {
     errorCounter = new TreeMap<>();
     readyToProcess = true;
     counter = 0;
+
   }
 
   public static void main(String[] args) {
@@ -227,7 +227,7 @@ public class Validator implements MarcFileProcessor, Serializable {
             error.setId(hashedIndex.get(error.hashCode()));
           }
           count(error, vErrorCounter);
-          updateErrorCollector(marcRecord, error.getId());
+          updateErrorCollector(marcRecord.getId(true), error.getId());
         }
 
         /*
@@ -267,16 +267,16 @@ public class Validator implements MarcFileProcessor, Serializable {
     }
   }
 
-  private void updateErrorCollector(MarcRecord marcRecord, int current) {
-    if (!errorCollector.containsKey(current)) {
-      errorCollector.put(current, new ArrayList<String>());
-    } else if (emptyLargeCollectors) {
-      if (errorCollector.get(current).size() >= 100) {
-        printCollectorEntry(separator, current, errorCollector.get(current));
-        errorCollector.put(current, new ArrayList<String>());
+  private void updateErrorCollector(String recordId, int errorId) {
+    if (!errorCollector.containsKey(errorId)) {
+      errorCollector.put(errorId, new ArrayList<String>());
+    } else if (parameters.doEmptyLargeCollectors()) {
+      if (errorCollector.get(errorId).size() >= 1000) {
+        printCollectorEntry(separator, errorId, errorCollector.get(errorId));
+        errorCollector.put(errorId, new ArrayList<String>());
       }
     }
-    errorCollector.get(current).add(marcRecord.getId().trim());
+    errorCollector.get(errorId).add(recordId);
   }
 
   public boolean doPrintInProcessRecord() {

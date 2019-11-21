@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.tags.oclctags.Tag090;
+import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertFalse;
@@ -33,7 +34,9 @@ public class Tag090Test {
     field.setRecord(record);
 
     assertFalse("090$n value sk should be invalid in DNB.", field.validate(MarcVersion.DNB));
-    assertEquals("090$n has an invalid value: 'sk' (http://www.oclc.org/bibformats/en/0xx/090.html)",
-      field.getErrors().get(0));
+    assertEquals(ValidationErrorType.SUBFIELD_INVALID_VALUE,
+      field.getValidationErrors().get(0).getType());
+    assertEquals("090$n", field.getValidationErrors().get(0).getMarcPath());
+    assertEquals("sk", field.getValidationErrors().get(0).getMessage());
   }
 }

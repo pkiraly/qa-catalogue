@@ -35,8 +35,6 @@ public class Tag054AValidator implements SubfieldValidator, Serializable {
         ValidationErrorType.SUBFIELD_INVALID_LENGTH,
         String.format("'%s': length is not 4 char", value),
         descriptionUrl));
-      response.addError(String.format("%s error in '%s': length is not 4 char (%s)",
-        definition.getPath(), value, descriptionUrl));
       response.setValid(false);
     } else {
       List<String> parts = Arrays.asList(
@@ -60,8 +58,6 @@ public class Tag054AValidator implements SubfieldValidator, Serializable {
                   descriptionUrl
                 )
               );
-              response.addError(String.format("%s error in '%s': '%s' does not match any patterns (%s)%n",
-                definition.getPath(), value, part, descriptionUrl));
             }
           }
         }

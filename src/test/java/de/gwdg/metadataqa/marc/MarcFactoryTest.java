@@ -9,6 +9,7 @@ import org.junit.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -590,5 +591,33 @@ public class MarcFactoryTest {
         "924g_Bestandsinformationen_g",
       StringUtils.join(pairs.keySet(), ", "));
   }
+
+  @Test
+  public void testCreateFromFormattedText() throws IOException, URISyntaxException {
+    List<String> lines = FileUtils.readLines("general/010000011.mrctxt");
+    assertEquals(44, lines.size());
+    String marcRecordAsText = StringUtils.join(lines, "\n");
+    assertEquals(1845, marcRecordAsText.length());
+
+    MarcRecord record = MarcFactory.createFromFormattedText(marcRecordAsText);
+    test01000011RecordProperties(record);
+  }
+
+  @Test
+  public void testCreateFromFormattedText_asList() throws IOException, URISyntaxException {
+    List<String> lines = FileUtils.readLines("general/010000011.mrctxt");
+    MarcRecord record = MarcFactory.createFromFormattedText(lines);
+    test01000011RecordProperties(record);
+  }
+
+  private void test01000011RecordProperties(MarcRecord record) {
+    assertEquals("02191cam a2200541   4500", record.getLeader().getLeaderString());
+    assertEquals("861106s1985    xx |||||      10| ||ger c", record.getControl008().getContent());
+    assertEquals(3, record.getDatafield("689").size());
+    assertEquals(2, record.getDatafield("810").size());
+    assertEquals(" ", record.getDatafield("810").get(1).getInd2());
+    assertEquals(38, record.getDatafields().size());
+  }
+
 
 }

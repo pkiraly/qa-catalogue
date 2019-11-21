@@ -63,7 +63,6 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
   private ControlValue lengthOfTheLengthOfFieldPortion;
   private ControlValue lengthOfTheStartingCharacterPositionPortion;
   private ControlValue lengthOfTheImplementationDefinedPortion;
-  private List<String> errors;
   private List<ValidationError> initializationErrors;
   private List<ValidationError> validationErrors;
 
@@ -301,25 +300,18 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
   @Override
   public boolean validate(MarcVersion marcVersion) {
     boolean isValid = true;
-    errors = new ArrayList<>();
     validationErrors = new ArrayList<>();
     if (!initializationErrors.isEmpty())
       validationErrors.addAll(initializationErrors);
 
     for (ControlValue controlValue : valuesList) {
       if (!controlValue.validate(marcVersion)) {
-        errors.addAll(controlValue.getErrors());
         validationErrors.addAll(controlValue.getValidationErrors());
         isValid = false;
       }
     }
 
     return isValid;
-  }
-
-  @Override
-  public List<String> getErrors() {
-    return errors;
   }
 
   @Override

@@ -47,11 +47,6 @@ public class CodeList implements Validator, Serializable {
   }
 
   @Override
-  public List<String> getErrors() {
-    return null;
-  }
-
-  @Override
   public List<ValidationError> getValidationErrors() {
     return null;
   }

@@ -16,6 +16,7 @@ import de.gwdg.metadataqa.marc.definition.tags.control.Control005Definition;
 import de.gwdg.metadataqa.marc.utils.MapToDatafield;
 
 import net.minidev.json.JSONArray;
+import org.jetbrains.annotations.NotNull;
 import org.marc4j.marc.ControlField;
 import org.marc4j.marc.Record;
 import org.marc4j.marc.Subfield;
@@ -177,19 +178,27 @@ public class MarcFactory {
     }
   }
 
-  private static DataFieldDefinition getDataFieldDefinition(org.marc4j.marc.DataField dataField, MarcVersion marcVersion) {
+  public static DataFieldDefinition getDataFieldDefinition(org.marc4j.marc.DataField dataField, MarcVersion marcVersion) {
+    return getDataFieldDefinition(dataField.getTag(), marcVersion);
+  }
+
+  public static DataFieldDefinition getDataFieldDefinition(String tag, MarcVersion marcVersion) {
     DataFieldDefinition definition = null;
     if (marcVersion == null)
-      definition = TagDefinitionLoader.load(dataField.getTag());
+      definition = TagDefinitionLoader.load(tag);
     else
-      definition = TagDefinitionLoader.load(dataField.getTag(), marcVersion);
+      definition = TagDefinitionLoader.load(tag, marcVersion);
     return definition;
   }
 
   private static DataField extractDataField(org.marc4j.marc.DataField dataField,
-                              DataFieldDefinition definition,
-                              String identifier) {
-    DataField field = new DataField(definition, Character.toString(dataField.getIndicator1()), Character.toString(dataField.getIndicator2()));
+                                            DataFieldDefinition definition,
+                                            String identifier) {
+    DataField field = new DataField(
+      definition,
+      Character.toString(dataField.getIndicator1()),
+      Character.toString(dataField.getIndicator2())
+    );
     for (Subfield subfield : dataField.getSubfields()) {
       String code = Character.toString(subfield.getCode());
       SubfieldDefinition subfieldDefinition = definition.getSubfield(code);
@@ -227,5 +236,30 @@ public class MarcFactory {
     if (!list.isEmpty())
       return list.get(0);
     return null;
+  }
+
+  public static MarcRecord createFromFormattedText(String marcRecordAsText) {
+    return createFromFormattedText(Arrays.asList(marcRecordAsText.split("\n")));
+  }
+
+  public static MarcRecord createFromFormattedText(List<String> lines) {
+    return createFromFormattedText(lines, MarcVersion.MARC21);
+  }
+
+  public static MarcRecord createFromFormattedText(List<String> lines, MarcVersion marcVersion) {
+    if (marcVersion == null)
+      marcVersion = MarcVersion.MARC21;
+
+    MarcRecord record = new MarcRecord();
+    for (String line : lines) {
+      if (line.startsWith("LEADER ")) {
+        record.setLeader(line.replace("LEADER ", ""));
+      } else {
+        String tag = line.substring(0, 3);
+        String content = line.substring(4);
+        record.setField(tag, content, marcVersion);
+      }
+    }
+    return record;
   }
 }

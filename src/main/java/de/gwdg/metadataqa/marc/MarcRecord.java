@@ -18,6 +18,8 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static de.gwdg.metadataqa.marc.Utils.count;
+
 public class MarcRecord implements Extractable, Validatable, Serializable {
 
   private static final Logger logger = Logger.getLogger(MarcRecord.class.getCanonicalName());
@@ -36,7 +38,6 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   private Map<String, List<DataField>> datafieldIndex;
   private Map<String, List<MarcControlField>> controlfieldIndex;
   Map<String, List<String>> mainKeyValuePairs;
-  private List<String> errors = null;
   private List<ValidationError> validationErrors = null;
 
   public enum RESOLVE {
@@ -81,6 +82,11 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   public void setLeader(Leader leader) {
     this.leader = leader;
     leader.setMarcRecord(this);
+  }
+
+  public void setLeader(String leader) {
+    this.leader = new Leader(leader);
+    this.leader.setMarcRecord(this);
   }
 
   public Leader getLeader() {
@@ -376,14 +382,30 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   }
 
   public boolean validate(MarcVersion marcVersion, boolean isSummary) {
-    errors = new ArrayList<>();
     validationErrors = new ArrayList<>();
     boolean isValidRecord = true;
-    boolean isValidComponent;
+    isValidRecord = validateLeader(marcVersion, isValidRecord);
+    isValidRecord = validateUnhandledTags(isSummary, isValidRecord);
+    isValidRecord = validateControlfields(marcVersion, isValidRecord);
+    isValidRecord = validateDatafields(marcVersion, isValidRecord);
 
+    // TODO: use reflection to get all validator class
+    ValidatorResponse validatorResponse;
+    /*
+    validatorResponse = ClassificationReferenceValidator.validate(this);
+    if (!validatorResponse.isValid()) {
+      errors.addAll(validatorResponse.getErrors());
+      isValidRecord = false;
+    }
+    */
+
+    return isValidRecord;
+  }
+
+  private boolean validateLeader(MarcVersion marcVersion, boolean isValidRecord) {
+    boolean isValidComponent;
     isValidComponent = leader.validate(marcVersion);
     if (!isValidComponent) {
-      errors.addAll(leader.getErrors());
       List<ValidationError> leaderErrors = leader.getValidationErrors();
       for (ValidationError leaderError : leaderErrors)
         if (leaderError.getRecordId() == null)
@@ -391,14 +413,17 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
       validationErrors.addAll(leaderErrors);
       isValidRecord = isValidComponent;
     }
+    return isValidRecord;
+  }
 
+  private boolean validateUnhandledTags(boolean isSummary, boolean isValidRecord) {
     if (!unhandledTags.isEmpty()) {
       if (isSummary) {
         for (String tag : unhandledTags) {
           validationErrors.add(
             new ValidationError(getId(), tag,
               ValidationErrorType.FIELD_UNDEFINED, tag, null));
-          errors.add(String.format("Unhandled tag: %s", tag));
+          // errors.add(String.format("Unhandled tag: %s", tag));
         }
       } else {
         Map<String, Integer> tags = new LinkedHashMap<>();
@@ -418,51 +443,46 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
         for (String tag : unhandledTagsList) {
           validationErrors.add(new ValidationError(
             getId(), tag, ValidationErrorType.FIELD_UNDEFINED, tag, null));
-          errors.add(String.format("Unhandled tag: %s", tag));
+          // errors.add(String.format("Unhandled tag: %s", tag));
         }
       }
 
       isValidRecord = false;
     }
+    return isValidRecord;
+  }
 
-    // TODO: use reflection to get all validator class
-    ValidatorResponse validatorResponse;
-    /*
-    validatorResponse = ClassificationReferenceValidator.validate(this);
-    if (!validatorResponse.isValid()) {
-      errors.addAll(validatorResponse.getErrors());
-      isValidRecord = false;
-    }
-    */
-
+  private boolean validateControlfields(MarcVersion marcVersion, boolean isValidRecord) {
+    boolean isValidComponent;
     for (MarcControlField controlField : getControlfields()) {
       if (controlField != null) {
         // System.err.println(controlField.definition.getTag());
         isValidComponent = ((Validatable)controlField).validate(marcVersion);
         if (!isValidComponent) {
           validationErrors.addAll(((Validatable)controlField).getValidationErrors());
-          errors.addAll(((Validatable)controlField).getErrors());
           isValidRecord = isValidComponent;
         }
       }
     }
+    return isValidRecord;
+  }
 
+  private boolean validateDatafields(MarcVersion marcVersion, boolean isValidRecord) {
+    ValidatorResponse validatorResponse;
     Map<DataFieldDefinition, Integer> repetitionCounter = new HashMap<>();
     for (DataField field : datafields) {
-      if (!repetitionCounter.containsKey(field.getDefinition())) {
-        repetitionCounter.put(field.getDefinition(), 0);
-      }
-      repetitionCounter.put(field.getDefinition(), repetitionCounter.get(field.getDefinition()) + 1);
+      if (field.getDefinition() == null)
+        continue;
+
+      count(field.getDefinition(), repetitionCounter);
       if (!field.validate(marcVersion)) {
         isValidRecord = false;
         validationErrors.addAll(field.getValidationErrors());
-        errors.addAll(field.getErrors());
       }
 
       validatorResponse = ClassificationReferenceValidator.validate(field);
       if (!validatorResponse.isValid()) {
         validationErrors.addAll(validatorResponse.getValidationErrors());
-        errors.addAll(validatorResponse.getErrors());
         isValidRecord = false;
       }
     }
@@ -471,27 +491,16 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
       DataFieldDefinition fieldDefinition = entry.getKey();
       Integer count = entry.getValue();
       if (count > 1
-        && fieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
+          && fieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
         validationErrors.add(new ValidationError(getId(), fieldDefinition.getTag(),
           ValidationErrorType.FIELD_NONREPEATABLE,
           String.format("there are %d instances", count),
           fieldDefinition.getDescriptionUrl()
         ));
-        errors.add(String.format(
-          "%s is not repeatable, however there are %d instances (%s)",
-          fieldDefinition.getTag(),
-          count, fieldDefinition.getDescriptionUrl()
-        ));
         isValidRecord = false;
       }
     }
-
     return isValidRecord;
-  }
-
-  @Override
-  public List<String> getErrors() {
-    return errors;
   }
 
   @Override
@@ -684,5 +693,31 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
         subjects.addAll(fields);
     }
     return subjects;
+  }
+
+  public void setField(String tag, String content) {
+    setField(tag, content, null);
+  }
+
+  public void setField(String tag, String content, MarcVersion marcVersion) {
+    if (tag.equals("001")) {
+      setControl001(new Control001(content));
+    } else if (tag.equals("003")) {
+      setControl003(new Control003(content));
+    } else if (tag.equals("005")) {
+      setControl005(new Control005(content));
+    } else if (tag.equals("006")) {
+      setControl006(new Control006(content, getLeader().getType()));
+    } else if (tag.equals("007")) {
+      setControl007(new Control007(content));
+    } else if (tag.equals("008")) {
+      setControl008(new Control008(content, getLeader().getType()));
+    } else {
+      DataFieldDefinition definition = MarcFactory.getDataFieldDefinition(tag, marcVersion);
+      if (definition == null) {
+        addUnhandledTags(tag);
+      }
+      addDataField(new DataField(tag, content));
+    }
   }
 }

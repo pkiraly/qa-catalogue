@@ -24,7 +24,6 @@ public class MarcSubfield implements Validatable, Serializable {
   private String code;
   private String value;
   private String codeForIndex = null;
-  private List<String> errors = null;
   private List<ValidationError> validationErrors = null;
   private Linkage linkage;
   private String referencePath;
@@ -125,20 +124,16 @@ public class MarcSubfield implements Validatable, Serializable {
   @Override
   public boolean validate(MarcVersion marcVersion) {
     boolean isValid = true;
-    errors = new ArrayList<>();
     validationErrors = new ArrayList<>();
 
     if (definition == null) {
       validationErrors.add(new ValidationError(record.getId(), field.getDefinition().getTag(),
         ValidationErrorType.SUBFIELD_UNDEFINED, code, field.getDefinition().getDescriptionUrl()));
-      errors.add(String.format("no definition for %s", code));
       isValid = false;
     } else {
       if (code == null) {
         validationErrors.add(new ValidationError(record.getId(), field.getDefinition().getTag(),
           ValidationErrorType.SUBFIELD_NULL_CODE, code, field.getDefinition().getDescriptionUrl()));
-        errors.add(String.format("code is null for %s (%s)", definition.getCode(),
-          definition.getParent().getDescriptionUrl()));
         isValid = false;
       } else {
         if (definition.hasValidator()) {
@@ -162,13 +157,6 @@ public class MarcSubfield implements Validatable, Serializable {
               definition.getParent().getDescriptionUrl()
             )
           );
-          message = String.format("%s has an invalid value: '%s'", path, value);
-          if (linkage != null) {
-            message += String.format(" (the field is a reference in %s)", referencePath);
-          }
-          message += " (%s)";
-
-          errors.add(String.format(message, definition.getParent().getDescriptionUrl()));
           isValid = false;
         }
       }
@@ -182,7 +170,6 @@ public class MarcSubfield implements Validatable, Serializable {
     SubfieldValidator validator = definition.getValidator();
     ValidatorResponse response = validator.isValid(this);
     if (!response.isValid()) {
-      errors.addAll(response.getErrors());
       validationErrors.addAll(response.getValidationErrors());
       isValid = false;
     }
@@ -206,11 +193,6 @@ public class MarcSubfield implements Validatable, Serializable {
       isValid = false;
     }
     return isValid;
-  }
-
-  @Override
-  public List<String> getErrors() {
-    return errors;
   }
 
   @Override

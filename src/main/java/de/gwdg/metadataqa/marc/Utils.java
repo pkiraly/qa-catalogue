@@ -74,6 +74,18 @@ public class Utils {
     counter.put(key, counter.get(key) + 1);
   }
 
+  public static <T extends Object> List<String> counterToList(Map<T, Integer> counter) {
+    return counterToList(':', counter);
+  }
+
+  public static <T extends Object> List<String> counterToList(char separator, Map<T, Integer> counter) {
+    List<String> items = new ArrayList<>();
+    for (T entry : counter.keySet()) {
+      items.add(String.format("%s%s%d", entry.toString(), separator, counter.get(entry)));
+    }
+    return items;
+  }
+
   public static String solarize(String abbreviation) {
     abbreviation = StringUtils.stripAccents(abbreviation);
     abbreviation = abbreviation.replaceAll("\\W", "_").toLowerCase();

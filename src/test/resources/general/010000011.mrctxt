@@ -1,0 +1,44 @@
+LEADER 02191cam a2200541   4500
+001 010000011
+003 DE-627
+005 20180502143346.0
+007 tu
+008 861106s1985    xx |||||      10| ||ger c
+035   $a(DE-627)010000011
+035   $a(DE-599)GBV010000011
+035   $a(OCoLC)255971256
+040   $aDE-627$bger$cDE-627$erakwb
+041   $ager
+044   $cXA-DE
+084   $a58.55$2bkl
+245 10$aNeues Luftreinhalterecht$cInstitut für Gewerbliche Wasserwirtschaft und Luftreinhaltung
+264  1$aKöln$c1985
+300   $a108 S
+336   $aText$btxt$2rdacontent
+337   $aohne Hilfsmittel zu benutzen$bn$2rdamedia
+338   $aBand$bnc$2rdacarrier
+490 1 $aIWL-Forum$v1985,3
+490 1 $aBerichte über die IWL-Kolloquien$v22,3
+655  7$aKonferenzschrift$0(DE-588)1071861417$0(DE-627)826484824$0(DE-576)433375485$2gnd-content
+689 00$Ds$0(DE-588)4036582-7$0(DE-627)106241761$0(DE-576)209019352$aLuftreinhaltung$2gnd
+689 01$Ds$0(DE-588)4048737-4$0(DE-627)106189719$0(DE-576)20907907X$aRecht$2gnd
+689 0 $5(DE-627)
+710 2 $aInstitut für Gewerbliche Wasserwirtschaft und Luftreinhaltung$0(DE-588)2013822-2$0(DE-627)101809441$0(DE-576)19168161X
+810 2 $aInstitut für Gewerbliche Wasserwirtschaft und Luftreinhaltung$tIWL-Forum$v1985,3$9198503$w(DE-627)13071562X$w(DE-576)016263235$w(DE-600)967681-8$x0537-796x
+810 2 $aInstitut für Gewerbliche Wasserwirtschaft und Luftreinhaltung$tBerichte über die IWL-Kolloquien$v22,3$92203$w(DE-627)129649562$w(DE-576)015133893$w(DE-600)253370-4
+912   $aGBV_ILN_20
+912   $aSYSFLAG_1
+912   $aGBV_KXP
+912   $aGBV_ILN_70
+912   $aGBV_ILN_77
+936 bk$a58.55$jLuftreinhaltung$0(DE-627)106420798
+951   $aBO
+980   $220$101$b018046525$d2648-9058$x0084$yn$z01-01-71
+980   $270$101$b154540237X$fHaus2$dZA 5253(1985,3)$ef$x0089$yr$z16-05-15
+980   $277$101$b158516338$d86.539$eu$x3077$yr$z26-08-03
+983   $220$100$800$a628.512
+983   $220$100$800$a349.6
+984   $220$101$a84$026489058
+984   $270$101$a89$139292950
+984   $277$101$aHV14$045138X
+985   $277$101$a86.539

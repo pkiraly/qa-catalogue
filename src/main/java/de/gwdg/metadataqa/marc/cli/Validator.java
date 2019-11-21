@@ -37,7 +37,8 @@ public class Validator implements MarcFileProcessor, Serializable {
 
   private ValidatorParameters parameters;
   private Map<String, Counter> errorCounter = new TreeMap<>();
-  private Map<ValidationError, Integer> vErrorCounter = new HashMap<>();
+  private Map<ValidationError, Integer> instanceBasedErrorCounter = new HashMap<>();
+  private Map<Integer, Integer> recordBasedErrorCounter = new HashMap<>();
   private Map<Integer, Integer> hashedIndex = new HashMap<>();
   private Map<Integer, Set<String>> errorCollector = new TreeMap<>();
   private File detailsFile = null;
@@ -145,13 +146,15 @@ public class Validator implements MarcFileProcessor, Serializable {
         parameters.getFormat()
       );
       print(summaryFile, header + "\n");
-      for (Map.Entry<ValidationError, Integer> entry : vErrorCounter.entrySet()) {
+      for (Map.Entry<ValidationError, Integer> entry : instanceBasedErrorCounter.entrySet()) {
         ValidationError error = entry.getKey();
         int count = entry.getValue();
         String formattedOutput = ValidationErrorFormatter.formatForSummary(
           error, parameters.getFormat()
         );
-        print(summaryFile, Utils.createRow(separator, error.getId(), formattedOutput, count));
+        print(summaryFile, Utils.createRow(
+          separator, error.getId(), formattedOutput, count, recordBasedErrorCounter.get(error.getId())
+        ));
       }
       /*
       for (Map.Entry<String, Counter> entry : errorCounter.entrySet()) {
@@ -213,38 +216,29 @@ public class Validator implements MarcFileProcessor, Serializable {
     if (marcRecord.getId() == null)
       logger.severe("No record number at " + i);
     if (i % 100000 == 0)
-      logger.info("Number of error types so far: " + vErrorCounter.size());
+      logger.info("Number of error types so far: " + instanceBasedErrorCounter.size());
 
     boolean isValid = marcRecord.validate(parameters.getMarcVersion(), parameters.doSummary());
     if (!isValid && doPrintInProcessRecord) {
       if (parameters.doSummary()) {
-        List<ValidationError> vErrors = marcRecord.getValidationErrors();
-        for (ValidationError error : vErrors) {
-          if (!vErrorCounter.containsKey(error)) {
+        List<ValidationError> errors = marcRecord.getValidationErrors();
+        Set<Integer> uniqueErrors = new HashSet<>();
+        for (ValidationError error : errors) {
+          if (!instanceBasedErrorCounter.containsKey(error)) {
             error.setId(vErrorId++);
             hashedIndex.put(error.hashCode(), error.getId());
           } else {
             error.setId(hashedIndex.get(error.hashCode()));
           }
-          count(error, vErrorCounter);
+          count(error, instanceBasedErrorCounter);
           updateErrorCollector(marcRecord.getId(true), error.getId());
+          uniqueErrors.add(error.getId());
         }
-
-        /*
-        List<String> errors = ValidationErrorFormatter.formatForSummary(
-          marcRecord.getValidationErrors(), parameters.getFormat()
-        );
-        for (String error : errors) {
-          if (!errorCounter.containsKey(error)) {
-            errorCounter.put(error, new Counter(0, counter++));
-          }
-          errorCounter.get(error).count++;
-
-          int current = errorCounter.get(error).id;
-          updateErrorCollector(marcRecord, current);
+        for (Integer id : uniqueErrors) {
+          count(id, recordBasedErrorCounter);
         }
-         */
       }
+
       if (parameters.doDetails()) {
         if (parameters.doSummary()) {
           Map<Integer, Integer> errorIds = new HashMap<>();

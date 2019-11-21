@@ -95,11 +95,7 @@ public class Control007Test {
     assertEquals(value, field.getMap07());
 
     assertFalse(field.validate(MarcVersion.MARC21));
-    assertEquals(2, field.getErrors().size());
     assertEquals(2, field.getValidationErrors().size());
-    assertEquals("007/05 (tag007map05) has an invalid value: 'c' " +
-        "(https://www.loc.gov/marc/bibliographic/bd007a.html)",
-      field.getErrors().get(0));
     assertEquals("007/05 (tag007map05)",
       field.getValidationErrors().get(0).getMarcPath());
     assertEquals("c",
@@ -111,9 +107,6 @@ public class Control007Test {
     assertEquals("https://www.loc.gov/marc/bibliographic/bd007a.html",
       field.getValidationErrors().get(0).getUrl());
 
-    assertEquals("007/07 (tag007map07) has an invalid value: ' ' " +
-        "(https://www.loc.gov/marc/bibliographic/bd007a.html)",
-      field.getErrors().get(1));
     assertEquals("007/07 (tag007map07)",
       field.getValidationErrors().get(1).getMarcPath());
     assertEquals(" ",
@@ -164,7 +157,6 @@ public class Control007Test {
     assertEquals(value, field.getGlobe05());
 
     assertTrue(field.validate(MarcVersion.MARC21));
-    assertEquals(0, field.getErrors().size());
     assertEquals(0, field.getValidationErrors().size());
   }
 
@@ -213,7 +205,6 @@ public class Control007Test {
     assertEquals(value, field.getTactile09());
 
     assertTrue(field.validate(MarcVersion.MARC21));
-    assertEquals(0, field.getErrors().size());
     assertEquals(0, field.getValidationErrors().size());
   }
 
@@ -274,7 +265,6 @@ public class Control007Test {
     assertEquals(value, field.getProjected08());
 
     assertTrue(field.validate(MarcVersion.MARC21));
-    assertEquals(0, field.getErrors().size());
     assertEquals(0, field.getValidationErrors().size());
   }
 
@@ -347,7 +337,6 @@ public class Control007Test {
     assertEquals(value, field.getMicroform12());
 
     assertTrue(field.validate(MarcVersion.MARC21));
-    assertEquals(0, field.getErrors().size());
     assertEquals(0, field.getValidationErrors().size());
   }
 
@@ -390,7 +379,6 @@ public class Control007Test {
     assertEquals(value, field.getNonprojected05());
 
     assertTrue(field.validate(MarcVersion.MARC21));
-    assertEquals(0, field.getErrors().size());
     assertEquals(0, field.getValidationErrors().size());
   }
 
@@ -505,7 +493,6 @@ public class Control007Test {
     assertEquals(value, field.getMotionPicture17());
 
     assertTrue(field.validate(MarcVersion.MARC21));
-    assertEquals(0, field.getErrors().size());
     assertEquals(0, field.getValidationErrors().size());
   }
 
@@ -530,7 +517,6 @@ public class Control007Test {
     assertEquals(value, field.getKit01());
 
     assertTrue(field.validate(MarcVersion.MARC21));
-    assertEquals(0, field.getErrors().size());
     assertEquals(0, field.getValidationErrors().size());
   }
 
@@ -555,7 +541,6 @@ public class Control007Test {
     assertEquals(value, field.getMusic01());
 
     assertTrue(field.validate(MarcVersion.MARC21));
-    assertEquals(0, field.getErrors().size());
     assertEquals(0, field.getValidationErrors().size());
   }
 
@@ -616,7 +601,6 @@ public class Control007Test {
     assertEquals(value, field.getVideo08());
 
     assertTrue(field.validate(MarcVersion.MARC21));
-    assertEquals(0, field.getErrors().size());
     assertEquals(0, field.getValidationErrors().size());
   }
 
@@ -727,7 +711,6 @@ public class Control007Test {
     assertEquals("Unknown", field.getElectro13().resolve());
 
     assertTrue(field.validate(MarcVersion.MARC21));
-    assertEquals(0, field.getErrors().size());
     assertEquals(0, field.getValidationErrors().size());
   }
 
@@ -831,12 +814,8 @@ public class Control007Test {
     assertEquals("Digital storage", field.getSoundRecording13().resolve());
 
     assertFalse(field.validate(MarcVersion.MARC21));
-    assertEquals(3, field.getErrors().size());
     assertEquals(3, field.getValidationErrors().size());
 
-    assertEquals("007/09 (tag007soundRecording09) has an invalid value: ' ' " +
-        "(https://www.loc.gov/marc/bibliographic/bd007s.html)",
-      field.getErrors().get(0));
     assertEquals("007/09 (tag007soundRecording09)",
       field.getValidationErrors().get(0).getMarcPath());
     assertEquals(" ",
@@ -848,9 +827,6 @@ public class Control007Test {
     assertEquals("https://www.loc.gov/marc/bibliographic/bd007s.html",
       field.getValidationErrors().get(0).getUrl());
 
-    assertEquals("007/10 (tag007soundRecording10) has an invalid value: ' ' " +
-        "(https://www.loc.gov/marc/bibliographic/bd007s.html)",
-      field.getErrors().get(1));
     assertEquals("007/10 (tag007soundRecording10)",
       field.getValidationErrors().get(1).getMarcPath());
     assertEquals(" ",
@@ -862,9 +838,6 @@ public class Control007Test {
     assertEquals("https://www.loc.gov/marc/bibliographic/bd007s.html",
       field.getValidationErrors().get(1).getUrl());
 
-    assertEquals("007/11 (tag007soundRecording11) has an invalid value: ' ' " +
-        "(https://www.loc.gov/marc/bibliographic/bd007s.html)",
-      field.getErrors().get(2));
     assertEquals("007/11 (tag007soundRecording11)",
       field.getValidationErrors().get(2).getMarcPath());
     assertEquals(" ",

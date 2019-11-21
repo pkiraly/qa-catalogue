@@ -167,7 +167,7 @@ public class Validator implements MarcFileProcessor, Serializable {
       print(collectorFile, header + "\n");
       */
       for (Map.Entry<Integer, Set<String>> entry : errorCollector.entrySet()) {
-        printCollectorEntry(separator, entry.getKey(), entry.getValue());
+        printCollectorEntry(entry.getKey(), entry.getValue());
       }
     }
   }
@@ -179,7 +179,7 @@ public class Validator implements MarcFileProcessor, Serializable {
     return separator;
   }
 
-  private void printCollectorEntry(char separator, Integer errorId, Set<String> recordIds) {
+  private void printCollectorEntry(Integer errorId, Set<String> recordIds) {
     print(
       collectorFile,
       String.format(
@@ -274,7 +274,7 @@ public class Validator implements MarcFileProcessor, Serializable {
       errorCollector.put(errorId, new HashSet<String>());
     } else if (parameters.doEmptyLargeCollectors()) {
       if (errorCollector.get(errorId).size() >= 1000) {
-        printCollectorEntry(separator, errorId, errorCollector.get(errorId));
+        printCollectorEntry(errorId, errorCollector.get(errorId));
         errorCollector.put(errorId, new HashSet<String>());
       }
     }

@@ -15,8 +15,6 @@ public class MarcControlField implements Validatable, Extractable, Serializable 
 
   protected DataFieldDefinition definition;
   protected String content;
-
-  protected List<String> errors;
   protected List<ValidationError> validationErrors;
 
   public MarcControlField() {
@@ -63,11 +61,6 @@ public class MarcControlField implements Validatable, Extractable, Serializable 
   @Override
   public boolean validate(MarcVersion marcVersion) {
     return true;
-  }
-
-  @Override
-  public List<String> getErrors() {
-    return null;
   }
 
   @Override

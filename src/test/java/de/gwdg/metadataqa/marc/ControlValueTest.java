@@ -27,9 +27,7 @@ public class ControlValueTest {
       }
     }
     ControlValue value = new ControlValue(subfield, "af  ");
-    assertTrue(StringUtils.join(value.getErrors(), "; "), value.validate(null));
     assertTrue(value.validate(MarcVersion.MARC21));
-    assertEquals(Arrays.asList(), value.getErrors());
     assertEquals(Arrays.asList(), value.getValidationErrors());
   }
 

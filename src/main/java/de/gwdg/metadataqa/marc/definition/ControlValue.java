@@ -16,7 +16,6 @@ public class ControlValue implements Validatable, Serializable {
   private ControlSubfieldDefinition definition;
   private String value;
   private MarcRecord record;
-  private List<String> errors;
   private List<ValidationError> validationErrors;
 
   public ControlValue(ControlSubfieldDefinition definition, String value) {
@@ -51,7 +50,6 @@ public class ControlValue implements Validatable, Serializable {
   @Override
   public boolean validate(MarcVersion marcVersion) {
     boolean isValid = true;
-    errors = new ArrayList<>();
     validationErrors = new ArrayList<>();
 
     if (!definition.getValidCodes().isEmpty()
@@ -60,13 +58,6 @@ public class ControlValue implements Validatable, Serializable {
       if (definition.isHistoricalCode(value)) {
         validationErrors.add(new ValidationError(record.getId(), definition.getPath(), ValidationErrorType.CONTROL_SUBFIELD_OBSOLETE_CODE,
           value, definition.getDescriptionUrl()));
-        errors.add(
-          String.format(
-            "%s/%s (%s) has an obsolete value: '%s' (%s)",
-            definition.getControlField(), definition.formatPositon(), definition.getId(),
-            value, definition.getDescriptionUrl()
-          )
-        );
         isValid = false;
 
       } else {
@@ -82,13 +73,6 @@ public class ControlValue implements Validatable, Serializable {
                   ValidationErrorType.CONTROL_SUBFIELD_INVALID_CODE,
                   String.format("'%s' in '%s'", unit, value),
                   definition.getDescriptionUrl()));
-              errors.add(
-                String.format(
-                  "%s/%s (%s) contains an invalid code: '%s' in '%s' (%s)",
-                  definition.getControlField(), definition.formatPositon(), definition.getId(),
-                  unit, value, definition.getDescriptionUrl()
-                )
-              );
               isValid = false;
             }
           }
@@ -98,13 +82,6 @@ public class ControlValue implements Validatable, Serializable {
               ((record == null) ? null : record.getId()),
               definition.getPath(), ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE,
             value, definition.getDescriptionUrl()));
-          errors.add(
-            String.format(
-              "%s/%s (%s) has an invalid value: '%s' (%s)",
-              definition.getControlField(), definition.formatPositon(), definition.getId(),
-              value, definition.getDescriptionUrl()
-            )
-          );
           isValid = false;
         }
       }
@@ -126,11 +103,6 @@ public class ControlValue implements Validatable, Serializable {
     }
 
     return isValid;
-  }
-
-  @Override
-  public List<String> getErrors() {
-    return errors;
   }
 
   @Override

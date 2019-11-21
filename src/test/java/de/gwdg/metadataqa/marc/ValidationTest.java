@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 
+import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.tags.oclctags.Tag090;
 import de.gwdg.metadataqa.marc.definition.tags.sztetags.Tag596;
@@ -15,6 +16,7 @@ import de.gwdg.metadataqa.marc.definition.tags.tags5xx.Tag546;
 import de.gwdg.metadataqa.marc.definition.tags.tags6xx.Tag630;
 import de.gwdg.metadataqa.marc.definition.tags.tags6xx.Tag650;
 import de.gwdg.metadataqa.marc.definition.tags.tags84x.Tag880;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormatter;
 import org.junit.After;
@@ -52,7 +54,7 @@ public class ValidationTest {
   }
 
   @Test
-  public void hello() throws URISyntaxException, IOException {
+  public void testStructureDefinitionReader() throws URISyntaxException, IOException {
     MarcStructureDefinitionReader reader = new MarcStructureDefinitionReader("multiline.txt");
     List<MarcField> fields = reader.getFields();
     assertEquals(2, fields.size());
@@ -116,4 +118,18 @@ public class ValidationTest {
       assertTrue(message.contains("880$6: record: ambiguous linkage 'There are multiple $6'"));
     }
   }
+
+  @Test
+  public void testAFile() throws URISyntaxException, IOException {
+    List<String> lines = FileUtils.readLines("general/010000011.mrctxt");
+    MarcRecord record = MarcFactory.createFromFormattedText(lines);
+    assertFalse(record.validate(MarcVersion.MARC21, true));
+    assertEquals(33, record.getValidationErrors().size());
+
+    for (ValidationError error : record.getValidationErrors()) {
+      System.err.println(error.toString());
+    }
+
+  }
+
 }

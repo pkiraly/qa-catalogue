@@ -8,6 +8,9 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+
+import static de.gwdg.metadataqa.marc.Utils.counterToList;
 
 public class ValidationErrorFormatter {
 
@@ -48,12 +51,12 @@ public class ValidationErrorFormatter {
    * Creates a [recordId]<separator>[errorId1];[errorId2]...\n string
    * @param recordId
    * @param format
-   * @param errorIds
+   * @param errorIdCounter
    * @return
    */
-  public static String formatSimple(String recordId, ValidationErrorFormat format, List<Integer> errorIds) {
+  public static String formatSimple(String recordId, ValidationErrorFormat format, Map<Integer, Integer> errorIdCounter) {
     char separator = format.equals(ValidationErrorFormat.TAB_SEPARATED) ? '\t' : ',';
-    return Utils.createRow(separator, recordId, StringUtils.join(errorIds, ';'));
+    return Utils.createRow(separator, recordId, StringUtils.join(counterToList(errorIdCounter), ';'));
   }
 
   public static String formatHeader(ValidationErrorFormat format) {

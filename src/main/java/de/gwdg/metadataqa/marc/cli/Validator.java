@@ -39,7 +39,7 @@ public class Validator implements MarcFileProcessor, Serializable {
   private Map<String, Counter> errorCounter = new TreeMap<>();
   private Map<ValidationError, Integer> vErrorCounter = new HashMap<>();
   private Map<Integer, Integer> hashedIndex = new HashMap<>();
-  private Map<Integer, List<String>> errorCollector = new TreeMap<>();
+  private Map<Integer, Set<String>> errorCollector = new TreeMap<>();
   private File detailsFile = null;
   private File summaryFile = null;
   private File collectorFile = null;
@@ -166,7 +166,7 @@ public class Validator implements MarcFileProcessor, Serializable {
       );
       print(collectorFile, header + "\n");
       */
-      for (Map.Entry<Integer, List<String>> entry : errorCollector.entrySet()) {
+      for (Map.Entry<Integer, Set<String>> entry : errorCollector.entrySet()) {
         printCollectorEntry(separator, entry.getKey(), entry.getValue());
       }
     }
@@ -179,7 +179,7 @@ public class Validator implements MarcFileProcessor, Serializable {
     return separator;
   }
 
-  private void printCollectorEntry(char separator, Integer errorId, List<String> recordIds) {
+  private void printCollectorEntry(char separator, Integer errorId, Set<String> recordIds) {
     print(
       collectorFile,
       String.format(
@@ -247,11 +247,13 @@ public class Validator implements MarcFileProcessor, Serializable {
       }
       if (parameters.doDetails()) {
         if (parameters.doSummary()) {
-          List<Integer> errorIds = new ArrayList<>(marcRecord.getValidationErrors().size());
+          Map<Integer, Integer> errorIds = new HashMap<>();
+          // List<Integer> errorIds = new ArrayList<>(marcRecord.getValidationErrors().size());
           for (ValidationError error : marcRecord.getValidationErrors()) {
             if (error.getId() == null)
               error.setId(hashedIndex.get(error.hashCode()));
-            errorIds.add(error.getId());
+            count(error.getId(), errorIds);
+            // errorIds.add(error.getId());
           }
           String message = ValidationErrorFormatter.formatSimple(
             marcRecord.getId(parameters.getTrimId()), parameters.getFormat(), errorIds
@@ -269,11 +271,11 @@ public class Validator implements MarcFileProcessor, Serializable {
 
   private void updateErrorCollector(String recordId, int errorId) {
     if (!errorCollector.containsKey(errorId)) {
-      errorCollector.put(errorId, new ArrayList<String>());
+      errorCollector.put(errorId, new HashSet<String>());
     } else if (parameters.doEmptyLargeCollectors()) {
       if (errorCollector.get(errorId).size() >= 1000) {
         printCollectorEntry(separator, errorId, errorCollector.get(errorId));
-        errorCollector.put(errorId, new ArrayList<String>());
+        errorCollector.put(errorId, new HashSet<String>());
       }
     }
     errorCollector.get(errorId).add(recordId);

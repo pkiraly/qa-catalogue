@@ -106,6 +106,7 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
     text += String.format("detailsFileName: %s%n", detailsFileName);
     text += String.format("summaryFileName: %s%n", summaryFileName);
     text += String.format("format: %s%n", format.getLabel());
+    text += String.format("emptyLargeCollectors: %s%n", emptyLargeCollectors);
     return text;
   }
 }

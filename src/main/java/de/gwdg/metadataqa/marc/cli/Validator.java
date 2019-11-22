@@ -1,12 +1,12 @@
 package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.MarcRecord;
-import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormatter;
+import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -14,14 +14,17 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.Record;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.logging.Logger;
 
-import static de.gwdg.metadataqa.marc.Utils.count;
+import static de.gwdg.metadataqa.marc.Utils.*;
 import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat.TAB_SEPARATED;
 
 /**
@@ -36,7 +39,12 @@ public class Validator implements MarcFileProcessor, Serializable {
   private Options options;
 
   private ValidatorParameters parameters;
-  private Map<String, Counter> errorCounter = new TreeMap<>();
+  private Map<Integer, Integer> totalRecordCounter = new HashMap<>();
+  private Map<Integer, Integer> totalInstanceCounter = new HashMap<>();
+  private Map<String, Integer> categoryRecordCounter = new HashMap<>();
+  private Map<String, Integer> categoryInstanceCounter = new HashMap<>();
+  private Map<ValidationErrorType, Integer> typeRecordCounter = new HashMap<>();
+  private Map<ValidationErrorType, Integer> typeInstanceCounter = new HashMap<>();
   private Map<ValidationError, Integer> instanceBasedErrorCounter = new HashMap<>();
   private Map<Integer, Integer> recordBasedErrorCounter = new HashMap<>();
   private Map<Integer, Integer> hashedIndex = new HashMap<>();
@@ -55,7 +63,7 @@ public class Validator implements MarcFileProcessor, Serializable {
   public Validator(String[] args) throws ParseException {
     parameters = new ValidatorParameters(args);
     options = parameters.getOptions();
-    errorCounter = new TreeMap<>();
+    // errorCounter = new TreeMap<>();
     readyToProcess = true;
     counter = 0;
 
@@ -142,36 +150,100 @@ public class Validator implements MarcFileProcessor, Serializable {
   public void afterIteration(int numberOfprocessedRecords) {
     char separator = getSeparator();
     if (parameters.doSummary()) {
-      String header = ValidationErrorFormatter.formatHeaderForSummary(
-        parameters.getFormat()
-      );
-      print(summaryFile, header + "\n");
-      for (Map.Entry<ValidationError, Integer> entry : instanceBasedErrorCounter.entrySet()) {
-        ValidationError error = entry.getKey();
-        int count = entry.getValue();
-        String formattedOutput = ValidationErrorFormatter.formatForSummary(
-          error, parameters.getFormat()
-        );
-        print(summaryFile, Utils.createRow(
-          separator, error.getId(), formattedOutput, count, recordBasedErrorCounter.get(error.getId())
-        ));
-      }
-      /*
-      for (Map.Entry<String, Counter> entry : errorCounter.entrySet()) {
-        Counter counter = entry.getValue();
-        print(summaryFile, Utils.createRow(separator, counter.id, entry.getKey(), counter.count));
-      }
-      */
+      printSummary(separator);
+      printCategoryCounts();
+      printTypeCounts();
+      printTotalCounts();
+      printCollector();
+    }
+  }
 
-      /*
-      header = ValidationErrorFormatter.formatHeaderForCollector(
-        parameters.getFormat()
+  private void printCollector() {
+    for (Map.Entry<Integer, Set<String>> entry : errorCollector.entrySet()) {
+      printCollectorEntry(entry.getKey(), entry.getValue());
+    }
+  }
+
+  private void printSummary(char separator) {
+    String header = ValidationErrorFormatter.formatHeaderForSummary(
+      parameters.getFormat()
+    );
+    print(summaryFile, header + "\n");
+    for (Map.Entry<ValidationError, Integer> entry : instanceBasedErrorCounter.entrySet()) {
+      ValidationError error = entry.getKey();
+      int count = entry.getValue();
+      String formattedOutput = ValidationErrorFormatter.formatForSummary(
+        error, parameters.getFormat()
       );
-      print(collectorFile, header + "\n");
-      */
-      for (Map.Entry<Integer, Set<String>> entry : errorCollector.entrySet()) {
-        printCollectorEntry(entry.getKey(), entry.getValue());
-      }
+      print(summaryFile, createRow(
+        separator, error.getId(), formattedOutput, count, recordBasedErrorCounter.get(error.getId())
+      ));
+    }
+  }
+
+  private void printTypeCounts() {
+    Path path = Paths.get(parameters.getOutputDir(), "issues-by-type.csv");
+    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+      writer.write(createRow("type", "instances", "records"));
+      typeRecordCounter
+        .entrySet()
+        .stream()
+        .forEach(entry -> {
+          ValidationErrorType type = entry.getKey();
+          int records = entry.getValue();
+          int instances = typeInstanceCounter.get(entry.getKey());
+          try {
+            writer.write(createRow(quote(type.getMessage()), instances, records));
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        });
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void printTotalCounts() {
+    Path path = Paths.get(parameters.getOutputDir(), "issues-total.csv");
+    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+      writer.write(createRow("type", "instances", "records"));
+      // writer.write(createRow("total", totalInstanceCounter.get(1), totalRecordCounter.get(1)));
+      totalRecordCounter
+        .entrySet()
+        .stream()
+        .forEach(entry -> {
+          int records = entry.getValue();
+          int instances = totalInstanceCounter.getOrDefault(entry.getKey(), 0);
+          try {
+            writer.write(createRow(entry.getKey(), instances, records));
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        });
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void printCategoryCounts() {
+    Path path = Paths.get(parameters.getOutputDir(), "issues-by-category.csv");
+    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+      writer.write(createRow("category", "instances", "records"));
+      categoryRecordCounter
+      .entrySet()
+      .stream()
+      .forEach(entry -> {
+        String category = entry.getKey();
+        int records = entry.getValue();
+        int instances = categoryInstanceCounter.getOrDefault(entry.getKey(), -1);
+        try {
+          writer.write(createRow(category, instances, records));
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      });
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 
@@ -223,6 +295,8 @@ public class Validator implements MarcFileProcessor, Serializable {
       if (parameters.doSummary()) {
         List<ValidationError> errors = marcRecord.getValidationErrors();
         Set<Integer> uniqueErrors = new HashSet<>();
+        Set<ValidationErrorType> uniqueTypes = new HashSet<>();
+        Set<String> uniqueCategories = new HashSet<>();
         for (ValidationError error : errors) {
           if (!instanceBasedErrorCounter.containsKey(error)) {
             error.setId(vErrorId++);
@@ -231,12 +305,24 @@ public class Validator implements MarcFileProcessor, Serializable {
             error.setId(hashedIndex.get(error.hashCode()));
           }
           count(error, instanceBasedErrorCounter);
+          count(error.getType(), typeInstanceCounter);
+          count(error.getType().getCategory(), categoryInstanceCounter);
+          count(1, totalInstanceCounter);
           updateErrorCollector(marcRecord.getId(true), error.getId());
           uniqueErrors.add(error.getId());
+          uniqueTypes.add(error.getType());
+          uniqueCategories.add(error.getType().getCategory());
         }
         for (Integer id : uniqueErrors) {
           count(id, recordBasedErrorCounter);
         }
+        for (ValidationErrorType id : uniqueTypes) {
+          count(id, typeRecordCounter);
+        }
+        for (String id : uniqueCategories) {
+          count(id, categoryRecordCounter);
+        }
+        count(1, totalRecordCounter);
       }
 
       if (parameters.doDetails()) {
@@ -260,6 +346,9 @@ public class Validator implements MarcFileProcessor, Serializable {
           print(detailsFile, message);
         }
       }
+    } else {
+      if (parameters.doSummary())
+        count(0, totalRecordCounter);
     }
   }
 

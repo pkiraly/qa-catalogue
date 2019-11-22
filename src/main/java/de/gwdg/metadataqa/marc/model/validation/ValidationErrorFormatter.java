@@ -158,7 +158,7 @@ public class ValidationErrorFormatter {
   }
 
   private static String[] headerForSummary() {
-    return new String[]{"id", "MarcPath", "type", "message", "url", "instance-count", "record-count"};
+    return new String[]{"id", "MarcPath", "type", "message", "url", "instances", "records"};
   }
 
   private static String[] headerForCollector() {

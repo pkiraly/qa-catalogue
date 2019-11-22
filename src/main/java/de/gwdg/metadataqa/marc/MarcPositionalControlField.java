@@ -88,6 +88,9 @@ public class MarcPositionalControlField extends MarcControlField {
   public boolean validate(MarcVersion marcVersion) {
     boolean isValid = true;
     validationErrors = new ArrayList<>();
+    if (!initializationErrors.isEmpty()) {
+      validationErrors.addAll(initializationErrors);
+    }
     for (ControlValue controlValue : valuesList) {
       if (!controlValue.validate(marcVersion)) {
         validationErrors.addAll(controlValue.getValidationErrors());

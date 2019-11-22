@@ -2,7 +2,7 @@
 
 . ./setdir.sh
 NAME=nfi
-TYPE_PARAMS="--marcVersion FENNICA"
+TYPE_PARAMS="--marcVersion FENNICA --fixAlephseq"
 MARC_DIR=${BASE_INPUT_DIR}/nationallibrary.fi
 MASK=*.mrc
 

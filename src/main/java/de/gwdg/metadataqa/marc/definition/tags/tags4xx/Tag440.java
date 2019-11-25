@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.ISSNValidator;
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
@@ -57,7 +58,9 @@ public class Tag440 extends DataFieldDefinition {
       "8", "Field link and sequence number", "R"
     );
 
+    getSubfield("0").setContentParser(RecordControlNumberParser.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
+
     getSubfield("x").setValidator(ISSNValidator.getInstance());
 
     getSubfield("a").setMqTag("rdf:value")

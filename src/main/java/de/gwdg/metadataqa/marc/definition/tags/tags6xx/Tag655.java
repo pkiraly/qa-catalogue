@@ -7,6 +7,8 @@ import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
 import de.gwdg.metadataqa.marc.definition.general.codelist.GenreFormCodeAndTermSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.indexer.subject.SchemaFromInd2AndSubfield2;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
+
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
@@ -76,6 +78,7 @@ public class Tag655 extends DataFieldDefinition {
 
     getSubfield("2").setCodeList(GenreFormCodeAndTermSourceCodes.getInstance());
 
+    getSubfield("0").setContentParser(RecordControlNumberParser.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value")

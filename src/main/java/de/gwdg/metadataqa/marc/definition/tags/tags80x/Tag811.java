@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.NameAndTitleAuthority
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTermSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.ISSNValidator;
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
@@ -111,6 +112,7 @@ public class Tag811 extends DataFieldDefinition {
         ))
     ));
 
+    getSubfield("0").setContentParser(RecordControlNumberParser.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
     getSubfield("x").setValidator(ISSNValidator.getInstance());
 

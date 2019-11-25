@@ -244,12 +244,18 @@ public class DataField implements Extractable, Validatable, Serializable {
   @Override
   public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
     Map<String, List<String>> pairs = new HashMap<>();
-    DataFieldKeyGenerator keyGenerator = new DataFieldKeyGenerator(definition, type);
 
-    if (definition.getInd1().exists())
+    DataFieldKeyGenerator keyGenerator = new DataFieldKeyGenerator(
+      definition, type, getTag()
+    );
+
+    if (definition != null && definition.getInd1().exists()) {
       pairs.put(keyGenerator.forInd1(), Arrays.asList(resolveInd1()));
+    } else if (getInd1() != null) {
+      pairs.put(keyGenerator.forInd1(), Arrays.asList(getInd1()));
+    }
 
-    if (definition.getInd2().exists()) {
+    if (definition != null && definition.getInd2().exists()) {
       pairs.put(keyGenerator.forInd2(), Arrays.asList(resolveInd2()));
     }
 
@@ -287,9 +293,10 @@ public class DataField implements Extractable, Validatable, Serializable {
 
   public FieldIndexer getFieldIndexer() {
     FieldIndexer fieldIndexer = null;
-    if (definition.getFieldIndexer() != null) {
+    if (definition != null && definition.getFieldIndexer() != null) {
       fieldIndexer = definition.getFieldIndexer();
-    } else if (definition.getSourceSpecificationType() != null) {
+    } else if (definition != null
+      && definition.getSourceSpecificationType() != null) {
       SourceSpecificationType specificationType = definition.getSourceSpecificationType();
       switch (specificationType) {
         case Indicator1Is7AndSubfield2:

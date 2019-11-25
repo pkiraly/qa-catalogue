@@ -48,7 +48,7 @@ public class MarcFactoryTest {
     // System.err.println(record.formatForIndex());
     // System.err.println(record.getKeyValuePairs());
     Map<String, List<String>> pairs = record.getKeyValuePairs(SolrFieldType.HUMAN);
-    assertEquals(120, pairs.size());
+    assertEquals(126, pairs.size());
     Set<String> keys = pairs.keySet();
     // keys.remove("GentLocallyDefinedField");
     // keys.remove("BemerkungenZurTitelaufnahme");
@@ -73,19 +73,23 @@ public class MarcFactoryTest {
       "GeneralInformation_originalAlphabetOrScriptOfTitle, GeneralInformation_entryConvention, " +
       "IdIntifiedByLocal_source, IdIntifiedByLocal, IdIntifiedByLocal_agency, " +
       "Issn_levelOfInternationalInterest, Issn, SystemControlNumber_organizationCode, " +
+      "SystemControlNumber_ind1, " +
       "SystemControlNumber, SystemControlNumber_recordNumber, SystemControlNumber_organization, " +
+      "AdminMetadata_ind1, " +
       "AdminMetadata_languageOfCataloging, AdminMetadata_descriptionConventions, " +
       "AdminMetadata_transcribingAgency, AdminMetadata_catalogingAgency, " +
       "Language_translationIndication, Language, Language_sourceOfCode, Place_country, " +
+      "Place_ind1, " +
       "ClassificationDdc_editionType, ClassificationDdc_classificationSource, ClassificationDdc, " +
       "Classification_classificationPortion, Classification_classificationPortion_zdbs, " +
-      "Classification_source, Title_subtitle, " +
+      "Classification_source, Classification_ind1, Title_subtitle, " +
       "Title_responsibilityStatement, Title_mainTitle, Title_titleAddedEntry, " +
       "Title_nonfilingCharacters, Title_partName, ParallelTitle_mainTitle, ParallelTitle_type, " +
       "ParallelTitle_displayText, ParallelTitle_noteAndAddedEntry, " +
       "Publication_sequenceOfPublishingStatements, Publication_agent, Publication_place, " +
       "DatesOfPublication, DatesOfPublication_format, NumberingPeculiarities, " +
-      "BemerkungenZurTitelaufnahme, " +
+      "NumberingPeculiarities_ind1, " +
+      "BemerkungenZurTitelaufnahme, BemerkungenZurTitelaufnahme_ind1, " +
       "RSWKKette_nummerDesKettengliedes, RSWKKette_0, RSWKKette_a, " +
       "RSWKKette_nummerDerRSWKKette, RSWKKette_D, RSWKKette_5, AddedCorporateName, " +
       "AddedCorporateName_authorityRecordControlNumber, " +
@@ -462,7 +466,7 @@ public class MarcFactoryTest {
 
     MarcRecord record = MarcFactory.create(cache, MarcVersion.DNB);
     Map<String, List<String>> pairs = record.getKeyValuePairs(SolrFieldType.MIXED);
-    assertEquals(120, pairs.size());
+    assertEquals(126, pairs.size());
 
     Set<String> keys = pairs.keySet();
     keys.remove("591a_GentLocallyDefinedField");
@@ -519,19 +523,23 @@ public class MarcFactoryTest {
         "022a_Issn, " +
         "035a_SystemControlNumber_recordNumber, " +
         "035a_SystemControlNumber, " +
+        "035ind1_SystemControlNumber_ind1, " +
         "035a_SystemControlNumber_organizationCode, " +
         "035a_SystemControlNumber_organization, " +
         "040e_AdminMetadata_descriptionConventions, " +
+        "040ind1_AdminMetadata_ind1, " +
         "040a_AdminMetadata_catalogingAgency, " +
         "040b_AdminMetadata_languageOfCataloging, " +
         "040c_AdminMetadata_transcribingAgency, " +
         "041a_Language, " +
         "041ind1_Language_translationIndication, " +
         "041ind2_Language_sourceOfCode, " +
+        "044ind1_Place_ind1, " +
         "044a_Place_country, " +
         "082ind2_ClassificationDdc_classificationSource, " +
         "082ind1_ClassificationDdc_editionType, " +
         "082a_ClassificationDdc, " +
+        "084ind1_Classification_ind1, " +
         "0842_Classification_source, " +
         "084a_Classification_classificationPortion, " +
         "084a_Classification_classificationPortion_zdbs, " +
@@ -550,14 +558,16 @@ public class MarcFactoryTest {
         "260ind1_Publication_sequenceOfPublishingStatements, " +
         "362ind1_DatesOfPublication_format, " +
         "362a_DatesOfPublication, " +
+        "515ind1_NumberingPeculiarities_ind1, " +
         "515a_NumberingPeculiarities, " +
+        "591ind1_BemerkungenZurTitelaufnahme_ind1, " +
         // "591a_GentLocallyDefinedField, " +
-        "6890_RSWKKette_0, " +
-        "689D_RSWKKette_D, " +
+        "689D_RSWKKette, " +
+        "6890_RSWKKette, " +
         "689ind2_RSWKKette_nummerDesKettengliedes, " +
-        "689a_RSWKKette_a, " +
         "689ind1_RSWKKette_nummerDerRSWKKette, " +
-        "6895_RSWKKette_5, " +
+        "689a_RSWKKette, " +
+        "6895_RSWKKette, " +
         "7100_AddedCorporateName_authorityRecordControlNumber, " +
         "7100_AddedCorporateName_authorityRecordControlNumber_recordNumber, " +
         "7100_AddedCorporateName_authorityRecordControlNumber_organization, " +
@@ -581,14 +591,14 @@ public class MarcFactoryTest {
         "780w_PrecededBy_recordControlNumber_recordNumber, " +
         "780a_PrecededBy, " +
         "780w_PrecededBy_recordControlNumber, " +
+        "924b_Bestandsinformationen, " +
+        "924c_Bestandsinformationen, " +
         "924ind1_Bestandsinformationen_artDerRessource, " +
         "924a_Bestandsinformationen, " +
-        "924d_Bestandsinformationen_d, " +
-        "924b_Bestandsinformationen_b, " +
-        "9249_Bestandsinformationen_9, " +
-        "924c_Bestandsinformationen_c, " +
-        "924h_Bestandsinformationen_h, " +
-        "924g_Bestandsinformationen_g",
+        "924d_Bestandsinformationen, " +
+        "9249_Bestandsinformationen, " +
+        "924h_Bestandsinformationen, " +
+        "924g_Bestandsinformationen",
       StringUtils.join(pairs.keySet(), ", "));
   }
 

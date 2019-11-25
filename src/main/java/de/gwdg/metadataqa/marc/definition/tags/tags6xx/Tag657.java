@@ -7,6 +7,8 @@ import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
 import de.gwdg.metadataqa.marc.definition.general.codelist.FunctionTermSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.indexer.subject.SchemaFromInd2AndSubfield2;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
+
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
@@ -59,6 +61,7 @@ public class Tag657 extends DataFieldDefinition {
 
     getSubfield("2").setCodeList(FunctionTermSourceCodes.getInstance());
 
+    getSubfield("0").setContentParser(RecordControlNumberParser.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a").setMqTag("rdf:value")

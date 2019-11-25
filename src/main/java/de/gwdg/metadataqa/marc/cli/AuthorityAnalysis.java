@@ -1,20 +1,17 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.MarcRecord;
-import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.Utils;
+import de.gwdg.metadataqa.marc.analysis.AuthorithyAnalizer;
+import de.gwdg.metadataqa.marc.analysis.AuthoritiesStatistics;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
-import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
+import de.gwdg.metadataqa.marc.cli.utils.Schema;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.jetbrains.annotations.NotNull;
 import org.marc4j.marc.Record;
 
 import java.io.BufferedWriter;
@@ -25,7 +22,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
 
 import static de.gwdg.metadataqa.marc.Utils.count;
 
@@ -33,18 +29,13 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(AuthorityAnalysis.class.getCanonicalName());
 
-  private static int SCHEMA_COUNTER = 0;
   private final Options options;
   private CommonParameters parameters;
-  private Map<Schema, Integer> authoritiesInstanceStatistics = new HashMap<>();
-  private Map<Schema, Integer> authoritiesCounter = new HashMap<>();
-  private Map<Schema, Integer> authoritiesRecordStatistics = new HashMap<>();
   private Map<Integer, Integer> histogram = new HashMap<>();
-  private Map<Schema, Map<List<String>, Integer>> authoritiesSubfieldsStatistics = new HashMap<>();
   private Map<Boolean, Integer> hasClassifications = new HashMap<>();
   private boolean readyToProcess;
   private static char separator = ',';
-  private static Pattern NUMERIC = Pattern.compile("^\\d");
+  AuthoritiesStatistics authoritiesStatistics = new AuthoritiesStatistics();
 
   public AuthorityAnalysis(String[] args) throws ParseException {
     parameters = new ValidatorParameters(args);
@@ -86,121 +77,10 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
-    int count = 0;
-    for (DataField field : marcRecord.getAuthorityFields()) {
-      SourceSpecificationType type = field.getDefinition().getSourceSpecificationType();
-      if (type == null) {
-
-      } else if (type.equals(SourceSpecificationType.Subfield2)) {
-        count += processFieldWithSubfield2(field);
-      } else {
-        logger.severe("Unhandled type: " + type);
-      }
-    }
-
+    AuthorithyAnalizer analyzer = new AuthorithyAnalizer(marcRecord, authoritiesStatistics);
+    int count = analyzer.process();
     count((count > 0), hasClassifications);
     count(count, histogram);
-  }
-
-  private int processFieldWithSubfield2(DataField field) {
-    int count = 0;
-
-    List<Schema> schemas = new ArrayList<>();
-    Schema currentSchema = extractSchemaFromSubfield2(field.getTag(), schemas, field);
-    updateSchemaSubfieldStatistics(field, currentSchema);
-    count++;
-
-    addSchemasToStatistics(authoritiesInstanceStatistics, schemas);
-    addSchemasToStatistics(authoritiesRecordStatistics, deduplicateSchema(schemas));
-    return count;
-  }
-
-  @NotNull
-  private Schema extractSchemaFromSubfield2(String tag, List<Schema> schemas, DataField field) {
-    Schema currentSchema = null;
-    List<MarcSubfield> altSchemes = field.getSubfield("2");
-    if (altSchemes == null || altSchemes.isEmpty()) {
-      currentSchema = new Schema(tag, "$2", "undetectable", "undetectable");
-      schemas.add(currentSchema);
-    } else {
-      for (MarcSubfield altScheme : altSchemes) {
-        currentSchema = new Schema(tag, "$2", altScheme.getValue(), altScheme.resolve());
-        schemas.add(currentSchema);
-      }
-    }
-    return currentSchema;
-  }
-
-  private void updateSchemaSubfieldStatistics(DataField field, Schema currentSchema) {
-    if (currentSchema == null)
-      return;
-    List<String> subfields = orderSubfields(field.getSubfields());
-
-    if (!authoritiesSubfieldsStatistics.containsKey(currentSchema)) {
-      authoritiesSubfieldsStatistics.put(currentSchema, new HashMap<List<String>, Integer>());
-    }
-    Map<List<String>, Integer> subfieldsStatistics = authoritiesSubfieldsStatistics.get(currentSchema);
-    if (!subfieldsStatistics.containsKey(subfields)) {
-      subfieldsStatistics.put(subfields, 1);
-    } else {
-      subfieldsStatistics.put(subfields, subfieldsStatistics.get(subfields) + 1);
-    }
-  }
-
-  @NotNull
-  private List<String> orderSubfields(List<MarcSubfield> originalSubfields) {
-    List<String> subfields = new ArrayList<>();
-    Set<String> multiFields = new HashSet<>();
-    for (MarcSubfield subfield : originalSubfields) {
-      String code = subfield.getCode();
-      if (!subfields.contains(code))
-        subfields.add(code);
-      else
-        multiFields.add(code);
-    }
-    if (!multiFields.isEmpty()) {
-      for (String code : multiFields)
-        subfields.remove(code);
-      for (String code : multiFields)
-        subfields.add(code + "+");
-    }
-
-    List<String> alphabetic = new ArrayList<>();
-    List<String> numeric = new ArrayList<>();
-    for (String subfield : subfields) {
-      if (NUMERIC.matcher(subfield).matches()) {
-        numeric.add(subfield);
-      } else {
-        alphabetic.add(subfield);
-      }
-    }
-    if (!numeric.isEmpty()) {
-      Collections.sort(alphabetic);
-      Collections.sort(numeric);
-      subfields = alphabetic;
-      subfields.addAll(numeric);
-    } else {
-      Collections.sort(subfields);
-    }
-    return subfields;
-  }
-
-  private List<Schema> deduplicateSchema(List<Schema> schemas) {
-    Set<Schema> set = new HashSet<Schema>(schemas);
-    List<Schema> deduplicated = new ArrayList<Schema>();
-    deduplicated.addAll(new HashSet<Schema>(schemas));
-    return deduplicated;
-  }
-
-  private void addSchemasToStatistics(Map<Schema, Integer> fieldStatistics, List<Schema> schemes) {
-    if (!schemes.isEmpty()) {
-      for (Schema scheme : schemes) {
-        if (!fieldStatistics.containsKey(scheme)) {
-          fieldStatistics.put(scheme, 0);
-        }
-        fieldStatistics.put(scheme, fieldStatistics.get(scheme) + 1);
-      }
-    }
   }
 
   @Override
@@ -230,15 +110,15 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
     Path path = Paths.get(parameters.getOutputDir(), "authorities-by-schema.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("id", "field", "location", "scheme", "abbreviation", "abbreviation4solr", "recordcount", "instancecount"));
-      authoritiesInstanceStatistics
+      authoritiesStatistics.getInstances()
         .entrySet()
         .stream()
         .sorted((e1, e2) -> {
-            int i = e1.getKey().field.compareTo(e2.getKey().field);
+            int i = e1.getKey().getField().compareTo(e2.getKey().getField());
             if (i != 0)
               return i;
             else {
-              i = e1.getKey().location.compareTo(e2.getKey().location);
+              i = e1.getKey().getLocation().compareTo(e2.getKey().getLocation());
               if (i != i)
                 return i;
               else
@@ -257,15 +137,15 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
   private void printSingleClassificationBySchema(BufferedWriter writer, Map.Entry<Schema, Integer> entry) {
     Schema schema = entry.getKey();
     int instanceCount = entry.getValue();
-    int recordCount = authoritiesRecordStatistics.get(schema);
+    int recordCount = authoritiesStatistics.getRecords().get(schema);
     try {
       writer.write(createRow(
-        schema.id,
-        schema.field,
-        schema.location,
-        '"' + schema.schema.replace("\"", "\\\"") + '"',
-        schema.abbreviation,
-        Utils.solarize(schema.abbreviation),
+        schema.getId(),
+        schema.getField(),
+        schema.getLocation(),
+        '"' + schema.getSchema().replace("\"", "\\\"") + '"',
+        schema.getAbbreviation(),
+        Utils.solarize(schema.getAbbreviation()),
         recordCount,
         instanceCount
       ));
@@ -333,11 +213,11 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
       // final List<String> header = Arrays.asList("field", "location", "label", "abbreviation", "subfields", "scount");
       final List<String> header = Arrays.asList("id", "subfields", "count");
       writer.write(createRow(header));
-      authoritiesSubfieldsStatistics
+      authoritiesStatistics.getSubfields()
         .entrySet()
         .stream()
         .sorted((e1, e2) ->
-          e1.getKey().field.compareTo(e2.getKey().field))
+          e1.getKey().getField().compareTo(e2.getKey().getField()))
         .forEach(
           schemaEntry -> printSingleSchemaSubfieldsStatistics(writer, schemaEntry)
         );
@@ -359,7 +239,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
           int count = countEntry.getValue();
           try {
             writer.write(createRow(
-              schema.id,
+              schema.getId(),
               // schema.field,
               // schema.location,
               // '"' + schema.schema.replace("\"", "\\\"") + '"',
@@ -374,7 +254,6 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
       );
   }
 
-  @NotNull
   private static String createRow(List<String> fields) {
     return StringUtils.join(fields, separator) + "\n";
   }
@@ -392,73 +271,4 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
   public boolean readyToProcess() {
     return readyToProcess;
   }
-
-  private class Schema {
-    int id;
-    String field;
-    String location;
-    String schema;
-    String abbreviation;
-
-    public Schema(String field, String location, String schema) {
-      this.field = field;
-      this.location = location;
-      this.schema = schema;
-      setId();
-    }
-
-    public Schema(String field, String location, String abbreviation, String schema) {
-      this(field, location, schema);
-      this.abbreviation = abbreviation;
-    }
-
-    private void setId() {
-      if (!authoritiesCounter.containsKey(this)) {
-        authoritiesCounter.put(this, ++SCHEMA_COUNTER);
-      }
-      this.id = authoritiesCounter.get(this);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-      if (this == o) return true;
-
-      if (o == null || getClass() != o.getClass()) return false;
-
-      Schema schema1 = (Schema) o;
-
-      return new EqualsBuilder()
-        .append(field, schema1.field)
-        .append(location, schema1.location)
-        .append(schema, schema1.schema)
-        .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-      return new HashCodeBuilder(17, 37)
-        .append(field)
-        .append(location)
-        .append(schema)
-        .toHashCode();
-    }
-
-    @Override
-    public String toString() {
-      return "Schema{" +
-              "id=" + id +
-              ", field='" + field + '\'' +
-              ", location='" + location + '\'' +
-              ", schema='" + schema + '\'' +
-              ", abbreviation='" + abbreviation + '\'' +
-              '}';
-    }
-  }
-
-  private class Counter {
-    int recordCount;
-    int instanceCount;
-  }
-
-  // private
 }

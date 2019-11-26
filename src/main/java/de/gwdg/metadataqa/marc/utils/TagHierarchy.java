@@ -5,7 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
-import de.gwdg.metadataqa.marc.definition.tags.TagCategories;
+import de.gwdg.metadataqa.marc.definition.tags.TagCategory;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -57,7 +57,7 @@ public class TagHierarchy {
         String subfieldLabel = subfield != null ? subfield.getLabel() : "";
 
         String packageName = Utils.extractPackageName(definition);
-        String packageLabel = TagCategories.getPackage(packageName);
+        String packageLabel = TagCategory.getLabel(packageName);
 
         return new TagHierarchy(packageLabel, tagLabel, subfieldLabel);
       }

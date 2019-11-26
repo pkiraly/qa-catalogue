@@ -10,8 +10,6 @@ import java.util.*;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
-import static de.gwdg.metadataqa.marc.Utils.count;
-
 public class AuthorithyAnalizer {
 
   private static final Logger logger = Logger.getLogger(
@@ -45,15 +43,41 @@ public class AuthorithyAnalizer {
 
   private int processFieldWithSubfield2(DataField field) {
     int count = 0;
-
     List<Schema> schemas = new ArrayList<>();
-    Schema currentSchema = extractSchemaFromSubfield2(field.getTag(), schemas, field);
+
+    Schema currentSchema = extractFromSubfield0(field, schemas);
+    if (currentSchema == null)
+      currentSchema = extractSchemaFromSubfield2(field.getTag(), schemas, field);
     updateSchemaSubfieldStatistics(field, currentSchema);
     count++;
 
     addSchemasToStatistics(authoritiesStatistics.getInstances(), schemas);
     addSchemasToStatistics(authoritiesStatistics.getRecords(), deduplicateSchema(schemas));
     return count;
+  }
+
+  private Schema extractFromSubfield0(DataField field, List<Schema> schemas) {
+    Schema currentSchema = null;
+    List<MarcSubfield> subfields = field.getSubfield("0");
+    if (subfields != null && !subfields.isEmpty()) {
+      for (MarcSubfield subfield : subfields) {
+        Map<String, String> content = subfield.parseContent();
+        String organization = null;
+        String organizationCode = null;
+        if (content.containsKey("organization")) {
+          organization = content.get("organization");
+        } else if (content.containsKey("organizationCode")) {
+          organizationCode = content.get("organizationCode");
+        }
+        if (organizationCode != null) {
+          if (organization == null)
+            organization = organizationCode;
+           currentSchema = new Schema(field.getTag(), "$0", organization, organizationCode);
+           schemas.add(currentSchema);
+        }
+      }
+    }
+    return currentSchema;
   }
 
   private Schema extractSchemaFromSubfield2(String tag,

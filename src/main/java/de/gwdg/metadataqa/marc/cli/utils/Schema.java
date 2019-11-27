@@ -9,7 +9,7 @@ import java.util.Map;
 public class Schema {
 
   private static int SCHEMA_COUNTER = 0;
-  private static Map<Schema, Integer> authoritiesCounter = new HashMap<>();
+  private static Map<Schema, Integer> schemaCounter = new HashMap<>();
 
   int id;
   String field;
@@ -30,10 +30,10 @@ public class Schema {
   }
 
   private void setId() {
-    if (!authoritiesCounter.containsKey(this)) {
-      authoritiesCounter.put(this, ++SCHEMA_COUNTER);
+    if (!schemaCounter.containsKey(this)) {
+      schemaCounter.put(this, ++SCHEMA_COUNTER);
     }
-    this.id = authoritiesCounter.get(this);
+    this.id = schemaCounter.get(this);
   }
 
   public String getField() {

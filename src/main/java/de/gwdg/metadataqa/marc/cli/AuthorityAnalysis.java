@@ -3,7 +3,7 @@ package de.gwdg.metadataqa.marc.cli;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.analysis.AuthorithyAnalizer;
-import de.gwdg.metadataqa.marc.analysis.AuthoritiesStatistics;
+import de.gwdg.metadataqa.marc.analysis.AuthorityStatistics;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
@@ -35,7 +35,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
   private Map<Boolean, Integer> hasClassifications = new HashMap<>();
   private boolean readyToProcess;
   private static char separator = ',';
-  AuthoritiesStatistics authoritiesStatistics = new AuthoritiesStatistics();
+  AuthorityStatistics statistics = new AuthorityStatistics();
 
   public AuthorityAnalysis(String[] args) throws ParseException {
     parameters = new ValidatorParameters(args);
@@ -77,7 +77,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
-    AuthorithyAnalizer analyzer = new AuthorithyAnalizer(marcRecord, authoritiesStatistics);
+    AuthorithyAnalizer analyzer = new AuthorithyAnalizer(marcRecord, statistics);
     int count = analyzer.process();
     count((count > 0), hasClassifications);
     count(count, histogram);
@@ -110,7 +110,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
     Path path = Paths.get(parameters.getOutputDir(), "authorities-by-schema.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("id", "field", "location", "scheme", "abbreviation", "abbreviation4solr", "recordcount", "instancecount"));
-      authoritiesStatistics.getInstances()
+      statistics.getInstances()
         .entrySet()
         .stream()
         .sorted((e1, e2) -> {
@@ -137,7 +137,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
   private void printSingleClassificationBySchema(BufferedWriter writer, Map.Entry<Schema, Integer> entry) {
     Schema schema = entry.getKey();
     int instanceCount = entry.getValue();
-    int recordCount = authoritiesStatistics.getRecords().get(schema);
+    int recordCount = statistics.getRecords().get(schema);
     try {
       writer.write(createRow(
         schema.getId(),
@@ -213,7 +213,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
       // final List<String> header = Arrays.asList("field", "location", "label", "abbreviation", "subfields", "scount");
       final List<String> header = Arrays.asList("id", "subfields", "count");
       writer.write(createRow(header));
-      authoritiesStatistics.getSubfields()
+      statistics.getSubfields()
         .entrySet()
         .stream()
         .sorted((e1, e2) ->

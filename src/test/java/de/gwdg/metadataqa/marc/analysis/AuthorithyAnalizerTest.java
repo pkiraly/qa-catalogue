@@ -4,7 +4,6 @@ import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -20,7 +19,7 @@ public class AuthorithyAnalizerTest {
   public void test() throws IOException, URISyntaxException {
     List<String> lines = FileUtils.readLines("general/010000011.mrctxt");
     MarcRecord record = MarcFactory.createFromFormattedText(lines);
-    AuthoritiesStatistics statistics = new AuthoritiesStatistics();
+    AuthorityStatistics statistics = new AuthorityStatistics();
 
     AuthorithyAnalizer analyzer = new AuthorithyAnalizer(record, statistics);
     int count = analyzer.process();

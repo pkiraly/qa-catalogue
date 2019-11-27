@@ -18,10 +18,10 @@ public class AuthorithyAnalizer {
   private static Pattern NUMERIC = Pattern.compile("^\\d");
 
   private MarcRecord marcRecord;
-  private AuthoritiesStatistics authoritiesStatistics;
+  private AuthorityStatistics authoritiesStatistics;
 
   public AuthorithyAnalizer(MarcRecord marcRecord,
-                            AuthoritiesStatistics authoritiesStatistics) {
+                            AuthorityStatistics authoritiesStatistics) {
     this.marcRecord = marcRecord;
     this.authoritiesStatistics = authoritiesStatistics;
   }

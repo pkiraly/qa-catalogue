@@ -6,12 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AuthoritiesStatistics {
+public class AuthorityStatistics {
   private Map<Schema, Integer> instances = new HashMap<>();
   private Map<Schema, Integer> records = new HashMap<>();
   private Map<Schema, Map<List<String>, Integer>> subfields = new HashMap<>();
 
-  public AuthoritiesStatistics() {
+  public AuthorityStatistics() {
   }
 
   public Map<Schema, Integer> getInstances() {

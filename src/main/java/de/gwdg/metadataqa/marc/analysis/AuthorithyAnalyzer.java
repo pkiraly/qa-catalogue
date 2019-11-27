@@ -10,17 +10,17 @@ import java.util.*;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
-public class AuthorithyAnalizer {
+public class AuthorithyAnalyzer {
 
   private static final Logger logger = Logger.getLogger(
-    AuthorithyAnalizer.class.getCanonicalName()
+    AuthorithyAnalyzer.class.getCanonicalName()
   );
   private static Pattern NUMERIC = Pattern.compile("^\\d");
 
   private MarcRecord marcRecord;
   private AuthorityStatistics authoritiesStatistics;
 
-  public AuthorithyAnalizer(MarcRecord marcRecord,
+  public AuthorithyAnalyzer(MarcRecord marcRecord,
                             AuthorityStatistics authoritiesStatistics) {
     this.marcRecord = marcRecord;
     this.authoritiesStatistics = authoritiesStatistics;

@@ -13,38 +13,37 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public class AuthorithyAnalizerTest {
+public class ClassificationAnalyzerTest {
 
   @Test
   public void test() throws IOException, URISyntaxException {
     List<String> lines = FileUtils.readLines("general/010000011.mrctxt");
     MarcRecord record = MarcFactory.createFromFormattedText(lines);
-    AuthorityStatistics statistics = new AuthorityStatistics();
+    ClassificationStatistics statistics = new ClassificationStatistics();
 
-    AuthorithyAnalizer analyzer = new AuthorithyAnalizer(record, statistics);
+    ClassificationAnalyzer analyzer = new ClassificationAnalyzer(record, statistics);
     int count = analyzer.process();
-    assertEquals(3, count);
+    assertEquals(1, count);
     Map<Schema, Integer> recordStats = statistics.getRecords();
     assertEquals(2, recordStats.size());
     Schema first = (Schema) recordStats.keySet().toArray()[0];
 
-    assertEquals("DE-627", first.getSchema());
+    assertEquals(
+      "Gemeinsame Normdatei: Beschreibung des Inhalts (Leipzig, Frankfurt: Deutsche Nationalbibliothek)",
+      first.getSchema());
     assertEquals(1, (int) recordStats.get(first));
     assertEquals(1, (int) statistics.getInstances().get(first));
     Map<List<String>, Integer> subfieldMap = statistics.getSubfields().get(first);
     assertEquals(1, subfieldMap.size());
     List<String> list = (List<String>) subfieldMap.keySet().toArray()[0];
-    assertEquals("[0+, a]", list.toString());
+    assertEquals("[0+, a, 2]", list.toString());
 
     Schema second = (Schema) recordStats.keySet().toArray()[1];
-    assertEquals("undetectable", second.getSchema());
-    assertEquals(2, (int) statistics.getInstances().get(second));
+    assertEquals("Basisklassifikation", second.getSchema());
+    assertEquals(1, (int) statistics.getInstances().get(second));
     subfieldMap = statistics.getSubfields().get(second);
-    assertEquals(2, subfieldMap.size());
+    assertEquals(1, subfieldMap.size());
     list = (List<String>) subfieldMap.keySet().toArray()[0];
-    assertEquals("[a, t, v, w+, 9]", list.toString());
-
-    list = (List<String>) subfieldMap.keySet().toArray()[1];
-    assertEquals("[a, t, v, w+, x, 9]", list.toString());
+    assertEquals("[a, 2]", list.toString());
   }
 }

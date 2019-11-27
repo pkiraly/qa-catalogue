@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.analysis.AuthorithyAnalizer;
+import de.gwdg.metadataqa.marc.analysis.AuthorithyAnalyzer;
 import de.gwdg.metadataqa.marc.analysis.AuthorityStatistics;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
@@ -77,7 +77,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
-    AuthorithyAnalizer analyzer = new AuthorithyAnalizer(marcRecord, statistics);
+    AuthorithyAnalyzer analyzer = new AuthorithyAnalyzer(marcRecord, statistics);
     int count = analyzer.process();
     count((count > 0), hasClassifications);
     count(count, histogram);

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+SECONDS=0
 PREFIX=${BASE_INPUT_DIR}/_reports/${NAME}
 OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}
 
@@ -105,3 +106,10 @@ case "$1" in
     do_functional_analysis
     ;;
 esac
+
+duration=$SECONDS
+hours=$(($duration / (60*60)))
+mins=$(($duration % (60*60) / 60))
+secs=$(($duration % 60))
+
+printf "%s %s> DONE. %02d:%02d:%02d elapsed.\n" $(date +"%F %T") $hours $mins $secs

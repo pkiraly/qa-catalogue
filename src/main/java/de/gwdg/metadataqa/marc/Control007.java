@@ -4,6 +4,8 @@ import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.controlsubfields.Control007Subfields;
 import de.gwdg.metadataqa.marc.definition.controltype.Control007Category;
 import de.gwdg.metadataqa.marc.definition.tags.control.Control007Definition;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
+import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import org.spark_project.jetty.util.StringUtil;
 
 import java.io.Serializable;
@@ -17,6 +19,7 @@ import java.util.logging.Logger;
 public class Control007 extends MarcPositionalControlField implements Serializable {
 
   private static final Logger logger = Logger.getLogger(Control007.class.getCanonicalName());
+  private final static String URL = "https://www.loc.gov/marc/bibliographic/bd007.html";
 
   private String categoryOfMaterial;
   private Control007Category category = Control007Category.TEXT;
@@ -173,14 +176,21 @@ public class Control007 extends MarcPositionalControlField implements Serializab
   }
 
   private void process() {
+
     if (StringUtil.isBlank(content)) {
-      logger.severe("007 control field is empty");
+      String msg = "007 control field is empty";
+      logger.severe(msg);
+      initializationErrors.add(new ValidationError(record.getId(), "007",
+        ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE, msg, URL));
       category = Control007Category.TEXT;
     } else {
       String categoryCode = content.substring(0, 1);
       category = Control007Category.byCode(categoryCode);
       if (category == null) {
-        logger.severe(String.format("invalid category for 007: '%s'", categoryCode));
+        String msg = String.format("invalid category for 007: '%s'", categoryCode);
+        logger.severe(msg);
+        initializationErrors.add(new ValidationError(record.getId(), "007",
+          ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE, msg, URL));
         category = Control007Category.TEXT;
       }
     }

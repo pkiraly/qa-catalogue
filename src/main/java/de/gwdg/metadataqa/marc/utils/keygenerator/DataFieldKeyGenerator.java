@@ -18,6 +18,20 @@ public class DataFieldKeyGenerator {
     indexTag = definition.getIndexTag();
   }
 
+  public DataFieldKeyGenerator(DataFieldDefinition definition,
+                               SolrFieldType type,
+                               String tag) {
+    this.definition = definition;
+    this.type = type;
+    if (definition != null) {
+      this.tag = definition.getTag();
+      indexTag = definition.getIndexTag();
+    } else {
+      this.tag = tag;
+      indexTag = tag;
+    }
+  }
+
   public String forInd1() {
     String key = "";
     switch (type) {
@@ -27,9 +41,13 @@ public class DataFieldKeyGenerator {
           indexTag, definition.getInd1().getIndexTag());
         break;
       case MIXED:
-        key = String.format(
-          "%sind1_%s_%s",
-          tag, indexTag, definition.getInd1().getIndexTag());
+        if (definition == null) {
+          key = String.format("%sind1", tag);
+        } else {
+          key = String.format(
+            "%sind1_%s_%s",
+            tag, indexTag, definition.getInd1().getIndexTag());
+        }
         break;
       case MARC:
       default:
@@ -47,9 +65,13 @@ public class DataFieldKeyGenerator {
           "%s_%s",
           indexTag, definition.getInd2().getIndexTag()); break;
       case MIXED:
-        key = String.format(
-          "%sind2_%s_%s",
-          tag, indexTag, definition.getInd2().getIndexTag());
+        if (definition == null) {
+          key = String.format("%sind2", tag);
+        } else {
+          key = String.format(
+            "%sind2_%s_%s",
+            tag, indexTag, definition.getInd2().getIndexTag());
+        }
         break;
       case MARC:
       default:
@@ -73,7 +95,12 @@ public class DataFieldKeyGenerator {
       case HUMAN:
         key = String.format("%s%s", indexTag, codeForIndex); break;
       case MIXED:
-        key = String.format("%s%s_%s%s", tag, code, indexTag, codeForIndex);
+        if (!tag.equals(indexTag) && !codeForIndex.equals("_" + code))
+          key = String.format("%s%s_%s%s", tag, code, indexTag, codeForIndex);
+        else if (!tag.equals(indexTag) && codeForIndex.equals("_" + code))
+          key = String.format("%s%s_%s", tag, code, indexTag);
+        else
+          key = String.format("%s%s", tag, code);
         break;
       case MARC:
       default:

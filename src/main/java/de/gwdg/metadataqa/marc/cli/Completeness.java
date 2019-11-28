@@ -8,7 +8,7 @@ import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
-import de.gwdg.metadataqa.marc.definition.tags.TagCategories;
+import de.gwdg.metadataqa.marc.definition.tags.TagCategory;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.utils.BasicStatistics;
 import de.gwdg.metadataqa.marc.utils.TagHierarchy;
@@ -34,6 +34,9 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+
+import static de.gwdg.metadataqa.marc.Utils.createRow;
+import static de.gwdg.metadataqa.marc.Utils.quote;
 
 public class Completeness implements MarcFileProcessor, Serializable {
 
@@ -243,16 +246,25 @@ public class Completeness implements MarcFileProcessor, Serializable {
     System.err.println("Packages");
     path = Paths.get(parameters.getOutputDir(), "packages" + fileExtension);
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-      writer.write("name" + separator + "label" + separator + "count\n");
+      writer.write(createRow(separator, "name", "label", "iscoretag", "count"));
       packageCounter
         .entrySet()
         .stream()
         .forEach(entry -> {
           try {
             String name = entry.getKey();
-            String label = TagCategories.getPackage(name);
-            writer.write(String.format("\"%s\"%s\"%s\"%s%d%n",
-              name, separator, label, separator, entry.getValue()));
+            int count = entry.getValue();
+            TagCategory tagCategory = TagCategory.getPackage(name);
+            String label = "";
+            boolean isPartOfMarcScore = false;
+            if (tagCategory != null) {
+              name = tagCategory.getRange();
+              label = tagCategory.getLabel();
+              isPartOfMarcScore = tagCategory.isPartOfMarcCore();
+            }
+            writer.write(createRow(
+              separator, quote(name), quote(label), isPartOfMarcScore, count
+            ));
           } catch (IOException e) {
             e.printStackTrace();
           }
@@ -310,7 +322,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
         "Field %s is not registered in histogram", key));
     }
 
-    List<Object> values = Utils.quote(
+    List<Object> values = quote(
       Arrays.asList(
         key, packageLabel, tagLabel, subfieldLabel,
         frequency, cardinality,

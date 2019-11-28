@@ -30,7 +30,9 @@ import java.util.logging.Logger;
  */
 public class MarcToSolr implements MarcFileProcessor, Serializable {
 
-  private static final Logger logger = Logger.getLogger(MarcToSolr.class.getCanonicalName());
+  private static final Logger logger = Logger.getLogger(
+    MarcToSolr.class.getCanonicalName()
+  );
   private final Options options;
   private MarcToSolrParameters parameters;
   private MarcSolrClient client;
@@ -49,7 +51,9 @@ public class MarcToSolr implements MarcFileProcessor, Serializable {
   public static void main(String[] args) throws ParseException {
     MarcToSolr processor = new MarcToSolr(args);
     processor.options.toString();
-    if (StringUtils.isBlank(((MarcToSolrParameters) processor.getParameters()).getSolrUrl())) {
+    if (StringUtils.isBlank(
+        ((MarcToSolrParameters) processor.getParameters()).getSolrUrl()
+    )) {
       System.err.println("Please provide a Solr URL and file name!");
       System.exit(0);
     }

@@ -294,6 +294,7 @@ public class Validator implements MarcFileProcessor, Serializable {
     if (!isValid && doPrintInProcessRecord) {
       if (parameters.doSummary()) {
         List<ValidationError> errors = marcRecord.getValidationErrors();
+        List<ValidationError> allButInvalidFieldErrors = new ArrayList<>();
         Set<Integer> uniqueErrors = new HashSet<>();
         Set<ValidationErrorType> uniqueTypes = new HashSet<>();
         Set<String> uniqueCategories = new HashSet<>();
@@ -303,6 +304,10 @@ public class Validator implements MarcFileProcessor, Serializable {
             hashedIndex.put(error.hashCode(), error.getId());
           } else {
             error.setId(hashedIndex.get(error.hashCode()));
+          }
+          if (!error.getType().equals(ValidationErrorType.FIELD_UNDEFINED)) {
+            count(2, totalInstanceCounter);
+            allButInvalidFieldErrors.add(error);
           }
           count(error, instanceBasedErrorCounter);
           count(error.getType(), typeInstanceCounter);
@@ -323,6 +328,8 @@ public class Validator implements MarcFileProcessor, Serializable {
           count(id, categoryRecordCounter);
         }
         count(1, totalRecordCounter);
+        if (!allButInvalidFieldErrors.isEmpty())
+          count(2, totalRecordCounter);
       }
 
       if (parameters.doDetails()) {

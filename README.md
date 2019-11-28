@@ -1,9 +1,11 @@
 # metadata-qa-marc
 Metadata quality assessment for MARC records
 
+* For more info
+  * main project page: [Metadata Quality Assurance Framework](http://pkiraly.github.io)
+  * Validating 126 million MARC records at DATeCH 2019 [paper](https://doi.org/10.1145/3322905.3322929), [slides](http://bit.ly/qa-datech2019), [thesis chapter](https://10.13140/RG.2.2.33177.77920)
+  * Empirical evaluation of library catalogues at SWIB 2019 [slides](http://bit.ly/qa-swib2019) 
 * If you would like to play with this project, but you don't have MARC21 please to download some recordsets mentioned in [Appendix I: Where can I get MARC records?](#datasources) of this document.
-* This is an early phase of the project, nor the software, neighter the documentation are ready. But still it is in a state which I thought worth sharing
-* For more info see the main project page: [Validating 126 million MARC records](http://bit.ly/qa-datech2019) (presentation at DATeCH 2019), [Metadata Quality Assurance Framework](http://pkiraly.github.io)
 
 ## Table of Contents
 * [Build](#build)

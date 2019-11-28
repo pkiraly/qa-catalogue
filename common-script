@@ -106,6 +106,10 @@ case "$1" in
     do_serial_score
     do_functional_analysis
     ;;
+  all-solr)
+    do_prepare_solr
+    do_index
+    ;;
 esac
 
 duration=$SECONDS

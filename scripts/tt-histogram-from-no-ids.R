@@ -20,13 +20,13 @@ prefix <- 'tt-completeness'
 command <- "grep BASE_OUTPUT_DIR= setdir.sh | sed 's/.*=\\(.*\\)/\\1/'"
 base_output_dir <- system(command, intern = TRUE)
 
-csv <- sprintf("%s/%s/%s.csv", base_output_dir, catalogue, prefix)
+csv <- sprintf("%s/%s/%s-no-ids.csv", base_output_dir, catalogue, prefix)
 if (!file.exists(csv)) {
   stop(paste("input file", csv, "does not exist!"))
 }
+print(csv)
 df <- read_csv(csv, col_types = cols(.default = col_integer(), id = col_character()), progress = TRUE, trim_ws = FALSE)
-df <- df %>% 
-  select(-id)
+print("read")
 names <- names(df)
 
 transformed_names <- vector("character", length(names))

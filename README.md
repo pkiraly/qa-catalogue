@@ -5,6 +5,33 @@ Metadata quality assessment for MARC records
 * This is an early phase of the project, nor the software, neighter the documentation are ready. But still it is in a state which I thought worth sharing
 * For more info see the main project page: [Validating 126 million MARC records](http://bit.ly/qa-datech2019) (presentation at DATeCH 2019), [Metadata Quality Assurance Framework](http://pkiraly.github.io)
 
+## Table of Contents
+* [Build](#build)
+* [Download](#-or-download)
+* [Run](#run)
+* [helper-scripts](#helper-scripts)
+  * [run](#run-1)
+  * [configuration](#configuration)
+* [detailed-instructions](#detailed-instructions)
+  * [validating-marc-records](#validating-marc-records)
+  * [display-one-marc-record](#display-one-marc-record)
+  * [calculating-simple-completeness](#calculating-simple-completeness)
+  * [calculating-thompson-traill-completeness](#calculating-thompson-traill-completeness)
+  * [indexing-marc-records-with-solr](#indexing-marc-records-with-solr)
+    * [marc-tags-format](#marc-tags-format)
+    * [human-readable-format](#human-readable-format)
+    * [mixed-format](#mixed-format)
+  * [indexing-marc-json-records-with-solr](#indexing-marc-json-records-with-solr)
+  * [export-mapping-table](#export-mapping-table)
+* [extending-the-functionalities](#extending-the-functionalities)
+* [user-interface](#user-interface)
+* [appendix-i-where-can-i-get-marc-records](#appendix-i-where-can-i-get-marc-records)
+  * [united-states-of-america](#united-states-of-america)
+  * [germany](#germany)
+  * [others](#others)
+* [appendix-ii-handling-marc-versions](#appendix-ii-handling-marc-versions)
+* [appendix-iii-special-build-process](#appendix-iii-special-build-process)
+
 ## build
 
 Prerequisites: Java 8 (I use OpenJDK), and Maven 3

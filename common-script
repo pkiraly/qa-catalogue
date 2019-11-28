@@ -19,6 +19,7 @@ do_validate() {
 }
 
 do_prepare_solr() {
+  echo "./prepare-solr ${NAME} 2> ${PREFIX}.log"
   ./prepare-solr $NAME 2> ${PREFIX}.log
 }
 

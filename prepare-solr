@@ -7,8 +7,8 @@ URL=$(printf "http://localhost:%s/solr/admin/cores?action=STATUS&core=%s" $PORT 
 CORE_NOT_EXISTS=$(curl -s "$URL" | jq .status | grep "$SOLR_CORE" | grep -c '{}')
 if [[ "$CORE_NOT_EXISTS" != "0" ]]; then
   # create core
-  echo "Create Solr core '$SOLR_CORE'"
-  curl -s "http://localhost:$PORT/solr/admin/cores?action=CREATE&name=$SOLR_CORE&configSet=_default"
+  echo "Create Solr core '$CORE'"
+  curl -s "http://localhost:$PORT/solr/admin/cores?action=CREATE&name=$CORE&configSet=_default"
 fi
 
 echo DONE

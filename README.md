@@ -9,16 +9,16 @@ This tool reads MARC dump files (in binary MARC or MARCXML formats), analyses di
 * If you would like to play with this project, but you don't have MARC21 please to download some recordsets mentioned in [Appendix I: Where can I get MARC records?](#datasources) of this document.
 
 ## Table of Contents
-* [Quick start quide](#helper-scripts)
-  * [Installation](#run-1)
+* [Quick start quide](#quick-start-guide)
+  * [Installation](#installation)
   * [Configuration](#configuration)
-  * [Use](#configuration)
+  * [Use](#use)
 * [Build](#build)
 * [Download](#-or-download)
 * [Run](#run)
 * [helper-scripts](#helper-scripts)
   * [run](#run-1)
-  * [configuration](#configuration)
+  * [configuration](#configuration-1)
 * [Detailed instructions](#detailed-instructions)
   * [Validating MARC records](#validating-marc-records)
   * [Display one MARC record](#display-one-marc-record)
@@ -61,7 +61,7 @@ BASE_OUTPUT_DIR=
 
 6. Create configuration based on some existing config files:
  * cp scripts/loc.sh scripts/[abbreviation-of-your-library].sh
- * edit scripts/[abbreviation-of-your-library].sh according to [configuration guide](https://github.com/pkiraly/metadata-qa-marc#configuration)
+ * edit scripts/[abbreviation-of-your-library].sh according to [configuration guide](#configuration-1)
 
 ### Use
 

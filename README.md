@@ -1,5 +1,6 @@
-# metadata-qa-marc
-Metadata quality assessment for MARC records
+# Metadata quality assessment tool for MARC records
+
+This tool reads MARC dump files (in binary MARC or MARCXML formats), analyses different aspects of quality, and saves the results into CSV files. These CSV files could be used in different context, we provide a lightweight, web-based [user interface](#user-interface) for that.
 
 * For more info
   * main project page: [Metadata Quality Assurance Framework](http://pkiraly.github.io)
@@ -14,25 +15,25 @@ Metadata quality assessment for MARC records
 * [helper-scripts](#helper-scripts)
   * [run](#run-1)
   * [configuration](#configuration)
-* [detailed-instructions](#detailed-instructions)
-  * [validating-marc-records](#validating-marc-records)
-  * [display-one-marc-record](#display-one-marc-record)
-  * [calculating-simple-completeness](#calculating-simple-completeness)
-  * [calculating-thompson-traill-completeness](#calculating-thompson-traill-completeness)
-  * [indexing-marc-records-with-solr](#indexing-marc-records-with-solr)
-    * [marc-tags-format](#marc-tags-format)
-    * [human-readable-format](#human-readable-format)
-    * [mixed-format](#mixed-format)
-  * [indexing-marc-json-records-with-solr](#indexing-marc-json-records-with-solr)
-  * [export-mapping-table](#export-mapping-table)
-* [extending-the-functionalities](#extending-the-functionalities)
-* [user-interface](#user-interface)
-* [appendix-i-where-can-i-get-marc-records](#appendix-i-where-can-i-get-marc-records)
-  * [united-states-of-america](#united-states-of-america)
-  * [germany](#germany)
-  * [others](#others)
-* [appendix-ii-handling-marc-versions](#appendix-ii-handling-marc-versions)
-* [appendix-iii-special-build-process](#appendix-iii-special-build-process)
+* [Detailed instructions](#detailed-instructions)
+  * [Validating MARC records](#validating-marc-records)
+  * [Display one MARC record](#display-one-marc-record)
+  * [Calculating simple completeness](#calculating-simple-completeness)
+  * [Calculating Thompson-Traill completeness](#calculating-thompson-traill-completeness)
+  * [Indexing MARC records with Solr](#indexing-marc-records-with-solr)
+    * [MARC tags format](#marc-tags-format)
+    * [Human readable format](#human-readable-format)
+    * [Mixed format](#mixed-format)
+  * [Indexing MARC JSON records with Solr](#indexing-marc-json-records-with-solr)
+  * [Export mapping table](#export-mapping-table)
+* [Extending the functionalities](#extending-the-functionalities)
+* [User interface](#user-interface)
+* [Appendix I. Where can I get MARC records](#appendix-i-where-can-i-get-marc-records)
+  * [United States of America](#united-states-of-america)
+  * [Germany](#germany)
+  * [Elsewhere](#others)
+* [Appendix II. Handling MARC versions](#appendix-ii-handling-marc-versions)
+* [Appendix III. Special build process](#appendix-iii-special-build-process)
 
 ## build
 

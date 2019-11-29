@@ -9,6 +9,10 @@ This tool reads MARC dump files (in binary MARC or MARCXML formats), analyses di
 * If you would like to play with this project, but you don't have MARC21 please to download some recordsets mentioned in [Appendix I: Where can I get MARC records?](#datasources) of this document.
 
 ## Table of Contents
+* [Quick start quide](#helper-scripts)
+  * [Installation](#run-1)
+  * [Configuration](#configuration)
+  * [Use](#configuration)
 * [Build](#build)
 * [Download](#-or-download)
 * [Run](#run)
@@ -34,6 +38,39 @@ This tool reads MARC dump files (in binary MARC or MARCXML formats), analyses di
   * [Elsewhere](#others)
 * [Appendix II. Handling MARC versions](#appendix-ii-handling-marc-versions)
 * [Appendix III. Special build process](#appendix-iii-special-build-process)
+
+## Quick start guide
+### Installation
+
+1.  `wget https://github.com/pkiraly/metadata-qa-marc/releases/download/v0.2.1/metadata-qa-marc-0.2-SNAPSHOT-release.zip`
+2.  `unzip metadata-qa-marc-0.2-SNAPSHOT-release.zip`
+3. `cd metadata-qa-marc-0.2-SNAPSHOT/`
+
+### Configuration
+
+4. `cp setdir.sh.template setdir.sh`
+5. `nano setdir.sh`
+
+set your path to root MARC directories:
+```
+# the input directory, where your MARC dump files exist
+BASE_INPUT_DIR=
+# the input directory, where the output CSV files will land
+BASE_OUTPUT_DIR=
+```
+
+6. Create configuration based on some existing config files:
+ * cp scripts/loc.sh scripts/[abbreviation-of-your-library].sh
+ * edit scripts/[abbreviation-of-your-library].sh according to [configuration guide](https://github.com/pkiraly/metadata-qa-marc#configuration)
+
+### Use
+
+```
+scripts/[abbreviation-of-your-library].sh all-analyses
+scripts/[abbreviation-of-your-library].sh all-solr
+```
+
+For a catalogue with around 1 milion record the first command will take 5-10 minutes, the later 1-2 hours.
 
 ## build
 

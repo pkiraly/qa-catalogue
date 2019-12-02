@@ -1,9 +1,76 @@
-# metadata-qa-marc
-Metadata quality assessment for MARC records
+# Metadata quality assessment tool for MARC records
 
+This tool reads MARC dump files (in binary MARC or MARCXML formats), analyses different aspects of quality, and saves the results into CSV files. These CSV files could be used in different context, we provide a lightweight, web-based [user interface](#user-interface) for that.
+
+* For more info
+  * main project page: [Metadata Quality Assurance Framework](http://pkiraly.github.io)
+  * Validating 126 million MARC records at DATeCH 2019 [paper](https://doi.org/10.1145/3322905.3322929), [slides](http://bit.ly/qa-datech2019), [thesis chapter](https://10.13140/RG.2.2.33177.77920)
+  * Empirical evaluation of library catalogues at SWIB 2019 [slides](http://bit.ly/qa-swib2019) 
 * If you would like to play with this project, but you don't have MARC21 please to download some recordsets mentioned in [Appendix I: Where can I get MARC records?](#datasources) of this document.
-* This is an early phase of the project, nor the software, neighter the documentation are ready. But still it is in a state which I thought worth sharing
-* For more info see the main project page: [Validating 126 million MARC records](http://bit.ly/qa-datech2019) (presentation at DATeCH 2019), [Metadata Quality Assurance Framework](http://pkiraly.github.io)
+
+## Table of Contents
+* [Quick start quide](#quick-start-guide)
+  * [Installation](#installation)
+  * [Configuration](#configuration)
+  * [Use](#use)
+* [Build](#build)
+* [Download](#-or-download)
+* [Run](#run)
+* [helper-scripts](#helper-scripts)
+  * [run](#run-1)
+  * [configuration](#configuration-1)
+* [Detailed instructions](#detailed-instructions)
+  * [Validating MARC records](#validating-marc-records)
+  * [Display one MARC record](#display-one-marc-record)
+  * [Calculating simple completeness](#calculating-simple-completeness)
+  * [Calculating Thompson-Traill completeness](#calculating-thompson-traill-completeness)
+  * [Indexing MARC records with Solr](#indexing-marc-records-with-solr)
+    * [MARC tags format](#marc-tags-format)
+    * [Human readable format](#human-readable-format)
+    * [Mixed format](#mixed-format)
+  * [Indexing MARC JSON records with Solr](#indexing-marc-json-records-with-solr)
+  * [Export mapping table](#export-mapping-table)
+* [Extending the functionalities](#extending-the-functionalities)
+* [User interface](#user-interface)
+* [Appendix I. Where can I get MARC records](#appendix-i-where-can-i-get-marc-records)
+  * [United States of America](#united-states-of-america)
+  * [Germany](#germany)
+  * [Elsewhere](#others)
+* [Appendix II. Handling MARC versions](#appendix-ii-handling-marc-versions)
+* [Appendix III. Special build process](#appendix-iii-special-build-process)
+
+## Quick start guide
+### Installation
+
+1.  `wget https://github.com/pkiraly/metadata-qa-marc/releases/download/v0.2.1/metadata-qa-marc-0.2-SNAPSHOT-release.zip`
+2.  `unzip metadata-qa-marc-0.2-SNAPSHOT-release.zip`
+3. `cd metadata-qa-marc-0.2-SNAPSHOT/`
+
+### Configuration
+
+4. `cp setdir.sh.template setdir.sh`
+5. `nano setdir.sh`
+
+set your path to root MARC directories:
+```
+# the input directory, where your MARC dump files exist
+BASE_INPUT_DIR=
+# the input directory, where the output CSV files will land
+BASE_OUTPUT_DIR=
+```
+
+6. Create configuration based on some existing config files:
+ * cp scripts/loc.sh scripts/[abbreviation-of-your-library].sh
+ * edit scripts/[abbreviation-of-your-library].sh according to [configuration guide](#configuration-1)
+
+### Use
+
+```
+scripts/[abbreviation-of-your-library].sh all-analyses
+scripts/[abbreviation-of-your-library].sh all-solr
+```
+
+For a catalogue with around 1 milion record the first command will take 5-10 minutes, the later 1-2 hours.
 
 ## build
 

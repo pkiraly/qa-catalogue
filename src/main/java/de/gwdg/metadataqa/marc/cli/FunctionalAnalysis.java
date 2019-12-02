@@ -22,8 +22,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
+
+  private static final Logger logger = Logger.getLogger(FunctionalAnalysis.class.getCanonicalName());
 
   private final Options options;
   private final boolean readyToProcess;
@@ -37,7 +40,7 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
     readyToProcess = true;
     frbrFunctionLister = new FrbrFunctionLister();
 
-    System.err.println(frbrFunctionLister.getBaseline());
+    logger.info(frbrFunctionLister.getBaseline().toString());
   }
 
   public static void main(String[] args) {
@@ -45,11 +48,12 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
     try {
       processor = new FunctionalAnalysis(args);
     } catch (ParseException e) {
-      System.err.println("ERROR. " + e.getLocalizedMessage());
+      logger.severe("ERROR. " + e.getLocalizedMessage());
+      e.printStackTrace();
       System.exit(0);
     }
     if (processor.getParameters().getArgs().length < 1) {
-      System.err.println("Please provide a MARC file name!");
+      logger.severe("Please provide a MARC file name!");
       processor.printHelp(processor.getParameters().getOptions());
       System.exit(0);
     }

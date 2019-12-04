@@ -336,9 +336,9 @@ public class MarcFactoryTest {
       pairs.get("RSWKKette_nummerDerRSWKKette").get(3));
 
     assertEquals(3, pairs.get("RSWKKette_D").size());
-    assertEquals("g", pairs.get("RSWKKette_D").get(0));
-    assertEquals("s", pairs.get("RSWKKette_D").get(1));
-    assertEquals("s", pairs.get("RSWKKette_D").get(2));
+    assertEquals("Geografikum", pairs.get("RSWKKette_D").get(0));
+    assertEquals("Sachbegriff", pairs.get("RSWKKette_D").get(1));
+    assertEquals("Sachbegriff", pairs.get("RSWKKette_D").get(2));
 
     assertEquals(1, pairs.get("RSWKKette_5").size());
     assertEquals("DE-101", pairs.get("RSWKKette_5").get(0));

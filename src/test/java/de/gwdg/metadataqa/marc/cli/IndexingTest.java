@@ -34,4 +34,26 @@ public class IndexingTest {
       index.get("7100_AddedCorporateName_authorityRecordControlNumber_organizationCode")
         .get(0));
   }
+
+  @Test
+  public void testSubfieldCode() throws IOException, URISyntaxException {
+    MarcRecord record = new MarcRecord();
+    record.setLeader("01445cem a22004454a 4500");
+    record.setField("034", "0 $aa");
+    assertEquals(1, record.getDatafield("034").size());
+    Map<String, List<String>> index = record.getKeyValuePairs(SolrFieldType.MIXED);
+    assertEquals("Linear scale", index.get("034a_Scale_category").get(0));
+  }
+
+  @Test
+  public void testPositions() throws IOException, URISyntaxException {
+    MarcRecord record = new MarcRecord();
+    record.setLeader("01445cem a22004454a 4500");
+    record.setField("800", "0 $7aa");
+    assertEquals(1, record.getDatafield("800").size());
+    Map<String, List<String>> index = record.getKeyValuePairs(SolrFieldType.MIXED);
+    assertEquals("aa", index.get("8007_SeriesAddedPersonalName").get(0));
+    assertEquals("Monographic component part", index.get("8007_SeriesAddedPersonalName_bibliographicLevel").get(0));
+    assertEquals("Language material", index.get("8007_SeriesAddedPersonalName_typeOfRecord").get(0));
+  }
 }

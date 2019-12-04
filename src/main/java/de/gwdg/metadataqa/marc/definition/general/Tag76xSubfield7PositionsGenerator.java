@@ -18,8 +18,8 @@ public class Tag76xSubfield7PositionsGenerator {
           "m", "Meeting name",
           "u", "Uniform title",
           "n", "Not applicable"
-        )
-      ),
+        ))
+        .setMqTag("typeOfHeading"),
 
       new ControlSubfieldDefinition("Form of name", 1, 2)
         .setCodes(Utils.generateCodes(
@@ -32,8 +32,8 @@ public class Tag76xSubfield7PositionsGenerator {
           "2", "Name in direct order",
 
           "n", "Not applicable"
-        )
-      ),
+        ))
+        .setMqTag("formOfName"),
 
       new ControlSubfieldDefinition("Type of record", 2, 3)
         .setCodes(Utils.generateCodes(
@@ -51,8 +51,7 @@ public class Tag76xSubfield7PositionsGenerator {
           "p", "Mixed material",
           "r", "Three-dimensional artifact or naturally occurring object",
           "t", "Manuscript language material"
-        )
-      ),
+        )).setMqTag("typeOfRecord"),
 
       // Bibliographic level from Leader/07 of related record
       new ControlSubfieldDefinition("Bibliographic level", 3, 4)
@@ -64,8 +63,7 @@ public class Tag76xSubfield7PositionsGenerator {
           "i", "Integrating resource",
           "m", "Monograph/item",
           "s", "Serial"
-        )
-      )
+        )).setMqTag("bibliographicLevel")
     );
   }
 }

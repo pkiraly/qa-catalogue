@@ -7,11 +7,10 @@ import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.SubfieldValidator;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
+import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class MarcSubfield implements Validatable, Serializable {
@@ -120,6 +119,43 @@ public class MarcSubfield implements Validatable, Serializable {
       }
     return null;
   }
+
+  public Map<String, List<String>> getKeyValuePairs(DataFieldKeyGenerator keyGenerator) {
+    Map<String, List<String>> pairs = new HashMap<>();
+    String prefix = keyGenerator.forSubfield(this);
+
+    pairs.put(prefix, Arrays.asList(resolve()));
+    if (getDefinition() != null) {
+      getKeyValuePairsForPositionalSubfields(pairs, prefix);
+      getKeyValuePairsFromContentParser(keyGenerator, pairs);
+    }
+
+    return pairs;
+  }
+
+  private void getKeyValuePairsFromContentParser(DataFieldKeyGenerator keyGenerator, Map<String, List<String>> pairs) {
+    if (getDefinition().hasContentParser()) {
+      Map<String, String> extra = parseContent();
+      if (extra != null) {
+        for (String key : extra.keySet()) {
+          pairs.put(
+            keyGenerator.forSubfield(this, key),
+            Arrays.asList(extra.get(key))
+          );
+        }
+      }
+    }
+  }
+
+  private void getKeyValuePairsForPositionalSubfields(Map<String, List<String>> pairs, String prefix) {
+    if (getDefinition().hasPositions()) {
+      Map<String, String> extra = getDefinition().resolvePositional(getValue());
+      for (String key : extra.keySet()) {
+        pairs.put(prefix + "_" + key, Arrays.asList(extra.get(key)));
+      }
+    }
+  }
+
 
   @Override
   public boolean validate(MarcVersion marcVersion) {

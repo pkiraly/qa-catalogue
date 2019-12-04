@@ -306,11 +306,14 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
           String key = entry.getKey();
           List<String> values = entry.getValue();
           if (mainKeyValuePairs.containsKey(key)) {
-            mainKeyValuePairs.put(key, mergeValues(
-              new ArrayList<String>(mainKeyValuePairs.get(key)),
-              values,
-              withDeduplication
-            ));
+            mainKeyValuePairs.put(
+              key,
+              mergeValues(
+                new ArrayList<String>(mainKeyValuePairs.get(key)),
+                values,
+                withDeduplication
+              )
+            );
           } else {
             mainKeyValuePairs.put(key, values);
           }

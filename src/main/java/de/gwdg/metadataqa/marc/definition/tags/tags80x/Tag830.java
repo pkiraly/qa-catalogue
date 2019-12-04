@@ -90,7 +90,8 @@ public class Tag830 extends DataFieldDefinition {
           "p", "Mixed material",
           "r", "Three-dimensional artifact or naturally occurring object",
           "t", "Manuscript language material"
-        )),
+        ))
+        .setMqTag("typeOfRecord"),
       new ControlSubfieldDefinition("Bibliographic level", 1, 2)
         .setCodes(Utils.generateCodes(
           "a", "Monographic component part",
@@ -101,6 +102,7 @@ public class Tag830 extends DataFieldDefinition {
           "m", "Monograph/item",
           "s", "Serial"
         ))
+        .setMqTag("bibliographicLevel")
     ));
 
     getSubfield("2").setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());

@@ -260,20 +260,7 @@ public class DataField implements Extractable, Validatable, Serializable {
     }
 
     for (MarcSubfield subfield : subfields) {
-      pairs.put(keyGenerator.forSubfield(subfield), Arrays.asList(subfield.resolve()));
-
-      if (subfield.getDefinition() != null
-          && subfield.getDefinition().hasContentParser()) {
-        Map<String, String> extra = subfield.parseContent();
-        if (extra != null) {
-          for (Map.Entry<String, String> entry : extra.entrySet()) {
-            pairs.put(
-              keyGenerator.forSubfield(subfield, entry.getKey()),
-              Arrays.asList(entry.getValue())
-            );
-          }
-        }
-      }
+      pairs.putAll(subfield.getKeyValuePairs(keyGenerator));
     }
 
     if (getFieldIndexer() != null) {

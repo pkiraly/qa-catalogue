@@ -1,17 +1,13 @@
 package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.Code;
-import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.SubfieldValidator;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -33,7 +29,6 @@ public class SubfieldDefinition implements Serializable {
   protected CodeList codeList;
   private List<Code> codes;
   private List<String> allowedCodes;
-  private Map<String, String> allowedValues = new HashMap<>();
   private String codeForIndex = null;
   private List<ControlSubfieldDefinition> positions;
   private List<FRBRFunction> functions;
@@ -184,7 +179,26 @@ public class SubfieldDefinition implements Serializable {
     if (codeList != null && codeList.isValid(value))
       return codeList.getCode(value).getLabel();
 
-    return allowedValues.getOrDefault(value, value);
+    if (codes != null) {
+      Code code = getCode(value);
+      if (code != null)
+        return code.getLabel();
+    }
+
+    return value;
+  }
+
+  public Map<String, String> resolvePositional(String value) {
+    Map<String, String> pairs = new LinkedHashMap<>();
+    int i = 0;
+    for (ControlSubfieldDefinition def : getPositions()) {
+      String part = value.substring(def.getPositionStart(), def.getPositionEnd());
+      String resolved = def.resolve(part);
+      String suffix = StringUtils.isNotBlank(def.getMqTag()) ? def.getMqTag() : String.valueOf(i);
+      pairs.put(suffix, resolved);
+      i++;
+    }
+    return pairs;
   }
 
   public String getBibframeTag() {
@@ -219,8 +233,17 @@ public class SubfieldDefinition implements Serializable {
   }
 
   public void setPositions(List<ControlSubfieldDefinition> positions) {
-
+    this.positions = positions;
   }
+
+  public List<ControlSubfieldDefinition> getPositions() {
+    return positions;
+  }
+
+  public boolean hasPositions() {
+    return positions != null;
+  }
+
 
   @Override
   public String toString() {
@@ -228,7 +251,6 @@ public class SubfieldDefinition implements Serializable {
         "code='" + code + '\'' +
         ", typeCode='" + cardinalityCode + '\'' +
         ", label='" + label + '\'' +
-        ", allowedValues=" + allowedValues +
         '}';
   }
 

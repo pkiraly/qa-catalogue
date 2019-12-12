@@ -71,24 +71,80 @@ public class Tag363 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("firstLevel");
-    getSubfield("b").setMqTag("secondLevel");
-    getSubfield("c").setMqTag("thirdLevel");
-    getSubfield("d").setMqTag("fourthLevel");
-    getSubfield("e").setMqTag("fifthLevel");
-    getSubfield("f").setMqTag("sixthLevel");
-    getSubfield("g").setMqTag("alternativeFirstLevel");
-    getSubfield("h").setMqTag("alternativeSecondLevel");
-    getSubfield("i").setMqTag("firstLevelOfChronology");
-    getSubfield("j").setMqTag("secondLevelOfChronology");
-    getSubfield("k").setMqTag("thirdLevelOfChronology");
-    getSubfield("l").setMqTag("fourthLevelOfChronology");
-    getSubfield("m").setMqTag("alternativeNumberingAndChronology");
-    getSubfield("u").setMqTag("firstLevelTextualDesignation");
-    getSubfield("v").setMqTag("firstLevelOfChronologyIssuance");
-    getSubfield("x").setMqTag("nonPublicNote");
-    getSubfield("z").setMqTag("publicNote");
-    getSubfield("6").setBibframeTag("linkage");
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a")
+      .setMqTag("firstLevel")
+      .setLevels("A");
+
+    getSubfield("b")
+      .setMqTag("secondLevel")
+      .setLevels("A");
+
+    getSubfield("c")
+      .setMqTag("thirdLevel")
+      .setLevels("A");
+
+    getSubfield("d")
+      .setMqTag("fourthLevel")
+      .setLevels("A");
+
+    getSubfield("e")
+      .setMqTag("fifthLevel")
+      .setLevels("A");
+
+    getSubfield("f")
+      .setMqTag("sixthLevel")
+      .setLevels("A");
+
+    getSubfield("g")
+      .setMqTag("alternativeFirstLevel")
+      .setLevels("O");
+
+    getSubfield("h")
+      .setMqTag("alternativeSecondLevel")
+      .setLevels("O");
+
+    getSubfield("i")
+      .setMqTag("firstLevelOfChronology")
+      .setLevels("A");
+
+    getSubfield("j")
+      .setMqTag("secondLevelOfChronology")
+      .setLevels("A");
+
+    getSubfield("k")
+      .setMqTag("thirdLevelOfChronology")
+      .setLevels("A");
+
+    getSubfield("l")
+      .setMqTag("fourthLevelOfChronology")
+      .setLevels("A");
+
+    getSubfield("m")
+      .setMqTag("alternativeNumberingAndChronology")
+      .setLevels("O");
+
+    getSubfield("u")
+      .setMqTag("firstLevelTextualDesignation")
+      .setLevels("A");
+
+    getSubfield("v")
+      .setMqTag("firstLevelOfChronologyIssuance")
+      .setLevels("A");
+
+    getSubfield("x")
+      .setMqTag("nonPublicNote")
+      .setLevels("O");
+
+    getSubfield("z")
+      .setMqTag("publicNote")
+      .setLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setLevels("O");
   }
 }

@@ -45,17 +45,34 @@ public class Tag351 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("organization")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("b").setBibframeTag("pattern")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("c").setBibframeTag("hierarchicalLevel")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("3").setMqTag("materialsSpecified")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("organization")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("b")
+      .setBibframeTag("pattern")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("c")
+      .setBibframeTag("hierarchicalLevel")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

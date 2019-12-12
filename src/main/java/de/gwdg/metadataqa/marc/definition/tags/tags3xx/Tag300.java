@@ -48,24 +48,50 @@ public class Tag300 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("extent")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect);
-    getSubfield("b").setBibframeTag("note").setMqTag("otherPhysicalDetails")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate);
-    getSubfield("c").setBibframeTag("dimensions")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseOperate);
-    getSubfield("e").setBibframeTag("note").setMqTag("accompanyingMaterial")
-      .setFrbrFunctions(DiscoverySelect);
-    getSubfield("f").setMqTag("typeOfUnit")
-      .setFrbrFunctions(UseManage, UseOperate);
-    getSubfield("g").setMqTag("sizeOfUnit")
-      .setFrbrFunctions(UseManage, UseOperate);
-    getSubfield("3").setMqTag("materialsSpecified")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("6").setMqTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("extent")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect)
+      .setLevels("M", "M");
+
+    getSubfield("b")
+      .setBibframeTag("note").setMqTag("otherPhysicalDetails")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate)
+      .setLevels("A");
+
+    getSubfield("c")
+      .setBibframeTag("dimensions")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseOperate)
+      .setLevels("M");
+
+    getSubfield("e")
+      .setBibframeTag("note").setMqTag("accompanyingMaterial")
+      .setFrbrFunctions(DiscoverySelect)
+      .setLevels("A");
+
+    getSubfield("f")
+      .setMqTag("typeOfUnit")
+      .setFrbrFunctions(UseManage, UseOperate)
+      .setLevels("A", "A");
+
+    getSubfield("g")
+      .setMqTag("sizeOfUnit")
+      .setFrbrFunctions(UseManage, UseOperate)
+      .setLevels("A");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("O");
+
+    getSubfield("6")
+      .setMqTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A", "A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
 
     setHistoricalSubfields(
       "d", "Accompanying material [OBSOLETE, 1997] [CAN/MARC only]",

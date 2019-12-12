@@ -59,35 +59,83 @@ public class Tag340 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("baseMaterial")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage);
-    getSubfield("b").setBibframeTag("dimensions")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseOperate);
-    getSubfield("c").setBibframeTag("appliedMaterial")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage);
-    getSubfield("d").setMqTag("productionMethod")
-      .setFrbrFunctions(DiscoverySelect, UseManage, UseOperate);
-    getSubfield("e").setMqTag("mount")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage);
-    getSubfield("f").setMqTag("reductionRatio")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseOperate);
-    getSubfield("g").setMqTag("colorContent");
-    getSubfield("h").setMqTag("location")
-      .setFrbrFunctions(DiscoveryIdentify, UseManage);
-    getSubfield("i").setMqTag("systemRequirement")
-      .setFrbrFunctions(DiscoverySelect, UseOperate);
-    getSubfield("j").setMqTag("generation");
-    getSubfield("k").setMqTag("layout");
-    getSubfield("m").setMqTag("bookFormat");
-    getSubfield("n").setMqTag("fontSize");
-    getSubfield("o").setMqTag("polarity");
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("2").setBibframeTag("source");
-    getSubfield("3").setMqTag("materialsSpecified")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("baseMaterial")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage)
+      .setLevels("A");
+
+    getSubfield("b")
+      .setBibframeTag("dimensions")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseOperate)
+      .setLevels("A");
+
+    getSubfield("c")
+      .setBibframeTag("appliedMaterial")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage)
+      .setLevels("A");
+
+    getSubfield("d")
+      .setMqTag("productionMethod")
+      .setFrbrFunctions(DiscoverySelect, UseManage, UseOperate)
+      .setLevels("A");
+
+    getSubfield("e")
+      .setMqTag("mount")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage)
+      .setLevels("A");
+
+    getSubfield("f")
+      .setMqTag("reductionRatio")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseOperate)
+      .setLevels("A");
+
+    getSubfield("g")
+      .setMqTag("colorContent");
+
+    getSubfield("h")
+      .setMqTag("location")
+      .setFrbrFunctions(DiscoveryIdentify, UseManage)
+      .setLevels("A");
+
+    getSubfield("i")
+      .setMqTag("systemRequirement")
+      .setFrbrFunctions(DiscoverySelect, UseOperate)
+      .setLevels("A");
+
+    getSubfield("j")
+      .setMqTag("generation");
+
+    getSubfield("k")
+      .setMqTag("layout");
+
+    getSubfield("m")
+      .setMqTag("bookFormat");
+
+    getSubfield("n")
+      .setMqTag("fontSize");
+
+    getSubfield("o")
+      .setMqTag("polarity");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber");
+
+    getSubfield("2")
+      .setBibframeTag("source");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

@@ -49,12 +49,31 @@ public class Tag336 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
-    getSubfield("b").setMqTag("contentTypeCode");
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("2").setBibframeTag("source");
-    getSubfield("3").setMqTag("materialsSpecified");
-    getSubfield("6").setBibframeTag("linkage");
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a")
+      .setBibframeTag("rdfs:label").setMqTag("rdf:value")
+      .setLevels("M");
+
+    getSubfield("b")
+      .setMqTag("contentTypeCode")
+      .setLevels("M");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber");
+
+    getSubfield("2")
+      .setBibframeTag("source")
+      .setLevels("M");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setLevels("O");
   }
 }

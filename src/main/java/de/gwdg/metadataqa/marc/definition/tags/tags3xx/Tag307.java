@@ -62,12 +62,23 @@ public class Tag307 extends DataFieldDefinition {
     // Friday   F
     // Saturday   Sa
 
-    getSubfield("a").setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoverySelect, DiscoveryObtain);
-    getSubfield("b").setMqTag("additionalInformation");
-    getSubfield("6").setMqTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoverySelect, DiscoveryObtain)
+      .setLevels("M");
+
+    getSubfield("b")
+      .setMqTag("additionalInformation")
+      .setLevels("O");
+
+    getSubfield("6")
+      .setMqTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

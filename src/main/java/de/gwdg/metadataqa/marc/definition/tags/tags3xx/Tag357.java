@@ -46,17 +46,34 @@ public class Tag357 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value")
-      .setFrbrFunctions(UseRestrict);
-    getSubfield("b").setMqTag("originatingAgency")
-      .setFrbrFunctions(UseRestrict);
-    getSubfield("c").setMqTag("authorizedRecipients")
-      .setFrbrFunctions(UseRestrict);
-    getSubfield("g").setMqTag("otherRestrictions")
-      .setFrbrFunctions(UseRestrict);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setFrbrFunctions(UseRestrict)
+      .setLevels("M");
+
+    getSubfield("b")
+      .setMqTag("originatingAgency")
+      .setFrbrFunctions(UseRestrict)
+      .setLevels("M");
+
+    getSubfield("c")
+      .setMqTag("authorizedRecipients")
+      .setFrbrFunctions(UseRestrict)
+      .setLevels("A");
+
+    getSubfield("g")
+      .setMqTag("otherRestrictions")
+      .setFrbrFunctions(UseRestrict)
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

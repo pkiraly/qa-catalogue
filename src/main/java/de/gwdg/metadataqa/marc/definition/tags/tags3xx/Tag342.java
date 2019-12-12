@@ -84,57 +84,134 @@ public class Tag342 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("name")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("b").setMqTag("units")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("c").setMqTag("latitudeResolution")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("d").setMqTag("longitudeResolution")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("e").setMqTag("obliqueLineLatitude")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("f").setMqTag("obliqueLineLongitude")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("g").setMqTag("longitudeOfCentralMeridian")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("h").setMqTag("latitudeOfProjectionCenter")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("i").setMqTag("falseEasting")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("j").setMqTag("falseNorthing")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("k").setMqTag("scaleFactor")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("l").setMqTag("heightOfPerspective")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("m").setMqTag("azimuthalAngle")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("n").setMqTag("azimuthMeasurePoint")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("o").setMqTag("landsatNumber")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("p").setMqTag("zoneIdentifier")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("q").setMqTag("ellipsoidName")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("r").setMqTag("semiMajorAxis")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("s").setMqTag("denominatorOfFlatteningRatio")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("t").setMqTag("verticalResolution")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("u").setMqTag("verticalEncodingMethod")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("v").setMqTag("localProjection")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("w").setMqTag("georeference")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("2").setBibframeTag("source")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("name")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("b")
+      .setMqTag("units")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("c")
+      .setMqTag("latitudeResolution")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("d")
+      .setMqTag("longitudeResolution")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("e")
+      .setMqTag("obliqueLineLatitude")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("f")
+      .setMqTag("obliqueLineLongitude")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("g")
+      .setMqTag("longitudeOfCentralMeridian")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("h")
+      .setMqTag("latitudeOfProjectionCenter")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("i")
+      .setMqTag("falseEasting")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("j")
+      .setMqTag("falseNorthing")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("k")
+      .setMqTag("scaleFactor")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("l")
+      .setMqTag("heightOfPerspective")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("m")
+      .setMqTag("azimuthalAngle")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("n")
+      .setMqTag("azimuthMeasurePoint")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("o")
+      .setMqTag("landsatNumber")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("p")
+      .setMqTag("zoneIdentifier")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("q")
+      .setMqTag("ellipsoidName")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("r")
+      .setMqTag("semiMajorAxis")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("s")
+      .setMqTag("denominatorOfFlatteningRatio")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("t")
+      .setMqTag("verticalResolution")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("u")
+      .setMqTag("verticalEncodingMethod")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("v")
+      .setMqTag("localProjection")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("w")
+      .setMqTag("georeference")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("2")
+      .setBibframeTag("source")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

@@ -50,27 +50,59 @@ public class Tag352 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("cartographicDataType")
-      .setFrbrFunctions(UseOperate, UseInterpret);
-    getSubfield("b").setBibframeTag("cartographicObjectType")
-      .setFrbrFunctions(UseOperate, UseInterpret);
-    getSubfield("c").setBibframeTag("count").setMqTag("objectCount")
-      .setFrbrFunctions(UseOperate, UseInterpret);
-    getSubfield("d").setMqTag("rowCount")
-      .setFrbrFunctions(UseOperate, UseInterpret);
-    getSubfield("e").setMqTag("columnCount")
-      .setFrbrFunctions(UseOperate, UseInterpret);
-    getSubfield("f").setMqTag("verticalCount")
-      .setFrbrFunctions(UseOperate, UseInterpret);
-    getSubfield("g").setMqTag("topologyLevel")
-      .setFrbrFunctions(UseOperate, UseInterpret);
-    getSubfield("i").setMqTag("indirectReference")
-      .setFrbrFunctions(UseOperate, UseInterpret);
-    getSubfield("q").setBibframeTag("encodingFormat")
-      .setFrbrFunctions(DiscoveryIdentify, UseOperate, UseInterpret);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("cartographicDataType")
+      .setFrbrFunctions(UseOperate, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("b")
+      .setBibframeTag("cartographicObjectType")
+      .setFrbrFunctions(UseOperate, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("c")
+      .setBibframeTag("count").setMqTag("objectCount")
+      .setFrbrFunctions(UseOperate, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("d")
+      .setMqTag("rowCount")
+      .setFrbrFunctions(UseOperate, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("e")
+      .setMqTag("columnCount")
+      .setFrbrFunctions(UseOperate, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("f")
+      .setMqTag("verticalCount")
+      .setFrbrFunctions(UseOperate, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("g")
+      .setMqTag("topologyLevel")
+      .setFrbrFunctions(UseOperate, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("i")
+      .setMqTag("indirectReference")
+      .setFrbrFunctions(UseOperate, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("q")
+      .setBibframeTag("encodingFormat")
+      .setFrbrFunctions(DiscoveryIdentify, UseOperate, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

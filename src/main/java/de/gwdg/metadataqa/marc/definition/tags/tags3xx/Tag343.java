@@ -50,28 +50,59 @@ public class Tag343 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    // TODO: setMqTag
     getSubfield("a")
-      .setFrbrFunctions(UseInterpret);
+      .setMqTag("method")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
     getSubfield("b")
-      .setFrbrFunctions(UseInterpret);
+      .setMqTag("distanceUnits")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
     getSubfield("c")
-      .setFrbrFunctions(UseInterpret);
+      .setMqTag("abscissa")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
     getSubfield("d")
-      .setFrbrFunctions(UseInterpret);
+      .setMqTag("ordinate")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
     getSubfield("e")
-      .setFrbrFunctions(UseInterpret);
+      .setMqTag("distance")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
     getSubfield("f")
-      .setFrbrFunctions(UseInterpret);
+      .setMqTag("bearingResolution")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
     getSubfield("g")
-      .setFrbrFunctions(UseInterpret);
+      .setMqTag("bearingUnits")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
     getSubfield("h")
-      .setFrbrFunctions(UseInterpret);
+      .setMqTag("bearingDirection")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
     getSubfield("i")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setMqTag("bearingMeridian")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

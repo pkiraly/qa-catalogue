@@ -68,27 +68,59 @@ public class Tag355 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value")
-      .setFrbrFunctions(UseRestrict);
-    getSubfield("b").setMqTag("handlingInstructions")
-      .setFrbrFunctions(UseRestrict);
-    getSubfield("c").setMqTag("externalDissemination")
-      .setFrbrFunctions(UseRestrict);
-    getSubfield("d").setMqTag("downgradingEvent")
-      .setFrbrFunctions(UseRestrict);
-    getSubfield("e").setMqTag("classificationSystem")
-      .setFrbrFunctions(UseRestrict);
-    getSubfield("f").setMqTag("countryOfOrigin")
-      .setFrbrFunctions(UseRestrict);
-    getSubfield("g").setMqTag("downgradingDate")
-      .setFrbrFunctions(UseRestrict);
-    getSubfield("h").setMqTag("declassificationDate")
-      .setFrbrFunctions(UseRestrict);
-    getSubfield("j").setBibframeTag("authorization")
-      .setFrbrFunctions(UseRestrict);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setFrbrFunctions(UseRestrict)
+      .setLevels("M");
+
+    getSubfield("b")
+      .setMqTag("handlingInstructions")
+      .setFrbrFunctions(UseRestrict)
+      .setLevels("A");
+
+    getSubfield("c")
+      .setMqTag("externalDissemination")
+      .setFrbrFunctions(UseRestrict)
+      .setLevels("A");
+
+    getSubfield("d")
+      .setMqTag("downgradingEvent")
+      .setFrbrFunctions(UseRestrict)
+      .setLevels("A");
+
+    getSubfield("e")
+      .setMqTag("classificationSystem")
+      .setFrbrFunctions(UseRestrict)
+      .setLevels("A");
+
+    getSubfield("f")
+      .setMqTag("countryOfOrigin")
+      .setFrbrFunctions(UseRestrict)
+      .setLevels("A");
+
+    getSubfield("g")
+      .setMqTag("downgradingDate")
+      .setFrbrFunctions(UseRestrict)
+      .setLevels("A");
+
+    getSubfield("h")
+      .setMqTag("declassificationDate")
+      .setFrbrFunctions(UseRestrict)
+      .setLevels("A");
+
+    getSubfield("j")
+      .setBibframeTag("authorization")
+      .setFrbrFunctions(UseRestrict)
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

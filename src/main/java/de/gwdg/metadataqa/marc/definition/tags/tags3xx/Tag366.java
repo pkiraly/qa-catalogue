@@ -60,30 +60,68 @@ public class Tag366 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("compressedTitle")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
-    getSubfield("b").setMqTag("detailedDateOfPublication")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
-    getSubfield("c").setMqTag("availability")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
-    getSubfield("d").setMqTag("nextAvailabilityDate")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
-    getSubfield("e").setMqTag("note");
-    getSubfield("f").setMqTag("discountCategory")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
-    getSubfield("g").setMqTag("dateMadeOutOfPrint")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
-    getSubfield("j").setMqTag("isoCountryCode")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
-    getSubfield("k").setMqTag("marcCountryCode")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
-    getSubfield("m").setMqTag("agency")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
-    getSubfield("2").setBibframeTag("source")
-      .setFrbrFunctions(ManagementIdentify);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("compressedTitle")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, ManagementIdentify)
+      .setLevels("A");
+
+    getSubfield("b")
+      .setMqTag("detailedDateOfPublication")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, ManagementIdentify)
+      .setLevels("A");
+
+    getSubfield("c")
+      .setMqTag("availability")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, ManagementIdentify)
+      .setLevels("A");
+
+    getSubfield("d")
+      .setMqTag("nextAvailabilityDate")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, ManagementIdentify)
+      .setLevels("A");
+
+    getSubfield("e")
+      .setMqTag("note")
+      .setLevels("A");
+
+    getSubfield("f")
+      .setMqTag("discountCategory")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, ManagementIdentify)
+      .setLevels("A");
+
+    getSubfield("g")
+      .setMqTag("dateMadeOutOfPrint")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, ManagementIdentify)
+      .setLevels("A");
+
+    getSubfield("j")
+      .setMqTag("isoCountryCode")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, ManagementIdentify)
+      .setLevels("A");
+
+    getSubfield("k")
+      .setMqTag("marcCountryCode")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, ManagementIdentify)
+      .setLevels("A");
+
+    getSubfield("m")
+      .setMqTag("agency")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, ManagementIdentify)
+      .setLevels("A");
+
+    getSubfield("2")
+      .setBibframeTag("source")
+      .setFrbrFunctions(ManagementIdentify)
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
   }
 }

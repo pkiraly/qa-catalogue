@@ -98,46 +98,115 @@ public class Tag034 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("category")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("b").setMqTag("linearHorizontalScale")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseInterpret);
-    getSubfield("c").setMqTag("linearVerticalScale")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseInterpret);
-    getSubfield("d").setMqTag("westernmostLongitude")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret);
-    getSubfield("e").setMqTag("easternmostLongitude")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret);
-    getSubfield("f").setMqTag("northernmostLatitude")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret);
-    getSubfield("g").setMqTag("southernmostLatitude")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret);
-    getSubfield("h").setMqTag("angularScale")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseInterpret);
-    getSubfield("j").setMqTag("declinationNorthernLimit")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret);
-    getSubfield("k").setMqTag("declinationSouthernLimit")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret);
-    getSubfield("m").setMqTag("rightAscensionEasternLimit")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret);
-    getSubfield("n").setMqTag("rightAscensionWesternLimit")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret);
-    getSubfield("p").setMqTag("equinox")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret);
-    getSubfield("r").setMqTag("distanceFromEarth");
-    getSubfield("s").setMqTag("gRingLatitude")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret);
-    getSubfield("t").setMqTag("gRingLongitude")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret);
-    getSubfield("x").setMqTag("beginningDate");
-    getSubfield("y").setMqTag("endingDate");
-    getSubfield("z").setMqTag("extraterrestrialBody");
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("2").setMqTag("source");
-    getSubfield("3").setMqTag("materialsSpecified");
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("category")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("M", "M");
+
+    getSubfield("b")
+      .setMqTag("linearHorizontalScale")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseInterpret)
+      .setLevels("A", "A");
+
+    getSubfield("c")
+      .setMqTag("linearVerticalScale")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseInterpret)
+      .setLevels("A", "A");
+
+    getSubfield("d")
+      .setMqTag("westernmostLongitude")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("e")
+      .setMqTag("easternmostLongitude")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("f")
+      .setMqTag("northernmostLatitude")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("g")
+      .setMqTag("southernmostLatitude")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("h")
+      .setMqTag("angularScale")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("j")
+      .setMqTag("declinationNorthernLimit")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("k")
+      .setMqTag("declinationSouthernLimit")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("m")
+      .setMqTag("rightAscensionEasternLimit")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("n")
+      .setMqTag("rightAscensionWesternLimit")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("p")
+      .setMqTag("equinox")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("r")
+      .setMqTag("distanceFromEarth")
+      .setLevels("A");
+
+    getSubfield("s")
+      .setMqTag("gRingLatitude")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("t")
+      .setMqTag("gRingLongitude")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("x")
+      .setMqTag("beginningDate")
+      .setLevels("A");
+
+    getSubfield("y")
+      .setMqTag("endingDate")
+      .setLevels("A");
+
+    getSubfield("z")
+      .setMqTag("extraterrestrialBody")
+      .setLevels("A");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setLevels("A");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A", "A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

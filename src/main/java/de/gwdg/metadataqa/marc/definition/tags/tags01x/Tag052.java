@@ -63,18 +63,35 @@ public class Tag052 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("rdf:value")
-      .setFrbrFunctions(DiscoverySearch, DiscoverySelect);
-    getSubfield("b").setMqTag("subarea")
-      .setFrbrFunctions(DiscoverySearch, DiscoverySelect);
-    getSubfield("d").setBibframeTag("rdfs:label")
-      .setFrbrFunctions(DiscoverySearch, DiscoverySelect);
-    getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("rdf:value")
+      .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
+      .setLevels("M");
+
+    getSubfield("b")
+      .setMqTag("subarea")
+      .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
+      .setLevels("A");
+
+    getSubfield("d")
+      .setBibframeTag("rdfs:label")
+      .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
+      .setLevels("O");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
 
     fieldIndexer = SchemaFromInd1OrIf7FromSubfield2.getInstance();
     sourceSpecificationType = SourceSpecificationType.Indicator1Is7AndSubfield2;

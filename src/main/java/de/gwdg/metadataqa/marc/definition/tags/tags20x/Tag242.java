@@ -67,23 +67,49 @@ public class Tag242 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("mainTitle")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("b").setBibframeTag("subTitle");
-    getSubfield("c").setMqTag("responsibility")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("h").setMqTag("medium")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect);
-    getSubfield("n").setBibframeTag("partNumber")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("p").setBibframeTag("partName")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("y").setBibframeTag("language")
-      .setFrbrFunctions(ManagementProcess);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("mainTitle")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setLevels("M");
+
+    getSubfield("b")
+      .setBibframeTag("subTitle")
+      .setLevels("O");
+
+    getSubfield("c")
+      .setMqTag("responsibility")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("O");
+
+    getSubfield("h")
+      .setMqTag("medium")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect)
+      .setLevels("O");
+
+    getSubfield("n")
+      .setBibframeTag("partNumber")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setLevels("A");
+
+    getSubfield("p")
+      .setBibframeTag("partName")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setLevels("A");
+
+    getSubfield("y")
+      .setBibframeTag("language")
+      .setFrbrFunctions(ManagementProcess)
+      .setLevels("M");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
 
     setHistoricalSubfields(
       "d", "Designation of section (BK, AM, MP, MU, VM, SE) [OBSOLETE, 1979]",

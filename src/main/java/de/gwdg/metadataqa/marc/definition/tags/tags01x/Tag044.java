@@ -50,17 +50,34 @@ public class Tag044 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("country")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("b").setMqTag("subentityCode")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("c").setMqTag("isoCode")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("country")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("M");
+
+    getSubfield("b")
+      .setMqTag("subentityCode")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("O");
+
+    getSubfield("c")
+      .setMqTag("isoCode")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("O");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

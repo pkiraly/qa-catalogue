@@ -63,18 +63,40 @@ public class Tag017 extends DataFieldDefinition {
     getSubfield("2").setCodeList(CopyrightAndLegalDepositNumberSourceCodes.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("rdf:value")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("b").setBibframeTag("source")
+    getSubfield("a")
+      .setBibframeTag("rdf:value")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setLevels("M");
+
+    getSubfield("b")
+      .setBibframeTag("source")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("M");
+
+    getSubfield("d")
+      .setBibframeTag("date")
+      .setLevels("O");
+
+    getSubfield("i")
+      .setBibframeTag("note")
+      .setLevels("O");
+
+    getSubfield("z")
+      .setMqTag("canceled")
+      .setLevels("A");
+
+    getSubfield("2")
+      .setBibframeTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("d").setBibframeTag("date");
-    getSubfield("i").setBibframeTag("note");
-    getSubfield("z").setMqTag("canceled");
-    getSubfield("2").setBibframeTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

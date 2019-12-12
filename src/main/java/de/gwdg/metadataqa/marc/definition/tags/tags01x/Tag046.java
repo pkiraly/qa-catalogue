@@ -75,33 +75,75 @@ public class Tag046 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("type")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("b").setMqTag("bceDate1")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("c").setMqTag("bcDate1")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("d").setMqTag("bceDate2")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("e").setMqTag("ceDate2")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("j").setMqTag("modified")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("k").setMqTag("beginningCreated")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("l").setMqTag("endingCreated")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("m").setMqTag("beginningOfDateValid")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseRestrict);
-    getSubfield("n").setMqTag("endOfDateValid")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseRestrict);
-    getSubfield("o").setMqTag("startingDateForAggregated");
-    getSubfield("p").setMqTag("endingDateForAggregated");
-    getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("type")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("b")
+      .setMqTag("bceDate1")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("c")
+      .setMqTag("bcDate1")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("d")
+      .setMqTag("bceDate2")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("e")
+      .setMqTag("ceDate2")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("j")
+      .setMqTag("modified")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("k")
+      .setMqTag("beginningCreated")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("l")
+      .setMqTag("endingCreated")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("m")
+      .setMqTag("beginningOfDateValid")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseRestrict)
+      .setLevels("A");
+
+    getSubfield("n")
+      .setMqTag("endOfDateValid")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseRestrict)
+      .setLevels("A");
+
+    getSubfield("o")
+      .setMqTag("startingDateForAggregated");
+
+    getSubfield("p")
+      .setMqTag("endingDateForAggregated");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

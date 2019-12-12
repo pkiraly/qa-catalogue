@@ -63,12 +63,21 @@ public class Tag060 extends DataFieldDefinition {
       "8", "Field link and sequence number", "R"
     );
 
-    getSubfield("a").setBibframeTag("classificationPortion")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("b").setBibframeTag("itemPortion")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
+    getSubfield("a")
+      .setBibframeTag("classificationPortion")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("M");
+
+    getSubfield("b")
+      .setBibframeTag("itemPortion")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber");
+
     getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

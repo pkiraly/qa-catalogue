@@ -66,29 +66,64 @@ public class Tag245 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("mainTitle")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("b").setBibframeTag("subtitle");
-    getSubfield("c").setBibframeTag("responsibilityStatement")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("f").setBibframeTag("originDate").setMqTag("inclusiveDates")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("g").setBibframeTag("originDate").setMqTag("bulkDates")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("h").setBibframeTag("genreForm").setMqTag("medium")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("k").setMqTag("form")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("n").setBibframeTag("partNumber")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("p").setBibframeTag("partName")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("s").setMqTag("version")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("mainTitle")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("M", "M");
+
+    getSubfield("b")
+      .setBibframeTag("subtitle")
+      .setLevels("A");
+
+    getSubfield("c")
+      .setBibframeTag("responsibilityStatement")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A", "A");
+
+    getSubfield("f")
+      .setBibframeTag("originDate").setMqTag("inclusiveDates")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A", "A");
+
+    getSubfield("g")
+      .setBibframeTag("originDate").setMqTag("bulkDates")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A", "A");
+
+    getSubfield("h")
+      .setBibframeTag("genreForm").setMqTag("medium")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("O");
+
+    getSubfield("k")
+      .setMqTag("form")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A", "A");
+
+    getSubfield("n")
+      .setBibframeTag("partNumber")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A", "A");
+
+    getSubfield("p")
+      .setBibframeTag("partName")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A", "A");
+
+    getSubfield("s")
+      .setMqTag("version")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A", "A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A", "A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
 
     setHistoricalSubfields(
       "d", "Designation of section/part/series (SE) [OBSOLETE, 1979]",

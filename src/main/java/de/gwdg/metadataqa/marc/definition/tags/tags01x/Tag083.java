@@ -58,14 +58,39 @@ public class Tag083 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value");
-    getSubfield("c").setMqTag("endingNumber");
-    getSubfield("m").setMqTag("standard");
-    getSubfield("q").setMqTag("source");
-    getSubfield("y").setMqTag("tableSequenceNumber");
-    getSubfield("z").setMqTag("tableId");
-    getSubfield("2").setMqTag("edition");
-    getSubfield("6").setBibframeTag("linkage");
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setLevels("M");
+
+    getSubfield("c")
+      .setMqTag("endingNumber")
+      .setLevels("A");
+
+    getSubfield("m")
+      .setMqTag("standard")
+      .setLevels("M");
+
+    getSubfield("q")
+      .setMqTag("source")
+      .setLevels("O");
+
+    getSubfield("y")
+      .setMqTag("tableSequenceNumber")
+      .setLevels("A");
+
+    getSubfield("z")
+      .setMqTag("tableId");
+
+    getSubfield("2")
+      .setMqTag("edition")
+      .setLevels("M");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setLevels("O");
   }
 }

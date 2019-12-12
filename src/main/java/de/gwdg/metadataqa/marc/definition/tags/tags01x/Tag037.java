@@ -58,22 +58,49 @@ public class Tag037 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("stockNumber")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("b").setBibframeTag("rdfs:label")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("c").setBibframeTag("acquisitionTerms")
-      .setFrbrFunctions(DiscoverySelect, DiscoveryObtain);
-    getSubfield("f").setBibframeTag("note").setMqTag("formOfIssue")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate);
-    getSubfield("g").setBibframeTag("note").setMqTag("format")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate);
-    getSubfield("n").setBibframeTag("note");
-    getSubfield("3").setMqTag("materialsSpecified");
-    getSubfield("5").setMqTag("institutionToWhichFieldApplies");
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("stockNumber")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("b")
+      .setBibframeTag("rdfs:label")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("M");
+
+    getSubfield("c")
+      .setBibframeTag("acquisitionTerms")
+      .setFrbrFunctions(DiscoverySelect, DiscoveryObtain)
+      .setLevels("O");
+
+    getSubfield("f")
+      .setBibframeTag("note").setMqTag("formOfIssue")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate)
+      .setLevels("O");
+
+    getSubfield("g")
+      .setBibframeTag("note").setMqTag("format")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate)
+      .setLevels("O");
+
+    getSubfield("n")
+      .setBibframeTag("note")
+      .setLevels("O");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified");
+
+    getSubfield("5")
+      .setMqTag("institutionToWhichFieldApplies");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

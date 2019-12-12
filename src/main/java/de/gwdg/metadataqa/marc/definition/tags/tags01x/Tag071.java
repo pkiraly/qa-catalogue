@@ -48,12 +48,23 @@ public class Tag071 extends DataFieldDefinition {
       "8", "Field link and sequence number", "R"
     );
 
-    getSubfield("a").setBibframeTag("classificationPortion").setMqTag("classification")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("b").setBibframeTag("itemPortion").setMqTag("item")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("c").setMqTag("copy");
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("classificationPortion").setMqTag("classification")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("M");
+
+    getSubfield("b")
+      .setBibframeTag("itemPortion").setMqTag("item")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("c")
+      .setMqTag("copy")
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

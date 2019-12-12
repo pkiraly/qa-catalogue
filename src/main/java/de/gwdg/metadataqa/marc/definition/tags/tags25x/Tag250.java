@@ -44,14 +44,27 @@ public class Tag250 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("editionStatement")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("b").setMqTag("remainder")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("3").setMqTag("materialsSpecified");
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("editionStatement")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("M", "M");
+
+    getSubfield("b")
+      .setMqTag("remainder")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A", "A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

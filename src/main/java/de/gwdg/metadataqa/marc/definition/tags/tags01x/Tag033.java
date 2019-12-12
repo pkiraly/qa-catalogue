@@ -72,20 +72,45 @@ public class Tag033 extends DataFieldDefinition {
     getSubfield("0").setContentParser(RecordControlNumberParser.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("date")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("b").setBibframeTag("place").setMqTag("area")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("c").setMqTag("subarea")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("p").setBibframeTag("place");
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("2").setMqTag("source");
-    getSubfield("3").setMqTag("materialsSpecified")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("date")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("A");
+
+    getSubfield("b")
+      .setBibframeTag("place").setMqTag("area")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("A");
+
+    getSubfield("c")
+      .setMqTag("subarea")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("A");
+
+    getSubfield("p")
+      .setBibframeTag("place")
+      .setLevels("A");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setLevels("O");
+
+    getSubfield("2")
+      .setMqTag("source");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

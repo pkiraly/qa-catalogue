@@ -50,17 +50,33 @@ public class Tag020 extends DataFieldDefinition {
     getSubfield("a").setValidator(ISBNValidator.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("rdf:value")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("c").setBibframeTag("acquisitionTerms")
-      .setFrbrFunctions(DiscoverySelect, DiscoveryObtain);
-    getSubfield("q").setBibframeTag("qualifier");
-    getSubfield("z").setMqTag("canceledOrInvalidISBN")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("6").setMqTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("rdf:value")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A", "A");
+
+    getSubfield("c")
+      .setBibframeTag("acquisitionTerms")
+      .setFrbrFunctions(DiscoverySelect, DiscoveryObtain)
+      .setLevels("A", "A");
+
+    getSubfield("q")
+      .setBibframeTag("qualifier");
+
+    getSubfield("z")
+      .setMqTag("canceledOrInvalidISBN")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A", "A");
+
+    getSubfield("6")
+      .setMqTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A", "A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
 
     setHistoricalSubfields(
       "b", "Binding information (BK, MP, MU) [OBSOLETE]"

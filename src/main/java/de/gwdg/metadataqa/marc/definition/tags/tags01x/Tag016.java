@@ -51,13 +51,24 @@ public class Tag016 extends DataFieldDefinition {
 
     getSubfield("2").setCodeList(OrganizationCodes.getInstance());
 
-    getSubfield("a").setBibframeTag("rdf:value")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("z").setMqTag("canceledOrInvalidControlNumber")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("2").setBibframeTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("rdf:value")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A", "A");
+
+    getSubfield("z")
+      .setMqTag("canceledOrInvalidControlNumber")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A", "A");
+
+    getSubfield("2")
+      .setBibframeTag("source")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A", "A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

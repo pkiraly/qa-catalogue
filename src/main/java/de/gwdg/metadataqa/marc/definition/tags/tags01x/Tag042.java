@@ -44,7 +44,9 @@ public class Tag042 extends DataFieldDefinition {
 
     getSubfield("a").setCodeList(AuthenticationActionCodes.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("M", "M");
   }
 }

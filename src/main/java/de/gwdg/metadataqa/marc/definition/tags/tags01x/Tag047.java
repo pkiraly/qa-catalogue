@@ -51,10 +51,18 @@ public class Tag047 extends DataFieldDefinition {
 
     getSubfield("2").setCodeList(MusicalCompositionSourceCodes.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect);
-    getSubfield("2").setMqTag("source");
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect)
+      .setLevels("M");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

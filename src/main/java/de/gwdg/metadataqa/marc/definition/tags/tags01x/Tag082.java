@@ -73,18 +73,38 @@ public class Tag082 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("classificationPortion").setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("b").setBibframeTag("itemPortion")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("m").setMqTag("standard");
-    getSubfield("q").setBibframeTag("source");
-    getSubfield("2").setBibframeTag("edition")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("classificationPortion").setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("M");
+
+    getSubfield("b")
+      .setBibframeTag("itemPortion")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("m")
+      .setMqTag("standard")
+      .setLevels("M");
+
+    getSubfield("q")
+      .setBibframeTag("source")
+      .setLevels("O");
+
+    getSubfield("2")
+      .setBibframeTag("edition")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("M");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
 
     setHistoricalSubfields(
       "b", "DDC number-abridged NST version (SE) [OBSOLETE]"

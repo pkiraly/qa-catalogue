@@ -47,13 +47,26 @@ public class Tag257 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("Place").setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("2").setMqTag("source");
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("Place").setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("M", "M");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setLevels("A", "A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A", "A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

@@ -66,23 +66,52 @@ public class Tag247 extends DataFieldDefinition {
     getSubfield("x").setValidator(ISSNValidator.getInstance());
 
 
-    getSubfield("a").setBibframeTag("mainTitle")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("b").setMqTag("remainder");
-    getSubfield("f").setBibframeTag("date");
-    getSubfield("g").setBibframeTag("qualifier").setMqTag("miscellaneous");
-    getSubfield("h").setMqTag("medium")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("n").setBibframeTag("partNumber")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("p").setBibframeTag("partName")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("x").setMqTag("issn")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("mainTitle")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("M");
+
+    getSubfield("b")
+      .setMqTag("remainder")
+      .setLevels("A");
+
+    getSubfield("f")
+      .setBibframeTag("date")
+      .setLevels("A");
+
+    getSubfield("g")
+      .setBibframeTag("qualifier").setMqTag("miscellaneous")
+      .setLevels("A");
+
+    getSubfield("h")
+      .setMqTag("medium")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("n")
+      .setBibframeTag("partNumber")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("p")
+      .setBibframeTag("partName")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("x")
+      .setMqTag("issn")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
 
     setHistoricalSubfields(
       "d", "Designation of section/part/series (SE) [OBSOLETE, 1979]",

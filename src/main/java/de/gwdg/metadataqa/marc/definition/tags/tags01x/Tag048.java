@@ -59,12 +59,23 @@ public class Tag048 extends DataFieldDefinition {
     getSubfield("b").setCodeList(MusicalInstrumentsOrVoicesCodes.getInstance());
     getSubfield("2").setCodeList(MusicalInstrumentationAndVoiceSourceCodes.getInstance());
 
-    getSubfield("a").setMqTag("performerOrEnsemble")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect);
-    getSubfield("b").setMqTag("soloist")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect);
-    getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a")
+      .setMqTag("performerOrEnsemble")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect)
+      .setLevels("A");
+
+    getSubfield("b")
+      .setMqTag("soloist")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect)
+      .setLevels("A");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setLevels("O");
   }
 }

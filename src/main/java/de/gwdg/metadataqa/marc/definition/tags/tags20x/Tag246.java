@@ -86,24 +86,56 @@ public class Tag246 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("mainTitle")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("b").setBibframeTag("subtitle");
-    getSubfield("f").setBibframeTag("date");
-    getSubfield("g").setBibframeTag("miscellaneous");
-    getSubfield("h").setMqTag("medium")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("i").setMqTag("displayText");
-    getSubfield("n").setBibframeTag("partNumber")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("p").setBibframeTag("partName")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("5").setMqTag("institutionToWhichFieldApplies")
-      .setFrbrFunctions(ManagementProcess, ManagementDisplay);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("mainTitle")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("M", "M");
+
+    getSubfield("b")
+      .setBibframeTag("subtitle")
+      .setLevels("A");
+
+    getSubfield("f")
+      .setBibframeTag("date")
+      .setLevels("A", "A");
+
+    getSubfield("g")
+      .setBibframeTag("miscellaneous")
+      .setLevels("A");
+
+    getSubfield("h")
+      .setMqTag("medium")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("O");
+
+    getSubfield("i")
+      .setMqTag("displayText")
+      .setLevels("A");
+
+    getSubfield("n")
+      .setBibframeTag("partNumber")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A", "A");
+
+    getSubfield("p")
+      .setBibframeTag("partName")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A", "A");
+
+    getSubfield("5")
+      .setMqTag("institutionToWhichFieldApplies")
+      .setFrbrFunctions(ManagementProcess, ManagementDisplay)
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A", "A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
 
     setHistoricalSubfields(
       "c", "Remainder of title page transcription [OBSOLETE, 1991] [CAN/MARC only]",

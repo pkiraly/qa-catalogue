@@ -48,14 +48,25 @@ public class Tag035 extends DataFieldDefinition {
     getSubfield("a").setContentParser(RecordControlNumberParser.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("rdf:value")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("z").setMqTag("canceled")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("rdf:value")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("M");
+
+    getSubfield("z")
+      .setMqTag("canceled")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
 
     putVersionSpecificSubfields(MarcVersion.FENNICA, Arrays.asList(
       new SubfieldDefinition("9", "Voyager-osakenttä", "NR")

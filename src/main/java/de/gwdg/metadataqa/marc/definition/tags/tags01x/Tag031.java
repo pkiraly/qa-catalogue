@@ -73,41 +73,100 @@ public class Tag031 extends DataFieldDefinition {
     // TODO: u - URL
     // TODO: n - Letter “x” indicates sharps and the letter “b” indicates flats followed by capital letters to indicate the affected pitches.
 
-    getSubfield("a").setMqTag("numberOfWork")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("b").setMqTag("numberOfMovement")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("c").setMqTag("numberOfExcerpt")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("d").setMqTag("caption")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("e").setMqTag("role");
-    getSubfield("g").setMqTag("clef")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("m").setMqTag("voiceOrInstrument")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect);
-    getSubfield("n").setMqTag("keySignature")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("o").setMqTag("timeSignature")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("p").setMqTag("musicalNotation")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("q").setMqTag("generalNote");
-    getSubfield("r").setMqTag("keyOrMode")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("s").setMqTag("codedValidity")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("t").setMqTag("incipit");
-    getSubfield("u").setMqTag("uri")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("y").setMqTag("linkText");
-    getSubfield("z").setMqTag("publicNote")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("2").setBibframeTag("systemCode")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("numberOfWork")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("b")
+      .setMqTag("numberOfMovement")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("c")
+      .setMqTag("numberOfExcerpt")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("d")
+      .setMqTag("caption")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("O");
+
+    getSubfield("e")
+      .setMqTag("role")
+      .setLevels("O");
+
+    getSubfield("g")
+      .setMqTag("clef")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("O");
+
+    getSubfield("m")
+      .setMqTag("voiceOrInstrument")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect)
+      .setLevels("O");
+
+    getSubfield("n")
+      .setMqTag("keySignature")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setLevels("O");
+
+    getSubfield("o")
+      .setMqTag("timeSignature")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setLevels("O");
+
+    getSubfield("p")
+      .setMqTag("musicalNotation")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
+
+    getSubfield("q")
+      .setMqTag("generalNote")
+      .setLevels("O");
+
+    getSubfield("r")
+      .setMqTag("keyOrMode")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setLevels("O");
+
+    getSubfield("s")
+      .setMqTag("codedValidity")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("O");
+
+    getSubfield("t")
+      .setMqTag("incipit")
+      .setLevels("A");
+
+    getSubfield("u")
+      .setMqTag("uri")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("O");
+
+    getSubfield("y")
+      .setMqTag("linkText")
+      .setLevels("O");
+
+    getSubfield("z")
+      .setMqTag("publicNote")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("O");
+
+    getSubfield("2")
+      .setBibframeTag("systemCode")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

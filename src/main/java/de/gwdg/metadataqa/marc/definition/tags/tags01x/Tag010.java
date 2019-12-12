@@ -42,13 +42,24 @@ public class Tag010 extends DataFieldDefinition {
       "8", "Field link and sequence number", "R"
     );
 
-    getSubfield("a").setBibframeTag("rdf:value")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("b").setMqTag("numcControlNumber")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("z").setMqTag("canceled")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("rdf:value")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A", "A");
+
+    getSubfield("b")
+      .setMqTag("numcControlNumber")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A", "A");
+
+    getSubfield("z")
+      .setMqTag("canceled")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A", "A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

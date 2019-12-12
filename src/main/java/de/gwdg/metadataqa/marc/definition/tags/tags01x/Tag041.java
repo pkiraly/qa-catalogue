@@ -83,30 +83,67 @@ public class Tag041 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("rdf:value")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseInterpret);
-    getSubfield("b").setMqTag("ofSummary")
-      .setFrbrFunctions(DiscoverySelect, UseInterpret);
-    getSubfield("d").setMqTag("ofSungOrSpokenText")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseInterpret);
-    getSubfield("e").setMqTag("ofLibrettos")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseInterpret);
-    getSubfield("f").setMqTag("ofTableOfContents")
-      .setFrbrFunctions(DiscoverySelect, UseInterpret);
-    getSubfield("g").setMqTag("ofAccompanyingMaterial")
-      .setFrbrFunctions(DiscoverySelect, UseInterpret);
-    getSubfield("h").setMqTag("ofOriginal")
-      .setFrbrFunctions(DiscoverySelect);
-    getSubfield("j").setMqTag("ofSubtitles");
-    getSubfield("k").setMqTag("ofTranslations");
-    getSubfield("m").setMqTag("ofOriginalAccompanyingMaterial");
-    getSubfield("n").setMqTag("ofOriginalLibretto");
-    getSubfield("2").setMqTag("source")
+    getSubfield("a")
+      .setBibframeTag("rdf:value")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseInterpret)
+      .setLevels("M");
+
+    getSubfield("b")
+      .setMqTag("ofSummary")
+      .setFrbrFunctions(DiscoverySelect, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("d")
+      .setMqTag("ofSungOrSpokenText")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("e")
+      .setMqTag("ofLibrettos")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("f")
+      .setMqTag("ofTableOfContents")
+      .setFrbrFunctions(DiscoverySelect, UseInterpret)
+      .setLevels("O");
+
+    getSubfield("g")
+      .setMqTag("ofAccompanyingMaterial")
+      .setFrbrFunctions(DiscoverySelect, UseInterpret)
+      .setLevels("A");
+
+    getSubfield("h")
+      .setMqTag("ofOriginal")
+      .setFrbrFunctions(DiscoverySelect)
+      .setLevels("A");
+
+    getSubfield("j")
+      .setMqTag("ofSubtitles")
+      .setLevels("A");
+
+    getSubfield("k")
+      .setMqTag("ofTranslations");
+
+    getSubfield("m")
+      .setMqTag("ofOriginalAccompanyingMaterial");
+
+    getSubfield("n")
+      .setMqTag("ofOriginalLibretto");
+
+    getSubfield("2")
+      .setMqTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
 
     setHistoricalSubfields(
       "c", "Languages of separate titles (VM) [OBSOLETE, 1972], Languages of available translation (SE) [OBSOLETE, 1977]"

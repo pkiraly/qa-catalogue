@@ -62,16 +62,30 @@ public class Tag072 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoverySearch, DiscoverySelect);
-    getSubfield("x").setMqTag("subdivision")
-      .setFrbrFunctions(DiscoverySearch, DiscoverySelect);
-    getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
+      .setLevels("M");
+
+    getSubfield("x")
+      .setMqTag("subdivision")
+      .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
+      .setLevels("A");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
 
     fieldIndexer = SchemaFromInd2AndSubfield2.getInstance();
     sourceSpecificationType = SourceSpecificationType.Indicator2AndSubfield2;

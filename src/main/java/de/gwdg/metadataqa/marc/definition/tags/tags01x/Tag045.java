@@ -111,15 +111,29 @@ public class Tag045 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoverySearch, DiscoverySelect);
-    getSubfield("b").setMqTag("timePeriod")
-      .setFrbrFunctions(DiscoverySearch, DiscoverySelect);
-    getSubfield("c").setMqTag("preBC9999TimePeriod")
-      .setFrbrFunctions(DiscoverySearch, DiscoverySelect);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
+      .setLevels("A");
+
+    getSubfield("b")
+      .setMqTag("timePeriod")
+      .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
+      .setLevels("A");
+
+    getSubfield("c")
+      .setMqTag("preBC9999TimePeriod")
+      .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

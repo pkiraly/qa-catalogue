@@ -49,15 +49,30 @@ public class Tag015 extends DataFieldDefinition {
     getSubfield("2").setCodeList(NationalBibliographyNumberSourceCodes.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("rdf:value")
+    getSubfield("a")
+      .setBibframeTag("rdf:value")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("M");
+
+    getSubfield("q")
+      .setBibframeTag("qualifier");
+
+    getSubfield("z")
+      .setMqTag("canceled")
+      .setLevels("A");
+
+    getSubfield("2")
+      .setBibframeTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("q").setBibframeTag("qualifier");
-    getSubfield("z").setMqTag("canceled");
-    getSubfield("2").setBibframeTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

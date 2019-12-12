@@ -58,19 +58,39 @@ public class Tag040 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("catalogingAgency")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("b").setMqTag("languageOfCataloging")
-      .setFrbrFunctions(ManagementProcess);
-    getSubfield("c").setMqTag("transcribingAgency")
-      .setFrbrFunctions(ManagementProcess);
-    getSubfield("d").setMqTag("modifyingAgency")
-      .setFrbrFunctions(ManagementProcess);
-    getSubfield("e").setMqTag("descriptionConventions")
-      .setFrbrFunctions(ManagementProcess);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("catalogingAgency")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A", "A");
+
+    getSubfield("b")
+      .setMqTag("languageOfCataloging")
+      .setFrbrFunctions(ManagementProcess)
+      .setLevels("A", "A");
+
+    getSubfield("c")
+      .setMqTag("transcribingAgency")
+      .setFrbrFunctions(ManagementProcess)
+      .setLevels("M", "M");
+
+    getSubfield("d")
+      .setMqTag("modifyingAgency")
+      .setFrbrFunctions(ManagementProcess)
+      .setLevels("A", "A");
+
+    getSubfield("e")
+      .setMqTag("descriptionConventions")
+      .setFrbrFunctions(ManagementProcess)
+      .setLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A", "A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

@@ -52,18 +52,36 @@ public class Tag043 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("code")
+    getSubfield("a")
+      .setMqTag("code")
+      .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
+      .setLevels("M");
+
+    getSubfield("b")
+      .setMqTag("localGACcode")
+      .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
+      .setLevels("O");
+
+    getSubfield("c")
+      .setMqTag("ISOcode")
       .setFrbrFunctions(DiscoverySearch, DiscoverySelect);
-    getSubfield("b").setMqTag("localGACcode")
-      .setFrbrFunctions(DiscoverySearch, DiscoverySelect);
-    getSubfield("c").setMqTag("ISOcode")
-      .setFrbrFunctions(DiscoverySearch, DiscoverySelect);
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

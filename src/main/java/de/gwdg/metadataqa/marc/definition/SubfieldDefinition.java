@@ -32,6 +32,8 @@ public class SubfieldDefinition implements Serializable {
   private String codeForIndex = null;
   private List<ControlSubfieldDefinition> positions;
   private List<FRBRFunction> functions;
+  private RecordLevel nationalLevel;
+  private RecordLevel minimalLevel;
 
   public String getCodeForIndex() {
     if (codeForIndex == null) {
@@ -244,6 +246,46 @@ public class SubfieldDefinition implements Serializable {
     return positions != null;
   }
 
+  public SubfieldDefinition setLevels(String national) {
+    setNationalLevel(national);
+    return this;
+  }
+
+  public SubfieldDefinition setLevels(String national, String minimal) {
+    setNationalLevel(national);
+    setMinimalLevel(minimal);
+    return this;
+  }
+
+  public RecordLevel getNationalLevel() {
+    return nationalLevel;
+  }
+
+  public SubfieldDefinition setNationalLevel(RecordLevel nationalLevel) {
+    this.nationalLevel = nationalLevel;
+    return this;
+  }
+
+  public SubfieldDefinition setNationalLevel(String level) {
+    if (StringUtils.isNotBlank(level))
+      this.nationalLevel = RecordLevel.byAbbreviation(level);
+    return this;
+  }
+
+  public RecordLevel getMinimalLevel() {
+    return minimalLevel;
+  }
+
+  public SubfieldDefinition setMinimalLevel(String level) {
+    if (StringUtils.isNotBlank(level))
+      this.minimalLevel = RecordLevel.byAbbreviation(level);
+    return this;
+  }
+
+  public SubfieldDefinition setMinimalLevel(RecordLevel minimalLevel) {
+    this.minimalLevel = minimalLevel;
+    return this;
+  }
 
   @Override
   public String toString() {

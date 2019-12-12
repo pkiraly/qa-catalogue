@@ -46,12 +46,20 @@ public class Tag263 extends DataFieldDefinition {
 
     // TODO $a - regex: yyyymm and '-' for the unknown portion of the date.
 
-    getSubfield("a").setBibframeTag("projectedProvisionDate")
+    getSubfield("a")
+      .setBibframeTag("projectedProvisionDate")
       .setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoverySelect, DiscoveryObtain);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setFrbrFunctions(DiscoverySelect, DiscoveryObtain)
+      .setLevels("M");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

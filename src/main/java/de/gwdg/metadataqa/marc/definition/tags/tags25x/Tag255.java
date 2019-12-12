@@ -48,22 +48,48 @@ public class Tag255 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("scale")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseInterpret);
-    getSubfield("b").setBibframeTag("projection")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseInterpret);
-    getSubfield("c").setBibframeTag("coordinates")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect);
-    getSubfield("d").setBibframeTag("ascensionAndDeclination")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect);
-    getSubfield("e").setBibframeTag("equinox")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect);
-    getSubfield("f").setBibframeTag("outerGRing");
-    getSubfield("g").setBibframeTag("exclusionGRing")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("scale")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseInterpret)
+      .setLevels("M", "M");
+
+    getSubfield("b")
+      .setBibframeTag("projection")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseInterpret)
+      .setLevels("A", "A");
+
+    getSubfield("c")
+      .setBibframeTag("coordinates")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect)
+      .setLevels("A", "A");
+
+    getSubfield("d")
+      .setBibframeTag("ascensionAndDeclination")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect)
+      .setLevels("A");
+
+    getSubfield("e")
+      .setBibframeTag("equinox")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect)
+      .setLevels("A");
+
+    getSubfield("f")
+      .setBibframeTag("outerGRing")
+      .setLevels("A");
+
+    getSubfield("g")
+      .setBibframeTag("exclusionGRing")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect)
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A", "A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

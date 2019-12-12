@@ -76,39 +76,91 @@ public class Tag110 extends DataFieldDefinition {
     getSubfield("0").setContentParser(RecordControlNumberParser.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("b").setMqTag("subordinateUnit")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("c").setMqTag("locationOfMeeting")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("d").setMqTag("dates")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("e").setMqTag("relatorTerm")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("f").setMqTag("dateOfAWork")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("g").setMqTag("miscellaneous");
-    getSubfield("k").setMqTag("formSubheading")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("l").setMqTag("language")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("n").setMqTag("numberOfPart")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("p").setMqTag("nameOfPart")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("t").setMqTag("titleOfAWork")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("u").setMqTag("affiliation")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("2").setMqTag("source");
-    getSubfield("4").setMqTag("relatorCode")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("6").setMqTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setLevels("M", "M");
+
+    getSubfield("b")
+      .setMqTag("subordinateUnit")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setLevels("A", "A");
+
+    getSubfield("c")
+      .setMqTag("locationOfMeeting")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setLevels("A", "A");
+
+    getSubfield("d")
+      .setMqTag("dates")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setLevels("A", "A");
+
+    getSubfield("e")
+      .setMqTag("relatorTerm")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("O");
+
+    getSubfield("f")
+      .setMqTag("dateOfAWork")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setLevels("A");
+
+    getSubfield("g")
+      .setMqTag("miscellaneous")
+      .setLevels("A", "A");
+
+    getSubfield("k")
+      .setMqTag("formSubheading")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setLevels("A", "A");
+
+    getSubfield("l")
+      .setMqTag("language")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setLevels("A");
+
+    getSubfield("n")
+      .setMqTag("numberOfPart")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setLevels("A", "A");
+
+    getSubfield("p")
+      .setMqTag("nameOfPart")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setLevels("A");
+
+    getSubfield("t")
+      .setMqTag("titleOfAWork")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setLevels("A");
+
+    getSubfield("u")
+      .setMqTag("affiliation")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("O");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setLevels("O");
+
+    getSubfield("2")
+      .setMqTag("source");
+
+    getSubfield("4")
+      .setMqTag("relatorCode")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("O", "A");
+
+    getSubfield("6")
+      .setMqTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A", "A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
 
     sourceSpecificationType = SourceSpecificationType.Subfield2;
   }

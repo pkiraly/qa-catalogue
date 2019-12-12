@@ -63,20 +63,43 @@ public class Tag022 extends DataFieldDefinition {
     getSubfield("a").setValidator(ISSNValidator.getInstance());
 
 
-    getSubfield("a").setBibframeTag("rdf:value")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("l").setBibframeTag("issnL");
-    getSubfield("m").setMqTag("canceledIssnL");
-    getSubfield("y").setMqTag("incorrect")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("z").setMqTag("canceled")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(DiscoveryIdentify, ManagementIdentify, ManagementProcess);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("rdf:value")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A", "A");
+
+    getSubfield("l")
+      .setBibframeTag("issnL")
+      .setLevels("A", "A");
+
+    getSubfield("m")
+      .setMqTag("canceledIssnL")
+      .setLevels("A", "A");
+
+    getSubfield("y")
+      .setMqTag("incorrect")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setLevels("A", "A");
+
+    getSubfield("z")
+      .setMqTag("canceled")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A", "A");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setFrbrFunctions(DiscoveryIdentify, ManagementIdentify, ManagementProcess)
+      .setLevels("A", "A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A", "A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
 
     setHistoricalSubfields(
       "b", "Form of issue [OBSOLETE] [CAN/MARC only]",

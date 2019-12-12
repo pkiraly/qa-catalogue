@@ -57,16 +57,39 @@ public class Tag013 extends DataFieldDefinition {
     getSubfield("d").setContentParser(YYYYMMDDDateParser.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("number")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("b").setMqTag("country")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("c").setMqTag("type")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("d").setMqTag("date");
-    getSubfield("e").setMqTag("status");
-    getSubfield("f").setMqTag("partyToDocument");
-    getSubfield("6").setBibframeTag("linkage");
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a")
+      .setMqTag("number")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("b")
+      .setMqTag("country")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("c")
+      .setMqTag("type")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("d")
+      .setMqTag("date")
+      .setLevels("O");
+
+    getSubfield("e")
+      .setMqTag("status")
+      .setLevels("O");
+
+    getSubfield("f")
+      .setMqTag("partyToDocument")
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setLevels("O");
   }
 }

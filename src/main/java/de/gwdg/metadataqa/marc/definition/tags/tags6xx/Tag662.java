@@ -100,7 +100,7 @@ public class Tag662 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
       .setLevels("A");
 
-    getSubfield("O")
+    getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
       .setLevels("O");
 

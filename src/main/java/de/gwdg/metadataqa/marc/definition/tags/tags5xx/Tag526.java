@@ -61,22 +61,51 @@ public class Tag526 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("studyProgramName")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect);
-    getSubfield("b").setBibframeTag("interestLevel")
-      .setFrbrFunctions(DiscoverySelect);
-    getSubfield("c").setBibframeTag("readingLevel")
-      .setFrbrFunctions(DiscoverySelect);
-    getSubfield("d").setBibframeTag("titlePoint")
-      .setFrbrFunctions(DiscoverySelect);
-    getSubfield("i").setBibframeTag("displayText");
-    getSubfield("x").setBibframeTag("nonpublicNote");
-    getSubfield("z").setBibframeTag("publicNote");
-    getSubfield("5").setMqTag("institutionToWhichFieldApplies")
-      .setFrbrFunctions(ManagementProcess, ManagementDisplay);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("studyProgramName")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect)
+      .setLevels("M");
+
+    getSubfield("b")
+      .setBibframeTag("interestLevel")
+      .setFrbrFunctions(DiscoverySelect)
+      .setLevels("A");
+
+    getSubfield("c")
+      .setBibframeTag("readingLevel")
+      .setFrbrFunctions(DiscoverySelect)
+      .setLevels("A");
+
+    getSubfield("d")
+      .setBibframeTag("titlePoint")
+      .setFrbrFunctions(DiscoverySelect)
+      .setLevels("A");
+
+    getSubfield("i")
+      .setBibframeTag("displayText")
+      .setLevels("O");
+
+    getSubfield("x")
+      .setBibframeTag("nonpublicNote")
+      .setLevels("O");
+
+    getSubfield("z")
+      .setBibframeTag("publicNote")
+      .setLevels("O");
+
+    getSubfield("5")
+      .setMqTag("institutionToWhichFieldApplies")
+      .setFrbrFunctions(ManagementProcess, ManagementDisplay)
+      .setLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

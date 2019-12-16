@@ -49,22 +49,45 @@ public class Tag530 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("b").setMqTag("source")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("c").setMqTag("conditions")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("d").setMqTag("orderNumber")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("u").setMqTag("uri")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("3").setMqTag("materialsSpecified")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("M");
+
+    getSubfield("b")
+      .setMqTag("source")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("c")
+      .setMqTag("conditions")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("d")
+      .setMqTag("orderNumber")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("u")
+      .setMqTag("uri")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("O");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
 
     setHistoricalSubfields(
       "z", "Source of note information (AM, CF, VM, SE) [OBSOLETE, 1990]"

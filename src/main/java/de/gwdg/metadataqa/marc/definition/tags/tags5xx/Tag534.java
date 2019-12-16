@@ -68,34 +68,84 @@ public class Tag534 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("mainEntry");
-    getSubfield("b").setMqTag("edition")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("c").setMqTag("publication")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("e").setMqTag("physicalDescription")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("f").setMqTag("series")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("k").setMqTag("keyTitle")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("l").setMqTag("location")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("m").setMqTag("material");
-    getSubfield("n").setMqTag("note");
-    getSubfield("o").setMqTag("otherIdentifier");
-    getSubfield("p").setMqTag("introductoryPhrase")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("t").setMqTag("title")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("x").setMqTag("issn")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("z").setMqTag("isbn")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("3").setMqTag("materialsSpecified");
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("mainEntry")
+      .setLevels("A");
+
+    getSubfield("b")
+      .setMqTag("edition")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("c")
+      .setMqTag("publication")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("e")
+      .setMqTag("physicalDescription")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("O");
+
+    getSubfield("f")
+      .setMqTag("series")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("k")
+      .setMqTag("keyTitle")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("A");
+
+    getSubfield("l")
+      .setMqTag("location")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("O");
+
+    getSubfield("m")
+      .setMqTag("material")
+      .setLevels("A");
+
+    getSubfield("n")
+      .setMqTag("note")
+      .setLevels("O");
+
+    getSubfield("o")
+      .setMqTag("otherIdentifier")
+      .setLevels("O");
+
+    getSubfield("p")
+      .setMqTag("introductoryPhrase")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("M");
+
+    getSubfield("t")
+      .setMqTag("title")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("x")
+      .setMqTag("issn")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("A");
+
+    getSubfield("z")
+      .setMqTag("isbn")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("O");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

@@ -42,10 +42,15 @@ public class Tag850 extends DataFieldDefinition {
 
     getSubfield("a").setCodeList(OrganizationCodes.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("M");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
 
     setHistoricalSubfields(
       "b", "Holdings (MU, VM, SE) [OBSOLETE, 1990]",

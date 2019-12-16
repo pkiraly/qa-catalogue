@@ -56,14 +56,37 @@ public class Tag751 extends DataFieldDefinition {
     getSubfield("0").setContentParser(RecordControlNumberParser.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value");
-    getSubfield("e").setMqTag("relator");
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("2").setMqTag("source");
-    getSubfield("3").setMqTag("materialsSpecified");
-    getSubfield("4").setMqTag("relationship");
-    getSubfield("6").setBibframeTag("linkage");
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setLevels("M");
+
+    getSubfield("e")
+      .setMqTag("relator")
+      .setLevels("A");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setLevels("O");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setLevels("O");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setLevels("O");
+
+    getSubfield("4")
+      .setMqTag("relationship")
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setLevels("O");
 
     sourceSpecificationType = SourceSpecificationType.Subfield2;
   }

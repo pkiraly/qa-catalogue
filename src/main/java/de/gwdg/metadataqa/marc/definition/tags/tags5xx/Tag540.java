@@ -57,27 +57,61 @@ public class Tag540 extends DataFieldDefinition {
     getSubfield("2").setCodeList(AccessRestrictionTermSourceCodes.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value")
-      .setFrbrFunctions(UseRestrict);
-    getSubfield("b").setMqTag("jurisdiction")
-      .setFrbrFunctions(UseRestrict);
-    getSubfield("c").setBibframeTag("source")
-      .setFrbrFunctions(UseRestrict);
-    getSubfield("d").setMqTag("authorizedUsers")
-      .setFrbrFunctions(UseRestrict);
-    getSubfield("f").setMqTag("rights");
-    getSubfield("g").setMqTag("availabilityDate");
-    getSubfield("q").setMqTag("supplyingAgency");
-    getSubfield("u").setBibframeTag("rdfs:label").setMqTag("uri")
-      .setFrbrFunctions(DiscoverySelect);
-    getSubfield("2").setMqTag("source");
-    getSubfield("3").setMqTag("materialsSpecified")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("5").setMqTag("institutionToWhichFieldApplies")
-      .setFrbrFunctions(ManagementProcess, ManagementDisplay);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("rdfs:label").setMqTag("rdf:value")
+      .setFrbrFunctions(UseRestrict)
+      .setLevels("M");
+
+    getSubfield("b")
+      .setMqTag("jurisdiction")
+      .setFrbrFunctions(UseRestrict)
+      .setLevels("A");
+
+    getSubfield("c")
+      .setBibframeTag("source")
+      .setFrbrFunctions(UseRestrict)
+      .setLevels("A");
+
+    getSubfield("d")
+      .setMqTag("authorizedUsers")
+      .setFrbrFunctions(UseRestrict)
+      .setLevels("A");
+
+    getSubfield("f")
+      .setMqTag("rights");
+
+    getSubfield("g")
+      .setMqTag("availabilityDate");
+
+    getSubfield("q")
+      .setMqTag("supplyingAgency");
+
+    getSubfield("u")
+      .setBibframeTag("rdfs:label").setMqTag("uri")
+      .setFrbrFunctions(DiscoverySelect)
+      .setLevels("O");
+
+    getSubfield("2")
+      .setMqTag("source");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("O");
+
+    getSubfield("5")
+      .setMqTag("institutionToWhichFieldApplies")
+      .setFrbrFunctions(ManagementProcess, ManagementDisplay)
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

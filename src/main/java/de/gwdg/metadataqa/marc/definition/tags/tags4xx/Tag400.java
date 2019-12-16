@@ -75,23 +75,58 @@ public class Tag400 extends DataFieldDefinition {
     getSubfield("6").setContentParser(LinkageParser.getInstance());
     getSubfield("x").setValidator(ISSNValidator.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value");
-    getSubfield("b").setMqTag("numeration");
-    getSubfield("c").setMqTag("titles");
-    getSubfield("d").setMqTag("dates");
-    getSubfield("e").setMqTag("relator");
-    getSubfield("f").setMqTag("dateOfAWork");
-    getSubfield("g").setMqTag("miscellaneous");
-    getSubfield("k").setMqTag("formSubheading");
-    getSubfield("l").setMqTag("languageOfAWork");
-    getSubfield("n").setMqTag("numberOfPart");
-    getSubfield("p").setMqTag("nameOfPart");
-    getSubfield("t").setMqTag("title");
-    getSubfield("u").setMqTag("affiliation");
-    getSubfield("v").setMqTag("volume");
-    getSubfield("x").setMqTag("issn");
-    getSubfield("4").setMqTag("relationship");
-    getSubfield("6").setBibframeTag("linkage");
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a")
+      .setMqTag("rdf:value");
+
+    getSubfield("b")
+      .setMqTag("numeration");
+
+    getSubfield("c")
+      .setMqTag("titles");
+
+    getSubfield("d")
+      .setMqTag("dates");
+
+    getSubfield("e")
+      .setMqTag("relator");
+
+    getSubfield("f")
+      .setMqTag("dateOfAWork");
+
+    getSubfield("g")
+      .setMqTag("miscellaneous");
+
+    getSubfield("k")
+      .setMqTag("formSubheading");
+
+    getSubfield("l")
+      .setMqTag("languageOfAWork");
+
+    getSubfield("n")
+      .setMqTag("numberOfPart");
+
+    getSubfield("p")
+      .setMqTag("nameOfPart");
+
+    getSubfield("t")
+      .setMqTag("title");
+
+    getSubfield("u")
+      .setMqTag("affiliation");
+
+    getSubfield("v")
+      .setMqTag("volume");
+
+    getSubfield("x")
+      .setMqTag("issn");
+
+    getSubfield("4")
+      .setMqTag("relationship");
+
+    getSubfield("6")
+      .setBibframeTag("linkage");
+
+    getSubfield("8")
+      .setMqTag("fieldLink");
   }
 }

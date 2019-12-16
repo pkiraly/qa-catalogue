@@ -37,6 +37,7 @@ public class Tag591 extends DataFieldDefinition {
       "a", "Fussnote", "R"
     );
 
-    getSubfield("a").setMqTag("rdf:value");
+    getSubfield("a")
+      .setMqTag("rdf:value");
   }
 }

@@ -70,28 +70,96 @@ public class Tag542 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("personalCreator");
-    getSubfield("b").setMqTag("personalCreatorDeathDate");
-    getSubfield("c").setMqTag("corporateCreator");
-    getSubfield("d").setMqTag("copyrightHolder");
-    getSubfield("e").setMqTag("copyrightHolderContact");
-    getSubfield("f").setMqTag("copyrightStatement");
-    getSubfield("g").setMqTag("copyrightDate");
-    getSubfield("h").setMqTag("copyrightRenewalDate");
-    getSubfield("i").setMqTag("publicationDate");
-    getSubfield("j").setMqTag("creationDate");
-    getSubfield("k").setMqTag("publisher");
-    getSubfield("l").setMqTag("copyrightStatus");
-    getSubfield("m").setMqTag("publicationStatus");
-    getSubfield("n").setMqTag("note");
-    getSubfield("o").setMqTag("researchDate");
-    getSubfield("p").setMqTag("country");
-    getSubfield("q").setMqTag("supplyingAgency");
-    getSubfield("r").setMqTag("jurisdiction");
-    getSubfield("s").setMqTag("source");
-    getSubfield("u").setMqTag("uri");
-    getSubfield("3").setMqTag("materialsSpecified");
-    getSubfield("6").setBibframeTag("linkage");
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a")
+      .setMqTag("personalCreator")
+      .setLevels("O");
+
+    getSubfield("b")
+      .setMqTag("personalCreatorDeathDate")
+      .setLevels("O");
+
+    getSubfield("c")
+      .setMqTag("corporateCreator")
+      .setLevels("O");
+
+    getSubfield("d")
+      .setMqTag("copyrightHolder")
+      .setLevels("A");
+
+    getSubfield("e")
+      .setMqTag("copyrightHolderContact")
+      .setLevels("O");
+
+    getSubfield("f")
+      .setMqTag("copyrightStatement")
+      .setLevels("A");
+
+    getSubfield("g")
+      .setMqTag("copyrightDate")
+      .setLevels("A");
+
+    getSubfield("h")
+      .setMqTag("copyrightRenewalDate")
+      .setLevels("A");
+
+    getSubfield("i")
+      .setMqTag("publicationDate")
+      .setLevels("O");
+
+    getSubfield("j")
+      .setMqTag("creationDate")
+      .setLevels("O");
+
+    getSubfield("k")
+      .setMqTag("publisher")
+      .setLevels("O");
+
+    getSubfield("l")
+      .setMqTag("copyrightStatus")
+      .setLevels("O");
+
+    getSubfield("m")
+      .setMqTag("publicationStatus")
+      .setLevels("A");
+
+    getSubfield("n")
+      .setMqTag("note")
+      .setLevels("O");
+
+    getSubfield("o")
+      .setMqTag("researchDate")
+      .setLevels("O");
+
+    getSubfield("p")
+      .setMqTag("country")
+      .setLevels("A");
+
+    getSubfield("q")
+      .setMqTag("supplyingAgency")
+      .setLevels("O");
+
+    getSubfield("r")
+      .setMqTag("jurisdiction")
+      .setLevels("A");
+
+    getSubfield("s")
+      .setMqTag("source")
+      .setLevels("O");
+
+    getSubfield("u")
+      .setMqTag("uri")
+      .setLevels("O");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setLevels("O");
   }
 }

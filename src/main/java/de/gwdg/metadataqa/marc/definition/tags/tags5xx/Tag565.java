@@ -57,21 +57,44 @@ public class Tag565 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("numberOfCases")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("b").setMqTag("variableName")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("c").setMqTag("analysisUnit")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("d").setMqTag("universeOfData")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("e").setMqTag("filingScheme")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("3").setMqTag("materialsSpecified")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("numberOfCases")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("M");
+
+    getSubfield("b")
+      .setMqTag("variableName")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("c")
+      .setMqTag("analysisUnit")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("d")
+      .setMqTag("universeOfData")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("O");
+
+    getSubfield("e")
+      .setMqTag("filingScheme")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("O");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

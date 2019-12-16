@@ -45,5 +45,25 @@ public class Tag882 extends DataFieldDefinition {
     getSubfield("w").setCodeList(OrganizationCodes.getInstance());
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
+
+    getSubfield("a")
+      .setMqTag("replacementTitle")
+      .setLevels("M");
+
+    getSubfield("i")
+      .setMqTag("explanatoryText")
+      .setLevels("O");
+
+    getSubfield("w")
+      .setMqTag("controlNumber")
+      .setLevels("A");
+
+    getSubfield("6")
+      .setMqTag("linkage")
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setLevels("O");
   }
 }

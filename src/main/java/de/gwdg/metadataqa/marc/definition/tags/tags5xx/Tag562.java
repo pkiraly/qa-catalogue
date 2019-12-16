@@ -50,22 +50,48 @@ public class Tag562 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("identifyingMarkings")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("b").setMqTag("copyIdentification")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("c").setMqTag("versionIdentification")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("d").setMqTag("presentationFormat")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect);
-    getSubfield("e").setMqTag("numberOfCopies");
-    getSubfield("3").setMqTag("materialsSpecified")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("5").setMqTag("institutionToWhichFieldApplies")
-      .setFrbrFunctions(ManagementProcess, ManagementDisplay);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("identifyingMarkings")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("A");
+
+    getSubfield("b")
+      .setMqTag("copyIdentification")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("A");
+
+    getSubfield("c")
+      .setMqTag("versionIdentification")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("A");
+
+    getSubfield("d")
+      .setMqTag("presentationFormat")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect)
+      .setLevels("A");
+
+    getSubfield("e")
+      .setMqTag("numberOfCopies")
+      .setLevels("A");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("O");
+
+    getSubfield("5")
+      .setMqTag("institutionToWhichFieldApplies")
+      .setFrbrFunctions(ManagementProcess, ManagementDisplay)
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

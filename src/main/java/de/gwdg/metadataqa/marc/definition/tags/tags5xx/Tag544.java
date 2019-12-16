@@ -56,22 +56,48 @@ public class Tag544 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("custodian")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("b").setMqTag("address")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("c").setMqTag("country")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("d").setMqTag("title")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("e").setMqTag("provenance")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("n").setMqTag("note");
-    getSubfield("3").setMqTag("materialsSpecified")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("custodian")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("M");
+
+    getSubfield("b")
+      .setMqTag("address")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("c")
+      .setMqTag("country")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("O");
+
+    getSubfield("d")
+      .setMqTag("title")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("e")
+      .setMqTag("provenance")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("O");
+
+    getSubfield("n")
+      .setMqTag("note")
+      .setLevels("O");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

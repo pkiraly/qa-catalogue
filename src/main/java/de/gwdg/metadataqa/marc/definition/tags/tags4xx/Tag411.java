@@ -74,23 +74,58 @@ public class Tag411 extends DataFieldDefinition {
     getSubfield("6").setContentParser(LinkageParser.getInstance());
     getSubfield("x").setValidator(ISSNValidator.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value");
-    getSubfield("c").setMqTag("locationOfMeeting");
-    getSubfield("d").setMqTag("date");
-    getSubfield("e").setMqTag("subordinateUnit");
-    getSubfield("f").setMqTag("dateOfAWork");
-    getSubfield("g").setMqTag("miscellaneous");
-    getSubfield("k").setMqTag("formSubheading");
-    getSubfield("l").setMqTag("languageOfAWork");
-    getSubfield("n").setMqTag("numberOfPart");
-    getSubfield("p").setMqTag("nameOfPart");
-    getSubfield("q").setMqTag("nameOfMeeting");
-    getSubfield("t").setMqTag("title");
-    getSubfield("u").setMqTag("affiliation");
-    getSubfield("v").setMqTag("volume");
-    getSubfield("x").setMqTag("issn");
-    getSubfield("4").setMqTag("relationship");
-    getSubfield("6").setBibframeTag("linkage");
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a")
+      .setMqTag("rdf:value");
+
+    getSubfield("c")
+      .setMqTag("locationOfMeeting");
+
+    getSubfield("d")
+      .setMqTag("date");
+
+    getSubfield("e")
+      .setMqTag("subordinateUnit");
+
+    getSubfield("f")
+      .setMqTag("dateOfAWork");
+
+    getSubfield("g")
+      .setMqTag("miscellaneous");
+
+    getSubfield("k")
+      .setMqTag("formSubheading");
+
+    getSubfield("l")
+      .setMqTag("languageOfAWork");
+
+    getSubfield("n")
+      .setMqTag("numberOfPart");
+
+    getSubfield("p")
+      .setMqTag("nameOfPart");
+
+    getSubfield("q")
+      .setMqTag("nameOfMeeting");
+
+    getSubfield("t")
+      .setMqTag("title");
+
+    getSubfield("u")
+      .setMqTag("affiliation");
+
+    getSubfield("v")
+      .setMqTag("volume");
+
+    getSubfield("x")
+      .setMqTag("issn");
+
+    getSubfield("4")
+      .setMqTag("relationship");
+
+    getSubfield("6")
+      .setBibframeTag("linkage");
+
+    getSubfield("8")
+      .setMqTag("fieldLink");
   }
 }

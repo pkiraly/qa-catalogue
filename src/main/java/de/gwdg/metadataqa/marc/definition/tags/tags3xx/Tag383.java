@@ -47,5 +47,37 @@ public class Tag383 extends DataFieldDefinition {
     getSubfield("2").setCodeList(ThematicIndexCodeSourceCodes.getInstance());
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
+
+    // TODO: set Bibframe tag
+
+    getSubfield("a")
+      .setMqTag("serialNumber")
+      .setLevels("A");
+
+    getSubfield("b")
+      .setMqTag("opusNumber")
+      .setLevels("M");
+
+    getSubfield("c")
+      .setMqTag("thematicIndexNumber")
+      .setLevels("A");
+
+    getSubfield("d")
+      .setMqTag("thematicIndexCode");
+
+    getSubfield("e")
+      .setMqTag("publisher");
+
+    getSubfield("2")
+      .setMqTag("source");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setLevels("O");
+
   }
 }

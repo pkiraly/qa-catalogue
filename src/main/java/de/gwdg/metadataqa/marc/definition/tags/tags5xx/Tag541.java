@@ -61,31 +61,69 @@ public class Tag541 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value")
-      .setFrbrFunctions(UseManage);
-    getSubfield("b").setMqTag("address")
-      .setFrbrFunctions(UseManage);
-    getSubfield("c").setMqTag("method")
-      .setFrbrFunctions(UseManage);
-    getSubfield("d").setMqTag("date")
-      .setFrbrFunctions(UseManage);
-    getSubfield("e").setMqTag("accessionNumber")
-      .setFrbrFunctions(DiscoveryIdentify, UseManage);
-    getSubfield("f").setMqTag("owner")
-      .setFrbrFunctions(UseManage);
-    getSubfield("h").setMqTag("price")
-      .setFrbrFunctions(UseManage);
-    getSubfield("n").setMqTag("extent")
-      .setFrbrFunctions(UseManage);
-    getSubfield("o").setMqTag("typeOfUnit")
-      .setFrbrFunctions(UseManage);
-    getSubfield("3").setMqTag("materialsSpecified")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("5").setMqTag("institutionToWhichFieldApplies")
-      .setFrbrFunctions(ManagementProcess, ManagementDisplay);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("rdfs:label").setMqTag("rdf:value")
+      .setFrbrFunctions(UseManage)
+      .setLevels("A");
+
+    getSubfield("b")
+      .setMqTag("address")
+      .setFrbrFunctions(UseManage)
+      .setLevels("A");
+
+    getSubfield("c")
+      .setMqTag("method")
+      .setFrbrFunctions(UseManage)
+      .setLevels("A");
+
+    getSubfield("d")
+      .setMqTag("date")
+      .setFrbrFunctions(UseManage)
+      .setLevels("A");
+
+    getSubfield("e")
+      .setMqTag("accessionNumber")
+      .setFrbrFunctions(DiscoveryIdentify, UseManage)
+      .setLevels("A");
+
+    getSubfield("f")
+      .setMqTag("owner")
+      .setFrbrFunctions(UseManage)
+      .setLevels("A");
+
+    getSubfield("h")
+      .setMqTag("price")
+      .setFrbrFunctions(UseManage)
+      .setLevels("O");
+
+    getSubfield("n")
+      .setMqTag("extent")
+      .setFrbrFunctions(UseManage)
+      .setLevels("A");
+
+    getSubfield("o")
+      .setMqTag("typeOfUnit")
+      .setFrbrFunctions(UseManage)
+      .setLevels("A");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("O");
+
+    getSubfield("5")
+      .setMqTag("institutionToWhichFieldApplies")
+      .setFrbrFunctions(ManagementProcess, ManagementDisplay)
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

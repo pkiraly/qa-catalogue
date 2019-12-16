@@ -37,6 +37,7 @@ public class Tag259 extends DataFieldDefinition {
       "a", "Ausgabebezeichnung in normierter Form", "R"
     );
 
-    getSubfield("a").setMqTag("rdf:value");
+    getSubfield("a")
+      .setMqTag("rdf:value");
   }
 }

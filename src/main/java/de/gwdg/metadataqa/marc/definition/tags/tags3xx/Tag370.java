@@ -56,19 +56,46 @@ public class Tag370 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("c").setMqTag("country");
-    getSubfield("f").setMqTag("otherPlace");
-    getSubfield("g").setMqTag("placeOfOrigin");
-    getSubfield("i").setMqTag("relationship");
-    getSubfield("s").setMqTag("startPeriod");
-    getSubfield("t").setMqTag("endPeriod");
-    getSubfield("u").setMqTag("uri");
-    getSubfield("v").setMqTag("sourceOfInformation");
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("2").setMqTag("source");
-    getSubfield("3").setMqTag("materialsSpecified");
-    getSubfield("4").setMqTag("relationship");
-    getSubfield("6").setBibframeTag("linkage");
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("c")
+      .setMqTag("country");
+
+    getSubfield("f")
+      .setMqTag("otherPlace");
+
+    getSubfield("g")
+      .setMqTag("placeOfOrigin");
+
+    getSubfield("i")
+      .setMqTag("relationship");
+
+    getSubfield("s")
+      .setMqTag("startPeriod");
+
+    getSubfield("t")
+      .setMqTag("endPeriod");
+
+    getSubfield("u")
+      .setMqTag("uri");
+
+    getSubfield("v")
+      .setMqTag("sourceOfInformation");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber");
+
+    getSubfield("2")
+      .setMqTag("source");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified");
+
+    getSubfield("4")
+      .setMqTag("relationship");
+
+    getSubfield("6")
+      .setBibframeTag("linkage");
+
+    getSubfield("8")
+      .setMqTag("fieldLink");
   }
 }

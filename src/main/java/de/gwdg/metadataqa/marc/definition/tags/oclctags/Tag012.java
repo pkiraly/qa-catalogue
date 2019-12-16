@@ -55,19 +55,46 @@ public class Tag012 extends DataFieldDefinition {
       "z", "Record status overrider", "NR"
     );
 
-    getSubfield("a").setMqTag("priorityByte");
-    getSubfield("b").setMqTag("nonPermanentDistribution");
-    getSubfield("c").setMqTag("change");
-    getSubfield("d").setMqTag("permanentDistribution");
-    getSubfield("e").setMqTag("lcProjects");
-    getSubfield("f").setMqTag("ocatCertification");
-    getSubfield("g").setMqTag("typeOfCatalogingCode");
-    getSubfield("h").setMqTag("nonEstablishedNameIndicator");
-    getSubfield("i").setMqTag("nstPublicationDateCode");
-    getSubfield("j").setMqTag("issnDistribution");
-    getSubfield("k").setMqTag("issnOnPublication");
-    getSubfield("l").setMqTag("communicationWithPublisher");
-    getSubfield("m").setMqTag("communicationWithUSPS");
-    getSubfield("z").setMqTag("recordStatusOverrider");
+    getSubfield("a")
+      .setMqTag("priorityByte");
+
+    getSubfield("b")
+      .setMqTag("nonPermanentDistribution");
+
+    getSubfield("c")
+      .setMqTag("change");
+
+    getSubfield("d")
+      .setMqTag("permanentDistribution");
+
+    getSubfield("e")
+      .setMqTag("lcProjects");
+
+    getSubfield("f")
+      .setMqTag("ocatCertification");
+
+    getSubfield("g")
+      .setMqTag("typeOfCatalogingCode");
+
+    getSubfield("h")
+      .setMqTag("nonEstablishedNameIndicator");
+
+    getSubfield("i")
+      .setMqTag("nstPublicationDateCode");
+
+    getSubfield("j")
+      .setMqTag("issnDistribution");
+
+    getSubfield("k")
+      .setMqTag("issnOnPublication");
+
+    getSubfield("l")
+      .setMqTag("communicationWithPublisher");
+
+    getSubfield("m")
+      .setMqTag("communicationWithUSPS");
+
+    getSubfield("z")
+      .setMqTag("recordStatusOverrider");
   }
 }

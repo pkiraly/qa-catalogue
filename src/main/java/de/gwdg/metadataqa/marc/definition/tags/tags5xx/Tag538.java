@@ -48,18 +48,38 @@ public class Tag538 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoverySelect, UseOperate);
-    getSubfield("i").setMqTag("displayText")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
-    getSubfield("u").setBibframeTag("rdfs:label").setMqTag("uri")
-      .setFrbrFunctions(DiscoveryIdentify, ManagementIdentify);
-    getSubfield("3").setMqTag("materialsSpecified")
-      .setFrbrFunctions(DiscoveryIdentify, ManagementIdentify, ManagementProcess);
-    getSubfield("5").setMqTag("institutionToWhichFieldApplies");
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("rdfs:label").setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoverySelect, UseOperate)
+      .setLevels("M");
+
+    getSubfield("i")
+      .setMqTag("displayText")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, ManagementIdentify)
+      .setLevels("A");
+
+    getSubfield("u")
+      .setBibframeTag("rdfs:label").setMqTag("uri")
+      .setFrbrFunctions(DiscoveryIdentify, ManagementIdentify)
+      .setLevels("A");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify, ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("5")
+      .setMqTag("institutionToWhichFieldApplies")
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

@@ -61,43 +61,103 @@ public class Tag552 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("entityType")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("b").setMqTag("entityTypeDefinition")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("c").setMqTag("attribute")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("d").setMqTag("attributeDefinition")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("e").setMqTag("enumeratedDomainValue")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("f").setMqTag("enumeratedDomainValueDefinition")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("g").setMqTag("range")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("h").setMqTag("codeset")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("i").setMqTag("unrepresentableDomain")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("j").setMqTag("attributeUnits")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("k").setMqTag("date")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("l").setMqTag("attributeValueAccuracy")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("m").setMqTag("attributeValueAccuracyExplanation")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("n").setMqTag("attributeMeasurementFrequency")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("o").setMqTag("overview")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("p").setMqTag("detailCitation")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("u").setMqTag("uri")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("entityType")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("b")
+      .setMqTag("entityTypeDefinition")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("c")
+      .setMqTag("attribute")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("d")
+      .setMqTag("attributeDefinition")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("e")
+      .setMqTag("enumeratedDomainValue")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("f")
+      .setMqTag("enumeratedDomainValueDefinition")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("g")
+      .setMqTag("range")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("h")
+      .setMqTag("codeset")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("i")
+      .setMqTag("unrepresentableDomain")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("j")
+      .setMqTag("attributeUnits")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("k")
+      .setMqTag("date")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("l")
+      .setMqTag("attributeValueAccuracy")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("m")
+      .setMqTag("attributeValueAccuracyExplanation")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("n")
+      .setMqTag("attributeMeasurementFrequency")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("o")
+      .setMqTag("overview")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("p")
+      .setMqTag("detailCitation")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("u")
+      .setMqTag("uri")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("O");
+
+    getSubfield("z")
+      .setMqTag("displayNote")
+      .setLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

@@ -64,26 +64,59 @@ public class Tag533 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("type")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("b").setMqTag("place")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("c").setMqTag("agency")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("d").setMqTag("date")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("e").setMqTag("physicalDescription")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("f").setMqTag("series")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("m").setMqTag("datesAndOrSequentialDesignation")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage);
-    getSubfield("n").setMqTag("note");
-    getSubfield("3").setMqTag("materialsSpecified")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("5").setMqTag("institutionToWhichFieldApplies");
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("type")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("M", "M");
+
+    getSubfield("b")
+      .setMqTag("place")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("M", "M");
+
+    getSubfield("c")
+      .setMqTag("agency")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("A", "A");
+
+    getSubfield("d")
+      .setMqTag("date")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("A", "A");
+
+    getSubfield("e")
+      .setMqTag("physicalDescription")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("A", "A");
+
+    getSubfield("f")
+      .setMqTag("series")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setLevels("A", "A");
+
+    getSubfield("m")
+      .setMqTag("datesAndOrSequentialDesignation")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage)
+      .setLevels("A", "A");
+
+    getSubfield("n")
+      .setMqTag("note")
+      .setLevels("O");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setLevels("O");
+
+    getSubfield("5")
+      .setMqTag("institutionToWhichFieldApplies")
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A", "A");
+
     /** TODO check FRBR functions for the subfields
      * 533$7/0:    [ManagementProcess]
      * 533$7/1-4:  [DiscoveryIdentify, DiscoverySelect, DiscoveryObtain]
@@ -93,8 +126,13 @@ public class Tag533 extends DataFieldDefinition {
      * 533$7/5-8:  [DiscoveryIdentify, DiscoverySelect, DiscoveryObtain]
      * 533$7/9-11: [DiscoveryIdentify, DiscoverySelect, DiscoveryObtain]
      */
-    getSubfield("7").setMqTag("controlSubfield");
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("7")
+      .setMqTag("controlSubfield")
+      .setLevels("O");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

@@ -50,11 +50,20 @@ public class Tag880 extends DataFieldDefinition {
     subfields = new ArrayList<>();
     subfields.add(new SubfieldDefinition("6", "Linkage", "NR"));
     for (char c = 'a'; c <= 'z'; c++)
-      subfields.add(new SubfieldDefinition(String.valueOf(c), "Same as associated field", "R"));
+      subfields.add(
+        new SubfieldDefinition(String.valueOf(c), "Same as associated field", "R")
+        .setLevels("M", "M")
+      );
     for (int c = 0; c <= 5; c++)
-      subfields.add(new SubfieldDefinition(String.valueOf(c), "Same as associated field", "R"));
+      subfields.add(
+        new SubfieldDefinition(String.valueOf(c), "Same as associated field", "R")
+        .setLevels("M", "M")
+      );
     for (int c = 7; c <= 9; c++)
-      subfields.add(new SubfieldDefinition(String.valueOf(c), "Same as associated field", "R"));
+      subfields.add(
+        new SubfieldDefinition(String.valueOf(c), "Same as associated field", "R")
+        .setLevels("M", "M")
+      );
     indexSubfields();
 
   }

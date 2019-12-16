@@ -51,18 +51,43 @@ public class Tag344 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("recordingMethod");
-    getSubfield("b").setBibframeTag("recordingMedium");
-    getSubfield("c").setBibframeTag("playingSpeed");
-    getSubfield("d").setBibframeTag("grooveCharacteristics");
-    getSubfield("e").setBibframeTag("trackConfig");
-    getSubfield("f").setBibframeTag("tapeConfig");
-    getSubfield("g").setBibframeTag("playbackChannels");
-    getSubfield("h").setBibframeTag("playbackCharacteristic");
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("2").setBibframeTag("source");
-    getSubfield("3").setMqTag("materialsSpecified");
-    getSubfield("6").setBibframeTag("linkage");
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a")
+      .setBibframeTag("recordingMethod");
+
+    getSubfield("b")
+      .setBibframeTag("recordingMedium");
+
+    getSubfield("c")
+      .setBibframeTag("playingSpeed");
+
+    getSubfield("d")
+      .setBibframeTag("grooveCharacteristics");
+
+    getSubfield("e")
+      .setBibframeTag("trackConfig");
+
+    getSubfield("f")
+      .setBibframeTag("tapeConfig");
+
+    getSubfield("g")
+      .setBibframeTag("playbackChannels");
+
+    getSubfield("h")
+      .setBibframeTag("playbackCharacteristic");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber");
+
+    getSubfield("2")
+      .setBibframeTag("source");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified");
+
+    getSubfield("6")
+      .setBibframeTag("linkage");
+
+    getSubfield("8")
+      .setMqTag("fieldLink");
   }
 }

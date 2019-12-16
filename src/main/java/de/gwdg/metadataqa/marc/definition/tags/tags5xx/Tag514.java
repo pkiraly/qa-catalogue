@@ -57,36 +57,83 @@ public class Tag514 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("accuracyReport")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("b").setMqTag("accuracyValue")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("c").setMqTag("accuracyExplanation")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("d").setMqTag("logicalConsistency")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("e").setMqTag("completeness")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("f").setMqTag("horizontalPositionAccuracyReport")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("g").setMqTag("horizontalPositionAccuracyValue")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("h").setMqTag("horizontalPositionAccuracyExplanation")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("i").setMqTag("verticalPositionalAccuracyReport")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("j").setMqTag("verticalPositionalAccuracyValue")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("k").setMqTag("verticalPositionalAccuracyExplanation")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("m").setMqTag("cloudCover")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("u").setMqTag("uri")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("z").setMqTag("display");
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("accuracyReport")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("b")
+      .setMqTag("accuracyValue")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("c")
+      .setMqTag("accuracyExplanation")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("d")
+      .setMqTag("logicalConsistency")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("e")
+      .setMqTag("completeness")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("f")
+      .setMqTag("horizontalPositionAccuracyReport")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("g")
+      .setMqTag("horizontalPositionAccuracyValue")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("h")
+      .setMqTag("horizontalPositionAccuracyExplanation")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("i")
+      .setMqTag("verticalPositionalAccuracyReport")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("j")
+      .setMqTag("verticalPositionalAccuracyValue")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("k")
+      .setMqTag("verticalPositionalAccuracyExplanation")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("m")
+      .setMqTag("cloudCover")
+      .setFrbrFunctions(UseInterpret)
+      .setLevels("A");
+
+    getSubfield("u")
+      .setMqTag("uri")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("O");
+
+    getSubfield("z")
+      .setMqTag("display")
+      .setLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

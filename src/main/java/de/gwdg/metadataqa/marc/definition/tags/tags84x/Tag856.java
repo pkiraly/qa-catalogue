@@ -101,55 +101,140 @@ public class Tag856 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("host")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("b").setMqTag("accessNumber")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("c").setMqTag("compression")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("d").setMqTag("path")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("f").setMqTag("name")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("h").setMqTag("processor");
-    getSubfield("i").setMqTag("instruction")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("j").setMqTag("bitsPerSecond")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("k").setMqTag("password")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("l").setMqTag("logon")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("m").setMqTag("contact")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("n").setMqTag("location")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("o").setMqTag("operatingSystem")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("p").setMqTag("port")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("q").setMqTag("format")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("r").setMqTag("settings")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("s").setMqTag("fileSize");
-    getSubfield("t").setMqTag("terminalEmulation")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("u").setMqTag("uri")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("v").setMqTag("hours")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("w").setMqTag("recordControlNumber");
-    getSubfield("x").setMqTag("nonpublicNote");
-    getSubfield("y").setMqTag("linkText");
-    getSubfield("z").setMqTag("publicNote");
-    getSubfield("2").setMqTag("accessMethod");
-    getSubfield("3").setMqTag("materialsSpecified");
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("7").setMqTag("accessStatus");
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("host")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("b")
+      .setMqTag("accessNumber")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("c")
+      .setMqTag("compression")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("d")
+      .setMqTag("path")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("f")
+      .setMqTag("name")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("h")
+      .setMqTag("processor")
+      .setLevels("A");
+
+    getSubfield("i")
+      .setMqTag("instruction")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("O");
+
+    getSubfield("j")
+      .setMqTag("bitsPerSecond")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("k")
+      .setMqTag("password")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("l")
+      .setMqTag("logon")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("m")
+      .setMqTag("contact")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("O");
+
+    getSubfield("n")
+      .setMqTag("location")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("o")
+      .setMqTag("operatingSystem")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("p")
+      .setMqTag("port")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("q")
+      .setMqTag("format")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("r")
+      .setMqTag("settings")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("s")
+      .setMqTag("fileSize")
+      .setLevels("O");
+
+    getSubfield("t")
+      .setMqTag("terminalEmulation")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("u")
+      .setMqTag("uri")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("v")
+      .setMqTag("hours")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("A");
+
+    getSubfield("w")
+      .setMqTag("recordControlNumber")
+      .setLevels("O");
+
+    getSubfield("x")
+      .setMqTag("nonpublicNote")
+      .setLevels("O");
+
+    getSubfield("y")
+      .setMqTag("linkText")
+      .setLevels("O");
+
+    getSubfield("z")
+      .setMqTag("publicNote")
+      .setLevels("O");
+
+    getSubfield("2")
+      .setMqTag("accessMethod")
+      .setLevels("A");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("7")
+      .setMqTag("accessStatus");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
 
     setHistoricalSubfields(
       "g", "Uniform Resource Name [OBSOLETE, 2000]"

@@ -49,12 +49,32 @@ public class Tag381 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value");
-    getSubfield("u").setMqTag("uri");
-    getSubfield("v").setMqTag("sourceOfInformation");
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("2").setMqTag("source");
-    getSubfield("6").setBibframeTag("linkage");
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setLevels("M");
+
+    getSubfield("u")
+      .setMqTag("uri")
+      .setLevels("A");
+
+    getSubfield("v")
+      .setMqTag("sourceOfInformation")
+      .setLevels("A");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setLevels("A");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setLevels("O");
   }
 }

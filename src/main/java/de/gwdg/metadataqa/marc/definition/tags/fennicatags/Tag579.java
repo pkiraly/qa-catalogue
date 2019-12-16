@@ -38,6 +38,7 @@ public class Tag579 extends DataFieldDefinition {
       "b", "Tietokannan tunnus", "NR"
     );
 
-    getSubfield("a").setMqTag("rdf:value");
+    getSubfield("a")
+      .setMqTag("rdf:value");
   }
 }

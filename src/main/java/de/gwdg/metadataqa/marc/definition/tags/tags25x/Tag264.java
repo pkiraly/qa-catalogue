@@ -61,11 +61,22 @@ public class Tag264 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("place");
-    getSubfield("b").setBibframeTag("agent");
-    getSubfield("c").setBibframeTag("date");
-    getSubfield("3").setMqTag("materialsSpecified");
-    getSubfield("6").setMqTag("linkage");
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a")
+      .setBibframeTag("place");
+
+    getSubfield("b")
+      .setBibframeTag("agent");
+
+    getSubfield("c")
+      .setBibframeTag("date");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified");
+
+    getSubfield("6")
+      .setMqTag("linkage");
+
+    getSubfield("8")
+      .setMqTag("fieldLink");
   }
 }

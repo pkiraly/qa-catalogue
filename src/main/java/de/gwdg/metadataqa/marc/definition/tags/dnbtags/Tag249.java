@@ -39,6 +39,7 @@ public class Tag249 extends DataFieldDefinition {
       "v", "Verantwortlichkeitsangabe zum weiteren Titel", "R"
     );
 
-    getSubfield("a").setMqTag("rdf:value");
+    getSubfield("a")
+      .setMqTag("rdf:value");
   }
 }

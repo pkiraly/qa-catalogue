@@ -58,15 +58,32 @@ public class Tag758 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("label");
-    getSubfield("i").setMqTag("Relationship");
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("1").setMqTag("uri");
-    getSubfield("2").setMqTag("source");
-    getSubfield("3").setMqTag("materialsSpecified");
-    getSubfield("5").setMqTag("institutionToWhichFieldApplies");
-    getSubfield("6").setBibframeTag("linkage");
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a")
+      .setMqTag("label");
+
+    getSubfield("i")
+      .setMqTag("Relationship");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber");
+
+    getSubfield("1")
+      .setMqTag("uri");
+
+    getSubfield("2")
+      .setMqTag("source");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified");
+
+    getSubfield("5")
+      .setMqTag("institutionToWhichFieldApplies");
+
+    getSubfield("6")
+      .setBibframeTag("linkage");
+
+    getSubfield("8")
+      .setMqTag("fieldLink");
 
     sourceSpecificationType = SourceSpecificationType.Subfield2;
   }

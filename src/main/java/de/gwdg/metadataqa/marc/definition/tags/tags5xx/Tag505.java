@@ -63,19 +63,39 @@ public class Tag505 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoverySelect);
-    getSubfield("g").setMqTag("miscellaneous")
-      .setFrbrFunctions(DiscoverySelect);
-    getSubfield("r").setMqTag("responsibility")
-      .setFrbrFunctions(DiscoverySelect);
-    getSubfield("t").setMqTag("title")
-      .setFrbrFunctions(DiscoverySelect);
-    getSubfield("u").setMqTag("uri")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoverySelect)
+      .setLevels("A");
+
+    getSubfield("g")
+      .setMqTag("miscellaneous")
+      .setFrbrFunctions(DiscoverySelect)
+      .setLevels("A");
+
+    getSubfield("r")
+      .setMqTag("responsibility")
+      .setFrbrFunctions(DiscoverySelect)
+      .setLevels("A");
+
+    getSubfield("t")
+      .setMqTag("title")
+      .setFrbrFunctions(DiscoverySelect)
+      .setLevels("A");
+
+    getSubfield("u")
+      .setMqTag("uri")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setLevels("O");
   }
 }

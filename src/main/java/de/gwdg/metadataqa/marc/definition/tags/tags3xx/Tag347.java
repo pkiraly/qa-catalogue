@@ -50,16 +50,37 @@ public class Tag347 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("fileType");
-    getSubfield("b").setBibframeTag("encodingFormat");
-    getSubfield("c").setBibframeTag("fileSize");
-    getSubfield("d").setBibframeTag("resolution");
-    getSubfield("e").setBibframeTag("regionalEncoding");
-    getSubfield("f").setBibframeTag("encodedBitrate");
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("2").setBibframeTag("source");
-    getSubfield("3").setMqTag("materialsSpecified");
-    getSubfield("6").setBibframeTag("linkage");
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a")
+      .setBibframeTag("fileType");
+
+    getSubfield("b")
+      .setBibframeTag("encodingFormat");
+
+    getSubfield("c")
+      .setBibframeTag("fileSize");
+
+    getSubfield("d")
+      .setBibframeTag("resolution");
+
+    getSubfield("e")
+      .setBibframeTag("regionalEncoding");
+
+    getSubfield("f")
+      .setBibframeTag("encodedBitrate");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber");
+
+    getSubfield("2")
+      .setBibframeTag("source");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified");
+
+    getSubfield("6")
+      .setBibframeTag("linkage");
+
+    getSubfield("8")
+      .setMqTag("fieldLink");
   }
 }

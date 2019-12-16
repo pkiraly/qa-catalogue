@@ -68,20 +68,54 @@ public class Tag382 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value");
-    getSubfield("b").setMqTag("Soloist");
-    getSubfield("d").setMqTag("doublingInstrument");
-    getSubfield("e").setMqTag("numberOfEnsembles");
-    getSubfield("n").setMqTag("numberOfPerformers");
-    getSubfield("p").setMqTag("alternativeMedium");
-    getSubfield("r").setMqTag("totalNumberOfIndividuals");
-    getSubfield("s").setMqTag("totalNumberOfPerformers");
-    getSubfield("t").setMqTag("totalNumberOfEnsembles");
-    getSubfield("v").setMqTag("note");
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("2").setMqTag("source");
-    getSubfield("3").setMqTag("materialsSpecified");
-    getSubfield("6").setBibframeTag("linkage");
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setLevels("M");
+
+    getSubfield("b")
+      .setMqTag("Soloist");
+
+    getSubfield("d")
+      .setMqTag("doublingInstrument");
+
+    getSubfield("e")
+      .setMqTag("numberOfEnsembles");
+
+    getSubfield("n")
+      .setMqTag("numberOfPerformers");
+
+    getSubfield("p")
+      .setMqTag("alternativeMedium");
+
+    getSubfield("r")
+      .setMqTag("totalNumberOfIndividuals");
+
+    getSubfield("s")
+      .setMqTag("totalNumberOfPerformers");
+
+    getSubfield("t")
+      .setMqTag("totalNumberOfEnsembles");
+
+    getSubfield("v")
+      .setMqTag("note");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setLevels("A");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setLevels("A");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setLevels("O");
   }
 }

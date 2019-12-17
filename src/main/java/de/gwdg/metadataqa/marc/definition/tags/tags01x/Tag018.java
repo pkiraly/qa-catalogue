@@ -32,7 +32,7 @@ public class Tag018 extends DataFieldDefinition {
     mqTag = "CopyrightArticleFee";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd018.html";
-    setLevels("A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -49,16 +49,16 @@ public class Tag018 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("rdf:value")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

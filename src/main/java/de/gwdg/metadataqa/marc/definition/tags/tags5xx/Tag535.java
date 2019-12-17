@@ -33,7 +33,7 @@ public class Tag535 extends DataFieldDefinition {
     mqTag = "LocationOfOriginalsOrDuplicates";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd535.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Custodial role")
       .setCodes(
@@ -66,41 +66,41 @@ public class Tag535 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("custodian")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("b")
       .setMqTag("postalAddress")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setMqTag("country")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("d")
       .setMqTag("telecommunicationsAddress")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("g")
       .setMqTag("repositoryLocation")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("3")
       .setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

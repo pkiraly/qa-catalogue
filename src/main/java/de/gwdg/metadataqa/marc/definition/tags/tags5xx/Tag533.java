@@ -32,7 +32,7 @@ public class Tag533 extends DataFieldDefinition {
     mqTag = "Reproduction";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd533.html";
-    setLevels("A", "A");
+    setCompilanceLevels("A", "A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -68,55 +68,55 @@ public class Tag533 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("type")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("M", "M");
+      .setCompilanceLevels("M", "M");
 
     getSubfield("b")
       .setMqTag("place")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("M", "M");
+      .setCompilanceLevels("M", "M");
 
     getSubfield("c")
       .setMqTag("agency")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("d")
       .setMqTag("date")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("e")
       .setMqTag("physicalDescription")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("f")
       .setMqTag("series")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("m")
       .setMqTag("datesAndOrSequentialDesignation")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("n")
       .setMqTag("note")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("3")
       .setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("5")
       .setMqTag("institutionToWhichFieldApplies")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     /** TODO check FRBR functions for the subfields
      * 533$7/0:    [ManagementProcess]
@@ -129,11 +129,11 @@ public class Tag533 extends DataFieldDefinition {
      */
     getSubfield("7")
       .setMqTag("controlSubfield")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

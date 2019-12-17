@@ -29,7 +29,7 @@ public class Tag384 extends DataFieldDefinition {
     mqTag = "Key";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd384.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Key type")
       .setCodes(
@@ -50,14 +50,14 @@ public class Tag384 extends DataFieldDefinition {
 
     getSubfield("a")
       .setMqTag("rdf:value")
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("6")
       .setBibframeTag("linkage")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

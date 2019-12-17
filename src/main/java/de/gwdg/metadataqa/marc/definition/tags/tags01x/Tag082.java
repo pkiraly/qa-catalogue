@@ -33,7 +33,7 @@ public class Tag082 extends DataFieldDefinition {
     bibframeTag = "ClassificationDdc";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd082.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Type of edition")
       .setCodes(
@@ -77,35 +77,35 @@ public class Tag082 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("classificationPortion").setMqTag("rdf:value")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("b")
       .setBibframeTag("itemPortion")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("m")
       .setMqTag("standard")
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("q")
       .setBibframeTag("source")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("2")
       .setBibframeTag("edition")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     setHistoricalSubfields(
       "b", "DDC number-abridged NST version (SE) [OBSOLETE]"

@@ -31,7 +31,7 @@ public class Tag542 extends DataFieldDefinition {
     mqTag = "CopyrightStatus";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd542.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Privacy")
       .setCodes(
@@ -73,94 +73,94 @@ public class Tag542 extends DataFieldDefinition {
 
     getSubfield("a")
       .setMqTag("personalCreator")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("b")
       .setMqTag("personalCreatorDeathDate")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("c")
       .setMqTag("corporateCreator")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("d")
       .setMqTag("copyrightHolder")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("e")
       .setMqTag("copyrightHolderContact")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("f")
       .setMqTag("copyrightStatement")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("g")
       .setMqTag("copyrightDate")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("h")
       .setMqTag("copyrightRenewalDate")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("i")
       .setMqTag("publicationDate")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("j")
       .setMqTag("creationDate")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("k")
       .setMqTag("publisher")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("l")
       .setMqTag("copyrightStatus")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("m")
       .setMqTag("publicationStatus")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("n")
       .setMqTag("note")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("o")
       .setMqTag("researchDate")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("p")
       .setMqTag("country")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("q")
       .setMqTag("supplyingAgency")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("r")
       .setMqTag("jurisdiction")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("s")
       .setMqTag("source")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("u")
       .setMqTag("uri")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("3")
       .setMqTag("materialsSpecified")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("6")
       .setBibframeTag("linkage")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

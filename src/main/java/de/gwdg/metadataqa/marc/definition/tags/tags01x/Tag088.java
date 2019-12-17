@@ -32,7 +32,7 @@ public class Tag088 extends DataFieldDefinition {
     bibframeTag = "ReportNumber";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd088.html";
-    setLevels("A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -49,21 +49,21 @@ public class Tag088 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("rdf:value")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("z")
       .setMqTag("canceled")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

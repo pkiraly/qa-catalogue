@@ -33,7 +33,7 @@ public class Tag046 extends DataFieldDefinition {
     mqTag = "SpecialCodedDates";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd046.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -79,52 +79,52 @@ public class Tag046 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("type")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("b")
       .setMqTag("bceDate1")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setMqTag("bcDate1")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("d")
       .setMqTag("bceDate2")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("e")
       .setMqTag("ceDate2")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("j")
       .setMqTag("modified")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("k")
       .setMqTag("beginningCreated")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("l")
       .setMqTag("endingCreated")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("m")
       .setMqTag("beginningOfDateValid")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseRestrict)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("n")
       .setMqTag("endOfDateValid")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseRestrict)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("o")
       .setMqTag("startingDateForAggregated");
@@ -135,16 +135,16 @@ public class Tag046 extends DataFieldDefinition {
     getSubfield("2")
       .setMqTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

@@ -33,7 +33,7 @@ public class Tag020 extends DataFieldDefinition {
     bibframeTag = "Isbn";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd020.html";
-    setLevels("A", "A");
+    setCompilanceLevels("A", "A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -54,12 +54,12 @@ public class Tag020 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("rdf:value")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("c")
       .setBibframeTag("acquisitionTerms")
       .setFrbrFunctions(DiscoverySelect, DiscoveryObtain)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("q")
       .setBibframeTag("qualifier");
@@ -67,17 +67,17 @@ public class Tag020 extends DataFieldDefinition {
     getSubfield("z")
       .setMqTag("canceledOrInvalidISBN")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("6")
       .setMqTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     setHistoricalSubfields(
       "b", "Binding information (BK, MP, MU) [OBSOLETE]"

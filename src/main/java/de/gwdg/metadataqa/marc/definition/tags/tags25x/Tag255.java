@@ -30,7 +30,7 @@ public class Tag255 extends DataFieldDefinition {
     bibframeTag = "Cartographic";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd255.html";
-    setLevels("A", "A");
+    setCompilanceLevels("A", "A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -52,45 +52,45 @@ public class Tag255 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("scale")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseInterpret)
-      .setLevels("M", "M");
+      .setCompilanceLevels("M", "M");
 
     getSubfield("b")
       .setBibframeTag("projection")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseInterpret)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("c")
       .setBibframeTag("coordinates")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("d")
       .setBibframeTag("ascensionAndDeclination")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("e")
       .setBibframeTag("equinox")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("f")
       .setBibframeTag("outerGRing")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("g")
       .setBibframeTag("exclusionGRing")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

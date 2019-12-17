@@ -34,7 +34,7 @@ public class Tag035 extends DataFieldDefinition {
     mqTag = "SystemControlNumber";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd035.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -52,22 +52,22 @@ public class Tag035 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("rdf:value")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("z")
       .setMqTag("canceled")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     putVersionSpecificSubfields(MarcVersion.FENNICA, Arrays.asList(
       new SubfieldDefinition("9", "Voyager-osakenttä", "NR")

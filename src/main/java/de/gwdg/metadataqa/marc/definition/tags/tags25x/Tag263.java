@@ -32,7 +32,7 @@ public class Tag263 extends DataFieldDefinition {
     mqTag = "ProjectedPublicationDate";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd263.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -51,16 +51,16 @@ public class Tag263 extends DataFieldDefinition {
       .setBibframeTag("projectedProvisionDate")
       .setMqTag("rdf:value")
       .setFrbrFunctions(DiscoverySelect, DiscoveryObtain)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

@@ -35,7 +35,7 @@ public class Tag754 extends DataFieldDefinition {
     mqTag = "TaxonomicIdentification";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd754.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -60,44 +60,44 @@ public class Tag754 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("name")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("c")
       .setMqTag("category")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("d")
       .setMqTag("commonOrAlternativeName")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("x")
       .setMqTag("nonPublicNote")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("z")
       .setMqTag("publicNote")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("2")
       .setMqTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     sourceSpecificationType = SourceSpecificationType.Subfield2;
   }

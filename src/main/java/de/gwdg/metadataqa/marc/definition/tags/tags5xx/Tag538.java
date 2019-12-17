@@ -32,7 +32,7 @@ public class Tag538 extends DataFieldDefinition {
     bibframeTag = "SystemRequirement";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd538.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -52,35 +52,35 @@ public class Tag538 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("rdfs:label").setMqTag("rdf:value")
       .setFrbrFunctions(DiscoverySelect, UseOperate)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("i")
       .setMqTag("displayText")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, ManagementIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("u")
       .setBibframeTag("rdfs:label").setMqTag("uri")
       .setFrbrFunctions(DiscoveryIdentify, ManagementIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("3")
       .setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify, ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("5")
       .setMqTag("institutionToWhichFieldApplies")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

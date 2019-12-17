@@ -33,7 +33,7 @@ public class Tag583 extends DataFieldDefinition {
     mqTag = "Action";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd583.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Privacy")
       .setCodes(
@@ -76,105 +76,105 @@ public class Tag583 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("rdfs:label").setMqTag("rdf:value")
       .setFrbrFunctions(UseManage)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("b")
       .setMqTag("identification")
       .setFrbrFunctions(UseManage)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setMqTag("timeOrDate")
       .setFrbrFunctions(UseManage)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("d")
       .setMqTag("interval")
       .setFrbrFunctions(UseManage)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("e")
       .setMqTag("contingency")
       .setFrbrFunctions(UseManage)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("f")
       .setMqTag("authorization")
       .setFrbrFunctions(UseManage)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("h")
       .setMqTag("jurisdiction")
       .setFrbrFunctions(UseManage)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("i")
       .setMqTag("method")
       .setFrbrFunctions(UseManage)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("j")
       .setMqTag("site")
       .setFrbrFunctions(UseManage)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("k")
       .setBibframeTag("agent")
       .setFrbrFunctions(UseManage)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("l")
       .setBibframeTag("status")
       .setFrbrFunctions(DiscoverySelect, UseManage)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("n")
       .setMqTag("extent")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("o")
       .setMqTag("typeOfUnit")
       .setFrbrFunctions(UseManage)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("u")
       .setMqTag("uri")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("x")
       .setMqTag("nonpublicNote")
       .setFrbrFunctions(UseManage)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("z")
       .setBibframeTag("publicNote")
       .setFrbrFunctions(UseManage)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("2")
       .setMqTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("3")
       .setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("5")
       .setMqTag("institutionToWhichFieldApplies")
       .setFrbrFunctions(ManagementProcess, ManagementDisplay)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

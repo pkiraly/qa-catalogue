@@ -37,7 +37,7 @@ public class Tag656 extends DataFieldDefinition {
     mqTag = "Occupation";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd656.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
 
@@ -70,56 +70,56 @@ public class Tag656 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("occupation")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("k")
       .setBibframeTag("genreForm").setMqTag("form")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("v")
       .setBibframeTag("formGenre").setMqTag("formSubdivision")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("x")
       .setBibframeTag("topic").setMqTag("generalSubdivision")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("y")
       .setBibframeTag("temporal").setMqTag("chronologicalSubdivision")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("z")
       .setBibframeTag("geographic").setMqTag("geographicSubdivision")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("2")
       .setMqTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("3")
       .setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     fieldIndexer = SchemaFromInd2AndSubfield2.getInstance();
     sourceSpecificationType = SourceSpecificationType.Indicator2AndSubfield2;

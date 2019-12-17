@@ -34,7 +34,7 @@ public class Tag658 extends DataFieldDefinition {
     mqTag = "CurriculumObjective";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd658.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -56,36 +56,36 @@ public class Tag658 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("main")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("b")
       .setMqTag("subordinate")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setMqTag("code")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("d")
       .setMqTag("correlationFactor")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("2")
       .setMqTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     fieldIndexer = SchemaFromSubfield2.getInstance();
     sourceSpecificationType = SourceSpecificationType.Subfield2;

@@ -35,7 +35,7 @@ public class Tag040 extends DataFieldDefinition {
     bibframeTag = "AdminMetadata";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd040.html";
-    setLevels("M", "M");
+    setCompilanceLevels("M", "M");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -62,36 +62,36 @@ public class Tag040 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("catalogingAgency")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("b")
       .setMqTag("languageOfCataloging")
       .setFrbrFunctions(ManagementProcess)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("c")
       .setMqTag("transcribingAgency")
       .setFrbrFunctions(ManagementProcess)
-      .setLevels("M", "M");
+      .setCompilanceLevels("M", "M");
 
     getSubfield("d")
       .setMqTag("modifyingAgency")
       .setFrbrFunctions(ManagementProcess)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("e")
       .setMqTag("descriptionConventions")
       .setFrbrFunctions(ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

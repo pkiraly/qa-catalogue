@@ -31,7 +31,7 @@ public class Tag850 extends DataFieldDefinition {
     bibframeTag = "HeldBy";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd850.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -46,12 +46,12 @@ public class Tag850 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("rdf:value")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     setHistoricalSubfields(
       "b", "Holdings (MU, VM, SE) [OBSOLETE, 1990]",

@@ -25,8 +25,8 @@ public abstract class DataFieldDefinition implements Serializable {
   protected List<FRBRFunction> functions;
   protected FieldIndexer fieldIndexer = null;
   protected SourceSpecificationType sourceSpecificationType = null;
-  private RecordLevel nationalLevel;
-  private RecordLevel minimalLevel;
+  private CompilanceLevel nationalCompilanceLevel;
+  private CompilanceLevel minimalCompilanceLevel;
 
   public String getTag() {
     return tag;
@@ -202,39 +202,39 @@ public abstract class DataFieldDefinition implements Serializable {
     return sourceSpecificationType;
   }
 
-  public void setLevels(String national) {
-    setNationalLevel(national);
+  public void setCompilanceLevels(String national) {
+    setNationalCompilanceLevel(national);
   }
 
-  public void setLevels(String national, String minimal) {
-    setNationalLevel(national);
-    setMinimalLevel(minimal);
+  public void setCompilanceLevels(String national, String minimal) {
+    setNationalCompilanceLevel(national);
+    setMinimalCompilanceLevel(minimal);
   }
 
-  public RecordLevel getNationalLevel() {
-    return nationalLevel;
+  public CompilanceLevel getNationalCompilanceLevel() {
+    return nationalCompilanceLevel;
   }
 
-  public void setNationalLevel(RecordLevel nationalLevel) {
-    this.nationalLevel = nationalLevel;
+  public void setNationalCompilanceLevel(CompilanceLevel nationalLevel) {
+    this.nationalCompilanceLevel = nationalLevel;
   }
 
-  public void setNationalLevel(String level) {
+  public void setNationalCompilanceLevel(String level) {
     if (StringUtils.isNotBlank(level))
-      this.nationalLevel = RecordLevel.byAbbreviation(level);
+      this.nationalCompilanceLevel = CompilanceLevel.byAbbreviation(level);
   }
 
-  public RecordLevel getMinimalLevel() {
-    return minimalLevel;
+  public CompilanceLevel getMinimalCompilanceLevel() {
+    return minimalCompilanceLevel;
   }
 
-  public void setMinimalLevel(String level) {
+  public void setMinimalCompilanceLevel(String level) {
     if (StringUtils.isNotBlank(level))
-      this.minimalLevel = RecordLevel.byAbbreviation(level);
+      this.minimalCompilanceLevel = CompilanceLevel.byAbbreviation(level);
   }
 
-  public void setMinimalLevel(RecordLevel minimalLevel) {
-    this.minimalLevel = minimalLevel;
+  public void setMinimalCompilanceLevel(CompilanceLevel minimalLevel) {
+    this.minimalCompilanceLevel = minimalLevel;
   }
 
   @Override

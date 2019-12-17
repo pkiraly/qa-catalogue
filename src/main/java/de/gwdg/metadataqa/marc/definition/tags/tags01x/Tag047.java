@@ -33,7 +33,7 @@ public class Tag047 extends DataFieldDefinition {
     mqTag = "MusicalCompositionForm";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd047.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
 
@@ -55,15 +55,15 @@ public class Tag047 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("rdf:value")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("2")
       .setMqTag("source")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

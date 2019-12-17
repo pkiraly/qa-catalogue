@@ -33,7 +33,7 @@ public class Tag242 extends DataFieldDefinition {
     mqTag = "TitleTranslation";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd242.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Title added entry")
       .setCodes(
@@ -71,46 +71,46 @@ public class Tag242 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("mainTitle")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("b")
       .setBibframeTag("subTitle")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("c")
       .setMqTag("responsibility")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("h")
       .setMqTag("medium")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("n")
       .setBibframeTag("partNumber")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("p")
       .setBibframeTag("partName")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("y")
       .setBibframeTag("language")
       .setFrbrFunctions(ManagementProcess)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     setHistoricalSubfields(
       "d", "Designation of section (BK, AM, MP, MU, VM, SE) [OBSOLETE, 1979]",

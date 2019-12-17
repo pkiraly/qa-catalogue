@@ -32,7 +32,7 @@ public class Tag083 extends DataFieldDefinition {
     mqTag = "ClassificationAdditionalDdc";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd083.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Type of edition")
       .setCodes(
@@ -61,37 +61,37 @@ public class Tag083 extends DataFieldDefinition {
 
     getSubfield("a")
       .setMqTag("rdf:value")
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("c")
       .setMqTag("endingNumber")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("m")
       .setMqTag("standard")
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("q")
       .setMqTag("source")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("y")
       .setMqTag("tableSequenceNumber")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("z")
       .setMqTag("tableId");
 
     getSubfield("2")
       .setMqTag("edition")
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("6")
       .setBibframeTag("linkage")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

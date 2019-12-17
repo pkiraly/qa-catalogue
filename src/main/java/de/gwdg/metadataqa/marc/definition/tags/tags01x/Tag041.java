@@ -34,7 +34,7 @@ public class Tag041 extends DataFieldDefinition {
     bibframeTag = "Language";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd041.html";
-    setLevels("A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator("Translation indication")
       .setCodes(
@@ -87,41 +87,41 @@ public class Tag041 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("rdf:value")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseInterpret)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("b")
       .setMqTag("ofSummary")
       .setFrbrFunctions(DiscoverySelect, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("d")
       .setMqTag("ofSungOrSpokenText")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("e")
       .setMqTag("ofLibrettos")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("f")
       .setMqTag("ofTableOfContents")
       .setFrbrFunctions(DiscoverySelect, UseInterpret)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("g")
       .setMqTag("ofAccompanyingMaterial")
       .setFrbrFunctions(DiscoverySelect, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("h")
       .setMqTag("ofOriginal")
       .setFrbrFunctions(DiscoverySelect)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("j")
       .setMqTag("ofSubtitles")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("k")
       .setMqTag("ofTranslations");
@@ -139,12 +139,12 @@ public class Tag041 extends DataFieldDefinition {
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     setHistoricalSubfields(
       "c", "Languages of separate titles (VM) [OBSOLETE, 1972], Languages of available translation (SE) [OBSOLETE, 1977]"

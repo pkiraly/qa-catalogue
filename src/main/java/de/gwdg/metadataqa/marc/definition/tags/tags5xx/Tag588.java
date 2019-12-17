@@ -31,7 +31,7 @@ public class Tag588 extends DataFieldDefinition {
     mqTag = "SourceOfDescription";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd588.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Display constant controller")
       .setCodes(
@@ -54,18 +54,18 @@ public class Tag588 extends DataFieldDefinition {
 
     getSubfield("a")
       .setBibframeTag("rdfs:label").setMqTag("rdf:value")
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("5")
       .setMqTag("institutionToWhichFieldApplies")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

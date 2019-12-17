@@ -66,45 +66,45 @@ public class Tag440 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("rdf:value")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("M", "M");
+      .setCompilanceLevels("M", "M");
 
     getSubfield("n")
       .setMqTag("numberOfPart")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("p")
       .setMqTag("nameOfPart")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("v")
       .setMqTag("volume")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("w")
       .setMqTag("bibliographicRecordControlNumber")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("x")
       .setMqTag("issn")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     setHistoricalSubfields(
       "h", "General material designation [OBSOLETE, 1997] [CAN/MARC only]"

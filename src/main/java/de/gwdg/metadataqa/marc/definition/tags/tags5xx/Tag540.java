@@ -4,7 +4,6 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.AccessRestrictionTermSourceCodes;
-import de.gwdg.metadataqa.marc.definition.general.codelist.ContentAdviceClassificationSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
@@ -34,7 +33,7 @@ public class Tag540 extends DataFieldDefinition {
     bibframeTag = "UsePolicy";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd540.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -61,22 +60,22 @@ public class Tag540 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("rdfs:label").setMqTag("rdf:value")
       .setFrbrFunctions(UseRestrict)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("b")
       .setMqTag("jurisdiction")
       .setFrbrFunctions(UseRestrict)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setBibframeTag("source")
       .setFrbrFunctions(UseRestrict)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("d")
       .setMqTag("authorizedUsers")
       .setFrbrFunctions(UseRestrict)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("f")
       .setMqTag("rights");
@@ -90,7 +89,7 @@ public class Tag540 extends DataFieldDefinition {
     getSubfield("u")
       .setBibframeTag("rdfs:label").setMqTag("uri")
       .setFrbrFunctions(DiscoverySelect)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("2")
       .setMqTag("source");
@@ -98,21 +97,21 @@ public class Tag540 extends DataFieldDefinition {
     getSubfield("3")
       .setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("5")
       .setMqTag("institutionToWhichFieldApplies")
       .setFrbrFunctions(ManagementProcess, ManagementDisplay)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

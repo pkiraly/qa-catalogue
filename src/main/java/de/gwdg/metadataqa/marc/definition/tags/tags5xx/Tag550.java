@@ -32,7 +32,7 @@ public class Tag550 extends DataFieldDefinition {
     mqTag = "IssuingBody";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd550.html";
-    setLevels("A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator()
       .setHistoricalCodes(
@@ -53,17 +53,17 @@ public class Tag550 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("rdfs:label").setMqTag("rdf:value")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     setHistoricalSubfields(
       "z", "Source of note information (SE) [OBSOLETE, 1990]"

@@ -32,7 +32,7 @@ public class Tag247 extends DataFieldDefinition {
     bibframeTag = "VariantTitle";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd247.html";
-    setLevels("A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator("Title added entry")
       .setCodes(
@@ -70,49 +70,49 @@ public class Tag247 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("mainTitle")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("b")
       .setMqTag("remainder")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("f")
       .setBibframeTag("date")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("g")
       .setBibframeTag("qualifier").setMqTag("miscellaneous")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("h")
       .setMqTag("medium")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("n")
       .setBibframeTag("partNumber")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("p")
       .setBibframeTag("partName")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("x")
       .setMqTag("issn")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     setHistoricalSubfields(
       "d", "Designation of section/part/series (SE) [OBSOLETE, 1979]",

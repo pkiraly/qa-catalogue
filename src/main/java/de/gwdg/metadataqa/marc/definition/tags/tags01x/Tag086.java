@@ -36,7 +36,7 @@ public class Tag086 extends DataFieldDefinition {
     mqTag = "GovernmentDocumentClassification";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd086.html";
-    setLevels("A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator("Number source")
       .setCodes(
@@ -78,27 +78,27 @@ public class Tag086 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("rdfs:label").setMqTag("rdf:value")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("z")
       .setMqTag("canceled")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("2")
       .setMqTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     fieldIndexer = SchemaFromInd1OrIfEmptyFromSubfield2.getInstance();
     sourceSpecificationType = SourceSpecificationType.Indicator1IsSpaceAndSubfield2;

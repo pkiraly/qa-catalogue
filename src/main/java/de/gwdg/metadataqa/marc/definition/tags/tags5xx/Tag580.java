@@ -32,7 +32,7 @@ public class Tag580 extends DataFieldDefinition {
     mqTag = "LinkingEntryComplexity";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd580.html";
-    setLevels("A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -47,17 +47,17 @@ public class Tag580 extends DataFieldDefinition {
 
     getSubfield("a")
       .setMqTag("rdf:value")
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     setHistoricalSubfields(
       "z", "Source of note information [OBSOLETE, 1990]"

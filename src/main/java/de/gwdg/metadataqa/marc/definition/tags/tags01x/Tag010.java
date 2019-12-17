@@ -31,7 +31,7 @@ public class Tag010 extends DataFieldDefinition {
     bibframeTag = "IdentifiedBy/Lccn";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd010.html";
-    setLevels("A", "A");
+    setCompilanceLevels("A", "A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -46,21 +46,21 @@ public class Tag010 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("rdf:value")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("b")
       .setMqTag("numcControlNumber")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("z")
       .setMqTag("canceled")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

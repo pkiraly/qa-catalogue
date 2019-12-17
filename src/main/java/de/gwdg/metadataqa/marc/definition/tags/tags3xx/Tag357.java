@@ -31,7 +31,7 @@ public class Tag357 extends DataFieldDefinition {
     mqTag = "OriginatorDisseminationControl";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd357.html";
-    setLevels("A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -50,31 +50,31 @@ public class Tag357 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("rdf:value")
       .setFrbrFunctions(UseRestrict)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("b")
       .setMqTag("originatingAgency")
       .setFrbrFunctions(UseRestrict)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("c")
       .setMqTag("authorizedRecipients")
       .setFrbrFunctions(UseRestrict)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("g")
       .setMqTag("otherRestrictions")
       .setFrbrFunctions(UseRestrict)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

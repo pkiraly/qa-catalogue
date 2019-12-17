@@ -30,7 +30,7 @@ public class Tag300 extends DataFieldDefinition {
     mqTag = "PhysicalDescription";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd300.html";
-    setLevels("M", "M");
+    setCompilanceLevels("M", "M");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -52,47 +52,47 @@ public class Tag300 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("extent")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect)
-      .setLevels("M", "M");
+      .setCompilanceLevels("M", "M");
 
     getSubfield("b")
       .setBibframeTag("note").setMqTag("otherPhysicalDetails")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setBibframeTag("dimensions")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseOperate)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("e")
       .setBibframeTag("note").setMqTag("accompanyingMaterial")
       .setFrbrFunctions(DiscoverySelect)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("f")
       .setMqTag("typeOfUnit")
       .setFrbrFunctions(UseManage, UseOperate)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("g")
       .setMqTag("sizeOfUnit")
       .setFrbrFunctions(UseManage, UseOperate)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("3")
       .setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("6")
       .setMqTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     setHistoricalSubfields(
       "d", "Accompanying material [OBSOLETE, 1997] [CAN/MARC only]",

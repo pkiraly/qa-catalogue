@@ -34,7 +34,7 @@ public class Tag534 extends DataFieldDefinition {
     mqTag = "OriginalVersion";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd534.html";
-    setLevels("A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator()
       .setHistoricalCodes(
@@ -71,82 +71,82 @@ public class Tag534 extends DataFieldDefinition {
 
     getSubfield("a")
       .setMqTag("mainEntry")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("b")
       .setMqTag("edition")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setMqTag("publication")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("e")
       .setMqTag("physicalDescription")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("f")
       .setMqTag("series")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("k")
       .setMqTag("keyTitle")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("l")
       .setMqTag("location")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("m")
       .setMqTag("material")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("n")
       .setMqTag("note")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("o")
       .setMqTag("otherIdentifier")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("p")
       .setMqTag("introductoryPhrase")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("t")
       .setMqTag("title")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("x")
       .setMqTag("issn")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("z")
       .setMqTag("isbn")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("3")
       .setMqTag("materialsSpecified")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

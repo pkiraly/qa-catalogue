@@ -30,7 +30,7 @@ public class Tag250 extends DataFieldDefinition {
     mqTag = "Edition";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd250.html";
-    setLevels("A", "A");
+    setCompilanceLevels("A", "A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -48,12 +48,12 @@ public class Tag250 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("editionStatement")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("M", "M");
+      .setCompilanceLevels("M", "M");
 
     getSubfield("b")
       .setMqTag("remainder")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("3")
       .setMqTag("materialsSpecified");
@@ -61,11 +61,11 @@ public class Tag250 extends DataFieldDefinition {
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

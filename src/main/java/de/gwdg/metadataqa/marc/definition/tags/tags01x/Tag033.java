@@ -36,7 +36,7 @@ public class Tag033 extends DataFieldDefinition {
     mqTag = "EventDateTimeAndPlace";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd033.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Type of date in subfield $a")
       .setCodes(
@@ -76,25 +76,25 @@ public class Tag033 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("date")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("b")
       .setBibframeTag("place").setMqTag("area")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setMqTag("subarea")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("p")
       .setBibframeTag("place")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("2")
       .setMqTag("source");
@@ -102,16 +102,16 @@ public class Tag033 extends DataFieldDefinition {
     getSubfield("3")
       .setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

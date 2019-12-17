@@ -31,7 +31,7 @@ public class Tag045 extends DataFieldDefinition {
     bibframeTag = "TemporalCoverage";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd045.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Type of time period in subfield $b or $c")
       .setCodes(
@@ -115,26 +115,26 @@ public class Tag045 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("rdf:value")
       .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("b")
       .setMqTag("timePeriod")
       .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setMqTag("preBC9999TimePeriod")
       .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

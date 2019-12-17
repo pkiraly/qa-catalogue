@@ -30,7 +30,7 @@ public class Tag882 extends DataFieldDefinition {
     label = "Replacement Record Information";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd882.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -49,22 +49,22 @@ public class Tag882 extends DataFieldDefinition {
 
     getSubfield("a")
       .setMqTag("replacementTitle")
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("i")
       .setMqTag("explanatoryText")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("w")
       .setMqTag("controlNumber")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setMqTag("linkage")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

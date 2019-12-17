@@ -33,7 +33,7 @@ public class Tag526 extends DataFieldDefinition {
     mqTag = "StudyProgram";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd526.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Display constant controller")
       .setCodes(
@@ -65,48 +65,48 @@ public class Tag526 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("studyProgramName")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("b")
       .setBibframeTag("interestLevel")
       .setFrbrFunctions(DiscoverySelect)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setBibframeTag("readingLevel")
       .setFrbrFunctions(DiscoverySelect)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("d")
       .setBibframeTag("titlePoint")
       .setFrbrFunctions(DiscoverySelect)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("i")
       .setBibframeTag("displayText")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("x")
       .setBibframeTag("nonpublicNote")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("z")
       .setBibframeTag("publicNote")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("5")
       .setMqTag("institutionToWhichFieldApplies")
       .setFrbrFunctions(ManagementProcess, ManagementDisplay)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

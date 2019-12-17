@@ -32,7 +32,7 @@ public class Tag544 extends DataFieldDefinition {
     mqTag = "LocationOfOtherArchivalMaterials";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd544.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Relationship")
       .setCodes(
@@ -60,45 +60,45 @@ public class Tag544 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("custodian")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("b")
       .setMqTag("address")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setMqTag("country")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("d")
       .setMqTag("title")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("e")
       .setMqTag("provenance")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("n")
       .setMqTag("note")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("3")
       .setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

@@ -36,7 +36,7 @@ public class Tag072 extends DataFieldDefinition {
     mqTag = "SubjectCategoryCode";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd072.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
 
@@ -66,27 +66,27 @@ public class Tag072 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("rdf:value")
       .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("x")
       .setMqTag("subdivision")
       .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("2")
       .setMqTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     fieldIndexer = SchemaFromInd2AndSubfield2.getInstance();
     sourceSpecificationType = SourceSpecificationType.Indicator2AndSubfield2;

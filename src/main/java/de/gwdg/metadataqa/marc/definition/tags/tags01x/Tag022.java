@@ -33,7 +33,7 @@ public class Tag022 extends DataFieldDefinition {
     bibframeTag = "Issn";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd022.html";
-    setLevels("A", "A");
+    setCompilanceLevels("A", "A");
 
     ind1 = new Indicator("Level of international interest")
       .setCodes(
@@ -67,40 +67,40 @@ public class Tag022 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("rdf:value")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("l")
       .setBibframeTag("issnL")
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("m")
       .setMqTag("canceledIssnL")
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("y")
       .setMqTag("incorrect")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("z")
       .setMqTag("canceled")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("2")
       .setMqTag("source")
       .setFrbrFunctions(DiscoveryIdentify, ManagementIdentify, ManagementProcess)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     setHistoricalSubfields(
       "b", "Form of issue [OBSOLETE] [CAN/MARC only]",

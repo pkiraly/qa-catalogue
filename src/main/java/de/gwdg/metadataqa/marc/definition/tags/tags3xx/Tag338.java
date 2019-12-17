@@ -31,7 +31,7 @@ public class Tag338 extends DataFieldDefinition {
     mqTag = "CarrierType";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd338.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -52,29 +52,29 @@ public class Tag338 extends DataFieldDefinition {
 
     getSubfield("a")
       .setBibframeTag("rdfs:label").setMqTag("rdf:value")
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("b")
       .setMqTag("carrierTypeCode")
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber");
 
     getSubfield("2")
       .setBibframeTag("source")
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("3")
       .setMqTag("materialsSpecified")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("6")
       .setBibframeTag("linkage")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

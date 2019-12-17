@@ -31,7 +31,7 @@ public class Tag245 extends DataFieldDefinition {
     bibframeTag = "Title";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd245.html";
-    setLevels("M", "M");
+    setCompilanceLevels("M", "M");
 
     ind1 = new Indicator("Title added entry")
       .setCodes(
@@ -70,61 +70,61 @@ public class Tag245 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("mainTitle")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("M", "M");
+      .setCompilanceLevels("M", "M");
 
     getSubfield("b")
       .setBibframeTag("subtitle")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setBibframeTag("responsibilityStatement")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("f")
       .setBibframeTag("originDate").setMqTag("inclusiveDates")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("g")
       .setBibframeTag("originDate").setMqTag("bulkDates")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("h")
       .setBibframeTag("genreForm").setMqTag("medium")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("k")
       .setMqTag("form")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("n")
       .setBibframeTag("partNumber")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("p")
       .setBibframeTag("partName")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("s")
       .setMqTag("version")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     setHistoricalSubfields(
       "d", "Designation of section/part/series (SE) [OBSOLETE, 1979]",

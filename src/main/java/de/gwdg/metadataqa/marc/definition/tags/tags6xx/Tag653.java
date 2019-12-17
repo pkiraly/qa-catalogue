@@ -33,7 +33,7 @@ public class Tag653 extends DataFieldDefinition {
     mqTag = "UncontrolledIndexTerm";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd653.html";
-    setLevels("A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator("Level of index term")
       .setCodes(
@@ -68,17 +68,17 @@ public class Tag653 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("rdf:value")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("6")
       .setMqTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     putVersionSpecificSubfields(MarcVersion.FENNICA, Arrays.asList(
       new SubfieldDefinition("9", "Sanastokoodi", "NR")

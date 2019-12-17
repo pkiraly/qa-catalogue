@@ -35,7 +35,7 @@ public class Tag052 extends DataFieldDefinition {
     mqTag = "GeographicClassification";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd052.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Code source")
       .setCodes(
@@ -67,32 +67,32 @@ public class Tag052 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("rdf:value")
       .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("b")
       .setMqTag("subarea")
       .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("d")
       .setBibframeTag("rdfs:label")
       .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("2")
       .setMqTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     fieldIndexer = SchemaFromInd1OrIf7FromSubfield2.getInstance();
     sourceSpecificationType = SourceSpecificationType.Indicator1Is7AndSubfield2;

@@ -32,7 +32,7 @@ public class Tag037 extends DataFieldDefinition {
     bibframeTag = "AcquisitionSource";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Source of acquisition sequence")
       .setCodes(
@@ -62,31 +62,31 @@ public class Tag037 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("stockNumber")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("b")
       .setBibframeTag("rdfs:label")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("c")
       .setBibframeTag("acquisitionTerms")
       .setFrbrFunctions(DiscoverySelect, DiscoveryObtain)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("f")
       .setBibframeTag("note").setMqTag("formOfIssue")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("g")
       .setBibframeTag("note").setMqTag("format")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("n")
       .setBibframeTag("note")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("3")
       .setMqTag("materialsSpecified");
@@ -97,11 +97,11 @@ public class Tag037 extends DataFieldDefinition {
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

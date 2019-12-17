@@ -31,7 +31,7 @@ public class Tag066 extends DataFieldDefinition {
     mqTag = "CharacterSets";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd066.html";
-    setLevels("A", "A");
+    setCompilanceLevels("A", "A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -45,16 +45,16 @@ public class Tag066 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("g0")
       .setFrbrFunctions(ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("b")
       .setMqTag("g1")
       .setFrbrFunctions(ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("c")
       .setMqTag("alternate")
       .setFrbrFunctions(ManagementProcess)
-      .setLevels("M");
+      .setCompilanceLevels("M");
   }
 }

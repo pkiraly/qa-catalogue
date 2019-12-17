@@ -32,7 +32,7 @@ public class Tag567 extends DataFieldDefinition {
     mqTag = "Methodology";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd567.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Display constant controller")
       .setCodes(
@@ -58,7 +58,7 @@ public class Tag567 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("rdf:value")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("b")
       .setMqTag("controlledTerm");
@@ -72,11 +72,11 @@ public class Tag567 extends DataFieldDefinition {
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

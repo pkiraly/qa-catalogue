@@ -35,7 +35,7 @@ public class Tag753 extends DataFieldDefinition {
     bibframeTag = "SystemRequirement";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd753.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -58,17 +58,17 @@ public class Tag753 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("machineModel")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("b")
       .setBibframeTag("programmingLanguage")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setBibframeTag("operatingSystem")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber");
@@ -79,7 +79,7 @@ public class Tag753 extends DataFieldDefinition {
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")

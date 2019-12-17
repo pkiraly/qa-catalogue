@@ -33,7 +33,7 @@ public class Tag043 extends DataFieldDefinition {
     bibframeTag = "GeographicCoverage";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd043.html";
-    setLevels("A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -56,12 +56,12 @@ public class Tag043 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("code")
       .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("b")
       .setMqTag("localGACcode")
       .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("c")
       .setMqTag("ISOcode")
@@ -73,16 +73,16 @@ public class Tag043 extends DataFieldDefinition {
     getSubfield("2")
       .setMqTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

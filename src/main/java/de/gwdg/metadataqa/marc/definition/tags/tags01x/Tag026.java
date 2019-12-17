@@ -34,7 +34,7 @@ public class Tag026 extends DataFieldDefinition {
     bibframeTag = "Fingerprint";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd026.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -58,44 +58,44 @@ public class Tag026 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("rdf:value").setMqTag("firstAndSecondGroups")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("b")
       .setBibframeTag("rdf:value").setMqTag("thirdAndFourthGroups")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setBibframeTag("rdf:value").setMqTag("date")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("d")
       .setBibframeTag("rdf:value").setMqTag("volume")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("e")
       .setBibframeTag("rdf:value").setMqTag("unparsed")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("2")
       .setBibframeTag("source")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("5")
       .setMqTag("institutionToWhichFieldApplies")
       .setFrbrFunctions(ManagementProcess, ManagementDisplay)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

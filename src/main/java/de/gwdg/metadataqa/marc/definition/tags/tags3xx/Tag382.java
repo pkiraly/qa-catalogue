@@ -30,7 +30,7 @@ public class Tag382 extends DataFieldDefinition {
     bibframeTag = "MusicMedium";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd382.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Display constant controller")
       .setCodes(
@@ -71,7 +71,7 @@ public class Tag382 extends DataFieldDefinition {
 
     getSubfield("a")
       .setMqTag("rdf:value")
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("b")
       .setMqTag("Soloist");
@@ -102,21 +102,21 @@ public class Tag382 extends DataFieldDefinition {
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("2")
       .setMqTag("source")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("3")
       .setMqTag("materialsSpecified");
 
     getSubfield("6")
       .setBibframeTag("linkage")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

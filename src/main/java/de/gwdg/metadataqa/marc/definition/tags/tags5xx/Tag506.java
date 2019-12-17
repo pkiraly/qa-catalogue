@@ -33,7 +33,7 @@ public class Tag506 extends DataFieldDefinition {
     bibframeTag = "UsageAndAccessPolicy";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd506.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Restriction")
       .setCodes(
@@ -69,31 +69,31 @@ public class Tag506 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("rdf:value")
       .setFrbrFunctions(UseRestrict)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("b")
       .setMqTag("jurisdiction")
       .setFrbrFunctions(UseRestrict)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setMqTag("physicalAccessProvisions")
       .setFrbrFunctions(UseRestrict)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("d")
       .setMqTag("authorizedUsers")
       .setFrbrFunctions(UseRestrict)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("e")
       .setMqTag("authorization")
       .setFrbrFunctions(UseRestrict)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("f")
       .setMqTag("terminology")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("g")
       .setMqTag("availabilityDate");
@@ -104,30 +104,30 @@ public class Tag506 extends DataFieldDefinition {
     getSubfield("u")
       .setMqTag("uri")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("2")
       .setMqTag("source")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("3")
       .setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("5")
       .setMqTag("institutionToWhichFieldApplies")
       .setFrbrFunctions(ManagementProcess, ManagementDisplay)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

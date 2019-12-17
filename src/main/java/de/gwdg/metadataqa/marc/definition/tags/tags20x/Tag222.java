@@ -31,7 +31,7 @@ public class Tag222 extends DataFieldDefinition {
     bibframeTag = "KeyTitle";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd222.html";
-    setLevels("A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator();
 
@@ -62,20 +62,20 @@ public class Tag222 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("mainTitle")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("b")
       .setBibframeTag("qualifier")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

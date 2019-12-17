@@ -33,7 +33,7 @@ public class Tag520 extends DataFieldDefinition {
     bibframeTag = "Summary";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd520.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Display constant controller")
       .setCodes(
@@ -68,39 +68,39 @@ public class Tag520 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("rdf:value")
       .setFrbrFunctions(DiscoverySelect)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("b")
       .setMqTag("expansion")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("c")
       .setMqTag("assigningSource")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("u")
       .setMqTag("uri")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("2")
       .setMqTag("source")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("3")
       .setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     setHistoricalSubfields(
       "z", "Source of note information (BK, AM, CF, SE) [OBSOLETE, 1990]"

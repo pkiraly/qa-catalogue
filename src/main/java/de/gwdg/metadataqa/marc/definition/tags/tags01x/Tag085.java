@@ -31,7 +31,7 @@ public class Tag085 extends DataFieldDefinition {
     mqTag = "SynthesizedClassificationNumber";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd085.html";
-    setLevels("A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -58,61 +58,61 @@ public class Tag085 extends DataFieldDefinition {
 
     getSubfield("a")
       .setMqTag("classificationPortion")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("b")
       .setMqTag("baseNumber")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setMqTag("endingNumber")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("f")
       .setMqTag("facet")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("r")
       .setMqTag("rootNumber")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("s")
       .setMqTag("fromClassification")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("t")
       .setMqTag("subarrangement")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("u")
       .setMqTag("analyzedNumber")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("v")
       .setMqTag("numberInSubarrangement")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("w")
       .setMqTag("tableIdentificationInternal")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("y")
       .setMqTag("tableSequenceNumber")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("z")
       .setMqTag("tableIdentification")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber");
 
     getSubfield("6")
       .setBibframeTag("linkage")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("8")
       .setMqTag("fieldLink")
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

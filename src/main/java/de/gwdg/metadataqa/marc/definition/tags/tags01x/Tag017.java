@@ -33,7 +33,7 @@ public class Tag017 extends DataFieldDefinition {
     bibframeTag = "CopyrightNumber";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd017.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator()
       .setHistoricalCodes(
@@ -67,24 +67,24 @@ public class Tag017 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("rdf:value")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("b")
       .setBibframeTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("d")
       .setBibframeTag("date")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("i")
       .setBibframeTag("note")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("z")
       .setMqTag("canceled")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("2")
       .setBibframeTag("source")
@@ -93,11 +93,11 @@ public class Tag017 extends DataFieldDefinition {
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

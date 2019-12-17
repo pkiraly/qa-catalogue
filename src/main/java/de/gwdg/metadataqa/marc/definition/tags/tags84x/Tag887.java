@@ -32,7 +32,7 @@ public class Tag887 extends DataFieldDefinition {
     mqTag = "NonMARCField";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd887.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -46,11 +46,11 @@ public class Tag887 extends DataFieldDefinition {
 
     getSubfield("a")
       .setMqTag("content")
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("2")
       .setMqTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

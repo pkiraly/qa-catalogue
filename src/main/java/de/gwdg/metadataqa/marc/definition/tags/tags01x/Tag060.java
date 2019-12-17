@@ -31,7 +31,7 @@ public class Tag060 extends DataFieldDefinition {
     bibframeTag = "ClassificationNlm";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd060.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Existence in NLM collection")
       .setCodes(
@@ -67,18 +67,18 @@ public class Tag060 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("classificationPortion")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("b")
       .setBibframeTag("itemPortion")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber");
 
     getSubfield("8").setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

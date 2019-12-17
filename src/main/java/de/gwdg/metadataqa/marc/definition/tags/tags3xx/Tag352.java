@@ -30,7 +30,7 @@ public class Tag352 extends DataFieldDefinition {
     mqTag = "DigitalGraphicRepresentation";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd352.html";
-    setLevels("A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -54,56 +54,56 @@ public class Tag352 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("cartographicDataType")
       .setFrbrFunctions(UseOperate, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("b")
       .setBibframeTag("cartographicObjectType")
       .setFrbrFunctions(UseOperate, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setBibframeTag("count").setMqTag("objectCount")
       .setFrbrFunctions(UseOperate, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("d")
       .setMqTag("rowCount")
       .setFrbrFunctions(UseOperate, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("e")
       .setMqTag("columnCount")
       .setFrbrFunctions(UseOperate, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("f")
       .setMqTag("verticalCount")
       .setFrbrFunctions(UseOperate, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("g")
       .setMqTag("topologyLevel")
       .setFrbrFunctions(UseOperate, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("i")
       .setMqTag("indirectReference")
       .setFrbrFunctions(UseOperate, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("q")
       .setBibframeTag("encodingFormat")
       .setFrbrFunctions(DiscoveryIdentify, UseOperate, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

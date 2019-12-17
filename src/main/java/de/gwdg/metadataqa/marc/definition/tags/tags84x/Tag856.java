@@ -33,7 +33,7 @@ public class Tag856 extends DataFieldDefinition {
     mqTag = "ElectronicLocationAndAccess";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd856.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Access method")
       .setCodes(
@@ -105,129 +105,129 @@ public class Tag856 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("host")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("b")
       .setMqTag("accessNumber")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setMqTag("compression")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("d")
       .setMqTag("path")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("f")
       .setMqTag("name")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("h")
       .setMqTag("processor")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("i")
       .setMqTag("instruction")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("j")
       .setMqTag("bitsPerSecond")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("k")
       .setMqTag("password")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("l")
       .setMqTag("logon")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("m")
       .setMqTag("contact")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("n")
       .setMqTag("location")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("o")
       .setMqTag("operatingSystem")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("p")
       .setMqTag("port")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("q")
       .setMqTag("format")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("r")
       .setMqTag("settings")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("s")
       .setMqTag("fileSize")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("t")
       .setMqTag("terminalEmulation")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("u")
       .setMqTag("uri")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("v")
       .setMqTag("hours")
       .setFrbrFunctions(DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("w")
       .setMqTag("recordControlNumber")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("x")
       .setMqTag("nonpublicNote")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("y")
       .setMqTag("linkText")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("z")
       .setMqTag("publicNote")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("2")
       .setMqTag("accessMethod")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("3")
       .setMqTag("materialsSpecified")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("7")
       .setMqTag("accessStatus");
@@ -235,7 +235,7 @@ public class Tag856 extends DataFieldDefinition {
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     setHistoricalSubfields(
       "g", "Uniform Resource Name [OBSOLETE, 2000]"

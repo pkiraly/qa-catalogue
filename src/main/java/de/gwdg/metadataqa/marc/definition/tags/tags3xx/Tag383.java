@@ -29,7 +29,7 @@ public class Tag383 extends DataFieldDefinition {
     label = "Numeric Designation of Musical Work";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd383.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -53,15 +53,15 @@ public class Tag383 extends DataFieldDefinition {
 
     getSubfield("a")
       .setMqTag("serialNumber")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("b")
       .setMqTag("opusNumber")
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("c")
       .setMqTag("thematicIndexNumber")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("d")
       .setMqTag("thematicIndexCode");
@@ -74,11 +74,11 @@ public class Tag383 extends DataFieldDefinition {
 
     getSubfield("6")
       .setBibframeTag("linkage")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
   }
 }

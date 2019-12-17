@@ -35,7 +35,7 @@ public class Tag246 extends DataFieldDefinition {
     bibframeTag = "ParallelTitle";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd246.html";
-    setLevels("A", "A");
+    setCompilanceLevels("A", "A");
 
     ind1 = new Indicator("Note/added entry controller")
       .setCodes(
@@ -90,53 +90,53 @@ public class Tag246 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("mainTitle")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("M", "M");
+      .setCompilanceLevels("M", "M");
 
     getSubfield("b")
       .setBibframeTag("subtitle")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("f")
       .setBibframeTag("date")
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("g")
       .setBibframeTag("miscellaneous")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("h")
       .setMqTag("medium")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("i")
       .setMqTag("displayText")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("n")
       .setBibframeTag("partNumber")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("p")
       .setBibframeTag("partName")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("5")
       .setMqTag("institutionToWhichFieldApplies")
       .setFrbrFunctions(ManagementProcess, ManagementDisplay)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     setHistoricalSubfields(
       "c", "Remainder of title page transcription [OBSOLETE, 1991] [CAN/MARC only]",

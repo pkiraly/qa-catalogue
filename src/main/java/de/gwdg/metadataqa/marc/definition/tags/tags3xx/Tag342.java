@@ -30,7 +30,7 @@ public class Tag342 extends DataFieldDefinition {
     mqTag = "GeospatialReferenceData";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd342.html";
-    setLevels("A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator("Geospatial reference dimension")
       .setCodes(
@@ -88,131 +88,131 @@ public class Tag342 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("name")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("b")
       .setMqTag("units")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setMqTag("latitudeResolution")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("d")
       .setMqTag("longitudeResolution")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("e")
       .setMqTag("obliqueLineLatitude")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("f")
       .setMqTag("obliqueLineLongitude")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("g")
       .setMqTag("longitudeOfCentralMeridian")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("h")
       .setMqTag("latitudeOfProjectionCenter")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("i")
       .setMqTag("falseEasting")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("j")
       .setMqTag("falseNorthing")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("k")
       .setMqTag("scaleFactor")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("l")
       .setMqTag("heightOfPerspective")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("m")
       .setMqTag("azimuthalAngle")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("n")
       .setMqTag("azimuthMeasurePoint")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("o")
       .setMqTag("landsatNumber")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("p")
       .setMqTag("zoneIdentifier")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("q")
       .setMqTag("ellipsoidName")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("r")
       .setMqTag("semiMajorAxis")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("s")
       .setMqTag("denominatorOfFlatteningRatio")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("t")
       .setMqTag("verticalResolution")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("u")
       .setMqTag("verticalEncodingMethod")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("v")
       .setMqTag("localProjection")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("w")
       .setMqTag("georeference")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("2")
       .setBibframeTag("source")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

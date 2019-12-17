@@ -32,7 +32,7 @@ public class Tag552 extends DataFieldDefinition {
     mqTag = "EntityAndAttributeInformation";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd552.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -65,100 +65,100 @@ public class Tag552 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("entityType")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("b")
       .setMqTag("entityTypeDefinition")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setMqTag("attribute")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("d")
       .setMqTag("attributeDefinition")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("e")
       .setMqTag("enumeratedDomainValue")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("f")
       .setMqTag("enumeratedDomainValueDefinition")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("g")
       .setMqTag("range")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("h")
       .setMqTag("codeset")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("i")
       .setMqTag("unrepresentableDomain")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("j")
       .setMqTag("attributeUnits")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("k")
       .setMqTag("date")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("l")
       .setMqTag("attributeValueAccuracy")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("m")
       .setMqTag("attributeValueAccuracyExplanation")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("n")
       .setMqTag("attributeMeasurementFrequency")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("o")
       .setMqTag("overview")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("p")
       .setMqTag("detailCitation")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("u")
       .setMqTag("uri")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("z")
       .setMqTag("displayNote")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

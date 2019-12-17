@@ -33,7 +33,7 @@ public class Tag355 extends DataFieldDefinition {
     mqTag = "SecurityClassificationControl";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd355.html";
-    setLevels("A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator("Controlled element")
       .setCodes(
@@ -72,56 +72,56 @@ public class Tag355 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("rdf:value")
       .setFrbrFunctions(UseRestrict)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("b")
       .setMqTag("handlingInstructions")
       .setFrbrFunctions(UseRestrict)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setMqTag("externalDissemination")
       .setFrbrFunctions(UseRestrict)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("d")
       .setMqTag("downgradingEvent")
       .setFrbrFunctions(UseRestrict)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("e")
       .setMqTag("classificationSystem")
       .setFrbrFunctions(UseRestrict)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("f")
       .setMqTag("countryOfOrigin")
       .setFrbrFunctions(UseRestrict)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("g")
       .setMqTag("downgradingDate")
       .setFrbrFunctions(UseRestrict)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("h")
       .setMqTag("declassificationDate")
       .setFrbrFunctions(UseRestrict)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("j")
       .setBibframeTag("authorization")
       .setFrbrFunctions(UseRestrict)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

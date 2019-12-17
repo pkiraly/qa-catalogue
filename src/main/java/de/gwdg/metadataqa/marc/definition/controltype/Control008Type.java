@@ -21,7 +21,7 @@ public enum Control008Type implements ControlType {
   }
 
   public static Control008Type byCode(String value) {
-    for(Control008Type type : values())
+    for (Control008Type type : values())
       if (type.value.equals(value))
         return type;
     return null;

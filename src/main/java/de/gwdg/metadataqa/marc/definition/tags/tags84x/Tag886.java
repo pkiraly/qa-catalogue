@@ -32,7 +32,7 @@ public class Tag886 extends DataFieldDefinition {
     mqTag = "ForeignMARCInformationField";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd886.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Type of field")
       .setCodes(
@@ -58,27 +58,27 @@ public class Tag886 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("tag")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("b")
       .setMqTag("content")
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("2")
       .setMqTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     // TODO: these subfields are only used when the first indicator is value 2.
     for (char c = 'a'; c <= 'z'; c++)
       subfields.add(
         new SubfieldDefinition(String.valueOf(c), "Foreign MARC subfield", "R")
-          .setLevels("A")
+          .setCompilanceLevels("A")
       );
     for (int c = 0; c <= 9; c++)
       subfields.add(
         new SubfieldDefinition(String.valueOf(c), "Foreign MARC subfield", "R")
-          .setLevels("A")
+          .setCompilanceLevels("A")
       );
 
 

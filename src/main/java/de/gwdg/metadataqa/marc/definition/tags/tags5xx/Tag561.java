@@ -32,7 +32,7 @@ public class Tag561 extends DataFieldDefinition {
     mqTag = "CustodialHistory";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd561.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Privacy")
       .setCodes(
@@ -57,31 +57,31 @@ public class Tag561 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("custodialHistory").setMqTag("rdf:value")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("u")
       .setMqTag("uri")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("3")
       .setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("5")
       .setMqTag("institutionToWhichFieldApplies")
       .setFrbrFunctions(ManagementProcess, ManagementDisplay)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     setHistoricalSubfields(
       "b", "Time of collation (NR) [OBSOLETE, 1997]"

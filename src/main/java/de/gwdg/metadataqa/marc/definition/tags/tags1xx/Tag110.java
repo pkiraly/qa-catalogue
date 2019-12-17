@@ -37,7 +37,7 @@ public class Tag110 extends DataFieldDefinition {
     mqTag = "MainCorporateName";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd110.html";
-    setLevels("A", "A");
+    setCompilanceLevels("A", "A");
 
     ind1 = new Indicator("Type of corporate name entry element")
       .setCodes(
@@ -80,70 +80,70 @@ public class Tag110 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("rdf:value")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("M", "M");
+      .setCompilanceLevels("M", "M");
 
     getSubfield("b")
       .setMqTag("subordinateUnit")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("c")
       .setMqTag("locationOfMeeting")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("d")
       .setMqTag("dates")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("e")
       .setMqTag("relatorTerm")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("f")
       .setMqTag("dateOfAWork")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("g")
       .setMqTag("miscellaneous")
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("k")
       .setMqTag("formSubheading")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("l")
       .setMqTag("language")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("n")
       .setMqTag("numberOfPart")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("p")
       .setMqTag("nameOfPart")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("t")
       .setMqTag("titleOfAWork")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("u")
       .setMqTag("affiliation")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("2")
       .setMqTag("source");
@@ -151,17 +151,17 @@ public class Tag110 extends DataFieldDefinition {
     getSubfield("4")
       .setMqTag("relatorCode")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("O", "A");
+      .setCompilanceLevels("O", "A");
 
     getSubfield("6")
       .setMqTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     sourceSpecificationType = SourceSpecificationType.Subfield2;
   }

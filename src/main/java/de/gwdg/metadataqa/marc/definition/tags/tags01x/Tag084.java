@@ -38,7 +38,7 @@ public class Tag084 extends DataFieldDefinition {
     // mqTag = "OtherClassificatonNumber";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd084.html";
-    setLevels("A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -60,12 +60,12 @@ public class Tag084 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("classificationPortion")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("b")
       .setBibframeTag("itemPortion")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("q")
       .setBibframeTag("assigner");
@@ -73,17 +73,17 @@ public class Tag084 extends DataFieldDefinition {
     getSubfield("2")
       .setBibframeTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     // 084a_Classification_classificationPortion_ss:%22670%22
     fieldIndexer = SchemaFromSubfield2.getInstance();

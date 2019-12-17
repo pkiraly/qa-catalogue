@@ -30,7 +30,7 @@ public class Tag343 extends DataFieldDefinition {
     label = "Planar Coordinate Data";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd343.html";
-    setLevels("A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -54,56 +54,56 @@ public class Tag343 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("method")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("b")
       .setMqTag("distanceUnits")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setMqTag("abscissa")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("d")
       .setMqTag("ordinate")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("e")
       .setMqTag("distance")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("f")
       .setMqTag("bearingResolution")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("g")
       .setMqTag("bearingUnits")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("h")
       .setMqTag("bearingDirection")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("i")
       .setMqTag("bearingMeridian")
       .setFrbrFunctions(UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

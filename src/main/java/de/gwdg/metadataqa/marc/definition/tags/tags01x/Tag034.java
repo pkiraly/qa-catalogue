@@ -37,7 +37,7 @@ public class Tag034 extends DataFieldDefinition {
     bibframeTag = "Scale";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd034.html";
-    setLevels("A", "A");
+    setCompilanceLevels("A", "A");
 
     ind1 = new Indicator("Type of scale")
       .setCodes(
@@ -102,100 +102,100 @@ public class Tag034 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("category")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("M", "M");
+      .setCompilanceLevels("M", "M");
 
     getSubfield("b")
       .setMqTag("linearHorizontalScale")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseInterpret)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("c")
       .setMqTag("linearVerticalScale")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseInterpret)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("d")
       .setMqTag("westernmostLongitude")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("e")
       .setMqTag("easternmostLongitude")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("f")
       .setMqTag("northernmostLatitude")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("g")
       .setMqTag("southernmostLatitude")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("h")
       .setMqTag("angularScale")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("j")
       .setMqTag("declinationNorthernLimit")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("k")
       .setMqTag("declinationSouthernLimit")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("m")
       .setMqTag("rightAscensionEasternLimit")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("n")
       .setMqTag("rightAscensionWesternLimit")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("p")
       .setMqTag("equinox")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("r")
       .setMqTag("distanceFromEarth")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("s")
       .setMqTag("gRingLatitude")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("t")
       .setMqTag("gRingLongitude")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, UseInterpret)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("x")
       .setMqTag("beginningDate")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("y")
       .setMqTag("endingDate")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("z")
       .setMqTag("extraterrestrialBody")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber");
 
     getSubfield("2")
       .setMqTag("source")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("3")
       .setMqTag("materialsSpecified");
@@ -203,11 +203,11 @@ public class Tag034 extends DataFieldDefinition {
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

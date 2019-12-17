@@ -36,7 +36,7 @@ public class Tag765 extends DataFieldDefinition {
     bibframeTag = "TranslationOf";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd765.html";
-    setLevels("A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator("Note controller")
       .setCodes(
@@ -91,102 +91,102 @@ public class Tag765 extends DataFieldDefinition {
 
     getSubfield("a")
       .setBibframeTag("rdfs:label").setMqTag("rdf:value")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("b")
       .setBibframeTag("editionStatement")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setBibframeTag("qualifier")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("d")
       .setBibframeTag("provisionActivityStatement")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("g")
       .setBibframeTag("part")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("h")
       .setBibframeTag("extent")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("i")
       .setBibframeTag("relation")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("k")
       .setBibframeTag("seriesStatement")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("m")
       .setBibframeTag("note").setMqTag("materialSpecificDetails")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("n")
       .setBibframeTag("note")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("o")
       .setMqTag("otherItemIdentifier")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("r")
       .setMqTag("reportNumber")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("s")
       .setBibframeTag("title").setMqTag("uniformTitle")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("t")
       .setBibframeTag("title")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("u")
       .setBibframeTag("strn")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("w")
       .setMqTag("recordControlNumber")
       .setFrbrFunctions(ManagementIdentify)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("x")
       .setBibframeTag("issn")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("y")
       .setBibframeTag("coden")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("z")
       .setBibframeTag("isbn")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("4")
       .setMqTag("relationship")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     /* TODO
      7/00  .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort)
@@ -196,11 +196,11 @@ public class Tag765 extends DataFieldDefinition {
     */
     getSubfield("7")
       .setMqTag("controlSubfield")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

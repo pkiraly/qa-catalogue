@@ -32,7 +32,7 @@ public class Tag502 extends DataFieldDefinition {
     bibframeTag = "Dissertation";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd502.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -53,36 +53,36 @@ public class Tag502 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("rdfs:label").setMqTag("rdf:value")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setLevels("M");
+      .setCompilanceLevels("M");
 
     getSubfield("b")
       .setBibframeTag("degree")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("c")
       .setBibframeTag("grantingInstitution")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("d")
       .setBibframeTag("date")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("g")
       .setBibframeTag("note")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("o")
       .setBibframeTag("identifiedBy")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

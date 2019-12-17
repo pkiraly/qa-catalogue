@@ -30,7 +30,7 @@ public class Tag363 extends DataFieldDefinition {
     mqTag = "NormalizedDateAndSequentialDesignation";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd363.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Start/End designator")
       .setCodes(
@@ -74,78 +74,78 @@ public class Tag363 extends DataFieldDefinition {
 
     getSubfield("a")
       .setMqTag("firstLevel")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("b")
       .setMqTag("secondLevel")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setMqTag("thirdLevel")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("d")
       .setMqTag("fourthLevel")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("e")
       .setMqTag("fifthLevel")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("f")
       .setMqTag("sixthLevel")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("g")
       .setMqTag("alternativeFirstLevel")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("h")
       .setMqTag("alternativeSecondLevel")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("i")
       .setMqTag("firstLevelOfChronology")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("j")
       .setMqTag("secondLevelOfChronology")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("k")
       .setMqTag("thirdLevelOfChronology")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("l")
       .setMqTag("fourthLevelOfChronology")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("m")
       .setMqTag("alternativeNumberingAndChronology")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("u")
       .setMqTag("firstLevelTextualDesignation")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("v")
       .setMqTag("firstLevelOfChronologyIssuance")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("x")
       .setMqTag("nonPublicNote")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("z")
       .setMqTag("publicNote")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("6")
       .setBibframeTag("linkage")
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

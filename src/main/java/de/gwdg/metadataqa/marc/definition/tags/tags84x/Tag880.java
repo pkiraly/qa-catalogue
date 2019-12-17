@@ -1,11 +1,8 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags84x;
 
 import de.gwdg.metadataqa.marc.definition.*;
-import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Alternate Graphic Representation
@@ -32,7 +29,7 @@ public class Tag880 extends DataFieldDefinition {
     mqTag = "Alternate Graphic Representation";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd880.html";
-    setLevels("A", "A");
+    setCompilanceLevels("A", "A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -53,17 +50,17 @@ public class Tag880 extends DataFieldDefinition {
     for (char c = 'a'; c <= 'z'; c++)
       subfields.add(
         new SubfieldDefinition(String.valueOf(c), "Same as associated field", "R")
-        .setLevels("M", "M")
+        .setCompilanceLevels("M", "M")
       );
     for (int c = 0; c <= 5; c++)
       subfields.add(
         new SubfieldDefinition(String.valueOf(c), "Same as associated field", "R")
-        .setLevels("M", "M")
+        .setCompilanceLevels("M", "M")
       );
     for (int c = 7; c <= 9; c++)
       subfields.add(
         new SubfieldDefinition(String.valueOf(c), "Same as associated field", "R")
-        .setLevels("M", "M")
+        .setCompilanceLevels("M", "M")
       );
     indexSubfields();
 

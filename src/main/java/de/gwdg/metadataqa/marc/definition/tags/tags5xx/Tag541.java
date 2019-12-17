@@ -32,7 +32,7 @@ public class Tag541 extends DataFieldDefinition {
     bibframeTag = "ImmediateAcquisition";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd541.html";
-    setLevels("O");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Privacy")
       .setCodes(
@@ -65,66 +65,66 @@ public class Tag541 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("rdfs:label").setMqTag("rdf:value")
       .setFrbrFunctions(UseManage)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("b")
       .setMqTag("address")
       .setFrbrFunctions(UseManage)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("c")
       .setMqTag("method")
       .setFrbrFunctions(UseManage)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("d")
       .setMqTag("date")
       .setFrbrFunctions(UseManage)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("e")
       .setMqTag("accessionNumber")
       .setFrbrFunctions(DiscoveryIdentify, UseManage)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("f")
       .setMqTag("owner")
       .setFrbrFunctions(UseManage)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("h")
       .setMqTag("price")
       .setFrbrFunctions(UseManage)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("n")
       .setMqTag("extent")
       .setFrbrFunctions(UseManage)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("o")
       .setMqTag("typeOfUnit")
       .setFrbrFunctions(UseManage)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("3")
       .setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("5")
       .setMqTag("institutionToWhichFieldApplies")
       .setFrbrFunctions(ManagementProcess, ManagementDisplay)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A");
+      .setCompilanceLevels("A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

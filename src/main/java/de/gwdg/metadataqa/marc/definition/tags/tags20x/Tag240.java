@@ -35,7 +35,7 @@ public class Tag240 extends DataFieldDefinition {
     mqTag = "UniformTitle";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd240.html";
-    setLevels("A", "A");
+    setCompilanceLevels("A", "A");
 
     ind1 = new Indicator("Uniform title printed or displayed")
       .setCodes(
@@ -84,79 +84,79 @@ public class Tag240 extends DataFieldDefinition {
     getSubfield("a")
       .setBibframeTag("mainTitle")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("M", "M");
+      .setCompilanceLevels("M", "M");
 
     getSubfield("d")
       .setMqTag("dateOfTreaty")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("f")
       .setMqTag("dateOfAWork")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("g")
       .setMqTag("miscellaneous")
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("h")
       .setMqTag("medium")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect)
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("k")
       .setMqTag("formSubheading")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("l")
       .setMqTag("languageOfAWork")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("m")
       .setMqTag("mediumOfPerformance")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("n")
       .setBibframeTag("partNumber")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("o")
       .setMqTag("arrangedStatement")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("p")
       .setMqTag("nameOfPart")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("r")
       .setMqTag("keyForMusic")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("s")
       .setBibframeTag("version")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
-      .setLevels("O");
+      .setCompilanceLevels("O");
 
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("A", "A");
+      .setCompilanceLevels("A", "A");
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setLevels("O");
+      .setCompilanceLevels("O");
   }
 }

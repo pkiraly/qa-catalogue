@@ -3,7 +3,7 @@ package de.gwdg.metadataqa.marc.definition;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum RecordLevel {
+public enum CompilanceLevel {
   MandatoryIfApplicable("Mandatory if applicable", "A"),
   Mandatory("Mandatory", "M"),
   Optional("Optional", "O"),
@@ -11,21 +11,23 @@ public enum RecordLevel {
 
   private String label = null;
   private String abbreviation = null;
-  static Map<String, RecordLevel> abbreviations = new HashMap<>();
+  static Map<String, CompilanceLevel> abbreviations = new HashMap<>();
 
-  private RecordLevel(String label, String abbreviation) {
+  private CompilanceLevel(String label, String abbreviation) {
     this.label = label;
     this.abbreviation = abbreviation;
   }
 
   private static void index() {
-    for(RecordLevel level : values())
+    for (CompilanceLevel level : values())
       abbreviations.put(level.abbreviation, level);
   }
 
-  public static RecordLevel byAbbreviation(String abbreviation) {
-    if (abbreviation.isEmpty())
+  public static CompilanceLevel byAbbreviation(String abbreviation) {
+    if (abbreviations.isEmpty())
       index();
+    if (!abbreviations.containsKey(abbreviation))
+      throw new IllegalArgumentException("inexistent abbreviation: " + abbreviation);
     return abbreviations.getOrDefault(abbreviation, null);
   }
 

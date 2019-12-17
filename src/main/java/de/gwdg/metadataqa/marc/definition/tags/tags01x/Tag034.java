@@ -37,6 +37,7 @@ public class Tag034 extends DataFieldDefinition {
     bibframeTag = "Scale";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd034.html";
+    setLevels("A", "A");
 
     ind1 = new Indicator("Type of scale")
       .setCodes(

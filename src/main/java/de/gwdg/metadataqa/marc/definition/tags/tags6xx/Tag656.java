@@ -37,6 +37,7 @@ public class Tag656 extends DataFieldDefinition {
     mqTag = "Occupation";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd656.html";
+    setLevels("O");
 
     ind1 = new Indicator();
 

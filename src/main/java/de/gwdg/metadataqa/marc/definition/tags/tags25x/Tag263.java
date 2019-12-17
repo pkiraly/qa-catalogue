@@ -32,6 +32,7 @@ public class Tag263 extends DataFieldDefinition {
     mqTag = "ProjectedPublicationDate";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd263.html";
+    setLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

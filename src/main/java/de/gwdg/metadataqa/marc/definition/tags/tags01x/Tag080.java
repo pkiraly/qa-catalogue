@@ -32,6 +32,7 @@ public class Tag080 extends DataFieldDefinition {
     mqTag = "Udc";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd080.html";
+    setLevels("O");
 
     ind1 = new Indicator("Type of edition")
       .setCodes(

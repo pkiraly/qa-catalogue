@@ -36,6 +36,7 @@ public class Tag072 extends DataFieldDefinition {
     mqTag = "SubjectCategoryCode";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd072.html";
+    setLevels("O");
 
     ind1 = new Indicator();
 

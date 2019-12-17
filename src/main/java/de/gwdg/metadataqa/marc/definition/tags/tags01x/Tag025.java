@@ -31,6 +31,7 @@ public class Tag025 extends DataFieldDefinition {
     bibframeTag = "LcOverseasAcq";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd025.html";
+    setLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

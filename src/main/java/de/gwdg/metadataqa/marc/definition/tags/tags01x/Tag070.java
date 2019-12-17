@@ -32,6 +32,7 @@ public class Tag070 extends DataFieldDefinition {
     mqTag = "NalCallNumber";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd070.html";
+    setLevels("O");
 
     ind1 = new Indicator(" collection")
       .setCodes(

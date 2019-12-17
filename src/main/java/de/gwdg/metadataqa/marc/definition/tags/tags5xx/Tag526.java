@@ -33,6 +33,7 @@ public class Tag526 extends DataFieldDefinition {
     mqTag = "StudyProgram";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd526.html";
+    setLevels("O");
 
     ind1 = new Indicator("Display constant controller")
       .setCodes(

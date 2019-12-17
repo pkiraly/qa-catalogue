@@ -31,6 +31,7 @@ public class Tag045 extends DataFieldDefinition {
     bibframeTag = "TemporalCoverage";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd045.html";
+    setLevels("O");
 
     ind1 = new Indicator("Type of time period in subfield $b or $c")
       .setCodes(

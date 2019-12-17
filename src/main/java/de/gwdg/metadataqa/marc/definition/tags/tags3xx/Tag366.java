@@ -31,6 +31,7 @@ public class Tag366 extends DataFieldDefinition {
     label = "Trade Availability Information";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd366.html";
+    setLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

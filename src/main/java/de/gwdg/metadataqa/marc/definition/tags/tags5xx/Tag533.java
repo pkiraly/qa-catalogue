@@ -32,6 +32,7 @@ public class Tag533 extends DataFieldDefinition {
     mqTag = "Reproduction";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd533.html";
+    setLevels("A", "A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

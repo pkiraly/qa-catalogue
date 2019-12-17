@@ -32,6 +32,7 @@ public class Tag037 extends DataFieldDefinition {
     bibframeTag = "AcquisitionSource";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
+    setLevels("O");
 
     ind1 = new Indicator("Source of acquisition sequence")
       .setCodes(

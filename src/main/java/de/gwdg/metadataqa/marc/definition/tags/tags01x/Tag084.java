@@ -38,6 +38,7 @@ public class Tag084 extends DataFieldDefinition {
     // mqTag = "OtherClassificatonNumber";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd084.html";
+    setLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

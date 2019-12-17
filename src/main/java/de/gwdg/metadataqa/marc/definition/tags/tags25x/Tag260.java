@@ -32,6 +32,7 @@ public class Tag260 extends DataFieldDefinition {
     bibframeTag = "Publication";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd260.html";
+    setLevels("A", "A");
 
     ind1 = new Indicator("Sequence of publishing statements")
       .setCodes(

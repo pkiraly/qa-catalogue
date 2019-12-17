@@ -35,6 +35,7 @@ public class Tag852 extends DataFieldDefinition {
     mqTag = "Location";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd852.html";
+    setLevels("O");
 
     ind1 = new Indicator("Shelving scheme")
       .setCodes(

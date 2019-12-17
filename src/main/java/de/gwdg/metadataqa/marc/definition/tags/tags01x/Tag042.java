@@ -32,6 +32,7 @@ public class Tag042 extends DataFieldDefinition {
     bibframeTag = "DescriptionAuthentication";
     mqTag = "AuthenticationCode";
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd042.html";
+    setLevels("A", "A");
 
     cardinality = Cardinality.Nonrepeatable;
 

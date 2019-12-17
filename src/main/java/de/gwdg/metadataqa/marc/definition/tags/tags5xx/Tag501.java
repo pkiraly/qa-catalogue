@@ -32,6 +32,7 @@ public class Tag501 extends DataFieldDefinition {
     mqTag = "WithNote";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd501.html";
+    setLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

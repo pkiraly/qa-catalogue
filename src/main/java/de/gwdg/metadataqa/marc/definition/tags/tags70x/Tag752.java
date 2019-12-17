@@ -37,6 +37,7 @@ public class Tag752 extends DataFieldDefinition {
     bibframeTag = "HierarchicalGeographic";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd752.html";
+    setLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

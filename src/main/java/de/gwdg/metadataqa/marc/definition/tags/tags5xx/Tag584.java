@@ -32,6 +32,7 @@ public class Tag584 extends DataFieldDefinition {
     mqTag = "AccumulationAndFrequencyOfUse";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd584.html";
+    setLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

@@ -33,6 +33,7 @@ public class Tag355 extends DataFieldDefinition {
     mqTag = "SecurityClassificationControl";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd355.html";
+    setLevels("A");
 
     ind1 = new Indicator("Controlled element")
       .setCodes(

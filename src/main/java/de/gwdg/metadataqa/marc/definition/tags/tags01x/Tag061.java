@@ -31,6 +31,7 @@ public class Tag061 extends DataFieldDefinition {
     mqTag = "NlmCopy";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd061.html";
+    setLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator()

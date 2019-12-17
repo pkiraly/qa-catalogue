@@ -37,6 +37,7 @@ public class Tag600 extends DataFieldDefinition {
     mqTag = "PersonalNameSubject";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd600.html";
+    setLevels("A");
 
     ind1 = new Indicator("Type of personal name entry element")
       .setCodes(

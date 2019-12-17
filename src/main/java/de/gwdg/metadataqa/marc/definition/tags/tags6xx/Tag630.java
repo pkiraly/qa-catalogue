@@ -36,6 +36,7 @@ public class Tag630 extends DataFieldDefinition {
     mqTag = "SubjectAddedUniformTitle";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd630.html";
+    setLevels("A");
 
     ind1 = new Indicator("Nonfiling characters")
       .setCodes(

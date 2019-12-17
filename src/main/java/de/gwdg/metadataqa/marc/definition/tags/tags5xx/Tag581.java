@@ -33,6 +33,7 @@ public class Tag581 extends DataFieldDefinition {
     mqTag = "PublicationsAboutDescribedMaterials";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd581.html";
+    setLevels("O");
 
     ind1 = new Indicator("Display constant controller")
       .setCodes(

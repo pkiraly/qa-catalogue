@@ -35,6 +35,7 @@ public class Tag753 extends DataFieldDefinition {
     bibframeTag = "SystemRequirement";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd753.html";
+    setLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

@@ -33,6 +33,7 @@ public class Tag082 extends DataFieldDefinition {
     bibframeTag = "ClassificationDdc";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd082.html";
+    setLevels("O");
 
     ind1 = new Indicator("Type of edition")
       .setCodes(

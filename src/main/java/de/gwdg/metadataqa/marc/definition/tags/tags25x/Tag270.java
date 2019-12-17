@@ -33,6 +33,7 @@ public class Tag270 extends DataFieldDefinition {
     mqTag = "Address";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd270.html";
+    setLevels("O");
 
     ind1 = new Indicator("Level")
       .setCodes(

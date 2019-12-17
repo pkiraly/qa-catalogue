@@ -33,6 +33,7 @@ public class Tag583 extends DataFieldDefinition {
     mqTag = "Action";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd583.html";
+    setLevels("O");
 
     ind1 = new Indicator("Privacy")
       .setCodes(

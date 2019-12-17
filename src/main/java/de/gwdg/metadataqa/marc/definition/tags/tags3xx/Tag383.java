@@ -29,6 +29,7 @@ public class Tag383 extends DataFieldDefinition {
     label = "Numeric Designation of Musical Work";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd383.html";
+    setLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

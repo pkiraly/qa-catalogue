@@ -33,6 +33,7 @@ public class Tag047 extends DataFieldDefinition {
     mqTag = "MusicalCompositionForm";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd047.html";
+    setLevels("O");
 
     ind1 = new Indicator();
 

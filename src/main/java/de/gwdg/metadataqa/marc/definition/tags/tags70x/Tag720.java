@@ -32,6 +32,7 @@ public class Tag720 extends DataFieldDefinition {
     mqTag = "UncontrolledName";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd720.html";
+    setLevels("A");
 
     ind1 = new Indicator("Type of name")
       .setCodes(

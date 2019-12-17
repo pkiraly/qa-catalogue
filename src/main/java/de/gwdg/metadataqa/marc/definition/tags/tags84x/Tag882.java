@@ -30,6 +30,7 @@ public class Tag882 extends DataFieldDefinition {
     label = "Replacement Record Information";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd882.html";
+    setLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

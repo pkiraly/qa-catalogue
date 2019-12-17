@@ -33,6 +33,7 @@ public class Tag500 extends DataFieldDefinition {
     mqTag = "GeneralNote";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd500.html";
+    setLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

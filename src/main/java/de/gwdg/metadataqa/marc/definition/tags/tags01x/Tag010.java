@@ -31,6 +31,7 @@ public class Tag010 extends DataFieldDefinition {
     bibframeTag = "IdentifiedBy/Lccn";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd010.html";
+    setLevels("A", "A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

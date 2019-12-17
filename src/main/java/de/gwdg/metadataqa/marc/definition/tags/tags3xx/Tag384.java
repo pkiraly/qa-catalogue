@@ -29,6 +29,7 @@ public class Tag384 extends DataFieldDefinition {
     mqTag = "Key";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd384.html";
+    setLevels("O");
 
     ind1 = new Indicator("Key type")
       .setCodes(

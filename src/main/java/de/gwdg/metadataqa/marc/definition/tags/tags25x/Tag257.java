@@ -31,6 +31,7 @@ public class Tag257 extends DataFieldDefinition {
     mqTag = "Country";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd257.html";
+    setLevels("A", "A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

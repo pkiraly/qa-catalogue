@@ -38,6 +38,7 @@ public class Tag800 extends DataFieldDefinition {
     mqTag = "SeriesAddedPersonalName";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd800.html";
+    setLevels("A");
 
     ind1 = new Indicator("Type of personal name entry element")
       .setCodes(

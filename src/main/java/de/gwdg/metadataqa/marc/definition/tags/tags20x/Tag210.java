@@ -32,6 +32,7 @@ public class Tag210 extends DataFieldDefinition {
     bibframeTag = "AbbreviatedTitle";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd210.html";
+    setLevels("O");
 
     ind1 = new Indicator("Title added entry")
       .setCodes(

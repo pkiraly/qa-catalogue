@@ -32,6 +32,7 @@ public class Tag016 extends DataFieldDefinition {
     bibframeTag = "IdIntifiedBy/Local";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd016.html";
+    setLevels("A", "A");
 
     ind1 = new Indicator("National bibliographic agency")
       .setCodes(

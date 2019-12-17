@@ -32,6 +32,7 @@ public class Tag083 extends DataFieldDefinition {
     mqTag = "ClassificationAdditionalDdc";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd083.html";
+    setLevels("O");
 
     ind1 = new Indicator("Type of edition")
       .setCodes(

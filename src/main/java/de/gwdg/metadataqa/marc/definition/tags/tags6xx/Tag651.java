@@ -35,6 +35,7 @@ public class Tag651 extends DataFieldDefinition {
     bibframeTag = "Geographic";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd651.html";
+    setLevels("A");
 
     ind1 = new Indicator();
 

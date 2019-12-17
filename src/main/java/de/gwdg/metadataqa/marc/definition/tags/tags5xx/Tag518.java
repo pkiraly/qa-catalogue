@@ -34,6 +34,7 @@ public class Tag518 extends DataFieldDefinition {
     mqTag = "DateTimeAndPlaceOfAnEventNote";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd518.html";
+    setLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

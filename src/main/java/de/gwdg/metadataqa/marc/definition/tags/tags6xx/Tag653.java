@@ -33,6 +33,7 @@ public class Tag653 extends DataFieldDefinition {
     mqTag = "UncontrolledIndexTerm";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd653.html";
+    setLevels("A");
 
     ind1 = new Indicator("Level of index term")
       .setCodes(

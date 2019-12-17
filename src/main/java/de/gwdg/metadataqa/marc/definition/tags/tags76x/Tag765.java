@@ -36,6 +36,7 @@ public class Tag765 extends DataFieldDefinition {
     bibframeTag = "TranslationOf";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd765.html";
+    setLevels("A");
 
     ind1 = new Indicator("Note controller")
       .setCodes(

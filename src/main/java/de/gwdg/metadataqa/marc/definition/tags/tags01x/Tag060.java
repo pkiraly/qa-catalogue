@@ -31,6 +31,7 @@ public class Tag060 extends DataFieldDefinition {
     bibframeTag = "ClassificationNlm";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd060.html";
+    setLevels("O");
 
     ind1 = new Indicator("Existence in NLM collection")
       .setCodes(

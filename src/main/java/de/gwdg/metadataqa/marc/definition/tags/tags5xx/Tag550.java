@@ -32,6 +32,7 @@ public class Tag550 extends DataFieldDefinition {
     mqTag = "IssuingBody";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd550.html";
+    setLevels("A");
 
     ind1 = new Indicator()
       .setHistoricalCodes(

@@ -31,6 +31,7 @@ public class Tag362 extends DataFieldDefinition {
     mqTag = "DatesOfPublication";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd362.html";
+    setLevels("A", "A");
 
     ind1 = new Indicator("Format of date")
       .setCodes(

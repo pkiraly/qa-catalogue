@@ -37,6 +37,7 @@ public class Tag110 extends DataFieldDefinition {
     mqTag = "MainCorporateName";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd110.html";
+    setLevels("A", "A");
 
     ind1 = new Indicator("Type of corporate name entry element")
       .setCodes(

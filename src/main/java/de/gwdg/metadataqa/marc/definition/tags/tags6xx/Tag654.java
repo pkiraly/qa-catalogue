@@ -35,6 +35,7 @@ public class Tag654 extends DataFieldDefinition {
     mqTag = "FacetedTopicalTerms";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd654.html";
+    setLevels("A");
 
     ind1 = new Indicator("Level of subject")
       .setCodes(

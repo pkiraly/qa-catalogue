@@ -32,6 +32,7 @@ public class Tag050 extends DataFieldDefinition {
     bibframeTag = "ClassificationLcc";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd050.html";
+    setLevels("O");
 
     ind1 = new Indicator("Existence in LC collection")
       .setCodes(

@@ -31,6 +31,7 @@ public class Tag245 extends DataFieldDefinition {
     bibframeTag = "Title";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd245.html";
+    setLevels("M", "M");
 
     ind1 = new Indicator("Title added entry")
       .setCodes(

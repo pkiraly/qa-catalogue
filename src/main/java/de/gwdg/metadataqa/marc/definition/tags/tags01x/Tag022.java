@@ -33,6 +33,7 @@ public class Tag022 extends DataFieldDefinition {
     bibframeTag = "Issn";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd022.html";
+    setLevels("A", "A");
 
     ind1 = new Indicator("Level of international interest")
       .setCodes(

@@ -32,6 +32,7 @@ public class Tag555 extends DataFieldDefinition {
     mqTag = "CumulativeIndexOrFindingAids";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd555.html";
+    setLevels("O");
 
     ind1 = new Indicator("Display constant controller")
       .setCodes(

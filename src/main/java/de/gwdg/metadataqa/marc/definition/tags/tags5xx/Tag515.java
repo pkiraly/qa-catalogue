@@ -32,6 +32,7 @@ public class Tag515 extends DataFieldDefinition {
     mqTag = "NumberingPeculiarities";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd515.html";
+    setLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

@@ -30,6 +30,7 @@ public class Tag352 extends DataFieldDefinition {
     mqTag = "DigitalGraphicRepresentation";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd352.html";
+    setLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

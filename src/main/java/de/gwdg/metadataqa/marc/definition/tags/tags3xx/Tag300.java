@@ -30,6 +30,7 @@ public class Tag300 extends DataFieldDefinition {
     mqTag = "PhysicalDescription";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd300.html";
+    setLevels("M", "M");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

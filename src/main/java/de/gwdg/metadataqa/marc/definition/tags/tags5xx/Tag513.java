@@ -32,6 +32,7 @@ public class Tag513 extends DataFieldDefinition {
     bibframeTag = "TypeOfReport";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd513.html";
+    setLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

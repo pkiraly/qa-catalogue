@@ -30,6 +30,7 @@ public class Tag342 extends DataFieldDefinition {
     mqTag = "GeospatialReferenceData";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd342.html";
+    setLevels("A");
 
     ind1 = new Indicator("Geospatial reference dimension")
       .setCodes(

@@ -33,6 +33,7 @@ public class Tag015 extends DataFieldDefinition {
     bibframeTag = "IdentifiedBy/Nbn";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd015.html";
+    setLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

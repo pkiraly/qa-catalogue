@@ -35,6 +35,7 @@ public class Tag648 extends DataFieldDefinition {
     mqTag = "ChronologicalSubject";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd648.html";
+    setLevels("A");
 
     ind1 = new Indicator()
       .setHistoricalCodes(

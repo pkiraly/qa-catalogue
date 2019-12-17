@@ -35,6 +35,7 @@ public class Tag662 extends DataFieldDefinition {
     bibframeTag = "HierarchicalGeographic";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd662.html";
+    setLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

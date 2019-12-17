@@ -31,6 +31,7 @@ public class Tag588 extends DataFieldDefinition {
     mqTag = "SourceOfDescription";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd588.html";
+    setLevels("O");
 
     ind1 = new Indicator("Display constant controller")
       .setCodes(

@@ -31,6 +31,7 @@ public class Tag336 extends DataFieldDefinition {
     mqTag = "ContentType";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd336.html";
+    setLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

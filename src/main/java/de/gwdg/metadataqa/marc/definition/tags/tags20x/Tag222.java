@@ -31,6 +31,7 @@ public class Tag222 extends DataFieldDefinition {
     bibframeTag = "KeyTitle";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd222.html";
+    setLevels("A");
 
     ind1 = new Indicator();
 

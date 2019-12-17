@@ -33,6 +33,7 @@ public class Tag048 extends DataFieldDefinition {
     mqTag = "NumberOfMusicalInstrumentsOrVoices";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd048.html";
+    setLevels("O");
 
     ind1 = new Indicator()
       .setHistoricalCodes(

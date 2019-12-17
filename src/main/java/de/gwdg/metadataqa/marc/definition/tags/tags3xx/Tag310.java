@@ -31,6 +31,7 @@ public class Tag310 extends DataFieldDefinition {
     bibframeTag = "Frequency";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd310.html";
+    setLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

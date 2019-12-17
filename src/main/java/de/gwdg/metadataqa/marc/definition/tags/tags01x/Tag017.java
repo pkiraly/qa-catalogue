@@ -33,6 +33,7 @@ public class Tag017 extends DataFieldDefinition {
     bibframeTag = "CopyrightNumber";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd017.html";
+    setLevels("O");
 
     ind1 = new Indicator()
       .setHistoricalCodes(

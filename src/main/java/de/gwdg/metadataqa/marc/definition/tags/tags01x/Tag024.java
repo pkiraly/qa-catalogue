@@ -34,6 +34,7 @@ public class Tag024 extends DataFieldDefinition {
     mqTag = "OtherStandardIdentifier";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd024.html";
+    setLevels("A", "A");
 
     ind1 = new Indicator("Type of standard number or code")
       .setCodes(

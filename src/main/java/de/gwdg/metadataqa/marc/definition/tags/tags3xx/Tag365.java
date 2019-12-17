@@ -31,6 +31,7 @@ public class Tag365 extends DataFieldDefinition {
     label = "Trade Price";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd365.html";
+    setLevels("A");
 
     ind1 = new Indicator("Start/End designator")
       .setCodes(

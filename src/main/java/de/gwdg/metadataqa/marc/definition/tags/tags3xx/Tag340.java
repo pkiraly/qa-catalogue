@@ -31,6 +31,7 @@ public class Tag340 extends DataFieldDefinition {
     mqTag = "PhysicalMedium";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd340.html";
+    setLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

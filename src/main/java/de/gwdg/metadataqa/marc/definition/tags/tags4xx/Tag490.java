@@ -33,6 +33,7 @@ public class Tag490 extends DataFieldDefinition {
     mqTag = "SeriesStatement";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd490.html";
+    setLevels("A", "A");
 
     ind1 = new Indicator("Series tracing policy")
       .setCodes(

@@ -36,6 +36,7 @@ public class Tag785 extends DataFieldDefinition {
     bibframeTag = "SucceededBy";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd785.html";
+    setLevels("A", "A");
 
     ind1 = new Indicator("Note controller")
       .setCodes(

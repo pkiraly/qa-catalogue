@@ -32,6 +32,7 @@ public class Tag561 extends DataFieldDefinition {
     mqTag = "CustodialHistory";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd561.html";
+    setLevels("O");
 
     ind1 = new Indicator("Privacy")
       .setCodes(

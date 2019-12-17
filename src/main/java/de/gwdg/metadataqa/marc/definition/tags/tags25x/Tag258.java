@@ -30,6 +30,7 @@ public class Tag258 extends DataFieldDefinition {
     mqTag = "PhilatelicIssue";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd258.html";
+    setLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

@@ -34,6 +34,7 @@ public class Tag534 extends DataFieldDefinition {
     mqTag = "OriginalVersion";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd534.html";
+    setLevels("A");
 
     ind1 = new Indicator()
       .setHistoricalCodes(

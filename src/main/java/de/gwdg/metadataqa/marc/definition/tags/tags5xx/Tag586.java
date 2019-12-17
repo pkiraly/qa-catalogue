@@ -32,6 +32,7 @@ public class Tag586 extends DataFieldDefinition {
     bibframeTag = "Awards";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd586.html";
+    setLevels("O");
 
     ind1 = new Indicator("Display constant controller")
       .setCodes(

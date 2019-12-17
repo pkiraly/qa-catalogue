@@ -32,6 +32,7 @@ public class Tag088 extends DataFieldDefinition {
     bibframeTag = "ReportNumber";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd088.html";
+    setLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

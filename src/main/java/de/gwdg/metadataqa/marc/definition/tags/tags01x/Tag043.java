@@ -33,6 +33,7 @@ public class Tag043 extends DataFieldDefinition {
     bibframeTag = "GeographicCoverage";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd043.html";
+    setLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

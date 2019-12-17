@@ -32,6 +32,7 @@ public class Tag074 extends DataFieldDefinition {
     mqTag = "GPOItemNumber";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd074.html";
+    setLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

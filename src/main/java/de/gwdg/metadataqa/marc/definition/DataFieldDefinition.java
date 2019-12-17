@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.*;
@@ -24,6 +25,8 @@ public abstract class DataFieldDefinition implements Serializable {
   protected List<FRBRFunction> functions;
   protected FieldIndexer fieldIndexer = null;
   protected SourceSpecificationType sourceSpecificationType = null;
+  private RecordLevel nationalLevel;
+  private RecordLevel minimalLevel;
 
   public String getTag() {
     return tag;
@@ -197,6 +200,41 @@ public abstract class DataFieldDefinition implements Serializable {
 
   public SourceSpecificationType getSourceSpecificationType() {
     return sourceSpecificationType;
+  }
+
+  public void setLevels(String national) {
+    setNationalLevel(national);
+  }
+
+  public void setLevels(String national, String minimal) {
+    setNationalLevel(national);
+    setMinimalLevel(minimal);
+  }
+
+  public RecordLevel getNationalLevel() {
+    return nationalLevel;
+  }
+
+  public void setNationalLevel(RecordLevel nationalLevel) {
+    this.nationalLevel = nationalLevel;
+  }
+
+  public void setNationalLevel(String level) {
+    if (StringUtils.isNotBlank(level))
+      this.nationalLevel = RecordLevel.byAbbreviation(level);
+  }
+
+  public RecordLevel getMinimalLevel() {
+    return minimalLevel;
+  }
+
+  public void setMinimalLevel(String level) {
+    if (StringUtils.isNotBlank(level))
+      this.minimalLevel = RecordLevel.byAbbreviation(level);
+  }
+
+  public void setMinimalLevel(RecordLevel minimalLevel) {
+    this.minimalLevel = minimalLevel;
   }
 
   @Override

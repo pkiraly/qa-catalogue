@@ -32,6 +32,7 @@ public class Tag544 extends DataFieldDefinition {
     mqTag = "LocationOfOtherArchivalMaterials";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd544.html";
+    setLevels("O");
 
     ind1 = new Indicator("Relationship")
       .setCodes(

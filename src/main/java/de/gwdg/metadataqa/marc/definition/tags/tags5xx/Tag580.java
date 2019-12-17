@@ -32,6 +32,7 @@ public class Tag580 extends DataFieldDefinition {
     mqTag = "LinkingEntryComplexity";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd580.html";
+    setLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

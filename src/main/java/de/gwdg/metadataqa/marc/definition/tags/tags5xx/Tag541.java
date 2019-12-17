@@ -32,6 +32,7 @@ public class Tag541 extends DataFieldDefinition {
     bibframeTag = "ImmediateAcquisition";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd541.html";
+    setLevels("O");
 
     ind1 = new Indicator("Privacy")
       .setCodes(

@@ -35,6 +35,7 @@ public class Tag040 extends DataFieldDefinition {
     bibframeTag = "AdminMetadata";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd040.html";
+    setLevels("M", "M");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

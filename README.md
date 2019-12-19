@@ -643,6 +643,22 @@ The MARC JSON file is a JSON serialization of binary MARC file. See more the [MA
 
 ## Export mapping table
 
+### to Avram JSON
+
+Some background info: [MARC21 structure in JSON](http://pkiraly.github.io/2018/01/28/marc21-in-json/).
+
+```
+java -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MappingToJson [options] > marc-schema
+```
+
+options
+
+* `-c`, `--withSubfieldCodelists`: with subfield codelists
+* `-s`, `--withSelfDescriptiveCode`: with self-descriptive codes
+* `-t`, `--solrFieldType [type]`: type of Solr fields, could be one of `marc-tags`, `human-readable`, or `mixed`
+
+### to HTML
+
 To export the HTML table described at [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/)
 
 ```

@@ -66,6 +66,11 @@ do_functional_analysis() {
   ./functional-analysis --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}.log
 }
 
+do_network_analysis() {
+  echo "./network-analysis --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}.log"
+  ./network-analysis --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}.log
+}
+
 case "$1" in
   validate)
     do_validate
@@ -97,6 +102,9 @@ case "$1" in
   functional-analysis)
     do_functional_analysis
     ;;
+  network-analysis)
+    do_network_analysis
+    ;;
   all-analyses)
     do_validate
     do_completeness
@@ -105,6 +113,7 @@ case "$1" in
     do_tt_completeness
     do_serial_score
     do_functional_analysis
+    do_network_analysis
     ;;
   all-solr)
     do_prepare_solr

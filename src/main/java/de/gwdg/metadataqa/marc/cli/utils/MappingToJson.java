@@ -64,12 +64,10 @@ public class MappingToJson {
     Map<String, Object> tag = new LinkedHashMap<>();
     tag.put("repeatable", false);
     Map<String, Object> positions = new LinkedHashMap<>();
-    LeaderSubfields leaderSubfields = LeaderSubfields.getInstance();
-    logger.info("size: " + leaderSubfields.getSubfieldList().size());
 
+    LeaderSubfields leaderSubfields = LeaderSubfields.getInstance();
     for (ControlSubfieldDefinition subfield : leaderSubfields.getSubfieldList()) {
       Map<String, Object> position = controlSubfieldToJson(subfield);
-      logger.info("keys: " + position.keySet().toString());
       String key = (String) position.remove("position");
       positions.put(key, position);
     }

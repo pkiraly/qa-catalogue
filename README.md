@@ -658,8 +658,8 @@ options
 * `-c`, `--withSubfieldCodelists`: with subfield codelists
 * `-s`, `--withSelfDescriptiveCode`: with self-descriptive codes
 * `-t`, `--solrFieldType [type]`: type of Solr fields, could be one of `marc-tags`, `human-readable`, or `mixed`
-* `-f`, `--withFrbrFunctions`: with FRBR functions
-* `-l`, `--withCompilanceLevel`: with compilance levels (national, minimal). See [National Level Full and Minimal Requirements](https://www.loc.gov/marc/bibliographic/nlr/nlr.html)
+* `-f`, `--withFrbrFunctions`: with FRBR functions (see Tom Delsey: [Functional analysis of the MARC 21 bibliographic and holdings formats.](https://www.loc.gov/marc/marc-functional-analysis/original_source/analysis.pdf) Tech. report, 2nd revision. Library of Congress, 2003.)
+* `-l`, `--withCompilanceLevel`: with compilance levels (national, minimal) (see [National Level Full and Minimal Requirements.](https://www.loc.gov/marc/bibliographic/nlr/nlr.html) Library of Congress, 1999.)
 
 ### to HTML
 

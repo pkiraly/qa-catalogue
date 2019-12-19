@@ -28,7 +28,7 @@ public class MappingParameters {
       options.addOption("t", "solrFieldType", true,
         "type of Solr fields, could be one of 'marc-tags', 'human-readable', or 'mixed'");
       options.addOption("f", "withFrbrFunctions", false, "with FRBR functions");
-      options.addOption("l", "withCompilanceLevel", false, "with FRBR functions");
+      options.addOption("l", "withCompilanceLevel", false, "with compilance levels (national, minimal)");
       options.addOption("h", "help", false, "display help");
       isOptionSet = true;
     }

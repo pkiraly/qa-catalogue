@@ -659,6 +659,7 @@ options
 * `-s`, `--withSelfDescriptiveCode`: with self-descriptive codes
 * `-t`, `--solrFieldType [type]`: type of Solr fields, could be one of `marc-tags`, `human-readable`, or `mixed`
 * `-f`, `--withFrbrFunctions`: with FRBR functions
+* `-l`, `--withCompilanceLevel`: with compilance levels (national, minimal). See [National Level Full and Minimal Requirements](https://www.loc.gov/marc/bibliographic/nlr/nlr.html)
 
 ### to HTML
 

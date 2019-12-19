@@ -1,7 +1,6 @@
 package de.gwdg.metadataqa.marc.cli.utils;
 
 import de.gwdg.metadataqa.marc.*;
-import de.gwdg.metadataqa.marc.cli.NetworkAnalysis;
 import de.gwdg.metadataqa.marc.cli.parameters.MappingParameters;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.tags.control.*;
@@ -40,8 +39,8 @@ public class MappingToJson {
     parameters = new MappingParameters(args);
     options = parameters.getOptions();
 
-    exportSubfieldCodes = parameters.isExportSubfieldCodes();
-    exportSelfDescriptiveCodes = parameters.isExportSelfDescriptiveCodes();
+    exportSubfieldCodes = parameters.doExportSubfieldCodes();
+    exportSelfDescriptiveCodes = parameters.doExportSelfDescriptiveCodes();
 
     mapping = new LinkedHashMap<>();
     mapping.put("$schema", "https://format.gbv.de/schema/avram/schema.json");
@@ -214,9 +213,11 @@ public class MappingToJson {
     if (exportSelfDescriptiveCodes)
       tagMap.put("solr", keyGenerator.getIndexTag());
 
-    if (parameters.isExportFrbrFunctions()) {
+    if (parameters.doExportFrbrFunctions())
       extractFunctions(tagMap, tag.getFrbrFunctions());
-    }
+
+    if (parameters.doExportCompilanceLevel())
+      extractCompilanceLevel(tagMap, tag.getNationalCompilanceLevel(), tag.getMinimalCompilanceLevel());
 
     tagMap.put("indicator1", indicatorToJson(tag.getInd1()));
     tagMap.put("indicator2", indicatorToJson(tag.getInd2()));
@@ -278,10 +279,27 @@ public class MappingToJson {
       codeMap.put("codelist", meta);
     }
 
-    if (parameters.isExportFrbrFunctions())
+    if (parameters.doExportFrbrFunctions())
       extractFunctions(codeMap, subfield.getFrbrFunctions());
 
+    if (parameters.doExportCompilanceLevel())
+      extractCompilanceLevel(codeMap, subfield.getNationalCompilanceLevel(), subfield.getMinimalCompilanceLevel());
+
     return codeMap;
+  }
+
+  private void extractCompilanceLevel(Map<String, Object> codeMap,
+                                      CompilanceLevel nationalCompilanceLevel,
+                                      CompilanceLevel minimalCompilanceLevel) {
+    Map<String, String> levels = new LinkedHashMap<>();
+    if (nationalCompilanceLevel != null)
+      levels.put("national", nationalCompilanceLevel.getLabel());
+
+    if (minimalCompilanceLevel != null)
+      levels.put("minimal", minimalCompilanceLevel.getLabel());
+
+    if (levels.size() > 0)
+      codeMap.put("compilance-level", levels);
   }
 
   private static Map<String, Object> indicatorToJson(Indicator indicator) {

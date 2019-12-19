@@ -30,6 +30,8 @@ This tool reads MARC dump files (in binary MARC or MARCXML formats), analyses di
     * [Mixed format](#mixed-format)
   * [Indexing MARC JSON records with Solr](#indexing-marc-json-records-with-solr)
   * [Export mapping table](#export-mapping-table)
+    * [to Avram JSON](#to-avram-json)
+    * [to HTML](#to-html)
 * [Extending the functionalities](#extending-the-functionalities)
 * [User interface](#user-interface)
 * [Appendix I. Where can I get MARC records](#appendix-i-where-can-i-get-marc-records)

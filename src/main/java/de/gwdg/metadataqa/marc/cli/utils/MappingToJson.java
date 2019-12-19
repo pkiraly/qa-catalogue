@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.cli.utils;
 
 import de.gwdg.metadataqa.marc.*;
+import de.gwdg.metadataqa.marc.cli.NetworkAnalysis;
 import de.gwdg.metadataqa.marc.cli.parameters.MappingParameters;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.tags.control.*;
@@ -18,8 +19,11 @@ import org.apache.commons.cli.ParseException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class MappingToJson {
+
+  private static final Logger logger = Logger.getLogger(MappingToJson.class.getCanonicalName());
 
   private final static List<String> nonMarc21TagLibraries = Arrays.asList(
     "oclctags", "fennicatags", "dnbtags", "sztetags", "genttags",
@@ -60,8 +64,12 @@ public class MappingToJson {
     Map<String, Object> tag = new LinkedHashMap<>();
     tag.put("repeatable", false);
     Map<String, Object> positions = new LinkedHashMap<>();
-    for (ControlSubfieldDefinition subfield : LeaderSubfields.getSubfieldList()) {
+    LeaderSubfields leaderSubfields = LeaderSubfields.getInstance();
+    logger.info("size: " + leaderSubfields.getSubfieldList().size());
+
+    for (ControlSubfieldDefinition subfield : leaderSubfields.getSubfieldList()) {
       Map<String, Object> position = controlSubfieldToJson(subfield);
+      logger.info("keys: " + position.keySet().toString());
       String key = (String) position.remove("position");
       positions.put(key, position);
     }
@@ -290,7 +298,6 @@ public class MappingToJson {
   }
 
   public static void main(String[] args) throws ParseException {
-
     MappingToJson mapping = new MappingToJson(args);
     mapping.build();
     System.out.println(mapping.toJson());

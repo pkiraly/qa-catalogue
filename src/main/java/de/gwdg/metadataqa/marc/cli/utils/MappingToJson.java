@@ -214,6 +214,10 @@ public class MappingToJson {
     if (exportSelfDescriptiveCodes)
       tagMap.put("solr", keyGenerator.getIndexTag());
 
+    if (parameters.isExportFrbrFunctions()) {
+      extractFunctions(tagMap, tag.getFrbrFunctions());
+    }
+
     tagMap.put("indicator1", indicatorToJson(tag.getInd1()));
     tagMap.put("indicator2", indicatorToJson(tag.getInd2()));
 
@@ -234,6 +238,16 @@ public class MappingToJson {
     }
 
     fields.put(tag.getTag(), tagMap);
+  }
+
+  private void extractFunctions(Map<String, Object> tagMap, List<FRBRFunction> functions) {
+    if (functions != null && functions.size() > 0) {
+      List<String> paths = new ArrayList<>();
+      for (FRBRFunction function : functions) {
+        paths.add(function.getPath());
+      }
+      tagMap.put("frbr-functions", paths);
+    }
   }
 
   private Map<String, Object> subfieldToJson(SubfieldDefinition subfield, DataFieldKeyGenerator keyGenerator) {
@@ -263,6 +277,10 @@ public class MappingToJson {
       }
       codeMap.put("codelist", meta);
     }
+
+    if (parameters.isExportFrbrFunctions())
+      extractFunctions(codeMap, subfield.getFrbrFunctions());
+
     return codeMap;
   }
 

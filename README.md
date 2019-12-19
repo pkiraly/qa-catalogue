@@ -658,6 +658,7 @@ options
 * `-c`, `--withSubfieldCodelists`: with subfield codelists
 * `-s`, `--withSelfDescriptiveCode`: with self-descriptive codes
 * `-t`, `--solrFieldType [type]`: type of Solr fields, could be one of `marc-tags`, `human-readable`, or `mixed`
+* `-f`, `--withFrbrFunctions`: with FRBR functions
 
 ### to HTML
 

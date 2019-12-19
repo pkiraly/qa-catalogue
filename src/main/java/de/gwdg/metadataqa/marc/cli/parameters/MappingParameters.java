@@ -11,6 +11,8 @@ public class MappingParameters {
 
   private boolean exportSubfieldCodes = false;
   private boolean exportSelfDescriptiveCodes = false;
+  private boolean exportFrbrFunctions = false;
+
   private SolrFieldType solrFieldType = SolrFieldType.MARC;
 
   protected Options options = new Options();
@@ -24,6 +26,7 @@ public class MappingParameters {
       options.addOption("s", "withSelfDescriptiveCode", false, "with self-descriptive codes");
       options.addOption("t", "solrFieldType", true,
         "type of Solr fields, could be one of 'marc-tags', 'human-readable', or 'mixed'");
+      options.addOption("f", "withFrbrFunctions", false, "with FRBR functions");
       options.addOption("h", "help", false, "display help");
       isOptionSet = true;
     }
@@ -43,6 +46,9 @@ public class MappingParameters {
 
     if (cmd.hasOption("solrFieldType"))
       solrFieldType = SolrFieldType.byCode(cmd.getOptionValue("solrFieldType"));
+
+    if (cmd.hasOption("withFrbrFunctions"))
+      exportFrbrFunctions = true;
   }
 
   public Options getOptions() {
@@ -61,5 +67,9 @@ public class MappingParameters {
 
   public SolrFieldType getSolrFieldType() {
     return solrFieldType;
+  }
+
+  public boolean isExportFrbrFunctions() {
+    return exportFrbrFunctions;
   }
 }

@@ -22,6 +22,19 @@ public enum FRBRFunction {
   private String label = null;
 
   private FRBRFunction(String label, FRBRFunction parent) {
+    this.label = label;
     this.parent = parent;
+  }
+
+  public FRBRFunction getParent() {
+    return parent;
+  }
+
+  public String getLabel() {
+    return label;
+  }
+
+  public String getPath() {
+    return String.format("%s/%s", parent.label, label);
   }
 }

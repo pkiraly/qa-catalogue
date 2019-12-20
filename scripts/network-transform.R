@@ -29,7 +29,7 @@ by_concepts <- df %>%
     ids = paste0(id, collapse = ';')
   ) %>% 
   distinct(concept, count, ids)
-write_csv(by_concepts, '~/bin/marc/_output/szte/network-by-concepts.csv')
+write_csv(by_concepts, sprintf('%s/%s/network-by-concepts.csv', base_output_dir, catalogue))
 
 total_concept <- dim(by_concepts)[1]
 single_concepts <- by_concepts %>% 
@@ -44,7 +44,7 @@ by_record <- df %>%
     concepts = paste0(concept, collapse = ';')
   ) %>% 
   distinct(id, count, concepts)
-write_csv(by_record, '~/bin/marc/_output/szte/network-by-record.csv')
+write_csv(by_record, sprintf('%s/%s/network-by-record.csv', base_output_dir, catalogue))
 
 total_records <- dim(by_record)[1]
 single_records <- by_record %>% 
@@ -57,4 +57,4 @@ statistics <- tribble(
   'concepts', total_concept, single_concepts, multi_concepts,
   'records',  total_records, single_records,  multi_records
 )
-write_csv(statistics, '~/bin/marc/_output/szte/network-statistics.csv')
+write_csv(statistics, sprintf('%s/%s/network-statistics.csv', base_output_dir, catalogue))

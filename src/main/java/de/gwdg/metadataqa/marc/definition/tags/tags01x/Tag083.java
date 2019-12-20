@@ -32,6 +32,7 @@ public class Tag083 extends DataFieldDefinition {
     mqTag = "ClassificationAdditionalDdc";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd083.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Type of edition")
       .setCodes(
@@ -58,14 +59,39 @@ public class Tag083 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value");
-    getSubfield("c").setMqTag("endingNumber");
-    getSubfield("m").setMqTag("standard");
-    getSubfield("q").setMqTag("source");
-    getSubfield("y").setMqTag("tableSequenceNumber");
-    getSubfield("z").setMqTag("tableId");
-    getSubfield("2").setMqTag("edition");
-    getSubfield("6").setBibframeTag("linkage");
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setCompilanceLevels("M");
+
+    getSubfield("c")
+      .setMqTag("endingNumber")
+      .setCompilanceLevels("A");
+
+    getSubfield("m")
+      .setMqTag("standard")
+      .setCompilanceLevels("M");
+
+    getSubfield("q")
+      .setMqTag("source")
+      .setCompilanceLevels("O");
+
+    getSubfield("y")
+      .setMqTag("tableSequenceNumber")
+      .setCompilanceLevels("A");
+
+    getSubfield("z")
+      .setMqTag("tableId");
+
+    getSubfield("2")
+      .setMqTag("edition")
+      .setCompilanceLevels("M");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setCompilanceLevels("O");
   }
 }

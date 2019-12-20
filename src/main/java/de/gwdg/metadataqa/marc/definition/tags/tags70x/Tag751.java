@@ -35,6 +35,7 @@ public class Tag751 extends DataFieldDefinition {
     mqTag = "AddedGeographicName";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd751.html";
+    setCompilanceLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -56,14 +57,37 @@ public class Tag751 extends DataFieldDefinition {
     getSubfield("0").setContentParser(RecordControlNumberParser.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value");
-    getSubfield("e").setMqTag("relator");
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("2").setMqTag("source");
-    getSubfield("3").setMqTag("materialsSpecified");
-    getSubfield("4").setMqTag("relationship");
-    getSubfield("6").setBibframeTag("linkage");
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setCompilanceLevels("M");
+
+    getSubfield("e")
+      .setMqTag("relator")
+      .setCompilanceLevels("A");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setCompilanceLevels("O");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setCompilanceLevels("O");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setCompilanceLevels("O");
+
+    getSubfield("4")
+      .setMqTag("relationship")
+      .setCompilanceLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setCompilanceLevels("O");
 
     sourceSpecificationType = SourceSpecificationType.Subfield2;
   }

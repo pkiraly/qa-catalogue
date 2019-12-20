@@ -18,8 +18,11 @@ import org.apache.commons.cli.ParseException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class MappingToJson {
+
+  private static final Logger logger = Logger.getLogger(MappingToJson.class.getCanonicalName());
 
   private final static List<String> nonMarc21TagLibraries = Arrays.asList(
     "oclctags", "fennicatags", "dnbtags", "sztetags", "genttags",
@@ -36,8 +39,8 @@ public class MappingToJson {
     parameters = new MappingParameters(args);
     options = parameters.getOptions();
 
-    exportSubfieldCodes = parameters.isExportSubfieldCodes();
-    exportSelfDescriptiveCodes = parameters.isExportSelfDescriptiveCodes();
+    exportSubfieldCodes = parameters.doExportSubfieldCodes();
+    exportSelfDescriptiveCodes = parameters.doExportSelfDescriptiveCodes();
 
     mapping = new LinkedHashMap<>();
     mapping.put("$schema", "https://format.gbv.de/schema/avram/schema.json");
@@ -60,7 +63,9 @@ public class MappingToJson {
     Map<String, Object> tag = new LinkedHashMap<>();
     tag.put("repeatable", false);
     Map<String, Object> positions = new LinkedHashMap<>();
-    for (ControlSubfieldDefinition subfield : LeaderSubfields.getSubfieldList()) {
+
+    LeaderSubfields leaderSubfields = LeaderSubfields.getInstance();
+    for (ControlSubfieldDefinition subfield : leaderSubfields.getSubfieldList()) {
       Map<String, Object> position = controlSubfieldToJson(subfield);
       String key = (String) position.remove("position");
       positions.put(key, position);
@@ -208,6 +213,12 @@ public class MappingToJson {
     if (exportSelfDescriptiveCodes)
       tagMap.put("solr", keyGenerator.getIndexTag());
 
+    if (parameters.doExportFrbrFunctions())
+      extractFunctions(tagMap, tag.getFrbrFunctions());
+
+    if (parameters.doExportCompilanceLevel())
+      extractCompilanceLevel(tagMap, tag.getNationalCompilanceLevel(), tag.getMinimalCompilanceLevel());
+
     tagMap.put("indicator1", indicatorToJson(tag.getInd1()));
     tagMap.put("indicator2", indicatorToJson(tag.getInd2()));
 
@@ -228,6 +239,16 @@ public class MappingToJson {
     }
 
     fields.put(tag.getTag(), tagMap);
+  }
+
+  private void extractFunctions(Map<String, Object> tagMap, List<FRBRFunction> functions) {
+    if (functions != null && functions.size() > 0) {
+      List<String> paths = new ArrayList<>();
+      for (FRBRFunction function : functions) {
+        paths.add(function.getPath());
+      }
+      tagMap.put("frbr-functions", paths);
+    }
   }
 
   private Map<String, Object> subfieldToJson(SubfieldDefinition subfield, DataFieldKeyGenerator keyGenerator) {
@@ -257,7 +278,28 @@ public class MappingToJson {
       }
       codeMap.put("codelist", meta);
     }
+
+    if (parameters.doExportFrbrFunctions())
+      extractFunctions(codeMap, subfield.getFrbrFunctions());
+
+    if (parameters.doExportCompilanceLevel())
+      extractCompilanceLevel(codeMap, subfield.getNationalCompilanceLevel(), subfield.getMinimalCompilanceLevel());
+
     return codeMap;
+  }
+
+  private void extractCompilanceLevel(Map<String, Object> codeMap,
+                                      CompilanceLevel nationalCompilanceLevel,
+                                      CompilanceLevel minimalCompilanceLevel) {
+    Map<String, String> levels = new LinkedHashMap<>();
+    if (nationalCompilanceLevel != null)
+      levels.put("national", nationalCompilanceLevel.getLabel());
+
+    if (minimalCompilanceLevel != null)
+      levels.put("minimal", minimalCompilanceLevel.getLabel());
+
+    if (levels.size() > 0)
+      codeMap.put("compilance-level", levels);
   }
 
   private static Map<String, Object> indicatorToJson(Indicator indicator) {
@@ -290,7 +332,6 @@ public class MappingToJson {
   }
 
   public static void main(String[] args) throws ParseException {
-
     MappingToJson mapping = new MappingToJson(args);
     mapping.build();
     System.out.println(mapping.toJson());

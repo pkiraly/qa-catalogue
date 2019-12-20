@@ -32,6 +32,7 @@ public class Tag545 extends DataFieldDefinition {
     mqTag = "BiographicalOrHistoricalData";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd545.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Type of data")
       .setCodes(
@@ -54,15 +55,29 @@ public class Tag545 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("b").setMqTag("expansion")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("u").setMqTag("uri")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("M");
+
+    getSubfield("b")
+      .setMqTag("expansion")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("O");
+
+    getSubfield("u")
+      .setMqTag("uri")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
   }
 }

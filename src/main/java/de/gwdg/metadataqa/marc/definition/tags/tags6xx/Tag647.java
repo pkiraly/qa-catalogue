@@ -65,19 +65,44 @@ public class Tag647 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value");
-    getSubfield("c").setMqTag("location");
-    getSubfield("d").setMqTag("date");
-    getSubfield("g").setMqTag("miscellaneous");
-    getSubfield("v").setBibframeTag("formGenre").setMqTag("formSubdivision");
-    getSubfield("x").setBibframeTag("topic").setMqTag("generalSubdivision");
-    getSubfield("y").setBibframeTag("temporal").setMqTag("chronologicalSubdivision");
-    getSubfield("z").setBibframeTag("geographic").setMqTag("geographicSubdivision");
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("2").setMqTag("source");
-    getSubfield("3").setMqTag("materialsSpecified");
-    getSubfield("6").setBibframeTag("linkage");
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a")
+      .setMqTag("rdf:value");
+
+    getSubfield("c")
+      .setMqTag("location");
+
+    getSubfield("d")
+      .setMqTag("date");
+
+    getSubfield("g")
+      .setMqTag("miscellaneous");
+
+    getSubfield("v")
+      .setBibframeTag("formGenre").setMqTag("formSubdivision");
+
+    getSubfield("x")
+      .setBibframeTag("topic").setMqTag("generalSubdivision");
+
+    getSubfield("y")
+      .setBibframeTag("temporal").setMqTag("chronologicalSubdivision");
+
+    getSubfield("z")
+      .setBibframeTag("geographic").setMqTag("geographicSubdivision");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber");
+
+    getSubfield("2")
+      .setMqTag("source");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified");
+
+    getSubfield("6")
+      .setBibframeTag("linkage");
+
+    getSubfield("8")
+      .setMqTag("fieldLink");
 
     fieldIndexer = SchemaFromInd2AndSubfield2.getInstance();
     sourceSpecificationType = SourceSpecificationType.Indicator2AndSubfield2;

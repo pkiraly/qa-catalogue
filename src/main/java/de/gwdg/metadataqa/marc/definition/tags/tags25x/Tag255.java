@@ -30,6 +30,7 @@ public class Tag255 extends DataFieldDefinition {
     bibframeTag = "Cartographic";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd255.html";
+    setCompilanceLevels("A", "A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -48,22 +49,48 @@ public class Tag255 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("scale")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseInterpret);
-    getSubfield("b").setBibframeTag("projection")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseInterpret);
-    getSubfield("c").setBibframeTag("coordinates")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect);
-    getSubfield("d").setBibframeTag("ascensionAndDeclination")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect);
-    getSubfield("e").setBibframeTag("equinox")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect);
-    getSubfield("f").setBibframeTag("outerGRing");
-    getSubfield("g").setBibframeTag("exclusionGRing")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("scale")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseInterpret)
+      .setCompilanceLevels("M", "M");
+
+    getSubfield("b")
+      .setBibframeTag("projection")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, UseInterpret)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("c")
+      .setBibframeTag("coordinates")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("d")
+      .setBibframeTag("ascensionAndDeclination")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect)
+      .setCompilanceLevels("A");
+
+    getSubfield("e")
+      .setBibframeTag("equinox")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect)
+      .setCompilanceLevels("A");
+
+    getSubfield("f")
+      .setBibframeTag("outerGRing")
+      .setCompilanceLevels("A");
+
+    getSubfield("g")
+      .setBibframeTag("exclusionGRing")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect)
+      .setCompilanceLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
   }
 }

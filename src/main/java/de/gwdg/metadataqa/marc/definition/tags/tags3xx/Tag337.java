@@ -31,6 +31,7 @@ public class Tag337 extends DataFieldDefinition {
     mqTag = "MediaType";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd337.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -49,12 +50,31 @@ public class Tag337 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
-    getSubfield("b").setMqTag("mediaTypeCode");
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("2").setBibframeTag("source");
-    getSubfield("3").setMqTag("materialsSpecified");
-    getSubfield("6").setBibframeTag("linkage");
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a")
+      .setBibframeTag("rdfs:label").setMqTag("rdf:value")
+      .setCompilanceLevels("M");
+
+    getSubfield("b")
+      .setMqTag("mediaTypeCode")
+      .setCompilanceLevels("M");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber");
+
+    getSubfield("2")
+      .setBibframeTag("source")
+      .setCompilanceLevels("M");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setCompilanceLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setCompilanceLevels("O");
   }
 }

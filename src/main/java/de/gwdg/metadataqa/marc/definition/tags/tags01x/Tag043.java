@@ -33,6 +33,7 @@ public class Tag043 extends DataFieldDefinition {
     bibframeTag = "GeographicCoverage";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd043.html";
+    setCompilanceLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -52,18 +53,36 @@ public class Tag043 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("code")
+    getSubfield("a")
+      .setMqTag("code")
+      .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
+      .setCompilanceLevels("M");
+
+    getSubfield("b")
+      .setMqTag("localGACcode")
+      .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
+      .setCompilanceLevels("O");
+
+    getSubfield("c")
+      .setMqTag("ISOcode")
       .setFrbrFunctions(DiscoverySearch, DiscoverySelect);
-    getSubfield("b").setMqTag("localGACcode")
-      .setFrbrFunctions(DiscoverySearch, DiscoverySelect);
-    getSubfield("c").setMqTag("ISOcode")
-      .setFrbrFunctions(DiscoverySearch, DiscoverySelect);
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
   }
 }

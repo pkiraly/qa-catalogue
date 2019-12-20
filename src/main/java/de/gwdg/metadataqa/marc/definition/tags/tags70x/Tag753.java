@@ -35,6 +35,7 @@ public class Tag753 extends DataFieldDefinition {
     bibframeTag = "SystemRequirement";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd753.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -54,17 +55,34 @@ public class Tag753 extends DataFieldDefinition {
     getSubfield("0").setContentParser(RecordControlNumberParser.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("machineModel")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("b").setBibframeTag("programmingLanguage")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("c").setBibframeTag("operatingSystem")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("2").setMqTag("source");
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
+    getSubfield("a")
+      .setBibframeTag("machineModel")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("M");
+
+    getSubfield("b")
+      .setBibframeTag("programmingLanguage")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("c")
+      .setBibframeTag("operatingSystem")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber");
+
+    getSubfield("2")
+      .setMqTag("source");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
     sourceSpecificationType = SourceSpecificationType.Subfield2;

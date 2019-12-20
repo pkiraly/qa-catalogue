@@ -35,6 +35,7 @@ public class Tag013 extends DataFieldDefinition {
     mqTag = "PatentControl";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd013.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -57,16 +58,39 @@ public class Tag013 extends DataFieldDefinition {
     getSubfield("d").setContentParser(YYYYMMDDDateParser.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("number")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("b").setMqTag("country")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("c").setMqTag("type")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("d").setMqTag("date");
-    getSubfield("e").setMqTag("status");
-    getSubfield("f").setMqTag("partyToDocument");
-    getSubfield("6").setBibframeTag("linkage");
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a")
+      .setMqTag("number")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("b")
+      .setMqTag("country")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("c")
+      .setMqTag("type")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("d")
+      .setMqTag("date")
+      .setCompilanceLevels("O");
+
+    getSubfield("e")
+      .setMqTag("status")
+      .setCompilanceLevels("O");
+
+    getSubfield("f")
+      .setMqTag("partyToDocument")
+      .setCompilanceLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setCompilanceLevels("O");
   }
 }

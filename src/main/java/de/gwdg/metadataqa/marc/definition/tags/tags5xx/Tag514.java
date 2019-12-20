@@ -32,6 +32,7 @@ public class Tag514 extends DataFieldDefinition {
     mqTag = "DataQuality";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd514.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -57,36 +58,83 @@ public class Tag514 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("accuracyReport")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("b").setMqTag("accuracyValue")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("c").setMqTag("accuracyExplanation")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("d").setMqTag("logicalConsistency")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("e").setMqTag("completeness")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("f").setMqTag("horizontalPositionAccuracyReport")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("g").setMqTag("horizontalPositionAccuracyValue")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("h").setMqTag("horizontalPositionAccuracyExplanation")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("i").setMqTag("verticalPositionalAccuracyReport")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("j").setMqTag("verticalPositionalAccuracyValue")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("k").setMqTag("verticalPositionalAccuracyExplanation")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("m").setMqTag("cloudCover")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("u").setMqTag("uri")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("z").setMqTag("display");
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("accuracyReport")
+      .setFrbrFunctions(UseInterpret)
+      .setCompilanceLevels("A");
+
+    getSubfield("b")
+      .setMqTag("accuracyValue")
+      .setFrbrFunctions(UseInterpret)
+      .setCompilanceLevels("A");
+
+    getSubfield("c")
+      .setMqTag("accuracyExplanation")
+      .setFrbrFunctions(UseInterpret)
+      .setCompilanceLevels("A");
+
+    getSubfield("d")
+      .setMqTag("logicalConsistency")
+      .setFrbrFunctions(UseInterpret)
+      .setCompilanceLevels("A");
+
+    getSubfield("e")
+      .setMqTag("completeness")
+      .setFrbrFunctions(UseInterpret)
+      .setCompilanceLevels("A");
+
+    getSubfield("f")
+      .setMqTag("horizontalPositionAccuracyReport")
+      .setFrbrFunctions(UseInterpret)
+      .setCompilanceLevels("A");
+
+    getSubfield("g")
+      .setMqTag("horizontalPositionAccuracyValue")
+      .setFrbrFunctions(UseInterpret)
+      .setCompilanceLevels("A");
+
+    getSubfield("h")
+      .setMqTag("horizontalPositionAccuracyExplanation")
+      .setFrbrFunctions(UseInterpret)
+      .setCompilanceLevels("A");
+
+    getSubfield("i")
+      .setMqTag("verticalPositionalAccuracyReport")
+      .setFrbrFunctions(UseInterpret)
+      .setCompilanceLevels("A");
+
+    getSubfield("j")
+      .setMqTag("verticalPositionalAccuracyValue")
+      .setFrbrFunctions(UseInterpret)
+      .setCompilanceLevels("A");
+
+    getSubfield("k")
+      .setMqTag("verticalPositionalAccuracyExplanation")
+      .setFrbrFunctions(UseInterpret)
+      .setCompilanceLevels("A");
+
+    getSubfield("m")
+      .setMqTag("cloudCover")
+      .setFrbrFunctions(UseInterpret)
+      .setCompilanceLevels("A");
+
+    getSubfield("u")
+      .setMqTag("uri")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("z")
+      .setMqTag("display")
+      .setCompilanceLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
   }
 }

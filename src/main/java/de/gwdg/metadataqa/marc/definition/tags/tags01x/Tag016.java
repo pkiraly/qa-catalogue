@@ -32,6 +32,7 @@ public class Tag016 extends DataFieldDefinition {
     bibframeTag = "IdIntifiedBy/Local";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd016.html";
+    setCompilanceLevels("A", "A");
 
     ind1 = new Indicator("National bibliographic agency")
       .setCodes(
@@ -51,13 +52,24 @@ public class Tag016 extends DataFieldDefinition {
 
     getSubfield("2").setCodeList(OrganizationCodes.getInstance());
 
-    getSubfield("a").setBibframeTag("rdf:value")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("z").setMqTag("canceledOrInvalidControlNumber")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("2").setBibframeTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("rdf:value")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("z")
+      .setMqTag("canceledOrInvalidControlNumber")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("2")
+      .setBibframeTag("source")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
   }
 }

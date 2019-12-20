@@ -32,6 +32,7 @@ public class Tag502 extends DataFieldDefinition {
     bibframeTag = "Dissertation";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd502.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -49,16 +50,39 @@ public class Tag502 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("b").setBibframeTag("degree");
-    getSubfield("c").setBibframeTag("grantingInstitution");
-    getSubfield("d").setBibframeTag("date");
-    getSubfield("g").setBibframeTag("note");
-    getSubfield("o").setBibframeTag("identifiedBy");
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("rdfs:label").setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setCompilanceLevels("M");
+
+    getSubfield("b")
+      .setBibframeTag("degree")
+      .setCompilanceLevels("O");
+
+    getSubfield("c")
+      .setBibframeTag("grantingInstitution")
+      .setCompilanceLevels("O");
+
+    getSubfield("d")
+      .setBibframeTag("date")
+      .setCompilanceLevels("O");
+
+    getSubfield("g")
+      .setBibframeTag("note")
+      .setCompilanceLevels("O");
+
+    getSubfield("o")
+      .setBibframeTag("identifiedBy")
+      .setCompilanceLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
   }
 }

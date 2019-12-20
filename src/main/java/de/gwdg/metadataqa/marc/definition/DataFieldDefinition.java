@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.*;
@@ -24,6 +25,8 @@ public abstract class DataFieldDefinition implements Serializable {
   protected List<FRBRFunction> functions;
   protected FieldIndexer fieldIndexer = null;
   protected SourceSpecificationType sourceSpecificationType = null;
+  private CompilanceLevel nationalCompilanceLevel;
+  private CompilanceLevel minimalCompilanceLevel;
 
   public String getTag() {
     return tag;
@@ -197,6 +200,41 @@ public abstract class DataFieldDefinition implements Serializable {
 
   public SourceSpecificationType getSourceSpecificationType() {
     return sourceSpecificationType;
+  }
+
+  public void setCompilanceLevels(String national) {
+    setNationalCompilanceLevel(national);
+  }
+
+  public void setCompilanceLevels(String national, String minimal) {
+    setNationalCompilanceLevel(national);
+    setMinimalCompilanceLevel(minimal);
+  }
+
+  public CompilanceLevel getNationalCompilanceLevel() {
+    return nationalCompilanceLevel;
+  }
+
+  public void setNationalCompilanceLevel(CompilanceLevel nationalLevel) {
+    this.nationalCompilanceLevel = nationalLevel;
+  }
+
+  public void setNationalCompilanceLevel(String level) {
+    if (StringUtils.isNotBlank(level))
+      this.nationalCompilanceLevel = CompilanceLevel.byAbbreviation(level);
+  }
+
+  public CompilanceLevel getMinimalCompilanceLevel() {
+    return minimalCompilanceLevel;
+  }
+
+  public void setMinimalCompilanceLevel(String level) {
+    if (StringUtils.isNotBlank(level))
+      this.minimalCompilanceLevel = CompilanceLevel.byAbbreviation(level);
+  }
+
+  public void setMinimalCompilanceLevel(CompilanceLevel minimalLevel) {
+    this.minimalCompilanceLevel = minimalLevel;
   }
 
   @Override

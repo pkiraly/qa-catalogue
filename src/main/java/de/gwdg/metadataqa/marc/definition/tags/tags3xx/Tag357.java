@@ -31,6 +31,7 @@ public class Tag357 extends DataFieldDefinition {
     mqTag = "OriginatorDisseminationControl";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd357.html";
+    setCompilanceLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -46,17 +47,34 @@ public class Tag357 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value")
-      .setFrbrFunctions(UseRestrict);
-    getSubfield("b").setMqTag("originatingAgency")
-      .setFrbrFunctions(UseRestrict);
-    getSubfield("c").setMqTag("authorizedRecipients")
-      .setFrbrFunctions(UseRestrict);
-    getSubfield("g").setMqTag("otherRestrictions")
-      .setFrbrFunctions(UseRestrict);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setFrbrFunctions(UseRestrict)
+      .setCompilanceLevels("M");
+
+    getSubfield("b")
+      .setMqTag("originatingAgency")
+      .setFrbrFunctions(UseRestrict)
+      .setCompilanceLevels("M");
+
+    getSubfield("c")
+      .setMqTag("authorizedRecipients")
+      .setFrbrFunctions(UseRestrict)
+      .setCompilanceLevels("A");
+
+    getSubfield("g")
+      .setMqTag("otherRestrictions")
+      .setFrbrFunctions(UseRestrict)
+      .setCompilanceLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
   }
 }

@@ -31,6 +31,7 @@ public class Tag243 extends DataFieldDefinition {
     bibframeTag = "CollectiveTitle";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd243.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Uniform title printed or displayed")
       .setCodes(
@@ -72,34 +73,78 @@ public class Tag243 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("mainTitle")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("d").setMqTag("dateOfTreaty")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("f").setMqTag("dateOfAWork")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("g").setMqTag("miscellaneous");
-    getSubfield("h").setMqTag("medium")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("k").setMqTag("formSubheading")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("l").setMqTag("languageOfAWork")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("m").setMqTag("mediumOfPerformance")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("n").setBibframeTag("partNumber")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("o").setMqTag("arrangedStatement")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("p").setMqTag("nameOfPart")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("r").setMqTag("keyForMusic")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("s").setBibframeTag("version")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("mainTitle")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("M");
+
+    getSubfield("d")
+      .setMqTag("dateOfTreaty")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("f")
+      .setMqTag("dateOfAWork")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("g")
+      .setMqTag("miscellaneous")
+      .setCompilanceLevels("O");
+
+    getSubfield("h")
+      .setMqTag("medium")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("k")
+      .setMqTag("formSubheading")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("l")
+      .setMqTag("languageOfAWork")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("m")
+      .setMqTag("mediumOfPerformance")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("n")
+      .setBibframeTag("partNumber")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("o")
+      .setMqTag("arrangedStatement")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("p")
+      .setMqTag("nameOfPart")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("r")
+      .setMqTag("keyForMusic")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("s")
+      .setBibframeTag("version")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
   }
 }

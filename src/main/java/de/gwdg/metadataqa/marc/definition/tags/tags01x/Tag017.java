@@ -33,6 +33,7 @@ public class Tag017 extends DataFieldDefinition {
     bibframeTag = "CopyrightNumber";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd017.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator()
       .setHistoricalCodes(
@@ -63,18 +64,40 @@ public class Tag017 extends DataFieldDefinition {
     getSubfield("2").setCodeList(CopyrightAndLegalDepositNumberSourceCodes.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("rdf:value")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("b").setBibframeTag("source")
+    getSubfield("a")
+      .setBibframeTag("rdf:value")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("M");
+
+    getSubfield("b")
+      .setBibframeTag("source")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("M");
+
+    getSubfield("d")
+      .setBibframeTag("date")
+      .setCompilanceLevels("O");
+
+    getSubfield("i")
+      .setBibframeTag("note")
+      .setCompilanceLevels("O");
+
+    getSubfield("z")
+      .setMqTag("canceled")
+      .setCompilanceLevels("A");
+
+    getSubfield("2")
+      .setBibframeTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("d").setBibframeTag("date");
-    getSubfield("i").setBibframeTag("note");
-    getSubfield("z").setMqTag("canceled");
-    getSubfield("2").setBibframeTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
   }
 }

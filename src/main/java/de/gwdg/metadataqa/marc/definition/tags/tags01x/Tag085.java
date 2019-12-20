@@ -31,6 +31,7 @@ public class Tag085 extends DataFieldDefinition {
     mqTag = "SynthesizedClassificationNumber";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd085.html";
+    setCompilanceLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -55,20 +56,63 @@ public class Tag085 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("classificationPortion");
-    getSubfield("b").setMqTag("baseNumber");
-    getSubfield("c").setMqTag("endingNumber");
-    getSubfield("f").setMqTag("facet");
-    getSubfield("r").setMqTag("rootNumber");
-    getSubfield("s").setMqTag("fromClassification");
-    getSubfield("t").setMqTag("subarrangement");
-    getSubfield("u").setMqTag("analyzedNumber");
-    getSubfield("v").setMqTag("numberInSubarrangement");
-    getSubfield("w").setMqTag("tableIdentificationInternal");
-    getSubfield("y").setMqTag("tableSequenceNumber");
-    getSubfield("z").setMqTag("tableIdentification");
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("6").setBibframeTag("linkage");
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a")
+      .setMqTag("classificationPortion")
+      .setCompilanceLevels("O");
+
+    getSubfield("b")
+      .setMqTag("baseNumber")
+      .setCompilanceLevels("A");
+
+    getSubfield("c")
+      .setMqTag("endingNumber")
+      .setCompilanceLevels("A");
+
+    getSubfield("f")
+      .setMqTag("facet")
+      .setCompilanceLevels("A");
+
+    getSubfield("r")
+      .setMqTag("rootNumber")
+      .setCompilanceLevels("A");
+
+    getSubfield("s")
+      .setMqTag("fromClassification")
+      .setCompilanceLevels("A");
+
+    getSubfield("t")
+      .setMqTag("subarrangement")
+      .setCompilanceLevels("A");
+
+    getSubfield("u")
+      .setMqTag("analyzedNumber")
+      .setCompilanceLevels("O");
+
+    getSubfield("v")
+      .setMqTag("numberInSubarrangement")
+      .setCompilanceLevels("A");
+
+    getSubfield("w")
+      .setMqTag("tableIdentificationInternal")
+      .setCompilanceLevels("A");
+
+    getSubfield("y")
+      .setMqTag("tableSequenceNumber")
+      .setCompilanceLevels("A");
+
+    getSubfield("z")
+      .setMqTag("tableIdentification")
+      .setCompilanceLevels("A");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setCompilanceLevels("O");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setCompilanceLevels("O");
   }
 }

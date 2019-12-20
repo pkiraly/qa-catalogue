@@ -31,6 +31,7 @@ public class Tag365 extends DataFieldDefinition {
     label = "Trade Price";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd365.html";
+    setCompilanceLevels("A");
 
     ind1 = new Indicator("Start/End designator")
       .setCodes(
@@ -73,35 +74,79 @@ public class Tag365 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("priceTypeCode")
-      .setFrbrFunctions(DiscoveryIdentify, ManagementProcess);
-    getSubfield("b").setMqTag("priceAmount")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
-    getSubfield("c").setMqTag("currencyCode")
-      .setFrbrFunctions(DiscoveryIdentify, ManagementIdentify);
-    getSubfield("d").setMqTag("unitOfPricing")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, UseInterpret, ManagementIdentify);
-    getSubfield("e").setMqTag("priceNote")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("f").setMqTag("priceEffectiveFrom")
-      .setFrbrFunctions(DiscoverySearch, DiscoverySelect, ManagementIdentify, ManagementProcess);
-    getSubfield("g").setMqTag("priceEffectiveUntil")
-      .setFrbrFunctions(DiscoverySearch, DiscoverySelect, ManagementIdentify, ManagementProcess);
-    getSubfield("h").setMqTag("taxRate1")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("i").setMqTag("taxRate2")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("j").setMqTag("isoCountryCode")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
-    getSubfield("k").setMqTag("marcCountryCode")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, ManagementIdentify);
-    getSubfield("m").setMqTag("identificationOfPricingEntity")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, UseInterpret);
-    getSubfield("2").setBibframeTag("source")
-      .setFrbrFunctions(ManagementIdentify);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("priceTypeCode")
+      .setFrbrFunctions(DiscoveryIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("b")
+      .setMqTag("priceAmount")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, ManagementIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("c")
+      .setMqTag("currencyCode")
+      .setFrbrFunctions(DiscoveryIdentify, ManagementIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("d")
+      .setMqTag("unitOfPricing")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, UseInterpret, ManagementIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("e")
+      .setMqTag("priceNote")
+      .setFrbrFunctions(UseInterpret)
+      .setCompilanceLevels("A");
+
+    getSubfield("f")
+      .setMqTag("priceEffectiveFrom")
+      .setFrbrFunctions(DiscoverySearch, DiscoverySelect, ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("g")
+      .setMqTag("priceEffectiveUntil")
+      .setFrbrFunctions(DiscoverySearch, DiscoverySelect, ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("h")
+      .setMqTag("taxRate1")
+      .setFrbrFunctions(UseInterpret)
+      .setCompilanceLevels("A");
+
+    getSubfield("i")
+      .setMqTag("taxRate2")
+      .setFrbrFunctions(UseInterpret)
+      .setCompilanceLevels("A");
+
+    getSubfield("j")
+      .setMqTag("isoCountryCode")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, ManagementIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("k")
+      .setMqTag("marcCountryCode")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, ManagementIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("m")
+      .setMqTag("identificationOfPricingEntity")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, UseInterpret)
+      .setCompilanceLevels("A");
+
+    getSubfield("2")
+      .setBibframeTag("source")
+      .setFrbrFunctions(ManagementIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
   }
 }

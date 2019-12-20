@@ -35,6 +35,7 @@ public class Tag246 extends DataFieldDefinition {
     bibframeTag = "ParallelTitle";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd246.html";
+    setCompilanceLevels("A", "A");
 
     ind1 = new Indicator("Note/added entry controller")
       .setCodes(
@@ -86,24 +87,56 @@ public class Tag246 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("mainTitle")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("b").setBibframeTag("subtitle");
-    getSubfield("f").setBibframeTag("date");
-    getSubfield("g").setBibframeTag("miscellaneous");
-    getSubfield("h").setMqTag("medium")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("i").setMqTag("displayText");
-    getSubfield("n").setBibframeTag("partNumber")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("p").setBibframeTag("partName")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("5").setMqTag("institutionToWhichFieldApplies")
-      .setFrbrFunctions(ManagementProcess, ManagementDisplay);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("mainTitle")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("M", "M");
+
+    getSubfield("b")
+      .setBibframeTag("subtitle")
+      .setCompilanceLevels("A");
+
+    getSubfield("f")
+      .setBibframeTag("date")
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("g")
+      .setBibframeTag("miscellaneous")
+      .setCompilanceLevels("A");
+
+    getSubfield("h")
+      .setMqTag("medium")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("i")
+      .setMqTag("displayText")
+      .setCompilanceLevels("A");
+
+    getSubfield("n")
+      .setBibframeTag("partNumber")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("p")
+      .setBibframeTag("partName")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("5")
+      .setMqTag("institutionToWhichFieldApplies")
+      .setFrbrFunctions(ManagementProcess, ManagementDisplay)
+      .setCompilanceLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
 
     setHistoricalSubfields(
       "c", "Remainder of title page transcription [OBSOLETE, 1991] [CAN/MARC only]",

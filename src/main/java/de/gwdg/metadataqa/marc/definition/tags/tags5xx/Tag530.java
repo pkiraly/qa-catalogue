@@ -32,6 +32,7 @@ public class Tag530 extends DataFieldDefinition {
     mqTag = "AdditionalPhysicalFormAvailable";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd530.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -49,22 +50,45 @@ public class Tag530 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("b").setMqTag("source")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("c").setMqTag("conditions")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("d").setMqTag("orderNumber")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("u").setMqTag("uri")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("3").setMqTag("materialsSpecified")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("M");
+
+    getSubfield("b")
+      .setMqTag("source")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("c")
+      .setMqTag("conditions")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("d")
+      .setMqTag("orderNumber")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("u")
+      .setMqTag("uri")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
 
     setHistoricalSubfields(
       "z", "Source of note information (AM, CF, VM, SE) [OBSOLETE, 1990]"

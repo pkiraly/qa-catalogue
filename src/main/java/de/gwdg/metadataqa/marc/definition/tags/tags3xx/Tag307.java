@@ -31,6 +31,7 @@ public class Tag307 extends DataFieldDefinition {
     mqTag = "Hours";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd307.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Display constant controller")
       .setCodes(
@@ -62,12 +63,23 @@ public class Tag307 extends DataFieldDefinition {
     // Friday   F
     // Saturday   Sa
 
-    getSubfield("a").setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoverySelect, DiscoveryObtain);
-    getSubfield("b").setMqTag("additionalInformation");
-    getSubfield("6").setMqTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoverySelect, DiscoveryObtain)
+      .setCompilanceLevels("M");
+
+    getSubfield("b")
+      .setMqTag("additionalInformation")
+      .setCompilanceLevels("O");
+
+    getSubfield("6")
+      .setMqTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
   }
 }

@@ -34,6 +34,7 @@ public class Tag518 extends DataFieldDefinition {
     mqTag = "DateTimeAndPlaceOfAnEventNote";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd518.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -54,18 +55,44 @@ public class Tag518 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect);
-    getSubfield("d").setBibframeTag("rdfs:label").setMqTag("date");
-    getSubfield("o").setBibframeTag("rdfs:label").setMqTag("otherInformation");
-    getSubfield("p").setBibframeTag("rdfs:label").setMqTag("place");
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("2").setMqTag("source");
-    getSubfield("3").setMqTag("materialsSpecified")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("rdfs:label").setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect)
+      .setCompilanceLevels("M");
+
+    getSubfield("d")
+      .setBibframeTag("rdfs:label").setMqTag("date")
+      .setCompilanceLevels("A");
+
+    getSubfield("o")
+      .setBibframeTag("rdfs:label").setMqTag("otherInformation")
+      .setCompilanceLevels("O");
+
+    getSubfield("p")
+      .setBibframeTag("rdfs:label").setMqTag("place")
+      .setCompilanceLevels("A");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setCompilanceLevels("O");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setCompilanceLevels("A");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
   }
 }

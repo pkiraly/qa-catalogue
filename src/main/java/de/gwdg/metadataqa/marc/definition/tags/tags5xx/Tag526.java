@@ -33,6 +33,7 @@ public class Tag526 extends DataFieldDefinition {
     mqTag = "StudyProgram";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd526.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Display constant controller")
       .setCodes(
@@ -61,22 +62,51 @@ public class Tag526 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("studyProgramName")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect);
-    getSubfield("b").setBibframeTag("interestLevel")
-      .setFrbrFunctions(DiscoverySelect);
-    getSubfield("c").setBibframeTag("readingLevel")
-      .setFrbrFunctions(DiscoverySelect);
-    getSubfield("d").setBibframeTag("titlePoint")
-      .setFrbrFunctions(DiscoverySelect);
-    getSubfield("i").setBibframeTag("displayText");
-    getSubfield("x").setBibframeTag("nonpublicNote");
-    getSubfield("z").setBibframeTag("publicNote");
-    getSubfield("5").setMqTag("institutionToWhichFieldApplies")
-      .setFrbrFunctions(ManagementProcess, ManagementDisplay);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("studyProgramName")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect)
+      .setCompilanceLevels("M");
+
+    getSubfield("b")
+      .setBibframeTag("interestLevel")
+      .setFrbrFunctions(DiscoverySelect)
+      .setCompilanceLevels("A");
+
+    getSubfield("c")
+      .setBibframeTag("readingLevel")
+      .setFrbrFunctions(DiscoverySelect)
+      .setCompilanceLevels("A");
+
+    getSubfield("d")
+      .setBibframeTag("titlePoint")
+      .setFrbrFunctions(DiscoverySelect)
+      .setCompilanceLevels("A");
+
+    getSubfield("i")
+      .setBibframeTag("displayText")
+      .setCompilanceLevels("O");
+
+    getSubfield("x")
+      .setBibframeTag("nonpublicNote")
+      .setCompilanceLevels("O");
+
+    getSubfield("z")
+      .setBibframeTag("publicNote")
+      .setCompilanceLevels("O");
+
+    getSubfield("5")
+      .setMqTag("institutionToWhichFieldApplies")
+      .setFrbrFunctions(ManagementProcess, ManagementDisplay)
+      .setCompilanceLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
   }
 }

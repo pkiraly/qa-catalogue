@@ -11,6 +11,9 @@ public class MappingParameters {
 
   private boolean exportSubfieldCodes = false;
   private boolean exportSelfDescriptiveCodes = false;
+  private boolean exportFrbrFunctions = false;
+  private boolean exportCompilanceLevel = false;
+
   private SolrFieldType solrFieldType = SolrFieldType.MARC;
 
   protected Options options = new Options();
@@ -24,6 +27,8 @@ public class MappingParameters {
       options.addOption("s", "withSelfDescriptiveCode", false, "with self-descriptive codes");
       options.addOption("t", "solrFieldType", true,
         "type of Solr fields, could be one of 'marc-tags', 'human-readable', or 'mixed'");
+      options.addOption("f", "withFrbrFunctions", false, "with FRBR functions");
+      options.addOption("l", "withCompilanceLevel", false, "with compilance levels (national, minimal)");
       options.addOption("h", "help", false, "display help");
       isOptionSet = true;
     }
@@ -43,6 +48,12 @@ public class MappingParameters {
 
     if (cmd.hasOption("solrFieldType"))
       solrFieldType = SolrFieldType.byCode(cmd.getOptionValue("solrFieldType"));
+
+    if (cmd.hasOption("withFrbrFunctions"))
+      exportFrbrFunctions = true;
+
+    if (cmd.hasOption("withCompilanceLevel"))
+      exportCompilanceLevel = true;
   }
 
   public Options getOptions() {
@@ -51,15 +62,23 @@ public class MappingParameters {
     return options;
   }
 
-  public boolean isExportSubfieldCodes() {
+  public boolean doExportSubfieldCodes() {
     return exportSubfieldCodes;
   }
 
-  public boolean isExportSelfDescriptiveCodes() {
+  public boolean doExportSelfDescriptiveCodes() {
     return exportSelfDescriptiveCodes;
   }
 
   public SolrFieldType getSolrFieldType() {
     return solrFieldType;
+  }
+
+  public boolean doExportFrbrFunctions() {
+    return exportFrbrFunctions;
+  }
+
+  public boolean doExportCompilanceLevel() {
+    return exportCompilanceLevel;
   }
 }

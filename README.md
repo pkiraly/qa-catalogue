@@ -30,6 +30,8 @@ This tool reads MARC dump files (in binary MARC or MARCXML formats), analyses di
     * [Mixed format](#mixed-format)
   * [Indexing MARC JSON records with Solr](#indexing-marc-json-records-with-solr)
   * [Export mapping table](#export-mapping-table)
+    * [to Avram JSON](#to-avram-json)
+    * [to HTML](#to-html)
 * [Extending the functionalities](#extending-the-functionalities)
 * [User interface](#user-interface)
 * [Appendix I. Where can I get MARC records](#appendix-i-where-can-i-get-marc-records)
@@ -642,6 +644,86 @@ java -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MarcJsonToSolr [Solr url] [MARC 
 The MARC JSON file is a JSON serialization of binary MARC file. See more the [MARC Pipeline](https://github.com/pkiraly/marc-pipeline/) project.
 
 ## Export mapping table
+
+### to Avram JSON
+
+Some background info: [MARC21 structure in JSON](http://pkiraly.github.io/2018/01/28/marc21-in-json/).
+
+```
+java -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MappingToJson [options] > marc-schema
+```
+
+options
+
+* `-c`, `--withSubfieldCodelists`: with subfield codelists
+* `-s`, `--withSelfDescriptiveCode`: with self-descriptive codes
+* `-t`, `--solrFieldType [type]`: type of Solr fields, could be one of `marc-tags`, `human-readable`, or `mixed`
+* `-f`, `--withFrbrFunctions`: with FRBR functions (see Tom Delsey: [Functional analysis of the MARC 21 bibliographic and holdings formats.](https://www.loc.gov/marc/marc-functional-analysis/original_source/analysis.pdf) Tech. report, 2nd revision. Library of Congress, 2003.)
+* `-l`, `--withCompilanceLevel`: with compilance levels (national, minimal) (see [National Level Full and Minimal Requirements.](https://www.loc.gov/marc/bibliographic/nlr/nlr.html) Library of Congress, 1999.)
+
+An example output:
+```json
+...
+"010":{
+  "tag":"010",
+  "label":"Library of Congress Control Number",
+  "url":"https:\/\/www.loc.gov\/marc\/bibliographic\/bd010.html",
+  "repeatable":false,
+  "compilance-level":{
+    "national":"Mandatory if applicable",
+    "minimal":"Mandatory if applicable"
+  },
+  "indicator1":null,
+  "indicator2":null,
+  "subfields":{
+    "a":{
+      "label":"LC control number",
+      "repeatable":false,
+      "frbr-functions":[
+        "Data Management\/Identify",
+        "Data Management\/Process"
+      ],
+      "compilance-level":{
+        "national":"Mandatory if applicable",
+        "minimal":"Mandatory if applicable"
+      }
+    },
+    ...
+  }
+},
+"013":{
+  "tag":"013",
+  "label":"Patent Control Information",
+  "url":"https:\/\/www.loc.gov\/marc\/bibliographic\/bd013.html",
+  "repeatable":true,
+  "compilance-level":{"national":"Optional"},
+  "indicator1":null,
+  "indicator2":null,
+  "subfields":{
+    ...
+    "b":{
+      "label":"Country",
+      "repeatable":false,
+      "codelist":{
+        "name":"MARC Code List for Countries",
+        "url":"http:\/\/www.loc.gov\/marc\/countries\/countries_code.html",
+        "codes":{
+          "aa":{"label":"Albania"},
+          "abc":{"label":"Alberta"},
+          "-ac":{"label":"Ashmore and Cartier Islands"},
+          "aca":{"label":"Australian Capital Territory"},
+          ...
+        },
+        ...
+      },
+    },
+    ...
+  }
+},
+...
+```
+
+### to HTML
 
 To export the HTML table described at [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/)
 

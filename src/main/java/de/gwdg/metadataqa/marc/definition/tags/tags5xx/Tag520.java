@@ -33,6 +33,7 @@ public class Tag520 extends DataFieldDefinition {
     bibframeTag = "Summary";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd520.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Display constant controller")
       .setCodes(
@@ -64,19 +65,42 @@ public class Tag520 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoverySelect);
-    getSubfield("b").setMqTag("expansion");
-    getSubfield("c").setMqTag("assigningSource");
-    getSubfield("u").setMqTag("uri")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("2").setMqTag("source");
-    getSubfield("3").setMqTag("materialsSpecified")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoverySelect)
+      .setCompilanceLevels("M");
+
+    getSubfield("b")
+      .setMqTag("expansion")
+      .setCompilanceLevels("O");
+
+    getSubfield("c")
+      .setMqTag("assigningSource")
+      .setCompilanceLevels("O");
+
+    getSubfield("u")
+      .setMqTag("uri")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setCompilanceLevels("O");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
 
     setHistoricalSubfields(
       "z", "Source of note information (BK, AM, CF, SE) [OBSOLETE, 1990]"

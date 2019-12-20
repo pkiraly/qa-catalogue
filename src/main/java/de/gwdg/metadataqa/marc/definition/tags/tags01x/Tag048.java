@@ -33,6 +33,7 @@ public class Tag048 extends DataFieldDefinition {
     mqTag = "NumberOfMusicalInstrumentsOrVoices";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd048.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator()
       .setHistoricalCodes(
@@ -59,12 +60,23 @@ public class Tag048 extends DataFieldDefinition {
     getSubfield("b").setCodeList(MusicalInstrumentsOrVoicesCodes.getInstance());
     getSubfield("2").setCodeList(MusicalInstrumentationAndVoiceSourceCodes.getInstance());
 
-    getSubfield("a").setMqTag("performerOrEnsemble")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect);
-    getSubfield("b").setMqTag("soloist")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect);
-    getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a")
+      .setMqTag("performerOrEnsemble")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect)
+      .setCompilanceLevels("A");
+
+    getSubfield("b")
+      .setMqTag("soloist")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect)
+      .setCompilanceLevels("A");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setCompilanceLevels("O");
   }
 }

@@ -35,6 +35,7 @@ public class Tag040 extends DataFieldDefinition {
     bibframeTag = "AdminMetadata";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd040.html";
+    setCompilanceLevels("M", "M");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -58,19 +59,39 @@ public class Tag040 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("catalogingAgency")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("b").setMqTag("languageOfCataloging")
-      .setFrbrFunctions(ManagementProcess);
-    getSubfield("c").setMqTag("transcribingAgency")
-      .setFrbrFunctions(ManagementProcess);
-    getSubfield("d").setMqTag("modifyingAgency")
-      .setFrbrFunctions(ManagementProcess);
-    getSubfield("e").setMqTag("descriptionConventions")
-      .setFrbrFunctions(ManagementProcess);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("catalogingAgency")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("b")
+      .setMqTag("languageOfCataloging")
+      .setFrbrFunctions(ManagementProcess)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("c")
+      .setMqTag("transcribingAgency")
+      .setFrbrFunctions(ManagementProcess)
+      .setCompilanceLevels("M", "M");
+
+    getSubfield("d")
+      .setMqTag("modifyingAgency")
+      .setFrbrFunctions(ManagementProcess)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("e")
+      .setMqTag("descriptionConventions")
+      .setFrbrFunctions(ManagementProcess)
+      .setCompilanceLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
   }
 }

@@ -32,6 +32,7 @@ public class Tag536 extends DataFieldDefinition {
     bibframeTag = "FundingInformation";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd536.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -51,23 +52,52 @@ public class Tag536 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
-    getSubfield("b").setMqTag("contract")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("c").setMqTag("grant")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("d").setMqTag("undifferentiatedNumber");
-    getSubfield("e").setMqTag("program")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("f").setMqTag("project")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("g").setMqTag("tast")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("h").setMqTag("workUnit")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("rdfs:label").setMqTag("rdf:value")
+      .setCompilanceLevels("A");
+
+    getSubfield("b")
+      .setMqTag("contract")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("c")
+      .setMqTag("grant")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("d")
+      .setMqTag("undifferentiatedNumber")
+      .setCompilanceLevels("A");
+
+    getSubfield("e")
+      .setMqTag("program")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("f")
+      .setMqTag("project")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("g")
+      .setMqTag("tast")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("h")
+      .setMqTag("workUnit")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
   }
 }

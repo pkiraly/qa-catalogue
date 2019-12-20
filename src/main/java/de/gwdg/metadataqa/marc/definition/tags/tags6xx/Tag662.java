@@ -35,6 +35,7 @@ public class Tag662 extends DataFieldDefinition {
     bibframeTag = "HierarchicalGeographic";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd662.html";
+    setCompilanceLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -60,30 +61,69 @@ public class Tag662 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("country")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("b").setBibframeTag("state")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("c").setBibframeTag("county")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("d").setBibframeTag("city")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("e").setBibframeTag("relator")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("f").setBibframeTag("citySection")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("g").setBibframeTag("region")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("h").setBibframeTag("extraterrestrialArea")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("4").setMqTag("relationship")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("country")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("M");
+
+    getSubfield("b")
+      .setBibframeTag("state")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("c")
+      .setBibframeTag("county")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("d")
+      .setBibframeTag("city")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("e")
+      .setBibframeTag("relator")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("O");
+
+    getSubfield("f")
+      .setBibframeTag("citySection")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("g")
+      .setBibframeTag("region")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("h")
+      .setBibframeTag("extraterrestrialArea")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setCompilanceLevels("O");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("4")
+      .setMqTag("relationship")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
 
     fieldIndexer = SchemaFromSubfield2.getInstance();
     sourceSpecificationType = SourceSpecificationType.Subfield2;

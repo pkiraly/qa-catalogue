@@ -32,6 +32,8 @@ public class SubfieldDefinition implements Serializable {
   private String codeForIndex = null;
   private List<ControlSubfieldDefinition> positions;
   private List<FRBRFunction> functions;
+  private CompilanceLevel nationalCompilanceLevel;
+  private CompilanceLevel minimalCompilanceLevel;
 
   public String getCodeForIndex() {
     if (codeForIndex == null) {
@@ -244,6 +246,46 @@ public class SubfieldDefinition implements Serializable {
     return positions != null;
   }
 
+  public SubfieldDefinition setCompilanceLevels(String national) {
+    setNationalCompilanceLevel(national);
+    return this;
+  }
+
+  public SubfieldDefinition setCompilanceLevels(String national, String minimal) {
+    setNationalCompilanceLevel(national);
+    setMinimalCompilanceLevel(minimal);
+    return this;
+  }
+
+  public CompilanceLevel getNationalCompilanceLevel() {
+    return nationalCompilanceLevel;
+  }
+
+  public SubfieldDefinition setNationalCompilanceLevel(CompilanceLevel nationalLevel) {
+    this.nationalCompilanceLevel = nationalLevel;
+    return this;
+  }
+
+  public SubfieldDefinition setNationalCompilanceLevel(String level) {
+    if (StringUtils.isNotBlank(level))
+      this.nationalCompilanceLevel = CompilanceLevel.byAbbreviation(level);
+    return this;
+  }
+
+  public CompilanceLevel getMinimalCompilanceLevel() {
+    return minimalCompilanceLevel;
+  }
+
+  public SubfieldDefinition setMinimalCompilanceLevel(String level) {
+    if (StringUtils.isNotBlank(level))
+      this.minimalCompilanceLevel = CompilanceLevel.byAbbreviation(level);
+    return this;
+  }
+
+  public SubfieldDefinition setMinimalCompilanceLevel(CompilanceLevel minimalLevel) {
+    this.minimalCompilanceLevel = minimalLevel;
+    return this;
+  }
 
   @Override
   public String toString() {

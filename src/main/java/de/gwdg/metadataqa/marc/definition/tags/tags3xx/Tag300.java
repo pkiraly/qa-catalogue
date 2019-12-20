@@ -30,6 +30,7 @@ public class Tag300 extends DataFieldDefinition {
     mqTag = "PhysicalDescription";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd300.html";
+    setCompilanceLevels("M", "M");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -48,24 +49,50 @@ public class Tag300 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("extent")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect);
-    getSubfield("b").setBibframeTag("note").setMqTag("otherPhysicalDetails")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate);
-    getSubfield("c").setBibframeTag("dimensions")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseOperate);
-    getSubfield("e").setBibframeTag("note").setMqTag("accompanyingMaterial")
-      .setFrbrFunctions(DiscoverySelect);
-    getSubfield("f").setMqTag("typeOfUnit")
-      .setFrbrFunctions(UseManage, UseOperate);
-    getSubfield("g").setMqTag("sizeOfUnit")
-      .setFrbrFunctions(UseManage, UseOperate);
-    getSubfield("3").setMqTag("materialsSpecified")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("6").setMqTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("extent")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect)
+      .setCompilanceLevels("M", "M");
+
+    getSubfield("b")
+      .setBibframeTag("note").setMqTag("otherPhysicalDetails")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate)
+      .setCompilanceLevels("A");
+
+    getSubfield("c")
+      .setBibframeTag("dimensions")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseOperate)
+      .setCompilanceLevels("M");
+
+    getSubfield("e")
+      .setBibframeTag("note").setMqTag("accompanyingMaterial")
+      .setFrbrFunctions(DiscoverySelect)
+      .setCompilanceLevels("A");
+
+    getSubfield("f")
+      .setMqTag("typeOfUnit")
+      .setFrbrFunctions(UseManage, UseOperate)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("g")
+      .setMqTag("sizeOfUnit")
+      .setFrbrFunctions(UseManage, UseOperate)
+      .setCompilanceLevels("A");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("O");
+
+    getSubfield("6")
+      .setMqTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
 
     setHistoricalSubfields(
       "d", "Accompanying material [OBSOLETE, 1997] [CAN/MARC only]",

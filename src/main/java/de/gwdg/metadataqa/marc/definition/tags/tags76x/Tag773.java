@@ -37,6 +37,7 @@ public class Tag773 extends DataFieldDefinition {
     bibframeTag = "PartOf";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd773.html";
+    setCompilanceLevels("A", "A");
 
     ind1 = new Indicator("Note controller")
       .setCodes(
@@ -93,55 +94,127 @@ public class Tag773 extends DataFieldDefinition {
     getSubfield("w").setContentParser(RecordControlNumberParser.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("rdfs:label").setMqTag("rdf:value");
-    getSubfield("b").setBibframeTag("editionStatement")
+    getSubfield("a")
+      .setBibframeTag("rdfs:label").setMqTag("rdf:value")
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("b")
+      .setBibframeTag("editionStatement")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("d")
+      .setBibframeTag("provisionActivityStatement")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("d").setBibframeTag("provisionActivityStatement")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("g").setBibframeTag("part");
-    getSubfield("h").setBibframeTag("extent")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("i").setBibframeTag("relation")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("k").setBibframeTag("seriesStatement")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("m").setBibframeTag("note").setMqTag("materialSpecificDetails");
-    getSubfield("n").setBibframeTag("note");
-    getSubfield("o").setMqTag("otherItemIdentifier")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("p").setMqTag("abbreviatedTitle")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("q").setMqTag("enumeration")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, ManagementProcess);
-    getSubfield("r").setMqTag("reportNumber")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("s").setBibframeTag("title").setMqTag("uniformTitle")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("t").setBibframeTag("title")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("u").setBibframeTag("strn")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("w").setMqTag("recordControlNumber")
-      .setFrbrFunctions(ManagementIdentify);
-    getSubfield("x").setBibframeTag("issn")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("y").setBibframeTag("coden")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("z").setBibframeTag("isbn")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("3").setMqTag("materialsSpecified")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("4").setMqTag("relationship");
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("g")
+      .setBibframeTag("part")
+      .setCompilanceLevels("A");
+
+    getSubfield("h")
+      .setBibframeTag("extent")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("i")
+      .setBibframeTag("relation")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("O");
+
+    getSubfield("k")
+      .setBibframeTag("seriesStatement")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("m")
+      .setBibframeTag("note").setMqTag("materialSpecificDetails")
+      .setCompilanceLevels("O");
+
+    getSubfield("n")
+      .setBibframeTag("note")
+      .setCompilanceLevels("O");
+
+    getSubfield("o")
+      .setMqTag("otherItemIdentifier")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("p")
+      .setMqTag("abbreviatedTitle")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("O");
+
+    getSubfield("q")
+      .setMqTag("enumeration")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
+
+    getSubfield("r")
+      .setMqTag("reportNumber")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("s")
+      .setBibframeTag("title").setMqTag("uniformTitle")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("t")
+      .setBibframeTag("title")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("u")
+      .setBibframeTag("strn")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("w")
+      .setMqTag("recordControlNumber")
+      .setFrbrFunctions(ManagementIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("x")
+      .setBibframeTag("issn")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("y")
+      .setBibframeTag("coden")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("z")
+      .setBibframeTag("isbn")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("O");
+
+    getSubfield("4")
+      .setMqTag("relationship")
+      .setCompilanceLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A", "A");
+
     /** TODO
      *  7/00  .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort)
      *  7/01  .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort)
      *  7/02  .setFrbrFunctions(ManagementProcess)
      *  7/03  .setFrbrFunctions(ManagementProcess)
      */
-    getSubfield("7").setMqTag("controlSubfield");
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("7")
+      .setMqTag("controlSubfield")
+      .setCompilanceLevels("O");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
   }
 }

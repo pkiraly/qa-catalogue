@@ -30,6 +30,7 @@ public class Tag343 extends DataFieldDefinition {
     label = "Planar Coordinate Data";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd343.html";
+    setCompilanceLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -50,28 +51,59 @@ public class Tag343 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    // TODO: setMqTag
     getSubfield("a")
-      .setFrbrFunctions(UseInterpret);
+      .setMqTag("method")
+      .setFrbrFunctions(UseInterpret)
+      .setCompilanceLevels("A");
+
     getSubfield("b")
-      .setFrbrFunctions(UseInterpret);
+      .setMqTag("distanceUnits")
+      .setFrbrFunctions(UseInterpret)
+      .setCompilanceLevels("A");
+
     getSubfield("c")
-      .setFrbrFunctions(UseInterpret);
+      .setMqTag("abscissa")
+      .setFrbrFunctions(UseInterpret)
+      .setCompilanceLevels("A");
+
     getSubfield("d")
-      .setFrbrFunctions(UseInterpret);
+      .setMqTag("ordinate")
+      .setFrbrFunctions(UseInterpret)
+      .setCompilanceLevels("A");
+
     getSubfield("e")
-      .setFrbrFunctions(UseInterpret);
+      .setMqTag("distance")
+      .setFrbrFunctions(UseInterpret)
+      .setCompilanceLevels("A");
+
     getSubfield("f")
-      .setFrbrFunctions(UseInterpret);
+      .setMqTag("bearingResolution")
+      .setFrbrFunctions(UseInterpret)
+      .setCompilanceLevels("A");
+
     getSubfield("g")
-      .setFrbrFunctions(UseInterpret);
+      .setMqTag("bearingUnits")
+      .setFrbrFunctions(UseInterpret)
+      .setCompilanceLevels("A");
+
     getSubfield("h")
-      .setFrbrFunctions(UseInterpret);
+      .setMqTag("bearingDirection")
+      .setFrbrFunctions(UseInterpret)
+      .setCompilanceLevels("A");
+
     getSubfield("i")
-      .setFrbrFunctions(UseInterpret);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+      .setMqTag("bearingMeridian")
+      .setFrbrFunctions(UseInterpret)
+      .setCompilanceLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
   }
 }

@@ -1,11 +1,8 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags84x;
 
 import de.gwdg.metadataqa.marc.definition.*;
-import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Alternate Graphic Representation
@@ -32,6 +29,7 @@ public class Tag880 extends DataFieldDefinition {
     mqTag = "Alternate Graphic Representation";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd880.html";
+    setCompilanceLevels("A", "A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -50,11 +48,20 @@ public class Tag880 extends DataFieldDefinition {
     subfields = new ArrayList<>();
     subfields.add(new SubfieldDefinition("6", "Linkage", "NR"));
     for (char c = 'a'; c <= 'z'; c++)
-      subfields.add(new SubfieldDefinition(String.valueOf(c), "Same as associated field", "R"));
+      subfields.add(
+        new SubfieldDefinition(String.valueOf(c), "Same as associated field", "R")
+        .setCompilanceLevels("M", "M")
+      );
     for (int c = 0; c <= 5; c++)
-      subfields.add(new SubfieldDefinition(String.valueOf(c), "Same as associated field", "R"));
+      subfields.add(
+        new SubfieldDefinition(String.valueOf(c), "Same as associated field", "R")
+        .setCompilanceLevels("M", "M")
+      );
     for (int c = 7; c <= 9; c++)
-      subfields.add(new SubfieldDefinition(String.valueOf(c), "Same as associated field", "R"));
+      subfields.add(
+        new SubfieldDefinition(String.valueOf(c), "Same as associated field", "R")
+        .setCompilanceLevels("M", "M")
+      );
     indexSubfields();
 
   }

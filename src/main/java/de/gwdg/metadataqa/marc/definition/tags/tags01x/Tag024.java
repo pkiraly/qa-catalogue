@@ -34,6 +34,7 @@ public class Tag024 extends DataFieldDefinition {
     mqTag = "OtherStandardIdentifier";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd024.html";
+    setCompilanceLevels("A", "A");
 
     ind1 = new Indicator("Type of standard number or code")
       .setCodes(
@@ -74,20 +75,42 @@ public class Tag024 extends DataFieldDefinition {
     getSubfield("2").setCodeList(StandardIdentifierSourceCodes.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("rdf:value")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("c").setBibframeTag("acquisitionTerms")
-      .setFrbrFunctions(DiscoverySelect, DiscoveryObtain);
-    getSubfield("d").setBibframeTag("note");
-    getSubfield("q").setBibframeTag("qualifier");
-    getSubfield("z").setMqTag("canceledNumber")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("rdf:value")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("M", "M");
+
+    getSubfield("c")
+      .setBibframeTag("acquisitionTerms")
+      .setFrbrFunctions(DiscoverySelect, DiscoveryObtain)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("d")
+      .setBibframeTag("note")
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("q")
+      .setBibframeTag("qualifier");
+
+    getSubfield("z")
+      .setMqTag("canceledNumber")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
 
     setHistoricalSubfields(
       "b", "Additional codes following the standard number [OBSOLETE]"

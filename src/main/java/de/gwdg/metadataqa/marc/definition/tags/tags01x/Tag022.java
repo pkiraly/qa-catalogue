@@ -33,6 +33,7 @@ public class Tag022 extends DataFieldDefinition {
     bibframeTag = "Issn";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd022.html";
+    setCompilanceLevels("A", "A");
 
     ind1 = new Indicator("Level of international interest")
       .setCodes(
@@ -63,20 +64,43 @@ public class Tag022 extends DataFieldDefinition {
     getSubfield("a").setValidator(ISSNValidator.getInstance());
 
 
-    getSubfield("a").setBibframeTag("rdf:value")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("l").setBibframeTag("issnL");
-    getSubfield("m").setMqTag("canceledIssnL");
-    getSubfield("y").setMqTag("incorrect")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("z").setMqTag("canceled")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(DiscoveryIdentify, ManagementIdentify, ManagementProcess);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("rdf:value")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("l")
+      .setBibframeTag("issnL")
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("m")
+      .setMqTag("canceledIssnL")
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("y")
+      .setMqTag("incorrect")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("z")
+      .setMqTag("canceled")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setFrbrFunctions(DiscoveryIdentify, ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A", "A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
 
     setHistoricalSubfields(
       "b", "Form of issue [OBSOLETE] [CAN/MARC only]",

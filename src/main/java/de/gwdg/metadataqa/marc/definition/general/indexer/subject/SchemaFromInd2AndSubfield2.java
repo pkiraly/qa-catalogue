@@ -18,7 +18,7 @@ public class SchemaFromInd2AndSubfield2 extends SubjectIndexer implements FieldI
     String schemaAbbreviation;
     if (schemaCode.equals("7")    // this is the only correct value
        // || schemaCode.equals(" ") // this is not correct, but it seems it is used
-    ){
+    ) {
       List<MarcSubfield> subfield2s = dataField.getSubfield("2");
       if (subfield2s == null || subfield2s.isEmpty())
         return indexEntries;

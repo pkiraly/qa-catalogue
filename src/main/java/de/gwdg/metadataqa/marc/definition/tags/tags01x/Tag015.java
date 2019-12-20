@@ -33,6 +33,7 @@ public class Tag015 extends DataFieldDefinition {
     bibframeTag = "IdentifiedBy/Nbn";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd015.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -49,15 +50,30 @@ public class Tag015 extends DataFieldDefinition {
     getSubfield("2").setCodeList(NationalBibliographyNumberSourceCodes.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("rdf:value")
+    getSubfield("a")
+      .setBibframeTag("rdf:value")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("M");
+
+    getSubfield("q")
+      .setBibframeTag("qualifier");
+
+    getSubfield("z")
+      .setMqTag("canceled")
+      .setCompilanceLevels("A");
+
+    getSubfield("2")
+      .setBibframeTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("q").setBibframeTag("qualifier");
-    getSubfield("z").setMqTag("canceled");
-    getSubfield("2").setBibframeTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
   }
 }

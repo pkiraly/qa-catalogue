@@ -65,10 +65,15 @@ public class Tag866 extends DataFieldDefinition {
     getSubfield("2").setCodeList(HoldingSchemeSourceCodes.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value");
-    getSubfield("6").setMqTag("linkage")
+    getSubfield("a")
+      .setMqTag("rdf:value");
+
+    getSubfield("6")
+      .setMqTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
   }
 }

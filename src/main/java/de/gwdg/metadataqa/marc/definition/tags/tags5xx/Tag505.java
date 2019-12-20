@@ -32,6 +32,7 @@ public class Tag505 extends DataFieldDefinition {
     bibframeTag = "TableOfContents";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd505.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Display constant controller")
       .setCodes(
@@ -63,19 +64,39 @@ public class Tag505 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoverySelect);
-    getSubfield("g").setMqTag("miscellaneous")
-      .setFrbrFunctions(DiscoverySelect);
-    getSubfield("r").setMqTag("responsibility")
-      .setFrbrFunctions(DiscoverySelect);
-    getSubfield("t").setMqTag("title")
-      .setFrbrFunctions(DiscoverySelect);
-    getSubfield("u").setMqTag("uri")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoverySelect)
+      .setCompilanceLevels("A");
+
+    getSubfield("g")
+      .setMqTag("miscellaneous")
+      .setFrbrFunctions(DiscoverySelect)
+      .setCompilanceLevels("A");
+
+    getSubfield("r")
+      .setMqTag("responsibility")
+      .setFrbrFunctions(DiscoverySelect)
+      .setCompilanceLevels("A");
+
+    getSubfield("t")
+      .setMqTag("title")
+      .setFrbrFunctions(DiscoverySelect)
+      .setCompilanceLevels("A");
+
+    getSubfield("u")
+      .setMqTag("uri")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
   }
 }

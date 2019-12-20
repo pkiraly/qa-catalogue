@@ -34,6 +34,7 @@ public class Tag534 extends DataFieldDefinition {
     mqTag = "OriginalVersion";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd534.html";
+    setCompilanceLevels("A");
 
     ind1 = new Indicator()
       .setHistoricalCodes(
@@ -68,34 +69,84 @@ public class Tag534 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("mainEntry");
-    getSubfield("b").setMqTag("edition")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("c").setMqTag("publication")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("e").setMqTag("physicalDescription")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("f").setMqTag("series")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
-    getSubfield("k").setMqTag("keyTitle")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("l").setMqTag("location")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("m").setMqTag("material");
-    getSubfield("n").setMqTag("note");
-    getSubfield("o").setMqTag("otherIdentifier");
-    getSubfield("p").setMqTag("introductoryPhrase")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("t").setMqTag("title")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("x").setMqTag("issn")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("z").setMqTag("isbn")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("3").setMqTag("materialsSpecified");
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("mainEntry")
+      .setCompilanceLevels("A");
+
+    getSubfield("b")
+      .setMqTag("edition")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("c")
+      .setMqTag("publication")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("e")
+      .setMqTag("physicalDescription")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("f")
+      .setMqTag("series")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("k")
+      .setMqTag("keyTitle")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("l")
+      .setMqTag("location")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("m")
+      .setMqTag("material")
+      .setCompilanceLevels("A");
+
+    getSubfield("n")
+      .setMqTag("note")
+      .setCompilanceLevels("O");
+
+    getSubfield("o")
+      .setMqTag("otherIdentifier")
+      .setCompilanceLevels("O");
+
+    getSubfield("p")
+      .setMqTag("introductoryPhrase")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("M");
+
+    getSubfield("t")
+      .setMqTag("title")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("x")
+      .setMqTag("issn")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("z")
+      .setMqTag("isbn")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("O");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setCompilanceLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
   }
 }

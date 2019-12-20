@@ -141,11 +141,11 @@ public class RecordIterator {
         if (processor.getParameters().doLog())
           logger.info(String.format("Finished processing file. Processed %s records.", decimalFormat.format(i)));
 
-      } catch (SolrServerException ex){
+      } catch (SolrServerException ex) {
         if (processor.getParameters().doLog())
           logger.severe(ex.toString());
         System.exit(0);
-      } catch (Exception ex){
+      } catch (Exception ex) {
         if (processor.getParameters().doLog()) {
           logger.severe("Other exception: " + ex.toString());
 

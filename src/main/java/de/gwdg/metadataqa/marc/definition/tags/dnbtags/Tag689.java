@@ -73,6 +73,7 @@ public class Tag689 extends DataFieldDefinition {
       "u", "Werk (nur bei Werken ohne geistige Schöpfer)"
     );
 
-    getSubfield("A").setMqTag("rdf:value");
+    getSubfield("A")
+      .setMqTag("rdf:value");
   }
 }

@@ -35,6 +35,7 @@ public class Tag052 extends DataFieldDefinition {
     mqTag = "GeographicClassification";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd052.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Code source")
       .setCodes(
@@ -63,18 +64,35 @@ public class Tag052 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("rdf:value")
-      .setFrbrFunctions(DiscoverySearch, DiscoverySelect);
-    getSubfield("b").setMqTag("subarea")
-      .setFrbrFunctions(DiscoverySearch, DiscoverySelect);
-    getSubfield("d").setBibframeTag("rdfs:label")
-      .setFrbrFunctions(DiscoverySearch, DiscoverySelect);
-    getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("rdf:value")
+      .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
+      .setCompilanceLevels("M");
+
+    getSubfield("b")
+      .setMqTag("subarea")
+      .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
+      .setCompilanceLevels("A");
+
+    getSubfield("d")
+      .setBibframeTag("rdfs:label")
+      .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
+      .setCompilanceLevels("O");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
 
     fieldIndexer = SchemaFromInd1OrIf7FromSubfield2.getInstance();
     sourceSpecificationType = SourceSpecificationType.Indicator1Is7AndSubfield2;

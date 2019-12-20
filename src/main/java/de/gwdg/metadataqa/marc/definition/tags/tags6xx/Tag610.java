@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags6xx;
 
-import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTermSourceCodes;
@@ -37,6 +36,7 @@ public class Tag610 extends DataFieldDefinition {
     mqTag = "CorporateNameSubject";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd610.html";
+    setCompilanceLevels("A");
 
     ind1 = new Indicator("Type of corporate name entry element")
       .setCodes(
@@ -98,60 +98,143 @@ public class Tag610 extends DataFieldDefinition {
     getSubfield("0").setContentParser(RecordControlNumberParser.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("b").setMqTag("subordinateUnit")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("c").setMqTag("locationOfMeeting")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("d").setMqTag("dates")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("e").setMqTag("relatorTerm")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("f").setMqTag("dateOfAWork")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("g").setMqTag("miscellaneous");
-    getSubfield("h").setMqTag("medium")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("k").setMqTag("formSubheading")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("l").setMqTag("language")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("m").setMqTag("mediumOfPerformance")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("n").setMqTag("numberOfPart")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("o").setMqTag("arrangedStatement")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("p").setMqTag("nameOfPart")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("r").setMqTag("keyForMusic")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("s").setMqTag("version")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("t").setMqTag("titleOfAWork")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("u").setMqTag("affiliation")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("v").setBibframeTag("formGenre").setMqTag("formSubdivision")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("x").setBibframeTag("topic").setMqTag("generalSubdivision")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("y").setBibframeTag("temporal").setMqTag("chronologicalSubdivision")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("z").setBibframeTag("geographic").setMqTag("geographicSubdivision")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("3").setMqTag("materialsSpecified")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("4").setMqTag("relatorCode")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("6").setMqTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("M");
+
+    getSubfield("b")
+      .setMqTag("subordinateUnit")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("c")
+      .setMqTag("locationOfMeeting")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("d")
+      .setMqTag("dates")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("e")
+      .setMqTag("relatorTerm")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("O");
+
+    getSubfield("f")
+      .setMqTag("dateOfAWork")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("g")
+      .setMqTag("miscellaneous")
+      .setCompilanceLevels("A");
+
+    getSubfield("h")
+      .setMqTag("medium")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("O");
+
+    getSubfield("k")
+      .setMqTag("formSubheading")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("l")
+      .setMqTag("language")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("m")
+      .setMqTag("mediumOfPerformance")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("n")
+      .setMqTag("numberOfPart")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("o")
+      .setMqTag("arrangedStatement")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("p")
+      .setMqTag("nameOfPart")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("r")
+      .setMqTag("keyForMusic")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("s")
+      .setMqTag("version")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("t")
+      .setMqTag("titleOfAWork")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("u")
+      .setMqTag("affiliation")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("O");
+
+    getSubfield("v")
+      .setBibframeTag("formGenre").setMqTag("formSubdivision")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("x")
+      .setBibframeTag("topic").setMqTag("generalSubdivision")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("y")
+      .setBibframeTag("temporal").setMqTag("chronologicalSubdivision")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("z")
+      .setBibframeTag("geographic").setMqTag("geographicSubdivision")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setCompilanceLevels("O");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("O");
+
+    getSubfield("4")
+      .setMqTag("relatorCode")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("O");
+
+    getSubfield("6")
+      .setMqTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
 
     fieldIndexer = SchemaFromInd2AndSubfield2.getInstance();
     sourceSpecificationType = SourceSpecificationType.Indicator2AndSubfield2;

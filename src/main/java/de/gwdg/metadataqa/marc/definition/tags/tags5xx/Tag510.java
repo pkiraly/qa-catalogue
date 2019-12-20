@@ -33,6 +33,7 @@ public class Tag510 extends DataFieldDefinition {
     mqTag = "Citation";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd510.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Coverage/location in source")
       .setCodes(
@@ -60,18 +61,41 @@ public class Tag510 extends DataFieldDefinition {
     getSubfield("6").setContentParser(LinkageParser.getInstance());
     getSubfield("x").setValidator(ISSNValidator.getInstance());
 
-    getSubfield("a").setMqTag("name")
-      .setFrbrFunctions(DiscoverySelect);
-    getSubfield("b").setMqTag("coverage");
-    getSubfield("c").setMqTag("location");
-    getSubfield("u").setMqTag("uri");
-    getSubfield("x").setMqTag("issn")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("3").setMqTag("materialsSpecified")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("name")
+      .setFrbrFunctions(DiscoverySelect)
+      .setCompilanceLevels("M");
+
+    getSubfield("b")
+      .setMqTag("coverage")
+      .setCompilanceLevels("A");
+
+    getSubfield("c")
+      .setMqTag("location")
+      .setCompilanceLevels("A");
+
+    getSubfield("u")
+      .setMqTag("uri")
+      .setCompilanceLevels("O");
+
+    getSubfield("x")
+      .setMqTag("issn")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("O");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
   }
 }

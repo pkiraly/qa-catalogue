@@ -178,11 +178,11 @@ public class MarcSpec implements Serializable {
     for (int x = 0; x < arg.length(); x++) {
       String indicator = arg.substring(x, x+1);
       if (0 == x) {
-        if(!"_".equals(indicator))
+        if (!"_".equals(indicator))
           setIndicator1(indicator);
       }
       if (1 == x) {
-        if(!"_".equals(indicator))
+        if (!"_".equals(indicator))
           setIndicator2(indicator);
       }
     }
@@ -226,7 +226,7 @@ public class MarcSpec implements Serializable {
   private boolean validateIndicators(String indicators) {
     checkIfString(indicators);
 
-    if(2 < indicators.length()) {
+    if (2 < indicators.length()) {
       throw new IllegalArgumentException(String.format(
         "For indicators only two characters are allowed. \"%d\" characters given.", indicators.length()));
     }
@@ -352,7 +352,7 @@ public class MarcSpec implements Serializable {
   }
 
   public void setCharEnd(int arg) {
-    if(0 <= arg) {
+    if (0 <= arg) {
       if (charStart == null) {
         throw new RuntimeException(
           "Character start position must be defined first. Use MarcSpec::setCharStart() first to set the character start position.");

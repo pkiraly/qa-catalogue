@@ -31,6 +31,7 @@ public class Tag381 extends DataFieldDefinition {
     mqTag = "OtherDistinguishingCharacteristics";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd381.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -49,12 +50,32 @@ public class Tag381 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value");
-    getSubfield("u").setMqTag("uri");
-    getSubfield("v").setMqTag("sourceOfInformation");
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("2").setMqTag("source");
-    getSubfield("6").setBibframeTag("linkage");
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setCompilanceLevels("M");
+
+    getSubfield("u")
+      .setMqTag("uri")
+      .setCompilanceLevels("A");
+
+    getSubfield("v")
+      .setMqTag("sourceOfInformation")
+      .setCompilanceLevels("A");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setCompilanceLevels("A");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setCompilanceLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setCompilanceLevels("O");
   }
 }

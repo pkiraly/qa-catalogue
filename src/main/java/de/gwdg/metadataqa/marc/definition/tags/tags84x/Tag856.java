@@ -33,6 +33,7 @@ public class Tag856 extends DataFieldDefinition {
     mqTag = "ElectronicLocationAndAccess";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd856.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Access method")
       .setCodes(
@@ -101,55 +102,140 @@ public class Tag856 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("host")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("b").setMqTag("accessNumber")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("c").setMqTag("compression")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("d").setMqTag("path")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("f").setMqTag("name")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("h").setMqTag("processor");
-    getSubfield("i").setMqTag("instruction")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("j").setMqTag("bitsPerSecond")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("k").setMqTag("password")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("l").setMqTag("logon")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("m").setMqTag("contact")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("n").setMqTag("location")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("o").setMqTag("operatingSystem")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("p").setMqTag("port")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("q").setMqTag("format")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("r").setMqTag("settings")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("s").setMqTag("fileSize");
-    getSubfield("t").setMqTag("terminalEmulation")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("u").setMqTag("uri")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("v").setMqTag("hours")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("w").setMqTag("recordControlNumber");
-    getSubfield("x").setMqTag("nonpublicNote");
-    getSubfield("y").setMqTag("linkText");
-    getSubfield("z").setMqTag("publicNote");
-    getSubfield("2").setMqTag("accessMethod");
-    getSubfield("3").setMqTag("materialsSpecified");
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("7").setMqTag("accessStatus");
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("host")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("b")
+      .setMqTag("accessNumber")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("c")
+      .setMqTag("compression")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("d")
+      .setMqTag("path")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("f")
+      .setMqTag("name")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("h")
+      .setMqTag("processor")
+      .setCompilanceLevels("A");
+
+    getSubfield("i")
+      .setMqTag("instruction")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("j")
+      .setMqTag("bitsPerSecond")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("k")
+      .setMqTag("password")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("l")
+      .setMqTag("logon")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("m")
+      .setMqTag("contact")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("n")
+      .setMqTag("location")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("o")
+      .setMqTag("operatingSystem")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("p")
+      .setMqTag("port")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("q")
+      .setMqTag("format")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("r")
+      .setMqTag("settings")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("s")
+      .setMqTag("fileSize")
+      .setCompilanceLevels("O");
+
+    getSubfield("t")
+      .setMqTag("terminalEmulation")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("u")
+      .setMqTag("uri")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("v")
+      .setMqTag("hours")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("w")
+      .setMqTag("recordControlNumber")
+      .setCompilanceLevels("O");
+
+    getSubfield("x")
+      .setMqTag("nonpublicNote")
+      .setCompilanceLevels("O");
+
+    getSubfield("y")
+      .setMqTag("linkText")
+      .setCompilanceLevels("O");
+
+    getSubfield("z")
+      .setMqTag("publicNote")
+      .setCompilanceLevels("O");
+
+    getSubfield("2")
+      .setMqTag("accessMethod")
+      .setCompilanceLevels("A");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setCompilanceLevels("A");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("7")
+      .setMqTag("accessStatus");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
 
     setHistoricalSubfields(
       "g", "Uniform Resource Name [OBSOLETE, 2000]"

@@ -35,6 +35,7 @@ public class Tag654 extends DataFieldDefinition {
     mqTag = "FacetedTopicalTerms";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd654.html";
+    setCompilanceLevels("A");
 
     ind1 = new Indicator("Level of subject")
       .setCodes(
@@ -68,31 +69,69 @@ public class Tag654 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("focusTerm")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("b").setMqTag("nonFocusTerm")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("c").setMqTag("facetOrHierarchy")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("e").setMqTag("relator")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("v").setBibframeTag("formGenre").setMqTag("formSubdivision")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("y").setBibframeTag("temporal").setMqTag("chronologicalSubdivision")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("z").setBibframeTag("geographic").setMqTag("geographicSubdivision")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify);
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("3").setMqTag("materialsSpecified")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("4").setMqTag("relationship")
-      .setFrbrFunctions(DiscoveryIdentify);
-    getSubfield("6").setMqTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("focusTerm")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("b")
+      .setMqTag("nonFocusTerm")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("c")
+      .setMqTag("facetOrHierarchy")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("e")
+      .setMqTag("relator")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("O");
+
+    getSubfield("v")
+      .setBibframeTag("formGenre").setMqTag("formSubdivision")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("y")
+      .setBibframeTag("temporal").setMqTag("chronologicalSubdivision")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("z")
+      .setBibframeTag("geographic").setMqTag("geographicSubdivision")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
+      .setCompilanceLevels("A");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setCompilanceLevels("O");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("O");
+
+    getSubfield("4")
+      .setMqTag("relationship")
+      .setFrbrFunctions(DiscoveryIdentify)
+      .setCompilanceLevels("O");
+
+    getSubfield("6")
+      .setMqTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
 
     fieldIndexer = SchemaFromSubfield2.getInstance();
     sourceSpecificationType = SourceSpecificationType.Subfield2;

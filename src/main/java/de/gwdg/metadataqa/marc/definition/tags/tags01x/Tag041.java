@@ -34,6 +34,7 @@ public class Tag041 extends DataFieldDefinition {
     bibframeTag = "Language";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd041.html";
+    setCompilanceLevels("A");
 
     ind1 = new Indicator("Translation indication")
       .setCodes(
@@ -83,30 +84,67 @@ public class Tag041 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("rdf:value")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseInterpret);
-    getSubfield("b").setMqTag("ofSummary")
-      .setFrbrFunctions(DiscoverySelect, UseInterpret);
-    getSubfield("d").setMqTag("ofSungOrSpokenText")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseInterpret);
-    getSubfield("e").setMqTag("ofLibrettos")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseInterpret);
-    getSubfield("f").setMqTag("ofTableOfContents")
-      .setFrbrFunctions(DiscoverySelect, UseInterpret);
-    getSubfield("g").setMqTag("ofAccompanyingMaterial")
-      .setFrbrFunctions(DiscoverySelect, UseInterpret);
-    getSubfield("h").setMqTag("ofOriginal")
-      .setFrbrFunctions(DiscoverySelect);
-    getSubfield("j").setMqTag("ofSubtitles");
-    getSubfield("k").setMqTag("ofTranslations");
-    getSubfield("m").setMqTag("ofOriginalAccompanyingMaterial");
-    getSubfield("n").setMqTag("ofOriginalLibretto");
-    getSubfield("2").setMqTag("source")
+    getSubfield("a")
+      .setBibframeTag("rdf:value")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseInterpret)
+      .setCompilanceLevels("M");
+
+    getSubfield("b")
+      .setMqTag("ofSummary")
+      .setFrbrFunctions(DiscoverySelect, UseInterpret)
+      .setCompilanceLevels("A");
+
+    getSubfield("d")
+      .setMqTag("ofSungOrSpokenText")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseInterpret)
+      .setCompilanceLevels("A");
+
+    getSubfield("e")
+      .setMqTag("ofLibrettos")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseInterpret)
+      .setCompilanceLevels("A");
+
+    getSubfield("f")
+      .setMqTag("ofTableOfContents")
+      .setFrbrFunctions(DiscoverySelect, UseInterpret)
+      .setCompilanceLevels("O");
+
+    getSubfield("g")
+      .setMqTag("ofAccompanyingMaterial")
+      .setFrbrFunctions(DiscoverySelect, UseInterpret)
+      .setCompilanceLevels("A");
+
+    getSubfield("h")
+      .setMqTag("ofOriginal")
+      .setFrbrFunctions(DiscoverySelect)
+      .setCompilanceLevels("A");
+
+    getSubfield("j")
+      .setMqTag("ofSubtitles")
+      .setCompilanceLevels("A");
+
+    getSubfield("k")
+      .setMqTag("ofTranslations");
+
+    getSubfield("m")
+      .setMqTag("ofOriginalAccompanyingMaterial");
+
+    getSubfield("n")
+      .setMqTag("ofOriginalLibretto");
+
+    getSubfield("2")
+      .setMqTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
 
     setHistoricalSubfields(
       "c", "Languages of separate titles (VM) [OBSOLETE, 1972], Languages of available translation (SE) [OBSOLETE, 1977]"

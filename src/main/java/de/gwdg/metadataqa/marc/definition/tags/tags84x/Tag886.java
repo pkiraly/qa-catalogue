@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags84x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.general.codelist.FormatSourceCodes;
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
@@ -31,6 +32,7 @@ public class Tag886 extends DataFieldDefinition {
     mqTag = "ForeignMARCInformationField";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd886.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Type of field")
       .setCodes(
@@ -53,11 +55,32 @@ public class Tag886 extends DataFieldDefinition {
 
     getSubfield("2").setCodeList(FormatSourceCodes.getInstance());
 
-    getSubfield("a").setMqTag("tag")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("b").setMqTag("content");
-    getSubfield("2").setMqTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("tag")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("b")
+      .setMqTag("content")
+      .setCompilanceLevels("M");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("M");
+
+    // TODO: these subfields are only used when the first indicator is value 2.
+    for (char c = 'a'; c <= 'z'; c++)
+      subfields.add(
+        new SubfieldDefinition(String.valueOf(c), "Foreign MARC subfield", "R")
+          .setCompilanceLevels("A")
+      );
+    for (int c = 0; c <= 9; c++)
+      subfields.add(
+        new SubfieldDefinition(String.valueOf(c), "Foreign MARC subfield", "R")
+          .setCompilanceLevels("A")
+      );
+
 
     setHistoricalSubfields(
       "c", "Content of the foreign MARC control fields 002-009 [OBSOLETE, 1997] [CAN/MARC only]",

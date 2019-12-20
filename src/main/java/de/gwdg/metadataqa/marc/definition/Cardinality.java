@@ -15,7 +15,7 @@ public enum Cardinality {
   }
 
   public static Cardinality byCode(String code) {
-    for(Cardinality cardinality : values())
+    for (Cardinality cardinality : values())
       if (cardinality.code.equals(code))
         return cardinality;
     return null;

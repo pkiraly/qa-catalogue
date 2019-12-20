@@ -33,6 +33,7 @@ public class Tag270 extends DataFieldDefinition {
     mqTag = "Address";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd270.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Level")
       .setCodes(
@@ -79,46 +80,108 @@ public class Tag270 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoveryObtain, ManagementDisplay);
-    getSubfield("b").setMqTag("city")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("c").setMqTag("state")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("d").setMqTag("country")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("e").setMqTag("postalCode")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("f").setMqTag("precedingTerms")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("g").setMqTag("attentionName")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("h").setMqTag("attentionPosition")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("i").setMqTag("typeOfAddress")
-      .setFrbrFunctions(ManagementDisplay);
-    getSubfield("j").setMqTag("specializedPhone")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("k").setMqTag("phone")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("l").setMqTag("fax")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("m").setMqTag("email")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("n").setMqTag("tddOrTty")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("p").setMqTag("contactPerson")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("q").setMqTag("contactPersonTitle")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("r").setMqTag("hours")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("z").setMqTag("note")
-      .setFrbrFunctions(DiscoveryObtain);
-    getSubfield("4").setMqTag("relationship");
-    getSubfield("6").setMqTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setFrbrFunctions(DiscoveryObtain, ManagementDisplay)
+      .setCompilanceLevels("A");
+
+    getSubfield("b")
+      .setMqTag("city")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("c")
+      .setMqTag("state")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("d")
+      .setMqTag("country")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("e")
+      .setMqTag("postalCode")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("f")
+      .setMqTag("precedingTerms")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("g")
+      .setMqTag("attentionName")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("h")
+      .setMqTag("attentionPosition")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("i")
+      .setMqTag("typeOfAddress")
+      .setFrbrFunctions(ManagementDisplay)
+      .setCompilanceLevels("A");
+
+    getSubfield("j")
+      .setMqTag("specializedPhone")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("k")
+      .setMqTag("phone")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("l")
+      .setMqTag("fax")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("m")
+      .setMqTag("email")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("n")
+      .setMqTag("tddOrTty")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("p")
+      .setMqTag("contactPerson")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("q")
+      .setMqTag("contactPersonTitle")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("r")
+      .setMqTag("hours")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("z")
+      .setMqTag("note")
+      .setFrbrFunctions(DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("4")
+      .setMqTag("relationship")
+      .setCompilanceLevels("O");
+
+    getSubfield("6")
+      .setMqTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
   }
 }

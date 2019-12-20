@@ -18,7 +18,7 @@ public enum MarcVersion {
   }
 
   public static MarcVersion byCode(String code) {
-    for(MarcVersion version : values())
+    for (MarcVersion version : values())
       if (version.code.equals(code))
         return version;
     return null;

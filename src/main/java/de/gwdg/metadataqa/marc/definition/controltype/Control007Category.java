@@ -39,7 +39,7 @@ public enum Control007Category implements ControlType {
   }
 
   public static Control007Category byCode(String code) {
-    for(Control007Category category : values())
+    for (Control007Category category : values())
       if (category.code.equals(code))
         return category;
     return null;

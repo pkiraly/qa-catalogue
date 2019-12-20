@@ -1,9 +1,6 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.DataField;
-import de.gwdg.metadataqa.marc.MarcRecord;
-import de.gwdg.metadataqa.marc.MarcSubfield;
-import de.gwdg.metadataqa.marc.Utils;
+import de.gwdg.metadataqa.marc.*;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
@@ -48,11 +45,11 @@ public class Completeness implements MarcFileProcessor, Serializable {
   private Map<String, Integer> library003Counter = new TreeMap<>();
   private Map<String, Integer> libraryCounter = new TreeMap<>();
   private Map<String, Integer> packageCounter = new TreeMap<>();
-  private Map<String, Integer> elementCardinality = new TreeMap<>();
-  private Map<String, Integer> elementFrequency = new TreeMap<>();
-  private Map<String, String> tagCache = new HashMap<>();
-  private Map<String, Integer> libraryMap = new HashMap<>();
-  private Map<String, Integer> fieldMap = new HashMap<>();
+  private Map<String, Map<String, Integer>> elementCardinality = new TreeMap<>();
+  private Map<String, Map<String, Integer>> elementFrequency = new TreeMap<>();
+  // private Map<String, String> tagCache = new HashMap<>();
+  // private Map<String, Integer> libraryMap = new HashMap<>();
+  // private Map<String, Integer> fieldMap = new HashMap<>();
   private Map<String, Map<Integer, Integer>> fieldHistogram = new HashMap<>();
   private boolean readyToProcess;
 
@@ -98,6 +95,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
     Map<String, Integer> recordFrequency = new TreeMap<>();
     Map<String, Integer> recordPackageCounter = new TreeMap<>();
 
+    String type = marcRecord.getType().getValue();
     if (marcRecord.getControl003() != null)
       count(marcRecord.getControl003().getContent(), library003Counter);
     for (String library : extract(marcRecord, "852", "a")) {
@@ -114,15 +112,23 @@ public class Completeness implements MarcFileProcessor, Serializable {
 
       for (MarcSubfield subfield : field.getSubfields()) {
         String key = String.format("%s$%s", field.getTag(), subfield.getCode());
-        count(key, elementCardinality);
+        if (!elementCardinality.containsKey(type))
+          elementCardinality.put(type, new TreeMap<>());
+        count(key, elementCardinality.get(type));
+        count(key, elementCardinality.get("all"));
         count(key, recordFrequency);
       }
     }
     for (String key : recordFrequency.keySet()) {
-      count(key, elementFrequency);
+      if (!elementFrequency.containsKey(type))
+        elementFrequency.put(type, new TreeMap<>());
+      count(key, elementFrequency.get(type));
+      count(key, elementFrequency.get("all"));
+
       if (!fieldHistogram.containsKey(key)) {
         fieldHistogram.put(key, new TreeMap<>());
       }
+
       count(recordFrequency.get(key), fieldHistogram.get(key));
     }
 
@@ -164,6 +170,8 @@ public class Completeness implements MarcFileProcessor, Serializable {
   @Override
   public void beforeIteration() {
     logger.info(parameters.formatParameters());
+    elementCardinality.put("all", new TreeMap<>());
+    elementFrequency.put("all", new TreeMap<>());
   }
 
   @Override
@@ -219,7 +227,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
       writer.write(
         StringUtils.join(
           Arrays.asList(
-            "path", "package", "tag", "subfield",
+            "type", "path", "package", "tag", "subfield",
             "number-of-record", "number-of-instances",
             "min", "max", "mean", "stddev", "histogram"
           ),
@@ -227,14 +235,21 @@ public class Completeness implements MarcFileProcessor, Serializable {
         ) + "\n"
       );
       elementCardinality
-        .entrySet()
+        .keySet()
         .stream()
-        .forEach(entry -> {
-          try {
-            writer.write(formatCardinality(separator, entry));
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
+        .forEach(type -> {
+          elementCardinality
+            .get(type)
+            .entrySet()
+            .stream()
+            .forEach(entry -> {
+              try {
+                writer.write(formatCardinality(separator, entry, type));
+              } catch (IOException e) {
+                e.printStackTrace();
+              }
+            }
+          );
         });
     } catch (IOException e) {
       e.printStackTrace();
@@ -296,7 +311,9 @@ public class Completeness implements MarcFileProcessor, Serializable {
   }
 
   @NotNull
-  private String formatCardinality(char separator, Map.Entry<String, Integer> entry) {
+  private String formatCardinality(char separator,
+                                   Map.Entry<String, Integer> entry,
+                                   String type) {
     String key = entry.getKey();
     if (key.equals("")) {
       logger.severe("Empty key from " + key);
@@ -315,7 +332,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
     }
 
     Integer cardinality = entry.getValue();
-    Integer frequency = elementFrequency.get(key);
+    Integer frequency = elementFrequency.get(type).get(key);
     BasicStatistics statistics = new BasicStatistics(fieldHistogram.get(key));
     if (!fieldHistogram.containsKey(key)) {
       logger.warning(String.format(
@@ -324,7 +341,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
 
     List<Object> values = quote(
       Arrays.asList(
-        key, packageLabel, tagLabel, subfieldLabel,
+        type, key, packageLabel, tagLabel, subfieldLabel,
         frequency, cardinality,
         statistics.getMin(), statistics.getMax(),
         statistics.getMean(), statistics.getStdDev(),

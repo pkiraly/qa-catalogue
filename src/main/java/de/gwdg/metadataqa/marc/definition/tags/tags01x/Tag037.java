@@ -32,6 +32,7 @@ public class Tag037 extends DataFieldDefinition {
     bibframeTag = "AcquisitionSource";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
+    setCompilanceLevels("O");
 
     ind1 = new Indicator("Source of acquisition sequence")
       .setCodes(
@@ -58,22 +59,49 @@ public class Tag037 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("stockNumber")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
-    getSubfield("b").setBibframeTag("rdfs:label")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("c").setBibframeTag("acquisitionTerms")
-      .setFrbrFunctions(DiscoverySelect, DiscoveryObtain);
-    getSubfield("f").setBibframeTag("note").setMqTag("formOfIssue")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate);
-    getSubfield("g").setBibframeTag("note").setMqTag("format")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate);
-    getSubfield("n").setBibframeTag("note");
-    getSubfield("3").setMqTag("materialsSpecified");
-    getSubfield("5").setMqTag("institutionToWhichFieldApplies");
-    getSubfield("6").setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
-    getSubfield("8").setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setBibframeTag("stockNumber")
+      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("b")
+      .setBibframeTag("rdfs:label")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("M");
+
+    getSubfield("c")
+      .setBibframeTag("acquisitionTerms")
+      .setFrbrFunctions(DiscoverySelect, DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("f")
+      .setBibframeTag("note").setMqTag("formOfIssue")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate)
+      .setCompilanceLevels("O");
+
+    getSubfield("g")
+      .setBibframeTag("note").setMqTag("format")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate)
+      .setCompilanceLevels("O");
+
+    getSubfield("n")
+      .setBibframeTag("note")
+      .setCompilanceLevels("O");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified");
+
+    getSubfield("5")
+      .setMqTag("institutionToWhichFieldApplies");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
+
+    getSubfield("8")
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
   }
 }

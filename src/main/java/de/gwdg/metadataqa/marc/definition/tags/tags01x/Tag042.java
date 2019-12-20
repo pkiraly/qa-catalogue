@@ -32,6 +32,7 @@ public class Tag042 extends DataFieldDefinition {
     bibframeTag = "DescriptionAuthentication";
     mqTag = "AuthenticationCode";
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd042.html";
+    setCompilanceLevels("A", "A");
 
     cardinality = Cardinality.Nonrepeatable;
 
@@ -44,7 +45,9 @@ public class Tag042 extends DataFieldDefinition {
 
     getSubfield("a").setCodeList(AuthenticationActionCodes.getInstance());
 
-    getSubfield("a").setMqTag("rdf:value")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("a")
+      .setMqTag("rdf:value")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("M", "M");
   }
 }

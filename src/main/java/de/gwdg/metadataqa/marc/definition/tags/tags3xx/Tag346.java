@@ -46,12 +46,25 @@ public class Tag346 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a").setBibframeTag("videoFormat");
-    getSubfield("b").setBibframeTag("broadcastStandard");
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
-    getSubfield("2").setBibframeTag("source");
-    getSubfield("3").setMqTag("materialsSpecified");
-    getSubfield("6").setBibframeTag("linkage");
-    getSubfield("8").setMqTag("fieldLink");
+    getSubfield("a")
+      .setBibframeTag("videoFormat");
+
+    getSubfield("b")
+      .setBibframeTag("broadcastStandard");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber");
+
+    getSubfield("2")
+      .setBibframeTag("source");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified");
+
+    getSubfield("6")
+      .setBibframeTag("linkage");
+
+    getSubfield("8")
+      .setMqTag("fieldLink");
   }
 }

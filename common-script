@@ -69,6 +69,10 @@ do_functional_analysis() {
 do_network_analysis() {
   echo "./network-analysis --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}.log"
   ./network-analysis --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}.log
+  echo "Rscript scripts/network-transform.R ${NAME} &>> ${PREFIX}.log"
+  Rscript scripts/network-transform.R ${NAME} &>> ${PREFIX}.log
+  echo "./network-analysis --outputDir ${OUTPUT_DIR} --action pairing --group-limit 2000 &>> ${PREFIX}.log"
+  ./network-analysis --outputDir ${OUTPUT_DIR} --action pairing --group-limit 2000 &>> ${PREFIX}.log
 }
 
 case "$1" in

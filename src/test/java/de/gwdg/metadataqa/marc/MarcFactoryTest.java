@@ -4,19 +4,19 @@ import de.gwdg.metadataqa.api.model.JsonPathCache;
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
+import de.gwdg.metadataqa.marc.utils.AlephseqLine;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.*;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.nio.file.Path;
+import java.util.*;
+import java.util.regex.Pattern;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class MarcFactoryTest {
 
@@ -618,6 +618,47 @@ public class MarcFactoryTest {
     List<String> lines = FileUtils.readLines("general/010000011.mrctxt");
     MarcRecord record = MarcFactory.createFromFormattedText(lines);
     test01000011RecordProperties(record);
+  }
+
+  @Test
+  public void testRegex() throws IOException, URISyntaxException {
+    Pattern numericTag = Pattern.compile("^\\d\\d\\d$");
+    assertTrue(numericTag.matcher("001").matches());
+    assertFalse(numericTag.matcher("LDR").matches());
+    assertFalse(numericTag.matcher("CRD").matches());
+  }
+
+  @Test
+  public void testCreateFromAlephseq() throws IOException, URISyntaxException {
+    Path path = FileUtils.getPath("general/alephseq-example.txt");
+    BufferedReader reader;
+    try {
+      reader = new BufferedReader(new FileReader(path.toString()));
+      String line = reader.readLine();
+
+      MarcRecord record = null;
+      List<AlephseqLine> lines = new ArrayList<>();
+      while (line != null) {
+        AlephseqLine alephseqLine = new AlephseqLine(line);
+        if (alephseqLine.isValidTag()) {
+          if (alephseqLine.isLeader() && !lines.isEmpty()) {
+            record = MarcFactory.createFromAlephseq(lines, MarcVersion.MARC21);
+            lines = new ArrayList<>();
+          }
+          lines.add(alephseqLine);
+        }
+
+        line = reader.readLine();
+      }
+      record = MarcFactory.createFromAlephseq(lines, MarcVersion.MARC21);
+      List<DataField> tag700 = record.getDatafield("700");
+      assertEquals("Chantebout, Bernard", tag700.get(0).getSubfield("a").get(0).getValue());
+      reader.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    // MarcRecord record = MarcFactory.createFromFormattedText(lines);
+    // test01000011RecordProperties(record);
   }
 
   private void test01000011RecordProperties(MarcRecord record) {

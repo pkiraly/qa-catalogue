@@ -723,4 +723,27 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
       addDataField(new DataField(tag, content));
     }
   }
+
+  public void setField(String tag, String ind1, String ind2, String content, MarcVersion marcVersion) {
+
+    if (tag.equals("001")) {
+      setControl001(new Control001(content));
+    } else if (tag.equals("003")) {
+      setControl003(new Control003(content));
+    } else if (tag.equals("005")) {
+      setControl005(new Control005(content));
+    } else if (tag.equals("006")) {
+      setControl006(new Control006(content, getLeader().getType()));
+    } else if (tag.equals("007")) {
+      setControl007(new Control007(content));
+    } else if (tag.equals("008")) {
+      setControl008(new Control008(content, getLeader().getType()));
+    } else {
+      DataFieldDefinition definition = MarcFactory.getDataFieldDefinition(tag, marcVersion);
+      if (definition == null) {
+        addUnhandledTags(tag);
+      }
+      addDataField(new DataField(tag, ind1, ind2, content));
+    }
+  }
 }

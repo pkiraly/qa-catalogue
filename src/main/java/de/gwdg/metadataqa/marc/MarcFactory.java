@@ -13,10 +13,10 @@ import de.gwdg.metadataqa.marc.definition.tags.control.Control001Definition;
 import de.gwdg.metadataqa.marc.definition.tags.control.Control003Definition;
 import de.gwdg.metadataqa.marc.definition.tags.control.Control005Definition;
 
+import de.gwdg.metadataqa.marc.utils.AlephseqLine;
 import de.gwdg.metadataqa.marc.utils.MapToDatafield;
 
 import net.minidev.json.JSONArray;
-import org.jetbrains.annotations.NotNull;
 import org.marc4j.marc.ControlField;
 import org.marc4j.marc.Record;
 import org.marc4j.marc.Subfield;
@@ -262,4 +262,20 @@ public class MarcFactory {
     }
     return record;
   }
+
+  public static MarcRecord createFromAlephseq(List<AlephseqLine> lines, MarcVersion marcVersion) {
+    if (marcVersion == null)
+      marcVersion = MarcVersion.MARC21;
+
+    MarcRecord record = new MarcRecord();
+    for (AlephseqLine line : lines) {
+      if (line.isLeader()) {
+        record.setLeader(line.getContent());
+      } else if (line.isNumericTag()) {
+        record.setField(line.getTag(), line.getInd1(), line.getInd2(), line.getContent(), marcVersion);
+      }
+    }
+    return record;
+  }
+
 }

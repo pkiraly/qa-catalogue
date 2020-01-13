@@ -20,6 +20,7 @@ public class CommonParameters implements Serializable {
   private String id = null;
   protected Leader.Type defaultRecordType = null;
   protected boolean fixAlephseq = false;
+  protected boolean alephseq = false;
   protected boolean marcxml = false;
   protected boolean lineSeparated = false;
   protected boolean trimId = false;
@@ -40,6 +41,7 @@ public class CommonParameters implements Serializable {
       options.addOption("i", "id", true, "the MARC identifier (content of 001)");
       options.addOption("d", "defaultRecordType", true, "the default record type if the record's type is undetectable");
       options.addOption("q", "fixAlephseq", false, "fix the known issues of Alephseq format");
+      options.addOption("p", "alephseq", false, "the source is in Alephseq format");
       options.addOption("x", "marcxml", false, "the source is in MARCXML format");
       options.addOption("y", "lineSeparated", false, "the source is in line separated MARC format");
       options.addOption("t", "outputDir", true, "output directory");
@@ -81,6 +83,8 @@ public class CommonParameters implements Serializable {
 
     if (cmd.hasOption("defaultRecordType"))
       defaultRecordType = Leader.Type.valueOf(cmd.getOptionValue("defaultRecordType"));
+
+    alephseq = cmd.hasOption("alephseq");
 
     fixAlephseq = cmd.hasOption("fixAlephseq");
 
@@ -142,6 +146,10 @@ public class CommonParameters implements Serializable {
     return fixAlephseq;
   }
 
+  public boolean isAlephseq() {
+    return alephseq;
+  }
+
   public boolean isMarcxml() {
     return marcxml;
   }
@@ -167,6 +175,7 @@ public class CommonParameters implements Serializable {
     text += String.format("id: %s%n", id);
     text += String.format("defaultRecordType: %s%n", defaultRecordType);
     text += String.format("fixAlephseq: %s%n", fixAlephseq);
+    text += String.format("alephseq: %s%n", alephseq);
     text += String.format("marcxml: %s%n", marcxml);
     text += String.format("lineSeparated: %s%n", lineSeparated);
     text += String.format("outputDir: %s%n", outputDir);

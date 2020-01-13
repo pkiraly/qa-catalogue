@@ -16,8 +16,6 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.logging.Logger;
 
-import static de.gwdg.metadataqa.marc.definition.SourceSpecificationType.Indicator1Is7AndSubfield2;
-
 public class DataField implements Extractable, Validatable, Serializable {
 
   private static final Logger logger = Logger.getLogger(DataField.class.getCanonicalName());
@@ -80,7 +78,7 @@ public class DataField implements Extractable, Validatable, Serializable {
 
     ind1 = input.substring(0, 1);
     ind2 = input.substring(1, 2);
-    parseSubfields(input.substring(2));
+    parseAndAddSubfields(input.substring(2));
   }
 
   public DataField(String tag, String ind1, String ind2, String content) {
@@ -92,10 +90,17 @@ public class DataField implements Extractable, Validatable, Serializable {
     this.ind2 = ind2;
     this.subfields = new ArrayList<>();
 
-    parseSubfields(content);
+    parseAndAddSubfields(content);
   }
 
-  private void parseSubfields(String content) {
+  private void parseAndAddSubfields(String content) {
+    for (String[] sf : parseSubfields(content))
+      addSubfield(sf[0], sf[1]);
+  }
+
+  public static List<String[]> parseSubfields(String content) {
+    List<String[]> subfields = new ArrayList<>();
+
     boolean codeFlag = false;
     String code = null;
     StringBuffer value = new StringBuffer();
@@ -104,7 +109,7 @@ public class DataField implements Extractable, Validatable, Serializable {
       if (c.equals("$")) {
         codeFlag = true;
         if (code != null)
-          addSubfield(code, value.toString());
+          subfields.add(new String[]{code, value.toString()});
         code = null;
         value = new StringBuffer();
       } else {
@@ -116,7 +121,9 @@ public class DataField implements Extractable, Validatable, Serializable {
         }
       }
     }
-    addSubfield(code, value.toString());
+    subfields.add(new String[]{code, value.toString()});
+
+    return subfields;
   }
 
   public MarcRecord getRecord() {
@@ -359,7 +366,7 @@ public class DataField implements Extractable, Validatable, Serializable {
     return subfieldIndex.getOrDefault(code, null);
   }
 
-  public List<MarcSubfield> getSubfields() {
+  public List<MarcSubfield> parseSubfields() {
     return subfields;
   }
 

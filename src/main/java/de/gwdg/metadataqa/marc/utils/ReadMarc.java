@@ -46,6 +46,11 @@ public class ReadMarc {
     return reader;
   }
 
+  public static MarcReader getAlephseqMarcReader(String fileName) throws Exception {
+    MarcReader reader = new AlephseqMarcReader(fileName);
+    return reader;
+  }
+
   public static MarcReader getReader(String fileName, boolean isMarcxml) throws Exception {
     return getReader(fileName, isMarcxml, false);
   }

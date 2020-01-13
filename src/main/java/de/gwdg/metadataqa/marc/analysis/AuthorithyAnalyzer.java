@@ -101,7 +101,7 @@ public class AuthorithyAnalyzer {
                                               Schema currentSchema) {
     if (currentSchema == null)
       return;
-    List<String> subfields = orderSubfields(field.getSubfields());
+    List<String> subfields = orderSubfields(field.parseSubfields());
 
     if (!authoritiesStatistics.getSubfields().containsKey(currentSchema)) {
       authoritiesStatistics.getSubfields().put(

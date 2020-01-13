@@ -99,7 +99,7 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
         cache.put(definition, true);
         countIndicator(recordCounter, definition.getInd1(), dataField.getInd1());
         countIndicator(recordCounter, definition.getInd2(), dataField.getInd2());
-        for (MarcSubfield subfield : dataField.getSubfields()) {
+        for (MarcSubfield subfield : dataField.parseSubfields()) {
           if (subfield.getDefinition() != null
               && subfield.getDefinition().getFrbrFunctions() != null) {
             FrbrFunctionLister.countFunctions(

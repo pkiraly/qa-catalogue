@@ -357,7 +357,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
         fieldMap.put("ind2", field.getInd2());
 
         Map<String, String> subfields = new LinkedHashMap<>();
-        for (MarcSubfield subfield : field.getSubfields()) {
+        for (MarcSubfield subfield : field.parseSubfields()) {
           subfields.put(subfield.getCode(), subfield.getValue());
         }
         fieldMap.put("subfields", subfields);

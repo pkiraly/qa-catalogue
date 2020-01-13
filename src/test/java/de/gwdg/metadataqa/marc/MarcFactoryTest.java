@@ -7,6 +7,8 @@ import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.utils.AlephseqLine;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.*;
+import org.marc4j.marc.Record;
+import org.marc4j.marc.VariableField;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -447,7 +449,7 @@ public class MarcFactoryTest {
     List<DataField> admins = record.getDatafield("040");
     assertEquals(1, admins.size());
     DataField adminMeta = admins.get(0);
-    List<MarcSubfield> subfields = adminMeta.getSubfields();
+    List<MarcSubfield> subfields = adminMeta.parseSubfields();
     for (MarcSubfield subfield : subfields) {
       if (subfield.getCode().equals("b")) {
         assertEquals("LanguageCodes", subfield.getDefinition().getCodeList().getClass().getSimpleName());
@@ -629,7 +631,7 @@ public class MarcFactoryTest {
   }
 
   @Test
-  public void testCreateFromAlephseq() throws IOException, URISyntaxException {
+  public void testCreateFromAlephseq_MarcRecord() throws IOException, URISyntaxException {
     Path path = FileUtils.getPath("general/alephseq-example.txt");
     BufferedReader reader;
     try {
@@ -653,6 +655,39 @@ public class MarcFactoryTest {
       record = MarcFactory.createFromAlephseq(lines, MarcVersion.MARC21);
       List<DataField> tag700 = record.getDatafield("700");
       assertEquals("Chantebout, Bernard", tag700.get(0).getSubfield("a").get(0).getValue());
+      reader.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    // MarcRecord record = MarcFactory.createFromFormattedText(lines);
+    // test01000011RecordProperties(record);
+  }
+
+  @Test
+  public void testCreateFromAlephseq_Record() throws IOException, URISyntaxException {
+    Path path = FileUtils.getPath("general/alephseq-example.txt");
+    BufferedReader reader;
+    try {
+      reader = new BufferedReader(new FileReader(path.toString()));
+      String line = reader.readLine();
+
+      Record record = null;
+      List<AlephseqLine> lines = new ArrayList<>();
+      while (line != null) {
+        AlephseqLine alephseqLine = new AlephseqLine(line);
+        if (alephseqLine.isValidTag()) {
+          if (alephseqLine.isLeader() && !lines.isEmpty()) {
+            record = MarcFactory.createRecordFromAlephseq(lines);
+            lines = new ArrayList<>();
+          }
+          lines.add(alephseqLine);
+        }
+
+        line = reader.readLine();
+      }
+      record = MarcFactory.createRecordFromAlephseq(lines);
+      org.marc4j.marc.DataField tag700 = (org.marc4j.marc.DataField) record.getVariableField("700");
+      assertEquals("Chantebout, Bernard", tag700.getSubfield('a').getData());
       reader.close();
     } catch (IOException e) {
       e.printStackTrace();

@@ -1,22 +1,35 @@
 package de.gwdg.metadataqa.marc.utils;
 
+import de.gwdg.metadataqa.marc.DataField;
+
+import java.util.List;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 public class AlephseqLine {
+  private static final Logger logger = Logger.getLogger(AlephseqLine.class.getCanonicalName());
+
   private static final String LDR = "LDR";
   private static final Pattern numericTag = Pattern.compile("^\\d\\d\\d$");
   private static final Pattern controlField = Pattern.compile("^00\\d$");
+  private int lineNumber = 0;
 
   private String recordID;
   private String tag;
   private String ind1;
   private String ind2;
   private String content;
+  private boolean valid = true;
 
   public AlephseqLine() {
   }
 
   public AlephseqLine(String raw) {
+    parse(raw);
+  }
+
+  public AlephseqLine(String raw, int lineNumber) {
+    this.lineNumber = lineNumber;
     parse(raw);
   }
 
@@ -33,7 +46,11 @@ public class AlephseqLine {
   }
 
   public boolean isValidTag() {
-    return (isLeader() || isNumericTag());
+    return (isValid() && (isLeader() || isNumericTag()));
+  }
+
+  public String getRecordID() {
+    return recordID;
   }
 
   public String getTag() {
@@ -55,12 +72,26 @@ public class AlephseqLine {
       return content.replace("$$", "$");
   }
 
+  public String getRawContent() {
+    return content;
+  }
+
   private void parse(String raw) {
-    recordID = raw.substring(0, 9);
-    tag = raw.substring(10, 13);
-    ind1 = raw.substring(14, 15);
-    ind2 = raw.substring(15, 16);
-    content = raw.substring(18);
+    // logger.info(lineNumber + ") length: " + raw.length());
+    if (raw.length() < 18) {
+      logger.warning(String.format("%d) short line (%d): '%s'", lineNumber, raw.length(), raw));
+      valid = false;
+    } else {
+      recordID = raw.substring(0, 9);
+      tag = raw.substring(10, 13);
+      ind1 = raw.substring(14, 15);
+      ind2 = raw.substring(15, 16);
+      content = raw.substring(18);
+    }
+  }
+
+  public boolean isValid() {
+    return valid;
   }
 
   @Override
@@ -72,5 +103,9 @@ public class AlephseqLine {
       ", ind2='" + ind2 + '\'' +
       ", content='" + getContent() + '\'' +
       '}';
+  }
+
+  public List<String[]> getSubfields() {
+    return DataField.parseSubfields(getContent());
   }
 }

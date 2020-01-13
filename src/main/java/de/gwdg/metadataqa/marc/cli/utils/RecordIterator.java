@@ -42,6 +42,7 @@ public class RecordIterator {
     MarcVersion marcVersion = processor.getParameters().getMarcVersion();
     Leader.Type defaultRecordType = processor.getParameters().getDefaultRecordType();
     boolean fixAlephseq = processor.getParameters().fixAlephseq();
+    boolean isAlephseq = processor.getParameters().isAlephseq();
     boolean isMarcxml = processor.getParameters().isMarcxml();
     boolean isLineSeparated = processor.getParameters().isLineSeparated();
     DecimalFormat decimalFormat = new DecimalFormat();
@@ -65,7 +66,9 @@ public class RecordIterator {
 
       try {
         processor.fileOpened(path);
-        MarcReader reader = ReadMarc.getReader(path.toString(), isMarcxml, isLineSeparated);
+        MarcReader reader = (isAlephseq)
+          ? ReadMarc.getAlephseqMarcReader(path.toString())
+          : ReadMarc.getReader(path.toString(), isMarcxml, isLineSeparated);
         while (reader.hasNext()) {
           if (!processor.readyToProcess())
             break;

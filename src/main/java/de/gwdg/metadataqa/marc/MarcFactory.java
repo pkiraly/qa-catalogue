@@ -20,6 +20,7 @@ import net.minidev.json.JSONArray;
 import org.marc4j.marc.ControlField;
 import org.marc4j.marc.Record;
 import org.marc4j.marc.Subfield;
+import org.marc4j.marc.impl.*;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -216,7 +217,7 @@ public class MarcFactory {
         marcSubfield = new MarcSubfield(subfieldDefinition, code, subfield.getData());
       }
       marcSubfield.setField(field);
-      field.getSubfields().add(marcSubfield);
+      field.parseSubfields().add(marcSubfield);
     }
     field.indexSubfields();
     return field;
@@ -278,4 +279,30 @@ public class MarcFactory {
     return record;
   }
 
+  public static Record createRecordFromAlephseq(List<AlephseqLine> lines) {
+    Record record = new RecordImpl();
+    for (AlephseqLine line : lines) {
+      if (line.isLeader()) {
+        record.setLeader(new LeaderImpl(line.getContent()));
+      } else if (line.isNumericTag()) {
+        if (line.isControlField()) {
+          record.addVariableField(new ControlFieldImpl(line.getTag(), line.getContent()));
+        } else {
+          DataFieldImpl df = new DataFieldImpl(line.getTag(), line.getInd1().charAt(0), line.getInd2().charAt(0));
+          for (String[] pair : line.getSubfields()) {
+            if (pair.length == 2 && pair[0] != null && pair[1] != null) {
+              df.addSubfield(new SubfieldImpl(pair[0].charAt(0), pair[1]));
+            } else {
+              logger.warning(String.format(
+                "parse error in record #%s) tag %s: '%s'",
+                line.getRecordID(), line.getTag(), line.getRawContent()
+              ));
+            }
+          }
+          record.addVariableField(df);
+        }
+      }
+    }
+    return record;
+  }
 }

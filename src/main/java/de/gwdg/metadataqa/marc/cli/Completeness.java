@@ -110,7 +110,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
         count(packageName, recordPackageCounter);
       }
 
-      for (MarcSubfield subfield : field.getSubfields()) {
+      for (MarcSubfield subfield : field.parseSubfields()) {
         String key = String.format("%s$%s", field.getTag(), subfield.getCode());
         if (!elementCardinality.containsKey(type))
           elementCardinality.put(type, new TreeMap<>());

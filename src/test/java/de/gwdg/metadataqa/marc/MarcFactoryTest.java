@@ -687,6 +687,8 @@ public class MarcFactoryTest {
       }
       record = MarcFactory.createRecordFromAlephseq(lines);
       org.marc4j.marc.DataField tag700 = (org.marc4j.marc.DataField) record.getVariableField("700");
+      assertNotNull(tag700);
+      assertNotNull(tag700.getSubfield('a'));
       assertEquals("Chantebout, Bernard", tag700.getSubfield('a').getData());
       reader.close();
     } catch (IOException e) {

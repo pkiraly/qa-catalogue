@@ -1,7 +1,9 @@
 package de.gwdg.metadataqa.marc.utils;
 
 import de.gwdg.metadataqa.marc.DataField;
+import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -12,6 +14,7 @@ public class AlephseqLine {
   private static final String LDR = "LDR";
   private static final Pattern numericTag = Pattern.compile("^\\d\\d\\d$");
   private static final Pattern controlField = Pattern.compile("^00\\d$");
+  public static final String SEPARATOR = "\\$\\$";
   private int lineNumber = 0;
 
   private String recordID;
@@ -88,6 +91,16 @@ public class AlephseqLine {
       ind2 = raw.substring(15, 16);
       content = raw.substring(18);
     }
+  }
+
+  public List<String[]> parseSubfields() {
+    List<String[]> subfields = new ArrayList<>();
+    String[] segments = content.split(SEPARATOR);
+    for (String segment : segments) {
+      if (StringUtils.isNotBlank(segment))
+        subfields.add(new String[]{segment.substring(0, 1), segment.substring(1)});
+    }
+    return subfields;
   }
 
   public boolean isValid() {

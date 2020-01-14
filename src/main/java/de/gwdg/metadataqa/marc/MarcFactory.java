@@ -17,6 +17,7 @@ import de.gwdg.metadataqa.marc.utils.AlephseqLine;
 import de.gwdg.metadataqa.marc.utils.MapToDatafield;
 
 import net.minidev.json.JSONArray;
+import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.ControlField;
 import org.marc4j.marc.Record;
 import org.marc4j.marc.Subfield;
@@ -289,7 +290,7 @@ public class MarcFactory {
           record.addVariableField(new ControlFieldImpl(line.getTag(), line.getContent()));
         } else {
           DataFieldImpl df = new DataFieldImpl(line.getTag(), line.getInd1().charAt(0), line.getInd2().charAt(0));
-          for (String[] pair : line.getSubfields()) {
+          for (String[] pair : line.parseSubfields()) {
             if (pair.length == 2 && pair[0] != null && pair[1] != null) {
               df.addSubfield(new SubfieldImpl(pair[0].charAt(0), pair[1]));
             } else {

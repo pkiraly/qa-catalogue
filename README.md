@@ -232,6 +232,8 @@ options:
    * MIXED_MATERIALS
 * `-q`, `--fixAlephseq` ALEPH export contains '^' characters instead spaces in control fields (006, 007, 008). This flag replace them to spaces before the validation
 * `-x`, `--marcxml` the input files are not binary MARC, but MARCXML files
+* `-x`, `--marcxml` the input files are not binary MARC, but MARCXML files
+* `-p`, `--alephseq` the source is in Alephseq format
 
 The `file` argument might contain any wildcard the operating system supports ('*', '?', etc.)
 

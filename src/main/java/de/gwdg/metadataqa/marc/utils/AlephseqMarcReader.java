@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.utils;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.marc4j.MarcReader;
+import org.marc4j.marc.ControlField;
 import org.marc4j.marc.Record;
 
 import java.io.BufferedReader;
@@ -58,7 +59,9 @@ public class AlephseqMarcReader implements MarcReader {
       {
         record = MarcFactory.createRecordFromAlephseq(lines);
         if (record.getLeader() == null) {
-          logger.severe(String.format("Record #%s does not have a leader\n", record.getId()));
+          String id1 = record.getControlNumberField().getData();
+          String id2 = ((ControlField) record.getVariableField("001")).getData();
+          logger.severe(String.format("Record #%s #%s does not have a leader\n", id1, id2));
           // System.err.println(StringUtils.join(lines, "\n"));
         } else {
           finished = true;

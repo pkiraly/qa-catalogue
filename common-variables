@@ -1,2 +1,2 @@
-JAR=target/metadata-qa-marc-0.2-SNAPSHOT-jar-with-dependencies.jar
+JAR=target/metadata-qa-marc-0.3-jar-with-dependencies.jar
 DIR=.

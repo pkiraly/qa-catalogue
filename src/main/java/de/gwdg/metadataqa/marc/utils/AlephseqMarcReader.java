@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.utils;
 
 import de.gwdg.metadataqa.marc.MarcFactory;
+import org.apache.commons.lang3.StringUtils;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
 
@@ -9,8 +10,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class AlephseqMarcReader implements MarcReader {
+
+  private static final Logger logger = Logger.getLogger(AlephseqMarcReader.class.getCanonicalName());
 
   private BufferedReader bufferedReader = null;
   private String line = null;
@@ -47,14 +51,25 @@ public class AlephseqMarcReader implements MarcReader {
     boolean finished = false;
     while (line != null && !finished) {
       AlephseqLine alephseqLine = new AlephseqLine(line, lineNumber);
-      if (alephseqLine.isValidTag()) {
-        if (alephseqLine.isLeader() && !lines.isEmpty()) {
-          record = MarcFactory.createRecordFromAlephseq(lines);
+      //if (alephseqLine.isLeader() && !lines.isEmpty()) {
+      if (currentId != null
+        && !alephseqLine.getRecordID().equals(currentId)
+        && !lines.isEmpty())
+      {
+        record = MarcFactory.createRecordFromAlephseq(lines);
+        if (record.getLeader() == null) {
+          logger.severe(String.format("Record #%s does not have a leader\n", record.getId()));
+          // System.err.println(StringUtils.join(lines, "\n"));
+        } else {
           finished = true;
-          lines = new ArrayList<>();
         }
+        lines = new ArrayList<>();
+      }
+
+      if (alephseqLine.isValidTag()) {
         lines.add(alephseqLine);
       }
+      currentId = alephseqLine.getRecordID();
 
       try {
         line = bufferedReader.readLine();

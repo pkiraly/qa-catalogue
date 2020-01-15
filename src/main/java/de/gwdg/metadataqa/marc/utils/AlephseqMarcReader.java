@@ -61,7 +61,7 @@ public class AlephseqMarcReader implements MarcReader {
         if (record.getLeader() == null) {
           String id1 = record.getControlNumberField().getData();
           // String id2 = ((ControlField) record.getVariableField("001")).getData();
-          logger.severe(String.format("Record #%s #%s does not have a leader\n", id1));
+          logger.severe(String.format("Record #%s #%s does not have a leader\n", currentId, id1));
           // System.err.println(StringUtils.join(lines, "\n"));
         } else {
           finished = true;

@@ -4,7 +4,7 @@
 	<groupId>de.gwdg.metadataqa</groupId>
 	<artifactId>metadata-qa-marc</artifactId>
 	<packaging>jar</packaging>
-	<version>0.3</version>
+	<version>0.4-SNAPSHOT</version>
 	<name>Quality assesstment for MARC</name>
 	<description>
 		A metadata quality assurance framework. It checks some metrics of

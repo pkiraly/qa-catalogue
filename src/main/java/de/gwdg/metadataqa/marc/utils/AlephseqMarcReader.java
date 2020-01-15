@@ -52,17 +52,16 @@ public class AlephseqMarcReader implements MarcReader {
     boolean finished = false;
     while (line != null && !finished) {
       AlephseqLine alephseqLine = new AlephseqLine(line, lineNumber);
-      //if (alephseqLine.isLeader() && !lines.isEmpty()) {
       if (currentId != null
         && !alephseqLine.getRecordID().equals(currentId)
         && !lines.isEmpty())
       {
         record = MarcFactory.createRecordFromAlephseq(lines);
         if (record.getLeader() == null) {
-          String id1 = record.getControlNumberField().getData();
-          // String id2 = ((ControlField) record.getVariableField("001")).getData();
-          logger.severe(String.format("Record #%s #%s does not have a leader\n", currentId, id1));
-          // System.err.println(StringUtils.join(lines, "\n"));
+          logger.severe(String.format(
+            "Record #%s #%s does not have a leader\n",
+            record.getControlNumberField().getData()
+          ));
         } else {
           finished = true;
         }

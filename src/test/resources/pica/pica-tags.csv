@@ -1,0 +1,278 @@
+pica3,picaplus,repeatable,sheet,description
+(0100),003@,,-,Identifikationsnummer (PPN)
+0200,001A,,+,Kennung und Datum der Ersterfassung
+0210,001B,,+,Kennung und Datum der letzten Änderung
+0230,001D,,+,Kennung und Datum der Statusänderung
+0500,002@,,+,Bibliographische Gattung und Status
+0599,009@,*,-,Selektionscode (maschinell besetzt)
+0701,008@,,+,Selektionscode auf bibliographischer Ebene
+1100,011@,,+,Erscheinungsjahr
+1105,016E,*,+,Codierte Angaben physikalische Form
+1108,016H,,+,Allgemeine Materialbenennung
+1109,011B,,+,Erscheinungsjahr der Sekundärausgabe
+1110,013@,*,+,Dokumenttyp
+1111,013@/01,*,+,Zeitcode
+1120,013A,,+,Code bei enthaltenen/beigefügten Werken
+1130,013G,,-,Datenträger
+1140,013H,*,+,Code für Veröffentlichungsart und Inhalt
+1500,010@,,+,Code(s) für Sprachen
+1698,038L,,+,Umlenkkategorie
+1700,019@,,+,Code für Erscheinungsland
+1800,018@,,+,Code für Erscheinungsfrequenz
+2000,004A,,+,ISBN
+2007,004J,*,+,ISBN der Sekundärausgabe
+2008,004K,*,+,Formal falsche ISBN der Sekundärausgabe
+2009,004D,*,+,Formal falsche ISBN
+2010,005A,*,+,ISSN
+2017,005C,*,+,ISSN der Sekundärausgabe
+2018,005D,*,+,Formal falsche ISSN der Sekundärausgabe
+2019,005B,*,+,Formal falsche ISSN
+2020,004F,,+,ISMN
+2021,004G,*,+,zweite und weitere ISMN
+2029,004I,*,+,Formal falsche ISMN
+2030,006B,*,+,BNB-Nummer
+2040,006A,,+,LoC-Nummer
+2051,004V,*,+,DOI
+2052,004R,*,+,Handle
+2065,006G,,+,DNB-Nummer
+2100,006U,*,+,WV-Nummer der Deutschen Nationalbibliothek
+2105,006T,*,+,CIP-Nummer der Deutschen Nationalbibliothek
+2110,006Z,*,+,ZDB-Nummer
+2113,006X,*,+,Identifikationsnummer weiterer Fremddatenlieferanten
+2185,006N,,+,Swets-Nummer
+2191,006W,,+,VD 17-Nummer
+2200,007C,*,+,Coden
+2201,004L,*,+,EAN
+2205,007F,*,+,Reportnummer
+2210,007H,*,+,Normnummer
+2215,007E,,+,Hochschulschriftennummer
+2220,007A,,+,Postvertriebskennzeichen
+2225,007B,,+,Amtliche Druckschriftennummer
+2230,007D,*,+,Verlags-, Produktions- und Bestellnummer
+2235,007G,*,+,Patentnummer
+2240,007I,,+,Firmenschriftennummer
+2265,007N,*,+,Lieferantennummer
+2275,007P,,+,Fingerprint (ISBD-Form)
+2276,007T,*,+,Alternativer Fingerprint
+2277,007S,*,+,Bibliographische Zitate
+2280,007Q,,+,IBZ/IBR-Nummer
+2290,007Z,*,+,Contract-Nummer, IEEE-Nummer u.ä.
+3000,028A,,+,1. Verfasser
+300x,028B,,+,2. und weitere Verfasser
+301x/2x,028C/D,,+,Sonstige beteiligte Personen
+303x,028E,*,+,Interpreten
+304x,028F,,+,Gefeierte Personen
+305x,028G,,+,Sonstige nichtbeteiligte Personen
+3060,028L/00,*,+,Widmungsempfänger (bei alten Drucken)
+3061,028L/01,*,+,Zensoren (bei alten Drucken)
+3062,028L/02,*,+,Literarische/künstlerische/musikalische Beiträger (bei alten Drucken)
+3063,028L/03,*,+,Sonstige nichtbeteiligte bzw. im Sachtitel genannte Personen (bei alten Drucken)
+307x,028M,,+,Konkurrenz-Verfasser (MBW)
+309x,028Z,*,-,Verweisungsformen Personennamen
+310x,029A,,+,Primärkörperschaft
+312x,029F,,+,Sekundärkörperschaft
+313x,029G,,+,Zusätzliche Körperschaftseintragung für Sonderkataloge der SB Berlin
+314x,029E,*,+,Körperschaft als Interpret
+315x,029K,*,+,Sonstige Körperschaften
+316x,030F,,+,Kongresse
+317x,029H,,+,Konkurrenz-Primärkörperschaft (MBW)
+318x,029I,,-,Widmungsempfänger (bei alten Drucken)
+3200,022S,,+,Sammlungsvermerk, Formalsachtitel
+3210,022A/00,,+,Einheitssachtitel, Formalsachtitel (Haupteintragung)
+3211,022A/01,,+,Einheitssachtitel (Nebeneintragung)
+3220,025@,,+,Ansetzungssachtitel
+3230,026@,,+,Keytitle
+3232,026C,*,+,Abkürzungstitel
+326x,027A,*,+,Weitere Sachtitel
+3290,027D,,+,Titel in Bandsätzen (für Anzeigen usw.)
+4000,021A,,+,Hauptsachtitel, Zusätze, Parallelsachtitel, Verfasserangabe
+4004,021B,,+,Hauptsachtitel, Zusätze, Parallelsachtitel, Verfasserangabe(bei j-Sätzen)
+4005,021C,*,+,Unterreihen
+4007,021G,*,+,Angaben zum rezensierten Werk
+4010,021M,*,+,Titel des ersten auf der Haupttitelseite genannten beigefügten Werkes
+4011,021N,,+,Zusätze und Verfasserangabe zur gesamten Vorlage
+4019,021V,*,-,Titel eines unselbständigen Teils / Bandes
+4020,032@,,+,Ausgabebezeichnung
+4021,032B,,+,Reprintvermerk
+4022,032C,*,+,Ausgabebezeichnung der Sekundärausgabe
+4024,031N,,+,Normierter Erscheinungsverlauf
+4025,031@,,+,Erscheinungsverlauf
+4026,035E,,+,Maßstab
+4027,035F,,+,Projektion
+4028,035G,,+,Koordinaten
+4030,033A,*,+,Ort, Verlag
+4031,033B/01,*,+,Ort, Datenbankanbieter (Host)
+4035,033B/05,*,+,Weitere und/oder frühere Verlagsorte und Verleger
+4040,033D,,+,Druckfassung Ort und Verlag
+4043,033J,*,+,Drucker, Verleger oder Buchhändler (bei alten Drucken)
+4048,033N,*,+,Ort und Verlag der Sekundärausgabe
+4049,033O,*,+,Ort und Hersteller der Sekundärausgabe
+4050,033H,*,-,Verbreitungsort in normierter Form
+4060,034D,,+,Umfangsangabe, spezifische Materialbenennung, techn. System
+4061,034M,,+,Illustrationsangabe, sonstige physische und technische Angaben
+4062,034I,,+,Format, Maßangaben
+4063,034K,,+,Angabe von Begleitmaterial
+4065,009A,*,+,Besitznachweis für die Verfilmungsvorlage
+4066,009B,,+,Besitznachweis für den Sekundärausgaben-Master
+4067,033P,*,+,Ort und Urheber der Sekundärausgabe
+4068,033Q,,+,Physische Beschreibung der Sekundärausgabe
+4070,031A,,+,Differenzierende Angaben zur Quelle
+4071,031B,,+,Bestandsangaben zu Mikroform-Master und Printing Master
+4072,031B,*,+,Quellenangaben zu Artikelserien
+4083,009P/03,*,+,Angaben zum Zugriff auf elektronische Ressourcen im Fernzugriff
+4085,009P/05,*,+,Angaben zum Zugriff auf elektronische Ressourcen im Fernzugriff (aus Fremddaten)
+4086-4088,009P/0x,*,+,Angaben zum Zugriff auf elektronische Ressourcen im Fernzugriff (Sonderprojekte)
+4089,009P/09,*,+,Angaben zum Zugriff auf elektronische Informationen zur Vorlage
+411x,036L,*,+,Gesamtheit der Sekundärausgabe in Vorlageform
+412x,036M,,+,Gesamtheit der Sekundärausgabe in Ansetzungsform (Serie)
+415x,036C,,+,Gesamtheit und Abteilungen in Vorlageform
+4160,036D,,+,Gesamtheit in Ansetzungsform
+417x,036E,*,+,Gesamtheit in Vorlageform (Serie)
+418x,036F,*,+,Gesamtheit in Ansetzungsform (Serie)
+4200,047C -,,+,Zusätzliche Indexeinträge
+4201,037A,*,+,Unaufgegliederte Fußnoten
+4202,037B,,+,Deutsche Übersetzung des Hauptsachtitels, Hinweis auf die musikalische Form und/oder Besetzung
+4203,047P,,+,Zusammenfassende Register
+4204,037C,,+,Hochschulschriftenvermerk
+4206,037D,,-,Voraussichtlicher Erscheinungstermin
+4207,047I,*,+,Inhaltliche Zusammenfassung (kurz)
+4208,020F,*,+,Inhaltliche Zusammenfassung (lang)
+4211,046B,*,+,Angabe von Paralleltiteln (nicht auf Haupttitelseite)
+4212,046C,*,+,Angabe von Nebentiteln
+4213,046D,,+,Angaben zum Hauptsachtitel und zu den Zusätzen
+4214,046E,,-,Angabe der Quelle der Aufnahme
+4215,046F,,+,Vermerke zur Verfasserangabe
+4216,046G,,+,Angaben zur Ausgabebezeichung
+4217,046H,,+,Angaben zum Erscheinungsvermerk
+4218,046I,,+,Angaben zum Kollationsvermerk
+4219,046J,,-,Änderungen im Impressum
+4220,046K,,-,Ergänzungen zur Gesamttitelangab
+4221,046L,,+,Angaben über Schrift, Sprache und Vollständigkeit der Vorlage und musikalische Notation
+4222,046M,,-,Angaben zum Inhalt
+4223,046N,,-,Angaben der Namen von Interpreten bzw. weitere Angaben zur Interpretation
+4224,046O,,+,Teilungsvermerk bei fortlaufenden Sammelwerken
+4225,046P,,+,Angaben über Erscheinungsweise und -dauer
+4226,046Q,,+,Hinweise auf unselbstständig enthaltene Werke
+4227,046R,,+,Herkunftsangaben
+4228,046S,,-,Titel von rezensierten Schriften
+4229,046T,,+,Hinweise auf parallele Ausgaben
+4232,046W,,-,Redaktionelle Bearbeitung
+4233,046X,,-,Angabe der Vervielfältigungsart
+4235,046Z,,-,Titel von Rezensionen (wird im GBV nicht verwendet, s. 4007)
+4236,037F,*,+,Allgemeiner Hinweis Sekundärausgaben
+4237,037G,*,+,Fußnoten zur Sekundärausgabe
+4238,037H,*,+,Technische Angaben zum elektronischen Dokument
+4239,037I,,+,Copyright-Vermerk
+4241,039B,*,+,Verknüpfung zur größeren Einheit
+4242,039C,*,+,Verknüpfung zur kleineren Einheit
+4243,039D,*,+,Horizontale Verknüpfung
+4244,039E,*,+,Chronologische Verknüpfung
+4245,039S,*,+,Titelkonkordanzen
+4251,048H/01,*,+,Systemvoraussetzungen
+4252,048H/02,*,+,Verfilmungsabsicht
+4263,039T,*,+,Hinweis auf Überordnung in der Einzelaufnahme (besondere Materialien)
+4264,039U,*,+,Hinweis auf zugehörige Veröffentlichungen (Hypertext)
+4501,060B,*,+,Verfasser
+4502,060C,*,+,Sonstige beteiligte
+4700,047A,*,+,Allgemeine Bearbeitungshinweise
+4701,047D,,+,Bemerkungen der ZDB/ZRT zur Titelaufnahme
+5010,045F,*,+,DDC
+5020,045B/00,*,-,ASB (Allgemeine Systematik für Bibliotheken)
+5021,045B/01,*,-,SSD (Systematik der Stadtbibliothek Duisburg)
+5022,045B/02,*,-,SfB (Systematik für Bibliotheken)
+5023,045B/03,*,-,KAB (Klassifikation für Allgemeinbibliotheken)
+5024,045B/04,*,-,Systematik der ekz
+5030,045A,*,+,LCC
+5040,045C,*,+,NLM
+5050,045E,,+,Sachgruppen der Deutschen Nationalbibliothek
+5051,045G,,+,DDC-Sachgruppen der Deutschen Nationalbibliothek
+5055,045S,*,-,Deutsche Bibliotheksstatistik
+5056,045V,,+,SSG-Angaben
+5057,045W -,,+,SSG-Selektionskennzeichen (OLC-Ausschnitte)
+5058,045Y -,,+,SSG-Selektionskennzeichen (OLC-OPACs)
+5075,045T,*,+,NZN-Notation
+5080,045U,*,+,ZDB-Notation
+5100,041A/00,,+,1. Kettenglied der 1. RSWK-Kette
+5101,041A/01,,+,2. Kettenglied der 1. RSWK-Kette
+5105,041A/05,,+,6. Kettenglied der 1. RSWK-Kette
+5108,041A/08,,+,Permutationsmuster der 1. RSWK-Kette
+5109,041A/09,,+,Angaben zur 1. RSWK-Kette
+5110,041A/10,,+,1. Kettenglied der 2. RSWK-Kette
+5115,041A/15,,+,6. Kettenglied der 2. RSWK-Kette
+5118,041A/18,,+,Permutationsmuster der 2. RSWK-Kette
+5119,041A/19,,+,Angaben zur 2. RSWK-Kette
+5190,041A/90,,+,1. Kettenglied der 10. RSWK-Kette
+5195,041A/95,,+,6. Kettenglied der 10. RSWK-Kette
+5198,041A/98,,+,Permutationsmuster der 10. RSWK-Kette
+5199,041A/99,,+,Angaben zur 10. RSWK-Kette
+5200,045D/00,*,+,Sach-, Geo- und freie Schlagwörter der 1. Kette (STW)
+5202,045D/02,*,+,Person(en) zur 1. Kette (STW)
+5204,045D/04,*,+,Körperschaft(en) zur 1. Kette (STW)
+5206,045D/06,*,+,Freie Schlagwörter (nur Text) (STW)
+5208,045D/08,*,+,Zeitangaben zur 1. Kette (STW)
+5240,045D/40,*,+,Sach-, Geo- und freie Schlagwörter der 5. Kette (STW)
+5248,045D/48,*,+,Zeitangaben zur 5. Kette (STW)
+5249,045D/49,*,+,Code für Veröffentlichungsart (STW)
+5250,045D/50,*,+,Vorläufige Schlagwörter (STW)
+5259,045D/59,*,+,Datenlieferant und Lieferungsdatum (STW)
+530x,045Q,,+,Basisklassifikation
+531x,045R,,+,Zeitschlagwort (Jahreszahlen)
+5400,045H,,-,Synthetische DDC-Notation
+5401,045H/01,,-,Basisnotation
+5402,045H/02,*,-,Notationen anderer Haupttafeln
+5403,045H/03,*,-,Notationen aus Hilfstafeln
+5404,045H/04,*,-,Notationen aus internal tables
+5410-14,045H/10,,-,Angaben zur zweiten DDC-Notation
+5420-24,045H/20,,-,Angaben zur dritten DDC-Notation
+5430-34,045H/30,,-,Angaben zur vierten DDC-Notation
+5440-44,045H/40,,-,Angaben zur fünften DDC-Notation
+5500,044A,*,+,LoC subject headings
+5510,044C,*,+,Medical subject headings
+5520,044E,*,+,PRECIS
+5530,044F,*,-,DDB-Schlagwörter bis 1986
+5540,044G,*,+,British Library subject headings
+555x,044K,*,+,Einzelschlagwort
+5570,044S,*,+,Gattungsbegriffe bei alten Drucken
+558x,044L,*,+,Einzelschlagwort (Projekte)
+5950,020G,*,+,Angaben aus Inhaltsverzeichnissen (kurz)
+5951,020H,*,+,Angaben aus Inhaltsverzeichnissen (lang)
+2080,107F,,+,Lokale Produktionsnummer
+3480,127B,,-,Druckfassung Sachtitel
+3481,127C,,-,Druckfassung Korpus
+3484,127F,,-,Druckfassung Quellenangaben bei unselbstständigen Werken
+354x,150K,*,+,Kartenköpfe
+4710,147B,,-,Nebeneintragungsvermerke
+4715,147B/05,,+,Allgemeiner Hinweis Sekundärausgaben (lokal)
+4716,147B/06,,+,Allgemeiner Hinweis Zeitschriftenbestand unter Einzelsignatur (lokal)
+4763,147D,*,+,Hinweis auf Überordnung in der Einzelaufnahme (besondere Materialien)
+4764,147E,*,+,Hinweis auf zugehörige Veröffentlichungen (Hypertext)
+(4900),101A,,-,Abt./Bearb. und Datum der Ersterfassung
+(4901),101B,,-,Abt./Bearb. und Datum der letzten Änderung
+60xx,145Z,*,+,Lokale Notationen
+6100,145B,,-,SSG-Angaben
+65xx,144Z,*,+,Lokale Schlagwörter
+43xx,231A,,+,Bestandsangaben in maschinell interpretierbarer Form (Nachweis nicht direkt katalogisierender Bibliotheken)
+4801,237A,*,+,Exemplarbezogener Kommentar
+4802,220B,*,+,Exemplarbezogener Kommentar (bibliotheksint. Hinweise)
+4803,220C,,-,Bestandsschutzmaßnahmen
+4804,220D,*,-,Exemplarbezogener Kommentar zu Umlenkungen
+67xx,245Z,*,+,Lokale Notationen
+68xx,244Z,*,+,Lokale Schlagwörter
+70xx,208@,,+,Datum und Selektionsschlüssel
+710x,209A,,+,Signatur
+7120,231@,,+,Bestandsangaben in maschinell interpretierbarer Form
+7121,231B,,+,Bestandsangaben im Anzeigeformat
+7122,231C,,+,Lücken zur Bestandsangabe (Offline-Einspielung)
+7123,231D,,+,Kommentar zur Bestandsangabe (Offline-Einspielung)
+7133,209R,*,+,Lokale Angaben zum Zugriff auf elektronische Ressourcen im Fernzugriff
+7139,209W,*,+,Lokale Angaben zum Zugriff auf elektronische Leseproben, Schlüssel- und Auswahlseiten, Einbände, Provenienzen
+7200,209F,,+,Besitznachweis nicht direkt katalogisierender Bibliotheken (Monographien)
+73xx,231A,,+,Signatur nicht direkt katalogisierender Bibliotheken
+7800,203@,,-,Exemplar-Produktionsnummer
+(7901),201D/01,,-,Datum und Bearb. bzw. Programmname/ELN der letzten Änderung
+(7903),201D/03,,-,Datum und Uhrzeit der letzten Änderung
+8100,209C,*,+,Zugangsnummer
+8200,209G,,+,Verbuchungsnummer
+8510,245G,,-,SSG-Angaben
+8519,245P,*,-,Hinweise zur Benutzung
+8600,209O/01,*,-,Exemplarbezogene Abrufzeichen

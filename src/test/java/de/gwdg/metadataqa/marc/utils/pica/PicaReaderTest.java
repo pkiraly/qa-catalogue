@@ -2,15 +2,13 @@ package de.gwdg.metadataqa.marc.utils.pica;
 
 import com.opencsv.CSVReader;
 import de.gwdg.metadataqa.api.util.FileUtils;
+import de.gwdg.metadataqa.marc.Utils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
-import org.marc4j.MarcReader;
-import org.marc4j.MarcStreamReader;
 
 import java.io.*;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +20,7 @@ public class PicaReaderTest {
 
   public static final Pattern SET = Pattern.compile("^SET: ");
   public static final Pattern EINGABE = Pattern.compile("^Eingabe: ");
+  public static final Pattern WARNUNG = Pattern.compile("^Warnung: ");
 
   @Test
   public void readTags() {
@@ -42,23 +41,35 @@ public class PicaReaderTest {
         }
       }
 
+      Map<String, Integer> counter = new HashMap<>();
       Path recordsFile = FileUtils.getPath("pica/picaplus-sample.txt");
       try (BufferedReader br = new BufferedReader(new FileReader(recordsFile.toString()))) {
         String line;
         while ((line = br.readLine()) != null) {
           if (SET.matcher(line).find()) {
-            System.err.println("----");
+            // System.err.println("----");
           } else if (!line.equals("")
-            && !EINGABE.matcher(line).find()) {
+              && !EINGABE.matcher(line).find()
+              && !WARNUNG.matcher(line).find()) {
             PicaLine pl = new PicaLine(line);
             if (map.containsKey(pl.getTag())) {
-              System.err.println(map.get(pl.getTag()).getDescription() + ": " + pl.formatSubfields());
+              // System.err.println(map.get(pl.getTag()).getDescription() + ": " + pl.formatSubfields());
             } else {
-              System.err.println("unknown " + pl.getTag() + ": " + pl.formatSubfields());
+              Utils.count(pl.getTag(), counter);
+              // System.err.printf("unknown %s: %s\n", pl.getTag(), pl.formatSubfields());
             }
           }
         }
       }
+      counter.entrySet()
+        .stream()
+        .sorted((e1, e2) -> {
+            return e2.getValue().compareTo(e1.getValue());
+          }
+        )
+        .forEach(
+          entry -> System.err.printf("%s: %d%n", entry.getKey(), entry.getValue())
+        );
     } catch(FileNotFoundException e){
       e.printStackTrace();
     } catch (IOException e) {

@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.utils;
+package de.gwdg.metadataqa.marc.utils.alephseq;
 
 import de.gwdg.metadataqa.marc.DataField;
 import org.apache.commons.lang.StringUtils;

@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.utils;
 
+import de.gwdg.metadataqa.marc.utils.alephseq.AlephseqMarcReader;
 import org.marc4j.MarcReader;
 import org.marc4j.MarcStreamReader;
 import org.marc4j.MarcXmlReader;

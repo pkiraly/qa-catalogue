@@ -4,11 +4,10 @@ import de.gwdg.metadataqa.api.model.JsonPathCache;
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
-import de.gwdg.metadataqa.marc.utils.AlephseqLine;
+import de.gwdg.metadataqa.marc.utils.alephseq.AlephseqLine;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.*;
 import org.marc4j.marc.Record;
-import org.marc4j.marc.VariableField;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

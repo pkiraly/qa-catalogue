@@ -1,9 +1,7 @@
-package de.gwdg.metadataqa.marc.utils;
+package de.gwdg.metadataqa.marc.utils.alephseq;
 
 import de.gwdg.metadataqa.marc.MarcFactory;
-import org.apache.commons.lang3.StringUtils;
 import org.marc4j.MarcReader;
-import org.marc4j.marc.ControlField;
 import org.marc4j.marc.Record;
 
 import java.io.BufferedReader;

@@ -13,11 +13,11 @@ import de.gwdg.metadataqa.marc.definition.tags.control.Control001Definition;
 import de.gwdg.metadataqa.marc.definition.tags.control.Control003Definition;
 import de.gwdg.metadataqa.marc.definition.tags.control.Control005Definition;
 
-import de.gwdg.metadataqa.marc.utils.AlephseqLine;
+import de.gwdg.metadataqa.marc.utils.alephseq.AlephseqLine;
 import de.gwdg.metadataqa.marc.utils.MapToDatafield;
 
+import de.gwdg.metadataqa.marc.utils.pica.PicaLine;
 import net.minidev.json.JSONArray;
-import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.ControlField;
 import org.marc4j.marc.Record;
 import org.marc4j.marc.Subfield;
@@ -301,6 +301,35 @@ public class MarcFactory {
             }
           }
           record.addVariableField(df);
+        }
+      }
+    }
+    return record;
+  }
+
+  public static Record createRecordFromPica(List<PicaLine> lines) {
+    Record record = new RecordImpl();
+    for (PicaLine line : lines) {
+      if (line.isLeader()) {
+        record.setLeader(new LeaderImpl(line.getContent()));
+      } else if (line.isNumericTag()) {
+        if (line.isControlField()) {
+          record.addVariableField(new ControlFieldImpl(line.getTag(), line.getContent()));
+        } else {
+          /*
+          DataFieldImpl df = new DataFieldImpl(line.getTag(), line.getInd1().charAt(0), line.getInd2().charAt(0));
+          for (String[] pair : line.parseSubfields()) {
+            if (pair.length == 2 && pair[0] != null && pair[1] != null) {
+              df.addSubfield(new SubfieldImpl(pair[0].charAt(0), pair[1]));
+            } else {
+              logger.warning(String.format(
+                "parse error in record #%s) tag %s: '%s'",
+                line.getRecordID(), line.getTag(), line.getRawContent()
+              ));
+            }
+          }
+          record.addVariableField(df);
+           */
         }
       }
     }

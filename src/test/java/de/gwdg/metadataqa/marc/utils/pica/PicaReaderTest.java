@@ -118,10 +118,10 @@ public class PicaReaderTest {
             && !EINGABE.matcher(line).find()
             && !WARNUNG.matcher(line).find()) {
             PicaLine pl = new PicaLine(line);
-            if (map.containsKey(pl.getTag())) {
+            if (map.containsKey(pl.getQualifiedTag())) {
               // System.err.println(map.get(pl.getTag()).getDescription() + ": " + pl.formatSubfields());
             } else {
-              Utils.count(pl.getTag(), counter);
+              Utils.count(pl.getQualifiedTag(), counter);
               // System.err.printf("unknown %s: %s\n", pl.getTag(), pl.formatSubfields());
             }
           }

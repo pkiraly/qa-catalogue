@@ -71,6 +71,12 @@ public class PicaLine {
     return subfields;
   }
 
+  public String getQualifiedTag() {
+    if (occurrence != null)
+      return tag + "/" + occurrence;
+    return tag;
+  }
+
   public String formatSubfields() {
     if (subfields == null) {
       logger.severe("null subfields: " + content);

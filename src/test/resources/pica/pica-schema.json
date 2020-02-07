@@ -1,0 +1,2819 @@
+{
+    "title": "GBV\/SWB RDA PICA f\u00fcr bibliographische Daten",
+    "fields": {
+        "001@": {
+            "tag": "001@",
+            "pica3": "0000",
+            "label": "ILNs der Bibliotheken mit Exemplarsatz",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=0000&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-09-25 12:58:29",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": "\u00ac;\u00ac",
+                    "label": "Useflag (0-9,A-Z)",
+                    "repeatable": false,
+                    "modified": "2017-05-29 08:57:51",
+                    "position": 2
+                }
+            }
+        },
+        "001A": {
+            "tag": "001A",
+            "pica3": "0200",
+            "label": "Kennung und Datum der Ersterfassung",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=0200&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-09-21 15:51:29",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "Kennung und Datum der Ersterfassung",
+                    "repeatable": false,
+                    "modified": "2017-05-29 08:57:51",
+                    "position": 1
+                }
+            }
+        },
+        "001B": {
+            "tag": "001B",
+            "pica3": "0210",
+            "label": "Kennung und Datum der letzten \u00c4nderung",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=0210&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-10-12 15:30:40",
+            "subfields": {
+                "t": {
+                    "code": "t",
+                    "pica3": ";_",
+                    "label": "Uhrzeit",
+                    "repeatable": false,
+                    "modified": "2017-06-08 11:57:32",
+                    "position": 2
+                }
+            }
+        },
+        "001D": {
+            "tag": "001D",
+            "pica3": "0230",
+            "label": "Kennung und Datum der Status\u00e4nderung",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=0230&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-09-28 10:46:12",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "Kennung und Datum",
+                    "repeatable": false,
+                    "modified": "2017-09-28 10:47:22",
+                    "position": 1
+                }
+            }
+        },
+        "001E": {
+            "tag": "001E",
+            "pica3": "0240",
+            "label": "Kennung und Datum der L\u00f6schung",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=0240&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-11-07 13:26:37",
+            "subfields": {
+                "t": {
+                    "code": "t",
+                    "pica3": ";\u00ac",
+                    "label": "Uhrzeit",
+                    "repeatable": false,
+                    "modified": "2017-09-28 09:55:11",
+                    "position": 2
+                }
+            }
+        },
+        "001L": {
+            "tag": "001L",
+            "pica3": "0321",
+            "label": "MRM: UTC-Zeitstempel der letzten \u00c4nderung",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=0321&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-10-12 15:35:33",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "MRM: UTC-Zeitstempel der letzten \u00c4nderung",
+                    "repeatable": false,
+                    "modified": "2017-05-29 08:57:51",
+                    "position": 1
+                }
+            }
+        },
+        "001Q": {
+            "tag": "001Q",
+            "pica3": "000Q",
+            "label": "VAL-Warnungen",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=000Q&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-10-12 15:21:06",
+            "subfields": {
+                "d": {
+                    "code": "d",
+                    "pica3": "\u00ac=\u00ac",
+                    "label": "Warnungsmeldung - Text",
+                    "repeatable": false,
+                    "modified": "2017-05-29 08:57:51",
+                    "position": 4
+                }
+            }
+        },
+        "001U": {
+            "tag": "001U",
+            "pica3": "000K",
+            "label": "Unicode-Kennzeichen",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=000K&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-10-12 15:20:46",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "Unicode-Kennzeichen",
+                    "repeatable": false,
+                    "modified": "2017-05-29 08:57:51",
+                    "position": 1
+                }
+            }
+        },
+        "001X": {
+            "tag": "001X",
+            "pica3": "000A",
+            "label": "Title owner",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=000A&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-10-12 15:20:25",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "Title owner",
+                    "repeatable": false,
+                    "modified": "2017-05-29 08:57:51",
+                    "position": 1
+                }
+            }
+        },
+        "002@": {
+            "tag": "002@",
+            "pica3": "0500",
+            "label": "Bibliografische Gattung und Status",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=0500&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-09-21 16:14:37",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "Bibliografische Gattung und Status",
+                    "repeatable": false,
+                    "modified": "2017-09-21 16:04:25",
+                    "position": 1
+                }
+            }
+        },
+        "002C": {
+            "tag": "002C",
+            "pica3": "0501",
+            "label": "Inhaltstyp",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=0501&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-12-18 08:21:22",
+            "subfields": {
+                "X": {
+                    "code": "X",
+                    "pica3": "$X",
+                    "label": "Zuordnung",
+                    "repeatable": false,
+                    "modified": "2017-12-18 17:59:02",
+                    "position": 5
+                }
+            }
+        },
+        "002D": {
+            "tag": "002D",
+            "pica3": "0502",
+            "label": "Medientyp",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=0502&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-12-18 08:22:06",
+            "subfields": {
+                "X": {
+                    "code": "X",
+                    "pica3": "$X",
+                    "label": "Zuordnung",
+                    "repeatable": false,
+                    "modified": "2017-12-18 18:00:19",
+                    "position": 5
+                }
+            }
+        },
+        "002E": {
+            "tag": "002E",
+            "pica3": "0503",
+            "label": "Datentr\u00e4gertyp",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=0503&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-12-18 08:22:40",
+            "subfields": {
+                "X": {
+                    "code": "X",
+                    "pica3": "$X",
+                    "label": "Zuordnung",
+                    "repeatable": false,
+                    "modified": "2017-12-18 18:00:35",
+                    "position": 5
+                }
+            }
+        },
+        "002V": {
+            "tag": "002V",
+            "pica3": "0320",
+            "label": "MRM: Datum\/Uhrzeit der Erzeugung der Master-TA",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=0320&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-10-12 15:35:23",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "MRM: Datum\/Uhrzeit der Master-TA",
+                    "repeatable": false,
+                    "modified": "2017-05-29 08:57:51",
+                    "position": 1
+                }
+            }
+        },
+        "003@": {
+            "tag": "003@",
+            "pica3": "0100",
+            "label": "Pica-Produktionsnummer",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=0100&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2018-01-17 14:09:04",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "Pica-Produktionsnummer",
+                    "repeatable": false,
+                    "modified": "2018-01-17 14:09:33",
+                    "position": 1
+                }
+            }
+        },
+        "003C": {
+            "tag": "003C",
+            "pica3": "0340",
+            "label": "MRM: PPN der bevorzugten Slave-TA",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=0340&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-10-12 15:35:44",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "MRM: PPN der Slave-TA",
+                    "repeatable": false,
+                    "modified": "2017-05-29 08:57:51",
+                    "position": 1
+                }
+            }
+        },
+        "003D": {
+            "tag": "003D",
+            "pica3": "2119",
+            "label": "PPN des umgelenkten GBV- bzw. K10plus-Satzes",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2119&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-11-24 12:19:34",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "PPN",
+                    "repeatable": false,
+                    "modified": "2017-05-29 08:57:51",
+                    "position": 1
+                }
+            }
+        },
+        "003O": {
+            "tag": "003O",
+            "pica3": "2097",
+            "label": "OCLC-Nummer",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2097&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-22 10:05:04",
+            "subfields": {
+                "v": {
+                    "code": "v",
+                    "pica3": "$v",
+                    "label": "Datum",
+                    "repeatable": false,
+                    "modified": "2017-11-27 11:25:09",
+                    "position": 4
+                }
+            }
+        },
+        "003S": {
+            "tag": "003S",
+            "pica3": "0110",
+            "label": "SWB-Pica-Produktionsnummer",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=0110&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-09-21 15:34:16",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "SWB-Pica-Produktionsnummer",
+                    "repeatable": false,
+                    "modified": "2017-05-29 08:57:51",
+                    "position": 1
+                }
+            }
+        },
+        "003T": {
+            "tag": "003T",
+            "pica3": "2098",
+            "label": "SWB-OCLC-Nummer",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2098&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2018-01-18 10:25:22",
+            "subfields": {
+                "v": {
+                    "code": "v",
+                    "pica3": "$v",
+                    "label": "Datum",
+                    "repeatable": false,
+                    "modified": "2017-06-29 09:14:42",
+                    "position": 3
+                }
+            }
+        },
+        "003Z": {
+            "tag": "003Z",
+            "pica3": "0350",
+            "label": "MRM: lokale ID Lieferant\/Quelle",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=0350&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-10-12 15:35:54",
+            "subfields": {
+                "t": {
+                    "code": "t",
+                    "pica3": "$t",
+                    "label": "MRM: Zeitstempel der letzten Lieferung",
+                    "repeatable": false,
+                    "modified": "2017-05-29 08:57:51",
+                    "position": 3
+                }
+            }
+        },
+        "004A": {
+            "tag": "004A",
+            "pica3": "2000",
+            "label": "ISBN",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2000&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-08-07 15:17:11",
+            "subfields": {
+                "f": {
+                    "code": "f",
+                    "pica3": "$f",
+                    "label": "Kommentar zur ISBN, Einbandart, Lieferbedingungen und\/oder Preis",
+                    "repeatable": false,
+                    "modified": "2017-06-21 14:09:19",
+                    "position": 4
+                }
+            }
+        },
+        "004C": {
+            "tag": "004C",
+            "pica3": "2202",
+            "label": "Universal Product Code (UPC)",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2202&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-22 10:07:40",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "UPC",
+                    "repeatable": false,
+                    "modified": "2017-06-29 10:07:47",
+                    "position": 1
+                }
+            }
+        },
+        "004D": {
+            "tag": "004D",
+            "pica3": "2009",
+            "label": "Formal falsche ISBN",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2009&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-28 15:28:01",
+            "subfields": {
+                "f": {
+                    "code": "f",
+                    "pica3": "$f",
+                    "label": "Kommentar zur ISBN, Einbandart, Lieferbedingungen und\/oder Preis",
+                    "repeatable": false,
+                    "modified": "2017-06-21 14:09:19",
+                    "position": 4
+                }
+            }
+        },
+        "004F": {
+            "tag": "004F",
+            "pica3": "2020",
+            "label": "ISMN",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2020&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-28 14:43:40",
+            "subfields": {
+                "f": {
+                    "code": "f",
+                    "pica3": "$f",
+                    "label": "Kommentar zur ISMN, Einbandart, Lieferbedingungen und\/oder Preis",
+                    "repeatable": false,
+                    "modified": "2017-11-17 11:28:43",
+                    "position": 4
+                }
+            }
+        },
+        "004I": {
+            "tag": "004I",
+            "pica3": "2029",
+            "label": "Formal falsche ISMN",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2029&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-09-28 14:43:47",
+            "subfields": {
+                "f": {
+                    "code": "f",
+                    "pica3": "$f",
+                    "label": "Kommentar zur ISMN, Einbandart, Lieferbedingungen und\/oder Preis",
+                    "repeatable": false,
+                    "modified": "2017-09-29 13:32:39",
+                    "position": 4
+                }
+            }
+        },
+        "004L": {
+            "tag": "004L",
+            "pica3": "2201",
+            "label": "Internationale Artikelnummer (EAN)",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2201&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-22 10:07:21",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "EAN",
+                    "repeatable": false,
+                    "modified": "2017-06-29 10:05:32",
+                    "position": 1
+                }
+            }
+        },
+        "004M": {
+            "tag": "004M",
+            "pica3": "2027",
+            "label": "ISRN",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2027&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-22 10:04:20",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "ISRN",
+                    "repeatable": false,
+                    "modified": "2017-08-03 14:30:15",
+                    "position": 1
+                }
+            }
+        },
+        "004P": {
+            "tag": "004P",
+            "pica3": "2003",
+            "label": "ISBN einer Manifestation in anderer physischer Form",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2003&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-11-17 11:23:34",
+            "subfields": {
+                "f": {
+                    "code": "f",
+                    "pica3": "$f",
+                    "label": "Kommentar zur ISBN, Einbandart, Lieferbedingungen und\/oder Preis",
+                    "repeatable": false,
+                    "modified": "2017-06-21 14:09:19",
+                    "position": 5
+                }
+            }
+        },
+        "004R": {
+            "tag": "004R",
+            "pica3": "2052",
+            "label": "Handle",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2052&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-11-17 11:32:49",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "Handle",
+                    "repeatable": false,
+                    "modified": "2017-05-29 08:57:51",
+                    "position": 1
+                }
+            }
+        },
+        "004U": {
+            "tag": "004U",
+            "pica3": "2050",
+            "label": "Uniform Resource Name (URN)",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2050&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-11-17 11:30:58",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "URN",
+                    "repeatable": false,
+                    "modified": "2017-05-29 08:57:51",
+                    "position": 1
+                }
+            }
+        },
+        "004V": {
+            "tag": "004V",
+            "pica3": "2051",
+            "label": "Digital Object Identifier (DOI)",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2051&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-11-17 11:31:47",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "DOI",
+                    "repeatable": false,
+                    "modified": "2017-05-29 08:57:51",
+                    "position": 1
+                }
+            }
+        },
+        "004W": {
+            "tag": "004W",
+            "pica3": "2053",
+            "label": "Digital Object Identifier (DOI) im Druckwerk",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2053&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-11-17 11:34:50",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "DOI",
+                    "repeatable": false,
+                    "modified": "2017-05-29 08:57:51",
+                    "position": 1
+                }
+            }
+        },
+        "005A": {
+            "tag": "005A",
+            "pica3": "2010",
+            "label": "ISSN",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2010&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-28 14:43:20",
+            "subfields": {
+                "f": {
+                    "code": "f",
+                    "pica3": "$f",
+                    "label": "Kommentar zur ISSN, Einbandart, Lieferbedingungen und\/oder Preis",
+                    "repeatable": false,
+                    "modified": "2017-06-29 14:34:32",
+                    "position": 4
+                }
+            }
+        },
+        "005B": {
+            "tag": "005B",
+            "pica3": "2019",
+            "label": "Formal falsche ISSN",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2019&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-28 14:43:34",
+            "subfields": {
+                "f": {
+                    "code": "f",
+                    "pica3": "$f",
+                    "label": "Kommentar zur ISSN, Einbandart, Lieferbedingungen und\/oder Preis",
+                    "repeatable": false,
+                    "modified": "2017-06-29 14:35:01",
+                    "position": 4
+                }
+            }
+        },
+        "005I": {
+            "tag": "005I",
+            "pica3": "2005",
+            "label": "Autorisierte ISSN",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2005&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-06-21 14:32:46",
+            "subfields": {
+                "f": {
+                    "code": "f",
+                    "pica3": "$f",
+                    "label": "Kommentar zur ISSN",
+                    "repeatable": false,
+                    "modified": "2017-06-21 14:09:19",
+                    "position": 2
+                }
+            }
+        },
+        "005P": {
+            "tag": "005P",
+            "pica3": "2013",
+            "label": "ISSN paralleler Ausgaben",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2013&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-28 14:43:27",
+            "subfields": {
+                "f": {
+                    "code": "f",
+                    "pica3": "$f",
+                    "label": "Kommentar zur ISSN, Einbandart, Lieferbedingungen und\/oder Preis",
+                    "repeatable": false,
+                    "modified": "2017-09-29 13:28:45",
+                    "position": 5
+                }
+            }
+        },
+        "006A": {
+            "tag": "006A",
+            "pica3": "2040",
+            "label": "LoC-Nummer",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2040&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-06-28 15:46:58",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "LoC-Nummer",
+                    "repeatable": false,
+                    "modified": "2017-06-28 15:48:51",
+                    "position": 1
+                }
+            }
+        },
+        "006B": {
+            "tag": "006B",
+            "pica3": "2030",
+            "label": "BNB-Nummer",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2030&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-06-28 15:46:24",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "BNB-Nummer",
+                    "repeatable": false,
+                    "modified": "2017-06-28 15:41:04",
+                    "position": 1
+                }
+            }
+        },
+        "006G": {
+            "tag": "006G",
+            "pica3": "2065",
+            "label": "DNB-Nummer",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2065&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-07-21 08:52:57",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "DNB-Nummer",
+                    "repeatable": false,
+                    "modified": "2017-06-29 09:02:51",
+                    "position": 1
+                }
+            }
+        },
+        "006L": {
+            "tag": "006L",
+            "pica3": "2112",
+            "label": "Weitere Verbundidentnummern",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2112&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-12-18 08:39:51",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "Nummer",
+                    "repeatable": false,
+                    "modified": "2017-09-27 10:31:51",
+                    "position": 2
+                }
+            }
+        },
+        "006S": {
+            "tag": "006S",
+            "pica3": "2111",
+            "label": "SWB-PPN des umgelenkten Satzes",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2111&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-11-17 11:45:59",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "PPN",
+                    "repeatable": false,
+                    "modified": "2017-05-29 08:57:51",
+                    "position": 1
+                }
+            }
+        },
+        "006T": {
+            "tag": "006T",
+            "pica3": "2100",
+            "label": "CIP-Nummer",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2100&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-09-29 13:34:43",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "CIP-Nummer",
+                    "repeatable": false,
+                    "modified": "2017-06-29 09:30:34",
+                    "position": 1
+                }
+            }
+        },
+        "006U": {
+            "tag": "006U",
+            "pica3": "2105",
+            "label": "WV-Nummer",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2105&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-29 13:35:41",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "WV-Nummer",
+                    "repeatable": false,
+                    "modified": "2017-06-29 09:39:13",
+                    "position": 1
+                }
+            }
+        },
+        "006X": {
+            "tag": "006X",
+            "pica3": "2113",
+            "label": "Identnummern weiterer Fremddatenlieferanten",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2113&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-11-17 11:46:52",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Nummer",
+                    "repeatable": false,
+                    "modified": "2017-05-29 08:57:51",
+                    "position": 2
+                }
+            }
+        },
+        "006Y": {
+            "tag": "006Y",
+            "pica3": "2199",
+            "label": "Identnummern (allgemein)",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2199&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-12-18 18:33:24",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "Nummer",
+                    "repeatable": false,
+                    "modified": "2017-12-18 10:38:47",
+                    "position": 1
+                }
+            }
+        },
+        "006Z": {
+            "tag": "006Z",
+            "pica3": "2110",
+            "label": "ZDB-Nummer",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2110&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-06-13 11:54:34",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "ZDB-Nummer",
+                    "repeatable": false,
+                    "modified": "2017-05-29 08:57:51",
+                    "position": 1
+                }
+            }
+        },
+        "007C": {
+            "tag": "007C",
+            "pica3": "2200",
+            "label": "CODEN",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2200&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-06-29 10:01:16",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "CODEN",
+                    "repeatable": false,
+                    "modified": "2017-06-29 10:02:14",
+                    "position": 1
+                }
+            }
+        },
+        "007D": {
+            "tag": "007D",
+            "pica3": "2230",
+            "label": "Verlags-, Produktions- und Bestellnummer",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2230&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-12-14 10:28:18",
+            "subfields": {
+                "f": {
+                    "code": "f",
+                    "pica3": "$f",
+                    "label": "Kommentar zur Nummer",
+                    "repeatable": false,
+                    "modified": "2017-09-28 11:05:43",
+                    "position": 4
+                }
+            }
+        },
+        "007G": {
+            "tag": "007G",
+            "pica3": "2240",
+            "label": "Identnummer der erstkatalogisierenden Institution",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2240&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-09-27 14:21:37",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "Identnummer",
+                    "repeatable": false,
+                    "modified": "2017-09-27 14:19:07",
+                    "position": 2
+                }
+            }
+        },
+        "007Y": {
+            "tag": "007Y",
+            "pica3": "2198",
+            "label": "Sonstige Standardnummern",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=2198&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-11-24 12:22:54",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "Nummer",
+                    "repeatable": false,
+                    "modified": "2017-11-24 12:21:13",
+                    "position": 2
+                }
+            }
+        },
+        "008@": {
+            "tag": "008@",
+            "pica3": "0701",
+            "label": "Code f\u00fcr VD18-Redaktion",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=0701&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-11-10 11:34:05",
+            "subfields": {
+                "b": {
+                    "code": "b",
+                    "pica3": "$b",
+                    "label": "Redaktionskennzeichen",
+                    "repeatable": false,
+                    "modified": "2017-11-20 16:34:41",
+                    "position": 1
+                }
+            }
+        },
+        "009@": {
+            "tag": "009@",
+            "pica3": "0599",
+            "label": "Code zur Selektion und maschinellen Bearbeitung",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=0599&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-11-24 15:19:49",
+            "subfields": {
+                "b": {
+                    "code": "b",
+                    "pica3": null,
+                    "label": "Code",
+                    "repeatable": false,
+                    "modified": "2018-01-17 15:50:52",
+                    "position": 2
+                }
+            }
+        },
+        "010@": {
+            "tag": "010@",
+            "pica3": "1500",
+            "label": "Sprachcodes",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=1500&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2018-01-19 12:33:35",
+            "subfields": {
+                "c": {
+                    "code": "c",
+                    "pica3": "$c",
+                    "label": "Sprache des Originals",
+                    "repeatable": true,
+                    "modified": "2018-01-19 12:30:14",
+                    "position": 2
+                }
+            }
+        },
+        "010E": {
+            "tag": "010E",
+            "pica3": "1505",
+            "label": "Katalogisierungsquelle",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=1505&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-11-24 15:36:08",
+            "subfields": {
+                "e": {
+                    "code": "e",
+                    "pica3": "$e",
+                    "label": "Beschreibungsfestlegung",
+                    "repeatable": false,
+                    "modified": "2017-11-09 14:27:42",
+                    "position": 2
+                }
+            }
+        },
+        "011@": {
+            "tag": "011@",
+            "pica3": "1100",
+            "label": "Erscheinungsdatum\/Entstehungsdatum",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=1100&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2018-01-12 11:43:18",
+            "subfields": {
+                "r": {
+                    "code": "r",
+                    "pica3": "$r",
+                    "label": "Datum des Originals in Vorlageform",
+                    "repeatable": false,
+                    "modified": "2017-06-27 12:51:13",
+                    "position": 6
+                }
+            }
+        },
+        "011F": {
+            "tag": "011F",
+            "pica3": "1108",
+            "label": "Copyright-Datum, Vertriebsdatum, Herstellungsdatum",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=1108&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-11-24 15:25:22",
+            "subfields": {
+                "p": {
+                    "code": "p",
+                    "pica3": "$p",
+                    "label": "Herstellungsdatum",
+                    "repeatable": false,
+                    "modified": "2017-06-28 14:53:39",
+                    "position": 5
+                }
+            }
+        },
+        "013D": {
+            "tag": "013D",
+            "pica3": "1131",
+            "label": "Art des Inhalts",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=1131&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2018-01-08 14:45:05",
+            "subfields": {
+                "2": {
+                    "code": "2",
+                    "pica3": "$2",
+                    "label": "Quelle",
+                    "repeatable": false,
+                    "modified": "2017-06-14 16:28:21",
+                    "position": 8
+                }
+            }
+        },
+        "013E": {
+            "tag": "013E",
+            "pica3": "1132",
+            "label": "Musikalische Ausgabeform",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=1132&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-11-17 09:06:33",
+            "subfields": {
+                "2": {
+                    "code": "2",
+                    "pica3": "$2",
+                    "label": "Quelle",
+                    "repeatable": false,
+                    "modified": "2017-09-28 08:37:13",
+                    "position": 5
+                }
+            }
+        },
+        "013F": {
+            "tag": "013F",
+            "pica3": "1133",
+            "label": "Zielgruppe",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=1133&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-11-17 11:10:26",
+            "subfields": {
+                "2": {
+                    "code": "2",
+                    "pica3": "$2",
+                    "label": "Quelle",
+                    "repeatable": false,
+                    "modified": "2017-06-29 13:37:27",
+                    "position": 5
+                }
+            }
+        },
+        "013G": {
+            "tag": "013G",
+            "pica3": "1130",
+            "label": "Datentr\u00e4ger",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=1130&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-28 08:29:21",
+            "subfields": {
+                "7": {
+                    "code": "7",
+                    "pica3": "$7",
+                    "label": "Vorl\u00e4ufiger Link",
+                    "repeatable": false,
+                    "modified": "2017-09-28 07:52:11",
+                    "position": 4
+                }
+            }
+        },
+        "013H": {
+            "tag": "013H",
+            "pica3": "1140",
+            "label": "Ver\u00f6ffentlichungsart und Inhalt",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=1140&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2018-01-03 16:28:54",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": "$a",
+                    "label": "Ver\u00f6ffentlichungsart und Inhalt",
+                    "repeatable": true,
+                    "modified": "2018-01-10 10:28:07",
+                    "position": 1
+                }
+            }
+        },
+        "016A": {
+            "tag": "016A",
+            "pica3": "1101",
+            "label": "Materialspezifische Codes f\u00fcr elektronische Ressourcen",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=1101&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-11-17 13:29:33",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "Materialspezifische Codes f\u00fcr elektronische Ressourcen",
+                    "repeatable": false,
+                    "modified": "2018-01-10 10:06:30",
+                    "position": 1
+                }
+            }
+        },
+        "016B": {
+            "tag": "016B",
+            "pica3": "0575",
+            "label": "Code f\u00fcr Sammlungen",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=0575&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-09-22 10:13:53",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": "$a",
+                    "label": "Code",
+                    "repeatable": true,
+                    "modified": "2018-01-10 09:38:37",
+                    "position": 1
+                }
+            }
+        },
+        "016E": {
+            "tag": "016E",
+            "pica3": "1105",
+            "label": "Materialspezifische Codes f\u00fcr Mikroformen",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=1105&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-12-18 18:10:58",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": null,
+                    "label": "Materialspezifische Codes f\u00fcr Mikroformen",
+                    "repeatable": false,
+                    "modified": "2018-01-10 10:18:34",
+                    "position": 1
+                }
+            }
+        },
+        "017C": {
+            "tag": "017C",
+            "pica3": "4950",
+            "label": "URL zu Volltexten",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4950&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-12-05 09:46:46",
+            "subfields": {
+                "B": {
+                    "code": "B",
+                    "pica3": "$B",
+                    "label": "Codierung f\u00fcr Anzeige",
+                    "repeatable": false,
+                    "modified": "2018-01-10 11:15:39",
+                    "position": 16
+                }
+            }
+        },
+        "017D": {
+            "tag": "017D",
+            "pica3": "4951",
+            "label": "URL in Print-Aufnahme",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4951&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-11-09 14:22:31",
+            "subfields": {
+                "B": {
+                    "code": "B",
+                    "pica3": "$B",
+                    "label": "Codierung f\u00fcr Anzeige",
+                    "repeatable": false,
+                    "modified": "2018-01-10 11:17:41",
+                    "position": 15
+                }
+            }
+        },
+        "017E": {
+            "tag": "017E",
+            "pica3": "4958",
+            "label": "VD17 CGI-Skript",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4958&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-11-09 14:22:31",
+            "subfields": {
+                "5": {
+                    "code": "5",
+                    "pica3": "$5",
+                    "label": "Bezugswerk (Code)",
+                    "repeatable": false,
+                    "modified": "2018-01-10 11:18:39",
+                    "position": 5
+                }
+            }
+        },
+        "017K": {
+            "tag": "017K",
+            "pica3": "4970",
+            "label": "Produktsigel Gesamtpaket",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4970&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-11-22 11:55:21"
+        },
+        "017L": {
+            "tag": "017L",
+            "pica3": "4971",
+            "label": "Produktsigel Teilpaket",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4971&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-11-22 11:56:11"
+        },
+        "018@": {
+            "tag": "018@",
+            "pica3": "1800",
+            "label": "Code f\u00fcr Erscheinungsfrequenz",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=1800&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-09-22 10:01:19",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Code f\u00fcr Erscheinungsfrequenz",
+                    "repeatable": true,
+                    "modified": "2018-01-10 10:32:53",
+                    "position": 1
+                }
+            }
+        },
+        "019@": {
+            "tag": "019@",
+            "pica3": "1700",
+            "label": "Code f\u00fcr Erscheinungsland",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=1700&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-09-22 10:00:58",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": "$a",
+                    "label": "Code f\u00fcr Erscheinungsland",
+                    "repeatable": true,
+                    "modified": "2017-11-17 09:49:45",
+                    "position": 1
+                }
+            }
+        },
+        "021A": {
+            "tag": "021A",
+            "pica3": "4000",
+            "label": "Haupttitel, Titelzusatz, Verantwortlichkeitsangabe",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4000&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-12-18 10:41:47",
+            "subfields": {
+                "h": {
+                    "code": "h",
+                    "pica3": "$h",
+                    "label": "Verantwortlichkeitsangabe, die sich auf den Haupttitel bezieht",
+                    "repeatable": false,
+                    "modified": "2017-08-09 07:20:11",
+                    "position": 6
+                }
+            }
+        },
+        "021C": {
+            "tag": "021C",
+            "pica3": "4005",
+            "label": "Unterreihe",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4005&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-12-08 13:05:07",
+            "subfields": {
+                "h": {
+                    "code": "h",
+                    "pica3": "$h",
+                    "label": "Verantwortlichkeitsangabe",
+                    "repeatable": false,
+                    "modified": "2017-08-09 07:20:11",
+                    "position": 8
+                }
+            }
+        },
+        "021G": {
+            "tag": "021G",
+            "pica3": "4002",
+            "label": "Paralleltitel, paralleler Titelzusatz, parallele Verantwortlichkeitsangabe",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4002&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-12-08 13:00:17",
+            "subfields": {
+                "h": {
+                    "code": "h",
+                    "pica3": "$h",
+                    "label": "Parallele Verantwortlichkeitsangabe",
+                    "repeatable": false,
+                    "modified": "2017-08-09 07:20:11",
+                    "position": 6
+                }
+            }
+        },
+        "021M": {
+            "tag": "021M",
+            "pica3": "4010",
+            "label": "Weitere Titel etc. bei Zusammenstellungen",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4010&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-10-05 08:52:47",
+            "subfields": {
+                "h": {
+                    "code": "h",
+                    "pica3": "$h",
+                    "label": "Verantwortlichkeitsangabe",
+                    "repeatable": false,
+                    "modified": "2017-08-09 07:20:11",
+                    "position": 6
+                }
+            }
+        },
+        "021N": {
+            "tag": "021N",
+            "pica3": "4011",
+            "label": "Titelzus\u00e4tze und Verantwortlichkeitsangabe zur gesamten Vorlage",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4011&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-12-08 15:03:16",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Titelzus\u00e4tze und Verantwortlichkeitsangabe zur gesamten Vorlage",
+                    "repeatable": false,
+                    "modified": "2017-10-25 09:24:06",
+                    "position": 3
+                }
+            }
+        },
+        "022A\/00": {
+            "tag": "022A",
+            "pica3": "3210",
+            "label": "Werktitel und sonstige unterscheidende Merkmale des Werks",
+            "occurrence": "00",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=3210&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-11-24 15:29:04",
+            "subfields": {
+                "A": {
+                    "code": "A",
+                    "pica3": "$A",
+                    "label": "Quelle",
+                    "repeatable": false,
+                    "modified": "2017-09-28 13:27:01",
+                    "position": 17
+                }
+            }
+        },
+        "022A\/01": {
+            "tag": "022A",
+            "pica3": "3211",
+            "label": "Weiterer Werktitel und sonstige unterscheidende Merkmale",
+            "occurrence": "01",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=3211&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-11-24 15:29:20",
+            "subfields": {
+                "A": {
+                    "code": "A",
+                    "pica3": "$A",
+                    "label": "Quelle",
+                    "repeatable": false,
+                    "modified": "2017-09-28 13:27:21",
+                    "position": 17
+                }
+            }
+        },
+        "027A": {
+            "tag": "027A",
+            "pica3": "3260",
+            "label": "Abweichender Titel (Sucheinstieg)",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=3260&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-12-18 18:41:26",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Abweichender Titel",
+                    "repeatable": false,
+                    "modified": "2017-05-02 10:39:16",
+                    "position": 3
+                }
+            }
+        },
+        "028A": {
+            "tag": "028A",
+            "pica3": "3000",
+            "label": "Person\/Familie als 1. geistiger Sch\u00f6pfer",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=3000&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2018-01-22 15:57:07",
+            "subfields": {
+                "4": {
+                    "code": "4",
+                    "pica3": "$4",
+                    "label": "Beziehungskennzeichnung (Code)",
+                    "repeatable": true,
+                    "modified": "2017-11-24 15:30:22",
+                    "position": 17
+                }
+            }
+        },
+        "029A": {
+            "tag": "029A",
+            "pica3": "3100",
+            "label": "K\u00f6rperschaft als 1. geistiger Sch\u00f6pfer",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=3100&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2018-01-19 13:17:33",
+            "subfields": {
+                "4": {
+                    "code": "4",
+                    "pica3": "$4",
+                    "label": "Beziehungskennzeichnung (Code)",
+                    "repeatable": true,
+                    "modified": "2017-11-24 15:30:22",
+                    "position": 14
+                }
+            }
+        },
+        "029F": {
+            "tag": "029F",
+            "pica3": "3110",
+            "label": "K\u00f6rperschaft als 2. und weiterer geistiger Sch\u00f6pfer, sonstige K\u00f6rperschaften, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=3110&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2018-01-09 11:08:23",
+            "subfields": {
+                "4": {
+                    "code": "4",
+                    "pica3": "$4",
+                    "label": "Beziehungskennzeichnung (Code)",
+                    "repeatable": true,
+                    "modified": "2017-11-24 15:30:22",
+                    "position": 14
+                }
+            }
+        },
+        "029G": {
+            "tag": "029G",
+            "pica3": "3150",
+            "label": "Sonstige K\u00f6rperschaften",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=3150&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-12-08 12:47:34",
+            "subfields": {
+                "4": {
+                    "code": "4",
+                    "pica3": "$4",
+                    "label": "Beziehungskennzeichnung (Code)",
+                    "repeatable": true,
+                    "modified": "2017-07-21 08:28:30",
+                    "position": 14
+                }
+            }
+        },
+        "031@": {
+            "tag": "031@",
+            "pica3": "4025",
+            "label": "Z\u00e4hlung von fortlaufenden Ressourcen",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4025&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-10-05 11:23:47",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Z\u00e4hlung von fortlaufenden Ressourcen",
+                    "repeatable": false,
+                    "modified": "2017-10-05 11:25:33",
+                    "position": 1
+                }
+            }
+        },
+        "031A": {
+            "tag": "031A",
+            "pica3": "4070",
+            "label": "Differenzierende Angaben zur Quelle",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4070&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-11-24 13:40:30",
+            "subfields": {
+                "y": {
+                    "code": "y",
+                    "pica3": "$y",
+                    "label": "Modifizierte Anzeigeform",
+                    "repeatable": false,
+                    "modified": "2017-11-09 14:27:42",
+                    "position": 9
+                }
+            }
+        },
+        "031N": {
+            "tag": "031N",
+            "pica3": "4024",
+            "label": "Z\u00e4hlung von fortlaufenden Ressourcen in maschinell interpretierbarer Form",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4024&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-12-01 14:15:41",
+            "subfields": {
+                "0": {
+                    "code": "0",
+                    "pica3": ";\u00ac",
+                    "label": "Kettung von Beginn- und Endegruppen",
+                    "repeatable": true,
+                    "modified": "2017-12-01 14:24:48",
+                    "position": 12
+                }
+            }
+        },
+        "032@": {
+            "tag": "032@",
+            "pica3": "4020",
+            "label": "Ausgabevermerk",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4020&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-11-24 15:09:42",
+            "subfields": {
+                "h": {
+                    "code": "h",
+                    "pica3": "$h",
+                    "label": "Verantwortlichkeitsangabe",
+                    "repeatable": false,
+                    "modified": "2017-09-29 11:32:29",
+                    "position": 4
+                }
+            }
+        },
+        "032V": {
+            "tag": "032V",
+            "pica3": "3214",
+            "label": "Sonstige unterscheidende Eigenschaften des Werks",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=3214&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-07-31 14:22:41",
+            "subfields": {
+                "2": {
+                    "code": "2",
+                    "pica3": "$2",
+                    "label": "Quelle",
+                    "repeatable": false,
+                    "modified": "2017-07-31 15:12:11",
+                    "position": 7
+                }
+            }
+        },
+        "032W": {
+            "tag": "032W",
+            "pica3": "3213",
+            "label": "Form des Werks",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=3213&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-07-31 14:58:25",
+            "subfields": {
+                "2": {
+                    "code": "2",
+                    "pica3": "$2",
+                    "label": "Quelle",
+                    "repeatable": false,
+                    "modified": "2017-07-31 14:59:51",
+                    "position": 5
+                }
+            }
+        },
+        "032X": {
+            "tag": "032X",
+            "pica3": "3215",
+            "label": "Besetzung",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=3215&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-12-01 14:34:04",
+            "subfields": {
+                "2": {
+                    "code": "2",
+                    "pica3": "$2",
+                    "label": "Quelle",
+                    "repeatable": true,
+                    "modified": "2017-07-31 13:28:28",
+                    "position": 10
+                }
+            }
+        },
+        "032Y": {
+            "tag": "032Y",
+            "pica3": "3216",
+            "label": "Numerische Kennzeichnung eines Musikwerks",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=3216&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-12-01 14:34:41",
+            "subfields": {
+                "2": {
+                    "code": "2",
+                    "pica3": "$2",
+                    "label": "Quelle",
+                    "repeatable": false,
+                    "modified": "2017-07-31 13:57:00",
+                    "position": 6
+                }
+            }
+        },
+        "032Z": {
+            "tag": "032Z",
+            "pica3": "3217",
+            "label": "Tonart",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=3217&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-07-31 14:07:16",
+            "subfields": {
+                "b": {
+                    "code": "b",
+                    "pica3": "$b",
+                    "label": "Tonart der Expression",
+                    "repeatable": false,
+                    "modified": "2017-07-31 14:08:44",
+                    "position": 2
+                }
+            }
+        },
+        "033A": {
+            "tag": "033A",
+            "pica3": "4030",
+            "label": "Ver\u00f6ffentlichungsangabe",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4030&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-29 13:54:56",
+            "subfields": {
+                "z": {
+                    "code": "z",
+                    "pica3": "$z",
+                    "label": "Zeitliche G\u00fcltigkeit",
+                    "repeatable": false,
+                    "modified": "2017-08-04 08:06:15",
+                    "position": 7
+                }
+            }
+        },
+        "033C": {
+            "tag": "033C",
+            "pica3": "4045",
+            "label": "Herstellungsangabe",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4045&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-28 14:45:08",
+            "subfields": {
+                "z": {
+                    "code": "z",
+                    "pica3": "$z",
+                    "label": "Zeitliche G\u00fcltigkeit",
+                    "repeatable": false,
+                    "modified": "2017-07-27 14:36:03",
+                    "position": 6
+                }
+            }
+        },
+        "033D": {
+            "tag": "033D",
+            "pica3": "4040",
+            "label": "Normierter Erscheinungsort \/ normierter Hochschulort",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4040&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-28 14:45:01",
+            "subfields": {
+                "4": {
+                    "code": "4",
+                    "pica3": "$4",
+                    "label": "Beziehungskennzeichnung (Code)",
+                    "repeatable": true,
+                    "modified": "2018-01-10 11:04:11",
+                    "position": 7
+                }
+            }
+        },
+        "033E": {
+            "tag": "033E",
+            "pica3": "4034",
+            "label": "Vertriebsangabe",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4034&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-28 14:44:51",
+            "subfields": {
+                "z": {
+                    "code": "z",
+                    "pica3": "$z",
+                    "label": "Zeitliche G\u00fcltigkeit",
+                    "repeatable": false,
+                    "modified": "2017-10-17 14:06:00",
+                    "position": 6
+                }
+            }
+        },
+        "033F": {
+            "tag": "033F",
+            "pica3": "4046",
+            "label": "Entstehungsangabe",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4046&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-11-24 12:25:46",
+            "subfields": {
+                "z": {
+                    "code": "z",
+                    "pica3": "$z",
+                    "label": "Zeitliche G\u00fcltigkeit",
+                    "repeatable": false,
+                    "modified": "2017-11-24 16:05:49",
+                    "position": 6
+                }
+            }
+        },
+        "033H": {
+            "tag": "033H",
+            "pica3": "4050",
+            "label": "Verbreitungsort in normierter Form",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4050&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-10-17 14:12:01",
+            "subfields": {
+                "7": {
+                    "code": "7",
+                    "pica3": "$7",
+                    "label": "Vorl\u00e4ufiger Link",
+                    "repeatable": false,
+                    "modified": "2017-09-28 13:40:08",
+                    "position": 5
+                }
+            }
+        },
+        "034D": {
+            "tag": "034D",
+            "pica3": "4060",
+            "label": "Umfang",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4060&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-11-24 16:10:25",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Umfangsangabe bzw. Anzahl der physischen Einheiten",
+                    "repeatable": false,
+                    "modified": "2017-09-14 13:08:59",
+                    "position": 3
+                }
+            }
+        },
+        "034I": {
+            "tag": "034I",
+            "pica3": "4062",
+            "label": "Format, Ma\u00dfe",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4062&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-12-18 18:54:38",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Format, Ma\u00dfangaben bzw. physikalische Gr\u00f6\u00dfe des Datentr\u00e4gers",
+                    "repeatable": false,
+                    "modified": "2017-09-28 14:51:53",
+                    "position": 3
+                }
+            }
+        },
+        "034K": {
+            "tag": "034K",
+            "pica3": "4063",
+            "label": "Begleitmaterial",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4063&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-12-18 11:50:53",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Begleitmaterial",
+                    "repeatable": false,
+                    "modified": "2017-08-09 07:20:11",
+                    "position": 3
+                }
+            }
+        },
+        "034M": {
+            "tag": "034M",
+            "pica3": "4061",
+            "label": "Illustrationsangabe bzw. sonstige physische und technische Angaben",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4061&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-12-18 18:52:13",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Illustrationsangabe bzw. sonstige physische und technische Angaben",
+                    "repeatable": false,
+                    "modified": "2017-08-09 07:20:11",
+                    "position": 3
+                }
+            }
+        },
+        "035E": {
+            "tag": "035E",
+            "pica3": "4026",
+            "label": "Ma\u00dfstab",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4026&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-28 14:44:08",
+            "subfields": {
+                "g": {
+                    "code": "g",
+                    "pica3": "$g",
+                    "label": "Ma\u00dfstab (Sortierform)",
+                    "repeatable": false,
+                    "modified": "2017-08-04 07:52:43",
+                    "position": 5
+                }
+            }
+        },
+        "035F": {
+            "tag": "035F",
+            "pica3": "4027",
+            "label": "Projektion",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4027&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-09-28 14:44:15",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Projektion",
+                    "repeatable": false,
+                    "modified": "2017-07-10 11:00:41",
+                    "position": 3
+                }
+            }
+        },
+        "035G": {
+            "tag": "035G",
+            "pica3": "4028",
+            "label": "Koordinaten",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4028&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2018-01-10 11:02:13",
+            "subfields": {
+                "d": {
+                    "code": "d",
+                    "pica3": "$d",
+                    "label": "S\u00fcdlichster Punkt",
+                    "repeatable": false,
+                    "modified": "2017-07-10 11:00:41",
+                    "position": 6
+                }
+            }
+        },
+        "035H": {
+            "tag": "035H",
+            "pica3": "4029",
+            "label": "\u00c4quinoktium",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4029&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-09-22 10:09:49",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "\u00c4quinoktium",
+                    "repeatable": false,
+                    "modified": "2017-07-10 11:36:53",
+                    "position": 1
+                }
+            }
+        },
+        "037A": {
+            "tag": "037A",
+            "pica3": "4201",
+            "label": "Sonstige Anmerkungen",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4201&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-28 15:32:09",
+            "subfields": {
+                "A": {
+                    "code": "A",
+                    "pica3": "$A",
+                    "label": "Quelle",
+                    "repeatable": false,
+                    "modified": "2017-07-07 12:06:16",
+                    "position": 4
+                }
+            }
+        },
+        "037B": {
+            "tag": "037B",
+            "pica3": "4202",
+            "label": "Aufzeichnungsort und Aufzeichnungsdatum",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4202&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2018-01-12 10:42:55",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Aufzeichnungsort und Aufzeichnungsdatum",
+                    "repeatable": false,
+                    "modified": "2017-08-04 08:16:54",
+                    "position": 3
+                }
+            }
+        },
+        "037C": {
+            "tag": "037C",
+            "pica3": "4204",
+            "label": "Hochschulschriftenvermerk",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4204&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-28 14:46:28",
+            "subfields": {
+                "A": {
+                    "code": "A",
+                    "pica3": "$A",
+                    "label": "Quelle",
+                    "repeatable": false,
+                    "modified": "2017-09-28 13:27:36",
+                    "position": 8
+                }
+            }
+        },
+        "037F": {
+            "tag": "037F",
+            "pica3": "4205",
+            "label": "Filmspezifische Anmerkungen (Filmgenre\/Produktionsland\/Produktionsjahr)",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4205&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-07-21 08:20:43",
+            "subfields": {
+                "p": {
+                    "code": "p",
+                    "pica3": "$p",
+                    "label": "Produktionsjahr",
+                    "repeatable": true,
+                    "modified": "2017-10-20 10:08:29",
+                    "position": 3
+                }
+            }
+        },
+        "037H": {
+            "tag": "037H",
+            "pica3": "4238",
+            "label": "Technische Angabe zum Digitalisat",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4238&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-29 09:26:01",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Technische Angabe zum elektronischen Dokument",
+                    "repeatable": false,
+                    "modified": "2017-09-14 13:08:59",
+                    "position": 3
+                }
+            }
+        },
+        "037I": {
+            "tag": "037I",
+            "pica3": "4239",
+            "label": "Angaben zum Copyright oder Nutzungsrecht bei Reproduktionen",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4239&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-12-05 15:24:27",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Copyrightvermerk",
+                    "repeatable": false,
+                    "modified": "2017-09-14 13:08:59",
+                    "position": 3
+                }
+            }
+        },
+        "037Q": {
+            "tag": "037Q",
+            "pica3": "4278",
+            "label": "Beschreibung des Einbands",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4278&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-11-09 14:22:07",
+            "subfields": {
+                "c": {
+                    "code": "c",
+                    "pica3": "$c",
+                    "label": "Weitere Beschreibung des Einbands",
+                    "repeatable": true,
+                    "modified": "2017-10-18 13:06:38",
+                    "position": 3
+                }
+            }
+        },
+        "039H": {
+            "tag": "039H",
+            "pica3": "4255",
+            "label": "Reproduktion gleiche physische Form",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4255&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-11-09 14:21:44",
+            "subfields": {
+                "6": {
+                    "code": "6",
+                    "pica3": "$6",
+                    "label": "ID (z. B. ZDB-ID, DNB-ID, PPN)",
+                    "repeatable": true,
+                    "modified": "2017-11-09 14:27:42",
+                    "position": 18
+                }
+            }
+        },
+        "039I": {
+            "tag": "039I",
+            "pica3": "4256",
+            "label": "Reproduktion andere physische Form",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4256&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-11-09 14:21:54",
+            "subfields": {
+                "6": {
+                    "code": "6",
+                    "pica3": "$6",
+                    "label": "ID (z. B. ZDB-ID, DNB-ID, PPN)",
+                    "repeatable": true,
+                    "modified": "2017-11-09 14:27:42",
+                    "position": 18
+                }
+            }
+        },
+        "039V": {
+            "tag": "039V",
+            "pica3": "0370",
+            "label": "MRM: Link zum Master Record (in Slave-Aufnahme)",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=0370&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-10-12 15:36:08",
+            "subfields": {
+                "9": {
+                    "code": "9",
+                    "pica3": "!...!",
+                    "label": "PPN",
+                    "repeatable": false,
+                    "modified": "2017-05-29 08:57:51",
+                    "position": 1
+                }
+            }
+        },
+        "044H": {
+            "tag": "044H",
+            "pica3": "5590",
+            "label": "Erschlie\u00dfung von Musikalien nach Besetzung und Form\/Gattung",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=5590&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2018-01-04 12:45:49",
+            "subfields": {
+                "c": {
+                    "code": "c",
+                    "pica3": "$c",
+                    "label": "Form\/Gattung",
+                    "repeatable": false,
+                    "modified": "2018-01-05 12:47:17",
+                    "position": 3
+                }
+            }
+        },
+        "044N": {
+            "tag": "044N",
+            "pica3": "5520",
+            "label": "Schlagw\u00f6rter aus einem Thesaurus (Fremddaten)",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=5520&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-07-21 08:21:37",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": "$a",
+                    "label": "Schlagwort",
+                    "repeatable": false,
+                    "modified": "2017-07-21 08:35:25",
+                    "position": 2
+                }
+            }
+        },
+        "044S": {
+            "tag": "044S",
+            "pica3": "5570",
+            "label": "Gattungsbegriffe bei alten Drucken",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=5570&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-25 12:58:29",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Gattungsbegriff (nur in Importdaten)",
+                    "repeatable": false,
+                    "modified": "2018-01-11 16:12:38",
+                    "position": 4
+                }
+            }
+        },
+        "045A": {
+            "tag": "045A",
+            "pica3": "5030",
+            "label": "LCC-Notation",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=5030&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-07-06 08:45:32",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Notation",
+                    "repeatable": false,
+                    "modified": "2017-07-06 08:12:03",
+                    "position": 1
+                }
+            }
+        },
+        "045B\/00": {
+            "tag": "045B",
+            "pica3": "5020",
+            "label": "Allgemeine Systematik f\u00fcr Bibliotheken (ASB)",
+            "occurrence": "00",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=5020&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-22 10:13:37",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": "$a",
+                    "label": "Notation",
+                    "repeatable": false,
+                    "modified": "2017-07-06 08:12:03",
+                    "position": 1
+                }
+            }
+        },
+        "045B\/01": {
+            "tag": "045B",
+            "pica3": "5021",
+            "label": "Systematik der Stadtbibliothek Duisburg (SSD)",
+            "occurrence": "01",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=5021&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-07-06 08:18:21",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": "$a",
+                    "label": "Notation",
+                    "repeatable": false,
+                    "modified": "2017-07-06 08:12:03",
+                    "position": 1
+                }
+            }
+        },
+        "045B\/02": {
+            "tag": "045B",
+            "pica3": "5022",
+            "label": "Systematik f\u00fcr Bibliotheken (SfB)",
+            "occurrence": "02",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=5022&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-07-06 08:26:37",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": "$a",
+                    "label": "Notation",
+                    "repeatable": false,
+                    "modified": "2017-07-06 08:23:01",
+                    "position": 1
+                }
+            }
+        },
+        "045B\/03": {
+            "tag": "045B",
+            "pica3": "5023",
+            "label": "Klassifikation f\u00fcr Allgemeinbibliotheken (KAB)",
+            "occurrence": "03",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=5023&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-07-06 08:26:24",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": "$a",
+                    "label": "Notation",
+                    "repeatable": false,
+                    "modified": "2017-07-06 08:12:03",
+                    "position": 1
+                }
+            }
+        },
+        "045B\/04": {
+            "tag": "045B",
+            "pica3": "5024",
+            "label": "Systematiken der ekz",
+            "occurrence": "04",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=5024&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-07-06 08:44:17",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": "$a",
+                    "label": "Notation",
+                    "repeatable": false,
+                    "modified": "2017-07-06 08:12:03",
+                    "position": 1
+                }
+            }
+        },
+        "045B\/05": {
+            "tag": "045B",
+            "pica3": "5025",
+            "label": "Gattungsbegriffe (DNB)",
+            "occurrence": "05",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=5025&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-07-21 08:21:26",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": "$a",
+                    "label": "Notation",
+                    "repeatable": false,
+                    "modified": "2017-07-06 08:12:03",
+                    "position": 1
+                }
+            }
+        },
+        "045C": {
+            "tag": "045C",
+            "pica3": "5040",
+            "label": "Klassifikation der National Library of Medicine (NLM)",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=5040&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-22 10:13:56",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Notation",
+                    "repeatable": true,
+                    "modified": "2017-07-06 08:12:03",
+                    "position": 1
+                }
+            }
+        },
+        "045E": {
+            "tag": "045E",
+            "pica3": "5050",
+            "label": "Sachgruppen der Deutschen Nationalbibliographie bis 2003",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=5050&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-08-02 17:58:05",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": "$a",
+                    "label": "Sachgruppe",
+                    "repeatable": true,
+                    "modified": "2017-07-06 09:08:29",
+                    "position": 1
+                }
+            }
+        },
+        "045F": {
+            "tag": "045F",
+            "pica3": "5010",
+            "label": "DDC-Notation",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=5010&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-22 10:13:23",
+            "subfields": {
+                "A": {
+                    "code": "A",
+                    "pica3": "$A",
+                    "label": "Quelle",
+                    "repeatable": false,
+                    "modified": "2018-01-03 14:03:22",
+                    "position": 4
+                }
+            }
+        },
+        "045G": {
+            "tag": "045G",
+            "pica3": "5051",
+            "label": "Sachgruppen der Deutschen Nationalbibliographie ab 2004",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=5051&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-07-06 09:10:34",
+            "subfields": {
+                "A": {
+                    "code": "A",
+                    "pica3": "$A",
+                    "label": "Quelle \/ liefernde Institution",
+                    "repeatable": false,
+                    "modified": "2017-09-28 13:26:15",
+                    "position": 2
+                }
+            }
+        },
+        "045R": {
+            "tag": "045R",
+            "pica3": "5090",
+            "label": "Regensburger Verbundklassifikation (RVK)",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=5090&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-07-06 11:20:46",
+            "subfields": {
+                "A": {
+                    "code": "A",
+                    "pica3": "$A",
+                    "label": "Quelle",
+                    "repeatable": false,
+                    "modified": "2017-09-28 13:26:26",
+                    "position": 5
+                }
+            }
+        },
+        "045S": {
+            "tag": "045S",
+            "pica3": "5055",
+            "label": "Deutsche Bibliotheksstatistik (DBS)",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=5055&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-22 10:14:35",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": "$a",
+                    "label": "Notation",
+                    "repeatable": true,
+                    "modified": "2017-07-06 09:19:42",
+                    "position": 1
+                }
+            }
+        },
+        "045U": {
+            "tag": "045U",
+            "pica3": "5080",
+            "label": "ZDB-Notation",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=5080&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-08-03 08:42:18",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": "$a",
+                    "label": "ZDB-Notation",
+                    "repeatable": true,
+                    "modified": "2017-11-17 13:23:04",
+                    "position": 1
+                }
+            }
+        },
+        "045V": {
+            "tag": "045V",
+            "pica3": "5056",
+            "label": "SSG-Nummer\/FID-Kennzeichen",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=5056&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-12-20 11:32:52",
+            "subfields": {
+                "q": {
+                    "code": "q",
+                    "pica3": "$q",
+                    "label": "ISIL",
+                    "repeatable": false,
+                    "modified": "2017-07-06 10:28:28",
+                    "position": 3
+                }
+            }
+        },
+        "045X": {
+            "tag": "045X",
+            "pica3": "5060",
+            "label": "Notation eines Klassifikationssystems",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=5060&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-12-13 08:47:54",
+            "subfields": {
+                "A": {
+                    "code": "A",
+                    "pica3": "$A",
+                    "label": "Quelle",
+                    "repeatable": false,
+                    "modified": "2017-09-28 11:32:03",
+                    "position": 7
+                }
+            }
+        },
+        "046C": {
+            "tag": "046C",
+            "pica3": "4212",
+            "label": "Abweichender Titel",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4212&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-11-24 15:29:35",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Abweichender Titel",
+                    "repeatable": false,
+                    "modified": "2017-08-09 07:20:11",
+                    "position": 4
+                }
+            }
+        },
+        "046D": {
+            "tag": "046D",
+            "pica3": "4213",
+            "label": "Fr\u00fchere\/fr\u00fchester Haupttitel (nur f\u00fcr fortlaufende und integrierende Ressourcen)",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4213&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-11-24 15:29:35",
+            "subfields": {
+                "z": {
+                    "code": "z",
+                    "pica3": "$z",
+                    "label": "Codierte Angabe",
+                    "repeatable": false,
+                    "modified": "2017-05-29 08:57:51",
+                    "position": 5
+                }
+            }
+        },
+        "046H": {
+            "tag": "046H",
+            "pica3": "4217",
+            "label": "Anmerkung zur Ver\u00f6ffentlichungsangabe und zum Copyright-Datum",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4217&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-09-28 15:32:47",
+            "subfields": {
+                "A": {
+                    "code": "A",
+                    "pica3": "$A",
+                    "label": "Quelle",
+                    "repeatable": false,
+                    "modified": "2017-09-28 13:26:04",
+                    "position": 4
+                }
+            }
+        },
+        "046K": {
+            "tag": "046K",
+            "pica3": "4220",
+            "label": "Voraussichtlicher Erscheinungstermin",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4220&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-09-28 15:33:34",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Voraussichtlicher Erscheinungstermin",
+                    "repeatable": false,
+                    "modified": "2017-07-10 15:58:48",
+                    "position": 1
+                }
+            }
+        },
+        "046L": {
+            "tag": "046L",
+            "pica3": "4221",
+            "label": "Angaben \u00fcber Sprache und Schrift der Expression",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4221&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-28 15:34:05",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Angaben \u00fcber Sprache und Schrift der Expression",
+                    "repeatable": false,
+                    "modified": "2017-07-07 12:06:16",
+                    "position": 3
+                }
+            }
+        },
+        "046N": {
+            "tag": "046N",
+            "pica3": "4223",
+            "label": "Anmerkungen zu Interpreten, Ausf\u00fchrenden, Erz\u00e4hlern und\/oder Pr\u00e4sentatoren",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4223&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-10-19 08:59:41",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Anmerkungen zu Interpreten, Ausf\u00fchrenden, Erz\u00e4hlern und\/oder Pr\u00e4sentatorenAnmerk",
+                    "repeatable": false,
+                    "modified": "2017-10-19 11:14:53",
+                    "position": 3
+                }
+            }
+        },
+        "046P": {
+            "tag": "046P",
+            "pica3": "4225",
+            "label": "Anmerkung zur Z\u00e4hlung von fortlaufenden Ressourcen",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4225&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-12-04 09:47:38",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Erl\u00e4uterung zur Z\u00e4hlung",
+                    "repeatable": false,
+                    "modified": "2017-08-09 07:20:11",
+                    "position": 3
+                }
+            }
+        },
+        "046U": {
+            "tag": "046U",
+            "pica3": "4206",
+            "label": "Altersfreigabe von Filmen und Computerspielen",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4206&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-08-04 08:23:08",
+            "subfields": {
+                "b": {
+                    "code": "b",
+                    "pica3": "$b",
+                    "label": "Land",
+                    "repeatable": false,
+                    "modified": "2017-07-21 08:33:47",
+                    "position": 2
+                }
+            }
+        },
+        "046V": {
+            "tag": "046V",
+            "pica3": "4209",
+            "label": "K\u00fcnstlerische und\/oder technische Angabe",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4209&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-29 09:22:47",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "K\u00fcnstlerische und\/oder technische Angabe",
+                    "repeatable": false,
+                    "modified": "2017-11-17 13:04:31",
+                    "position": 3
+                }
+            }
+        },
+        "046W": {
+            "tag": "046W",
+            "pica3": "0999",
+            "label": "Kommentarfeld",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=0999&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-11-24 15:19:49",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Kommentarfeld",
+                    "repeatable": false,
+                    "modified": "2017-05-29 08:57:51",
+                    "position": 1
+                }
+            }
+        },
+        "046X": {
+            "tag": "046X",
+            "pica3": "4233",
+            "label": "Langzeitarchivierung, Bestandsschutzma\u00dfnahmen bzw. Schl\u00fcsselseiten",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4233&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-28 15:34:24",
+            "subfields": {
+                "p": {
+                    "code": "p",
+                    "pica3": "$p",
+                    "label": "Anmerkung",
+                    "repeatable": false,
+                    "modified": "2017-09-18 16:09:53",
+                    "position": 7
+                }
+            }
+        },
+        "047A": {
+            "tag": "047A",
+            "pica3": "4700",
+            "label": "Allgemeiner Bearbeitungshinweis",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4700&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-11-24 15:19:49",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Allgemeiner Bearbeitungshinweis",
+                    "repeatable": false,
+                    "modified": "2017-07-07 12:06:16",
+                    "position": 1
+                }
+            }
+        },
+        "047C": {
+            "tag": "047C",
+            "pica3": "4200",
+            "label": "Zus\u00e4tzliche Sucheinstiege",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4200&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-09-28 15:31:43",
+            "subfields": {
+                "A": {
+                    "code": "A",
+                    "pica3": "$A",
+                    "label": "Quelle",
+                    "repeatable": false,
+                    "modified": "2017-09-28 13:27:29",
+                    "position": 4
+                }
+            }
+        },
+        "047F": {
+            "tag": "047F",
+            "pica3": "8910",
+            "label": "Statistikfeld aus der Broadcast-\u00dcbernahme \/ Parkfeld f\u00fcr Altdaten",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=8910&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-07-27 11:49:10",
+            "subfields": {
+                "b": {
+                    "code": "b",
+                    "pica3": "$b",
+                    "label": "Statistik aus Broadcast-\u00dcbernahme \/ Nachricht aus ehem. BIS-Feld \"rem\"",
+                    "repeatable": true,
+                    "modified": "2017-07-27 11:55:09",
+                    "position": 2
+                }
+            }
+        },
+        "047P": {
+            "tag": "047P",
+            "pica3": "4203",
+            "label": "Zusammenfassende Register",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4203&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-12-18 18:57:02",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Zusammenfassende Register",
+                    "repeatable": false,
+                    "modified": "2017-05-02 10:39:16",
+                    "position": 3
+                }
+            }
+        },
+        "047V": {
+            "tag": "047V",
+            "pica3": "4713",
+            "label": "Angaben zu Open Access, Lizenzen und Rechten",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4713&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-10-18 13:27:40",
+            "subfields": {
+                "v": {
+                    "code": "v",
+                    "pica3": "$v",
+                    "label": "Bemerkung (Rechtsgegenstand, Rechtsgrund)",
+                    "repeatable": false,
+                    "modified": "2017-10-18 13:43:22",
+                    "position": 12
+                }
+            }
+        },
+        "047X": {
+            "tag": "047X",
+            "pica3": "4714",
+            "label": "Angaben zum Lizenzierungsprozess von vergriffenen Werken",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4714&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-10-18 13:58:43",
+            "subfields": {
+                "v": {
+                    "code": "v",
+                    "pica3": "$v",
+                    "label": "Freitext",
+                    "repeatable": false,
+                    "modified": "2017-10-18 13:59:21",
+                    "position": 8
+                }
+            }
+        },
+        "048H": {
+            "tag": "048H",
+            "pica3": "4251",
+            "label": "Systemvoraussetzungen f\u00fcr elektronische Ressourcen",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=4251&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2017-10-16 15:07:58",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Systemvoraussetzungen f\u00fcr elektronische Ressourcen",
+                    "repeatable": false,
+                    "modified": "2018-01-12 11:16:49",
+                    "position": 3
+                }
+            }
+        },
+        "089A": {
+            "tag": "089A",
+            "pica3": "8900",
+            "label": "Verkn\u00fcpfungsnummer des zu korrigierenden Satzes",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=8900&regelwerk=RDA&verbund=GBV",
+            "repeatable": true,
+            "modified": "2018-01-17 16:15:52",
+            "subfields": {
+                "8": {
+                    "code": "8",
+                    "pica3": "--",
+                    "label": "Expansion",
+                    "repeatable": false,
+                    "modified": "2017-09-22 08:59:21",
+                    "position": 2
+                }
+            }
+        },
+        "089B": {
+            "tag": "089B",
+            "pica3": "8901",
+            "label": "Datum und Empf\u00e4nger des Mailboxsatzes",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=8901&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-09-22 10:15:25",
+            "subfields": {
+                "b": {
+                    "code": "b",
+                    "pica3": "$b",
+                    "label": "Empf\u00e4ngeradresse",
+                    "repeatable": false,
+                    "modified": "2017-08-04 08:43:07",
+                    "position": 2
+                }
+            }
+        },
+        "089C": {
+            "tag": "089C",
+            "pica3": "8902",
+            "label": "Mitteilungstext",
+            "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/help.pl?cmd=kat&val=8902&regelwerk=RDA&verbund=GBV",
+            "repeatable": false,
+            "modified": "2017-09-21 16:01:12",
+            "subfields": {
+                "a": {
+                    "code": "a",
+                    "pica3": null,
+                    "label": "Mitteilungstext",
+                    "repeatable": false,
+                    "modified": "2017-07-26 15:43:57",
+                    "position": 1
+                }
+            }
+        }
+    }
+}

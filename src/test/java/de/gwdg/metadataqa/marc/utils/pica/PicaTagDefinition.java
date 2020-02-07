@@ -30,6 +30,7 @@ public class PicaTagDefinition {
 
   private void parseSheet(String input) {
     switch (input) {
+      case "":
       case "-": this.hasSheet = false; break;
       case "+": this.hasSheet = true; break;
       default: logger.severe("unhandled 'hasSheet' value: " + input + " (" + picaplus + ")");
@@ -62,5 +63,16 @@ public class PicaTagDefinition {
 
   public String getDescription() {
     return description;
+  }
+
+  @Override
+  public String toString() {
+    return "PicaTagDefinition{" +
+      "pica3='" + pica3 + '\'' +
+      ", picaplus='" + picaplus + '\'' +
+      ", repeatable=" + repeatable +
+      ", hasSheet=" + hasSheet +
+      ", description='" + description + '\'' +
+      '}';
   }
 }

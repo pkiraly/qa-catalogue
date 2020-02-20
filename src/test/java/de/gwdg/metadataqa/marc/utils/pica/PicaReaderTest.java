@@ -13,6 +13,7 @@ import org.junit.Test;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,6 +67,10 @@ public class PicaReaderTest {
           }
         }
       }
+
+      List<String> known_problems = Arrays.asList(
+        "201U/001", "202D/001", "101U", "102D", "209A/001"
+      );
       counter.entrySet()
         .stream()
         .sorted((e1, e2) -> {
@@ -73,7 +78,10 @@ public class PicaReaderTest {
           }
         )
         .forEach(
-          entry -> System.err.printf("%s: %d%n", entry.getKey(), entry.getValue())
+          entry -> {
+            if (!known_problems.contains(entry.getKey()))
+              System.err.printf("%s: %d%n", entry.getKey(), entry.getValue());
+          }
         );
     } catch(FileNotFoundException e){
       e.printStackTrace();
@@ -113,6 +121,18 @@ public class PicaReaderTest {
           }
         }
       }
+      List<String> known_problems = Arrays.asList(
+        "091O/05",
+        "101U", "102D",
+        "201U/001", "201U/002", "201U/003",
+        "202D/001", "202D/002", "202D/003",
+        "209A/001", "209A/002", "209A/003",
+        "209O/001", "209O/003", // only 209O
+        "209R/001", // only 209R
+        "220B/001", "220B/002", "220B/003", // only 220B
+        "231@/001", "231@/002", // only 231@
+        "237A/001", "237A/002" // only 237A
+      );
       System.err.println("number of unhandled tags: " + counter.size());
       counter.entrySet()
         .stream()
@@ -121,7 +141,10 @@ public class PicaReaderTest {
           }
         )
         .forEach(
-          entry -> System.err.printf("%s: %d%n", entry.getKey(), entry.getValue())
+          entry -> {
+            if (!known_problems.contains(entry.getKey()))
+              System.err.printf("%s: %d%n", entry.getKey(), entry.getValue());
+          }
         );
 
     } catch(FileNotFoundException e){

@@ -1,0 +1,619 @@
+{
+  "title": "GBV\/SWB RDA PICA f\u00fcr bibliographische Daten",
+  "fields": {
+    "045D/00-48": {
+      "tag": "045D/00-48",
+      "pica3": "5200",
+      "label": "STW-Schlagwörter",
+      "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/k10plushelp.pl?cmd=kat&val=5200&katalog=Standard",
+      "repeatable": false,
+      "modified": "2017-09-25 12:58:29",
+      "subfields": {
+        "9": {
+          "code": "9",
+          "pica3": "!...!",
+          "label": "PPN",
+          "repeatable": false,
+          "modified": "2019-11-27 09:40:19"
+        },
+        "8": {
+          "code": "8",
+          "pica3": "--",
+          "label": "Expansion",
+          "repeatable": false,
+          "modified": "2019-11-27 12:45:28"
+        },
+        "7": {
+          "code": "7",
+          "pica3": "7",
+          "label": "Vorläufiger Link",
+          "repeatable": false,
+          "modified": "2019-11-27 09:40:45"
+        },
+        "a": {
+          "code": "a",
+          "pica3": null,
+          "label": "Schlagwort",
+          "repeatable": false,
+          "modified": "2019-11-27 09:39:59"
+        },
+        "A": {
+          "code": "A",
+          "pica3": "A",
+          "label": "Quelle",
+          "repeatable": false,
+          "modified": "2019-11-29 12:45:34"
+        }
+      }
+    },
+    "045D/49": {
+      "tag": "045D/49",
+      "pica3": "5249",
+      "label": "STW-Schlagwörter - Veröffentlichungsart",
+      "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/k10plushelp.pl?cmd=kat&val=5249&katalog=Standard",
+      "repeatable": true,
+      "modified": "2018-05-25 11:37:54",
+      "subfields": {
+        "b": {"code": "b", "pica3": "b", "label": "Code", "repeatable": false, "modified": "2019-11-29 12:46:04"},
+        "c": {"code": "c", "pica3": "c", "label": "Text (deutsch)", "repeatable": false, "modified": "2019-11-29 12:46:08"},
+        "d": {"code": "d", "pica3": "d", "label": "Text (englisch)", "repeatable": false, "modified": "2019-11-29 12:46:13"}
+      }
+    },
+    "028C": {
+      "tag": "028C",
+      "pica3": "3010",
+      "label": "Person/Familie als 2. und weiterer geistiger Schöpfer, sonstige Personen/Familien, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",
+      "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/k10plushelp.pl?cmd=kat&val=3010&katalog=Standard",
+      "repeatable": true,
+      "modified": "2019-08-16 15:49:53",
+      "subfields": {
+        "T": {
+          "code": "T",
+          "pica3": "T",
+          "label": "Feldzuordnung",
+          "repeatable": false,
+          "modified": "2019-11-29 13:29:10"
+        },
+        "U": {
+          "code": "U",
+          "pica3": "U...%%",
+          "label": "Schriftcode",
+          "repeatable": false,
+          "modified": "2019-11-29 13:29:14"
+        },
+        "e": {
+          "code": "e",
+          "pica3": "#...#",
+          "label": "In RDA-Sätzen nicht zugelassen",
+          "repeatable": false,
+          "modified": "2017-12-11 21:04:27"
+        },
+        "P": {
+          "code": "P",
+          "pica3": "P",
+          "label": "Persönlicher Name",
+          "repeatable": false,
+          "modified": "2019-11-26 12:56:57"
+        },
+        "a": {
+          "code": "a",
+          "pica3": null,
+          "label": "Familienname",
+          "repeatable": false,
+          "modified": "2019-11-26 12:57:28"
+        },
+        "d": {
+          "code": "d",
+          "pica3": null,
+          "label": "Vorname(n)",
+          "repeatable": false,
+          "modified": "2019-11-26 12:57:39"
+        },
+        "c": {
+          "code": "c",
+          "pica3": "c",
+          "label": "Präfix (wenn nicht erstes Element des bevorzugten Namens)",
+          "repeatable": false,
+          "modified": "2019-11-26 12:57:49"
+        },
+        "n": {
+          "code": "n",
+          "pica3": "n",
+          "label": "Zählung",
+          "repeatable": false,
+          "modified": "2019-11-26 12:58:00"
+        },
+        "l": {
+          "code": "l",
+          "pica3": "l",
+          "label": "Beiname, Gattungsname, Territorium, Titulatur",
+          "repeatable": false,
+          "modified": "2019-11-26 12:58:22"
+        },
+        "f": {
+          "code": "f",
+          "pica3": "f",
+          "label": "In RDA-Sätzen nicht zugelassen",
+          "repeatable": false,
+          "modified": "2019-11-28 15:00:40"
+        },
+        "h": {
+          "code": "h",
+          "pica3": "h",
+          "label": "Lebensdaten",
+          "repeatable": false,
+          "modified": "2019-12-11 09:46:46"
+        },
+        "p": {
+          "code": "p",
+          "pica3": "p",
+          "label": "Weitere identifizierende Angaben",
+          "repeatable": false,
+          "modified": "2019-11-28 15:00:47"
+        },
+        "9": {
+          "code": "9",
+          "pica3": "!...!",
+          "label": "PPN",
+          "repeatable": false,
+          "modified": "2019-12-11 09:47:11"
+        },
+        "8": {
+          "code": "8",
+          "pica3": "--",
+          "label": "Expansion des bevorzugten Namens",
+          "repeatable": false,
+          "modified": "2019-11-28 15:00:55"
+        },
+        "7": {
+          "code": "7",
+          "pica3": "7",
+          "label": "Vorläufiger Link",
+          "repeatable": false,
+          "modified": "2019-11-26 12:59:15"
+        },
+        "B": {
+          "code": "B",
+          "pica3": "B",
+          "label": "Beziehungskennzeichnung (Text)",
+          "repeatable": true,
+          "modified": "2019-11-26 12:58:58"
+        },
+        "4": {
+          "code": "4",
+          "pica3": "4",
+          "label": "Beziehungskennzeichnung (Code)",
+          "repeatable": true,
+          "modified": "2019-11-26 13:00:06"
+        }
+      }
+    },
+    "208@/001-999": {
+      "tag": "208@/001-999",
+      "pica3": "E001",
+      "label": "Neuanlagedatum und Selektionsschlüssel",
+      "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/k10plushelp.pl?cmd=kat&val=E001&katalog=Standard",
+      "repeatable": false,
+      "modified": "2019-09-03 15:54:56",
+      "subfields": {
+        "a": {
+          "code": "a",
+          "pica3": null,
+          "label": "Neuanlagedatum",
+          "repeatable": false,
+          "modified": "2019-12-03 11:58:08"
+        },
+        "b": {
+          "code": "b",
+          "pica3": "_:_",
+          "label": "Selektionsschlüssel",
+          "repeatable": false,
+          "modified": "2019-12-03 11:58:17"
+        }
+      }
+    },
+    "201B/001-999": {
+      "tag": "201B/001-999",
+      "pica3": "7903",
+      "label": "Datum und Uhrzeit der letzten Änderung",
+      "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/k10plushelp.pl?cmd=kat&val=7903&katalog=Standard",
+      "repeatable": false,
+      "modified": "2019-09-03 15:54:56",
+      "subfields": {
+        "0": {
+          "code": "0",
+          "pica3": null,
+          "label": "Datum (TT-MM-JJ)",
+          "repeatable": false,
+          "modified": "2019-11-20 13:32:55"
+        },
+        "t": {
+          "code": "t",
+          "pica3": "_",
+          "label": "Uhrzeit",
+          "repeatable": false,
+          "modified": "2019-11-20 13:33:04"
+        }
+      }
+    },
+    "203@/001-999": {
+      "tag": "203@/001-999",
+      "pica3": "7800",
+      "label": "EPN des Exemplarsatzes",
+      "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/k10plushelp.pl?cmd=kat&val=7800&katalog=Standard",
+      "repeatable": false,
+      "modified": "2019-09-03 15:54:56",
+      "subfields": {
+        "0": {
+          "code": "0",
+          "pica3": null,
+          "label": "Exemplarproduktionsnummer",
+          "repeatable": false,
+          "modified": "2019-12-02 09:34:41"
+        }
+      }
+    },
+    "044A": {
+      "tag": "044A",
+      "pica3": "5500",
+      "label": "LoC Subject Headings",
+      "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/k10plushelp.pl?cmd=kat&val=5500&katalog=Standard",
+      "repeatable": true,
+      "modified": "2019-09-03 15:54:56",
+      "subfields": {
+        "N": {"code": "N", "pica3": "<...>", "label": "MARC-Kategorie", "repeatable": false, "modified": "2019-11-29 12:52:53"},
+        "S": {"code": "S", "pica3": "|...|", "label": "Schlagwortindikator", "repeatable": false, "modified": "2019-11-29 12:50:31"},
+        "a": {"code": "a", "pica3": "_|a|", "label": "Schlagwort bzw. Name oder Titel", "repeatable": true, "modified": "2019-11-29 12:53:33"},
+        "b": {"code": "b", "pica3": "_|b|", "label": "600 Zählung - 610 Abteilung - 650 Sachbegriff", "repeatable": true, "modified": "2019-11-29 12:53:47"},
+        "c": {"code": "c", "pica3": "_|c|", "label": "600 Titel und andere Zusätze zum Namen - 610, 611 Kongress-Ort - 650 Ort des Ereignisses", "repeatable": true, "modified": "2019-11-29 12:53:56"},
+        "d": {"code": "d", "pica3": "_|d|", "label": "Daten (Lebensdaten bzw. Kongress-Datum, Datum einer Vertragsunterzeichnung, Zeitraum)", "repeatable": true, "modified": "2019-11-29 12:54:03"},
+        "e": {"code": "e", "pica3": "_|e|", "label": "600,610 Funktionsbezeichnung - 611 Abteilung - 630, 650, 651 Beziehung", "repeatable": true, "modified": "2019-11-29 12:54:10"},
+        "f": {"code": "f", "pica3": "_|f|", "label": "Datum eines Werks", "repeatable": false, "modified": "2019-11-29 12:54:17"},
+        "g": {"code": "g", "pica3": "_|g|", "label": "Verschiedene Informationen", "repeatable": true, "modified": "2019-11-29 12:54:25"},
+        "h": {"code": "h", "pica3": "_|h|", "label": "Materialbenennung", "repeatable": false, "modified": "2019-11-29 12:54:32"},
+        "j": {"code": "j", "pica3": "_|j|", "label": "600 Zuschreibungsvermerk", "repeatable": true, "modified": "2019-11-29 12:54:43"},
+        "k": {"code": "k", "pica3": "_|k|", "label": "Unterschlagwort (Form)", "repeatable": true, "modified": "2019-11-29 12:54:50"},
+        "l": {"code": "l", "pica3": "_|l|", "label": "Sprache eines Werks", "repeatable": false, "modified": "2019-11-29 12:55:01"},
+        "m": {"code": "m", "pica3": "_|m|", "label": "Besetzungsangabe (Musik)", "repeatable": true, "modified": "2019-11-29 12:55:08"},
+        "n": {"code": "n", "pica3": "_|n|", "label": "Zählung eines Teils", "repeatable": true, "modified": "2019-11-29 12:55:17"},
+        "o": {"code": "o", "pica3": "_|o|", "label": "Arrangement (Musik)", "repeatable": false, "modified": "2019-11-29 12:55:25"},
+        "p": {"code": "p", "pica3": "_|p|", "label": "Titel eines Teils", "repeatable": true, "modified": "2019-11-29 12:55:34"},
+        "q": {"code": "q", "pica3": "_|q|", "label": "600, 611 Vollständigere Namensform", "repeatable": false, "modified": "2019-11-29 12:55:42"},
+        "r": {"code": "r", "pica3": "_|r|", "label": "Tonart", "repeatable": false, "modified": "2019-11-29 12:55:50"},
+        "s": {"code": "s", "pica3": "_|s|", "label": "Version", "repeatable": false, "modified": "2019-11-29 12:55:57"},
+        "t": {"code": "t", "pica3": "_|t|", "label": "Titel eines Werks", "repeatable": false, "modified": "2019-11-29 12:56:04"},
+        "u": {"code": "u", "pica3": "_|u|", "label": "Zugehörigkeit zu einer Institution oder Organisation", "repeatable": false, "modified": "2019-11-29 12:56:12"},
+        "v": {"code": "v", "pica3": "_|v|", "label": "Formschlagwort als Unterschlagwort", "repeatable": true, "modified": "2019-11-29 12:56:20"},
+        "x": {"code": "x", "pica3": "_|x|", "label": "Allgemeine Unterteilung", "repeatable": true, "modified": "2019-11-29 12:56:27"},
+        "y": {"code": "y", "pica3": "_|y|", "label": "Chronologische Unterteilung", "repeatable": true, "modified": "2019-11-29 12:56:35"},
+        "z": {"code": "z", "pica3": "_|z|", "label": "Geografische Unterteilung", "repeatable": true, "modified": "2019-11-29 12:56:53"},
+        "A": {"code": "A", "pica3": "A", "label": "Quelle", "repeatable": true, "modified": "2019-11-29 12:58:36"}
+      }
+    },
+    "017G": {
+      "tag": "017G",
+      "pica3": "4960",
+      "label": "URL für Kataloganreicherung",
+      "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/k10plushelp.pl?cmd=kat&val=4960&katalog=Standard",
+      "repeatable": false,
+      "modified": "2018-09-04 15:53:19",
+      "subfields": {
+        "S": {"code": "S", "pica3": "|...|", "label": "Indikator für Datentausch", "repeatable": false, "modified": "2019-11-29 11:37:46"},
+        "u": {"code": "u", "pica3": null, "label": "URL", "repeatable": false, "modified": "2020-01-23 09:52:11"},
+        "m": {"code": "m", "pica3": "m", "label": "Kennzeichnung des Produzenten/Lieferanten der Online-Ressource (Verbund-ISIL)", "repeatable": true, "modified": "2019-11-25 09:48:35"},
+        "n": {"code": "n", "pica3": "n", "label": "Kennzeichnung des Produzenten/Lieferanten der Online-Ressource (Bibliothek, Institution oder Verlag)", "repeatable": true, "modified": "2019-11-25 09:48:44"},
+        "q": {"code": "q", "pica3": "q", "label": "Elektronischer Dateiformattyp (MIME-Typ)", "repeatable": false, "modified": "2019-11-25 09:48:55"},
+        "t": {"code": "t", "pica3": "t", "label": "Weitere Angaben zum Bezugswerk", "repeatable": false, "modified": "2019-11-25 09:49:12"},
+        "v": {"code": "v", "pica3": "v", "label": "Datum der Datenübernahme", "repeatable": true, "modified": "2019-11-25 09:49:28"},
+        "x": {"code": "x", "pica3": "x", "label": "Interne Bemerkungen", "repeatable": true, "modified": "2019-11-25 09:49:42"},
+        "y": {"code": "y", "pica3": "y", "label": "Text für die Anzeige", "repeatable": false, "modified": "2019-11-25 09:49:58"},
+        "z": {"code": "z", "pica3": "z", "label": "Allgemeine Bemerkungen", "repeatable": false, "modified": "2017-12-05 09:49:26"},
+        "3": {"code": "3", "pica3": "3", "label": "Bezugswerk (Klartext)", "repeatable": false, "modified": "2019-11-25 09:50:34"},
+        "4": {"code": "4", "pica3": "4", "label": "Lizenzinformationen", "repeatable": false, "modified": "2019-11-25 09:50:17"},
+        "5": {"code": "5", "pica3": "5", "label": "Bezugswerk (Code)", "repeatable": false, "modified": "2019-11-29 11:37:51"},
+        "A": {"code": "A", "pica3": "A", "label": "Codierte Angaben des Datenlieferanten", "repeatable": false, "modified": "2019-11-29 11:37:56"},
+        "B": {"code": "B", "pica3": "B", "label": "Codierung für Anzeige", "repeatable": false, "modified": "2019-11-29 11:38:04"}
+      }
+    },
+    "101B": {
+      "tag": "101B",
+      "pica3": "4903",
+      "label": "Datum und Uhrzeit der letzten Änderung",
+      "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/k10plushelp.pl?cmd=kat&val=4903&katalog=Standard",
+      "repeatable": false,
+      "modified": "2018-09-07 11:29:27",
+      "subfields": {
+        "0": {"code": "0", "pica3": null, "label": "Datum (TT-MM-JJ)", "repeatable": false, "modified": "2018-09-07 11:28:57"},
+        "t": {"code": "t", "pica3": "Blank", "label": "Uhrzeit", "repeatable": false, "modified": "2018-09-07 11:28:57"}
+      }
+    },
+    "145Y": {
+      "tag": "145Y",
+      "pica3": "6110",
+      "label": "Kennzeichen Fachreferent (mit Link zu Te-Sätzen, für Projekte)",
+      "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/k10plushelp.pl?cmd=kat&val=6110&katalog=Standard",
+      "repeatable": true,
+      "modified": "2018-09-07 11:54:33",
+      "subfields": {
+        "9": {"code": "9", "pica3": "!...!", "label": "PPN", "repeatable": false, "modified": "2018-09-07 11:28:57"},
+        "8": {"code": "8", "pica3": null, "label": "Expansion", "repeatable": false, "modified": "2018-09-07 11:28:57"},
+        "7": {"code": "7", "pica3": "7", "label": "Vorläufiger Link", "repeatable": false, "modified": "2018-09-07 11:28:57"},
+        "a": {"code": "a", "pica3": null, "label": "Kennzeichen", "repeatable": false, "modified": "2018-09-07 11:28:57"}
+      }
+    },
+    "044K/00-09": {
+      "tag": "044K/00-09",
+      "pica3": "5550",
+      "label": "Schlagwortfolgen (GBV, SWB, K10plus)",
+      "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/k10plushelp.pl?cmd=kat&val=5550&katalog=Standard",
+      "repeatable": true,
+      "modified": "2019-01-28 09:27:52",
+      "subfields": {
+        "9": {"code": "9", "pica3": "!...!", "label": "PPN", "repeatable": false, "modified": "2019-11-29 13:06:00"},
+        "8": {"code": "8", "pica3": "--", "label": "Expansion", "repeatable": false, "modified": "2019-11-29 13:06:05"},
+        "7": {"code": "7", "pica3": "7", "label": "Vorläufiger Link", "repeatable": false, "modified": "2019-11-29 13:06:22"},
+        "a": {"code": "a", "pica3": null, "label": "Schlagwort", "repeatable": false, "modified": "2019-11-29 13:06:32"},
+        "z": {"code": "z", "pica3": "|z|", "label": "Zeitschlagwort", "repeatable": false, "modified": "2019-11-29 13:06:42"},
+        "g": {"code": "g", "pica3": "|g|", "label": "Geografikum (mit Jahreszahlen)", "repeatable": false, "modified": "2019-11-29 13:06:56"},
+        "A": {"code": "A", "pica3": "A", "label": "Quelle", "repeatable": true, "modified": "2019-11-29 13:07:03"}
+      }
+    },
+    "036E/00-09": {
+      "tag": "036E/00-09",
+      "pica3": "4170",
+      "label": "Gesamttitel der fortlaufenden Ressource",
+      "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/k10plushelp.pl?cmd=kat&val=4170&katalog=Standard",
+      "repeatable": true,
+      "modified": "2019-01-28 09:27:52",
+      "subfields": {
+        "T": {"code": "T", "pica3": "T", "label": "Feldzuordnung", "repeatable": false, "modified": "2019-11-29 13:39:38"},
+        "U": {"code": "U", "pica3": "U...%%", "label": "Schriftcode", "repeatable": false, "modified": "2019-11-29 13:39:43"},
+        "a": {"code": "a", "pica3": null, "label": "Gesamttitel", "repeatable": false, "modified": "2019-11-28 11:00:53"},
+        "h": {"code": "h", "pica3": "h", "label": "Verantwortlichkeitsangabe", "repeatable": false, "modified": "2019-11-29 10:10:35"},
+        "l": {"code": "l", "pica3": "l", "label": "Zählung in der Hauptreihe", "repeatable": false, "modified": "2019-11-28 11:01:08"},
+        "p": {"code": "p", "pica3": "p", "label": "Zählung, Titel der Unterreihe", "repeatable": true, "modified": "2019-11-28 11:01:25"},
+        "h": {"code": "h", "pica3": "h", "label": "Verantwortlichkeitsangabe", "repeatable": true, "modified": "2019-11-29 10:11:06"},
+        "m": {"code": "m", "pica3": "m", "label": "Zählung in der Unterreihe", "repeatable": true, "modified": "2019-11-28 11:02:04"}
+      }
+    },
+    "144Z/00-99": {
+      "tag": "144Z/00-99",
+      "pica3": "6500",
+      "label": "Lokale Schlagwörter",
+      "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/k10plushelp.pl?cmd=kat&val=6500&katalog=Standard",
+      "repeatable": true,
+      "modified": "2018-09-07 11:54:33",
+      "subfields": {
+        "T": {"code": "T", "pica3": "T", "label": "Feldzuordnung", "repeatable": false, "modified": "2017-08-09 07:20:11"},
+        "U": {"code": "U", "pica3": "U...%%", "label": "Schriftcode", "repeatable": false, "modified": "2017-09-14 13:08:59"},
+        "S": {"code": "S", "pica3": "|...|", "label": "Indikator", "repeatable": false, "modified": "2017-09-14 13:08:59"},
+        "9": {"code": "9", "pica3": "!...!", "label": "PPN", "repeatable": false, "modified": "2017-09-14 13:08:59"},
+        "8": {"code": "8", "pica3": "--", "label": "Expansion", "repeatable": false, "modified": "2019-04-26 13:48:39"},
+        "7": {"code": "7", "pica3": "7", "label": "Vorläufiger Link", "repeatable": false, "modified": "2017-09-14 13:08:59"},
+        "a": {"code": "a", "pica3": null, "label": "Schlagwort", "repeatable": false, "modified": "2017-09-14 13:08:59"},
+        "f": {"code": "f", "pica3": "f", "label": "Permutationsmuster", "repeatable": true, "modified": "2017-09-14 13:08:59"}
+      }
+    },
+    "041A/00-99": {
+      "tag": "041A/00-99",
+      "pica3": "5100",
+      "label": "Schlagwortfolgen (DNB und Verbünde)",
+      "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/k10plushelp.pl?cmd=kat&val=5100&katalog=Standard",
+      "repeatable": false,
+      "modified": "2018-09-07 11:54:33",
+      "subfields": {
+        "9": {"code": "9", "pica3": "!...!", "label": "PPN", "repeatable": false, "modified": "2019-11-26 14:39:26"},
+        "8": {"code": "8", "pica3": "--", "label": "Expansion", "repeatable": false, "modified": "2019-11-29 12:44:10"},
+        "7": {"code": "7", "pica3": "7", "label": "Vorläufiger Link", "repeatable": false, "modified": "2019-11-26 14:39:04"},
+        "a": {"code": "a", "pica3": null, "label": "Schlagwort", "repeatable": false, "modified": "2019-11-26 14:40:15"},
+        "z": {"code": "z", "pica3": "|z|", "label": "Zeitschlagwort", "repeatable": false, "modified": "2019-11-26 14:41:07"},
+        "g": {"code": "g", "pica3": "|g|", "label": "Geografikum (mit Jahreszahlen)", "repeatable": false, "modified": "2019-11-26 14:41:17"},
+        "A": {"code": "A", "pica3": "A", "label": "Quelle", "repeatable": true, "modified": "2019-11-29 12:44:05"}
+      }
+    },
+    "039D": {
+      "tag": "039D",
+      "pica3": "5100",
+      "label": "Beziehungen auf Manifestationsebene",
+      "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/k10plushelp.pl?cmd=kat&val=4243&katalog=Standard",
+      "repeatable": true,
+      "modified": "2019-01-18 11:01:58",
+      "subfields": {
+        "T": {"code": "T", "pica3": "T", "label": "Feldzuordnung", "repeatable": false, "modified": "2019-11-29 13:45:26"},
+        "U": {"code": "U", "pica3": "U...%%", "label": "Schriftcode", "repeatable": false, "modified": "2019-11-29 13:45:31"},
+        "i": {"code": "i", "pica3": null, "label": "Einleitende Wendung", "repeatable": false, "modified": "2019-11-29 10:43:38"},
+        "n": {"code": "n", "pica3": "n", "label": "Materialart, zeitliche Gültigkeit der Beziehung", "repeatable": false, "modified": "2019-11-29 11:01:31"},
+        "7": {"code": "7", "pica3": "7", "label": "Vorläufiger Link", "repeatable": false, "modified": "2019-11-29 10:46:26"},
+        "9": {"code": "9", "pica3": "!...!", "label": "PPN", "repeatable": false, "modified": "2019-11-29 10:43:58"},
+        "8": {"code": "8", "pica3": "--", "label": "Expansion", "repeatable": false, "modified": "2019-11-29 10:44:05"},
+        "a": {"code": "a", "pica3": "a", "label": "Text", "repeatable": false, "modified": "2019-11-29 10:44:12"},
+        "l": {"code": "l", "pica3": "l", "label": "Geistiger Schöpfer", "repeatable": false, "modified": "2019-11-29 10:44:20"},
+        "t": {"code": "t", "pica3": "t", "label": "Titel", "repeatable": false, "modified": "2019-11-29 10:44:31"},
+        "g": {"code": "g", "pica3": "g", "label": "Ausgabevermerk", "repeatable": false, "modified": "2019-11-29 10:48:58"},
+        "d": {"code": "d", "pica3": "d", "label": "Ort", "repeatable": true, "modified": "2019-11-29 10:44:50"},
+        "e": {"code": "e", "pica3": "e", "label": "Verlag", "repeatable": false, "modified": "2019-11-29 10:44:58"},
+        "f": {"code": "f", "pica3": "f", "label": "Datum", "repeatable": false, "modified": "2019-11-29 10:45:06"},
+        "p": {"code": "p", "pica3": "p", "label": "Angaben zur Quelle", "repeatable": false, "modified": "2019-11-29 10:45:17"},
+        "h": {"code": "h", "pica3": "h", "label": "Physische Beschreibung", "repeatable": false, "modified": "2019-11-29 10:45:26"},
+        "C": {"code": "C", "pica3": "C", "label": "Code für folgende ID", "repeatable": true, "modified": "2019-11-29 10:45:37"},
+        "6": {"code": "6", "pica3": "6", "label": "ID (z. B. ZDB-ID, DNB-ID)", "repeatable": true, "modified": "2019-11-29 10:45:54"}
+      }
+    },
+    "044C": {
+      "tag": "044C",
+      "pica3": "5510",
+      "label": "Medical Subject Headings (MeSH)",
+      "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/k10plushelp.pl?cmd=kat&val=5510&katalog=Standard",
+      "repeatable": true,
+      "modified": "2019-02-07 12:20:39",
+      "subfields": {
+        "N": {"code": "N", "pica3": "<...>", "label": "MARC-Kategorie", "repeatable": false, "modified": "2019-11-29 12:58:24"},
+        "S": {"code": "S", "pica3": "|...|", "label": "Schlagwortindikator", "repeatable": false, "modified": "2019-11-29 12:58:44"},
+        "a": {"code": "a", "pica3": "_|a|", "label": "Schlagwort bzw. Name oder Titel", "repeatable": true, "modified": "2019-11-29 12:58:52"},
+        "b": {"code": "b", "pica3": "_|b|", "label": "600 Zählung<br>610 Abteilung<br>650 Sachbegriff", "repeatable": true, "modified": "2019-11-29 12:58:59"},
+        "c": {"code": "c", "pica3": "_|c|", "label": "600 Titel und andere Zusätze zum Namen<br>610, 611 Kongress-Ort<br>650 Ort des Ereignisses", "repeatable": true, "modified": "2019-11-29 12:59:07"},
+        "d": {"code": "d", "pica3": "_|d|", "label": "Daten (Lebensdaten bzw. Kongress-Datum, Datum einer Vertragsunterzeichnung, Zeitraum)", "repeatable": true, "modified": "2019-11-29 12:59:13"},
+        "e": {"code": "e", "pica3": "_|e|", "label": "600,610 Funktionsbezeichnung<br>611 Abteilung<br>630, 650, 651 Beziehung", "repeatable": true, "modified": "2019-11-29 12:59:20"},
+        "f": {"code": "f", "pica3": "_|f|", "label": "Datum eines Werks", "repeatable": false, "modified": "2019-11-29 12:59:27"},
+        "g": {"code": "g", "pica3": "_|g|", "label": "Verschiedene Informationen", "repeatable": true, "modified": "2019-11-29 12:59:35"},
+        "h": {"code": "h", "pica3": "_|h|", "label": "Materialbenennung", "repeatable": false, "modified": "2019-11-29 12:59:42"},
+        "j": {"code": "j", "pica3": "_|j|", "label": "600 Zuschreibungsvermerk", "repeatable": true, "modified": "2019-11-29 12:59:49"},
+        "k": {"code": "k", "pica3": "_|k|", "label": "Unterschlagwort (Form)", "repeatable": true, "modified": "2019-11-29 12:59:55"},
+        "l": {"code": "l", "pica3": "_|l|", "label": "Sprache eines Werks", "repeatable": false, "modified": "2019-11-29 13:00:03"},
+        "m": {"code": "m", "pica3": "_|m|", "label": "Besetzungsangabe (Musik)", "repeatable": true, "modified": "2019-11-29 13:00:10"},
+        "n": {"code": "n", "pica3": "_|n|", "label": "Zählung eines Teils", "repeatable": true, "modified": "2019-11-29 13:00:18"},
+        "o": {"code": "o", "pica3": "_|o|", "label": "Arrangement (Musik)", "repeatable": false, "modified": "2019-11-29 13:00:25"},
+        "p": {"code": "p", "pica3": "_|p|", "label": "Titel eines Teils", "repeatable": true, "modified": "2019-11-29 13:00:32"},
+        "q": {"code": "q", "pica3": "_|q|", "label": "600, 611 Vollständigere Namensform", "repeatable": false, "modified": "2019-11-29 13:00:40"},
+        "r": {"code": "r", "pica3": "_|r|", "label": "Tonart", "repeatable": false, "modified": "2019-11-29 13:00:47"},
+        "s": {"code": "s", "pica3": "_|s|", "label": "Version", "repeatable": false, "modified": "2019-11-29 13:00:54"},
+        "t": {"code": "t", "pica3": "_|t|", "label": "Titel eines Werks", "repeatable": false, "modified": "2019-11-29 13:01:02"},
+        "u": {"code": "u", "pica3": "_|u|", "label": "Zugehörigkeit zu einer Institution oder Organisation", "repeatable": false, "modified": "2019-11-29 13:01:10"},
+        "v": {"code": "v", "pica3": "_|v|", "label": "Formschlagwort als Unterschlagwort", "repeatable": true, "modified": "2019-11-29 13:01:18"},
+        "x": {"code": "x", "pica3": "_|x|", "label": "Allgemeine Unterteilung", "repeatable": true, "modified": "2019-11-29 13:01:25"},
+        "y": {"code": "y", "pica3": "_|y|", "label": "Chronologische Unterteilung", "repeatable": true, "modified": "2019-11-29 13:01:32"},
+        "z": {"code": "z", "pica3": "_|z|", "label": "Geografische Unterteilung", "repeatable": true, "modified": "2019-11-29 13:01:43"},
+        "A": {"code": "A", "pica3": "A", "label": "Quelle", "repeatable": true, "modified": "2019-11-29 13:01:49"}
+      }
+    },
+    "045Q/0X": {
+      "tag": "045Q/0X",
+      "pica3": "5301",
+      "label": "Basisklassifikation",
+      "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/k10plushelp.pl?cmd=kat&val=5301&katalog=Standard",
+      "repeatable": false,
+      "modified": "2019-01-08 15:57:48",
+      "subfields": {
+        "9": {"code": "9", "pica3": "!...!", "label": "PPN", "repeatable": false, "modified": "2019-11-21 14:40:01"},
+        "8": {"code": "8", "pica3": "--", "label": "Expansion der Notation und Klassenbenennung", "repeatable": false, "modified": "2019-11-29 12:48:01"},
+        "7": {"code": "7", "pica3": "7", "label": "Vorläufiger Link", "repeatable": false, "modified": "2019-11-29 12:48:06"},
+        "a": {"code": "a", "pica3": null, "label": "Notation (unverknüpft)", "repeatable": false, "modified": "2019-11-29 12:48:16"},
+        "A": {"code": "A", "pica3": "A", "label": "Quelle", "repeatable": true, "modified": "2019-11-21 14:40:41"}
+      }
+    },
+    "047I": {
+      "tag": "047I",
+      "pica3": "4207",
+      "label": "Inhaltliche Zusammenfassung",
+      "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/k10plushelp.pl?cmd=kat&val=4207&katalog=Standard",
+      "repeatable": true,
+      "modified": "2018-08-27 14:36:23",
+      "subfields": {
+        "T": {"code": "T", "pica3": "T", "label": "Feldzuordnung ", "repeatable": false, "modified": "2019-11-29 13:42:02"},
+        "U": {"code": "U", "pica3": "U...%%", "label": "Schriftcode ", "repeatable": false, "modified": "2019-11-29 13:42:06"},
+        "a": {"code": "a", "pica3": null, "label": "Inhaltliche Zusammenfassung", "repeatable": false, "modified": "2019-11-28 08:34:24"}
+      }
+    },
+    "036F/00": {
+      "tag": "036F/00",
+      "pica3": "4180",
+      "label": "Verknüpfung zur fortlaufenden Ressource",
+      "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/k10plushelp.pl?cmd=kat&val=4180&katalog=Standard",
+      "repeatable": true,
+      "modified": "2019-09-11 13:33:42",
+      "subfields": {
+        "T": {"code": "T", "pica3": "T", "label": "Feldzuordnung", "repeatable": false, "modified": "2019-11-29 13:39:52"},
+        "U": {"code": "U", "pica3": "U...%%", "label": "Schriftcode", "repeatable": false, "modified": "2019-11-29 13:39:56"},
+        "X": {"code": "X", "pica3": "#...#", "label": "Zählung in Sortierform (manuell)", "repeatable": false, "modified": "2019-11-29 10:14:43"},
+        "9": {"code": "9", "pica3": "!...!", "label": "PPN", "repeatable": false, "modified": "2019-11-29 10:15:18"},
+        "8": {"code": "8", "pica3": "--", "label": "Expansion", "repeatable": false, "modified": "2019-11-29 10:15:28"},
+        "7": {"code": "7", "pica3": "7", "label": "Vorläufiger Link", "repeatable": false, "modified": "2019-11-29 10:15:58"},
+        "l": {"code": "l", "pica3": "l", "label": "Zählung innerhalb der Reihe (Vorlageform)", "repeatable": false, "modified": "2019-11-29 10:16:21"}
+      }
+    },
+    "046M": {
+      "tag": "046M",
+      "pica3": "4222",
+      "label": "Angaben zu enthaltenen unselbstständigen Werken",
+      "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/k10plushelp.pl?cmd=kat&val=4222&katalog=Standard",
+      "repeatable": true,
+      "modified": "2019-04-04 17:47:42",
+      "subfields": {
+        "T": {"code": "T", "pica3": "T", "label": "Feldzuordnung", "repeatable": false, "modified": "2020-02-11 11:12:20"},
+        "U": {"code": "U", "pica3": "U...%%", "label": "Schriftcode", "repeatable": false, "modified": "2020-02-11 11:12:32"},
+        "i": {"code": "i", "pica3": "...&&", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-29 10:28:38"},
+        "a": {"code": "a", "pica3": null, "label": "Haupttitel des Teilwerks", "repeatable": false, "modified": "2019-11-28 08:41:52"},
+        "d": {"code": "d", "pica3": "d", "label": "Titelzusatz zum Teilwerk", "repeatable": false, "modified": "2019-11-28 08:42:08"},
+        "f": {"code": "f", "pica3": "f", "label": "Paralleltitel des Teilwerks", "repeatable": true, "modified": "2019-11-28 08:42:27"},
+        "h": {"code": "h", "pica3": "h", "label": "Verantwortlichkeitsangabe", "repeatable": false, "modified": "2020-02-11 11:14:14"},
+        "r": {"code": "r", "pica3": "r", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-28 08:43:16"},
+        "u": {"code": "u", "pica3": "u", "label": "Beziehung unstrukturiert", "repeatable": false, "modified": "2020-02-11 11:14:37"},
+        "g": {"code": "g", "pica3": "g", "label": "Genrebezeichnung", "repeatable": true, "modified": "2019-11-28 08:43:40"},
+        "l": {"code": "l", "pica3": "l", "label": "Produktionsland", "repeatable": true, "modified": "2019-11-28 08:43:55"},
+        "p": {"code": "p", "pica3": "p", "label": "Produktionsjahr", "repeatable": true, "modified": "2019-11-28 08:44:11"}
+      }
+    },
+    "045H/00": {
+      "tag": "045H/00",
+      "pica3": "5400",
+      "label": "DDC-Notation: Vollständige Notation",
+      "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/k10plushelp.pl?cmd=kat&val=5400&katalog=Standard",
+      "repeatable": true,
+      "modified": "2018-05-25 11:52:32",
+      "subfields": {
+        "e": {"code": "e", "pica3": "[...]", "label": "Angabe der zugrunde liegenden DDC-Ausgabe", "repeatable": false, "modified": "2019-11-29 12:48:52"},
+        "a": {"code": "a", "pica3": null, "label": "Synthetische Notation bzw. Klassenbenennung", "repeatable": false, "modified": "2020-02-17 11:02:22"},
+        "c": {"code": "c", "pica3": "-G--", "label": "Grundnotation DDC", "repeatable": false, "modified": "2019-11-29 12:49:02"},
+        "d": {"code": "d", "pica3": "-H--", "label": "Notationen anderer Haupttafeln", "repeatable": true, "modified": "2019-11-29 12:49:07"},
+        "f": {"code": "f", "pica3": "-T1--", "label": "Notation aus Hilfstafel T1", "repeatable": true, "modified": "2019-11-29 12:49:12"},
+        "g": {"code": "g", "pica3": "-T2--", "label": "Notation aus Hilfstafel T2", "repeatable": true, "modified": "2019-11-29 12:49:18"},
+        "h": {"code": "h", "pica3": "-T3A--", "label": "Notation aus Hilfstafel T3A", "repeatable": false, "modified": "2019-11-29 12:49:24"},
+        "i": {"code": "i", "pica3": "-T3B--", "label": "Notation aus Hilfstafel T3B", "repeatable": false, "modified": "2019-11-29 12:49:30"},
+        "j": {"code": "j", "pica3": "-T3C--", "label": "Notation aus Hilfstafel T3C", "repeatable": false, "modified": "2019-11-29 12:49:35"},
+        "k": {"code": "k", "pica3": "-T4--", "label": "Notation aus Hilfstafel T4", "repeatable": false, "modified": "2019-11-29 12:49:41"},
+        "l": {"code": "l", "pica3": "-T5--", "label": "Notation aus Hilfstafel T5", "repeatable": false, "modified": "2019-11-29 12:49:47"},
+        "m": {"code": "m", "pica3": "-T6--", "label": "Notation aus Hilfstafel T6", "repeatable": true, "modified": "2019-11-29 12:49:53"},
+        "t": {"code": "t", "pica3": "-I--", "label": "Notation aus Anhängetafeln (extern)", "repeatable": true, "modified": "2019-11-29 12:49:58"},
+        "L": {"code": "L", "pica3": "L", "label": "Sprache", "repeatable": false, "modified": "2019-11-29 12:48:47"},
+        "A": {"code": "A", "pica3": "A", "label": "Quelle", "repeatable": true, "modified": "2019-11-29 12:50:04"}
+      }
+    },
+    "044L/00-09": {
+      "tag": "044L/00-09",
+      "pica3": "5580",
+      "label": "Einzelschlagwörter (Projekte)",
+      "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/k10plushelp.pl?cmd=kat&val=5580&katalog=Standard",
+      "repeatable": true,
+      "modified": "2019-01-28 09:28:09",
+      "subfields": {
+        "T": {"code": "T", "pica3": "T", "label": "Feldzuordnung ", "repeatable": false, "modified": "2019-11-29 13:47:31"},
+        "U": {"code": "U", "pica3": "U...%%", "label": "Schriftcode ", "repeatable": false, "modified": "2019-11-29 13:47:37"},
+        "a": {"code": "a", "pica3": null, "label": "Schlagwort", "repeatable": false, "modified": "2019-11-29 13:13:05"},
+        "9": {"code": "9", "pica3": "!...!", "label": "PPN", "repeatable": false, "modified": "2019-11-29 13:12:34"},
+        "8": {"code": "8", "pica3": "--", "label": "Expansion", "repeatable": false, "modified": "2019-11-29 13:12:41"},
+        "7": {"code": "7", "pica3": "7", "label": "Vorläufiger Link", "repeatable": false, "modified": "2019-11-29 13:12:49"},
+        "z": {"code": "z", "pica3": "|z|", "label": "Zeitschlagwort", "repeatable": false, "modified": "2019-11-29 13:13:13"},
+        "g": {"code": "g", "pica3": "|g|", "label": "", "repeatable": false, "modified": "2019-11-29 13:13:31"},
+        "k": {"code": "k", "pica3": "k", "label": "Art der maschinellen Generierung und Konfidenzwert", "repeatable": false, "modified": "2019-11-29 13:13:54"},
+        "v": {"code": "v", "pica3": "v", "label": "Datum der Generierung des Schlagwortes", "repeatable": false, "modified": "2019-11-29 13:13:47"},
+        "A": {"code": "A", "pica3": "A", "label": "Quelle", "repeatable": true, "modified": "2019-11-29 13:13:39"}
+      }
+    },
+    "028B/01-02": {
+      "tag": "028B/01-02",
+      "pica3": "3001",
+      "label": "2. und weitere Verfasser (Nicht-RDA)",
+      "url": "http:\/\/swbtools.bsz-bw.de\/cgi-bin\/k10plushelp.pl?cmd=kat&val=3001&katalog=Standard",
+      "repeatable": false,
+      "modified": "2019-10-14 16:52:13",
+      "subfields": {
+        "T": {"code": "T", "pica3": "T", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-29 13:28:57"},
+        "U": {"code": "U", "pica3": "U...%%", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-29 13:29:01"},
+        "e": {"code": "e", "pica3": "#...#", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-28 14:58:20"},
+        "P": {"code": "P", "pica3": "P", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-26 13:03:10"},
+        "a": {"code": "a", "pica3": null, "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-26 13:03:18"},
+        "d": {"code": "d", "pica3": ",_", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-26 13:03:36"},
+        "c": {"code": "c", "pica3": "c", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-26 13:03:47"},
+        "n": {"code": "n", "pica3": "n", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-26 13:03:59"},
+        "l": {"code": "l", "pica3": "l", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-26 13:04:24"},
+        "f": {"code": "f", "pica3": "f", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-28 14:58:27"},
+        "h": {"code": "h", "pica3": "h", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-26 13:04:39"},
+        "p": {"code": "p", "pica3": "p", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-28 14:58:34"},
+        "9": {"code": "9", "pica3": "!...!", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-26 13:05:36"},
+        "8": {"code": "8", "pica3": "--", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-28 14:58:41"},
+        "7": {"code": "7", "pica3": "7", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-26 13:05:11"},
+        "B": {"code": "B", "pica3": "B", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": true, "modified": "2019-11-26 13:04:54"}
+      }
+    }
+  }
+}

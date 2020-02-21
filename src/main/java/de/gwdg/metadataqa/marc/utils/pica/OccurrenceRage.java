@@ -1,12 +1,12 @@
 package de.gwdg.metadataqa.marc.utils.pica;
 
-public class OccurenceRage {
+public class OccurrenceRage {
   private int unitLength = 0;
   private int start;
   private int end;
   private final String format;
 
-  public OccurenceRage(int unitLength, int start, int end) {
+  public OccurrenceRage(int unitLength, int start, int end) {
     this.unitLength = unitLength;
     this.start = start;
     this.end = end;
@@ -30,11 +30,11 @@ public class OccurenceRage {
     return String.format(format + "-" + format, start, end);
   }
 
-  public boolean validate(String occurence) {
-    if (occurence.length() != unitLength)
+  public boolean validate(String occurrence) {
+    if (occurrence.length() != unitLength)
       return false;
     try {
-      int number = Integer.parseInt(occurence);
+      int number = Integer.parseInt(occurrence);
       return (start <= number && number <= end);
     } catch (NumberFormatException e) {
       return false;

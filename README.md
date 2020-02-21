@@ -403,7 +403,7 @@ or with a bash script
 
 The process will create two files in the output directory:
 
-* marc-elements.csv is list of MARC elements (field$subfield) and their occurences in two ways: 'number-of-record' means how many records they are available, 'number-of-instances' means how many instances are there in total (some records might contain more than one instances, while others don't have them at all)
+* marc-elements.csv is list of MARC elements (field$subfield) and their occurrences in two ways: 'number-of-record' means how many records they are available, 'number-of-instances' means how many instances are there in total (some records might contain more than one instances, while others don't have them at all)
 * libraries.csv list the content of the 852$a (it is useful only if the catalog is an aggregated catalog)
 
 ### Calculating Thompson-Traill completeness

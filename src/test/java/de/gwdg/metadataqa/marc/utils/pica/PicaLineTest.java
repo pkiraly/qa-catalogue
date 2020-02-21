@@ -30,7 +30,7 @@ public class PicaLineTest {
 
 
   @Test
-  public void occurence() {
+  public void occurrence() {
     PicaLine line = new PicaLine("045D/00 ƒ9091393116Strategisches Management ; STW-ID: stw18029-0");
     assertEquals("045D", line.getTag());
     assertEquals("00", line.getOccurrence());

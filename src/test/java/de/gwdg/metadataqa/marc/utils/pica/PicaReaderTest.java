@@ -25,6 +25,7 @@ public class PicaReaderTest {
   public static final Pattern SET = Pattern.compile("^SET: ");
   public static final Pattern EINGABE = Pattern.compile("^Eingabe: ");
   public static final Pattern WARNUNG = Pattern.compile("^Warnung: ");
+  public static final Pattern PPN = Pattern.compile("PPN: ([^ ]+) ");
 
   @Test
   public void readTags() {
@@ -100,17 +101,26 @@ public class PicaReaderTest {
       schemaDirectory.putAll(readSchema(parser, "pica/pica-schema-extra.json"));
 
       Map<String, Integer> counter = new HashMap<>();
+      Map<String, List<String>> ppns = new HashMap<>();
       Path recordsFile = FileUtils.getPath("pica/picaplus-sample.txt");
       try (BufferedReader br = new BufferedReader(new FileReader(recordsFile.toString()))) {
         String line;
+        String ppn = null;
         while ((line = br.readLine()) != null) {
           if (SET.matcher(line).find()) {
-            // System.err.println("----");
+            Matcher m = PPN.matcher(line);
+            if (m.find()) {
+              ppn = m.group(1);
+            }
           } else if (!line.equals("")
             && !EINGABE.matcher(line).find()
             && !WARNUNG.matcher(line).find()) {
             PicaLine pl = new PicaLine(line);
             if (!directoryContains(schemaDirectory, pl)) {
+              if (!ppns.containsKey(pl.getQualifiedTag())) {
+                ppns.put(pl.getQualifiedTag(), new ArrayList<>());
+              }
+              ppns.get(pl.getQualifiedTag()).add(ppn);
               Utils.count(pl.getQualifiedTag(), counter);
             }
           }
@@ -146,8 +156,8 @@ public class PicaReaderTest {
         )
         .forEach(
           entry -> {
-            if (!known_problems.contains(entry.getKey()))
-              System.err.printf("%s: %d%n", entry.getKey(), entry.getValue());
+            //if (!known_problems.contains(entry.getKey()))
+              System.err.printf("%s: %d (%s)%n", entry.getKey(), entry.getValue(), ppns.get(entry.getKey()).get(0));
           }
         );
 
@@ -166,7 +176,7 @@ public class PicaReaderTest {
     if (schemaDirectory.containsKey(pl.getTag())) {
       List<PicaTagDefinition> definitions = schemaDirectory.get(pl.getTag());
       for (PicaTagDefinition definition : definitions) {
-        if (definition.getTag().validateOccurence(pl.getOccurrence()))
+        if (definition.getTag().validateOccurrence(pl.getOccurrence()))
           return true;
       }
     }

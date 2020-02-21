@@ -13,18 +13,18 @@ public class PicaTagDefinitionTest {
   }
 
   @Test
-  public void simpleOccurence() {
+  public void simpleOccurrence() {
     PicaTagDefinition tag = new PicaTagDefinition("3010", "028C/00", true, false, "Person/Familie");
     assertTrue(tag.getTag().hasOccurrence());
     assertFalse(tag.getTag().hasOccurrenceRange());
   }
 
   @Test
-  public void occurenceRange() {
+  public void occurrenceRange() {
     PicaTagDefinition tag = new PicaTagDefinition("3010", "028C/00-09", true, false, "Person/Familie");
     assertTrue(tag.getTag().hasOccurrence());
     assertTrue(tag.getTag().hasOccurrenceRange());
-    OccurenceRage range = tag.getTag().getOccurenceRange();
+    OccurrenceRage range = tag.getTag().getOccurrenceRage();
     assertEquals(2, range.getUnitLength());
     assertEquals(0, range.getStart());
     assertEquals(9, range.getEnd());
@@ -32,9 +32,9 @@ public class PicaTagDefinitionTest {
   }
 
   @Test
-  public void occurenceValidation() {
+  public void occurrenceValidation() {
     PicaTagDefinition tag = new PicaTagDefinition("3010", "028C/00-09", true, false, "Person/Familie");
-    OccurenceRage range = tag.getTag().getOccurenceRange();
+    OccurrenceRage range = tag.getTag().getOccurrenceRage();
     assertTrue(range.validate("00"));
     assertTrue(range.validate("05"));
     assertTrue(range.validate("09"));

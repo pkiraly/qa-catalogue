@@ -13,8 +13,8 @@ public class PicaplusTag {
 
   private String raw;
   private String tag;
-  private String occurence = null;
-  private OccurenceRage occurenceRange = null;
+  private String occurrence = null;
+  private OccurrenceRage occurrenceRage = null;
 
   public PicaplusTag(String tag) {
     this.raw = tag;
@@ -22,11 +22,11 @@ public class PicaplusTag {
   }
 
   public boolean hasOccurrence() {
-    return occurence != null;
+    return occurrence != null;
   }
 
   public boolean hasOccurrenceRange() {
-    return occurenceRange != null;
+    return occurrenceRage != null;
   }
 
   public String getRaw() {
@@ -37,24 +37,24 @@ public class PicaplusTag {
     return tag;
   }
 
-  public String getOccurence() {
-    return occurence;
+  public String getOccurrence() {
+    return occurrence;
   }
 
-  public OccurenceRage getOccurenceRange() {
-    return occurenceRange;
+  public OccurrenceRage getOccurrenceRage() {
+    return occurrenceRage;
   }
 
-  public boolean validateOccurence(String otherOccurence) {
+  public boolean validateOccurrence(String otherOccurrence) {
     if (!hasOccurrence()) {
-      if (otherOccurence == null)
+      if (otherOccurrence == null)
         return true;
       return false;
     } else {
       if (!hasOccurrenceRange()) {
-        return occurence.equals(otherOccurence);
+        return occurrence.equals(otherOccurrence);
       } else {
-        return occurenceRange.validate(otherOccurence);
+        return occurrenceRage.validate(otherOccurrence);
       }
     }
   }
@@ -65,13 +65,13 @@ public class PicaplusTag {
     } else {
       String[] parts = picaplus.split("/");
       tag = parts[0];
-      occurence = parts[1];
-      if (occurence.contains("-")) {
+      occurrence = parts[1];
+      if (occurrence.contains("-")) {
         parseRangePattern();
-      } else if (occurence.endsWith("X")) {
+      } else if (occurrence.endsWith("X")) {
         parseXpattern();
       } else {
-        if (!numericPattern.matcher(occurence).find()) {
+        if (!numericPattern.matcher(occurrence).find()) {
           logger.severe("Error in picaplus: " + picaplus + ". Does not fit to the numeric pattern.");
         }
       }
@@ -79,25 +79,25 @@ public class PicaplusTag {
   }
 
   private void parseRangePattern() {
-    Matcher matcher = rangePattern.matcher(occurence);
+    Matcher matcher = rangePattern.matcher(occurrence);
     if (matcher.find()) {
       String start = matcher.group(1);
       String end = matcher.group(2);
       if (start.length() == end.length()) {
-        this.occurenceRange = new OccurenceRage(start.length(), Integer.parseInt(start), Integer.parseInt(end));
+        this.occurrenceRage = new OccurrenceRage(start.length(), Integer.parseInt(start), Integer.parseInt(end));
       } else {
         logger.severe("Error in picaplus: " + raw + ". Length of start and end are different.");
       }
     } else {
-      logger.severe(String.format("Error in picaplus: %s (raw: %s). Does not fit to the range pattern.", occurence));
+      logger.severe(String.format("Error in picaplus: %s (raw: %s). Does not fit to the range pattern.", occurrence));
     }
   }
 
   private void parseXpattern() {
-    Matcher matcher = xPattern.matcher(occurence);
+    Matcher matcher = xPattern.matcher(occurrence);
     if (matcher.find()) {
       String base = matcher.group(1);
-      this.occurenceRange = new OccurenceRage(2, Integer.parseInt(base + "0"), Integer.parseInt(base + "9"));
+      this.occurrenceRage = new OccurrenceRage(2, Integer.parseInt(base + "0"), Integer.parseInt(base + "9"));
     } else {
       logger.severe("Error in picaplus: " + raw + ". Does not fit to the [0-9]X pattern.");
     }

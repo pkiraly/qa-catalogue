@@ -122,6 +122,7 @@ public class PicaReaderTest {
         }
       }
       List<String> known_problems = Arrays.asList(
+        "036D", // only 036D/00
         "091O/05",
         "101U", "102D",
         "201U/001", "201U/002", "201U/003",
@@ -131,8 +132,11 @@ public class PicaReaderTest {
         "209R/001", // only 209R
         "220B/001", "220B/002", "220B/003", // only 220B
         "231@/001", "231@/002", // only 231@
-        "237A/001", "237A/002" // only 237A
+        "231B/001", // only 231B
+        "237A/001", "237A/002", // only 237A
+        "245Z/001" // only 245Z $x00-99"
       );
+
       System.err.println("number of unhandled tags: " + counter.size());
       counter.entrySet()
         .stream()

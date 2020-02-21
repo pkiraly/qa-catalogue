@@ -13,12 +13,10 @@ import org.junit.Test;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
@@ -35,7 +33,7 @@ public class PicaReaderTest {
       Path tagsFile = FileUtils.getPath("pica/pica-tags-2013.csv");
       reader = new CSVReader(new FileReader(tagsFile.toString()), ';');
       List<String[]> myEntries = reader.readAll();
-      Map<String, PicaTagDefinition> map = new HashMap<>();
+      Map<String, List<PicaTagDefinition>> map = new HashMap<>();
       assertEquals(431, myEntries.size());
       for (int i = 0; i < myEntries.size(); i++) {
         String[] line = myEntries.get(i);
@@ -97,7 +95,7 @@ public class PicaReaderTest {
     CSVReader reader = null;
     JSONParser parser = new JSONParser();
     try {
-      Map<String, PicaTagDefinition> schemaDirectory = new HashMap<>();
+      Map<String, List<PicaTagDefinition>> schemaDirectory = new HashMap<>();
       schemaDirectory.putAll(readSchema(parser, "pica/pica-schema.json"));
       schemaDirectory.putAll(readSchema(parser, "pica/pica-schema-extra.json"));
 
@@ -112,11 +110,8 @@ public class PicaReaderTest {
             && !EINGABE.matcher(line).find()
             && !WARNUNG.matcher(line).find()) {
             PicaLine pl = new PicaLine(line);
-            if (schemaDirectory.containsKey(pl.getQualifiedTag())) {
-              // System.err.println(map.get(pl.getTag()).getDescription() + ": " + pl.formatSubfields());
-            } else {
+            if (!directoryContains(schemaDirectory, pl)) {
               Utils.count(pl.getQualifiedTag(), counter);
-              // System.err.printf("unknown %s: %s\n", pl.getTag(), pl.formatSubfields());
             }
           }
         }
@@ -130,7 +125,7 @@ public class PicaReaderTest {
         "201U/001", "201U/002", "201U/003",
         "202D/001", "202D/002", "202D/003",
         "206X/001", "206X/002", // only 206X
-        "209A/001", "209A/002", "209A/003",
+        "209A/001", "209A/002", "209A/003", // only 209A $x0-9
         "209B/001", "209B/002", // only 209B/$x01
         "209C/001", // only 209C
         "209O/001", "209O/003", // only 209O
@@ -167,9 +162,20 @@ public class PicaReaderTest {
     }
   }
 
+  private boolean directoryContains(Map<String, List<PicaTagDefinition>> schemaDirectory, PicaLine pl) {
+    if (schemaDirectory.containsKey(pl.getTag())) {
+      List<PicaTagDefinition> definitions = schemaDirectory.get(pl.getTag());
+      for (PicaTagDefinition definition : definitions) {
+        if (definition.getTag().validateOccurence(pl.getOccurrence()))
+          return true;
+      }
+    }
+    return false;
+  }
+
   @NotNull
-  private Map<String, PicaTagDefinition> readSchema(JSONParser parser, String fileName) throws IOException, URISyntaxException, ParseException {
-    Map<String, PicaTagDefinition> map = new HashMap<>();
+  private Map<String, List<PicaTagDefinition>> readSchema(JSONParser parser, String fileName) throws IOException, URISyntaxException, ParseException {
+    Map<String, List<PicaTagDefinition>> map = new HashMap<>();
 
     Path tagsFile = FileUtils.getPath(fileName);
     Object obj = parser.parse(new FileReader(tagsFile.toString()));
@@ -185,54 +191,20 @@ public class PicaReaderTest {
         false,
         (String) field.get("label")
       );
-      if (tag.getPicaplus().contains("/") && (tag.getPicaplus().contains("-") || tag.getPicaplus().endsWith("X"))) {
-        String p3 = tag.getPicaplus();
-        if (tag.getPicaplus().contains("-")) {
-          Pattern pattern = Pattern.compile("^(.*)/(\\d+)-(\\d+)$");
-          Matcher m = pattern.matcher(p3);
-          if (m.find()) {
-            String base = m.group(1);
-            int len = m.group(2).length();
-            int num1 = Integer.parseInt(m.group(2));
-            int num2 = Integer.parseInt(m.group(3));
-            for (int i = num1; i<= num2; i++) {
-              String format = "%0" + len + "d";
-              String num = base + "/" + String.format(format, i);;
-              // System.err.println(num);
-              PicaTagDefinition tagX = new PicaTagDefinition(tag.getPica3(), num, tag.isRepeatable(), false, tag.getDescription());
-              addTag(map, tagX);
-            }
-          }
-        } else if (tag.getPicaplus().endsWith("X")) {
-          Pattern pattern = Pattern.compile("^(.*)/(\\d)X$");
-          Matcher m = pattern.matcher(p3);
-          if (m.find()) {
-            String base = m.group(1);
-            int num1 = Integer.parseInt(m.group(2));
-            for (int i = 0; i<= 9; i++) {
-              String num = base + "/" + String.format("%02d", i);
-              PicaTagDefinition tagX = new PicaTagDefinition(tag.getPica3(), num, tag.isRepeatable(), false, tag.getDescription());
-              addTag(map, tagX);
-            }
-          } else {
-            System.err.println("Not found X: " + p3);
-          }
-        } else {
-          System.err.println("Unhandled type: " + p3);
-        }
-      } else {
-        addTag(map, tag);
-      }
+      addTag(map, tag);
     }
 
     return map;
   }
 
-  private void addTag(Map<String, PicaTagDefinition> map, PicaTagDefinition tag) {
-    if (map.containsKey(tag.getPicaplus())) {
-      System.err.println("Tag is already defined! " + tag.getPicaplus());
+  private void addTag(Map<String, List<PicaTagDefinition>> map, PicaTagDefinition definition) {
+    String tag = definition.getTag().getTag();
+    if (!map.containsKey(tag)) {
+      map.put(tag, new ArrayList<>());
     } else {
-      map.put(tag.getPicaplus(), tag);
+      System.err.println("Tag is already defined! " + definition.getTag().getRaw() + " "
+        + map.get(tag).stream().map(a -> a.getTag().getRaw()).collect(Collectors.toSet()));
     }
+    map.get(tag).add(definition);
   }
 }

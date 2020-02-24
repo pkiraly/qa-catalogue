@@ -68,11 +68,11 @@ BASE_OUTPUT_DIR=
 
 ### With docker
 
-An experimental Docker image is publicly available in Docker Hub. This imsage contain an Ubuntu 18.08 with Java, R and the current software. No installation is needed (given you have a Docker running environment). You only have to specify the directory on your local machine where the MARC files are located. The first issue of this command will download the Docker image, which takes a time. Once it is downloaded you will be entered into the bash shell, where you have to change directory to `/opt/metadata-qa-marc` where the application resides.
+An experimental Docker image is publicly available in Docker Hub. This imsage contain an Ubuntu 18.08 with Java, R and the current software. No installation is needed (given you have a Docker running environment). You only have to specify the directory on your local machine where the MARC files are located. The first issue of this command will download the Docker image, which takes a time. Once it is downloaded you will be entered into the bash shell (I denoted this with the `#` symbol), where you have to change directory to `/opt/metadata-qa-marc` the location of the application.
 
 ```
 > docker run -t -i -v [your-MARC-directory]:/opt/metadata-qa-marc/marc pkiraly/metadata-qa-marc /bin/bash
-$ cd /opt/metadata-qa-marc
+# cd /opt/metadata-qa-marc
 ```
 
 Everything else works the same way as in other environments, so follow the next sections.

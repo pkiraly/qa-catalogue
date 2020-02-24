@@ -77,6 +77,8 @@ An experimental Docker image is publicly available in Docker Hub. This imsage co
 
 Everything else works the same way as in other environments, so follow the next sections.
 
+Note: at the time of writing this Docker image doesn't contain the [web user interface](#user-interface), only the command line interface (the content of this repository).
+
 ### Use
 
 ```

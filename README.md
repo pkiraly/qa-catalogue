@@ -12,6 +12,7 @@ This tool reads MARC dump files (in binary MARC or MARCXML formats), analyses di
 * [Quick start quide](#quick-start-guide)
   * [Installation](#installation)
   * [Configuration](#configuration)
+  * [With Docker](#with-docker)
   * [Use](#use)
 * [Build](#build)
 * [Download](#-or-download)
@@ -64,6 +65,19 @@ BASE_OUTPUT_DIR=
 6. Create configuration based on some existing config files:
  * cp scripts/loc.sh scripts/[abbreviation-of-your-library].sh
  * edit scripts/[abbreviation-of-your-library].sh according to [configuration guide](#configuration-1)
+
+### With docker
+
+An experimental Docker image is publicly available in Docker Hub. This imsage contain an Ubuntu 18.08 with Java, R and the current software. No installation is needed (given you have a Docker running environment). You only have to specify the directory on your local machine where the MARC files are located. The first issue of this command will download the Docker image, which takes a time. Once it is downloaded you will be entered into the bash shell (I denoted this with the `#` symbol), where you have to change directory to `/opt/metadata-qa-marc` the location of the application.
+
+```
+> docker run -t -i -v [your-MARC-directory]:/opt/metadata-qa-marc/marc pkiraly/metadata-qa-marc /bin/bash
+# cd /opt/metadata-qa-marc
+```
+
+Everything else works the same way as in other environments, so follow the next sections.
+
+Note: at the time of writing this Docker image doesn't contain the [web user interface](#user-interface), only the command line interface (the content of this repository).
 
 ### Use
 

@@ -927,7 +927,25 @@ public class Tag020 extends DataFieldDefinition {
 mvn clean deploy -Pdeploy
 ```
 
-Any feedbacks are welcome!
+### Docker image
+
+Build and test
+```
+docker-compose -f docker-compose.yml build app
+docker-compose -f docker-compose.yml up
+docker run -t -i -v [local-MARC-dir]:/opt/metadata-qa-marc/marc metadata-qa-marc /bin/bash
+cd /opt/metadata-qa-marc
+scripts/[lib].sh all-analyses
+```
+
+Upload to Docker Hub:
+```
+docker tag metadata-qa-marc:latest pkiraly/metadata-qa-marc:latest
+docker login
+docker push pkiraly/metadata-qa-marc:latest
+```
+
+Feedbacks are welcome!
 
 [![Build Status](https://travis-ci.org/pkiraly/metadata-qa-marc.svg?branch=master)](https://travis-ci.org/pkiraly/metadata-qa-marc)
 [![Coverage Status](https://coveralls.io/repos/github/pkiraly/metadata-qa-marc/badge.svg?branch=master)](https://coveralls.io/github/pkiraly/metadata-qa-marc?branch=master)

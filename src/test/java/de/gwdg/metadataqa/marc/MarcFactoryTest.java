@@ -697,6 +697,21 @@ public class MarcFactoryTest {
     // test01000011RecordProperties(record);
   }
 
+  @Test
+  public void createUnimarcFromFormattedText() throws IOException, URISyntaxException {
+    List<String> lines = FileUtils.readLines("unimarc/unimarc.mrctxt");
+    assertEquals(58, lines.size());
+    String marcRecordAsText = StringUtils.join(lines, "\n");
+    assertEquals(2319, marcRecordAsText.length());
+
+    MarcRecord record = MarcFactory.createFromFormattedText(marcRecordAsText, MarcVersion.UNIMARC);
+    testUnimarcRecordProperties(record);
+  }
+
+  private void testUnimarcRecordProperties(MarcRecord record) {
+    assertEquals("02794cam0 2200709   450 ", record.getLeader().getLeaderString());
+  }
+
   private void test01000011RecordProperties(MarcRecord record) {
     assertEquals("02191cam a2200541   4500", record.getLeader().getLeaderString());
     assertEquals("861106s1985    xx |||||      10| ||ger c", record.getControl008().getContent());

@@ -244,6 +244,10 @@ public class MarcFactory {
     return createFromFormattedText(Arrays.asList(marcRecordAsText.split("\n")));
   }
 
+  public static MarcRecord createFromFormattedText(String marcRecordAsText, MarcVersion marcVersion) {
+    return createFromFormattedText(Arrays.asList(marcRecordAsText.split("\n")), marcVersion);
+  }
+
   public static MarcRecord createFromFormattedText(List<String> lines) {
     return createFromFormattedText(lines, MarcVersion.MARC21);
   }

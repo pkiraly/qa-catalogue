@@ -1,0 +1,58 @@
+LEADER 02794cam0 2200709   450 
+001 000000124
+003 http://www.sudoc.fr/000000124
+005 20191011224100.000
+010   $a2-07-010796-5$brel.$d148 FRF
+020   $aFR$b07605054
+021   $aFR$bD.L. 74-19180
+035   $a007195540$9sudoc
+035   $a005913489$9sudoc
+035   $a009644954$9sudoc
+035   $a(OCoLC)489103868
+035   $aocm04208842
+035   $asib0887616
+035   $alm19019
+035   $asib1086755
+035   $asib0114843
+035   $afrBN000000370
+035   $aDYNIX_BUPF_721
+035   $aAIC15460179-4
+035   $aurouen66717
+035   $abua83459
+100   $a19750228d1974    m  y0frey50      ba
+101 0 $afre
+102   $aFR
+105   $aa   fa  001zy
+106   $ar
+181   $6z01$ctxt$2rdacontent
+181  1$6z01$ai#$bxxxe##
+182   $6z01$cn$2rdamedia
+182  1$6z01$an
+183  1$6z01$anga$2rdacarrier
+200 1 $aZoologie$hIV$iTétrapodes, domaines faunistiques, zoogéographie$fvolume publié sous la direction d'Andrée Tétry
+214  0$a[Paris]$cGallimard$dDL 1974
+215   $a1 vol. (XVI-1637 p.)$cill.$d18 cm
+225 2 $aEncyclopédie de la Pléiade$v37
+305   $aAutre tirage : 19XX (avec ISBN)
+320   $aNotes bibliogr. Index
+359 2 $pP. VII$bPréface$pP. XV$bNote de l'éditeur$pP. XVII$bListe des collaborateurs$pP. 1$bLes amphibiens$pP. 109$bLes reptiles$pP. 293$bLes oiseaux$pP. 633$bLes mammifères fossiles$pP. 723$bLes mammifères$pP. 1155$bLes mammifères domestiques$pP. 1171$bPlace de l'homme dans la nature$pP. 1217$bLes domaines (ou communautés) faunistiques$pP. 1383$bZoogéographie$pP. 1479$bIndex des noms latins d'animaux$pP. 1521$bIndex des noms vernaculaires d'animaux$pP. 1549$bIndex des matières$pP. 1585$bTable analytique des matières$pP. 1623$bTable des illustrations1383
+410  |$0001033107$tEncyclopédie de la Pléiade$x0768-3138$v37
+606   $3027238466$aMammifères$3027232050$xDictionnaires$2rameau
+606   $3027243990$aOiseaux$3027232050$xDictionnaires$2rameau
+606   $3027256413$aZoogéographie$2rameau
+606   $3031510701$aTétrapodes$2rameau
+606   $3027256421$aZoologie$3028638166$xEncyclopédies$2rameau
+606   $aZoology$2lc
+675   $a57$vÃd. 1967
+676   $a590.3
+680   $aQL45.2
+702  1$3027158241$aTétry$bAndrée$f1907-1992$4340
+801  3$aFR$bAbes$c20191011$gAFNOR$h007195540
+801  3$aFR$bAbes$c20191011$gAFNOR$h005913489
+801  3$aFR$bAbes$c20191011$gAFNOR$h009644954
+801  3$aFR$bBN$c19990125$gAFNOR
+801  1$aUS$bOCLC$gAACR2
+801  2$aFR$bAUROC
+801  3$aFR$bSF$c19990209
+801  0$aFR$bLettres Lafayette$c19970911
+801  1$aFR$bAIC$c20010406

@@ -168,6 +168,10 @@ public class Tag111 extends DataFieldDefinition {
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("O");
 
+    putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
+      new SubfieldDefinition("7", "NKCR Authority ID", "NR")
+    ));
+
     sourceSpecificationType = SourceSpecificationType.Subfield2;
   }
 }

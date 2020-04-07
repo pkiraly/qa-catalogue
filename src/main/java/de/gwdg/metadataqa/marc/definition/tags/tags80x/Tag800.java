@@ -274,6 +274,10 @@ public class Tag800 extends DataFieldDefinition {
       new SubfieldDefinition("9", "Artikkeli", "NR")
     ));
 
+    putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
+      new SubfieldDefinition("7", "NKCR Authority ID", "NR")
+    ));
+
     sourceSpecificationType = SourceSpecificationType.Subfield2;
   }
 }

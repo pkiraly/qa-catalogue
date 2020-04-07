@@ -47,5 +47,9 @@ public class Tag885 extends DataFieldDefinition {
     );
 
     getSubfield("2").setCodeList(OrganizationCodes.getInstance());
+
+    putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
+      new SubfieldDefinition("7", "NKCR Authority ID", "NR")
+    ));
   }
 }

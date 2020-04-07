@@ -64,5 +64,10 @@ public class Tag883 extends DataFieldDefinition {
     getSubfield("w").setMqTag("bibliographicRecordControlNumber");
     getSubfield("0").setMqTag("authorityRecordControlNumber");
     getSubfield("8").setMqTag("fieldLink");
+
+    putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
+      new SubfieldDefinition("7", "NKCR Authority ID", "NR")
+    ));
+
   }
 }

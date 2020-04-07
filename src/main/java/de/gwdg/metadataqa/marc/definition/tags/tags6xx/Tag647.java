@@ -103,6 +103,10 @@ public class Tag647 extends DataFieldDefinition {
 
     getSubfield("8")
       .setMqTag("fieldLink");
+    
+    putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
+      new SubfieldDefinition("7", "NKCR Authority ID", "NR")
+    ));
 
     fieldIndexer = SchemaFromInd2AndSubfield2.getInstance();
     sourceSpecificationType = SourceSpecificationType.Indicator2AndSubfield2;

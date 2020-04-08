@@ -30,3 +30,9 @@ setdir.sh
 *.Rproj
 .Rproj.user
 .Rhistory
+
+# VS Code Java project settings files
+.project
+.factorypath
+.classpath
+.settings

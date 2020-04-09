@@ -3,10 +3,14 @@ package de.gwdg.metadataqa.marc.definition.tags.tags4xx;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.ISSNValidator;
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Series Statement/Added Entry-Title
@@ -38,76 +42,53 @@ public class Tag440 extends DataFieldDefinition {
     ind1 = new Indicator();
 
     ind2 = new Indicator("Nonfiling characters")
-      .setCodes(
-        "0", "No nonfiling characters",
-        "1-9", "Number of nonfiling characters"
-      )
-      .setMqTag("nonfilingCharacters")
-      .setFrbrFunctions(ManagementProcess, ManagementSort);
+        .setCodes("0", "No nonfiling characters", "1-9", "Number of nonfiling characters")
+        .setMqTag("nonfilingCharacters").setFrbrFunctions(ManagementProcess, ManagementSort);
     ind2.getCode("1-9").setRange(true);
 
-    setSubfieldsWithCardinality(
-      "a", "Title", "NR",
-      "n", "Number of part/section of a work", "R",
-      "p", "Name of part/section of a work", "R",
-      "v", "Volume/sequential designation", "NR",
-      "w", "Bibliographic record control number", "R",
-      "x", "International Standard Serial Number", "NR",
-      "0", "Authority record control number", "R",
-      "6", "Linkage", "NR",
-      "8", "Field link and sequence number", "R"
-    );
+    setSubfieldsWithCardinality("a", "Title", "NR", "n", "Number of part/section of a work", "R", "p",
+        "Name of part/section of a work", "R", "v", "Volume/sequential designation", "NR", "w",
+        "Bibliographic record control number", "R", "x", "International Standard Serial Number", "NR", "0",
+        "Authority record control number", "R", "6", "Linkage", "NR", "8", "Field link and sequence number", "R");
 
     getSubfield("0").setContentParser(RecordControlNumberParser.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("x").setValidator(ISSNValidator.getInstance());
 
-    getSubfield("a")
-      .setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setCompilanceLevels("M", "M");
+    getSubfield("a").setMqTag("rdf:value")
+        .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+        .setCompilanceLevels("M", "M");
 
-    getSubfield("n")
-      .setMqTag("numberOfPart")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setCompilanceLevels("A", "A");
+    getSubfield("n").setMqTag("numberOfPart")
+        .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+        .setCompilanceLevels("A", "A");
 
-    getSubfield("p")
-      .setMqTag("nameOfPart")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setCompilanceLevels("A", "A");
+    getSubfield("p").setMqTag("nameOfPart")
+        .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+        .setCompilanceLevels("A", "A");
 
-    getSubfield("v")
-      .setMqTag("volume")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setCompilanceLevels("A", "A");
+    getSubfield("v").setMqTag("volume")
+        .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+        .setCompilanceLevels("A", "A");
 
-    getSubfield("w")
-      .setMqTag("bibliographicRecordControlNumber")
-      .setCompilanceLevels("O");
+    getSubfield("w").setMqTag("bibliographicRecordControlNumber").setCompilanceLevels("O");
 
-    getSubfield("x")
-      .setMqTag("issn")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setCompilanceLevels("A", "A");
+    getSubfield("x").setMqTag("issn")
+        .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+        .setCompilanceLevels("A", "A");
 
-    getSubfield("0")
-      .setMqTag("authorityRecordControlNumber")
-      .setCompilanceLevels("O");
+    getSubfield("0").setMqTag("authorityRecordControlNumber").setCompilanceLevels("O");
 
-    getSubfield("6")
-      .setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setCompilanceLevels("A", "A");
+    getSubfield("6").setBibframeTag("linkage").setFrbrFunctions(ManagementIdentify, ManagementProcess)
+        .setCompilanceLevels("A", "A");
 
-    getSubfield("8")
-      .setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setCompilanceLevels("O");
+    getSubfield("8").setMqTag("fieldLink").setFrbrFunctions(ManagementIdentify, ManagementProcess)
+        .setCompilanceLevels("O");
 
-    setHistoricalSubfields(
-      "h", "General material designation [OBSOLETE, 1997] [CAN/MARC only]"
-    );
+    setHistoricalSubfields("h", "General material designation [OBSOLETE, 1997] [CAN/MARC only]");
+
+    putVersionSpecificSubfields(MarcVersion.NKCR,
+        Arrays.asList(new SubfieldDefinition("7", "NKCR Authority ID", "NR")));
   }
 }

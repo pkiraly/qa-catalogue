@@ -3,6 +3,8 @@ package de.gwdg.metadataqa.marc.definition.tags.tags70x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
 import de.gwdg.metadataqa.marc.definition.general.codelist.NameAndTitleAuthoritySourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
@@ -10,6 +12,8 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.TaxonomicClassificati
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Resource Identifier
@@ -84,6 +88,10 @@ public class Tag758 extends DataFieldDefinition {
 
     getSubfield("8")
       .setMqTag("fieldLink");
+
+    putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
+      new SubfieldDefinition("7", "NKCR Authority ID", "NR")
+    ));
 
     sourceSpecificationType = SourceSpecificationType.Subfield2;
   }

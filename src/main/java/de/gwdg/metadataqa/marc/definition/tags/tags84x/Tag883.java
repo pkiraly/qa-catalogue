@@ -3,11 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags84x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.MarcVersion;
-import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
-
-import java.util.Arrays;
 
 /**
  * Machine-generated Metadata Provenance
@@ -36,14 +32,26 @@ public class Tag883 extends DataFieldDefinition {
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd883.html";
 
-    ind1 = new Indicator("Method of machine assignment").setCodes(" ", "No information provided/not applicable", "0",
-        "Fully machine-generated", "1", "Partially machine-generated").setMqTag("methodOfMachineAssignment");
+    ind1 = new Indicator("Method of machine assignment")
+      .setCodes(
+        " ", "No information provided/not applicable",
+        "0", "Fully machine-generated",
+        "1", "Partially machine-generated"
+      )
+      .setMqTag("methodOfMachineAssignment");
     ind2 = new Indicator();
 
-    setSubfieldsWithCardinality("a", "Generation process", "NR", "c", "Confidence value", "NR", "d", "Generation date",
-        "NR", "q", "Generation agency", "NR", "x", "Validity end date", "NR", "u", "Uniform Resource Identifier", "NR",
-        "w", "Bibliographic record control number", "R", "0", "Authority record control number or standard number", "R",
-        "8", "Field link and sequence number", "R");
+    setSubfieldsWithCardinality(
+      "a", "Generation process", "NR",
+      "c", "Confidence value", "NR",
+      "d", "Generation date", "NR",
+      "q", "Generation agency", "NR",
+      "x", "Validity end date", "NR",
+      "u", "Uniform Resource Identifier", "NR",
+      "w", "Bibliographic record control number", "R",
+      "0", "Authority record control number or standard number", "R",
+      "8", "Field link and sequence number", "R"
+    );
 
     getSubfield("q").setCodeList(OrganizationCodes.getInstance());
 
@@ -57,8 +65,9 @@ public class Tag883 extends DataFieldDefinition {
     getSubfield("0").setMqTag("authorityRecordControlNumber");
     getSubfield("8").setMqTag("fieldLink");
 
-    putVersionSpecificSubfields(MarcVersion.NKCR,
-        Arrays.asList(new SubfieldDefinition("7", "NKCR Authority ID", "NR")));
+    putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
+      new SubfieldDefinition("7", "NKCR Authority ID", "NR")
+    ));
 
   }
 }

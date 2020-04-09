@@ -6,7 +6,11 @@
   // You can edit these settings after create using File > Preferences > Settings > Remote.
   "settings": {
     "terminal.integrated.shell.linux": "/bin/bash",
-    "java.home": "/usr/local/openjdk-8"
+    "java.home": "/usr/local/openjdk-8",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "java.format.enabled": false,
+    "editor.formatOnSave": true
   },
 
   // Add the IDs of extensions you want installed when the container is created in the array below.

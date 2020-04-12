@@ -3,10 +3,14 @@ package de.gwdg.metadataqa.marc.definition.tags.tags84x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.general.codelist.ElectronicAccessMethodsCodeList;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Electronic Location and Access
@@ -236,6 +240,11 @@ public class Tag856 extends DataFieldDefinition {
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("O");
+
+    putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
+      new SubfieldDefinition("4", "Aleph subfield related to copyright", "NR"),
+      new SubfieldDefinition("9", "Aleph/ANL fulltext linkage", "NR")
+    ));
 
     setHistoricalSubfields(
       "g", "Uniform Resource Name [OBSOLETE, 2000]"

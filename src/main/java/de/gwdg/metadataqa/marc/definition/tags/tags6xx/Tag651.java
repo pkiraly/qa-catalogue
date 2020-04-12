@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags6xx;
 
+import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
@@ -54,6 +55,9 @@ public class Tag651 extends DataFieldDefinition {
         "6", "Répertoire de vedettes-matière",
         "7", "Source specified in subfield $2"
       )
+      .putVersionSpecificCodes(MarcVersion.NKCR,Arrays.asList(
+        new Code("9", "English variant of term")
+      ))
       .setMqTag("thesaurus")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 

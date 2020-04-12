@@ -1,11 +1,16 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags5xx;
 
+import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.general.codelist.ContentAdviceClassificationSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Summary, etc.
@@ -45,10 +50,16 @@ public class Tag520 extends DataFieldDefinition {
         "4", "Content advice",
         "8", "No display constant generated"
       )
+      .putVersionSpecificCodes(MarcVersion.NKCR,Arrays.asList(
+        new Code("9", "MKP annotation for the Union catalog")
+      ))
       .setMqTag("displayConstant")
       .setFrbrFunctions(ManagementDisplay);
 
-    ind2 = new Indicator();
+    ind2 = new Indicator()
+      .putVersionSpecificCodes(MarcVersion.NKCR,Arrays.asList(
+        new Code("9", "Annotation language specified in subfield $9")
+      ));
 
     setSubfieldsWithCardinality(
       "a", "Summary, etc.", "NR",
@@ -101,6 +112,10 @@ public class Tag520 extends DataFieldDefinition {
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("O");
+
+    putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
+      new SubfieldDefinition("9", "Annotation language code", "NR")
+    ));
 
     setHistoricalSubfields(
       "z", "Source of note information (BK, AM, CF, SE) [OBSOLETE, 1990]"

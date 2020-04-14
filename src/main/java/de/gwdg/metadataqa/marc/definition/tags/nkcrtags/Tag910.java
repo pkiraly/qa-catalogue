@@ -32,7 +32,7 @@ public class Tag910 extends DataFieldDefinition {
     descriptionUrl = "https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/informativni-materialy/blok-9xxuni-m21";
     setCompilanceLevels("A", "A");
 
-    ind1 = new Indicator("Cluster")
+    ind1 = new Indicator()
       .setCodes(
         "1", "NK ČR",
         "2", "MZK",

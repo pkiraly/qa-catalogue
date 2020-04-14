@@ -30,10 +30,10 @@ public class Tag911 extends DataFieldDefinition {
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "Sigla knihovny, která dokument digitalizovala.", "NR",
+      "a", "Sigla knihovny, která dokument digitalizovala", "NR",
       "d", "Status digitalizace (digitalizuje se a zdigitalizováno)", "NR",
       "r", "Roky ( u časopisů roky, které byly zdigitalizovány)", "NR",
-      "s", "Svazky (i u knih i u seriálů) ", "NR",
+      "s", "Svazky (i u knih i u seriálů)", "NR",
       "p", "Url adresa, na které je dostupná zdigitaliz. kopie", "R",
       "u", "Poznámka", "NR"
     );
@@ -41,7 +41,16 @@ public class Tag911 extends DataFieldDefinition {
     getSubfield("a")
       .setCompilanceLevels("M");
 
-    getSubfield("b")
+    getSubfield("d")
+      .setCodes(
+        "zdigitalizováno", "hotová digitalizace",
+        "digitalizuje se", "digitalizace probíhá, nebo již dokončena, ale ještě není digitální dokument dostupný",
+        "vybráno k digitalizaci", "již k digitalizaci připraveno (je jisté, že se digitalizovat bude)",
+        "plánovaná digitalizace", "rezervace titulu v delším časovém horizontu"
+      )
+      .setCompilanceLevels("M");
+
+    getSubfield("u")
       .setCompilanceLevels("M");
   }
 }

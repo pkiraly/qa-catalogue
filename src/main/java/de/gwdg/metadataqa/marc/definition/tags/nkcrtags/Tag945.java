@@ -70,7 +70,9 @@ public class Tag945 extends DataFieldDefinition {
       "4", "Relationship", "R",
       "5", "Institution to which field applies", "NR",
       "6", "Linkage", "NR",
-      "8", "Field link and sequence number", "R"
+      "7", "NKCR Authority ID", "NR",
+      "8", "Field link and sequence number", "R",
+      "9", "Slovní vyjádření kódu role", "NR"
     );
 
     // getSubfield("2").setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());

@@ -32,5 +32,10 @@ public class Tag903 extends DataFieldDefinition {
     setSubfieldsWithCardinality(
       "a", "Označení \"RP\"", "NR"
     );
+
+    getSubfield("a")
+      .setCodes(
+      "RP", "Rair Print"
+      );
   }
 }

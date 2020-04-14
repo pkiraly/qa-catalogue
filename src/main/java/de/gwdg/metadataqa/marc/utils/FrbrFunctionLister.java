@@ -103,7 +103,8 @@ public class FrbrFunctionLister {
            || fieldTag.getClass().getCanonicalName().contains("oclctags")
            || fieldTag.getClass().getCanonicalName().contains("genttags")
            || fieldTag.getClass().getCanonicalName().contains("dnbtags")
-           || fieldTag.getClass().getCanonicalName().contains("sztetags")) {
+           || fieldTag.getClass().getCanonicalName().contains("sztetags")
+           || fieldTag.getClass().getCanonicalName().contains("nkcrtags")) {
           isCore = false;
           localFields++;
         } else {

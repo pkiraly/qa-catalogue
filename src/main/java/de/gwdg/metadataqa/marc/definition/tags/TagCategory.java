@@ -22,6 +22,7 @@ public enum TagCategory {
   gent("genttags", "Gent", "Locally defined tags of Gent", false),
   oclc("oclctags", "OCLC", "OCLCMARC tags", false),
   szte("sztetags", "SZTE", "Locally defined tags of SZTE", false),
+  nkcr("nkcrtags", "NKCR", "Locally defined tags of NKCR", false),
   holdings("holdings", "Holdings", "MARC Holdings tags", true)
   ;
 

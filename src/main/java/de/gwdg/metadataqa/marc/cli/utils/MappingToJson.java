@@ -25,7 +25,7 @@ public class MappingToJson {
   private static final Logger logger = Logger.getLogger(MappingToJson.class.getCanonicalName());
 
   private final static List<String> nonMarc21TagLibraries = Arrays.asList(
-    "oclctags", "fennicatags", "dnbtags", "sztetags", "genttags",
+    "oclctags", "fennicatags", "dnbtags", "sztetags", "genttags", "nkcrtags",
     "holdings"
   );
 

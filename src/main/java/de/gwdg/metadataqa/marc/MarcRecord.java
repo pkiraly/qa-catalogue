@@ -10,6 +10,7 @@ import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 
 import de.gwdg.metadataqa.marc.definition.tags.control.Control001Definition;
+import de.gwdg.metadataqa.marc.utils.unimarc.UnimarcConverter;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
@@ -85,6 +86,15 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   }
 
   public void setLeader(String leader) {
+    this.leader = new Leader(leader);
+    this.leader.setMarcRecord(this);
+  }
+
+  public void setLeader(String leader, MarcVersion marcVersion) {
+    if (marcVersion.equals(MarcVersion.UNIMARC)) {
+      leader = UnimarcConverter.leaderFromUnimarc(leader);
+    }
+
     this.leader = new Leader(leader);
     this.leader.setMarcRecord(this);
   }
@@ -699,10 +709,15 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   }
 
   public void setField(String tag, String content) {
-    setField(tag, content, null);
+    setField(tag, content, MarcVersion.MARC21);
   }
 
   public void setField(String tag, String content, MarcVersion marcVersion) {
+    if (marcVersion.equals(MarcVersion.UNIMARC)) {
+      content = UnimarcConverter.contentFromUnimarc(tag, content);
+      tag = UnimarcConverter.tagFromUnimarc(tag);
+    }
+
     if (tag.equals("001")) {
       setControl001(new Control001(content));
     } else if (tag.equals("003")) {
@@ -720,7 +735,9 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
       if (definition == null) {
         addUnhandledTags(tag);
       }
-      addDataField(new DataField(tag, content));
+
+      DataField dataField = new DataField(tag, content);
+      addDataField(dataField);
     }
   }
 

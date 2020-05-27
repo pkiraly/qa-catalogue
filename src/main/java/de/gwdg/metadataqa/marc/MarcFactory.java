@@ -259,7 +259,7 @@ public class MarcFactory {
     MarcRecord record = new MarcRecord();
     for (String line : lines) {
       if (line.startsWith("LEADER ")) {
-        record.setLeader(line.replace("LEADER ", ""));
+        record.setLeader(line.replace("LEADER ", ""), marcVersion);
       } else {
         String tag = line.substring(0, 3);
         String content = line.substring(4);

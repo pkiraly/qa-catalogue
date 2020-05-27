@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -108,4 +109,24 @@ public class Utils {
       return StringUtils.join(fields, separator) + "\n";
     }
   }
+
+  public static String base36_encode(String _id) {
+    return Integer.toString(parseId(_id), Character.MAX_RADIX);
+  }
+
+  public static int parseId(String _id) {
+    return (_id.contains("+"))
+        ? Utils.scientificNotationToInt(_id)
+        : Integer.parseInt(_id);
+  }
+
+  public static String base36_encode(int i) {
+    return Integer.toString(i, Character.MAX_RADIX);
+  }
+
+  public static int scientificNotationToInt(String scientificNotation) {
+    BigDecimal value = new BigDecimal(scientificNotation);
+    return value.toBigInteger().intValue();
+  }
+
 }

@@ -12,15 +12,15 @@ RUN add-apt-repository -y ppa:openjdk-r/ppa && \
 
 # install R
 ENV DEBIAN_FRONTEND=noninteractive
-# ENV TZ=Etc/UTC
-# RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-# RUN apt-get install r-base r-cran-curl r-cran-openssl r-cran-xml2 -y
+ENV TZ=Etc/UTC
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN apt-get install r-base r-cran-curl r-cran-openssl r-cran-xml2 -y
 # install R modules
 RUN apt-get install libxml2-dev curl openssl libcurl4-openssl-dev libssl-dev -y
-# RUN Rscript -e 'install.packages("tidyverse", dependencies=TRUE)'
-# RUN Rscript -e 'install.packages("grid", dependencies=TRUE)'
-# RUN Rscript -e 'install.packages("gridExtra", dependencies=TRUE)'
-# RUN Rscript -e 'install.packages("stringr", dependencies=TRUE)'
+RUN Rscript -e 'install.packages("tidyverse", dependencies=TRUE)'
+RUN Rscript -e 'install.packages("grid", dependencies=TRUE)'
+RUN Rscript -e 'install.packages("gridExtra", dependencies=TRUE)'
+RUN Rscript -e 'install.packages("stringr", dependencies=TRUE)'
 
 # install metadata-qa-marc
 RUN mkdir -p /opt/metadata-qa-marc/scripts && \
@@ -78,7 +78,7 @@ RUN apt-get install apache2 php wget zip -y  && \
 # install Solr
 RUN apt-get install lsof -y && \
     cd /opt && \
-    wget -q https://downloads.apache.org/lucene/solr/8.4.1/solr-8.4.1.zip && \
+    wget -q http://archive.apache.org/dist/lucene/solr/8.4.1/solr-8.4.1.zip && \
     unzip solr-8.4.1.zip && \
     rm solr-8.4.1.zip && \
     ln -s solr-8.4.1 solr && \

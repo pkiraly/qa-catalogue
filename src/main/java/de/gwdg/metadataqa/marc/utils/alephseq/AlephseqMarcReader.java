@@ -50,26 +50,31 @@ public class AlephseqMarcReader implements MarcReader {
     boolean finished = false;
     while (line != null && !finished) {
       AlephseqLine alephseqLine = new AlephseqLine(line, lineNumber);
-      if (currentId != null
-        && !alephseqLine.getRecordID().equals(currentId)
-        && !lines.isEmpty())
-      {
-        record = MarcFactory.createRecordFromAlephseq(lines);
-        if (record.getLeader() == null) {
-          logger.severe(String.format(
-            "Record #%s #%s does not have a leader\n",
-            record.getControlNumberField().getData()
-          ));
-        } else {
-          finished = true;
+      String recordID = alephseqLine.getRecordID();
+      if (recordID == null) {
+        logger.warning(String.format("line %d) does not have line number: '%s'", lineNumber, line));
+      } else {
+        if (currentId != null
+          && !recordID.equals(currentId)
+          && !lines.isEmpty())
+        {
+          record = MarcFactory.createRecordFromAlephseq(lines);
+          if (record.getLeader() == null) {
+            logger.severe(String.format(
+              "%d) Record #%s does not have a leader\n",
+              lineNumber, record.getControlNumberField().getData()
+            ));
+          } else {
+            finished = true;
+          }
+          lines = new ArrayList<>();
         }
-        lines = new ArrayList<>();
-      }
 
-      if (alephseqLine.isValidTag()) {
-        lines.add(alephseqLine);
+        if (alephseqLine.isValidTag()) {
+          lines.add(alephseqLine);
+        }
+        currentId = alephseqLine.getRecordID();
       }
-      currentId = alephseqLine.getRecordID();
 
       try {
         line = bufferedReader.readLine();

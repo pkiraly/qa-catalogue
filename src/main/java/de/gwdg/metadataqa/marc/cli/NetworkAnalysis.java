@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.analysis.NetworkAnalyzer;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.NetworkAction;
@@ -10,7 +11,7 @@ import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.marc4j.marc.Record;
 
 import java.io.BufferedWriter;
@@ -25,6 +26,7 @@ import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
+import static de.gwdg.metadataqa.marc.Utils.createRowWithSep;
 
 public class NetworkAnalysis implements MarcFileProcessor, Serializable {
 
@@ -36,6 +38,7 @@ public class NetworkAnalysis implements MarcFileProcessor, Serializable {
   private final List<String> orphans = new ArrayList<>();
   private Path path;
   private BufferedWriter writer;
+  private BufferedWriter nodeWriter;
 
   public NetworkAnalysis(String[] args) throws ParseException {
     parameters = new NetworkParameters(args);
@@ -52,8 +55,9 @@ public class NetworkAnalysis implements MarcFileProcessor, Serializable {
       // processor.printHelp(processor.getParameters().getOptions());
       System.exit(0);
     }
+    NetworkAction action = ((NetworkParameters)processor.getParameters()).getAction();
     logger.info("Action: " + ((NetworkParameters)processor.getParameters()).getAction());
-    if (((NetworkParameters)processor.getParameters()).getAction().equals(NetworkAction.PAIRING)) {
+    if (action.equals(NetworkAction.PAIRING)) {
       ((NetworkAnalysis)processor).pairIds();
     } else {
       if (processor.getParameters().getArgs().length < 1) {
@@ -71,17 +75,30 @@ public class NetworkAnalysis implements MarcFileProcessor, Serializable {
   }
 
   private void pairIds() {
+    boolean asBase36 = false;
+
     logger.info("pairIds");
     Path outputPath = Paths.get(parameters.getOutputDir(), "network-pairs.csv");
     try {
       writer = Files.newBufferedWriter(outputPath);
-      writer.write(createRow("id1", "id2"));
+      if (asBase36)
+        writer.write(createRow("id1", "id2"));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    Path nodePath = Paths.get(parameters.getOutputDir(), "network-nodes.csv");
+    try {
+      nodeWriter = Files.newBufferedWriter(nodePath);
+      if (asBase36)
+        nodeWriter.write(createRow("id1", "id2"));
     } catch (IOException e) {
       e.printStackTrace();
     }
 
     AtomicInteger lineNr = new AtomicInteger();
     Path inputPath = Paths.get(parameters.getOutputDir(), "network-by-concepts.csv");
+    Map<Object, Boolean> nodeTrack = new HashMap<>();
     try (Stream<String> stream = Files.lines(Paths.get(inputPath.toString()))) {
       stream.forEach(
         line -> {
@@ -96,19 +113,28 @@ public class NetworkAnalysis implements MarcFileProcessor, Serializable {
               ids = Arrays.copyOfRange(ids, 0, parameters.getGroupLimit());
             }
 
-            String[] encoded = new String[ids.length];
-            for (int i = 0; i<ids.length; i++) {
-              encoded[i] = encode(ids[i]);
+            Object[] encoded = (asBase36) ? stringToBase36(ids) : stringToInteger(ids);
+            List<String> pairs = makePairs(encoded, asBase36);
+            try {
+              for (String pair : pairs) {
+                writer.write(pair);
+              }
+            } catch (IOException e) {
+              e.printStackTrace();
             }
-            for (int i = 0; i < encoded.length-1; i++) {
-              for (int j = (i+1); j < encoded.length; j++) {
-                try {
-                  writer.write(createRow(encoded[i], encoded[j]));
-                } catch (IOException e) {
-                  e.printStackTrace();
+
+            for (Object id : encoded) {
+              try {
+                if (!nodeTrack.containsKey(id)) {
+                  nodeWriter.write(createRow(id, id));
+                  nodeTrack.put(id, true);
                 }
+              } catch (IOException e) {
+                e.printStackTrace();
               }
             }
+
+
           }
         }
       );
@@ -122,11 +148,36 @@ public class NetworkAnalysis implements MarcFileProcessor, Serializable {
     }
   }
 
-  private String encode(String id) {
-    if (id.contains("+"))
-      return id;
-    else
-      return Integer.toString(Integer.parseInt(id), Character.MAX_RADIX);
+  @NotNull
+  private Object[] stringToBase36(String[] ids) {
+    Object[] encoded;
+    encoded = new String[ids.length];
+    for (int i = 0; i < ids.length; i++) {
+      encoded[i] = Utils.base36_encode(ids[i]);
+    }
+    return encoded;
+  }
+
+  @NotNull
+  private Object[] stringToInteger(String[] ids) {
+    Object[] encoded = new Integer[ids.length];
+    for (int i = 0; i < ids.length; i++) {
+      encoded[i] = Utils.parseId(ids[i]);
+    }
+    return encoded;
+  }
+
+  private List<String> makePairs(Object[] elements, boolean asBase36) {
+    List<String> pairs = new ArrayList<>(elements.length);
+    for (int i = 0; i < elements.length - 1; i++) {
+      for (int j = (i + 1); j < elements.length; j++) {
+        if (asBase36)
+          pairs.add(createRow(elements[i], elements[j]));
+        else
+          pairs.add(createRowWithSep(' ', elements[i], elements[j]));
+      }
+    }
+    return pairs;
   }
 
   @Override

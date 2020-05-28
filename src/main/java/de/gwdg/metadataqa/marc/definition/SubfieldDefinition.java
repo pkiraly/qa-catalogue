@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.SubfieldValidator;
@@ -194,10 +195,14 @@ public class SubfieldDefinition implements Serializable {
     Map<String, String> pairs = new LinkedHashMap<>();
     int i = 0;
     for (ControlSubfieldDefinition def : getPositions()) {
-      String part = value.substring(def.getPositionStart(), def.getPositionEnd());
-      String resolved = def.resolve(part);
-      String suffix = StringUtils.isNotBlank(def.getMqTag()) ? def.getMqTag() : String.valueOf(i);
-      pairs.put(suffix, resolved);
+      try {
+        String part = Utils.substring(value, def.getPositionStart(), def.getPositionEnd());
+        String resolved = def.resolve(part);
+        String suffix = StringUtils.isNotBlank(def.getMqTag()) ? def.getMqTag() : String.valueOf(i);
+        pairs.put(suffix, resolved);
+      } catch (StringIndexOutOfBoundsException e) {
+        logger.warning(getPath() + ": " + e.getLocalizedMessage());
+      }
       i++;
     }
     return pairs;

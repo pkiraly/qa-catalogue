@@ -196,7 +196,9 @@ public class ClassificationAnalyzer {
           schemas.add(currentSchema);
           count++;
         } catch (IllegalArgumentException e) {
+          logger.severe(String.format("Invalid scheme in ind2: %s. %s", e.getLocalizedMessage(), field));
           // logger.severe(String.format("%s in record %s %s", e.getLocalizedMessage(), marcRecord.getId(), field.toString()));
+          currentSchema = new Schema(tag, "ind2", scheme, field.getInd2());
         }
       }
       updateSchemaSubfieldStatistics(field, currentSchema);

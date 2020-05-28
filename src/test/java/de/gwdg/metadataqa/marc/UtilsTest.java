@@ -103,4 +103,18 @@ public class UtilsTest {
     assertEquals("a,b,c\n", Utils.createRow("a", "b", "c"));
     assertEquals("a;b;c\n", Utils.createRow(';', "a", "b", "c"));
   }
+
+  @Test
+  public void testRange() {
+    assertEquals("c", Utils.substring("abcd", 2, 3));
+    assertEquals("cd", Utils.substring("abcd", 2, 4));
+    assertEquals("cd", Utils.substring("abcd", 2, 5));
+    assertEquals("cd", Utils.substring("abcd", 2, 6));
+  }
+
+  @Test(expected = StringIndexOutOfBoundsException.class)
+  public void testRange_withException() {
+    assertEquals("c", Utils.substring("abcd", 4, 8));
+  }
+
 }

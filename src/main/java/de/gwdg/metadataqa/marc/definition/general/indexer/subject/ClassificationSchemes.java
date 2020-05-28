@@ -37,7 +37,9 @@ public class ClassificationSchemes {
   public String resolve(String key) {
     if (schemes.containsKey(key))
       return schemes.get(key);
-    throw new IllegalArgumentException(String.format("Key '%s' is not recognized as a classification scheme", key));
+    throw new IllegalArgumentException(String.format(
+      "Key '%s' is not recognized as a classification scheme",
+      key));
   }
 
   private static ClassificationSchemes uniqueInstance;

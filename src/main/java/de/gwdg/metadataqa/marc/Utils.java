@@ -129,4 +129,15 @@ public class Utils {
     return value.toBigInteger().intValue();
   }
 
+  public static String substring(String value, int start, int end) {
+    if (start < value.length()) {
+      if (end <= value.length()) {
+        return value.substring(start, end);
+      } else {
+        return value.substring(start);
+      }
+    }
+    throw new StringIndexOutOfBoundsException(String.format(
+      "Range %d-%d is illegal for %s", start, end, value));
+  }
 }

@@ -28,7 +28,11 @@ public class SchemaFromInd2For055OrIf7FromSubfield2 extends SubjectIndexer imple
 
       schemaAbbreviation = subfield2s.get(0).getValue();
     } else {
-      schemaAbbreviation = ClassificationSchemes.getInstance().resolve(dataField.resolveInd1());
+      try {
+        schemaAbbreviation = ClassificationSchemes.getInstance().resolve(dataField.resolveInd1());
+      } catch (IllegalArgumentException e) {
+        schemaAbbreviation = dataField.getInd1() == " " ? "" : dataField.getInd1();
+      }
     }
 
     KeyValuesExtractor extractor = new KeyValuesExtractor(dataField, keyGenerator, schemaAbbreviation).invoke();

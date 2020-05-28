@@ -1,10 +1,10 @@
 FROM ubuntu:18.04
 MAINTAINER  Péter Király <pkiraly@gwdg.de>
 
-# install Java, R
+# install basic OS tools
 RUN apt-get update -y && \
     apt-get install apt-utils -y && \
-    apt-get install software-properties-common -y
+    apt-get install software-properties-common nano vim -y
 
 # install Java
 RUN add-apt-repository -y ppa:openjdk-r/ppa && \
@@ -72,7 +72,7 @@ RUN apt-get install apache2 php wget zip -y  && \
     mkdir -p /var/www/html/metadata-qa/libs/_smarty/templates_c && \
     chmod a+w -R /var/www/html/metadata-qa/libs/_smarty/templates_c/ && \
     sed -i.bak 's,</VirtualHost>,        <Directory /var/www/html/metadata-qa>\n                Options Indexes FollowSymLinks MultiViews\n                AllowOverride All\n                Order allow\,deny\n                allow from all\n                DirectoryIndex index.php index.html\n        </Directory>\n</VirtualHost>,' /etc/apache2/sites-available/000-default.conf && \
-    echo "#!/usr/bin/bash\n\nsystemctl start apache2.service\n" > /entrypoint.sh && \
+    echo "#!/usr/bin/env bash\n\nservice apache2 start\n" > /entrypoint.sh && \
     chmod +x /entrypoint.sh
 
 # install Solr

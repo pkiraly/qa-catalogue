@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+check_core() {
+  LOCAL_CORE=$1
+  LOCAL_URL=$(printf "http://localhost:%s/solr/admin/cores?action=STATUS&core=%s" $PORT $LOCAL_CORE)
+  CORE_EXISTS=$(curl -s "$LOCAL_URL" | jq .status | grep "\"$LOCAL_CORE\":" | grep -c -P '{$')
+  # use echo instead of return
+  echo $CORE_EXISTS
+}
+
+create_core() {
+  LOCAL_CORE=$1
+  echo "creating Solr index: ${LOCAL_CORE}"
+  curl -s "http://localhost:$PORT/solr/admin/cores?action=CREATE&name=$LOCAL_CORE&configSet=_default"
+}
+
+rename_core() {
+  LOCAL_FROM=$1
+  LOCAL_TO=$2
+
+  echo "rename Solr index: ${LOCAL_FROM} to ${LOCAL_TO}"
+  curl -s "http://localhost:$PORT/solr/admin/cores?action=RENAME&core=${LOCAL_FROM}&other=${LOCAL_TO}"
+}
+
+swap_cores() {
+  LOCAL_FROM=$1
+  LOCAL_TO=$2
+
+  echo "Swap Solr indexes ${LOCAL_FROM} and ${LOCAL_TO}"
+  curl -s "http://localhost:$PORT/solr/admin/cores?action=SWAP&core=${LOCAL_FROM}&other=${LOCAL_TO}"
+}
+

@@ -1,35 +1,121 @@
 #!/usr/bin/env bash
+#####
+#
+#
+#
 
 . ./common-variables
-DB=$1
-FILE_PATH=$2
-FILE_MASK=$3
-WITH_DELETE=$4
+PORT=8983
 
-export SOLR=http://localhost:8983/solr/${DB}
+. ./solr-functions
 
-# check if the files are XMLs
-if [[ $FILE_MASK =~ "xml" ]]; then
-  MARCXML_FLAG="--marcxml"
-else
-  MARCXML_FLAG=""
+ME=$(basename $0)
+
+show_usage() { # display help massage
+  cat <<EOF
+usage:
+ ${ME} [-d|--db] [-p|--file-path] [-m|--file-mask] [-w|--with-delete]
+       [-s|--solrFieldType] [-x|--marcxml] [-a|--alephseq] [-t|--trimId]
+       [-r|--defaultRecordType] [-v|--marcVersion]
+       [-h|--help]
+
+ -d, --db <name>        name of the database
+ -p, --file-path <path> the directory of the input files
+ -m, --file-mask <mask> file mask (e.g. *.mrc)
+ -w, --with-delete      delete before index
+ -s, --solrFieldType <field type>: How Solr field should be named.
+                        Possible values: 'marc-tags', 'human-readable', or 'mixed'
+ -x, --marcxml          the source is in MARCXML format
+ -a, --alephseq         the source is in Alephseq format
+ -t, --trimId           trim record identifiers
+ -r, --defaultRecordType <record type> the default record type if the record's type is undetectable.
+                        Possible values: BOOKS (default), CONTINUING_RESOURCES, MUSIC, MAPS,
+                        VISUAL_MATERIALS, COMPUTER_FILES, MIXED_MATERIALS
+ -v, --marcVersion <version> MARC version.
+                        Possible values: MARC21 (default), OCLC, DNB, GENT, SZTE, FENNICA, UNIMARC
+ -h, --help             this help
+EOF
+  exit 1
+}
+
+if [ $# -eq 0 ]; then
+  show_usage
 fi
 
+GETOPT=$(getopt -o d:p:m:ws::xatr:hv: \
+  --long db:,file-path:,file-mask:,with-delete,solrFieldType:,marcxml,alephseq,trimId,defaultRecordType,help,marcVersion: \
+  -n ${ME} -- "$@")
+eval set -- "$GETOPT"
+
+DB=""
+solrFieldType=mixed
+defaultRecordType=BOOKS
+marcVersion=MARC21
+while true ; do
+  case "$1" in
+    -d|--db) DB=$2 ; shift 2;;
+    -p|--file-path) FILE_PATH=$2 ; shift 2;;
+    -m|--file-mask) FILE_MASK=$2 ; shift 2;;
+    -w|--with-delete) WITH_DELETE="--with-delete" ; shift;;
+    -s|--solrFieldType) solrFieldType=$2 ; shift 2;;
+    -r|--defaultRecordType) defaultRecordType=$2 ; shift 2;;
+    -v|--marcVersion) marcVersion=$2 ; shift 2;;
+    -x|--marcxml) marcxml="--marcxml" ; shift;;
+    -a|--alephseq) alephseq="--alephseq" ; shift;;
+    -t|--trimId) trimId="--trimId" ; shift;;
+    -h|--help) show_usage ; shift ;;
+    --) shift ; break ;;
+    *) echo "Internal error!: $1" ; exit 1 ;;
+  esac
+done
+
+CORE=${DB}_dev
+
+export SOLR=http://localhost:8983/solr/${CORE}
+
 if [ "${WITH_DELETE}" == "--with-delete" ]; then
+  echo "Delete records in ${CORE}"
   curl $SOLR/update -H "Content-type: text/xml" --data-binary '<delete><query>*:*</query></delete>'
 fi
 
+echo "Start indexing"
 curl $SOLR/update -H "Content-type: text/xml" --data-binary '<commit/>'
 
+cat <<EOT
+running the command
+---BEGIN
 /usr/bin/java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr \
-     --solrUrl ${SOLR} \
-     --solrFieldType mixed \
-     --defaultRecordType BOOKS \
-     --trimId \
-     $MARCXML_FLAG \
-     ${FILE_PATH}/${FILE_MASK}
+  --solrUrl ${SOLR} \
+  --solrFieldType $solrFieldType \
+  --defaultRecordType $defaultRecordType \
+  --marcVersion $marcVersion \
+  $trimId \
+  $marcxml \
+  $alephseq \
+  ${FILE_PATH}/${FILE_MASK}
+---END
+EOT
 
-#     --marcxml \
+/usr/bin/java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr \
+  --solrUrl ${SOLR} --solrFieldType $solrFieldType \
+  --defaultRecordType $defaultRecordType \
+  --marcVersion $marcVersion $trimId $marcxml $alephseq \
+  ${FILE_PATH}/${FILE_MASK}
 
-
+echo "Start optimizing"
 curl "$SOLR/update?optimize=true" -H 'Content-type: text/xml' --data-binary '<commit/>'
+
+# check if old core should be renamed
+CORE_EXISTS=$(check_core $DB)
+if [[ $CORE_EXISTS -eq 1 ]]; then
+  echo "Core exists, Move ${DB} to ${DB}_old"
+  rename_code ${DB} ${DB}_old
+  # curl "http://localhost:8983/solr/admin/cores?action=RENAME&core=$DB&other=${DB}_old"
+fi
+
+# dev -> production
+echo "Swap ${CORE} to ${DB}"
+swap_cores ${CORE} ${DB}
+# curl "http://localhost:8983/solr/admin/cores?action=RENAME&core=${CORE}&other=${DB}"
+
+echo "indexing DONE"

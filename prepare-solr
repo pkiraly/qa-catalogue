@@ -1,34 +1,55 @@
 #!/usr/bin/env bash
 
-CORE=$1
 PORT=8983
+. ./solr-functions
 
-URL=$(printf "http://localhost:%s/solr/admin/cores?action=STATUS&core=%s" $PORT $CORE)
-CORE_NOT_EXISTS=$(curl -s "$URL" | jq .status | grep "$SOLR_CORE" | grep -c '{}')
-if [[ "$CORE_NOT_EXISTS" != "0" ]]; then
-  # create core
-  echo "Create Solr core '$CORE'"
-  curl -s "http://localhost:$PORT/solr/admin/cores?action=CREATE&name=$CORE&configSet=_default"
-fi
+DB=$1
 
-echo DONE
+CORE1=${DB}_1
+CORE2=${DB}_2
+CORE_PROD=${DB}
+CORE_DEV=${DB}_dev
 
-# add *_sni
-# <dynamicField name="*_sni" type="string" indexed="false" stored="true"/>
-curl -X POST -H 'Content-type:application/json' --data-binary '{
+prepare_index() {
+  LOCAL_CORE=$1
+
+  echo "add *_sni field definition to ${LOCAL_CORE}"
+  # add *_sni
+  # <dynamicField name="*_sni" type="string" indexed="false" stored="true"/>
+  curl -X POST -H 'Content-type:application/json' --data-binary '{
   "add-dynamic-field":{
      "name":"*_sni",
      "type":"string",
      "stored":true,
      "indexed":false
-  }
-}' http://localhost:${PORT}/api/cores/${CORE}/schema
+  }}' http://localhost:${PORT}/api/cores/${LOCAL_CORE}/schema
 
-# add _ss
-# <copyField source="*_ss" dest="_text_"/>
-curl -X POST -H 'Content-type:application/json' --data-binary '{
-  "add-copy-field":{
+  echo "add *_ss copyfield definition to ${LOCAL_CORE}"
+  # add _ss
+  # <copyField source="*_ss" dest="_text_"/>
+  curl -X POST -H 'Content-type:application/json' --data-binary '{
+    "add-copy-field":{
      "source":"*_ss",
      "dest":"_text_"
-  }
-}' http://localhost:${PORT}/api/cores/${CORE}/schema
+  }}' http://localhost:${PORT}/api/cores/${LOCAL_CORE}/schema
+}
+
+PROD_EXISTS=$(check_core $CORE_PROD)
+echo "$CORE_PROD exists: $PROD_EXISTS"
+if [[ $PROD_EXISTS != 1 ]]; then
+  echo "Create Solr core '$CORE1'"
+  create_core $CORE1
+  prepare_index $CORE1
+  rename_core $CORE1 $CORE_PROD
+fi
+
+DEV_EXISTS=$(check_core $CORE_DEV)
+echo "$CORE_DEV exists: $DEV_EXISTS"
+if [[ $DEV_EXISTS != 1 ]]; then
+  echo "Create Solr core '$CORE2'"
+  create_core $CORE2
+  prepare_index $CORE2
+  rename_core $CORE2 $CORE_DEV
+fi
+
+echo "Solr preparation DONE"

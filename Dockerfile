@@ -33,6 +33,7 @@ COPY setdir.sh.template /opt/metadata-qa-marc/setdir.sh
 # copy common scripts
 COPY common-variables \
      common-script \
+     metadata-qa.sh \
      LICENSE \
      README.md /opt/metadata-qa-marc/
 
@@ -40,6 +41,7 @@ COPY common-variables \
 COPY validator \
      prepare-solr \
      index \
+     solr-functions \
      completeness \
      classifications \ 
      authorities \
@@ -92,4 +94,7 @@ RUN rm -rf /var/lib/apt/lists
 # ENTRYPOINT ["systemctl"]
 # CMD ["status", "apache2.service"]
 
+WORKDIR /opt/metadata-qa-marc
+
 ENTRYPOINT ["/entrypoint.sh"]
+

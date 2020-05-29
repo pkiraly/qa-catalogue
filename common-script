@@ -8,7 +8,7 @@ if [[ ! -d $PREFIX ]]; then
   mkdir -p $PREFIX
 fi
 
-echo "Logging to ${PREFIX}.log"
+# echo "Logging to ${PREFIX}.log"
 
 if [ ! -d ${OUTPUT_DIR} ]; then
   mkdir -p ${OUTPUT_DIR}
@@ -99,8 +99,6 @@ do_all_solr() {
 
 
 echo $1
-
-exit
 
 case "$1" in
   validate)

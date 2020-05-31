@@ -2,7 +2,7 @@
 
 . ./setdir.sh
 
-options=$(getopt -o n:p:m: --long name:,params:,mask: -- "$@")
+options=$(getopt -o n:p:m:c: --long name:,params:,mask:,catalogue: -- "$@")
 [ $? -eq 0 ] || { 
     echo "Incorrect options provided"
     exit 1
@@ -16,9 +16,10 @@ while true; do
     #-b) COLOR=BLUE ; ;;
     #-r) COLOR=RED ; ;;
     #-g) COLOR=GREEN ; ;;
-    --name) NAME=$2 ; shift;;
-    --params) TYPE_PARAMS=$2 ; shift;;
-    --mask) MASK=$2 ; shift;;
+    -n|--name) NAME=$2 ; shift;;
+    -p|--params) TYPE_PARAMS=$2 ; shift;;
+    -m|--mask) MASK=$2 ; shift;;
+    -c|--catalogue) CATALOGUE=$2 ; shift;;
     --)
         shift
         break
@@ -26,6 +27,24 @@ while true; do
     esac
     shift
 done
+
+if [[ "$CATALOGUE" != "" ]]; then
+  FILE=/var/www/html/metadata-qa/configuration.cnf
+  count=$(grep -c catalogue $FILE)
+  if [[ $count == 1 ]]; then
+    grep -v catalogue $FILE > /tmp/catalogue
+    mv /tmp/catalogue $FILE
+  fi
+  echo "catalogue=$CATALOGUE" >> $FILE
+
+  FILE=/var/www/html/metadata-qa/configuration.js
+  count=$(grep -c catalogue $FILE)
+  if [[ $count == 1 ]]; then
+    grep -v catalogue $FILE > /tmp/catalogue
+    mv /tmp/catalogue $FILE
+  fi
+  echo "var catalogue = '$CATALOGUE'" >> $FILE
+fi
 
 . ./common-script $1
 

@@ -87,8 +87,7 @@ RUN apt-get install lsof -y && \
     rm solr-8.4.1.zip && \
     ln -s solr-8.4.1 solr && \
     echo "/opt/solr/bin/solr start -force\n" >> /entrypoint.sh && \
-    echo "sleep infinity" >> /entrypoint.sh && \
-    cat /entrypoint.sh
+    echo "sleep infinity" >> /entrypoint.sh
 
 RUN rm -rf /var/lib/apt/lists
 # ENTRYPOINT ["systemctl"]

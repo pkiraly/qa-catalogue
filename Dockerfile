@@ -5,15 +5,18 @@ LABEL maintainer="Péter Király <pkiraly@gwdg.de>"
 # install basic OS tools
 RUN DEBIAN_FRONTEND=noninteractive \
  && apt-get update \
- && apt-get install apt-utils -y \
- && apt-get install software-properties-common nano -y \
+ && apt-get install -y --no-install-recommends \
+      apt-utils \
+      software-properties-common \
+      nano \
  && rm -rf /var/lib/apt/lists/*
 
 # install Java
 RUN DEBIAN_FRONTEND=noninteractive \
  && apt-get update \
  && add-apt-repository -y ppa:openjdk-r/ppa \
- && apt-get install openjdk-8-jre-headless -y \
+ && apt-get install -y --no-install-recommends \
+      openjdk-8-jre-headless \
  && rm -rf /var/lib/apt/lists/*
 
 # install R

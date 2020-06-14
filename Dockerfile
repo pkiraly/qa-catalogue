@@ -110,7 +110,6 @@ RUN DEBIAN_FRONTEND=noninteractive \
  && echo "/opt/solr/bin/solr start -force\n" >> /entrypoint.sh \
  && echo "sleep infinity" >> /entrypoint.sh
 
-RUN rm -rf /var/lib/apt/lists
 # ENTRYPOINT ["systemctl"]
 # CMD ["status", "apache2.service"]
 

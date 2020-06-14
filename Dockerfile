@@ -5,20 +5,30 @@ LABEL maintainer="Péter Király <pkiraly@gwdg.de>"
 # install basic OS tools
 RUN apt-get update \
  && apt-get install apt-utils -y \
- && apt-get install software-properties-common nano -y
+ && apt-get install software-properties-common nano -y \
+ && rm -rf /var/lib/apt/lists/*
 
 # install Java
-RUN add-apt-repository -y ppa:openjdk-r/ppa \
- && apt-get install openjdk-8-jre-headless -y
+RUN apt-get update \
+ && add-apt-repository -y ppa:openjdk-r/ppa \
+ && apt-get install openjdk-8-jre-headless -y \
+ && rm -rf /var/lib/apt/lists/*
 
 # install R
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Etc/UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
  && echo $TZ > /etc/timezone
-RUN apt-get install r-base r-cran-curl r-cran-openssl r-cran-xml2 -y
+
+RUN apt-get update \
+ && apt-get install r-base r-cran-curl r-cran-openssl r-cran-xml2 -y \
+ && rm -rf /var/lib/apt/lists/*
+
 # install R modules
-RUN apt-get install libxml2-dev curl openssl libcurl4-openssl-dev libssl-dev -y
+RUN apt-get update \
+ && apt-get install libxml2-dev curl openssl libcurl4-openssl-dev libssl-dev -y \
+ && rm -rf /var/lib/apt/lists/*
+
 RUN Rscript -e 'install.packages("tidyverse", dependencies=TRUE)'
 RUN Rscript -e 'install.packages("grid", dependencies=TRUE)'
 RUN Rscript -e 'install.packages("gridExtra", dependencies=TRUE)'
@@ -58,7 +68,9 @@ RUN mkdir -p /opt/metadata-qa-marc/marc \
  && sed -i.bak 's,BASE_OUTPUT_DIR=your/path,BASE_OUTPUT_DIR=/opt/metadata-qa-marc/marc/_output,' /opt/metadata-qa-marc/setdir.sh
 
 # install web application
-RUN apt-get install apache2 php wget zip -y \
+RUN apt-get update \
+ && apt-get install apache2 php wget zip -y \
+ && rm -rf /var/lib/apt/lists/* \
  && cd /var/www/html/ \
  && wget https://github.com/pkiraly/metadata-qa-marc-web/archive/master.zip \
  && unzip master.zip \
@@ -82,7 +94,9 @@ RUN apt-get install apache2 php wget zip -y \
  && chmod +x /entrypoint.sh
 
 # install Solr
-RUN apt-get install lsof -y \
+RUN apt-get update \
+ && apt-get install lsof -y \
+ && rm -rf /var/lib/apt/lists/* \
  && cd /opt \
  && wget -q http://archive.apache.org/dist/lucene/solr/8.4.1/solr-8.4.1.zip \
  && unzip solr-8.4.1.zip \

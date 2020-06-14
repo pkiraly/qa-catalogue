@@ -3,29 +3,32 @@ FROM ubuntu:18.04
 LABEL maintainer="Péter Király <pkiraly@gwdg.de>"
 
 # install basic OS tools
-RUN apt-get update \
+RUN DEBIAN_FRONTEND=noninteractive \
+ && apt-get update \
  && apt-get install apt-utils -y \
  && apt-get install software-properties-common nano -y \
  && rm -rf /var/lib/apt/lists/*
 
 # install Java
-RUN apt-get update \
+RUN DEBIAN_FRONTEND=noninteractive \
+ && apt-get update \
  && add-apt-repository -y ppa:openjdk-r/ppa \
  && apt-get install openjdk-8-jre-headless -y \
  && rm -rf /var/lib/apt/lists/*
 
 # install R
-ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Etc/UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
  && echo $TZ > /etc/timezone
 
-RUN apt-get update \
+RUN DEBIAN_FRONTEND=noninteractive \
+ && apt-get update \
  && apt-get install r-base r-cran-curl r-cran-openssl r-cran-xml2 -y \
  && rm -rf /var/lib/apt/lists/*
 
 # install R modules
-RUN apt-get update \
+RUN DEBIAN_FRONTEND=noninteractive \
+ && apt-get update \
  && apt-get install libxml2-dev curl openssl libcurl4-openssl-dev libssl-dev -y \
  && rm -rf /var/lib/apt/lists/*
 
@@ -68,7 +71,8 @@ RUN mkdir -p /opt/metadata-qa-marc/marc \
  && sed -i.bak 's,BASE_OUTPUT_DIR=your/path,BASE_OUTPUT_DIR=/opt/metadata-qa-marc/marc/_output,' /opt/metadata-qa-marc/setdir.sh
 
 # install web application
-RUN apt-get update \
+RUN DEBIAN_FRONTEND=noninteractive \
+ && apt-get update \
  && apt-get install apache2 php wget zip -y \
  && rm -rf /var/lib/apt/lists/* \
  && cd /var/www/html/ \
@@ -94,7 +98,8 @@ RUN apt-get update \
  && chmod +x /entrypoint.sh
 
 # install Solr
-RUN apt-get update \
+RUN DEBIAN_FRONTEND=noninteractive \
+ && apt-get update \
  && apt-get install lsof -y \
  && rm -rf /var/lib/apt/lists/* \
  && cd /opt \

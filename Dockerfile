@@ -88,13 +88,18 @@ RUN mkdir -p /opt/metadata-qa-marc/marc \
  && sed -i.bak 's,BASE_INPUT_DIR=your/path,BASE_INPUT_DIR=/opt/metadata-qa-marc/marc,' /opt/metadata-qa-marc/setdir.sh \
  && sed -i.bak 's,BASE_OUTPUT_DIR=your/path,BASE_OUTPUT_DIR=/opt/metadata-qa-marc/marc/_output,' /opt/metadata-qa-marc/setdir.sh
 
+ARG SMARTY_VERSION=3.1.33
+
 # install web application
 RUN DEBIAN_FRONTEND=noninteractive \
  && apt-get update \
- && apt-get install apache2 php wget zip -y \
+ && apt-get install -y --no-install-recommends \
+      apache2 \
+      php \
+      unzip \
  && rm -rf /var/lib/apt/lists/* \
  && cd /var/www/html/ \
- && wget https://github.com/pkiraly/metadata-qa-marc-web/archive/master.zip \
+ && curl -L https://github.com/pkiraly/metadata-qa-marc-web/archive/master.zip --output master.zip \
  && unzip master.zip \
  && rm master.zip \
  && mv metadata-qa-marc-web-master metadata-qa \
@@ -104,9 +109,9 @@ RUN DEBIAN_FRONTEND=noninteractive \
  && mkdir /var/www/html/metadata-qa/cache \
  && mkdir /var/www/html/metadata-qa/libs \
  && cd /var/www/html/metadata-qa/libs/ \
- && wget https://github.com/smarty-php/smarty/archive/v3.1.33.zip \
- && unzip v3.1.33.zip \
- && rm v3.1.33.zip \
+ && curl -L https://github.com/smarty-php/smarty/archive/v${SMARTY_VERSION}.zip --output v$SMARTY_VERSION.zip \
+ && unzip v${SMARTY_VERSION}.zip \
+ && rm v${SMARTY_VERSION}.zip \
  && mkdir -p /var/www/html/metadata-qa/libs/_smarty/templates_c \
  && chmod a+w -R /var/www/html/metadata-qa/libs/_smarty/templates_c/ \
  && sed -i.bak 's,</VirtualHost>,        <Directory /var/www/html/metadata-qa>\n                Options Indexes FollowSymLinks MultiViews\n                AllowOverride All\n                Order allow\,deny\n                allow from all\n                DirectoryIndex index.php index.html\n        </Directory>\n</VirtualHost>,' /etc/apache2/sites-available/000-default.conf \
@@ -115,16 +120,19 @@ RUN DEBIAN_FRONTEND=noninteractive \
  && echo "service apache2 start" >> /entrypoint.sh \
  && chmod +x /entrypoint.sh
 
+ARG SOLR_VERSION=8.4.1
+
 # install Solr
 RUN DEBIAN_FRONTEND=noninteractive \
  && apt-get update \
- && apt-get install lsof -y \
+ && apt-get install -y --no-install-recommends \
+      lsof \
  && rm -rf /var/lib/apt/lists/* \
  && cd /opt \
- && wget -q http://archive.apache.org/dist/lucene/solr/8.4.1/solr-8.4.1.zip \
- && unzip solr-8.4.1.zip \
- && rm solr-8.4.1.zip \
- && ln -s solr-8.4.1 solr \
+ && curl -L http://archive.apache.org/dist/lucene/solr/${SOLR_VERSION}/solr-${SOLR_VERSION}.zip --output solr-${SOLR_VERSION}.zip \
+ && unzip solr-${SOLR_VERSION}.zip \
+ && rm solr-${SOLR_VERSION}.zip \
+ && ln -s solr-${SOLR_VERSION} solr \
  && echo "/opt/solr/bin/solr start -force\n" >> /entrypoint.sh \
  && echo "sleep infinity" >> /entrypoint.sh
 

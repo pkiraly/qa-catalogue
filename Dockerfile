@@ -23,19 +23,37 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
 
 RUN DEBIAN_FRONTEND=noninteractive \
  && apt-get update \
- && apt-get install r-base r-cran-curl r-cran-openssl r-cran-xml2 -y \
+ && apt-get install -y --no-install-recommends \
+      r-base \
+      r-cran-curl \
+      r-cran-openssl \
+      r-cran-xml2 \
  && rm -rf /var/lib/apt/lists/*
 
 # install R modules
 RUN DEBIAN_FRONTEND=noninteractive \
- && apt-get update \
- && apt-get install libxml2-dev curl openssl libcurl4-openssl-dev libssl-dev -y \
+ && apt update \
+ && apt-get install -y --no-install-recommends \
+      make \
+      g++ \
+      curl \
+      openssl \
  && rm -rf /var/lib/apt/lists/*
 
-RUN Rscript -e 'install.packages("tidyverse", dependencies=TRUE)'
-RUN Rscript -e 'install.packages("grid", dependencies=TRUE)'
-RUN Rscript -e 'install.packages("gridExtra", dependencies=TRUE)'
-RUN Rscript -e 'install.packages("stringr", dependencies=TRUE)'
+RUN DEBIAN_FRONTEND=noninteractive \
+ && apt update \
+ && apt-get install -y --no-install-recommends \
+      libc6-dev `# for stringr R package` \
+      zlib1g-dev `# for tidyverse R package` \
+      libxml2-dev `# for tidyverse R package` \
+ && Rscript -e 'install.packages("tidyverse", dependencies=TRUE)' -e 'library("tidyverse")' \
+ && Rscript -e 'install.packages("stringr", dependencies=TRUE)' -e 'library("stringr")' \
+ && Rscript -e 'install.packages("gridExtra", dependencies=TRUE)' -e 'library("gridExtra")' \
+ && apt-get remove -y --purge \
+      libc6-dev \
+      zlib1g-dev \
+      libxml2-dev \
+ && rm -rf /var/lib/apt/lists/*
 
 # install metadata-qa-marc
 RUN mkdir -p /opt/metadata-qa-marc/scripts \

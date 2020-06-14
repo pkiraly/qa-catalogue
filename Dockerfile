@@ -43,11 +43,11 @@ COPY validator \
      index \
      solr-functions \
      completeness \
-     classifications \ 
+     classifications \
      authorities \
      tt-completeness \
      serial-score \
-     formatter \ 
+     formatter \
      functional-analysis \
      network-analysis /opt/metadata-qa-marc/
 

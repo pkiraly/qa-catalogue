@@ -1,5 +1,6 @@
 FROM ubuntu:18.04
-MAINTAINER  Péter Király <pkiraly@gwdg.de>
+
+LABEL maintainer="Péter Király <pkiraly@gwdg.de>"
 
 # install basic OS tools
 RUN apt-get update \

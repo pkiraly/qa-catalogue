@@ -49,7 +49,9 @@ RUN DEBIAN_FRONTEND=noninteractive \
       libc6-dev `# for stringr R package` \
       zlib1g-dev `# for tidyverse R package` \
       libxml2-dev `# for tidyverse R package` \
- && Rscript -e 'install.packages("tidyverse", dependencies=TRUE)' -e 'library("tidyverse")' \
+ # && Rscript -e 'install.packages("tidyverse", dependencies=TRUE)' -e 'library("tidyverse")' \
+ && Rscript -e 'install.packages("dplyr", dependencies=TRUE)' -e 'library("dplyr")' \
+ && Rscript -e 'install.packages("readr", dependencies=TRUE)' -e 'library("readr")' \
  && Rscript -e 'install.packages("stringr", dependencies=TRUE)' -e 'library("stringr")' \
  && Rscript -e 'install.packages("gridExtra", dependencies=TRUE)' -e 'library("gridExtra")' \
  && apt-get remove -y --purge \
@@ -119,6 +121,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
  && chmod a+w -R /var/www/html/metadata-qa/libs/_smarty/templates_c/ \
  && sed -i.bak 's,</VirtualHost>,        <Directory /var/www/html/metadata-qa>\n                Options Indexes FollowSymLinks MultiViews\n                AllowOverride All\n                Order allow\,deny\n                allow from all\n                DirectoryIndex index.php index.html\n        </Directory>\n</VirtualHost>,' /etc/apache2/sites-available/000-default.conf \
  && echo "#!/usr/bin/env bash" > /entrypoint.sh \
+ && echo "echo \"*** \$(date +\"%F %T\")    ***\"" > entrypoint.sh \
  && echo "echo \"*** this is the entrypoint ***\"\n" >> /entrypoint.sh \
  && echo "service apache2 start" >> /entrypoint.sh \
  && chmod +x /entrypoint.sh

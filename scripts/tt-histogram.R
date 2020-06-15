@@ -1,4 +1,7 @@
-library(tidyverse)
+# library(tidyverse)
+library(readr)
+#library(magrittr)
+library(dplyr)
 #' Reads tt-completeness.csv and creates histogram files for all
 #' column. The files are saved under the BASE_OUTPUT_DIR directory specified
 #' in setdir.sh in tt-completeness-histogram-[column name].csv name form where

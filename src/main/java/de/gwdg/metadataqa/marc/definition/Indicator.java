@@ -131,9 +131,11 @@ public class Indicator {
   private Map<Range, Code> getRanges() {
     if (ranges == null) {
       ranges = new HashMap<>();
-      for (Code code : codes) {
-        if (code.isRange()) {
-          ranges.put(code.getRange(), code);
+      if (codes != null) {
+        for (Code code : codes) {
+          if (code.isRange()) {
+            ranges.put(code.getRange(), code);
+          }
         }
       }
     }

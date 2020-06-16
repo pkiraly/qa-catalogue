@@ -1,6 +1,8 @@
 FROM ubuntu:18.04
 
-LABEL maintainer="Péter Király <pkiraly@gwdg.de>"
+LABEL maintainer="Péter Király <pkiraly@gwdg.de>, Ákos Takács <rimelek@rimelek.hu>"
+
+LABEL description="QA catalogue - a metadata quality assessment tool for MARC based library catalogues."
 
 # install basic OS tools
 RUN DEBIAN_FRONTEND=noninteractive \
@@ -49,9 +51,9 @@ RUN DEBIAN_FRONTEND=noninteractive \
       libc6-dev `# for stringr R package` \
       zlib1g-dev `# for tidyverse R package` \
       libxml2-dev `# for tidyverse R package` \
- # && Rscript -e 'install.packages("tidyverse", dependencies=TRUE)' -e 'library("tidyverse")' \
- && Rscript -e 'install.packages("dplyr", dependencies=TRUE)' -e 'library("dplyr")' \
- && Rscript -e 'install.packages("readr", dependencies=TRUE)' -e 'library("readr")' \
+ && Rscript -e 'install.packages("tidyverse", dependencies=TRUE)' -e 'library("tidyverse")' \
+ # && Rscript -e 'install.packages("dplyr", dependencies=TRUE)' -e 'library("dplyr")' \
+ # && Rscript -e 'install.packages("readr", dependencies=TRUE)' -e 'library("readr")' \
  && Rscript -e 'install.packages("stringr", dependencies=TRUE)' -e 'library("stringr")' \
  && Rscript -e 'install.packages("gridExtra", dependencies=TRUE)' -e 'library("gridExtra")' \
  && apt-get remove -y --purge \

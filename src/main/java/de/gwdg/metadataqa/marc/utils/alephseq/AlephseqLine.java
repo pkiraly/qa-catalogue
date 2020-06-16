@@ -37,14 +37,22 @@ public class AlephseqLine {
   }
 
   public boolean isLeader() {
+    if (tag == null)
+      return false;
     return tag.equals(LDR);
   }
 
   public boolean isNumericTag() {
+    if (tag == null)
+      return false;
+
     return numericTag.matcher(tag).matches();
   }
 
   public boolean isControlField() {
+    if (tag == null)
+      return false;
+
     return controlField.matcher(tag).matches();
   }
 
@@ -69,6 +77,9 @@ public class AlephseqLine {
   }
 
   public String getContent() {
+    if (content == null)
+      return content;
+
     if (isLeader() || isControlField())
       return content.replace("^", " ");
     else

@@ -300,4 +300,25 @@ public class AlephseqMarcReaderTest {
     assertEquals("book", hits.get(0));
 
   }
+
+  @Test
+  public void testUtf8() {
+    Path path = null;
+    try {
+      path = FileUtils.getPath("general/alephseq-example.txt");
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (URISyntaxException e) {
+      e.printStackTrace();
+    }
+    MarcReader reader = new AlephseqMarcReader(path.toString());
+    Record record = null;
+    while (reader.hasNext()) {
+      record = reader.next();
+      if (record.getControlNumber().equals("000000008")) {
+        MarcRecord marcRecord = MarcFactory.createFromMarc4j(record, Leader.Type.BOOKS, MarcVersion.GENT, true);
+        assertEquals("München :", marcRecord.getDatafield("260").get(0).getSubfield("a").get(0).getValue());
+      }
+    }
+  }
 }

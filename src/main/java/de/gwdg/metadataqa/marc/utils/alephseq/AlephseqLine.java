@@ -87,8 +87,8 @@ public class AlephseqLine {
     } else {
       recordID = raw.substring(0, 9);
       tag = raw.substring(10, 13);
-      ind1 = raw.substring(14, 15);
-      ind2 = raw.substring(15, 16);
+      ind1 = raw.substring(13, 14);
+      ind2 = raw.substring(14, 15);
       content = raw.substring(18);
     }
   }

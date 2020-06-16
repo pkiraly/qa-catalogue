@@ -653,6 +653,9 @@ public class MarcFactoryTest {
       }
       record = MarcFactory.createFromAlephseq(lines, MarcVersion.MARC21);
       List<DataField> tag700 = record.getDatafield("700");
+      assertEquals("700", tag700.get(0).getTag());
+      assertEquals("1", tag700.get(0).getInd1());
+      assertEquals(" ", tag700.get(0).getInd2());
       assertEquals("Chantebout, Bernard", tag700.get(0).getSubfield("a").get(0).getValue());
       reader.close();
     } catch (IOException e) {
@@ -720,6 +723,4 @@ public class MarcFactoryTest {
     assertEquals(" ", record.getDatafield("810").get(1).getInd2());
     assertEquals(38, record.getDatafields().size());
   }
-
-
 }

@@ -67,11 +67,10 @@ draw_plot <- function(cumulation, label, instance_count, pareto, record_count) {
     ggplot(aes(x = cumpercent, y = cumsum)) +
     geom_line() +
     ggtitle(
-      sprintf(
-        "%s -- balance: %d/%d (at %d)",
-        label, round(pareto_percent), 100-round(pareto_percent), pareto_field),
+      label, 
       subtitle = sprintf(
-        '%s records, %d subfields, %s subfield occurrences',
+        'balance: %d/%d (at %d)\n%s records, %d subfields, %s subfield occurrences',
+        round(pareto_percent), 100-round(pareto_percent), pareto_field,
         format(record_count, big.mark=" ", small.interval=3),
         total,
         format(instance_count, big.mark=" ", small.interval=3)
@@ -132,9 +131,10 @@ create_plot <- function(dir, name, field, .type) {
   pareto <- cumulation %>% 
     filter(cumpercent + cumsum <= 100) %>% 
     filter(rownum == max(rownum))
-  
+
+  label <- ifelse(.type == 'all', 'All records', .type)
   current_plot <- draw_plot(
-    cumulation, .type, total, pareto, record_count
+    cumulation, label, total, pareto, record_count
   )
   return(current_plot)
 }
@@ -169,6 +169,7 @@ create_all_pictures <- function(dir, name, field, file_name) {
   csv_file <- sprintf('%s/%s', dir, file_name)
   print(paste('create_all_pictures from ', csv_file))
   df <- read_csv(csv_file, col_types = col_types)
+  print(df)
   df_summary <- df %>% 
     group_by(type) %>% 
     summarise(count = n()) %>% 

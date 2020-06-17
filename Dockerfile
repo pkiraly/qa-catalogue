@@ -11,6 +11,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
       apt-utils \
       software-properties-common \
       nano \
+      jq \
  && rm -rf /var/lib/apt/lists/*
 
 # install Java
@@ -45,21 +46,16 @@ RUN DEBIAN_FRONTEND=noninteractive \
       openssl \
  && rm -rf /var/lib/apt/lists/*
 
+## add PPA with pre-compiled cran packages
 RUN DEBIAN_FRONTEND=noninteractive \
- && apt update \
+ && add-apt-repository -y ppa:marutter/rrutter3.5 \
+ && add-apt-repository -y ppa:marutter/c2d4u3.5 \
+ && apt-get update \
  && apt-get install -y --no-install-recommends \
-      libc6-dev `# for stringr R package` \
-      zlib1g-dev `# for tidyverse R package` \
-      libxml2-dev `# for tidyverse R package` \
- && Rscript -e 'install.packages("tidyverse", dependencies=TRUE)' -e 'library("tidyverse")' \
- # && Rscript -e 'install.packages("dplyr", dependencies=TRUE)' -e 'library("dplyr")' \
- # && Rscript -e 'install.packages("readr", dependencies=TRUE)' -e 'library("readr")' \
- && Rscript -e 'install.packages("stringr", dependencies=TRUE)' -e 'library("stringr")' \
- && Rscript -e 'install.packages("gridExtra", dependencies=TRUE)' -e 'library("gridExtra")' \
- && apt-get remove -y --purge \
-      libc6-dev \
-      zlib1g-dev \
-      libxml2-dev \
+      r-cran-tidyverse \
+      r-cran-stringr \
+      r-cran-gridextra \
+# && apt-get autoremove \
  && rm -rf /var/lib/apt/lists/*
 
 # install metadata-qa-marc
@@ -115,6 +111,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
  && touch /var/www/html/metadata-qa/selected-facets.js \
  && mkdir /var/www/html/metadata-qa/cache \
  && mkdir /var/www/html/metadata-qa/libs \
+ && mkdir /var/www/html/metadata-qa/images \
  && cd /var/www/html/metadata-qa/libs/ \
  && curl -L https://github.com/smarty-php/smarty/archive/v${SMARTY_VERSION}.zip --output v$SMARTY_VERSION.zip \
  && unzip v${SMARTY_VERSION}.zip \
@@ -122,10 +119,13 @@ RUN DEBIAN_FRONTEND=noninteractive \
  && mkdir -p /var/www/html/metadata-qa/libs/_smarty/templates_c \
  && chmod a+w -R /var/www/html/metadata-qa/libs/_smarty/templates_c/ \
  && sed -i.bak 's,</VirtualHost>,        <Directory /var/www/html/metadata-qa>\n                Options Indexes FollowSymLinks MultiViews\n                AllowOverride All\n                Order allow\,deny\n                allow from all\n                DirectoryIndex index.php index.html\n        </Directory>\n</VirtualHost>,' /etc/apache2/sites-available/000-default.conf \
+ && echo "\nWEB_DIR=/var/www/html/metadata-qa/\n" >> /opt/metadata-qa-marc/common-variables \
+ && cat /opt/metadata-qa-marc/common-variables \
  && echo "#!/usr/bin/env bash" > /entrypoint.sh \
- && echo "echo \"*** \$(date +\"%F %T\")    ***\"" > entrypoint.sh \
+ && echo "echo \"*** \$(date +\"%F %T\")    ***\"" >> /entrypoint.sh \
  && echo "echo \"*** this is the entrypoint ***\"\n" >> /entrypoint.sh \
  && echo "service apache2 start" >> /entrypoint.sh \
+ && cat /entrypoint.sh \
  && chmod +x /entrypoint.sh
 
 ARG SOLR_VERSION=8.4.1

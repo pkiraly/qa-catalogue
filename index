@@ -106,12 +106,12 @@ echo "Start optimizing"
 curl "$SOLR/update?optimize=true" -H 'Content-type: text/xml' --data-binary '<commit/>'
 
 # check if old core should be renamed
-CORE_EXISTS=$(check_core $DB)
-if [[ $CORE_EXISTS -eq 1 ]]; then
-  echo "Core exists, Move ${DB} to ${DB}_old"
-  rename_code ${DB} ${DB}_old
-  # curl "http://localhost:8983/solr/admin/cores?action=RENAME&core=$DB&other=${DB}_old"
-fi
+# CORE_EXISTS=$(check_core $DB)
+# if [[ $CORE_EXISTS -eq 1 ]]; then
+#   echo "Core exists, move ${DB} to ${DB}_old"
+#   rename_core ${DB} ${DB}_old
+#   # curl "http://localhost:8983/solr/admin/cores?action=RENAME&core=$DB&other=${DB}_old"
+# fi
 
 # dev -> production
 echo "Swap ${CORE} to ${DB}"

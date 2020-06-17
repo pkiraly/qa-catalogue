@@ -84,6 +84,13 @@ do_network_analysis() {
 do_pareto() {
   printf "%s %s> Rscript scripts/frequency-range.R ${NAME} &> ${PREFIX}/pareto.log\n" $(date +"%F %T")
   Rscript scripts/frequency-range.R ${NAME} &>> ${PREFIX}/pareto.log
+  . ./common-variables
+  if [[ "$WEB_DIR" != "" ]]; then
+  	if [[ ! -d $WEB_DIR/images ]]; then
+  		mkdir $WEB_DIR/images
+  	fi
+  	ln -s ${OUTPUT_DIR}/img $WEB_DIR/images/${NAME}
+  fi
 }
 
 do_all_analyses() {

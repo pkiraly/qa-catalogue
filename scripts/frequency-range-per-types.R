@@ -71,7 +71,7 @@ draw_plot <- function(cumulation, label, instance_count, pareto, record_count) {
         "%s -- balance: %d/%d (at %d)",
         label, round(pareto_percent), 100-round(pareto_percent), pareto_field),
       subtitle = sprintf(
-        '%s records, %d subfields, %s occurrences',
+        '%s records, %d subfields, %s subfield occurrences',
         format(record_count, big.mark=" ", small.interval=3),
         total,
         format(instance_count, big.mark=" ", small.interval=3)

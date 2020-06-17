@@ -8,7 +8,7 @@ if [[ ! -d $PREFIX ]]; then
   mkdir -p $PREFIX
 fi
 
-# echo "Logging to ${PREFIX}.log"
+# printf "%s %s> Logging to ${PREFIX}.log"
 
 if [ ! -d ${OUTPUT_DIR} ]; then
   mkdir -p ${OUTPUT_DIR}
@@ -18,47 +18,47 @@ do_validate() {
   GENERAL_PARAMS="--details --trimId --summary --format csv --defaultRecordType BOOKS"
   OUTPUT_PARAMS="--outputDir ${OUTPUT_DIR} --detailsFileName issue-details.csv --summaryFileName issue-summary.csv"
 
-  echo "./validator -Xms8g ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${TYPE_PARAMS} ${MARC_DIR}/${MASK} 2> ${PREFIX}/validate.log"
+  printf "%s %s> ./validator -Xms8g ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${TYPE_PARAMS} ${MARC_DIR}/${MASK} 2> ${PREFIX}/validate.log\n" $(date +"%F %T") 
   ./validator ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${TYPE_PARAMS} ${MARC_DIR}/$MASK 2> ${PREFIX}/validate.log
 }
 
 do_prepare_solr() {
-  echo "./prepare-solr ${NAME} 2> ${PREFIX}/solr.log"
+  printf "%s %s> ./prepare-solr ${NAME} 2> ${PREFIX}/solr.log\n" $(date +"%F %T") 
   ./prepare-solr $NAME 2> ${PREFIX}/solr.log
 }
 
 do_index() {
-  echo "./index --db $NAME --file-path ${MARC_DIR} --file-mask $MASK ${TYPE_PARAMS} --trimId 2> ${PREFIX}/solr.log"
+  printf "%s %s> ./index --db $NAME --file-path ${MARC_DIR} --file-mask $MASK ${TYPE_PARAMS} --trimId 2> ${PREFIX}/solr.log\n" $(date +"%F %T") 
   ./index --db $NAME --file-path ${MARC_DIR} --file-mask $MASK ${TYPE_PARAMS} --trimId 2>> ${PREFIX}/solr.log
 }
 
 do_completeness() {
   PARAMS=$(echo ${TYPE_PARAMS} | sed 's/--emptyLargeCollectors//')
-  echo "./completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/completeness.log"
+  printf "%s %s> ./completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/completeness.log\n" $(date +"%F %T")
   ./completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/completeness.log
 }
 
 do_classifications() {
-  echo "./classifications --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/classifications.log"
+  printf "%s %s> ./classifications --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/classifications.log\n" $(date +"%F %T")
   ./classifications --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/classifications.log
 }
 
 do_authorities() {
-  echo "./authorities --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/authorities.log"
+  printf "%s %s> ./authorities --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/authorities.log\n" $(date +"%F %T")
   ./authorities --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/authorities.log
 }
 
 do_tt_completeness() {
-  echo "./tt-completeness --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/tt-completeness.log"
+  printf "%s %s> ./tt-completeness --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/tt-completeness.log\n" $(date +"%F %T")
   ./tt-completeness --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/tt-completeness.log
-  echo "Rscript scripts/tt-histogram.R ${NAME} &>> ${PREFIX}/tt-completeness.log"
+  printf "%s %s> Rscript scripts/tt-histogram.R ${NAME} &>> ${PREFIX}/tt-completeness.log\n" $(date +"%F %T")
   Rscript scripts/tt-histogram.R ${NAME} &>> ${PREFIX}/tt-completeness.log
 }
 
 do_serial_score() {
-  echo "./serial-score --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/serial-score.log"
+  printf "%s %s> ./serial-score --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/serial-score.log\n" $(date +"%F %T")
   ./serial-score --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/serial-score.log
-  echo "Rscript scripts/serial-score-histogram.R ${NAME} &>> ${PREFIX}/serial-score.log"
+  printf "%s %s> Rscript scripts/serial-score-histogram.R ${NAME} &>> ${PREFIX}/serial-score.log\n" $(date +"%F %T")
   Rscript scripts/serial-score-histogram.R ${NAME} &>> ${PREFIX}/serial-score.log
 }
 
@@ -68,21 +68,21 @@ do_format() {
 
 do_functional_analysis() {
   PARAMS=$(echo ${TYPE_PARAMS} | sed 's/--emptyLargeCollectors//')
-  echo "./functional-analysis --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/functional-analysis.log"
+  printf "%s %s> ./functional-analysis --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/functional-analysis.log\n" $(date +"%F %T")
   ./functional-analysis --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/functional-analysis.log
 }
 
 do_network_analysis() {
-  echo "./network-analysis --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/network-analysis.log"
+  printf "%s %s> ./network-analysis --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/network-analysis.log\n" $(date +"%F %T")
   ./network-analysis --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/network-analysis.log
-  echo "Rscript scripts/network-transform.R ${NAME} &>> ${PREFIX}/network-analysis.log"
+  printf "%s %s> Rscript scripts/network-transform.R ${NAME} &>> ${PREFIX}/network-analysis.log\n" $(date +"%F %T")
   Rscript scripts/network-transform.R ${NAME} &>> ${PREFIX}/network-analysis.log
-  echo "./network-analysis --outputDir ${OUTPUT_DIR} --action pairing --group-limit 2000 &>> ${PREFIX}/network-analysis.log"
+  printf "%s %s> ./network-analysis --outputDir ${OUTPUT_DIR} --action pairing --group-limit 2000 &>> ${PREFIX}/network-analysis.log\n" $(date +"%F %T")
   ./network-analysis --outputDir ${OUTPUT_DIR} --action pairing --group-limit 2000 &>> ${PREFIX}/network-analysis.log
 }
 
 do_pareto() {
-  echo "Rscript scripts/frequency-range.R ${NAME} &>> ${PREFIX}/pareto.log"
+  printf "%s %s> Rscript scripts/frequency-range.R ${NAME} &> ${PREFIX}/pareto.log\n" $(date +"%F %T")
   Rscript scripts/frequency-range.R ${NAME} &>> ${PREFIX}/pareto.log
 }
 
@@ -95,16 +95,13 @@ do_all_analyses() {
   do_serial_score
   do_functional_analysis
   do_network_analysis
-	do_pareto
+  do_pareto
 }
 
 do_all_solr() {
   do_prepare_solr
   do_index
 }
-
-
-echo $1
 
 case "$1" in
   validate)

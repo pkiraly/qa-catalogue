@@ -286,6 +286,7 @@ public class MarcFactory {
 
   public static Record createRecordFromAlephseq(List<AlephseqLine> lines) {
     Record record = new RecordImpl();
+    boolean deleted = false;
     for (AlephseqLine line : lines) {
       if (line.isLeader()) {
         record.setLeader(new LeaderImpl(line.getContent()));
@@ -295,15 +296,15 @@ public class MarcFactory {
         } else {
           DataFieldImpl df = new DataFieldImpl(line.getTag(), line.getInd1().charAt(0), line.getInd2().charAt(0));
           for (String[] pair : line.parseSubfields()) {
-            if (pair.length == 2 && pair[0] != null && pair[1] != null) {
-              df.addSubfield(new SubfieldImpl(pair[0].charAt(0), pair[1]));
-            } else {
-              logger.warning(String.format(
-                "parse error in record #%s) tag %s: '%s'",
-                line.getRecordID(), line.getTag(), line.getRawContent()
-              ));
+              if (pair.length == 2 && pair[0] != null && pair[1] != null) {
+                df.addSubfield(new SubfieldImpl(pair[0].charAt(0), pair[1]));
+              } else {
+                logger.warning(String.format(
+                  "parse error in record #%s) tag %s: '%s'",
+                  line.getRecordID(), line.getTag(), line.getRawContent()
+                ));
+              }
             }
-          }
           record.addVariableField(df);
         }
       }

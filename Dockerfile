@@ -55,7 +55,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
       r-cran-tidyverse \
       r-cran-stringr \
       r-cran-gridextra \
-# && apt-get autoremove \
+ && apt-get --assume-yes autoremove \
  && rm -rf /var/lib/apt/lists/*
 
 # install metadata-qa-marc
@@ -102,8 +102,8 @@ RUN DEBIAN_FRONTEND=noninteractive \
       unzip \
  && rm -rf /var/lib/apt/lists/* \
  && cd /var/www/html/ \
- && curl -L https://github.com/pkiraly/metadata-qa-marc-web/archive/master.zip --output master.zip \
- && unzip master.zip \
+ && curl -s -L https://github.com/pkiraly/metadata-qa-marc-web/archive/master.zip --output master.zip \
+ && unzip -q master.zip \
  && rm master.zip \
  && mv metadata-qa-marc-web-master metadata-qa \
  && echo dir=/opt/metadata-qa-marc/marc/_output > /var/www/html/metadata-qa/configuration.cnf \
@@ -113,19 +113,17 @@ RUN DEBIAN_FRONTEND=noninteractive \
  && mkdir /var/www/html/metadata-qa/libs \
  && mkdir /var/www/html/metadata-qa/images \
  && cd /var/www/html/metadata-qa/libs/ \
- && curl -L https://github.com/smarty-php/smarty/archive/v${SMARTY_VERSION}.zip --output v$SMARTY_VERSION.zip \
- && unzip v${SMARTY_VERSION}.zip \
+ && curl -s -L https://github.com/smarty-php/smarty/archive/v${SMARTY_VERSION}.zip --output v$SMARTY_VERSION.zip \
+ && unzip -q v${SMARTY_VERSION}.zip \
  && rm v${SMARTY_VERSION}.zip \
  && mkdir -p /var/www/html/metadata-qa/libs/_smarty/templates_c \
  && chmod a+w -R /var/www/html/metadata-qa/libs/_smarty/templates_c/ \
  && sed -i.bak 's,</VirtualHost>,        <Directory /var/www/html/metadata-qa>\n                Options Indexes FollowSymLinks MultiViews\n                AllowOverride All\n                Order allow\,deny\n                allow from all\n                DirectoryIndex index.php index.html\n        </Directory>\n</VirtualHost>,' /etc/apache2/sites-available/000-default.conf \
  && echo "\nWEB_DIR=/var/www/html/metadata-qa/\n" >> /opt/metadata-qa-marc/common-variables \
- && cat /opt/metadata-qa-marc/common-variables \
  && echo "#!/usr/bin/env bash" > /entrypoint.sh \
  && echo "echo \"*** \$(date +\"%F %T\")    ***\"" >> /entrypoint.sh \
  && echo "echo \"*** this is the entrypoint ***\"\n" >> /entrypoint.sh \
  && echo "service apache2 start" >> /entrypoint.sh \
- && cat /entrypoint.sh \
  && chmod +x /entrypoint.sh
 
 ARG SOLR_VERSION=8.4.1
@@ -137,12 +135,14 @@ RUN DEBIAN_FRONTEND=noninteractive \
       lsof \
  && rm -rf /var/lib/apt/lists/* \
  && cd /opt \
- && curl -L http://archive.apache.org/dist/lucene/solr/${SOLR_VERSION}/solr-${SOLR_VERSION}.zip --output solr-${SOLR_VERSION}.zip \
- && unzip solr-${SOLR_VERSION}.zip \
+ && curl -s -L http://archive.apache.org/dist/lucene/solr/${SOLR_VERSION}/solr-${SOLR_VERSION}.zip --output solr-${SOLR_VERSION}.zip \
+ && unzip -q solr-${SOLR_VERSION}.zip \
  && rm solr-${SOLR_VERSION}.zip \
  && ln -s solr-${SOLR_VERSION} solr \
  && echo "/opt/solr/bin/solr start -force\n" >> /entrypoint.sh \
- && echo "sleep infinity" >> /entrypoint.sh
+ && echo "sleep infinity" >> /entrypoint.sh \
+ && apt-get --assume-yes autoremove \
+ && rm -rf /var/lib/apt/lists/*
 
 # ENTRYPOINT ["systemctl"]
 # CMD ["status", "apache2.service"]

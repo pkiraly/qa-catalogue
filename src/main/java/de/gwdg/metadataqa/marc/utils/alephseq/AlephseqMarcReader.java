@@ -13,17 +13,21 @@ public class AlephseqMarcReader implements MarcReader {
 
   private static final Logger logger = Logger.getLogger(AlephseqMarcReader.class.getCanonicalName());
 
+  private enum LEVEL {
+    WARN, SEVERE
+  };
+
   private BufferedReader bufferedReader = null;
   private String line = null;
   private boolean nextIsConsumed = false;
   private int lineNumber = 0;
+  private int skippedRecords = 0;
   private List<AlephseqLine> lines = new ArrayList<>();
   private String currentId = null;
 
   public AlephseqMarcReader(String alephseqMarc) {
     try {
       bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(alephseqMarc), "UTF8"));
-    //new FileReader(alephseqMarc));
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -46,6 +50,7 @@ public class AlephseqMarcReader implements MarcReader {
   @Override
   public Record next() {
     Record record = null;
+    boolean deleted = false;
     boolean finished = false;
     while (line != null && !finished) {
       AlephseqLine alephseqLine = new AlephseqLine(line, lineNumber);
@@ -57,20 +62,26 @@ public class AlephseqMarcReader implements MarcReader {
           && !recordID.equals(currentId)
           && !lines.isEmpty())
         {
-          record = MarcFactory.createRecordFromAlephseq(lines);
-          if (record.getLeader() == null) {
-            logger.severe(String.format(
-              "%d) Record #%s does not have a leader\n",
-              lineNumber, record.getControlNumberField().getData()
-            ));
+          if (deleted) {
+            logSkipped(LEVEL.WARN, "has been deleted");
+            deleted = false;
           } else {
-            finished = true;
+            record = MarcFactory.createRecordFromAlephseq(lines);
+            if (record.getControlNumber() == null) {
+              logSkipped("does not have an control number field (001)");
+            } else if (record.getLeader() == null) {
+              logSkipped("does not have a leader");
+            } else {
+              finished = true;
+            }
           }
           lines = new ArrayList<>();
         }
 
         if (alephseqLine.isValidTag()) {
           lines.add(alephseqLine);
+        } else if (alephseqLine.getTag().equals("DEL")) {
+          deleted = true;
         }
         currentId = alephseqLine.getRecordID();
       }
@@ -86,5 +97,32 @@ public class AlephseqMarcReader implements MarcReader {
       record = MarcFactory.createRecordFromAlephseq(lines);
     }
     return record;
+  }
+
+  public int getLineNumber() {
+    return lineNumber;
+  }
+
+  public int getSkippedRecords() {
+    return skippedRecords;
+  }
+
+  private void logSkipped(String message) {
+    logSkipped(LEVEL.SEVERE, message);
+  }
+
+  private void logSkipped(LEVEL level, String message) {
+    String entry = String.format(
+      "line #%d: record %s %s. Skipped.",
+      lineNumber, currentId, message
+    );
+
+    if (level.equals(LEVEL.WARN)) {
+      // logger.warning(entry);
+    } else {
+      logger.severe(entry);
+    }
+
+    skippedRecords++;
   }
 }

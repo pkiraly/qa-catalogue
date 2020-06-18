@@ -10,6 +10,7 @@ import org.marc4j.marc.Record;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +22,7 @@ public class AlephseqMarcReaderTest {
   public void testMarcRecordFunctions() {
     Path path = null;
     try {
-      path = FileUtils.getPath("general/alephseq-example.txt");
+      path = FileUtils.getPath("alephseq/alephseq-example.txt");
     } catch (IOException e) {
       e.printStackTrace();
     } catch (URISyntaxException e) {
@@ -302,13 +303,31 @@ public class AlephseqMarcReaderTest {
   }
 
   @Test
+  public void testDeletedRecords() {
+    Path path = null;
+    try {
+      path = FileUtils.getPath("alephseq/alephseq-example2.txt");
+    } catch (IOException | URISyntaxException e) {
+      e.printStackTrace();
+    }
+    MarcReader reader = new AlephseqMarcReader(path.toString());
+    Record record = null;
+    int activeRecords = 0;
+    while (reader.hasNext()) {
+      record = reader.next();
+      assertNotNull(record.getControlNumber());
+      activeRecords++;
+    }
+    assertEquals(7, ((AlephseqMarcReader)reader).getSkippedRecords());
+    assertEquals(93, activeRecords);
+  }
+
+  @Test
   public void testUtf8() {
     Path path = null;
     try {
-      path = FileUtils.getPath("general/alephseq-example.txt");
-    } catch (IOException e) {
-      e.printStackTrace();
-    } catch (URISyntaxException e) {
+      path = FileUtils.getPath("alephseq/alephseq-example2.txt");
+    } catch (IOException | URISyntaxException e) {
       e.printStackTrace();
     }
     MarcReader reader = new AlephseqMarcReader(path.toString());

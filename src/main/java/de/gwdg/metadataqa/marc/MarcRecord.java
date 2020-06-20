@@ -559,7 +559,11 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
         if (!simpleControlTags.contains(field.definition.getTag())) {
           // TODO: check control subfields
         }
-        results.add(field.getContent());
+        if (selector.hasRangeSelector()) {
+          results.add(selector.selectRange(field.getContent()));
+        } else {
+          results.add(field.getContent());
+        }
       }
 
     } else if (datafieldIndex.containsKey(selector.getFieldTag())) {

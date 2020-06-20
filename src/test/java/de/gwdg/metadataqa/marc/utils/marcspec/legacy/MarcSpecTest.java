@@ -226,6 +226,7 @@ public class MarcSpecTest {
   @Test
   public void testCharPosition() {
     MarcSpec marcSpec = new MarcSpec("008~0-5");
+    System.err.println(marcSpec);
     assertEquals(0, (int)marcSpec.getCharStart());
     assertEquals(5, (int)marcSpec.getCharEnd());
     assertEquals(6, (int)marcSpec.getCharLength());

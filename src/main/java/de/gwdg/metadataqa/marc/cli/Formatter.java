@@ -74,7 +74,7 @@ public class Formatter implements MarcFileProcessor {
       for (MarcSpec marcSpec : parameters.getSelector()) {
         values.add(marcSpec.encode());
       }
-      System.out.println(StringUtils.join(values, "\t"));
+      System.out.println(StringUtils.join(values, parameters.getSeparator()));
     }
   }
 
@@ -113,7 +113,7 @@ public class Formatter implements MarcFileProcessor {
         List<String> results = marcRecord.select(marcSpec);
         values.add(results.isEmpty() ? "" : StringUtils.join(results, "||"));
       }
-      System.out.println(StringUtils.join(values, "\t"));
+      System.out.println(StringUtils.join(values, parameters.getSeparator()));
     }
   }
 

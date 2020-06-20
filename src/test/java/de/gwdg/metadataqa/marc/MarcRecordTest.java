@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.utils.ReadMarc;
+import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 import org.junit.Test;
 import org.marc4j.marc.Record;
 
@@ -68,4 +69,26 @@ public class MarcRecordTest {
           "\"x\":\"Materia medica and therapeutics.\"}}]}";
     assertEquals(expected, record.asJson());
   }
+
+  @Test
+  public void testSelect() throws Exception {
+    Path path = FileUtils.getPath("general/0001-01.mrc");
+    List<Record> records = ReadMarc.read(path.toString());
+    MarcRecord record = MarcFactory.createFromMarc4j(records.get(0));
+    MarcSpec spec = new MarcSpec("008~0-5");
+    List<String> results = record.select(spec);
+    assertEquals(1, results.size());
+    assertEquals("800108", results.get(0));
+
+    spec = new MarcSpec("008~7-10");
+    results = record.select(spec);
+    assertEquals(1, results.size());
+    assertEquals("1899", results.get(0));
+
+    spec = new MarcSpec("008~0-1");
+    results = record.select(spec);
+    assertEquals(1, results.size());
+    assertEquals("80", results.get(0));
+  }
+
 }

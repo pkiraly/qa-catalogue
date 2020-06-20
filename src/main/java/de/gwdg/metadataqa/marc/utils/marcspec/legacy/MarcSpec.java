@@ -207,7 +207,14 @@ public class MarcSpec implements Serializable {
       subfields.put(chr, chr);
     }
     return true;
+  }
 
+  public boolean hasRangeSelector() {
+    return charStart != null && charEnd != null;
+  }
+
+  public String selectRange(String input) {
+    return input.substring(charStart, charEnd + 1);
   }
 
   private String[] validateDataRef(String dataFieldRef) {
@@ -363,5 +370,18 @@ public class MarcSpec implements Serializable {
     } else {
       throw new IllegalArgumentException("Argument must be of type positive int or 0.");
     }
+  }
+
+  @Override
+  public String toString() {
+    return "MarcSpec{" +
+      "fieldTag='" + fieldTag + '\'' +
+      ", charStart=" + charStart +
+      ", charEnd=" + charEnd +
+      ", charLength=" + charLength +
+      ", subfields=" + subfields +
+      ", indicator1='" + indicator1 + '\'' +
+      ", indicator2='" + indicator2 + '\'' +
+      '}';
   }
 }

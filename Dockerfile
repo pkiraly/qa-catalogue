@@ -4,9 +4,10 @@ LABEL maintainer="Péter Király <pkiraly@gwdg.de>, Ákos Takács <rimelek@rimel
 
 LABEL description="QA catalogue - a metadata quality assessment tool for MARC based library catalogues."
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 # install basic OS tools
-RUN DEBIAN_FRONTEND=noninteractive \
- && apt-get update \
+RUN apt-get update \
  && apt-get install -y --no-install-recommends \
       apt-utils \
       software-properties-common \
@@ -15,8 +16,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
  && rm -rf /var/lib/apt/lists/*
 
 # install Java
-RUN DEBIAN_FRONTEND=noninteractive \
- && apt-get update \
+RUN apt-get update \
  && add-apt-repository -y ppa:openjdk-r/ppa \
  && apt-get install -y --no-install-recommends \
       openjdk-8-jre-headless \
@@ -27,8 +27,7 @@ ENV TZ=Etc/UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
  && echo $TZ > /etc/timezone
 
-RUN DEBIAN_FRONTEND=noninteractive \
- && apt-get update \
+RUN apt-get update \
  && apt-get install -y --no-install-recommends \
       r-base \
       r-cran-curl \
@@ -37,8 +36,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
  && rm -rf /var/lib/apt/lists/*
 
 # install R modules
-RUN DEBIAN_FRONTEND=noninteractive \
- && apt-get update \
+RUN apt-get update \
  && apt-get install -y --no-install-recommends \
       make \
       g++ \
@@ -47,8 +45,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
  && rm -rf /var/lib/apt/lists/*
 
 ## add PPA with pre-compiled cran packages
-RUN DEBIAN_FRONTEND=noninteractive \
- && add-apt-repository -y ppa:marutter/rrutter3.5 \
+RUN add-apt-repository -y ppa:marutter/rrutter3.5 \
  && add-apt-repository -y ppa:marutter/c2d4u3.5 \
  && apt-get update \
  && apt-get install -y --no-install-recommends \
@@ -94,8 +91,7 @@ RUN mkdir -p /opt/metadata-qa-marc/marc \
 ARG SMARTY_VERSION=3.1.33
 
 # install web application
-RUN DEBIAN_FRONTEND=noninteractive \
- && apt-get update \
+RUN apt-get update \
  && apt-get install -y --no-install-recommends \
       apache2 \
       php \
@@ -129,8 +125,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
 ARG SOLR_VERSION=8.4.1
 
 # install Solr
-RUN DEBIAN_FRONTEND=noninteractive \
- && apt-get update \
+RUN apt-get update \
  && apt-get install -y --no-install-recommends \
       lsof \
  && apt-get --assume-yes autoremove \

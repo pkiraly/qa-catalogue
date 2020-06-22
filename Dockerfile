@@ -38,7 +38,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
 
 # install R modules
 RUN DEBIAN_FRONTEND=noninteractive \
- && apt update \
+ && apt-get update \
  && apt-get install -y --no-install-recommends \
       make \
       g++ \

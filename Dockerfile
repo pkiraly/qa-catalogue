@@ -31,7 +31,6 @@ RUN apt-get update \
       r-base \
       r-cran-curl \
       r-cran-openssl \
-      r-cran-xml2 \
       # Install R packages from ppa:marutter
       r-cran-tidyverse \
       r-cran-stringr \

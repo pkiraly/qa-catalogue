@@ -143,9 +143,6 @@ RUN DEBIAN_FRONTEND=noninteractive \
  && echo "/opt/solr/bin/solr start -force\n" >> /entrypoint.sh \
  && echo "sleep infinity" >> /entrypoint.sh
 
-# ENTRYPOINT ["systemctl"]
-# CMD ["status", "apache2.service"]
-
 WORKDIR /opt/metadata-qa-marc
 
 ENTRYPOINT ["/entrypoint.sh"]

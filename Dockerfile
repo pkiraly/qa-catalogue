@@ -38,8 +38,6 @@ RUN apt-get update \
 # install R modules
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
-      make \
-      g++ \
       curl \
       openssl \
  && rm -rf /var/lib/apt/lists/*

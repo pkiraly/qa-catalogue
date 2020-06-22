@@ -6,51 +6,36 @@ LABEL description="QA catalogue - a metadata quality assessment tool for MARC ba
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-# install basic OS tools
-RUN apt-get update \
- && apt-get install -y --no-install-recommends \
-      apt-utils \
-      software-properties-common \
-      nano \
-      jq \
- && rm -rf /var/lib/apt/lists/*
-
-# install Java
-RUN apt-get update \
- && add-apt-repository -y ppa:openjdk-r/ppa \
- && apt-get install -y --no-install-recommends \
-      openjdk-8-jre-headless \
- && rm -rf /var/lib/apt/lists/*
-
 # install R
 ENV TZ=Etc/UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
  && echo $TZ > /etc/timezone
 
 RUN apt-get update \
+    # Install add-apt-repository command
+ && apt-get install -y --no-install-recommends software-properties-common \
+    # add PPA with pre-compiled cran packages
+ && add-apt-repository -y ppa:openjdk-r/ppa \
+ && add-apt-repository -y ppa:marutter/rrutter3.5 \
+ && add-apt-repository -y ppa:marutter/c2d4u3.5 \
  && apt-get install -y --no-install-recommends \
+      # install basic OS tools
+      apt-utils \
+      nano \
+      jq \
+      curl \
+      openssl \
+      # install Java
+      openjdk-8-jre-headless \
+      # Install R base packages
       r-base \
       r-cran-curl \
       r-cran-openssl \
       r-cran-xml2 \
- && rm -rf /var/lib/apt/lists/*
-
-# install R modules
-RUN apt-get update \
- && apt-get install -y --no-install-recommends \
-      curl \
-      openssl \
- && rm -rf /var/lib/apt/lists/*
-
-## add PPA with pre-compiled cran packages
-RUN add-apt-repository -y ppa:marutter/rrutter3.5 \
- && add-apt-repository -y ppa:marutter/c2d4u3.5 \
- && apt-get update \
- && apt-get install -y --no-install-recommends \
+      # Install R packages from ppa:marutter
       r-cran-tidyverse \
       r-cran-stringr \
       r-cran-gridextra \
- && apt-get --assume-yes autoremove \
  && rm -rf /var/lib/apt/lists/*
 
 # install metadata-qa-marc

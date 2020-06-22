@@ -27,10 +27,8 @@ RUN apt-get update \
       openssl \
       # install Java
       openjdk-8-jre-headless \
-      # Install R base packages
+      # Install R
       r-base \
-      r-cran-curl \
-      r-cran-openssl \
       # Install R packages from ppa:marutter
       r-cran-tidyverse \
       r-cran-stringr \

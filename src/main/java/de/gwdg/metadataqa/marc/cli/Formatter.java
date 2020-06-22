@@ -10,8 +10,11 @@ import org.apache.commons.cli.*;
 import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.Record;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -28,6 +31,7 @@ public class Formatter implements MarcFileProcessor {
 
   private FormatterParameters parameters;
   private boolean readyToProcess;
+  private BufferedWriter writer;
 
   public Formatter(String[] args) throws ParseException {
     parameters = new FormatterParameters(args);
@@ -68,13 +72,24 @@ public class Formatter implements MarcFileProcessor {
 
     // print headers
     if (parameters.hasSelector()) {
+      Path path = Paths.get(parameters.getOutputDir(), "marc-history.csv");
+      try {
+        writer = Files.newBufferedWriter(path);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
       List<String> values = new ArrayList<>();
       if (parameters.withId())
         values.add("id");
       for (MarcSpec marcSpec : parameters.getSelector()) {
         values.add(marcSpec.encode());
       }
-      System.out.println(StringUtils.join(values, parameters.getSeparator()));
+      // System.out.println(StringUtils.join(values, parameters.getSeparator()));
+      try {
+        writer.write(StringUtils.join(values, parameters.getSeparator()) + "\n");
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
   }
 
@@ -96,16 +111,17 @@ public class Formatter implements MarcFileProcessor {
             && parameters.getCountNr() == recordNumber)) {
       System.out.println(marc4jRecord.toString());
     }
+  }
 
+  @Override
+  public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
     if (parameters.hasSearch()) {
-      MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
       List<String> results = marcRecord.search(parameters.getPath(), parameters.getQuery());
       if (!results.isEmpty()) {
-        System.out.println(marc4jRecord.toString());
+        System.out.println(marcRecord.toString());
       }
     }
     if (parameters.hasSelector()) {
-      MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
       List<String> values = new ArrayList<>();
       if (parameters.withId())
         values.add(marcRecord.getId());
@@ -113,12 +129,13 @@ public class Formatter implements MarcFileProcessor {
         List<String> results = marcRecord.select(marcSpec);
         values.add(results.isEmpty() ? "" : StringUtils.join(results, "||"));
       }
-      System.out.println(StringUtils.join(values, parameters.getSeparator()));
+      // System.out.println(StringUtils.join(values, parameters.getSeparator()));
+      try {
+        writer.write(StringUtils.join(values, parameters.getSeparator()) + "\n");
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
-  }
-
-  @Override
-  public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
   }
 
   @Override
@@ -128,7 +145,13 @@ public class Formatter implements MarcFileProcessor {
 
   @Override
   public void afterIteration(int numberOfprocessedRecords) {
-
+    if (writer != null) {
+      try {
+        writer.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
   }
 
   @Override

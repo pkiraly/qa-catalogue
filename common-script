@@ -93,6 +93,13 @@ do_pareto() {
   fi
 }
 
+do_marc_history() {
+  printf "%s %s> ./formatter --selector "008~7-10;008~0-5" --defaultRecordType BOOKS ${TYPE_PARAMS} --separator \",\" --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK}\n" $(date +"%F %T")
+  ./formatter --selector "008~7-10;008~0-5" --defaultRecordType BOOKS ${TYPE_PARAMS} --separator "," --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK}
+  # > ${PREFIX}/marc-history.log
+  Rscript scripts/marc-history.R gent
+}
+
 do_all_analyses() {
   do_validate
   do_completeness
@@ -103,6 +110,7 @@ do_all_analyses() {
   do_functional_analysis
   do_network_analysis
   do_pareto
+  do_marc_history
 }
 
 do_all_solr() {
@@ -146,6 +154,9 @@ case "$1" in
     ;;
   pareto)
     do_pareto
+    ;;
+  marc-history)
+    do_marc_history
     ;;
   all-analyses)
     do_all_analyses

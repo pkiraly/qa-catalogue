@@ -133,9 +133,11 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
   }
 
   private void setType() {
-    if (typeOfRecord.getValue().equals("a") && bibliographicLevel.getValue().matches("^(a|c|d|m)$")) {
+    if (typeOfRecord.getValue().equals("a")
+        && bibliographicLevel.getValue().matches("^(a|c|d|m)$")) {
       type = Type.BOOKS;
-    } else if (typeOfRecord.getValue().equals("a") && bibliographicLevel.getValue().matches("^(b|i|s)$")) {
+    } else if (typeOfRecord.getValue().equals("a")
+        && bibliographicLevel.getValue().matches("^(b|i|s)$")) {
       type = Type.CONTINUING_RESOURCES;
     } else if (typeOfRecord.getValue().equals("t")) {
       type = Type.BOOKS;

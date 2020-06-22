@@ -124,8 +124,10 @@ public class MarcFactory {
     if (record.getType() == null) {
       throw new InvalidParameterException(
         String.format(
-        "Error in '%s': no type has been detected. Leader: '%s'",
-          marc4jRecord.getControlNumberField(), record.getLeader().getLeaderString()));
+          "Error in '%s': no type has been detected. Leader: '%s'.",
+          marc4jRecord.getControlNumberField(), record.getLeader().getLeaderString()
+        )
+      );
     }
 
     importMarc4jControlFields(marc4jRecord, record, fixAlephseq);

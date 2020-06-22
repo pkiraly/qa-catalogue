@@ -133,6 +133,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
  && apt-get update \
  && apt-get install -y --no-install-recommends \
       lsof \
+ && apt-get --assume-yes autoremove \
  && rm -rf /var/lib/apt/lists/* \
  && cd /opt \
  && curl -s -L http://archive.apache.org/dist/lucene/solr/${SOLR_VERSION}/solr-${SOLR_VERSION}.zip --output solr-${SOLR_VERSION}.zip \
@@ -140,9 +141,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
  && rm solr-${SOLR_VERSION}.zip \
  && ln -s solr-${SOLR_VERSION} solr \
  && echo "/opt/solr/bin/solr start -force\n" >> /entrypoint.sh \
- && echo "sleep infinity" >> /entrypoint.sh \
- && apt-get --assume-yes autoremove \
- && rm -rf /var/lib/apt/lists/*
+ && echo "sleep infinity" >> /entrypoint.sh
 
 # ENTRYPOINT ["systemctl"]
 # CMD ["status", "apache2.service"]

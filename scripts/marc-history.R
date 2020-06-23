@@ -8,21 +8,17 @@ args = commandArgs(trailingOnly=TRUE)
 if (length(args) == 0) {
   stop("At least one argument must be supplied (input file).n", call.=FALSE)
 } else if (length(args) == 1) {
-  # default output file
-  catalogue <- args[1]
+  # output dir
+  output_dir <- args[1]
 }
 
-print(paste('catalogue: ', catalogue))
-
-command <- "grep BASE_OUTPUT_DIR= setdir.sh | sed 's/.*=\\(.*\\)/\\1/'"
-base_output_dir <- system(command, intern = TRUE)
-print(paste('base_output_dir: ', base_output_dir))
-
 file <- 'marc-history.csv'
-output_dir <- paste0(base_output_dir, '/', catalogue)
-
-# path <- "/home/kiru/bin/marc/gent/marc/2020-05-27/marc-history.csv"
 path <- paste0(output_dir, '/', file)
+
+if (!file.exists(path)) {
+  stop(paste("The input file", path, "does not exist", call.=FALSE))
+}
+
 input <- read.csv(
   path,
   stringsAsFactors=FALSE,

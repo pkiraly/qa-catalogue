@@ -97,7 +97,7 @@ do_marc_history() {
   printf "%s %s> ./formatter --selector "008~7-10;008~0-5" --defaultRecordType BOOKS ${TYPE_PARAMS} --separator \",\" --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK}\n" $(date +"%F %T")
   ./formatter --selector "008~7-10;008~0-5" --defaultRecordType BOOKS ${TYPE_PARAMS} --separator "," --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK}
   # > ${PREFIX}/marc-history.log
-  Rscript scripts/marc-history.R gent
+  Rscript scripts/marc-history.R ${OUTPUT_DIR}
 }
 
 do_all_analyses() {

@@ -4,58 +4,35 @@ LABEL maintainer="Péter Király <pkiraly@gwdg.de>, Ákos Takács <rimelek@rimel
 
 LABEL description="QA catalogue - a metadata quality assessment tool for MARC based library catalogues."
 
-# install basic OS tools
-RUN DEBIAN_FRONTEND=noninteractive \
- && apt-get update \
- && apt-get install -y --no-install-recommends \
-      apt-utils \
-      software-properties-common \
-      nano \
-      jq \
- && rm -rf /var/lib/apt/lists/*
-
-# install Java
-RUN DEBIAN_FRONTEND=noninteractive \
- && apt-get update \
- && add-apt-repository -y ppa:openjdk-r/ppa \
- && apt-get install -y --no-install-recommends \
-      openjdk-8-jre-headless \
- && rm -rf /var/lib/apt/lists/*
+ARG DEBIAN_FRONTEND=noninteractive
 
 # install R
 ENV TZ=Etc/UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
  && echo $TZ > /etc/timezone
 
-RUN DEBIAN_FRONTEND=noninteractive \
- && apt-get update \
- && apt-get install -y --no-install-recommends \
-      r-base \
-      r-cran-curl \
-      r-cran-openssl \
-      r-cran-xml2 \
- && rm -rf /var/lib/apt/lists/*
-
-# install R modules
-RUN DEBIAN_FRONTEND=noninteractive \
- && apt update \
- && apt-get install -y --no-install-recommends \
-      make \
-      g++ \
-      curl \
-      openssl \
- && rm -rf /var/lib/apt/lists/*
-
-## add PPA with pre-compiled cran packages
-RUN DEBIAN_FRONTEND=noninteractive \
+RUN apt-get update \
+    # Install add-apt-repository command
+ && apt-get install -y --no-install-recommends software-properties-common \
+    # add PPA with pre-compiled cran packages
+ && add-apt-repository -y ppa:openjdk-r/ppa \
  && add-apt-repository -y ppa:marutter/rrutter3.5 \
  && add-apt-repository -y ppa:marutter/c2d4u3.5 \
- && apt-get update \
  && apt-get install -y --no-install-recommends \
+      # install basic OS tools
+      apt-utils \
+      nano \
+      jq \
+      curl \
+      openssl \
+      # install Java
+      openjdk-8-jre-headless \
+      # Install R
+      r-base \
+      # Install R packages from ppa:marutter
       r-cran-tidyverse \
       r-cran-stringr \
       r-cran-gridextra \
- && apt-get --assume-yes autoremove \
  && rm -rf /var/lib/apt/lists/*
 
 # install metadata-qa-marc
@@ -94,8 +71,7 @@ RUN mkdir -p /opt/metadata-qa-marc/marc \
 ARG SMARTY_VERSION=3.1.33
 
 # install web application
-RUN DEBIAN_FRONTEND=noninteractive \
- && apt-get update \
+RUN apt-get update \
  && apt-get install -y --no-install-recommends \
       apache2 \
       php \
@@ -129,10 +105,10 @@ RUN DEBIAN_FRONTEND=noninteractive \
 ARG SOLR_VERSION=8.4.1
 
 # install Solr
-RUN DEBIAN_FRONTEND=noninteractive \
- && apt-get update \
+RUN apt-get update \
  && apt-get install -y --no-install-recommends \
       lsof \
+ && apt-get --assume-yes autoremove \
  && rm -rf /var/lib/apt/lists/* \
  && cd /opt \
  && curl -s -L http://archive.apache.org/dist/lucene/solr/${SOLR_VERSION}/solr-${SOLR_VERSION}.zip --output solr-${SOLR_VERSION}.zip \
@@ -140,12 +116,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
  && rm solr-${SOLR_VERSION}.zip \
  && ln -s solr-${SOLR_VERSION} solr \
  && echo "/opt/solr/bin/solr start -force\n" >> /entrypoint.sh \
- && echo "sleep infinity" >> /entrypoint.sh \
- && apt-get --assume-yes autoremove \
- && rm -rf /var/lib/apt/lists/*
-
-# ENTRYPOINT ["systemctl"]
-# CMD ["status", "apache2.service"]
+ && echo "sleep infinity" >> /entrypoint.sh
 
 WORKDIR /opt/metadata-qa-marc
 

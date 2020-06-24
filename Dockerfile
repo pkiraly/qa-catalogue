@@ -95,12 +95,7 @@ RUN apt-get update \
  && mkdir -p /var/www/html/metadata-qa/libs/_smarty/templates_c \
  && chmod a+w -R /var/www/html/metadata-qa/libs/_smarty/templates_c/ \
  && sed -i.bak 's,</VirtualHost>,        <Directory /var/www/html/metadata-qa>\n                Options Indexes FollowSymLinks MultiViews\n                AllowOverride All\n                Order allow\,deny\n                allow from all\n                DirectoryIndex index.php index.html\n        </Directory>\n</VirtualHost>,' /etc/apache2/sites-available/000-default.conf \
- && echo "\nWEB_DIR=/var/www/html/metadata-qa/\n" >> /opt/metadata-qa-marc/common-variables \
- && echo "#!/usr/bin/env bash" > /entrypoint.sh \
- && echo "echo \"*** \$(date +\"%F %T\")    ***\"" >> /entrypoint.sh \
- && echo "echo \"*** this is the entrypoint ***\"\n" >> /entrypoint.sh \
- && echo "service apache2 start" >> /entrypoint.sh \
- && chmod +x /entrypoint.sh
+ && echo "\nWEB_DIR=/var/www/html/metadata-qa/\n" >> /opt/metadata-qa-marc/common-variables
 
 ARG SOLR_VERSION=8.4.1
 
@@ -114,11 +109,17 @@ RUN apt-get update \
  && curl -s -L http://archive.apache.org/dist/lucene/solr/${SOLR_VERSION}/solr-${SOLR_VERSION}.zip --output solr-${SOLR_VERSION}.zip \
  && unzip -q solr-${SOLR_VERSION}.zip \
  && rm solr-${SOLR_VERSION}.zip \
- && ln -s solr-${SOLR_VERSION} solr \
- && echo "/opt/solr/bin/solr start -force\n" >> /entrypoint.sh \
- && echo "sleep infinity" >> /entrypoint.sh
+ && ln -s solr-${SOLR_VERSION} solr
+
+# init process configuration
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends supervisor \
+ && mkdir -p /var/log/supervisor \
+ && rm -rf /var/lib/apt/lists/*
+
+COPY docker/supervisord.conf /etc/
 
 WORKDIR /opt/metadata-qa-marc
 
-ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
 

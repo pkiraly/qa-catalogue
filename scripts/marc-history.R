@@ -25,9 +25,9 @@ input <- read.csv(
   colClasses = "character")
 names(input) <- c('publication', 'record')
 
-str(input)
+original_count <- dim(input)[1]
+print(paste0("original_count: ", original_count))
 
-dim(input)
 data <- input %>% 
   filter(str_length(record) == 6) %>% 
   mutate(
@@ -47,7 +47,10 @@ data <- input %>%
   filter(!is.na(publication2)) %>% 
   filter(!is.na(cat_year))
 
-dim(data)
+filtered_count <- dim(data)[1]
+print(paste0("filtered_count: ", filtered_count))
+
+invalid_dates <- original_count - filtered_count
 
 min(data$cat_year)
 max(data$cat_year)
@@ -59,9 +62,19 @@ data %>%
 start_year <- 1450
 start_date <- as.Date(paste0(start_year, "-01-01"))
 
+outliers <- data %>%
+  select(publication2, cat_ym) %>%
+  filter(
+    publication2 >= as.Date("2021-01-01")
+    | cat_ym >= as.Date("2021-01-01") # cat_ym
+    | cat_ym <= as.Date("1965-01-01")
+  ) %>%
+  count() %>%
+  unlist(use.names = FALSE)
+
 filtered <- data %>%
   select(publication2, cat_ym) %>%
-  filter(publication2 < as.Date("2050-01-01")) %>% 
+  filter(publication2 < as.Date("2021-01-01")) %>% 
   filter(publication2 > start_date) %>% 
   filter(cat_ym < as.Date("2021-01-01")) %>% 
   filter(cat_ym > as.Date("1965-01-01")) %>% 
@@ -96,9 +109,13 @@ plot <- filtered %>%
 #      unique
 #  ) + 
   labs(
-    x=paste0('Publication year (', start_year, '-2020)'),
-    y="Month when MARC record created (1965-)",
-    title="History of MARC cataloging"
+    x=paste0('Publication year of the bibliographic item (', start_year, '-)'), #-2020
+    y="Month when the bib record created (1965-)",
+    title="History of cataloging",
+    subtitle=paste0(
+      "number of invalid records: ", invalid_dates,
+      ", number of outliers: ", outliers
+    )
   )
 
 img_path <- paste0(output_dir, '/img/marc-history.png') 

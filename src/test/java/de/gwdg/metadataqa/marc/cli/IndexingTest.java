@@ -20,7 +20,7 @@ public class IndexingTest {
     List<String> lines = FileUtils.readLines("general/010000011.mrctxt");
     MarcRecord record = MarcFactory.createFromFormattedText(lines);
     Map<String, List<String>> index = record.getKeyValuePairs(SolrFieldType.MIXED);
-    assertEquals(148, index.size());
+    assertEquals(150, index.size());
     assertEquals("(DE-576)19168161X",
       index.get("7100_AddedCorporateName_authorityRecordControlNumber")
         .get(0));

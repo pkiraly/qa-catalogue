@@ -3,7 +3,11 @@ package de.gwdg.metadataqa.marc.definition.tags.tags84x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
+
+import java.util.Arrays;
 
 /**
  * Machine-generated Metadata Provenance
@@ -64,5 +68,10 @@ public class Tag883 extends DataFieldDefinition {
     getSubfield("w").setMqTag("bibliographicRecordControlNumber");
     getSubfield("0").setMqTag("authorityRecordControlNumber");
     getSubfield("8").setMqTag("fieldLink");
+
+    putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
+      new SubfieldDefinition("7", "NKCR Authority ID", "NR")
+    ));
+
   }
 }

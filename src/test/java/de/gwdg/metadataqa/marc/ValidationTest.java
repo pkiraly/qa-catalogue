@@ -124,7 +124,7 @@ public class ValidationTest {
     List<String> lines = FileUtils.readLines("general/010000011.mrctxt");
     MarcRecord record = MarcFactory.createFromFormattedText(lines);
     assertFalse(record.validate(MarcVersion.MARC21, true));
-    assertEquals(33, record.getValidationErrors().size());
+    assertEquals(46, record.getValidationErrors().size());
 
     for (ValidationError error : record.getValidationErrors()) {
       System.err.println(error.toString());

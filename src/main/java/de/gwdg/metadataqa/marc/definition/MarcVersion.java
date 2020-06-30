@@ -8,6 +8,7 @@ public enum MarcVersion {
   SZTE("SZTE", "Szegedi Tudományegyetem"),
   FENNICA("FENNICA", "National Library of Finland"),
   UNIMARC("UNIMARC", "UNIMARC"),
+  NKCR("NKCR", "National Library of the Czech Republic"),
   ;
 
   String code;

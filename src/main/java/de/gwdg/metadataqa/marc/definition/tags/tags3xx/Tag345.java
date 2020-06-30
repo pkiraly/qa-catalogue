@@ -3,7 +3,11 @@ package de.gwdg.metadataqa.marc.definition.tags.tags3xx;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+
+import java.util.Arrays;
 
 /**
  * Projection Characteristics of Moving Image
@@ -66,5 +70,9 @@ public class Tag345 extends DataFieldDefinition {
 
     getSubfield("8")
       .setMqTag("fieldLink");
+
+    putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
+      new SubfieldDefinition("7", "NKCR Authority ID", "NR")
+    ));
   }
 }

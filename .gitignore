@@ -31,3 +31,10 @@ setdir.sh
 *.Rproj
 .Rproj.user
 .Rhistory
+
+# VS Code Java project settings 
+.devcontainer/*
+.project
+.factorypath
+.classpath
+.settings

@@ -3,10 +3,14 @@ package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.general.codelist.GeographicAreaSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.GeographicAreaCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Geographic Area Code
@@ -84,5 +88,9 @@ public class Tag043 extends DataFieldDefinition {
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("O");
+
+    putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
+      new SubfieldDefinition("7", "NKCR Authority ID", "NR")
+    ));
   }
 }

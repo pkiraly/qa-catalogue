@@ -3,7 +3,11 @@ package de.gwdg.metadataqa.marc.definition.tags.tags84x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
+
+import java.util.Arrays;
 
 /**
  * Matching Information
@@ -47,5 +51,9 @@ public class Tag885 extends DataFieldDefinition {
     );
 
     getSubfield("2").setCodeList(OrganizationCodes.getInstance());
+
+    putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
+      new SubfieldDefinition("7", "NKCR Authority ID", "NR")
+    ));
   }
 }

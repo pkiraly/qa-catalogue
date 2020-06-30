@@ -1,0 +1,346 @@
+000809296 LDR   L -----nas-a22------i-4500
+000809296 FMT   L SE
+000809296 001   L 000809296
+000809296 003   L CZ-PlERL
+000809296 005   L 20191018093449.0
+000809296 008   L 190724c19999999xr-ar-p-------------cze--
+000809296 035   L $$a(OCoLC)85148303
+000809296 040   L $$aPNA001$$bcze$$erda
+000809296 0411  L $$acze$$aeng$$hcze
+000809296 072 7 L $$a61$$xLékařské vědy. Lékařství$$2Konspekt$$914
+000809296 080   L $$a61:001.891$$2MRF
+000809296 080   L $$a001.32$$2MRF
+000809296 080   L $$a614.2:005.71$$2MRF
+000809296 080   L $$a(437.10)$$2MRF
+000809296 080   L $$a(058)$$2MRF
+000809296 1102  L $$aInstitut klinické a experimentální medicíny$$7kn20010711147$$4aut$$4pbl
+000809296 24010 L $$aVýroční zpráva (Institut klinické a experimentální medicíny)$$7kon2006374188
+000809296 24510 L $$aIKEM :$$bvýroční zpráva ...
+000809296 24630 L $$aIK+EM
+000809296 24630 L $$aVýroční zpráva IKEM
+000809296 24631 L $$aIKEM - annual report
+000809296 264 1 L $$aPraha :$$bIKEM,$$c[1999?]-
+000809296 26431 L $$32009-$$aPraha :$$bMedical Tribune CZ, s.r.o.
+000809296 300   L $$a^^^svazků :$$bbarevné ilustrace ;$$c30 cm
+000809296 310   L $$a1x ročně
+000809296 336   L $$atext$$btxt$$2rdacontent
+000809296 337   L $$abez média$$bn$$2rdamedia
+000809296 338   L $$asvazek$$bnc$$2rdacarrier
+000809296 500   L $$aNázev z obálky
+000809296 500   L $$aSoučástí podnázvu je označení běžného roku
+000809296 500   L $$aOd ročníku 2006 rozměr: 21 x 29 cm
+000809296 500   L $$aNěkteré svazky mají ISBN
+000809296 546   L $$aČástečně souběžný anglický text, od ročníku 2016 vychází anglická verze samostatně
+000809296 588   L $$aPopsáno podle: 2018$$5CZ-PlERL
+000809296 61027 L $$aInstitut klinické a experimentální medicíny$$7kn20010711147$$2czenas
+000809296 65007 L $$alékařský výzkum$$7ph122514$$zČesko$$2czenas
+000809296 65007 L $$avýzkumné ústavy$$7ph127482$$zČesko$$2czenas
+000809296 65007 L $$azdravotnická zařízení$$7ph116744$$zČesko$$2czenas
+000809296 651 7 L $$aPraha (Česko)$$7ge118011$$2czenas
+000809296 655 7 L $$aročenky$$2czenas$$7fd133307
+000809296 78501 L $$sVýroční zpráva (Institut klinické a experimentální medicíny). Anglicky
+000809296 85641 L $$3Online verze$$uhttp://www.ikem.cz/cs/o-nas/vyrocni-zpravy/a-18/$$4N
+000809296 902   L $$a978-80-87135-94-5$$q(2018 ;$$qbrožováno)
+000809296 910   L $$aPNA001$$b392A48568$$s2018-$$o2019
+000245708 LDR   L -----nam-a22------a-4500
+000245708 FMT   L BK
+000245708 001   L 000245708
+000245708 003   L CZ-PlERL
+000245708 005   L 20020515000000.0
+000245708 008   L 020515s1974----cs------------------cze--
+000245708 040   L $$aPNA001$$bcze
+000245708 080   L $$a930.2$$2MRF-sel
+000245708 080   L $$a(437.31)$$2MRF-sel
+000245708 080   L $$a821.162.3$$2MRF-sel
+000245708 080   L $$a82-32$$2MRF-sel
+000245708 1001  L $$aSklenář, Karel,$$d1938-$$7jk01111527$$4aut
+000245708 24510 L $$aUčenci a pohané :$$bpětadvacet příběhů z dějin české archeologie /$$cKarel Sklenář ; ilustrace Eliška Sklenářová
+000245708 250   L $$a1. vyd.
+000245708 260   L $$aPraha :$$bMladá fronta,$$c1974$$f(Mír 6)
+000245708 300   L $$a339, [7] s. :$$b[32] s. fot. příl. ;$$c8
+000245708 4901  L $$aKolumbus ;$$vsv. 68
+000245708 500   L $$a18000 výt.
+000245708 500   L $$aOdkazy na lit.
+000245708 500   L $$aZkr.
+000245708 500   L $$aHistorické tb.
+000245708 500   L $$aS fot. a mp. v textu
+000245708 500   L $$aIl. tit. list a předsádka
+000245708 5202  L $$aŘada příběhů a obrázků z minulosti české archeologie sleduje vývoj poznání nejstarších dějin od starožitnictví a sběratelství až po vytvoření moderní prehistorie. Příběhy vyprávějí o lidech, kteří nezištně věnovali svůj čas,peníze a mnohdy i zdraví hledání a zkoumání archeologických památek, a o nalezištích, spojených s jejich prací. Knížka nepodává celé dějiny české archeologie, ale snaží se alespoň zkratkovitě zachytit její hlavní vývojové fáze.
+000245708 6530  L $$aarcheologie$$ačeská archeologie$$adějiny
+000245708 7001  L $$aSklenářová, Eliška$$7pag2007388152$$4ill
+000245708 830 0 L $$aKolumbus
+000245708 910   L $$aPNA001$$b192998
+000245708 964   L $$aArcheologie česká - dějiny - vyprávění
+000245708 962   L $$a930.26(437.1):885-32
+000623615 LDR   L -----njm-a22------a-4500
+000623615 FMT   L AM
+000623615 001   L 000623615
+000623615 003   L CZ-PlERL
+000623615 005   L 20130523165647.0
+000623615 008   L 130523s1964----xr-----e------------cze--
+000623615 02800 L $$aDV 6004$$bSupraphon
+000623615 040   L $$aPNA001$$bcze
+000623615 080   L $$a(086.72)$$2MRF
+000623615 080   L $$a78.03$$2MRF
+000623615 080   L $$a78.034.7$$2MRF
+000623615 080   L $$a78.082.2$$2MRF
+000623615 24500 L $$aFrancouzská barokní hudba$$h[zvukový záznam]
+000623615 260   L $$aPraha :$$bSupraphon,$$cp1964
+000623615 300   L $$a1 zvuková deska :$$banalog, 33 ot/min, stereo
+000623615 500   L $$aGramofonová deska
+000623615 50500 L $$tParnas aneb Apoteóza Corelliho /$$rFrançois Couperin --$$tI. koncert z Piéces de clavecin en concert pro flétnu, violoncello a cembalo /$$rJean Philippe Rameau --$$tTriová sonáta G moll "Astrée" pro flétnu, hoboj, violoncello a cembalo /$$rFrançois Couperin --$$tV. koncert z Piéces de clavecin en concert pro flétnu, violoncello a cembalo /$$rJean Philippe Rameau
+000623615 5110  L $$aMilan Munclinger, flétna ; Stanislav duchoň, hoboj ; Václav Snítil, housle ; František Sláma, violoncello ; Viktorie Švihlíková, cembalo
+000623615 5110  L $$aArs rediviva
+000623615 6530  L $$abarokní hudba$$avážná hudba$$aklasická hudba$$akoncerty$$asonáty$$aflétny$$ahoboje$$ahousle$$avioloncella$$acembala$$afrancouzští hudební skladatelé
+000623615 7001  L $$aCouperin, François,$$d1668-1733$$7jn20000601212$$4cmp
+000623615 7001  L $$aRameau, Jean Philippe,$$d1683-1764$$7jn19990006819$$4cmp
+000623615 7001  L $$aMunclinger, Milan,$$d1923-1986$$7jz8600673$$4itr
+000623615 7001  L $$aDuchoň, Stanislav,$$d1927-$$7xx0111253$$4itr
+000623615 7001  L $$aSnítil, Václav,$$d1928-2015$$7jn19990209781$$4itr
+000623615 7001  L $$aSláma, František,$$d1923-2004$$7jn19990209770$$4itr
+000623615 7001  L $$aŠvihlíková, Viktorie,$$d1915-2010$$7jk01131950$$4itr
+000623615 910   L $$aPNA001$$b41A2255
+000668496 LDR   L -----ngm-a22------a-4500
+000668496 FMT   L VM
+000668496 001   L 000668496
+000668496 003   L CZ-PlERL
+000668496 005   L 20140915094551.0
+000668496 008   L 140729p20102009xxu----e------------eng--
+000668496 02841 L $$a4529$$bVideo Artists International
+000668496 040   L $$aPNA001$$bcze
+000668496 072 7 L $$a785$$xInstrumentální hudba. Symfonická hudba. Hudba pro více nástrojů$$2Konspekt$$99
+000668496 080   L $$a787.1.082.2$$2MRF
+000668496 080   L $$a(0.034.44)$$2MRF
+000668496 1001  L $$aHaendel, Ida,$$d1928-$$7xx0020900$$4itr
+000668496 24510 L $$aLive in recital 2009$$h[videozáznam] :$$bAmaturo Theater, November 28, 2009 : Miami International Piano Festival presents Ida Haendel violin and Misha Dacić piano
+000668496 2463  L $$aIda Haendel and Misha Dacić
+000668496 24630 L $$aMiami International Piano Festival presents Ida Haendel & Misha Dacić Live in recital 2009
+000668496 24630 L $$aMiami International Piano Festival presents Ida Haendel and Misha Dacić Live in recital 2009
+000668496 24614 L $$aIda Haendel & Misha Dacić
+000668496 260   L $$aPleasantville :$$bVideo Artists International,$$cc2010
+000668496 300   L $$a1 DVD-video (66+59 min) :$$bzvuk., barev. +$$e1 leták
+000668496 500   L $$aZvuk Stereo ; formát obrazu 4:3 (Recitál), 16:9 Widescreen (Bonus) ; region 0
+000668496 5050  L $$aSonata for violin and piano no. 2 in D minor, op. 121 / Schumann -- Sonata for violin and piano no. 3. in A minor, op. 25 "dans le caractere roumain" / Enescu -- Zigeunerweisen ("Gypsy Airs"), op. 20, no. 1 / Sarasate (66 min) -- Bonus: Ida Haendel in conversation with Giselle Brodsky, founder and artistic director of the Miami International Piano Festival (59 min)
+000668496 5110  L $$aIda Haendel, housle ; Misha Dacić, klavír
+000668496 518   L $$aNatočeno 28. listopadu 2009, Amaturo Theater, Broward Center for the Performing Arts Ft. Lauderdale, Florida
+000668496 61127 L $$aMiami International Piano Festival$$7pna2014837736$$2czenas
+000668496 65007 L $$asonáty (housle, klavír)$$7ph452687$$2czenas
+000668496 655 7 L $$aDVD$$2czenas$$7fd186912
+000668496 7001  L $$aDacić, Miša,$$d1978-$$7pna2014837742$$4itr
+000668496 70012 L $$aSchumann, Robert,$$d1810-1856.$$tSonáty,$$mhousle, klavír,$$nč. 2, op. 121,$$rd moll$$7aun2012733117
+000668496 70012 L $$aEnescu, George,$$d1881-1955.$$tSonáty,$$mhousle, klavír,$$nč. 3, op. 25,$$ra moll
+000668496 70012 L $$aSarasate, Pablo,$$d1844-1908.$$tZigeunerweisen$$7aun2009494474
+000668496 7112  L $$aMiami International Piano Festival$$7pna2014837736
+000668496 74002 L $$aDans le caractere populaire roumain
+000668496 910   L $$aPNA001$$b54A1854
+000783614 LDR   L -----nam-a22-----1a-4500
+000783614 FMT   L BK
+000783614 001   L 000783614
+000783614 003   L CZ-PlERL
+000783614 005   L 20181005090128.0
+000783614 008   L 180517s1974----xr-----e------------cze--
+000783614 015   L $$acnb000145274
+000783614 035   L $$a(OCoLC)6041057
+000783614 040   L $$aPNA001$$bcze
+000783614 080   L $$a910.4:796.52$$2MRF
+000783614 080   L $$a(549.1)$$2MRF
+000783614 080   L $$a(0:82-992)$$2MRF
+000783614 1001  L $$aŠedivý, Vladimír,$$d1923-$$7jk01122685$$4aut
+000783614 24510 L $$aK vrcholu Tirič Míru /$$cVladimír Šedivý
+000783614 250   L $$a1. vyd.
+000783614 260   L $$aPraha :$$bOrbis,$$c1974$$f(ST 1)
+000783614 300   L $$a155 s., [48] s. obr. příl. :$$bil. (některé barev.), mapy, portréty ;$$c21 cm
+000783614 4901  L $$aCesty
+000783614 500   L $$a15000 výt.
+000783614 6530  L $$aHindúkuš$$ahorolezecké výstupy$$ahorolezecké expedice$$ahorolezectví
+000783614 655 7 L $$acestopisy$$7fd131956$$2czenas
+000783614 830 0 L $$aCesty (Orbis)
+000783614 910   L $$aPNA001$$b194251$$kr-dod
+000783614 9751  L $$aHeckel, Vilém,$$d1918-1970$$7jz6700594$$4pht
+000796558 LDR   L -----nam-a22------i-4500
+000796558 FMT   L BK
+000796558 001   L 000796558
+000796558 003   L CZ-PlERL
+000796558 005   L 20190219075333.0
+000796558 008   L 190107s2011----xr-----e------------cze--
+000796558 015   L $$acnb002267815
+000796558 020   L $$a978-80-7229-280-6$$q(vázáno)
+000796558 035   L $$a(OCoLC)776516410
+000796558 040   L $$aPNA001$$bcze$$erda
+000796558 045   L $$aw3w6
+000796558 072 7 L $$a821.162.3.09$$xČeská literatura (o ní)$$2Konspekt$$911
+000796558 072 7 L $$a929$$xBiografie$$2Konspekt$$98
+000796558 080   L $$a821.162.3-1-051$$2MRF
+000796558 080   L $$a929$$2MRF
+000796558 080   L $$a(092)$$2MRF
+000796558 1001  L $$aDohnalová, Jana,$$d1975-$$7mzk2003200446$$4aut$$4ill
+000796558 24510 L $$aVyprávění o chudém básníku něšťastné lásky :$$bVojtěch Bělohrobský /$$cJana Dohnalová
+000796558 24630 L $$aVojtěch Bělohrobský
+000796558 264 1 L $$a[Praha] :$$bPetrklíč,$$c2011
+000796558 300   L $$a89 stran :$$bilustrace, portréty, faksimile ;$$c21 cm
+000796558 336   L $$atext$$btxt$$2rdacontent
+000796558 337   L $$abez média$$bn$$2rdamedia
+000796558 338   L $$asvazek$$bnc$$2rdacarrier
+000796558 500   L $$aTerminologický slovník
+000796558 504   L $$aObsahuje bibliografii
+000796558 60017 L $$aBělohrobský, Vojtěch M. V.,$$d1839-1869$$7jk01141934$$2czenas
+000796558 648 7 L $$a19. století$$7ch460557$$2czenas
+000796558 65007 L $$ačeští básníci$$7ph128168$$y19. století$$2czenas
+000796558 655 7 L $$abiografie$$7fd131909$$2czenas
+000796558 910   L $$aPNA001$$b31B88472
+000796558 967   L $$aBlovice$$bPlzeň-jih$$ccz-cw
+000803953 LDR   L -----nam-a22------i-4500
+000803953 FMT   L RP
+000803953 001   L 000803953
+000803953 003   L CZ-PlERL
+000803953 005   L 20190424173120.0
+000803953 008   L 190424s1525----sz-----e------------lat--
+000803953 040   L $$aPNA001$$bcze$$erda
+000803953 0411  L $$alat$$hgrc
+000803953 072 7 L $$a094$$xStaré tisky$$2Konspekt$$912
+000803953 072 7 L $$a27-1/-2$$xKřesťanská teologie. Dogmatická teologie$$2Konspekt$$95
+000803953 1000  L $$aJan Zlatoústý,$$csvatý,$$dasi 347-407$$7jn20011024076$$4aut
+000803953 24510 L $$aTOMVS QVINTVS OPERVM DIVI IOANNIS CHRYSOSTOMI EPISCOPI CONSTANTINOPOLITANI, CONTINENS Homilias XLV. De dignitate sacerdotali, siue Dialogorum, Lib. VI. De compunctione cordis, Lib. II. De prouidentia dei, Lib. III. Sermones XXXV. Quorum omnium argumenta comperies pagina sequenti. INCERTO INTERPRETE. ITEM De incomprehensibili dei natura, contra Anomaeos. Homilias V. Theodoro Gaza Thessalonicensi interprete. Ad Theodorum lapsum paraenesin priorem, Vel ut alii, de reparatione lapsi, librum unum. De eo quod dixit Apostolus: Vtinam tolerassetis paululum quiddam insipientiae meae, Homilia[m] Guolphango Fabritio Capitone interprete
+000803953 264 1 L $$aAPVD INCLYTAM GERMANIAE BASILEAM :$$bIN AEDIBVS ANDREAE CRATANDRI,|$$c1525
+000803953 300   L $$a181 listů ;$$c2° (34 cm)
+000803953 336   L $$atext$$btxt$$2rdacontent
+000803953 337   L $$abez média$$bn$$2rdamedia
+000803953 338   L $$asvazek$$bnc$$2rdacarrier
+000803953 500   L $$aÚdaje o místě, tiskaři a roku vydání v kolofonu na rubu listu 181
+000803953 500   L $$aNa titulní straně signet (žena v okřídlených opáncích stojící na kouli [Fortuna?]) v kartuši, po stranách kartuše AND. CRAT.
+000803953 500   L $$aDřevořezové iniciály
+000803953 501   L $$aPřívazek 2. k: TOMUS TERTIVS CONTINET DIVI IOANNIS CHRYSOSTOMI EPISCOPI CONSTANTINOPOlitani de laudibus Sancti Pauli homilias VIII. ... APVD INCLYTAM GERMANIAE BASILEAM, 1525$$5CZ-PlERL
+000803953 5104  L $$aVD16,$$cVD16 J 398
+000803953 561   L $$aNa rubu titulní strany razítko Knihovna hist. musea v Plzni, též na listech končících číslem 15 a na líci listu 146$$5CZ-PlERL
+000803953 591   L $$aPapír tisku nažloutlý až zhnědlý, místy zatekliny a plíseň při dolním okraji, červotoč$$5CZ-PlERL
+000803953 63007 L $$aBible$$7unn2006374667$$2czenas
+000803953 65007 L $$akřesťanská teologie$$7ph115064$$2czenas
+000803953 65007 L $$arané křesťanství$$7ph125028$$2czenas
+000803953 65007 L $$acírkevní otcové$$7ph114286$$2czenas
+000803953 65007 L $$abiblická exegeze$$7ph118844$$2czenas
+000803953 655 7 L $$akázání$$7fd131846$$2czenas
+000803953 655 7 L $$astaré tisky$$7fd422076$$2czenas
+000803953 7001  L $$aCratander, Andreas,$$d1490-1540$$7nlk20010094822$$4pbl$$4prt
+000803953 7000  L $$aCapiton,$$d1478-1541$$7ola2014846033$$4trl$$4cwt
+000803953 7001  L $$aGaza, Theodorus,$$dasi 1400-asi 1475$$7ola2004231461$$4trl$$4cwt
+000803953 7870  L $$tOMNIA OPERA DIVI IOANNIS CHRYSOSTOMI, ARCHIEPISCOPI CONSTANTINOPOLITANI, QVAE AD HVNC VSQVE DIEM IN LVCEM AEDITA SVNT, IN SEPTEM TOMOS DIVISA, CVM SVIS INDICIBVS
+000803953 852   L $$aCZ-PlERL$$j15C18
+000803953 85641 L $$uhttp://mdz-nbn-resolving.de/urn:nbn:de:bvb:12-bsb10148213-5$$yDigitalizovaný dokument$$zBayerische Staatsbibliothek Digital
+000803953 903   L $$aRP
+000803953 910   L $$aPNA001$$b15C18
+000803953 9822  L $$aMěstské historické museum (Plzeň, Česko)$$7pna2014850105$$4fmo$$6dřív. majitel$$5CZ-PlERL
+000803953 984   L $$aBasilej$$bŠvýcarsko
+000797573 LDR   L -----nam-a22------i-4500
+000797573 FMT   L BK
+000797573 001   L 000797573
+000797573 003   L CZ-PlERL
+000797573 005   L 20190306070713.0
+000797573 008   L 190122t20182018xr-----e------------cze--
+000797573 020   L $$a978-80-7258-682-0$$q(brožováno)
+000797573 040   L $$aPNA001$$bcze$$erda
+000797573 043   L $$ae-xr---$$be-xr-pg$$2czenas
+000797573 045   L $$ay1y2
+000797573 072 7 L $$a792$$xDivadlo. Divadelní představení$$2Konspekt$$93
+000797573 080   L $$a821.162.3-2$$2MRF
+000797573 080   L $$a792.2$$2MRF
+000797573 080   L $$a(437.3)$$2MRF
+000797573 080   L $$a(437.311)$$2MRF
+000797573 080   L $$a(083.97)$$2MRF
+000797573 080   L $$a(0:82-2)$$2MRF
+000797573 24500 L $$aRudolf Medek, Jiří Havelka, Marta Ljubková, Plukovník Švec
+000797573 24630 L $$aPlukovník Švec
+000797573 264 1 L $$aPraha :$$bNárodní divadlo,$$c[2018]
+000797573 264 4 L $$c©2018
+000797573 300   L $$a279 stran, 16 nečíslovaných stran obrazových příloh :$$bilustrace (některé barevné), portréty, faksimile ;$$c16 cm
+000797573 336   L $$atext$$btxt$$2rdacontent
+000797573 337   L $$abez média$$bn$$2rdamedia
+000797573 338   L $$asvazek$$bnc$$2rdacarrier
+000797573 500   L $$a"Premiéry: 25. a 26. října 2018 na Nové scéně"--Tiráž
+000797573 500   L $$aNad názvem: Národní divadlo ; na obálce pod názvem: Činohra
+000797573 5052  L $$aPlukovník Švec / Rudolf Medek
+000797573 61027 L $$aNárodní divadlo v Praze.$$bNová scéna$$7mzk2010602291$$2czenas
+000797573 648 7 L $$a20. století$$7ch460558$$2czenas
+000797573 648 7 L $$a2011-2020$$7ch460589$$2czenas
+000797573 65007 L $$ačeské drama$$7ph128137$$y20. století$$2czenas
+000797573 65007 L $$ačinohry$$7ph128179$$zČesko$$y2011-2020$$2czenas
+000797573 651 7 L $$aPraha (Česko)$$7ge118011$$2czenas
+000797573 655 7 L $$adivadelní programy$$7fd132033$$2czenas
+000797573 655 7 L $$ačeská dramata$$7fd133957$$2czenas
+000797573 7001  L $$aMedek, Rudolf,$$d1890-1940$$7jk01081030$$4aut
+000797573 7001  L $$aHavelka, Jiří,$$d1980-$$7js20060203026$$4drt
+000797573 7001  L $$aLjubková, Marta,$$d1975-$$7js20050523011$$4cre
+000797573 7102  L $$aNárodní divadlo v Praze.$$bČinohra$$7kn20010709462$$4pbl$$4prf
+000797573 7102  L $$aNárodní divadlo v Praze.$$bNová scéna$$7mzk2010602291$$4orm
+000797573 910   L $$aPNA001$$b31B88240
+000821883 LDR   L -----nam-a22-----1a-4500
+000821883 FMT   L BK
+000821883 001   L 000821883
+000821883 003   L CZ-PlERL
+000821883 005   L 20200313104039.0
+000821883 008   L 200313s1947----xr-----e------------cze--
+000821883 020   L $$q(Brož.) :$$cKčs 35,00
+000821883 035   L $$a(OCoLC)85423779
+000821883 040   L $$aPNA001$$bcze
+000821883 043   L $$ae-xr---$$be-xr-mo$$2czenas
+000821883 072 7 L $$a94(437)$$xDějiny Česka a Slovenska$$2Konspekt$$98
+000821883 080   L $$a94(437.326)$$2MRF
+000821883 080   L $$a908(437.326)$$2MRF
+000821883 080   L $$a(049)$$2MRF
+000821883 1001  L $$aBosák, František,$$d1922-2009$$7jk01012739$$4aut
+000821883 24510 L $$aDějiny města Frýdlantu n. Ostr. ve stručném přehledu /$$cFrantišek Bosák
+000821883 24633 L $$aDějiny města Frýdlantu nad Ostravicí ve stručném přehledu
+000821883 250   L $$a1. vyd.
+000821883 260   L $$aFrýdlant nad Ostravicí :$$bMístní rada osvětová,$$c1947$$e(ve Frýdku :$$fJan Richter)
+000821883 300   L $$a61, [ii] s. :$$bil. ;$$c22 cm
+000821883 65007 L $$avlastivěda$$7ph137666$$zČesko$$2czenas
+000821883 651 7 L $$aFrýdlant nad Ostravicí (Česko)$$7ge129167$$xdějiny$$2czenas
+000821883 655 7 L $$astati$$7fd133586$$2czenas
+000821883 910   L $$aPNA001$$b150615$$kr
+000448513 LDR   L -----nam-a22-------r4500
+000448513 FMT   L RP
+000448513 001   L 000448513
+000448513 003   L CZ-PlERL
+000448513 005   L 20090302155237.0
+000448513 008   L 090302s1720----gw-----e------------ger--
+000448513 040   L $$aPNA001$$bcze$$eAACR2/DCRB
+000448513 072 7 L $$a094$$xStaré tisky$$2Konspekt$$912
+000448513 072 7 L $$a94(100)$$xSvětové dějiny$$2Konspekt$$98
+000448513 1001  L $$aBussières, Jean de,$$d1607-1678$$7ola2009487965$$4aut
+000448513 24510 L $$aFlosculi historiarum delibati, nunc denuo recogniti, & multo locupletiores exornati, sive, Historia universalis, tam sacra quam profana :$$brerum ab orbe condito memorabilium ubique ferè terrarum ... ad nostra usque tempora, & annum M.D.CC.XIX. /$$cà Joanne de Bussiers, Soc. Jesu inchoata, & ab anonymo ultra dimidium hac ed. continuata & aucta ; Accessit series et successio Romanorum Pontificum ...
+000448513 24630 L $$aHistoria universalis, tam sacra quam profana
+000448513 250   L $$aEd. novissima
+000448513 260   L $$aColoniae Agrippinae :$$bapud Franciscum Metternich, ...,$$c1720
+000448513 300   L $$a[8], 922, [42] s. , [1] obr. příl. ;$$c8° (18cm)
+000448513 500   L $$aNa příloze mědirytový poloportrét, Christoph August Graf von Wackerbarth, signováno Mentzel sc. Lips.$$5CZ-PlERL
+000448513 5103  L $$aKarlsruher virtueller Katalog
+000448513 561   L $$aNa předtit. s. bílá pečet s textem Sigillum domicil... Sacrae Monte, uprostřed Panna Maria s Ježíškem$$5CZ-PlERL
+000448513 562   L $$aPapír tisku silně nahnědlý, foxing$$5CZ-PlERL
+000448513 563   L $$aLepenkové desky potažené včetně hřbetu hnědou usní, potah v rozích desek prodřený, hřbet vázán na 4 vazy, při záhlaví a zápatí potah poškozený, horní kapitálek poškozený, při okrajích desek a kol vazů zlacené linky, ve 2. poli shora hnědý štítek s údaji o tisku, ořízka původně červená, přední přídeští chybí$$5CZ-PlERL
+000448513 650 7 L $$asvětové dějiny$$7ph117271$$ydo r. 1719$$2czenas
+000448513 7001  L $$aMetternich, Franz,$$d1660-1737$$7ola2009531363$$4pbl
+000448513 7001  L $$aMentzel$$4egr
+000448513 7102  L $$aKatolická církev.$$bPoutní místo Svatá Hora (Česko)$$4fmo
+000448513 852   L $$aCZ-PlERL$$j21P168
+000448513 910   L $$aPNA001$$b21P168
+000448513 984   L $$aKolín nad Rýnem$$bNěmecko
+000560675 LDR   L -----nam-a22------a-4500
+000560675 FMT   L BK
+000560675 001   L 000560675
+000560675 003   L CZ-PlERL
+000560675 005   L 20111019155259.0
+000560675 008   L 111019s1948----ru-----e------------rus--
+000560675 040   L $$aPNA001$$bcze
+000560675 080   L $$a398.21(=161.1)$$2MRF
+000560675 080   L $$a821.161.1-34$$2MRF
+000560675 080   L $$a(048.8)$$2MRF
+000560675 24500 L $$aOnežskije byliny /$$cpodbor bylin i naučnaja redakcija tekstov Ju. M. Sokolova
+000560675 260   L $$aMoskva :$$bIzdatel'stvo gosudarstvennogo literaturnogo muzeja,$$c1948
+000560675 300   L $$a937 s. :$$bil., portréty
+000560675 4900  L $$aLetopisi ;$$vkniga 13
+000560675 6530  L $$aruské byliny
+000560675 60017 L $$aSokolov, Jurij Matvejevič,$$d1889-1941$$7jx20041102006$$2czenas
+000560675 60017 L $$aSokolov, Boris Matvejevič,$$d1889-1930$$7jn20010420006$$2czenas
+000560675 7001  L $$aSokolov, Jurij Matvejevič,$$d1889-1941$$7jx20041102006$$4edt
+000560675 7102  L $$aGosudarstvennyj literaturnyj muzej$$7kn20130528009
+000560675 830 0 L $$aLetopisi
+000560675 910   L $$aPNA001$$bIIID3150$$kr-dod

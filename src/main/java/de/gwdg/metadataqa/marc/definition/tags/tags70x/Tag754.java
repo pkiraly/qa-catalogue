@@ -3,12 +3,16 @@ package de.gwdg.metadataqa.marc.definition.tags.tags70x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
 import de.gwdg.metadataqa.marc.definition.general.codelist.TaxonomicClassificationSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+
+import java.util.Arrays;
 
 /**
  * Added Entry - Taxonomic Identification
@@ -98,6 +102,11 @@ public class Tag754 extends DataFieldDefinition {
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("O");
+
+    putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
+      new SubfieldDefinition("7", "NKCR Authority ID", "NR"),
+      new SubfieldDefinition("9", "NKCR Authority field - tracing form", "NR")
+    ));
 
     sourceSpecificationType = SourceSpecificationType.Subfield2;
   }

@@ -16,14 +16,11 @@ if (length(args) == 0) {
   stop("At least one argument must be supplied (input file).n", call.=FALSE)
 } else if (length(args) == 1) {
   # default output file
-  catalogue <- args[1]
+  output_dir <- args[1]
 }
 
 prefix <- 'tt-completeness'
-command <- "grep BASE_OUTPUT_DIR= setdir.sh | sed 's/.*=\\(.*\\)/\\1/'"
-base_output_dir <- system(command, intern = TRUE)
-
-csv <- sprintf("%s/%s/%s.csv", base_output_dir, catalogue, prefix)
+csv <- sprintf("%s/%s.csv", output_dir, prefix)
 if (!file.exists(csv)) {
   stop(paste("input file", csv, "does not exist!"))
 }
@@ -42,8 +39,8 @@ for (i in seq_along(names)) {
     count() %>%
     rename(count = name, frequency = n)
 
-  histogram_file <- sprintf("%s/%s/%s-histogram-%s.csv",
-                            base_output_dir, catalogue, prefix, name)
+  histogram_file <- sprintf("%s/%s-histogram-%s.csv",
+                            output_dir, prefix, name)
   write_csv(histogram, histogram_file)
   print(sprintf("saving %s into %s", name, histogram_file))
 }

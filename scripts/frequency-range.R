@@ -1,8 +1,4 @@
 library(tidyverse)
-#library(readr)
-#library(dplyr)
-
-source(file="scripts/frequency-range-per-types.R")
 
 #' Reads marc-elements.csv and creates field distribution charts for all
 #' document types. The files are saved in an 'img' directory
@@ -13,22 +9,18 @@ source(file="scripts/frequency-range-per-types.R")
 #' In RStudio you can run this script in the console:
 #' system("Rscript scripts/frequency-range-per-types.R gent")
 
+source(file="scripts/frequency-range-per-types.R")
 args = commandArgs(trailingOnly=TRUE)
 if (length(args) == 0) {
   stop("At least one argument must be supplied (input file).n", call.=FALSE)
 } else if (length(args) == 1) {
   # default output file
-  catalogue <- args[1]
+  output_dir <- args[1]
 }
 
-print(paste('catalogue: ', catalogue))
-
-command <- "grep BASE_OUTPUT_DIR= setdir.sh | sed 's/.*=\\(.*\\)/\\1/'"
-base_output_dir <- system(command, intern = TRUE)
-print(paste('base_output_dir: ', base_output_dir))
-
+print(paste('output_dir: ', output_dir))
 field <- 'number-of-instances'
 file <- 'marc-elements.csv'
-create_all_pictures(paste0(base_output_dir, '/', catalogue), catalogue, field, file)
+create_all_pictures(output_dir, field, file)
 
 print('DONE')

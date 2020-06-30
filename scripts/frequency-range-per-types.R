@@ -114,7 +114,7 @@ draw_plot <- function(cumulation, label, instance_count, pareto, record_count) {
   return(plot)
 }
 
-create_plot <- function(dir, name, field, .type) {
+create_plot <- function(dir, field, .type) {
   df <- read_csv(sprintf('%s/%s', dir, file), col_types = col_types)
   df <- df %>% 
     filter(`type` == .type)
@@ -165,7 +165,7 @@ create_full_picture <- function(dir, name, abbreviation, field) {
   )
 }
 
-create_all_pictures <- function(dir, name, field, file_name) {
+create_all_pictures <- function(dir, field, file_name) {
   csv_file <- sprintf('%s/%s', dir, file_name)
   print(paste('create_all_pictures from ', csv_file))
   df <- read_csv(csv_file, col_types = col_types)
@@ -182,7 +182,7 @@ create_all_pictures <- function(dir, name, field, file_name) {
     row <- df_summary[i,]
     print(paste('generating', row$type))
     machine_name <- row$machine_name
-    picture <- create_plot(dir, name, field, row$type)
+    picture <- create_plot(dir, field, row$type)
     
     img_dir <- sprintf('%s/img', dir)
     if (!dir.exists(img_dir)) {

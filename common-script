@@ -2,7 +2,14 @@
 
 SECONDS=0
 PREFIX=${BASE_INPUT_DIR}/_reports/${NAME}
-OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}
+DATE=$(date +"%F")
+if [[ "$VERSION" != "" ]]; then
+  OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}-${VERSION}
+else
+  OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}
+fi
+
+echo "OUTPUT_DIR: ${OUTPUT_DIR}"
 
 if [[ ! -d $PREFIX ]]; then
   mkdir -p $PREFIX
@@ -51,15 +58,17 @@ do_authorities() {
 do_tt_completeness() {
   printf "%s %s> ./tt-completeness --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/tt-completeness.log\n" $(date +"%F %T")
   ./tt-completeness --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/tt-completeness.log
-  printf "%s %s> Rscript scripts/tt-histogram.R ${NAME} &>> ${PREFIX}/tt-completeness.log\n" $(date +"%F %T")
-  Rscript scripts/tt-histogram.R ${NAME} &>> ${PREFIX}/tt-completeness.log
+
+  printf "%s %s> Rscript scripts/tt-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/tt-completeness.log\n" $(date +"%F %T")
+  Rscript scripts/tt-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/tt-completeness.log
 }
 
 do_serial_score() {
   printf "%s %s> ./serial-score --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/serial-score.log\n" $(date +"%F %T")
   ./serial-score --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/serial-score.log
-  printf "%s %s> Rscript scripts/serial-score-histogram.R ${NAME} &>> ${PREFIX}/serial-score.log\n" $(date +"%F %T")
-  Rscript scripts/serial-score-histogram.R ${NAME} &>> ${PREFIX}/serial-score.log
+
+  printf "%s %s> Rscript scripts/serial-score-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/serial-score.log\n" $(date +"%F %T")
+  Rscript scripts/serial-score-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/serial-score.log
 }
 
 do_format() {
@@ -75,29 +84,43 @@ do_functional_analysis() {
 do_network_analysis() {
   printf "%s %s> ./network-analysis --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/network-analysis.log\n" $(date +"%F %T")
   ./network-analysis --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/network-analysis.log
-  printf "%s %s> Rscript scripts/network-transform.R ${NAME} &>> ${PREFIX}/network-analysis.log\n" $(date +"%F %T")
-  Rscript scripts/network-transform.R ${NAME} &>> ${PREFIX}/network-analysis.log
+
+  printf "%s %s> Rscript scripts/network-transform.R ${OUTPUT_DIR} &>> ${PREFIX}/network-analysis.log\n" $(date +"%F %T")
+  Rscript scripts/network-transform.R ${OUTPUT_DIR} &>> ${PREFIX}/network-analysis.log
+
   printf "%s %s> ./network-analysis --outputDir ${OUTPUT_DIR} --action pairing --group-limit 2000 &>> ${PREFIX}/network-analysis.log\n" $(date +"%F %T")
   ./network-analysis --outputDir ${OUTPUT_DIR} --action pairing --group-limit 2000 &>> ${PREFIX}/network-analysis.log
 }
 
 do_pareto() {
-  printf "%s %s> Rscript scripts/frequency-range.R ${NAME} &> ${PREFIX}/pareto.log\n" $(date +"%F %T")
-  Rscript scripts/frequency-range.R ${NAME} &>> ${PREFIX}/pareto.log
+  printf "%s %s> Rscript scripts/frequency-range.R ${OUTPUT_DIR} &> ${PREFIX}/pareto.log\n" $(date +"%F %T")
+  Rscript scripts/frequency-range.R ${OUTPUT_DIR} &>> ${PREFIX}/pareto.log
+
   . ./common-variables
   if [[ "$WEB_DIR" != "" ]]; then
-  	if [[ ! -d $WEB_DIR/images ]]; then
-  		mkdir $WEB_DIR/images
-  	fi
-  	ln -s ${OUTPUT_DIR}/img $WEB_DIR/images/${NAME}
+    if [[ ! -d $WEB_DIR/images ]]; then
+      mkdir $WEB_DIR/images
+    fi
+    ln -s ${OUTPUT_DIR}/img $WEB_DIR/images/${NAME}
   fi
 }
 
 do_marc_history() {
-  printf "%s %s> ./formatter --selector "008~7-10;008~0-5" --defaultRecordType BOOKS ${TYPE_PARAMS} --separator \",\" --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK}\n" $(date +"%F %T")
-  ./formatter --selector "008~7-10;008~0-5" --defaultRecordType BOOKS ${TYPE_PARAMS} --separator "," --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK}
-  # > ${PREFIX}/marc-history.log
-  Rscript scripts/marc-history.R ${OUTPUT_DIR}
+  printf "%s %s> ./formatter --selector \"008~7-10;008~0-5\" --defaultRecordType BOOKS ${TYPE_PARAMS} --separator \",\" --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} &> ${PREFIX}/marc-history.log\n" $(date +"%F %T")
+  ./formatter --selector "008~7-10;008~0-5" --defaultRecordType BOOKS ${TYPE_PARAMS} --separator "," --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} &> ${PREFIX}/marc-history.log
+
+  printf "%s %s> Rscript scripts/marc-history.R ${OUTPUT_DIR} &>> ${PREFIX}/marc-history.log\n" $(date +"%F %T")
+  Rscript scripts/marc-history.R ${OUTPUT_DIR} &>> ${PREFIX}/marc-history.log
+}
+
+do_version_link() {
+  if [[ "$VERSION" != "" ]]; then
+    OUTPUT_LINK=${BASE_OUTPUT_DIR}/${NAME}
+    if [[ -e ${OUTPUT_LINK} ]]; then
+      rm ${OUTPUT_LINK}
+    fi
+    ln -s ${OUTPUT_DIR} ${OUTPUT_LINK}
+  fi
 }
 
 do_all_analyses() {
@@ -167,6 +190,7 @@ case "$1" in
   all)
     do_all_analyses
     do_all_solr
+    do_version_link
     ;;
 esac
 

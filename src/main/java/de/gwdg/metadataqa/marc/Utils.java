@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
@@ -45,6 +46,33 @@ public class Utils {
     String packageName = field.getClass().getPackage().getName()
       .replace("de.gwdg.metadataqa.marc.definition.tags.", "");
     return packageName;
+  }
+
+  public static String extractPackageName(Class<? extends DataFieldDefinition> field) {
+    String packageName = field.getPackage().getName()
+      .replace("de.gwdg.metadataqa.marc.definition.tags.", "");
+    return packageName;
+  }
+
+  public static MarcVersion getVersion(DataFieldDefinition field) {
+    return package2version(extractPackageName(field));
+  }
+
+  public static MarcVersion getVersion(Class<? extends DataFieldDefinition> field) {
+    return package2version(extractPackageName(field));
+  }
+
+  public static MarcVersion package2version(String packageName) {
+    MarcVersion version = MarcVersion.MARC21;
+    switch (packageName) {
+      case "fennicatags": version = MarcVersion.FENNICA; break;
+      case "oclctags":    version = MarcVersion.OCLC;    break;
+      case "genttags":    version = MarcVersion.GENT;    break;
+      case "dnbtags":     version = MarcVersion.DNB;     break;
+      case "sztetags":    version = MarcVersion.SZTE;    break;
+      case "nkcrtags":    version = MarcVersion.NKCR;    break;
+    }
+    return version;
   }
 
   public static List<Object> quote(List<? extends Serializable> values) {

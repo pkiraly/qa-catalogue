@@ -231,6 +231,7 @@ options:
    * `GENT`, fields available in the catalog of Gent University (Belgium)
    * `SZTE`, fields available in the catalog of Szegedi Tudományegyetem (Hungary)
    * `FENNICA`, fields available in the Fennica catalog of Finnish National Library
+   * `NKCR`, fields available at the National Library of the Czech Republic 
 * `-l [number]`, `--limit [number]` validates only given number of records
 * `-o [number]`, `--offset [number]` starts validation at the given Nth record
 * `-f [file name]`, `--fileName [file name]` the name of report the program produces. Default is `validation-report.txt`. If you use "stdout", it won't create file, but put results into the standard output.

@@ -62,7 +62,10 @@ public class DataField implements Extractable, Validatable, Serializable {
     }
   }
 
-  public <T extends DataFieldDefinition> DataField(T definition, String ind1, String ind2, String... subfields) {
+  public <T extends DataFieldDefinition> DataField(T definition,
+                                                   String ind1,
+                                                   String ind2,
+                                                   String... subfields) {
     this(definition, ind1, ind2);
     if (subfields != null) {
       parseSubfieldArray(subfields);
@@ -70,7 +73,11 @@ public class DataField implements Extractable, Validatable, Serializable {
   }
 
   public DataField(String tag, String input) {
-    definition = TagDefinitionLoader.load(tag);
+    this(tag, input, MarcVersion.MARC21);
+  }
+
+  public DataField(String tag, String input, MarcVersion version) {
+    definition = TagDefinitionLoader.load(tag, version);
     if (definition == null) {
       this.tag = tag;
     }
@@ -524,9 +531,11 @@ public class DataField implements Extractable, Validatable, Serializable {
     return isValid;
   }
 
-  private boolean validateIndicator(String prefix, Indicator indicatorDefinition,
-                                    String value, MarcVersion marcVersion,
-                         DataFieldDefinition referencerDefinition) {
+  private boolean validateIndicator(String prefix,
+                                    Indicator indicatorDefinition,
+                                    String value,
+                                    MarcVersion marcVersion,
+                                    DataFieldDefinition referencerDefinition) {
     boolean isValid = true;
     String path = indicatorDefinition.getPath();
     if (referencerDefinition != null)

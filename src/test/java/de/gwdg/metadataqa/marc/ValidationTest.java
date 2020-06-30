@@ -122,9 +122,9 @@ public class ValidationTest {
   @Test
   public void testAFile() throws URISyntaxException, IOException {
     List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
-    MarcRecord record = MarcFactory.createFromFormattedText(lines);
+    MarcRecord record = MarcFactory.createFromFormattedText(lines, MarcVersion.MARC21);
     assertFalse(record.validate(MarcVersion.MARC21, true));
-    assertEquals(41, record.getValidationErrors().size());
+    assertEquals(21, record.getValidationErrors().size());
 
     for (ValidationError error : record.getValidationErrors()) {
       System.err.println(error.toString());

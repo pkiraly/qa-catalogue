@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
 import org.apache.commons.lang3.StringUtils;
 
@@ -235,6 +236,10 @@ public abstract class DataFieldDefinition implements Serializable {
 
   public void setMinimalCompilanceLevel(CompilanceLevel minimalLevel) {
     this.minimalCompilanceLevel = minimalLevel;
+  }
+
+  public MarcVersion getMarcVersion() {
+    return Utils.getVersion(this);
   }
 
   @Override

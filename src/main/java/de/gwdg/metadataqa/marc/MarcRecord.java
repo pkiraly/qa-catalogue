@@ -740,7 +740,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
         addUnhandledTags(tag);
       }
 
-      DataField dataField = new DataField(tag, content);
+      DataField dataField = new DataField(tag, content, marcVersion);
       addDataField(dataField);
     }
   }

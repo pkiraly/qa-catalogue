@@ -31,7 +31,8 @@ setdir.sh
 .Rproj.user
 .Rhistory
 
-# VS Code Java project settings files
+# VS Code Java project settings 
+.devcontainer/*
 .project
 .factorypath
 .classpath

@@ -17,7 +17,7 @@ public class AuthorithyAnalyzerTest {
 
   @Test
   public void test() throws IOException, URISyntaxException {
-    List<String> lines = FileUtils.readLines("general/010000011.mrctxt");
+    List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
     MarcRecord record = MarcFactory.createFromFormattedText(lines);
     AuthorityStatistics statistics = new AuthorityStatistics();
 

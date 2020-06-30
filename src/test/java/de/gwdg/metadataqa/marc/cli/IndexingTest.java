@@ -17,7 +17,7 @@ public class IndexingTest {
 
   @Test
   public void testIndexing710() throws IOException, URISyntaxException {
-    List<String> lines = FileUtils.readLines("general/010000011.mrctxt");
+    List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
     MarcRecord record = MarcFactory.createFromFormattedText(lines);
     Map<String, List<String>> index = record.getKeyValuePairs(SolrFieldType.MIXED);
     assertEquals(150, index.size());

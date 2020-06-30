@@ -605,7 +605,7 @@ public class MarcFactoryTest {
 
   @Test
   public void testCreateFromFormattedText() throws IOException, URISyntaxException {
-    List<String> lines = FileUtils.readLines("general/010000011.mrctxt");
+    List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
     assertEquals(44, lines.size());
     String marcRecordAsText = StringUtils.join(lines, "\n");
     assertEquals(1845, marcRecordAsText.length());
@@ -616,7 +616,7 @@ public class MarcFactoryTest {
 
   @Test
   public void testCreateFromFormattedText_asList() throws IOException, URISyntaxException {
-    List<String> lines = FileUtils.readLines("general/010000011.mrctxt");
+    List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
     MarcRecord record = MarcFactory.createFromFormattedText(lines);
     test01000011RecordProperties(record);
   }

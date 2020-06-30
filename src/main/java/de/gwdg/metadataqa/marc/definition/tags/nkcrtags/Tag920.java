@@ -24,14 +24,18 @@ public class Tag920 extends DataFieldDefinition {
     label = "Zrušené identifikační číslo záznamu";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/informativni-materialy/blok-9xxuni-m21";
-    setCompilanceLevels("A", "A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
       "a", "Identifikační číslo", "NR",
-      "b", "Sigla knihovny", "NR"
+      "z", "Sigla knihovny", "NR"
     );
+    getSubfield("a")
+      .setCompilanceLevels("M");
+    getSubfield("z")
+      .setCompilanceLevels("O");
   }
 }

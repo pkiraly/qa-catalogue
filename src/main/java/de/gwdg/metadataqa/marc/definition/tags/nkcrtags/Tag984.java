@@ -24,7 +24,7 @@ public class Tag984 extends DataFieldDefinition {
     label = "Město vydání (staré tisky)";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/informativni-materialy/blok-9xxuni-m21";
-    setCompilanceLevels("A", "A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -35,5 +35,10 @@ public class Tag984 extends DataFieldDefinition {
       "c", "Stát, provincie", "NR",
       "d", "Kraj, okres", "NR"
     );
+
+    getSubfield("a")
+      .setCompilanceLevels("M");
+    getSubfield("b")
+      .setCompilanceLevels("M");
   }
 }

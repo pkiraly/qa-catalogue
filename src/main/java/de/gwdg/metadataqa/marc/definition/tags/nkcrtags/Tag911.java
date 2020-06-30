@@ -24,7 +24,7 @@ public class Tag911 extends DataFieldDefinition {
     label = "Informace o digitalizaci";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/informativni-materialy/blok-9xxuni-m21";
-    setCompilanceLevels("A", "A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -32,10 +32,10 @@ public class Tag911 extends DataFieldDefinition {
     setSubfieldsWithCardinality(
       "a", "Sigla knihovny, která dokument digitalizovala", "NR",
       "d", "Status digitalizace (digitalizuje se a zdigitalizováno)", "NR",
-      "r", "Roky ( u časopisů roky, které byly zdigitalizovány)", "NR",
+      "r", "Roky (u časopisů roky, které byly zdigitalizovány)", "NR",
       "s", "Svazky (i u knih i u seriálů)", "NR",
-      "p", "Url adresa, na které je dostupná zdigitaliz. kopie", "R",
-      "u", "Poznámka", "NR"
+      "p", "Url adresa, na které je dostupná zdigitaliz. kopie", "NR",
+      "u", "Poznámka", "R"
     );
 
     getSubfield("a")
@@ -48,9 +48,6 @@ public class Tag911 extends DataFieldDefinition {
         "vybráno k digitalizaci", "již k digitalizaci připraveno (je jisté, že se digitalizovat bude)",
         "plánovaná digitalizace", "rezervace titulu v delším časovém horizontu"
       )
-      .setCompilanceLevels("M");
-
-    getSubfield("u")
       .setCompilanceLevels("M");
   }
 }

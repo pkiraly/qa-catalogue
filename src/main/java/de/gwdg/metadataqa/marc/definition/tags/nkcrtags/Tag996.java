@@ -29,7 +29,7 @@ public class Tag996 extends DataFieldDefinition {
     mqTag = "CPKHoldingsInformation";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://github.com/moravianlibrary/CPK/wiki/Pole-996";
-    setCompilanceLevels("A", "A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

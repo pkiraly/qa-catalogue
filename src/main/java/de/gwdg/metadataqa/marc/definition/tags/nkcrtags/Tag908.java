@@ -24,7 +24,7 @@ public class Tag908 extends DataFieldDefinition {
     label = "Typ speciálního dokumentu ";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/informativni-materialy/blok-9xxuni-m21";
-    setCompilanceLevels("A", "A");
+    setCompilanceLevels("O");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

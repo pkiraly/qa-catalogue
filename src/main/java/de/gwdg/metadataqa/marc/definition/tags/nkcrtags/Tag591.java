@@ -33,5 +33,10 @@ public class Tag591 extends DataFieldDefinition {
       "a", "text poznámky", "NR",
       "5", "kód instituce MARC", "NR"
     );
+
+    getSubfield("a")
+      .setCompilanceLevels("M");
+    getSubfield("5")
+      .setCompilanceLevels("A");
   }
 }

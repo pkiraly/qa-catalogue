@@ -24,7 +24,7 @@ public class Tag903 extends DataFieldDefinition {
     label = "Označení - staré tisky";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/informativni-materialy/blok-9xxuni-m21";
-    setCompilanceLevels("A", "A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -37,5 +37,8 @@ public class Tag903 extends DataFieldDefinition {
       .setCodes(
       "RP", "Rair Print"
       );
+
+    getSubfield("a")
+      .setCompilanceLevels("M");
   }
 }

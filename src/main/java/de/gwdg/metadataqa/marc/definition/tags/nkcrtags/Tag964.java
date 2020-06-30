@@ -38,5 +38,8 @@ public class Tag964 extends DataFieldDefinition {
       "f", "Konverze – regionální třídění (graf. obj.)", "NR",
       "g", "Akce", "NR"
     );
+
+    getSubfield("a")
+      .setCompilanceLevels("M");
   }
 }

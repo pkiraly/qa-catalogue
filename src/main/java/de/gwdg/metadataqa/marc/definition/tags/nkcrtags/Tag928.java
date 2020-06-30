@@ -24,7 +24,7 @@ public class Tag928 extends DataFieldDefinition {
     label = "Nakladatel pro záznamy CIP (dříve pro soubor autorit)";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/informativni-materialy/blok-9xxuni-m21";
-    setCompilanceLevels("A", "A");
+    setCompilanceLevels("A");
     
     ind1 = new Indicator()
       .setCodes(
@@ -34,7 +34,15 @@ public class Tag928 extends DataFieldDefinition {
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "Vstupní prvek", "NR"
+      "a", "Vstupní prvek", "NR",
+      "b", "Zpřesnění", "R",
+      "c", "Doplňky ke jménu a/nebo kvalifikátor", "R",
+      "g", "Invertovaný prvek", "NR",
+      "h", "Část jména jiná než vstupní nebo invertovaný prvek", "R",
+      "4", "Kód role", "R"
     );
+
+    getSubfield("a")
+      .setCompilanceLevels("M");
   }
 }

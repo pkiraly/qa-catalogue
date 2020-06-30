@@ -32,5 +32,8 @@ public class Tag966 extends DataFieldDefinition {
     setSubfieldsWithCardinality(
       "a", "Číslo vědního oboru", "R"
     );
+
+    getSubfield("a")
+      .setCompilanceLevels("M");
   }
 }

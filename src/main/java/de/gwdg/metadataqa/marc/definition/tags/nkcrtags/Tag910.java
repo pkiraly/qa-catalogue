@@ -30,7 +30,7 @@ public class Tag910 extends DataFieldDefinition {
     mqTag = "LocationDataUnionCatalog";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/informativni-materialy/blok-9xxuni-m21";
-    setCompilanceLevels("A", "A");
+    setCompilanceLevels("M");
 
     ind1 = new Indicator()
       .setCodes(
@@ -60,7 +60,7 @@ public class Tag910 extends DataFieldDefinition {
       "s", "Svazky (volume, Band...)", "NR",
       "t", "Typ dokumentu", "NR",
       "u", "Doba uchování", "NR",
-      "x", "Identifikační číslo zdrojového záznamu - používá správce SK ČR", "R",
+      "x", "Identifikační číslo zdrojového záznamu - používá správce SK ČR", "NR",
       "w", "Propojovací URL adresa na záznam - používá správce SK ČR", "R"
     );
 
@@ -74,10 +74,10 @@ public class Tag910 extends DataFieldDefinition {
       );
     
     getSubfield("r")
-      .setCompilanceLevels("M");
+      .setCompilanceLevels("A");
 
     getSubfield("s")
-      .setCompilanceLevels("M");
+      .setCompilanceLevels("A");
 
     getSubfield("t").setCodes(
       "p", "pravá periodika",

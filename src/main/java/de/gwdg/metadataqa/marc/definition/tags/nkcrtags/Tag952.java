@@ -24,7 +24,7 @@ public class Tag952 extends DataFieldDefinition {
     label = "Region, na jehož území je seriál vydáván (pro soubor autorit) (seriály)";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/informativni-materialy/blok-9xxuni-m21";
-    setCompilanceLevels("A", "A");
+    setCompilanceLevels("A");
     
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -32,5 +32,8 @@ public class Tag952 extends DataFieldDefinition {
     setSubfieldsWithCardinality(
       "a", "Region", "R"
     );
+
+    getSubfield("a")
+      .setCompilanceLevels("M");
   }
 }

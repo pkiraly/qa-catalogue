@@ -22,9 +22,9 @@ public class Tag924 extends DataFieldDefinition {
   private void initialize() {
     tag = "924";
     label = "Incipit a nápěv (kramářské tisky)";
-    cardinality = Cardinality.Repeatable;
+    cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/informativni-materialy/blok-9xxuni-m21";
-    setCompilanceLevels("A", "A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();

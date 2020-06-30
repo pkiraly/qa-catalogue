@@ -24,7 +24,7 @@ public class Tag900 extends DataFieldDefinition {
     label = "Vlastník a úroveň zpracování záznamu";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/informativni-materialy/blok-9xxuni-m21";
-    setCompilanceLevels("A", "A");
+    setCompilanceLevels("0");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -33,5 +33,10 @@ public class Tag900 extends DataFieldDefinition {
       "a", "Sigla vlastníka záznamu (zasílající instituce)", "NR",
       "b", "Váha záznamu", "NR"
     );
+
+    getSubfield("a")
+      .setCompilanceLevels("M");
+    getSubfield("b")
+      .setCompilanceLevels("M");
   }
 }

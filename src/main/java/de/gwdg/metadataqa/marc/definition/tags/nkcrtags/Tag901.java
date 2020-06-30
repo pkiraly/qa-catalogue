@@ -31,15 +31,15 @@ public class Tag901 extends DataFieldDefinition {
 
     setSubfieldsWithCardinality(
       "a", "Chybné ISBN (ADNPI a)", "R",
-      "b", "ISBN v čárovém kódu (ADCKO a)", "NR",
+      "b", "ISBN v čárovém kódu (ADCKO a)", "R",
       "c", "Chybné ISBN v čárovém kódu (ADCKO z)", "R",
       "d", "Neoprávněně přidělené ISBN v čárovém kódu (ADCKO y)", "R",
-      "e", "ISBN souboru v čárovém kódu (ADCKO s)", "NR",
-      "f", "Údaje o vydání ISBN (CDVYD a)", "NR",
-      "g", "Poznámka NA ISBN (DDPOZ a)", "NR",
-      "h", "Svazek", "NR",
-      "i", "ISBN svazku", "NR",
-      "o", "Údaj o ověření", "NR"
-    );		    
+      "e", "ISBN souboru v čárovém kódu (ADCKO s)", "R",
+      "f", "Údaje o vydání ISBN (CDVYD a)", "R",
+      "g", "Poznámka NA ISBN (DDPOZ a)", "R",
+      "h", "Svazek", "R",
+      "i", "ISBN svazku", "R",
+      "o", "Údaj o ověření", "R"
+    );	
   }
 }

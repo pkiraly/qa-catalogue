@@ -34,5 +34,8 @@ public class Tag967 extends DataFieldDefinition {
       "b", "Okres", "R",
       "c", "Nadřazená územní jednotka", "R"
     );
+
+    getSubfield("a")
+      .setCompilanceLevels("M");
   }
 }

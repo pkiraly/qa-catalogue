@@ -32,5 +32,8 @@ public class Tag968 extends DataFieldDefinition {
     setSubfieldsWithCardinality(
       "a", "Notace", "R"
     );
+
+    getSubfield("a")
+      .setCompilanceLevels("M");
   }
 }

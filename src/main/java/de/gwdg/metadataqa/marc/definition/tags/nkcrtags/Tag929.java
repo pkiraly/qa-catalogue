@@ -24,7 +24,7 @@ public class Tag929 extends DataFieldDefinition {
     label = "Typ podle DCMI";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/informativni-materialy/blok-9xxuni-m21";
-    setCompilanceLevels("A", "A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
@@ -32,5 +32,8 @@ public class Tag929 extends DataFieldDefinition {
     setSubfieldsWithCardinality(
       "a", "Typ", "NR"
     );
+
+    getSubfield("a")
+      .setCompilanceLevels("M");
   }
 }

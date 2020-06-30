@@ -24,18 +24,18 @@ public class Tag912 extends DataFieldDefinition {
     label = "Excerpce";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/informativni-materialy/blok-9xxuni-m21";
-    setCompilanceLevels("A", "A");
+    setCompilanceLevels("A");
 
     ind1 = new Indicator();
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
       "a", "Sigla", "NR",
-      "b", "Úroveň excerpce", "NR",
+      "d", "Úroveň excerpce", "NR",
       "r", "Roky", "NR",
       "s", "Svazky (rezervováno)", "NR",
       "p", "Poznámka", "NR",
-      "u", "Odkaz", "NR"
+      "u", "Odkaz", "R"
     );
 
     getSubfield("a")

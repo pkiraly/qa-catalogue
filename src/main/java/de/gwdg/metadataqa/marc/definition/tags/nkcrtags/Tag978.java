@@ -45,5 +45,8 @@ public class Tag978 extends DataFieldDefinition {
       "g", "Plná forma iniciál", "R",
       "4", "Role", "R"
     );
+
+    getSubfield("a")
+    .setCompilanceLevels("M");
   }
 }

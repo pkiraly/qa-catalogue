@@ -33,9 +33,9 @@ public class NkcrMarcReaderTest {
     } catch (URISyntaxException e) {
       e.printStackTrace();
     }
-    MarcReader reader = new AlephseqMarcReader(path.toString());
     int i = 0;
     Record record = null;
+    MarcReader reader = new AlephseqMarcReader(path.toString());
     while (reader.hasNext()) {
       i++;
       record = reader.next();

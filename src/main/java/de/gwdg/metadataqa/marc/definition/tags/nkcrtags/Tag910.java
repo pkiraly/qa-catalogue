@@ -67,11 +67,10 @@ public class Tag910 extends DataFieldDefinition {
     getSubfield("a")
       .setCompilanceLevels("M");
 
-    getSubfield("k")
-      .setCodes(
+    getSubfield("k").setCodes(
       "r", "retrokonverze",
       "k", "převzatý záznam"
-      );
+    );
     
     getSubfield("r")
       .setCompilanceLevels("A");

@@ -113,6 +113,14 @@ public class MarcFactory {
     return createFromMarc4j(marc4jRecord, defaultType, marcVersion, false);
   }
 
+  /**
+   * Create a MarcRecord object from Marc4j object
+   * @param marc4jRecord The Marc4j record
+   * @param defaultType The defauld document type
+   * @param marcVersion The MARC version
+   * @param fixAlephseq Replace ^ character to space in control fields
+   * @return
+   */
   public static MarcRecord createFromMarc4j(Record marc4jRecord,
                               Leader.Type defaultType,
                               MarcVersion marcVersion,
@@ -291,17 +299,19 @@ public class MarcFactory {
         if (line.isControlField()) {
           record.addVariableField(new ControlFieldImpl(line.getTag(), line.getContent()));
         } else {
-          DataFieldImpl df = new DataFieldImpl(line.getTag(), line.getInd1().charAt(0), line.getInd2().charAt(0));
+          DataFieldImpl df = new DataFieldImpl(
+            line.getTag(), line.getInd1().charAt(0), line.getInd2().charAt(0)
+          );
           for (String[] pair : line.parseSubfields()) {
-              if (pair.length == 2 && pair[0] != null && pair[1] != null) {
-                df.addSubfield(new SubfieldImpl(pair[0].charAt(0), pair[1]));
-              } else {
-                logger.warning(String.format(
-                  "parse error in record #%s) tag %s: '%s'",
-                  line.getRecordID(), line.getTag(), line.getRawContent()
-                ));
-              }
+            if (pair.length == 2 && pair[0] != null && pair[1] != null) {
+              df.addSubfield(new SubfieldImpl(pair[0].charAt(0), pair[1]));
+            } else {
+              logger.warning(String.format(
+                "parse error in record #%s) tag %s: '%s'",
+                line.getRecordID(), line.getTag(), line.getRawContent()
+              ));
             }
+          }
           record.addVariableField(df);
         }
       }

@@ -472,12 +472,12 @@ public class DataField implements Extractable, Validatable, Serializable {
     }
 
     if (ind1 != null) {
-      if (!validateIndicator("ind1", definition.getInd1(), ind1, marcVersion, referencerDefinition))
+      if (!validateIndicator(definition.getInd1(), ind1, marcVersion, referencerDefinition))
         isValid = false;
     }
 
     if (ind2 != null) {
-      if (!validateIndicator("ind2", definition.getInd2(), ind2, marcVersion, referencerDefinition))
+      if (!validateIndicator(definition.getInd2(), ind2, marcVersion, referencerDefinition))
         isValid = false;
     }
 
@@ -531,8 +531,7 @@ public class DataField implements Extractable, Validatable, Serializable {
     return isValid;
   }
 
-  private boolean validateIndicator(String prefix,
-                                    Indicator indicatorDefinition,
+  private boolean validateIndicator(Indicator indicatorDefinition,
                                     String value,
                                     MarcVersion marcVersion,
                                     DataFieldDefinition referencerDefinition) {

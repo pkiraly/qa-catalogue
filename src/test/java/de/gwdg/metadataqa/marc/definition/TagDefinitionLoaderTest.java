@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.definition;
 
+import org.apache.avro.generic.GenericData;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -28,18 +29,18 @@ public class TagDefinitionLoaderTest {
 
   @Test
   public void testLoadClasses() {
-    assertEquals("017", TagDefinitionLoader.load("017").getTag());
-    assertEquals("111", TagDefinitionLoader.load("111").getTag());
-    assertEquals("222", TagDefinitionLoader.load("222").getTag());
-    assertEquals("250", TagDefinitionLoader.load("250").getTag());
-    assertEquals("351", TagDefinitionLoader.load("351").getTag());
+    assertEquals("017", TagDefinitionLoader.load("017", MarcVersion.MARC21).getTag());
+    assertEquals("111", TagDefinitionLoader.load("111", MarcVersion.MARC21).getTag());
+    assertEquals("222", TagDefinitionLoader.load("222", MarcVersion.MARC21).getTag());
+    assertEquals("250", TagDefinitionLoader.load("250", MarcVersion.MARC21).getTag());
+    assertEquals("351", TagDefinitionLoader.load("351", MarcVersion.MARC21).getTag());
     // assertEquals("451", TagDefinitionLoader.load("451").getTag());
-    assertEquals("552", TagDefinitionLoader.load("552").getTag());
-    assertEquals("651", TagDefinitionLoader.load("651").getTag());
-    assertEquals("751", TagDefinitionLoader.load("751").getTag());
-    assertEquals("760", TagDefinitionLoader.load("760").getTag());
-    assertEquals("830", TagDefinitionLoader.load("830").getTag());
-    assertEquals("856", TagDefinitionLoader.load("856").getTag());
+    assertEquals("552", TagDefinitionLoader.load("552", MarcVersion.MARC21).getTag());
+    assertEquals("651", TagDefinitionLoader.load("651", MarcVersion.MARC21).getTag());
+    assertEquals("751", TagDefinitionLoader.load("751", MarcVersion.MARC21).getTag());
+    assertEquals("760", TagDefinitionLoader.load("760", MarcVersion.MARC21).getTag());
+    assertEquals("830", TagDefinitionLoader.load("830", MarcVersion.MARC21).getTag());
+    assertEquals("856", TagDefinitionLoader.load("856", MarcVersion.MARC21).getTag());
   }
 
   @Test
@@ -66,9 +67,15 @@ public class TagDefinitionLoaderTest {
       "787", "800", "810", "811", "830", "850", "852", "856", "882", "883", "884",
       "885", "886", "887", "911", "912", "938"
     );
-    for (String tag : tags)
-      assertEquals(tag, TagDefinitionLoader.load(tag).getTag());
+    List<String> oclcTags = Arrays.asList("019", "029", "539", "911", "912", "938");
 
+    for (String tag : tags) {
+      if (oclcTags.contains(tag))
+        assertEquals(tag, TagDefinitionLoader.load(tag, MarcVersion.OCLC).getTag());
+      else {
+        assertEquals(tag, TagDefinitionLoader.load(tag).getTag());
+      }
+    }
   }
 
   @Test

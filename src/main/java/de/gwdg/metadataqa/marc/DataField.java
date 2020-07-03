@@ -88,8 +88,8 @@ public class DataField implements Extractable, Validatable, Serializable {
     parseAndAddSubfields(input.substring(2));
   }
 
-  public DataField(String tag, String ind1, String ind2, String content) {
-    definition = TagDefinitionLoader.load(tag);
+  public DataField(String tag, String ind1, String ind2, String content, MarcVersion marcVersion) {
+    definition = TagDefinitionLoader.load(tag, marcVersion);
     if (definition == null) {
       this.tag = tag;
     }
@@ -422,7 +422,7 @@ public class DataField implements Extractable, Validatable, Serializable {
                 );
               } else {
                 referencerDefinition = definition;
-                definition = TagDefinitionLoader.load(linkage.getLinkingTag());
+                definition = TagDefinitionLoader.load(linkage.getLinkingTag(), marcVersion);
                 if (definition == null) {
                   definition = referencerDefinition;
                   validationErrors.add(

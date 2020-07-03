@@ -94,12 +94,12 @@ public class MarcFactory {
   }
 
   public static MarcRecord createFromMarc4j(Record marc4jRecord) {
-    return createFromMarc4j(marc4jRecord, null, null);
+    return createFromMarc4j(marc4jRecord, null, MarcVersion.MARC21);
   }
 
   public static MarcRecord createFromMarc4j(Record marc4jRecord,
                               Leader.Type defaultType) {
-    return createFromMarc4j(marc4jRecord, defaultType, null);
+    return createFromMarc4j(marc4jRecord, defaultType, MarcVersion.MARC21);
   }
 
   public static MarcRecord createFromMarc4j(Record marc4jRecord,
@@ -187,12 +187,7 @@ public class MarcFactory {
   }
 
   public static DataFieldDefinition getDataFieldDefinition(String tag, MarcVersion marcVersion) {
-    DataFieldDefinition definition = null;
-    if (marcVersion == null)
-      definition = TagDefinitionLoader.load(tag);
-    else
-      definition = TagDefinitionLoader.load(tag, marcVersion);
-    return definition;
+    return TagDefinitionLoader.load(tag, marcVersion);
   }
 
   private static DataField extractDataField(org.marc4j.marc.DataField dataField,

@@ -22,8 +22,10 @@ public class TagDefinitionLoader {
   private static final Pattern PATTERN_80x = Pattern.compile("^8[0-3]\\d$");
   private static final Pattern PATTERN_84x = Pattern.compile("^8[4-9]\\d$");
 
-  private static final List<String> OCLC_TAGS = Arrays.asList("012", "019", "029", "090", "092", "096", "366", "539",
-    "891", "911", "912", "936", "938", "994");
+  private static final List<String> OCLC_TAGS = Arrays.asList(
+    "012", "019", "029", "090", "092", "096", "366", "539", "891", "911",
+    "912", "936", "938", "994"
+  );
   private static Map<String, DataFieldDefinition> commonCache = new HashMap<>();
   private static Map<String, Map<MarcVersion, DataFieldDefinition>> versionedCache = new HashMap<>();
 
@@ -81,27 +83,7 @@ public class TagDefinitionLoader {
   }
 
   public static DataFieldDefinition load(String tag) {
-    if (!commonCache.containsKey(tag)) {
-      DataFieldDefinition dataFieldDefinition = null;
-      try {
-        String className = getClassName(tag);
-        if (className != null) {
-          Class definitionClazz = Class.forName(className);
-          Method getInstance = definitionClazz.getMethod("getInstance");
-          dataFieldDefinition = (DataFieldDefinition) getInstance.invoke(definitionClazz);
-        }
-      } catch (ClassNotFoundException e) {
-        // e.printStackTrace();
-      } catch (NoSuchMethodException e) {
-        e.printStackTrace();
-      } catch (IllegalAccessException e) {
-        e.printStackTrace();
-      } catch (InvocationTargetException e) {
-        e.printStackTrace();
-      }
-      commonCache.put(tag, dataFieldDefinition);
-    }
-    return commonCache.get(tag);
+    return load(tag, MarcVersion.MARC21);
   }
 
   public static DataFieldDefinition load(String tag, MarcVersion marcVersion) {

@@ -2,8 +2,8 @@ package de.gwdg.metadataqa.marc.cli.parameters;
 
 import org.apache.commons.cli.ParseException;
 
-public class SerialScoreParameters extends CommonParameters {
-  public static final String DEFAULT_FILE_NAME = "serial-score.csv";
+public class ShelfReadyCompletenessParameters extends CommonParameters {
+  public static final String DEFAULT_FILE_NAME = "shelf-ready-completeness.csv";
 
   private int limit = -1;
   private int offset = -1;
@@ -23,7 +23,7 @@ public class SerialScoreParameters extends CommonParameters {
     }
   }
 
-  public SerialScoreParameters(String[] arguments) throws ParseException {
+  public ShelfReadyCompletenessParameters(String[] arguments) throws ParseException {
     super(arguments);
 
     if (cmd.hasOption("fileName"))

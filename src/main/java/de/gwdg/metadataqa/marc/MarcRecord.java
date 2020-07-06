@@ -434,9 +434,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
       if (isSummary) {
         for (String tag : unhandledTags) {
           validationErrors.add(
-            new ValidationError(getId(), tag,
-              ValidationErrorType.FIELD_UNDEFINED, tag, null));
-          // errors.add(String.format("Unhandled tag: %s", tag));
+            new ValidationError(getId(), tag, ValidationErrorType.FIELD_UNDEFINED, tag, null));
         }
       } else {
         Map<String, Integer> tags = new LinkedHashMap<>();
@@ -456,7 +454,6 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
         for (String tag : unhandledTagsList) {
           validationErrors.add(new ValidationError(
             getId(), tag, ValidationErrorType.FIELD_UNDEFINED, tag, null));
-          // errors.add(String.format("Unhandled tag: %s", tag));
         }
       }
 
@@ -552,7 +549,13 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
 
   public List<String> select(MarcSpec selector) {
     List<String> results = new ArrayList<>();
-    if (controlfieldIndex.containsKey(selector.getFieldTag())) {
+    if (selector.getFieldTag().equals("LDR")) {
+      if (selector.hasRangeSelector()) {
+        results.add(selector.selectRange(leader.getContent()));
+      } else {
+        results.add(leader.getContent());
+      }
+    } else if (controlfieldIndex.containsKey(selector.getFieldTag())) {
       for (MarcControlField field : controlfieldIndex.get(selector.getFieldTag())) {
         if (field == null)
           continue;

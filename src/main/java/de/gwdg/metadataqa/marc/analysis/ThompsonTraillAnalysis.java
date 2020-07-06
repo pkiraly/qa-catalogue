@@ -24,6 +24,7 @@ public class ThompsonTraillAnalysis {
   private static final Pattern datePattern = Pattern.compile(
     "^(14[5-9]\\d|1[5-9]\\d\\d|200\\d|201[0-7])$"
   );
+
   private static List<String> headers = new LinkedList<>();
   static {
     for (ThompsonTraillFields field : ThompsonTraillFields.values()) {

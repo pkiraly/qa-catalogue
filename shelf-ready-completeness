@@ -1,0 +1,4 @@
+# Calling Shelf-Ready completeness calculator
+. ./common-variables
+
+java -cp $JAR de.gwdg.metadataqa.marc.cli.ShelfReadyCompleteness $@

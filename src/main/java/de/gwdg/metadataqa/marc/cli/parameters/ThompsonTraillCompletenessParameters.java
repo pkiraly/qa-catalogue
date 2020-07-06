@@ -18,7 +18,7 @@ public class ThompsonTraillCompletenessParameters extends CommonParameters {
       options.addOption("l", "limit", true, "limit the number of records to process");
       options.addOption("o", "offset", true, "the first record to process");
       options.addOption("f", "fileName", true,
-        String.format("the report file name (default is %s)", ValidatorParameters.DEFAULT_FILE_NAME));
+        String.format("the report file name (default is %s)", DEFAULT_FILE_NAME));
       isOptionSet = true;
     }
   }

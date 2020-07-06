@@ -2,6 +2,9 @@ package de.gwdg.metadataqa.marc.analysis;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public class ShelfReadyFieldsBooksTest {
@@ -15,5 +18,13 @@ public class ShelfReadyFieldsBooksTest {
     assertEquals("015$a,015$2", ShelfReadyFieldsBooks.TAG015.getMarcPath());
     assertEquals(null, ShelfReadyFieldsBooks.TAG015.getValue());
     assertEquals(null, ShelfReadyFieldsBooks.TAG015.getValueLabel());
+
+    double total = 0.0;
+    int count = 0;
+    for (ShelfReadyFieldsBooks tag : ShelfReadyFieldsBooks.values()) {
+      count++;
+      total += tag.getScore();
+    }
+    assertEquals("28.441", String.format("%.3f", total / count));
   }
 }

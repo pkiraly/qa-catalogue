@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
+import static de.gwdg.metadataqa.marc.Utils.quote;
 
 /**
  * usage:
@@ -162,10 +163,10 @@ public class ShelfReadyCompleteness implements MarcFileProcessor, Serializable {
   private void printFields() {
     Path path = Paths.get(parameters.getOutputDir(), "shelf-ready-completeness-fields.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-      writer.write(createRow("name", "transformed"));
+      writer.write(createRow("name", "label", "marcpath", "score"));
       for (ShelfReadyFieldsBooks field : ShelfReadyFieldsBooks.values()) {
         try {
-          writer.write(createRow(field.getLabel(), field.name()));
+          writer.write(createRow(field.name(), quote(field.getLabel()), quote(field.getMarcPath()), field.getScore()));
         } catch (IOException e) {
           e.printStackTrace();
         }

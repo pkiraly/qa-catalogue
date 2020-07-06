@@ -59,6 +59,7 @@ COPY validator \
      classifications \
      authorities \
      tt-completeness \
+     shelf-ready-completeness \
      serial-score \
      formatter \
      functional-analysis \

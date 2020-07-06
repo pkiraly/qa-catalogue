@@ -12,6 +12,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.marc4j.marc.Record;
 
 import java.io.BufferedWriter;
@@ -87,11 +88,16 @@ public class ShelfReadyCompleteness implements MarcFileProcessor, Serializable {
     if (output.exists())
       output.delete();
 
+    print(createRow(createHeaders()));
+  }
+
+  @NotNull
+  private List<String> createHeaders() {
     List<String> headers = new ArrayList<>();
     headers.add("id");
     headers.addAll(ShelfReadyAnalysis.getHeaders());
     headers.add("total");
-    print(createRow(headers));
+    return headers;
   }
 
   @Override

@@ -787,6 +787,13 @@ Here is a list of data sources I am aware of so far:
 * Harvard University Library &mdash; https://library.harvard.edu/open-metadata. MARC21 format, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/). Institution specific features are documented [here](http://library.harvard.edu/sites/default/files/news_uploaded/Harvard_Library_Bibliographic_Dataset_Documentation.pdf)
 * Columbia University Library &mdash; https://library.columbia.edu/bts/clio-data.html. 10M records, MARC21 and MARCXML format, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/).
 * University of Michigan Library &mdash; https://www.lib.umich.edu/open-access-bibliographic-records. 1,3M records, MARC21 and MARCXML formats, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/).
+* University of Pennsylvania Libraries &mdash; https://www.library.upenn.edu/collections/digital-projects/open-data-penn-libraries. Two datasets are available:
+  1. [Catalog records created by Penn Libraries](http://ered.library.upenn.edu/data/opendata/pau.zip) 572K records, MARCXML format, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/),
+  2. [Catalog records derived from other sources](http://ered.library.upenn.edu/data/opendata/npau.zip), 6.5M records, MARCXML format, Open Data Commons [ODC-BY](https://opendatacommons.org/licenses/by/), use in accordance with the OCLC [community norms](https://www.oclc.org/worldcat/community/record-use/policy/community-norms.en.html).
+* Yale University &mdash; https://guides.library.yale.edu/c.php?g=923429. Three datasets are available:
+  1. Yale-originated records: 1.47M records, MARC21 format, [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
+  2. Worldcat-derived records: 6.16M records, MARC21 format, [ODC-BY](https://www.opendatacommons.org/licenses/by/1.0/)
+  3. Other records (MARC21), independent of Yale and WorldCat, where sharing is permitted. 404K records, MARC21 format.
 
 ### Germany
 * Deutsche Nationalbibliothek &mdash; http://www.dnb.de/EN/Service/DigitaleDienste/Datendienst/datendienst_node.html (note: it is not a direct link, you have to register and contact with librarians to get access to the downloadable dataset). 16.7M records, MARC21 and MARCXML format, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/).

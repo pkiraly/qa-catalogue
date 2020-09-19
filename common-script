@@ -116,8 +116,6 @@ do_network_analysis() {
 
   spark-shell -I scripts/network.scala --conf spark.driver.metadata.qa.dir="${OUTPUT_DIR}"
   ./network-export.sh ${OUTPUT_DIR}
-
-
 }
 
 do_pareto() {

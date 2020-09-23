@@ -106,13 +106,18 @@ do_functional_analysis() {
 do_network_analysis() {
   printf "%s %s> [network-analysis]\n" $(date +"%F %T")
   printf "%s %s> ./network-analysis --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/network-analysis.log\n" $(date +"%F %T")
-  ./network-analysis --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/network-analysis.log
+  ./network-analysis --defaultRecordType BOOKS \
+                     ${TYPE_PARAMS} \
+                     --outputDir ${OUTPUT_DIR}/ \
+                     ${MARC_DIR}/${MASK} 2> ${PREFIX}/network-analysis.log
 
   printf "%s %s> Rscript scripts/network-transform.R ${OUTPUT_DIR} &>> ${PREFIX}/network-analysis.log\n" $(date +"%F %T")
   Rscript scripts/network-transform.R ${OUTPUT_DIR} &>> ${PREFIX}/network-analysis.log
 
   printf "%s %s> ./network-analysis --outputDir ${OUTPUT_DIR} --action pairing --group-limit 2000 &>> ${PREFIX}/network-analysis.log\n" $(date +"%F %T")
-  ./network-analysis --outputDir ${OUTPUT_DIR} --action pairing --group-limit 2000 &>> ${PREFIX}/network-analysis.log
+  ./network-analysis --outputDir ${OUTPUT_DIR} \
+                     --action pairing \
+                     &>> ${PREFIX}/network-analysis.log
 
   spark-shell -I scripts/network.scala --conf spark.driver.metadata.qa.dir="${OUTPUT_DIR}"
   ./network-export.sh ${OUTPUT_DIR}

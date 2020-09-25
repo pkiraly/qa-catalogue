@@ -120,6 +120,12 @@ public class NetworkAnalysis implements MarcFileProcessor, Serializable {
 
   @Override
   public void afterIteration(int numberOfprocessedRecords) {
+    try {
+      networkWriter.close();
+    } catch (IOException e) {
+      logger.severe("Failed to close networkWriter. " + e.getLocalizedMessage());
+      e.printStackTrace();
+    }
   }
 
   @Override

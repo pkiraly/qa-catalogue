@@ -20,7 +20,6 @@ if (length(args) == 0) {
   output_dir <- args[1]
 }
 
-output_dir <- '/home/kiru/bin/marc/_output/gent'
 prefix <- 'network'
 csv <- sprintf("%s/%s.csv", output_dir, prefix)
 if (!file.exists(csv)) {

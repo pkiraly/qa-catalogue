@@ -111,9 +111,16 @@ do_network_analysis() {
                      --outputDir ${OUTPUT_DIR}/ \
                      ${MARC_DIR}/${MASK} 2> ${PREFIX}/network-analysis.log
 
+  # network.csv (concept, id) ->
+  #   network-by-concepts.csv (concept, count, ids)
+  #   network-by-record.csv (id, count, concepts)
+  #   network-statistics.csv (type, total, single, multi)
   printf "%s %s> Rscript scripts/network-transform.R ${OUTPUT_DIR} &>> ${PREFIX}/network-analysis.log\n" $(date +"%F %T")
   Rscript scripts/network-transform.R ${OUTPUT_DIR} &>> ${PREFIX}/network-analysis.log
 
+  # network-by-concepts (concept, count, ids) ->
+  #   network-pairs.csv (id1 id2)
+  #   network-nodes.csv (id, id)
   printf "%s %s> ./network-analysis --outputDir ${OUTPUT_DIR} --action pairing --group-limit 2000 &>> ${PREFIX}/network-analysis.log\n" $(date +"%F %T")
   ./network-analysis --outputDir ${OUTPUT_DIR} \
                      --action pairing \

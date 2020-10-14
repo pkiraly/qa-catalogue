@@ -48,11 +48,15 @@ public class LinkageParser implements SubfieldContentParser, Serializable {
     List<String> invalidChars = new ArrayList<>();
     while (matcher.find()) {
       hasInvalidCharacters = true;
-      invalidChars.add(String.format("\\u%04X", (int)matcher.group().charAt(0)));
+      String chr = matcher.group();
+      String hex = String.format("\\u%04X", (int)chr.charAt(0));
+      if (hex.equals("\\u200F"))
+        chr = hex;
+      invalidChars.add(chr);
     }
     if (hasInvalidCharacters) {
       throw new ParserException(String.format(
-        "Invalid characters in '%s': %s", input, StringUtils.join(invalidChars, ", ")));
+        "Linkage does not fit the pattern nnn-nn(/..)(/..). It contains invalid characters in '%s': '%s'", input, StringUtils.join(invalidChars, "', '")));
     }
   }
 

@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 
@@ -25,6 +26,6 @@ public class ShelfReadyFieldsBooksTest {
       count++;
       total += tag.getScore();
     }
-    assertEquals("28.441", String.format("%.3f", total / count));
+    assertEquals("28.441", String.format(Locale.ENGLISH, "%.3f", total / count));
   }
 }

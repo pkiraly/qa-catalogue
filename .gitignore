@@ -21,10 +21,13 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
+# project specific
 target/*
 .idea/*
 metadata-qa-marc.iml
 temp
+scala/project
+scala/target
 
 # copy setdir.sh.template to setdir.sh. Do not add this into git
 setdir.sh
@@ -38,3 +41,4 @@ setdir.sh
 .factorypath
 .classpath
 .settings
+

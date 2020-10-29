@@ -32,6 +32,11 @@ public class KosRegistry {
     add("bisacsh", 961, KosType.CLASSIFICATION_SCHEME);
     add("bkl", 18785, KosType.CLASSIFICATION_SCHEME);
     add("msc", 474, KosType.CLASSIFICATION_SCHEME);
+    add("ssgn", 18928, KosType.CLASSIFICATION_SCHEME);
+    add("kssb", 672, KosType.CLASSIFICATION_SCHEME);
+    add("sao", 1756, KosType.SUBJECT_HEADING);
+    add("rasuqam", 1410, KosType.THESAURUS);
+    add("lcac", 18537, KosType.SUBJECT_HEADING);
   }
 
   private static void add(String abbreviation, int bartocId, KosType type) {

@@ -1,5 +1,8 @@
 package de.gwdg.metadataqa.marc.cli.utils;
 
+import de.gwdg.metadataqa.marc.model.kos.Kos;
+import de.gwdg.metadataqa.marc.model.kos.KosRegistry;
+import de.gwdg.metadataqa.marc.model.kos.KosType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -54,6 +57,24 @@ public class Schema {
 
   public String getAbbreviation() {
     return abbreviation;
+  }
+
+  public Kos getKos() {
+    return KosRegistry.get(abbreviation);
+  }
+
+  public KosType getType() {
+    Kos kos = getKos();
+    if (kos == null)
+      return null;
+    return kos.getType();
+  }
+
+  public int getScore() {
+    KosType type = getType();
+    if (type == null)
+      return 0;
+    return type.getScore();
   }
 
   @Override

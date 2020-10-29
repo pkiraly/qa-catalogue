@@ -4,6 +4,9 @@ import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
+import de.gwdg.metadataqa.marc.model.kos.Kos;
+import de.gwdg.metadataqa.marc.model.kos.KosRegistry;
+import de.gwdg.metadataqa.marc.model.kos.KosType;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -45,5 +48,24 @@ public class ClassificationAnalyzerTest {
     assertEquals(1, subfieldMap.size());
     list = (List<String>) subfieldMap.keySet().toArray()[0];
     assertEquals("[a, 2]", list.toString());
+  }
+
+  @Test
+  public void abbreviation() throws IOException, URISyntaxException {
+    List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
+    MarcRecord record = MarcFactory.createFromFormattedText(lines);
+    ClassificationStatistics statistics = new ClassificationStatistics();
+
+    ClassificationAnalyzer analyzer = new ClassificationAnalyzer(record, statistics);
+    analyzer.process();
+    Map<Schema, Integer> recordStats = statistics.getRecords();
+    Schema first = (Schema) recordStats.keySet().toArray()[0];
+    assertEquals("gnd-content", first.getAbbreviation());
+    System.err.println(first.getField());
+
+    Schema second = (Schema) recordStats.keySet().toArray()[1];
+    assertEquals("bkl", second.getAbbreviation());
+    assertEquals(KosType.CLASSIFICATION_SCHEME,
+      KosRegistry.get(second.getAbbreviation()).getType());
   }
 }

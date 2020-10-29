@@ -61,14 +61,13 @@ public class ClassificationAnalyzer {
     "653"  // Index Term - Uncontrolled
   );
 
-  private static final Map<String, String> fieldsWithScheme = new HashMap<>();
-  static {
-    fieldsWithScheme.put("080", "Universal Decimal Classification");
-    fieldsWithScheme.put("082", "Dewey Decimal Classification");
-    fieldsWithScheme.put("083", "Dewey Decimal Classification");
-    fieldsWithScheme.put("085", "Dewey Decimal Classification");
-    // fieldsWithScheme.put("086", "Government Document Classification");
-  }
+  private static final List<FieldWithScheme> fieldsWithScheme = Arrays.asList(
+    new FieldWithScheme("080", "Universal Decimal Classification"),
+    new FieldWithScheme("082", "Dewey Decimal Classification"),
+    new FieldWithScheme("083", "Dewey Decimal Classification"),
+    new FieldWithScheme("085", "Dewey Decimal Classification")
+    // new FieldWithScheme("086", "Government Document Classification");
+  );
 
   public ClassificationAnalyzer(MarcRecord marcRecord, ClassificationStatistics statistics) {
     this.marcRecord = marcRecord;
@@ -76,38 +75,48 @@ public class ClassificationAnalyzer {
   }
 
   public int process() {
-    int count = 0;
+    int total = 0;
 
     for (String tag : fieldsWithIndicator1AndSubfield2) {
-      count += processFieldWithIndicator1AndSubfield2(marcRecord, tag);
+      int count = processFieldWithIndicator1AndSubfield2(marcRecord, tag);
+      if (count > 0)
+        total += count;
     }
 
     for (String tag : fieldsWithIndicator2AndSubfield2) {
-      count += processFieldWithIndicator2AndSubfield2(marcRecord, tag);
+      int count = processFieldWithIndicator2AndSubfield2(marcRecord, tag);
+      if (count > 0)
+        total += count;
     }
 
     for (String tag : fieldsWithSubfield2) {
-      count += processFieldWithSubfield2(marcRecord, tag);
+      int count = processFieldWithSubfield2(marcRecord, tag);
+      if (count > 0)
+        total += count;
     }
 
     for (String tag : fieldsWithoutSource) {
-      count += processFieldWithoutSource(marcRecord, tag);
+      int count = processFieldWithoutSource(marcRecord, tag);
+      if (count > 0)
+        total += count;
     }
 
-    for (Map.Entry<String, String> fieldEntry : fieldsWithScheme.entrySet()) {
-      count += processFieldWithScheme(marcRecord, fieldEntry);
+    for (FieldWithScheme fieldWithScheme : fieldsWithScheme) {
+      int count = processFieldWithScheme(marcRecord, fieldWithScheme);
+      if (count > 0)
+        total += count;
     }
 
-    count((count > 0), statistics.getHasClassifications());
-    count(count, statistics.getSchemaHistogram());
+    count((total > 0), statistics.getHasClassifications());
+    count(total, statistics.getSchemaHistogram());
 
-    return count;
+    return total;
   }
 
   private int processFieldWithScheme(MarcRecord marcRecord,
-                                     Map.Entry<String, String> fieldEntry) {
+                                     FieldWithScheme fieldEntry) {
     int count = 0;
-    final String tag = fieldEntry.getKey();
+    final String tag = fieldEntry.getTag();
     if (!marcRecord.hasDatafield(tag))
       return count;
 
@@ -128,8 +137,9 @@ public class ClassificationAnalyzer {
         }
       }
       if (firstSubfield != null) {
-        String scheme = fieldEntry.getValue();
-        Schema currentSchema = new Schema(tag, firstSubfield, classificationSchemes.resolve(scheme), scheme);
+        String scheme = fieldEntry.getSchemaName();
+        Schema currentSchema = new Schema(
+          tag, firstSubfield, classificationSchemes.resolve(scheme), scheme);
         schemas.add(currentSchema);
         updateSchemaSubfieldStatistics(field, currentSchema);
         count++;
@@ -162,10 +172,10 @@ public class ClassificationAnalyzer {
         // } else if (scheme.equals("9")) {
       } else {
         try {
-          currentSchema = new Schema(tag, "ind1", scheme, classificationSchemes.resolve(scheme));
+          currentSchema = new Schema(tag, "ind1", classificationSchemes.resolve(scheme), scheme);
         } catch (IllegalArgumentException e) {
           logger.severe(String.format("Invalid scheme in ind1: %s. %s", e.getLocalizedMessage(), field));
-          currentSchema = new Schema(tag, "ind1", scheme, field.getInd1());
+          currentSchema = new Schema(tag, "ind1", field.getInd1(), scheme);
         }
         schemas.add(currentSchema);
       }
@@ -203,8 +213,10 @@ public class ClassificationAnalyzer {
       }
       updateSchemaSubfieldStatistics(field, currentSchema);
     }
+
     addSchemasToStatistics(statistics.getInstances(), schemas);
     addSchemasToStatistics(statistics.getRecords(), deduplicateSchema(schemas));
+
     return count;
   }
 
@@ -222,6 +234,7 @@ public class ClassificationAnalyzer {
     }
     addSchemasToStatistics(statistics.getInstances(), schemas);
     addSchemasToStatistics(statistics.getRecords(), deduplicateSchema(schemas));
+
     return count;
   }
 
@@ -321,7 +334,9 @@ public class ClassificationAnalyzer {
   }
 
   private boolean isaReferenceToSubfield2(String field, String scheme) {
-    return ((field.equals("055") && isAReferenceFrom055(scheme)) || scheme.equals("Source specified in subfield $2"));
+    return (
+         (field.equals("055") && isAReferenceFrom055(scheme))
+      || scheme.equals("Source specified in subfield $2"));
   }
 
   private boolean isAReferenceFrom055(String scheme) {

@@ -79,8 +79,6 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     analyzer.process();
   }
 
-
-
   @Override
   public void beforeIteration() {
 
@@ -108,7 +106,10 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     Path path;
     path = Paths.get(parameters.getOutputDir(), "classifications-by-schema.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-      writer.write(createRow("id", "field", "location", "scheme", "abbreviation", "abbreviation4solr", "recordcount", "instancecount"));
+      writer.write(createRow("id", "field", "location", "scheme",
+        "abbreviation", "abbreviation4solr", "recordcount", "instancecount",
+        "type"
+      ));
       statistics.getInstances()
         .entrySet()
         .stream()
@@ -133,7 +134,8 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     }
   }
 
-  private void printSingleClassificationBySchema(BufferedWriter writer, Map.Entry<Schema, Integer> entry) {
+  private void printSingleClassificationBySchema(BufferedWriter writer,
+                                                 Map.Entry<Schema, Integer> entry) {
     Schema schema = entry.getKey();
     int instanceCount = entry.getValue();
     int recordCount = statistics.getRecords().get(schema);
@@ -146,7 +148,8 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
         schema.getAbbreviation(),
         Utils.solarize(schema.getAbbreviation()),
         recordCount,
-        instanceCount
+        instanceCount,
+        (schema.getType() == null ? "UNKNOWN" : schema.getType())
       ));
     } catch (IOException ex) {
       ex.printStackTrace();

@@ -23,6 +23,7 @@ public class ClassificationAnalyzer {
 
   private final ClassificationStatistics statistics;
   private MarcRecord marcRecord;
+  private List<Schema> schemasInRecord;
 
   private static final List<String> fieldsWithIndicator1AndSubfield2 = Arrays.asList(
     "052", // Geographic Classification
@@ -76,6 +77,7 @@ public class ClassificationAnalyzer {
 
   public int process() {
     int total = 0;
+    schemasInRecord = new ArrayList<>();
 
     for (String tag : fieldsWithIndicator1AndSubfield2) {
       int count = processFieldWithIndicator1AndSubfield2(marcRecord, tag);
@@ -128,7 +130,10 @@ public class ClassificationAnalyzer {
       String alt = null;
       for (MarcSubfield subfield : field.parseSubfields()) {
         String code = subfield.getCode();
-        if (!code.equals("1") && !code.equals("2") && !code.equals("6") && !code.equals("8")) {
+        if (   !code.equals("1")
+            && !code.equals("2")
+            && !code.equals("6")
+            && !code.equals("8")) {
           firstSubfield = "$" + code;
           break;
         } else {
@@ -147,9 +152,17 @@ public class ClassificationAnalyzer {
         logger.severe(String.format("undetected subfield in record %s %s", marcRecord.getId(), field.toString()));
       }
     }
-    addSchemasToStatistics(statistics.getInstances(), schemas);
-    addSchemasToStatistics(statistics.getRecords(), deduplicateSchema(schemas));
+    registerSchemas(schemas);
+
     return count;
+  }
+
+  private void registerSchemas(List<Schema> schemas) {
+    addSchemasToStatistics(statistics.getInstances(), schemas);
+
+    List<Schema> uniqSchemas = deduplicateSchema(schemas);
+    addSchemasToStatistics(statistics.getRecords(), uniqSchemas);
+    schemasInRecord.addAll(uniqSchemas);
   }
 
   private int processFieldWithIndicator1AndSubfield2(MarcRecord marcRecord, String tag) {
@@ -157,7 +170,7 @@ public class ClassificationAnalyzer {
     if (!marcRecord.hasDatafield(tag))
       return count;
 
-    Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(tag);
+    // Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(tag);
     List<Schema> schemas = new ArrayList<>();
     List<DataField> fields = marcRecord.getDatafield(tag);
     for (DataField field : fields) {
@@ -182,8 +195,8 @@ public class ClassificationAnalyzer {
       updateSchemaSubfieldStatistics(field, currentSchema);
     }
 
-    addSchemasToStatistics(statistics.getInstances(), schemas);
-    addSchemasToStatistics(statistics.getRecords(), deduplicateSchema(schemas));
+    registerSchemas(schemas);
+
     return count;
   }
 
@@ -214,8 +227,7 @@ public class ClassificationAnalyzer {
       updateSchemaSubfieldStatistics(field, currentSchema);
     }
 
-    addSchemasToStatistics(statistics.getInstances(), schemas);
-    addSchemasToStatistics(statistics.getRecords(), deduplicateSchema(schemas));
+    registerSchemas(schemas);
 
     return count;
   }
@@ -232,8 +244,8 @@ public class ClassificationAnalyzer {
       updateSchemaSubfieldStatistics(field, currentSchema);
       count++;
     }
-    addSchemasToStatistics(statistics.getInstances(), schemas);
-    addSchemasToStatistics(statistics.getRecords(), deduplicateSchema(schemas));
+
+    registerSchemas(schemas);
 
     return count;
   }
@@ -250,8 +262,8 @@ public class ClassificationAnalyzer {
       updateSchemaSubfieldStatistics(field, currentSchema);
       count++;
     }
-    addSchemasToStatistics(statistics.getInstances(), schemas);
-    addSchemasToStatistics(statistics.getRecords(), deduplicateSchema(schemas));
+    registerSchemas(schemas);
+
     return count;
   }
 
@@ -384,4 +396,7 @@ public class ClassificationAnalyzer {
     return statistics.getFieldInstances().get(field);
   }
 
+  public List<Schema> getSchemasInRecord() {
+    return schemasInRecord;
+  }
 }

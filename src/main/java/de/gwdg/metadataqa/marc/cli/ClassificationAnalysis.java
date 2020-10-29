@@ -11,10 +11,12 @@ import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.Record;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
@@ -22,6 +24,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
 
@@ -33,6 +36,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   private CommonParameters parameters;
   private boolean readyToProcess;
   private static char separator = ',';
+  private File collectorFile;
   ClassificationStatistics statistics = new ClassificationStatistics();
 
   public ClassificationAnalysis(String[] args) throws ParseException {
@@ -77,11 +81,42 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
     ClassificationAnalyzer analyzer = new ClassificationAnalyzer(marcRecord, statistics);
     analyzer.process();
+    List<Schema> schemas = analyzer.getSchemasInRecord();
+    if (!schemas.isEmpty()) {
+      List<String> abbreviations = schemas
+        .stream()
+        .map(Schema::getAbbreviation)
+        .distinct()
+        .collect(Collectors.toList());
+      if (!abbreviations.isEmpty()) {
+        String joined = StringUtils.join(abbreviations, ":");
+        printToFile(collectorFile, Utils.createRow(marcRecord.getId(true), joined));
+      }
+    }
   }
+
+  private void printToFile(File file, String message) {
+    try {
+      FileUtils.writeStringToFile(file, message, true);
+    } catch (IOException | NullPointerException e) {
+      if (parameters.doLog())
+        logger.severe(e.toString());
+      e.printStackTrace();
+    }
+  }
+
+  private File prepareReportFile(String outputDir, String fileName) {
+    File reportFile = new File(outputDir, fileName);
+    if (reportFile.exists())
+      reportFile.delete();
+    return reportFile;
+  }
+
 
   @Override
   public void beforeIteration() {
-
+    collectorFile = prepareReportFile(
+      parameters.getOutputDir(), "classification-collocations.csv");
   }
 
   @Override

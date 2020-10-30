@@ -7,6 +7,7 @@ import de.gwdg.metadataqa.marc.analysis.ClassificationStatistics;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.cli.utils.Collocation;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
 import org.apache.commons.cli.Options;
@@ -24,7 +25,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
 
@@ -81,6 +81,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
     ClassificationAnalyzer analyzer = new ClassificationAnalyzer(marcRecord, statistics);
     analyzer.process();
+    /*
     List<Schema> schemas = analyzer.getSchemasInRecord();
     if (!schemas.isEmpty()) {
       List<String> abbreviations = schemas
@@ -93,6 +94,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
         printToFile(collectorFile, Utils.createRow(marcRecord.getId(true), joined));
       }
     }
+    */
   }
 
   private void printToFile(File file, String message) {
@@ -115,8 +117,10 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
   @Override
   public void beforeIteration() {
+    /*
     collectorFile = prepareReportFile(
       parameters.getOutputDir(), "classification-collocations.csv");
+     */
   }
 
   @Override
@@ -135,6 +139,31 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     printClassificationsByRecords();
     printClassificationsHistogram();
     printSchemaSubfieldsStatistics();
+    printClassificationsCollocation();
+  }
+
+  private void printClassificationsCollocation() {
+    Path path;
+    path = Paths.get(parameters.getOutputDir(), "classifications-collocations.csv");
+    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+      writer.write(createRow("abbreviations", "recordcount"));
+      statistics.getCollocationHistogram()
+        .entrySet()
+        .stream()
+        .map(e -> new Collocation(e.getKey(), e.getValue()))
+        .sorted((e1, e2) -> e1.compareTo(e2))
+        .forEach(entry -> printCollocation(writer, entry));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void printCollocation(BufferedWriter writer, Collocation entry) {
+    try {
+      writer.write(createRow(entry.getKey(), entry.getValue()));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   private void printClassificationsBySchema() {

@@ -92,8 +92,8 @@ public class Utils {
 
   /**
    * Increment a counter with 1. The counter is a key in a map.
-   * @param key
-   * @param counter
+   * @param key (any kind of object)
+   * @param counter (a map where the key type equals to the key parameter)
    * @param <T>
    */
   public static <T extends Object> void count(T key, Map<T, Integer> counter) {

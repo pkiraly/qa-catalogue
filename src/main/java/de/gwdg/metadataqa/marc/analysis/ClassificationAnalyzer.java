@@ -244,22 +244,18 @@ public class ClassificationAnalyzer {
     // Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(tag);
     List<Schema> schemas = new ArrayList<>();
     List<DataField> fields = marcRecord.getDatafield(tag);
-    int c1 = 0, c2 = 0, c3 = 0;
     for (DataField field : fields) {
       String scheme = field.resolveInd2();
       Schema currentSchema = null;
       if (isaReferenceToSubfield2(tag, scheme)) {
         currentSchema = extractSchemaFromSubfield2(tag, schemas, field);
         count++;
-        c1++;
       } else {
         try {
           currentSchema = new Schema(tag, "ind2", classificationSchemes.resolve(scheme), scheme);
-          c2++;
         } catch (IllegalArgumentException e) {
           logger.warning(String.format("Invalid scheme in ind2: %s. %s", e.getLocalizedMessage(), field));
           currentSchema = new Schema(tag, "ind2", field.getInd2(), scheme);
-          c3++;
         }
         schemas.add(currentSchema);
         count++;

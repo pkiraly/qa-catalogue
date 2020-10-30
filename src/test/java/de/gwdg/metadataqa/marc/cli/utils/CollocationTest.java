@@ -3,6 +3,9 @@ package de.gwdg.metadataqa.marc.cli.utils;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -68,5 +71,14 @@ public class CollocationTest {
   public void getCount() {
     Collocation a = new Collocation(Arrays.asList("xcsh", "udc"), 4416, 5000);
     assertEquals(4416, a.getCount().intValue());
+  }
+
+  @Test
+  public void testSum() {
+    Map<List<String>, Integer> histogram = new HashMap<>();
+    histogram.put(Arrays.asList("xcsh", "udc"), 4416);
+    histogram.put(Arrays.asList("lcsh", "udc"), 5362);
+    int sum = histogram.entrySet().stream().map(e -> e.getValue()).reduce((a, b) -> a + b).get();
+    assertEquals(4416 + 5362, sum);
   }
 }

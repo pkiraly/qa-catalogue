@@ -147,7 +147,15 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     path = Paths.get(parameters.getOutputDir(), "classifications-collocations.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write(Collocation.header());
-      int total = statistics.getHasClassifications().get(true);
+      // int total = statistics.getHasClassifications().get(true);
+      int total = statistics.getCollocationHistogram()
+        .entrySet()
+        .stream()
+        .map(e -> e.getValue())
+        .reduce((a, b) -> a + b)
+        .get();
+      logger.info("total: " + total);
+
       statistics.getCollocationHistogram()
         .entrySet()
         .stream()

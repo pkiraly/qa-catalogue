@@ -9,6 +9,7 @@ import de.gwdg.metadataqa.marc.definition.general.indexer.subject.Classification
 import java.util.*;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import static de.gwdg.metadataqa.marc.Utils.count;
 
@@ -79,39 +80,68 @@ public class ClassificationAnalyzer {
     int total = 0;
     schemasInRecord = new ArrayList<>();
 
-    for (String tag : fieldsWithIndicator1AndSubfield2) {
-      int count = processFieldWithIndicator1AndSubfield2(marcRecord, tag);
-      if (count > 0)
-        total += count;
-    }
+    total = processFieldsWithIndicator1AndSubfield2(total);
+    total = processFieldsWithIndicator2AndSubfield2(total);
+    total = processFieldsWithSubfield2(total);
+    total = processFieldsWithoutSource(total);
+    total = processFieldsWithScheme(total);
 
-    for (String tag : fieldsWithIndicator2AndSubfield2) {
-      int count = processFieldWithIndicator2AndSubfield2(marcRecord, tag);
-      if (count > 0)
-        total += count;
-    }
+    increaseCounters(total);
 
-    for (String tag : fieldsWithSubfield2) {
-      int count = processFieldWithSubfield2(marcRecord, tag);
-      if (count > 0)
-        total += count;
-    }
+    return total;
+  }
 
-    for (String tag : fieldsWithoutSource) {
-      int count = processFieldWithoutSource(marcRecord, tag);
-      if (count > 0)
-        total += count;
-    }
+  private void increaseCounters(int total) {
+    count((total > 0), statistics.getHasClassifications());
+    count(total, statistics.getSchemaHistogram());
 
+    List<String> collocation = getCollocationInRecord();
+    if (!collocation.isEmpty())
+      count(collocation, statistics.getCollocationHistogram());
+  }
+
+  private int processFieldsWithScheme(int total) {
     for (FieldWithScheme fieldWithScheme : fieldsWithScheme) {
       int count = processFieldWithScheme(marcRecord, fieldWithScheme);
       if (count > 0)
         total += count;
     }
+    return total;
+  }
 
-    count((total > 0), statistics.getHasClassifications());
-    count(total, statistics.getSchemaHistogram());
+  private int processFieldsWithoutSource(int total) {
+    for (String tag : fieldsWithoutSource) {
+      int count = processFieldWithoutSource(marcRecord, tag);
+      if (count > 0)
+        total += count;
+    }
+    return total;
+  }
 
+  private int processFieldsWithSubfield2(int total) {
+    for (String tag : fieldsWithSubfield2) {
+      int count = processFieldWithSubfield2(marcRecord, tag);
+      if (count > 0)
+        total += count;
+    }
+    return total;
+  }
+
+  private int processFieldsWithIndicator2AndSubfield2(int total) {
+    for (String tag : fieldsWithIndicator2AndSubfield2) {
+      int count = processFieldWithIndicator2AndSubfield2(marcRecord, tag);
+      if (count > 0)
+        total += count;
+    }
+    return total;
+  }
+
+  private int processFieldsWithIndicator1AndSubfield2(int total) {
+    for (String tag : fieldsWithIndicator1AndSubfield2) {
+      int count = processFieldWithIndicator1AndSubfield2(marcRecord, tag);
+      if (count > 0)
+        total += count;
+    }
     return total;
   }
 
@@ -398,5 +428,15 @@ public class ClassificationAnalyzer {
 
   public List<Schema> getSchemasInRecord() {
     return schemasInRecord;
+  }
+
+  public List<String> getCollocationInRecord() {
+    List<String> abbreviations = schemasInRecord
+      .stream()
+      .map(Schema::getAbbreviation)
+      .sorted()
+      .distinct()
+      .collect(Collectors.toList());
+    return abbreviations;
   }
 }

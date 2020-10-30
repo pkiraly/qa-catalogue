@@ -15,6 +15,7 @@ public class ClassificationStatistics {
   private Map<String, Map<String[], Integer>> fieldInstances = new TreeMap<>();
   private Map<Boolean, Integer> hasClassifications = new HashMap<>();
   private Map<Integer, Integer> schemaHistogram = new HashMap<>();
+  private Map<List<String>, Integer> collocationHistogram = new HashMap<>();
 
   public ClassificationStatistics() {
   }
@@ -45,5 +46,9 @@ public class ClassificationStatistics {
 
   public Map<Integer, Integer> getSchemaHistogram() {
     return schemaHistogram;
+  }
+
+  public Map<List<String>, Integer> getCollocationHistogram() {
+    return collocationHistogram;
   }
 }

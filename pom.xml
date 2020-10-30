@@ -68,7 +68,7 @@
 		<dependency>
 			<groupId>de.gwdg.metadataqa</groupId>
 			<artifactId>metadata-qa-api</artifactId>
-			<version>0.5</version>
+			<version>0.6</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

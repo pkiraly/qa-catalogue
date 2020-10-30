@@ -59,7 +59,7 @@ public class MarcJsonCalculatorFacade extends CalculatorFacade {
       boolean enableProblemCatalogMeasurement, 
       boolean abbreviate) {
     super(enableFieldExistenceMeasurement, enableFieldCardinalityMeasurement, enableCompletenessMeasurement, enableTfIdfMeasurement, enableProblemCatalogMeasurement);
-    changed();
+    conditionalConfiguration();
   }
 
   @Override
@@ -82,7 +82,7 @@ public class MarcJsonCalculatorFacade extends CalculatorFacade {
 
     if (tfIdfMeasurementEnabled) {
       tfidfCalculator = new TfIdfCalculator(schema);
-      tfidfCalculator.setDoCollectTerms(collectTfIdfTerms);
+      tfidfCalculator.enableTermCollection(collectTfIdfTerms);
       calculators.add(tfidfCalculator);
     }
 

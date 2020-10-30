@@ -1,7 +1,8 @@
 package de.gwdg.metadataqa.marc.utils;
 
-import de.gwdg.metadataqa.api.model.JsonPathCache;
+import de.gwdg.metadataqa.api.model.pathcache.JsonPathCache;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
+import de.gwdg.metadataqa.api.model.pathcache.PathCache;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -10,10 +11,10 @@ import java.util.List;
 
 public class MarcCacheWrapper {
 
-  private JsonPathCache<? extends XmlFieldInstance> cache;
+  private PathCache<? extends XmlFieldInstance> cache;
   private static final List<String> controlfields = Arrays.asList("001", "003", "005", "006", "007", "008");
 
-  public MarcCacheWrapper(JsonPathCache<? extends XmlFieldInstance> cache) {
+  public MarcCacheWrapper(PathCache<? extends XmlFieldInstance> cache) {
     this.cache = cache;
   }
 

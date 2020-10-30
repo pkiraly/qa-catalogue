@@ -126,8 +126,22 @@ do_network_analysis() {
                      --action pairing \
                      &>> ${PREFIX}/network-analysis.log
 
-  spark-shell -I scripts/network.scala --conf spark.driver.metadata.qa.dir="${OUTPUT_DIR}"
-  ./network-export.sh ${OUTPUT_DIR}
+  cat network-pairs.csv | sort | uniq -c | sort -nr > network-pairs-uniq-with-count.csv
+  awk '{print $2 " " $3}' network-pairs-uniq-with-count.csv > network-pairs-all.csv
+
+  printf "%s %s> ziping output\n" $(date +"%F %T")
+  PWD=`pdw`
+  cd ${OUTPUT_DIR}
+  zip network-input network-nodes.csv network-nodes-???.csv network-pairs-???.csv network-by-concepts-tags.csv
+  cd $PWD
+
+
+
+  printf "%s %s> upload output\n" $(date +"%F %T")
+  scp ${OUTPUT_DIR}/network-input.zip pkiraly@roedel.etrap.eu:/roedel/pkiraly/network/input
+
+  # spark-shell -I scripts/network.scala --conf spark.driver.metadata.qa.dir="${OUTPUT_DIR}"
+  # ./network-export.sh ${OUTPUT_DIR}
 }
 
 do_pareto() {

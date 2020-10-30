@@ -2,9 +2,10 @@
 
 . ./setdir.sh
 NAME=mokka
+TYPE_PARAMS="--marcxml"
 # TYPE_PARAMS="--marcVersion SZTE"
 MARC_DIR=${BASE_INPUT_DIR}/mokka
-MASK=*.mrc
+MASK=all.xml
 
 . ./common-script
 

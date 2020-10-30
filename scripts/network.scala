@@ -118,7 +118,7 @@ val tags = tagsDF.select($"tag".cast("String")).
                rdd.
                map(r => r(0).asInstanceOf[String]).
                collect()
-val allTags = Array("all") ++ tags
+val allTags = Array("unique") ++ tags
 for (i <- allTags.indices) {
   val tag = allTags(i)
   val suffix = "-" + tag

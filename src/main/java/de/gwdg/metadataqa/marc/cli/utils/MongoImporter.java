@@ -4,7 +4,7 @@ import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.spi.json.JsonProvider;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
-import de.gwdg.metadataqa.api.model.JsonPathCache;
+import de.gwdg.metadataqa.api.model.pathcache.JsonPathCache;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.marc.datastore.MarcMongodbClient;
 

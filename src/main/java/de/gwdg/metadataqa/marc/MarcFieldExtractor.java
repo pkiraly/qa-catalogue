@@ -3,8 +3,9 @@ package de.gwdg.metadataqa.marc;
 import com.jayway.jsonpath.InvalidJsonException;
 import de.gwdg.metadataqa.api.counter.FieldCounter;
 import de.gwdg.metadataqa.api.interfaces.Calculator;
-import de.gwdg.metadataqa.api.model.JsonPathCache;
+import de.gwdg.metadataqa.api.model.pathcache.JsonPathCache;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
+import de.gwdg.metadataqa.api.model.pathcache.PathCache;
 import de.gwdg.metadataqa.api.schema.Schema;
 import de.gwdg.metadataqa.api.util.CompressionLevel;
 import java.io.Serializable;
@@ -77,7 +78,6 @@ public class MarcFieldExtractor implements Calculator, Serializable {
     return CALCULATOR_NAME;
   }
 
-  @Override
   public void measure(JsonPathCache cache)
         throws InvalidJsonException {
     valid = true;
@@ -160,6 +160,11 @@ public class MarcFieldExtractor implements Calculator, Serializable {
 
   public void setIdPath(String idPath) {
     this.idPath = idPath;
+  }
+
+  @Override
+  public void measure(PathCache pathCache) {
+
   }
 
   @Override

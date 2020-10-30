@@ -4,19 +4,31 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
+import static de.gwdg.metadataqa.marc.Utils.createRow;
+
 public class Collocation {
   String key;
-  Integer value;
+  Integer count;
+  double percent;
 
-  public Collocation(List<String> key, Integer value) {
+  public Collocation(List<String> key, Integer count, Integer total) {
     this.key = StringUtils.join(key, ";");
-    this.value = value;
+    this.count = count;
+    this.percent = (double)count * 100 / total;
+  }
+
+  public static String header() {
+    return createRow("abbreviations", "recordcount", "percent");
+  }
+
+  public String formatRow() {
+    return createRow(key, count, String.format("%.2f%%", percent));
   }
 
   public int compareTo(Collocation other) {
-    int i = getKey().compareTo(other.getKey());
-    if (i != 0) {
-      i = getValue().compareTo(other.getValue());
+    int i = getCount().compareTo(other.getCount());
+    if (i == 0) {
+      i = getKey().compareTo(other.getKey());
     }
     return i;
   }
@@ -25,7 +37,7 @@ public class Collocation {
     return key;
   }
 
-  public Integer getValue() {
-    return value;
+  public Integer getCount() {
+    return count;
   }
 }

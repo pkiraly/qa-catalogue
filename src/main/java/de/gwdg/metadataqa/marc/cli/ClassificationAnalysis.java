@@ -146,12 +146,13 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     Path path;
     path = Paths.get(parameters.getOutputDir(), "classifications-collocations.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-      writer.write(createRow("abbreviations", "recordcount"));
+      writer.write(Collocation.header());
+      int total = statistics.getHasClassifications().get(true);
       statistics.getCollocationHistogram()
         .entrySet()
         .stream()
-        .map(e -> new Collocation(e.getKey(), e.getValue()))
-        .sorted((e1, e2) -> e1.compareTo(e2))
+        .map(e -> new Collocation(e.getKey(), e.getValue(), total))
+        .sorted((e1, e2) -> e1.compareTo(e2) * -1)
         .forEach(entry -> printCollocation(writer, entry));
     } catch (IOException e) {
       e.printStackTrace();
@@ -160,7 +161,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
   private void printCollocation(BufferedWriter writer, Collocation entry) {
     try {
-      writer.write(createRow(entry.getKey(), entry.getValue()));
+      writer.write(entry.formatRow());
     } catch (IOException e) {
       e.printStackTrace();
     }

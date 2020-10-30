@@ -26,7 +26,7 @@ public class ClassificationAnalyzerTest {
 
     ClassificationAnalyzer analyzer = new ClassificationAnalyzer(record, statistics);
     int count = analyzer.process();
-    assertEquals(1, count);
+    assertEquals(2, count);
     Map<Schema, Integer> recordStats = statistics.getRecords();
     assertEquals(2, recordStats.size());
     Schema first = (Schema) recordStats.keySet().toArray()[0];

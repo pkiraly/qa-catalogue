@@ -177,7 +177,7 @@ public class RecordIterator {
       logger.info(String.format("Bye! It took: %s",
         LocalTime.MIN.plusSeconds(duration).toString()));
 
-    System.exit(0);
+    // System.exit(0);
   }
 
   private static boolean isOverLimit(int limit, int i) {

@@ -51,4 +51,14 @@ public class ClassificationStatistics {
   public Map<List<String>, Integer> getCollocationHistogram() {
     return collocationHistogram;
   }
+
+  public int recordCountWithClassification() {
+    return collocationHistogram
+      .entrySet()
+      .stream()
+      .map(e -> e.getValue())
+      .reduce((a, b) -> a + b)
+      .get();
+
+  }
 }

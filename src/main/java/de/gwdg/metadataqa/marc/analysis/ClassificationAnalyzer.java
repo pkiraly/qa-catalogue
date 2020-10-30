@@ -92,6 +92,11 @@ public class ClassificationAnalyzer {
   }
 
   private void increaseCounters(int total) {
+    /*
+    if (total != schemasInRecord.size())
+      logger.severe(String.format("COUNT: total (%d) != schemasInRecord(%d)",
+        total, schemasInRecord.size()));
+     */
     count((total > 0), statistics.getHasClassifications());
     count(total, statistics.getSchemaHistogram());
 
@@ -182,6 +187,7 @@ public class ClassificationAnalyzer {
         logger.severe(String.format("undetected subfield in record %s %s", marcRecord.getId(), field.toString()));
       }
     }
+
     registerSchemas(schemas);
 
     return count;
@@ -235,24 +241,28 @@ public class ClassificationAnalyzer {
     if (!marcRecord.hasDatafield(tag))
       return count;
 
-    Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(tag);
+    // Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(tag);
     List<Schema> schemas = new ArrayList<>();
     List<DataField> fields = marcRecord.getDatafield(tag);
+    int c1 = 0, c2 = 0, c3 = 0;
     for (DataField field : fields) {
       String scheme = field.resolveInd2();
       Schema currentSchema = null;
       if (isaReferenceToSubfield2(tag, scheme)) {
         currentSchema = extractSchemaFromSubfield2(tag, schemas, field);
+        count++;
+        c1++;
       } else {
         try {
           currentSchema = new Schema(tag, "ind2", classificationSchemes.resolve(scheme), scheme);
-          schemas.add(currentSchema);
-          count++;
+          c2++;
         } catch (IllegalArgumentException e) {
-          logger.severe(String.format("Invalid scheme in ind2: %s. %s", e.getLocalizedMessage(), field));
-          // logger.severe(String.format("%s in record %s %s", e.getLocalizedMessage(), marcRecord.getId(), field.toString()));
+          logger.warning(String.format("Invalid scheme in ind2: %s. %s", e.getLocalizedMessage(), field));
           currentSchema = new Schema(tag, "ind2", scheme, field.getInd2());
+          c3++;
         }
+        schemas.add(currentSchema);
+        count++;
       }
       updateSchemaSubfieldStatistics(field, currentSchema);
     }
@@ -289,9 +299,11 @@ public class ClassificationAnalyzer {
     List<Schema> schemas = new ArrayList<>();
     for (DataField field : fields) {
       Schema currentSchema = new Schema(tag, "$2", "uncontrolled_" + field.getInd2(), field.resolveInd2());
+      schemas.add(currentSchema);
       updateSchemaSubfieldStatistics(field, currentSchema);
       count++;
     }
+
     registerSchemas(schemas);
 
     return count;

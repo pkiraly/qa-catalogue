@@ -81,6 +81,14 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
     ClassificationAnalyzer analyzer = new ClassificationAnalyzer(marcRecord, statistics);
     analyzer.process();
+    int total1 = statistics.getHasClassifications().get(true);
+    int total = statistics.recordCountWithClassification();
+    if (total1 != total) {
+      logger.severe(String.format(marcRecord.getId(true) + " COUNT: total (%d) != schemasInRecord (%d)",
+        total1, total));
+      readyToProcess = false;
+    }
+
     /*
     List<Schema> schemas = analyzer.getSchemasInRecord();
     if (!schemas.isEmpty()) {
@@ -147,14 +155,12 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     path = Paths.get(parameters.getOutputDir(), "classifications-collocations.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write(Collocation.header());
-      // int total = statistics.getHasClassifications().get(true);
-      int total = statistics.getCollocationHistogram()
-        .entrySet()
-        .stream()
-        .map(e -> e.getValue())
-        .reduce((a, b) -> a + b)
-        .get();
+      int total1 = statistics.getHasClassifications().get(true);
+      int total = statistics.recordCountWithClassification();
       logger.info("total: " + total);
+      if (total1 != total)
+        logger.severe(String.format("total from hasClassifications (%d) != from collation (%d)",
+            total1, total));
 
       statistics.getCollocationHistogram()
         .entrySet()

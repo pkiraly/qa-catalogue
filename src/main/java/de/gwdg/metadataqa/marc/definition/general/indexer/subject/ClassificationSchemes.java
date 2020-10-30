@@ -32,6 +32,18 @@ public class ClassificationSchemes {
     // name in 080 (udc), 082, 083, 085 (ddc)
     schemes.put("Universal Decimal Classification", "udc");
     schemes.put("Dewey Decimal Classification", "ddc");
+
+    // 055
+    schemes.put("LC-based call number assigned by LAC", "lbbcl0");
+    schemes.put("Complete LC class number assigned by LAC", "lbbcl1");
+    schemes.put("Incomplete LC class number assigned by LAC", "lbbcl2");
+    schemes.put("LC-based call number assigned by the contributing library", "lbbcl3");
+    schemes.put("Complete LC class number assigned by the contributing library", "lbbcl4");
+    schemes.put("Incomplete LC class number assigned by the contributing library", "lbbcl5");
+    schemes.put("Other call number assigned by LAC", "lbbcl6");
+    schemes.put("Other class number assigned by LAC", "lbbcl7");
+    schemes.put("Other call number assigned by the contributing library", "lbbcl8");
+    schemes.put("Other class number assigned by the contributing library", "lbbcl9");
   }
 
   public String resolve(String key) {

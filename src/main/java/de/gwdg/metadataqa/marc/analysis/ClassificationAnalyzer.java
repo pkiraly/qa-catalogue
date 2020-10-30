@@ -258,7 +258,7 @@ public class ClassificationAnalyzer {
           c2++;
         } catch (IllegalArgumentException e) {
           logger.warning(String.format("Invalid scheme in ind2: %s. %s", e.getLocalizedMessage(), field));
-          currentSchema = new Schema(tag, "ind2", scheme, field.getInd2());
+          currentSchema = new Schema(tag, "ind2", field.getInd2(), scheme);
           c3++;
         }
         schemas.add(currentSchema);

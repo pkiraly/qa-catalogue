@@ -1,26 +1,38 @@
 # library(tidyverse)
-library(readr)
+suppressPackageStartupMessages(library(readr))
 #library(magrittr)
-library(dplyr)
+suppressPackageStartupMessages(library(dplyr))
 library(ggplot2)
 
 #' In RStudio you can run this script in the console:
 #' system("Rscript scripts/network-nodes-degrees.R [directory-of-shelf-ready-completeness.csv]")
 
 args = commandArgs(trailingOnly=TRUE)
+tag <- '658'
 if (length(args) == 0) {
   stop("At least one argument must be supplied (input file).n", call.=FALSE)
 } else if (length(args) == 1) {
   output_dir <- args[1]
+} else if (length(args) == 2) {
+  output_dir <- args[1]
+  tag <- args[2]
 }
 
-prefix <- 'network-nodes-degrees-histogram'
+output_dir <- '/home/kiru/bin/marc/_output/gent/network-scores'
+# prefix <- 'network-nodes-components-histogram'
+prefix <- paste0('network-scores-', tag, '-degrees-histogram')
+
 csv <- sprintf("%s/%s.csv", output_dir, prefix)
 if (!file.exists(csv)) {
   stop(paste("input file", csv, "does not exist!"))
 }
-df <- read_csv(csv)
-head(df)
+df <- read_csv(
+  csv,
+  col_types = cols(
+    degree = col_double(),
+    count = col_double()
+  )
+)
 
 plot <- df %>% 
   ggplot(aes(x=degree, y=count)) +
@@ -41,17 +53,23 @@ plot <- df %>%
   xlab("Degree (the number of connections)") +
   ylab("Number of records")
 
-img_path <- paste0(output_dir, '/img/network-nodes-degrees-histogram.png') 
+plot
+img_path <- paste0(output_dir, '/../img/network-scores-', tag, '-degrees-histogram.png') 
 ggsave(plot, device="png", filename=img_path, width=10, height=5)
 print(paste('creating', img_path))
 
-prefix <- 'network-nodes-degrees'
+prefix <- paste0('network-scores-', tag, '-degrees')
 csv <- sprintf("%s/%s.csv", output_dir, prefix)
 if (!file.exists(csv)) {
   stop(paste("input file", csv, "does not exist!"))
 }
-df <- read_csv(csv)
-head(df)
+df <- read_csv(
+  csv,
+  col_types = cols(
+    id = col_double(),
+    degree = col_double()
+  )
+)
 
 plot <- df %>% 
   select(degree) %>% 
@@ -79,6 +97,6 @@ plot <- df %>%
   theme(legend.position = "none")
 
 plot
-img_path <- paste0(output_dir, '/img/network-nodes-degrees.png') 
+img_path <- paste0(output_dir, '/../img/network-scores-', tag, '-degrees.png') 
 ggsave(plot, device="png", filename=img_path, width=10, height=5)
 print(paste('creating', img_path))

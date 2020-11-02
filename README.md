@@ -79,6 +79,8 @@ Everything else works the same way as in other environments, so follow the next 
 
 Note: at the time of writing this Docker image doesn't contain the [web user interface](#user-interface), only the command line interface (the content of this repository).
 
+More deatils about the Docker use case: http://pkiraly.github.io/2020/05/31/running-with-docker/.
+
 ### Use
 
 ```
@@ -246,7 +248,6 @@ options:
    * COMPUTER_FILES
    * MIXED_MATERIALS
 * `-q`, `--fixAlephseq` ALEPH export contains '^' characters instead spaces in control fields (006, 007, 008). This flag replace them to spaces before the validation
-* `-x`, `--marcxml` the input files are not binary MARC, but MARCXML files
 * `-x`, `--marcxml` the input files are not binary MARC, but MARCXML files
 * `-p`, `--alephseq` the source is in Alephseq format
 

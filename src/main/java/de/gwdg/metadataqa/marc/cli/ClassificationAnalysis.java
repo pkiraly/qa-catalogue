@@ -223,7 +223,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
         schema.getId(),
         schema.getField(),
         schema.getLocation(),
-        '"' + schema.getSchema().replace("\"", "\\\"") + '"',
+        '"' + schema.getSchema().replace("\"", "\"\"") + '"',
         schema.getAbbreviation(),
         Utils.solarize(schema.getAbbreviation()),
         recordCount,

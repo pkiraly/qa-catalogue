@@ -53,6 +53,8 @@ do_classifications() {
   printf "%s %s> [classifications]\n" $(date +"%F %T")
   printf "%s %s> ./classifications --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/classifications.log\n" $(date +"%F %T")
   ./classifications --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/classifications.log
+  printf "%s %s> Rscript scripts/classifications-type.R ${OUTPUT_DIR} 2>> ${PREFIX}/classifications.log\n" $(date +"%F %T")
+  Rscript scripts/classifications-type.R ${OUTPUT_DIR}
 }
 
 do_authorities() {

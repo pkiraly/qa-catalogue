@@ -19,12 +19,12 @@ object Network {
 
   var inputDir: String = "file://" + sc.getConf.get("spark.driver.metadata.qa.inputDir")
   var outputDir: String = "file://" + sc.getConf.get("spark.driver.metadata.qa.outputDir")
-  var runPageRank: Boolean = sc.getConf.getBoolean("spark.driver.metadata.qa.runPageRank", false)
+  var runPageRank: Boolean = sc.getConf
+    .getBoolean("spark.driver.metadata.qa.runPageRank",false)
+  var runClusteringCoefficient: Boolean = sc.getConf
+    .getBoolean("spark.driver.metadata.qa.runClusteringCoefficient",false)
 
   def main(args: Array[String]) {
-    // val conf = new SparkConf().setAppName("Network")
-    // this.sc = new SparkContext(conf)
-
     spark.sparkContext.getConf.getAll.foreach(log.info)
 
     if (!this.inputDir.endsWith("/"))
@@ -36,7 +36,6 @@ object Network {
     log.info(s"inputDir: $inputDir")
     log.info(s"outputDir: $outputDir")
 
-    // val dir = "file:///home/kiru/bin/marc/_output/gent/"
     log.info("prepare")
 
     // Load my user data and parse into tuples of user id and attribute list
@@ -47,8 +46,6 @@ object Network {
       .map(parts => (parts.head.toLong, parts.tail)))
     nodes.cache()
     nodes.count
-
-    // analyseGraph("network-pairs", "", nodes)
 
     val tagsDF = spark.read.
                       option("header", true).
@@ -89,19 +86,16 @@ object Network {
       this.pageRank(graph, suffix)
     this.connectedComponents(graph, suffix)
     this.degree(graph, suffix)
+    if (runClusteringCoefficient)
+      this.clusteringCoefficient(graph, suffix)
   }
 
   def density(graph: Graph[Array[String],Int], suffix: String): Unit = {
     var density = (2.0 * graph.numEdges) / (graph.numVertices * (graph.numVertices-1))
-    var dataDF = Seq(density).toDF("density")
+    var dataDF = sc.parallelize(Seq(Seq(graph.numVertices, graph.numEdges, density)))
+      .map(x => (x(0), x(1), x(2)))
+      .toDF("records", "links", "density")
     this.write("network-scores" + suffix + "-density", dataDF)
-  }
-
-  def write(file: String, df: DataFrame): Unit = {
-    var dataDF = df.select(df.columns.map(c => df.col(c).cast("string")): _*)
-    var headerDF = spark.createDataFrame(List(Row.fromSeq(dataDF.columns.toSeq)).asJava, dataDF.schema)
-    var outputFolder = outputDir + file + ".csv.dir"
-    headerDF.union(dataDF).write.option("header", "false").mode(SaveMode.Overwrite).csv(outputFolder)
   }
 
   def pageRank(graph: Graph[Array[String],Int], suffix: String): Unit = {
@@ -155,5 +149,36 @@ object Network {
 
     var histogram = df.select("degree").groupBy("degree").count().orderBy("degree")
     this.write("network-scores" + suffix + "-degrees-histogram", histogram)
+  }
+
+  def clusteringCoefficient(graph: Graph[Array[String],Int], suffix: String): Unit = {
+    log.info("STEP 5: clustering coefficients")
+
+    val triCountGraph = graph.triangleCount()
+    // triCountGraph.vertices.map(x => x._2).stats()
+    val tricountDF = triCountGraph.vertices.toDF("id", "count")
+
+    // var degreesRDD = graph.degrees.cache()
+    val maxTrisGraph = graph.degrees.mapValues(d => d * (d - 1) / 2.0)
+    val maxTrisDF = maxTrisGraph.toDF("id", "theoreticalMax")
+
+    val clusterCoef = triCountGraph.vertices.innerJoin(maxTrisGraph) {
+      (vertexId, triCount, maxTris) => {
+        val coef = if (maxTris == 0) 0 else triCount / maxTris
+        (triCount, maxTris, coef)
+      }
+    }
+    val total = clusterCoef.map(_._2._3).sum();
+    val arageClusteringCoefficient = total / graph.vertices.count()
+
+    val dataDF = Seq(arageClusteringCoefficient).toDF("average-clustering-coefficient")
+    this.write("network-scores" + suffix + "-clustering-coefficient", dataDF)
+  }
+
+  def write(file: String, df: DataFrame): Unit = {
+    var dataDF = df.select(df.columns.map(c => df.col(c).cast("string")): _*)
+    var headerDF = spark.createDataFrame(List(Row.fromSeq(dataDF.columns.toSeq)).asJava, dataDF.schema)
+    var outputFolder = outputDir + file + ".csv.dir"
+    headerDF.union(dataDF).write.option("header", "false").mode(SaveMode.Overwrite).csv(outputFolder)
   }
 }

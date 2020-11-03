@@ -144,7 +144,7 @@ object Network {
     var degreesRDD = graph.degrees.cache()
     var df = degreesRDD.toDF("id", "degree")
     val maxDF = df.select(max($"degree").as("max"))
-    val hasMax = maxDF.first.isNullAt(0)
+    val hasMax = !maxDF.first.isNullAt(0)
     if (hasMax) {
       // Hill -> Ochoa-Duval -> Newman-Watts-Barabási, The Structure and Dynamics of Networks (Princeton, 2006)
       val maxDegree = maxDF.first.getInt(0)

@@ -3,7 +3,7 @@ package de.gwdg.metadataqa.marc.spark
 import org.apache.log4j.{Logger, Level}
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.{SparkSession, Row, SaveMode, DataFrame}
-import org.apache.spark.sql.functions.{round, desc}
+import org.apache.spark.sql.functions.{round, desc, max}
 import org.apache.spark.graphx.{GraphLoader, Graph}
 import org.apache.spark.rdd.RDD
 import scala.collection.JavaConverters._
@@ -92,9 +92,10 @@ object Network {
 
   def density(graph: Graph[Array[String],Int], suffix: String): Unit = {
     var density = (2.0 * graph.numEdges) / (graph.numVertices * (graph.numVertices-1))
-    var dataDF = sc.parallelize(Seq(Seq(graph.numVertices, graph.numEdges, density)))
+    var avgDegree = (2.0 * graph.numEdges) / graph.numVertices
+    var dataDF = sc.parallelize(Seq(Seq(graph.numVertices, graph.numEdges, density, avgDegree)))
       .map(x => (x(0), x(1), x(2)))
-      .toDF("records", "links", "density")
+      .toDF("records", "links", "density", "avgDegree")
     this.write("network-scores" + suffix + "-density", dataDF)
   }
 

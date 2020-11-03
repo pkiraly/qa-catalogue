@@ -143,20 +143,21 @@ object Network {
     var degreesRDD = graph.degrees.cache()
     var df = degreesRDD.toDF("id", "degree")
     val maxDegree = df.select(max($"degree").as("max")).first.getInt(0)
-    df = df.withColumn("linkage", $"degree" / maxDegree)
+    // Hill -> Ochoa-Duval -> Newman-Watts-Barabási, The Structure and Dynamics of Networks (Princeton, 2006)
+    df = df.withColumn("qlink", $"degree" / maxDegree)
     this.write("network-scores" + suffix + "-degrees", df.orderBy(desc("degree")))
 
     var dataDF = df.select("degree").summary().toDF("statistic", "value")
     this.write("network-scores" + suffix + "-degrees-stat", dataDF)
 
-    dataDF = df.select("linkage").summary().toDF("statistic", "value")
-    this.write("network-scores" + suffix + "-linkage-stat", dataDF)
+    dataDF = df.select("qlink").summary().toDF("statistic", "value")
+    this.write("network-scores" + suffix + "-qlink-stat", dataDF)
 
     var histogram = df.select("degree").groupBy("degree").count().orderBy("degree")
     this.write("network-scores" + suffix + "-degrees-histogram", histogram)
 
-    histogram = df.select("linkage").groupBy("linkage").count().orderBy("linkage")
-    this.write("network-scores" + suffix + "-degrees-histogram", histogram)
+    histogram = df.select("qlink").groupBy("qlink").count().orderBy("qlink")
+    this.write("network-scores" + suffix + "-qlink-histogram", histogram)
   }
 
   def clusteringCoefficient(graph: Graph[Array[String],Int], suffix: String): Unit = {

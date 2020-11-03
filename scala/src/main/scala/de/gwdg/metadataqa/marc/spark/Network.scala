@@ -142,12 +142,20 @@ object Network {
 
     var degreesRDD = graph.degrees.cache()
     var df = degreesRDD.toDF("id", "degree")
+    val maxDegree = df.select(max($"degree").as("max")).first.getInt(0)
+    df = df.withColumn("linkage", $"degree" / maxDegree)
     this.write("network-scores" + suffix + "-degrees", df.orderBy(desc("degree")))
 
     var dataDF = df.select("degree").summary().toDF("statistic", "value")
     this.write("network-scores" + suffix + "-degrees-stat", dataDF)
 
+    dataDF = df.select("linkage").summary().toDF("statistic", "value")
+    this.write("network-scores" + suffix + "-linkage-stat", dataDF)
+
     var histogram = df.select("degree").groupBy("degree").count().orderBy("degree")
+    this.write("network-scores" + suffix + "-degrees-histogram", histogram)
+
+    histogram = df.select("linkage").groupBy("linkage").count().orderBy("linkage")
     this.write("network-scores" + suffix + "-degrees-histogram", histogram)
   }
 

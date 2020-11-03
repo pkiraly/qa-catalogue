@@ -66,7 +66,6 @@ object Network {
       this.analyseGraph("network-pairs", suffix, nodes)
     }
 
-
     log.info("DONE")
   }
 
@@ -85,10 +84,17 @@ object Network {
     graph.cache()
     // graph.count()
 
+    this.density(graph, suffix)
     if (runPageRank)
       this.pageRank(graph, suffix)
     this.connectedComponents(graph, suffix)
     this.degree(graph, suffix)
+  }
+
+  def density(graph: Graph[Array[String],Int], suffix: String): Unit = {
+    var density = (2.0 * graph.numEdges) / (graph.numVertices * (graph.numVertices-1))
+    var dataDF = Seq(density).toDF("density")
+    this.write("network-scores" + suffix + "-density", dataDF)
   }
 
   def write(file: String, df: DataFrame): Unit = {
@@ -150,5 +156,4 @@ object Network {
     var histogram = df.select("degree").groupBy("degree").count().orderBy("degree")
     this.write("network-scores" + suffix + "-degrees-histogram", histogram)
   }
-
 }

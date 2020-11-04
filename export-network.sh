@@ -31,13 +31,15 @@ do
   fi
   echo $TAG
   
-  for TYPE in "components" "degrees" "pagerank"; do 
+  for TYPE in "components" "degrees" "pagerank" "qlink" "qlinkabs"; do 
     for SUBTYPE in "" "-histogram" "-stat"; do
-      PREFIX=${TAG}-${TYPE}${SUBTYPE}
-      echo "PREFIX: $PREFIX"
-      cat $SPARK_OUTPUT/network-scores-${PREFIX}.csv.dir/*.csv \
-        | sed "s/^/$TAG,/" \
-        > $OUTPUT_DIR/network-scores-${PREFIX}.csv
+      if [[ "${TYPE}${SUBTYPE}" != "qlink" && "${TYPE}${SUBTYPE}" != "qlinkabs" ]]; then
+        PREFIX=${TAG}-${TYPE}${SUBTYPE}
+        echo "PREFIX: $PREFIX"
+        cat $SPARK_OUTPUT/network-scores-${PREFIX}.csv.dir/*.csv \
+          | sed "s/^/$TAG,/" \
+          > $OUTPUT_DIR/network-scores-${PREFIX}.csv
+      fi
     done
   done
   for TYPE in "density" "clustering-coefficient"; do 
@@ -61,22 +63,23 @@ do
     TAG=all
   fi
   echo $TAG
-  for TYPE in "components" "degrees" "pagerank" "qlink"; do 
+  for TYPE in "components" "degrees" "pagerank" "qlink" "qlinkabs"; do 
     for SUBTYPE in "" "-histogram" "-stat"; do
       PREFIX=${TYPE}${SUBTYPE}
-      echo "PREFIX: $PREFIX"
-      if [[ $TAG == "all" && -e $OUTPUT_DIR/network-scores-${PREFIX}.csv ]]; then
-        rm $OUTPUT_DIR/network-scores-${PREFIX}.csv
-      fi
+      if [[ "${TYPE}${SUBTYPE}" != "qlink" && "${TYPE}${SUBTYPE}" != "qlinkabs" ]]; then
+        echo "PREFIX: $PREFIX"
+        if [[ $TAG == "all" && -e $OUTPUT_DIR/network-scores-${PREFIX}.csv ]]; then
+          rm $OUTPUT_DIR/network-scores-${PREFIX}.csv
+        fi
 
-      # 1. components
-      # 2. degrees
-      # 3. pagerank
-      # 4. components-histogram.csv
-      # 5. network-scores-x-stat.csv
-      # 6. degrees-histogram
-      # 6. pagerank-histogram
-      cat $OUTPUT_DIR/network-scores-$TAG-${PREFIX}.csv \
+        # 1. components
+        # 2. degrees
+        # 3. pagerank
+        # 4. components-histogram.csv
+        # 5. network-scores-x-stat.csv
+        # 6. degrees-histogram
+        # 7. pagerank-histogram
+        cat $OUTPUT_DIR/network-scores-$TAG-${PREFIX}.csv \
         | grep -v -P "^\d+,componentId,size$" \
         | sed 's/all,componentId,size/tag,componentId,size/' \
         | grep -v -P "^\d+,id,degree$" \
@@ -92,7 +95,8 @@ do
         | grep -v -P "^\d+,score,count$" \
         | sed 's/all,score,count/tag,score,count/' \
         >> $OUTPUT_DIR/network-scores-${PREFIX}.csv
-      rm $OUTPUT_DIR/network-scores-$TAG-${PREFIX}.csv
+        rm $OUTPUT_DIR/network-scores-$TAG-${PREFIX}.csv
+      fi
     done
   done
 

@@ -23,6 +23,7 @@ object Network {
     .getBoolean("spark.driver.metadata.qa.runPageRank",false)
   var runClusteringCoefficient: Boolean = sc.getConf
     .getBoolean("spark.driver.metadata.qa.runClusteringCoefficient",false)
+  var absMaxDegree: Int = 0
 
   def main(args: Array[String]): Unit = {
     spark.sparkContext.getConf.getAll.foreach(log.info)
@@ -148,10 +149,13 @@ object Network {
     if (hasMax) {
       // Hill -> Ochoa-Duval -> Newman-Watts-Barabási, The Structure and Dynamics of Networks (Princeton, 2006)
       val maxDegree = maxDF.first.getInt(0)
+      if (suffix.equals("all"))
+        absMaxDegree = maxDegree;
       df = df.withColumn("qlink", $"degree" / maxDegree)
     } else {
       df = df.withColumn("qlink", lit(0))
     }
+    df = df.withColumn("qlinkAbs", $"degree" / absMaxDegree)
     this.write("network-scores" + suffix + "-degrees", df.orderBy(desc("degree")))
 
     var dataDF = df.select("degree").summary().toDF("statistic", "value")
@@ -160,11 +164,17 @@ object Network {
     dataDF = df.select("qlink").summary().toDF("statistic", "value")
     this.write("network-scores" + suffix + "-qlink-stat", dataDF)
 
+    dataDF = df.select("qlinkAbs").summary().toDF("statistic", "value")
+    this.write("network-scores" + suffix + "-qlinkabs-stat", dataDF)
+
     var histogram = df.select("degree").groupBy("degree").count().orderBy("degree")
     this.write("network-scores" + suffix + "-degrees-histogram", histogram)
 
     histogram = df.select("qlink").groupBy("qlink").count().orderBy("qlink")
     this.write("network-scores" + suffix + "-qlink-histogram", histogram)
+
+    histogram = df.select("qlinkAbs").groupBy("qlinkAbs").count().orderBy("qlinkAbs")
+    this.write("network-scores" + suffix + "-qlinkabs-histogram", histogram)
   }
 
   def clusteringCoefficient(graph: Graph[Array[String],Int], suffix: String): Unit = {

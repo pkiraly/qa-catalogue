@@ -149,13 +149,13 @@ object Network {
     if (hasMax) {
       // Hill -> Ochoa-Duval -> Newman-Watts-Barabási, The Structure and Dynamics of Networks (Princeton, 2006)
       val maxDegree = maxDF.first.getInt(0)
-      if (suffix.equals("all"))
-        absMaxDegree = maxDegree;
+      if (suffix.equals("-all"))
+        this.absMaxDegree = maxDegree;
       df = df.withColumn("qlink", $"degree" / maxDegree)
     } else {
       df = df.withColumn("qlink", lit(0))
     }
-    df = df.withColumn("qlinkAbs", $"degree" / absMaxDegree)
+    df = df.withColumn("qlinkAbs", $"degree" / this.absMaxDegree)
     this.write("network-scores" + suffix + "-degrees", df.orderBy(desc("degree")))
 
     var dataDF = df.select("degree").summary().toDF("statistic", "value")

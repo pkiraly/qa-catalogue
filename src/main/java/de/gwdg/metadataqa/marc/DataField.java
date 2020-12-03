@@ -7,6 +7,7 @@ import de.gwdg.metadataqa.marc.definition.general.indexer.subject.*;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.parser.ParserException;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
+import de.gwdg.metadataqa.marc.model.validation.ErrorsCollector;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
@@ -15,6 +16,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.Serializable;
 import java.util.*;
 import java.util.logging.Logger;
+
+import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorType.*;
 
 public class DataField implements Extractable, Validatable, Serializable {
 
@@ -26,7 +29,7 @@ public class DataField implements Extractable, Validatable, Serializable {
   private String ind2;
   private List<MarcSubfield> subfields;
   private Map<String, List<MarcSubfield>> subfieldIndex = new LinkedHashMap<>();
-  private List<ValidationError> validationErrors = null;
+  private ErrorsCollector errors = null;
   private List<String> unhandledSubfields = null;
   private MarcRecord record;
 
@@ -384,26 +387,28 @@ public class DataField implements Extractable, Validatable, Serializable {
   @Override
   public boolean validate(MarcVersion marcVersion) {
     boolean isValid = true;
-    validationErrors = new ArrayList<>();
+    errors = new ErrorsCollector();
     DataFieldDefinition referencerDefinition = null;
     List<MarcSubfield> _subfields = null;
     boolean ambiguousLinkage = false;
+
+    if (marcVersion == null)
+      marcVersion = MarcVersion.MARC21;
+
+    if (TagDefinitionLoader.load(definition.getTag(), marcVersion) == null) {
+      addError(FIELD_UNDEFINED, "");
+      return false;
+    }
+
     if (getTag().equals("880")) {
       List<MarcSubfield> subfield6s = getSubfield("6");
       if (subfield6s == null) {
-        validationErrors.add(new ValidationError(record.getId(), definition.getTag(),
-          ValidationErrorType.FIELD_MISSING_REFERENCE_SUBFIELD, "$6", definition.getDescriptionUrl()));
+        addError(FIELD_MISSING_REFERENCE_SUBFIELD, "$6");
         isValid = false;
       } else {
         if (!subfield6s.isEmpty()) {
           if (subfield6s.size() != 1) {
-            validationErrors.add(
-              new ValidationError(
-                record.getId(), definition.getTag() + "$6",
-                ValidationErrorType.RECORD_AMBIGUOUS_LINKAGE, "There are multiple $6",
-                definition.getDescriptionUrl()
-              )
-            );
+            addError(definition.getTag() + "$6", RECORD_AMBIGUOUS_LINKAGE, "There are multiple $6");
             isValid = false;
             ambiguousLinkage = true;
           } else {
@@ -412,25 +417,17 @@ public class DataField implements Extractable, Validatable, Serializable {
             try {
               linkage = LinkageParser.getInstance().create(subfield6.getValue());
               if (linkage == null || linkage.getLinkingTag() == null) {
-                validationErrors.add(
-                  new ValidationError(
-                    record.getId(), definition.getTag() + "$6",
-                    ValidationErrorType.RECORD_INVALID_LINKAGE,
-                    String.format("Unparseable reference: '%s'", subfield6.getValue()),
-                    definition.getDescriptionUrl()
-                  )
-                );
+                String message = String.format("Unparseable reference: '%s'", subfield6.getValue());
+                addError(RECORD_INVALID_LINKAGE, message);
               } else {
                 referencerDefinition = definition;
                 definition = TagDefinitionLoader.load(linkage.getLinkingTag(), marcVersion);
+
                 if (definition == null) {
                   definition = referencerDefinition;
-                  validationErrors.add(
-                    new ValidationError(
-                      record.getId(), definition.getTag() + "$6",
-                      ValidationErrorType.RECORD_INVALID_LINKAGE,
-                      String.format("refers to field %s, which is not defined", linkage.getLinkingTag()),
-                      definition.getDescriptionUrl()));
+                  String message = String.format("refers to field %s, which is not defined",
+                    linkage.getLinkingTag());
+                  addError(definition.getTag() + "$6", RECORD_INVALID_LINKAGE, message);
                   isValid = false;
                 } else {
                   _subfields = subfields;
@@ -451,13 +448,7 @@ public class DataField implements Extractable, Validatable, Serializable {
                 }
               }
             } catch (ParserException e) {
-              validationErrors.add(
-                new ValidationError(
-                  record.getId(), definition.getTag() + "$6",
-                  ValidationErrorType.RECORD_INVALID_LINKAGE, e.getMessage(),
-                  definition.getDescriptionUrl()
-                )
-              );
+              addError(definition.getTag() + "$6", RECORD_INVALID_LINKAGE, e.getMessage());
             }
           }
         }
@@ -465,9 +456,7 @@ public class DataField implements Extractable, Validatable, Serializable {
     }
 
     if (unhandledSubfields != null) {
-      validationErrors.add(new ValidationError(record.getId(), definition.getTag(),
-        ValidationErrorType.SUBFIELD_UNDEFINED, StringUtils.join(unhandledSubfields, ", "),
-        definition.getDescriptionUrl()));
+      addError(SUBFIELD_UNDEFINED, StringUtils.join(unhandledSubfields, ", "));
       isValid = false;
     }
 
@@ -490,21 +479,21 @@ public class DataField implements Extractable, Validatable, Serializable {
               definition.getVersionSpecificSubfield(
                 marcVersion, subfield.getCode()));
           } else {
-            validationErrors.add(
-              new ValidationError(
-                record.getId(), definition.getTag(),
-                ValidationErrorType.SUBFIELD_UNDEFINED, subfield.getCode(), definition.getDescriptionUrl()));
+            addError(SUBFIELD_UNDEFINED, subfield.getCode());
             isValid = false;
             continue;
           }
         }
+        Utils.count(subfield.getDefinition(), counter);
+        /*
         if (!counter.containsKey(subfield.getDefinition())) {
           counter.put(subfield.getDefinition(), 0);
         }
         counter.put(subfield.getDefinition(), counter.get(subfield.getDefinition()) + 1);
+         */
 
         if (!subfield.validate(marcVersion)) {
-          validationErrors.addAll(subfield.getValidationErrors());
+          errors.addAll(subfield.getValidationErrors());
           isValid = false;
         }
       }
@@ -513,11 +502,9 @@ public class DataField implements Extractable, Validatable, Serializable {
         SubfieldDefinition subfieldDefinition = entry.getKey();
         Integer count = entry.getValue();
         if (count > 1
-          && subfieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
-          validationErrors.add(new ValidationError(record.getId(), subfieldDefinition.getPath(),
-            ValidationErrorType.SUBFIELD_NONREPEATABLE,
-            String.format("there are %d instances", count),
-            definition.getDescriptionUrl()));
+            && subfieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
+          addError(subfieldDefinition, SUBFIELD_NONREPEATABLE,
+            String.format("there are %d instances", count));
           isValid = false;
         }
       }
@@ -545,24 +532,16 @@ public class DataField implements Extractable, Validatable, Serializable {
         if (!indicatorDefinition.isVersionSpecificCode(marcVersion, value)) {
           isValid = false;
           if (indicatorDefinition.isHistoricalCode(value)) {
-            validationErrors.add(
-              new ValidationError(
-                record.getId(),
-                path,
-                ValidationErrorType.INDICATOR_OBSOLETE,
-                value,
-                definition.getDescriptionUrl()));
+            addError(path, INDICATOR_OBSOLETE, value);
           } else {
-            validationErrors.add(new ValidationError(record.getId(), path,
-              ValidationErrorType.INDICATOR_INVALID_VALUE, value, definition.getDescriptionUrl()));
+            addError(path, INDICATOR_INVALID_VALUE, value);
           }
         }
       }
     } else {
       if (!value.equals(" ")) {
         if (!indicatorDefinition.isVersionSpecificCode(marcVersion, value)) {
-          validationErrors.add(new ValidationError(record.getId(), path,
-            ValidationErrorType.INDICATOR_NON_EMPTY, value, definition.getDescriptionUrl()));
+          addError(path, INDICATOR_NON_EMPTY, value);
           isValid = false;
         }
       }
@@ -576,13 +555,26 @@ public class DataField implements Extractable, Validatable, Serializable {
 
   @Override
   public List<ValidationError> getValidationErrors() {
-    return validationErrors;
+    return errors.getErrors();
   }
 
   public void addUnhandledSubfields(String code) {
     if (unhandledSubfields == null)
       unhandledSubfields = new ArrayList<>();
     unhandledSubfields.add(code);
+  }
+
+  private void addError(ValidationErrorType type, String message) {
+    addError(definition.getTag(), type, message);
+  }
+
+  private void addError(SubfieldDefinition subfieldDefinition, ValidationErrorType type, String message) {
+    addError(subfieldDefinition.getPath(), type, message);
+  }
+
+  private void addError(String path, ValidationErrorType type, String message) {
+    String url = definition.getDescriptionUrl();
+    errors.add(record.getId(), path, type, message, url);
   }
 
   @Override

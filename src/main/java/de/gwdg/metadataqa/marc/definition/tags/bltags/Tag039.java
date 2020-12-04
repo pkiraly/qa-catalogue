@@ -37,8 +37,8 @@ public class Tag039 extends DataFieldDefinition {
 
     ind1 = new Indicator("National Bibliography Issue Number")
       .setCodes(
-        "1", "British National Bibliography or British Catalogue of Music – Interim issue",
-        "2", "British Catalogue of Music – Annual cumulation"
+        "0", "British National Bibliography or British Catalogue of Music – Interim issue",
+        "1", "British Catalogue of Music – Annual cumulation"
       )
       .setMqTag("source");
 
@@ -50,10 +50,11 @@ public class Tag039 extends DataFieldDefinition {
     );
 
     getSubfield("a")
-      .setValidator(new RegexValidator("^\\d\\d0[1-3]$"))
+      .setValidator(new RegexValidator("^\\d\\d(\\d{2}|0[1-3])$"))
       .setMqTag("nationalBibliographyIssueNumber");
 
     getSubfield("p")
+      .setValidator(new RegexValidator("^\\d\\d(\\d{2}|0[1-3])$"))
       .setMqTag("correctionIssueNumber");
   }
 }

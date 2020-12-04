@@ -29,9 +29,6 @@ public class RegexValidator implements SubfieldValidator, Serializable {
 
     if (StringUtils.isNotBlank(value)) {
       Matcher matcher = pattern.matcher(value);
-      System.err.println(value);
-      System.err.println(pattern.pattern());
-      System.err.println(matcher.matches());
       if (!matcher.matches()) {
         response.addValidationError(
           new ValidationError(

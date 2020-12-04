@@ -35,6 +35,7 @@ public class SubfieldDefinition implements Serializable {
   private List<FRBRFunction> functions;
   private CompilanceLevel nationalCompilanceLevel;
   private CompilanceLevel minimalCompilanceLevel;
+  private List<MarcVersion> disallowedIn;
 
   public String getCodeForIndex() {
     if (codeForIndex == null) {
@@ -292,17 +293,32 @@ public class SubfieldDefinition implements Serializable {
     return this;
   }
 
-  @Override
-  public String toString() {
-    return "MarcSubfield{" +
-        "code='" + code + '\'' +
-        ", typeCode='" + cardinalityCode + '\'' +
-        ", label='" + label + '\'' +
-        '}';
-  }
-
   public SubfieldDefinition setFrbrFunctions(FRBRFunction... functions) {
     this.functions = Arrays.asList(functions);
     return this;
   }
+
+  public SubfieldDefinition disallowIn(MarcVersion... versions) {
+    this.disallowedIn = Arrays.asList(versions);
+    return this;
+  }
+
+  public List<MarcVersion> getDisallowedIn() {
+    return disallowedIn;
+  }
+
+  public boolean isDisallowedIn(MarcVersion marcVersion) {
+    return disallowedIn != null &&
+           disallowedIn.contains(marcVersion);
+  }
+
+  @Override
+  public String toString() {
+    return "MarcSubfield{" +
+      "code='" + code + '\'' +
+      ", typeCode='" + cardinalityCode + '\'' +
+      ", label='" + label + '\'' +
+      '}';
+  }
+
 }

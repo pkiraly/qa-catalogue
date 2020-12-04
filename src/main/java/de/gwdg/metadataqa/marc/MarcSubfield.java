@@ -174,20 +174,24 @@ public class MarcSubfield implements Validatable, Serializable {
         addError(field.getDefinition().getTag(), SUBFIELD_NULL_CODE, code);
         isValid = false;
       } else {
-        if (definition.hasValidator()) {
-          if (!validateWithValidator())
-            isValid = false;
-        } else if (definition.hasContentParser()) {
-          if (!validateWithParser())
-            isValid = false;
-        } else if (definition.getCodes() != null && definition.getCode(value) == null) {
-          String message = value;
-          if (referencePath != null) {
-            message += String.format(" (the field is embedded in %s)", referencePath);
-          }
-          String path = (referencePath == null ? definition.getPath() : referencePath + "->" + definition.getPath());
-          addError(path, ValidationErrorType.SUBFIELD_INVALID_VALUE, message);
+        if (definition.isDisallowedIn(marcVersion))
           isValid = false;
+        else {
+          if (definition.hasValidator()) {
+            if (!validateWithValidator())
+              isValid = false;
+          } else if (definition.hasContentParser()) {
+            if (!validateWithParser())
+              isValid = false;
+          } else if (definition.getCodes() != null && definition.getCode(value) == null) {
+            String message = value;
+            if (referencePath != null) {
+              message += String.format(" (the field is embedded in %s)", referencePath);
+            }
+            String path = (referencePath == null ? definition.getPath() : referencePath + "->" + definition.getPath());
+            addError(path, ValidationErrorType.SUBFIELD_INVALID_VALUE, message);
+            isValid = false;
+          }
         }
       }
     }

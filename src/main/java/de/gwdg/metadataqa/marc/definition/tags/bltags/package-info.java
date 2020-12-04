@@ -1,7 +1,7 @@
 /**
  * This package contains the tags specifics at British Library
  *
- * The source of the classes is a PDF file shared with the developer by Christina Morris (BL)
+ * The source of the classes is a PDF file shared with the developer by Victoria Morris (BL)
  *
  * BL local fields information.pdf
  * October 2014

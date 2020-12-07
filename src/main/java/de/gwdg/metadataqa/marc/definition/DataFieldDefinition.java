@@ -26,8 +26,10 @@ public abstract class DataFieldDefinition implements Serializable {
   protected List<FRBRFunction> functions;
   protected FieldIndexer fieldIndexer = null;
   protected SourceSpecificationType sourceSpecificationType = null;
+  protected boolean obsolete = false;
   private CompilanceLevel nationalCompilanceLevel;
   private CompilanceLevel minimalCompilanceLevel;
+
 
   public String getTag() {
     return tag;
@@ -240,6 +242,10 @@ public abstract class DataFieldDefinition implements Serializable {
 
   public MarcVersion getMarcVersion() {
     return Utils.getVersion(this);
+  }
+
+  public boolean isObsolete() {
+    return obsolete;
   }
 
   @Override

@@ -29,6 +29,7 @@ public class SubfieldDefinition implements Serializable {
   private SubfieldContentParser contentParser;
   protected CodeList codeList;
   private List<Code> codes;
+  private Map<MarcVersion, List<Code>> localCodes;
   private List<String> allowedCodes;
   private String codeForIndex = null;
   private List<ControlSubfieldDefinition> positions;
@@ -98,8 +99,22 @@ public class SubfieldDefinition implements Serializable {
     return this;
   }
 
+  public SubfieldDefinition setLocalCodes(MarcVersion version, String... input) {
+    if (localCodes == null)
+      localCodes = new HashMap<>();
+    localCodes.put(version, new ArrayList<>());
+    for (int i = 0; i < input.length; i += 2) {
+      localCodes.get(version).add(new Code(input[i], input[i+1]));
+    }
+    return this;
+  }
+
   public Code getCode(String _code) {
-    for (Code code : codes) {
+    return getCode(codes, _code);
+  }
+
+  public Code getCode(List<Code> _codes, String _code) {
+    for (Code code : _codes) {
       if (code.getCode().equals(_code)) {
         return code;
       } else if (code.isRange() && code.getRange().isValid(_code)) {
@@ -111,6 +126,21 @@ public class SubfieldDefinition implements Serializable {
 
   public List<Code> getCodes() {
     return codes;
+  }
+
+  public Map<MarcVersion, List<Code>> getLocalCodes() {
+    return localCodes;
+  }
+
+  public List<Code> getLocalCodes(MarcVersion version) {
+    return localCodes.getOrDefault(version, null);
+  }
+
+  public Code getLocalCode(MarcVersion version, String _code) {
+    List<Code> _codes = getLocalCodes(version);
+    if (_codes == null)
+      return null;
+    return getCode(_codes, _code);
   }
 
   public String getCardinalityCode() {

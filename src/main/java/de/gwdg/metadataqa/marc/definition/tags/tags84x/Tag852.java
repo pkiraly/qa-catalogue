@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags84x;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.general.codelist.ClassificationSchemeSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
@@ -112,7 +113,42 @@ public class Tag852 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("location")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage)
-      .setCompilanceLevels("M");
+      .setCompilanceLevels("M")
+      .setLocalCodes(MarcVersion.BL,
+        "ABP", "Aberdeen City Libraries",
+        "BODBL", "Bodleian Library",
+        "BRG", "Brighton Central Library",
+        "stpancras", "British Library",
+        "CUL", "Cambridge University Library",
+        "CUM", "Cumbernauld News & Kilsyth Chronicle",
+        "DBA", "Dumbarton District Libraries",
+        "bryson", "Durham University",
+        "HAD", "East Lothian District Libraries, Haddington",
+        "HAM", "Hamilton District Libraries (Hamilton Town House Library)",
+        "INV", "Highland Regional Library Service, Inverness",
+        "HUDu", "Huddersfield University Library",
+        "GRE", "Inverclyde District Libraries, Greenock",
+        "LAR", "Largs and District Historical Society",
+        "LOUp", "Loughton Central Library (National Jazz Archive)",
+        "Gp", "Mitchell Library, Glasgow",
+        "LV", "National Art Library (Victoria and Albert Museum)",
+        "NLS", "National Library of Scotland",
+        "NLW", "National Library of Wales",
+        "KIK", "Orkney Islands Library, Kirkwall",
+        "PER", "Perth and Kinross District Libraries (AK Bell Library, Perth)",
+        "Bfr", "Public Record Office for Northern Ireland",
+        "main", "Register of Preservation Surrogates",
+        "RSL", "Royal Society, London",
+        "Lrvc", "Royal Veterinary College, London",
+        "Shp", "Sheffield City Library",
+        "LERW", "Shetland Library, Lerwick",
+        "STIcrs", "Stirling Central Region School Library Service (Stirling Library Headquarters)",
+        "tcl", "Trinity College Dublin",
+        "BT", "Tweedale Press Group, Berwick-upon-Tweed",
+        "Bffm", "Ulster Folk and Transport Museum",
+        "YMI", "York Minister Library"
+      )
+    ;
 
     getSubfield("b")
       .setMqTag("sublocation")

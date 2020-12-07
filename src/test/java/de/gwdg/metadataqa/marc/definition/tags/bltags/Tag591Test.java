@@ -8,11 +8,11 @@ import org.junit.Test;
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
-public class Tag590Test {
+public class Tag591Test {
 
   @Test
   public void testValidFields() {
-    validField("a", "Spine title: Pottery from the Nile valley");
+    validField("a", "Papers. Based on those presented at the conference.");
   }
 
   @Test
@@ -22,16 +22,16 @@ public class Tag590Test {
   }
 
   public void validField(String subfield, String value) {
-    DataField field = new DataField(Tag590.getInstance(), " ", " ", subfield, value);
+    DataField field = new DataField(Tag591.getInstance(), " ", " ", subfield, value);
 
     MarcRecord record = new MarcRecord("test");
     field.setRecord(record);
 
     assertFalse(
-      String.format("590$%s=%s should be invalid in normal case", subfield, value),
+      String.format("591$%s=%s should be invalid in normal case", subfield, value),
       field.validate(MarcVersion.MARC21));
     assertTrue(
-      String.format("590$%s=%s should be valid in normal case", subfield, value),
+      String.format("591$%s=%s should be valid in normal case", subfield, value),
       field.validate(MarcVersion.BL));
   }
 
@@ -40,16 +40,16 @@ public class Tag590Test {
   }
 
   public void invalidField(String ind1, String subfield, String value) {
-    DataField field = new DataField(Tag590.getInstance(), ind1, " ", subfield, value);
+    DataField field = new DataField(Tag591.getInstance(), ind1, " ", subfield, value);
 
     MarcRecord record = new MarcRecord("test");
     field.setRecord(record);
 
     assertFalse(
-      String.format("590$%s=%s should be invalid in normal case", subfield, value),
+      String.format("591$%s=%s should be invalid in normal case", subfield, value),
       field.validate(MarcVersion.MARC21));
     assertFalse(
-      String.format("590$%s=%s should be invalid in BL", subfield, value),
+      String.format("591$%s=%s should be invalid in BL", subfield, value),
       field.validate(MarcVersion.BL));
   }
 }

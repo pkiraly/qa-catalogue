@@ -8,32 +8,32 @@ import org.junit.Test;
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
-public class Tag509Test {
+public class Tag539Test {
 
   @Test
   public void testValidFields() {
-    validField("a", "Verify presence and nature of initial leaf (sig. A1), not present in L copy");
-    validField("a", "Verify presence of English title page and text. CLU-C's copy entirely in Latin");
-    validField("a", "NLS copy dimensions: 16 cm.");
+    validField("a", "O.");
+    validField("a", "L.");
   }
 
   @Test
   public void testInvalidFields() {
     invalidField("b", "NLS copy dimensions: 16 cm.");
     invalidField("1", "a", "NLS copy dimensions: 16 cm.");
+    invalidField("a", "L");
   }
 
   public void validField(String subfield, String value) {
-    DataField field = new DataField(Tag509.getInstance(), " ", " ", subfield, value);
+    DataField field = new DataField(Tag539.getInstance(), " ", " ", subfield, value);
 
     MarcRecord record = new MarcRecord("test");
     field.setRecord(record);
 
     assertFalse(
-      String.format("509$%s=%s should be invalid in normal case", subfield, value),
+      String.format("539$%s=%s should be invalid in normal case", subfield, value),
       field.validate(MarcVersion.MARC21));
     assertTrue(
-      String.format("509$%s=%s should be valid in normal case", subfield, value),
+      String.format("539$%s=%s should be valid in normal case", subfield, value),
       field.validate(MarcVersion.BL));
   }
 
@@ -42,16 +42,16 @@ public class Tag509Test {
   }
 
   public void invalidField(String ind1, String subfield, String value) {
-    DataField field = new DataField(Tag509.getInstance(), ind1, " ", subfield, value);
+    DataField field = new DataField(Tag539.getInstance(), ind1, " ", subfield, value);
 
     MarcRecord record = new MarcRecord("test");
     field.setRecord(record);
 
     assertFalse(
-      String.format("509$%s=%s should be invalid in normal case", subfield, value),
+      String.format("539$%s=%s should be invalid in normal case", subfield, value),
       field.validate(MarcVersion.MARC21));
     assertFalse(
-      String.format("509$%s=%s should be invalid in BL", subfield, value),
+      String.format("539$%s=%s should be invalid in BL", subfield, value),
       field.validate(MarcVersion.BL));
   }
 }

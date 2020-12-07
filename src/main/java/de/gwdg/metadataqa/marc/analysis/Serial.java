@@ -107,7 +107,7 @@ public class Serial {
   private boolean empty(List<DataField> list) {
     if (list == null || list.isEmpty())
       return true;
-    return list.get(0).parseSubfields().isEmpty();
+    return list.get(0).getSubfields().isEmpty();
   }
 
   private String first(List<DataField> list) {

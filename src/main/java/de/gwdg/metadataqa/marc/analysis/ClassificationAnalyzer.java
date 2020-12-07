@@ -163,7 +163,7 @@ public class ClassificationAnalyzer {
     for (DataField field : fields) {
       String firstSubfield = null;
       String alt = null;
-      for (MarcSubfield subfield : field.parseSubfields()) {
+      for (MarcSubfield subfield : field.getSubfields()) {
         String code = subfield.getCode();
         if (   !code.equals("1")
             && !code.equals("2")
@@ -325,7 +325,7 @@ public class ClassificationAnalyzer {
   private void updateSchemaSubfieldStatistics(DataField field, Schema currentSchema) {
     if (currentSchema == null)
       return;
-    List<String> subfields = orderSubfields(field.parseSubfields());
+    List<String> subfields = orderSubfields(field.getSubfields());
 
     if (!statistics.getSubfields().containsKey(currentSchema)) {
       statistics.getSubfields().put(currentSchema, new HashMap<List<String>, Integer>());

@@ -29,7 +29,7 @@ public class BLTagTest {
     MarcRecord record = new MarcRecord("test");
     field.setRecord(record);
 
-    MarcSubfield subfield = field.parseSubfields().get(0);
+    MarcSubfield subfield = field.getSubfields().get(0);
 
     assertFalse(
       String.format("%s$%s=%s should be invalid in normal case",

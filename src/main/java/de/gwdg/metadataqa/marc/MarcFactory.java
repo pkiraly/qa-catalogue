@@ -223,7 +223,7 @@ public class MarcFactory {
         marcSubfield = new MarcSubfield(subfieldDefinition, code, subfield.getData());
       }
       marcSubfield.setField(field);
-      field.parseSubfields().add(marcSubfield);
+      field.getSubfields().add(marcSubfield);
     }
     field.indexSubfields();
     return field;

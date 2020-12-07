@@ -376,7 +376,7 @@ public class DataField implements Extractable, Validatable, Serializable {
     return subfieldIndex.getOrDefault(code, null);
   }
 
-  public List<MarcSubfield> parseSubfields() {
+  public List<MarcSubfield> getSubfields() {
     return subfields;
   }
 

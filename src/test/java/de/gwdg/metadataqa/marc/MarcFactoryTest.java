@@ -448,7 +448,7 @@ public class MarcFactoryTest {
     List<DataField> admins = record.getDatafield("040");
     assertEquals(1, admins.size());
     DataField adminMeta = admins.get(0);
-    List<MarcSubfield> subfields = adminMeta.parseSubfields();
+    List<MarcSubfield> subfields = adminMeta.getSubfields();
     for (MarcSubfield subfield : subfields) {
       if (subfield.getCode().equals("b")) {
         assertEquals("LanguageCodes", subfield.getDefinition().getCodeList().getClass().getSimpleName());

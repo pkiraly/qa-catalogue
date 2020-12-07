@@ -1,23 +1,22 @@
 package de.gwdg.metadataqa.marc.definition.tags.bltags;
 
+import de.gwdg.metadataqa.marc.DataField;
 import org.junit.Test;
 
-public class Tag909Test extends BLTagTest {
+public class Tag916Test extends BLTagTest {
 
-  public Tag909Test() {
-    super(Tag909.getInstance());
+  public Tag916Test() {
+    super(Tag916.getInstance());
   }
 
   @Test
   public void testValidFields() {
-    validField("a", "949573831");
-    validField("b", "Awaiting upgrade with OCLC record – 20180123");
+    validField(new DataField(tag, " ", " ", "a", "100=NOTNACO", "a", "700/2=NOTNACO"));
   }
 
   @Test
   public void testInvalidFields() {
     invalidField("a", "949573831.");
     invalidField("b", "Awaiting upgrade with OCLC record – 20180123.");
-    invalidField("c", "x(88-89)");
   }
 }

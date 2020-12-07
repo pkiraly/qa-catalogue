@@ -6,29 +6,29 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.validator.RegexValidator;
 
 /**
- * Awaiting OCLC Upgrade
+ * Authority Control Information
  */
-public class Tag909 extends DataFieldDefinition {
+public class Tag916 extends DataFieldDefinition {
 
-  private static Tag909 uniqueInstance;
+  private static Tag916 uniqueInstance;
 
-  private Tag909() {
+  private Tag916() {
     initialize();
     postCreation();
   }
 
-  public static Tag909 getInstance() {
+  public static Tag916 getInstance() {
     if (uniqueInstance == null)
-      uniqueInstance = new Tag909();
+      uniqueInstance = new Tag916();
     return uniqueInstance;
   }
 
   private void initialize() {
 
-    tag = "909";
-    label = "Awaiting OCLC Upgrade";
-    mqTag = "awaitingOclcUpgrade";
-    cardinality = Cardinality.Repeatable;
+    tag = "916";
+    label = "Authority Control Information";
+    mqTag = "authorityControl";
+    cardinality = Cardinality.Nonrepeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");
 
@@ -37,17 +37,11 @@ public class Tag909 extends DataFieldDefinition {
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "OCLC control number", "NR",
-      "b", "Note", "NR"
+      "a", "Authority control information", "R"
     );
 
     getSubfield("a")
       .setValidator(new RegexValidator("^.*[^\\.]$"))
-      .setMqTag("oclcControlNumber");
-
-    getSubfield("b")
-      .setValidator(new RegexValidator("^.*[^\\.]$"))
-      .setMqTag("note");
-
+      .setMqTag("authorityControl");
   }
 }

@@ -6,7 +6,7 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.validator.RegexValidator;
 
 /**
- * National Bibliography Issue Number
+ * Informal Notes (ESTC)
  */
 public class Tag509 extends DataFieldDefinition {
 

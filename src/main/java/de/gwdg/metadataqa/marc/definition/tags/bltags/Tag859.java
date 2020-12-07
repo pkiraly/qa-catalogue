@@ -6,7 +6,7 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.validator.RegexValidator;
 
 /**
- * National Bibliography Issue Number
+ * Digital Resource Flag
  */
 public class Tag859 extends DataFieldDefinition {
 
@@ -29,7 +29,6 @@ public class Tag859 extends DataFieldDefinition {
     label = "Digital Resource Flag";
     mqTag = "digitalResourceFlag";
     cardinality = Cardinality.Repeatable;
-    obsolete = true;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");
 

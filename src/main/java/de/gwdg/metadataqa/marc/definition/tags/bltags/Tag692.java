@@ -6,7 +6,7 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.validator.RegexValidator;
 
 /**
- * National Bibliography Issue Number
+ * Nineteenth Century Subject Series Field
  */
 public class Tag692 extends DataFieldDefinition {
 

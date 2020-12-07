@@ -6,7 +6,7 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.validator.RegexValidator;
 
 /**
- * National Bibliography Issue Number
+ * Location of Filmed Copy (ESTC)
  */
 public class Tag539 extends DataFieldDefinition {
 

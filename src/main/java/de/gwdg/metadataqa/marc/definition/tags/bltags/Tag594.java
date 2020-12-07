@@ -6,7 +6,7 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.validator.RegexValidator;
 
 /**
- * National Bibliography Issue Number
+ * Reference to Items in Printed Catalogues
  */
 public class Tag594 extends DataFieldDefinition {
 

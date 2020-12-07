@@ -3,46 +3,51 @@ package de.gwdg.metadataqa.marc.definition.tags.bltags;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.general.validator.RegexValidator;
 
 /**
- * Editing or Error Message
+ * Awaiting OCLC Upgrade
  */
-public class Tag597 extends DataFieldDefinition {
+public class Tag909 extends DataFieldDefinition {
 
-  private static Tag597 uniqueInstance;
+  private static Tag909 uniqueInstance;
 
-  private Tag597() {
+  private Tag909() {
     initialize();
     postCreation();
   }
 
-  public static Tag597 getInstance() {
+  public static Tag909 getInstance() {
     if (uniqueInstance == null)
-      uniqueInstance = new Tag597();
+      uniqueInstance = new Tag909();
     return uniqueInstance;
   }
 
   private void initialize() {
 
-    tag = "597";
-    label = "Editing or Error Message";
-    mqTag = "editingOrErrorMessage";
+    tag = "909";
+    label = "Awaiting OCLC Upgrade";
+    mqTag = "digitalResourceFlag";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");
 
     ind1 = new Indicator();
+
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "Unconverted legacy field or Message relating to conversion, deduplication and enhancement", "NR",
-      "b", "Information relating to record enhancement", "NR"
+      "a", "OCLC control number", "NR",
+      "b", "Note", "NR"
     );
 
     getSubfield("a")
-      .setMqTag("legacyFieldOrMessage");
+      .setValidator(new RegexValidator("^.*[^\\.]$"))
+      .setMqTag("oclcControlNumber");
 
     getSubfield("b")
-      .setMqTag("recordEnhancement");
+      .setValidator(new RegexValidator("^.*[^\\.]$"))
+      .setMqTag("note");
+
   }
 }

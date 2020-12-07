@@ -5,7 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 
 /**
- * National Bibliography Issue Number
+ * Document Supply Selection / Ordering Information
  */
 public class Tag598 extends DataFieldDefinition {
 

@@ -5,7 +5,7 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 
 /**
- * National Bibliography Issue Number
+ * Notes Relating to an Original (RPS)
  */
 public class Tag599 extends DataFieldDefinition {
 

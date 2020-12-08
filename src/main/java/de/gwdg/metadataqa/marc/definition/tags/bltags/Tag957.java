@@ -6,7 +6,7 @@ import de.gwdg.metadataqa.marc.definition.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.validator.RegexValidator;
 
 /**
- * Shelving Location
+ * Acquisitions Data
  */
 public class Tag957 extends DataFieldDefinition {
 
@@ -50,6 +50,18 @@ public class Tag957 extends DataFieldDefinition {
     getSubfield("a")
       .setValidator(new RegexValidator("^((\\d{4}|\\d{6}|\\d{8})?(c|CR|d|w|p)?|[A-Z]+)$"))
       .setMqTag("acquisition");
+    // TODO
+    /*
+    getSubfield("a")
+      .setCodes(
+        "c", "Legal Deposit",
+        "CR", "Copyright",
+        "d", "Donation",
+        "e", "Exchange",
+        "p", "Purchase"
+      )
+    */
+
     getSubfield("b").setMqTag("supplier");
     getSubfield("c").setMqTag("method");
     getSubfield("d").setMqTag("cataloguer");

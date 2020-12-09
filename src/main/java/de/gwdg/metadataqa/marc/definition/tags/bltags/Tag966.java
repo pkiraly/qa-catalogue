@@ -42,7 +42,7 @@ public class Tag966 extends DataFieldDefinition {
     );
 
     getSubfield("l")
-      .setValidator(new RegexValidator("^(ACQUIS|SPACQ) .*$"))
+      .setValidator(new RegexValidator("^(ACQUIS|SPACQ) .*[^\\.]$"))
       .setMqTag("recordIndicator");
     /* TODO
     .setCodes(

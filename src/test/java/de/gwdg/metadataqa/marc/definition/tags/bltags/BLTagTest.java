@@ -36,8 +36,9 @@ public class BLTagTest {
         tag.getTag(), subfield.getCode(), subfield.getValue()),
       field.validate(MarcVersion.MARC21));
     assertTrue(
-      String.format("%s$%s=%s should be valid in BL case",
-        tag.getTag(), subfield.getCode(), subfield.getValue()),
+      String.format("%s$%s=%s should be valid in BL case (%s)",
+        tag.getTag(), subfield.getCode(), subfield.getValue(),
+        field.getValidationErrors()),
       field.validate(MarcVersion.BL));
   }
 

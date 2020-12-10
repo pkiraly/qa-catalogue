@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.definition.tags.tags84x;
+package de.gwdg.metadataqa.marc.definition.tags.bltags;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
@@ -9,60 +9,42 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 import de.gwdg.metadataqa.marc.definition.general.indexer.subject.SchemaFromInd1OrIf7FromSubfield2;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
- * Location
- * http://www.loc.gov/marc/bibliographic/bd852.html
+ * Negative Shelfmark
  */
-public class Tag852 extends DataFieldDefinition {
+public class Tag979 extends DataFieldDefinition {
 
-  private static Tag852 uniqueInstance;
+  private static Tag979 uniqueInstance;
 
-  private Tag852() {
+  private Tag979() {
     initialize();
     postCreation();
   }
 
-  public static Tag852 getInstance() {
+  public static Tag979 getInstance() {
     if (uniqueInstance == null)
-      uniqueInstance = new Tag852();
+      uniqueInstance = new Tag979();
     return uniqueInstance;
   }
 
   private void initialize() {
-    tag = "852";
-    label = "Location";
-    mqTag = "Location";
+
+    tag = "979";
+    label = "Negative Shelfmark";
+    mqTag = "negativeShelfmark";
     cardinality = Cardinality.Repeatable;
-    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd852.html";
-    setCompilanceLevels("O");
+    // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
+    // setCompilanceLevels("O");
 
-    ind1 = new Indicator("Shelving scheme")
-      .setCodes(
-        " ", "No information provided",
-        "0", "Library of Congress classification",
-        "1", "Dewey Decimal classification",
-        "2", "National Library of Medicine classification",
-        "3", "Superintendent of Documents classification",
-        "4", "Shelving control number",
-        "5", "Title",
-        "6", "Shelved separately",
-        "7", "Source specified in subfield $2",
-        "8", "Other scheme"
-      )
-      .setMqTag("shelvingScheme")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    ind1 = new Indicator();
 
-    ind2 = new Indicator("Shelving order")
-      .setCodes(
-        " ", "No information provided",
-        "0", "Not enumeration",
-        "1", "Primary enumeration",
-        "2", "Alternative enumeration"
-      )
-      .setMqTag("shelvingOrder");
+    ind2 = new Indicator();
 
+    // subfields should be identical with 852,
+    // @see Tag852
     setSubfieldsWithCardinality(
       "a", "Location", "NR",
       "b", "Sublocation or collection", "R",
@@ -93,8 +75,7 @@ public class Tag852 extends DataFieldDefinition {
 
     getSubfield("a").setCodeList(OrganizationCodes.getInstance());
     getSubfield("n").setCodeList(CountryCodes.getInstance());
-    getSubfield("2").setCodeList(ClassificationSchemeSourceCodes.getInstance())
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+    getSubfield("2").setCodeList(ClassificationSchemeSourceCodes.getInstance());
     getSubfield("f").setCodes(
       "l", "Latest",
       "p", "Previous",
@@ -112,7 +93,6 @@ public class Tag852 extends DataFieldDefinition {
 
     getSubfield("a")
       .setMqTag("location")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage)
       .setCompilanceLevels("M")
       .setLocalCodes(MarcVersion.BL,
         "ABP", "Aberdeen City Libraries",
@@ -151,120 +131,75 @@ public class Tag852 extends DataFieldDefinition {
     ;
 
     getSubfield("b")
-      .setMqTag("sublocation")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage)
-      .setCompilanceLevels("A");
+      .setMqTag("sublocation");
 
     getSubfield("c")
-      .setMqTag("shelvingLocation")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage)
-      .setCompilanceLevels("A");
+      .setMqTag("shelvingLocation");
 
     getSubfield("d")
-      .setMqTag("formerShelvingLocation")
-      .setCompilanceLevels("O");
+      .setMqTag("formerShelvingLocation");
 
     getSubfield("e")
-      .setMqTag("address")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage)
-      .setCompilanceLevels("O");
+      .setMqTag("address");
 
     getSubfield("f")
-      .setMqTag("qualifier")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage)
-      .setCompilanceLevels("O");
+      .setMqTag("qualifier");
 
     getSubfield("g")
-      .setMqTag("nonCodedQualifier")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage)
-      .setCompilanceLevels("O");
+      .setMqTag("nonCodedQualifier");
 
     getSubfield("h")
-      .setMqTag("classification")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage)
-      .setCompilanceLevels("A");
+      .setMqTag("classification");
 
     getSubfield("i")
-      .setMqTag("item")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage)
-      .setCompilanceLevels("A");
+      .setMqTag("item");
 
     getSubfield("j")
-      .setMqTag("shelvingControlNumber")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage)
-      .setCompilanceLevels("A");
+      .setMqTag("shelvingControlNumber");
 
     getSubfield("k")
-      .setMqTag("prefix")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage)
-      .setCompilanceLevels("A");
+      .setMqTag("prefix");
 
     getSubfield("l")
-      .setMqTag("title")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage)
-      .setCompilanceLevels("A");
+      .setMqTag("title");
 
     getSubfield("m")
-      .setMqTag("suffix")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage)
-      .setCompilanceLevels("A");
+      .setMqTag("suffix");
 
     getSubfield("n")
-      .setMqTag("country")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage)
-      .setCompilanceLevels("O");
+      .setMqTag("country");
 
     getSubfield("p")
-      .setMqTag("pieceDesignation")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage)
-      .setCompilanceLevels("A");
+      .setMqTag("pieceDesignation");
 
     getSubfield("q")
-      .setMqTag("physicalCondition")
-      .setFrbrFunctions(DiscoverySelect, UseManage)
-      .setCompilanceLevels("O");
+      .setMqTag("physicalCondition");
 
     getSubfield("s")
-      .setMqTag("feeCode")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage)
-      .setCompilanceLevels("O");
+      .setMqTag("feeCode");
 
     getSubfield("t")
-      .setMqTag("copyNumber")
-      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain, UseManage)
-      .setCompilanceLevels("A");
+      .setMqTag("copyNumber");
 
     getSubfield("u")
-      .setMqTag("uri")
-      .setCompilanceLevels("A");
+      .setMqTag("uri");
 
     getSubfield("x")
-      .setMqTag("nonpublicNote")
-      .setCompilanceLevels("O");
+      .setMqTag("nonpublicNote");
 
     getSubfield("z")
-      .setMqTag("note")
-      .setCompilanceLevels("O");
+      .setMqTag("note");
 
     getSubfield("2")
-      .setMqTag("source")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setCompilanceLevels("A");
+      .setMqTag("source");
 
     getSubfield("3")
-      .setMqTag("materials")
-      .setFrbrFunctions(DiscoveryIdentify)
-      .setCompilanceLevels("O");
+      .setMqTag("materials");
 
-    getSubfield("6")
-      .setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setCompilanceLevels("A");
+    getSubfield("6");
 
     getSubfield("8")
-      .setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setCompilanceLevels("O");
+      .setMqTag("fieldLink");
 
     fieldIndexer = SchemaFromInd1OrIf7FromSubfield2.getInstance();
   }

@@ -44,11 +44,12 @@ public class BLTagTest {
       String.format("%s$%s=%s should be invalid in normal case",
         tag.getTag(), subfield.getCode(), subfield.getValue()),
       field.validate(MarcVersion.MARC21));
+    boolean isValid = field.validate(MarcVersion.BL);
     assertTrue(
       String.format("%s$%s=%s should be valid in BL case (%s)",
         tag.getTag(), subfield.getCode(), subfield.getValue(),
         field.getValidationErrors()),
-      field.validate(MarcVersion.BL));
+      isValid);
   }
 
   public void invalidField(String subfield, String value) {
@@ -62,11 +63,15 @@ public class BLTagTest {
     field.setRecord(record);
 
     assertFalse(
-      String.format("%s$%s=%s should be invalid in normal case", tag.getTag(), subfield, value),
+      String.format("%s$%s=%s should be invalid in normal case",
+        tag.getTag(), subfield, value),
       field.validate(MarcVersion.MARC21));
+
+    boolean isValid = field.validate(MarcVersion.BL);
     assertFalse(
-      String.format("%s$%s=%s should be invalid in BL", tag.getTag(), subfield, value),
-      field.validate(MarcVersion.BL));
+      String.format("%s$%s=%s should be invalid in BL (%s)",
+        tag.getTag(), subfield, value, field.getValidationErrors()),
+      isValid);
   }
 
   public void invalidFieldInBL(String ind1, String subfield, String value) {

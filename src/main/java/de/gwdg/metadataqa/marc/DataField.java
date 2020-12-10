@@ -388,6 +388,7 @@ public class DataField implements Extractable, Validatable, Serializable {
   public boolean validate(MarcVersion marcVersion) {
     boolean isValid = true;
     errors = new ErrorsCollector();
+
     DataFieldDefinition referencerDefinition = null;
     List<MarcSubfield> _subfields = null;
     boolean ambiguousLinkage = false;

@@ -39,19 +39,14 @@ public class Tag980 extends DataFieldDefinition {
     obsolete = true;
 
     ind1 = new Indicator();
-
     ind2 = new Indicator();
 
-    // subfields should be identical with 852,
-    // @see Tag852
     setSubfieldsWithCardinality(
       "a", "Card production indicator", "NR"
     );
 
     getSubfield("a")
       .setCodes("Card", "Card")
-      .setMqTag("cardProduction")
-    ;
-
+      .setMqTag("cardProduction");
   }
 }

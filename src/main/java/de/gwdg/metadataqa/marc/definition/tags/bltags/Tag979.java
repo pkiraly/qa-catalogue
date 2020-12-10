@@ -93,7 +93,6 @@ public class Tag979 extends DataFieldDefinition {
 
     getSubfield("a")
       .setMqTag("location")
-      .setCompilanceLevels("M")
       .setLocalCodes(MarcVersion.BL,
         "ABP", "Aberdeen City Libraries",
         "BODBL", "Bodleian Library",

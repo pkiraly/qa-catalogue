@@ -34,25 +34,6 @@ import static org.junit.Assert.*;
  */
 public class ValidationTest {
   
-  public ValidationTest() {
-  }
-  
-  @BeforeClass
-  public static void setUpClass() {
-  }
-  
-  @AfterClass
-  public static void tearDownClass() {
-  }
-  
-  @Before
-  public void setUp() {
-  }
-  
-  @After
-  public void tearDown() {
-  }
-
   @Test
   public void testStructureDefinitionReader() throws URISyntaxException, IOException {
     MarcStructureDefinitionReader reader = new MarcStructureDefinitionReader("multiline.txt");
@@ -124,6 +105,7 @@ public class ValidationTest {
     List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
     MarcRecord record = MarcFactory.createFromFormattedText(lines, MarcVersion.MARC21);
     assertFalse(record.validate(MarcVersion.MARC21, true));
+    System.err.println(record.getValidationErrors());
     assertEquals(21, record.getValidationErrors().size());
 
     for (ValidationError error : record.getValidationErrors()) {

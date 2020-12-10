@@ -6,6 +6,9 @@ import org.apache.commons.cli.*;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class CommonParameters implements Serializable {
 
@@ -25,6 +28,7 @@ public class CommonParameters implements Serializable {
   protected boolean lineSeparated = false;
   protected boolean trimId = false;
   private String outputDir = DEFAULT_OUTPUT_DIR;
+  protected List<String> ignorableFields = new ArrayList<>();
 
   protected Options options = new Options();
   protected static final CommandLineParser parser = new DefaultParser();
@@ -46,6 +50,7 @@ public class CommonParameters implements Serializable {
       options.addOption("y", "lineSeparated", false, "the source is in line separated MARC format");
       options.addOption("t", "outputDir", true, "output directory");
       options.addOption("r", "trimId", false, "remove spaces from the end of record IDs");
+      options.addOption("z", "ignorableFields", false, "ingnore fields from the analysis");
       isOptionSet = true;
     }
   }
@@ -96,6 +101,12 @@ public class CommonParameters implements Serializable {
       outputDir = cmd.getOptionValue("outputDir");
 
     trimId = cmd.hasOption("trimId");
+
+    if (cmd.hasOption("ignorableFields")) {
+      String raw = cmd.getOptionValue("ignorableFields").trim();
+      if (StringUtils.isNotBlank(raw))
+        ignorableFields = Arrays.asList(raw.split(","));
+    }
 
     args = cmd.getArgs();
   }
@@ -166,6 +177,10 @@ public class CommonParameters implements Serializable {
     return trimId;
   }
 
+  public List<String> getIgnorableFields() {
+    return ignorableFields;
+  }
+
   public String formatParameters() {
     String text = "";
     text += String.format("marcVersion: %s, %s%n", marcVersion.getCode(), marcVersion.getLabel());
@@ -180,6 +195,7 @@ public class CommonParameters implements Serializable {
     text += String.format("lineSeparated: %s%n", lineSeparated);
     text += String.format("outputDir: %s%n", outputDir);
     text += String.format("trimId: %s%n", trimId);
+    text += String.format("ignorableFields: %s%n", StringUtils.join(ignorableFields, ", "));
 
     return text;
   }

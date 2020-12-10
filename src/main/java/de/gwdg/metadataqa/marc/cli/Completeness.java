@@ -98,10 +98,16 @@ public class Completeness implements MarcFileProcessor, Serializable {
     String type = marcRecord.getType().getValue();
     if (marcRecord.getControl003() != null)
       count(marcRecord.getControl003().getContent(), library003Counter);
+
     for (String library : extract(marcRecord, "852", "a")) {
       count(library, libraryCounter);
     }
+
     for (DataField field : marcRecord.getDatafields()) {
+      if (!parameters.getIgnorableFields().isEmpty() &&
+          parameters.getIgnorableFields().contains(field.getTag()))
+        continue;
+
       if (field.getDefinition() != null) {
         String packageName = Utils.extractPackageName(field);
         if (StringUtils.isBlank(packageName)) {
@@ -119,6 +125,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
         count(key, recordFrequency);
       }
     }
+
     for (String key : recordFrequency.keySet()) {
       if (!elementFrequency.containsKey(type))
         elementFrequency.put(type, new TreeMap<>());

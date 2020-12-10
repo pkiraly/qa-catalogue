@@ -391,16 +391,21 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
 
   @Override
   public boolean validate(MarcVersion marcVersion) {
-    return validate(marcVersion, false);
+    return validate(marcVersion, false, null);
   }
 
   public boolean validate(MarcVersion marcVersion, boolean isSummary) {
+    return validate(marcVersion, isSummary, null);
+  }
+
+  public boolean validate(MarcVersion marcVersion, boolean isSummary,
+                          List<String> ignorableFields) {
     validationErrors = new ArrayList<>();
     boolean isValidRecord = true;
     isValidRecord = validateLeader(marcVersion, isValidRecord);
     isValidRecord = validateUnhandledTags(isSummary, isValidRecord);
     isValidRecord = validateControlfields(marcVersion, isValidRecord);
-    isValidRecord = validateDatafields(marcVersion, isValidRecord);
+    isValidRecord = validateDatafields(marcVersion, isValidRecord, ignorableFields);
 
     // TODO: use reflection to get all validator class
     ValidatorResponse validatorResponse;
@@ -477,11 +482,18 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     return isValidRecord;
   }
 
-  private boolean validateDatafields(MarcVersion marcVersion, boolean isValidRecord) {
+  private boolean validateDatafields(MarcVersion marcVersion,
+                                     boolean isValidRecord,
+                                     List<String> ignorableFields) {
     ValidatorResponse validatorResponse;
     Map<DataFieldDefinition, Integer> repetitionCounter = new HashMap<>();
     for (DataField field : datafields) {
       if (field.getDefinition() == null)
+        continue;
+
+      if (ignorableFields != null &&
+        !ignorableFields.isEmpty() &&
+        ignorableFields.contains(field.getTag()))
         continue;
 
       count(field.getDefinition(), repetitionCounter);

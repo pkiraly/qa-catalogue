@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.validator.ClassificationReferenceValidator;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
@@ -399,7 +400,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   }
 
   public boolean validate(MarcVersion marcVersion, boolean isSummary,
-                          List<String> ignorableFields) {
+                          IgnorableFields ignorableFields) {
     validationErrors = new ArrayList<>();
     boolean isValidRecord = true;
     isValidRecord = validateLeader(marcVersion, isValidRecord);
@@ -484,16 +485,14 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
 
   private boolean validateDatafields(MarcVersion marcVersion,
                                      boolean isValidRecord,
-                                     List<String> ignorableFields) {
+                                     IgnorableFields ignorableFields) {
     ValidatorResponse validatorResponse;
     Map<DataFieldDefinition, Integer> repetitionCounter = new HashMap<>();
     for (DataField field : datafields) {
       if (field.getDefinition() == null)
         continue;
 
-      if (ignorableFields != null &&
-        !ignorableFields.isEmpty() &&
-        ignorableFields.contains(field.getTag()))
+      if (ignorableFields.contains(field.getTag()))
         continue;
 
       count(field.getDefinition(), repetitionCounter);

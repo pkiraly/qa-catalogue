@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
 import de.gwdg.metadataqa.marc.Leader;
+import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import org.apache.commons.cli.*;
 import org.apache.commons.lang3.StringUtils;
@@ -28,7 +29,7 @@ public class CommonParameters implements Serializable {
   protected boolean lineSeparated = false;
   protected boolean trimId = false;
   private String outputDir = DEFAULT_OUTPUT_DIR;
-  protected List<String> ignorableFields = new ArrayList<>();
+  protected IgnorableFields ignorableFields = new IgnorableFields();
 
   protected Options options = new Options();
   protected static final CommandLineParser parser = new DefaultParser();
@@ -50,7 +51,7 @@ public class CommonParameters implements Serializable {
       options.addOption("y", "lineSeparated", false, "the source is in line separated MARC format");
       options.addOption("t", "outputDir", true, "output directory");
       options.addOption("r", "trimId", false, "remove spaces from the end of record IDs");
-      options.addOption("z", "ignorableFields", false, "ingnore fields from the analysis");
+      options.addOption("z", "ignorableFields", true, "ignore fields from the analysis");
       isOptionSet = true;
     }
   }
@@ -102,11 +103,8 @@ public class CommonParameters implements Serializable {
 
     trimId = cmd.hasOption("trimId");
 
-    if (cmd.hasOption("ignorableFields")) {
-      String raw = cmd.getOptionValue("ignorableFields").trim();
-      if (StringUtils.isNotBlank(raw))
-        ignorableFields = Arrays.asList(raw.split(","));
-    }
+    if (cmd.hasOption("ignorableFields"))
+      ignorableFields.parseFields(cmd.getOptionValue("ignorableFields").trim());
 
     args = cmd.getArgs();
   }
@@ -177,7 +175,7 @@ public class CommonParameters implements Serializable {
     return trimId;
   }
 
-  public List<String> getIgnorableFields() {
+  public IgnorableFields getIgnorableFields() {
     return ignorableFields;
   }
 
@@ -195,7 +193,7 @@ public class CommonParameters implements Serializable {
     text += String.format("lineSeparated: %s%n", lineSeparated);
     text += String.format("outputDir: %s%n", outputDir);
     text += String.format("trimId: %s%n", trimId);
-    text += String.format("ignorableFields: %s%n", StringUtils.join(ignorableFields, ", "));
+    text += String.format("ignorableFields: %s%n", ignorableFields);
 
     return text;
   }

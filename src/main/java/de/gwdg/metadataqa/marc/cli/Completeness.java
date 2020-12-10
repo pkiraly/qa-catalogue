@@ -104,8 +104,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
     }
 
     for (DataField field : marcRecord.getDatafields()) {
-      if (!parameters.getIgnorableFields().isEmpty() &&
-          parameters.getIgnorableFields().contains(field.getTag()))
+      if (parameters.getIgnorableFields().contains(field.getTag()))
         continue;
 
       if (field.getDefinition() != null) {

@@ -74,6 +74,26 @@ public class BLTagTest {
       isValid);
   }
 
+  public void invalidField(DataField field) {
+
+    MarcRecord record = new MarcRecord("test");
+    field.setRecord(record);
+
+    MarcSubfield subfield = field.getSubfields().get(0);
+
+    assertFalse(
+      String.format("%s$%s=%s should be invalid in normal case",
+        tag.getTag(), subfield.getCode(), subfield.getCode()),
+      field.validate(MarcVersion.MARC21));
+
+    boolean isValid = field.validate(MarcVersion.BL);
+    assertFalse(
+      String.format("%s$%s=%s should be invalid in BL (%s)",
+        tag.getTag(), subfield.getCode(), subfield.getCode(),
+        field.getValidationErrors()),
+      isValid);
+  }
+
   public void invalidFieldInBL(String ind1, String subfield, String value) {
     DataField field = new DataField(tag, ind1, " ", subfield, value);
 

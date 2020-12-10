@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc.definition.tags.bltags;
 
-import de.gwdg.metadataqa.marc.DataField;
 import org.junit.Test;
 
 public class Tag950Test extends BLTagTest {
@@ -11,41 +10,42 @@ public class Tag950Test extends BLTagTest {
 
   @Test
   public void testValidFields() {
-    validField(new DataField(tag, " ", " ", "a", "Mudia (Indic people)",
+    validField("a", "Mudia (Indic people)",
       "s", "See",
-      "a", "Muria (Indic people)"));
-    validField(new DataField(tag, " ", " ", "a", "Yanadi (Indic people)",
+      "a", "Muria (Indic people)"
+    );
+    validField("a", "Yanadi (Indic people)",
       "s", "See also",
-      "a", "Nakkala (Indic people)"));
-    validField(new DataField(tag, " ", " ", "a", "Ethiopian-Italian War, 1935-1936",
+      "a", "Nakkala (Indic people)");
+    validField("a", "Ethiopian-Italian War, 1935-1936",
       "s", "See",
-      "a", "Italo-Ethiopian War, 1935-1936"));
-    validField(new DataField(tag, " ", " ", "a", "Italy",
+      "a", "Italo-Ethiopian War, 1935-1936");
+    validField("a", "Italy",
       "x", "History",
       "y", "War in Ethiopia, 1935-1936",
       "s", "See",
-      "a", "Italo-Ethiopian War, 1935-1936"));
-    validField(new DataField(tag, " ", " ", "a", "African Americans",
+      "a", "Italo-Ethiopian War, 1935-1936");
+    validField("a", "African Americans",
       "s", "See",
-      "a", "Afro-Americans"));
-    validField(new DataField(tag, " ", " ", "a", "Black Americans",
+      "a", "Afro-Americans");
+    validField("a", "Black Americans",
       "s", "See",
-      "a", "Afro-Americans"));
-    validField(new DataField(tag, " ", " ", "a", "Colored people (United States)",
+      "a", "Afro-Americans");
+    validField("a", "Colored people (United States)",
       "s", "See",
-      "a", "Afro-Americans"));
-    validField(new DataField(tag, " ", " ", "a", "Arabs",
+      "a", "Afro-Americans");
+    validField("a", "Arabs",
       "x", "History",
       "y", "622-1517",
       "s", "See",
-      "a", "Islamic Empire"));
-    validField(new DataField(tag, " ", " ", "a", "Kuchipudi Bharatam",
+      "a", "Islamic Empire");
+    validField("a", "Kuchipudi Bharatam",
       "s", "See",
-      "a", "Kuchipudi (Dance)"));
-    validField(new DataField(tag, " ", " ", "a", "Dance",
+      "a", "Kuchipudi (Dance)");
+    validField("a", "Dance",
       "z", "India",
       "s", "See also",
-      "a", "Bharata natyam; Kathak (Dance); Kuchipudi (Dance); Odissi dance"));
+      "a", "Bharata natyam; Kathak (Dance); Kuchipudi (Dance); Odissi dance");
   }
 
   @Test

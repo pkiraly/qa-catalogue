@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc.definition.tags.bltags;
 
-import de.gwdg.metadataqa.marc.DataField;
 import org.junit.Test;
 
 public class Tag963Test extends BLTagTest {
@@ -11,11 +10,7 @@ public class Tag963Test extends BLTagTest {
 
   @Test
   public void testValidFields() {
-    validField(new DataField(tag, " ", " ",
-      "a", "No. 1, 1993- 20, 2000 *A=1",
-      "b", "N",
-      "c", "L415.B.104"
-    ));
+    validField("a", "No. 1, 1993- 20, 2000 *A=1", "b", "N", "c", "L415.B.104");
   }
 
   @Test

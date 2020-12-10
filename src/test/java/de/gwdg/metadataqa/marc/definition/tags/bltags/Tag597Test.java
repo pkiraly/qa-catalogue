@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc.definition.tags.bltags;
 
-import de.gwdg.metadataqa.marc.DataField;
 import org.junit.Test;
 
 public class Tag597Test extends BLTagTest {
@@ -13,7 +12,7 @@ public class Tag597Test extends BLTagTest {
   public void testValidFields() {
     validField("a", "MP13/700");
     validField("b", "ISSN");
-    validField(new DataField(tag, " ", " ", "a", "Enhanced", "b", "ISSN"));
+    validField("a", "Enhanced", "b", "ISSN");
   }
 
   @Test

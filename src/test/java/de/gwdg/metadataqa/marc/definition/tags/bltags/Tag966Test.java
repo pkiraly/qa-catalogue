@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc.definition.tags.bltags;
 
-import de.gwdg.metadataqa.marc.DataField;
 import org.junit.Test;
 
 public class Tag966Test extends BLTagTest {
@@ -11,10 +10,7 @@ public class Tag966Test extends BLTagTest {
 
   @Test
   public void testValidFields() {
-    validField(new DataField(tag, " ", " ",
-      "u", "o",
-      "l", "SPACQ 02/01/98"
-    ));
+    validField("u", "o", "l", "SPACQ 02/01/98");
   }
 
   @Test

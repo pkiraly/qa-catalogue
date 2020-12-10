@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc.definition.tags.bltags;
 
-import de.gwdg.metadataqa.marc.DataField;
 import org.junit.Test;
 
 public class Tag859Test extends BLTagTest {
@@ -11,12 +10,12 @@ public class Tag859Test extends BLTagTest {
 
   @Test
   public void testValidFields() {
-    validField(new DataField(tag, " ", " ", "a", "ELD", "b", "ebook"));
-    validField(new DataField(tag, " ", " ", "a", "ORR", "b", "Alexander Street Press"));
-    validField(new DataField(tag, " ", " ", "a", "XLD", "b", "EUBookshop"));
-    validField(new DataField(tag, " ", " ", "a", "XLD",
+    validField("a", "ELD", "b", "ebook");
+    validField("a", "ORR", "b", "Alexander Street Press");
+    validField("a", "XLD", "b", "EUBookshop");
+    validField("a", "XLD",
       "b", "GOOGLEBOOKS",
-      "b", "France in the Americas Project"));
+      "b", "France in the Americas Project");
   }
 
   @Test

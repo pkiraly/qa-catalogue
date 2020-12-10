@@ -25,6 +25,15 @@ public class BLTagTest {
     validField(new DataField(tag, ind1, " ", subfield, value));
   }
 
+  public void validField(String... arguments) {
+    if (arguments.length == 2)
+      validField(arguments[0], arguments[1]);
+    else if (arguments.length == 3)
+      validField(arguments[0], arguments[1], arguments[2]);
+    else if (arguments.length % 2 == 0)
+      validField(new DataField(tag, " ", " ", arguments));
+  }
+
   public void validField(DataField field) {
     MarcRecord record = new MarcRecord("test");
     field.setRecord(record);

@@ -149,7 +149,8 @@ public class Validator implements MarcFileProcessor, Serializable {
   @Override
   public void afterIteration(int numberOfprocessedRecords) {
     File countFile = prepareReportFile(parameters.getOutputDir(), "count.csv");
-    printToFile(countFile, String.valueOf(numberOfprocessedRecords));
+    // printToFile(countFile, String.valueOf(numberOfprocessedRecords));
+    printToFile(countFile, String.valueOf(counter));
 
     char separator = getSeparator();
     if (parameters.doSummary()) {
@@ -369,6 +370,7 @@ public class Validator implements MarcFileProcessor, Serializable {
       if (parameters.doSummary())
         count(0, totalRecordCounter);
     }
+    counter++;
   }
 
   private void updateErrorCollector(String recordId, int errorId) {

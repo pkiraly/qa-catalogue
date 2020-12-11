@@ -5,7 +5,6 @@ import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -68,5 +67,10 @@ public class IgnorableRecords {
       }
     }
     return false;
+  }
+
+  @Override
+  public String toString() {
+    return isEmpty() ? "" : conditions.toString();
   }
 }

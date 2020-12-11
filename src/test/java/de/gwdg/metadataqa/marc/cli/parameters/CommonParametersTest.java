@@ -98,4 +98,29 @@ public class CommonParametersTest {
       e.printStackTrace();
     }
   }
+
+  @Test
+  public void formatParameters() {
+    String[] arguments = new String[]{"--trimId"};
+    try {
+      CommonParameters parameters = new CommonParameters(arguments);
+      String expected = "marcVersion: MARC21, MARC21\n" +
+        "limit: -1\n" +
+        "offset: -1\n" +
+        "MARC files: \n" +
+        "id: null\n" +
+        "defaultRecordType: null\n" +
+        "fixAlephseq: false\n" +
+        "alephseq: false\n" +
+        "marcxml: false\n" +
+        "lineSeparated: false\n" +
+        "outputDir: .\n" +
+        "trimId: true\n" +
+        "ignorableFields: \n" +
+        "ignorableRecords: \n";
+      assertEquals(expected, parameters.formatParameters());
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+  }
 }

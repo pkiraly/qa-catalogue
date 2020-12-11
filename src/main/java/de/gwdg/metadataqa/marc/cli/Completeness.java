@@ -92,6 +92,9 @@ public class Completeness implements MarcFileProcessor, Serializable {
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
+    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+      return;
+
     Map<String, Integer> recordFrequency = new TreeMap<>();
     Map<String, Integer> recordPackageCounter = new TreeMap<>();
 

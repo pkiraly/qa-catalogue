@@ -298,9 +298,7 @@ public class Validator implements MarcFileProcessor, Serializable {
       logger.info("Number of error types so far: " + instanceBasedErrorCounter.size());
 
     boolean isValid = marcRecord.validate(
-      parameters.getMarcVersion(),
-      parameters.doSummary(),
-      parameters.getIgnorableFields()
+      parameters.getMarcVersion(), parameters.doSummary(), parameters.getIgnorableFields()
     );
     if (!isValid && doPrintInProcessRecord) {
       if (parameters.doSummary()) {

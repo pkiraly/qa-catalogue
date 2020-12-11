@@ -105,13 +105,6 @@ public class ValidationTest {
     List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
     MarcRecord record = MarcFactory.createFromFormattedText(lines, MarcVersion.MARC21);
     assertFalse(record.validate(MarcVersion.MARC21, true));
-    System.err.println(record.getValidationErrors());
     assertEquals(21, record.getValidationErrors().size());
-
-    for (ValidationError error : record.getValidationErrors()) {
-      System.err.println(error.toString());
-    }
-
   }
-
 }

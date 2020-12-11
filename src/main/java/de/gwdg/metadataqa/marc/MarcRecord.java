@@ -492,7 +492,8 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
       if (field.getDefinition() == null)
         continue;
 
-      if (ignorableFields.contains(field.getTag()))
+      if (ignorableFields != null &&
+          ignorableFields.contains(field.getTag()))
         continue;
 
       count(field.getDefinition(), repetitionCounter);

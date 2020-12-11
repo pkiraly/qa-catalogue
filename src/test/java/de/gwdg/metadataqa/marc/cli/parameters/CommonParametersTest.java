@@ -78,6 +78,17 @@ public class CommonParametersTest {
   }
 
   @Test
+  public void testIgnorableRecords() throws ParseException {
+    String[] arguments = new String[]{"--ignorableRecords", "STA$s=SUPPRESSED"};
+    try {
+      CommonParameters parameters = new CommonParameters(arguments);
+      assertFalse(parameters.getIgnorableRecords().isEmpty());
+    } catch (ParseException e) {
+      throw e;
+    }
+  }
+
+  @Test
   public void testTrimId() {
     String[] arguments = new String[]{"--trimId"};
     try {

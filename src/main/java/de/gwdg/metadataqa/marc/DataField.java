@@ -581,7 +581,12 @@ public class DataField implements Extractable, Validatable, Serializable {
   @Override
   public String toString() {
     return "DataField{"
-      + definition.getTag()
+      + (
+          StringUtils.isNotBlank(tag)
+            ? tag
+            : (definition != null
+              ? definition.getTag()
+              : "unknown"))
       + ", ind1='" + ind1 + '\''
       + ", ind2='" + ind2 + '\''
       + ", subfields=" + subfields

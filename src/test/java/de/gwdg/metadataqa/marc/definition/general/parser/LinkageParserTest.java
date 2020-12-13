@@ -78,9 +78,7 @@ public class LinkageParserTest {
   @Test
   public void test13001AndInvalidChar() throws ParserException {
     expectedEx.expect(ParserException.class);
-    expectedEx.expectMessage(
-      "Linkage does not fit the pattern nnn-nn(/..)(/..). " +
-        "It contains invalid characters in '130-01\u200F': '\\u200F'");
+    expectedEx.expectMessage("Linkage does not fit the pattern nnn-nn[/..][/..].");
     Map<String, String> linkage = parser.parse("130-01\u200F");
   }
 
@@ -122,9 +120,7 @@ public class LinkageParserTest {
   @Test
   public void testInvalidCharException_hex() throws ParserException {
     expectedEx.expect(ParserException.class);
-    expectedEx.expectMessage(
-      "Linkage does not fit the pattern nnn-nn(/..)(/..). " +
-        "It contains invalid characters in '130-01\u200F': '\\u200F'");
+    expectedEx.expectMessage("Linkage does not fit the pattern nnn-nn[/..][/..].");
     String codeWithWrongChar = "130-01\u200F"; // int: 8207
     parser.create(codeWithWrongChar);
   }
@@ -139,8 +135,7 @@ public class LinkageParserTest {
   @Test
   public void testInvalidCharException_norm() throws ParserException {
     expectedEx.expect(ParserException.class);
-    expectedEx.expectMessage(
-      "Linkage does not fit the pattern nnn-nn(/..)(/..). It contains invalid characters in '(1. CD)': '.', ' ', 'C', 'D', ')'");
+    expectedEx.expectMessage("Linkage does not fit the pattern nnn-nn[/..][/..].");
     String codeWithWrongChar = "(1. CD)";
     parser.create(codeWithWrongChar);
   }
@@ -148,8 +143,7 @@ public class LinkageParserTest {
   @Test
   public void testInvalidCharException_accented() throws ParserException {
     expectedEx.expect(ParserException.class);
-    expectedEx.expectMessage(
-      "Linkage does not fit the pattern nnn-nn(/..)(/..). It contains invalid characters in 'jövőképesség': 'j', 'ö', 'v', 'ő', 'k', 'é', 'p', 'e', 's', 's', 'é', 'g'");
+    expectedEx.expectMessage("Linkage does not fit the pattern nnn-nn[/..][/..].");
     String codeWithWrongChar = "jövőképesség";
     parser.create(codeWithWrongChar);
   }

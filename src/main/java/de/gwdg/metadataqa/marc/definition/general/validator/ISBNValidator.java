@@ -18,6 +18,10 @@ public class ISBNValidator implements SubfieldValidator, Serializable {
 
   public static final String URL = "https://en.wikipedia.org/wiki/International_Standard_Book_Number";
   public static final Pattern ISBN = Pattern.compile("\\d[\\d- ]{8,}[\\dxX]");
+  public static final String MESSAGE_PATTERN = "ISBN does not fit the pattern \\d[\\d-]+[\\dxX].";
+  public static final String MESSAGE_LENGTH = "ISBN length should be either 10 or 13.";
+  public static final String MESSAGE_INVALID10 = "ISBN is not a valid ISBN 10 value";
+  public static final String MESSAGE_INVALID13 = "ISBN is not a valid ISBN 13 value";
 
   private static ISBNValidator uniqueInstance;
 
@@ -46,32 +50,44 @@ public class ISBNValidator implements SubfieldValidator, Serializable {
       message = null;
       if (value.length() == 10) {
         if (!validateIsbn10(value)) {
+          message = MESSAGE_INVALID10;
+          /*
           message = String.format("'%s' is not a valid ISBN 10 value", value);
           if (!value.equals(subfield.getValue()))
             message += String.format(" (in \"%s\")", subfield.getValue());
+          */
         }
       } else if (value.length() == 13) {
         if (!validateIsbn13(value)) {
+          message = MESSAGE_INVALID13;
+          /*
           message = String.format("'%s' is not a valid ISBN 13 value", value);
           if (!value.equals(subfield.getValue()))
             message += String.format(" (in \"%s\")", subfield.getValue());
+          */
         }
       } else {
+        message = MESSAGE_LENGTH;
+        /*
         message = String.format(
           "'%s' is not a valid ISBN value: length should be either 10 or 13, but it is %d",
           value, value.length());
         if (!value.equals(subfield.getValue()))
           message += String.format(" (in \"%s\")", subfield.getValue());
+         */
       }
       if (message != null) {
         addValidationError(response, subfield, message);
       }
     }
     if (!found) {
+      message = MESSAGE_PATTERN;
+      /*
       message = String.format(
         "'%s' does not a have an ISBN value, it does not fit the pattern \\d[\\d-]+[\\dxX].",
         subfield.getValue()
       );
+       */
       addValidationError(response, subfield, message);
     }
 
@@ -80,7 +96,9 @@ public class ISBNValidator implements SubfieldValidator, Serializable {
     return response;
   }
 
-  private void addValidationError(ValidatorResponse response, MarcSubfield subfield, String message) {
+  private void addValidationError(ValidatorResponse response,
+                                  MarcSubfield subfield,
+                                  String message) {
     response.addValidationError(
       new ValidationError(
         subfield.getField().getRecord().getId(),

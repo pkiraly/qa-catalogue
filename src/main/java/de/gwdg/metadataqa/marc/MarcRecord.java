@@ -410,13 +410,6 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
 
     // TODO: use reflection to get all validator class
     ValidatorResponse validatorResponse;
-    /*
-    validatorResponse = ClassificationReferenceValidator.validate(this);
-    if (!validatorResponse.isValid()) {
-      errors.addAll(validatorResponse.getErrors());
-      isValidRecord = false;
-    }
-    */
 
     return isValidRecord;
   }

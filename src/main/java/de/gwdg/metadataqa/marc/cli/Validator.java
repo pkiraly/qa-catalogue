@@ -50,6 +50,8 @@ public class Validator implements MarcFileProcessor, Serializable {
   private Map<Integer, Integer> recordBasedErrorCounter = new HashMap<>();
   private Map<Integer, Integer> hashedIndex = new HashMap<>();
   private Map<Integer, Set<String>> errorCollector = new TreeMap<>();
+  private Map<String, Set<String>> ISBNCollector = new TreeMap<>();
+  private Map<String, Set<String>> ISSNCollector = new TreeMap<>();
   private File detailsFile = null;
   private File summaryFile = null;
   private File collectorFile = null;
@@ -326,10 +328,28 @@ public class Validator implements MarcFileProcessor, Serializable {
           } else {
             error.setId(hashedIndex.get(error.hashCode()));
           }
+
           if (!error.getType().equals(ValidationErrorType.FIELD_UNDEFINED)) {
             count(2, totalInstanceCounter);
             allButInvalidFieldErrors.add(error);
           }
+
+          /*
+          if (error.getType().equals(ValidationErrorType.SUBFIELD_ISBN)) {
+            if (!ISBNCollector.containsKey(error.getMarcPath())) {
+              ISBNCollector.put(error.getMarcPath(), new HashSet<>());
+            }
+            ISBNCollector.get(error.getMarcPath()).add(error.getMessage());
+          }
+
+          if (error.getType().equals(ValidationErrorType.SUBFIELD_ISSN)) {
+            if (!ISSNCollector.containsKey(error.getMarcPath())) {
+              ISSNCollector.put(error.getMarcPath(), new HashSet<>());
+            }
+            ISSNCollector.get(error.getMarcPath()).add(error.getMessage());
+          }
+           */
+
           count(error, instanceBasedErrorCounter);
           count(error.getType(), typeInstanceCounter);
           count(error.getType().getCategory(), categoryInstanceCounter);
@@ -339,6 +359,7 @@ public class Validator implements MarcFileProcessor, Serializable {
           uniqueTypes.add(error.getType());
           uniqueCategories.add(error.getType().getCategory());
         }
+
         for (Integer id : uniqueErrors) {
           count(id, recordBasedErrorCounter);
         }

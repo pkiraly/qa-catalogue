@@ -25,8 +25,12 @@ public class ISSNValidatorTest {
     ValidatorResponse response = subfield.getDefinition().getValidator().isValid(subfield);
     assertFalse(response.isValid());
     assertEquals(1, response.getValidationErrors().size());
+    assertEquals("ISSN failed in integrity check",
+      response.getValidationErrors().get(0).getMessage());
+    /*
     assertEquals("'0378-5954' is not a valid ISSN value, it failed in integrity check",
       response.getValidationErrors().get(0).getMessage());
+    */
   }
 
   @Test

@@ -31,8 +31,12 @@ public class ISBNValidatorTest {
     assertEquals("test", validationError.getRecordId());
     assertEquals("020$a", validationError.getMarcPath());
     assertEquals(ValidationErrorType.SUBFIELD_ISBN, validationError.getType());
+    assertEquals("ISBN does not fit the pattern \\d[\\d-]+[\\dxX].",
+      validationError.getMessage());
+    /*
     assertEquals("'3p' does not a have an ISBN value, it does not fit the pattern \\d[\\d-]+[\\dxX].",
       validationError.getMessage());
+    */
     assertEquals("https://en.wikipedia.org/wiki/International_Standard_Book_Number", validationError.getUrl());
   }
 

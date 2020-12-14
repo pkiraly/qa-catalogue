@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.cli;
 
+import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
@@ -300,6 +301,13 @@ public class Validator implements MarcFileProcessor, Serializable {
 
     if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
       return;
+
+    if (marcRecord.hasDatafield("STA")) {
+      List<String> fields = new ArrayList<>();
+      for (DataField field : marcRecord.getDatafield("STA"))
+        fields.add(field.format());
+      logger.info("STA: " + StringUtils.join(fields, ", "));
+    }
 
     boolean isValid = marcRecord.validate(
       parameters.getMarcVersion(), parameters.doSummary(), parameters.getIgnorableFields()

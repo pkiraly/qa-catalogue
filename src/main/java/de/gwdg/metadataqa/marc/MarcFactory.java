@@ -183,10 +183,9 @@ public class MarcFactory {
       DataFieldDefinition definition = getDataFieldDefinition(dataField, marcVersion);
       if (definition == null) {
         record.addUnhandledTags(dataField.getTag());
-      } else {
-        DataField field = extractDataField(dataField, definition, record.getControl001().getContent());
-        record.addDataField(field);
       }
+      DataField field = extractDataField(dataField, definition, marcVersion, record.getControl001().getContent());
+      record.addDataField(field);
     }
   }
 
@@ -200,24 +199,34 @@ public class MarcFactory {
 
   private static DataField extractDataField(org.marc4j.marc.DataField dataField,
                                             DataFieldDefinition definition,
+                                            MarcVersion marcVersion,
                                             String identifier) {
-    DataField field = new DataField(
-      definition,
-      Character.toString(dataField.getIndicator1()),
-      Character.toString(dataField.getIndicator2())
-    );
+    DataField field;
+    if (definition == null) {
+      field = new DataField(dataField.getTag(),
+              Character.toString(dataField.getIndicator1()),
+              Character.toString(dataField.getIndicator2()),
+              marcVersion
+      );
+    } else {
+      field = new DataField(
+              definition,
+              Character.toString(dataField.getIndicator1()),
+              Character.toString(dataField.getIndicator2())
+      );
+    }
     for (Subfield subfield : dataField.getSubfields()) {
       String code = Character.toString(subfield.getCode());
-      SubfieldDefinition subfieldDefinition = definition.getSubfield(code);
+      SubfieldDefinition subfieldDefinition = definition == null ? null : definition.getSubfield(code);
       MarcSubfield marcSubfield = null;
       if (subfieldDefinition == null) {
         // if (!(definition.getTag().equals("886") && code.equals("k")))
-          // field.addUnhandledSubfields(code);
-          /*
-          logger.warning(String.format(
-            "Problem in record '%s': %s$%s is not a valid subfield (value: '%s')",
-            identifier, definition.getTag(), code, subfield.getData()));
-          */
+        // field.addUnhandledSubfields(code);
+        /*
+        logger.warning(String.format(
+          "Problem in record '%s': %s$%s is not a valid subfield (value: '%s')",
+          identifier, definition.getTag(), code, subfield.getData()));
+        */
         marcSubfield = new MarcSubfield(null, code, subfield.getData());
       } else {
         marcSubfield = new MarcSubfield(subfieldDefinition, code, subfield.getData());

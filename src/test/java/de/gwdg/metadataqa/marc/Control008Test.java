@@ -1,13 +1,21 @@
 package de.gwdg.metadataqa.marc;
 
+import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import de.gwdg.metadataqa.marc.definition.ControlValue;
+import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.stream.Collectors;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  *
@@ -180,5 +188,65 @@ public class Control008Test {
     subfield = field.getSubfieldByPosition(34);
     assertEquals("Biography", subfield.getLabel());
     assertEquals("No biographical material", field.resolve(subfield));
+  }
+
+  @Test
+  public void getMap() {
+    Control008 field = new Control008(
+      "981123p19981996enkmun   efhi           d",
+      Leader.Type.BOOKS
+    );
+    assertEquals(18, field.getMap().size());
+    assertEquals(
+      Arrays.asList(
+        "tag008all00", "tag008all06", "tag008all07", "tag008all11", "tag008all15",
+        "tag008all35", "tag008all38", "tag008all39", "tag008book18", "tag008book22",
+        "tag008book23", "tag008book24", "tag008book28", "tag008book29", "tag008book30",
+        "tag008book31", "tag008book33", "tag008book34"
+      ),
+      field.getMap().keySet().stream()
+        .map(x -> x.getId())
+        .collect(Collectors.toList())
+    );
+
+    assertEquals(
+      Arrays.asList(
+        "981123", "p", "1998", "1996", "enk", "   ", " ", "d", "mun ",
+        " ", " ", "efhi", " ", " ", " ", " ", " ", " "
+      ),
+      field.getMap().values().stream()
+        .collect(Collectors.toList())
+    );
+  }
+
+  @Test
+  public void getLabel() {
+    Control008 field = new Control008(
+      "981123p19981996enkmun   efhi           d",
+      Leader.Type.BOOKS
+    );
+    assertEquals("General Information", field.getLabel());
+  }
+
+  @Test
+  public void getCardinality() {
+    Control008 field = new Control008(
+      "981123p19981996enkmun   efhi           d",
+      Leader.Type.BOOKS
+    );
+    assertEquals(Cardinality.Nonrepeatable, field.getCardinality());
+  }
+
+  @Test
+  public void getControlValueByPosition() {
+    Control008 field = new Control008(
+      "981123p19981996enkmun   efhi           d",
+      Leader.Type.BOOKS
+    );
+    ControlValue value = field.getControlValueByPosition(0);
+    assertEquals("981123", value.getValue());
+    assertEquals("tag008all00", value.getId());
+    assertEquals("Date entered on file", value.getLabel());
+    assertNull(value.getValidationErrors());
   }
 }

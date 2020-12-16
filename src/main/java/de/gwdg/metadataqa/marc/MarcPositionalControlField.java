@@ -7,7 +7,7 @@ import de.gwdg.metadataqa.marc.utils.keygenerator.PositionalControlFieldKeyGener
 
 import java.util.*;
 
-public class MarcPositionalControlField extends MarcControlField {
+public abstract class MarcPositionalControlField extends MarcControlField {
 
   protected ControlFieldDefinition definition;
   protected MarcRecord marcRecord;
@@ -37,7 +37,7 @@ public class MarcPositionalControlField extends MarcControlField {
     }
   }
 
-  protected void processContent() {}
+  protected abstract void processContent();
 
   public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
     return getKeyValuePairs(definition.getTag(), definition.getMqTag(), type);

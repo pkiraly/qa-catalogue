@@ -159,7 +159,7 @@ public class Control007 extends MarcPositionalControlField implements Serializab
 
   private void handleContent(String content) {
     if (StringUtil.isNotBlank(content)) {
-      process();
+      processContent();
     } else {
       StringBuffer msg = new StringBuffer();
       if (record != null) {
@@ -175,7 +175,7 @@ public class Control007 extends MarcPositionalControlField implements Serializab
     handleContent(content);
   }
 
-  private void process() {
+  protected void processContent() {
 
     if (StringUtil.isBlank(content)) {
       String msg = "007 control field is empty";

@@ -1,13 +1,29 @@
 package de.gwdg.metadataqa.marc.analysis;
 
+import de.gwdg.metadataqa.api.util.FileUtils;
+import de.gwdg.metadataqa.marc.MarcFactory;
+import de.gwdg.metadataqa.marc.MarcRecord;
+import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Arrays;
+import java.util.List;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
 import static org.junit.Assert.assertEquals;
 
 public class ThompsonTraillAnalysisTest {
+
+  MarcRecord marcRecord;
+
+  @Before
+  public void setup() throws IOException, URISyntaxException {
+    List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
+    marcRecord = MarcFactory.createFromFormattedText(lines);
+  }
+
   @Test
   public void header() {
     assertEquals(
@@ -35,7 +51,17 @@ public class ThompsonTraillAnalysisTest {
   }
 
   @Test
+  public void getScores() {
+    assertEquals(
+      Arrays.asList(0, 0, 0, 0, 1, 4, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 9),
+      ThompsonTraillAnalysis.getScores(marcRecord)
+    );
+  }
+
+  @Test
   public void min() {
     assertEquals(10, Math.min(20, 10));
   }
+
+
 }

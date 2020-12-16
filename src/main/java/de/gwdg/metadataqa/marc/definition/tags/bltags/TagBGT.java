@@ -5,29 +5,29 @@ import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
 
 /**
- * Acquisitions Notes Field
+ * BGLT (British Grey Literature Team) Report Flag
  */
-public class TagAQN extends DataFieldDefinition {
+public class TagBGT extends DataFieldDefinition {
 
-  private static TagAQN uniqueInstance;
+  private static TagBGT uniqueInstance;
 
-  private TagAQN() {
+  private TagBGT() {
     initialize();
     postCreation();
   }
 
-  public static TagAQN getInstance() {
+  public static TagBGT getInstance() {
     if (uniqueInstance == null)
-      uniqueInstance = new TagAQN();
+      uniqueInstance = new TagBGT();
     return uniqueInstance;
   }
 
   private void initialize() {
 
-    tag = "AQN";
-    label = "Acquisitions Notes Field";
-    mqTag = "acquisitionsNotes";
-    cardinality = Cardinality.Repeatable;
+    tag = "BGT";
+    label = "BGLT (British Grey Literature Team) Report Flag";
+    mqTag = "britishGreyLiteratureTeamReportFlag";
+    cardinality = Cardinality.Nonrepeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");
     obsolete = true;
@@ -36,10 +36,13 @@ public class TagAQN extends DataFieldDefinition {
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "Note", "NR"
+      "a", "Report flag", "NR"
     );
 
     getSubfield("a")
-      .setMqTag("note");
+      .setCodes(
+        "t", "t"
+      )
+      .setMqTag("reportFlag");
   }
 }

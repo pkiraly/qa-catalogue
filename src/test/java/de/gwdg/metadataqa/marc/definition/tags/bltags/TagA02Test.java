@@ -2,16 +2,16 @@ package de.gwdg.metadataqa.marc.definition.tags.bltags;
 
 import org.junit.Test;
 
-public class Tag997Test extends BLTagTest {
+public class TagA02Test extends BLTagTest {
 
-  public Tag997Test() {
-    super(Tag997.getInstance());
+  public TagA02Test() {
+    super(TagA02.getInstance());
   }
 
   @Test
   public void testValidFields() {
-    validField("a", "100: another author?");
-    validField("a", "100: another author?", "a", "another message");
+    validField("a", "3008873", "z", "0");
+    validField("a", "1451916", "z", "51916");
   }
 
   @Test

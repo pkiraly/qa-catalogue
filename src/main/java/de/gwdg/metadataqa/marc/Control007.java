@@ -370,10 +370,6 @@ public class Control007 extends MarcPositionalControlField implements Serializab
     return content;
   }
 
-  public Map<ControlSubfieldDefinition, String> getMap() {
-    return valuesMap;
-  }
-
   public String getValueByPosition(int position) {
     return valuesMap.get(getSubfieldByPosition(position));
   }

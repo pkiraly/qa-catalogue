@@ -107,4 +107,17 @@ public class ValidationTest {
     assertFalse(record.validate(MarcVersion.MARC21, true));
     assertEquals(21, record.getValidationErrors().size());
   }
+
+  @Test
+  public void testABLFile() throws URISyntaxException, IOException {
+    List<String> lines = FileUtils.readLines("bl/006013122.mrctxt");
+    MarcRecord record = MarcFactory.createFromFormattedText(lines, MarcVersion.BL);
+    for (DataField field : record.getDatafields()) {
+      System.err.println(field.getTag());
+    }
+    assertTrue(record.hasDatafield("STA"));
+    // assertFalse(record.validate(MarcVersion.MARC21, true));
+    // assertEquals(21, record.getValidationErrors().size());
+  }
+
 }

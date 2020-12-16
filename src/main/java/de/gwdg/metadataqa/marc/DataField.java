@@ -91,6 +91,16 @@ public class DataField implements Extractable, Validatable, Serializable {
     parseAndAddSubfields(input.substring(2));
   }
 
+  public DataField(String tag, String ind1, String ind2, MarcVersion marcVersion) {
+    definition = TagDefinitionLoader.load(tag, marcVersion);
+    if (definition == null) {
+      this.tag = tag;
+    }
+    this.ind1 = ind1;
+    this.ind2 = ind2;
+    this.subfields = new ArrayList<>();
+  }
+
   public DataField(String tag, String ind1, String ind2, String content, MarcVersion marcVersion) {
     definition = TagDefinitionLoader.load(tag, marcVersion);
     if (definition == null) {
@@ -206,13 +216,20 @@ public class DataField implements Extractable, Validatable, Serializable {
 
   public String format() {
     StringBuffer output = new StringBuffer();
-    output.append(String.format("[%s: %s]%n", definition.getTag(), definition.getLabel()));
+    if (definition != null)
+      output.append(String.format("[%s: %s]%n", definition.getTag(), definition.getLabel()));
+    else
+      output.append(String.format("[%s]%n", getTag()));
 
-    if (definition.getInd1().exists())
+    if (definition != null && definition.getInd1().exists())
       output.append(String.format("%s: %s%n", definition.getInd1().getLabel(), resolveInd1()));
+    else if (StringUtils.isNotBlank(getInd1()))
+      output.append(String.format("ind1: %s%n", getInd1()));
 
-    if (definition.getInd2().exists())
+    if (definition != null && definition.getInd2().exists())
       output.append(String.format("%s: %s%n", definition.getInd2().getLabel(), resolveInd2()));
+    else if (StringUtils.isNotBlank(getInd2()))
+      output.append(String.format("ind2: %s%n", getInd2()));
 
     for (MarcSubfield subfield : subfields) {
       output.append(String.format("%s: %s%n", subfield.getLabel(), subfield.resolve()));

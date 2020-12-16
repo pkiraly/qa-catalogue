@@ -97,8 +97,10 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
       DataFieldDefinition definition = dataField.getDefinition();
       if (!cache.containsKey(definition)) {
         cache.put(definition, true);
-        countIndicator(recordCounter, definition.getInd1(), dataField.getInd1());
-        countIndicator(recordCounter, definition.getInd2(), dataField.getInd2());
+        if (definition != null) {
+          countIndicator(recordCounter, definition.getInd1(), dataField.getInd1());
+          countIndicator(recordCounter, definition.getInd2(), dataField.getInd2());
+        }
         for (MarcSubfield subfield : dataField.getSubfields()) {
           if (subfield.getDefinition() != null
               && subfield.getDefinition().getFrbrFunctions() != null) {

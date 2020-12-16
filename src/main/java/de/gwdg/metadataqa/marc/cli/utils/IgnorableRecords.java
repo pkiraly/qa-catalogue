@@ -7,10 +7,14 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class IgnorableRecords {
+
+  private static final Logger logger = Logger.getLogger(IgnorableRecords.class.getCanonicalName());
+
   private List<DataField> conditions;
 
   public void parseInput(String input) {
@@ -49,20 +53,20 @@ public class IgnorableRecords {
       return false;
 
     for (DataField condition : conditions) {
-      List<DataField> fields = record.getDatafield(condition.getTag());
-      if (fields == null || fields.isEmpty())
+      List<DataField> recordFields = record.getDatafield(condition.getTag());
+      if (recordFields == null || recordFields.isEmpty())
         continue;
 
-      for (DataField field : fields) {
+      for (DataField recordField : recordFields) {
         MarcSubfield subfieldCond = condition.getSubfields().get(0);
         String code = subfieldCond.getCode();
-        List<MarcSubfield> subfields = field.getSubfield(code);
+        List<MarcSubfield> recordSubfields = recordField.getSubfield(code);
 
-        if (subfields == null || subfields.isEmpty())
+        if (recordSubfields == null || recordSubfields.isEmpty())
           continue;
 
-        for (MarcSubfield subfield : subfields)
-          if (subfield.getValue().equals(subfieldCond.getValue()))
+        for (MarcSubfield recordSubfield : recordSubfields)
+          if (recordSubfield.getValue().equals(subfieldCond.getValue()))
             return true;
       }
     }

@@ -70,6 +70,8 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
 
   private void indexField(DataField dataField) {
     String tag = dataField.getTag();
+    if (tag == null)
+      System.err.println("null tag in indexField() " + dataField);
 
     if (!datafieldIndex.containsKey(tag))
       datafieldIndex.put(tag, new ArrayList<>());
@@ -588,7 +590,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
         }
       }
     }
-    else if (selector.getFieldTag().equals("008")) {
+    else if (selector.getFieldTag().equals("008") && control008 != null) {
       if (selector.getCharStart() != null) {
         ControlSubfieldDefinition definition = control008.getSubfieldByPosition(selector.getCharStart());
         results.add(control008.getMap().get(definition));

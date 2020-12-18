@@ -21,14 +21,17 @@ public class MarcTagListerTest {
     List<Class<? extends DataFieldDefinition>> tags = MarcTagLister.listTags();
     assertNotNull(tags);
     assertNotEquals(0, tags.size());
-    assertEquals(379, tags.size());
+    assertEquals(380, tags.size());
     assertEquals("Tag010", tags.get(0).getSimpleName());
     Map<String, Integer> versionCounter = new HashMap<>();
     Map<MarcVersion, Integer> versionCounter2 = new HashMap<>();
 
     for (Class<? extends DataFieldDefinition> tag : tags) {
       MarcVersion version = Utils.getVersion(tag);
-      DataFieldDefinition definition = TagDefinitionLoader.load(tag.getSimpleName().replace("Tag", ""), version);
+      DataFieldDefinition definition = TagDefinitionLoader.load(
+        tag.getSimpleName().replace("Tag", ""), version);
+      assertEquals(tag.getSimpleName() + " should have the same tag", "Tag" + definition.getTag(), tag.getSimpleName());
+
       assertEquals(version, definition.getMarcVersion());
       Utils.count(Utils.extractPackageName(definition), versionCounter);
       Utils.count(definition.getMarcVersion(), versionCounter2);

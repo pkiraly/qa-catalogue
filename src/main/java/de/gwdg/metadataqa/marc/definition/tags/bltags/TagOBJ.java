@@ -3,31 +3,30 @@ package de.gwdg.metadataqa.marc.definition.tags.bltags;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.general.validator.RegexValidator;
 
 /**
- * Newspaper Identifier
+ * Digital Object Field
  */
-public class TagNID extends DataFieldDefinition {
+public class TagOBJ extends DataFieldDefinition {
 
-  private static TagNID uniqueInstance;
+  private static TagOBJ uniqueInstance;
 
-  private TagNID() {
+  private TagOBJ() {
     initialize();
     postCreation();
   }
 
-  public static TagNID getInstance() {
+  public static TagOBJ getInstance() {
     if (uniqueInstance == null)
-      uniqueInstance = new TagNID();
+      uniqueInstance = new TagOBJ();
     return uniqueInstance;
   }
 
   private void initialize() {
 
-    tag = "NID";
-    label = "Newspaper Identifier";
-    mqTag = "NewspaperIdentifier";
+    tag = "OBJ";
+    label = "Digital Object Field";
+    mqTag = "DigitalObjectField";
     cardinality = Cardinality.Nonrepeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");
@@ -37,10 +36,11 @@ public class TagNID extends DataFieldDefinition {
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "Identifier", "NR"
+      "a", "Code", "NR"
     );
 
     getSubfield("a")
-      .setMqTag("nidIdentifier");
+      .setCodes("Y", "Y")
+      .setMqTag("code");
   }
 }

@@ -194,6 +194,19 @@ public class MarcSubfield implements Validatable, Serializable {
                         : referencePath + "->" + definition.getPath());
             addError(path, ValidationErrorType.SUBFIELD_INVALID_VALUE, message);
             isValid = false;
+          /*
+          } else if (definition.getCodeList() != null &&
+                     !definition.getCodeList().isValid(value)) {
+            String message = value;
+            if (referencePath != null) {
+              message += String.format(" (the field is embedded in %s)", referencePath);
+            }
+            String path = (referencePath == null
+              ? definition.getPath()
+              : referencePath + "->" + definition.getPath());
+            addError(path, ValidationErrorType.SUBFIELD_INVALID_VALUE, message);
+            isValid = false;
+          */
           }
         }
       }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -112,12 +113,11 @@ public class ValidationTest {
   public void testABLFile() throws URISyntaxException, IOException {
     List<String> lines = FileUtils.readLines("bl/006013122.mrctxt");
     MarcRecord record = MarcFactory.createFromFormattedText(lines, MarcVersion.BL);
-    for (DataField field : record.getDatafields()) {
-      System.err.println(field.getTag());
-    }
+    assertEquals(Arrays.asList(
+      "FMT", "019", "020", "040", "100", "245", "260", "336", "337", "338", "590",
+      "966", "979", "CAT", "CAT", "CAT", "CAT", "FIN", "LEO", "SRC", "STA", "LAS"),
+      record.getDatafields().stream().map(DataField::getTag).collect(Collectors.toList()));
     assertTrue(record.hasDatafield("STA"));
-    // assertFalse(record.validate(MarcVersion.MARC21, true));
-    // assertEquals(21, record.getValidationErrors().size());
   }
 
 }

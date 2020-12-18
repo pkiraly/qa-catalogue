@@ -176,7 +176,9 @@ public class DataField implements Extractable, Validatable, Serializable {
   }
 
   private void addSubfield(String code, String value) {
-    SubfieldDefinition subfieldDefinition = definition != null ? definition.getSubfield(code) : null;
+    SubfieldDefinition subfieldDefinition = definition != null
+                                          ? definition.getSubfield(code)
+                                          : null;
     MarcSubfield marcSubfield = new MarcSubfield(subfieldDefinition, code, value);
     marcSubfield.setField(this);
     this.subfields.add(marcSubfield);

@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags.bltags;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.general.validator.DateValidator;
 import de.gwdg.metadataqa.marc.definition.general.validator.RegexValidator;
 
 /**
@@ -63,7 +64,7 @@ public class TagBUF extends DataFieldDefinition {
       .setMqTag("codes");
 
     getSubfield("d")
-      .setValidator(new RegexValidator("^\\d{4}(0[1-9]|1[0-2])([0-2][0-9]|3[0-1])$"))
+      .setValidator(new DateValidator("yyyyMMdd"))
       .setMqTag("date");
   }
 }

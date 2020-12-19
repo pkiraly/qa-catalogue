@@ -121,10 +121,11 @@ public class FrbrFunctionLister {
           processFunctions(indicator.getFrbrFunctions(), fieldTag.getTag() + "$" + indicator.getIndicatorFlag());
         }
 
-        for (SubfieldDefinition subfield : fieldTag.getSubfields()) {
-          if (isCore) coreSubfields++; else localSubfields++;
-          processFunctions(subfield.getFrbrFunctions(), fieldTag.getTag() + "$" + subfield.getCode());
-        }
+        if (fieldTag.getSubfields() != null)
+          for (SubfieldDefinition subfield : fieldTag.getSubfields()) {
+            if (isCore) coreSubfields++; else localSubfields++;
+            processFunctions(subfield.getFrbrFunctions(), fieldTag.getTag() + "$" + subfield.getCode());
+          }
       } catch (NoSuchMethodException
         | IllegalAccessException
         | InvocationTargetException e) {

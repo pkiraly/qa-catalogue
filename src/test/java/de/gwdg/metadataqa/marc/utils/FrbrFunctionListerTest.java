@@ -38,16 +38,16 @@ public class FrbrFunctionListerTest {
           }
         }
 
-        for (SubfieldDefinition subfield : fieldTag.getSubfields()) {
-          functions = subfield.getFrbrFunctions();
-          if (functions != null) {
-            // System.err.printf("%s$%s: %s%n", fieldTag.getTag(), subfield.getCode(), StringUtils.join(functions));
-            for (FRBRFunction function : functions) {
-              count(function, counter);
+        if (fieldTag.getSubfields() != null)
+          for (SubfieldDefinition subfield : fieldTag.getSubfields()) {
+            functions = subfield.getFrbrFunctions();
+            if (functions != null) {
+              // System.err.printf("%s$%s: %s%n", fieldTag.getTag(), subfield.getCode(), StringUtils.join(functions));
+              for (FRBRFunction function : functions) {
+                count(function, counter);
+              }
             }
           }
-        }
-
 
       } catch (NoSuchMethodException
         | IllegalAccessException

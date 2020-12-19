@@ -378,6 +378,15 @@ public class Validator implements MarcFileProcessor, Serializable {
   }
 
   private void printCollectorEntry(Integer errorId, Set<String> recordIds) {
+    print(collectorFile, String.valueOf(errorId) + separator);
+    boolean isFirst = true;
+    for (String recordId : recordIds) {
+      print(collectorFile, (isFirst ? "" : ";") + recordId);
+      if (isFirst)
+        isFirst = false;
+    }
+    print(collectorFile, "\n");
+    /*
     print(
       collectorFile,
       String.format(
@@ -385,6 +394,7 @@ public class Validator implements MarcFileProcessor, Serializable {
         errorId, separator, StringUtils.join(recordIds, ";")
       )
     );
+     */
   }
 
   private void print(File file, String message) {

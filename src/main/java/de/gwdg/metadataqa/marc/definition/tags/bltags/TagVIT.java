@@ -51,9 +51,15 @@ public class TagVIT extends DataFieldDefinition {
       "s", "Contains the string ‘Supplement’ if the Newspaper Audit database Item Description field contained ‘supp’. Otherwise blank", "NR"
     );
 
-    getSubfield("b").setMqTag("barcode");
-    getSubfield("c").setMqTag("status");
-    getSubfield("d").setMqTag("description");
+    getSubfield("b")
+      .setValidator(new RegexValidator("^.*[^\\.]$"))
+      .setMqTag("barcode");
+    getSubfield("c")
+      .setValidator(new RegexValidator("^.*[^\\.]$"))
+      .setMqTag("status");
+    getSubfield("d")
+      .setValidator(new RegexValidator("^.*[^\\.]$"))
+      .setMqTag("description");
     getSubfield("e")
       .setValidator(new RegexValidator("^(1[5-9]|20)\\d\\d$"))
       .setMqTag("fromYear");
@@ -73,7 +79,12 @@ public class TagVIT extends DataFieldDefinition {
       .setValidator(
         new RegexValidator("^(0[1-9]|[1-2][0-9]|3[01])(/(0[1-9]|[1-2][0-9]|3[01]))?$"))
       .setMqTag("fromToDay");
-    getSubfield("o").setMqTag("opacNote");
-    getSubfield("s").setMqTag("isSupplement");
+    getSubfield("o")
+      .setValidator(new RegexValidator("^.*[^\\.]$"))
+      .setMqTag("opacNote");
+    // TODO: in the PDF it is not well formatted
+    getSubfield("s")
+      .setValidator(new RegexValidator("^(Supplement|)$"))
+      .setMqTag("isSupplement");
   }
 }

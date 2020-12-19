@@ -23,6 +23,8 @@ public class TagVITTest extends BLTagTest {
     validField("j", "11/12");
     validField("k", "11");
     validField("k", "11/12");
+    validField("s", "Supplement");
+    validField("s", "");
   }
 
   @Test
@@ -37,5 +39,6 @@ public class TagVITTest extends BLTagTest {
     invalidField("j", "13");
     invalidField("j", "01/13");
     invalidField("k", "01/32");
+    invalidField("s", "Supplement.");
   }
 }

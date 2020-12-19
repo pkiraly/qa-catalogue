@@ -27,7 +27,7 @@ public class TagLAS extends DataFieldDefinition {
 
     tag = "LAS";
     label = "Last CAT Field";
-    mqTag = "lastCATField";
+    mqTag = "LastCATField";
     cardinality = Cardinality.Nonrepeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

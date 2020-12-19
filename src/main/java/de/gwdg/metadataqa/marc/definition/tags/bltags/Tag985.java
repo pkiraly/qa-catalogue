@@ -26,7 +26,7 @@ public class Tag985 extends DataFieldDefinition {
 
     tag = "985";
     label = "Cataloguer’s Note";
-    mqTag = "cataloguersNote";
+    mqTag = "CataloguersNote";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

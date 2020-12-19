@@ -27,7 +27,7 @@ public class Tag945 extends DataFieldDefinition {
 
     tag = "945";
     label = "BL Local Title";
-    mqTag = "blLocalTitle";
+    mqTag = "BlLocalTitle";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

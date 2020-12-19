@@ -26,7 +26,7 @@ public class Tag992 extends DataFieldDefinition {
 
     tag = "992";
     label = "Stored Search Flag";
-    mqTag = "storedSearchFlag";
+    mqTag = "StoredSearchFlag";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

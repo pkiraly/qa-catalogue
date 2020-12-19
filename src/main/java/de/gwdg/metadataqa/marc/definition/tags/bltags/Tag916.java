@@ -27,7 +27,7 @@ public class Tag916 extends DataFieldDefinition {
 
     tag = "916";
     label = "Authority Control Information";
-    mqTag = "authorityControl";
+    mqTag = "AuthorityControl";
     cardinality = Cardinality.Nonrepeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

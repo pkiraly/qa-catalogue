@@ -27,7 +27,7 @@ public class Tag968 extends DataFieldDefinition {
 
     tag = "968";
     label = "Record Status Field";
-    mqTag = "recordStatusField";
+    mqTag = "RecordStatusField";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

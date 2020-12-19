@@ -26,7 +26,7 @@ public class Tag599 extends DataFieldDefinition {
 
     tag = "599";
     label = "Notes Relating to an Original (RPS)";
-    mqTag = "notesRelatingToAnOriginal";
+    mqTag = "NotesRelatingToAnOriginal";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

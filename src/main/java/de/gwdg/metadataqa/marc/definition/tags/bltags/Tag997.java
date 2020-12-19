@@ -26,7 +26,7 @@ public class Tag997 extends DataFieldDefinition {
 
     tag = "997";
     label = "Shared Library Message Field";
-    mqTag = "sharedLibraryMessageField";
+    mqTag = "SharedLibraryMessageField";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

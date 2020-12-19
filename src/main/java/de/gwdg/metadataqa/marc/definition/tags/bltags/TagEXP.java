@@ -28,7 +28,7 @@ public class TagEXP extends DataFieldDefinition {
 
     tag = "EXP";
     label = "Block Export";
-    mqTag = "blockExport";
+    mqTag = "BlockExport";
     cardinality = Cardinality.Nonrepeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

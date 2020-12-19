@@ -26,7 +26,7 @@ public class TagCNF extends DataFieldDefinition {
 
     tag = "CNF";
     label = "Document Supply Conference Heading";
-    mqTag = "documentSupplyConferenceHeading";
+    mqTag = "DocumentSupplyConferenceHeading";
     cardinality = Cardinality.Nonrepeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

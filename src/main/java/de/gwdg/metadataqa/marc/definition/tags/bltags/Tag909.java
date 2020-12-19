@@ -27,7 +27,7 @@ public class Tag909 extends DataFieldDefinition {
 
     tag = "909";
     label = "Awaiting OCLC Upgrade";
-    mqTag = "awaitingOclcUpgrade";
+    mqTag = "AwaitingOclcUpgrade";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

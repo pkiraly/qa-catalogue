@@ -26,7 +26,7 @@ public class TagBGT extends DataFieldDefinition {
 
     tag = "BGT";
     label = "BGLT (British Grey Literature Team) Report Flag";
-    mqTag = "britishGreyLiteratureTeamReportFlag";
+    mqTag = "BritishGreyLiteratureTeamReportFlag";
     cardinality = Cardinality.Nonrepeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

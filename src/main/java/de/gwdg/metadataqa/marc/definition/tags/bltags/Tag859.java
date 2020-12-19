@@ -27,7 +27,7 @@ public class Tag859 extends DataFieldDefinition {
 
     tag = "859";
     label = "Digital Resource Flag";
-    mqTag = "digitalResourceFlag";
+    mqTag = "DigitalResourceFlag";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

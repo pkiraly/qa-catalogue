@@ -26,7 +26,7 @@ public class Tag961 extends DataFieldDefinition {
 
     tag = "961";
     label = "Sheet Index Note";
-    mqTag = "sheetIndexNote";
+    mqTag = "SheetIndexNote";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

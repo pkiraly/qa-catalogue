@@ -26,7 +26,7 @@ public class Tag954 extends DataFieldDefinition {
 
     tag = "954";
     label = "Transliteration Statement";
-    mqTag = "transliteration";
+    mqTag = "Transliteration";
     cardinality = Cardinality.Nonrepeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

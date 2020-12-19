@@ -27,7 +27,7 @@ public class Tag595 extends DataFieldDefinition {
 
     tag = "595";
     label = "Document Supply Bibliographic History Note";
-    mqTag = "documentSupplyBibliographicHistoryNote";
+    mqTag = "DocumentSupplyBibliographicHistoryNote";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

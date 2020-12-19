@@ -34,7 +34,7 @@ public class Tag979 extends DataFieldDefinition {
 
     tag = "979";
     label = "Negative Shelfmark";
-    mqTag = "negativeShelfmark";
+    mqTag = "NegativeShelfmark";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

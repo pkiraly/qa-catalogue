@@ -26,7 +26,7 @@ public class Tag950 extends DataFieldDefinition {
 
     tag = "950";
     label = "Library of Congress Subject (Cross-Reference)";
-    mqTag = "locSubjectCrossReference";
+    mqTag = "LocSubjectCrossReference";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

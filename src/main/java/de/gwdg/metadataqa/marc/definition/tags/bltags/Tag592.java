@@ -26,7 +26,7 @@ public class Tag592 extends DataFieldDefinition {
 
     tag = "592";
     label = "Collaboration Note";
-    mqTag = "collaborationNote";
+    mqTag = "CollaborationNote";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

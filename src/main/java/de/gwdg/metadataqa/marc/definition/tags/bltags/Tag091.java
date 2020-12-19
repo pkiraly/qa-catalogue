@@ -27,7 +27,7 @@ public class Tag091 extends DataFieldDefinition {
 
     tag = "091";
     label = "Previous Control Number (Document Supply Conference)";
-    mqTag = "previousControlNumber";
+    mqTag = "PreviousControlNumber";
     cardinality = Cardinality.Nonrepeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

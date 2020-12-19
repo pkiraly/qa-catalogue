@@ -27,7 +27,7 @@ public class TagCFI extends DataFieldDefinition {
 
     tag = "CFI";
     label = "Copyright Fee Information";
-    mqTag = "copyrightFeeInformation";
+    mqTag = "CopyrightFeeInformation";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

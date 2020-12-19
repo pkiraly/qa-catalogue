@@ -36,6 +36,14 @@ public class MarcTagListerTest {
       Utils.count(Utils.extractPackageName(definition), versionCounter);
       Utils.count(definition.getMarcVersion(), versionCounter2);
       assertNotNull(tag.getSimpleName(), definition);
+      if (definition.getMqTag() != null) {
+        assertEquals(
+          definition.getTag() + ": the mqTag should be upper case",
+          definition.getMqTag().substring(0, 1),
+          definition.getMqTag().substring(0, 1).toUpperCase()
+        );
+      }
+
       if (!definition.getIndexTag().equals(definition.getTag())) {
         if (definition.getInd1().exists()) {
           assertNotEquals(

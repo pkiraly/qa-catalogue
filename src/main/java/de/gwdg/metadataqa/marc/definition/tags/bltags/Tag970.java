@@ -26,7 +26,7 @@ public class Tag970 extends DataFieldDefinition {
 
     tag = "970";
     label = "Collection Code";
-    mqTag = "collectionCode";
+    mqTag = "CollectionCode";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

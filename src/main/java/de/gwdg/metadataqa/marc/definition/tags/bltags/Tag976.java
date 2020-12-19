@@ -26,7 +26,7 @@ public class Tag976 extends DataFieldDefinition {
 
     tag = "976";
     label = "Non-monographic Conference Indicator";
-    mqTag = "nonmonographicConferenceIndicator";
+    mqTag = "NonmonographicConferenceIndicator";
     cardinality = Cardinality.Nonrepeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

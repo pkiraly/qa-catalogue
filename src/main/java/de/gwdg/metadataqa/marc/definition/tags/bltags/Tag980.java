@@ -32,7 +32,7 @@ public class Tag980 extends DataFieldDefinition {
 
     tag = "980";
     label = "Card Production Indicator";
-    mqTag = "cardProductionIndicator";
+    mqTag = "CardProductionIndicator";
     cardinality = Cardinality.Nonrepeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

@@ -27,7 +27,7 @@ public class Tag964 extends DataFieldDefinition {
 
     tag = "964";
     label = "Science Museum Library Location";
-    mqTag = "scienceMuseumLibraryLocation";
+    mqTag = "ScienceMuseumLibraryLocation";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

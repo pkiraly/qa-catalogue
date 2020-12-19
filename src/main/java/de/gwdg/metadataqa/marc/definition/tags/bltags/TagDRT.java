@@ -27,7 +27,7 @@ public class TagDRT extends DataFieldDefinition {
 
     tag = "DRT";
     label = "Digital Record Type";
-    mqTag = "digitalRecordType";
+    mqTag = "DigitalRecordType";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

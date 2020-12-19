@@ -28,7 +28,7 @@ public class TagBUF extends DataFieldDefinition {
 
     tag = "BUF";
     label = "Batch Upgrade Flag";
-    mqTag = "batchUpgradeFlag";
+    mqTag = "BatchUpgradeFlag";
     cardinality = Cardinality.Nonrepeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

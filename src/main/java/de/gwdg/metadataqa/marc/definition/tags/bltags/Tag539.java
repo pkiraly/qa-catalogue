@@ -27,7 +27,7 @@ public class Tag539 extends DataFieldDefinition {
 
     tag = "539";
     label = "Location of Filmed Copy (ESTC)";
-    mqTag = "locationOfFilmedCopyESTC";
+    mqTag = "LocationOfFilmedCopyESTC";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

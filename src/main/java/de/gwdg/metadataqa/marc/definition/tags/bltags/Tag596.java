@@ -27,7 +27,7 @@ public class Tag596 extends DataFieldDefinition {
 
     tag = "596";
     label = "Temporary Note";
-    mqTag = "temporaryNote";
+    mqTag = "TemporaryNote";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

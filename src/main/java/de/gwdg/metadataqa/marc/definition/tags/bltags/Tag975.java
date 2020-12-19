@@ -26,7 +26,7 @@ public class Tag975 extends DataFieldDefinition {
 
     tag = "975";
     label = "Insufficient Record Statement";
-    mqTag = "insufficientRecordStatement";
+    mqTag = "InsufficientRecordStatement";
     cardinality = Cardinality.Nonrepeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

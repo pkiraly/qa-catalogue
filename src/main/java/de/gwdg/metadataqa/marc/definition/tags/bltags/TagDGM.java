@@ -27,7 +27,7 @@ public class TagDGM extends DataFieldDefinition {
 
     tag = "DGM";
     label = "Digitised Record Match";
-    mqTag = "digitisedRecordMatch";
+    mqTag = "DigitisedRecordMatch";
     cardinality = Cardinality.Nonrepeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

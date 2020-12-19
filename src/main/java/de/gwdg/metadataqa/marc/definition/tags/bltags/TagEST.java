@@ -26,7 +26,7 @@ public class TagEST extends DataFieldDefinition {
 
     tag = "EST";
     label = "Document Supply ESTAR (Electronic Storage and Retrieval System) Flag";
-    mqTag = "estarFlag";
+    mqTag = "EstarFlag";
     cardinality = Cardinality.Nonrepeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

@@ -28,7 +28,7 @@ public class TagFFP extends DataFieldDefinition {
 
     tag = "FFP";
     label = "Flag For Publication";
-    mqTag = "flagForPublication";
+    mqTag = "FlagForPublication";
     cardinality = Cardinality.Nonrepeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

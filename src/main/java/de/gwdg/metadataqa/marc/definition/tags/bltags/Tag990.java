@@ -26,7 +26,7 @@ public class Tag990 extends DataFieldDefinition {
 
     tag = "990";
     label = "Product Information Code";
-    mqTag = "productInformationCode";
+    mqTag = "ProductInformationCode";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

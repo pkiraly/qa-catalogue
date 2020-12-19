@@ -26,7 +26,7 @@ public class TagAQN extends DataFieldDefinition {
 
     tag = "AQN";
     label = "Acquisitions Notes Field";
-    mqTag = "acquisitionsNotes";
+    mqTag = "AcquisitionsNotes";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

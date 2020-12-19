@@ -27,7 +27,7 @@ public class Tag957 extends DataFieldDefinition {
 
     tag = "957";
     label = "Acquisitions Data";
-    mqTag = "acquisitions";
+    mqTag = "Acquisitions";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

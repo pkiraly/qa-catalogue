@@ -26,7 +26,7 @@ public class Tag598 extends DataFieldDefinition {
 
     tag = "598";
     label = "Document Supply Selection / Ordering Information";
-    mqTag = "documentSupplySelectionOrderingInformation";
+    mqTag = "DocumentSupplySelectionOrderingInformation";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

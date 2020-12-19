@@ -27,7 +27,7 @@ public class Tag692 extends DataFieldDefinition {
 
     tag = "692";
     label = "Nineteenth Century Subject Series Field";
-    mqTag = "collectionSubset";
+    mqTag = "CollectionSubset";
     cardinality = Cardinality.Repeatable;
     obsolete = true;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";

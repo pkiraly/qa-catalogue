@@ -27,7 +27,7 @@ public class Tag590 extends DataFieldDefinition {
 
     tag = "590";
     label = "Document Supply General Note";
-    mqTag = "documentSupplyGeneralNote";
+    mqTag = "DocumentSupplyGeneralNote";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

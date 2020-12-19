@@ -27,7 +27,7 @@ public class Tag966 extends DataFieldDefinition {
 
     tag = "966";
     label = "Document Supply Acquisitions Indicator";
-    mqTag = "documentSupplyAcquisitionsIndicator";
+    mqTag = "DocumentSupplyAcquisitionsIndicator";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

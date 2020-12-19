@@ -28,7 +28,7 @@ public class TagFIN extends DataFieldDefinition {
 
     tag = "FIN";
     label = "Finished (Cataloguing)";
-    mqTag = "finishedCataloguing";
+    mqTag = "FinishedCataloguing";
     cardinality = Cardinality.Nonrepeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

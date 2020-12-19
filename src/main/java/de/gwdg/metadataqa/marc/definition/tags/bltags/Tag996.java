@@ -26,7 +26,7 @@ public class Tag996 extends DataFieldDefinition {
 
     tag = "996";
     label = "Z39.50 SFX Enabler";
-    mqTag = "z3950SfxEnabler";
+    mqTag = "Z3950SfxEnabler";
     cardinality = Cardinality.Nonrepeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

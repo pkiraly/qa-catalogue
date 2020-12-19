@@ -30,7 +30,7 @@ public class Tag039 extends DataFieldDefinition {
 
     tag = "039";
     label = "National Bibliography Issue Number";
-    mqTag = "nationalBibliographyIssueNumber";
+    mqTag = "NationalBibliographyIssueNumber";
     cardinality = Cardinality.Nonrepeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

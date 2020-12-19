@@ -26,7 +26,7 @@ public class Tag597 extends DataFieldDefinition {
 
     tag = "597";
     label = "Editing or Error Message";
-    mqTag = "editingOrErrorMessage";
+    mqTag = "EditingOrErrorMessage";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

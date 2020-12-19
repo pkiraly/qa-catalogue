@@ -27,7 +27,7 @@ public class Tag917 extends DataFieldDefinition {
 
     tag = "917";
     label = "Production Category";
-    mqTag = "productionCategory";
+    mqTag = "ProductionCategory";
     cardinality = Cardinality.Nonrepeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

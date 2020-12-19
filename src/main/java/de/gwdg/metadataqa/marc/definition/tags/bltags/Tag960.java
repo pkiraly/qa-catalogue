@@ -26,7 +26,7 @@ public class Tag960 extends DataFieldDefinition {
 
     tag = "960";
     label = "Normalised Place of Publication";
-    mqTag = "normalisedPlaceOfPublication";
+    mqTag = "NormalisedPlaceOfPublication";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");

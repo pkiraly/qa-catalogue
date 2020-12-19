@@ -3,47 +3,40 @@ package de.gwdg.metadataqa.marc.definition.tags.bltags;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.general.validator.RangeValidator;
+import de.gwdg.metadataqa.marc.definition.general.validator.RegexValidator;
 
 /**
- * Serial Acquisitions System Number
+ * Virtual Item
  */
-public class TagA02 extends DataFieldDefinition {
+public class TagWII extends DataFieldDefinition {
 
-  private static TagA02 uniqueInstance;
+  private static TagWII uniqueInstance;
 
-  private TagA02() {
+  private TagWII() {
     initialize();
     postCreation();
   }
 
-  public static TagA02 getInstance() {
+  public static TagWII getInstance() {
     if (uniqueInstance == null)
-      uniqueInstance = new TagA02();
+      uniqueInstance = new TagWII();
     return uniqueInstance;
   }
 
   private void initialize() {
 
-    tag = "A02";
-    label = "Serial Acquisitions System Number";
-    mqTag = "SerialAcquisitionsSystemNumber";
+    tag = "WII";
+    label = "What Is It?";
+    mqTag = "WhatIsIt";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd037.html";
     // setCompilanceLevels("O");
-    obsolete = true;
 
     ind1 = new Indicator();
     ind2 = new Indicator();
 
-    setSubfieldsWithCardinality(
-      "a", "Serial id", "NR",
-      "z", "Old id", "NR"
-    );
+    // TODO: further investigation
 
-    getSubfield("a")
-      .setMqTag("serialId");
-
-    getSubfield("z")
-      .setMqTag("oldId");
   }
 }

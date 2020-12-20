@@ -20,13 +20,13 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
   protected void setOptions() {
     if (!isOptionSet) {
       super.setOptions();
-      options.addOption("g", "summaryFileName", true, "show summary instead of record level display");
+      options.addOption("g", "summaryFileName", true, "the summary file name (provides a summary of issues, such as the number of instance and number of records having the particular issue)");
       options.addOption("s", "summary", false, "show summary instead of record level display");
-      options.addOption("t", "details", false, "show record level display");
+      options.addOption("h", "details", false, "show record level display");
       options.addOption("f", "detailsFileName", true,
         String.format("the report file name (default is '%s')", ValidatorParameters.DEFAULT_FILE_NAME));
       options.addOption("r", "format", true, "specify a format");
-      options.addOption("y", "emptyLargeCollectors", false, "empty large collectors");
+      options.addOption("w", "emptyLargeCollectors", false, "empty large collectors");
       isOptionSet = true;
     }
   }

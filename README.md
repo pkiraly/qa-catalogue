@@ -225,20 +225,37 @@ or with a bash script
 
 options:
 
-* `-s`, `--summary` creating a summary report instead of record level reports
-* `-m [MARC version name]`, `--marcVersion [MARC version name]` specify a MARC version. Crrently supported version names:
+* granularity of the report
+  * `-s`, `--summary` creating a summary report instead of record level
+  reports
+  * `-h`, `--details` provides record level details of the issues
+* `-m [MARC version]`, `--marcVersion [MARC version]` specifies
+  a MARC version. Currently, the supported versions are:
    * `MARC21`, Library of Congress MARC21
    * `DNB`, the Deuthche Nationalbibliothek's MARC version
    * `OCLC`, the OCLCMARC
    * `GENT`, fields available in the catalog of Gent University (Belgium)
-   * `SZTE`, fields available in the catalog of Szegedi Tudományegyetem (Hungary)
-   * `FENNICA`, fields available in the Fennica catalog of Finnish National Library
-   * `NKCR`, fields available at the National Library of the Czech Republic 
-* `-l [number]`, `--limit [number]` validates only given number of records
-* `-o [number]`, `--offset [number]` starts validation at the given Nth record
-* `-f [file name]`, `--fileName [file name]` the name of report the program produces. Default is `validation-report.txt`. If you use "stdout", it won't create file, but put results into the standard output.
-* `-r [format]`, `--format [format]` format specification of the output. Possible values: `text` (default), `tab-separated` or `tsv`, `comma-separated` or `csv`
-* `-n`, `--nolog` do not display log messages
+   * `SZTE`, fields available in the catalog of Szegedi Tudományegyetem
+     (Hungary)
+   * `FENNICA`, fields available in the Fennica catalog of Finnish
+     National Library
+   * `NKCR`, fields available at the National Library of the Czech
+     Republic 
+   * `BL`, fields available at the British Library
+* output parameters:
+  * `-t [directory]`, `--outputDir [directory]` specifies the output
+    directory where the files will be created
+  * `-g [file name]`, `--summaryFileName [file name]` the name of summary 
+    report the program produces. The file provides a summary of issues, 
+    such as the number of instance and number of records having the
+    particular issue)
+  * `-f [file name]`, `--detailsFileName [file name]` the name of report
+    the program produces. Default is `validation-report.txt`. If you use
+    "stdout", it won't create file, but put results into the standard
+    output.
+  * `-r [format]`, `--format [format]` format specification of the
+    output. Possible values: `text` (default), `tab-separated` 
+    or `tsv`, `comma-separated` or `csv`
 * `-d [record type]`, `--defaultRecordType [record type]` the default record type to be used if the record's type is undetectable. The record type is calculated from the combination of Leader/06 (Type of record) and Leader/07 (bibliographic level), however sometimes the combination doesn't fit to the standard. In this case the tool will use the given record type. Possible values of the record type argument:
    * BOOKS
    * CONTINUING_RESOURCES
@@ -247,9 +264,41 @@ options:
    * VISUAL_MATERIALS
    * COMPUTER_FILES
    * MIXED_MATERIALS
-* `-q`, `--fixAlephseq` ALEPH export contains '^' characters instead spaces in control fields (006, 007, 008). This flag replace them to spaces before the validation
-* `-x`, `--marcxml` the input files are not binary MARC, but MARCXML files
-* `-p`, `--alephseq` the source is in Alephseq format
+* input formats:
+  * `-x`, `--marcxml` the input files are not binary MARC, but MARCXML files
+  * `-p`, `--alephseq` the input files are in Alephseq format
+  * `-q`, `--fixAlephseq` sometime ALEPH export contains '^' characters
+    instead spaces in control fields (006, 007, 008). This flag replace
+    them to spaces before the validation. It might occur in any input
+    format.
+  * `-y`, `--linespearated` the input files are in line separated format
+    i.e. it is a text file, where each line is a distinct field, the
+    same way as MARC records are usually displayed in the MARC21 
+    standard documentation.
+* parameters to limit the validation:
+  * `-i [record ID]`, `--id [record ID]` validates only a single record
+    having the specifies identifier (the content of 001)
+  * `-l [number]`, `--limit [number]` validates only given number of
+    records
+  * `-o [number]`, `--offset [number]` starts validation at the given
+    Nth record
+  * `-z [list of tags]`, `--ignorableFields [list of tags]` do NOT 
+    validate the selected fields. The list should contains the tags
+    separated by commas (`,`), e.g. `--ignorableFields A02,AQN`
+  * `-v [selector]`, `--ignorableRecords [selector]` do NOT validate
+    the records which match the condition denotet by the selector.
+    The selector is a test MARCspec string e.g.
+    `--ignorableRecords STA$a=SUPPRESSED`. It ignores the records which
+    has `STA` field with an `a` subfield with the value `SUPPRESSED`.
+* `-n`, `--nolog` do not display log messages
+* `-r`, `--trimId` remove spaces from the end of record IDs in the
+  output files (some library system add padding spaces around field 
+  value 001 in exported files)
+* `-w`, `--emptyLargeCollectors` the output files are created during
+  the process and not only at the end of it. It helps in memory 
+  management if the input is large and it has lots of errors, on the
+  other hand the output file will be segmented, which should be handled
+  after the process.
 
 The `file` argument might contain any wildcard the operating system supports ('*', '?', etc.)
 

@@ -112,6 +112,9 @@ public class ShelfReadyCompleteness implements MarcFileProcessor, Serializable {
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) {
+    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+      return;
+
     List<Double> scores = ShelfReadyAnalysis.getScores(marcRecord);
     String id = parameters.getTrimId()
               ? marcRecord.getId().trim()

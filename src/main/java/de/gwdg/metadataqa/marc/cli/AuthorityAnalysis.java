@@ -77,6 +77,9 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
+    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+      return;
+
     AuthorithyAnalyzer analyzer = new AuthorithyAnalyzer(marcRecord, statistics);
     int count = analyzer.process();
     count((count > 0), hasClassifications);

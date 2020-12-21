@@ -5,10 +5,6 @@ import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormatter;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.List;
@@ -287,13 +283,13 @@ public class LeaderTest {
     assertFalse(errors.isEmpty());
     assertEquals(2, errors.size());
     assertEquals(
-      "\"Leader\"\t\"1\"\t\"record: undetectable type\"\t\"Leader/06 (typeOfRecord): 'n', Leader/07 (bibliographicLevel): 'm'\"\t\"https://www.loc.gov/marc/bibliographic/bdleader.html\"",
+      "\"Leader\"\t\"1\"\t\"1\"\t\"undetectable type\"\t\"Leader/06 (typeOfRecord): 'n', Leader/07 (bibliographicLevel): 'm'\"\t\"https://www.loc.gov/marc/bibliographic/bdleader.html\"",
       ValidationErrorFormatter.format(
         errors.get(0), ValidationErrorFormat.TAB_SEPARATED
       )
     );
     assertEquals(
-      "\"Leader/06 (leader06)\"\t\"6\"\t\"control subfield: invalid value\"\t\"n\"\t\"https://www.loc.gov/marc/bibliographic/bdleader.html\"",
+      "\"Leader/06 (leader06)\"\t\"2\"\t\"6\"\t\"invalid value\"\t\"n\"\t\"https://www.loc.gov/marc/bibliographic/bdleader.html\"",
       ValidationErrorFormatter.format(
         errors.get(1), ValidationErrorFormat.TAB_SEPARATED
       )

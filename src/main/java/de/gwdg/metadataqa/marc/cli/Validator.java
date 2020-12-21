@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
+import de.gwdg.metadataqa.marc.model.validation.ValidationErrorCategory;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormatter;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import org.apache.commons.cli.HelpFormatter;
@@ -41,8 +42,8 @@ public class Validator implements MarcFileProcessor, Serializable {
   private ValidatorParameters parameters;
   private Map<Integer, Integer> totalRecordCounter = new HashMap<>();
   private Map<Integer, Integer> totalInstanceCounter = new HashMap<>();
-  private Map<String, Integer> categoryRecordCounter = new HashMap<>();
-  private Map<String, Integer> categoryInstanceCounter = new HashMap<>();
+  private Map<ValidationErrorCategory, Integer> categoryRecordCounter = new HashMap<>();
+  private Map<ValidationErrorCategory, Integer> categoryInstanceCounter = new HashMap<>();
   private Map<ValidationErrorType, Integer> typeRecordCounter = new HashMap<>();
   private Map<ValidationErrorType, Integer> typeInstanceCounter = new HashMap<>();
   private Map<ValidationError, Integer> instanceBasedErrorCounter = new HashMap<>();
@@ -174,7 +175,7 @@ public class Validator implements MarcFileProcessor, Serializable {
         List<ValidationError> allButInvalidFieldErrors = new ArrayList<>();
         Set<Integer> uniqueErrors = new HashSet<>();
         Set<ValidationErrorType> uniqueTypes = new HashSet<>();
-        Set<String> uniqueCategories = new HashSet<>();
+        Set<ValidationErrorCategory> uniqueCategories = new HashSet<>();
         for (ValidationError error : errors) {
           if (!instanceBasedErrorCounter.containsKey(error)) {
             error.setId(vErrorId++);
@@ -220,7 +221,7 @@ public class Validator implements MarcFileProcessor, Serializable {
         for (ValidationErrorType id : uniqueTypes) {
           count(id, typeRecordCounter);
         }
-        for (String id : uniqueCategories) {
+        for (ValidationErrorCategory id : uniqueCategories) {
           count(id, categoryRecordCounter);
         }
         count(1, totalRecordCounter);
@@ -299,6 +300,33 @@ public class Validator implements MarcFileProcessor, Serializable {
       parameters.getFormat()
     );
     print(summaryFile, header + "\n");
+    instanceBasedErrorCounter
+      .entrySet()
+      .stream()
+      .sorted((a,b) -> {
+        Integer typeIdA = Integer.valueOf(a.getKey().getType().getId());
+        Integer typeIdB = Integer.valueOf(b.getKey().getType().getId());
+        int result = typeIdA.compareTo(typeIdB);
+        if (result == 0) {
+          Integer recordCountA = Integer.valueOf(recordBasedErrorCounter.get(a.getKey().getId()));
+          Integer recordCountB = Integer.valueOf(recordBasedErrorCounter.get(b.getKey().getId()));
+          result = recordCountB.compareTo(recordCountA);
+        }
+        return result;
+      })
+      .forEach(
+        entry -> {
+          ValidationError error = entry.getKey();
+          int instanceCount = entry.getValue();
+          String formattedOutput = ValidationErrorFormatter.formatForSummary(
+            error, parameters.getFormat()
+          );
+          print(summaryFile, createRow(
+            separator, error.getId(), formattedOutput, instanceCount, recordBasedErrorCounter.get(error.getId())
+          ));
+        }
+      );
+    /*
     for (Map.Entry<ValidationError, Integer> entry : instanceBasedErrorCounter.entrySet()) {
       ValidationError error = entry.getKey();
       int count = entry.getValue();
@@ -309,21 +337,25 @@ public class Validator implements MarcFileProcessor, Serializable {
         separator, error.getId(), formattedOutput, count, recordBasedErrorCounter.get(error.getId())
       ));
     }
+    */
   }
 
   private void printTypeCounts() {
     Path path = Paths.get(parameters.getOutputDir(), "issue-by-type.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-      writer.write(createRow("id", "type", "instances", "records"));
+      writer.write(createRow("id", "categoryId", "category", "type", "instances", "records"));
       typeRecordCounter
         .entrySet()
         .stream()
+        .sorted((a, b) -> ((Integer)a.getKey().getId()).compareTo((Integer) b.getKey().getId()))
         .forEach(entry -> {
           ValidationErrorType type = entry.getKey();
           int records = entry.getValue();
           int instances = typeInstanceCounter.get(entry.getKey());
           try {
-            writer.write(createRow(type.getId(), quote(type.getMessage()), instances, records));
+            writer.write(createRow(
+              type.getId(), type.getCategory().getId(), type.getCategory().getName(), quote(type.getMessage()), instances, records
+            ));
           } catch (IOException e) {
             e.printStackTrace();
           }
@@ -358,20 +390,21 @@ public class Validator implements MarcFileProcessor, Serializable {
   private void printCategoryCounts() {
     Path path = Paths.get(parameters.getOutputDir(), "issue-by-category.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-      writer.write(createRow("category", "instances", "records"));
+      writer.write(createRow("id", "category", "instances", "records"));
       categoryRecordCounter
-      .entrySet()
-      .stream()
-      .forEach(entry -> {
-        String category = entry.getKey();
-        int records = entry.getValue();
-        int instances = categoryInstanceCounter.getOrDefault(entry.getKey(), -1);
-        try {
-          writer.write(createRow(category, instances, records));
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-      });
+        .entrySet()
+        .stream()
+        .sorted((a, b) -> ((Integer)a.getKey().getId()).compareTo((Integer) b.getKey().getId()))
+        .forEach(entry -> {
+          ValidationErrorCategory category = entry.getKey();
+          int records = entry.getValue();
+          int instances = categoryInstanceCounter.getOrDefault(entry.getKey(), -1);
+          try {
+            writer.write(createRow(category.getId(), category.getName(), instances, records));
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        });
     } catch (IOException e) {
       e.printStackTrace();
     }

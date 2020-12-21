@@ -314,7 +314,7 @@ public class Validator implements MarcFileProcessor, Serializable {
   private void printTypeCounts() {
     Path path = Paths.get(parameters.getOutputDir(), "issue-by-type.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-      writer.write(createRow("type", "instances", "records"));
+      writer.write(createRow("id", "type", "instances", "records"));
       typeRecordCounter
         .entrySet()
         .stream()
@@ -323,7 +323,7 @@ public class Validator implements MarcFileProcessor, Serializable {
           int records = entry.getValue();
           int instances = typeInstanceCounter.get(entry.getKey());
           try {
-            writer.write(createRow(quote(type.getMessage()), instances, records));
+            writer.write(createRow(type.getId(), quote(type.getMessage()), instances, records));
           } catch (IOException e) {
             e.printStackTrace();
           }

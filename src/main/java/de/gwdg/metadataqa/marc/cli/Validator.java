@@ -258,16 +258,23 @@ public class Validator implements MarcFileProcessor, Serializable {
 
   @Override
   public void afterIteration(int numberOfprocessedRecords) {
+    logger.info("printCounter");
     printCounter(numberOfprocessedRecords);
 
     char separator = getSeparator();
     if (parameters.doSummary()) {
+      logger.info("printSummary");
       printSummary(separator);
+      logger.info("printCategoryCounts");
       printCategoryCounts();
+      logger.info("printTypeCounts");
       printTypeCounts();
+      logger.info("printTotalCounts");
       printTotalCounts();
+      logger.info("printCollector");
       printCollector();
     }
+    logger.info("all printing is DONE");
   }
 
   private void printCounter(int numberOfprocessedRecords) {

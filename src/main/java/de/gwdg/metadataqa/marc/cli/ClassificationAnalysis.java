@@ -79,6 +79,9 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
+    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+      return;
+
     ClassificationAnalyzer analyzer = new ClassificationAnalyzer(marcRecord, statistics);
     analyzer.process();
     int total1 = statistics.getHasClassifications().get(true);

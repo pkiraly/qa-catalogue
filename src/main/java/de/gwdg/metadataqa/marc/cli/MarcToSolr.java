@@ -74,6 +74,9 @@ public class MarcToSolr implements MarcFileProcessor, Serializable {
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
+    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+      return;
+
     try {
       Map<String, List<String>> map = marcRecord.getKeyValuePairs(
         parameters.getSolrFieldType(), true

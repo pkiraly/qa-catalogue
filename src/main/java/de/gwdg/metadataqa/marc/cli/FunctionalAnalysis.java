@@ -77,6 +77,9 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
+    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+      return;
+
     this.recordNumber = recordNumber;
     Map<FRBRFunction, Integer> recordCounter = new TreeMap<>();
     Map<DataFieldDefinition, Boolean> cache = new HashMap<>();

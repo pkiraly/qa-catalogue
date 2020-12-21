@@ -21,25 +21,6 @@ import static org.junit.Assert.*;
  */
 public class LeaderTest {
   
-  public LeaderTest() {
-  }
-  
-  @BeforeClass
-  public static void setUpClass() {
-  }
-  
-  @AfterClass
-  public static void tearDownClass() {
-  }
-  
-  @Before
-  public void setUp() {
-  }
-  
-  @After
-  public void tearDown() {
-  }
-
   @Test
   public void test00928nama2200265c4500() {
     Leader leader = new Leader("00928nam a2200265 c 4500");
@@ -306,13 +287,13 @@ public class LeaderTest {
     assertFalse(errors.isEmpty());
     assertEquals(2, errors.size());
     assertEquals(
-      "\"Leader\"\t\"record: undetectable type\"\t\"Leader/06 (typeOfRecord): 'n', Leader/07 (bibliographicLevel): 'm'\"\t\"https://www.loc.gov/marc/bibliographic/bdleader.html\"",
+      "\"Leader\"\t\"1\"\t\"record: undetectable type\"\t\"Leader/06 (typeOfRecord): 'n', Leader/07 (bibliographicLevel): 'm'\"\t\"https://www.loc.gov/marc/bibliographic/bdleader.html\"",
       ValidationErrorFormatter.format(
         errors.get(0), ValidationErrorFormat.TAB_SEPARATED
       )
     );
     assertEquals(
-      "\"Leader/06 (leader06)\"\t\"control subfield: invalid value\"\t\"n\"\t\"https://www.loc.gov/marc/bibliographic/bdleader.html\"",
+      "\"Leader/06 (leader06)\"\t\"6\"\t\"control subfield: invalid value\"\t\"n\"\t\"https://www.loc.gov/marc/bibliographic/bdleader.html\"",
       ValidationErrorFormatter.format(
         errors.get(1), ValidationErrorFormat.TAB_SEPARATED
       )

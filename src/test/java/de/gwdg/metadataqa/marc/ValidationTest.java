@@ -97,7 +97,7 @@ public class ValidationTest {
     boolean isValid = record.validate(MarcVersion.MARC21, false);
     if (!isValid) {
       String message = ValidationErrorFormatter.format(record.getValidationErrors(), ValidationErrorFormat.TEXT);
-      assertTrue(message.contains("880$6: record: ambiguous linkage 'There are multiple $6'"));
+      assertTrue(message.contains("880$6: 3 - record: ambiguous linkage 'There are multiple $6'"));
     }
   }
 

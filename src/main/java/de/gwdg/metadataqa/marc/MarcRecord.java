@@ -374,7 +374,13 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
           subfields.put(subfield.getCode(), subfield.getValue());
         }
         fieldMap.put("subfields", subfields);
-        String tag = field.getDefinition().getTag();
+
+        if (field.getDefinition() != null)
+          logger.warning(field.getTag() + " doesn't have definition");
+        String tag = field.getDefinition() != null
+          ? field.getDefinition().getTag()
+          : field.getTag();
+
         if (!map.containsKey(tag)) {
           map.put(tag, new ArrayList<Map<String, Object>>());
         }

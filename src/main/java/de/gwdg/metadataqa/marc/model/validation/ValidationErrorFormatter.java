@@ -159,7 +159,7 @@ public class ValidationErrorFormatter {
   }
 
   private static String[] headerForSummary() {
-    return new String[]{"id", "MarcPath", "typeId", "type", "message", "url", "instances", "records"};
+    return new String[]{"id", "MarcPath", "categoryId", "typeId", "type", "message", "url", "instances", "records"};
   }
 
   private static String[] headerForCollector() {
@@ -169,6 +169,7 @@ public class ValidationErrorFormatter {
   private static String[] asArrayWithoutId(ValidationError error) {
     return new String[]{
       error.getMarcPath(),
+      String.valueOf(error.getType().getCategory().getId()),
       String.valueOf(error.getType().getId()),
       error.getType().getMessage(),
       error.getMessage(),
@@ -179,6 +180,7 @@ public class ValidationErrorFormatter {
   private static List<String> asListWithoutId(ValidationError error) {
     return Arrays.asList(
       error.getMarcPath(),
+      String.valueOf(error.getType().getCategory().getId()),
       String.valueOf(error.getType().getId()),
       error.getType().getMessage(),
       error.getMessage(),
@@ -190,6 +192,7 @@ public class ValidationErrorFormatter {
     return Arrays.asList(
       error.getRecordId(),
       error.getMarcPath(),
+      String.valueOf(error.getType().getCategory().getId()),
       String.valueOf(error.getType().getId()),
       error.getType().getMessage(),
       error.getMessage(),
@@ -201,6 +204,7 @@ public class ValidationErrorFormatter {
     return new String[]{
       error.getRecordId(),
       error.getMarcPath(),
+      String.valueOf(error.getType().getCategory().getId()),
       String.valueOf(error.getType().getId()),
       error.getType().getMessage(),
       error.getMessage(),
@@ -209,6 +213,6 @@ public class ValidationErrorFormatter {
   }
 
   private static String[] headerArray() {
-    return new String[]{"recordId", "MarcPath", "typeId", "type", "message", "url"};
+    return new String[]{"recordId", "MarcPath", "categoryId", "typeId", "type", "message", "url"};
   }
 }

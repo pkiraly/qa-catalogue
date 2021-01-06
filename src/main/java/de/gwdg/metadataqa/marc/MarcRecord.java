@@ -28,6 +28,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   private static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
   private static final Pattern positionalPattern = Pattern.compile("^(Leader|00[678])/(.*)$");
   private static final List<String> simpleControlTags = Arrays.asList("001", "003", "005");
+  private static final Map<String, Boolean> undefinedTags = new HashMap<>();
 
   private Leader leader;
   private MarcControlField control001;
@@ -359,10 +360,11 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     StringBuilder text = new StringBuilder();
     Map<String, Object> map = new LinkedHashMap<>();
     map.put("leader", leader.getContent());
-    for (MarcControlField field : getControlfields()) {
+
+    for (MarcControlField field : getControlfields())
       if (field != null)
         map.put(field.getDefinition().getTag(), field.getContent());
-    }
+
     for (DataField field : datafields) {
       if (field != null) {
         Map<String, Object> fieldMap = new LinkedHashMap<>();
@@ -375,8 +377,12 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
         }
         fieldMap.put("subfields", subfields);
 
-        if (field.getDefinition() != null)
-          logger.warning(field.getTag() + " doesn't have definition");
+        if (field.getDefinition() != null) {
+          if (!undefinedTags.containsKey(field.getTag())) {
+            logger.warning(field.getTag() + " doesn't have definition");
+            undefinedTags.put(field.getTag(), true);
+          }
+        }
         String tag = field.getDefinition() != null
           ? field.getDefinition().getTag()
           : field.getTag();

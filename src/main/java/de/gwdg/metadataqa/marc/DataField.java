@@ -328,9 +328,7 @@ public class DataField implements Extractable, Validatable, Serializable {
 
   public FieldIndexer getFieldIndexer() {
     FieldIndexer fieldIndexer = null;
-    if (definition != null && definition.getFieldIndexer() != null) {
-      fieldIndexer = definition.getFieldIndexer();
-    } else if (definition != null
+    if (definition != null
       && definition.getSourceSpecificationType() != null) {
       SourceSpecificationType specificationType = definition.getSourceSpecificationType();
       switch (specificationType) {
@@ -348,6 +346,9 @@ public class DataField implements Extractable, Validatable, Serializable {
           break;
         case Subfield2:
           fieldIndexer = SchemaFromSubfield2.getInstance();
+          break;
+        case Indicator2:
+          fieldIndexer = SchemaFromInd2.getInstance();
           break;
       }
     }

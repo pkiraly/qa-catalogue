@@ -1,9 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.bltags;
 
-import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.codelist.ClassificationSchemeSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
@@ -200,6 +197,6 @@ public class Tag979 extends DataFieldDefinition {
     getSubfield("8")
       .setMqTag("fieldLink");
 
-    fieldIndexer = SchemaFromInd1OrIf7FromSubfield2.getInstance();
+    sourceSpecificationType = SourceSpecificationType.Indicator1Is7AndSubfield2;
   }
 }

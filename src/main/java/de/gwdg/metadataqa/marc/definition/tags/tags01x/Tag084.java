@@ -85,8 +85,6 @@ public class Tag084 extends DataFieldDefinition {
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("O");
 
-    // 084a_Classification_classificationPortion_ss:%22670%22
-    fieldIndexer = SchemaFromSubfield2.getInstance();
     sourceSpecificationType = SourceSpecificationType.Subfield2;
   }
 }

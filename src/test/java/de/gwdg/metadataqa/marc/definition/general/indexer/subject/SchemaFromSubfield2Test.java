@@ -23,7 +23,7 @@ public class SchemaFromSubfield2Test extends SubjectIndexerTest {
     );
     assertEquals(
       SchemaFromSubfield2.class,
-      field.getDefinition().getFieldIndexer().getClass()
+      field.getFieldIndexer().getClass()
     );
   }
 

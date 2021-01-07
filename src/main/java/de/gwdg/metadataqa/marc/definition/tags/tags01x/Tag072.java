@@ -100,7 +100,6 @@ public class Tag072 extends DataFieldDefinition {
       new SubfieldDefinition("9", "Subject category number", "NR")
     ));
 
-    fieldIndexer = SchemaFromInd2AndSubfield2.getInstance();
     sourceSpecificationType = SourceSpecificationType.Indicator2AndSubfield2;
   }
 }

@@ -24,7 +24,7 @@ public class SchemaFromInd1OrIfEmptyFromSubfield2Test extends SubjectIndexerTest
     );
     assertEquals(
       SchemaFromInd1OrIfEmptyFromSubfield2.class,
-      field.getDefinition().getFieldIndexer().getClass()
+      field.getFieldIndexer().getClass()
     );
   }
 

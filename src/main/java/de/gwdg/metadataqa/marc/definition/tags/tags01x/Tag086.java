@@ -100,7 +100,6 @@ public class Tag086 extends DataFieldDefinition {
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("O");
 
-    fieldIndexer = SchemaFromInd1OrIfEmptyFromSubfield2.getInstance();
     sourceSpecificationType = SourceSpecificationType.Indicator1IsSpaceAndSubfield2;
   }
 }

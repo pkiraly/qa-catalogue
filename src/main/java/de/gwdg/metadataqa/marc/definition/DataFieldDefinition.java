@@ -24,7 +24,6 @@ public abstract class DataFieldDefinition implements Serializable {
   protected String indexTag = null;
   protected Map<MarcVersion, List<SubfieldDefinition>> versionSpecificSubfields;
   protected List<FRBRFunction> functions;
-  protected FieldIndexer fieldIndexer = null;
   protected SourceSpecificationType sourceSpecificationType = null;
   protected boolean obsolete = false;
   private CompilanceLevel nationalCompilanceLevel;
@@ -195,10 +194,6 @@ public abstract class DataFieldDefinition implements Serializable {
 
   public List<FRBRFunction> getFrbrFunctions() {
     return functions;
-  }
-
-  public FieldIndexer getFieldIndexer() {
-    return fieldIndexer;
   }
 
   public SourceSpecificationType getSourceSpecificationType() {

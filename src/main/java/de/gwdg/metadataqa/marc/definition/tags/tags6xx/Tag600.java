@@ -254,7 +254,6 @@ public class Tag600 extends DataFieldDefinition {
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("O");
 
-
     putVersionSpecificSubfields(MarcVersion.FENNICA, Arrays.asList(
       new SubfieldDefinition("9", "Artikkeli", "NR")
     ));
@@ -263,7 +262,6 @@ public class Tag600 extends DataFieldDefinition {
       new SubfieldDefinition("7", "NKCR Authority ID", "NR")
     ));
 
-    fieldIndexer = SchemaFromInd2AndSubfield2.getInstance();
     sourceSpecificationType = SourceSpecificationType.Indicator2AndSubfield2;
   }
 

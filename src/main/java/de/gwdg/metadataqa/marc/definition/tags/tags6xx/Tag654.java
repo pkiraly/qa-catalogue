@@ -141,7 +141,6 @@ public class Tag654 extends DataFieldDefinition {
       new SubfieldDefinition("7", "NKCR Authority ID", "NR")
     ));
 
-    fieldIndexer = SchemaFromSubfield2.getInstance();
     sourceSpecificationType = SourceSpecificationType.Subfield2;
   }
 }

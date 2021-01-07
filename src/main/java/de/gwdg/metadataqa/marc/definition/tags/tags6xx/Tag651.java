@@ -147,7 +147,6 @@ public class Tag651 extends DataFieldDefinition {
       new SubfieldDefinition("7", "NKCR Authority ID", "NR")
     ));
 
-    fieldIndexer = SchemaFromInd2AndSubfield2.getInstance();
     sourceSpecificationType = SourceSpecificationType.Indicator2AndSubfield2;
 
     setHistoricalSubfields(

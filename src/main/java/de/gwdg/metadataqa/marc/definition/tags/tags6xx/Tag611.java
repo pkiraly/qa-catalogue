@@ -222,7 +222,6 @@ public class Tag611 extends DataFieldDefinition {
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("O");
 
-    fieldIndexer = SchemaFromInd2AndSubfield2.getInstance();
     sourceSpecificationType = SourceSpecificationType.Indicator2AndSubfield2;
 
     putVersionSpecificSubfields(MarcVersion.FENNICA, Arrays.asList(

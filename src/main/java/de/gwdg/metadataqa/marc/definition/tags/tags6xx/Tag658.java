@@ -87,7 +87,6 @@ public class Tag658 extends DataFieldDefinition {
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("O");
 
-    fieldIndexer = SchemaFromSubfield2.getInstance();
     sourceSpecificationType = SourceSpecificationType.Subfield2;
   }
 }

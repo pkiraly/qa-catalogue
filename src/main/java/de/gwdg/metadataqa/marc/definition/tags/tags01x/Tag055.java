@@ -108,7 +108,6 @@ public class Tag055 extends DataFieldDefinition {
       new SubfieldDefinition("7", "NKCR Authority ID", "NR")
     ));
 
-    // fieldIndexer = SubjectIndexerWithSchemaFromInd2AndSubfield2.getInstance();
     sourceSpecificationType = SourceSpecificationType.Indicator2For055AndSubfield2;
   }
 }

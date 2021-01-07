@@ -94,7 +94,6 @@ public class Tag052 extends DataFieldDefinition {
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("O");
 
-    fieldIndexer = SchemaFromInd1OrIf7FromSubfield2.getInstance();
     sourceSpecificationType = SourceSpecificationType.Indicator1Is7AndSubfield2;
 
     setHistoricalSubfields(

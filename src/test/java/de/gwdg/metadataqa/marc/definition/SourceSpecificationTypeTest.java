@@ -30,7 +30,8 @@ public class SourceSpecificationTypeTest {
         SourceSpecificationType.Indicator1IsSpaceAndSubfield2,
         SourceSpecificationType.Indicator2AndSubfield2,
         SourceSpecificationType.Indicator2For055AndSubfield2,
-        SourceSpecificationType.Subfield2
+        SourceSpecificationType.Subfield2,
+        SourceSpecificationType.Indicator2
       },
       SourceSpecificationType.values());
   }

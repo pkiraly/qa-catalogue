@@ -83,5 +83,7 @@ public class Tag653 extends DataFieldDefinition {
     putVersionSpecificSubfields(MarcVersion.FENNICA, Arrays.asList(
       new SubfieldDefinition("9", "Sanastokoodi", "NR")
     ));
+
+    sourceSpecificationType = SourceSpecificationType.Indicator2;
   }
 }

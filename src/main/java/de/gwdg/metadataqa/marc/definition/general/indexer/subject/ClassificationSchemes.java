@@ -44,6 +44,16 @@ public class ClassificationSchemes {
     schemes.put("Other class number assigned by LAC", "lbbcl7");
     schemes.put("Other call number assigned by the contributing library", "lbbcl8");
     schemes.put("Other class number assigned by the contributing library", "lbbcl9");
+
+    // 653
+    // schemes.put("No information provided", "unknown");
+    schemes.put("Topical term", "topical");
+    schemes.put("Personal name", "personal");
+    schemes.put("Corporate name", "corporate");
+    schemes.put("Meeting name", "meeting");
+    schemes.put("Chronological term", "chronological");
+    schemes.put("Geographic name", "geographic");
+    schemes.put("Genre/form term", "genre");
   }
 
   public String resolve(String key) {

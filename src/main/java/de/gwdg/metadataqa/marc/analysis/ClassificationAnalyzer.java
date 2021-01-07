@@ -294,7 +294,8 @@ public class ClassificationAnalyzer {
     List<DataField> fields = marcRecord.getDatafield(tag);
     List<Schema> schemas = new ArrayList<>();
     for (DataField field : fields) {
-      Schema currentSchema = new Schema(tag, "$2", "uncontrolled_" + field.getInd2(), field.resolveInd2());
+      String abbreviavtion = field.getInd2().equals(" ") ? "#" : field.getInd2();
+      Schema currentSchema = new Schema(tag, "ind2", "uncontrolled/" + abbreviavtion, field.resolveInd2());
       schemas.add(currentSchema);
       updateSchemaSubfieldStatistics(field, currentSchema);
       count++;

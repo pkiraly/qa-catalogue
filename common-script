@@ -37,47 +37,52 @@ do_prepare_solr() {
 }
 
 do_index() {
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/--emptyLargeCollectors|--with-delete//')
   printf "%s %s> [index]\n" $(date +"%F %T")
-  printf "%s %s> ./index --db $NAME --file-path ${MARC_DIR} --file-mask $MASK ${TYPE_PARAMS} --trimId 2> ${PREFIX}/solr.log\n" $(date +"%F %T")
-  ./index --db $NAME --file-path ${MARC_DIR} --file-mask $MASK ${TYPE_PARAMS} --trimId 2>> ${PREFIX}/solr.log
+  printf "%s %s> ./index --db $NAME --file-path ${MARC_DIR} --file-mask $MASK ${PARAMS} --trimId 2> ${PREFIX}/solr.log\n" $(date +"%F %T")
+  ./index --db $NAME --file-path ${MARC_DIR} --file-mask $MASK ${PARAMS} --trimId 2>> ${PREFIX}/solr.log
 }
 
 do_completeness() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed 's/--emptyLargeCollectors//')
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/--emptyLargeCollectors|--with-delete//')
   printf "%s %s> [completeness]\n" $(date +"%F %T")
   printf "%s %s> ./completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/completeness.log\n" $(date +"%F %T")
   ./completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/completeness.log
 }
 
 do_classifications() {
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/--emptyLargeCollectors|--with-delete//')
   printf "%s %s> [classifications]\n" $(date +"%F %T")
-  printf "%s %s> ./classifications --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/classifications.log\n" $(date +"%F %T")
-  ./classifications --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/classifications.log
+  printf "%s %s> ./classifications --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/classifications.log\n" $(date +"%F %T")
+  ./classifications --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/classifications.log
   printf "%s %s> Rscript scripts/classifications-type.R ${OUTPUT_DIR} 2>> ${PREFIX}/classifications.log\n" $(date +"%F %T")
   Rscript scripts/classifications-type.R ${OUTPUT_DIR}
 }
 
 do_authorities() {
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/--emptyLargeCollectors|--with-delete//')
   printf "%s %s> [authorities]\n" $(date +"%F %T")
-  printf "%s %s> ./authorities --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/authorities.log\n" $(date +"%F %T")
-  ./authorities --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/authorities.log
+  printf "%s %s> ./authorities --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/authorities.log\n" $(date +"%F %T")
+  ./authorities --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/authorities.log
 }
 
 do_tt_completeness() {
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/--emptyLargeCollectors|--with-delete//')
   printf "%s %s> [tt-completeness]\n" $(date +"%F %T")
-  printf "%s %s> ./tt-completeness --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/tt-completeness.log\n" $(date +"%F %T")
-  ./tt-completeness --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/tt-completeness.log
+  printf "%s %s> ./tt-completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/tt-completeness.log\n" $(date +"%F %T")
+  ./tt-completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/tt-completeness.log
 
   printf "%s %s> Rscript scripts/tt-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/tt-completeness.log\n" $(date +"%F %T")
   Rscript scripts/tt-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/tt-completeness.log
 }
 
 do_shelf_ready_completeness() {
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/--emptyLargeCollectors|--with-delete//')
   printf "%s %s> [shelf-ready-completeness]\n" $(date +"%F %T")
-  printf "%s %s> ./shelf-ready-completeness --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/shelf-ready-completeness.log\n" $(date +"%F %T")
+  printf "%s %s> ./shelf-ready-completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/shelf-ready-completeness.log\n" $(date +"%F %T")
   ./shelf-ready-completeness \
     --defaultRecordType BOOKS \
-    ${TYPE_PARAMS} \
+    ${PARAMS} \
     --outputDir ${OUTPUT_DIR}/ \
     --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/shelf-ready-completeness.log
 
@@ -86,9 +91,13 @@ do_shelf_ready_completeness() {
 }
 
 do_serial_score() {
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/--emptyLargeCollectors|--with-delete//')
   printf "%s %s> [serial-score]\n" $(date +"%F %T")
-  printf "%s %s> ./serial-score --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/serial-score.log\n" $(date +"%F %T")
-  ./serial-score --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/serial-score.log
+  printf "%s %s> ./serial-score --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/serial-score.log\n" $(date +"%F %T")
+  ./serial-score --defaultRecordType BOOKS \
+                 ${PARAMS} \
+                 --outputDir ${OUTPUT_DIR}/ \
+                 --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/serial-score.log
 
   printf "%s %s> Rscript scripts/serial-score-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/serial-score.log\n" $(date +"%F %T")
   Rscript scripts/serial-score-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/serial-score.log
@@ -99,17 +108,20 @@ do_format() {
 }
 
 do_functional_analysis() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed 's/--emptyLargeCollectors//')
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/--emptyLargeCollectors|--with-delete//')
   printf "%s %s> [functional-analysis]\n" $(date +"%F %T")
   printf "%s %s> ./functional-analysis --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/functional-analysis.log\n" $(date +"%F %T")
-  ./functional-analysis --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/functional-analysis.log
+  ./functional-analysis --defaultRecordType BOOKS \
+                        ${PARAMS} \
+                        --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/functional-analysis.log
 }
 
 do_network_analysis() {
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/--emptyLargeCollectors|--with-delete//')
   printf "%s %s> [network-analysis]\n" $(date +"%F %T")
-  printf "%s %s> ./network-analysis --defaultRecordType BOOKS ${TYPE_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/network-analysis.log\n" $(date +"%F %T")
+  printf "%s %s> ./network-analysis --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/network-analysis.log\n" $(date +"%F %T")
   ./network-analysis --defaultRecordType BOOKS \
-                     ${TYPE_PARAMS} \
+                     ${PARAMS} \
                      --outputDir ${OUTPUT_DIR}/ \
                      ${MARC_DIR}/${MASK} 2> ${PREFIX}/network-analysis.log
 
@@ -161,9 +173,10 @@ do_pareto() {
 }
 
 do_marc_history() {
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/--emptyLargeCollectors|--with-delete//')
   printf "%s %s> [marc-history]\n" $(date +"%F %T")
-  printf "%s %s> ./formatter --selector \"008~7-10;008~0-5\" --defaultRecordType BOOKS ${TYPE_PARAMS} --separator \",\" --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} &> ${PREFIX}/marc-history.log\n" $(date +"%F %T")
-  ./formatter --selector "008~7-10;008~0-5" --defaultRecordType BOOKS ${TYPE_PARAMS} --separator "," --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} &> ${PREFIX}/marc-history.log
+  printf "%s %s> ./formatter --selector \"008~7-10;008~0-5\" --defaultRecordType BOOKS ${PARAMS} --separator \",\" --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} &> ${PREFIX}/marc-history.log\n" $(date +"%F %T")
+  ./formatter --selector "008~7-10;008~0-5" --defaultRecordType BOOKS ${PARAMS} --separator "," --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} &> ${PREFIX}/marc-history.log
 
   printf "%s %s> Rscript scripts/marc-history.R ${OUTPUT_DIR} &>> ${PREFIX}/marc-history.log\n" $(date +"%F %T")
   Rscript scripts/marc-history.R ${OUTPUT_DIR} &>> ${PREFIX}/marc-history.log

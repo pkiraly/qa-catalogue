@@ -104,6 +104,13 @@ public class Utils {
     counter.put(key, counter.get(key) + 1);
   }
 
+  public static <T extends Object> void add(T key, Map<T, Integer> counter, int i) {
+    if (!counter.containsKey(key)) {
+      counter.put(key, 0);
+    }
+    counter.put(key, counter.get(key) + i);
+  }
+
   public static <T extends Object> List<String> counterToList(Map<T, Integer> counter) {
     return counterToList(':', counter);
   }

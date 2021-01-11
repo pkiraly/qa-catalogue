@@ -44,7 +44,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
   private CompletenessParameters parameters;
   private Map<String, Integer> library003Counter = new TreeMap<>();
   private Map<String, Integer> libraryCounter = new TreeMap<>();
-  private Map<String, Integer> packageCounter = new TreeMap<>();
+  private Map<String, Map<String, Integer>> packageCounter = new TreeMap<>();
   private Map<String, Map<String, Integer>> elementCardinality = new TreeMap<>();
   private Map<String, Map<String, Integer>> elementFrequency = new TreeMap<>();
   // private Map<String, String> tagCache = new HashMap<>();
@@ -97,8 +97,9 @@ public class Completeness implements MarcFileProcessor, Serializable {
 
     Map<String, Integer> recordFrequency = new TreeMap<>();
     Map<String, Integer> recordPackageCounter = new TreeMap<>();
+    // private Map<String, Map<String, Integer>>
 
-    String type = marcRecord.getType().getValue();
+    String documentType = marcRecord.getType().getValue();
     if (marcRecord.getControl003() != null)
       count(marcRecord.getControl003().getContent(), library003Counter);
 
@@ -110,28 +111,32 @@ public class Completeness implements MarcFileProcessor, Serializable {
       if (parameters.getIgnorableFields().contains(field.getTag()))
         continue;
 
+      String packageName;
       if (field.getDefinition() != null) {
-        String packageName = Utils.extractPackageName(field);
+        packageName = Utils.extractPackageName(field);
         if (StringUtils.isBlank(packageName)) {
-          System.err.println(field + " has no package. /" + field.getDefinition().getClass());
+          logger.warning(String.format("%s has no package. /%s", field, field.getDefinition().getClass()));
+          packageName = TagCategory.other.getPackageName();
         }
-        count(packageName, recordPackageCounter);
+      } else {
+        packageName = TagCategory.other.getPackageName();
       }
+      count(packageName, recordPackageCounter);
 
       for (MarcSubfield subfield : field.getSubfields()) {
-        String key = String.format("%s$%s", field.getTag(), subfield.getCode());
-        if (!elementCardinality.containsKey(type))
-          elementCardinality.put(type, new TreeMap<>());
-        count(key, elementCardinality.get(type));
-        count(key, elementCardinality.get("all"));
-        count(key, recordFrequency);
+        String marcPath = String.format("%s$%s", field.getTag(), subfield.getCode());
+        if (!elementCardinality.containsKey(documentType))
+          elementCardinality.put(documentType, new TreeMap<>());
+        count(marcPath, elementCardinality.get(documentType));
+        count(marcPath, elementCardinality.get("all"));
+        count(marcPath, recordFrequency);
       }
     }
 
     for (String key : recordFrequency.keySet()) {
-      if (!elementFrequency.containsKey(type))
-        elementFrequency.put(type, new TreeMap<>());
-      count(key, elementFrequency.get(type));
+      if (!elementFrequency.containsKey(documentType))
+        elementFrequency.put(documentType, new TreeMap<>());
+      count(key, elementFrequency.get(documentType));
       count(key, elementFrequency.get("all"));
 
       if (!fieldHistogram.containsKey(key)) {
@@ -142,7 +147,10 @@ public class Completeness implements MarcFileProcessor, Serializable {
     }
 
     for (String key : recordPackageCounter.keySet()) {
-      count(key, packageCounter);
+      if (!packageCounter.containsKey(documentType))
+        packageCounter.put(documentType, new TreeMap<>());
+      count(key, packageCounter.get(documentType));
+      count(key, packageCounter.get("all"));
     }
   }
 
@@ -181,6 +189,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
     logger.info(parameters.formatParameters());
     elementCardinality.put("all", new TreeMap<>());
     elementFrequency.put("all", new TreeMap<>());
+    packageCounter.put("all", new TreeMap<>());
   }
 
   @Override
@@ -236,7 +245,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
       writer.write(
         StringUtils.join(
           Arrays.asList(
-            "type", "path", "package", "tag", "subfield",
+            "documenttype", "path", "packageid", "package", "tag", "subfield",
             "number-of-record", "number-of-instances",
             "min", "max", "mean", "stddev", "histogram"
           ),
@@ -246,14 +255,16 @@ public class Completeness implements MarcFileProcessor, Serializable {
       elementCardinality
         .keySet()
         .stream()
-        .forEach(type -> {
+        .forEach(documentType -> {
           elementCardinality
-            .get(type)
+            .get(documentType)
             .entrySet()
             .stream()
             .forEach(entry -> {
               try {
-                writer.write(formatCardinality(separator, entry, type));
+                String marcPath = entry.getKey();
+                int cardinality = entry.getValue();
+                writer.write(formatCardinality(separator, marcPath, cardinality, documentType));
               } catch (IOException e) {
                 e.printStackTrace();
               }
@@ -266,32 +277,34 @@ public class Completeness implements MarcFileProcessor, Serializable {
   }
 
   private void savePackages(String fileExtension, char separator) {
-    Path path;
-    System.err.println("Packages");
-    path = Paths.get(parameters.getOutputDir(), "packages" + fileExtension);
+    logger.info("saving Packages...");
+    Path path = Paths.get(parameters.getOutputDir(), "packages" + fileExtension);
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-      writer.write(createRow(separator, "name", "label", "iscoretag", "count"));
+      writer.write(createRow(separator, "documenttype", "packageid", "name", "label", "iscoretag", "count"));
       packageCounter
-        .entrySet()
-        .stream()
-        .forEach(entry -> {
-          try {
-            String name = entry.getKey();
-            int count = entry.getValue();
-            TagCategory tagCategory = TagCategory.getPackage(name);
-            String label = "";
-            boolean isPartOfMarcScore = false;
-            if (tagCategory != null) {
-              name = tagCategory.getRange();
-              label = tagCategory.getLabel();
-              isPartOfMarcScore = tagCategory.isPartOfMarcCore();
+        .forEach((documentType, packages) -> {
+          packages.forEach((packageName, count) -> {
+            try {
+              TagCategory tagCategory = TagCategory.getPackage(packageName);
+              String range = packageName;
+              String label = "";
+              int id = 100;
+              boolean isPartOfMarcScore = false;
+              if (tagCategory != null) {
+                id = tagCategory.getId();
+                range = tagCategory.getRange();
+                label = tagCategory.getLabel();
+                isPartOfMarcScore = tagCategory.isPartOfMarcCore();
+              } else {
+                logger.severe(packageName + " has not been found in TagCategory");
+              }
+              writer.write(createRow(
+                separator, quote(documentType), id, quote(range), quote(label), isPartOfMarcScore, count
+              ));
+            } catch (IOException e) {
+              e.printStackTrace();
             }
-            writer.write(createRow(
-              separator, quote(name), quote(label), isPartOfMarcScore, count
-            ));
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
+          });
         });
     } catch (IOException e) {
       e.printStackTrace();
@@ -321,36 +334,39 @@ public class Completeness implements MarcFileProcessor, Serializable {
 
   @NotNull
   private String formatCardinality(char separator,
-                                   Map.Entry<String, Integer> entry,
-                                   String type) {
-    String key = entry.getKey();
-    if (key.equals("")) {
-      logger.severe("Empty key from " + key);
+                                   String marcPath,
+                                   int cardinality,
+                                   String documentType) {
+    if (marcPath.equals("")) {
+      logger.severe("Empty key from " + marcPath);
     }
 
-    TagHierarchy tagHierarchy = TagHierarchy.createFromPath(key);
+    TagHierarchy tagHierarchy = TagHierarchy.createFromPath(marcPath, parameters.getMarcVersion());
+    int packageId = 100;
     String packageLabel = "";
     String tagLabel = "";
     String subfieldLabel = "";
     if (tagHierarchy != null) {
+      packageId = tagHierarchy.getPackageId();
       packageLabel = tagHierarchy.getPackageLabel();
       tagLabel = tagHierarchy.getTagLabel();
       subfieldLabel = tagHierarchy.getSubfieldLabel();
     } else {
-      logger.severe("Key can not be found in the TagHierarchy: " + key);
+      logger.severe("Key can not be found in the TagHierarchy: " + marcPath);
+      packageId = TagCategory.other.getId();
+      packageLabel = TagCategory.other.getLabel();
     }
 
-    Integer cardinality = entry.getValue();
-    Integer frequency = elementFrequency.get(type).get(key);
-    BasicStatistics statistics = new BasicStatistics(fieldHistogram.get(key));
-    if (!fieldHistogram.containsKey(key)) {
-      logger.warning(String.format(
-        "Field %s is not registered in histogram", key));
+    // Integer cardinality = entry.getValue();
+    Integer frequency = elementFrequency.get(documentType).get(marcPath);
+    BasicStatistics statistics = new BasicStatistics(fieldHistogram.get(marcPath));
+    if (!fieldHistogram.containsKey(marcPath)) {
+      logger.warning(String.format("Field %s is not registered in histogram", marcPath));
     }
 
     List<Object> values = quote(
       Arrays.asList(
-        type, key, packageLabel, tagLabel, subfieldLabel,
+        documentType, marcPath, packageId, packageLabel, tagLabel, subfieldLabel,
         frequency, cardinality,
         statistics.getMin(), statistics.getMax(),
         statistics.getMean(), statistics.getStdDev(),

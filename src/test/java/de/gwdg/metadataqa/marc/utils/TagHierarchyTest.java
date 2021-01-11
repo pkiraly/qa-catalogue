@@ -40,4 +40,13 @@ public class TagHierarchyTest {
     assertEquals("Trade Availability Information", tagHierarchy.getTagLabel());
     assertEquals("Availability status code", tagHierarchy.getSubfieldLabel());
   }
+
+  @Test
+  public void createFromPath_withGent() {
+    TagHierarchy tagHierarchy = TagHierarchy.createFromPath("591$a", MarcVersion.GENT);
+    assertNotNull(tagHierarchy);
+    assertEquals("Locally defined tags of Gent", tagHierarchy.getPackageLabel());
+    assertEquals("Locally defined field in Gent", tagHierarchy.getTagLabel());
+    assertEquals("Value", tagHierarchy.getSubfieldLabel());
+  }
 }

@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.cli;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.analysis.AuthorithyAnalyzer;
+import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
 import de.gwdg.metadataqa.marc.analysis.AuthorityStatistics;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
@@ -20,10 +21,14 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.count;
+import static de.gwdg.metadataqa.marc.Utils.quote;
 
 public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
 
@@ -103,10 +108,43 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
 
   @Override
   public void afterIteration(int numberOfprocessedRecords) {
+    printAuthoritiesByCategories();
     printAuthoritiesBySchema();
     printAuthoritiesByRecords();
     printAuthoritiesHistogram();
     printAuthoritiesSubfieldsStatistics();
+  }
+
+  private void printAuthoritiesByCategories() {
+    Path path = Paths.get(parameters.getOutputDir(), "authorities-by-categories.csv");
+    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+      writer.write(createRow("category", "recordcount", "instancecount"));
+      statistics.getRecordsPerCategories()
+        .entrySet()
+        .stream()
+        .forEach(
+          entry -> {
+            AuthorityCategory category = entry.getKey();
+            int recordCount = entry.getValue();
+            int instanceCount = statistics.getInstancesPerCategories().get(category);
+            try {
+              writer.write(createRow(
+                quote(category.getLabel()),
+                recordCount,
+                instanceCount
+              ));
+            } catch (IOException ex) {
+              ex.printStackTrace();
+              System.err.println(category);
+            } catch (NullPointerException ex) {
+              ex.printStackTrace();
+              System.err.println(category);
+            }
+          }
+        );
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   private void printAuthoritiesBySchema() {

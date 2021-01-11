@@ -115,6 +115,7 @@ public class Validator implements MarcFileProcessor, Serializable {
       if (parameters.getSummaryFileName() != null) {
         summaryFile = prepareReportFile(parameters.getOutputDir(), parameters.getSummaryFileName());
         logger.info("summary output: " + summaryFile.getPath());
+
         collectorFile = prepareReportFile(parameters.getOutputDir(), "issue-collector.csv");
         String header = ValidationErrorFormatter.formatHeaderForCollector(
           parameters.getFormat()
@@ -127,7 +128,7 @@ public class Validator implements MarcFileProcessor, Serializable {
       }
     }
     if (parameters.doDetails()) {
-      String header = ValidationErrorFormatter.formatHeader(parameters.getFormat());
+      String header = ValidationErrorFormatter.formatHeaderForDetails(parameters.getFormat());
       print(detailsFile, header + "\n");
     }
   }

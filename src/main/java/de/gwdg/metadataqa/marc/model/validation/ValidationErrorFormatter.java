@@ -105,6 +105,21 @@ public class ValidationErrorFormatter {
     return message;
   }
 
+  public static String formatHeaderForDetails(ValidationErrorFormat format) {
+    String message = "";
+    switch (format) {
+      case TAB_SEPARATED:
+        message = createCvsRow(headerForDetails(), '\t');
+        break;
+      case COMMA_SEPARATED:
+      case TEXT:
+        message = createCvsRow(headerForDetails(), ',');
+      default:
+        break;
+    }
+    return message;
+  }
+
   public static String formatHeaderForCollector(ValidationErrorFormat format) {
     String message = "";
     switch (format) {
@@ -160,6 +175,10 @@ public class ValidationErrorFormatter {
 
   private static String[] headerForSummary() {
     return new String[]{"id", "MarcPath", "categoryId", "typeId", "type", "message", "url", "instances", "records"};
+  }
+
+  private static String[] headerForDetails() {
+    return new String[]{"recordId", "errors"};
   }
 
   private static String[] headerForCollector() {

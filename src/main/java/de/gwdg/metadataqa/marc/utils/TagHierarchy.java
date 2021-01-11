@@ -14,21 +14,25 @@ public class TagHierarchy {
 
   private static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
 
-  private String packageLabel;
+  private TagCategory category;
   private String tagLabel;
   private String subfieldLabel;
 
   public TagHierarchy() {
   }
 
-  public TagHierarchy(String packageLabel, String tagLabel, String subfieldLabel) {
-    this.packageLabel = packageLabel;
+  public TagHierarchy(TagCategory category, String tagLabel, String subfieldLabel) {
+    this.category = category;
     this.tagLabel = tagLabel;
     this.subfieldLabel = subfieldLabel;
   }
 
+  public int getPackageId() {
+    return category.getId();
+  }
+
   public String getPackageLabel() {
-    return packageLabel;
+    return category.getLabel();
   }
 
   public String getTagLabel() {
@@ -57,9 +61,9 @@ public class TagHierarchy {
         String subfieldLabel = subfield != null ? subfield.getLabel() : "";
 
         String packageName = Utils.extractPackageName(definition);
-        String packageLabel = TagCategory.getLabel(packageName);
+        TagCategory category = TagCategory.getPackage(packageName);
 
-        return new TagHierarchy(packageLabel, tagLabel, subfieldLabel);
+        return new TagHierarchy(category, tagLabel, subfieldLabel);
       }
     }
     return null;

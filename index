@@ -83,6 +83,9 @@ if [ "${WITH_DELETE}" == "--with-delete" ]; then
   curl $SOLR/update -H "Content-type: text/xml" --data-binary '<delete><query>*:*</query></delete>'
 fi
 
+echo "Prepare schema"
+prepare_schema $CORE
+
 echo "Start indexing"
 curl $SOLR/update -H "Content-type: text/xml" --data-binary '<commit/>'
 

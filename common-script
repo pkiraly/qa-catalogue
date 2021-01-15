@@ -37,7 +37,7 @@ do_prepare_solr() {
 }
 
 do_index() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/--emptyLargeCollectors|--with-delete//')
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/--emptyLargeCollectors//')
   printf "%s %s> [index]\n" $(date +"%F %T")
   printf "%s %s> ./index --db $NAME --file-path ${MARC_DIR} --file-mask $MASK ${PARAMS} --trimId 2> ${PREFIX}/solr.log\n" $(date +"%F %T")
   ./index --db $NAME --file-path ${MARC_DIR} --file-mask $MASK ${PARAMS} --trimId 2>> ${PREFIX}/solr.log

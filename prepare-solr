@@ -10,42 +10,12 @@ CORE2=${DB}_2
 CORE_PROD=${DB}
 CORE_DEV=${DB}_dev
 
-prepare_index() {
-  LOCAL_CORE=$1
-
-  HAS_SNI=$(curl http://localhost:${PORT}/solr/${LOCAL_CORE}/schema/dynamicfields | jq . | grep -c '"*_sni"')
-  echo "Does ${LOCAL_CORE} have *_sni field definition? Answer: ${HAS_SNI}"
-  if [[ $HAS_SNI -eq 0 ]]; then
-    echo "add *_sni field definition to ${LOCAL_CORE}"
-    # add *_sni
-    # <dynamicField name="*_sni" type="string" indexed="false" stored="true"/>
-    curl -X POST -H 'Content-type:application/json' --data-binary '{
-    "add-dynamic-field":{
-       "name":"*_sni",
-       "type":"string",
-       "stored":true,
-       "indexed":false,
-       "docValues":false,
-       "multiValued":false,
-    }}' http://localhost:${PORT}/api/cores/${LOCAL_CORE}/schema
-
-    echo "add *_ss copyfield definition to ${LOCAL_CORE}"
-    # add _ss
-    # <copyField source="*_ss" dest="_text_"/>
-    curl -X POST -H 'Content-type:application/json' --data-binary '{
-      "add-copy-field":{
-       "source":"*_ss",
-       "dest":"_text_"
-    }}' http://localhost:${PORT}/api/cores/${LOCAL_CORE}/schema
-  fi
-}
-
 PROD_EXISTS=$(check_core $CORE_PROD)
 echo "$CORE_PROD exists: $PROD_EXISTS"
 if [[ $PROD_EXISTS != 1 ]]; then
   echo "Create Solr core '$CORE1'"
   create_core $CORE1
-  prepare_index $CORE1
+  prepare_schema $CORE1
   rename_core $CORE1 $CORE_PROD
 fi
 
@@ -54,7 +24,7 @@ echo "$CORE_DEV exists: $DEV_EXISTS"
 if [[ $DEV_EXISTS != 1 ]]; then
   echo "Create Solr core '$CORE2'"
   create_core $CORE2
-  prepare_index $CORE2
+  prepare_schema $CORE2
   rename_core $CORE2 $CORE_DEV
 fi
 

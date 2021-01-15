@@ -1,4 +1,4 @@
 # Calling Validator
 . ./common-variables
 
-/usr/bin/java -Xmx8g -cp $JAR de.gwdg.metadataqa.marc.cli.Validator $@
+/usr/bin/java -Xmx12g -cp $JAR de.gwdg.metadataqa.marc.cli.Validator $@

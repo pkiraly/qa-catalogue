@@ -20,7 +20,7 @@ before_install:
   # - echo MAVEN_OPTS $MAVEN_OPTS
 
 after_success:
-  - mvn clean jacoco:report coveralls:report
+  - mvn jacoco:report coveralls:report
 
 env:
   global:

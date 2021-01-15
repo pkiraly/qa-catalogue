@@ -326,6 +326,13 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.4</version>
+				<!--
+				<version>0.7.6.201602180812</version>
+				-->
+				<configuration>
+					<destfile>${basedir}/target/coverage-reports/jacoco-unit.exec</destfile>
+					<datafile>${basedir}/target/coverage-reports/jacoco-unit.exec</datafile>
+				</configuration>
 				<executions>
 					<execution>
 						<id>prepare-agent</id>
@@ -334,42 +341,50 @@
 						</goals>
 					</execution>
 					<execution>
+						<id>jacoco-site</id>
+						<phase>package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>					<!--
+					<execution>
 						<id>report</id>
 						<phase>test</phase>
 						<goals>
 							<goal>report</goal>
 						</goals>
 					</execution>
+					-->
 				</executions>
 			</plugin>
 		</plugins>
 	</build>
 
+	<!--
 	<reporting>
 		<plugins>
-			<!--
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
-				<version>2.7</version>
-				<configuration>
-					<formats>
-						<format>html</format>
-						<format>xml</format>
-					</formats>
-					<skip>${skipCobertura}</skip>
-				</configuration>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>cobertura</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
-			-->
+		    <plugin>
+        		<groupId>org.codehaus.mojo</groupId>
+		        <artifactId>cobertura-maven-plugin</artifactId>
+		        <version>2.7</version>
+        		<configuration>
+		            <formats>
+    		            <format>html</format>
+        		        <format>xml</format>
+            		</formats>
+	            	<skip>${skipCobertura}</skip>
+	    	    </configuration>
+    	    	<reportSets>
+        	    	<reportSet>
+            	    	<reports>
+    	            	    <report>cobertura</report>
+		                </reports>
+    		        </reportSet>
+   		     	</reportSets>
+		    </plugin>
 		</plugins>
 	</reporting>
+    -->
 
 	<profiles>
 		<profile>

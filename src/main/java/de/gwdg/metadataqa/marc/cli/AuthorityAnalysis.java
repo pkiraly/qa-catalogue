@@ -37,6 +37,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
   private final Options options;
   private CommonParameters parameters;
   private Map<Integer, Integer> histogram = new HashMap<>();
+  private Map<Integer, String> frequencyExamples = new HashMap<>();
   private Map<Boolean, Integer> hasClassifications = new HashMap<>();
   private boolean readyToProcess;
   private static char separator = ',';
@@ -89,6 +90,9 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
     int count = analyzer.process();
     count((count > 0), hasClassifications);
     count(count, histogram);
+
+    if (!frequencyExamples.containsKey(count))
+      frequencyExamples.put(count, marcRecord.getId(true));
   }
 
   @Override
@@ -112,6 +116,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
     printAuthoritiesBySchema();
     printAuthoritiesByRecords();
     printAuthoritiesHistogram();
+    printFrequencyExamples();
     printAuthoritiesSubfieldsStatistics();
   }
 
@@ -247,6 +252,29 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
     }
   }
 
+  private void printFrequencyExamples() {
+    Path path = Paths.get(parameters.getOutputDir(), "authorities-frequency-examples.csv");
+    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+      writer.write(createRow("count", "id"));
+      frequencyExamples
+        .entrySet()
+        .stream()
+        .sorted((e1, e2) -> {
+          return e1.getKey().compareTo(e2.getKey());
+        })
+        .forEach(
+          entry -> {
+            try {
+              writer.write(createRow(entry.getKey(), entry.getValue()));
+            } catch (IOException e) {
+              e.printStackTrace();
+            }
+          }
+        );
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 
   private void printAuthoritiesSubfieldsStatistics() {
     Path path = Paths.get(parameters.getOutputDir(), "authorities-by-schema-subfields.csv");

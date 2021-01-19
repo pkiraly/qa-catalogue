@@ -87,8 +87,8 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     int total1 = statistics.getHasClassifications().get(true);
     int total = statistics.recordCountWithClassification();
     if (total1 != total) {
-      logger.severe(String.format(marcRecord.getId(true) + " COUNT: total (%d) != schemasInRecord (%d)",
-        total1, total));
+      logger.severe(String.format("%s COUNT: total (%d) != schemasInRecord (%d)",
+          marcRecord.getId(true), total1, total));
       readyToProcess = false;
     }
 
@@ -149,6 +149,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     printClassificationsBySchema();
     printClassificationsByRecords();
     printClassificationsHistogram();
+    printFrequencyExamples();
     printSchemaSubfieldsStatistics();
     printClassificationsCollocation();
   }
@@ -290,6 +291,29 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     }
   }
 
+  private void printFrequencyExamples() {
+    Path path = Paths.get(parameters.getOutputDir(), "classifications-frequency-examples.csv");
+    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+      writer.write(createRow("count", "id"));
+      statistics.getFrequencyExamples()
+        .entrySet()
+        .stream()
+        .sorted((e1, e2) -> {
+          return e1.getKey().compareTo(e2.getKey());
+        })
+        .forEach(
+          entry -> {
+            try {
+              writer.write(createRow(entry.getKey(), entry.getValue()));
+            } catch (IOException e) {
+              e.printStackTrace();
+            }
+          }
+        );
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 
   private void printSchemaSubfieldsStatistics() {
     Path path;

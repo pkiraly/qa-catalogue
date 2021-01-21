@@ -58,36 +58,43 @@ public class TagLCS extends DataFieldDefinition {
 
     getSubfield("a")
       .setBibframeTag("rdfs:label").setMqTag("rdf:value")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setCompilanceLevels("M", "M");
+      // .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      // .setCompilanceLevels("M", "M")
+    ;
 
     getSubfield("l")
       .setMqTag("lccn")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
-      .setCompilanceLevels("A");
+      // .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
+      // .setCompilanceLevels("A")
+    ;
 
     getSubfield("v")
       .setMqTag("volume")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setCompilanceLevels("A", "A");
+      // .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      // .setCompilanceLevels("A", "A")
+    ;
 
     getSubfield("x")
       .setMqTag("issn")
-      .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
-      .setCompilanceLevels("A", "A");
+      // .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
+      // .setCompilanceLevels("A", "A")
+    ;
 
     getSubfield("3")
       .setMqTag("materialsSpecified")
-      .setCompilanceLevels("O");
+      // .setCompilanceLevels("O")
+    ;
 
     getSubfield("6")
       .setBibframeTag("linkage")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setCompilanceLevels("A", "A");
+      // .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      // .setCompilanceLevels("A", "A")
+    ;
 
     getSubfield("8")
       .setMqTag("fieldLink")
-      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setCompilanceLevels("O");
+      // .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      // .setCompilanceLevels("O")
+    ;
   }
 }

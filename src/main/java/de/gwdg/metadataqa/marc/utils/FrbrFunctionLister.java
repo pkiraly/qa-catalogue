@@ -16,7 +16,7 @@ import java.util.TreeMap;
 public class FrbrFunctionLister {
 
   private Map<FRBRFunction, Double> collector;
-  private Map<FRBRFunction, Integer> baseline;
+  private Counter<FRBRFunction> baselineCounter = new Counter<>();
   private int elementsWithoutFunctions;
   private Map<FRBRFunction, Map<Double, Integer>> histogram;
   private int controlFields = 0;
@@ -54,14 +54,16 @@ public class FrbrFunctionLister {
   }
 
   public void prepareBaseline() {
-    baseline = new TreeMap<>();
     elementsWithoutFunctions = 0;
     functionByMarcPath = new TreeMap<>();
 
     controlFields++;
     for (ControlSubfieldDefinition subfield : LeaderSubfields.getSubfieldList()) {
       controlSubfields++;
-      processFunctions(subfield.getFrbrFunctions(), LeaderDefinition.getInstance().getTag()+ "/" + subfield.getPositionStart());
+      processFunctions(
+        subfield.getFrbrFunctions(),
+        LeaderDefinition.getInstance().getTag()+ "/" + subfield.getPositionStart()
+      );
     }
 
     List<DataFieldDefinition> simpleControlFields = Arrays.asList(
@@ -135,16 +137,17 @@ public class FrbrFunctionLister {
   }
 
   private void processFunctions(List<FRBRFunction> functions, String key) {
-    if (functions != null) {
+    if (functions != null && !functions.isEmpty()) {
       functionByMarcPath.put(key, functions);
-      countFunctions(functions, baseline);
+      for (FRBRFunction function : functions)
+        baselineCounter.count(function);
     } else {
       elementsWithoutFunctions++;
     }
   }
 
   public static void countFunctions(List<FRBRFunction> functions, Map<FRBRFunction, Integer> map) {
-    if (functions != null) {
+    if (functions != null && !functions.isEmpty()) {
       for (FRBRFunction function : functions) {
         Utils.count(function, map);
       }
@@ -153,24 +156,23 @@ public class FrbrFunctionLister {
 
   private void prepareCollector() {
     collector = new TreeMap<>();
-    for (FRBRFunction key : baseline.keySet()) {
+    for (FRBRFunction key : baselineCounter.keys())
       collector.put(key, 0.0);
-    }
   }
 
   private void prepareHistogram() {
     histogram = new TreeMap<>();
-    for (FRBRFunction key : baseline.keySet()) {
+    for (FRBRFunction key : baselineCounter.keys()) {
       histogram.put(key, new TreeMap<>());
     }
   }
 
   public Map<FRBRFunction, Double> percent(Map<FRBRFunction, Integer> other) {
     Map<FRBRFunction, Double> percents = new TreeMap<>();
-    for (FRBRFunction key : baseline.keySet()) {
+    for (FRBRFunction key : baselineCounter.keys()) {
       double value = 0.0;
       if (other.containsKey(key)) {
-        value = other.get(key) * 1.0 / baseline.get(key);
+        value = other.get(key) * 1.0 / baselineCounter.get(key);
       }
       percents.put(key, value);
     }
@@ -198,6 +200,6 @@ public class FrbrFunctionLister {
   }
 
   public Map<FRBRFunction, Integer> getBaseline() {
-    return baseline;
+    return baselineCounter.getMap();
   }
 }

@@ -29,4 +29,8 @@ public class Counter<T> {
   public Set<Map.Entry<T, Integer>> entrySet() {
     return counter.entrySet();
   }
+
+  public Map<T, Integer> getMap() {
+    return counter;
+  }
 }

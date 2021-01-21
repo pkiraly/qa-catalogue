@@ -1,7 +1,12 @@
 package de.gwdg.metadataqa.marc.utils.alephseq;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
-import de.gwdg.metadataqa.marc.*;
+import de.gwdg.metadataqa.marc.DataField;
+import de.gwdg.metadataqa.marc.Leader;
+import de.gwdg.metadataqa.marc.MarcControlField;
+import de.gwdg.metadataqa.marc.MarcFactory;
+import de.gwdg.metadataqa.marc.MarcPositionalControlField;
+import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import org.junit.Test;
 import org.marc4j.MarcReader;
@@ -10,7 +15,6 @@ import org.marc4j.marc.Record;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
@@ -290,7 +294,7 @@ public class AlephseqMarcReaderTest {
     assertEquals(expected, formatted);
 
     Map<String, List<String>> pairs = marcRecord.getKeyValuePairs();
-    assertEquals(97, pairs.size());
+    assertEquals(108, pairs.size());
 
     List<String> hits = marcRecord.search("001", "000000002");
     assertEquals(1, hits.size());

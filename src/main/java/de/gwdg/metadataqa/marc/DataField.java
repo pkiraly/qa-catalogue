@@ -310,29 +310,24 @@ public class DataField implements Extractable, Validatable, Serializable {
       definition, type, getTag()
     );
 
-    if (definition != null && definition.getInd1().exists()) {
-      pairs.put(keyGenerator.forInd1(), Arrays.asList(resolveInd1()));
-    } else if (getInd1() != null) {
-      pairs.put(keyGenerator.forInd1(), Arrays.asList(getInd1()));
-    }
+    String value = (definition != null && definition.getInd1().exists()) ? resolveInd1() : (getInd1() != null ? getInd1() : null);
+    if (value != null)
+      pairs.put(keyGenerator.forInd1(), Arrays.asList(value));
 
-    if (definition != null && definition.getInd2().exists()) {
-      pairs.put(keyGenerator.forInd2(), Arrays.asList(resolveInd2()));
-    }
+    value = (definition != null && definition.getInd2().exists()) ? resolveInd2() : (getInd2() != null ? getInd2() : null);
+    if (value != null)
+      pairs.put(keyGenerator.forInd2(), Arrays.asList(value));
 
-    for (MarcSubfield subfield : subfields) {
+    for (MarcSubfield subfield : subfields)
       pairs.putAll(subfield.getKeyValuePairs(keyGenerator));
-    }
 
     if (getFieldIndexer() != null) {
       try {
         Map<String, List<String>> extra = getFieldIndexer().index(this, keyGenerator);
         pairs.putAll(extra);
       } catch (IllegalArgumentException e) {
-        logger.severe(String.format(
-          "%s  in record %s %s",
-          e.getLocalizedMessage(), record.getId(), this.toString()
-        ));
+        logger.severe(String.format("%s  in record %s %s",
+          e.getLocalizedMessage(), record.getId(), this.toString()));
       }
     }
 

@@ -6,7 +6,14 @@ import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
 import de.gwdg.metadataqa.marc.definition.general.indexer.subject.ClassificationSchemes;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -99,6 +106,8 @@ public class ClassificationAnalyzer {
      */
     count((total > 0), statistics.getHasClassifications());
     count(total, statistics.getSchemaHistogram());
+    if (!statistics.getFrequencyExamples().containsKey(total))
+      statistics.getFrequencyExamples().put(total, marcRecord.getId(true));
 
     List<String> collocation = getCollocationInRecord();
     if (!collocation.isEmpty())

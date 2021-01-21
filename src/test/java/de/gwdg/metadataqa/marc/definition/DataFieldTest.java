@@ -45,7 +45,7 @@ public class DataFieldTest {
   public void testGetKeyValuePairs() {
     DataField tag040 = SubfieldParser.parseField(Tag040.getInstance(), "  $aMt$cMt");
     Map<String, List<String>> map = tag040.getKeyValuePairs();
-    assertEquals(3, map.size());
+    assertEquals(4, map.size());
     assertEquals(1, map.get("040c").size());
     assertEquals("Montana State Library", map.get("040c").get(0));
 

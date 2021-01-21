@@ -1,6 +1,9 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags84x;
 
 import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.Indicator;
+import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 
 import java.util.ArrayList;
 
@@ -46,21 +49,24 @@ public class Tag880 extends DataFieldDefinition {
     //getSubfieldList()
     // List<String> subfieldCodes = new ArrayList<>();
     subfields = new ArrayList<>();
-    subfields.add(new SubfieldDefinition("6", "Linkage", "NR"));
+    subfields.add(new SubfieldDefinition("6", "Linkage", "NR").setParent(this));
     for (char c = 'a'; c <= 'z'; c++)
       subfields.add(
         new SubfieldDefinition(String.valueOf(c), "Same as associated field", "R")
-        .setCompilanceLevels("M", "M")
+          .setParent(this)
+          .setCompilanceLevels("M", "M")
       );
     for (int c = 0; c <= 5; c++)
       subfields.add(
         new SubfieldDefinition(String.valueOf(c), "Same as associated field", "R")
-        .setCompilanceLevels("M", "M")
+          .setParent(this)
+          .setCompilanceLevels("M", "M")
       );
     for (int c = 7; c <= 9; c++)
       subfields.add(
         new SubfieldDefinition(String.valueOf(c), "Same as associated field", "R")
-        .setCompilanceLevels("M", "M")
+          .setParent(this)
+          .setCompilanceLevels("M", "M")
       );
     indexSubfields();
 

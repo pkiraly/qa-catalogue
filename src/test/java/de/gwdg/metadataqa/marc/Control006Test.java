@@ -1,15 +1,11 @@
 package de.gwdg.metadataqa.marc;
 
-import de.gwdg.metadataqa.marc.definition.ControlFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
-import de.gwdg.metadataqa.marc.definition.controlsubfields.Control006Subfields;
-import de.gwdg.metadataqa.marc.definition.controlsubfields.ControlSubfieldList;
-import de.gwdg.metadataqa.marc.definition.controlsubfields.tag006.Tag006all00;
-import de.gwdg.metadataqa.marc.definition.controlsubfields.tag006.Tag006continuing01;
-import de.gwdg.metadataqa.marc.definition.controlsubfields.tag006.Tag006visual16;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006all00;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006continuing01;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006visual16;
 import de.gwdg.metadataqa.marc.definition.controltype.Control008Type;
-import de.gwdg.metadataqa.marc.definition.controltype.ControlType;
 import de.gwdg.metadataqa.marc.definition.tags.control.Control006Definition;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -26,13 +22,13 @@ public class Control006Test {
     Control006 field = new Control006("sa", Leader.Type.CONTINUING_RESOURCES);
     Control006Definition definition = (Control006Definition)field.getDefinition();
 
-    assertNotNull("not null", definition.getControlSubfields());
-    assertEquals(8, definition.getControlSubfields().size());
+    assertNotNull("not null", definition.getControlfieldPositions());
+    assertEquals(8, definition.getControlfieldPositions().size());
 
     assertEquals(Leader.Type.CONTINUING_RESOURCES, field.getRecordType());
 
-    List<ControlSubfieldDefinition> subfields =
-      definition.getControlSubfields()
+    List<ControlfieldPositionDefinition> subfields =
+      definition.getControlfieldPositions()
       .get(Control008Type.CONTINUING_RESOURCES.getValue());
 
     assertEquals(2, field.getValuesList().size());
@@ -47,7 +43,7 @@ public class Control006Test {
 
     assertEquals(
       11,
-      definition.getControlSubfields()
+      definition.getControlfieldPositions()
       .get(Control008Type.CONTINUING_RESOURCES.getValue())
       .size()
     );

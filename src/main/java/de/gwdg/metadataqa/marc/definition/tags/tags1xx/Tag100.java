@@ -6,6 +6,9 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.NameAndTitleAuthority
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.Indicator;
+import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 

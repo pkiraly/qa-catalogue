@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.definition;
 
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.utils.MarcTagLister;
 
 import java.lang.reflect.InvocationTargetException;

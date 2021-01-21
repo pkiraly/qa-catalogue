@@ -3,7 +3,7 @@ package de.gwdg.metadataqa.marc;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.controltype.Control007Category;
-import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
@@ -102,7 +102,7 @@ public class Control007Test {
       field.getValidationErrors().get(0).getMessage());
     assertEquals("hasInvalidValue",
       field.getValidationErrors().get(0).getType().getCode());
-    assertEquals(ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE,
+    assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
       field.getValidationErrors().get(0).getType());
     assertEquals("https://www.loc.gov/marc/bibliographic/bd007a.html",
       field.getValidationErrors().get(0).getUrl());
@@ -113,7 +113,7 @@ public class Control007Test {
       field.getValidationErrors().get(1).getMessage());
     assertEquals("hasInvalidValue",
       field.getValidationErrors().get(1).getType().getCode());
-    assertEquals(ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE,
+    assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
       field.getValidationErrors().get(1).getType());
     assertEquals("https://www.loc.gov/marc/bibliographic/bd007a.html",
       field.getValidationErrors().get(1).getUrl());
@@ -615,7 +615,7 @@ public class Control007Test {
     assertEquals(Control007Category.TEXT, field.getCategory());
     assertEquals("Text", field.getCategoryOfMaterial());
 
-    ControlSubfieldDefinition subfield;
+    ControlfieldPositionDefinition subfield;
     subfield = field.getSubfieldByPosition(0);
     assertEquals("Category of material", subfield.getLabel());
     assertEquals("t", field.getMap().get(subfield));
@@ -643,7 +643,7 @@ public class Control007Test {
     assertEquals("0, 1, 3, 4, 5, 6, 9, 10, 11, 12, 13",
         StringUtils.join(subfieldPositions, ", "));
 
-    ControlSubfieldDefinition subfield;
+    ControlfieldPositionDefinition subfield;
     subfield = field.getSubfieldByPosition(0);
     assertEquals("Category of material", subfield.getLabel());
     assertEquals("c", field.getMap().get(subfield));
@@ -731,7 +731,7 @@ public class Control007Test {
     assertEquals("0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13",
         StringUtils.join(subfieldPositions, ", "));
 
-    ControlSubfieldDefinition subfield;
+    ControlfieldPositionDefinition subfield;
     subfield = field.getSubfieldByPosition(0);
     assertEquals("Category of material", subfield.getLabel());
     assertEquals("s", field.getMap().get(subfield));
@@ -822,7 +822,7 @@ public class Control007Test {
       field.getValidationErrors().get(0).getMessage());
     assertEquals("hasInvalidValue",
       field.getValidationErrors().get(0).getType().getCode());
-    assertEquals(ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE,
+    assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
       field.getValidationErrors().get(0).getType());
     assertEquals("https://www.loc.gov/marc/bibliographic/bd007s.html",
       field.getValidationErrors().get(0).getUrl());
@@ -833,7 +833,7 @@ public class Control007Test {
       field.getValidationErrors().get(1).getMessage());
     assertEquals("hasInvalidValue",
       field.getValidationErrors().get(1).getType().getCode());
-    assertEquals(ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE,
+    assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
       field.getValidationErrors().get(1).getType());
     assertEquals("https://www.loc.gov/marc/bibliographic/bd007s.html",
       field.getValidationErrors().get(1).getUrl());
@@ -844,7 +844,7 @@ public class Control007Test {
       field.getValidationErrors().get(2).getMessage());
     assertEquals("hasInvalidValue",
       field.getValidationErrors().get(2).getType().getCode());
-    assertEquals(ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE,
+    assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
       field.getValidationErrors().get(2).getType());
     assertEquals("https://www.loc.gov/marc/bibliographic/bd007s.html",
       field.getValidationErrors().get(2).getUrl());

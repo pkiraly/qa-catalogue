@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.bltags;
 
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
-import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.tags.tags84x.Tag852;
 import org.junit.Test;
 

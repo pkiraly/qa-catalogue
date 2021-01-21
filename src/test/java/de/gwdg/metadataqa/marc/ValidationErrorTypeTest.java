@@ -24,10 +24,10 @@ public class ValidationErrorTypeTest {
 
   @Test
   public void testObsoleteControlSubfield() {
-    ValidationErrorType errorType = ValidationErrorType.CONTROL_SUBFIELD_OBSOLETE_CODE;
-    assertEquals("CONTROL_SUBFIELD_OBSOLETE_CODE", errorType.name());
-    assertEquals("CONTROL_SUBFIELD_OBSOLETE_CODE", errorType.toString());
-    assertEquals("obsoleteControlSubfield", errorType.getCode());
+    ValidationErrorType errorType = ValidationErrorType.CONTROL_POSITION_OBSOLETE_CODE;
+    assertEquals("CONTROL_POSITION_OBSOLETE_CODE", errorType.name());
+    assertEquals("CONTROL_POSITION_OBSOLETE_CODE", errorType.toString());
+    assertEquals("obsoleteControlPosition", errorType.getCode());
     assertEquals("obsolete code", errorType.getMessage());
     assertEquals("control field", errorType.getCategory().getName());
   }
@@ -44,9 +44,9 @@ public class ValidationErrorTypeTest {
 
   @Test
   public void testContainsInvalidValue() {
-    ValidationErrorType errorType = ValidationErrorType.CONTROL_SUBFIELD_INVALID_CODE;
-    assertEquals("CONTROL_SUBFIELD_INVALID_CODE", errorType.name());
-    assertEquals("CONTROL_SUBFIELD_INVALID_CODE", errorType.toString());
+    ValidationErrorType errorType = ValidationErrorType.CONTROL_POSITION_INVALID_CODE;
+    assertEquals("CONTROL_POSITION_INVALID_CODE", errorType.name());
+    assertEquals("CONTROL_POSITION_INVALID_CODE", errorType.toString());
     assertEquals("controlValueContainsInvalidCode", errorType.getCode());
     assertEquals("invalid code", errorType.getMessage());
     assertEquals("control field", errorType.getCategory().getName());

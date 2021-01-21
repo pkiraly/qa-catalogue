@@ -1,10 +1,12 @@
 package de.gwdg.metadataqa.marc.cli.utils;
 
-import de.gwdg.metadataqa.marc.definition.*;
-import de.gwdg.metadataqa.marc.definition.controlsubfields.Control006Subfields;
-import de.gwdg.metadataqa.marc.definition.controlsubfields.Control007Subfields;
-import de.gwdg.metadataqa.marc.definition.controlsubfields.Control008Subfields;
-import de.gwdg.metadataqa.marc.definition.controlsubfields.LeaderSubfields;
+import de.gwdg.metadataqa.marc.definition.controlpositions.Control006Positions;
+import de.gwdg.metadataqa.marc.definition.controlpositions.Control007Positions;
+import de.gwdg.metadataqa.marc.definition.controlpositions.Control008Positions;
+import de.gwdg.metadataqa.marc.definition.controlpositions.LeaderPositions;
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.tags.control.*;
 import de.gwdg.metadataqa.marc.utils.MarcTagLister;
 
@@ -28,8 +30,8 @@ public class MappingToHtml {
 
     System.out.println("<tbody>");
     System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>%n", "Leader");
-    for (ControlSubfieldDefinition subfield : LeaderSubfields.getSubfieldList()) {
-      ControlSubfieldToHtml(subfield, "Leader", "Leader");
+    for (ControlfieldPositionDefinition subfield : LeaderPositions.getInstance().getPositionList()) {
+      controlPositionToHtml(subfield, "Leader", "Leader");
     }
 
     System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>%n", "001");
@@ -49,26 +51,26 @@ public class MappingToHtml {
 
     System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>%n", "006");
     System.out.print(row("006", Control006Definition.getInstance().getMqTag(), Control006Definition.getInstance().getLabel()));
-    for (String type : Control006Subfields.getInstance().getSubfields().keySet()) {
+    for (String type : Control006Positions.getInstance().getPositions().keySet()) {
       System.out.printf("<tr><td colspan=\"3\"><em>%s</em></td></tr>%n", type);
-      for (ControlSubfieldDefinition subfield : Control006Subfields.getInstance().getSubfields().get(type))
-        ControlSubfieldToHtml(subfield, "006", Control006Definition.getInstance().getMqTag());
+      for (ControlfieldPositionDefinition subfield : Control006Positions.getInstance().getPositions().get(type))
+        controlPositionToHtml(subfield, "006", Control006Definition.getInstance().getMqTag());
     }
 
     System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>%n", "007");
     System.out.print(row("007", Control007Definition.getInstance().getMqTag(), Control007Definition.getInstance().getLabel()));
-    for (String category : Control007Subfields.getInstance().getSubfields().keySet()) {
+    for (String category : Control007Positions.getInstance().getPositions().keySet()) {
       System.out.printf("<tr><td colspan=\"3\"><em>%s</em></td></tr>%n", category);
-      for (ControlSubfieldDefinition subfield : Control007Subfields.getInstance().getSubfields().get(category))
-        ControlSubfieldToHtml(subfield, "007", Control007Definition.getInstance().getMqTag());
+      for (ControlfieldPositionDefinition subfield : Control007Positions.getInstance().getPositions().get(category))
+        controlPositionToHtml(subfield, "007", Control007Definition.getInstance().getMqTag());
     }
 
     System.out.printf("<tr><td colspan=\"3\"><strong>%s</strong></td></tr>%n", "008");
     System.out.print(row("008", Control008Definition.getInstance().getMqTag(), Control008Definition.getInstance().getLabel()));
-    for (String type : Control008Subfields.getInstance().getSubfields().keySet()) {
+    for (String type : Control008Positions.getInstance().getPositions().keySet()) {
       System.out.printf("<tr><td colspan=\"3\"><em>%s</em></td></tr>%n", type);
-      for (ControlSubfieldDefinition subfield : Control008Subfields.getInstance().getSubfields().get(type))
-        ControlSubfieldToHtml(subfield, "008", Control008Definition.getInstance().getMqTag());
+      for (ControlfieldPositionDefinition subfield : Control008Positions.getInstance().getPositions().get(type))
+        controlPositionToHtml(subfield, "008", Control008Definition.getInstance().getMqTag());
     }
 
 
@@ -94,7 +96,7 @@ public class MappingToHtml {
     System.out.println("</table>");
   }
 
-  private static void ControlSubfieldToHtml(ControlSubfieldDefinition subfield, String marcTag, String mqTag) {
+  private static void controlPositionToHtml(ControlfieldPositionDefinition subfield, String marcTag, String mqTag) {
     int start = subfield.getPositionStart();
     int end = subfield.getPositionEnd() - 1;
     String suffix = (start == end) ? String.format("%02d", start) : String.format("%02d-%02d", start, end);

@@ -18,7 +18,7 @@ public class Counter<T> {
     counter.put(key, counter.get(key) + i);
   }
 
-    public int get(T key) {
+  public int get(T key) {
     return counter.getOrDefault(key, null);
   }
 
@@ -32,5 +32,12 @@ public class Counter<T> {
 
   public Map<T, Integer> getMap() {
     return counter;
+  }
+
+  public int total() {
+    int total = 0;
+    for (int value : counter.values())
+      total += value;
+    return total;
   }
 }

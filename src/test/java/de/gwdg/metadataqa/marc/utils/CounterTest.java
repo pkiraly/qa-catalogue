@@ -38,5 +38,12 @@ public class CounterTest {
     assertEquals("{dummy=1}", counter.getMap().toString());
   }
 
+  @Test
+  public void testTotal() {
+    counter.count("foo");
+    counter.add("bar", 8);
+    assertEquals(9, counter.total());
+  }
+
 
 }

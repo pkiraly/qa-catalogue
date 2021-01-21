@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.utils.keygenerator;
 
-import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 
 public class PositionalControlFieldKeyGenerator {
@@ -30,7 +30,7 @@ public class PositionalControlFieldKeyGenerator {
     return key;
   }
 
-  public String forSubfield(ControlSubfieldDefinition subfield) {
+  public String forSubfield(ControlfieldPositionDefinition subfield) {
     String key;
     String code = subfield.getMqTag() != null
       ? subfield.getMqTag()

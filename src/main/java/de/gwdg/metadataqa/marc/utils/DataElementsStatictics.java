@@ -1,0 +1,73 @@
+package de.gwdg.metadataqa.marc.utils;
+
+import de.gwdg.metadataqa.marc.Utils;
+import de.gwdg.metadataqa.marc.definition.structure.ControlFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.Indicator;
+import de.gwdg.metadataqa.marc.definition.structure.MarcDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import org.apache.commons.lang3.StringUtils;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.List;
+
+public class DataElementsStatictics {
+
+  public static Counter<DataElementType> count() {
+    Counter<DataElementType> counter = new Counter<>();
+
+    for (ControlfieldPositionDefinition subfield : MarcDefinition.leaderPositions)
+      counter.count(DataElementType.controlFieldPositions);
+
+    for (DataFieldDefinition subfield : MarcDefinition.simpleControlFields)
+      counter.count(DataElementType.controlFields);
+
+    for (ControlFieldDefinition controlField : MarcDefinition.complexControlFields) {
+      counter.count(DataElementType.controlFields);
+
+      for (List<ControlfieldPositionDefinition> controlFieldPositions : controlField.getControlfieldPositions().values())
+        for (ControlfieldPositionDefinition controlFieldPosition : controlFieldPositions)
+          counter.count(DataElementType.controlFieldPositions);
+    }
+
+    for (Class<? extends DataFieldDefinition> tagClass : MarcTagLister.listTags()) {
+
+      MarcVersion version = Utils.getVersion(tagClass);
+      Method getInstance;
+      DataFieldDefinition fieldTag;
+      try {
+        getInstance = tagClass.getMethod("getInstance");
+        fieldTag = (DataFieldDefinition) getInstance.invoke(tagClass);
+        boolean isCore = (version == MarcVersion.MARC21);
+        if (isCore)
+          counter.count(DataElementType.coreFields);
+        else
+          counter.count(DataElementType.localFields);
+
+        for (Indicator indicator : fieldTag.getIndicators())
+          if (indicator != null && StringUtils.isNotBlank(indicator.getLabel()))
+            if (isCore)
+              counter.count(DataElementType.coreIndicators);
+            else
+              counter.count(DataElementType.localIndicators);
+
+        if (fieldTag.getSubfields() != null)
+          for (SubfieldDefinition subfield : fieldTag.getSubfields())
+            if (isCore)
+              counter.count(DataElementType.coreSubfields);
+            else
+              counter.count(DataElementType.localSubfields);
+
+      } catch (NoSuchMethodException
+        | IllegalAccessException
+        | InvocationTargetException e) {
+        e.printStackTrace();
+      }
+    }
+
+    return counter;
+  }
+}

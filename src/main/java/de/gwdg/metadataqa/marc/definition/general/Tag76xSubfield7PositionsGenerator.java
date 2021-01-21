@@ -1,17 +1,17 @@
 package de.gwdg.metadataqa.marc.definition.general;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class Tag76xSubfield7PositionsGenerator {
 
-  public static List<ControlSubfieldDefinition> getPositions() {
+  public static List<ControlfieldPositionDefinition> getPositions() {
 
     return Arrays.asList(
-      new ControlSubfieldDefinition("Type of main entry heading", 0, 1)
+      new ControlfieldPositionDefinition("Type of main entry heading", 0, 1)
         .setCodes(Utils.generateCodes(
           "p", "Personal name",
           "c", "Corporate name",
@@ -21,7 +21,7 @@ public class Tag76xSubfield7PositionsGenerator {
         ))
         .setMqTag("typeOfHeading"),
 
-      new ControlSubfieldDefinition("Form of name", 1, 2)
+      new ControlfieldPositionDefinition("Form of name", 1, 2)
         .setCodes(Utils.generateCodes(
           "0", "Forename",
           "1", "Surname",
@@ -35,7 +35,7 @@ public class Tag76xSubfield7PositionsGenerator {
         ))
         .setMqTag("formOfName"),
 
-      new ControlSubfieldDefinition("Type of record", 2, 3)
+      new ControlfieldPositionDefinition("Type of record", 2, 3)
         .setCodes(Utils.generateCodes(
           "a", "Language material",
           "c", "Notated music",
@@ -54,7 +54,7 @@ public class Tag76xSubfield7PositionsGenerator {
         )).setMqTag("typeOfRecord"),
 
       // Bibliographic level from Leader/07 of related record
-      new ControlSubfieldDefinition("Bibliographic level", 3, 4)
+      new ControlfieldPositionDefinition("Bibliographic level", 3, 4)
         .setCodes(Utils.generateCodes(
           "a", "Monographic component part",
           "b", "Serial component part",

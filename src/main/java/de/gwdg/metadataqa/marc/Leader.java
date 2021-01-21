@@ -1,7 +1,8 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.*;
-import de.gwdg.metadataqa.marc.definition.controlsubfields.LeaderSubfields;
+import de.gwdg.metadataqa.marc.definition.controlpositions.LeaderPositions;
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.tags.control.LeaderDefinition;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
@@ -89,14 +90,14 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
           definition.getTag(),
           ValidationErrorType.RECORD_UNDETECTABLE_TYPE,
           e.getMessage(),
-          LeaderSubfields.getSubfieldList().get(0).getDescriptionUrl()
+          LeaderPositions.getInstance().getPositionList().get(0).getDescriptionUrl()
         )
       );
     }
   }
 
   protected void processContent() {
-    for (ControlSubfieldDefinition subfield : LeaderSubfields.getSubfieldList()) {
+    for (ControlfieldPositionDefinition subfield : LeaderPositions.getInstance().getPositionList()) {
       int end = Math.min(content.length(), subfield.getPositionEnd());
       try {
         String value = content.substring(subfield.getPositionStart(), end);
@@ -166,29 +167,29 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
     }
   }
 
-  public String resolve(ControlSubfieldDefinition key) {
+  public String resolve(ControlfieldPositionDefinition key) {
     String value = valuesMap.get(key);
     String text = key.resolve(value);
     return text;
   }
 
   public String resolve(String key) {
-    return resolve(LeaderSubfields.getByLabel(key));
+    return resolve(LeaderPositions.getByLabel(key));
   }
 
-  public Map<ControlSubfieldDefinition, String> getMap() {
+  public Map<ControlfieldPositionDefinition, String> getMap() {
     return valuesMap;
   }
 
-  public String get(ControlSubfieldDefinition key) {
+  public String get(ControlfieldPositionDefinition key) {
     return valuesMap.get(key);
   }
 
   public String getByLabel(String key) {
-    return get(LeaderSubfields.getByLabel(key));
+    return get(LeaderPositions.getByLabel(key));
   }
   public String getById(String key) {
-    return get(LeaderSubfields.getById(key));
+    return get(LeaderPositions.getById(key));
   }
 
   /**
@@ -275,7 +276,7 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
 
   public String toString() {
     StringBuffer output = new StringBuffer(String.format("type: %s%n", type.getValue()));
-    for (ControlSubfieldDefinition key : LeaderSubfields.getSubfieldList()) {
+    for (ControlfieldPositionDefinition key : LeaderPositions.getInstance().getPositionList()) {
       output.append(String.format("%s: %s%n", key.getLabel(), resolve(key)));
     }
     return output.toString();
@@ -291,10 +292,10 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
     PositionalControlFieldKeyGenerator keyGenerator = new PositionalControlFieldKeyGenerator(
       definition.getTag(), definition.getMqTag(), type);
     map.put(keyGenerator.forTag(), Arrays.asList(content));
-    for (Map.Entry<ControlSubfieldDefinition, String> entry : valuesMap.entrySet()) {
-      ControlSubfieldDefinition controlSubfield = entry.getKey();
-      String value = controlSubfield.resolve(entry.getValue());
-      map.put(keyGenerator.forSubfield(controlSubfield), Arrays.asList(value));
+    for (Map.Entry<ControlfieldPositionDefinition, String> entry : valuesMap.entrySet()) {
+      ControlfieldPositionDefinition position = entry.getKey();
+      String value = position.resolve(entry.getValue());
+      map.put(keyGenerator.forSubfield(position), Arrays.asList(value));
     }
     return map;
   }

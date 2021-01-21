@@ -1,8 +1,9 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.*;
-import de.gwdg.metadataqa.marc.definition.controlsubfields.Control006Subfields;
+import de.gwdg.metadataqa.marc.definition.controlpositions.Control006Positions;
 import de.gwdg.metadataqa.marc.definition.controltype.Control008Type;
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.tags.control.Control006Definition;
 
 import java.io.Serializable;
@@ -73,7 +74,7 @@ public class Control006 extends MarcPositionalControlField implements Serializab
 
   private ControlValue tag006mixed06;
 
-  private Map<Integer, ControlSubfieldDefinition> byPosition = new LinkedHashMap<>();
+  private Map<Integer, ControlfieldPositionDefinition> byPosition = new LinkedHashMap<>();
 
   public Control006(String content, Leader.Type recordType) {
     super(Control006Definition.getInstance(), content, recordType);
@@ -83,7 +84,7 @@ public class Control006 extends MarcPositionalControlField implements Serializab
 
   protected void processContent() {
 
-    for (ControlSubfieldDefinition subfield : Control006Subfields.getInstance().get(Control008Type.ALL_MATERIALS)) {
+    for (ControlfieldPositionDefinition subfield : Control006Positions.getInstance().get(Control008Type.ALL_MATERIALS)) {
       int end = Math.min(content.length(), subfield.getPositionEnd());
       if (end < 0) {
         logger.severe(content.length() + " " + subfield.getPositionEnd());
@@ -109,7 +110,7 @@ public class Control006 extends MarcPositionalControlField implements Serializab
     }
 
     Control008Type actual = Control008Type.byCode(recordType.getValue().toString());
-    for (ControlSubfieldDefinition subfield : Control006Subfields.getInstance().get(actual)) {
+    for (ControlfieldPositionDefinition subfield : Control006Positions.getInstance().get(actual)) {
       int end = Math.min(content.length(), subfield.getPositionEnd());
 
       String value = null;
@@ -239,13 +240,13 @@ public class Control006 extends MarcPositionalControlField implements Serializab
     }
   }
 
-  public String resolve(ControlSubfieldDefinition key) {
+  public String resolve(ControlfieldPositionDefinition key) {
     String value = (String)valuesMap.get(key);
     String text = key.resolve(value);
     return text;
   }
 
-  public Map<ControlSubfieldDefinition, String> getValueMap() {
+  public Map<ControlfieldPositionDefinition, String> getValueMap() {
     return valuesMap;
   }
 
@@ -253,7 +254,7 @@ public class Control006 extends MarcPositionalControlField implements Serializab
     return valuesMap.get(getSubfieldByPosition(position));
   }
 
-  public ControlSubfieldDefinition getSubfieldByPosition(int position) {
+  public ControlfieldPositionDefinition getSubfieldByPosition(int position) {
     return byPosition.get(position);
   }
 

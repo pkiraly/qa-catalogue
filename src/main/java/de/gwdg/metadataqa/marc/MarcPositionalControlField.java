@@ -1,6 +1,8 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.structure.ControlFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.utils.keygenerator.PositionalControlFieldKeyGenerator;
@@ -11,7 +13,7 @@ public abstract class MarcPositionalControlField extends MarcControlField {
 
   protected ControlFieldDefinition definition;
   protected MarcRecord marcRecord;
-  protected Map<ControlSubfieldDefinition, String> valuesMap;
+  protected Map<ControlfieldPositionDefinition, String> valuesMap;
   protected List<ControlValue> valuesList;
   private Map<Integer, ControlValue> valuesByPosition = new LinkedHashMap<>();
   protected Leader.Type recordType;
@@ -51,16 +53,16 @@ public abstract class MarcPositionalControlField extends MarcControlField {
       new PositionalControlFieldKeyGenerator(tag, mqTag, type);
     if (content != null) {
       map.put(keyGenerator.forTag(), Arrays.asList(content));
-      for (Map.Entry<ControlSubfieldDefinition, String> entry : valuesMap.entrySet()) {
-        ControlSubfieldDefinition controlSubfield = entry.getKey();
-        String value = controlSubfield.resolve(entry.getValue());
-        map.put(keyGenerator.forSubfield(controlSubfield), Arrays.asList(value));
+      for (Map.Entry<ControlfieldPositionDefinition, String> entry : valuesMap.entrySet()) {
+        ControlfieldPositionDefinition position = entry.getKey();
+        String value = position.resolve(entry.getValue());
+        map.put(keyGenerator.forSubfield(position), Arrays.asList(value));
       }
     }
     return map;
   }
 
-  public Map<ControlSubfieldDefinition, String> getMap() {
+  public Map<ControlfieldPositionDefinition, String> getMap() {
     return valuesMap;
   }
 

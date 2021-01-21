@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.validator.ClassificationReferenceValidator;
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
@@ -598,7 +601,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     }
     else if (selector.getFieldTag().equals("008") && control008 != null) {
       if (selector.getCharStart() != null) {
-        ControlSubfieldDefinition definition = control008.getSubfieldByPosition(selector.getCharStart());
+        ControlfieldPositionDefinition definition = control008.getSubfieldByPosition(selector.getCharStart());
         results.add(control008.getMap().get(definition));
       } else {
         results.add(control008.getContent());
@@ -676,8 +679,8 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   private void searchPositionalControlField(MarcPositionalControlField controlField,
                                             String path, String query, List<String> results) {
     if (controlField != null) {
-      Map<ControlSubfieldDefinition, String> map = controlField.getMap();
-      for (ControlSubfieldDefinition subfield : controlField.getMap().keySet()) {
+      Map<ControlfieldPositionDefinition, String> map = controlField.getMap();
+      for (ControlfieldPositionDefinition subfield : controlField.getMap().keySet()) {
         if (subfield.getId().equals(path)) {
           if (map.get(subfield).equals(query))
             results.add(map.get(subfield));

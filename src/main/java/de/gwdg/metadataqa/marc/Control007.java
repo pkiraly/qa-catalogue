@@ -1,8 +1,9 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.*;
-import de.gwdg.metadataqa.marc.definition.controlsubfields.Control007Subfields;
+import de.gwdg.metadataqa.marc.definition.controlpositions.Control007Positions;
 import de.gwdg.metadataqa.marc.definition.controltype.Control007Category;
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.tags.control.Control007Definition;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
@@ -148,7 +149,7 @@ public class Control007 extends MarcPositionalControlField implements Serializab
   private ControlValue tag007unspecified00;
   private ControlValue tag007unspecified01;
 
-  private Map<Integer, ControlSubfieldDefinition> byPosition = new LinkedHashMap<>();
+  private Map<Integer, ControlfieldPositionDefinition> byPosition = new LinkedHashMap<>();
   private MarcRecord record = null;
 
   public Control007(MarcRecord record, String content) {
@@ -181,7 +182,7 @@ public class Control007 extends MarcPositionalControlField implements Serializab
       String msg = "007 control field is empty";
       logger.severe(msg);
       initializationErrors.add(new ValidationError(record.getId(), "007",
-        ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE, msg, URL));
+        ValidationErrorType.CONTROL_POSITION_INVALID_VALUE, msg, URL));
       category = Control007Category.TEXT;
     } else {
       String categoryCode = content.substring(0, 1);
@@ -190,7 +191,7 @@ public class Control007 extends MarcPositionalControlField implements Serializab
         String msg = String.format("invalid category for 007: '%s'", categoryCode);
         logger.severe(msg);
         initializationErrors.add(new ValidationError(record.getId(), "007",
-          ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE, msg, URL));
+          ValidationErrorType.CONTROL_POSITION_INVALID_VALUE, msg, URL));
         category = Control007Category.TEXT;
       }
     }
@@ -204,7 +205,7 @@ public class Control007 extends MarcPositionalControlField implements Serializab
     byPosition.put(subfieldCommon.getPositionStart(), subfieldCommon);
     */
 
-    for (ControlSubfieldDefinition subfield : Control007Subfields.getInstance().get(category)) {
+    for (ControlfieldPositionDefinition subfield : Control007Positions.getInstance().get(category)) {
       byPosition.put(subfield.getPositionStart(), subfield);
       int end = Math.min(content.length(), subfield.getPositionEnd());
 
@@ -360,7 +361,7 @@ public class Control007 extends MarcPositionalControlField implements Serializab
     }
   }
 
-  public String resolve(ControlSubfieldDefinition key) {
+  public String resolve(ControlfieldPositionDefinition key) {
     String value = (String)valuesMap.get(key);
     String text = key.resolve(value);
     return text;
@@ -374,7 +375,7 @@ public class Control007 extends MarcPositionalControlField implements Serializab
     return valuesMap.get(getSubfieldByPosition(position));
   }
 
-  public ControlSubfieldDefinition getSubfieldByPosition(int position) {
+  public ControlfieldPositionDefinition getSubfieldByPosition(int position) {
     return byPosition.get(position);
   }
 

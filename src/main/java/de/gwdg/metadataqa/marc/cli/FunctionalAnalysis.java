@@ -224,22 +224,20 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
         .entrySet()
         .stream()
         .forEach(entry -> {
-          try {
-            String function = entry.getKey().name();
-            Map<FunctionValue, Integer> histogramOfFunction = entry.getValue().getMap();
-            for (Map.Entry<FunctionValue, Integer> histogramEntry : histogramOfFunction.entrySet()) {
-              FunctionValue functionValue = histogramEntry.getKey();
-              Integer count = histogramEntry.getValue();
-              writer.write(
-                StringUtils.join(
-                  Arrays.asList(function, functionValue.getCount(), functionValue.getPercent(), count),
-                  separator
-                ) + "\n"
-              );
-            }
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
+          String function = entry.getKey().name();
+          Map<FunctionValue, Integer> histogramOfFunction = entry.getValue().getMap();
+          histogramOfFunction
+            .keySet()
+            .stream()
+            .sorted((a, b) -> ((Integer) a.getCount()).compareTo(b.getCount()))
+            .forEach(functionValue -> {
+              Integer count = histogramOfFunction.get(functionValue);
+              try {
+                writer.write(createRow(function, functionValue.getCount(), functionValue.getPercent(), count));
+              } catch (IOException e) {
+                e.printStackTrace();
+              }
+            });
         });
     } catch (IOException e) {
       e.printStackTrace();

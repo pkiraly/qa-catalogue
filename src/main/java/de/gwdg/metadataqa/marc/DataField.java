@@ -326,11 +326,11 @@ public class DataField implements Extractable, Validatable, Serializable {
     );
 
     String value = (definition != null && definition.getInd1().exists()) ? resolveInd1() : (getInd1() != null ? getInd1() : null);
-    if (value != null)
+    if (value != null && StringUtils.isNotBlank(value))
       pairs.put(keyGenerator.forInd1(), Arrays.asList(value));
 
     value = (definition != null && definition.getInd2().exists()) ? resolveInd2() : (getInd2() != null ? getInd2() : null);
-    if (value != null)
+    if (value != null && StringUtils.isNotBlank(value))
       pairs.put(keyGenerator.forInd2(), Arrays.asList(value));
 
     for (MarcSubfield subfield : subfields)

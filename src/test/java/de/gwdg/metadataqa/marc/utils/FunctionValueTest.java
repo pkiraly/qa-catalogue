@@ -43,4 +43,16 @@ public class FunctionValueTest {
     assertEquals(10, value.getCount());
     assertEquals(10.0, value.getPercent(), 0.00000001);
   }
+
+  @Test
+  public void counter() {
+    FunctionValue value1 = new FunctionValue(8, 9.1);
+    FunctionValue value2 = new FunctionValue(8, 9.1);
+
+    Counter<FunctionValue> counter = new Counter<>();
+    counter.count(value1);
+    counter.count(value2);
+    assertEquals(1, counter.keys().size());
+  }
+
 }

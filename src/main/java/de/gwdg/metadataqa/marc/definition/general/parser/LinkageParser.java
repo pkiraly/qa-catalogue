@@ -57,7 +57,7 @@ public class LinkageParser implements SubfieldContentParser, Serializable {
     }
 
     if (hasInvalidCharacters)
-      throw new ParserException("Linkage does not fit the pattern nnn-nn[/..][/..].");
+      throw new ParserException("Linkage does not fit the pattern 'nnn-nn[/..][/..]'.");
   }
 
   private static LinkageParser uniqueInstance;

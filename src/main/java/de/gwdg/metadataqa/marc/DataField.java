@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import static de.gwdg.metadataqa.marc.definition.SourceSpecificationType.Indicator2For055AndSubfield2;
 import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorType.*;
 
 public class DataField implements Extractable, Validatable, Serializable {
@@ -253,17 +252,33 @@ public class DataField implements Extractable, Validatable, Serializable {
     return output.toString();
   }
 
+  public String formatAsText() {
+    StringBuffer output = new StringBuffer();
+    output.append(getTag());
+    output.append(" ").append(ind1).append(ind2).append(" ");
+
+    boolean first = true;
+    for (MarcSubfield subfield : subfields) {
+      if (!first)
+        output.append("       ");
+      output.append("$").append(subfield.getCode()).append(" ").append(subfield.getValue()).append("\n");
+      first = false;
+    }
+
+    return output.toString();
+  }
+
   public String formatAsMarc() {
     StringBuffer output = new StringBuffer();
 
-    if (definition.getInd1().exists())
-      output.append(String.format("%s_ind1: %s%n", definition.getTag(), resolveInd1()));
+    if (definition != null && definition.getInd1().exists())
+      output.append(String.format("%s_ind1: %s%n", getTag(), resolveInd1()));
 
-    if (definition.getInd2().exists())
-      output.append(String.format("%s_ind2: %s%n", definition.getTag(), resolveInd2()));
+    if (definition != null && definition.getInd2().exists())
+      output.append(String.format("%s_ind2: %s%n", getTag(), resolveInd2()));
 
     for (MarcSubfield subfield : subfields) {
-      output.append(String.format("%s_%s: %s%n", definition.getTag(), subfield.getCode(), subfield.resolve()));
+      output.append(String.format("%s_%s: %s%n", getTag(), subfield.getCode(), subfield.resolve()));
     }
 
     return output.toString();
@@ -372,8 +387,11 @@ public class DataField implements Extractable, Validatable, Serializable {
   }
 
   public String resolveIndicator(Indicator indicatorDefinition, String indicator) {
-    if (indicatorDefinition.getLabel().equals(""))
-      return "";
+    if (indicatorDefinition == null)
+      return indicator;
+
+    if (!indicatorDefinition.exists())
+      return indicator;
 
     if (!indicatorDefinition.hasCode(indicator))
       return indicator;

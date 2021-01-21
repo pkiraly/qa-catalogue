@@ -12,7 +12,6 @@ import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 
 import de.gwdg.metadataqa.marc.definition.tags.control.Control001Definition;
 import de.gwdg.metadataqa.marc.utils.unimarc.UnimarcConverter;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.*;
@@ -277,6 +276,14 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     return output.toString();
   }
 
+  public String formatAsText() {
+    StringBuffer output = new StringBuffer();
+    for (DataField field : datafields) {
+      output.append(field.formatAsText());
+    }
+    return output.toString();
+  }
+
   public String formatAsMarc() {
     StringBuffer output = new StringBuffer();
     for (DataField field : datafields) {
@@ -338,7 +345,6 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     return mainKeyValuePairs;
   }
 
-  @NotNull
   private List<String> mergeValues(List<String> existingValues,
                                    List<String> values,
                                    boolean withDeduplication) {

@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.definition;
 
 import java.util.Arrays;
 
+import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

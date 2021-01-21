@@ -1,8 +1,9 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.*;
-import de.gwdg.metadataqa.marc.definition.controlsubfields.Control008Subfields;
+import de.gwdg.metadataqa.marc.definition.controlpositions.Control008Positions;
 import de.gwdg.metadataqa.marc.definition.controltype.Control008Type;
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.tags.control.Control008Definition;
 
 import java.io.Serializable;
@@ -83,7 +84,7 @@ public class Control008 extends MarcPositionalControlField implements Serializab
 
   private Map<Control008Type, List<ControlValue>> fieldGroups = new HashMap<>();
 
-  private Map<Integer, ControlSubfieldDefinition> byPosition = new LinkedHashMap<>();
+  private Map<Integer, ControlfieldPositionDefinition> byPosition = new LinkedHashMap<>();
   private Control008Type actual008Type;
 
   public Control008(String content, Leader.Type recordType) {
@@ -100,7 +101,7 @@ public class Control008 extends MarcPositionalControlField implements Serializab
   }
 
   protected void processContent() {
-    for (ControlSubfieldDefinition subfield : Control008Subfields.getInstance().get(Control008Type.ALL_MATERIALS)) {
+    for (ControlfieldPositionDefinition subfield : Control008Positions.getInstance().get(Control008Type.ALL_MATERIALS)) {
 
       int end = Math.min(content.length(), subfield.getPositionEnd());
       if (end < 0) {
@@ -144,7 +145,7 @@ public class Control008 extends MarcPositionalControlField implements Serializab
       byPosition.put(subfield.getPositionStart(), subfield);
     }
 
-    for (ControlSubfieldDefinition subfield : Control008Subfields.getInstance().get(actual008Type)) {
+    for (ControlfieldPositionDefinition subfield : Control008Positions.getInstance().get(actual008Type)) {
       int end = Math.min(content.length(), subfield.getPositionEnd());
 
       String value = null;
@@ -270,7 +271,7 @@ public class Control008 extends MarcPositionalControlField implements Serializab
     }
   }
 
-  public String resolve(ControlSubfieldDefinition key) {
+  public String resolve(ControlfieldPositionDefinition key) {
     String value = (String) valuesMap.get(key);
     String text = key.resolve(value);
     return text;
@@ -280,7 +281,7 @@ public class Control008 extends MarcPositionalControlField implements Serializab
     return valuesMap.get(getSubfieldByPosition(position));
   }
 
-  public ControlSubfieldDefinition getSubfieldByPosition(int position) {
+  public ControlfieldPositionDefinition getSubfieldByPosition(int position) {
     return byPosition.get(position);
   }
 
@@ -288,7 +289,7 @@ public class Control008 extends MarcPositionalControlField implements Serializab
     return byPosition.keySet();
   }
 
-  public Map<ControlSubfieldDefinition, String> getValueMap() {
+  public Map<ControlfieldPositionDefinition, String> getValueMap() {
     return valuesMap;
   }
 

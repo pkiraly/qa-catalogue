@@ -6,18 +6,22 @@ public enum ValidationErrorType {
   RECORD_UNDETECTABLE_TYPE(1, "undetectableType", "undetectable type", ValidationErrorCategory.RECORD),
   RECORD_INVALID_LINKAGE(2, "invalidLinkage", "invalid linkage",  ValidationErrorCategory.RECORD),
   RECORD_AMBIGUOUS_LINKAGE(3, "ambiguousLinkage", "ambiguous linkage",  ValidationErrorCategory.RECORD),
+
   // control subfield
-  CONTROL_SUBFIELD_OBSOLETE_CODE(4, "obsoleteControlSubfield", "obsolete code", ValidationErrorCategory.CONTROLFIELD),
-  CONTROL_SUBFIELD_INVALID_CODE(5, "controlValueContainsInvalidCode", "invalid code",  ValidationErrorCategory.CONTROLFIELD),
-  CONTROL_SUBFIELD_INVALID_VALUE(6, "hasInvalidValue", "invalid value",  ValidationErrorCategory.CONTROLFIELD),
+  CONTROL_POSITION_OBSOLETE_CODE(4, "obsoleteControlPosition", "obsolete code", ValidationErrorCategory.CONTROLFIELD),
+  CONTROL_POSITION_INVALID_CODE(5, "controlValueContainsInvalidCode", "invalid code",  ValidationErrorCategory.CONTROLFIELD),
+  CONTROL_POSITION_INVALID_VALUE(6, "hasInvalidValue", "invalid value",  ValidationErrorCategory.CONTROLFIELD),
+
   // field
   FIELD_MISSING_REFERENCE_SUBFIELD(7, "missingSubfield", "missing reference subfield (880$6)",  ValidationErrorCategory.DATAFIELD),
   FIELD_NONREPEATABLE(8, "nonrepeatableField", "repetition of non-repeatable field",  ValidationErrorCategory.DATAFIELD),
   FIELD_UNDEFINED(9, "undefinedField", "undefined field",  ValidationErrorCategory.DATAFIELD),
+
   // indicator
   INDICATOR_OBSOLETE(10, "obsoleteIndicator", "obsolete value",  ValidationErrorCategory.INDICATOR),
   INDICATOR_NON_EMPTY(11, "nonEmptyIndicator", "non-empty indicator",  ValidationErrorCategory.INDICATOR),
   INDICATOR_INVALID_VALUE(12, "hasInvalidValue", "invalid value",  ValidationErrorCategory.INDICATOR),
+
   // subfield
   SUBFIELD_UNDEFINED(13, "undefinedSubfield", "undefined subfield", ValidationErrorCategory.SUBFIELD),
   SUBFIELD_INVALID_LENGTH(14, "invalidLength", "invalid length",  ValidationErrorCategory.SUBFIELD),

@@ -1,8 +1,8 @@
 package de.gwdg.metadataqa.marc.definition.tags.dnbtags;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 /**
  * Weitere Titel etc. bei Zusammenstellungen

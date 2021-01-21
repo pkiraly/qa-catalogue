@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
-import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import org.apache.commons.lang3.StringUtils;
@@ -32,8 +32,8 @@ public class Utils {
     return codes;
   }
 
-  public static List<ControlSubfieldDefinition> generateControlSubfieldList(ControlSubfieldDefinition... input) {
-    List<ControlSubfieldDefinition> list = new ArrayList<>();
+  public static List<ControlfieldPositionDefinition> generateControlPositionList(ControlfieldPositionDefinition... input) {
+    List<ControlfieldPositionDefinition> list = new ArrayList<>();
     list.addAll(Arrays.asList(input));
     return list;
   }

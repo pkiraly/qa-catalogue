@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags25x;
 
 import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.utils.SubfieldParser;
 import org.junit.*;
 

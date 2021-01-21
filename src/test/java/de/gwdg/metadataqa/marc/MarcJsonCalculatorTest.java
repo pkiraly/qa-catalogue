@@ -2,7 +2,6 @@ package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.api.calculator.CompletenessCalculator;
 import de.gwdg.metadataqa.api.interfaces.Calculator;
-import de.gwdg.metadataqa.api.model.pathcache.JsonPathCache;
 import de.gwdg.metadataqa.api.model.pathcache.PathCache;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.api.util.FileUtils;
@@ -11,7 +10,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 
-import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.utils.MarcCacheWrapper;
 import org.junit.After;
 import org.junit.AfterClass;

@@ -1,8 +1,8 @@
 package de.gwdg.metadataqa.marc.definition.tags.control;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.ControlFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.controlsubfields.Control007Subfields;
+import de.gwdg.metadataqa.marc.definition.structure.ControlFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.controlpositions.Control007Positions;
 
 /**
  * Control Number Identifier
@@ -29,6 +29,6 @@ public class Control007Definition extends ControlFieldDefinition {
     mqTag = "PhysicalDescription";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007.html";
-    controlSubfields = Control007Subfields.getInstance();
+    controlfieldPositions = Control007Positions.getInstance();
   }
 }

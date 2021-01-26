@@ -1,11 +1,19 @@
 package de.gwdg.metadataqa.marc.utils;
 
+import de.gwdg.metadataqa.marc.SimpleControlField;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
 import de.gwdg.metadataqa.marc.definition.tags.TagCategory;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control001Definition;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control003Definition;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control005Definition;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control006Definition;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control007Definition;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control008Definition;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,6 +21,7 @@ import java.util.regex.Pattern;
 public class TagHierarchy {
 
   private static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
+  private static Pattern controlFieldPattern = Pattern.compile("^(00\\d)(/(\\d+|\\d+-\\d+))?$");
 
   private TagCategory category;
   private String tagLabel;
@@ -48,22 +57,52 @@ public class TagHierarchy {
   }
 
   public static TagHierarchy createFromPath(String path, MarcVersion version) {
-    Matcher matcher = dataFieldPattern.matcher(path);
+    Matcher matcher;
+    matcher = controlFieldPattern.matcher(path);
     if (matcher.matches()) {
       String tag = matcher.group(1);
-      String subfieldCode = matcher.group(2);
+      String position = matcher.group(3);
+      DataFieldDefinition definition = null;
+      if (tag.equals("001"))
+        definition = Control001Definition.getInstance();
+      else if (tag.equals("003"))
+        definition = Control003Definition.getInstance();
+      else if (tag.equals("005"))
+        definition = Control005Definition.getInstance();
+      else if (tag.equals("006"))
+        definition = Control006Definition.getInstance();
+      else if (tag.equals("007"))
+        definition = Control007Definition.getInstance();
+      else if (tag.equals("008"))
+        definition = Control008Definition.getInstance();
 
-      DataFieldDefinition definition = TagDefinitionLoader.load(tag, version);
       if (definition != null) {
         String tagLabel = definition.getLabel();
 
-        SubfieldDefinition subfield = definition.getSubfield(subfieldCode);
-        String subfieldLabel = subfield != null ? subfield.getLabel() : "";
+        String subfieldLabel = "";
+        if (StringUtils.isNotBlank(position)) {
+          subfieldLabel = position;
+        }
+        return new TagHierarchy(TagCategory.tags00x, tagLabel, subfieldLabel);
+      }
+    } else {
+      matcher = dataFieldPattern.matcher(path);
+      if (matcher.matches()) {
+        String tag = matcher.group(1);
+        String subfieldCode = matcher.group(2);
 
-        String packageName = Utils.extractPackageName(definition);
-        TagCategory category = TagCategory.getPackage(packageName);
+        DataFieldDefinition definition = TagDefinitionLoader.load(tag, version);
+        if (definition != null) {
+          String tagLabel = definition.getLabel();
 
-        return new TagHierarchy(category, tagLabel, subfieldLabel);
+          SubfieldDefinition subfield = definition.getSubfield(subfieldCode);
+          String subfieldLabel = subfield != null ? subfield.getLabel() : "";
+
+          String packageName = Utils.extractPackageName(definition);
+          TagCategory category = TagCategory.getPackage(packageName);
+
+          return new TagHierarchy(category, tagLabel, subfieldLabel);
+        }
       }
     }
     return null;

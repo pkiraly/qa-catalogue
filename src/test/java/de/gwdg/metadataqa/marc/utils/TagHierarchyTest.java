@@ -49,4 +49,50 @@ public class TagHierarchyTest {
     assertEquals("Locally defined field in Gent", tagHierarchy.getTagLabel());
     assertEquals("Value", tagHierarchy.getSubfieldLabel());
   }
+
+  @Test
+  public void testTagHierarchySimpleControlField_001() {
+    TagHierarchy tagHierarchy = TagHierarchy.createFromPath("001");
+    assertNotNull(tagHierarchy);
+    assertEquals("Control Fields", tagHierarchy.getPackageLabel());
+    assertEquals("Control Number", tagHierarchy.getTagLabel());
+    assertEquals("", tagHierarchy.getSubfieldLabel());
+  }
+
+  @Test
+  public void testTagHierarchySimpleControlField_003() {
+    TagHierarchy tagHierarchy = TagHierarchy.createFromPath("003");
+    assertNotNull(tagHierarchy);
+    assertEquals("Control Fields", tagHierarchy.getPackageLabel());
+    assertEquals("Control Number Identifier", tagHierarchy.getTagLabel());
+    assertEquals("", tagHierarchy.getSubfieldLabel());
+  }
+
+  @Test
+  public void testTagHierarchySimpleControlField_005() {
+    TagHierarchy tagHierarchy = TagHierarchy.createFromPath("005");
+    assertNotNull(tagHierarchy);
+    assertEquals("Control Fields", tagHierarchy.getPackageLabel());
+    assertEquals("Date and Time of Latest Transaction", tagHierarchy.getTagLabel());
+    assertEquals("", tagHierarchy.getSubfieldLabel());
+  }
+
+  @Test
+  public void testTagHierarchySimpleControlField_006() {
+    TagHierarchy tagHierarchy = TagHierarchy.createFromPath("006/16-17");
+    assertNotNull(tagHierarchy);
+    assertEquals("Control Fields", tagHierarchy.getPackageLabel());
+    assertEquals("Additional Material Characteristics", tagHierarchy.getTagLabel());
+    assertEquals("16-17", tagHierarchy.getSubfieldLabel());
+  }
+
+  @Test
+  public void testTagHierarchySimpleControlField_008() {
+    TagHierarchy tagHierarchy = TagHierarchy.createFromPath("008/00-05");
+    assertNotNull(tagHierarchy);
+    assertEquals("Control Fields", tagHierarchy.getPackageLabel());
+    assertEquals("General Information", tagHierarchy.getTagLabel());
+    assertEquals("00-05", tagHierarchy.getSubfieldLabel());
+  }
+
 }

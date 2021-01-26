@@ -5,6 +5,7 @@ import java.util.Map;
 
 public enum TagCategory {
 
+  tags00x(0, "tags00x", "00X", "Control Fields", true),
   tags01x(1, "tags01x", "01X-09X", "Numbers and Code", true),
   tags1xx(2, "tags1xx", "1XX", "Main Entry", true),
   tags20x(3, "tags20x", "20X-24X", "Title", true),

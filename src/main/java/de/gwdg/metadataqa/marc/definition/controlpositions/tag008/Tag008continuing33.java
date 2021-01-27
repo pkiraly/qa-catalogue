@@ -23,7 +23,7 @@ public class Tag008continuing33 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Original alphabet or script of title";
-    id = "tag008continuing33";
+    id = "008continuing33";
     mqTag = "originalAlphabetOrScriptOfTitle";
     positionStart = 33;
     positionEnd = 34;

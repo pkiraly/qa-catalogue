@@ -23,7 +23,7 @@ public class Tag008visual34 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Technique";
-    id = "tag008visual34";
+    id = "008visual34";
     mqTag = "technique";
     positionStart = 34;
     positionEnd = 35;

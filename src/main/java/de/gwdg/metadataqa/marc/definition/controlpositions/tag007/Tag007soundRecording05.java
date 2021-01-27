@@ -26,7 +26,7 @@ public class Tag007soundRecording05 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Groove width/groove pitch";
-    id = "tag007soundRecording05";
+    id = "007soundRecording05";
     mqTag = "grooveWidthOrGroovePitch";
     positionStart = 5;
     positionEnd = 6;

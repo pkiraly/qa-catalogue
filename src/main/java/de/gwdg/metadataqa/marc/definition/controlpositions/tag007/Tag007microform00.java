@@ -26,7 +26,7 @@ public class Tag007microform00 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Category of material";
-    id = "tag007microform00";
+    id = "007microform00";
     mqTag = "categoryOfMaterial";
     positionStart = 0;
     positionEnd = 1;

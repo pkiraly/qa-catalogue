@@ -26,7 +26,7 @@ public class Tag007motionPicture10 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Positive/negative aspect";
-    id = "tag007motionPicture10";
+    id = "007motionPicture10";
     mqTag = "positiveNegativeAspect";
     positionStart = 10;
     positionEnd = 11;

@@ -23,7 +23,7 @@ public class Tag007soundRecording11 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Kind of cutting";
-    id = "tag007soundRecording11";
+    id = "007soundRecording11";
     mqTag = "kindOfCutting";
     positionStart = 11;
     positionEnd = 12;

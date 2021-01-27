@@ -27,7 +27,7 @@ public class Tag008all35 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Language";
-    id = "tag008all35";
+    id = "008all35";
     mqTag = "language";
     positionStart = 35;
     positionEnd = 38;

@@ -26,7 +26,7 @@ public class Tag007video00 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Category of material";
-    id = "tag007video00";
+    id = "007video00";
     mqTag = "categoryOfMaterial";
     positionStart = 0;
     positionEnd = 1;

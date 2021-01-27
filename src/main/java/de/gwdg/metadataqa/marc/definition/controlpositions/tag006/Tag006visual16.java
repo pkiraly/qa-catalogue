@@ -26,7 +26,7 @@ public class Tag006visual16 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Type of visual material";
-    id = "tag006visual16";
+    id = "006visual16";
     mqTag = "typeOfVisualMaterial";
     positionStart = 16;
     positionEnd = 17;

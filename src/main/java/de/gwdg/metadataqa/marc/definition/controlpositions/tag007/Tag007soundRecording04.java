@@ -26,7 +26,7 @@ public class Tag007soundRecording04 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Configuration of playback channels";
-    id = "tag007soundRecording04";
+    id = "007soundRecording04";
     mqTag = "configurationOfPlaybackChannels";
     positionStart = 4;
     positionEnd = 5;

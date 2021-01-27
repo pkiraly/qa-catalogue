@@ -26,7 +26,7 @@ public class Tag006music03 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Format of music";
-    id = "tag006music03";
+    id = "006music03";
     mqTag = "formatOfMusic";
     positionStart = 3;
     positionEnd = 4;

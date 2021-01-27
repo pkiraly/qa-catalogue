@@ -26,7 +26,7 @@ public class Tag006map16 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Special format characteristics";
-    id = "tag006map16";
+    id = "006map16";
     mqTag = "specialFormatCharacteristics";
     positionStart = 16;
     positionEnd = 18;

@@ -26,7 +26,7 @@ public class Tag006continuing02 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Regularity";
-    id = "tag006continuing02";
+    id = "006continuing02";
     mqTag = "regularity";
     positionStart = 2;
     positionEnd = 3;

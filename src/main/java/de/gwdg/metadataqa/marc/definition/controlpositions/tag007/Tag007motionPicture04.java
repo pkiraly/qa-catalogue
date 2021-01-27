@@ -26,7 +26,7 @@ public class Tag007motionPicture04 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Motion picture presentation format";
-    id = "tag007motionPicture04";
+    id = "007motionPicture04";
     mqTag = "motionPicturePresentationFormat";
     positionStart = 4;
     positionEnd = 5;

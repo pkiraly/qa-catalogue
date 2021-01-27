@@ -26,7 +26,7 @@ public class Tag008all38 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Modified record";
-    id = "tag008all38";
+    id = "008all38";
     mqTag = "modifiedRecord";
     positionStart = 38;
     positionEnd = 39;

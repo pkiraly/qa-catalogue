@@ -26,7 +26,7 @@ public class Tag007remoteSensing07 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Platform use category";
-    id = "tag007remoteSensing07";
+    id = "007remoteSensing07";
     mqTag = "platformUseCategory";
     positionStart = 7;
     positionEnd = 8;

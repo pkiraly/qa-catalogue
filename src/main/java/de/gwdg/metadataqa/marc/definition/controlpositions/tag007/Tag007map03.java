@@ -26,7 +26,7 @@ public class Tag007map03 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Color";
-    id = "tag007map03";
+    id = "007map03";
     mqTag = "color";
     positionStart = 3;
     positionEnd = 4;

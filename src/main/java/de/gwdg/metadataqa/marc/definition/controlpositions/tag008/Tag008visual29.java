@@ -23,7 +23,7 @@ public class Tag008visual29 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Form of item";
-    id = "tag008visual29";
+    id = "008visual29";
     mqTag = "formOfItem";
     positionStart = 29;
     positionEnd = 30;

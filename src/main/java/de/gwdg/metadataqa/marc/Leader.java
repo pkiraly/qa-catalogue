@@ -188,8 +188,9 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
   public String getByLabel(String key) {
     return get(LeaderPositions.getByLabel(key));
   }
+
   public String getById(String key) {
-    return get(LeaderPositions.getById(key));
+    return get(LeaderPositions.getInstance().getById(key));
   }
 
   /**

@@ -26,7 +26,7 @@ public class Tag007projected06 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Medium for sound";
-    id = "tag007projected06";
+    id = "007projected06";
     mqTag = "mediumForSound";
     positionStart = 6;
     positionEnd = 7;

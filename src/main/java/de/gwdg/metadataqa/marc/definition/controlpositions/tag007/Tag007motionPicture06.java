@@ -26,7 +26,7 @@ public class Tag007motionPicture06 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Medium for sound";
-    id = "tag007motionPicture06";
+    id = "007motionPicture06";
     mqTag = "mediumForSound";
     positionStart = 6;
     positionEnd = 7;

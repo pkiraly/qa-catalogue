@@ -26,7 +26,7 @@ public class Tag007video08 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Configuration of playback channels";
-    id = "tag007video08";
+    id = "007video08";
     mqTag = "configurationOfPlaybackChannels";
     positionStart = 8;
     positionEnd = 9;

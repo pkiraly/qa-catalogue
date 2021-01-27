@@ -23,7 +23,7 @@ public class Tag008map31 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Index";
-    id = "tag008map31";
+    id = "008map31";
     mqTag = "index";
     positionStart = 31;
     positionEnd = 32;

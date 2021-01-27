@@ -23,7 +23,7 @@ public class Tag007common00 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Category of material";
-    id = "tag007common00";
+    id = "007common00";
     mqTag = "categoryOfMaterial";
     positionStart = 0;
     positionEnd = 1;

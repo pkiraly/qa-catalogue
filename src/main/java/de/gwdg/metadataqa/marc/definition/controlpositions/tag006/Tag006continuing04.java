@@ -26,7 +26,7 @@ public class Tag006continuing04 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Type of continuing resource";
-    id = "tag006continuing04";
+    id = "006continuing04";
     mqTag = "typeOfContinuingResource";
     positionStart = 4;
     positionEnd = 5;

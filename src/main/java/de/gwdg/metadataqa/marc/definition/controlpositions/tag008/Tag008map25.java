@@ -23,7 +23,7 @@ public class Tag008map25 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Type of cartographic material";
-    id = "tag008map25";
+    id = "008map25";
     mqTag = "typeOfCartographicMaterial";
     positionStart = 25;
     positionEnd = 26;

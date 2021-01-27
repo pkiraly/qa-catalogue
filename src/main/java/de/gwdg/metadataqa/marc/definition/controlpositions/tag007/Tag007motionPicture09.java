@@ -23,7 +23,7 @@ public class Tag007motionPicture09 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Production elements";
-    id = "tag007motionPicture09";
+    id = "007motionPicture09";
     mqTag = "productionElements";
     positionStart = 9;
     positionEnd = 10;

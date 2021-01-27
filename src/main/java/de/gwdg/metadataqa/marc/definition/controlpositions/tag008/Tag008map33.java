@@ -23,7 +23,7 @@ public class Tag008map33 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Special format characteristics";
-    id = "tag008map33";
+    id = "008map33";
     mqTag = "specialFormatCharacteristics";
     positionStart = 33;
     positionEnd = 35;

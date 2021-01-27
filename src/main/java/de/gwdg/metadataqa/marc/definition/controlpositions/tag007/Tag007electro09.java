@@ -23,7 +23,7 @@ public class Tag007electro09 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "File formats";
-    id = "tag007electro09";
+    id = "007electro09";
     mqTag = "fileFormats";
     positionStart = 9;
     positionEnd = 10;

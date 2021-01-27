@@ -26,7 +26,7 @@ public class Tag007motionPicture16 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Completeness";
-    id = "tag007motionPicture16";
+    id = "007motionPicture16";
     mqTag = "completeness";
     positionStart = 16;
     positionEnd = 17;

@@ -9,7 +9,7 @@ public class Tag007nonprojected02Test {
   public void test() {
     Tag007nonprojected02 tag = Tag007nonprojected02.getInstance();
     assertEquals("Color", tag.getLabel());
-    assertEquals("tag007nonprojected03", tag.getId());
+    assertEquals("007nonprojected03", tag.getId());
     assertEquals("color", tag.getMqTag());
     assertEquals(3, tag.getPositionStart());
     assertEquals(4, tag.getPositionEnd());

@@ -33,9 +33,9 @@ public class Control006Test {
 
     assertEquals(2, field.getValuesList().size());
     assertEquals("s", field.getValuesList().get(0).getValue());
-    assertEquals("tag006all00", field.getValuesList().get(0).getDefinition().getId());
+    assertEquals("006all00", field.getValuesList().get(0).getDefinition().getId());
     assertEquals("a", field.getValuesList().get(1).getValue());
-    assertEquals("tag006continuing01", field.getValuesList().get(1).getDefinition().getId());
+    assertEquals("006continuing01", field.getValuesList().get(1).getDefinition().getId());
 
     assertEquals(2, field.getValueMap().size());
     assertEquals("s", field.getValueMap().get(Tag006all00.getInstance()));
@@ -335,7 +335,7 @@ public class Control006Test {
   @Test
   public void testGetSubfieldByPosition() {
     Control006 field = new Control006("r|||            ou", Leader.Type.VISUAL_MATERIALS);
-    assertEquals("tag006visual16", field.getSubfieldByPosition(16).getId());
+    assertEquals("006visual16", field.getSubfieldByPosition(16).getId());
     assertEquals("Type of visual material", field.getSubfieldByPosition(16).getLabel());
   }
 

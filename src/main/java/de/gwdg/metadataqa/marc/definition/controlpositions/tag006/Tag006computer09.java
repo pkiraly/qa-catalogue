@@ -26,7 +26,7 @@ public class Tag006computer09 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Type of computer file";
-    id = "tag006computer09";
+    id = "006computer09";
     mqTag = "typeOfComputerFile";
     positionStart = 9;
     positionEnd = 10;

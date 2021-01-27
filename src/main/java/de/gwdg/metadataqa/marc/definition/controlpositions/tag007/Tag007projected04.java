@@ -26,7 +26,7 @@ public class Tag007projected04 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Base of emulsion";
-    id = "tag007projected04";
+    id = "007projected04";
     mqTag = "baseOfEmulsion";
     positionStart = 4;
     positionEnd = 5;

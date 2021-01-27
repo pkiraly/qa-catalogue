@@ -26,7 +26,7 @@ public class Tag007tactile06 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Braille music format";
-    id = "tag007tactile06";
+    id = "007tactile06";
     mqTag = "brailleMusicFormat";
     positionStart = 6;
     positionEnd = 9;

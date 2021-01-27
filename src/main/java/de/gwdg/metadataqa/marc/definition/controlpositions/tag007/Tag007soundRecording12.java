@@ -26,7 +26,7 @@ public class Tag007soundRecording12 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Special playback characteristics";
-    id = "tag007soundRecording12";
+    id = "007soundRecording12";
     mqTag = "specialPlaybackCharacteristics";
     positionStart = 12;
     positionEnd = 13;

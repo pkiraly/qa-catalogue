@@ -26,7 +26,7 @@ public class Tag007tactile03 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Class of braille writing";
-    id = "tag007tactile03";
+    id = "007tactile03";
     mqTag = "classOfBrailleWriting";
     positionStart = 3;
     positionEnd = 5;

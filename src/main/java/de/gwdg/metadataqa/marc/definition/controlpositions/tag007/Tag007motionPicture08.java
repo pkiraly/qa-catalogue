@@ -26,7 +26,7 @@ public class Tag007motionPicture08 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Configuration of playback channels";
-    id = "tag007motionPicture08";
+    id = "007motionPicture08";
     mqTag = "configurationOfPlaybackChannels";
     positionStart = 8;
     positionEnd = 9;

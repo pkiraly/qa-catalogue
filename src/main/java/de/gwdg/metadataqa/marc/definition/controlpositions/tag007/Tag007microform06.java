@@ -25,7 +25,7 @@ public class Tag007microform06 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Reduction ratio";
-    id = "tag007microform06";
+    id = "007microform06";
     mqTag = "reductionRatio";
     positionStart = 6;
     positionEnd = 9;

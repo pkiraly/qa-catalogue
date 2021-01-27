@@ -26,7 +26,7 @@ public class Tag007electro12 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Level of compression";
-    id = "tag007electro12";
+    id = "007electro12";
     mqTag = "levelOfCompression";
     positionStart = 12;
     positionEnd = 13;

@@ -95,7 +95,7 @@ public class Control006 extends MarcPositionalControlField implements Serializab
         valuesList.add(controlValue);
 
         switch (subfield.getId()) {
-          case "tag006all00": tag006all00 = controlValue; break;
+          case "006all00": tag006all00 = controlValue; break;
 
           default:
             logger.severe(String.format("Unhandled 006 subfield: %s", subfield.getId()));
@@ -136,16 +136,16 @@ public class Control006 extends MarcPositionalControlField implements Serializab
       switch (actual) {
         case BOOKS:
           switch (subfield.getId()) {
-            case "tag006book01": tag006book01 = controlValue; break;
-            case "tag006book05": tag006book05 = controlValue; break;
-            case "tag006book06": tag006book06 = controlValue; break;
-            case "tag006book07": tag006book07 = controlValue; break;
-            case "tag006book11": tag006book11 = controlValue; break;
-            case "tag006book12": tag006book12 = controlValue; break;
-            case "tag006book13": tag006book13 = controlValue; break;
-            case "tag006book14": tag006book14 = controlValue; break;
-            case "tag006book16": tag006book16 = controlValue; break;
-            case "tag006book17": tag006book17 = controlValue; break;
+            case "006book01": tag006book01 = controlValue; break;
+            case "006book05": tag006book05 = controlValue; break;
+            case "006book06": tag006book06 = controlValue; break;
+            case "006book07": tag006book07 = controlValue; break;
+            case "006book11": tag006book11 = controlValue; break;
+            case "006book12": tag006book12 = controlValue; break;
+            case "006book13": tag006book13 = controlValue; break;
+            case "006book14": tag006book14 = controlValue; break;
+            case "006book16": tag006book16 = controlValue; break;
+            case "006book17": tag006book17 = controlValue; break;
             default:
               logger.severe(String.format("Unhandled 006 subfield (for %s): %s", actual.getValue(), subfield.getId()));
               break;
@@ -153,10 +153,10 @@ public class Control006 extends MarcPositionalControlField implements Serializab
           break;
         case COMPUTER_FILES:
           switch (subfield.getId()) {
-            case "tag006computer05": tag006computer05 = controlValue; break;
-            case "tag006computer06": tag006computer06 = controlValue; break;
-            case "tag006computer09": tag006computer09 = controlValue; break;
-            case "tag006computer11": tag006computer11 = controlValue; break;
+            case "006computer05": tag006computer05 = controlValue; break;
+            case "006computer06": tag006computer06 = controlValue; break;
+            case "006computer09": tag006computer09 = controlValue; break;
+            case "006computer11": tag006computer11 = controlValue; break;
             default:
               logger.severe(String.format("Unhandled 006 subfield (for %s): %s", actual.getValue(), subfield.getId()));
               break;
@@ -164,13 +164,13 @@ public class Control006 extends MarcPositionalControlField implements Serializab
           break;
         case MAPS:
           switch (subfield.getId()) {
-            case "tag006map01": tag006map01 = controlValue; break;
-            case "tag006map05": tag006map05 = controlValue; break;
-            case "tag006map08": tag006map08 = controlValue; break;
-            case "tag006map11": tag006map11 = controlValue; break;
-            case "tag006map12": tag006map12 = controlValue; break;
-            case "tag006map14": tag006map14 = controlValue; break;
-            case "tag006map16": tag006map16 = controlValue; break;
+            case "006map01": tag006map01 = controlValue; break;
+            case "006map05": tag006map05 = controlValue; break;
+            case "006map08": tag006map08 = controlValue; break;
+            case "006map11": tag006map11 = controlValue; break;
+            case "006map12": tag006map12 = controlValue; break;
+            case "006map14": tag006map14 = controlValue; break;
+            case "006map16": tag006map16 = controlValue; break;
             default:
               logger.severe(String.format("Unhandled 006 subfield (for %s): %s", actual.getValue(), subfield.getId()));
               break;
@@ -178,14 +178,14 @@ public class Control006 extends MarcPositionalControlField implements Serializab
           break;
         case MUSIC:
           switch (subfield.getId()) {
-            case "tag006music01": tag006music01 = controlValue; break;
-            case "tag006music03": tag006music03 = controlValue; break;
-            case "tag006music04": tag006music04 = controlValue; break;
-            case "tag006music05": tag006music05 = controlValue; break;
-            case "tag006music06": tag006music06 = controlValue; break;
-            case "tag006music07": tag006music07 = controlValue; break;
-            case "tag006music13": tag006music13 = controlValue; break;
-            case "tag006music16": tag006music16 = controlValue; break;
+            case "006music01": tag006music01 = controlValue; break;
+            case "006music03": tag006music03 = controlValue; break;
+            case "006music04": tag006music04 = controlValue; break;
+            case "006music05": tag006music05 = controlValue; break;
+            case "006music06": tag006music06 = controlValue; break;
+            case "006music07": tag006music07 = controlValue; break;
+            case "006music13": tag006music13 = controlValue; break;
+            case "006music16": tag006music16 = controlValue; break;
             default:
               logger.severe(String.format("Unhandled 006 subfield (for %s): %s", actual.getValue(), subfield.getId()));
               break;
@@ -193,17 +193,17 @@ public class Control006 extends MarcPositionalControlField implements Serializab
           break;
         case CONTINUING_RESOURCES:
           switch (subfield.getId()) {
-            case "tag006continuing01": tag006continuing01 = controlValue; break;
-            case "tag006continuing02": tag006continuing02 = controlValue; break;
-            case "tag006continuing04": tag006continuing04 = controlValue; break;
-            case "tag006continuing05": tag006continuing05 = controlValue; break;
-            case "tag006continuing06": tag006continuing06 = controlValue; break;
-            case "tag006continuing07": tag006continuing07 = controlValue; break;
-            case "tag006continuing08": tag006continuing08 = controlValue; break;
-            case "tag006continuing11": tag006continuing11 = controlValue; break;
-            case "tag006continuing12": tag006continuing12 = controlValue; break;
-            case "tag006continuing16": tag006continuing16 = controlValue; break;
-            case "tag006continuing17": tag006continuing17 = controlValue; break;
+            case "006continuing01": tag006continuing01 = controlValue; break;
+            case "006continuing02": tag006continuing02 = controlValue; break;
+            case "006continuing04": tag006continuing04 = controlValue; break;
+            case "006continuing05": tag006continuing05 = controlValue; break;
+            case "006continuing06": tag006continuing06 = controlValue; break;
+            case "006continuing07": tag006continuing07 = controlValue; break;
+            case "006continuing08": tag006continuing08 = controlValue; break;
+            case "006continuing11": tag006continuing11 = controlValue; break;
+            case "006continuing12": tag006continuing12 = controlValue; break;
+            case "006continuing16": tag006continuing16 = controlValue; break;
+            case "006continuing17": tag006continuing17 = controlValue; break;
             default:
               logger.severe(String.format("Unhandled 006 subfield (for %s): %s", actual.getValue(), subfield.getId()));
               break;
@@ -211,12 +211,12 @@ public class Control006 extends MarcPositionalControlField implements Serializab
           break;
         case VISUAL_MATERIALS:
           switch (subfield.getId()) {
-            case "tag006visual01": tag006visual01 = controlValue; break;
-            case "tag006visual05": tag006visual05 = controlValue; break;
-            case "tag006visual11": tag006visual11 = controlValue; break;
-            case "tag006visual12": tag006visual12 = controlValue; break;
-            case "tag006visual16": tag006visual16 = controlValue; break;
-            case "tag006visual17": tag006visual17 = controlValue; break;
+            case "006visual01": tag006visual01 = controlValue; break;
+            case "006visual05": tag006visual05 = controlValue; break;
+            case "006visual11": tag006visual11 = controlValue; break;
+            case "006visual12": tag006visual12 = controlValue; break;
+            case "006visual16": tag006visual16 = controlValue; break;
+            case "006visual17": tag006visual17 = controlValue; break;
             default:
               logger.severe(String.format("Unhandled 006 subfield (for %s): %s", actual.getValue(), subfield.getId()));
               break;
@@ -224,7 +224,7 @@ public class Control006 extends MarcPositionalControlField implements Serializab
           break;
         case MIXED_MATERIALS:
           switch (subfield.getId()) {
-            case "tag006mixed06": tag006mixed06 = controlValue; break;
+            case "006mixed06": tag006mixed06 = controlValue; break;
             default:
               logger.severe(String.format("Unhandled 006 subfield (for %s): %s", actual.getValue(), subfield.getId()));
               break;

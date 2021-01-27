@@ -11,12 +11,13 @@ public class LeaderPositions extends ControlfieldPositionList {
   private static List<ControlfieldPositionDefinition> positionList = new ArrayList<>();
 
   private static final Map<String, ControlfieldPositionDefinition> positionLabelMap = new HashMap<>();
-  private static final Map<String, ControlfieldPositionDefinition> positionIdMap = new HashMap<>();
+  // private static final Map<String, ControlfieldPositionDefinition> positionIdMap = new HashMap<>();
 
   private static LeaderPositions uniqueInstance;
 
   private LeaderPositions() {
     initialize();
+    index();
   }
 
   public static LeaderPositions getInstance() {
@@ -57,7 +58,7 @@ public class LeaderPositions extends ControlfieldPositionList {
   private static void addAllPositions(List<ControlfieldPositionDefinition> _positions) {
     for (ControlfieldPositionDefinition position : _positions) {
       positionLabelMap.put(position.getLabel(), position);
-      positionIdMap.put(position.getId(), position);
+      // positionIdMap.put(position.getId(), position);
     }
   }
 
@@ -69,7 +70,7 @@ public class LeaderPositions extends ControlfieldPositionList {
     return positionLabelMap.get(key);
   }
 
-  public static ControlfieldPositionDefinition getById(String key) {
-    return positionIdMap.get(key);
-  }
+  // public static ControlfieldPositionDefinition getById(String key) {
+    //return positionIdMap.get(key);
+  //}
 }

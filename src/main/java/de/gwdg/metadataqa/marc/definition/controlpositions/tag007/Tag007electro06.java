@@ -26,7 +26,7 @@ public class Tag007electro06 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Image bit depth";
-    id = "tag007electro06";
+    id = "007electro06";
     mqTag = "imageBitDepth";
     positionStart = 6;
     positionEnd = 9;

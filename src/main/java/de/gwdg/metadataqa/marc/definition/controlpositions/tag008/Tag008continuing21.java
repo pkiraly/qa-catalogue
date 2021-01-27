@@ -23,7 +23,7 @@ public class Tag008continuing21 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Type of continuing resource";
-    id = "tag008continuing21";
+    id = "008continuing21";
     mqTag = "typeOfContinuingResource";
     positionStart = 21;
     positionEnd = 22;

@@ -23,7 +23,7 @@ public class Tag006music04 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Music parts";
-    id = "tag006music04";
+    id = "006music04";
     mqTag = "musicParts";
     positionStart = 4;
     positionEnd = 5;

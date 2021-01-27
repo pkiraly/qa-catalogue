@@ -544,11 +544,11 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     List<String> results = new ArrayList<>();
     if (path.equals("001") || path.equals("003") || path.equals("005")) {
       searchControlField(path, query, results);
-    } else if (path.startsWith("tag006")) {
+    } else if (path.startsWith("006")) {
       searchPositionalControlField(control006, path, query, results);
-    } else if (path.startsWith("tag007")) {
+    } else if (path.startsWith("007")) {
       searchPositionalControlField(control007, path, query, results);
-    } else if (path.startsWith("tag008")) {
+    } else if (path.startsWith("008")) {
       searchPositionalControlField(control008, path, query, results);
     } else {
       Matcher matcher = dataFieldPattern.matcher(path);

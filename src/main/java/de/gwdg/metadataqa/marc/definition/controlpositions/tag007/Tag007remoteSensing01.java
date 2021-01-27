@@ -23,7 +23,7 @@ public class Tag007remoteSensing01 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Specific material designation";
-    id = "tag007remoteSensing01";
+    id = "007remoteSensing01";
     mqTag = "specificMaterialDesignation";
     positionStart = 1;
     positionEnd = 2;

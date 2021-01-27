@@ -26,7 +26,7 @@ public class Tag007electro11 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Antecedent/source";
-    id = "tag007electro11";
+    id = "007electro11";
     mqTag = "antecedentOrSource";
     positionStart = 11;
     positionEnd = 12;

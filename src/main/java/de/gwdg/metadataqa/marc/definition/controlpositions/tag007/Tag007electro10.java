@@ -26,7 +26,7 @@ public class Tag007electro10 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Quality assurance targets";
-    id = "tag007electro10";
+    id = "007electro10";
     mqTag = "qualityAssuranceTargets";
     positionStart = 10;
     positionEnd = 11;

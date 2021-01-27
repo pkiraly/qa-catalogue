@@ -26,7 +26,7 @@ public class Tag007motionPicture13 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Refined categories of color";
-    id = "tag007motionPicture13";
+    id = "007motionPicture13";
     mqTag = "refinedCategoriesOfColor";
     positionStart = 13;
     positionEnd = 14;

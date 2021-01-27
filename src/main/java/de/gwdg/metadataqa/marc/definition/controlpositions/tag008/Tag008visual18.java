@@ -23,7 +23,7 @@ public class Tag008visual18 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Running time for motion pictures and videorecordings";
-    id = "tag008visual18";
+    id = "008visual18";
     mqTag = "runningTime";
     positionStart = 18;
     positionEnd = 21;

@@ -26,7 +26,7 @@ public class Tag007map07 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Positive/negative aspect";
-    id = "tag007map07";
+    id = "007map07";
     mqTag = "positiveNegativeAspect";
     positionStart = 7;
     positionEnd = 8;

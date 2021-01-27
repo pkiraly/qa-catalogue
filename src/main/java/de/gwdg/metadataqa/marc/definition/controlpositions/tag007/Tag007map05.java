@@ -26,7 +26,7 @@ public class Tag007map05 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Type of reproduction";
-    id = "tag007map05";
+    id = "007map05";
     mqTag = "typeOfReproduction";
     positionStart = 5;
     positionEnd = 6;

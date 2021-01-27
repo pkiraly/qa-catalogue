@@ -23,7 +23,7 @@ public class Tag008continuing24 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Nature of entire work";
-    id = "tag008continuing24";
+    id = "008continuing24";
     mqTag = "natureOfEntireWork";
     positionStart = 24;
     positionEnd = 25;

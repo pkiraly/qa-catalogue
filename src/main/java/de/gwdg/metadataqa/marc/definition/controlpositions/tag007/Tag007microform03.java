@@ -26,7 +26,7 @@ public class Tag007microform03 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Positive/negative aspect";
-    id = "tag007microform03";
+    id = "007microform03";
     mqTag = "positiveNegativeAspect";
     positionStart = 3;
     positionEnd = 4;

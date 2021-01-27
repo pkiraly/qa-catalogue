@@ -12,6 +12,7 @@ public class Control006Positions extends ControlfieldPositionList {
 
   private Control006Positions() {
     initialize();
+    index();
   }
 
   public static Control006Positions getInstance() {

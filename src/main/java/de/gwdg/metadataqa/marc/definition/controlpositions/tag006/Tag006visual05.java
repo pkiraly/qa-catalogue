@@ -26,7 +26,7 @@ public class Tag006visual05 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Target audience";
-    id = "tag006visual05";
+    id = "006visual05";
     mqTag = "targetAudience";
     positionStart = 5;
     positionEnd = 6;

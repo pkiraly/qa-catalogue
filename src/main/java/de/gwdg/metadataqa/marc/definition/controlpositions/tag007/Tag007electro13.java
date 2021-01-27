@@ -26,7 +26,7 @@ public class Tag007electro13 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Reformatting quality";
-    id = "tag007electro13";
+    id = "007electro13";
     mqTag = "reformattingQuality";
     positionStart = 13;
     positionEnd = 14;

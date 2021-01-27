@@ -25,15 +25,15 @@ public class Control008PositionsTest extends Control00XPositionsTest {
         String.format("%s: %s  should contain 008", subfield.getId(), subfield.getDescriptionUrl()),
         subfield.getDescriptionUrl().contains("008")
       );
-      assertEquals("tag008", subfield.getId().substring(0, 6));
+      assertEquals("008", subfield.getId().substring(0, 3));
       assertEquals(subfield.getId(), "008", subfield.getControlField());
     }
   }
 
   protected boolean isException(ControlfieldPositionDefinition subfield, Code code) {
     return (
-         (subfield.getId().equals("tag008map33") && code.getCode().equals("||"))
-      || (subfield.getId().equals("tag008visual18") && code.getCode().equals("001-999"))
+         (subfield.getId().equals("008map33") && code.getCode().equals("||"))
+      || (subfield.getId().equals("008visual18") && code.getCode().equals("001-999"))
     );
   }
 }

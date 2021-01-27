@@ -26,15 +26,15 @@ public class Control006PositionsTest extends Control00XPositionsTest {
         String.format("%s: %s  should contain 006", subfield.getId(), subfield.getDescriptionUrl()),
         subfield.getDescriptionUrl().contains("006")
       );
-      assertEquals("tag006", subfield.getId().substring(0, 6));
+      assertEquals("006", subfield.getId().substring(0, 3));
       assertEquals(subfield.getId(), "006", subfield.getControlField());
     }
   }
 
   protected boolean isException(ControlfieldPositionDefinition subfield, Code code) {
     return (
-         (subfield.getId().equals("tag006map16") && code.getCode().equals("||"))
-      || (subfield.getId().equals("tag006visual01") && code.getCode().equals("001-999"))
+         (subfield.getId().equals("006map16") && code.getCode().equals("||"))
+      || (subfield.getId().equals("006visual01") && code.getCode().equals("001-999"))
     );
   }
 

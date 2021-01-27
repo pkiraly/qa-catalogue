@@ -197,10 +197,10 @@ public class Control008Test {
     assertEquals(18, field.getMap().size());
     assertEquals(
       Arrays.asList(
-        "tag008all00", "tag008all06", "tag008all07", "tag008all11", "tag008all15",
-        "tag008all35", "tag008all38", "tag008all39", "tag008book18", "tag008book22",
-        "tag008book23", "tag008book24", "tag008book28", "tag008book29", "tag008book30",
-        "tag008book31", "tag008book33", "tag008book34"
+        "008all00",  "008all06",  "008all07",  "008all11",  "008all15",
+        "008all35",  "008all38",  "008all39",  "008book18", "008book22",
+        "008book23", "008book24", "008book28", "008book29", "008book30",
+        "008book31", "008book33", "008book34"
       ),
       field.getMap().keySet().stream()
         .map(x -> x.getId())
@@ -243,7 +243,7 @@ public class Control008Test {
     );
     ControlValue value = field.getControlValueByPosition(0);
     assertEquals("981123", value.getValue());
-    assertEquals("tag008all00", value.getId());
+    assertEquals("008all00", value.getId());
     assertEquals("Date entered on file", value.getLabel());
     assertNull(value.getValidationErrors());
   }

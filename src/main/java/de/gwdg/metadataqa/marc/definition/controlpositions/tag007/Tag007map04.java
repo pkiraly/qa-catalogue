@@ -26,7 +26,7 @@ public class Tag007map04 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Physical medium";
-    id = "tag007map04";
+    id = "007map04";
     mqTag = "physicalMedium";
     positionStart = 4;
     positionEnd = 5;

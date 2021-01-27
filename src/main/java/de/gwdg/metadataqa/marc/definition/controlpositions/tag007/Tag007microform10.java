@@ -26,7 +26,7 @@ public class Tag007microform10 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Emulsion on film";
-    id = "tag007microform10";
+    id = "007microform10";
     mqTag = "emulsionOnFilm";
     positionStart = 10;
     positionEnd = 11;

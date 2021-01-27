@@ -21,7 +21,7 @@ public class ControlValueTest {
     List<ControlfieldPositionDefinition> subfields = Control008Positions.getInstance().get(Control008Type.BOOKS);
     ControlfieldPositionDefinition subfield = null;
     for (ControlfieldPositionDefinition _subfield : subfields) {
-      if (_subfield.getId().equals("tag008book18")) {
+      if (_subfield.getId().equals("008book18")) {
         subfield = _subfield;
         break;
       }
@@ -94,7 +94,7 @@ public class ControlValueTest {
   public void testId() {
     Control006 field = new Control006("e|||||||a|||||||||", Leader.Type.MAPS);
     ControlValue value = field.getTag006all00();
-    assertEquals("tag006all00", value.getId());
+    assertEquals("006all00", value.getId());
   }
 
   private void testLeader00(ControlfieldPositionDefinition subfield) {

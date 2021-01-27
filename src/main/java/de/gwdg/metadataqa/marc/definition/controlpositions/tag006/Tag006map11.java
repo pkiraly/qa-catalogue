@@ -26,7 +26,7 @@ public class Tag006map11 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Government publication";
-    id = "tag006map11";
+    id = "006map11";
     mqTag = "governmentPublication";
     positionStart = 11;
     positionEnd = 12;

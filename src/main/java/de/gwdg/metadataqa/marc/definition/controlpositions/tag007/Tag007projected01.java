@@ -26,7 +26,7 @@ public class Tag007projected01 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Specific material designation";
-    id = "tag007projected01";
+    id = "007projected01";
     mqTag = "specificMaterialDesignation";
     positionStart = 1;
     positionEnd = 2;

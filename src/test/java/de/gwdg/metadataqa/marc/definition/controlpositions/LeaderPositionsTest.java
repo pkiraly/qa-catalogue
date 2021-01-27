@@ -31,8 +31,8 @@ public class LeaderPositionsTest extends Control00XPositionsTest {
 
   protected boolean isException(ControlfieldPositionDefinition subfield, Code code) {
     return (
-         (subfield.getId().equals("tag006map16") && code.getCode().equals("||"))
-      || (subfield.getId().equals("tag006visual01") && code.getCode().equals("001-999"))
+         (subfield.getId().equals("006map16") && code.getCode().equals("||"))
+      || (subfield.getId().equals("006visual01") && code.getCode().equals("001-999"))
     );
   }
 

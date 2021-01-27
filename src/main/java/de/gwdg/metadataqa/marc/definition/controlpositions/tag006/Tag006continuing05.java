@@ -26,7 +26,7 @@ public class Tag006continuing05 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Form of original item";
-    id = "tag006continuing05";
+    id = "006continuing05";
     mqTag = "formOfOriginalItem";
     positionStart = 5;
     positionEnd = 6;

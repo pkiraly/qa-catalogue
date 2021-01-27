@@ -23,7 +23,7 @@ public class Tag008computer26 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Type of computer file";
-    id = "tag008computer26";
+    id = "008computer26";
     mqTag = "typeOfComputerFile";
     positionStart = 26;
     positionEnd = 27;

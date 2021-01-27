@@ -26,7 +26,7 @@ public class Tag007soundRecording09 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Kind of disc, cylinder, or tape";
-    id = "tag007soundRecording09";
+    id = "007soundRecording09";
     mqTag = "kindOfDiscCylinderOrTape";
     positionStart = 9;
     positionEnd = 10;

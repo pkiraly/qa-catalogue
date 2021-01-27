@@ -26,7 +26,7 @@ public class Tag007projected07 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Dimensions";
-    id = "tag007projected07";
+    id = "007projected07";
     mqTag = "dimensions";
     positionStart = 7;
     positionEnd = 8;

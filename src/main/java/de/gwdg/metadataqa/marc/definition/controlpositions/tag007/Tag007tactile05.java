@@ -26,7 +26,7 @@ public class Tag007tactile05 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Level of contraction";
-    id = "tag007tactile05";
+    id = "007tactile05";
     mqTag = "levelOfContraction";
     positionStart = 5;
     positionEnd = 6;

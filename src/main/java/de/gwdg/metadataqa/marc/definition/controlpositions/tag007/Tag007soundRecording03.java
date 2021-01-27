@@ -26,7 +26,7 @@ public class Tag007soundRecording03 extends ControlfieldPositionDefinition {
 
   private void initialize() {
     label = "Speed";
-    id = "tag007soundRecording03";
+    id = "007soundRecording03";
     mqTag = "speed";
     positionStart = 3;
     positionEnd = 4;

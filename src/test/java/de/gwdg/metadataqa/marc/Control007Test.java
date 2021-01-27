@@ -25,25 +25,6 @@ import static org.junit.Assert.assertFalse;
  */
 public class Control007Test {
 
-  public Control007Test() {
-  }
-
-  @BeforeClass
-  public static void setUpClass() {
-  }
-
-  @AfterClass
-  public static void tearDownClass() {
-  }
-
-  @Before
-  public void setUp() {
-  }
-
-  @After
-  public void tearDown() {
-  }
-
   @Test
   public void testMap() {
     Control007 field = new Control007("ad|aacz ");
@@ -96,7 +77,7 @@ public class Control007Test {
 
     assertFalse(field.validate(MarcVersion.MARC21));
     assertEquals(2, field.getValidationErrors().size());
-    assertEquals("007/05 (tag007map05)",
+    assertEquals("007/05 (007map05)",
       field.getValidationErrors().get(0).getMarcPath());
     assertEquals("c",
       field.getValidationErrors().get(0).getMessage());
@@ -107,7 +88,7 @@ public class Control007Test {
     assertEquals("https://www.loc.gov/marc/bibliographic/bd007a.html",
       field.getValidationErrors().get(0).getUrl());
 
-    assertEquals("007/07 (tag007map07)",
+    assertEquals("007/07 (007map07)",
       field.getValidationErrors().get(1).getMarcPath());
     assertEquals(" ",
       field.getValidationErrors().get(1).getMessage());
@@ -816,7 +797,7 @@ public class Control007Test {
     assertFalse(field.validate(MarcVersion.MARC21));
     assertEquals(3, field.getValidationErrors().size());
 
-    assertEquals("007/09 (tag007soundRecording09)",
+    assertEquals("007/09 (007soundRecording09)",
       field.getValidationErrors().get(0).getMarcPath());
     assertEquals(" ",
       field.getValidationErrors().get(0).getMessage());
@@ -827,7 +808,7 @@ public class Control007Test {
     assertEquals("https://www.loc.gov/marc/bibliographic/bd007s.html",
       field.getValidationErrors().get(0).getUrl());
 
-    assertEquals("007/10 (tag007soundRecording10)",
+    assertEquals("007/10 (007soundRecording10)",
       field.getValidationErrors().get(1).getMarcPath());
     assertEquals(" ",
       field.getValidationErrors().get(1).getMessage());
@@ -838,7 +819,7 @@ public class Control007Test {
     assertEquals("https://www.loc.gov/marc/bibliographic/bd007s.html",
       field.getValidationErrors().get(1).getUrl());
 
-    assertEquals("007/11 (tag007soundRecording11)",
+    assertEquals("007/11 (007soundRecording11)",
       field.getValidationErrors().get(2).getMarcPath());
     assertEquals(" ",
       field.getValidationErrors().get(2).getMessage());

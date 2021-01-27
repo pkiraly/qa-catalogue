@@ -95,4 +95,30 @@ public class TagHierarchyTest {
     assertEquals("00-05", tagHierarchy.getSubfieldLabel());
   }
 
+  @Test
+  public void testTagHierarchySimpleControlField_id_006() {
+    TagHierarchy tagHierarchy = TagHierarchy.createFromPath("006book16");
+    assertNotNull(tagHierarchy);
+    assertEquals("Control Fields", tagHierarchy.getPackageLabel());
+    assertEquals("Additional Material Characteristics", tagHierarchy.getTagLabel());
+    assertEquals("Literary form", tagHierarchy.getSubfieldLabel());
+  }
+
+  @Test
+  public void testTagHierarchySimpleControlField_id_007() {
+    TagHierarchy tagHierarchy = TagHierarchy.createFromPath("007electro01");
+    assertNotNull(tagHierarchy);
+    assertEquals("Control Fields", tagHierarchy.getPackageLabel());
+    assertEquals("Physical Description", tagHierarchy.getTagLabel());
+    assertEquals("Specific material designation", tagHierarchy.getSubfieldLabel());
+  }
+
+  @Test
+  public void testTagHierarchySimpleControlField_id_008() {
+    TagHierarchy tagHierarchy = TagHierarchy.createFromPath("008all07");
+    assertNotNull(tagHierarchy);
+    assertEquals("Control Fields", tagHierarchy.getPackageLabel());
+    assertEquals("General Information", tagHierarchy.getTagLabel());
+    assertEquals("Date 1", tagHierarchy.getSubfieldLabel());
+  }
 }

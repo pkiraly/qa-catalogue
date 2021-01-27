@@ -126,7 +126,8 @@ public class Completeness implements MarcFileProcessor, Serializable {
       // count(marcPath, elementCardinality.get("all"));
       if (field != null) {
         for (ControlValue position : field.getValuesList()) {
-          String marcPath = position.getDefinition().getPath(false);
+          //  String marcPath = position.getDefinition().getPath(false);
+          String marcPath = position.getDefinition().getId();
           count(marcPath, elementCardinality.get(documentType));
           count(marcPath, elementCardinality.get("all"));
           count(TagCategory.tags00x.getPackageName(), recordPackageCounter);

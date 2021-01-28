@@ -114,6 +114,15 @@ public class TagHierarchyTest {
   }
 
   @Test
+  public void testTagHierarchySimpleControlField_id_007_withUppercase() {
+    TagHierarchy tagHierarchy = TagHierarchy.createFromPath("007motionPicture06");
+    assertNotNull(tagHierarchy);
+    assertEquals("Control Fields", tagHierarchy.getPackageLabel());
+    assertEquals("Physical Description", tagHierarchy.getTagLabel());
+    assertEquals("Medium for sound", tagHierarchy.getSubfieldLabel());
+  }
+
+  @Test
   public void testTagHierarchySimpleControlField_id_008() {
     TagHierarchy tagHierarchy = TagHierarchy.createFromPath("008all07");
     assertNotNull(tagHierarchy);

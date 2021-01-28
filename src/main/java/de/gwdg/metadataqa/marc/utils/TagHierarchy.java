@@ -23,7 +23,7 @@ public class TagHierarchy {
 
   private static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
   private static Pattern controlFieldPattern = Pattern.compile("^(00\\d)(/(\\d+|\\d+-\\d+))?$");
-  private static Pattern controlFieldIdPattern = Pattern.compile("^(00[6-8])([a-z]+)(\\d+)$");
+  private static Pattern controlFieldIdPattern = Pattern.compile("^(00[6-8])([a-z][a-zA-Z]+)(\\d+)$");
 
   private TagCategory category;
   private String tagLabel;

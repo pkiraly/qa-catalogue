@@ -104,6 +104,9 @@ public class Completeness implements MarcFileProcessor, Serializable {
     if (!elementCardinality.containsKey(documentType))
       elementCardinality.put(documentType, new TreeMap<>());
 
+    if (!elementFrequency.containsKey(documentType))
+      elementFrequency.put(documentType, new TreeMap<>());
+
     if (marcRecord.getControl003() != null)
       count(marcRecord.getControl003().getContent(), library003Counter);
 
@@ -116,20 +119,18 @@ public class Completeness implements MarcFileProcessor, Serializable {
         String marcPath = field.getDefinition().getTag();
         count(marcPath, elementCardinality.get(documentType));
         count(marcPath, elementCardinality.get("all"));
+        count(marcPath, recordFrequency);
         count(TagCategory.tags00x.getPackageName(), recordPackageCounter);
       }
     }
 
     for (MarcPositionalControlField field : marcRecord.getPositionalControlfields()) {
-      // String marcPath = field.getDefinition().getTag();
-      // count(marcPath, elementCardinality.get(documentType));
-      // count(marcPath, elementCardinality.get("all"));
       if (field != null) {
         for (ControlValue position : field.getValuesList()) {
-          //  String marcPath = position.getDefinition().getPath(false);
           String marcPath = position.getDefinition().getId();
           count(marcPath, elementCardinality.get(documentType));
           count(marcPath, elementCardinality.get("all"));
+          count(marcPath, recordFrequency);
           count(TagCategory.tags00x.getPackageName(), recordPackageCounter);
         }
       }
@@ -139,17 +140,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
       if (parameters.getIgnorableFields().contains(field.getTag()))
         continue;
 
-      String packageName;
-      if (field.getDefinition() != null) {
-        packageName = Utils.extractPackageName(field);
-        if (StringUtils.isBlank(packageName)) {
-          logger.warning(String.format("%s has no package. /%s", field, field.getDefinition().getClass()));
-          packageName = TagCategory.other.getPackageName();
-        }
-      } else {
-        packageName = TagCategory.other.getPackageName();
-      }
-      count(packageName, recordPackageCounter);
+      count(getPackageName(field), recordPackageCounter);
 
       for (MarcSubfield subfield : field.getSubfields()) {
         String marcPath = String.format("%s$%s", field.getTag(), subfield.getCode());
@@ -160,14 +151,11 @@ public class Completeness implements MarcFileProcessor, Serializable {
     }
 
     for (String key : recordFrequency.keySet()) {
-      if (!elementFrequency.containsKey(documentType))
-        elementFrequency.put(documentType, new TreeMap<>());
       count(key, elementFrequency.get(documentType));
       count(key, elementFrequency.get("all"));
 
-      if (!fieldHistogram.containsKey(key)) {
+      if (!fieldHistogram.containsKey(key))
         fieldHistogram.put(key, new TreeMap<>());
-      }
 
       count(recordFrequency.get(key), fieldHistogram.get(key));
     }
@@ -178,6 +166,20 @@ public class Completeness implements MarcFileProcessor, Serializable {
       count(key, packageCounter.get(documentType));
       count(key, packageCounter.get("all"));
     }
+  }
+
+  private String getPackageName(DataField field) {
+    String packageName;
+    if (field.getDefinition() != null) {
+      packageName = Utils.extractPackageName(field);
+      if (StringUtils.isBlank(packageName)) {
+        logger.warning(String.format("%s has no package. /%s", field, field.getDefinition().getClass()));
+        packageName = TagCategory.other.getPackageName();
+      }
+    } else {
+      packageName = TagCategory.other.getPackageName();
+    }
+    return packageName;
   }
 
   private List<String> extract(MarcRecord marcRecord, String tag, String subfield) {
@@ -268,16 +270,11 @@ public class Completeness implements MarcFileProcessor, Serializable {
     System.err.println("MARC elements");
     path = Paths.get(parameters.getOutputDir(), "marc-elements" + fileExtension);
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-      writer.write(
-        StringUtils.join(
-          Arrays.asList(
-            "documenttype", "path", "packageid", "package", "tag", "subfield",
-            "number-of-record", "number-of-instances",
-            "min", "max", "mean", "stddev", "histogram"
-          ),
-          separator
-        ) + "\n"
-      );
+      writer.write(createRow(
+        "documenttype", "path", "packageid", "package", "tag", "subfield",
+        "number-of-record", "number-of-instances",
+        "min", "max", "mean", "stddev", "histogram"
+      ));
       elementCardinality
         .keySet()
         .stream()

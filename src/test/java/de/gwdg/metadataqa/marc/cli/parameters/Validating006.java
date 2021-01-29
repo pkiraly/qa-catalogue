@@ -20,17 +20,17 @@ public class Validating006 {
     boolean isValid = record.validate(MarcVersion.MARC21);
     assertFalse(isValid);
     assertEquals(6, record.getValidationErrors().size());
-    assertEquals("006/01-04 (tag006book01)", record.getValidationErrors().get(0).getMarcPath());
+    assertEquals("006/01-04 (006book01)", record.getValidationErrors().get(0).getMarcPath());
     assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_CODE, record.getValidationErrors().get(0).getType());
-    assertEquals("006/01-04 (tag006book01)", record.getValidationErrors().get(1).getMarcPath());
+    assertEquals("006/01-04 (006book01)", record.getValidationErrors().get(1).getMarcPath());
     assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_CODE, record.getValidationErrors().get(1).getType());
-    assertEquals("006/12 (tag006book12)", record.getValidationErrors().get(2).getMarcPath());
+    assertEquals("006/12 (006book12)", record.getValidationErrors().get(2).getMarcPath());
     assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE, record.getValidationErrors().get(2).getType());
-    assertEquals("006/13 (tag006book13)", record.getValidationErrors().get(3).getMarcPath());
+    assertEquals("006/13 (006book13)", record.getValidationErrors().get(3).getMarcPath());
     assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE, record.getValidationErrors().get(3).getType());
-    assertEquals("006/14 (tag006book14)", record.getValidationErrors().get(4).getMarcPath());
+    assertEquals("006/14 (006book14)", record.getValidationErrors().get(4).getMarcPath());
     assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE, record.getValidationErrors().get(4).getType());
-    assertEquals("006/16 (tag006book16)", record.getValidationErrors().get(5).getMarcPath());
+    assertEquals("006/16 (006book16)", record.getValidationErrors().get(5).getMarcPath());
     assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE, record.getValidationErrors().get(5).getType());
 
     /*

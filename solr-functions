@@ -36,11 +36,11 @@ prepare_schema() {
 
   echo "prepare_schema ${LOCAL_CORE}"
 
-  HAS_PROPER_SNI=$(curl -is $SCHEMA_URL/dynamicfields/*_sni | grep -c '"type":"string_big"')
+  HAS_PROPER_SNI=$(curl -is "$SCHEMA_URL/dynamicfields/*_sni" | grep -c '"type":"string_big"')
   echo "Does ${LOCAL_CORE} have proper *_sni field definition? Answer: ${HAS_PROPER_SNI}"
   if [[ $HAS_PROPER_SNI -eq 0 ]]; then
 
-    HAS_FIELD=$(curl -is $SCHEMA_URL/dynamicfields/*_sni | head -1 | grep -c "200 OK")
+    HAS_FIELD=$(curl -is "$SCHEMA_URL/dynamicfields/*_sni" | head -1 | grep -c "200 OK")
     echo "Does ${LOCAL_CORE} have  *_sni field definition? Answer: ${HAS_FIELD}"
     if [[ $HAS_FIELD -eq 1 ]]; then
       echo "Delete *_sni field definition from ${LOCAL_CORE}."
@@ -49,7 +49,7 @@ prepare_schema() {
       }' $SCHEMA_URL
     fi
 
-    HAS_TYPE=$(curl -is $SCHEMA_URL/fieldtypes/string_big | head -1 | grep -c "200 OK")
+    HAS_TYPE=$(curl -is "$SCHEMA_URL/fieldtypes/string_big" | head -1 | grep -c "200 OK")
     if [[ $HAS_TYPE -eq 1 ]]; then
       echo "Delete string_big field type definition from ${LOCAL_CORE}."
       curl -X POST -H 'Content-type:application/json' --data-binary '{
@@ -87,7 +87,7 @@ prepare_schema() {
 
   fi
 
-  NUMBER_OF_COPY_FIELD=$(curl -is '$SCHEMA_URL/copyfields?source.fl=*_ss' | grep -c '"source":"\*_ss"')
+  NUMBER_OF_COPY_FIELD=$(curl -is "$SCHEMA_URL/copyfields?source.fl=*_ss" | grep -c '"source":"\*_ss"')
   echo "NUMBER_OF_COPY_FIELD: ${NUMBER_OF_COPY_FIELD}"
   if [[ $NUMBER_OF_COPY_FIELD -eq 0 ]]; then
     echo "add *_ss copyfield definition to ${LOCAL_CORE}"
@@ -99,9 +99,13 @@ prepare_schema() {
         "dest":"_text_"
     }}' $SCHEMA_URL
   elif [[ $NUMBER_OF_COPY_FIELD -gt 1 ]]; then
-    curl -s -X POST -H 'Content-type:application/json' --data-binary '{
-      "delete-copy-field":{ "source":"*_ss", "dest":"_text_" }
-    }' $SCHEMA_URL
+    while [[ $NUMBER_OF_COPY_FIELD -gt 1 ]]; do
+      echo "delete extra copy fields"
+      curl -s -X POST -H 'Content-type:application/json' --data-binary '{
+        "delete-copy-field":{ "source":"*_ss", "dest":"_text_" }
+      }' $SCHEMA_URL
+      NUMBER_OF_COPY_FIELD=$(curl -is "$SCHEMA_URL/copyfields?source.fl=*_ss" | grep -c '"source":"\*_ss"')
+    done
   fi
 }
 

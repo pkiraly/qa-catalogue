@@ -7,7 +7,6 @@ import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
 import org.apache.commons.lang3.StringUtils;
-import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 
 import java.io.*;
@@ -183,7 +182,6 @@ public class PicaReaderTest {
     return false;
   }
 
-  @NotNull
   private Map<String, List<PicaTagDefinition>> readSchema(JSONParser parser, String fileName) throws IOException, URISyntaxException, ParseException {
     Map<String, List<PicaTagDefinition>> map = new HashMap<>();
 

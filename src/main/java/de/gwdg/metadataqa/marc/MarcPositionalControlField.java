@@ -41,6 +41,7 @@ public abstract class MarcPositionalControlField extends MarcControlField {
 
   protected abstract void processContent();
 
+  @Override
   public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
     return getKeyValuePairs(definition.getTag(), definition.getMqTag(), type);
   }
@@ -49,8 +50,7 @@ public abstract class MarcPositionalControlField extends MarcControlField {
                                     String mqTag,
                                     SolrFieldType type) {
     Map<String, List<String>> map = new LinkedHashMap<>();
-    PositionalControlFieldKeyGenerator keyGenerator =
-      new PositionalControlFieldKeyGenerator(tag, mqTag, type);
+    PositionalControlFieldKeyGenerator keyGenerator = new PositionalControlFieldKeyGenerator(tag, mqTag, type);
     if (content != null) {
       map.put(keyGenerator.forTag(), Arrays.asList(content));
       for (Map.Entry<ControlfieldPositionDefinition, String> entry : valuesMap.entrySet()) {

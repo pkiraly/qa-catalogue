@@ -493,28 +493,27 @@ public class MarcFactoryTest {
         "003_ControlNumberIdentifier, " +
         "005_LatestTransactionTime, " +
         "007_PhysicalDescription, " +
-        "007_00_PhysicalDescription_categoryOfMaterial, " +
-        "007_01_PhysicalDescription_specificMaterialDesignation, " +
-        "008_GeneralInformation, " +
-        "008_00-05_GeneralInformation_dateEnteredOnFile, " +
-        "008_06_GeneralInformation_typeOfDateOrPublicationStatus, " +
-        "008_07-10_GeneralInformation_date1, " +
-        "008_11-14_GeneralInformation_date2, " +
-        "008_15-17_GeneralInformation_placeOfPublicationProductionOrExecution, " +
-        "008_35-37_GeneralInformation_language, " +
-        "008_38_GeneralInformation_modifiedRecord, " +
-        "008_39_GeneralInformation_catalogingSource, " +
-        "008_18_GeneralInformation_frequency, " +
-        "008_19_GeneralInformation_regularity, " +
-        "008_21_GeneralInformation_typeOfContinuingResource, " +
-        "008_22_GeneralInformation_formOfOriginalItem, " +
-        "008_23_GeneralInformation_formOfItem, " +
-        "008_24_GeneralInformation_natureOfEntireWork, " +
-        "008_25-27_GeneralInformation_natureOfContents, " +
-        "008_28_GeneralInformation_governmentPublication, " +
-        "008_29_GeneralInformation_conferencePublication, " +
-        "008_33_GeneralInformation_originalAlphabetOrScriptOfTitle, " +
-        "008_34_GeneralInformation_entryConvention, " +
+        "007text00_PhysicalDescription_categoryOfMaterial, " +
+        "007text01_PhysicalDescription_specificMaterialDesignation, " +
+        "008_GeneralInformation, 008all00_GeneralInformation_dateEnteredOnFile, " +
+        "008all06_GeneralInformation_typeOfDateOrPublicationStatus, " +
+        "008all07_GeneralInformation_date1, " +
+        "008all11_GeneralInformation_date2, " +
+        "008all15_GeneralInformation_placeOfPublicationProductionOrExecution, " +
+        "008all35_GeneralInformation_language, " +
+        "008all38_GeneralInformation_modifiedRecord, " +
+        "008all39_GeneralInformation_catalogingSource, " +
+        "008continuing18_GeneralInformation_frequency, " +
+        "008continuing19_GeneralInformation_regularity, " +
+        "008continuing21_GeneralInformation_typeOfContinuingResource, " +
+        "008continuing22_GeneralInformation_formOfOriginalItem, " +
+        "008continuing23_GeneralInformation_formOfItem, " +
+        "008continuing24_GeneralInformation_natureOfEntireWork, " +
+        "008continuing25_GeneralInformation_natureOfContents, " +
+        "008continuing28_GeneralInformation_governmentPublication, " +
+        "008continuing29_GeneralInformation_conferencePublication, " +
+        "008continuing33_GeneralInformation_originalAlphabetOrScriptOfTitle, " +
+        "008continuing34_GeneralInformation_entryConvention, " +
         "0162_IdIntifiedByLocal_source, " +
         "016ind1_IdIntifiedByLocal_agency, " +
         "016a_IdIntifiedByLocal, " +

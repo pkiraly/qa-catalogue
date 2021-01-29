@@ -14,7 +14,6 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
-import org.jetbrains.annotations.NotNull;
 import org.marc4j.marc.Record;
 
 import java.io.BufferedWriter;
@@ -354,7 +353,6 @@ public class Completeness implements MarcFileProcessor, Serializable {
     }
   }
 
-  @NotNull
   private String formatCardinality(char separator,
                                    String marcPath,
                                    int cardinality,

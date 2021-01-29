@@ -43,8 +43,10 @@ public class PositionalControlFieldKeyGenerator {
       case MIXED:
         if (isLeader)
           key = String.format("%s_%s_%s", tag, subfield.formatPositon(), code);
-        else
-          key = String.format("%s_%s_%s_%s", tag, subfield.formatPositon(), mqTag, code);
+        else {
+          // key = String.format("%s_%s_%s_%s", tag, subfield.formatPositon(), mqTag, code);
+          key = String.format("%s_%s_%s", subfield.getId(), mqTag, code);
+        }
         break;
       case MARC: default:
         key = String.format("%s_%s", forTag(), subfield.formatPositon());

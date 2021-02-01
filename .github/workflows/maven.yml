@@ -5,9 +5,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ main, issue-75-british-library ]
+    branches: [ main, develop, issue-75-british-library ]
   pull_request:
-    branches: [ main, issue-75-british-library ]
+    branches: [ main, develop, issue-75-british-library ]
 
 jobs:
   build:

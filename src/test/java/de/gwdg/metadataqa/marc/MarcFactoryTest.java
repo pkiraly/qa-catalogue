@@ -474,21 +474,21 @@ public class MarcFactoryTest {
     assertEquals(
       "type, " +
         "Leader, " +
-        "Leader_00-04_recordLength, " +
-        "Leader_05_recordStatus, " +
-        "Leader_06_typeOfRecord, " +
-        "Leader_07_bibliographicLevel, " +
-        "Leader_08_typeOfControl, " +
-        "Leader_09_characterCodingScheme, " +
-        "Leader_10_indicatorCount, " +
-        "Leader_11_subfieldCodeCount, " +
-        "Leader_12-16_baseAddressOfData, " +
-        "Leader_17_encodingLevel, " +
-        "Leader_18_descriptiveCatalogingForm, " +
-        "Leader_19_multipartResourceRecordLevel, " +
-        "Leader_20_lengthOfTheLengthOfFieldPortion, " +
-        "Leader_21_lengthOfTheStartingCharacterPositionPortion, " +
-        "Leader_22_lengthOfTheImplementationDefinedPortion, " +
+        "leader00_recordLength, " +
+        "leader05_recordStatus, " +
+        "leader06_typeOfRecord, " +
+        "leader07_bibliographicLevel, " +
+        "leader08_typeOfControl, " +
+        "leader09_characterCodingScheme, " +
+        "leader10_indicatorCount, " +
+        "leader11_subfieldCodeCount, " +
+        "leader12_baseAddressOfData, " +
+        "leader17_encodingLevel, " +
+        "leader18_descriptiveCatalogingForm, " +
+        "leader19_multipartResourceRecordLevel, " +
+        "leader20_lengthOfTheLengthOfFieldPortion, " +
+        "leader21_lengthOfTheStartingCharacterPositionPortion, " +
+        "leader22_lengthOfTheImplementationDefinedPortion, " +
         "001_ControlNumber, " +
         "003_ControlNumberIdentifier, " +
         "005_LatestTransactionTime, " +

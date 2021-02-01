@@ -130,4 +130,22 @@ public class TagHierarchyTest {
     assertEquals("General Information", tagHierarchy.getTagLabel());
     assertEquals("Date 1", tagHierarchy.getSubfieldLabel());
   }
+
+  @Test
+  public void testTagHierarchyLeader_00() {
+    TagHierarchy tagHierarchy = TagHierarchy.createFromPath("leader00");
+    assertNotNull(tagHierarchy);
+    assertEquals("Control Fields", tagHierarchy.getPackageLabel());
+    assertEquals("Leader", tagHierarchy.getTagLabel());
+    assertEquals("Record length", tagHierarchy.getSubfieldLabel());
+  }
+
+  @Test
+  public void testTagHierarchyLeader_18() {
+    TagHierarchy tagHierarchy = TagHierarchy.createFromPath("leader18");
+    assertNotNull(tagHierarchy);
+    assertEquals("Control Fields", tagHierarchy.getPackageLabel());
+    assertEquals("Leader", tagHierarchy.getTagLabel());
+    assertEquals("Descriptive cataloging form", tagHierarchy.getSubfieldLabel());
+  }
 }

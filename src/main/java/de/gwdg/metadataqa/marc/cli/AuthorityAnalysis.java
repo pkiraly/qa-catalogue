@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.cli;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.analysis.AuthorithyAnalyzer;
+import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
 import de.gwdg.metadataqa.marc.analysis.AuthorityStatistics;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
@@ -20,10 +21,14 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.count;
+import static de.gwdg.metadataqa.marc.Utils.quote;
 
 public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
 
@@ -32,6 +37,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
   private final Options options;
   private CommonParameters parameters;
   private Map<Integer, Integer> histogram = new HashMap<>();
+  private Map<Integer, String> frequencyExamples = new HashMap<>();
   private Map<Boolean, Integer> hasClassifications = new HashMap<>();
   private boolean readyToProcess;
   private static char separator = ',';
@@ -77,10 +83,16 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
+    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+      return;
+
     AuthorithyAnalyzer analyzer = new AuthorithyAnalyzer(marcRecord, statistics);
     int count = analyzer.process();
     count((count > 0), hasClassifications);
     count(count, histogram);
+
+    if (!frequencyExamples.containsKey(count))
+      frequencyExamples.put(count, marcRecord.getId(true));
   }
 
   @Override
@@ -100,10 +112,44 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
 
   @Override
   public void afterIteration(int numberOfprocessedRecords) {
+    printAuthoritiesByCategories();
     printAuthoritiesBySchema();
     printAuthoritiesByRecords();
     printAuthoritiesHistogram();
+    printFrequencyExamples();
     printAuthoritiesSubfieldsStatistics();
+  }
+
+  private void printAuthoritiesByCategories() {
+    Path path = Paths.get(parameters.getOutputDir(), "authorities-by-categories.csv");
+    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+      writer.write(createRow("category", "recordcount", "instancecount"));
+      statistics.getRecordsPerCategories()
+        .entrySet()
+        .stream()
+        .forEach(
+          entry -> {
+            AuthorityCategory category = entry.getKey();
+            int recordCount = entry.getValue();
+            int instanceCount = statistics.getInstancesPerCategories().get(category);
+            try {
+              writer.write(createRow(
+                quote(category.getLabel()),
+                recordCount,
+                instanceCount
+              ));
+            } catch (IOException ex) {
+              ex.printStackTrace();
+              System.err.println(category);
+            } catch (NullPointerException ex) {
+              ex.printStackTrace();
+              System.err.println(category);
+            }
+          }
+        );
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   private void printAuthoritiesBySchema() {
@@ -206,6 +252,29 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
     }
   }
 
+  private void printFrequencyExamples() {
+    Path path = Paths.get(parameters.getOutputDir(), "authorities-frequency-examples.csv");
+    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+      writer.write(createRow("count", "id"));
+      frequencyExamples
+        .entrySet()
+        .stream()
+        .sorted((e1, e2) -> {
+          return e1.getKey().compareTo(e2.getKey());
+        })
+        .forEach(
+          entry -> {
+            try {
+              writer.write(createRow(entry.getKey(), entry.getValue()));
+            } catch (IOException e) {
+              e.printStackTrace();
+            }
+          }
+        );
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 
   private void printAuthoritiesSubfieldsStatistics() {
     Path path = Paths.get(parameters.getOutputDir(), "authorities-by-schema-subfields.csv");

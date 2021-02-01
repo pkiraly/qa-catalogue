@@ -38,9 +38,6 @@ public class ThompsonTraillAnalysis {
 
   public static List<Integer> getScores(MarcRecord marcRecord) {
     ThompsonTraillScores ttScores = new ThompsonTraillScores();
-    List<Integer> scores = new ArrayList<>();
-
-    Control008 control008 = marcRecord.getControl008();
 
     ttScores.set(ThompsonTraillFields.ISBN, countFields(marcRecord, Arrays.asList("020")));
     ttScores.set(ThompsonTraillFields.Authors, countFields(marcRecord, Arrays.asList("100", "110", "111")));
@@ -52,6 +49,7 @@ public class ThompsonTraillAnalysis {
       countFields(marcRecord, Arrays.asList("440", "490", "800", "810", "830")));
     ttScores.set(ThompsonTraillFields.TOC, calculateTocAndAbstract(marcRecord));
 
+    Control008 control008 = marcRecord.getControl008();
     String date008 = extractDate008(control008);
     ttScores.set(ThompsonTraillFields.Date008, calculateDate008(date008));
     ttScores.set(ThompsonTraillFields.Date26X, calculateDate26x(marcRecord, date008));

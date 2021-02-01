@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
+import de.gwdg.metadataqa.marc.definition.controltype.Control007Category;
 import de.gwdg.metadataqa.marc.utils.ReadMarc;
 import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 import org.junit.Test;
@@ -91,4 +92,21 @@ public class MarcRecordTest {
     assertEquals("80", results.get(0));
   }
 
+  @Test
+  public void testMultiple007() throws Exception {
+    MarcRecord record = new MarcRecord("010000011");
+    record.setLeader(new Leader("00860cam a22002774a 45 0"));
+    record.setControl003(new Control003("DE-627"));
+    record.setControl005(new Control005("20180502143346.0"));
+    record.setControl008(new Control008("861106s1985    xx |||||      10| ||ger c", record.getType()));
+    record.setControl007(new Control007("tu"));
+    record.setControl007(new Control007("at"));
+
+    assertTrue(record.getControl007() instanceof List);
+    assertEquals(2, record.getControl007().size());
+    assertEquals("tu", record.getControl007().get(0).getContent());
+    assertEquals(Control007Category.TEXT, record.getControl007().get(0).getCategory());
+    assertEquals("at", record.getControl007().get(1).getContent());
+    assertEquals(Control007Category.MAP, record.getControl007().get(1).getCategory());
+  }
 }

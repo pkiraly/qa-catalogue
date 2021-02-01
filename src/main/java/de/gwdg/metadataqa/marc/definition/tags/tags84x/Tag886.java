@@ -1,9 +1,9 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags84x;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.Indicator;
+import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.general.codelist.FormatSourceCodes;
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
@@ -73,14 +73,16 @@ public class Tag886 extends DataFieldDefinition {
     for (char c = 'a'; c <= 'z'; c++)
       subfields.add(
         new SubfieldDefinition(String.valueOf(c), "Foreign MARC subfield", "R")
-          .setCompilanceLevels("A")
-      );
-    for (int c = 0; c <= 9; c++)
-      subfields.add(
-        new SubfieldDefinition(String.valueOf(c), "Foreign MARC subfield", "R")
+          .setParent(this)
           .setCompilanceLevels("A")
       );
 
+    for (int c = 0; c <= 9; c++)
+      subfields.add(
+        new SubfieldDefinition(String.valueOf(c), "Foreign MARC subfield", "R")
+          .setParent(this)
+          .setCompilanceLevels("A")
+      );
 
     setHistoricalSubfields(
       "c", "Content of the foreign MARC control fields 002-009 [OBSOLETE, 1997] [CAN/MARC only]",

@@ -1,9 +1,9 @@
 package de.gwdg.metadataqa.marc.definition.tags.dnbtags;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.Indicator;
+import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 
 /**
  * RSWK-Kette
@@ -55,7 +55,8 @@ public class Tag689 extends DataFieldDefinition {
       "5", "Herkunft", "R"
     );
     for (char c = 'a'; c <= 'z'; c++)
-      subfields.add(new SubfieldDefinition(String.valueOf(c), "Same as associated field", "R"));
+      subfields.add(new SubfieldDefinition(String.valueOf(c), "Same as associated field", "R")
+        .setParent(this));
     indexSubfields();
 
     getSubfield("A").setCodes(

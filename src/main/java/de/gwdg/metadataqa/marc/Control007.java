@@ -1,8 +1,9 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.*;
-import de.gwdg.metadataqa.marc.definition.controlsubfields.Control007Subfields;
+import de.gwdg.metadataqa.marc.definition.controlpositions.Control007Positions;
 import de.gwdg.metadataqa.marc.definition.controltype.Control007Category;
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.tags.control.Control007Definition;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
@@ -148,7 +149,7 @@ public class Control007 extends MarcPositionalControlField implements Serializab
   private ControlValue tag007unspecified00;
   private ControlValue tag007unspecified01;
 
-  private Map<Integer, ControlSubfieldDefinition> byPosition = new LinkedHashMap<>();
+  private Map<Integer, ControlfieldPositionDefinition> byPosition = new LinkedHashMap<>();
   private MarcRecord record = null;
 
   public Control007(MarcRecord record, String content) {
@@ -159,7 +160,7 @@ public class Control007 extends MarcPositionalControlField implements Serializab
 
   private void handleContent(String content) {
     if (StringUtil.isNotBlank(content)) {
-      process();
+      processContent();
     } else {
       StringBuffer msg = new StringBuffer();
       if (record != null) {
@@ -175,13 +176,13 @@ public class Control007 extends MarcPositionalControlField implements Serializab
     handleContent(content);
   }
 
-  private void process() {
+  protected void processContent() {
 
     if (StringUtil.isBlank(content)) {
       String msg = "007 control field is empty";
       logger.severe(msg);
       initializationErrors.add(new ValidationError(record.getId(), "007",
-        ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE, msg, URL));
+        ValidationErrorType.CONTROL_POSITION_INVALID_VALUE, msg, URL));
       category = Control007Category.TEXT;
     } else {
       String categoryCode = content.substring(0, 1);
@@ -190,7 +191,7 @@ public class Control007 extends MarcPositionalControlField implements Serializab
         String msg = String.format("invalid category for 007: '%s'", categoryCode);
         logger.severe(msg);
         initializationErrors.add(new ValidationError(record.getId(), "007",
-          ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE, msg, URL));
+          ValidationErrorType.CONTROL_POSITION_INVALID_VALUE, msg, URL));
         category = Control007Category.TEXT;
       }
     }
@@ -204,7 +205,7 @@ public class Control007 extends MarcPositionalControlField implements Serializab
     byPosition.put(subfieldCommon.getPositionStart(), subfieldCommon);
     */
 
-    for (ControlSubfieldDefinition subfield : Control007Subfields.getInstance().get(category)) {
+    for (ControlfieldPositionDefinition subfield : Control007Positions.getInstance().get(category)) {
       byPosition.put(subfield.getPositionStart(), subfield);
       int end = Math.min(content.length(), subfield.getPositionEnd());
 
@@ -229,127 +230,127 @@ public class Control007 extends MarcPositionalControlField implements Serializab
       valuesList.add(controlValue);
 
       switch (subfield.getId()) {
-        case "tag007map00": tag007map00 = controlValue; break;
-        case "tag007map01": tag007map01 = controlValue; break;
-        case "tag007map03": tag007map03 = controlValue; break;
-        case "tag007map04": tag007map04 = controlValue; break;
-        case "tag007map05": tag007map05 = controlValue; break;
-        case "tag007map06": tag007map06 = controlValue; break;
-        case "tag007map07": tag007map07 = controlValue; break;
+        case "007map00": tag007map00 = controlValue; break;
+        case "007map01": tag007map01 = controlValue; break;
+        case "007map03": tag007map03 = controlValue; break;
+        case "007map04": tag007map04 = controlValue; break;
+        case "007map05": tag007map05 = controlValue; break;
+        case "007map06": tag007map06 = controlValue; break;
+        case "007map07": tag007map07 = controlValue; break;
 
-        case "tag007electro00": tag007electro00 = controlValue; break;
-        case "tag007electro01": tag007electro01 = controlValue; break;
-        case "tag007electro03": tag007electro03 = controlValue; break;
-        case "tag007electro04": tag007electro04 = controlValue; break;
-        case "tag007electro05": tag007electro05 = controlValue; break;
-        case "tag007electro06": tag007electro06 = controlValue; break;
-        case "tag007electro09": tag007electro09 = controlValue; break;
-        case "tag007electro10": tag007electro10 = controlValue; break;
-        case "tag007electro11": tag007electro11 = controlValue; break;
-        case "tag007electro12": tag007electro12 = controlValue; break;
-        case "tag007electro13": tag007electro13 = controlValue; break;
+        case "007electro00": tag007electro00 = controlValue; break;
+        case "007electro01": tag007electro01 = controlValue; break;
+        case "007electro03": tag007electro03 = controlValue; break;
+        case "007electro04": tag007electro04 = controlValue; break;
+        case "007electro05": tag007electro05 = controlValue; break;
+        case "007electro06": tag007electro06 = controlValue; break;
+        case "007electro09": tag007electro09 = controlValue; break;
+        case "007electro10": tag007electro10 = controlValue; break;
+        case "007electro11": tag007electro11 = controlValue; break;
+        case "007electro12": tag007electro12 = controlValue; break;
+        case "007electro13": tag007electro13 = controlValue; break;
 
-        case "tag007globe00": tag007globe00 = controlValue; break;
-        case "tag007globe01": tag007globe01 = controlValue; break;
-        case "tag007globe03": tag007globe03 = controlValue; break;
-        case "tag007globe04": tag007globe04 = controlValue; break;
-        case "tag007globe05": tag007globe05 = controlValue; break;
+        case "007globe00": tag007globe00 = controlValue; break;
+        case "007globe01": tag007globe01 = controlValue; break;
+        case "007globe03": tag007globe03 = controlValue; break;
+        case "007globe04": tag007globe04 = controlValue; break;
+        case "007globe05": tag007globe05 = controlValue; break;
 
-        case "tag007tactile00": tag007tactile00 = controlValue; break;
-        case "tag007tactile01": tag007tactile01 = controlValue; break;
-        case "tag007tactile03": tag007tactile03 = controlValue; break;
-        case "tag007tactile05": tag007tactile05 = controlValue; break;
-        case "tag007tactile06": tag007tactile06 = controlValue; break;
-        case "tag007tactile09": tag007tactile09 = controlValue; break;
+        case "007tactile00": tag007tactile00 = controlValue; break;
+        case "007tactile01": tag007tactile01 = controlValue; break;
+        case "007tactile03": tag007tactile03 = controlValue; break;
+        case "007tactile05": tag007tactile05 = controlValue; break;
+        case "007tactile06": tag007tactile06 = controlValue; break;
+        case "007tactile09": tag007tactile09 = controlValue; break;
 
-        case "tag007projected00": tag007projected00 = controlValue; break;
-        case "tag007projected01": tag007projected01 = controlValue; break;
-        case "tag007projected03": tag007projected03 = controlValue; break;
-        case "tag007projected04": tag007projected04 = controlValue; break;
-        case "tag007projected05": tag007projected05 = controlValue; break;
-        case "tag007projected06": tag007projected06 = controlValue; break;
-        case "tag007projected07": tag007projected07 = controlValue; break;
-        case "tag007projected08": tag007projected08 = controlValue; break;
+        case "007projected00": tag007projected00 = controlValue; break;
+        case "007projected01": tag007projected01 = controlValue; break;
+        case "007projected03": tag007projected03 = controlValue; break;
+        case "007projected04": tag007projected04 = controlValue; break;
+        case "007projected05": tag007projected05 = controlValue; break;
+        case "007projected06": tag007projected06 = controlValue; break;
+        case "007projected07": tag007projected07 = controlValue; break;
+        case "007projected08": tag007projected08 = controlValue; break;
 
-        case "tag007microform00": tag007microform00 = controlValue; break;
-        case "tag007microform01": tag007microform01 = controlValue; break;
-        case "tag007microform03": tag007microform03 = controlValue; break;
-        case "tag007microform04": tag007microform04 = controlValue; break;
-        case "tag007microform05": tag007microform05 = controlValue; break;
-        case "tag007microform06": tag007microform06 = controlValue; break;
-        case "tag007microform09": tag007microform09 = controlValue; break;
-        case "tag007microform10": tag007microform10 = controlValue; break;
-        case "tag007microform11": tag007microform11 = controlValue; break;
-        case "tag007microform12": tag007microform12 = controlValue; break;
+        case "007microform00": tag007microform00 = controlValue; break;
+        case "007microform01": tag007microform01 = controlValue; break;
+        case "007microform03": tag007microform03 = controlValue; break;
+        case "007microform04": tag007microform04 = controlValue; break;
+        case "007microform05": tag007microform05 = controlValue; break;
+        case "007microform06": tag007microform06 = controlValue; break;
+        case "007microform09": tag007microform09 = controlValue; break;
+        case "007microform10": tag007microform10 = controlValue; break;
+        case "007microform11": tag007microform11 = controlValue; break;
+        case "007microform12": tag007microform12 = controlValue; break;
 
-        case "tag007nonprojected00": tag007nonprojected00 = controlValue; break;
-        case "tag007nonprojected01": tag007nonprojected01 = controlValue; break;
-        case "tag007nonprojected03": tag007nonprojected03 = controlValue; break;
-        case "tag007nonprojected04": tag007nonprojected04 = controlValue; break;
-        case "tag007nonprojected05": tag007nonprojected05 = controlValue; break;
+        case "007nonprojected00": tag007nonprojected00 = controlValue; break;
+        case "007nonprojected01": tag007nonprojected01 = controlValue; break;
+        case "007nonprojected03": tag007nonprojected03 = controlValue; break;
+        case "007nonprojected04": tag007nonprojected04 = controlValue; break;
+        case "007nonprojected05": tag007nonprojected05 = controlValue; break;
 
-        case "tag007motionPicture00": tag007motionPicture00 = controlValue; break;
-        case "tag007motionPicture01": tag007motionPicture01 = controlValue; break;
-        case "tag007motionPicture03": tag007motionPicture03 = controlValue; break;
-        case "tag007motionPicture04": tag007motionPicture04 = controlValue; break;
-        case "tag007motionPicture05": tag007motionPicture05 = controlValue; break;
-        case "tag007motionPicture06": tag007motionPicture06 = controlValue; break;
-        case "tag007motionPicture07": tag007motionPicture07 = controlValue; break;
-        case "tag007motionPicture08": tag007motionPicture08 = controlValue; break;
-        case "tag007motionPicture09": tag007motionPicture09 = controlValue; break;
-        case "tag007motionPicture10": tag007motionPicture10 = controlValue; break;
-        case "tag007motionPicture11": tag007motionPicture11 = controlValue; break;
-        case "tag007motionPicture12": tag007motionPicture12 = controlValue; break;
-        case "tag007motionPicture13": tag007motionPicture13 = controlValue; break;
-        case "tag007motionPicture14": tag007motionPicture14 = controlValue; break;
-        case "tag007motionPicture15": tag007motionPicture15 = controlValue; break;
-        case "tag007motionPicture16": tag007motionPicture16 = controlValue; break;
-        case "tag007motionPicture17": tag007motionPicture17 = controlValue; break;
+        case "007motionPicture00": tag007motionPicture00 = controlValue; break;
+        case "007motionPicture01": tag007motionPicture01 = controlValue; break;
+        case "007motionPicture03": tag007motionPicture03 = controlValue; break;
+        case "007motionPicture04": tag007motionPicture04 = controlValue; break;
+        case "007motionPicture05": tag007motionPicture05 = controlValue; break;
+        case "007motionPicture06": tag007motionPicture06 = controlValue; break;
+        case "007motionPicture07": tag007motionPicture07 = controlValue; break;
+        case "007motionPicture08": tag007motionPicture08 = controlValue; break;
+        case "007motionPicture09": tag007motionPicture09 = controlValue; break;
+        case "007motionPicture10": tag007motionPicture10 = controlValue; break;
+        case "007motionPicture11": tag007motionPicture11 = controlValue; break;
+        case "007motionPicture12": tag007motionPicture12 = controlValue; break;
+        case "007motionPicture13": tag007motionPicture13 = controlValue; break;
+        case "007motionPicture14": tag007motionPicture14 = controlValue; break;
+        case "007motionPicture15": tag007motionPicture15 = controlValue; break;
+        case "007motionPicture16": tag007motionPicture16 = controlValue; break;
+        case "007motionPicture17": tag007motionPicture17 = controlValue; break;
 
-        case "tag007kit00": tag007kit00 = controlValue; break;
-        case "tag007kit01": tag007kit01 = controlValue; break;
+        case "007kit00": tag007kit00 = controlValue; break;
+        case "007kit01": tag007kit01 = controlValue; break;
 
-        case "tag007music00": tag007music00 = controlValue; break;
-        case "tag007music01": tag007music01 = controlValue; break;
+        case "007music00": tag007music00 = controlValue; break;
+        case "007music01": tag007music01 = controlValue; break;
 
-        case "tag007remoteSensing00": tag007remoteSensing00 = controlValue; break;
-        case "tag007remoteSensing01": tag007remoteSensing01 = controlValue; break;
-        case "tag007remoteSensing03": tag007remoteSensing03 = controlValue; break;
-        case "tag007remoteSensing04": tag007remoteSensing04 = controlValue; break;
-        case "tag007remoteSensing05": tag007remoteSensing05 = controlValue; break;
-        case "tag007remoteSensing06": tag007remoteSensing06 = controlValue; break;
-        case "tag007remoteSensing07": tag007remoteSensing07 = controlValue; break;
-        case "tag007remoteSensing08": tag007remoteSensing08 = controlValue; break;
-        case "tag007remoteSensing09": tag007remoteSensing09 = controlValue; break;
+        case "007remoteSensing00": tag007remoteSensing00 = controlValue; break;
+        case "007remoteSensing01": tag007remoteSensing01 = controlValue; break;
+        case "007remoteSensing03": tag007remoteSensing03 = controlValue; break;
+        case "007remoteSensing04": tag007remoteSensing04 = controlValue; break;
+        case "007remoteSensing05": tag007remoteSensing05 = controlValue; break;
+        case "007remoteSensing06": tag007remoteSensing06 = controlValue; break;
+        case "007remoteSensing07": tag007remoteSensing07 = controlValue; break;
+        case "007remoteSensing08": tag007remoteSensing08 = controlValue; break;
+        case "007remoteSensing09": tag007remoteSensing09 = controlValue; break;
 
-        case "tag007soundRecording00": tag007soundRecording00 = controlValue; break;
-        case "tag007soundRecording01": tag007soundRecording01 = controlValue; break;
-        case "tag007soundRecording03": tag007soundRecording03 = controlValue; break;
-        case "tag007soundRecording04": tag007soundRecording04 = controlValue; break;
-        case "tag007soundRecording05": tag007soundRecording05 = controlValue; break;
-        case "tag007soundRecording06": tag007soundRecording06 = controlValue; break;
-        case "tag007soundRecording07": tag007soundRecording07 = controlValue; break;
-        case "tag007soundRecording08": tag007soundRecording08 = controlValue; break;
-        case "tag007soundRecording09": tag007soundRecording09 = controlValue; break;
-        case "tag007soundRecording10": tag007soundRecording10 = controlValue; break;
-        case "tag007soundRecording11": tag007soundRecording11 = controlValue; break;
-        case "tag007soundRecording12": tag007soundRecording12 = controlValue; break;
-        case "tag007soundRecording13": tag007soundRecording13 = controlValue; break;
+        case "007soundRecording00": tag007soundRecording00 = controlValue; break;
+        case "007soundRecording01": tag007soundRecording01 = controlValue; break;
+        case "007soundRecording03": tag007soundRecording03 = controlValue; break;
+        case "007soundRecording04": tag007soundRecording04 = controlValue; break;
+        case "007soundRecording05": tag007soundRecording05 = controlValue; break;
+        case "007soundRecording06": tag007soundRecording06 = controlValue; break;
+        case "007soundRecording07": tag007soundRecording07 = controlValue; break;
+        case "007soundRecording08": tag007soundRecording08 = controlValue; break;
+        case "007soundRecording09": tag007soundRecording09 = controlValue; break;
+        case "007soundRecording10": tag007soundRecording10 = controlValue; break;
+        case "007soundRecording11": tag007soundRecording11 = controlValue; break;
+        case "007soundRecording12": tag007soundRecording12 = controlValue; break;
+        case "007soundRecording13": tag007soundRecording13 = controlValue; break;
 
-        case "tag007text00": tag007text00 = controlValue; break;
-        case "tag007text01": tag007text01 = controlValue; break;
+        case "007text00": tag007text00 = controlValue; break;
+        case "007text01": tag007text01 = controlValue; break;
 
-        case "tag007video00": tag007video00 = controlValue; break;
-        case "tag007video01": tag007video01 = controlValue; break;
-        case "tag007video03": tag007video03 = controlValue; break;
-        case "tag007video04": tag007video04 = controlValue; break;
-        case "tag007video05": tag007video05 = controlValue; break;
-        case "tag007video06": tag007video06 = controlValue; break;
-        case "tag007video07": tag007video07 = controlValue; break;
-        case "tag007video08": tag007video08 = controlValue; break;
+        case "007video00": tag007video00 = controlValue; break;
+        case "007video01": tag007video01 = controlValue; break;
+        case "007video03": tag007video03 = controlValue; break;
+        case "007video04": tag007video04 = controlValue; break;
+        case "007video05": tag007video05 = controlValue; break;
+        case "007video06": tag007video06 = controlValue; break;
+        case "007video07": tag007video07 = controlValue; break;
+        case "007video08": tag007video08 = controlValue; break;
 
-        case "tag007unspecified00": tag007unspecified00 = controlValue; break;
-        case "tag007unspecified01": tag007unspecified01 = controlValue; break;
+        case "007unspecified00": tag007unspecified00 = controlValue; break;
+        case "007unspecified01": tag007unspecified01 = controlValue; break;
 
         default:
           logger.severe(String.format("Unhandled 007 subfield: %s", subfield.getId()));
@@ -360,7 +361,7 @@ public class Control007 extends MarcPositionalControlField implements Serializab
     }
   }
 
-  public String resolve(ControlSubfieldDefinition key) {
+  public String resolve(ControlfieldPositionDefinition key) {
     String value = (String)valuesMap.get(key);
     String text = key.resolve(value);
     return text;
@@ -370,15 +371,11 @@ public class Control007 extends MarcPositionalControlField implements Serializab
     return content;
   }
 
-  public Map<ControlSubfieldDefinition, String> getMap() {
-    return valuesMap;
-  }
-
   public String getValueByPosition(int position) {
     return valuesMap.get(getSubfieldByPosition(position));
   }
 
-  public ControlSubfieldDefinition getSubfieldByPosition(int position) {
+  public ControlfieldPositionDefinition getSubfieldByPosition(int position) {
     return byPosition.get(position);
   }
 

@@ -1,71 +1,40 @@
 package de.gwdg.metadataqa.marc.utils;
 
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.FRBRFunction;
-import de.gwdg.metadataqa.marc.definition.Indicator;
-import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
-import org.apache.commons.lang3.StringUtils;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.Indicator;
+import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import static de.gwdg.metadataqa.marc.Utils.createRow;
+import static org.junit.Assert.assertEquals;
+
 public class FrbrFunctionListerTest {
 
   @Test
-  public void test() {
-    Map<FRBRFunction, Integer> counter = new TreeMap<>();
-
-    for (Class<? extends DataFieldDefinition> tagClass : MarcTagLister.listTags()) {
-
-      Method getInstance;
-      DataFieldDefinition fieldTag;
-      try {
-        getInstance = tagClass.getMethod("getInstance");
-        fieldTag = (DataFieldDefinition) getInstance.invoke(tagClass);
-        List<FRBRFunction> functions = null;
-
-        for (Indicator indicator : fieldTag.getIndicators()) {
-          functions = indicator.getFrbrFunctions();
-          if (functions != null) {
-            // System.err.printf("%s$%s: %s%n", fieldTag.getTag(), indicator.getIndicatorFlag(), StringUtils.join(functions));
-            for (FRBRFunction function : functions) {
-              count(function, counter);
-            }
-          }
-        }
-
-        for (SubfieldDefinition subfield : fieldTag.getSubfields()) {
-          functions = subfield.getFrbrFunctions();
-          if (functions != null) {
-            // System.err.printf("%s$%s: %s%n", fieldTag.getTag(), subfield.getCode(), StringUtils.join(functions));
-            for (FRBRFunction function : functions) {
-              count(function, counter);
-            }
-          }
-        }
-
-
-      } catch (NoSuchMethodException
-        | IllegalAccessException
-        | InvocationTargetException e) {
-        e.printStackTrace();
-      }
-    }
-    for (Map.Entry<FRBRFunction, Integer> entry : counter.entrySet()) {
-      System.err.println(entry.getKey() + ": " + entry.getValue());
-    }
-
+  public void testGetMarcPathByfunction() {
+    FrbrFunctionLister lister = new FrbrFunctionLister(MarcVersion.MARC21);
+    Map<FRBRFunction, List<String>> functions = lister.getMarcPathByfunction();
+    assertEquals(12,  functions.size());
+    assertEquals(466, functions.get(FRBRFunction.DiscoveryObtain).size());
+    assertEquals(464, functions.get(FRBRFunction.DiscoverySearch).size());
+    assertEquals(360, functions.get(FRBRFunction.DiscoverySelect).size());
+    assertEquals(976, functions.get(FRBRFunction.DiscoveryIdentify).size());
+    assertEquals( 80, functions.get(FRBRFunction.ManagementDisplay).size());
+    assertEquals( 26, functions.get(FRBRFunction.ManagementSort).size());
+    assertEquals(544, functions.get(FRBRFunction.ManagementProcess).size());
+    assertEquals(491, functions.get(FRBRFunction.ManagementIdentify).size());
+    assertEquals( 24, functions.get(FRBRFunction.UseRestrict).size());
+    assertEquals(118, functions.get(FRBRFunction.UseInterpret).size());
+    assertEquals(107, functions.get(FRBRFunction.UseManage).size());
+    assertEquals( 67, functions.get(FRBRFunction.UseOperate).size());
   }
-
-  private <T extends Object> void count(T key, Map<T, Integer> counter) {
-    if (!counter.containsKey(key)) {
-      counter.put(key, 0);
-    }
-    counter.put(key, counter.get(key) + 1);
-  }
-
 }

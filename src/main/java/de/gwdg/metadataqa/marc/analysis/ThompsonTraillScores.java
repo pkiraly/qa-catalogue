@@ -20,6 +20,14 @@ public class ThompsonTraillScores {
     Utils.count(key, scores);
   }
 
+  /**
+   * Get the value of a key. If key is not found it returns null.
+   * @param key
+   */
+  public Integer get(ThompsonTraillFields key) {
+    return scores.getOrDefault(key, null);
+  }
+
   public void set(ThompsonTraillFields key, int value) {
     scores.put(key, value);
   }

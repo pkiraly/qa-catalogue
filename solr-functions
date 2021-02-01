@@ -30,3 +30,82 @@ swap_cores() {
   curl -s "http://localhost:$PORT/solr/admin/cores?action=SWAP&core=${LOCAL_FROM}&other=${LOCAL_TO}"
 }
 
+prepare_schema() {
+  LOCAL_CORE=$1
+  SCHEMA_URL=http://localhost:${PORT}/api/cores/${LOCAL_CORE}/schema
+
+  echo "prepare_schema ${LOCAL_CORE}"
+
+  HAS_PROPER_SNI=$(curl -is "$SCHEMA_URL/dynamicfields/*_sni" | grep -c '"type":"string_big"')
+  echo "Does ${LOCAL_CORE} have proper *_sni field definition? Answer: ${HAS_PROPER_SNI}"
+  if [[ $HAS_PROPER_SNI -eq 0 ]]; then
+
+    HAS_FIELD=$(curl -is "$SCHEMA_URL/dynamicfields/*_sni" | head -1 | grep -c "200 OK")
+    echo "Does ${LOCAL_CORE} have  *_sni field definition? Answer: ${HAS_FIELD}"
+    if [[ $HAS_FIELD -eq 1 ]]; then
+      echo "Delete *_sni field definition from ${LOCAL_CORE}."
+      curl -X POST -H 'Content-type:application/json' --data-binary '{
+        "delete-dynamic-field":{"name":"*_sni",}
+      }' $SCHEMA_URL
+    fi
+
+    HAS_TYPE=$(curl -is "$SCHEMA_URL/fieldtypes/string_big" | head -1 | grep -c "200 OK")
+    if [[ $HAS_TYPE -eq 1 ]]; then
+      echo "Delete string_big field type definition from ${LOCAL_CORE}."
+      curl -X POST -H 'Content-type:application/json' --data-binary '{
+        "delete-field-type":{"name":"string_big",}
+      }' $SCHEMA_URL
+    fi
+
+    echo "Create string_big field type definition in ${LOCAL_CORE}."
+    curl -X POST -H 'Content-type:application/json' --data-binary '{
+      "add-field-type" : {
+       "name":"string_big",
+        "class":"solr.TextField",
+        "positionIncrementGap":"100",
+        "sortMissingLast":true,
+        "omitNorms":true,
+        "analyzer" : {
+          "tokenizer":{
+            "class":"solr.KeywordTokenizerFactory"
+          },
+        }
+      }
+    }' $SCHEMA_URL
+
+
+    echo "Create *_sni dynamic field definition in ${LOCAL_CORE}."
+    curl -X POST -H 'Content-type:application/json' --data-binary '{
+      "add-dynamic-field":{
+        "name":"*_sni",
+        "type":"string_big",
+        "stored":true,
+        "indexed":false,
+        "docValues":false,
+        "multiValued":false,
+    }}' $SCHEMA_URL
+
+  fi
+
+  NUMBER_OF_COPY_FIELD=$(curl -is "$SCHEMA_URL/copyfields?source.fl=*_ss" | grep -c '"source":"\*_ss"')
+  echo "NUMBER_OF_COPY_FIELD: ${NUMBER_OF_COPY_FIELD}"
+  if [[ $NUMBER_OF_COPY_FIELD -eq 0 ]]; then
+    echo "add *_ss copyfield definition to ${LOCAL_CORE}"
+    # add _ss
+    # <copyField source="*_ss" dest="_text_"/>
+    curl -X POST -H 'Content-type:application/json' --data-binary '{
+      "add-copy-field":{
+        "source":"*_ss",
+        "dest":"_text_"
+    }}' $SCHEMA_URL
+  elif [[ $NUMBER_OF_COPY_FIELD -gt 1 ]]; then
+    while [[ $NUMBER_OF_COPY_FIELD -gt 1 ]]; do
+      echo "delete extra copy fields"
+      curl -s -X POST -H 'Content-type:application/json' --data-binary '{
+        "delete-copy-field":{ "source":"*_ss", "dest":"_text_" }
+      }' $SCHEMA_URL
+      NUMBER_OF_COPY_FIELD=$(curl -is "$SCHEMA_URL/copyfields?source.fl=*_ss" | grep -c '"source":"\*_ss"')
+    done
+  fi
+}
+

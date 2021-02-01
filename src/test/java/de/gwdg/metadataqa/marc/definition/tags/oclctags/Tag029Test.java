@@ -16,7 +16,7 @@ public class Tag029Test {
     DataField field = new DataField(Tag029.getInstance(), "a", "a", "a", "0170-1967");
     field.setRecord(record);
 
-    assertFalse("029$ind=a should be invalid in normal case", field.validate(null));
+    assertFalse("029$ind=a should be invalid in normal case", field.validate(MarcVersion.MARC21));
     assertTrue("029$ind=a should be valid in DNB", field.validate(MarcVersion.DNB));
   }
 }

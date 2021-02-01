@@ -105,6 +105,9 @@ public class SerialScore implements MarcFileProcessor, Serializable {
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) {
     if (marcRecord.getType().equals(Leader.Type.CONTINUING_RESOURCES)) {
+      if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+        return;
+
       Serial serial = new Serial(marcRecord);
       List<Integer> scores = serial.determineRecordQualityScore();
       String message = createRow(

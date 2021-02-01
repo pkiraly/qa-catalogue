@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
+import de.gwdg.metadataqa.marc.model.validation.ValidationErrorCategory;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormatter;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import org.apache.commons.cli.HelpFormatter;
@@ -41,14 +42,16 @@ public class Validator implements MarcFileProcessor, Serializable {
   private ValidatorParameters parameters;
   private Map<Integer, Integer> totalRecordCounter = new HashMap<>();
   private Map<Integer, Integer> totalInstanceCounter = new HashMap<>();
-  private Map<String, Integer> categoryRecordCounter = new HashMap<>();
-  private Map<String, Integer> categoryInstanceCounter = new HashMap<>();
+  private Map<ValidationErrorCategory, Integer> categoryRecordCounter = new HashMap<>();
+  private Map<ValidationErrorCategory, Integer> categoryInstanceCounter = new HashMap<>();
   private Map<ValidationErrorType, Integer> typeRecordCounter = new HashMap<>();
   private Map<ValidationErrorType, Integer> typeInstanceCounter = new HashMap<>();
   private Map<ValidationError, Integer> instanceBasedErrorCounter = new HashMap<>();
   private Map<Integer, Integer> recordBasedErrorCounter = new HashMap<>();
   private Map<Integer, Integer> hashedIndex = new HashMap<>();
   private Map<Integer, Set<String>> errorCollector = new TreeMap<>();
+  private Map<String, Set<String>> ISBNCollector = new TreeMap<>();
+  private Map<String, Set<String>> ISSNCollector = new TreeMap<>();
   private File detailsFile = null;
   private File summaryFile = null;
   private File collectorFile = null;
@@ -112,6 +115,7 @@ public class Validator implements MarcFileProcessor, Serializable {
       if (parameters.getSummaryFileName() != null) {
         summaryFile = prepareReportFile(parameters.getOutputDir(), parameters.getSummaryFileName());
         logger.info("summary output: " + summaryFile.getPath());
+
         collectorFile = prepareReportFile(parameters.getOutputDir(), "issue-collector.csv");
         String header = ValidationErrorFormatter.formatHeaderForCollector(
           parameters.getFormat()
@@ -124,7 +128,7 @@ public class Validator implements MarcFileProcessor, Serializable {
       }
     }
     if (parameters.doDetails()) {
-      String header = ValidationErrorFormatter.formatHeader(parameters.getFormat());
+      String header = ValidationErrorFormatter.formatHeaderForDetails(parameters.getFormat());
       print(detailsFile, header + "\n");
     }
   }
@@ -147,17 +151,142 @@ public class Validator implements MarcFileProcessor, Serializable {
   }
 
   @Override
+  public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
+
+  }
+
+  @Override
+  public void processRecord(MarcRecord marcRecord, int i) {
+    if (marcRecord.getId() == null)
+      logger.severe("No record number at " + i);
+    if (i % 100000 == 0)
+      logger.info("Number of error types so far: " + instanceBasedErrorCounter.size());
+
+    if (parameters.getIgnorableRecords().isIgnorable(marcRecord)) {
+      logger.info("skip " + marcRecord.getId() + " (ignorable record)");
+      return;
+    }
+
+    boolean isValid = marcRecord.validate(
+            parameters.getMarcVersion(), parameters.doSummary(), parameters.getIgnorableFields()
+    );
+    if (!isValid && doPrintInProcessRecord) {
+      if (parameters.doSummary()) {
+        List<ValidationError> errors = marcRecord.getValidationErrors();
+        List<ValidationError> allButInvalidFieldErrors = new ArrayList<>();
+        Set<Integer> uniqueErrors = new HashSet<>();
+        Set<ValidationErrorType> uniqueTypes = new HashSet<>();
+        Set<ValidationErrorCategory> uniqueCategories = new HashSet<>();
+        for (ValidationError error : errors) {
+          if (!instanceBasedErrorCounter.containsKey(error)) {
+            error.setId(vErrorId++);
+            hashedIndex.put(error.hashCode(), error.getId());
+          } else {
+            error.setId(hashedIndex.get(error.hashCode()));
+          }
+
+          if (!error.getType().equals(ValidationErrorType.FIELD_UNDEFINED)) {
+            count(2, totalInstanceCounter);
+            allButInvalidFieldErrors.add(error);
+          }
+
+          /*
+          if (error.getType().equals(ValidationErrorType.SUBFIELD_ISBN)) {
+            if (!ISBNCollector.containsKey(error.getMarcPath())) {
+              ISBNCollector.put(error.getMarcPath(), new HashSet<>());
+            }
+            ISBNCollector.get(error.getMarcPath()).add(error.getMessage());
+          }
+
+          if (error.getType().equals(ValidationErrorType.SUBFIELD_ISSN)) {
+            if (!ISSNCollector.containsKey(error.getMarcPath())) {
+              ISSNCollector.put(error.getMarcPath(), new HashSet<>());
+            }
+            ISSNCollector.get(error.getMarcPath()).add(error.getMessage());
+          }
+           */
+
+          count(error, instanceBasedErrorCounter);
+          count(error.getType(), typeInstanceCounter);
+          count(error.getType().getCategory(), categoryInstanceCounter);
+          count(1, totalInstanceCounter);
+          updateErrorCollector(marcRecord.getId(true), error.getId());
+          uniqueErrors.add(error.getId());
+          uniqueTypes.add(error.getType());
+          uniqueCategories.add(error.getType().getCategory());
+        }
+
+        for (Integer id : uniqueErrors) {
+          count(id, recordBasedErrorCounter);
+        }
+        for (ValidationErrorType id : uniqueTypes) {
+          count(id, typeRecordCounter);
+        }
+        for (ValidationErrorCategory id : uniqueCategories) {
+          count(id, categoryRecordCounter);
+        }
+        count(1, totalRecordCounter);
+        if (!allButInvalidFieldErrors.isEmpty())
+          count(2, totalRecordCounter);
+      }
+
+      if (parameters.doDetails()) {
+        if (parameters.doSummary()) {
+          Map<Integer, Integer> errorIds = new HashMap<>();
+          // List<Integer> errorIds = new ArrayList<>(marcRecord.getValidationErrors().size());
+          for (ValidationError error : marcRecord.getValidationErrors()) {
+            if (error.getId() == null)
+              error.setId(hashedIndex.get(error.hashCode()));
+            count(error.getId(), errorIds);
+            // errorIds.add(error.getId());
+          }
+          String message = ValidationErrorFormatter.formatSimple(
+                  marcRecord.getId(parameters.getTrimId()), parameters.getFormat(), errorIds
+          );
+          print(detailsFile, message);
+        } else {
+          String message = ValidationErrorFormatter.format(
+                  marcRecord.getValidationErrors(), parameters.getFormat(), parameters.getTrimId()
+          );
+          print(detailsFile, message);
+        }
+      }
+    } else {
+      if (parameters.doSummary())
+        count(0, totalRecordCounter);
+    }
+    counter++;
+  }
+
+  @Override
   public void afterIteration(int numberOfprocessedRecords) {
-    File countFile = prepareReportFile(parameters.getOutputDir(), "count.csv");
-    printToFile(countFile, String.valueOf(numberOfprocessedRecords));
+    logger.info("printCounter");
+    printCounter(numberOfprocessedRecords);
 
     char separator = getSeparator();
     if (parameters.doSummary()) {
+      logger.info("printSummary");
       printSummary(separator);
+      logger.info("printCategoryCounts");
       printCategoryCounts();
+      logger.info("printTypeCounts");
       printTypeCounts();
+      logger.info("printTotalCounts");
       printTotalCounts();
+      logger.info("printCollector");
       printCollector();
+    }
+    logger.info("all printing is DONE");
+  }
+
+  private void printCounter(int numberOfprocessedRecords) {
+    File countFile = prepareReportFile(parameters.getOutputDir(), "count.csv");
+    if (parameters.getIgnorableRecords().isEmpty()) {
+      printToFile(countFile, "total\n");
+      printToFile(countFile, String.valueOf(numberOfprocessedRecords) + "\n");
+    } else {
+      printToFile(countFile, StringUtils.join(Arrays.asList("total", "processed"), ",") + "\n");
+      printToFile(countFile, StringUtils.join(Arrays.asList(numberOfprocessedRecords, counter), ",") + "\n");
     }
   }
 
@@ -172,6 +301,33 @@ public class Validator implements MarcFileProcessor, Serializable {
       parameters.getFormat()
     );
     print(summaryFile, header + "\n");
+    instanceBasedErrorCounter
+      .entrySet()
+      .stream()
+      .sorted((a,b) -> {
+        Integer typeIdA = Integer.valueOf(a.getKey().getType().getId());
+        Integer typeIdB = Integer.valueOf(b.getKey().getType().getId());
+        int result = typeIdA.compareTo(typeIdB);
+        if (result == 0) {
+          Integer recordCountA = Integer.valueOf(recordBasedErrorCounter.get(a.getKey().getId()));
+          Integer recordCountB = Integer.valueOf(recordBasedErrorCounter.get(b.getKey().getId()));
+          result = recordCountB.compareTo(recordCountA);
+        }
+        return result;
+      })
+      .forEach(
+        entry -> {
+          ValidationError error = entry.getKey();
+          int instanceCount = entry.getValue();
+          String formattedOutput = ValidationErrorFormatter.formatForSummary(
+            error, parameters.getFormat()
+          );
+          print(summaryFile, createRow(
+            separator, error.getId(), formattedOutput, instanceCount, recordBasedErrorCounter.get(error.getId())
+          ));
+        }
+      );
+    /*
     for (Map.Entry<ValidationError, Integer> entry : instanceBasedErrorCounter.entrySet()) {
       ValidationError error = entry.getKey();
       int count = entry.getValue();
@@ -182,21 +338,25 @@ public class Validator implements MarcFileProcessor, Serializable {
         separator, error.getId(), formattedOutput, count, recordBasedErrorCounter.get(error.getId())
       ));
     }
+    */
   }
 
   private void printTypeCounts() {
     Path path = Paths.get(parameters.getOutputDir(), "issue-by-type.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-      writer.write(createRow("type", "instances", "records"));
+      writer.write(createRow("id", "categoryId", "category", "type", "instances", "records"));
       typeRecordCounter
         .entrySet()
         .stream()
+        .sorted((a, b) -> ((Integer)a.getKey().getId()).compareTo((Integer) b.getKey().getId()))
         .forEach(entry -> {
           ValidationErrorType type = entry.getKey();
           int records = entry.getValue();
           int instances = typeInstanceCounter.get(entry.getKey());
           try {
-            writer.write(createRow(quote(type.getMessage()), instances, records));
+            writer.write(createRow(
+              type.getId(), type.getCategory().getId(), type.getCategory().getName(), quote(type.getMessage()), instances, records
+            ));
           } catch (IOException e) {
             e.printStackTrace();
           }
@@ -231,20 +391,21 @@ public class Validator implements MarcFileProcessor, Serializable {
   private void printCategoryCounts() {
     Path path = Paths.get(parameters.getOutputDir(), "issue-by-category.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-      writer.write(createRow("category", "instances", "records"));
+      writer.write(createRow("id", "category", "instances", "records"));
       categoryRecordCounter
-      .entrySet()
-      .stream()
-      .forEach(entry -> {
-        String category = entry.getKey();
-        int records = entry.getValue();
-        int instances = categoryInstanceCounter.getOrDefault(entry.getKey(), -1);
-        try {
-          writer.write(createRow(category, instances, records));
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-      });
+        .entrySet()
+        .stream()
+        .sorted((a, b) -> ((Integer)a.getKey().getId()).compareTo((Integer) b.getKey().getId()))
+        .forEach(entry -> {
+          ValidationErrorCategory category = entry.getKey();
+          int records = entry.getValue();
+          int instances = categoryInstanceCounter.getOrDefault(entry.getKey(), -1);
+          try {
+            writer.write(createRow(category.getId(), category.getName(), instances, records));
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        });
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -258,6 +419,15 @@ public class Validator implements MarcFileProcessor, Serializable {
   }
 
   private void printCollectorEntry(Integer errorId, Set<String> recordIds) {
+    print(collectorFile, String.valueOf(errorId) + separator);
+    boolean isFirst = true;
+    for (String recordId : recordIds) {
+      print(collectorFile, (isFirst ? "" : ";") + recordId);
+      if (isFirst)
+        isFirst = false;
+    }
+    print(collectorFile, "\n");
+    /*
     print(
       collectorFile,
       String.format(
@@ -265,6 +435,7 @@ public class Validator implements MarcFileProcessor, Serializable {
         errorId, separator, StringUtils.join(recordIds, ";")
       )
     );
+     */
   }
 
   private void print(File file, String message) {
@@ -282,87 +453,6 @@ public class Validator implements MarcFileProcessor, Serializable {
       if (parameters.doLog())
         logger.severe(e.toString());
       e.printStackTrace();
-    }
-  }
-
-  @Override
-  public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
-
-  }
-
-  @Override
-  public void processRecord(MarcRecord marcRecord, int i) {
-    if (marcRecord.getId() == null)
-      logger.severe("No record number at " + i);
-    if (i % 100000 == 0)
-      logger.info("Number of error types so far: " + instanceBasedErrorCounter.size());
-
-    boolean isValid = marcRecord.validate(parameters.getMarcVersion(), parameters.doSummary());
-    if (!isValid && doPrintInProcessRecord) {
-      if (parameters.doSummary()) {
-        List<ValidationError> errors = marcRecord.getValidationErrors();
-        List<ValidationError> allButInvalidFieldErrors = new ArrayList<>();
-        Set<Integer> uniqueErrors = new HashSet<>();
-        Set<ValidationErrorType> uniqueTypes = new HashSet<>();
-        Set<String> uniqueCategories = new HashSet<>();
-        for (ValidationError error : errors) {
-          if (!instanceBasedErrorCounter.containsKey(error)) {
-            error.setId(vErrorId++);
-            hashedIndex.put(error.hashCode(), error.getId());
-          } else {
-            error.setId(hashedIndex.get(error.hashCode()));
-          }
-          if (!error.getType().equals(ValidationErrorType.FIELD_UNDEFINED)) {
-            count(2, totalInstanceCounter);
-            allButInvalidFieldErrors.add(error);
-          }
-          count(error, instanceBasedErrorCounter);
-          count(error.getType(), typeInstanceCounter);
-          count(error.getType().getCategory(), categoryInstanceCounter);
-          count(1, totalInstanceCounter);
-          updateErrorCollector(marcRecord.getId(true), error.getId());
-          uniqueErrors.add(error.getId());
-          uniqueTypes.add(error.getType());
-          uniqueCategories.add(error.getType().getCategory());
-        }
-        for (Integer id : uniqueErrors) {
-          count(id, recordBasedErrorCounter);
-        }
-        for (ValidationErrorType id : uniqueTypes) {
-          count(id, typeRecordCounter);
-        }
-        for (String id : uniqueCategories) {
-          count(id, categoryRecordCounter);
-        }
-        count(1, totalRecordCounter);
-        if (!allButInvalidFieldErrors.isEmpty())
-          count(2, totalRecordCounter);
-      }
-
-      if (parameters.doDetails()) {
-        if (parameters.doSummary()) {
-          Map<Integer, Integer> errorIds = new HashMap<>();
-          // List<Integer> errorIds = new ArrayList<>(marcRecord.getValidationErrors().size());
-          for (ValidationError error : marcRecord.getValidationErrors()) {
-            if (error.getId() == null)
-              error.setId(hashedIndex.get(error.hashCode()));
-            count(error.getId(), errorIds);
-            // errorIds.add(error.getId());
-          }
-          String message = ValidationErrorFormatter.formatSimple(
-            marcRecord.getId(parameters.getTrimId()), parameters.getFormat(), errorIds
-          );
-          print(detailsFile, message);
-        } else {
-          String message = ValidationErrorFormatter.format(
-            marcRecord.getValidationErrors(), parameters.getFormat(), parameters.getTrimId()
-          );
-          print(detailsFile, message);
-        }
-      }
-    } else {
-      if (parameters.doSummary())
-        count(0, totalRecordCounter);
     }
   }
 

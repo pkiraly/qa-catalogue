@@ -1,0 +1,34 @@
+package de.gwdg.metadataqa.marc.definition.general.validator;
+
+import de.gwdg.metadataqa.marc.DataField;
+import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.MarcSubfield;
+import de.gwdg.metadataqa.marc.definition.tags.tags01x.Tag020;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
+public class DateValidatorTest {
+
+  @Test
+  public void yyyyMMdd() {
+    DateValidator validator = new DateValidator("yyyyMMdd");
+    assertTrue(validator.isValid(createMarcSubfield("20291011")).isValid());
+    assertFalse(validator.isValid(createMarcSubfield("20291311")).isValid());
+  }
+
+  @Test
+  public void yyyy_MM_dd() {
+    DateValidator validator = new DateValidator("yyyy-MM-dd");
+    assertTrue(validator.isValid(createMarcSubfield("2029-10-11")).isValid());
+    assertFalse(validator.isValid(createMarcSubfield("2029-13-11")).isValid());
+  }
+
+  private MarcSubfield createMarcSubfield(String value) {
+    MarcRecord record = new MarcRecord("test");
+    DataField field = new DataField(Tag020.getInstance(), " ", " ", "a", value);
+    field.setRecord(record);
+
+    return field.getSubfield("a").get(0);
+  }
+}

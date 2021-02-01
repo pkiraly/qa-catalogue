@@ -17,22 +17,6 @@ public class Tag045Test {
   private static final Pattern BC = Pattern.compile("^([a-d])(-)$");
   private static final Pattern CE = Pattern.compile("^([e-y])(\\d|-)$");
 
-  @BeforeClass
-  public static void setUpClass() {
-  }
-
-  @AfterClass
-  public static void tearDownClass() {
-  }
-
-  @Before
-  public void setUp() {
-  }
-
-  @After
-  public void tearDown() {
-  }
-
   @Test
   public void testCStH() {
     MarcRecord record = new MarcRecord("test");
@@ -50,15 +34,15 @@ public class Tag045Test {
     );
 
     Tag045 tag = Tag045.getInstance();
-    List<String> badValues = Arrays.asList("2209668", "a-cc---", "d1764", "n-us---", "q1", "v v");
+    List<String> badValues = Arrays.asList("0-0-", "2209668", "a-cc---", "d1764", "n-us---", "q1", "v v");
     for (String value : values) {
       DataField field = new DataField(Tag045.getInstance(), " ", " ", "a", value);
       field.setRecord(record);
       MarcSubfield subfield = field.getSubfield("a").get(0);
       if (badValues.contains(value))
-        assertFalse(subfield.validate(null));
+        assertFalse(value + " should be invalid", subfield.validate(null));
       else
-        assertTrue(subfield.validate(null));
+        assertTrue(value + " should be valid", subfield.validate(null));
     }
   }
 }

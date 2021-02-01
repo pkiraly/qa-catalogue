@@ -1,8 +1,8 @@
 package de.gwdg.metadataqa.marc.definition.tags.fennicatags;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 /**
  * https://www.kansalliskirjasto.fi/extra/marc21/bib/omat.htm#909

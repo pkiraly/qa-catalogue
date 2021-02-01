@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.cli;
 
+import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.FormatterParameters;
@@ -115,6 +116,13 @@ public class Formatter implements MarcFileProcessor {
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
+    if (parameters.hasId() && marcRecord.getId().trim().equals(parameters.getId())) {
+      for (DataField field : marcRecord.getDatafields()) {
+        System.err.println(field.getTag());
+      }
+      System.err.println("has STA: " + marcRecord.hasDatafield("STA"));
+    }
+
     if (parameters.hasSearch()) {
       List<String> results = marcRecord.search(parameters.getPath(), parameters.getQuery());
       if (!results.isEmpty()) {

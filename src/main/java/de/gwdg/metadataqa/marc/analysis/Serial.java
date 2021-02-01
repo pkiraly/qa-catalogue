@@ -1,8 +1,10 @@
 package de.gwdg.metadataqa.marc.analysis;
 
+import de.gwdg.metadataqa.marc.Control006;
 import de.gwdg.metadataqa.marc.Control008;
 import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.MarcRecord;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -107,7 +109,7 @@ public class Serial {
   private boolean empty(List<DataField> list) {
     if (list == null || list.isEmpty())
       return true;
-    return list.get(0).parseSubfields().isEmpty();
+    return list.get(0).getSubfields().isEmpty();
   }
 
   private String first(List<DataField> list) {
@@ -163,6 +165,8 @@ public class Serial {
     // Authentication code (from the 042) is empty (the record is not pcc or nsdp)
     List<DataField> authenticationcode = record.getDatafield("042");
     if (!empty(authenticationcode)
+        && authenticationcode.get(0) != null
+        && authenticationcode.get(0).getSubfield("a") != null
         && !authenticationcode.get(0).getSubfield("a").isEmpty()
         && authenticationcode.get(0).getSubfield("a").get(0).getValue() != "") {
       scores.set(SerialFields.Auth, 7);
@@ -188,9 +192,16 @@ public class Serial {
     }
 
     // 006 is present
-    if (record.getControl006() != null
-        && record.getControl006().getContent() != "") {
-      scores.set(SerialFields.Has006, 1);
+    if (record.getControl006() != null && !record.getControl006().isEmpty()) {
+      boolean hasContent = false;
+      for (Control006 control006 : record.getControl006()) {
+        if (control006.getContent() != null && control006.getContent() != "") {
+          hasContent = true;
+          break;
+        }
+      }
+      if (hasContent)
+        scores.set(SerialFields.Has006, 1);
     }
 
     // Record has publisher AACR2
@@ -239,7 +250,10 @@ public class Serial {
 
     // Any PCC record should automatically be kept unless it is not online and/or a ceased title
     if (!empty(record.getDatafield("042"))
-        && record.getDatafield("042").get(0).getSubfield("a").equals("pcc")) {
+        && record.getDatafield("042").get(0) != null
+        && record.getDatafield("042").get(0).getSubfield("a") != null
+        && !record.getDatafield("042").get(0).getSubfield("a").isEmpty()
+        && record.getDatafield("042").get(0).getSubfield("a").get(0).equals("pcc")) {
       scores.set(SerialFields.PCC, 100);
     }
 
@@ -263,7 +277,11 @@ public class Serial {
 
     // Discard any that are RECORD REPORTED FOR DELETION
     List<DataField> notes = record.getDatafield("936");
-    if (!empty(notes) && notes.get(0).getSubfield("0").get(0).getValue().contains("DELETION")) {
+    if (!empty(notes)
+        && notes.get(0).getSubfield("0") != null
+        && notes.get(0).getSubfield("0").get(0) != null
+        && notes.get(0).getSubfield("0").get(0).getValue() != null
+        && notes.get(0).getSubfield("0").get(0).getValue().contains("DELETION")) {
       // scores.add(new Tuple2("deletion", -100));
       // score = score * 0 - 100;
     }

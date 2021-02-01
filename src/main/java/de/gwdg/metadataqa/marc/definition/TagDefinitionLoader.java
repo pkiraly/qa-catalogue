@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.definition;
 
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.utils.MarcTagLister;
 
 import java.lang.reflect.InvocationTargetException;
@@ -78,6 +79,8 @@ public class TagDefinitionLoader {
       version = MarcVersion.FENNICA;
     } else if (definitionClazz.getCanonicalName().contains(".nkcrtags.")) {
       version = MarcVersion.NKCR;
+    } else if (definitionClazz.getCanonicalName().contains(".bltags.")) {
+      version = MarcVersion.BL;
     }
     return version;
   }
@@ -92,9 +95,9 @@ public class TagDefinitionLoader {
     if (map == null)
       return null;
 
-    if (map.containsKey(marcVersion)) {
+    if (map.containsKey(marcVersion))
       return map.get(marcVersion);
-    }
+
     if (marcVersion.equals(MarcVersion.MARC21)) {
       // no fallback for MARC21
       return null;
@@ -105,6 +108,7 @@ public class TagDefinitionLoader {
       if (map.containsKey(MarcVersion.OCLC))
         return map.get(MarcVersion.OCLC);
     }
+
     return null;
   }
 

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -34,25 +35,6 @@ import static org.junit.Assert.*;
  */
 public class ValidationTest {
   
-  public ValidationTest() {
-  }
-  
-  @BeforeClass
-  public static void setUpClass() {
-  }
-  
-  @AfterClass
-  public static void tearDownClass() {
-  }
-  
-  @Before
-  public void setUp() {
-  }
-  
-  @After
-  public void tearDown() {
-  }
-
   @Test
   public void testStructureDefinitionReader() throws URISyntaxException, IOException {
     MarcStructureDefinitionReader reader = new MarcStructureDefinitionReader("multiline.txt");
@@ -115,7 +97,7 @@ public class ValidationTest {
     boolean isValid = record.validate(MarcVersion.MARC21, false);
     if (!isValid) {
       String message = ValidationErrorFormatter.format(record.getValidationErrors(), ValidationErrorFormat.TEXT);
-      assertTrue(message.contains("880$6: record: ambiguous linkage 'There are multiple $6'"));
+      assertTrue(message.contains("880$6: 3 - ambiguous linkage 'There are multiple $6'"));
     }
   }
 
@@ -125,11 +107,17 @@ public class ValidationTest {
     MarcRecord record = MarcFactory.createFromFormattedText(lines, MarcVersion.MARC21);
     assertFalse(record.validate(MarcVersion.MARC21, true));
     assertEquals(21, record.getValidationErrors().size());
+  }
 
-    for (ValidationError error : record.getValidationErrors()) {
-      System.err.println(error.toString());
-    }
-
+  @Test
+  public void testABLFile() throws URISyntaxException, IOException {
+    List<String> lines = FileUtils.readLines("bl/006013122.mrctxt");
+    MarcRecord record = MarcFactory.createFromFormattedText(lines, MarcVersion.BL);
+    assertEquals(Arrays.asList(
+      "FMT", "019", "020", "040", "100", "245", "260", "336", "337", "338", "590",
+      "966", "979", "CAT", "CAT", "CAT", "CAT", "FIN", "LEO", "SRC", "STA", "LAS"),
+      record.getDatafields().stream().map(DataField::getTag).collect(Collectors.toList()));
+    assertTrue(record.hasDatafield("STA"));
   }
 
 }

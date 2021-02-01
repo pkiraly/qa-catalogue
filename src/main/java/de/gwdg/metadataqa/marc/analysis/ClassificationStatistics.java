@@ -16,6 +16,7 @@ public class ClassificationStatistics {
   private Map<Boolean, Integer> hasClassifications = new HashMap<>();
   private Map<Integer, Integer> schemaHistogram = new HashMap<>();
   private Map<List<String>, Integer> collocationHistogram = new HashMap<>();
+  private Map<Integer, String> frequencyExamples = new HashMap<>();
 
   public ClassificationStatistics() {
   }
@@ -59,6 +60,9 @@ public class ClassificationStatistics {
       .map(e -> e.getValue())
       .reduce((a, b) -> a + b)
       .get();
+  }
 
+  public Map<Integer, String> getFrequencyExamples() {
+    return frequencyExamples;
   }
 }

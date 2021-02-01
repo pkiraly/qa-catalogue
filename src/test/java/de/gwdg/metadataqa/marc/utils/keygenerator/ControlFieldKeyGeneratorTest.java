@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.utils.keygenerator;
 
 import de.gwdg.metadataqa.marc.Control008;
 import de.gwdg.metadataqa.marc.Leader;
-import de.gwdg.metadataqa.marc.definition.controlsubfields.tag008.*;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.*;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import org.junit.Test;
 
@@ -83,23 +83,23 @@ public class ControlFieldKeyGeneratorTest {
     assertNotNull(generator.forTag());
     assertEquals("008_GeneralInformation", generator.forTag());
 
-    assertEquals("008_00-05_GeneralInformation_dateEnteredOnFile", generator.forSubfield(Tag008all00.getInstance()));
-    assertEquals("008_06_GeneralInformation_typeOfDateOrPublicationStatus", generator.forSubfield(Tag008all06.getInstance()));
-    assertEquals("008_07-10_GeneralInformation_date1", generator.forSubfield(Tag008all07.getInstance()));
-    assertEquals("008_11-14_GeneralInformation_date2", generator.forSubfield(Tag008all11.getInstance()));
-    assertEquals("008_15-17_GeneralInformation_placeOfPublicationProductionOrExecution", generator.forSubfield(Tag008all15.getInstance()));
-    assertEquals("008_35-37_GeneralInformation_language", generator.forSubfield(Tag008all35.getInstance()));
-    assertEquals("008_38_GeneralInformation_modifiedRecord", generator.forSubfield(Tag008all38.getInstance()));
-    assertEquals("008_39_GeneralInformation_catalogingSource", generator.forSubfield(Tag008all39.getInstance()));
-    assertEquals("008_18-21_GeneralInformation_illustrations", generator.forSubfield(Tag008book18.getInstance()));
-    assertEquals("008_22_GeneralInformation_targetAudience", generator.forSubfield(Tag008book22.getInstance()));
-    assertEquals("008_23_GeneralInformation_formOfItem", generator.forSubfield(Tag008book23.getInstance()));
-    assertEquals("008_24-27_GeneralInformation_natureOfContents", generator.forSubfield(Tag008book24.getInstance()));
-    assertEquals("008_28_GeneralInformation_governmentPublication", generator.forSubfield(Tag008book28.getInstance()));
-    assertEquals("008_29_GeneralInformation_conferencePublication", generator.forSubfield(Tag008book29.getInstance()));
-    assertEquals("008_30_GeneralInformation_festschrift", generator.forSubfield(Tag008book30.getInstance()));
-    assertEquals("008_31_GeneralInformation_index", generator.forSubfield(Tag008book31.getInstance()));
-    assertEquals("008_33_GeneralInformation_literaryForm", generator.forSubfield(Tag008book33.getInstance()));
-    assertEquals("008_34_GeneralInformation_biography", generator.forSubfield(Tag008book34.getInstance()));
+    assertEquals("008all00_GeneralInformation_dateEnteredOnFile", generator.forSubfield(Tag008all00.getInstance()));
+    assertEquals("008all06_GeneralInformation_typeOfDateOrPublicationStatus", generator.forSubfield(Tag008all06.getInstance()));
+    assertEquals("008all07_GeneralInformation_date1", generator.forSubfield(Tag008all07.getInstance()));
+    assertEquals("008all11_GeneralInformation_date2", generator.forSubfield(Tag008all11.getInstance()));
+    assertEquals("008all15_GeneralInformation_placeOfPublicationProductionOrExecution", generator.forSubfield(Tag008all15.getInstance()));
+    assertEquals("008all35_GeneralInformation_language", generator.forSubfield(Tag008all35.getInstance()));
+    assertEquals("008all38_GeneralInformation_modifiedRecord", generator.forSubfield(Tag008all38.getInstance()));
+    assertEquals("008all39_GeneralInformation_catalogingSource", generator.forSubfield(Tag008all39.getInstance()));
+    assertEquals("008book18_GeneralInformation_illustrations", generator.forSubfield(Tag008book18.getInstance()));
+    assertEquals("008book22_GeneralInformation_targetAudience", generator.forSubfield(Tag008book22.getInstance()));
+    assertEquals("008book23_GeneralInformation_formOfItem", generator.forSubfield(Tag008book23.getInstance()));
+    assertEquals("008book24_GeneralInformation_natureOfContents", generator.forSubfield(Tag008book24.getInstance()));
+    assertEquals("008book28_GeneralInformation_governmentPublication", generator.forSubfield(Tag008book28.getInstance()));
+    assertEquals("008book29_GeneralInformation_conferencePublication", generator.forSubfield(Tag008book29.getInstance()));
+    assertEquals("008book30_GeneralInformation_festschrift", generator.forSubfield(Tag008book30.getInstance()));
+    assertEquals("008book31_GeneralInformation_index", generator.forSubfield(Tag008book31.getInstance()));
+    assertEquals("008book33_GeneralInformation_literaryForm", generator.forSubfield(Tag008book33.getInstance()));
+    assertEquals("008book34_GeneralInformation_biography", generator.forSubfield(Tag008book34.getInstance()));
   }
 }

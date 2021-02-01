@@ -21,22 +21,6 @@ import static org.junit.Assert.*;
 
 public class MarcFactoryTest {
 
-  @BeforeClass
-  public static void setUpClass() {
-  }
-
-  @AfterClass
-  public static void tearDownClass() {
-  }
-
-  @Before
-  public void setUp() {
-  }
-
-  @After
-  public void tearDown() {
-  }
-
   @Test
   public void mainTest() throws IOException, URISyntaxException {
     JsonPathCache cache = new JsonPathCache(FileUtils.readFirstLine("general/verbund-tit.001.0000000.formatted.json"));
@@ -49,7 +33,7 @@ public class MarcFactoryTest {
     // System.err.println(record.formatForIndex());
     // System.err.println(record.getKeyValuePairs());
     Map<String, List<String>> pairs = record.getKeyValuePairs(SolrFieldType.HUMAN);
-    assertEquals(126, pairs.size());
+    assertEquals(120, pairs.size());
     Set<String> keys = pairs.keySet();
     // keys.remove("GentLocallyDefinedField");
     // keys.remove("BemerkungenZurTitelaufnahme");
@@ -73,24 +57,21 @@ public class MarcFactoryTest {
       "GeneralInformation_conferencePublication, " +
       "GeneralInformation_originalAlphabetOrScriptOfTitle, GeneralInformation_entryConvention, " +
       "IdIntifiedByLocal_source, IdIntifiedByLocal, IdIntifiedByLocal_agency, " +
-      "Issn_levelOfInternationalInterest, Issn, SystemControlNumber_organizationCode, " +
-      "SystemControlNumber_ind1, " +
-      "SystemControlNumber, SystemControlNumber_recordNumber, SystemControlNumber_organization, " +
-      "AdminMetadata_ind1, " +
-      "AdminMetadata_languageOfCataloging, AdminMetadata_descriptionConventions, " +
-      "AdminMetadata_transcribingAgency, AdminMetadata_catalogingAgency, " +
+      "Issn_levelOfInternationalInterest, Issn, SystemControlNumber_recordNumber, " +
+      "SystemControlNumber_organizationCode, " +
+      "SystemControlNumber, SystemControlNumber_organization, " +
+      "AdminMetadata_languageOfCataloging, " +
+      "AdminMetadata_transcribingAgency, AdminMetadata_descriptionConventions, AdminMetadata_catalogingAgency, " +
       "Language_translationIndication, Language, Language_sourceOfCode, Place_country, " +
-      "Place_ind1, " +
       "ClassificationDdc_editionType, ClassificationDdc_classificationSource, ClassificationDdc, " +
       "Classification_classificationPortion, Classification_classificationPortion_zdbs, " +
-      "Classification_source, Classification_ind1, Title_subtitle, " +
+      "Classification_source, Title_subtitle, " +
       "Title_responsibilityStatement, Title_mainTitle, Title_titleAddedEntry, " +
       "Title_nonfilingCharacters, Title_partName, ParallelTitle_mainTitle, ParallelTitle_type, " +
       "ParallelTitle_displayText, ParallelTitle_noteAndAddedEntry, " +
       "Publication_sequenceOfPublishingStatements, Publication_agent, Publication_place, " +
       "DatesOfPublication, DatesOfPublication_format, NumberingPeculiarities, " +
-      "NumberingPeculiarities_ind1, " +
-      "BemerkungenZurTitelaufnahme, BemerkungenZurTitelaufnahme_ind1, " +
+      "BemerkungenZurTitelaufnahme, " +
       "RSWKKette_nummerDesKettengliedes, RSWKKette_0, RSWKKette_a, " +
       "RSWKKette_nummerDerRSWKKette, RSWKKette_D, RSWKKette_5, AddedCorporateName, " +
       "AddedCorporateName_authorityRecordControlNumber, " +
@@ -103,7 +84,8 @@ public class MarcFactoryTest {
       "PrecededBy, PrecededBy_relation, PrecededBy_recordControlNumber_organization, " +
       "PrecededBy_recordControlNumber_recordNumber, PrecededBy_typeOfRelationship, " +
       "PrecededBy_recordControlNumber, PrecededBy_recordControlNumber_organizationCode, " +
-      "PrecededBy_noteController, Bestandsinformationen, Bestandsinformationen_9, Bestandsinformationen_d, " +
+      "PrecededBy_noteController, Bestandsinformationen, Bestandsinformationen_9, " +
+      "Bestandsinformationen_d, " +
       "Bestandsinformationen_artDerRessource, Bestandsinformationen_b, Bestandsinformationen_c, " +
       "Bestandsinformationen_h, Bestandsinformationen_g",
       StringUtils.join(keys, ", "));
@@ -448,7 +430,7 @@ public class MarcFactoryTest {
     List<DataField> admins = record.getDatafield("040");
     assertEquals(1, admins.size());
     DataField adminMeta = admins.get(0);
-    List<MarcSubfield> subfields = adminMeta.parseSubfields();
+    List<MarcSubfield> subfields = adminMeta.getSubfields();
     for (MarcSubfield subfield : subfields) {
       if (subfield.getCode().equals("b")) {
         assertEquals("LanguageCodes", subfield.getDefinition().getCodeList().getClass().getSimpleName());
@@ -467,7 +449,7 @@ public class MarcFactoryTest {
 
     MarcRecord record = MarcFactory.create(cache, MarcVersion.DNB);
     Map<String, List<String>> pairs = record.getKeyValuePairs(SolrFieldType.MIXED);
-    assertEquals(126, pairs.size());
+    assertEquals(120, pairs.size());
 
     Set<String> keys = pairs.keySet();
     keys.remove("591a_GentLocallyDefinedField");
@@ -476,73 +458,68 @@ public class MarcFactoryTest {
     assertEquals(
       "type, " +
         "Leader, " +
-        "Leader_00-04_recordLength, " +
-        "Leader_05_recordStatus, " +
-        "Leader_06_typeOfRecord, " +
-        "Leader_07_bibliographicLevel, " +
-        "Leader_08_typeOfControl, " +
-        "Leader_09_characterCodingScheme, " +
-        "Leader_10_indicatorCount, " +
-        "Leader_11_subfieldCodeCount, " +
-        "Leader_12-16_baseAddressOfData, " +
-        "Leader_17_encodingLevel, " +
-        "Leader_18_descriptiveCatalogingForm, " +
-        "Leader_19_multipartResourceRecordLevel, " +
-        "Leader_20_lengthOfTheLengthOfFieldPortion, " +
-        "Leader_21_lengthOfTheStartingCharacterPositionPortion, " +
-        "Leader_22_lengthOfTheImplementationDefinedPortion, " +
+        "leader00_recordLength, " +
+        "leader05_recordStatus, " +
+        "leader06_typeOfRecord, " +
+        "leader07_bibliographicLevel, " +
+        "leader08_typeOfControl, " +
+        "leader09_characterCodingScheme, " +
+        "leader10_indicatorCount, " +
+        "leader11_subfieldCodeCount, " +
+        "leader12_baseAddressOfData, " +
+        "leader17_encodingLevel, " +
+        "leader18_descriptiveCatalogingForm, " +
+        "leader19_multipartResourceRecordLevel, " +
+        "leader20_lengthOfTheLengthOfFieldPortion, " +
+        "leader21_lengthOfTheStartingCharacterPositionPortion, " +
+        "leader22_lengthOfTheImplementationDefinedPortion, " +
         "001_ControlNumber, " +
         "003_ControlNumberIdentifier, " +
         "005_LatestTransactionTime, " +
         "007_PhysicalDescription, " +
-        "007_00_PhysicalDescription_categoryOfMaterial, " +
-        "007_01_PhysicalDescription_specificMaterialDesignation, " +
-        "008_GeneralInformation, " +
-        "008_00-05_GeneralInformation_dateEnteredOnFile, " +
-        "008_06_GeneralInformation_typeOfDateOrPublicationStatus, " +
-        "008_07-10_GeneralInformation_date1, " +
-        "008_11-14_GeneralInformation_date2, " +
-        "008_15-17_GeneralInformation_placeOfPublicationProductionOrExecution, " +
-        "008_35-37_GeneralInformation_language, " +
-        "008_38_GeneralInformation_modifiedRecord, " +
-        "008_39_GeneralInformation_catalogingSource, " +
-        "008_18_GeneralInformation_frequency, " +
-        "008_19_GeneralInformation_regularity, " +
-        "008_21_GeneralInformation_typeOfContinuingResource, " +
-        "008_22_GeneralInformation_formOfOriginalItem, " +
-        "008_23_GeneralInformation_formOfItem, " +
-        "008_24_GeneralInformation_natureOfEntireWork, " +
-        "008_25-27_GeneralInformation_natureOfContents, " +
-        "008_28_GeneralInformation_governmentPublication, " +
-        "008_29_GeneralInformation_conferencePublication, " +
-        "008_33_GeneralInformation_originalAlphabetOrScriptOfTitle, " +
-        "008_34_GeneralInformation_entryConvention, " +
+        "007text00_PhysicalDescription_categoryOfMaterial, " +
+        "007text01_PhysicalDescription_specificMaterialDesignation, " +
+        "008_GeneralInformation, 008all00_GeneralInformation_dateEnteredOnFile, " +
+        "008all06_GeneralInformation_typeOfDateOrPublicationStatus, " +
+        "008all07_GeneralInformation_date1, " +
+        "008all11_GeneralInformation_date2, " +
+        "008all15_GeneralInformation_placeOfPublicationProductionOrExecution, " +
+        "008all35_GeneralInformation_language, " +
+        "008all38_GeneralInformation_modifiedRecord, " +
+        "008all39_GeneralInformation_catalogingSource, " +
+        "008continuing18_GeneralInformation_frequency, " +
+        "008continuing19_GeneralInformation_regularity, " +
+        "008continuing21_GeneralInformation_typeOfContinuingResource, " +
+        "008continuing22_GeneralInformation_formOfOriginalItem, " +
+        "008continuing23_GeneralInformation_formOfItem, " +
+        "008continuing24_GeneralInformation_natureOfEntireWork, " +
+        "008continuing25_GeneralInformation_natureOfContents, " +
+        "008continuing28_GeneralInformation_governmentPublication, " +
+        "008continuing29_GeneralInformation_conferencePublication, " +
+        "008continuing33_GeneralInformation_originalAlphabetOrScriptOfTitle, " +
+        "008continuing34_GeneralInformation_entryConvention, " +
         "0162_IdIntifiedByLocal_source, " +
         "016ind1_IdIntifiedByLocal_agency, " +
         "016a_IdIntifiedByLocal, " +
         "022ind1_Issn_levelOfInternationalInterest, " +
         "022a_Issn, " +
         "035a_SystemControlNumber_recordNumber, " +
-        "035a_SystemControlNumber, " +
-        "035ind1_SystemControlNumber_ind1, " +
         "035a_SystemControlNumber_organizationCode, " +
+        "035a_SystemControlNumber, " +
         "035a_SystemControlNumber_organization, " +
         "040e_AdminMetadata_descriptionConventions, " +
-        "040ind1_AdminMetadata_ind1, " +
         "040a_AdminMetadata_catalogingAgency, " +
         "040b_AdminMetadata_languageOfCataloging, " +
         "040c_AdminMetadata_transcribingAgency, " +
         "041a_Language, " +
         "041ind1_Language_translationIndication, " +
         "041ind2_Language_sourceOfCode, " +
-        "044ind1_Place_ind1, " +
         "044a_Place_country, " +
         "082ind2_ClassificationDdc_classificationSource, " +
         "082ind1_ClassificationDdc_editionType, " +
         "082a_ClassificationDdc, " +
-        "084ind1_Classification_ind1, " +
-        "0842_Classification_source, " +
         "084a_Classification_classificationPortion, " +
+        "0842_Classification_source, " +
         "084a_Classification_classificationPortion_zdbs, " +
         "245a_Title_mainTitle, " +
         "245ind1_Title_titleAddedEntry, " +
@@ -559,10 +536,7 @@ public class MarcFactoryTest {
         "260ind1_Publication_sequenceOfPublishingStatements, " +
         "362ind1_DatesOfPublication_format, " +
         "362a_DatesOfPublication, " +
-        "515ind1_NumberingPeculiarities_ind1, " +
         "515a_NumberingPeculiarities, " +
-        "591ind1_BemerkungenZurTitelaufnahme_ind1, " +
-        // "591a_GentLocallyDefinedField, " +
         "689D_RSWKKette, " +
         "6890_RSWKKette, " +
         "689ind2_RSWKKette_nummerDesKettengliedes, " +

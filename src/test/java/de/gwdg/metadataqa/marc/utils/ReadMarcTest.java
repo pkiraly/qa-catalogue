@@ -4,7 +4,7 @@ import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcRecord;
 import org.junit.Test;
-import org.marc4j.marc.*;
+import org.marc4j.marc.Record;
 
 import java.nio.file.Path;
 import java.util.List;

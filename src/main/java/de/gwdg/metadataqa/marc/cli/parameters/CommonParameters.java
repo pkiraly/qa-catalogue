@@ -1,11 +1,16 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
 import de.gwdg.metadataqa.marc.Leader;
+import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
+import de.gwdg.metadataqa.marc.cli.utils.IgnorableRecords;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import org.apache.commons.cli.*;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class CommonParameters implements Serializable {
 
@@ -25,6 +30,8 @@ public class CommonParameters implements Serializable {
   protected boolean lineSeparated = false;
   protected boolean trimId = false;
   private String outputDir = DEFAULT_OUTPUT_DIR;
+  protected IgnorableRecords ignorableRecords = new IgnorableRecords();
+  protected IgnorableFields ignorableFields = new IgnorableFields();
 
   protected Options options = new Options();
   protected static final CommandLineParser parser = new DefaultParser();
@@ -46,6 +53,8 @@ public class CommonParameters implements Serializable {
       options.addOption("y", "lineSeparated", false, "the source is in line separated MARC format");
       options.addOption("t", "outputDir", true, "output directory");
       options.addOption("r", "trimId", false, "remove spaces from the end of record IDs");
+      options.addOption("z", "ignorableFields", true, "ignore fields from the analysis");
+      options.addOption("v", "ignorableRecords", true, "ignore records from the analysis");
       isOptionSet = true;
     }
   }
@@ -96,6 +105,12 @@ public class CommonParameters implements Serializable {
       outputDir = cmd.getOptionValue("outputDir");
 
     trimId = cmd.hasOption("trimId");
+
+    if (cmd.hasOption("ignorableFields"))
+      ignorableFields.parseFields(cmd.getOptionValue("ignorableFields").trim());
+
+    if (cmd.hasOption("ignorableRecords"))
+      ignorableRecords.parseInput(cmd.getOptionValue("ignorableRecords").trim());
 
     args = cmd.getArgs();
   }
@@ -166,6 +181,14 @@ public class CommonParameters implements Serializable {
     return trimId;
   }
 
+  public IgnorableFields getIgnorableFields() {
+    return ignorableFields;
+  }
+
+  public IgnorableRecords getIgnorableRecords() {
+    return ignorableRecords;
+  }
+
   public String formatParameters() {
     String text = "";
     text += String.format("marcVersion: %s, %s%n", marcVersion.getCode(), marcVersion.getLabel());
@@ -180,6 +203,8 @@ public class CommonParameters implements Serializable {
     text += String.format("lineSeparated: %s%n", lineSeparated);
     text += String.format("outputDir: %s%n", outputDir);
     text += String.format("trimId: %s%n", trimId);
+    text += String.format("ignorableFields: %s%n", ignorableFields);
+    text += String.format("ignorableRecords: %s%n", ignorableRecords);
 
     return text;
   }

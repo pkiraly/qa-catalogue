@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition;
 
-import org.apache.avro.generic.GenericData;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import org.junit.Test;
 
 import java.util.Arrays;

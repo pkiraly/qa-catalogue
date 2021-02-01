@@ -12,7 +12,6 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.jetbrains.annotations.NotNull;
 import org.marc4j.marc.Record;
 
 import java.io.BufferedWriter;
@@ -92,7 +91,6 @@ public class ShelfReadyCompleteness implements MarcFileProcessor, Serializable {
     print(createRow(createHeaders()));
   }
 
-  @NotNull
   private List<String> createHeaders() {
     List<String> headers = new ArrayList<>();
     headers.add("id");
@@ -112,6 +110,9 @@ public class ShelfReadyCompleteness implements MarcFileProcessor, Serializable {
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) {
+    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+      return;
+
     List<Double> scores = ShelfReadyAnalysis.getScores(marcRecord);
     String id = parameters.getTrimId()
               ? marcRecord.getId().trim()

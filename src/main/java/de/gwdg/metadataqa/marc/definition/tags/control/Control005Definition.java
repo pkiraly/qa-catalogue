@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.control;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 
 /**
  * Control Number Identifier

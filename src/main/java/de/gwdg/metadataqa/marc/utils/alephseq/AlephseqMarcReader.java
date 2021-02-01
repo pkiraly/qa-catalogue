@@ -68,7 +68,7 @@ public class AlephseqMarcReader implements MarcReader {
           } else {
             record = MarcFactory.createRecordFromAlephseq(lines);
             if (record.getControlNumber() == null) {
-              logSkipped("does not have an control number field (001)");
+              logSkipped("does not have a control number field (001)");
             } else if (record.getLeader() == null) {
               logSkipped("does not have a leader");
             } else {

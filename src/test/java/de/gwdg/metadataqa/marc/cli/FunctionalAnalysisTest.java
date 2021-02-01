@@ -22,5 +22,4 @@ public class FunctionalAnalysisTest {
     MarcRecord record = MarcFactory.createFromMarc4j(marc4jRecord);
     analysis.processRecord(record, 1);
   }
-
 }

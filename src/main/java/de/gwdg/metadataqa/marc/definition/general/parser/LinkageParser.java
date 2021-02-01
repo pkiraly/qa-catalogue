@@ -4,9 +4,7 @@ import de.gwdg.metadataqa.marc.definition.general.Linkage;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,6 +13,7 @@ public class LinkageParser implements SubfieldContentParser, Serializable {
   public static final Pattern INVALID_CHAR = Pattern.compile("[^0-9\\-\\/\\($BNSr]");
 
   private static final Pattern REGEX = Pattern.compile("^(\\d{3})-(\\d{2})(?:/(.*?))?(?:/(.*?))?$");
+  boolean collectInvalidCharacters = false;
 
   @Override
   public Map<String, String> parse(String input) throws ParserException {
@@ -45,19 +44,20 @@ public class LinkageParser implements SubfieldContentParser, Serializable {
   private void checkInvalidCharacters(String input) throws ParserException {
     Matcher matcher = INVALID_CHAR.matcher(input);
     boolean hasInvalidCharacters = false;
-    List<String> invalidChars = new ArrayList<>();
+    Set<String> invalidChars = new HashSet<>();
     while (matcher.find()) {
       hasInvalidCharacters = true;
-      String chr = matcher.group();
-      String hex = String.format("\\u%04X", (int)chr.charAt(0));
-      if (hex.equals("\\u200F"))
-        chr = hex;
-      invalidChars.add(chr);
+      if (collectInvalidCharacters) {
+        String chr = matcher.group();
+        String hex = String.format("\\u%04X", (int)chr.charAt(0));
+        if (hex.equals("\\u200F"))
+          chr = hex;
+        invalidChars.add(chr);
+      }
     }
-    if (hasInvalidCharacters) {
-      throw new ParserException(String.format(
-        "Linkage does not fit the pattern nnn-nn(/..)(/..). It contains invalid characters in '%s': '%s'", input, StringUtils.join(invalidChars, "', '")));
-    }
+
+    if (hasInvalidCharacters)
+      throw new ParserException("Linkage does not fit the pattern 'nnn-nn[/..][/..]'.");
   }
 
   private static LinkageParser uniqueInstance;
@@ -69,5 +69,4 @@ public class LinkageParser implements SubfieldContentParser, Serializable {
       uniqueInstance = new LinkageParser();
     return uniqueInstance;
   }
-
 }

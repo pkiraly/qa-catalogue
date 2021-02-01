@@ -79,14 +79,16 @@ RUN apt-get update \
       unzip \
  && rm -rf /var/lib/apt/lists/* \
  && cd /var/www/html/ \
- && curl -s -L https://github.com/pkiraly/metadata-qa-marc-web/archive/master.zip --output master.zip \
+ && curl -s -L https://github.com/pkiraly/metadata-qa-marc-web/archive/release/0.4.zip --output master.zip \
  && unzip -q master.zip \
  && rm master.zip \
- && mv metadata-qa-marc-web-master metadata-qa \
+ && mv metadata-qa-marc-web-release-0.4 metadata-qa \
  && echo dir=/opt/metadata-qa-marc/marc/_output > /var/www/html/metadata-qa/configuration.cnf \
- && cp /var/www/html/metadata-qa/configuration.js.template /var/www/html/metadata-qa/configuration.js \
+ # && cp /var/www/html/metadata-qa/configuration.js.template /var/www/html/metadata-qa/configuration.js \
  && touch /var/www/html/metadata-qa/selected-facets.js \
  && mkdir /var/www/html/metadata-qa/cache \
+ && chown www-data:www-data -R /var/www/html/metadata-qa/cache \
+ && chmod g+w -R /var/www/html/metadata-qa/cache \
  && mkdir /var/www/html/metadata-qa/libs \
  && mkdir /var/www/html/metadata-qa/images \
  && cd /var/www/html/metadata-qa/libs/ \

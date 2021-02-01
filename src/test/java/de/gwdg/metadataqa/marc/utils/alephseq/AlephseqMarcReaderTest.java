@@ -54,8 +54,8 @@ public class AlephseqMarcReaderTest {
 
     assertEquals("BE-GnUNI", marcRecord.getControl003().getContent());
     assertEquals("20171113130949.0", marcRecord.getControl005().getContent());
-    assertNull(marcRecord.getControl006());
-    assertNull(marcRecord.getControl007());
+    assertTrue(marcRecord.getControl006().isEmpty());
+    assertTrue(marcRecord.getControl007().isEmpty());
     assertEquals(
       "780804s1977    enk||||||b||||001 0|eng||",
       marcRecord.getControl008().getContent()
@@ -69,10 +69,8 @@ public class AlephseqMarcReaderTest {
     assertEquals("000000002", simpleControlFields.get(0).getContent());
 
     List<MarcPositionalControlField> positionalControlFields = marcRecord.getPositionalControlfields();
-    assertEquals(3, positionalControlFields.size());
-    assertNull(positionalControlFields.get(0));
-    assertNull(positionalControlFields.get(1));
-    assertNotNull(positionalControlFields.get(2).getContent());
+    assertEquals(1, positionalControlFields.size());
+    assertNotNull(positionalControlFields.get(0).getContent());
 
     assertTrue(marcRecord.exists("100"));
 

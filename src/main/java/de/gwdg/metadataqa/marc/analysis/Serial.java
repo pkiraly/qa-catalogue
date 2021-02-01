@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.analysis;
 
+import de.gwdg.metadataqa.marc.Control006;
 import de.gwdg.metadataqa.marc.Control008;
 import de.gwdg.metadataqa.marc.DataField;
 import de.gwdg.metadataqa.marc.MarcRecord;
@@ -191,9 +192,16 @@ public class Serial {
     }
 
     // 006 is present
-    if (record.getControl006() != null
-        && record.getControl006().getContent() != "") {
-      scores.set(SerialFields.Has006, 1);
+    if (record.getControl006() != null && !record.getControl006().isEmpty()) {
+      boolean hasContent = false;
+      for (Control006 control006 : record.getControl006()) {
+        if (control006.getContent() != null && control006.getContent() != "") {
+          hasContent = true;
+          break;
+        }
+      }
+      if (hasContent)
+        scores.set(SerialFields.Has006, 1);
     }
 
     // Record has publisher AACR2

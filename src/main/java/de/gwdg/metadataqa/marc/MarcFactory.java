@@ -5,9 +5,9 @@ import de.gwdg.metadataqa.api.model.pathcache.JsonPathCache;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.api.schema.MarcJsonSchema;
 import de.gwdg.metadataqa.api.schema.Schema;
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
-import de.gwdg.metadataqa.marc.definition.SubfieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
 import de.gwdg.metadataqa.marc.definition.tags.control.Control001Definition;
 import de.gwdg.metadataqa.marc.definition.tags.control.Control003Definition;
@@ -183,10 +183,9 @@ public class MarcFactory {
       DataFieldDefinition definition = getDataFieldDefinition(dataField, marcVersion);
       if (definition == null) {
         record.addUnhandledTags(dataField.getTag());
-      } else {
-        DataField field = extractDataField(dataField, definition, record.getControl001().getContent());
-        record.addDataField(field);
       }
+      DataField field = extractDataField(dataField, definition, marcVersion, record.getControl001().getContent());
+      record.addDataField(field);
     }
   }
 
@@ -200,30 +199,40 @@ public class MarcFactory {
 
   private static DataField extractDataField(org.marc4j.marc.DataField dataField,
                                             DataFieldDefinition definition,
+                                            MarcVersion marcVersion,
                                             String identifier) {
-    DataField field = new DataField(
-      definition,
-      Character.toString(dataField.getIndicator1()),
-      Character.toString(dataField.getIndicator2())
-    );
+    DataField field;
+    if (definition == null) {
+      field = new DataField(dataField.getTag(),
+              Character.toString(dataField.getIndicator1()),
+              Character.toString(dataField.getIndicator2()),
+              marcVersion
+      );
+    } else {
+      field = new DataField(
+              definition,
+              Character.toString(dataField.getIndicator1()),
+              Character.toString(dataField.getIndicator2())
+      );
+    }
     for (Subfield subfield : dataField.getSubfields()) {
       String code = Character.toString(subfield.getCode());
-      SubfieldDefinition subfieldDefinition = definition.getSubfield(code);
+      SubfieldDefinition subfieldDefinition = definition == null ? null : definition.getSubfield(code);
       MarcSubfield marcSubfield = null;
       if (subfieldDefinition == null) {
         // if (!(definition.getTag().equals("886") && code.equals("k")))
-          // field.addUnhandledSubfields(code);
-          /*
-          logger.warning(String.format(
-            "Problem in record '%s': %s$%s is not a valid subfield (value: '%s')",
-            identifier, definition.getTag(), code, subfield.getData()));
-          */
+        // field.addUnhandledSubfields(code);
+        /*
+        logger.warning(String.format(
+          "Problem in record '%s': %s$%s is not a valid subfield (value: '%s')",
+          identifier, definition.getTag(), code, subfield.getData()));
+        */
         marcSubfield = new MarcSubfield(null, code, subfield.getData());
       } else {
         marcSubfield = new MarcSubfield(subfieldDefinition, code, subfield.getData());
       }
       marcSubfield.setField(field);
-      field.parseSubfields().add(marcSubfield);
+      field.getSubfields().add(marcSubfield);
     }
     field.indexSubfields();
     return field;

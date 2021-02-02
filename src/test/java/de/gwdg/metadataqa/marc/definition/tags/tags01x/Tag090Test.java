@@ -21,7 +21,7 @@ public class Tag090Test {
     DataField field = new DataField(Tag090.getInstance(), " ", " ", "n", "sm");
     field.setRecord(record);
 
-    assertFalse("090$n should be invalid in normal case", field.validate(null));
+    assertFalse("090$n should be invalid in normal case", field.validate(MarcVersion.MARC21));
     assertTrue("090$n should be valid in DNB.", field.validate(MarcVersion.DNB));
   }
 

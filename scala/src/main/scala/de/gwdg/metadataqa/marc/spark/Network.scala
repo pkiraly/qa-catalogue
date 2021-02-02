@@ -181,10 +181,16 @@ object Network {
     log.info("STEP 5: clustering coefficients")
 
     val triCountGraph = graph.triangleCount()
-    // triCountGraph.vertices.map(x => x._2).stats()
-    val tricountDF = triCountGraph.vertices.toDF("id", "count")
+    val triCountGraphstat = triCountGraph.vertices
+      .map(x => x._2)
+      .toDF("x")
+      .select("x")
+      .summary().toDF("statistic", "value")
+    this.write("network-scores" + suffix + "-triCountGraph-stat", triCountGraphstat)
+    // val tricountDF = triCountGraph.vertices.toDF("id", "count")
 
     // var degreesRDD = graph.degrees.cache()
+    /*
     val maxTrisGraph = graph.degrees.mapValues(d => d * (d - 1) / 2.0)
     val maxTrisDF = maxTrisGraph.toDF("id", "theoreticalMax")
 
@@ -199,6 +205,7 @@ object Network {
 
     val dataDF = Seq(arageClusteringCoefficient).toDF("average-clustering-coefficient")
     this.write("network-scores" + suffix + "-clustering-coefficient", dataDF)
+     */
   }
 
   def write(file: String, df: DataFrame): Unit = {

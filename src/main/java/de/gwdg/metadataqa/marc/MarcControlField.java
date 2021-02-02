@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc;
 
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
@@ -50,6 +50,7 @@ public class MarcControlField implements Validatable, Extractable, Serializable 
   @Override
   public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
     Map<String, List<String>> map = new LinkedHashMap<>();
+
     map.put(
       getSolrKey(type, definition.getTag(), definition.getMqTag()),
       Arrays.asList(content));

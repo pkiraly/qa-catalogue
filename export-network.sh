@@ -100,7 +100,7 @@ do
     done
   done
 
-  for TYPE in "density" "clustering-coefficient"; do 
+  for TYPE in "density" "clustering-coefficient" "triCountGraph-stat"; do 
     # PREFIX=density
     if [[ $TAG == "all" && -e $OUTPUT_DIR/network-scores-${TYPE}.csv ]]; then
       rm $OUTPUT_DIR/network-scores-${TYPE}.csv
@@ -111,6 +111,6 @@ do
         | grep -v -P "^\d+,average-clustering-coefficient$" \
         | sed 's/all,average-clustering-coefficient/tag,average-clustering-coefficient/' \
         >> $OUTPUT_DIR/network-scores-${TYPE}.csv
-    # rm $OUTPUT_DIR/network-scores-$TAG-${TYPE}.csv
+    rm $OUTPUT_DIR/network-scores-$TAG-${TYPE}.csv
   done
 done < $INPUT_DIR/network-by-concepts-tags.csv

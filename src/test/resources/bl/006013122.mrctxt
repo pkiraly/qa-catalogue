@@ -1,0 +1,27 @@
+LEADER 00951 am a22003373u 4500
+001 006013122
+003 Uk
+005 20121031172800.0
+008 040420||||||||||||    ||     000 |||||
+FMT   $a  BK
+019 a $aG01244380
+020   $a081337703X
+040   $aUk$cUk
+100 0 $aOksenberg, Michael.
+245 00$aExplorations in Sino-American relations.
+260   $aWestview Press, 1989.
+336   $atext$2rdacontent
+337   $aunmediated$2rdamedia
+338   $avolume$2rdacarrier
+590   $acancelled, not published.
+966   $uc$lACQUIS
+979   $aMN
+CAT   $aCONV$b00$c20040502$lBLL01$h1125
+CAT   $aglobal_upd$b40$c20060416$lBLL01$h2239
+CAT   $aBATCH$b00$c20091206$lBLL01$h0340
+CAT   $aWR12-140$c20121031$lBLL01$h1728
+FIN   $aY
+LEO   $aMP8.0000609976
+SRC   $aDSC01$bbibmp8.200404.2.aa
+STA   $aSUPPRESSED$bNegative Record
+LAS   $aWR12-140$b00$c20121031$lBLL01$h1728

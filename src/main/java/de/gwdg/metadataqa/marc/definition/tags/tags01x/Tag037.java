@@ -1,8 +1,9 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.Indicator;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.Indicator;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
@@ -72,17 +73,20 @@ public class Tag037 extends DataFieldDefinition {
     getSubfield("c")
       .setBibframeTag("acquisitionTerms")
       .setFrbrFunctions(DiscoverySelect, DiscoveryObtain)
-      .setCompilanceLevels("O");
+      .setCompilanceLevels("O")
+      .disallowIn(MarcVersion.BL);
 
     getSubfield("f")
       .setBibframeTag("note").setMqTag("formOfIssue")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate)
-      .setCompilanceLevels("O");
+      .setCompilanceLevels("O")
+      .disallowIn(MarcVersion.BL);
 
     getSubfield("g")
       .setBibframeTag("note").setMqTag("format")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseManage, UseOperate)
-      .setCompilanceLevels("O");
+      .setCompilanceLevels("O")
+      .disallowIn(MarcVersion.BL);
 
     getSubfield("n")
       .setBibframeTag("note")
@@ -97,11 +101,13 @@ public class Tag037 extends DataFieldDefinition {
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setCompilanceLevels("A");
+      .setCompilanceLevels("A")
+      .disallowIn(MarcVersion.BL);
 
     getSubfield("8")
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
-      .setCompilanceLevels("O");
+      .setCompilanceLevels("O")
+      .disallowIn(MarcVersion.BL);
   }
 }

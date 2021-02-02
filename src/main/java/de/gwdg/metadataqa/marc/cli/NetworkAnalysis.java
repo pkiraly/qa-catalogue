@@ -82,6 +82,9 @@ public class NetworkAnalysis implements MarcFileProcessor, Serializable {
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
+    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+      return;
+
     NetworkAnalyzer analyzer = new NetworkAnalyzer(marcRecord);
     Set<DataField> collector = analyzer.process(recordNumber);
     if (collector.size() > 0) {

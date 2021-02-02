@@ -23,5 +23,6 @@ public class ValidatorResponse {
 
   public void addValidationError(ValidationError error) {
     this.validationErrors.add(error);
+    isValid = false;
   }
 }

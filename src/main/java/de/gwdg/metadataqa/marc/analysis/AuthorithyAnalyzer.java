@@ -6,9 +6,18 @@ import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
 import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
 
-import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+
+import static de.gwdg.metadataqa.marc.Utils.add;
+import static de.gwdg.metadataqa.marc.Utils.count;
 
 public class AuthorithyAnalyzer {
 
@@ -27,23 +36,39 @@ public class AuthorithyAnalyzer {
   }
 
   public int process() {
+    Map<AuthorityCategory, Integer> categoryCounter = new HashMap<>();
     int count = 0;
     for (DataField field : marcRecord.getAuthorityFields()) {
       SourceSpecificationType type = field.getDefinition().getSourceSpecificationType();
       if (type == null) {
 
       } else if (type.equals(SourceSpecificationType.Subfield2)) {
-        count += processFieldWithSubfield2(field);
+        int fieldInstanceLevelCount = processFieldWithSubfield2(field);
+        count += fieldInstanceLevelCount;
+        add(AuthorityCategory.get(field.getTag()), categoryCounter, fieldInstanceLevelCount);
       } else {
         logger.severe("Unhandled type: " + type);
       }
     }
+    // logger.info(categoryCounter.toString());
+    updateAuthorityCategoryStatitics(categoryCounter);
     return count;
+  }
+
+  private void updateAuthorityCategoryStatitics(Map<AuthorityCategory, Integer> categoryCounter) {
+    for (Map.Entry<AuthorityCategory, Integer> entry : categoryCounter.entrySet()) {
+      if (entry.getValue() > 0) {
+        // logger.info(entry.getKey() + " -> " * )
+        authoritiesStatistics.getInstancesPerCategories().add(entry.getKey(), entry.getValue());
+        authoritiesStatistics.getRecordsPerCategories().count(entry.getKey());
+      }
+    }
   }
 
   private int processFieldWithSubfield2(DataField field) {
     int count = 0;
     List<Schema> schemas = new ArrayList<>();
+    AuthorityCategory category = AuthorityCategory.get(field.getTag());
 
     Schema currentSchema = extractFromSubfield0(field, schemas);
     if (currentSchema == null)
@@ -53,6 +78,7 @@ public class AuthorithyAnalyzer {
 
     addSchemasToStatistics(authoritiesStatistics.getInstances(), schemas);
     addSchemasToStatistics(authoritiesStatistics.getRecords(), deduplicateSchema(schemas));
+
     return count;
   }
 
@@ -101,7 +127,7 @@ public class AuthorithyAnalyzer {
                                               Schema currentSchema) {
     if (currentSchema == null)
       return;
-    List<String> subfields = orderSubfields(field.parseSubfields());
+    List<String> subfields = orderSubfields(field.getSubfields());
 
     if (!authoritiesStatistics.getSubfields().containsKey(currentSchema)) {
       authoritiesStatistics.getSubfields().put(
@@ -117,16 +143,10 @@ public class AuthorithyAnalyzer {
     }
   }
 
-
   private void addSchemasToStatistics(Map<Schema, Integer> fieldStatistics, List<Schema> schemes) {
-    if (!schemes.isEmpty()) {
-      for (Schema scheme : schemes) {
-        if (!fieldStatistics.containsKey(scheme)) {
-          fieldStatistics.put(scheme, 0);
-        }
-        fieldStatistics.put(scheme, fieldStatistics.get(scheme) + 1);
-      }
-    }
+    if (!schemes.isEmpty())
+      for (Schema scheme : schemes)
+        count(scheme, fieldStatistics);
   }
 
   private List<String> orderSubfields(List<MarcSubfield> originalSubfields) {

@@ -89,12 +89,11 @@ public class RecordIterator {
           if (marc4jRecord == null)
             continue;
 
-          if (isUnderOffset(processor.getParameters().getOffset(), i)) {
+          if (isUnderOffset(processor.getParameters().getOffset(), i))
             continue;
-          }
-          if (isOverLimit(processor.getParameters().getLimit(), i)) {
+
+          if (isOverLimit(processor.getParameters().getLimit(), i))
             break;
-          }
 
           if (marc4jRecord.getControlNumber() == null) {
             logger.severe("No record number at " + i + ", last known ID: " + lastKnownId);
@@ -176,8 +175,6 @@ public class RecordIterator {
     if (processor.getParameters().doLog())
       logger.info(String.format("Bye! It took: %s",
         LocalTime.MIN.plusSeconds(duration).toString()));
-
-    // System.exit(0);
   }
 
   private static boolean isOverLimit(int limit, int i) {

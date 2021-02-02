@@ -8,8 +8,8 @@ public enum SourceSpecificationType {
   Indicator1IsSpaceAndSubfield2(" "),
   Indicator2AndSubfield2("7"),
   Indicator2For055AndSubfield2("6", "7", "8", "9"),
-  Subfield2("")
-  ;
+  Subfield2(""),
+  Indicator2("");
 
   private List<String> indicators;
 

@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.MarcRecord;
 import de.gwdg.metadataqa.marc.Validatable;
 import de.gwdg.metadataqa.marc.definition.general.parser.ParserException;
 import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 
@@ -13,12 +14,12 @@ import java.util.List;
 
 public class ControlValue implements Validatable, Serializable {
 
-  private ControlSubfieldDefinition definition;
+  private ControlfieldPositionDefinition definition;
   private String value;
   private MarcRecord record;
   private List<ValidationError> validationErrors;
 
-  public ControlValue(ControlSubfieldDefinition definition, String value) {
+  public ControlValue(ControlfieldPositionDefinition definition, String value) {
     this.definition = definition;
     this.value = value;
   }
@@ -39,7 +40,7 @@ public class ControlValue implements Validatable, Serializable {
     return definition.resolve(value);
   }
 
-  public ControlSubfieldDefinition getDefinition() {
+  public ControlfieldPositionDefinition getDefinition() {
     return definition;
   }
 
@@ -56,7 +57,7 @@ public class ControlValue implements Validatable, Serializable {
       && (!definition.getValidCodes().contains(value)
           && definition.getCode(value) == null)) {
       if (definition.isHistoricalCode(value)) {
-        validationErrors.add(new ValidationError(record.getId(), definition.getPath(), ValidationErrorType.CONTROL_SUBFIELD_OBSOLETE_CODE,
+        validationErrors.add(new ValidationError(record.getId(), definition.getPath(), ValidationErrorType.CONTROL_POSITION_OBSOLETE_CODE,
           value, definition.getDescriptionUrl()));
         isValid = false;
 
@@ -70,7 +71,7 @@ public class ControlValue implements Validatable, Serializable {
                 new ValidationError(
                   record.getId(),
                   definition.getPath(),
-                  ValidationErrorType.CONTROL_SUBFIELD_INVALID_CODE,
+                  ValidationErrorType.CONTROL_POSITION_INVALID_CODE,
                   String.format("'%s' in '%s'", unit, value),
                   definition.getDescriptionUrl()));
               isValid = false;
@@ -80,7 +81,7 @@ public class ControlValue implements Validatable, Serializable {
           validationErrors.add(
             new ValidationError(
               ((record == null) ? null : record.getId()),
-              definition.getPath(), ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE,
+              definition.getPath(), ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
             value, definition.getDescriptionUrl()));
           isValid = false;
         }
@@ -95,7 +96,7 @@ public class ControlValue implements Validatable, Serializable {
         validationErrors.add(
           new ValidationError(
             ((record == null) ? null : record.getId()),
-            definition.getPath(), ValidationErrorType.CONTROL_SUBFIELD_INVALID_VALUE,
+            definition.getPath(), ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
             e.getMessage(), definition.getDescriptionUrl()));
         // e.printStackTrace();
         isValid = false;

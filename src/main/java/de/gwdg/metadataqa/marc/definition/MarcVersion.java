@@ -2,13 +2,14 @@ package de.gwdg.metadataqa.marc.definition;
 
 public enum MarcVersion {
   MARC21("MARC21", "MARC21"),
+  BL("BL", "British Library"),
   DNB("DNB", "Deutsche Nationalbibliothek"),
-  OCLC("OCLC", "OCLC"),
-  GENT("GENT", "Universiteitsbibliotheek Gent"),
-  SZTE("SZTE", "Szegedi Tudományegyetem"),
   FENNICA("FENNICA", "National Library of Finland"),
-  UNIMARC("UNIMARC", "UNIMARC"),
+  GENT("GENT", "Universiteitsbibliotheek Gent"),
   NKCR("NKCR", "National Library of the Czech Republic"),
+  OCLC("OCLC", "OCLC"),
+  SZTE("SZTE", "Szegedi Tudományegyetem"),
+  UNIMARC("UNIMARC", "UNIMARC")
   ;
 
   String code;

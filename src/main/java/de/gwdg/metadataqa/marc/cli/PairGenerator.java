@@ -1,7 +1,6 @@
 package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.Utils;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -147,7 +146,6 @@ public class PairGenerator {
     }
   }
 
-  @NotNull
   private Object[] stringToBase36(String[] ids) {
     Object[] encoded;
     encoded = new String[ids.length];
@@ -157,7 +155,6 @@ public class PairGenerator {
     return encoded;
   }
 
-  @NotNull
   private Object[] stringToInteger(String[] ids) {
     Object[] encoded = new Integer[ids.length];
     for (int i = 0; i < ids.length; i++) {

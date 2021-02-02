@@ -16,6 +16,8 @@ public class ISSNValidator implements SubfieldValidator, Serializable {
 
   public static final String URL = "https://en.wikipedia.org/wiki/International_Standard_Serial_Number";
   public static final Pattern ISSN = Pattern.compile("\\d{4}-\\d{3}[\\dxX]");
+  public static final String MESSAGE_INTEGRITY = "ISSN failed in integrity check";
+  public static final String MESSAGE_PATTERN = "ISSN does not fit the pattern \\d{4}-\\d{3}[\\dX].";
 
   private static ISSNValidator uniqueInstance;
 
@@ -48,12 +50,15 @@ public class ISSNValidator implements SubfieldValidator, Serializable {
       }
       String checkDigit = (remainder == 10) ? "X" : String.valueOf(remainder);
       if (!value.endsWith(checkDigit)) {
+        message = MESSAGE_INTEGRITY;
+        /*
         message = String.format(
           "'%s' is not a valid ISSN value, it failed in integrity check",
           match
         );
         if (!match.equals(subfield.getValue()))
           message += String.format(" (in \"%s\")", subfield.getValue());
+        */
 
         response.addValidationError(new ValidationError(
           subfield.getField().getRecord().getId(),
@@ -65,10 +70,11 @@ public class ISSNValidator implements SubfieldValidator, Serializable {
       }
     }
     if (!found) {
-      message = String.format(
-        "'%s' does not a have ISSN value, it does not fit the pattern \\d{4}-\\d{3}[\\dX].",
-        subfield.getValue()
-      );
+      message = MESSAGE_PATTERN;
+      // message = String.format(
+      //   "'%s' does not a have ISSN value, it does not fit the pattern \\d{4}-\\d{3}[\\dX].",
+      //   subfield.getValue()
+      // );
       response.addValidationError(new ValidationError(
         subfield.getField().getRecord().getId(),
         subfield.getDefinition().getPath(),

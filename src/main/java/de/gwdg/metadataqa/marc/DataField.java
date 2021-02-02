@@ -1,20 +1,35 @@
 package de.gwdg.metadataqa.marc;
 
-import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.Indicator;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
+import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
+import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
 import de.gwdg.metadataqa.marc.definition.general.Linkage;
 import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
 import de.gwdg.metadataqa.marc.definition.general.indexer.subject.*;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.parser.ParserException;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
+import de.gwdg.metadataqa.marc.model.validation.ErrorsCollector;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
+
+import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorType.*;
 
 public class DataField implements Extractable, Validatable, Serializable {
 
@@ -26,7 +41,7 @@ public class DataField implements Extractable, Validatable, Serializable {
   private String ind2;
   private List<MarcSubfield> subfields;
   private Map<String, List<MarcSubfield>> subfieldIndex = new LinkedHashMap<>();
-  private List<ValidationError> validationErrors = null;
+  private ErrorsCollector errors = null;
   private List<String> unhandledSubfields = null;
   private MarcRecord record;
 
@@ -86,6 +101,16 @@ public class DataField implements Extractable, Validatable, Serializable {
     ind1 = input.substring(0, 1);
     ind2 = input.substring(1, 2);
     parseAndAddSubfields(input.substring(2));
+  }
+
+  public DataField(String tag, String ind1, String ind2, MarcVersion marcVersion) {
+    definition = TagDefinitionLoader.load(tag, marcVersion);
+    if (definition == null) {
+      this.tag = tag;
+    }
+    this.ind1 = ind1;
+    this.ind2 = ind2;
+    this.subfields = new ArrayList<>();
   }
 
   public DataField(String tag, String ind1, String ind2, String content, MarcVersion marcVersion) {
@@ -163,7 +188,9 @@ public class DataField implements Extractable, Validatable, Serializable {
   }
 
   private void addSubfield(String code, String value) {
-    SubfieldDefinition subfieldDefinition = definition != null ? definition.getSubfield(code) : null;
+    SubfieldDefinition subfieldDefinition = definition != null
+                                          ? definition.getSubfield(code)
+                                          : null;
     MarcSubfield marcSubfield = new MarcSubfield(subfieldDefinition, code, value);
     marcSubfield.setField(this);
     this.subfields.add(marcSubfield);
@@ -203,13 +230,20 @@ public class DataField implements Extractable, Validatable, Serializable {
 
   public String format() {
     StringBuffer output = new StringBuffer();
-    output.append(String.format("[%s: %s]%n", definition.getTag(), definition.getLabel()));
+    if (definition != null)
+      output.append(String.format("[%s: %s]%n", definition.getTag(), definition.getLabel()));
+    else
+      output.append(String.format("[%s]%n", getTag()));
 
-    if (definition.getInd1().exists())
+    if (definition != null && definition.getInd1().exists())
       output.append(String.format("%s: %s%n", definition.getInd1().getLabel(), resolveInd1()));
+    else if (StringUtils.isNotBlank(getInd1()))
+      output.append(String.format("ind1: %s%n", getInd1()));
 
-    if (definition.getInd2().exists())
+    if (definition != null && definition.getInd2().exists())
       output.append(String.format("%s: %s%n", definition.getInd2().getLabel(), resolveInd2()));
+    else if (StringUtils.isNotBlank(getInd2()))
+      output.append(String.format("ind2: %s%n", getInd2()));
 
     for (MarcSubfield subfield : subfields) {
       output.append(String.format("%s: %s%n", subfield.getLabel(), subfield.resolve()));
@@ -218,17 +252,33 @@ public class DataField implements Extractable, Validatable, Serializable {
     return output.toString();
   }
 
+  public String formatAsText() {
+    StringBuffer output = new StringBuffer();
+    output.append(getTag());
+    output.append(" ").append(ind1).append(ind2).append(" ");
+
+    boolean first = true;
+    for (MarcSubfield subfield : subfields) {
+      if (!first)
+        output.append("       ");
+      output.append("$").append(subfield.getCode()).append(" ").append(subfield.getValue()).append("\n");
+      first = false;
+    }
+
+    return output.toString();
+  }
+
   public String formatAsMarc() {
     StringBuffer output = new StringBuffer();
 
-    if (definition.getInd1().exists())
-      output.append(String.format("%s_ind1: %s%n", definition.getTag(), resolveInd1()));
+    if (definition != null && definition.getInd1().exists())
+      output.append(String.format("%s_ind1: %s%n", getTag(), resolveInd1()));
 
-    if (definition.getInd2().exists())
-      output.append(String.format("%s_ind2: %s%n", definition.getTag(), resolveInd2()));
+    if (definition != null && definition.getInd2().exists())
+      output.append(String.format("%s_ind2: %s%n", getTag(), resolveInd2()));
 
     for (MarcSubfield subfield : subfields) {
-      output.append(String.format("%s_%s: %s%n", definition.getTag(), subfield.getCode(), subfield.resolve()));
+      output.append(String.format("%s_%s: %s%n", getTag(), subfield.getCode(), subfield.resolve()));
     }
 
     return output.toString();
@@ -275,29 +325,24 @@ public class DataField implements Extractable, Validatable, Serializable {
       definition, type, getTag()
     );
 
-    if (definition != null && definition.getInd1().exists()) {
-      pairs.put(keyGenerator.forInd1(), Arrays.asList(resolveInd1()));
-    } else if (getInd1() != null) {
-      pairs.put(keyGenerator.forInd1(), Arrays.asList(getInd1()));
-    }
+    String value = (definition != null && definition.getInd1().exists()) ? resolveInd1() : (getInd1() != null ? getInd1() : null);
+    if (value != null && StringUtils.isNotBlank(value))
+      pairs.put(keyGenerator.forInd1(), Arrays.asList(value));
 
-    if (definition != null && definition.getInd2().exists()) {
-      pairs.put(keyGenerator.forInd2(), Arrays.asList(resolveInd2()));
-    }
+    value = (definition != null && definition.getInd2().exists()) ? resolveInd2() : (getInd2() != null ? getInd2() : null);
+    if (value != null && StringUtils.isNotBlank(value))
+      pairs.put(keyGenerator.forInd2(), Arrays.asList(value));
 
-    for (MarcSubfield subfield : subfields) {
+    for (MarcSubfield subfield : subfields)
       pairs.putAll(subfield.getKeyValuePairs(keyGenerator));
-    }
 
     if (getFieldIndexer() != null) {
       try {
         Map<String, List<String>> extra = getFieldIndexer().index(this, keyGenerator);
         pairs.putAll(extra);
       } catch (IllegalArgumentException e) {
-        logger.severe(String.format(
-          "%s  in record %s %s",
-          e.getLocalizedMessage(), record.getId(), this.toString()
-        ));
+        logger.severe(String.format("%s  in record %s %s",
+          e.getLocalizedMessage(), record.getId(), this.toString()));
       }
     }
 
@@ -306,9 +351,7 @@ public class DataField implements Extractable, Validatable, Serializable {
 
   public FieldIndexer getFieldIndexer() {
     FieldIndexer fieldIndexer = null;
-    if (definition != null && definition.getFieldIndexer() != null) {
-      fieldIndexer = definition.getFieldIndexer();
-    } else if (definition != null
+    if (definition != null
       && definition.getSourceSpecificationType() != null) {
       SourceSpecificationType specificationType = definition.getSourceSpecificationType();
       switch (specificationType) {
@@ -327,6 +370,9 @@ public class DataField implements Extractable, Validatable, Serializable {
         case Subfield2:
           fieldIndexer = SchemaFromSubfield2.getInstance();
           break;
+        case Indicator2:
+          fieldIndexer = SchemaFromInd2.getInstance();
+          break;
       }
     }
     return fieldIndexer;
@@ -341,8 +387,11 @@ public class DataField implements Extractable, Validatable, Serializable {
   }
 
   public String resolveIndicator(Indicator indicatorDefinition, String indicator) {
-    if (indicatorDefinition.getLabel().equals(""))
-      return "";
+    if (indicatorDefinition == null)
+      return indicator;
+
+    if (!indicatorDefinition.exists())
+      return indicator;
 
     if (!indicatorDefinition.hasCode(indicator))
       return indicator;
@@ -373,7 +422,7 @@ public class DataField implements Extractable, Validatable, Serializable {
     return subfieldIndex.getOrDefault(code, null);
   }
 
-  public List<MarcSubfield> parseSubfields() {
+  public List<MarcSubfield> getSubfields() {
     return subfields;
   }
 
@@ -384,26 +433,29 @@ public class DataField implements Extractable, Validatable, Serializable {
   @Override
   public boolean validate(MarcVersion marcVersion) {
     boolean isValid = true;
-    validationErrors = new ArrayList<>();
+    errors = new ErrorsCollector();
+
     DataFieldDefinition referencerDefinition = null;
     List<MarcSubfield> _subfields = null;
     boolean ambiguousLinkage = false;
+
+    if (marcVersion == null)
+      marcVersion = MarcVersion.MARC21;
+
+    if (TagDefinitionLoader.load(definition.getTag(), marcVersion) == null) {
+      addError(FIELD_UNDEFINED, "");
+      return false;
+    }
+
     if (getTag().equals("880")) {
       List<MarcSubfield> subfield6s = getSubfield("6");
       if (subfield6s == null) {
-        validationErrors.add(new ValidationError(record.getId(), definition.getTag(),
-          ValidationErrorType.FIELD_MISSING_REFERENCE_SUBFIELD, "$6", definition.getDescriptionUrl()));
+        addError(FIELD_MISSING_REFERENCE_SUBFIELD, "$6");
         isValid = false;
       } else {
         if (!subfield6s.isEmpty()) {
           if (subfield6s.size() != 1) {
-            validationErrors.add(
-              new ValidationError(
-                record.getId(), definition.getTag() + "$6",
-                ValidationErrorType.RECORD_AMBIGUOUS_LINKAGE, "There are multiple $6",
-                definition.getDescriptionUrl()
-              )
-            );
+            addError(definition.getTag() + "$6", RECORD_AMBIGUOUS_LINKAGE, "There are multiple $6");
             isValid = false;
             ambiguousLinkage = true;
           } else {
@@ -412,25 +464,17 @@ public class DataField implements Extractable, Validatable, Serializable {
             try {
               linkage = LinkageParser.getInstance().create(subfield6.getValue());
               if (linkage == null || linkage.getLinkingTag() == null) {
-                validationErrors.add(
-                  new ValidationError(
-                    record.getId(), definition.getTag() + "$6",
-                    ValidationErrorType.RECORD_INVALID_LINKAGE,
-                    String.format("Unparseable reference: '%s'", subfield6.getValue()),
-                    definition.getDescriptionUrl()
-                  )
-                );
+                String message = String.format("Unparseable reference: '%s'", subfield6.getValue());
+                addError(RECORD_INVALID_LINKAGE, message);
               } else {
                 referencerDefinition = definition;
                 definition = TagDefinitionLoader.load(linkage.getLinkingTag(), marcVersion);
+
                 if (definition == null) {
                   definition = referencerDefinition;
-                  validationErrors.add(
-                    new ValidationError(
-                      record.getId(), definition.getTag() + "$6",
-                      ValidationErrorType.RECORD_INVALID_LINKAGE,
-                      String.format("refers to field %s, which is not defined", linkage.getLinkingTag()),
-                      definition.getDescriptionUrl()));
+                  String message = String.format("refers to field %s, which is not defined",
+                    linkage.getLinkingTag());
+                  addError(definition.getTag() + "$6", RECORD_INVALID_LINKAGE, message);
                   isValid = false;
                 } else {
                   _subfields = subfields;
@@ -451,13 +495,7 @@ public class DataField implements Extractable, Validatable, Serializable {
                 }
               }
             } catch (ParserException e) {
-              validationErrors.add(
-                new ValidationError(
-                  record.getId(), definition.getTag() + "$6",
-                  ValidationErrorType.RECORD_INVALID_LINKAGE, e.getMessage(),
-                  definition.getDescriptionUrl()
-                )
-              );
+              addError(definition.getTag() + "$6", RECORD_INVALID_LINKAGE, e.getMessage());
             }
           }
         }
@@ -465,9 +503,7 @@ public class DataField implements Extractable, Validatable, Serializable {
     }
 
     if (unhandledSubfields != null) {
-      validationErrors.add(new ValidationError(record.getId(), definition.getTag(),
-        ValidationErrorType.SUBFIELD_UNDEFINED, StringUtils.join(unhandledSubfields, ", "),
-        definition.getDescriptionUrl()));
+      addError(SUBFIELD_UNDEFINED, StringUtils.join(unhandledSubfields, ", "));
       isValid = false;
     }
 
@@ -490,21 +526,21 @@ public class DataField implements Extractable, Validatable, Serializable {
               definition.getVersionSpecificSubfield(
                 marcVersion, subfield.getCode()));
           } else {
-            validationErrors.add(
-              new ValidationError(
-                record.getId(), definition.getTag(),
-                ValidationErrorType.SUBFIELD_UNDEFINED, subfield.getCode(), definition.getDescriptionUrl()));
+            addError(SUBFIELD_UNDEFINED, subfield.getCode());
             isValid = false;
             continue;
           }
         }
+        Utils.count(subfield.getDefinition(), counter);
+        /*
         if (!counter.containsKey(subfield.getDefinition())) {
           counter.put(subfield.getDefinition(), 0);
         }
         counter.put(subfield.getDefinition(), counter.get(subfield.getDefinition()) + 1);
+         */
 
         if (!subfield.validate(marcVersion)) {
-          validationErrors.addAll(subfield.getValidationErrors());
+          errors.addAll(subfield.getValidationErrors());
           isValid = false;
         }
       }
@@ -513,11 +549,9 @@ public class DataField implements Extractable, Validatable, Serializable {
         SubfieldDefinition subfieldDefinition = entry.getKey();
         Integer count = entry.getValue();
         if (count > 1
-          && subfieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
-          validationErrors.add(new ValidationError(record.getId(), subfieldDefinition.getPath(),
-            ValidationErrorType.SUBFIELD_NONREPEATABLE,
-            String.format("there are %d instances", count),
-            definition.getDescriptionUrl()));
+            && subfieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
+          addError(subfieldDefinition, SUBFIELD_NONREPEATABLE,
+            String.format("there are %d instances", count));
           isValid = false;
         }
       }
@@ -545,24 +579,16 @@ public class DataField implements Extractable, Validatable, Serializable {
         if (!indicatorDefinition.isVersionSpecificCode(marcVersion, value)) {
           isValid = false;
           if (indicatorDefinition.isHistoricalCode(value)) {
-            validationErrors.add(
-              new ValidationError(
-                record.getId(),
-                path,
-                ValidationErrorType.INDICATOR_OBSOLETE,
-                value,
-                definition.getDescriptionUrl()));
+            addError(path, INDICATOR_OBSOLETE, value);
           } else {
-            validationErrors.add(new ValidationError(record.getId(), path,
-              ValidationErrorType.INDICATOR_INVALID_VALUE, value, definition.getDescriptionUrl()));
+            addError(path, INDICATOR_INVALID_VALUE, value);
           }
         }
       }
     } else {
       if (!value.equals(" ")) {
         if (!indicatorDefinition.isVersionSpecificCode(marcVersion, value)) {
-          validationErrors.add(new ValidationError(record.getId(), path,
-            ValidationErrorType.INDICATOR_NON_EMPTY, value, definition.getDescriptionUrl()));
+          addError(path, INDICATOR_NON_EMPTY, value);
           isValid = false;
         }
       }
@@ -576,7 +602,7 @@ public class DataField implements Extractable, Validatable, Serializable {
 
   @Override
   public List<ValidationError> getValidationErrors() {
-    return validationErrors;
+    return errors.getErrors();
   }
 
   public void addUnhandledSubfields(String code) {
@@ -585,10 +611,28 @@ public class DataField implements Extractable, Validatable, Serializable {
     unhandledSubfields.add(code);
   }
 
+  private void addError(ValidationErrorType type, String message) {
+    addError(definition.getTag(), type, message);
+  }
+
+  private void addError(SubfieldDefinition subfieldDefinition, ValidationErrorType type, String message) {
+    addError(subfieldDefinition.getPath(), type, message);
+  }
+
+  private void addError(String path, ValidationErrorType type, String message) {
+    String url = definition.getDescriptionUrl();
+    errors.add(record.getId(), path, type, message, url);
+  }
+
   @Override
   public String toString() {
     return "DataField{"
-      + definition.getTag()
+      + (
+          StringUtils.isNotBlank(tag)
+            ? tag
+            : (definition != null
+              ? definition.getTag()
+              : "unknown"))
       + ", ind1='" + ind1 + '\''
       + ", ind2='" + ind2 + '\''
       + ", subfields=" + subfields

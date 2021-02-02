@@ -29,7 +29,9 @@ abstract class SubjectIndexer {
     private List<String> values;
     private boolean success = false;
 
-    public KeyValuesExtractor(DataField dataField, DataFieldKeyGenerator keyGenerator, String schemaAbbreviation) {
+    public KeyValuesExtractor(DataField dataField,
+                              DataFieldKeyGenerator keyGenerator,
+                              String schemaAbbreviation) {
       this.dataField = dataField;
       this.keyGenerator = keyGenerator;
       this.schemaAbbreviation = schemaAbbreviation;

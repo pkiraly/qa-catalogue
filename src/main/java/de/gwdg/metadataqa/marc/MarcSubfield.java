@@ -5,6 +5,8 @@ import de.gwdg.metadataqa.marc.definition.general.Linkage;
 import de.gwdg.metadataqa.marc.definition.general.parser.ParserException;
 import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.SubfieldValidator;
+import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
+import de.gwdg.metadataqa.marc.model.validation.ErrorsCollector;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
@@ -13,6 +15,8 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.logging.Logger;
 
+import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorType.*;
+
 public class MarcSubfield implements Validatable, Serializable {
 
   private static final Logger logger = Logger.getLogger(MarcSubfield.class.getCanonicalName());
@@ -20,10 +24,10 @@ public class MarcSubfield implements Validatable, Serializable {
   private MarcRecord record;
   private DataField field;
   private SubfieldDefinition definition;
-  private String code;
-  private String value;
+  private final String code;
+  private final String value;
   private String codeForIndex = null;
-  private List<ValidationError> validationErrors = null;
+  private ErrorsCollector errors = null;
   private Linkage linkage;
   private String referencePath;
 
@@ -124,7 +128,7 @@ public class MarcSubfield implements Validatable, Serializable {
     Map<String, List<String>> pairs = new HashMap<>();
     String prefix = keyGenerator.forSubfield(this);
 
-    pairs.put(prefix, Arrays.asList(resolve()));
+    pairs.put(prefix, Collections.singletonList(resolve()));
     if (getDefinition() != null) {
       getKeyValuePairsForPositionalSubfields(pairs, prefix);
       getKeyValuePairsFromContentParser(keyGenerator, pairs);
@@ -140,7 +144,7 @@ public class MarcSubfield implements Validatable, Serializable {
         for (String key : extra.keySet()) {
           pairs.put(
             keyGenerator.forSubfield(this, key),
-            Arrays.asList(extra.get(key))
+            Collections.singletonList(extra.get(key))
           );
         }
       }
@@ -151,49 +155,60 @@ public class MarcSubfield implements Validatable, Serializable {
     if (getDefinition().hasPositions()) {
       Map<String, String> extra = getDefinition().resolvePositional(getValue());
       for (String key : extra.keySet()) {
-        pairs.put(prefix + "_" + key, Arrays.asList(extra.get(key)));
+        pairs.put(prefix + "_" + key, Collections.singletonList(extra.get(key)));
       }
     }
   }
 
-
   @Override
   public boolean validate(MarcVersion marcVersion) {
     boolean isValid = true;
-    validationErrors = new ArrayList<>();
+    errors = new ErrorsCollector();
+    if (marcVersion == null)
+      marcVersion = MarcVersion.MARC21;
 
     if (definition == null) {
-      validationErrors.add(new ValidationError(record.getId(), field.getDefinition().getTag(),
-        ValidationErrorType.SUBFIELD_UNDEFINED, code, field.getDefinition().getDescriptionUrl()));
-      isValid = false;
+      addError(field.getDefinition().getTag(), SUBFIELD_UNDEFINED, code);
+      return false;
     } else {
       if (code == null) {
-        validationErrors.add(new ValidationError(record.getId(), field.getDefinition().getTag(),
-          ValidationErrorType.SUBFIELD_NULL_CODE, code, field.getDefinition().getDescriptionUrl()));
+        addError(field.getDefinition().getTag(), SUBFIELD_NULL_CODE, code);
         isValid = false;
       } else {
-        if (definition.hasValidator()) {
-          if (!validateWithValidator())
-            isValid = false;
-        } else if (definition.hasContentParser()) {
-          if (!validateWithParser())
-            isValid = false;
-        } else if (definition.getCodes() != null && definition.getCode(value) == null) {
-          String message = value;
-          if (referencePath != null) {
-            message += String.format(" (the field is embedded in %s)", referencePath);
-          }
-          String path = (referencePath == null ? definition.getPath() : referencePath + "->" + definition.getPath());
-          validationErrors.add(
-            new ValidationError(
-              record.getId(),
-              path,
-              ValidationErrorType.SUBFIELD_INVALID_VALUE,
-              message,
-              definition.getParent().getDescriptionUrl()
-            )
-          );
+        if (definition.isDisallowedIn(marcVersion))
           isValid = false;
+        else {
+          if (definition.hasValidator()) {
+            if (!validateWithValidator())
+              isValid = false;
+          } else if (definition.hasContentParser()) {
+            if (!validateWithParser())
+              isValid = false;
+          } else if (definition.getCodes() != null &&
+                     definition.getCode(value) == null) {
+            String message = value;
+            if (referencePath != null) {
+              message += String.format(" (the field is embedded in %s)", referencePath);
+            }
+            String path = (referencePath == null
+                        ? definition.getPath()
+                        : referencePath + "->" + definition.getPath());
+            addError(path, ValidationErrorType.SUBFIELD_INVALID_VALUE, message);
+            isValid = false;
+          /*
+          } else if (definition.getCodeList() != null &&
+                     !definition.getCodeList().isValid(value)) {
+            String message = value;
+            if (referencePath != null) {
+              message += String.format(" (the field is embedded in %s)", referencePath);
+            }
+            String path = (referencePath == null
+              ? definition.getPath()
+              : referencePath + "->" + definition.getPath());
+            addError(path, ValidationErrorType.SUBFIELD_INVALID_VALUE, message);
+            isValid = false;
+          */
+          }
         }
       }
     }
@@ -206,7 +221,7 @@ public class MarcSubfield implements Validatable, Serializable {
     SubfieldValidator validator = definition.getValidator();
     ValidatorResponse response = validator.isValid(this);
     if (!response.isValid()) {
-      validationErrors.addAll(response.getValidationErrors());
+      errors.addAll(response.getValidationErrors());
       isValid = false;
     }
     return isValid;
@@ -218,14 +233,7 @@ public class MarcSubfield implements Validatable, Serializable {
     try {
       parser.parse(getValue());
     } catch (ParserException e) {
-      validationErrors.add(
-        new ValidationError(
-          record.getId(),
-          definition.getPath(),
-          ValidationErrorType.SUBFIELD_UNPARSABLE_CONTENT,
-          e.getMessage(),
-          definition.getParent().getDescriptionUrl()
-      ));
+      addError(SUBFIELD_UNPARSABLE_CONTENT, e.getMessage());
       isValid = false;
     }
     return isValid;
@@ -233,7 +241,16 @@ public class MarcSubfield implements Validatable, Serializable {
 
   @Override
   public List<ValidationError> getValidationErrors() {
-    return validationErrors;
+    return errors.getErrors();
+  }
+
+  private void addError(ValidationErrorType type, String message) {
+    addError(definition.getPath(), type, message);
+  }
+
+  private void addError(String path, ValidationErrorType type, String message) {
+    String url = definition.getParent().getDescriptionUrl();
+    errors.add(record.getId(), path, type, message, url);
   }
 
   @Override

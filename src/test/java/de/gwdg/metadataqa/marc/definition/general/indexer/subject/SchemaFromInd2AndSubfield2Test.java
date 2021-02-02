@@ -30,7 +30,7 @@ public class SchemaFromInd2AndSubfield2Test extends SubjectIndexerTest {
     DataField field = new DataField(Tag072.getInstance(), " ", "2", "a", "value", "2", "dnb");
     assertEquals(
       SchemaFromInd2AndSubfield2.class,
-      field.getDefinition().getFieldIndexer().getClass()
+      field.getFieldIndexer().getClass()
     );
   }
 
@@ -39,7 +39,7 @@ public class SchemaFromInd2AndSubfield2Test extends SubjectIndexerTest {
     DataField field = new DataField(Tag600.getInstance(), " ", "2", "a", "value", "2", "dnb");
     assertEquals(
       SchemaFromInd2AndSubfield2.class,
-      field.getDefinition().getFieldIndexer().getClass()
+      field.getFieldIndexer().getClass()
     );
   }
 
@@ -48,7 +48,7 @@ public class SchemaFromInd2AndSubfield2Test extends SubjectIndexerTest {
     DataField field = new DataField(Tag610.getInstance(), " ", "2", "a", "value", "2", "dnb");
     assertEquals(
       SchemaFromInd2AndSubfield2.class,
-      field.getDefinition().getFieldIndexer().getClass()
+      field.getFieldIndexer().getClass()
     );
   }
 
@@ -57,7 +57,7 @@ public class SchemaFromInd2AndSubfield2Test extends SubjectIndexerTest {
     DataField field = new DataField(Tag611.getInstance(), " ", "2", "a", "value", "2", "dnb");
     assertEquals(
       SchemaFromInd2AndSubfield2.class,
-      field.getDefinition().getFieldIndexer().getClass()
+      field.getFieldIndexer().getClass()
     );
   }
 
@@ -66,7 +66,7 @@ public class SchemaFromInd2AndSubfield2Test extends SubjectIndexerTest {
     DataField field = new DataField(Tag630.getInstance(), " ", "2", "a", "value", "2", "dnb");
     assertEquals(
       SchemaFromInd2AndSubfield2.class,
-      field.getDefinition().getFieldIndexer().getClass()
+      field.getFieldIndexer().getClass()
     );
   }
 
@@ -75,7 +75,7 @@ public class SchemaFromInd2AndSubfield2Test extends SubjectIndexerTest {
     DataField field = new DataField(Tag647.getInstance(), " ", "2", "a", "value", "2", "dnb");
     assertEquals(
       SchemaFromInd2AndSubfield2.class,
-      field.getDefinition().getFieldIndexer().getClass()
+      field.getFieldIndexer().getClass()
     );
   }
 
@@ -84,7 +84,7 @@ public class SchemaFromInd2AndSubfield2Test extends SubjectIndexerTest {
     DataField field = new DataField(Tag648.getInstance(), " ", "2", "a", "value", "2", "dnb");
     assertEquals(
       SchemaFromInd2AndSubfield2.class,
-      field.getDefinition().getFieldIndexer().getClass()
+      field.getFieldIndexer().getClass()
     );
   }
 
@@ -93,7 +93,7 @@ public class SchemaFromInd2AndSubfield2Test extends SubjectIndexerTest {
     DataField field = new DataField(Tag650.getInstance(), " ", "2", "a", "value", "2", "dnb");
     assertEquals(
       SchemaFromInd2AndSubfield2.class,
-      field.getDefinition().getFieldIndexer().getClass()
+      field.getFieldIndexer().getClass()
     );
   }
 
@@ -102,7 +102,7 @@ public class SchemaFromInd2AndSubfield2Test extends SubjectIndexerTest {
     DataField field = new DataField(Tag651.getInstance(), " ", "2", "a", "value", "2", "dnb");
     assertEquals(
       SchemaFromInd2AndSubfield2.class,
-      field.getDefinition().getFieldIndexer().getClass()
+      field.getFieldIndexer().getClass()
     );
   }
 
@@ -111,7 +111,7 @@ public class SchemaFromInd2AndSubfield2Test extends SubjectIndexerTest {
     DataField field = new DataField(Tag655.getInstance(), " ", "2", "a", "value", "2", "dnb");
     assertEquals(
       SchemaFromInd2AndSubfield2.class,
-      field.getDefinition().getFieldIndexer().getClass()
+      field.getFieldIndexer().getClass()
     );
   }
 

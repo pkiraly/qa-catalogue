@@ -99,6 +99,9 @@ public class ThompsonTraillCompleteness implements MarcFileProcessor, Serializab
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) {
+    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+      return;
+
     List<Integer> scores = ThompsonTraillAnalysis.getScores(marcRecord);
     String id = parameters.getTrimId()
               ? marcRecord.getId().trim()

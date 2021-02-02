@@ -1,12 +1,14 @@
 package de.gwdg.metadataqa.marc.definition.tags.nkcrtags;
 
-import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.codelist.NameAndTitleAuthoritySourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.ISSNValidator;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.Indicator;
+
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 public class Tag981 extends DataFieldDefinition {

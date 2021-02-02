@@ -8,6 +8,11 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.ISSNValidator;
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.Indicator;
+import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
+
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 import java.util.Arrays;
@@ -91,7 +96,7 @@ public class Tag800 extends DataFieldDefinition {
     getSubfield("4").setCodeList(RelatorCodes.getInstance());
 
     getSubfield("7").setPositions(Arrays.asList(
-      new ControlSubfieldDefinition("Type of record", 0, 1)
+      new ControlfieldPositionDefinition("Type of record", 0, 1)
         .setCodes(Utils.generateCodes(
           "a", "Language material",
           "c", "Notated music",
@@ -109,7 +114,7 @@ public class Tag800 extends DataFieldDefinition {
           "t", "Manuscript language material"
         ))
         .setMqTag("typeOfRecord"),
-      new ControlSubfieldDefinition("Bibliographic level", 1, 2)
+      new ControlfieldPositionDefinition("Bibliographic level", 1, 2)
         .setCodes(Utils.generateCodes(
           "a", "Monographic component part",
           "b", "Serial component part",

@@ -6,7 +6,14 @@ import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
 import de.gwdg.metadataqa.marc.definition.general.indexer.subject.ClassificationSchemes;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -99,6 +106,8 @@ public class ClassificationAnalyzer {
      */
     count((total > 0), statistics.getHasClassifications());
     count(total, statistics.getSchemaHistogram());
+    if (!statistics.getFrequencyExamples().containsKey(total))
+      statistics.getFrequencyExamples().put(total, marcRecord.getId(true));
 
     List<String> collocation = getCollocationInRecord();
     if (!collocation.isEmpty())
@@ -163,7 +172,7 @@ public class ClassificationAnalyzer {
     for (DataField field : fields) {
       String firstSubfield = null;
       String alt = null;
-      for (MarcSubfield subfield : field.parseSubfields()) {
+      for (MarcSubfield subfield : field.getSubfields()) {
         String code = subfield.getCode();
         if (   !code.equals("1")
             && !code.equals("2")
@@ -294,7 +303,8 @@ public class ClassificationAnalyzer {
     List<DataField> fields = marcRecord.getDatafield(tag);
     List<Schema> schemas = new ArrayList<>();
     for (DataField field : fields) {
-      Schema currentSchema = new Schema(tag, "$2", "uncontrolled_" + field.getInd2(), field.resolveInd2());
+      String abbreviavtion = field.getInd2().equals(" ") ? "#" : field.getInd2();
+      Schema currentSchema = new Schema(tag, "ind2", "uncontrolled/" + abbreviavtion, field.resolveInd2());
       schemas.add(currentSchema);
       updateSchemaSubfieldStatistics(field, currentSchema);
       count++;
@@ -325,7 +335,7 @@ public class ClassificationAnalyzer {
   private void updateSchemaSubfieldStatistics(DataField field, Schema currentSchema) {
     if (currentSchema == null)
       return;
-    List<String> subfields = orderSubfields(field.parseSubfields());
+    List<String> subfields = orderSubfields(field.getSubfields());
 
     if (!statistics.getSubfields().containsKey(currentSchema)) {
       statistics.getSubfields().put(currentSchema, new HashMap<List<String>, Integer>());

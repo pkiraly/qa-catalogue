@@ -105,6 +105,21 @@ public class ValidationErrorFormatter {
     return message;
   }
 
+  public static String formatHeaderForDetails(ValidationErrorFormat format) {
+    String message = "";
+    switch (format) {
+      case TAB_SEPARATED:
+        message = createCvsRow(headerForDetails(), '\t');
+        break;
+      case COMMA_SEPARATED:
+      case TEXT:
+        message = createCvsRow(headerForDetails(), ',');
+      default:
+        break;
+    }
+    return message;
+  }
+
   public static String formatHeaderForCollector(ValidationErrorFormat format) {
     String message = "";
     switch (format) {
@@ -149,8 +164,9 @@ public class ValidationErrorFormatter {
   }
 
   private static String formatTextWithoutId(ValidationError error) {
-    return String.format("%s: %s '%s' (%s)",
+    return String.format("%s: %d - %s '%s' (%s)",
       error.getMarcPath(),
+      error.getType().getId(),
       error.getType().getMessage(),
       error.getMessage(),
       error.getUrl()
@@ -158,7 +174,11 @@ public class ValidationErrorFormatter {
   }
 
   private static String[] headerForSummary() {
-    return new String[]{"id", "MarcPath", "type", "message", "url", "instances", "records"};
+    return new String[]{"id", "MarcPath", "categoryId", "typeId", "type", "message", "url", "instances", "records"};
+  }
+
+  private static String[] headerForDetails() {
+    return new String[]{"recordId", "errors"};
   }
 
   private static String[] headerForCollector() {
@@ -168,6 +188,8 @@ public class ValidationErrorFormatter {
   private static String[] asArrayWithoutId(ValidationError error) {
     return new String[]{
       error.getMarcPath(),
+      String.valueOf(error.getType().getCategory().getId()),
+      String.valueOf(error.getType().getId()),
       error.getType().getMessage(),
       error.getMessage(),
       error.getUrl()
@@ -177,6 +199,8 @@ public class ValidationErrorFormatter {
   private static List<String> asListWithoutId(ValidationError error) {
     return Arrays.asList(
       error.getMarcPath(),
+      String.valueOf(error.getType().getCategory().getId()),
+      String.valueOf(error.getType().getId()),
       error.getType().getMessage(),
       error.getMessage(),
       error.getUrl()
@@ -187,6 +211,8 @@ public class ValidationErrorFormatter {
     return Arrays.asList(
       error.getRecordId(),
       error.getMarcPath(),
+      String.valueOf(error.getType().getCategory().getId()),
+      String.valueOf(error.getType().getId()),
       error.getType().getMessage(),
       error.getMessage(),
       error.getUrl()
@@ -197,6 +223,8 @@ public class ValidationErrorFormatter {
     return new String[]{
       error.getRecordId(),
       error.getMarcPath(),
+      String.valueOf(error.getType().getCategory().getId()),
+      String.valueOf(error.getType().getId()),
       error.getType().getMessage(),
       error.getMessage(),
       error.getUrl()
@@ -204,6 +232,6 @@ public class ValidationErrorFormatter {
   }
 
   private static String[] headerArray() {
-    return new String[]{"recordId", "MarcPath", "type", "message", "url"};
+    return new String[]{"recordId", "MarcPath", "categoryId", "typeId", "type", "message", "url"};
   }
 }

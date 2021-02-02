@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.utils.keygenerator;
 
-import de.gwdg.metadataqa.marc.definition.ControlSubfieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 
 public class PositionalControlFieldKeyGenerator {
@@ -30,7 +30,7 @@ public class PositionalControlFieldKeyGenerator {
     return key;
   }
 
-  public String forSubfield(ControlSubfieldDefinition subfield) {
+  public String forSubfield(ControlfieldPositionDefinition subfield) {
     String key;
     String code = subfield.getMqTag() != null
       ? subfield.getMqTag()
@@ -41,10 +41,13 @@ public class PositionalControlFieldKeyGenerator {
         key = String.format("%s_%s", forTag(), code);
         break;
       case MIXED:
-        if (isLeader)
-          key = String.format("%s_%s_%s", tag, subfield.formatPositon(), code);
-        else
-          key = String.format("%s_%s_%s_%s", tag, subfield.formatPositon(), mqTag, code);
+        if (isLeader) {
+          // key = String.format("%s_%s_%s", tag, subfield.formatPositon(), code);
+          key = String.format("%s_%s", subfield.getId(), code);
+        } else {
+          // key = String.format("%s_%s_%s_%s", tag, subfield.formatPositon(), mqTag, code);
+          key = String.format("%s_%s_%s", subfield.getId(), mqTag, code);
+        }
         break;
       case MARC: default:
         key = String.format("%s_%s", forTag(), subfield.formatPositon());

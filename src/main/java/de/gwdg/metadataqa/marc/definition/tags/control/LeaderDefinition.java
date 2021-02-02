@@ -1,8 +1,8 @@
 package de.gwdg.metadataqa.marc.definition.tags.control;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.ControlFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.controlsubfields.LeaderSubfields;
+import de.gwdg.metadataqa.marc.definition.structure.ControlFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.controlpositions.LeaderPositions;
 
 /**
  * Leader
@@ -29,6 +29,6 @@ public class LeaderDefinition extends ControlFieldDefinition {
     mqTag = "Leader";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bdleader.html";
-    controlSubfields = LeaderSubfields.getInstance();
+    controlfieldPositions = LeaderPositions.getInstance();
   }
 }

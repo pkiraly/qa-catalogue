@@ -184,6 +184,19 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.6</version>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<archive>
+						<manifest>
+							<mainClass></mainClass>
+						</manifest>
+					</archive>
+					<descriptors>
+						<descriptor>src/main/assembly/release.xml</descriptor>
+					</descriptors>
+				</configuration>
 				<executions>
 					<execution>
 						<id>jar-with-dependencies</id>
@@ -191,18 +204,6 @@
 						<goals>
 							<goal>single</goal>
 						</goals>
-						<configuration>
-							<archive>
-								<manifest>
-									<!-- com.nsdr.europeana.qa.cli.Counter -->
-									<mainClass></mainClass>
-								</manifest>
-							</archive>
-							<descriptorRefs>
-								<descriptorRef>jar-with-dependencies</descriptorRef>
-							</descriptorRefs>
-							<appendAssemblyId>true</appendAssemblyId>
-						</configuration>
 					</execution>
 					<execution>
 						<id>dist</id>
@@ -210,11 +211,13 @@
 						<goals>
 							<goal>single</goal>
 						</goals>
-						<configuration>
-							<descriptors>
-								<descriptor>src/main/assembly/release.xml</descriptor>
-							</descriptors>
-						</configuration>
+					</execution>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>

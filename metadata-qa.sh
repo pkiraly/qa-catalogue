@@ -35,14 +35,6 @@ if [[ "$CATALOGUE" != "" ]]; then
     mv /tmp/catalogue $FILE
   fi
   echo "catalogue=$CATALOGUE" >> $FILE
-
-  FILE=/var/www/html/metadata-qa/configuration.js
-  count=$(grep -c catalogue $FILE)
-  if [[ $count == 1 ]]; then
-    grep -v catalogue $FILE > /tmp/catalogue
-    mv /tmp/catalogue $FILE
-  fi
-  echo "var catalogue = '$CATALOGUE'" >> $FILE
 fi
 
 . ./common-script $1

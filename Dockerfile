@@ -33,13 +33,14 @@ RUN apt-get update \
       r-cran-tidyverse \
       r-cran-stringr \
       r-cran-gridextra \
+      less \
  && rm -rf /var/lib/apt/lists/*
 
 # install metadata-qa-marc
 RUN mkdir -p /opt/metadata-qa-marc/scripts \
  && mkdir -p /opt/metadata-qa-marc/target
 
-COPY target/metadata-qa-marc-0.4-SNAPSHOT-jar-with-dependencies.jar /opt/metadata-qa-marc/target/
+COPY target/metadata-qa-marc-0.4-jar-with-dependencies.jar /opt/metadata-qa-marc/target/
 COPY scripts/*.* /opt/metadata-qa-marc/scripts/
 COPY setdir.sh.template /opt/metadata-qa-marc/setdir.sh
 
@@ -79,10 +80,10 @@ RUN apt-get update \
       unzip \
  && rm -rf /var/lib/apt/lists/* \
  && cd /var/www/html/ \
- && curl -s -L https://github.com/pkiraly/metadata-qa-marc-web/archive/release/0.4.zip --output master.zip \
+ && curl -s -L https://github.com/pkiraly/metadata-qa-marc-web/archive/0.4.zip --output master.zip \
  && unzip -q master.zip \
  && rm master.zip \
- && mv metadata-qa-marc-web-release-0.4 metadata-qa \
+ && mv metadata-qa-marc-web-0.4 metadata-qa \
  && echo dir=/opt/metadata-qa-marc/marc/_output > /var/www/html/metadata-qa/configuration.cnf \
  # && cp /var/www/html/metadata-qa/configuration.js.template /var/www/html/metadata-qa/configuration.js \
  && touch /var/www/html/metadata-qa/selected-facets.js \
@@ -97,7 +98,7 @@ RUN apt-get update \
  && rm v${SMARTY_VERSION}.zip \
  && mkdir -p /var/www/html/metadata-qa/libs/_smarty/templates_c \
  && chmod a+w -R /var/www/html/metadata-qa/libs/_smarty/templates_c/ \
- && sed -i.bak 's,</VirtualHost>,        <Directory /var/www/html/metadata-qa>\n                Options Indexes FollowSymLinks MultiViews\n                AllowOverride All\n                Order allow\,deny\n                allow from all\n                DirectoryIndex index.php index.html\n        </Directory>\n</VirtualHost>,' /etc/apache2/sites-available/000-default.conf \
+ && sed -i.bak 's,</VirtualHost>,        RedirectMatch ^/$ /metadata-qa/\n        <Directory /var/www/html/metadata-qa>\n                Options Indexes FollowSymLinks MultiViews\n                AllowOverride All\n                Order allow\,deny\n                allow from all\n                DirectoryIndex index.php index.html\n        </Directory>\n</VirtualHost>,' /etc/apache2/sites-available/000-default.conf \
  && echo "\nWEB_DIR=/var/www/html/metadata-qa/\n" >> /opt/metadata-qa-marc/common-variables
 
 ARG SOLR_VERSION=8.4.1

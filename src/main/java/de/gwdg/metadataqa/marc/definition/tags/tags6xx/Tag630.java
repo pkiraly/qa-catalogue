@@ -78,13 +78,14 @@ public class Tag630 extends DataFieldDefinition {
       "o", "Arranged statement for music", "NR",
       "p", "Name of part/section of a work", "R",
       "r", "Key for music", "NR",
-      "s", "Version", "NR",
+      "s", "Version", "R",
       "t", "Title of a work", "NR",
       "v", "Form subdivision", "R",
       "x", "General subdivision", "R",
       "y", "Chronological subdivision", "R",
       "z", "Geographic subdivision", "R",
       "0", "Authority record control number or standard number", "R",
+      "1", "Real World Object URI", "R",
       "2", "Source of heading or term", "NR",
       "3", "Materials specified", "NR",
       "4", "Relationship", "R",
@@ -195,6 +196,9 @@ public class Tag630 extends DataFieldDefinition {
       .setMqTag("authorityRecordControlNumber")
       .setContentParser(RecordControlNumberParser.getInstance())
       .setCompilanceLevels("O");
+
+    getSubfield("1")
+      .setMqTag("uri");
 
     getSubfield("2")
       .setMqTag("source")

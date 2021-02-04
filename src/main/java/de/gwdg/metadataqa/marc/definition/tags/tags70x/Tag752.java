@@ -56,6 +56,7 @@ public class Tag752 extends DataFieldDefinition {
       "g", "Other nonjurisdictional geographic region and feature", "R",
       "h", "Extraterrestrial area", "R",
       "0", "Authority record control number or standard number", "R",
+      "1", "Real World Object URI", "R",
       "2", "Source of heading or term", "NR",
       "4", "Relationship", "R",
       "6", "Linkage", "NR",
@@ -109,6 +110,9 @@ public class Tag752 extends DataFieldDefinition {
       .setMqTag("authorityRecordControlNumber")
       .setContentParser(RecordControlNumberParser.getInstance())
       .setCompilanceLevels("O");
+
+    getSubfield("1")
+      .setMqTag("uri");
 
     getSubfield("2")
       .setMqTag("source")

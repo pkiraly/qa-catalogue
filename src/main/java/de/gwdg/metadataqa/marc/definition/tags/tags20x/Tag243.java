@@ -66,7 +66,7 @@ public class Tag243 extends DataFieldDefinition {
       "o", "Arranged statement for music", "NR",
       "p", "Name of part/section of a work", "R",
       "r", "Key for music", "NR",
-      "s", "Version", "NR",
+      "s", "Version", "R",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
     );

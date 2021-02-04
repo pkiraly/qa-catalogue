@@ -49,6 +49,7 @@ public class Tag377 extends DataFieldDefinition {
       "a", "Language code", "R",
       "l", "Language term", "R",
       "0", "Authority record control number or standard number", "R",
+      "1", "Real World Object URI", "R",
       "2", "Source", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
@@ -67,6 +68,9 @@ public class Tag377 extends DataFieldDefinition {
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
       .setContentParser(RecordControlNumberParser.getInstance());
+
+    getSubfield("1")
+      .setMqTag("uri");
 
     getSubfield("2")
       .setMqTag("source");

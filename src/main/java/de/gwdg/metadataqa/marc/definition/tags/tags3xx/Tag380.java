@@ -41,6 +41,7 @@ public class Tag380 extends DataFieldDefinition {
     setSubfieldsWithCardinality(
       "a", "Form of work", "R",
       "0", "Record control number", "R",
+      "1", "Real World Object URI", "R",
       "2", "Source of term", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
@@ -58,6 +59,9 @@ public class Tag380 extends DataFieldDefinition {
       .setMqTag("authorityRecordControlNumber")
       .setContentParser(RecordControlNumberParser.getInstance())
       .setCompilanceLevels("A");
+
+    getSubfield("1")
+      .setMqTag("uri");
 
     getSubfield("2")
       .setMqTag("source")

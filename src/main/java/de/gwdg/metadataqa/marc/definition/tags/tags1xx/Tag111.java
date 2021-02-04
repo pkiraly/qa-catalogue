@@ -57,7 +57,7 @@ public class Tag111 extends DataFieldDefinition {
     setSubfieldsWithCardinality(
       "a", "Meeting name or jurisdiction name as entry element", "NR",
       "c", "Location of meeting", "R",
-      "d", "Date of meeting", "NR",
+      "d", "Date of meeting or treaty signing", "NR",
       "e", "Subordinate unit", "R",
       "f", "Date of a work", "NR",
       "g", "Miscellaneous information", "R",
@@ -70,6 +70,7 @@ public class Tag111 extends DataFieldDefinition {
       "t", "Title of a work", "NR",
       "u", "Affiliation", "NR",
       "0", "Authority record control number or standard number", "R",
+      "1", "Real World Object URI", "R",
       "2", "Source of heading or term", "NR",
       "4", "Relationship", "R",
       "6", "Linkage", "NR",
@@ -153,6 +154,9 @@ public class Tag111 extends DataFieldDefinition {
       .setMqTag("authorityRecordControlNumber")
       .setContentParser(RecordControlNumberParser.getInstance())
       .setCompilanceLevels("O");
+
+    getSubfield("1")
+      .setMqTag("uri");
 
     getSubfield("2")
       .setMqTag("source");

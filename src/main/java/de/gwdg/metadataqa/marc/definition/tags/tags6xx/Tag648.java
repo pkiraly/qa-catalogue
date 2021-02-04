@@ -73,6 +73,7 @@ public class Tag648 extends DataFieldDefinition {
       "y", "Chronological subdivision", "R",
       "z", "Geographic subdivision", "R",
       "0", "Authority record control number or standard number", "R",
+      "1", "Real World Object URI", "R",
       "2", "Source of heading or term", "NR",
       "3", "Materials specified", "NR",
       "6", "Linkage", "NR",
@@ -112,6 +113,9 @@ public class Tag648 extends DataFieldDefinition {
       .setMqTag("authorityRecordControlNumber")
       .setContentParser(RecordControlNumberParser.getInstance())
       .setCompilanceLevels("O");
+
+    getSubfield("1")
+      .setMqTag("uri");
 
     getSubfield("2")
       .setMqTag("source")

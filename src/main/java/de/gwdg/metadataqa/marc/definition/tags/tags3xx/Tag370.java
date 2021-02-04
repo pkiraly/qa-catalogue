@@ -50,6 +50,7 @@ public class Tag370 extends DataFieldDefinition {
       "u", "Uniform Resource Identifier", "R",
       "v", "Source of information", "R",
       "0", "Authority record control number or standard number", "R",
+      "1", "Real World Object URI", "R",
       "2", "Source of term", "NR",
       "3", "Materials specified", "NR",
       "4", "Relationship", "R",
@@ -88,6 +89,9 @@ public class Tag370 extends DataFieldDefinition {
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
       .setContentParser(RecordControlNumberParser.getInstance());
+
+    getSubfield("1")
+      .setMqTag("uri");
 
     getSubfield("2")
       .setMqTag("source");

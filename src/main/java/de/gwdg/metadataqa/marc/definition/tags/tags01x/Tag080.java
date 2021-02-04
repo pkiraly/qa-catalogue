@@ -54,7 +54,7 @@ public class Tag080 extends DataFieldDefinition {
       "b", "Item number", "NR",
       "x", "Common auxiliary subdivision", "R",
       "0", "Authority record control number or standard number", "R",
-      "1", "Real World Object URI", "NR",
+      "1", "Real World Object URI", "R",
       "2", "Edition identifier", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"

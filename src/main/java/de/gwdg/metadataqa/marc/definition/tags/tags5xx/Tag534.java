@@ -64,7 +64,6 @@ public class Tag534 extends DataFieldDefinition {
       "8", "Field link and sequence number", "R"
     );
 
-    getSubfield("z").setValidator(ISBNValidator.getInstance());
     getSubfield("x").setValidator(ISSNValidator.getInstance());
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
@@ -132,6 +131,7 @@ public class Tag534 extends DataFieldDefinition {
 
     getSubfield("z")
       .setMqTag("isbn")
+      .setValidator(ISBNValidator.getInstance())
       .setFrbrFunctions(DiscoveryIdentify)
       .setCompilanceLevels("O");
 

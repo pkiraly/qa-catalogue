@@ -89,7 +89,6 @@ public class Tag772 extends DataFieldDefinition {
     // see http://www.loc.gov/marc/bibliographic/bd76x78x.html
     getSubfield("7").setPositions(Tag76xSubfield7PositionsGenerator.getPositions());
 
-    getSubfield("z").setValidator(ISBNValidator.getInstance());
     getSubfield("x").setValidator(ISSNValidator.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
@@ -180,6 +179,7 @@ public class Tag772 extends DataFieldDefinition {
 
     getSubfield("z")
       .setBibframeTag("isbn")
+      .setValidator(ISBNValidator.getInstance())
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
       .setCompilanceLevels("O");
 

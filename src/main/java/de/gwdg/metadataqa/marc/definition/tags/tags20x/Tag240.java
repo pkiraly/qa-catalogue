@@ -75,8 +75,9 @@ public class Tag240 extends DataFieldDefinition {
       "o", "Arranged statement for music", "NR",
       "p", "Name of part/section of a work", "R",
       "r", "Key for music", "NR",
-      "s", "Version", "NR",
+      "s", "Version", "R",
       "0", "Authority record control number or standard number", "R",
+      "1", "Real World Object URI", "R",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
     );
@@ -151,6 +152,9 @@ public class Tag240 extends DataFieldDefinition {
       .setMqTag("authorityRecordControlNumber")
       .setContentParser(RecordControlNumberParser.getInstance())
       .setCompilanceLevels("O");
+
+    getSubfield("1")
+      .setMqTag("uri");
 
     getSubfield("6")
       .setBibframeTag("linkage")

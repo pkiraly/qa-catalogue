@@ -44,14 +44,11 @@ public class Tag257 extends DataFieldDefinition {
     setSubfieldsWithCardinality(
       "a", "Country of producing entity", "R",
       "0", "Authority record control number or standard number", "R",
+      "1", "Real World Object URI", "R",
       "2", "Source", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
     );
-
-    getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
-
-    getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a")
       .setBibframeTag("Place").setMqTag("rdf:value")
@@ -62,12 +59,17 @@ public class Tag257 extends DataFieldDefinition {
       .setMqTag("authorityRecordControlNumber")
       .setContentParser(RecordControlNumberParser.getInstance());
 
+    getSubfield("1")
+      .setMqTag("uri");
+
     getSubfield("2")
       .setMqTag("source")
+      .setCodeList(SubjectHeadingAndTermSourceCodes.getInstance())
       .setCompilanceLevels("A", "A");
 
     getSubfield("6")
       .setBibframeTag("linkage")
+      .setContentParser(LinkageParser.getInstance())
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("A", "A");
 

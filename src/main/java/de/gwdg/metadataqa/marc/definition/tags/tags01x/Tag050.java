@@ -63,6 +63,7 @@ public class Tag050 extends DataFieldDefinition {
       "a", "Classification number", "R",
       "b", "Item number", "NR",
       "0", "Authority record control number or standard number", "R",
+      "1", "Real World Object URI", "R",
       "3", "Materials specified", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
@@ -83,6 +84,9 @@ public class Tag050 extends DataFieldDefinition {
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
       .setContentParser(RecordControlNumberParser.getInstance());
+
+    getSubfield("1")
+      .setMqTag("uri");
 
     getSubfield("3")
       .setMqTag("materialsSpecified")

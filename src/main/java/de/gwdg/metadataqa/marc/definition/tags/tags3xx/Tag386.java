@@ -48,6 +48,7 @@ public class Tag386 extends DataFieldDefinition {
       "m", "Demographic group term", "NR",
       "n", "Demographic group code", "NR",
       "0", "Authority record control number or standard number", "R",
+      "1", "Real World Object URI", "R",
       "2", "Source", "NR",
       "3", "Materials specified", "NR",
       "4", "Relationship", "R",
@@ -77,6 +78,9 @@ public class Tag386 extends DataFieldDefinition {
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
       .setContentParser(RecordControlNumberParser.getInstance());
+
+    getSubfield("1")
+      .setMqTag("uri");
 
     getSubfield("2")
       .setMqTag("source");

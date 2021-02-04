@@ -67,6 +67,7 @@ public class Tag086 extends DataFieldDefinition {
       "a", "Classification number", "NR",
       "z", "Canceled/invalid classification number", "R",
       "0", "Authority record control number or standard number", "R",
+      "1", "Real World Object URI", "R",
       "2", "Number source", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
@@ -89,6 +90,9 @@ public class Tag086 extends DataFieldDefinition {
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
       .setContentParser(RecordControlNumberParser.getInstance());
+
+    getSubfield("1")
+      .setMqTag("uri");
 
     getSubfield("2")
       .setMqTag("source")

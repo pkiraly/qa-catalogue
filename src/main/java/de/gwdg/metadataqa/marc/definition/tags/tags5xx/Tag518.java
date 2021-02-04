@@ -46,6 +46,7 @@ public class Tag518 extends DataFieldDefinition {
       "o", "Other event information", "R",
       "p", "Place of event", "R",
       "0", "Record control number", "R",
+      "1", "Real World Object URI", "R",
       "2", "Source of term", "R",
       "3", "Materials specified", "NR",
       "6", "Linkage", "NR",
@@ -77,6 +78,9 @@ public class Tag518 extends DataFieldDefinition {
       .setMqTag("authorityRecordControlNumber")
       .setContentParser(RecordControlNumberParser.getInstance())
       .setCompilanceLevels("O");
+
+    getSubfield("1")
+      .setMqTag("uri");
 
     getSubfield("2")
       .setMqTag("source")

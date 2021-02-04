@@ -37,10 +37,9 @@ public class Tag902 extends DataFieldDefinition {
       "z", "Canceled/invalid ISBN", "R"
     );
 
-    getSubfield("a").setValidator(ISBNValidator.getInstance());
-
     getSubfield("a")
       .setBibframeTag("rdf:value")
+      .setValidator(ISBNValidator.getInstance())
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain);
 
     getSubfield("c")

@@ -51,6 +51,7 @@ public class Tag754 extends DataFieldDefinition {
       "x", "Non-public note", "R",
       "z", "Public note", "R",
       "0", "Authority record control number", "R",
+      "1", "Real World Object URI", "R",
       "2", "Source of taxonomic identification", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
@@ -87,6 +88,9 @@ public class Tag754 extends DataFieldDefinition {
       .setMqTag("authorityRecordControlNumber")
       .setContentParser(RecordControlNumberParser.getInstance())
       .setCompilanceLevels("O");
+
+    getSubfield("1")
+      .setMqTag("uri");
 
     getSubfield("2")
       .setMqTag("source")

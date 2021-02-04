@@ -48,6 +48,7 @@ public class Tag043 extends DataFieldDefinition {
       "b", "Local GAC code", "R",
       "c", "ISO code", "R",
       "0", "Authority record control number or standard number", "R",
+      "1", "Real World Object URI", "R",
       "2", "Source of local code", "R",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
@@ -75,6 +76,9 @@ public class Tag043 extends DataFieldDefinition {
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
       .setContentParser(RecordControlNumberParser.getInstance());
+
+    getSubfield("1")
+      .setMqTag("uri");
 
     getSubfield("2")
       .setMqTag("source")

@@ -55,22 +55,35 @@ public class Tag883 extends DataFieldDefinition {
       "u", "Uniform Resource Identifier", "NR",
       "w", "Bibliographic record control number", "R",
       "0", "Authority record control number or standard number", "R",
+      "1", "Real World Object URI", "R",
       "8", "Field link and sequence number", "R"
     );
 
-    getSubfield("q").setCodeList(OrganizationCodes.getInstance());
-
     getSubfield("a").setMqTag("generationProcess");
+
     getSubfield("c").setMqTag("confidence");
+
     getSubfield("d").setMqTag("date");
-    getSubfield("q").setMqTag("agency");
+
+    getSubfield("q")
+      .setMqTag("agency")
+      .setCodeList(OrganizationCodes.getInstance());
+
     getSubfield("x").setMqTag("validityEndDate");
+
     getSubfield("u").setMqTag("uri");
+
     getSubfield("w").setMqTag("bibliographicRecordControlNumber");
+
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
       .setContentParser(RecordControlNumberParser.getInstance());
+
+    getSubfield("1")
+      .setMqTag("uri");
+
     getSubfield("8").setMqTag("fieldLink");
+
 
     putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
       new SubfieldDefinition("7", "NKCR Authority ID", "NR")

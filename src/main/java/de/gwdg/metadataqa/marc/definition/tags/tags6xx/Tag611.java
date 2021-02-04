@@ -68,7 +68,7 @@ public class Tag611 extends DataFieldDefinition {
     setSubfieldsWithCardinality(
       "a", "Meeting name or jurisdiction name as entry element", "NR",
       "c", "Location of meeting", "R",
-      "d", "Date of meeting", "NR",
+      "d", "Date of meeting or treaty signing", "NR",
       "e", "Subordinate unit", "R",
       "f", "Date of a work", "NR",
       "g", "Miscellaneous information", "R",
@@ -79,7 +79,7 @@ public class Tag611 extends DataFieldDefinition {
       "n", "Number of part/section/meeting", "R",
       "p", "Name of part/section of a work", "R",
       "q", "Name of meeting following jurisdiction name entry element", "NR",
-      "s", "Version", "NR",
+      "s", "Version", "R",
       "t", "Title of a work", "NR",
       "u", "Affiliation", "NR",
       "v", "Form subdivision", "R",
@@ -87,6 +87,7 @@ public class Tag611 extends DataFieldDefinition {
       "y", "Chronological subdivision", "R",
       "z", "Geographic subdivision", "R",
       "0", "Authority record control number or standard number", "R",
+      "1", "Real World Object URI", "R",
       "2", "Source of heading or term", "NR",
       "3", "Materials specified", "NR",
       "4", "Relationship", "R",
@@ -201,6 +202,9 @@ public class Tag611 extends DataFieldDefinition {
       .setMqTag("authorityRecordControlNumber")
       .setContentParser(RecordControlNumberParser.getInstance())
       .setCompilanceLevels("O");
+
+    getSubfield("1")
+      .setMqTag("uri");
 
     getSubfield("2")
       .setMqTag("source")

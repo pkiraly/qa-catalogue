@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags76x;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.general.validator.ISBNValidator;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.Tag76xSubfield7PositionsGenerator;
@@ -69,11 +70,14 @@ public class Tag777 extends DataFieldDefinition {
       "m", "Material-specific details", "NR",
       "n", "Note", "R",
       "o", "Other item identifier", "R",
+      "r", "Report number", "R",
       "s", "Uniform title", "NR",
       "t", "Title", "NR",
+      "u", "Standard Technical Report Number", "NR",
       "w", "Record control number", "R",
       "x", "International Standard Serial Number", "NR",
       "y", "CODEN designation", "NR",
+      "z", "International Standard Book Number", "R",
       "4", "Relationship", "R",
       "6", "Linkage", "NR",
       "7", "Control subfield", "NR",
@@ -137,6 +141,11 @@ public class Tag777 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
       .setCompilanceLevels("O");
 
+    getSubfield("r")
+      .setMqTag("reportNumber")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("A");
+
     getSubfield("s")
       .setBibframeTag("title").setMqTag("uniformTitle")
       .setFrbrFunctions(DiscoveryIdentify)
@@ -144,6 +153,11 @@ public class Tag777 extends DataFieldDefinition {
 
     getSubfield("t")
       .setBibframeTag("title")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("A");
+
+    getSubfield("u")
+      .setBibframeTag("strn")
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
       .setCompilanceLevels("A");
 
@@ -159,6 +173,12 @@ public class Tag777 extends DataFieldDefinition {
 
     getSubfield("y")
       .setBibframeTag("coden")
+      .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
+      .setCompilanceLevels("O");
+
+    getSubfield("z")
+      .setBibframeTag("isbn")
+      .setValidator(ISBNValidator.getInstance())
       .setFrbrFunctions(DiscoveryIdentify, DiscoveryObtain)
       .setCompilanceLevels("O");
 

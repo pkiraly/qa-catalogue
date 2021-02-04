@@ -55,6 +55,7 @@ public class Tag085 extends DataFieldDefinition {
       "y", "Table sequence number for internal subarrangement or add table", "R",
       "z", "Table identification", "R",
       "0", "Authority record control number or standard number", "R",
+      "1", "Real World Object URI", "R",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
     );
@@ -112,6 +113,9 @@ public class Tag085 extends DataFieldDefinition {
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
       .setContentParser(RecordControlNumberParser.getInstance());
+
+    getSubfield("1")
+      .setMqTag("uri");
 
     getSubfield("6")
       .setBibframeTag("linkage")

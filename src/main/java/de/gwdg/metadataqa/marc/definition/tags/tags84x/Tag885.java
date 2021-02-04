@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags84x;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -46,11 +47,31 @@ public class Tag885 extends DataFieldDefinition {
       "x", "Nonpublic note", "R",
       "z", "Public note", "R",
       "0", "Authority record control number or standard number", "R",
+      "1", "Real World Object URI", "R",
       "2", "Source", "NR",
       "5", "Institution to which field applies", "NR"
     );
 
-    getSubfield("2").setCodeList(OrganizationCodes.getInstance());
+    getSubfield("a").setMqTag("matchingInformation");
+    getSubfield("b").setMqTag("status");
+    getSubfield("c").setMqTag("confidence");
+    getSubfield("d").setMqTag("date");
+    getSubfield("w").setMqTag("controlNumber");
+    getSubfield("x").setMqTag("nonpublicNote");
+    getSubfield("z").setMqTag("publicNote");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance());
+
+    getSubfield("1")
+      .setMqTag("uri");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setCodeList(OrganizationCodes.getInstance());
+
+    getSubfield("5").setMqTag("institution");
 
     putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
       new SubfieldDefinition("7", "NKCR Authority ID", "NR")

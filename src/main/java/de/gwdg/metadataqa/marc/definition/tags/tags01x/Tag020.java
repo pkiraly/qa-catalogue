@@ -52,11 +52,11 @@ public class Tag020 extends DataFieldDefinition {
     );
     // TODO validation ISO 2108
 
-    getSubfield("a").setValidator(ISBNValidator.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a")
       .setBibframeTag("rdf:value")
+      .setValidator(ISBNValidator.getInstance())
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
       .setCompilanceLevels("A", "A");
 

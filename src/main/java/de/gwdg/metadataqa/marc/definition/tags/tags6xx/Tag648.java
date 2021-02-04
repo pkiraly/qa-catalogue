@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags6xx;
 
 import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -109,6 +110,7 @@ public class Tag648 extends DataFieldDefinition {
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance())
       .setCompilanceLevels("O");
 
     getSubfield("2")

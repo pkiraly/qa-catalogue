@@ -56,7 +56,6 @@ public class Tag753 extends DataFieldDefinition {
 
     getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
 
-    getSubfield("0").setContentParser(RecordControlNumberParser.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a")
@@ -75,7 +74,8 @@ public class Tag753 extends DataFieldDefinition {
       .setCompilanceLevels("A");
 
     getSubfield("0")
-      .setMqTag("authorityRecordControlNumber");
+      .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance());
 
     getSubfield("2")
       .setMqTag("source");

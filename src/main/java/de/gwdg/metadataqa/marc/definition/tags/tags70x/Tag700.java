@@ -97,7 +97,6 @@ public class Tag700 extends DataFieldDefinition {
     getSubfield("2").setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());
     getSubfield("4").setCodeList(RelatorCodes.getInstance());
 
-    getSubfield("0").setContentParser(RecordControlNumberParser.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
     getSubfield("x").setValidator(ISSNValidator.getInstance());
 
@@ -211,6 +210,7 @@ public class Tag700 extends DataFieldDefinition {
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance())
       .setCompilanceLevels("O");
 
     getSubfield("2")

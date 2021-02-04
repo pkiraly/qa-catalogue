@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
@@ -54,6 +55,7 @@ public class Tag052 extends DataFieldDefinition {
       "a", "Geographic classification area code", "NR",
       "b", "Geographic classification subarea code", "R",
       "d", "Populated place name", "R",
+      "0", "Authority record control number or standard number", "R",
       "2", "Code source", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
@@ -77,6 +79,10 @@ public class Tag052 extends DataFieldDefinition {
       .setBibframeTag("rdfs:label")
       .setFrbrFunctions(DiscoverySearch, DiscoverySelect)
       .setCompilanceLevels("O");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance());
 
     getSubfield("2")
       .setMqTag("source")

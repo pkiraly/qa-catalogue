@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -52,7 +53,7 @@ public class Tag080 extends DataFieldDefinition {
       "a", "Universal Decimal Classification number", "NR",
       "b", "Item number", "NR",
       "x", "Common auxiliary subdivision", "R",
-      "0", "Authority record control number or standard number", "NR",
+      "0", "Authority record control number or standard number", "R",
       "1", "Real World Object URI", "NR",
       "2", "Edition identifier", "NR",
       "6", "Linkage", "NR",
@@ -77,7 +78,8 @@ public class Tag080 extends DataFieldDefinition {
       .setCompilanceLevels("A");
 
     getSubfield("0")
-      .setMqTag("authorityRecordControlNumber");
+      .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance());
 
     getSubfield("1")
       .setMqTag("uri");

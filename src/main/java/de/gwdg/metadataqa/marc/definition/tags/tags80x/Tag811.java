@@ -119,7 +119,6 @@ public class Tag811 extends DataFieldDefinition {
         .setMqTag("bibliographicLevel")
     ));
 
-    getSubfield("0").setContentParser(RecordControlNumberParser.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
     getSubfield("x").setValidator(ISSNValidator.getInstance());
 
@@ -216,6 +215,7 @@ public class Tag811 extends DataFieldDefinition {
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance())
       .setCompilanceLevels("O");
 
     getSubfield("2")

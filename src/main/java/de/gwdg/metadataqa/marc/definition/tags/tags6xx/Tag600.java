@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTermSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
@@ -230,6 +231,7 @@ public class Tag600 extends DataFieldDefinition {
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance())
       .setCompilanceLevels("O");
 
     getSubfield("2")

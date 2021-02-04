@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
@@ -46,6 +47,7 @@ public class Tag084 extends DataFieldDefinition {
       "a", "Classification number", "R",
       "b", "Item number", "NR",
       "q", "Assigning agency", "NR",
+      "0", "Authority record control number or standard number", "R",
       "2", "Number source", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
@@ -68,6 +70,10 @@ public class Tag084 extends DataFieldDefinition {
 
     getSubfield("q")
       .setBibframeTag("assigner");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance());
 
     getSubfield("2")
       .setBibframeTag("source")

@@ -89,8 +89,6 @@ public class Tag810 extends DataFieldDefinition {
     getSubfield("2").setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());
     getSubfield("4").setCodeList(RelatorCodes.getInstance());
 
-    getSubfield("0").setContentParser(RecordControlNumberParser.getInstance());
-
     getSubfield("7").setPositions(Arrays.asList(
       new ControlfieldPositionDefinition("Type of record", 0, 1)
         .setCodes(Utils.generateCodes(
@@ -230,6 +228,7 @@ public class Tag810 extends DataFieldDefinition {
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance())
       .setCompilanceLevels("O");
 
     getSubfield("2")

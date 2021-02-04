@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags70x;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -66,7 +67,8 @@ public class Tag758 extends DataFieldDefinition {
       .setMqTag("Relationship");
 
     getSubfield("0")
-      .setMqTag("authorityRecordControlNumber");
+      .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance());
 
     getSubfield("1")
       .setMqTag("uri");

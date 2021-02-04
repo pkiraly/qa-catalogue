@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -38,8 +39,9 @@ public class Tag070 extends DataFieldDefinition {
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd070.html";
     setCompilanceLevels("O");
 
-    ind1 = new Indicator(" collection")
+    ind1 = new Indicator("Existence in NAL collection")
       .setCodes(
+        " ", "No information provided",
         "0", "Item is in NAL",
         "1", "Item is not in NAL"
       )
@@ -72,7 +74,8 @@ public class Tag070 extends DataFieldDefinition {
       .setCompilanceLevels("A");
 
     getSubfield("0")
-      .setMqTag("authorityRecordControlNumber");
+      .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance());
 
     getSubfield("8")
       .setMqTag("fieldLink")

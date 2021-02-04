@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
@@ -61,6 +62,7 @@ public class Tag050 extends DataFieldDefinition {
     setSubfieldsWithCardinality(
       "a", "Classification number", "R",
       "b", "Item number", "NR",
+      "0", "Authority record control number or standard number", "R",
       "3", "Materials specified", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
@@ -77,6 +79,10 @@ public class Tag050 extends DataFieldDefinition {
       .setBibframeTag("itemPortion")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
       .setCompilanceLevels("A");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance());
 
     getSubfield("3")
       .setMqTag("materialsSpecified")

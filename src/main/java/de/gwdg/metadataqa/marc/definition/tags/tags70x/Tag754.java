@@ -58,7 +58,6 @@ public class Tag754 extends DataFieldDefinition {
 
     getSubfield("2").setCodeList(TaxonomicClassificationSourceCodes.getInstance());
 
-    getSubfield("0").setContentParser(RecordControlNumberParser.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a")
@@ -86,6 +85,7 @@ public class Tag754 extends DataFieldDefinition {
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance())
       .setCompilanceLevels("O");
 
     getSubfield("2")

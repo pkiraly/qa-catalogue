@@ -79,7 +79,6 @@ public class Tag111 extends DataFieldDefinition {
     getSubfield("2").setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());
     getSubfield("4").setCodeList(RelatorCodes.getInstance());
 
-    getSubfield("0").setContentParser(RecordControlNumberParser.getInstance());
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a")
@@ -152,6 +151,7 @@ public class Tag111 extends DataFieldDefinition {
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance())
       .setCompilanceLevels("O");
 
     getSubfield("2")

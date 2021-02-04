@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags3xx;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -85,7 +86,8 @@ public class Tag370 extends DataFieldDefinition {
       .setMqTag("sourceOfInformation");
 
     getSubfield("0")
-      .setMqTag("authorityRecordControlNumber");
+      .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance());
 
     getSubfield("2")
       .setMqTag("source");

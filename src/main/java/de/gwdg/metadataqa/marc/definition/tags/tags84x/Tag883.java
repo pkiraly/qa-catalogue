@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags84x;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -66,7 +67,9 @@ public class Tag883 extends DataFieldDefinition {
     getSubfield("x").setMqTag("validityEndDate");
     getSubfield("u").setMqTag("uri");
     getSubfield("w").setMqTag("bibliographicRecordControlNumber");
-    getSubfield("0").setMqTag("authorityRecordControlNumber");
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance());
     getSubfield("8").setMqTag("fieldLink");
 
     putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(

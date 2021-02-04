@@ -70,7 +70,7 @@ public class Tag110 extends DataFieldDefinition {
       "u", "Affiliation", "NR",
       "0", "Authority record control number or standard number", "R",
       "2", "Source of heading or term", "NR",
-      "4", "Relator code", "R",
+      "4", "Relationship", "R",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
     );

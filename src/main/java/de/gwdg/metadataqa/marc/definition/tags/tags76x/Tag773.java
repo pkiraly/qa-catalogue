@@ -81,7 +81,7 @@ public class Tag773 extends DataFieldDefinition {
       "y", "CODEN designation", "NR",
       "z", "International Standard Book Number", "R",
       "3", "Materials specified", "NR",
-      "4", "Relationship code", "R",
+      "4", "Relationship", "R",
       "6", "Linkage", "NR",
       "7", "Control subfield", "NR",
       "8", "Field link and sequence number", "R"

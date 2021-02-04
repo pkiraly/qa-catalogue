@@ -34,7 +34,7 @@ public class Tag007map06 extends ControlfieldPositionDefinition {
     codes = Utils.generateCodes(
       "a", "Photocopy, blueline print",
       "b", "Photocopy",
-      "c", "Pre-production",
+      "c", "Photographic pre-production",
       "d", "Film",
       "u", "Unknown",
       "z", "Other",

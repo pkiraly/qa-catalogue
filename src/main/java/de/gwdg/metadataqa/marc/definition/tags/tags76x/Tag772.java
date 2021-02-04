@@ -84,7 +84,6 @@ public class Tag772 extends DataFieldDefinition {
       "8", "Field link and sequence number", "R"
     );
 
-    getSubfield("4").setCodeList(RelatorCodes.getInstance());
     // TODO: this requires position parser!
     // see http://www.loc.gov/marc/bibliographic/bd76x78x.html
     getSubfield("7").setPositions(Tag76xSubfield7PositionsGenerator.getPositions());
@@ -185,6 +184,7 @@ public class Tag772 extends DataFieldDefinition {
 
     getSubfield("4")
       .setMqTag("relationship")
+      .setCodeList(RelatorCodes.getInstance())
       .setCompilanceLevels("O");
 
     getSubfield("6")

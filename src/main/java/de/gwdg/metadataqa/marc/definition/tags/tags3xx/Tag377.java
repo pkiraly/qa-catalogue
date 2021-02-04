@@ -51,6 +51,7 @@ public class Tag377 extends DataFieldDefinition {
       "0", "Authority record control number or standard number", "R",
       "1", "Real World Object URI", "R",
       "2", "Source", "NR",
+      "3", "Materials specified", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
     );
@@ -74,6 +75,9 @@ public class Tag377 extends DataFieldDefinition {
 
     getSubfield("2")
       .setMqTag("source");
+
+    getSubfield("3")
+      .setMqTag("materials");
 
     getSubfield("6")
       .setBibframeTag("linkage");

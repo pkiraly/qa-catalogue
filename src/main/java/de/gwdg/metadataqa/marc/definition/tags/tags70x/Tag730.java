@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags70x;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -78,6 +79,7 @@ public class Tag730 extends DataFieldDefinition {
       "1", "Real World Object URI", "R",
       "2", "Source of heading or term", "NR",
       "3", "Materials specified", "NR",
+      "4", "Relationship", "R",
       "5", "Institution to which field applies", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
@@ -181,6 +183,10 @@ public class Tag730 extends DataFieldDefinition {
       .setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify)
       .setCompilanceLevels("O");
+
+    getSubfield("4")
+      .setMqTag("relationship")
+      .setCodeList(RelatorCodes.getInstance());
 
     getSubfield("5")
       .setMqTag("institutionToWhichFieldApplies")

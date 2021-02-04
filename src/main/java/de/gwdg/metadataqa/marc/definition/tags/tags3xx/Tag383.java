@@ -41,6 +41,7 @@ public class Tag383 extends DataFieldDefinition {
       "d", "Thematic index code", "NR",
       "e", "Publisher associated with opus number", "NR",
       "2", "Source", "NR",
+      "3", "Materials specified", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
     );
@@ -71,6 +72,9 @@ public class Tag383 extends DataFieldDefinition {
 
     getSubfield("2")
       .setMqTag("source");
+
+    getSubfield("3")
+      .setMqTag("materials");
 
     getSubfield("6")
       .setBibframeTag("linkage")

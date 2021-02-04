@@ -43,6 +43,7 @@ public class Tag380 extends DataFieldDefinition {
       "0", "Record control number", "R",
       "1", "Real World Object URI", "R",
       "2", "Source of term", "NR",
+      "3", "Materials specified", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
     );
@@ -66,6 +67,7 @@ public class Tag380 extends DataFieldDefinition {
     getSubfield("2")
       .setMqTag("source")
       .setCompilanceLevels("A");
+
 
     getSubfield("6")
       .setBibframeTag("linkage")

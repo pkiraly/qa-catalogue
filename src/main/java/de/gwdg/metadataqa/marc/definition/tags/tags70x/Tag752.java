@@ -64,7 +64,6 @@ public class Tag752 extends DataFieldDefinition {
     );
 
     getSubfield("2").setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());
-    getSubfield("4").setCodeList(RelatorCodes.getInstance());
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
@@ -120,7 +119,8 @@ public class Tag752 extends DataFieldDefinition {
       .setCompilanceLevels("A");
 
     getSubfield("4")
-      .setMqTag("relationship");
+      .setMqTag("relationship")
+      .setCodeList(RelatorCodes.getInstance());
 
     getSubfield("6")
       .setBibframeTag("linkage")

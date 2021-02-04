@@ -96,7 +96,6 @@ public class Tag611 extends DataFieldDefinition {
     );
 
     getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
-    getSubfield("4").setCodeList(RelatorCodes.getInstance());
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
@@ -217,7 +216,8 @@ public class Tag611 extends DataFieldDefinition {
       .setCompilanceLevels("O");
 
     getSubfield("4")
-      .setMqTag("relatorCode")
+      .setMqTag("relationship")
+      .setCodeList(RelatorCodes.getInstance())
       .setFrbrFunctions(DiscoveryIdentify)
       .setCompilanceLevels("O");
 

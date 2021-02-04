@@ -71,8 +71,6 @@ public class Tag400 extends DataFieldDefinition {
       "8", "Field link and sequence number", "R"
     );
 
-    getSubfield("4").setCodeList(RelatorCodes.getInstance());
-
     getSubfield("6").setContentParser(LinkageParser.getInstance());
     getSubfield("x").setValidator(ISSNValidator.getInstance());
 
@@ -122,7 +120,8 @@ public class Tag400 extends DataFieldDefinition {
       .setMqTag("issn");
 
     getSubfield("4")
-      .setMqTag("relationship");
+      .setMqTag("relationship")
+      .setCodeList(RelatorCodes.getInstance());
 
     getSubfield("6")
       .setBibframeTag("linkage");

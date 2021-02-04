@@ -77,7 +77,6 @@ public class Tag110 extends DataFieldDefinition {
     );
 
     getSubfield("2").setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());
-    getSubfield("4").setCodeList(RelatorCodes.getInstance());
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
@@ -157,7 +156,8 @@ public class Tag110 extends DataFieldDefinition {
       .setMqTag("source");
 
     getSubfield("4")
-      .setMqTag("relatorCode")
+      .setMqTag("relationship")
+      .setCodeList(RelatorCodes.getInstance())
       .setFrbrFunctions(DiscoveryIdentify)
       .setCompilanceLevels("O", "A");
 

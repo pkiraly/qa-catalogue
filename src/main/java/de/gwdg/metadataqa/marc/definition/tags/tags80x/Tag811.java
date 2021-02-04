@@ -86,7 +86,6 @@ public class Tag811 extends DataFieldDefinition {
     );
 
     getSubfield("2").setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());
-    getSubfield("4").setCodeList(RelatorCodes.getInstance());
 
     getSubfield("7").setPositions(Arrays.asList(
       new ControlfieldPositionDefinition("Type of record", 0, 1)
@@ -230,7 +229,8 @@ public class Tag811 extends DataFieldDefinition {
       .setCompilanceLevels("O");
 
     getSubfield("4")
-      .setMqTag("relatorCode")
+      .setMqTag("relationship")
+      .setCodeList(RelatorCodes.getInstance())
       .setFrbrFunctions(DiscoveryIdentify)
       .setCompilanceLevels("O");
 

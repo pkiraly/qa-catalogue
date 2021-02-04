@@ -69,7 +69,6 @@ public class Tag654 extends DataFieldDefinition {
       "8", "Field link and sequence number", "R"
     );
 
-    getSubfield("4").setCodeList(RelatorCodes.getInstance());
     getSubfield("2").setCodeList(SubjectHeadingAndTermSourceCodes.getInstance());
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
@@ -129,6 +128,7 @@ public class Tag654 extends DataFieldDefinition {
 
     getSubfield("4")
       .setMqTag("relationship")
+      .setCodeList(RelatorCodes.getInstance())
       .setFrbrFunctions(DiscoveryIdentify)
       .setCompilanceLevels("O");
 

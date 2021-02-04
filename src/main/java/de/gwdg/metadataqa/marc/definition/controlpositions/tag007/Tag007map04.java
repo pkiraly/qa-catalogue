@@ -51,6 +51,7 @@ public class Tag007map04 extends ControlfieldPositionDefinition {
       "u", "Unknown",
       "v", "Leather",
       "w", "Parchment",
+      "x", "Not Applicable",
       "y", "Other photographic medium",
       "z", "Other",
       "|", "No attempt to code"

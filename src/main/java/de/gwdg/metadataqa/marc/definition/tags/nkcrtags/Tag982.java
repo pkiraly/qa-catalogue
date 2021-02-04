@@ -88,7 +88,6 @@ public class Tag982 extends DataFieldDefinition {
     );
 
     getSubfield("2").setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());
-    getSubfield("4").setCodeList(RelatorCodes.getInstance());
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
     getSubfield("x").setValidator(ISSNValidator.getInstance());
@@ -205,7 +204,8 @@ public class Tag982 extends DataFieldDefinition {
       .setCompilanceLevels("O");
 
     getSubfield("4")
-      .setMqTag("relatorCode")
+      .setMqTag("relationship")
+      .setCodeList(RelatorCodes.getInstance())
       .setFrbrFunctions(DiscoveryIdentify)
       .setCompilanceLevels("O");
 

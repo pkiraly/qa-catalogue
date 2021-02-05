@@ -47,6 +47,7 @@ public class Tag751 extends DataFieldDefinition {
     setSubfieldsWithCardinality(
       "a", "Geographic name", "NR",
       "e", "Relator term", "R",
+      "g", "Miscellaneous information", "R",
       "0", "Authority record control number or standard number", "R",
       "1", "Real World Object URI", "R",
       "2", "Source of heading or term", "NR",
@@ -67,6 +68,9 @@ public class Tag751 extends DataFieldDefinition {
     getSubfield("e")
       .setMqTag("relator")
       .setCompilanceLevels("A");
+
+    getSubfield("g")
+      .setMqTag("miscellaneous");
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")

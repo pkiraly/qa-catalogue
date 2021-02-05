@@ -58,8 +58,9 @@ public class Tag041 extends DataFieldDefinition {
       "d", "Language code of sung or spoken text", "R",
       "e", "Language code of librettos", "R",
       "f", "Language code of table of contents", "R",
-      "g", "Language code of accompanying material other than librettos", "R",
+      "g", "Language code of accompanying material other than librettos and transcripts", "R",
       "h", "Language code of original", "R",
+      "i", "Language code of intertitles", "R",
       "j", "Language code of subtitles", "R",
       "k", "Language code of intermediate translations", "R",
       "m", "Language code of original accompanying materials other than librettos", "R",
@@ -67,6 +68,7 @@ public class Tag041 extends DataFieldDefinition {
       "p", "Language code of captions", "R",
       "q", "Language code of accessible audio", "R",
       "r", "Language code of accessible visual language (non-textual)", "R",
+      "t", "Language code of accompanying transcripts for audiovisual materials", "R",
       "2", "Source of code", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
@@ -79,6 +81,7 @@ public class Tag041 extends DataFieldDefinition {
     getSubfield("f").setCodeList(LanguageCodes.getInstance());
     getSubfield("g").setCodeList(LanguageCodes.getInstance());
     getSubfield("h").setCodeList(LanguageCodes.getInstance());
+    getSubfield("i").setCodeList(LanguageCodes.getInstance());
     getSubfield("j").setCodeList(LanguageCodes.getInstance());
     getSubfield("k").setCodeList(LanguageCodes.getInstance());
     getSubfield("m").setCodeList(LanguageCodes.getInstance());
@@ -125,6 +128,9 @@ public class Tag041 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoverySelect)
       .setCompilanceLevels("A");
 
+    getSubfield("i")
+      .setMqTag("ofIntertitles");
+
     getSubfield("j")
       .setMqTag("ofSubtitles")
       .setCompilanceLevels("A");
@@ -146,6 +152,9 @@ public class Tag041 extends DataFieldDefinition {
 
     getSubfield("r")
       .setMqTag("ofAccessibleVisualLanguage");
+
+    getSubfield("t")
+      .setMqTag("ofTranscripts");
 
     getSubfield("2")
       .setMqTag("source")

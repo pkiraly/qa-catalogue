@@ -1,6 +1,21 @@
 # QA Catalogue Changelog
 
-## [Unreleased issue-75-british-library]
+## v0.5
+
+### New features
+
+- [\#89](https://github.com/pkiraly/metadata-qa-marc/issues/89)
+  Check definitins against [MARC updates](https://www.loc.gov/marc/status.html)
+  - [Update No. 24 (May 2017)](https://www.loc.gov/marc/up24bibliographic/bdapndxg.html)
+  - [Update No. 25 (December 2017)](https://www.loc.gov/marc/up25bibliographic/bdapndxg.html)
+  - [Update No. 26 (April 2018)](https://www.loc.gov/marc/up26bibliographic/bdapndxg.html)
+  - [Update No. 27 (November 2018)](https://www.loc.gov/marc/up27bibliographic/bdapndxg.html)
+  - [Update No. 28 (May 2019)](https://www.loc.gov/marc/up28bibliographic/bdapndxg.html)
+  - [Update No. 29 (November 2019)](https://www.loc.gov/marc/up29bibliographic/bdapndxg.html)
+  - [Update No. 30 (May 2020)](https://www.loc.gov/marc/up30bibliographic/bdapndxg.html)
+  - [Update No. 31 (December 2020)](https://www.loc.gov/marc/bibliographic/bdapndxg.html)
+
+## v0.4
 
 ### Added
 

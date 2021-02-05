@@ -11,7 +11,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 import java.util.Arrays;
 
 /**
- * Machine-generated Metadata Provenance
+ * Metadata Provenance
  * http://www.loc.gov/marc/bibliographic/bd883.html
  */
 public class Tag883 extends DataFieldDefinition {
@@ -32,25 +32,27 @@ public class Tag883 extends DataFieldDefinition {
   private void initialize() {
 
     tag = "883";
-    label = "Machine-generated Metadata Provenance";
-    mqTag = "MachineGeneratedMetadataProvenance";
+    label = "Metadata Provenance";
+    mqTag = "MetadataProvenance";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd883.html";
 
-    ind1 = new Indicator("Method of machine assignment")
+    ind1 = new Indicator("Method of assignment")
       .setCodes(
         " ", "No information provided/not applicable",
         "0", "Fully machine-generated",
-        "1", "Partially machine-generated"
+        "1", "Partially machine-generated",
+        "2", "Not machine-generated"
       )
-      .setMqTag("methodOfMachineAssignment");
+      .setMqTag("methodOfAssignment");
+
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "Generation process", "NR",
+      "a", "Creation process", "NR",
       "c", "Confidence value", "NR",
-      "d", "Generation date", "NR",
-      "q", "Generation agency", "NR",
+      "d", "Creation date", "NR",
+      "q", "Assigning or generation agency", "NR",
       "x", "Validity end date", "NR",
       "u", "Uniform Resource Identifier", "NR",
       "w", "Bibliographic record control number", "R",
@@ -59,7 +61,7 @@ public class Tag883 extends DataFieldDefinition {
       "8", "Field link and sequence number", "R"
     );
 
-    getSubfield("a").setMqTag("generationProcess");
+    getSubfield("a").setMqTag("creationProcess");
 
     getSubfield("c").setMqTag("confidence");
 

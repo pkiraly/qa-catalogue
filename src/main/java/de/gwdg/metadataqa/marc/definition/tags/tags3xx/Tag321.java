@@ -1,6 +1,8 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags3xx;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodeAndTermSourceCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
@@ -39,6 +41,9 @@ public class Tag321 extends DataFieldDefinition {
     setSubfieldsWithCardinality(
       "a", "Former publication frequency", "NR",
       "b", "Dates of former publication frequency", "NR",
+      "0", "Authority record control number or standard number", "NR",
+      "1", "Real World Object URI", "R",
+      "2", "Source", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
     );
@@ -54,6 +59,17 @@ public class Tag321 extends DataFieldDefinition {
       .setBibframeTag("date")
       .setFrbrFunctions(UseManage)
       .setCompilanceLevels("A");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance());
+
+    getSubfield("1")
+      .setMqTag("uri");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setCodeList(LanguageCodeAndTermSourceCodes.getInstance());
 
     getSubfield("6")
       .setBibframeTag("linkage")

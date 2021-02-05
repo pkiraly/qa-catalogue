@@ -1,49 +1,47 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags3xx;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.general.codelist.GenreFormCodeAndTermSourceCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
-import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
-import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 import java.util.Arrays;
 
 /**
- * Moving Image Characteristics
- * http://www.loc.gov/marc/bibliographic/bd345.html
+ * Extension Plan
+ * http://www.loc.gov/marc/bibliographic/bd335.html
  */
-public class Tag345 extends DataFieldDefinition {
-  private static Tag345 uniqueInstance;
+public class Tag335 extends DataFieldDefinition {
+  private static Tag335 uniqueInstance;
 
-  private Tag345() {
+  private Tag335() {
     initialize();
     postCreation();
   }
 
-  public static Tag345 getInstance() {
+  public static Tag335 getInstance() {
     if (uniqueInstance == null)
-      uniqueInstance = new Tag345();
+      uniqueInstance = new Tag335();
     return uniqueInstance;
   }
 
   private void initialize() {
-
-    tag = "345";
-    label = "Moving Image Characteristics";
-    mqTag = "MovingImageCharacteristics";
+    tag = "335";
+    label = "Extension Plan";
+    mqTag = "ExtensionPlan";
     cardinality = Cardinality.Repeatable;
-    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd345.html";
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd335.html";
 
     ind1 = new Indicator();
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "Presentation format", "R",
-      "b", "Projection speed", "R",
-      "c", "Aspect ratio value", "R",
-      "d", "Aspect ratio designator", "R",
+      "a", "Extension plan term", "NR",
+      "b", "Extension plan code", "NR",
       "0", "Authority record control number or standard number", "R",
       "1", "Real World Object URI", "R",
       "2", "Source", "NR",
@@ -52,19 +50,11 @@ public class Tag345 extends DataFieldDefinition {
       "8", "Field link and sequence number", "R"
     );
 
-    getSubfield("6").setContentParser(LinkageParser.getInstance());
-
     getSubfield("a")
-      .setBibframeTag("presentationFormat");
+      .setMqTag("extensionPlanTerm");
 
     getSubfield("b")
-      .setBibframeTag("projectionSpeed");
-
-    getSubfield("c")
-      .setBibframeTag("aspectRatioValue");
-
-    getSubfield("d")
-      .setBibframeTag("aspectRatioDesignator");
+      .setMqTag("extensionPlanCode");
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
@@ -74,19 +64,18 @@ public class Tag345 extends DataFieldDefinition {
       .setMqTag("uri");
 
     getSubfield("2")
-      .setBibframeTag("source");
+      .setBibframeTag("source")
+      .setCodeList(GenreFormCodeAndTermSourceCodes.getInstance());
 
     getSubfield("3")
       .setMqTag("materialsSpecified");
 
     getSubfield("6")
-      .setBibframeTag("linkage");
+      .setBibframeTag("linkage")
+      .setContentParser(LinkageParser.getInstance());
 
     getSubfield("8")
       .setMqTag("fieldLink");
 
-    putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
-      new SubfieldDefinition("7", "NKCR Authority ID", "NR")
-    ));
   }
 }

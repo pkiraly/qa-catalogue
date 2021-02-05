@@ -24,7 +24,7 @@ public class FrbrFunctionListerTest {
     FrbrFunctionLister lister = new FrbrFunctionLister(MarcVersion.MARC21);
     Map<FRBRFunction, List<String>> functions = lister.getMarcPathByfunction();
     assertEquals(12,  functions.size());
-    assertEquals(469, functions.get(FRBRFunction.DiscoveryObtain).size());
+    assertEquals(461, functions.get(FRBRFunction.DiscoveryObtain).size());
     assertEquals(464, functions.get(FRBRFunction.DiscoverySearch).size());
     assertEquals(360, functions.get(FRBRFunction.DiscoverySelect).size());
     assertEquals(979, functions.get(FRBRFunction.DiscoveryIdentify).size());

@@ -36,7 +36,7 @@ public class Tag043 extends DataFieldDefinition {
     tag = "043";
     label = "Geographic Area Code";
     bibframeTag = "GeographicCoverage";
-    cardinality = Cardinality.Nonrepeatable;
+    cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd043.html";
     setCompilanceLevels("A");
 

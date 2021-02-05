@@ -14,11 +14,11 @@ public class DataElementsStaticticsTest {
     assertEquals( 226, statistics.get(DataElementType.controlFieldPositions));
     assertEquals( 219, statistics.get(DataElementType.coreFields));
     assertEquals( 177, statistics.get(DataElementType.coreIndicators));
-    assertEquals(2424, statistics.get(DataElementType.coreSubfields));
+    assertEquals(2425, statistics.get(DataElementType.coreSubfields));
     assertEquals( 183, statistics.get(DataElementType.localFields));
     assertEquals(  28, statistics.get(DataElementType.localIndicators));
     assertEquals( 865, statistics.get(DataElementType.localSubfields));
-    assertEquals(4128, statistics.total());
+    assertEquals(4129, statistics.total());
   }
 
 }

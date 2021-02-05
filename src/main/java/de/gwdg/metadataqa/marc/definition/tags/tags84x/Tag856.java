@@ -102,8 +102,6 @@ public class Tag856 extends DataFieldDefinition {
     );
 
     getSubfield("w").setCodeList(OrganizationCodes.getInstance());
-    getSubfield("2").setCodeList(ElectronicAccessMethodsCodeList.getInstance());
-
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a")
@@ -222,6 +220,7 @@ public class Tag856 extends DataFieldDefinition {
 
     getSubfield("2")
       .setMqTag("accessMethod")
+      .setCodeList(ElectronicAccessMethodsCodeList.getInstance())
       .setCompilanceLevels("A");
 
     getSubfield("3")

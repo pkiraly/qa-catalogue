@@ -76,8 +76,6 @@ public class Tag110 extends DataFieldDefinition {
       "8", "Field link and sequence number", "R"
     );
 
-    getSubfield("2").setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());
-
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a")
@@ -153,7 +151,8 @@ public class Tag110 extends DataFieldDefinition {
       .setMqTag("uri");
 
     getSubfield("2")
-      .setMqTag("source");
+      .setMqTag("source")
+      .setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());
 
     getSubfield("4")
       .setMqTag("relationship")

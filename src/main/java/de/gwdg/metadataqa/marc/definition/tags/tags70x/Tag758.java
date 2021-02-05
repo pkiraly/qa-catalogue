@@ -55,7 +55,6 @@ public class Tag758 extends DataFieldDefinition {
       "8", "Field link and sequence number", "R"
     );
 
-    getSubfield("2").setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());
     getSubfield("5").setCodeList(OrganizationCodes.getInstance());
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
@@ -74,7 +73,8 @@ public class Tag758 extends DataFieldDefinition {
       .setMqTag("uri");
 
     getSubfield("2")
-      .setMqTag("source");
+      .setMqTag("source")
+      .setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());
 
     getSubfield("3")
       .setMqTag("materialsSpecified");

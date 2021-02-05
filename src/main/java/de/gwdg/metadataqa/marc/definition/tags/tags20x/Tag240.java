@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags20x;
 
 import de.gwdg.metadataqa.marc.Code;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.general.codelist.NameAndTitleAuthoritySourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
@@ -78,6 +79,7 @@ public class Tag240 extends DataFieldDefinition {
       "s", "Version", "R",
       "0", "Authority record control number or standard number", "R",
       "1", "Real World Object URI", "R",
+      "2", "Source of heading or term", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
     );
@@ -155,6 +157,10 @@ public class Tag240 extends DataFieldDefinition {
 
     getSubfield("1")
       .setMqTag("uri");
+
+    getSubfield("2")
+      .setMqTag("source")
+      .setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());
 
     getSubfield("6")
       .setBibframeTag("linkage")

@@ -93,8 +93,6 @@ public class Tag800 extends DataFieldDefinition {
       "8", "Field link and sequence number", "R"
     );
 
-    getSubfield("2").setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());
-
     getSubfield("7").setPositions(Arrays.asList(
       new ControlfieldPositionDefinition("Type of record", 0, 1)
         .setCodes(Utils.generateCodes(
@@ -251,7 +249,8 @@ public class Tag800 extends DataFieldDefinition {
       .setMqTag("uri");
 
     getSubfield("2")
-      .setMqTag("source");
+      .setMqTag("source")
+      .setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());
 
     getSubfield("3")
       .setMqTag("materialsSpecified")

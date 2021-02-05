@@ -112,8 +112,6 @@ public class Tag830 extends DataFieldDefinition {
         .setMqTag("bibliographicLevel")
     ));
 
-    getSubfield("2").setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());
-
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("x").setValidator(ISSNValidator.getInstance());
@@ -209,7 +207,8 @@ public class Tag830 extends DataFieldDefinition {
       .setMqTag("uri");
 
     getSubfield("2")
-      .setMqTag("source");
+      .setMqTag("source")
+      .setCodeList(NameAndTitleAuthoritySourceCodes.getInstance());
 
     getSubfield("3")
       .setMqTag("materialsSpecified")

@@ -1,0 +1,92 @@
+package de.gwdg.metadataqa.marc.definition.tags.tags3xx;
+
+import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.Indicator;
+import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
+
+import java.util.Arrays;
+
+/**
+ * Accessibility Content
+ * http://www.loc.gov/marc/bibliographic/bd341.html
+ */
+public class Tag341 extends DataFieldDefinition {
+  private static Tag341 uniqueInstance;
+
+  private Tag341() {
+    initialize();
+    postCreation();
+  }
+
+  public static Tag341 getInstance() {
+    if (uniqueInstance == null)
+      uniqueInstance = new Tag341();
+    return uniqueInstance;
+  }
+
+  private void initialize() {
+
+    tag = "341";
+    label = "Accessibility Content";
+    mqTag = "AccessibilityContent";
+    cardinality = Cardinality.Repeatable;
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd341.html";
+
+    ind1 = new Indicator("Application")
+      .setCodes(
+        " ", "No information provided",
+        "0", "Adaptive features to access primary content",
+        "1", "Adaptive features to access secondary content"
+      )
+      .setMqTag("application");
+
+    ind2 = new Indicator();
+
+    setSubfieldsWithCardinality(
+      "a", "Content access mode", "NR",
+      "b", "Textual assistive features", "R",
+      "c", "Visual assistive features", "R",
+      "d", "Auditory assistive features", "R",
+      "e", "Tactile assistive features", "R",
+      "2", "Source", "NR",
+      "3", "Materials specified", "NR",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
+
+    getSubfield("a")
+      .setBibframeTag("accessMode");
+
+    getSubfield("b")
+      .setBibframeTag("textualAssistiveFeatures");
+
+    getSubfield("c")
+      .setBibframeTag("visualAssistiveFeatures");
+
+    getSubfield("d")
+      .setMqTag("auditoryAssistiveFeatures");
+
+    getSubfield("e")
+      .setMqTag("tactileAssistiveFeatures");
+
+    getSubfield("2")
+      .setBibframeTag("source");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified");
+
+    getSubfield("6")
+      .setBibframeTag("linkage")
+      .setContentParser(LinkageParser.getInstance());
+
+    getSubfield("8")
+      .setMqTag("fieldLink");
+
+    putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
+      new SubfieldDefinition("7", "NKCR Authority ID", "NR")
+    ));
+  }
+}

@@ -60,10 +60,13 @@ public class Tag041 extends DataFieldDefinition {
       "f", "Language code of table of contents", "R",
       "g", "Language code of accompanying material other than librettos", "R",
       "h", "Language code of original", "R",
-      "j", "Language code of subtitles or captions", "R",
+      "j", "Language code of subtitles", "R",
       "k", "Language code of intermediate translations", "R",
       "m", "Language code of original accompanying materials other than librettos", "R",
       "n", "Language code of original libretto", "R",
+      "p", "Language code of captions", "R",
+      "q", "Language code of accessible audio", "R",
+      "r", "Language code of accessible visual language (non-textual)", "R",
       "2", "Source of code", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
@@ -80,6 +83,9 @@ public class Tag041 extends DataFieldDefinition {
     getSubfield("k").setCodeList(LanguageCodes.getInstance());
     getSubfield("m").setCodeList(LanguageCodes.getInstance());
     getSubfield("n").setCodeList(LanguageCodes.getInstance());
+    getSubfield("p").setCodeList(LanguageCodes.getInstance());
+    getSubfield("q").setCodeList(LanguageCodes.getInstance());
+    getSubfield("r").setCodeList(LanguageCodes.getInstance());
     getSubfield("2").setCodeList(LanguageCodeAndTermSourceCodes.getInstance());
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
@@ -131,6 +137,15 @@ public class Tag041 extends DataFieldDefinition {
 
     getSubfield("n")
       .setMqTag("ofOriginalLibretto");
+
+    getSubfield("p")
+      .setMqTag("ofCaptions");
+
+    getSubfield("q")
+      .setMqTag("ofAccessibleAudio");
+
+    getSubfield("r")
+      .setMqTag("ofAccessibleVisualLanguage");
 
     getSubfield("2")
       .setMqTag("source")

@@ -7,6 +7,8 @@ import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 import org.junit.Test;
 import org.marc4j.marc.Record;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -14,6 +16,7 @@ import java.util.regex.Pattern;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class MarcRecordTest {
 
@@ -109,4 +112,20 @@ public class MarcRecordTest {
     assertEquals("at", record.getControl007().get(1).getContent());
     assertEquals(Control007Category.MAP, record.getControl007().get(1).getCategory());
   }
+
+  @Test
+  public void asJson() throws IOException, URISyntaxException {
+    Path path = FileUtils.getPath("general/0001-01.mrc");
+    List<Record> records = null;
+    try {
+      records = ReadMarc.read(path.toString());
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    MarcRecord record = MarcFactory.createFromMarc4j(records.get(0));
+    assertNotNull(record);
+    // System.err.println(record.asJson());
+    assertTrue(record.asJson().contains("\"245\":[{\"ind1\":\"1\",\"ind2\":\"0\",\"subfields\":{\"a\":\"Botanical materia medica and pharmacology;\""));
+  }
+
 }

@@ -35,7 +35,7 @@ public class SerialScores {
     int total = 0;
     for (Map.Entry<SerialFields, Integer> entry : scores.entrySet()) {
       SerialFields field = entry.getKey();
-      if (!field.equals(ThompsonTraillFields.TOTAL)) {
+      if (!field.equals(SerialFields.TOTAL)) {
         if (field.isClassification())
           total += Math.min(entry.getValue(), 10);
         else

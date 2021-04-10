@@ -118,7 +118,7 @@ public class ThompsonTraillAnalysis {
             if (score == 0)
               score = 1;
             if (score < 2
-                && date008 != ""
+                && !date008.equals("")
                 && subfield.getValue().contains(date008))
               score = 2;
           }
@@ -133,7 +133,7 @@ public class ThompsonTraillAnalysis {
           for (MarcSubfield subfield : subfields) {
             if (score == 0)
               score = 1;
-            if (score < 2 && date008 != "" && subfield.getValue().contains(date008))
+            if (score < 2 && !date008.equals("") && subfield.getValue().contains(date008))
               score = 2;
           }
         }

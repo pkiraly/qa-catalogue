@@ -17,16 +17,11 @@ import de.gwdg.metadataqa.marc.definition.tags.tags5xx.Tag546;
 import de.gwdg.metadataqa.marc.definition.tags.tags6xx.Tag630;
 import de.gwdg.metadataqa.marc.definition.tags.tags6xx.Tag650;
 import de.gwdg.metadataqa.marc.definition.tags.tags84x.Tag880;
-import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormatter;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Text;
+// import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Text;
 import static org.junit.Assert.*;
 
 /**

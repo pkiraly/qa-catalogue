@@ -33,7 +33,6 @@ public abstract class DataFieldDefinition implements Serializable {
   private CompilanceLevel nationalCompilanceLevel;
   private CompilanceLevel minimalCompilanceLevel;
 
-
   public String getTag() {
     return tag;
   }

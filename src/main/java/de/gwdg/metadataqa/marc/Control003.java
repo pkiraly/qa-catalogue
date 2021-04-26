@@ -14,10 +14,11 @@ public class Control003 extends MarcControlField implements Extractable {
 
   public Control003(String content) {
     super(Control003Definition.getInstance(), content);
-    process();
+    processContent();
   }
 
-  private void process() {
+  protected void processContent() {
+    // do nothing, this string should not be parsed
   }
 
   @Override

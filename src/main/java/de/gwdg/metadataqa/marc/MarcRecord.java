@@ -63,7 +63,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
 
   public MarcRecord(String id) {
     this();
-    control001 = new MarcControlField(Control001Definition.getInstance(), id);
+    control001 = new Control001(id);
   }
 
   public void addDataField(DataField dataField) {

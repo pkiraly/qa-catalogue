@@ -256,9 +256,8 @@ public class Control006 extends MarcPositionalControlField implements Serializab
   }
 
   public String resolve(ControlfieldPositionDefinition key) {
-    String value = (String)valuesMap.get(key);
-    String text = key.resolve(value);
-    return text;
+    String value = valuesMap.get(key);
+    return key.resolve(value);
   }
 
   public Map<ControlfieldPositionDefinition, String> getValueMap() {

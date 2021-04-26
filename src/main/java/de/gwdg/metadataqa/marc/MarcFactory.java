@@ -54,13 +54,13 @@ public class MarcFactory {
           record.setLeader(new Leader(extractFirst(cache, branch)));
           break;
         case "001":
-          record.setControl001(new MarcControlField(Control001Definition.getInstance(), extractFirst(cache, branch)));
+          record.setControl001(new Control001(extractFirst(cache, branch)));
           break;
         case "003":
-          record.setControl003(new MarcControlField(Control003Definition.getInstance(), extractFirst(cache, branch)));
+          record.setControl003(new Control003(extractFirst(cache, branch)));
           break;
         case "005":
-          record.setControl005(new MarcControlField(Control005Definition.getInstance(), extractFirst(cache, branch)));
+          record.setControl005(new Control005(extractFirst(cache, branch)));
           break;
         case "006":
           record.setControl006(
@@ -154,14 +154,11 @@ public class MarcFactory {
         data = data.replace("^", " ");
       switch (controlField.getTag()) {
         case "001":
-          record.setControl001(new MarcControlField(
-            Control001Definition.getInstance(), data)); break;
+          record.setControl001(new Control001(data)); break;
         case "003":
-          record.setControl003(new MarcControlField(
-            Control003Definition.getInstance(), data)); break;
+          record.setControl003(new Control003(data)); break;
         case "005":
-          record.setControl005(new MarcControlField(
-            Control005Definition.getInstance(), data)); break;
+          record.setControl005(new Control005(data)); break;
         case "006":
           record.setControl006(new Control006(data, record.getType())); break;
         case "007":

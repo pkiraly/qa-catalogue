@@ -9,7 +9,8 @@ public enum MarcVersion {
   NKCR("NKCR", "National Library of the Czech Republic"),
   OCLC("OCLC", "OCLC"),
   SZTE("SZTE", "Szegedi Tudományegyetem"),
-  UNIMARC("UNIMARC", "UNIMARC")
+  UNIMARC("UNIMARC", "UNIMARC"),
+  MARC21NO("MARC21NO", "MARC21 profile for Norwegian public libraries")
   ;
 
   String code;

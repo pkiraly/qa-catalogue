@@ -6,11 +6,7 @@
 	<artifactId>metadata-qa-marc</artifactId>
 	<packaging>jar</packaging>
 	<version>0.5-SNAPSHOT</version>
-<<<<<<< HEAD
-	<name>Quality assesstment for MARC</name>
-=======
 	<name>Quality assessment for MARC</name>
->>>>>>> main
 	<description>
 		A metadata quality assessment framework for MARC21 records.
 		It checks some metrics of metadata records, such as completeness,
@@ -105,14 +101,11 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>2.12.1</version>
-<<<<<<< HEAD
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
 			<version>2.12.1</version>
-=======
->>>>>>> main
 		</dependency>
 		<dependency>
 			<groupId>org.elasticsearch.client</groupId>

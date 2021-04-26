@@ -13,8 +13,12 @@ import org.apache.commons.lang3.StringUtils;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DataElementsStatictics {
+
+  private static final Logger logger = Logger.getLogger(DataElementsStatictics.class.getCanonicalName());
 
   public static Counter<DataElementType> count() {
     Counter<DataElementType> counter = new Counter<>();
@@ -62,9 +66,9 @@ public class DataElementsStatictics {
               counter.count(DataElementType.localSubfields);
 
       } catch (NoSuchMethodException
-        | IllegalAccessException
-        | InvocationTargetException e) {
-        e.printStackTrace();
+              | IllegalAccessException
+              | InvocationTargetException e) {
+        logger.log(Level.WARNING, "error in count()", e);
       }
     }
 

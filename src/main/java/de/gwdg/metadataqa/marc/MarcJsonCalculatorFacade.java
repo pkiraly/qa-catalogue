@@ -8,14 +8,8 @@ import de.gwdg.metadataqa.api.calculator.LanguageCalculator;
 import de.gwdg.metadataqa.api.calculator.MultilingualitySaturationCalculator;
 import de.gwdg.metadataqa.api.calculator.TfIdfCalculator;
 import de.gwdg.metadataqa.api.model.EdmFieldInstance;
-import de.gwdg.metadataqa.api.problemcatalog.EmptyStrings;
-import de.gwdg.metadataqa.api.problemcatalog.LongSubject;
-import de.gwdg.metadataqa.api.problemcatalog.ProblemCatalog;
-import de.gwdg.metadataqa.api.problemcatalog.TitleAndDescriptionAreSame;
 import de.gwdg.metadataqa.api.schema.MarcJsonSchema;
 import de.gwdg.metadataqa.api.schema.Schema;
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -39,7 +33,7 @@ public class MarcJsonCalculatorFacade extends CalculatorFacade {
     }
   };
 
-  private MarcJsonSchema schema = new MarcJsonSchema();
+  private MarcJsonSchema marcJsonSchema = new MarcJsonSchema();
   protected FieldExtractor fieldExtractor;
   protected Formats format = Formats.OAI_PMH_XML;
 
@@ -66,13 +60,13 @@ public class MarcJsonCalculatorFacade extends CalculatorFacade {
   public void configure() {
 
     calculators = new ArrayList<>();
-    fieldExtractor = new FieldExtractor(schema);
+    fieldExtractor = new FieldExtractor(marcJsonSchema);
     calculators.add(fieldExtractor);
 
     if (completenessMeasurementEnabled 
         || fieldExistenceMeasurementEnabled 
         || fieldCardinalityMeasurementEnabled) {
-      completenessCalculator = new CompletenessCalculator(schema);
+      completenessCalculator = new CompletenessCalculator(marcJsonSchema);
       completenessCalculator.setCompleteness(completenessMeasurementEnabled);
       completenessCalculator.setExistence(fieldExistenceMeasurementEnabled);
       completenessCalculator.setCardinality(fieldCardinalityMeasurementEnabled);
@@ -81,7 +75,7 @@ public class MarcJsonCalculatorFacade extends CalculatorFacade {
     }
 
     if (tfIdfMeasurementEnabled) {
-      tfidfCalculator = new TfIdfCalculator(schema);
+      tfidfCalculator = new TfIdfCalculator(marcJsonSchema);
       tfidfCalculator.enableTermCollection(collectTfIdfTerms);
       calculators.add(tfidfCalculator);
     }
@@ -98,12 +92,12 @@ public class MarcJsonCalculatorFacade extends CalculatorFacade {
 
 
     if (languageMeasurementEnabled) {
-      languageCalculator = new LanguageCalculator(schema);
+      languageCalculator = new LanguageCalculator(marcJsonSchema);
       calculators.add(languageCalculator);
     }
 
     if (multilingualSaturationMeasurementEnabled) {
-      multilingualSaturationCalculator = new MultilingualitySaturationCalculator(schema);
+      multilingualSaturationCalculator = new MultilingualitySaturationCalculator(marcJsonSchema);
       if (saturationExtendedResult)
         multilingualSaturationCalculator.setResultType(MultilingualitySaturationCalculator.ResultTypes.EXTENDED);
       calculators.add(multilingualSaturationCalculator);
@@ -124,6 +118,6 @@ public class MarcJsonCalculatorFacade extends CalculatorFacade {
   }
 
   public Schema getSchema() {
-    return schema;
+    return marcJsonSchema;
   }
 }

@@ -18,6 +18,7 @@ import de.gwdg.metadataqa.marc.utils.unimarc.UnimarcConverter;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -74,7 +75,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   private void indexField(DataField dataField) {
     String tag = dataField.getTag();
     if (tag == null)
-      System.err.println("null tag in indexField() " + dataField);
+      logger.warning("null tag in indexField() " + dataField);
 
     if (!datafieldIndex.containsKey(tag))
       datafieldIndex.put(tag, new ArrayList<>());
@@ -416,7 +417,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     try {
       json = mapper.writeValueAsString(map);
     } catch (JsonProcessingException e) {
-      e.printStackTrace();
+      logger.log(Level.WARNING, "error in asJson()", e);
     }
 
     return json;

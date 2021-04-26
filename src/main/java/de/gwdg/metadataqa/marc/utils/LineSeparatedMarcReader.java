@@ -5,8 +5,12 @@ import org.marc4j.MarcStreamReader;
 import org.marc4j.marc.Record;
 
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LineSeparatedMarcReader implements MarcReader {
+
+  private static final Logger logger = Logger.getLogger(LineSeparatedMarcReader.class.getCanonicalName());
 
   private BufferedReader bufferedReader = null;
   private String line = null;
@@ -17,7 +21,7 @@ public class LineSeparatedMarcReader implements MarcReader {
     try {
       bufferedReader = new BufferedReader(new FileReader(lineSeparatedMarc));
     } catch (FileNotFoundException e) {
-      e.printStackTrace();
+      logger.log(Level.WARNING, "error in LineSeparatedMarcReader()", e);
     }
   }
 
@@ -27,7 +31,7 @@ public class LineSeparatedMarcReader implements MarcReader {
       try {
         line = bufferedReader.readLine();
       } catch (IOException e) {
-        e.printStackTrace();
+        logger.log(Level.WARNING, "error in hasNext()", e);
       }
       lineNumber++;
       nextIsConsumed = false;

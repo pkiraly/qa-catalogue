@@ -168,7 +168,7 @@ public class Serial {
         && authenticationcode.get(0) != null
         && authenticationcode.get(0).getSubfield("a") != null
         && !authenticationcode.get(0).getSubfield("a").isEmpty()
-        && authenticationcode.get(0).getSubfield("a").get(0).getValue() != "") {
+        && !authenticationcode.get(0).getSubfield("a").get(0).getValue().equals("")) {
       scores.set(SerialFields.Auth, 7);
     }
 
@@ -195,7 +195,7 @@ public class Serial {
     if (record.getControl006() != null && !record.getControl006().isEmpty()) {
       boolean hasContent = false;
       for (Control006 control006 : record.getControl006()) {
-        if (control006.getContent() != null && control006.getContent() != "") {
+        if (control006.getContent() != null && !control006.getContent().equals("")) {
           hasContent = true;
           break;
         }

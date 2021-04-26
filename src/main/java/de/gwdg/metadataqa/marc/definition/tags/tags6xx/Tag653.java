@@ -88,6 +88,10 @@ public class Tag653 extends DataFieldDefinition {
       new SubfieldDefinition("9", "Sanastokoodi", "NR")
     ));
 
+    putVersionSpecificSubfields(MarcVersion.MARC21NO, Arrays.asList(
+      new SubfieldDefinition("9", "Language code", "NR")
+    ));
+
     sourceSpecificationType = SourceSpecificationType.Indicator2;
   }
 }

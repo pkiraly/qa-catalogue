@@ -6,10 +6,15 @@
 	<artifactId>metadata-qa-marc</artifactId>
 	<packaging>jar</packaging>
 	<version>0.5-SNAPSHOT</version>
+<<<<<<< HEAD
 	<name>Quality assesstment for MARC</name>
+=======
+	<name>Quality assessment for MARC</name>
+>>>>>>> main
 	<description>
-		A metadata quality assurance framework. It checks some metrics of
-		metadata records, such as completeness, uniqueness, problem catalog.
+		A metadata quality assessment framework for MARC21 records.
+		It checks some metrics of metadata records, such as completeness,
+		uniqueness, problem catalog.
 	</description>
 	<url>http://pkiraly.github.io</url>
 	<developers>
@@ -54,13 +59,24 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
 		<skipSource>true</skipSource>
 		<skipGpg>true</skipGpg>
 		<skipCobertura>true</skipCobertura>
 		<skipStaging>true</skipStaging>
 		<skipJavadoc>true</skipJavadoc>
+
+		<project.timezone>UTC</project.timezone>
+		<project.language>en</project.language>
+		<project.region>US</project.region>
+		<argLine>-Duser.timezone=${project.timezone} -Dfile.encoding=${project.build.sourceEncoding} -Duser.language=${project.language} -Duser.region=${project.region}</argLine>
+		<skipUnitTests>false</skipUnitTests>
+
+		<!-- sonarcloud properties -->
+		<sonar.projectKey>pkiraly_metadata-qa-marc</sonar.projectKey>
+		<sonar.organization>pkiraly</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 
 	<dependencies>
@@ -89,11 +105,14 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>2.12.1</version>
+<<<<<<< HEAD
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
 			<version>2.12.1</version>
+=======
+>>>>>>> main
 		</dependency>
 		<dependency>
 			<groupId>org.elasticsearch.client</groupId>
@@ -177,7 +196,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.6.0</version>
+				<version>3.8.1</version>
 				<configuration>
 					<source>${maven.compiler.source}</source>
 					<target>${maven.compiler.target}</target>

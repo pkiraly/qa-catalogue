@@ -161,7 +161,7 @@ do_network_analysis() {
 do_pareto() {
   printf "%s %s> [pareto]\n" $(date +"%F %T")
   printf "%s %s> Rscript scripts/frequency-range.R ${OUTPUT_DIR} &> ${PREFIX}/pareto.log\n" $(date +"%F %T")
-  Rscript scripts/frequency-range.R ${OUTPUT_DIR} &>> ${PREFIX}/pareto.log
+  Rscript scripts/frequency-range.R ${OUTPUT_DIR} &> ${PREFIX}/pareto.log
 
   . ./common-variables
   if [[ "$WEB_DIR" != "" ]]; then

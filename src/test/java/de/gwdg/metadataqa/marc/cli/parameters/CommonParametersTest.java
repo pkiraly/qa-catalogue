@@ -3,9 +3,14 @@ package de.gwdg.metadataqa.marc.cli.parameters;
 import org.apache.commons.cli.ParseException;
 import org.junit.Test;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import static junit.framework.TestCase.*;
 
 public class CommonParametersTest {
+
+  private static final Logger logger = Logger.getLogger(CommonParametersTest.class.getCanonicalName());
 
   @Test
   public void testConstructor() {
@@ -27,7 +32,7 @@ public class CommonParametersTest {
       assertEquals("a-marc-file.mrc", parameters.getArgs()[0]);
 
     } catch (ParseException e) {
-      e.printStackTrace();
+      logger.log(Level.WARNING, "error in testDefaults()", e);
     }
   }
 
@@ -38,7 +43,7 @@ public class CommonParametersTest {
       CommonParameters parameters = new CommonParameters(arguments);
       assertTrue(parameters.doHelp());
     } catch (ParseException e) {
-      e.printStackTrace();
+      logger.log(Level.WARNING, "error in testHelp()", e);
     }
   }
 
@@ -49,7 +54,7 @@ public class CommonParametersTest {
       CommonParameters parameters = new CommonParameters(arguments);
       assertFalse(parameters.doLog());
     } catch (ParseException e) {
-      e.printStackTrace();
+      logger.log(Level.WARNING, "error in testNoLog()", e);
     }
   }
 
@@ -95,7 +100,7 @@ public class CommonParametersTest {
       CommonParameters parameters = new CommonParameters(arguments);
       assertTrue(parameters.getTrimId());
     } catch (ParseException e) {
-      e.printStackTrace();
+      logger.log(Level.WARNING, "error in testTrimId()", e);
     }
   }
 
@@ -120,7 +125,7 @@ public class CommonParametersTest {
         "ignorableRecords: \n";
       assertEquals(expected, parameters.formatParameters());
     } catch (ParseException e) {
-      e.printStackTrace();
+      logger.log(Level.WARNING, "error in formatParameters()", e);
     }
   }
 }

@@ -229,6 +229,10 @@ public class Tag630 extends DataFieldDefinition {
       new SubfieldDefinition("7", "NKCR Authority ID", "NR")
     ));
 
+    putVersionSpecificSubfields(MarcVersion.MARC21NO, Arrays.asList(
+      new SubfieldDefinition("9", "Language code", "NR")
+    ));
+
     sourceSpecificationType = SourceSpecificationType.Indicator2AndSubfield2;
   }
 }

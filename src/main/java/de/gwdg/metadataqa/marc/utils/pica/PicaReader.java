@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PicaReader implements MarcReader {
@@ -26,7 +27,7 @@ public class PicaReader implements MarcReader {
     try {
       bufferedReader = new BufferedReader(new FileReader(alephseqMarc));
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.WARNING, "error in PicaReader()", e);
     }
   }
 
@@ -36,7 +37,7 @@ public class PicaReader implements MarcReader {
       try {
         line = bufferedReader.readLine();
       } catch (IOException e) {
-        e.printStackTrace();
+        logger.log(Level.WARNING, "error in hasNext()", e);
       }
       lineNumber++;
       nextIsConsumed = false;

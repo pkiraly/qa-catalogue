@@ -2,7 +2,11 @@ package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.tags.control.Control005Definition;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
+import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -23,6 +27,7 @@ public class Control005  extends MarcControlField implements Extractable {
   private Integer min;
   private Integer sec;
   private Integer ms;
+  private List<ValidationError> validationErrors;
 
   public Control005(String content) {
     super(Control005Definition.getInstance(), content);
@@ -47,35 +52,59 @@ public class Control005  extends MarcControlField implements Extractable {
 
   @Override
   public boolean validate(MarcVersion marcVersion) {
+    validationErrors = new ArrayList();
     return isValidMonth() && isValidDay()
       && isValidHour() && isValidMin() && isValidSec();
   }
 
+  @Override
+  public List<ValidationError> getValidationErrors() {
+    return null;
+  }
+
   private boolean isValidMonth() {
-    return month >= 1 && month <= 12;
+    boolean valid = month >= 1 && month <= 12;
+
+    if (!valid)
+      addError(String.format("invalid month: %d", month));
+
+    return valid;
   }
 
   private boolean isValidDay() {
-    return day >= 1 && day <= 31;
+    boolean valid = day >= 1 && day <= 31;
+
+    if (!valid)
+      addError(String.format("invalid day: %d", day));
+
+    return valid;
   }
 
   private boolean isValidHour() {
-    return day >= 1 && day <= 24;
+    boolean valid = hour >= 1 && hour <= 24;
+
+    if (!valid)
+      addError(String.format("invalid hour: %d", hour));
+
+    return valid;
   }
 
   private boolean isValidMin() {
-    return min >= 0 && min <= 59;
+    boolean valid = min >= 0 && min <= 59;
+
+    if (!valid)
+      addError(String.format("invalid minute: %d", min));
+
+    return valid;
   }
 
   private boolean isValidSec() {
-    return min >= 0 && min <= 59;
-  }
+    boolean valid = sec >= 0 && sec <= 59;
 
-  @Override
-  public String toString() {
-    return "Control005{" +
-        "content='" + content + '\'' +
-        '}';
+    if (!valid)
+      addError(String.format("invalid second: %d", sec));
+
+    return valid;
   }
 
   public Integer getYear() {
@@ -104,5 +133,18 @@ public class Control005  extends MarcControlField implements Extractable {
 
   public Integer getMs() {
     return ms;
+  }
+
+  private void addError(String msg) {
+    validationErrors.add(new ValidationError(
+      null, "005", ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
+      msg, null));
+  }
+
+  @Override
+  public String toString() {
+    return "Control005{" +
+      "content='" + content + '\'' +
+      '}';
   }
 }

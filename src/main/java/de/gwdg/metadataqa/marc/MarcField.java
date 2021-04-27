@@ -28,7 +28,7 @@ public class MarcField {
   }
 
   public void addSubfield(String code, String type, String label) {
-    SubfieldDefinition subfield = new SubfieldDefinition(code, label, type);
+    var subfield = new SubfieldDefinition(code, label, type);
     switch (code) {
       case "ind1": indicator1 = subfield; break;
       case "ind2": indicator2 = subfield; break;

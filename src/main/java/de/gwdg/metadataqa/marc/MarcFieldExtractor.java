@@ -32,9 +32,10 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class MarcFieldExtractor implements Calculator, Serializable {
 
-  public static final String CALCULATOR_NAME = "fieldExtractor";
-
   private static final Logger logger = Logger.getLogger(MarcFieldExtractor.class.getCanonicalName());
+
+  public static final String CALCULATOR_NAME = "fieldExtractor";
+  public static final String LEADER = "leader";
   private static final List<String> authorFields = Arrays.asList("100$a", "110$a", "700$a", "710$a");
 
   public static final String FIELD_NAME = "recordId";
@@ -62,7 +63,6 @@ public class MarcFieldExtractor implements Calculator, Serializable {
   private List<X035aSystemControlNumber> systemControlNumbers;
   private Map<String, Object> oclcMap;
   private boolean valid;
-
 
   public MarcFieldExtractor() {
   }
@@ -114,14 +114,14 @@ public class MarcFieldExtractor implements Calculator, Serializable {
       for (String fieldName : schema.getExtractableFields().keySet()) {
         if (!fieldName.equals(FIELD_NAME)) {
           path = schema.getExtractableFields().get(fieldName);
-          List<XmlFieldInstance> instances = (List<XmlFieldInstance>) cache.get(path);
+          List<XmlFieldInstance> instances = cache.get(path);
           List<String> values = null;
           if (!isNull(instances)) {
             values = new ArrayList<>();
             for (XmlFieldInstance instance : instances) {
               values.add(instance.getValue());
             }
-            if (fieldName.equals("leader")) {
+            if (fieldName.equals(LEADER)) {
               leader = new Leader(values.get(0));
             }
           }
@@ -195,8 +195,8 @@ public class MarcFieldExtractor implements Calculator, Serializable {
   }
 
   public void processLeader() {
-    if (resultMap.has("leader"))
-      leader = new Leader(resultMap.get("leader").get(0));
+    if (resultMap.has(LEADER))
+      leader = new Leader(resultMap.get(LEADER).get(0));
     else
       logger.severe(String.format("No leader in result map. Nr of existing vars: %s",
           StringUtils.join(resultMap.getMap().keySet(), ", ")));

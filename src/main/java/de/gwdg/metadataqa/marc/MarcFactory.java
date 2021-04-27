@@ -46,57 +46,60 @@ public class MarcFactory {
 
   private static Schema schema = new MarcJsonSchema();
 
+  private MarcFactory() {
+    throw new IllegalStateException("This is a utility class, can not be instantiated");
+  }
+
   public static MarcRecord create(JsonPathCache cache) {
     return create(cache, MarcVersion.MARC21);
   }
 
   public static MarcRecord create(JsonPathCache cache, MarcVersion version) {
-    MarcRecord record = new MarcRecord();
+    var marcRecord = new MarcRecord();
     for (JsonBranch branch : schema.getPaths()) {
       if (branch.getParent() != null)
         continue;
       switch (branch.getLabel()) {
         case "leader":
-          record.setLeader(new Leader(extractFirst(cache, branch)));
+          marcRecord.setLeader(new Leader(extractFirst(cache, branch)));
           break;
         case "001":
-          record.setControl001(new Control001(extractFirst(cache, branch)));
+          marcRecord.setControl001(new Control001(extractFirst(cache, branch)));
           break;
         case "003":
-          record.setControl003(new Control003(extractFirst(cache, branch)));
+          marcRecord.setControl003(new Control003(extractFirst(cache, branch)));
           break;
         case "005":
-          record.setControl005(new Control005(extractFirst(cache, branch)));
+          marcRecord.setControl005(new Control005(extractFirst(cache, branch)));
           break;
         case "006":
-          record.setControl006(
-            new Control006(extractFirst(cache, branch), record.getType()));
+          marcRecord.setControl006(
+            new Control006(extractFirst(cache, branch), marcRecord.getType()));
           break;
         case "007":
-          record.setControl007(
+          marcRecord.setControl007(
             new Control007(extractFirst(cache, branch)));
           break;
         case "008":
-          record.setControl008(
-            new Control008(extractFirst(cache, branch), record.getType()));
+          marcRecord.setControl008(
+            new Control008(extractFirst(cache, branch), marcRecord.getType()));
           break;
         default:
           JSONArray fieldInstances = (JSONArray) cache.getFragment(branch.getJsonPath());
-          for (int fieldInsanceNr = 0; fieldInsanceNr < fieldInstances.size();
-              fieldInsanceNr++) {
-            Map fieldInstance = (Map) fieldInstances.get(fieldInsanceNr);
-            DataField field = MapToDatafield.parse(fieldInstance, version);
+          for (var fieldInsanceNr = 0; fieldInsanceNr < fieldInstances.size(); fieldInsanceNr++) {
+            var fieldInstance = (Map) fieldInstances.get(fieldInsanceNr);
+            var field = MapToDatafield.parse(fieldInstance, version);
             if (field != null) {
-              record.addDataField(field);
-              field.setRecord(record);
+              marcRecord.addDataField(field);
+              field.setRecord(marcRecord);
             } else {
-              record.addUnhandledTags(branch.getLabel());
+              marcRecord.addUnhandledTags(branch.getLabel());
             }
           }
           break;
       }
     }
-    return record;
+    return marcRecord;
   }
 
   public static MarcRecord createFromMarc4j(Record marc4jRecord) {
@@ -131,24 +134,24 @@ public class MarcFactory {
                               Leader.Type defaultType,
                               MarcVersion marcVersion,
                               boolean fixAlephseq) {
-    MarcRecord record = new MarcRecord();
+    var marcRecord = new MarcRecord();
 
-    record.setLeader(new Leader(marc4jRecord.getLeader().marshal(), defaultType));
+    marcRecord.setLeader(new Leader(marc4jRecord.getLeader().marshal(), defaultType));
 
-    if (record.getType() == null) {
+    if (marcRecord.getType() == null) {
       throw new InvalidParameterException(
         String.format(
           "Error in '%s': no type has been detected. Leader: '%s'.",
-          marc4jRecord.getControlNumberField(), record.getLeader().getLeaderString()
+          marc4jRecord.getControlNumberField(), marcRecord.getLeader().getLeaderString()
         )
       );
     }
 
-    importMarc4jControlFields(marc4jRecord, record, fixAlephseq);
+    importMarc4jControlFields(marc4jRecord, marcRecord, fixAlephseq);
 
-    importMarc4jDataFields(marc4jRecord, record, marcVersion);
+    importMarc4jDataFields(marc4jRecord, marcRecord, marcVersion);
 
-    return record;
+    return marcRecord;
   }
 
   private static void importMarc4jControlFields(Record marc4jRecord,
@@ -273,32 +276,32 @@ public class MarcFactory {
     if (marcVersion == null)
       marcVersion = MarcVersion.MARC21;
 
-    MarcRecord record = new MarcRecord();
+    var marcRecord = new MarcRecord();
     for (String line : lines) {
       if (line.startsWith("LEADER ")) {
-        record.setLeader(line.replace("LEADER ", ""), marcVersion);
+        marcRecord.setLeader(line.replace("LEADER ", ""), marcVersion);
       } else {
         String tag = line.substring(0, 3);
         String content = line.substring(4);
-        record.setField(tag, content, marcVersion);
+        marcRecord.setField(tag, content, marcVersion);
       }
     }
-    return record;
+    return marcRecord;
   }
 
   public static MarcRecord createFromAlephseq(List<AlephseqLine> lines, MarcVersion marcVersion) {
     if (marcVersion == null)
       marcVersion = MarcVersion.MARC21;
 
-    MarcRecord record = new MarcRecord();
+    var marcRecord = new MarcRecord();
     for (AlephseqLine line : lines) {
       if (line.isLeader()) {
-        record.setLeader(line.getContent());
+        marcRecord.setLeader(line.getContent());
       } else if (line.isNumericTag()) {
-        record.setField(line.getTag(), line.getInd1(), line.getInd2(), line.getContent(), marcVersion);
+        marcRecord.setField(line.getTag(), line.getInd1(), line.getInd2(), line.getContent(), marcVersion);
       }
     }
-    return record;
+    return marcRecord;
   }
 
   public static Record createRecordFromAlephseq(List<AlephseqLine> lines) {

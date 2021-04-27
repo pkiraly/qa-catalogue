@@ -137,7 +137,8 @@ public class Validator implements MarcFileProcessor, Serializable {
   private File prepareReportFile(String outputDir, String fileName) {
     File reportFile = new File(outputDir, fileName);
     if (reportFile.exists())
-      reportFile.delete();
+      if (!reportFile.delete())
+        logger.log(Level.SEVERE, "File {} hasn't been deleted", reportFile.getAbsolutePath());
     return reportFile;
   }
 

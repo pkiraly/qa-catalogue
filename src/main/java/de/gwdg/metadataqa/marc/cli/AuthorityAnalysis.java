@@ -163,7 +163,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
               return i;
             else {
               i = e1.getKey().getLocation().compareTo(e2.getKey().getLocation());
-              if (i != i)
+              if (i != 0)
                 return i;
               else
                 return e2.getValue().compareTo(e1.getValue());

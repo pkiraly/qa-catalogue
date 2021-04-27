@@ -16,6 +16,7 @@ public class Control005Test {
 
     assertEquals("20140808010151.9", field.getContent());
     assertEquals(1, field.getKeyValuePairs().size());
+    System.err.println(field.getKeyValuePairs());
     assertEquals(1, field.getKeyValuePairs().get("005").size());
     assertEquals("20140808010151.9", field.getKeyValuePairs().get("005").get(0));
 

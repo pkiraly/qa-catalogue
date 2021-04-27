@@ -252,7 +252,7 @@ public class Serial {
         && record.getDatafield("042").get(0) != null
         && record.getDatafield("042").get(0).getSubfield("a") != null
         && !record.getDatafield("042").get(0).getSubfield("a").isEmpty()
-        && record.getDatafield("042").get(0).getSubfield("a").get(0).equals("pcc")) {
+        && record.getDatafield("042").get(0).getSubfield("a").get(0).getCode().equals("pcc")) {
       scores.set(SerialFields.PCC, 100);
     }
 

@@ -121,7 +121,8 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   private File prepareReportFile(String outputDir, String fileName) {
     File reportFile = new File(outputDir, fileName);
     if (reportFile.exists())
-      reportFile.delete();
+      if (!reportFile.delete())
+        logger.log(Level.SEVERE, "File {} hasn't been deleted", reportFile.getAbsolutePath());
     return reportFile;
   }
 
@@ -202,7 +203,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
               return i;
             else {
               i = e1.getKey().getLocation().compareTo(e2.getKey().getLocation());
-              if (i != i)
+              if (i != 0)
                 return i;
               else
                 return e2.getValue().compareTo(e1.getValue());

@@ -219,13 +219,6 @@ public class Completeness implements MarcFileProcessor, Serializable {
     counter.put(key, counter.get(key) + 1);
   }
 
-  private void mapItem(String key, Map<String, Integer> counter) {
-    if (!counter.containsKey(key)) {
-      counter.put(key, counter.size() + 1);
-    }
-    counter.get(key);
-  }
-
   @Override
   public void beforeIteration() {
     logger.info(parameters.formatParameters());

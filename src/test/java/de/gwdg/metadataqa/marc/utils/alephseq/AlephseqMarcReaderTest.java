@@ -33,11 +33,11 @@ public class AlephseqMarcReaderTest {
       e.printStackTrace();
     }
     MarcReader reader = new AlephseqMarcReader(path.toString());
-    Record record = null;
+    Record marc4jRecord = null;
     if (reader.hasNext())
-      record = reader.next();
-    assertNotNull(record);
-    MarcRecord marcRecord = MarcFactory.createFromMarc4j(record, Leader.Type.BOOKS, MarcVersion.GENT, true);
+      marc4jRecord = reader.next();
+    assertNotNull(marc4jRecord);
+    MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, Leader.Type.BOOKS, MarcVersion.GENT, true);
     assertNotNull(marcRecord);
 
     assertEquals("000000002", marcRecord.getId());
@@ -313,11 +313,11 @@ public class AlephseqMarcReaderTest {
       e.printStackTrace();
     }
     MarcReader reader = new AlephseqMarcReader(path.toString());
-    Record record = null;
+    Record marc4jRecord = null;
     int activeRecords = 0;
     while (reader.hasNext()) {
-      record = reader.next();
-      assertNotNull(record.getControlNumber());
+      marc4jRecord = reader.next();
+      assertNotNull(marc4jRecord.getControlNumber());
       activeRecords++;
     }
     assertEquals(7, ((AlephseqMarcReader)reader).getSkippedRecords());
@@ -333,11 +333,11 @@ public class AlephseqMarcReaderTest {
       e.printStackTrace();
     }
     MarcReader reader = new AlephseqMarcReader(path.toString());
-    Record record = null;
+    Record marc4jRecord = null;
     while (reader.hasNext()) {
-      record = reader.next();
-      if (record.getControlNumber().equals("000000008")) {
-        MarcRecord marcRecord = MarcFactory.createFromMarc4j(record, Leader.Type.BOOKS, MarcVersion.GENT, true);
+      marc4jRecord = reader.next();
+      if (marc4jRecord.getControlNumber().equals("000000008")) {
+        MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, Leader.Type.BOOKS, MarcVersion.GENT, true);
         assertEquals("München :", marcRecord.getDatafield("260").get(0).getSubfield("a").get(0).getValue());
       }
     }

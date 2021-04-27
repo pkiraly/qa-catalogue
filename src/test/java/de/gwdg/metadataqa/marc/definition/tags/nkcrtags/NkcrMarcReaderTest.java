@@ -34,14 +34,14 @@ public class NkcrMarcReaderTest {
       e.printStackTrace();
     }
     int i = 0;
-    Record record = null;
+    Record marc4jRecord = null;
     MarcReader reader = new AlephseqMarcReader(path.toString());
     while (reader.hasNext()) {
       i++;
-      record = reader.next();
-      assertNotNull(record);
+      marc4jRecord = reader.next();
+      assertNotNull(marc4jRecord);
       MarcRecord marcRecord = MarcFactory.createFromMarc4j(
-        record, Leader.Type.BOOKS, MarcVersion.NKCR, true
+        marc4jRecord, Leader.Type.BOOKS, MarcVersion.NKCR, true
       );
       assertNotNull(marcRecord);
 

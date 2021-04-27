@@ -47,7 +47,7 @@ public class PicaReader implements MarcReader {
 
   @Override
   public Record next() {
-    Record record = null;
+    Record marc4jRecord = null;
     boolean finished = false;
     while (line != null && !finished) {
       PicaLine alephseqLine = new PicaLine(line, lineNumber);
@@ -55,11 +55,11 @@ public class PicaReader implements MarcReader {
         && !alephseqLine.getRecordID().equals(currentId)
         && !lines.isEmpty())
       {
-        record = MarcFactory.createRecordFromPica(lines);
-        if (record.getLeader() == null) {
+        marc4jRecord = MarcFactory.createRecordFromPica(lines);
+        if (marc4jRecord.getLeader() == null) {
           logger.severe(String.format(
             "Record #%s #%s does not have a leader\n",
-            record.getControlNumberField().getData()
+            marc4jRecord.getControlNumberField().getData()
           ));
         } else {
           finished = true;
@@ -80,8 +80,8 @@ public class PicaReader implements MarcReader {
       }
     }
     if (line == null && !lines.isEmpty()) {
-      record = MarcFactory.createRecordFromPica(lines);
+      marc4jRecord = MarcFactory.createRecordFromPica(lines);
     }
-    return record;
+    return marc4jRecord;
   }
 }

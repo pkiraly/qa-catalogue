@@ -50,7 +50,7 @@ public class AlephseqMarcReader implements MarcReader {
 
   @Override
   public Record next() {
-    Record record = null;
+    Record marc4jRecord = null;
     boolean deleted = false;
     boolean finished = false;
     while (line != null && !finished) {
@@ -67,10 +67,10 @@ public class AlephseqMarcReader implements MarcReader {
             logSkipped(LEVEL.WARN, "has been deleted");
             deleted = false;
           } else {
-            record = MarcFactory.createRecordFromAlephseq(lines);
-            if (record.getControlNumber() == null) {
+            marc4jRecord = MarcFactory.createRecordFromAlephseq(lines);
+            if (marc4jRecord.getControlNumber() == null) {
               logSkipped("does not have a control number field (001)");
-            } else if (record.getLeader() == null) {
+            } else if (marc4jRecord.getLeader() == null) {
               logSkipped("does not have a leader");
             } else {
               finished = true;
@@ -95,9 +95,9 @@ public class AlephseqMarcReader implements MarcReader {
       }
     }
     if (line == null && !lines.isEmpty()) {
-      record = MarcFactory.createRecordFromAlephseq(lines);
+      marc4jRecord = MarcFactory.createRecordFromAlephseq(lines);
     }
-    return record;
+    return marc4jRecord;
   }
 
   public int getLineNumber() {

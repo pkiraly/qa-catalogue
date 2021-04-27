@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc;
 
+import de.gwdg.metadataqa.marc.dao.Control003;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

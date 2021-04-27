@@ -2,9 +2,8 @@ package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
-import de.gwdg.metadataqa.marc.model.kos.Kos;
 import de.gwdg.metadataqa.marc.model.kos.KosRegistry;
 import de.gwdg.metadataqa.marc.model.kos.KosType;
 import org.junit.Test;

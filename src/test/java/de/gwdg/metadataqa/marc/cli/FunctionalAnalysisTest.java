@@ -2,13 +2,12 @@ package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.utils.ReadMarc;
 import org.junit.Test;
 import org.marc4j.marc.Record;
 
 import java.nio.file.Path;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 

@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.utils.alephseq;
 
-import de.gwdg.metadataqa.marc.DataField;
+import de.gwdg.metadataqa.marc.dao.DataField;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;

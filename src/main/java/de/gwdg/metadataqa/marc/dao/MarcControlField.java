@@ -1,5 +1,7 @@
-package de.gwdg.metadataqa.marc;
+package de.gwdg.metadataqa.marc.dao;
 
+import de.gwdg.metadataqa.marc.Extractable;
+import de.gwdg.metadataqa.marc.Validatable;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
@@ -10,6 +12,7 @@ import java.util.*;
 
 public class MarcControlField implements Validatable, Extractable, Serializable {
 
+  protected MarcRecord marcRecord;
   protected DataFieldDefinition definition;
   protected String content;
   protected List<ValidationError> initializationErrors = new ArrayList<>();
@@ -64,6 +67,10 @@ public class MarcControlField implements Validatable, Extractable, Serializable 
 
   @Override
   public List<ValidationError> getValidationErrors() {
-    return null;
+    return validationErrors;
+  }
+
+  public void setMarcRecord(MarcRecord marcRecord) {
+    this.marcRecord = marcRecord;
   }
 }

@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.cli.spark;
 
 import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.Validator;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormatter;

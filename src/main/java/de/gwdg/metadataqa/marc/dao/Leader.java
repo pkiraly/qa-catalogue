@@ -1,5 +1,7 @@
-package de.gwdg.metadataqa.marc;
+package de.gwdg.metadataqa.marc.dao;
 
+import de.gwdg.metadataqa.marc.Extractable;
+import de.gwdg.metadataqa.marc.Validatable;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.controlpositions.LeaderPositions;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;

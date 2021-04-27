@@ -1,7 +1,11 @@
-package de.gwdg.metadataqa.marc;
+package de.gwdg.metadataqa.marc.dao;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.gwdg.metadataqa.marc.Extractable;
+import de.gwdg.metadataqa.marc.MarcFactory;
+import de.gwdg.metadataqa.marc.MarcSubfield;
+import de.gwdg.metadataqa.marc.Validatable;
 import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.validator.ClassificationReferenceValidator;
@@ -13,7 +17,6 @@ import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 
-import de.gwdg.metadataqa.marc.definition.tags.control.Control001Definition;
 import de.gwdg.metadataqa.marc.utils.unimarc.UnimarcConverter;
 
 import java.io.Serializable;
@@ -120,6 +123,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
 
   public MarcRecord setControl001(MarcControlField control001) {
     this.control001 = control001;
+    control001.setMarcRecord(this);
     controlfieldIndex.put(control001.definition.getTag(), Arrays.asList(control001));
     return this;
   }
@@ -130,6 +134,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
 
   public void setControl003(MarcControlField control003) {
     this.control003 = control003;
+    control003.setMarcRecord(this);
     controlfieldIndex.put(control003.definition.getTag(), Arrays.asList(control003));
   }
 
@@ -139,6 +144,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
 
   public void setControl005(MarcControlField control005) {
     this.control005 = control005;
+    control005.setMarcRecord(this);
     controlfieldIndex.put(control005.definition.getTag(), Arrays.asList(control005));
   }
 

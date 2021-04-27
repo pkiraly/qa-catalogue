@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.analysis;
 
-import de.gwdg.metadataqa.marc.*;
-import de.gwdg.metadataqa.marc.analysis.Serial;
+import de.gwdg.metadataqa.marc.dao.Leader;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 

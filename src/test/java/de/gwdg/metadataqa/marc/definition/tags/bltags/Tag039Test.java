@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.bltags;
 
-import de.gwdg.metadataqa.marc.DataField;
+import de.gwdg.metadataqa.marc.dao.DataField;
 import org.junit.Test;
 
 import java.util.regex.Pattern;

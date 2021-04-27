@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
-import de.gwdg.metadataqa.marc.Leader;
+import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
 import de.gwdg.metadataqa.marc.cli.utils.IgnorableRecords;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -8,9 +8,6 @@ import org.apache.commons.cli.*;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class CommonParameters implements Serializable {
 

@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.analysis;
 
-import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 
 import java.util.ArrayList;

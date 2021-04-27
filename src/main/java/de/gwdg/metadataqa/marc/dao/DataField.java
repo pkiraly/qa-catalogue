@@ -1,5 +1,10 @@
-package de.gwdg.metadataqa.marc;
+package de.gwdg.metadataqa.marc.dao;
 
+import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.Extractable;
+import de.gwdg.metadataqa.marc.MarcSubfield;
+import de.gwdg.metadataqa.marc.Utils;
+import de.gwdg.metadataqa.marc.Validatable;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;

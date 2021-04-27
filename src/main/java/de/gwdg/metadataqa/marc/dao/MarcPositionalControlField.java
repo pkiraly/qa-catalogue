@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc;
+package de.gwdg.metadataqa.marc.dao;
 
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.structure.ControlFieldDefinition;
@@ -12,7 +12,6 @@ import java.util.*;
 public abstract class MarcPositionalControlField extends MarcControlField {
 
   protected ControlFieldDefinition definition;
-  protected MarcRecord marcRecord;
   protected Map<ControlfieldPositionDefinition, String> valuesMap;
   protected List<ControlValue> valuesList;
   private Map<Integer, ControlValue> valuesByPosition = new LinkedHashMap<>();
@@ -32,8 +31,9 @@ public abstract class MarcPositionalControlField extends MarcControlField {
     valuesList = new ArrayList<>();
   }
 
+  @Override
   public void setMarcRecord(MarcRecord record) {
-    this.marcRecord = record;
+    super.setMarcRecord(record);
     for (ControlValue value : valuesList) {
       value.setRecord(marcRecord);
     }

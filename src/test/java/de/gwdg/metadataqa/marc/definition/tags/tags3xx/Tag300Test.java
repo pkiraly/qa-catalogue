@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags3xx;
 
-import de.gwdg.metadataqa.marc.DataField;
+import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import org.junit.*;

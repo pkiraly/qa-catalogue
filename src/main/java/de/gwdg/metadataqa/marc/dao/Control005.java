@@ -1,12 +1,12 @@
-package de.gwdg.metadataqa.marc;
+package de.gwdg.metadataqa.marc.dao;
 
+import de.gwdg.metadataqa.marc.Extractable;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.tags.control.Control005Definition;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -27,7 +27,6 @@ public class Control005  extends MarcControlField implements Extractable {
   private Integer min;
   private Integer sec;
   private Integer ms;
-  private List<ValidationError> validationErrors;
 
   public Control005(String content) {
     super(Control005Definition.getInstance(), content);
@@ -57,14 +56,8 @@ public class Control005  extends MarcControlField implements Extractable {
       && isValidHour() && isValidMin() && isValidSec();
   }
 
-  @Override
-  public List<ValidationError> getValidationErrors() {
-    return null;
-  }
-
   private boolean isValidMonth() {
     boolean valid = month >= 1 && month <= 12;
-
     if (!valid)
       addError(String.format("invalid month: %d", month));
 
@@ -73,7 +66,6 @@ public class Control005  extends MarcControlField implements Extractable {
 
   private boolean isValidDay() {
     boolean valid = day >= 1 && day <= 31;
-
     if (!valid)
       addError(String.format("invalid day: %d", day));
 
@@ -82,7 +74,6 @@ public class Control005  extends MarcControlField implements Extractable {
 
   private boolean isValidHour() {
     boolean valid = hour >= 1 && hour <= 24;
-
     if (!valid)
       addError(String.format("invalid hour: %d", hour));
 
@@ -91,7 +82,6 @@ public class Control005  extends MarcControlField implements Extractable {
 
   private boolean isValidMin() {
     boolean valid = min >= 0 && min <= 59;
-
     if (!valid)
       addError(String.format("invalid minute: %d", min));
 
@@ -100,7 +90,6 @@ public class Control005  extends MarcControlField implements Extractable {
 
   private boolean isValidSec() {
     boolean valid = sec >= 0 && sec <= 59;
-
     if (!valid)
       addError(String.format("invalid second: %d", sec));
 
@@ -136,9 +125,16 @@ public class Control005  extends MarcControlField implements Extractable {
   }
 
   private void addError(String msg) {
-    validationErrors.add(new ValidationError(
-      null, "005", ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
-      msg, null));
+    String id = marcRecord != null ? marcRecord.getId() : null;
+
+    validationErrors.add(
+      new ValidationError(
+        id,
+        definition.getTag(),
+        ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
+        String.format("%s in '%s'", msg, content),
+        definition.getDescriptionUrl())
+    );
   }
 
   @Override

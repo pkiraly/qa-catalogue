@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc.utils.pica;
 
-import de.gwdg.metadataqa.marc.DataField;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;

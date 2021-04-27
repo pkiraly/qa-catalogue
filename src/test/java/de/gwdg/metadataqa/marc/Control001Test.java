@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc;
 
-import org.apache.commons.lang3.StringUtils;
+import de.gwdg.metadataqa.marc.dao.Control001;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

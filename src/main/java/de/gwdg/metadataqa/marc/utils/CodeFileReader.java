@@ -8,8 +8,12 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CodeFileReader {
+
+  private static final Logger logger = Logger.getLogger(CodeFileReader.class.getCanonicalName());
 
   public static List<Code> fileToCodeList(String fileName) {
 
@@ -24,11 +28,10 @@ public class CodeFileReader {
         codes.add((new Code(parts[0], parts[1])));
       }
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "fileToCodeList", e);
     }
 
     return codes;
-
   }
 
   public static Map<String, String> fileToDict(String fileName) throws IOException, URISyntaxException {

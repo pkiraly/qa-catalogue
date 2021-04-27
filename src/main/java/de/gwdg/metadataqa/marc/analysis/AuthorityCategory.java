@@ -1,5 +1,7 @@
 package de.gwdg.metadataqa.marc.analysis;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -38,5 +40,13 @@ public enum AuthorityCategory {
           index.put(t, category);
 
     return index.getOrDefault(tag, null);
+  }
+
+  @Override
+  public String toString() {
+    return "AuthorityCategory{" +
+      "label='" + label + '\'' +
+      ", tags=" + StringUtils.join(tags) +
+      '}';
   }
 }

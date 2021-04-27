@@ -23,6 +23,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
@@ -157,7 +158,7 @@ public class ShelfReadyCompleteness implements MarcFileProcessor, Serializable {
     try {
       FileUtils.writeStringToFile(output, message, true);
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.WARNING, "print", e);
     }
   }
 
@@ -169,11 +170,11 @@ public class ShelfReadyCompleteness implements MarcFileProcessor, Serializable {
         try {
           writer.write(createRow(field.name(), quote(field.getLabel()), quote(field.getMarcPath()), field.getScore()));
         } catch (IOException e) {
-          e.printStackTrace();
+          logger.log(Level.WARNING, "printFields", e);
         }
       }
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.WARNING, "printFields", e);
     }
   }
 }

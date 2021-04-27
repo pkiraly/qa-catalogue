@@ -20,6 +20,7 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -88,7 +89,7 @@ public class MarcToSolr implements MarcFileProcessor, Serializable {
         // end process;
         readyToProcess = false;
       }
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "processRecord", e);
     }
     if (recordNumber % 5000 == 0) {
       if (parameters.doCommit())

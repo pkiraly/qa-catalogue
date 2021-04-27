@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
@@ -56,12 +57,8 @@ public class TagDefinitionLoader {
         }
         versionedCache.get(tag).put(version, dataFieldDefinition);
       }
-    } catch (NoSuchMethodException e) {
-      e.printStackTrace();
-    } catch (IllegalAccessException e) {
-      e.printStackTrace();
-    } catch (InvocationTargetException e) {
-      e.printStackTrace();
+    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+      logger.log(Level.SEVERE, "loadAndCacheTag", e);
     }
   }
 

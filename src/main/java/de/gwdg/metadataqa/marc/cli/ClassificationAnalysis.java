@@ -24,6 +24,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
@@ -113,8 +114,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       FileUtils.writeStringToFile(file, message, true);
     } catch (IOException | NullPointerException e) {
       if (parameters.doLog())
-        logger.severe(e.toString());
-      e.printStackTrace();
+        logger.log(Level.SEVERE, "printToFile", e);
     }
   }
 
@@ -173,7 +173,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
         .sorted((e1, e2) -> e1.compareTo(e2) * -1)
         .forEach(entry -> printCollocation(writer, entry));
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printClassificationsCollocation", e);
     }
   }
 
@@ -181,7 +181,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     try {
       writer.write(entry.formatRow());
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printCollocation", e);
     }
   }
 
@@ -213,7 +213,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
           entry -> printSingleClassificationBySchema(writer, entry)
         );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printClassificationsBySchema", e);
     }
   }
 
@@ -234,12 +234,9 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
         instanceCount,
         (schema.getType() == null ? "UNKNOWN" : schema.getType())
       ));
-    } catch (IOException ex) {
-      ex.printStackTrace();
-      System.err.println(schema);
-    } catch (NullPointerException ex) {
-      ex.printStackTrace();
-      System.err.println(schema);
+    } catch (IOException | NullPointerException ex) {
+      logger.log(Level.SEVERE, "printClassificationsBySchema", ex);
+      logger.severe(schema.toString());
     }
   }
 
@@ -258,12 +255,12 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
             try {
               writer.write(createRow(e.getKey().toString(), e.getValue()));
             } catch (IOException ex) {
-              ex.printStackTrace();
+              logger.log(Level.SEVERE, "printClassificationsByRecords", ex);
             }
           }
         );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printClassificationsByRecords", e);
     }
   }
 
@@ -282,12 +279,12 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
             try {
               writer.write(createRow(entry.getKey(), entry.getValue()));
             } catch (IOException e) {
-              e.printStackTrace();
+              logger.log(Level.SEVERE, "printClassificationsHistogram", e);
             }
           }
         );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printClassificationsHistogram", e);
     }
   }
 
@@ -306,12 +303,12 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
             try {
               writer.write(createRow(entry.getKey(), entry.getValue()));
             } catch (IOException e) {
-              e.printStackTrace();
+              logger.log(Level.SEVERE, "printFrequencyExamples", e);
             }
           }
         );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printFrequencyExamples", e);
     }
   }
 
@@ -331,7 +328,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
           schemaEntry -> printSingleSchemaSubfieldsStatistics(writer, schemaEntry)
         );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printSchemaSubfieldsStatistics", e);
     }
   }
 
@@ -357,7 +354,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
               count
             ));
           } catch (IOException ex) {
-            ex.printStackTrace();
+            logger.log(Level.SEVERE, "printSingleSchemaSubfieldsStatistics", ex);
           }
         }
       );

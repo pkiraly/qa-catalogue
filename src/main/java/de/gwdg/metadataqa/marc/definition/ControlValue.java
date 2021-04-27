@@ -98,7 +98,7 @@ public class ControlValue implements Validatable, Serializable {
             ((record == null) ? null : record.getId()),
             definition.getPath(), ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
             e.getMessage(), definition.getDescriptionUrl()));
-        // e.printStackTrace();
+        // logger.log(Level.SEVERE, "validate", e);
         isValid = false;
       }
     }

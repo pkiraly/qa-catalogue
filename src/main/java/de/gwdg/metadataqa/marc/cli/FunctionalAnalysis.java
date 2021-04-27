@@ -28,6 +28,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
@@ -56,8 +57,7 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
     try {
       processor = new FunctionalAnalysis(args);
     } catch (ParseException e) {
-      logger.severe("ERROR. " + e.getLocalizedMessage());
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "FunctionalAnalysis", e);
       System.exit(0);
     }
     if (processor.getParameters().getArgs().length < 1) {
@@ -209,9 +209,8 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
         }
       }
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "afterIteration", e);
     }
-
   }
 
   private void saveHistogram(Map<FRBRFunction, Counter<FunctionValue>> histogram,
@@ -239,12 +238,12 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
               try {
                 writer.write(createRow(function, functionValue.getCount(), functionValue.getPercent(), count));
               } catch (IOException e) {
-                e.printStackTrace();
+                logger.log(Level.SEVERE, "saveHistogram", e);
               }
             });
         });
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "saveHistogram", e);
     }
   }
 
@@ -264,11 +263,11 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
             List<Double> values = entry.getValue();
             writer.write(createRow(entry.getKey().name(), values.get(0), values.get(1)));
           } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "saveResult", e);
           }
         });
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "saveResult", e);
     }
   }
 

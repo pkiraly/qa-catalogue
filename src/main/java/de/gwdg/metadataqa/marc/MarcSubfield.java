@@ -121,8 +121,8 @@ public class MarcSubfield implements Validatable, Serializable {
           record.getId(), field.getTag(), definition.getCode(), value, e.getMessage()
         );
         logger.severe(msg);
-        // e.printStackTrace();
       }
+
     return null;
   }
 

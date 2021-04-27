@@ -22,6 +22,7 @@ import org.apache.commons.cli.ParseException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MappingToJson {
@@ -160,7 +161,7 @@ public class MappingToJson {
       } catch (NoSuchMethodException
         | IllegalAccessException
         | InvocationTargetException e) {
-        e.printStackTrace();
+        logger.log(Level.SEVERE, "build", e);
       }
     }
     mapping.put("fields", fields);

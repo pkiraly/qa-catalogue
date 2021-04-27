@@ -15,8 +15,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FrbrFunctionLister {
+
+  private static final Logger logger = Logger.getLogger(FrbrFunctionLister.class.getCanonicalName());
 
   private Counter<FRBRFunction> baselineCounter = new Counter<>();
   private int elementsWithoutFunctions;
@@ -91,7 +95,7 @@ public class FrbrFunctionLister {
             registerFunctions(subfield.getFrbrFunctions(), subfield.getPath());
 
       } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-        e.printStackTrace();
+        logger.log(Level.WARNING, "document", e);
       }
     }
   }

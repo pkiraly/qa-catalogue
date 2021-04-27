@@ -20,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
@@ -141,7 +142,7 @@ public class ThompsonTraillCompleteness implements MarcFileProcessor, Serializab
     try {
       FileUtils.writeStringToFile(output, message, true);
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "print", e);
     }
   }
 
@@ -153,11 +154,11 @@ public class ThompsonTraillCompleteness implements MarcFileProcessor, Serializab
         try {
           writer.write(createRow(field.getLabel(), field.getMachine()));
         } catch (IOException e) {
-          e.printStackTrace();
+          logger.log(Level.SEVERE, "printFields", e);
         }
       }
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printFields", e);
     }
   }
 }

@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
@@ -270,11 +271,11 @@ public class Completeness implements MarcFileProcessor, Serializable {
           try {
             writer.write(String.format("\"%s\"%s%d%n", entry.getKey(), separator, entry.getValue()));
           } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "saveLibraries003", e);
           }
         });
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "saveLibraries003", e);
     }
   }
 
@@ -302,13 +303,13 @@ public class Completeness implements MarcFileProcessor, Serializable {
                 int cardinality = entry.getValue();
                 writer.write(formatCardinality(separator, marcPath, cardinality, documentType));
               } catch (IOException e) {
-                e.printStackTrace();
+                logger.log(Level.SEVERE, "saveMarcElements", e);
               }
             }
           );
         });
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "saveMarcElements", e);
     }
   }
 
@@ -338,12 +339,12 @@ public class Completeness implements MarcFileProcessor, Serializable {
                 separator, quote(documentType), id, quote(range), quote(label), isPartOfMarcScore, count
               ));
             } catch (IOException e) {
-              e.printStackTrace();
+              logger.log(Level.SEVERE, "savePackages", e);
             }
           });
         });
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "savePackages", e);
     }
   }
 
@@ -359,11 +360,11 @@ public class Completeness implements MarcFileProcessor, Serializable {
           try {
             writer.write(String.format("\"%s\"%s%d%n", entry.getKey(), separator, entry.getValue()));
           } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "saveLibraries", e);
           }
         });
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "saveLibraries", e);
     }
   }
 

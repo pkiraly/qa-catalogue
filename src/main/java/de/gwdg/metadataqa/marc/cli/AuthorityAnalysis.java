@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.count;
@@ -138,17 +139,14 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
                 recordCount,
                 instanceCount
               ));
-            } catch (IOException ex) {
-              ex.printStackTrace();
-              System.err.println(category);
-            } catch (NullPointerException ex) {
-              ex.printStackTrace();
-              System.err.println(category);
+            } catch (IOException | NullPointerException ex) {
+              logger.log(Level.SEVERE, "build", ex);
+              logger.severe(category.toString());
             }
           }
         );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printAuthoritiesByCategories", e);
     }
   }
 
@@ -176,7 +174,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
           entry -> printSingleClassificationBySchema(writer, entry)
         );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printAuthoritiesBySchema", e);
     }
   }
 
@@ -195,11 +193,8 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
         recordCount,
         instanceCount
       ));
-    } catch (IOException ex) {
-      ex.printStackTrace();
-      System.err.println(schema);
-    } catch (NullPointerException ex) {
-      ex.printStackTrace();
+    } catch (IOException | NullPointerException e) {
+      logger.log(Level.SEVERE, "printSingleClassificationBySchema", e);
       System.err.println(schema);
     }
   }
@@ -219,12 +214,12 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
             try {
               writer.write(createRow(e.getKey().toString(), e.getValue()));
             } catch (IOException ex) {
-              ex.printStackTrace();
+              logger.log(Level.SEVERE, "printAuthoritiesByRecords", ex);
             }
           }
         );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printAuthoritiesByRecords", e);
     }
   }
 
@@ -243,12 +238,12 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
             try {
               writer.write(createRow(entry.getKey(), entry.getValue()));
             } catch (IOException e) {
-              e.printStackTrace();
+              logger.log(Level.SEVERE, "printAuthoritiesHistogram", e);
             }
           }
         );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printAuthoritiesHistogram", e);
     }
   }
 
@@ -267,12 +262,12 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
             try {
               writer.write(createRow(entry.getKey(), entry.getValue()));
             } catch (IOException e) {
-              e.printStackTrace();
+              logger.log(Level.SEVERE, "printFrequencyExamples", e);
             }
           }
         );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printFrequencyExamples", e);
     }
   }
 
@@ -291,7 +286,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
           schemaEntry -> printSingleSchemaSubfieldsStatistics(writer, schemaEntry)
         );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printAuthoritiesSubfieldsStatistics", e);
     }
   }
 
@@ -317,7 +312,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
               count
             ));
           } catch (IOException ex) {
-            ex.printStackTrace();
+            logger.log(Level.SEVERE, "printSingleSchemaSubfieldsStatistics", ex);
           }
         }
       );

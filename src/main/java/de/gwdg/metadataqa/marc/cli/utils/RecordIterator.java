@@ -17,6 +17,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.time.LocalTime;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -82,8 +83,7 @@ public class RecordIterator {
                 "MARC record parsing problem at record #%d (last known ID: %s): %s",
                 (i+1), lastKnownId, e.getLocalizedMessage()));
           } catch (Exception e) {
-            logger.severe("another exception");
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "start", e);
           }
           i++;
           if (marc4jRecord == null)
@@ -114,7 +114,7 @@ public class RecordIterator {
             try {
               processor.processRecord(marcRecord, i);
             } catch(Exception e) {
-              e.printStackTrace();
+              logger.log(Level.SEVERE, "start", e);
             }
 
             if (i % 100000 == 0 && processor.getParameters().doLog())
@@ -127,7 +127,7 @@ public class RecordIterator {
               logger.severe(String.format(
                 "Error (illegal argument) with record '%s'. %s",
                 marc4jRecord.getControlNumber(), e.getMessage()));
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "start", e);
             continue;
           } catch (Exception e) {
             if (marc4jRecord.getControlNumber() == null)
@@ -136,7 +136,7 @@ public class RecordIterator {
               logger.severe(String.format(
                 "Error (general) with record '%s'. %s",
                 marc4jRecord.getControlNumber(), e.getMessage()));
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "start", e);
             continue;
           }
         }
@@ -163,7 +163,7 @@ public class RecordIterator {
             }
           }
         }
-        ex.printStackTrace();
+        logger.log(Level.SEVERE, "start", ex);
         System.exit(0);
       }
     }

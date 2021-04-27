@@ -76,7 +76,7 @@ public class PicaReader implements MarcReader {
         line = bufferedReader.readLine();
         lineNumber++;
       } catch (IOException e) {
-        e.printStackTrace();
+        logger.log(Level.SEVERE, "next", e);
       }
     }
     if (line == null && !lines.isEmpty()) {

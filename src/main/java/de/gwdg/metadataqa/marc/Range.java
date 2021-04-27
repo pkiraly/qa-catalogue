@@ -31,7 +31,7 @@ public class Range implements Serializable {
       int number = Integer.parseInt(value);
       return (min <= number && number <= max);
     } catch(NumberFormatException e) {
-      // e.printStackTrace();
+      // logger.log(Level.SEVERE, "isValid", e);
     }
     return false;
   }

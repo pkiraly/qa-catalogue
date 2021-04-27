@@ -25,6 +25,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.*;
@@ -143,12 +144,12 @@ public class SerialScore implements MarcFileProcessor, Serializable {
             try {
               writer.write(createRow(entry.getKey(), entry.getValue()));
             } catch (IOException e) {
-              e.printStackTrace();
+              logger.log(Level.SEVERE, "printHistogram", e);
             }
           }
         );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printHistogram", e);
     }
   }
 
@@ -170,7 +171,7 @@ public class SerialScore implements MarcFileProcessor, Serializable {
     try {
       FileUtils.writeStringToFile(output, message, true);
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "print", e);
     }
   }
 
@@ -182,12 +183,11 @@ public class SerialScore implements MarcFileProcessor, Serializable {
         try {
           writer.write(createRow(quote(field.getLabel()), field.getMachine()));
         } catch (IOException e) {
-          e.printStackTrace();
+          logger.log(Level.SEVERE, "printFields", e);
         }
       }
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printFields", e);
     }
   }
-
 }

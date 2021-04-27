@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
@@ -47,7 +48,7 @@ public class PairGenerator {
         }
       );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "generatePairs", e);
     }
   }
 
@@ -61,12 +62,12 @@ public class PairGenerator {
     try {
       pairWriter.close();
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "createPairs", e);
     }
     try {
       nodeWriter.close();
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "createPairs", e);
     }
   }
 
@@ -77,7 +78,7 @@ public class PairGenerator {
       if (asBase36)
         pairWriter.write(createRow("id1", "id2"));
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "initializePairWriter", e);
     }
   }
 
@@ -88,7 +89,7 @@ public class PairGenerator {
       if (asBase36)
         nodeWriter.write(createRow("id1", "id2"));
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "initializeNodeWriter", e);
     }
   }
 
@@ -120,7 +121,7 @@ public class PairGenerator {
                 pairWriter.write(pair);
               }
             } catch (IOException e) {
-              e.printStackTrace();
+              logger.log(Level.SEVERE, "processConcepts", e);
             }
 
             for (Object id : encoded) {
@@ -130,19 +131,19 @@ public class PairGenerator {
                   nodeTrack.put(id, true);
                 }
               } catch (IOException e) {
-                e.printStackTrace();
+                logger.log(Level.SEVERE, "processConcepts", e);
               }
             }
           }
         }
       );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "processConcepts", e);
     }
     try {
       pairWriter.close();
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "processConcepts", e);
     }
   }
 

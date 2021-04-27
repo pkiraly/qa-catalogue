@@ -7,6 +7,7 @@ import org.marc4j.marc.Record;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AlephseqMarcReader implements MarcReader {
@@ -29,7 +30,7 @@ public class AlephseqMarcReader implements MarcReader {
     try {
       bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(alephseqMarc), "UTF8"));
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.WARNING, "AlephseqMarcReader", e);
     }
   }
 
@@ -39,7 +40,7 @@ public class AlephseqMarcReader implements MarcReader {
       try {
         line = bufferedReader.readLine();
       } catch (IOException e) {
-        e.printStackTrace();
+        logger.log(Level.WARNING, "hasNext", e);
       }
       lineNumber++;
       nextIsConsumed = false;
@@ -90,7 +91,7 @@ public class AlephseqMarcReader implements MarcReader {
         line = bufferedReader.readLine();
         lineNumber++;
       } catch (IOException e) {
-        e.printStackTrace();
+        logger.log(Level.WARNING, "next", e);
       }
     }
     if (line == null && !lines.isEmpty()) {

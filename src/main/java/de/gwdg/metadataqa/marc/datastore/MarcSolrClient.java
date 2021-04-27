@@ -9,8 +9,13 @@ import org.apache.solr.common.SolrInputDocument;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MarcSolrClient {
+
+  private static final Logger logger = Logger.getLogger(MarcSolrClient.class.getCanonicalName());
+
   private String defaultUrl = "http://localhost:8983/solr/techproducts";
   private SolrClient solr;
   private boolean trimId = false;
@@ -44,8 +49,8 @@ public class MarcSolrClient {
     try {
       UpdateResponse response = solr.add(document);
     } catch (HttpSolrClient.RemoteSolrException ex) {
-      System.err.printf("document: %s", document);
-      System.err.printf("Commit exception: %s%n", ex.getMessage());
+      logger.log(Level.WARNING, "document", document);
+      logger.log(Level.WARNING, "Commit exception", ex);
     }
   }
 
@@ -66,8 +71,8 @@ public class MarcSolrClient {
     try {
       UpdateResponse response = solr.add(document);
     } catch (HttpSolrClient.RemoteSolrException ex) {
-      System.err.printf("document: %s", document);
-      System.err.printf("Commit exception: %s%n", ex.getMessage());
+      logger.log(Level.WARNING, "document", document);
+      logger.log(Level.WARNING, "Commit exception", ex);
     }
   }
 
@@ -75,7 +80,7 @@ public class MarcSolrClient {
     try {
       solr.commit();
     } catch (IOException | SolrServerException e) {
-      e.printStackTrace();
+      logger.log(Level.WARNING, "commit", e);
     }
   }
 
@@ -83,7 +88,7 @@ public class MarcSolrClient {
     try {
       solr.optimize();
     } catch (IOException | SolrServerException e) {
-      e.printStackTrace();
+      logger.log(Level.WARNING, "optimize", e);
     }
   }
 

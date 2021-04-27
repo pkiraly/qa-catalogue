@@ -23,6 +23,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.*;
@@ -358,11 +359,11 @@ public class Validator implements MarcFileProcessor, Serializable {
               type.getId(), type.getCategory().getId(), type.getCategory().getName(), quote(type.getMessage()), instances, records
             ));
           } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "printTypeCounts", e);
           }
         });
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printTypeCounts", e);
     }
   }
 
@@ -380,11 +381,11 @@ public class Validator implements MarcFileProcessor, Serializable {
           try {
             writer.write(createRow(entry.getKey(), instances, records));
           } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "printTotalCounts", e);
           }
         });
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printTotalCounts", e);
     }
   }
 
@@ -403,11 +404,11 @@ public class Validator implements MarcFileProcessor, Serializable {
           try {
             writer.write(createRow(category.getId(), category.getName(), instances, records));
           } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "printCategoryCounts", e);
           }
         });
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printCategoryCounts", e);
     }
   }
 
@@ -451,8 +452,7 @@ public class Validator implements MarcFileProcessor, Serializable {
       FileUtils.writeStringToFile(file, message, true);
     } catch (IOException e) {
       if (parameters.doLog())
-        logger.severe(e.toString());
-      e.printStackTrace();
+        logger.log(Level.SEVERE, "printToFile", e);
     }
   }
 

@@ -19,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
@@ -107,7 +108,7 @@ public class NetworkAnalysis implements MarcFileProcessor, Serializable {
       networkWriter = Files.newBufferedWriter(path);
       networkWriter.write(createRow("concept", "tag", "id"));
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.WARNING, "document", e);
     }
   }
 
@@ -127,7 +128,7 @@ public class NetworkAnalysis implements MarcFileProcessor, Serializable {
       networkWriter.close();
     } catch (IOException e) {
       logger.severe("Failed to close networkWriter. " + e.getLocalizedMessage());
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "afterIteration", e);
     }
   }
 

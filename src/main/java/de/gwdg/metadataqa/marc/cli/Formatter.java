@@ -17,6 +17,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -76,7 +77,7 @@ public class Formatter implements MarcFileProcessor {
       try {
         writer = Files.newBufferedWriter(path);
       } catch (IOException e) {
-        e.printStackTrace();
+        logger.log(Level.WARNING, "beforeIteration", e);
       }
       List<String> values = new ArrayList<>();
       if (parameters.withId())
@@ -88,7 +89,7 @@ public class Formatter implements MarcFileProcessor {
       try {
         writer.write(StringUtils.join(values, parameters.getSeparator()) + "\n");
       } catch (IOException e) {
-        e.printStackTrace();
+        logger.log(Level.WARNING, "beforeIteration", e);
       }
     }
   }
@@ -140,7 +141,7 @@ public class Formatter implements MarcFileProcessor {
       try {
         writer.write(StringUtils.join(values, parameters.getSeparator()) + "\n");
       } catch (IOException e) {
-        e.printStackTrace();
+        logger.log(Level.SEVERE, "processRecord", e);
       }
     }
   }
@@ -156,7 +157,7 @@ public class Formatter implements MarcFileProcessor {
       try {
         writer.close();
       } catch (IOException e) {
-        e.printStackTrace();
+        logger.log(Level.SEVERE, "afterIteration", e);
       }
     }
   }

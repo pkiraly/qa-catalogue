@@ -309,14 +309,14 @@ public class MarcFactory {
   }
 
   public static Record createRecordFromAlephseq(List<AlephseqLine> lines) {
-    Record record = new RecordImpl();
+    Record marc4jRecord = new RecordImpl();
     boolean deleted = false;
     for (AlephseqLine line : lines) {
       if (line.isLeader()) {
-        record.setLeader(new LeaderImpl(line.getContent()));
+        marc4jRecord.setLeader(new LeaderImpl(line.getContent()));
       } else if (line.isNumericTag()) {
         if (line.isControlField()) {
-          record.addVariableField(new ControlFieldImpl(line.getTag(), line.getContent()));
+          marc4jRecord.addVariableField(new ControlFieldImpl(line.getTag(), line.getContent()));
         } else {
           DataFieldImpl df = new DataFieldImpl(
             line.getTag(), line.getInd1().charAt(0), line.getInd2().charAt(0)
@@ -331,21 +331,21 @@ public class MarcFactory {
               ));
             }
           }
-          record.addVariableField(df);
+          marc4jRecord.addVariableField(df);
         }
       }
     }
-    return record;
+    return marc4jRecord;
   }
 
   public static Record createRecordFromPica(List<PicaLine> lines) {
-    Record record = new RecordImpl();
+    Record marc4jRecord = new RecordImpl();
     for (PicaLine line : lines) {
       if (line.isLeader()) {
-        record.setLeader(new LeaderImpl(line.getContent()));
+        marc4jRecord.setLeader(new LeaderImpl(line.getContent()));
       } else if (line.isNumericTag()) {
         if (line.isControlField()) {
-          record.addVariableField(new ControlFieldImpl(line.getTag(), line.getContent()));
+          marc4jRecord.addVariableField(new ControlFieldImpl(line.getTag(), line.getContent()));
         } else {
           /*
           DataFieldImpl df = new DataFieldImpl(line.getTag(), line.getInd1().charAt(0), line.getInd2().charAt(0));
@@ -364,6 +364,6 @@ public class MarcFactory {
         }
       }
     }
-    return record;
+    return marc4jRecord;
   }
 }

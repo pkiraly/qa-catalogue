@@ -35,7 +35,7 @@ public class MarcFieldExtractor implements Calculator, Serializable {
   private static final Logger logger = Logger.getLogger(MarcFieldExtractor.class.getCanonicalName());
 
   public static final String CALCULATOR_NAME = "fieldExtractor";
-  public static final String LEADER = "leader";
+  public static final String LEADER_KEY = "leader";
   private static final List<String> authorFields = Arrays.asList("100$a", "110$a", "700$a", "710$a");
 
   public static final String FIELD_NAME = "recordId";
@@ -121,7 +121,7 @@ public class MarcFieldExtractor implements Calculator, Serializable {
             for (XmlFieldInstance instance : instances) {
               values.add(instance.getValue());
             }
-            if (fieldName.equals(LEADER)) {
+            if (fieldName.equals(LEADER_KEY)) {
               leader = new Leader(values.get(0));
             }
           }
@@ -195,8 +195,8 @@ public class MarcFieldExtractor implements Calculator, Serializable {
   }
 
   public void processLeader() {
-    if (resultMap.has(LEADER))
-      leader = new Leader(resultMap.get(LEADER).get(0));
+    if (resultMap.has(LEADER_KEY))
+      leader = new Leader(resultMap.get(LEADER_KEY).get(0));
     else
       logger.severe(String.format("No leader in result map. Nr of existing vars: %s",
           StringUtils.join(resultMap.getMap().keySet(), ", ")));

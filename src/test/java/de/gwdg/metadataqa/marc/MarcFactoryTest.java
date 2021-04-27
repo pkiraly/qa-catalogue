@@ -649,13 +649,13 @@ public class MarcFactoryTest {
       reader = new BufferedReader(new FileReader(path.toString()));
       String line = reader.readLine();
 
-      Record record = null;
+      Record marc4jRecord = null;
       List<AlephseqLine> lines = new ArrayList<>();
       while (line != null) {
         AlephseqLine alephseqLine = new AlephseqLine(line);
         if (alephseqLine.isValidTag()) {
           if (alephseqLine.isLeader() && !lines.isEmpty()) {
-            record = MarcFactory.createRecordFromAlephseq(lines);
+            marc4jRecord = MarcFactory.createRecordFromAlephseq(lines);
             lines = new ArrayList<>();
           }
           lines.add(alephseqLine);
@@ -663,8 +663,8 @@ public class MarcFactoryTest {
 
         line = reader.readLine();
       }
-      record = MarcFactory.createRecordFromAlephseq(lines);
-      org.marc4j.marc.DataField tag700 = (org.marc4j.marc.DataField) record.getVariableField("700");
+      marc4jRecord = MarcFactory.createRecordFromAlephseq(lines);
+      org.marc4j.marc.DataField tag700 = (org.marc4j.marc.DataField) marc4jRecord.getVariableField("700");
       assertNotNull(tag700);
       assertNotNull(tag700.getSubfield('a'));
       assertEquals("Chantebout, Bernard", tag700.getSubfield('a').getData());

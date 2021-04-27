@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.dao;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.Extractable;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.Utils;
@@ -401,7 +401,7 @@ public class DataField implements Extractable, Validatable, Serializable {
     if (!indicatorDefinition.hasCode(indicator))
       return indicator;
 
-    Code indCode = indicatorDefinition.getCode(indicator);
+    EncodedValue indCode = indicatorDefinition.getCode(indicator);
     assert(indCode != null);
     if (indCode.isRange()) {
       return indCode.getLabel() + ": " + indicator;

@@ -22,13 +22,13 @@ public class Utils {
   private Utils() {
   }
 
-  public static List<Code> generateCodes(String... input) {
+  public static List<EncodedValue> generateCodes(String... input) {
     if (input.length % 2 != 0) {
       throw new IllegalArgumentException("Number of input should be even");
     }
-    List<Code> codes = new ArrayList<>();
+    List<EncodedValue> codes = new ArrayList<>();
     for (int i = 0, len = input.length; i < len; i += 2) {
-      codes.add(new Code(input[i], input[i + 1]));
+      codes.add(new EncodedValue(input[i], input[i + 1]));
     }
     return codes;
   }

@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags20x;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.general.codelist.NameAndTitleAuthoritySourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
@@ -46,7 +46,7 @@ public class Tag240 extends DataFieldDefinition {
         "1", "Printed or displayed"
       )
       .putVersionSpecificCodes(MarcVersion.SZTE, Arrays.asList(
-        new Code(" ", "Not specified")
+        new EncodedValue(" ", "Not specified")
       ))
       .setHistoricalCodes(
         "2", "Not printed on card, title added entry (MU) [OBSOLETE, 1993]",

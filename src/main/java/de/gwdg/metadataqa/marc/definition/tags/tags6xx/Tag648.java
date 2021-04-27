@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags6xx;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
@@ -61,7 +61,7 @@ public class Tag648 extends DataFieldDefinition {
         "7", "Source specified in subfield $2"
       )
       .putVersionSpecificCodes(MarcVersion.NKCR,Arrays.asList(
-        new Code("9", "English variant of term")
+        new EncodedValue("9", "English variant of term")
       ))
       .setMqTag("thesaurus")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);

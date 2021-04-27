@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.general.codelist;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.definition.Validator;
@@ -13,20 +13,20 @@ import java.util.Map;
 public class CodeList implements Validator, Serializable {
   protected String name;
   protected String url;
-  protected List<Code> codes;
-  protected Map<String, Code> index = new HashMap<>();
+  protected List<EncodedValue> codes;
+  protected Map<String, EncodedValue> index = new HashMap<>();
 
   protected void indexCodes() {
-    for (Code code : codes) {
+    for (EncodedValue code : codes) {
       index.put(code.getCode(), code);
     }
   }
 
-  public List<Code> getCodes() {
+  public List<EncodedValue> getCodes() {
     return codes;
   }
 
-  public Code getCode(String code) {
+  public EncodedValue getCode(String code) {
     return index.getOrDefault(code, null);
   }
 

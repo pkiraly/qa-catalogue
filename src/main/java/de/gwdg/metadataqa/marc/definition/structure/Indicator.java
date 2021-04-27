@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.structure;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.Range;
 import de.gwdg.metadataqa.marc.definition.FRBRFunction;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -13,13 +13,13 @@ public class Indicator {
   private String bibframeTag = null;
   private String mqTag = null;
   private String indexTag = null;
-  private List<Code> codes;
-  protected List<Code> historicalCodes;
-  private Map<String, Code> codeIndex = new LinkedHashMap<>();
-  private Map<String, Code> historicalCodeIndex = new LinkedHashMap<>();
-  private Map<Range, Code> ranges;
+  private List<EncodedValue> codes;
+  protected List<EncodedValue> historicalCodes;
+  private Map<String, EncodedValue> codeIndex = new LinkedHashMap<>();
+  private Map<String, EncodedValue> historicalCodeIndex = new LinkedHashMap<>();
+  private Map<Range, EncodedValue> ranges;
   private String indicatorFlag;
-  private Map<MarcVersion, List<Code>> versionSpecificCodes;
+  private Map<MarcVersion, List<EncodedValue>> versionSpecificCodes;
   private List<FRBRFunction> functions;
 
   public Indicator() {}
@@ -28,7 +28,7 @@ public class Indicator {
     this.label = label;
   }
 
-  public Indicator(String label, List<Code> codes) {
+  public Indicator(String label, List<EncodedValue> codes) {
     this.label = label;
     this.codes = codes;
     indexCodes();
@@ -55,7 +55,7 @@ public class Indicator {
     return this;
   }
 
-  public Indicator setCodes(List<Code> codes) {
+  public Indicator setCodes(List<EncodedValue> codes) {
     this.codes = codes;
     return this;
   }
@@ -63,7 +63,7 @@ public class Indicator {
   public Indicator setCodes(String... input) {
     codes = new ArrayList<>();
     for (int i = 0; i<input.length; i+=2) {
-      codes.add(new Code(input[i], input[i+1]));
+      codes.add(new EncodedValue(input[i], input[i+1]));
     }
     indexCodes();
     return this;
@@ -72,7 +72,7 @@ public class Indicator {
   public Indicator setHistoricalCodes(String... input) {
     historicalCodes = new ArrayList<>();
     for (int i = 0; i<input.length; i+=2) {
-      historicalCodes.add(new Code(input[i], input[i+1]));
+      historicalCodes.add(new EncodedValue(input[i], input[i+1]));
     }
     indexHistoricalCodes();
     return this;
@@ -103,11 +103,11 @@ public class Indicator {
     return label != null && !label.equals("");
   }
 
-  public List<Code> getCodes() {
+  public List<EncodedValue> getCodes() {
     return codes;
   }
 
-  public Code getCode(String codeString) {
+  public EncodedValue getCode(String codeString) {
     if (codeIndex.containsKey(codeString))
       return codeIndex.get(codeString);
 
@@ -130,11 +130,11 @@ public class Indicator {
     return false;
   }
 
-  private Map<Range, Code> getRanges() {
+  private Map<Range, EncodedValue> getRanges() {
     if (ranges == null) {
       ranges = new HashMap<>();
       if (codes != null) {
-        for (Code code : codes) {
+        for (EncodedValue code : codes) {
           if (code.isRange()) {
             ranges.put(code.getRange(), code);
           }
@@ -146,14 +146,14 @@ public class Indicator {
 
   private void indexCodes() {
     codeIndex = new LinkedHashMap<>();
-    for (Code code : codes) {
+    for (EncodedValue code : codes) {
       codeIndex.put(code.getCode(), code);
     }
   }
 
   private void indexHistoricalCodes() {
     historicalCodeIndex = new LinkedHashMap<>();
-    for (Code code : historicalCodes) {
+    for (EncodedValue code : historicalCodes) {
       historicalCodeIndex.put(code.getCode(), code);
     }
   }
@@ -172,7 +172,7 @@ public class Indicator {
     this.parent = parent;
   }
 
-  public Indicator putVersionSpecificCodes(MarcVersion marcVersion, List<Code> codeList) {
+  public Indicator putVersionSpecificCodes(MarcVersion marcVersion, List<EncodedValue> codeList) {
     if (versionSpecificCodes == null)
       versionSpecificCodes = new HashMap<>();
     versionSpecificCodes.put(marcVersion, codeList);
@@ -183,7 +183,7 @@ public class Indicator {
     return versionSpecificCodes.containsKey(marcVersion);
   }
 
-  public List<Code> getHistoricalCodes() {
+  public List<EncodedValue> getHistoricalCodes() {
     return historicalCodes;
   }
 

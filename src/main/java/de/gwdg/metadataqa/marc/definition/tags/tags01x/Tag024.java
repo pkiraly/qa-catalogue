@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.codelist.StandardIdentifierSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
@@ -51,7 +51,7 @@ public class Tag024 extends DataFieldDefinition {
         "8", "Unspecified type of standard number or code"
       )
       .putVersionSpecificCodes(MarcVersion.SZTE, Arrays.asList(
-        new Code(" ", "Not specified")
+        new EncodedValue(" ", "Not specified")
       ))
       .setMqTag("type")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementDisplay);

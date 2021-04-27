@@ -11,7 +11,7 @@ import java.util.Map;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class CodeReader {
+public class StandardIdentifierReader {
 
   public static Map<String, StandardIdentifier> readStandardIdentifiers() 
       throws URISyntaxException, IOException {

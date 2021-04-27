@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags1xx;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.codelist.NameAndTitleAuthoritySourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
@@ -51,7 +51,7 @@ public class Tag130 extends DataFieldDefinition {
 
     ind2 = new Indicator()
       .putVersionSpecificCodes(MarcVersion.FENNICA, Arrays.asList(
-        new Code("9", "Kokoelma")
+        new EncodedValue("9", "Kokoelma")
       ));
 
     setSubfieldsWithCardinality(

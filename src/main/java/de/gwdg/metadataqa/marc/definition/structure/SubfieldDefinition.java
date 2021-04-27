@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.structure;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.CompilanceLevel;
@@ -32,8 +32,8 @@ public class SubfieldDefinition implements Serializable {
   private SubfieldValidator validator;
   private SubfieldContentParser contentParser;
   protected CodeList codeList;
-  private List<Code> codes;
-  private Map<MarcVersion, List<Code>> localCodes;
+  private List<EncodedValue> codes;
+  private Map<MarcVersion, List<EncodedValue>> localCodes;
   private List<String> allowedCodes;
   private String codeForIndex = null;
   private List<ControlfieldPositionDefinition> positions;
@@ -90,7 +90,7 @@ public class SubfieldDefinition implements Serializable {
     return String.format("%s$%s", getParent().getTag(), getCode());
   }
 
-  public SubfieldDefinition setCodes(List<Code> codes) {
+  public SubfieldDefinition setCodes(List<EncodedValue> codes) {
     this.codes = codes;
     return this;
   }
@@ -98,7 +98,7 @@ public class SubfieldDefinition implements Serializable {
   public SubfieldDefinition setCodes(String... input) {
     codes = new ArrayList<>();
     for (int i = 0; i<input.length; i+=2) {
-      codes.add(new Code(input[i], input[i+1]));
+      codes.add(new EncodedValue(input[i], input[i+1]));
     }
     return this;
   }
@@ -108,17 +108,17 @@ public class SubfieldDefinition implements Serializable {
       localCodes = new HashMap<>();
     localCodes.put(version, new ArrayList<>());
     for (int i = 0; i < input.length; i += 2) {
-      localCodes.get(version).add(new Code(input[i], input[i+1]));
+      localCodes.get(version).add(new EncodedValue(input[i], input[i+1]));
     }
     return this;
   }
 
-  public Code getCode(String _code) {
+  public EncodedValue getCode(String _code) {
     return getCode(codes, _code);
   }
 
-  public Code getCode(List<Code> _codes, String _code) {
-    for (Code code : _codes) {
+  public EncodedValue getCode(List<EncodedValue> _codes, String _code) {
+    for (EncodedValue code : _codes) {
       if (code.getCode().equals(_code)) {
         return code;
       } else if (code.isRange() && code.getRange().isValid(_code)) {
@@ -128,20 +128,20 @@ public class SubfieldDefinition implements Serializable {
     return null;
   }
 
-  public List<Code> getCodes() {
+  public List<EncodedValue> getCodes() {
     return codes;
   }
 
-  public Map<MarcVersion, List<Code>> getLocalCodes() {
+  public Map<MarcVersion, List<EncodedValue>> getLocalCodes() {
     return localCodes;
   }
 
-  public List<Code> getLocalCodes(MarcVersion version) {
+  public List<EncodedValue> getLocalCodes(MarcVersion version) {
     return localCodes.getOrDefault(version, null);
   }
 
-  public Code getLocalCode(MarcVersion version, String _code) {
-    List<Code> _codes = getLocalCodes(version);
+  public EncodedValue getLocalCode(MarcVersion version, String _code) {
+    List<EncodedValue> _codes = getLocalCodes(version);
     if (_codes == null)
       return null;
     return getCode(_codes, _code);
@@ -218,7 +218,7 @@ public class SubfieldDefinition implements Serializable {
       return codeList.getCode(value).getLabel();
 
     if (codes != null) {
-      Code code = getCode(value);
+      EncodedValue code = getCode(value);
       if (code != null)
         return code.getLabel();
     }

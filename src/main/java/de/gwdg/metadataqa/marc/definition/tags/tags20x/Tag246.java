@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags20x;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
@@ -45,7 +45,7 @@ public class Tag246 extends DataFieldDefinition {
         "3", "No note, added entry"
       )
       .putVersionSpecificCodes(MarcVersion.SZTE, Arrays.asList(
-        new Code(" ", "Not specified")
+        new EncodedValue(" ", "Not specified")
       ))
       .setMqTag("noteAndAddedEntry")
       .setFrbrFunctions(ManagementProcess, ManagementDisplay);
@@ -64,7 +64,7 @@ public class Tag246 extends DataFieldDefinition {
         "8", "Spine title"
       )
       .putVersionSpecificCodes(MarcVersion.DNB, Arrays.asList(
-        new Code("9", "Ansetzungstitel")
+        new EncodedValue("9", "Ansetzungstitel")
       ))
       .setMqTag("type")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort);

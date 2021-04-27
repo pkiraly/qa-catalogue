@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.utils;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.controlpositions.LeaderPositions;
 
@@ -22,7 +22,7 @@ public class CodeGenerator {
       if (subfield.getCodes() != null) {
         System.err.printf("codes = Utils.generateCodes(%n");
         int i = 0;
-        for (Code code : subfield.getCodes()) {
+        for (EncodedValue code : subfield.getCodes()) {
           i++;
           if (i == subfield.getCodes().size())
             System.err.printf("\"%s\", \"%s\"%n", code.getCode(), code.getLabel());

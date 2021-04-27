@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.cli.utils;
 
-import de.gwdg.metadataqa.marc.*;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.cli.parameters.MappingParameters;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
@@ -186,7 +186,7 @@ public class MappingToJson {
 
     if (subfield.getCodes() != null) {
       LinkedHashMap<String, Object> codes = new LinkedHashMap<>();
-      for (Code code : subfield.getCodes()) {
+      for (EncodedValue code : subfield.getCodes()) {
         Map<String, Object> codeMap = new LinkedHashMap<>();
         // codeMap.put("code", code.getCode());
         codeMap.put("label", code.getLabel());
@@ -196,7 +196,7 @@ public class MappingToJson {
     }
     if (subfield.getHistoricalCodes() != null) {
       LinkedHashMap<String, Object> codes = new LinkedHashMap<>();
-      for (Code code : subfield.getHistoricalCodes()) {
+      for (EncodedValue code : subfield.getHistoricalCodes()) {
         Map<String, Object> codeMap = new LinkedHashMap<>();
         // codeMap.put("code", code.getCode());
         codeMap.put("label", code.getLabel());
@@ -235,7 +235,7 @@ public class MappingToJson {
 
     if (tag.getHistoricalSubfields() != null) {
       subfields = new LinkedHashMap<>();
-      for (Code code : tag.getHistoricalSubfields()) {
+      for (EncodedValue code : tag.getHistoricalSubfields()) {
         Map<String, Object> labelMap = new LinkedHashMap<>();
         labelMap.put("label", code.getLabel());
         subfields.put(code.getCode(), labelMap);
@@ -274,7 +274,7 @@ public class MappingToJson {
       if (exportSubfieldCodes
           && !codeList.getName().equals("MARC Organization Codes")) {
         Map<String, Object> codes = new LinkedHashMap<>();
-        for (Code code : subfield.getCodeList().getCodes()) {
+        for (EncodedValue code : subfield.getCodeList().getCodes()) {
           Map<String, Object> codeListMap = new LinkedHashMap<>();
           codeListMap.put("label", code.getLabel());
           codes.put(code.getCode(), codeListMap);
@@ -314,7 +314,7 @@ public class MappingToJson {
     Map<String, Object> value = new LinkedHashMap<>();
     value.put("label", indicator.getLabel());
     Map<String, Object> codes = new LinkedHashMap<>();
-    for (Code code : indicator.getCodes()) {
+    for (EncodedValue code : indicator.getCodes()) {
       Map<String, Object> map = new LinkedHashMap<>();
       map.put("label", code.getLabel());
       codes.put(code.getCode(), map);
@@ -322,7 +322,7 @@ public class MappingToJson {
     value.put("codes", codes);
     if (indicator.getHistoricalCodes() != null) {
       codes = new LinkedHashMap<>();
-      for (Code code : indicator.getHistoricalCodes()) {
+      for (EncodedValue code : indicator.getHistoricalCodes()) {
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("label", code.getLabel());
         codes.put(code.getCode(), map);

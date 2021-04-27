@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.FRBRFunction;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
@@ -25,8 +25,8 @@ public class ControlfieldPositionDefinition implements Serializable {
   protected String mqTag;
   protected int positionStart;
   protected int positionEnd;
-  protected List<Code> codes;
-  protected List<Code> historicalCodes;
+  protected List<EncodedValue> codes;
+  protected List<EncodedValue> historicalCodes;
   protected CodeList codeList;
 
   protected List<String> validCodes = new ArrayList<>();
@@ -47,13 +47,13 @@ public class ControlfieldPositionDefinition implements Serializable {
   }
 
   public ControlfieldPositionDefinition(String label, int positionStart, int positionEnd,
-                                        List<Code> codes) {
+                                        List<EncodedValue> codes) {
     this(label, positionStart, positionEnd);
     this.codes = codes;
     extractValidCodes();
   }
 
-  public ControlfieldPositionDefinition setCodes(List<Code> codes) {
+  public ControlfieldPositionDefinition setCodes(List<EncodedValue> codes) {
     this.codes = codes;
     extractValidCodes();
     return this;
@@ -89,7 +89,7 @@ public class ControlfieldPositionDefinition implements Serializable {
     return positionEnd;
   }
 
-  public List<Code> getCodes() {
+  public List<EncodedValue> getCodes() {
     return codes;
   }
 
@@ -198,7 +198,7 @@ public class ControlfieldPositionDefinition implements Serializable {
     }
 
     if (codes != null) {
-      for (Code code : codes)
+      for (EncodedValue code : codes)
         if (code.getCode().equals(inputCode))
           return code.getLabel();
     }
@@ -209,7 +209,7 @@ public class ControlfieldPositionDefinition implements Serializable {
   protected void extractValidCodes() {
     if (codes == null)
       return;
-    for (Code code : codes)
+    for (EncodedValue code : codes)
       validCodes.add(code.getCode());
   }
 
@@ -230,8 +230,8 @@ public class ControlfieldPositionDefinition implements Serializable {
     return this.getClass().getSimpleName().substring(3, 6);
   }
 
-  public Code getCode(String _code) {
-    for (Code code : codes) {
+  public EncodedValue getCode(String _code) {
+    for (EncodedValue code : codes) {
       if (code.getCode().equals(_code)) {
         return code;
       } else if (code.isRange() && code.getRange().isValid(_code)) {
@@ -266,7 +266,7 @@ public class ControlfieldPositionDefinition implements Serializable {
     return parser;
   }
 
-  public List<Code> getHistoricalCodes() {
+  public List<EncodedValue> getHistoricalCodes() {
     return historicalCodes;
   }
 

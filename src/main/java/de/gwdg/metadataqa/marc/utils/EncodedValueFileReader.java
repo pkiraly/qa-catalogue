@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.utils;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.LineIterator;
 
@@ -11,13 +11,13 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class CodeFileReader {
+public class EncodedValueFileReader {
 
-  private static final Logger logger = Logger.getLogger(CodeFileReader.class.getCanonicalName());
+  private static final Logger logger = Logger.getLogger(EncodedValueFileReader.class.getCanonicalName());
 
-  public static List<Code> fileToCodeList(String fileName) {
+  public static List<EncodedValue> fileToCodeList(String fileName) {
 
-    List<Code> codes = new ArrayList<>();
+    List<EncodedValue> codes = new ArrayList<>();
     try {
       LineIterator it = getLineIterator(fileName);
       while (it.hasNext()) {
@@ -25,7 +25,7 @@ public class CodeFileReader {
         if (line.equals("") || line.startsWith("#"))
           continue;
         String[] parts = line.split(";", 2);
-        codes.add((new Code(parts[0], parts[1])));
+        codes.add((new EncodedValue(parts[0], parts[1])));
       }
     } catch (IOException e) {
       logger.log(Level.SEVERE, "fileToCodeList", e);
@@ -50,7 +50,7 @@ public class CodeFileReader {
   }
 
   private static LineIterator getLineIterator(String fileName) throws IOException {
-    ClassLoader classLoader = CodeFileReader.class.getClassLoader();
+    ClassLoader classLoader = EncodedValueFileReader.class.getClassLoader();
     return IOUtils.lineIterator(classLoader.getResourceAsStream(fileName), Charset.defaultCharset());
   }
 }

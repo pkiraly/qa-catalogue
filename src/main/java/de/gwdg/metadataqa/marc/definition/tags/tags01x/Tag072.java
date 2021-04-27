@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
@@ -50,7 +50,7 @@ public class Tag072 extends DataFieldDefinition {
         "7", "Source specified in subfield $2"
       )
       .putVersionSpecificCodes(MarcVersion.NKCR,Arrays.asList(
-        new Code("9", "ANL subject category code list")
+        new EncodedValue("9", "ANL subject category code list")
       ))
       .setHistoricalCodes(
         " ", "undefined"

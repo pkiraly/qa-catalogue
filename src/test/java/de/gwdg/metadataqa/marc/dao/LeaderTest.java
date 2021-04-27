@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc;
+package de.gwdg.metadataqa.marc.dao;
 
 import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;

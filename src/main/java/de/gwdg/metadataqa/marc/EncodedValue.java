@@ -6,7 +6,7 @@ import java.io.Serializable;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class Code implements Serializable {
+public class EncodedValue implements Serializable {
   private String code;
   private String label;
   private boolean isRange = false;
@@ -14,7 +14,7 @@ public class Code implements Serializable {
   private String bibframeTag = null;
   private Range range = null;
 
-  public Code(String code, String label) {
+  public EncodedValue(String code, String label) {
     this.code = code;
     this.label = label;
   }

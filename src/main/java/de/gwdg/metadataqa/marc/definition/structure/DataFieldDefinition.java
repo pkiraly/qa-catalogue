@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.structure;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.CompilanceLevel;
@@ -23,8 +23,8 @@ public abstract class DataFieldDefinition implements Serializable {
   protected String descriptionUrl;
   protected List<SubfieldDefinition> subfields;
   protected Map<String, SubfieldDefinition> subfieldIndex = new LinkedHashMap<>();
-  protected List<Code> historicalSubfields;
-  protected Map<String, Code> historicalSubfieldsIndex;
+  protected List<EncodedValue> historicalSubfields;
+  protected Map<String, EncodedValue> historicalSubfieldsIndex;
   protected String indexTag = null;
   protected Map<MarcVersion, List<SubfieldDefinition>> versionSpecificSubfields;
   protected List<FRBRFunction> functions;
@@ -118,7 +118,7 @@ public abstract class DataFieldDefinition implements Serializable {
   protected DataFieldDefinition setHistoricalSubfields(String... input) {
     historicalSubfields = new ArrayList<>();
     for (int i = 0; i<input.length; i+=2) {
-      historicalSubfields.add(new Code(input[i], input[i+1]));
+      historicalSubfields.add(new EncodedValue(input[i], input[i+1]));
     }
     indexHistoricalSubfields();
     return this;
@@ -126,7 +126,7 @@ public abstract class DataFieldDefinition implements Serializable {
 
   private void indexHistoricalSubfields() {
     historicalSubfieldsIndex = new LinkedHashMap<>();
-    for (Code code : historicalSubfields) {
+    for (EncodedValue code : historicalSubfields) {
       historicalSubfieldsIndex.put(code.getCode(), code);
     }
   }
@@ -187,7 +187,7 @@ public abstract class DataFieldDefinition implements Serializable {
     return null;
   }
 
-  public List<Code> getHistoricalSubfields() {
+  public List<EncodedValue> getHistoricalSubfields() {
     return historicalSubfields;
   }
 

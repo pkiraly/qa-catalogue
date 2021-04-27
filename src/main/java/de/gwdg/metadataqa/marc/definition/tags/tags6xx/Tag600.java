@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags6xx;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
@@ -50,7 +50,7 @@ public class Tag600 extends DataFieldDefinition {
         "3", "Family name"
       )
       .putVersionSpecificCodes(MarcVersion.SZTE, Arrays.asList(
-        new Code("2", "Multiple surname")
+        new EncodedValue("2", "Multiple surname")
       ))
       .setHistoricalCodes(
         "2", "Multiple surname [OBSOLETE, 1996]"

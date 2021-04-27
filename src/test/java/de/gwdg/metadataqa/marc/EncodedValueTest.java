@@ -39,7 +39,7 @@ public class EncodedValueTest {
     assertTrue(code.isRange());
     Range range = code.getRange();
     assertNotNull(range);
-    assertEquals("001-999", range.getRange());
+    assertEquals("001-999", range.getRangeInput());
     assertFalse(range.isValid("0"));
     assertFalse(range.isValid("1000"));
     assertTrue(range.isValid("1"));

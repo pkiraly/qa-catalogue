@@ -44,15 +44,13 @@ public class Utils {
   }
 
   public static String extractPackageName(DataFieldDefinition field) {
-    String packageName = field.getClass().getPackage().getName()
+    return field.getClass().getPackage().getName()
       .replace("de.gwdg.metadataqa.marc.definition.tags.", "");
-    return packageName;
   }
 
   public static String extractPackageName(Class<? extends DataFieldDefinition> field) {
-    String packageName = field.getPackage().getName()
+    return field.getPackage().getName()
       .replace("de.gwdg.metadataqa.marc.definition.tags.", "");
-    return packageName;
   }
 
   public static MarcVersion getVersion(DataFieldDefinition field) {
@@ -66,13 +64,14 @@ public class Utils {
   public static MarcVersion package2version(String packageName) {
     MarcVersion version = MarcVersion.MARC21;
     switch (packageName) {
-      case "bltags":      version = MarcVersion.BL;     break;
+      case "bltags":      version = MarcVersion.BL;      break;
       case "dnbtags":     version = MarcVersion.DNB;     break;
       case "fennicatags": version = MarcVersion.FENNICA; break;
       case "genttags":    version = MarcVersion.GENT;    break;
       case "oclctags":    version = MarcVersion.OCLC;    break;
       case "sztetags":    version = MarcVersion.SZTE;    break;
       case "nkcrtags":    version = MarcVersion.NKCR;    break;
+      default:            version = MarcVersion.MARC21;  break;
     }
     return version;
   }

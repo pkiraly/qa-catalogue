@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.analysis;
 
+import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
@@ -408,14 +409,9 @@ public class ClassificationAnalyzer {
 
   private void addSchemasToStatistics(Map<Schema, Integer> fieldStatistics,
                                       List<Schema> schemes) {
-    if (!schemes.isEmpty()) {
-      for (Schema scheme : schemes) {
-        if (!fieldStatistics.containsKey(scheme)) {
-          fieldStatistics.put(scheme, 0);
-        }
-        fieldStatistics.put(scheme, fieldStatistics.get(scheme) + 1);
-      }
-    }
+    if (!schemes.isEmpty())
+      for (Schema scheme : schemes)
+        Utils.count(scheme, fieldStatistics);
   }
 
   private void addSchemesToStatistics(Map<String[], Integer> fieldStatistics,

@@ -98,9 +98,7 @@ public class Utils {
    * @param <T>
    */
   public static <T extends Object> void count(T key, Map<T, Integer> counter) {
-    if (!counter.containsKey(key)) {
-      counter.put(key, 0);
-    }
+    counter.computeIfAbsent(key, s -> 0);
     counter.put(key, counter.get(key) + 1);
   }
 

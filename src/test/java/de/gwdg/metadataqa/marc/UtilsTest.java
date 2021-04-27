@@ -3,7 +3,9 @@ package de.gwdg.metadataqa.marc;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.controlpositions.tag007.Tag007nonprojected00;
@@ -112,6 +114,15 @@ public class UtilsTest {
   @Test(expected = StringIndexOutOfBoundsException.class)
   public void testRange_withException() {
     assertEquals("c", Utils.substring("abcd", 4, 8));
+  }
+
+  @Test
+  public void testCount() {
+    Map<String, Integer> names = new HashMap<>();
+    assertFalse(names.containsKey("Mary"));
+    Utils.count("Mary", names);
+    assertTrue(names.containsKey("Mary"));
+    assertEquals(1, names.get("Mary").intValue());
   }
 
 }

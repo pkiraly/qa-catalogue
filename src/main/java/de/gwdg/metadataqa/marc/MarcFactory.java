@@ -188,11 +188,11 @@ public class MarcFactory {
                                              MarcRecord marcRecord,
                                              MarcVersion marcVersion) {
     for (org.marc4j.marc.DataField dataField : marc4jRecord.getDataFields()) {
-      DataFieldDefinition definition = getDataFieldDefinition(dataField, marcVersion);
+      var definition = getDataFieldDefinition(dataField, marcVersion);
       if (definition == null) {
         marcRecord.addUnhandledTags(dataField.getTag());
       }
-      DataField field = extractDataField(dataField, definition, marcVersion, marcRecord.getControl001().getContent());
+      var field = extractDataField(dataField, definition, marcVersion);
       marcRecord.addDataField(field);
     }
   }
@@ -208,8 +208,7 @@ public class MarcFactory {
 
   private static DataField extractDataField(org.marc4j.marc.DataField dataField,
                                             DataFieldDefinition definition,
-                                            MarcVersion marcVersion,
-                                            String identifier) {
+                                            MarcVersion marcVersion) {
     DataField field;
     if (definition == null) {
       field = new DataField(dataField.getTag(),
@@ -225,17 +224,10 @@ public class MarcFactory {
       );
     }
     for (Subfield subfield : dataField.getSubfields()) {
-      String code = Character.toString(subfield.getCode());
+      var code = Character.toString(subfield.getCode());
       SubfieldDefinition subfieldDefinition = definition == null ? null : definition.getSubfield(code);
       MarcSubfield marcSubfield = null;
       if (subfieldDefinition == null) {
-        // if (!(definition.getTag().equals("886") && code.equals("k")))
-        // field.addUnhandledSubfields(code);
-        /*
-        logger.warning(String.format(
-          "Problem in record '%s': %s$%s is not a valid subfield (value: '%s')",
-          identifier, definition.getTag(), code, subfield.getData()));
-        */
         marcSubfield = new MarcSubfield(null, code, subfield.getData());
       } else {
         marcSubfield = new MarcSubfield(subfieldDefinition, code, subfield.getData());
@@ -248,7 +240,7 @@ public class MarcFactory {
   }
 
   private static List<String> extractList(JsonPathCache cache, JsonBranch branch) {
-    List<XmlFieldInstance> instances = (List<XmlFieldInstance>) cache.get(branch.getJsonPath());
+    List<XmlFieldInstance> instances = cache.get(branch.getJsonPath());
     List<String> values = new ArrayList<>();
     if (instances != null)
       for (XmlFieldInstance instance : instances)
@@ -284,8 +276,8 @@ public class MarcFactory {
       if (line.startsWith("LEADER ")) {
         marcRecord.setLeader(line.replace("LEADER ", ""), marcVersion);
       } else {
-        String tag = line.substring(0, 3);
-        String content = line.substring(4);
+        var tag = line.substring(0, 3);
+        var content = line.substring(4);
         marcRecord.setField(tag, content, marcVersion);
       }
     }
@@ -310,7 +302,6 @@ public class MarcFactory {
 
   public static Record createRecordFromAlephseq(List<AlephseqLine> lines) {
     Record marc4jRecord = new RecordImpl();
-    boolean deleted = false;
     for (AlephseqLine line : lines) {
       if (line.isLeader()) {
         marc4jRecord.setLeader(new LeaderImpl(line.getContent()));
@@ -318,7 +309,7 @@ public class MarcFactory {
         if (line.isControlField()) {
           marc4jRecord.addVariableField(new ControlFieldImpl(line.getTag(), line.getContent()));
         } else {
-          DataFieldImpl df = new DataFieldImpl(
+          var df = new DataFieldImpl(
             line.getTag(), line.getInd1().charAt(0), line.getInd2().charAt(0)
           );
           for (String[] pair : line.parseSubfields()) {

@@ -116,7 +116,7 @@ public class MarcSubfield implements Validatable, Serializable {
       try {
         return definition.getContentParser().parse(value);
       } catch (ParserException e) {
-        String msg = String.format(
+        var msg = String.format(
           "Error in record: '%s' %s$%s: '%s'. Error message: '%s'",
           marcRecord.getId(), field.getTag(), definition.getCode(), value, e.getMessage()
         );
@@ -143,10 +143,10 @@ public class MarcSubfield implements Validatable, Serializable {
     if (getDefinition().hasContentParser()) {
       Map<String, String> extra = parseContent();
       if (extra != null) {
-        for (String key : extra.keySet()) {
+        for (Map.Entry<String, String> entry : extra.entrySet()) {
           pairs.put(
-            keyGenerator.forSubfield(this, key),
-            Collections.singletonList(extra.get(key))
+            keyGenerator.forSubfield(this, entry.getKey()),
+            Collections.singletonList(entry.getValue())
           );
         }
       }
@@ -156,15 +156,15 @@ public class MarcSubfield implements Validatable, Serializable {
   private void getKeyValuePairsForPositionalSubfields(Map<String, List<String>> pairs, String prefix) {
     if (getDefinition().hasPositions()) {
       Map<String, String> extra = getDefinition().resolvePositional(getValue());
-      for (String key : extra.keySet()) {
-        pairs.put(prefix + "_" + key, Collections.singletonList(extra.get(key)));
+      for (Map.Entry<String, String> entry : extra.entrySet()) {
+        pairs.put(prefix + "_" + entry.getKey(), Collections.singletonList(entry.getValue()));
       }
     }
   }
 
   @Override
   public boolean validate(MarcVersion marcVersion) {
-    boolean isValid = true;
+    var isValid = true;
     errors = new ErrorsCollector();
     if (marcVersion == null)
       marcVersion = MarcVersion.MARC21;
@@ -219,7 +219,7 @@ public class MarcSubfield implements Validatable, Serializable {
   }
 
   private boolean validateWithValidator() {
-    boolean isValid = true;
+    var isValid = true;
     SubfieldValidator validator = definition.getValidator();
     ValidatorResponse response = validator.isValid(this);
     if (!response.isValid()) {
@@ -230,7 +230,7 @@ public class MarcSubfield implements Validatable, Serializable {
   }
 
   private boolean validateWithParser() {
-    boolean isValid = true;
+    var isValid = true;
     SubfieldContentParser parser = definition.getContentParser();
     try {
       parser.parse(getValue());

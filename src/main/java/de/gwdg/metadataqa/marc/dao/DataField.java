@@ -437,7 +437,7 @@ public class DataField implements Extractable, Validatable, Serializable {
 
   @Override
   public boolean validate(MarcVersion marcVersion) {
-    boolean isValid = true;
+    var isValid = true;
     errors = new ErrorsCollector();
 
     DataFieldDefinition referencerDefinition = null;
@@ -574,7 +574,7 @@ public class DataField implements Extractable, Validatable, Serializable {
                                     String value,
                                     MarcVersion marcVersion,
                                     DataFieldDefinition referencerDefinition) {
-    boolean isValid = true;
+    var isValid = true;
     String path = indicatorDefinition.getPath();
     if (referencerDefinition != null)
       path = String.format("%s->%s", referencerDefinition.getTag(), path);

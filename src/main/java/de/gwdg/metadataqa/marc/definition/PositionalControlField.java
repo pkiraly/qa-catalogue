@@ -19,7 +19,7 @@ public abstract class PositionalControlField extends ControlField implements Ext
 
   @Override
   public boolean validate(MarcVersion marcVersion) {
-    boolean isValid = true;
+    var isValid = true;
     validationErrors = new ArrayList<>();
     for (ControlValue controlValue : valuesList) {
       if (!controlValue.validate(marcVersion)) {

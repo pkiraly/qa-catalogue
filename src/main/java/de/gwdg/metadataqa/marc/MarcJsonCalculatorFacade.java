@@ -19,8 +19,6 @@ import java.util.logging.Logger;
  */
 public class MarcJsonCalculatorFacade extends CalculatorFacade {
 
-  private static final Logger logger = Logger.getLogger(MarcJsonCalculatorFacade.class.getCanonicalName());
-
   public enum Formats {
 
     OAI_PMH_XML("xml"),
@@ -31,7 +29,7 @@ public class MarcJsonCalculatorFacade extends CalculatorFacade {
     private Formats(String name) {
       this.name = name;
     }
-  };
+  }
 
   private MarcJsonSchema marcJsonSchema = new MarcJsonSchema();
   protected FieldExtractor fieldExtractor;

@@ -303,7 +303,7 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
 
   @Override
   public boolean validate(MarcVersion marcVersion) {
-    boolean isValid = true;
+    var isValid = true;
     validationErrors = new ArrayList<>();
     if (!initializationErrors.isEmpty())
       validationErrors.addAll(initializationErrors);

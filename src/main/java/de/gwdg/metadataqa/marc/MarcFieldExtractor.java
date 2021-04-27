@@ -239,7 +239,7 @@ public class MarcFieldExtractor implements Calculator, Serializable {
     if (StringUtils.isBlank(text))
       return tokens;
 
-    StringTokenizer st = new StringTokenizer(text);
+    var st = new StringTokenizer(text);
     while (st.hasMoreTokens())
       tokens.add(st.nextToken());
 
@@ -324,7 +324,6 @@ public class MarcFieldExtractor implements Calculator, Serializable {
     String author = null;
     for (String field : authorFields) {
       Object value = resultMap.get(field);
-      // String candidate = resultMap.get(field).toString();
       String stringValue;
       if (value instanceof List) {
         stringValue = StringUtils.join((List)value, " ");
@@ -393,11 +392,8 @@ public class MarcFieldExtractor implements Calculator, Serializable {
     oclcMap.put("workId", resultMap.get("912$9"));
     oclcMap.put("placeOfPublication", resultMap.get("260$a"));
     oclcMap.put("nameOfPublisher", resultMap.get("260$b"));
-    // oclcMap.put("dateOfPublication", resultMap.get("260$c"));
     oclcMap.put("sourceOfHeading", resultMap.get("650$2"));
     oclcMap.put("title", resultMap.get("245$a"));
-    // oclcMap.put("extent", resultMap.get("300$a"));
-
   }
 
   private Object resolve(List<String> list, CodeList codeService) {
@@ -421,7 +417,7 @@ public class MarcFieldExtractor implements Calculator, Serializable {
   }
 
   public void createDuplumKeyMap() {
-    duplumKeyMap = new HashMap<String, Object>();
+    duplumKeyMap = new HashMap<>();
     duplumKeyMap.put("recordId", recordId);
     duplumKeyMap.put("titleWords", titleWords);
     duplumKeyMap.put("authorWords", authorWords);

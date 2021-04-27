@@ -50,7 +50,7 @@ public class ControlValue implements Validatable, Serializable {
 
   @Override
   public boolean validate(MarcVersion marcVersion) {
-    boolean isValid = true;
+    var isValid = true;
     validationErrors = new ArrayList<>();
 
     if (!definition.getValidCodes().isEmpty()

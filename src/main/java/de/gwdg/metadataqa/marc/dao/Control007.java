@@ -187,7 +187,7 @@ public class Control007 extends MarcPositionalControlField implements Serializab
       String categoryCode = content.substring(0, 1);
       category = Control007Category.byCode(categoryCode);
       if (category == null) {
-        String msg = String.format("invalid category for 007: '%s'", categoryCode);
+        var msg = String.format("invalid category for 007: '%s'", categoryCode);
         logger.severe(msg);
         initializationErrors.add(new ValidationError(marcRecord.getId(), "007",
           ValidationErrorType.CONTROL_POSITION_INVALID_VALUE, msg, URL));

@@ -75,7 +75,7 @@ public class TagHierarchy {
       if (matcher.matches()) {
         String tag = matcher.group(1);
         String position = matcher.group(3);
-        DataFieldDefinition definition = getDataFieldDefinition(tag);
+        var definition = getDataFieldDefinition(tag);
 
         if (definition != null) {
           String tagLabel = definition.getLabel();
@@ -92,7 +92,7 @@ public class TagHierarchy {
           String tag = matcher.group(1);
           // String type = matcher.group(2);
           // String position = matcher.group(3);
-          DataFieldDefinition definition = getDataFieldDefinition(tag);
+          var definition = getDataFieldDefinition(tag);
 
           if (definition != null) {
             String tagLabel = definition.getLabel();

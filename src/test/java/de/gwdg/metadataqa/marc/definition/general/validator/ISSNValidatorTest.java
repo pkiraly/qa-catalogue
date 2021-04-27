@@ -76,9 +76,9 @@ public class ISSNValidatorTest {
   }
 
   private MarcSubfield createMarcSubfield(String s) {
-    MarcRecord record = new MarcRecord("test");
+    MarcRecord marcRecord = new MarcRecord("test");
     DataField field = new DataField(Tag411.getInstance(), " ", " ", "x", s);
-    field.setRecord(record);
+    field.setMarcRecord(marcRecord);
 
     return field.getSubfield("x").get(0);
   }

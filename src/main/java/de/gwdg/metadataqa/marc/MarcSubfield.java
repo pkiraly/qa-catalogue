@@ -23,7 +23,7 @@ public class MarcSubfield implements Validatable, Serializable {
 
   private static final Logger logger = Logger.getLogger(MarcSubfield.class.getCanonicalName());
 
-  private MarcRecord record;
+  private MarcRecord marcRecord;
   private DataField field;
   private SubfieldDefinition definition;
   private final String code;
@@ -93,12 +93,12 @@ public class MarcSubfield implements Validatable, Serializable {
     this.definition = definition;
   }
 
-  public MarcRecord getRecord() {
-    return record;
+  public MarcRecord getMarcRecord() {
+    return marcRecord;
   }
 
-  public void setRecord(MarcRecord record) {
-    this.record = record;
+  public void setMarcRecord(MarcRecord marcRecord) {
+    this.marcRecord = marcRecord;
   }
 
   public String getCodeForIndex() {
@@ -118,7 +118,7 @@ public class MarcSubfield implements Validatable, Serializable {
       } catch (ParserException e) {
         String msg = String.format(
           "Error in record: '%s' %s$%s: '%s'. Error message: '%s'",
-          record.getId(), field.getTag(), definition.getCode(), value, e.getMessage()
+          marcRecord.getId(), field.getTag(), definition.getCode(), value, e.getMessage()
         );
         logger.severe(msg);
       }
@@ -252,7 +252,7 @@ public class MarcSubfield implements Validatable, Serializable {
 
   private void addError(String path, ValidationErrorType type, String message) {
     String url = definition.getParent().getDescriptionUrl();
-    errors.add(record.getId(), path, type, message, url);
+    errors.add(marcRecord.getId(), path, type, message, url);
   }
 
   @Override

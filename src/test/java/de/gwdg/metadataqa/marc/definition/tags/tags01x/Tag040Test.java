@@ -29,9 +29,9 @@ public class Tag040Test {
 
   @Test
   public void testCStH() {
-    MarcRecord record = new MarcRecord("test");
+    MarcRecord marcRecord = new MarcRecord("test");
     DataField field = new DataField(Tag040.getInstance(), " ", " ", "a", "CSt-H", "b", "eng", "c", "CSt-H", "e", "appm");
-    field.setRecord(record);
+    field.setMarcRecord(marcRecord);
 
     Map<String, List<String>> map = field.getHumanReadableMap();
 

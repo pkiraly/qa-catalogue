@@ -24,8 +24,8 @@ public class ClassificationAnalysisTest {
     Path path = FileUtils.getPath("general/0001-01.mrc");
     Record marc4jRecord = ReadMarc.read(path.toString()).get(0);
     ClassificationAnalysis analysis = new ClassificationAnalysis(new String[]{});
-    MarcRecord record = MarcFactory.createFromMarc4j(marc4jRecord);
-    analysis.processRecord(record, 1);
+    MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
+    analysis.processRecord(marcRecord, 1);
   }
 
   @Test

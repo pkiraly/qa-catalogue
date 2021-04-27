@@ -38,7 +38,7 @@ public class MarcRecordTest {
   public void testFromFile() throws Exception {
     Path path = FileUtils.getPath("general/0001-01.mrc");
     List<Record> records = ReadMarc.read(path.toString());
-    MarcRecord record = MarcFactory.createFromMarc4j(records.get(0));
+    MarcRecord marcRecord = MarcFactory.createFromMarc4j(records.get(0));
 
     String expected = "{\"leader\":\"00720cam a22002051  4500\"," +
       "\"001\":\"   00000002 \"," +
@@ -77,46 +77,46 @@ public class MarcRecordTest {
         "{\"ind1\":\" \",\"ind2\":\"0\",\"subfields\":{" +
           "\"a\":\"Homeopathy\"," +
           "\"x\":\"Materia medica and therapeutics.\"}}]}";
-    assertEquals(expected, record.asJson());
+    assertEquals(expected, marcRecord.asJson());
   }
 
   @Test
   public void testSelect() throws Exception {
     Path path = FileUtils.getPath("general/0001-01.mrc");
     List<Record> records = ReadMarc.read(path.toString());
-    MarcRecord record = MarcFactory.createFromMarc4j(records.get(0));
+    MarcRecord marcRecord = MarcFactory.createFromMarc4j(records.get(0));
     MarcSpec spec = new MarcSpec("008~0-5");
-    List<String> results = record.select(spec);
+    List<String> results = marcRecord.select(spec);
     assertEquals(1, results.size());
     assertEquals("800108", results.get(0));
 
     spec = new MarcSpec("008~7-10");
-    results = record.select(spec);
+    results = marcRecord.select(spec);
     assertEquals(1, results.size());
     assertEquals("1899", results.get(0));
 
     spec = new MarcSpec("008~0-1");
-    results = record.select(spec);
+    results = marcRecord.select(spec);
     assertEquals(1, results.size());
     assertEquals("80", results.get(0));
   }
 
   @Test
   public void testMultiple007() throws Exception {
-    MarcRecord record = new MarcRecord("010000011");
-    record.setLeader(new Leader("00860cam a22002774a 45 0"));
-    record.setControl003(new Control003("DE-627"));
-    record.setControl005(new Control005("20180502143346.0"));
-    record.setControl008(new Control008("861106s1985    xx |||||      10| ||ger c", record.getType()));
-    record.setControl007(new Control007("tu"));
-    record.setControl007(new Control007("at"));
+    MarcRecord marcRecord = new MarcRecord("010000011");
+    marcRecord.setLeader(new Leader("00860cam a22002774a 45 0"));
+    marcRecord.setControl003(new Control003("DE-627"));
+    marcRecord.setControl005(new Control005("20180502143346.0"));
+    marcRecord.setControl008(new Control008("861106s1985    xx |||||      10| ||ger c", marcRecord.getType()));
+    marcRecord.setControl007(new Control007("tu"));
+    marcRecord.setControl007(new Control007("at"));
 
-    assertTrue(record.getControl007() instanceof List);
-    assertEquals(2, record.getControl007().size());
-    assertEquals("tu", record.getControl007().get(0).getContent());
-    assertEquals(Control007Category.TEXT, record.getControl007().get(0).getCategory());
-    assertEquals("at", record.getControl007().get(1).getContent());
-    assertEquals(Control007Category.MAP, record.getControl007().get(1).getCategory());
+    assertTrue(marcRecord.getControl007() instanceof List);
+    assertEquals(2, marcRecord.getControl007().size());
+    assertEquals("tu", marcRecord.getControl007().get(0).getContent());
+    assertEquals(Control007Category.TEXT, marcRecord.getControl007().get(0).getCategory());
+    assertEquals("at", marcRecord.getControl007().get(1).getContent());
+    assertEquals(Control007Category.MAP, marcRecord.getControl007().get(1).getCategory());
   }
 
   @Test
@@ -128,10 +128,10 @@ public class MarcRecordTest {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    MarcRecord record = MarcFactory.createFromMarc4j(records.get(0));
-    assertNotNull(record);
+    MarcRecord marcRecord = MarcFactory.createFromMarc4j(records.get(0));
+    assertNotNull(marcRecord);
     // System.err.println(record.asJson());
-    assertTrue(record.asJson().contains("\"245\":[{\"ind1\":\"1\",\"ind2\":\"0\",\"subfields\":{\"a\":\"Botanical materia medica and pharmacology;\""));
+    assertTrue(marcRecord.asJson().contains("\"245\":[{\"ind1\":\"1\",\"ind2\":\"0\",\"subfields\":{\"a\":\"Botanical materia medica and pharmacology;\""));
   }
 
 }

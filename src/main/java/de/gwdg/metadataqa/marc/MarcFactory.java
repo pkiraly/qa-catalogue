@@ -91,7 +91,7 @@ public class MarcFactory {
             var field = MapToDatafield.parse(fieldInstance, version);
             if (field != null) {
               marcRecord.addDataField(field);
-              field.setRecord(marcRecord);
+              field.setMarcRecord(marcRecord);
             } else {
               marcRecord.addUnhandledTags(branch.getLabel());
             }
@@ -107,18 +107,18 @@ public class MarcFactory {
   }
 
   public static MarcRecord createFromMarc4j(Record marc4jRecord,
-                              Leader.Type defaultType) {
+                                            Leader.Type defaultType) {
     return createFromMarc4j(marc4jRecord, defaultType, MarcVersion.MARC21);
   }
 
   public static MarcRecord createFromMarc4j(Record marc4jRecord,
-                              MarcVersion marcVersion) {
+                                            MarcVersion marcVersion) {
     return createFromMarc4j(marc4jRecord, null, marcVersion);
   }
 
   public static MarcRecord createFromMarc4j(Record marc4jRecord,
-                              Leader.Type defaultType,
-                              MarcVersion marcVersion) {
+                                            Leader.Type defaultType,
+                                            MarcVersion marcVersion) {
     return createFromMarc4j(marc4jRecord, defaultType, marcVersion, false);
   }
 
@@ -131,9 +131,9 @@ public class MarcFactory {
    * @return
    */
   public static MarcRecord createFromMarc4j(Record marc4jRecord,
-                              Leader.Type defaultType,
-                              MarcVersion marcVersion,
-                              boolean fixAlephseq) {
+                                            Leader.Type defaultType,
+                                            MarcVersion marcVersion,
+                                            boolean fixAlephseq) {
     var marcRecord = new MarcRecord();
 
     marcRecord.setLeader(new Leader(marc4jRecord.getLeader().marshal(), defaultType));
@@ -155,25 +155,25 @@ public class MarcFactory {
   }
 
   private static void importMarc4jControlFields(Record marc4jRecord,
-                                 MarcRecord record,
-                                 boolean fixAlephseq) {
+                                                MarcRecord marcRecord,
+                                                boolean fixAlephseq) {
     for (ControlField controlField : marc4jRecord.getControlFields()) {
       String data = controlField.getData();
       if (fixAlephseq && isFixable(controlField.getTag()))
         data = data.replace("^", " ");
       switch (controlField.getTag()) {
         case "001":
-          record.setControl001(new Control001(data)); break;
+          marcRecord.setControl001(new Control001(data)); break;
         case "003":
-          record.setControl003(new Control003(data)); break;
+          marcRecord.setControl003(new Control003(data)); break;
         case "005":
-          record.setControl005(new Control005(data)); break;
+          marcRecord.setControl005(new Control005(data)); break;
         case "006":
-          record.setControl006(new Control006(data, record.getType())); break;
+          marcRecord.setControl006(new Control006(data, marcRecord.getType())); break;
         case "007":
-          record.setControl007(new Control007(record, data)); break;
+          marcRecord.setControl007(new Control007(marcRecord, data)); break;
         case "008":
-          record.setControl008(new Control008(data, record.getType())); break;
+          marcRecord.setControl008(new Control008(data, marcRecord.getType())); break;
         default:
           break;
       }
@@ -184,18 +184,21 @@ public class MarcFactory {
     return fixableControlFields.contains(tag);
   }
 
-  private static void importMarc4jDataFields(Record marc4jRecord, MarcRecord record, MarcVersion marcVersion) {
+  private static void importMarc4jDataFields(Record marc4jRecord,
+                                             MarcRecord marcRecord,
+                                             MarcVersion marcVersion) {
     for (org.marc4j.marc.DataField dataField : marc4jRecord.getDataFields()) {
       DataFieldDefinition definition = getDataFieldDefinition(dataField, marcVersion);
       if (definition == null) {
-        record.addUnhandledTags(dataField.getTag());
+        marcRecord.addUnhandledTags(dataField.getTag());
       }
-      DataField field = extractDataField(dataField, definition, marcVersion, record.getControl001().getContent());
-      record.addDataField(field);
+      DataField field = extractDataField(dataField, definition, marcVersion, marcRecord.getControl001().getContent());
+      marcRecord.addDataField(field);
     }
   }
 
-  public static DataFieldDefinition getDataFieldDefinition(org.marc4j.marc.DataField dataField, MarcVersion marcVersion) {
+  public static DataFieldDefinition getDataFieldDefinition(org.marc4j.marc.DataField dataField,
+                                                           MarcVersion marcVersion) {
     return getDataFieldDefinition(dataField.getTag(), marcVersion);
   }
 
@@ -289,7 +292,8 @@ public class MarcFactory {
     return marcRecord;
   }
 
-  public static MarcRecord createFromAlephseq(List<AlephseqLine> lines, MarcVersion marcVersion) {
+  public static MarcRecord createFromAlephseq(List<AlephseqLine> lines,
+                                              MarcVersion marcVersion) {
     if (marcVersion == null)
       marcVersion = MarcVersion.MARC21;
 

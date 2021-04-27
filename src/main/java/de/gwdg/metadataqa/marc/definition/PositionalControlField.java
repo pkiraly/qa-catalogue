@@ -33,7 +33,7 @@ public abstract class PositionalControlField extends ControlField implements Ext
   public void setMarcRecord(MarcRecord marcRecord) {
     this.marcRecord = marcRecord;
     for (ControlValue value : valuesList) {
-      value.setRecord(marcRecord);
+      value.setMarcRecord(marcRecord);
     }
   }
 

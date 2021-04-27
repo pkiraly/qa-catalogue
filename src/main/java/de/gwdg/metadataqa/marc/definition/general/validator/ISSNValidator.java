@@ -61,7 +61,7 @@ public class ISSNValidator implements SubfieldValidator, Serializable {
         */
 
         response.addValidationError(new ValidationError(
-          subfield.getField().getRecord().getId(),
+          subfield.getField().getMarcRecord().getId(),
           subfield.getDefinition().getPath(),
           ValidationErrorType.SUBFIELD_ISSN,
           message,
@@ -76,7 +76,7 @@ public class ISSNValidator implements SubfieldValidator, Serializable {
       //   subfield.getValue()
       // );
       response.addValidationError(new ValidationError(
-        subfield.getField().getRecord().getId(),
+        subfield.getField().getMarcRecord().getId(),
         subfield.getDefinition().getPath(),
         ValidationErrorType.SUBFIELD_ISSN,
         message,

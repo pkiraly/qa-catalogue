@@ -27,14 +27,14 @@ public class MarcFactoryTest {
   public void mainTest() throws IOException, URISyntaxException {
     JsonPathCache cache = new JsonPathCache(FileUtils.readFirstLine("general/verbund-tit.001.0000000.formatted.json"));
 
-    MarcRecord record = MarcFactory.create(cache, MarcVersion.DNB);
-    assertNotNull(record);
-    assertNotNull("Leader should not be null", record.getLeader());
+    MarcRecord marcRecord = MarcFactory.create(cache, MarcVersion.DNB);
+    assertNotNull(marcRecord);
+    assertNotNull("Leader should not be null", marcRecord.getLeader());
     // System.err.println(record.format());
     // System.err.println(record.formatAsMarc());
     // System.err.println(record.formatForIndex());
     // System.err.println(record.getKeyValuePairs());
-    Map<String, List<String>> pairs = record.getKeyValuePairs(SolrFieldType.HUMAN);
+    Map<String, List<String>> pairs = marcRecord.getKeyValuePairs(SolrFieldType.HUMAN);
     assertEquals(120, pairs.size());
     Set<String> keys = pairs.keySet();
     // keys.remove("GentLocallyDefinedField");
@@ -425,11 +425,11 @@ public class MarcFactoryTest {
   public void marc2Test() throws IOException, URISyntaxException {
     JsonPathCache cache = new JsonPathCache(FileUtils.readFirstLine("general/marc2.json"));
 
-    MarcRecord record = MarcFactory.create(cache);
-    assertNotNull(record);
-    assertNotNull("Leader should not be null", record.getLeader());
+    MarcRecord marcRecord = MarcFactory.create(cache);
+    assertNotNull(marcRecord);
+    assertNotNull("Leader should not be null", marcRecord.getLeader());
 
-    List<DataField> admins = record.getDatafield("040");
+    List<DataField> admins = marcRecord.getDatafield("040");
     assertEquals(1, admins.size());
     DataField adminMeta = admins.get(0);
     List<MarcSubfield> subfields = adminMeta.getSubfields();
@@ -440,7 +440,7 @@ public class MarcFactoryTest {
       }
     }
 
-    assertEquals(Arrays.asList("English"), record
+    assertEquals(Arrays.asList("English"), marcRecord
       .getKeyValuePairs(SolrFieldType.HUMAN)
       .get("AdminMetadata_languageOfCataloging"));
   }
@@ -449,8 +449,8 @@ public class MarcFactoryTest {
   public void getKeyValuePairTest() throws IOException, URISyntaxException {
     JsonPathCache cache = new JsonPathCache(FileUtils.readFirstLine("general/verbund-tit.001.0000000.formatted.json"));
 
-    MarcRecord record = MarcFactory.create(cache, MarcVersion.DNB);
-    Map<String, List<String>> pairs = record.getKeyValuePairs(SolrFieldType.MIXED);
+    MarcRecord marcRecord = MarcFactory.create(cache, MarcVersion.DNB);
+    Map<String, List<String>> pairs = marcRecord.getKeyValuePairs(SolrFieldType.MIXED);
     assertEquals(120, pairs.size());
 
     Set<String> keys = pairs.keySet();
@@ -586,15 +586,15 @@ public class MarcFactoryTest {
     String marcRecordAsText = StringUtils.join(lines, "\n");
     assertEquals(1845, marcRecordAsText.length());
 
-    MarcRecord record = MarcFactory.createFromFormattedText(marcRecordAsText);
-    test01000011RecordProperties(record);
+    MarcRecord marcRecord = MarcFactory.createFromFormattedText(marcRecordAsText);
+    test01000011RecordProperties(marcRecord);
   }
 
   @Test
   public void testCreateFromFormattedText_asList() throws IOException, URISyntaxException {
     List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
-    MarcRecord record = MarcFactory.createFromFormattedText(lines);
-    test01000011RecordProperties(record);
+    MarcRecord marcRecord = MarcFactory.createFromFormattedText(lines);
+    test01000011RecordProperties(marcRecord);
   }
 
   @Test
@@ -613,13 +613,13 @@ public class MarcFactoryTest {
       reader = new BufferedReader(new FileReader(path.toString()));
       String line = reader.readLine();
 
-      MarcRecord record = null;
+      MarcRecord marcRecord = null;
       List<AlephseqLine> lines = new ArrayList<>();
       while (line != null) {
         AlephseqLine alephseqLine = new AlephseqLine(line);
         if (alephseqLine.isValidTag()) {
           if (alephseqLine.isLeader() && !lines.isEmpty()) {
-            record = MarcFactory.createFromAlephseq(lines, MarcVersion.MARC21);
+            marcRecord = MarcFactory.createFromAlephseq(lines, MarcVersion.MARC21);
             lines = new ArrayList<>();
           }
           lines.add(alephseqLine);
@@ -627,8 +627,8 @@ public class MarcFactoryTest {
 
         line = reader.readLine();
       }
-      record = MarcFactory.createFromAlephseq(lines, MarcVersion.MARC21);
-      List<DataField> tag700 = record.getDatafield("700");
+      marcRecord = MarcFactory.createFromAlephseq(lines, MarcVersion.MARC21);
+      List<DataField> tag700 = marcRecord.getDatafield("700");
       assertEquals("700", tag700.get(0).getTag());
       assertEquals("1", tag700.get(0).getInd1());
       assertEquals(" ", tag700.get(0).getInd2());
@@ -637,8 +637,8 @@ public class MarcFactoryTest {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    // MarcRecord record = MarcFactory.createFromFormattedText(lines);
-    // test01000011RecordProperties(record);
+    // MarcRecord marcRecord = MarcFactory.createFromFormattedText(lines);
+    // test01000011RecordProperties(marcRecord);
   }
 
   @Test
@@ -672,8 +672,8 @@ public class MarcFactoryTest {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    // MarcRecord record = MarcFactory.createFromFormattedText(lines);
-    // test01000011RecordProperties(record);
+    // MarcRecord marcRecord = MarcFactory.createFromFormattedText(lines);
+    // test01000011RecordProperties(marcRecord);
   }
 
   @Test
@@ -683,20 +683,20 @@ public class MarcFactoryTest {
     String marcRecordAsText = StringUtils.join(lines, "\n");
     assertEquals(2319, marcRecordAsText.length());
 
-    MarcRecord record = MarcFactory.createFromFormattedText(marcRecordAsText, MarcVersion.UNIMARC);
-    testUnimarcRecordProperties(record);
+    MarcRecord marcRecord = MarcFactory.createFromFormattedText(marcRecordAsText, MarcVersion.UNIMARC);
+    testUnimarcRecordProperties(marcRecord);
   }
 
-  private void testUnimarcRecordProperties(MarcRecord record) {
-    assertEquals("02794cam0 2200709   450 ", record.getLeader().getLeaderString());
+  private void testUnimarcRecordProperties(MarcRecord marcRecord) {
+    assertEquals("02794cam0 2200709   450 ", marcRecord.getLeader().getLeaderString());
   }
 
-  private void test01000011RecordProperties(MarcRecord record) {
-    assertEquals("02191cam a2200541   4500", record.getLeader().getLeaderString());
-    assertEquals("861106s1985    xx |||||      10| ||ger c", record.getControl008().getContent());
-    assertEquals(3, record.getDatafield("689").size());
-    assertEquals(2, record.getDatafield("810").size());
-    assertEquals(" ", record.getDatafield("810").get(1).getInd2());
-    assertEquals(38, record.getDatafields().size());
+  private void test01000011RecordProperties(MarcRecord marcRecord) {
+    assertEquals("02191cam a2200541   4500", marcRecord.getLeader().getLeaderString());
+    assertEquals("861106s1985    xx |||||      10| ||ger c", marcRecord.getControl008().getContent());
+    assertEquals(3, marcRecord.getDatafield("689").size());
+    assertEquals(2, marcRecord.getDatafield("810").size());
+    assertEquals(" ", marcRecord.getDatafield("810").get(1).getInd2());
+    assertEquals(38, marcRecord.getDatafields().size());
   }
 }

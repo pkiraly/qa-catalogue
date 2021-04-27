@@ -12,14 +12,14 @@ public class ClassificationReferenceValidatorTest {
 
   @Test
   public void test() {
-    MarcRecord record = new MarcRecord("test");
+    MarcRecord marcRecord = new MarcRecord("test");
     DataField field = new DataField(Tag650.getInstance(), " ", "7",
       "8", "3\\p",
       "0", "(DE-588)4020758-4",
       "0", "http://d-nb.info/gnd/4020758-4",
       "0", "(DE-101)040207587",
       "a", "Gesundheitsberatung");
-    field.setRecord(record);
+    field.setMarcRecord(marcRecord);
 
     ValidatorResponse response = ClassificationReferenceValidator.validate(field);
     assertFalse(response.isValid());

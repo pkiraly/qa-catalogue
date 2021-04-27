@@ -70,7 +70,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   }
 
   public void addDataField(DataField dataField) {
-    dataField.setRecord(this);
+    dataField.setMarcRecord(this);
     indexField(dataField);
     datafields.add(dataField);
   }

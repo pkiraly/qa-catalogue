@@ -20,11 +20,11 @@ public class IgnorableRecordsTest {
   public void isIgnorable() {
     conditions.parseInput("STA$s=SUPPRESSED");
 
-    MarcRecord record = new MarcRecord("test");
+    MarcRecord marcRecord = new MarcRecord("test");
     DataField field = new DataField("STA", "  $sSUPPRESSED");
-    field.setRecord(record);
-    record.addDataField(field);
+    field.setMarcRecord(marcRecord);
+    marcRecord.addDataField(field);
 
-    assertTrue(conditions.isIgnorable(record));
+    assertTrue(conditions.isIgnorable(marcRecord));
   }
 }

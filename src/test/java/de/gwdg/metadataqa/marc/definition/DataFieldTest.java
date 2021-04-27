@@ -57,7 +57,7 @@ public class DataFieldTest {
   @Test
   public void testUnhandledSubfields() {
     DataField tag040 = SubfieldParser.parseField(Tag040.getInstance(), "  $aMt$cMt$xMt");
-    tag040.setRecord(new MarcRecord("123"));
+    tag040.setMarcRecord(new MarcRecord("123"));
     boolean valid = tag040.validate(MarcVersion.MARC21);
     assertFalse(valid);
     assertFalse(tag040.getValidationErrors().isEmpty());

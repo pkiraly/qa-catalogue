@@ -18,7 +18,7 @@ public class FunctionalAnalysisTest {
     Path path = FileUtils.getPath("general/0001-01.mrc");
     Record marc4jRecord = ReadMarc.read(path.toString()).get(0);
     FunctionalAnalysis analysis = new FunctionalAnalysis(new String[]{});
-    MarcRecord record = MarcFactory.createFromMarc4j(marc4jRecord);
-    analysis.processRecord(record, 1);
+    MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
+    analysis.processRecord(marcRecord, 1);
   }
 }

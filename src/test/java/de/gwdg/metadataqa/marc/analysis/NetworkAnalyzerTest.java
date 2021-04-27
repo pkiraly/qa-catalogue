@@ -18,17 +18,17 @@ import static org.junit.Assert.*;
 
 public class NetworkAnalyzerTest {
 
-  MarcRecord record;
+  MarcRecord marcRecord;
 
   @Before
   public void setup() throws IOException, URISyntaxException {
     List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
-    record = MarcFactory.createFromFormattedText(lines);
+    marcRecord = MarcFactory.createFromFormattedText(lines);
   }
 
   @Test
   public void process() {
-    NetworkAnalyzer analyzer = new NetworkAnalyzer(record);
+    NetworkAnalyzer analyzer = new NetworkAnalyzer(marcRecord);
     Set<DataField> collector = analyzer.process(1);
     assertEquals(5, collector.size());
     assertEquals(

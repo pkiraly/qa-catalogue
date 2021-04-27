@@ -18,8 +18,8 @@ public class IndexingTest {
   @Test
   public void testIndexing710() throws IOException, URISyntaxException {
     List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
-    MarcRecord record = MarcFactory.createFromFormattedText(lines);
-    Map<String, List<String>> index = record.getKeyValuePairs(SolrFieldType.MIXED);
+    MarcRecord marcRecord = MarcFactory.createFromFormattedText(lines);
+    Map<String, List<String>> index = marcRecord.getKeyValuePairs(SolrFieldType.MIXED);
     assertEquals(135, index.size());
     assertEquals("(DE-576)19168161X",
       index.get("7100_AddedCorporateName_authorityRecordControlNumber")
@@ -37,21 +37,21 @@ public class IndexingTest {
 
   @Test
   public void testSubfieldCode() throws IOException, URISyntaxException {
-    MarcRecord record = new MarcRecord();
-    record.setLeader("01445cem a22004454a 4500");
-    record.setField("034", "0 $aa");
-    assertEquals(1, record.getDatafield("034").size());
-    Map<String, List<String>> index = record.getKeyValuePairs(SolrFieldType.MIXED);
+    MarcRecord marcRecord = new MarcRecord();
+    marcRecord.setLeader("01445cem a22004454a 4500");
+    marcRecord.setField("034", "0 $aa");
+    assertEquals(1, marcRecord.getDatafield("034").size());
+    Map<String, List<String>> index = marcRecord.getKeyValuePairs(SolrFieldType.MIXED);
     assertEquals("Linear scale", index.get("034a_Scale_category").get(0));
   }
 
   @Test
   public void testPositions() throws IOException, URISyntaxException {
-    MarcRecord record = new MarcRecord();
-    record.setLeader("01445cem a22004454a 4500");
-    record.setField("800", "0 $7aa");
-    assertEquals(1, record.getDatafield("800").size());
-    Map<String, List<String>> index = record.getKeyValuePairs(SolrFieldType.MIXED);
+    MarcRecord marcRecord = new MarcRecord();
+    marcRecord.setLeader("01445cem a22004454a 4500");
+    marcRecord.setField("800", "0 $7aa");
+    assertEquals(1, marcRecord.getDatafield("800").size());
+    Map<String, List<String>> index = marcRecord.getKeyValuePairs(SolrFieldType.MIXED);
     assertEquals("aa", index.get("8007_SeriesAddedPersonalName").get(0));
     assertEquals("Monographic component part", index.get("8007_SeriesAddedPersonalName_bibliographicLevel").get(0));
     assertEquals("Language material", index.get("8007_SeriesAddedPersonalName_typeOfRecord").get(0));

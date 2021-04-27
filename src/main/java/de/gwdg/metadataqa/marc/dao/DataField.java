@@ -48,7 +48,7 @@ public class DataField implements Extractable, Validatable, Serializable {
   private Map<String, List<MarcSubfield>> subfieldIndex = new LinkedHashMap<>();
   private ErrorsCollector errors = null;
   private List<String> unhandledSubfields = null;
-  private MarcRecord record;
+  private MarcRecord marcRecord;
 
   public <T extends DataFieldDefinition> DataField(T definition, String ind1, String ind2) {
     this.definition = definition;
@@ -163,14 +163,14 @@ public class DataField implements Extractable, Validatable, Serializable {
     return subfields;
   }
 
-  public MarcRecord getRecord() {
-    return record;
+  public MarcRecord getMarcRecord() {
+    return marcRecord;
   }
 
-  public void setRecord(MarcRecord record) {
-    this.record = record;
+  public void setMarcRecord(MarcRecord marcRecord) {
+    this.marcRecord = marcRecord;
     for (MarcSubfield marcSubfield : subfields)
-      marcSubfield.setRecord(record);
+      marcSubfield.setMarcRecord(marcRecord);
   }
 
   public void indexSubfields() {
@@ -347,7 +347,7 @@ public class DataField implements Extractable, Validatable, Serializable {
         pairs.putAll(extra);
       } catch (IllegalArgumentException e) {
         logger.severe(String.format("%s  in record %s %s",
-          e.getLocalizedMessage(), record.getId(), this.toString()));
+          e.getLocalizedMessage(), marcRecord.getId(), this.toString()));
       }
     }
 
@@ -491,7 +491,7 @@ public class DataField implements Extractable, Validatable, Serializable {
                       subfield.getValue()
                     );
                     alternativeSubfield.setField(this);
-                    alternativeSubfield.setRecord(record);
+                    alternativeSubfield.setMarcRecord(marcRecord);
                     alternativeSubfield.setLinkage(linkage);
                     alternativeSubfield.setReferencePath(referencerDefinition.getTag());
                     _subfieldsNew.add(alternativeSubfield);
@@ -626,7 +626,7 @@ public class DataField implements Extractable, Validatable, Serializable {
 
   private void addError(String path, ValidationErrorType type, String message) {
     String url = definition.getDescriptionUrl();
-    errors.add(record.getId(), path, type, message, url);
+    errors.add(marcRecord.getId(), path, type, message, url);
   }
 
   @Override

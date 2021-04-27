@@ -26,9 +26,9 @@ public class RangeValidatorTest {
   }
 
   private MarcSubfield createMarcSubfield(String value) {
-    MarcRecord record = new MarcRecord("test");
+    MarcRecord marcRecord = new MarcRecord("test");
     DataField field = new DataField(Tag020.getInstance(), " ", " ", "a", value);
-    field.setRecord(record);
+    field.setMarcRecord(marcRecord);
 
     return field.getSubfield("a").get(0);
   }

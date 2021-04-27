@@ -15,31 +15,31 @@ public class Tag490Test {
 
   @Test
   public void test() {
-    MarcRecord record = new MarcRecord("000714573");
-    record.setLeader(new Leader("01168cam a2200325 a 4500"));
+    MarcRecord marcRecord = new MarcRecord("000714573");
+    marcRecord.setLeader(new Leader("01168cam a2200325 a 4500"));
     DataField field = new DataField(Tag490.getInstance(), "0", " ", "6", "880-03", "a", "ifriyat ha-Entsiḳlopedyah ha-Miḳraʼit ;", "v", "9");
-    field.setRecord(record);
-    record.addDataField(field);
-    boolean isValid = record.validate(MarcVersion.GENT);
+    field.setMarcRecord(marcRecord);
+    marcRecord.addDataField(field);
+    boolean isValid = marcRecord.validate(MarcVersion.GENT);
     assertTrue(isValid);
-    assertTrue(record.getValidationErrors().isEmpty());
+    assertTrue(marcRecord.getValidationErrors().isEmpty());
   }
 
 
   @Test
   public void test880() {
-    MarcRecord record = new MarcRecord("000714573");
-    record.setLeader(new Leader("01168cam a2200325 a 4500"));
+    MarcRecord marcRecord = new MarcRecord("000714573");
+    marcRecord.setLeader(new Leader("01168cam a2200325 a 4500"));
     DataField field = new DataField(Tag880.getInstance(), " ", "0", "6", "490-03/(2/r", "a", "ספריית האנציקלופדיה המקראית ;", "v", "9");
-    field.setRecord(record);
-    record.addDataField(field);
+    field.setMarcRecord(marcRecord);
+    marcRecord.addDataField(field);
 
-    boolean isValid = record.validate(MarcVersion.GENT);
+    boolean isValid = marcRecord.validate(MarcVersion.GENT);
     assertFalse(isValid);
-    assertFalse(record.getValidationErrors().isEmpty());
-    assertEquals(2, record.getValidationErrors().size());
-    assertEquals("880->490$ind1", record.getValidationErrors().get(0).getMarcPath());
-    assertEquals("880->490$ind2", record.getValidationErrors().get(1).getMarcPath());
+    assertFalse(marcRecord.getValidationErrors().isEmpty());
+    assertEquals(2, marcRecord.getValidationErrors().size());
+    assertEquals("880->490$ind1", marcRecord.getValidationErrors().get(0).getMarcPath());
+    assertEquals("880->490$ind2", marcRecord.getValidationErrors().get(1).getMarcPath());
   }
 
 }

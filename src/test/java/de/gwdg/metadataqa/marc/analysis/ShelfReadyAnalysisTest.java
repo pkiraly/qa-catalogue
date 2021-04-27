@@ -17,9 +17,9 @@ public class ShelfReadyAnalysisTest {
   @Test
   public void test_getScores() throws IOException, URISyntaxException {
     List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
-    MarcRecord record = MarcFactory.createFromFormattedText(lines);
+    MarcRecord marcRecord = MarcFactory.createFromFormattedText(lines);
 
-    List<Double> scores = ShelfReadyAnalysis.getScores(record);
+    List<Double> scores = ShelfReadyAnalysis.getScores(marcRecord);
     assertEquals(
       "38.0,40.0,29.0,0.0,0.0,0.0,0.0,9.5,23.200000000000003,10.333333333333332,0.0,0.0,44.0,0.0,17.6,0.0,0.0,30.0,14.333333333333332,35.0,35.0,34.0,40.0,0.0,0.0,14.0,0.0,0.0,0.0,44.0,44.0,0.0,0.0,32.0,15.704901960784314",
       StringUtils.join(scores, ","));

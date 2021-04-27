@@ -16,7 +16,7 @@ public class ControlValue implements Validatable, Serializable {
 
   private ControlfieldPositionDefinition definition;
   private String value;
-  private MarcRecord record;
+  private MarcRecord marcRecord;
   private List<ValidationError> validationErrors;
 
   public ControlValue(ControlfieldPositionDefinition definition, String value) {
@@ -24,8 +24,8 @@ public class ControlValue implements Validatable, Serializable {
     this.value = value;
   }
 
-  public void setRecord(MarcRecord record) {
-    this.record = record;
+  public void setMarcRecord(MarcRecord marcRecord) {
+    this.marcRecord = marcRecord;
   }
 
   public String getLabel() {
@@ -57,7 +57,7 @@ public class ControlValue implements Validatable, Serializable {
       && (!definition.getValidCodes().contains(value)
           && definition.getCode(value) == null)) {
       if (definition.isHistoricalCode(value)) {
-        validationErrors.add(new ValidationError(record.getId(), definition.getPath(), ValidationErrorType.CONTROL_POSITION_OBSOLETE_CODE,
+        validationErrors.add(new ValidationError(marcRecord.getId(), definition.getPath(), ValidationErrorType.CONTROL_POSITION_OBSOLETE_CODE,
           value, definition.getDescriptionUrl()));
         isValid = false;
 
@@ -69,7 +69,7 @@ public class ControlValue implements Validatable, Serializable {
             if (!definition.getValidCodes().contains(unit)) {
               validationErrors.add(
                 new ValidationError(
-                  record.getId(),
+                  marcRecord.getId(),
                   definition.getPath(),
                   ValidationErrorType.CONTROL_POSITION_INVALID_CODE,
                   String.format("'%s' in '%s'", unit, value),
@@ -80,7 +80,7 @@ public class ControlValue implements Validatable, Serializable {
         } else {
           validationErrors.add(
             new ValidationError(
-              ((record == null) ? null : record.getId()),
+              ((marcRecord == null) ? null : marcRecord.getId()),
               definition.getPath(), ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
             value, definition.getDescriptionUrl()));
           isValid = false;
@@ -95,7 +95,7 @@ public class ControlValue implements Validatable, Serializable {
       } catch (ParserException e) {
         validationErrors.add(
           new ValidationError(
-            ((record == null) ? null : record.getId()),
+            ((marcRecord == null) ? null : marcRecord.getId()),
             definition.getPath(), ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
             e.getMessage(), definition.getDescriptionUrl()));
         // logger.log(Level.SEVERE, "validate", e);

@@ -150,11 +150,10 @@ public class Control007 extends MarcPositionalControlField implements Serializab
   private ControlValue tag007unspecified01;
 
   private Map<Integer, ControlfieldPositionDefinition> byPosition = new LinkedHashMap<>();
-  private MarcRecord record = null;
 
-  public Control007(MarcRecord record, String content) {
+  public Control007(MarcRecord marcRecord, String content) {
     super(Control007Definition.getInstance(), content);
-    this.record = record;
+    this.marcRecord = marcRecord;
     handleContent(content);
   }
 
@@ -163,8 +162,8 @@ public class Control007 extends MarcPositionalControlField implements Serializab
       processContent();
     } else {
       StringBuffer msg = new StringBuffer();
-      if (record != null) {
-        msg.append(record.getId().trim()).append(": ");
+      if (marcRecord != null) {
+        msg.append(marcRecord.getId().trim()).append(": ");
       }
       msg.append("007 control field is empty");
       logger.severe(msg.toString());
@@ -181,7 +180,7 @@ public class Control007 extends MarcPositionalControlField implements Serializab
     if (StringUtil.isBlank(content)) {
       String msg = "007 control field is empty";
       logger.severe(msg);
-      initializationErrors.add(new ValidationError(record.getId(), "007",
+      initializationErrors.add(new ValidationError(marcRecord.getId(), "007",
         ValidationErrorType.CONTROL_POSITION_INVALID_VALUE, msg, URL));
       category = Control007Category.TEXT;
     } else {
@@ -190,7 +189,7 @@ public class Control007 extends MarcPositionalControlField implements Serializab
       if (category == null) {
         String msg = String.format("invalid category for 007: '%s'", categoryCode);
         logger.severe(msg);
-        initializationErrors.add(new ValidationError(record.getId(), "007",
+        initializationErrors.add(new ValidationError(marcRecord.getId(), "007",
           ValidationErrorType.CONTROL_POSITION_INVALID_VALUE, msg, URL));
         category = Control007Category.TEXT;
       }

@@ -274,7 +274,7 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
   public void setMarcRecord(MarcRecord marcRecord) {
     this.marcRecord = marcRecord;
     for (ControlValue value : valuesList)
-      value.setRecord(marcRecord);
+      value.setMarcRecord(marcRecord);
   }
 
   public String toString() {

@@ -101,7 +101,7 @@ public class ISBNValidator implements SubfieldValidator, Serializable {
                                   String message) {
     response.addValidationError(
       new ValidationError(
-        subfield.getField().getRecord().getId(),
+        subfield.getField().getMarcRecord().getId(),
         subfield.getDefinition().getPath(),
         ValidationErrorType.SUBFIELD_ISBN,
         message,

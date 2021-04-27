@@ -31,7 +31,7 @@ public class ClassificationReferenceValidator implements RecordValidator, FieldV
             if (subfield2 == null) {
               response.addValidationError(
                 new ValidationError(
-                  field.getRecord().getId(),
+                  field.getMarcRecord().getId(),
                   field.getTag() + "$ind2",
                   ValidationErrorType.SUBFIELD_INVALID_CLASSIFICATION_REFERENCE,
                   "ind2 is '7' which means that the value should be found in subfield $2, but it is missing",
@@ -55,7 +55,7 @@ public class ClassificationReferenceValidator implements RecordValidator, FieldV
           response.setValid(false);
           response.addValidationError(
             new ValidationError(
-              field.getRecord().getId(),
+              field.getMarcRecord().getId(),
               field.getTag() + "$ind2",
               ValidationErrorType.SUBFIELD_INVALID_CLASSIFICATION_REFERENCE,
               "ind2 is '7' which means that the value should be found in subfield $2, but it is missing",

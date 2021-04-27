@@ -32,7 +32,7 @@ public class RegexValidator implements SubfieldValidator, Serializable {
       if (!matcher.matches()) {
         response.addValidationError(
           new ValidationError(
-            subfield.getRecord().getId(),
+            subfield.getMarcRecord().getId(),
             subfield.getDefinition().getPath(),
             ValidationErrorType.SUBFIELD_PATTERN_MISMATCH,
             String.format("mismatched '%s' against '%s'", value, pattern.pattern()),

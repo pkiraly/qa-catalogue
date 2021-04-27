@@ -20,10 +20,10 @@ public class ClassificationAnalyzerTest {
   @Test
   public void test() throws IOException, URISyntaxException {
     List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
-    MarcRecord record = MarcFactory.createFromFormattedText(lines);
+    MarcRecord marcRecord = MarcFactory.createFromFormattedText(lines);
     ClassificationStatistics statistics = new ClassificationStatistics();
 
-    ClassificationAnalyzer analyzer = new ClassificationAnalyzer(record, statistics);
+    ClassificationAnalyzer analyzer = new ClassificationAnalyzer(marcRecord, statistics);
     int count = analyzer.process();
     assertEquals(2, count);
     Map<Schema, Integer> recordStats = statistics.getRecords();
@@ -52,10 +52,10 @@ public class ClassificationAnalyzerTest {
   @Test
   public void abbreviation() throws IOException, URISyntaxException {
     List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
-    MarcRecord record = MarcFactory.createFromFormattedText(lines);
+    MarcRecord marcRecord = MarcFactory.createFromFormattedText(lines);
     ClassificationStatistics statistics = new ClassificationStatistics();
 
-    ClassificationAnalyzer analyzer = new ClassificationAnalyzer(record, statistics);
+    ClassificationAnalyzer analyzer = new ClassificationAnalyzer(marcRecord, statistics);
     analyzer.process();
     Map<Schema, Integer> recordStats = statistics.getRecords();
     Schema first = (Schema) recordStats.keySet().toArray()[0];

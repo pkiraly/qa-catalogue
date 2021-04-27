@@ -13,32 +13,32 @@ public class SerialTest {
 
   @Test
   public void test() {
-    MarcRecord record = new MarcRecord("ocn655855524");
-    record.setLeader("02157cas a2200517Ka 4500");
-    record.setField("008", "100812c19359999ne.qx.p.o.....0...a0eng.d");
-    record.setField("006", "m.....o..d........");
-    record.setField("245",
+    MarcRecord marcRecord = new MarcRecord("ocn655855524");
+    marcRecord.setLeader("02157cas a2200517Ka 4500");
+    marcRecord.setField("008", "100812c19359999ne.qx.p.o.....0...a0eng.d");
+    marcRecord.setField("006", "m.....o..d........");
+    marcRecord.setField("245",
       "00$aActa biotheoretica :$bediderunt Directores Fundationis cui nomen est .Prof. Dr. Jan van der Hoeven-Stichting"
       + " voor Theoretische Biologie van Dier en Mench verbonden aan de Rijksuniversiteit te Leiden.."
     );
-    record.setField("260", "  $aLeiden:$bBrill.$c1935-");
-    record.setField("310", "  $a4 no. a year");
-    record.setField("336", "  $atext$btxt$2rdacontent");
-    record.setField("362", "0 $aVol. 1 (Dec. 1935)-");
-    record.setField("588", "0 $aPrint version record.");
-    record.setField("022", "  $a0001-5342$l0001-5342$2z");
-    record.setField("650", " 0$aBiology$vPeriodicals.");
-    record.setField("650", " 2$aBiology.");
-    record.setField("650", " 2$aZoology.");
-    record.setField("650", " 6$aBiologie$vPériodiques.");
-    record.setField("650", " 7$aBiology.$2fast$0(OCoLC)fst00832383");
-    record.setField("650", "17$aBiologie.$2gtt");
-    record.setField("650", "17$aTheorievorming.$2gtt");
-    assertEquals("text", record.getDatafield("336").get(0).getSubfield("a").get(0).getValue());
+    marcRecord.setField("260", "  $aLeiden:$bBrill.$c1935-");
+    marcRecord.setField("310", "  $a4 no. a year");
+    marcRecord.setField("336", "  $atext$btxt$2rdacontent");
+    marcRecord.setField("362", "0 $aVol. 1 (Dec. 1935)-");
+    marcRecord.setField("588", "0 $aPrint version record.");
+    marcRecord.setField("022", "  $a0001-5342$l0001-5342$2z");
+    marcRecord.setField("650", " 0$aBiology$vPeriodicals.");
+    marcRecord.setField("650", " 2$aBiology.");
+    marcRecord.setField("650", " 2$aZoology.");
+    marcRecord.setField("650", " 6$aBiologie$vPériodiques.");
+    marcRecord.setField("650", " 7$aBiology.$2fast$0(OCoLC)fst00832383");
+    marcRecord.setField("650", "17$aBiologie.$2gtt");
+    marcRecord.setField("650", "17$aTheorievorming.$2gtt");
+    assertEquals("text", marcRecord.getDatafield("336").get(0).getSubfield("a").get(0).getValue());
 
-    assertEquals(Leader.Type.CONTINUING_RESOURCES, record.getType());
+    assertEquals(Leader.Type.CONTINUING_RESOURCES, marcRecord.getType());
 
-    Serial serial = new Serial(record);
+    Serial serial = new Serial(marcRecord);
     List<Integer> scores = serial.determineRecordQualityScore();
     assertEquals(19, scores.size());
     assertEquals(19, serial.getScores().getScores().size());

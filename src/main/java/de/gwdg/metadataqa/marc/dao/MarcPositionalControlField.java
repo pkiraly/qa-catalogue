@@ -32,10 +32,10 @@ public abstract class MarcPositionalControlField extends MarcControlField {
   }
 
   @Override
-  public void setMarcRecord(MarcRecord record) {
-    super.setMarcRecord(record);
+  public void setMarcRecord(MarcRecord marcRecord) {
+    super.setMarcRecord(marcRecord);
     for (ControlValue value : valuesList) {
-      value.setRecord(marcRecord);
+      value.setMarcRecord(this.marcRecord);
     }
   }
 

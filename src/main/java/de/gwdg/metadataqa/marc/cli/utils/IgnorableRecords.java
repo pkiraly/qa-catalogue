@@ -48,12 +48,12 @@ public class IgnorableRecords {
     return null;
   }
 
-  public boolean isIgnorable(MarcRecord record) {
+  public boolean isIgnorable(MarcRecord marcRecord) {
     if (isEmpty())
       return false;
 
     for (DataField condition : conditions) {
-      List<DataField> recordFields = record.getDatafield(condition.getTag());
+      List<DataField> recordFields = marcRecord.getDatafield(condition.getTag());
       if (recordFields == null || recordFields.isEmpty())
         continue;
 

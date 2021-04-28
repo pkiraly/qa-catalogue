@@ -34,7 +34,7 @@ public class DateValidator implements SubfieldValidator, Serializable {
 
     if (StringUtils.isNotBlank(value)) {
       try {
-        LocalDate date = LocalDate.parse(value, formatter);
+        LocalDate.parse(value, formatter);
       } catch(DateTimeParseException e) {
         response.addValidationError(
           new ValidationError(

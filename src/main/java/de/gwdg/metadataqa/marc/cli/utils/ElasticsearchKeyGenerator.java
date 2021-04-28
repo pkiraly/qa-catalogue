@@ -29,24 +29,24 @@ public class ElasticsearchKeyGenerator {
     }
 
     String host = args[0];
-    int port = Integer.parseInt(args[1]);
+    var port = Integer.parseInt(args[1]);
     String relativeFileName = args[2];
-    Path path = Paths.get(relativeFileName);
-    String fileName = path.getFileName().toString();
+    var path = Paths.get(relativeFileName);
+    var fileName = path.getFileName().toString();
 
     logger.info(String.format("host: %s, port: %d, file: %s", host, port, path.getFileName().toString()));
 
-    MarcElasticsearchClient client = new MarcElasticsearchClient(host, port);
+    var client = new MarcElasticsearchClient(host, port);
     JsonPathCache<? extends XmlFieldInstance> cache;
     List<String> records;
     try {
       records = Files.readAllLines(path, Charset.defaultCharset());
-      MarcFieldExtractor extractor = new MarcFieldExtractor(new MarcJsonSchema());
+      var extractor = new MarcFieldExtractor(new MarcJsonSchema());
       Map<String, Object> duplumKey;
-      int i = 0;
-      for (String record : records) {
+      var i = 0;
+      for (String marcRecord : records) {
         i++;
-        cache = new JsonPathCache(record);
+        cache = new JsonPathCache(marcRecord);
         extractor.measure(cache);
         duplumKey = extractor.getDuplumKeyMap();
         client.indexDuplumKey((String)duplumKey.get("recordId"), duplumKey);

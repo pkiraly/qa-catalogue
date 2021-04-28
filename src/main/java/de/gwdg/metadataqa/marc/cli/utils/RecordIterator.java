@@ -53,7 +53,7 @@ public class RecordIterator {
 
     String[] inputFileNames = processor.getParameters().getArgs();
 
-    int i = 0;
+    var i = 0;
     String lastKnownId = "";
     for (String inputFileName : inputFileNames) {
       if (!processor.readyToProcess())

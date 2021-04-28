@@ -65,7 +65,7 @@ public class ControlValueTest {
       System.err.printf("descriptionUrl = \"https://www.loc.gov/marc/bibliographic/bdleader.html\";\n", subfield.getMqTag());
       if (subfield.getCodes() != null) {
         System.err.printf("codes = Utils.generateCodes(\n");
-        int i = 0;
+        var i = 0;
         for (Code code : subfield.getCodes()) {
           i++;
           if (i == subfield.getCodes().size())

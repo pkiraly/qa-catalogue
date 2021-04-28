@@ -92,7 +92,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
 
   @Override
   public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
-
+    // do nothing
   }
 
   @Override
@@ -229,17 +229,16 @@ public class Completeness implements MarcFileProcessor, Serializable {
 
   @Override
   public void fileOpened(Path file) {
-
+    // do nothing
   }
 
   @Override
   public void fileProcessed() {
-
+    // do nothing
   }
 
   @Override
   public void afterIteration(int numberOfprocessedRecords) {
-    DecimalFormat format = new DecimalFormat();
     String fileExtension = ".csv";
     final char separator = getSeparator(parameters.getFormat());
     if (parameters.getFormat().equals(ValidationErrorFormat.TAB_SEPARATED)) {
@@ -370,7 +369,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
     }
 
     TagHierarchy tagHierarchy = TagHierarchy.createFromPath(marcPath, parameters.getMarcVersion());
-    int packageId = 100;
+    int packageId;
     String packageLabel = "";
     String tagLabel = "";
     String subfieldLabel = "";

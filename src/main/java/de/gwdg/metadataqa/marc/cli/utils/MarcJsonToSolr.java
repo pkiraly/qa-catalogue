@@ -2,9 +2,7 @@ package de.gwdg.metadataqa.marc.cli.utils;
 
 import de.gwdg.metadataqa.api.model.pathcache.JsonPathCache;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
-import de.gwdg.metadataqa.api.schema.MarcJsonSchema;
 import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.MarcFieldExtractor;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.datastore.MarcSolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -15,7 +13,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -56,29 +53,21 @@ public class MarcJsonToSolr {
     List<String> records;
     try {
       records = Files.readAllLines(path, Charset.defaultCharset());
-      MarcFieldExtractor extractor = new MarcFieldExtractor(new MarcJsonSchema());
-      Map<String, Object> duplumKey;
-      int i = 0;
-      for (String record : records) {
+      var i = 0;
+      for (String marcRecordLine : records) {
         i++;
-        cache = new JsonPathCache(record);
+        cache = new JsonPathCache(marcRecordLine);
         MarcRecord marcRecord = MarcFactory.create(cache);
         client.indexMap(marcRecord.getId(), marcRecord.getKeyValuePairs());
 
-        // extractor.measure(cache);
-        // duplumKey = extractor.getDuplumKeyMap();
-        // client.indexDuplumKey((String)duplumKey.get(MarcFieldExtractor.FIELD_NAME), duplumKey);
         if (i % 1000 == 0) {
           if (doCommits)
             client.commit();
-          // logger.info(String.format("%s/%d) %s", fileName, i, duplumKey.get(MarcFieldExtractor.FIELD_NAME)));
           logger.info(String.format("%s/%d) %s", fileName, i, marcRecord.getId()));
         }
       }
       if (doCommits)
         client.commit();
-      // logger.info("optimize");
-      // client.optimize();
       logger.info("end of cycle");
     } catch (IOException | SolrServerException ex) {
       logger.severe(ex.toString());

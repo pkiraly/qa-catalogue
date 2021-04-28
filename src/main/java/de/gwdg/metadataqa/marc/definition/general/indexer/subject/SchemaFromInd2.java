@@ -13,7 +13,6 @@ public class SchemaFromInd2 extends SubjectIndexer implements FieldIndexer {
   @Override
   public Map<String, List<String>> index(DataField dataField, DataFieldKeyGenerator keyGenerator) {
     Map<String, List<String>> indexEntries = new HashMap<>();
-    String schemaCode = dataField.getInd2();
     String schemaAbbreviation;
     try {
       schemaAbbreviation = ClassificationSchemes.getInstance().resolve(dataField.resolveInd2());

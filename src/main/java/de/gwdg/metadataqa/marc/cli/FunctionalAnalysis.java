@@ -176,7 +176,6 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
 
   @Override
   public void afterIteration(int numberOfprocessedRecords) {
-    // DecimalFormat format = new DecimalFormat();
     String fileExtension = ".csv";
     final char separator = getSeparator(parameters.getFormat());
     if (parameters.getFormat().equals(ValidationErrorFormat.TAB_SEPARATED)) {

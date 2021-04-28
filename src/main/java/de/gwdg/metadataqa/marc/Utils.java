@@ -62,7 +62,7 @@ public class Utils {
   }
 
   public static MarcVersion package2version(String packageName) {
-    var version = MarcVersion.MARC21;
+    MarcVersion version;
     switch (packageName) {
       case "bltags":      version = MarcVersion.BL;      break;
       case "dnbtags":     version = MarcVersion.DNB;     break;

@@ -177,7 +177,7 @@ public class MARCspecParserTest {
     matcher = MARCspecParser.SUBFIELD.matcher("$a-b{$c/#=\\.}$c-d{?$a}");
     assertTrue(matcher.groupCount() > 1);
 
-    int i = 0;
+    var i = 0;
     while (matcher.find()) {
       if (i++ == 0) {
         assertEquals("$a-b{$c/#=\\.}", matcher.group("subfield"));

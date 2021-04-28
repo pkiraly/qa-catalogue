@@ -388,7 +388,6 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   public String asJson() {
     ObjectMapper mapper = new ObjectMapper();
 
-    StringBuilder text = new StringBuilder();
     Map<String, Object> map = new LinkedHashMap<>();
     map.put("leader", leader.getContent());
 

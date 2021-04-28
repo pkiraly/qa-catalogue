@@ -20,6 +20,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -111,7 +112,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
   private void printToFile(File file, String message) {
     try {
-      FileUtils.writeStringToFile(file, message, true);
+      FileUtils.writeStringToFile(file, message, Charset.defaultCharset(), true);
     } catch (IOException | NullPointerException e) {
       if (parameters.doLog())
         logger.log(Level.SEVERE, "printToFile", e);

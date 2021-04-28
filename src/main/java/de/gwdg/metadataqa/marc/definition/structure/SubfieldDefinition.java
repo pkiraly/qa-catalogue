@@ -228,7 +228,7 @@ public class SubfieldDefinition implements Serializable {
 
   public Map<String, String> resolvePositional(String value) {
     Map<String, String> pairs = new LinkedHashMap<>();
-    int i = 0;
+    var i = 0;
     for (ControlfieldPositionDefinition def : getPositions()) {
       try {
         String part = Utils.substring(value, def.getPositionStart(), def.getPositionEnd());

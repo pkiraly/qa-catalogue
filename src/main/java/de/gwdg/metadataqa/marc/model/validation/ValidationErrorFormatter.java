@@ -154,7 +154,8 @@ public class ValidationErrorFormatter {
 
   private static String createCvsRow(String[] strings, char separator) {
     StringWriter stringWriter = new StringWriter();
-    CSVWriter csvWriter = new CSVWriter(stringWriter, separator, '"');
+    CSVWriter csvWriter = new CSVWriter(stringWriter, separator, '"',
+      CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);
     csvWriter.writeNext(strings);
     String row = stringWriter.toString().trim();
     if (row.contains("\\")) {

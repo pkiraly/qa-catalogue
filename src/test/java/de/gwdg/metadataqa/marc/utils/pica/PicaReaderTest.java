@@ -116,9 +116,7 @@ public class PicaReaderTest {
             && !WARNUNG.matcher(line).find()) {
             PicaLine pl = new PicaLine(line);
             if (!directoryContains(schemaDirectory, pl)) {
-              if (!ppns.containsKey(pl.getQualifiedTag())) {
-                ppns.put(pl.getQualifiedTag(), new ArrayList<>());
-              }
+              ppns.computeIfAbsent(pl.getQualifiedTag(), s -> new ArrayList<>());
               ppns.get(pl.getQualifiedTag()).add(ppn);
               Utils.count(pl.getQualifiedTag(), counter);
             }

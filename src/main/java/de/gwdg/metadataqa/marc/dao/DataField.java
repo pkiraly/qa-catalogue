@@ -179,8 +179,7 @@ public class DataField implements Extractable, Validatable, Serializable {
   }
 
   private void indexSubfield(String code, MarcSubfield marcSubfield) {
-    if (!subfieldIndex.containsKey(code))
-      subfieldIndex.put(code, new LinkedList<>());
+    subfieldIndex.computeIfAbsent(code, s -> new LinkedList<>());
     subfieldIndex.get(code).add(marcSubfield);
   }
 
@@ -209,8 +208,7 @@ public class DataField implements Extractable, Validatable, Serializable {
     if (definition.getInd2().exists())
       map.put(definition.getInd2().getLabel(), Arrays.asList(resolveInd2()));
     for (MarcSubfield subfield : subfields) {
-      if (!map.containsKey(subfield.getLabel()))
-        map.put(subfield.getLabel(), new ArrayList<>());
+      map.computeIfAbsent(subfield.getLabel(), s -> new ArrayList<>());
       map.get(subfield.getLabel()).add(subfield.resolve());
     }
     return map;
@@ -537,12 +535,6 @@ public class DataField implements Extractable, Validatable, Serializable {
           }
         }
         Utils.count(subfield.getDefinition(), counter);
-        /*
-        if (!counter.containsKey(subfield.getDefinition())) {
-          counter.put(subfield.getDefinition(), 0);
-        }
-        counter.put(subfield.getDefinition(), counter.get(subfield.getDefinition()) + 1);
-         */
 
         if (!subfield.validate(marcVersion)) {
           errors.addAll(subfield.getValidationErrors());

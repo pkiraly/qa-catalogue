@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gwdg.metadataqa.marc.Extractable;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcSubfield;
+import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.Validatable;
 import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
 import de.gwdg.metadataqa.marc.definition.*;
@@ -80,9 +81,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     if (tag == null)
       logger.warning("null tag in indexField() " + dataField);
 
-    if (!datafieldIndex.containsKey(tag))
-      datafieldIndex.put(tag, new ArrayList<>());
-
+    datafieldIndex.computeIfAbsent(tag, s -> new ArrayList<>());
     datafieldIndex.get(tag).add(dataField);
   }
 
@@ -411,9 +410,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
           ? field.getDefinition().getTag()
           : field.getTag();
 
-        if (!map.containsKey(tag)) {
-          map.put(tag, new ArrayList<Map<String, Object>>());
-        }
+        map.computeIfAbsent(tag, s -> new ArrayList<Map<String, Object>>());
         ((ArrayList)map.get(tag)).add(fieldMap);
       }
     }
@@ -475,11 +472,9 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
         }
       } else {
         Map<String, Integer> tags = new LinkedHashMap<>();
-        for (String tag : unhandledTags) {
-          if (!tags.containsKey(tag))
-            tags.put(tag, 0);
-          tags.put(tag, tags.get(tag) + 1);
-        }
+        for (String tag : unhandledTags)
+          Utils.count(tag, tags);
+
         List<String> unhandledTagsList = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : tags.entrySet()) {
           String tag = entry.getKey();

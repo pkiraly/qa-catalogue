@@ -107,8 +107,7 @@ public class ClassificationAnalyzer {
      */
     count((total > 0), statistics.getHasClassifications());
     count(total, statistics.getSchemaHistogram());
-    if (!statistics.getFrequencyExamples().containsKey(total))
-      statistics.getFrequencyExamples().put(total, marcRecord.getId(true));
+    statistics.getFrequencyExamples().computeIfAbsent(total, s -> marcRecord.getId(true));
 
     List<String> collocation = getCollocationInRecord();
     if (!collocation.isEmpty())

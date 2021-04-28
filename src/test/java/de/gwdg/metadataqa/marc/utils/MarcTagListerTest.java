@@ -127,9 +127,7 @@ public class MarcTagListerTest {
         if (functions != null && !functions.isEmpty()) {
           for (FRBRFunction function : functions) {
             if (version == MarcVersion.MARC21) {
-              if (!functionMap.containsKey(function)) {
-                functionMap.put(function, new ArrayList<>());
-              }
+              functionMap.computeIfAbsent(function, s -> new ArrayList<>());
               functionMap.get(function).add(subfield.getPath());
             } else {
               System.err.println(version + " " + subfield.getPath());

@@ -33,9 +33,7 @@ public class Schema {
   }
 
   private void setId() {
-    if (!schemaCounter.containsKey(this)) {
-      schemaCounter.put(this, ++SCHEMA_COUNTER);
-    }
+    schemaCounter.computeIfAbsent(this, s -> ++SCHEMA_COUNTER);
     this.id = schemaCounter.get(this);
   }
 

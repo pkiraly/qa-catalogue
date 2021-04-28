@@ -12,8 +12,7 @@ public class AppendableHashMap<K, V> {
   private Map<K, List<V>> map = new HashMap<>();
 
   public void append(K key, V value) {
-    if (!map.containsKey(key))
-      map.put(key, new ArrayList<>());
+    map.computeIfAbsent(key, s -> new ArrayList<>());
     map.get(key).add(value);
   }
 

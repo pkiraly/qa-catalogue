@@ -116,8 +116,7 @@ public class FrbrFunctionLister {
                                     Map<FRBRFunction, FunctionValue> map) {
     if (functions != null && !functions.isEmpty()) {
       for (FRBRFunction function : functions) {
-        if (!map.containsKey(function))
-          map.put(function, new FunctionValue());
+        map.computeIfAbsent(function, s -> new FunctionValue());
         map.get(function).count();
       }
     }
@@ -144,8 +143,7 @@ public class FrbrFunctionLister {
 
   public void add(Map<FRBRFunction, FunctionValue> other) {
     for (FRBRFunction key : other.keySet()) {
-      if (!collector.containsKey(key))
-        collector.put(key, new FunctionValue());
+      collector.computeIfAbsent(key, s -> new FunctionValue());
       collector.get(key).add(other.get(key));
     }
   }
@@ -164,8 +162,7 @@ public class FrbrFunctionLister {
     for (Map.Entry<FRBRFunction, FunctionValue> entry : other.entrySet()) {
       FRBRFunction function = entry.getKey();
       FunctionValue value = entry.getValue();
-      if (!histogram.containsKey(function))
-        histogram.put(function, new Counter<FunctionValue>());
+      histogram.computeIfAbsent(function, s -> new Counter<>());
       histogram.get(function).count(value);
     }
   }

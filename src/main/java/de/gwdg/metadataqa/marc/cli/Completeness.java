@@ -105,11 +105,8 @@ public class Completeness implements MarcFileProcessor, Serializable {
     // private Map<String, Map<String, Integer>>
 
     String documentType = marcRecord.getType().getValue();
-    if (!elementCardinality.containsKey(documentType))
-      elementCardinality.put(documentType, new TreeMap<>());
-
-    if (!elementFrequency.containsKey(documentType))
-      elementFrequency.put(documentType, new TreeMap<>());
+    elementCardinality.computeIfAbsent(documentType, s -> new TreeMap<>());
+    elementFrequency.computeIfAbsent(documentType, s -> new TreeMap<>());
 
     if (marcRecord.getControl003() != null)
       count(marcRecord.getControl003().getContent(), library003Counter);
@@ -168,15 +165,12 @@ public class Completeness implements MarcFileProcessor, Serializable {
       count(key, elementFrequency.get(documentType));
       count(key, elementFrequency.get("all"));
 
-      if (!fieldHistogram.containsKey(key))
-        fieldHistogram.put(key, new TreeMap<>());
-
+      fieldHistogram.computeIfAbsent(key, s -> new TreeMap<>());
       count(recordFrequency.get(key), fieldHistogram.get(key));
     }
 
     for (String key : recordPackageCounter.keySet()) {
-      if (!packageCounter.containsKey(documentType))
-        packageCounter.put(documentType, new TreeMap<>());
+      packageCounter.computeIfAbsent(documentType, s -> new TreeMap<>());
       count(key, packageCounter.get(documentType));
       count(key, packageCounter.get("all"));
     }
@@ -213,9 +207,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
   }
 
   private <T extends Object> void count(T key, Map<T, Integer> counter) {
-    if (!counter.containsKey(key)) {
-      counter.put(key, 0);
-    }
+    counter.computeIfAbsent(key, s -> 0);
     counter.put(key, counter.get(key) + 1);
   }
 

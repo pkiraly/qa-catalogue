@@ -460,11 +460,11 @@ public class Validator implements MarcFileProcessor, Serializable {
 
   private void updateErrorCollector(String recordId, int errorId) {
     if (!errorCollector.containsKey(errorId)) {
-      errorCollector.put(errorId, new HashSet<String>());
+      errorCollector.put(errorId, new HashSet<>());
     } else if (parameters.doEmptyLargeCollectors()) {
       if (errorCollector.get(errorId).size() >= 1000) {
         printCollectorEntry(errorId, errorCollector.get(errorId));
-        errorCollector.put(errorId, new HashSet<String>());
+        errorCollector.put(errorId, new HashSet<>());
       }
     }
     errorCollector.get(errorId).add(recordId);

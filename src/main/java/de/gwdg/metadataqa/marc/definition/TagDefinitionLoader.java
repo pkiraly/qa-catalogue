@@ -52,9 +52,7 @@ public class TagDefinitionLoader {
         String tag = dataFieldDefinition.getTag();
         commonCache.put(tag, dataFieldDefinition);
         MarcVersion version = getMarcVersion(definitionClazz);
-        if (!versionedCache.containsKey(tag)) {
-          versionedCache.put(tag, new HashMap<>());
-        }
+        versionedCache.computeIfAbsent(tag, s -> new HashMap<>());
         versionedCache.get(tag).put(version, dataFieldDefinition);
       }
     } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {

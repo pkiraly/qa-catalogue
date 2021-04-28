@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
 import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
 
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
@@ -13,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
@@ -24,7 +26,7 @@ public class AuthorithyAnalyzer {
   private static final Logger logger = Logger.getLogger(
     AuthorithyAnalyzer.class.getCanonicalName()
   );
-  private static Pattern NUMERIC = Pattern.compile("^\\d");
+  private static final Pattern NUMERIC = Pattern.compile("^\\d");
 
   private MarcRecord marcRecord;
   private AuthorityStatistics authoritiesStatistics;
@@ -36,21 +38,20 @@ public class AuthorithyAnalyzer {
   }
 
   public int process() {
-    Map<AuthorityCategory, Integer> categoryCounter = new HashMap<>();
-    int count = 0;
+    Map<AuthorityCategory, Integer> categoryCounter = new EnumMap<>(AuthorityCategory.class);
+    var count = 0;
     for (DataField field : marcRecord.getAuthorityFields()) {
-      SourceSpecificationType type = field.getDefinition().getSourceSpecificationType();
-      if (type == null) {
-
-      } else if (type.equals(SourceSpecificationType.Subfield2)) {
-        int fieldInstanceLevelCount = processFieldWithSubfield2(field);
-        count += fieldInstanceLevelCount;
-        add(AuthorityCategory.get(field.getTag()), categoryCounter, fieldInstanceLevelCount);
-      } else {
-        logger.severe("Unhandled type: " + type);
+      var type = field.getDefinition().getSourceSpecificationType();
+      if (type != null) {
+        if (type.equals(SourceSpecificationType.Subfield2)) {
+          int fieldInstanceLevelCount = processFieldWithSubfield2(field);
+          count += fieldInstanceLevelCount;
+          add(AuthorityCategory.get(field.getTag()), categoryCounter, fieldInstanceLevelCount);
+        } else {
+          logger.log(Level.SEVERE, "Unhandled type: {0}", type);
+        }
       }
     }
-    // logger.info(categoryCounter.toString());
     updateAuthorityCategoryStatitics(categoryCounter);
     return count;
   }
@@ -66,11 +67,9 @@ public class AuthorithyAnalyzer {
   }
 
   private int processFieldWithSubfield2(DataField field) {
-    int count = 0;
+    var count = 0;
     List<Schema> schemas = new ArrayList<>();
-    AuthorityCategory category = AuthorityCategory.get(field.getTag());
-
-    Schema currentSchema = extractFromSubfield0(field, schemas);
+    var currentSchema = extractFromSubfield0(field, schemas);
     if (currentSchema == null)
       currentSchema = extractSchemaFromSubfield2(field.getTag(), schemas, field);
     updateSchemaSubfieldStatistics(field, currentSchema);
@@ -98,8 +97,8 @@ public class AuthorithyAnalyzer {
         if (organizationCode != null) {
           if (organization == null)
             organization = organizationCode;
-           currentSchema = new Schema(field.getTag(), "$0", organization, organizationCode);
-           schemas.add(currentSchema);
+          currentSchema = new Schema(field.getTag(), "$0", organization, organizationCode);
+          schemas.add(currentSchema);
         }
       }
     }
@@ -129,12 +128,7 @@ public class AuthorithyAnalyzer {
       return;
     List<String> subfields = orderSubfields(field.getSubfields());
 
-    if (!authoritiesStatistics.getSubfields().containsKey(currentSchema)) {
-      authoritiesStatistics.getSubfields().put(
-        currentSchema, new HashMap<List<String>, Integer>()
-      );
-    }
-    // count(subfields, authoritiesStatistics.getSubfields());
+    authoritiesStatistics.getSubfields().computeIfAbsent(currentSchema, s -> new HashMap<>());
     Map<List<String>, Integer> subfieldsStatistics = authoritiesStatistics.getSubfields().get(currentSchema);
     if (!subfieldsStatistics.containsKey(subfields)) {
       subfieldsStatistics.put(subfields, 1);
@@ -187,9 +181,8 @@ public class AuthorithyAnalyzer {
   }
 
   private List<Schema> deduplicateSchema(List<Schema> schemas) {
-    Set<Schema> set = new HashSet<Schema>(schemas);
-    List<Schema> deduplicated = new ArrayList<Schema>();
-    deduplicated.addAll(new HashSet<Schema>(schemas));
+    List<Schema> deduplicated = new ArrayList<>();
+    deduplicated.addAll(new HashSet<>(schemas));
     return deduplicated;
   }
 }

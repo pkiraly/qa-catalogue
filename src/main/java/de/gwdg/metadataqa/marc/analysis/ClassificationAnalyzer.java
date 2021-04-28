@@ -26,9 +26,9 @@ public class ClassificationAnalyzer {
   private static final Logger logger = Logger.getLogger(
     ClassificationAnalyzer.class.getCanonicalName()
   );
-  private static ClassificationSchemes classificationSchemes =
+  private static final ClassificationSchemes classificationSchemes =
     ClassificationSchemes.getInstance();
-  private static Pattern NUMERIC = Pattern.compile("^\\d");
+  private static final Pattern NUMERIC = Pattern.compile("^\\d");
 
   private final ClassificationStatistics statistics;
   private MarcRecord marcRecord;

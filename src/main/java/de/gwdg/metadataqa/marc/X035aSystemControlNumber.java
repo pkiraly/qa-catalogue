@@ -1,7 +1,6 @@
 package de.gwdg.metadataqa.marc;
 
 import java.io.Serializable;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -23,7 +22,7 @@ public class X035aSystemControlNumber implements Serializable {
   }
 
   private void parse035a(String original) {
-    Matcher matcher = PATTERN.matcher(original);
+    var matcher = PATTERN.matcher(original);
     if (matcher.find()) {
       this.code = matcher.group(1);
       this.number = matcher.group(2);

@@ -420,9 +420,7 @@ public class ClassificationAnalyzer {
       for (String[] scheme : schemes) {
         if (!fieldStatistics.containsKey(scheme)) {
           fieldStatistics.put(scheme, 0);
-          if (!statistics.getFieldInRecords().containsKey(scheme)) {
-            statistics.getFieldInRecords().put(scheme, 0);
-          }
+          statistics.getFieldInRecords().computeIfAbsent(scheme, s -> 0);
           statistics.getFieldInRecords().put(
             scheme,
             statistics.getFieldInRecords().get(scheme) + 1
@@ -434,9 +432,7 @@ public class ClassificationAnalyzer {
   }
 
   private Map<String[], Integer> getFieldInstanceStatistics(String field) {
-    if (!statistics.getFieldInstances().containsKey(field)) {
-      statistics.getFieldInstances().put(field, new HashMap<String[], Integer>());
-    }
+    statistics.getFieldInstances().computeIfAbsent(field, s -> new HashMap<>());
     return statistics.getFieldInstances().get(field);
   }
 

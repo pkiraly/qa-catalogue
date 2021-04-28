@@ -11,7 +11,6 @@ import de.gwdg.metadataqa.api.model.EdmFieldInstance;
 import de.gwdg.metadataqa.api.schema.MarcJsonSchema;
 import de.gwdg.metadataqa.api.schema.Schema;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 /**
  *
@@ -26,14 +25,13 @@ public class MarcJsonCalculatorFacade extends CalculatorFacade {
 
     private final String name;
 
-    private Formats(String name) {
+    Formats(String name) {
       this.name = name;
     }
   }
 
   private MarcJsonSchema marcJsonSchema = new MarcJsonSchema();
-  protected FieldExtractor fieldExtractor;
-  protected Formats format = Formats.OAI_PMH_XML;
+  protected FieldExtractor marcFieldExtractor;
 
   public MarcJsonCalculatorFacade() {}
 
@@ -45,21 +43,12 @@ public class MarcJsonCalculatorFacade extends CalculatorFacade {
       enableProblemCatalogMeasurement);
   }
 
-  public MarcJsonCalculatorFacade(boolean enableFieldExistenceMeasurement, 
-      boolean enableFieldCardinalityMeasurement,
-      boolean enableCompletenessMeasurement, boolean enableTfIdfMeasurement, 
-      boolean enableProblemCatalogMeasurement, 
-      boolean abbreviate) {
-    super(enableFieldExistenceMeasurement, enableFieldCardinalityMeasurement, enableCompletenessMeasurement, enableTfIdfMeasurement, enableProblemCatalogMeasurement);
-    conditionalConfiguration();
-  }
-
   @Override
   public void configure() {
 
     calculators = new ArrayList<>();
-    fieldExtractor = new FieldExtractor(marcJsonSchema);
-    calculators.add(fieldExtractor);
+    marcFieldExtractor = new FieldExtractor(marcJsonSchema);
+    calculators.add(marcFieldExtractor);
 
     if (completenessMeasurementEnabled 
         || fieldExistenceMeasurementEnabled 
@@ -107,14 +96,7 @@ public class MarcJsonCalculatorFacade extends CalculatorFacade {
     return this.<EdmFieldInstance>measureWithGenerics(jsonRecord);
   }
 
-  public Formats getFormat() {
-    return format;
-  }
-
-  public void setFormat(Formats format) {
-    this.format = format;
-  }
-
+  @Override
   public Schema getSchema() {
     return marcJsonSchema;
   }

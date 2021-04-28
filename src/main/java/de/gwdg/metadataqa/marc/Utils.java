@@ -62,7 +62,7 @@ public class Utils {
   }
 
   public static MarcVersion package2version(String packageName) {
-    MarcVersion version = MarcVersion.MARC21;
+    var version = MarcVersion.MARC21;
     switch (packageName) {
       case "bltags":      version = MarcVersion.BL;      break;
       case "dnbtags":     version = MarcVersion.DNB;     break;
@@ -103,9 +103,7 @@ public class Utils {
   }
 
   public static <T extends Object> void add(T key, Map<T, Integer> counter, int i) {
-    if (!counter.containsKey(key)) {
-      counter.put(key, 0);
-    }
+    counter.computeIfAbsent(key, s -> 0);
     counter.put(key, counter.get(key) + i);
   }
 
@@ -115,8 +113,8 @@ public class Utils {
 
   public static <T extends Object> List<String> counterToList(char separator, Map<T, Integer> counter) {
     List<String> items = new ArrayList<>();
-    for (T entry : counter.keySet()) {
-      items.add(String.format("%s%s%d", entry.toString(), separator, counter.get(entry)));
+    for (Map.Entry<T, Integer> entry : counter.entrySet()) {
+      items.add(String.format("%s%s%d", entry.getKey().toString(), separator, entry.getValue()));
     }
     return items;
   }
@@ -128,7 +126,7 @@ public class Utils {
   }
 
   public static String createRow(Object... fields) {
-    char separator = ',';
+    var separator = ',';
     if (fields[0].getClass() == Character.class) {
       separator = (char) fields[0];
       fields = Arrays.copyOfRange(fields, 1, fields.length);
@@ -144,22 +142,22 @@ public class Utils {
     }
   }
 
-  public static String base36_encode(String _id) {
-    return Integer.toString(parseId(_id), Character.MAX_RADIX);
+  public static String base36Encode(String id) {
+    return Integer.toString(parseId(id), Character.MAX_RADIX);
   }
 
-  public static int parseId(String _id) {
-    return (_id.contains("+"))
-        ? Utils.scientificNotationToInt(_id)
-        : Integer.parseInt(_id);
+  public static int parseId(String id) {
+    return (id.contains("+"))
+        ? Utils.scientificNotationToInt(id)
+        : Integer.parseInt(id);
   }
 
-  public static String base36_encode(int i) {
+  public static String base36Encode(int i) {
     return Integer.toString(i, Character.MAX_RADIX);
   }
 
   public static int scientificNotationToInt(String scientificNotation) {
-    BigDecimal value = new BigDecimal(scientificNotation);
+    var value = new BigDecimal(scientificNotation);
     return value.toBigInteger().intValue();
   }
 

@@ -151,7 +151,7 @@ public class PairGenerator {
     Object[] encoded;
     encoded = new String[ids.length];
     for (int i = 0; i < ids.length; i++) {
-      encoded[i] = Utils.base36_encode(ids[i]);
+      encoded[i] = Utils.base36Encode(ids[i]);
     }
     return encoded;
   }

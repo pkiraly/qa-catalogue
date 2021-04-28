@@ -63,7 +63,7 @@ public class TagDefinitionLoader {
   }
 
   private static MarcVersion getMarcVersion(Class<? extends DataFieldDefinition> definitionClazz) {
-    MarcVersion version = MarcVersion.MARC21;
+    var version = MarcVersion.MARC21;
     if (definitionClazz.getCanonicalName().contains(".oclctags.")) {
       version = MarcVersion.OCLC;
     } else if (definitionClazz.getCanonicalName().contains(".dnbtags.")) {

@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 public class Control007 extends MarcPositionalControlField implements Serializable {
 
   private static final Logger logger = Logger.getLogger(Control007.class.getCanonicalName());
-  private final static String URL = "https://www.loc.gov/marc/bibliographic/bd007.html";
+  private static final String URL = "https://www.loc.gov/marc/bibliographic/bd007.html";
 
   private String categoryOfMaterial;
   private Control007Category category = Control007Category.TEXT;

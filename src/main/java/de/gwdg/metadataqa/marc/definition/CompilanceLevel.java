@@ -13,7 +13,7 @@ public enum CompilanceLevel {
   private String abbreviation = null;
   static Map<String, CompilanceLevel> abbreviations = new HashMap<>();
 
-  private CompilanceLevel(String label, String abbreviation) {
+  CompilanceLevel(String label, String abbreviation) {
     this.label = label;
     this.abbreviation = abbreviation;
   }

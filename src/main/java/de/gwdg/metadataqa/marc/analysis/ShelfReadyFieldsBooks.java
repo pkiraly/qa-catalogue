@@ -75,8 +75,8 @@ public enum ShelfReadyFieldsBooks {
 
   private void processMarcPath() {
     String[] marcPaths = this.marcPath.split(",");
-    for (String marcPath : marcPaths)
-      selectors.add(new MarcSpec(marcPath));
+    for (String path : marcPaths)
+      selectors.add(new MarcSpec(path));
   }
 
   public String getMarcPath() {

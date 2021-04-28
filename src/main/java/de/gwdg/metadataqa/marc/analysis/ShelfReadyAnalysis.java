@@ -9,6 +9,10 @@ import java.util.List;
 
 public class ShelfReadyAnalysis {
 
+  private ShelfReadyAnalysis() {
+    throw new IllegalStateException("This is a utility class");
+  }
+
   private static List<String> headers = new LinkedList<>();
   static {
     for (ShelfReadyFieldsBooks field : ShelfReadyFieldsBooks.values()) {
@@ -19,13 +23,13 @@ public class ShelfReadyAnalysis {
   public static List<Double> getScores(MarcRecord marcRecord) {
     List<Double> scores = new ArrayList<>();
 
-    double total = 0.0;
+    var total = 0.0;
     for (ShelfReadyFieldsBooks fieldEntry : ShelfReadyFieldsBooks.values()) {
-      double score = 0.0;
+      var score = 0.0;
       double count = (double) fieldEntry.getSelectors().size();
       for (MarcSpec selector : fieldEntry.getSelectors()) {
         List<String> values = marcRecord.select(selector);
-        if (values.size() > 0) {
+        if (!values.isEmpty()) {
           score += 1.0;
           if (fieldEntry.isOneOf())
             break;

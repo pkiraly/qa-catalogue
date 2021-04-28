@@ -237,13 +237,7 @@ public class Serial {
     if (subjects.isEmpty()) {
       scores.set(SerialFields.HasNoSubject, -5);
     } else {
-      var subjectCount = 0;
-      for (DataField subject : subjects) {
-        // if (subject.getInd2().equals("0") && subject.getSubfield("a") != null) {
-        subjectCount++;
-        // }
-      }
-      scores.set(SerialFields.HasSubject, subjectCount);
+      scores.set(SerialFields.HasSubject, subjects.size());
     }
 
     // Any PCC record should automatically be kept unless it is not online and/or a ceased title

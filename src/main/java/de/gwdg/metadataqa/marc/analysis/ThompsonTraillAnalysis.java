@@ -32,6 +32,10 @@ public class ThompsonTraillAnalysis {
     }
   }
 
+  private ThompsonTraillAnalysis() {
+    throw new IllegalStateException("This is a utility class");
+  }
+
   public static List<String> getHeader() {
     return headers;
   }
@@ -40,27 +44,27 @@ public class ThompsonTraillAnalysis {
     ThompsonTraillScores ttScores = new ThompsonTraillScores();
 
     ttScores.set(ThompsonTraillFields.ISBN, countFields(marcRecord, Arrays.asList("020")));
-    ttScores.set(ThompsonTraillFields.Authors, countFields(marcRecord, Arrays.asList("100", "110", "111")));
-    ttScores.set(ThompsonTraillFields.AlternativeTitles, countFields(marcRecord, Arrays.asList("246")));
-    ttScores.set(ThompsonTraillFields.Edition, countFields(marcRecord, Arrays.asList("250")));
-    ttScores.set(ThompsonTraillFields.Contributors,
+    ttScores.set(ThompsonTraillFields.AUTHORS, countFields(marcRecord, Arrays.asList("100", "110", "111")));
+    ttScores.set(ThompsonTraillFields.ALTERNATIVE_TITLES, countFields(marcRecord, Arrays.asList("246")));
+    ttScores.set(ThompsonTraillFields.EDITION, countFields(marcRecord, Arrays.asList("250")));
+    ttScores.set(ThompsonTraillFields.CONTRIBUTORS,
       countFields(marcRecord, Arrays.asList("700", "710", "711", "720")));
-    ttScores.set(ThompsonTraillFields.Series,
+    ttScores.set(ThompsonTraillFields.SERIES,
       countFields(marcRecord, Arrays.asList("440", "490", "800", "810", "830")));
     ttScores.set(ThompsonTraillFields.TOC, calculateTocAndAbstract(marcRecord));
 
     Control008 control008 = marcRecord.getControl008();
     String date008 = extractDate008(control008);
-    ttScores.set(ThompsonTraillFields.Date008, calculateDate008(date008));
-    ttScores.set(ThompsonTraillFields.Date26X, calculateDate26x(marcRecord, date008));
+    ttScores.set(ThompsonTraillFields.DATE_008, calculateDate008(date008));
+    ttScores.set(ThompsonTraillFields.DATE_26X, calculateDate26x(marcRecord, date008));
 
-    ttScores.set(ThompsonTraillFields.LcNlm, calculateClassificationLcNlm(marcRecord));
+    ttScores.set(ThompsonTraillFields.LC_NLM, calculateClassificationLcNlm(marcRecord));
 
     calculateClassifications(marcRecord, ttScores);
 
-    ttScores.set(ThompsonTraillFields.Online, calculateIsOnlineResource(marcRecord, control008));
-    ttScores.set(ThompsonTraillFields.LanguageOfResource, calculateLanguageOfResource(control008));
-    ttScores.set(ThompsonTraillFields.CountryOfPublication, calculateCountryOfPublication(control008));
+    ttScores.set(ThompsonTraillFields.ONLINE, calculateIsOnlineResource(marcRecord, control008));
+    ttScores.set(ThompsonTraillFields.LANGUAGE_OF_RESOURCE, calculateLanguageOfResource(control008));
+    ttScores.set(ThompsonTraillFields.COUNTRY_OF_PUBLICATION, calculateCountryOfPublication(control008));
     calculateLanguageAndRda(marcRecord, ttScores);
 
     ttScores.calculateTotal();
@@ -91,7 +95,7 @@ public class ThompsonTraillAnalysis {
               isRDA = true;
       }
     }
-    ttScores.set(ThompsonTraillFields.LanguageOfCataloging, (noLanguageOrEnglish ? 1 : 0));
+    ttScores.set(ThompsonTraillFields.LANGUAGE_OF_CATALOGING, (noLanguageOrEnglish ? 1 : 0));
     ttScores.set(ThompsonTraillFields.RDA, (isRDA ? 1 : 0));
   }
 
@@ -185,9 +189,9 @@ public class ThompsonTraillAnalysis {
         List<DataField> fields = marcRecord.getDatafield(tag);
         for (DataField field : fields) {
           if (field.getInd2().equals("0"))
-            ttScores.count(ThompsonTraillFields.LcNlm);
+            ttScores.count(ThompsonTraillFields.LC_NLM);
           else if (field.getInd2().equals("2"))
-            ttScores.count(ThompsonTraillFields.Mesh);
+            ttScores.count(ThompsonTraillFields.MESH);
           else if (field.getInd2().equals("7")) {
             List<MarcSubfield> subfield2 = field.getSubfield("2");
             if (subfield2 == null) {
@@ -196,13 +200,13 @@ public class ThompsonTraillAnalysis {
                 marcRecord.getControl001().getContent()));
             } else
               switch (field.getSubfield("2").get(0).getValue()) {
-                case "fast": ttScores.count(ThompsonTraillFields.Fast); break;
+                case "fast": ttScores.count(ThompsonTraillFields.FAST); break;
                 case "gnd": ttScores.count(ThompsonTraillFields.GND); break;
-                default: ttScores.count(ThompsonTraillFields.Other); break;
+                default: ttScores.count(ThompsonTraillFields.OTHER); break;
               }
           }
           else {
-            ttScores.count(ThompsonTraillFields.Other);
+            ttScores.count(ThompsonTraillFields.OTHER);
           }
         }
       }

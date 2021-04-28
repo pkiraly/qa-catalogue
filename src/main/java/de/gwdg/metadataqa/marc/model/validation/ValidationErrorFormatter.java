@@ -94,13 +94,11 @@ public class ValidationErrorFormatter {
     String message = "";
     switch (format) {
       case TAB_SEPARATED:
-        message = createCvsRow(headerForSummary(), '\t');
-        break;
+        message = createCvsRow(headerForSummary(), '\t'); break;
       case COMMA_SEPARATED:
       case TEXT:
-        message = createCvsRow(headerForSummary(), ',');
-      default:
-        break;
+        message = createCvsRow(headerForSummary(), ','); break;
+      default: break;
     }
     return message;
   }
@@ -109,13 +107,11 @@ public class ValidationErrorFormatter {
     String message = "";
     switch (format) {
       case TAB_SEPARATED:
-        message = createCvsRow(headerForDetails(), '\t');
-        break;
+        message = createCvsRow(headerForDetails(), '\t'); break;
       case COMMA_SEPARATED:
       case TEXT:
-        message = createCvsRow(headerForDetails(), ',');
-      default:
-        break;
+        message = createCvsRow(headerForDetails(), ','); break;
+      default: break;
     }
     return message;
   }
@@ -124,11 +120,10 @@ public class ValidationErrorFormatter {
     String message = "";
     switch (format) {
       case TAB_SEPARATED:
-        message = createCvsRow(headerForCollector(), '\t');
-        break;
+        message = createCvsRow(headerForCollector(), '\t'); break;
       case COMMA_SEPARATED:
       case TEXT:
-        message = createCvsRow(headerForCollector(), ',');
+        message = createCvsRow(headerForCollector(), ','); break;
       default:
         break;
     }
@@ -138,16 +133,10 @@ public class ValidationErrorFormatter {
   public static String formatForSummary(ValidationError error, ValidationErrorFormat format) {
     String message = "";
     switch (format) {
-      case TAB_SEPARATED:
-        message = createCvsRow(asArrayWithoutId(error), '\t');
-        break;
-      case COMMA_SEPARATED:
-        message = createCvsRow(asArrayWithoutId(error), ',');
-        break;
-      case TEXT:
-        message = formatTextWithoutId(error);
-      default:
-        break;
+      case TAB_SEPARATED:   message = createCvsRow(asArrayWithoutId(error), '\t'); break;
+      case COMMA_SEPARATED: message = createCvsRow(asArrayWithoutId(error), ','); break;
+      case TEXT:            message = formatTextWithoutId(error); break;
+      default: break;
     }
     return message;
   }

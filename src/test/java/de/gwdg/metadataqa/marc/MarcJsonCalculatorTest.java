@@ -25,31 +25,13 @@ import static org.junit.Assert.*;
  */
 public class MarcJsonCalculatorTest {
   
-  public MarcJsonCalculatorTest() {
-  }
-  
-  @BeforeClass
-  public static void setUpClass() {
-  }
-  
-  @AfterClass
-  public static void tearDownClass() {
-  }
-  
-  @Before
-  public void setUp() {
-  }
-  
-  @After
-  public void tearDown() {
-  }
-
   @Test
   public void testReader() throws URISyntaxException, IOException {
-    MarcStructureDefinitionReader reader =
-        new MarcStructureDefinitionReader("general/marc-structure.txt");
+    var reader = new MarcStructureDefinitionReader("general/marc-structure.txt");
     List<MarcField> fields = reader.getFields();
+    assertEquals(238, fields.size());
     Map<String, SubfieldDefinition> subfields = reader.getQualifiedSubfields();
+    assertEquals(2670, subfields.size());
   }
 
   // @Test

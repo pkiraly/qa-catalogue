@@ -59,7 +59,8 @@ public class PicaReader implements MarcReader {
         if (marc4jRecord.getLeader() == null) {
           logger.severe(String.format(
             "Record #%s #%s does not have a leader\n",
-            marc4jRecord.getControlNumberField().getData()
+            marc4jRecord.getControlNumberField().getData(),
+            lineNumber
           ));
         } else {
           finished = true;

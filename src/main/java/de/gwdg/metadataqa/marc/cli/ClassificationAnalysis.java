@@ -85,8 +85,8 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
     ClassificationAnalyzer analyzer = new ClassificationAnalyzer(marcRecord, statistics);
     analyzer.process();
-    int total1 = statistics.getHasClassifications().get(true);
-    int total = statistics.recordCountWithClassification();
+    var total1 = statistics.getHasClassifications().get(true);
+    var total = statistics.recordCountWithClassification();
     if (total1 != total) {
       logger.severe(String.format("%s COUNT: total (%d) != schemasInRecord (%d)",
           marcRecord.getId(true), total1, total));
@@ -160,8 +160,8 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     path = Paths.get(parameters.getOutputDir(), "classifications-collocations.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write(Collocation.header());
-      int total1 = statistics.getHasClassifications().get(true);
-      int total = statistics.recordCountWithClassification();
+      var total1 = statistics.getHasClassifications().get(true);
+      var total = statistics.recordCountWithClassification();
       logger.info("total: " + total);
       if (total1 != total)
         logger.severe(String.format("total from hasClassifications (%d) != from collation (%d)",

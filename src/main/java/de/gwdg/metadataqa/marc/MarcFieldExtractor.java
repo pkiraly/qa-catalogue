@@ -243,7 +243,7 @@ public class MarcFieldExtractor implements Calculator, Serializable {
     while (st.hasMoreTokens())
       tokens.add(st.nextToken());
 
-    int max = Math.min(length, tokens.size());
+    var max = Math.min(length, tokens.size());
     return tokens.subList(0, max);
   }
 

@@ -35,7 +35,7 @@ public class Counter<T> {
   }
 
   public int total() {
-    int total = 0;
+    var total = 0;
     for (int value : counter.values())
       total += value;
     return total;

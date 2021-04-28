@@ -133,9 +133,9 @@ public class ISBNValidator implements SubfieldValidator, Serializable {
     }
 
     try {
-      int total = 0;
+      var total = 0;
       for (int i = 0; i < 9; i++) {
-        int digit = Integer.parseInt(isbn.substring(i, i + 1));
+        var digit = Integer.parseInt(isbn.substring(i, i + 1));
         total += ((10 - i) * digit);
       }
 
@@ -165,14 +165,14 @@ public class ISBNValidator implements SubfieldValidator, Serializable {
     }
 
     try {
-      int total = 0;
+      var total = 0;
       for (int i = 0; i < 12; i++) {
-        int digit = Integer.parseInt(isbn.substring(i, i + 1));
+        var digit = Integer.parseInt(isbn.substring(i, i + 1));
         total += (i % 2 == 0) ? digit * 1 : digit * 3;
       }
 
       //checksum must be 0-9. If calculated as 10 then = 0
-      int checksum = 10 - (total % 10);
+      var checksum = 10 - (total % 10);
       if (checksum == 10) {
         checksum = 0;
       }

@@ -97,18 +97,17 @@ public class ThompsonTraillAnalysis {
 
   // LC/NLM Classification  050, 060, 090  1 point if any field exists
   private static int calculateClassificationLcNlm(MarcRecord marcRecord) {
-    int score = (
+    return (
       exists(marcRecord, "050") ||
       exists(marcRecord, "060") ||
       exists(marcRecord, "090")) ? 1 : 0;
-    return score;
   }
 
   // Date (MARC 26X)
   //   260$c or 264$c
   //   1 point if 4-digit date exists; 1 point if matches 008 date.
   private static int calculateDate26x(MarcRecord marcRecord, String date008) {
-    int score = 0;
+    var score = 0;
     if (exists(marcRecord, "260")) {
       List<DataField> fields = marcRecord.getDatafield("260");
       for (DataField field : fields) {
@@ -154,14 +153,13 @@ public class ThompsonTraillAnalysis {
 
   private static int calculateDate008(String date008) {
     // Date (MARC 008)  008/7-10  1 point if valid coded date exists
-    int score = datePattern.matcher(date008).matches() ? 1 : 0;
-    return score;
+    return datePattern.matcher(date008).matches() ? 1 : 0;
   }
 
   // Table of Contents and Abstract
   // 505, 520  2 points if both fields exist; 1 point if either field exists
   private static int calculateTocAndAbstract(MarcRecord marcRecord) {
-    int score = 0;
+    var score = 0;
     score += exists(marcRecord, "505") ? 1 : 0;
     score += exists(marcRecord, "520") ? 1 : 0;
     return score;
@@ -212,8 +210,8 @@ public class ThompsonTraillAnalysis {
   }
 
   private static int calculateIsOnlineResource(MarcRecord marcRecord, Control008 control008) {
-    int score008 = calculateIsOnlineFrom008(marcRecord, control008);
-    int score300a = calculateIsOnlineFrom300a(marcRecord);
+    var score008 = calculateIsOnlineFrom008(marcRecord, control008);
+    var score300a = calculateIsOnlineFrom300a(marcRecord);
     return score008 + score300a;
   }
 
@@ -229,8 +227,7 @@ public class ThompsonTraillAnalysis {
               isOnlineResource = true;
       }
     }
-    int score = isOnlineResource ? 1 : 0;
-    return score;
+    return isOnlineResource ? 1 : 0;
   }
 
   private static int calculateIsOnlineFrom008(MarcRecord marcRecord, Control008 control008) {
@@ -268,8 +265,7 @@ public class ThompsonTraillAnalysis {
           break;
       }
     }
-    int score = (formOfItem != null && formOfItem.equals("o")) ? 1 : 0;
-    return score;
+    return (formOfItem != null && formOfItem.equals("o")) ? 1 : 0;
   }
 
   // Language of Resource  008/35-37  1 point if likely language code exists
@@ -293,7 +289,7 @@ public class ThompsonTraillAnalysis {
   }
 
   private static Integer getTotal(List<Integer> scores) {
-    int total = 0;
+    var total = 0;
     for (Integer score : scores) {
       total += score;
     }
@@ -306,7 +302,7 @@ public class ThompsonTraillAnalysis {
   }
 
   private static int countFields(MarcRecord marcRecord, List<String> tags) {
-    int counter = 0;
+    var counter = 0;
     for (String tag : tags) {
       if (exists(marcRecord, tag))
         counter += marcRecord.getDatafield(tag).size();

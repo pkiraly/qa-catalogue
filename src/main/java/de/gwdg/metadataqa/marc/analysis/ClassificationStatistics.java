@@ -57,7 +57,7 @@ public class ClassificationStatistics {
     return collocationHistogram
       .entrySet()
       .stream()
-      .map(e -> e.getValue())
+      .map(Map.Entry::getValue)
       .reduce((a, b) -> a + b)
       .get();
   }

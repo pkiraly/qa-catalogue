@@ -17,7 +17,6 @@ import java.util.List;
 public class Serial {
   private MarcRecord marcRecord;
   private SerialScores scores;
-  private Control008 control008;
 
   private static List<String> headers = new LinkedList<>();
   static {
@@ -37,7 +36,7 @@ public class Serial {
 
   @Override
   public int hashCode() {
-    final int prime = 31;
+    final var prime = 31;
     int result = super.hashCode();
 
     // datesOfPublication
@@ -138,7 +137,7 @@ public class Serial {
   }
 
   public List<Integer> determineRecordQualityScore() {
-    control008 = marcRecord.getControl008();
+    var control008 = marcRecord.getControl008();
 
     // Date 1 is totally unknown
     if (control008 != null
@@ -238,7 +237,7 @@ public class Serial {
     if (subjects.isEmpty()) {
       scores.set(SerialFields.HasNoSubject, -5);
     } else {
-      int subjectCount = 0;
+      var subjectCount = 0;
       for (DataField subject : subjects) {
         // if (subject.getInd2().equals("0") && subject.getSubfield("a") != null) {
         subjectCount++;

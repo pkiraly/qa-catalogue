@@ -44,7 +44,7 @@ public class AuthorithyAnalyzer {
       var type = field.getDefinition().getSourceSpecificationType();
       if (type != null) {
         if (type.equals(SourceSpecificationType.Subfield2)) {
-          int fieldInstanceLevelCount = processFieldWithSubfield2(field);
+          var fieldInstanceLevelCount = processFieldWithSubfield2(field);
           count += fieldInstanceLevelCount;
           add(AuthorityCategory.get(field.getTag()), categoryCounter, fieldInstanceLevelCount);
         } else {

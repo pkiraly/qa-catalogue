@@ -35,7 +35,7 @@ public class MarcJsonToSolr {
     String url = args[0];
 
     String relativeFileName = args[1];
-    Path path = Paths.get(relativeFileName);
+    var path = Paths.get(relativeFileName);
     String fileName = path.getFileName().toString();
 
     boolean doCommits = true;

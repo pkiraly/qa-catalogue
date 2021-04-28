@@ -244,8 +244,8 @@ public class Completeness implements MarcFileProcessor, Serializable {
   }
 
   private void saveLibraries003(String fileExtension, char separator) {
-    System.err.println("Libraries003");
-    Path path = Paths.get(parameters.getOutputDir(), "libraries003" + fileExtension);
+    logger.info("Saving Libraries003 file");
+    var path = Paths.get(parameters.getOutputDir(), "libraries003" + fileExtension);
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write("library" + separator + "count\n");
       library003Counter
@@ -299,7 +299,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
 
   private void savePackages(String fileExtension, char separator) {
     logger.info("saving Packages...");
-    Path path = Paths.get(parameters.getOutputDir(), "packages" + fileExtension);
+    var path = Paths.get(parameters.getOutputDir(), "packages" + fileExtension);
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write(createRow(separator, "documenttype", "packageid", "name", "label", "iscoretag", "count"));
       packageCounter
@@ -334,7 +334,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
 
   private void saveLibraries(String fileExtension, char separator) {
     logger.info("Saving Libraries");
-    Path path = Paths.get(parameters.getOutputDir(), "libraries" + fileExtension);
+    var path = Paths.get(parameters.getOutputDir(), "libraries" + fileExtension);
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write("library" + separator + "count\n");
       libraryCounter

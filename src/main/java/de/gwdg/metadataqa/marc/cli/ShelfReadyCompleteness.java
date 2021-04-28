@@ -164,7 +164,7 @@ public class ShelfReadyCompleteness implements MarcFileProcessor, Serializable {
   }
 
   private void printFields() {
-    Path path = Paths.get(parameters.getOutputDir(), "shelf-ready-completeness-fields.csv");
+    var path = Paths.get(parameters.getOutputDir(), "shelf-ready-completeness-fields.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("name", "label", "marcpath", "score"));
       for (ShelfReadyFieldsBooks field : ShelfReadyFieldsBooks.values()) {

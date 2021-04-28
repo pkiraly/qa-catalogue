@@ -36,7 +36,7 @@ public class MongoImporter {
     String host = args[0];
     int port = Integer.parseInt(args[1]);
     String relativeFileName = args[2];
-    Path path = Paths.get(relativeFileName);
+    var path = Paths.get(relativeFileName);
     String fileName = path.getFileName().toString();
 
     MarcMongodbClient client;

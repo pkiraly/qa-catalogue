@@ -119,7 +119,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
   }
 
   private void printAuthoritiesByCategories() {
-    Path path = Paths.get(parameters.getOutputDir(), "authorities-by-categories.csv");
+    var path = Paths.get(parameters.getOutputDir(), "authorities-by-categories.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("category", "recordcount", "instancecount"));
       statistics.getRecordsPerCategories()
@@ -148,7 +148,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
   }
 
   private void printAuthoritiesBySchema() {
-    Path path = Paths.get(parameters.getOutputDir(), "authorities-by-schema.csv");
+    var path = Paths.get(parameters.getOutputDir(), "authorities-by-schema.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("id", "field", "location", "scheme", "abbreviation", "abbreviation4solr", "recordcount", "instancecount"));
       statistics.getInstances()
@@ -221,7 +221,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
   }
 
   private void printAuthoritiesHistogram() {
-    Path path = Paths.get(parameters.getOutputDir(), "authorities-histogram.csv");
+    var path = Paths.get(parameters.getOutputDir(), "authorities-histogram.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("count", "frequency"));
       histogram
@@ -245,7 +245,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
   }
 
   private void printFrequencyExamples() {
-    Path path = Paths.get(parameters.getOutputDir(), "authorities-frequency-examples.csv");
+    var path = Paths.get(parameters.getOutputDir(), "authorities-frequency-examples.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("count", "id"));
       frequencyExamples
@@ -269,7 +269,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
   }
 
   private void printAuthoritiesSubfieldsStatistics() {
-    Path path = Paths.get(parameters.getOutputDir(), "authorities-by-schema-subfields.csv");
+    var path = Paths.get(parameters.getOutputDir(), "authorities-by-schema-subfields.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       // final List<String> header = Arrays.asList("field", "location", "label", "abbreviation", "subfields", "scount");
       final List<String> header = Arrays.asList("id", "subfields", "count");

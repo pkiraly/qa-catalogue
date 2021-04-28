@@ -161,17 +161,17 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
 
   @Override
   public void beforeIteration() {
-
+    // do nothing
   }
 
   @Override
   public void fileOpened(Path path) {
-
+    // do nothing
   }
 
   @Override
   public void fileProcessed() {
-
+    // do nothing
   }
 
   @Override
@@ -194,7 +194,7 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
   private void saveMapping(String fileExtension,
                            char separator) {
     Map<FRBRFunction, List<String>> functions = frbrFunctionLister.getMarcPathByfunction();
-    Path path = Paths.get(parameters.getOutputDir(), "functional-analysis-mapping" + fileExtension);
+    var path = Paths.get(parameters.getOutputDir(), "functional-analysis-mapping" + fileExtension);
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write("frbrfunction" + separator + "count" + separator + "fields\n");
       for (FRBRFunction function : FRBRFunction.values()) {
@@ -216,7 +216,7 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
                              String fileExtension,
                              char separator) {
     logger.info("Functional analysis histogram");
-    Path path = Paths.get(
+    var path = Paths.get(
       parameters.getOutputDir(),
       "functional-analysis-histogram" + fileExtension
     );
@@ -250,8 +250,8 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
                           String fileExtension,
                           char separator) {
 
-    System.err.println("Functional analysis");
-    Path path = Paths.get(parameters.getOutputDir(), "functional-analysis" + fileExtension);
+    logger.info("Saving functional analysis");
+    var path = Paths.get(parameters.getOutputDir(), "functional-analysis" + fileExtension);
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write("frbr-function" + separator + "avgcount" + separator + "avgscore\n");
       result

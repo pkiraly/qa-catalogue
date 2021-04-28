@@ -345,7 +345,7 @@ public class Validator implements MarcFileProcessor, Serializable {
   }
 
   private void printTypeCounts() {
-    Path path = Paths.get(parameters.getOutputDir(), "issue-by-type.csv");
+    var path = Paths.get(parameters.getOutputDir(), "issue-by-type.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("id", "categoryId", "category", "type", "instances", "records"));
       typeRecordCounter
@@ -370,7 +370,7 @@ public class Validator implements MarcFileProcessor, Serializable {
   }
 
   private void printTotalCounts() {
-    Path path = Paths.get(parameters.getOutputDir(), "issue-total.csv");
+    var path = Paths.get(parameters.getOutputDir(), "issue-total.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("type", "instances", "records"));
       // writer.write(createRow("total", totalInstanceCounter.get(1), totalRecordCounter.get(1)));
@@ -392,7 +392,7 @@ public class Validator implements MarcFileProcessor, Serializable {
   }
 
   private void printCategoryCounts() {
-    Path path = Paths.get(parameters.getOutputDir(), "issue-by-category.csv");
+    var path = Paths.get(parameters.getOutputDir(), "issue-by-category.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("id", "category", "instances", "records"));
       categoryRecordCounter

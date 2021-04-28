@@ -267,7 +267,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   }
 
   private void printClassificationsHistogram() {
-    Path path = Paths.get(parameters.getOutputDir(), "classifications-histogram.csv");
+    var path = Paths.get(parameters.getOutputDir(), "classifications-histogram.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("count", "frequency"));
       statistics.getSchemaHistogram()
@@ -291,7 +291,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   }
 
   private void printFrequencyExamples() {
-    Path path = Paths.get(parameters.getOutputDir(), "classifications-frequency-examples.csv");
+    var path = Paths.get(parameters.getOutputDir(), "classifications-frequency-examples.csv");
     try (BufferedWriter writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("count", "id"));
       statistics.getFrequencyExamples()

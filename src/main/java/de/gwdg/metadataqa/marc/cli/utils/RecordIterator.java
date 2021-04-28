@@ -59,7 +59,7 @@ public class RecordIterator {
       if (!processor.readyToProcess())
         break;
 
-      Path path = Paths.get(inputFileName);
+      var path = Paths.get(inputFileName);
       String fileName = path.getFileName().toString();
 
       if (processor.getParameters().doLog())

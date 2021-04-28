@@ -246,7 +246,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
   private void saveLibraries003(String fileExtension, char separator) {
     logger.info("Saving Libraries003 file");
     var path = Paths.get(parameters.getOutputDir(), "libraries003" + fileExtension);
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write("library" + separator + "count\n");
       library003Counter
         .entrySet()
@@ -267,7 +267,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
     Path path;
     System.err.println("MARC elements");
     path = Paths.get(parameters.getOutputDir(), "marc-elements" + fileExtension);
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow(
         "documenttype", "path", "packageid", "package", "tag", "subfield",
         "number-of-record", "number-of-instances",
@@ -300,7 +300,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
   private void savePackages(String fileExtension, char separator) {
     logger.info("saving Packages...");
     var path = Paths.get(parameters.getOutputDir(), "packages" + fileExtension);
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow(separator, "documenttype", "packageid", "name", "label", "iscoretag", "count"));
       packageCounter
         .forEach((documentType, packages) -> {
@@ -335,7 +335,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
   private void saveLibraries(String fileExtension, char separator) {
     logger.info("Saving Libraries");
     var path = Paths.get(parameters.getOutputDir(), "libraries" + fileExtension);
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write("library" + separator + "count\n");
       libraryCounter
         .entrySet()

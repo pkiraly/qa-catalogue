@@ -149,7 +149,7 @@ public class ThompsonTraillCompleteness implements MarcFileProcessor, Serializab
 
   private void printFields() {
     var path = Paths.get(parameters.getOutputDir(), "tt-completeness-fields.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("name", "transformed"));
       for (ThompsonTraillFields field : ThompsonTraillFields.values()) {
         try {

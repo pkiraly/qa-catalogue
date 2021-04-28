@@ -120,7 +120,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
 
   private void printAuthoritiesByCategories() {
     var path = Paths.get(parameters.getOutputDir(), "authorities-by-categories.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("category", "recordcount", "instancecount"));
       statistics.getRecordsPerCategories()
         .entrySet()
@@ -149,7 +149,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
 
   private void printAuthoritiesBySchema() {
     var path = Paths.get(parameters.getOutputDir(), "authorities-by-schema.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("id", "field", "location", "scheme", "abbreviation", "abbreviation4solr", "recordcount", "instancecount"));
       statistics.getInstances()
         .entrySet()
@@ -199,7 +199,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
   private void printAuthoritiesByRecords() {
     Path path;
     path = Paths.get(parameters.getOutputDir(), "authorities-by-records.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("records-with-authorities", "count"));
       hasClassifications
         .entrySet()
@@ -222,7 +222,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
 
   private void printAuthoritiesHistogram() {
     var path = Paths.get(parameters.getOutputDir(), "authorities-histogram.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("count", "frequency"));
       histogram
         .entrySet()
@@ -246,7 +246,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
 
   private void printFrequencyExamples() {
     var path = Paths.get(parameters.getOutputDir(), "authorities-frequency-examples.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("count", "id"));
       frequencyExamples
         .entrySet()
@@ -270,7 +270,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
 
   private void printAuthoritiesSubfieldsStatistics() {
     var path = Paths.get(parameters.getOutputDir(), "authorities-by-schema-subfields.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       // final List<String> header = Arrays.asList("field", "location", "label", "abbreviation", "subfields", "scount");
       final List<String> header = Arrays.asList("id", "subfields", "count");
       writer.write(createRow(header));

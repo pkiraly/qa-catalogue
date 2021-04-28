@@ -159,7 +159,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   private void printClassificationsCollocation() {
     Path path;
     path = Paths.get(parameters.getOutputDir(), "classifications-collocations.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(Collocation.header());
       var total1 = statistics.getHasClassifications().get(true);
       var total = statistics.recordCountWithClassification();
@@ -190,7 +190,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   private void printClassificationsBySchema() {
     Path path;
     path = Paths.get(parameters.getOutputDir(), "classifications-by-schema.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("id", "field", "location", "scheme",
         "abbreviation", "abbreviation4solr", "recordcount", "instancecount",
         "type"
@@ -245,7 +245,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   private void printClassificationsByRecords() {
     Path path;
     path = Paths.get(parameters.getOutputDir(), "classifications-by-records.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("records-with-classification", "count"));
       statistics.getHasClassifications()
         .entrySet()
@@ -268,7 +268,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
   private void printClassificationsHistogram() {
     var path = Paths.get(parameters.getOutputDir(), "classifications-histogram.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("count", "frequency"));
       statistics.getSchemaHistogram()
         .entrySet()
@@ -292,7 +292,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
   private void printFrequencyExamples() {
     var path = Paths.get(parameters.getOutputDir(), "classifications-frequency-examples.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("count", "id"));
       statistics.getFrequencyExamples()
         .entrySet()
@@ -317,7 +317,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   private void printSchemaSubfieldsStatistics() {
     Path path;
     path = Paths.get(parameters.getOutputDir(), "classifications-by-schema-subfields.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       // final List<String> header = Arrays.asList("field", "location", "label", "abbreviation", "subfields", "scount");
       final List<String> header = Arrays.asList("id", "subfields", "count");
       writer.write(createRow(header));

@@ -195,7 +195,7 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
                            char separator) {
     Map<FRBRFunction, List<String>> functions = frbrFunctionLister.getMarcPathByfunction();
     var path = Paths.get(parameters.getOutputDir(), "functional-analysis-mapping" + fileExtension);
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write("frbrfunction" + separator + "count" + separator + "fields\n");
       for (FRBRFunction function : FRBRFunction.values()) {
         if (function.getParent() != null) {
@@ -220,7 +220,7 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
       parameters.getOutputDir(),
       "functional-analysis-histogram" + fileExtension
     );
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write("frbrfunction" + separator + "functioncount" + separator + "score" + separator + "count\n");
       histogram
         .entrySet()
@@ -252,7 +252,7 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
 
     logger.info("Saving functional analysis");
     var path = Paths.get(parameters.getOutputDir(), "functional-analysis" + fileExtension);
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write("frbr-function" + separator + "avgcount" + separator + "avgscore\n");
       result
         .entrySet()

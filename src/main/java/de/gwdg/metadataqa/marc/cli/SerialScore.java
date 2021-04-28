@@ -132,7 +132,7 @@ public class SerialScore implements MarcFileProcessor, Serializable {
   private void printHistogram() {
     Path path;
     path = Paths.get(parameters.getOutputDir(), "serial-histogram.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("score", "frequency"));
       histogram
         .entrySet()
@@ -178,7 +178,7 @@ public class SerialScore implements MarcFileProcessor, Serializable {
 
   private void printFields() {
     var path = Paths.get(parameters.getOutputDir(), "serial-score-fields.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("name", "transformed"));
       for (SerialFields field : SerialFields.values()) {
         try {

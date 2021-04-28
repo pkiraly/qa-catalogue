@@ -99,6 +99,10 @@ public class Schema {
       .toHashCode();
   }
 
+  public static void reset() {
+    SCHEMA_COUNTER = 0;
+  }
+
   @Override
   public String toString() {
     return "Schema{" +

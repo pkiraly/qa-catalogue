@@ -45,6 +45,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     parameters = new ValidatorParameters(args);
     options = parameters.getOptions();
     readyToProcess = true;
+    Schema.reset();
   }
 
   public static void main(String[] args) {

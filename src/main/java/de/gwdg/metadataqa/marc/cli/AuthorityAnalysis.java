@@ -35,7 +35,6 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(AuthorityAnalysis.class.getCanonicalName());
 
-  private final Options options;
   private CommonParameters parameters;
   private Map<Integer, Integer> histogram = new HashMap<>();
   private Map<Integer, String> frequencyExamples = new HashMap<>();
@@ -46,7 +45,6 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
 
   public AuthorityAnalysis(String[] args) throws ParseException {
     parameters = new ValidatorParameters(args);
-    options = parameters.getOptions();
     readyToProcess = true;
   }
 
@@ -68,7 +66,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
       processor.printHelp(processor.getParameters().getOptions());
       System.exit(0);
     }
-    RecordIterator iterator = new RecordIterator(processor);
+    var iterator = new RecordIterator(processor);
     iterator.start();
   }
 
@@ -79,7 +77,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
 
   @Override
   public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
-
+    // do nothing
   }
 
   @Override
@@ -87,13 +85,12 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
     if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
       return;
 
-    AuthorithyAnalyzer analyzer = new AuthorithyAnalyzer(marcRecord, statistics);
+    var analyzer = new AuthorithyAnalyzer(marcRecord, statistics);
     int count = analyzer.process();
     count((count > 0), hasClassifications);
     count(count, histogram);
 
-    if (!frequencyExamples.containsKey(count))
-      frequencyExamples.put(count, marcRecord.getId(true));
+    frequencyExamples.computeIfAbsent(count, s -> marcRecord.getId(true));
   }
 
   @Override

@@ -41,7 +41,7 @@ public class ThompsonTraillAnalysis {
   }
 
   public static List<Integer> getScores(MarcRecord marcRecord) {
-    ThompsonTraillScores ttScores = new ThompsonTraillScores();
+    var ttScores = new ThompsonTraillScores();
 
     ttScores.set(ThompsonTraillFields.ISBN, countFields(marcRecord, Arrays.asList("020")));
     ttScores.set(ThompsonTraillFields.AUTHORS, countFields(marcRecord, Arrays.asList("100", "110", "111")));
@@ -53,7 +53,7 @@ public class ThompsonTraillAnalysis {
       countFields(marcRecord, Arrays.asList("440", "490", "800", "810", "830")));
     ttScores.set(ThompsonTraillFields.TOC, calculateTocAndAbstract(marcRecord));
 
-    Control008 control008 = marcRecord.getControl008();
+    var control008 = marcRecord.getControl008();
     String date008 = extractDate008(control008);
     ttScores.set(ThompsonTraillFields.DATE_008, calculateDate008(date008));
     ttScores.set(ThompsonTraillFields.DATE_26X, calculateDate26x(marcRecord, date008));
@@ -77,8 +77,8 @@ public class ThompsonTraillAnalysis {
   private static void calculateLanguageAndRda(MarcRecord marcRecord,
                                               ThompsonTraillScores ttScores) {
     List<DataField> fields040 = marcRecord.getDatafield("040");
-    boolean noLanguageOrEnglish = false;
-    boolean isRDA = false;
+    var noLanguageOrEnglish = false;
+    var isRDA = false;
     if (fields040 != null && !fields040.isEmpty()) {
       for (DataField language : fields040) {
         List<MarcSubfield> subfields = language.getSubfield("b");
@@ -147,7 +147,7 @@ public class ThompsonTraillAnalysis {
 
   private static String extractDate008(Control008 control008) {
     // Date (MARC 008)  008/7-10  1 point if valid coded date exists
-    String date008 = "";
+    var date008 = "";
     if (control008 != null
       && control008.getTag008all07() != null) {
       date008 = control008.getTag008all07().getValue();
@@ -221,7 +221,7 @@ public class ThompsonTraillAnalysis {
 
   private static int calculateIsOnlineFrom300a(MarcRecord marcRecord) {
     List<DataField> fields300 = marcRecord.getDatafield("300");
-    boolean isOnlineResource = false;
+    var isOnlineResource = false;
     if (fields300 != null && !fields300.isEmpty()) {
       for (DataField field : fields300) {
         List<MarcSubfield> subfields = field.getSubfield("a");

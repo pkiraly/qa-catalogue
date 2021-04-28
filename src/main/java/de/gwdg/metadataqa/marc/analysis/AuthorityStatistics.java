@@ -3,11 +3,12 @@ package de.gwdg.metadataqa.marc.analysis;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
 import de.gwdg.metadataqa.marc.utils.Counter;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AuthorityStatistics {
+public class AuthorityStatistics implements Serializable {
   private Map<Schema, Integer> instances = new HashMap<>();
   private Map<Schema, Integer> records = new HashMap<>();
   private Map<Schema, Map<List<String>, Integer>> subfields = new HashMap<>();

@@ -1,7 +1,6 @@
 package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.marc.dao.Control006;
-import de.gwdg.metadataqa.marc.dao.Control008;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
 
@@ -143,21 +142,21 @@ public class Serial {
     if (control008 != null
         && control008.getTag008all07() != null
         && control008.getTag008all07().getValue().equals("uuuu")) {
-      scores.set(SerialFields.Date1Unknown, -3);
+      scores.set(SerialFields.DATE_1_UNKNOWN, -3);
     }
 
     // Country of publication is totally unknown
     if (control008 != null
         && control008.getTag008all15() != null
         && control008.getTag008all15().getValue().matches("xx.+")) {
-      scores.set(SerialFields.CountryUnknown, -1);
+      scores.set(SerialFields.COUNTRY_UNKNOWN, -1);
     }
 
     // Publication language is totally unknown
     if (control008 != null
       && control008.getTag008all35() != null
       && control008.getTag008all35().getValue().matches("xxx.+")) {
-      scores.set(SerialFields.Language, -1);
+      scores.set(SerialFields.LANGUAGE, -1);
     }
 
     // Authentication code (from the 042) is empty (the record is not pcc or nsdp)
@@ -167,7 +166,7 @@ public class Serial {
         && authenticationcode.get(0).getSubfield("a") != null
         && !authenticationcode.get(0).getSubfield("a").isEmpty()
         && !authenticationcode.get(0).getSubfield("a").get(0).getValue().equals("")) {
-      scores.set(SerialFields.Auth, 7);
+      scores.set(SerialFields.AUTH, 7);
     }
 
     // Encoding level is blank or I (fully cataloged)
@@ -177,7 +176,7 @@ public class Serial {
         || encodingLevel.equals("1") // Full level, material not examined
         || encodingLevel.equals("I") // oclc: Full level input by OCLC participants
     ) {
-      scores.set(SerialFields.EncodingLevelFull, 5);
+      scores.set(SerialFields.ENCODING_LEVEL_FULL, 5);
     }
 
     // Encoding level is M or L (not so fully cataloged, more likely to be a good record than K or 7)
@@ -186,7 +185,7 @@ public class Serial {
         || encodingLevel.equals("K") // oclc: Minimal level input by OCLC participants
         || encodingLevel.equals("7") // Minimal level
     ) {
-      scores.set(SerialFields.EncodingLevelMinimal, 1);
+      scores.set(SerialFields.ENCODING_LEVEL_MINIMAL, 1);
     }
 
     // 006 is present
@@ -199,45 +198,45 @@ public class Serial {
         }
       }
       if (hasContent)
-        scores.set(SerialFields.Has006, 1);
+        scores.set(SerialFields.HAS_006, 1);
     }
 
     // Record has publisher AACR2
     if (!empty(marcRecord.getDatafield("260"))) {
-      scores.set(SerialFields.HasPublisher260, 1);
+      scores.set(SerialFields.HAS_PUBLISHER_260, 1);
     }
 
     // Record has publisher RDA
     if (!empty(marcRecord.getDatafield("264"))) {
-      scores.set(SerialFields.HasPublisher264, 1);
+      scores.set(SerialFields.HAS_PUBLISHER_264, 1);
     }
 
     // Publication frequency
     if (!empty(marcRecord.getDatafield("310"))) {
-      scores.set(SerialFields.HasPublicationFrequency310, 1);
+      scores.set(SerialFields.HAS_PUBLICATION_FREQUENCY_310, 1);
     }
 
     // Content Type (RDA) fields
     if (!empty(marcRecord.getDatafield("336"))) {
-      scores.set(SerialFields.HasContentType336, 1);
+      scores.set(SerialFields.HAS_CONTENT_TYPE_336, 1);
     }
 
     // Begins with... (datesOfPublication362)
     if (!empty(marcRecord.getDatafield("362"))) {
-      scores.set(SerialFields.HasDatesOfPublication362, 1);
+      scores.set(SerialFields.HAS_DATES_OF_PUBLICATION_362, 1);
     }
 
     // Description based on/ Latest issue consulted notes (sourceOfDescription588)
     if (!empty(marcRecord.getDatafield("588"))) {
-      scores.set(SerialFields.HasSourceOfDescription588, 1);
+      scores.set(SerialFields.HAS_SOURCE_OF_DESCRIPTION_588, 1);
     }
 
     // Has a Library of Congress subject heading (6XX_0)
     List<DataField> subjects = marcRecord.getSubjects();
     if (subjects.isEmpty()) {
-      scores.set(SerialFields.HasNoSubject, -5);
+      scores.set(SerialFields.HAS_NO_SUBJECT, -5);
     } else {
-      scores.set(SerialFields.HasSubject, subjects.size());
+      scores.set(SerialFields.HAS_SUBJECT, subjects.size());
     }
 
     // Any PCC record should automatically be kept unless it is not online and/or a ceased title
@@ -282,12 +281,12 @@ public class Serial {
     if (control008 != null
         && control008.getTag008all07() != null
         && control008.getTag008all07().getValue().matches("0.+")) {
-      scores.set(SerialFields.Date1StartsWith0, -100);
+      scores.set(SerialFields.DATE_1_STARTS_WITH_0, -100);
     }
 
     // Discard any with an encoding level of "3"
     if (encodingLevel.equals("3")) { // Abbreviated level
-      scores.set(SerialFields.Abbreviated, -100);
+      scores.set(SerialFields.ABBREVIATED, -100);
     }
 
     scores.calculateTotal();

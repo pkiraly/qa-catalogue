@@ -17,7 +17,7 @@ public class SchemaFromInd2 extends SubjectIndexer implements FieldIndexer {
     try {
       schemaAbbreviation = ClassificationSchemes.getInstance().resolve(dataField.resolveInd2());
     } catch (IllegalArgumentException e) {
-      schemaAbbreviation = dataField.getInd2() == " " ? "" : dataField.getInd2();
+      schemaAbbreviation = (dataField.getInd2() == " ") ? "" : dataField.getInd2();
     }
 
     KeyValuesExtractor extractor = new KeyValuesExtractor(dataField, keyGenerator, schemaAbbreviation).invoke();

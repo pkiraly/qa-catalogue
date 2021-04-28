@@ -312,8 +312,8 @@ public class Validator implements MarcFileProcessor, Serializable {
         Integer typeIdB = Integer.valueOf(b.getKey().getType().getId());
         int result = typeIdA.compareTo(typeIdB);
         if (result == 0) {
-          Integer recordCountA = Integer.valueOf(recordBasedErrorCounter.get(a.getKey().getId()));
-          Integer recordCountB = Integer.valueOf(recordBasedErrorCounter.get(b.getKey().getId()));
+          Integer recordCountA = recordBasedErrorCounter.get(a.getKey().getId());
+          Integer recordCountB = recordBasedErrorCounter.get(b.getKey().getId());
           result = recordCountB.compareTo(recordCountA);
         }
         return result;

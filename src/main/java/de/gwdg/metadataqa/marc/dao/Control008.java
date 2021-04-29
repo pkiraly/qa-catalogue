@@ -82,9 +82,9 @@ public class Control008 extends MarcPositionalControlField implements Serializab
 
   private ControlValue tag008mixed23;
 
-  private Map<Control008Type, List<ControlValue>> fieldGroups = new HashMap<>();
+  private final Map<Control008Type, List<ControlValue>> fieldGroups = new EnumMap<>(Control008Type.class);
 
-  private Map<Integer, ControlfieldPositionDefinition> byPosition = new LinkedHashMap<>();
+  private final Map<Integer, ControlfieldPositionDefinition> byPosition = new LinkedHashMap<>();
   private Control008Type actual008Type;
 
   public Control008(String content, Leader.Type recordType) {
@@ -96,7 +96,7 @@ public class Control008 extends MarcPositionalControlField implements Serializab
     if (recordType == null) {
       throw new InvalidParameterException(String.format("Record type is null. 008 content: '%s'", content));
     }
-    actual008Type = Control008Type.byCode(recordType.getValue().toString());
+    actual008Type = Control008Type.byCode(recordType.getValue());
     processContent();
   }
 
@@ -257,12 +257,10 @@ public class Control008 extends MarcPositionalControlField implements Serializab
           }
           break;
         case MIXED_MATERIALS:
-          switch (subfield.getId()) {
-            case "008mixed23": tag008mixed23 = controlValue; break;
-            default:
-              logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
-              break;
-          }
+          if ("008mixed23".equals(subfield.getId()))
+            tag008mixed23 = controlValue;
+          else
+            logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
           break;
       }
 
@@ -272,9 +270,8 @@ public class Control008 extends MarcPositionalControlField implements Serializab
   }
 
   public String resolve(ControlfieldPositionDefinition key) {
-    String value = (String) valuesMap.get(key);
-    String text = key.resolve(value);
-    return text;
+    String value = valuesMap.get(key);
+    return key.resolve(value);
   }
 
   public String getValueByPosition(int position) {

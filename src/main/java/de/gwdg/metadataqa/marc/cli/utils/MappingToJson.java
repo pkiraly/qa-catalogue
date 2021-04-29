@@ -40,7 +40,7 @@ public class MappingToJson {
   private final Options options;
   private MappingParameters parameters;
 
-  public MappingToJson(String args[]) throws ParseException {
+  public MappingToJson(String[] args) throws ParseException {
     parameters = new MappingParameters(args);
     options = parameters.getOptions();
 
@@ -247,7 +247,7 @@ public class MappingToJson {
   }
 
   private void extractFunctions(Map<String, Object> tagMap, List<FRBRFunction> functions) {
-    if (functions != null && functions.size() > 0) {
+    if (functions != null && !functions.isEmpty()) {
       List<String> paths = new ArrayList<>();
       for (FRBRFunction function : functions) {
         paths.add(function.getPath());
@@ -303,7 +303,7 @@ public class MappingToJson {
     if (minimalCompilanceLevel != null)
       levels.put("minimal", minimalCompilanceLevel.getLabel());
 
-    if (levels.size() > 0)
+    if (!levels.isEmpty())
       codeMap.put("compilance-level", levels);
   }
 

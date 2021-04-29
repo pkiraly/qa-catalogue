@@ -274,9 +274,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       statistics.getSchemaHistogram()
         .entrySet()
         .stream()
-        .sorted((e1, e2) -> {
-          return e1.getKey().compareTo(e2.getKey());
-        })
+        .sorted((e1, e2) -> e1.getKey().compareTo(e2.getKey()))
         .forEach(
           entry -> {
             try {
@@ -298,9 +296,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
       statistics.getFrequencyExamples()
         .entrySet()
         .stream()
-        .sorted((e1, e2) -> {
-          return e1.getKey().compareTo(e2.getKey());
-        })
+        .sorted((e1, e2) -> e1.getKey().compareTo(e2.getKey()))
         .forEach(
           entry -> {
             try {

@@ -3,8 +3,6 @@ package de.gwdg.metadataqa.marc.dao;
 import de.gwdg.metadataqa.marc.Extractable;
 import de.gwdg.metadataqa.marc.definition.tags.control.Control003Definition;
 
-import java.util.logging.Logger;
-
 /**
  *
  * @author Péter Király <peter.kiraly at gwdg.de>

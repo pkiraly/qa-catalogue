@@ -361,9 +361,8 @@ public class Control007 extends MarcPositionalControlField implements Serializab
   }
 
   public String resolve(ControlfieldPositionDefinition key) {
-    String value = (String)valuesMap.get(key);
-    String text = key.resolve(value);
-    return text;
+    String value = valuesMap.get(key);
+    return key.resolve(value);
   }
 
   public String getContent() {
@@ -808,6 +807,10 @@ public class Control007 extends MarcPositionalControlField implements Serializab
 
   public ControlValue getVideo08() {
     return tag007video08;
+  }
+
+  public ControlValue getUnspecified00() {
+    return tag007unspecified00;
   }
 
   public ControlValue getUnspecified01() {

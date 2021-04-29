@@ -20,13 +20,11 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.Record;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -276,7 +274,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
       elementCardinality
         .keySet()
         .stream()
-        .forEach(documentType -> {
+        .forEach(documentType ->
           elementCardinality
             .get(documentType)
             .entrySet()
@@ -289,9 +287,8 @@ public class Completeness implements MarcFileProcessor, Serializable {
               } catch (IOException e) {
                 logger.log(Level.SEVERE, "saveMarcElements", e);
               }
-            }
-          );
-        });
+            })
+        );
     } catch (IOException e) {
       logger.log(Level.SEVERE, "saveMarcElements", e);
     }
@@ -393,8 +390,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
       )
     );
 
-    String record = StringUtils.join(values, separator) + "\n";
-    return record;
+    return StringUtils.join(values, separator) + "\n";
   }
 
   private char getSeparator(ValidationErrorFormat format) {

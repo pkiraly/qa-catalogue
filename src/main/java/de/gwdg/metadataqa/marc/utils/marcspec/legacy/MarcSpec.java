@@ -101,16 +101,14 @@ public class MarcSpec implements Serializable {
     if (charStart != null) {
       marcspec += "~" + charStart;
 
-      if (charEnd != null) {
+      if (charEnd != null)
         marcspec += "-" + charEnd;
-      }
 
       return marcspec;
     }
 
-    if (subfields.size() > 0) {
+    if (!subfields.isEmpty())
       marcspec += StringUtils.join(subfields.keySet(), "");
-    }
 
     if (!(indicator1 == null && indicator2 == null)) {
       if (indicator2 == null) {

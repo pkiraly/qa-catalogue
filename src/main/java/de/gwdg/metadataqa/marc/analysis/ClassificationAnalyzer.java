@@ -166,7 +166,6 @@ public class ClassificationAnalyzer {
     if (!marcRecord.hasDatafield(tag))
       return count;
 
-    Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(tag);
     List<DataField> fields = marcRecord.getDatafield(tag);
     List<Schema> schemas = new ArrayList<>();
     for (DataField field : fields) {

@@ -43,7 +43,7 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
     public String getValue() {
       return value;
     }
-  };
+  }
 
   // private String content;
   // private Map<ControlSubfieldDefinition, String> valuesMap;
@@ -169,8 +169,7 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
 
   public String resolve(ControlfieldPositionDefinition key) {
     String value = valuesMap.get(key);
-    String text = key.resolve(value);
-    return text;
+    return key.resolve(value);
   }
 
   public String resolve(String key) {

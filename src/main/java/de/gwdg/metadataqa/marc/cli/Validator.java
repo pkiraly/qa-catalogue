@@ -15,7 +15,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.Record;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -41,24 +40,23 @@ public class Validator implements MarcFileProcessor, Serializable {
   private static final Logger logger = Logger.getLogger(Validator.class.getCanonicalName());
   private Options options;
 
-  private ValidatorParameters parameters;
-  private Map<Integer, Integer> totalRecordCounter = new HashMap<>();
-  private Map<Integer, Integer> totalInstanceCounter = new HashMap<>();
-  private Map<ValidationErrorCategory, Integer> categoryRecordCounter = new HashMap<>();
-  private Map<ValidationErrorCategory, Integer> categoryInstanceCounter = new HashMap<>();
-  private Map<ValidationErrorType, Integer> typeRecordCounter = new HashMap<>();
-  private Map<ValidationErrorType, Integer> typeInstanceCounter = new HashMap<>();
-  private Map<ValidationError, Integer> instanceBasedErrorCounter = new HashMap<>();
-  private Map<Integer, Integer> recordBasedErrorCounter = new HashMap<>();
-  private Map<Integer, Integer> hashedIndex = new HashMap<>();
-  private Map<Integer, Set<String>> errorCollector = new TreeMap<>();
-  private Map<String, Set<String>> ISBNCollector = new TreeMap<>();
-  private Map<String, Set<String>> ISSNCollector = new TreeMap<>();
+  private final ValidatorParameters parameters;
+  private final Map<Integer, Integer> totalRecordCounter = new HashMap<>();
+  private final Map<Integer, Integer> totalInstanceCounter = new HashMap<>();
+  private final Map<ValidationErrorCategory, Integer> categoryRecordCounter = new EnumMap<>(ValidationErrorCategory.class);
+  private final Map<ValidationErrorCategory, Integer> categoryInstanceCounter = new EnumMap<>(ValidationErrorCategory.class);
+  private final Map<ValidationErrorType, Integer> typeRecordCounter = new EnumMap<>(ValidationErrorType.class);
+  private final Map<ValidationErrorType, Integer> typeInstanceCounter = new EnumMap<>(ValidationErrorType.class);
+  private final Map<ValidationError, Integer> instanceBasedErrorCounter = new HashMap<>();
+  private final Map<Integer, Integer> recordBasedErrorCounter = new HashMap<>();
+  private final Map<Integer, Integer> hashedIndex = new HashMap<>();
+  private final Map<Integer, Set<String>> errorCollector = new TreeMap<>();
+  private final Map<String, Set<String>> isbnCollector = new TreeMap<>();
+  private final Map<String, Set<String>> issnCollector = new TreeMap<>();
   private File detailsFile = null;
   private File summaryFile = null;
   private File collectorFile = null;
   private boolean doPrintInProcessRecord = true;
-  private Path currentFile;
   private boolean readyToProcess;
   private int counter;
   private char separator;
@@ -145,17 +143,17 @@ public class Validator implements MarcFileProcessor, Serializable {
 
   @Override
   public void fileOpened(Path currentFile) {
-    this.currentFile = currentFile;
+    // do nothing
   }
 
   @Override
   public void fileProcessed() {
-
+    // do nothing
   }
 
   @Override
   public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
-
+    // do nothing
   }
 
   @Override

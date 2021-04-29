@@ -227,9 +227,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
       histogram
         .entrySet()
         .stream()
-        .sorted((e1, e2) -> {
-          return e1.getKey().compareTo(e2.getKey());
-        })
+        .sorted((e1, e2) -> e1.getKey().compareTo(e2.getKey()))
         .forEach(
           entry -> {
             try {
@@ -251,9 +249,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
       frequencyExamples
         .entrySet()
         .stream()
-        .sorted((e1, e2) -> {
-          return e1.getKey().compareTo(e2.getKey());
-        })
+        .sorted((e1, e2) -> e1.getKey().compareTo(e2.getKey()))
         .forEach(
           entry -> {
             try {

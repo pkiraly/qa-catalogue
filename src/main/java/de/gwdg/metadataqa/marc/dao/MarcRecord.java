@@ -354,7 +354,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
             mainKeyValuePairs.put(
               key,
               mergeValues(
-                new ArrayList<String>(mainKeyValuePairs.get(key)),
+                new ArrayList<>(mainKeyValuePairs.get(key)),
                 values,
                 withDeduplication
               )
@@ -444,7 +444,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     isValidRecord = validateDatafields(marcVersion, isValidRecord, ignorableFields);
 
     // TODO: use reflection to get all validator class
-    ValidatorResponse validatorResponse;
+    // ValidatorResponse validatorResponse;
 
     return isValidRecord;
   }
@@ -499,9 +499,9 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     for (MarcControlField controlField : getControlfields()) {
       if (controlField != null) {
         // System.err.println(controlField.definition.getTag());
-        isValidComponent = ((Validatable)controlField).validate(marcVersion);
+        isValidComponent = controlField.validate(marcVersion);
         if (!isValidComponent) {
-          validationErrors.addAll(((Validatable)controlField).getValidationErrors());
+          validationErrors.addAll(controlField.getValidationErrors());
           isValidRecord = isValidComponent;
         }
       }
@@ -637,7 +637,8 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   private void searchByPosition(String query, List<String> results, Matcher matcher) {
     String tag = matcher.group(1);
     String position = matcher.group(2);
-    int start, end;
+    int start,
+        end;
     if (position.contains("-")) {
       String[] parts = position.split("-", 2);
       start = Integer.parseInt(parts[0]);

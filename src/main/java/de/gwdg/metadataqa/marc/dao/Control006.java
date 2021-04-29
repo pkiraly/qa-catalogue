@@ -106,7 +106,7 @@ public class Control006 extends MarcPositionalControlField implements Serializab
       }
     }
 
-    Control008Type actual = Control008Type.byCode(recordType.getValue().toString());
+    Control008Type actual = Control008Type.byCode(recordType.getValue());
     for (ControlfieldPositionDefinition subfield : Control006Positions.getInstance().get(actual)) {
       var end = Math.min(content.length(), subfield.getPositionEnd());
 
@@ -246,13 +246,14 @@ public class Control006 extends MarcPositionalControlField implements Serializab
     }
   }
 
-  private void extractMixedMaterials(Control008Type actual, ControlfieldPositionDefinition subfield, ControlValue controlValue) {
-    switch (subfield.getId()) {
-      case "006mixed06": tag006mixed06 = controlValue; break;
-      default:
-        logger.severe(String.format("Unhandled 006 subfield (for %s): %s", actual.getValue(), subfield.getId()));
-        break;
-    }
+  private void extractMixedMaterials(Control008Type actual,
+                                     ControlfieldPositionDefinition subfield,
+                                     ControlValue controlValue) {
+    if (subfield.getId() == "006mixed06")
+      tag006mixed06 = controlValue;
+    else
+      logger.severe(String.format("Unhandled 006 subfield (for %s): %s",
+        actual.getValue(), subfield.getId()));
   }
 
   public String resolve(ControlfieldPositionDefinition key) {

@@ -65,7 +65,7 @@ public class FrbrFunctionLister {
     functionByMarcPath = new TreeMap<>();
     marcPathByfunction = new AppendableHashMap<>();
 
-    for (ControlfieldPositionDefinition subfield : MarcDefinition.leaderPositions)
+    for (ControlfieldPositionDefinition subfield : MarcDefinition.getLeaderPositions())
       registerFunctions(subfield.getFrbrFunctions(), subfield.getPath(false));
 
     for (DataFieldDefinition subfield : MarcDefinition.simpleControlFields)

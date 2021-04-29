@@ -55,11 +55,9 @@ public class LeaderPositions extends ControlfieldPositionList {
     );
   }
 
-  private static void addAllPositions(List<ControlfieldPositionDefinition> _positions) {
-    for (ControlfieldPositionDefinition position : _positions) {
+  private static void addAllPositions(List<ControlfieldPositionDefinition> positions) {
+    for (ControlfieldPositionDefinition position : positions)
       positionLabelMap.put(position.getLabel(), position);
-      // positionIdMap.put(position.getId(), position);
-    }
   }
 
   public static List<ControlfieldPositionDefinition> getPositionList() {

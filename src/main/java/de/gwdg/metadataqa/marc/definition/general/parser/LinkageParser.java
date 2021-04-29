@@ -1,7 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.general.parser;
 
 import de.gwdg.metadataqa.marc.definition.general.Linkage;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.*;

@@ -15,7 +15,7 @@ public class ClassificationReferenceValidator implements RecordValidator, FieldV
 
   private static final Logger logger = Logger.getLogger(ClassificationReferenceValidator.class.getCanonicalName());
 
-  public static final List<String> fields = Arrays.asList(
+  protected static final List<String> fields = Arrays.asList(
     "016", "024", "041", "047", "048", "052", "072",
     "600", "610", "611", "630", "647", "648", "650", "651", "655", "656", "657", "852"
   );

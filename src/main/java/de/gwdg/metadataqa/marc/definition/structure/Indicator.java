@@ -174,7 +174,7 @@ public class Indicator {
 
   public Indicator putVersionSpecificCodes(MarcVersion marcVersion, List<EncodedValue> codeList) {
     if (versionSpecificCodes == null)
-      versionSpecificCodes = new HashMap<>();
+      versionSpecificCodes = new EnumMap<>(MarcVersion.class);
     versionSpecificCodes.put(marcVersion, codeList);
     return this;
   }

@@ -47,7 +47,7 @@ public class MarcSolrClient {
     }
 
     try {
-      UpdateResponse response = solr.add(document);
+      solr.add(document);
     } catch (HttpSolrClient.RemoteSolrException ex) {
       logger.log(Level.WARNING, "document", document);
       logger.log(Level.WARNING, "Commit exception", ex);
@@ -69,7 +69,7 @@ public class MarcSolrClient {
     }
 
     try {
-      UpdateResponse response = solr.add(document);
+      solr.add(document);
     } catch (HttpSolrClient.RemoteSolrException ex) {
       logger.log(Level.WARNING, "document", document);
       logger.log(Level.WARNING, "Commit exception", ex);

@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.utils.MarcTagLister;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +53,7 @@ public class TagDefinitionLoader {
         String tag = dataFieldDefinition.getTag();
         commonCache.put(tag, dataFieldDefinition);
         MarcVersion version = getMarcVersion(definitionClazz);
-        versionedCache.computeIfAbsent(tag, s -> new HashMap<>());
+        versionedCache.computeIfAbsent(tag, s -> new EnumMap<>(MarcVersion.class));
         versionedCache.get(tag).put(version, dataFieldDefinition);
       }
     } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {

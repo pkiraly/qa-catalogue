@@ -23,7 +23,7 @@ public class DataElementsStatictics {
   public static Counter<DataElementType> count() {
     Counter<DataElementType> counter = new Counter<>();
 
-    for (ControlfieldPositionDefinition subfield : MarcDefinition.leaderPositions)
+    for (ControlfieldPositionDefinition subfield : MarcDefinition.getLeaderPositions())
       counter.count(DataElementType.controlFieldPositions);
 
     for (DataFieldDefinition subfield : MarcDefinition.simpleControlFields)

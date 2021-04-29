@@ -150,9 +150,10 @@ public abstract class DataFieldDefinition implements Serializable {
     return subfieldIndex.getOrDefault(code, null);
   }
 
-  public void putVersionSpecificSubfields(MarcVersion marcVersion, List<SubfieldDefinition> subfieldDefinitions) {
+  public void putVersionSpecificSubfields(MarcVersion marcVersion,
+                                          List<SubfieldDefinition> subfieldDefinitions) {
     if (versionSpecificSubfields == null)
-      versionSpecificSubfields = new HashMap<>();
+      versionSpecificSubfields = new EnumMap<>(MarcVersion.class);
 
     for (SubfieldDefinition subfieldDefinition : subfieldDefinitions)
       subfieldDefinition.setParent(this);

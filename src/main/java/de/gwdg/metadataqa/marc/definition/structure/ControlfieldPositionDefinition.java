@@ -144,11 +144,10 @@ public class ControlfieldPositionDefinition implements Serializable {
   }
 
   public boolean validate(String code) {
-    if (isRepeatableContent()) {
+    if (isRepeatableContent())
       return validateRepeatable(code);
-    } else {
+    else
       return validCodes.contains(code);
-    }
   }
 
   private boolean validateRepeatable(String code) {
@@ -161,13 +160,12 @@ public class ControlfieldPositionDefinition implements Serializable {
   }
 
   public String resolve(String inputCode) {
-    if (codes != null || codeList != null) {
-      if (repeatableContent) {
+    if (codes != null || codeList != null)
+      if (repeatableContent)
         inputCode = resolveRepeatable(inputCode);
-      } else {
+      else
         inputCode = resolveSingleCode(inputCode);
-      }
-    }
+
     return inputCode;
   }
 
@@ -179,9 +177,9 @@ public class ControlfieldPositionDefinition implements Serializable {
         units.add(unit);
     }
     List<String> resolved = new ArrayList<>();
-    for (String unit : units) {
+    for (String unit : units)
       resolved.add(resolveSingleCode(unit));
-    }
+
     inputCode = StringUtils.join(resolved, ", ");
     return inputCode;
   }
@@ -230,14 +228,13 @@ public class ControlfieldPositionDefinition implements Serializable {
     return this.getClass().getSimpleName().substring(3, 6);
   }
 
-  public EncodedValue getCode(String _code) {
-    for (EncodedValue code : codes) {
-      if (code.getCode().equals(_code)) {
+  public EncodedValue getCode(String otherCode) {
+    for (EncodedValue code : codes)
+      if (code.getCode().equals(otherCode))
         return code;
-      } else if (code.isRange() && code.getRange().isValid(_code)) {
+      else if (code.isRange() && code.getRange().isValid(otherCode))
         return code;
-      }
-    }
+
     return null;
   }
 

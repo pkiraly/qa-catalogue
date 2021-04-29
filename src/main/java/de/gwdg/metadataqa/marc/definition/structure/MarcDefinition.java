@@ -13,7 +13,7 @@ import java.util.List;
 
 public class MarcDefinition {
 
-  public static List<ControlfieldPositionDefinition> leaderPositions = LeaderPositions.getInstance().getPositionList();
+  private static final List<ControlfieldPositionDefinition> leaderPositions = LeaderPositions.getInstance().getPositionList();
 
   public static List<DataFieldDefinition> simpleControlFields = Arrays.asList(
     Control001Definition.getInstance(),
@@ -27,4 +27,7 @@ public class MarcDefinition {
     Control008Definition.getInstance()
   );
 
+  public static List<ControlfieldPositionDefinition> getLeaderPositions() {
+    return leaderPositions;
+  }
 }

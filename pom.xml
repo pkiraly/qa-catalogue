@@ -312,7 +312,7 @@
 						<artifactId>jaxb-api</artifactId>
 						<version>2.3.1</version>
 					</dependency>
-				<dependencies>
+				</dependencies>
 			</plugin>
 			<plugin>
 				<groupId>com.github.spotbugs</groupId>

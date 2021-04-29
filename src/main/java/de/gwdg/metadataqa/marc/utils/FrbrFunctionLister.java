@@ -68,10 +68,10 @@ public class FrbrFunctionLister {
     for (ControlfieldPositionDefinition subfield : MarcDefinition.getLeaderPositions())
       registerFunctions(subfield.getFrbrFunctions(), subfield.getPath(false));
 
-    for (DataFieldDefinition subfield : MarcDefinition.simpleControlFields)
+    for (DataFieldDefinition subfield : MarcDefinition.getSimpleControlFields())
       registerFunctions(subfield.getFrbrFunctions(), subfield.getTag());
 
-    for (ControlFieldDefinition controlField : MarcDefinition.complexControlFields)
+    for (ControlFieldDefinition controlField : MarcDefinition.getComplexControlFields())
       for (List<ControlfieldPositionDefinition> positions : controlField.getControlfieldPositions().values())
         for (ControlfieldPositionDefinition position : positions)
           registerFunctions(position.getFrbrFunctions(), position.getId().replace("tag", ""));

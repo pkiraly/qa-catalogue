@@ -105,7 +105,7 @@ public class SubfieldDefinition implements Serializable {
 
   public SubfieldDefinition setLocalCodes(MarcVersion version, String... input) {
     if (localCodes == null)
-      localCodes = new HashMap<>();
+      localCodes = new EnumMap<>(MarcVersion.class);
     localCodes.put(version, new ArrayList<>());
     for (int i = 0; i < input.length; i += 2) {
       localCodes.get(version).add(new EncodedValue(input[i], input[i+1]));
@@ -113,18 +113,17 @@ public class SubfieldDefinition implements Serializable {
     return this;
   }
 
-  public EncodedValue getCode(String _code) {
-    return getCode(codes, _code);
+  public EncodedValue getCode(String code) {
+    return getCode(codes, code);
   }
 
-  public EncodedValue getCode(List<EncodedValue> _codes, String _code) {
-    for (EncodedValue code : _codes) {
-      if (code.getCode().equals(_code)) {
+  public EncodedValue getCode(List<EncodedValue> codes, String otherCode) {
+    for (EncodedValue code : codes)
+      if (code.getCode().equals(otherCode))
         return code;
-      } else if (code.isRange() && code.getRange().isValid(_code)) {
+      else if (code.isRange() && code.getRange().isValid(otherCode))
         return code;
-      }
-    }
+
     return null;
   }
 
@@ -140,11 +139,11 @@ public class SubfieldDefinition implements Serializable {
     return localCodes.getOrDefault(version, null);
   }
 
-  public EncodedValue getLocalCode(MarcVersion version, String _code) {
-    List<EncodedValue> _codes = getLocalCodes(version);
-    if (_codes == null)
+  public EncodedValue getLocalCode(MarcVersion version, String code) {
+    List<EncodedValue> codes = getLocalCodes(version);
+    if (codes == null)
       return null;
-    return getCode(_codes, _code);
+    return getCode(codes, code);
   }
 
   public String getCardinalityCode() {
@@ -183,9 +182,9 @@ public class SubfieldDefinition implements Serializable {
     } else {
       for (int i = 0, len = types.length(); i < len; i++) {
         String type = String.valueOf(types.charAt(i));
-        if (type.equals("b")) {
+        if (type.equals("b"))
           type = " ";
-        }
+
         allowedCodes.add(type);
       }
     }
@@ -354,5 +353,4 @@ public class SubfieldDefinition implements Serializable {
       ", label='" + label + '\'' +
       '}';
   }
-
 }

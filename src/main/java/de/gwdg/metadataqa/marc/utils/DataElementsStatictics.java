@@ -26,10 +26,10 @@ public class DataElementsStatictics {
     for (ControlfieldPositionDefinition subfield : MarcDefinition.getLeaderPositions())
       counter.count(DataElementType.controlFieldPositions);
 
-    for (DataFieldDefinition subfield : MarcDefinition.simpleControlFields)
+    for (DataFieldDefinition subfield : MarcDefinition.getSimpleControlFields())
       counter.count(DataElementType.controlFields);
 
-    for (ControlFieldDefinition controlField : MarcDefinition.complexControlFields) {
+    for (ControlFieldDefinition controlField : MarcDefinition.getComplexControlFields()) {
       counter.count(DataElementType.controlFields);
 
       for (List<ControlfieldPositionDefinition> controlFieldPositions : controlField.getControlfieldPositions().values())

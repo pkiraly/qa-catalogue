@@ -172,16 +172,13 @@ public class PairGenerator {
         if (asBase36) {
           String a = (String) elements[i];
           String b = (String) elements[j];
-          if (a.equals(b))
-            continue;
-          pairs.add(createRow(elements[i], elements[j]));
+          if (!a.equals(b))
+            pairs.add(createRow(elements[i], elements[j]));
         } else {
           int a = (int) elements[i];
           int b = (int) elements[j];
-          if (a == b)
-            continue;
-          pairs.add(createRowWithSep(' ', a, b));
-
+          if (a != b)
+            pairs.add(createRowWithSep(' ', a, b));
         }
       }
     }

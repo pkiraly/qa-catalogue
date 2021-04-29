@@ -57,32 +57,29 @@ public class MarcElasticsearchClient {
       throws IOException {
     HttpEntity entity = new ByteArrayEntity(mapper.writeValueAsBytes(document));
 
-    Response response = restClient.performRequest(
+    return restClient.performRequest(
       "PUT",
       "/sub/duplum/" + id,
-      Collections.<String, String>emptyMap(),
+      Collections.emptyMap(),
       entity);
-    return response;
   }
 
   public Response indexTweet(int id, String user, String message) throws IOException {
     HttpEntity entity = new NStringEntity(
       String.format("{\"user\" : \"%s\", \"message\" : \"%s\"}", user, message),
       ContentType.APPLICATION_JSON);
-    Response response = restClient.performRequest(
+    return restClient.performRequest(
       "PUT",
       "/twitter/tweet/" + id,
-      Collections.<String, String>emptyMap(),
+      Collections.emptyMap(),
       entity);
-    return response;
   }
 
   public Response deleteTweet(int id) throws IOException {
-    Response response = restClient.performRequest(
+    return restClient.performRequest(
           "DELETE",
           "/twitter/tweet/" + id,
-          Collections.<String, String>emptyMap());
-    return response;
+          Collections.emptyMap());
   }
 
   public int getNumberOfTweets() throws IOException {
@@ -95,8 +92,6 @@ public class MarcElasticsearchClient {
           params
     );
     Object jsonObject = jsonProvider.parse(EntityUtils.toString(response.getEntity()));
-    int hits = JsonPath.read(jsonObject, "$.hits.total");
-    return hits;
+    return JsonPath.read(jsonObject, "$.hits.total");
   }
-
 }

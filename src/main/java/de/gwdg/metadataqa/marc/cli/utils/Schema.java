@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class Schema {
 
-  private static int SCHEMA_COUNTER = 0;
+  private static int centralCounter = 0;
   private static Map<Schema, Integer> schemaCounter = new HashMap<>();
 
   int id;
@@ -33,7 +33,7 @@ public class Schema {
   }
 
   private void setId() {
-    schemaCounter.computeIfAbsent(this, s -> ++SCHEMA_COUNTER);
+    schemaCounter.computeIfAbsent(this, s -> ++centralCounter);
     this.id = schemaCounter.get(this);
   }
 
@@ -100,7 +100,7 @@ public class Schema {
   }
 
   public static void reset() {
-    SCHEMA_COUNTER = 0;
+    centralCounter = 0;
   }
 
   @Override

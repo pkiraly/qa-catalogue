@@ -439,7 +439,7 @@ public class DataField implements Extractable, Validatable, Serializable {
     errors = new ErrorsCollector();
 
     DataFieldDefinition referencerDefinition = null;
-    List<MarcSubfield> _subfields = null;
+    List<MarcSubfield> linkedSubfields = null;
     boolean ambiguousLinkage = false;
 
     if (marcVersion == null)
@@ -480,8 +480,8 @@ public class DataField implements Extractable, Validatable, Serializable {
                   addError(definition.getTag() + "$6", RECORD_INVALID_LINKAGE, message);
                   isValid = false;
                 } else {
-                  _subfields = subfields;
-                  List<MarcSubfield> _subfieldsNew = new ArrayList<>();
+                  linkedSubfields = subfields;
+                  List<MarcSubfield> alternativeSubfields = new ArrayList<>();
                   for (MarcSubfield subfield : subfields) {
                     MarcSubfield alternativeSubfield = new MarcSubfield(
                       definition.getSubfield(subfield.getCode()),
@@ -492,9 +492,9 @@ public class DataField implements Extractable, Validatable, Serializable {
                     alternativeSubfield.setMarcRecord(marcRecord);
                     alternativeSubfield.setLinkage(linkage);
                     alternativeSubfield.setReferencePath(referencerDefinition.getTag());
-                    _subfieldsNew.add(alternativeSubfield);
+                    alternativeSubfields.add(alternativeSubfield);
                   }
-                  subfields = _subfieldsNew;
+                  subfields = alternativeSubfields;
                 }
               }
             } catch (ParserException e) {
@@ -556,8 +556,8 @@ public class DataField implements Extractable, Validatable, Serializable {
 
     if (referencerDefinition != null)
       definition = referencerDefinition;
-    if (_subfields != null)
-      subfields = _subfields;
+    if (linkedSubfields != null)
+      subfields = linkedSubfields;
 
     return isValid;
   }

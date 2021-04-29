@@ -515,23 +515,19 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     ValidatorResponse validatorResponse;
     Map<DataFieldDefinition, Integer> repetitionCounter = new HashMap<>();
     for (DataField field : datafields) {
-      if (field.getDefinition() == null)
-        continue;
+      if (field.getDefinition() != null
+          && !(ignorableFields != null && ignorableFields.contains(field.getTag()))) {
+        count(field.getDefinition(), repetitionCounter);
+        if (!field.validate(marcVersion)) {
+          isValidRecord = false;
+          validationErrors.addAll(field.getValidationErrors());
+        }
 
-      if (ignorableFields != null &&
-          ignorableFields.contains(field.getTag()))
-        continue;
-
-      count(field.getDefinition(), repetitionCounter);
-      if (!field.validate(marcVersion)) {
-        isValidRecord = false;
-        validationErrors.addAll(field.getValidationErrors());
-      }
-
-      validatorResponse = ClassificationReferenceValidator.validate(field);
-      if (!validatorResponse.isValid()) {
-        validationErrors.addAll(validatorResponse.getValidationErrors());
-        isValidRecord = false;
+        validatorResponse = ClassificationReferenceValidator.validate(field);
+        if (!validatorResponse.isValid()) {
+          validationErrors.addAll(validatorResponse.getValidationErrors());
+          isValidRecord = false;
+        }
       }
     }
 
@@ -637,8 +633,8 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   private void searchByPosition(String query, List<String> results, Matcher matcher) {
     String tag = matcher.group(1);
     String position = matcher.group(2);
-    int start,
-        end;
+    int start;
+    int end;
     if (position.contains("-")) {
       String[] parts = position.split("-", 2);
       start = Integer.parseInt(parts[0]);

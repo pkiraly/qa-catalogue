@@ -300,7 +300,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow(separator, "documenttype", "packageid", "name", "label", "iscoretag", "count"));
       packageCounter
-        .forEach((documentType, packages) -> {
+        .forEach((documentType, packages) ->
           packages.forEach((packageName, count) -> {
             try {
               TagCategory tagCategory = TagCategory.getPackage(packageName);
@@ -322,8 +322,8 @@ public class Completeness implements MarcFileProcessor, Serializable {
             } catch (IOException e) {
               logger.log(Level.SEVERE, "savePackages", e);
             }
-          });
-        });
+          })
+        );
     } catch (IOException e) {
       logger.log(Level.SEVERE, "savePackages", e);
     }

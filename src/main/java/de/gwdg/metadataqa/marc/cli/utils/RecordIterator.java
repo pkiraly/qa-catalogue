@@ -27,8 +27,7 @@ import java.util.logging.Logger;
 public class RecordIterator {
 
   private static final Logger logger = Logger.getLogger(RecordIterator.class.getCanonicalName());
-  private static Options options;
-  private MarcFileProcessor processor;
+  private final MarcFileProcessor processor;
 
   public RecordIterator(MarcFileProcessor processor) {
     this.processor = processor;
@@ -73,17 +72,7 @@ public class RecordIterator {
           if (!processor.readyToProcess())
             break;
 
-          Record marc4jRecord = null;
-          try {
-            marc4jRecord = reader.next();
-          } catch (MarcException | NegativeArraySizeException | NumberFormatException e) {
-            logger.severe(
-              String.format(
-                "MARC record parsing problem at record #%d (last known ID: %s): %s",
-                (i+1), lastKnownId, e.getLocalizedMessage()));
-          } catch (Exception e) {
-            logger.log(Level.SEVERE, "start", e);
-          }
+          Record marc4jRecord = getNextMarc4jRecord(i, lastKnownId, reader);
           i++;
           if (marc4jRecord == null)
             continue;
@@ -102,10 +91,8 @@ public class RecordIterator {
             lastKnownId = marc4jRecord.getControlNumber();
           }
 
-          if (processor.getParameters().hasId()
-            && !marc4jRecord.getControlNumber().trim().equals(processor.getParameters().getId())) {
+          if (skipRecord(marc4jRecord))
             continue;
-          }
 
           try {
             processor.processRecord(marc4jRecord, i);
@@ -118,25 +105,10 @@ public class RecordIterator {
 
             if (i % 100000 == 0 && processor.getParameters().doLog())
               logger.info(String.format("%s/%s (%s)", fileName, decimalFormat.format(i), marcRecord.getId()));
-
           } catch (IllegalArgumentException e) {
-            if (marc4jRecord.getControlNumber() == null)
-              logger.severe("No record number at " + i);
-            if (processor.getParameters().doLog())
-              logger.severe(String.format(
-                "Error (illegal argument) with record '%s'. %s",
-                marc4jRecord.getControlNumber(), e.getMessage()));
-            logger.log(Level.SEVERE, "start", e);
-            continue;
+            extracted(i, marc4jRecord, e, "Error (illegal argument) with record '%s'. %s");
           } catch (Exception e) {
-            if (marc4jRecord.getControlNumber() == null)
-              logger.severe("No record number at " + i);
-            if (processor.getParameters().doLog())
-              logger.severe(String.format(
-                "Error (general) with record '%s'. %s",
-                marc4jRecord.getControlNumber(), e.getMessage()));
-            logger.log(Level.SEVERE, "start", e);
-            continue;
+            extracted(i, marc4jRecord, e, "Error (general) with record '%s'. %s");
           }
         }
         if (processor.getParameters().doLog())
@@ -174,6 +146,34 @@ public class RecordIterator {
     if (processor.getParameters().doLog())
       logger.info(String.format("Bye! It took: %s",
         LocalTime.MIN.plusSeconds(duration).toString()));
+  }
+
+  private Record getNextMarc4jRecord(int i, String lastKnownId, MarcReader reader) {
+    Record marc4jRecord = null;
+    try {
+      marc4jRecord = reader.next();
+    } catch (MarcException | NegativeArraySizeException | NumberFormatException e) {
+      logger.severe(
+        String.format(
+          "MARC record parsing problem at record #%d (last known ID: %s): %s",
+          (i +1), lastKnownId, e.getLocalizedMessage()));
+    } catch (Exception e) {
+      logger.log(Level.SEVERE, "start", e);
+    }
+    return marc4jRecord;
+  }
+
+  private boolean skipRecord(Record marc4jRecord) {
+    return processor.getParameters().hasId()
+      && !marc4jRecord.getControlNumber().trim().equals(processor.getParameters().getId());
+  }
+
+  private void extracted(int i, Record marc4jRecord, Exception e, String message) {
+    if (marc4jRecord.getControlNumber() == null)
+      logger.severe("No record number at " + i);
+    if (processor.getParameters().doLog())
+      logger.severe(String.format(message, marc4jRecord.getControlNumber(), e.getMessage()));
+    logger.log(Level.SEVERE, "start", e);
   }
 
   private static boolean isOverLimit(int limit, int i) {

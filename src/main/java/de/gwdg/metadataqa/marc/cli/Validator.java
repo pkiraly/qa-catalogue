@@ -64,12 +64,14 @@ public class Validator implements MarcFileProcessor, Serializable {
   private int vErrorId = 1;
 
   public Validator(String[] args) throws ParseException {
-    parameters = new ValidatorParameters(args);
+    this(new ValidatorParameters(args));
+  }
+
+  public Validator(ValidatorParameters parameters) throws ParseException {
+    this.parameters = parameters;
     options = parameters.getOptions();
-    // errorCounter = new TreeMap<>();
     readyToProcess = true;
     counter = 0;
-
   }
 
   public static void main(String[] args) {

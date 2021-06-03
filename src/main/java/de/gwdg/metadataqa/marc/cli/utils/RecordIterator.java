@@ -1,9 +1,11 @@
 package de.gwdg.metadataqa.marc.cli.utils;
 
+import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.definition.DataSource;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.utils.ReadMarc;
 import org.apache.commons.cli.HelpFormatter;
@@ -13,6 +15,7 @@ import org.marc4j.MarcException;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
 
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.time.LocalTime;
@@ -28,6 +31,13 @@ public class RecordIterator {
 
   private static final Logger logger = Logger.getLogger(RecordIterator.class.getCanonicalName());
   private final MarcFileProcessor processor;
+  private int i = 0;
+  private String lastKnownId = "";
+  private CommonParameters parameters;
+  private boolean fixAlephseq;
+  private MarcVersion marcVersion;
+  private Leader.Type defaultRecordType;
+  private DecimalFormat decimalFormat;
 
   public RecordIterator(MarcFileProcessor processor) {
     this.processor = processor;
@@ -37,105 +47,30 @@ public class RecordIterator {
 
     long start = System.currentTimeMillis();
     processor.beforeIteration();
+    CommonParameters parameters = processor.getParameters();
 
-    MarcVersion marcVersion = processor.getParameters().getMarcVersion();
-    Leader.Type defaultRecordType = processor.getParameters().getDefaultRecordType();
-    boolean fixAlephseq = processor.getParameters().fixAlephseq();
-    boolean isAlephseq = processor.getParameters().isAlephseq();
-    boolean isMarcxml = processor.getParameters().isMarcxml();
-    boolean isLineSeparated = processor.getParameters().isLineSeparated();
-    DecimalFormat decimalFormat = new DecimalFormat();
+    marcVersion = parameters.getMarcVersion();
+    defaultRecordType = parameters.getDefaultRecordType();
+    fixAlephseq = parameters.fixAlephseq();
+    decimalFormat = new DecimalFormat();
 
     if (processor.getParameters().doLog())
       logger.info("marcVersion: " + marcVersion.getCode() + ", " + marcVersion.getLabel());
 
-    String[] inputFileNames = processor.getParameters().getArgs();
-
-    var i = 0;
-    String lastKnownId = "";
-    for (String inputFileName : inputFileNames) {
-      if (!processor.readyToProcess())
-        break;
-
-      var path = Paths.get(inputFileName);
-      String fileName = path.getFileName().toString();
-
-      if (processor.getParameters().doLog())
-        logger.info("processing: " + fileName);
-
+    if (parameters.getDataSource().equals(DataSource.FILE)) {
+      String[] inputFileNames = processor.getParameters().getArgs();
+      for (String inputFileName : inputFileNames) {
+        if (!processor.readyToProcess())
+          break;
+        processFile(inputFileName);
+      }
+    } else if (parameters.getDataSource().equals(DataSource.STREAM)) {
       try {
-        processor.fileOpened(path);
-        MarcReader reader = (isAlephseq)
-          ? ReadMarc.getAlephseqMarcReader(path.toString())
-          : ReadMarc.getReader(path.toString(), isMarcxml, isLineSeparated);
-        while (reader.hasNext()) {
-          if (!processor.readyToProcess())
-            break;
-
-          Record marc4jRecord = getNextMarc4jRecord(i, lastKnownId, reader);
-          i++;
-          if (marc4jRecord == null)
-            continue;
-
-          if (isUnderOffset(processor.getParameters().getOffset(), i))
-            continue;
-
-          if (isOverLimit(processor.getParameters().getLimit(), i))
-            break;
-
-          if (marc4jRecord.getControlNumber() == null) {
-            logger.severe("No record number at " + i + ", last known ID: " + lastKnownId);
-            System.err.println(marc4jRecord);
-            continue;
-          } else {
-            lastKnownId = marc4jRecord.getControlNumber();
-          }
-
-          if (skipRecord(marc4jRecord))
-            continue;
-
-          try {
-            processor.processRecord(marc4jRecord, i);
-            MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, defaultRecordType, marcVersion, fixAlephseq);
-            try {
-              processor.processRecord(marcRecord, i);
-            } catch(Exception e) {
-              logger.log(Level.SEVERE, "start", e);
-            }
-
-            if (i % 100000 == 0 && processor.getParameters().doLog())
-              logger.info(String.format("%s/%s (%s)", fileName, decimalFormat.format(i), marcRecord.getId()));
-          } catch (IllegalArgumentException e) {
-            extracted(i, marc4jRecord, e, "Error (illegal argument) with record '%s'. %s");
-          } catch (Exception e) {
-            extracted(i, marc4jRecord, e, "Error (general) with record '%s'. %s");
-          }
-        }
-        if (processor.getParameters().doLog())
-          logger.info(String.format("Finished processing file. Processed %s records.", decimalFormat.format(i)));
-
-      } catch (SolrServerException ex) {
-        if (processor.getParameters().doLog())
-          logger.severe(ex.toString());
-        System.exit(0);
-      } catch (Exception ex) {
-        if (processor.getParameters().doLog()) {
-          logger.severe("Other exception: " + ex.toString());
-
-          for (StackTraceElement element : ex.getStackTrace()) {
-            System.err.println(element.toString());
-          }
-          Throwable exa = ex;
-          while (exa.getCause() != null) {
-            System.err.println("cause");
-            exa = exa.getCause();
-            for (StackTraceElement element : exa.getStackTrace()) {
-              System.err.println(element.toString());
-            }
-          }
-        }
-        logger.log(Level.SEVERE, "start", ex);
-        System.exit(0);
+        MarcReader reader = getMarcStreamReader(processor.getParameters());
+        logger.info("reader: " + reader.getClass().getCanonicalName());
+        processContent(reader, "stream");
+      } catch (Exception e) {
+        e.printStackTrace();
       }
     }
 
@@ -143,9 +78,102 @@ public class RecordIterator {
 
     long end = System.currentTimeMillis();
     long duration = (end - start) / 1000;
-    if (processor.getParameters().doLog())
+    if (parameters.doLog())
       logger.info(String.format("Bye! It took: %s",
         LocalTime.MIN.plusSeconds(duration).toString()));
+  }
+
+  private void processFile(String inputFileName) {
+    var path = Paths.get(inputFileName);
+    String fileName = path.getFileName().toString();
+
+    if (processor.getParameters().doLog())
+      logger.info("processing: " + fileName);
+
+    try {
+      processor.fileOpened(path);
+      MarcReader reader = getMarcFileReader(processor.getParameters(), path);
+      processContent(reader, fileName);
+      if (processor.getParameters().doLog())
+        logger.info(String.format("Finished processing file. Processed %s records.", decimalFormat.format(i)));
+
+    } catch (SolrServerException ex) {
+      if (processor.getParameters().doLog())
+        logger.severe(ex.toString());
+      System.exit(0);
+    } catch (Exception ex) {
+      if (processor.getParameters().doLog()) {
+        logger.severe("Other exception: " + ex.toString());
+
+        for (StackTraceElement element : ex.getStackTrace()) {
+          System.err.println(element.toString());
+        }
+        Throwable exa = ex;
+        while (exa.getCause() != null) {
+          System.err.println("cause");
+          exa = exa.getCause();
+          for (StackTraceElement element : exa.getStackTrace()) {
+            System.err.println(element.toString());
+          }
+        }
+      }
+      logger.log(Level.SEVERE, "start", ex);
+      System.exit(0);
+    }
+  }
+
+  private void processContent(MarcReader reader, String fileName) {
+    while (reader.hasNext()) {
+      if (!processor.readyToProcess())
+        break;
+
+      Record marc4jRecord = getNextMarc4jRecord(i, lastKnownId, reader);
+      i++;
+      if (marc4jRecord == null)
+        continue;
+
+      if (isUnderOffset(processor.getParameters().getOffset(), i))
+        continue;
+
+      if (isOverLimit(processor.getParameters().getLimit(), i))
+        break;
+
+      if (marc4jRecord.getControlNumber() == null) {
+        logger.severe("No record number at " + i + ", last known ID: " + lastKnownId);
+        System.err.println(marc4jRecord);
+        continue;
+      } else {
+        lastKnownId = marc4jRecord.getControlNumber();
+      }
+
+      if (skipRecord(marc4jRecord))
+        continue;
+
+      try {
+        processor.processRecord(marc4jRecord, i);
+        MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, defaultRecordType, marcVersion, fixAlephseq);
+        try {
+          processor.processRecord(marcRecord, i);
+        } catch(Exception e) {
+          logger.log(Level.SEVERE, "start", e);
+        }
+
+        if (i % 100000 == 0 && processor.getParameters().doLog())
+          logger.info(String.format("%s/%s (%s)", fileName, decimalFormat.format(i), marcRecord.getId()));
+      } catch (IllegalArgumentException e) {
+        extracted(i, marc4jRecord, e, "Error (illegal argument) with record '%s'. %s");
+      } catch (Exception e) {
+        extracted(i, marc4jRecord, e, "Error (general) with record '%s'. %s");
+      }
+    }
+  }
+
+  private MarcReader getMarcFileReader(CommonParameters parameters, Path path) throws Exception {
+    return ReadMarc.getFileReader(parameters.getMarcFormat(), path.toString());
+  }
+
+  private MarcReader getMarcStreamReader(CommonParameters parameters) throws Exception {
+    return ReadMarc.getStreamReader(parameters.getMarcFormat(), parameters.getStream());
   }
 
   private Record getNextMarc4jRecord(int i, String lastKnownId, MarcReader reader) {

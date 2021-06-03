@@ -1,6 +1,7 @@
-package de.gwdg.metadataqa.marc.utils.alephseq;
+package de.gwdg.metadataqa.marc.utils.marcreader;
 
 import de.gwdg.metadataqa.marc.MarcFactory;
+import de.gwdg.metadataqa.marc.utils.alephseq.AlephseqLine;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
 
@@ -29,6 +30,14 @@ public class AlephseqMarcReader implements MarcReader {
   public AlephseqMarcReader(String alephseqMarc) {
     try {
       bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(alephseqMarc), "UTF8"));
+    } catch (IOException e) {
+      logger.log(Level.WARNING, "AlephseqMarcReader", e);
+    }
+  }
+
+  public AlephseqMarcReader(InputStream stream) {
+    try {
+      bufferedReader = new BufferedReader(new InputStreamReader(stream, "UTF8"));
     } catch (IOException e) {
       logger.log(Level.WARNING, "AlephseqMarcReader", e);
     }

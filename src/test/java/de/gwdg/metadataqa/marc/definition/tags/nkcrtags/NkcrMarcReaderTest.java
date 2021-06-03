@@ -8,7 +8,7 @@ import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
-import de.gwdg.metadataqa.marc.utils.alephseq.AlephseqMarcReader;
+import de.gwdg.metadataqa.marc.utils.marcreader.AlephseqMarcReader;
 import org.junit.Test;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;

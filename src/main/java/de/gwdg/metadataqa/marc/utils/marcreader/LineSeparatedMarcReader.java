@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.utils;
+package de.gwdg.metadataqa.marc.utils.marcreader;
 
 import org.marc4j.MarcReader;
 import org.marc4j.MarcStreamReader;
@@ -23,6 +23,10 @@ public class LineSeparatedMarcReader implements MarcReader {
     } catch (FileNotFoundException e) {
       logger.log(Level.WARNING, "error in LineSeparatedMarcReader()", e);
     }
+  }
+
+  public LineSeparatedMarcReader(InputStream in) {
+    bufferedReader = new BufferedReader(new InputStreamReader(in));
   }
 
   @Override

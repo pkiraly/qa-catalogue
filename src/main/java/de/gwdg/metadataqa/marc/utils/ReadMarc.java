@@ -1,6 +1,8 @@
 package de.gwdg.metadataqa.marc.utils;
 
-import de.gwdg.metadataqa.marc.utils.alephseq.AlephseqMarcReader;
+import de.gwdg.metadataqa.marc.definition.MarcFormat;
+import de.gwdg.metadataqa.marc.utils.marcreader.AlephseqMarcReader;
+import de.gwdg.metadataqa.marc.utils.marcreader.LineSeparatedMarcReader;
 import org.marc4j.MarcReader;
 import org.marc4j.MarcStreamReader;
 import org.marc4j.MarcXmlReader;
@@ -24,21 +26,28 @@ public class ReadMarc {
     return records;
   }
 
-  public static MarcReader getStreamReader(String fileName) throws Exception {
-    InputStream in = new FileInputStream(fileName);
-    MarcReader reader = new MarcStreamReader(in);
-    return reader;
+  public static MarcReader getIsoFileReader(String fileName) throws Exception {
+    return getIsoStreamReader(new FileInputStream(fileName));
   }
 
-  public static MarcReader getXmlReader(String fileName) throws Exception {
-    InputStream in = new FileInputStream(fileName);
-    MarcReader reader = new MarcXmlReader(in);
-    return reader;
+  public static MarcReader getIsoStreamReader(InputStream in) throws Exception {
+    return new MarcStreamReader(in);
   }
 
-  public static MarcReader getLineSeparatedMarcReader(String fileName) throws Exception {
-    MarcReader reader = new LineSeparatedMarcReader(fileName);
-    return reader;
+  public static MarcReader getXmlFileReader(String fileName) throws Exception {
+    return getXmlStreamReader(new FileInputStream(fileName));
+  }
+
+  public static MarcReader getXmlStreamReader(InputStream in) throws Exception {
+    return new MarcXmlReader(in);
+  }
+
+  public static MarcReader getLineSeparatedFileReader(String fileName) throws Exception {
+    return new LineSeparatedMarcReader(fileName);
+  }
+
+  public static MarcReader getLineSeparatedStreamReader(InputStream stream) throws Exception {
+    return new LineSeparatedMarcReader(stream);
   }
 
   public static MarcReader getMarcStringReader(String content) throws Exception {
@@ -47,21 +56,56 @@ public class ReadMarc {
     return reader;
   }
 
-  public static MarcReader getAlephseqMarcReader(String fileName) throws Exception {
-    MarcReader reader = new AlephseqMarcReader(fileName);
-    return reader;
+  public static MarcReader getAlephseqFileReader(String fileName) throws Exception {
+    return new AlephseqMarcReader(fileName);
+  }
+
+  public static MarcReader getAlephseqStreamReader(InputStream stream) throws Exception {
+    return new AlephseqMarcReader(stream);
   }
 
   public static MarcReader getReader(String fileName, boolean isMarcxml) throws Exception {
     return getReader(fileName, isMarcxml, false);
   }
 
+  public static MarcReader getFileReader(MarcFormat marcFormat, String fileName) throws Exception {
+    MarcReader reader = null;
+    switch (marcFormat) {
+      case ALEPHSEQ:
+        reader = ReadMarc.getAlephseqFileReader(fileName); break;
+      case LINE_SEPARATED:
+        reader = ReadMarc.getLineSeparatedFileReader(fileName); break;
+      case XML:
+        reader = ReadMarc.getXmlFileReader(fileName); break;
+      case ISO:
+      default:
+        reader = ReadMarc.getIsoFileReader(fileName); break;
+    }
+    return reader;
+  }
+
+  public static MarcReader getStreamReader(MarcFormat marcFormat, InputStream stream) throws Exception {
+    MarcReader reader = null;
+    switch (marcFormat) {
+      case ALEPHSEQ:
+        reader = ReadMarc.getAlephseqStreamReader(stream); break;
+      case LINE_SEPARATED:
+        reader = ReadMarc.getLineSeparatedStreamReader(stream); break;
+      case XML:
+        reader = ReadMarc.getXmlStreamReader(stream); break;
+      case ISO:
+      default:
+        reader = ReadMarc.getIsoStreamReader(stream); break;
+    }
+    return reader;
+  }
+
   public static MarcReader getReader(String fileName, boolean isMarcxml, boolean isLineSeaparated) throws Exception {
     MarcReader reader = null;
     if (isLineSeaparated)
-      reader = ReadMarc.getLineSeparatedMarcReader(fileName);
+      reader = ReadMarc.getLineSeparatedFileReader(fileName);
     else
-      reader = (isMarcxml) ? ReadMarc.getXmlReader(fileName) : ReadMarc.getStreamReader(fileName);
+      reader = (isMarcxml) ? ReadMarc.getXmlFileReader(fileName) : ReadMarc.getIsoFileReader(fileName);
 
     return reader;
   }

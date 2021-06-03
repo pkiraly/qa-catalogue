@@ -182,6 +182,24 @@ do_marc_history() {
   Rscript scripts/marc-history.R ${OUTPUT_DIR} &>> ${PREFIX}/marc-history.log
 }
 
+do_record_patterns() {
+  printf "%s %s> [record-patterns]\n" $(date +"%F %T")
+  printf "%s %s> Rscript scripts/top-fields.R ${OUTPUT_DIR} &>> ${PREFIX}/top-fields.log\n" $(date +"%F %T")
+  Rscript scripts/top-fields.R ${OUTPUT_DIR} &>> ${PREFIX}/top-fields.log
+
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/--emptyLargeCollectors|--with-delete//')
+  printf "%s %s> ./record-patterns --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} &> ${PREFIX}/record-patterns.log\n" $(date +"%F %T")
+  ./record-patterns --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} &> ${PREFIX}/record-patterns.log
+
+  head -1 ${OUTPUT_DIR}/record-patterns.csv | sed -e 's/^/count,/' > ${OUTPUT_DIR}/record-patterns-groupped.csv
+  cat ${OUTPUT_DIR}/record-patterns.csv \
+    | grep -v "\\$" \
+    | sort \
+    | uniq -c \
+    | sort -n -r \
+    | sed -r 's/^ *([0-9]+) /\1,/' >> ${OUTPUT_DIR}/record-patterns-groupped.csv
+}
+
 do_version_link() {
   printf "%s %s> [version-link]\n" $(date +"%F %T")
   if [[ "$VERSION" != "" ]]; then
@@ -254,6 +272,9 @@ case "$1" in
     ;;
   marc-history)
     do_marc_history
+    ;;
+  record-patterns)
+    do_record_patterns
     ;;
   all-analyses)
     do_all_analyses

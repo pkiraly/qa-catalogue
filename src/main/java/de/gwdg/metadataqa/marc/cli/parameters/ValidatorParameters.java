@@ -50,12 +50,7 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
       useStandardOutput = true;
 
     if (cmd.hasOption("format"))
-      for (ValidationErrorFormat registeredFormat : ValidationErrorFormat.values()) {
-        if (registeredFormat.getNames().contains(cmd.getOptionValue("format"))) {
-          format = registeredFormat;
-          break;
-        }
-      }
+      setFormat(cmd.getOptionValue("format"));
 
     if (cmd.hasOption("summary")) {
       doSummary = true;
@@ -74,28 +69,58 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
     return detailsFileName;
   }
 
+  public void setDetailsFileName(String detailsFileName) {
+    this.detailsFileName = detailsFileName;
+  }
+
   public boolean doSummary() {
     return doSummary;
+  }
+
+  public void setDoSummary(boolean doSummary) {
+    this.doSummary = doSummary;
   }
 
   public boolean doDetails() {
     return doDetails;
   }
 
+  public void setDoDetails(boolean doDetails) {
+    this.doDetails = doDetails;
+  }
+
   public boolean useStandardOutput() {
     return useStandardOutput;
+  }
+
+  public void setUseStandardOutput(boolean useStandardOutput) {
+    this.useStandardOutput = useStandardOutput;
   }
 
   public ValidationErrorFormat getFormat() {
     return format;
   }
 
+  public void setFormat(String format) throws ParseException {
+    this.format = ValidationErrorFormat.byFormat(format);
+    if (this.format == null)
+      throw new ParseException(String.format("Unrecognized ValidationErrorFormat parameter value: '%s'", format));
+  }
+
   public String getSummaryFileName() {
     return summaryFileName;
   }
 
+  public void setSummaryFileName(String summaryFileName) {
+    this.summaryFileName = summaryFileName;
+  }
+
   public boolean doEmptyLargeCollectors() {
     return emptyLargeCollectors;
+  }
+
+  public void setEmptyLargeCollectors(boolean emptyLargeCollectors) {
+    this.emptyLargeCollectors = emptyLargeCollectors;
   }
 
   @Override

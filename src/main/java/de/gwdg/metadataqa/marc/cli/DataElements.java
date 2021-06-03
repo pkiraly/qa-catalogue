@@ -1,0 +1,164 @@
+package de.gwdg.metadataqa.marc.cli;
+
+import de.gwdg.metadataqa.marc.MarcSubfield;
+import de.gwdg.metadataqa.marc.Utils;
+import de.gwdg.metadataqa.marc.analysis.DataElementCounter;
+import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
+import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
+import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
+import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.MarcControlField;
+import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.definition.ControlValue;
+import de.gwdg.metadataqa.marc.definition.tags.TagCategory;
+import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
+import de.gwdg.metadataqa.marc.utils.BasicStatistics;
+import de.gwdg.metadataqa.marc.utils.TagHierarchy;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.marc4j.marc.Record;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.Serializable;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Pattern;
+
+import static de.gwdg.metadataqa.marc.Utils.createRow;
+import static de.gwdg.metadataqa.marc.Utils.quote;
+
+public class DataElements implements MarcFileProcessor, Serializable {
+
+  private static final Logger logger = Logger.getLogger(DataElements.class.getCanonicalName());
+  private static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
+
+  private final Options options;
+  private CompletenessParameters parameters;
+  private Map<String, Integer> library003Counter = new TreeMap<>();
+  private Map<String, Integer> libraryCounter = new TreeMap<>();
+  private Map<String, Map<String, Integer>> packageCounter = new TreeMap<>();
+  private Map<String, Map<String, Integer>> elementCardinality = new TreeMap<>();
+  private Map<String, Map<String, Integer>> elementFrequency = new TreeMap<>();
+  private Map<String, Map<Integer, Integer>> fieldHistogram = new HashMap<>();
+  private boolean readyToProcess;
+  private DataElementCounter dataElementCounter;
+  private File outputFile;
+
+  public DataElements(String[] args) throws ParseException {
+    parameters = new CompletenessParameters(args);
+    options = parameters.getOptions();
+    readyToProcess = true;
+  }
+
+  public static void main(String[] args) {
+    MarcFileProcessor processor = null;
+    try {
+      processor = new DataElements(args);
+    } catch (ParseException e) {
+      System.err.println("ERROR. " + e.getLocalizedMessage());
+      System.exit(0);
+    }
+    if (processor.getParameters().getArgs().length < 1) {
+      System.err.println("Please provide a MARC file name!");
+      processor.printHelp(processor.getParameters().getOptions());
+      System.exit(0);
+    }
+    if (processor.getParameters().doHelp()) {
+      processor.printHelp(processor.getParameters().getOptions());
+      System.exit(0);
+    }
+    RecordIterator iterator = new RecordIterator(processor);
+    iterator.start();
+  }
+
+  @Override
+  public CommonParameters getParameters() {
+    return parameters;
+  }
+
+  @Override
+  public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
+    // do nothing
+  }
+
+  @Override
+  public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
+    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+      return;
+
+    printToFile(outputFile, StringUtils.join(dataElementCounter.count(marcRecord), ",") + "\n");
+  }
+
+  @Override
+  public void beforeIteration() {
+    logger.info(parameters.formatParameters());
+    elementCardinality.put("all", new TreeMap<>());
+    elementFrequency.put("all", new TreeMap<>());
+    packageCounter.put("all", new TreeMap<>());
+    dataElementCounter = new DataElementCounter(parameters.getOutputDir(), "top-fields.txt", DataElementCounter.Basis.EXISTENCE);
+    outputFile = new File(parameters.getOutputDir(), "record-patterns.csv");
+    if (outputFile.exists())
+      outputFile.delete();
+    printToFile(outputFile, dataElementCounter.getHeader() + "\n");
+  }
+
+  @Override
+  public void fileOpened(Path file) {
+    // do nothing
+  }
+
+  @Override
+  public void fileProcessed() {
+    // do nothing
+  }
+
+  @Override
+  public void afterIteration(int numberOfprocessedRecords) {
+    // do nothing
+  }
+
+  private void printToFile(File file, String message) {
+    try {
+      FileUtils.writeStringToFile(file, message, Charset.defaultCharset(), true);
+    } catch (IOException e) {
+      if (parameters.doLog())
+        logger.log(Level.SEVERE, "printToFile", e);
+    }
+  }
+
+  private char getSeparator(ValidationErrorFormat format) {
+    if (format.equals(ValidationErrorFormat.TAB_SEPARATED)) {
+      return '\t';
+    } else {
+      return ',';
+    }
+  }
+
+  @Override
+  public void printHelp(Options options) {
+    HelpFormatter formatter = new HelpFormatter();
+    String message = String.format("java -cp metadata-qa-marc.jar %s [options] [file]", this.getClass().getCanonicalName());
+    formatter.printHelp(message, options);
+  }
+
+  @Override
+  public boolean readyToProcess() {
+    return readyToProcess;
+  }
+}

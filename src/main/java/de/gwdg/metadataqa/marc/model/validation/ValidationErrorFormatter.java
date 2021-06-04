@@ -1,5 +1,7 @@
 package de.gwdg.metadataqa.marc.model.validation;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opencsv.CSVWriter;
 import de.gwdg.metadataqa.marc.Utils;
 import org.apache.commons.lang3.StringUtils;
@@ -9,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 
 import static de.gwdg.metadataqa.marc.Utils.counterToList;
 
@@ -76,6 +79,15 @@ public class ValidationErrorFormatter {
       message.append(createCvsRow(asArray(error), '\t'));
     } else if (format.equals(ValidationErrorFormat.COMMA_SEPARATED)) {
       message.append(createCvsRow(asArray(error), ','));
+    } else if (format.equals(ValidationErrorFormat.JSON)) {
+      ObjectMapper mapper = new ObjectMapper();
+      String json = null;
+      try {
+        json = mapper.writeValueAsString(error);
+      } catch (JsonProcessingException e) {
+        // logger.log(Level.WARNING, "error in asJson()", e);
+      }
+      message.append(json);
     }
     return message.toString();
   }

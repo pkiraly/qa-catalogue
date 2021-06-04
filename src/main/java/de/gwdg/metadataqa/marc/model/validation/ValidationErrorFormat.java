@@ -20,11 +20,10 @@ public enum ValidationErrorFormat {
   }
 
   public static ValidationErrorFormat byFormat(String format) {
-    for (ValidationErrorFormat registeredFormat : ValidationErrorFormat.values()) {
-      if (registeredFormat.getNames().contains(format)) {
+    for (ValidationErrorFormat registeredFormat : ValidationErrorFormat.values())
+      if (registeredFormat.getNames().contains(format))
         return registeredFormat;
-      }
-    }
+
     return null;
   }
 

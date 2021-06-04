@@ -30,16 +30,16 @@ public class ReadMarc {
     return getIsoStreamReader(new FileInputStream(fileName));
   }
 
-  public static MarcReader getIsoStreamReader(InputStream in) throws Exception {
-    return new MarcStreamReader(in);
+  public static MarcReader getIsoStreamReader(InputStream stream) throws Exception {
+    return new MarcStreamReader(stream);
   }
 
   public static MarcReader getXmlFileReader(String fileName) throws Exception {
     return getXmlStreamReader(new FileInputStream(fileName));
   }
 
-  public static MarcReader getXmlStreamReader(InputStream in) throws Exception {
-    return new MarcXmlReader(in);
+  public static MarcReader getXmlStreamReader(InputStream stream) throws Exception {
+    return new MarcXmlReader(stream);
   }
 
   public static MarcReader getLineSeparatedFileReader(String fileName) throws Exception {

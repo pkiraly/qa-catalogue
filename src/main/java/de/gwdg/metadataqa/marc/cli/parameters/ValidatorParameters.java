@@ -16,6 +16,7 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
   private boolean useStandardOutput = false;
   private boolean isOptionSet;
   private boolean emptyLargeCollectors = false;
+  private boolean collectAllErrors = false;
 
   protected void setOptions() {
     if (!isOptionSet) {
@@ -27,6 +28,7 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
         String.format("the report file name (default is '%s')", ValidatorParameters.DEFAULT_FILE_NAME));
       options.addOption("r", "format", true, "specify a format");
       options.addOption("w", "emptyLargeCollectors", false, "empty large collectors");
+      options.addOption("t", "collectAllErrors", false, "collect all errors (useful only for validating small number of records)");
       isOptionSet = true;
     }
   }
@@ -63,6 +65,8 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
 
     if (cmd.hasOption("emptyLargeCollectors"))
       emptyLargeCollectors = true;
+
+    setCollectAllErrors(cmd.hasOption("collectAllErrors"));
   }
 
   public String getDetailsFileName() {
@@ -121,6 +125,14 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
 
   public void setEmptyLargeCollectors(boolean emptyLargeCollectors) {
     this.emptyLargeCollectors = emptyLargeCollectors;
+  }
+
+  public boolean collectAllErrors() {
+    return collectAllErrors;
+  }
+
+  public void setCollectAllErrors(boolean collectAllErrors) {
+    this.collectAllErrors = collectAllErrors;
   }
 
   @Override

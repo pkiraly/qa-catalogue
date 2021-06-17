@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.utils;
 import de.gwdg.metadataqa.marc.definition.MarcFormat;
 import de.gwdg.metadataqa.marc.utils.marcreader.AlephseqMarcReader;
 import de.gwdg.metadataqa.marc.utils.marcreader.LineSeparatedMarcReader;
+import de.gwdg.metadataqa.marc.utils.marcreader.MarclineReader;
 import org.marc4j.MarcReader;
 import org.marc4j.MarcStreamReader;
 import org.marc4j.MarcXmlReader;
@@ -64,6 +65,14 @@ public class ReadMarc {
     return new AlephseqMarcReader(stream);
   }
 
+  public static MarcReader getMarclineFileReader(String fileName) throws Exception {
+    return new MarclineReader(fileName);
+  }
+
+  public static MarcReader getMarclineStreamReader(InputStream stream) throws Exception {
+    return new MarclineReader(stream);
+  }
+
   public static MarcReader getReader(String fileName, boolean isMarcxml) throws Exception {
     return getReader(fileName, isMarcxml, false);
   }
@@ -77,6 +86,8 @@ public class ReadMarc {
         reader = ReadMarc.getLineSeparatedFileReader(fileName); break;
       case XML:
         reader = ReadMarc.getXmlFileReader(fileName); break;
+      case MARC_LINE:
+        reader = ReadMarc.getMarclineFileReader(fileName); break;
       case ISO:
       default:
         reader = ReadMarc.getIsoFileReader(fileName); break;
@@ -93,6 +104,8 @@ public class ReadMarc {
         reader = ReadMarc.getLineSeparatedStreamReader(stream); break;
       case XML:
         reader = ReadMarc.getXmlStreamReader(stream); break;
+      case MARC_LINE:
+        reader = ReadMarc.getMarclineStreamReader(stream); break;
       case ISO:
       default:
         reader = ReadMarc.getIsoStreamReader(stream); break;

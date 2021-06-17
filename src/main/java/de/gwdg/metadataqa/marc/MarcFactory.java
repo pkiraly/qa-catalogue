@@ -22,6 +22,7 @@ import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
 import de.gwdg.metadataqa.marc.utils.alephseq.AlephseqLine;
 import de.gwdg.metadataqa.marc.utils.MapToDatafield;
 
+import de.gwdg.metadataqa.marc.utils.alephseq.MarclineLine;
 import de.gwdg.metadataqa.marc.utils.pica.PicaLine;
 import net.minidev.json.JSONArray;
 import org.marc4j.marc.ControlField;
@@ -312,6 +313,33 @@ public class MarcFactory {
           var df = new DataFieldImpl(
             line.getTag(), line.getInd1().charAt(0), line.getInd2().charAt(0)
           );
+          for (String[] pair : line.parseSubfields()) {
+            if (pair.length == 2 && pair[0] != null && pair[1] != null) {
+              df.addSubfield(new SubfieldImpl(pair[0].charAt(0), pair[1]));
+            } else {
+              logger.warning(String.format(
+                "parse error in record #%s) tag %s: '%s'",
+                line.getRecordID(), line.getTag(), line.getRawContent()
+              ));
+            }
+          }
+          marc4jRecord.addVariableField(df);
+        }
+      }
+    }
+    return marc4jRecord;
+  }
+
+  public static Record createRecordFromMarcline(List<MarclineLine> lines) {
+    Record marc4jRecord = new RecordImpl();
+    for (MarclineLine line : lines) {
+      if (line.isLeader()) {
+        marc4jRecord.setLeader(new LeaderImpl(line.getContent()));
+      } else if (line.isNumericTag()) {
+        if (line.isControlField()) {
+          marc4jRecord.addVariableField(new ControlFieldImpl(line.getTag(), line.getContent()));
+        } else {
+          var df = new DataFieldImpl(line.getTag(), line.getInd1().charAt(0), line.getInd2().charAt(0));
           for (String[] pair : line.parseSubfields()) {
             if (pair.length == 2 && pair[0] != null && pair[1] != null) {
               df.addSubfield(new SubfieldImpl(pair[0].charAt(0), pair[1]));

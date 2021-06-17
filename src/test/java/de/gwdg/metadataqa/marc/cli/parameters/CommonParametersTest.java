@@ -110,7 +110,7 @@ public class CommonParametersTest {
     try {
       CommonParameters parameters = new CommonParameters(arguments);
       String expected = "marcVersion: MARC21, MARC21\n" +
-        "marcFormat: ISO, Binary (ISO)\n" +
+        "marcFormat: ISO, Binary (ISO 2709)\n" +
         "dataSource: FILE, from file\n" +
         "limit: -1\n" +
         "offset: -1\n" +

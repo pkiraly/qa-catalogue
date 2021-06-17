@@ -1,10 +1,15 @@
 package de.gwdg.metadataqa.marc.definition;
 
+/**
+ * For a compreensive list of MARC serialization formats see
+ * https://jorol.github.io/processing-marc/#/serializations
+ */
 public enum MarcFormat {
-  ISO("ISO", "Binary (ISO)"),
+  ISO("ISO", "Binary (ISO 2709)"),
   XML("XML", "MARCXML"),
   ALEPHSEQ("ALEPHSEQ", "ALEPHSEQ"),
-  LINE_SEPARATED("LINE_SEPARATED", "Line separated"),
+  LINE_SEPARATED("LINE_SEPARATED", "Line separated binary MARC (each line contains one record)"),
+  MARC_LINE("MARC_LINE", "MARC Line")
   ;
 
   String code;

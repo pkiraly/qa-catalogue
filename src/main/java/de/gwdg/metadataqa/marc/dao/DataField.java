@@ -238,12 +238,12 @@ public class DataField implements Extractable, Validatable, Serializable {
     else
       output.append(String.format("[%s]%n", getTag()));
 
-    if (definition != null && definition.getInd1().exists())
+    if (definition != null && definition.getInd1() != null && definition.getInd1().exists())
       output.append(String.format("%s: %s%n", definition.getInd1().getLabel(), resolveInd1()));
     else if (StringUtils.isNotBlank(getInd1()))
       output.append(String.format("ind1: %s%n", getInd1()));
 
-    if (definition != null && definition.getInd2().exists())
+    if (definition != null && definition.getInd2() != null && definition.getInd2().exists())
       output.append(String.format("%s: %s%n", definition.getInd2().getLabel(), resolveInd2()));
     else if (StringUtils.isNotBlank(getInd2()))
       output.append(String.format("ind2: %s%n", getInd2()));

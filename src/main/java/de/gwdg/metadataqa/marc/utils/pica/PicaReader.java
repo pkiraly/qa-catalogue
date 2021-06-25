@@ -21,11 +21,10 @@ public class PicaReader implements MarcReader {
   private boolean nextIsConsumed = false;
   private int lineNumber = 0;
   private List<PicaLine> lines = new ArrayList<>();
-  private String currentId = null;
 
-  public PicaReader(String alephseqMarc) {
+  public PicaReader(String fileName) {
     try {
-      bufferedReader = new BufferedReader(new FileReader(alephseqMarc));
+      bufferedReader = new BufferedReader(new FileReader(fileName));
     } catch (IOException e) {
       logger.log(Level.WARNING, "error in PicaReader()", e);
     }
@@ -50,28 +49,16 @@ public class PicaReader implements MarcReader {
     Record marc4jRecord = null;
     boolean finished = false;
     while (line != null && !finished) {
-      PicaLine alephseqLine = new PicaLine(line, lineNumber);
-      if (currentId != null
-        && !alephseqLine.getRecordID().equals(currentId)
-        && !lines.isEmpty())
-      {
+      PicaLine picaLine = new PicaLine(line, lineNumber);
+      if (picaLine.isSkippable() && !lines.isEmpty()) {
         marc4jRecord = MarcFactory.createRecordFromPica(lines);
-        if (marc4jRecord.getLeader() == null) {
-          logger.severe(String.format(
-            "Record #%s #%s does not have a leader\n",
-            marc4jRecord.getControlNumberField().getData(),
-            lineNumber
-          ));
-        } else {
-          finished = true;
-        }
+        finished = true;
         lines = new ArrayList<>();
       }
 
-      if (alephseqLine.isValidTag()) {
-        lines.add(alephseqLine);
+      if (picaLine.isValidTag()) {
+        lines.add(picaLine);
       }
-      currentId = alephseqLine.getRecordID();
 
       try {
         line = bufferedReader.readLine();
@@ -79,7 +66,8 @@ public class PicaReader implements MarcReader {
       } catch (IOException e) {
         logger.log(Level.SEVERE, "next", e);
       }
-    }
+    } // while
+
     if (line == null && !lines.isEmpty()) {
       marc4jRecord = MarcFactory.createRecordFromPica(lines);
     }

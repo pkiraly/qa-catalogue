@@ -14,7 +14,7 @@ public class PicaplusTag {
   private String raw;
   private String tag;
   private String occurrence = null;
-  private OccurrenceRage occurrenceRage = null;
+  private OccurrenceRange occurrenceRange = null;
 
   public PicaplusTag(String tag) {
     this.raw = tag;
@@ -26,7 +26,7 @@ public class PicaplusTag {
   }
 
   public boolean hasOccurrenceRange() {
-    return occurrenceRage != null;
+    return occurrenceRange != null;
   }
 
   public String getRaw() {
@@ -41,8 +41,8 @@ public class PicaplusTag {
     return occurrence;
   }
 
-  public OccurrenceRage getOccurrenceRage() {
-    return occurrenceRage;
+  public OccurrenceRange getOccurrenceRage() {
+    return occurrenceRange;
   }
 
   public boolean validateOccurrence(String otherOccurrence) {
@@ -54,7 +54,7 @@ public class PicaplusTag {
       if (!hasOccurrenceRange()) {
         return occurrence.equals(otherOccurrence);
       } else {
-        return occurrenceRage.validate(otherOccurrence);
+        return occurrenceRange.validate(otherOccurrence);
       }
     }
   }
@@ -84,7 +84,7 @@ public class PicaplusTag {
       String start = matcher.group(1);
       String end = matcher.group(2);
       if (start.length() == end.length()) {
-        this.occurrenceRage = new OccurrenceRage(start.length(), Integer.parseInt(start), Integer.parseInt(end));
+        this.occurrenceRange = new OccurrenceRange(start.length(), Integer.parseInt(start), Integer.parseInt(end));
       } else {
         logger.severe("Error in picaplus: " + raw + ". Length of start and end are different.");
       }
@@ -99,7 +99,7 @@ public class PicaplusTag {
     Matcher matcher = xPattern.matcher(occurrence);
     if (matcher.find()) {
       String base = matcher.group(1);
-      this.occurrenceRage = new OccurrenceRage(2, Integer.parseInt(base + "0"), Integer.parseInt(base + "9"));
+      this.occurrenceRange = new OccurrenceRange(2, Integer.parseInt(base + "0"), Integer.parseInt(base + "9"));
     } else {
       logger.severe("Error in picaplus: " + raw + ". Does not fit to the [0-9]X pattern.");
     }

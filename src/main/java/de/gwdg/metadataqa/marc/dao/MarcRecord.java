@@ -9,6 +9,7 @@ import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.Validatable;
 import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
 import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.general.validator.ClassificationReferenceValidator;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
@@ -49,6 +50,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   private Map<String, List<MarcControlField>> controlfieldIndex;
   Map<String, List<String>> mainKeyValuePairs;
   private List<ValidationError> validationErrors = null;
+  private SchemaType schemaType = SchemaType.MARC21;
 
   public enum RESOLVE {
     NONE,
@@ -807,5 +809,13 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
       }
       addDataField(new DataField(tag, ind1, ind2, content, marcVersion));
     }
+  }
+
+  public SchemaType getSchemaType() {
+    return schemaType;
+  }
+
+  public void setSchemaType(SchemaType schemaType) {
+    this.schemaType = schemaType;
   }
 }

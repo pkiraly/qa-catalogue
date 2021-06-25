@@ -7,12 +7,13 @@ import de.gwdg.metadataqa.marc.definition.CompilanceLevel;
 import de.gwdg.metadataqa.marc.definition.FRBRFunction;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
+import de.gwdg.metadataqa.marc.definition.bibliographic.BibliographicFieldDefinition;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.*;
 
-public abstract class DataFieldDefinition implements Serializable {
+public abstract class DataFieldDefinition implements BibliographicFieldDefinition, Serializable {
   protected String tag;
   protected String bibframeTag;
   protected String mqTag;

@@ -1,37 +1,44 @@
 package de.gwdg.metadataqa.marc.utils.pica;
 
+import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.bibliographic.BibliographicFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
+
+import java.util.List;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class PicaTagDefinition {
+public class PicaTagDefinition implements BibliographicFieldDefinition {
 
   private static final Logger logger = Logger.getLogger(PicaTagDefinition.class.getCanonicalName());
   private static final Pattern rangePattern = Pattern.compile("^(\\d+)-(\\d+)$");
 
+  private PicaplusTag tag;
   private final String pica3;
   private Boolean repeatable;
+  private Cardinality cardinality;
   private Boolean hasSheet;
-  private final String description;
-  private PicaplusTag tag;
+  private final String label;
+  protected List<SubfieldDefinition> subfields;
 
-  public PicaTagDefinition(String pica3, String picaplus, boolean repeatable, boolean sheet, String description) {
+  public PicaTagDefinition(String pica3, String picaplus, boolean repeatable, boolean sheet, String label) {
     this.pica3 = pica3;
     this.repeatable = repeatable;
+    cardinality = repeatable ? Cardinality.Repeatable : Cardinality.Nonrepeatable;
     this.hasSheet = sheet;
-    this.description = description;
+    this.label = label;
     tag = new PicaplusTag(picaplus);
   }
 
   public PicaTagDefinition(String[] input) {
     this.pica3 = input[0];
     tag = new PicaplusTag(input[1]);
-    this.description = input[4];
+    this.label = input[4];
     parseRepeatable(input[2]);
     parseSheet(input[3]);
   }
 
-  public PicaplusTag getTag() {
+  public PicaplusTag getPicaplusTag() {
     return tag;
   }
 
@@ -50,6 +57,7 @@ public class PicaTagDefinition {
       case "*": this.repeatable = true; break;
       default: logger.severe("unhandled 'repeatable' value: " + input);
     }
+    cardinality = repeatable ? Cardinality.Repeatable : Cardinality.Nonrepeatable;
   }
 
   public String getPica3() {
@@ -64,8 +72,8 @@ public class PicaTagDefinition {
     return hasSheet;
   }
 
-  public String getDescription() {
-    return description;
+  public String getLabel() {
+    return label;
   }
 
   @Override
@@ -75,7 +83,25 @@ public class PicaTagDefinition {
       ", picaplus='" + tag.getRaw() + '\'' +
       ", repeatable=" + repeatable +
       ", hasSheet=" + hasSheet +
-      ", description='" + description + '\'' +
+      ", description='" + label + '\'' +
       '}';
+  }
+
+  @Override
+  public String getTag() {
+    return tag.getTag();
+  }
+
+  @Override
+  public Cardinality getCardinality() {
+    return cardinality;
+  }
+
+  public List<SubfieldDefinition> getSubfields() {
+    return subfields;
+  }
+
+  public void setSubfields(List<SubfieldDefinition> subfields) {
+    this.subfields = subfields;
   }
 }

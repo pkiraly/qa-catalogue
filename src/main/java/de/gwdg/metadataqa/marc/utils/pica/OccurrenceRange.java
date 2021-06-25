@@ -1,12 +1,12 @@
 package de.gwdg.metadataqa.marc.utils.pica;
 
-public class OccurrenceRage {
+public class OccurrenceRange {
   private int unitLength = 0;
   private int start;
   private int end;
   private final String format;
 
-  public OccurrenceRage(int unitLength, int start, int end) {
+  public OccurrenceRange(int unitLength, int start, int end) {
     this.unitLength = unitLength;
     this.start = start;
     this.end = end;

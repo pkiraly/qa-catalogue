@@ -14,6 +14,7 @@ import de.gwdg.metadataqa.marc.dao.Control008;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
@@ -23,7 +24,10 @@ import de.gwdg.metadataqa.marc.utils.alephseq.AlephseqLine;
 import de.gwdg.metadataqa.marc.utils.MapToDatafield;
 
 import de.gwdg.metadataqa.marc.utils.alephseq.MarclineLine;
+import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
 import de.gwdg.metadataqa.marc.utils.pica.PicaLine;
+import de.gwdg.metadataqa.marc.utils.pica.PicaSubfield;
+import de.gwdg.metadataqa.marc.utils.pica.PicaTagDefinition;
 import net.minidev.json.JSONArray;
 import org.marc4j.marc.ControlField;
 import org.marc4j.marc.Record;
@@ -137,20 +141,33 @@ public class MarcFactory {
                                             boolean fixAlephseq) {
     var marcRecord = new MarcRecord();
 
-    marcRecord.setLeader(new Leader(marc4jRecord.getLeader().marshal(), defaultType));
+    if (marc4jRecord.getLeader() != null) {
+      marcRecord.setLeader(new Leader(marc4jRecord.getLeader().marshal(), defaultType));
 
-    if (marcRecord.getType() == null) {
-      throw new InvalidParameterException(
-        String.format(
-          "Error in '%s': no type has been detected. Leader: '%s'.",
-          marc4jRecord.getControlNumberField(), marcRecord.getLeader().getLeaderString()
-        )
-      );
+      if (marcRecord.getType() == null) {
+        throw new InvalidParameterException(
+          String.format(
+            "Error in '%s': no type has been detected. Leader: '%s'.",
+            marc4jRecord.getControlNumberField(), marcRecord.getLeader().getLeaderString()
+          )
+        );
+      }
     }
 
     importMarc4jControlFields(marc4jRecord, marcRecord, fixAlephseq);
 
     importMarc4jDataFields(marc4jRecord, marcRecord, marcVersion);
+
+    return marcRecord;
+  }
+
+  public static MarcRecord createPicaFromMarc4j(Record marc4jRecord, Map<String, List<PicaFieldDefinition>> schemaDirectory) {
+    var marcRecord = new MarcRecord();
+    marcRecord.setSchemaType(SchemaType.PICA);
+
+    importMarc4jControlFields(marc4jRecord, marcRecord, false);
+
+    importMarc4jDataFields(marc4jRecord, marcRecord, schemaDirectory);
 
     return marcRecord;
   }
@@ -198,6 +215,19 @@ public class MarcFactory {
     }
   }
 
+  private static void importMarc4jDataFields(Record marc4jRecord,
+                                             MarcRecord marcRecord,
+                                             Map<String, List<PicaFieldDefinition>> schemaDirectory) {
+    for (org.marc4j.marc.DataField dataField : marc4jRecord.getDataFields()) {
+      var definition = (schemaDirectory.containsKey(dataField.getTag())) ? schemaDirectory.get(dataField.getTag()).get(0) : null;
+      if (definition == null) {
+        marcRecord.addUnhandledTags(dataField.getTag());
+      }
+      var field = extractPicaDataField(dataField, definition, MarcVersion.MARC21);
+      marcRecord.addDataField(field);
+    }
+  }
+
   public static DataFieldDefinition getDataFieldDefinition(org.marc4j.marc.DataField dataField,
                                                            MarcVersion marcVersion) {
     return getDataFieldDefinition(dataField.getTag(), marcVersion);
@@ -222,6 +252,39 @@ public class MarcFactory {
               definition,
               Character.toString(dataField.getIndicator1()),
               Character.toString(dataField.getIndicator2())
+      );
+    }
+    for (Subfield subfield : dataField.getSubfields()) {
+      var code = Character.toString(subfield.getCode());
+      SubfieldDefinition subfieldDefinition = definition == null ? null : definition.getSubfield(code);
+      MarcSubfield marcSubfield = null;
+      if (subfieldDefinition == null) {
+        marcSubfield = new MarcSubfield(null, code, subfield.getData());
+      } else {
+        marcSubfield = new MarcSubfield(subfieldDefinition, code, subfield.getData());
+      }
+      marcSubfield.setField(field);
+      field.getSubfields().add(marcSubfield);
+    }
+    field.indexSubfields();
+    return field;
+  }
+
+  private static DataField extractPicaDataField(org.marc4j.marc.DataField dataField,
+                                                PicaFieldDefinition definition,
+                                                MarcVersion marcVersion) {
+    DataField field = null;
+    if (definition == null) {
+      field = new DataField(dataField.getTag(),
+        Character.toString(dataField.getIndicator1()),
+        Character.toString(dataField.getIndicator2()),
+        marcVersion
+      );
+    } else {
+      field = new DataField(
+        definition,
+        Character.toString(dataField.getIndicator1()),
+        Character.toString(dataField.getIndicator2())
       );
     }
     for (Subfield subfield : dataField.getSubfields()) {
@@ -359,30 +422,18 @@ public class MarcFactory {
 
   public static Record createRecordFromPica(List<PicaLine> lines) {
     Record marc4jRecord = new RecordImpl();
+    String id = null;
     for (PicaLine line : lines) {
-      if (line.isLeader()) {
-        marc4jRecord.setLeader(new LeaderImpl(line.getContent()));
-      } else if (line.isNumericTag()) {
-        if (line.isControlField()) {
-          marc4jRecord.addVariableField(new ControlFieldImpl(line.getTag(), line.getContent()));
-        } else {
-          /*
-          DataFieldImpl df = new DataFieldImpl(line.getTag(), line.getInd1().charAt(0), line.getInd2().charAt(0));
-          for (String[] pair : line.parseSubfields()) {
-            if (pair.length == 2 && pair[0] != null && pair[1] != null) {
-              df.addSubfield(new SubfieldImpl(pair[0].charAt(0), pair[1]));
-            } else {
-              logger.warning(String.format(
-                "parse error in record #%s) tag %s: '%s'",
-                line.getRecordID(), line.getTag(), line.getRawContent()
-              ));
-            }
-          }
-          record.addVariableField(df);
-           */
-        }
+      DataFieldImpl df = new DataFieldImpl(line.getTag(), ' ', ' ');
+      for (PicaSubfield picaSubfield : line.getSubfields()) {
+        df.addSubfield(new SubfieldImpl(picaSubfield.getCode().charAt(0), picaSubfield.getValue()));
+        if (line.getTag().equals("003@") && picaSubfield.getCode().equals("0"))
+          id = picaSubfield.getValue();
       }
+      marc4jRecord.addVariableField(df);
     }
+    if (id != null)
+      marc4jRecord.addVariableField(new ControlFieldImpl("001", id));
     return marc4jRecord;
   }
 }

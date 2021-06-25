@@ -9,22 +9,22 @@ public class PicaTagDefinitionTest {
   @Test
   public void simpleTag() {
     PicaTagDefinition tag = new PicaTagDefinition("3010", "028C", true, false, "Person/Familie");
-    assertFalse(tag.getTag().hasOccurrence());
+    assertFalse(tag.getPicaplusTag().hasOccurrence());
   }
 
   @Test
   public void simpleOccurrence() {
     PicaTagDefinition tag = new PicaTagDefinition("3010", "028C/00", true, false, "Person/Familie");
-    assertTrue(tag.getTag().hasOccurrence());
-    assertFalse(tag.getTag().hasOccurrenceRange());
+    assertTrue(tag.getPicaplusTag().hasOccurrence());
+    assertFalse(tag.getPicaplusTag().hasOccurrenceRange());
   }
 
   @Test
   public void occurrenceRange() {
     PicaTagDefinition tag = new PicaTagDefinition("3010", "028C/00-09", true, false, "Person/Familie");
-    assertTrue(tag.getTag().hasOccurrence());
-    assertTrue(tag.getTag().hasOccurrenceRange());
-    OccurrenceRage range = tag.getTag().getOccurrenceRage();
+    assertTrue(tag.getPicaplusTag().hasOccurrence());
+    assertTrue(tag.getPicaplusTag().hasOccurrenceRange());
+    OccurrenceRange range = tag.getPicaplusTag().getOccurrenceRage();
     assertEquals(2, range.getUnitLength());
     assertEquals(0, range.getStart());
     assertEquals(9, range.getEnd());
@@ -34,7 +34,7 @@ public class PicaTagDefinitionTest {
   @Test
   public void occurrenceValidation() {
     PicaTagDefinition tag = new PicaTagDefinition("3010", "028C/00-09", true, false, "Person/Familie");
-    OccurrenceRage range = tag.getTag().getOccurrenceRage();
+    OccurrenceRange range = tag.getPicaplusTag().getOccurrenceRage();
     assertTrue(range.validate("00"));
     assertTrue(range.validate("05"));
     assertTrue(range.validate("09"));

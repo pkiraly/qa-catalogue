@@ -67,8 +67,8 @@ public class MarclineReader implements MarcReader {
     boolean deleted = false;
     boolean finished = false;
     while (line != null && !finished) {
-      MarclineLine alephseqLine = new MarclineLine(line, lineNumber);
-      if (alephseqLine.isLeader() && !lines.isEmpty()) {
+      MarclineLine marclineLine = new MarclineLine(line, lineNumber);
+      if (marclineLine.isLeader() && !lines.isEmpty()) {
         marc4jRecord = MarcFactory.createRecordFromMarcline(lines);
         if (marc4jRecord.getControlNumber() == null) {
           logSkipped("does not have a control number field (001)");
@@ -80,10 +80,10 @@ public class MarclineReader implements MarcReader {
         lines = new ArrayList<>();
       }
 
-      if (alephseqLine.isValidTag()) {
-        lines.add(alephseqLine);
+      if (marclineLine.isValidTag()) {
+        lines.add(marclineLine);
       }
-      currentId = alephseqLine.getRecordID();
+      currentId = marclineLine.getRecordID();
 
       try {
         line = bufferedReader.readLine();

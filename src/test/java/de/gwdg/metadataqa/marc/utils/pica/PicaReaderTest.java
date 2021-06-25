@@ -6,11 +6,6 @@ import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
-import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
-import net.minidev.json.parser.JSONParser;
-import net.minidev.json.parser.ParseException;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.marc4j.MarcReader;
@@ -19,6 +14,7 @@ import org.marc4j.marc.Record;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -100,9 +96,9 @@ public class PicaReaderTest {
   @Test
   public void readAvramSchema() {
     try {
-      Map<String, List<PicaFieldDefinition>> schemaDirectory = new HashMap<>();
-      schemaDirectory.putAll(readSchema("pica/pica-schema.json"));
-      schemaDirectory.putAll(readSchema("pica/pica-schema-extra.json"));
+      Map<String, PicaFieldDefinition> schemaDirectory = new HashMap<>();
+      schemaDirectory.putAll(PicaSchemaReader.create(getPath("pica/pica-schema.json")));
+      schemaDirectory.putAll(PicaSchemaReader.create(getPath("pica/pica-schema-extra.json")));
 
       Map<String, Integer> counter = new HashMap<>();
       Map<String, List<String>> ppns = new HashMap<>();
@@ -169,22 +165,13 @@ public class PicaReaderTest {
       e.printStackTrace();
     } catch (URISyntaxException e) {
       e.printStackTrace();
-    } catch (ParseException e) {
-      e.printStackTrace();
     }
   }
 
   @Test
   public void picaReader() throws IOException, URISyntaxException {
-    Map<String, List<PicaFieldDefinition>> schema = null;
-    try {
-      schema = readSchema("pica/k10plus.json");
-    } catch (IOException | URISyntaxException | ParseException e) {
-      e.printStackTrace();
-    }
-
+    Map<String, PicaFieldDefinition> schema = PicaSchemaReader.create(getPath("pica/k10plus.json"));
     String recordFile = FileUtils.getPath("pica/picaplus-sample.txt").toAbsolutePath().toString();
-    System.err.println(recordFile);
     MarcReader reader = new PicaReader(recordFile);
     int i = 0;
     MarcRecord marcRecord = null;
@@ -198,27 +185,20 @@ public class PicaReaderTest {
     System.err.println(marcRecord.format());
   }
 
-  private boolean directoryContains(Map<String, List<PicaFieldDefinition>> schemaDirectory, PicaLine pl) {
+  private boolean directoryContains(Map<String, PicaFieldDefinition> schemaDirectory, PicaLine pl) {
     if (schemaDirectory.containsKey(pl.getTag())) {
-      List<PicaFieldDefinition> definitions = schemaDirectory.get(pl.getTag());
-      for (PicaFieldDefinition definition : definitions) {
+      PicaFieldDefinition definitions = schemaDirectory.get(pl.getTag());
         // if (definition.getPicaplusTag().validateOccurrence(pl.getOccurrence()))
           return true;
-      }
     }
     return false;
   }
 
   @Test
   public void readASchema() {
-    Map<String, List<PicaFieldDefinition>> schema = null;
-    try {
-      schema = readSchema("pica/k10plus.json");
-    } catch (IOException | URISyntaxException | ParseException e) {
-      e.printStackTrace();
-    }
+    Map<String, PicaFieldDefinition> schema = PicaSchemaReader.create(getPath("pica/k10plus.json"));
     assertEquals(400, schema.size());
-    PicaFieldDefinition definition = schema.get("048H").get(0);
+    PicaFieldDefinition definition = schema.get("048H");
     assertEquals("048H", definition.getTag());
     assertEquals("Systemvoraussetzungen für elektronische Ressourcen", definition.getLabel());
     assertEquals(Cardinality.Repeatable, definition.getCardinality());
@@ -226,84 +206,6 @@ public class PicaReaderTest {
     assertEquals("a", definition.getSubfields().get(0).getCode());
     assertEquals("Systemvoraussetzungen für elektronische Ressourcen", definition.getSubfields().get(0).getLabel());
     assertEquals(Cardinality.Nonrepeatable, definition.getSubfields().get(0).getCardinality());
-  }
-
-  private Map<String, List<PicaFieldDefinition>> readSchema(String fileName) throws IOException, URISyntaxException, ParseException {
-    JSONParser parser = new JSONParser();
-    Map<String, List<PicaFieldDefinition>> map = new HashMap<>();
-
-    Path tagsFile = FileUtils.getPath(fileName);
-    Object obj = parser.parse(new FileReader(tagsFile.toString()));
-    JSONObject jsonObject = (JSONObject) obj;
-    JSONObject fields = (JSONObject) jsonObject.get("fields");
-    for (String name : fields.keySet()) {
-      JSONObject field = (JSONObject) fields.get(name);
-      // System.err.println(field);
-      PicaTagDefinition tag = new PicaTagDefinition(
-        (String) field.get("pica3"),
-        name,
-        (boolean) field.get("repeatable"),
-        false,
-        (String) field.get("label")
-      );
-      processSubfields(field, tag);
-      PicaFieldDefinition definition = new PicaFieldDefinition(tag);
-      addTag(map, definition);
-    }
-
-    return map;
-  }
-
-  private void processSubfields(JSONObject field, PicaTagDefinition tag) {
-    Object subfieldsRaw = field.get("subfields");
-    List<SubfieldDefinition> subfieldDefinitions = new ArrayList<>();
-    if (subfieldsRaw != null) {
-      if (subfieldsRaw instanceof JSONObject) {
-        JSONObject subfields = (JSONObject) subfieldsRaw;
-        for (String key : subfields.keySet())
-          processSubfield(subfields.get(key), subfieldDefinitions);
-      } else if (subfieldsRaw instanceof JSONArray) {
-        JSONArray subfields = (JSONArray) subfieldsRaw;
-        for (var i = 0; i < subfields.size(); i++)
-          processSubfield(subfields.get(i), subfieldDefinitions);
-      }
-    }
-    tag.setSubfields(subfieldDefinitions);
-  }
-
-  private void processSubfield(Object o, List<SubfieldDefinition> subfieldDefinitions) {
-    SubfieldDefinition definition = extractSubfield(o);
-    if (definition != null)
-      subfieldDefinitions.add(definition);
-  }
-
-  private SubfieldDefinition extractSubfield(Object o) {
-    SubfieldDefinition definition = null;
-    if (o instanceof JSONObject) {
-      JSONObject subfield = (JSONObject) o;
-      String code = (String) subfield.get("code");
-      String label = (String) subfield.get("label");
-      String cardinalityCode = ((boolean) subfield.get("repeatable")) ? Cardinality.Repeatable.getCode() : Cardinality.Nonrepeatable.getCode();
-      definition = new SubfieldDefinition(code, label, cardinalityCode);
-      for (String key : subfield.keySet()) {
-        Object value = subfield.get(key);
-        if (key.equals("code")) {
-        } else if (key.equals("label")) {
-        } else if (key.equals("repeatable")) {
-        } else if (key.equals("modified")) {
-          // skip
-        } else if (key.equals("order")) {
-          // skip
-        } else if (key.equals("pica3")) {
-          // skip
-        } else {
-          System.err.println("code: " + key);
-        }
-      }
-    } else {
-      System.err.println(o.getClass());
-    }
-    return definition;
   }
 
   private void addTag(Map<String, List<PicaTagDefinition>> map, PicaTagDefinition definition) {
@@ -317,15 +219,7 @@ public class PicaReaderTest {
     map.get(tag).add(definition);
   }
 
-  private void addTag(Map<String, List<PicaFieldDefinition>> map, PicaFieldDefinition definition) {
-    String tag = definition.getTag();
-    if (!map.containsKey(tag)) {
-      map.put(tag, new ArrayList<>());
-    } else {
-      System.err.println("Tag is already defined! " + definition.getTag() + " "
-        + map.get(tag).stream().map(a -> a.getTag()).collect(Collectors.toSet()));
-    }
-    map.get(tag).add(definition);
+  private String getPath(String fileName) {
+    return Paths.get("src/test/resources/" + fileName).toAbsolutePath().toString();
   }
-
 }

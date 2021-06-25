@@ -161,7 +161,7 @@ public class MarcFactory {
     return marcRecord;
   }
 
-  public static MarcRecord createPicaFromMarc4j(Record marc4jRecord, Map<String, List<PicaFieldDefinition>> schemaDirectory) {
+  public static MarcRecord createPicaFromMarc4j(Record marc4jRecord, Map<String, PicaFieldDefinition> schemaDirectory) {
     var marcRecord = new MarcRecord();
     marcRecord.setSchemaType(SchemaType.PICA);
 
@@ -217,9 +217,9 @@ public class MarcFactory {
 
   private static void importMarc4jDataFields(Record marc4jRecord,
                                              MarcRecord marcRecord,
-                                             Map<String, List<PicaFieldDefinition>> schemaDirectory) {
+                                             Map<String, PicaFieldDefinition> schemaDirectory) {
     for (org.marc4j.marc.DataField dataField : marc4jRecord.getDataFields()) {
-      var definition = (schemaDirectory.containsKey(dataField.getTag())) ? schemaDirectory.get(dataField.getTag()).get(0) : null;
+      var definition = (schemaDirectory.containsKey(dataField.getTag())) ? schemaDirectory.get(dataField.getTag()) : null;
       if (definition == null) {
         marcRecord.addUnhandledTags(dataField.getTag());
       }

@@ -9,5 +9,6 @@ public class PicaFieldDefinition extends DataFieldDefinition {
     label = picaTagDefinition.getLabel();
     cardinality = picaTagDefinition.getCardinality();
     subfields = picaTagDefinition.getSubfields();
+    descriptionUrl = picaTagDefinition.getDescriptionUrl();
   }
 }

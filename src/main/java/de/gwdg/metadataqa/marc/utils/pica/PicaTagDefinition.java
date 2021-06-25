@@ -19,6 +19,7 @@ public class PicaTagDefinition implements BibliographicFieldDefinition {
   private Cardinality cardinality;
   private Boolean hasSheet;
   private final String label;
+  protected String descriptionUrl;
   protected List<SubfieldDefinition> subfields;
 
   public PicaTagDefinition(String pica3, String picaplus, boolean repeatable, boolean sheet, String label) {
@@ -103,5 +104,13 @@ public class PicaTagDefinition implements BibliographicFieldDefinition {
 
   public void setSubfields(List<SubfieldDefinition> subfields) {
     this.subfields = subfields;
+  }
+
+  public String getDescriptionUrl() {
+    return descriptionUrl;
+  }
+
+  public void setDescriptionUrl(String descriptionUrl) {
+    this.descriptionUrl = descriptionUrl;
   }
 }

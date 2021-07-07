@@ -9,7 +9,9 @@ else
   OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}
 fi
 
-echo "OUTPUT_DIR: ${OUTPUT_DIR}"
+if [[ "$1" != "help" ]]; then
+  echo "OUTPUT_DIR: ${OUTPUT_DIR}"
+fi
 
 if [[ ! -d $PREFIX ]]; then
   mkdir -p $PREFIX
@@ -230,6 +232,37 @@ do_all_solr() {
   do_index
 }
 
+help() {
+ME=$0
+cat <<END
+QA catalogue for analysing library data
+
+usage: $ME [command]
+
+commands:
+  validate                   record validation
+  completeness               completeness analysis
+  classifications            classification analysis
+  authorities                authority analysis
+  tt-completeness            Thompson-Traill completeness analysis
+  shelf-ready-completeness   shelf-ready completeness analysis
+  serial-score               serial score analysis
+  format                     search and format records
+  functional-analysis        FRBR functional requirement analysis
+  network-analysis           network analysis
+  pareto                     pareto analysis
+  marc-history               generating cataloguiong history chart
+  record-patterns            record patterns
+  prepare-solr               prepare indexing
+  index                      indexing
+  all-analyses               run all analitical tasks
+  all-solr                   run all indexing tasks
+  all                        run all tasks
+  help                       print this help message
+
+END
+}
+
 case "$1" in
   validate)
     do_validate
@@ -287,11 +320,16 @@ case "$1" in
     do_all_solr
     do_version_link
     ;;
+  help)
+    help
+    ;;
 esac
 
-duration=$SECONDS
-hours=$(($duration / (60*60)))
-mins=$(($duration % (60*60) / 60))
-secs=$(($duration % 60))
+if [[ "$1" != "help" ]]; then
+  duration=$SECONDS
+  hours=$(($duration / (60*60)))
+  mins=$(($duration % (60*60) / 60))
+  secs=$(($duration % 60))
 
-printf "%s %s> DONE. %02d:%02d:%02d elapsed.\n" $(date +"%F %T") $hours $mins $secs
+  printf "%s %s> DONE. %02d:%02d:%02d elapsed.\n" $(date +"%F %T") $hours $mins $secs
+fi

@@ -105,15 +105,17 @@ running the command
   $marcxml \
   $alephseq \
   $ignorableRecords \
-  ${FILE_PATH}/${FILE_MASK}
+  ${FILE_PATH}/*.xml
 ---END
 EOT
+# ${FILE_PATH}/${FILE_MASK}
 
 /usr/bin/java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr \
   --solrUrl ${SOLR} --solrFieldType $solrFieldType \
   --defaultRecordType $defaultRecordType \
   --marcVersion $marcVersion $limit $trimId $marcxml $alephseq $ignorableRecords \
-  ${FILE_PATH}/${FILE_MASK}
+  ${FILE_PATH}/*.xml
+# ${FILE_MASK}
 
 echo "Start optimizing"
 curl "$SOLR/update?optimize=true" -H 'Content-type: text/xml' --data-binary '<commit/>'
@@ -121,5 +123,4 @@ curl "$SOLR/update?optimize=true" -H 'Content-type: text/xml' --data-binary '<co
 # dev -> production
 echo "Swap ${CORE} to ${DB}"
 swap_cores ${CORE} ${DB}
-
 echo "indexing DONE"

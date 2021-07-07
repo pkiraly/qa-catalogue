@@ -167,6 +167,7 @@ public class Validator implements MarcFileProcessor, Serializable {
   public void processRecord(MarcRecord marcRecord, int i) {
     if (marcRecord.getId() == null)
       logger.severe("No record number at " + i);
+
     if (i % 100000 == 0)
       logger.info("Number of error types so far: " + instanceBasedErrorCounter.size());
 

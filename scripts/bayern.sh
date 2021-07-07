@@ -3,7 +3,8 @@
 . ./setdir.sh
 NAME=bayern
 MARC_DIR=${BASE_INPUT_DIR}/bayern/marc
-MASK=*.mrc
+TYPE_PARAMS="--marcxml"
+MASK=*.xml
 
 . ./common-script
 

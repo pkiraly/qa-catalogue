@@ -500,7 +500,6 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     boolean isValidComponent;
     for (MarcControlField controlField : getControlfields()) {
       if (controlField != null) {
-        // System.err.println(controlField.definition.getTag());
         isValidComponent = controlField.validate(marcVersion);
         if (!isValidComponent) {
           validationErrors.addAll(controlField.getValidationErrors());

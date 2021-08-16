@@ -34,7 +34,7 @@ usage:
                         VISUAL_MATERIALS, COMPUTER_FILES, MIXED_MATERIALS
  -v, --marcVersion <version> MARC version.
                         Possible values: MARC21 (default), OCLC, DNB, GENT, SZTE, FENNICA, UNIMARC
- -i, --ignorableRecords <condition> ignore records from the analysis 
+ -i, --ignorableRecords <condition> ignore records from the analysis
  -h, --help             this help
 EOF
   exit 1
@@ -79,24 +79,26 @@ echo "limit: $limit"
 
 CORE=${DB}_dev
 
-export SOLR=http://localhost:8983/solr/${CORE}
+SOLR_DB_URL="${SOLR_HOST}/solr/${CORE}"
+
+echo "SOLR URL: $SOLR_DB_URL"
 
 if [ "${DELETE}" == "1" ]; then
   echo "Delete records in ${CORE}"
-  curl $SOLR/update -H "Content-type: text/xml" --data-binary '<delete><query>*:*</query></delete>'
+  curl $SOLR_DB_URL/update -H "Content-type: text/xml" --data-binary '<delete><query>*:*</query></delete>'
 fi
 
 echo "Prepare schema"
 prepare_schema $CORE
 
 echo "Start indexing"
-curl $SOLR/update -H "Content-type: text/xml" --data-binary '<commit/>'
+curl $SOLR_DB_URL/update -H "Content-type: text/xml" --data-binary '<commit/>'
 
 cat <<EOT
 running the command
 ---BEGIN
 /usr/bin/java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr \
-  --solrUrl ${SOLR} \
+  --solrUrl ${SOLR_DB_URL} \
   --solrFieldType $solrFieldType \
   --defaultRecordType $defaultRecordType \
   --marcVersion $marcVersion \
@@ -110,13 +112,13 @@ running the command
 EOT
 
 /usr/bin/java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr \
-  --solrUrl ${SOLR} --solrFieldType $solrFieldType \
+  --solrUrl ${SOLR_DB_URL} --solrFieldType $solrFieldType \
   --defaultRecordType $defaultRecordType \
   --marcVersion $marcVersion $limit $trimId $marcxml $alephseq $ignorableRecords \
   ${FILE_PATH}/${FILE_MASK}
 
 echo "Start optimizing"
-curl "$SOLR/update?optimize=true" -H 'Content-type: text/xml' --data-binary '<commit/>'
+curl "$SOLR_DB_URL/update?optimize=true" -H 'Content-type: text/xml' --data-binary '<commit/>'
 
 # dev -> production
 echo "Swap ${CORE} to ${DB}"

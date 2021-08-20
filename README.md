@@ -242,6 +242,7 @@ options:
    * `NKCR`, fields available at the National Library of the Czech
      Republic 
    * `BL`, fields available at the British Library
+   * `MARC21NO`, fields available at the MARC21 profile for Norwegian public libraries
 * output parameters:
   * `-t [directory]`, `--outputDir [directory]` specifies the output
     directory where the files will be created

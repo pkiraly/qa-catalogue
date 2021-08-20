@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
+SOLR_HOST=${SOLR_HOST:-http://localhost:${PORT:-8983}}
+
 check_core() {
   LOCAL_CORE=$1
-  LOCAL_URL=$(printf "http://localhost:%s/solr/admin/cores?action=STATUS&core=%s" $PORT $LOCAL_CORE)
+  LOCAL_URL=$(printf "%s/solr/admin/cores?action=STATUS&core=%s" $SOLR_HOST $LOCAL_CORE)
   CORE_EXISTS=$(curl -s "$LOCAL_URL" | jq .status | grep "\"$LOCAL_CORE\":" | grep -c -P '{$')
   # use echo instead of return
   echo $CORE_EXISTS
@@ -10,8 +12,8 @@ check_core() {
 
 create_core() {
   LOCAL_CORE=$1
-  echo "creating Solr index: ${LOCAL_CORE}"
-  curl -s "http://localhost:$PORT/solr/admin/cores?action=CREATE&name=$LOCAL_CORE&configSet=_default"
+  echo "creating Solr index: ${LOCAL_CORE} at $SOLR_HOST"
+  curl -s "$SOLR_HOST/solr/admin/cores?action=CREATE&name=$LOCAL_CORE&configSet=_default"
 }
 
 rename_core() {
@@ -19,7 +21,7 @@ rename_core() {
   LOCAL_TO=$2
 
   echo "rename Solr index: ${LOCAL_FROM} to ${LOCAL_TO}"
-  curl -s "http://localhost:$PORT/solr/admin/cores?action=RENAME&core=${LOCAL_FROM}&other=${LOCAL_TO}"
+  curl -s "$SOLR_HOST/solr/admin/cores?action=RENAME&core=${LOCAL_FROM}&other=${LOCAL_TO}"
 }
 
 swap_cores() {
@@ -27,12 +29,12 @@ swap_cores() {
   LOCAL_TO=$2
 
   echo "Swap Solr indexes ${LOCAL_FROM} and ${LOCAL_TO}"
-  curl -s "http://localhost:$PORT/solr/admin/cores?action=SWAP&core=${LOCAL_FROM}&other=${LOCAL_TO}"
+  curl -s "$SOLR_HOST/solr/admin/cores?action=SWAP&core=${LOCAL_FROM}&other=${LOCAL_TO}"
 }
 
 prepare_schema() {
   LOCAL_CORE=$1
-  SCHEMA_URL=http://localhost:${PORT}/api/cores/${LOCAL_CORE}/schema
+  SCHEMA_URL="${SOLR_HOST}/api/cores/${LOCAL_CORE}/schema"
 
   echo "prepare_schema ${LOCAL_CORE}"
 

@@ -50,7 +50,7 @@ abstract class SubjectIndexer {
       if (subfields == null || subfields.isEmpty()) {
         success = false;
         if (!dataField.getDefinition().getTag().equals("852"))
-          logger.warning("No subfield a in the field: " + dataField.toString());
+          logger.warning("No subfield $a in the field: " + dataField.toString());
       } else {
         key = keyGenerator.forSubfield(subfields.get(0)) + "_" + Utils.solarize(schemaAbbreviation);
 

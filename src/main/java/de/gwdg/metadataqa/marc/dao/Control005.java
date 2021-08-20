@@ -46,6 +46,8 @@ public class Control005  extends SimpleControlField implements Extractable {
       sec = Integer.parseInt(matcher.group(6));
       ms = Integer.parseInt(matcher.group(7));
     } else {
+      initializationErrors.add(createError("The field value does not match the expected pattern"));
+
       // TODO: handle values such as '20131127        '
       matcher = DATE_ONLY.matcher(content);
       if (matcher.matches()) {
@@ -92,6 +94,8 @@ public class Control005  extends SimpleControlField implements Extractable {
   @Override
   public boolean validate(MarcVersion marcVersion) {
     validationErrors = new ArrayList();
+    if (!initializationErrors.isEmpty())
+      validationErrors.addAll(initializationErrors);
     return isValidMonth() && isValidDay()
       && isValidHour() && isValidMin() && isValidSec();
   }
@@ -165,15 +169,17 @@ public class Control005  extends SimpleControlField implements Extractable {
   }
 
   private void addError(String msg) {
-    String id = marcRecord != null ? marcRecord.getId() : null;
+    validationErrors.add(createError(msg));
+  }
 
-    validationErrors.add(
-      new ValidationError(
-        id,
-        definition.getTag(),
-        ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
-        String.format("%s in '%s'", msg, content),
-        definition.getDescriptionUrl())
+  private ValidationError createError(String msg) {
+    String id = marcRecord != null ? marcRecord.getId() : null;
+    return new ValidationError(
+      id,
+      definition.getTag(),
+      ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
+      String.format("%s in '%s'", msg, content),
+      definition.getDescriptionUrl()
     );
   }
 

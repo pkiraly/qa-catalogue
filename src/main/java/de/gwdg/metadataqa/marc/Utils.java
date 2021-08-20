@@ -170,6 +170,6 @@ public class Utils {
       }
     }
     throw new StringIndexOutOfBoundsException(String.format(
-      "Range %d-%d is illegal for %s", start, end, value));
+      "Character position range %d-%d is not available in string '%s'", start, end, value));
   }
 }

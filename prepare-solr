@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-PORT=8983
 . ./solr-functions
 
 DB=$1

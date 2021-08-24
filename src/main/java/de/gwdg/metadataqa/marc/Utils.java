@@ -71,6 +71,7 @@ public class Utils {
       case "oclctags":    version = MarcVersion.OCLC;    break;
       case "sztetags":    version = MarcVersion.SZTE;    break;
       case "nkcrtags":    version = MarcVersion.NKCR;    break;
+      case "uvatags":     version = MarcVersion.UVA;     break;
       default:            version = MarcVersion.MARC21;  break;
     }
     return version;

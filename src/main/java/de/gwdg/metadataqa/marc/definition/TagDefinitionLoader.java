@@ -77,6 +77,8 @@ public class TagDefinitionLoader {
       version = MarcVersion.NKCR;
     } else if (definitionClazz.getCanonicalName().contains(".bltags.")) {
       version = MarcVersion.BL;
+    } else if (definitionClazz.getCanonicalName().contains(".uvatags.")) {
+      version = MarcVersion.UVA;
     }
     return version;
   }

@@ -10,7 +10,8 @@ public enum MarcVersion {
   OCLC("OCLC", "OCLC"),
   SZTE("SZTE", "Szegedi Tudományegyetem"),
   UNIMARC("UNIMARC", "UNIMARC"),
-  MARC21NO("MARC21NO", "MARC21 profile for Norwegian public libraries")
+  MARC21NO("MARC21NO", "MARC21 profile for Norwegian public libraries"),
+  UVA("UVA", "University of Amsterdam")
   ;
 
   String code;

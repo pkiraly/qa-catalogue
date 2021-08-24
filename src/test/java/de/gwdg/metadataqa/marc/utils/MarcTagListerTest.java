@@ -23,7 +23,7 @@ public class MarcTagListerTest {
     List<Class<? extends DataFieldDefinition>> tags = MarcTagLister.listTags();
     assertNotNull(tags);
     assertNotEquals(0, tags.size());
-    assertEquals(405, tags.size());
+    assertEquals(415, tags.size());
     assertEquals("Tag010", tags.get(0).getSimpleName());
     Map<String, Integer> versionCounter = new HashMap<>();
     Map<MarcVersion, Integer> versionCounter2 = new HashMap<>();
@@ -47,7 +47,7 @@ public class MarcTagListerTest {
       }
 
       if (!definition.getIndexTag().equals(definition.getTag())) {
-        if (definition.getInd1().exists()) {
+        if (definition.getInd1() != null && definition.getInd1().exists()) {
           assertNotEquals(
             String.format("Undefined index tag for indicator1 at %s", definition.getTag()),
             "ind1", definition.getInd1().getIndexTag());
@@ -55,7 +55,7 @@ public class MarcTagListerTest {
             String.format("Undefined index tag for indicator1 at %s", definition.getTag()),
             definition.getInd1().getIndexTag().contains("ind1"));
         }
-        if (definition.getInd2().exists()) {
+        if (definition.getInd2() != null && definition.getInd2().exists()) {
           assertNotEquals(String.format("Undefined index tag for indicator2 at %s", definition.getTag()),
             "ind2", definition.getInd2().getIndexTag());
           assertFalse(String.format("Undefined index tag for indicator2 at %s", definition.getTag()),

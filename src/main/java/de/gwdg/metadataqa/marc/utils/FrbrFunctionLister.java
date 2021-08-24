@@ -88,7 +88,8 @@ public class FrbrFunctionLister {
 
         elementsWithoutFunctions++;
         for (Indicator indicator : fieldTag.getIndicators())
-          registerFunctions(indicator.getFrbrFunctions(), indicator.getPath());
+          if (indicator != null)
+            registerFunctions(indicator.getFrbrFunctions(), indicator.getPath());
 
         if (fieldTag.getSubfields() != null)
           for (SubfieldDefinition subfield : fieldTag.getSubfields())

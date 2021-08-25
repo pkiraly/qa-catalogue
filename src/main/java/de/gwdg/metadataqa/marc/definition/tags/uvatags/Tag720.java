@@ -5,27 +5,27 @@ import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 /**
- * Local Abstracts
+ * Added Entry Uncontrolled Name
  */
-public class Tag591 extends DataFieldDefinition {
-  private static Tag591 uniqueInstance;
+public class Tag720 extends DataFieldDefinition {
+  private static Tag720 uniqueInstance;
 
-  private Tag591() {
+  private Tag720() {
     initialize();
     postCreation();
   }
 
-  public static Tag591 getInstance() {
+  public static Tag720 getInstance() {
     if (uniqueInstance == null)
-      uniqueInstance = new Tag591();
+      uniqueInstance = new Tag720();
     return uniqueInstance;
   }
 
   private void initialize() {
 
-    tag = "591";
-    label = "Local Abstracts";
-    mqTag = "Local Abstracts";
+    tag = "720";
+    label = "Added Entry Uncontrolled Name";
+    mqTag = "AddedEntryUncontrolledName";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = null;
 
@@ -33,9 +33,11 @@ public class Tag591 extends DataFieldDefinition {
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "Local Abstracts (incl. thesis HvA)", "NR"
+      "a", "Local name", "NR",
+      "b", "Local name & corporate name", "NR"
     );
 
-    getSubfield("a").setMqTag("LocalAbstracts");
+    getSubfield("a").setMqTag("LocalName");
+    getSubfield("b").setMqTag("LocalNameCorporateName");
   }
 }

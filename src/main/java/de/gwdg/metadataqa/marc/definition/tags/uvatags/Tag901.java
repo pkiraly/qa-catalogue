@@ -5,27 +5,27 @@ import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 /**
- * Local Abstracts
+ * Old System Number (Local note)
  */
-public class Tag591 extends DataFieldDefinition {
-  private static Tag591 uniqueInstance;
+public class Tag901 extends DataFieldDefinition {
+  private static Tag901 uniqueInstance;
 
-  private Tag591() {
+  private Tag901() {
     initialize();
     postCreation();
   }
 
-  public static Tag591 getInstance() {
+  public static Tag901 getInstance() {
     if (uniqueInstance == null)
-      uniqueInstance = new Tag591();
+      uniqueInstance = new Tag901();
     return uniqueInstance;
   }
 
   private void initialize() {
 
-    tag = "591";
-    label = "Local Abstracts";
-    mqTag = "Local Abstracts";
+    tag = "901";
+    label = "Old System Number (Local note)";
+    mqTag = "OldSystemNumberLocalNote";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = null;
 
@@ -33,9 +33,9 @@ public class Tag591 extends DataFieldDefinition {
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "Local Abstracts (incl. thesis HvA)", "NR"
+      "a", "Old System Number", "NR"
     );
 
-    getSubfield("a").setMqTag("LocalAbstracts");
+    getSubfield("a").setMqTag("OldSystemNumber");
   }
 }

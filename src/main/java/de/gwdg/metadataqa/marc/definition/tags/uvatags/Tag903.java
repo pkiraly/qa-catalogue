@@ -5,27 +5,27 @@ import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 /**
- * Local Abstracts
+ * Local Linking Entry Finding Aids (EAD)
  */
-public class Tag591 extends DataFieldDefinition {
-  private static Tag591 uniqueInstance;
+public class Tag903 extends DataFieldDefinition {
+  private static Tag903 uniqueInstance;
 
-  private Tag591() {
+  private Tag903() {
     initialize();
     postCreation();
   }
 
-  public static Tag591 getInstance() {
+  public static Tag903 getInstance() {
     if (uniqueInstance == null)
-      uniqueInstance = new Tag591();
+      uniqueInstance = new Tag903();
     return uniqueInstance;
   }
 
   private void initialize() {
 
-    tag = "591";
-    label = "Local Abstracts";
-    mqTag = "Local Abstracts";
+    tag = "903";
+    label = "Local Linking Entry Finding Aids (EAD)";
+    mqTag = "LocalLinkingEntryFindingAidsEAD";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = null;
 
@@ -33,9 +33,9 @@ public class Tag591 extends DataFieldDefinition {
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "Local Abstracts (incl. thesis HvA)", "NR"
+      "a", "Linking Entry EAD", "NR"
     );
 
-    getSubfield("a").setMqTag("LocalAbstracts");
+    getSubfield("a").setMqTag("LinkingEntryEAD");
   }
 }

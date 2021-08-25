@@ -5,27 +5,27 @@ import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 /**
- * Local Abstracts
+ * CONSER/OCLC Miscellaneous Data
  */
-public class Tag591 extends DataFieldDefinition {
-  private static Tag591 uniqueInstance;
+public class Tag936 extends DataFieldDefinition {
+  private static Tag936 uniqueInstance;
 
-  private Tag591() {
+  private Tag936() {
     initialize();
     postCreation();
   }
 
-  public static Tag591 getInstance() {
+  public static Tag936 getInstance() {
     if (uniqueInstance == null)
-      uniqueInstance = new Tag591();
+      uniqueInstance = new Tag936();
     return uniqueInstance;
   }
 
   private void initialize() {
 
-    tag = "591";
-    label = "Local Abstracts";
-    mqTag = "Local Abstracts";
+    tag = "936";
+    label = "CONSER/OCLC Miscellaneous Data";
+    mqTag = "CONSEROCLCMiscellaneousData";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = null;
 
@@ -33,9 +33,9 @@ public class Tag591 extends DataFieldDefinition {
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "Local Abstracts (incl. thesis HvA)", "NR"
+      "a", "CONSER/OCLC miscellaneous data", "NR"
     );
 
-    getSubfield("a").setMqTag("LocalAbstracts");
+    getSubfield("a").setMqTag("CONSEROCLCMiscellaneousData");
   }
 }

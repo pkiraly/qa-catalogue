@@ -5,27 +5,27 @@ import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 /**
- * Local Abstracts
+ * Local Fixed Field - Books
  */
-public class Tag591 extends DataFieldDefinition {
-  private static Tag591 uniqueInstance;
+public class Tag907 extends DataFieldDefinition {
+  private static Tag907 uniqueInstance;
 
-  private Tag591() {
+  private Tag907() {
     initialize();
     postCreation();
   }
 
-  public static Tag591 getInstance() {
+  public static Tag907 getInstance() {
     if (uniqueInstance == null)
-      uniqueInstance = new Tag591();
+      uniqueInstance = new Tag907();
     return uniqueInstance;
   }
 
   private void initialize() {
 
-    tag = "591";
-    label = "Local Abstracts";
-    mqTag = "Local Abstracts";
+    tag = "907";
+    label = "Local Fixed Field - Books";
+    mqTag = "LocalFixedFieldBooks";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = null;
 
@@ -33,9 +33,9 @@ public class Tag591 extends DataFieldDefinition {
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "Local Abstracts (incl. thesis HvA)", "NR"
+      "a", "Coded Physical Data Early Printed Books", "NR"
     );
 
-    getSubfield("a").setMqTag("LocalAbstracts");
+    getSubfield("a").setMqTag("CodedPhysicalDataEarlyPrintedBooks");
   }
 }

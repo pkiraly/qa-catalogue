@@ -5,27 +5,27 @@ import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 /**
- * Local Abstracts
+ * Vendor specific ordering data (defined by OCLC)
  */
-public class Tag591 extends DataFieldDefinition {
-  private static Tag591 uniqueInstance;
+public class Tag938 extends DataFieldDefinition {
+  private static Tag938 uniqueInstance;
 
-  private Tag591() {
+  private Tag938() {
     initialize();
     postCreation();
   }
 
-  public static Tag591 getInstance() {
+  public static Tag938 getInstance() {
     if (uniqueInstance == null)
-      uniqueInstance = new Tag591();
+      uniqueInstance = new Tag938();
     return uniqueInstance;
   }
 
   private void initialize() {
 
-    tag = "591";
-    label = "Local Abstracts";
-    mqTag = "Local Abstracts";
+    tag = "938";
+    label = "Vendor specific ordering data (defined by OCLC)";
+    mqTag = "VendorSpecificOrderingData";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = null;
 
@@ -33,9 +33,11 @@ public class Tag591 extends DataFieldDefinition {
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "Local Abstracts (incl. thesis HvA)", "NR"
+      "a", "OCLC-defined symbol for vendor", "NR",
+      "b", "Vendor control number", "NR"
     );
 
-    getSubfield("a").setMqTag("LocalAbstracts");
+    getSubfield("a").setMqTag("OCLCDefinedSymbolForVendor");
+    getSubfield("b").setMqTag("VendorControlNumber");
   }
 }

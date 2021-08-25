@@ -2,10 +2,10 @@ package de.gwdg.metadataqa.marc.definition.tags.uvatags;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 /**
- * Abbreviated Title
- * http://www.loc.gov/marc/bibliographic/bd210.html
+ * Dutch Basic Classification Codes
  */
 public class Tag691 extends DataFieldDefinition {
   private static Tag691 uniqueInstance;
@@ -29,8 +29,8 @@ public class Tag691 extends DataFieldDefinition {
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = null;
 
-    ind1 = null;
-    ind2 = null;
+    ind1 = new Indicator();
+    ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
       "a", "NBC (terms)", "NR"

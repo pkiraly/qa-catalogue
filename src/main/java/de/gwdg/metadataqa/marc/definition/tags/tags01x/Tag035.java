@@ -76,5 +76,9 @@ public class Tag035 extends DataFieldDefinition {
     putVersionSpecificSubfields(MarcVersion.FENNICA, Arrays.asList(
       new SubfieldDefinition("9", "Voyager-osakenttä", "NR")
     ));
+
+    putVersionSpecificSubfields(MarcVersion.UVA, Arrays.asList(
+      new SubfieldDefinition("0", "license", "NR")
+    ));
   }
 }

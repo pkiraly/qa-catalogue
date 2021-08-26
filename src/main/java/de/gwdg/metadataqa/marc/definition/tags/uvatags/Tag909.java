@@ -26,16 +26,16 @@ public class Tag909 extends DataFieldDefinition {
     tag = "909";
     label = "Local Fixed Field - Music";
     mqTag = "LocalFixedFieldMusic";
-    cardinality = Cardinality.Nonrepeatable;
+    cardinality = Cardinality.Repeatable;
     descriptionUrl = null;
 
     ind1 = new Indicator();
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "Coded data on instrumental strength (sheet music)", "NR",
-      "b", "Coded date(s) of composition (sheet music)", "NR",
-      "c", "Coded notation (sheet music)", "NR"
+      "a", "Coded data on instrumental strength (sheet music)", "R",
+      "b", "Coded date(s) of composition (sheet music)", "R",
+      "c", "Coded notation (sheet music)", "R"
     );
 
     getSubfield("a").setMqTag("CodedDataOnInstrumentalStrength");

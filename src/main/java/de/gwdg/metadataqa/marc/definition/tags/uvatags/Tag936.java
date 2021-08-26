@@ -26,14 +26,14 @@ public class Tag936 extends DataFieldDefinition {
     tag = "936";
     label = "CONSER/OCLC Miscellaneous Data";
     mqTag = "CONSEROCLCMiscellaneousData";
-    cardinality = Cardinality.Nonrepeatable;
+    cardinality = Cardinality.Repeatable;
     descriptionUrl = null;
 
     ind1 = new Indicator();
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "CONSER/OCLC miscellaneous data", "NR"
+      "a", "CONSER/OCLC miscellaneous data", "R"
     );
 
     getSubfield("a").setMqTag("CONSEROCLCMiscellaneousData");

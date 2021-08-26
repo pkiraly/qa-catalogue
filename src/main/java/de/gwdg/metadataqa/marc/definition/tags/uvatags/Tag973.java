@@ -26,7 +26,7 @@ public class Tag973 extends DataFieldDefinition {
     tag = "973";
     label = "Local Added Entry Special Collections (Uncontrolled)";
     mqTag = "LocalAddedEntrySpecialCollectionsUncontrolled";
-    cardinality = Cardinality.Nonrepeatable;
+    cardinality = Cardinality.Repeatable;
     descriptionUrl = null;
 
     ind1 = new Indicator();

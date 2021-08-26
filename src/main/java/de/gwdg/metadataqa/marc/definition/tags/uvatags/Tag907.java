@@ -26,14 +26,14 @@ public class Tag907 extends DataFieldDefinition {
     tag = "907";
     label = "Local Fixed Field - Books";
     mqTag = "LocalFixedFieldBooks";
-    cardinality = Cardinality.Nonrepeatable;
+    cardinality = Cardinality.Repeatable;
     descriptionUrl = null;
 
     ind1 = new Indicator();
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "Coded Physical Data Early Printed Books", "NR"
+      "a", "Coded Physical Data Early Printed Books", "R"
     );
 
     getSubfield("a").setMqTag("CodedPhysicalDataEarlyPrintedBooks");

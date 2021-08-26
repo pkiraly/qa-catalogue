@@ -33,7 +33,7 @@ public class Tag049 extends DataFieldDefinition {
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "OCLC Institution Symbol", "NR"
+      "a", "OCLC Institution Symbol", "R"
     );
 
     getSubfield("a")

@@ -26,7 +26,7 @@ public class Tag691 extends DataFieldDefinition {
     tag = "691";
     label = "Dutch Basic Classification Codes";
     mqTag = "DutchBasicClassificationCodes";
-    cardinality = Cardinality.Nonrepeatable;
+    cardinality = Cardinality.Repeatable;
     descriptionUrl = null;
 
     ind1 = new Indicator();

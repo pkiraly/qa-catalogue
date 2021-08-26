@@ -26,7 +26,7 @@ public class Tag591 extends DataFieldDefinition {
     tag = "591";
     label = "Local Abstracts";
     mqTag = "Local Abstracts";
-    cardinality = Cardinality.Nonrepeatable;
+    cardinality = Cardinality.Repeatable;
     descriptionUrl = null;
 
     ind1 = new Indicator();

@@ -26,7 +26,7 @@ public class Tag960 extends DataFieldDefinition {
     tag = "960";
     label = "Local Subject Access Field - Collection Code";
     mqTag = "LocalSubjectAccessFieldCollectionCode";
-    cardinality = Cardinality.Nonrepeatable;
+    cardinality = Cardinality.Repeatable;
     descriptionUrl = null;
 
     ind1 = new Indicator();

@@ -26,7 +26,7 @@ public class Tag930 extends DataFieldDefinition {
     tag = "930";
     label = "Local Note on Additional Physical Form";
     mqTag = "LocalNoteOnAdditionalPhysicalForm";
-    cardinality = Cardinality.Nonrepeatable;
+    cardinality = Cardinality.Repeatable;
     descriptionUrl = null;
 
     ind1 = new Indicator();

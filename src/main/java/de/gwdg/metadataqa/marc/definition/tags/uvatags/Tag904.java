@@ -26,18 +26,18 @@ public class Tag904 extends DataFieldDefinition {
     tag = "904";
     label = "Local Fixed Field - Maps";
     mqTag = "LocalFixedFieldMaps";
-    cardinality = Cardinality.Nonrepeatable;
+    cardinality = Cardinality.Repeatable;
     descriptionUrl = null;
 
     ind1 = new Indicator();
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "General Cartographic Elements", "NR",
-      "b", "Coded Physical data", "NR",
-      "c", "Coded dates", "NR",
-      "d", "Cartographic Scales", "NR",
-      "e", "Type of document", "NR"
+      "a", "General Cartographic Elements", "R",
+      "b", "Coded Physical data", "R",
+      "c", "Coded dates", "R",
+      "d", "Cartographic Scales", "R",
+      "e", "Type of document", "R"
     );
 
     getSubfield("a").setMqTag("GeneralCartographicElements");

@@ -26,14 +26,14 @@ public class Tag906 extends DataFieldDefinition {
     tag = "906";
     label = "Local Index on Citation/Reference note";
     mqTag = "LocalIndexOnCitationOrReferenceNote";
-    cardinality = Cardinality.Nonrepeatable;
+    cardinality = Cardinality.Repeatable;
     descriptionUrl = null;
 
     ind1 = new Indicator();
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "Index on Citation/Reference note", "NR"
+      "a", "Index on Citation/Reference note", "R"
     );
 
     getSubfield("a").setMqTag("IndexOnCitationOrReferenceNote");

@@ -26,7 +26,7 @@ public class Tag692 extends DataFieldDefinition {
     tag = "692";
     label = "Local Subject Access Fields - Special Collections";
     mqTag = "LocalSubjectAccessFieldsSpecialCollections";
-    cardinality = Cardinality.Nonrepeatable;
+    cardinality = Cardinality.Repeatable;
     descriptionUrl = null;
 
     ind1 = new Indicator();

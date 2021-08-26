@@ -26,14 +26,14 @@ public class Tag901 extends DataFieldDefinition {
     tag = "901";
     label = "Old System Number (Local note)";
     mqTag = "OldSystemNumberLocalNote";
-    cardinality = Cardinality.Nonrepeatable;
+    cardinality = Cardinality.Repeatable;
     descriptionUrl = null;
 
     ind1 = new Indicator();
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "Old System Number", "NR"
+      "a", "Old System Number", "R"
     );
 
     getSubfield("a").setMqTag("OldSystemNumber");

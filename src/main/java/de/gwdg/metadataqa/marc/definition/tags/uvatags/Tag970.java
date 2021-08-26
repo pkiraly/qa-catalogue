@@ -26,7 +26,7 @@ public class Tag970 extends DataFieldDefinition {
     tag = "970";
     label = "Printer Added Entry (Local)";
     mqTag = "PrinterAddedEntryLocal";
-    cardinality = Cardinality.Nonrepeatable;
+    cardinality = Cardinality.Repeatable;
     descriptionUrl = null;
 
     ind1 = new Indicator();

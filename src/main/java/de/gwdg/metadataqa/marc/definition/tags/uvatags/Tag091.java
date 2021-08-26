@@ -26,7 +26,7 @@ public class Tag091 extends DataFieldDefinition {
     tag = "091";
     label = "Local Classification Codes (Controlled)";
     mqTag = "LocalClassificationCodesControlled";
-    cardinality = Cardinality.Nonrepeatable;
+    cardinality = Cardinality.Repeatable;
     descriptionUrl = null;
 
     ind1 = new Indicator();

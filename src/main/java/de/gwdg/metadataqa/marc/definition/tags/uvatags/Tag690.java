@@ -26,7 +26,7 @@ public class Tag690 extends DataFieldDefinition {
     tag = "690";
     label = "Local Subject Access Fields - HvA";
     mqTag = "LocalSubjectAccessFieldsHvA";
-    cardinality = Cardinality.Nonrepeatable;
+    cardinality = Cardinality.Repeatable;
     descriptionUrl = null;
 
     ind1 = new Indicator();

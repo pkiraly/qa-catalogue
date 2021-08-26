@@ -26,7 +26,7 @@ public class Tag903 extends DataFieldDefinition {
     tag = "903";
     label = "Local Linking Entry Finding Aids (EAD)";
     mqTag = "LocalLinkingEntryFindingAidsEAD";
-    cardinality = Cardinality.Nonrepeatable;
+    cardinality = Cardinality.Repeatable;
     descriptionUrl = null;
 
     ind1 = new Indicator();

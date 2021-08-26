@@ -26,7 +26,7 @@ public class Tag720 extends DataFieldDefinition {
     tag = "720";
     label = "Added Entry Uncontrolled Name";
     mqTag = "AddedEntryUncontrolledName";
-    cardinality = Cardinality.Nonrepeatable;
+    cardinality = Cardinality.Repeatable;
     descriptionUrl = null;
 
     ind1 = new Indicator();

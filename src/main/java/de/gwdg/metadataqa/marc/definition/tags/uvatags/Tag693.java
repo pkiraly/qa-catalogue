@@ -26,15 +26,15 @@ public class Tag693 extends DataFieldDefinition {
     tag = "693";
     label = "Local Subject Access Fields – UVA";
     mqTag = "LocalSubjectAccessFieldsUVA";
-    cardinality = Cardinality.Nonrepeatable;
+    cardinality = Cardinality.Repeatable;
     descriptionUrl = null;
 
     ind1 = new Indicator();
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "Dutch Basic Classification Codes – uncontrolled (thesis)", "NR",
-      "b", "GTT – uncontrolled (thesis)", "NR"
+      "a", "Dutch Basic Classification Codes – uncontrolled (thesis)", "R",
+      "b", "GTT – uncontrolled (thesis)", "R"
     );
 
     getSubfield("a").setMqTag("DutchBasicClassificationCodesUncontrolled");

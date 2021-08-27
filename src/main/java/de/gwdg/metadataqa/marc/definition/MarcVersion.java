@@ -11,7 +11,8 @@ public enum MarcVersion {
   SZTE("SZTE", "Szegedi Tudományegyetem"),
   UNIMARC("UNIMARC", "UNIMARC"),
   MARC21NO("MARC21NO", "MARC21 profile for Norwegian public libraries"),
-  UVA("UVA", "University of Amsterdam")
+  UVA("UVA", "University of Amsterdam"),
+  B3KAT("B3KAT", "B3Kat union catalogue of Bibliotheksverbundes Bayern (BVB) and Kooperativen Bibliotheksverbundes Berlin-Brandenburg (KOBV)"),
   ;
 
   String code;

@@ -79,7 +79,10 @@ public class TagDefinitionLoader {
       version = MarcVersion.BL;
     } else if (definitionClazz.getCanonicalName().contains(".uvatags.")) {
       version = MarcVersion.UVA;
+    } else if (definitionClazz.getCanonicalName().contains(".b3kattags.")) {
+      version = MarcVersion.B3KAT;
     }
+
     return version;
   }
 

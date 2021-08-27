@@ -64,31 +64,44 @@ public class Control005  extends SimpleControlField implements Extractable {
         String cleanContent = content.replaceAll("[\\. ]*$", "").replaceAll("\\.", "");
         // logger.warning(String.format("005 ('%s') does not match the expected pattern", content));
         if (cleanContent.length() >= 4) {
-          year = Integer.parseInt(cleanContent.substring(0, 4));
-          cleanContent = cleanContent.substring(5);
+          year = extractRaw(cleanContent, 4, "year");
+          cleanContent = cleanContent.substring(4);
         }
         if (cleanContent.length() >= 2) {
-          month = Integer.parseInt(cleanContent.substring(0, 2));
-          cleanContent = cleanContent.substring(3);
+          month = extractRaw(cleanContent, 2, "month"); // Integer.parseInt(cleanContent.substring(0, 2));
+          cleanContent = cleanContent.substring(2);
         }
         if (cleanContent.length() >= 2) {
-          day = Integer.parseInt(cleanContent.substring(0, 2));
-          cleanContent = cleanContent.substring(3);
+          day = extractRaw(cleanContent, 2, "day"); // Integer.parseInt(cleanContent.substring(0, 2));
+          cleanContent = cleanContent.substring(2);
         }
         if (cleanContent.length() >= 2) {
-          hour = Integer.parseInt(cleanContent.substring(0, 2));
-          cleanContent = cleanContent.substring(3);
+          hour = extractRaw(cleanContent, 2, "hour"); // Integer.parseInt(cleanContent.substring(0, 2));
+          cleanContent = cleanContent.substring(2);
         }
         if (cleanContent.length() >= 2) {
-          min = Integer.parseInt(cleanContent.substring(0, 2));
-          cleanContent = cleanContent.substring(3);
+          min = extractRaw(cleanContent, 2, "min"); // Integer.parseInt(cleanContent.substring(0, 2));
+          cleanContent = cleanContent.substring(2);
         }
         if (cleanContent.length() >= 2) {
-          sec = Integer.parseInt(cleanContent.substring(0, 2));
-          cleanContent = cleanContent.substring(3);
+          sec = extractRaw(cleanContent, 2, "sec"); // Integer.parseInt(cleanContent.substring(0, 2));
+          cleanContent = cleanContent.substring(2);
         }
       }
     }
+  }
+
+  private Integer extractRaw(String cleanContent, int end, String field) {
+    String raw = cleanContent.substring(0, end);
+    Integer data = null;
+    try {
+      data = Integer.parseInt(raw);
+    } catch (NumberFormatException e) {
+      String id = marcRecord != null ? String.format("#%s) ", marcRecord.getId()) : "";
+      logger.severe(String.format("%sBad input for %s: %s", id, field, raw));
+      initializationErrors.add(createError(String.format("invalid %s: %s", field, raw)));
+    }
+    return data;
   }
 
   @Override

@@ -15,9 +15,9 @@ public class DataElementsStaticticsTest {
     assertEquals( 222, statistics.get(DataElementType.coreFields));
     assertEquals( 178, statistics.get(DataElementType.coreIndicators));
     assertEquals(2464, statistics.get(DataElementType.coreSubfields));
-    assertEquals( 208, statistics.get(DataElementType.localFields));
+    assertEquals( 213, statistics.get(DataElementType.localFields));
     assertEquals(  28, statistics.get(DataElementType.localIndicators));
-    assertEquals( 930, statistics.get(DataElementType.localSubfields));
-    assertEquals(4262, statistics.total());
+    assertEquals( 947, statistics.get(DataElementType.localSubfields));
+    assertEquals(4284, statistics.total());
   }
 }

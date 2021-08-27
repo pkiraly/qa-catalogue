@@ -244,6 +244,8 @@ options:
    * `BL`, fields available at the British Library
    * `MARC21NO`, fields available at the MARC21 profile for Norwegian public libraries
    * `UVA`, fields available at the University of Amsterdam Library
+   * `B3KAT`, fields available at the B3Kat union catalogue of Bibliotheksverbundes 
+     Bayern (BVB) and Kooperativen Bibliotheksverbundes Berlin-Brandenburg (KOBV)    
 * output parameters:
   * `-t [directory]`, `--outputDir [directory]` specifies the output
     directory where the files will be created

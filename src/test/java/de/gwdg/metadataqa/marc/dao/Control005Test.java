@@ -71,4 +71,14 @@ public class Control005Test {
     assertFalse(field.validate(MarcVersion.MARC21));
     assertEquals("invalid second: 71 in '20140808015171.9'", field.getValidationErrors().get(0).getMessage());
   }
+
+  @Test
+  public void validateYear() {
+    Control005 field = new Control005("99e20808015171.9");
+    assertFalse(field.validate(MarcVersion.MARC21));
+    assertEquals(3, field.getValidationErrors().size());
+    assertEquals("The field value does not match the expected pattern in '99e20808015171.9'", field.getValidationErrors().get(0).getMessage());
+    assertEquals("invalid year: 99e2 in '99e20808015171.9'", field.getValidationErrors().get(1).getMessage());
+    assertEquals("invalid second: 71 in '99e20808015171.9'", field.getValidationErrors().get(2).getMessage());
+  }
 }

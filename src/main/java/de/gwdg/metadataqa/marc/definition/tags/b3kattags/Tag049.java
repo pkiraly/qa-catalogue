@@ -1,10 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.b3kattags;
 
-import de.gwdg.metadataqa.marc.codes.B3KatIdentifierReader;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.general.codelist.B3KatIdentifiers;
-import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
-import de.gwdg.metadataqa.marc.definition.general.validator.RegexValidator;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 

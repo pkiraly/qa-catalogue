@@ -82,6 +82,13 @@ public class Control006 extends MarcPositionalControlField implements Serializab
       processContent();
   }
 
+  public Control006(String content, MarcRecord marcRecord) {
+    super(Control006Definition.getInstance(), content, marcRecord.getType());
+    this.marcRecord = marcRecord;
+    if (content != null)
+      processContent();
+  }
+
   protected void processContent() {
 
     for (ControlfieldPositionDefinition subfield : Control006Positions.getInstance().get(Control008Type.ALL_MATERIALS)) {

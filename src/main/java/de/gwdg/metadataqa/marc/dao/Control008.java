@@ -92,6 +92,12 @@ public class Control008 extends MarcPositionalControlField implements Serializab
     initialize();
   }
 
+  public Control008(String content, MarcRecord marcRecord) {
+    super(Control008Definition.getInstance(), content, marcRecord.getType());
+    this.marcRecord = marcRecord;
+    initialize();
+  }
+
   public void initialize() {
     if (recordType == null) {
       throw new InvalidParameterException(String.format("Record type is null. 008 content: '%s'", content));

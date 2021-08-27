@@ -34,6 +34,12 @@ public class Control005  extends SimpleControlField implements Extractable {
     processContent();
   }
 
+  public Control005(String content, MarcRecord marcRecord) {
+    super(Control005Definition.getInstance(), content);
+    this.marcRecord = marcRecord;
+    processContent();
+  }
+
   protected void processContent() {
     // do nothing, this string should not be parsed
     Matcher matcher = DATE_TIME.matcher(content);
@@ -92,14 +98,14 @@ public class Control005  extends SimpleControlField implements Extractable {
   }
 
   private Integer extractRaw(String cleanContent, int end, String field) {
-    String raw = cleanContent.substring(0, end);
+    String text = cleanContent.substring(0, end);
     Integer data = null;
     try {
-      data = Integer.parseInt(raw);
+      data = Integer.parseInt(text);
     } catch (NumberFormatException e) {
       String id = marcRecord != null ? String.format("#%s) ", marcRecord.getId()) : "";
-      logger.severe(String.format("%sBad input for %s: %s", id, field, raw));
-      initializationErrors.add(createError(String.format("invalid %s: %s", field, raw)));
+      logger.severe(String.format("%sBad input for %s: %s", id, field, text));
+      initializationErrors.add(createError(String.format("invalid %s: %s", field, text)));
     }
     return data;
   }

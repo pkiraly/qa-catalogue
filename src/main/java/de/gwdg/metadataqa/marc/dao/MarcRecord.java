@@ -769,13 +769,13 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     } else if (tag.equals("003")) {
       setControl003(new Control003(content));
     } else if (tag.equals("005")) {
-      setControl005(new Control005(content));
+      setControl005(new Control005(content, this));
     } else if (tag.equals("006")) {
-      setControl006(new Control006(content, getLeader().getType()));
+      setControl006(new Control006(content, this));
     } else if (tag.equals("007")) {
-      setControl007(new Control007(content));
+      setControl007(new Control007(content, this));
     } else if (tag.equals("008")) {
-      setControl008(new Control008(content, getLeader().getType()));
+      setControl008(new Control008(content, this));
     } else {
       DataFieldDefinition definition = MarcFactory.getDataFieldDefinition(tag, marcVersion);
       if (definition == null) {
@@ -794,13 +794,13 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     } else if (tag.equals("003")) {
       setControl003(new Control003(content));
     } else if (tag.equals("005")) {
-      setControl005(new Control005(content));
+      setControl005(new Control005(content, this));
     } else if (tag.equals("006")) {
-      setControl006(new Control006(content, getLeader().getType()));
+      setControl006(new Control006(content, this));
     } else if (tag.equals("007")) {
-      setControl007(new Control007(content));
+      setControl007(new Control007(content, this));
     } else if (tag.equals("008")) {
-      setControl008(new Control008(content, getLeader().getType()));
+      setControl008(new Control008(content, this));
     } else {
       DataFieldDefinition definition = MarcFactory.getDataFieldDefinition(tag, marcVersion);
       if (definition == null) {

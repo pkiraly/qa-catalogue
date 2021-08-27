@@ -75,19 +75,19 @@ public class MarcFactory {
           marcRecord.setControl003(new Control003(extractFirst(cache, branch)));
           break;
         case "005":
-          marcRecord.setControl005(new Control005(extractFirst(cache, branch)));
+          marcRecord.setControl005(new Control005(extractFirst(cache, branch), marcRecord));
           break;
         case "006":
           marcRecord.setControl006(
-            new Control006(extractFirst(cache, branch), marcRecord.getType()));
+            new Control006(extractFirst(cache, branch), marcRecord));
           break;
         case "007":
           marcRecord.setControl007(
-            new Control007(extractFirst(cache, branch)));
+            new Control007(extractFirst(cache, branch), marcRecord));
           break;
         case "008":
           marcRecord.setControl008(
-            new Control008(extractFirst(cache, branch), marcRecord.getType()));
+            new Control008(extractFirst(cache, branch), marcRecord));
           break;
         default:
           JSONArray fieldInstances = (JSONArray) cache.getFragment(branch.getJsonPath());
@@ -185,13 +185,13 @@ public class MarcFactory {
         case "003":
           marcRecord.setControl003(new Control003(data)); break;
         case "005":
-          marcRecord.setControl005(new Control005(data)); break;
+          marcRecord.setControl005(new Control005(data, marcRecord)); break;
         case "006":
-          marcRecord.setControl006(new Control006(data, marcRecord.getType())); break;
+          marcRecord.setControl006(new Control006(data, marcRecord)); break;
         case "007":
-          marcRecord.setControl007(new Control007(marcRecord, data)); break;
+          marcRecord.setControl007(new Control007(data, marcRecord)); break;
         case "008":
-          marcRecord.setControl008(new Control008(data, marcRecord.getType())); break;
+          marcRecord.setControl008(new Control008(data, marcRecord)); break;
         default:
           break;
       }

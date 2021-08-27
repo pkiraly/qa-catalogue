@@ -151,7 +151,12 @@ public class Control007 extends MarcPositionalControlField implements Serializab
 
   private Map<Integer, ControlfieldPositionDefinition> byPosition = new LinkedHashMap<>();
 
-  public Control007(MarcRecord marcRecord, String content) {
+  public Control007(String content) {
+    super(Control007Definition.getInstance(), content);
+    handleContent(content);
+  }
+
+  public Control007(String content, MarcRecord marcRecord) {
     super(Control007Definition.getInstance(), content);
     this.marcRecord = marcRecord;
     handleContent(content);
@@ -170,11 +175,6 @@ public class Control007 extends MarcPositionalControlField implements Serializab
     }
   }
 
-  public Control007(String content) {
-    super(Control007Definition.getInstance(), content);
-    handleContent(content);
-  }
-
   protected void processContent() {
 
     if (StringUtil.isBlank(content)) {
@@ -187,8 +187,9 @@ public class Control007 extends MarcPositionalControlField implements Serializab
       String categoryCode = content.substring(0, 1);
       category = Control007Category.byCode(categoryCode);
       if (category == null) {
+        String id = marcRecord != null ? String.format("#%s) ", marcRecord.getId()) : "";
         var msg = String.format("invalid category for 007: '%s'", categoryCode);
-        logger.severe(msg);
+        logger.severe(id + msg);
         initializationErrors.add(new ValidationError(marcRecord.getId(), "007",
           ValidationErrorType.CONTROL_POSITION_INVALID_VALUE, msg, URL));
         category = Control007Category.TEXT;

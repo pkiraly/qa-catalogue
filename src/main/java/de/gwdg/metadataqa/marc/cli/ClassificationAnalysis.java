@@ -88,8 +88,10 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     ClassificationAnalyzer analyzer = new ClassificationAnalyzer(marcRecord, statistics);
     analyzer.process();
     var total1 = statistics.getHasClassifications().get(true);
+    if (total1 == null)
+      total1 = Integer.valueOf(0);
     var total = statistics.recordCountWithClassification();
-    if (total1 != total) {
+    if (total1.intValue() != total.intValue()) {
       logger.severe(String.format("%s COUNT: total (%d) != schemasInRecord (%d)",
           marcRecord.getId(true), total1, total));
       readyToProcess = false;
@@ -163,6 +165,8 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write(Collocation.header());
       var total1 = statistics.getHasClassifications().get(true);
+      if (total1 == null)
+        total1 = Integer.valueOf(0);
       var total = statistics.recordCountWithClassification();
       logger.info("total: " + total);
       if (total1 != total)

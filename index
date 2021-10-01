@@ -11,7 +11,7 @@ PORT=8983
 
 ME=$(basename $0)
 
-show_usage() { # display help massage
+show_usage() { # display help message
   cat <<EOF
 usage:
  ${ME} [-d|--db] [-p|--file-path] [-m|--file-mask] [-w|--no-delete]
@@ -35,6 +35,7 @@ usage:
  -v, --marcVersion <version> MARC version.
                         Possible values: MARC21 (default), OCLC, DNB, GENT, SZTE, FENNICA, UNIMARC
  -i, --ignorableRecords <condition> ignore records from the analysis
+ -s, --status           status information
  -h, --help             this help
 EOF
   exit 1
@@ -44,8 +45,8 @@ if [ $# -eq 0 ]; then
   show_usage
 fi
 
-GETOPT=$(getopt -o d:p:m:ws::xatr:hv:l:i: \
-  --long db:,file-path:,file-mask:,no-delete,solrFieldType:,marcxml,alephseq,trimId,defaultRecordType,help,marcVersion:,limit:,ignorableRecords: \
+GETOPT=$(getopt -o d:p:m:ws::xatr:hSv:l:i: \
+  --long db:,file-path:,file-mask:,no-delete,solrFieldType:,marcxml,alephseq,trimId,defaultRecordType,help,status,marcVersion:,limit:,ignorableRecords: \
   -n ${ME} -- "$@")
 eval set -- "$GETOPT"
 
@@ -69,6 +70,7 @@ while true ; do
     -x|--marcxml) marcxml="--marcxml" ; shift;;
     -a|--alephseq) alephseq="--alephseq" ; shift;;
     -t|--trimId) trimId="--trimId" ; shift;;
+    -S|--status) status ; shift ;;
     -h|--help) show_usage ; shift ;;
     --) shift ; break ;;
     *) echo "Internal error!: $1" ; exit 1 ;;

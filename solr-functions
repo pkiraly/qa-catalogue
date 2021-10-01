@@ -111,3 +111,17 @@ prepare_schema() {
   fi
 }
 
+status() {
+  echo "Solr index status at ${SOLR_HOST}"
+  echo 
+  FORMAT="%-20s | %-15s | %10s | %15s\n"
+  printf "${FORMAT}" "core" "location" "nr of docs" "size"
+  printf "${FORMAT}" "...................." "..............." ".........." "..............."
+  curl -s "${SOLR_HOST}/solr/admin/cores?action=STATUS" \
+    | jq '.status[] | [.name, .instanceDir, .index.numDocs, .index.size]' \
+    | sed -r 's,".*/server/solr/(.+)",\1,' \
+    | paste - - - - - - \
+    | sed -r 's,(\[|]|\t|\,),,g' \
+    | xargs printf "${FORMAT}"
+  exit 1
+}

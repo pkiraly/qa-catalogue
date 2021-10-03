@@ -22,7 +22,8 @@ for record in it:
         core = etree.tostring(rec, encoding='utf8', method='xml').decode("utf-8")
         output.append(core.replace("<?xml version='1.0' encoding='utf8'?>\n", ''))
     if len(output) >= 1000:
-        file_name = "%06d.xml" % (i) 
+        file_name = "%06d.xml" % (i)
+        print(file_name)
         with io.open(file_name, 'w', encoding='utf8') as f:
             f.write(header)
             f.write("\n".join(output) + "\n")

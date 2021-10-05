@@ -2,9 +2,9 @@
 
 . ./setdir.sh
 NAME=bnpl
-#TYPE_PARAMS="--marcVersion GENT"
+# TYPE_PARAMS="--marcVersion GENT"
 MARC_DIR=${BASE_INPUT_DIR}/bnpl
-MASK=*.marc
+MASK=bibs-all.marc
 
 . ./common-script
 

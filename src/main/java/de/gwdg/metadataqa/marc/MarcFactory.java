@@ -142,7 +142,10 @@ public class MarcFactory {
     var marcRecord = new MarcRecord();
 
     if (marc4jRecord.getLeader() != null) {
-      marcRecord.setLeader(new Leader(marc4jRecord.getLeader().marshal(), defaultType));
+      String data = marc4jRecord.getLeader().marshal();
+      if (replecementInControlFields != null)
+        data = data.replace(replecementInControlFields, " ");
+      marcRecord.setLeader(new Leader(data, defaultType));
 
       if (marcRecord.getType() == null) {
         throw new InvalidParameterException(

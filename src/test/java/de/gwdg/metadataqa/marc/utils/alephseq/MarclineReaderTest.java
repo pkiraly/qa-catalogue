@@ -41,7 +41,7 @@ public class MarclineReaderTest {
     if (reader.hasNext())
       marc4jRecord = reader.next();
     assertNotNull(marc4jRecord);
-    MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, Leader.Type.BOOKS, MarcVersion.GENT, true);
+    MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, Leader.Type.BOOKS, MarcVersion.GENT, "^");
     assertNotNull(marcRecord);
 
     assertEquals("010000011", marcRecord.getId());
@@ -413,5 +413,25 @@ public class MarclineReaderTest {
     hits = marcRecord.search("912$a", "GBV_ILN_20");
     assertEquals(1, hits.size());
     assertEquals("GBV_ILN_20", hits.get(0));
+  }
+
+  @Test
+  public void testAlmaReplacement() {
+    Path path = null;
+    try {
+      path = FileUtils.getPath("marctxt/with-alma-character.mrctxt");
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (URISyntaxException e) {
+      e.printStackTrace();
+    }
+    MarcReader reader = new MarclineReader(path.toString());
+    Record marc4jRecord = null;
+    if (reader.hasNext())
+      marc4jRecord = reader.next();
+    assertNotNull(marc4jRecord);
+    MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, Leader.Type.BOOKS, MarcVersion.GENT, "#");
+    assertNotNull(marcRecord);
+    assertEquals("tu   ", marcRecord.getControl007().get(0).getContent());
   }
 }

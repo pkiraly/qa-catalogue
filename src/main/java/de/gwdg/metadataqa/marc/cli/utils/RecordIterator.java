@@ -34,7 +34,7 @@ public class RecordIterator {
   private int i = 0;
   private String lastKnownId = "";
   private CommonParameters parameters;
-  private boolean fixAlephseq;
+  private String replecementInControlFields;
   private MarcVersion marcVersion;
   private Leader.Type defaultRecordType;
   private DecimalFormat decimalFormat;
@@ -51,7 +51,7 @@ public class RecordIterator {
 
     marcVersion = parameters.getMarcVersion();
     defaultRecordType = parameters.getDefaultRecordType();
-    fixAlephseq = parameters.fixAlephseq();
+    replecementInControlFields = parameters.getReplecementInControlFields();
     decimalFormat = new DecimalFormat();
 
     if (processor.getParameters().doLog())
@@ -151,7 +151,7 @@ public class RecordIterator {
 
       try {
         processor.processRecord(marc4jRecord, i);
-        MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, defaultRecordType, marcVersion, fixAlephseq);
+        MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, defaultRecordType, marcVersion, replecementInControlFields);
         try {
           processor.processRecord(marcRecord, i);
         } catch(Exception e) {

@@ -41,7 +41,7 @@ public class NkcrMarcReaderTest {
       marc4jRecord = reader.next();
       assertNotNull(marc4jRecord);
       MarcRecord marcRecord = MarcFactory.createFromMarc4j(
-        marc4jRecord, Leader.Type.BOOKS, MarcVersion.NKCR, true
+        marc4jRecord, Leader.Type.BOOKS, MarcVersion.NKCR, "^"
       );
       assertNotNull(marcRecord);
 

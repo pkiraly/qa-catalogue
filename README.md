@@ -271,9 +271,13 @@ options:
 * input formats:
   * `-x`, `--marcxml` the input files are not binary MARC, but MARCXML files
   * `-p`, `--alephseq` the input files are in Alephseq format
-  * `-q`, `--fixAlephseq` sometime ALEPH export contains '^' characters
-    instead spaces in control fields (006, 007, 008). This flag replace
-    them to spaces before the validation. It might occur in any input
+  * `-q`, `--fixAlephseq` sometimes ALEPH export contains '^' characters
+    instead spaces in control fields (006, 007, 008). This flag replaces
+    them with spaces before the validation. It might occur in any input
+    format.
+  * `-X`, `--fixAlma` sometimes Alma export contains '#' characters
+    instead spaces in control fields (006, 007, 008). This flag replaces
+    them with spaces before the validation. It might occur in any input
     format.
   * `-y`, `--linespearated` the input files are in line separated format
     i.e. it is a text file, where each line is a distinct field, the

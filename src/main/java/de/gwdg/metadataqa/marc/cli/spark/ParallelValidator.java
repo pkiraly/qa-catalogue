@@ -42,7 +42,7 @@ public class ParallelValidator {
         MarcReader reader = ReadMarc.getMarcStringReader(content);
         Record marc4jRecord = reader.next();
         MarcRecord marcRecord = MarcFactory.createFromMarc4j(
-          marc4jRecord, params.getDefaultRecordType(), params.getMarcVersion(), params.fixAlephseq());
+          marc4jRecord, params.getDefaultRecordType(), params.getMarcVersion(), params.getReplecementInControlFields());
         validator.processRecord(marcRecord, 1);
         return ValidationErrorFormatter
           .formatForSummary(marcRecord.getValidationErrors(), params.getFormat())

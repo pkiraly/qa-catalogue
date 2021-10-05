@@ -124,7 +124,7 @@ public class MarcFactory {
   public static MarcRecord createFromMarc4j(Record marc4jRecord,
                                             Leader.Type defaultType,
                                             MarcVersion marcVersion) {
-    return createFromMarc4j(marc4jRecord, defaultType, marcVersion, false);
+    return createFromMarc4j(marc4jRecord, defaultType, marcVersion, null);
   }
 
   /**
@@ -132,13 +132,13 @@ public class MarcFactory {
    * @param marc4jRecord The Marc4j record
    * @param defaultType The defauld document type
    * @param marcVersion The MARC version
-   * @param fixAlephseq Replace ^ character to space in control fields
+   * @param replecementInControlFields A ^ or # character which sould be replaced with space in control fields
    * @return
    */
   public static MarcRecord createFromMarc4j(Record marc4jRecord,
                                             Leader.Type defaultType,
                                             MarcVersion marcVersion,
-                                            boolean fixAlephseq) {
+                                            String replecementInControlFields) {
     var marcRecord = new MarcRecord();
 
     if (marc4jRecord.getLeader() != null) {
@@ -154,7 +154,7 @@ public class MarcFactory {
       }
     }
 
-    importMarc4jControlFields(marc4jRecord, marcRecord, fixAlephseq);
+    importMarc4jControlFields(marc4jRecord, marcRecord, replecementInControlFields);
 
     importMarc4jDataFields(marc4jRecord, marcRecord, marcVersion);
 
@@ -165,7 +165,7 @@ public class MarcFactory {
     var marcRecord = new MarcRecord();
     marcRecord.setSchemaType(SchemaType.PICA);
 
-    importMarc4jControlFields(marc4jRecord, marcRecord, false);
+    importMarc4jControlFields(marc4jRecord, marcRecord, null);
 
     importMarc4jDataFields(marc4jRecord, marcRecord, schemaDirectory);
 
@@ -174,11 +174,11 @@ public class MarcFactory {
 
   private static void importMarc4jControlFields(Record marc4jRecord,
                                                 MarcRecord marcRecord,
-                                                boolean fixAlephseq) {
+                                                String replecementInControlFields) {
     for (ControlField controlField : marc4jRecord.getControlFields()) {
       String data = controlField.getData();
-      if (fixAlephseq && isFixable(controlField.getTag()))
-        data = data.replace("^", " ");
+      if (replecementInControlFields != null && isFixable(controlField.getTag()))
+        data = data.replace(replecementInControlFields, " ");
       switch (controlField.getTag()) {
         case "001":
           marcRecord.setControl001(new Control001(data)); break;

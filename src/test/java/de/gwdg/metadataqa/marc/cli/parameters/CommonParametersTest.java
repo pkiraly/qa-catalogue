@@ -118,6 +118,7 @@ public class CommonParametersTest {
         "id: null\n" +
         "defaultRecordType: null\n" +
         "fixAlephseq: false\n" +
+        "fixAlma: false\n" +
         "alephseq: false\n" +
         "marcxml: false\n" +
         "lineSeparated: false\n" +

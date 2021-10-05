@@ -27,6 +27,7 @@ public class CommonParameters implements Serializable {
   private String id = null;
   protected Leader.Type defaultRecordType = null;
   protected boolean fixAlephseq = false;
+  protected boolean fixAlma = false;
   protected boolean alephseq = false;
   protected boolean marcxml = false;
   protected boolean lineSeparated = false;
@@ -51,6 +52,7 @@ public class CommonParameters implements Serializable {
       options.addOption("i", "id", true, "the MARC identifier (content of 001)");
       options.addOption("d", "defaultRecordType", true, "the default record type if the record's type is undetectable");
       options.addOption("q", "fixAlephseq", false, "fix the known issues of Alephseq format");
+      options.addOption("X", "fixAlma", false, "fix the known issues of Alma format");
       options.addOption("p", "alephseq", false, "the source is in Alephseq format");
       options.addOption("x", "marcxml", false, "the source is in MARCXML format");
       options.addOption("y", "lineSeparated", false, "the source is in line separated MARC format");
@@ -101,6 +103,8 @@ public class CommonParameters implements Serializable {
     setAlephseq(cmd.hasOption("alephseq"));
 
     fixAlephseq = cmd.hasOption("fixAlephseq");
+
+    fixAlma = cmd.hasOption("fixAlma");
 
     setMarcxml(cmd.hasOption("marcxml"));
 
@@ -244,6 +248,23 @@ public class CommonParameters implements Serializable {
     this.fixAlephseq = fixAlephseq;
   }
 
+  public boolean fixAlma() {
+    return fixAlma;
+  }
+
+  public void setFixAlma(boolean fixAlma) {
+    this.fixAlma = fixAlma;
+  }
+
+  public String getReplecementInControlFields() {
+    if (fixAlephseq())
+      return "^";
+    else if (fixAlma())
+      return "#";
+    else
+      return null;
+  }
+
   public boolean isAlephseq() {
     return alephseq;
   }
@@ -323,6 +344,7 @@ public class CommonParameters implements Serializable {
     text += String.format("id: %s%n", id);
     text += String.format("defaultRecordType: %s%n", defaultRecordType);
     text += String.format("fixAlephseq: %s%n", fixAlephseq);
+    text += String.format("fixAlma: %s%n", fixAlma);
     text += String.format("alephseq: %s%n", alephseq);
     text += String.format("marcxml: %s%n", marcxml);
     text += String.format("lineSeparated: %s%n", lineSeparated);

@@ -40,7 +40,8 @@ This tool reads MARC dump files (in binary MARC or MARCXML formats), analyses di
   * [Germany](#germany)
   * [Elsewhere](#others)
 * [Appendix II. Handling MARC versions](#appendix-ii-handling-marc-versions)
-* [Appendix III. Special build process](#appendix-iii-special-build-process)
+* [Appendix III. Institutions which reportedly use this tool](#appendix-iii-institutions-which-reportedly-use-this-tool)
+* [Appendix IV. Special build process](#appendix-iv-special-build-process)
 
 ## Quick start guide
 ### Installation
@@ -988,7 +989,18 @@ public class Tag020 extends DataFieldDefinition {
 }
 ```
 
-## Appendix III: Special build process
+## Appendix III: Institutions which reportedly use this tool
+
+* [Universiteitsbibliotheek Gent](https://lib.ugent.be/), Belgium
+* [Biblioteksentralen](https://www.bibsent.no/), Norrway
+* [Deutsche Digitale Bibliothek](https://www.deutsche-digitale-bibliothek.de/), Germany
+* [British Library](https://www.bl.uk/), United Kingdom
+* [Országgyűlési Könyvtár](https://www.ogyk.hu/en), Hungary
+* [Studijní a vědecká knihovna Plzeňského kraje](https://svkpk.cz/), Czech Repoblic
+
+If you use this tool as well, please contact me: pkiraly (at) gwdg (dot) de. I really like to hear about your use case and ideas.
+
+## Appendix IV: Special build process
 
 "deployment" build (when deploying artifacts to Maven Central)
 ```

@@ -992,7 +992,7 @@ public class Tag020 extends DataFieldDefinition {
 ## Appendix III: Institutions which reportedly use this tool
 
 * [Universiteitsbibliotheek Gent](https://lib.ugent.be/), Belgium
-* [Biblioteksentralen](https://www.bibsent.no/), Norrway
+* [Biblioteksentralen](https://www.bibsent.no/), Norway
 * [Deutsche Digitale Bibliothek](https://www.deutsche-digitale-bibliothek.de/), Germany
 * [British Library](https://www.bl.uk/), United Kingdom
 * [Országgyűlési Könyvtár](https://www.ogyk.hu/en), Hungary

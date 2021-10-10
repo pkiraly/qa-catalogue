@@ -16,7 +16,7 @@ show_usage() { # display help message
 usage:
  ${ME} [-d|--db] [-p|--file-path] [-m|--file-mask] [-w|--no-delete]
        [-s|--solrFieldType] [-x|--marcxml] [-a|--alephseq] [-t|--trimId]
-       [-r|--defaultRecordType] [-v|--marcVersion]
+       [-r|--defaultRecordType] [-v|--marcVersion] [-p|--purge]
        [-h|--help]
 
  -d, --db <name>        name of the database
@@ -36,6 +36,7 @@ usage:
                         Possible values: MARC21 (default), OCLC, DNB, GENT, SZTE, FENNICA, UNIMARC
  -i, --ignorableRecords <condition> ignore records from the analysis
  -s, --status           status information
+ -p, --purge            delete all records from a core
  -h, --help             this help
 EOF
   exit 1
@@ -45,8 +46,8 @@ if [ $# -eq 0 ]; then
   show_usage
 fi
 
-GETOPT=$(getopt -o d:p:m:ws::xatr:hSv:l:i: \
-  --long db:,file-path:,file-mask:,no-delete,solrFieldType:,marcxml,alephseq,trimId,defaultRecordType,help,status,marcVersion:,limit:,ignorableRecords: \
+GETOPT=$(getopt -o d:p:m:ws::xatr:hSpv:l:i: \
+  --long db:,file-path:,file-mask:,no-delete,solrFieldType:,marcxml,alephseq,trimId,defaultRecordType,help,status,purge,marcVersion:,limit:,ignorableRecords: \
   -n ${ME} -- "$@")
 eval set -- "$GETOPT"
 
@@ -71,6 +72,7 @@ while true ; do
     -a|--alephseq) alephseq="--alephseq" ; shift;;
     -t|--trimId) trimId="--trimId" ; shift;;
     -S|--status) status ; shift ;;
+    -p|--purge) purge_and_exit $DB ; shift ;;
     -h|--help) show_usage ; shift ;;
     --) shift ; break ;;
     *) echo "Internal error!: $1" ; exit 1 ;;
@@ -86,8 +88,9 @@ SOLR_DB_URL="${SOLR_HOST}/solr/${CORE}"
 echo "SOLR URL: $SOLR_DB_URL"
 
 if [ "${DELETE}" == "1" ]; then
-  echo "Delete records in ${CORE}"
-  curl $SOLR_DB_URL/update -H "Content-type: text/xml" --data-binary '<delete><query>*:*</query></delete>'
+  purge_core $CORE
+  # echo "Delete records in ${CORE}"
+  # curl $SOLR_DB_URL/update -H "Content-type: text/xml" --data-binary '<delete><query>*:*</query></delete>'
 fi
 
 echo "Prepare schema"
@@ -119,8 +122,9 @@ EOT
   --marcVersion $marcVersion $limit $trimId $marcxml $alephseq $ignorableRecords \
   ${FILE_PATH}/${FILE_MASK}
 
-echo "Start optimizing"
-curl "$SOLR_DB_URL/update?optimize=true" -H 'Content-type: text/xml' --data-binary '<commit/>'
+# echo "Start optimizing"
+# curl "$SOLR_DB_URL/update?optimize=true" -H 'Content-type: text/xml' --data-binary '<commit/>'
+optimize_core $CORE
 
 # dev -> production
 echo "Swap ${CORE} to ${DB}"

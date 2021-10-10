@@ -125,3 +125,32 @@ status() {
     | xargs printf "${FORMAT}"
   exit 1
 }
+
+purge_core() {
+  LOCAL_CORE=$1
+  echo "Delete records in ${LOCAL_CORE}"
+  SOLR_DB_URL="${SOLR_HOST}/solr/${LOCAL_CORE}"
+  curl $SOLR_DB_URL/update \
+       -H "Content-type: text/xml" \
+       --data-binary '<delete><query>*:*</query></delete>'
+}
+
+optimize_core() {
+  LOCAL_CORE=$1
+  echo "Optimizing ${LOCAL_CORE}"
+  SOLR_DB_URL="${SOLR_HOST}/solr/${LOCAL_CORE}"
+  curl "$SOLR_DB_URL/update?optimize=true" \
+       -H 'Content-type: text/xml' \
+       --data-binary '<commit/>'
+}
+
+purge_and_exit() {
+  LOCAL_CORE=$1
+  if [[ "$LOCAL_CORE" != "" ]]; then
+    purge_core $LOCAL_CORE
+    optimize_core $LOCAL_CORE
+  else
+    echo "You should give the name with --db parameter"
+  fi
+  exit 1
+}

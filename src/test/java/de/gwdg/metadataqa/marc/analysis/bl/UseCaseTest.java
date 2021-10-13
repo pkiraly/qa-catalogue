@@ -38,7 +38,7 @@ public class UseCaseTest {
   @Test
   public void testAll() {
     for (UseCase useCase : UseCase.values()) {
-      System.err.println(useCase.getEncoding() + " -> " + useCase.getDataElelemntsNormalized());
+      System.err.println(useCase.getEncoding() + " -> " + useCase.getDataElelemnts() + ", " + useCase.getDataElelemntsNormalized());
     }
 
   }

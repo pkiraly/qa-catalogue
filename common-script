@@ -92,6 +92,17 @@ do_shelf_ready_completeness() {
   Rscript scripts/shelf-ready-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/shelf-ready-completeness.log
 }
 
+do_bl_classification() {
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/--emptyLargeCollectors|--with-delete//')
+  printf "%s %s> [bl-classification]\n" $(date +"%F %T")
+  printf "%s %s> ./bl-classification --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/bl-classification.log\n" $(date +"%F %T")
+  ./bl-classification \
+    --defaultRecordType BOOKS \
+    ${PARAMS} \
+    --outputDir ${OUTPUT_DIR}/ \
+    --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/bl-classification.log
+}
+
 do_serial_score() {
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/--emptyLargeCollectors|--with-delete//')
   printf "%s %s> [serial-score]\n" $(date +"%F %T")
@@ -222,6 +233,7 @@ do_all_analyses() {
   do_shelf_ready_completeness
   do_serial_score
   do_functional_analysis
+  # do_bl_classification
   # do_network_analysis
   do_pareto
   do_marc_history
@@ -246,6 +258,7 @@ commands:
   authorities                authority analysis
   tt-completeness            Thompson-Traill completeness analysis
   shelf-ready-completeness   shelf-ready completeness analysis
+  bl-classification          British Library's quality classification
   serial-score               serial score analysis
   format                     search and format records
   functional-analysis        FRBR functional requirement analysis
@@ -287,6 +300,9 @@ case "$1" in
     ;;
   shelf-ready-completeness)
     do_shelf_ready_completeness
+    ;;
+  bl-classification)
+    do_bl_classification
     ;;
   serial-score)
     do_serial_score

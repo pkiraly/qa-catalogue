@@ -36,6 +36,7 @@ public class BLClassificationAnalysis implements MarcFileProcessor, Serializable
   public BLClassificationAnalysis(String[] args) throws ParseException {
     parameters = new CommonParameters(args);
     options = parameters.getOptions();
+    classifier = new BLClassifier();
     readyToProcess = true;
   }
 
@@ -74,6 +75,7 @@ public class BLClassificationAnalysis implements MarcFileProcessor, Serializable
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
+    logger.info(".");
     if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
       return;
     String blClass = classifier.classify(marcRecord);
@@ -104,17 +106,17 @@ public class BLClassificationAnalysis implements MarcFileProcessor, Serializable
 
   @Override
   public void fileOpened(Path path) {
-
+    logger.info("file opened: " + path);
   }
 
   @Override
   public void fileProcessed() {
-
+    logger.info("file processed");
   }
 
   @Override
   public void afterIteration(int numberOfprocessedRecords) {
-
+    logger.info("after iteration: " + numberOfprocessedRecords);
   }
 
   @Override
@@ -124,6 +126,6 @@ public class BLClassificationAnalysis implements MarcFileProcessor, Serializable
 
   @Override
   public boolean readyToProcess() {
-    return false;
+    return readyToProcess;
   }
 }

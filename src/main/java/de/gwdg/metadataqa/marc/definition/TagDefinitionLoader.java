@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.utils.MarcTagLister;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TagDefinitionLoader {
@@ -111,6 +113,31 @@ public class TagDefinitionLoader {
     }
 
     return null;
+  }
+
+  public static List<DataFieldDefinition> findPatterns(String tagPattern, MarcVersion marcVersion) {
+    Matcher matcher = Pattern.compile("^" + tagPattern.replaceAll("X", ".") + "$").matcher("");
+    List<DataFieldDefinition> definitions = new ArrayList<>();
+    for (String tag : versionedCache.keySet()) {
+      if (matcher.reset(tag).matches()) {
+        Map<MarcVersion, DataFieldDefinition> map = versionedCache.get(tag);
+
+        if (map == null)
+          continue;
+
+        if (map.containsKey(marcVersion))
+          definitions.add(map.get(marcVersion));
+        else {
+            // fallbacks for other MARC versions
+          if (map.containsKey(MarcVersion.MARC21))
+            definitions.add(map.get(MarcVersion.MARC21));
+          if (map.containsKey(MarcVersion.OCLC))
+            definitions.add(map.get(MarcVersion.OCLC));
+        }
+      }
+    }
+
+    return definitions;
   }
 
   public static String getClassName(String tag) {

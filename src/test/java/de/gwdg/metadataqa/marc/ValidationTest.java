@@ -120,5 +120,4 @@ public class ValidationTest {
       marcRecord.getDatafields().stream().map(DataField::getTag).collect(Collectors.toList()));
     assertTrue(marcRecord.hasDatafield("STA"));
   }
-
 }

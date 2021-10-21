@@ -225,6 +225,7 @@ do_version_link() {
 }
 
 do_sqlite() {
+  php scripts/r-scripts/normalize-issue-details.php ${OUTPUT_DIR}
   Rscript scripts/r-scripts/create-database.R ${OUTPUT_DIR}
   sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/r-scripts/create-indices.sql
 }

@@ -224,6 +224,11 @@ do_version_link() {
   fi
 }
 
+do_sqlite() {
+  Rscript scripts/r-scripts/create-database.R ${OUTPUT_DIR}
+  sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/r-scripts/create-indices.sql
+}
+
 do_all_analyses() {
   do_validate
   do_completeness
@@ -237,6 +242,7 @@ do_all_analyses() {
   # do_network_analysis
   do_pareto
   do_marc_history
+  do_sqlite
 }
 
 do_all_solr() {
@@ -267,7 +273,8 @@ commands:
   marc-history               generating cataloguiong history chart
   record-patterns            record patterns
   prepare-solr               prepare indexing
-  index                      indexing
+  index                      indexing with Solr
+  sqlite                     import tables to SQLite
   all-analyses               run all analitical tasks
   all-solr                   run all indexing tasks
   all                        run all tasks
@@ -324,6 +331,9 @@ case "$1" in
     ;;
   record-patterns)
     do_record_patterns
+    ;;
+  sqlite)
+    do_sqlite
     ;;
   all-analyses)
     do_all_analyses

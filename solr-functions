@@ -119,7 +119,8 @@ status() {
     | grep instanceDir \
     | head -1 \
     | awk '{print $2}' \
-    | sed -E 's,^"(.*solr).+$,\1,'
+    | sed -E 's,^"(.*solr).+$,\1,' \
+    | xargs -I '@@' echo "Solr directory: @@"
 
   FORMAT="%-20s | %-15s | %10s | %15s\n"
   printf "${FORMAT}" "core" "location" "nr of docs" "size"

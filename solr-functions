@@ -114,6 +114,14 @@ prepare_schema() {
 status() {
   echo "Solr index status at ${SOLR_HOST}"
   echo 
+  curl -s "${SOLR_HOST}/solr/admin/cores?action=STATUS" \
+    | jq . \
+    | grep instanceDir \
+    | head -1 \
+    | awk '{print $2}' \
+    | sed -E 's,^"(.*solr).+$,\1,' \
+    | xargs -I '@@' echo "Solr directory: @@"
+
   FORMAT="%-20s | %-15s | %10s | %15s\n"
   printf "${FORMAT}" "core" "location" "nr of docs" "size"
   printf "${FORMAT}" "...................." "..............." ".........." "..............."

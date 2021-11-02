@@ -56,12 +56,12 @@ public class LeaderTest {
     assertEquals("2", leader.getById("leader10"));
     assertEquals("2", leader.getByLabel("Indicator count"));
     assertEquals("2", leader.getIndicatorCount().getValue());
-    assertEquals("2", leader.getIndicatorCount().resolve());
+    assertEquals("Number of character positions used for indicators", leader.getIndicatorCount().resolve());
 
     assertEquals("2", leader.getById("leader11"));
     assertEquals("2", leader.getByLabel("Subfield code count"));
     assertEquals("2", leader.getSubfieldCodeCount().getValue());
-    assertEquals("2", leader.getSubfieldCodeCount().resolve());
+    assertEquals("Number of character positions used for a subfield code", leader.getSubfieldCodeCount().resolve());
 
     assertEquals("00265", leader.getById("leader12"));
     assertEquals("00265", leader.getByLabel("Base address of data"));
@@ -86,17 +86,17 @@ public class LeaderTest {
     assertEquals("4", leader.getById("leader20"));
     assertEquals("4", leader.getByLabel("Length of the length-of-field portion"));
     assertEquals("4", leader.getLengthOfTheLengthOfFieldPortion().getValue());
-    assertEquals("4", leader.getLengthOfTheLengthOfFieldPortion().resolve());
+    assertEquals("Number of characters in the length-of-field portion of a Directory entry", leader.getLengthOfTheLengthOfFieldPortion().resolve());
 
     assertEquals("5", leader.getById("leader21"));
     assertEquals("5", leader.getByLabel("Length of the starting-character-position portion"));
     assertEquals("5", leader.getLengthOfTheStartingCharacterPositionPortion().getValue());
-    assertEquals("5", leader.getLengthOfTheStartingCharacterPositionPortion().resolve());
+    assertEquals("Number of characters in the starting-character-position portion of a Directory entry", leader.getLengthOfTheStartingCharacterPositionPortion().resolve());
 
     assertEquals("0", leader.getById("leader22"));
     assertEquals("0", leader.getByLabel("Length of the implementation-defined portion"));
     assertEquals("0", leader.getLengthOfTheImplementationDefinedPortion().getValue());
-    assertEquals("0", leader.getLengthOfTheImplementationDefinedPortion().resolve());
+    assertEquals("Number of characters in the implementation-defined portion of a Directory entry", leader.getLengthOfTheImplementationDefinedPortion().resolve());
   }
 
   @Test
@@ -137,12 +137,12 @@ public class LeaderTest {
     assertEquals("2", leader.getById("leader10"));
     assertEquals("2", leader.getByLabel("Indicator count"));
     assertEquals("2", leader.getIndicatorCount().getValue());
-    assertEquals("2", leader.getIndicatorCount().resolve());
+    assertEquals("Number of character positions used for indicators", leader.getIndicatorCount().resolve());
 
     assertEquals("2", leader.getById("leader11"));
     assertEquals("2", leader.getByLabel("Subfield code count"));
     assertEquals("2", leader.getSubfieldCodeCount().getValue());
-    assertEquals("2", leader.getSubfieldCodeCount().resolve());
+    assertEquals("Number of character positions used for a subfield code", leader.getSubfieldCodeCount().resolve());
 
     assertEquals("00781", leader.getById("leader12"));
     assertEquals("00781", leader.getByLabel("Base address of data"));
@@ -167,17 +167,20 @@ public class LeaderTest {
     assertEquals("4", leader.getById("leader20"));
     assertEquals("4", leader.getByLabel("Length of the length-of-field portion"));
     assertEquals("4", leader.getLengthOfTheLengthOfFieldPortion().getValue());
-    assertEquals("4", leader.getLengthOfTheLengthOfFieldPortion().resolve());
+    assertEquals("Number of characters in the length-of-field portion of a Directory entry", leader.getLengthOfTheLengthOfFieldPortion().resolve());
 
     assertEquals("5", leader.getById("leader21"));
     assertEquals("5", leader.getByLabel("Length of the starting-character-position portion"));
     assertEquals("5", leader.getLengthOfTheStartingCharacterPositionPortion().getValue());
-    assertEquals("5", leader.getLengthOfTheStartingCharacterPositionPortion().resolve());
+    assertEquals("Number of characters in the starting-character-position portion of a Directory entry", leader.getLengthOfTheStartingCharacterPositionPortion().resolve());
 
     assertEquals("0", leader.getById("leader22"));
     assertEquals("0", leader.getByLabel("Length of the implementation-defined portion"));
     assertEquals("0", leader.getLengthOfTheImplementationDefinedPortion().getValue());
-    assertEquals("0", leader.getLengthOfTheImplementationDefinedPortion().resolve());
+    assertEquals("Number of characters in the implementation-defined portion of a Directory entry", leader.getLengthOfTheImplementationDefinedPortion().resolve());
+
+    assertEquals("0", leader.getById("leader23"));
+    assertEquals("0", leader.getByLabel("Undefined"));
   }
 
   @Test
@@ -218,12 +221,12 @@ public class LeaderTest {
     assertEquals("2", leader.getById("leader10"));
     assertEquals("2", leader.getByLabel("Indicator count"));
     assertEquals("2", leader.getIndicatorCount().getValue());
-    assertEquals("2", leader.getIndicatorCount().resolve());
+    assertEquals("Number of character positions used for indicators", leader.getIndicatorCount().resolve());
 
     assertEquals("2", leader.getById("leader11"));
     assertEquals("2", leader.getByLabel("Subfield code count"));
     assertEquals("2", leader.getSubfieldCodeCount().getValue());
-    assertEquals("2", leader.getSubfieldCodeCount().resolve());
+    assertEquals("Number of character positions used for a subfield code", leader.getSubfieldCodeCount().resolve());
 
     assertEquals("00481", leader.getById("leader12"));
     assertEquals("00481", leader.getByLabel("Base address of data"));
@@ -248,17 +251,17 @@ public class LeaderTest {
     assertEquals("4", leader.getById("leader20"));
     assertEquals("4", leader.getByLabel("Length of the length-of-field portion"));
     assertEquals("4", leader.getLengthOfTheLengthOfFieldPortion().getValue());
-    assertEquals("4", leader.getLengthOfTheLengthOfFieldPortion().resolve());
+    assertEquals("Number of characters in the length-of-field portion of a Directory entry", leader.getLengthOfTheLengthOfFieldPortion().resolve());
 
     assertEquals("5", leader.getById("leader21"));
     assertEquals("5", leader.getByLabel("Length of the starting-character-position portion"));
     assertEquals("5", leader.getLengthOfTheStartingCharacterPositionPortion().getValue());
-    assertEquals("5", leader.getLengthOfTheStartingCharacterPositionPortion().resolve());
+    assertEquals("Number of characters in the starting-character-position portion of a Directory entry", leader.getLengthOfTheStartingCharacterPositionPortion().resolve());
 
     assertEquals("0", leader.getById("leader22"));
     assertEquals("0", leader.getByLabel("Length of the implementation-defined portion"));
     assertEquals("0", leader.getLengthOfTheImplementationDefinedPortion().getValue());
-    assertEquals("0", leader.getLengthOfTheImplementationDefinedPortion().resolve());
+    assertEquals("Number of characters in the implementation-defined portion of a Directory entry", leader.getLengthOfTheImplementationDefinedPortion().resolve());
   }
 
   @Test

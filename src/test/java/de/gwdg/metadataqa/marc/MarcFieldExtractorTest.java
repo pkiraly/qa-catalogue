@@ -49,7 +49,7 @@ public class MarcFieldExtractorTest {
     MarcFieldExtractor calculator = new MarcFieldExtractor(new MarcJsonSchema());
     calculator.measure(
       new JsonPathCache(
-        FileUtils.readFirstLine("general/verbund-tit.001.0000000.formatted.json")
+        FileUtils.readFirstLineFromResource("general/verbund-tit.001.0000000.formatted.json")
       )
     );
 

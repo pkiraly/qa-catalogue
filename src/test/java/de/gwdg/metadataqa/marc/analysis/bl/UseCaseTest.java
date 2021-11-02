@@ -27,11 +27,11 @@ public class UseCaseTest {
 
   @Test
   public void testPatternMatchingWithSubfield() {
-    assertEquals(Arrays.asList("1XX", "7XX$e"), UseCase.E02.getDataElelemnts());
+    assertEquals(Arrays.asList("1XX$e", "7XX$e"), UseCase.E02.getDataElelemnts());
     List<String> definitions = UseCase.E02.getDataElelemntsNormalized();
-    assertEquals(11, definitions.size());
+    assertEquals(10, definitions.size());
     assertEquals(
-      Arrays.asList("110", "111", "130", "100", "700$e", "710$e", "711$e", "720$e", "751$e", "752$e", "775$e"),
+      Arrays.asList("110$e", "111$e", "100$e", "700$e", "710$e", "711$e", "720$e", "751$e", "752$e", "775$e"),
       definitions);
   }
 

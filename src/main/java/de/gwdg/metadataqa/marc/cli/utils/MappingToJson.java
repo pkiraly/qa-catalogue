@@ -183,6 +183,12 @@ public class MappingToJson {
     values.put("position", subfield.formatPositon());
     values.put("label", subfield.getLabel());
     values.put("url", subfield.getDescriptionUrl());
+    values.put("start", subfield.getPositionStart());
+    values.put("end", subfield.getPositionEnd());
+    values.put("repeatableCOntent", subfield.isRepeatableContent());
+    if (subfield.isRepeatableContent()) {
+      values.put("unitLength", subfield.getUnitLength());
+    }
 
     if (subfield.getCodes() != null) {
       LinkedHashMap<String, Object> codes = new LinkedHashMap<>();
@@ -228,8 +234,12 @@ public class MappingToJson {
     tagMap.put("indicator2", indicatorToJson(tag.getInd2()));
 
     Map<String, Object> subfields = new LinkedHashMap<>();
-    for (SubfieldDefinition subfield : tag.getSubfields()) {
-      subfields.put(subfield.getCode(), subfieldToJson(subfield, keyGenerator));
+    if (tag.getSubfields() != null) {
+      for (SubfieldDefinition subfield : tag.getSubfields()) {
+        subfields.put(subfield.getCode(), subfieldToJson(subfield, keyGenerator));
+      }
+    } else {
+      logger.info(tag + " does not have subfields");
     }
     tagMap.put("subfields", subfields);
 

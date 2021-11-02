@@ -42,7 +42,7 @@ public class MarcIteratorTest {
 
   @Before
   public void setUp() throws URISyntaxException, IOException {
-    cache = new JsonPathCache(FileUtils.readFirstLine("general/marc.json"));
+    cache = new JsonPathCache(FileUtils.readFirstLineFromResource("general/marc.json"));
   }
 
   @Test

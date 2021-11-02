@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.api.calculator.CompletenessCalculator;
+import de.gwdg.metadataqa.api.configuration.MeasurementConfiguration;
 import de.gwdg.metadataqa.api.interfaces.Calculator;
 import de.gwdg.metadataqa.api.model.pathcache.PathCache;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
@@ -36,15 +37,17 @@ public class MarcJsonCalculatorTest {
 
   // @Test
   public void testCalculator() throws URISyntaxException, IOException {
-    MarcJsonCalculatorFacade calculatorFacade = new MarcJsonCalculatorFacade();
-    calculatorFacade.enableFieldExtractor(true);
-    calculatorFacade.enableCompletenessMeasurement(true);
-    calculatorFacade.enableFieldCardinalityMeasurement(true);
-    calculatorFacade.enableFieldExistenceMeasurement(true);
-    calculatorFacade.enableLanguageMeasurement(false);
-    calculatorFacade.enableMultilingualSaturationMeasurement(false);
-    calculatorFacade.enableProblemCatalogMeasurement(false);
-    calculatorFacade.enableTfIdfMeasurement(false);
+    MeasurementConfiguration config = new MeasurementConfiguration();
+    config.enableFieldExtractor(true);
+    config.enableCompletenessMeasurement(true);
+    config.enableFieldCardinalityMeasurement(true);
+    config.enableFieldExistenceMeasurement(true);
+    config.enableLanguageMeasurement(false);
+    config.enableMultilingualSaturationMeasurement(false);
+    config.enableProblemCatalogMeasurement(false);
+    config.enableTfIdfMeasurement(false);
+
+    MarcJsonCalculatorFacade calculatorFacade = new MarcJsonCalculatorFacade(config);
     calculatorFacade.configure();
     String expected = "ocm06783656,02249cam a2200541Ii 4500,ocm06783656 ,null,801003s1958    ja            000 0 jpn  ,null,(OCoLC)06783656," +
         "Abidatsuma shisō kenkyū :,Sasaki, Genjun,,null,null,null,Shōwa 33 [1958],null,null,Kōbundō,,null,null,ix, 8, 603, " +
@@ -111,7 +114,7 @@ public class MarcJsonCalculatorTest {
         "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,0,0,0,0,0,7,0,8,2,2,2,0,0," +
         "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0," +
         "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1";
-    assertEquals("test 1", expected, calculatorFacade.measure(FileUtils.readFirstLine("general/sub-test-marc.json")));
+    assertEquals("test 1", expected, calculatorFacade.measure(FileUtils.readFirstLineFromResource("general/sub-test-marc.json")));
 
     PathCache<? extends XmlFieldInstance> cache = calculatorFacade.getCache();
     MarcCacheWrapper wrapper = new MarcCacheWrapper(cache);

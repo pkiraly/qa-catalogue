@@ -84,18 +84,20 @@ public enum UseCase {
    SATISFACTORY
    */
   // 130 — Main Entry - Uniform Title
+  // 1XX$t title of work
   // 240 — Uniform Title
   // 730 — Added Entry - Uniform Title
   // What does 1XX/240 mean?
   S01(SATISFACTORY, "IDENTIFY the intellectual content of the resource",
     "The Work or Expression manifested needs to be  disambiguated or explicitly identified",
-    "130;1XX/240;730;7XX$t", "Mandatory if applicable"),
+    "130;1XX$t;240;730;7XX$t", "Mandatory if applicable"),
   S02(SATISFACTORY, "IDENTIFY principle responsibility for the intellectual content of the resource",
     "Creator of the work is known",
     "1XX;7XX", "Mandatory if applicable"),
+  // my additions: 052, 055, 072, 080, 084, 085, 086,
   S03(SATISFACTORY, "IDENTIFY the subject of the Work",
     "The Work satisfies the criteria for assignment of subject terms according to the subject system(s) being applied",
-    "6XX", "Mandatory if applicable"),
+    "052;055;072;080;084;085;086;6XX", "Mandatory if applicable"),
   S04(SATISFACTORY, "IDENTIFY or SELECT by attributes appropriate to the type of resource",
     "See specific tabs",
     "As specified", "Mandatory if applicable"),
@@ -132,8 +134,9 @@ public enum UseCase {
   E01(EFFECTIVE, "IDENTIFY Agents with responsibility for augmentations of a Work, for example translators, illustrators, performers, etc. ",
     "Responsibility for augmentation, etc. can be determined",
     "7XX", "Mandatory if applicable"),
+  // $e Relator term
   E02(EFFECTIVE, "NAVIGATE to/from an Agent associated with the resource", "Valid relationship identifier/URI",
-    "1XX;7XX$e", "Mandatory if applicable"),
+    "1XX$e;7XX$e", "Mandatory if applicable"),
 
   // 082 — Dewey Decimal Classification Number
   E03(EFFECTIVE, "MANAGE collection by subject", "In scope for DDC",

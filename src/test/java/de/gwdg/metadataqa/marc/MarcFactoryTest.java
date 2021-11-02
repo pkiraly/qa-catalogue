@@ -25,7 +25,7 @@ public class MarcFactoryTest {
 
   @Test
   public void mainTest() throws IOException, URISyntaxException {
-    JsonPathCache cache = new JsonPathCache(FileUtils.readFirstLine("general/verbund-tit.001.0000000.formatted.json"));
+    JsonPathCache cache = new JsonPathCache(FileUtils.readFirstLineFromResource("general/verbund-tit.001.0000000.formatted.json"));
 
     MarcRecord marcRecord = MarcFactory.create(cache, MarcVersion.DNB);
     assertNotNull(marcRecord);
@@ -35,7 +35,7 @@ public class MarcFactoryTest {
     // System.err.println(record.formatForIndex());
     // System.err.println(record.getKeyValuePairs());
     Map<String, List<String>> pairs = marcRecord.getKeyValuePairs(SolrFieldType.HUMAN);
-    assertEquals(120, pairs.size());
+    assertEquals(121, pairs.size());
     Set<String> keys = pairs.keySet();
     // keys.remove("GentLocallyDefinedField");
     // keys.remove("BemerkungenZurTitelaufnahme");
@@ -45,7 +45,7 @@ public class MarcFactoryTest {
       "Leader_indicatorCount, Leader_subfieldCodeCount, Leader_baseAddressOfData, " +
       "Leader_encodingLevel, Leader_descriptiveCatalogingForm, Leader_multipartResourceRecordLevel, " +
       "Leader_lengthOfTheLengthOfFieldPortion, Leader_lengthOfTheStartingCharacterPositionPortion, " +
-      "Leader_lengthOfTheImplementationDefinedPortion, ControlNumber, ControlNumberIdentifier, " +
+      "Leader_lengthOfTheImplementationDefinedPortion, Leader_undefined, ControlNumber, ControlNumberIdentifier, " +
       "LatestTransactionTime, PhysicalDescription, PhysicalDescription_categoryOfMaterial, " +
       "PhysicalDescription_specificMaterialDesignation, GeneralInformation, " +
       "GeneralInformation_dateEnteredOnFile, GeneralInformation_typeOfDateOrPublicationStatus, " +
@@ -100,15 +100,15 @@ public class MarcFactoryTest {
     assertEquals("Serial", pairs.get("Leader_bibliographicLevel").get(0));
     assertEquals("No specified type", pairs.get("Leader_typeOfControl").get(0));
     assertEquals("UCS/Unicode", pairs.get("Leader_characterCodingScheme").get(0));
-    assertEquals("2", pairs.get("Leader_indicatorCount").get(0));
-    assertEquals("2", pairs.get("Leader_subfieldCodeCount").get(0));
+    assertEquals("Number of character positions used for indicators", pairs.get("Leader_indicatorCount").get(0));
+    assertEquals("Number of character positions used for a subfield code", pairs.get("Leader_subfieldCodeCount").get(0));
     assertEquals("00481", pairs.get("Leader_baseAddressOfData").get(0));
     assertEquals("Full level", pairs.get("Leader_encodingLevel").get(0));
     assertEquals("Non-ISBD", pairs.get("Leader_descriptiveCatalogingForm").get(0));
     assertEquals("Not specified or not applicable", pairs.get("Leader_multipartResourceRecordLevel").get(0));
-    assertEquals("4", pairs.get("Leader_lengthOfTheLengthOfFieldPortion").get(0));
-    assertEquals("5", pairs.get("Leader_lengthOfTheStartingCharacterPositionPortion").get(0));
-    assertEquals("0", pairs.get("Leader_lengthOfTheImplementationDefinedPortion").get(0));
+    assertEquals("Number of characters in the length-of-field portion of a Directory entry", pairs.get("Leader_lengthOfTheLengthOfFieldPortion").get(0));
+    assertEquals("Number of characters in the starting-character-position portion of a Directory entry", pairs.get("Leader_lengthOfTheStartingCharacterPositionPortion").get(0));
+    assertEquals("Number of characters in the implementation-defined portion of a Directory entry", pairs.get("Leader_lengthOfTheImplementationDefinedPortion").get(0));
     assertEquals("000000027", pairs.get("ControlNumber").get(0));
     assertEquals("DE-576", pairs.get("ControlNumberIdentifier").get(0));
     assertEquals("20150107102000.0", pairs.get("LatestTransactionTime").get(0));
@@ -423,7 +423,7 @@ public class MarcFactoryTest {
 
   @Test
   public void marc2Test() throws IOException, URISyntaxException {
-    JsonPathCache cache = new JsonPathCache(FileUtils.readFirstLine("general/marc2.json"));
+    JsonPathCache cache = new JsonPathCache(FileUtils.readFirstLineFromResource("general/marc2.json"));
 
     MarcRecord marcRecord = MarcFactory.create(cache);
     assertNotNull(marcRecord);
@@ -447,11 +447,11 @@ public class MarcFactoryTest {
 
   @Test
   public void getKeyValuePairTest() throws IOException, URISyntaxException {
-    JsonPathCache cache = new JsonPathCache(FileUtils.readFirstLine("general/verbund-tit.001.0000000.formatted.json"));
+    JsonPathCache cache = new JsonPathCache(FileUtils.readFirstLineFromResource("general/verbund-tit.001.0000000.formatted.json"));
 
     MarcRecord marcRecord = MarcFactory.create(cache, MarcVersion.DNB);
     Map<String, List<String>> pairs = marcRecord.getKeyValuePairs(SolrFieldType.MIXED);
-    assertEquals(120, pairs.size());
+    assertEquals(121, pairs.size());
 
     Set<String> keys = pairs.keySet();
     keys.remove("591a_GentLocallyDefinedField");
@@ -475,6 +475,7 @@ public class MarcFactoryTest {
         "leader20_lengthOfTheLengthOfFieldPortion, " +
         "leader21_lengthOfTheStartingCharacterPositionPortion, " +
         "leader22_lengthOfTheImplementationDefinedPortion, " +
+        "leader23_undefined, " +
         "001_ControlNumber, " +
         "003_ControlNumberIdentifier, " +
         "005_LatestTransactionTime, " +
@@ -581,7 +582,7 @@ public class MarcFactoryTest {
 
   @Test
   public void testCreateFromFormattedText() throws IOException, URISyntaxException {
-    List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
+    List<String> lines = FileUtils.readLinesFromResource("marctxt/010000011.mrctxt");
     assertEquals(44, lines.size());
     String marcRecordAsText = StringUtils.join(lines, "\n");
     assertEquals(1845, marcRecordAsText.length());
@@ -592,7 +593,7 @@ public class MarcFactoryTest {
 
   @Test
   public void testCreateFromFormattedText_asList() throws IOException, URISyntaxException {
-    List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
+    List<String> lines = FileUtils.readLinesFromResource("marctxt/010000011.mrctxt");
     MarcRecord marcRecord = MarcFactory.createFromFormattedText(lines);
     test01000011RecordProperties(marcRecord);
   }
@@ -678,7 +679,7 @@ public class MarcFactoryTest {
 
   @Test
   public void createUnimarcFromFormattedText() throws IOException, URISyntaxException {
-    List<String> lines = FileUtils.readLines("unimarc/unimarc.mrctxt");
+    List<String> lines = FileUtils.readLinesFromResource("unimarc/unimarc.mrctxt");
     assertEquals(58, lines.size());
     String marcRecordAsText = StringUtils.join(lines, "\n");
     assertEquals(2319, marcRecordAsText.length());

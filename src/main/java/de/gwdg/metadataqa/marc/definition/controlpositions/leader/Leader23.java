@@ -8,33 +8,33 @@ import java.util.Arrays;
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
- * Indicator count
+ * Length of the implementation-defined portion
  * https://www.loc.gov/marc/bibliographic/bdleader.html
  */
-public class Leader10 extends ControlfieldPositionDefinition {
-  private static Leader10 uniqueInstance;
+public class Leader23 extends ControlfieldPositionDefinition {
+  private static Leader23 uniqueInstance;
 
-  private Leader10() {
+  private Leader23() {
     initialize();
     extractValidCodes();
   }
 
-  public static Leader10 getInstance() {
+  public static Leader23 getInstance() {
     if (uniqueInstance == null)
-      uniqueInstance = new Leader10();
+      uniqueInstance = new Leader23();
     return uniqueInstance;
   }
 
   private void initialize() {
-    label = "Indicator count";
-    id = "leader10";
-    mqTag = "indicatorCount";
-    positionStart = 10;
-    positionEnd = 11;
+    label = "Undefined";
+    id = "leader23";
+    mqTag = "undefined";
+    positionStart = 23;
+    positionEnd = 24;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bdleader.html";
     functions = Arrays.asList(ManagementProcess);
     codes = Utils.generateCodes(
-      "2", "Number of character positions used for indicators"
+      "0", "Undefined"
     );
   }
 }

@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc;
 import com.jayway.jsonpath.InvalidJsonException;
 import de.gwdg.metadataqa.api.counter.FieldCounter;
 import de.gwdg.metadataqa.api.interfaces.Calculator;
+import de.gwdg.metadataqa.api.interfaces.MetricResult;
 import de.gwdg.metadataqa.api.model.pathcache.JsonPathCache;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.api.model.pathcache.PathCache;
@@ -166,25 +167,25 @@ public class MarcFieldExtractor implements Calculator, Serializable {
   }
 
   @Override
-  public void measure(PathCache pathCache) {
-
+  public List<MetricResult> measure(PathCache pathCache) {
+    return null;
   }
 
-  @Override
+  // @Override
   public Map<String, ? extends Object> getResultMap() {
     return resultMap.getMap();
   }
 
-  @Override
+  // @Override
   public Map<String, Map<String, ? extends Object>> getLabelledResultMap() {
     Map<String, Map<String, ? extends Object>> labelledResultMap = new LinkedHashMap<>();
     labelledResultMap.put(getCalculatorName(), resultMap.getMap());
     return labelledResultMap;
   }
 
-  @Override
+  // @Override
   public String getCsv(boolean withLabel, CompressionLevel compressionLevel) {
-    return resultMap.getList(withLabel, CompressionLevel.ZERO); // the extracted fields should never be compressed!
+    return resultMap.getCsv(withLabel, CompressionLevel.ZERO); // the extracted fields should never be compressed!
   }
 
   @Override

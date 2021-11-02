@@ -17,7 +17,7 @@ public class BLClassifierTest {
 
   @Test
   public void testClassify() throws URISyntaxException, IOException {
-    List<String> lines = FileUtils.readLines("bl/006013122.mrctxt");
+    List<String> lines = FileUtils.readLinesFromResource("bl/006013122.mrctxt");
     MarcRecord marcRecord = MarcFactory.createFromFormattedText(lines, MarcVersion.BL);
 
     BLClassifier classifier = new BLClassifier();

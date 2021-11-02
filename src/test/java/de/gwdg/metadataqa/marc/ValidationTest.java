@@ -104,7 +104,7 @@ public class ValidationTest {
 
   @Test
   public void testAFile() throws URISyntaxException, IOException {
-    List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
+    List<String> lines = FileUtils.readLinesFromResource("marctxt/010000011.mrctxt");
     MarcRecord marcRecord = MarcFactory.createFromFormattedText(lines, MarcVersion.MARC21);
     assertFalse(marcRecord.validate(MarcVersion.MARC21, true));
     assertEquals(21, marcRecord.getValidationErrors().size());
@@ -112,7 +112,7 @@ public class ValidationTest {
 
   @Test
   public void testABLFile() throws URISyntaxException, IOException {
-    List<String> lines = FileUtils.readLines("bl/006013122.mrctxt");
+    List<String> lines = FileUtils.readLinesFromResource("bl/006013122.mrctxt");
     MarcRecord marcRecord = MarcFactory.createFromFormattedText(lines, MarcVersion.BL);
     assertEquals(Arrays.asList(
       "FMT", "019", "020", "040", "100", "245", "260", "336", "337", "338", "590",

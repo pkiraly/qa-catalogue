@@ -7,6 +7,7 @@ import de.gwdg.metadataqa.api.calculator.FieldExtractor;
 import de.gwdg.metadataqa.api.calculator.LanguageCalculator;
 import de.gwdg.metadataqa.api.calculator.MultilingualitySaturationCalculator;
 import de.gwdg.metadataqa.api.calculator.TfIdfCalculator;
+import de.gwdg.metadataqa.api.configuration.MeasurementConfiguration;
 import de.gwdg.metadataqa.api.model.EdmFieldInstance;
 import de.gwdg.metadataqa.api.schema.MarcJsonSchema;
 import de.gwdg.metadataqa.api.schema.Schema;
@@ -35,12 +36,16 @@ public class MarcJsonCalculatorFacade extends CalculatorFacade {
 
   public MarcJsonCalculatorFacade() {}
 
+  public MarcJsonCalculatorFacade(MeasurementConfiguration config) {
+    super(config);
+  }
+
   public MarcJsonCalculatorFacade(boolean enableFieldExistenceMeasurement, 
       boolean enableFieldCardinalityMeasurement,
       boolean enableCompletenessMeasurement, boolean enableTfIdfMeasurement, 
       boolean enableProblemCatalogMeasurement) {
-    super(enableFieldExistenceMeasurement, enableFieldCardinalityMeasurement, enableCompletenessMeasurement, enableTfIdfMeasurement,
-      enableProblemCatalogMeasurement);
+    super(new MeasurementConfiguration(enableFieldExistenceMeasurement, enableFieldCardinalityMeasurement, enableCompletenessMeasurement, enableTfIdfMeasurement,
+      enableProblemCatalogMeasurement));
   }
 
   @Override
@@ -50,20 +55,20 @@ public class MarcJsonCalculatorFacade extends CalculatorFacade {
     marcFieldExtractor = new FieldExtractor(marcJsonSchema);
     calculators.add(marcFieldExtractor);
 
-    if (completenessMeasurementEnabled 
-        || fieldExistenceMeasurementEnabled 
-        || fieldCardinalityMeasurementEnabled) {
+    if (configuration.isCompletenessMeasurementEnabled()
+        || configuration.isFieldExistenceMeasurementEnabled()
+        || configuration.isFieldCardinalityMeasurementEnabled()) {
       completenessCalculator = new CompletenessCalculator(marcJsonSchema);
-      completenessCalculator.setCompleteness(completenessMeasurementEnabled);
-      completenessCalculator.setExistence(fieldExistenceMeasurementEnabled);
-      completenessCalculator.setCardinality(fieldCardinalityMeasurementEnabled);
-      completenessCalculator.collectFields(completenessCollectFields);
+      completenessCalculator.setCompleteness(configuration.isCompletenessMeasurementEnabled());
+      completenessCalculator.setExistence(configuration.isFieldExistenceMeasurementEnabled());
+      completenessCalculator.setCardinality(configuration.isFieldCardinalityMeasurementEnabled());
+      completenessCalculator.collectFields(configuration.isCompletenessFieldCollectingEnabled());
       calculators.add(completenessCalculator);
     }
 
-    if (tfIdfMeasurementEnabled) {
+    if (configuration.isTfIdfMeasurementEnabled()) {
       tfidfCalculator = new TfIdfCalculator(marcJsonSchema);
-      tfidfCalculator.enableTermCollection(collectTfIdfTerms);
+      tfidfCalculator.enableTermCollection(configuration.collectTfIdfTerms());
       calculators.add(tfidfCalculator);
     }
 
@@ -77,15 +82,13 @@ public class MarcJsonCalculatorFacade extends CalculatorFacade {
     }
     */
 
-
-    if (languageMeasurementEnabled) {
-      languageCalculator = new LanguageCalculator(marcJsonSchema);
-      calculators.add(languageCalculator);
+    if (configuration.isLanguageMeasurementEnabled()) {
+      calculators.add(new LanguageCalculator(marcJsonSchema));
     }
 
-    if (multilingualSaturationMeasurementEnabled) {
-      multilingualSaturationCalculator = new MultilingualitySaturationCalculator(marcJsonSchema);
-      if (saturationExtendedResult)
+    if (configuration.isMultilingualSaturationMeasurementEnabled()) {
+      MultilingualitySaturationCalculator multilingualSaturationCalculator = new MultilingualitySaturationCalculator(marcJsonSchema);
+      if (configuration.isSaturationExtendedResult())
         multilingualSaturationCalculator.setResultType(MultilingualitySaturationCalculator.ResultTypes.EXTENDED);
       calculators.add(multilingualSaturationCalculator);
     }
@@ -93,7 +96,7 @@ public class MarcJsonCalculatorFacade extends CalculatorFacade {
 
   @Override
   public String measure(String jsonRecord) throws InvalidJsonException {
-    return this.<EdmFieldInstance>measureWithGenerics(jsonRecord);
+    return (String) this.<EdmFieldInstance>measureWithGenerics(jsonRecord);
   }
 
   @Override

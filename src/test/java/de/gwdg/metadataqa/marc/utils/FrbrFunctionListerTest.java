@@ -30,7 +30,7 @@ public class FrbrFunctionListerTest {
     assertEquals(979, functions.get(FRBRFunction.DiscoveryIdentify).size());
     assertEquals( 80, functions.get(FRBRFunction.ManagementDisplay).size());
     assertEquals( 26, functions.get(FRBRFunction.ManagementSort).size());
-    assertEquals(544, functions.get(FRBRFunction.ManagementProcess).size());
+    assertEquals(545, functions.get(FRBRFunction.ManagementProcess).size());
     assertEquals(491, functions.get(FRBRFunction.ManagementIdentify).size());
     assertEquals( 24, functions.get(FRBRFunction.UseRestrict).size());
     assertEquals(118, functions.get(FRBRFunction.UseInterpret).size());

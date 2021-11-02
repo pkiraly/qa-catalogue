@@ -15,7 +15,7 @@ public class StandardIdentifierReader {
 
   public static Map<String, StandardIdentifier> readStandardIdentifiers() 
       throws URISyntaxException, IOException {
-    List<String> lines = FileUtils.readLines("marc/standard-identifier.csv");
+    List<String> lines = FileUtils.readLinesFromResource("marc/standard-identifier.csv");
     Map<String, StandardIdentifier> standardIdentifiers = new HashMap<>();
 
     for (String line : lines) {

@@ -45,7 +45,8 @@ public class LeaderPositions extends ControlfieldPositionList {
       Leader19.getInstance(),
       Leader20.getInstance(),
       Leader21.getInstance(),
-      Leader22.getInstance()
+      Leader22.getInstance(),
+      Leader23.getInstance()
       // new ControlSubField("undefined", 23, 24)
     );
     addAllPositions(positionList);

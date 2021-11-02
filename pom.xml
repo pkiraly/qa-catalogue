@@ -79,7 +79,7 @@
 		<dependency>
 			<groupId>de.gwdg.metadataqa</groupId>
 			<artifactId>metadata-qa-api</artifactId>
-			<version>0.6</version>
+			<version>0.8-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -181,6 +181,12 @@
 			<groupId>com.opencsv</groupId>
 			<artifactId>opencsv</artifactId>
 			<version>4.6</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc -->
+		<dependency>
+			<groupId>org.xerial</groupId>
+			<artifactId>sqlite-jdbc</artifactId>
+			<version>3.36.0.3</version>
 		</dependency>
 	</dependencies>
 

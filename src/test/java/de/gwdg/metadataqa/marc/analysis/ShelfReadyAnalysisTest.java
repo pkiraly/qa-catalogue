@@ -16,7 +16,7 @@ public class ShelfReadyAnalysisTest {
 
   @Test
   public void test_getScores() throws IOException, URISyntaxException {
-    List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
+    List<String> lines = FileUtils.readLinesFromResource("marctxt/010000011.mrctxt");
     MarcRecord marcRecord = MarcFactory.createFromFormattedText(lines);
 
     List<Double> scores = ShelfReadyAnalysis.getScores(marcRecord);

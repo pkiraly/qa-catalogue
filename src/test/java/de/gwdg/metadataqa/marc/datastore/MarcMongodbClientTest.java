@@ -97,7 +97,7 @@ public class MarcMongodbClientTest {
     boolean insert = true;
     if (insert) {
       JsonPathCache<? extends XmlFieldInstance> cache;
-      List<String> records = FileUtils.readLines("general/marc.json");
+      List<String> records = FileUtils.readLinesFromResource("general/marc.json");
       for (String marcRecord : records) {
         cache = new JsonPathCache<>(marcRecord);
         String id   = cache.get("$.controlfield.[?(@.tag == '001')].content").get(0).getValue();

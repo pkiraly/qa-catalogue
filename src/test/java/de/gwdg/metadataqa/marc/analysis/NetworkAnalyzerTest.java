@@ -22,7 +22,7 @@ public class NetworkAnalyzerTest {
 
   @Before
   public void setup() throws IOException, URISyntaxException {
-    List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
+    List<String> lines = FileUtils.readLinesFromResource("marctxt/010000011.mrctxt");
     marcRecord = MarcFactory.createFromFormattedText(lines);
   }
 

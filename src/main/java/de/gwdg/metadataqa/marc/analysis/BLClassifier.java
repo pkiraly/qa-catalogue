@@ -39,7 +39,7 @@ public class BLClassifier implements Classifier {
     String level = DEFICIENT.name();
 
     for (UseCase useCase : basicUseCases)
-      if (!useCase.getElements().isEmpty() && !satisfy(marcRecord, useCase))
+      if (useCase.getStatus().equals("Mandatory") && !useCase.getElements().isEmpty() && !satisfy(marcRecord, useCase))
         return level;
     level = BASIC.name();
 

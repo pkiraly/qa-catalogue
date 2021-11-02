@@ -1,5 +1,8 @@
+--- issue_details indices  
 CREATE INDEX "errorId" ON "issue_details" ("errorId");
 CREATE INDEX "recordId" ON "issue_details" ("recordId");
+
+--- issue_summary indices  
 CREATE INDEX "id" ON "issue_summary" ("id");
 CREATE INDEX "categoryId" ON "issue_summary" ("categoryId");
 CREATE INDEX "typeId" ON "issue_summary" ("typeId");

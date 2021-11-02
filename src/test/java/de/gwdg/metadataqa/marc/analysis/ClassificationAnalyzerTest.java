@@ -19,7 +19,7 @@ public class ClassificationAnalyzerTest {
 
   @Test
   public void test() throws IOException, URISyntaxException {
-    List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
+    List<String> lines = FileUtils.readLinesFromResource("marctxt/010000011.mrctxt");
     MarcRecord marcRecord = MarcFactory.createFromFormattedText(lines);
     ClassificationStatistics statistics = new ClassificationStatistics();
 
@@ -51,7 +51,7 @@ public class ClassificationAnalyzerTest {
 
   @Test
   public void abbreviation() throws IOException, URISyntaxException {
-    List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
+    List<String> lines = FileUtils.readLinesFromResource("marctxt/010000011.mrctxt");
     MarcRecord marcRecord = MarcFactory.createFromFormattedText(lines);
     ClassificationStatistics statistics = new ClassificationStatistics();
 

@@ -53,6 +53,24 @@
 		</repository>
 	</distributionManagement>
 
+	<repositories>
+		<repository>
+			<id>mvnrepository</id>
+			<url>https://mvnrepository.com/artifact</url>
+		</repository>
+		<repository>
+			<id>sonatypeSnapshots</id>
+			<name>Sonatype Snapshots</name>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</repository>
+	</repositories>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>11</maven.compiler.source>

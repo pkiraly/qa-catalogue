@@ -33,7 +33,7 @@ public class Control007Positions extends ControlfieldPositionList {
     positions.put(
       Control007Category.MAP.getValue(),
       Arrays.asList(
-        Tag007map00.getInstance(),
+        // Tag007map00.getInstance(),
         Tag007map01.getInstance(),
         // new ControlSubField("Undefined", 2, 3),
         Tag007map03.getInstance(),
@@ -47,7 +47,7 @@ public class Control007Positions extends ControlfieldPositionList {
     positions.put(
       Control007Category.ELECTRONIC_RESOURCE.getValue(),
       Arrays.asList(
-        Tag007electro00.getInstance(),
+        // Tag007electro00.getInstance(),
         Tag007electro01.getInstance(),
         // new ControlSubField("Undefined", 2, 3),
         Tag007electro03.getInstance(),
@@ -65,7 +65,7 @@ public class Control007Positions extends ControlfieldPositionList {
     positions.put(
       Control007Category.GLOBE.getValue(),
       Arrays.asList(
-        Tag007globe00.getInstance(),
+        // Tag007globe00.getInstance(),
         Tag007globe01.getInstance(),
         // new ControlSubField("Undefined", 2, 3),
         Tag007globe03.getInstance(),
@@ -77,7 +77,7 @@ public class Control007Positions extends ControlfieldPositionList {
     positions.put(
       Control007Category.TACTILE_MATERIAL.getValue(),
       Arrays.asList(
-        Tag007tactile00.getInstance(),
+        // Tag007tactile00.getInstance(),
         Tag007tactile01.getInstance(),
         // new ControlSubField("Undefined", 2, 3),
         Tag007tactile03.getInstance(),
@@ -90,7 +90,7 @@ public class Control007Positions extends ControlfieldPositionList {
     positions.put(
       Control007Category.PROJECTED_GRAPHIC.getValue(),
       Arrays.asList(
-        Tag007projected00.getInstance(),
+        // Tag007projected00.getInstance(),
         Tag007projected01.getInstance(),
         // new ControlSubField("Undefined", 2, 3),
         Tag007projected03.getInstance(),
@@ -105,7 +105,7 @@ public class Control007Positions extends ControlfieldPositionList {
     positions.put(
       Control007Category.MICROFORM.getValue(),
       Arrays.asList(
-        Tag007microform00.getInstance(),
+        // Tag007microform00.getInstance(),
         Tag007microform01.getInstance(),
         // new ControlSubField("Undefined", 2, 3),
         Tag007microform03.getInstance(),
@@ -122,7 +122,7 @@ public class Control007Positions extends ControlfieldPositionList {
     positions.put(
       Control007Category.NONPROJECTED_GRAPHIC.getValue(),
       Arrays.asList(
-        Tag007nonprojected00.getInstance(),
+        // Tag007nonprojected00.getInstance(),
         Tag007nonprojected01.getInstance(),
         // new ControlSubField("Undefined", 2, 3),
         Tag007nonprojected03.getInstance(),
@@ -134,7 +134,7 @@ public class Control007Positions extends ControlfieldPositionList {
     positions.put(
       Control007Category.MOTION_PICTURE.getValue(),
       Arrays.asList(
-        Tag007motionPicture00.getInstance(),
+        // Tag007motionPicture00.getInstance(),
         Tag007motionPicture01.getInstance(),
         // new ControlSubField("Undefined", 2, 3),
         Tag007motionPicture03.getInstance(),
@@ -158,7 +158,7 @@ public class Control007Positions extends ControlfieldPositionList {
     positions.put(
       Control007Category.KIT.getValue(),
       Arrays.asList(
-        Tag007kit00.getInstance(),
+        // Tag007kit00.getInstance(),
         Tag007kit01.getInstance()
       )
     );
@@ -166,7 +166,7 @@ public class Control007Positions extends ControlfieldPositionList {
     positions.put(
       Control007Category.NOTATED_MUSIC.getValue(),
       Arrays.asList(
-        Tag007music00.getInstance(),
+        // Tag007music00.getInstance(),
         Tag007music01.getInstance()
       )
     );
@@ -174,7 +174,7 @@ public class Control007Positions extends ControlfieldPositionList {
     positions.put(
       Control007Category.REMOTE_SENSING_IMAGE.getValue(),
       Arrays.asList(
-        Tag007remoteSensing00.getInstance(),
+        // Tag007remoteSensing00.getInstance(),
         Tag007remoteSensing01.getInstance(),
         // new ControlSubField("Undefined", 2, 3),
         Tag007remoteSensing03.getInstance(),
@@ -190,7 +190,7 @@ public class Control007Positions extends ControlfieldPositionList {
     positions.put(
       Control007Category.SOUND_RECORDING.getValue(),
       Arrays.asList(
-        Tag007soundRecording00.getInstance(),
+        // Tag007soundRecording00.getInstance(),
         Tag007soundRecording01.getInstance(),
         // new ControlSubField("Undefined", 2, 3),
         Tag007soundRecording03.getInstance(),
@@ -210,7 +210,7 @@ public class Control007Positions extends ControlfieldPositionList {
     positions.put(
       Control007Category.TEXT.getValue(),
       Arrays.asList(
-        Tag007text00.getInstance(),
+        // Tag007text00.getInstance(),
         Tag007text01.getInstance()
       )
     );
@@ -218,7 +218,7 @@ public class Control007Positions extends ControlfieldPositionList {
     positions.put(
       Control007Category.VIDEO_RECORDING.getValue(),
       Arrays.asList(
-        Tag007video00.getInstance(),
+        // Tag007video00.getInstance(),
         Tag007video01.getInstance(),
         // new ControlSubField("Undefined", 2, 3),
         Tag007video03.getInstance(),
@@ -233,7 +233,7 @@ public class Control007Positions extends ControlfieldPositionList {
     positions.put(
       Control007Category.UNSPECIFIED.getValue(),
       Arrays.asList(
-        Tag007unspecified00.getInstance(),
+        // Tag007unspecified00.getInstance(),
         Tag007unspecified01.getInstance()
       )
     );

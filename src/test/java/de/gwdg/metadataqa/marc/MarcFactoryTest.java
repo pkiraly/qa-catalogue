@@ -480,7 +480,7 @@ public class MarcFactoryTest {
         "003_ControlNumberIdentifier, " +
         "005_LatestTransactionTime, " +
         "007_PhysicalDescription, " +
-        "007text00_PhysicalDescription_categoryOfMaterial, " +
+        "007common00_PhysicalDescription_categoryOfMaterial, " +
         "007text01_PhysicalDescription_specificMaterialDesignation, " +
         "008_GeneralInformation, 008all00_GeneralInformation_dateEnteredOnFile, " +
         "008all06_GeneralInformation_typeOfDateOrPublicationStatus, " +

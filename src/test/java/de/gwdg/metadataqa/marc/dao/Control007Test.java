@@ -34,7 +34,7 @@ public class Control007Test {
     assertEquals("Category of material", value.getLabel());
     assertEquals("a", value.getValue());
     assertEquals("Map", value.resolve());
-    assertEquals(value, field.getMap00());
+    assertEquals(value, field.getCommon());
 
     value = values.get(1);
     assertEquals("Specific material designation", value.getDefinition().getLabel());
@@ -109,7 +109,7 @@ public class Control007Test {
     assertEquals("Category of material", value.getLabel());
     assertEquals("d", value.getValue());
     assertEquals("Globe", value.resolve());
-    assertEquals(value, field.getGlobe00());
+    assertEquals(value, field.getCommon());
 
     value = values.get(1);
     assertEquals("Specific material designation", value.getDefinition().getLabel());
@@ -150,7 +150,7 @@ public class Control007Test {
     assertEquals("Category of material", value.getLabel());
     assertEquals("f", value.getValue());
     assertEquals("Tactile material", value.resolve());
-    assertEquals(value, field.getTactile00());
+    assertEquals(value, field.getCommon());
 
     value = values.get(1);
     assertEquals("Specific material designation", value.getDefinition().getLabel());
@@ -198,7 +198,7 @@ public class Control007Test {
     assertEquals("Category of material", value.getLabel());
     assertEquals("g", value.getValue());
     assertEquals("Projected graphic", value.resolve());
-    assertEquals(value, field.getProjected00());
+    assertEquals(value, field.getCommon());
 
     value = values.get(1);
     assertEquals("Specific material designation", value.getDefinition().getLabel());
@@ -258,7 +258,7 @@ public class Control007Test {
     assertEquals("Category of material", value.getLabel());
     assertEquals("h", value.getValue());
     assertEquals("Microform", value.resolve());
-    assertEquals(value, field.getMicroform00());
+    assertEquals(value, field.getCommon());
 
     value = values.get(1);
     assertEquals("Specific material designation", value.getDefinition().getLabel());
@@ -330,7 +330,7 @@ public class Control007Test {
     assertEquals("Category of material", value.getLabel());
     assertEquals("k", value.getValue());
     assertEquals("Nonprojected graphic", value.resolve());
-    assertEquals(value, field.getNonprojected00());
+    assertEquals(value, field.getCommon());
 
     value = values.get(1);
     assertEquals("Specific material designation", value.getDefinition().getLabel());
@@ -372,7 +372,7 @@ public class Control007Test {
     assertEquals("Category of material", value.getLabel());
     assertEquals("m", value.getValue());
     assertEquals("Motion picture", value.resolve());
-    assertEquals(value, field.getMotionPicture00());
+    assertEquals(value, field.getCommon());
 
     value = values.get(1);
     assertEquals("Specific material designation", value.getDefinition().getLabel());
@@ -486,7 +486,7 @@ public class Control007Test {
     assertEquals("Category of material", value.getLabel());
     assertEquals("o", value.getValue());
     assertEquals("Kit", value.resolve());
-    assertEquals(value, field.getKit00());
+    assertEquals(value, field.getCommon());
 
     value = values.get(1);
     assertEquals("Specific material designation", value.getDefinition().getLabel());
@@ -510,7 +510,7 @@ public class Control007Test {
     assertEquals("Category of material", value.getLabel());
     assertEquals("q", value.getValue());
     assertEquals("Notated music", value.resolve());
-    assertEquals(value, field.getMusic00());
+    assertEquals(value, field.getCommon());
 
     value = values.get(1);
     assertEquals("Specific material designation", value.getDefinition().getLabel());
@@ -534,7 +534,7 @@ public class Control007Test {
     assertEquals("Category of material", value.getLabel());
     assertEquals("v", value.getValue());
     assertEquals("Videorecording", value.resolve());
-    assertEquals(value, field.getVideo00());
+    assertEquals(value, field.getCommon());
 
     value = values.get(1);
     assertEquals("Specific material designation", value.getLabel());
@@ -598,7 +598,7 @@ public class Control007Test {
     assertEquals("Category of material", subfield.getLabel());
     assertEquals("t", field.getMap().get(subfield));
     assertEquals("Text", field.resolve(subfield));
-    assertEquals("Text", field.getText00().resolve());
+    assertEquals("Text", field.getCommon().resolve());
 
     subfield = field.getSubfieldByPosition(1);
     assertEquals("Specific material designation", subfield.getLabel());
@@ -626,7 +626,7 @@ public class Control007Test {
     assertEquals("Category of material", subfield.getLabel());
     assertEquals("c", field.getMap().get(subfield));
     assertEquals("Electronic resource", field.resolve(subfield));
-    assertEquals("Electronic resource", field.getElectro00().resolve());
+    assertEquals("Electronic resource", field.getCommon().resolve());
 
     subfield = field.getSubfieldByPosition(1);
     assertEquals("Specific material designation", subfield.getLabel());
@@ -714,7 +714,7 @@ public class Control007Test {
     assertEquals("Category of material", subfield.getLabel());
     assertEquals("s", field.getMap().get(subfield));
     assertEquals("Sound recording", field.resolve(subfield));
-    assertEquals("Sound recording", field.getSoundRecording00().resolve());
+    assertEquals("Sound recording", field.getCommon().resolve());
 
     subfield = field.getSubfieldByPosition(1);
     assertEquals("Specific material designation", subfield.getLabel());

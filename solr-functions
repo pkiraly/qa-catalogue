@@ -122,14 +122,16 @@ status() {
     | sed -E 's,^"(.*solr).+$,\1,' \
     | xargs -I '@@' echo "Solr directory: @@"
 
-  FORMAT="%-20s | %-15s | %10s | %15s\n"
-  printf "${FORMAT}" "core" "location" "nr of docs" "size"
-  printf "${FORMAT}" "...................." "..............." ".........." "..............."
+  FORMAT="%-20s | %-15s | %10s | %15s | %20s\n"
+  printf "${FORMAT}" "core" "location" "nr of docs" "size" "last modified"
+  printf "${FORMAT}" "...................." "..............." ".........." "..............." "...................."
   curl -s "${SOLR_HOST}/solr/admin/cores?action=STATUS" \
-    | jq '.status[] | [.name, .instanceDir, .index.numDocs, .index.size]' \
+    | jq '.status[] | [.name, .instanceDir, .index.numDocs, .index.size, .index.lastModified]' \
     | sed -r 's,".*/server/solr/(.+)",\1,' \
-    | paste - - - - - - \
+    | paste - - - - - - - \
     | sed -r 's,(\[|]|\t|\,),,g' \
+    | sed -r 's,([0-9])T([0-9]),\1 \2,g' \
+    | sed -r 's,\.[0-9]{3}Z,,g' \
     | xargs printf "${FORMAT}"
   exit 1
 }

@@ -15,12 +15,14 @@ import org.marc4j.MarcException;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
 
+import java.io.FileInputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.time.LocalTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.zip.GZIPInputStream;
 
 /**
  * usage:
@@ -169,7 +171,11 @@ public class RecordIterator {
   }
 
   private MarcReader getMarcFileReader(CommonParameters parameters, Path path) throws Exception {
-    return ReadMarc.getFileReader(parameters.getMarcFormat(), path.toString());
+    if (path.toString().endsWith(".gz")) {
+      return ReadMarc.getStreamReader(parameters.getMarcFormat(), new GZIPInputStream(new FileInputStream(path.toFile())));
+    } else {
+      return ReadMarc.getFileReader(parameters.getMarcFormat(), path.toString());
+    }
   }
 
   private MarcReader getMarcStreamReader(CommonParameters parameters) throws Exception {

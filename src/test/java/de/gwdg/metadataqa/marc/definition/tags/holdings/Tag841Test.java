@@ -1,16 +1,20 @@
 package de.gwdg.metadataqa.marc.definition.tags.holdings;
 
 import de.gwdg.metadataqa.marc.MarcSubfield;
+import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
-import junit.framework.TestCase;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Tag841Test extends TestCase {
+import static org.junit.Assert.assertEquals;
+
+public class Tag841Test {
 
   @Test
   public void test1() {
@@ -30,4 +34,10 @@ public class Tag841Test extends TestCase {
     assertEquals(expected, extra);
   }
 
+  @Test
+  public void checkDefinition() {
+    DataFieldDefinition definition = TagDefinitionLoader.load("841");
+    assertEquals(MarcVersion.MARC21, definition.getMarcVersion());
+    assertEquals("holdings", Utils.extractPackageName(definition));
+  }
 }

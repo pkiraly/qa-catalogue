@@ -20,7 +20,6 @@ for record in it:
     token = tree.xpath('/resumptionToken[0]', namespaces=namespaces)
     print(etree.tostring(token, encoding='utf8', method='xml').decode("utf-8"))
     
-
     recs = tree.xpath('/oai:record[*]/oai:metadata/marc21:record', namespaces=namespaces)
     for rec in recs:
         core = etree.tostring(rec, encoding='utf8', method='xml').decode("utf-8")

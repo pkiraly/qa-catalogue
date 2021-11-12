@@ -14,7 +14,7 @@ footer = '</collection>'
 
 output = []
 i = 0
-it = sickle.ListRecords(metadataPrefix='marcxml_includehold_expanded', set='bib:S')
+it = sickle.ListRecords(metadataPrefix='marcxml_expanded', set='bib:S')
 for record in it:
     tree = etree.ElementTree(record.xml)
     token = tree.xpath('/resumptionToken[0]', namespaces=namespaces)

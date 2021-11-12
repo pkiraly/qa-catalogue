@@ -225,7 +225,7 @@ do_version_link() {
 }
 
 do_sqlite() {
-  printf "%s %s> [record-patterns]\n" $(date +"%F %T")
+  printf "%s %s> [SQLite]\n" $(date +"%F %T")
 
   printf "%s %s> php scripts/r-scripts/normalize-issue-details.php ${OUTPUT_DIR} &> ${PREFIX}/sqlite.log\n" $(date +"%F %T")
   php scripts/r-scripts/normalize-issue-details.php ${OUTPUT_DIR} &> ${PREFIX}/sqlite.log

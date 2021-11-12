@@ -400,7 +400,11 @@ public class MarcFactory {
     Record marc4jRecord = new RecordImpl();
     for (MarclineLine line : lines) {
       if (line.isLeader()) {
-        marc4jRecord.setLeader(new LeaderImpl(line.getContent()));
+        try {
+          marc4jRecord.setLeader(new LeaderImpl(line.getContent()));
+        } catch (StringIndexOutOfBoundsException e) {
+          logger.severe("Error at creating leader: " + e.getMessage());
+        }
       } else if (line.isNumericTag()) {
         if (line.isControlField()) {
           marc4jRecord.addVariableField(new ControlFieldImpl(line.getTag(), line.getContent()));

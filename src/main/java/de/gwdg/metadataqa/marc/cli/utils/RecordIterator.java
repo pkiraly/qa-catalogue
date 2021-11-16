@@ -172,14 +172,17 @@ public class RecordIterator {
 
   private MarcReader getMarcFileReader(CommonParameters parameters, Path path) throws Exception {
     if (path.toString().endsWith(".gz")) {
-      return ReadMarc.getStreamReader(parameters.getMarcFormat(), new GZIPInputStream(new FileInputStream(path.toFile())));
+      return ReadMarc.getStreamReader(
+        parameters.getMarcFormat(),
+        new GZIPInputStream(new FileInputStream(path.toFile())),
+        parameters.getDefaultEncoding());
     } else {
-      return ReadMarc.getFileReader(parameters.getMarcFormat(), path.toString());
+      return ReadMarc.getFileReader(parameters.getMarcFormat(), path.toString(), parameters.getDefaultEncoding());
     }
   }
 
   private MarcReader getMarcStreamReader(CommonParameters parameters) throws Exception {
-    return ReadMarc.getStreamReader(parameters.getMarcFormat(), parameters.getStream());
+    return ReadMarc.getStreamReader(parameters.getMarcFormat(), parameters.getStream(), parameters.getDefaultEncoding());
   }
 
   private Record getNextMarc4jRecord(int i, String lastKnownId, MarcReader reader) {

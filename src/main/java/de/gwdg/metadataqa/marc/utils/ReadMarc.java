@@ -16,8 +16,12 @@ import java.util.List;
 public class ReadMarc {
 
   public static List<Record> read(String fileName) throws Exception {
+    return read(fileName, null);
+  }
+
+  public static List<Record> read(String fileName, String encoding) throws Exception {
     InputStream in = new FileInputStream(fileName);
-    MarcReader reader = new MarcStreamReader(in);
+    MarcReader reader = new MarcStreamReader(in, encoding);
 
     List<Record> records = new ArrayList<>();
     while (reader.hasNext()) {
@@ -31,8 +35,16 @@ public class ReadMarc {
     return getIsoStreamReader(new FileInputStream(fileName));
   }
 
+  public static MarcReader getIsoFileReader(String fileName, String encoding) throws Exception {
+    return getIsoStreamReader(new FileInputStream(fileName), encoding);
+  }
+
   public static MarcReader getIsoStreamReader(InputStream stream) throws Exception {
-    return new MarcStreamReader(stream);
+    return getIsoStreamReader(stream, null);
+  }
+
+  public static MarcReader getIsoStreamReader(InputStream stream, String encoding) throws Exception {
+    return new MarcStreamReader(stream, encoding);
   }
 
   public static MarcReader getXmlFileReader(String fileName) throws Exception {
@@ -78,6 +90,10 @@ public class ReadMarc {
   }
 
   public static MarcReader getFileReader(MarcFormat marcFormat, String fileName) throws Exception {
+    return getFileReader(marcFormat, fileName, null);
+  }
+
+  public static MarcReader getFileReader(MarcFormat marcFormat, String fileName, String encoding) throws Exception {
     MarcReader reader = null;
     switch (marcFormat) {
       case ALEPHSEQ:
@@ -90,12 +106,16 @@ public class ReadMarc {
         reader = ReadMarc.getMarclineFileReader(fileName); break;
       case ISO:
       default:
-        reader = ReadMarc.getIsoFileReader(fileName); break;
+        reader = ReadMarc.getIsoFileReader(fileName, encoding); break;
     }
     return reader;
   }
 
   public static MarcReader getStreamReader(MarcFormat marcFormat, InputStream stream) throws Exception {
+    return getStreamReader(marcFormat, stream, null);
+  }
+
+  public static MarcReader getStreamReader(MarcFormat marcFormat, InputStream stream, String encoding) throws Exception {
     MarcReader reader = null;
     switch (marcFormat) {
       case ALEPHSEQ:
@@ -108,7 +128,7 @@ public class ReadMarc {
         reader = ReadMarc.getMarclineStreamReader(stream); break;
       case ISO:
       default:
-        reader = ReadMarc.getIsoStreamReader(stream); break;
+        reader = ReadMarc.getIsoStreamReader(stream, encoding); break;
     }
     return reader;
   }

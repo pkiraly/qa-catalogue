@@ -36,6 +36,7 @@ public class CommonParameters implements Serializable {
   protected IgnorableRecords ignorableRecords = new IgnorableRecords();
   protected IgnorableFields ignorableFields = new IgnorableFields();
   protected InputStream stream = null;
+  protected String defaultEncoding = null;
 
   protected Options options = new Options();
   protected static final CommandLineParser parser = new DefaultParser();
@@ -62,6 +63,7 @@ public class CommonParameters implements Serializable {
       options.addOption("v", "ignorableRecords", true, "ignore records from the analysis");
       options.addOption("m", "marcFormat", true, "MARC format (like 'ISO' or 'MARCXML')");
       options.addOption("m", "dataSource", true, "data source (file of stream)");
+      options.addOption("g", "defaultEncoding", true, "default character encoding");
       isOptionSet = true;
     }
   }
@@ -120,6 +122,9 @@ public class CommonParameters implements Serializable {
 
     if (cmd.hasOption("ignorableRecords"))
       setIgnorableRecords(cmd.getOptionValue("ignorableRecords"));
+
+    if (cmd.hasOption("defaultEncoding"))
+      setDefaultEncoding(cmd.getOptionValue("defaultEncoding"));
 
     args = cmd.getArgs();
   }
@@ -333,6 +338,14 @@ public class CommonParameters implements Serializable {
     this.stream = stream;
   }
 
+  public String getDefaultEncoding() {
+    return defaultEncoding;
+  }
+
+  private void setDefaultEncoding(String defaultEncoding) {
+    this.defaultEncoding = defaultEncoding;
+  }
+
   public String formatParameters() {
     String text = "";
     text += String.format("marcVersion: %s, %s%n", marcVersion.getCode(), marcVersion.getLabel());
@@ -352,6 +365,7 @@ public class CommonParameters implements Serializable {
     text += String.format("trimId: %s%n", trimId);
     text += String.format("ignorableFields: %s%n", ignorableFields);
     text += String.format("ignorableRecords: %s%n", ignorableRecords);
+    text += String.format("defaultEncoding: %s%n", defaultEncoding);
 
     return text;
   }

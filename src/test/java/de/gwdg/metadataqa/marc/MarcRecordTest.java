@@ -7,10 +7,12 @@ import de.gwdg.metadataqa.marc.dao.Control007;
 import de.gwdg.metadataqa.marc.dao.Control008;
 import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.definition.MarcFormat;
 import de.gwdg.metadataqa.marc.definition.controltype.Control007Category;
 import de.gwdg.metadataqa.marc.utils.ReadMarc;
 import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 import org.junit.Test;
+import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
 
 import java.io.IOException;
@@ -132,6 +134,29 @@ public class MarcRecordTest {
     assertNotNull(marcRecord);
     // System.err.println(record.asJson());
     assertTrue(marcRecord.asJson().contains("\"245\":[{\"ind1\":\"1\",\"ind2\":\"0\",\"subfields\":{\"a\":\"Botanical materia medica and pharmacology;\""));
+  }
+
+  @Test
+  public void testFromMek() throws Exception {
+    Path path = FileUtils.getPath("marc/22561.mrc");
+    List<Record> records = ReadMarc.read(path.toString(), "MARC8");
+    MarcRecord marcRecord = MarcFactory.createFromMarc4j(records.get(0));
+    assertEquals(' ', records.get(0).getLeader().getCharCodingScheme());
+    assertEquals(" ", marcRecord.getLeader().getCharacterCodingScheme().getValue());
+    assertEquals("Az ítélet :", marcRecord.getDatafield("245").get(0).getSubfield("a").get(0).getValue());
+  }
+
+  @Test
+  public void testFileReaderFromMek() throws Exception {
+    Path path = FileUtils.getPath("marc/22561.mrc");
+    MarcReader reader = ReadMarc.getFileReader(MarcFormat.ISO, path.toString(), "MARC8");
+    Record record = reader.next();
+    assertEquals(' ', record.getLeader().getCharCodingScheme());
+
+    MarcRecord marcRecord = MarcFactory.createFromMarc4j(record);
+    assertEquals(" ", marcRecord.getLeader().getCharacterCodingScheme().getValue());
+    assertEquals("Az ítélet :", marcRecord.getDatafield("245").get(0).getSubfield("a").get(0).getValue());
+    assertEquals("[Följegyzések és dokumentumok néhány magyarországi református egyházi döntésről 1948 és 1998 között] :", marcRecord.getDatafield("245").get(0).getSubfield("b").get(0).getValue());
   }
 
 }

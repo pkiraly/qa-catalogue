@@ -42,4 +42,13 @@ public class CompletenessTest {
 
     namesMap.forEach((key, value) -> System.out.println(key + " " + value));
   }
+
+  @Test
+  public void testRegex() {
+    String a = "041$_ind1";
+    assertEquals("041$ind1", a.replace("_ind", "ind"));
+
+    String b = "041$|0";
+    assertEquals("041$0", b.replaceAll("\\|(\\d)$", "$1"));
+  }
 }

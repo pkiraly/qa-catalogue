@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.structure.ControlFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
 import de.gwdg.metadataqa.marc.definition.tags.TagCategory;
@@ -115,8 +116,17 @@ public class TagHierarchy {
             if (definition != null) {
               String tagLabel = definition.getLabel();
 
-              SubfieldDefinition subfield = definition.getSubfield(subfieldCode);
-              String subfieldLabel = subfield != null ? subfield.getLabel() : "";
+              String subfieldLabel = "";
+              if (subfieldCode.equals("ind1")) {
+                Indicator indicator = definition.getInd1();
+                subfieldLabel = indicator.exists() ? indicator.getLabel() : "";
+              } else if (subfieldCode.equals("ind2")) {
+                Indicator indicator = definition.getInd2();
+                subfieldLabel = indicator.exists() ? indicator.getLabel() : "";
+              } else {
+                SubfieldDefinition subfield = definition.getSubfield(subfieldCode);
+                subfieldLabel = subfield != null ? subfield.getLabel() : "";
+              }
 
               String packageName = Utils.extractPackageName(definition);
               TagCategory category = TagCategory.getPackage(packageName);

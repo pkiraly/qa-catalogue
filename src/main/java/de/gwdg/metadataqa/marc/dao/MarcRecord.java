@@ -342,10 +342,9 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
       mainKeyValuePairs.put("type", Arrays.asList(getType().getValue()));
       mainKeyValuePairs.putAll(leader.getKeyValuePairs(type));
 
-      for (MarcControlField controlField : getControlfields()) {
+      for (MarcControlField controlField : getControlfields())
         if (controlField != null)
           mainKeyValuePairs.putAll(controlField.getKeyValuePairs(type));
-      }
 
       for (DataField field : datafields) {
         Map<String, List<String>> keyValuePairs = field.getKeyValuePairs(type);

@@ -192,11 +192,11 @@ public class Completeness implements MarcFileProcessor, Serializable {
     List<String> marcPaths = new ArrayList<>();
 
     if (field.getInd1() != null)
-      if (field.getDefinition().getInd1().exists() || !field.getInd1().equals(" "))
+      if (field.getDefinition() != null && field.getDefinition().getInd1().exists() || !field.getInd1().equals(" "))
         marcPaths.add(String.format("%s$!ind1", field.getTag()));
 
     if (field.getInd2() != null)
-      if (field.getDefinition().getInd2().exists() || !field.getInd2().equals(" "))
+      if (field.getDefinition() != null && field.getDefinition().getInd2().exists() || !field.getInd2().equals(" "))
         marcPaths.add(String.format("%s$!ind2", field.getTag()));
 
     for (MarcSubfield subfield : field.getSubfields())

@@ -1,21 +1,12 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.MarcSubfield;
-import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.analysis.DataElementCounter;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
-import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.MarcControlField;
-import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
-import de.gwdg.metadataqa.marc.definition.ControlValue;
-import de.gwdg.metadataqa.marc.definition.tags.TagCategory;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
-import de.gwdg.metadataqa.marc.utils.BasicStatistics;
-import de.gwdg.metadataqa.marc.utils.TagHierarchy;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -27,21 +18,13 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
-
-import static de.gwdg.metadataqa.marc.Utils.createRow;
-import static de.gwdg.metadataqa.marc.Utils.quote;
 
 public class DataElements implements MarcFileProcessor, Serializable {
 

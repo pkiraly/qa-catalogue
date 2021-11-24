@@ -62,7 +62,7 @@ prepare_schema() {
     echo "Create string_big field type definition in ${LOCAL_CORE}."
     curl -X POST -H 'Content-type:application/json' --data-binary '{
       "add-field-type" : {
-       "name":"string_big",
+        "name":"string_big",
         "class":"solr.TextField",
         "positionIncrementGap":"100",
         "sortMissingLast":true,

@@ -26,13 +26,15 @@ RUN apt-get update \
       curl \
       openssl \
       # install Java
-      openjdk-8-jre-headless \
+      openjdk-11-jre-headless \
       # Install R
       r-base \
       # Install R packages from ppa:marutter
       r-cran-tidyverse \
       r-cran-stringr \
       r-cran-gridextra \
+      r-cran-rsqlite \
+      sqlite3 \
       less \
  && rm -rf /var/lib/apt/lists/*
 
@@ -40,8 +42,11 @@ RUN apt-get update \
 RUN mkdir -p /opt/metadata-qa-marc/scripts \
  && mkdir -p /opt/metadata-qa-marc/target
 
-COPY target/metadata-qa-marc-0.4-jar-with-dependencies.jar /opt/metadata-qa-marc/target/
+
+# COPY target/metadata-qa-marc-0.4-jar-with-dependencies.jar /opt/metadata-qa-marc/target/
+COPY target/metadata-qa-marc-0.5-SNAPSHOT-jar-with-dependencies.jar /opt/metadata-qa-marc/target/
 COPY scripts/*.* /opt/metadata-qa-marc/scripts/
+COPY scripts/r-scripts/*.* /opt/metadata-qa-marc/scripts/r-scripts/
 COPY setdir.sh.template /opt/metadata-qa-marc/setdir.sh
 
 # copy common scripts
@@ -77,13 +82,16 @@ RUN apt-get update \
  && apt-get install -y --no-install-recommends \
       apache2 \
       php \
+      php-sqlite3 \
       unzip \
  && rm -rf /var/lib/apt/lists/* \
  && cd /var/www/html/ \
- && curl -s -L https://github.com/pkiraly/metadata-qa-marc-web/archive/0.4.zip --output master.zip \
+ && curl -s -L https://github.com/pkiraly/metadata-qa-marc-web/archive/refs/heads/main.zip --output master.zip \
+# && curl -s -L https://github.com/pkiraly/metadata-qa-marc-web/archive/0.4.zip --output master.zip \
  && unzip -q master.zip \
  && rm master.zip \
- && mv metadata-qa-marc-web-0.4 metadata-qa \
+# && mv metadata-qa-marc-web-0.4 metadata-qa \
+ && mv metadata-qa-marc-web-main metadata-qa \
  && echo dir=/opt/metadata-qa-marc/marc/_output > /var/www/html/metadata-qa/configuration.cnf \
  # && cp /var/www/html/metadata-qa/configuration.js.template /var/www/html/metadata-qa/configuration.js \
  && touch /var/www/html/metadata-qa/selected-facets.js \

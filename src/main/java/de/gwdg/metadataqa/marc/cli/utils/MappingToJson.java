@@ -67,10 +67,10 @@ public class MappingToJson {
   }
 
   public void build() {
-    Map fields = new LinkedHashMap<>();
+    Map<String, Object> fields = new LinkedHashMap<>();
 
     fields.put("LDR", buildLeader());
-    buildSimpleControlFields(fields);
+    fields.putAll(buildSimpleControlFields());
 
     fields.put("006", buildControlField(Control006Definition.getInstance(), Control006Positions.getInstance()));
     fields.put("007", buildControlField(Control007Definition.getInstance(), Control007Positions.getInstance()));
@@ -118,23 +118,29 @@ public class MappingToJson {
     return tag;
   }
 
-  private void buildSimpleControlFields(Map fields) {
-    Map<String, Object> tag;
+  private Map<String, Object> buildSimpleControlFields() {
+    Map fields = new HashMap();
     List<DataFieldDefinition> simpleControlFields = Arrays.asList(
       Control001Definition.getInstance(),
       Control003Definition.getInstance(),
       Control005Definition.getInstance()
     );
-    for (DataFieldDefinition field : simpleControlFields) {
-      PositionalControlFieldKeyGenerator keyGenerator = new PositionalControlFieldKeyGenerator(field.getTag(), field.getMqTag(), parameters.getSolrFieldType());
-      tag = new LinkedHashMap<>();
-      tag.put("tag", field.getTag());
-      tag.put("label", field.getLabel());
-      tag.put("repeatable", resolveCardinality(field.getCardinality()));
-      if (exportSelfDescriptiveCodes)
-        tag.put("solr", keyGenerator.forTag());
-      fields.put(field.getTag(), tag);
-    }
+    for (DataFieldDefinition field : simpleControlFields)
+      fields.put(field.getTag(), buildSImpleControlField(field));
+
+    return fields;
+  }
+
+  private Map<String, Object> buildSImpleControlField(DataFieldDefinition field) {
+    Map<String, Object> tag;
+    PositionalControlFieldKeyGenerator keyGenerator = new PositionalControlFieldKeyGenerator(field.getTag(), field.getMqTag(), parameters.getSolrFieldType());
+    tag = new LinkedHashMap<>();
+    tag.put("tag", field.getTag());
+    tag.put("label", field.getLabel());
+    tag.put("repeatable", resolveCardinality(field.getCardinality()));
+    if (exportSelfDescriptiveCodes)
+      tag.put("solr", keyGenerator.forTag());
+    return tag;
   }
 
   private Map<String, Object> buildLeader() {

@@ -18,7 +18,7 @@ public class ControlFieldKeyGeneratorTest {
 
   @Test
   public void testMarc() {
-    PositionalControlFieldKeyGenerator generator = new PositionalControlFieldKeyGenerator(
+    var generator = new PositionalControlFieldKeyGenerator(
       field.getTag(),
       field.getMqTag(),
       SolrFieldType.MARC);

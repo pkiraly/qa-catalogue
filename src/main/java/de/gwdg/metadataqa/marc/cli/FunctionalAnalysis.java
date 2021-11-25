@@ -89,6 +89,10 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
 
     this.recordNumber = recordNumber;
     Map<FRBRFunction, FunctionValue> recordCounter = new TreeMap<>();
+    for (FRBRFunction f : FRBRFunction.values())
+      if (f.getParent() != null)
+        recordCounter.put(f, new FunctionValue());
+
     Map<DataFieldDefinition, Boolean> cache = new HashMap<>();
 
     countPositionalControlField(recordCounter, marcRecord.getLeader());

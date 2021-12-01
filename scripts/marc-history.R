@@ -47,6 +47,8 @@ data <- input %>%
   filter(!is.na(publication2)) %>%
   filter(!is.na(cat_year))
 
+print("data done")
+
 filtered_count <- dim(data)[1]
 print(paste0("filtered_count: ", filtered_count))
 

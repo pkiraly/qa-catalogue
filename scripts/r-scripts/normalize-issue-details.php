@@ -5,11 +5,11 @@ if (preg_match('/[^\/]$/', $dir))
   $dir .= '/';
 
 $inputFile  = $dir . 'issue-details.csv';
-$outputFile = $dir . 'issue-details-normalized.csv';
 echo 'input: ', $inputFile, "\n";
-echo 'output: ', $outputFile, "\n";
-
 $in = fopen($inputFile, "r");
+
+$outputFile = $dir . 'issue-details-normalized.csv';
+echo 'output: ', $outputFile, "\n";
 $out = fopen($outputFile, 'w');
 
 while (($line = fgets($in)) != false) {
@@ -29,5 +29,4 @@ while (($line = fgets($in)) != false) {
 
 fclose($in);
 fclose($out);
-
 echo "normalization is DONE\n";

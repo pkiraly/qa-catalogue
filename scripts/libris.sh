@@ -2,10 +2,9 @@
 
 . ./setdir.sh
 NAME=libris
-# MARC_DIR=${BASE_INPUT_DIR}/loc/2019
-TYPE_PARAMS="--marcxml"
-MARC_DIR=/home/kiru/git/libris.kb.se
-MASK=sw-?.xml
+MARC_DIR=${BASE_INPUT_DIR}/libris
+TYPE_PARAMS="--emptyLargeCollectors --marcxml"
+MASK=sw-?.xml.gz
 
 . ./common-script
 

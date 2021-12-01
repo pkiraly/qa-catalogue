@@ -5,7 +5,7 @@
 TYPE_PARAMS='--emptyLargeCollectors --marcxml'
 NAME=ddb
 MARC_DIR=${BASE_INPUT_DIR}/ddb
-MASK=all.xml
+MASK=all.xml.gz
 
 
 . ./common-script

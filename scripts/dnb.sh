@@ -7,12 +7,12 @@ if [[ $TYPE == "marc" ]]; then
   echo "marc"
   TYPE_PARAMS="--marcVersion DNB"
   MARC_DIR=${BASE_INPUT_DIR}/dnb/marc
-  MASK=*.mrc
+  MASK=*.mrc.gz
 elif [[ $TYPE == "xml" ]]; then
   echo "xml"
   TYPE_PARAMS="--marcVersion DNB --marcxml"
-  MARC_DIR=${BASE_INPUT_DIR}/dnb/xml
-  MASK=*.mrc.xml
+  MARC_DIR=${BASE_INPUT_DIR}/dnb
+  MASK=*.mrc.xml.gz
 else
   echo "else: ${TYPE}"
 fi

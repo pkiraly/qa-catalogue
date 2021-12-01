@@ -4,7 +4,7 @@
 NAME=onb
 MARC_DIR=${BASE_INPUT_DIR}/onb
 TYPE_PARAMS=" --emptyLargeCollectors --fixAlma"
-MASK=onb*.mrc
+MASK=onb*.mrc.gz
 
 . ./common-script
 

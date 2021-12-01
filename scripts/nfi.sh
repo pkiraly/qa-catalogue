@@ -2,7 +2,7 @@
 
 . ./setdir.sh
 NAME=nfi
-TYPE_PARAMS="--marcVersion FENNICA --fixAlephseq --marcxml"
+TYPE_PARAMS="--marcVersion FENNICA --fixAlephseq --marcxml --emptyLargeCollectors"
 MARC_DIR=${BASE_INPUT_DIR}/nfi
 MASK=fennica.mrcx
 

@@ -250,7 +250,7 @@ do_sqlite() {
   # sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/r-scripts/modify-tables.sql &>> ${PREFIX}/sqlite.log
 
   # alternative way
-  printf "%s %s> deleter\n" $(date +"%F %T")
+  printf "%s %s> delete\n" $(date +"%F %T")
   if [[ -e ${OUTPUT_DIR}/qa_catalogue.sqlite ]]; then
     rm ${OUTPUT_DIR}/qa_catalogue.sqlite
   fi

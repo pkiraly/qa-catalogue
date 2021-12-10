@@ -284,6 +284,13 @@ options:
     i.e. it is a text file, where each line is a distinct field, the
     same way as MARC records are usually displayed in the MARC21 
     standard documentation.
+  * `-m`, `--marcFormat` The input format. Possible values are
+    * `ISO`: Binary (ISO 2709)
+    * `XML`: MARCXML
+    * `ALEPHSEQ`: ALEPHSEQ
+    * `LINE_SEPARATED`: Line separated binary MARC (each line contains one record)
+    * `MARC_LINE`: MARC Line
+    * `MARCMAKER`: MARCMaker format
 * parameters to limit the validation:
   * `-i [record ID]`, `--id [record ID]` validates only a single record
     having the specifies identifier (the content of 001)

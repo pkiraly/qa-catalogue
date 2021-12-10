@@ -269,28 +269,22 @@ options:
    * VISUAL_MATERIALS
    * COMPUTER_FILES
    * MIXED_MATERIALS
-* input formats:
-  * `-x`, `--marcxml` the input files are not binary MARC, but MARCXML files
-  * `-p`, `--alephseq` the input files are in Alephseq format
-  * `-q`, `--fixAlephseq` sometimes ALEPH export contains '^' characters
+* `-m [format]`, `--marcFormat [format]` The input format. Possible values are
+  * `ISO`: Binary (ISO 2709)
+  * `XML`: MARCXML (shortcuts: `-x`, `--marcxml`)
+  * `ALEPHSEQ`: Alephseq (shortcuts: `-p`, `--alephseq`)
+  * `LINE_SEPARATED`: Line separated binary MARC (each line contains one record)
+  * `MARC_LINE`: MARC Line line separated format i.e. it is a text file, where each line is a distinct field, the
+      same way as MARC records are usually displayed in the MARC21 standard documentation. (shortcuts: `-y`, `--linespearated`)
+  * `MARCMAKER`: MARCMaker format
+* `-q`, `--fixAlephseq` sometimes ALEPH export contains '^' characters
     instead spaces in control fields (006, 007, 008). This flag replaces
     them with spaces before the validation. It might occur in any input
     format.
-  * `-X`, `--fixAlma` sometimes Alma export contains '#' characters
+* `-X`, `--fixAlma` sometimes Alma export contains '#' characters
     instead spaces in control fields (006, 007, 008). This flag replaces
     them with spaces before the validation. It might occur in any input
     format.
-  * `-y`, `--linespearated` the input files are in line separated format
-    i.e. it is a text file, where each line is a distinct field, the
-    same way as MARC records are usually displayed in the MARC21 
-    standard documentation.
-  * `-m [format]`, `--marcFormat [format]` The input format. Possible values are
-    * `ISO`: Binary (ISO 2709)
-    * `XML`: MARCXML
-    * `ALEPHSEQ`: ALEPHSEQ
-    * `LINE_SEPARATED`: Line separated binary MARC (each line contains one record)
-    * `MARC_LINE`: MARC Line
-    * `MARCMAKER`: MARCMaker format
 * parameters to limit the validation:
   * `-i [record ID]`, `--id [record ID]` validates only a single record
     having the specifies identifier (the content of 001)

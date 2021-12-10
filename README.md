@@ -284,7 +284,7 @@ options:
     i.e. it is a text file, where each line is a distinct field, the
     same way as MARC records are usually displayed in the MARC21 
     standard documentation.
-  * `-m`, `--marcFormat` The input format. Possible values are
+  * `-m [format]`, `--marcFormat [format]` The input format. Possible values are
     * `ISO`: Binary (ISO 2709)
     * `XML`: MARCXML
     * `ALEPHSEQ`: ALEPHSEQ

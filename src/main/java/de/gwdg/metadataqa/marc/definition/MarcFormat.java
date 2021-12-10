@@ -9,8 +9,8 @@ public enum MarcFormat {
   XML("XML", "MARCXML"),
   ALEPHSEQ("ALEPHSEQ", "ALEPHSEQ"),
   LINE_SEPARATED("LINE_SEPARATED", "Line separated binary MARC (each line contains one record)"),
-  MARC_LINE("MARC_LINE", "MARC Line")
-  ;
+  MARC_LINE("MARC_LINE", "MARC Line"),
+  MARC_MAKER("MARC_MAKER", "MARCMaker");
 
   String code;
   String label;

@@ -23,6 +23,7 @@ import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
 import de.gwdg.metadataqa.marc.utils.alephseq.AlephseqLine;
 import de.gwdg.metadataqa.marc.utils.MapToDatafield;
 
+import de.gwdg.metadataqa.marc.utils.alephseq.MarcMakerLine;
 import de.gwdg.metadataqa.marc.utils.alephseq.MarclineLine;
 import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
 import de.gwdg.metadataqa.marc.utils.pica.PicaLine;
@@ -399,6 +400,37 @@ public class MarcFactory {
   public static Record createRecordFromMarcline(List<MarclineLine> lines) {
     Record marc4jRecord = new RecordImpl();
     for (MarclineLine line : lines) {
+      if (line.isLeader()) {
+        try {
+          marc4jRecord.setLeader(new LeaderImpl(line.getContent()));
+        } catch (StringIndexOutOfBoundsException e) {
+          logger.severe("Error at creating leader: " + e.getMessage());
+        }
+      } else if (line.isNumericTag()) {
+        if (line.isControlField()) {
+          marc4jRecord.addVariableField(new ControlFieldImpl(line.getTag(), line.getContent()));
+        } else {
+          var df = new DataFieldImpl(line.getTag(), line.getInd1().charAt(0), line.getInd2().charAt(0));
+          for (String[] pair : line.parseSubfields()) {
+            if (pair.length == 2 && pair[0] != null && pair[1] != null) {
+              df.addSubfield(new SubfieldImpl(pair[0].charAt(0), pair[1]));
+            } else {
+              logger.warning(String.format(
+                "parse error in record #%s) tag %s: '%s'",
+                line.getRecordID(), line.getTag(), line.getRawContent()
+              ));
+            }
+          }
+          marc4jRecord.addVariableField(df);
+        }
+      }
+    }
+    return marc4jRecord;
+  }
+
+  public static Record createRecordFromMarcMaker(List<MarcMakerLine> lines) {
+    Record marc4jRecord = new RecordImpl();
+    for (MarcMakerLine line : lines) {
       if (line.isLeader()) {
         try {
           marc4jRecord.setLeader(new LeaderImpl(line.getContent()));

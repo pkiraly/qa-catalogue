@@ -85,6 +85,14 @@ public class ReadMarc {
     return new MarclineReader(stream);
   }
 
+  public static MarcReader getMarcMakerFileReader(String fileName) throws Exception {
+    return new MarclineReader(fileName);
+  }
+
+  public static MarcReader getMarcMakerStreamReader(InputStream stream) throws Exception {
+    return new MarclineReader(stream);
+  }
+
   public static MarcReader getReader(String fileName, boolean isMarcxml) throws Exception {
     return getReader(fileName, isMarcxml, false);
   }
@@ -104,6 +112,8 @@ public class ReadMarc {
         reader = ReadMarc.getXmlFileReader(fileName); break;
       case MARC_LINE:
         reader = ReadMarc.getMarclineFileReader(fileName); break;
+      case MARC_MAKER:
+        reader = ReadMarc.getMarcMakerFileReader(fileName); break;
       case ISO:
       default:
         reader = ReadMarc.getIsoFileReader(fileName, encoding); break;
@@ -126,6 +136,8 @@ public class ReadMarc {
         reader = ReadMarc.getXmlStreamReader(stream); break;
       case MARC_LINE:
         reader = ReadMarc.getMarclineStreamReader(stream); break;
+      case MARC_MAKER:
+        reader = ReadMarc.getMarcMakerStreamReader(stream); break;
       case ISO:
       default:
         reader = ReadMarc.getIsoStreamReader(stream, encoding); break;

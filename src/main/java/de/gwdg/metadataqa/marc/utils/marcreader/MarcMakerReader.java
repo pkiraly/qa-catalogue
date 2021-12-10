@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.utils.marcreader;
 
 import de.gwdg.metadataqa.marc.MarcFactory;
+import de.gwdg.metadataqa.marc.utils.alephseq.MarcMakerLine;
 import de.gwdg.metadataqa.marc.utils.alephseq.MarclineLine;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
@@ -15,9 +16,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MarclineReader implements MarcReader {
+public class MarcMakerReader implements MarcReader {
 
-  private static final Logger logger = Logger.getLogger(MarclineReader.class.getCanonicalName());
+  private static final Logger logger = Logger.getLogger(MarcMakerReader.class.getCanonicalName());
 
   private enum LEVEL {
     WARN, SEVERE
@@ -28,22 +29,22 @@ public class MarclineReader implements MarcReader {
   private boolean nextIsConsumed = false;
   private int lineNumber = 0;
   private int skippedRecords = 0;
-  private List<MarclineLine> lines = new ArrayList<>();
+  private List<MarcMakerLine> lines = new ArrayList<>();
   private String currentId = null;
 
-  public MarclineReader(String content) {
+  public MarcMakerReader(String content) {
     try {
       bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(content), "UTF8"));
     } catch (IOException e) {
-      logger.log(Level.WARNING, "MarclineReader", e);
+      logger.log(Level.WARNING, "MarcMakerReader", e);
     }
   }
 
-  public MarclineReader(InputStream stream) {
+  public MarcMakerReader(InputStream stream) {
     try {
       bufferedReader = new BufferedReader(new InputStreamReader(stream, "UTF8"));
     } catch (IOException e) {
-      logger.log(Level.WARNING, "MarclineReader", e);
+      logger.log(Level.WARNING, "MarcMakerReader", e);
     }
   }
 
@@ -67,23 +68,27 @@ public class MarclineReader implements MarcReader {
     boolean deleted = false;
     boolean finished = false;
     while (line != null && !finished) {
-      MarclineLine marclineLine = new MarclineLine(line, lineNumber);
-      if (marclineLine.isLeader() && !lines.isEmpty()) {
-        marc4jRecord = MarcFactory.createRecordFromMarcline(lines);
+      MarcMakerLine marcMakerLine = new MarcMakerLine(line, lineNumber);
+      if (marcMakerLine.isLeader() && !lines.isEmpty()) {
+        marc4jRecord = MarcFactory.createRecordFromMarcMaker(lines);
         if (marc4jRecord.getControlNumber() == null) {
           logSkipped("does not have a control number field (001)");
         } else if (marc4jRecord.getLeader() == null) {
-           logSkipped("does not have a leader");
+          logSkipped("does not have a leader");
         } else {
           finished = true;
         }
         lines = new ArrayList<>();
       }
 
-      if (marclineLine.isValidTag()) {
-        lines.add(marclineLine);
+      if (!marcMakerLine.isLeader() && marcMakerLine.getTag() == null) {
+        lines.get(lines.size() - 1).appendContent(marcMakerLine.getContent());
+      } else {
+        if (marcMakerLine.isValidTag()) {
+          lines.add(marcMakerLine);
+        }
+        currentId = marcMakerLine.getRecordID();
       }
-      currentId = marclineLine.getRecordID();
 
       try {
         line = bufferedReader.readLine();
@@ -93,7 +98,7 @@ public class MarclineReader implements MarcReader {
       }
     }
     if (line == null && !lines.isEmpty()) {
-      marc4jRecord = MarcFactory.createRecordFromMarcline(lines);
+      marc4jRecord = MarcFactory.createRecordFromMarcMaker(lines);
     }
     return marc4jRecord;
   }
@@ -107,16 +112,16 @@ public class MarclineReader implements MarcReader {
   }
 
   private void logSkipped(String message) {
-    logSkipped(LEVEL.SEVERE, message);
+    logSkipped(MarcMakerReader.LEVEL.SEVERE, message);
   }
 
-  private void logSkipped(LEVEL level, String message) {
+  private void logSkipped(MarcMakerReader.LEVEL level, String message) {
     String entry = String.format(
       "line #%d: record %s %s. Skipped.",
       lineNumber, currentId, message
     );
 
-    if (level.equals(LEVEL.WARN)) {
+    if (level.equals(MarcMakerReader.LEVEL.WARN)) {
       // logger.warning(entry);
     } else {
       logger.severe(entry);

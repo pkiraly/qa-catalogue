@@ -182,6 +182,7 @@ public class RecordIterator {
   }
 
   private MarcReader getMarcStreamReader(CommonParameters parameters) throws Exception {
+    logger.info(String.format("getMarcStreamReader - format %s", parameters.getMarcFormat()));
     return ReadMarc.getStreamReader(parameters.getMarcFormat(), parameters.getStream(), parameters.getDefaultEncoding());
   }
 

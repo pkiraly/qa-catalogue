@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.utils;
 import de.gwdg.metadataqa.marc.definition.MarcFormat;
 import de.gwdg.metadataqa.marc.utils.marcreader.AlephseqMarcReader;
 import de.gwdg.metadataqa.marc.utils.marcreader.LineSeparatedMarcReader;
+import de.gwdg.metadataqa.marc.utils.marcreader.MarcMakerReader;
 import de.gwdg.metadataqa.marc.utils.marcreader.MarclineReader;
 import org.marc4j.MarcReader;
 import org.marc4j.MarcStreamReader;
@@ -12,8 +13,11 @@ import org.marc4j.marc.Record;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class ReadMarc {
+
+  private static final Logger logger = Logger.getLogger(ReadMarc.class.getCanonicalName());
 
   public static List<Record> read(String fileName) throws Exception {
     return read(fileName, null);
@@ -86,11 +90,11 @@ public class ReadMarc {
   }
 
   public static MarcReader getMarcMakerFileReader(String fileName) throws Exception {
-    return new MarclineReader(fileName);
+    return new MarcMakerReader(fileName);
   }
 
   public static MarcReader getMarcMakerStreamReader(InputStream stream) throws Exception {
-    return new MarclineReader(stream);
+    return new MarcMakerReader(stream);
   }
 
   public static MarcReader getReader(String fileName, boolean isMarcxml) throws Exception {
@@ -126,6 +130,7 @@ public class ReadMarc {
   }
 
   public static MarcReader getStreamReader(MarcFormat marcFormat, InputStream stream, String encoding) throws Exception {
+    logger.info(String.format("MarcReader.getMarcStreamReader - format %s", marcFormat));
     MarcReader reader = null;
     switch (marcFormat) {
       case ALEPHSEQ:

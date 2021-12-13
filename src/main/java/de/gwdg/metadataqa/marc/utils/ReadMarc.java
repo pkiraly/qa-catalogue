@@ -13,11 +13,8 @@ import org.marc4j.marc.Record;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class ReadMarc {
-
-  private static final Logger logger = Logger.getLogger(ReadMarc.class.getCanonicalName());
 
   public static List<Record> read(String fileName) throws Exception {
     return read(fileName, null);
@@ -130,7 +127,6 @@ public class ReadMarc {
   }
 
   public static MarcReader getStreamReader(MarcFormat marcFormat, InputStream stream, String encoding) throws Exception {
-    logger.info(String.format("MarcReader.getMarcStreamReader - format %s", marcFormat));
     MarcReader reader = null;
     switch (marcFormat) {
       case ALEPHSEQ:

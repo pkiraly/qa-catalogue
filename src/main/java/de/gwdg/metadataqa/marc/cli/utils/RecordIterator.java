@@ -60,6 +60,7 @@ public class RecordIterator {
       logger.info("marcVersion: " + marcVersion.getCode() + ", " + marcVersion.getLabel());
 
     if (parameters.getDataSource().equals(DataSource.FILE)) {
+      logger.info("process file");
       String[] inputFileNames = processor.getParameters().getArgs();
       for (String inputFileName : inputFileNames) {
         if (!processor.readyToProcess())
@@ -67,6 +68,7 @@ public class RecordIterator {
         processFile(inputFileName);
       }
     } else if (parameters.getDataSource().equals(DataSource.STREAM)) {
+      logger.info("process stream");
       try {
         MarcReader reader = getMarcStreamReader(processor.getParameters());
         logger.info("reader: " + reader.getClass().getCanonicalName());
@@ -95,6 +97,7 @@ public class RecordIterator {
     try {
       processor.fileOpened(path);
       MarcReader reader = getMarcFileReader(processor.getParameters(), path);
+      logger.info("processFile() reader: " + reader.getClass().getCanonicalName());
       processContent(reader, fileName);
       if (processor.getParameters().doLog())
         logger.info(String.format("Finished processing file. Processed %s records.", decimalFormat.format(i)));

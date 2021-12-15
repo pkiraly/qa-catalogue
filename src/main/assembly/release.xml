@@ -122,7 +122,7 @@
             <fileMode>0755</fileMode>
         </file>
         <file>
-s            <source>network-analysis</source>
+            <source>network-analysis</source>
             <fileMode>0755</fileMode>
         </file>
     </files>

@@ -57,8 +57,8 @@ do_classifications() {
   printf "%s %s> [classifications]\n" $(date +"%F %T")
   printf "%s %s> ./classifications --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/classifications.log\n" $(date +"%F %T")
   ./classifications --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/classifications.log
-  printf "%s %s> Rscript scripts/classifications-type.R ${OUTPUT_DIR} 2>> ${PREFIX}/classifications.log\n" $(date +"%F %T")
-  Rscript scripts/classifications-type.R ${OUTPUT_DIR}
+  printf "%s %s> Rscript scripts/classifications/classifications-type.R ${OUTPUT_DIR} 2>> ${PREFIX}/classifications.log\n" $(date +"%F %T")
+  Rscript scripts/classifications/classifications-type.R ${OUTPUT_DIR}
 }
 
 do_authorities() {
@@ -74,12 +74,12 @@ do_tt_completeness() {
   printf "%s %s> ./tt-completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/tt-completeness.log\n" $(date +"%F %T")
   ./tt-completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/tt-completeness.log
 
-  printf "%s %s> Rscript scripts/tt-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/tt-completeness.log\n" $(date +"%F %T")
-  Rscript scripts/tt-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/tt-completeness.log
+  printf "%s %s> Rscript scripts/tt-histogram/tt-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/tt-completeness.log\n" $(date +"%F %T")
+  Rscript scripts/tt-histogram/tt-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/tt-completeness.log
 
   # for large files
-  # printf "%s %s> php scripts/tt-histogram.php ${OUTPUT_DIR} &>> ${PREFIX}/tt-completeness.log\n" $(date +"%F %T")
-  # php scripts/tt-histogram.php ${OUTPUT_DIR} &>> ${PREFIX}/tt-completeness.log
+  # printf "%s %s> php scripts/tt-histogram/tt-histogram.php ${OUTPUT_DIR} &>> ${PREFIX}/tt-completeness.log\n" $(date +"%F %T")
+  # php scripts/tt-histogram/tt-histogram.php ${OUTPUT_DIR} &>> ${PREFIX}/tt-completeness.log
 }
 
 do_shelf_ready_completeness() {
@@ -92,8 +92,8 @@ do_shelf_ready_completeness() {
     --outputDir ${OUTPUT_DIR}/ \
     --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/shelf-ready-completeness.log
 
-  printf "%s %s> Rscript scripts/shelf-ready-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/shelf-ready-completeness.log\n" $(date +"%F %T")
-  Rscript scripts/shelf-ready-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/shelf-ready-completeness.log
+  printf "%s %s> Rscript scripts/shelf-ready/shelf-ready-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/shelf-ready-completeness.log\n" $(date +"%F %T")
+  Rscript scripts/shelf-ready/shelf-ready-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/shelf-ready-completeness.log
 
   # for large files
   # printf "%s %s> php scripts/shelf-ready-histogram.php ${OUTPUT_DIR} &>> ${PREFIX}/shelf-ready-completeness.log\n" $(date +"%F %T")
@@ -120,8 +120,8 @@ do_serial_score() {
                  --outputDir ${OUTPUT_DIR}/ \
                  --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/serial-score.log
 
-  printf "%s %s> Rscript scripts/serial-score-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/serial-score.log\n" $(date +"%F %T")
-  Rscript scripts/serial-score-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/serial-score.log
+  printf "%s %s> Rscript scripts/serial-score/serial-score-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/serial-score.log\n" $(date +"%F %T")
+  Rscript scripts/serial-score/serial-score-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/serial-score.log
 }
 
 do_format() {
@@ -180,8 +180,8 @@ do_network_analysis() {
 
 do_pareto() {
   printf "%s %s> [pareto]\n" $(date +"%F %T")
-  printf "%s %s> Rscript scripts/frequency-range.R ${OUTPUT_DIR} &> ${PREFIX}/pareto.log\n" $(date +"%F %T")
-  Rscript scripts/frequency-range.R ${OUTPUT_DIR} &> ${PREFIX}/pareto.log
+  printf "%s %s> Rscript scripts/pareto/frequency-range.R ${OUTPUT_DIR} &> ${PREFIX}/pareto.log\n" $(date +"%F %T")
+  Rscript scripts/pareto/frequency-range.R ${OUTPUT_DIR} &> ${PREFIX}/pareto.log
 
   . ./common-variables
   if [[ "$WEB_DIR" != "" ]]; then
@@ -204,14 +204,14 @@ do_marc_history() {
     | sed -r 's/([0-9]) ([0-9uc xwticrka])/\1,\2/' \
     | sed 's, ,,g' > ${OUTPUT_DIR}/marc-history-groupped.csv 
 
-  printf "%s %s> Rscript scripts/marc-history-groupped.R ${OUTPUT_DIR} &>> ${PREFIX}/marc-history.log\n" $(date +"%F %T")
-  Rscript scripts/marc-history-groupped.R ${OUTPUT_DIR} &>> ${PREFIX}/marc-history.log
+  printf "%s %s> Rscript scripts/marc-history/marc-history-groupped.R ${OUTPUT_DIR} &>> ${PREFIX}/marc-history.log\n" $(date +"%F %T")
+  Rscript scripts/marc-history/marc-history-groupped.R ${OUTPUT_DIR} &>> ${PREFIX}/marc-history.log
 }
 
 do_record_patterns() {
   printf "%s %s> [record-patterns]\n" $(date +"%F %T")
   printf "%s %s> Rscript scripts/top-fields.R ${OUTPUT_DIR} &>> ${PREFIX}/top-fields.log\n" $(date +"%F %T")
-  Rscript scripts/top-fields.R ${OUTPUT_DIR} &>> ${PREFIX}/top-fields.log
+  Rscript scripts/record-patterns/top-fields.R ${OUTPUT_DIR} &>> ${PREFIX}/top-fields.log
 
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/--emptyLargeCollectors|--with-delete//')
   printf "%s %s> ./record-patterns --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} &> ${PREFIX}/record-patterns.log\n" $(date +"%F %T")
@@ -240,14 +240,14 @@ do_version_link() {
 do_sqlite() {
   printf "%s %s> [SQLite]\n" $(date +"%F %T")
 
-  # printf "%s %s> php scripts/r-scripts/normalize-issue-details.php ${OUTPUT_DIR} &> ${PREFIX}/sqlite.log\n" $(date +"%F %T")
-  # php scripts/r-scripts/normalize-issue-details.php ${OUTPUT_DIR} &> ${PREFIX}/sqlite.log
+  printf "%s %s> php scripts/sqlite/normalize-issue-details.php ${OUTPUT_DIR} &> ${PREFIX}/sqlite.log\n" $(date +"%F %T")
+  php scripts/sqlite/normalize-issue-details.php ${OUTPUT_DIR} &> ${PREFIX}/sqlite.log
 
-  # printf "%s %s> Rscript scripts/r-scripts/create-database.R ${OUTPUT_DIR} &>> ${PREFIX}/sqlite.log\n" $(date +"%F %T")
-  # Rscript scripts/r-scripts/create-database.R ${OUTPUT_DIR} &>> ${PREFIX}/sqlite.log
+  # printf "%s %s> Rscript scripts/sqlite/create-database.R ${OUTPUT_DIR} &>> ${PREFIX}/sqlite.log\n" $(date +"%F %T")
+  # Rscript scripts/sqlite/create-database.R ${OUTPUT_DIR} &>> ${PREFIX}/sqlite.log
 
-  # printf "%s %s> sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/r-scripts/modify-tables.sql &>> ${PREFIX}/sqlite.log\n" $(date +"%F %T")
-  # sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/r-scripts/modify-tables.sql &>> ${PREFIX}/sqlite.log
+  # printf "%s %s> sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.sql &>> ${PREFIX}/sqlite.log\n" $(date +"%F %T")
+  # sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.sql &>> ${PREFIX}/sqlite.log
 
   # alternative way
   printf "%s %s> delete\n" $(date +"%F %T")
@@ -255,17 +255,18 @@ do_sqlite() {
     rm ${OUTPUT_DIR}/qa_catalogue.sqlite
   fi
   printf "%s %s> create\n" $(date +"%F %T")
-  sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/r-scripts/qa_catalogue.sqlite.sql
-  # php scripts/r-scripts/import-issue-summary.php ${OUTPUT_DIR}
+  sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/qa_catalogue.sqlite.sql
+  # php scripts/sqlite/import-issue-summary.php ${OUTPUT_DIR}
   printf "%s %s> import\n" $(date +"%F %T")
   sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
 .separator ,
-.import ${OUTPUT_DIR}/issue-details-normalized.csv issue_details
+.import --skip 1 ${OUTPUT_DIR}/issue-details-normalized.csv issue_details
+.import --skip 1 ${OUTPUT_DIR}/issue-summary.csv issue_summary
 EOF
 
   # .import ${OUTPUT_DIR}/issue-summary.csv issue_summary
   printf "%s %s> index\n" $(date +"%F %T")
-  sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/r-scripts/modify-tables.sql &>> ${PREFIX}/sqlite.log
+  sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.sql &>> ${PREFIX}/sqlite.log
 }
 
 do_all_analyses() {

@@ -52,4 +52,5 @@ for (i in seq_along(names)) {
   write_csv(histogram, histogram_file)
   print(sprintf("saving %s into %s", name, histogram_file))
 }
+
 print("DONE with shelf-ready-histogram.R")

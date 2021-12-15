@@ -97,7 +97,3 @@ definitions %>%
   print(n = 200)
   
   select(code, DiscoverySearch:ManagementDisplay)
-  
-  
-
-  

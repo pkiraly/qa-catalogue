@@ -127,3 +127,5 @@ if (!dir.exists(img_dir)) {
 
 img_path <- paste0(img_dir, '/marc-history.png')
 ggsave(plot, device="png", filename=img_path, width=10, height=5)
+
+print('DONE')

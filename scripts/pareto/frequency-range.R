@@ -9,7 +9,7 @@ library(tidyverse)
 #' In RStudio you can run this script in the console:
 #' system("Rscript scripts/frequency-range-per-types.R gent")
 
-source(file="scripts/frequency-range-per-types.R")
+source(file="scripts/pareto/frequency-range-per-types.R")
 args = commandArgs(trailingOnly=TRUE)
 if (length(args) == 0) {
   stop("At least one argument must be supplied (input file).n", call.=FALSE)

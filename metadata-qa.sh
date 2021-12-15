@@ -2,7 +2,7 @@
 
 . ./setdir.sh
 
-options=$(getopt -o n:p:m:c:v: --long name:,params:,mask:,catalogue:,version: -- "$@")
+options=$(getopt -o n:p:m:c:v:d: --long name:,params:,mask:,catalogue:,version:,input-dir: -- "$@")
 [ $? -eq 0 ] || { 
     echo "Incorrect options provided"
     exit 1
@@ -19,6 +19,7 @@ while true; do
     -m|--mask) MASK=$2 ; shift;;
     -c|--catalogue) CATALOGUE=$2 ; shift;;
     -v|--version) VERSION=$2 ; shift;;
+    -d|--input-dir) MARC_DIR=${BASE_INPUT_DIR}/$2 ; shift;;
     --)
         shift
         break
@@ -29,12 +30,14 @@ done
 
 if [[ "$CATALOGUE" != "" ]]; then
   FILE=/var/www/html/metadata-qa/configuration.cnf
-  count=$(grep -c catalogue $FILE)
-  if [[ $count == 1 ]]; then
-    grep -v catalogue $FILE > /tmp/catalogue
-    mv /tmp/catalogue $FILE
+  if [[ -f $FILE ]]; then
+    count=$(grep -c catalogue $FILE)
+    if [[ $count == 1 ]]; then
+      grep -v catalogue $FILE > /tmp/catalogue
+      mv /tmp/catalogue $FILE
+    fi
+    echo "catalogue=$CATALOGUE" >> $FILE
   fi
-  echo "catalogue=$CATALOGUE" >> $FILE
 fi
 
 . ./common-script $1

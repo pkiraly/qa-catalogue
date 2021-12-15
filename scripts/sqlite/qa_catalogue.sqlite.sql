@@ -1,12 +1,12 @@
 BEGIN TRANSACTION;
-CREATE TABLE IF NOT EXISTS "issue_groups" (
-	"categoryId"	INT,
-	"typeId"	INT,
-	"path"	TEXT,
-	"variants"	,
-	"records"	,
-	"instances"	
-);
+-- CREATE TABLE IF NOT EXISTS "issue_groups" (
+-- 	"categoryId"	INT,
+-- 	"typeId"	INT,
+-- 	"path"	TEXT,
+-- 	"variants"	,
+-- 	"records"	,
+-- 	"instances"
+-- );
 CREATE TABLE IF NOT EXISTS "issue_summary" (
 	"id"	INTEGER,
 	"MarcPath"	TEXT,

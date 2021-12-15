@@ -46,7 +46,7 @@ RUN mkdir -p /opt/metadata-qa-marc/scripts \
 # COPY target/metadata-qa-marc-0.4-jar-with-dependencies.jar /opt/metadata-qa-marc/target/
 COPY target/metadata-qa-marc-0.5-SNAPSHOT-jar-with-dependencies.jar /opt/metadata-qa-marc/target/
 COPY scripts/*.* /opt/metadata-qa-marc/scripts/
-COPY scripts/r-scripts/*.* /opt/metadata-qa-marc/scripts/r-scripts/
+COPY scripts/sqlite/*.* /opt/metadata-qa-marc/scripts/r-scripts/
 COPY setdir.sh.template /opt/metadata-qa-marc/setdir.sh
 
 # copy common scripts
@@ -109,7 +109,7 @@ RUN apt-get update \
  && sed -i.bak 's,</VirtualHost>,        RedirectMatch ^/$ /metadata-qa/\n        <Directory /var/www/html/metadata-qa>\n                Options Indexes FollowSymLinks MultiViews\n                AllowOverride All\n                Order allow\,deny\n                allow from all\n                DirectoryIndex index.php index.html\n        </Directory>\n</VirtualHost>,' /etc/apache2/sites-available/000-default.conf \
  && echo "\nWEB_DIR=/var/www/html/metadata-qa/\n" >> /opt/metadata-qa-marc/common-variables
 
-ARG SOLR_VERSION=8.4.1
+ARG SOLR_VERSION=8.11.0
 
 # install Solr
 RUN apt-get update \

@@ -35,9 +35,9 @@ sudo apt-get install php php-sqlite3
 ```bash
 export SOLR_VERSION=8.11.0
 cd /opt
-curl -s -L http://archive.apache.org/dist/lucene/solr/${SOLR_VERSION}/solr-${SOLR_VERSION}.zip --output solr-${SOLR_VERSION}.zip \
-unzip -q solr-${SOLR_VERSION}.zip \
-rm solr-${SOLR_VERSION}.zip \
+wget http://archive.apache.org/dist/lucene/solr/${SOLR_VERSION}/solr-${SOLR_VERSION}.zip
+unzip -q solr-${SOLR_VERSION}.zip
+rm solr-${SOLR_VERSION}.zip
 ln -s solr-${SOLR_VERSION} solr
 ```
 
@@ -50,11 +50,15 @@ unzip metadata-qa-marc-$VERSION-release.zip
 cd metadata-qa-marc-$VERSION
 cp setdir.sh.template setdir.sh
 ```
+Note: `VERSION` points here to the latest released version at time of writing. SNAPSHOT versions can be download from https://oss.sonatype.org/content/repositories/snapshots/de/gwdg/metadataqa/metadata-qa-marc/
+
 Now edit the following lines in `setdir.sh`
+
 ```bash
 BASE_INPUT_DIR=your/path
 BASE_OUTPUT_DIR=your/path
 ```
+
 `BASE_INPUT_DIR` is the directory where your MARC21 files exists, `BASE_OUTPUT_DIR` is where QA catalogue will put 
 the results of the analyses.
 

@@ -269,6 +269,12 @@ EOF
   sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.sql &>> ${PREFIX}/sqlite.log
 }
 
+do_export_schema_files() {
+  printf "%s %s> [avram]\n" $(date +"%F %T")
+  ./export-schema --withSubfieldCodelists > src/main/resources/marc-schema.json
+  ./export-schema --withSubfieldCodelists --solrFieldType human-readable --withSelfDescriptiveCode > src/main/resources/marc-schema-with-solr.json
+}
+
 do_all_analyses() {
   do_validate
   do_completeness
@@ -315,6 +321,7 @@ commands:
   prepare-solr               prepare indexing
   index                      indexing with Solr
   sqlite                     import tables to SQLite
+  recreate-schema-files      recreate schema files
   all-analyses               run all analitical tasks
   all-solr                   run all indexing tasks
   all                        run all tasks
@@ -324,71 +331,28 @@ END
 }
 
 case "$1" in
-  validate)
-    do_validate
-    ;;
-  prepare-solr)
-    do_prepare_solr
-    ;;
-  index)
-    do_index
-    ;;
-  completeness)
-    do_completeness
-    ;;
-  classifications)
-    do_classifications
-    ;;
-  authorities)
-    do_authorities
-    ;;
-  tt-completeness)
-    do_tt_completeness
-    ;;
-  shelf-ready-completeness)
-    do_shelf_ready_completeness
-    ;;
-  bl-classification)
-    do_bl_classification
-    ;;
-  serial-score)
-    do_serial_score
-    ;;
-  format)
-    do_format
-    ;;
-  functional-analysis)
-    do_functional_analysis
-    ;;
-  network-analysis)
-    do_network_analysis
-    ;;
-  pareto)
-    do_pareto
-    ;;
-  marc-history)
-    do_marc_history
-    ;;
-  record-patterns)
-    do_record_patterns
-    ;;
-  sqlite)
-    do_sqlite
-    ;;
-  all-analyses)
-    do_all_analyses
-    ;;
-  all-solr)
-    do_all_solr
-    ;;
-  all)
-    do_all_analyses
-    do_all_solr
-    do_version_link
-    ;;
-  help)
-    help
-    ;;
+  validate)                 do_validate ;;
+  prepare-solr)             do_prepare_solr ;;
+  index)                    do_index ;;
+  completeness)             do_completeness ;;
+  classifications)          do_classifications ;;
+  authorities)              do_authorities ;;
+  tt-completeness)          do_tt_completeness ;;
+  shelf-ready-completeness) do_shelf_ready_completeness ;;
+  bl-classification)        do_bl_classification ;;
+  serial-score)             do_serial_score ;;
+  format)                   do_format ;;
+  functional-analysis)      do_functional_analysis ;;
+  network-analysis)         do_network_analysis ;;
+  pareto)                   do_pareto ;;
+  marc-history)             do_marc_history ;;
+  record-patterns)          do_record_patterns ;;
+  sqlite)                   do_sqlite ;;
+  do_export_schema_files)   do_export_schema_files ;;
+  all-analyses)             do_all_analyses ;;
+  all-solr)                 do_all_solr ;;
+  all)                      do_all_analyses ; do_all_solr ; do_version_link ;;
+  help)                     help ;;
 esac
 
 if [[ "$1" != "help" ]]; then

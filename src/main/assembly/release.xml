@@ -42,11 +42,11 @@
             <outputDirectory>scripts</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>scripts/r-scripts</directory>
+            <directory>marc-schema</directory>
             <includes>
                 <include>*.*</include>
             </includes>
-            <outputDirectory>scripts/r-scripts</outputDirectory>
+            <outputDirectory>marc-schema</outputDirectory>
         </fileSet>
     </fileSets>
     <files>

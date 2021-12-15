@@ -1,18 +1,18 @@
 package de.gwdg.metadataqa.marc.definition;
 
 public enum MarcVersion {
-  MARC21("MARC21", "MARC21"),
-  BL("BL", "British Library"),
-  DNB("DNB", "Deutsche Nationalbibliothek"),
-  FENNICA("FENNICA", "National Library of Finland"),
-  GENT("GENT", "Universiteitsbibliotheek Gent"),
-  NKCR("NKCR", "National Library of the Czech Republic"),
-  OCLC("OCLC", "OCLC"),
-  SZTE("SZTE", "Szegedi Tudományegyetem"),
-  UNIMARC("UNIMARC", "UNIMARC"),
+  MARC21(  "MARC21",   "MARC21"),
+  BL(      "BL",       "British Library"),
+  DNB(     "DNB",      "Deutsche Nationalbibliothek"),
+  FENNICA( "FENNICA",  "National Library of Finland"),
+  GENT(    "GENT",     "Universiteitsbibliotheek Gent"),
+  NKCR(    "NKCR",     "National Library of the Czech Republic"),
+  OCLC(    "OCLC",     "OCLC"),
+  SZTE(    "SZTE",     "Szegedi Tudományegyetem"),
+  UNIMARC( "UNIMARC",  "UNIMARC"),
   MARC21NO("MARC21NO", "MARC21 profile for Norwegian public libraries"),
-  UVA("UVA", "University of Amsterdam"),
-  B3KAT("B3KAT", "B3Kat union catalogue of Bibliotheksverbundes Bayern (BVB) and Kooperativen Bibliotheksverbundes Berlin-Brandenburg (KOBV)"),
+  UVA(     "UVA",      "University of Amsterdam"),
+  B3KAT(   "B3KAT",    "B3Kat union catalogue of Bibliotheksverbundes Bayern (BVB) and Kooperativen Bibliotheksverbundes Berlin-Brandenburg (KOBV)"),
   ;
 
   String code;

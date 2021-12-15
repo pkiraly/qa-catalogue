@@ -9,19 +9,19 @@ else
   OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}
 fi
 
-if [[ "$1" != "help" ]]; then
+if [[ "$1" != "help" && "$1" != "export-schema-files" ]]; then
   echo "OUTPUT_DIR: ${OUTPUT_DIR}"
+  if [[ ! -d $PREFIX ]]; then
+    mkdir -p $PREFIX
+  fi
+
+  # printf "%s %s> Logging to ${PREFIX}.log"
+
+  if [ ! -d ${OUTPUT_DIR} ]; then
+    mkdir -p ${OUTPUT_DIR}
+  fi
 fi
 
-if [[ ! -d $PREFIX ]]; then
-  mkdir -p $PREFIX
-fi
-
-# printf "%s %s> Logging to ${PREFIX}.log"
-
-if [ ! -d ${OUTPUT_DIR} ]; then
-  mkdir -p ${OUTPUT_DIR}
-fi
 
 do_validate() {
   GENERAL_PARAMS="--details --trimId --summary --format csv --defaultRecordType BOOKS"
@@ -270,9 +270,13 @@ EOF
 }
 
 do_export_schema_files() {
+  if [[ ! -d marc-schema ]]; then
+    mkdir marc-schema
+  fi
   printf "%s %s> [avram]\n" $(date +"%F %T")
-  ./export-schema --withSubfieldCodelists > src/main/resources/marc-schema.json
-  ./export-schema --withSubfieldCodelists --solrFieldType human-readable --withSelfDescriptiveCode > src/main/resources/marc-schema-with-solr.json
+  ./export-schema --withSubfieldCodelists > marc-schema/marc-schema.json
+  ./export-schema --withSubfieldCodelists --solrFieldType human-readable --withSelfDescriptiveCode > marc-schema/marc-schema-with-solr.json
+  ./export-schema --withSubfieldCodelists --solrFieldType human-readable --withSelfDescriptiveCode --withLocallyDefinedFields > marc-schema/marc-schema-with-solr-and-extensions.json
 }
 
 do_all_analyses() {
@@ -348,7 +352,7 @@ case "$1" in
   marc-history)             do_marc_history ;;
   record-patterns)          do_record_patterns ;;
   sqlite)                   do_sqlite ;;
-  do_export_schema_files)   do_export_schema_files ;;
+  export-schema-files)      do_export_schema_files ;;
   all-analyses)             do_all_analyses ;;
   all-solr)                 do_all_solr ;;
   all)                      do_all_analyses ; do_all_solr ; do_version_link ;;

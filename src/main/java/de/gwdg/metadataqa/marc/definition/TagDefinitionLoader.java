@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.definition;
 
+import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.utils.MarcTagLister;
 
@@ -54,38 +55,13 @@ public class TagDefinitionLoader {
       if (dataFieldDefinition != null) {
         String tag = dataFieldDefinition.getTag();
         commonCache.put(tag, dataFieldDefinition);
-        MarcVersion version = getMarcVersion(definitionClazz);
+        MarcVersion version = Utils.getVersion(definitionClazz);
         versionedCache.computeIfAbsent(tag, s -> new EnumMap<>(MarcVersion.class));
         versionedCache.get(tag).put(version, dataFieldDefinition);
       }
     } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
       logger.log(Level.SEVERE, "loadAndCacheTag", e);
     }
-  }
-
-  private static MarcVersion getMarcVersion(Class<? extends DataFieldDefinition> definitionClazz) {
-    var version = MarcVersion.MARC21;
-    if (definitionClazz.getCanonicalName().contains(".oclctags.")) {
-      version = MarcVersion.OCLC;
-    } else if (definitionClazz.getCanonicalName().contains(".dnbtags.")) {
-      version = MarcVersion.DNB;
-    } else if (definitionClazz.getCanonicalName().contains(".genttags.")) {
-      version = MarcVersion.GENT;
-    } else if (definitionClazz.getCanonicalName().contains(".sztetags.")) {
-      version = MarcVersion.SZTE;
-    } else if (definitionClazz.getCanonicalName().contains(".fennicatags.")) {
-      version = MarcVersion.FENNICA;
-    } else if (definitionClazz.getCanonicalName().contains(".nkcrtags.")) {
-      version = MarcVersion.NKCR;
-    } else if (definitionClazz.getCanonicalName().contains(".bltags.")) {
-      version = MarcVersion.BL;
-    } else if (definitionClazz.getCanonicalName().contains(".uvatags.")) {
-      version = MarcVersion.UVA;
-    } else if (definitionClazz.getCanonicalName().contains(".b3kattags.")) {
-      version = MarcVersion.B3KAT;
-    }
-
-    return version;
   }
 
   public static DataFieldDefinition load(String tag) {

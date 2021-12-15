@@ -10,6 +10,8 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 public class Frequency extends CodeList {
 
   private void initialize() {
+    name = "Frequency";
+    url = "https://www.oclc.org/bibformats/en/fixedfield/freq.html";
     codes = Utils.generateCodes(
       " ", "No determinable frequency. The item has no determinable frequency. Use when the frequency is known to be intentionally irregular.",
       "a", "Annual. The item is issued or updated once a year.",

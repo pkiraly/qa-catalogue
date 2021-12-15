@@ -4,7 +4,6 @@ import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.cli.parameters.MappingParameters;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.controlpositions.ControlfieldPositionList;
-import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008all00;
 import de.gwdg.metadataqa.marc.definition.structure.ControlFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
@@ -32,11 +31,6 @@ import java.util.logging.Logger;
 public class MappingToJson {
 
   private static final Logger logger = Logger.getLogger(MappingToJson.class.getCanonicalName());
-
-  private static final List<String> nonMarc21TagLibraries = Arrays.asList(
-    "oclctags", "fennicatags", "dnbtags", "sztetags", "genttags", "nkcrtags",
-    "holdings"
-  );
 
   private boolean exportSubfieldCodes = false;
   private boolean exportSelfDescriptiveCodes = false;
@@ -77,14 +71,11 @@ public class MappingToJson {
     fields.put("008", buildControlField(Control008Definition.getInstance(), Control008Positions.getInstance()));
 
     for (Class<? extends DataFieldDefinition> tagClass : MarcTagLister.listTags()) {
-      if (isNonMarc21Tag(tagClass))
-        continue;
-
-      Method getInstance;
-      DataFieldDefinition fieldTag;
       try {
-        getInstance = tagClass.getMethod("getInstance");
-        fieldTag = (DataFieldDefinition) getInstance.invoke(tagClass);
+        Method getInstance = tagClass.getMethod("getInstance");
+        DataFieldDefinition fieldTag = (DataFieldDefinition) getInstance.invoke(tagClass);
+        if (!parameters.isWithLocallyDefinedFields() && !fieldTag.getMarcVersion().equals(MarcVersion.MARC21))
+          continue;
         dataFieldToJson(fields, fieldTag);
       } catch (NoSuchMethodException
         | IllegalAccessException
@@ -168,17 +159,6 @@ public class MappingToJson {
     return generator;
   }
 
-  private static boolean isNonMarc21Tag(Class<? extends DataFieldDefinition> tagClass) {
-    boolean isNonMarc21Tag = false;
-    for (String nonCore : nonMarc21TagLibraries) {
-      if (tagClass.getCanonicalName().contains(nonCore)) {
-        isNonMarc21Tag = true;
-        break;
-      }
-    }
-    return isNonMarc21Tag;
-  }
-
   private static Map<String, Object> controlPositionToJson(ControlfieldPositionDefinition subfield, PositionalControlFieldKeyGenerator generator) {
     Map<String, Object> values = new LinkedHashMap<>();
     values.put("position", subfield.formatPositon());
@@ -186,7 +166,7 @@ public class MappingToJson {
     values.put("url", subfield.getDescriptionUrl());
     values.put("start", subfield.getPositionStart());
     values.put("end", subfield.getPositionEnd());
-    values.put("repeatableCOntent", subfield.isRepeatableContent());
+    values.put("repeatableContent", subfield.isRepeatableContent());
     if (subfield.isRepeatableContent()) {
       values.put("unitLength", subfield.getUnitLength());
     }
@@ -235,6 +215,9 @@ public class MappingToJson {
     if (parameters.doExportCompilanceLevel())
       extractCompilanceLevel(tagMap, tag.getNationalCompilanceLevel(), tag.getMinimalCompilanceLevel());
 
+    if (parameters.isWithLocallyDefinedFields())
+      tagMap.put("version", tag.getMarcVersion().getCode());
+
     tagMap.put("indicator1", indicatorToJson(tag.getInd1()));
     tagMap.put("indicator2", indicatorToJson(tag.getInd2()));
 
@@ -258,7 +241,23 @@ public class MappingToJson {
       tagMap.put("historical-subfields", subfields);
     }
 
-    fields.put(tag.getTag(), tagMap);
+    if (fields.containsKey(tag.getTag())) {
+      Object existing = fields.get(tag.getTag());
+      List<Map> list = null;
+      if (existing instanceof Map) {
+        list = new ArrayList<>();
+        list.add((Map) existing);
+      } else if (existing instanceof List) {
+        list = (List) existing;
+      } else {
+        System.err.println("a strange object: " + existing.getClass().getCanonicalName());
+        list = new ArrayList<>();
+      }
+      list.add(tagMap);
+      fields.put(tag.getTag(), list);
+    } else {
+      fields.put(tag.getTag(), tagMap);
+    }
   }
 
   private void extractFunctions(Map<String, Object> tagMap, List<FRBRFunction> functions) {
@@ -286,15 +285,16 @@ public class MappingToJson {
       meta.put("name", codeList.getName());
       meta.put("url", codeList.getUrl());
 
-      if (exportSubfieldCodes
-          && !codeList.getName().equals("MARC Organization Codes")) {
-        Map<String, Object> codes = new LinkedHashMap<>();
-        for (EncodedValue code : subfield.getCodeList().getCodes()) {
-          Map<String, Object> codeListMap = new LinkedHashMap<>();
-          codeListMap.put("label", code.getLabel());
-          codes.put(code.getCode(), codeListMap);
+      if (exportSubfieldCodes && !codeList.getName().equals("MARC Organization Codes")) {
+        if (subfield.getCodeList() != null) {
+          Map<String, Object> codes = new LinkedHashMap<>();
+          for (EncodedValue code : subfield.getCodeList().getCodes()) {
+            Map<String, Object> codeListMap = new LinkedHashMap<>();
+            codeListMap.put("label", code.getLabel());
+            codes.put(code.getCode(), codeListMap);
+          }
+          meta.put("codes", codes);
         }
-        meta.put("codes", codes);
       }
       codeMap.put("codelist", meta);
     }

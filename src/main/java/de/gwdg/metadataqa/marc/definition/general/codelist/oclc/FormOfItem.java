@@ -10,6 +10,8 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 public class FormOfItem extends CodeList {
 
   private void initialize() {
+    name = "Form of Item";
+    url = "https://www.oclc.org/bibformats/en/fixedfield/form.html";
     codes = Utils.generateCodes(
       " ", "None of the following",
       "a", "Microfilm",

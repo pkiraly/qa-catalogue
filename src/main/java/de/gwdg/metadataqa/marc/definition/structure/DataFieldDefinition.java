@@ -33,6 +33,7 @@ public abstract class DataFieldDefinition implements BibliographicFieldDefinitio
   protected boolean obsolete = false;
   private CompilanceLevel nationalCompilanceLevel;
   private CompilanceLevel minimalCompilanceLevel;
+  private MarcVersion marcVersion;
 
   public String getTag() {
     return tag;
@@ -241,12 +242,15 @@ public abstract class DataFieldDefinition implements BibliographicFieldDefinitio
   }
 
   public MarcVersion getMarcVersion() {
-    return Utils.getVersion(this);
+    if (marcVersion == null)
+      marcVersion = Utils.getVersion(this);
+    return marcVersion;
   }
 
   public boolean isObsolete() {
     return obsolete;
   }
+
 
   @Override
   public String toString() {

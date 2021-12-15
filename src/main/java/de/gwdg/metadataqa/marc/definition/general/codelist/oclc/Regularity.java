@@ -10,6 +10,8 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 public class Regularity extends CodeList {
 
   private void initialize() {
+    name = "Regularity";
+    url = "http://www.oclc.org/bibformats/en/fixedfield/regl.html";
     codes = Utils.generateCodes(
       "n", "Normalized irregular",
       "r", "Regular",

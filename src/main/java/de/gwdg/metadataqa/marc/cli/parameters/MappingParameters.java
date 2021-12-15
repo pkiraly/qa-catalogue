@@ -13,6 +13,7 @@ public class MappingParameters {
   private boolean exportSelfDescriptiveCodes = false;
   private boolean exportFrbrFunctions = false;
   private boolean exportCompilanceLevel = false;
+  private boolean withLocallyDefinedFields = false;
 
   private SolrFieldType solrFieldType = SolrFieldType.MARC;
 
@@ -29,6 +30,7 @@ public class MappingParameters {
         "type of Solr fields, could be one of 'marc-tags', 'human-readable', or 'mixed'");
       options.addOption("f", "withFrbrFunctions", false, "with FRBR functions");
       options.addOption("l", "withCompilanceLevel", false, "with compilance levels (national, minimal)");
+      options.addOption("d", "withLocallyDefinedFields", false, "with locally defined fields");
       options.addOption("h", "help", false, "display help");
       isOptionSet = true;
     }
@@ -54,6 +56,9 @@ public class MappingParameters {
 
     if (cmd.hasOption("withCompilanceLevel"))
       exportCompilanceLevel = true;
+
+    if (cmd.hasOption("withLocallyDefinedFields"))
+      withLocallyDefinedFields = true;
   }
 
   public Options getOptions() {
@@ -80,5 +85,9 @@ public class MappingParameters {
 
   public boolean doExportCompilanceLevel() {
     return exportCompilanceLevel;
+  }
+
+  public boolean isWithLocallyDefinedFields() {
+    return withLocallyDefinedFields;
   }
 }

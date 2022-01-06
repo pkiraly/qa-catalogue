@@ -6,6 +6,7 @@ This tool reads MARC dump files (in binary MARC or MARCXML formats), analyses di
   * main project page: [Metadata Quality Assurance Framework](http://pkiraly.github.io)
   * Validating 126 million MARC records at DATeCH 2019 [paper](https://doi.org/10.1145/3322905.3322929), [slides](http://bit.ly/qa-datech2019), [thesis chapter](https://10.13140/RG.2.2.33177.77920)
   * Empirical evaluation of library catalogues at SWIB 2019 [slides](http://bit.ly/qa-swib2019), [paper in English](https://pro.europeana.eu/page/issue-15-swib-2019#empirical-evaluation-of-library-catalogues), [paper in Spanish](https://universoabierto.org/2020/06/01/evaluacion-empirica-de-los-catalogos-de-las-bibliotecas/)
+  * quality assessment of Gent University Library catalogue (a running instance of the dashboard): [https://gent.qa-catalogue.eu](https://gent.qa-catalogue.eu)
 * If you would like to play with this project, but you don't have MARC21 please to download some recordsets mentioned in [Appendix I: Where can I get MARC records?](#datasources) of this document.
 
 ## Table of Contents

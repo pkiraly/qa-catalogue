@@ -39,13 +39,14 @@ Screenshot from the web UI of the QA cataloge
       * [to HTML](#to-html)
 * [Extending the functionalities](#extending-the-functionalities)
 * [User interface](#user-interface)
-* [Appendix I. Where can I get MARC records](#appendix-i-where-can-i-get-marc-records)
-  * [United States of America](#united-states-of-america)
-  * [Germany](#germany)
-  * [Elsewhere](#others)
-* [Appendix II. Handling MARC versions](#appendix-ii-handling-marc-versions)
-* [Appendix III. Institutions which reportedly use this tool](#appendix-iii-institutions-which-reportedly-use-this-tool)
-* [Appendix IV. Special build process](#appendix-iv-special-build-process)
+* Appendices
+  * [Appendix I. Where can I get MARC records](#appendix-i-where-can-i-get-marc-records)
+    * [United States of America](#united-states-of-america)
+    * [Germany](#germany)
+    * [Elsewhere](#others)
+  * [Appendix II. Handling MARC versions](#appendix-ii-handling-marc-versions)
+  * [Appendix III. Institutions which reportedly use this tool](#appendix-iii-institutions-which-reportedly-use-this-tool)
+  * [Appendix IV. Special build process](#appendix-iv-special-build-process)
 
 ## Quick start guide
 ### Installation
@@ -841,12 +842,14 @@ There is a web application for displaying and navigation through the output of t
 
 https://github.com/pkiraly/metadata-qa-marc-web/
 
+## Appendices
+
 <a name="datasources"></a>
-## Appendix I: Where can I get MARC records?
+### Appendix I: Where can I get MARC records?
 
 Here is a list of data sources I am aware of so far:
 
-### United States of America
+#### United States of America
 * Library of Congress &mdash; https://www.loc.gov/cds/products/marcDist.php. MARC21 (UTF-8 and MARC8 encoding), MARCXML formats, open access.
 * Harvard University Library &mdash; https://library.harvard.edu/open-metadata. MARC21 format, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/). Institution specific features are documented [here](http://library.harvard.edu/sites/default/files/news_uploaded/Harvard_Library_Bibliographic_Dataset_Documentation.pdf)
 * Columbia University Library &mdash; https://library.columbia.edu/bts/clio-data.html. 10M records, MARC21 and MARCXML format, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/).
@@ -859,13 +862,13 @@ Here is a list of data sources I am aware of so far:
   2. Worldcat-derived records: 6.16M records, MARC21 format, [ODC-BY](https://www.opendatacommons.org/licenses/by/1.0/)
   3. Other records (MARC21), independent of Yale and WorldCat, where sharing is permitted. 404K records, MARC21 format.
 
-### Germany
+#### Germany
 * Deutsche Nationalbibliothek &mdash; https://www.dnb.de/DE/Professionell/Metadatendienste/Datenbezug/Gesamtabzuege/gesamtabzuege_node.html (note: the records are provided in utf-8 decomposed). 23.9M records, MARC21 and MARCXML format, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/).
 * Bibliotheksverbundes Bayern &mdash; https://www.bib-bvb.de/web/b3kat/open-data. 27M records, MARCXML format, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/).
 * Leibniz-Informationszentrum Technik und Naturwissenschaften Universitätsbibliothek (TIB) &mdash; https://www.tib.eu/de/forschung-entwicklung/entwicklung/open-data. (no download link, use OAI-PMH instead) Dublin Core, MARC21, MARCXML, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/).
 * K10plus-Verbunddatenbank (K10plus union catalogue of Bibliotheksservice-Zentrum Baden Würtemberg (BSZ) and Gemensamer Bibliotheksverbund (GBV)) &mdash; https://swblod.bsz-bw.de/od/. 87M records, MARCXML format, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/).
 
-### Others
+#### Others
 * Universiteitsbibliotheek Gent &mdash; https://lib.ugent.be/info/exports. Weeky data dump in Aleph Sequential format. It contains some Aleph fields above the standard MARC21 fields. [ODC ODbL](https://opendatacommons.org/licenses/odbl/).
 * Toronto Public Library &mdash; https://opendata.tplcs.ca/. 2.5 million MARC21 records, [Open Data Policy](http://www.torontopubliclibrary.ca/terms-of-use/library-policies/open-data.jsp)
 * Répertoire International des Sources Musicales &mdash; https://opac.rism.info/index.php?id=8&id=8&L=1. 800K records, MARCXML, RDF/XML, [CC-BY](https://creativecommons.org/licenses/by/4.0/).
@@ -884,7 +887,7 @@ There are two more datasource worth mention, however they do not provide MARC re
 * [Linked Open British National Bibliography](https://data.bl.uk/lodbnb/) 3.2M book records in N-Triplets and RDF/XML format, CC0 license
 * [Linked data of Bibliothèque nationale de France](http://data.bnf.fr/semanticweb). N3, NT and RDF/XML formats, [Licence Ouverte/Open Licence](http://data.bnf.fr/docs/Licence-Ouverte-Open-Licence-ENG.pdf)
 
-## Appendix II: handling MARC versions
+### Appendix II: handling MARC versions
 
 The tool provides two levels of customization: 
 
@@ -994,7 +997,7 @@ public class Tag020 extends DataFieldDefinition {
 }
 ```
 
-## Appendix III: Institutions which reportedly use this tool
+### Appendix III: Institutions which reportedly use this tool
 
 * [Universiteitsbibliotheek Gent](https://lib.ugent.be/), Belgium
 * [Biblioteksentralen](https://www.bibsent.no/), Norway
@@ -1005,7 +1008,7 @@ public class Tag020 extends DataFieldDefinition {
 
 If you use this tool as well, please contact me: pkiraly (at) gwdg (dot) de. I really like to hear about your use case and ideas.
 
-## Appendix IV: Special build process
+#### Appendix IV: Special build process
 
 "deployment" build (when deploying artifacts to Maven Central)
 ```

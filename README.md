@@ -2,6 +2,9 @@
 
 This tool reads MARC dump files (in binary MARC or MARCXML formats), analyses different aspects of quality, and saves the results into CSV files. These CSV files could be used in different context, we provide a lightweight, web-based [user interface](#user-interface) for that.
 
+![Output sample](https://pbs.twimg.com/media/FHJvPCYXEAMEi_N?format=jpg&name=medium)
+Screenshot from the web UI of the QA cataloge
+
 * For more info
   * main project page: [Metadata Quality Assurance Framework](http://pkiraly.github.io)
   * Validating 126 million MARC records at DATeCH 2019 [paper](https://doi.org/10.1145/3322905.3322929), [slides](http://bit.ly/qa-datech2019), [thesis chapter](https://10.13140/RG.2.2.33177.77920)

@@ -20,7 +20,7 @@ Screenshot from the web UI of the QA cataloge
   * [Use](#use)
 * [Build](#build)
 * [Download](#-or-download)
-* [Usage](#run)
+* [Usage](#usage)
   * [helper-scripts](#helper-scripts)
     * [run](#run-1)
     * [configuration](#configuration-1)
@@ -133,7 +133,7 @@ wget https://raw.githubusercontent.com/pkiraly/metadata-qa-marc/master/tt-comple
 
 You should adjust `common-script` to point to the jar file you just downloaded.
 
-## run
+## Usage
 
 <a name="helper-scripts"></a>
 ### Helper scripts

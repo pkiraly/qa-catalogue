@@ -1,4 +1,4 @@
-# QA catalogue - a metadata quality assessment tool for MARC records
+# QA catalogue<br/>a metadata quality assessment tool for MARC records
 
 This tool reads MARC dump files (in binary MARC or MARCXML formats), analyses different aspects of quality, and saves the results into CSV files. These CSV files could be used in different context, we provide a lightweight, web-based [user interface](#user-interface) for that.
 

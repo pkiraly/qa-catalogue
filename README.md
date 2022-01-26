@@ -2,7 +2,7 @@
 
 QA catalogue reads MARC files (in binary MARC, MARCXML or other serialization formats), analyses different aspects of quality, and saves the results into CSV files. These CSV files could be used in different context, we provide a lightweight, web-based [user interface](#user-interface) for that.
 
-![Output sample](https://pbs.twimg.com/media/FHJvPCYXEAMEi_N?format=jpg&name=medium)
+![Output sample](https://github.com/pkiraly/metadata-qa-marc-web/raw/gh-pages/img/issues-v1.gif)
 Screenshot from the web UI of the QA cataloge
 
 * For more info

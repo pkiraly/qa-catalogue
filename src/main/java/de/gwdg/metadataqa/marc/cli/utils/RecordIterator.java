@@ -192,7 +192,7 @@ public class RecordIterator {
       logger.severe(
         String.format(
           "MARC record parsing problem at record #%d (last known ID: %s): %s",
-          (i +1), lastKnownId, e.getLocalizedMessage()));
+          (i + 1), lastKnownId, e.getLocalizedMessage()));
     } catch (Exception e) {
       logger.log(Level.SEVERE, "start", e);
     }

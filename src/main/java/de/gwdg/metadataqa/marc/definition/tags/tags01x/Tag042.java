@@ -1,9 +1,14 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.AuthenticationActionCodes;
+import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
+
+import java.util.Arrays;
+
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
@@ -49,5 +54,11 @@ public class Tag042 extends DataFieldDefinition {
       .setMqTag("rdf:value")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("M", "M");
+
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR"),
+      new SubfieldDefinition("@", "Language of field", "NR"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR")
+    ));
   }
 }

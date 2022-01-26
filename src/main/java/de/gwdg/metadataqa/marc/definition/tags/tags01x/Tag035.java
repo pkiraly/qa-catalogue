@@ -80,5 +80,11 @@ public class Tag035 extends DataFieldDefinition {
     putVersionSpecificSubfields(MarcVersion.UVA, Arrays.asList(
       new SubfieldDefinition("0", "license", "NR")
     ));
+
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR"),
+      new SubfieldDefinition("@", "Language of field", "NR"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR")
+    ));
   }
 }

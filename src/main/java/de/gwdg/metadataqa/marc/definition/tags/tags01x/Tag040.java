@@ -101,5 +101,11 @@ public class Tag040 extends DataFieldDefinition {
     putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
       new SubfieldDefinition("9", "Record completeness", "NR")
     ));
+
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR"),
+      new SubfieldDefinition("@", "Language of field", "NR"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR")
+    ));
   }
 }

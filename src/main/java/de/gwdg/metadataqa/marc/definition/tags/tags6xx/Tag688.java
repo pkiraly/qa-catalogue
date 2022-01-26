@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags6xx;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTermSourceCodes;
@@ -8,6 +9,9 @@ import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
+import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
+
+import java.util.Arrays;
 
 /**
  * Subject Added Entry - Type of Entity Unspecified
@@ -88,7 +92,14 @@ public class Tag688 extends DataFieldDefinition {
 
     getSubfield("8")
       .setMqTag("fieldLink");
-    
+
+
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR"),
+      new SubfieldDefinition("@", "Language of field", "NR"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR")
+    ));
+
     sourceSpecificationType = SourceSpecificationType.Subfield2;
   }
 }

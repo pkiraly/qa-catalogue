@@ -91,5 +91,10 @@ public class Tag883 extends DataFieldDefinition {
       new SubfieldDefinition("7", "NKCR Authority ID", "NR")
     ));
 
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR"),
+      new SubfieldDefinition("@", "Language of field", "NR"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR")
+    ));
   }
 }

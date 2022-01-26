@@ -163,6 +163,10 @@ public abstract class DataFieldDefinition implements BibliographicFieldDefinitio
     versionSpecificSubfields.put(marcVersion, subfieldDefinitions);
   }
 
+  public Map<MarcVersion, List<SubfieldDefinition>> getVersionSpecificSubfields() {
+    return versionSpecificSubfields;
+  }
+
   public boolean hasVersionSpecificSubfields(MarcVersion marcVersion) {
     return versionSpecificSubfields.containsKey(marcVersion);
   }

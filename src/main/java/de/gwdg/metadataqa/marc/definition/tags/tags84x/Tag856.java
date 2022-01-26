@@ -246,6 +246,12 @@ public class Tag856 extends DataFieldDefinition {
       new SubfieldDefinition("9", "Aleph/ANL fulltext linkage", "NR")
     ));
 
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR"),
+      new SubfieldDefinition("@", "Language of field", "NR"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR")
+    ));
+
     setHistoricalSubfields(
       "g", "Uniform Resource Name [OBSOLETE, 2000]",
       "b", "Access number [OBSOLETE, 2020]", // "R",

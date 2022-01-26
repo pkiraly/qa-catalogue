@@ -123,5 +123,11 @@ public class Tag024 extends DataFieldDefinition {
     putVersionSpecificSubfields(MarcVersion.DNB, Arrays.asList(
       new SubfieldDefinition("9", "Standardnummer (mit Bindestrichen)", "NR")
     ));
+
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR"),
+      new SubfieldDefinition("@", "Language of field", "NR"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR")
+    ));
   }
 }

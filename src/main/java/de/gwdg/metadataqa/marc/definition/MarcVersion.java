@@ -13,6 +13,7 @@ public enum MarcVersion {
   MARC21NO("MARC21NO", "MARC21 profile for Norwegian public libraries"),
   UVA(     "UVA",      "University of Amsterdam"),
   B3KAT(   "B3KAT",    "B3Kat union catalogue of Bibliotheksverbundes Bayern (BVB) and Kooperativen Bibliotheksverbundes Berlin-Brandenburg (KOBV)"),
+  KBR(     "KBR",      "KBR"),
   ;
 
   String code;

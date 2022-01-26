@@ -90,5 +90,11 @@ public class Tag020 extends DataFieldDefinition {
     putVersionSpecificSubfields(MarcVersion.DNB, Arrays.asList(
       new SubfieldDefinition("9", "ISBN mit Bindestrichen", "R")
     ));
+
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR"),
+      new SubfieldDefinition("@", "Language of field", "NR"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR")
+    ));
   }
 }

@@ -189,6 +189,12 @@ public class Tag100 extends DataFieldDefinition {
       new SubfieldDefinition("9", "NKCR Authority field - tracing form", "NR")
     ));
 
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR"),
+      new SubfieldDefinition("@", "Language of field", "NR"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR")
+    ));
+
     sourceSpecificationType = SourceSpecificationType.Subfield2;
   }
 }

@@ -73,6 +73,7 @@ public class Utils {
       case "nkcrtags":    version = MarcVersion.NKCR;    break;
       case "uvatags":     version = MarcVersion.UVA;     break;
       case "b3kattags":   version = MarcVersion.B3KAT;   break;
+      case "kbrtags":     version = MarcVersion.KBR;   break;
       default:            version = MarcVersion.MARC21;  break;
     }
     return version;

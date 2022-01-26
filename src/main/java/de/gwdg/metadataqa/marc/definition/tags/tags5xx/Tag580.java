@@ -71,5 +71,10 @@ public class Tag580 extends DataFieldDefinition {
       new SubfieldDefinition("5", "Az intézmény és példány, amelyre a megjegyzés vonatkozik", "NR")
     ));
 
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR"),
+      new SubfieldDefinition("@", "Language of field", "NR"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR")
+    ));
   }
 }

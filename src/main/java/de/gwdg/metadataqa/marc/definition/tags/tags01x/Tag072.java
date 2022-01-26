@@ -99,6 +99,12 @@ public class Tag072 extends DataFieldDefinition {
       new SubfieldDefinition("9", "Subject category number", "NR")
     ));
 
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR"),
+      new SubfieldDefinition("@", "Language of field", "NR"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR")
+    ));
+
     sourceSpecificationType = SourceSpecificationType.Indicator2AndSubfield2;
   }
 }

@@ -117,6 +117,12 @@ public class Tag520 extends DataFieldDefinition {
       new SubfieldDefinition("9", "Annotation language code", "NR")
     ));
 
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR"),
+      new SubfieldDefinition("@", "Language of field", "NR"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR")
+    ));
+
     setHistoricalSubfields(
       "z", "Source of note information (BK, AM, CF, SE) [OBSOLETE, 1990]"
     );

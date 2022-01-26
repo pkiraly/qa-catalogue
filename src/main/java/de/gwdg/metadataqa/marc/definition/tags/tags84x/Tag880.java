@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Alternate Graphic Representation
@@ -70,6 +71,11 @@ public class Tag880 extends DataFieldDefinition {
       );
     indexSubfields();
 
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR"),
+      new SubfieldDefinition("@", "Language of field", "NR"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR")
+    ));
   }
 
   public void validate(String tag, MarcVersion marcVersion) {

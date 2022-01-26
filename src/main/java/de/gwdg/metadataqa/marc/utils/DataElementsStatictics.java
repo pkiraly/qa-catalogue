@@ -65,6 +65,13 @@ public class DataElementsStatictics {
             else
               counter.count(DataElementType.localSubfields);
 
+        if (isCore)
+          if (fieldTag.getVersionSpecificSubfields() != null)
+            for (MarcVersion localVersion : fieldTag.getVersionSpecificSubfields().keySet())
+              for (SubfieldDefinition subfield : fieldTag.getVersionSpecificSubfields().get(localVersion))
+                counter.count(DataElementType.localSubfields);
+
+
       } catch (NoSuchMethodException
               | IllegalAccessException
               | InvocationTargetException e) {

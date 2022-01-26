@@ -435,12 +435,13 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     return validate(marcVersion, isSummary, null);
   }
 
-  public boolean validate(MarcVersion marcVersion, boolean isSummary,
+  public boolean validate(MarcVersion marcVersion,
+                          boolean isSummary,
                           IgnorableFields ignorableFields) {
     validationErrors = new ArrayList<>();
     boolean isValidRecord = true;
     isValidRecord = validateLeader(marcVersion, isValidRecord);
-    isValidRecord = validateUnhandledTags(isSummary, isValidRecord);
+    isValidRecord = validateUnhandledTags(isSummary, isValidRecord, ignorableFields);
     isValidRecord = validateControlfields(marcVersion, isValidRecord);
     isValidRecord = validateDatafields(marcVersion, isValidRecord, ignorableFields);
 
@@ -464,12 +465,12 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     return isValidRecord;
   }
 
-  private boolean validateUnhandledTags(boolean isSummary, boolean isValidRecord) {
+  private boolean validateUnhandledTags(boolean isSummary, boolean isValidRecord, IgnorableFields ignorableFields) {
     if (!unhandledTags.isEmpty()) {
       if (isSummary) {
         for (String tag : unhandledTags) {
-          validationErrors.add(
-            new ValidationError(getId(), tag, ValidationErrorType.FIELD_UNDEFINED, tag, null));
+          if (!isIgnorableField(tag, ignorableFields))
+            validationErrors.add(new ValidationError(getId(), tag, ValidationErrorType.FIELD_UNDEFINED, tag, null));
         }
       } else {
         Map<String, Integer> tags = new LinkedHashMap<>();
@@ -485,8 +486,8 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
             unhandledTagsList.add(String.format("%s (%d*)", tag, entry.getValue()));
         }
         for (String tag : unhandledTagsList) {
-          validationErrors.add(new ValidationError(
-            getId(), tag, ValidationErrorType.FIELD_UNDEFINED, tag, null));
+          if (!isIgnorableField(tag, ignorableFields))
+            validationErrors.add(new ValidationError(getId(), tag, ValidationErrorType.FIELD_UNDEFINED, tag, null));
         }
       }
 
@@ -515,8 +516,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     ValidatorResponse validatorResponse;
     Map<DataFieldDefinition, Integer> repetitionCounter = new HashMap<>();
     for (DataField field : datafields) {
-      if (field.getDefinition() != null
-          && !(ignorableFields != null && ignorableFields.contains(field.getTag()))) {
+      if (field.getDefinition() != null && !isIgnorableField(field.getTag(), ignorableFields)) {
         count(field.getDefinition(), repetitionCounter);
         if (!field.validate(marcVersion)) {
           isValidRecord = false;
@@ -545,6 +545,12 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
       }
     }
     return isValidRecord;
+  }
+
+  private boolean isIgnorableField(String tag, IgnorableFields ignorableFields) {
+    if (ignorableFields == null)
+      return false;
+    return ignorableFields.contains(tag);
   }
 
   @Override

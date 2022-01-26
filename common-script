@@ -281,6 +281,7 @@ do_export_schema_files() {
 
 do_all_analyses() {
   do_validate
+  do_sqlite
   do_completeness
   do_classifications
   do_authorities
@@ -292,7 +293,7 @@ do_all_analyses() {
   # do_network_analysis
   do_pareto
   do_marc_history
-  do_sqlite
+  # do_sqlite
 }
 
 do_all_solr() {
@@ -335,7 +336,7 @@ END
 }
 
 case "$1" in
-  validate)                 do_validate ;;
+  validate)                 do_validate ; do_sqlite ;;
   prepare-solr)             do_prepare_solr ;;
   index)                    do_index ;;
   completeness)             do_completeness ;;

@@ -195,22 +195,24 @@ public class Validator implements MarcFileProcessor, Serializable {
   }
 
   private void processDetails(MarcRecord marcRecord) {
-    if (parameters.doSummary()) {
-      Map<Integer, Integer> errorIds = new HashMap<>();
-      for (ValidationError error : marcRecord.getValidationErrors()) {
-        if (error.getId() == null)
-          error.setId(hashedIndex.get(error.hashCode()));
-        count(error.getId(), errorIds);
+    List<ValidationError> errors = marcRecord.getValidationErrors();
+    if (!errors.isEmpty()) {
+      String message = null;
+      if (parameters.doSummary()) {
+        Map<Integer, Integer> errorIds = new HashMap<>();
+        for (ValidationError error : errors) {
+          if (error.getId() == null)
+            error.setId(hashedIndex.get(error.hashCode()));
+          count(error.getId(), errorIds);
+        }
+        message = ValidationErrorFormatter.formatSimple(
+          marcRecord.getId(parameters.getTrimId()), parameters.getFormat(), errorIds
+        );
+      } else {
+        message = ValidationErrorFormatter.format(errors, parameters.getFormat(), parameters.getTrimId());
       }
-      String message = ValidationErrorFormatter.formatSimple(
-              marcRecord.getId(parameters.getTrimId()), parameters.getFormat(), errorIds
-      );
-      print(detailsFile, message);
-    } else {
-      String message = ValidationErrorFormatter.format(
-              marcRecord.getValidationErrors(), parameters.getFormat(), parameters.getTrimId()
-      );
-      print(detailsFile, message);
+      if (message != null)
+        print(detailsFile, message);
     }
   }
 

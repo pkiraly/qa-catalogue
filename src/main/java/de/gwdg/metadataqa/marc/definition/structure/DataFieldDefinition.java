@@ -157,8 +157,10 @@ public abstract class DataFieldDefinition implements BibliographicFieldDefinitio
     if (versionSpecificSubfields == null)
       versionSpecificSubfields = new EnumMap<>(MarcVersion.class);
 
-    for (SubfieldDefinition subfieldDefinition : subfieldDefinitions)
+    for (SubfieldDefinition subfieldDefinition : subfieldDefinitions) {
       subfieldDefinition.setParent(this);
+      subfieldDefinition.setMarcVersion(marcVersion);
+    }
 
     versionSpecificSubfields.put(marcVersion, subfieldDefinitions);
   }

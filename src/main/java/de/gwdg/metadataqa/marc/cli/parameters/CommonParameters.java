@@ -28,6 +28,7 @@ public class CommonParameters implements Serializable {
   protected Leader.Type defaultRecordType = null;
   protected boolean fixAlephseq = false;
   protected boolean fixAlma = false;
+  protected boolean fixKbr = false;
   protected boolean alephseq = false;
   protected boolean marcxml = false;
   protected boolean lineSeparated = false;
@@ -54,6 +55,7 @@ public class CommonParameters implements Serializable {
       options.addOption("d", "defaultRecordType", true, "the default record type if the record's type is undetectable");
       options.addOption("q", "fixAlephseq", false, "fix the known issues of Alephseq format");
       options.addOption("X", "fixAlma", false, "fix the known issues of Alma format");
+      options.addOption("R", "fixKbr", false, "fix the known issues of Alma format");
       options.addOption("p", "alephseq", false, "the source is in Alephseq format");
       options.addOption("x", "marcxml", false, "the source is in MARCXML format");
       options.addOption("y", "lineSeparated", false, "the source is in line separated MARC format");
@@ -107,6 +109,7 @@ public class CommonParameters implements Serializable {
     fixAlephseq = cmd.hasOption("fixAlephseq");
 
     fixAlma = cmd.hasOption("fixAlma");
+    fixKbr = cmd.hasOption("fixKbr");
 
     setMarcxml(cmd.hasOption("marcxml"));
 
@@ -261,10 +264,18 @@ public class CommonParameters implements Serializable {
     this.fixAlma = fixAlma;
   }
 
+  public boolean fixKbr() {
+    return fixKbr;
+  }
+
+  public void setFixKbr(boolean fixKbr) {
+    this.fixKbr = fixKbr;
+  }
+
   public String getReplecementInControlFields() {
     if (fixAlephseq())
       return "^";
-    else if (fixAlma())
+    else if (fixAlma() || fixKbr())
       return "#";
     else
       return null;

@@ -86,7 +86,11 @@ public class DataFieldKeyGenerator {
   }
 
   public String forSubfield(SubfieldDefinition subfield) {
-    return forSubfield(subfield.getCode(), subfield.getCodeForIndex());
+    String key = forSubfield(subfield.getCode(), subfield.getCodeForIndex());
+    if (subfield.getMarcVersion() != null && type != SolrFieldType.MARC)
+      key += "_" + subfield.getMarcVersion().getCode();
+
+    return key;
   }
 
   private String forSubfield(String code, String codeForIndex) {

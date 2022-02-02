@@ -22,7 +22,6 @@ if [[ "$1" != "help" && "$1" != "export-schema-files" ]]; then
   fi
 fi
 
-
 do_validate() {
   GENERAL_PARAMS="--details --trimId --summary --format csv --defaultRecordType BOOKS"
   OUTPUT_PARAMS="--outputDir ${OUTPUT_DIR} --detailsFileName issue-details.csv --summaryFileName issue-summary.csv"
@@ -277,7 +276,7 @@ do_export_schema_files() {
   ./export-schema --withSubfieldCodelists > marc-schema/marc-schema.json
   ./export-schema --withSubfieldCodelists --solrFieldType human-readable --withSelfDescriptiveCode > marc-schema/marc-schema-with-solr.json
   ./export-schema --withSubfieldCodelists --solrFieldType human-readable --withSelfDescriptiveCode --withLocallyDefinedFields > marc-schema/marc-schema-with-solr-and-extensions.json
-  printf "%s %s> files generated at marc-schema\n" $(date +"%F %T")
+  printf "%s %s> 3 files generated at 'marc-schema' directory: marc-schema.json, marc-schema-with-solr.json, marc-schema-with-solr-and-extensions.json\n" $(date +"%F %T")
 }
 
 do_all_analyses() {

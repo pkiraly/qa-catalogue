@@ -296,9 +296,8 @@ public class Completeness implements MarcFileProcessor, Serializable {
   }
 
   private void saveMarcElements(String fileExtension, char separator) {
-    Path path;
     System.err.println("MARC elements");
-    path = Paths.get(parameters.getOutputDir(), "marc-elements" + fileExtension);
+    Path path = Paths.get(parameters.getOutputDir(), "marc-elements" + fileExtension);
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow(
         "documenttype", "path", "packageid", "package", "tag", "subfield",

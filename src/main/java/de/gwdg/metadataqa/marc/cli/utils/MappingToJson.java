@@ -231,6 +231,23 @@ public class MappingToJson {
     }
     tagMap.put("subfields", subfields);
 
+    if (parameters.isWithLocallyDefinedFields()) {
+      Map<MarcVersion, List<SubfieldDefinition>> versionSpecificSubfields = tag.getVersionSpecificSubfields();
+      if (versionSpecificSubfields != null && !versionSpecificSubfields.isEmpty()) {
+        Map<String, Map<String, Object>> versionSpecificSubfieldsMap = new LinkedHashMap<>();
+        for (Map.Entry<MarcVersion, List<SubfieldDefinition>> entry : versionSpecificSubfields.entrySet()) {
+          String version = entry.getKey().getCode();
+          subfields = new LinkedHashMap<>();
+          for (SubfieldDefinition subfield : entry.getValue()) {
+            subfields.put(subfield.getCode(), subfieldToJson(subfield, keyGenerator));
+          }
+          versionSpecificSubfieldsMap.put(version, subfields);
+        }
+        if (!versionSpecificSubfieldsMap.isEmpty())
+          tagMap.put("versionSpecificSubfields", versionSpecificSubfieldsMap);
+      }
+    }
+
     if (tag.getHistoricalSubfields() != null) {
       subfields = new LinkedHashMap<>();
       for (EncodedValue code : tag.getHistoricalSubfields()) {

@@ -73,9 +73,9 @@ public class Tag251 extends DataFieldDefinition {
       .setMqTag("fieldLink");
 
     putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
-      new SubfieldDefinition("*", "Link with identifier", "NR"),
-      new SubfieldDefinition("@", "Language of field", "NR"),
-      new SubfieldDefinition("#", "number/occurrence of field", "NR")
+      new SubfieldDefinition("*", "Link with identifier", "NR").setMqTag("link"),
+      new SubfieldDefinition("@", "Language of field", "NR").setMqTag("language"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR").setMqTag("number")
     ));
   }
 }

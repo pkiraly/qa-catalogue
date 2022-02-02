@@ -124,8 +124,16 @@ public class TagHierarchy {
                 Indicator indicator = definition.getInd2();
                 subfieldLabel = indicator.exists() ? indicator.getLabel() : "";
               } else {
-                SubfieldDefinition subfield = definition.getSubfield(subfieldCode);
-                subfieldLabel = subfield != null ? subfield.getLabel() : "";
+                SubfieldDefinition subfield = null;
+                if (version != null && definition.getVersionSpecificSubfields() != null) {
+                  subfield = definition.getVersionSpecificSubfield(version, subfieldCode);
+                  if (subfield != null)
+                    subfieldLabel = String.format("%s (in %s version)", subfield.getLabel(), version.getCode());
+                }
+                if (subfield == null)
+                  subfield = definition.getSubfield(subfieldCode);
+                if (subfieldLabel.equals("") && subfield != null)
+                  subfieldLabel = subfield.getLabel();
               }
 
               String packageName = Utils.extractPackageName(definition);

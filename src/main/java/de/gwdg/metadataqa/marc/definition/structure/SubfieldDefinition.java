@@ -41,6 +41,7 @@ public class SubfieldDefinition implements Serializable {
   private CompilanceLevel nationalCompilanceLevel;
   private CompilanceLevel minimalCompilanceLevel;
   private List<MarcVersion> disallowedIn;
+  private MarcVersion marcVersion = null;
 
   public String getCodeForIndex() {
     if (codeForIndex == null) {
@@ -56,7 +57,14 @@ public class SubfieldDefinition implements Serializable {
           default: codeForIndex = "_" + bibframeTag; break;
         }
       } else {
-        codeForIndex = "_" + code;
+        if (code.equals("#"))
+          codeForIndex = "_hash";
+        else if (code.equals("*"))
+          codeForIndex = "_star";
+        else if (code.equals("@"))
+          codeForIndex = "_at";
+        else
+          codeForIndex = "_" + code;
       }
     }
     return codeForIndex;
@@ -343,6 +351,14 @@ public class SubfieldDefinition implements Serializable {
   public boolean isDisallowedIn(MarcVersion marcVersion) {
     return disallowedIn != null &&
            disallowedIn.contains(marcVersion);
+  }
+
+  public MarcVersion getMarcVersion() {
+    return marcVersion;
+  }
+
+  public void setMarcVersion(MarcVersion marcVersion) {
+    this.marcVersion = marcVersion;
   }
 
   @Override

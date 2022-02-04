@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.general;
 
 import de.gwdg.metadataqa.marc.Extractable;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 
 import java.io.Serializable;
@@ -48,6 +49,11 @@ public class Linkage implements Extractable, Serializable {
 
   @Override
   public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
+    return getKeyValuePairs(type, MarcVersion.MARC21);
+  }
+
+  @Override
+  public Map<String, List<String>> getKeyValuePairs(SolrFieldType type, MarcVersion marcVersion) {
     Map<String, List<String>> map = new LinkedHashMap<>();
     Map<String, String> simpleMap = getMap();
     for (Map.Entry<String, String> entry : simpleMap.entrySet()) {

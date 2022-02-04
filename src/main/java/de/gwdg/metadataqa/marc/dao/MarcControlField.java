@@ -52,6 +52,11 @@ public class MarcControlField implements Validatable, Extractable, Serializable 
 
   @Override
   public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
+    return getKeyValuePairs(type, MarcVersion.MARC21);
+  }
+
+  @Override
+  public Map<String, List<String>> getKeyValuePairs(SolrFieldType type, MarcVersion marcVersion) {
     Map<String, List<String>> map = new LinkedHashMap<>();
 
     map.put(

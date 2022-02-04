@@ -322,11 +322,18 @@ public class DataField implements Extractable, Validatable, Serializable {
 
   @Override
   public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
+    return getKeyValuePairs(type, MarcVersion.MARC21);
+  }
+
+  @Override
+  public Map<String, List<String>> getKeyValuePairs(SolrFieldType type,
+                                                    MarcVersion marcVersion) {
     Map<String, List<String>> pairs = new HashMap<>();
 
     DataFieldKeyGenerator keyGenerator = new DataFieldKeyGenerator(
       definition, type, getTag()
     );
+    keyGenerator.setMarcVersion(marcVersion);
 
     boolean hasInd1def = (definition != null && definition.getInd1().exists());
     if (hasInd1def || !getInd1().equals(" ")) {
@@ -340,8 +347,9 @@ public class DataField implements Extractable, Validatable, Serializable {
       pairs.put(keyGenerator.forInd2(), Arrays.asList(value));
     }
 
-    for (MarcSubfield subfield : subfields)
+    for (MarcSubfield subfield : subfields) {
       pairs.putAll(subfield.getKeyValuePairs(keyGenerator));
+    }
 
     if (getFieldIndexer() != null) {
       try {

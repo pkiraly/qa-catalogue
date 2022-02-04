@@ -331,11 +331,17 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   }
 
   public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
-    return getKeyValuePairs(type, false);
+    return getKeyValuePairs(type, false, MarcVersion.MARC21);
+  }
+
+  @Override
+  public Map<String, List<String>> getKeyValuePairs(SolrFieldType type, MarcVersion marcVersion) {
+    return getKeyValuePairs(type, false, marcVersion);
   }
 
   public Map<String, List<String>> getKeyValuePairs(SolrFieldType type,
-                                                    boolean withDeduplication) {
+                                                    boolean withDeduplication,
+                                                    MarcVersion marcVersion) {
     if (mainKeyValuePairs == null) {
       mainKeyValuePairs = new LinkedHashMap<>();
 
@@ -347,7 +353,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
           mainKeyValuePairs.putAll(controlField.getKeyValuePairs(type));
 
       for (DataField field : datafields) {
-        Map<String, List<String>> keyValuePairs = field.getKeyValuePairs(type);
+        Map<String, List<String>> keyValuePairs = field.getKeyValuePairs(type, marcVersion);
         for (Map.Entry<String, List<String>> entry : keyValuePairs.entrySet()) {
           String key = entry.getKey();
           List<String> values = entry.getValue();

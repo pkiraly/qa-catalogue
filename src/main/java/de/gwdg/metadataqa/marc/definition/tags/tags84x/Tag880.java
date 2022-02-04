@@ -30,7 +30,7 @@ public class Tag880 extends DataFieldDefinition {
   private void initialize() {
     tag = "880";
     label = "Alternate Graphic Representation";
-    mqTag = "Alternate Graphic Representation";
+    mqTag = "AlternateGraphicRepresentation";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd880.html";
     setCompilanceLevels("A", "A");

@@ -274,8 +274,8 @@ do_export_schema_files() {
   fi
   printf "%s %s> [avram]\n" $(date +"%F %T")
   ./export-schema --withSubfieldCodelists > marc-schema/marc-schema.json
-  ./export-schema --withSubfieldCodelists --solrFieldType human-readable --withSelfDescriptiveCode > marc-schema/marc-schema-with-solr.json
-  ./export-schema --withSubfieldCodelists --solrFieldType human-readable --withSelfDescriptiveCode --withLocallyDefinedFields > marc-schema/marc-schema-with-solr-and-extensions.json
+  ./export-schema --withSubfieldCodelists --solrFieldType mixed --withSelfDescriptiveCode > marc-schema/marc-schema-with-solr.json
+  ./export-schema --withSubfieldCodelists --solrFieldType mixed --withSelfDescriptiveCode --withLocallyDefinedFields > marc-schema/marc-schema-with-solr-and-extensions.json
   printf "%s %s> 3 files generated at 'marc-schema' directory: marc-schema.json, marc-schema-with-solr.json, marc-schema-with-solr-and-extensions.json\n" $(date +"%F %T")
 }
 

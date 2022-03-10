@@ -1,18 +1,22 @@
 #!/usr/bin/env bash
 
-HISTORICAL=${OUTPUT_DIR}/_historical/${NAME}
-if [[ ! -d ${OUTPUT_DIR}/_historical/${NAME} ]]; then
-  mkdir -p ${OUTPUT_DIR}/_historical/${NAME}
-]]
+. $(dirname $0)/../../setdir.sh
+
+HISTORICAL=${BASE_OUTPUT_DIR}/_historical/${NAME}
+if [[ ! -d ${HISTORICAL} ]]; then
+  mkdir -p ${HISTORICAL}
+fi
+
+echo $HISTORICAL
 
 CSVS="count.csv issue-total.csv issue-by-category.csv issue-by-type.csv"
-for CSV in CSVS; do
-  if [[ -e ${HISTORICAL}/${CSV} ]]; then
-    rm ${HISTORICAL}/${CSV}
+for CSV_FILE in CSVS; do
+  if [[ -e ${HISTORICAL}/${CSV_FILE} ]]; then
+    rm ${HISTORICAL}/${CSV_FILE}
   fi
 done
 
-echo "version,count" > ${HISTORICAL}/count.csv
+echo "version,total,processed" > ${HISTORICAL}/count.csv
 echo "version,type,instances,records" > ${HISTORICAL}/issue-total.csv
 echo "version,id,category,instances,records" > ${HISTORICAL}/issue-by-category.csv
 echo "version,id,categoryId,category,type,instances,records" > ${HISTORICAL}/issue-by-type.csv
@@ -40,4 +44,14 @@ sqlite3 ${HISTORICAL}/history.sqlite << EOF
 .import ${HISTORICAL}/issue-total.csv issue_total
 .import ${HISTORICAL}/issue-by-category.csv issue_category
 .import ${HISTORICAL}/issue-by-type.csv issue_type
+EOF
+
+sqlite3 ${HISTORICAL}/history.sqlite << EOF
+.headers on
+.separator ,
+.output ${HISTORICAL}/timeline-by-category.csv
+SELECT id, category, version, ROUND((records * 1.0 / processed) * 100, 2) AS percent 
+  FROM issue_category 
+  JOIN count USING(version) 
+  ORDER BY id, version;
 EOF

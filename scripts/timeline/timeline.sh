@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+FREQUENCY=$1
 . $(dirname $0)/../../setdir.sh
 
 HISTORICAL=${BASE_OUTPUT_DIR}/_historical/${NAME}
@@ -22,8 +23,20 @@ echo "version,id,category,instances,records" > ${HISTORICAL}/issue-by-category.c
 echo "version,id,categoryId,category,type,instances,records" > ${HISTORICAL}/issue-by-type.csv
 for DIR in $(ls ${HISTORICAL}); do
   if [[ -d ${HISTORICAL}/$DIR ]]; then
-    echo $DIR,$(grep -v 'total' ${HISTORICAL}/$DIR/count.csv) >> ${HISTORICAL}/count.csv; 
+    if [[ -f ${HISTORICAL}/$DIR/count.csv.gz ]]; then
+      gunzip ${HISTORICAL}/$DIR/count.csv.gz
+    fi
+    if [[ $(head -1 ${HISTORICAL}/$DIR/count.csv) == "total" ]]; then
+      tail -n +2 ${HISTORICAL}/$DIR/count.csv | awk '{print $1","$1}' | sed "s;^;$DIR,;" >> ${HISTORICAL}/count.csv
+    else
+      tail -n +2 ${HISTORICAL}/$DIR/count.csv | sed "s;^;$DIR,;" | >> ${HISTORICAL}/count.csv
+    fi
+
+    if [[ -f ${HISTORICAL}/$DIR/issue-total.csv.gz ]]; then
+      gunzip ${HISTORICAL}/$DIR/issue-total.csv.gz
+    fi
     grep -v 'type,' ${HISTORICAL}/$DIR/issue-total.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/issue-total.csv; 
+
     if [[ -f ${HISTORICAL}/$DIR/issue-by-category.csv.gz ]]; then
       gunzip ${HISTORICAL}/$DIR/issue-by-category.csv.gz
     fi
@@ -55,3 +68,5 @@ SELECT id, category, version, ROUND((records * 1.0 / processed) * 100, 2) AS per
   JOIN count USING(version) 
   ORDER BY id, version;
 EOF
+
+Rscript $(dirname $0)/timeline.R ${HISTORICAL} $FREQUENCY

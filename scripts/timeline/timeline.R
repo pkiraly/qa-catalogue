@@ -26,8 +26,8 @@ g <- df %>%
   geom_line(aes(color = category)) +
   theme_bw() +
   labs(
-    title = 'How different MARC errors occured over time in a catalogue',
-    subtitle = 'based on weekly measurements',
+    title = 'How different MARC issues changed over time',
+#    subtitle = 'based on weekly measurements',
     color = 'Location') +
   ylab('records with issues (%)') +
   xlab('timeline') +

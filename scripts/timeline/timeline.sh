@@ -70,3 +70,6 @@ SELECT id, category, version, ROUND((records * 1.0 / processed) * 100, 2) AS per
 EOF
 
 Rscript $(dirname $0)/timeline.R ${HISTORICAL} $FREQUENCY
+ACTUAL_DIR=$(ls -la ${HISTORICAL} | grep -P '^l' | tail -1 | awk '{print $NF}')
+echo "copy timeline-by-category.png to ${ACTUAL_DIR}"
+cp ${HISTORICAL}/timeline-by-category.png $ACTUAL_DIR/img

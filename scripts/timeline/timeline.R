@@ -18,8 +18,16 @@ if (! frequency %in% c('weekly', 'monthly')) {
 
 input_file <- paste0(dir, '/timeline-by-category.csv')
 df <- read_csv(input_file, show_col_types = FALSE)
+.min_version <- df %>% select(version) %>% filter(version == min(version)) %>% distinct() %>% unlist(use.names = FALSE)
+
+.levels <- df %>% 
+  filter(version == .min_version) %>% 
+  arrange(desc(percent)) %>% 
+  select(category) %>% 
+  unlist(use.names = FALSE)
 
 g <- df %>% 
+  mutate(category = factor(category, levels = .levels)) %>% 
   #mutate(id = factor(id)) %>% 
   ggplot(aes(x = version, y = percent)) +
   geom_point() +
@@ -53,8 +61,16 @@ df <- read_csv(input_file, show_col_types = FALSE)
 categories <- df %>% select(category) %>% distinct() %>% unlist(use.names = FALSE)
 
 for (.cat in categories) {
+
+  .levels <- df %>% 
+    filter(category == .cat & version == .min_version) %>% 
+    arrange(desc(percent)) %>% 
+    select(type) %>% 
+    unlist(use.names = FALSE)
+
   g <- df %>%
     filter(category == .cat) %>% 
+    mutate(type = factor(type, levels = .levels)) %>% 
     #mutate(id = factor(id)) %>% 
     ggplot(aes(x = version, y = percent)) +
     geom_point() +
@@ -82,4 +98,3 @@ for (.cat in categories) {
          width = 1200, height = 600, units = "px", 
          dpi = 150) # 1300, 1500
 }
-  

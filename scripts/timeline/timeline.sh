@@ -80,7 +80,7 @@ SELECT category, type, version, ROUND((records * 1.0 / processed) * 100, 2) AS p
 EOF
 
 Rscript $(dirname $0)/timeline.R ${HISTORICAL} $FREQUENCY
-ACTUAL_DIR=$(ls -la ${HISTORICAL} | grep -P '^l' | tail -1 | awk '{print $NF}')
+ACTUAL_DIR=$(ls -la ${HISTORICAL}/ | grep -P '^l' | tail -1 | awk '{print $NF}')
 if [[ "${ACTUAL_DIR:0:2}" == ".." ]]; then
   ACTUAL_DIR=$(realpath ${HISTORICAL}/${ACTUAL_DIR})
 fi

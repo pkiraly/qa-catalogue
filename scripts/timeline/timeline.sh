@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 FREQUENCY=$1
+STARTING_VERSION=$2
+
 . $(dirname $0)/../../setdir.sh
 
 HISTORICAL=${BASE_OUTPUT_DIR}/_historical/${NAME}
@@ -22,6 +24,9 @@ echo "version,type,instances,records" > ${HISTORICAL}/issue-total.csv
 echo "version,id,category,instances,records" > ${HISTORICAL}/issue-by-category.csv
 echo "version,id,categoryId,category,type,instances,records" > ${HISTORICAL}/issue-by-type.csv
 for DIR in $(ls ${HISTORICAL}); do
+  if [[ "$DIR" < "$STARTING_VERSION" ]]; then
+    continue
+  fi
   if [[ -d ${HISTORICAL}/$DIR ]]; then
     if [[ -f ${HISTORICAL}/$DIR/count.csv.gz ]]; then
       gunzip ${HISTORICAL}/$DIR/count.csv.gz

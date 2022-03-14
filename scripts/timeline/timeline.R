@@ -46,3 +46,40 @@ image_file <- paste0(dir, '/timeline-by-category.png')
 ggsave(image_file, g, device = 'png', scale = 1,
        width = 1200, height = 600, units = "px", 
        dpi = 150) # 1300, 1500
+
+input_file <- paste0(dir, '/timeline-by-type.csv')
+df <- read_csv(input_file, show_col_types = FALSE)
+
+categories <- df %>% select(category) %>% distinct() %>% unlist(use.names = FALSE)
+
+for (.cat in categories) {
+  g <- df %>%
+    filter(category == .cat) %>% 
+    #mutate(id = factor(id)) %>% 
+    ggplot(aes(x = version, y = percent)) +
+    geom_point() +
+    geom_line(aes(color = type)) +
+    theme_bw() +
+    labs(
+      title = sprintf('How different MARC issues changed over time - on %s level', .cat),
+      # subtitle = .cat,
+      color = 'issue type') +
+    ylab('records with issues (%)') +
+    xlab('timeline') +
+    theme(
+      axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
+      legend.title = element_text('Location')
+    )
+
+  if (frequency == 'monthly') {
+    g <- g + scale_x_date(date_breaks = '1 month', date_minor_breaks='1 week')
+  } else {
+    g <- g + scale_x_date(date_breaks = '1 week', date_minor_breaks='1 day')
+  }
+
+  image_file <- sprintf('%s/timeline-by-type-%s.png', dir, str_replace(.cat, ' ', '-'))
+  ggsave(image_file, g, device = 'png', scale = 1,
+         width = 1200, height = 600, units = "px", 
+         dpi = 150) # 1300, 1500
+}
+  

@@ -29,7 +29,7 @@ for DIR in $(ls ${HISTORICAL}); do
     if [[ $(head -1 ${HISTORICAL}/$DIR/count.csv) == "total" ]]; then
       tail -n +2 ${HISTORICAL}/$DIR/count.csv | awk '{print $1","$1}' | sed "s;^;$DIR,;" >> ${HISTORICAL}/count.csv
     else
-      tail -n +2 ${HISTORICAL}/$DIR/count.csv | sed "s;^;$DIR,;" | >> ${HISTORICAL}/count.csv
+      tail -n +2 ${HISTORICAL}/$DIR/count.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/count.csv
     fi
 
     if [[ -f ${HISTORICAL}/$DIR/issue-total.csv.gz ]]; then
@@ -67,9 +67,18 @@ SELECT id, category, version, ROUND((records * 1.0 / processed) * 100, 2) AS per
   FROM issue_category 
   JOIN count USING(version) 
   ORDER BY id, version;
+
+.output ${HISTORICAL}/timeline-by-type.csv
+SELECT category, type, version, ROUND((records * 1.0 / processed) * 100, 2) AS percent 
+  FROM issue_type
+  JOIN count USING(version) 
 EOF
 
 Rscript $(dirname $0)/timeline.R ${HISTORICAL} $FREQUENCY
 ACTUAL_DIR=$(ls -la ${HISTORICAL} | grep -P '^l' | tail -1 | awk '{print $NF}')
+if [[ "${ACTUAL_DIR:0:2}" == ".." ]]; then
+  ACTUAL_DIR=$(realpath ${HISTORICAL}/${ACTUAL_DIR})
+fi
 echo "copy timeline-by-category.png to ${ACTUAL_DIR}"
-cp ${HISTORICAL}/timeline-by-category.png $ACTUAL_DIR/img
+cp ${HISTORICAL}/timeline-by-category.png ${ACTUAL_DIR}/img
+cp ${HISTORICAL}/timeline-by-type-*.png ${ACTUAL_DIR}/img

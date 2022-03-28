@@ -26,7 +26,7 @@ public class SchemaFromInd1OrIfEmptyFromSubfield2 extends SubjectIndexer impleme
       try {
         schemaAbbreviation = ClassificationSchemes.getInstance().resolve(dataField.resolveInd1());
       } catch (IllegalArgumentException e) {
-        schemaAbbreviation = (dataField.getInd1() == " ") ? "" : dataField.getInd1();
+        schemaAbbreviation = dataField.getInd1().equals(" ") ? "" : dataField.getInd1();
       }
     }
 

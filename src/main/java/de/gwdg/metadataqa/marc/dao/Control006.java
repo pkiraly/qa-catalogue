@@ -256,7 +256,7 @@ public class Control006 extends MarcPositionalControlField implements Serializab
   private void extractMixedMaterials(Control008Type actual,
                                      ControlfieldPositionDefinition subfield,
                                      ControlValue controlValue) {
-    if (subfield.getId() == "006mixed06")
+    if (subfield.getId().equals("006mixed06"))
       tag006mixed06 = controlValue;
     else
       logger.severe(String.format("Unhandled 006 subfield (for %s): %s",

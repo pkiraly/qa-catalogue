@@ -1,0 +1,4 @@
+scripts/downloaders
+scripts/record-patterns/
+scripts/sqlite/import-issue-details.php
+scripts/sqlite/import-issue-summary.php

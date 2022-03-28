@@ -1,0 +1,175 @@
+format: marc
+fields:
+  - name: 040a
+    path: 040$a
+    rules:
+      - minCount: 1
+      - pattern: BE-KBR00
+  - name: 041a
+    path: 041$a
+    rules:
+      - minCount: 1
+  - name: 041b
+    path: 041$b
+    rules:
+      - maxCount: 0
+  - name: 041h
+    path: 041$h
+    rules:
+      - maxCount: 0
+  - name: 044a
+    path: 044$a
+    rules:
+      - minCount: 1
+  - name: 245a
+    path: 245$a
+    rules:
+      - minCount: 1
+  - name: 245h
+    path: 245$h
+    rules:
+      - maxCount: 0
+  - name: 245b
+    path: 245$b
+    rules:
+      - maxCount: 0
+  - name: 245c
+    path: 245$c
+    rules:
+      - maxCount: 0
+  - name: 245n
+    path: 245$n
+    rules:
+      - maxCount: 0
+  - name: 245p
+    path: 245$p
+    rules:
+      - maxCount: 0
+  - name: 2456	N	if used, it should only contain 880-0X with X being a digit
+    path: 245$6
+  - name: 300a	Y	no more 'p.' but 'pages'. Also error = N. gepag. N. pag. N.p. Non pag. (so if it contains a '.' then mark as error)
+    path: 300$a
+  - name: 300b	N	no more 'ill.' but 'illustrations" (so if it contains a '.' then mark as error)
+    path: 300$b
+  - name: 300c
+    path: 300$c
+    rules:
+      - minCount: 1
+  - name: 300e
+    path: 300$e
+    rules:
+      - maxCount: 0
+  - name: 264a
+    path: 264$a
+    rules:
+      - minCount: 1
+  - name: 264b
+    path: 264$b
+    rules:
+      - minCount: 1
+  - name: 264c
+    path: 264$c
+    rules:
+      - minCount: 1
+  - name: 710a
+    path: 710$a
+    rules:
+      - maxCount: 0
+  - name: 710b
+    path: 710$b
+    rules:
+      - maxCount: 0
+  - name: 7104	N unless the field is used
+    path: 710$4
+  - name: 017a	N but mark it anyway?
+    path: 017$a
+  - name: 017z
+    path: 017$z
+    rules:
+      - maxCount: 0
+  - name: 020a	N but mark it anyway?
+    path: 020$a
+  - name: 020c	N	if used, it should only contain EUR and not the symbol
+    path: 020$c
+  - name: 020q
+    path: 020$q
+    rules:
+      - maxCount: 0
+  - name: 020z
+    path: 020$z
+    rules:
+      - maxCount: 0
+  - name: 700a
+    path: 700$a
+    rules:
+      - maxCount: 0
+  - name: 700b
+    path: 700$b
+    rules:
+      - maxCount: 0
+  - name: 7004	N unless the field is used
+    path: 700$4
+  - name: 773t	N unless 490 is present (the wrong field)
+    path: 773$t
+  - name: 100a
+    path: 100$a
+    rules:
+      - maxCount: 0
+  - name: 1004	N unless the field is used
+    path: 100$4
+  - name: 336a
+    path: 336$a
+    rules:
+      - minCount: 1
+  - name: 337a
+    path: 337$a
+    rules:
+      - minCount: 1
+  - name: 338a
+    path: 338$a
+    rules:
+      - minCount: 1
+  - name: 246a
+    path: 246$a
+    rules:
+      - maxCount: 0
+  - name: 246b
+    path: 246$b
+    rules:
+      - maxCount: 0
+  - name: 246g	N	if it contains a language code, 041$h has to be used
+    path: 246$g
+  - name: 246i
+    path: 246$i
+    rules:
+      - maxCount: 0
+  - name: 246n
+    path: 246$n
+    rules:
+      - maxCount: 0
+  - name: 246p
+    path: 246$p
+    rules:
+      - maxCount: 0
+  - name: 2466	N	if used, it should only contain 880-0X with X being a digit
+    path: 246$6
+  - name: 250a
+    path: 250$a
+    rules:
+      - maxCount: 0
+  - name: 650a
+    path: 650$a
+    rules:
+      - maxCount: 0
+  - name: 110a
+    path: 110$a
+    rules:
+      - maxCount: 0
+  - name: 1104	N unless the field is used
+    path: 110$4
+    rules:
+      - maxCount: 0
+  - name: 385a	N but mark anyway	521a has to be used instead
+    path: 385$a
+    rules:
+      - maxCount: 0

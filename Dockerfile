@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 LABEL maintainer="Péter Király <pkiraly@gwdg.de>, Ákos Takács <rimelek@rimelek.hu>"
 
@@ -17,7 +17,7 @@ RUN apt-get update \
     # add PPA with pre-compiled cran packages
  && add-apt-repository -y ppa:openjdk-r/ppa \
  && add-apt-repository -y ppa:marutter/rrutter3.5 \
- && add-apt-repository -y ppa:marutter/c2d4u3.5 \
+# && add-apt-repository -y ppa:marutter/c2d4u3.5 \
  && apt-get install -y --no-install-recommends \
       # install basic OS tools
       apt-utils \
@@ -42,11 +42,8 @@ RUN apt-get update \
 RUN mkdir -p /opt/metadata-qa-marc/scripts \
  && mkdir -p /opt/metadata-qa-marc/target
 
-
-# COPY target/metadata-qa-marc-0.4-jar-with-dependencies.jar /opt/metadata-qa-marc/target/
-COPY target/metadata-qa-marc-0.5-SNAPSHOT-jar-with-dependencies.jar /opt/metadata-qa-marc/target/
-COPY scripts/*.* /opt/metadata-qa-marc/scripts/
-COPY scripts/sqlite/*.* /opt/metadata-qa-marc/scripts/r-scripts/
+COPY target/metadata-qa-marc-0.5-jar-with-dependencies.jar /opt/metadata-qa-marc/target/
+COPY scripts /opt/metadata-qa-marc/scripts/
 COPY setdir.sh.template /opt/metadata-qa-marc/setdir.sh
 
 # copy common scripts
@@ -75,7 +72,7 @@ RUN mkdir -p /opt/metadata-qa-marc/marc \
  && sed -i.bak 's,BASE_INPUT_DIR=your/path,BASE_INPUT_DIR=/opt/metadata-qa-marc/marc,' /opt/metadata-qa-marc/setdir.sh \
  && sed -i.bak 's,BASE_OUTPUT_DIR=your/path,BASE_OUTPUT_DIR=/opt/metadata-qa-marc/marc/_output,' /opt/metadata-qa-marc/setdir.sh
 
-ARG SMARTY_VERSION=3.1.33
+ARG SMARTY_VERSION=3.1.44
 
 # install web application
 RUN apt-get update \
@@ -109,7 +106,7 @@ RUN apt-get update \
  && sed -i.bak 's,</VirtualHost>,        RedirectMatch ^/$ /metadata-qa/\n        <Directory /var/www/html/metadata-qa>\n                Options Indexes FollowSymLinks MultiViews\n                AllowOverride All\n                Order allow\,deny\n                allow from all\n                DirectoryIndex index.php index.html\n        </Directory>\n</VirtualHost>,' /etc/apache2/sites-available/000-default.conf \
  && echo "\nWEB_DIR=/var/www/html/metadata-qa/\n" >> /opt/metadata-qa-marc/common-variables
 
-ARG SOLR_VERSION=8.11.0
+ARG SOLR_VERSION=8.11.1
 
 # install Solr
 RUN apt-get update \
@@ -134,4 +131,3 @@ COPY docker/supervisord.conf /etc/
 WORKDIR /opt/metadata-qa-marc
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
-

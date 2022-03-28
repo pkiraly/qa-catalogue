@@ -1024,12 +1024,29 @@ mvn clean deploy -Pdeploy
 
 Build and test
 ```
+# create the Java library
+mvn clean package
+# create the docker images
 docker-compose -f docker-compose.yml build app
-docker-compose -f docker-compose.yml up
-docker run -t -i -v [local-MARC-dir]:/opt/metadata-qa-marc/marc metadata-qa-marc /bin/bash
-cd /opt/metadata-qa-marc
-scripts/[lib].sh all-analyses
+# start the container
+docker run \
+  -d \                                              # run in backgroud
+  -v [local-MARC-dir]:/opt/metadata-qa-marc/marc \  # map the local directory of MARC files
+  -p 8983:8983 -p 80:80 \                           # expose Solr and Apache ports (as host:container)
+  --name metadata-qa-marc \                         # name of the container
+  metadata-qa-marc                                  # name of the image
+# run analyses
+docker exec \                                       # execure a command
+  -t -i metadata-qa-marc \                          # inside the container
+  ./metadata-qa.sh \                                # the name of the command to run
+  --params "--marcVersion GENT --alephseq"          # the parameters used in analyses 
+  --mask 'rug01.export' \                           # file mask
+  --catalogue gent \                                # the name of the catalogue
+  all                                               # run all analyses
 ```
+
+You will see some log messages, and it is done, you can check the output at http://localhost/metadata-qa.
+
 
 Upload to Docker Hub:
 ```

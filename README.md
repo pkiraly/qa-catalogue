@@ -1025,7 +1025,7 @@ mvn clean deploy -Pdeploy
 Build and test
 ```
 # create the Java library
-mvn clean package
+mvn clean install
 # create the docker images
 docker-compose -f docker-compose.yml build app
 # start the container

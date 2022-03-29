@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.datastore;
 import com.opencsv.CSVIterator;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderHeaderAware;
+import com.opencsv.exceptions.CsvValidationException;
 import de.gwdg.metadataqa.api.util.FileUtils;
 import org.junit.Test;
 import org.sqlite.util.StringUtils;
@@ -49,6 +50,8 @@ public class MarcSQLiteClientTest {
         System.err.println(map);
       }
     } catch (IOException e) {
+      e.printStackTrace();
+    } catch (CsvValidationException e) {
       e.printStackTrace();
     }
 

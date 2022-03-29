@@ -1,6 +1,10 @@
 package de.gwdg.metadataqa.marc.utils.pica;
 
+import com.opencsv.CSVParser;
+import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
+import com.opencsv.exceptions.CsvException;
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.Utils;
@@ -34,7 +38,9 @@ public class PicaReaderTest {
     CSVReader reader = null;
     try {
       Path tagsFile = FileUtils.getPath("pica/pica-tags-2013.csv");
-      reader = new CSVReader(new FileReader(tagsFile.toString()), ';');
+      Reader fileReader = new FileReader(tagsFile.toString());
+      CSVParser parser = new CSVParserBuilder().withSeparator(';').build();
+      reader = new CSVReaderBuilder(fileReader).withCSVParser(parser).build();
       List<String[]> myEntries = reader.readAll();
       Map<String, List<PicaTagDefinition>> map = new HashMap<>();
       assertEquals(431, myEntries.size());
@@ -89,6 +95,8 @@ public class PicaReaderTest {
     } catch (IOException e) {
       e.printStackTrace();
     } catch (URISyntaxException e) {
+      e.printStackTrace();
+    } catch (CsvException e) {
       e.printStackTrace();
     }
   }

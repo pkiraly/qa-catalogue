@@ -7,7 +7,7 @@ import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefiniti
 import de.gwdg.metadataqa.marc.definition.tags.control.Control007Definition;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
-import org.spark_project.jetty.util.StringUtil;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.*;
@@ -163,7 +163,7 @@ public class Control007 extends MarcPositionalControlField implements Serializab
   }
 
   private void handleContent(String content) {
-    if (StringUtil.isNotBlank(content)) {
+    if (StringUtils.isNotBlank(content)) {
       processContent();
     } else {
       StringBuffer msg = new StringBuffer();
@@ -177,7 +177,7 @@ public class Control007 extends MarcPositionalControlField implements Serializab
 
   protected void processContent() {
 
-    if (StringUtil.isBlank(content)) {
+    if (StringUtils.isBlank(content)) {
       String msg = "007 control field is empty";
       logger.severe(msg);
       initializationErrors.add(new ValidationError(marcRecord.getId(), "007",

@@ -35,7 +35,7 @@ Screenshot from the web UI of the QA cataloge
       * [Serial score analysis](#serial-score-analysis)
     * Contextual analyses
       * [Classification analysis](#classification-analysis)
-      * [Authority analysis](#authority-analysis)
+      * [Authority name analysis](#authority-name-analysis)
     * [FRBR functional requirement analysis](#fbrb-functional-requirement-analysis)
     * [Pareto analysis](#pareto-analysis)
     * [Generating cataloguing history chart](#generating-cataloguing-history-chart)
@@ -598,13 +598,13 @@ The output is a set of files:
 * `classifications-by-records.csv`: general overview of how many records has any subject indexing
 * `classifications-by-schema.csv`: which subject indexing schemas are available in the catalogues (such as DDC, UDC, 
   MESH etc.) and where they are referred 
-* `classifications-histogram.csv`: a frequency distribution of the number subjects available in records (x records 
+* `classifications-histogram.csv`: a frequency distribution of the number of subjects available in records (x records 
   have 0 subjects, y records have 1 subjects, z records have 2 subjects etc.) 
 * `classifications-frequency-examples.csv`: examples for particular distributions (one record ID which has 0 subject,
   one which has 1 subject, etc.)
 * `classifications-by-schema-subfields.csv`: the distribution of subfields of those fields, which contains subject 
   indexing information. It gives you a background that what other contextual information behind the subject term are 
-  available (such as the version of the suject indexing scheme) 
+  available (such as the version of the subject indexing scheme) 
 * `classifications-collocations.csv`: how many record has a particular set of subject indexing schemes
 * `classifications-by-type.csv`: returns the subject indexing schemes and their types in order of the number of 
   records. The types are TERM_LIST (subtypes: DICTIONARY, GLOSSARY, SYNONYM_RING), METADATA_LIKE_MODEL 
@@ -632,7 +632,43 @@ or
 * `-w`, `--emptyLargeCollectors` empty large collectors periodically. It is a memory optimization parameter, turn it 
   on if you run into a memory problem
 
-### Authority analysis
+### Authority name analysis
+
+It analyses the coverage of authority names (persons, organisations, families, events) in the catalogue. It check 
+specific fields, which might have authority names, and provides details about how and which schemes have been applied.
+
+The output is a set of files:
+
+* `authorities-by-records.csv`: general overview of how many records has any authority names
+* `authorities-by-schema.csv`: which authority names schemas are available in the catalogues (such as ISNI,
+  Gemeinsame Normdatei etc.) and where they are referred
+* `authorities-histogram.csv`: a frequency distribution of the number of authority names available in records (x records
+  have 0 authority names, y records have 1 authority name, z records have 2 authority names etc.)
+* `authorities-frequency-examples.csv`: examples for particular distributions (one record ID which has 0 authority name,
+  one which has 1 authority name, etc.)
+* `authorities-by-schema-subfields.csv`: the distribution of subfields of those fields, which contains authority names
+  information. It gives you a background that what other contextual information behind the authority names are
+  available (such as the version of the authority name scheme)
+
+```
+java -cp $JAR de.gwdg.metadataqa.marc.cli.AuthorityAnalysis [options] [file]
+```
+with a bash script
+```
+./authorities [options] [file]
+```
+or
+```
+catalogues/[catalogue].sh authorities
+```
+or
+```
+./metadata-qa.sh --params="[options]" authorities
+```
+
+* `-w`, `--emptyLargeCollectors` empty large collectors periodically. It is a memory optimization parameter, turn it
+  on if you run into a memory problem
+
 
 ### FRBR functional requirement analysis
 

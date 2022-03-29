@@ -521,9 +521,10 @@ LoC,Mesh,Fast,GND,Other,Online,Language of Resource,Country of Publication,noLan
 
 ### Shelf-ready completeness analysis
 
-These scores are the implementation of the following paper:
+This analysis is the implementation of the following paper:
 
-    Emma Booth (2020) Quality of Shelf-Ready Metadata. Analysis of survey responses and recommendations for suppliers, Pontefract (UK): National Acquisitions Group, 2020. p 31. https://nag.org.uk/wp-content/uploads/2020/06/NAG-Quality-of-Shelf-Ready-Metadata-Survey-Analysis-and-Recommendations_FINAL_June2020.pdf 
+Emma Booth (2020) _Quality of Shelf-Ready Metadata. Analysis of survey responses and recommendations for suppliers_ 
+Pontefract (UK): National Acquisitions Group, 2020. p 31. https://nag.org.uk/wp-content/uploads/2020/06/NAG-Quality-of-Shelf-Ready-Metadata-Survey-Analysis-and-Recommendations_FINAL_June2020.pdf 
 
 The main purpose of the report is to highlight which fields of the printed and electronic book records are important when the records are coming from different suppliers. 50 libraries participated in the survey, each selected which fields are important to them. The report listed those fields which gets the highest scores.
 
@@ -535,14 +536,10 @@ java -cp $JAR de.gwdg.metadataqa.marc.cli.ShelfReadyCompleteness [options] [file
 or with a bash script
 ```
 ./shelf-ready-completeness [options] [file]
-```
 or
-```
 catalogues/[catalogue].sh shelf-ready-completeness
-```
 or
-```
-./metadata-qa.sh [options] shelf-ready-completeness
+./metadata-qa.sh --params="[options]" shelf-ready-completeness
 ```
 
 

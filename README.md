@@ -589,6 +589,37 @@ or
 
 ### Classification analysis
 
+It analyses the coverage of subject indexing/classification in the catalogue. It check spefici fields, which might 
+have subject indexing information, and provides details about how and which subject indexing schemes have been applied.
+
+The output is a set of files:
+
+* `classifications-by-schema.csv`
+* `classifications-by-records.csv`
+* `classifications-histogram.csv`
+* `classifications-frequency-examples.csv`
+* `classifications-by-schema-subfields.csv`
+* `classifications-collocations.csv`
+
+```
+java -cp $JAR de.gwdg.metadataqa.marc.cli.ClassificationAnalysis [options] [file]
+```
+with a bash script
+```
+./classifications [options] [file]
+```
+or
+```
+catalogues/[catalogue].sh classifications
+```
+or
+```
+./metadata-qa.sh --params="[options]" classifications
+```
+
+* `-w`, `--emptyLargeCollectors` empty large collectors periodically. It is a memory optimization parameter, turn it 
+  on if you run into a memory problem
+
 ### Authority analysis
 
 ### FRBR functional requirement analysis

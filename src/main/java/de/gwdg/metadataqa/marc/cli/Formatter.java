@@ -73,7 +73,7 @@ public class Formatter implements MarcFileProcessor {
 
     // print headers
     if (parameters.hasSelector()) {
-      var path = Paths.get(parameters.getOutputDir(), "marc-history.csv");
+      var path = Paths.get(parameters.getOutputDir(), parameters.getFileName());
       try {
         writer = Files.newBufferedWriter(path);
       } catch (IOException e) {

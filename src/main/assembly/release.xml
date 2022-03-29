@@ -51,46 +51,7 @@
     </fileSets>
     <files>
         <file>
-            <source>common-variables</source>
-            <fileMode>0755</fileMode>
-        </file>
-        <file>
-            <source>common-script</source>
-            <fileMode>0755</fileMode>
-        </file>
-        <file>
-            <source>metadata-qa.sh</source>
-            <fileMode>0755</fileMode>
-        </file>
-        <file>
-            <source>LICENSE</source>
-            <fileMode>0644</fileMode>
-        </file>
-        <file>
-            <source>README.md</source>
-            <fileMode>0644</fileMode>
-        </file>
-        <file>
-            <source>setdir.sh.template</source>
-        </file>
-        <file>
-            <source>validator</source>
-            <fileMode>0755</fileMode>
-        </file>
-        <file>
-            <source>prepare-solr</source>
-            <fileMode>0755</fileMode>
-        </file>
-        <file>
-            <source>index</source>
-            <fileMode>0755</fileMode>
-        </file>
-        <file>
-            <source>solr-functions</source>
-            <fileMode>0755</fileMode>
-        </file>
-        <file>
-            <source>completeness</source>
+            <source>authorities</source>
             <fileMode>0755</fileMode>
         </file>
         <file>
@@ -98,19 +59,19 @@
             <fileMode>0755</fileMode>
         </file>
         <file>
-            <source>authorities</source>
+            <source>common-script</source>
             <fileMode>0755</fileMode>
         </file>
         <file>
-            <source>tt-completeness</source>
+            <source>common-variables</source>
             <fileMode>0755</fileMode>
         </file>
         <file>
-            <source>shelf-ready-completeness</source>
+            <source>completeness</source>
             <fileMode>0755</fileMode>
         </file>
         <file>
-            <source>serial-score</source>
+            <source>export-schema</source>
             <fileMode>0755</fileMode>
         </file>
         <file>
@@ -122,8 +83,59 @@
             <fileMode>0755</fileMode>
         </file>
         <file>
+            <source>index</source>
+            <fileMode>0755</fileMode>
+        </file>
+        <file>
+            <source>metadata-qa.sh</source>
+            <fileMode>0755</fileMode>
+        </file>
+        <file>
             <source>network-analysis</source>
             <fileMode>0755</fileMode>
+        </file>
+        <file>
+            <source>prepare-solr</source>
+            <fileMode>0755</fileMode>
+        </file>
+        <file>
+            <source>record-patterns</source>
+            <fileMode>0755</fileMode>
+        </file>
+        <file>
+            <source>serial-score</source>
+            <fileMode>0755</fileMode>
+        </file>
+        <file>
+            <source>shelf-ready-completeness</source>
+            <fileMode>0755</fileMode>
+        </file>
+        <file>
+            <source>solr-functions</source>
+            <fileMode>0755</fileMode>
+        </file>
+        <file>
+            <source>tt-completeness</source>
+            <fileMode>0755</fileMode>
+        </file>
+        <file>
+            <source>validator</source>
+            <fileMode>0755</fileMode>
+        </file>
+        <file>
+            <source>LICENSE</source>
+            <fileMode>0644</fileMode>
+        </file>
+        <file>
+            <source>README.md</source>
+            <fileMode>0644</fileMode>
+        </file>
+        <file>
+            <source>INSTALL.md</source>
+            <fileMode>0644</fileMode>
+        </file>
+        <file>
+            <source>setdir.sh.template</source>
         </file>
     </files>
 </assembly>

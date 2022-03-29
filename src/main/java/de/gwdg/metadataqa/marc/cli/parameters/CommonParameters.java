@@ -22,9 +22,9 @@ public class CommonParameters implements Serializable {
   protected DataSource dataSource = DataSource.FILE;
   protected boolean doHelp;
   protected boolean doLog = true;
-  private int limit = -1;
-  private int offset = -1;
-  private String id = null;
+  protected int limit = -1;
+  protected int offset = -1;
+  protected String id = null;
   protected Leader.Type defaultRecordType = null;
   protected boolean fixAlephseq = false;
   protected boolean fixAlma = false;
@@ -63,8 +63,8 @@ public class CommonParameters implements Serializable {
       options.addOption("r", "trimId", false, "remove spaces from the end of record IDs");
       options.addOption("z", "ignorableFields", true, "ignore fields from the analysis");
       options.addOption("v", "ignorableRecords", true, "ignore records from the analysis");
-      options.addOption("m", "marcFormat", true, "MARC format (like 'ISO' or 'MARCXML')");
-      options.addOption("m", "dataSource", true, "data source (file of stream)");
+      options.addOption("f", "marcFormat", true, "MARC format (like 'ISO' or 'MARCXML')");
+      options.addOption("s", "dataSource", true, "data source (file of stream)");
       options.addOption("g", "defaultEncoding", true, "default character encoding");
       isOptionSet = true;
     }

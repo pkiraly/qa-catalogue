@@ -594,19 +594,30 @@ have subject indexing information, and provides details about how and which subj
 
 The output is a set of files:
 
-* `classifications-by-schema.csv`
-* `classifications-by-records.csv`
-* `classifications-histogram.csv`
-* `classifications-frequency-examples.csv`
-* `classifications-by-schema-subfields.csv`
-* `classifications-collocations.csv`
+* `classifications-by-records.csv`: general overview of how many records has any subject indexing
+* `classifications-by-schema.csv`: which subject indexing schemas are available in the catalogues (such as DDC, UDC, 
+  MESH etc.) and where they are referred 
+* `classifications-histogram.csv`: a frequency distribution of the number subjects available in records (x records 
+  have 0 subjects, y records have 1 subjects, z records have 2 subjects etc.) 
+* `classifications-frequency-examples.csv`: examples for particular distributions (one record ID which has 0 subject,
+  one which has 1 subject, etc.)
+* `classifications-by-schema-subfields.csv`: the distribution of subfields of those fields, which contains subject 
+  indexing information. It gives you a background that what other contextual information behind the subject term are 
+  available (such as the version of the suject indexing scheme) 
+* `classifications-collocations.csv`: how many record has a particular set of subject indexing schemes
+* `classifications-by-type.csv`: returns the subject indexing schemes and their types in order of the number of 
+  records. The types are TERM_LIST (subtypes: DICTIONARY, GLOSSARY, SYNONYM_RING), METADATA_LIKE_MODEL 
+  (NAME_AUTHORITY_LIST, GAZETTEER), CLASSIFICATION (SUBJECT_HEADING, CATEGORIZATION, TAXONOMY, CLASSIFICATION_SCHEME),
+  RELATIONSHIP_MODEL (THESAURUS, SEMANTIC_NETWORK, ONTOLOGY).
 
 ```
 java -cp $JAR de.gwdg.metadataqa.marc.cli.ClassificationAnalysis [options] [file]
+Rscript scripts/classifications/classifications-type.R [output directory]
 ```
 with a bash script
 ```
 ./classifications [options] [file]
+Rscript scripts/classifications/classifications-type.R [output directory]
 ```
 or
 ```

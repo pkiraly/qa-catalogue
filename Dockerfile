@@ -4,6 +4,7 @@ LABEL maintainer="Péter Király <pkiraly@gwdg.de>, Ákos Takács <rimelek@rimel
 
 LABEL description="QA catalogue - a metadata quality assessment tool for MARC based library catalogues."
 
+ARG QA_CATALOGUE_VERSION=0.5.0
 ARG DEBIAN_FRONTEND=noninteractive
 ARG SMARTY_VERSION=3.1.44
 ARG SOLR_VERSION=8.11.1
@@ -41,12 +42,12 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 
 # install metadata-qa-marc
-COPY target/metadata-qa-marc-0.5-release.zip /opt
+COPY target/metadata-qa-marc-${QA_CATALOGUE_VERSION}-release.zip /opt
 
 RUN cd /opt \
- && unzip metadata-qa-marc-0.5-release.zip \
- && rm metadata-qa-marc-0.5-release.zip \
- && mv metadata-qa-marc-0.5 metadata-qa-marc \
+ && unzip metadata-qa-marc-${QA_CATALOGUE_VERSION}-release.zip \
+ && rm metadata-qa-marc-${QA_CATALOGUE_VERSION}-release.zip \
+ && mv metadata-qa-marc-${QA_CATALOGUE_VERSION} metadata-qa-marc \
  && mv /opt/metadata-qa-marc/setdir.sh.template /opt/metadata-qa-marc/setdir.sh \
  && mkdir -p /opt/metadata-qa-marc/marc \
  && sed -i.bak 's,BASE_INPUT_DIR=your/path,BASE_INPUT_DIR=/opt/metadata-qa-marc/marc,' /opt/metadata-qa-marc/setdir.sh \

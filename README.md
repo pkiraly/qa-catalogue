@@ -607,7 +607,8 @@ It produces a CSV file like this:
 
 ```
 id,ISBN,Authors,Alternative Titles,Edition,Contributors,Series,TOC,Date 008,Date 26X,LC/NLM, \
-LoC,Mesh,Fast,GND,Other,Online,Language of Resource,Country of Publication,noLanguageOrEnglish,RDA,total
+LoC,Mesh,Fast,GND,Other,Online,Language of Resource,Country of Publication,noLanguageOrEnglish, \
+RDA,total
 "010002197",0,0,0,0,0,0,0,1,2,0,0,0,0,0,0,0,1,0,0,0,4
 "01000288X",0,0,1,0,0,1,0,1,2,0,0,0,0,0,0,0,0,0,0,0,5
 "010004483",0,0,1,0,0,0,0,1,2,0,0,0,0,0,0,0,1,0,0,0,5
@@ -1137,12 +1138,21 @@ The MARC JSON file is a JSON serialization of binary MARC file. See more the [MA
 
 Some background info: [MARC21 structure in JSON](http://pkiraly.github.io/2018/01/28/marc21-in-json/).
 
+Usage:
 ```
 java -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MappingToJson [options] > marc-schema
 ```
+with script:
+```
+catalogues/[catalogue].sh export-schema-files
+```
+or
+```
+./metadata-qa.sh --params="[options]" export-schema-files
+```
 
-options
-
+options:
+* [general parameters](#general-parameters)
 * `-c`, `--withSubfieldCodelists`: with subfield codelists
 * `-s`, `--withSelfDescriptiveCode`: with self-descriptive codes
 * `-t`, `--solrFieldType [type]`: type of Solr fields, could be one of `marc-tags`, `human-readable`, or `mixed`
@@ -1210,6 +1220,11 @@ An example output:
 },
 ...
 ```
+
+The script version generates 3 files, with different details:
+* `marc-schema/marc-schema.json`
+* `marc-schema/marc-schema-with-solr.json`
+* `marc-schema/marc-schema-with-solr-and-extensions.json`
 
 ### to HTML
 

@@ -477,10 +477,10 @@ options:
 * `-c [count number]`, `-countNr [count number]`: count number of the record (e.g. 1 means the first record)
 * `-s [path=query]`, `-search [path=query]`: print records matching the query. The query part is the content of the 
   element. The path should be one of the following types:
-1. control field tag (e.g. `001`, `002`, `003`)
-2. control field position (e.g. `Leader/0`, `008/1-2`)
-3. data field (`655\$2`, `655\$ind1`)
-4. named control field position (`tag006book01`)
+  * control field tag (e.g. `001`, `002`, `003`)
+  * control field position (e.g. `Leader/0`, `008/1-2`)
+  * data field (`655\$2`, `655\$ind1`)
+  *  named control field position (`tag006book01`)
 * `-l [selector]`, `--selector [selector]`: one or more MarcSpec selectors, separated by ';' (semicolon) character
 * `-w`, `--withId`: the generated CSV should contain record ID as first field (default is turned off)
 * `-p [separator]`, `--separator [separator]`: separator between the parts (default: TAB)

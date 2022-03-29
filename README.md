@@ -231,7 +231,84 @@ We will use the same jar file in every command, so we save its path into a varia
 export JAR=target/metadata-qa-marc-0.5-jar-with-dependencies.jar
 ```
 
+### General parameters
+
+Most of the analyses uses the following general parameters
+
+* `-m [MARC version]`, `--marcVersion [MARC version]` specifies
+  a MARC version. Currently, the supported versions are:
+  * `MARC21`, Library of Congress MARC21
+  * `DNB`, the Deuthche Nationalbibliothek's MARC version
+  * `OCLC`, the OCLCMARC
+  * `GENT`, fields available in the catalog of Gent University (Belgium)
+  * `SZTE`, fields available in the catalog of Szegedi Tudományegyetem (Hungary)
+  * `FENNICA`, fields available in the Fennica catalog of Finnish National Library
+  * `NKCR`, fields available at the National Library of the Czech Republic
+  * `BL`, fields available at the British Library
+  * `MARC21NO`, fields available at the MARC21 profile for Norwegian public libraries
+  * `UVA`, fields available at the University of Amsterdam Library
+  * `B3KAT`, fields available at the B3Kat union catalogue of Bibliotheksverbundes Bayern (BVB)
+     and Kooperativen Bibliotheksverbundes Berlin-Brandenburg (KOBV)
+  * `KBR`, fields available at KBR, the national library of Belgium
+* `-n`, `--nolog` do not display log messages
+* parameters to limit the validation:
+  * `-i [record ID]`, `--id [record ID]` validates only a single record
+    having the specifies identifier (the content of 001)
+  * `-l [number]`, `--limit [number]` validates only given number of
+    records
+  * `-o [number]`, `--offset [number]` starts validation at the given
+    Nth record
+  * `-z [list of tags]`, `--ignorableFields [list of tags]` do NOT
+    validate the selected fields. The list should contains the tags
+    separated by commas (`,`), e.g. `--ignorableFields A02,AQN`
+  * `-v [selector]`, `--ignorableRecords [selector]` do NOT validate
+    the records which match the condition denotet by the selector.
+    The selector is a test MARCspec string e.g.
+    `--ignorableRecords STA$a=SUPPRESSED`. It ignores the records which
+    has `STA` field with an `a` subfield with the value `SUPPRESSED`.
+* `-d [record type]`, `--defaultRecordType [record type]` the default record type to be used if the record's type is undetectable. The record type is calculated from the combination of Leader/06 (Type of record) and Leader/07 (bibliographic level), however sometimes the combination doesn't fit to the standard. In this case the tool will use the given record type. Possible values of the record type argument:
+  * BOOKS
+  * CONTINUING_RESOURCES
+  * MUSIC
+  * MAPS
+  * VISUAL_MATERIALS
+  * COMPUTER_FILES
+  * MIXED_MATERIALS
+* parameters to fix known issues before any analyses:
+  * `-q`, `--fixAlephseq` sometimes ALEPH export contains '^' characters instead of spaces in control fields (006, 007, 
+    008). This flag replaces them with spaces before the validation. It might occur in any input format.
+  * `-X`, `--fixAlma` sometimes Alma export contains '#' characters instead of spaces in control fields (006, 007, 008).
+    This flag replaces them with spaces before the validation. It might occur in any input format.
+  * `-G`, `--fixKbr` KBR's export contains '#' characters instead spaces in control fields (006, 007, 008). 
+    This flag replaces them with spaces before the validation. It might occur in any input format.
+* `-f [format]`, `--marcFormat [format]` The input format. Possible values are
+  * `ISO`: Binary (ISO 2709)
+  * `XML`: MARCXML (shortcuts: `-x`, `--marcxml`)
+  * `ALEPHSEQ`: Alephseq (shortcuts: `-p`, `--alephseq`)
+  * `LINE_SEPARATED`: Line separated binary MARC where each line contains one record) (shortcuts: `-y`, 
+    `--lineSeparated`)
+  * `MARC_LINE`: MARC Line line separated format i.e. it is a text file, where each line is a distinct field, the
+    same way as MARC records are usually displayed in the MARC21 standard documentation.
+  * `MARCMAKER`: MARCMaker format
+* `-t [directory]`, `--outputDir [directory]` specifies the output directory where the files will be created
+* `-r`, `--trimId` remove spaces from the end of record IDs in the output files (some library system add padding 
+  spaces around field value 001 in exported files)
+* `-g [encoding]`, `--defaultEncoding  [encoding]` specify a default encoding of the records. Possible values:
+  * `ISO-8859-1` or `ISO8859_1` or `ISO_8859_1`
+  * `UTF8` or `UTF-8`
+  * `MARC-8` or `MARC8`
+* `-s [datasource]`, `--dataSource [datasource]` specify the type of data source. Possible values:
+  * `FILE`: reading from file
+  * `STREAM`: reading from a Java data stream. It is not usable if you use the tool from the command line, only if 
+    you use it with its API.
+
 ### Validating MARC records
+
+It validates each records against the MARC21 standard, including those local defined field, which are selected by 
+the MARC version parameter. 
+
+Usage:
+
 ```
 java -cp $JAR de.gwdg.metadataqa.marc.cli.Validator [options] [file]
 ```
@@ -243,94 +320,33 @@ or with a bash script
 options:
 
 * granularity of the report
-  * `-s`, `--summary` creating a summary report instead of record level
-  reports
+  * `-s`, `--summary` creating a summary report instead of record level reports
   * `-h`, `--details` provides record level details of the issues
-* `-m [MARC version]`, `--marcVersion [MARC version]` specifies
-  a MARC version. Currently, the supported versions are:
-   * `MARC21`, Library of Congress MARC21
-   * `DNB`, the Deuthche Nationalbibliothek's MARC version
-   * `OCLC`, the OCLCMARC
-   * `GENT`, fields available in the catalog of Gent University (Belgium)
-   * `SZTE`, fields available in the catalog of Szegedi Tudományegyetem
-     (Hungary)
-   * `FENNICA`, fields available in the Fennica catalog of Finnish
-     National Library
-   * `NKCR`, fields available at the National Library of the Czech
-     Republic 
-   * `BL`, fields available at the British Library
-   * `MARC21NO`, fields available at the MARC21 profile for Norwegian public libraries
-   * `UVA`, fields available at the University of Amsterdam Library
-   * `B3KAT`, fields available at the B3Kat union catalogue of Bibliotheksverbundes 
-     Bayern (BVB) and Kooperativen Bibliotheksverbundes Berlin-Brandenburg (KOBV)    
 * output parameters:
-  * `-t [directory]`, `--outputDir [directory]` specifies the output
-    directory where the files will be created
-  * `-g [file name]`, `--summaryFileName [file name]` the name of summary 
-    report the program produces. The file provides a summary of issues, 
-    such as the number of instance and number of records having the
-    particular issue)
-  * `-f [file name]`, `--detailsFileName [file name]` the name of report
-    the program produces. Default is `validation-report.txt`. If you use
-    "stdout", it won't create file, but put results into the standard
-    output.
-  * `-r [format]`, `--format [format]` format specification of the
-    output. Possible values: `text` (default), `tab-separated` 
-    or `tsv`, `comma-separated` or `csv`
-* `-d [record type]`, `--defaultRecordType [record type]` the default record type to be used if the record's type is undetectable. The record type is calculated from the combination of Leader/06 (Type of record) and Leader/07 (bibliographic level), however sometimes the combination doesn't fit to the standard. In this case the tool will use the given record type. Possible values of the record type argument:
-   * BOOKS
-   * CONTINUING_RESOURCES
-   * MUSIC
-   * MAPS
-   * VISUAL_MATERIALS
-   * COMPUTER_FILES
-   * MIXED_MATERIALS
-* `-m [format]`, `--marcFormat [format]` The input format. Possible values are
-  * `ISO`: Binary (ISO 2709)
-  * `XML`: MARCXML (shortcuts: `-x`, `--marcxml`)
-  * `ALEPHSEQ`: Alephseq (shortcuts: `-p`, `--alephseq`)
-  * `LINE_SEPARATED`: Line separated binary MARC (each line contains one record)
-  * `MARC_LINE`: MARC Line line separated format i.e. it is a text file, where each line is a distinct field, the
-      same way as MARC records are usually displayed in the MARC21 standard documentation. (shortcuts: `-y`, `--linespearated`)
-  * `MARCMAKER`: MARCMaker format
-* `-q`, `--fixAlephseq` sometimes ALEPH export contains '^' characters
-    instead spaces in control fields (006, 007, 008). This flag replaces
-    them with spaces before the validation. It might occur in any input
-    format.
-* `-X`, `--fixAlma` sometimes Alma export contains '#' characters
-    instead spaces in control fields (006, 007, 008). This flag replaces
-    them with spaces before the validation. It might occur in any input
-    format.
-* parameters to limit the validation:
-  * `-i [record ID]`, `--id [record ID]` validates only a single record
-    having the specifies identifier (the content of 001)
-  * `-l [number]`, `--limit [number]` validates only given number of
-    records
-  * `-o [number]`, `--offset [number]` starts validation at the given
-    Nth record
-  * `-z [list of tags]`, `--ignorableFields [list of tags]` do NOT 
-    validate the selected fields. The list should contains the tags
-    separated by commas (`,`), e.g. `--ignorableFields A02,AQN`
-  * `-v [selector]`, `--ignorableRecords [selector]` do NOT validate
-    the records which match the condition denotet by the selector.
-    The selector is a test MARCspec string e.g.
-    `--ignorableRecords STA$a=SUPPRESSED`. It ignores the records which
-    has `STA` field with an `a` subfield with the value `SUPPRESSED`.
-* `-n`, `--nolog` do not display log messages
-* `-r`, `--trimId` remove spaces from the end of record IDs in the
-  output files (some library system add padding spaces around field 
-  value 001 in exported files)
-* `-w`, `--emptyLargeCollectors` the output files are created during
-  the process and not only at the end of it. It helps in memory 
-  management if the input is large and it has lots of errors, on the
-  other hand the output file will be segmented, which should be handled
-  after the process.
+  * `-g [file name]`, `--summaryFileName [file name]` the name of summary report the program produces. The file 
+    provides a summary of issues,  such as the number of instance and number of records having the particular issue)
+  * `-f [file name]`, `--detailsFileName [file name]` the name of report the program produces. Default is 
+    `validation-report.txt`. If you use "stdout", it won't create file, but put results into the standard output.
+  * `-r [format]`, `--format [format]` format specification of the output. Possible values:
+    * `text` (default), 
+    * `tab-separated` or `tsv`,
+    * `comma-separated` or `csv`
+* `-w`, `--emptyLargeCollectors` the output files are created during the process and not only at the end of it. It
+  helps in memory  management if the input is large and it has lots of errors, on the other hand the output file
+  will be segmented, which should be handled after the process.
 
 The `file` argument might contain any wildcard the operating system supports ('*', '?', etc.)
 
-It creates a file given at `fileName` parameter.
+Outputs:
+* `issue-by-category.csv`
+* `issue-by-type.csv`
+* `issue-summary.csv`
+* `issue-details.csv`
+* `issue-details-normalized.csv`
+* `issue-total.csv`
+* `issue-collector.csv`
 
-Currently it detects the following errors:
+Currently, it detects the following errors:
 
 Leader specific errors:
 
@@ -404,6 +420,7 @@ Errors in '   00000571 ':
 ...
 ```
 
+
 #### some post processing usage examples
 
 After running the validation as tab separated file `validation-report.txt`
@@ -438,7 +455,6 @@ or with a bash script
 2. control field position (e.g. `Leader/0`, `008/1-2`)
 3. data field (`655\$2`, `655\$ind1`)
 4. named control field position (`tag006book01`)
-* `-n`, `--nolog` do not display log messages
 
 The output of the script is something like this one:
 

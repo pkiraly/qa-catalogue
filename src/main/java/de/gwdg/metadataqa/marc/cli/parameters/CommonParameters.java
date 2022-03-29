@@ -63,8 +63,8 @@ public class CommonParameters implements Serializable {
       options.addOption("r", "trimId", false, "remove spaces from the end of record IDs");
       options.addOption("z", "ignorableFields", true, "ignore fields from the analysis");
       options.addOption("v", "ignorableRecords", true, "ignore records from the analysis");
-      options.addOption("m", "marcFormat", true, "MARC format (like 'ISO' or 'MARCXML')");
-      options.addOption("m", "dataSource", true, "data source (file of stream)");
+      options.addOption("f", "marcFormat", true, "MARC format (like 'ISO' or 'MARCXML')");
+      options.addOption("s", "dataSource", true, "data source (file of stream)");
       options.addOption("g", "defaultEncoding", true, "default character encoding");
       isOptionSet = true;
     }

@@ -37,7 +37,7 @@ Screenshot from the web UI of the QA cataloge
       * [Classification analysis](#classification-analysis)
       * [Authority name analysis](#authority-name-analysis)
     * [FRBR functional requirement analysis](#fbrb-functional-requirement-analysis)
-    * [Pareto analysis](#pareto-analysis)
+    * [Field frequency distribution](#field-frequency-distribution)
     * [Generating cataloguing history chart](#generating-cataloguing-history-chart)
     * [Import tables to SQLite](#import-tables-to-sqlite)
     * [Indexing MARC records with Solr](#indexing-marc-records-with-solr)
@@ -744,7 +744,26 @@ or
 
 It uses the general parameters.
 
-### Pareto analysis
+### Field frequency distribution
+
+It produces charts for each document type and one for the whole catlogue showing the field frequency patterns.
+Each chart shows a line which is the function of field 
+frequency: on the X-axis you can see the subfields ordered by the frequency (how many times a given subfield occurred 
+in the whole catalogue). They are ordered by frequency from the most frequent top 1% to the least frequent 1% subfields.
+The Y-axis represents the cumulative occurrence (from 0% to 100%).
+
+Before running it you should first run the completeness calculation.
+
+With a bash script
+```
+catalogues/[catalogue].sh pareto
+```
+or
+```
+./metadata-qa.sh --params="[options]" pareto
+```
+
+It uses the general parameters.
 
 ### Generating cataloguing history chart
 

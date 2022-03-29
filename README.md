@@ -28,9 +28,10 @@ Screenshot from the web UI of the QA cataloge
   * [Detailed instructions](#detailed-instructions)
     * [Validating MARC records](#validating-marc-records)
     * [Display one MARC record](#display-one-marc-record)
-    * [Calculating simple completeness](#calculating-simple-completeness)
-    * [Calculating Thompson-Traill completeness](#calculating-thompson-traill-completeness)
-    * [Shelf-ready completeness analysis](#shelf-ready-completeness-analysis)
+    * Completeness analyses
+      * [Calculating simple completeness](#calculating-simple-completeness)
+      * [Calculating Thompson-Traill completeness](#calculating-thompson-traill-completeness)
+      * [Shelf-ready completeness analysis](#shelf-ready-completeness-analysis)
     * [Indexing MARC records with Solr](#indexing-marc-records-with-solr)
       * [MARC tags format](#marc-tags-format)
       * [Human readable format](#human-readable-format)

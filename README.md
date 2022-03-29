@@ -590,7 +590,7 @@ or
 
 ### Classification analysis
 
-It analyses the coverage of subject indexing/classification in the catalogue. It check spefici fields, which might 
+It analyses the coverage of subject indexing/classification in the catalogue. It checks specific fields, which might 
 have subject indexing information, and provides details about how and which subject indexing schemes have been applied.
 
 The output is a set of files:
@@ -634,8 +634,8 @@ or
 
 ### Authority name analysis
 
-It analyses the coverage of authority names (persons, organisations, families, events) in the catalogue. It check 
-specific fields, which might have authority names, and provides details about how and which schemes have been applied.
+It analyses the coverage of authority names (persons, organisations, events, uniform titles) in the catalogue. It 
+checks specific fields, which might have authority names, and provides details about how and which schemes have been applied.
 
 The output is a set of files:
 

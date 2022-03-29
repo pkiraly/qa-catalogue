@@ -29,9 +29,16 @@ Screenshot from the web UI of the QA cataloge
     * [Validating MARC records](#validating-marc-records)
     * [Display one MARC record](#display-one-marc-record)
     * Completeness analyses
-      * [Calculating simple completeness](#calculating-simple-completeness)
+      * [Calculating data element completeness](#calculating-data-element-completeness)
       * [Calculating Thompson-Traill completeness](#calculating-thompson-traill-completeness)
       * [Shelf-ready completeness analysis](#shelf-ready-completeness-analysis)
+      * [Serial score analysis](#serial-score-analysis)
+    * [Classification analysis](#classification-analysis)
+    * [Authority analysis](#authority-analysis)
+    * [FRBR functional requirement analysis](#fbrb-functional-requirement-analysis)
+    * [Pareto analysis](#pareto-analysis)
+    * [Generating cataloguing history chart](#generating-cataloguing-history-chart)
+    * [Import tables to SQLite](#import-tables-to-sqlite)
     * [Indexing MARC records with Solr](#indexing-marc-records-with-solr)
       * [MARC tags format](#marc-tags-format)
       * [Human readable format](#human-readable-format)
@@ -472,7 +479,7 @@ LEADER 01697pam a2200433 c 4500
 925 r $arb
 ```
 
-### Calculating simple completeness
+### Calculating data element completeness
 ```
 java -cp $JAR de.gwdg.metadataqa.marc.cli.Completeness [options] [file]
 ```
@@ -552,6 +559,33 @@ or
 * `-f [fileName]`, `--fileName [fileName]` the report file name (default is "shelf-ready-completeness.csv")
 
 ### Serial score analysis
+
+These scores are calculated for each continuing resources (type of record (LDR/6) is language material ('a') and bibliographic level (LDR/7) is serial component part ('b'), integrating resource ('i') or serial ('s')).
+
+The calculation is based on a slightly modified version of the method published by Jamie Carlstone in the following paper:
+
+Jamie Carlstone (2017) _Scoring the Quality of E-Serials MARC Records Using Java_, Serials Review, 43:3-4, pp. 
+271-277, DOI: 10.1080/00987913.2017.1350525 URL: https://www.tandfonline.com/doi/full/10.1080/00987913.2017.1350525 
+
+```
+java -cp $JAR de.gwdg.metadataqa.marc.cli.SerialScore [options] [file]
+```
+with a bash script
+```
+./serial-score [options] [file]
+```
+or
+```
+catalogues/[catalogue].sh serial-score
+```
+or
+```
+./metadata-qa.sh --params="[options]" serial-score
+```
+
+* `-l [limit]`, `--limit [limit]` limit the number of records to process
+* `-o [offset]`, `--offset [offset]` the first record to process
+* `-f [fileName]`, `--fileName [fileName]` the report file name (default is "shelf-ready-completeness.csv")
 
 ### Classification analysis
 

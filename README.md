@@ -791,6 +791,24 @@ or
 
 ### Import tables to SQLite
 
+This is just a helper function which imports the results of validation into SQLite3 database.
+
+The prerequisite of this step is to run validation first, since it uses the files produced there. If you run validation 
+with catalogues/[catalogue].sh or ./metadata-qa.sh scripts, this importing step is already covered there.
+
+Usage:
+```
+catalogues/[catalogue].sh sqlite
+```
+or
+```
+./metadata-qa.sh --params="[options]" sqlite
+```
+
+Output:
+* `qa_catalogue.sqlite`: the SQLite3 database with 3 tables: `issue_details`, `issue_groups`, and `issue_summary`.
+
+
 ### Indexing MARC records with Solr
 
 Set autocommit the following way in solrconfig.xml (inside Solr):

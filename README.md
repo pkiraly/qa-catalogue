@@ -26,6 +26,7 @@ Screenshot from the web UI of the QA cataloge
     * [run](#run-1)
     * [configuration](#configuration-1)
   * [Detailed instructions](#detailed-instructions)
+    * [General parameters](#general-parameters)
     * [Validating MARC records](#validating-marc-records)
     * [Display one MARC record](#display-one-marc-record)
     * Completeness analyses
@@ -319,6 +320,7 @@ or with a bash script
 
 options:
 
+* [general parameters](#general-parameters)
 * granularity of the report
   * `-s`, `--summary` creating a summary report instead of record level reports
   * `-h`, `--details` provides record level details of the issues

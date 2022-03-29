@@ -534,14 +534,9 @@ The current calculation based on this list of essentian fields. If all data elem
 java -cp $JAR de.gwdg.metadataqa.marc.cli.ShelfReadyCompleteness [options] [file]
 ```
 or with a bash script
-```
-./shelf-ready-completeness [options] [file]
-or
-catalogues/[catalogue].sh shelf-ready-completeness
-or
-./metadata-qa.sh --params="[options]" shelf-ready-completeness
-```
-
+1. `./shelf-ready-completeness [options] [file]`
+2. `catalogues/[catalogue].sh shelf-ready-completeness`
+3. `./metadata-qa.sh --params="[options]" shelf-ready-completeness`
 
 * `-l [limit]`, `--limit [limit]` limit the number of records to process
 * `-o [offset]`, `--offset [offset]` the first record to process

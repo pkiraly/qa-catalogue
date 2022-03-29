@@ -63,9 +63,9 @@ Screenshot from the web UI of the QA cataloge
 ## Quick start guide
 ### Installation
 
-1.  `wget https://github.com/pkiraly/metadata-qa-marc/releases/download/v0.2.1/metadata-qa-marc-0.2-SNAPSHOT-release.zip`
-2.  `unzip metadata-qa-marc-0.2-SNAPSHOT-release.zip`
-3. `cd metadata-qa-marc-0.2-SNAPSHOT/`
+1. `wget https://github.com/pkiraly/metadata-qa-marc/releases/download/v0.5.0/metadata-qa-marc-0.5.0-release.zip`
+2. `unzip metadata-qa-marc-0.5.0-release.zip`
+3. `cd metadata-qa-marc-0.5.0/`
 
 ### Configuration
 
@@ -81,23 +81,44 @@ BASE_OUTPUT_DIR=
 ```
 
 6. Create configuration based on some existing config files:
- * cp scripts/loc.sh scripts/[abbreviation-of-your-library].sh
- * edit scripts/[abbreviation-of-your-library].sh according to [configuration guide](#configuration-1)
+ * cp catalogues/loc.sh catalogues/[abbreviation-of-your-library].sh
+ * edit catalogues/[abbreviation-of-your-library].sh according to [configuration guide](#configuration-1)
 
 ### With docker
 
-An experimental Docker image is publicly available in Docker Hub. This imsage contain an Ubuntu 18.08 with Java, R and the current software. No installation is needed (given you have a Docker running environment). You only have to specify the directory on your local machine where the MARC files are located. The first issue of this command will download the Docker image, which takes a time. Once it is downloaded you will be entered into the bash shell (I denoted this with the `#` symbol), where you have to change directory to `/opt/metadata-qa-marc` the location of the application.
+An experimental Docker image is publicly available in Docker Hub. This imsage contain an Ubuntu 20.04 with Java, R
+and the current software. No installation is needed (given you have a Docker running environment). You only have
+to specify the directory on your local machine where the MARC files are located. The first issue of this command
+will download the Docker image, which takes a time. Once it is downloaded you will be entered into the bash shell
+(I denoted this with the `#` symbol), where you have to change directory to `/opt/metadata-qa-marc` the location
+of the application.
 
 ```
-> docker run -t -i -v [your-MARC-directory]:/opt/metadata-qa-marc/marc pkiraly/metadata-qa-marc /bin/bash
-# cd /opt/metadata-qa-marc
+# download Docker imgae and initialize the Docker container
+docker run \
+  -d \
+  -v [your-MARC-directory]:/opt/metadata-qa-marc/marc \
+  -p 8983:8983 -p 80:80 \
+  --name metadata-qa-marc \
+  pkiraly/metadata-qa-marc:0.5.0
+
+# run analyses (this example uses parameters for Gent university library catalogue)
+docker container exec \
+  -ti \
+  metadata-qa-marc \
+  ./metadata-qa.sh \
+  --params "--marcVersion GENT --alephseq" \
+  --mask "rug01.export" \
+  --catalogue gent 
+  all
 ```
 
 Everything else works the same way as in other environments, so follow the next sections.
 
-Note: at the time of writing this Docker image doesn't contain the [web user interface](#user-interface), only the command line interface (the content of this repository).
+Note: at the time of writing this Docker image doesn't contain the [web user interface](#user-interface), only the
+command line interface (the content of this repository).
 
-More deatils about the Docker use case: http://pkiraly.github.io/2020/05/31/running-with-docker/.
+More details about the Docker use case: http://pkiraly.github.io/2020/05/31/running-with-docker/.
 
 ### Use
 
@@ -110,7 +131,7 @@ For a catalogue with around 1 milion record the first command will take 5-10 min
 
 ## build
 
-Prerequisites: Java 8 (I use OpenJDK), and Maven 3
+Prerequisites: Java 11 (I use OpenJDK), and Maven 3
 
 1. Optional step: clone and build the parent library, metadata-qa-api project:
 
@@ -131,11 +152,16 @@ mvn clean install
 
 ### ... or download
 
-The released versions of the software is available from Maven Central repository. The stable releases (currently 0.1) is available from all Maven repos, the developer version (0.2-SNAPSHOT) is avalable from the [Sonatype Maven repository](https://oss.sonatype.org/content/repositories/snapshots/de/gwdg/metadataqa/metadata-qa-marc/0.2-SNAPSHOT/). What you need to select is the file `metadata-qa-marc-0.2-[timestamp]-1-jar-with-dependencies.jar`. 
+The released versions of the software is available from Maven Central repository. The stable releases (currently 0.1)
+is available from all Maven repos, the developer version (0.5.0) is avalable from the [Sonatype Maven repository]
+(https://oss.sonatype.org/content/repositories/snapshots/de/gwdg/metadataqa/metadata-qa-marc/0.5.0/). What you need
+to select is the file `metadata-qa-marc-0.5.0-jar-with-dependencies.jar`. 
 
-Be aware that no automation exists for creating a this current developer version as nightly build, so there is a chance that the latest features are not available in this version. If you want to use the latest version, do build it.
+Be aware that no automation exists for creating a current developer version as nightly build, so there is a chance
+that the latest features are not available in this version. If you want to use the latest version, do build it.
 
-Since the jar file doesn't contain the helper scipts, you might also consider to download them from this GitHib repository:
+Since the jar file doesn't contain the helper scripts, you might also consider downloading them from this GitHub 
+repository:
 
 ```
 wget https://raw.githubusercontent.com/pkiraly/metadata-qa-marc/master/common-script
@@ -151,12 +177,22 @@ You should adjust `common-script` to point to the jar file you just downloaded.
 <a name="helper-scripts"></a>
 ### Helper scripts
 
-The tool comes with some bash helper scripts to run all these with default values. The generic scripts locate in the root directory and library specific configuration like scripts exist in the `scripts` directory. You can find predefined scripts for 19 library catalogues (if you want to run it, first you have to configure it).
+The tool comes with some bash helper scripts to run all these with default values. The generic scripts locate in the
+root directory and library specific configuration like scripts exist in the `catalogues` directory. You can find
+predefined scripts for several library catalogues (if you want to run it, first you have to configure it). All 
+these scrips mainly contain configuration and then it calls the central `common-script` which contains the functions.
+
+If you do not want to 
+
 
 #### run
 
+```bash
+catalogues/[your script] [command]
 ```
-scripts/[your script] [command]
+or
+```bash
+./metadata-qa.sh --params="[options]" [command]
 ```
 
 The following commands are supported:
@@ -166,12 +202,19 @@ The following commands are supported:
 * `classifications` -- runs classification analysis
 * `authorities` -- runs authorities analysis
 * `tt-completeness` -- runs Thomson-Trail completeness analysis
+* `shelf-ready-completeness` -- runs shelf-ready completeness analysis
 * `serial-score` -- calculates the serial scores
 * `format` -- runs formatting records
 * `functional-analysis` -- runs functional analysis
+* `pareto` -- runs pareto analysis
+* `marc-history` -- generates cataloguing history chart
 * `prepare-solr` -- prepare Solr index (you should already have Solr running, and index created)
 * `index` -- runs indexing with Solr
+* `sqlite` -- import tables to SQLite
+* `export-schema-files` -- export schema files
 * `all-analyses` this runs the following commands in one step: validate, completeness, classifications, authorities, tt_completeness, serial_score, functional_analysis
+* `all-solr` -- run all indexing tasks
+* `all` -- run all tasks
 
 You can find information about these functionalities below this document.
 
@@ -215,7 +258,8 @@ Three variables are important here:
 2. `MARC_DIR` is the location of MARC files. All the files should be in the same direcory
 3. `MASK` is a file mask, such as *.mrc or *.marc
 
-You can add here any other parameters this document mentioned at the description of individual command, wrapped in TYPE_PARAMS variable e.g. for the Deutche Nationalbibliothek's config file, one can find this
+You can add here any other parameters this document mentioned at the description of individual command, wrapped in 
+TYPE_PARAMS variable e.g. for the Deutche Nationalbibliothek's config file, one can find this
 
 ```
 TYPE_PARAMS="--marcVersion DNB --marcxml"
@@ -223,13 +267,23 @@ TYPE_PARAMS="--marcVersion DNB --marcxml"
 
 This line sets the DNB's MARC version (to cover fields defined within DNB's MARC version), and XML as input format.
 
+The `./metadata-qa.sh` script has the following options:
+* 
+* `-n`, `--name`: the name of the catalogue (default is metadata-qa, this will be the name of the output directory)
+* `-p`, `--params`: the parameters to pass to the individual commands
+* `-m`, `--mask`: a file mask, such as '*.mrc'
+* `-c`, `--catalogue`: an extra name of the catalogue, different than the `name` parameter. Used mainly for the web UI
+* `-v`, `--version`: a version number of the MARC catalogue (typically a date string, such as YYYY-MM-DD). It is
+  useful is you would like to compare changes of metadata quality
+* `-d`, `--input-dir`: a subdirectory of BASE_INPUT_DIR where the MARC files sit
+
 ## Detailed instructions
 
 
 We will use the same jar file in every command, so we save its path into a variable.
 
 ```
-export JAR=target/metadata-qa-marc-0.5-jar-with-dependencies.jar
+export JAR=target/metadata-qa-marc-0.5.0-jar-with-dependencies.jar
 ```
 
 ### General parameters
@@ -1244,18 +1298,18 @@ pom.xml
 <dependency>
   <groupId>de.gwdg.metadataqa</groupId>
   <artifactId>metadata-qa-marc</artifactId>
-  <version>0.1</version>
+  <version>0.5.0</version>
 </dependency>
 ```
 
 build.sbt
 
 ```
-libraryDependencies += "de.gwdg.metadataqa" % "metadata-qa-marc" % "0.1"
+libraryDependencies += "de.gwdg.metadataqa" % "metadata-qa-marc" % "0.5.0"
 ```
 
-
-or you can directly download the jars from [http://repo1.maven.org](http://repo1.maven.org/maven2/de/gwdg/metadataqa/metadata-qa-marc/0.1/)
+or you can directly download the jars from [http://repo1.maven.org](http://repo1.maven.
+org/maven2/de/gwdg/metadataqa/metadata-qa-marc/0.5.0/)
 
 ## User interface
 

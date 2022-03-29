@@ -15,7 +15,6 @@ apt-get install -y --no-install-recommends software-properties-common
 # add PPA with pre-compiled cran packages
 sudo add-apt-repository -y ppa:openjdk-r/ppa
 sudo add-apt-repository -y ppa:marutter/rrutter3.5
-sudo add-apt-repository -y ppa:marutter/c2d4u3.5
 # install general OS tools
 sudo apt-get install -y --no-install-recommends apt-utils nano jq curl openssl less wget unzip
 # install Java
@@ -33,7 +32,7 @@ sudo apt-get install php php-sqlite3
 ### Install Apache Solr
 
 ```bash
-export SOLR_VERSION=8.11.0
+export SOLR_VERSION=8.11.1
 cd /opt
 wget http://archive.apache.org/dist/lucene/solr/${SOLR_VERSION}/solr-${SOLR_VERSION}.zip
 unzip -q solr-${SOLR_VERSION}.zip
@@ -44,8 +43,8 @@ ln -s solr-${SOLR_VERSION} solr
 ## Download and Configure QA catalogue
 
 ```bash
-export VERSION=4.0
-wget https://github.com/pkiraly/metadata-qa-marc/releases/download/v0.4/metadata-qa-marc-$VERSION-release.zip
+export VERSION=0.5.0
+wget https://github.com/pkiraly/metadata-qa-marc/releases/download/v${VERSION}/metadata-qa-marc-${VERSION}-release.zip
 unzip metadata-qa-marc-$VERSION-release.zip
 cd metadata-qa-marc-$VERSION
 cp setdir.sh.template setdir.sh

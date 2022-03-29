@@ -33,8 +33,9 @@ Screenshot from the web UI of the QA cataloge
       * [Calculating Thompson-Traill completeness](#calculating-thompson-traill-completeness)
       * [Shelf-ready completeness analysis](#shelf-ready-completeness-analysis)
       * [Serial score analysis](#serial-score-analysis)
-    * [Classification analysis](#classification-analysis)
-    * [Authority analysis](#authority-analysis)
+    * Contextual analyses
+      * [Classification analysis](#classification-analysis)
+      * [Authority analysis](#authority-analysis)
     * [FRBR functional requirement analysis](#fbrb-functional-requirement-analysis)
     * [Pareto analysis](#pareto-analysis)
     * [Generating cataloguing history chart](#generating-cataloguing-history-chart)

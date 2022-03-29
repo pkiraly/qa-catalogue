@@ -93,16 +93,18 @@ will download the Docker image, which takes a time. Once it is downloaded you wi
 (I denoted this with the `#` symbol), where you have to change directory to `/opt/metadata-qa-marc` the location
 of the application.
 
-```
-# download Docker imgae and initialize the Docker container
+1. download Docker image and initialize the Docker container
+```bash
 docker run \
   -d \
   -v [your-MARC-directory]:/opt/metadata-qa-marc/marc \
   -p 8983:8983 -p 80:80 \
   --name metadata-qa-marc \
   pkiraly/metadata-qa-marc:0.5.0
+```
+2. run analyses (this example uses parameters for Gent university library catalogue)
 
-# run analyses (this example uses parameters for Gent university library catalogue)
+```bash
 docker container exec \
   -ti \
   metadata-qa-marc \
@@ -122,7 +124,7 @@ More details about the Docker use case: http://pkiraly.github.io/2020/05/31/runn
 
 ### Use
 
-```
+```bash
 scripts/[abbreviation-of-your-library].sh all-analyses
 scripts/[abbreviation-of-your-library].sh all-solr
 ```
@@ -135,7 +137,7 @@ Prerequisites: Java 11 (I use OpenJDK), and Maven 3
 
 1. Optional step: clone and build the parent library, metadata-qa-api project:
 
-```
+```bash
 git clone https://github.com/pkiraly/metadata-qa-api.git
 cd metadata-qa-api
 mvn clean install
@@ -144,7 +146,7 @@ cd ..
 
 2. Mandatory step: clone and build the current metadata-qa-marc project
 
-```
+```bash
 git clone https://github.com/pkiraly/metadata-qa-marc.git
 cd metadata-qa-marc
 mvn clean install
@@ -163,7 +165,7 @@ that the latest features are not available in this version. If you want to use t
 Since the jar file doesn't contain the helper scripts, you might also consider downloading them from this GitHub 
 repository:
 
-```
+```bash
 wget https://raw.githubusercontent.com/pkiraly/metadata-qa-marc/master/common-script
 wget https://raw.githubusercontent.com/pkiraly/metadata-qa-marc/master/validator
 wget https://raw.githubusercontent.com/pkiraly/metadata-qa-marc/master/formatter
@@ -221,13 +223,13 @@ You can find information about these functionalities below this document.
 #### configuration
 
 1. create the configuration file (setdir.sh)
-```
+```bash
 cp setdir.sh.template setdir.sh
 ```
 
 2. edit the file configuration file. Two lines are important here
 
-```
+```bash
 BASE_INPUT_DIR=your/path
 BASE_OUTPUT_DIR=your/path
 ```
@@ -239,7 +241,7 @@ BASE_OUTPUT_DIR=your/path
 
 Here is an example file for analysing Library of Congress' MARC records
 
-```
+```bash
 #!/usr/bin/env bash
 
 . ./setdir.sh
@@ -261,7 +263,7 @@ Three variables are important here:
 You can add here any other parameters this document mentioned at the description of individual command, wrapped in 
 TYPE_PARAMS variable e.g. for the Deutche Nationalbibliothek's config file, one can find this
 
-```
+```bash
 TYPE_PARAMS="--marcVersion DNB --marcxml"
 ```
 
@@ -282,7 +284,7 @@ The `./metadata-qa.sh` script has the following options:
 
 We will use the same jar file in every command, so we save its path into a variable.
 
-```
+```bash
 export JAR=target/metadata-qa-marc-0.5.0-jar-with-dependencies.jar
 ```
 
@@ -377,19 +379,19 @@ as error, and another which handles these as valid fields.
 
 Usage:
 
-```
+```bash
 java -cp $JAR de.gwdg.metadataqa.marc.cli.Validator [options] [file]
 ```
 or with a bash script
-```
+```bash
 ./validator [options] [file]
 ```
 or
-```
+```bash
 catalogues/[catalogue].sh validate
 ```
 or
-```
+```bash
 ./metadata-qa.sh --params="[options]" validate
 ```
 
@@ -505,23 +507,23 @@ After running the validation as tab separated file `validation-report.txt`
 
 get the number of errors:
 
-```
+```bash
 wc -l validation-report.txt
 ```
 
 get the number of records having errors
 
-```
+```bash
 awk -F "\t" '{print $1}' validation-report.txt | uniq -c | wc -l
 ```
 
 ### Display one MARC record, or extract data elements from MARC records
 
-```
+```bash
 java -cp $JAR de.gwdg.metadataqa.marc.cli.Formatter [options] [file]
 ```
 or with a bash script
-```
+```bash
 ./formatter [options] [file]
 ```
 
@@ -599,19 +601,19 @@ Counts basic statistics about the data elements available in the catalogue.
 
 Usage:
 
-```
+```bash
 java -cp $JAR de.gwdg.metadataqa.marc.cli.Completeness [options] [file]
 ```
 or with a bash script
-```
+```bash
 ./completeness [options] [file]
 ```
 or
-```
+```bash
 catalogues/[catalogue].sh completeness
 ```
 or
-```
+```bash
 ./metadata-qa.sh --params="[options]" completeness
 ```
 
@@ -637,19 +639,19 @@ from different data sources. Their article is _Implementation of the scoring alg
 to improve ebook metadata selection, ingest, and management._ In Code4Lib Journal, Issue 38, 2017-10-18.
 http://journal.code4lib.org/articles/12828
 
-```
+```bash
 java -cp $JAR de.gwdg.metadataqa.marc.cli.ThompsonTraillCompleteness [options] [file]
 ```
 or with a bash script
-```
+```bash
 ./tt-completeness [options] [file]
 ```
 or
-```
+```bash
 catalogues/[catalogue].sh tt-completeness
 ```
 or
-```
+```bash
 ./metadata-qa.sh --params="[options]" tt-completeness
 ```
 
@@ -690,19 +692,19 @@ if none, it gets 0. For 1XX,, 6XX, 7XX and 8XX the record gets the full scores i
 subfield $a) is available. The total score became the average. The theoretical maximum score would be 28.44, which
 could be accessed if all the data elements are available in the record.
 
-```
+```bash
 java -cp $JAR de.gwdg.metadataqa.marc.cli.ShelfReadyCompleteness [options] [file]
 ```
 with a bash script
-```
+```bash
 ./shelf-ready-completeness [options] [file]
 ```
 or
-```
+```bash
 catalogues/[catalogue].sh shelf-ready-completeness
 ```
 or
-```
+```bash
 ./metadata-qa.sh --params="[options]" shelf-ready-completeness
 ```
 
@@ -719,19 +721,19 @@ The calculation is based on a slightly modified version of the method published 
 Jamie Carlstone (2017) _Scoring the Quality of E-Serials MARC Records Using Java_, Serials Review, 43:3-4, pp. 
 271-277, DOI: 10.1080/00987913.2017.1350525 URL: https://www.tandfonline.com/doi/full/10.1080/00987913.2017.1350525 
 
-```
+```bash
 java -cp $JAR de.gwdg.metadataqa.marc.cli.SerialScore [options] [file]
 ```
 with a bash script
-```
+```bash
 ./serial-score [options] [file]
 ```
 or
-```
+```bash
 catalogues/[catalogue].sh serial-score
 ```
 or
-```
+```bash
 ./metadata-qa.sh --params="[options]" serial-score
 ```
 
@@ -744,21 +746,21 @@ options:
 It analyses the coverage of subject indexing/classification in the catalogue. It checks specific fields, which might 
 have subject indexing information, and provides details about how and which subject indexing schemes have been applied.
 
-```
+```bash
 java -cp $JAR de.gwdg.metadataqa.marc.cli.ClassificationAnalysis [options] [file]
 Rscript scripts/classifications/classifications-type.R [output directory]
 ```
 with a bash script
-```
+```bash
 ./classifications [options] [file]
 Rscript scripts/classifications/classifications-type.R [output directory]
 ```
 or
-```
+```bash
 catalogues/[catalogue].sh classifications
 ```
 or
-```
+```bash
 ./metadata-qa.sh --params="[options]" classifications
 ```
 
@@ -790,19 +792,19 @@ The output is a set of files:
 It analyses the coverage of authority names (persons, organisations, events, uniform titles) in the catalogue. It 
 checks specific fields, which might have authority names, and provides details about how and which schemes have been applied.
 
-```
+```bash
 java -cp $JAR de.gwdg.metadataqa.marc.cli.AuthorityAnalysis [options] [file]
 ```
 with a bash script
-```
+```bash
 ./authorities [options] [file]
 ```
 or
-```
+```bash
 catalogues/[catalogue].sh authorities
 ```
 or
-```
+```bash
 ./metadata-qa.sh --params="[options]" authorities
 ```
 
@@ -872,19 +874,19 @@ Management functions
 * display (ManagementDisplay): Display a field or data element (i.e., to display a field or data element with the
   appropriate print constant or as a tracing).
 
-```
+```bash
 java -cp $JAR de.gwdg.metadataqa.marc.cli.FunctionalAnalysis [options] [file]
 ```
 with a bash script
-```
+```bash
 ./functional-analysis [options] [file]
 ```
 or
-```
+```bash
 catalogues/[catalogue].sh functional-analysis
 ```
 or
-```
+```bash
 ./metadata-qa.sh --params="[options]" functional-analysis
 ```
 
@@ -915,11 +917,11 @@ from the most frequent top 1% to the least frequent 1% subfields. The Y-axis rep
 Before running it you should first run the completeness calculation.
 
 With a bash script
-```
+```bash
 catalogues/[catalogue].sh pareto
 ```
 or
-```
+```bash
 ./metadata-qa.sh --params="[options]" pareto
 ```
 
@@ -935,11 +937,11 @@ It produces a chart where the Y-axis is based on the "date entered on file" data
 MARC record was created (008/00-05), the X-axis is based on "Date 1" element (008/07-10).
 
 Usage:
-```
+```bash
 catalogues/[catalogue].sh marc-history
 ```
 or
-```
+```bash
 ./metadata-qa.sh --params="[options]" marc-history
 ```
 
@@ -954,11 +956,11 @@ The prerequisite of this step is to run validation first, since it uses the file
 with catalogues/[catalogue].sh or ./metadata-qa.sh scripts, this importing step is already covered there.
 
 Usage:
-```
+```bash
 catalogues/[catalogue].sh sqlite
 ```
 or
-```
+```bash
 ./metadata-qa.sh --params="[options]" sqlite
 ```
 
@@ -1015,15 +1017,15 @@ curl -X POST -H 'Content-type:application/json' --data-binary '{
 ```
 
 Run indexer:
-```
+```bash
 java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr [options] [file]
 ```
 With script:
-```
+```bash
 catalogues/[catalogue].sh all-solr
 ```
 or
-```
+```bash
 ./metadata-qa.sh --params="[options]" all-solr
 ```
 
@@ -1180,7 +1182,7 @@ I have created a distinct project [metadata-qa-marc-web](https://github.com/pkir
 
 ### Indexing MARC JSON records with Solr
 
-```
+```bash
 java -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MarcJsonToSolr [Solr url] [MARC JSON file]
 ```
 
@@ -1193,15 +1195,15 @@ The MARC JSON file is a JSON serialization of binary MARC file. See more the [MA
 Some background info: [MARC21 structure in JSON](http://pkiraly.github.io/2018/01/28/marc21-in-json/).
 
 Usage:
-```
+```bash
 java -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MappingToJson [options] > marc-schema
 ```
 with script:
-```
+```bash
 catalogues/[catalogue].sh export-schema-files
 ```
 or
-```
+```bash
 ./metadata-qa.sh --params="[options]" export-schema-files
 ```
 
@@ -1284,7 +1286,7 @@ The script version generates 3 files, with different details:
 
 To export the HTML table described at [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/)
 
-```
+```bash
 java -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MappingToHtml > mapping.html
 ```
 
@@ -1294,7 +1296,7 @@ The project is available from Maven Central, the central respository of open sou
 
 pom.xml
 
-```
+```XML
 <dependency>
   <groupId>de.gwdg.metadataqa</groupId>
   <artifactId>metadata-qa-marc</artifactId>
@@ -1304,7 +1306,7 @@ pom.xml
 
 build.sbt
 
-```
+```bash
 libraryDependencies += "de.gwdg.metadataqa" % "metadata-qa-marc" % "0.5.0"
 ```
 
@@ -1497,7 +1499,7 @@ mvn clean deploy -Pdeploy
 ### Docker image
 
 Build and test
-```
+```bash
 # create the Java library
 mvn clean install
 # create the docker images
@@ -1521,9 +1523,8 @@ docker exec \                                       # execure a command
 
 You will see some log messages, and it is done, you can check the output at http://localhost/metadata-qa.
 
-
 Upload to Docker Hub:
-```
+```bash
 docker tag metadata-qa-marc:latest pkiraly/metadata-qa-marc:latest
 docker login
 docker push pkiraly/metadata-qa-marc:latest

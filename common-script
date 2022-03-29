@@ -321,7 +321,7 @@ commands:
   functional-analysis        FRBR functional requirement analysis
   network-analysis           network analysis
   pareto                     pareto analysis
-  marc-history               generating cataloguiong history chart
+  marc-history               generating cataloguing history chart
   record-patterns            record patterns
   prepare-solr               prepare indexing
   index                      indexing with Solr

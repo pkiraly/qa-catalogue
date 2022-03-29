@@ -30,10 +30,11 @@ Screenshot from the web UI of the QA cataloge
     * [Display one MARC record](#display-one-marc-record)
     * [Calculating simple completeness](#calculating-simple-completeness)
     * [Calculating Thompson-Traill completeness](#calculating-thompson-traill-completeness)
+    * [Shelf-ready completeness analysis](#shelf-ready-completeness-analysis)
     * [Indexing MARC records with Solr](#indexing-marc-records-with-solr)
-    * [MARC tags format](#marc-tags-format)
-    * [Human readable format](#human-readable-format)
-    * [Mixed format](#mixed-format)
+      * [MARC tags format](#marc-tags-format)
+      * [Human readable format](#human-readable-format)
+      * [Mixed format](#mixed-format)
     * [Indexing MARC JSON records with Solr](#indexing-marc-json-records-with-solr)
     * [Export mapping table](#export-mapping-table)
       * [to Avram JSON](#to-avram-json)
@@ -218,7 +219,7 @@ This line sets the DNB's MARC version (to cover fields defined within DNB's MARC
 We will use the same jar file in every command, so we save its path into a variable.
 
 ```
-export JAR=target/metadata-qa-marc-0.2-SNAPSHOT-jar-with-dependencies.jar
+export JAR=target/metadata-qa-marc-0.5-jar-with-dependencies.jar
 ```
 
 ### Validating MARC records
@@ -516,6 +517,51 @@ LoC,Mesh,Fast,GND,Other,Online,Language of Resource,Country of Publication,noLan
 "010023623",0,0,3,0,0,0,0,1,2,0,0,0,0,0,0,0,1,0,0,0,7
 "010027734",0,0,3,0,1,2,0,1,2,0,0,0,0,0,0,0,1,0,0,0,10
 ```
+
+### Shelf-ready completeness analysis
+
+These scores are the implementation of the following paper:
+
+    Emma Booth (2020) Quality of Shelf-Ready Metadata. Analysis of survey responses and recommendations for suppliers, Pontefract (UK): National Acquisitions Group, 2020. p 31. https://nag.org.uk/wp-content/uploads/2020/06/NAG-Quality-of-Shelf-Ready-Metadata-Survey-Analysis-and-Recommendations_FINAL_June2020.pdf 
+
+The main purpose of the report is to highlight which fields of the printed and electronic book records are important when the records are coming from different suppliers. 50 libraries participated in the survey, each selected which fields are important to them. The report listed those fields which gets the highest scores.
+
+The current calculation based on this list of essentian fields. If all data elements specified are available in the record it gets the full scrore, if only some of them, it gets a proportional score. E.g. under 250 (edition statement) there are two subfields. If both are available, it gets score 44. If only one of them, it gets the half of it, 22, and if none, it gets 0. For 1XX,, 6XX, 7XX and 8XX the record gets the full scores if at least one of those fields (with subfield $a) is available. The total score became the average. The theoretical maximum score would be 28.44, which could be accessed if all the data elements are available in the record.
+
+```
+java -cp $JAR de.gwdg.metadataqa.marc.cli.ShelfReadyCompleteness [options] [file]
+```
+or with a bash script
+```
+./shelf-ready-completeness [options] [file]
+```
+or
+```
+catalogues/[catalogue].sh shelf-ready-completeness
+```
+or
+```
+./metadata-qa.sh [options] shelf-ready-completeness
+```
+
+
+* `-l [limit]`, `--limit [limit]` limit the number of records to process
+* `-o [offset]`, `--offset [offset]` the first record to process
+* `-f [fileName]`, `--fileName [fileName]` the report file name (default is "shelf-ready-completeness.csv")
+
+### Serial score analysis
+
+### Classification analysis
+
+### Authority analysis
+
+### FRBR functional requirement analysis
+
+### Pareto analysis
+
+### Generating cataloguing history chart
+
+### Import tables to SQLite
 
 ### Indexing MARC records with Solr
 

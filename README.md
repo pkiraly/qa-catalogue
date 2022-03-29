@@ -28,7 +28,7 @@ Screenshot from the web UI of the QA cataloge
   * [Detailed instructions](#detailed-instructions)
     * [General parameters](#general-parameters)
     * [Validating MARC records](#validating-marc-records)
-    * [Display one MARC record](#display-one-marc-record)
+    * [Display one MARC record, or extract data elements from MARC records](#display-one-marc-record-or-extract-data-elements-from-marc-records)
     * Completeness analyses
       * [Calculating data element completeness](#calculating-data-element-completeness)
       * [Calculating Thompson-Traill completeness](#calculating-thompson-traill-completeness)
@@ -343,18 +343,18 @@ options:
 
 * [general parameters](#general-parameters)
 * granularity of the report
-  * `-s`, `--summary` creating a summary report instead of record level reports
-  * `-h`, `--details` provides record level details of the issues
+  * `-s`, `--summary`: creating a summary report instead of record level reports
+  * `-h`, `--details`: provides record level details of the issues
 * output parameters:
-  * `-g [file name]`, `--summaryFileName [file name]` the name of summary report the program produces. The file 
+  * `-g [file name]`, `--summaryFileName [file name]`: the name of summary report the program produces. The file 
     provides a summary of issues,  such as the number of instance and number of records having the particular issue)
-  * `-f [file name]`, `--detailsFileName [file name]` the name of report the program produces. Default is 
+  * `-f [file name]`, `--detailsFileName [file name]`: the name of report the program produces. Default is 
     `validation-report.txt`. If you use "stdout", it won't create file, but put results into the standard output.
-  * `-r [format]`, `--format [format]` format specification of the output. Possible values:
+  * `-r [format]`, `--format [format]`: format specification of the output. Possible values:
     * `text` (default), 
     * `tab-separated` or `tsv`,
     * `comma-separated` or `csv`
-* `-w`, `--emptyLargeCollectors` the output files are created during the process and not only at the end of it. It
+* `-w`, `--emptyLargeCollectors`: the output files are created during the process and not only at the end of it. It
   helps in memory  management if the input is large and it has lots of errors, on the other hand the output file
   will be segmented, which should be handled after the process.
 * `-t`, `--collectAllErrors`: collect all errors (useful only for validating small number of records). Default is 
@@ -472,11 +472,11 @@ or with a bash script
 ```
 
 options:
-
 * [general parameters](#general-parameters)
-* `-f`, `--format` the name of the format (at time of writing there is no any)
-* `-c [count number]`, `-countNr [count number]` count number of the record (e.g. 1 means the first record)
-* `-s [path=query]`, `-search [path=query]` print records matching the query. The query part is the content of the element. The path should be one of the following types:
+* `-f`, `--format`: the name of the format (at time of writing there is no any)
+* `-c [count number]`, `-countNr [count number]`: count number of the record (e.g. 1 means the first record)
+* `-s [path=query]`, `-search [path=query]`: print records matching the query. The query part is the content of the 
+  element. The path should be one of the following types:
 1. control field tag (e.g. `001`, `002`, `003`)
 2. control field position (e.g. `Leader/0`, `008/1-2`)
 3. data field (`655\$2`, `655\$ind1`)
@@ -484,6 +484,7 @@ options:
 * `-l [selector]`, `--selector [selector]`: one or more MarcSpec selectors, separated by ';' (semicolon) character
 * `-w`, `--withId`: the generated CSV should contain record ID as first field (default is turned off)
 * `-p [separator]`, `--separator [separator]`: separator between the parts (default: TAB)
+* `-e [file name]`, `--fileName [file name]`: the name of report the program produces (default: `extracted.csv`)
 
 The output of displaying a single MARC record is something like this one:
 
@@ -532,7 +533,7 @@ An example for extracting values:
             --defaultRecordType BOOKS \
             --separator "," \
             --outputDir ${OUTPUT_DIR} \
-            --outputFile marc-history.csv \
+            --fileName marc-history.csv \
              ${MARC_DIR}/*.mrc
 ```
 
@@ -563,7 +564,7 @@ or
 options:
 
 * [general parameters](#general-parameters)
-* `-r [format]`, `--format [format]` format specification of the output. Possible values: 
+* `-r [format]`, `--format [format]`: format specification of the output. Possible values: 
   * `tab-separated` or `tsv`,
   * `comma-separated` or `csv`
 
@@ -577,7 +578,10 @@ Output files:
 
 ### Calculating Thompson-Traill completeness
 
-Kelly Thompson and Stacie Traill recently published their approach to calculate the quality of ebook records comming from different data sources. Their article is _Implementation of the scoring algorithm described in Leveraging Python to improve ebook metadata selection, ingest, and management._ In Code4Lib Journal, Issue 38, 2017-10-18. http://journal.code4lib.org/articles/12828
+Kelly Thompson and Stacie Traill recently published their approach to calculate the quality of ebook records coming
+from different data sources. Their article is _Implementation of the scoring algorithm described in Leveraging Python
+to improve ebook metadata selection, ingest, and management._ In Code4Lib Journal, Issue 38, 2017-10-18.
+http://journal.code4lib.org/articles/12828
 
 ```
 java -cp $JAR de.gwdg.metadataqa.marc.cli.ThompsonTraillCompleteness [options] [file]
@@ -586,8 +590,18 @@ or with a bash script
 ```
 ./tt-completeness [options] [file]
 ```
+or
+```
+catalogues/[catalogue].sh tt-completeness
+```
+or
+```
+./metadata-qa.sh --params="[options]" tt-completeness
+```
 
-* `-f [file name]`, `--fileName [file name]` the name of report the program produces. Default is `tt-completeness.csv`.
+options:
+* [general parameters](#general-parameters)
+* `-f [file name]`, `--fileName [file name]`: the name of report the program produces. Default is `tt-completeness.csv`.
 
 It produces a CSV file like this:
 
@@ -607,11 +621,19 @@ LoC,Mesh,Fast,GND,Other,Online,Language of Resource,Country of Publication,noLan
 This analysis is the implementation of the following paper:
 
 Emma Booth (2020) _Quality of Shelf-Ready Metadata. Analysis of survey responses and recommendations for suppliers_ 
-Pontefract (UK): National Acquisitions Group, 2020. p 31. https://nag.org.uk/wp-content/uploads/2020/06/NAG-Quality-of-Shelf-Ready-Metadata-Survey-Analysis-and-Recommendations_FINAL_June2020.pdf 
+Pontefract (UK): National Acquisitions Group, 2020. p 31.
+https://nag.org.uk/wp-content/uploads/2020/06/NAG-Quality-of-Shelf-Ready-Metadata-Survey-Analysis-and-Recommendations_FINAL_June2020.pdf 
 
-The main purpose of the report is to highlight which fields of the printed and electronic book records are important when the records are coming from different suppliers. 50 libraries participated in the survey, each selected which fields are important to them. The report listed those fields which gets the highest scores.
+The main purpose of the report is to highlight which fields of the printed and electronic book records are important
+when the records are coming from different suppliers. 50 libraries participated in the survey, each selected which
+fields are important to them. The report listed those fields which gets the highest scores.
 
-The current calculation based on this list of essentian fields. If all data elements specified are available in the record it gets the full scrore, if only some of them, it gets a proportional score. E.g. under 250 (edition statement) there are two subfields. If both are available, it gets score 44. If only one of them, it gets the half of it, 22, and if none, it gets 0. For 1XX,, 6XX, 7XX and 8XX the record gets the full scores if at least one of those fields (with subfield $a) is available. The total score became the average. The theoretical maximum score would be 28.44, which could be accessed if all the data elements are available in the record.
+The current calculation based on this list of essentian fields. If all data elements specified are available in the
+record it gets the full scrore, if only some of them, it gets a proportional score. E.g. under 250 (edition statement)
+there are two subfields. If both are available, it gets score 44. If only one of them, it gets the half of it, 22, and
+if none, it gets 0. For 1XX,, 6XX, 7XX and 8XX the record gets the full scores if at least one of those fields (with
+subfield $a) is available. The total score became the average. The theoretical maximum score would be 28.44, which
+could be accessed if all the data elements are available in the record.
 
 ```
 java -cp $JAR de.gwdg.metadataqa.marc.cli.ShelfReadyCompleteness [options] [file]
@@ -629,10 +651,9 @@ or
 ./metadata-qa.sh --params="[options]" shelf-ready-completeness
 ```
 
-
-* `-l [limit]`, `--limit [limit]` limit the number of records to process
-* `-o [offset]`, `--offset [offset]` the first record to process
-* `-f [fileName]`, `--fileName [fileName]` the report file name (default is "shelf-ready-completeness.csv")
+options:
+* [general parameters](#general-parameters)
+* `-f [fileName]`, `--fileName [fileName]`: the report file name (default is "shelf-ready-completeness.csv")
 
 ### Serial score analysis
 
@@ -659,32 +680,14 @@ or
 ./metadata-qa.sh --params="[options]" serial-score
 ```
 
-* `-l [limit]`, `--limit [limit]` limit the number of records to process
-* `-o [offset]`, `--offset [offset]` the first record to process
-* `-f [fileName]`, `--fileName [fileName]` the report file name (default is "shelf-ready-completeness.csv")
+options:
+* [general parameters](#general-parameters)
+* `-f [fileName]`, `--fileName [fileName]`: the report file name (default is "shelf-ready-completeness.csv")
 
 ### Classification analysis
 
 It analyses the coverage of subject indexing/classification in the catalogue. It checks specific fields, which might 
 have subject indexing information, and provides details about how and which subject indexing schemes have been applied.
-
-The output is a set of files:
-
-* `classifications-by-records.csv`: general overview of how many records has any subject indexing
-* `classifications-by-schema.csv`: which subject indexing schemas are available in the catalogues (such as DDC, UDC, 
-  MESH etc.) and where they are referred 
-* `classifications-histogram.csv`: a frequency distribution of the number of subjects available in records (x records 
-  have 0 subjects, y records have 1 subjects, z records have 2 subjects etc.) 
-* `classifications-frequency-examples.csv`: examples for particular distributions (one record ID which has 0 subject,
-  one which has 1 subject, etc.)
-* `classifications-by-schema-subfields.csv`: the distribution of subfields of those fields, which contains subject 
-  indexing information. It gives you a background that what other contextual information behind the subject term are 
-  available (such as the version of the subject indexing scheme) 
-* `classifications-collocations.csv`: how many record has a particular set of subject indexing schemes
-* `classifications-by-type.csv`: returns the subject indexing schemes and their types in order of the number of 
-  records. The types are TERM_LIST (subtypes: DICTIONARY, GLOSSARY, SYNONYM_RING), METADATA_LIKE_MODEL 
-  (NAME_AUTHORITY_LIST, GAZETTEER), CLASSIFICATION (SUBJECT_HEADING, CATEGORIZATION, TAXONOMY, CLASSIFICATION_SCHEME),
-  RELATIONSHIP_MODEL (THESAURUS, SEMANTIC_NETWORK, ONTOLOGY).
 
 ```
 java -cp $JAR de.gwdg.metadataqa.marc.cli.ClassificationAnalysis [options] [file]
@@ -704,26 +707,33 @@ or
 ./metadata-qa.sh --params="[options]" classifications
 ```
 
-* `-w`, `--emptyLargeCollectors` empty large collectors periodically. It is a memory optimization parameter, turn it 
+options:
+* [general parameters](#general-parameters)
+* `-w`, `--emptyLargeCollectors`: empty large collectors periodically. It is a memory optimization parameter, turn it 
   on if you run into a memory problem
+
+The output is a set of files:
+
+* `classifications-by-records.csv`: general overview of how many records has any subject indexing
+* `classifications-by-schema.csv`: which subject indexing schemas are available in the catalogues (such as DDC, UDC,
+  MESH etc.) and where they are referred
+* `classifications-histogram.csv`: a frequency distribution of the number of subjects available in records (x records
+  have 0 subjects, y records have 1 subjects, z records have 2 subjects etc.)
+* `classifications-frequency-examples.csv`: examples for particular distributions (one record ID which has 0 subject,
+  one which has 1 subject, etc.)
+* `classifications-by-schema-subfields.csv`: the distribution of subfields of those fields, which contains subject
+  indexing information. It gives you a background that what other contextual information behind the subject term are
+  available (such as the version of the subject indexing scheme)
+* `classifications-collocations.csv`: how many record has a particular set of subject indexing schemes
+* `classifications-by-type.csv`: returns the subject indexing schemes and their types in order of the number of
+  records. The types are TERM_LIST (subtypes: DICTIONARY, GLOSSARY, SYNONYM_RING), METADATA_LIKE_MODEL
+  (NAME_AUTHORITY_LIST, GAZETTEER), CLASSIFICATION (SUBJECT_HEADING, CATEGORIZATION, TAXONOMY, CLASSIFICATION_SCHEME),
+  RELATIONSHIP_MODEL (THESAURUS, SEMANTIC_NETWORK, ONTOLOGY).
 
 ### Authority name analysis
 
 It analyses the coverage of authority names (persons, organisations, events, uniform titles) in the catalogue. It 
 checks specific fields, which might have authority names, and provides details about how and which schemes have been applied.
-
-The output is a set of files:
-
-* `authorities-by-records.csv`: general overview of how many records has any authority names
-* `authorities-by-schema.csv`: which authority names schemas are available in the catalogues (such as ISNI,
-  Gemeinsame Normdatei etc.) and where they are referred
-* `authorities-histogram.csv`: a frequency distribution of the number of authority names available in records (x records
-  have 0 authority names, y records have 1 authority name, z records have 2 authority names etc.)
-* `authorities-frequency-examples.csv`: examples for particular distributions (one record ID which has 0 authority name,
-  one which has 1 authority name, etc.)
-* `authorities-by-schema-subfields.csv`: the distribution of subfields of those fields, which contains authority names
-  information. It gives you a background that what other contextual information behind the authority names are
-  available (such as the version of the authority name scheme)
 
 ```
 java -cp $JAR de.gwdg.metadataqa.marc.cli.AuthorityAnalysis [options] [file]
@@ -741,9 +751,23 @@ or
 ./metadata-qa.sh --params="[options]" authorities
 ```
 
-* `-w`, `--emptyLargeCollectors` empty large collectors periodically. It is a memory optimization parameter, turn it
+options:
+* [general parameters](#general-parameters)
+* `-w`, `--emptyLargeCollectors`: empty large collectors periodically. It is a memory optimization parameter, turn it
   on if you run into a memory problem
 
+The output is a set of files:
+
+* `authorities-by-records.csv`: general overview of how many records has any authority names
+* `authorities-by-schema.csv`: which authority names schemas are available in the catalogues (such as ISNI,
+  Gemeinsame Normdatei etc.) and where they are referred
+* `authorities-histogram.csv`: a frequency distribution of the number of authority names available in records (x records
+  have 0 authority names, y records have 1 authority name, z records have 2 authority names etc.)
+* `authorities-frequency-examples.csv`: examples for particular distributions (one record ID which has 0 authority name,
+  one which has 1 authority name, etc.)
+* `authorities-by-schema-subfields.csv`: the distribution of subfields of those fields, which contains authority names
+  information. It gives you a background that what other contextual information behind the authority names are
+  available (such as the version of the authority name scheme)
 
 ### FRBR functional requirement analysis
 
@@ -793,14 +817,6 @@ Management functions
 * display (ManagementDisplay): Display a field or data element (i.e., to display a field or data element with the
   appropriate print constant or as a tracing).
 
-The analysis returns the following files:
-
-* `functional-analysis.csv`: the list of the 12 functions and their average count (number of support fields), and 
-  average score (percentage of all supporting fields available in the record)
-* `functional-analysis-mapping.csv`: the mapping of functions and data elements
-* `functional-analysis-histogram.csv`: the histogram of scores and count of records for each functions (e.g. there 
-  are _x_ number of records which has _j_ score for function _a_)
-
 ```
 java -cp $JAR de.gwdg.metadataqa.marc.cli.FunctionalAnalysis [options] [file]
 ```
@@ -817,7 +833,15 @@ or
 ./metadata-qa.sh --params="[options]" functional-analysis
 ```
 
-It uses the general parameters.
+options:
+* [general parameters](#general-parameters)
+
+Output files:
+* `functional-analysis.csv`: the list of the 12 functions and their average count (number of support fields), and
+  average score (percentage of all supporting fields available in the record)
+* `functional-analysis-mapping.csv`: the mapping of functions and data elements
+* `functional-analysis-histogram.csv`: the histogram of scores and count of records for each functions (e.g. there
+  are _x_ number of records which has _j_ score for function _a_)
 
 ### Field frequency distribution
 
@@ -844,7 +868,8 @@ or
 ./metadata-qa.sh --params="[options]" pareto
 ```
 
-It uses the general parameters.
+options:
+* [general parameters](#general-parameters)
 
 ### Generating cataloguing history chart
 
@@ -863,6 +888,8 @@ or
 ./metadata-qa.sh --params="[options]" marc-history
 ```
 
+options:
+* [general parameters](#general-parameters)
 
 ### Import tables to SQLite
 
@@ -879,6 +906,9 @@ or
 ```
 ./metadata-qa.sh --params="[options]" sqlite
 ```
+
+options:
+* [general parameters](#general-parameters)
 
 Output:
 * `qa_catalogue.sqlite`: the SQLite3 database with 3 tables: `issue_details`, `issue_groups`, and `issue_summary`.
@@ -933,16 +963,24 @@ Run indexer:
 ```
 java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr [options] [file]
 ```
+With script:
+```
+catalogues/[catalogue].sh all-solr
+```
+or
+```
+./metadata-qa.sh --params="[options]" all-solr
+```
 
-options
-
-* `-s [Solr URL]`, `--solrUrl [Solr URL]` the URL of Solr server
-* `-c`, `--doCommit` send commits to Solr regularly (not needed if you set up Solr the above described way)
-* `-t [Solr field type]`, `--solrFieldType [Solr field type]` a Solr field type, one of the predefined values. See examples below.
+options:
+* [general parameters](#general-parameters)
+* `-s [Solr URL]`, `--solrUrl [Solr URL]`: the URL of Solr server
+* `-c`, `--doCommit`: send commits to Solr regularly (not needed if you set up Solr the above described way)
+* `-t [Solr field type]`, `--solrFieldType [Solr field type]`: a Solr field type, one of the predefined values. See 
+  examples below.
    * `marc-tags` - the field names are MARC codes
    * `human-readable` - the field names are [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/)
    * `mixed` - the field names are mixed of the aboves (e.g. `245a_Title_mainTitle`)
-* `-n`, `--nolog` do not display log messages
 
 The Solr URL is something like this: http://localhost:8983/solr/loc. It uses the [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/), in which encoded values are decoded to human readble values (e.g. Leader/5 = "c" becames Leader_recordStatus = "Corrected or revised") so a record looks like this:
 

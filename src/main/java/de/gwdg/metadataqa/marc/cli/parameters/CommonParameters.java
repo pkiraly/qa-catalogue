@@ -22,9 +22,9 @@ public class CommonParameters implements Serializable {
   protected DataSource dataSource = DataSource.FILE;
   protected boolean doHelp;
   protected boolean doLog = true;
-  private int limit = -1;
-  private int offset = -1;
-  private String id = null;
+  protected int limit = -1;
+  protected int offset = -1;
+  protected String id = null;
   protected Leader.Type defaultRecordType = null;
   protected boolean fixAlephseq = false;
   protected boolean fixAlma = false;

@@ -5,8 +5,6 @@ import org.apache.commons.cli.ParseException;
 public class ShelfReadyCompletenessParameters extends CommonParameters {
   public static final String DEFAULT_FILE_NAME = "shelf-ready-completeness.csv";
 
-  private int limit = -1;
-  private int offset = -1;
   private String fileName = DEFAULT_FILE_NAME;
   private boolean useStandardOutput = false;
 
@@ -15,8 +13,6 @@ public class ShelfReadyCompletenessParameters extends CommonParameters {
   protected void setOptions() {
     if (!isOptionSet) {
       super.setOptions();
-      options.addOption("l", "limit", true, "limit the number of records to process");
-      options.addOption("o", "offset", true, "the first record to process");
       options.addOption("f", "fileName", true,
         String.format("the report file name (default is %s)", DEFAULT_FILE_NAME));
       isOptionSet = true;
@@ -31,27 +27,10 @@ public class ShelfReadyCompletenessParameters extends CommonParameters {
 
     if (fileName.equals("stdout"))
       useStandardOutput = true;
-
-    if (cmd.hasOption("limit"))
-      limit = Integer.parseInt(cmd.getOptionValue("limit"));
-
-    if (cmd.hasOption("offset"))
-      offset = Integer.parseInt(cmd.getOptionValue("offset"));
-
-    if (offset > -1 && limit > -1)
-      limit += offset;
   }
 
   public String getFileName() {
     return fileName;
-  }
-
-  public int getLimit() {
-    return limit;
-  }
-
-  public int getOffset() {
-    return offset;
   }
 
   public boolean useStandardOutput() {

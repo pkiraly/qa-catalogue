@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FormatterParameters extends CommonParameters {
+  public static final String DEFAULT_FILE_NAME = "extracted.csv";
 
   private String format = null;
   private int countNr = -1;
@@ -17,7 +18,7 @@ public class FormatterParameters extends CommonParameters {
   private List<MarcSpec> selector = null;
   private boolean withId = false;
   private String separator = "\t";
-  private String outputFile = "marc-history.csv";
+  private String fileName = DEFAULT_FILE_NAME;
 
   private boolean isOptionSet = false;
 
@@ -30,7 +31,7 @@ public class FormatterParameters extends CommonParameters {
       options.addOption("l", "selector", true, "selectors");
       options.addOption("w", "withId", false, "the generated CSV should contain record ID as first field");
       options.addOption("p", "separator", true, "separator between the parts (default: TAB)");
-      options.addOption("e", "outputFile", true, String.format("output file (default: %s)", outputFile));
+      options.addOption("e", "fileName", true, String.format("output file (default: %s)", DEFAULT_FILE_NAME));
       isOptionSet = true;
     }
   }
@@ -64,8 +65,8 @@ public class FormatterParameters extends CommonParameters {
     if (cmd.hasOption("separator"))
       separator = cmd.getOptionValue("separator");
 
-    if (cmd.hasOption("outputFile"))
-      outputFile = cmd.getOptionValue("outputFile");
+    if (cmd.hasOption("fileName"))
+      fileName = cmd.getOptionValue("fileName");
   }
 
   public String getFormat() {
@@ -108,8 +109,8 @@ public class FormatterParameters extends CommonParameters {
     return separator;
   }
 
-  public String getOutputFile() {
-    return outputFile;
+  public String getFileName() {
+    return fileName;
   }
 
   @Override
@@ -120,7 +121,7 @@ public class FormatterParameters extends CommonParameters {
     text += String.format("search: %s%n", search);
     text += String.format("withId: %s%n", withId);
     text += String.format("separator: %s%n", separator);
-    text += String.format("outputFile: %s%n", outputFile);
+    text += String.format("outputFile: %s%n", fileName);
     return text;
   }
 

@@ -17,6 +17,7 @@ public class FormatterParameters extends CommonParameters {
   private List<MarcSpec> selector = null;
   private boolean withId = false;
   private String separator = "\t";
+  private String outputFile = "marc-history.csv";
 
   private boolean isOptionSet = false;
 
@@ -29,6 +30,7 @@ public class FormatterParameters extends CommonParameters {
       options.addOption("l", "selector", true, "selectors");
       options.addOption("w", "withId", false, "the generated CSV should contain record ID as first field");
       options.addOption("p", "separator", true, "separator between the parts (default: TAB)");
+      options.addOption("e", "outputFile", true, String.format("output file (default: %s)", outputFile));
       isOptionSet = true;
     }
   }
@@ -61,6 +63,9 @@ public class FormatterParameters extends CommonParameters {
 
     if (cmd.hasOption("separator"))
       separator = cmd.getOptionValue("separator");
+
+    if (cmd.hasOption("outputFile"))
+      outputFile = cmd.getOptionValue("outputFile");
   }
 
   public String getFormat() {
@@ -103,6 +108,10 @@ public class FormatterParameters extends CommonParameters {
     return separator;
   }
 
+  public String getOutputFile() {
+    return outputFile;
+  }
+
   @Override
   public String formatParameters() {
     String text = super.formatParameters();
@@ -111,6 +120,8 @@ public class FormatterParameters extends CommonParameters {
     text += String.format("search: %s%n", search);
     text += String.format("withId: %s%n", withId);
     text += String.format("separator: %s%n", separator);
+    text += String.format("outputFile: %s%n", outputFile);
     return text;
   }
+
 }

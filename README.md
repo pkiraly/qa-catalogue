@@ -303,10 +303,23 @@ Most of the analyses uses the following general parameters
   * `STREAM`: reading from a Java data stream. It is not usable if you use the tool from the command line, only if 
     you use it with its API.
 
+The last argument of the commands are a list of files. It might contain any wildcard the operating system supports 
+('*', '?', etc.).
+
 ### Validating MARC records
 
 It validates each records against the MARC21 standard, including those local defined field, which are selected by 
 the MARC version parameter. 
+
+The issues are classified into the following categories: record, control field, data field, indicator, subfield and 
+their subtypes.
+
+There is an uncertainty in the issue detection. Almost all library catalogues have fields, which are not part of the
+MARC standard, neither that of their documentation about the locally defined fields (these documents are rarely 
+available publicly, and even if they are available sometimes they do not cover all fields). So if the tool meets 
+a field which are undefined, it is impossible to decide whether it is valid or invalid in a particular context. 
+So in some places the tool reflects this uncertainty and provides two calculations, one which handles these fields
+as error, and another which handles these as valid fields.
 
 Usage:
 
@@ -316,6 +329,14 @@ java -cp $JAR de.gwdg.metadataqa.marc.cli.Validator [options] [file]
 or with a bash script
 ```
 ./validator [options] [file]
+```
+or
+```
+catalogues/[catalogue].sh validate
+```
+or
+```
+./metadata-qa.sh --params="[options]" validate
 ```
 
 options:
@@ -336,17 +357,18 @@ options:
 * `-w`, `--emptyLargeCollectors` the output files are created during the process and not only at the end of it. It
   helps in memory  management if the input is large and it has lots of errors, on the other hand the output file
   will be segmented, which should be handled after the process.
+* `-t`, `--collectAllErrors`: collect all errors (useful only for validating small number of records). Default is 
+  turned off.
 
-The `file` argument might contain any wildcard the operating system supports ('*', '?', etc.)
 
 Outputs:
-* `issue-by-category.csv`
-* `issue-by-type.csv`
-* `issue-summary.csv`
-* `issue-details.csv`
-* `issue-details-normalized.csv`
-* `issue-total.csv`
-* `issue-collector.csv`
+* `issue-by-category.csv`: the counts of issues by categories
+* `issue-by-type.csv`: the count of issues by types (subcategories).
+* `issue-summary.csv`: details of individual issues including basic statistics
+* `issue-details.csv`: list of issues by record identifiers
+* `issue-details-normalized.csv`: the normalized version of the previous file
+* `issue-total.csv`: the number of issue free records, and number of record having issues 
+* `issue-collector.csv`: non normalized file of record ids per issues 
 
 Currently, it detects the following errors:
 
@@ -439,7 +461,7 @@ get the number of records having errors
 awk -F "\t" '{print $1}' validation-report.txt | uniq -c | wc -l
 ```
 
-### Display one MARC record
+### Display one MARC record, or extract data elements from MARC records
 
 ```
 java -cp $JAR de.gwdg.metadataqa.marc.cli.Formatter [options] [file]
@@ -449,16 +471,21 @@ or with a bash script
 ./formatter [options] [file]
 ```
 
+options:
+
+* [general parameters](#general-parameters)
 * `-f`, `--format` the name of the format (at time of writing there is no any)
-* `-d [record ID]`, `--id [record ID]` specify a MARC record ID (field 001)
 * `-c [count number]`, `-countNr [count number]` count number of the record (e.g. 1 means the first record)
 * `-s [path=query]`, `-search [path=query]` print records matching the query. The query part is the content of the element. The path should be one of the following types:
 1. control field tag (e.g. `001`, `002`, `003`)
 2. control field position (e.g. `Leader/0`, `008/1-2`)
 3. data field (`655\$2`, `655\$ind1`)
 4. named control field position (`tag006book01`)
+* `-l [selector]`, `--selector [selector]`: one or more MarcSpec selectors, separated by ';' (semicolon) character
+* `-w`, `--withId`: the generated CSV should contain record ID as first field (default is turned off)
+* `-p [separator]`, `--separator [separator]`: separator between the parts (default: TAB)
 
-The output of the script is something like this one:
+The output of displaying a single MARC record is something like this one:
 
 ```
 LEADER 01697pam a2200433 c 4500
@@ -498,7 +525,25 @@ LEADER 01697pam a2200433 c 4500
 925 r $arb
 ```
 
+An example for extracting values:
+
+```bash
+./formatter --selector "008~7-10;008~0-5" \
+            --defaultRecordType BOOKS \
+            --separator "," \
+            --outputDir ${OUTPUT_DIR} \
+            --outputFile marc-history.csv \
+             ${MARC_DIR}/*.mrc
+```
+
+It will put the output into ${OUTPUT_DIR}/marc-history.csv.
+
 ### Calculating data element completeness
+
+Counts basic statistics about the data elements available in the catalogue.
+
+Usage:
+
 ```
 java -cp $JAR de.gwdg.metadataqa.marc.cli.Completeness [options] [file]
 ```
@@ -506,14 +551,29 @@ or with a bash script
 ```
 ./completeness [options] [file]
 ```
+or
+```
+catalogues/[catalogue].sh completeness
+```
+or
+```
+./metadata-qa.sh --params="[options]" completeness
+```
 
-* `-t [directory]`, `--outputDir [directory]` the directory inside which the output files will be created
-* `-r [format]`, `--format [format]` format specification of the output. Possible values: `tab-separated` or `tsv`, `comma-separated` or `csv`
+options:
 
-The process will create two files in the output directory:
+* [general parameters](#general-parameters)
+* `-r [format]`, `--format [format]` format specification of the output. Possible values: 
+  * `tab-separated` or `tsv`,
+  * `comma-separated` or `csv`
 
-* marc-elements.csv is list of MARC elements (field$subfield) and their occurrences in two ways: 'number-of-record' means how many records they are available, 'number-of-instances' means how many instances are there in total (some records might contain more than one instances, while others don't have them at all)
-* libraries.csv list the content of the 852$a (it is useful only if the catalog is an aggregated catalog)
+Output files:
+
+* `marc-elements.csv`: is list of MARC elements (field$subfield) and their occurrences in two ways: 
+  * `number-of-record`: means how many records they are available,
+  * `number-of-instances`: means how many instances are there in total (some records might contain more than one 
+  instances, while others don't have them at all)
+* `libraries.csv`: list the content of the 852$a (it is useful only if the catalog is an aggregated catalog)
 
 ### Calculating Thompson-Traill completeness
 
@@ -527,10 +587,7 @@ or with a bash script
 ./tt-completeness [options] [file]
 ```
 
-* `-l [number]`, `--limit [number]` validates only given number of records
-* `-o [number]`, `--offset [number]` starts validation at the given Nth record
 * `-f [file name]`, `--fileName [file name]` the name of report the program produces. Default is `tt-completeness.csv`.
-* `-n`, `--nolog` do not display log messages
 
 It produces a CSV file like this:
 

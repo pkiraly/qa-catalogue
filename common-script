@@ -195,7 +195,8 @@ do_marc_history() {
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/--emptyLargeCollectors|--with-delete//')
   printf "%s %s> [marc-history]\n" $(date +"%F %T")
   printf "%s %s> ./formatter --selector \"008~7-10;008~0-5\" --defaultRecordType BOOKS ${PARAMS} --separator \",\" --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} &> ${PREFIX}/marc-history.log\n" $(date +"%F %T")
-  ./formatter --selector "008~7-10;008~0-5" --defaultRecordType BOOKS ${PARAMS} --separator "," --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} &> ${PREFIX}/marc-history.log
+  ./formatter --selector "008~7-10;008~0-5" --defaultRecordType BOOKS ${PARAMS} --separator "," \
+              --outputDir ${OUTPUT_DIR}/ --outputFile "marc-history.csv" ${MARC_DIR}/${MASK} &> ${PREFIX}/marc-history.log
 
   sort ${OUTPUT_DIR}/marc-history.csv \
     | grep -v '008~7-10,008~0-5' \

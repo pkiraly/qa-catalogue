@@ -1,32 +1,82 @@
 #!/usr/bin/env bash
 
-FREQUENCY=$1
-STARTING_VERSION=$2
-
 . $(dirname $0)/../../setdir.sh
+
+options=$(getopt -o n:f:s:e: --long name:,frequency:,start:,end: -- "$@")
+[ $? -eq 0 ] || {
+  echo "Incorrect options provided"
+  exit 1
+}
+eval set -- "$options"
+
+MARC_DIR=${BASE_INPUT_DIR}
+NAME=
+# NAME=metadata-qa
+FREQUENCY=weekly
+START=
+END=
+while true; do
+  case "$1" in
+    -n|--name) NAME=$2 ; shift;;
+    -f|--frequency) FREQUENCY=$2 ; shift;;
+    -s|--start) START=$2 ; shift;;
+    -e|--end) END=$2 ; shift;;
+    --) shift ; break ;;
+  esac
+  shift
+done
 
 HISTORICAL=${BASE_OUTPUT_DIR}/_historical/${NAME}
 if [[ ! -d ${HISTORICAL} ]]; then
   mkdir -p ${HISTORICAL}
 fi
 
+IS_INCREMENTAL=0
+if [[ -e ${HISTORICAL}/history.sqlite ]]; then
+  IS_INCREMENTAL=1
+fi
 echo $HISTORICAL
+echo $IS_INCREMENTAL
+if [[ $IS_INCREMENTAL = 0 ]]; then
+  echo "IS NOT INCREMENTAL"
+else
+  echo "IS INCREMENTAL"
+fi
 
 CSVS="count.csv issue-total.csv issue-by-category.csv issue-by-type.csv"
-for CSV_FILE in CSVS; do
+for CSV_FILE in $CSVS; do
+  echo "csv file: ${HISTORICAL}/${CSV_FILE}"
   if [[ -e ${HISTORICAL}/${CSV_FILE} ]]; then
+    echo "deleting ${HISTORICAL}/${CSV_FILE}"
     rm ${HISTORICAL}/${CSV_FILE}
   fi
 done
 
-echo "version,total,processed" > ${HISTORICAL}/count.csv
-echo "version,type,instances,records" > ${HISTORICAL}/issue-total.csv
-echo "version,id,category,instances,records" > ${HISTORICAL}/issue-by-category.csv
-echo "version,id,categoryId,category,type,instances,records" > ${HISTORICAL}/issue-by-type.csv
-for DIR in $(ls ${HISTORICAL}); do
-  if [[ "$DIR" < "$STARTING_VERSION" ]]; then
+if [[ $IS_INCREMENTAL = 0 ]]; then
+  echo "version,total,processed" > ${HISTORICAL}/count.csv
+  echo "version,type,instances,records" > ${HISTORICAL}/issue-total.csv
+  echo "version,id,category,instances,records" > ${HISTORICAL}/issue-by-category.csv
+  echo "version,id,categoryId,category,type,instances,records" > ${HISTORICAL}/issue-by-type.csv
+fi
+
+if [[ $IS_INCREMENTAL = 0 ]]; then
+  FILES=$(ls ${HISTORICAL})
+else
+  FILES=$(ls -lt ${HISTORICAL} | grep "^l" | awk '{print $9}' | head -1)
+fi
+
+echo $FILES
+
+for DIR in $FILES; do
+  if [[ "$START" != "" && "$DIR" < "$START" ]]; then
     continue
   fi
+  if [[ "$END" != "" && "$DIR" > "$END" ]]; then
+    continue
+  fi
+
+  echo "processing $DIR"
+
   if [[ -d ${HISTORICAL}/$DIR ]]; then
     if [[ -f ${HISTORICAL}/$DIR/count.csv.gz ]]; then
       gunzip ${HISTORICAL}/$DIR/count.csv.gz
@@ -53,7 +103,7 @@ for DIR in $(ls ${HISTORICAL}); do
   fi
 done
 
-if [[ -f ${HISTORICAL}/history.sqlite ]]; then
+if [[ $IS_INCREMENTAL = 0 && -f ${HISTORICAL}/history.sqlite ]]; then
   rm ${HISTORICAL}/history.sqlite
 fi
 sqlite3 ${HISTORICAL}/history.sqlite << EOF
@@ -85,5 +135,5 @@ if [[ "${ACTUAL_DIR:0:2}" == ".." ]]; then
   ACTUAL_DIR=$(realpath ${HISTORICAL}/${ACTUAL_DIR})
 fi
 echo "copy timeline-by-category.png to ${ACTUAL_DIR}"
-cp ${HISTORICAL}/timeline-by-category.png ${ACTUAL_DIR}/img
-cp ${HISTORICAL}/timeline-by-type-*.png ${ACTUAL_DIR}/img
+mv ${HISTORICAL}/timeline-by-category.png ${ACTUAL_DIR}/img
+mv ${HISTORICAL}/timeline-by-type-*.png ${ACTUAL_DIR}/img

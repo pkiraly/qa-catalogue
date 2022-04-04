@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.general.indexer.subject;
 
-import de.gwdg.metadataqa.marc.DataField;
+import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
 
@@ -13,12 +13,11 @@ public class SchemaFromInd2 extends SubjectIndexer implements FieldIndexer {
   @Override
   public Map<String, List<String>> index(DataField dataField, DataFieldKeyGenerator keyGenerator) {
     Map<String, List<String>> indexEntries = new HashMap<>();
-    String schemaCode = dataField.getInd2();
     String schemaAbbreviation;
     try {
       schemaAbbreviation = ClassificationSchemes.getInstance().resolve(dataField.resolveInd2());
     } catch (IllegalArgumentException e) {
-      schemaAbbreviation = dataField.getInd2() == " " ? "" : dataField.getInd2();
+      schemaAbbreviation = dataField.getInd2().equals(" ") ? "" : dataField.getInd2();
     }
 
     KeyValuesExtractor extractor = new KeyValuesExtractor(dataField, keyGenerator, schemaAbbreviation).invoke();

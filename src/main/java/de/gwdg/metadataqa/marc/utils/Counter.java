@@ -12,9 +12,7 @@ public class Counter<T> {
   }
 
   public void add(T key, int i) {
-    if (!counter.containsKey(key)) {
-       counter.put(key, 0);
-    }
+    counter.computeIfAbsent(key, s -> 0);
     counter.put(key, counter.get(key) + i);
   }
 
@@ -35,7 +33,7 @@ public class Counter<T> {
   }
 
   public int total() {
-    int total = 0;
+    var total = 0;
     for (int value : counter.values())
       total += value;
     return total;

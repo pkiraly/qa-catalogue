@@ -50,7 +50,7 @@ public enum KosType {
   private String url = null;
   private String description = null;
 
-  private KosType(int score, KosCategory parent, String label, String url) {
+  KosType(int score, KosCategory parent, String label, String url) {
     this.score = score;
     this.parent = parent;
     this.label = label;

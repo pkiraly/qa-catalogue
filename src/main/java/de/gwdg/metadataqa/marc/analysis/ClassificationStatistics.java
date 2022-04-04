@@ -53,11 +53,13 @@ public class ClassificationStatistics {
     return collocationHistogram;
   }
 
-  public int recordCountWithClassification() {
+  public Integer recordCountWithClassification() {
+    if (collocationHistogram.isEmpty())
+      return Integer.valueOf(0);
     return collocationHistogram
       .entrySet()
       .stream()
-      .map(e -> e.getValue())
+      .map(Map.Entry::getValue)
       .reduce((a, b) -> a + b)
       .get();
   }

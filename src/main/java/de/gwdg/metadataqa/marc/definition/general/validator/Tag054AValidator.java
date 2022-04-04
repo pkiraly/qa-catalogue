@@ -30,7 +30,7 @@ public class Tag054AValidator implements SubfieldValidator, Serializable {
 
     if (value.length() != 4) {
       response.addValidationError(new ValidationError(
-        subfield.getRecord().getId(),
+        subfield.getMarcRecord().getId(),
         definition.getPath(),
         ValidationErrorType.SUBFIELD_INVALID_LENGTH,
         String.format("'%s': length is not 4 char", value),
@@ -51,7 +51,7 @@ public class Tag054AValidator implements SubfieldValidator, Serializable {
             if (!matcher.find()) {
               response.addValidationError(
                 new ValidationError(
-                  subfield.getRecord().getId(),
+                  subfield.getMarcRecord().getId(),
                   subfield.getDefinition().getPath(),
                   ValidationErrorType.SUBFIELD_PATTERN_MISMATCH,
                   String.format("mismatched part '%s' in '%s'", part, value),

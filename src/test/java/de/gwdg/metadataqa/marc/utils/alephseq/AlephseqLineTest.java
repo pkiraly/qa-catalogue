@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc.utils.alephseq;
 
-import de.gwdg.metadataqa.marc.utils.alephseq.AlephseqLine;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;

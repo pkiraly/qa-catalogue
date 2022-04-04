@@ -1,5 +1,7 @@
 package de.gwdg.metadataqa.marc.model.validation;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opencsv.CSVWriter;
 import de.gwdg.metadataqa.marc.Utils;
 import org.apache.commons.lang3.StringUtils;
@@ -9,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 
 import static de.gwdg.metadataqa.marc.Utils.counterToList;
 
@@ -76,6 +79,15 @@ public class ValidationErrorFormatter {
       message.append(createCvsRow(asArray(error), '\t'));
     } else if (format.equals(ValidationErrorFormat.COMMA_SEPARATED)) {
       message.append(createCvsRow(asArray(error), ','));
+    } else if (format.equals(ValidationErrorFormat.JSON)) {
+      ObjectMapper mapper = new ObjectMapper();
+      String json = null;
+      try {
+        json = mapper.writeValueAsString(error);
+      } catch (JsonProcessingException e) {
+        // logger.log(Level.WARNING, "error in asJson()", e);
+      }
+      message.append(json);
     }
     return message.toString();
   }
@@ -94,13 +106,11 @@ public class ValidationErrorFormatter {
     String message = "";
     switch (format) {
       case TAB_SEPARATED:
-        message = createCvsRow(headerForSummary(), '\t');
-        break;
+        message = createCvsRow(headerForSummary(), '\t'); break;
       case COMMA_SEPARATED:
       case TEXT:
-        message = createCvsRow(headerForSummary(), ',');
-      default:
-        break;
+        message = createCvsRow(headerForSummary(), ','); break;
+      default: break;
     }
     return message;
   }
@@ -109,13 +119,11 @@ public class ValidationErrorFormatter {
     String message = "";
     switch (format) {
       case TAB_SEPARATED:
-        message = createCvsRow(headerForDetails(), '\t');
-        break;
+        message = createCvsRow(headerForDetails(), '\t'); break;
       case COMMA_SEPARATED:
       case TEXT:
-        message = createCvsRow(headerForDetails(), ',');
-      default:
-        break;
+        message = createCvsRow(headerForDetails(), ','); break;
+      default: break;
     }
     return message;
   }
@@ -124,11 +132,10 @@ public class ValidationErrorFormatter {
     String message = "";
     switch (format) {
       case TAB_SEPARATED:
-        message = createCvsRow(headerForCollector(), '\t');
-        break;
+        message = createCvsRow(headerForCollector(), '\t'); break;
       case COMMA_SEPARATED:
       case TEXT:
-        message = createCvsRow(headerForCollector(), ',');
+        message = createCvsRow(headerForCollector(), ','); break;
       default:
         break;
     }
@@ -138,23 +145,18 @@ public class ValidationErrorFormatter {
   public static String formatForSummary(ValidationError error, ValidationErrorFormat format) {
     String message = "";
     switch (format) {
-      case TAB_SEPARATED:
-        message = createCvsRow(asArrayWithoutId(error), '\t');
-        break;
-      case COMMA_SEPARATED:
-        message = createCvsRow(asArrayWithoutId(error), ',');
-        break;
-      case TEXT:
-        message = formatTextWithoutId(error);
-      default:
-        break;
+      case TAB_SEPARATED:   message = createCvsRow(asArrayWithoutId(error), '\t'); break;
+      case COMMA_SEPARATED: message = createCvsRow(asArrayWithoutId(error), ','); break;
+      case TEXT:            message = formatTextWithoutId(error); break;
+      default: break;
     }
     return message;
   }
 
   private static String createCvsRow(String[] strings, char separator) {
     StringWriter stringWriter = new StringWriter();
-    CSVWriter csvWriter = new CSVWriter(stringWriter, separator, '"');
+    CSVWriter csvWriter = new CSVWriter(stringWriter, separator, '"',
+      CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);
     csvWriter.writeNext(strings);
     String row = stringWriter.toString().trim();
     if (row.contains("\\")) {

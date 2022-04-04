@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Alternate Graphic Representation
@@ -29,7 +30,7 @@ public class Tag880 extends DataFieldDefinition {
   private void initialize() {
     tag = "880";
     label = "Alternate Graphic Representation";
-    mqTag = "Alternate Graphic Representation";
+    mqTag = "AlternateGraphicRepresentation";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd880.html";
     setCompilanceLevels("A", "A");
@@ -70,6 +71,11 @@ public class Tag880 extends DataFieldDefinition {
       );
     indexSubfields();
 
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR").setMqTag("link"),
+      new SubfieldDefinition("@", "Language of field", "NR").setMqTag("language"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR").setMqTag("number")
+    ));
   }
 
   public void validate(String tag, MarcVersion marcVersion) {

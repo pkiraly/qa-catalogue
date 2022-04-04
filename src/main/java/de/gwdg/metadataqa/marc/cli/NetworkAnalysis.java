@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.DataField;
-import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.analysis.NetworkAnalyzer;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.NetworkAction;
@@ -19,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
@@ -28,15 +29,12 @@ public class NetworkAnalysis implements MarcFileProcessor, Serializable {
   private static final Logger logger = Logger.getLogger(NetworkAnalysis.class.getCanonicalName());
 
   private final NetworkParameters parameters;
-  private final Options options;
   private final boolean readyToProcess;
   private final List<String> orphans = new ArrayList<>();
-  private Path path;
   private BufferedWriter networkWriter;
 
   public NetworkAnalysis(String[] args) throws ParseException {
     parameters = new NetworkParameters(args);
-    options = parameters.getOptions();
     readyToProcess = true;
   }
 
@@ -87,7 +85,7 @@ public class NetworkAnalysis implements MarcFileProcessor, Serializable {
 
     NetworkAnalyzer analyzer = new NetworkAnalyzer(marcRecord);
     Set<DataField> collector = analyzer.process(recordNumber);
-    if (collector.size() > 0) {
+    if (!collector.isEmpty()) {
       for (DataField field : collector) {
         networkWriter.write(createRow(
           field.toString().hashCode(),
@@ -101,13 +99,13 @@ public class NetworkAnalysis implements MarcFileProcessor, Serializable {
 
   @Override
   public void beforeIteration() {
-    path = Paths.get(parameters.getOutputDir(), "network.csv");
+    var path = Paths.get(parameters.getOutputDir(), "network.csv");
     logger.info(parameters.formatParameters());
     try {
       networkWriter = Files.newBufferedWriter(path);
       networkWriter.write(createRow("concept", "tag", "id"));
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.WARNING, "document", e);
     }
   }
 
@@ -127,7 +125,7 @@ public class NetworkAnalysis implements MarcFileProcessor, Serializable {
       networkWriter.close();
     } catch (IOException e) {
       logger.severe("Failed to close networkWriter. " + e.getLocalizedMessage());
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "afterIteration", e);
     }
   }
 

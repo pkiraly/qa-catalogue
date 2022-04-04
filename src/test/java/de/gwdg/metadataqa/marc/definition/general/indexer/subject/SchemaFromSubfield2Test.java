@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.general.indexer.subject;
 
-import de.gwdg.metadataqa.marc.DataField;
+import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.definition.tags.tags01x.Tag084;
 import org.junit.Test;
 

@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.controlpositions;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import org.junit.Test;
 
@@ -30,7 +30,7 @@ public class Control008PositionsTest extends Control00XPositionsTest {
     }
   }
 
-  protected boolean isException(ControlfieldPositionDefinition subfield, Code code) {
+  protected boolean isException(ControlfieldPositionDefinition subfield, EncodedValue code) {
     return (
          (subfield.getId().equals("008map33") && code.getCode().equals("||"))
       || (subfield.getId().equals("008visual18") && code.getCode().equals("001-999"))

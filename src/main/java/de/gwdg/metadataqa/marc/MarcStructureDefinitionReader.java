@@ -21,7 +21,7 @@ public class MarcStructureDefinitionReader {
 
   public MarcStructureDefinitionReader(String fileName) 
       throws URISyntaxException, IOException {
-    List<String> lines = FileUtils.readLines(fileName);
+    List<String> lines = FileUtils.readLinesFromResource(fileName);
     lines2fields(lines);
     extractQualifiedSubfields();
   }

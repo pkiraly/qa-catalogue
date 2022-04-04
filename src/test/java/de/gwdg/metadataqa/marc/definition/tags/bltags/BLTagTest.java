@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.bltags;
 
-import de.gwdg.metadataqa.marc.DataField;
-import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -35,8 +35,8 @@ public class BLTagTest {
   }
 
   public void validField(DataField field) {
-    MarcRecord record = new MarcRecord("test");
-    field.setRecord(record);
+    MarcRecord marcRecord = new MarcRecord("test");
+    field.setMarcRecord(marcRecord);
 
     MarcSubfield subfield = field.getSubfields().get(0);
 
@@ -59,8 +59,8 @@ public class BLTagTest {
   public void invalidField(String ind1, String subfield, String value) {
     DataField field = new DataField(tag, ind1, " ", subfield, value);
 
-    MarcRecord record = new MarcRecord("test");
-    field.setRecord(record);
+    MarcRecord marcRecord = new MarcRecord("test");
+    field.setMarcRecord(marcRecord);
 
     assertFalse(
       String.format("%s$%s=%s should be invalid in normal case",
@@ -76,8 +76,8 @@ public class BLTagTest {
 
   public void invalidField(DataField field) {
 
-    MarcRecord record = new MarcRecord("test");
-    field.setRecord(record);
+    MarcRecord marcRecord = new MarcRecord("test");
+    field.setMarcRecord(marcRecord);
 
     MarcSubfield subfield = field.getSubfields().get(0);
 
@@ -97,8 +97,8 @@ public class BLTagTest {
   public void invalidFieldInBL(String ind1, String subfield, String value) {
     DataField field = new DataField(tag, ind1, " ", subfield, value);
 
-    MarcRecord record = new MarcRecord("test");
-    field.setRecord(record);
+    MarcRecord marcRecord = new MarcRecord("test");
+    field.setMarcRecord(marcRecord);
 
     assertTrue(
       String.format("%s$%s=%s should be invalid in normal case", tag.getTag(), subfield, value),

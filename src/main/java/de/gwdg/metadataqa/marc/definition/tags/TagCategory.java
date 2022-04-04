@@ -26,7 +26,9 @@ public enum TagCategory {
   szte(18, "sztetags", "SZTE", "Locally defined tags of SZTE", false),
   nkcr(19, "nkcrtags", "NKCR", "Locally defined tags of NKCR", false),
   bl(20, "bltags", "BL", "Locally defined tags of the British Library", false),
-  other(21, "unknown", "unknown", "unknown origin", false)
+  uva(21, "uvatags", "UvA", "Locally defined tags of University of Amsterdam", false),
+  b3kat(22, "b3kattags", "B3Kat", "Locally defined tags of a German union cataogue B3Kat", false),
+  other(99, "unknown", "unknown", "unknown origin", false)
   ;
 
   private static Map<String, TagCategory> index = new HashMap<>();

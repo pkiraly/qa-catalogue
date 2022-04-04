@@ -256,5 +256,11 @@ public class Tag610 extends DataFieldDefinition {
     putVersionSpecificSubfields(MarcVersion.MARC21NO, Arrays.asList(
       new SubfieldDefinition("9", "Language code", "NR")
     ));
+
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR").setMqTag("link"),
+      new SubfieldDefinition("@", "Language of field", "NR").setMqTag("language"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR").setMqTag("number")
+    ));
   }
 }

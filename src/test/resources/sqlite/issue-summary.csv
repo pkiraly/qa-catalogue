@@ -1,0 +1,40 @@
+"id","MarcPath","categoryId","typeId","type","message","url","instances","records"
+1217,"Leader","1","1","undetectable type","Leader/06 (typeOfRecord): 'x', Leader/07 (bibliographicLevel): ' '","https://www.loc.gov/marc/bibliographic/bdleader.html",2,2
+860,"Leader","1","1","undetectable type","Leader/06 (typeOfRecord): 'a', Leader/07 (bibliographicLevel): ' '","https://www.loc.gov/marc/bibliographic/bdleader.html",1,1
+56,"880$6","1","2","invalid linkage","Linkage does not fit the pattern 'nnn-nn[/..][/..]'.","https://www.loc.gov/marc/bibliographic/bd880.html",175,127
+881,"880$6","1","2","invalid linkage","refers to field 945, which is not defined","https://www.loc.gov/marc/bibliographic/bd880.html",2,2
+1337,"880$6","1","2","invalid linkage","refers to field 696, which is not defined","https://www.loc.gov/marc/bibliographic/bd880.html",1,1
+1016,"880$6","1","2","invalid linkage","refers to field 899, which is not defined","https://www.loc.gov/marc/bibliographic/bd880.html",1,1
+1485,"008/33-34 (008map33)","2","5","invalid code","'|' in '| '","https://www.loc.gov/marc/bibliographic/bd008p.html",86,86
+1482,"006/16-17 (006map16)","2","5","invalid code","'0' in '0 '","https://www.loc.gov/marc/bibliographic/bd006.html",47,47
+418,"006/01-04 (006book01)","2","5","invalid code","'n' in 'nnnn'","https://www.loc.gov/marc/bibliographic/bd006.html",120,30
+1488,"008/33-34 (008map33)","2","5","invalid code","'|' in 'r|'","https://www.loc.gov/marc/bibliographic/bd008p.html",22,22
+607,"006/01-04 (006book01)","2","5","invalid code","'n' in 'nnn '","https://www.loc.gov/marc/bibliographic/bd006.html",54,18
+1518,"008/24-29 (008music24)","2","5","invalid code","'0' in '     0'","https://www.loc.gov/marc/bibliographic/bd008m.html",15,15
+659,"006/01-04 (006book01)","2","5","invalid code","'-' in '--- '","https://www.loc.gov/marc/bibliographic/bd006.html",45,15
+611,"006/01-04 (006book01)","2","5","invalid code","'u' in 'uunn'","https://www.loc.gov/marc/bibliographic/bd006.html",26,13
+612,"006/01-04 (006book01)","2","5","invalid code","'n' in 'uunn'","https://www.loc.gov/marc/bibliographic/bd006.html",26,13
+385,"006/01-04 (006book01)","2","5","invalid code","'z' in 'zznn'","https://www.loc.gov/marc/bibliographic/bd006.html",14,7
+386,"006/01-04 (006book01)","2","5","invalid code","'n' in 'zznn'","https://www.loc.gov/marc/bibliographic/bd006.html",14,7
+821,"006/01-04 (006book01)","2","5","invalid code","'n' in 'munn'","https://www.loc.gov/marc/bibliographic/bd006.html",12,6
+820,"006/01-04 (006book01)","2","5","invalid code","'u' in 'munn'","https://www.loc.gov/marc/bibliographic/bd006.html",6,6
+793,"006/01-04 (006book01)","2","5","invalid code","'n' in 'sgnn'","https://www.loc.gov/marc/bibliographic/bd006.html",10,5
+600,"006/01-04 (006book01)","2","5","invalid code","'n' in '  nn'","https://www.loc.gov/marc/bibliographic/bd006.html",10,5
+792,"006/01-04 (006book01)","2","5","invalid code","'s' in 'sgnn'","https://www.loc.gov/marc/bibliographic/bd006.html",5,5
+1487,"008/33-34 (008map33)","2","5","invalid code","'|' in 'o|'","https://www.loc.gov/marc/bibliographic/bd008p.html",4,4
+168,"006/01-04 (006book01)","2","5","invalid code","'n' in 'fmnn'","https://www.loc.gov/marc/bibliographic/bd006.html",8,4
+507,"008/18-21 (008book18)","2","5","invalid code","'u' in ' u  '","https://www.loc.gov/marc/bibliographic/bd008b.html",3,3
+748,"008/18-21 (008book18)","2","5","invalid code","'r' in 'ar p'","https://www.loc.gov/marc/bibliographic/bd008b.html",2,2
+1136,"006/01-04 (006book01)","2","5","invalid code","'0' in '024 '","https://www.loc.gov/marc/bibliographic/bd006.html",2,2
+996,"006/01-04 (006book01)","2","5","invalid code","'0' in '080 '","https://www.loc.gov/marc/bibliographic/bd006.html",4,2
+486,"006/01-04 (006book01)","2","5","invalid code","'3' in '031 '","https://www.loc.gov/marc/bibliographic/bd006.html",2,2
+997,"006/01-04 (006book01)","2","5","invalid code","'8' in '080 '","https://www.loc.gov/marc/bibliographic/bd006.html",2,2
+1519,"008/30-31 (008music30)","2","5","invalid code","'0' in '00'","https://www.loc.gov/marc/bibliographic/bd008m.html",4,2
+1506,"008/18-21 (008map18)","2","5","invalid code","'u' in '   u'","https://www.loc.gov/marc/bibliographic/bd008p.html",2,2
+1137,"006/01-04 (006book01)","2","5","invalid code","'2' in '024 '","https://www.loc.gov/marc/bibliographic/bd006.html",2,2
+1138,"006/01-04 (006book01)","2","5","invalid code","'4' in '024 '","https://www.loc.gov/marc/bibliographic/bd006.html",2,2
+1141,"006/07-10 (006book07)","2","5","invalid code","'h' in '  h '","https://www.loc.gov/marc/bibliographic/bd006.html",2,2
+487,"006/01-04 (006book01)","2","5","invalid code","'1' in '031 '","https://www.loc.gov/marc/bibliographic/bd006.html",2,2
+485,"006/01-04 (006book01)","2","5","invalid code","'0' in '031 '","https://www.loc.gov/marc/bibliographic/bd006.html",2,2
+1471,"006/01-04 (006book01)","2","5","invalid code","'0' in '045 '","https://www.loc.gov/marc/bibliographic/bd006.html",1,1
+1081,"006/01-04 (006book01)","2","5","invalid code","'8' in '038 '","https://www.loc.gov/marc/bibliographic/bd006.html",1,1

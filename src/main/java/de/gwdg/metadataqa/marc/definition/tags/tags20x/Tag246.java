@@ -1,12 +1,14 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags20x;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
+
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 import java.util.Arrays;
@@ -45,7 +47,7 @@ public class Tag246 extends DataFieldDefinition {
         "3", "No note, added entry"
       )
       .putVersionSpecificCodes(MarcVersion.SZTE, Arrays.asList(
-        new Code(" ", "Not specified")
+        new EncodedValue(" ", "Not specified")
       ))
       .setMqTag("noteAndAddedEntry")
       .setFrbrFunctions(ManagementProcess, ManagementDisplay);
@@ -64,7 +66,7 @@ public class Tag246 extends DataFieldDefinition {
         "8", "Spine title"
       )
       .putVersionSpecificCodes(MarcVersion.DNB, Arrays.asList(
-        new Code("9", "Ansetzungstitel")
+        new EncodedValue("9", "Ansetzungstitel")
       ))
       .setMqTag("type")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort);
@@ -143,5 +145,11 @@ public class Tag246 extends DataFieldDefinition {
       "d", "Designation of section/part/series (SE) [OBSOLETE, 1979]",
       "e", "Name of section/part/series (SE) [OBSOLETE, 1979]"
     );
+
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR").setMqTag("link"),
+      new SubfieldDefinition("@", "Language of field", "NR").setMqTag("language"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR").setMqTag("number")
+    ));
   }
 }

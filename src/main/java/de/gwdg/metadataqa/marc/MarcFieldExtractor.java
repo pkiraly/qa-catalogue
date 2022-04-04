@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc;
 import com.jayway.jsonpath.InvalidJsonException;
 import de.gwdg.metadataqa.api.counter.FieldCounter;
 import de.gwdg.metadataqa.api.interfaces.Calculator;
+import de.gwdg.metadataqa.api.interfaces.MetricResult;
 import de.gwdg.metadataqa.api.model.pathcache.JsonPathCache;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.api.model.pathcache.PathCache;
@@ -18,6 +19,9 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
+import de.gwdg.metadataqa.marc.dao.Control007;
+import de.gwdg.metadataqa.marc.dao.Control008;
+import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
@@ -29,9 +33,10 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class MarcFieldExtractor implements Calculator, Serializable {
 
-  public static final String CALCULATOR_NAME = "fieldExtractor";
-
   private static final Logger logger = Logger.getLogger(MarcFieldExtractor.class.getCanonicalName());
+
+  public static final String CALCULATOR_NAME = "fieldExtractor";
+  public static final String LEADER_KEY = "leader";
   private static final List<String> authorFields = Arrays.asList("100$a", "110$a", "700$a", "710$a");
 
   public static final String FIELD_NAME = "recordId";
@@ -59,7 +64,6 @@ public class MarcFieldExtractor implements Calculator, Serializable {
   private List<X035aSystemControlNumber> systemControlNumbers;
   private Map<String, Object> oclcMap;
   private boolean valid;
-
 
   public MarcFieldExtractor() {
   }
@@ -111,14 +115,14 @@ public class MarcFieldExtractor implements Calculator, Serializable {
       for (String fieldName : schema.getExtractableFields().keySet()) {
         if (!fieldName.equals(FIELD_NAME)) {
           path = schema.getExtractableFields().get(fieldName);
-          List<XmlFieldInstance> instances = (List<XmlFieldInstance>) cache.get(path);
+          List<XmlFieldInstance> instances = cache.get(path);
           List<String> values = null;
           if (!isNull(instances)) {
             values = new ArrayList<>();
             for (XmlFieldInstance instance : instances) {
               values.add(instance.getValue());
             }
-            if (fieldName.equals("leader")) {
+            if (fieldName.equals(LEADER_KEY)) {
               leader = new Leader(values.get(0));
             }
           }
@@ -163,25 +167,25 @@ public class MarcFieldExtractor implements Calculator, Serializable {
   }
 
   @Override
-  public void measure(PathCache pathCache) {
-
+  public List<MetricResult> measure(PathCache pathCache) {
+    return null;
   }
 
-  @Override
+  // @Override
   public Map<String, ? extends Object> getResultMap() {
     return resultMap.getMap();
   }
 
-  @Override
+  // @Override
   public Map<String, Map<String, ? extends Object>> getLabelledResultMap() {
     Map<String, Map<String, ? extends Object>> labelledResultMap = new LinkedHashMap<>();
     labelledResultMap.put(getCalculatorName(), resultMap.getMap());
     return labelledResultMap;
   }
 
-  @Override
+  // @Override
   public String getCsv(boolean withLabel, CompressionLevel compressionLevel) {
-    return resultMap.getList(withLabel, CompressionLevel.ZERO); // the extracted fields should never be compressed!
+    return resultMap.getCsv(withLabel, CompressionLevel.ZERO); // the extracted fields should never be compressed!
   }
 
   @Override
@@ -192,8 +196,8 @@ public class MarcFieldExtractor implements Calculator, Serializable {
   }
 
   public void processLeader() {
-    if (resultMap.has("leader"))
-      leader = new Leader(resultMap.get("leader").get(0));
+    if (resultMap.has(LEADER_KEY))
+      leader = new Leader(resultMap.get(LEADER_KEY).get(0));
     else
       logger.severe(String.format("No leader in result map. Nr of existing vars: %s",
           StringUtils.join(resultMap.getMap().keySet(), ", ")));
@@ -236,11 +240,11 @@ public class MarcFieldExtractor implements Calculator, Serializable {
     if (StringUtils.isBlank(text))
       return tokens;
 
-    StringTokenizer st = new StringTokenizer(text);
+    var st = new StringTokenizer(text);
     while (st.hasMoreTokens())
       tokens.add(st.nextToken());
 
-    int max = Math.min(length, tokens.size());
+    var max = Math.min(length, tokens.size());
     return tokens.subList(0, max);
   }
 
@@ -321,7 +325,6 @@ public class MarcFieldExtractor implements Calculator, Serializable {
     String author = null;
     for (String field : authorFields) {
       Object value = resultMap.get(field);
-      // String candidate = resultMap.get(field).toString();
       String stringValue;
       if (value instanceof List) {
         stringValue = StringUtils.join((List)value, " ");
@@ -390,11 +393,8 @@ public class MarcFieldExtractor implements Calculator, Serializable {
     oclcMap.put("workId", resultMap.get("912$9"));
     oclcMap.put("placeOfPublication", resultMap.get("260$a"));
     oclcMap.put("nameOfPublisher", resultMap.get("260$b"));
-    // oclcMap.put("dateOfPublication", resultMap.get("260$c"));
     oclcMap.put("sourceOfHeading", resultMap.get("650$2"));
     oclcMap.put("title", resultMap.get("245$a"));
-    // oclcMap.put("extent", resultMap.get("300$a"));
-
   }
 
   private Object resolve(List<String> list, CodeList codeService) {
@@ -418,7 +418,7 @@ public class MarcFieldExtractor implements Calculator, Serializable {
   }
 
   public void createDuplumKeyMap() {
-    duplumKeyMap = new HashMap<String, Object>();
+    duplumKeyMap = new HashMap<>();
     duplumKeyMap.put("recordId", recordId);
     duplumKeyMap.put("titleWords", titleWords);
     duplumKeyMap.put("authorWords", authorWords);

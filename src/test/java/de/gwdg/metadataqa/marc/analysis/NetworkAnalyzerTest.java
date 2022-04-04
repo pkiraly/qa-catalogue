@@ -1,9 +1,9 @@
 package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
-import de.gwdg.metadataqa.marc.DataField;
+import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,17 +18,17 @@ import static org.junit.Assert.*;
 
 public class NetworkAnalyzerTest {
 
-  MarcRecord record;
+  MarcRecord marcRecord;
 
   @Before
   public void setup() throws IOException, URISyntaxException {
-    List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
-    record = MarcFactory.createFromFormattedText(lines);
+    List<String> lines = FileUtils.readLinesFromResource("marctxt/010000011.mrctxt");
+    marcRecord = MarcFactory.createFromFormattedText(lines);
   }
 
   @Test
   public void process() {
-    NetworkAnalyzer analyzer = new NetworkAnalyzer(record);
+    NetworkAnalyzer analyzer = new NetworkAnalyzer(marcRecord);
     Set<DataField> collector = analyzer.process(1);
     assertEquals(5, collector.size());
     assertEquals(

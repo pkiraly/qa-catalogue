@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.cli.processor;
 
-import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import org.apache.commons.cli.Options;
 import org.marc4j.marc.Record;

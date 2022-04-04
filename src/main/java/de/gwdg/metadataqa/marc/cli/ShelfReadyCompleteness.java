@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.analysis.ShelfReadyAnalysis;
 import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
@@ -14,15 +14,16 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.Record;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
@@ -155,25 +156,25 @@ public class ShelfReadyCompleteness implements MarcFileProcessor, Serializable {
 
   private void print(String message) {
     try {
-      FileUtils.writeStringToFile(output, message, true);
+      FileUtils.writeStringToFile(output, message, Charset.defaultCharset(), true);
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.WARNING, "print", e);
     }
   }
 
   private void printFields() {
-    Path path = Paths.get(parameters.getOutputDir(), "shelf-ready-completeness-fields.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    var path = Paths.get(parameters.getOutputDir(), "shelf-ready-completeness-fields.csv");
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("name", "label", "marcpath", "score"));
       for (ShelfReadyFieldsBooks field : ShelfReadyFieldsBooks.values()) {
         try {
           writer.write(createRow(field.name(), quote(field.getLabel()), quote(field.getMarcPath()), field.getScore()));
         } catch (IOException e) {
-          e.printStackTrace();
+          logger.log(Level.WARNING, "printFields", e);
         }
       }
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.WARNING, "printFields", e);
     }
   }
 }

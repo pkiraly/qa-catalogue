@@ -19,6 +19,14 @@ public enum ValidationErrorFormat {
     this.names = Arrays.asList(names);
   }
 
+  public static ValidationErrorFormat byFormat(String format) {
+    for (ValidationErrorFormat registeredFormat : ValidationErrorFormat.values())
+      if (registeredFormat.getNames().contains(format))
+        return registeredFormat;
+
+    return null;
+  }
+
   public String getName() {
     return names.get(0);
   }

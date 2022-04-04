@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.analysis.ClassificationAnalyzer;
 import de.gwdg.metadataqa.marc.analysis.ClassificationStatistics;
@@ -20,10 +20,12 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
@@ -43,6 +45,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     parameters = new ValidatorParameters(args);
     options = parameters.getOptions();
     readyToProcess = true;
+    Schema.reset();
   }
 
   public static void main(String[] args) {
@@ -84,9 +87,11 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
     ClassificationAnalyzer analyzer = new ClassificationAnalyzer(marcRecord, statistics);
     analyzer.process();
-    int total1 = statistics.getHasClassifications().get(true);
-    int total = statistics.recordCountWithClassification();
-    if (total1 != total) {
+    var total1 = statistics.getHasClassifications().get(true);
+    if (total1 == null)
+      total1 = Integer.valueOf(0);
+    var total = statistics.recordCountWithClassification();
+    if (total1.intValue() != total.intValue()) {
       logger.severe(String.format("%s COUNT: total (%d) != schemasInRecord (%d)",
           marcRecord.getId(true), total1, total));
       readyToProcess = false;
@@ -110,18 +115,18 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
 
   private void printToFile(File file, String message) {
     try {
-      FileUtils.writeStringToFile(file, message, true);
+      FileUtils.writeStringToFile(file, message, Charset.defaultCharset(), true);
     } catch (IOException | NullPointerException e) {
       if (parameters.doLog())
-        logger.severe(e.toString());
-      e.printStackTrace();
+        logger.log(Level.SEVERE, "printToFile", e);
     }
   }
 
   private File prepareReportFile(String outputDir, String fileName) {
     File reportFile = new File(outputDir, fileName);
     if (reportFile.exists())
-      reportFile.delete();
+      if (!reportFile.delete())
+        logger.log(Level.SEVERE, "File {} hasn't been deleted", reportFile.getAbsolutePath());
     return reportFile;
   }
 
@@ -157,10 +162,12 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   private void printClassificationsCollocation() {
     Path path;
     path = Paths.get(parameters.getOutputDir(), "classifications-collocations.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(Collocation.header());
-      int total1 = statistics.getHasClassifications().get(true);
-      int total = statistics.recordCountWithClassification();
+      var total1 = statistics.getHasClassifications().get(true);
+      if (total1 == null)
+        total1 = Integer.valueOf(0);
+      var total = statistics.recordCountWithClassification();
       logger.info("total: " + total);
       if (total1 != total)
         logger.severe(String.format("total from hasClassifications (%d) != from collation (%d)",
@@ -173,7 +180,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
         .sorted((e1, e2) -> e1.compareTo(e2) * -1)
         .forEach(entry -> printCollocation(writer, entry));
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printClassificationsCollocation", e);
     }
   }
 
@@ -181,14 +188,14 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
     try {
       writer.write(entry.formatRow());
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printCollocation", e);
     }
   }
 
   private void printClassificationsBySchema() {
     Path path;
     path = Paths.get(parameters.getOutputDir(), "classifications-by-schema.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("id", "field", "location", "scheme",
         "abbreviation", "abbreviation4solr", "recordcount", "instancecount",
         "type"
@@ -202,7 +209,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
               return i;
             else {
               i = e1.getKey().getLocation().compareTo(e2.getKey().getLocation());
-              if (i != i)
+              if (i != 0)
                 return i;
               else
                 return e2.getValue().compareTo(e1.getValue());
@@ -213,7 +220,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
           entry -> printSingleClassificationBySchema(writer, entry)
         );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printClassificationsBySchema", e);
     }
   }
 
@@ -234,19 +241,16 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
         instanceCount,
         (schema.getType() == null ? "UNKNOWN" : schema.getType())
       ));
-    } catch (IOException ex) {
-      ex.printStackTrace();
-      System.err.println(schema);
-    } catch (NullPointerException ex) {
-      ex.printStackTrace();
-      System.err.println(schema);
+    } catch (IOException | NullPointerException ex) {
+      logger.log(Level.SEVERE, "printClassificationsBySchema", ex);
+      logger.severe(schema.toString());
     }
   }
 
   private void printClassificationsByRecords() {
     Path path;
     path = Paths.get(parameters.getOutputDir(), "classifications-by-records.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("records-with-classification", "count"));
       statistics.getHasClassifications()
         .entrySet()
@@ -258,67 +262,63 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
             try {
               writer.write(createRow(e.getKey().toString(), e.getValue()));
             } catch (IOException ex) {
-              ex.printStackTrace();
+              logger.log(Level.SEVERE, "printClassificationsByRecords", ex);
             }
           }
         );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printClassificationsByRecords", e);
     }
   }
 
   private void printClassificationsHistogram() {
-    Path path = Paths.get(parameters.getOutputDir(), "classifications-histogram.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    var path = Paths.get(parameters.getOutputDir(), "classifications-histogram.csv");
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("count", "frequency"));
       statistics.getSchemaHistogram()
         .entrySet()
         .stream()
-        .sorted((e1, e2) -> {
-          return e1.getKey().compareTo(e2.getKey());
-        })
+        .sorted((e1, e2) -> e1.getKey().compareTo(e2.getKey()))
         .forEach(
           entry -> {
             try {
               writer.write(createRow(entry.getKey(), entry.getValue()));
             } catch (IOException e) {
-              e.printStackTrace();
+              logger.log(Level.SEVERE, "printClassificationsHistogram", e);
             }
           }
         );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printClassificationsHistogram", e);
     }
   }
 
   private void printFrequencyExamples() {
-    Path path = Paths.get(parameters.getOutputDir(), "classifications-frequency-examples.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    var path = Paths.get(parameters.getOutputDir(), "classifications-frequency-examples.csv");
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("count", "id"));
       statistics.getFrequencyExamples()
         .entrySet()
         .stream()
-        .sorted((e1, e2) -> {
-          return e1.getKey().compareTo(e2.getKey());
-        })
+        .sorted((e1, e2) -> e1.getKey().compareTo(e2.getKey()))
         .forEach(
           entry -> {
             try {
               writer.write(createRow(entry.getKey(), entry.getValue()));
             } catch (IOException e) {
-              e.printStackTrace();
+              logger.log(Level.SEVERE, "printFrequencyExamples", e);
             }
           }
         );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printFrequencyExamples", e);
     }
   }
 
   private void printSchemaSubfieldsStatistics() {
     Path path;
     path = Paths.get(parameters.getOutputDir(), "classifications-by-schema-subfields.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       // final List<String> header = Arrays.asList("field", "location", "label", "abbreviation", "subfields", "scount");
       final List<String> header = Arrays.asList("id", "subfields", "count");
       writer.write(createRow(header));
@@ -331,7 +331,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
           schemaEntry -> printSingleSchemaSubfieldsStatistics(writer, schemaEntry)
         );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printSchemaSubfieldsStatistics", e);
     }
   }
 
@@ -357,7 +357,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
               count
             ));
           } catch (IOException ex) {
-            ex.printStackTrace();
+            logger.log(Level.SEVERE, "printSingleSchemaSubfieldsStatistics", ex);
           }
         }
       );

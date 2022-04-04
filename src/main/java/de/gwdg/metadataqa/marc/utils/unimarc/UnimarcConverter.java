@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.utils.unimarc;
 
-import de.gwdg.metadataqa.marc.DataField;
+import de.gwdg.metadataqa.marc.dao.DataField;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;

@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.controlpositions.leader;
 
+import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 
 import java.util.Arrays;
@@ -32,5 +33,8 @@ public class Leader22 extends ControlfieldPositionDefinition {
     positionEnd = 23;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bdleader.html";
     functions = Arrays.asList(ManagementProcess);
+    codes = Utils.generateCodes(
+      "0", "Number of characters in the implementation-defined portion of a Directory entry"
+    );
   }
 }

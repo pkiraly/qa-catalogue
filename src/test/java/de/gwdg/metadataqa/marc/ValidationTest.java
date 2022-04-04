@@ -7,6 +7,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
+import de.gwdg.metadataqa.marc.dao.Control003;
+import de.gwdg.metadataqa.marc.dao.Control005;
+import de.gwdg.metadataqa.marc.dao.Control008;
+import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.Leader;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.tags.oclctags.Tag090;
 import de.gwdg.metadataqa.marc.definition.tags.sztetags.Tag596;
@@ -46,11 +52,11 @@ public class ValidationTest {
 
   @Test
   public void test246_6() throws URISyntaxException, IOException {
-    MarcRecord record = new MarcRecord("u2407796");
-    record.setLeader(new Leader("00860cam a22002774a 45 0"));
-    record.setControl003(new Control003("SIRSI"));
-    record.setControl005(new Control005("20080331162830.0"));
-    record.setControl008(new Control008("070524s2007    cc a          001 0 chi", Leader.Type.BOOKS));
+    MarcRecord marcRecord = new MarcRecord("u2407796");
+    marcRecord.setLeader(new Leader("00860cam a22002774a 45 0"));
+    marcRecord.setControl003(new Control003("SIRSI"));
+    marcRecord.setControl005(new Control005("20080331162830.0"));
+    marcRecord.setControl008(new Control008("070524s2007    cc a          001 0 chi", Leader.Type.BOOKS));
 
     List<DataField> fields = Arrays.asList(
       new DataField(Tag010.getInstance(), " ", " ", "a", "  2007929507"),
@@ -85,34 +91,33 @@ public class ValidationTest {
     );
 
     for (DataField field : fields) {
-      record.addDataField(field);
-      field.setRecord(record);
+      marcRecord.addDataField(field);
+      field.setMarcRecord(marcRecord);
     }
 
-    boolean isValid = record.validate(MarcVersion.MARC21, false);
+    boolean isValid = marcRecord.validate(MarcVersion.MARC21, false);
     if (!isValid) {
-      String message = ValidationErrorFormatter.format(record.getValidationErrors(), ValidationErrorFormat.TEXT);
+      String message = ValidationErrorFormatter.format(marcRecord.getValidationErrors(), ValidationErrorFormat.TEXT);
       assertTrue(message.contains("880$6: 3 - ambiguous linkage 'There are multiple $6'"));
     }
   }
 
   @Test
   public void testAFile() throws URISyntaxException, IOException {
-    List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
-    MarcRecord record = MarcFactory.createFromFormattedText(lines, MarcVersion.MARC21);
-    assertFalse(record.validate(MarcVersion.MARC21, true));
-    assertEquals(21, record.getValidationErrors().size());
+    List<String> lines = FileUtils.readLinesFromResource("marctxt/010000011.mrctxt");
+    MarcRecord marcRecord = MarcFactory.createFromFormattedText(lines, MarcVersion.MARC21);
+    assertFalse(marcRecord.validate(MarcVersion.MARC21, true));
+    assertEquals(21, marcRecord.getValidationErrors().size());
   }
 
   @Test
   public void testABLFile() throws URISyntaxException, IOException {
-    List<String> lines = FileUtils.readLines("bl/006013122.mrctxt");
-    MarcRecord record = MarcFactory.createFromFormattedText(lines, MarcVersion.BL);
+    List<String> lines = FileUtils.readLinesFromResource("bl/006013122.mrctxt");
+    MarcRecord marcRecord = MarcFactory.createFromFormattedText(lines, MarcVersion.BL);
     assertEquals(Arrays.asList(
       "FMT", "019", "020", "040", "100", "245", "260", "336", "337", "338", "590",
       "966", "979", "CAT", "CAT", "CAT", "CAT", "FIN", "LEO", "SRC", "STA", "LAS"),
-      record.getDatafields().stream().map(DataField::getTag).collect(Collectors.toList()));
-    assertTrue(record.hasDatafield("STA"));
+      marcRecord.getDatafields().stream().map(DataField::getTag).collect(Collectors.toList()));
+    assertTrue(marcRecord.hasDatafield("STA"));
   }
-
 }

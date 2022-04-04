@@ -34,11 +34,11 @@ public class DateValidator implements SubfieldValidator, Serializable {
 
     if (StringUtils.isNotBlank(value)) {
       try {
-        LocalDate date = LocalDate.parse(value, formatter);
+        LocalDate.parse(value, formatter);
       } catch(DateTimeParseException e) {
         response.addValidationError(
           new ValidationError(
-            subfield.getRecord().getId(),
+            subfield.getMarcRecord().getId(),
             subfield.getDefinition().getPath(),
             ValidationErrorType.SUBFIELD_PATTERN_MISMATCH,
             String.format("mismatched '%s' against '%s': %s", value, pattern, e.getMessage()),
@@ -49,7 +49,7 @@ public class DateValidator implements SubfieldValidator, Serializable {
     } else {
       response.addValidationError(
         new ValidationError(
-          subfield.getRecord().getId(),
+          subfield.getMarcRecord().getId(),
           subfield.getDefinition().getPath(),
           ValidationErrorType.SUBFIELD_PATTERN_MISMATCH,
           String.format("mismatched '%s' against '%s'", value, pattern),

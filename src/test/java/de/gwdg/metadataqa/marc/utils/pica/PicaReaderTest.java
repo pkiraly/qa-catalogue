@@ -1,17 +1,24 @@
 package de.gwdg.metadataqa.marc.utils.pica;
 
+import com.opencsv.CSVParser;
+import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
+import com.opencsv.exceptions.CsvException;
 import de.gwdg.metadataqa.api.util.FileUtils;
+import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.Utils;
-import net.minidev.json.JSONObject;
-import net.minidev.json.parser.JSONParser;
-import net.minidev.json.parser.ParseException;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.definition.Cardinality;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
+import org.marc4j.MarcReader;
+import org.marc4j.marc.Record;
 
 import java.io.*;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,7 +38,9 @@ public class PicaReaderTest {
     CSVReader reader = null;
     try {
       Path tagsFile = FileUtils.getPath("pica/pica-tags-2013.csv");
-      reader = new CSVReader(new FileReader(tagsFile.toString()), ';');
+      Reader fileReader = new FileReader(tagsFile.toString());
+      CSVParser parser = new CSVParserBuilder().withSeparator(';').build();
+      reader = new CSVReaderBuilder(fileReader).withCSVParser(parser).build();
       List<String[]> myEntries = reader.readAll();
       Map<String, List<PicaTagDefinition>> map = new HashMap<>();
       assertEquals(431, myEntries.size());
@@ -87,17 +96,17 @@ public class PicaReaderTest {
       e.printStackTrace();
     } catch (URISyntaxException e) {
       e.printStackTrace();
+    } catch (CsvException e) {
+      e.printStackTrace();
     }
   }
 
   @Test
   public void readAvramSchema() {
-    CSVReader reader = null;
-    JSONParser parser = new JSONParser();
     try {
-      Map<String, List<PicaTagDefinition>> schemaDirectory = new HashMap<>();
-      schemaDirectory.putAll(readSchema(parser, "pica/pica-schema.json"));
-      schemaDirectory.putAll(readSchema(parser, "pica/pica-schema-extra.json"));
+      Map<String, PicaFieldDefinition> schemaDirectory = new HashMap<>();
+      schemaDirectory.putAll(PicaSchemaReader.create(getPath("pica/pica-schema.json")));
+      schemaDirectory.putAll(PicaSchemaReader.create(getPath("pica/pica-schema-extra.json")));
 
       Map<String, Integer> counter = new HashMap<>();
       Map<String, List<String>> ppns = new HashMap<>();
@@ -116,9 +125,7 @@ public class PicaReaderTest {
             && !WARNUNG.matcher(line).find()) {
             PicaLine pl = new PicaLine(line);
             if (!directoryContains(schemaDirectory, pl)) {
-              if (!ppns.containsKey(pl.getQualifiedTag())) {
-                ppns.put(pl.getQualifiedTag(), new ArrayList<>());
-              }
+              ppns.computeIfAbsent(pl.getQualifiedTag(), s -> new ArrayList<>());
               ppns.get(pl.getQualifiedTag()).add(ppn);
               Utils.count(pl.getQualifiedTag(), counter);
             }
@@ -166,53 +173,61 @@ public class PicaReaderTest {
       e.printStackTrace();
     } catch (URISyntaxException e) {
       e.printStackTrace();
-    } catch (ParseException e) {
-      e.printStackTrace();
     }
   }
 
-  private boolean directoryContains(Map<String, List<PicaTagDefinition>> schemaDirectory, PicaLine pl) {
+  @Test
+  public void picaReader() throws IOException, URISyntaxException {
+    Map<String, PicaFieldDefinition> schema = PicaSchemaReader.create(getPath("pica/k10plus.json"));
+    String recordFile = FileUtils.getPath("pica/picaplus-sample.txt").toAbsolutePath().toString();
+    MarcReader reader = new PicaReader(recordFile);
+    int i = 0;
+    MarcRecord marcRecord = null;
+    while (reader.hasNext()) {
+      Record record = reader.next();
+      marcRecord = MarcFactory.createPicaFromMarc4j(record, schema);
+      System.err.println(marcRecord.getId());
+      i++;
+    }
+    System.err.printf("processed %d records%n", i);
+    System.err.println(marcRecord.format());
+  }
+
+  private boolean directoryContains(Map<String, PicaFieldDefinition> schemaDirectory, PicaLine pl) {
     if (schemaDirectory.containsKey(pl.getTag())) {
-      List<PicaTagDefinition> definitions = schemaDirectory.get(pl.getTag());
-      for (PicaTagDefinition definition : definitions) {
-        if (definition.getTag().validateOccurrence(pl.getOccurrence()))
+      PicaFieldDefinition definitions = schemaDirectory.get(pl.getTag());
+        // if (definition.getPicaplusTag().validateOccurrence(pl.getOccurrence()))
           return true;
-      }
     }
     return false;
   }
 
-  private Map<String, List<PicaTagDefinition>> readSchema(JSONParser parser, String fileName) throws IOException, URISyntaxException, ParseException {
-    Map<String, List<PicaTagDefinition>> map = new HashMap<>();
-
-    Path tagsFile = FileUtils.getPath(fileName);
-    Object obj = parser.parse(new FileReader(tagsFile.toString()));
-    JSONObject jsonObject = (JSONObject) obj;
-    JSONObject fields = (JSONObject) jsonObject.get("fields");
-    for (String name : fields.keySet()) {
-      JSONObject field = (JSONObject) fields.get(name);
-      // System.err.println(field);
-      PicaTagDefinition tag = new PicaTagDefinition(
-        (String) field.get("pica3"),
-        name,
-        (boolean) field.get("repeatable"),
-        false,
-        (String) field.get("label")
-      );
-      addTag(map, tag);
-    }
-
-    return map;
+  @Test
+  public void readASchema() {
+    Map<String, PicaFieldDefinition> schema = PicaSchemaReader.create(getPath("pica/k10plus.json"));
+    assertEquals(400, schema.size());
+    PicaFieldDefinition definition = schema.get("048H");
+    assertEquals("048H", definition.getTag());
+    assertEquals("Systemvoraussetzungen für elektronische Ressourcen", definition.getLabel());
+    assertEquals(Cardinality.Repeatable, definition.getCardinality());
+    assertEquals(1, definition.getSubfields().size());
+    assertEquals("a", definition.getSubfields().get(0).getCode());
+    assertEquals("Systemvoraussetzungen für elektronische Ressourcen", definition.getSubfields().get(0).getLabel());
+    assertEquals(Cardinality.Nonrepeatable, definition.getSubfields().get(0).getCardinality());
   }
 
   private void addTag(Map<String, List<PicaTagDefinition>> map, PicaTagDefinition definition) {
-    String tag = definition.getTag().getTag();
+    String tag = definition.getPicaplusTag().getTag();
     if (!map.containsKey(tag)) {
       map.put(tag, new ArrayList<>());
     } else {
-      System.err.println("Tag is already defined! " + definition.getTag().getRaw() + " "
-        + map.get(tag).stream().map(a -> a.getTag().getRaw()).collect(Collectors.toSet()));
+      System.err.println("Tag is already defined! " + definition.getPicaplusTag().getRaw() + " "
+        + map.get(tag).stream().map(a -> a.getPicaplusTag().getRaw()).collect(Collectors.toSet()));
     }
     map.get(tag).add(definition);
+  }
+
+  private String getPath(String fileName) {
+    return Paths.get("src/test/resources/" + fileName).toAbsolutePath().toString();
   }
 }

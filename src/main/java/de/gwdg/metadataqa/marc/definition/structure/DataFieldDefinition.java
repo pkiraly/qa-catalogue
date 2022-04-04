@@ -1,18 +1,19 @@
 package de.gwdg.metadataqa.marc.definition.structure;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.CompilanceLevel;
 import de.gwdg.metadataqa.marc.definition.FRBRFunction;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
+import de.gwdg.metadataqa.marc.definition.bibliographic.BibliographicFieldDefinition;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.*;
 
-public abstract class DataFieldDefinition implements Serializable {
+public abstract class DataFieldDefinition implements BibliographicFieldDefinition, Serializable {
   protected String tag;
   protected String bibframeTag;
   protected String mqTag;
@@ -23,8 +24,8 @@ public abstract class DataFieldDefinition implements Serializable {
   protected String descriptionUrl;
   protected List<SubfieldDefinition> subfields;
   protected Map<String, SubfieldDefinition> subfieldIndex = new LinkedHashMap<>();
-  protected List<Code> historicalSubfields;
-  protected Map<String, Code> historicalSubfieldsIndex;
+  protected List<EncodedValue> historicalSubfields;
+  protected Map<String, EncodedValue> historicalSubfieldsIndex;
   protected String indexTag = null;
   protected Map<MarcVersion, List<SubfieldDefinition>> versionSpecificSubfields;
   protected List<FRBRFunction> functions;
@@ -32,7 +33,7 @@ public abstract class DataFieldDefinition implements Serializable {
   protected boolean obsolete = false;
   private CompilanceLevel nationalCompilanceLevel;
   private CompilanceLevel minimalCompilanceLevel;
-
+  private MarcVersion marcVersion;
 
   public String getTag() {
     return tag;
@@ -119,7 +120,7 @@ public abstract class DataFieldDefinition implements Serializable {
   protected DataFieldDefinition setHistoricalSubfields(String... input) {
     historicalSubfields = new ArrayList<>();
     for (int i = 0; i<input.length; i+=2) {
-      historicalSubfields.add(new Code(input[i], input[i+1]));
+      historicalSubfields.add(new EncodedValue(input[i], input[i+1]));
     }
     indexHistoricalSubfields();
     return this;
@@ -127,7 +128,7 @@ public abstract class DataFieldDefinition implements Serializable {
 
   private void indexHistoricalSubfields() {
     historicalSubfieldsIndex = new LinkedHashMap<>();
-    for (Code code : historicalSubfields) {
+    for (EncodedValue code : historicalSubfields) {
       historicalSubfieldsIndex.put(code.getCode(), code);
     }
   }
@@ -151,14 +152,21 @@ public abstract class DataFieldDefinition implements Serializable {
     return subfieldIndex.getOrDefault(code, null);
   }
 
-  public void putVersionSpecificSubfields(MarcVersion marcVersion, List<SubfieldDefinition> subfieldDefinitions) {
+  public void putVersionSpecificSubfields(MarcVersion marcVersion,
+                                          List<SubfieldDefinition> subfieldDefinitions) {
     if (versionSpecificSubfields == null)
-      versionSpecificSubfields = new HashMap<>();
+      versionSpecificSubfields = new EnumMap<>(MarcVersion.class);
 
-    for (SubfieldDefinition subfieldDefinition : subfieldDefinitions)
+    for (SubfieldDefinition subfieldDefinition : subfieldDefinitions) {
       subfieldDefinition.setParent(this);
+      subfieldDefinition.setMarcVersion(marcVersion);
+    }
 
     versionSpecificSubfields.put(marcVersion, subfieldDefinitions);
+  }
+
+  public Map<MarcVersion, List<SubfieldDefinition>> getVersionSpecificSubfields() {
+    return versionSpecificSubfields;
   }
 
   public boolean hasVersionSpecificSubfields(MarcVersion marcVersion) {
@@ -188,7 +196,7 @@ public abstract class DataFieldDefinition implements Serializable {
     return null;
   }
 
-  public List<Code> getHistoricalSubfields() {
+  public List<EncodedValue> getHistoricalSubfields() {
     return historicalSubfields;
   }
 
@@ -240,12 +248,15 @@ public abstract class DataFieldDefinition implements Serializable {
   }
 
   public MarcVersion getMarcVersion() {
-    return Utils.getVersion(this);
+    if (marcVersion == null)
+      marcVersion = Utils.getVersion(this);
+    return marcVersion;
   }
 
   public boolean isObsolete() {
     return obsolete;
   }
+
 
   @Override
   public String toString() {

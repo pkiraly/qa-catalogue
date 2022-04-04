@@ -8,6 +8,10 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Map;
+
+import de.gwdg.metadataqa.marc.dao.Control007;
+import de.gwdg.metadataqa.marc.dao.Control008;
+import de.gwdg.metadataqa.marc.dao.Leader;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -45,7 +49,7 @@ public class MarcFieldExtractorTest {
     MarcFieldExtractor calculator = new MarcFieldExtractor(new MarcJsonSchema());
     calculator.measure(
       new JsonPathCache(
-        FileUtils.readFirstLine("general/verbund-tit.001.0000000.formatted.json")
+        FileUtils.readFirstLineFromResource("general/verbund-tit.001.0000000.formatted.json")
       )
     );
 

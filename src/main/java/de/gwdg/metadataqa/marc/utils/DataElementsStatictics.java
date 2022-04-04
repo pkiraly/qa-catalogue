@@ -23,13 +23,13 @@ public class DataElementsStatictics {
   public static Counter<DataElementType> count() {
     Counter<DataElementType> counter = new Counter<>();
 
-    for (ControlfieldPositionDefinition subfield : MarcDefinition.leaderPositions)
+    for (ControlfieldPositionDefinition subfield : MarcDefinition.getLeaderPositions())
       counter.count(DataElementType.controlFieldPositions);
 
-    for (DataFieldDefinition subfield : MarcDefinition.simpleControlFields)
+    for (DataFieldDefinition subfield : MarcDefinition.getSimpleControlFields())
       counter.count(DataElementType.controlFields);
 
-    for (ControlFieldDefinition controlField : MarcDefinition.complexControlFields) {
+    for (ControlFieldDefinition controlField : MarcDefinition.getComplexControlFields()) {
       counter.count(DataElementType.controlFields);
 
       for (List<ControlfieldPositionDefinition> controlFieldPositions : controlField.getControlfieldPositions().values())
@@ -64,6 +64,13 @@ public class DataElementsStatictics {
               counter.count(DataElementType.coreSubfields);
             else
               counter.count(DataElementType.localSubfields);
+
+        if (isCore)
+          if (fieldTag.getVersionSpecificSubfields() != null)
+            for (MarcVersion localVersion : fieldTag.getVersionSpecificSubfields().keySet())
+              for (SubfieldDefinition subfield : fieldTag.getVersionSpecificSubfields().get(localVersion))
+                counter.count(DataElementType.localSubfields);
+
 
       } catch (NoSuchMethodException
               | IllegalAccessException

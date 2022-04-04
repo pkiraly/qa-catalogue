@@ -1,8 +1,10 @@
 package de.gwdg.metadataqa.marc.cli.utils;
 
-import de.gwdg.metadataqa.marc.*;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.cli.parameters.MappingParameters;
 import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.controlpositions.ControlfieldPositionList;
+import de.gwdg.metadataqa.marc.definition.structure.ControlFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
@@ -15,6 +17,7 @@ import de.gwdg.metadataqa.marc.definition.controlpositions.LeaderPositions;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.utils.MarcTagLister;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
+import de.gwdg.metadataqa.marc.utils.keygenerator.PositionalControlFieldKeyGenerator;
 import net.minidev.json.JSONValue;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -22,16 +25,12 @@ import org.apache.commons.cli.ParseException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MappingToJson {
 
   private static final Logger logger = Logger.getLogger(MappingToJson.class.getCanonicalName());
-
-  private final static List<String> nonMarc21TagLibraries = Arrays.asList(
-    "oclctags", "fennicatags", "dnbtags", "sztetags", "genttags", "nkcrtags",
-    "holdings"
-  );
 
   private boolean exportSubfieldCodes = false;
   private boolean exportSelfDescriptiveCodes = false;
@@ -39,7 +38,7 @@ public class MappingToJson {
   private final Options options;
   private MappingParameters parameters;
 
-  public MappingToJson(String args[]) throws ParseException {
+  public MappingToJson(String[] args) throws ParseException {
     parameters = new MappingParameters(args);
     options = parameters.getOptions();
 
@@ -62,130 +61,123 @@ public class MappingToJson {
   }
 
   public void build() {
-    Map fields = new LinkedHashMap<>();
+    Map<String, Object> fields = new LinkedHashMap<>();
 
-    Map<String, Object> tag = new LinkedHashMap<>();
-    tag.put("repeatable", false);
-    Map<String, Object> positions = new LinkedHashMap<>();
+    fields.put("LDR", buildLeader());
+    fields.putAll(buildSimpleControlFields());
 
-    LeaderPositions leaderSubfields = LeaderPositions.getInstance();
-    for (ControlfieldPositionDefinition subfield : leaderSubfields.getPositionList()) {
-      Map<String, Object> position = controlPositionToJson(subfield);
-      String key = (String) position.remove("position");
-      positions.put(key, position);
-    }
-    tag.put("positions", positions);
-    fields.put("LDR", tag);
-
-    List<DataFieldDefinition> simpleControlFields = Arrays.asList(
-      Control001Definition.getInstance(),
-      Control003Definition.getInstance(),
-      Control005Definition.getInstance()
-    );
-    for (DataFieldDefinition field : simpleControlFields) {
-      tag = new LinkedHashMap<>();
-      tag.put("tag", field.getTag());
-      tag.put("label", field.getLabel());
-      tag.put("repeatable", resolveCardinality(field.getCardinality()));
-      fields.put(field.getTag(), tag);
-    }
-
-    tag = new LinkedHashMap<>();
-    tag.put("tag", "006");
-    tag.put("label", Control006Definition.getInstance().getLabel());
-    tag.put("repeatable", resolveCardinality(Control006Definition.getInstance().getCardinality()));
-    Map<String, Object> types = new LinkedHashMap<>();
-    for (String type : Control006Positions.getInstance().getPositions().keySet()) {
-      Map<String, Object> typeMap = new LinkedHashMap<>();
-      positions = new LinkedHashMap<>();
-      for (ControlfieldPositionDefinition subfield : Control006Positions.getInstance().getPositions().get(type)) {
-        Map<String, Object> position = controlPositionToJson(subfield);
-        String key = (String) position.remove("position");
-        positions.put(key, position);
-      }
-      typeMap.put("positions", positions);
-      types.put(type, typeMap);
-    }
-    tag.put("types", types);
-    fields.put("006", tag);
-
-    tag = new LinkedHashMap<>();
-    tag.put("tag", "007");
-    tag.put("label", Control007Definition.getInstance().getLabel());
-    tag.put("repeatable", resolveCardinality(Control007Definition.getInstance().getCardinality()));
-    types = new LinkedHashMap<>();
-    for (String category : Control007Positions.getInstance().getPositions().keySet()) {
-      Map<String, Object> typeMap = new LinkedHashMap<>();
-      positions = new LinkedHashMap<>();
-      for (ControlfieldPositionDefinition subfield : Control007Positions.getInstance().getPositions().get(category)) {
-        Map<String, Object> position = controlPositionToJson(subfield);
-        String key = (String) position.remove("position");
-        positions.put(key, position);
-      }
-      typeMap.put("positions", positions);
-      types.put(category, typeMap);
-    }
-    tag.put("types", types);
-    fields.put("007", tag);
-
-    tag = new LinkedHashMap<>();
-    tag.put("tag", "008");
-    tag.put("label", Control008Definition.getInstance().getLabel());
-    tag.put("repeatable", resolveCardinality(Control008Definition.getInstance().getCardinality()));
-    types = new LinkedHashMap<>();
-    for (String type : Control008Positions.getInstance().getPositions().keySet()) {
-      Map<String, Object> typeMap = new LinkedHashMap<>();
-      positions = new LinkedHashMap<>();
-      for (ControlfieldPositionDefinition subfield : Control008Positions.getInstance().getPositions().get(type)) {
-        Map<String, Object> position = controlPositionToJson(subfield);
-        String key = (String) position.remove("position");
-        positions.put(key, position);
-      }
-      typeMap.put("positions", positions);
-      types.put(type, typeMap);
-    }
-    tag.put("types", types);
-    fields.put("008", tag);
+    fields.put("006", buildControlField(Control006Definition.getInstance(), Control006Positions.getInstance()));
+    fields.put("007", buildControlField(Control007Definition.getInstance(), Control007Positions.getInstance()));
+    fields.put("008", buildControlField(Control008Definition.getInstance(), Control008Positions.getInstance()));
 
     for (Class<? extends DataFieldDefinition> tagClass : MarcTagLister.listTags()) {
-      if (isNonMarc21Tag(tagClass))
-        continue;
-
-      Method getInstance;
-      DataFieldDefinition fieldTag;
       try {
-        getInstance = tagClass.getMethod("getInstance");
-        fieldTag = (DataFieldDefinition) getInstance.invoke(tagClass);
+        Method getInstance = tagClass.getMethod("getInstance");
+        DataFieldDefinition fieldTag = (DataFieldDefinition) getInstance.invoke(tagClass);
+        if (!parameters.isWithLocallyDefinedFields() && !fieldTag.getMarcVersion().equals(MarcVersion.MARC21))
+          continue;
         dataFieldToJson(fields, fieldTag);
       } catch (NoSuchMethodException
         | IllegalAccessException
         | InvocationTargetException e) {
-        e.printStackTrace();
+        logger.log(Level.SEVERE, "build", e);
       }
     }
     mapping.put("fields", fields);
   }
 
-  private static boolean isNonMarc21Tag(Class<? extends DataFieldDefinition> tagClass) {
-    boolean isNonMarc21Tag = false;
-    for (String nonCore : nonMarc21TagLibraries) {
-      if (tagClass.getCanonicalName().contains(nonCore)) {
-        isNonMarc21Tag = true;
-        break;
+  private Map<String, Object> buildControlField(ControlFieldDefinition field, ControlfieldPositionList positionDefinition) {
+    Map<String, Object> positions;
+    Map<String, Object> tag = new LinkedHashMap<>();
+    tag.put("tag", field.getTag());
+    tag.put("label", field.getLabel());
+    tag.put("repeatable", resolveCardinality(field.getCardinality()));
+    Map<String, Object> types = new LinkedHashMap<>();
+    PositionalControlFieldKeyGenerator generator = getPositionalControlFieldKeyGenerator(field);
+    for (String type : positionDefinition.getPositions().keySet()) {
+      Map<String, Object> typeMap = new LinkedHashMap<>();
+      positions = new LinkedHashMap<>();
+      for (ControlfieldPositionDefinition subfield : positionDefinition.getPositions().get(type)) {
+        Map<String, Object> position = controlPositionToJson(subfield, generator);
+        String key = (String) position.remove("position");
+        positions.put(key, position);
       }
+      typeMap.put("positions", positions);
+      types.put(type, typeMap);
     }
-    return isNonMarc21Tag;
+    tag.put("types", types);
+    return tag;
   }
 
-  private static Map<String, Object> controlPositionToJson(ControlfieldPositionDefinition subfield) {
+  private Map<String, Object> buildSimpleControlFields() {
+    Map fields = new HashMap();
+    List<DataFieldDefinition> simpleControlFields = Arrays.asList(
+      Control001Definition.getInstance(),
+      Control003Definition.getInstance(),
+      Control005Definition.getInstance()
+    );
+    for (DataFieldDefinition field : simpleControlFields)
+      fields.put(field.getTag(), buildSImpleControlField(field));
+
+    return fields;
+  }
+
+  private Map<String, Object> buildSImpleControlField(DataFieldDefinition field) {
+    Map<String, Object> tag;
+    PositionalControlFieldKeyGenerator keyGenerator = new PositionalControlFieldKeyGenerator(field.getTag(), field.getMqTag(), parameters.getSolrFieldType());
+    tag = new LinkedHashMap<>();
+    tag.put("tag", field.getTag());
+    tag.put("label", field.getLabel());
+    tag.put("repeatable", resolveCardinality(field.getCardinality()));
+    if (exportSelfDescriptiveCodes)
+      tag.put("solr", keyGenerator.forTag());
+    return tag;
+  }
+
+  private Map<String, Object> buildLeader() {
+    Map<String, Object> tag = new LinkedHashMap<>();
+    tag.put("repeatable", false);
+    Map<String, Object> positions = new LinkedHashMap<>();
+
+    ControlFieldDefinition field = LeaderDefinition.getInstance();
+    PositionalControlFieldKeyGenerator generator = getPositionalControlFieldKeyGenerator(field);
+
+    LeaderPositions leaderSubfields = LeaderPositions.getInstance();
+    for (ControlfieldPositionDefinition subfield : leaderSubfields.getPositionList()) {
+      Map<String, Object> position = controlPositionToJson(subfield, generator);
+      String key = (String) position.remove("position");
+      positions.put(key, position);
+    }
+    tag.put("positions", positions);
+    return tag;
+  }
+
+  private PositionalControlFieldKeyGenerator getPositionalControlFieldKeyGenerator(ControlFieldDefinition field) {
+    PositionalControlFieldKeyGenerator generator = exportSelfDescriptiveCodes
+      ? new PositionalControlFieldKeyGenerator(field.getTag(), field.getMqTag(), parameters.getSolrFieldType())
+      : null;
+    return generator;
+  }
+
+  private static Map<String, Object> controlPositionToJson(ControlfieldPositionDefinition subfield, PositionalControlFieldKeyGenerator generator) {
     Map<String, Object> values = new LinkedHashMap<>();
     values.put("position", subfield.formatPositon());
     values.put("label", subfield.getLabel());
     values.put("url", subfield.getDescriptionUrl());
+    values.put("start", subfield.getPositionStart());
+    values.put("end", subfield.getPositionEnd());
+    values.put("repeatableContent", subfield.isRepeatableContent());
+    if (subfield.isRepeatableContent()) {
+      values.put("unitLength", subfield.getUnitLength());
+    }
+
+    if (generator != null)
+      values.put("solr", generator.forSubfield(subfield));
+
 
     if (subfield.getCodes() != null) {
       LinkedHashMap<String, Object> codes = new LinkedHashMap<>();
-      for (Code code : subfield.getCodes()) {
+      for (EncodedValue code : subfield.getCodes()) {
         Map<String, Object> codeMap = new LinkedHashMap<>();
         // codeMap.put("code", code.getCode());
         codeMap.put("label", code.getLabel());
@@ -195,7 +187,7 @@ public class MappingToJson {
     }
     if (subfield.getHistoricalCodes() != null) {
       LinkedHashMap<String, Object> codes = new LinkedHashMap<>();
-      for (Code code : subfield.getHistoricalCodes()) {
+      for (EncodedValue code : subfield.getHistoricalCodes()) {
         Map<String, Object> codeMap = new LinkedHashMap<>();
         // codeMap.put("code", code.getCode());
         codeMap.put("label", code.getLabel());
@@ -223,18 +215,42 @@ public class MappingToJson {
     if (parameters.doExportCompilanceLevel())
       extractCompilanceLevel(tagMap, tag.getNationalCompilanceLevel(), tag.getMinimalCompilanceLevel());
 
+    if (parameters.isWithLocallyDefinedFields())
+      tagMap.put("version", tag.getMarcVersion().getCode());
+
     tagMap.put("indicator1", indicatorToJson(tag.getInd1()));
     tagMap.put("indicator2", indicatorToJson(tag.getInd2()));
 
     Map<String, Object> subfields = new LinkedHashMap<>();
-    for (SubfieldDefinition subfield : tag.getSubfields()) {
-      subfields.put(subfield.getCode(), subfieldToJson(subfield, keyGenerator));
+    if (tag.getSubfields() != null) {
+      for (SubfieldDefinition subfield : tag.getSubfields()) {
+        subfields.put(subfield.getCode(), subfieldToJson(subfield, keyGenerator));
+      }
+    } else {
+      logger.info(tag + " does not have subfields");
     }
     tagMap.put("subfields", subfields);
 
+    if (parameters.isWithLocallyDefinedFields()) {
+      Map<MarcVersion, List<SubfieldDefinition>> versionSpecificSubfields = tag.getVersionSpecificSubfields();
+      if (versionSpecificSubfields != null && !versionSpecificSubfields.isEmpty()) {
+        Map<String, Map<String, Object>> versionSpecificSubfieldsMap = new LinkedHashMap<>();
+        for (Map.Entry<MarcVersion, List<SubfieldDefinition>> entry : versionSpecificSubfields.entrySet()) {
+          String version = entry.getKey().getCode();
+          subfields = new LinkedHashMap<>();
+          for (SubfieldDefinition subfield : entry.getValue()) {
+            subfields.put(subfield.getCode(), subfieldToJson(subfield, keyGenerator));
+          }
+          versionSpecificSubfieldsMap.put(version, subfields);
+        }
+        if (!versionSpecificSubfieldsMap.isEmpty())
+          tagMap.put("versionSpecificSubfields", versionSpecificSubfieldsMap);
+      }
+    }
+
     if (tag.getHistoricalSubfields() != null) {
       subfields = new LinkedHashMap<>();
-      for (Code code : tag.getHistoricalSubfields()) {
+      for (EncodedValue code : tag.getHistoricalSubfields()) {
         Map<String, Object> labelMap = new LinkedHashMap<>();
         labelMap.put("label", code.getLabel());
         subfields.put(code.getCode(), labelMap);
@@ -242,11 +258,27 @@ public class MappingToJson {
       tagMap.put("historical-subfields", subfields);
     }
 
-    fields.put(tag.getTag(), tagMap);
+    if (fields.containsKey(tag.getTag())) {
+      Object existing = fields.get(tag.getTag());
+      List<Map> list = null;
+      if (existing instanceof Map) {
+        list = new ArrayList<>();
+        list.add((Map) existing);
+      } else if (existing instanceof List) {
+        list = (List) existing;
+      } else {
+        System.err.println("a strange object: " + existing.getClass().getCanonicalName());
+        list = new ArrayList<>();
+      }
+      list.add(tagMap);
+      fields.put(tag.getTag(), list);
+    } else {
+      fields.put(tag.getTag(), tagMap);
+    }
   }
 
   private void extractFunctions(Map<String, Object> tagMap, List<FRBRFunction> functions) {
-    if (functions != null && functions.size() > 0) {
+    if (functions != null && !functions.isEmpty()) {
       List<String> paths = new ArrayList<>();
       for (FRBRFunction function : functions) {
         paths.add(function.getPath());
@@ -270,15 +302,16 @@ public class MappingToJson {
       meta.put("name", codeList.getName());
       meta.put("url", codeList.getUrl());
 
-      if (exportSubfieldCodes
-          && !codeList.getName().equals("MARC Organization Codes")) {
-        Map<String, Object> codes = new LinkedHashMap<>();
-        for (Code code : subfield.getCodeList().getCodes()) {
-          Map<String, Object> codeListMap = new LinkedHashMap<>();
-          codeListMap.put("label", code.getLabel());
-          codes.put(code.getCode(), codeListMap);
+      if (exportSubfieldCodes && !codeList.getName().equals("MARC Organization Codes")) {
+        if (subfield.getCodeList() != null) {
+          Map<String, Object> codes = new LinkedHashMap<>();
+          for (EncodedValue code : subfield.getCodeList().getCodes()) {
+            Map<String, Object> codeListMap = new LinkedHashMap<>();
+            codeListMap.put("label", code.getLabel());
+            codes.put(code.getCode(), codeListMap);
+          }
+          meta.put("codes", codes);
         }
-        meta.put("codes", codes);
       }
       codeMap.put("codelist", meta);
     }
@@ -302,7 +335,7 @@ public class MappingToJson {
     if (minimalCompilanceLevel != null)
       levels.put("minimal", minimalCompilanceLevel.getLabel());
 
-    if (levels.size() > 0)
+    if (!levels.isEmpty())
       codeMap.put("compilance-level", levels);
   }
 
@@ -313,7 +346,7 @@ public class MappingToJson {
     Map<String, Object> value = new LinkedHashMap<>();
     value.put("label", indicator.getLabel());
     Map<String, Object> codes = new LinkedHashMap<>();
-    for (Code code : indicator.getCodes()) {
+    for (EncodedValue code : indicator.getCodes()) {
       Map<String, Object> map = new LinkedHashMap<>();
       map.put("label", code.getLabel());
       codes.put(code.getCode(), map);
@@ -321,7 +354,7 @@ public class MappingToJson {
     value.put("codes", codes);
     if (indicator.getHistoricalCodes() != null) {
       codes = new LinkedHashMap<>();
-      for (Code code : indicator.getHistoricalCodes()) {
+      for (EncodedValue code : indicator.getHistoricalCodes()) {
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("label", code.getLabel());
         codes.put(code.getCode(), map);

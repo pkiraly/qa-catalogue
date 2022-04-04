@@ -128,5 +128,11 @@ public class Tag085 extends DataFieldDefinition {
     putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
       new SubfieldDefinition("7", "NKCR Authority ID", "NR")
     ));
+
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR").setMqTag("link"),
+      new SubfieldDefinition("@", "Language of field", "NR").setMqTag("language"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR").setMqTag("number")
+    ));
   }
 }

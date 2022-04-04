@@ -1,7 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags84x;
 
-import de.gwdg.metadataqa.marc.DataField;
-import de.gwdg.metadataqa.marc.definition.tags.tags3xx.Tag300;
+import de.gwdg.metadataqa.marc.dao.DataField;
 import org.junit.Test;
 
 public class Tag880Test {

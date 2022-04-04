@@ -1,8 +1,8 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
-import de.gwdg.metadataqa.marc.Control006;
-import de.gwdg.metadataqa.marc.Leader;
-import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.Control006;
+import de.gwdg.metadataqa.marc.dao.Leader;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import org.junit.Test;
@@ -14,24 +14,24 @@ public class Validating006 {
 
   @Test
   public void test() {
-    MarcRecord record = new MarcRecord("001441164");
-    record.setLeader(new Leader("02945nam a22005657a 4500"));
-    record.setControl006(new Control006("jccnn           n", Leader.Type.BOOKS));
-    boolean isValid = record.validate(MarcVersion.MARC21);
+    MarcRecord marcRecord = new MarcRecord("001441164");
+    marcRecord.setLeader(new Leader("02945nam a22005657a 4500"));
+    marcRecord.setControl006(new Control006("jccnn           n", Leader.Type.BOOKS));
+    boolean isValid = marcRecord.validate(MarcVersion.MARC21);
     assertFalse(isValid);
-    assertEquals(6, record.getValidationErrors().size());
-    assertEquals("006/01-04 (006book01)", record.getValidationErrors().get(0).getMarcPath());
-    assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_CODE, record.getValidationErrors().get(0).getType());
-    assertEquals("006/01-04 (006book01)", record.getValidationErrors().get(1).getMarcPath());
-    assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_CODE, record.getValidationErrors().get(1).getType());
-    assertEquals("006/12 (006book12)", record.getValidationErrors().get(2).getMarcPath());
-    assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE, record.getValidationErrors().get(2).getType());
-    assertEquals("006/13 (006book13)", record.getValidationErrors().get(3).getMarcPath());
-    assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE, record.getValidationErrors().get(3).getType());
-    assertEquals("006/14 (006book14)", record.getValidationErrors().get(4).getMarcPath());
-    assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE, record.getValidationErrors().get(4).getType());
-    assertEquals("006/16 (006book16)", record.getValidationErrors().get(5).getMarcPath());
-    assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE, record.getValidationErrors().get(5).getType());
+    assertEquals(6, marcRecord.getValidationErrors().size());
+    assertEquals("006/01-04 (006book01)", marcRecord.getValidationErrors().get(0).getMarcPath());
+    assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_CODE, marcRecord.getValidationErrors().get(0).getType());
+    assertEquals("006/01-04 (006book01)", marcRecord.getValidationErrors().get(1).getMarcPath());
+    assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_CODE, marcRecord.getValidationErrors().get(1).getType());
+    assertEquals("006/12 (006book12)", marcRecord.getValidationErrors().get(2).getMarcPath());
+    assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE, marcRecord.getValidationErrors().get(2).getType());
+    assertEquals("006/13 (006book13)", marcRecord.getValidationErrors().get(3).getMarcPath());
+    assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE, marcRecord.getValidationErrors().get(3).getType());
+    assertEquals("006/14 (006book14)", marcRecord.getValidationErrors().get(4).getMarcPath());
+    assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE, marcRecord.getValidationErrors().get(4).getType());
+    assertEquals("006/16 (006book16)", marcRecord.getValidationErrors().get(5).getMarcPath());
+    assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE, marcRecord.getValidationErrors().get(5).getType());
 
     /*
     003 BE-GnUNI

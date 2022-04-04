@@ -1,10 +1,18 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
+import de.gwdg.metadataqa.marc.dao.Control003;
+import de.gwdg.metadataqa.marc.dao.Control005;
+import de.gwdg.metadataqa.marc.dao.Control007;
+import de.gwdg.metadataqa.marc.dao.Control008;
+import de.gwdg.metadataqa.marc.dao.Leader;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.definition.MarcFormat;
 import de.gwdg.metadataqa.marc.definition.controltype.Control007Category;
 import de.gwdg.metadataqa.marc.utils.ReadMarc;
 import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 import org.junit.Test;
+import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
 
 import java.io.IOException;
@@ -32,7 +40,7 @@ public class MarcRecordTest {
   public void testFromFile() throws Exception {
     Path path = FileUtils.getPath("general/0001-01.mrc");
     List<Record> records = ReadMarc.read(path.toString());
-    MarcRecord record = MarcFactory.createFromMarc4j(records.get(0));
+    MarcRecord marcRecord = MarcFactory.createFromMarc4j(records.get(0));
 
     String expected = "{\"leader\":\"00720cam a22002051  4500\"," +
       "\"001\":\"   00000002 \"," +
@@ -71,46 +79,46 @@ public class MarcRecordTest {
         "{\"ind1\":\" \",\"ind2\":\"0\",\"subfields\":{" +
           "\"a\":\"Homeopathy\"," +
           "\"x\":\"Materia medica and therapeutics.\"}}]}";
-    assertEquals(expected, record.asJson());
+    assertEquals(expected, marcRecord.asJson());
   }
 
   @Test
   public void testSelect() throws Exception {
     Path path = FileUtils.getPath("general/0001-01.mrc");
     List<Record> records = ReadMarc.read(path.toString());
-    MarcRecord record = MarcFactory.createFromMarc4j(records.get(0));
+    MarcRecord marcRecord = MarcFactory.createFromMarc4j(records.get(0));
     MarcSpec spec = new MarcSpec("008~0-5");
-    List<String> results = record.select(spec);
+    List<String> results = marcRecord.select(spec);
     assertEquals(1, results.size());
     assertEquals("800108", results.get(0));
 
     spec = new MarcSpec("008~7-10");
-    results = record.select(spec);
+    results = marcRecord.select(spec);
     assertEquals(1, results.size());
     assertEquals("1899", results.get(0));
 
     spec = new MarcSpec("008~0-1");
-    results = record.select(spec);
+    results = marcRecord.select(spec);
     assertEquals(1, results.size());
     assertEquals("80", results.get(0));
   }
 
   @Test
   public void testMultiple007() throws Exception {
-    MarcRecord record = new MarcRecord("010000011");
-    record.setLeader(new Leader("00860cam a22002774a 45 0"));
-    record.setControl003(new Control003("DE-627"));
-    record.setControl005(new Control005("20180502143346.0"));
-    record.setControl008(new Control008("861106s1985    xx |||||      10| ||ger c", record.getType()));
-    record.setControl007(new Control007("tu"));
-    record.setControl007(new Control007("at"));
+    MarcRecord marcRecord = new MarcRecord("010000011");
+    marcRecord.setLeader(new Leader("00860cam a22002774a 45 0"));
+    marcRecord.setControl003(new Control003("DE-627"));
+    marcRecord.setControl005(new Control005("20180502143346.0"));
+    marcRecord.setControl008(new Control008("861106s1985    xx |||||      10| ||ger c", marcRecord.getType()));
+    marcRecord.setControl007(new Control007("tu"));
+    marcRecord.setControl007(new Control007("at"));
 
-    assertTrue(record.getControl007() instanceof List);
-    assertEquals(2, record.getControl007().size());
-    assertEquals("tu", record.getControl007().get(0).getContent());
-    assertEquals(Control007Category.TEXT, record.getControl007().get(0).getCategory());
-    assertEquals("at", record.getControl007().get(1).getContent());
-    assertEquals(Control007Category.MAP, record.getControl007().get(1).getCategory());
+    assertTrue(marcRecord.getControl007() instanceof List);
+    assertEquals(2, marcRecord.getControl007().size());
+    assertEquals("tu", marcRecord.getControl007().get(0).getContent());
+    assertEquals(Control007Category.TEXT, marcRecord.getControl007().get(0).getCategory());
+    assertEquals("at", marcRecord.getControl007().get(1).getContent());
+    assertEquals(Control007Category.MAP, marcRecord.getControl007().get(1).getCategory());
   }
 
   @Test
@@ -122,10 +130,33 @@ public class MarcRecordTest {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    MarcRecord record = MarcFactory.createFromMarc4j(records.get(0));
-    assertNotNull(record);
+    MarcRecord marcRecord = MarcFactory.createFromMarc4j(records.get(0));
+    assertNotNull(marcRecord);
     // System.err.println(record.asJson());
-    assertTrue(record.asJson().contains("\"245\":[{\"ind1\":\"1\",\"ind2\":\"0\",\"subfields\":{\"a\":\"Botanical materia medica and pharmacology;\""));
+    assertTrue(marcRecord.asJson().contains("\"245\":[{\"ind1\":\"1\",\"ind2\":\"0\",\"subfields\":{\"a\":\"Botanical materia medica and pharmacology;\""));
+  }
+
+  @Test
+  public void testFromMek() throws Exception {
+    Path path = FileUtils.getPath("marc/22561.mrc");
+    List<Record> records = ReadMarc.read(path.toString(), "MARC8");
+    MarcRecord marcRecord = MarcFactory.createFromMarc4j(records.get(0));
+    assertEquals(' ', records.get(0).getLeader().getCharCodingScheme());
+    assertEquals(" ", marcRecord.getLeader().getCharacterCodingScheme().getValue());
+    assertEquals("Az ítélet :", marcRecord.getDatafield("245").get(0).getSubfield("a").get(0).getValue());
+  }
+
+  @Test
+  public void testFileReaderFromMek() throws Exception {
+    Path path = FileUtils.getPath("marc/22561.mrc");
+    MarcReader reader = ReadMarc.getFileReader(MarcFormat.ISO, path.toString(), "MARC8");
+    Record record = reader.next();
+    assertEquals(' ', record.getLeader().getCharCodingScheme());
+
+    MarcRecord marcRecord = MarcFactory.createFromMarc4j(record);
+    assertEquals(" ", marcRecord.getLeader().getCharacterCodingScheme().getValue());
+    assertEquals("Az ítélet :", marcRecord.getDatafield("245").get(0).getSubfield("a").get(0).getValue());
+    assertEquals("[Följegyzések és dokumentumok néhány magyarországi református egyházi döntésről 1948 és 1998 között] :", marcRecord.getDatafield("245").get(0).getSubfield("b").get(0).getValue());
   }
 
 }

@@ -1,9 +1,14 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags5xx;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
+
+import java.util.Arrays;
+
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
@@ -63,5 +68,11 @@ public class Tag547 extends DataFieldDefinition {
     setHistoricalSubfields(
       "z", "Source of note information (SE) [OBSOLETE, 1990]"
     );
+
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR").setMqTag("link"),
+      new SubfieldDefinition("@", "Language of field", "NR").setMqTag("language"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR").setMqTag("number")
+    ));
   }
 }

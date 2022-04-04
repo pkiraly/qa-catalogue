@@ -5,6 +5,10 @@ import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
+import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.MarcControlField;
+import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
 import de.gwdg.metadataqa.marc.definition.tags.TagCategory;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
@@ -16,19 +20,18 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.Record;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
@@ -39,6 +42,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(Completeness.class.getCanonicalName());
   private static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
+  private static final Pattern numericalPattern = Pattern.compile("^(\\d)$");
 
   private final Options options;
   private CompletenessParameters parameters;
@@ -87,7 +91,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
 
   @Override
   public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
-
+    // do nothing
   }
 
   @Override
@@ -100,11 +104,8 @@ public class Completeness implements MarcFileProcessor, Serializable {
     // private Map<String, Map<String, Integer>>
 
     String documentType = marcRecord.getType().getValue();
-    if (!elementCardinality.containsKey(documentType))
-      elementCardinality.put(documentType, new TreeMap<>());
-
-    if (!elementFrequency.containsKey(documentType))
-      elementFrequency.put(documentType, new TreeMap<>());
+    elementCardinality.computeIfAbsent(documentType, s -> new TreeMap<>());
+    elementFrequency.computeIfAbsent(documentType, s -> new TreeMap<>());
 
     if (marcRecord.getControl003() != null)
       count(marcRecord.getControl003().getContent(), library003Counter);
@@ -113,6 +114,27 @@ public class Completeness implements MarcFileProcessor, Serializable {
       count(library, libraryCounter);
     }
 
+    processLeader(marcRecord, recordFrequency, recordPackageCounter, documentType);
+    processSimpleControlfields(marcRecord, recordFrequency, recordPackageCounter, documentType);
+    processPositionalControlFields(marcRecord, recordFrequency, recordPackageCounter, documentType);
+    processDataFields(marcRecord, recordFrequency, recordPackageCounter, documentType);
+
+    for (String key : recordFrequency.keySet()) {
+      count(key, elementFrequency.get(documentType));
+      count(key, elementFrequency.get("all"));
+
+      fieldHistogram.computeIfAbsent(key, s -> new TreeMap<>());
+      count(recordFrequency.get(key), fieldHistogram.get(key));
+    }
+
+    for (String key : recordPackageCounter.keySet()) {
+      packageCounter.computeIfAbsent(documentType, s -> new TreeMap<>());
+      count(key, packageCounter.get(documentType));
+      count(key, packageCounter.get("all"));
+    }
+  }
+
+  private void processLeader(MarcRecord marcRecord, Map<String, Integer> recordFrequency, Map<String, Integer> recordPackageCounter, String documentType) {
     if (marcRecord.getLeader() != null) {
       for (ControlValue position : marcRecord.getLeader().getValuesList()) {
         String marcPath = position.getDefinition().getId();
@@ -122,7 +144,9 @@ public class Completeness implements MarcFileProcessor, Serializable {
         count(TagCategory.tags00x.getPackageName(), recordPackageCounter);
       }
     }
+  }
 
+  private void processSimpleControlfields(MarcRecord marcRecord, Map<String, Integer> recordFrequency, Map<String, Integer> recordPackageCounter, String documentType) {
     for (MarcControlField field : marcRecord.getSimpleControlfields()) {
       if (field != null) {
         String marcPath = field.getDefinition().getTag();
@@ -132,7 +156,9 @@ public class Completeness implements MarcFileProcessor, Serializable {
         count(TagCategory.tags00x.getPackageName(), recordPackageCounter);
       }
     }
+  }
 
+  private void processPositionalControlFields(MarcRecord marcRecord, Map<String, Integer> recordFrequency, Map<String, Integer> recordPackageCounter, String documentType) {
     for (MarcPositionalControlField field : marcRecord.getPositionalControlfields()) {
       if (field != null) {
         for (ControlValue position : field.getValuesList()) {
@@ -144,37 +170,42 @@ public class Completeness implements MarcFileProcessor, Serializable {
         }
       }
     }
+  }
 
+  private void processDataFields(MarcRecord marcRecord, Map<String, Integer> recordFrequency, Map<String, Integer> recordPackageCounter, String documentType) {
     for (DataField field : marcRecord.getDatafields()) {
       if (parameters.getIgnorableFields().contains(field.getTag()))
         continue;
 
       count(getPackageName(field), recordPackageCounter);
 
-      for (MarcSubfield subfield : field.getSubfields()) {
-        String marcPath = String.format("%s$%s", field.getTag(), subfield.getCode());
+      List<String> marcPaths = getMarcPaths(field);
+      for (String marcPath : marcPaths) {
         count(marcPath, elementCardinality.get(documentType));
         count(marcPath, elementCardinality.get("all"));
         count(marcPath, recordFrequency);
       }
     }
+  }
 
-    for (String key : recordFrequency.keySet()) {
-      count(key, elementFrequency.get(documentType));
-      count(key, elementFrequency.get("all"));
+  private List<String> getMarcPaths(DataField field) {
+    List<String> marcPaths = new ArrayList<>();
 
-      if (!fieldHistogram.containsKey(key))
-        fieldHistogram.put(key, new TreeMap<>());
+    if (field.getInd1() != null)
+      if (field.getDefinition() != null && field.getDefinition().getInd1().exists() || !field.getInd1().equals(" "))
+        marcPaths.add(String.format("%s$!ind1", field.getTag()));
 
-      count(recordFrequency.get(key), fieldHistogram.get(key));
-    }
+    if (field.getInd2() != null)
+      if (field.getDefinition() != null && field.getDefinition().getInd2().exists() || !field.getInd2().equals(" "))
+        marcPaths.add(String.format("%s$!ind2", field.getTag()));
 
-    for (String key : recordPackageCounter.keySet()) {
-      if (!packageCounter.containsKey(documentType))
-        packageCounter.put(documentType, new TreeMap<>());
-      count(key, packageCounter.get(documentType));
-      count(key, packageCounter.get("all"));
-    }
+    for (MarcSubfield subfield : field.getSubfields())
+      if (numericalPattern.matcher(subfield.getCode()).matches())
+        marcPaths.add(String.format("%s$|%s", field.getTag(), subfield.getCode()));
+      else
+        marcPaths.add(String.format("%s$%s", field.getTag(), subfield.getCode()));
+
+    return marcPaths;
   }
 
   private String getPackageName(DataField field) {
@@ -208,17 +239,8 @@ public class Completeness implements MarcFileProcessor, Serializable {
   }
 
   private <T extends Object> void count(T key, Map<T, Integer> counter) {
-    if (!counter.containsKey(key)) {
-      counter.put(key, 0);
-    }
+    counter.computeIfAbsent(key, s -> 0);
     counter.put(key, counter.get(key) + 1);
-  }
-
-  private void mapItem(String key, Map<String, Integer> counter) {
-    if (!counter.containsKey(key)) {
-      counter.put(key, counter.size() + 1);
-    }
-    counter.get(key);
   }
 
   @Override
@@ -231,17 +253,16 @@ public class Completeness implements MarcFileProcessor, Serializable {
 
   @Override
   public void fileOpened(Path file) {
-
+    // do nothing
   }
 
   @Override
   public void fileProcessed() {
-
+    // do nothing
   }
 
   @Override
   public void afterIteration(int numberOfprocessedRecords) {
-    DecimalFormat format = new DecimalFormat();
     String fileExtension = ".csv";
     final char separator = getSeparator(parameters.getFormat());
     if (parameters.getFormat().equals(ValidationErrorFormat.TAB_SEPARATED)) {
@@ -255,9 +276,9 @@ public class Completeness implements MarcFileProcessor, Serializable {
   }
 
   private void saveLibraries003(String fileExtension, char separator) {
-    System.err.println("Libraries003");
-    Path path = Paths.get(parameters.getOutputDir(), "libraries003" + fileExtension);
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    logger.info("Saving Libraries003 file");
+    var path = Paths.get(parameters.getOutputDir(), "libraries003" + fileExtension);
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write("library" + separator + "count\n");
       library003Counter
         .entrySet()
@@ -266,19 +287,18 @@ public class Completeness implements MarcFileProcessor, Serializable {
           try {
             writer.write(String.format("\"%s\"%s%d%n", entry.getKey(), separator, entry.getValue()));
           } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "saveLibraries003", e);
           }
         });
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "saveLibraries003", e);
     }
   }
 
   private void saveMarcElements(String fileExtension, char separator) {
-    Path path;
     System.err.println("MARC elements");
-    path = Paths.get(parameters.getOutputDir(), "marc-elements" + fileExtension);
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    Path path = Paths.get(parameters.getOutputDir(), "marc-elements" + fileExtension);
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow(
         "documenttype", "path", "packageid", "package", "tag", "subfield",
         "number-of-record", "number-of-instances",
@@ -287,7 +307,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
       elementCardinality
         .keySet()
         .stream()
-        .forEach(documentType -> {
+        .forEach(documentType ->
           elementCardinality
             .get(documentType)
             .entrySet()
@@ -298,23 +318,22 @@ public class Completeness implements MarcFileProcessor, Serializable {
                 int cardinality = entry.getValue();
                 writer.write(formatCardinality(separator, marcPath, cardinality, documentType));
               } catch (IOException e) {
-                e.printStackTrace();
+                logger.log(Level.SEVERE, "saveMarcElements", e);
               }
-            }
-          );
-        });
+            })
+        );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "saveMarcElements", e);
     }
   }
 
   private void savePackages(String fileExtension, char separator) {
     logger.info("saving Packages...");
-    Path path = Paths.get(parameters.getOutputDir(), "packages" + fileExtension);
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    var path = Paths.get(parameters.getOutputDir(), "packages" + fileExtension);
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow(separator, "documenttype", "packageid", "name", "label", "iscoretag", "count"));
       packageCounter
-        .forEach((documentType, packages) -> {
+        .forEach((documentType, packages) ->
           packages.forEach((packageName, count) -> {
             try {
               TagCategory tagCategory = TagCategory.getPackage(packageName);
@@ -334,19 +353,19 @@ public class Completeness implements MarcFileProcessor, Serializable {
                 separator, quote(documentType), id, quote(range), quote(label), isPartOfMarcScore, count
               ));
             } catch (IOException e) {
-              e.printStackTrace();
+              logger.log(Level.SEVERE, "savePackages", e);
             }
-          });
-        });
+          })
+        );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "savePackages", e);
     }
   }
 
   private void saveLibraries(String fileExtension, char separator) {
     logger.info("Saving Libraries");
-    Path path = Paths.get(parameters.getOutputDir(), "libraries" + fileExtension);
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    var path = Paths.get(parameters.getOutputDir(), "libraries" + fileExtension);
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write("library" + separator + "count\n");
       libraryCounter
         .entrySet()
@@ -355,11 +374,11 @@ public class Completeness implements MarcFileProcessor, Serializable {
           try {
             writer.write(String.format("\"%s\"%s%d%n", entry.getKey(), separator, entry.getValue()));
           } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "saveLibraries", e);
           }
         });
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "saveLibraries", e);
     }
   }
 
@@ -371,8 +390,9 @@ public class Completeness implements MarcFileProcessor, Serializable {
       logger.severe("Empty key from " + marcPath);
     }
 
-    TagHierarchy tagHierarchy = TagHierarchy.createFromPath(marcPath, parameters.getMarcVersion());
-    int packageId = 100;
+    String marcPathLabel = marcPath.replace("!ind", "ind").replaceAll("\\|(\\d)$", "$1");
+    TagHierarchy tagHierarchy = TagHierarchy.createFromPath(marcPathLabel, parameters.getMarcVersion());
+    int packageId;
     String packageLabel = "";
     String tagLabel = "";
     String subfieldLabel = "";
@@ -382,7 +402,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
       tagLabel = tagHierarchy.getTagLabel();
       subfieldLabel = tagHierarchy.getSubfieldLabel();
     } else {
-      logger.severe("Key can not be found in the TagHierarchy: " + marcPath);
+      logger.severe("Key can not be found in the TagHierarchy: " + marcPathLabel);
       packageId = TagCategory.other.getId();
       packageLabel = TagCategory.other.getLabel();
     }
@@ -396,7 +416,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
 
     List<Object> values = quote(
       Arrays.asList(
-        documentType, marcPath, packageId, packageLabel, tagLabel, subfieldLabel,
+        documentType, marcPathLabel, packageId, packageLabel, tagLabel, subfieldLabel,
         frequency, cardinality,
         statistics.getMin(), statistics.getMax(),
         statistics.getMean(), statistics.getStdDev(),
@@ -404,8 +424,7 @@ public class Completeness implements MarcFileProcessor, Serializable {
       )
     );
 
-    String record = StringUtils.join(values, separator) + "\n";
-    return record;
+    return StringUtils.join(values, separator) + "\n";
   }
 
   private char getSeparator(ValidationErrorFormat format) {

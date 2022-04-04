@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags1xx;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.codelist.NameAndTitleAuthoritySourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
@@ -51,7 +51,7 @@ public class Tag130 extends DataFieldDefinition {
 
     ind2 = new Indicator()
       .putVersionSpecificCodes(MarcVersion.FENNICA, Arrays.asList(
-        new Code("9", "Kokoelma")
+        new EncodedValue("9", "Kokoelma")
       ));
 
     setSubfieldsWithCardinality(
@@ -172,6 +172,12 @@ public class Tag130 extends DataFieldDefinition {
     putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
       new SubfieldDefinition("7", "NKCR Authority ID", "NR"),
       new SubfieldDefinition("9", "NKCR Authority field - tracing form", "NR")
+    ));
+
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR").setMqTag("link"),
+      new SubfieldDefinition("@", "Language of field", "NR").setMqTag("language"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR").setMqTag("number")
     ));
 
     sourceSpecificationType = SourceSpecificationType.Subfield2;

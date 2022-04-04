@@ -2,9 +2,8 @@ package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
-import de.gwdg.metadataqa.marc.model.kos.Kos;
 import de.gwdg.metadataqa.marc.model.kos.KosRegistry;
 import de.gwdg.metadataqa.marc.model.kos.KosType;
 import org.junit.Test;
@@ -20,11 +19,11 @@ public class ClassificationAnalyzerTest {
 
   @Test
   public void test() throws IOException, URISyntaxException {
-    List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
-    MarcRecord record = MarcFactory.createFromFormattedText(lines);
+    List<String> lines = FileUtils.readLinesFromResource("marctxt/010000011.mrctxt");
+    MarcRecord marcRecord = MarcFactory.createFromFormattedText(lines);
     ClassificationStatistics statistics = new ClassificationStatistics();
 
-    ClassificationAnalyzer analyzer = new ClassificationAnalyzer(record, statistics);
+    ClassificationAnalyzer analyzer = new ClassificationAnalyzer(marcRecord, statistics);
     int count = analyzer.process();
     assertEquals(2, count);
     Map<Schema, Integer> recordStats = statistics.getRecords();
@@ -52,11 +51,11 @@ public class ClassificationAnalyzerTest {
 
   @Test
   public void abbreviation() throws IOException, URISyntaxException {
-    List<String> lines = FileUtils.readLines("marctxt/010000011.mrctxt");
-    MarcRecord record = MarcFactory.createFromFormattedText(lines);
+    List<String> lines = FileUtils.readLinesFromResource("marctxt/010000011.mrctxt");
+    MarcRecord marcRecord = MarcFactory.createFromFormattedText(lines);
     ClassificationStatistics statistics = new ClassificationStatistics();
 
-    ClassificationAnalyzer analyzer = new ClassificationAnalyzer(record, statistics);
+    ClassificationAnalyzer analyzer = new ClassificationAnalyzer(marcRecord, statistics);
     analyzer.process();
     Map<Schema, Integer> recordStats = statistics.getRecords();
     Schema first = (Schema) recordStats.keySet().toArray()[0];

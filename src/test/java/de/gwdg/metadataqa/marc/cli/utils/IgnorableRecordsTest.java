@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.cli.utils;
 
-import de.gwdg.metadataqa.marc.DataField;
-import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -20,11 +20,11 @@ public class IgnorableRecordsTest {
   public void isIgnorable() {
     conditions.parseInput("STA$s=SUPPRESSED");
 
-    MarcRecord record = new MarcRecord("test");
+    MarcRecord marcRecord = new MarcRecord("test");
     DataField field = new DataField("STA", "  $sSUPPRESSED");
-    field.setRecord(record);
-    record.addDataField(field);
+    field.setMarcRecord(marcRecord);
+    marcRecord.addDataField(field);
 
-    assertTrue(conditions.isIgnorable(record));
+    assertTrue(conditions.isIgnorable(marcRecord));
   }
 }

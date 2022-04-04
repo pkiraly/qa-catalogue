@@ -224,5 +224,11 @@ public class Tag773 extends DataFieldDefinition {
     putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
       new SubfieldDefinition("9", "Chronological specifiacation or date of issue", "NR")
     ));
+
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR").setMqTag("link"),
+      new SubfieldDefinition("@", "Language of field", "NR").setMqTag("language"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR").setMqTag("number")
+    ));
   }
 }

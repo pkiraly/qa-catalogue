@@ -7,8 +7,12 @@ import de.gwdg.metadataqa.marc.utils.MarcTagLister;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MappingToMarkdown {
+
+  private static final Logger logger = Logger.getLogger(MappingToMarkdown.class.getCanonicalName());
 
   public static void main(String[] args) {
     List<Class<? extends DataFieldDefinition>> tags = MarcTagLister.listTags();
@@ -24,12 +28,8 @@ public class MappingToMarkdown {
         tag = (DataFieldDefinition) getInstance.invoke(tagClass);
         tagToMarkDown(tag);
 
-      } catch (NoSuchMethodException e) {
-        e.printStackTrace();
-      } catch (IllegalAccessException e) {
-        e.printStackTrace();
-      } catch (InvocationTargetException e) {
-        e.printStackTrace();
+      } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+        logger.log(Level.WARNING, "document", e);
       }
     }
   }

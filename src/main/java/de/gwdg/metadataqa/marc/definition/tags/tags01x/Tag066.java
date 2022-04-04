@@ -1,8 +1,13 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
+import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
+
+import java.util.Arrays;
+
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 /**
@@ -56,5 +61,11 @@ public class Tag066 extends DataFieldDefinition {
       .setMqTag("alternate")
       .setFrbrFunctions(ManagementProcess)
       .setCompilanceLevels("M");
+
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR").setMqTag("link"),
+      new SubfieldDefinition("@", "Language of field", "NR").setMqTag("language"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR").setMqTag("number")
+    ));
   }
 }

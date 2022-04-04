@@ -13,8 +13,12 @@ import de.gwdg.metadataqa.marc.utils.MarcTagLister;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MappingToHtml {
+
+  private static final Logger logger = Logger.getLogger(MappingToHtml.class.getCanonicalName());
 
   public static void main(String[] args) {
     List<Class<? extends DataFieldDefinition>> tags = MarcTagLister.listTags();
@@ -84,12 +88,8 @@ public class MappingToHtml {
         getInstance = tagClass.getMethod("getInstance");
         tag = (DataFieldDefinition) getInstance.invoke(tagClass);
         tagToHtml(tag);
-      } catch (NoSuchMethodException e) {
-        e.printStackTrace();
-      } catch (IllegalAccessException e) {
-        e.printStackTrace();
-      } catch (InvocationTargetException e) {
-        e.printStackTrace();
+      } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+        logger.log(Level.SEVERE, "fileToCodeList", e);
       }
     }
     System.out.println("</tbody>");

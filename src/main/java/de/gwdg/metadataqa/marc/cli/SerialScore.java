@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.Leader;
-import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.Leader;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.analysis.SerialFields;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.SerialScoreParameters;
@@ -15,16 +15,17 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.Record;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.*;
@@ -130,25 +131,23 @@ public class SerialScore implements MarcFileProcessor, Serializable {
   private void printHistogram() {
     Path path;
     path = Paths.get(parameters.getOutputDir(), "serial-histogram.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("score", "frequency"));
       histogram
         .entrySet()
         .stream()
-        .sorted((e1, e2) -> {
-          return e1.getKey().compareTo(e2.getKey());
-        })
+        .sorted((e1, e2) -> e1.getKey().compareTo(e2.getKey()))
         .forEach(
           entry -> {
             try {
               writer.write(createRow(entry.getKey(), entry.getValue()));
             } catch (IOException e) {
-              e.printStackTrace();
+              logger.log(Level.SEVERE, "printHistogram", e);
             }
           }
         );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printHistogram", e);
     }
   }
 
@@ -168,26 +167,25 @@ public class SerialScore implements MarcFileProcessor, Serializable {
 
   private void print(String message) {
     try {
-      FileUtils.writeStringToFile(output, message, true);
+      FileUtils.writeStringToFile(output, message, Charset.defaultCharset(), true);
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "print", e);
     }
   }
 
   private void printFields() {
-    Path path = Paths.get(parameters.getOutputDir(), "serial-score-fields.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    var path = Paths.get(parameters.getOutputDir(), "serial-score-fields.csv");
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("name", "transformed"));
       for (SerialFields field : SerialFields.values()) {
         try {
           writer.write(createRow(quote(field.getLabel()), field.getMachine()));
         } catch (IOException e) {
-          e.printStackTrace();
+          logger.log(Level.SEVERE, "printFields", e);
         }
       }
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printFields", e);
     }
   }
-
 }

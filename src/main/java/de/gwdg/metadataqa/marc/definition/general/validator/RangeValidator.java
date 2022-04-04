@@ -34,7 +34,7 @@ public class RangeValidator implements SubfieldValidator, Serializable {
       if (intValue < min || intValue > max)
         response.addValidationError(
           new ValidationError(
-            subfield.getRecord().getId(),
+            subfield.getMarcRecord().getId(),
             subfield.getDefinition().getPath(),
             ValidationErrorType.SUBFIELD_PATTERN_MISMATCH,
             String.format("'%s' is out of range '%d-%d'", value, min, max),

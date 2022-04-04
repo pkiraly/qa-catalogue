@@ -26,7 +26,7 @@ public class Collocation {
   }
 
   public int compareTo(Collocation other) {
-    int i = getCount().compareTo(other.getCount());
+    var i = getCount().compareTo(other.getCount());
     if (i == 0) {
       i = getKey().compareTo(other.getKey());
     }

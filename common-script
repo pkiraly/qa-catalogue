@@ -9,16 +9,17 @@ else
   OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}
 fi
 
-echo "OUTPUT_DIR: ${OUTPUT_DIR}"
+if [[ "$1" != "help" && "$1" != "export-schema-files" ]]; then
+  echo "OUTPUT_DIR: ${OUTPUT_DIR}"
+  if [[ ! -d $PREFIX ]]; then
+    mkdir -p $PREFIX
+  fi
 
-if [[ ! -d $PREFIX ]]; then
-  mkdir -p $PREFIX
-fi
+  # printf "%s %s> Logging to ${PREFIX}.log"
 
-# printf "%s %s> Logging to ${PREFIX}.log"
-
-if [ ! -d ${OUTPUT_DIR} ]; then
-  mkdir -p ${OUTPUT_DIR}
+  if [ ! -d ${OUTPUT_DIR} ]; then
+    mkdir -p ${OUTPUT_DIR}
+  fi
 fi
 
 do_validate() {
@@ -55,8 +56,8 @@ do_classifications() {
   printf "%s %s> [classifications]\n" $(date +"%F %T")
   printf "%s %s> ./classifications --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/classifications.log\n" $(date +"%F %T")
   ./classifications --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/classifications.log
-  printf "%s %s> Rscript scripts/classifications-type.R ${OUTPUT_DIR} 2>> ${PREFIX}/classifications.log\n" $(date +"%F %T")
-  Rscript scripts/classifications-type.R ${OUTPUT_DIR}
+  printf "%s %s> Rscript scripts/classifications/classifications-type.R ${OUTPUT_DIR} 2>> ${PREFIX}/classifications.log\n" $(date +"%F %T")
+  Rscript scripts/classifications/classifications-type.R ${OUTPUT_DIR}
 }
 
 do_authorities() {
@@ -72,8 +73,12 @@ do_tt_completeness() {
   printf "%s %s> ./tt-completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/tt-completeness.log\n" $(date +"%F %T")
   ./tt-completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/tt-completeness.log
 
-  printf "%s %s> Rscript scripts/tt-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/tt-completeness.log\n" $(date +"%F %T")
-  Rscript scripts/tt-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/tt-completeness.log
+  printf "%s %s> Rscript scripts/tt-histogram/tt-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/tt-completeness.log\n" $(date +"%F %T")
+  Rscript scripts/tt-histogram/tt-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/tt-completeness.log
+
+  # for large files
+  # printf "%s %s> php scripts/tt-histogram/tt-histogram.php ${OUTPUT_DIR} &>> ${PREFIX}/tt-completeness.log\n" $(date +"%F %T")
+  # php scripts/tt-histogram/tt-histogram.php ${OUTPUT_DIR} &>> ${PREFIX}/tt-completeness.log
 }
 
 do_shelf_ready_completeness() {
@@ -86,8 +91,23 @@ do_shelf_ready_completeness() {
     --outputDir ${OUTPUT_DIR}/ \
     --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/shelf-ready-completeness.log
 
-  printf "%s %s> Rscript scripts/shelf-ready-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/shelf-ready-completeness.log\n" $(date +"%F %T")
-  Rscript scripts/shelf-ready-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/shelf-ready-completeness.log
+  printf "%s %s> Rscript scripts/shelf-ready/shelf-ready-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/shelf-ready-completeness.log\n" $(date +"%F %T")
+  Rscript scripts/shelf-ready/shelf-ready-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/shelf-ready-completeness.log
+
+  # for large files
+  # printf "%s %s> php scripts/shelf-ready-histogram.php ${OUTPUT_DIR} &>> ${PREFIX}/shelf-ready-completeness.log\n" $(date +"%F %T")
+  # php scripts/shelf-ready-histogram.php ${OUTPUT_DIR} &>> ${PREFIX}/shelf-ready-completeness.log
+}
+
+do_bl_classification() {
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/--emptyLargeCollectors|--with-delete//')
+  printf "%s %s> [bl-classification]\n" $(date +"%F %T")
+  printf "%s %s> ./bl-classification --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/bl-classification.log\n" $(date +"%F %T")
+  ./bl-classification \
+    --defaultRecordType BOOKS \
+    ${PARAMS} \
+    --outputDir ${OUTPUT_DIR}/ \
+    --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/bl-classification.log
 }
 
 do_serial_score() {
@@ -99,8 +119,8 @@ do_serial_score() {
                  --outputDir ${OUTPUT_DIR}/ \
                  --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/serial-score.log
 
-  printf "%s %s> Rscript scripts/serial-score-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/serial-score.log\n" $(date +"%F %T")
-  Rscript scripts/serial-score-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/serial-score.log
+  printf "%s %s> Rscript scripts/serial-score/serial-score-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/serial-score.log\n" $(date +"%F %T")
+  Rscript scripts/serial-score/serial-score-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/serial-score.log
 }
 
 do_format() {
@@ -150,7 +170,6 @@ do_network_analysis() {
   cd $PWD
 
 
-
   printf "%s %s> upload output\n" $(date +"%F %T")
   scp ${OUTPUT_DIR}/network-input.zip pkiraly@roedel.etrap.eu:/roedel/pkiraly/network/input
 
@@ -160,8 +179,8 @@ do_network_analysis() {
 
 do_pareto() {
   printf "%s %s> [pareto]\n" $(date +"%F %T")
-  printf "%s %s> Rscript scripts/frequency-range.R ${OUTPUT_DIR} &> ${PREFIX}/pareto.log\n" $(date +"%F %T")
-  Rscript scripts/frequency-range.R ${OUTPUT_DIR} &> ${PREFIX}/pareto.log
+  printf "%s %s> Rscript scripts/pareto/frequency-range.R ${OUTPUT_DIR} &> ${PREFIX}/pareto.log\n" $(date +"%F %T")
+  Rscript scripts/pareto/frequency-range.R ${OUTPUT_DIR} &> ${PREFIX}/pareto.log
 
   . ./common-variables
   if [[ "$WEB_DIR" != "" ]]; then
@@ -176,10 +195,35 @@ do_marc_history() {
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/--emptyLargeCollectors|--with-delete//')
   printf "%s %s> [marc-history]\n" $(date +"%F %T")
   printf "%s %s> ./formatter --selector \"008~7-10;008~0-5\" --defaultRecordType BOOKS ${PARAMS} --separator \",\" --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} &> ${PREFIX}/marc-history.log\n" $(date +"%F %T")
-  ./formatter --selector "008~7-10;008~0-5" --defaultRecordType BOOKS ${PARAMS} --separator "," --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} &> ${PREFIX}/marc-history.log
+  ./formatter --selector "008~7-10;008~0-5" --defaultRecordType BOOKS ${PARAMS} --separator "," \
+              --outputDir ${OUTPUT_DIR}/ --outputFile "marc-history.csv" ${MARC_DIR}/${MASK} &> ${PREFIX}/marc-history.log
 
-  printf "%s %s> Rscript scripts/marc-history.R ${OUTPUT_DIR} &>> ${PREFIX}/marc-history.log\n" $(date +"%F %T")
-  Rscript scripts/marc-history.R ${OUTPUT_DIR} &>> ${PREFIX}/marc-history.log
+  sort ${OUTPUT_DIR}/marc-history.csv \
+    | grep -v '008~7-10,008~0-5' \
+    | uniq -c \
+    | sed -r 's/([0-9]) ([0-9uc xwticrka])/\1,\2/' \
+    | sed 's, ,,g' > ${OUTPUT_DIR}/marc-history-groupped.csv 
+
+  printf "%s %s> Rscript scripts/marc-history/marc-history-groupped.R ${OUTPUT_DIR} &>> ${PREFIX}/marc-history.log\n" $(date +"%F %T")
+  Rscript scripts/marc-history/marc-history-groupped.R ${OUTPUT_DIR} &>> ${PREFIX}/marc-history.log
+}
+
+do_record_patterns() {
+  printf "%s %s> [record-patterns]\n" $(date +"%F %T")
+  printf "%s %s> Rscript scripts/top-fields.R ${OUTPUT_DIR} &>> ${PREFIX}/top-fields.log\n" $(date +"%F %T")
+  Rscript scripts/record-patterns/top-fields.R ${OUTPUT_DIR} &>> ${PREFIX}/top-fields.log
+
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/--emptyLargeCollectors|--with-delete//')
+  printf "%s %s> ./record-patterns --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} &> ${PREFIX}/record-patterns.log\n" $(date +"%F %T")
+  ./record-patterns --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} &> ${PREFIX}/record-patterns.log
+
+  head -1 ${OUTPUT_DIR}/record-patterns.csv | sed -e 's/^/count,/' > ${OUTPUT_DIR}/record-patterns-groupped.csv
+  cat ${OUTPUT_DIR}/record-patterns.csv \
+    | grep -v "\\$" \
+    | sort \
+    | uniq -c \
+    | sort -n -r \
+    | sed -r 's/^ *([0-9]+) /\1,/' >> ${OUTPUT_DIR}/record-patterns-groupped.csv
 }
 
 do_version_link() {
@@ -193,8 +237,52 @@ do_version_link() {
   fi
 }
 
+do_sqlite() {
+  printf "%s %s> [SQLite]\n" $(date +"%F %T")
+
+  printf "%s %s> php scripts/sqlite/normalize-issue-details.php ${OUTPUT_DIR} &> ${PREFIX}/sqlite.log\n" $(date +"%F %T")
+  php scripts/sqlite/normalize-issue-details.php ${OUTPUT_DIR} &> ${PREFIX}/sqlite.log
+
+  printf "%s %s> delete\n" $(date +"%F %T")
+  if [[ -e ${OUTPUT_DIR}/qa_catalogue.sqlite ]]; then
+    rm ${OUTPUT_DIR}/qa_catalogue.sqlite
+  fi
+  printf "%s %s> create\n" $(date +"%F %T")
+  sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/qa_catalogue.sqlite.sql
+
+  printf "%s %s> create importable files\n" $(date +"%F %T")
+  tail -n +2 ${OUTPUT_DIR}/issue-details-normalized.csv > ${OUTPUT_DIR}/issue-details-normalized_noheader.csv
+  tail -n +2 ${OUTPUT_DIR}/issue-summary.csv > ${OUTPUT_DIR}/issue-summary_noheader.csv
+
+  printf "%s %s> import\n" $(date +"%F %T")
+  sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
+.mode csv
+.import ${OUTPUT_DIR}/issue-details-normalized_noheader.csv issue_details
+.import ${OUTPUT_DIR}/issue-summary_noheader.csv issue_summary
+EOF
+
+  printf "%s %s> delete importable files\n" $(date +"%F %T")
+  rm ${OUTPUT_DIR}/issue-details-normalized_noheader.csv
+  rm ${OUTPUT_DIR}/issue-summary_noheader.csv
+
+  printf "%s %s> index\n" $(date +"%F %T")
+  sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.sql &>> ${PREFIX}/sqlite.log
+}
+
+do_export_schema_files() {
+  if [[ ! -d marc-schema ]]; then
+    mkdir marc-schema
+  fi
+  printf "%s %s> [avram]\n" $(date +"%F %T")
+  ./export-schema --withSubfieldCodelists > marc-schema/marc-schema.json
+  ./export-schema --withSubfieldCodelists --solrFieldType mixed --withSelfDescriptiveCode > marc-schema/marc-schema-with-solr.json
+  ./export-schema --withSubfieldCodelists --solrFieldType mixed --withSelfDescriptiveCode --withLocallyDefinedFields > marc-schema/marc-schema-with-solr-and-extensions.json
+  printf "%s %s> 3 files generated at 'marc-schema' directory: marc-schema.json, marc-schema-with-solr.json, marc-schema-with-solr-and-extensions.json\n" $(date +"%F %T")
+}
+
 do_all_analyses() {
   do_validate
+  do_sqlite
   do_completeness
   do_classifications
   do_authorities
@@ -202,9 +290,11 @@ do_all_analyses() {
   do_shelf_ready_completeness
   do_serial_score
   do_functional_analysis
+  # do_bl_classification
   # do_network_analysis
   do_pareto
   do_marc_history
+  # do_sqlite
 }
 
 do_all_solr() {
@@ -212,65 +302,70 @@ do_all_solr() {
   do_index
 }
 
+help() {
+ME=$0
+cat <<END
+QA catalogue for analysing library data
+
+usage: $ME [command]
+
+commands:
+  validate                   record validation
+  completeness               completeness analysis
+  classifications            classification analysis
+  authorities                authority analysis
+  tt-completeness            Thompson-Traill completeness analysis
+  shelf-ready-completeness   shelf-ready completeness analysis
+  bl-classification          British Library's quality classification
+  serial-score               serial score analysis
+  format                     search and format records
+  functional-analysis        FRBR functional requirement analysis
+  network-analysis           network analysis
+  pareto                     pareto analysis
+  marc-history               generating cataloguing history chart
+  record-patterns            record patterns
+  prepare-solr               prepare indexing
+  index                      indexing with Solr
+  sqlite                     import tables to SQLite
+  export-schema-files        export schema files
+  all-analyses               run all analitical tasks
+  all-solr                   run all indexing tasks
+  all                        run all tasks
+  help                       print this help message
+
+END
+}
+
 case "$1" in
-  validate)
-    do_validate
-    ;;
-  prepare-solr)
-    do_prepare_solr
-    ;;
-  index)
-    do_index
-    ;;
-  completeness)
-    do_completeness
-    ;;
-  classifications)
-    do_classifications
-    ;;
-  authorities)
-    do_authorities
-    ;;
-  tt-completeness)
-    do_tt_completeness
-    ;;
-  shelf-ready-completeness)
-    do_shelf_ready_completeness
-    ;;
-  serial-score)
-    do_serial_score
-    ;;
-  format)
-    do_format
-    ;;
-  functional-analysis)
-    do_functional_analysis
-    ;;
-  network-analysis)
-    do_network_analysis
-    ;;
-  pareto)
-    do_pareto
-    ;;
-  marc-history)
-    do_marc_history
-    ;;
-  all-analyses)
-    do_all_analyses
-    ;;
-  all-solr)
-    do_all_solr
-    ;;
-  all)
-    do_all_analyses
-    do_all_solr
-    do_version_link
-    ;;
+  validate)                 do_validate ; do_sqlite ;;
+  prepare-solr)             do_prepare_solr ;;
+  index)                    do_index ;;
+  completeness)             do_completeness ;;
+  classifications)          do_classifications ;;
+  authorities)              do_authorities ;;
+  tt-completeness)          do_tt_completeness ;;
+  shelf-ready-completeness) do_shelf_ready_completeness ;;
+  bl-classification)        do_bl_classification ;;
+  serial-score)             do_serial_score ;;
+  format)                   do_format ;;
+  functional-analysis)      do_functional_analysis ;;
+  network-analysis)         do_network_analysis ;;
+  pareto)                   do_pareto ;;
+  marc-history)             do_marc_history ;;
+  record-patterns)          do_record_patterns ;;
+  sqlite)                   do_sqlite ;;
+  export-schema-files)      do_export_schema_files ;;
+  all-analyses)             do_all_analyses ;;
+  all-solr)                 do_all_solr ;;
+  all)                      do_all_analyses ; do_all_solr ; do_version_link ;;
+  help)                     help ;;
 esac
 
-duration=$SECONDS
-hours=$(($duration / (60*60)))
-mins=$(($duration % (60*60) / 60))
-secs=$(($duration % 60))
+if [[ "$1" != "help" ]]; then
+  duration=$SECONDS
+  hours=$(($duration / (60*60)))
+  mins=$(($duration % (60*60) / 60))
+  secs=$(($duration % 60))
 
-printf "%s %s> DONE. %02d:%02d:%02d elapsed.\n" $(date +"%F %T") $hours $mins $secs
+  printf "%s %s> DONE. %02d:%02d:%02d elapsed.\n" $(date +"%F %T") $hours $mins $secs
+fi

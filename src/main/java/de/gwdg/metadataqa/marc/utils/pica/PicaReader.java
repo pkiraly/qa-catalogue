@@ -21,11 +21,10 @@ public class PicaReader implements MarcReader {
   private boolean nextIsConsumed = false;
   private int lineNumber = 0;
   private List<PicaLine> lines = new ArrayList<>();
-  private String currentId = null;
 
-  public PicaReader(String alephseqMarc) {
+  public PicaReader(String fileName) {
     try {
-      bufferedReader = new BufferedReader(new FileReader(alephseqMarc));
+      bufferedReader = new BufferedReader(new FileReader(fileName));
     } catch (IOException e) {
       logger.log(Level.WARNING, "error in PicaReader()", e);
     }
@@ -47,41 +46,31 @@ public class PicaReader implements MarcReader {
 
   @Override
   public Record next() {
-    Record record = null;
+    Record marc4jRecord = null;
     boolean finished = false;
     while (line != null && !finished) {
-      PicaLine alephseqLine = new PicaLine(line, lineNumber);
-      if (currentId != null
-        && !alephseqLine.getRecordID().equals(currentId)
-        && !lines.isEmpty())
-      {
-        record = MarcFactory.createRecordFromPica(lines);
-        if (record.getLeader() == null) {
-          logger.severe(String.format(
-            "Record #%s #%s does not have a leader\n",
-            record.getControlNumberField().getData()
-          ));
-        } else {
-          finished = true;
-        }
+      PicaLine picaLine = new PicaLine(line, lineNumber);
+      if (picaLine.isSkippable() && !lines.isEmpty()) {
+        marc4jRecord = MarcFactory.createRecordFromPica(lines);
+        finished = true;
         lines = new ArrayList<>();
       }
 
-      if (alephseqLine.isValidTag()) {
-        lines.add(alephseqLine);
+      if (picaLine.isValidTag()) {
+        lines.add(picaLine);
       }
-      currentId = alephseqLine.getRecordID();
 
       try {
         line = bufferedReader.readLine();
         lineNumber++;
       } catch (IOException e) {
-        e.printStackTrace();
+        logger.log(Level.SEVERE, "next", e);
       }
-    }
+    } // while
+
     if (line == null && !lines.isEmpty()) {
-      record = MarcFactory.createRecordFromPica(lines);
+      marc4jRecord = MarcFactory.createRecordFromPica(lines);
     }
-    return record;
+    return marc4jRecord;
   }
 }

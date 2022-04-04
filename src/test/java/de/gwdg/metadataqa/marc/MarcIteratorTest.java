@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.api.model.pathcache.JsonPathCache;
 import de.gwdg.metadataqa.api.schema.MarcJsonSchema;
 import de.gwdg.metadataqa.api.schema.Schema;
 import de.gwdg.metadataqa.api.util.FileUtils;
+import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.utils.MapToDatafield;
 import net.minidev.json.JSONArray;
@@ -41,7 +42,7 @@ public class MarcIteratorTest {
 
   @Before
   public void setUp() throws URISyntaxException, IOException {
-    cache = new JsonPathCache(FileUtils.readFirstLine("general/marc.json"));
+    cache = new JsonPathCache(FileUtils.readFirstLineFromResource("general/marc.json"));
   }
 
   @Test

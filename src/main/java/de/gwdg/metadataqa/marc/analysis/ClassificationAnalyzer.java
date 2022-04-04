@@ -1,7 +1,8 @@
 package de.gwdg.metadataqa.marc.analysis;
 
-import de.gwdg.metadataqa.marc.DataField;
-import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.Utils;
+import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
 import de.gwdg.metadataqa.marc.definition.general.indexer.subject.ClassificationSchemes;
@@ -25,9 +26,9 @@ public class ClassificationAnalyzer {
   private static final Logger logger = Logger.getLogger(
     ClassificationAnalyzer.class.getCanonicalName()
   );
-  private static ClassificationSchemes classificationSchemes =
+  private static final ClassificationSchemes classificationSchemes =
     ClassificationSchemes.getInstance();
-  private static Pattern NUMERIC = Pattern.compile("^\\d");
+  private static final Pattern NUMERIC = Pattern.compile("^\\d");
 
   private final ClassificationStatistics statistics;
   private MarcRecord marcRecord;
@@ -84,7 +85,7 @@ public class ClassificationAnalyzer {
   }
 
   public int process() {
-    int total = 0;
+    var total = 0;
     schemasInRecord = new ArrayList<>();
 
     total = processFieldsWithIndicator1AndSubfield2(total);
@@ -106,8 +107,7 @@ public class ClassificationAnalyzer {
      */
     count((total > 0), statistics.getHasClassifications());
     count(total, statistics.getSchemaHistogram());
-    if (!statistics.getFrequencyExamples().containsKey(total))
-      statistics.getFrequencyExamples().put(total, marcRecord.getId(true));
+    statistics.getFrequencyExamples().computeIfAbsent(total, s -> marcRecord.getId(true));
 
     List<String> collocation = getCollocationInRecord();
     if (!collocation.isEmpty())
@@ -116,7 +116,7 @@ public class ClassificationAnalyzer {
 
   private int processFieldsWithScheme(int total) {
     for (FieldWithScheme fieldWithScheme : fieldsWithScheme) {
-      int count = processFieldWithScheme(marcRecord, fieldWithScheme);
+      var count = processFieldWithScheme(marcRecord, fieldWithScheme);
       if (count > 0)
         total += count;
     }
@@ -125,7 +125,7 @@ public class ClassificationAnalyzer {
 
   private int processFieldsWithoutSource(int total) {
     for (String tag : fieldsWithoutSource) {
-      int count = processFieldWithoutSource(marcRecord, tag);
+      var count = processFieldWithoutSource(marcRecord, tag);
       if (count > 0)
         total += count;
     }
@@ -134,7 +134,7 @@ public class ClassificationAnalyzer {
 
   private int processFieldsWithSubfield2(int total) {
     for (String tag : fieldsWithSubfield2) {
-      int count = processFieldWithSubfield2(marcRecord, tag);
+      var count = processFieldWithSubfield2(marcRecord, tag);
       if (count > 0)
         total += count;
     }
@@ -143,7 +143,7 @@ public class ClassificationAnalyzer {
 
   private int processFieldsWithIndicator2AndSubfield2(int total) {
     for (String tag : fieldsWithIndicator2AndSubfield2) {
-      int count = processFieldWithIndicator2AndSubfield2(marcRecord, tag);
+      var count = processFieldWithIndicator2AndSubfield2(marcRecord, tag);
       if (count > 0)
         total += count;
     }
@@ -152,7 +152,7 @@ public class ClassificationAnalyzer {
 
   private int processFieldsWithIndicator1AndSubfield2(int total) {
     for (String tag : fieldsWithIndicator1AndSubfield2) {
-      int count = processFieldWithIndicator1AndSubfield2(marcRecord, tag);
+      var count = processFieldWithIndicator1AndSubfield2(marcRecord, tag);
       if (count > 0)
         total += count;
     }
@@ -161,12 +161,11 @@ public class ClassificationAnalyzer {
 
   private int processFieldWithScheme(MarcRecord marcRecord,
                                      FieldWithScheme fieldEntry) {
-    int count = 0;
+    var count = 0;
     final String tag = fieldEntry.getTag();
     if (!marcRecord.hasDatafield(tag))
       return count;
 
-    Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(tag);
     List<DataField> fields = marcRecord.getDatafield(tag);
     List<Schema> schemas = new ArrayList<>();
     for (DataField field : fields) {
@@ -186,8 +185,8 @@ public class ClassificationAnalyzer {
         }
       }
       if (firstSubfield != null) {
-        String scheme = fieldEntry.getSchemaName();
-        Schema currentSchema = new Schema(
+        var scheme = fieldEntry.getSchemaName();
+        var currentSchema = new Schema(
           tag, firstSubfield, classificationSchemes.resolve(scheme), scheme);
         schemas.add(currentSchema);
         updateSchemaSubfieldStatistics(field, currentSchema);
@@ -211,11 +210,10 @@ public class ClassificationAnalyzer {
   }
 
   private int processFieldWithIndicator1AndSubfield2(MarcRecord marcRecord, String tag) {
-    int count = 0;
+    var count = 0;
     if (!marcRecord.hasDatafield(tag))
       return count;
 
-    // Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(tag);
     List<Schema> schemas = new ArrayList<>();
     List<DataField> fields = marcRecord.getDatafield(tag);
     for (DataField field : fields) {
@@ -227,7 +225,6 @@ public class ClassificationAnalyzer {
       Schema currentSchema = null;
       if (isaReferenceToSubfield2(tag, scheme)) {
         currentSchema = extractSchemaFromSubfield2(tag, schemas, field);
-        // } else if (scheme.equals("9")) {
       } else {
         try {
           currentSchema = new Schema(tag, "ind1", classificationSchemes.resolve(scheme), scheme);
@@ -246,11 +243,10 @@ public class ClassificationAnalyzer {
   }
 
   private int processFieldWithIndicator2AndSubfield2(MarcRecord marcRecord, String tag) {
-    int count = 0;
+    var count = 0;
     if (!marcRecord.hasDatafield(tag))
       return count;
 
-    // Map<String[], Integer> fieldStatistics = getFieldInstanceStatistics(tag);
     List<Schema> schemas = new ArrayList<>();
     List<DataField> fields = marcRecord.getDatafield(tag);
     for (DataField field : fields) {
@@ -278,14 +274,14 @@ public class ClassificationAnalyzer {
   }
 
   private int processFieldWithSubfield2(MarcRecord marcRecord, String tag) {
-    int count = 0;
+    var count = 0;
     if (!marcRecord.hasDatafield(tag))
       return count;
 
     List<DataField> fields = marcRecord.getDatafield(tag);
     List<Schema> schemas = new ArrayList<>();
     for (DataField field : fields) {
-      Schema currentSchema = extractSchemaFromSubfield2(tag, schemas, field);
+      var currentSchema = extractSchemaFromSubfield2(tag, schemas, field);
       updateSchemaSubfieldStatistics(field, currentSchema);
       count++;
     }
@@ -296,15 +292,15 @@ public class ClassificationAnalyzer {
   }
 
   private int processFieldWithoutSource(MarcRecord marcRecord, String tag) {
-    int count = 0;
+    var count = 0;
     if (!marcRecord.hasDatafield(tag))
       return count;
 
     List<DataField> fields = marcRecord.getDatafield(tag);
     List<Schema> schemas = new ArrayList<>();
     for (DataField field : fields) {
-      String abbreviavtion = field.getInd2().equals(" ") ? "#" : field.getInd2();
-      Schema currentSchema = new Schema(tag, "ind2", "uncontrolled/" + abbreviavtion, field.resolveInd2());
+      var abbreviavtion = field.getInd2().equals(" ") ? "#" : field.getInd2();
+      var currentSchema = new Schema(tag, "ind2", "uncontrolled/" + abbreviavtion, field.resolveInd2());
       schemas.add(currentSchema);
       updateSchemaSubfieldStatistics(field, currentSchema);
       count++;
@@ -337,9 +333,7 @@ public class ClassificationAnalyzer {
       return;
     List<String> subfields = orderSubfields(field.getSubfields());
 
-    if (!statistics.getSubfields().containsKey(currentSchema)) {
-      statistics.getSubfields().put(currentSchema, new HashMap<List<String>, Integer>());
-    }
+    statistics.getSubfields().computeIfAbsent(currentSchema, s -> new HashMap<>());
     Map<List<String>, Integer> subfieldsStatistics =
       statistics.getSubfields().get(currentSchema);
     if (!subfieldsStatistics.containsKey(subfields)) {
@@ -387,9 +381,8 @@ public class ClassificationAnalyzer {
   }
 
   private List<Schema> deduplicateSchema(List<Schema> schemas) {
-    Set<Schema> set = new HashSet<Schema>(schemas);
-    List<Schema> deduplicated = new ArrayList<Schema>();
-    deduplicated.addAll(new HashSet<Schema>(schemas));
+    List<Schema> deduplicated = new ArrayList<>();
+    deduplicated.addAll(new HashSet<>(schemas));
     return deduplicated;
   }
 
@@ -408,14 +401,9 @@ public class ClassificationAnalyzer {
 
   private void addSchemasToStatistics(Map<Schema, Integer> fieldStatistics,
                                       List<Schema> schemes) {
-    if (!schemes.isEmpty()) {
-      for (Schema scheme : schemes) {
-        if (!fieldStatistics.containsKey(scheme)) {
-          fieldStatistics.put(scheme, 0);
-        }
-        fieldStatistics.put(scheme, fieldStatistics.get(scheme) + 1);
-      }
-    }
+    if (!schemes.isEmpty())
+      for (Schema scheme : schemes)
+        Utils.count(scheme, fieldStatistics);
   }
 
   private void addSchemesToStatistics(Map<String[], Integer> fieldStatistics,
@@ -424,9 +412,7 @@ public class ClassificationAnalyzer {
       for (String[] scheme : schemes) {
         if (!fieldStatistics.containsKey(scheme)) {
           fieldStatistics.put(scheme, 0);
-          if (!statistics.getFieldInRecords().containsKey(scheme)) {
-            statistics.getFieldInRecords().put(scheme, 0);
-          }
+          statistics.getFieldInRecords().computeIfAbsent(scheme, s -> 0);
           statistics.getFieldInRecords().put(
             scheme,
             statistics.getFieldInRecords().get(scheme) + 1
@@ -438,9 +424,7 @@ public class ClassificationAnalyzer {
   }
 
   private Map<String[], Integer> getFieldInstanceStatistics(String field) {
-    if (!statistics.getFieldInstances().containsKey(field)) {
-      statistics.getFieldInstances().put(field, new HashMap<String[], Integer>());
-    }
+    statistics.getFieldInstances().computeIfAbsent(field, s -> new HashMap<>());
     return statistics.getFieldInstances().get(field);
   }
 
@@ -449,12 +433,11 @@ public class ClassificationAnalyzer {
   }
 
   public List<String> getCollocationInRecord() {
-    List<String> abbreviations = schemasInRecord
+    return schemasInRecord
       .stream()
       .map(Schema::getAbbreviation)
       .sorted()
       .distinct()
       .collect(Collectors.toList());
-    return abbreviations;
   }
 }

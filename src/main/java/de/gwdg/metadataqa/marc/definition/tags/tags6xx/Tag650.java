@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags6xx;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
@@ -64,7 +64,7 @@ public class Tag650 extends DataFieldDefinition {
         "7", "Source specified in subfield $2"
       )
       .putVersionSpecificCodes(MarcVersion.NKCR,Arrays.asList(
-        new Code("9", "English variant of term")
+        new EncodedValue("9", "English variant of term")
       ))
       .setMqTag("thesaurus")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
@@ -181,6 +181,12 @@ public class Tag650 extends DataFieldDefinition {
 
     putVersionSpecificSubfields(MarcVersion.MARC21NO, Arrays.asList(
       new SubfieldDefinition("9", "Language code", "NR")
+    ));
+
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR").setMqTag("link"),
+      new SubfieldDefinition("@", "Language of field", "NR").setMqTag("language"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR").setMqTag("number")
     ));
 
     sourceSpecificationType = SourceSpecificationType.Indicator2AndSubfield2;

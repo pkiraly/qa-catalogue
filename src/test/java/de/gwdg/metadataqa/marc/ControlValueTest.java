@@ -1,5 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
+import de.gwdg.metadataqa.marc.dao.Control006;
+import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.controlpositions.Control008Positions;
 import de.gwdg.metadataqa.marc.definition.controlpositions.LeaderPositions;
@@ -11,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -52,6 +55,7 @@ public class ControlValueTest {
         case "leader20": testLeader20(subfield); break;
         case "leader21": testLeader21(subfield); break;
         case "leader22": testLeader22(subfield); break;
+        case "leader23": testLeader23(subfield); break;
       }
       /*
       System.err.printf("===== [%s%s] ====\n", subfield.getId().substring(0, 1).toUpperCase(), subfield.getId().substring(1));
@@ -63,7 +67,7 @@ public class ControlValueTest {
       System.err.printf("descriptionUrl = \"https://www.loc.gov/marc/bibliographic/bdleader.html\";\n", subfield.getMqTag());
       if (subfield.getCodes() != null) {
         System.err.printf("codes = Utils.generateCodes(\n");
-        int i = 0;
+        var i = 0;
         for (Code code : subfield.getCodes()) {
           i++;
           if (i == subfield.getCodes().size())
@@ -164,7 +168,10 @@ public class ControlValueTest {
     assertEquals(10, subfield.getPositionStart());
     assertEquals(11, subfield.getPositionEnd());
     assertEquals("https://www.loc.gov/marc/bibliographic/bdleader.html", subfield.getDescriptionUrl());
-    assertNull(subfield.getCodes());
+    assertNotNull(subfield.getCodes());
+    assertEquals(1, subfield.getCodes().size());
+    assertEquals("2", subfield.getCodes().get(0).getCode());
+    assertEquals("Number of character positions used for indicators", subfield.getCodes().get(0).getLabel());
   }
 
   private void testLeader11(ControlfieldPositionDefinition subfield) {
@@ -174,7 +181,10 @@ public class ControlValueTest {
     assertEquals(11, subfield.getPositionStart());
     assertEquals(12, subfield.getPositionEnd());
     assertEquals("https://www.loc.gov/marc/bibliographic/bdleader.html", subfield.getDescriptionUrl());
-    assertNull(subfield.getCodes());
+    assertNotNull(subfield.getCodes());
+    assertEquals(1, subfield.getCodes().size());
+    assertEquals("2", subfield.getCodes().get(0).getCode());
+    assertEquals("Number of character positions used for a subfield code", subfield.getCodes().get(0).getLabel());
   }
 
   private void testLeader12(ControlfieldPositionDefinition subfield) {
@@ -224,7 +234,10 @@ public class ControlValueTest {
     assertEquals(20, subfield.getPositionStart());
     assertEquals(21, subfield.getPositionEnd());
     assertEquals("https://www.loc.gov/marc/bibliographic/bdleader.html", subfield.getDescriptionUrl());
-    assertNull(subfield.getCodes());
+    assertNotNull(subfield.getCodes());
+    assertEquals(1, subfield.getCodes().size());
+    assertEquals("4", subfield.getCodes().get(0).getCode());
+    assertEquals("Number of characters in the length-of-field portion of a Directory entry", subfield.getCodes().get(0).getLabel());
   }
 
   private void testLeader21(ControlfieldPositionDefinition subfield) {
@@ -234,7 +247,10 @@ public class ControlValueTest {
     assertEquals(21, subfield.getPositionStart());
     assertEquals(22, subfield.getPositionEnd());
     assertEquals("https://www.loc.gov/marc/bibliographic/bdleader.html", subfield.getDescriptionUrl());
-    assertNull(subfield.getCodes());
+    assertNotNull(subfield.getCodes());
+    assertEquals(1, subfield.getCodes().size());
+    assertEquals("5", subfield.getCodes().get(0).getCode());
+    assertEquals("Number of characters in the starting-character-position portion of a Directory entry", subfield.getCodes().get(0).getLabel());
   }
 
   private void testLeader22(ControlfieldPositionDefinition subfield) {
@@ -244,6 +260,22 @@ public class ControlValueTest {
     assertEquals(22, subfield.getPositionStart());
     assertEquals(23, subfield.getPositionEnd());
     assertEquals("https://www.loc.gov/marc/bibliographic/bdleader.html", subfield.getDescriptionUrl());
-    assertNull(subfield.getCodes());
+    assertNotNull(subfield.getCodes());
+    assertEquals(1, subfield.getCodes().size());
+    assertEquals("0", subfield.getCodes().get(0).getCode());
+    assertEquals("Number of characters in the implementation-defined portion of a Directory entry", subfield.getCodes().get(0).getLabel());
+  }
+
+  private void testLeader23(ControlfieldPositionDefinition subfield) {
+    assertEquals("Undefined", subfield.getLabel());
+    assertEquals("leader23", subfield.getId());
+    assertEquals("undefined", subfield.getMqTag());
+    assertEquals(23, subfield.getPositionStart());
+    assertEquals(24, subfield.getPositionEnd());
+    assertEquals("https://www.loc.gov/marc/bibliographic/bdleader.html", subfield.getDescriptionUrl());
+    assertNotNull(subfield.getCodes());
+    assertEquals(1, subfield.getCodes().size());
+    assertEquals("0", subfield.getCodes().get(0).getCode());
+    assertEquals("Undefined", subfield.getCodes().get(0).getLabel());
   }
 }

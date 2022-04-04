@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class Schema {
 
-  private static int SCHEMA_COUNTER = 0;
+  private static int centralCounter = 0;
   private static Map<Schema, Integer> schemaCounter = new HashMap<>();
 
   int id;
@@ -33,9 +33,7 @@ public class Schema {
   }
 
   private void setId() {
-    if (!schemaCounter.containsKey(this)) {
-      schemaCounter.put(this, ++SCHEMA_COUNTER);
-    }
+    schemaCounter.computeIfAbsent(this, s -> ++centralCounter);
     this.id = schemaCounter.get(this);
   }
 
@@ -99,6 +97,10 @@ public class Schema {
       .append(location)
       .append(schema)
       .toHashCode();
+  }
+
+  public static void reset() {
+    centralCounter = 0;
   }
 
   @Override

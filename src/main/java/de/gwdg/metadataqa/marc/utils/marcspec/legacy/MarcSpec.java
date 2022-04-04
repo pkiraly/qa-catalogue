@@ -101,28 +101,25 @@ public class MarcSpec implements Serializable {
     if (charStart != null) {
       marcspec += "~" + charStart;
 
-      if (charEnd != null) {
+      if (charEnd != null)
         marcspec += "-" + charEnd;
-      }
 
       return marcspec;
     }
 
-    if (subfields.size() > 0) {
+    if (!subfields.isEmpty())
       marcspec += StringUtils.join(subfields.keySet(), "");
-    }
 
-    if (indicator1 == null && indicator2 == null) {
-      return marcspec;
-    } else {
+    if (!(indicator1 == null && indicator2 == null)) {
       if (indicator2 == null) {
-        return marcspec += "_" + indicator1;
+        marcspec += "_" + indicator1;
       } else if (indicator1 == null) {
-        return marcspec += "__" + indicator2;
+        marcspec += "__" + indicator2;
       } else {
-        return marcspec += "_" + indicator1 + indicator2;
+        marcspec += "_" + indicator1 + indicator2;
       }
     }
+    return marcspec;
   }
 
   public Integer getCharStart() {

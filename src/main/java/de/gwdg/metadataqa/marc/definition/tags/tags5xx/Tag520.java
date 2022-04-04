@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags5xx;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
@@ -51,14 +51,14 @@ public class Tag520 extends DataFieldDefinition {
         "8", "No display constant generated"
       )
       .putVersionSpecificCodes(MarcVersion.NKCR,Arrays.asList(
-        new Code("9", "MKP annotation for the Union catalog")
+        new EncodedValue("9", "MKP annotation for the Union catalog")
       ))
       .setMqTag("displayConstant")
       .setFrbrFunctions(ManagementDisplay);
 
     ind2 = new Indicator()
       .putVersionSpecificCodes(MarcVersion.NKCR,Arrays.asList(
-        new Code("9", "Annotation language specified in subfield $9")
+        new EncodedValue("9", "Annotation language specified in subfield $9")
       ));
 
     setSubfieldsWithCardinality(
@@ -115,6 +115,12 @@ public class Tag520 extends DataFieldDefinition {
 
     putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
       new SubfieldDefinition("9", "Annotation language code", "NR")
+    ));
+
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR").setMqTag("link"),
+      new SubfieldDefinition("@", "Language of field", "NR").setMqTag("language"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR").setMqTag("number")
     ));
 
     setHistoricalSubfields(

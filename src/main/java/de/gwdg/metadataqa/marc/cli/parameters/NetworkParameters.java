@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
-import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import org.apache.commons.cli.ParseException;
 
 import java.io.Serializable;

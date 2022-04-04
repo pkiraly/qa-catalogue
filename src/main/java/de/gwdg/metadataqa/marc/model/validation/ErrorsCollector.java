@@ -1,11 +1,13 @@
 package de.gwdg.metadataqa.marc.model.validation;
 
-import org.apache.avro.generic.GenericData;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ErrorsCollector {
+public class ErrorsCollector implements Serializable {
+
+  private static final long serialVersionUID = 1905122041950251207L;
+
   private List<ValidationError> errors;
 
   public ErrorsCollector() {

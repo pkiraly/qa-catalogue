@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.general.indexer.subject;
 
-import de.gwdg.metadataqa.marc.DataField;
+import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.definition.tags.tags6xx.Tag653;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import org.junit.Test;

@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc.utils.pica;
 
-import de.gwdg.metadataqa.marc.DataField;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
@@ -12,20 +11,20 @@ import java.util.regex.Pattern;
 public class PicaLine {
   private static final Logger logger = Logger.getLogger(PicaLine.class.getCanonicalName());
 
-  private static final Pattern LINE = Pattern.compile("^([0-2][0-9][0-9][A-Z@])(\\/([0-9][0-9]+))? (.*)$");
-  private static final String LDR = "LDR";
-  private static final Pattern numericTag = Pattern.compile("^\\d\\d\\d$");
-  private static final Pattern controlField = Pattern.compile("^00\\d$");
+  private static final Pattern LINE = Pattern.compile("^(SET:|Eingabe:|Warnung:|[0-2][0-9][0-9][A-Z@])(\\/([0-9][0-9]+))? (.*)$");
   public static final String SEPARATOR = "ƒ";
+  private static final String SET = "SET";
+  private static final String EINGABE = "Eingabe";
+  private static final String WARNUNG = "Warnung";
   private int lineNumber = 0;
 
-  private String recordID;
   private String tag;
   private String occurrence;
   private String content;
   private List<PicaSubfield> subfields;
 
-  private boolean valid = true;
+  private boolean valid = false;
+  private boolean skippable = false;
 
   public PicaLine() {
   }
@@ -39,24 +38,20 @@ public class PicaLine {
     parse(raw);
   }
 
-  public boolean isLeader() {
-    return tag.equals(LDR);
+  public boolean isSET() {
+    return tag.equals(SET);
   }
 
-  public boolean isNumericTag() {
-    return numericTag.matcher(tag).matches();
+  public boolean isEingabe() {
+    return tag.equals(EINGABE);
   }
 
-  public boolean isControlField() {
-    return controlField.matcher(tag).matches();
+  public boolean isWarnung() {
+    return tag.equals(WARNUNG);
   }
 
   public boolean isValidTag() {
-    return (isValid() && (isLeader() || isNumericTag()));
-  }
-
-  public String getRecordID() {
-    return recordID;
+    return valid && !(isSET() || isEingabe() || isWarnung());
   }
 
   public String getTag() {
@@ -90,26 +85,23 @@ public class PicaLine {
   }
 
   public String getContent() {
-    if (isLeader() || isControlField())
-      return content.replace("^", " ");
-    else
-      return content.replace("$$", "$");
-  }
-
-  public String getRawContent() {
     return content;
   }
 
   private void parse(String raw) {
-    // logger.info(lineNumber + ") length: " + raw.length());
-    Matcher matcher = LINE.matcher(raw);
-    if (matcher.matches()) {
-      tag = matcher.group(1);
-      occurrence = matcher.group(3);
-      content = matcher.group(4);
-      parseSubfields();
+    if (raw.equals("")) {
+      skippable = true;
     } else {
-      logger.warning("Unable to parse line: " + raw);
+      Matcher matcher = LINE.matcher(raw);
+      if (matcher.matches()) {
+        tag = matcher.group(1).replaceAll(":$", "");
+        occurrence = matcher.group(3);
+        content = matcher.group(4);
+        parseSubfields();
+        valid = true;
+      } else {
+        logger.warning(String.format("Unable to parse line: '%s'", raw));
+      }
     }
   }
 
@@ -123,18 +115,16 @@ public class PicaLine {
     }
   }
 
-  public boolean isValid() {
-    return valid;
-  }
-
   @Override
   public String toString() {
     return "AlephseqLine{" +
-      "recordID='" + recordID + '\'' +
       ", tag='" + tag + '\'' +
       ", occurrence='" + occurrence + '\'' +
       ", subfields=" + subfields +
       '}';
   }
 
+  public boolean isSkippable() {
+    return skippable || isSET() || isEingabe() || isWarnung();
+  }
 }

@@ -4,6 +4,10 @@ import de.gwdg.metadataqa.marc.*;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
+import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.MarcControlField;
+import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.FRBRFunction;
@@ -17,13 +21,13 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.Record;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
@@ -52,8 +56,7 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
     try {
       processor = new FunctionalAnalysis(args);
     } catch (ParseException e) {
-      logger.severe("ERROR. " + e.getLocalizedMessage());
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "FunctionalAnalysis", e);
       System.exit(0);
     }
     if (processor.getParameters().getArgs().length < 1) {
@@ -86,6 +89,10 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
 
     this.recordNumber = recordNumber;
     Map<FRBRFunction, FunctionValue> recordCounter = new TreeMap<>();
+    for (FRBRFunction f : FRBRFunction.values())
+      if (f.getParent() != null)
+        recordCounter.put(f, new FunctionValue());
+
     Map<DataFieldDefinition, Boolean> cache = new HashMap<>();
 
     countPositionalControlField(recordCounter, marcRecord.getLeader());
@@ -157,22 +164,21 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
 
   @Override
   public void beforeIteration() {
-
+    // do nothing
   }
 
   @Override
   public void fileOpened(Path path) {
-
+    // do nothing
   }
 
   @Override
   public void fileProcessed() {
-
+    // do nothing
   }
 
   @Override
   public void afterIteration(int numberOfprocessedRecords) {
-    // DecimalFormat format = new DecimalFormat();
     String fileExtension = ".csv";
     final char separator = getSeparator(parameters.getFormat());
     if (parameters.getFormat().equals(ValidationErrorFormat.TAB_SEPARATED)) {
@@ -191,8 +197,8 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
   private void saveMapping(String fileExtension,
                            char separator) {
     Map<FRBRFunction, List<String>> functions = frbrFunctionLister.getMarcPathByfunction();
-    Path path = Paths.get(parameters.getOutputDir(), "functional-analysis-mapping" + fileExtension);
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    var path = Paths.get(parameters.getOutputDir(), "functional-analysis-mapping" + fileExtension);
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write("frbrfunction" + separator + "count" + separator + "fields\n");
       for (FRBRFunction function : FRBRFunction.values()) {
         if (function.getParent() != null) {
@@ -205,20 +211,19 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
         }
       }
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "afterIteration", e);
     }
-
   }
 
   private void saveHistogram(Map<FRBRFunction, Counter<FunctionValue>> histogram,
                              String fileExtension,
                              char separator) {
     logger.info("Functional analysis histogram");
-    Path path = Paths.get(
+    var path = Paths.get(
       parameters.getOutputDir(),
       "functional-analysis-histogram" + fileExtension
     );
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write("frbrfunction" + separator + "functioncount" + separator + "score" + separator + "count\n");
       histogram
         .entrySet()
@@ -235,12 +240,12 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
               try {
                 writer.write(createRow(function, functionValue.getCount(), functionValue.getPercent(), count));
               } catch (IOException e) {
-                e.printStackTrace();
+                logger.log(Level.SEVERE, "saveHistogram", e);
               }
             });
         });
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "saveHistogram", e);
     }
   }
 
@@ -248,9 +253,9 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
                           String fileExtension,
                           char separator) {
 
-    System.err.println("Functional analysis");
-    Path path = Paths.get(parameters.getOutputDir(), "functional-analysis" + fileExtension);
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    logger.info("Saving functional analysis");
+    var path = Paths.get(parameters.getOutputDir(), "functional-analysis" + fileExtension);
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write("frbr-function" + separator + "avgcount" + separator + "avgscore\n");
       result
         .entrySet()
@@ -260,11 +265,11 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
             List<Double> values = entry.getValue();
             writer.write(createRow(entry.getKey().name(), values.get(0), values.get(1)));
           } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "saveResult", e);
           }
         });
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "saveResult", e);
     }
   }
 

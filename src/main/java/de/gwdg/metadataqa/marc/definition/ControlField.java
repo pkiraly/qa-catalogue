@@ -11,7 +11,7 @@ public class ControlField {
   }
 
   public String getSolrKey(SolrFieldType type, String tag, String mqTag) {
-    String key = tag;
+    String key;
     switch (type) {
       case HUMAN: key = mqTag; break;
       case MIXED: key = String.format("%s_%s", tag, mqTag); break;

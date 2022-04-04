@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.analysis.AuthorithyAnalyzer;
 import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.count;
@@ -34,7 +35,6 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(AuthorityAnalysis.class.getCanonicalName());
 
-  private final Options options;
   private CommonParameters parameters;
   private Map<Integer, Integer> histogram = new HashMap<>();
   private Map<Integer, String> frequencyExamples = new HashMap<>();
@@ -45,7 +45,6 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
 
   public AuthorityAnalysis(String[] args) throws ParseException {
     parameters = new ValidatorParameters(args);
-    options = parameters.getOptions();
     readyToProcess = true;
   }
 
@@ -67,7 +66,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
       processor.printHelp(processor.getParameters().getOptions());
       System.exit(0);
     }
-    RecordIterator iterator = new RecordIterator(processor);
+    var iterator = new RecordIterator(processor);
     iterator.start();
   }
 
@@ -78,7 +77,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
 
   @Override
   public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
-
+    // do nothing
   }
 
   @Override
@@ -86,13 +85,12 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
     if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
       return;
 
-    AuthorithyAnalyzer analyzer = new AuthorithyAnalyzer(marcRecord, statistics);
+    var analyzer = new AuthorithyAnalyzer(marcRecord, statistics);
     int count = analyzer.process();
     count((count > 0), hasClassifications);
     count(count, histogram);
 
-    if (!frequencyExamples.containsKey(count))
-      frequencyExamples.put(count, marcRecord.getId(true));
+    frequencyExamples.computeIfAbsent(count, s -> marcRecord.getId(true));
   }
 
   @Override
@@ -121,8 +119,8 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
   }
 
   private void printAuthoritiesByCategories() {
-    Path path = Paths.get(parameters.getOutputDir(), "authorities-by-categories.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    var path = Paths.get(parameters.getOutputDir(), "authorities-by-categories.csv");
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("category", "recordcount", "instancecount"));
       statistics.getRecordsPerCategories()
         .entrySet()
@@ -138,23 +136,20 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
                 recordCount,
                 instanceCount
               ));
-            } catch (IOException ex) {
-              ex.printStackTrace();
-              System.err.println(category);
-            } catch (NullPointerException ex) {
-              ex.printStackTrace();
-              System.err.println(category);
+            } catch (IOException | NullPointerException ex) {
+              logger.log(Level.SEVERE, "build", ex);
+              logger.severe(category.toString());
             }
           }
         );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printAuthoritiesByCategories", e);
     }
   }
 
   private void printAuthoritiesBySchema() {
-    Path path = Paths.get(parameters.getOutputDir(), "authorities-by-schema.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    var path = Paths.get(parameters.getOutputDir(), "authorities-by-schema.csv");
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("id", "field", "location", "scheme", "abbreviation", "abbreviation4solr", "recordcount", "instancecount"));
       statistics.getInstances()
         .entrySet()
@@ -165,7 +160,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
               return i;
             else {
               i = e1.getKey().getLocation().compareTo(e2.getKey().getLocation());
-              if (i != i)
+              if (i != 0)
                 return i;
               else
                 return e2.getValue().compareTo(e1.getValue());
@@ -176,7 +171,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
           entry -> printSingleClassificationBySchema(writer, entry)
         );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printAuthoritiesBySchema", e);
     }
   }
 
@@ -195,11 +190,8 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
         recordCount,
         instanceCount
       ));
-    } catch (IOException ex) {
-      ex.printStackTrace();
-      System.err.println(schema);
-    } catch (NullPointerException ex) {
-      ex.printStackTrace();
+    } catch (IOException | NullPointerException e) {
+      logger.log(Level.SEVERE, "printSingleClassificationBySchema", e);
       System.err.println(schema);
     }
   }
@@ -207,7 +199,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
   private void printAuthoritiesByRecords() {
     Path path;
     path = Paths.get(parameters.getOutputDir(), "authorities-by-records.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("records-with-authorities", "count"));
       hasClassifications
         .entrySet()
@@ -219,66 +211,62 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
             try {
               writer.write(createRow(e.getKey().toString(), e.getValue()));
             } catch (IOException ex) {
-              ex.printStackTrace();
+              logger.log(Level.SEVERE, "printAuthoritiesByRecords", ex);
             }
           }
         );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printAuthoritiesByRecords", e);
     }
   }
 
   private void printAuthoritiesHistogram() {
-    Path path = Paths.get(parameters.getOutputDir(), "authorities-histogram.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    var path = Paths.get(parameters.getOutputDir(), "authorities-histogram.csv");
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("count", "frequency"));
       histogram
         .entrySet()
         .stream()
-        .sorted((e1, e2) -> {
-          return e1.getKey().compareTo(e2.getKey());
-        })
+        .sorted((e1, e2) -> e1.getKey().compareTo(e2.getKey()))
         .forEach(
           entry -> {
             try {
               writer.write(createRow(entry.getKey(), entry.getValue()));
             } catch (IOException e) {
-              e.printStackTrace();
+              logger.log(Level.SEVERE, "printAuthoritiesHistogram", e);
             }
           }
         );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printAuthoritiesHistogram", e);
     }
   }
 
   private void printFrequencyExamples() {
-    Path path = Paths.get(parameters.getOutputDir(), "authorities-frequency-examples.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    var path = Paths.get(parameters.getOutputDir(), "authorities-frequency-examples.csv");
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("count", "id"));
       frequencyExamples
         .entrySet()
         .stream()
-        .sorted((e1, e2) -> {
-          return e1.getKey().compareTo(e2.getKey());
-        })
+        .sorted((e1, e2) -> e1.getKey().compareTo(e2.getKey()))
         .forEach(
           entry -> {
             try {
               writer.write(createRow(entry.getKey(), entry.getValue()));
             } catch (IOException e) {
-              e.printStackTrace();
+              logger.log(Level.SEVERE, "printFrequencyExamples", e);
             }
           }
         );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printFrequencyExamples", e);
     }
   }
 
   private void printAuthoritiesSubfieldsStatistics() {
-    Path path = Paths.get(parameters.getOutputDir(), "authorities-by-schema-subfields.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    var path = Paths.get(parameters.getOutputDir(), "authorities-by-schema-subfields.csv");
+    try (var writer = Files.newBufferedWriter(path)) {
       // final List<String> header = Arrays.asList("field", "location", "label", "abbreviation", "subfields", "scount");
       final List<String> header = Arrays.asList("id", "subfields", "count");
       writer.write(createRow(header));
@@ -291,7 +279,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
           schemaEntry -> printSingleSchemaSubfieldsStatistics(writer, schemaEntry)
         );
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printAuthoritiesSubfieldsStatistics", e);
     }
   }
 
@@ -317,7 +305,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
               count
             ));
           } catch (IOException ex) {
-            ex.printStackTrace();
+            logger.log(Level.SEVERE, "printSingleSchemaSubfieldsStatistics", ex);
           }
         }
       );

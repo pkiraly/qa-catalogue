@@ -1,11 +1,12 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.MarcToSolrParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.datastore.MarcSolrClient;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -20,6 +21,7 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -34,6 +36,7 @@ public class MarcToSolr implements MarcFileProcessor, Serializable {
     MarcToSolr.class.getCanonicalName()
   );
   private final Options options;
+  private final MarcVersion version;
   private MarcToSolrParameters parameters;
   private MarcSolrClient client;
   private Path currentFile;
@@ -46,6 +49,7 @@ public class MarcToSolr implements MarcFileProcessor, Serializable {
     client = new MarcSolrClient(parameters.getSolrUrl());
     client.setTrimId(parameters.getTrimId());
     readyToProcess = true;
+    version = parameters.getMarcVersion();
   }
 
   public static void main(String[] args) throws ParseException {
@@ -79,7 +83,7 @@ public class MarcToSolr implements MarcFileProcessor, Serializable {
 
     try {
       Map<String, List<String>> map = marcRecord.getKeyValuePairs(
-        parameters.getSolrFieldType(), true
+        parameters.getSolrFieldType(), true, parameters.getMarcVersion()
       );
       map.put("record_sni", Arrays.asList(marcRecord.asJson()));
       client.indexMap(marcRecord.getId(), map);
@@ -88,7 +92,7 @@ public class MarcToSolr implements MarcFileProcessor, Serializable {
         // end process;
         readyToProcess = false;
       }
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "processRecord", e);
     }
     if (recordNumber % 5000 == 0) {
       if (parameters.doCommit())

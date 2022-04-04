@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.Extractable;
-import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.Validatable;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
@@ -19,7 +19,7 @@ public abstract class PositionalControlField extends ControlField implements Ext
 
   @Override
   public boolean validate(MarcVersion marcVersion) {
-    boolean isValid = true;
+    var isValid = true;
     validationErrors = new ArrayList<>();
     for (ControlValue controlValue : valuesList) {
       if (!controlValue.validate(marcVersion)) {
@@ -33,7 +33,7 @@ public abstract class PositionalControlField extends ControlField implements Ext
   public void setMarcRecord(MarcRecord marcRecord) {
     this.marcRecord = marcRecord;
     for (ControlValue value : valuesList) {
-      value.setRecord(marcRecord);
+      value.setMarcRecord(marcRecord);
     }
   }
 

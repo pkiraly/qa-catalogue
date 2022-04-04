@@ -5,18 +5,30 @@ import de.gwdg.metadataqa.api.model.pathcache.JsonPathCache;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.api.schema.MarcJsonSchema;
 import de.gwdg.metadataqa.api.schema.Schema;
+import de.gwdg.metadataqa.marc.dao.Control001;
+import de.gwdg.metadataqa.marc.dao.Control003;
+import de.gwdg.metadataqa.marc.dao.Control005;
+import de.gwdg.metadataqa.marc.dao.Control006;
+import de.gwdg.metadataqa.marc.dao.Control007;
+import de.gwdg.metadataqa.marc.dao.Control008;
+import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.Leader;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
-import de.gwdg.metadataqa.marc.definition.tags.control.Control001Definition;
-import de.gwdg.metadataqa.marc.definition.tags.control.Control003Definition;
-import de.gwdg.metadataqa.marc.definition.tags.control.Control005Definition;
 
 import de.gwdg.metadataqa.marc.utils.alephseq.AlephseqLine;
 import de.gwdg.metadataqa.marc.utils.MapToDatafield;
 
+import de.gwdg.metadataqa.marc.utils.alephseq.MarcMakerLine;
+import de.gwdg.metadataqa.marc.utils.alephseq.MarclineLine;
+import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
 import de.gwdg.metadataqa.marc.utils.pica.PicaLine;
+import de.gwdg.metadataqa.marc.utils.pica.PicaSubfield;
+import de.gwdg.metadataqa.marc.utils.pica.PicaTagDefinition;
 import net.minidev.json.JSONArray;
 import org.marc4j.marc.ControlField;
 import org.marc4j.marc.Record;
@@ -40,57 +52,60 @@ public class MarcFactory {
 
   private static Schema schema = new MarcJsonSchema();
 
+  private MarcFactory() {
+    throw new IllegalStateException("This is a utility class, can not be instantiated");
+  }
+
   public static MarcRecord create(JsonPathCache cache) {
     return create(cache, MarcVersion.MARC21);
   }
 
   public static MarcRecord create(JsonPathCache cache, MarcVersion version) {
-    MarcRecord record = new MarcRecord();
+    var marcRecord = new MarcRecord();
     for (JsonBranch branch : schema.getPaths()) {
       if (branch.getParent() != null)
         continue;
       switch (branch.getLabel()) {
         case "leader":
-          record.setLeader(new Leader(extractFirst(cache, branch)));
+          marcRecord.setLeader(new Leader(extractFirst(cache, branch)));
           break;
         case "001":
-          record.setControl001(new MarcControlField(Control001Definition.getInstance(), extractFirst(cache, branch)));
+          marcRecord.setControl001(new Control001(extractFirst(cache, branch)));
           break;
         case "003":
-          record.setControl003(new MarcControlField(Control003Definition.getInstance(), extractFirst(cache, branch)));
+          marcRecord.setControl003(new Control003(extractFirst(cache, branch)));
           break;
         case "005":
-          record.setControl005(new MarcControlField(Control005Definition.getInstance(), extractFirst(cache, branch)));
+          marcRecord.setControl005(new Control005(extractFirst(cache, branch), marcRecord));
           break;
         case "006":
-          record.setControl006(
-            new Control006(extractFirst(cache, branch), record.getType()));
+          marcRecord.setControl006(
+            new Control006(extractFirst(cache, branch), marcRecord));
           break;
         case "007":
-          record.setControl007(
-            new Control007(extractFirst(cache, branch)));
+          marcRecord.setControl007(
+            new Control007(extractFirst(cache, branch), marcRecord));
           break;
         case "008":
-          record.setControl008(
-            new Control008(extractFirst(cache, branch), record.getType()));
+          marcRecord.setControl008(
+            new Control008(extractFirst(cache, branch), marcRecord));
           break;
         default:
           JSONArray fieldInstances = (JSONArray) cache.getFragment(branch.getJsonPath());
-          for (int fieldInsanceNr = 0; fieldInsanceNr < fieldInstances.size();
-              fieldInsanceNr++) {
-            Map fieldInstance = (Map) fieldInstances.get(fieldInsanceNr);
-            DataField field = MapToDatafield.parse(fieldInstance, version);
+          for (var fieldInsanceNr = 0; fieldInsanceNr < fieldInstances.size(); fieldInsanceNr++) {
+            var fieldInstance = (Map) fieldInstances.get(fieldInsanceNr);
+            var field = MapToDatafield.parse(fieldInstance, version);
             if (field != null) {
-              record.addDataField(field);
-              field.setRecord(record);
+              marcRecord.addDataField(field);
+              field.setMarcRecord(marcRecord);
             } else {
-              record.addUnhandledTags(branch.getLabel());
+              marcRecord.addUnhandledTags(branch.getLabel());
             }
           }
           break;
       }
     }
-    return record;
+    return marcRecord;
   }
 
   public static MarcRecord createFromMarc4j(Record marc4jRecord) {
@@ -98,19 +113,19 @@ public class MarcFactory {
   }
 
   public static MarcRecord createFromMarc4j(Record marc4jRecord,
-                              Leader.Type defaultType) {
+                                            Leader.Type defaultType) {
     return createFromMarc4j(marc4jRecord, defaultType, MarcVersion.MARC21);
   }
 
   public static MarcRecord createFromMarc4j(Record marc4jRecord,
-                              MarcVersion marcVersion) {
+                                            MarcVersion marcVersion) {
     return createFromMarc4j(marc4jRecord, null, marcVersion);
   }
 
   public static MarcRecord createFromMarc4j(Record marc4jRecord,
-                              Leader.Type defaultType,
-                              MarcVersion marcVersion) {
-    return createFromMarc4j(marc4jRecord, defaultType, marcVersion, false);
+                                            Leader.Type defaultType,
+                                            MarcVersion marcVersion) {
+    return createFromMarc4j(marc4jRecord, defaultType, marcVersion, null);
   }
 
   /**
@@ -118,56 +133,69 @@ public class MarcFactory {
    * @param marc4jRecord The Marc4j record
    * @param defaultType The defauld document type
    * @param marcVersion The MARC version
-   * @param fixAlephseq Replace ^ character to space in control fields
+   * @param replecementInControlFields A ^ or # character which sould be replaced with space in control fields
    * @return
    */
   public static MarcRecord createFromMarc4j(Record marc4jRecord,
-                              Leader.Type defaultType,
-                              MarcVersion marcVersion,
-                              boolean fixAlephseq) {
-    MarcRecord record = new MarcRecord();
+                                            Leader.Type defaultType,
+                                            MarcVersion marcVersion,
+                                            String replecementInControlFields) {
+    var marcRecord = new MarcRecord();
 
-    record.setLeader(new Leader(marc4jRecord.getLeader().marshal(), defaultType));
+    if (marc4jRecord.getLeader() != null) {
+      String data = marc4jRecord.getLeader().marshal();
+      if (replecementInControlFields != null)
+        data = data.replace(replecementInControlFields, " ");
+      marcRecord.setLeader(new Leader(data, defaultType));
 
-    if (record.getType() == null) {
-      throw new InvalidParameterException(
-        String.format(
-          "Error in '%s': no type has been detected. Leader: '%s'.",
-          marc4jRecord.getControlNumberField(), record.getLeader().getLeaderString()
-        )
-      );
+      if (marcRecord.getType() == null) {
+        throw new InvalidParameterException(
+          String.format(
+            "Error in '%s': no type has been detected. Leader: '%s'.",
+            marc4jRecord.getControlNumberField(), marcRecord.getLeader().getLeaderString()
+          )
+        );
+      }
     }
 
-    importMarc4jControlFields(marc4jRecord, record, fixAlephseq);
+    importMarc4jControlFields(marc4jRecord, marcRecord, replecementInControlFields);
 
-    importMarc4jDataFields(marc4jRecord, record, marcVersion);
+    importMarc4jDataFields(marc4jRecord, marcRecord, marcVersion);
 
-    return record;
+    return marcRecord;
+  }
+
+  public static MarcRecord createPicaFromMarc4j(Record marc4jRecord, Map<String, PicaFieldDefinition> schemaDirectory) {
+    var marcRecord = new MarcRecord();
+    marcRecord.setSchemaType(SchemaType.PICA);
+
+    importMarc4jControlFields(marc4jRecord, marcRecord, null);
+
+    importMarc4jDataFields(marc4jRecord, marcRecord, schemaDirectory);
+
+    return marcRecord;
   }
 
   private static void importMarc4jControlFields(Record marc4jRecord,
-                                 MarcRecord record,
-                                 boolean fixAlephseq) {
+                                                MarcRecord marcRecord,
+                                                String replecementInControlFields) {
     for (ControlField controlField : marc4jRecord.getControlFields()) {
       String data = controlField.getData();
-      if (fixAlephseq && isFixable(controlField.getTag()))
-        data = data.replace("^", " ");
+      if (replecementInControlFields != null && isFixable(controlField.getTag()))
+        data = data.replace(replecementInControlFields, " ");
       switch (controlField.getTag()) {
         case "001":
-          record.setControl001(new MarcControlField(
-            Control001Definition.getInstance(), data)); break;
+          marcRecord.setControl001(new Control001(data)); break;
         case "003":
-          record.setControl003(new MarcControlField(
-            Control003Definition.getInstance(), data)); break;
+          marcRecord.setControl003(new Control003(data)); break;
         case "005":
-          record.setControl005(new MarcControlField(
-            Control005Definition.getInstance(), data)); break;
+          marcRecord.setControl005(new Control005(data, marcRecord)); break;
         case "006":
-          record.setControl006(new Control006(data, record.getType())); break;
+          marcRecord.setControl006(new Control006(data, marcRecord)); break;
         case "007":
-          record.setControl007(new Control007(record, data)); break;
+          marcRecord.setControl007(new Control007(data, marcRecord)); break;
         case "008":
-          record.setControl008(new Control008(data, record.getType())); break;
+          marcRecord.setControl008(new Control008(data, marcRecord)); break;
         default:
           break;
       }
@@ -178,18 +206,34 @@ public class MarcFactory {
     return fixableControlFields.contains(tag);
   }
 
-  private static void importMarc4jDataFields(Record marc4jRecord, MarcRecord record, MarcVersion marcVersion) {
+  private static void importMarc4jDataFields(Record marc4jRecord,
+                                             MarcRecord marcRecord,
+                                             MarcVersion marcVersion) {
     for (org.marc4j.marc.DataField dataField : marc4jRecord.getDataFields()) {
-      DataFieldDefinition definition = getDataFieldDefinition(dataField, marcVersion);
+      var definition = getDataFieldDefinition(dataField, marcVersion);
       if (definition == null) {
-        record.addUnhandledTags(dataField.getTag());
+        marcRecord.addUnhandledTags(dataField.getTag());
       }
-      DataField field = extractDataField(dataField, definition, marcVersion, record.getControl001().getContent());
-      record.addDataField(field);
+      var field = extractDataField(dataField, definition, marcVersion);
+      marcRecord.addDataField(field);
     }
   }
 
-  public static DataFieldDefinition getDataFieldDefinition(org.marc4j.marc.DataField dataField, MarcVersion marcVersion) {
+  private static void importMarc4jDataFields(Record marc4jRecord,
+                                             MarcRecord marcRecord,
+                                             Map<String, PicaFieldDefinition> schemaDirectory) {
+    for (org.marc4j.marc.DataField dataField : marc4jRecord.getDataFields()) {
+      var definition = (schemaDirectory.containsKey(dataField.getTag())) ? schemaDirectory.get(dataField.getTag()) : null;
+      if (definition == null) {
+        marcRecord.addUnhandledTags(dataField.getTag());
+      }
+      var field = extractPicaDataField(dataField, definition, MarcVersion.MARC21);
+      marcRecord.addDataField(field);
+    }
+  }
+
+  public static DataFieldDefinition getDataFieldDefinition(org.marc4j.marc.DataField dataField,
+                                                           MarcVersion marcVersion) {
     return getDataFieldDefinition(dataField.getTag(), marcVersion);
   }
 
@@ -199,8 +243,7 @@ public class MarcFactory {
 
   private static DataField extractDataField(org.marc4j.marc.DataField dataField,
                                             DataFieldDefinition definition,
-                                            MarcVersion marcVersion,
-                                            String identifier) {
+                                            MarcVersion marcVersion) {
     DataField field;
     if (definition == null) {
       field = new DataField(dataField.getTag(),
@@ -216,17 +259,43 @@ public class MarcFactory {
       );
     }
     for (Subfield subfield : dataField.getSubfields()) {
-      String code = Character.toString(subfield.getCode());
+      var code = Character.toString(subfield.getCode());
       SubfieldDefinition subfieldDefinition = definition == null ? null : definition.getSubfield(code);
       MarcSubfield marcSubfield = null;
       if (subfieldDefinition == null) {
-        // if (!(definition.getTag().equals("886") && code.equals("k")))
-        // field.addUnhandledSubfields(code);
-        /*
-        logger.warning(String.format(
-          "Problem in record '%s': %s$%s is not a valid subfield (value: '%s')",
-          identifier, definition.getTag(), code, subfield.getData()));
-        */
+        marcSubfield = new MarcSubfield(null, code, subfield.getData());
+      } else {
+        marcSubfield = new MarcSubfield(subfieldDefinition, code, subfield.getData());
+      }
+      marcSubfield.setField(field);
+      field.getSubfields().add(marcSubfield);
+    }
+    field.indexSubfields();
+    return field;
+  }
+
+  private static DataField extractPicaDataField(org.marc4j.marc.DataField dataField,
+                                                PicaFieldDefinition definition,
+                                                MarcVersion marcVersion) {
+    DataField field = null;
+    if (definition == null) {
+      field = new DataField(dataField.getTag(),
+        Character.toString(dataField.getIndicator1()),
+        Character.toString(dataField.getIndicator2()),
+        marcVersion
+      );
+    } else {
+      field = new DataField(
+        definition,
+        Character.toString(dataField.getIndicator1()),
+        Character.toString(dataField.getIndicator2())
+      );
+    }
+    for (Subfield subfield : dataField.getSubfields()) {
+      var code = Character.toString(subfield.getCode());
+      SubfieldDefinition subfieldDefinition = definition == null ? null : definition.getSubfield(code);
+      MarcSubfield marcSubfield = null;
+      if (subfieldDefinition == null) {
         marcSubfield = new MarcSubfield(null, code, subfield.getData());
       } else {
         marcSubfield = new MarcSubfield(subfieldDefinition, code, subfield.getData());
@@ -239,7 +308,7 @@ public class MarcFactory {
   }
 
   private static List<String> extractList(JsonPathCache cache, JsonBranch branch) {
-    List<XmlFieldInstance> instances = (List<XmlFieldInstance>) cache.get(branch.getJsonPath());
+    List<XmlFieldInstance> instances = cache.get(branch.getJsonPath());
     List<String> values = new ArrayList<>();
     if (instances != null)
       for (XmlFieldInstance instance : instances)
@@ -270,45 +339,45 @@ public class MarcFactory {
     if (marcVersion == null)
       marcVersion = MarcVersion.MARC21;
 
-    MarcRecord record = new MarcRecord();
+    var marcRecord = new MarcRecord();
     for (String line : lines) {
       if (line.startsWith("LEADER ")) {
-        record.setLeader(line.replace("LEADER ", ""), marcVersion);
+        marcRecord.setLeader(line.replace("LEADER ", ""), marcVersion);
       } else {
-        String tag = line.substring(0, 3);
-        String content = line.substring(4);
-        record.setField(tag, content, marcVersion);
+        var tag = line.substring(0, 3);
+        var content = line.substring(4);
+        marcRecord.setField(tag, content, marcVersion);
       }
     }
-    return record;
+    return marcRecord;
   }
 
-  public static MarcRecord createFromAlephseq(List<AlephseqLine> lines, MarcVersion marcVersion) {
+  public static MarcRecord createFromAlephseq(List<AlephseqLine> lines,
+                                              MarcVersion marcVersion) {
     if (marcVersion == null)
       marcVersion = MarcVersion.MARC21;
 
-    MarcRecord record = new MarcRecord();
+    var marcRecord = new MarcRecord();
     for (AlephseqLine line : lines) {
       if (line.isLeader()) {
-        record.setLeader(line.getContent());
+        marcRecord.setLeader(line.getContent());
       } else if (line.isNumericTag()) {
-        record.setField(line.getTag(), line.getInd1(), line.getInd2(), line.getContent(), marcVersion);
+        marcRecord.setField(line.getTag(), line.getInd1(), line.getInd2(), line.getContent(), marcVersion);
       }
     }
-    return record;
+    return marcRecord;
   }
 
   public static Record createRecordFromAlephseq(List<AlephseqLine> lines) {
-    Record record = new RecordImpl();
-    boolean deleted = false;
+    Record marc4jRecord = new RecordImpl();
     for (AlephseqLine line : lines) {
       if (line.isLeader()) {
-        record.setLeader(new LeaderImpl(line.getContent()));
+        marc4jRecord.setLeader(new LeaderImpl(line.getContent()));
       } else if (line.isNumericTag()) {
         if (line.isControlField()) {
-          record.addVariableField(new ControlFieldImpl(line.getTag(), line.getContent()));
+          marc4jRecord.addVariableField(new ControlFieldImpl(line.getTag(), line.getContent()));
         } else {
-          DataFieldImpl df = new DataFieldImpl(
+          var df = new DataFieldImpl(
             line.getTag(), line.getInd1().charAt(0), line.getInd2().charAt(0)
           );
           for (String[] pair : line.parseSubfields()) {
@@ -321,24 +390,27 @@ public class MarcFactory {
               ));
             }
           }
-          record.addVariableField(df);
+          marc4jRecord.addVariableField(df);
         }
       }
     }
-    return record;
+    return marc4jRecord;
   }
 
-  public static Record createRecordFromPica(List<PicaLine> lines) {
-    Record record = new RecordImpl();
-    for (PicaLine line : lines) {
+  public static Record createRecordFromMarcline(List<MarclineLine> lines) {
+    Record marc4jRecord = new RecordImpl();
+    for (MarclineLine line : lines) {
       if (line.isLeader()) {
-        record.setLeader(new LeaderImpl(line.getContent()));
+        try {
+          marc4jRecord.setLeader(new LeaderImpl(line.getContent()));
+        } catch (StringIndexOutOfBoundsException e) {
+          logger.severe("Error at creating leader: " + e.getMessage());
+        }
       } else if (line.isNumericTag()) {
         if (line.isControlField()) {
-          record.addVariableField(new ControlFieldImpl(line.getTag(), line.getContent()));
+          marc4jRecord.addVariableField(new ControlFieldImpl(line.getTag(), line.getContent()));
         } else {
-          /*
-          DataFieldImpl df = new DataFieldImpl(line.getTag(), line.getInd1().charAt(0), line.getInd2().charAt(0));
+          var df = new DataFieldImpl(line.getTag(), line.getInd1().charAt(0), line.getInd2().charAt(0));
           for (String[] pair : line.parseSubfields()) {
             if (pair.length == 2 && pair[0] != null && pair[1] != null) {
               df.addSubfield(new SubfieldImpl(pair[0].charAt(0), pair[1]));
@@ -349,11 +421,58 @@ public class MarcFactory {
               ));
             }
           }
-          record.addVariableField(df);
-           */
+          marc4jRecord.addVariableField(df);
         }
       }
     }
-    return record;
+    return marc4jRecord;
+  }
+
+  public static Record createRecordFromMarcMaker(List<MarcMakerLine> lines) {
+    Record marc4jRecord = new RecordImpl();
+    for (MarcMakerLine line : lines) {
+      if (line.isLeader()) {
+        try {
+          marc4jRecord.setLeader(new LeaderImpl(line.getContent()));
+        } catch (StringIndexOutOfBoundsException e) {
+          logger.severe("Error at creating leader: " + e.getMessage());
+        }
+      } else if (line.isNumericTag()) {
+        if (line.isControlField()) {
+          marc4jRecord.addVariableField(new ControlFieldImpl(line.getTag(), line.getContent()));
+        } else {
+          var df = new DataFieldImpl(line.getTag(), line.getInd1().charAt(0), line.getInd2().charAt(0));
+          for (String[] pair : line.parseSubfields()) {
+            if (pair.length == 2 && pair[0] != null && pair[1] != null) {
+              df.addSubfield(new SubfieldImpl(pair[0].charAt(0), pair[1]));
+            } else {
+              logger.warning(String.format(
+                "parse error in record #%s) tag %s: '%s'",
+                line.getRecordID(), line.getTag(), line.getRawContent()
+              ));
+            }
+          }
+          marc4jRecord.addVariableField(df);
+        }
+      }
+    }
+    return marc4jRecord;
+  }
+
+  public static Record createRecordFromPica(List<PicaLine> lines) {
+    Record marc4jRecord = new RecordImpl();
+    String id = null;
+    for (PicaLine line : lines) {
+      DataFieldImpl df = new DataFieldImpl(line.getTag(), ' ', ' ');
+      for (PicaSubfield picaSubfield : line.getSubfields()) {
+        df.addSubfield(new SubfieldImpl(picaSubfield.getCode().charAt(0), picaSubfield.getValue()));
+        if (line.getTag().equals("003@") && picaSubfield.getCode().equals("0"))
+          id = picaSubfield.getValue();
+      }
+      marc4jRecord.addVariableField(df);
+    }
+    if (id != null)
+      marc4jRecord.addVariableField(new ControlFieldImpl("001", id));
+    return marc4jRecord;
   }
 }

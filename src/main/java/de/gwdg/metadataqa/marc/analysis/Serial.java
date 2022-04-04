@@ -1,10 +1,8 @@
 package de.gwdg.metadataqa.marc.analysis;
 
-import de.gwdg.metadataqa.marc.Control006;
-import de.gwdg.metadataqa.marc.Control008;
-import de.gwdg.metadataqa.marc.DataField;
-import de.gwdg.metadataqa.marc.MarcRecord;
-import org.apache.commons.lang3.StringUtils;
+import de.gwdg.metadataqa.marc.dao.Control006;
+import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,9 +14,8 @@ import java.util.List;
  * https://www.tandfonline.com/doi/full/10.1080/00987913.2017.1350525
  */
 public class Serial {
-  private MarcRecord record;
+  private MarcRecord marcRecord;
   private SerialScores scores;
-  private Control008 control008;
 
   private static List<String> headers = new LinkedList<>();
   static {
@@ -27,8 +24,8 @@ public class Serial {
     }
   }
 
-  public Serial(MarcRecord record) {
-    this.record = record;
+  public Serial(MarcRecord marcRecord) {
+    this.marcRecord = marcRecord;
     scores = new SerialScores();
   }
 
@@ -38,28 +35,28 @@ public class Serial {
 
   @Override
   public int hashCode() {
-    final int prime = 31;
+    final var prime = 31;
     int result = super.hashCode();
 
     // datesOfPublication
-    result = prime * result + ((record.getDatafield("362") == null)
+    result = prime * result + ((marcRecord.getDatafield("362") == null)
       ? 0
-      : record.getDatafield("362").hashCode());
+      : marcRecord.getDatafield("362").hashCode());
 
     // frequency
-    result = prime * result + ((record.getDatafield("310") == null)
+    result = prime * result + ((marcRecord.getDatafield("310") == null)
       ? 0
-      : record.getDatafield("310").hashCode());
+      : marcRecord.getDatafield("310").hashCode());
 
     // issn
-    result = prime * result + ((record.getDatafield("022") == null)
+    result = prime * result + ((marcRecord.getDatafield("022") == null)
       ? 0
-      :record.getDatafield("022").hashCode());
+      : marcRecord.getDatafield("022").hashCode());
 
     // sourceOfDescription
-    result = prime * result + ((record.getDatafield("588") == null)
+    result = prime * result + ((marcRecord.getDatafield("588") == null)
       ? 0
-      : record.getDatafield("588").hashCode());
+      : marcRecord.getDatafield("588").hashCode());
     return result;
   }
 
@@ -119,57 +116,57 @@ public class Serial {
   }
 
   public List<DataField> getIssn022() {
-    return record.getDatafield("022");
+    return marcRecord.getDatafield("022");
   }
 
   public List<DataField> getFrequency310() {
-    return record.getDatafield("310");
+    return marcRecord.getDatafield("310");
   }
 
   public List<DataField> getDatesOfPublication362() {
-    return record.getDatafield("362");
+    return marcRecord.getDatafield("362");
   }
 
   public List<DataField> getSourceOfDescription588() {
-    return record.getDatafield("588");
+    return marcRecord.getDatafield("588");
   }
 
   public String getEncodingLevel() {
-    return record.getLeader().getEncodingLevel().getValue();
+    return marcRecord.getLeader().getEncodingLevel().getValue();
   }
 
   public List<Integer> determineRecordQualityScore() {
-    control008 = record.getControl008();
+    var control008 = marcRecord.getControl008();
 
     // Date 1 is totally unknown
     if (control008 != null
         && control008.getTag008all07() != null
         && control008.getTag008all07().getValue().equals("uuuu")) {
-      scores.set(SerialFields.Date1Unknown, -3);
+      scores.set(SerialFields.DATE_1_UNKNOWN, -3);
     }
 
     // Country of publication is totally unknown
     if (control008 != null
         && control008.getTag008all15() != null
         && control008.getTag008all15().getValue().matches("xx.+")) {
-      scores.set(SerialFields.CountryUnknown, -1);
+      scores.set(SerialFields.COUNTRY_UNKNOWN, -1);
     }
 
     // Publication language is totally unknown
     if (control008 != null
       && control008.getTag008all35() != null
       && control008.getTag008all35().getValue().matches("xxx.+")) {
-      scores.set(SerialFields.Language, -1);
+      scores.set(SerialFields.LANGUAGE, -1);
     }
 
     // Authentication code (from the 042) is empty (the record is not pcc or nsdp)
-    List<DataField> authenticationcode = record.getDatafield("042");
+    List<DataField> authenticationcode = marcRecord.getDatafield("042");
     if (!empty(authenticationcode)
         && authenticationcode.get(0) != null
         && authenticationcode.get(0).getSubfield("a") != null
         && !authenticationcode.get(0).getSubfield("a").isEmpty()
         && !authenticationcode.get(0).getSubfield("a").get(0).getValue().equals("")) {
-      scores.set(SerialFields.Auth, 7);
+      scores.set(SerialFields.AUTH, 7);
     }
 
     // Encoding level is blank or I (fully cataloged)
@@ -179,7 +176,7 @@ public class Serial {
         || encodingLevel.equals("1") // Full level, material not examined
         || encodingLevel.equals("I") // oclc: Full level input by OCLC participants
     ) {
-      scores.set(SerialFields.EncodingLevelFull, 5);
+      scores.set(SerialFields.ENCODING_LEVEL_FULL, 5);
     }
 
     // Encoding level is M or L (not so fully cataloged, more likely to be a good record than K or 7)
@@ -188,72 +185,66 @@ public class Serial {
         || encodingLevel.equals("K") // oclc: Minimal level input by OCLC participants
         || encodingLevel.equals("7") // Minimal level
     ) {
-      scores.set(SerialFields.EncodingLevelMinimal, 1);
+      scores.set(SerialFields.ENCODING_LEVEL_MINIMAL, 1);
     }
 
     // 006 is present
-    if (record.getControl006() != null && !record.getControl006().isEmpty()) {
+    if (marcRecord.getControl006() != null && !marcRecord.getControl006().isEmpty()) {
       boolean hasContent = false;
-      for (Control006 control006 : record.getControl006()) {
+      for (Control006 control006 : marcRecord.getControl006()) {
         if (control006.getContent() != null && !control006.getContent().equals("")) {
           hasContent = true;
           break;
         }
       }
       if (hasContent)
-        scores.set(SerialFields.Has006, 1);
+        scores.set(SerialFields.HAS_006, 1);
     }
 
     // Record has publisher AACR2
-    if (!empty(record.getDatafield("260"))) {
-      scores.set(SerialFields.HasPublisher260, 1);
+    if (!empty(marcRecord.getDatafield("260"))) {
+      scores.set(SerialFields.HAS_PUBLISHER_260, 1);
     }
 
     // Record has publisher RDA
-    if (!empty(record.getDatafield("264"))) {
-      scores.set(SerialFields.HasPublisher264, 1);
+    if (!empty(marcRecord.getDatafield("264"))) {
+      scores.set(SerialFields.HAS_PUBLISHER_264, 1);
     }
 
     // Publication frequency
-    if (!empty(record.getDatafield("310"))) {
-      scores.set(SerialFields.HasPublicationFrequency310, 1);
+    if (!empty(marcRecord.getDatafield("310"))) {
+      scores.set(SerialFields.HAS_PUBLICATION_FREQUENCY_310, 1);
     }
 
     // Content Type (RDA) fields
-    if (!empty(record.getDatafield("336"))) {
-      scores.set(SerialFields.HasContentType336, 1);
+    if (!empty(marcRecord.getDatafield("336"))) {
+      scores.set(SerialFields.HAS_CONTENT_TYPE_336, 1);
     }
 
     // Begins with... (datesOfPublication362)
-    if (!empty(record.getDatafield("362"))) {
-      scores.set(SerialFields.HasDatesOfPublication362, 1);
+    if (!empty(marcRecord.getDatafield("362"))) {
+      scores.set(SerialFields.HAS_DATES_OF_PUBLICATION_362, 1);
     }
 
     // Description based on/ Latest issue consulted notes (sourceOfDescription588)
-    if (!empty(record.getDatafield("588"))) {
-      scores.set(SerialFields.HasSourceOfDescription588, 1);
+    if (!empty(marcRecord.getDatafield("588"))) {
+      scores.set(SerialFields.HAS_SOURCE_OF_DESCRIPTION_588, 1);
     }
 
     // Has a Library of Congress subject heading (6XX_0)
-    List<DataField> subjects = record.getSubjects();
+    List<DataField> subjects = marcRecord.getSubjects();
     if (subjects.isEmpty()) {
-      scores.set(SerialFields.HasNoSubject, -5);
+      scores.set(SerialFields.HAS_NO_SUBJECT, -5);
     } else {
-      int subjectCount = 0;
-      for (DataField subject : subjects) {
-        // if (subject.getInd2().equals("0") && subject.getSubfield("a") != null) {
-        subjectCount++;
-        // }
-      }
-      scores.set(SerialFields.HasSubject, subjectCount);
+      scores.set(SerialFields.HAS_SUBJECT, subjects.size());
     }
 
     // Any PCC record should automatically be kept unless it is not online and/or a ceased title
-    if (!empty(record.getDatafield("042"))
-        && record.getDatafield("042").get(0) != null
-        && record.getDatafield("042").get(0).getSubfield("a") != null
-        && !record.getDatafield("042").get(0).getSubfield("a").isEmpty()
-        && record.getDatafield("042").get(0).getSubfield("a").get(0).equals("pcc")) {
+    if (!empty(marcRecord.getDatafield("042"))
+        && marcRecord.getDatafield("042").get(0) != null
+        && marcRecord.getDatafield("042").get(0).getSubfield("a") != null
+        && !marcRecord.getDatafield("042").get(0).getSubfield("a").isEmpty()
+        && marcRecord.getDatafield("042").get(0).getSubfield("a").get(0).getCode().equals("pcc")) {
       scores.set(SerialFields.PCC, 100);
     }
 
@@ -276,7 +267,7 @@ public class Serial {
     }
 
     // Discard any that are RECORD REPORTED FOR DELETION
-    List<DataField> notes = record.getDatafield("936");
+    List<DataField> notes = marcRecord.getDatafield("936");
     if (!empty(notes)
         && notes.get(0).getSubfield("0") != null
         && notes.get(0).getSubfield("0").get(0) != null
@@ -290,12 +281,12 @@ public class Serial {
     if (control008 != null
         && control008.getTag008all07() != null
         && control008.getTag008all07().getValue().matches("0.+")) {
-      scores.set(SerialFields.Date1StartsWith0, -100);
+      scores.set(SerialFields.DATE_1_STARTS_WITH_0, -100);
     }
 
     // Discard any with an encoding level of "3"
     if (encodingLevel.equals("3")) { // Abbreviated level
-      scores.set(SerialFields.Abbreviated, -100);
+      scores.set(SerialFields.ABBREVIATED, -100);
     }
 
     scores.calculateTotal();
@@ -304,11 +295,11 @@ public class Serial {
 
   public void print() {
     System.out.print(
-      record.getId()
-        + ", form of item: " + record.getControl008().getValueByPosition(23) // record.getControl008().getControlValueByPosition(23).resolve()
-        + ", issn: " + record.getDatafield("022").get(0).getSubfield("a").get(0).getValue()
-        + ", date1: " + record.getControl008().getTag008all07().getValue()
-        + ", date2: " + record.getControl008().getTag008all11().getValue()
+      marcRecord.getId()
+        + ", form of item: " + marcRecord.getControl008().getValueByPosition(23) // record.getControl008().getControlValueByPosition(23).resolve()
+        + ", issn: " + marcRecord.getDatafield("022").get(0).getSubfield("a").get(0).getValue()
+        + ", date1: " + marcRecord.getControl008().getTag008all07().getValue()
+        + ", date2: " + marcRecord.getControl008().getTag008all11().getValue()
         + ", encodingLevel: " + getEncodingLevel()
         // + ", title: " + record.getDatafield("245").get(0).toString()
         + ", " + scores.get(SerialFields.TOTAL)

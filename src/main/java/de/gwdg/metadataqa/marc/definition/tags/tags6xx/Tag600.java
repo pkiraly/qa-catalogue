@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags6xx;
 
-import de.gwdg.metadataqa.marc.Code;
-import de.gwdg.metadataqa.marc.DataField;
+import de.gwdg.metadataqa.marc.EncodedValue;
+import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTermSourceCodes;
@@ -50,7 +50,7 @@ public class Tag600 extends DataFieldDefinition {
         "3", "Family name"
       )
       .putVersionSpecificCodes(MarcVersion.SZTE, Arrays.asList(
-        new Code("2", "Multiple surname")
+        new EncodedValue("2", "Multiple surname")
       ))
       .setHistoricalCodes(
         "2", "Multiple surname [OBSOLETE, 1996]"
@@ -273,6 +273,12 @@ public class Tag600 extends DataFieldDefinition {
 
     putVersionSpecificSubfields(MarcVersion.MARC21NO, Arrays.asList(
       new SubfieldDefinition("9", "Language code", "NR")
+    ));
+
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR").setMqTag("link"),
+      new SubfieldDefinition("@", "Language of field", "NR").setMqTag("language"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR").setMqTag("number")
     ));
 
     sourceSpecificationType = SourceSpecificationType.Indicator2AndSubfield2;

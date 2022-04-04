@@ -1,15 +1,20 @@
 package de.gwdg.metadataqa.marc.definition;
 
+import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.utils.MarcTagLister;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TagDefinitionLoader {
@@ -50,39 +55,13 @@ public class TagDefinitionLoader {
       if (dataFieldDefinition != null) {
         String tag = dataFieldDefinition.getTag();
         commonCache.put(tag, dataFieldDefinition);
-        MarcVersion version = getMarcVersion(definitionClazz);
-        if (!versionedCache.containsKey(tag)) {
-          versionedCache.put(tag, new HashMap<>());
-        }
+        MarcVersion version = Utils.getVersion(definitionClazz);
+        versionedCache.computeIfAbsent(tag, s -> new EnumMap<>(MarcVersion.class));
         versionedCache.get(tag).put(version, dataFieldDefinition);
       }
-    } catch (NoSuchMethodException e) {
-      e.printStackTrace();
-    } catch (IllegalAccessException e) {
-      e.printStackTrace();
-    } catch (InvocationTargetException e) {
-      e.printStackTrace();
+    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+      logger.log(Level.SEVERE, "loadAndCacheTag", e);
     }
-  }
-
-  private static MarcVersion getMarcVersion(Class<? extends DataFieldDefinition> definitionClazz) {
-    MarcVersion version = MarcVersion.MARC21;
-    if (definitionClazz.getCanonicalName().contains(".oclctags.")) {
-      version = MarcVersion.OCLC;
-    } else if (definitionClazz.getCanonicalName().contains(".dnbtags.")) {
-      version = MarcVersion.DNB;
-    } else if (definitionClazz.getCanonicalName().contains(".genttags.")) {
-      version = MarcVersion.GENT;
-    } else if (definitionClazz.getCanonicalName().contains(".sztetags.")) {
-      version = MarcVersion.SZTE;
-    } else if (definitionClazz.getCanonicalName().contains(".fennicatags.")) {
-      version = MarcVersion.FENNICA;
-    } else if (definitionClazz.getCanonicalName().contains(".nkcrtags.")) {
-      version = MarcVersion.NKCR;
-    } else if (definitionClazz.getCanonicalName().contains(".bltags.")) {
-      version = MarcVersion.BL;
-    }
-    return version;
   }
 
   public static DataFieldDefinition load(String tag) {
@@ -110,6 +89,31 @@ public class TagDefinitionLoader {
     }
 
     return null;
+  }
+
+  public static List<DataFieldDefinition> findPatterns(String tagPattern, MarcVersion marcVersion) {
+    Matcher matcher = Pattern.compile("^" + tagPattern.replaceAll("X", ".") + "$").matcher("");
+    List<DataFieldDefinition> definitions = new ArrayList<>();
+    for (String tag : versionedCache.keySet()) {
+      if (matcher.reset(tag).matches()) {
+        Map<MarcVersion, DataFieldDefinition> map = versionedCache.get(tag);
+
+        if (map == null)
+          continue;
+
+        if (map.containsKey(marcVersion))
+          definitions.add(map.get(marcVersion));
+        else {
+            // fallbacks for other MARC versions
+          if (map.containsKey(MarcVersion.MARC21))
+            definitions.add(map.get(MarcVersion.MARC21));
+          if (map.containsKey(MarcVersion.OCLC))
+            definitions.add(map.get(MarcVersion.OCLC));
+        }
+      }
+    }
+
+    return definitions;
   }
 
   public static String getClassName(String tag) {

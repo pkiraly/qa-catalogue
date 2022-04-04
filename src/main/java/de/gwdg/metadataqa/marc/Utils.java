@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc;
 
+import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 
@@ -21,13 +22,13 @@ public class Utils {
   private Utils() {
   }
 
-  public static List<Code> generateCodes(String... input) {
+  public static List<EncodedValue> generateCodes(String... input) {
     if (input.length % 2 != 0) {
       throw new IllegalArgumentException("Number of input should be even");
     }
-    List<Code> codes = new ArrayList<>();
+    List<EncodedValue> codes = new ArrayList<>();
     for (int i = 0, len = input.length; i < len; i += 2) {
-      codes.add(new Code(input[i], input[i + 1]));
+      codes.add(new EncodedValue(input[i], input[i + 1]));
     }
     return codes;
   }
@@ -43,15 +44,13 @@ public class Utils {
   }
 
   public static String extractPackageName(DataFieldDefinition field) {
-    String packageName = field.getClass().getPackage().getName()
+    return field.getClass().getPackage().getName()
       .replace("de.gwdg.metadataqa.marc.definition.tags.", "");
-    return packageName;
   }
 
   public static String extractPackageName(Class<? extends DataFieldDefinition> field) {
-    String packageName = field.getPackage().getName()
+    return field.getPackage().getName()
       .replace("de.gwdg.metadataqa.marc.definition.tags.", "");
-    return packageName;
   }
 
   public static MarcVersion getVersion(DataFieldDefinition field) {
@@ -63,15 +62,19 @@ public class Utils {
   }
 
   public static MarcVersion package2version(String packageName) {
-    MarcVersion version = MarcVersion.MARC21;
+    MarcVersion version;
     switch (packageName) {
-      case "bltags":      version = MarcVersion.BL;     break;
+      case "bltags":      version = MarcVersion.BL;      break;
       case "dnbtags":     version = MarcVersion.DNB;     break;
       case "fennicatags": version = MarcVersion.FENNICA; break;
       case "genttags":    version = MarcVersion.GENT;    break;
       case "oclctags":    version = MarcVersion.OCLC;    break;
       case "sztetags":    version = MarcVersion.SZTE;    break;
       case "nkcrtags":    version = MarcVersion.NKCR;    break;
+      case "uvatags":     version = MarcVersion.UVA;     break;
+      case "b3kattags":   version = MarcVersion.B3KAT;   break;
+      case "kbrtags":     version = MarcVersion.KBR;   break;
+      default:            version = MarcVersion.MARC21;  break;
     }
     return version;
   }
@@ -98,16 +101,12 @@ public class Utils {
    * @param <T>
    */
   public static <T extends Object> void count(T key, Map<T, Integer> counter) {
-    if (!counter.containsKey(key)) {
-      counter.put(key, 0);
-    }
+    counter.computeIfAbsent(key, s -> 0);
     counter.put(key, counter.get(key) + 1);
   }
 
   public static <T extends Object> void add(T key, Map<T, Integer> counter, int i) {
-    if (!counter.containsKey(key)) {
-      counter.put(key, 0);
-    }
+    counter.computeIfAbsent(key, s -> 0);
     counter.put(key, counter.get(key) + i);
   }
 
@@ -117,8 +116,8 @@ public class Utils {
 
   public static <T extends Object> List<String> counterToList(char separator, Map<T, Integer> counter) {
     List<String> items = new ArrayList<>();
-    for (T entry : counter.keySet()) {
-      items.add(String.format("%s%s%d", entry.toString(), separator, counter.get(entry)));
+    for (Map.Entry<T, Integer> entry : counter.entrySet()) {
+      items.add(String.format("%s%s%d", entry.getKey().toString(), separator, entry.getValue()));
     }
     return items;
   }
@@ -130,7 +129,7 @@ public class Utils {
   }
 
   public static String createRow(Object... fields) {
-    char separator = ',';
+    var separator = ',';
     if (fields[0].getClass() == Character.class) {
       separator = (char) fields[0];
       fields = Arrays.copyOfRange(fields, 1, fields.length);
@@ -146,22 +145,22 @@ public class Utils {
     }
   }
 
-  public static String base36_encode(String _id) {
-    return Integer.toString(parseId(_id), Character.MAX_RADIX);
+  public static String base36Encode(String id) {
+    return Integer.toString(parseId(id), Character.MAX_RADIX);
   }
 
-  public static int parseId(String _id) {
-    return (_id.contains("+"))
-        ? Utils.scientificNotationToInt(_id)
-        : Integer.parseInt(_id);
+  public static int parseId(String id) {
+    return (id.contains("+"))
+        ? Utils.scientificNotationToInt(id)
+        : Integer.parseInt(id);
   }
 
-  public static String base36_encode(int i) {
+  public static String base36Encode(int i) {
     return Integer.toString(i, Character.MAX_RADIX);
   }
 
   public static int scientificNotationToInt(String scientificNotation) {
-    BigDecimal value = new BigDecimal(scientificNotation);
+    var value = new BigDecimal(scientificNotation);
     return value.toBigInteger().intValue();
   }
 
@@ -174,6 +173,6 @@ public class Utils {
       }
     }
     throw new StringIndexOutOfBoundsException(String.format(
-      "Range %d-%d is illegal for %s", start, end, value));
+      "Character position range %d-%d is not available in string '%s'", start, end, value));
   }
 }

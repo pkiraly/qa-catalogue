@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.general.validator;
 
-import de.gwdg.metadataqa.marc.DataField;
-import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.definition.ValidatorResponse;
 import de.gwdg.metadataqa.marc.definition.tags.tags4xx.Tag411;
@@ -76,9 +76,9 @@ public class ISSNValidatorTest {
   }
 
   private MarcSubfield createMarcSubfield(String s) {
-    MarcRecord record = new MarcRecord("test");
+    MarcRecord marcRecord = new MarcRecord("test");
     DataField field = new DataField(Tag411.getInstance(), " ", " ", "x", s);
-    field.setRecord(record);
+    field.setMarcRecord(marcRecord);
 
     return field.getSubfield("x").get(0);
   }

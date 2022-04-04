@@ -1,10 +1,13 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 LABEL maintainer="Péter Király <pkiraly@gwdg.de>, Ákos Takács <rimelek@rimelek.hu>"
 
 LABEL description="QA catalogue - a metadata quality assessment tool for MARC based library catalogues."
 
+ARG QA_CATALOGUE_VERSION=0.5.0
 ARG DEBIAN_FRONTEND=noninteractive
+ARG SMARTY_VERSION=3.1.44
+ARG SOLR_VERSION=8.11.1
 
 # install R
 ENV TZ=Etc/UTC
@@ -17,7 +20,7 @@ RUN apt-get update \
     # add PPA with pre-compiled cran packages
  && add-apt-repository -y ppa:openjdk-r/ppa \
  && add-apt-repository -y ppa:marutter/rrutter3.5 \
- && add-apt-repository -y ppa:marutter/c2d4u3.5 \
+# && add-apt-repository -y ppa:marutter/c2d4u3.5 \
  && apt-get install -y --no-install-recommends \
       # install basic OS tools
       apt-utils \
@@ -26,64 +29,44 @@ RUN apt-get update \
       curl \
       openssl \
       # install Java
-      openjdk-8-jre-headless \
+      openjdk-11-jre-headless \
       # Install R
       r-base \
       # Install R packages from ppa:marutter
       r-cran-tidyverse \
       r-cran-stringr \
       r-cran-gridextra \
+      r-cran-rsqlite \
+      sqlite3 \
       less \
  && rm -rf /var/lib/apt/lists/*
 
 # install metadata-qa-marc
-RUN mkdir -p /opt/metadata-qa-marc/scripts \
- && mkdir -p /opt/metadata-qa-marc/target
+COPY target/metadata-qa-marc-${QA_CATALOGUE_VERSION}-release.zip /opt
 
-COPY target/metadata-qa-marc-0.4-jar-with-dependencies.jar /opt/metadata-qa-marc/target/
-COPY scripts/*.* /opt/metadata-qa-marc/scripts/
-COPY setdir.sh.template /opt/metadata-qa-marc/setdir.sh
-
-# copy common scripts
-COPY common-variables \
-     common-script \
-     metadata-qa.sh \
-     LICENSE \
-     README.md /opt/metadata-qa-marc/
-
-# copy analysis scripts
-COPY validator \
-     prepare-solr \
-     index \
-     solr-functions \
-     completeness \
-     classifications \
-     authorities \
-     tt-completeness \
-     shelf-ready-completeness \
-     serial-score \
-     formatter \
-     functional-analysis \
-     network-analysis /opt/metadata-qa-marc/
-
-RUN mkdir -p /opt/metadata-qa-marc/marc \
+RUN cd /opt \
+ && unzip metadata-qa-marc-${QA_CATALOGUE_VERSION}-release.zip \
+ && rm metadata-qa-marc-${QA_CATALOGUE_VERSION}-release.zip \
+ && mv metadata-qa-marc-${QA_CATALOGUE_VERSION} metadata-qa-marc \
+ && mv /opt/metadata-qa-marc/setdir.sh.template /opt/metadata-qa-marc/setdir.sh \
+ && mkdir -p /opt/metadata-qa-marc/marc \
  && sed -i.bak 's,BASE_INPUT_DIR=your/path,BASE_INPUT_DIR=/opt/metadata-qa-marc/marc,' /opt/metadata-qa-marc/setdir.sh \
- && sed -i.bak 's,BASE_OUTPUT_DIR=your/path,BASE_OUTPUT_DIR=/opt/metadata-qa-marc/marc/_output,' /opt/metadata-qa-marc/setdir.sh
-
-ARG SMARTY_VERSION=3.1.33
-
-# install web application
-RUN apt-get update \
+ && sed -i.bak 's,BASE_OUTPUT_DIR=your/path,BASE_OUTPUT_DIR=/opt/metadata-qa-marc/marc/_output,' /opt/metadata-qa-marc/setdir.sh \
+ # install web application
+ && apt-get update \
  && apt-get install -y --no-install-recommends \
       apache2 \
       php \
+      php-sqlite3 \
       unzip \
  && rm -rf /var/lib/apt/lists/* \
  && cd /var/www/html/ \
- && curl -s -L https://github.com/pkiraly/metadata-qa-marc-web/archive/0.4.zip --output master.zip \
+ && curl -s -L https://github.com/pkiraly/metadata-qa-marc-web/archive/refs/heads/main.zip --output master.zip \
+# && curl -s -L https://github.com/pkiraly/metadata-qa-marc-web/archive/0.4.zip --output master.zip \
  && unzip -q master.zip \
  && rm master.zip \
- && mv metadata-qa-marc-web-0.4 metadata-qa \
+# && mv metadata-qa-marc-web-0.4 metadata-qa \
+ && mv metadata-qa-marc-web-main metadata-qa \
  && echo dir=/opt/metadata-qa-marc/marc/_output > /var/www/html/metadata-qa/configuration.cnf \
  # && cp /var/www/html/metadata-qa/configuration.js.template /var/www/html/metadata-qa/configuration.js \
  && touch /var/www/html/metadata-qa/selected-facets.js \
@@ -101,7 +84,6 @@ RUN apt-get update \
  && sed -i.bak 's,</VirtualHost>,        RedirectMatch ^/$ /metadata-qa/\n        <Directory /var/www/html/metadata-qa>\n                Options Indexes FollowSymLinks MultiViews\n                AllowOverride All\n                Order allow\,deny\n                allow from all\n                DirectoryIndex index.php index.html\n        </Directory>\n</VirtualHost>,' /etc/apache2/sites-available/000-default.conf \
  && echo "\nWEB_DIR=/var/www/html/metadata-qa/\n" >> /opt/metadata-qa-marc/common-variables
 
-ARG SOLR_VERSION=8.4.1
 
 # install Solr
 RUN apt-get update \
@@ -126,4 +108,3 @@ COPY docker/supervisord.conf /etc/
 WORKDIR /opt/metadata-qa-marc
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
-

@@ -15,8 +15,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FrbrFunctionLister {
+
+  private static final Logger logger = Logger.getLogger(FrbrFunctionLister.class.getCanonicalName());
 
   private Counter<FRBRFunction> baselineCounter = new Counter<>();
   private int elementsWithoutFunctions;
@@ -61,13 +65,13 @@ public class FrbrFunctionLister {
     functionByMarcPath = new TreeMap<>();
     marcPathByfunction = new AppendableHashMap<>();
 
-    for (ControlfieldPositionDefinition subfield : MarcDefinition.leaderPositions)
+    for (ControlfieldPositionDefinition subfield : MarcDefinition.getLeaderPositions())
       registerFunctions(subfield.getFrbrFunctions(), subfield.getPath(false));
 
-    for (DataFieldDefinition subfield : MarcDefinition.simpleControlFields)
+    for (DataFieldDefinition subfield : MarcDefinition.getSimpleControlFields())
       registerFunctions(subfield.getFrbrFunctions(), subfield.getTag());
 
-    for (ControlFieldDefinition controlField : MarcDefinition.complexControlFields)
+    for (ControlFieldDefinition controlField : MarcDefinition.getComplexControlFields())
       for (List<ControlfieldPositionDefinition> positions : controlField.getControlfieldPositions().values())
         for (ControlfieldPositionDefinition position : positions)
           registerFunctions(position.getFrbrFunctions(), position.getId().replace("tag", ""));
@@ -84,14 +88,15 @@ public class FrbrFunctionLister {
 
         elementsWithoutFunctions++;
         for (Indicator indicator : fieldTag.getIndicators())
-          registerFunctions(indicator.getFrbrFunctions(), indicator.getPath());
+          if (indicator != null)
+            registerFunctions(indicator.getFrbrFunctions(), indicator.getPath());
 
         if (fieldTag.getSubfields() != null)
           for (SubfieldDefinition subfield : fieldTag.getSubfields())
             registerFunctions(subfield.getFrbrFunctions(), subfield.getPath());
 
       } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-        e.printStackTrace();
+        logger.log(Level.WARNING, "document", e);
       }
     }
   }
@@ -112,8 +117,7 @@ public class FrbrFunctionLister {
                                     Map<FRBRFunction, FunctionValue> map) {
     if (functions != null && !functions.isEmpty()) {
       for (FRBRFunction function : functions) {
-        if (!map.containsKey(function))
-          map.put(function, new FunctionValue());
+        map.computeIfAbsent(function, s -> new FunctionValue());
         map.get(function).count();
       }
     }
@@ -140,8 +144,7 @@ public class FrbrFunctionLister {
 
   public void add(Map<FRBRFunction, FunctionValue> other) {
     for (FRBRFunction key : other.keySet()) {
-      if (!collector.containsKey(key))
-        collector.put(key, new FunctionValue());
+      collector.computeIfAbsent(key, s -> new FunctionValue());
       collector.get(key).add(other.get(key));
     }
   }
@@ -160,8 +163,7 @@ public class FrbrFunctionLister {
     for (Map.Entry<FRBRFunction, FunctionValue> entry : other.entrySet()) {
       FRBRFunction function = entry.getKey();
       FunctionValue value = entry.getValue();
-      if (!histogram.containsKey(function))
-        histogram.put(function, new Counter<FunctionValue>());
+      histogram.computeIfAbsent(function, s -> new Counter<>());
       histogram.get(function).count(value);
     }
   }

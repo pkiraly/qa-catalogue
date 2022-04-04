@@ -33,7 +33,7 @@ public class ThompsonTraillScores {
   }
 
   public void calculateTotal() {
-    int total = 0;
+    var total = 0;
     for (Map.Entry<ThompsonTraillFields, Integer> entry : scores.entrySet()) {
       ThompsonTraillFields field = entry.getKey();
       if (!field.equals(ThompsonTraillFields.TOTAL)) {

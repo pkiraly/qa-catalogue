@@ -32,9 +32,9 @@ public class SerialScores {
   }
 
   public void calculateTotal() {
-    int total = 0;
+    var total = 0;
     for (Map.Entry<SerialFields, Integer> entry : scores.entrySet()) {
-      SerialFields field = entry.getKey();
+      var field = entry.getKey();
       if (!field.equals(SerialFields.TOTAL)) {
         if (field.isClassification())
           total += Math.min(entry.getValue(), 10);

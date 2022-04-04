@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.utils;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import org.junit.Test;
 import org.marc4j.marc.Record;
 
@@ -19,14 +19,14 @@ public class ReadMarcTest {
     Path path = FileUtils.getPath("general/0001-01.mrc");
     List<Record> records = ReadMarc.read(path.toString());
     for (Record marc4jRecord : records) {
-      MarcRecord record = MarcFactory.createFromMarc4j(marc4jRecord);
-      assertEquals(marc4jRecord.getLeader().marshal(), record.getLeader().getLeaderString());
+      MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
+      assertEquals(marc4jRecord.getLeader().marshal(), marcRecord.getLeader().getLeaderString());
       switch (marc4jRecord.getControlNumber()) {
-        case "   00000002 " : test02(record); break;
-        case "   00000004 " : test04(record); break;
-        case "   00000006 " : test06(record); break;
-        case "   00000007 " : test07(record); break;
-        case "   00000009 " : test09(record); break;
+        case "   00000002 " : test02(marcRecord); break;
+        case "   00000004 " : test04(marcRecord); break;
+        case "   00000006 " : test06(marcRecord); break;
+        case "   00000007 " : test07(marcRecord); break;
+        case "   00000009 " : test09(marcRecord); break;
       }
 
       // System.err.println(record.getLeader().getLeaderString());
@@ -35,8 +35,8 @@ public class ReadMarcTest {
     }
   }
 
-  private void test02(MarcRecord record) {
-    assertEquals("00720cam a22002051  4500", record.getLeader().getLeaderString());
+  private void test02(MarcRecord marcRecord) {
+    assertEquals("00720cam a22002051  4500", marcRecord.getLeader().getLeaderString());
     String expected = "IdentifiedByLccn:    00000002 \n" +
       "SystemControlNumber: (OCoLC)5853149\n" +
       "SystemControlNumber_recordNumber: 5853149\n" +
@@ -70,11 +70,11 @@ public class ReadMarcTest {
       "Topic_ind2: Library of Congress Subject Headings\n" +
       "Topic_topicalTerm: Homeopathy\n" +
       "Topic_generalSubdivision: Materia medica and therapeutics.\n";
-    assertEquals(expected, record.formatForIndex());
+    assertEquals(expected, marcRecord.formatForIndex());
   }
 
-  private void test04(MarcRecord record) {
-    assertEquals("00720cam a2200229 a 4500", record.getLeader().getLeaderString());
+  private void test04(MarcRecord marcRecord) {
+    assertEquals("00720cam a2200229 a 4500", marcRecord.getLeader().getLeaderString());
     String expected = "IdentifiedByLccn:    00000004 \n" +
       "SystemControlNumber: (OCoLC)ocm34987929\n" +
       "SystemControlNumber_recordNumber: ocm34987929\n" +
@@ -113,11 +113,11 @@ public class ReadMarcTest {
       "Topic_ind2: Library of Congress Subject Headings\n" +
       "Topic_topicalTerm: Domestic relations\n" +
       "Topic_geographicSubdivision: United States.\n";
-    assertEquals(expected, record.formatForIndex());
+    assertEquals(expected, marcRecord.formatForIndex());
   }
 
-  private void test06(MarcRecord record) {
-    assertEquals("00472cam a22001571  4500", record.getLeader().getLeaderString());
+  private void test06(MarcRecord marcRecord) {
+    assertEquals("00472cam a22001571  4500", marcRecord.getLeader().getLeaderString());
     String expected = "IdentifiedByLccn:    00000006 \n" +
       "AdminMetadata_catalogingAgency: United States, Library of Congress\n" +
       "AdminMetadata_transcribingAgency: United States, Library of Congress\n" +
@@ -141,11 +141,11 @@ public class ReadMarcTest {
       "Publication_date: 1899.\n" +
       "PhysicalDescription_extent: 300 p.\n" +
       "PhysicalDescription_dimensions: 19 cm.\n";
-    assertEquals(expected, record.formatForIndex());
+    assertEquals(expected, marcRecord.formatForIndex());
   }
 
-  private void test07(MarcRecord record) {
-    assertEquals("00548cam a22001811  4500", record.getLeader().getLeaderString());
+  private void test07(MarcRecord marcRecord) {
+    assertEquals("00548cam a22001811  4500", marcRecord.getLeader().getLeaderString());
     String expected = "IdentifiedByLccn:    00000007 \n" +
       "SystemControlNumber: (OCoLC)3421715\n" +
       "SystemControlNumber_recordNumber: 3421715\n" +
@@ -174,11 +174,11 @@ public class ReadMarcTest {
       "Publication_date: 1899.\n" +
       "PhysicalDescription_extent: vi, 81, [1] p.\n" +
       "PhysicalDescription_dimensions: 19 cm.\n";
-    assertEquals(expected, record.formatForIndex());
+    assertEquals(expected, marcRecord.formatForIndex());
   }
 
-  private void test09(MarcRecord record) {
-    assertEquals("00483nam a2200169 a 4500", record.getLeader().getLeaderString());
+  private void test09(MarcRecord marcRecord) {
+    assertEquals("00483nam a2200169 a 4500", marcRecord.getLeader().getLeaderString());
     String expected = "IdentifiedByLccn:    00000009 \n" +
       "AdminMetadata_catalogingAgency: United States, Library of Congress\n" +
       "AdminMetadata_transcribingAgency: United States, Library of Congress\n" +
@@ -203,7 +203,7 @@ public class ReadMarcTest {
       "PhysicalDescription_extent: 2 v. :\n" +
       "PhysicalDescription_otherPhysicalDetails: ill. ;\n" +
       "PhysicalDescription_dimensions: 21 cm.\n";
-    assertEquals(expected, record.formatForIndex());
+    assertEquals(expected, marcRecord.formatForIndex());
   }
 
 }

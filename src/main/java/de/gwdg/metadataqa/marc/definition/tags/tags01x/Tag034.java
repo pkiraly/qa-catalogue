@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
@@ -48,7 +48,7 @@ public class Tag034 extends DataFieldDefinition {
         "3", "Range of scales"
       )
       .putVersionSpecificCodes(MarcVersion.SZTE, Arrays.asList(
-        new Code(" ", "Not specified")
+        new EncodedValue(" ", "Not specified")
       ))
       .setHistoricalCodes(
         "2", "Two or more scales (BK, MP, SE) [OBSOLETE]"
@@ -219,6 +219,12 @@ public class Tag034 extends DataFieldDefinition {
 
     putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
       new SubfieldDefinition("7", "NKCR Authority ID", "NR")
+    ));
+
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR").setMqTag("link"),
+      new SubfieldDefinition("@", "Language of field", "NR").setMqTag("language"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR").setMqTag("number")
     ));
   }
 }

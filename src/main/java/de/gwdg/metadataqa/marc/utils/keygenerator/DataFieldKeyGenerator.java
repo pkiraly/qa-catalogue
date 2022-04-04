@@ -1,15 +1,20 @@
 package de.gwdg.metadataqa.marc.utils.keygenerator;
 
 import de.gwdg.metadataqa.marc.MarcSubfield;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
+
+import java.util.regex.Pattern;
 
 public class DataFieldKeyGenerator {
   private DataFieldDefinition definition;
   private SolrFieldType type;
   private String tag;
   private String indexTag;
+  private static final Pattern nonValidSubfieldCode = Pattern.compile("[^0-9a-zA-Z]");
+  private MarcVersion marcVersion;
 
   public DataFieldKeyGenerator(DataFieldDefinition definition, SolrFieldType type) {
     this.definition = definition;
@@ -82,14 +87,31 @@ public class DataFieldKeyGenerator {
   }
 
   public String forSubfield(MarcSubfield subfield) {
-    return forSubfield(subfield.getCode(), subfield.getCodeForIndex());
+    String code = subfield.getCode();
+    SubfieldDefinition subfieldDefinition = subfield.getDefinition();
+    if (subfieldDefinition == null && definition != null)
+      subfieldDefinition = definition.getVersionSpecificSubfield(marcVersion, code);
+    String codeForIndex = (subfieldDefinition != null) ? subfieldDefinition.getCodeForIndex() : code;
+    String key = forSubfield(code, codeForIndex);
+
+    return addVersion(subfieldDefinition, key);
   }
 
   public String forSubfield(SubfieldDefinition subfield) {
-    return forSubfield(subfield.getCode(), subfield.getCodeForIndex());
+    String key = forSubfield(subfield.getCode(), subfield.getCodeForIndex());
+    return addVersion(subfield, key);
+  }
+
+  private String addVersion(SubfieldDefinition subfieldDefinition, String key) {
+    if (subfieldDefinition != null && subfieldDefinition.getMarcVersion() != null && type != SolrFieldType.MARC)
+      key += "_" + subfieldDefinition.getMarcVersion().getCode();
+    return key;
   }
 
   private String forSubfield(String code, String codeForIndex) {
+    if (nonValidSubfieldCode.matcher(code).matches())
+      code = String.format("x%x", (int) code.charAt(0));
+
     String key = "";
     switch (type) {
       case HUMAN:
@@ -117,5 +139,9 @@ public class DataFieldKeyGenerator {
 
   public String forSubfield(MarcSubfield subfield, String extra) {
     return String.format("%s_%s", forSubfield(subfield), extra);
+  }
+
+  public void setMarcVersion(MarcVersion marcVersion) {
+    this.marcVersion = marcVersion;
   }
 }

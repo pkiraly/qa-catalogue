@@ -21,7 +21,7 @@ public enum FRBRFunction {
   private FRBRFunction parent = null;
   private String label = null;
 
-  private FRBRFunction(String label, FRBRFunction parent) {
+  FRBRFunction(String label, FRBRFunction parent) {
     this.label = label;
     this.parent = parent;
   }

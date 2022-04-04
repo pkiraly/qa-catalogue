@@ -1,8 +1,7 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.DataField;
-import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.FormatterParameters;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
@@ -18,6 +17,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -73,11 +73,11 @@ public class Formatter implements MarcFileProcessor {
 
     // print headers
     if (parameters.hasSelector()) {
-      Path path = Paths.get(parameters.getOutputDir(), "marc-history.csv");
+      var path = Paths.get(parameters.getOutputDir(), parameters.getFileName());
       try {
         writer = Files.newBufferedWriter(path);
       } catch (IOException e) {
-        e.printStackTrace();
+        logger.log(Level.WARNING, "beforeIteration", e);
       }
       List<String> values = new ArrayList<>();
       if (parameters.withId())
@@ -89,7 +89,7 @@ public class Formatter implements MarcFileProcessor {
       try {
         writer.write(StringUtils.join(values, parameters.getSeparator()) + "\n");
       } catch (IOException e) {
-        e.printStackTrace();
+        logger.log(Level.WARNING, "beforeIteration", e);
       }
     }
   }
@@ -141,7 +141,7 @@ public class Formatter implements MarcFileProcessor {
       try {
         writer.write(StringUtils.join(values, parameters.getSeparator()) + "\n");
       } catch (IOException e) {
-        e.printStackTrace();
+        logger.log(Level.SEVERE, "processRecord", e);
       }
     }
   }
@@ -157,7 +157,7 @@ public class Formatter implements MarcFileProcessor {
       try {
         writer.close();
       } catch (IOException e) {
-        e.printStackTrace();
+        logger.log(Level.SEVERE, "afterIteration", e);
       }
     }
   }

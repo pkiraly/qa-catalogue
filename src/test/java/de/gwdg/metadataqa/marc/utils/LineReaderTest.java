@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.utils;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
+import de.gwdg.metadataqa.marc.utils.marcreader.LineSeparatedMarcReader;
 import org.junit.Before;
 import org.junit.Test;
 import org.marc4j.MarcReader;

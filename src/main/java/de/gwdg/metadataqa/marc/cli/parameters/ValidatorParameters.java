@@ -16,6 +16,7 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
   private boolean useStandardOutput = false;
   private boolean isOptionSet;
   private boolean emptyLargeCollectors = false;
+  private boolean collectAllErrors = false;
 
   protected void setOptions() {
     if (!isOptionSet) {
@@ -27,6 +28,7 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
         String.format("the report file name (default is '%s')", ValidatorParameters.DEFAULT_FILE_NAME));
       options.addOption("r", "format", true, "specify a format");
       options.addOption("w", "emptyLargeCollectors", false, "empty large collectors");
+      options.addOption("t", "collectAllErrors", false, "collect all errors (useful only for validating small number of records)");
       isOptionSet = true;
     }
   }
@@ -50,12 +52,7 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
       useStandardOutput = true;
 
     if (cmd.hasOption("format"))
-      for (ValidationErrorFormat registeredFormat : ValidationErrorFormat.values()) {
-        if (registeredFormat.getNames().contains(cmd.getOptionValue("format"))) {
-          format = registeredFormat;
-          break;
-        }
-      }
+      setFormat(cmd.getOptionValue("format"));
 
     if (cmd.hasOption("summary")) {
       doSummary = true;
@@ -68,34 +65,74 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
 
     if (cmd.hasOption("emptyLargeCollectors"))
       emptyLargeCollectors = true;
+
+    setCollectAllErrors(cmd.hasOption("collectAllErrors"));
   }
 
   public String getDetailsFileName() {
     return detailsFileName;
   }
 
+  public void setDetailsFileName(String detailsFileName) {
+    this.detailsFileName = detailsFileName;
+  }
+
   public boolean doSummary() {
     return doSummary;
+  }
+
+  public void setDoSummary(boolean doSummary) {
+    this.doSummary = doSummary;
   }
 
   public boolean doDetails() {
     return doDetails;
   }
 
+  public void setDoDetails(boolean doDetails) {
+    this.doDetails = doDetails;
+  }
+
   public boolean useStandardOutput() {
     return useStandardOutput;
+  }
+
+  public void setUseStandardOutput(boolean useStandardOutput) {
+    this.useStandardOutput = useStandardOutput;
   }
 
   public ValidationErrorFormat getFormat() {
     return format;
   }
 
+  public void setFormat(String format) throws ParseException {
+    this.format = ValidationErrorFormat.byFormat(format);
+    if (this.format == null)
+      throw new ParseException(String.format("Unrecognized ValidationErrorFormat parameter value: '%s'", format));
+  }
+
   public String getSummaryFileName() {
     return summaryFileName;
   }
 
+  public void setSummaryFileName(String summaryFileName) {
+    this.summaryFileName = summaryFileName;
+  }
+
   public boolean doEmptyLargeCollectors() {
     return emptyLargeCollectors;
+  }
+
+  public void setEmptyLargeCollectors(boolean emptyLargeCollectors) {
+    this.emptyLargeCollectors = emptyLargeCollectors;
+  }
+
+  public boolean collectAllErrors() {
+    return collectAllErrors;
+  }
+
+  public void setCollectAllErrors(boolean collectAllErrors) {
+    this.collectAllErrors = collectAllErrors;
   }
 
   @Override

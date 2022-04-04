@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.oclctags;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
@@ -40,18 +40,18 @@ public class Tag029 extends DataFieldDefinition {
         "1", "Secondary control number"
       )
       .putVersionSpecificCodes(MarcVersion.DNB, Arrays.asList(
-        new Code("a", "ISSN formal richtig"),
-        new Code("b", "ISSN formal falsch")
+        new EncodedValue("a", "ISSN formal richtig"),
+        new EncodedValue("b", "ISSN formal falsch")
       ))
       .setMqTag("type");
 
     ind2 = new Indicator()
       .putVersionSpecificCodes(MarcVersion.DNB, Arrays.asList(
-        new Code(" ", "Nicht spezifiziert (bei fehlerhaften ISSN)"),
-        new Code("a", "Autorisierte ISSN"),
-        new Code("b", "ISSN der Ausgabe auf anderem Datenträger"),
-        new Code("c", "ISSN der Internet-Ausgabe"),
-        new Code("d", "ISSN der Druck-Ausgabe")
+        new EncodedValue(" ", "Nicht spezifiziert (bei fehlerhaften ISSN)"),
+        new EncodedValue("a", "Autorisierte ISSN"),
+        new EncodedValue("b", "ISSN der Ausgabe auf anderem Datenträger"),
+        new EncodedValue("c", "ISSN der Internet-Ausgabe"),
+        new EncodedValue("d", "ISSN der Druck-Ausgabe")
       ));
 
     setSubfieldsWithCardinality(

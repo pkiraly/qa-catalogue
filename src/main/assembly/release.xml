@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3
-           http://maven.apache.org/xsd/assembly-1.1.3.xsd">
+          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3 http://maven.apache.org/xsd/assembly-1.1.3.xsd">
     <id>release</id>
     <formats>
         <format>zip</format>
@@ -18,53 +17,41 @@
         <fileSet>
             <directory>scripts</directory>
             <includes>
-                <include>*.*</include>
+                <include>classifications/classifications-type.R</include>
+
+                <include>marc-history/marc-history-groupped.R</include>
+
+                <include>pareto/frequency-range.R</include>
+                <include>pareto/frequency-range-per-types.R</include>
+
+                <include>record-patterns/top-fields.R</include>
+
+                <include>serial-score/serial-score-histogram.R</include>
+
+                <include>shelf-ready/shelf-ready-histogram.php</include>
+                <include>shelf-ready/shelf-ready-histogram.R</include>
+
+                <include>sqlite/modify-tables.sql</include>
+                <include>sqlite/normalize-issue-details.php</include>
+                <include>sqlite/qa_catalogue.sqlite.sql</include>
+
+                <include>tt-histogram/tt-histogram.php</include>
+                <include>tt-histogram/tt-histogram.R</include>
+                <include>tt-histogram/tt-histogram-from-no-ids.R</include>
             </includes>
             <outputDirectory>scripts</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>marc-schema</directory>
+            <includes>
+                <include>*.*</include>
+            </includes>
+            <outputDirectory>marc-schema</outputDirectory>
         </fileSet>
     </fileSets>
     <files>
         <file>
-            <source>common-variables</source>
-            <fileMode>0755</fileMode>
-        </file>
-        <file>
-            <source>common-script</source>
-            <fileMode>0755</fileMode>
-        </file>
-        <file>
-            <source>metadata-qa.sh</source>
-            <fileMode>0755</fileMode>
-        </file>
-        <file>
-            <source>LICENSE</source>
-            <fileMode>0644</fileMode>
-        </file>
-        <file>
-            <source>README.md</source>
-            <fileMode>0644</fileMode>
-        </file>
-        <file>
-            <source>setdir.sh.template</source>
-        </file>
-        <file>
-            <source>validator</source>
-            <fileMode>0755</fileMode>
-        </file>
-        <file>
-            <source>prepare-solr</source>
-            <fileMode>0755</fileMode>
-        </file>
-        <file>
-            <source>index</source>
-            <fileMode>0755</fileMode>
-        </file>
-        <file>
-            <source>solr-functions</source>
-            <fileMode>0755</fileMode>
-        </file>
-        <file>
-            <source>completeness</source>
+            <source>authorities</source>
             <fileMode>0755</fileMode>
         </file>
         <file>
@@ -72,19 +59,19 @@
             <fileMode>0755</fileMode>
         </file>
         <file>
-            <source>authorities</source>
+            <source>common-script</source>
             <fileMode>0755</fileMode>
         </file>
         <file>
-            <source>tt-completeness</source>
+            <source>common-variables</source>
             <fileMode>0755</fileMode>
         </file>
         <file>
-            <source>shelf-ready-completeness</source>
+            <source>completeness</source>
             <fileMode>0755</fileMode>
         </file>
         <file>
-            <source>serial-score</source>
+            <source>export-schema</source>
             <fileMode>0755</fileMode>
         </file>
         <file>
@@ -96,8 +83,59 @@
             <fileMode>0755</fileMode>
         </file>
         <file>
+            <source>index</source>
+            <fileMode>0755</fileMode>
+        </file>
+        <file>
+            <source>metadata-qa.sh</source>
+            <fileMode>0755</fileMode>
+        </file>
+        <file>
             <source>network-analysis</source>
             <fileMode>0755</fileMode>
+        </file>
+        <file>
+            <source>prepare-solr</source>
+            <fileMode>0755</fileMode>
+        </file>
+        <file>
+            <source>record-patterns</source>
+            <fileMode>0755</fileMode>
+        </file>
+        <file>
+            <source>serial-score</source>
+            <fileMode>0755</fileMode>
+        </file>
+        <file>
+            <source>shelf-ready-completeness</source>
+            <fileMode>0755</fileMode>
+        </file>
+        <file>
+            <source>solr-functions</source>
+            <fileMode>0755</fileMode>
+        </file>
+        <file>
+            <source>tt-completeness</source>
+            <fileMode>0755</fileMode>
+        </file>
+        <file>
+            <source>validator</source>
+            <fileMode>0755</fileMode>
+        </file>
+        <file>
+            <source>LICENSE</source>
+            <fileMode>0644</fileMode>
+        </file>
+        <file>
+            <source>README.md</source>
+            <fileMode>0644</fileMode>
+        </file>
+        <file>
+            <source>INSTALL.md</source>
+            <fileMode>0644</fileMode>
+        </file>
+        <file>
+            <source>setdir.sh.template</source>
         </file>
     </files>
 </assembly>

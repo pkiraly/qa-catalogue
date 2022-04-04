@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.utils;
 
 import de.gwdg.metadataqa.api.util.Converter;
-import de.gwdg.metadataqa.marc.DataField;
+import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;

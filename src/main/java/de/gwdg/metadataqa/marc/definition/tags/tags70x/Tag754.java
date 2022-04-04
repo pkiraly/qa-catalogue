@@ -112,6 +112,12 @@ public class Tag754 extends DataFieldDefinition {
       new SubfieldDefinition("9", "NKCR Authority field - tracing form", "NR")
     ));
 
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR").setMqTag("link"),
+      new SubfieldDefinition("@", "Language of field", "NR").setMqTag("language"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR").setMqTag("number")
+    ));
+
     sourceSpecificationType = SourceSpecificationType.Subfield2;
   }
 }

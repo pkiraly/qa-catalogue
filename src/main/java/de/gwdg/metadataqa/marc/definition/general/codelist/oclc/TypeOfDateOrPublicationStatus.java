@@ -10,6 +10,8 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 public class TypeOfDateOrPublicationStatus extends CodeList {
 
   private void initialize() {
+    name = "Type of Date/Publication Status";
+    url = "https://www.oclc.org/bibformats/en/fixedfield/dtst.html";
     codes = Utils.generateCodes(
       "b", "B.C. date",
       "e", "Detailed date",

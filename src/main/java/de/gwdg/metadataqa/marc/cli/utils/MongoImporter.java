@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.logging.Level;
@@ -36,7 +35,7 @@ public class MongoImporter {
     String host = args[0];
     int port = Integer.parseInt(args[1]);
     String relativeFileName = args[2];
-    Path path = Paths.get(relativeFileName);
+    var path = Paths.get(relativeFileName);
     String fileName = path.getFileName().toString();
 
     MarcMongodbClient client;
@@ -46,9 +45,8 @@ public class MongoImporter {
 
       JsonPathCache<? extends XmlFieldInstance> cache;
       List<String> records = Files.readAllLines(path, Charset.defaultCharset());
-      for (String record : records) {
-        cache = new JsonPathCache<>(record);
-        Object jsonObject = jsonProvider.parse(record);
+      for (String marcRecord : records) {
+        cache = new JsonPathCache<>(marcRecord);
         String id = cache.get("$.controlfield.[?(@.tag == '001')].content").get(0).getValue();
         String x003 = cache.get("$.controlfield.[?(@.tag == '003')].content").get(0).getValue();
 
@@ -56,7 +54,7 @@ public class MongoImporter {
         doc.append("id", id);
         doc.append("x003", x003);
         doc.append("file", fileName);
-        doc.append("record", record);
+        doc.append("record", marcRecord);
         collection.insert(doc);
       }
     } catch (UnknownHostException ex) {

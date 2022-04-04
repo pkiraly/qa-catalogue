@@ -1,0 +1,4 @@
+# Calling MappingToJson
+. ./common-variables
+
+java -Xmx2g -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MappingToJson $@

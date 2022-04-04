@@ -23,7 +23,7 @@ public class MarcTagListerTest {
     List<Class<? extends DataFieldDefinition>> tags = MarcTagLister.listTags();
     assertNotNull(tags);
     assertNotEquals(0, tags.size());
-    assertEquals(405, tags.size());
+    assertEquals(437, tags.size());
     assertEquals("Tag010", tags.get(0).getSimpleName());
     Map<String, Integer> versionCounter = new HashMap<>();
     Map<MarcVersion, Integer> versionCounter2 = new HashMap<>();
@@ -47,7 +47,7 @@ public class MarcTagListerTest {
       }
 
       if (!definition.getIndexTag().equals(definition.getTag())) {
-        if (definition.getInd1().exists()) {
+        if (definition.getInd1() != null && definition.getInd1().exists()) {
           assertNotEquals(
             String.format("Undefined index tag for indicator1 at %s", definition.getTag()),
             "ind1", definition.getInd1().getIndexTag());
@@ -55,7 +55,7 @@ public class MarcTagListerTest {
             String.format("Undefined index tag for indicator1 at %s", definition.getTag()),
             definition.getInd1().getIndexTag().contains("ind1"));
         }
-        if (definition.getInd2().exists()) {
+        if (definition.getInd2() != null && definition.getInd2().exists()) {
           assertNotEquals(String.format("Undefined index tag for indicator2 at %s", definition.getTag()),
             "ind2", definition.getInd2().getIndexTag());
           assertFalse(String.format("Undefined index tag for indicator2 at %s", definition.getTag()),
@@ -82,8 +82,8 @@ public class MarcTagListerTest {
     assertEquals(15, (int) versionCounter2.get(MarcVersion.SZTE));
     assertEquals(15, (int) versionCounter.get("sztetags"));
 
-    assertEquals(222, (int) versionCounter2.get(MarcVersion.MARC21));
-    assertEquals(1, (int) versionCounter.get("holdings"));
+    assertEquals(223, (int) versionCounter2.get(MarcVersion.MARC21));
+    assertEquals(2, (int) versionCounter.get("holdings"));
     assertEquals(49, (int) versionCounter.get("tags01x"));
     assertEquals(4, (int) versionCounter.get("tags1xx"));
     assertEquals(8, (int) versionCounter.get("tags20x"));
@@ -127,9 +127,7 @@ public class MarcTagListerTest {
         if (functions != null && !functions.isEmpty()) {
           for (FRBRFunction function : functions) {
             if (version == MarcVersion.MARC21) {
-              if (!functionMap.containsKey(function)) {
-                functionMap.put(function, new ArrayList<>());
-              }
+              functionMap.computeIfAbsent(function, s -> new ArrayList<>());
               functionMap.get(function).add(subfield.getPath());
             } else {
               System.err.println(version + " " + subfield.getPath());

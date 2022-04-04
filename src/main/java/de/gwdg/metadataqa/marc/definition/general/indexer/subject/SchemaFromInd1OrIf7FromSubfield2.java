@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.general.indexer.subject;
 
-import de.gwdg.metadataqa.marc.DataField;
+import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
@@ -27,7 +27,7 @@ public class SchemaFromInd1OrIf7FromSubfield2 extends SubjectIndexer implements 
       try {
         schemaAbbreviation = ClassificationSchemes.getInstance().resolve(dataField.resolveInd1());
       } catch (IllegalArgumentException e) {
-        schemaAbbreviation = dataField.getInd1() == " " ? "" : dataField.getInd1();
+        schemaAbbreviation = dataField.getInd1().equals(" ") ? "" : dataField.getInd1();
       }
     }
 

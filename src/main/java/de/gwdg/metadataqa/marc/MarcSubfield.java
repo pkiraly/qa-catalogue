@@ -1,5 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
+import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.Linkage;
 import de.gwdg.metadataqa.marc.definition.general.parser.ParserException;
@@ -21,7 +23,7 @@ public class MarcSubfield implements Validatable, Serializable {
 
   private static final Logger logger = Logger.getLogger(MarcSubfield.class.getCanonicalName());
 
-  private MarcRecord record;
+  private MarcRecord marcRecord;
   private DataField field;
   private SubfieldDefinition definition;
   private final String code;
@@ -91,12 +93,12 @@ public class MarcSubfield implements Validatable, Serializable {
     this.definition = definition;
   }
 
-  public MarcRecord getRecord() {
-    return record;
+  public MarcRecord getMarcRecord() {
+    return marcRecord;
   }
 
-  public void setRecord(MarcRecord record) {
-    this.record = record;
+  public void setMarcRecord(MarcRecord marcRecord) {
+    this.marcRecord = marcRecord;
   }
 
   public String getCodeForIndex() {
@@ -114,13 +116,13 @@ public class MarcSubfield implements Validatable, Serializable {
       try {
         return definition.getContentParser().parse(value);
       } catch (ParserException e) {
-        String msg = String.format(
+        var msg = String.format(
           "Error in record: '%s' %s$%s: '%s'. Error message: '%s'",
-          record.getId(), field.getTag(), definition.getCode(), value, e.getMessage()
+          marcRecord.getId(), field.getTag(), definition.getCode(), value, e.getMessage()
         );
         logger.severe(msg);
-        // e.printStackTrace();
       }
+
     return null;
   }
 
@@ -141,10 +143,10 @@ public class MarcSubfield implements Validatable, Serializable {
     if (getDefinition().hasContentParser()) {
       Map<String, String> extra = parseContent();
       if (extra != null) {
-        for (String key : extra.keySet()) {
+        for (Map.Entry<String, String> entry : extra.entrySet()) {
           pairs.put(
-            keyGenerator.forSubfield(this, key),
-            Collections.singletonList(extra.get(key))
+            keyGenerator.forSubfield(this, entry.getKey()),
+            Collections.singletonList(entry.getValue())
           );
         }
       }
@@ -154,15 +156,15 @@ public class MarcSubfield implements Validatable, Serializable {
   private void getKeyValuePairsForPositionalSubfields(Map<String, List<String>> pairs, String prefix) {
     if (getDefinition().hasPositions()) {
       Map<String, String> extra = getDefinition().resolvePositional(getValue());
-      for (String key : extra.keySet()) {
-        pairs.put(prefix + "_" + key, Collections.singletonList(extra.get(key)));
+      for (Map.Entry<String, String> entry : extra.entrySet()) {
+        pairs.put(prefix + "_" + entry.getKey(), Collections.singletonList(entry.getValue()));
       }
     }
   }
 
   @Override
   public boolean validate(MarcVersion marcVersion) {
-    boolean isValid = true;
+    var isValid = true;
     errors = new ErrorsCollector();
     if (marcVersion == null)
       marcVersion = MarcVersion.MARC21;
@@ -217,7 +219,7 @@ public class MarcSubfield implements Validatable, Serializable {
   }
 
   private boolean validateWithValidator() {
-    boolean isValid = true;
+    var isValid = true;
     SubfieldValidator validator = definition.getValidator();
     ValidatorResponse response = validator.isValid(this);
     if (!response.isValid()) {
@@ -228,7 +230,7 @@ public class MarcSubfield implements Validatable, Serializable {
   }
 
   private boolean validateWithParser() {
-    boolean isValid = true;
+    var isValid = true;
     SubfieldContentParser parser = definition.getContentParser();
     try {
       parser.parse(getValue());
@@ -250,7 +252,7 @@ public class MarcSubfield implements Validatable, Serializable {
 
   private void addError(String path, ValidationErrorType type, String message) {
     String url = definition.getParent().getDescriptionUrl();
-    errors.add(record.getId(), path, type, message, url);
+    errors.add(marcRecord.getId(), path, type, message, url);
   }
 
   @Override

@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags80x;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.codelist.NameAndTitleAuthoritySourceCodes;
@@ -52,7 +52,7 @@ public class Tag800 extends DataFieldDefinition {
         "3", "Family name"
       )
       .putVersionSpecificCodes(MarcVersion.SZTE, Arrays.asList(
-        new Code("2", "Multiple surname")
+        new EncodedValue("2", "Multiple surname")
       ))
       .setMqTag("type")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort);
@@ -284,6 +284,12 @@ public class Tag800 extends DataFieldDefinition {
 
     putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
       new SubfieldDefinition("7", "NKCR Authority ID", "NR")
+    ));
+
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR").setMqTag("link"),
+      new SubfieldDefinition("@", "Language of field", "NR").setMqTag("language"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR").setMqTag("number")
     ));
 
     sourceSpecificationType = SourceSpecificationType.Subfield2;

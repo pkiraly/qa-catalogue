@@ -1,14 +1,14 @@
 package de.gwdg.metadataqa.marc.definition.tags.nkcrtags;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
-import de.gwdg.metadataqa.marc.DataField;
-import de.gwdg.metadataqa.marc.Leader;
+import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
-import de.gwdg.metadataqa.marc.utils.alephseq.AlephseqMarcReader;
+import de.gwdg.metadataqa.marc.utils.marcreader.AlephseqMarcReader;
 import org.junit.Test;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
@@ -33,15 +33,15 @@ public class NkcrMarcReaderTest {
     } catch (URISyntaxException e) {
       e.printStackTrace();
     }
-    int i = 0;
-    Record record = null;
+    var i = 0;
+    Record marc4jRecord = null;
     MarcReader reader = new AlephseqMarcReader(path.toString());
     while (reader.hasNext()) {
       i++;
-      record = reader.next();
-      assertNotNull(record);
+      marc4jRecord = reader.next();
+      assertNotNull(marc4jRecord);
       MarcRecord marcRecord = MarcFactory.createFromMarc4j(
-        record, Leader.Type.BOOKS, MarcVersion.NKCR, true
+        marc4jRecord, Leader.Type.BOOKS, MarcVersion.NKCR, "^"
       );
       assertNotNull(marcRecord);
 

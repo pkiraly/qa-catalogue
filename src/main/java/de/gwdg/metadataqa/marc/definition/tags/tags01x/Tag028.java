@@ -1,11 +1,13 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
+
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 import java.util.Arrays;
@@ -49,7 +51,7 @@ public class Tag028 extends DataFieldDefinition {
         "6", "Distributor number"
       )
       .putVersionSpecificCodes(MarcVersion.SZTE, Arrays.asList(
-        new Code(" ", "Not specified")
+        new EncodedValue(" ", "Not specified")
       ))
       .setMqTag("type")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementDisplay);
@@ -104,5 +106,11 @@ public class Tag028 extends DataFieldDefinition {
       .setMqTag("fieldLink")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("O");
+
+    putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
+      new SubfieldDefinition("*", "Link with identifier", "NR").setMqTag("link"),
+      new SubfieldDefinition("@", "Language of field", "NR").setMqTag("language"),
+      new SubfieldDefinition("#", "number/occurrence of field", "NR").setMqTag("number")
+    ));
   }
 }

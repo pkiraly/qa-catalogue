@@ -105,24 +105,39 @@ public class CommonParametersTest {
   }
 
   @Test
+  public void testDefaultEncoding() {
+    String[] arguments = new String[]{"--defaultEncoding", "MARC8"};
+    try {
+      CommonParameters parameters = new CommonParameters(arguments);
+      assertEquals("MARC8", parameters.getDefaultEncoding());
+    } catch (ParseException e) {
+      logger.log(Level.WARNING, "error in testTrimId()", e);
+    }
+  }
+
+  @Test
   public void formatParameters() {
     String[] arguments = new String[]{"--trimId"};
     try {
       CommonParameters parameters = new CommonParameters(arguments);
       String expected = "marcVersion: MARC21, MARC21\n" +
+        "marcFormat: ISO, Binary (ISO 2709)\n" +
+        "dataSource: FILE, from file\n" +
         "limit: -1\n" +
         "offset: -1\n" +
         "MARC files: \n" +
         "id: null\n" +
         "defaultRecordType: null\n" +
         "fixAlephseq: false\n" +
+        "fixAlma: false\n" +
         "alephseq: false\n" +
         "marcxml: false\n" +
         "lineSeparated: false\n" +
         "outputDir: .\n" +
         "trimId: true\n" +
         "ignorableFields: \n" +
-        "ignorableRecords: \n";
+        "ignorableRecords: \n" +
+        "defaultEncoding: null\n";
       assertEquals(expected, parameters.formatParameters());
     } catch (ParseException e) {
       logger.log(Level.WARNING, "error in formatParameters()", e);

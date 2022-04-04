@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.utils.keygenerator;
 
-import de.gwdg.metadataqa.marc.Control008;
-import de.gwdg.metadataqa.marc.Leader;
+import de.gwdg.metadataqa.marc.dao.Control008;
+import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.*;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import org.junit.Test;
@@ -18,7 +18,7 @@ public class ControlFieldKeyGeneratorTest {
 
   @Test
   public void testMarc() {
-    PositionalControlFieldKeyGenerator generator = new PositionalControlFieldKeyGenerator(
+    var generator = new PositionalControlFieldKeyGenerator(
       field.getTag(),
       field.getMqTag(),
       SolrFieldType.MARC);

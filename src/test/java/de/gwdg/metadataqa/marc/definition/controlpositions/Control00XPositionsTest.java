@@ -1,12 +1,11 @@
 package de.gwdg.metadataqa.marc.definition.controlpositions;
 
-import de.gwdg.metadataqa.marc.Code;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 
 import java.util.List;
 
 import static org.junit.Assert.*;
-
 
 public abstract class Control00XPositionsTest {
 
@@ -40,7 +39,7 @@ public abstract class Control00XPositionsTest {
         assertTrue(subfield.isRepeatableContent());
 
       if (subfield.getCodes() != null)
-        for (Code code : subfield.getCodes())
+        for (EncodedValue code : subfield.getCodes())
           if (!isException(subfield, code))
             assertEquals(
               String.format(
@@ -54,5 +53,5 @@ public abstract class Control00XPositionsTest {
     }
   }
 
-  abstract boolean isException(ControlfieldPositionDefinition subfield, Code code);
+  abstract boolean isException(ControlfieldPositionDefinition subfield, EncodedValue code);
 }

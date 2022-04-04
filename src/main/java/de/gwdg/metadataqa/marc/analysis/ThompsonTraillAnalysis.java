@@ -1,8 +1,8 @@
 package de.gwdg.metadataqa.marc.analysis;
 
-import de.gwdg.metadataqa.marc.Control008;
-import de.gwdg.metadataqa.marc.DataField;
-import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.Control008;
+import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
@@ -32,35 +32,39 @@ public class ThompsonTraillAnalysis {
     }
   }
 
+  private ThompsonTraillAnalysis() {
+    throw new IllegalStateException("This is a utility class");
+  }
+
   public static List<String> getHeader() {
     return headers;
   }
 
   public static List<Integer> getScores(MarcRecord marcRecord) {
-    ThompsonTraillScores ttScores = new ThompsonTraillScores();
+    var ttScores = new ThompsonTraillScores();
 
     ttScores.set(ThompsonTraillFields.ISBN, countFields(marcRecord, Arrays.asList("020")));
-    ttScores.set(ThompsonTraillFields.Authors, countFields(marcRecord, Arrays.asList("100", "110", "111")));
-    ttScores.set(ThompsonTraillFields.AlternativeTitles, countFields(marcRecord, Arrays.asList("246")));
-    ttScores.set(ThompsonTraillFields.Edition, countFields(marcRecord, Arrays.asList("250")));
-    ttScores.set(ThompsonTraillFields.Contributors,
+    ttScores.set(ThompsonTraillFields.AUTHORS, countFields(marcRecord, Arrays.asList("100", "110", "111")));
+    ttScores.set(ThompsonTraillFields.ALTERNATIVE_TITLES, countFields(marcRecord, Arrays.asList("246")));
+    ttScores.set(ThompsonTraillFields.EDITION, countFields(marcRecord, Arrays.asList("250")));
+    ttScores.set(ThompsonTraillFields.CONTRIBUTORS,
       countFields(marcRecord, Arrays.asList("700", "710", "711", "720")));
-    ttScores.set(ThompsonTraillFields.Series,
+    ttScores.set(ThompsonTraillFields.SERIES,
       countFields(marcRecord, Arrays.asList("440", "490", "800", "810", "830")));
     ttScores.set(ThompsonTraillFields.TOC, calculateTocAndAbstract(marcRecord));
 
-    Control008 control008 = marcRecord.getControl008();
+    var control008 = marcRecord.getControl008();
     String date008 = extractDate008(control008);
-    ttScores.set(ThompsonTraillFields.Date008, calculateDate008(date008));
-    ttScores.set(ThompsonTraillFields.Date26X, calculateDate26x(marcRecord, date008));
+    ttScores.set(ThompsonTraillFields.DATE_008, calculateDate008(date008));
+    ttScores.set(ThompsonTraillFields.DATE_26X, calculateDate26x(marcRecord, date008));
 
-    ttScores.set(ThompsonTraillFields.LcNlm, calculateClassificationLcNlm(marcRecord));
+    ttScores.set(ThompsonTraillFields.LC_NLM, calculateClassificationLcNlm(marcRecord));
 
     calculateClassifications(marcRecord, ttScores);
 
-    ttScores.set(ThompsonTraillFields.Online, calculateIsOnlineResource(marcRecord, control008));
-    ttScores.set(ThompsonTraillFields.LanguageOfResource, calculateLanguageOfResource(control008));
-    ttScores.set(ThompsonTraillFields.CountryOfPublication, calculateCountryOfPublication(control008));
+    ttScores.set(ThompsonTraillFields.ONLINE, calculateIsOnlineResource(marcRecord, control008));
+    ttScores.set(ThompsonTraillFields.LANGUAGE_OF_RESOURCE, calculateLanguageOfResource(control008));
+    ttScores.set(ThompsonTraillFields.COUNTRY_OF_PUBLICATION, calculateCountryOfPublication(control008));
     calculateLanguageAndRda(marcRecord, ttScores);
 
     ttScores.calculateTotal();
@@ -73,8 +77,8 @@ public class ThompsonTraillAnalysis {
   private static void calculateLanguageAndRda(MarcRecord marcRecord,
                                               ThompsonTraillScores ttScores) {
     List<DataField> fields040 = marcRecord.getDatafield("040");
-    boolean noLanguageOrEnglish = false;
-    boolean isRDA = false;
+    var noLanguageOrEnglish = false;
+    var isRDA = false;
     if (fields040 != null && !fields040.isEmpty()) {
       for (DataField language : fields040) {
         List<MarcSubfield> subfields = language.getSubfield("b");
@@ -91,24 +95,23 @@ public class ThompsonTraillAnalysis {
               isRDA = true;
       }
     }
-    ttScores.set(ThompsonTraillFields.LanguageOfCataloging, (noLanguageOrEnglish ? 1 : 0));
+    ttScores.set(ThompsonTraillFields.LANGUAGE_OF_CATALOGING, (noLanguageOrEnglish ? 1 : 0));
     ttScores.set(ThompsonTraillFields.RDA, (isRDA ? 1 : 0));
   }
 
   // LC/NLM Classification  050, 060, 090  1 point if any field exists
   private static int calculateClassificationLcNlm(MarcRecord marcRecord) {
-    int score = (
+    return (
       exists(marcRecord, "050") ||
       exists(marcRecord, "060") ||
       exists(marcRecord, "090")) ? 1 : 0;
-    return score;
   }
 
   // Date (MARC 26X)
   //   260$c or 264$c
   //   1 point if 4-digit date exists; 1 point if matches 008 date.
   private static int calculateDate26x(MarcRecord marcRecord, String date008) {
-    int score = 0;
+    var score = 0;
     if (exists(marcRecord, "260")) {
       List<DataField> fields = marcRecord.getDatafield("260");
       for (DataField field : fields) {
@@ -144,7 +147,7 @@ public class ThompsonTraillAnalysis {
 
   private static String extractDate008(Control008 control008) {
     // Date (MARC 008)  008/7-10  1 point if valid coded date exists
-    String date008 = "";
+    var date008 = "";
     if (control008 != null
       && control008.getTag008all07() != null) {
       date008 = control008.getTag008all07().getValue();
@@ -154,14 +157,13 @@ public class ThompsonTraillAnalysis {
 
   private static int calculateDate008(String date008) {
     // Date (MARC 008)  008/7-10  1 point if valid coded date exists
-    int score = datePattern.matcher(date008).matches() ? 1 : 0;
-    return score;
+    return datePattern.matcher(date008).matches() ? 1 : 0;
   }
 
   // Table of Contents and Abstract
   // 505, 520  2 points if both fields exist; 1 point if either field exists
   private static int calculateTocAndAbstract(MarcRecord marcRecord) {
-    int score = 0;
+    var score = 0;
     score += exists(marcRecord, "505") ? 1 : 0;
     score += exists(marcRecord, "520") ? 1 : 0;
     return score;
@@ -187,9 +189,9 @@ public class ThompsonTraillAnalysis {
         List<DataField> fields = marcRecord.getDatafield(tag);
         for (DataField field : fields) {
           if (field.getInd2().equals("0"))
-            ttScores.count(ThompsonTraillFields.LcNlm);
+            ttScores.count(ThompsonTraillFields.LC_NLM);
           else if (field.getInd2().equals("2"))
-            ttScores.count(ThompsonTraillFields.Mesh);
+            ttScores.count(ThompsonTraillFields.MESH);
           else if (field.getInd2().equals("7")) {
             List<MarcSubfield> subfield2 = field.getSubfield("2");
             if (subfield2 == null) {
@@ -198,13 +200,13 @@ public class ThompsonTraillAnalysis {
                 marcRecord.getControl001().getContent()));
             } else
               switch (field.getSubfield("2").get(0).getValue()) {
-                case "fast": ttScores.count(ThompsonTraillFields.Fast); break;
+                case "fast": ttScores.count(ThompsonTraillFields.FAST); break;
                 case "gnd": ttScores.count(ThompsonTraillFields.GND); break;
-                default: ttScores.count(ThompsonTraillFields.Other); break;
+                default: ttScores.count(ThompsonTraillFields.OTHER); break;
               }
           }
           else {
-            ttScores.count(ThompsonTraillFields.Other);
+            ttScores.count(ThompsonTraillFields.OTHER);
           }
         }
       }
@@ -212,14 +214,14 @@ public class ThompsonTraillAnalysis {
   }
 
   private static int calculateIsOnlineResource(MarcRecord marcRecord, Control008 control008) {
-    int score008 = calculateIsOnlineFrom008(marcRecord, control008);
-    int score300a = calculateIsOnlineFrom300a(marcRecord);
+    var score008 = calculateIsOnlineFrom008(marcRecord, control008);
+    var score300a = calculateIsOnlineFrom300a(marcRecord);
     return score008 + score300a;
   }
 
   private static int calculateIsOnlineFrom300a(MarcRecord marcRecord) {
     List<DataField> fields300 = marcRecord.getDatafield("300");
-    boolean isOnlineResource = false;
+    var isOnlineResource = false;
     if (fields300 != null && !fields300.isEmpty()) {
       for (DataField field : fields300) {
         List<MarcSubfield> subfields = field.getSubfield("a");
@@ -229,8 +231,7 @@ public class ThompsonTraillAnalysis {
               isOnlineResource = true;
       }
     }
-    int score = isOnlineResource ? 1 : 0;
-    return score;
+    return isOnlineResource ? 1 : 0;
   }
 
   private static int calculateIsOnlineFrom008(MarcRecord marcRecord, Control008 control008) {
@@ -268,8 +269,7 @@ public class ThompsonTraillAnalysis {
           break;
       }
     }
-    int score = (formOfItem != null && formOfItem.equals("o")) ? 1 : 0;
-    return score;
+    return (formOfItem != null && formOfItem.equals("o")) ? 1 : 0;
   }
 
   // Language of Resource  008/35-37  1 point if likely language code exists
@@ -293,7 +293,7 @@ public class ThompsonTraillAnalysis {
   }
 
   private static Integer getTotal(List<Integer> scores) {
-    int total = 0;
+    var total = 0;
     for (Integer score : scores) {
       total += score;
     }
@@ -306,7 +306,7 @@ public class ThompsonTraillAnalysis {
   }
 
   private static int countFields(MarcRecord marcRecord, List<String> tags) {
-    int counter = 0;
+    var counter = 0;
     for (String tag : tags) {
       if (exists(marcRecord, tag))
         counter += marcRecord.getDatafield(tag).size();

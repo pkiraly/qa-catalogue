@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
 import de.gwdg.metadataqa.marc.analysis.ThompsonTraillAnalysis;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
@@ -12,14 +12,15 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.Record;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
@@ -139,25 +140,25 @@ public class ThompsonTraillCompleteness implements MarcFileProcessor, Serializab
 
   private void print(String message) {
     try {
-      FileUtils.writeStringToFile(output, message, true);
+      FileUtils.writeStringToFile(output, message, Charset.defaultCharset(), true);
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "print", e);
     }
   }
 
   private void printFields() {
-    Path path = Paths.get(parameters.getOutputDir(), "tt-completeness-fields.csv");
-    try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+    var path = Paths.get(parameters.getOutputDir(), "tt-completeness-fields.csv");
+    try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("name", "transformed"));
       for (ThompsonTraillFields field : ThompsonTraillFields.values()) {
         try {
           writer.write(createRow(field.getLabel(), field.getMachine()));
         } catch (IOException e) {
-          e.printStackTrace();
+          logger.log(Level.SEVERE, "printFields", e);
         }
       }
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.log(Level.SEVERE, "printFields", e);
     }
   }
 }

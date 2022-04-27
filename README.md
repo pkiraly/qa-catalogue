@@ -1310,8 +1310,7 @@ build.sbt
 libraryDependencies += "de.gwdg.metadataqa" % "metadata-qa-marc" % "0.5.0"
 ```
 
-or you can directly download the jars from [http://repo1.maven.org](http://repo1.maven.
-org/maven2/de/gwdg/metadataqa/metadata-qa-marc/0.5.0/)
+or you can directly download the jars from [http://repo1.maven.org](http://repo1.maven.org/maven2/de/gwdg/metadataqa/metadata-qa-marc/0.5.0/)
 
 ## User interface
 

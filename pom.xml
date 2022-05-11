@@ -148,7 +148,7 @@
 		<dependency>
 			<artifactId>solr-solrj</artifactId>
 			<groupId>org.apache.solr</groupId>
-			<version>8.11.1</version>
+			<version>9.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.reflections</groupId>
@@ -218,7 +218,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass></mainClass>
+							<mainClass/>
 						</manifest>
 					</archive>
 					<descriptors>

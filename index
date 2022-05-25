@@ -17,6 +17,7 @@ usage:
  ${ME} [-d|--db] [-p|--file-path] [-m|--file-mask] [-w|--no-delete]
        [-s|--solrFieldType] [-x|--marcxml] [-a|--alephseq] [-t|--trimId]
        [-r|--defaultRecordType] [-v|--marcVersion] [-p|--purge]
+       [-A|--alephseqLineType]
        [-h|--help]
 
  -d, --db <name>        name of the database
@@ -36,6 +37,7 @@ usage:
                         Possible values: MARC21 (default), OCLC, DNB, GENT, SZTE, FENNICA, UNIMARC
  -i, --ignorableRecords <condition> ignore records from the analysis
  -g, --defaultEncoding  Default character encoding
+ -A, --alephseqLineType The Aleph Seq line type: WITH_L, WITHOUT_L
  -s, --status           status information
  -p, --purge            delete all records from a core
  -h, --help             this help
@@ -47,8 +49,8 @@ if [ $# -eq 0 ]; then
   show_usage
 fi
 
-GETOPT=$(getopt -o d:p:m:ws::xatr:hSpv:l:i:g: \
-  --long db:,file-path:,file-mask:,no-delete,solrFieldType:,marcxml,alephseq,trimId,defaultRecordType,help,status,purge,marcVersion:,limit:,ignorableRecords:,defaultEncoding: \
+GETOPT=$(getopt -o d:p:m:ws::xatr:hSpv:l:i:g:A: \
+  --long db:,file-path:,file-mask:,no-delete,solrFieldType:,marcxml,alephseq,trimId,defaultRecordType,help,status,purge,marcVersion:,limit:,ignorableRecords:,defaultEncoding:,alephseqLineType: \
   -n ${ME} -- "$@")
 eval set -- "$GETOPT"
 
@@ -59,6 +61,7 @@ marcVersion=MARC21
 limit=""
 DELETE=1
 defaultEncoding=""
+alephseqLineType=""
 while true ; do
   case "$1" in
     -d|--db) DB=$2 ; shift 2;;
@@ -74,6 +77,7 @@ while true ; do
     -a|--alephseq) alephseq="--alephseq" ; shift;;
     -t|--trimId) trimId="--trimId" ; shift;;
     -g|--defaultEncoding) defaultEncoding="--defaultEncoding $2" ; shift 2;;
+    -A|--alephseqLineType) alephseqLineType="--alephseqLineType $2" ; shift 2;;
     -S|--status) status ; shift ;;
     -p|--purge) purge_and_exit $DB ; shift ;;
     -h|--help) show_usage ; shift ;;
@@ -117,6 +121,7 @@ running the command
   $alephseq \
   $ignorableRecords \
   $defaultEncoding \
+  $alephseqLineType \
   ${FILE_PATH}/${FILE_MASK}
 ---END
 EOT
@@ -124,7 +129,7 @@ EOT
 /usr/bin/java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr \
   --solrUrl ${SOLR_DB_URL} --solrFieldType $solrFieldType \
   --defaultRecordType $defaultRecordType \
-  --marcVersion $marcVersion $limit $trimId $marcxml $alephseq $ignorableRecords $defaultEncoding \
+  --marcVersion $marcVersion $limit $trimId $marcxml $alephseq $ignorableRecords $defaultEncoding $alephseqLineType \
   ${FILE_PATH}/${FILE_MASK}
 
 # echo "Start optimizing"

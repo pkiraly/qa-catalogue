@@ -27,7 +27,7 @@ public class AlephseqMarcReaderTest {
   public void testMarcRecordFunctions() {
     Path path = null;
     try {
-      path = FileUtils.getPath("alephseq/alephseq-example.txt");
+      path = FileUtils.getPath("alephseq/alephseq-example1.txt");
     } catch (IOException e) {
       e.printStackTrace();
     } catch (URISyntaxException e) {
@@ -340,6 +340,25 @@ public class AlephseqMarcReaderTest {
       if (marc4jRecord.getControlNumber().equals("000000008")) {
         MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, Leader.Type.BOOKS, MarcVersion.GENT, "^");
         assertEquals("München :", marcRecord.getDatafield("260").get(0).getSubfield("a").get(0).getValue());
+      }
+    }
+  }
+
+  @Test
+  public void testNli() {
+    Path path = null;
+    try {
+      path = FileUtils.getPath("alephseq/alephseq-example4.txt");
+    } catch (IOException | URISyntaxException e) {
+      e.printStackTrace();
+    }
+    MarcReader reader = new AlephseqMarcReader(path.toString(), AlephseqLine.TYPE.WITHOUT_L);
+    Record marc4jRecord = null;
+    while (reader.hasNext()) {
+      marc4jRecord = reader.next();
+      if (marc4jRecord.getControlNumber().equals("990017782740205171")) {
+        MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, Leader.Type.BOOKS, MarcVersion.GENT, "^");
+        assertEquals("1993.", marcRecord.getDatafield("260").get(0).getSubfield("c").get(0).getValue());
       }
     }
   }

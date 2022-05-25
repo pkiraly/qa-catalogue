@@ -45,9 +45,7 @@ fi
 
 CSVS="count.csv issue-total.csv issue-by-category.csv issue-by-type.csv"
 for CSV_FILE in $CSVS; do
-  echo "csv file: ${HISTORICAL}/${CSV_FILE}"
   if [[ -e ${HISTORICAL}/${CSV_FILE} ]]; then
-    echo "deleting ${HISTORICAL}/${CSV_FILE}"
     rm ${HISTORICAL}/${CSV_FILE}
   fi
 done

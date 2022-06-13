@@ -608,7 +608,7 @@ public class MarcFactoryTest {
 
   @Test
   public void testCreateFromAlephseq_MarcRecord() throws IOException, URISyntaxException {
-    Path path = FileUtils.getPath("alephseq/alephseq-example.txt");
+    Path path = FileUtils.getPath("alephseq/alephseq-example1.txt");
     BufferedReader reader;
     try {
       reader = new BufferedReader(new FileReader(path.toString()));
@@ -644,7 +644,7 @@ public class MarcFactoryTest {
 
   @Test
   public void testCreateFromAlephseq_Record() throws IOException, URISyntaxException {
-    Path path = FileUtils.getPath("alephseq/alephseq-example.txt");
+    Path path = FileUtils.getPath("alephseq/alephseq-example1.txt");
     BufferedReader reader;
     try {
       reader = new BufferedReader(new FileReader(path.toString()));

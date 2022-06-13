@@ -1,0 +1,25 @@
+990017782740205171 LDR   01424nam a2200313 a 4500
+990017782740205171 005   20200506174931.0
+990017782740205171 008   191105s1993    xx      r     000 0 eng d
+990017782740205171 001   990017782740205171
+990017782740205171 035   $$a(IsJJNL)001778274NNL01-Aleph
+990017782740205171 035   $$a(OCoLC)233996037
+990017782740205171 041   $$aeng$$aara
+990017782740205171 090   $$a98 B 2188
+990017782740205171 1001  $$aSaif al-Din, Muhammad Shakir Ahmad$$9lat$$8PreferredLanguageHeading
+990017782740205171 24510 $$aHighlights on a Palestinian town :$$bBeit Hanina : the land, history and inhabitants /$$cby Mohammed Shaker Ahmed Saif ed-Din.
+990017782740205171 500   $$aArabic, with summary in English.
+990017782740205171 7400  $$aBeit Hanina
+990017782740205171 77318 $$w990017730260205171
+990017782740205171 903   $$aLibrary premises only;$$b000000008
+990017782740205171 906   $$aGEN
+990017782740205171 921   $$aAG
+990017782740205171 930   $$aKS
+990017782740205171 933   $$aOL
+990017782740205171 939   $$aאיסור העתקה$$uhttp://web.nli.org.il/sites/NLI/Hebrew/library/items-terms-of-use/Pages/nli-copying-prohibited.aspx
+990017782740205171 945   $$aسيف الدين، محمد شاكر احمد: بيت حنينا
+990017782740205171 948   $$aNNL
+990017782740205171 952   $$aCopyright status not determined; No contract$$bNo copyright analysis$$cAutomatic profile$$dNo copyright analysis
+990017782740205171 999   $$aBOOK
+990017782740205171 260   $$c1993.
+990017782740205171 506   $$aLibrary premises only;$$0000000008

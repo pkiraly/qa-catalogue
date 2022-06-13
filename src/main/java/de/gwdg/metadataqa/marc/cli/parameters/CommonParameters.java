@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.cli.utils.IgnorableRecords;
 import de.gwdg.metadataqa.marc.definition.DataSource;
 import de.gwdg.metadataqa.marc.definition.MarcFormat;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.utils.alephseq.AlephseqLine;
 import org.apache.commons.cli.*;
 import org.apache.commons.lang3.StringUtils;
 
@@ -43,6 +44,7 @@ public class CommonParameters implements Serializable {
   protected static final CommandLineParser parser = new DefaultParser();
   protected CommandLine cmd;
   private boolean isOptionSet = false;
+  private AlephseqLine.TYPE alephseqLineType;
 
   protected void setOptions() {
     if (!isOptionSet) {
@@ -66,6 +68,8 @@ public class CommonParameters implements Serializable {
       options.addOption("f", "marcFormat", true, "MARC format (like 'ISO' or 'MARCXML')");
       options.addOption("s", "dataSource", true, "data source (file of stream)");
       options.addOption("g", "defaultEncoding", true, "default character encoding");
+      options.addOption("A", "alephseqLineType", true, "Alephseq line type");
+
       isOptionSet = true;
     }
   }
@@ -128,6 +132,9 @@ public class CommonParameters implements Serializable {
 
     if (cmd.hasOption("defaultEncoding"))
       setDefaultEncoding(cmd.getOptionValue("defaultEncoding"));
+
+    if (cmd.hasOption("alephseqLineType"))
+      alephseqLineType = AlephseqLine.TYPE.valueOf(cmd.getOptionValue("alephseqLineType"));
 
     args = cmd.getArgs();
   }
@@ -357,6 +364,10 @@ public class CommonParameters implements Serializable {
     this.defaultEncoding = defaultEncoding;
   }
 
+  public AlephseqLine.TYPE getAlephseqLineType() {
+    return this.alephseqLineType;
+  }
+
   public String formatParameters() {
     String text = "";
     text += String.format("marcVersion: %s, %s%n", marcVersion.getCode(), marcVersion.getLabel());
@@ -380,4 +391,5 @@ public class CommonParameters implements Serializable {
 
     return text;
   }
+
 }

@@ -8,6 +8,7 @@ import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
 import de.gwdg.metadataqa.marc.definition.DataSource;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.utils.ReadMarc;
+import de.gwdg.metadataqa.marc.utils.marcreader.AlephseqMarcReader;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -170,14 +171,19 @@ public class RecordIterator {
   }
 
   private MarcReader getMarcFileReader(CommonParameters parameters, Path path) throws Exception {
+    MarcReader marcReader;
     if (path.toString().endsWith(".gz")) {
-      return ReadMarc.getStreamReader(
+      marcReader = ReadMarc.getStreamReader(
         parameters.getMarcFormat(),
         new GZIPInputStream(new FileInputStream(path.toFile())),
         parameters.getDefaultEncoding());
     } else {
-      return ReadMarc.getFileReader(parameters.getMarcFormat(), path.toString(), parameters.getDefaultEncoding());
+      marcReader = ReadMarc.getFileReader(parameters.getMarcFormat(), path.toString(), parameters.getDefaultEncoding());
     }
+    if (parameters.getAlephseqLineType() != null && marcReader instanceof AlephseqMarcReader) {
+      ((AlephseqMarcReader) marcReader).setLineType(parameters.getAlephseqLineType());
+    }
+    return marcReader;
   }
 
   private MarcReader getMarcStreamReader(CommonParameters parameters) throws Exception {

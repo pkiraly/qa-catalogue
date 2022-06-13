@@ -27,12 +27,19 @@ public class AlephseqMarcReader implements MarcReader {
   private List<AlephseqLine> lines = new ArrayList<>();
   private String currentId = null;
 
+  private AlephseqLine.TYPE lineType = AlephseqLine.TYPE.WITH_L;
+
   public AlephseqMarcReader(String alephseqMarc) {
     try {
       bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(alephseqMarc), "UTF8"));
     } catch (IOException e) {
       logger.log(Level.WARNING, "AlephseqMarcReader", e);
     }
+  }
+
+  public AlephseqMarcReader(String alephseqMarc, AlephseqLine.TYPE lineType) {
+    this(alephseqMarc);
+    this.lineType = lineType;
   }
 
   public AlephseqMarcReader(InputStream stream) {
@@ -63,7 +70,7 @@ public class AlephseqMarcReader implements MarcReader {
     boolean deleted = false;
     boolean finished = false;
     while (line != null && !finished) {
-      AlephseqLine alephseqLine = new AlephseqLine(line, lineNumber);
+      AlephseqLine alephseqLine = new AlephseqLine(line, lineNumber, lineType);
       String recordID = alephseqLine.getRecordID();
       if (recordID == null) {
         logger.warning(String.format("line %d) does not have line number: '%s'", lineNumber, line));
@@ -134,5 +141,9 @@ public class AlephseqMarcReader implements MarcReader {
     }
 
     skippedRecords++;
+  }
+
+  public void setLineType(AlephseqLine.TYPE lineType) {
+    this.lineType = lineType;
   }
 }

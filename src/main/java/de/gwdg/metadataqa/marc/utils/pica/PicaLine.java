@@ -12,11 +12,12 @@ public class PicaLine {
   private static final Logger logger = Logger.getLogger(PicaLine.class.getCanonicalName());
 
   private static final Pattern LINE = Pattern.compile("^(SET:|Eingabe:|Warnung:|[0-2][0-9][0-9][A-Z@])(\\/([0-9][0-9]+))? (.*)$");
-  public static final String SEPARATOR = "ƒ";
+  public static final String DEFAULT_SEPARATOR = "ƒ";
   private static final String SET = "SET";
   private static final String EINGABE = "Eingabe";
   private static final String WARNUNG = "Warnung";
   private int lineNumber = 0;
+  private static String separator = DEFAULT_SEPARATOR;
 
   private String tag;
   private String occurrence;
@@ -107,7 +108,7 @@ public class PicaLine {
 
   private void parseSubfields() {
     subfields = new ArrayList<>();
-    String[] parts = content.split(SEPARATOR);
+    String[] parts = content.split(Pattern.quote(separator));
     for (String part : parts) {
       if (StringUtils.isNotBlank(part)) {
         subfields.add(new PicaSubfield(part.substring(0, 1), part.substring(1)));
@@ -117,8 +118,8 @@ public class PicaLine {
 
   @Override
   public String toString() {
-    return "AlephseqLine{" +
-      ", tag='" + tag + '\'' +
+    return "PicaLine{" +
+      "tag='" + tag + '\'' +
       ", occurrence='" + occurrence + '\'' +
       ", subfields=" + subfields +
       '}';
@@ -126,5 +127,9 @@ public class PicaLine {
 
   public boolean isSkippable() {
     return skippable || isSET() || isEingabe() || isWarnung();
+  }
+
+  public static void setSeparator(String code) {
+    separator = code;
   }
 }

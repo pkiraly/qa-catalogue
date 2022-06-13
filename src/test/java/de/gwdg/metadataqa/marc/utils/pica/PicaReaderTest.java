@@ -180,7 +180,7 @@ public class PicaReaderTest {
   public void picaReader() throws IOException, URISyntaxException {
     Map<String, PicaFieldDefinition> schema = PicaSchemaReader.create(getPath("pica/k10plus.json"));
     String recordFile = FileUtils.getPath("pica/picaplus-sample.txt").toAbsolutePath().toString();
-    MarcReader reader = new PicaReader(recordFile);
+    MarcReader reader = new PicaReader(recordFile, "003@", "0", "ƒ");
     int i = 0;
     MarcRecord marcRecord = null;
     while (reader.hasNext()) {
@@ -191,6 +191,29 @@ public class PicaReaderTest {
     }
     System.err.printf("processed %d records%n", i);
     System.err.println(marcRecord.format());
+  }
+
+  @Test
+  public void picaReader2() throws IOException, URISyntaxException {
+    Map<String, PicaFieldDefinition> schema = PicaSchemaReader.create(getPath("pica/k10plus.json"));
+    String recordFile = FileUtils.getPath("pica/k10plus-sample.pica").toAbsolutePath().toString();
+    String idField = "003@";
+    String idCode = "0";
+    String subfieldSeparator = "$";
+    MarcReader reader = new PicaReader(recordFile, idField, idCode, subfieldSeparator);
+    int i = 0;
+    MarcRecord marcRecord = null;
+    List<String> ids = new ArrayList<>();
+    while (reader.hasNext()) {
+      Record record = reader.next();
+      marcRecord = MarcFactory.createPicaFromMarc4j(record, schema);
+      ids.add(marcRecord.getId());
+      i++;
+    }
+    assertEquals(6, i);
+    assertEquals(ids, Arrays.asList("010000011", "01000002X", "010000038", "010000054", "010000062", "010000070"));
+    System.err.printf("processed %d records%n", i);
+    // System.err.println(marcRecord.format());
   }
 
   private boolean directoryContains(Map<String, PicaFieldDefinition> schemaDirectory, PicaLine pl) {

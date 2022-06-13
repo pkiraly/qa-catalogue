@@ -459,14 +459,14 @@ public class MarcFactory {
     return marc4jRecord;
   }
 
-  public static Record createRecordFromPica(List<PicaLine> lines) {
+  public static Record createRecordFromPica(List<PicaLine> lines, String idField, String idCode) {
     Record marc4jRecord = new RecordImpl();
     String id = null;
     for (PicaLine line : lines) {
       DataFieldImpl df = new DataFieldImpl(line.getTag(), ' ', ' ');
       for (PicaSubfield picaSubfield : line.getSubfields()) {
         df.addSubfield(new SubfieldImpl(picaSubfield.getCode().charAt(0), picaSubfield.getValue()));
-        if (line.getTag().equals("003@") && picaSubfield.getCode().equals("0"))
+        if (line.getTag().equals(idField) && picaSubfield.getCode().equals(idCode))
           id = picaSubfield.getValue();
       }
       marc4jRecord.addVariableField(df);

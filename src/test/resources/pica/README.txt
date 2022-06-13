@@ -1,0 +1,1 @@
+k10plus-sample.pica: sample PICA plain file (from Jakob Voß)

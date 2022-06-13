@@ -21,6 +21,9 @@ public class PicaReader implements MarcReader {
   private boolean nextIsConsumed = false;
   private int lineNumber = 0;
   private List<PicaLine> lines = new ArrayList<>();
+  private String idField = "003@";
+  private String idCode = "0";
+  private String subfieldSeparator = "$";
 
   public PicaReader(String fileName) {
     try {
@@ -28,6 +31,13 @@ public class PicaReader implements MarcReader {
     } catch (IOException e) {
       logger.log(Level.WARNING, "error in PicaReader()", e);
     }
+  }
+  public PicaReader(String fileName, String idField, String idCode, String subfieldSeparator) {
+    this(fileName);
+    this.idField = idField;
+    this.idCode = idCode;
+    this.subfieldSeparator = subfieldSeparator;
+    PicaLine.setSeparator(subfieldSeparator);
   }
 
   @Override
@@ -51,7 +61,7 @@ public class PicaReader implements MarcReader {
     while (line != null && !finished) {
       PicaLine picaLine = new PicaLine(line, lineNumber);
       if (picaLine.isSkippable() && !lines.isEmpty()) {
-        marc4jRecord = MarcFactory.createRecordFromPica(lines);
+        marc4jRecord = MarcFactory.createRecordFromPica(lines, idField, idCode);
         finished = true;
         lines = new ArrayList<>();
       }
@@ -69,7 +79,7 @@ public class PicaReader implements MarcReader {
     } // while
 
     if (line == null && !lines.isEmpty()) {
-      marc4jRecord = MarcFactory.createRecordFromPica(lines);
+      marc4jRecord = MarcFactory.createRecordFromPica(lines, idField, idCode);
     }
     return marc4jRecord;
   }

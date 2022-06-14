@@ -58,7 +58,7 @@ public class PicaReader implements MarcReader {
     Record marc4jRecord = null;
     boolean finished = false;
     while (line != null && !finished) {
-      PicaLine picaLine = new PicaLine(line, lineNumber, subfieldSeparator);
+      PicaLine picaLine = new PicaLine(line, subfieldSeparator);
       if (picaLine.isSkippable() && !lines.isEmpty()) {
         marc4jRecord = MarcFactory.createRecordFromPica(lines, idField, idCode);
         finished = true;

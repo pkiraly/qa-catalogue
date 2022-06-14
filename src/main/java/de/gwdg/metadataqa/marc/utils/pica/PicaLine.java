@@ -12,11 +12,10 @@ public class PicaLine {
   private static final Logger logger = Logger.getLogger(PicaLine.class.getCanonicalName());
 
   private static final Pattern LINE = Pattern.compile("^(SET:|Eingabe:|Warnung:|[0-2][0-9][0-9][A-Z@])(\\/([0-9][0-9]+))? (.*)$");
-  public static final String DEFAULT_SEPARATOR = "ƒ";
+  public static final String DEFAULT_SEPARATOR = "$";
   private static final String SET = "SET";
   private static final String EINGABE = "Eingabe";
   private static final String WARNUNG = "Warnung";
-  private int lineNumber = 0;
   private String subfieldSeparator = DEFAULT_SEPARATOR;
 
   private String tag;
@@ -35,17 +34,6 @@ public class PicaLine {
   }
 
   public PicaLine(String raw, String subfieldSeparator) {
-    this.subfieldSeparator = subfieldSeparator;
-    parse(raw);
-  }
-
-  public PicaLine(String raw, int lineNumber) {
-    this.lineNumber = lineNumber;
-    parse(raw);
-  }
-
-  public PicaLine(String raw, int lineNumber, String subfieldSeparator) {
-    this.lineNumber = lineNumber;
     this.subfieldSeparator = subfieldSeparator;
     parse(raw);
   }

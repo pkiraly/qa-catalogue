@@ -8,7 +8,7 @@ public class PicaLineTest {
 
   @Test
   public void singleSubfield() {
-    PicaLine line = new PicaLine("001A ƒ00206:06-09-18");
+    PicaLine line = new PicaLine("001A ƒ00206:06-09-18", "ƒ");
     assertEquals("001A", line.getTag());
     assertEquals(null, line.getOccurrence());
     assertEquals(1, line.getSubfields().size());
@@ -17,7 +17,7 @@ public class PicaLineTest {
 
   @Test
   public void multipleSubfields() {
-    PicaLine line = new PicaLine("044A ƒN650ƒsBusiness enterprisesƒzDeveloping countriesƒxManagement");
+    PicaLine line = new PicaLine("044A ƒN650ƒsBusiness enterprisesƒzDeveloping countriesƒxManagement", "ƒ");
     assertEquals("044A", line.getTag());
     assertEquals(null, line.getOccurrence());
     assertEquals(4, line.getSubfields().size());
@@ -28,10 +28,9 @@ public class PicaLineTest {
     assertSubfield(line.getSubfields().get(3), "x", "Management");
   }
 
-
   @Test
   public void occurrence() {
-    PicaLine line = new PicaLine("045D/00 ƒ9091393116Strategisches Management ; STW-ID: stw18029-0");
+    PicaLine line = new PicaLine("045D/00 ƒ9091393116Strategisches Management ; STW-ID: stw18029-0", "ƒ");
     assertEquals("045D", line.getTag());
     assertEquals("00", line.getOccurrence());
     assertEquals(1, line.getSubfields().size());
@@ -45,8 +44,14 @@ public class PicaLineTest {
   }
 
   @Test
-  public void formatSubfields_sungle() {
+  public void formatSubfields_single() {
     PicaLine line = new PicaLine("001A $00206:06-09-18", "$");
+    assertEquals("0) 0206:06-09-18", line.formatSubfields());
+  }
+
+  @Test
+  public void formatSubfields_single_with_default_subfield_separator() {
+    PicaLine line = new PicaLine("001A $00206:06-09-18");
     assertEquals("0) 0206:06-09-18", line.formatSubfields());
   }
 
@@ -60,6 +65,25 @@ public class PicaLineTest {
   public void formatSubfields_none() {
     PicaLine line = new PicaLine("001A", "$");
     assertEquals("", line.formatSubfields());
+  }
+
+  @Test
+  public void getContent() {
+    PicaLine line = new PicaLine("001A $00206:06-09-18$ba", "$");
+    assertEquals("$00206:06-09-18$ba", line.getContent());
+  }
+
+  @Test
+  public void presentation() {
+    PicaLine line = new PicaLine("001A $00206:06-09-18$ba", "$");
+    assertEquals(
+      "PicaLine{tag='001A', occurrence='null', subfields=[PicaSubfield{code='0', value='0206:06-09-18'}, PicaSubfield{code='b', value='a'}]}",
+      line.toString());
+  }
+
+  @Test
+  public void defaultSeparator() {
+    assertEquals("$", PicaLine.DEFAULT_SEPARATOR);
   }
 
 }

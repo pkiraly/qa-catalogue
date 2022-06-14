@@ -137,7 +137,11 @@ public class CommonParametersTest {
         "trimId: true\n" +
         "ignorableFields: \n" +
         "ignorableRecords: \n" +
-        "defaultEncoding: null\n";
+        "defaultEncoding: null\n" +
+        "alephseqLineType: null\n" +
+        "picaIdField: null\n" +
+        "picaIdCode: null\n" +
+        "picaSubfieldSeparator: null\n";
       assertEquals(expected, parameters.formatParameters());
     } catch (ParseException e) {
       logger.log(Level.WARNING, "error in formatParameters()", e);

@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
+import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.dao.Control003;
 import de.gwdg.metadataqa.marc.dao.Control005;
 import de.gwdg.metadataqa.marc.dao.Control007;
@@ -150,7 +151,7 @@ public class MarcRecordTest {
   @Test
   public void testFileReaderFromMek() throws Exception {
     Path path = FileUtils.getPath("marc/22561.mrc");
-    MarcReader reader = QAMarcReaderFactory.getFileReader(MarcFormat.ISO, path.toString(), "MARC8");
+    MarcReader reader = QAMarcReaderFactory.getFileReader(MarcFormat.ISO, path.toString(), new CommonParameters(new String[]{"--defaultEncoding", "MARC8"}));
     Record record = reader.next();
     assertEquals(' ', record.getLeader().getCharCodingScheme());
 

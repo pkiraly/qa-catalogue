@@ -176,9 +176,9 @@ public class RecordIterator {
       marcReader = QAMarcReaderFactory.getStreamReader(
         parameters.getMarcFormat(),
         new GZIPInputStream(new FileInputStream(path.toFile())),
-        parameters.getDefaultEncoding());
+        parameters);
     } else {
-      marcReader = QAMarcReaderFactory.getFileReader(parameters.getMarcFormat(), path.toString(), parameters.getDefaultEncoding());
+      marcReader = QAMarcReaderFactory.getFileReader(parameters.getMarcFormat(), path.toString(), parameters);
     }
     if (parameters.getAlephseqLineType() != null && marcReader instanceof AlephseqMarcReader) {
       ((AlephseqMarcReader) marcReader).setLineType(parameters.getAlephseqLineType());
@@ -187,7 +187,7 @@ public class RecordIterator {
   }
 
   private MarcReader getMarcStreamReader(CommonParameters parameters) throws Exception {
-    return QAMarcReaderFactory.getStreamReader(parameters.getMarcFormat(), parameters.getStream(), parameters.getDefaultEncoding());
+    return QAMarcReaderFactory.getStreamReader(parameters.getMarcFormat(), parameters.getStream(), parameters);
   }
 
   private Record getNextMarc4jRecord(int i, String lastKnownId, MarcReader reader) {

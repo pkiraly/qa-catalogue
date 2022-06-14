@@ -45,6 +45,9 @@ public class CommonParameters implements Serializable {
   protected CommandLine cmd;
   private boolean isOptionSet = false;
   private AlephseqLine.TYPE alephseqLineType;
+  private String picaIdField;
+  private String picaIdCode;
+  private String picaSubfieldSeparator;
 
   protected void setOptions() {
     if (!isOptionSet) {
@@ -69,6 +72,10 @@ public class CommonParameters implements Serializable {
       options.addOption("s", "dataSource", true, "data source (file of stream)");
       options.addOption("g", "defaultEncoding", true, "default character encoding");
       options.addOption("A", "alephseqLineType", true, "Alephseq line type");
+
+      options.addOption("B", "picaIdField", true, "PICA id field");
+      options.addOption("C", "picaIdCode", true, "PICA id subfield");
+      options.addOption("D", "picaSubfieldSeparator", true, "PICA subfield separator");
 
       isOptionSet = true;
     }
@@ -135,6 +142,15 @@ public class CommonParameters implements Serializable {
 
     if (cmd.hasOption("alephseqLineType"))
       alephseqLineType = AlephseqLine.TYPE.valueOf(cmd.getOptionValue("alephseqLineType"));
+
+    if (cmd.hasOption("picaIdField"))
+      picaIdField = cmd.getOptionValue("picaIdField");
+
+    if (cmd.hasOption("picaIdCode"))
+      picaIdCode = cmd.getOptionValue("picaIdCode");
+
+    if (cmd.hasOption("picaSubfieldSeparator"))
+      picaSubfieldSeparator = cmd.getOptionValue("picaSubfieldSeparator");
 
     args = cmd.getArgs();
   }
@@ -368,6 +384,30 @@ public class CommonParameters implements Serializable {
     return this.alephseqLineType;
   }
 
+  public String getPicaIdField() {
+    return picaIdField;
+  }
+
+  public void setPicaIdField(String picaIdField) {
+    this.picaIdField = picaIdField;
+  }
+
+  public String getPicaIdCode() {
+    return picaIdCode;
+  }
+
+  public void setPicaIdCode(String picaIdCode) {
+    this.picaIdCode = picaIdCode;
+  }
+
+  public String getPicaSubfieldSeparator() {
+    return picaSubfieldSeparator;
+  }
+
+  public void setPicaSubfieldSeparator(String picaSubfieldSeparator) {
+    this.picaSubfieldSeparator = picaSubfieldSeparator;
+  }
+
   public String formatParameters() {
     String text = "";
     text += String.format("marcVersion: %s, %s%n", marcVersion.getCode(), marcVersion.getLabel());
@@ -388,6 +428,10 @@ public class CommonParameters implements Serializable {
     text += String.format("ignorableFields: %s%n", ignorableFields);
     text += String.format("ignorableRecords: %s%n", ignorableRecords);
     text += String.format("defaultEncoding: %s%n", defaultEncoding);
+    text += String.format("alephseqLineType: %s%n", alephseqLineType);
+    text += String.format("picaIdField: %s%n", picaIdField);
+    text += String.format("picaIdCode: %s%n", picaIdCode);
+    text += String.format("picaSubfieldSeparator: %s%n", picaSubfieldSeparator);
 
     return text;
   }

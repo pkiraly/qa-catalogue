@@ -7,6 +7,8 @@ import org.marc4j.marc.Record;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -32,11 +34,13 @@ public class PicaReader implements MarcReader {
       logger.log(Level.WARNING, "error in PicaReader()", e);
     }
   }
-  public PicaReader(String fileName, String idField, String idCode, String subfieldSeparator) {
-    this(fileName);
-    this.idField = idField;
-    this.idCode = idCode;
-    this.subfieldSeparator = subfieldSeparator;
+
+  public PicaReader(InputStream stream, String encoding) {
+    try {
+      bufferedReader = new BufferedReader(new InputStreamReader(stream, encoding));
+    } catch (IOException e) {
+      logger.log(Level.WARNING, "error in PicaReader()", e);
+    }
   }
 
   @Override
@@ -81,5 +85,20 @@ public class PicaReader implements MarcReader {
       marc4jRecord = MarcFactory.createRecordFromPica(lines, idField, idCode);
     }
     return marc4jRecord;
+  }
+
+  public PicaReader setIdField(String idField) {
+    this.idField = idField;
+    return this;
+  }
+
+  public PicaReader setIdCode(String idCode) {
+    this.idCode = idCode;
+    return this;
+  }
+
+  public PicaReader setSubfieldSeparator(String subfieldSeparator) {
+    this.subfieldSeparator = subfieldSeparator;
+    return this;
   }
 }

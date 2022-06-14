@@ -37,7 +37,6 @@ public class PicaReader implements MarcReader {
     this.idField = idField;
     this.idCode = idCode;
     this.subfieldSeparator = subfieldSeparator;
-    PicaLine.setSeparator(subfieldSeparator);
   }
 
   @Override
@@ -59,7 +58,7 @@ public class PicaReader implements MarcReader {
     Record marc4jRecord = null;
     boolean finished = false;
     while (line != null && !finished) {
-      PicaLine picaLine = new PicaLine(line, lineNumber);
+      PicaLine picaLine = new PicaLine(line, lineNumber, subfieldSeparator);
       if (picaLine.isSkippable() && !lines.isEmpty()) {
         marc4jRecord = MarcFactory.createRecordFromPica(lines, idField, idCode);
         finished = true;

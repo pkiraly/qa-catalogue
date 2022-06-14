@@ -17,7 +17,7 @@ public class PicaLine {
   private static final String EINGABE = "Eingabe";
   private static final String WARNUNG = "Warnung";
   private int lineNumber = 0;
-  private static String separator = DEFAULT_SEPARATOR;
+  private String subfieldSeparator = DEFAULT_SEPARATOR;
 
   private String tag;
   private String occurrence;
@@ -36,6 +36,12 @@ public class PicaLine {
 
   public PicaLine(String raw, int lineNumber) {
     this.lineNumber = lineNumber;
+    parse(raw);
+  }
+
+  public PicaLine(String raw, int lineNumber, String subfieldSeparator) {
+    this.lineNumber = lineNumber;
+    this.subfieldSeparator = subfieldSeparator;
     parse(raw);
   }
 
@@ -108,7 +114,7 @@ public class PicaLine {
 
   private void parseSubfields() {
     subfields = new ArrayList<>();
-    String[] parts = content.split(Pattern.quote(separator));
+    String[] parts = content.split(Pattern.quote(subfieldSeparator));
     for (String part : parts) {
       if (StringUtils.isNotBlank(part)) {
         subfields.add(new PicaSubfield(part.substring(0, 1), part.substring(1)));
@@ -127,9 +133,5 @@ public class PicaLine {
 
   public boolean isSkippable() {
     return skippable || isSET() || isEingabe() || isWarnung();
-  }
-
-  public static void setSeparator(String code) {
-    separator = code;
   }
 }

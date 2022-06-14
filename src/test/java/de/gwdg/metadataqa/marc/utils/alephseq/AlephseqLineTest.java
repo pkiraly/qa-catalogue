@@ -77,8 +77,32 @@ public class AlephseqLineTest {
   }
 
   @Test
+  public void isValidTag_leader() {
+    AlephseqLine alephseqLine = new AlephseqLine("990017782740205171 LDR   $$aeng$$aara", AlephseqLine.TYPE.WITHOUT_L);
+    assertTrue(alephseqLine.isValidTag());
+  }
+
+  @Test
+  public void isValidTag_short() {
+    AlephseqLine alephseqLine = new AlephseqLine("99001778", AlephseqLine.TYPE.WITHOUT_L);
+    assertFalse(alephseqLine.isValidTag());
+  }
+
+  @Test
   public void isValidTag_false() {
     AlephseqLine alephseqLine = new AlephseqLine("990017782740205171 FMT   $$aeng$$aara", AlephseqLine.TYPE.WITHOUT_L);
     assertFalse(alephseqLine.isValidTag());
+  }
+
+  @Test
+  public void constructior_empty() {
+    AlephseqLine alephseqLine = new AlephseqLine();
+    assertEquals("AlephseqLine{recordID='null', tag='null', ind1='null', ind2='null', content='null'}", alephseqLine.toString());
+  }
+
+  @Test
+  public void constructior_with_line_number() {
+    AlephseqLine alephseqLine = new AlephseqLine("990017782740205171 041   $$aeng$$aara", 1);
+    assertEquals("AlephseqLine{recordID='990017782740205171', tag='041', ind1=' ', ind2=' ', content='aeng$aara'}", alephseqLine.toString());
   }
 }

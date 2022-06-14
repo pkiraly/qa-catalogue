@@ -44,4 +44,22 @@ public class PicaLineTest {
     assertEquals(value, subfield.getValue());
   }
 
+  @Test
+  public void formatSubfields_sungle() {
+    PicaLine line = new PicaLine("001A $00206:06-09-18", "$");
+    assertEquals("0) 0206:06-09-18", line.formatSubfields());
+  }
+
+  @Test
+  public void formatSubfields_multiple() {
+    PicaLine line = new PicaLine("001A $00206:06-09-18$ba", "$");
+    assertEquals("0) 0206:06-09-18, b) a", line.formatSubfields());
+  }
+
+  @Test
+  public void formatSubfields_none() {
+    PicaLine line = new PicaLine("001A", "$");
+    assertEquals("", line.formatSubfields());
+  }
+
 }

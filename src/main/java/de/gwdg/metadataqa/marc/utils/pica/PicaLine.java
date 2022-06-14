@@ -34,6 +34,11 @@ public class PicaLine {
     parse(raw);
   }
 
+  public PicaLine(String raw, String subfieldSeparator) {
+    this.subfieldSeparator = subfieldSeparator;
+    parse(raw);
+  }
+
   public PicaLine(String raw, int lineNumber) {
     this.lineNumber = lineNumber;
     parse(raw);

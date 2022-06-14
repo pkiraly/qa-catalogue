@@ -9,6 +9,7 @@ import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.definition.MarcFormat;
 import de.gwdg.metadataqa.marc.definition.controltype.Control007Category;
+import de.gwdg.metadataqa.marc.utils.QAMarcReaderFactory;
 import de.gwdg.metadataqa.marc.utils.ReadMarc;
 import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 import org.junit.Test;
@@ -149,7 +150,7 @@ public class MarcRecordTest {
   @Test
   public void testFileReaderFromMek() throws Exception {
     Path path = FileUtils.getPath("marc/22561.mrc");
-    MarcReader reader = ReadMarc.getFileReader(MarcFormat.ISO, path.toString(), "MARC8");
+    MarcReader reader = QAMarcReaderFactory.getFileReader(MarcFormat.ISO, path.toString(), "MARC8");
     Record record = reader.next();
     assertEquals(' ', record.getLeader().getCharCodingScheme());
 

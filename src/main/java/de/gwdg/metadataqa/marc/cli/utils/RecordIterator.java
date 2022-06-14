@@ -7,7 +7,7 @@ import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
 import de.gwdg.metadataqa.marc.definition.DataSource;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
-import de.gwdg.metadataqa.marc.utils.ReadMarc;
+import de.gwdg.metadataqa.marc.utils.QAMarcReaderFactory;
 import de.gwdg.metadataqa.marc.utils.marcreader.AlephseqMarcReader;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
@@ -173,12 +173,12 @@ public class RecordIterator {
   private MarcReader getMarcFileReader(CommonParameters parameters, Path path) throws Exception {
     MarcReader marcReader;
     if (path.toString().endsWith(".gz")) {
-      marcReader = ReadMarc.getStreamReader(
+      marcReader = QAMarcReaderFactory.getStreamReader(
         parameters.getMarcFormat(),
         new GZIPInputStream(new FileInputStream(path.toFile())),
         parameters.getDefaultEncoding());
     } else {
-      marcReader = ReadMarc.getFileReader(parameters.getMarcFormat(), path.toString(), parameters.getDefaultEncoding());
+      marcReader = QAMarcReaderFactory.getFileReader(parameters.getMarcFormat(), path.toString(), parameters.getDefaultEncoding());
     }
     if (parameters.getAlephseqLineType() != null && marcReader instanceof AlephseqMarcReader) {
       ((AlephseqMarcReader) marcReader).setLineType(parameters.getAlephseqLineType());
@@ -187,7 +187,7 @@ public class RecordIterator {
   }
 
   private MarcReader getMarcStreamReader(CommonParameters parameters) throws Exception {
-    return ReadMarc.getStreamReader(parameters.getMarcFormat(), parameters.getStream(), parameters.getDefaultEncoding());
+    return QAMarcReaderFactory.getStreamReader(parameters.getMarcFormat(), parameters.getStream(), parameters.getDefaultEncoding());
   }
 
   private Record getNextMarc4jRecord(int i, String lastKnownId, MarcReader reader) {

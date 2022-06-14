@@ -1,18 +1,16 @@
 package de.gwdg.metadataqa.marc.cli.utils;
 
 import de.gwdg.metadataqa.marc.definition.MarcFormat;
-import de.gwdg.metadataqa.marc.utils.ReadMarc;
+import de.gwdg.metadataqa.marc.utils.QAMarcReaderFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
@@ -25,7 +23,7 @@ public class RecordIteratorTest {
   public void gzipSingle() throws IOException {
     File file = new File("src/test/resources/gzip/test.xml.gz");
     try (InputStream stream = new GZIPInputStream(new FileInputStream(file))) {
-      MarcReader reader = ReadMarc.getStreamReader(MarcFormat.XML, stream);
+      MarcReader reader = QAMarcReaderFactory.getStreamReader(MarcFormat.XML, stream);
       Record record = reader.next();
       assertNotNull(record);
       assertEquals("990037818200205131", record.getControlNumber());
@@ -38,7 +36,7 @@ public class RecordIteratorTest {
   public void gzipIteration() throws IOException {
     File file = new File("src/test/resources/gzip/test.xml.gz");
     try (InputStream stream = new GZIPInputStream(new FileInputStream(file))) {
-      MarcReader reader = ReadMarc.getStreamReader(MarcFormat.XML, stream);
+      MarcReader reader = QAMarcReaderFactory.getStreamReader(MarcFormat.XML, stream);
       int i = 0;
       List ids = new ArrayList();
       while (reader.hasNext()) {

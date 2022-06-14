@@ -208,7 +208,7 @@ public class PicaReaderTest {
       i++;
     }
     assertEquals(6, i);
-    assertEquals(ids, Arrays.asList("010000011", "01000002X", "010000038", "010000054", "010000062", "010000070"));
+    assertEquals(Arrays.asList("010000011", "01000002X", "010000038", "010000054", "010000062", "010000070"), ids);
     System.err.printf("processed %d records%n", i);
     // System.err.println(marcRecord.format());
   }

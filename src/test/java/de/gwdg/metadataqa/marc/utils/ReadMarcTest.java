@@ -12,7 +12,6 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class ReadMarcTest {
-  private static ClassLoader classLoader = ReadMarcTest.class.getClassLoader();
 
   @Test
   public void test() throws Exception {

@@ -26,6 +26,7 @@ public class AlephseqLine {
   private String content;
   private boolean valid = true;
   private TYPE type = TYPE.WITH_L;
+  private Integer contentPosition;
 
   public AlephseqLine() {
   }
@@ -105,7 +106,6 @@ public class AlephseqLine {
   }
 
   private void parse(String raw) {
-    // logger.info(lineNumber + ") length: " + raw.length());
     if (raw.length() < 18) {
       logger.warning(String.format("%d) short line (%d): '%s'", lineNumber, raw.length(), raw));
       valid = false;
@@ -115,14 +115,7 @@ public class AlephseqLine {
       tag = parts[1].substring(0, 3);
       ind1 = parts[1].substring(3, 4);
       ind2 = parts[1].substring(4, 5);
-      content = parts[1].substring(type.equals(TYPE.WITH_L) ? 8 : 6);
-      /*
-      recordID = raw.substring(0, 9);
-      tag = raw.substring(10, 13);
-      ind1 = raw.substring(13, 14);
-      ind2 = raw.substring(14, 15);
-      content = raw.substring(18);
-      */
+      content = parts[1].substring(getContentPosition());
     }
   }
 
@@ -153,5 +146,11 @@ public class AlephseqLine {
 
   public List<String[]> getSubfields() {
     return DataField.parseSubfields(getContent());
+  }
+
+  private int getContentPosition() {
+    if (contentPosition == null)
+      contentPosition = type.equals(TYPE.WITH_L) ? 8 : 6;
+    return contentPosition;
   }
 }

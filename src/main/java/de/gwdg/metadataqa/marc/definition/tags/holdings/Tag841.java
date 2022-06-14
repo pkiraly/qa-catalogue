@@ -1,16 +1,11 @@
 package de.gwdg.metadataqa.marc.definition.tags.holdings;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.general.codelist.HoldingSchemeSourceCodes;
-import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 import java.util.Arrays;
-
-import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementIdentify;
-import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Holding Institution

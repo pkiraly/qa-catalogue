@@ -28,7 +28,6 @@ import de.gwdg.metadataqa.marc.utils.alephseq.MarclineLine;
 import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
 import de.gwdg.metadataqa.marc.utils.pica.PicaLine;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSubfield;
-import de.gwdg.metadataqa.marc.utils.pica.PicaTagDefinition;
 import net.minidev.json.JSONArray;
 import org.marc4j.marc.ControlField;
 import org.marc4j.marc.Record;

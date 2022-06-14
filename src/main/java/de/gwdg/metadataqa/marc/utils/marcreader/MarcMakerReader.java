@@ -2,7 +2,6 @@ package de.gwdg.metadataqa.marc.utils.marcreader;
 
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.utils.alephseq.MarcMakerLine;
-import de.gwdg.metadataqa.marc.utils.alephseq.MarclineLine;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
 

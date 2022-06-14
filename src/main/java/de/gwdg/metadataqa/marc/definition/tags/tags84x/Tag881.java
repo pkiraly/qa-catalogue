@@ -7,7 +7,6 @@ import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**

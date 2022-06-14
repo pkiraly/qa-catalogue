@@ -1,11 +1,9 @@
 package de.gwdg.metadataqa.marc.utils.marcspec;
 
 import de.gwdg.metadataqa.marc.utils.marcspec.exception.InvalidMARCspecException;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MARCspec {

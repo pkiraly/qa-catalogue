@@ -13,7 +13,9 @@ import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
-public class QAMarcReaderFactory {
+public final class QAMarcReaderFactory {
+
+  private QAMarcReaderFactory() {}
 
   public static MarcReader getIsoFileReader(String fileName) throws Exception {
     return getIsoStreamReader(new FileInputStream(fileName));
@@ -77,10 +79,6 @@ public class QAMarcReaderFactory {
     return new MarcMakerReader(stream);
   }
 
-  public static MarcReader getReader(String fileName, boolean isMarcxml) throws Exception {
-    return getReader(fileName, isMarcxml, false);
-  }
-
   public static MarcReader getFileReader(MarcFormat marcFormat, String fileName) throws Exception {
     return getFileReader(marcFormat, fileName, null);
   }
@@ -127,6 +125,10 @@ public class QAMarcReaderFactory {
         reader = QAMarcReaderFactory.getIsoStreamReader(stream, encoding); break;
     }
     return reader;
+  }
+
+  public static MarcReader getReader(String fileName, boolean isMarcxml) throws Exception {
+    return getReader(fileName, isMarcxml, false);
   }
 
   public static MarcReader getReader(String fileName, boolean isMarcxml, boolean isLineSeaparated) throws Exception {

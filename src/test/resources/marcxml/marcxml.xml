@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.loc.gov/MARC21/slim">
+  <record>
+    <leader>00251nas a2200121 c 4500</leader>
+    <controlfield tag="001">987874829</controlfield>
+    <controlfield tag="007">cr||||||||||||</controlfield>
+    <datafield tag="022" ind1=" " ind2=" ">
+      <subfield code="a">1940-5758</subfield>
+    </datafield>
+    <datafield tag="041" ind1=" " ind2=" ">
+      <subfield code="a">eng</subfield>
+    </datafield>
+    <datafield tag="245" ind1="0" ind2="0">
+      <subfield code="a">Code4Lib journal</subfield>
+      <subfield code="b">C4LJ</subfield>
+    </datafield>
+    <datafield tag="246" ind1="3" ind2=" ">
+      <subfield code="a">C4LJ</subfield>
+    </datafield>
+    <datafield tag="362" ind1="0" ind2=" ">
+      <subfield code="a">1.2007 -</subfield>
+    </datafield>
+    <datafield tag="856" ind1="4" ind2=" ">
+      <subfield code="u">http://journal.code4lib.org/</subfield>
+    </datafield>
+  </record>
+</collection>

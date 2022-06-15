@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class LeaderTest {
-  
+
   @Test
   public void test00928nama2200265c4500() {
     Leader leader = new Leader("00928nam a2200265 c 4500");

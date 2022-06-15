@@ -28,15 +28,8 @@ public final class QAMarcReaderFactory {
     return getIsoStreamReader(new FileInputStream(fileName));
   }
 
-  private MarcReader getIsoFileReader(String fileName, String encoding) throws Exception {
-    return getIsoStreamReader(new FileInputStream(fileName), encoding);
-  }
-
   private MarcReader getIsoStreamReader(InputStream stream) throws Exception {
-    return getIsoStreamReader(stream, null);
-  }
-
-  private MarcReader getIsoStreamReader(InputStream stream, String encoding) throws Exception {
+    String encoding = parameters != null ? parameters.getDefaultEncoding() : null;
     return new MarcStreamReader(stream, encoding);
   }
 
@@ -55,7 +48,6 @@ public final class QAMarcReaderFactory {
   private MarcReader getLineSeparatedStreamReader(InputStream stream) throws Exception {
     return new LineSeparatedMarcReader(stream);
   }
-
 
   private MarcReader getAlephseqFileReader(String fileName) throws Exception {
     AlephseqMarcReader reader = new AlephseqMarcReader(fileName);
@@ -137,8 +129,7 @@ public final class QAMarcReaderFactory {
         reader = factory.getPicaPlainFileReader(fileName, parameters); break;
       case ISO:
       default:
-        String encoding = parameters != null ? parameters.getDefaultEncoding() : null;
-        reader = factory.getIsoFileReader(fileName, encoding); break;
+        reader = factory.getIsoFileReader(fileName); break;
     }
     return reader;
   }
@@ -165,8 +156,7 @@ public final class QAMarcReaderFactory {
         reader = factory.getPicaPlainStreamReader(stream, parameters); break;
       case ISO:
       default:
-        String encoding = parameters != null ? parameters.getDefaultEncoding() : null;
-        reader = factory.getIsoStreamReader(stream, encoding); break;
+        reader = factory.getIsoStreamReader(stream); break;
     }
     return reader;
   }
@@ -179,5 +169,4 @@ public final class QAMarcReaderFactory {
     InputStream stream = new ByteArrayInputStream(content.getBytes());
     return getStreamReader(marcFormat, stream, parameters);
   }
-
 }

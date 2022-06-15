@@ -35,7 +35,7 @@ import static org.junit.Assert.*;
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class ValidationTest {
-  
+
   @Test
   public void testStructureDefinitionReader() throws URISyntaxException, IOException {
     MarcStructureDefinitionReader reader = new MarcStructureDefinitionReader("multiline.txt");

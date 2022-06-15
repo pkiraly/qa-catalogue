@@ -25,7 +25,7 @@ import static org.junit.Assert.*;
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class MarcJsonCalculatorTest {
-  
+
   @Test
   public void testReader() throws URISyntaxException, IOException {
     var reader = new MarcStructureDefinitionReader("general/marc-structure.txt");

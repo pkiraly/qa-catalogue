@@ -25,7 +25,7 @@ public class Tag928 extends DataFieldDefinition {
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/informativni-materialy/blok-9xxuni-m21";
     setCompilanceLevels("A");
-    
+
     ind1 = new Indicator()
       .setCodes(
         "1", "Knihy ohlášené NA ISBN a CIP",

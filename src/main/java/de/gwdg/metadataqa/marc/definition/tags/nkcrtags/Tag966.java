@@ -25,7 +25,7 @@ public class Tag966 extends DataFieldDefinition {
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/informativni-materialy/blok-9xxuni-m21";
     setCompilanceLevels("O");
-    
+
     ind1 = new Indicator();
     ind2 = new Indicator();
 

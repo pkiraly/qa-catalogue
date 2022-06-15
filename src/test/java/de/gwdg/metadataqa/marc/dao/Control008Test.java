@@ -22,22 +22,22 @@ import static org.junit.Assert.assertNull;
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class Control008Test {
-  
+
   public Control008Test() {
   }
-  
+
   @BeforeClass
   public static void setUpClass() {
   }
-  
+
   @AfterClass
   public static void tearDownClass() {
   }
-  
+
   @Before
   public void setUp() {
   }
-  
+
   @After
   public void tearDown() {
   }

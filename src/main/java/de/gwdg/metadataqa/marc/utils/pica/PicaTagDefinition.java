@@ -21,14 +21,15 @@ public class PicaTagDefinition implements BibliographicFieldDefinition {
   private final String label;
   protected String descriptionUrl;
   protected List<SubfieldDefinition> subfields;
+  private String modified;
 
   public PicaTagDefinition(String pica3, String picaplus, boolean repeatable, boolean sheet, String label) {
     this.pica3 = pica3;
+    tag = new PicaplusTag(picaplus);
     this.repeatable = repeatable;
     cardinality = repeatable ? Cardinality.Repeatable : Cardinality.Nonrepeatable;
     this.hasSheet = sheet;
     this.label = label;
-    tag = new PicaplusTag(picaplus);
   }
 
   public PicaTagDefinition(String[] input) {
@@ -112,5 +113,13 @@ public class PicaTagDefinition implements BibliographicFieldDefinition {
 
   public void setDescriptionUrl(String descriptionUrl) {
     this.descriptionUrl = descriptionUrl;
+  }
+
+  public String getModified() {
+    return modified;
+  }
+
+  public void setModified(String modified) {
+    this.modified = modified;
   }
 }

@@ -49,6 +49,7 @@ public class PicaSchemaReader {
         (String) field.get("label")
       );
       tag.setDescriptionUrl((String) field.get("url"));
+      tag.setModified((String) field.get("modified"));
       processSubfields(field, tag);
       PicaFieldDefinition definition = new PicaFieldDefinition(tag);
       addTag(definition);

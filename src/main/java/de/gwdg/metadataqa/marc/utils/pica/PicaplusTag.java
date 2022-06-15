@@ -13,6 +13,7 @@ public class PicaplusTag {
 
   private String raw;
   private String tag;
+  private String basetag;
   private String occurrence = null;
   private OccurrenceRange occurrenceRange = null;
 
@@ -63,8 +64,9 @@ public class PicaplusTag {
     if (!picaplus.contains("/")) {
       tag = picaplus;
     } else {
+      tag = picaplus;
       String[] parts = picaplus.split("/");
-      tag = parts[0];
+      basetag = parts[0];
       occurrence = parts[1];
       if (occurrence.contains("-")) {
         parseRangePattern();

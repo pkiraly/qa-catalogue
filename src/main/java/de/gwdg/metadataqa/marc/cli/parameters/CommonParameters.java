@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.logging.Level;
 
 public class CommonParameters implements Serializable {
 
@@ -72,7 +73,6 @@ public class CommonParameters implements Serializable {
       options.addOption("s", "dataSource", true, "data source (file of stream)");
       options.addOption("g", "defaultEncoding", true, "default character encoding");
       options.addOption("A", "alephseqLineType", true, "Alephseq line type");
-
       options.addOption("B", "picaIdField", true, "PICA id field");
       options.addOption("C", "picaIdCode", true, "PICA id subfield");
       options.addOption("D", "picaSubfieldSeparator", true, "PICA subfield separator");
@@ -141,7 +141,7 @@ public class CommonParameters implements Serializable {
       setDefaultEncoding(cmd.getOptionValue("defaultEncoding"));
 
     if (cmd.hasOption("alephseqLineType"))
-      alephseqLineType = AlephseqLine.TYPE.valueOf(cmd.getOptionValue("alephseqLineType"));
+      setAlephseqLineType(cmd.getOptionValue("alephseqLineType"));
 
     if (cmd.hasOption("picaIdField"))
       picaIdField = cmd.getOptionValue("picaIdField");
@@ -153,6 +153,14 @@ public class CommonParameters implements Serializable {
       picaSubfieldSeparator = cmd.getOptionValue("picaSubfieldSeparator");
 
     args = cmd.getArgs();
+  }
+
+  private void setAlephseqLineType(String alephseqLineTypeInput) throws ParseException {
+    try {
+      alephseqLineType = AlephseqLine.TYPE.valueOf(cmd.getOptionValue("alephseqLineType"));
+    } catch (IllegalArgumentException e) {
+      throw new ParseException(String.format("Unrecognized alephseqLineType parameter value: '%s'", alephseqLineTypeInput));
+    }
   }
 
   public Options getOptions() {

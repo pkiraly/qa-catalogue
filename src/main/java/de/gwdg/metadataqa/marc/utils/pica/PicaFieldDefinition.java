@@ -6,6 +6,7 @@ public class PicaFieldDefinition extends DataFieldDefinition {
 
   private String modified;
   private String pica3;
+  private String occurence;
 
   public PicaFieldDefinition(PicaTagDefinition picaTagDefinition) {
     tag = picaTagDefinition.getTag();
@@ -15,6 +16,8 @@ public class PicaFieldDefinition extends DataFieldDefinition {
     descriptionUrl = picaTagDefinition.getDescriptionUrl();
     modified = picaTagDefinition.getModified();
     pica3 = picaTagDefinition.getPica3();
+    occurence = picaTagDefinition.getOccurence();
+    indexSubfields();
   }
 
   public String getModified() {
@@ -23,5 +26,9 @@ public class PicaFieldDefinition extends DataFieldDefinition {
 
   public String getPica3() {
     return pica3;
+  }
+
+  public String getOccurence() {
+    return occurence;
   }
 }

@@ -122,4 +122,8 @@ public class PicaTagDefinition implements BibliographicFieldDefinition {
   public void setModified(String modified) {
     this.modified = modified;
   }
+
+  public String getOccurence() {
+    return tag.getOccurrence();
+  }
 }

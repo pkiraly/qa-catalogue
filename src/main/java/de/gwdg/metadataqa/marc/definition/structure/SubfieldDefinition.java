@@ -363,9 +363,9 @@ public class SubfieldDefinition implements Serializable {
 
   @Override
   public String toString() {
-    return "MarcSubfield{" +
+    return "SubfieldDefinition{" +
       "code='" + code + '\'' +
-      ", typeCode='" + cardinalityCode + '\'' +
+      ", cardinality='" + cardinalityCode + '\'' +
       ", label='" + label + '\'' +
       '}';
   }

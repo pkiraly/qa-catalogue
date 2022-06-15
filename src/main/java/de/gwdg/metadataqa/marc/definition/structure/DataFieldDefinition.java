@@ -91,7 +91,7 @@ public abstract class DataFieldDefinition implements BibliographicFieldDefinitio
   }
 
   protected void setSubfields(String... input) {
-    subfields = new ArrayList<>();
+    subfields = new LinkedList<>();
     for (int i = 0; i < input.length; i += 2) {
       subfields.add(new SubfieldDefinition(input[i], input[i + 1]));
     }
@@ -99,7 +99,7 @@ public abstract class DataFieldDefinition implements BibliographicFieldDefinitio
   }
 
   protected void setSubfieldsWithCardinality(String... input) {
-    subfields = new ArrayList<>();
+    subfields = new LinkedList<>();
     for (int i = 0; i < input.length; i += 3) {
       String code = input[i];
       String label = input[i + 1];
@@ -118,7 +118,7 @@ public abstract class DataFieldDefinition implements BibliographicFieldDefinitio
   }
 
   protected DataFieldDefinition setHistoricalSubfields(String... input) {
-    historicalSubfields = new ArrayList<>();
+    historicalSubfields = new LinkedList<>();
     for (int i = 0; i<input.length; i+=2) {
       historicalSubfields.add(new EncodedValue(input[i], input[i+1]));
     }

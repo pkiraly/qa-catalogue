@@ -11,14 +11,14 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 public class PicaSchemaReader {
 
-  private JSONParser parser = new JSONParser();
+  private JSONParser parser = new JSONParser(JSONParser.MODE_RFC4627);
   private Map<String, PicaFieldDefinition> map = new HashMap<>();
 
   private PicaSchemaReader(String fileName) {
@@ -58,7 +58,7 @@ public class PicaSchemaReader {
 
   private void processSubfields(JSONObject field, PicaTagDefinition tag) {
     Object subfieldsRaw = field.get("subfields");
-    List<SubfieldDefinition> subfieldDefinitions = new ArrayList<>();
+    List<SubfieldDefinition> subfieldDefinitions = new LinkedList<>();
     if (subfieldsRaw != null) {
       if (subfieldsRaw instanceof JSONObject) {
         JSONObject subfields = (JSONObject) subfieldsRaw;

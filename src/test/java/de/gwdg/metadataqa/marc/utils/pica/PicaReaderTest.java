@@ -228,7 +228,7 @@ public class PicaReaderTest {
   @Test
   public void readASchema() {
     Map<String, PicaFieldDefinition> schema = PicaSchemaReader.create(getPath("pica/k10plus.json"));
-    assertEquals(400, schema.size());
+    assertEquals(426, schema.size());
     PicaFieldDefinition definition = schema.get("048H");
     assertEquals("048H", definition.getTag());
     assertEquals("Systemvoraussetzungen für elektronische Ressourcen", definition.getLabel());

@@ -5,7 +5,7 @@ import de.gwdg.metadataqa.marc.analysis.ShelfReadyAnalysis;
 import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ShelfReadyCompletenessParameters;
-import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
@@ -36,7 +36,7 @@ import static de.gwdg.metadataqa.marc.Utils.quote;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class ShelfReadyCompleteness implements MarcFileProcessor, Serializable {
+public class ShelfReadyCompleteness implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(
     ShelfReadyCompleteness.class.getCanonicalName()
@@ -53,7 +53,7 @@ public class ShelfReadyCompleteness implements MarcFileProcessor, Serializable {
   }
 
   public static void main(String[] args) throws ParseException {
-    MarcFileProcessor processor = null;
+    BibliographicInputProcessor processor = null;
     try {
       processor = new ShelfReadyCompleteness(args);
     } catch (ParseException e) {

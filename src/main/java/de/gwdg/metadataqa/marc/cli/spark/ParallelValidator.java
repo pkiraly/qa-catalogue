@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.Validator;
+import de.gwdg.metadataqa.marc.definition.MarcFormat;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormatter;
 import de.gwdg.metadataqa.marc.utils.QAMarcReaderFactory;
 import org.apache.commons.cli.HelpFormatter;
@@ -39,7 +40,7 @@ public class ParallelValidator {
 
     JavaRDD<String> baseCountsRDD = inputFile
       .flatMap(content -> {
-        MarcReader reader = QAMarcReaderFactory.getMarcStringReader(content);
+        MarcReader reader = QAMarcReaderFactory.getStringReader(MarcFormat.ISO, content);
         Record marc4jRecord = reader.next();
         MarcRecord marcRecord = MarcFactory.createFromMarc4j(
           marc4jRecord, params.getDefaultRecordType(), params.getMarcVersion(), params.getReplecementInControlFields());

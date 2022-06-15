@@ -20,73 +20,75 @@ public final class QAMarcReaderFactory {
 
   private CommonParameters parameters;
 
-  private QAMarcReaderFactory() {}
-
-  private MarcReader getMarcStreamReader(CommonParameters parameters) throws Exception {
-    return QAMarcReaderFactory.getStreamReader(parameters.getMarcFormat(), parameters.getStream(), parameters);
+  private QAMarcReaderFactory(CommonParameters parameters) {
+    this.parameters = parameters;
   }
 
-  public static MarcReader getIsoFileReader(String fileName) throws Exception {
+  private MarcReader getIsoFileReader(String fileName) throws Exception {
     return getIsoStreamReader(new FileInputStream(fileName));
   }
 
-  public static MarcReader getIsoFileReader(String fileName, String encoding) throws Exception {
+  private MarcReader getIsoFileReader(String fileName, String encoding) throws Exception {
     return getIsoStreamReader(new FileInputStream(fileName), encoding);
   }
 
-  public static MarcReader getIsoStreamReader(InputStream stream) throws Exception {
+  private MarcReader getIsoStreamReader(InputStream stream) throws Exception {
     return getIsoStreamReader(stream, null);
   }
 
-  public static MarcReader getIsoStreamReader(InputStream stream, String encoding) throws Exception {
+  private MarcReader getIsoStreamReader(InputStream stream, String encoding) throws Exception {
     return new MarcStreamReader(stream, encoding);
   }
 
-  public static MarcReader getXmlFileReader(String fileName) throws Exception {
+  private MarcReader getXmlFileReader(String fileName) throws Exception {
     return getXmlStreamReader(new FileInputStream(fileName));
   }
 
-  public static MarcReader getXmlStreamReader(InputStream stream) throws Exception {
+  private MarcReader getXmlStreamReader(InputStream stream) throws Exception {
     return new MarcXmlReader(stream);
   }
 
-  public static MarcReader getLineSeparatedFileReader(String fileName) throws Exception {
+  private MarcReader getLineSeparatedFileReader(String fileName) throws Exception {
     return new LineSeparatedMarcReader(fileName);
   }
 
-  public static MarcReader getLineSeparatedStreamReader(InputStream stream) throws Exception {
+  private MarcReader getLineSeparatedStreamReader(InputStream stream) throws Exception {
     return new LineSeparatedMarcReader(stream);
   }
 
-  public static MarcReader getMarcStringReader(String content) throws Exception {
-    InputStream is = new ByteArrayInputStream(content.getBytes());
-    MarcReader reader = new MarcStreamReader(is);
+
+  private MarcReader getAlephseqFileReader(String fileName) throws Exception {
+    AlephseqMarcReader reader = new AlephseqMarcReader(fileName);
+    confiigureAlephseqMarcReader(reader);
     return reader;
   }
 
-  public static MarcReader getAlephseqFileReader(String fileName) throws Exception {
-    return new AlephseqMarcReader(fileName);
+  private MarcReader getAlephseqStreamReader(InputStream stream) throws Exception {
+    AlephseqMarcReader reader = new AlephseqMarcReader(stream);
+    confiigureAlephseqMarcReader(reader);
+    return reader;
   }
 
-  public static MarcReader getAlephseqStreamReader(InputStream stream) throws Exception {
-    return new AlephseqMarcReader(stream);
+  private void confiigureAlephseqMarcReader(AlephseqMarcReader reader) {
+    if (parameters != null && parameters.getAlephseqLineType() != null)
+      reader.setLineType(parameters.getAlephseqLineType());
   }
 
-  public static MarcReader getPicaPlainFileReader(String fileName, CommonParameters parameters) {
+  private MarcReader getPicaPlainFileReader(String fileName, CommonParameters parameters) {
     // String encoding = (parameters != null && StringUtils.isNotBlank(parameters.getDefaultEncoding())) ? parameters.getDefaultEncoding() : "UTF-8";
     PicaReader reader = new PicaReader(fileName);
     confiigurePicaReader(reader, parameters);
     return reader;
   }
 
-  public static MarcReader getPicaPlainStreamReader(InputStream stream, CommonParameters parameters) {
+  private MarcReader getPicaPlainStreamReader(InputStream stream, CommonParameters parameters) {
     String encoding = (parameters != null && StringUtils.isNotBlank(parameters.getDefaultEncoding())) ? parameters.getDefaultEncoding() : "UTF-8";
     PicaReader reader = new PicaReader(stream, encoding);
     confiigurePicaReader(reader, parameters);
     return reader;
   }
 
-  private static void confiigurePicaReader(PicaReader reader, CommonParameters parameters) {
+  private void confiigurePicaReader(PicaReader reader, CommonParameters parameters) {
     if (parameters != null) {
       if (StringUtils.isNotEmpty(parameters.getPicaIdField()))
         reader.setIdField(parameters.getPicaIdField());
@@ -97,19 +99,19 @@ public final class QAMarcReaderFactory {
     }
   }
 
-  public static MarcReader getMarclineFileReader(String fileName) throws Exception {
+  private MarcReader getMarclineFileReader(String fileName) throws Exception {
     return new MarclineReader(fileName);
   }
 
-  public static MarcReader getMarclineStreamReader(InputStream stream) throws Exception {
+  private MarcReader getMarclineStreamReader(InputStream stream) throws Exception {
     return new MarclineReader(stream);
   }
 
-  public static MarcReader getMarcMakerFileReader(String fileName) throws Exception {
+  private MarcReader getMarcMakerFileReader(String fileName) throws Exception {
     return new MarcMakerReader(fileName);
   }
 
-  public static MarcReader getMarcMakerStreamReader(InputStream stream) throws Exception {
+  private MarcReader getMarcMakerStreamReader(InputStream stream) throws Exception {
     return new MarcMakerReader(stream);
   }
 
@@ -118,27 +120,25 @@ public final class QAMarcReaderFactory {
   }
 
   public static MarcReader getFileReader(MarcFormat marcFormat, String fileName, CommonParameters parameters) throws Exception {
+    QAMarcReaderFactory factory = new QAMarcReaderFactory(parameters);
     MarcReader reader = null;
     switch (marcFormat) {
       case ALEPHSEQ:
-        reader = getAlephseqFileReader(fileName);
-        if (parameters != null && parameters.getAlephseqLineType() != null)
-          ((AlephseqMarcReader) reader).setLineType(parameters.getAlephseqLineType());
-        break;
+        reader = factory.getAlephseqFileReader(fileName); break;
       case LINE_SEPARATED:
-        reader = getLineSeparatedFileReader(fileName); break;
+        reader = factory.getLineSeparatedFileReader(fileName); break;
       case XML:
-        reader = getXmlFileReader(fileName); break;
+        reader = factory.getXmlFileReader(fileName); break;
       case MARC_LINE:
-        reader = getMarclineFileReader(fileName); break;
+        reader = factory.getMarclineFileReader(fileName); break;
       case MARC_MAKER:
-        reader = getMarcMakerFileReader(fileName); break;
+        reader = factory.getMarcMakerFileReader(fileName); break;
       case PICA_PLAIN:
-        reader = getPicaPlainFileReader(fileName, parameters); break;
+        reader = factory.getPicaPlainFileReader(fileName, parameters); break;
       case ISO:
       default:
         String encoding = parameters != null ? parameters.getDefaultEncoding() : null;
-        reader = getIsoFileReader(fileName, encoding); break;
+        reader = factory.getIsoFileReader(fileName, encoding); break;
     }
     return reader;
   }
@@ -148,29 +148,36 @@ public final class QAMarcReaderFactory {
   }
 
   public static MarcReader getStreamReader(MarcFormat marcFormat, InputStream stream, CommonParameters parameters) throws Exception {
+    QAMarcReaderFactory factory = new QAMarcReaderFactory(parameters);
     MarcReader reader = null;
     switch (marcFormat) {
       case ALEPHSEQ:
-        reader = getAlephseqStreamReader(stream);
-        if (parameters != null && parameters.getAlephseqLineType() != null)
-          ((AlephseqMarcReader) reader).setLineType(parameters.getAlephseqLineType());
-        break;
+        reader = factory.getAlephseqStreamReader(stream); break;
       case LINE_SEPARATED:
-        reader = getLineSeparatedStreamReader(stream); break;
+        reader = factory.getLineSeparatedStreamReader(stream); break;
       case XML:
-        reader = getXmlStreamReader(stream); break;
+        reader = factory.getXmlStreamReader(stream); break;
       case MARC_LINE:
-        reader = getMarclineStreamReader(stream); break;
+        reader = factory.getMarclineStreamReader(stream); break;
       case MARC_MAKER:
-        reader = getMarcMakerStreamReader(stream); break;
+        reader = factory.getMarcMakerStreamReader(stream); break;
       case PICA_PLAIN:
-        reader = getPicaPlainStreamReader(stream, parameters); break;
+        reader = factory.getPicaPlainStreamReader(stream, parameters); break;
       case ISO:
       default:
         String encoding = parameters != null ? parameters.getDefaultEncoding() : null;
-        reader = getIsoStreamReader(stream, encoding); break;
+        reader = factory.getIsoStreamReader(stream, encoding); break;
     }
     return reader;
+  }
+
+  public static MarcReader getStringReader(MarcFormat marcFormat, String content) throws Exception {
+    return getStringReader(marcFormat, content, null);
+  }
+
+  public static MarcReader getStringReader(MarcFormat marcFormat, String content, CommonParameters parameters) throws Exception {
+    InputStream stream = new ByteArrayInputStream(content.getBytes());
+    return getStreamReader(marcFormat, stream, parameters);
   }
 
 }

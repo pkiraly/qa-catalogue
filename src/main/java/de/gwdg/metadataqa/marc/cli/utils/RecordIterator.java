@@ -4,7 +4,7 @@ import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
-import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.definition.DataSource;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.utils.QAMarcReaderFactory;
@@ -33,7 +33,7 @@ import java.util.zip.GZIPInputStream;
 public class RecordIterator {
 
   private static final Logger logger = Logger.getLogger(RecordIterator.class.getCanonicalName());
-  private final MarcFileProcessor processor;
+  private final BibliographicInputProcessor processor;
   private int i = 0;
   private String lastKnownId = "";
   private CommonParameters parameters;
@@ -42,7 +42,7 @@ public class RecordIterator {
   private Leader.Type defaultRecordType;
   private DecimalFormat decimalFormat;
 
-  public RecordIterator(MarcFileProcessor processor) {
+  public RecordIterator(BibliographicInputProcessor processor) {
     this.processor = processor;
   }
 

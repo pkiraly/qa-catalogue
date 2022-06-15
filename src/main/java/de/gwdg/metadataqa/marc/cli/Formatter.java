@@ -3,7 +3,7 @@ package de.gwdg.metadataqa.marc.cli;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.FormatterParameters;
-import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 import org.apache.commons.cli.*;
@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class Formatter implements MarcFileProcessor {
+public class Formatter implements BibliographicInputProcessor {
 
   private static final Logger logger = Logger.getLogger(Formatter.class.getCanonicalName());
 
@@ -41,7 +41,7 @@ public class Formatter implements MarcFileProcessor {
 
   public static void main(String[] args) throws ParseException {
     System.err.println("'" + StringUtils.join(args, "', '") + "'");
-    MarcFileProcessor processor = new Formatter(args);
+    BibliographicInputProcessor processor = new Formatter(args);
     if (processor.getParameters().getArgs().length < 1) {
       System.err.println("Please provide a MARC file name!");
       System.exit(0);

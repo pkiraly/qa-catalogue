@@ -8,7 +8,7 @@ import org.marc4j.marc.Record;
 import java.io.IOException;
 import java.nio.file.Path;
 
-public interface MarcFileProcessor {
+public interface BibliographicInputProcessor {
 
   CommonParameters getParameters();
   void processRecord(Record marc4jRecord, int recordNumber) throws IOException;

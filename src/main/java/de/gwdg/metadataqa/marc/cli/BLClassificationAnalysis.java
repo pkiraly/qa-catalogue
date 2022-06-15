@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.analysis.BLClassifier;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
-import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import org.apache.commons.cli.Options;
@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
 
-public class BLClassificationAnalysis implements MarcFileProcessor, Serializable {
+public class BLClassificationAnalysis implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(
     BLClassificationAnalysis.class.getCanonicalName()
@@ -41,7 +41,7 @@ public class BLClassificationAnalysis implements MarcFileProcessor, Serializable
   }
 
   public static void main(String[] args) throws ParseException {
-    MarcFileProcessor processor = null;
+    BibliographicInputProcessor processor = null;
     try {
       processor = new BLClassificationAnalysis(args);
     } catch (ParseException e) {

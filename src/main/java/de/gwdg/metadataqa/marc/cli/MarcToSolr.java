@@ -3,7 +3,7 @@ package de.gwdg.metadataqa.marc.cli;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.MarcToSolrParameters;
-import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.datastore.MarcSolrClient;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -30,7 +30,7 @@ import java.util.logging.Logger;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class MarcToSolr implements MarcFileProcessor, Serializable {
+public class MarcToSolr implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(
     MarcToSolr.class.getCanonicalName()

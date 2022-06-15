@@ -5,7 +5,7 @@ import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
 import de.gwdg.metadataqa.marc.analysis.ThompsonTraillAnalysis;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ThompsonTraillCompletenessParameters;
-import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import org.apache.commons.cli.*;
 import org.apache.commons.io.FileUtils;
@@ -32,7 +32,7 @@ import static de.gwdg.metadataqa.marc.Utils.createRow;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class ThompsonTraillCompleteness implements MarcFileProcessor, Serializable {
+public class ThompsonTraillCompleteness implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(
     ThompsonTraillCompleteness.class.getCanonicalName()
@@ -50,7 +50,7 @@ public class ThompsonTraillCompleteness implements MarcFileProcessor, Serializab
   }
 
   public static void main(String[] args) throws ParseException {
-    MarcFileProcessor processor = null;
+    BibliographicInputProcessor processor = null;
     try {
       processor = new ThompsonTraillCompleteness(args);
     } catch (ParseException e) {

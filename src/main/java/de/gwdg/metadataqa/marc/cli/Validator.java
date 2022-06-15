@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
-import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorCategory;
@@ -35,7 +35,7 @@ import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat.TAB
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class Validator implements MarcFileProcessor, Serializable {
+public class Validator implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(Validator.class.getCanonicalName());
   private Options options;
@@ -77,7 +77,7 @@ public class Validator implements MarcFileProcessor, Serializable {
   }
 
   public static void main(String[] args) {
-    MarcFileProcessor processor = null;
+    BibliographicInputProcessor processor = null;
     try {
       processor = new Validator(args);
     } catch (ParseException e) {

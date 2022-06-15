@@ -10,6 +10,7 @@ import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.marc4j.MarcReader;
@@ -213,6 +214,10 @@ public class PicaReaderTest {
     assertEquals(6, i);
     assertEquals(Arrays.asList("010000011", "01000002X", "010000038", "010000054", "010000062", "010000070"), ids);
     System.err.printf("processed %d records%n", i);
+    System.err.println(marcRecord.getId());
+    assertEquals(SchemaType.PICA, marcRecord.getSchemaType());
+    // System.err.println(marcRecord.getDatafields());
+
     // System.err.println(marcRecord.format());
   }
 

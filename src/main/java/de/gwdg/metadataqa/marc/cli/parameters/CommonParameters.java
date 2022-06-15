@@ -12,7 +12,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.InputStream;
 import java.io.Serializable;
-import java.util.logging.Level;
 
 public class CommonParameters implements Serializable {
 
@@ -87,72 +86,109 @@ public class CommonParameters implements Serializable {
   public CommonParameters(String[] arguments)  throws ParseException {
     cmd = parser.parse(getOptions(), arguments);
 
-    if (cmd.hasOption("marcVersion"))
-      setMarcVersion(cmd.getOptionValue("marcVersion"));
-
-    if (cmd.hasOption("marcFormat"))
-      setMarcFormat(cmd.getOptionValue("marcFormat"));
-
-    if (cmd.hasOption("dataSource"))
-      setDataSource(cmd.getOptionValue("dataSource"));
-
+    readMarcVersion();
+    readMarcFormat();
+    readDataSource();
     doHelp = cmd.hasOption("help");
-
     doLog = !cmd.hasOption("nolog");
-
-    if (cmd.hasOption("limit"))
-      limit = Integer.parseInt(cmd.getOptionValue("limit"));
-
-    if (cmd.hasOption("offset"))
-      offset = Integer.parseInt(cmd.getOptionValue("offset"));
-
+    readLimit();
+    readOffset();
     if (offset > -1 && limit > -1)
       limit += offset;
-
-    if (cmd.hasOption("id"))
-      id = cmd.getOptionValue("id").trim();
-
-    if (cmd.hasOption("defaultRecordType"))
-      setDefaultRecordType(cmd.getOptionValue("defaultRecordType"));
-
+    readId();
+    readDefaultRecordType();
     setAlephseq(cmd.hasOption("alephseq"));
-
     fixAlephseq = cmd.hasOption("fixAlephseq");
-
     fixAlma = cmd.hasOption("fixAlma");
     fixKbr = cmd.hasOption("fixKbr");
-
     setMarcxml(cmd.hasOption("marcxml"));
-
     lineSeparated = cmd.hasOption("lineSeparated");
-
-    if (cmd.hasOption("outputDir"))
-      outputDir = cmd.getOptionValue("outputDir");
-
+    readOutputDir();
     trimId = cmd.hasOption("trimId");
-
-    if (cmd.hasOption("ignorableFields"))
-      setIgnorableFields(cmd.getOptionValue("ignorableFields"));
-
-    if (cmd.hasOption("ignorableRecords"))
-      setIgnorableRecords(cmd.getOptionValue("ignorableRecords"));
-
-    if (cmd.hasOption("defaultEncoding"))
-      setDefaultEncoding(cmd.getOptionValue("defaultEncoding"));
-
-    if (cmd.hasOption("alephseqLineType"))
-      setAlephseqLineType(cmd.getOptionValue("alephseqLineType"));
-
-    if (cmd.hasOption("picaIdField"))
-      picaIdField = cmd.getOptionValue("picaIdField");
-
-    if (cmd.hasOption("picaIdCode"))
-      picaIdCode = cmd.getOptionValue("picaIdCode");
-
-    if (cmd.hasOption("picaSubfieldSeparator"))
-      picaSubfieldSeparator = cmd.getOptionValue("picaSubfieldSeparator");
+    readIgnorableFields();
+    readIgnorableRecords();
+    readDefaultEncoding();
+    readExtractedalephseqLineType();
+    readPicaIdField();
+    readExtractedpicaIdCode();
+    readPicaSubfieldSeparator();
 
     args = cmd.getArgs();
+  }
+
+  private void readPicaSubfieldSeparator() {
+    if (cmd.hasOption("picaSubfieldSeparator"))
+      picaSubfieldSeparator = cmd.getOptionValue("picaSubfieldSeparator");
+  }
+
+  private void readExtractedpicaIdCode() {
+    if (cmd.hasOption("picaIdCode"))
+      picaIdCode = cmd.getOptionValue("picaIdCode");
+  }
+
+  private void readPicaIdField() {
+    if (cmd.hasOption("picaIdField"))
+      picaIdField = cmd.getOptionValue("picaIdField");
+  }
+
+  private void readExtractedalephseqLineType() throws ParseException {
+    if (cmd.hasOption("alephseqLineType"))
+      setAlephseqLineType(cmd.getOptionValue("alephseqLineType"));
+  }
+
+  private void readDefaultEncoding() {
+    if (cmd.hasOption("defaultEncoding"))
+      setDefaultEncoding(cmd.getOptionValue("defaultEncoding"));
+  }
+
+  private void readIgnorableRecords() {
+    if (cmd.hasOption("ignorableRecords"))
+      setIgnorableRecords(cmd.getOptionValue("ignorableRecords"));
+  }
+
+  private void readIgnorableFields() {
+    if (cmd.hasOption("ignorableFields"))
+      setIgnorableFields(cmd.getOptionValue("ignorableFields"));
+  }
+
+  private void readOutputDir() {
+    if (cmd.hasOption("outputDir"))
+      outputDir = cmd.getOptionValue("outputDir");
+  }
+
+  private void readDefaultRecordType() throws ParseException {
+    if (cmd.hasOption("defaultRecordType"))
+      setDefaultRecordType(cmd.getOptionValue("defaultRecordType"));
+  }
+
+  private void readId() {
+    if (cmd.hasOption("id"))
+      id = cmd.getOptionValue("id").trim();
+  }
+
+  private void readOffset() {
+    if (cmd.hasOption("offset"))
+      offset = Integer.parseInt(cmd.getOptionValue("offset"));
+  }
+
+  private void readLimit() {
+    if (cmd.hasOption("limit"))
+      limit = Integer.parseInt(cmd.getOptionValue("limit"));
+  }
+
+  private void readDataSource() throws ParseException {
+    if (cmd.hasOption("dataSource"))
+      setDataSource(cmd.getOptionValue("dataSource"));
+  }
+
+  private void readMarcFormat() throws ParseException {
+    if (cmd.hasOption("marcFormat"))
+      setMarcFormat(cmd.getOptionValue("marcFormat"));
+  }
+
+  private void readMarcVersion() throws ParseException {
+    if (cmd.hasOption("marcVersion"))
+      setMarcVersion(cmd.getOptionValue("marcVersion"));
   }
 
   private void setAlephseqLineType(String alephseqLineTypeInput) throws ParseException {

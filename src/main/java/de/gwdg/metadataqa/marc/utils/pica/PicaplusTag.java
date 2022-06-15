@@ -46,6 +46,10 @@ public class PicaplusTag {
     return occurrenceRange;
   }
 
+  public String getBasetag() {
+    return basetag;
+  }
+
   public boolean validateOccurrence(String otherOccurrence) {
     if (!hasOccurrence()) {
       if (otherOccurrence == null)

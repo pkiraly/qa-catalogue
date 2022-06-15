@@ -213,12 +213,11 @@ public class PicaReaderTest {
     }
     assertEquals(6, i);
     assertEquals(Arrays.asList("010000011", "01000002X", "010000038", "010000054", "010000062", "010000070"), ids);
-    System.err.printf("processed %d records%n", i);
-    System.err.println(marcRecord.getId());
+    assertEquals(6, ids.size());
+    assertEquals("010000070", marcRecord.getId());
     assertEquals(SchemaType.PICA, marcRecord.getSchemaType());
-    // System.err.println(marcRecord.getDatafields());
-
-    // System.err.println(marcRecord.format());
+    assertEquals(184, marcRecord.getDatafields().size());
+    assertEquals("Herkunft und Standort", marcRecord.getDatafield("021A").get(0).getSubfield("a").get(0).getValue());
   }
 
   private boolean directoryContains(Map<String, PicaFieldDefinition> schemaDirectory, PicaLine pl) {

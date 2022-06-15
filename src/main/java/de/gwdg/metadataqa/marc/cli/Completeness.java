@@ -10,6 +10,7 @@ import de.gwdg.metadataqa.marc.dao.MarcControlField;
 import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.tags.TagCategory;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.utils.BasicStatistics;
@@ -103,7 +104,7 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
     Map<String, Integer> recordPackageCounter = new TreeMap<>();
     // private Map<String, Map<String, Integer>>
 
-    String documentType = marcRecord.getType().getValue();
+    String documentType = parameters.getSchemaType().equals(SchemaType.MARC21) ? marcRecord.getType().getValue() : "dummy";
     elementCardinality.computeIfAbsent(documentType, s -> new TreeMap<>());
     elementFrequency.computeIfAbsent(documentType, s -> new TreeMap<>());
 
@@ -191,13 +192,15 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
   private List<String> getMarcPaths(DataField field) {
     List<String> marcPaths = new ArrayList<>();
 
-    if (field.getInd1() != null)
-      if (field.getDefinition() != null && field.getDefinition().getInd1().exists() || !field.getInd1().equals(" "))
-        marcPaths.add(String.format("%s$!ind1", field.getTag()));
+    if (parameters.isMarc21()) {
+      if (field.getInd1() != null)
+        if (field.getDefinition() != null && field.getDefinition().getInd1().exists() || !field.getInd1().equals(" "))
+          marcPaths.add(String.format("%s$!ind1", field.getTag()));
 
-    if (field.getInd2() != null)
-      if (field.getDefinition() != null && field.getDefinition().getInd2().exists() || !field.getInd2().equals(" "))
-        marcPaths.add(String.format("%s$!ind2", field.getTag()));
+      if (field.getInd2() != null)
+        if (field.getDefinition() != null && field.getDefinition().getInd2().exists() || !field.getInd2().equals(" "))
+          marcPaths.add(String.format("%s$!ind2", field.getTag()));
+    }
 
     for (MarcSubfield subfield : field.getSubfields())
       if (numericalPattern.matcher(subfield.getCode()).matches())
@@ -391,20 +394,20 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
     }
 
     String marcPathLabel = marcPath.replace("!ind", "ind").replaceAll("\\|(\\d)$", "$1");
-    TagHierarchy tagHierarchy = TagHierarchy.createFromPath(marcPathLabel, parameters.getMarcVersion());
-    int packageId;
-    String packageLabel = "";
+    int packageId = TagCategory.other.getId();
+    String packageLabel = TagCategory.other.getLabel();
     String tagLabel = "";
     String subfieldLabel = "";
-    if (tagHierarchy != null) {
-      packageId = tagHierarchy.getPackageId();
-      packageLabel = tagHierarchy.getPackageLabel();
-      tagLabel = tagHierarchy.getTagLabel();
-      subfieldLabel = tagHierarchy.getSubfieldLabel();
-    } else {
-      logger.severe("Key can not be found in the TagHierarchy: " + marcPathLabel);
-      packageId = TagCategory.other.getId();
-      packageLabel = TagCategory.other.getLabel();
+    if (parameters.isMarc21()) {
+      TagHierarchy tagHierarchy = TagHierarchy.createFromPath(marcPathLabel, parameters.getMarcVersion());
+      if (tagHierarchy != null) {
+        packageId = tagHierarchy.getPackageId();
+        packageLabel = tagHierarchy.getPackageLabel();
+        tagLabel = tagHierarchy.getTagLabel();
+        subfieldLabel = tagHierarchy.getSubfieldLabel();
+      } else {
+        logger.severe("Key can not be found in the TagHierarchy: " + marcPathLabel);
+      }
     }
 
     // Integer cardinality = entry.getValue();

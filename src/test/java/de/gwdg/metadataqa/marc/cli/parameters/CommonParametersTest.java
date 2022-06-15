@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.cli.parameters;
 
 import de.gwdg.metadataqa.marc.definition.DataSource;
 import de.gwdg.metadataqa.marc.definition.MarcFormat;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.utils.alephseq.AlephseqLine;
 import org.apache.commons.cli.ParseException;
 import org.junit.Test;
@@ -253,10 +254,56 @@ public class CommonParametersTest {
         "alephseqLineType: null\n" +
         "picaIdField: null\n" +
         "picaIdCode: null\n" +
-        "picaSubfieldSeparator: null\n";
+        "picaSubfieldSeparator: null\n" +
+        "schemaType: MARC21\n";
       assertEquals(expected, parameters.formatParameters());
     } catch (ParseException e) {
       logger.log(Level.WARNING, "error in formatParameters()", e);
     }
+  }
+
+  @Test
+  public void getSchemaType_default() {
+    String[] arguments = new String[]{};
+    CommonParameters parameters = null;
+    try {
+      parameters = new CommonParameters(arguments);
+    } catch (ParseException e) {
+    }
+    assertEquals(SchemaType.MARC21, parameters.getSchemaType());
+  }
+
+  @Test
+  public void getSchemaType_marc() {
+    String[] arguments = new String[]{"--schemaType", "MARC21"};
+    CommonParameters parameters = null;
+    try {
+      parameters = new CommonParameters(arguments);
+    } catch (ParseException e) {
+    }
+    assertEquals(SchemaType.MARC21, parameters.getSchemaType());
+  }
+
+  @Test
+  public void getSchemaType_pica() {
+    String[] arguments = new String[]{"--schemaType", "PICA"};
+    CommonParameters parameters = null;
+    try {
+      parameters = new CommonParameters(arguments);
+    } catch (ParseException e) {
+    }
+    assertEquals(SchemaType.PICA, parameters.getSchemaType());
+  }
+
+  @Test
+  public void getSchemaType_pica_wrong() {
+    String[] arguments = new String[]{"--schemaType", "pica"};
+    CommonParameters parameters = null;
+    try {
+      parameters = new CommonParameters(arguments);
+    } catch (ParseException e) {
+      logger.log(Level.WARNING, "error in schemaType()", e);
+    }
+    assertEquals(null, parameters);
   }
 }

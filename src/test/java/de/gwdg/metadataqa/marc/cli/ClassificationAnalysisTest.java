@@ -34,7 +34,8 @@ public class ClassificationAnalysisTest extends CliTestUtils {
       "classifications-by-schema.csv",
       "classifications-by-schema-subfields.csv",
       "classifications-collocations.csv",
-      "classifications-histogram.csv"
+      "classifications-histogram.csv",
+      "classifications-frequency-examples.csv"
     );
   }
 

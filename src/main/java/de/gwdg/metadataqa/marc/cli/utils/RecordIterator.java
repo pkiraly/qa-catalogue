@@ -7,10 +7,14 @@ import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.definition.DataSource;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.utils.QAMarcReaderFactory;
 import de.gwdg.metadataqa.marc.utils.marcreader.AlephseqMarcReader;
+import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
+import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.marc4j.MarcException;
 import org.marc4j.MarcReader;
@@ -21,6 +25,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.time.LocalTime;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
@@ -41,6 +46,7 @@ public class RecordIterator {
   private MarcVersion marcVersion;
   private Leader.Type defaultRecordType;
   private DecimalFormat decimalFormat;
+  private Map<String, PicaFieldDefinition> picaSchema;
 
   public RecordIterator(BibliographicInputProcessor processor) {
     this.processor = processor;
@@ -50,12 +56,18 @@ public class RecordIterator {
 
     long start = System.currentTimeMillis();
     processor.beforeIteration();
-    CommonParameters parameters = processor.getParameters();
+    parameters = processor.getParameters();
 
     marcVersion = parameters.getMarcVersion();
     defaultRecordType = parameters.getDefaultRecordType();
     replecementInControlFields = parameters.getReplecementInControlFields();
     decimalFormat = new DecimalFormat();
+    if (parameters.getSchemaType().equals(SchemaType.PICA)) {
+      String schemaFile = StringUtils.isNotEmpty(parameters.getPicaSchemaFile())
+                        ? parameters.getPicaSchemaFile()
+                        : Paths.get("src/main/resources/pica/k10plus.json").toAbsolutePath().toString();
+      picaSchema = PicaSchemaReader.create(schemaFile);
+    }
 
     if (processor.getParameters().doLog())
       logger.info("marcVersion: " + marcVersion.getCode() + ", " + marcVersion.getLabel());
@@ -153,7 +165,8 @@ public class RecordIterator {
 
       try {
         processor.processRecord(marc4jRecord, i);
-        MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, defaultRecordType, marcVersion, replecementInControlFields);
+
+        MarcRecord marcRecord = transformMarcRecord(marc4jRecord);
         try {
           processor.processRecord(marcRecord, i);
         } catch(Exception e) {
@@ -168,6 +181,13 @@ public class RecordIterator {
         extracted(i, marc4jRecord, e, "Error (general) with record '%s'. %s");
       }
     }
+  }
+
+  private MarcRecord transformMarcRecord(Record marc4jRecord) {
+    MarcRecord marcRecord = parameters.getSchemaType().equals(SchemaType.MARC21)
+      ? MarcFactory.createFromMarc4j(marc4jRecord, defaultRecordType, marcVersion, replecementInControlFields)
+      : MarcFactory.createPicaFromMarc4j(marc4jRecord, picaSchema);
+    return marcRecord;
   }
 
   private MarcReader getMarcFileReader(CommonParameters parameters, Path path) throws Exception {

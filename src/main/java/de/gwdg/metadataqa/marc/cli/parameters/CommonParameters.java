@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.cli.utils.IgnorableRecords;
 import de.gwdg.metadataqa.marc.definition.DataSource;
 import de.gwdg.metadataqa.marc.definition.MarcFormat;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.utils.alephseq.AlephseqLine;
 import org.apache.commons.cli.*;
 import org.apache.commons.lang3.StringUtils;
@@ -48,6 +49,8 @@ public class CommonParameters implements Serializable {
   private String picaIdField;
   private String picaIdCode;
   private String picaSubfieldSeparator;
+  private String picaSchemaFile;
+  private SchemaType schemaType = SchemaType.MARC21;
 
   protected void setOptions() {
     if (!isOptionSet) {
@@ -75,6 +78,8 @@ public class CommonParameters implements Serializable {
       options.addOption("B", "picaIdField", true, "PICA id field");
       options.addOption("C", "picaIdCode", true, "PICA id subfield");
       options.addOption("D", "picaSubfieldSeparator", true, "PICA subfield separator");
+      options.addOption("E", "picaSchemaFile", true, "Avram PICA schema file");
+      options.addOption("F", "schemaType", true, "metadata schema type ('MARC21', 'UNIMARC', or 'PICA')");
 
       isOptionSet = true;
     }
@@ -112,8 +117,15 @@ public class CommonParameters implements Serializable {
     readPicaIdField();
     readExtractedpicaIdCode();
     readPicaSubfieldSeparator();
+    readPicaSchemaFile();
+    readSchemaType();
 
     args = cmd.getArgs();
+  }
+
+  private void readPicaSchemaFile() {
+    if (cmd.hasOption("picaSchemaFile"))
+      picaSchemaFile = cmd.getOptionValue("picaSchemaFile");
   }
 
   private void readPicaSubfieldSeparator() {
@@ -181,6 +193,19 @@ public class CommonParameters implements Serializable {
       setDataSource(cmd.getOptionValue("dataSource"));
   }
 
+  private void readSchemaType() throws ParseException {
+    if (cmd.hasOption("schemaType"))
+      setSchemaType(cmd.getOptionValue("schemaType"));
+  }
+
+  private void setSchemaType(String input) throws ParseException {
+    try {
+      schemaType = SchemaType.valueOf(input);
+    } catch (IllegalArgumentException e) {
+      throw new ParseException(String.format("Unrecognized schemaType parameter value: '%s'", input));
+    }
+  }
+
   private void readMarcFormat() throws ParseException {
     if (cmd.hasOption("marcFormat"))
       setMarcFormat(cmd.getOptionValue("marcFormat"));
@@ -237,6 +262,8 @@ public class CommonParameters implements Serializable {
       setMarcxml(true);
     if (marcFormat.equals(MarcFormat.LINE_SEPARATED))
       setLineSeparated(true);
+    if (marcFormat.equals(MarcFormat.PICA_NORMALIZED) || marcFormat.equals(MarcFormat.PICA_PLAIN))
+      schemaType = SchemaType.PICA;
   }
 
   public DataSource getDataSource() {
@@ -452,6 +479,18 @@ public class CommonParameters implements Serializable {
     this.picaSubfieldSeparator = picaSubfieldSeparator;
   }
 
+  public String getPicaSchemaFile() {
+    return picaSchemaFile;
+  }
+
+  public SchemaType getSchemaType() {
+    return schemaType;
+  }
+
+  public boolean isMarc21() {
+    return schemaType.equals(SchemaType.MARC21);
+  }
+
   public String formatParameters() {
     String text = "";
     text += String.format("marcVersion: %s, %s%n", marcVersion.getCode(), marcVersion.getLabel());
@@ -476,6 +515,7 @@ public class CommonParameters implements Serializable {
     text += String.format("picaIdField: %s%n", picaIdField);
     text += String.format("picaIdCode: %s%n", picaIdCode);
     text += String.format("picaSubfieldSeparator: %s%n", picaSubfieldSeparator);
+    text += String.format("schemaType: %s%n", schemaType);
 
     return text;
   }

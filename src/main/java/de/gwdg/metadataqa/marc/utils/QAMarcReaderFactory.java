@@ -84,10 +84,8 @@ public final class QAMarcReaderFactory {
     if (parameters != null) {
       if (StringUtils.isNotEmpty(parameters.getPicaIdField()))
         reader.setIdField(parameters.getPicaIdField());
-      if (StringUtils.isNotEmpty(parameters.getPicaIdCode()))
-        reader.setIdField(parameters.getPicaIdField());
-      if (StringUtils.isNotEmpty(parameters.getPicaIdField()))
-        reader.setIdField(parameters.getPicaIdField());
+      if (StringUtils.isNotEmpty(parameters.getPicaSubfieldSeparator()))
+        reader.setSubfieldSeparator(parameters.getPicaSubfieldSeparator());
     }
   }
 

@@ -46,10 +46,10 @@ public class CommonParameters implements Serializable {
   protected CommandLine cmd;
   private boolean isOptionSet = false;
   private AlephseqLine.TYPE alephseqLineType;
-  private String picaIdField;
-  private String picaIdCode;
-  private String picaSubfieldSeparator;
+  private String picaIdField = "002@$0";
+  private String picaSubfieldSeparator = "$";
   private String picaSchemaFile;
+  private String picaRecordTypeField = "002@$0";
   private SchemaType schemaType = SchemaType.MARC21;
 
   protected void setOptions() {
@@ -76,10 +76,10 @@ public class CommonParameters implements Serializable {
       options.addOption("g", "defaultEncoding", true, "default character encoding");
       options.addOption("A", "alephseqLineType", true, "Alephseq line type");
       options.addOption("B", "picaIdField", true, "PICA id field");
-      options.addOption("C", "picaIdCode", true, "PICA id subfield");
       options.addOption("D", "picaSubfieldSeparator", true, "PICA subfield separator");
       options.addOption("E", "picaSchemaFile", true, "Avram PICA schema file");
       options.addOption("F", "schemaType", true, "metadata schema type ('MARC21', 'UNIMARC', or 'PICA')");
+      options.addOption("G", "picaRecordType", true, "picaRecordType");
 
       isOptionSet = true;
     }
@@ -113,12 +113,12 @@ public class CommonParameters implements Serializable {
     readIgnorableFields();
     readIgnorableRecords();
     readDefaultEncoding();
-    readExtractedalephseqLineType();
+    readAlephseqLineType();
     readPicaIdField();
-    readExtractedpicaIdCode();
     readPicaSubfieldSeparator();
     readPicaSchemaFile();
     readSchemaType();
+    readPicaRecordType();
 
     args = cmd.getArgs();
   }
@@ -128,14 +128,15 @@ public class CommonParameters implements Serializable {
       picaSchemaFile = cmd.getOptionValue("picaSchemaFile");
   }
 
+  private void readPicaRecordType() {
+    if (cmd.hasOption("picaRecordType"))
+      picaRecordTypeField = cmd.getOptionValue("picaRecordType");
+  }
+
+
   private void readPicaSubfieldSeparator() {
     if (cmd.hasOption("picaSubfieldSeparator"))
       picaSubfieldSeparator = cmd.getOptionValue("picaSubfieldSeparator");
-  }
-
-  private void readExtractedpicaIdCode() {
-    if (cmd.hasOption("picaIdCode"))
-      picaIdCode = cmd.getOptionValue("picaIdCode");
   }
 
   private void readPicaIdField() {
@@ -143,7 +144,7 @@ public class CommonParameters implements Serializable {
       picaIdField = cmd.getOptionValue("picaIdField");
   }
 
-  private void readExtractedalephseqLineType() throws ParseException {
+  private void readAlephseqLineType() throws ParseException {
     if (cmd.hasOption("alephseqLineType"))
       setAlephseqLineType(cmd.getOptionValue("alephseqLineType"));
   }
@@ -463,14 +464,6 @@ public class CommonParameters implements Serializable {
     this.picaIdField = picaIdField;
   }
 
-  public String getPicaIdCode() {
-    return picaIdCode;
-  }
-
-  public void setPicaIdCode(String picaIdCode) {
-    this.picaIdCode = picaIdCode;
-  }
-
   public String getPicaSubfieldSeparator() {
     return picaSubfieldSeparator;
   }
@@ -487,12 +480,21 @@ public class CommonParameters implements Serializable {
     return schemaType;
   }
 
+  public String getPicaRecordTypeField() {
+    return picaRecordTypeField;
+  }
+
   public boolean isMarc21() {
     return schemaType.equals(SchemaType.MARC21);
   }
 
+  public boolean isPica() {
+    return schemaType.equals(SchemaType.PICA);
+  }
+
   public String formatParameters() {
     String text = "";
+    text += String.format("schemaType: %s%n", schemaType);
     text += String.format("marcVersion: %s, %s%n", marcVersion.getCode(), marcVersion.getLabel());
     text += String.format("marcFormat: %s, %s%n", marcFormat.getCode(), marcFormat.getLabel());
     text += String.format("dataSource: %s, %s%n", dataSource.getCode(), dataSource.getLabel());
@@ -512,12 +514,12 @@ public class CommonParameters implements Serializable {
     text += String.format("ignorableRecords: %s%n", ignorableRecords);
     text += String.format("defaultEncoding: %s%n", defaultEncoding);
     text += String.format("alephseqLineType: %s%n", alephseqLineType);
-    text += String.format("picaIdField: %s%n", picaIdField);
-    text += String.format("picaIdCode: %s%n", picaIdCode);
-    text += String.format("picaSubfieldSeparator: %s%n", picaSubfieldSeparator);
-    text += String.format("schemaType: %s%n", schemaType);
+    if (isPica()) {
+      text += String.format("picaIdField: %s%n", picaIdField);
+      text += String.format("picaSubfieldSeparator: %s%n", picaSubfieldSeparator);
+      text += String.format("picaRecordType: %s%n", picaRecordTypeField);
+    }
 
     return text;
   }
-
 }

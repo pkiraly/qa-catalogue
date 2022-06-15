@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.utils.pica;
 
 import de.gwdg.metadataqa.marc.MarcFactory;
+import org.apache.commons.lang3.StringUtils;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
 
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 public class PicaReader implements MarcReader {
 
@@ -23,9 +25,11 @@ public class PicaReader implements MarcReader {
   private boolean nextIsConsumed = false;
   private int lineNumber = 0;
   private List<PicaLine> lines = new ArrayList<>();
-  private String idField = "003@";
-  private String idCode = "0";
+  private String idField;
   private String subfieldSeparator = "$";
+  private String idTag = "003@";
+  private String idCode = "0";
+  private boolean parsed = false;
 
   public PicaReader(String fileName) {
     try {
@@ -64,7 +68,9 @@ public class PicaReader implements MarcReader {
     while (line != null && !finished) {
       PicaLine picaLine = new PicaLine(line, subfieldSeparator);
       if (picaLine.isSkippable() && !lines.isEmpty()) {
-        marc4jRecord = MarcFactory.createRecordFromPica(lines, idField, idCode);
+        if (!parsed && StringUtils.isNotEmpty(idField) && StringUtils.isNotBlank(idField))
+          parseIdField();
+        marc4jRecord = MarcFactory.createRecordFromPica(lines, idTag, idCode);
         finished = true;
         lines = new ArrayList<>();
       }
@@ -82,7 +88,7 @@ public class PicaReader implements MarcReader {
     } // while
 
     if (line == null && !lines.isEmpty()) {
-      marc4jRecord = MarcFactory.createRecordFromPica(lines, idField, idCode);
+      marc4jRecord = MarcFactory.createRecordFromPica(lines, idTag, idCode);
     }
     return marc4jRecord;
   }
@@ -100,5 +106,12 @@ public class PicaReader implements MarcReader {
   public PicaReader setSubfieldSeparator(String subfieldSeparator) {
     this.subfieldSeparator = subfieldSeparator;
     return this;
+  }
+
+  private void parseIdField() {
+    String[] parts = idField.split(Pattern.quote(subfieldSeparator));
+    idTag = parts[0];
+    idCode = parts[1];
+    parsed = true;
   }
 }

@@ -10,7 +10,6 @@ import de.gwdg.metadataqa.marc.dao.MarcControlField;
 import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
-import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.tags.TagCategory;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.utils.BasicStatistics;
@@ -104,7 +103,13 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
     Map<String, Integer> recordPackageCounter = new TreeMap<>();
     // private Map<String, Map<String, Integer>>
 
-    String documentType = parameters.getSchemaType().equals(SchemaType.MARC21) ? marcRecord.getType().getValue() : "dummy";
+    String documentType = "dummy";
+    if (parameters.isMarc21())
+      documentType = marcRecord.getType().getValue();
+    else if (parameters.isPica()) {
+      String[] parts = parameters.getPicaRecordTypeField().split(Pattern.quote(parameters.getPicaSubfieldSeparator()));
+      documentType = marcRecord.getDatafield(parts[0]).get(0).getSubfield(parts[1]).get(0).getValue();
+    }
     elementCardinality.computeIfAbsent(documentType, s -> new TreeMap<>());
     elementFrequency.computeIfAbsent(documentType, s -> new TreeMap<>());
 

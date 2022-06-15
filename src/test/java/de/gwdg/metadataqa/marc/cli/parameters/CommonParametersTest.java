@@ -10,7 +10,6 @@ import org.junit.Test;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static de.gwdg.metadataqa.marc.utils.alephseq.AlephseqLine.TYPE.WITH_L;
 import static junit.framework.TestCase.*;
 
 public class CommonParametersTest {
@@ -175,17 +174,6 @@ public class CommonParametersTest {
   }
 
   @Test
-  public void picaIdCode() {
-    String[] arguments = new String[]{"--picaIdCode", "0"};
-    try {
-      CommonParameters parameters = new CommonParameters(arguments);
-      assertEquals("0", parameters.getPicaIdCode());
-    } catch (ParseException e) {
-      logger.log(Level.WARNING, "error ", e);
-    }
-  }
-
-  @Test
   public void picaSubfieldSeparator() {
     String[] arguments = new String[]{"--picaSubfieldSeparator", "$"};
     try {
@@ -233,7 +221,9 @@ public class CommonParametersTest {
     String[] arguments = new String[]{"--trimId"};
     try {
       CommonParameters parameters = new CommonParameters(arguments);
-      String expected = "marcVersion: MARC21, MARC21\n" +
+      String expected =
+        "schemaType: MARC21\n" +
+        "marcVersion: MARC21, MARC21\n" +
         "marcFormat: ISO, Binary (ISO 2709)\n" +
         "dataSource: FILE, from file\n" +
         "limit: -1\n" +
@@ -251,11 +241,7 @@ public class CommonParametersTest {
         "ignorableFields: \n" +
         "ignorableRecords: \n" +
         "defaultEncoding: null\n" +
-        "alephseqLineType: null\n" +
-        "picaIdField: null\n" +
-        "picaIdCode: null\n" +
-        "picaSubfieldSeparator: null\n" +
-        "schemaType: MARC21\n";
+        "alephseqLineType: null\n";
       assertEquals(expected, parameters.formatParameters());
     } catch (ParseException e) {
       logger.log(Level.WARNING, "error in formatParameters()", e);
@@ -306,4 +292,29 @@ public class CommonParametersTest {
     }
     assertEquals(null, parameters);
   }
+
+  @Test
+  public void getPicaRecordType_default() {
+    String[] arguments = new String[]{"--schemaType", "PICA"};
+    CommonParameters parameters = null;
+    try {
+      parameters = new CommonParameters(arguments);
+    } catch (ParseException e) {
+      logger.log(Level.WARNING, "error in schemaType()", e);
+    }
+    assertEquals("002@$0", parameters.getPicaRecordTypeField());
+  }
+
+  @Test
+  public void getPicaRecordType_set() {
+    String[] arguments = new String[]{"--picaRecordType", "003$d"};
+    CommonParameters parameters = null;
+    try {
+      parameters = new CommonParameters(arguments);
+    } catch (ParseException e) {
+      logger.log(Level.WARNING, "error in schemaType()", e);
+    }
+    assertEquals("003$d", parameters.getPicaRecordTypeField());
+  }
+
 }

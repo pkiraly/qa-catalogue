@@ -199,8 +199,7 @@ public class PicaReaderTest {
     Map<String, PicaFieldDefinition> schema = PicaSchemaReader.create(getPath("pica/k10plus.json"));
     String recordFile = FileUtils.getPath("pica/k10plus-sample.pica").toAbsolutePath().toString();
     MarcReader reader = new PicaReader(recordFile)
-      .setIdField("003@")
-      .setIdCode("0")
+      .setIdField("003@$0")
       .setSubfieldSeparator("$");
     int i = 0;
     MarcRecord marcRecord = null;

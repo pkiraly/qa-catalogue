@@ -62,7 +62,7 @@ public class RecordIterator {
     defaultRecordType = parameters.getDefaultRecordType();
     replecementInControlFields = parameters.getReplecementInControlFields();
     decimalFormat = new DecimalFormat();
-    if (parameters.getSchemaType().equals(SchemaType.PICA)) {
+    if (parameters.isPica()) {
       String schemaFile = StringUtils.isNotEmpty(parameters.getPicaSchemaFile())
                         ? parameters.getPicaSchemaFile()
                         : Paths.get("src/main/resources/pica/avram-k10plus.json").toAbsolutePath().toString();

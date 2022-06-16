@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.utils;
 
 import de.gwdg.metadataqa.marc.Utils;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.structure.ControlFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
@@ -27,6 +28,7 @@ public class TagHierarchy {
   private static final Pattern controlFieldPattern = Pattern.compile("^(00\\d)(/(\\d+|\\d+-\\d+))?$");
   private static final Pattern controlFieldIdPattern = Pattern.compile("^(00[6-8])([a-z][a-zA-Z]+)(\\d+)$");
   private static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
+  private static final Pattern picaDataFieldPattern = Pattern.compile("^(.*)\\$(.*)$");
 
   private TagCategory category;
   private String tagLabel;

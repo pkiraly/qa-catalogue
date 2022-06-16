@@ -45,12 +45,16 @@ public class Utils {
 
   public static String extractPackageName(DataFieldDefinition field) {
     return field.getClass().getPackage().getName()
-      .replace("de.gwdg.metadataqa.marc.definition.tags.", "");
+      .replace("de.gwdg.metadataqa.marc.definition.tags.", "")
+      .replace("de.gwdg.metadataqa.marc.utils.", "")
+      ;
   }
 
   public static String extractPackageName(Class<? extends DataFieldDefinition> field) {
     return field.getPackage().getName()
-      .replace("de.gwdg.metadataqa.marc.definition.tags.", "");
+      .replace("de.gwdg.metadataqa.marc.definition.tags.", "")
+      .replace("de.gwdg.metadataqa.marc.utils.", "")
+      ;
   }
 
   public static MarcVersion getVersion(DataFieldDefinition field) {

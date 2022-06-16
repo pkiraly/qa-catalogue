@@ -28,6 +28,7 @@ public enum TagCategory {
   bl(20, "bltags", "BL", "Locally defined tags of the British Library", false),
   uva(21, "uvatags", "UvA", "Locally defined tags of University of Amsterdam", false),
   b3kat(22, "b3kattags", "B3Kat", "Locally defined tags of a German union cataogue B3Kat", false),
+  pica(50, "pica", "PICA", "PICA+ tags", false),
   other(99, "unknown", "unknown", "unknown origin", false)
   ;
 

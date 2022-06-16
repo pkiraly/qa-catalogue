@@ -12,6 +12,7 @@ import de.gwdg.metadataqa.marc.dao.MarcControlField;
 import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.tags.TagCategory;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.utils.BasicStatistics;
@@ -59,6 +60,7 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
   private Map<String, Map<Integer, Integer>> fieldHistogram = new HashMap<>();
   private boolean readyToProcess;
   private CompletenessPlugin plugin;
+  private Map<DataFieldDefinition, String> packageNameCache = new HashMap<>();
 
   public Completeness(String[] args) throws ParseException {
     parameters = new CompletenessParameters(args);
@@ -118,9 +120,11 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
       count(library, libraryCounter);
     }
 
-    processLeader(marcRecord, recordFrequency, recordPackageCounter, documentType);
-    processSimpleControlfields(marcRecord, recordFrequency, recordPackageCounter, documentType);
-    processPositionalControlFields(marcRecord, recordFrequency, recordPackageCounter, documentType);
+    if (!parameters.isPica()) {
+      processLeader(marcRecord, recordFrequency, recordPackageCounter, documentType);
+      processSimpleControlfields(marcRecord, recordFrequency, recordPackageCounter, documentType);
+      processPositionalControlFields(marcRecord, recordFrequency, recordPackageCounter, documentType);
+    }
     processDataFields(marcRecord, recordFrequency, recordPackageCounter, documentType);
 
     for (String key : recordFrequency.keySet()) {
@@ -217,10 +221,15 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
   private String getPackageName(DataField field) {
     String packageName;
     if (field.getDefinition() != null) {
-      packageName = Utils.extractPackageName(field);
-      if (StringUtils.isBlank(packageName)) {
-        logger.warning(String.format("%s has no package. /%s", field, field.getDefinition().getClass()));
-        packageName = TagCategory.other.getPackageName();
+      if (packageNameCache.containsKey(field.getDefinition()))
+        packageName = packageNameCache.get(field.getDefinition());
+      else {
+        packageName = Utils.extractPackageName(field);
+        if (StringUtils.isBlank(packageName)) {
+          logger.warning(String.format("%s has no package. /%s", field, field.getDefinition().getClass()));
+          packageName = TagCategory.other.getPackageName();
+        }
+        packageNameCache.put(field.getDefinition(), packageName);
       }
     } else {
       packageName = TagCategory.other.getPackageName();
@@ -401,16 +410,14 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
     String packageLabel = TagCategory.other.getLabel();
     String tagLabel = "";
     String subfieldLabel = "";
-    if (parameters.isMarc21()) {
-      TagHierarchy tagHierarchy = TagHierarchy.createFromPath(marcPathLabel, parameters.getMarcVersion());
-      if (tagHierarchy != null) {
-        packageId = tagHierarchy.getPackageId();
-        packageLabel = tagHierarchy.getPackageLabel();
-        tagLabel = tagHierarchy.getTagLabel();
-        subfieldLabel = tagHierarchy.getSubfieldLabel();
-      } else {
-        logger.severe("Key can not be found in the TagHierarchy: " + marcPathLabel);
-      }
+    TagHierarchy tagHierarchy = plugin.getTagHierarchy(marcPathLabel);
+    if (tagHierarchy != null) {
+      packageId = tagHierarchy.getPackageId();
+      packageLabel = tagHierarchy.getPackageLabel();
+      tagLabel = tagHierarchy.getTagLabel();
+      subfieldLabel = tagHierarchy.getSubfieldLabel();
+    } else {
+      logger.severe("Key can not be found in the TagHierarchy: " + marcPathLabel);
     }
 
     // Integer cardinality = entry.getValue();

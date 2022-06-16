@@ -3,6 +3,8 @@ package de.gwdg.metadataqa.marc.cli;
 import de.gwdg.metadataqa.marc.*;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
+import de.gwdg.metadataqa.marc.cli.plugin.CompletenessFactory;
+import de.gwdg.metadataqa.marc.cli.plugin.CompletenessPlugin;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.dao.DataField;
@@ -56,11 +58,13 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
   // private Map<String, Integer> fieldMap = new HashMap<>();
   private Map<String, Map<Integer, Integer>> fieldHistogram = new HashMap<>();
   private boolean readyToProcess;
+  private CompletenessPlugin plugin;
 
   public Completeness(String[] args) throws ParseException {
     parameters = new CompletenessParameters(args);
     options = parameters.getOptions();
     readyToProcess = true;
+    plugin = CompletenessFactory.create(parameters);
   }
 
   public static void main(String[] args) {
@@ -103,13 +107,7 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
     Map<String, Integer> recordPackageCounter = new TreeMap<>();
     // private Map<String, Map<String, Integer>>
 
-    String documentType = "dummy";
-    if (parameters.isMarc21())
-      documentType = marcRecord.getType().getValue();
-    else if (parameters.isPica()) {
-      String[] parts = parameters.getPicaRecordTypeField().split(Pattern.quote(parameters.getPicaSubfieldSeparator()));
-      documentType = marcRecord.getDatafield(parts[0]).get(0).getSubfield(parts[1]).get(0).getValue();
-    }
+    String documentType = plugin.getDocumentType(marcRecord);
     elementCardinality.computeIfAbsent(documentType, s -> new TreeMap<>());
     elementFrequency.computeIfAbsent(documentType, s -> new TreeMap<>());
 

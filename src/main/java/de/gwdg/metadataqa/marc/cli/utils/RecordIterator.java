@@ -65,7 +65,7 @@ public class RecordIterator {
     if (parameters.getSchemaType().equals(SchemaType.PICA)) {
       String schemaFile = StringUtils.isNotEmpty(parameters.getPicaSchemaFile())
                         ? parameters.getPicaSchemaFile()
-                        : Paths.get("src/main/resources/pica/k10plus.json").toAbsolutePath().toString();
+                        : Paths.get("src/main/resources/pica/avram-k10plus.json").toAbsolutePath().toString();
       picaSchema = PicaSchemaReader.create(schemaFile);
     }
 

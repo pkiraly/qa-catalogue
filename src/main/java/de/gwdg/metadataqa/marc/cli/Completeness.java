@@ -224,7 +224,7 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
       if (packageNameCache.containsKey(field.getDefinition()))
         packageName = packageNameCache.get(field.getDefinition());
       else {
-        packageName = Utils.extractPackageName(field);
+        packageName = plugin.getPackageName(field);
         if (StringUtils.isBlank(packageName)) {
           logger.warning(String.format("%s has no package. /%s", field, field.getDefinition().getClass()));
           packageName = TagCategory.other.getPackageName();

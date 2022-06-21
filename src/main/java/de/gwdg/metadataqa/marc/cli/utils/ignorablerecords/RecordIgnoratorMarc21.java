@@ -19,6 +19,9 @@ public class RecordIgnoratorMarc21 extends Marc21Filter implements RecordIgnorat
 
   @Override
   public boolean isIgnorable(MarcRecord marcRecord) {
+    if (isEmpty())
+      return false;
+
     return met(marcRecord);
   }
 

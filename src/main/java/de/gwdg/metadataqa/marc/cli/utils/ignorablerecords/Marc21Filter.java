@@ -45,9 +45,6 @@ public class Marc21Filter {
   }
 
   protected boolean met(MarcRecord marcRecord) {
-    if (isEmpty())
-      return false;
-
     for (DataField condition : conditions) {
       List<DataField> recordFields = marcRecord.getDatafield(condition.getTag());
       if (recordFields == null || recordFields.isEmpty())

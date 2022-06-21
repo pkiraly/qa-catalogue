@@ -1,5 +1,9 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
+import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilterMarc21;
+import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilterPica;
+import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnoratorMarc21;
+import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnoratorPica;
 import de.gwdg.metadataqa.marc.definition.DataSource;
 import de.gwdg.metadataqa.marc.definition.MarcFormat;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
@@ -315,6 +319,66 @@ public class CommonParametersTest {
       logger.log(Level.WARNING, "error in schemaType()", e);
     }
     assertEquals("003$d", parameters.getPicaRecordTypeField());
+  }
+
+  @Test
+  public void getRecordIgnorator_pica() {
+    String[] arguments = new String[]{"--schemaType", "PICA", "--ignorableRecords", "002@.0 !~ '^L'"};
+    CommonParameters parameters = null;
+    try {
+      parameters = new CommonParameters(arguments);
+    } catch (ParseException e) {
+      logger.log(Level.WARNING, "error in schemaType()", e);
+    }
+    assertEquals("RecordIgnoratorPica", parameters.getRecordIgnorator().getClass().getSimpleName());
+    assertEquals(1, ((RecordIgnoratorPica)parameters.getRecordIgnorator()).getCriteria().size());
+    assertEquals("CriteriumPica{path=002@.0, operator=NOT_MATCH, value='^L'}",
+      ((RecordIgnoratorPica)parameters.getRecordIgnorator()).getCriteria().get(0).toString());
+  }
+
+  @Test
+  public void getRecordIgnorator_marc21() {
+    String[] arguments = new String[]{"--schemaType", "MARC21", "--ignorableRecords", "STA$a=SUPPRESSED"};
+    CommonParameters parameters = null;
+    try {
+      parameters = new CommonParameters(arguments);
+    } catch (ParseException e) {
+      logger.log(Level.WARNING, "error in schemaType()", e);
+    }
+    assertEquals("RecordIgnoratorMarc21", parameters.getRecordIgnorator().getClass().getSimpleName());
+    assertEquals(
+      "[DataField{STA, ind1=' ', ind2=' ', subfields=[MarcSubfield{code='a', value='SUPPRESSED'}]}]",
+      ((RecordIgnoratorMarc21)parameters.getRecordIgnorator()).toString());
+  }
+
+  @Test
+  public void getRecordFilter_pica() {
+    String[] arguments = new String[]{"--schemaType", "PICA", "--allowableRecords", "002@.0 !~ '^L'"};
+    CommonParameters parameters = null;
+    try {
+      parameters = new CommonParameters(arguments);
+    } catch (ParseException e) {
+      logger.log(Level.WARNING, "error in schemaType()", e);
+    }
+    assertEquals("RecordFilterPica", parameters.getRecordFilter().getClass().getSimpleName());
+    assertEquals(1, ((RecordFilterPica)parameters.getRecordFilter()).getCriteria().size());
+    assertEquals("CriteriumPica{path=002@.0, operator=NOT_MATCH, value='^L'}",
+      ((RecordFilterPica)parameters.getRecordFilter()).getCriteria().get(0).toString());
+  }
+
+  @Test
+  public void getRecordFilter_marc21() {
+    String[] arguments = new String[]{"--schemaType", "MARC21", "--allowableRecords", "STA$a=SUPPRESSED"};
+    CommonParameters parameters = null;
+    try {
+      parameters = new CommonParameters(arguments);
+    } catch (ParseException e) {
+      logger.log(Level.WARNING, "error in schemaType()", e);
+    }
+    assertEquals("RecordFilterMarc21", parameters.getRecordFilter().getClass().getSimpleName());
+    assertEquals(
+      "[DataField{STA, ind1=' ', ind2=' ', subfields=[MarcSubfield{code='a', value='SUPPRESSED'}]}]",
+      ((RecordFilterMarc21)parameters.getRecordFilter()).toString());
   }
 
 }

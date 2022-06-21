@@ -18,6 +18,14 @@ public class RecordFilterMarc21 extends Marc21Filter implements RecordFilter, Se
 
   @Override
   public boolean isAllowable(MarcRecord marcRecord) {
+    if (isEmpty())
+      return true;
+
     return met(marcRecord);
+  }
+
+  @Override
+  public String toString() {
+    return isEmpty() ? "" : conditions.toString();
   }
 }

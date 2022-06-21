@@ -18,6 +18,9 @@ public class RecordFilterPica extends PicaFilter implements RecordFilter, Serial
 
   @Override
   public boolean isAllowable(MarcRecord marcRecord) {
+    if (isEmpty())
+      return true;
+
     for (CriteriumPica criterium : criteria) {
       boolean passed = criterium.met(marcRecord);
       if (passed)

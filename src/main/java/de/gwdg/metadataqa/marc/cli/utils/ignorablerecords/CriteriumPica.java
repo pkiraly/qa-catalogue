@@ -127,4 +127,12 @@ public class CriteriumPica {
     return false;
   }
 
+  @Override
+  public String toString() {
+    return "CriteriumPica{" +
+      "path=" + path.getPath() +
+      ", operator=" + operator +
+      ", value='" + value + '\'' +
+      '}';
+  }
 }

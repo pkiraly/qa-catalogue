@@ -118,6 +118,7 @@ public class CommonParameters implements Serializable {
     trimId = cmd.hasOption("trimId");
     readIgnorableFields();
     readIgnorableRecords();
+    readAllowableRecords();
     readDefaultEncoding();
     readAlephseqLineType();
     readPicaIdField();
@@ -165,6 +166,7 @@ public class CommonParameters implements Serializable {
   }
 
   private void readAllowableRecords() {
+
     String allowableRecords = cmd.hasOption("allowableRecords") ? cmd.getOptionValue("allowableRecords") : "";
     setRecordFilter(allowableRecords);
   }
@@ -448,6 +450,9 @@ public class CommonParameters implements Serializable {
     this.recordIgnorator = RecordIgnoratorFactory.create(schemaType, ignorableRecords.trim());
   }
 
+  public RecordFilter getRecordFilter() {
+    return recordFilter;
+  }
 
   public void setRecordFilter(String allowableRecords) {
     this.recordFilter = RecordFilterFactory.create(schemaType, allowableRecords.trim());

@@ -2,7 +2,11 @@ package de.gwdg.metadataqa.marc.cli.utils.ignorablerecords;
 
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
 
-public class RecordIgnoratorPica extends PicaFilter implements RecordIgnorator {
+import java.io.Serializable;
+
+public class RecordIgnoratorPica extends PicaFilter implements RecordIgnorator, Serializable {
+
+  private static final long serialVersionUID = -6572155080023379764L;
 
   public RecordIgnoratorPica(String ignorableRecordsInput) {
     parse(ignorableRecordsInput);

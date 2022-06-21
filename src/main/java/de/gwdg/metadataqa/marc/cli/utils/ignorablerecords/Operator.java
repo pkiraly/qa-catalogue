@@ -1,13 +1,15 @@
 package de.gwdg.metadataqa.marc.cli.utils.ignorablerecords;
 
-import de.gwdg.metadataqa.marc.definition.MarcVersion;
-
 public enum Operator {
-  EQUALS("=="),
-  DOESNT_EQUAL("!="),
-  MATCHES("=~"),
-  DOESNT_MATCH("!~"),
-  EXISTS("?")
+  EQUAL("=="),
+  NOT_EQUAL("!="),
+  MATCH("=~"),
+  NOT_MATCH("!~"),
+  START_WITH("=^"),
+  END_WITH("=$"),
+  EXIST("?"),
+  IN("in"),
+  NOT_IN("not in")
   ;
 
   private String operator;

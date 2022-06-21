@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 public class RecordIgnoratorPica implements RecordIgnorator {
 
-  private static final Pattern CRITERIUM = Pattern.compile("^(.*?)(\\s*(==|!=|=~|!~)\\s*'(.*?)'|\\?)$");
+  private static final Pattern CRITERIUM = Pattern.compile("^(.*?)(\\s*(==|!=|=~|!~|=\\^|=\\$)\\s*'(.*?)'|\\?)$");
 
   private List<CriteriumPica> criteria = new ArrayList<>();
 
@@ -54,6 +54,11 @@ public class RecordIgnoratorPica implements RecordIgnorator {
 
   @Override
   public boolean isIgnorable(MarcRecord marcRecord) {
+    for (CriteriumPica criterium : criteria) {
+      boolean passed = criterium.met(marcRecord);
+      if (passed)
+        return passed;
+    }
     return false;
   }
 

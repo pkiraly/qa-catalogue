@@ -9,14 +9,12 @@ public class PicaPathParser {
   private static final Pattern XTAG = Pattern.compile("^(2[0-9\\.][0-9\\.][A-Z@\\.]x\\d+)");
   private static final Pattern OCCURENCE = Pattern.compile("^/((\\d+)-(\\d+)|(\\d{1,3})|(\\*))");
   private static final Pattern SUBFIELDS = Pattern.compile("^[\\$.]?(([A-Za-z0-9]+)|(\\*))");
-
   public static PicaPath parse(String input) {
     String path = input;
     String tag = null;
     String xtag = null;
     Occurrence occurrence = null;
-    String subfields = null;
-    PicaPath.SubfieldType subfieldType = null;
+    Subfields subfields = null;
 
     String remainder = null;
     Matcher m = null;
@@ -56,11 +54,16 @@ public class PicaPathParser {
     if (remainder != null) {
       m = SUBFIELDS.matcher(remainder);
       if (m.find()) {
-        subfields = m.group(1);
+        String subfieldsRaw = m.group(1);
+        Subfields.Type subfieldType = null;
         if (m.group(2) != null) {
-          subfieldType = m.group(2).length() == 1 ? PicaPath.SubfieldType.SINGLE : PicaPath.SubfieldType.MULTI;
-        } else if (m.group(3) != null)
-          subfieldType = PicaPath.SubfieldType.ALL;
+          subfieldType = m.group(2).length() == 1 ? Subfields.Type.SINGLE : Subfields.Type.MULTI;
+        } else if (m.group(3) != null) {
+          subfieldType = Subfields.Type.ALL;
+        }
+        if (subfieldType == null)
+          throw new IllegalArgumentException("The input does not fit to rules: " + input);
+        subfields = new Subfields(subfieldType, subfieldsRaw);
         remainder = m.end() < remainder.length() ? remainder.substring(m.end()) : null;
       }
     }
@@ -68,6 +71,6 @@ public class PicaPathParser {
     if (remainder != null)
       throw new IllegalArgumentException("The input does not fit to rules: " + input);
 
-    return new PicaPath(path, tag, xtag, occurrence, subfields, subfieldType);
+    return new PicaPath(path, tag, xtag, occurrence, subfields);
   }
 }

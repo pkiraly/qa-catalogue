@@ -2,7 +2,10 @@ package de.gwdg.metadataqa.marc.utils.pica.path;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class PicaPathParserTest {
 
@@ -12,6 +15,7 @@ public class PicaPathParserTest {
     assertEquals("003@", path.getPath());
     assertEquals("003@", path.getTag());
     assertEquals(null, path.getXtag());
+    assertNull(path.getSubfields());
   }
 
   @Test
@@ -20,6 +24,7 @@ public class PicaPathParserTest {
     assertEquals("203@x1", path.getPath());
     assertEquals(null, path.getTag());
     assertEquals("203@x1", path.getXtag());
+    assertNull(path.getSubfields());
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -28,6 +33,7 @@ public class PicaPathParserTest {
     assertEquals("203@x1", path.getPath());
     assertEquals(null, path.getTag());
     assertEquals("203@x1", path.getXtag());
+    assertNull(path.getSubfields());
   }
 
   @Test
@@ -39,6 +45,7 @@ public class PicaPathParserTest {
     assertEquals(Occurrence.Type.SINGLE, path.getOccurrence().getType());
     assertEquals(2, path.getOccurrence().getStart().intValue());
     assertEquals(null, path.getOccurrence().getEnd());
+    assertNull(path.getSubfields());
   }
 
   @Test
@@ -50,6 +57,7 @@ public class PicaPathParserTest {
     assertEquals(Occurrence.Type.RANGE, path.getOccurrence().getType());
     assertEquals(2, path.getOccurrence().getStart().intValue());
     assertEquals(3, path.getOccurrence().getEnd().intValue());
+    assertNull(path.getSubfields());
   }
 
   @Test
@@ -59,6 +67,7 @@ public class PicaPathParserTest {
     assertEquals("003@", path.getTag());
     assertEquals(null, path.getXtag());
     assertEquals(Occurrence.Type.ALL, path.getOccurrence().getType());
+    assertNull(path.getSubfields());
   }
 
   @Test
@@ -68,8 +77,9 @@ public class PicaPathParserTest {
     assertEquals("003@", path.getTag());
     assertEquals(null, path.getXtag());
     assertEquals(Occurrence.Type.ALL, path.getOccurrence().getType());
-    assertEquals(PicaPath.SubfieldType.ALL, path.getSubfieldType());
-    assertEquals("*", path.getSubfields());
+    assertEquals(Subfields.Type.ALL, path.getSubfields().getType());
+    assertEquals("*", path.getSubfields().getInput());
+    assertEquals(Arrays.asList("*"), path.getSubfields().getCodes());
   }
 
   @Test
@@ -79,8 +89,9 @@ public class PicaPathParserTest {
     assertEquals("003@", path.getTag());
     assertEquals(null, path.getXtag());
     assertEquals(null, path.getOccurrence());
-    assertEquals(PicaPath.SubfieldType.SINGLE, path.getSubfieldType());
-    assertEquals("a", path.getSubfields());
+    assertEquals(Subfields.Type.SINGLE, path.getSubfields().getType());
+    assertEquals("a", path.getSubfields().getInput());
+    assertEquals(Arrays.asList("a"), path.getSubfields().getCodes());
   }
 
   @Test
@@ -90,8 +101,9 @@ public class PicaPathParserTest {
     assertEquals("003@", path.getTag());
     assertEquals(null, path.getXtag());
     assertEquals(null, path.getOccurrence());
-    assertEquals(PicaPath.SubfieldType.MULTI, path.getSubfieldType());
-    assertEquals("abc", path.getSubfields());
+    assertEquals(Subfields.Type.MULTI, path.getSubfields().getType());
+    assertEquals("abc", path.getSubfields().getInput());
+    assertEquals(Arrays.asList("a", "b", "c"), path.getSubfields().getCodes());
   }
 
   @Test
@@ -101,8 +113,9 @@ public class PicaPathParserTest {
     assertEquals("003@", path.getTag());
     assertEquals(null, path.getXtag());
     assertEquals(null, path.getOccurrence());
-    assertEquals(PicaPath.SubfieldType.MULTI, path.getSubfieldType());
-    assertEquals("aBc", path.getSubfields());
+    assertEquals(Subfields.Type.MULTI, path.getSubfields().getType());
+    assertEquals("aBc", path.getSubfields().getInput());
+    assertEquals(Arrays.asList("a", "B", "c"), path.getSubfields().getCodes());
   }
 
   @Test
@@ -112,8 +125,9 @@ public class PicaPathParserTest {
     assertEquals("003@", path.getTag());
     assertEquals(null, path.getXtag());
     assertEquals(null, path.getOccurrence());
-    assertEquals(PicaPath.SubfieldType.ALL, path.getSubfieldType());
-    assertEquals("*", path.getSubfields());
+    assertEquals(Subfields.Type.ALL, path.getSubfields().getType());
+    assertEquals("*", path.getSubfields().getInput());
+    assertEquals(Arrays.asList("*"), path.getSubfields().getCodes());
   }
 
   @Test
@@ -123,7 +137,8 @@ public class PicaPathParserTest {
     assertEquals("003@", path.getTag());
     assertEquals(null, path.getXtag());
     assertEquals(null, path.getOccurrence());
-    assertEquals(PicaPath.SubfieldType.ALL, path.getSubfieldType());
-    assertEquals("*", path.getSubfields());
+    assertEquals(Subfields.Type.ALL, path.getSubfields().getType());
+    assertEquals("*", path.getSubfields().getInput());
+    assertEquals(Arrays.asList("*"), path.getSubfields().getCodes());
   }
 }

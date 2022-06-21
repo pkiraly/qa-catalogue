@@ -50,20 +50,6 @@ public class PicaplusTag {
     return basetag;
   }
 
-  public boolean validateOccurrence(String otherOccurrence) {
-    if (!hasOccurrence()) {
-      if (otherOccurrence == null)
-        return true;
-      return false;
-    } else {
-      if (!hasOccurrenceRange()) {
-        return occurrence.equals(otherOccurrence);
-      } else {
-        return occurrenceRange.validate(otherOccurrence);
-      }
-    }
-  }
-
   private void parse(String picaplus) {
     if (!picaplus.contains("/")) {
       tag = picaplus;

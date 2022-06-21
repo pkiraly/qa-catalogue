@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc.cli.plugin;
 
-import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
@@ -12,17 +11,20 @@ import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.Serializable;
 import java.nio.file.Paths;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-public class PicaCompletenessPlugin implements CompletenessPlugin {
+public class PicaCompletenessPlugin implements CompletenessPlugin, Serializable {
+
+  private static final long serialVersionUID = 2002980948561227741L;
   private final CompletenessParameters parameters;
   private final String field;
   private final String subfield;
   private final String separator;
   private final Map<String, PicaFieldDefinition> picaSchema;
-  private final static Map<String, String> types = Map.ofEntries(
+  private static final Map<String, String> types = Map.ofEntries(
     Map.entry("A", "Druckschriften (einschließlich Bildbänden)"),
     Map.entry("B", "Tonträger, Videodatenträger, Bildliche Darstellungen"),
     Map.entry("C", "Blindenschriftträger und andere taktile Materialien"),
@@ -40,7 +42,6 @@ public class PicaCompletenessPlugin implements CompletenessPlugin {
     this.parameters = parameters;
     separator = Pattern.quote(parameters.getPicaSubfieldSeparator());
     FieldPath path = parse(parameters.getPicaRecordTypeField());
-    // String[] parts = parameters.getPicaRecordTypeField().split(Pattern.quote(parameters.getPicaSubfieldSeparator()));
     field = path.getField();
     subfield = path.getSubfield();
     String schemaFile = StringUtils.isNotEmpty(parameters.getPicaSchemaFile())
@@ -61,14 +62,14 @@ public class PicaCompletenessPlugin implements CompletenessPlugin {
     FieldPath path = parse(rawpath);
     String fieldLabel = "";
     String subfieldLabel = "";
-    PicaFieldDefinition field = picaSchema.get(path.getField());
+    PicaFieldDefinition fieldDefinition = picaSchema.get(path.getField());
     TagCategory category = TagCategory.other;
-    if (field != null) {
-      category = getTagCategory(field);
-      fieldLabel = field.getLabel();
+    if (fieldDefinition != null) {
+      category = getTagCategory(fieldDefinition);
+      fieldLabel = fieldDefinition.getLabel();
       if (!path.getSubfield().equals("")){
-        SubfieldDefinition subfield = field.getSubfield(path.getSubfield());
-        subfieldLabel = subfield != null ? subfield.getLabel() : "";
+        SubfieldDefinition subfieldDefinition = fieldDefinition.getSubfield(path.getSubfield());
+        subfieldLabel = subfieldDefinition != null ? subfieldDefinition.getLabel() : "";
       }
     }
 
@@ -96,7 +97,6 @@ public class PicaCompletenessPlugin implements CompletenessPlugin {
   private FieldPath parse(String path) {
     String[] parts = path.split(separator);
     if (parts.length == 1) {
-      System.err.println("problem with path: " + path);
       return new FieldPath(parts[0], "");
     }
     return new FieldPath(parts[0], parts[1]);

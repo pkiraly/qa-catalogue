@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 public class RecordIgnoratorPica implements RecordIgnorator {
 
-  private static final Pattern CRITERIUM = Pattern.compile("^([012\\.][A-Za-z0-9@\\./\\$]+?)(\\s*(==|!=|=~|!~|=\\^|=\\$)\\s*'([^']+)'|\\?)$");
+  private static final Pattern CRITERIUM = Pattern.compile("^([012\\.][A-Za-z0-9@\\./\\$\\*\\-]+?)(\\s*(==|!=|=~|!~|=\\^|=\\$)\\s*'([^']+)'|\\?)$");
 
   private List<CriteriumPica> criteria = new ArrayList<>();
 

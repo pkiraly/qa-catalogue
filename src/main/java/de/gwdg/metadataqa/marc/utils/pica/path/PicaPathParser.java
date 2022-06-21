@@ -5,6 +5,8 @@ import java.util.regex.Pattern;
 
 public class PicaPathParser {
 
+  private PicaPathParser() {}
+
   private static final Pattern TAG = Pattern.compile("^([012\\.][0-9\\.][0-9\\.][A-Z@\\.])");
   private static final Pattern XTAG = Pattern.compile("^(2[0-9\\.][0-9\\.][A-Z@\\.]x\\d+)");
   private static final Pattern OCCURENCE = Pattern.compile("^/((\\d+)-(\\d+)|(\\d{1,3})|(\\*))");

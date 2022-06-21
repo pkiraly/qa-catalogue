@@ -184,10 +184,10 @@ public class RecordIterator {
   }
 
   private MarcRecord transformMarcRecord(Record marc4jRecord) {
-    MarcRecord marcRecord = parameters.getSchemaType().equals(SchemaType.MARC21)
-      ? MarcFactory.createFromMarc4j(marc4jRecord, defaultRecordType, marcVersion, replecementInControlFields)
-      : MarcFactory.createPicaFromMarc4j(marc4jRecord, picaSchema);
-    return marcRecord;
+    if (parameters.getSchemaType().equals(SchemaType.MARC21))
+      return MarcFactory.createFromMarc4j(marc4jRecord, defaultRecordType, marcVersion, replecementInControlFields);
+    else
+      return MarcFactory.createPicaFromMarc4j(marc4jRecord, picaSchema);
   }
 
   private MarcReader getMarcFileReader(CommonParameters parameters, Path path) throws Exception {

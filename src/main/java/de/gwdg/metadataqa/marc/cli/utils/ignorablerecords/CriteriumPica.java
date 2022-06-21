@@ -78,8 +78,9 @@ public class CriteriumPica {
       case NOT_EQUAL: return !subfieldEquals(subfieldInstances);
       case START_WITH: return subfieldStartsWith(subfieldInstances);
       case END_WITH: return subfieldEndsWith(subfieldInstances);
+      default:
+        return false;
     }
-    return false;
   }
 
   private boolean subfieldMatches(List<MarcSubfield> instances) {

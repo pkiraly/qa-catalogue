@@ -12,15 +12,15 @@ public enum Operator {
   NOT_IN("not in")
   ;
 
-  private String operator;
+  private String symbol;
 
-  Operator(String operator) {
-    this.operator = operator;
+  Operator(String symbol) {
+    this.symbol = symbol;
   }
 
   public static Operator byCode(String operator) {
     for (Operator item : values())
-      if (item.operator.equals(operator))
+      if (item.symbol.equals(operator))
         return item;
     throw new IllegalArgumentException(String.format("unsupported operator: '%s'", operator));
   }

@@ -5,12 +5,14 @@ import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class RecordIgnoratorMarc21 implements RecordIgnorator {
+public class RecordIgnoratorMarc21 implements RecordIgnorator, Serializable {
 
+  private static final long serialVersionUID = 7969482654024463443L;
   private List<DataField> conditions;
 
   public RecordIgnoratorMarc21(String ignorableRecordsInput) {

@@ -82,7 +82,7 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
-    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+    if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
       return;
 
     ClassificationAnalyzer analyzer = new ClassificationAnalyzer(marcRecord, statistics);

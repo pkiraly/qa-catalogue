@@ -84,7 +84,7 @@ public class FunctionalAnalysis implements BibliographicInputProcessor, Serializ
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
-    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+    if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
       return;
 
     this.recordNumber = recordNumber;

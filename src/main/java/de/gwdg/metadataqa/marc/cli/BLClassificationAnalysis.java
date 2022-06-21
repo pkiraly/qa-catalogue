@@ -76,7 +76,7 @@ public class BLClassificationAnalysis implements BibliographicInputProcessor, Se
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
     logger.info(".");
-    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+    if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
       return;
     String blClass = classifier.classify(marcRecord);
     String id = parameters.getTrimId()

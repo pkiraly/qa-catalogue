@@ -1,8 +1,9 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
+import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnorator;
+import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnoratorFactory;
 import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
-import de.gwdg.metadataqa.marc.cli.utils.IgnorableRecords;
 import de.gwdg.metadataqa.marc.definition.DataSource;
 import de.gwdg.metadataqa.marc.definition.MarcFormat;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -36,7 +37,7 @@ public class CommonParameters implements Serializable {
   protected boolean lineSeparated = false;
   protected boolean trimId = false;
   private String outputDir = DEFAULT_OUTPUT_DIR;
-  protected IgnorableRecords ignorableRecords = new IgnorableRecords();
+  protected RecordIgnorator recordIgnorator;
   protected IgnorableFields ignorableFields = new IgnorableFields();
   protected InputStream stream = null;
   protected String defaultEncoding = null;
@@ -91,6 +92,7 @@ public class CommonParameters implements Serializable {
   public CommonParameters(String[] arguments)  throws ParseException {
     cmd = parser.parse(getOptions(), arguments);
 
+    readSchemaType();
     readMarcVersion();
     readMarcFormat();
     readDataSource();
@@ -117,7 +119,6 @@ public class CommonParameters implements Serializable {
     readPicaIdField();
     readPicaSubfieldSeparator();
     readPicaSchemaFile();
-    readSchemaType();
     readPicaRecordType();
 
     args = cmd.getArgs();
@@ -155,8 +156,8 @@ public class CommonParameters implements Serializable {
   }
 
   private void readIgnorableRecords() {
-    if (cmd.hasOption("ignorableRecords"))
-      setIgnorableRecords(cmd.getOptionValue("ignorableRecords"));
+    String ignorableRecords = cmd.hasOption("ignorableRecords") ? cmd.getOptionValue("ignorableRecords") : "";
+    setRecordIgnorator(ignorableRecords);
   }
 
   private void readIgnorableFields() {
@@ -428,12 +429,12 @@ public class CommonParameters implements Serializable {
     this.ignorableFields.parseFields(ignorableFields.trim());
   }
 
-  public IgnorableRecords getIgnorableRecords() {
-    return ignorableRecords;
+  public RecordIgnorator getRecordIgnorator() {
+    return recordIgnorator;
   }
 
-  public void setIgnorableRecords(String ignorableRecords) {
-    this.ignorableRecords.parseInput(ignorableRecords.trim());
+  public void setRecordIgnorator(String ignorableRecords) {
+    this.recordIgnorator = RecordIgnoratorFactory.create(schemaType, ignorableRecords.trim());
   }
 
   public InputStream getStream() {
@@ -510,8 +511,8 @@ public class CommonParameters implements Serializable {
     text += String.format("lineSeparated: %s%n", lineSeparated);
     text += String.format("outputDir: %s%n", outputDir);
     text += String.format("trimId: %s%n", trimId);
-    text += String.format("ignorableFields: %s%n", ignorableFields);
-    text += String.format("ignorableRecords: %s%n", ignorableRecords);
+    text += String.format("ignorableFields: %s%n", ignorableFields.toString());
+    text += String.format("ignorableRecords: %s%n", recordIgnorator);
     text += String.format("defaultEncoding: %s%n", defaultEncoding);
     text += String.format("alephseqLineType: %s%n", alephseqLineType);
     if (isPica()) {

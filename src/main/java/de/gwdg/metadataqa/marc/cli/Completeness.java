@@ -102,7 +102,7 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
-    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+    if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
       return;
 
     Map<String, Integer> recordFrequency = new TreeMap<>();

@@ -80,7 +80,7 @@ public class NetworkAnalysis implements BibliographicInputProcessor, Serializabl
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
-    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+    if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
       return;
 
     NetworkAnalyzer analyzer = new NetworkAnalyzer(marcRecord);

@@ -171,7 +171,7 @@ public class Validator implements BibliographicInputProcessor, Serializable {
     if (i % 100000 == 0)
       logger.info("Number of error types so far: " + instanceBasedErrorCounter.size());
 
-    if (parameters.getIgnorableRecords().isIgnorable(marcRecord)) {
+    if (parameters.getRecordIgnorator().isIgnorable(marcRecord)) {
       logger.info("skip " + marcRecord.getId() + " (ignorable record)");
       return;
     }
@@ -283,7 +283,7 @@ public class Validator implements BibliographicInputProcessor, Serializable {
 
   private void printCounter() {
     File countFile = prepareReportFile(parameters.getOutputDir(), "count.csv");
-    if (parameters.getIgnorableRecords().isEmpty()) {
+    if (parameters.getRecordIgnorator().isEmpty()) {
       printToFile(countFile, "total\n");
       printToFile(countFile, String.valueOf(numberOfprocessedRecords) + "\n");
     } else {

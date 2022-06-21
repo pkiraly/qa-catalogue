@@ -91,7 +91,7 @@ public class CommonParametersTest {
     String[] arguments = new String[]{"--ignorableRecords", "STA$s=SUPPRESSED"};
     try {
       CommonParameters parameters = new CommonParameters(arguments);
-      assertFalse(parameters.getIgnorableRecords().isEmpty());
+      assertFalse(parameters.getRecordIgnorator().isEmpty());
     } catch (ParseException e) {
       throw e;
     }

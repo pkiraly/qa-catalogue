@@ -82,7 +82,7 @@ public class AuthorityAnalysis implements BibliographicInputProcessor, Serializa
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
-    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+    if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
       return;
 
     var analyzer = new AuthorithyAnalyzer(marcRecord, statistics);

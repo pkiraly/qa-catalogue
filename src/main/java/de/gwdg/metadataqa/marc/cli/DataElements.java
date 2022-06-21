@@ -82,7 +82,7 @@ public class DataElements implements BibliographicInputProcessor, Serializable {
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
-    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+    if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
       return;
 
     printToFile(outputFile, StringUtils.join(dataElementCounter.count(marcRecord), ",") + "\n");

@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.cli.utils;
+package de.gwdg.metadataqa.marc.cli.utils.ignorablerecords;
 
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
@@ -9,9 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class IgnorableRecords {
+public class RecordIgnoratorMarc21 implements RecordIgnorator {
 
   private List<DataField> conditions;
+
+  public RecordIgnoratorMarc21(String ignorableRecordsInput) {
+    parseInput(ignorableRecordsInput);
+  }
 
   public void parseInput(String input) {
     if (StringUtils.isNotBlank(input)) {
@@ -28,6 +32,7 @@ public class IgnorableRecords {
     return conditions;
   }
 
+  @Override
   public boolean isEmpty() {
     return conditions == null || conditions.isEmpty();
   }
@@ -44,6 +49,7 @@ public class IgnorableRecords {
     return null;
   }
 
+  @Override
   public boolean isIgnorable(MarcRecord marcRecord) {
     if (isEmpty())
       return false;

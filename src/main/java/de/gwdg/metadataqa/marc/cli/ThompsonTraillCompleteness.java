@@ -100,7 +100,7 @@ public class ThompsonTraillCompleteness implements BibliographicInputProcessor, 
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) {
-    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+    if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
       return;
 
     List<Integer> scores = ThompsonTraillAnalysis.getScores(marcRecord);

@@ -30,7 +30,7 @@ public class PicaPathParser {
         if (m.end() < input.length())
           remainder = input.substring(m.end());
       } else {
-        throw new IllegalArgumentException("The input does not fit to rules: " + input);
+        throw new IllegalArgumentException(String.format("The input does not fit to rules: '%s'", input));
       }
     }
 
@@ -44,7 +44,7 @@ public class PicaPathParser {
         } else if (m.group(5) != null) {
           occurrence = new Occurrence(Occurrence.Type.ALL, null, null);
         } else {
-          throw new IllegalArgumentException("The input does not fit to rules: " + input);
+          throw new IllegalArgumentException(String.format("The input does not fit to rules: '%s'", input));
         }
 
         remainder = m.end() < remainder.length() ? remainder.substring(m.end()) : null;
@@ -62,14 +62,14 @@ public class PicaPathParser {
           subfieldType = Subfields.Type.ALL;
         }
         if (subfieldType == null)
-          throw new IllegalArgumentException("The input does not fit to rules: " + input);
+          throw new IllegalArgumentException(String.format("The input does not fit to rules: '%s'", input));
         subfields = new Subfields(subfieldType, subfieldsRaw);
         remainder = m.end() < remainder.length() ? remainder.substring(m.end()) : null;
       }
     }
 
     if (remainder != null)
-      throw new IllegalArgumentException("The input does not fit to rules: " + input);
+      throw new IllegalArgumentException(String.format("The input does not fit to rules: '%s'", input));
 
     return new PicaPath(path, tag, xtag, occurrence, subfields);
   }

@@ -111,7 +111,7 @@ public class ShelfReadyCompleteness implements BibliographicInputProcessor, Seri
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) {
-    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+    if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
       return;
 
     List<Double> scores = ShelfReadyAnalysis.getScores(marcRecord);

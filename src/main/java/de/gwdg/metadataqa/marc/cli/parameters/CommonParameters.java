@@ -2,6 +2,8 @@ package de.gwdg.metadataqa.marc.cli.parameters;
 
 import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnorator;
 import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnoratorFactory;
+import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilter;
+import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilterFactory;
 import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
 import de.gwdg.metadataqa.marc.definition.DataSource;
@@ -38,6 +40,7 @@ public class CommonParameters implements Serializable {
   protected boolean trimId = false;
   private String outputDir = DEFAULT_OUTPUT_DIR;
   protected RecordIgnorator recordIgnorator;
+  protected RecordFilter recordFilter;
   protected IgnorableFields ignorableFields = new IgnorableFields();
   protected InputStream stream = null;
   protected String defaultEncoding = null;
@@ -81,6 +84,7 @@ public class CommonParameters implements Serializable {
       options.addOption("E", "picaSchemaFile", true, "Avram PICA schema file");
       options.addOption("F", "schemaType", true, "metadata schema type ('MARC21', 'UNIMARC', or 'PICA')");
       options.addOption("G", "picaRecordType", true, "picaRecordType");
+      options.addOption("I", "allowableRecords", true, "allow records for the analysis");
 
       isOptionSet = true;
     }
@@ -159,6 +163,13 @@ public class CommonParameters implements Serializable {
     String ignorableRecords = cmd.hasOption("ignorableRecords") ? cmd.getOptionValue("ignorableRecords") : "";
     setRecordIgnorator(ignorableRecords);
   }
+
+  private void readAllowableRecords() {
+    String allowableRecords = cmd.hasOption("allowableRecords") ? cmd.getOptionValue("allowableRecords") : "";
+    setRecordFilter(allowableRecords);
+  }
+
+
 
   private void readIgnorableFields() {
     if (cmd.hasOption("ignorableFields"))
@@ -435,6 +446,11 @@ public class CommonParameters implements Serializable {
 
   public void setRecordIgnorator(String ignorableRecords) {
     this.recordIgnorator = RecordIgnoratorFactory.create(schemaType, ignorableRecords.trim());
+  }
+
+
+  public void setRecordFilter(String allowableRecords) {
+    this.recordFilter = RecordFilterFactory.create(schemaType, allowableRecords.trim());
   }
 
   public InputStream getStream() {

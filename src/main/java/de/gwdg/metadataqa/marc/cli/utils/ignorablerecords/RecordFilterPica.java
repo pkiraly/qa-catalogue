@@ -13,7 +13,7 @@ public class RecordFilterPica extends PicaFilter implements RecordFilter, Serial
 
   @Override
   public boolean isEmpty() {
-    return criteria.isEmpty();
+    return getBooleanCriteria() == null;
   }
 
   @Override
@@ -21,11 +21,6 @@ public class RecordFilterPica extends PicaFilter implements RecordFilter, Serial
     if (isEmpty())
       return true;
 
-    for (CriteriumPica criterium : criteria) {
-      boolean passed = criterium.met(marcRecord);
-      if (passed)
-        return passed;
-    }
-    return false;
+    return metCriteria(marcRecord, booleanCriteria);
   }
 }

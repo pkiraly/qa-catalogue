@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.cli.utils.ignorablerecords;
 
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.utils.parser.BooleanContainer;
 
 import java.io.Serializable;
 
@@ -14,16 +15,15 @@ public class RecordIgnoratorPica extends PicaFilter implements RecordIgnorator, 
 
   @Override
   public boolean isEmpty() {
-    return criteria.isEmpty();
+    return getBooleanCriteria() == null;
   }
 
   @Override
   public boolean isIgnorable(MarcRecord marcRecord) {
-    for (CriteriumPica criterium : criteria) {
-      boolean passed = criterium.met(marcRecord);
-      if (passed)
-        return passed;
-    }
-    return false;
+    if (isEmpty())
+      return true;
+
+    return metCriteria(marcRecord, booleanCriteria);
   }
+
 }

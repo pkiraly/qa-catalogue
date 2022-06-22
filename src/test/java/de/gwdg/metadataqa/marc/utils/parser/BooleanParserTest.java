@@ -10,7 +10,7 @@ public class BooleanParserTest {
   @Test
   public void parse_ex1() {
     String input = "002@.0 !~ '^L' && 002@.0 !~ '^..[iktN]' && (002@.0 !~ '^.v' || 021A.a?)";
-    BooleanContainer root = BooleanParser.parse(input);
+    BooleanContainer<String> root = BooleanParser.parse(input);
     assertNotNull(root);
     assertEquals(BooleanContainer.Op.AND, root.getOp());
     assertEquals(null, root.getValue());
@@ -25,9 +25,18 @@ public class BooleanParserTest {
     assertEquals("002@.0 !~ '^.v'", root.getChildren().get(2).getChildren().get(0).getValue());
     assertEquals(null, root.getChildren().get(2).getChildren().get(1).getOp());
     assertEquals("021A.a?", root.getChildren().get(2).getChildren().get(1).getValue());
-    assertEquals("BooleanContainer{[op=AND, children=[BooleanContainer{[value='002@.0 !~ '^L'']}, BooleanContainer{[value='002@.0 !~ '^..[iktN]'']}, BooleanContainer{[op=OR, children=[BooleanContainer{[value='002@.0 !~ '^.v'']}, BooleanContainer{[value='021A.a?']}]]}]]}",
+    assertEquals("BooleanContainer{op=AND, children=[BooleanContainer{value='002@.0 !~ '^L''}, BooleanContainer{value='002@.0 !~ '^..[iktN]''}, BooleanContainer{op=OR, children=[BooleanContainer{value='002@.0 !~ '^.v''}, BooleanContainer{value='021A.a?'}]}]}",
       root.toString());
+    assertEquals(4, root.size());
   }
 
-
+  @Test
+  public void parse_ex2() {
+    String input = "002@.0 !~ '^L'";
+    BooleanContainer<String> root = BooleanParser.parse(input);
+    assertNotNull(root);
+    assertEquals("BooleanContainer{value='002@.0 !~ '^L''}",
+      root.toString());
+    assertEquals(1, root.size());
+  }
 }

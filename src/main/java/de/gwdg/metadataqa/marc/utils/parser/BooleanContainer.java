@@ -5,21 +5,21 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BooleanContainer {
+public class BooleanContainer<T> {
 
-  public enum Op{AND, OR};
+  public enum Op{AND, OR}
 
   private Op op;
-  private List<BooleanContainer> children = new ArrayList<>();
-  private Object value;
+  private List<BooleanContainer<T>> children = new ArrayList<>();
+  private T value;
 
   public BooleanContainer() {}
 
-  public BooleanContainer(String value) {
+  public BooleanContainer(T value) {
     this.value = value;
   }
 
-  public BooleanContainer(Op op, List<BooleanContainer> children) {
+  public BooleanContainer(Op op, List<BooleanContainer<T>> children) {
     this.op = op;
     this.children = children;
   }
@@ -32,12 +32,28 @@ public class BooleanContainer {
     this.op = op;
   }
 
-  public List<BooleanContainer> getChildren() {
+  public List<BooleanContainer<T>> getChildren() {
     return children;
   }
 
-  public Object getValue() {
+  public T getValue() {
     return value;
+  }
+
+  public void setValue(T value) {
+    this.value = value;
+  }
+
+  public int size() {
+    int size = 0;
+    if (value != null)
+      size++;
+    if (children != null) {
+      for (BooleanContainer child : children) {
+        size += child.size();
+      }
+    }
+    return size;
   }
 
   @Override
@@ -49,6 +65,6 @@ public class BooleanContainer {
       props.add("children=" + children);
     if (value != null)
       props.add("value='" + value + '\'');
-     return this.getClass().getSimpleName() + "{" + StringUtils.join(props) + '}';
+     return this.getClass().getSimpleName() + "{" + StringUtils.join(props, ", ") + '}';
   }
 }

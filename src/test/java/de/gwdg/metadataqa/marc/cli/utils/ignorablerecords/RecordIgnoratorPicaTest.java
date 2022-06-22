@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.cli.utils.ignorablerecords;
 
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.utils.parser.BooleanContainer;
 import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
 import org.junit.Test;
@@ -39,18 +40,20 @@ public class RecordIgnoratorPicaTest {
 
   @Test
   public void parse_ex5() {
-    RecordIgnorator ignorator = new RecordIgnoratorPica("002@.0 !~ '^L',002@.0 !~ '^..[iktN]',002@.0 !~ '^.v',021A.a?");
+    RecordIgnorator ignorator = new RecordIgnoratorPica("002@.0 !~ '^L' && 002@.0 !~ '^..[iktN]' && (002@.0 !~ '^.v' || 021A.a?)");
     assertFalse(ignorator.isEmpty());
-    List<CriteriumPica> criteria = ((RecordIgnoratorPica)ignorator).getCriteria();
-    assertEquals(4, criteria.size());
+    BooleanContainer<CriteriumPica> container = ((RecordIgnoratorPica)ignorator).getBooleanCriteria();
+    assertEquals(4, container.size());
+    CriteriumPica criteria = container.getChildren().get(0).getValue();
 
-    assertEquals("002@.0", criteria.get(0).getPath().getPath());
-    assertEquals(Operator.NOT_MATCH, criteria.get(0).getOperator());
-    assertEquals("^L", criteria.get(0).getValue());
+    assertEquals("002@.0", criteria.getPath().getPath());
+    assertEquals(Operator.NOT_MATCH, criteria.getOperator());
+    assertEquals("^L", criteria.getValue());
 
-    assertEquals("021A.a", criteria.get(3).getPath().getPath());
-    assertEquals(Operator.EXIST, criteria.get(3).getOperator());
-    assertEquals(null, criteria.get(3).getValue());
+    criteria = (CriteriumPica) container.getChildren().get(2).getChildren().get(1).getValue();
+    assertEquals("021A.a", criteria.getPath().getPath());
+    assertEquals(Operator.EXIST, criteria.getOperator());
+    assertEquals(null, criteria.getValue());
   }
 
   @Test
@@ -134,18 +137,25 @@ public class RecordIgnoratorPicaTest {
     isIgnorableFailing("pica", "002@.b?");
   }
 
+  @Test
+  public void parse_boolean() {
+    RecordIgnorator ignorator = new RecordIgnoratorPica("002@.0 !~ '^L' && 002@.0 !~ '^..[iktN]' && (002@.0 !~ '^v' || 021A.a?)");
+  }
+
   private String getPath(String fileName) {
     return Paths.get("src/test/resources/" + fileName).toAbsolutePath().toString();
   }
 
-  private void testParsing(String ignorableRecordsInput, int expected, String expected1, Operator notMatch, String expected2) {
+  private void testParsing(String ignorableRecordsInput, int size, String path, Operator op, String value) {
     RecordIgnorator ignorator = new RecordIgnoratorPica(ignorableRecordsInput);
     assertFalse(ignorator.isEmpty());
-    List<CriteriumPica> criteria = ((RecordIgnoratorPica)ignorator).getCriteria();
-    assertEquals(expected, criteria.size());
-    assertEquals(expected1, criteria.get(0).getPath().getPath());
-    assertEquals(notMatch, criteria.get(0).getOperator());
-    assertEquals(expected2, criteria.get(0).getValue());
+    BooleanContainer criteria = ((RecordIgnoratorPica)ignorator).getBooleanCriteria();
+    // List<CriteriumPica> criteria = ((RecordIgnoratorPica)ignorator).getCriteria();
+    // assertEquals(size, criteria.size());
+    assertEquals("CriteriumPica", criteria.getValue().getClass().getSimpleName());
+    assertEquals(path, ((CriteriumPica)criteria.getValue()).getPath().getPath());
+    assertEquals(op, ((CriteriumPica)criteria.getValue()).getOperator());
+    assertEquals(value, ((CriteriumPica)criteria.getValue()).getValue());
   }
 
   private void isIgnorable(String abk, String ignorableRecordsInput) {

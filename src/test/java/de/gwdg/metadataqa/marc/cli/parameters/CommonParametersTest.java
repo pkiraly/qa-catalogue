@@ -326,9 +326,10 @@ public class CommonParametersTest {
       logger.log(Level.WARNING, "error in schemaType()", e);
     }
     assertEquals("RecordIgnoratorPica", parameters.getRecordIgnorator().getClass().getSimpleName());
-    assertEquals(1, ((RecordIgnoratorPica)parameters.getRecordIgnorator()).getCriteria().size());
-    assertEquals("CriteriumPica{path=002@.0, operator=NOT_MATCH, value='^L'}",
-      ((RecordIgnoratorPica)parameters.getRecordIgnorator()).getCriteria().get(0).toString());
+    RecordIgnoratorPica recordIgnorator = (RecordIgnoratorPica)parameters.getRecordIgnorator();
+    assertNotNull(recordIgnorator.getBooleanCriteria());
+    assertEquals("BooleanContainer{value='CriteriumPica{path=002@.0, operator=NOT_MATCH, value='^L'}'}",
+      recordIgnorator.getBooleanCriteria().toString());
   }
 
   @Test
@@ -356,9 +357,10 @@ public class CommonParametersTest {
       logger.log(Level.WARNING, "error in schemaType()", e);
     }
     assertEquals("RecordFilterPica", parameters.getRecordFilter().getClass().getSimpleName());
-    assertEquals(1, ((RecordFilterPica)parameters.getRecordFilter()).getCriteria().size());
-    assertEquals("CriteriumPica{path=002@.0, operator=NOT_MATCH, value='^L'}",
-      ((RecordFilterPica)parameters.getRecordFilter()).getCriteria().get(0).toString());
+    RecordFilterPica recordFilter = (RecordFilterPica)parameters.getRecordFilter();
+    assertNotNull(recordFilter.getBooleanCriteria());
+    assertEquals("BooleanContainer{value='CriteriumPica{path=002@.0, operator=NOT_MATCH, value='^L'}'}",
+      recordFilter.getBooleanCriteria().toString());
   }
 
   @Test

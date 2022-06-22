@@ -19,46 +19,32 @@ public class RecordIgnoratorPicaTest {
 
   @Test
   public void parse_ex1() {
-    RecordIgnorator ignorator = new RecordIgnoratorPica("002@.0 !~ '^L'");
+    testParsing("002@.0 !~ '^L'", 1, "002@.0", Operator.NOT_MATCH, "^L");
+  }
+
+  private void testParsing(String ignorableRecordsInput, int expected, String expected1, Operator notMatch, String expected2) {
+    RecordIgnorator ignorator = new RecordIgnoratorPica(ignorableRecordsInput);
     assertFalse(ignorator.isEmpty());
     List<CriteriumPica> criteria = ((RecordIgnoratorPica)ignorator).getCriteria();
-    assertEquals(1, criteria.size());
-    assertEquals("002@.0", criteria.get(0).getPath().getPath());
-    assertEquals(Operator.NOT_MATCH, criteria.get(0).getOperator());
-    assertEquals("^L", criteria.get(0).getValue());
+    assertEquals(expected, criteria.size());
+    assertEquals(expected1, criteria.get(0).getPath().getPath());
+    assertEquals(notMatch, criteria.get(0).getOperator());
+    assertEquals(expected2, criteria.get(0).getValue());
   }
 
   @Test
   public void parse_ex2() {
-    RecordIgnorator ignorator = new RecordIgnoratorPica("002@.0 !~ '^..[iktN]'");
-    assertFalse(ignorator.isEmpty());
-    List<CriteriumPica> criteria = ((RecordIgnoratorPica)ignorator).getCriteria();
-    assertEquals(1, criteria.size());
-    assertEquals("002@.0", criteria.get(0).getPath().getPath());
-    assertEquals(Operator.NOT_MATCH, criteria.get(0).getOperator());
-    assertEquals("^..[iktN]", criteria.get(0).getValue());
+    testParsing("002@.0 !~ '^..[iktN]'", 1, "002@.0", Operator.NOT_MATCH, "^..[iktN]");
   }
 
   @Test
   public void parse_ex3() {
-    RecordIgnorator ignorator = new RecordIgnoratorPica("002@.0 !~ '^.v'");
-    assertFalse(ignorator.isEmpty());
-    List<CriteriumPica> criteria = ((RecordIgnoratorPica)ignorator).getCriteria();
-    assertEquals(1, criteria.size());
-    assertEquals("002@.0", criteria.get(0).getPath().getPath());
-    assertEquals(Operator.NOT_MATCH, criteria.get(0).getOperator());
-    assertEquals("^.v", criteria.get(0).getValue());
+    testParsing("002@.0 !~ '^.v'", 1, "002@.0", Operator.NOT_MATCH, "^.v");
   }
 
   @Test
   public void parse_ex4() {
-    RecordIgnorator ignorator = new RecordIgnoratorPica("021A.a?");
-    assertFalse(ignorator.isEmpty());
-    List<CriteriumPica> criteria = ((RecordIgnoratorPica)ignorator).getCriteria();
-    assertEquals(1, criteria.size());
-    assertEquals("021A.a", criteria.get(0).getPath().getPath());
-    assertEquals(Operator.EXIST, criteria.get(0).getOperator());
-    assertEquals(null, criteria.get(0).getValue());
+    testParsing("021A.a?", 1, "021A.a", Operator.EXIST, null);
   }
 
   @Test
@@ -90,34 +76,29 @@ public class RecordIgnoratorPicaTest {
 
   @Test
   public void isIgnorable_ex2_1() {
-    MarcRecord marcRecord = new MarcRecord("010000011");
-    marcRecord.addDataField(new DataField(schema.get("002@"), " ", " ", "0", "abi"));
-    RecordIgnorator ignorator = new RecordIgnoratorPica("002@.0 =~ '^..[iktN]'");
-    assertTrue(ignorator.isIgnorable(marcRecord));
+    isIgnorable("abi", "002@.0 =~ '^..[iktN]'");
   }
 
   @Test
   public void isIgnorable_ex2_2() {
+    isIgnorable("abk", "002@.0 =~ '^..[iktN]'");
+  }
+
+  private void isIgnorable(String abk, String ignorableRecordsInput) {
     MarcRecord marcRecord = new MarcRecord("010000011");
-    marcRecord.addDataField(new DataField(schema.get("002@"), " ", " ", "0", "abk"));
-    RecordIgnorator ignorator = new RecordIgnoratorPica("002@.0 =~ '^..[iktN]'");
+    marcRecord.addDataField(new DataField(schema.get("002@"), " ", " ", "0", abk));
+    RecordIgnorator ignorator = new RecordIgnoratorPica(ignorableRecordsInput);
     assertTrue(ignorator.isIgnorable(marcRecord));
   }
 
   @Test
   public void isIgnorable_ex2_3() {
-    MarcRecord marcRecord = new MarcRecord("010000011");
-    marcRecord.addDataField(new DataField(schema.get("002@"), " ", " ", "0", "abt"));
-    RecordIgnorator ignorator = new RecordIgnoratorPica("002@.0 =~ '^..[iktN]'");
-    assertTrue(ignorator.isIgnorable(marcRecord));
+    isIgnorable("abt", "002@.0 =~ '^..[iktN]'");
   }
 
   @Test
   public void isIgnorable_ex2_4() {
-    MarcRecord marcRecord = new MarcRecord("010000011");
-    marcRecord.addDataField(new DataField(schema.get("002@"), " ", " ", "0", "abN"));
-    RecordIgnorator ignorator = new RecordIgnoratorPica("002@.0 =~ '^..[iktN]'");
-    assertTrue(ignorator.isIgnorable(marcRecord));
+    isIgnorable("abN", "002@.0 =~ '^..[iktN]'");
   }
 
   @Test
@@ -140,10 +121,7 @@ public class RecordIgnoratorPicaTest {
 
   @Test
   public void isIgnorable_match() {
-    MarcRecord marcRecord = new MarcRecord("010000011");
-    marcRecord.addDataField(new DataField(schema.get("002@"), " ", " ", "0", "L"));
-    RecordIgnorator ignorator = new RecordIgnoratorPica("002@.0 == 'L'");
-    assertTrue(ignorator.isIgnorable(marcRecord));
+    isIgnorable("L", "002@.0 == 'L'");
   }
 
   @Test
@@ -156,10 +134,7 @@ public class RecordIgnoratorPicaTest {
 
   @Test
   public void isIgnorable_startsWith() {
-    MarcRecord marcRecord = new MarcRecord("010000011");
-    marcRecord.addDataField(new DataField(schema.get("002@"), " ", " ", "0", "pica"));
-    RecordIgnorator ignorator = new RecordIgnoratorPica("002@.0 =^ 'pi'");
-    assertTrue(ignorator.isIgnorable(marcRecord));
+    isIgnorable("pica", "002@.0 =^ 'pi'");
   }
 
   @Test
@@ -172,10 +147,7 @@ public class RecordIgnoratorPicaTest {
 
   @Test
   public void isIgnorable_endsWith() {
-    MarcRecord marcRecord = new MarcRecord("010000011");
-    marcRecord.addDataField(new DataField(schema.get("002@"), " ", " ", "0", "pica"));
-    RecordIgnorator ignorator = new RecordIgnoratorPica("002@.0 =$ 'ca'");
-    assertTrue(ignorator.isIgnorable(marcRecord));
+    isIgnorable("pica", "002@.0 =$ 'ca'");
   }
 
   @Test
@@ -188,10 +160,7 @@ public class RecordIgnoratorPicaTest {
 
   @Test
   public void isIgnorable_exists() {
-    MarcRecord marcRecord = new MarcRecord("010000011");
-    marcRecord.addDataField(new DataField(schema.get("002@"), " ", " ", "0", "pica"));
-    RecordIgnorator ignorator = new RecordIgnoratorPica("002@.0?");
-    assertTrue(ignorator.isIgnorable(marcRecord));
+    isIgnorable("pica", "002@.0?");
   }
 
   @Test

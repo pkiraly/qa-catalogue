@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
 
 public class PicaPathParserTest {
 
@@ -27,13 +28,10 @@ public class PicaPathParserTest {
     assertNull(path.getSubfields());
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void illegalTag() {
-    PicaPath path = PicaPathParser.parse("203!");
-    assertEquals("203@x1", path.getPath());
-    assertEquals(null, path.getTag());
-    assertEquals("203@x1", path.getXtag());
-    assertNull(path.getSubfields());
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> PicaPathParser.parse("203!"));
+    assertEquals("The input does not fit to rules: '203!'", exception.getMessage());
   }
 
   @Test

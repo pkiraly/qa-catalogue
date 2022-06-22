@@ -168,12 +168,9 @@ public class CommonParameters implements Serializable {
   }
 
   private void readAllowableRecords() {
-
     String allowableRecords = cmd.hasOption("allowableRecords") ? cmd.getOptionValue("allowableRecords") : "";
     setRecordFilter(allowableRecords);
   }
-
-
 
   private void readIgnorableFields() {
     if (cmd.hasOption("ignorableFields"))
@@ -534,7 +531,8 @@ public class CommonParameters implements Serializable {
     text += String.format("lineSeparated: %s%n", lineSeparated);
     text += String.format("outputDir: %s%n", outputDir);
     text += String.format("trimId: %s%n", trimId);
-    text += String.format("ignorableFields: %s%n", ignorableFields.toString());
+    text += String.format("ignorableFields: %s%n", ignorableFields);
+    text += String.format("allowableRecords: %s%n", recordFilter);
     text += String.format("ignorableRecords: %s%n", recordIgnorator);
     text += String.format("defaultEncoding: %s%n", defaultEncoding);
     text += String.format("alephseqLineType: %s%n", alephseqLineType);

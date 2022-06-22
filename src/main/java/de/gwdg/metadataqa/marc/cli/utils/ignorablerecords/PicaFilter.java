@@ -44,4 +44,11 @@ public class PicaFilter {
   public List<CriteriumPica> getCriteria() {
     return criteria;
   }
+
+  @Override
+  public String toString() {
+    return "PicaFilter{" +
+      "criteria=" + criteria +
+      '}';
+  }
 }

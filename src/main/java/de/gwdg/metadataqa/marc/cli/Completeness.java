@@ -7,6 +7,8 @@ import de.gwdg.metadataqa.marc.cli.plugin.CompletenessFactory;
 import de.gwdg.metadataqa.marc.cli.plugin.CompletenessPlugin;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
+import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilter;
+import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnorator;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcControlField;
 import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
@@ -61,12 +63,16 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
   private boolean readyToProcess;
   private CompletenessPlugin plugin;
   private Map<DataFieldDefinition, String> packageNameCache = new HashMap<>();
+  private RecordFilter recordFilter;
+  private RecordIgnorator recordIgnorator;
 
   public Completeness(String[] args) throws ParseException {
     parameters = new CompletenessParameters(args);
     options = parameters.getOptions();
     readyToProcess = true;
     plugin = CompletenessFactory.create(parameters);
+    recordFilter = parameters.getRecordFilter();
+    recordIgnorator = parameters.getRecordIgnorator();
   }
 
   public static void main(String[] args) {
@@ -102,7 +108,10 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
 
   @Override
   public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
-    if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
+    if (!recordFilter.isAllowable(marcRecord))
+      return;
+
+    if (recordIgnorator.isIgnorable(marcRecord))
       return;
 
     Map<String, Integer> recordFrequency = new TreeMap<>();

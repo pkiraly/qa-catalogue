@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static junit.framework.TestCase.*;
+import static org.junit.Assert.assertThrows;
 
 public class CommonParametersTest {
 
@@ -148,12 +149,8 @@ public class CommonParametersTest {
   @Test
   public void alephseqLineType_invalid1() {
     String[] arguments = new String[]{"--alephseqLineType", "WITHOUT"};
-    try {
-      CommonParameters parameters = new CommonParameters(arguments);
-      assertEquals(null, parameters.getAlephseqLineType());
-    } catch (ParseException e) {
-      logger.log(Level.WARNING, "error ", e);
-    }
+    Exception exception = assertThrows(ParseException.class, () -> new CommonParameters(arguments));
+    assertEquals("Unrecognized alephseqLineType parameter value: 'WITHOUT'", exception.getMessage());
   }
 
   @Test
@@ -243,6 +240,7 @@ public class CommonParametersTest {
         "outputDir: .\n" +
         "trimId: true\n" +
         "ignorableFields: \n" +
+        "allowableRecords: \n" +
         "ignorableRecords: \n" +
         "defaultEncoding: null\n" +
         "alephseqLineType: null\n";
@@ -288,13 +286,10 @@ public class CommonParametersTest {
   @Test
   public void getSchemaType_pica_wrong() {
     String[] arguments = new String[]{"--schemaType", "pica"};
-    CommonParameters parameters = null;
-    try {
-      parameters = new CommonParameters(arguments);
-    } catch (ParseException e) {
-      logger.log(Level.WARNING, "error in schemaType()", e);
-    }
-    assertEquals(null, parameters);
+    Exception exception = assertThrows(ParseException.class, () ->
+      new CommonParameters(arguments)
+    );
+    assertEquals("Unrecognized schemaType parameter value: 'pica'", exception.getMessage());
   }
 
   @Test

@@ -75,16 +75,6 @@ public class CompletenessTest extends CliTestUtils {
   }
 
   @Test
-  public void testSimple() {
-    Map<Integer, String> namesMap = new HashMap<>();
-    namesMap.put(1, "Larry");
-    namesMap.put(2, "Steve");
-    namesMap.put(3, "James");
-
-    namesMap.forEach((key, value) -> System.out.println(key + " " + value));
-  }
-
-  @Test
   public void testRegex() {
     String a = "041$_ind1";
     assertEquals("041$ind1", a.replace("_ind", "ind"));

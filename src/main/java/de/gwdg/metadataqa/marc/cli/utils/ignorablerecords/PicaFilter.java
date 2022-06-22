@@ -26,12 +26,12 @@ public class PicaFilter {
   }
 
   private BooleanContainer<CriteriumPica> transformContainer(BooleanContainer<String> booleanCriteria) {
-    BooleanContainer<CriteriumPica> container = new BooleanContainer<CriteriumPica>();
+    BooleanContainer<CriteriumPica> container = new BooleanContainer<>();
     container.setOp(booleanCriteria.getOp());
     if (booleanCriteria.getValue() != null) {
       container.setValue(parseCriterium(booleanCriteria.getValue()));
     } else if (!booleanCriteria.getChildren().isEmpty()) {
-      for (BooleanContainer child : booleanCriteria.getChildren()) {
+      for (BooleanContainer<String> child : booleanCriteria.getChildren()) {
         container.getChildren().add(transformContainer(child));
       }
     }
@@ -79,16 +79,13 @@ public class PicaFilter {
           hasPassed = true;
         if (!p && !hasFailed)
           hasFailed = true;
-        if (criteria.getOp().equals(BooleanContainer.Op.AND) && !p) {
-          break;
-        }
-        if (criteria.getOp().equals(BooleanContainer.Op.OR) && p) {
+        if ((criteria.hasAnd() && !p) || (criteria.hasOr() && p)) {
           break;
         }
       }
-      if (criteria.getOp().equals(BooleanContainer.Op.OR))
+      if (criteria.hasOr())
         passed = hasPassed;
-      else if (criteria.getOp().equals(BooleanContainer.Op.AND))
+      else if (criteria.hasAnd())
         passed = hasPassed && !hasFailed;
     }
     return passed;

@@ -1,7 +1,6 @@
 package de.gwdg.metadataqa.marc.cli.utils.ignorablerecords;
 
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
-import de.gwdg.metadataqa.marc.utils.parser.BooleanContainer;
 
 import java.io.Serializable;
 

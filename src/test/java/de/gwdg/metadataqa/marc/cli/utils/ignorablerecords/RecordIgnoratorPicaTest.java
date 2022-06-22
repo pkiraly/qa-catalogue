@@ -140,6 +140,9 @@ public class RecordIgnoratorPicaTest {
   @Test
   public void parse_boolean() {
     RecordIgnorator ignorator = new RecordIgnoratorPica("002@.0 !~ '^L' && 002@.0 !~ '^..[iktN]' && (002@.0 !~ '^v' || 021A.a?)");
+    assertEquals(4, ((RecordIgnoratorPica)ignorator).getBooleanCriteria().size());
+    assertEquals(BooleanContainer.Op.AND, ((RecordIgnoratorPica)ignorator).getBooleanCriteria().getOp());
+    assertEquals("CriteriumPica{path=002@.0, operator=NOT_MATCH, value='^L'}", ((RecordIgnoratorPica)ignorator).getBooleanCriteria().getChildren().get(0).getValue().toString());
   }
 
   private String getPath(String fileName) {

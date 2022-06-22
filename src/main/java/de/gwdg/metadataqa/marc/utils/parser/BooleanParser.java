@@ -21,13 +21,13 @@ public class BooleanParser {
     this.input = input;
   }
 
-  public static BooleanContainer<String> parse(String _input) {
-    BooleanParser parser = new BooleanParser(_input);
+  public static BooleanContainer<String> parse(String input) {
+    BooleanParser parser = new BooleanParser(input);
     return parser.parse();
   }
 
   private BooleanContainer<String> parse() {
-    BooleanContainer<String> root = new BooleanContainer();
+    BooleanContainer<String> root = new BooleanContainer<>();
     for (int i = 0; i < input.length(); i++) {
       String n = input.substring(i, i+1);
       if (n.equals("&") && last.equals("&")) {
@@ -50,7 +50,7 @@ public class BooleanParser {
     return root;
   }
 
-  private void processOp(int i, BooleanContainer root, BooleanContainer.Op and) {
+  private void processOp(int i, BooleanContainer<String> root, BooleanContainer.Op and) {
     if (parens.isEmpty()) {
       if (root.getOp() == null)
         root.setOp(and);
@@ -62,13 +62,13 @@ public class BooleanParser {
     }
   }
 
-  private void addChild(BooleanContainer root, String token) {
+  private void addChild(BooleanContainer<String> root, String token) {
     if (skippedOp && !(token.startsWith("(") && token.endsWith(")")))
       throw new IllegalArgumentException("internal operator with imperfect parenthes: " + input);
 
-    BooleanContainer child = (token.startsWith("(") && token.endsWith(")"))
+    BooleanContainer<String> child = (token.startsWith("(") && token.endsWith(")"))
       ? parse(token.substring(1, token.length()-1))
-      : new BooleanContainer(token);
+      : new BooleanContainer<>(token);
     if (child.getValue() != null && child.getOp() == null && root.getOp() == null)
       root.setValue(child.getValue());
     else

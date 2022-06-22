@@ -12,11 +12,6 @@ public class RecordFilterMarc21 extends Marc21Filter implements RecordFilter, Se
   }
 
   @Override
-  public boolean isEmpty() {
-    return super.isEmpty();
-  }
-
-  @Override
   public boolean isAllowable(MarcRecord marcRecord) {
     if (isEmpty())
       return true;

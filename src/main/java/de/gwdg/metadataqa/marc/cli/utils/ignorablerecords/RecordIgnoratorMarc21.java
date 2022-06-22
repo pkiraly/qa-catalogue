@@ -13,11 +13,6 @@ public class RecordIgnoratorMarc21 extends Marc21Filter implements RecordIgnorat
   }
 
   @Override
-  public boolean isEmpty() {
-    return super.isEmpty();
-  }
-
-  @Override
   public boolean isIgnorable(MarcRecord marcRecord) {
     if (isEmpty())
       return false;

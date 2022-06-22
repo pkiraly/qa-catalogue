@@ -28,6 +28,14 @@ public class BooleanContainer<T> {
     return op;
   }
 
+  public boolean hasAnd() {
+    return op.equals(Op.AND);
+  }
+
+  public boolean hasOr() {
+    return op.equals(Op.OR);
+  }
+
   public void setOp(Op op) {
     this.op = op;
   }
@@ -49,7 +57,7 @@ public class BooleanContainer<T> {
     if (value != null)
       size++;
     if (children != null) {
-      for (BooleanContainer child : children) {
+      for (BooleanContainer<T> child : children) {
         size += child.size();
       }
     }

@@ -5,6 +5,11 @@ import java.util.regex.Pattern;
 
 public class PicaPathParser {
 
+  private static final Pattern TAG_PATTERN = Pattern.compile("^([012\\.][0-9\\.][0-9\\.][A-Z@\\.])");
+  private static final Pattern XTAG_PATTERN = Pattern.compile("^(2[0-9\\.][0-9\\.][A-Z@\\.]x\\d+)");
+  private static final Pattern OCCURENCE_PATTERN = Pattern.compile("^/((\\d+)-(\\d+)|(\\d{1,3})|(\\*))");
+  private static final Pattern SUBFIELDS_PATTERN = Pattern.compile("^[\\$.]?(([A-Za-z0-9]+)|(\\*))");
+
   private String path;
   private String tag;
   private String xtag;
@@ -16,10 +21,6 @@ public class PicaPathParser {
     this.path = input;
   }
 
-  private static final Pattern TAG = Pattern.compile("^([012\\.][0-9\\.][0-9\\.][A-Z@\\.])");
-  private static final Pattern XTAG = Pattern.compile("^(2[0-9\\.][0-9\\.][A-Z@\\.]x\\d+)");
-  private static final Pattern OCCURENCE = Pattern.compile("^/((\\d+)-(\\d+)|(\\d{1,3})|(\\*))");
-  private static final Pattern SUBFIELDS = Pattern.compile("^[\\$.]?(([A-Za-z0-9]+)|(\\*))");
   public static PicaPath parse(String input) {
     PicaPathParser parser = new PicaPathParser(input);
     parser.parseTag();
@@ -35,7 +36,7 @@ public class PicaPathParser {
   private void parseSubfields() {
     Matcher m;
     if (remainder != null) {
-      m = SUBFIELDS.matcher(remainder);
+      m = SUBFIELDS_PATTERN.matcher(remainder);
       if (m.find()) {
         String subfieldsRaw = m.group(1);
         Subfields.Type subfieldType = null;
@@ -55,7 +56,7 @@ public class PicaPathParser {
   private void parseOccurrence() {
     Matcher m;
     if (remainder != null) {
-      m = OCCURENCE.matcher(remainder);
+      m = OCCURENCE_PATTERN.matcher(remainder);
       if (m.find()) {
         if (m.group(2) != null) {
           occurrence = new Occurrence(Occurrence.Type.RANGE, Integer.parseInt(m.group(2)), Integer.parseInt(m.group(3)));
@@ -74,13 +75,13 @@ public class PicaPathParser {
 
   private void parseTag() {
     Matcher m = null;
-    m = XTAG.matcher(path);
+    m = XTAG_PATTERN.matcher(path);
     if (m.find()) {
       xtag = m.group(1);
       if (m.end() > path.length())
         remainder = path.substring(m.end());
     } else {
-      m = TAG.matcher(path);
+      m = TAG_PATTERN.matcher(path);
       if (m.find()) {
         tag = m.group(1);
         if (m.end() < path.length())

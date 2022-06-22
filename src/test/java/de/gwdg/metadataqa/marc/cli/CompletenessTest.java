@@ -75,28 +75,6 @@ public class CompletenessTest extends CliTestUtils {
   }
 
   @Test
-  public void testStream() {
-    Map<String, Map<String, Integer>> packages = new HashMap<>();
-    Map<String, Integer> general = new HashMap<>();
-    general.put("010", 1);
-    general.put("020", 2);
-    general.put("030", 3);
-    packages.put("general", general);
-    Map<String, Integer> specific = new HashMap<>();
-    specific.put("110", 1);
-    specific.put("120", 2);
-    specific.put("130", 3);
-    packages.put("specific", specific);
-
-    packages.forEach((a, b) -> {
-      System.err.println(a);
-      b.forEach((c, d) ->{
-        System.err.println(c + ": " + d);
-      });
-    });
-  }
-
-  @Test
   public void testSimple() {
     Map<Integer, String> namesMap = new HashMap<>();
     namesMap.put(1, "Larry");

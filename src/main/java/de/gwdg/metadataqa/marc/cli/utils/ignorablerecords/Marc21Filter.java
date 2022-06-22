@@ -49,19 +49,25 @@ public class Marc21Filter {
       List<DataField> recordFields = marcRecord.getDatafield(condition.getTag());
       if (recordFields == null || recordFields.isEmpty())
         continue;
+      boolean passed = metCondition(condition, recordFields);
+      if (passed)
+        return true;
+    }
+    return false;
+  }
 
-      for (DataField recordField : recordFields) {
-        MarcSubfield subfieldCond = condition.getSubfields().get(0);
-        String code = subfieldCond.getCode();
-        List<MarcSubfield> recordSubfields = recordField.getSubfield(code);
+  private boolean metCondition(DataField condition, List<DataField> recordFields) {
+    for (DataField recordField : recordFields) {
+      MarcSubfield subfieldCond = condition.getSubfields().get(0);
+      String code = subfieldCond.getCode();
+      List<MarcSubfield> recordSubfields = recordField.getSubfield(code);
 
-        if (recordSubfields == null || recordSubfields.isEmpty())
-          continue;
+      if (recordSubfields == null || recordSubfields.isEmpty())
+        continue;
 
-        for (MarcSubfield recordSubfield : recordSubfields)
-          if (recordSubfield.getValue().equals(subfieldCond.getValue()))
-            return true;
-      }
+      for (MarcSubfield recordSubfield : recordSubfields)
+        if (recordSubfield.getValue().equals(subfieldCond.getValue()))
+          return true;
     }
     return false;
   }

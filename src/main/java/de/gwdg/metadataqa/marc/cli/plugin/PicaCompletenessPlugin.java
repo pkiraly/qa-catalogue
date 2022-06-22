@@ -63,7 +63,7 @@ public class PicaCompletenessPlugin implements CompletenessPlugin, Serializable 
     String fieldLabel = "";
     String subfieldLabel = "";
     PicaFieldDefinition fieldDefinition = picaSchema.get(path.getField());
-    TagCategory category = TagCategory.other;
+    TagCategory category = TagCategory.OTHER;
     if (fieldDefinition != null) {
       category = getTagCategory(fieldDefinition);
       fieldLabel = fieldDefinition.getLabel();
@@ -81,16 +81,16 @@ public class PicaCompletenessPlugin implements CompletenessPlugin, Serializable 
     if (field.getDefinition() != null) {
       return getTagCategory((PicaFieldDefinition) field.getDefinition()).getPackageName();
     }
-    return TagCategory.other.getPackageName();
+    return TagCategory.OTHER.getPackageName();
   }
 
   private TagCategory getTagCategory(PicaFieldDefinition field) {
     switch (field.getTag().substring(0, 1)) {
-      case "0": return TagCategory.pica0;
-      case "1": return TagCategory.pica1;
-      case "2": return TagCategory.pica2;
+      case "0": return TagCategory.PICA_0;
+      case "1": return TagCategory.PICA_1;
+      case "2": return TagCategory.PICA_2;
       default:
-        return TagCategory.other;
+        return TagCategory.OTHER;
     }
   }
 

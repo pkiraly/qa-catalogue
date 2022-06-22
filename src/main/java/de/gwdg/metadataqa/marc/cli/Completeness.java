@@ -149,7 +149,7 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
         count(marcPath, elementCardinality.get(documentType));
         count(marcPath, elementCardinality.get("all"));
         count(marcPath, recordFrequency);
-        count(TagCategory.tags00x.getPackageName(), recordPackageCounter);
+        count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
       }
     }
   }
@@ -161,7 +161,7 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
         count(marcPath, elementCardinality.get(documentType));
         count(marcPath, elementCardinality.get("all"));
         count(marcPath, recordFrequency);
-        count(TagCategory.tags00x.getPackageName(), recordPackageCounter);
+        count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
       }
     }
   }
@@ -174,7 +174,7 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
           count(marcPath, elementCardinality.get(documentType));
           count(marcPath, elementCardinality.get("all"));
           count(marcPath, recordFrequency);
-          count(TagCategory.tags00x.getPackageName(), recordPackageCounter);
+          count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
         }
       }
     }
@@ -227,12 +227,12 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
         packageName = plugin.getPackageName(field);
         if (StringUtils.isBlank(packageName)) {
           logger.warning(String.format("%s has no package. /%s", field, field.getDefinition().getClass()));
-          packageName = TagCategory.other.getPackageName();
+          packageName = TagCategory.OTHER.getPackageName();
         }
         packageNameCache.put(field.getDefinition(), packageName);
       }
     } else {
-      packageName = TagCategory.other.getPackageName();
+      packageName = TagCategory.OTHER.getPackageName();
     }
     return packageName;
   }
@@ -406,8 +406,8 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
     }
 
     String marcPathLabel = marcPath.replace("!ind", "ind").replaceAll("\\|(\\d)$", "$1");
-    int packageId = TagCategory.other.getId();
-    String packageLabel = TagCategory.other.getLabel();
+    int packageId = TagCategory.OTHER.getId();
+    String packageLabel = TagCategory.OTHER.getLabel();
     String tagLabel = "";
     String subfieldLabel = "";
     TagHierarchy tagHierarchy = plugin.getTagHierarchy(marcPathLabel);

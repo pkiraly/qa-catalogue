@@ -69,7 +69,7 @@ public class TagHierarchy {
       ControlfieldPositionDefinition positionDefinition = definition.getPositionDefinitionById(path);
       if (positionDefinition != null) {
         String subfieldLabel = positionDefinition.getLabel();
-        return new TagHierarchy(TagCategory.tags00x, definition.getLabel(), subfieldLabel);
+        return new TagHierarchy(TagCategory.TAGS_00X, definition.getLabel(), subfieldLabel);
       }
     } else {
       matcher = controlFieldPattern.matcher(path);
@@ -85,7 +85,7 @@ public class TagHierarchy {
           if (StringUtils.isNotBlank(position)) {
             subfieldLabel = position;
           }
-          return new TagHierarchy(TagCategory.tags00x, tagLabel, subfieldLabel);
+          return new TagHierarchy(TagCategory.TAGS_00X, tagLabel, subfieldLabel);
         }
       } else {
         matcher = controlFieldIdPattern.matcher(path);
@@ -102,7 +102,7 @@ public class TagHierarchy {
               ControlfieldPositionDefinition positionDefinition = fieldDefinition.getPositionDefinitionById(path);
               if (positionDefinition != null) {
                 String subfieldLabel = positionDefinition.getLabel();
-                return new TagHierarchy(TagCategory.tags00x, tagLabel, subfieldLabel);
+                return new TagHierarchy(TagCategory.TAGS_00X, tagLabel, subfieldLabel);
               }
             }
           }

@@ -6,8 +6,6 @@ import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.utils.TagHierarchy;
 
-import java.util.regex.Pattern;
-
 public class Marc21CompletenessPlugin implements CompletenessPlugin {
   private final CompletenessParameters parameters;
 

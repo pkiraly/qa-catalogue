@@ -9,6 +9,7 @@ public class PicaPathParser {
   private static final Pattern XTAG_PATTERN = Pattern.compile("^(2[0-9\\.][0-9\\.][A-Z@\\.]x\\d+)");
   private static final Pattern OCCURENCE_PATTERN = Pattern.compile("^/((\\d+)-(\\d+)|(\\d{1,3})|(\\*))");
   private static final Pattern SUBFIELDS_PATTERN = Pattern.compile("^[\\$.]?(([A-Za-z0-9]+)|(\\*))");
+  private static final String errorMessage = "The input does not fit to rules: '%s'";
 
   private String path;
   private String tag;
@@ -28,7 +29,7 @@ public class PicaPathParser {
     parser.parseSubfields();
 
     if (parser.remainder != null)
-      throw new IllegalArgumentException(String.format("The input does not fit to rules: '%s'", input));
+      throw new IllegalArgumentException(String.format(errorMessage, input));
 
     return new PicaPath(parser.path, parser.tag, parser.xtag, parser.occurrence, parser.subfields);
   }
@@ -46,7 +47,7 @@ public class PicaPathParser {
           subfieldType = Subfields.Type.ALL;
         }
         if (subfieldType == null)
-          throw new IllegalArgumentException(String.format("The input does not fit to rules: '%s'", path));
+          throw new IllegalArgumentException(String.format(errorMessage, path));
         subfields = new Subfields(subfieldType, subfieldsRaw);
         remainder = m.end() < remainder.length() ? remainder.substring(m.end()) : null;
       }
@@ -65,7 +66,7 @@ public class PicaPathParser {
         } else if (m.group(5) != null) {
           occurrence = new Occurrence(Occurrence.Type.ALL, null, null);
         } else {
-          throw new IllegalArgumentException(String.format("The input does not fit to rules: '%s'", path));
+          throw new IllegalArgumentException(String.format(errorMessage, path));
         }
 
         remainder = m.end() < remainder.length() ? remainder.substring(m.end()) : null;
@@ -87,7 +88,7 @@ public class PicaPathParser {
         if (m.end() < path.length())
           remainder = path.substring(m.end());
       } else {
-        throw new IllegalArgumentException(String.format("The input does not fit to rules: '%s'", path));
+        throw new IllegalArgumentException(String.format(errorMessage, path));
       }
     }
   }

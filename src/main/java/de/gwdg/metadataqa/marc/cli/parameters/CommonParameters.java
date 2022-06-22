@@ -19,6 +19,8 @@ import java.io.Serializable;
 
 public class CommonParameters implements Serializable {
 
+  private static final long serialVersionUID = -4760615880678251867L;
+
   protected String[] args;
   public static final String DEFAULT_OUTPUT_DIR = ".";
 

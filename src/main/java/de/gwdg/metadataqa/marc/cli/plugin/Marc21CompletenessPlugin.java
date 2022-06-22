@@ -6,7 +6,11 @@ import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.utils.TagHierarchy;
 
-public class Marc21CompletenessPlugin implements CompletenessPlugin {
+import java.io.Serializable;
+
+public class Marc21CompletenessPlugin implements CompletenessPlugin, Serializable {
+  private static final long serialVersionUID = -2691451953481126250L;
+
   private final CompletenessParameters parameters;
 
   public Marc21CompletenessPlugin(CompletenessParameters parameters) {

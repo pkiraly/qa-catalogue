@@ -17,8 +17,8 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public class PicaCompletenessPlugin implements CompletenessPlugin, Serializable {
-
   private static final long serialVersionUID = 2002980948561227741L;
+
   private final CompletenessParameters parameters;
   private final String field;
   private final String subfield;

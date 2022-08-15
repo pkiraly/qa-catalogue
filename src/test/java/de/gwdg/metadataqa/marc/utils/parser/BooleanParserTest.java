@@ -39,4 +39,14 @@ public class BooleanParserTest {
       root.toString());
     assertEquals(1, root.size());
   }
+
+  @Test
+  public void parse_ex3() {
+    String input = "002@.0 !~ \"^L\"";
+    BooleanContainer<String> root = BooleanParser.parse(input);
+    assertNotNull(root);
+    assertEquals("BooleanContainer{value='002@.0 !~ \"^L\"'}",
+      root.toString());
+    assertEquals(1, root.size());
+  }
 }

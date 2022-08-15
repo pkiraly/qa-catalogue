@@ -16,6 +16,7 @@ public class CriteriumPica {
   private Pattern pattern;
 
   public CriteriumPica(PicaPath path, Operator operator, String value) {
+    System.err.printf("path: %s, operator: %s, value: %s\n", path, operator, value);
     this.path = path;
     this.operator = operator;
     this.value = value;

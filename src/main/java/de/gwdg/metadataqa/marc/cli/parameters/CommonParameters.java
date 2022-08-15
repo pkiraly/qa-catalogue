@@ -52,7 +52,7 @@ public class CommonParameters implements Serializable {
   protected CommandLine cmd;
   private boolean isOptionSet = false;
   private AlephseqLine.TYPE alephseqLineType;
-  private String picaIdField = "002@$0";
+  private String picaIdField = "003@$0";
   private String picaSubfieldSeparator = "$";
   private String picaSchemaFile;
   private String picaRecordTypeField = "002@$0";

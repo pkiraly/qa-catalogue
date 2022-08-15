@@ -181,7 +181,7 @@ public class PicaReaderTest {
   public void picaReader() throws IOException, URISyntaxException {
     Map<String, PicaFieldDefinition> schema = PicaSchemaReader.create(getPath("pica/k10plus.json"));
     String recordFile = FileUtils.getPath("pica/picaplus-sample.txt").toAbsolutePath().toString();
-    MarcReader reader = new PicaReader(recordFile).setSubfieldSeparator("ƒ");
+    MarcReader reader = new PicaReader(recordFile).setIdField("003@ƒ0").setSubfieldSeparator("ƒ");
     int i = 0;
     MarcRecord marcRecord = null;
     while (reader.hasNext()) {

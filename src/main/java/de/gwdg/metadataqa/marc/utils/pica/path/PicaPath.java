@@ -37,4 +37,15 @@ public class PicaPath {
   public Subfields getSubfields() {
     return subfields;
   }
+
+  @Override
+  public String toString() {
+    return "PicaPath{" +
+      "path='" + path + '\'' +
+      ", tag='" + tag + '\'' +
+      ", xtag='" + xtag + '\'' +
+      ", occurrence=" + occurrence +
+      ", subfields=" + subfields +
+      '}';
+  }
 }

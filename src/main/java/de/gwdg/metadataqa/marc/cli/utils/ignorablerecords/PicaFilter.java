@@ -13,7 +13,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PicaFilter {
-  protected static final Pattern CRITERIUM = Pattern.compile("^([012\\.][A-Za-z0-9@\\./\\$\\*\\-]+?)(\\s*(==|!=|=~|!~|=\\^|=\\$)\\s*'([^']+)'|\\?)$");
+  protected static final Pattern CRITERIUM = Pattern.compile(
+    "^([012\\.][A-Za-z0-9@\\./\\$\\*\\-]+?)(\\s*(==|!=|=~|!~|=\\^|=\\$)\\s*(?:'([^']+)'|\"([^\"]+)\")|\\?)$"
+  );
 
   protected List<CriteriumPica> criteria = new ArrayList<>();
   protected BooleanContainer<CriteriumPica> booleanCriteria;
@@ -42,13 +44,16 @@ public class PicaFilter {
     Matcher m = CRITERIUM.matcher(rawCriterium);
     if (m.matches()) {
       String rawPath = m.group(1);
-      String rawOp = null;
+      String rawOp;
       String value = null;
       if (m.group(2).equals("?")) {
         rawOp = m.group(2);
       } else {
         rawOp = m.group(3);
-        value = m.group(4);
+        if (m.group(4) != null)
+          value = m.group(4);
+        else if (m.group(5) != null)
+          value = m.group(5);
       }
       PicaPath p = PicaPathParser.parse(rawPath);
       Operator op = Operator.byCode(rawOp);

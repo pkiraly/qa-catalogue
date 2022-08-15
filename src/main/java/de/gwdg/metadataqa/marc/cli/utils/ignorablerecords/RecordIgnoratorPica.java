@@ -20,9 +20,8 @@ public class RecordIgnoratorPica extends PicaFilter implements RecordIgnorator, 
   @Override
   public boolean isIgnorable(MarcRecord marcRecord) {
     if (isEmpty())
-      return true;
+      return false;
 
     return metCriteria(marcRecord, booleanCriteria);
   }
-
 }

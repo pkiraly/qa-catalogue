@@ -25,7 +25,7 @@ public class PicaReader implements MarcReader {
   private boolean nextIsConsumed = false;
   private int lineNumber = 0;
   private List<PicaLine> lines = new ArrayList<>();
-  private String idField;
+  private String idField = "003@$0";
   private String subfieldSeparator = "$";
   private String idTag = "003@";
   private String idCode = "0";

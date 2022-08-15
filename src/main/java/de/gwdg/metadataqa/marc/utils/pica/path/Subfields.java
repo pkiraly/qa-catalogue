@@ -31,4 +31,13 @@ public class Subfields {
   public List<String> getCodes() {
     return codes;
   }
+
+  @Override
+  public String toString() {
+    return "Subfields{" +
+      "type=" + type +
+      ", input='" + input + '\'' +
+      ", codes=" + codes +
+      '}';
+  }
 }

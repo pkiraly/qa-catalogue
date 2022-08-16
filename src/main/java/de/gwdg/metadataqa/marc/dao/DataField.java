@@ -335,13 +335,13 @@ public class DataField implements Extractable, Validatable, Serializable {
     );
     keyGenerator.setMarcVersion(marcVersion);
 
-    boolean hasInd1def = (definition != null && definition.getInd1().exists());
+    boolean hasInd1def = (definition != null && definition.getInd1() != null && definition.getInd1().exists());
     if (hasInd1def || !getInd1().equals(" ")) {
       String value = hasInd1def ? resolveInd1() : getInd1();
       pairs.put(keyGenerator.forInd1(), Arrays.asList(value));
     }
 
-    boolean hasInd2def = (definition != null && definition.getInd2().exists());
+    boolean hasInd2def = (definition != null && definition.getInd2() != null && definition.getInd2().exists());
     if (hasInd2def || !getInd2().equals(" ")) {
       String value = hasInd2def ? resolveInd2() : getInd2();
       pairs.put(keyGenerator.forInd2(), Arrays.asList(value));

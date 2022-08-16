@@ -175,7 +175,10 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
     }
   }
 
-  private void processPositionalControlFields(MarcRecord marcRecord, Map<String, Integer> recordFrequency, Map<String, Integer> recordPackageCounter, String documentType) {
+  private void processPositionalControlFields(MarcRecord marcRecord,
+                                              Map<String, Integer> recordFrequency,
+                                              Map<String, Integer> recordPackageCounter,
+                                              String documentType) {
     for (MarcPositionalControlField field : marcRecord.getPositionalControlfields()) {
       if (field != null) {
         for (ControlValue position : field.getValuesList()) {
@@ -189,7 +192,10 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
     }
   }
 
-  private void processDataFields(MarcRecord marcRecord, Map<String, Integer> recordFrequency, Map<String, Integer> recordPackageCounter, String documentType) {
+  private void processDataFields(MarcRecord marcRecord,
+                                 Map<String, Integer> recordFrequency,
+                                 Map<String, Integer> recordPackageCounter,
+                                 String documentType) {
     for (DataField field : marcRecord.getDatafields()) {
       if (parameters.getIgnorableFields().contains(field.getTag()))
         continue;

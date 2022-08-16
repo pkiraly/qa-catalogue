@@ -345,8 +345,10 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     if (mainKeyValuePairs == null) {
       mainKeyValuePairs = new LinkedHashMap<>();
 
-      mainKeyValuePairs.put("type", Arrays.asList(getType().getValue()));
-      mainKeyValuePairs.putAll(leader.getKeyValuePairs(type));
+      if (!schemaType.equals(SchemaType.PICA)) {
+        mainKeyValuePairs.put("type", Arrays.asList(getType().getValue()));
+        mainKeyValuePairs.putAll(leader.getKeyValuePairs(type));
+      }
 
       for (MarcControlField controlField : getControlfields())
         if (controlField != null)
@@ -395,7 +397,8 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     ObjectMapper mapper = new ObjectMapper();
 
     Map<String, Object> map = new LinkedHashMap<>();
-    map.put("leader", leader.getContent());
+    if (!schemaType.equals(SchemaType.PICA))
+      map.put("leader", leader.getContent());
 
     for (MarcControlField field : getControlfields())
       if (field != null)

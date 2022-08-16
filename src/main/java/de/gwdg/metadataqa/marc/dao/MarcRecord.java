@@ -36,6 +36,13 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   private static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
   private static final Pattern positionalPattern = Pattern.compile("^(Leader|00[678])/(.*)$");
   private static final List<String> simpleControlTags = Arrays.asList("001", "003", "005");
+  private static final List<String> MARC21_SUBJECT_TAGS = Arrays.asList(
+    "052", "055", "072", "080", "082", "083", "084", "085", "086",
+    "600", "610", "611", "630", "647", "648", "650", "651",
+    "653", "654", "655", "656", "657", "658", "662"
+    );
+  public static final List<String> PICA_SUBJECT_TAGS = Arrays.asList("045A", "045B", "045F", "045R");
+
   private static final Map<String, Boolean> undefinedTags = new HashMap<>();
 
   private Leader leader;
@@ -745,11 +752,15 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
 
   public List<DataField> getSubjects() {
     List<DataField> subjects = new ArrayList<>();
-    List<String> tags = Arrays.asList(
-      "052", "055", "072", "080", "082", "083", "084", "085", "086",
-      "600", "610", "611", "630", "647", "648", "650", "651",
-      "653", "654", "655", "656", "657", "658", "662"
-    );
+    List<String> tags;
+    switch (schemaType) {
+      case PICA:
+        tags = PICA_SUBJECT_TAGS; break;
+      case MARC21:
+      default:
+        tags = MARC21_SUBJECT_TAGS; break;
+    }
+    logger.info("tags: " + tags);
     for (String tag : tags) {
       List<DataField> fields = getDatafield(tag);
       if (fields != null && !fields.isEmpty())

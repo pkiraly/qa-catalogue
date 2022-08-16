@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.general.indexer.subject.ClassificationSchemes;
 
 import java.util.ArrayList;
@@ -71,12 +72,19 @@ public class ClassificationAnalyzer {
     "653"  // Index Term - Uncontrolled
   );
 
-  private static final List<FieldWithScheme> fieldsWithScheme = Arrays.asList(
+  private static final List<FieldWithScheme> MARC21_FIELD_WITH_SCHEMES = Arrays.asList(
     new FieldWithScheme("080", "Universal Decimal Classification"),
     new FieldWithScheme("082", "Dewey Decimal Classification"),
     new FieldWithScheme("083", "Dewey Decimal Classification"),
     new FieldWithScheme("085", "Dewey Decimal Classification")
     // new FieldWithScheme("086", "Government Document Classification");
+  );
+
+  private static final List<FieldWithScheme> PICA_FIELDS_WITH_SCHEME = Arrays.asList(
+    new FieldWithScheme("045A", "Library of Congress Classification"),
+    new FieldWithScheme("045B", "Other scheme"),
+    new FieldWithScheme("045F", "Dewey Decimal Classification"),
+    new FieldWithScheme("045R", "Regensburger Verbundklassifikation")
   );
 
   public ClassificationAnalyzer(MarcRecord marcRecord, ClassificationStatistics statistics) {
@@ -88,11 +96,15 @@ public class ClassificationAnalyzer {
     var total = 0;
     schemasInRecord = new ArrayList<>();
 
-    total = processFieldsWithIndicator1AndSubfield2(total);
-    total = processFieldsWithIndicator2AndSubfield2(total);
-    total = processFieldsWithSubfield2(total);
-    total = processFieldsWithoutSource(total);
-    total = processFieldsWithScheme(total);
+    if (marcRecord.getSchemaType().equals(SchemaType.MARC21)) {
+      total = processFieldsWithIndicator1AndSubfield2(total);
+      total = processFieldsWithIndicator2AndSubfield2(total);
+      total = processFieldsWithSubfield2(total);
+      total = processFieldsWithoutSource(total);
+      total = processFieldsWithScheme(total, MARC21_FIELD_WITH_SCHEMES);
+    } else if (marcRecord.getSchemaType().equals(SchemaType.PICA)) {
+      total = processFieldsWithScheme(total, PICA_FIELDS_WITH_SCHEME);
+    }
 
     increaseCounters(total);
 
@@ -114,7 +126,7 @@ public class ClassificationAnalyzer {
       count(collocation, statistics.getCollocationHistogram());
   }
 
-  private int processFieldsWithScheme(int total) {
+  private int processFieldsWithScheme(int total, List<FieldWithScheme> fieldsWithScheme) {
     for (FieldWithScheme fieldWithScheme : fieldsWithScheme) {
       var count = processFieldWithScheme(marcRecord, fieldWithScheme);
       if (count > 0)

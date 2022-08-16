@@ -54,6 +54,9 @@ public class ClassificationSchemes {
     schemes.put("Chronological term", "chronological");
     schemes.put("Geographic name", "geographic");
     schemes.put("Genre/form term", "genre");
+
+    // PICA
+    schemes.put("Regensburger Verbundklassifikation", "rvk");
   }
 
   public String resolve(String key) {

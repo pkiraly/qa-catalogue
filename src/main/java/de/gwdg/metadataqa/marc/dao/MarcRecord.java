@@ -446,7 +446,8 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
                           IgnorableFields ignorableFields) {
     validationErrors = new ArrayList<>();
     boolean isValidRecord = true;
-    isValidRecord = validateLeader(marcVersion, isValidRecord);
+    if (!schemaType.equals(SchemaType.PICA))
+      isValidRecord = validateLeader(marcVersion, isValidRecord);
     isValidRecord = validateUnhandledTags(isSummary, isValidRecord, ignorableFields);
     isValidRecord = validateControlfields(marcVersion, isValidRecord);
     isValidRecord = validateDatafields(marcVersion, isValidRecord, ignorableFields);

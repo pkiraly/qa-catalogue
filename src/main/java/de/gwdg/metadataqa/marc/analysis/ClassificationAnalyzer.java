@@ -103,7 +103,7 @@ public class ClassificationAnalyzer {
       total = processFieldsWithoutSource(total);
       total = processFieldsWithScheme(total, MARC21_FIELD_WITH_SCHEMES);
     } else if (marcRecord.getSchemaType().equals(SchemaType.PICA)) {
-      total = processFieldsWithScheme(total, PICA_FIELDS_WITH_SCHEME);
+      total = processFieldsWithSchemePica(total, PICA_FIELDS_WITH_SCHEME);
     }
 
     increaseCounters(total);
@@ -129,6 +129,15 @@ public class ClassificationAnalyzer {
   private int processFieldsWithScheme(int total, List<FieldWithScheme> fieldsWithScheme) {
     for (FieldWithScheme fieldWithScheme : fieldsWithScheme) {
       var count = processFieldWithScheme(marcRecord, fieldWithScheme);
+      if (count > 0)
+        total += count;
+    }
+    return total;
+  }
+
+  private int processFieldsWithSchemePica(int total, List<FieldWithScheme> fieldsWithScheme) {
+    for (FieldWithScheme fieldWithScheme : fieldsWithScheme) {
+      var count = processFieldWithSchemePica(marcRecord, fieldWithScheme);
       if (count > 0)
         total += count;
     }
@@ -200,6 +209,45 @@ public class ClassificationAnalyzer {
         var scheme = fieldEntry.getSchemaName();
         var currentSchema = new Schema(
           tag, firstSubfield, classificationSchemes.resolve(scheme), scheme);
+        schemas.add(currentSchema);
+        updateSchemaSubfieldStatistics(field, currentSchema);
+        count++;
+      } else {
+        logger.severe(String.format("undetected subfield in record %s %s", marcRecord.getId(), field.toString()));
+      }
+    }
+
+    registerSchemas(schemas);
+
+    return count;
+  }
+
+  private int processFieldWithSchemePica(MarcRecord marcRecord,
+                                         FieldWithScheme fieldEntry) {
+    var count = 0;
+    final String tag = fieldEntry.getTag();
+    if (!marcRecord.hasDatafield(tag))
+      return count;
+
+    List<DataField> fields = marcRecord.getDatafield(tag);
+    List<Schema> schemas = new ArrayList<>();
+    for (DataField field : fields) {
+      String firstSubfield = null;
+      // String alt = null;
+      if (field.getSubfield("a") != null) {
+        firstSubfield = "$a";
+      } else {
+        for (MarcSubfield subfield : field.getSubfields()) {
+          String code = subfield.getCode();
+          if (!code.equals("A")) {
+            firstSubfield = "$" + code;
+            break;
+          }
+        }
+      }
+      if (firstSubfield != null) {
+        var scheme = fieldEntry.getSchemaName();
+        var currentSchema = new Schema(tag, firstSubfield, classificationSchemes.resolve(scheme), scheme);
         schemas.add(currentSchema);
         updateSchemaSubfieldStatistics(field, currentSchema);
         count++;

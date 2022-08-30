@@ -27,6 +27,8 @@ import de.gwdg.metadataqa.marc.utils.alephseq.MarcMakerLine;
 import de.gwdg.metadataqa.marc.utils.alephseq.MarclineLine;
 import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
 import de.gwdg.metadataqa.marc.utils.pica.PicaLine;
+import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
+import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSubfield;
 import net.minidev.json.JSONArray;
 import org.marc4j.marc.ControlField;
@@ -164,13 +166,13 @@ public class MarcFactory {
     return marcRecord;
   }
 
-  public static MarcRecord createPicaFromMarc4j(Record marc4jRecord, Map<String, PicaFieldDefinition> schemaDirectory) {
+  public static MarcRecord createPicaFromMarc4j(Record marc4jRecord, PicaSchemaManager picaSchemaManager) {
     var marcRecord = new MarcRecord();
     marcRecord.setSchemaType(SchemaType.PICA);
 
     importMarc4jControlFields(marc4jRecord, marcRecord, null);
 
-    importMarc4jDataFields(marc4jRecord, marcRecord, schemaDirectory);
+    importMarc4jDataFields(marc4jRecord, marcRecord, picaSchemaManager);
 
     return marcRecord;
   }
@@ -220,10 +222,11 @@ public class MarcFactory {
 
   private static void importMarc4jDataFields(Record marc4jRecord,
                                              MarcRecord marcRecord,
-                                             Map<String, PicaFieldDefinition> schemaDirectory) {
+                                             PicaSchemaManager schema) {
     for (org.marc4j.marc.DataField dataField : marc4jRecord.getDataFields()) {
-      var definition = (schemaDirectory.containsKey(dataField.getTag())) ? schemaDirectory.get(dataField.getTag()) : null;
+      var definition = schema.lookup(dataField.getTag());
       if (definition == null) {
+        System.err.println("getTag: " + dataField.getTag() + " ----");
         marcRecord.addUnhandledTags(dataField.getTag());
       }
       var field = extractPicaDataField(dataField, definition, MarcVersion.MARC21);
@@ -458,11 +461,15 @@ public class MarcFactory {
     return marc4jRecord;
   }
 
-  public static Record createRecordFromPica(List<PicaLine> lines, String idField, String idCode) {
+  public static Record createRecordFromPica(List<PicaLine> lines,
+                                            String idField,
+                                            String idCode,
+                                            PicaSchemaManager schema) {
     Record marc4jRecord = new RecordImpl();
     String id = null;
     for (PicaLine line : lines) {
-      DataFieldImpl df = new DataFieldImpl(line.getTag(), ' ', ' ');
+      // String tag = schema.containsKey(line.getQualifiedTag()) ? line.getQualifiedTag() : line.getTag();
+      DataFieldImpl df = new DataFieldImpl(line.getQualifiedTag(), ' ', ' ');
       for (PicaSubfield picaSubfield : line.getSubfields()) {
         df.addSubfield(new SubfieldImpl(picaSubfield.getCode().charAt(0), picaSubfield.getValue()));
         if (line.getTag().equals(idField) && picaSubfield.getCode().equals(idCode))

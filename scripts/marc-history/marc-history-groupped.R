@@ -11,7 +11,7 @@ if (length(args) == 0) {
   # output dir
   output_dir <- args[1]
 }
-# output_dir <- '/home/kiru/Documents/marc21/_output/K10plus'
+output_dir <- '/home/kiru/Documents/marc21/_output/k10plus_pica'
 
 file <- 'marc-history-groupped.csv'
 path <- paste0(output_dir, '/', file)
@@ -30,6 +30,14 @@ input$count <- as.integer(input$count)
 
 original_count <- dim(input)[1]
 print(paste0("original_count: ", original_count))
+
+d1 <- input %>%
+  # filter(str_length(record) != 6)
+  # filter(str_length(publication) != 4)
+  mutate(publication = substr(publication, 1, 4)) %>% 
+  mutate(publication2 = as.Date(parse_date_time(publication, "y")))
+  
+print(d1)
 
 data <- input %>%
   filter(str_length(record) == 6) %>%
@@ -51,6 +59,7 @@ data <- input %>%
   filter(!is.na(cat_year))
 
 print("data done")
+print(dim(data))
 
 filtered_count <- dim(data)[1]
 print(paste0("filtered_count: ", filtered_count))

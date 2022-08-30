@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc;
 
+import com.opencsv.CSVWriter;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
@@ -7,7 +8,9 @@ import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -93,7 +96,9 @@ public class Utils {
 
   public static Object quote(Object value) {
     if (value instanceof String) {
-      return '"' + ((String) value).replace("\\", "\\\\") + '"';
+      return '"' + ((String) value).replace("\\", "\\\\")
+                                   .replace("\"", "\\\"")
+                                   .replace("\n", "\\n") + '"';
     }
     return value;
   }

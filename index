@@ -63,6 +63,10 @@ defaultRecordType=BOOKS
 marcVersion=MARC21
 limit=""
 DELETE=1
+ignorableRecords=""
+marcxml=""
+alephseq=""
+trimId=""
 defaultEncoding=""
 alephseqLineType=""
 schemaType=""
@@ -95,8 +99,8 @@ while true ; do
   esac
 done
 
-echo "limit: $limit"
-echo "defaultEncoding: $defaultEncoding"
+# echo "limit: $limit"
+# echo "defaultEncoding: $defaultEncoding"
 
 CORE=${DB}_dev
 

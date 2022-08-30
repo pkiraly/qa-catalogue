@@ -5,7 +5,10 @@ import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.FormatterParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
+import de.gwdg.metadataqa.marc.utils.SchemaSpec;
 import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
+import de.gwdg.metadataqa.marc.utils.pica.path.PicaSpec;
 import org.apache.commons.cli.*;
 import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.Record;
@@ -15,8 +18,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -82,8 +88,8 @@ public class Formatter implements BibliographicInputProcessor {
       List<String> values = new ArrayList<>();
       if (parameters.withId())
         values.add("id");
-      for (MarcSpec marcSpec : parameters.getSelector()) {
-        values.add(marcSpec.encode());
+      for (SchemaSpec spec : parameters.getSelector()) {
+        values.add(spec.encode());
       }
       // System.out.println(StringUtils.join(values, parameters.getSeparator()));
       try {
@@ -133,9 +139,27 @@ public class Formatter implements BibliographicInputProcessor {
       List<String> values = new ArrayList<>();
       if (parameters.withId())
         values.add(marcRecord.getId());
-      for (MarcSpec marcSpec : parameters.getSelector()) {
-        List<String> results = marcRecord.select(marcSpec);
-        values.add(results.isEmpty() ? "" : StringUtils.join(results, "||"));
+      if (parameters.getSchemaType().equals(SchemaType.MARC21)) {
+        for (SchemaSpec marcSpec : parameters.getSelector()) {
+          List<String> results = marcRecord.select((MarcSpec) marcSpec);
+          values.add(results.isEmpty() ? "" : StringUtils.join(results, "||"));
+        }
+      } else if (parameters.getSchemaType().equals(SchemaType.PICA)) {
+        for (SchemaSpec marcSpec : parameters.getSelector()) {
+          PicaSpec spec = (PicaSpec) marcSpec;
+          List<String> results = marcRecord.select(spec.getPath());
+          if (!results.isEmpty() && spec.getFunction() != null) {
+            List<String> _results = new ArrayList<>();
+            for (String result : results) {
+              switch (spec.getFunction()) {
+                case "extractPicaDate": _results.add(extractPicaDate(result)); break;
+                default: break;
+              }
+            }
+            results = _results;
+          }
+          values.add(results.isEmpty() ? "" : StringUtils.join(results, "||"));
+        }
       }
       // System.out.println(StringUtils.join(values, parameters.getSeparator()));
       try {
@@ -165,5 +189,14 @@ public class Formatter implements BibliographicInputProcessor {
   @Override
   public boolean readyToProcess() {
     return readyToProcess;
+  }
+
+  public static String extractPicaDate(String dateInString) {
+    String[] parts1 = dateInString.split(":", 2);
+    String[] dateParts = parts1[1].split("-");
+    return dateParts[2] + dateParts[1] + dateParts[0];
+    // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yy", Locale.ENGLISH);
+    // LocalDate dateTime = LocalDate.parse(dateInString, formatter);
+    // return dateTime;
   }
 }

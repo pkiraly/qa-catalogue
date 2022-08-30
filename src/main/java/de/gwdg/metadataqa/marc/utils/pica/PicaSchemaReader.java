@@ -20,6 +20,7 @@ public class PicaSchemaReader {
 
   private JSONParser parser = new JSONParser(JSONParser.MODE_RFC4627);
   private Map<String, PicaFieldDefinition> map = new HashMap<>();
+  private PicaSchemaManager schema = new PicaSchemaManager();
 
   private PicaSchemaReader(String fileName) {
     try {
@@ -34,22 +35,33 @@ public class PicaSchemaReader {
     return reader.map;
   }
 
+  public static PicaSchemaManager createSchema(String filename) {
+    PicaSchemaReader reader = new PicaSchemaReader(filename);
+    return reader.getSchema();
+  }
+
   private void readSchema(String fileName) throws IOException, ParseException, URISyntaxException {
     // Path tagsFile = FileUtils.getPath(fileName);
     Object obj = parser.parse(new FileReader(new File(fileName)));
     JSONObject jsonObject = (JSONObject) obj;
     JSONObject fields = (JSONObject) jsonObject.get("fields");
-    for (String name : fields.keySet()) {
-      JSONObject field = (JSONObject) fields.get(name);
+    for (String id : fields.keySet()) {
+      JSONObject field = (JSONObject) fields.get(id);
       PicaTagDefinition tag = new PicaTagDefinition(
-        (String) field.get("pica3"),
-        name,
-        (boolean) field.get("repeatable"),
-        false,
-        (String) field.get("label")
+        (String) field.get("pica3"),         // pica3
+        (String) field.get("tag"),           // picaplus
+        (boolean) field.get("repeatable"),   // repeatable
+        false,                               // sheet
+        (String) field.get("label")          // label
       );
+      tag.setId(id);
       tag.setDescriptionUrl((String) field.get("url"));
       tag.setModified((String) field.get("modified"));
+      tag.setOccurrence((String) field.get("occurrence"));
+      tag.setCounter((String) field.get("counter"));
+      if (tag.getCounter() != null && tag.getOccurrence() != null) {
+        System.err.println(id + " has both");
+      }
       processSubfields(field, tag);
       PicaFieldDefinition definition = new PicaFieldDefinition(tag);
       addTag(definition);
@@ -109,14 +121,21 @@ public class PicaSchemaReader {
   }
 
   private void addTag(PicaFieldDefinition definition) {
+    /*
     String tag = definition.getTag();
     if (map.containsKey(tag)) {
-      System.err.println("Tag is already defined! " + definition.getTag() + " " + map.get(tag));
+      System.err.println("xxx Tag is already defined! " + definition.getTag() + " " + map.get(tag));
     }
     map.put(tag, definition);
+     */
+    schema.add(definition);
   }
 
   public Map<String, PicaFieldDefinition> getMap() {
     return map;
+  }
+
+  public PicaSchemaManager getSchema() {
+    return schema;
   }
 }

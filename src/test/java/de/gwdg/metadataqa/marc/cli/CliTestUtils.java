@@ -10,6 +10,10 @@ public class CliTestUtils {
     return Paths.get(path).toAbsolutePath().toString();
   }
 
+  protected static String getTestResource(String fileName) {
+    return getPath("src/test/resources/" + fileName);
+  }
+
   protected static void clearOutput(String outputDir, List<String> outputFiles) {
     for (String outputFile : outputFiles)
       deleteFile(new File(outputDir, outputFile));

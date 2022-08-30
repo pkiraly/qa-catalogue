@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.cli;
 
+import de.gwdg.metadataqa.marc.CsvUtils;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
@@ -321,12 +322,18 @@ public class Validator implements BibliographicInputProcessor, Serializable {
         entry -> {
           ValidationError error = entry.getKey();
           int instanceCount = entry.getValue();
-          String formattedOutput = ValidationErrorFormatter.formatForSummary(
-            error, parameters.getFormat()
-          );
-          print(summaryFile, createRow(
-            separator, error.getId(), formattedOutput, instanceCount, recordBasedErrorCounter.get(error.getId())
-          ));
+          List<Serializable> cells = new ArrayList<>();
+          cells.add(error.getId());
+          cells.addAll(Arrays.asList(ValidationErrorFormatter.asArrayWithoutId(error)));
+          cells.addAll(Arrays.asList(instanceCount, recordBasedErrorCounter.get(error.getId())));
+          // String formattedOutput = ValidationErrorFormatter.formatForSummary(
+          //   error, parameters.getFormat()
+          // );
+          // print(summaryFile, createRow(
+          //   separator, error.getId(), formattedOutput, instanceCount, recordBasedErrorCounter.get(error.getId())
+          // ));
+          // TODO: separator
+          print(summaryFile, CsvUtils.createCsv(cells));
         }
       );
     /*

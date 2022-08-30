@@ -4,7 +4,6 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import org.junit.Test;
 
 import java.nio.file.Paths;
-import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -12,9 +11,9 @@ public class PicaSchemaReaderTest {
 
   @Test
   public void testFirst() {
-    Map<String, PicaFieldDefinition> schema = PicaSchemaReader.create(getPath("pica/avram-k10plus.json"));
+    PicaSchemaManager schema = PicaSchemaReader.createSchema(getPath("pica/avram-k10plus.json"));
     assertEquals(434, schema.size());
-    PicaFieldDefinition field = schema.get("001A");
+    PicaFieldDefinition field = schema.lookup("001A");
     assertEquals("001A", field.getTag());
     assertEquals("Kennung und Datum der Ersterfassung", field.getLabel());
     assertEquals("2019-11-18T09:39:13", field.getModified());
@@ -35,14 +34,16 @@ public class PicaSchemaReaderTest {
 
   @Test
   public void testOneWithPercent() {
-    Map<String, PicaFieldDefinition> schema = PicaSchemaReader.create(getPath("pica/avram-k10plus.json"));
+    PicaSchemaManager schema = PicaSchemaReader.createSchema(getPath("pica/avram-k10plus.json"));
     assertEquals(434, schema.size());
-    PicaFieldDefinition field = schema.get("022A/00");
-    assertEquals("022A/00", field.getTag());
+    PicaFieldDefinition field = schema.lookup("022A/00");
+    assertEquals("022A", field.getTag());
     assertEquals("Werktitel und sonstige unterscheidende Merkmale des Werks", field.getLabel());
     assertEquals("2022-04-27T14:02:55", field.getModified());
     assertEquals("3210", field.getPica3());
-    assertEquals("00", field.getOccurence());
+    assertEquals("00", field.getOccurrence());
+    // assertEquals("00", field.getCounter().getStart());
+
 
     assertEquals(Cardinality.Nonrepeatable, field.getCardinality());
     assertEquals("https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=3210", field.getDescriptionUrl());

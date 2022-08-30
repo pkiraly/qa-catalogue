@@ -8,6 +8,7 @@ import de.gwdg.metadataqa.marc.definition.tags.TagCategory;
 import de.gwdg.metadataqa.marc.utils.TagHierarchy;
 import de.gwdg.metadataqa.marc.utils.pica.FieldPath;
 import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
+import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
 import org.apache.commons.lang3.StringUtils;
 
@@ -23,7 +24,7 @@ public class PicaCompletenessPlugin implements CompletenessPlugin, Serializable 
   private final String field;
   private final String subfield;
   private final String separator;
-  private final Map<String, PicaFieldDefinition> picaSchema;
+  private final PicaSchemaManager picaSchema;
   private static final Map<String, String> types = Map.ofEntries(
     Map.entry("A", "Druckschriften (einschließlich Bildbänden)"),
     Map.entry("B", "Tonträger, Videodatenträger, Bildliche Darstellungen"),
@@ -47,7 +48,7 @@ public class PicaCompletenessPlugin implements CompletenessPlugin, Serializable 
     String schemaFile = StringUtils.isNotEmpty(parameters.getPicaSchemaFile())
       ? parameters.getPicaSchemaFile()
       : Paths.get("src/main/resources/pica/avram-k10plus.json").toAbsolutePath().toString();
-    picaSchema = PicaSchemaReader.create(schemaFile);
+    picaSchema = PicaSchemaReader.createSchema(schemaFile);
 
   }
 
@@ -62,7 +63,7 @@ public class PicaCompletenessPlugin implements CompletenessPlugin, Serializable 
     FieldPath path = parse(rawpath);
     String fieldLabel = "";
     String subfieldLabel = "";
-    PicaFieldDefinition fieldDefinition = picaSchema.get(path.getField());
+    PicaFieldDefinition fieldDefinition = picaSchema.lookup(path.getField());
     TagCategory category = TagCategory.OTHER;
     if (fieldDefinition != null) {
       category = getTagCategory(fieldDefinition);

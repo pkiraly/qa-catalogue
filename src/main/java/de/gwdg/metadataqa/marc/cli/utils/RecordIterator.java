@@ -10,7 +10,7 @@ import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.utils.QAMarcReaderFactory;
 import de.gwdg.metadataqa.marc.utils.marcreader.AlephseqMarcReader;
-import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
+import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
@@ -25,7 +25,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.time.LocalTime;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
@@ -46,7 +45,7 @@ public class RecordIterator {
   private MarcVersion marcVersion;
   private Leader.Type defaultRecordType;
   private DecimalFormat decimalFormat;
-  private Map<String, PicaFieldDefinition> picaSchema;
+  private PicaSchemaManager picaSchema;
 
   public RecordIterator(BibliographicInputProcessor processor) {
     this.processor = processor;
@@ -66,7 +65,7 @@ public class RecordIterator {
       String schemaFile = StringUtils.isNotEmpty(parameters.getPicaSchemaFile())
                         ? parameters.getPicaSchemaFile()
                         : Paths.get("src/main/resources/pica/avram-k10plus.json").toAbsolutePath().toString();
-      picaSchema = PicaSchemaReader.create(schemaFile);
+      picaSchema = PicaSchemaReader.createSchema(schemaFile);
     }
 
     if (processor.getParameters().doLog())

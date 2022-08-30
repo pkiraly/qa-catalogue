@@ -2,8 +2,6 @@ package de.gwdg.metadataqa.marc.utils.pica.path;
 
 public class PicaPath {
 
-
-
   private String path;
   private String tag = null;
   private String xtag = null;

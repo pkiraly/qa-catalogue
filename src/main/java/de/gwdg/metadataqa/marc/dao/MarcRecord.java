@@ -19,6 +19,7 @@ import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 
+import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
 import de.gwdg.metadataqa.marc.utils.unimarc.UnimarcConverter;
 
 import java.io.Serializable;
@@ -650,6 +651,22 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
         results.add(control008.getContent());
       }
     }
+    return results;
+  }
+
+  public List<String> select(PicaPath selector) {
+    if (!schemaType.equals(SchemaType.PICA))
+      throw new IllegalArgumentException("The record is not a PICA record");
+
+    List<String> results = new ArrayList<>();
+    for (DataField dataField : getDatafield(selector.getTag())) {
+      for (String code : selector.getSubfields().getCodes()) {
+        for (MarcSubfield subfield : dataField.getSubfield(code)) {
+          results.add(subfield.getValue());
+        }
+      }
+    }
+
     return results;
   }
 

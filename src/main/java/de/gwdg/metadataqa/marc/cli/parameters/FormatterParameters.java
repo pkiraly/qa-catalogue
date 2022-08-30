@@ -1,6 +1,9 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
+import de.gwdg.metadataqa.marc.utils.SchemaSpec;
 import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
+import de.gwdg.metadataqa.marc.utils.pica.path.PicaSpec;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
 
@@ -15,7 +18,7 @@ public class FormatterParameters extends CommonParameters {
   private String search = null;
   private String path = null;
   private String query = null;
-  private List<MarcSpec> selector = null;
+  private List<SchemaSpec> selector = null;
   private boolean withId = false;
   private String separator = "\t";
   private String fileName = DEFAULT_FILE_NAME;
@@ -56,8 +59,13 @@ public class FormatterParameters extends CommonParameters {
       String rawSelector = cmd.getOptionValue("selector");
       String[] rawSelectors = rawSelector.split(";");
       selector = new ArrayList<>();
-      for (String _rawSelector : rawSelectors)
-        selector.add(new MarcSpec(_rawSelector));
+      if (getSchemaType().equals(SchemaType.MARC21)) {
+        for (String _rawSelector : rawSelectors)
+          selector.add(new MarcSpec(_rawSelector));
+      } else if (getSchemaType().equals(SchemaType.PICA)) {
+        for (String _rawSelector : rawSelectors)
+          selector.add(new PicaSpec(_rawSelector));
+      }
     }
 
     withId = cmd.hasOption("withId");
@@ -93,7 +101,7 @@ public class FormatterParameters extends CommonParameters {
     return query;
   }
 
-  public List<MarcSpec> getSelector() {
+  public List<SchemaSpec> getSelector() {
     return selector;
   }
 

@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -30,6 +31,8 @@ public class PicaReader implements MarcReader {
   private String idTag = "003@";
   private String idCode = "0";
   private boolean parsed = false;
+
+  private PicaSchemaManager schema = PicaSchemaReader.createSchema(Paths.get("src/main/resources/pica/avram-k10plus.json").toAbsolutePath().toString());
 
   public PicaReader(String fileName) {
     try {
@@ -70,7 +73,7 @@ public class PicaReader implements MarcReader {
       if (picaLine.isSkippable() && !lines.isEmpty()) {
         if (!parsed && StringUtils.isNotEmpty(idField) && StringUtils.isNotBlank(idField))
           parseIdField();
-        marc4jRecord = MarcFactory.createRecordFromPica(lines, idTag, idCode);
+        marc4jRecord = MarcFactory.createRecordFromPica(lines, idTag, idCode, schema);
         finished = true;
         lines = new ArrayList<>();
       }
@@ -88,7 +91,7 @@ public class PicaReader implements MarcReader {
     } // while
 
     if (line == null && !lines.isEmpty()) {
-      marc4jRecord = MarcFactory.createRecordFromPica(lines, idTag, idCode);
+      marc4jRecord = MarcFactory.createRecordFromPica(lines, idTag, idCode, schema);
     }
     return marc4jRecord;
   }

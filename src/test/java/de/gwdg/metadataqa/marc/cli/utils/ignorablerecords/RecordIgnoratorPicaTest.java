@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.utils.parser.BooleanContainer;
 import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
+import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
 import org.junit.Test;
 
@@ -15,8 +16,7 @@ import static org.junit.Assert.*;
 
 public class RecordIgnoratorPicaTest {
 
-  Map<String, PicaFieldDefinition> schema = PicaSchemaReader.create(getPath("pica/avram-k10plus.json"));
-
+  PicaSchemaManager schema = PicaSchemaReader.createSchema(getPath("pica/avram-k10plus.json"));
 
   @Test
   public void parse_ex1() {
@@ -59,7 +59,7 @@ public class RecordIgnoratorPicaTest {
   @Test
   public void isIgnorable_ex1() {
     MarcRecord marcRecord = new MarcRecord("010000011");
-    marcRecord.addDataField(new DataField(schema.get("002@"), " ", " ", "0", "L"));
+    marcRecord.addDataField(new DataField(schema.lookup("002@"), " ", " ", "0", "L"));
 
     RecordIgnorator ignorator = new RecordIgnoratorPica("002@.0 =~ '^L'");
 
@@ -163,14 +163,14 @@ public class RecordIgnoratorPicaTest {
 
   private void isIgnorable(String abk, String ignorableRecordsInput) {
     MarcRecord marcRecord = new MarcRecord("010000011");
-    marcRecord.addDataField(new DataField(schema.get("002@"), " ", " ", "0", abk));
+    marcRecord.addDataField(new DataField(schema.lookup("002@"), " ", " ", "0", abk));
     RecordIgnorator ignorator = new RecordIgnoratorPica(ignorableRecordsInput);
     assertTrue(ignorator.isIgnorable(marcRecord));
   }
 
   private void isIgnorableFailing(String abM, String ignorableRecordsInput) {
     MarcRecord marcRecord = new MarcRecord("010000011");
-    marcRecord.addDataField(new DataField(schema.get("002@"), " ", " ", "0", abM));
+    marcRecord.addDataField(new DataField(schema.lookup("002@"), " ", " ", "0", abM));
     RecordIgnorator ignorator = new RecordIgnoratorPica(ignorableRecordsInput);
     assertFalse(ignorator.isIgnorable(marcRecord));
   }

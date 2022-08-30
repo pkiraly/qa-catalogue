@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.Validatable;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -330,9 +331,7 @@ public class DataField implements Extractable, Validatable, Serializable {
                                                     MarcVersion marcVersion) {
     Map<String, List<String>> pairs = new HashMap<>();
 
-    DataFieldKeyGenerator keyGenerator = new DataFieldKeyGenerator(
-      definition, type, getTag()
-    );
+    DataFieldKeyGenerator keyGenerator = new DataFieldKeyGenerator(definition, type, getTag());
     keyGenerator.setMarcVersion(marcVersion);
 
     boolean hasInd1def = (definition != null && definition.getInd1() != null && definition.getInd1().exists());

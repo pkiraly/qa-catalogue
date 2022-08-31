@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.cli.utils.ignorablerecords;
 
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
 import de.gwdg.metadataqa.marc.utils.pica.path.Subfields;
 
@@ -37,7 +37,7 @@ public class CriteriumPica {
     return value;
   }
 
-  public boolean met(MarcRecord marcRecord) {
+  public boolean met(BibliographicRecord marcRecord) {
     List<DataField> fields = marcRecord.getDatafield(path.getTag());
     boolean passed = false;
     if (fields != null && !fields.isEmpty()) {

@@ -1,13 +1,10 @@
-package de.gwdg.metadataqa.marc;
+package de.gwdg.metadataqa.marc.dao;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
+import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
-import de.gwdg.metadataqa.marc.dao.Control003;
-import de.gwdg.metadataqa.marc.dao.Control005;
-import de.gwdg.metadataqa.marc.dao.Control007;
-import de.gwdg.metadataqa.marc.dao.Control008;
-import de.gwdg.metadataqa.marc.dao.Leader;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.definition.MarcFormat;
 import de.gwdg.metadataqa.marc.definition.controltype.Control007Category;
 import de.gwdg.metadataqa.marc.utils.QAMarcReaderFactory;
@@ -28,7 +25,7 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class MarcRecordTest {
+public class BibliographicRecordTest {
 
   private static final Pattern positionalPattern = Pattern.compile("^(Leader|00[678])/(.*)$");
 
@@ -42,7 +39,7 @@ public class MarcRecordTest {
   public void testFromFile() throws Exception {
     Path path = FileUtils.getPath("general/0001-01.mrc");
     List<Record> records = ReadMarc.read(path.toString());
-    MarcRecord marcRecord = MarcFactory.createFromMarc4j(records.get(0));
+    BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(records.get(0));
 
     String expected = "{\"leader\":\"00720cam a22002051  4500\"," +
       "\"001\":\"   00000002 \"," +
@@ -88,7 +85,7 @@ public class MarcRecordTest {
   public void testSelect() throws Exception {
     Path path = FileUtils.getPath("general/0001-01.mrc");
     List<Record> records = ReadMarc.read(path.toString());
-    MarcRecord marcRecord = MarcFactory.createFromMarc4j(records.get(0));
+    BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(records.get(0));
     MarcSpec spec = new MarcSpec("008~0-5");
     List<String> results = marcRecord.select(spec);
     assertEquals(1, results.size());
@@ -107,7 +104,7 @@ public class MarcRecordTest {
 
   @Test
   public void testMultiple007() throws Exception {
-    MarcRecord marcRecord = new MarcRecord("010000011");
+    BibliographicRecord marcRecord = new Marc21Record("010000011");
     marcRecord.setLeader(new Leader("00860cam a22002774a 45 0"));
     marcRecord.setControl003(new Control003("DE-627"));
     marcRecord.setControl005(new Control005("20180502143346.0"));
@@ -132,7 +129,7 @@ public class MarcRecordTest {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    MarcRecord marcRecord = MarcFactory.createFromMarc4j(records.get(0));
+    BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(records.get(0));
     assertNotNull(marcRecord);
     // System.err.println(record.asJson());
     assertTrue(marcRecord.asJson().contains("\"245\":[{\"ind1\":\"1\",\"ind2\":\"0\",\"subfields\":{\"a\":\"Botanical materia medica and pharmacology;\""));
@@ -142,7 +139,7 @@ public class MarcRecordTest {
   public void testFromMek() throws Exception {
     Path path = FileUtils.getPath("marc/22561.mrc");
     List<Record> records = ReadMarc.read(path.toString(), "MARC8");
-    MarcRecord marcRecord = MarcFactory.createFromMarc4j(records.get(0));
+    BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(records.get(0));
     assertEquals(' ', records.get(0).getLeader().getCharCodingScheme());
     assertEquals(" ", marcRecord.getLeader().getCharacterCodingScheme().getValue());
     assertEquals("Az ítélet :", marcRecord.getDatafield("245").get(0).getSubfield("a").get(0).getValue());
@@ -155,7 +152,7 @@ public class MarcRecordTest {
     Record record = reader.next();
     assertEquals(' ', record.getLeader().getCharCodingScheme());
 
-    MarcRecord marcRecord = MarcFactory.createFromMarc4j(record);
+    BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(record);
     assertEquals(" ", marcRecord.getLeader().getCharacterCodingScheme().getValue());
     assertEquals("Az ítélet :", marcRecord.getDatafield("245").get(0).getSubfield("a").get(0).getValue());
     assertEquals("[Följegyzések és dokumentumok néhány magyarországi református egyházi döntésről 1948 és 1998 között] :", marcRecord.getDatafield("245").get(0).getSubfield("b").get(0).getValue());

@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.analysis.ClassificationAnalyzer;
 import de.gwdg.metadataqa.marc.analysis.ClassificationStatistics;
@@ -81,7 +81,7 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
   }
 
   @Override
-  public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber) throws IOException {
     if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
       return;
 

@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.cli.spark;
 
 import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.Validator;
 import de.gwdg.metadataqa.marc.definition.MarcFormat;
@@ -42,7 +42,7 @@ public class ParallelValidator {
       .flatMap(content -> {
         MarcReader reader = QAMarcReaderFactory.getStringReader(MarcFormat.ISO, content);
         Record marc4jRecord = reader.next();
-        MarcRecord marcRecord = MarcFactory.createFromMarc4j(
+        BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(
           marc4jRecord, params.getDefaultRecordType(), params.getMarcVersion(), params.getReplecementInControlFields());
         validator.processRecord(marcRecord, 1);
         return ValidationErrorFormatter

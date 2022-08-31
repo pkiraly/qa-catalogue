@@ -6,7 +6,7 @@ import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.dao.MarcControlField;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.utils.marcreader.AlephseqMarcReader;
 import org.junit.Test;
@@ -38,7 +38,7 @@ public class AlephseqMarcReaderTest {
     if (reader.hasNext())
       marc4jRecord = reader.next();
     assertNotNull(marc4jRecord);
-    MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, Leader.Type.BOOKS, MarcVersion.GENT, "^");
+    BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, Leader.Type.BOOKS, MarcVersion.GENT, "^");
     assertNotNull(marcRecord);
 
     assertEquals("000000002", marcRecord.getId());
@@ -79,15 +79,15 @@ public class AlephseqMarcReaderTest {
     assertEquals(1, subfields.size());
     assertEquals("Katz, Jerrold J.,", subfields.get(0));
 
-    subfields = marcRecord.extract("100", "a", MarcRecord.RESOLVE.NONE);
+    subfields = marcRecord.extract("100", "a", BibliographicRecord.RESOLVE.NONE);
     assertEquals(1, subfields.size());
     assertEquals("Katz, Jerrold J.,", subfields.get(0));
 
-    subfields = marcRecord.extract("100", "a", MarcRecord.RESOLVE.RESOLVE);
+    subfields = marcRecord.extract("100", "a", BibliographicRecord.RESOLVE.RESOLVE);
     assertEquals(1, subfields.size());
     assertEquals("Katz, Jerrold J.,", subfields.get(0));
 
-    subfields = marcRecord.extract("100", "a", MarcRecord.RESOLVE.BOTH);
+    subfields = marcRecord.extract("100", "a", BibliographicRecord.RESOLVE.BOTH);
     assertEquals(1, subfields.size());
     assertEquals("Katz, Jerrold J.,##Katz, Jerrold J.,", subfields.get(0));
 
@@ -338,7 +338,7 @@ public class AlephseqMarcReaderTest {
     while (reader.hasNext()) {
       marc4jRecord = reader.next();
       if (marc4jRecord.getControlNumber().equals("000000008")) {
-        MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, Leader.Type.BOOKS, MarcVersion.GENT, "^");
+        BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, Leader.Type.BOOKS, MarcVersion.GENT, "^");
         assertEquals("München :", marcRecord.getDatafield("260").get(0).getSubfield("a").get(0).getValue());
       }
     }
@@ -357,7 +357,7 @@ public class AlephseqMarcReaderTest {
     while (reader.hasNext()) {
       marc4jRecord = reader.next();
       if (marc4jRecord.getControlNumber().equals("990017782740205171")) {
-        MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, Leader.Type.BOOKS, MarcVersion.GENT, "^");
+        BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, Leader.Type.BOOKS, MarcVersion.GENT, "^");
         assertEquals("1993.", marcRecord.getDatafield("260").get(0).getSubfield("c").get(0).getValue());
       }
     }

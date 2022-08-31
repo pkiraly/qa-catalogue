@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.CsvUtils;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
@@ -165,7 +165,7 @@ public class Validator implements BibliographicInputProcessor, Serializable {
   }
 
   @Override
-  public void processRecord(MarcRecord marcRecord, int i) {
+  public void processRecord(BibliographicRecord marcRecord, int i) {
     if (marcRecord.getId() == null)
       logger.severe("No record number at " + i);
 
@@ -195,7 +195,7 @@ public class Validator implements BibliographicInputProcessor, Serializable {
     counter++;
   }
 
-  private void processDetails(MarcRecord marcRecord) {
+  private void processDetails(BibliographicRecord marcRecord) {
     List<ValidationError> errors = marcRecord.getValidationErrors();
     if (!errors.isEmpty()) {
       String message = null;
@@ -217,7 +217,7 @@ public class Validator implements BibliographicInputProcessor, Serializable {
     }
   }
 
-  private void processSummary(MarcRecord marcRecord) {
+  private void processSummary(BibliographicRecord marcRecord) {
     List<ValidationError> errors = marcRecord.getValidationErrors();
     List<ValidationError> allButInvalidFieldErrors = new ArrayList<>();
     Set<Integer> uniqueErrors = new HashSet<>();

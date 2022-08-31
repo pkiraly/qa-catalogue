@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.dao.Leader;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.analysis.SerialFields;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.SerialScoreParameters;
@@ -104,7 +104,7 @@ public class SerialScore implements BibliographicInputProcessor, Serializable {
   }
 
   @Override
-  public void processRecord(MarcRecord marcRecord, int recordNumber) {
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber) {
     if (marcRecord.getType().equals(Leader.Type.CONTINUING_RESOURCES)) {
       if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
         return;

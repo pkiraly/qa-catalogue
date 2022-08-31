@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.Extractable;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.Validatable;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
@@ -12,7 +12,7 @@ import java.util.*;
 
 public abstract class PositionalControlField extends ControlField implements Extractable, Validatable {
 
-  protected MarcRecord marcRecord;
+  protected BibliographicRecord marcRecord;
   protected Map<ControlfieldPositionDefinition, String> valuesMap;
   protected List<ControlValue> valuesList;
   protected List<ValidationError> validationErrors;
@@ -30,7 +30,7 @@ public abstract class PositionalControlField extends ControlField implements Ext
     return isValid;
   }
 
-  public void setMarcRecord(MarcRecord marcRecord) {
+  public void setMarcRecord(BibliographicRecord marcRecord) {
     this.marcRecord = marcRecord;
     for (ControlValue value : valuesList) {
       value.setMarcRecord(marcRecord);

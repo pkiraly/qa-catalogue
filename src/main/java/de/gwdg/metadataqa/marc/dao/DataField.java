@@ -5,8 +5,8 @@ import de.gwdg.metadataqa.marc.Extractable;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.Validatable;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
-import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -49,7 +49,7 @@ public class DataField implements Extractable, Validatable, Serializable {
   private Map<String, List<MarcSubfield>> subfieldIndex = new LinkedHashMap<>();
   private ErrorsCollector errors = null;
   private List<String> unhandledSubfields = null;
-  private MarcRecord marcRecord;
+  private BibliographicRecord marcRecord;
 
   public <T extends DataFieldDefinition> DataField(T definition, String ind1, String ind2) {
     this.definition = definition;
@@ -164,11 +164,11 @@ public class DataField implements Extractable, Validatable, Serializable {
     return subfields;
   }
 
-  public MarcRecord getMarcRecord() {
+  public BibliographicRecord getMarcRecord() {
     return marcRecord;
   }
 
-  public void setMarcRecord(MarcRecord marcRecord) {
+  public void setMarcRecord(BibliographicRecord marcRecord) {
     this.marcRecord = marcRecord;
     for (MarcSubfield marcSubfield : subfields)
       marcSubfield.setMarcRecord(marcRecord);

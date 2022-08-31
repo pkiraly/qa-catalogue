@@ -8,7 +8,7 @@ import com.opencsv.exceptions.CsvException;
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import org.apache.commons.lang3.StringUtils;
@@ -183,7 +183,7 @@ public class PicaReaderTest {
     String recordFile = FileUtils.getPath("pica/picaplus-sample.txt").toAbsolutePath().toString();
     MarcReader reader = new PicaReader(recordFile).setIdField("003@ƒ0").setSubfieldSeparator("ƒ");
     int i = 0;
-    MarcRecord marcRecord = null;
+    BibliographicRecord marcRecord = null;
     while (reader.hasNext()) {
       Record record = reader.next();
       marcRecord = MarcFactory.createPicaFromMarc4j(record, schema);
@@ -202,7 +202,7 @@ public class PicaReaderTest {
       .setIdField("003@$0")
       .setSubfieldSeparator("$");
     int i = 0;
-    MarcRecord marcRecord = null;
+    BibliographicRecord marcRecord = null;
     List<String> ids = new ArrayList<>();
     while (reader.hasNext()) {
       Record record = reader.next();

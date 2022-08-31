@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.general.validator;
 
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
@@ -20,7 +20,7 @@ public class ClassificationReferenceValidator implements RecordValidator, FieldV
     "600", "610", "611", "630", "647", "648", "650", "651", "655", "656", "657", "852"
   );
 
-  public static ValidatorResponse validate(MarcRecord marcRecord) {
+  public static ValidatorResponse validate(BibliographicRecord marcRecord) {
     ValidatorResponse response = new ValidatorResponse();
     for (String tag : fields) {
       if (marcRecord.exists(tag)) {

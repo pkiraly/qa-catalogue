@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
@@ -32,7 +32,7 @@ public class ClassificationAnalyzer {
   private static final Pattern NUMERIC = Pattern.compile("^\\d");
 
   private final ClassificationStatistics statistics;
-  private MarcRecord marcRecord;
+  private BibliographicRecord marcRecord;
   private List<Schema> schemasInRecord;
 
   private static final List<String> fieldsWithIndicator1AndSubfield2 = Arrays.asList(
@@ -87,7 +87,7 @@ public class ClassificationAnalyzer {
     new FieldWithScheme("045R", "Regensburger Verbundklassifikation")
   );
 
-  public ClassificationAnalyzer(MarcRecord marcRecord, ClassificationStatistics statistics) {
+  public ClassificationAnalyzer(BibliographicRecord marcRecord, ClassificationStatistics statistics) {
     this.marcRecord = marcRecord;
     this.statistics = statistics;
   }
@@ -180,7 +180,7 @@ public class ClassificationAnalyzer {
     return total;
   }
 
-  private int processFieldWithScheme(MarcRecord marcRecord,
+  private int processFieldWithScheme(BibliographicRecord marcRecord,
                                      FieldWithScheme fieldEntry) {
     var count = 0;
     final String tag = fieldEntry.getTag();
@@ -222,7 +222,7 @@ public class ClassificationAnalyzer {
     return count;
   }
 
-  private int processFieldWithSchemePica(MarcRecord marcRecord,
+  private int processFieldWithSchemePica(BibliographicRecord marcRecord,
                                          FieldWithScheme fieldEntry) {
     var count = 0;
     final String tag = fieldEntry.getTag();
@@ -269,7 +269,7 @@ public class ClassificationAnalyzer {
     schemasInRecord.addAll(uniqSchemas);
   }
 
-  private int processFieldWithIndicator1AndSubfield2(MarcRecord marcRecord, String tag) {
+  private int processFieldWithIndicator1AndSubfield2(BibliographicRecord marcRecord, String tag) {
     var count = 0;
     if (!marcRecord.hasDatafield(tag))
       return count;
@@ -302,7 +302,7 @@ public class ClassificationAnalyzer {
     return count;
   }
 
-  private int processFieldWithIndicator2AndSubfield2(MarcRecord marcRecord, String tag) {
+  private int processFieldWithIndicator2AndSubfield2(BibliographicRecord marcRecord, String tag) {
     var count = 0;
     if (!marcRecord.hasDatafield(tag))
       return count;
@@ -333,7 +333,7 @@ public class ClassificationAnalyzer {
     return count;
   }
 
-  private int processFieldWithSubfield2(MarcRecord marcRecord, String tag) {
+  private int processFieldWithSubfield2(BibliographicRecord marcRecord, String tag) {
     var count = 0;
     if (!marcRecord.hasDatafield(tag))
       return count;
@@ -351,7 +351,7 @@ public class ClassificationAnalyzer {
     return count;
   }
 
-  private int processFieldWithoutSource(MarcRecord marcRecord, String tag) {
+  private int processFieldWithoutSource(BibliographicRecord marcRecord, String tag) {
     var count = 0;
     if (!marcRecord.hasDatafield(tag))
       return count;

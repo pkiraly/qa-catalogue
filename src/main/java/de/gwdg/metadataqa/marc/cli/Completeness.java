@@ -12,7 +12,7 @@ import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnorator;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcControlField;
 import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.tags.TagCategory;
@@ -107,7 +107,7 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
   }
 
   @Override
-  public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber) throws IOException {
     if (!recordFilter.isAllowable(marcRecord))
       return;
 
@@ -151,7 +151,7 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
     }
   }
 
-  private void processLeader(MarcRecord marcRecord, Map<String, Integer> recordFrequency, Map<String, Integer> recordPackageCounter, String documentType) {
+  private void processLeader(BibliographicRecord marcRecord, Map<String, Integer> recordFrequency, Map<String, Integer> recordPackageCounter, String documentType) {
     if (marcRecord.getLeader() != null) {
       for (ControlValue position : marcRecord.getLeader().getValuesList()) {
         String marcPath = position.getDefinition().getId();
@@ -163,7 +163,7 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
     }
   }
 
-  private void processSimpleControlfields(MarcRecord marcRecord, Map<String, Integer> recordFrequency, Map<String, Integer> recordPackageCounter, String documentType) {
+  private void processSimpleControlfields(BibliographicRecord marcRecord, Map<String, Integer> recordFrequency, Map<String, Integer> recordPackageCounter, String documentType) {
     for (MarcControlField field : marcRecord.getSimpleControlfields()) {
       if (field != null) {
         String marcPath = field.getDefinition().getTag();
@@ -175,7 +175,7 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
     }
   }
 
-  private void processPositionalControlFields(MarcRecord marcRecord,
+  private void processPositionalControlFields(BibliographicRecord marcRecord,
                                               Map<String, Integer> recordFrequency,
                                               Map<String, Integer> recordPackageCounter,
                                               String documentType) {
@@ -192,7 +192,7 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
     }
   }
 
-  private void processDataFields(MarcRecord marcRecord,
+  private void processDataFields(BibliographicRecord marcRecord,
                                  Map<String, Integer> recordFrequency,
                                  Map<String, Integer> recordPackageCounter,
                                  String documentType) {
@@ -252,7 +252,7 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
     return packageName;
   }
 
-  private List<String> extract(MarcRecord marcRecord, String tag, String subfield) {
+  private List<String> extract(BibliographicRecord marcRecord, String tag, String subfield) {
     List<String> values = new ArrayList<>();
     List<DataField> fields = marcRecord.getDatafield(tag);
     if (fields != null && !fields.isEmpty()) {

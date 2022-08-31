@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.MarcFormat;
 import de.gwdg.metadataqa.marc.utils.QAMarcReaderFactory;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
@@ -14,7 +14,6 @@ import org.junit.Test;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -45,7 +44,7 @@ public class FormatterTest extends CliTestUtils {
     MarcReader reader = QAMarcReaderFactory.getFileReader(MarcFormat.PICA_PLAIN, CliTestUtils.getTestResource("pica/k10plus-sample.pica"), null);
     reader.hasNext();
     Record record = reader.next();
-    MarcRecord marcRecord = MarcFactory.createPicaFromMarc4j(record, schema);
+    BibliographicRecord marcRecord = MarcFactory.createPicaFromMarc4j(record, schema);
     PicaPath path = PicaPathParser.parse("001A$0");
     List<String> results = marcRecord.select(path);
     assertEquals(1, results.size());
@@ -57,7 +56,6 @@ public class FormatterTest extends CliTestUtils {
 
   @Test
   public void formatter_pica() throws Exception {
-
     Formatter processor = new Formatter(new String[]{
       "--schemaType", "PICA",
       "--marcForma",  "PICA_PLAIN",
@@ -69,7 +67,5 @@ public class FormatterTest extends CliTestUtils {
     });
     RecordIterator iterator = new RecordIterator(processor);
     iterator.start();
-
   }
-
 }

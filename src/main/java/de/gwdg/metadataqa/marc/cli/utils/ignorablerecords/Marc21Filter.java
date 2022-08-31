@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.cli.utils.ignorablerecords;
 
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class Marc21Filter {
     return null;
   }
 
-  protected boolean met(MarcRecord marcRecord) {
+  protected boolean met(BibliographicRecord marcRecord) {
     for (DataField condition : conditions) {
       List<DataField> recordFields = marcRecord.getDatafield(condition.getTag());
       if (recordFields == null || recordFields.isEmpty())

@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.marc.dao.Control006;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  * https://www.tandfonline.com/doi/full/10.1080/00987913.2017.1350525
  */
 public class Serial {
-  private MarcRecord marcRecord;
+  private BibliographicRecord marcRecord;
   private SerialScores scores;
 
   private static List<String> headers = new LinkedList<>();
@@ -24,7 +24,7 @@ public class Serial {
     }
   }
 
-  public Serial(MarcRecord marcRecord) {
+  public Serial(BibliographicRecord marcRecord) {
     this.marcRecord = marcRecord;
     scores = new SerialScores();
   }

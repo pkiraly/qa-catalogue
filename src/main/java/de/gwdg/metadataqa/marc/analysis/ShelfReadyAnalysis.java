@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.analysis;
 
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class ShelfReadyAnalysis {
     }
   }
 
-  public static List<Double> getScores(MarcRecord marcRecord) {
+  public static List<Double> getScores(BibliographicRecord marcRecord) {
     List<Double> scores = new ArrayList<>();
 
     var total = 0.0;

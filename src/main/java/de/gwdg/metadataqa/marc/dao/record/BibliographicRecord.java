@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.dao;
+package de.gwdg.metadataqa.marc.dao.record;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,6 +8,16 @@ import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.Validatable;
 import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
+import de.gwdg.metadataqa.marc.dao.Control001;
+import de.gwdg.metadataqa.marc.dao.Control003;
+import de.gwdg.metadataqa.marc.dao.Control005;
+import de.gwdg.metadataqa.marc.dao.Control006;
+import de.gwdg.metadataqa.marc.dao.Control007;
+import de.gwdg.metadataqa.marc.dao.Control008;
+import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.Leader;
+import de.gwdg.metadataqa.marc.dao.MarcControlField;
+import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.general.validator.ClassificationReferenceValidator;
@@ -31,9 +41,9 @@ import java.util.regex.Pattern;
 
 import static de.gwdg.metadataqa.marc.Utils.count;
 
-public class MarcRecord implements Extractable, Validatable, Serializable {
+public abstract class BibliographicRecord implements Extractable, Validatable, Serializable {
 
-  private static final Logger logger = Logger.getLogger(MarcRecord.class.getCanonicalName());
+  private static final Logger logger = Logger.getLogger(BibliographicRecord.class.getCanonicalName());
   private static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
   private static final Pattern positionalPattern = Pattern.compile("^(Leader|00[678])/(.*)$");
   private static final List<String> simpleControlTags = Arrays.asList("001", "003", "005");
@@ -68,14 +78,14 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
 
   private List<String> unhandledTags;
 
-  public MarcRecord() {
+  public BibliographicRecord() {
     datafields = new ArrayList<>();
     datafieldIndex = new TreeMap<>();
     controlfieldIndex = new TreeMap<>();
     unhandledTags = new ArrayList<>();
   }
 
-  public MarcRecord(String id) {
+  public BibliographicRecord(String id) {
     this();
     control001 = new Control001(id);
   }
@@ -130,10 +140,10 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     return control001;
   }
 
-  public MarcRecord setControl001(MarcControlField control001) {
+  public BibliographicRecord setControl001(MarcControlField control001) {
     this.control001 = control001;
     control001.setMarcRecord(this);
-    controlfieldIndex.put(control001.definition.getTag(), Arrays.asList(control001));
+    controlfieldIndex.put(control001.getDefinition().getTag(), Arrays.asList(control001));
     return this;
   }
 
@@ -144,7 +154,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   public void setControl003(MarcControlField control003) {
     this.control003 = control003;
     control003.setMarcRecord(this);
-    controlfieldIndex.put(control003.definition.getTag(), Arrays.asList(control003));
+    controlfieldIndex.put(control003.getDefinition().getTag(), Arrays.asList(control003));
   }
 
   public MarcControlField getControl005() {
@@ -154,7 +164,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   public void setControl005(MarcControlField control005) {
     this.control005 = control005;
     control005.setMarcRecord(this);
-    controlfieldIndex.put(control005.definition.getTag(), Arrays.asList(control005));
+    controlfieldIndex.put(control005.getDefinition().getTag(), Arrays.asList(control005));
   }
 
   public List<Control006> getControl006() {
@@ -164,7 +174,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   public void setControl006(Control006 control006) {
     this.control006.add(control006);
     control006.setMarcRecord(this);
-    controlfieldIndex.put(control006.definition.getTag(), (List) this.control006);
+    controlfieldIndex.put(control006.getDefinition().getTag(), (List) this.control006);
   }
 
   public List<Control007> getControl007() {
@@ -174,7 +184,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   public void setControl007(Control007 control007) {
     this.control007.add(control007);
     control007.setMarcRecord(this);
-    controlfieldIndex.put(control007.definition.getTag(), (List) this.control007);
+    controlfieldIndex.put(control007.getDefinition().getTag(), (List) this.control007);
   }
 
   public Control008 getControl008() {
@@ -184,7 +194,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
   public void setControl008(Control008 control008) {
     this.control008 = control008;
     control008.setMarcRecord(this);
-    controlfieldIndex.put(control008.definition.getTag(), Arrays.asList(control008));
+    controlfieldIndex.put(control008.getDefinition().getTag(), Arrays.asList(control008));
   }
 
   public String getId() {
@@ -619,7 +629,7 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
       for (MarcControlField field : controlfieldIndex.get(selector.getFieldTag())) {
         if (field == null)
           continue;
-        if (!simpleControlTags.contains(field.definition.getTag())) {
+        if (!simpleControlTags.contains(field.getDefinition().getTag())) {
           // TODO: check control subfields
         }
         if (selector.hasRangeSelector()) {
@@ -752,13 +762,8 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     }
   }
 
-  public List<DataField> getAuthorityFields() {
+  public List<DataField> getAuthorityFields(List<String> tags) {
     List<DataField> subjects = new ArrayList<>();
-    List<String> tags = Arrays.asList(
-      "100", "110", "111", "130",
-      "700", "710", "711", "730",   "720", "740", "751", "752", "753", "754",
-      "800", "810", "811", "830"
-    );
     for (String tag : tags) {
       List<DataField> fields = getDatafield(tag);
       if (fields != null && !fields.isEmpty())
@@ -766,6 +771,18 @@ public class MarcRecord implements Extractable, Validatable, Serializable {
     }
     return subjects;
   }
+
+  abstract public List<DataField> getAuthorityFields();
+
+  /*
+  public List<DataField> getAuthorityFields() {
+    List<String> tags = Arrays.asList(
+      "100", "110", "111", "130",
+      "700", "710", "711", "730",   "720", "740", "751", "752", "753", "754",
+      "800", "810", "811", "830"
+    );
+  }
+   */
 
   public List<DataField> getSubjects() {
     List<DataField> subjects = new ArrayList<>();

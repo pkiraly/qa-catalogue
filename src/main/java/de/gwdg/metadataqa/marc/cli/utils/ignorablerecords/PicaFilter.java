@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.cli.utils.ignorablerecords;
 
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.utils.parser.BooleanContainer;
 import de.gwdg.metadataqa.marc.utils.parser.BooleanParser;
 import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
@@ -71,7 +71,7 @@ public class PicaFilter {
     return booleanCriteria;
   }
 
-  public boolean metCriteria(MarcRecord marcRecord, BooleanContainer<CriteriumPica> criteria) {
+  public boolean metCriteria(BibliographicRecord marcRecord, BooleanContainer<CriteriumPica> criteria) {
     boolean passed = false;
     if (criteria.getValue() != null) {
       passed = criteria.getValue().met(marcRecord);

@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.dao;
 
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.structure.ControlFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
@@ -32,7 +33,7 @@ public abstract class MarcPositionalControlField extends MarcControlField {
   }
 
   @Override
-  public void setMarcRecord(MarcRecord marcRecord) {
+  public void setMarcRecord(BibliographicRecord marcRecord) {
     super.setMarcRecord(marcRecord);
     for (ControlValue value : valuesList) {
       value.setMarcRecord(this.marcRecord);

@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
 import de.gwdg.metadataqa.marc.analysis.ThompsonTraillAnalysis;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
@@ -99,7 +99,7 @@ public class ThompsonTraillCompleteness implements BibliographicInputProcessor, 
   }
 
   @Override
-  public void processRecord(MarcRecord marcRecord, int recordNumber) {
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber) {
     if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
       return;
 

@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.cli.utils.ignorablerecords;
 
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 
 import java.io.Serializable;
 
@@ -12,7 +12,7 @@ public class RecordFilterMarc21 extends Marc21Filter implements RecordFilter, Se
   }
 
   @Override
-  public boolean isAllowable(MarcRecord marcRecord) {
+  public boolean isAllowable(BibliographicRecord marcRecord) {
     if (isEmpty())
       return true;
 

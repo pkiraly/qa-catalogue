@@ -12,7 +12,8 @@ import de.gwdg.metadataqa.marc.dao.Control005;
 import de.gwdg.metadataqa.marc.dao.Control008;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.Leader;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.tags.oclctags.Tag090;
 import de.gwdg.metadataqa.marc.definition.tags.sztetags.Tag596;
@@ -52,7 +53,7 @@ public class ValidationTest {
 
   @Test
   public void test246_6() throws URISyntaxException, IOException {
-    MarcRecord marcRecord = new MarcRecord("u2407796");
+    BibliographicRecord marcRecord = new Marc21Record("u2407796");
     marcRecord.setLeader(new Leader("00860cam a22002774a 45 0"));
     marcRecord.setControl003(new Control003("SIRSI"));
     marcRecord.setControl005(new Control005("20080331162830.0"));
@@ -105,7 +106,7 @@ public class ValidationTest {
   @Test
   public void testAFile() throws URISyntaxException, IOException {
     List<String> lines = FileUtils.readLinesFromResource("marctxt/010000011.mrctxt");
-    MarcRecord marcRecord = MarcFactory.createFromFormattedText(lines, MarcVersion.MARC21);
+    BibliographicRecord marcRecord = MarcFactory.createFromFormattedText(lines, MarcVersion.MARC21);
     assertFalse(marcRecord.validate(MarcVersion.MARC21, true));
     assertEquals(21, marcRecord.getValidationErrors().size());
   }
@@ -113,7 +114,7 @@ public class ValidationTest {
   @Test
   public void testABLFile() throws URISyntaxException, IOException {
     List<String> lines = FileUtils.readLinesFromResource("bl/006013122.mrctxt");
-    MarcRecord marcRecord = MarcFactory.createFromFormattedText(lines, MarcVersion.BL);
+    BibliographicRecord marcRecord = MarcFactory.createFromFormattedText(lines, MarcVersion.BL);
     assertEquals(Arrays.asList(
       "FMT", "019", "020", "040", "100", "245", "260", "336", "337", "338", "590",
       "966", "979", "CAT", "CAT", "CAT", "CAT", "FIN", "LEO", "SRC", "STA", "LAS"),

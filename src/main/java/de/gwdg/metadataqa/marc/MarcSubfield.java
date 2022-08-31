@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.Linkage;
 import de.gwdg.metadataqa.marc.definition.general.parser.ParserException;
@@ -23,7 +23,7 @@ public class MarcSubfield implements Validatable, Serializable {
 
   private static final Logger logger = Logger.getLogger(MarcSubfield.class.getCanonicalName());
 
-  private MarcRecord marcRecord;
+  private BibliographicRecord marcRecord;
   private DataField field;
   private SubfieldDefinition definition;
   private final String code;
@@ -93,11 +93,11 @@ public class MarcSubfield implements Validatable, Serializable {
     this.definition = definition;
   }
 
-  public MarcRecord getMarcRecord() {
+  public BibliographicRecord getMarcRecord() {
     return marcRecord;
   }
 
-  public void setMarcRecord(MarcRecord marcRecord) {
+  public void setMarcRecord(BibliographicRecord marcRecord) {
     this.marcRecord = marcRecord;
   }
 

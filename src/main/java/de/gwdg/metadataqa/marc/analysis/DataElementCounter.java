@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -45,7 +45,7 @@ public class DataElementCounter {
     this.header = _header;
   }
 
-  public List<Integer> count(MarcRecord marcRecord) {
+  public List<Integer> count(BibliographicRecord marcRecord) {
     List<Integer> counts = new ArrayList<>();
     for (Map.Entry<String, List<DataElement>> entry : tags.entrySet()) {
       List<DataField> instances = marcRecord.getDatafield(entry.getKey());

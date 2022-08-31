@@ -3,7 +3,7 @@ package de.gwdg.metadataqa.marc.cli.utils;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.definition.DataSource;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -165,7 +165,7 @@ public class RecordIterator {
       try {
         processor.processRecord(marc4jRecord, i);
 
-        MarcRecord marcRecord = transformMarcRecord(marc4jRecord);
+        BibliographicRecord marcRecord = transformMarcRecord(marc4jRecord);
         try {
           processor.processRecord(marcRecord, i);
         } catch(Exception e) {
@@ -182,7 +182,7 @@ public class RecordIterator {
     }
   }
 
-  private MarcRecord transformMarcRecord(Record marc4jRecord) {
+  private BibliographicRecord transformMarcRecord(Record marc4jRecord) {
     if (parameters.getSchemaType().equals(SchemaType.MARC21))
       return MarcFactory.createFromMarc4j(marc4jRecord, defaultRecordType, marcVersion, replecementInControlFields);
     else

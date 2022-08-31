@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.dao;
 
 import de.gwdg.metadataqa.marc.Extractable;
 import de.gwdg.metadataqa.marc.Validatable;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.controlpositions.LeaderPositions;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
@@ -268,7 +269,7 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
     return lengthOfTheImplementationDefinedPortion;
   }
 
-  public void setMarcRecord(MarcRecord marcRecord) {
+  public void setMarcRecord(BibliographicRecord marcRecord) {
     this.marcRecord = marcRecord;
     for (ControlValue value : valuesList)
       value.setMarcRecord(marcRecord);

@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
 import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
@@ -28,10 +28,10 @@ public class AuthorithyAnalyzer {
   );
   private static final Pattern NUMERIC = Pattern.compile("^\\d");
 
-  private MarcRecord marcRecord;
+  private BibliographicRecord marcRecord;
   private AuthorityStatistics authoritiesStatistics;
 
-  public AuthorithyAnalyzer(MarcRecord marcRecord,
+  public AuthorithyAnalyzer(BibliographicRecord marcRecord,
                             AuthorityStatistics authoritiesStatistics) {
     this.marcRecord = marcRecord;
     this.authoritiesStatistics = authoritiesStatistics;

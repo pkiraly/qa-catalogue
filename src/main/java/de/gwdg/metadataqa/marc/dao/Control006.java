@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.dao;
 
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.controlpositions.Control006Positions;
 import de.gwdg.metadataqa.marc.definition.controltype.Control008Type;
@@ -82,7 +83,7 @@ public class Control006 extends MarcPositionalControlField implements Serializab
       processContent();
   }
 
-  public Control006(String content, MarcRecord marcRecord) {
+  public Control006(String content, BibliographicRecord marcRecord) {
     super(Control006Definition.getInstance(), content, marcRecord.getType());
     this.marcRecord = marcRecord;
     if (content != null)

@@ -227,7 +227,7 @@ public class MarcFactory {
     for (org.marc4j.marc.DataField dataField : marc4jRecord.getDataFields()) {
       var definition = schema.lookup(dataField.getTag());
       if (definition == null) {
-        System.err.println("getTag: " + dataField.getTag() + " ----");
+        // System.err.println("getTag: " + dataField.getTag() + " ----");
         marcRecord.addUnhandledTags(dataField.getTag());
       }
       var field = extractPicaDataField(dataField, definition, MarcVersion.MARC21);

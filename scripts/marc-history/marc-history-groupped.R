@@ -11,7 +11,7 @@ if (length(args) == 0) {
   # output dir
   output_dir <- args[1]
 }
-output_dir <- '/home/kiru/Documents/marc21/_output/k10plus_pica'
+# output_dir <- '/home/kiru/Documents/marc21/_output/k10plus_pica'
 
 file <- 'marc-history-groupped.csv'
 path <- paste0(output_dir, '/', file)

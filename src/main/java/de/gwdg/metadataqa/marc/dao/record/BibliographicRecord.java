@@ -670,10 +670,16 @@ public abstract class BibliographicRecord implements Extractable, Validatable, S
       throw new IllegalArgumentException("The record is not a PICA record");
 
     List<String> results = new ArrayList<>();
-    for (DataField dataField : getDatafield(selector.getTag())) {
-      for (String code : selector.getSubfields().getCodes()) {
-        for (MarcSubfield subfield : dataField.getSubfield(code)) {
-          results.add(subfield.getValue());
+    List<DataField> dataFields = getDatafield(selector.getTag());
+    if (dataFields != null) {
+      for (DataField dataField : dataFields) {
+        for (String code : selector.getSubfields().getCodes()) {
+          List<MarcSubfield> dubfields = dataField.getSubfield(code);
+          if (dubfields != null) {
+            for (MarcSubfield subfield : dubfields) {
+              results.add(subfield.getValue());
+            }
+          }
         }
       }
     }

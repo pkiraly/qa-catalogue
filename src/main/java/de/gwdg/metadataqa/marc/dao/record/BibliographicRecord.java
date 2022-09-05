@@ -7,6 +7,7 @@ import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.Validatable;
+import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
 import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
 import de.gwdg.metadataqa.marc.dao.Control001;
 import de.gwdg.metadataqa.marc.dao.Control003;
@@ -68,7 +69,7 @@ public abstract class BibliographicRecord implements Extractable, Validatable, S
   private Map<String, List<MarcControlField>> controlfieldIndex;
   Map<String, List<String>> mainKeyValuePairs;
   private List<ValidationError> validationErrors = null;
-  private SchemaType schemaType = SchemaType.MARC21;
+  protected SchemaType schemaType = SchemaType.MARC21;
 
   public enum RESOLVE {
     NONE,
@@ -772,7 +773,23 @@ public abstract class BibliographicRecord implements Extractable, Validatable, S
     return subjects;
   }
 
+
+  public Map<DataField, AuthorityCategory> getAuthorityFields(Map<AuthorityCategory, List<String>> tags) {
+    Map<DataField, AuthorityCategory> subjects = new LinkedHashMap<>();
+    for (Map.Entry<AuthorityCategory, List<String>> entry : tags.entrySet()) {
+      for (String tag : entry.getValue()) {
+        List<DataField> fields = getDatafield(tag);
+        if (fields != null && !fields.isEmpty()) {
+          for (DataField field : fields)
+            subjects.put(field, entry.getKey());
+        }
+      }
+    }
+    return subjects;
+  }
+
   abstract public List<DataField> getAuthorityFields();
+  abstract public Map<DataField, AuthorityCategory> getAuthorityFieldsMap();
 
   /*
   public List<DataField> getAuthorityFields() {
@@ -874,7 +891,7 @@ public abstract class BibliographicRecord implements Extractable, Validatable, S
     return schemaType;
   }
 
-  public void setSchemaType(SchemaType schemaType) {
-    this.schemaType = schemaType;
+  public void setSchemaType(SchemaType _schemaType) {
+    schemaType = _schemaType;
   }
 }

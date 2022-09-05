@@ -31,13 +31,17 @@ input$count <- as.integer(input$count)
 original_count <- dim(input)[1]
 print(paste0("original_count: ", original_count))
 
+# filter(str_length(record) != 6)
+# filter(str_length(publication) != 4)
+
 d1 <- input %>%
-  # filter(str_length(record) != 6)
-  # filter(str_length(publication) != 4)
   mutate(publication = substr(publication, 1, 4)) %>% 
-  mutate(publication2 = as.Date(parse_date_time(publication, "y")))
-  
-print(d1)
+  mutate(publication2 = as.Date(parse_date_time(publication, "y"))) %>% 
+  mutate(record = paste0(ifelse(substr(record, 0, 2) <= 30, 
+                                "20", 
+                                "19"), record))
+
+view(d1)
 
 data <- input %>%
   filter(str_length(record) == 6) %>%

@@ -169,7 +169,7 @@ public class MarcFactory {
 
   public static BibliographicRecord createPicaFromMarc4j(Record marc4jRecord, PicaSchemaManager picaSchemaManager) {
     var marcRecord = new PicaRecord();
-    marcRecord.setSchemaType(SchemaType.PICA);
+    // marcRecord.setSchemaType(SchemaType.PICA);
 
     importMarc4jControlFields(marc4jRecord, marcRecord, null);
 

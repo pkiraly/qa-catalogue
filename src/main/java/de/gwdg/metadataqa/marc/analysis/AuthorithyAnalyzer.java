@@ -5,6 +5,8 @@ import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
 import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
+import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTermSourceCodes;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -40,16 +42,23 @@ public class AuthorithyAnalyzer {
   public int process() {
     Map<AuthorityCategory, Integer> categoryCounter = new EnumMap<>(AuthorityCategory.class);
     var count = 0;
-    for (DataField field : marcRecord.getAuthorityFields()) {
-      var type = field.getDefinition().getSourceSpecificationType();
-      if (type != null) {
-        if (type.equals(SourceSpecificationType.Subfield2)) {
-          var fieldInstanceLevelCount = processFieldWithSubfield2(field);
-          count += fieldInstanceLevelCount;
-          add(AuthorityCategory.get(field.getTag()), categoryCounter, fieldInstanceLevelCount);
-        } else {
-          logger.log(Level.SEVERE, "Unhandled type: {0}", type);
+    for (Map.Entry<DataField, AuthorityCategory> field : marcRecord.getAuthorityFieldsMap().entrySet()) {
+      System.err.println(field);
+      if (marcRecord.getSchemaType().equals(SchemaType.MARC21)) {
+        var type = field.getKey().getDefinition().getSourceSpecificationType();
+        if (type != null) {
+          if (type.equals(SourceSpecificationType.Subfield2)) {
+            var fieldInstanceLevelCount = processFieldWithSubfield2(field.getKey());
+            count += fieldInstanceLevelCount;
+            add(field.getValue(), categoryCounter, fieldInstanceLevelCount);
+          } else {
+            logger.log(Level.SEVERE, "Unhandled type: {0}", type);
+          }
         }
+      } else if (marcRecord.getSchemaType().equals(SchemaType.PICA)) {
+        var fieldInstanceLevelCount = processPicaField(field.getKey());
+        count += fieldInstanceLevelCount;
+        add(field.getValue(), categoryCounter, fieldInstanceLevelCount);
       }
     }
     updateAuthorityCategoryStatitics(categoryCounter);
@@ -64,6 +73,21 @@ public class AuthorithyAnalyzer {
         authoritiesStatistics.getRecordsPerCategories().count(entry.getKey());
       }
     }
+  }
+
+  private int processPicaField(DataField field) {
+    var count = 0;
+    List<Schema> schemas = new ArrayList<>();
+    var currentSchema = extractSchemaFromSubfield7(field.getTag(), schemas, field);
+    if (currentSchema == null)
+      currentSchema = extractSchemaFromSubfield2(field.getTag(), schemas, field);
+    updateSchemaSubfieldStatistics(field, currentSchema);
+    count++;
+
+    addSchemasToStatistics(authoritiesStatistics.getInstances(), schemas);
+    addSchemasToStatistics(authoritiesStatistics.getRecords(), deduplicateSchema(schemas));
+
+    return count;
   }
 
   private int processFieldWithSubfield2(DataField field) {
@@ -116,6 +140,30 @@ public class AuthorithyAnalyzer {
     } else {
       for (MarcSubfield altScheme : altSchemes) {
         currentSchema = new Schema(tag, "$2", altScheme.getValue(), altScheme.resolve());
+        schemas.add(currentSchema);
+      }
+    }
+    return currentSchema;
+  }
+
+  private Schema extractSchemaFromSubfield7(String tag,
+                                            List<Schema> schemas,
+                                            DataField field) {
+    Schema currentSchema = null;
+    List<MarcSubfield> altSchemes = field.getSubfield("7");
+    if (altSchemes == null || altSchemes.isEmpty()) {
+      currentSchema = new Schema(tag, "$7", "undetectable", "undetectable");
+      schemas.add(currentSchema);
+    } else {
+      for (MarcSubfield altScheme : altSchemes) {
+        if (altScheme.getValue().contains("/")) {
+          String[] parts = altScheme.getValue().split("/");
+          var code = SubjectHeadingAndTermSourceCodes.getInstance().getCode(parts[0]);
+          var label = code == null ? parts[0] : code.getLabel();
+          currentSchema = new Schema(tag, "$7", parts[0], label);
+        } else {
+          currentSchema = new Schema(tag, "$7", "undetectable", "undetectable");
+        }
         schemas.add(currentSchema);
       }
     }

@@ -17,6 +17,7 @@ public class PicaLine {
   private static final String EINGABE = "Eingabe";
   private static final String WARNUNG = "Warnung";
   private String subfieldSeparator = DEFAULT_SEPARATOR;
+  private static String DOLLAR_REPLACEMENT = "%26%26";
 
   private String tag;
   private String occurrence;
@@ -107,9 +108,19 @@ public class PicaLine {
 
   private void parseSubfields() {
     subfields = new ArrayList<>();
-    String[] parts = content.split(Pattern.quote(subfieldSeparator));
+    boolean dollarReplacement = false;
+    String[] parts = null;
+    if (subfieldSeparator.equals("$") && content.contains("$$")) {
+      dollarReplacement = true;
+      parts = content.replace("$$", DOLLAR_REPLACEMENT).split(Pattern.quote(subfieldSeparator));
+    } else {
+      parts = content.split(Pattern.quote(subfieldSeparator));
+    }
     for (String part : parts) {
       if (StringUtils.isNotBlank(part)) {
+        if (dollarReplacement) {
+          part = part.replace(DOLLAR_REPLACEMENT, "$");
+        }
         subfields.add(new PicaSubfield(part.substring(0, 1), part.substring(1)));
       }
     }

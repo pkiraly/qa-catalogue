@@ -86,4 +86,10 @@ public class PicaLineTest {
     assertEquals("$", PicaLine.DEFAULT_SEPARATOR);
   }
 
+
+  @Test
+  public void dollarsign() {
+    PicaLine line = new PicaLine("005A $00263-9254$f: L 230.00 (jährl., EU), $$ 435.00 (jährl.)");
+    assertEquals(": L 230.00 (jährl., EU), $ 435.00 (jährl.)", line.getSubfields().get(1).getValue());
+  }
 }

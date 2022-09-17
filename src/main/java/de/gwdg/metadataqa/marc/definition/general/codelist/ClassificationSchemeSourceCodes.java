@@ -175,7 +175,12 @@ public class ClassificationSchemeSourceCodes extends CodeList {
       "wydocs", "WyDocs: the Wyoming state documents classification system (Cheyenne, WY: Department of Administration and Information, Wyoming State Library)",
       "ykl", "Yleisten kirjastojen luokitusjärjestelmä = Finnish public libraries classification system",
       "z", "Other [used when a source code has not yet been assigned to a classification scheme]",
-      "zdbs", "ZDB-Systematik = ZDB-Classification"
+      "zdbs", "ZDB-Systematik = ZDB-Classification",
+
+      // PICA
+      // "sdnb", "Sachgruppen der Deutschen Nationalbibliografie bis 2003"
+      "nb", "Notation – Beziehung"
+
     );
     indexCodes();
   }

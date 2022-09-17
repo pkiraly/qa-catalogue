@@ -81,10 +81,21 @@ public class ClassificationAnalyzer {
   );
 
   private static final List<FieldWithScheme> PICA_FIELDS_WITH_SCHEME = Arrays.asList(
-    new FieldWithScheme("045A", "Library of Congress Classification"),
-    new FieldWithScheme("045B", "Other scheme"),
-    new FieldWithScheme("045F", "Dewey Decimal Classification"),
-    new FieldWithScheme("045R", "Regensburger Verbundklassifikation")
+    new FieldWithScheme("045A", "LCC-Notation"),
+    new FieldWithScheme("045F", "DDC-Notation"),
+    new FieldWithScheme("045R", "Regensburger Verbundklassifikation (RVK)"),
+    new FieldWithScheme("045B/00", "Allgemeine Systematik für Bibliotheken (ASB)"),
+    new FieldWithScheme("045B/01", "Systematik der Stadtbibliothek Duisburg (SSD)"),
+    new FieldWithScheme("045B/02", "Systematik für Bibliotheken (SfB)"),
+    new FieldWithScheme("045B/03", "Klassifikation für Allgemeinbibliotheken (KAB)"),
+    new FieldWithScheme("045B/04", "Systematiken der ekz"),
+    new FieldWithScheme("045B/05", "Gattungsbegriffe (DNB)"),
+    new FieldWithScheme("045C", "Notation – Beziehung"),
+    new FieldWithScheme("045E", "Sachgruppen der Deutschen Nationalbibliografie bis 2003"),
+    new FieldWithScheme("045G", "Sachgruppen der Deutschen Nationalbibliografie ab 2004"),
+    new FieldWithScheme("041A", "Sachbegriff - Bevorzugte Benennung"),
+    new FieldWithScheme("144Z/00-99", "Lokale Schlagwörter"),
+    new FieldWithScheme("145S/00-99", "Lesesaalsystematik der SBB")
   );
 
   public ClassificationAnalyzer(BibliographicRecord marcRecord, ClassificationStatistics statistics) {

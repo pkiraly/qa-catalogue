@@ -43,7 +43,6 @@ public class AuthorithyAnalyzer {
     Map<AuthorityCategory, Integer> categoryCounter = new EnumMap<>(AuthorityCategory.class);
     var count = 0;
     for (Map.Entry<DataField, AuthorityCategory> field : marcRecord.getAuthorityFieldsMap().entrySet()) {
-      System.err.println(field);
       if (marcRecord.getSchemaType().equals(SchemaType.MARC21)) {
         var type = field.getKey().getDefinition().getSourceSpecificationType();
         if (type != null) {

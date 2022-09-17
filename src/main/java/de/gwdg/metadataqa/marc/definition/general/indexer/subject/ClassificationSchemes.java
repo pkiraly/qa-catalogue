@@ -57,6 +57,13 @@ public class ClassificationSchemes {
 
     // PICA
     schemes.put("Regensburger Verbundklassifikation", "rvk");
+    schemes.put("Regensburger Verbundklassifikation (RVK)", "rvk");
+    schemes.put("Sachgruppen der Deutschen Nationalbibliografie bis 2003", "sdnb");
+    schemes.put("Sachgruppen der Deutschen Nationalbibliografie ab 2004", "sdnb");
+    schemes.put("LCC-Notation", "lcc");
+    schemes.put("DDC-Notation", "ddc");
+    schemes.put("Notation – Beziehung", "ddc");
+
   }
 
   public String resolve(String key) {

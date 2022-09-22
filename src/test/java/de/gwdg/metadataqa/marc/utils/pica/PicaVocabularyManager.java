@@ -30,7 +30,7 @@ public class PicaVocabularyManager {
       VocabularyEntry entry = new VocabularyEntry();
       entry.setId(parseId((String) record.get("ID")));
       entry.setPica((String) record.get("PICA"));
-      entry.setSrc(parseId((String) record.get("SRC")));
+      entry.setSource(parseId((String) record.get("SRC")));
       entry.setVoc((String) record.get("VOC"));
       entry.setNotationPattern((String) record.get("notationPattern"));
       entry.setNamespace((String) record.get("namespace"));
@@ -42,8 +42,6 @@ public class PicaVocabularyManager {
           entry.setPrefLabelDe((String) prefLabel.get("de"));
       }
       entry.setUri((String) record.get("uri"));
-      System.err.println(entry.getId());
-      System.err.println(entry.getSrc());
       map.put(entry.getPica(), entry);
     }
   }
@@ -57,4 +55,7 @@ public class PicaVocabularyManager {
     return null;
   }
 
+  public VocabularyEntry get(String tag) {
+    return map.getOrDefault(tag, null);
+  }
 }

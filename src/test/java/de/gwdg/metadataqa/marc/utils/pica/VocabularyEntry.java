@@ -3,7 +3,7 @@ package de.gwdg.metadataqa.marc.utils.pica;
 public class VocabularyEntry {
   private VocabularyPattern id;
   private String pica;
-  private VocabularyPattern src;
+  private VocabularyPattern source;
   private String voc;
   private String notationPattern;
   private String namespace;
@@ -27,12 +27,12 @@ public class VocabularyEntry {
     this.pica = pica;
   }
 
-  public VocabularyPattern getSrc() {
-    return src;
+  public VocabularyPattern getSource() {
+    return source;
   }
 
-  public void setSrc(VocabularyPattern src) {
-    this.src = src;
+  public void setSource(VocabularyPattern src) {
+    this.source = src;
   }
 
   public String getVoc() {

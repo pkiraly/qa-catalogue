@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.utils.pica;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class VocabularyPattern {
@@ -25,6 +26,17 @@ public class VocabularyPattern {
     return codes;
   }
 
+  public boolean fitsSubfield(String code) {
+    return codes.contains(code);
+  }
+
+  public String extract(String s) {
+    Matcher matcher = pattern.matcher(s);
+    if (matcher.matches())
+      return matcher.group(1);
+    return null;
+  }
+
   @Override
   public String toString() {
     return "VocabularyPattern{" +
@@ -32,4 +44,5 @@ public class VocabularyPattern {
       ", pattern=" + pattern +
       '}';
   }
+
 }

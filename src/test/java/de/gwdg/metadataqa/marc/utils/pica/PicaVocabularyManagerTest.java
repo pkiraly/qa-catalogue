@@ -11,9 +11,19 @@ import static org.junit.Assert.*;
 public class PicaVocabularyManagerTest {
 
   @Test
-  public void name() throws FileNotFoundException, ParseException {
+  public void constructor() throws FileNotFoundException, ParseException {
     PicaVocabularyManager manager = new PicaVocabularyManager(getPath("pica/vocabularies.json"));
 
+    VocabularyEntry entry = manager.get("045A");
+    assertNotNull(entry);
+    VocabularyPattern sourcePattern = entry.getSource();
+    assertNotNull(sourcePattern);
+    assertFalse(sourcePattern.fitsSubfield("a"));
+
+    VocabularyPattern idPattern = entry.getId();
+    assertNotNull(idPattern);
+    assertTrue(idPattern.fitsSubfield("a"));
+    assertEquals("PG5681.B7", idPattern.extract("PG5681.B7"));
   }
 
   private String getPath(String fileName) {

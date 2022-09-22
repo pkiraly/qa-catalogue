@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.analysis;
 
+import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
@@ -7,7 +8,15 @@ import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.general.indexer.subject.ClassificationSchemes;
+import de.gwdg.metadataqa.marc.utils.pica.PicaVocabularyManager;
+import net.minidev.json.parser.ParseException;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,6 +39,7 @@ public class ClassificationAnalyzer {
   private static final ClassificationSchemes classificationSchemes =
     ClassificationSchemes.getInstance();
   private static final Pattern NUMERIC = Pattern.compile("^\\d");
+  private static PicaVocabularyManager manager = null;
 
   private final ClassificationStatistics statistics;
   private BibliographicRecord marcRecord;
@@ -101,6 +111,13 @@ public class ClassificationAnalyzer {
   public ClassificationAnalyzer(BibliographicRecord marcRecord, ClassificationStatistics statistics) {
     this.marcRecord = marcRecord;
     this.statistics = statistics;
+    if (marcRecord.getSchemaType().equals(SchemaType.PICA) && manager == null) {
+      try {
+        manager = new PicaVocabularyManager(this.getClass().getResourceAsStream("/pica/vocabularies.json"));
+      } catch (ParseException | IOException e) {
+        e.printStackTrace();
+      }
+    }
   }
 
   public int process() {
@@ -244,7 +261,6 @@ public class ClassificationAnalyzer {
     List<Schema> schemas = new ArrayList<>();
     for (DataField field : fields) {
       String firstSubfield = null;
-      // String alt = null;
       if (field.getSubfield("a") != null) {
         firstSubfield = "$a";
       } else {

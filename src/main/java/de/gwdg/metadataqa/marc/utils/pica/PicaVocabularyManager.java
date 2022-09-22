@@ -8,6 +8,9 @@ import net.minidev.json.parser.ParseException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -19,12 +22,31 @@ public class PicaVocabularyManager {
   private static final Pattern PATTERN = Pattern.compile("^\\^(\\w|\\[\\w+\\])(.*)$");
 
   public PicaVocabularyManager(String filename) throws FileNotFoundException, ParseException {
-    read(filename);
+    Object jsonObject = parser.parse(new FileReader(new File(filename)));
+    read(jsonObject);
   }
 
-  private void read(String filename) throws FileNotFoundException, ParseException {
-    Object obj = parser.parse(new FileReader(new File(filename)));
-    JSONArray items = (JSONArray) obj;
+  public PicaVocabularyManager(InputStream inputStream) throws FileNotFoundException, ParseException {
+    try {
+      Object jsonObject = parser.parse(new InputStreamReader(inputStream, "UTF-8"));
+      read(jsonObject);
+    } catch (UnsupportedEncodingException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private VocabularyPattern parseId(String id) {
+    if (id.startsWith("^")) {
+      Matcher m = PATTERN.matcher(id);
+      if (m.matches())
+        return new VocabularyPattern(m.group(1), m.group(2));
+    }
+    return null;
+  }
+
+  private void read(Object jsonObject) throws FileNotFoundException, ParseException {
+    // Object obj = parser.parse(new FileReader(new File(filename)));
+    JSONArray items = (JSONArray) jsonObject;
     for (Object item : items) {
       JSONObject record = (JSONObject) item;
       VocabularyEntry entry = new VocabularyEntry();
@@ -44,15 +66,6 @@ public class PicaVocabularyManager {
       entry.setUri((String) record.get("uri"));
       map.put(entry.getPica(), entry);
     }
-  }
-
-  private VocabularyPattern parseId(String id) {
-    if (id.startsWith("^")) {
-      Matcher m = PATTERN.matcher(id);
-      if (m.matches())
-        return new VocabularyPattern(m.group(1), m.group(2));
-    }
-    return null;
   }
 
   public VocabularyEntry get(String tag) {

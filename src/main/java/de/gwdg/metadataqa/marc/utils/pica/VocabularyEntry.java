@@ -10,6 +10,7 @@ public class VocabularyEntry {
   private String prefLabelEn;
   private String prefLabelDe;
   private String uri;
+  private String comment;
 
   public VocabularyPattern getId() {
     return id;
@@ -81,5 +82,17 @@ public class VocabularyEntry {
 
   public void setUri(String uri) {
     this.uri = uri;
+  }
+
+  public String getComment() {
+    return comment;
+  }
+
+  public void setComment(String comment) {
+    this.comment = comment;
+  }
+
+  public String getLabel() {
+    return (prefLabelDe != null ? prefLabelDe : (prefLabelEn != null ? prefLabelEn : (comment != null ? comment : "Other scheme")));
   }
 }

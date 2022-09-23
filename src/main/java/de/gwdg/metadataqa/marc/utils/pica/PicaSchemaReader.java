@@ -42,7 +42,7 @@ public class PicaSchemaReader {
 
   private void readSchema(String fileName) throws IOException, ParseException, URISyntaxException {
     // Path tagsFile = FileUtils.getPath(fileName);
-    Object obj = parser.parse(new FileReader(new File(fileName)));
+    Object obj = parser.parse(new FileReader(fileName));
     JSONObject jsonObject = (JSONObject) obj;
     JSONObject fields = (JSONObject) jsonObject.get("fields");
     for (String id : fields.keySet()) {
@@ -65,6 +65,10 @@ public class PicaSchemaReader {
       processSubfields(field, tag);
       PicaFieldDefinition definition = new PicaFieldDefinition(tag);
       addTag(definition);
+      if (id.endsWith("/00")) {
+        PicaFieldDefinition definition2 = definition.copyWithChangesId();
+        addTag(definition2);
+      }
     }
   }
 

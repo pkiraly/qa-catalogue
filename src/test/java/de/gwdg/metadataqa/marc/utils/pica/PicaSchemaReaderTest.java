@@ -12,7 +12,7 @@ public class PicaSchemaReaderTest {
   @Test
   public void testFirst() {
     PicaSchemaManager schema = PicaSchemaReader.createSchema(getPath("pica/avram-k10plus.json"));
-    assertEquals(434, schema.size());
+    assertEquals(438, schema.size());
     PicaFieldDefinition field = schema.lookup("001A");
     assertEquals("001A", field.getTag());
     assertEquals("Kennung und Datum der Ersterfassung", field.getLabel());
@@ -35,7 +35,7 @@ public class PicaSchemaReaderTest {
   @Test
   public void testOneWithPercent() {
     PicaSchemaManager schema = PicaSchemaReader.createSchema(getPath("pica/avram-k10plus.json"));
-    assertEquals(434, schema.size());
+    assertEquals(438, schema.size());
     PicaFieldDefinition field = schema.lookup("022A/00");
     assertEquals("022A", field.getTag());
     assertEquals("Werktitel und sonstige unterscheidende Merkmale des Werks", field.getLabel());
@@ -56,6 +56,16 @@ public class PicaSchemaReaderTest {
     // assertEquals("Quelle und Datum (getrennt durch \":\")", field.getSubfield("0").getModified());
     // TODO: getPica3()
     // assertEquals("Quelle und Datum (getrennt durch \":\")", field.getSubfield("0").getPica3());
+
+  }
+
+  @Test
+  public void testCloning() {
+    PicaSchemaManager schema = PicaSchemaReader.createSchema(getPath("pica/avram-k10plus-title.json"));
+    PicaFieldDefinition tag = schema.lookup("045B");
+    assertNotNull(tag);
+    assertEquals("045B", tag.getId());
+    assertEquals("Allgemeine Systematik für Bibliotheken (ASB)", tag.getLabel());
   }
 
   private String getPath(String fileName) {

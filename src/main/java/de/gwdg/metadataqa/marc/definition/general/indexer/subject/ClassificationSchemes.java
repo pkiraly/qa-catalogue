@@ -63,7 +63,7 @@ public class ClassificationSchemes {
     schemes.put("LCC-Notation", "lcc");
     schemes.put("DDC-Notation", "ddc");
     schemes.put("Notation – Beziehung", "ddc");
-
+    schemes.put("This mixes multiple systems used in DNB before 2004", "dnbsgr");
   }
 
   public String resolve(String key) {

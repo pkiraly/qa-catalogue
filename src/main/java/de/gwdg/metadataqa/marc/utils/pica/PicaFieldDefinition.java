@@ -10,6 +10,8 @@ public class PicaFieldDefinition extends DataFieldDefinition {
   private PicaRange range;
   private String id;
 
+  private PicaFieldDefinition(){};
+
   public PicaFieldDefinition(PicaTagDefinition picaTagDefinition) {
     tag = picaTagDefinition.getTag();
     label = picaTagDefinition.getLabel();
@@ -57,5 +59,22 @@ public class PicaFieldDefinition extends DataFieldDefinition {
       }
     }
     return false;
+  }
+
+  public PicaFieldDefinition copyWithChangesId() {
+    PicaFieldDefinition other = new PicaFieldDefinition();
+    other.id = getId().replace("/00", "");
+    other.tag = getTag();
+    other.label = getLabel();
+    other.cardinality = getCardinality();
+    other.subfields = getSubfields();
+    other.descriptionUrl = getDescriptionUrl();
+    other.modified = getModified();
+    other.pica3 = getPica3();
+    other.occurrence = getOccurrence();
+    other.range = getRange();
+    other.indexSubfields();
+
+    return other;
   }
 }

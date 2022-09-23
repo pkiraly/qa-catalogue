@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -56,6 +57,9 @@ public class PicaVocabularyManager {
       entry.setVoc((String) record.get("VOC"));
       entry.setNotationPattern((String) record.get("notationPattern"));
       entry.setNamespace((String) record.get("namespace"));
+      if (record.containsKey("COMMENT"))
+        entry.setComment((String) record.get("COMMENT"));
+
       if (record.containsKey("prefLabel")) {
         JSONObject prefLabel = (JSONObject) record.get("prefLabel");
         if (prefLabel.containsKey("en"))
@@ -70,5 +74,9 @@ public class PicaVocabularyManager {
 
   public VocabularyEntry get(String tag) {
     return map.getOrDefault(tag, null);
+  }
+
+  public Collection<VocabularyEntry> getAll() {
+    return map.values();
   }
 }

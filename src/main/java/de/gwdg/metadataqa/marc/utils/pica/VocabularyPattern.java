@@ -45,4 +45,7 @@ public class VocabularyPattern {
       '}';
   }
 
+  public List<String> getCodes() {
+     return codes;
+  }
 }

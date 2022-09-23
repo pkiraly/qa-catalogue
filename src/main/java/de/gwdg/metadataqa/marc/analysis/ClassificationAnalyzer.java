@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc.analysis;
 
-import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
@@ -9,14 +8,10 @@ import de.gwdg.metadataqa.marc.cli.utils.Schema;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.general.indexer.subject.ClassificationSchemes;
 import de.gwdg.metadataqa.marc.utils.pica.PicaVocabularyManager;
+import de.gwdg.metadataqa.marc.utils.pica.VocabularyEntry;
 import net.minidev.json.parser.ParseException;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -164,12 +159,39 @@ public class ClassificationAnalyzer {
   }
 
   private int processFieldsWithSchemePica(int total, List<FieldWithScheme> fieldsWithScheme) {
-    for (FieldWithScheme fieldWithScheme : fieldsWithScheme) {
-      var count = processFieldWithSchemePica(marcRecord, fieldWithScheme);
-      if (count > 0)
-        total += count;
+    int count = total;
+    for (VocabularyEntry entry : manager.getAll()) {
+      if (!marcRecord.hasDatafield(entry.getPica()))
+        continue;
+
+      String schema = entry.getLabel();
+      List<DataField> fields = marcRecord.getDatafield(entry.getPica());
+      List<Schema> schemas = new ArrayList<>();
+      for (DataField field : fields) {
+        String firstSubfield = null;
+        if (field.getSubfield("a") != null) {
+          firstSubfield = "$a";
+        } else {
+          for (MarcSubfield subfield : field.getSubfields()) {
+            String code = subfield.getCode();
+            if (!code.equals("A")) {
+              firstSubfield = "$" + code;
+              break;
+            }
+          }
+        }
+        if (firstSubfield != null) {
+          var currentSchema = new Schema(entry.getPica(), firstSubfield, entry.getVoc(), schema);
+          schemas.add(currentSchema);
+          updateSchemaSubfieldStatistics(field, currentSchema);
+          count++;
+        } else {
+          logger.severe(String.format("undetected subfield in record %s %s", marcRecord.getId(), field.toString()));
+        }
+      }
+      registerSchemas(schemas);
     }
-    return total;
+    return count;
   }
 
   private int processFieldsWithoutSource(int total) {
@@ -237,44 +259,6 @@ public class ClassificationAnalyzer {
         var scheme = fieldEntry.getSchemaName();
         var currentSchema = new Schema(
           tag, firstSubfield, classificationSchemes.resolve(scheme), scheme);
-        schemas.add(currentSchema);
-        updateSchemaSubfieldStatistics(field, currentSchema);
-        count++;
-      } else {
-        logger.severe(String.format("undetected subfield in record %s %s", marcRecord.getId(), field.toString()));
-      }
-    }
-
-    registerSchemas(schemas);
-
-    return count;
-  }
-
-  private int processFieldWithSchemePica(BibliographicRecord marcRecord,
-                                         FieldWithScheme fieldEntry) {
-    var count = 0;
-    final String tag = fieldEntry.getTag();
-    if (!marcRecord.hasDatafield(tag))
-      return count;
-
-    List<DataField> fields = marcRecord.getDatafield(tag);
-    List<Schema> schemas = new ArrayList<>();
-    for (DataField field : fields) {
-      String firstSubfield = null;
-      if (field.getSubfield("a") != null) {
-        firstSubfield = "$a";
-      } else {
-        for (MarcSubfield subfield : field.getSubfields()) {
-          String code = subfield.getCode();
-          if (!code.equals("A")) {
-            firstSubfield = "$" + code;
-            break;
-          }
-        }
-      }
-      if (firstSubfield != null) {
-        var scheme = fieldEntry.getSchemaName();
-        var currentSchema = new Schema(tag, firstSubfield, classificationSchemes.resolve(scheme), scheme);
         schemas.add(currentSchema);
         updateSchemaSubfieldStatistics(field, currentSchema);
         count++;

@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.dao.record;
 
+import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
 import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
 import de.gwdg.metadataqa.marc.dao.DataField;
@@ -13,6 +14,8 @@ import java.util.Map;
 public class Marc21Record extends BibliographicRecord {
 
   private static List<String> authorityTags;
+  private static Map<String, Boolean> authorityTagsIndex;
+  private static Map<String, Map<String, Boolean>> authorityTagsSkippableSubfields;
   private static Map<AuthorityCategory, List<String>> authorityTagsMap;
   private static Map<ThompsonTraillFields, List<String>> ttTagsMap;
 
@@ -39,12 +42,33 @@ public class Marc21Record extends BibliographicRecord {
     return getAuthorityFields(authorityTagsMap);
   }
 
+  public boolean isAuthorityTag(String tag) {
+    if (authorityTagsIndex == null) {
+      initializeAuthorityTags();
+    }
+    return authorityTagsIndex.getOrDefault(tag, false);
+  }
+
+  public boolean isSkippableAuthoritySubfield(String tag, String code) {
+    if (authorityTagsIndex == null)
+      initializeAuthorityTags();
+
+    if (!authorityTagsSkippableSubfields.containsKey(tag))
+      return false;
+
+    return authorityTagsSkippableSubfields.get(tag).getOrDefault(tag, false);
+  }
+
   private void initializeAuthorityTags() {
     authorityTags = Arrays.asList(
       "100", "110", "111", "130",
       "700", "710", "711", "730",   "720", "740", "751", "752", "753", "754",
       "800", "810", "811", "830"
     );
+    authorityTagsIndex = Utils.listToMap(authorityTags);
+
+    authorityTagsSkippableSubfields = new HashMap<>();
+    // authorityTagsSkippableSubfields.put("028A", Utils.listToMap(Arrays.asList("9", "V", "7", "3")));
 
     authorityTagsMap = new HashMap<>();
     authorityTagsMap.put(AuthorityCategory.Personal, List.of("100", "700", "800"));

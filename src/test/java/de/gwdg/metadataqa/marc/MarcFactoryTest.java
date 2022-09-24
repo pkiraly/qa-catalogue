@@ -35,7 +35,7 @@ public class MarcFactoryTest {
     // System.err.println(record.formatForIndex());
     // System.err.println(record.getKeyValuePairs());
     Map<String, List<String>> pairs = marcRecord.getKeyValuePairs(SolrFieldType.HUMAN);
-    assertEquals(121, pairs.size());
+    assertEquals(122, pairs.size());
     Set<String> keys = pairs.keySet();
     // keys.remove("GentLocallyDefinedField");
     // keys.remove("BemerkungenZurTitelaufnahme");
@@ -75,7 +75,7 @@ public class MarcFactoryTest {
       "DatesOfPublication, DatesOfPublication_format, NumberingPeculiarities, " +
       "BemerkungenZurTitelaufnahme, " +
       "RSWKKette_nummerDesKettengliedes, RSWKKette_0, RSWKKette_a, " +
-      "RSWKKette_nummerDerRSWKKette, RSWKKette_D, RSWKKette_5, AddedCorporateName, " +
+      "RSWKKette_nummerDerRSWKKette, RSWKKette_D, RSWKKette_5, AddedCorporateName, AddedCorporateName_full, " +
       "AddedCorporateName_authorityRecordControlNumber, " +
       "AddedCorporateName_authorityRecordControlNumber_recordNumber, " +
       "AddedCorporateName_authorityRecordControlNumber_organization, " +
@@ -451,7 +451,7 @@ public class MarcFactoryTest {
 
     BibliographicRecord marcRecord = MarcFactory.create(cache, MarcVersion.DNB);
     Map<String, List<String>> pairs = marcRecord.getKeyValuePairs(SolrFieldType.MIXED);
-    assertEquals(121, pairs.size());
+    assertEquals(122, pairs.size());
 
     Set<String> keys = pairs.keySet();
     keys.remove("591a_GentLocallyDefinedField");
@@ -549,6 +549,7 @@ public class MarcFactoryTest {
         "7100_AddedCorporateName_authorityRecordControlNumber, " +
         "7100_AddedCorporateName_authorityRecordControlNumber_recordNumber, " +
         "7100_AddedCorporateName_authorityRecordControlNumber_organization, " +
+        "710_AddedCorporateName_full, " +
         "7100_AddedCorporateName_authorityRecordControlNumber_organizationCode, " +
         "710a_AddedCorporateName, " +
         "710ind1_AddedCorporateName_nameType, " +

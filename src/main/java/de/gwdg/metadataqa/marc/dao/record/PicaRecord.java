@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.dao.record;
 
+import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
@@ -12,6 +13,8 @@ import java.util.Map;
 public class PicaRecord extends BibliographicRecord {
 
   private static List<String> authorityTags;
+  private static Map<String, Boolean> authorityTagsIndex;
+  private static Map<String, Map<String, Boolean>> authorityTagsSkippableSubfields;
   private static Map<AuthorityCategory, List<String>> authorityTagsMap;
 
   public PicaRecord() {
@@ -33,6 +36,24 @@ public class PicaRecord extends BibliographicRecord {
       initializeAuthorityTags();
     }
     return getAuthorityFields(authorityTags);
+  }
+
+  public boolean isAuthorityTag(String tag) {
+    if (authorityTagsIndex == null) {
+      initializeAuthorityTags();
+    }
+    return authorityTagsIndex.getOrDefault(tag, false);
+  }
+
+  public boolean isSkippableAuthoritySubfield(String tag, String code) {
+    if (authorityTagsIndex == null)
+      initializeAuthorityTags();
+
+    if (!authorityTagsSkippableSubfields.containsKey(tag))
+      return false;
+
+    // System.err.println();
+    return authorityTagsSkippableSubfields.get(tag).getOrDefault(code, false);
   }
 
   public Map<DataField, AuthorityCategory> getAuthorityFieldsMap() {
@@ -65,6 +86,23 @@ public class PicaRecord extends BibliographicRecord {
       "037Q", // Beschreibung des Einbands
       "037R"  // Buchschmuck (Druckermarken, Vignetten, Zierleisten etc.)
     );
+    authorityTagsIndex = Utils.listToMap(authorityTags);
+
+    authorityTagsSkippableSubfields = new HashMap<>();
+    authorityTagsSkippableSubfields.put("022A", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    authorityTagsSkippableSubfields.put("028A", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    authorityTagsSkippableSubfields.put("028B", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    authorityTagsSkippableSubfields.put("028C", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    authorityTagsSkippableSubfields.put("028E", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    authorityTagsSkippableSubfields.put("028G", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    authorityTagsSkippableSubfields.put("029A", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    authorityTagsSkippableSubfields.put("029E", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    authorityTagsSkippableSubfields.put("029F", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    authorityTagsSkippableSubfields.put("029G", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    authorityTagsSkippableSubfields.put("033D", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    authorityTagsSkippableSubfields.put("033H", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    authorityTagsSkippableSubfields.put("033J", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+
     authorityTagsMap = new HashMap<>();
     authorityTagsMap.put(AuthorityCategory.Titles, List.of("022A", "022A"));
     authorityTagsMap.put(AuthorityCategory.Personal, List.of("028A", "028B", "028C", "028E", "028G", "033J"));

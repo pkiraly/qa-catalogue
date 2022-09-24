@@ -44,7 +44,6 @@ public class PicaSchemaReaderTest {
     assertEquals("00", field.getOccurrence());
     // assertEquals("00", field.getCounter().getStart());
 
-
     assertEquals(Cardinality.Nonrepeatable, field.getCardinality());
     assertEquals("https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=3210", field.getDescriptionUrl());
     assertNotNull(field.getSubfields());
@@ -56,7 +55,6 @@ public class PicaSchemaReaderTest {
     // assertEquals("Quelle und Datum (getrennt durch \":\")", field.getSubfield("0").getModified());
     // TODO: getPica3()
     // assertEquals("Quelle und Datum (getrennt durch \":\")", field.getSubfield("0").getPica3());
-
   }
 
   @Test

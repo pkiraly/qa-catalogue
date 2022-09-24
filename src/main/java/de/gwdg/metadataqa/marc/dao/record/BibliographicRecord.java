@@ -796,6 +796,8 @@ public abstract class BibliographicRecord implements Extractable, Validatable, S
 
   abstract public List<DataField> getAuthorityFields();
   abstract public Map<DataField, AuthorityCategory> getAuthorityFieldsMap();
+  abstract public boolean isAuthorityTag(String tag);
+  abstract public boolean isSkippableAuthoritySubfield(String tag, String code);
 
   /*
   public List<DataField> getAuthorityFields() {

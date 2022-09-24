@@ -144,4 +144,26 @@ public class DataFieldKeyGenerator {
   public void setMarcVersion(MarcVersion marcVersion) {
     this.marcVersion = marcVersion;
   }
+
+  public String forFull() {
+    String key = "";
+    switch (type) {
+      case HUMAN:
+        key = indexTag; break;
+      case MIXED:
+        if (definition != null && !tag.equals(indexTag)) {
+          key = String.format("%s_%s", tag, indexTag);
+        } else {
+          key = tag;
+        }
+        break;
+      case MARC:
+      default:
+        key = tag;
+        break;
+    }
+    key += "_full";
+    return key;
+  }
+
 }

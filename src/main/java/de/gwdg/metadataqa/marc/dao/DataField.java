@@ -7,6 +7,7 @@ import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.Validatable;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -334,18 +335,21 @@ public class DataField implements Extractable, Validatable, Serializable {
     DataFieldKeyGenerator keyGenerator = new DataFieldKeyGenerator(definition, type, getTag());
     keyGenerator.setMarcVersion(marcVersion);
 
+    // ind1
     boolean hasInd1def = (definition != null && definition.getInd1() != null && definition.getInd1().exists());
     if (hasInd1def || !getInd1().equals(" ")) {
       String value = hasInd1def ? resolveInd1() : getInd1();
       pairs.put(keyGenerator.forInd1(), Arrays.asList(value));
     }
 
+    // ind2
     boolean hasInd2def = (definition != null && definition.getInd2() != null && definition.getInd2().exists());
     if (hasInd2def || !getInd2().equals(" ")) {
       String value = hasInd2def ? resolveInd2() : getInd2();
       pairs.put(keyGenerator.forInd2(), Arrays.asList(value));
     }
 
+    // subfields
     for (MarcSubfield subfield : subfields) {
       pairs.putAll(subfield.getKeyValuePairs(keyGenerator));
     }
@@ -358,6 +362,31 @@ public class DataField implements Extractable, Validatable, Serializable {
         logger.severe(String.format("%s  in record %s %s",
           e.getLocalizedMessage(), marcRecord.getId(), this.toString()));
       }
+    }
+
+    // full field indexing
+    if (marcRecord != null && marcRecord.isAuthorityTag(this.getTag())) {
+      List<String> full = new ArrayList<>();
+      for (MarcSubfield subfield : subfields) {
+        if (!marcRecord.isSkippableAuthoritySubfield(this.getTag(), subfield.getCode())) {
+          String value = subfield.getValue();
+          if (marcRecord.getSchemaType().equals(SchemaType.PICA)) {
+            if (subfield.getCode().equals("E")) {
+              value += "-";
+              if (subfieldIndex.containsKey("M"))
+                value += subfieldIndex.get("M").get(0).getValue();
+            } else if (subfield.getCode().equals("M") && subfieldIndex.containsKey("E")) {
+              continue;
+            }
+          }
+          full.add(value);
+        }
+      }
+      String key = keyGenerator.forFull();
+      String value = StringUtils.join(full, ", ");
+      if (!pairs.containsKey(key))
+        pairs.put(key, new ArrayList<>());
+      pairs.get(key).add(value);
     }
 
     return pairs;

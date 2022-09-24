@@ -14,6 +14,7 @@ import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -183,5 +184,12 @@ public class Utils {
     }
     throw new StringIndexOutOfBoundsException(String.format(
       "Character position range %d-%d is not available in string '%s'", start, end, value));
+  }
+
+  public static Map<String, Boolean> listToMap(List<String> list) {
+    Map<String, Boolean> map = new HashMap<>();
+    for (String tag : list)
+      map.put(tag, true);
+    return map;
   }
 }

@@ -13,8 +13,11 @@ import java.util.Map;
 public class PicaRecord extends BibliographicRecord {
 
   private static List<String> authorityTags;
+  private static List<String> claasificationTags;
   private static Map<String, Boolean> authorityTagsIndex;
+  private static Map<String, Boolean> claasificationTagsIndex;
   private static Map<String, Map<String, Boolean>> authorityTagsSkippableSubfields;
+  private static Map<String, Map<String, Boolean>> claasificationTagsSkippableSubfields;
   private static Map<AuthorityCategory, List<String>> authorityTagsMap;
 
   public PicaRecord() {
@@ -54,6 +57,24 @@ public class PicaRecord extends BibliographicRecord {
 
     // System.err.println();
     return authorityTagsSkippableSubfields.get(tag).getOrDefault(code, false);
+  }
+
+  public boolean isClassificationTag(String tag) {
+    if (claasificationTagsIndex == null) {
+      initializeAuthorityTags();
+    }
+    return claasificationTagsIndex.getOrDefault(tag, false);
+  }
+
+  public boolean isSkippableClassificationSubfield(String tag, String code) {
+    if (claasificationTagsIndex == null)
+      initializeAuthorityTags();
+
+    if (!claasificationTagsSkippableSubfields.containsKey(tag))
+      return false;
+
+    // System.err.println();
+    return claasificationTagsSkippableSubfields.get(tag).getOrDefault(code, false);
   }
 
   public Map<DataField, AuthorityCategory> getAuthorityFieldsMap() {
@@ -102,6 +123,14 @@ public class PicaRecord extends BibliographicRecord {
     authorityTagsSkippableSubfields.put("033D", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
     authorityTagsSkippableSubfields.put("033H", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
     authorityTagsSkippableSubfields.put("033J", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+
+    claasificationTags = Arrays.asList(
+      "045A", "045B", "045F", "045R", "045C", "045E", "045G"
+    );
+    claasificationTagsIndex = Utils.listToMap(claasificationTags);
+    claasificationTagsSkippableSubfields = new HashMap<>();
+    claasificationTagsSkippableSubfields.put("022A", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    claasificationTagsSkippableSubfields.put("045R", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
 
     authorityTagsMap = new HashMap<>();
     authorityTagsMap.put(AuthorityCategory.Titles, List.of("022A", "022A"));

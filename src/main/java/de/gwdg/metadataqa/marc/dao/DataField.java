@@ -364,7 +364,7 @@ public class DataField implements Extractable, Validatable, Serializable {
       }
     }
 
-    // full field indexing
+    // full field indexing: name authorities
     if (marcRecord != null && marcRecord.isAuthorityTag(this.getTag())) {
       List<String> full = new ArrayList<>();
       for (MarcSubfield subfield : subfields) {
@@ -379,6 +379,33 @@ public class DataField implements Extractable, Validatable, Serializable {
               continue;
             }
           }
+          full.add(value);
+        }
+      }
+      String key = keyGenerator.forFull();
+      String value = StringUtils.join(full, ", ");
+      if (!pairs.containsKey(key))
+        pairs.put(key, new ArrayList<>());
+      pairs.get(key).add(value);
+    }
+
+    // classifications
+    if (marcRecord != null && marcRecord.isClassificationTag(this.getTag())) {
+      List<String> full = new ArrayList<>();
+      for (MarcSubfield subfield : subfields) {
+        if (!marcRecord.isSkippableClassificationSubfield(this.getTag(), subfield.getCode())) {
+          String value = subfield.getValue();
+          /*
+          if (marcRecord.getSchemaType().equals(SchemaType.PICA)) {
+            if (subfield.getCode().equals("E")) {
+              value += "-";
+              if (subfieldIndex.containsKey("M"))
+                value += subfieldIndex.get("M").get(0).getValue();
+            } else if (subfield.getCode().equals("M") && subfieldIndex.containsKey("E")) {
+              continue;
+            }
+          }
+           */
           full.add(value);
         }
       }

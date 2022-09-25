@@ -14,8 +14,11 @@ import java.util.Map;
 public class Marc21Record extends BibliographicRecord {
 
   private static List<String> authorityTags;
+  private static List<String> claasificationTags;
   private static Map<String, Boolean> authorityTagsIndex;
+  private static Map<String, Boolean> claasificationTagsIndex;
   private static Map<String, Map<String, Boolean>> authorityTagsSkippableSubfields;
+  private static Map<String, Map<String, Boolean>> claasificationTagsSkippableSubfields;
   private static Map<AuthorityCategory, List<String>> authorityTagsMap;
   private static Map<ThompsonTraillFields, List<String>> ttTagsMap;
 
@@ -59,6 +62,24 @@ public class Marc21Record extends BibliographicRecord {
     return authorityTagsSkippableSubfields.get(tag).getOrDefault(tag, false);
   }
 
+  public boolean isClassificationTag(String tag) {
+    if (claasificationTagsIndex == null) {
+      initializeAuthorityTags();
+    }
+    return claasificationTagsIndex.getOrDefault(tag, false);
+  }
+
+  public boolean isSkippableClassificationSubfield(String tag, String code) {
+    if (claasificationTagsIndex == null)
+      initializeAuthorityTags();
+
+    if (!claasificationTagsSkippableSubfields.containsKey(tag))
+      return false;
+
+    // System.err.println();
+    return claasificationTagsSkippableSubfields.get(tag).getOrDefault(code, false);
+  }
+
   private void initializeAuthorityTags() {
     authorityTags = Arrays.asList(
       "100", "110", "111", "130",
@@ -68,7 +89,11 @@ public class Marc21Record extends BibliographicRecord {
     authorityTagsIndex = Utils.listToMap(authorityTags);
 
     authorityTagsSkippableSubfields = new HashMap<>();
+
+    claasificationTags = Arrays.asList();
+    claasificationTagsIndex = Utils.listToMap(claasificationTags);
     // authorityTagsSkippableSubfields.put("028A", Utils.listToMap(Arrays.asList("9", "V", "7", "3")));
+    claasificationTagsSkippableSubfields = new HashMap<>();
 
     authorityTagsMap = new HashMap<>();
     authorityTagsMap.put(AuthorityCategory.Personal, List.of("100", "700", "800"));

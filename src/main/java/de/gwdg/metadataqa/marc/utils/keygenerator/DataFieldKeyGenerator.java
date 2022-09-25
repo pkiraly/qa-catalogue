@@ -5,7 +5,10 @@ import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
+import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class DataFieldKeyGenerator {
@@ -13,7 +16,7 @@ public class DataFieldKeyGenerator {
   private SolrFieldType type;
   private String tag;
   private String indexTag;
-  private static final Pattern nonValidSubfieldCode = Pattern.compile("[^0-9a-zA-Z]");
+  public static final Pattern nonValidSubfieldCode = Pattern.compile("[^0-9a-zA-Z]");
   private MarcVersion marcVersion;
 
   public DataFieldKeyGenerator(DataFieldDefinition definition, SolrFieldType type) {
@@ -109,8 +112,10 @@ public class DataFieldKeyGenerator {
   }
 
   private String forSubfield(String code, String codeForIndex) {
+    String safeTag = nonValidSubfieldCode.matcher(tag).find() ? escape(tag) : tag;
     if (nonValidSubfieldCode.matcher(code).matches())
       code = String.format("x%x", (int) code.charAt(0));
+
 
     String key = "";
     switch (type) {
@@ -118,19 +123,30 @@ public class DataFieldKeyGenerator {
         key = String.format("%s%s", indexTag, codeForIndex); break;
       case MIXED:
         if (!tag.equals(indexTag) && !codeForIndex.equals("_" + code))
-          key = String.format("%s%s_%s%s", tag, code, indexTag, codeForIndex);
+          key = String.format("%s%s_%s%s", safeTag, code, indexTag, codeForIndex);
         else if (!tag.equals(indexTag) && codeForIndex.equals("_" + code))
-          key = String.format("%s%s_%s", tag, code, indexTag);
+          key = String.format("%s%s_%s", safeTag, code, indexTag);
         else
-          key = String.format("%s%s", tag, code);
+          key = String.format("%s%s", safeTag, code);
         break;
       case MARC:
       default:
-        key = String.format("%s%s", tag, code);
+        key = String.format("%s%s", safeTag, code);
         break;
     }
 
     return key;
+  }
+
+  private String escape(String tag) {
+    List<String> safe = new ArrayList<>();
+    for (int i = 0; i < tag.length(); i++) {
+      String code = tag.substring(i, i+1);
+      if (nonValidSubfieldCode.matcher(code).matches())
+        code = String.format("x%x", (int) code.charAt(0));
+      safe.add(code);
+    }
+    return StringUtils.join(safe, "");
   }
 
   public String getIndexTag() {
@@ -146,24 +162,29 @@ public class DataFieldKeyGenerator {
   }
 
   public String forFull() {
+    String safeTag = nonValidSubfieldCode.matcher(tag).find() ? escape(tag) : tag;
+
     String key = "";
     switch (type) {
       case HUMAN:
         key = indexTag; break;
       case MIXED:
         if (definition != null && !tag.equals(indexTag)) {
-          key = String.format("%s_%s", tag, indexTag);
+          key = String.format("%s_%s", safeTag, indexTag);
         } else {
-          key = tag;
+          key = safeTag;
         }
         break;
       case MARC:
       default:
-        key = tag;
+        key = safeTag;
         break;
     }
     key += "_full";
     return key;
   }
 
+  public SolrFieldType getType() {
+    return type;
+  }
 }

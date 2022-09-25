@@ -32,6 +32,7 @@ public class MarcSubfield implements Validatable, Serializable {
   private ErrorsCollector errors = null;
   private Linkage linkage;
   private String referencePath;
+  private static Map<String, String> prefixCache;
 
   public MarcSubfield(SubfieldDefinition definition, String code, String value) {
     this.definition = definition;
@@ -127,9 +128,16 @@ public class MarcSubfield implements Validatable, Serializable {
   }
 
   public Map<String, List<String>> getKeyValuePairs(DataFieldKeyGenerator keyGenerator) {
-    Map<String, List<String>> pairs = new HashMap<>();
-    String prefix = keyGenerator.forSubfield(this);
+    if (prefixCache == null) {
+      prefixCache = new HashMap<>();
+    }
 
+    String cacheKey = this.getField().getTag() + "$" + code + "-" + keyGenerator.getType().getType();
+    if (!prefixCache.containsKey(cacheKey))
+      prefixCache.put(cacheKey, keyGenerator.forSubfield(this));
+    String prefix = prefixCache.get(cacheKey);
+
+    Map<String, List<String>> pairs = new HashMap<>();
     pairs.put(prefix, Collections.singletonList(resolve()));
     if (getDefinition() != null) {
       getKeyValuePairsForPositionalSubfields(pairs, prefix);

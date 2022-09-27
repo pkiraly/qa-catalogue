@@ -187,4 +187,8 @@ public class DataFieldKeyGenerator {
   public SolrFieldType getType() {
     return type;
   }
+
+  public MarcVersion getMarcVersion() {
+    return marcVersion;
+  }
 }

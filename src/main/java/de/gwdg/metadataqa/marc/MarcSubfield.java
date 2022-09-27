@@ -132,7 +132,7 @@ public class MarcSubfield implements Validatable, Serializable {
       prefixCache = new HashMap<>();
     }
 
-    String cacheKey = this.getField().getTag() + "$" + code + "-" + keyGenerator.getType().getType();
+    String cacheKey = String.format("%s$%s-%s-%s", this.getField().getTag(), code, keyGenerator.getType().getType(), keyGenerator.getMarcVersion());
     if (!prefixCache.containsKey(cacheKey))
       prefixCache.put(cacheKey, keyGenerator.forSubfield(this));
     String prefix = prefixCache.get(cacheKey);

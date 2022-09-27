@@ -12,7 +12,7 @@ public class PicaVocabularyManagerTest {
 
   @Test
   public void constructor() throws FileNotFoundException, ParseException {
-    PicaVocabularyManager manager = new PicaVocabularyManager(getPath("pica/vocabularies.json"));
+    PicaVocabularyManager manager = PicaVocabularyManager.getInstance(getPath("pica/vocabularies.json"));
 
     VocabularyEntry entry = manager.get("045A");
     assertNotNull(entry);

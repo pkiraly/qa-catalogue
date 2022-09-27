@@ -390,10 +390,10 @@ public class DataField implements Extractable, Validatable, Serializable {
     }
 
     // classifications
-    if (marcRecord != null && marcRecord.isClassificationTag(this.getTag())) {
+    if (marcRecord != null && marcRecord.isSubjectTag(this.getTag())) {
       List<String> full = new ArrayList<>();
       for (MarcSubfield subfield : subfields) {
-        if (!marcRecord.isSkippableClassificationSubfield(this.getTag(), subfield.getCode())) {
+        if (!marcRecord.isSkippableSubjectSubfield(this.getTag(), subfield.getCode())) {
           String value = subfield.getValue();
           /*
           if (marcRecord.getSchemaType().equals(SchemaType.PICA)) {

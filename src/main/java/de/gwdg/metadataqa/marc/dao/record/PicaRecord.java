@@ -13,11 +13,11 @@ import java.util.Map;
 public class PicaRecord extends BibliographicRecord {
 
   private static List<String> authorityTags;
-  private static List<String> claasificationTags;
+  private static List<String> subjectTags;
   private static Map<String, Boolean> authorityTagsIndex;
-  private static Map<String, Boolean> claasificationTagsIndex;
-  private static Map<String, Map<String, Boolean>> authorityTagsSkippableSubfields;
-  private static Map<String, Map<String, Boolean>> claasificationTagsSkippableSubfields;
+  private static Map<String, Boolean> subjectTagIndex;
+  private static Map<String, Map<String, Boolean>> skippableAuthoritySubfields;
+  private static Map<String, Map<String, Boolean>> skippableSubjectSubfields;
   private static Map<AuthorityCategory, List<String>> authorityTagsMap;
 
   public PicaRecord() {
@@ -52,29 +52,28 @@ public class PicaRecord extends BibliographicRecord {
     if (authorityTagsIndex == null)
       initializeAuthorityTags();
 
-    if (!authorityTagsSkippableSubfields.containsKey(tag))
+    if (!skippableAuthoritySubfields.containsKey(tag))
       return false;
 
     // System.err.println();
-    return authorityTagsSkippableSubfields.get(tag).getOrDefault(code, false);
+    return skippableAuthoritySubfields.get(tag).getOrDefault(code, false);
   }
 
-  public boolean isClassificationTag(String tag) {
-    if (claasificationTagsIndex == null) {
+  public boolean isSubjectTag(String tag) {
+    if (subjectTagIndex == null) {
       initializeAuthorityTags();
     }
-    return claasificationTagsIndex.getOrDefault(tag, false);
+    return subjectTagIndex.getOrDefault(tag, false);
   }
 
-  public boolean isSkippableClassificationSubfield(String tag, String code) {
-    if (claasificationTagsIndex == null)
+  public boolean isSkippableSubjectSubfield(String tag, String code) {
+    if (subjectTagIndex == null)
       initializeAuthorityTags();
 
-    if (!claasificationTagsSkippableSubfields.containsKey(tag))
+    if (!skippableSubjectSubfields.containsKey(tag))
       return false;
 
-    // System.err.println();
-    return claasificationTagsSkippableSubfields.get(tag).getOrDefault(code, false);
+    return skippableSubjectSubfields.get(tag).getOrDefault(code, false);
   }
 
   public Map<DataField, AuthorityCategory> getAuthorityFieldsMap() {
@@ -83,7 +82,6 @@ public class PicaRecord extends BibliographicRecord {
     }
     return getAuthorityFields(authorityTagsMap);
   }
-
 
   private static void initializeAuthorityTags() {
     authorityTags = Arrays.asList(
@@ -109,28 +107,28 @@ public class PicaRecord extends BibliographicRecord {
     );
     authorityTagsIndex = Utils.listToMap(authorityTags);
 
-    authorityTagsSkippableSubfields = new HashMap<>();
-    authorityTagsSkippableSubfields.put("022A", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
-    authorityTagsSkippableSubfields.put("028A", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
-    authorityTagsSkippableSubfields.put("028B", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
-    authorityTagsSkippableSubfields.put("028C", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
-    authorityTagsSkippableSubfields.put("028E", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
-    authorityTagsSkippableSubfields.put("028G", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
-    authorityTagsSkippableSubfields.put("029A", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
-    authorityTagsSkippableSubfields.put("029E", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
-    authorityTagsSkippableSubfields.put("029F", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
-    authorityTagsSkippableSubfields.put("029G", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
-    authorityTagsSkippableSubfields.put("033D", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
-    authorityTagsSkippableSubfields.put("033H", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
-    authorityTagsSkippableSubfields.put("033J", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    skippableAuthoritySubfields = new HashMap<>();
+    skippableAuthoritySubfields.put("022A", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    skippableAuthoritySubfields.put("028A", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    skippableAuthoritySubfields.put("028B", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    skippableAuthoritySubfields.put("028C", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    skippableAuthoritySubfields.put("028E", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    skippableAuthoritySubfields.put("028G", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    skippableAuthoritySubfields.put("029A", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    skippableAuthoritySubfields.put("029E", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    skippableAuthoritySubfields.put("029F", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    skippableAuthoritySubfields.put("029G", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    skippableAuthoritySubfields.put("033D", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    skippableAuthoritySubfields.put("033H", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    skippableAuthoritySubfields.put("033J", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
 
-    claasificationTags = Arrays.asList(
+    subjectTags = Arrays.asList(
       "045A", "045B", "045F", "045R", "045C", "045E", "045G"
     );
-    claasificationTagsIndex = Utils.listToMap(claasificationTags);
-    claasificationTagsSkippableSubfields = new HashMap<>();
-    claasificationTagsSkippableSubfields.put("022A", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
-    claasificationTagsSkippableSubfields.put("045R", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    subjectTagIndex = Utils.listToMap(subjectTags);
+    skippableSubjectSubfields = new HashMap<>();
+    skippableSubjectSubfields.put("022A", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    skippableSubjectSubfields.put("045R", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
 
     authorityTagsMap = new HashMap<>();
     authorityTagsMap.put(AuthorityCategory.Titles, List.of("022A", "022A"));

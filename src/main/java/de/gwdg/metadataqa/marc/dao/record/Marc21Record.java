@@ -4,7 +4,6 @@ import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
 import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -14,11 +13,11 @@ import java.util.Map;
 public class Marc21Record extends BibliographicRecord {
 
   private static List<String> authorityTags;
-  private static List<String> claasificationTags;
+  private static List<String> subjectTags;
   private static Map<String, Boolean> authorityTagsIndex;
-  private static Map<String, Boolean> claasificationTagsIndex;
-  private static Map<String, Map<String, Boolean>> authorityTagsSkippableSubfields;
-  private static Map<String, Map<String, Boolean>> claasificationTagsSkippableSubfields;
+  private static Map<String, Boolean> subjectTagIndex;
+  private static Map<String, Map<String, Boolean>> skippableAuthoritySubfields;
+  private static Map<String, Map<String, Boolean>> skippableSubjectSubfields;
   private static Map<AuthorityCategory, List<String>> authorityTagsMap;
   private static Map<ThompsonTraillFields, List<String>> ttTagsMap;
 
@@ -56,28 +55,28 @@ public class Marc21Record extends BibliographicRecord {
     if (authorityTagsIndex == null)
       initializeAuthorityTags();
 
-    if (!authorityTagsSkippableSubfields.containsKey(tag))
+    if (!skippableAuthoritySubfields.containsKey(tag))
       return false;
 
-    return authorityTagsSkippableSubfields.get(tag).getOrDefault(tag, false);
+    return skippableAuthoritySubfields.get(tag).getOrDefault(tag, false);
   }
 
-  public boolean isClassificationTag(String tag) {
-    if (claasificationTagsIndex == null) {
+  public boolean isSubjectTag(String tag) {
+    if (subjectTagIndex == null) {
       initializeAuthorityTags();
     }
-    return claasificationTagsIndex.getOrDefault(tag, false);
+    return subjectTagIndex.getOrDefault(tag, false);
   }
 
-  public boolean isSkippableClassificationSubfield(String tag, String code) {
-    if (claasificationTagsIndex == null)
+  public boolean isSkippableSubjectSubfield(String tag, String code) {
+    if (subjectTagIndex == null)
       initializeAuthorityTags();
 
-    if (!claasificationTagsSkippableSubfields.containsKey(tag))
+    if (!skippableSubjectSubfields.containsKey(tag))
       return false;
 
     // System.err.println();
-    return claasificationTagsSkippableSubfields.get(tag).getOrDefault(code, false);
+    return skippableSubjectSubfields.get(tag).getOrDefault(code, false);
   }
 
   private void initializeAuthorityTags() {
@@ -88,12 +87,15 @@ public class Marc21Record extends BibliographicRecord {
     );
     authorityTagsIndex = Utils.listToMap(authorityTags);
 
-    authorityTagsSkippableSubfields = new HashMap<>();
+    skippableAuthoritySubfields = new HashMap<>();
 
-    claasificationTags = Arrays.asList();
-    claasificationTagsIndex = Utils.listToMap(claasificationTags);
-    // authorityTagsSkippableSubfields.put("028A", Utils.listToMap(Arrays.asList("9", "V", "7", "3")));
-    claasificationTagsSkippableSubfields = new HashMap<>();
+    subjectTags = Arrays.asList(
+      "052", "055", "072", "080", "082", "083", "084", "085", "086",
+      "600", "610", "611", "630", "647", "648", "650", "651",
+      "653", "654", "655", "656", "657", "658", "662"
+    );
+    subjectTagIndex = Utils.listToMap(subjectTags);
+    skippableSubjectSubfields = new HashMap<>();
 
     authorityTagsMap = new HashMap<>();
     authorityTagsMap.put(AuthorityCategory.Personal, List.of("100", "700", "800"));

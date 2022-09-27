@@ -107,11 +107,7 @@ public class ClassificationAnalyzer {
     this.marcRecord = marcRecord;
     this.statistics = statistics;
     if (marcRecord.getSchemaType().equals(SchemaType.PICA) && manager == null) {
-      try {
-        manager = new PicaVocabularyManager(this.getClass().getResourceAsStream("/pica/vocabularies.json"));
-      } catch (ParseException | IOException e) {
-        e.printStackTrace();
-      }
+      manager = PicaVocabularyManager.getInstance();
     }
   }
 

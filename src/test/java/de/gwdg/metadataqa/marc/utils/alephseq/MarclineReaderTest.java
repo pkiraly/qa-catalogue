@@ -404,7 +404,7 @@ public class MarclineReaderTest {
     assertEquals(expected, formatted);
 
     Map<String, List<String>> pairs = marcRecord.getKeyValuePairs();
-    assertEquals(138, pairs.size());
+    assertEquals(140, pairs.size());
 
     List<String> hits = marcRecord.search("001", "010000011");
     assertEquals(1, hits.size());

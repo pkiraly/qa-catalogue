@@ -293,7 +293,7 @@ public class AlephseqMarcReaderTest {
     assertEquals(expected, formatted);
 
     Map<String, List<String>> pairs = marcRecord.getKeyValuePairs();
-    assertEquals(93, pairs.size());
+    assertEquals(95, pairs.size());
 
     List<String> hits = marcRecord.search("001", "000000002");
     assertEquals(1, hits.size());

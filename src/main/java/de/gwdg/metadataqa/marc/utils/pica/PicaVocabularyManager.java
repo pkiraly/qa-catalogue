@@ -21,13 +21,47 @@ public class PicaVocabularyManager {
   private JSONParser parser = new JSONParser(JSONParser.MODE_RFC4627);
   private Map<String, VocabularyEntry> map = new HashMap<>();
   private static final Pattern PATTERN = Pattern.compile("^\\^(\\w|\\[\\w+\\])(.*)$");
+  private static PicaVocabularyManager instance;
 
-  public PicaVocabularyManager(String filename) throws FileNotFoundException, ParseException {
+  public static PicaVocabularyManager getInstance() {
+    if (instance == null) {
+      try {
+        instance = new PicaVocabularyManager(PicaVocabularyManager.class.getResourceAsStream("/pica/vocabularies.json"));
+      } catch (FileNotFoundException | ParseException e) {
+        throw new RuntimeException(e);
+      }
+    }
+    return instance;
+  }
+
+  public static PicaVocabularyManager getInstance(InputStream inputStream) {
+    if (instance == null) {
+      try {
+        instance = new PicaVocabularyManager(inputStream);
+      } catch (FileNotFoundException | ParseException e) {
+        throw new RuntimeException(e);
+      }
+    }
+    return instance;
+  }
+
+  public static PicaVocabularyManager getInstance(String filename) {
+    if (instance == null) {
+      try {
+        instance = new PicaVocabularyManager(filename);
+      } catch (FileNotFoundException | ParseException e) {
+        throw new RuntimeException(e);
+      }
+    }
+    return instance;
+  }
+
+  private PicaVocabularyManager(String filename) throws FileNotFoundException, ParseException {
     Object jsonObject = parser.parse(new FileReader(new File(filename)));
     read(jsonObject);
   }
 
-  public PicaVocabularyManager(InputStream inputStream) throws FileNotFoundException, ParseException {
+  private PicaVocabularyManager(InputStream inputStream) throws FileNotFoundException, ParseException {
     try {
       Object jsonObject = parser.parse(new InputStreamReader(inputStream, "UTF-8"));
       read(jsonObject);

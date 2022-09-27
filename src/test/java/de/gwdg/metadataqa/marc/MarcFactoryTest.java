@@ -35,7 +35,7 @@ public class MarcFactoryTest {
     // System.err.println(record.formatForIndex());
     // System.err.println(record.getKeyValuePairs());
     Map<String, List<String>> pairs = marcRecord.getKeyValuePairs(SolrFieldType.HUMAN);
-    assertEquals(122, pairs.size());
+    assertEquals(124, pairs.size());
     Set<String> keys = pairs.keySet();
     // keys.remove("GentLocallyDefinedField");
     // keys.remove("BemerkungenZurTitelaufnahme");
@@ -64,10 +64,10 @@ public class MarcFactoryTest {
       "SystemControlNumber, SystemControlNumber_organization, " +
       "AdminMetadata_languageOfCataloging, " +
       "AdminMetadata_transcribingAgency, AdminMetadata_descriptionConventions, AdminMetadata_catalogingAgency, " +
-      "Language_translationIndication, Language, Language_sourceOfCode, Place_country, " +
+      "Language_translationIndication, Language, Language_sourceOfCode, Place_country, ClassificationDdc_full, " +
       "ClassificationDdc_editionType, ClassificationDdc_classificationSource, ClassificationDdc, " +
       "Classification_classificationPortion, Classification_classificationPortion_zdbs, " +
-      "Classification_source, Title_subtitle, " +
+      "Classification_source, Classification_full, Title_subtitle, " +
       "Title_responsibilityStatement, Title_mainTitle, Title_titleAddedEntry, " +
       "Title_nonfilingCharacters, Title_partName, ParallelTitle_mainTitle, ParallelTitle_type, " +
       "ParallelTitle_displayText, ParallelTitle_noteAndAddedEntry, " +
@@ -451,7 +451,7 @@ public class MarcFactoryTest {
 
     BibliographicRecord marcRecord = MarcFactory.create(cache, MarcVersion.DNB);
     Map<String, List<String>> pairs = marcRecord.getKeyValuePairs(SolrFieldType.MIXED);
-    assertEquals(122, pairs.size());
+    assertEquals(124, pairs.size());
 
     Set<String> keys = pairs.keySet();
     keys.remove("591a_GentLocallyDefinedField");
@@ -521,8 +521,10 @@ public class MarcFactoryTest {
         "082ind2_ClassificationDdc_classificationSource, " +
         "082ind1_ClassificationDdc_editionType, " +
         "082a_ClassificationDdc, " +
-        "084a_Classification_classificationPortion, " +
+        "082_ClassificationDdc_full, " +
+        "084_Classification_full, " +
         "0842_Classification_source, " +
+        "084a_Classification_classificationPortion, " +
         "084a_Classification_classificationPortion_zdbs, " +
         "245a_Title_mainTitle, " +
         "245ind1_Title_titleAddedEntry, " +

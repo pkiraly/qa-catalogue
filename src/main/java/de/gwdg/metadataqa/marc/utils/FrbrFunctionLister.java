@@ -38,22 +38,6 @@ public class FrbrFunctionLister {
     prepareBaseline();
     prepareCollector();
     prepareHistogram();
-
-    System.err.println("Covered elements: " + functionByMarcPath.size());
-    System.err.println("Uncovered elements: " + elementsWithoutFunctions);
-
-    /*
-    System.err.println("control fields: " + controlFields);
-    System.err.println("control subfields: " + controlSubfields);
-
-    System.err.println("core fields: " + coreFields);
-    System.err.println("core indicators: " + coreIndicators);
-    System.err.println("core subfields: " + coreSubfields);
-
-    System.err.println("local fields: " + localFields);
-    System.err.println("local indicators: " + localIndicators);
-    System.err.println("local subfields: " + localSubfields);
-     */
   }
 
   public Map<FRBRFunction, Counter<FunctionValue>> getHistogram() {

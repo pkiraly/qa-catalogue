@@ -25,10 +25,16 @@ public class PicaMarcCrosswalkReader {
   }
 
   public static List<Crosswalk> lookupMarc21(String key) {
+    if (mapping == null)
+      initialize();
+
     return marcIndex.getOrDefault(key, new ArrayList<>());
   }
 
   public static List<Crosswalk> lookupPica(String key) {
+    if (mapping == null)
+      initialize();
+
     return picaIndex.getOrDefault(key, new ArrayList<>());
   }
 

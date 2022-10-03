@@ -8,10 +8,14 @@ import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.structure.MarcDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
+import de.gwdg.metadataqa.marc.utils.pica.crosswalk.Crosswalk;
+import de.gwdg.metadataqa.marc.utils.pica.crosswalk.PicaMarcCrosswalkReader;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -31,6 +35,7 @@ public class FrbrFunctionLister {
 
   private Map<String, List<FRBRFunction>> functionByMarcPath;
   private AppendableHashMap<FRBRFunction, String> marcPathByfunction;
+  private Map<FRBRFunction, List<String>> picaPathByfunction;
 
   public FrbrFunctionLister(MarcVersion marcVersion) {
     this.marcVersion = marcVersion;
@@ -158,5 +163,24 @@ public class FrbrFunctionLister {
 
   public Map<FRBRFunction, List<String>> getMarcPathByfunction() {
     return marcPathByfunction.getMap();
+  }
+
+  public Map<FRBRFunction, List<String>> getPicaPathByfunction() {
+    if (picaPathByfunction == null) {
+      picaPathByfunction = new HashMap<>();
+      for (Map.Entry<FRBRFunction, List<String>> entry : marcPathByfunction.entrySet()) {
+        for (String address : entry.getValue()) {
+          if (address.contains("$")) {
+            String key = address.replace("$", " $");
+            for (Crosswalk crosswalk : PicaMarcCrosswalkReader.lookupMarc21(key)) {
+              if (!picaPathByfunction.containsKey(entry.getKey()))
+                picaPathByfunction.put(entry.getKey(), new ArrayList<>());
+              picaPathByfunction.get(entry.getKey()).add(crosswalk.getPica());
+            }
+          }
+        }
+      }
+    }
+    return picaPathByfunction;
   }
 }

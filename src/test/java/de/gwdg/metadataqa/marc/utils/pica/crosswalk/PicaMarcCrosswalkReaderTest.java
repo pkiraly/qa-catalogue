@@ -30,21 +30,7 @@ public class PicaMarcCrosswalkReaderTest {
   @Test
   public void testLoad() {
     FrbrFunctionLister lister = new FrbrFunctionLister(MarcVersion.MARC21);
-    Map<FRBRFunction, List<String>> marcFunctions = lister.getMarcPathByfunction();
-    Map<FRBRFunction, List<String>> picaFunctions = new HashMap<>();
-      List<Crosswalk> mapping = PicaMarcCrosswalkReader.read();
-    for (Map.Entry<FRBRFunction, List<String>> entry : marcFunctions.entrySet()) {
-      for (String address : entry.getValue()) {
-        if (address.contains("$")) {
-          String key = address.replace("$", " $");
-          for (Crosswalk crosswalk : PicaMarcCrosswalkReader.lookupMarc21(key)) {
-            if (!picaFunctions.containsKey(entry.getKey()))
-              picaFunctions.put(entry.getKey(), new ArrayList<>());
-            picaFunctions.get(entry.getKey()).add(crosswalk.getPica());
-          }
-        }
-      }
-    }
+    Map<FRBRFunction, List<String>> picaFunctions = lister.getPicaPathByfunction();
     assertEquals(11, picaFunctions.size());
     assertEquals(167, picaFunctions.get(FRBRFunction.DiscoveryObtain).size());
     assertEquals(178, picaFunctions.get(FRBRFunction.DiscoverySearch).size());

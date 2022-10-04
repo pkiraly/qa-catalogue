@@ -9,6 +9,7 @@ import de.gwdg.metadataqa.marc.dao.MarcControlField;
 import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.FRBRFunction;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
@@ -83,8 +84,8 @@ public class FunctionalAnalysis implements BibliographicInputProcessor, Serializ
   }
 
   @Override
-  public void processRecord(BibliographicRecord marcRecord, int recordNumber) throws IOException {
-    if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
+  public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber) throws IOException {
+    if (parameters.getRecordIgnorator().isIgnorable(bibliographicRecord))
       return;
 
     this.recordNumber = recordNumber;
@@ -95,9 +96,11 @@ public class FunctionalAnalysis implements BibliographicInputProcessor, Serializ
 
     Map<DataFieldDefinition, Boolean> cache = new HashMap<>();
 
-    countPositionalControlField(recordCounter, marcRecord.getLeader());
-    countControlFields(recordCounter, marcRecord.getControlfields());
-    countDataFields(recordCounter, marcRecord.getDatafields(), cache);
+    if (bibliographicRecord.getSchemaType().equals(SchemaType.MARC21)) {
+      countPositionalControlField(recordCounter, bibliographicRecord.getLeader());
+      countControlFields(recordCounter, bibliographicRecord.getControlfields());
+    }
+    countDataFields(recordCounter, bibliographicRecord.getDatafields(), bibliographicRecord.getSchemaType(), cache);
 
     frbrFunctionLister.calculatePercent(recordCounter);
 
@@ -107,21 +110,23 @@ public class FunctionalAnalysis implements BibliographicInputProcessor, Serializ
 
   private void countDataFields(Map<FRBRFunction, FunctionValue> recordCounter,
                                List<DataField> dataFields,
+                               SchemaType schemaType,
                                Map<DataFieldDefinition, Boolean> cache) {
     for (DataField dataField : dataFields) {
       DataFieldDefinition definition = dataField.getDefinition();
       if (!cache.containsKey(definition)) {
         cache.put(definition, true);
-        if (definition != null) {
+        if (definition != null && schemaType.equals(SchemaType.MARC21)) {
           countIndicator(recordCounter, definition.getInd1(), dataField.getInd1());
           countIndicator(recordCounter, definition.getInd2(), dataField.getInd2());
         }
-        for (MarcSubfield subfield : dataField.getSubfields()) {
-          if (subfield.getDefinition() != null
-              && subfield.getDefinition().getFrbrFunctions() != null) {
-            FrbrFunctionLister.countFunctions(
-              subfield.getDefinition().getFrbrFunctions(), recordCounter);
-          }
+        if (schemaType.equals(SchemaType.MARC21)) {
+          for (MarcSubfield subfield : dataField.getSubfields())
+            if (subfield.getDefinition() != null && subfield.getDefinition().getFrbrFunctions() != null)
+              FrbrFunctionLister.countFunctions(subfield.getDefinition().getFrbrFunctions(), recordCounter);
+        } else if (schemaType.equals(SchemaType.PICA)) {
+          if (frbrFunctionLister.getFunctionByPicaPath().containsKey(dataField.getTag()))
+            FrbrFunctionLister.countFunctions(frbrFunctionLister.getFunctionByPicaPath().get(dataField.getTag()), recordCounter);
         }
       }
     }
@@ -196,7 +201,12 @@ public class FunctionalAnalysis implements BibliographicInputProcessor, Serializ
 
   private void saveMapping(String fileExtension,
                            char separator) {
-    Map<FRBRFunction, List<String>> functions = frbrFunctionLister.getMarcPathByfunction();
+    Map<FRBRFunction, List<String>> functions = null;
+    if (parameters.getSchemaType().equals(SchemaType.MARC21))
+      functions = frbrFunctionLister.getMarcPathByFunction();
+    else if (parameters.getSchemaType().equals(SchemaType.PICA))
+      functions = frbrFunctionLister.getPicaPathByFunction();
+
     var path = Paths.get(parameters.getOutputDir(), "functional-analysis-mapping" + fileExtension);
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write("frbrfunction" + separator + "count" + separator + "fields\n");

@@ -34,8 +34,9 @@ public class FrbrFunctionLister {
   private Map<FRBRFunction, Counter<FunctionValue>> histogram;
 
   private Map<String, List<FRBRFunction>> functionByMarcPath;
-  private AppendableHashMap<FRBRFunction, String> marcPathByfunction;
-  private Map<FRBRFunction, List<String>> picaPathByfunction;
+  private Map<String, List<FRBRFunction>> functionByPicaPath;
+  private AppendableHashMap<FRBRFunction, String> marcPathByFunction;
+  private Map<FRBRFunction, List<String>> picaPathByFunction;
 
   public FrbrFunctionLister(MarcVersion marcVersion) {
     this.marcVersion = marcVersion;
@@ -52,7 +53,7 @@ public class FrbrFunctionLister {
   public void prepareBaseline() {
     elementsWithoutFunctions = 0;
     functionByMarcPath = new TreeMap<>();
-    marcPathByfunction = new AppendableHashMap<>();
+    marcPathByFunction = new AppendableHashMap<>();
 
     for (ControlfieldPositionDefinition subfield : MarcDefinition.getLeaderPositions())
       registerFunctions(subfield.getFrbrFunctions(), subfield.getPath(false));
@@ -94,7 +95,7 @@ public class FrbrFunctionLister {
     if (functions != null && !functions.isEmpty()) {
       functionByMarcPath.put(marcPath, functions);
       for (FRBRFunction function : functions) {
-        marcPathByfunction.append(function, marcPath);
+        marcPathByFunction.append(function, marcPath);
         baselineCounter.count(function);
       }
     } else {
@@ -161,26 +162,44 @@ public class FrbrFunctionLister {
     return baselineCounter.getMap();
   }
 
-  public Map<FRBRFunction, List<String>> getMarcPathByfunction() {
-    return marcPathByfunction.getMap();
+  public Map<FRBRFunction, List<String>> getMarcPathByFunction() {
+    return marcPathByFunction.getMap();
   }
 
-  public Map<FRBRFunction, List<String>> getPicaPathByfunction() {
-    if (picaPathByfunction == null) {
-      picaPathByfunction = new HashMap<>();
-      for (Map.Entry<FRBRFunction, List<String>> entry : marcPathByfunction.entrySet()) {
-        for (String address : entry.getValue()) {
-          if (address.contains("$")) {
-            String key = address.replace("$", " $");
-            for (Crosswalk crosswalk : PicaMarcCrosswalkReader.lookupMarc21(key)) {
-              if (!picaPathByfunction.containsKey(entry.getKey()))
-                picaPathByfunction.put(entry.getKey(), new ArrayList<>());
-              picaPathByfunction.get(entry.getKey()).add(crosswalk.getPica());
-            }
+  public Map<FRBRFunction, List<String>> getPicaPathByFunction() {
+    if (picaPathByFunction == null) {
+      initializePica();
+    }
+    return picaPathByFunction;
+  }
+
+  public Map<String, List<FRBRFunction>> getFunctionByPicaPath() {
+    if (functionByPicaPath == null) {
+      initializePica();
+    }
+    return functionByPicaPath;
+  }
+
+  private void initializePica() {
+    picaPathByFunction = new HashMap<>();
+    functionByPicaPath = new HashMap<>();
+    for (Map.Entry<FRBRFunction, List<String>> entry : marcPathByFunction.entrySet()) {
+      for (String address : entry.getValue()) {
+        if (address.contains("$")) {
+          FRBRFunction function = entry.getKey();
+          String key = address.replace("$", " $");
+          for (Crosswalk crosswalk : PicaMarcCrosswalkReader.lookupMarc21(key)) {
+            String pica = crosswalk.getPica();
+            if (!picaPathByFunction.containsKey(function))
+              picaPathByFunction.put(function, new ArrayList<>());
+            picaPathByFunction.get(function).add(pica);
+
+            if (!functionByPicaPath.containsKey(pica))
+              functionByPicaPath.put(pica, new ArrayList<>());
+            functionByPicaPath.get(pica).add(function);
           }
         }
       }
     }
-    return picaPathByfunction;
   }
 }

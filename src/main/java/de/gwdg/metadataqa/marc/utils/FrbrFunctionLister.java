@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.utils;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.structure.ControlFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
@@ -25,10 +26,11 @@ import java.util.logging.Logger;
 public class FrbrFunctionLister {
 
   private static final Logger logger = Logger.getLogger(FrbrFunctionLister.class.getCanonicalName());
+  private SchemaType schemaType; // = SchemaType.MARC21;
+  private MarcVersion marcVersion; // = MarcVersion.MARC21;
 
   private Counter<FRBRFunction> baselineCounter = new Counter<>();
   private int elementsWithoutFunctions;
-  private MarcVersion marcVersion;
 
   private Map<FRBRFunction, FunctionValue> collector;
   private Map<FRBRFunction, Counter<FunctionValue>> histogram;
@@ -38,12 +40,21 @@ public class FrbrFunctionLister {
   private AppendableHashMap<FRBRFunction, String> marcPathByFunction;
   private Map<FRBRFunction, List<String>> picaPathByFunction;
 
-  public FrbrFunctionLister(MarcVersion marcVersion) {
-    this.marcVersion = marcVersion;
+  public FrbrFunctionLister(SchemaType schemaType, MarcVersion marcVersion) {
+    this.schemaType = schemaType == null ? SchemaType.MARC21 : schemaType;
+    this.marcVersion = marcVersion == null ? MarcVersion.MARC21 : marcVersion;
 
     prepareBaseline();
     prepareCollector();
     prepareHistogram();
+  }
+
+  public FrbrFunctionLister(MarcVersion marcVersion) {
+    this(SchemaType.MARC21, marcVersion);
+  }
+
+  public FrbrFunctionLister(SchemaType schemaType) {
+    this(schemaType, MarcVersion.MARC21);
   }
 
   public Map<FRBRFunction, Counter<FunctionValue>> getHistogram() {
@@ -55,6 +66,23 @@ public class FrbrFunctionLister {
     functionByMarcPath = new TreeMap<>();
     marcPathByFunction = new AppendableHashMap<>();
 
+    if (schemaType.equals(SchemaType.MARC21)) {
+      prepareBaselineForMarc21();
+    } else if (schemaType.equals(SchemaType.PICA)) {
+      prepareBaselineForMarc21();
+      initializePica();
+      functionByMarcPath = new TreeMap<>();
+      marcPathByFunction = new AppendableHashMap<>();
+      prepareBaselineForPica();
+    }
+  }
+
+  private void prepareBaselineForPica() {
+    for (Map.Entry<String, List<FRBRFunction>> entry : functionByPicaPath.entrySet())
+      registerFunctions(entry.getValue(), entry.getKey());
+  }
+
+  private void prepareBaselineForMarc21() {
     for (ControlfieldPositionDefinition subfield : MarcDefinition.getLeaderPositions())
       registerFunctions(subfield.getFrbrFunctions(), subfield.getPath(false));
 

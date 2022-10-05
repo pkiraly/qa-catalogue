@@ -47,7 +47,7 @@ public class FunctionalAnalysis implements BibliographicInputProcessor, Serializ
     parameters = new CompletenessParameters(args);
     options = parameters.getOptions();
     readyToProcess = true;
-    frbrFunctionLister = new FrbrFunctionLister(parameters.getMarcVersion());
+    frbrFunctionLister = new FrbrFunctionLister(parameters.getSchemaType(), parameters.getMarcVersion());
 
     logger.info(frbrFunctionLister.getBaseline().toString());
   }
@@ -212,7 +212,7 @@ public class FunctionalAnalysis implements BibliographicInputProcessor, Serializ
       writer.write("frbrfunction" + separator + "count" + separator + "fields\n");
       for (FRBRFunction function : FRBRFunction.values()) {
         if (function.getParent() != null) {
-          List<String> paths = functions.get(function);
+          List<String> paths = functions.getOrDefault(function, new ArrayList<>());
           List<Object> cells = new ArrayList<>();
           cells.add(function.toString());
           cells.add(paths.size());

@@ -2,9 +2,13 @@ package de.gwdg.metadataqa.marc.dao.record;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
+import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
+import de.gwdg.metadataqa.marc.utils.pica.crosswalk.Crosswalk;
+import de.gwdg.metadataqa.marc.utils.pica.crosswalk.PicaMarcCrosswalkReader;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +23,7 @@ public class PicaRecord extends BibliographicRecord {
   private static Map<String, Map<String, Boolean>> skippableAuthoritySubfields;
   private static Map<String, Map<String, Boolean>> skippableSubjectSubfields;
   private static Map<AuthorityCategory, List<String>> authorityTagsMap;
+  private static Map<ShelfReadyFieldsBooks, Map<String, List<String>>> shelfReadyMap;
 
   public PicaRecord() {
     super();
@@ -77,10 +82,17 @@ public class PicaRecord extends BibliographicRecord {
   }
 
   public Map<DataField, AuthorityCategory> getAuthorityFieldsMap() {
-    if (authorityTags == null) {
+    if (authorityTags == null)
       initializeAuthorityTags();
-    }
+
     return getAuthorityFields(authorityTagsMap);
+  }
+
+  public static Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap() {
+    if (shelfReadyMap == null)
+      initializeShelfReadyMap();
+
+    return shelfReadyMap;
   }
 
   private static void initializeAuthorityTags() {
@@ -136,5 +148,22 @@ public class PicaRecord extends BibliographicRecord {
     authorityTagsMap.put(AuthorityCategory.Corporate, List.of("029A", "029E", "029F", "029G"));
     authorityTagsMap.put(AuthorityCategory.Other, List.of("032V", "032W", "032X", "037Q", "037R"));
     authorityTagsMap.put(AuthorityCategory.Geographic, List.of("033D", "033H"));
+  }
+
+  private static void initializeShelfReadyMap() {
+    shelfReadyMap = new HashMap<>();
+    for (ShelfReadyFieldsBooks category : ShelfReadyFieldsBooks.values()) {
+      shelfReadyMap.put(category, new HashMap<>());
+      String[] paths = category.getMarcPath().split(",");
+      for (String path : paths) {
+        for (Crosswalk crosswalk : PicaMarcCrosswalkReader.lookupMarc21(path.replace("$", " $"))) {
+          if (!shelfReadyMap.get(category).containsKey(crosswalk.getPica()))
+            shelfReadyMap.get(category).put(crosswalk.getPica(), new ArrayList<>());
+          shelfReadyMap.get(category).get(crosswalk.getPica()).add(crosswalk.getPicaUf());
+        }
+      }
+      if (shelfReadyMap.get(category).isEmpty())
+        shelfReadyMap.remove(category);
+    }
   }
 }

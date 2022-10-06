@@ -38,7 +38,8 @@ public class FrbrFunctionLister {
   private Map<String, List<FRBRFunction>> functionByMarcPath;
   private Map<String, List<FRBRFunction>> functionByPicaPath;
   private AppendableHashMap<FRBRFunction, String> marcPathByFunction;
-  private Map<FRBRFunction, List<String>> picaPathByFunction;
+  private Map<FRBRFunction, List<String>> picaPathByFunctionCondensed;
+  private Map<FRBRFunction, Map<String, List<String>>> picaPathByFunction;
 
   public FrbrFunctionLister(SchemaType schemaType, MarcVersion marcVersion) {
     this.schemaType = schemaType == null ? SchemaType.MARC21 : schemaType;
@@ -194,7 +195,7 @@ public class FrbrFunctionLister {
     return marcPathByFunction.getMap();
   }
 
-  public Map<FRBRFunction, List<String>> getPicaPathByFunction() {
+  public Map<FRBRFunction, Map<String, List<String>>> getPicaPathByFunction() {
     if (picaPathByFunction == null) {
       initializePica();
     }
@@ -208,8 +209,16 @@ public class FrbrFunctionLister {
     return functionByPicaPath;
   }
 
+  public Map<FRBRFunction, List<String>> getPicaPathByFunctionConcensed() {
+    if (picaPathByFunctionCondensed == null) {
+      initializePica();
+    }
+    return picaPathByFunctionCondensed;
+  }
+
   private void initializePica() {
     picaPathByFunction = new HashMap<>();
+    picaPathByFunctionCondensed = new HashMap<>();
     functionByPicaPath = new HashMap<>();
     for (Map.Entry<FRBRFunction, List<String>> entry : marcPathByFunction.entrySet()) {
       for (String address : entry.getValue()) {
@@ -219,15 +228,22 @@ public class FrbrFunctionLister {
           for (Crosswalk crosswalk : PicaMarcCrosswalkReader.lookupMarc21(key)) {
             String pica = crosswalk.getPica();
             if (!picaPathByFunction.containsKey(function))
-              picaPathByFunction.put(function, new ArrayList<>());
-            picaPathByFunction.get(function).add(pica);
+              picaPathByFunction.put(function, new HashMap<>());
+            if (!picaPathByFunction.get(function).containsKey(pica))
+              picaPathByFunction.get(function).put(pica, new ArrayList<>());
+            picaPathByFunction.get(function).get(pica).add(crosswalk.getPicaUf());
 
-            if (!functionByPicaPath.containsKey(pica))
-              functionByPicaPath.put(pica, new ArrayList<>());
-            functionByPicaPath.get(pica).add(function);
+            if (!picaPathByFunctionCondensed.containsKey(function))
+              picaPathByFunctionCondensed.put(function, new ArrayList<>());
+            picaPathByFunctionCondensed.get(function).add(pica + crosswalk.getPicaUf());
+
+            if (!functionByPicaPath.containsKey(pica + crosswalk.getPicaUf()))
+              functionByPicaPath.put(pica + crosswalk.getPicaUf(), new ArrayList<>());
+            functionByPicaPath.get(pica + crosswalk.getPicaUf()).add(function);
           }
         }
       }
     }
   }
+
 }

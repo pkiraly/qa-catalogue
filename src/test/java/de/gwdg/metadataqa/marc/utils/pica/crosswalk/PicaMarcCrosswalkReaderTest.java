@@ -21,7 +21,7 @@ public class PicaMarcCrosswalkReaderTest {
   @Test
   public void testLoad() {
     FrbrFunctionLister lister = new FrbrFunctionLister(MarcVersion.MARC21);
-    Map<FRBRFunction, List<String>> picaFunctions = lister.getPicaPathByFunction();
+    Map<FRBRFunction, List<String>> picaFunctions = lister.getPicaPathByFunctionConcensed();
     assertEquals(11, picaFunctions.size());
     assertEquals(167, picaFunctions.get(FRBRFunction.DiscoveryObtain).size());
     assertEquals(178, picaFunctions.get(FRBRFunction.DiscoverySearch).size());

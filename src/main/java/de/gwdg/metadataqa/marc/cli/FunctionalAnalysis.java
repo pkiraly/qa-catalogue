@@ -125,8 +125,11 @@ public class FunctionalAnalysis implements BibliographicInputProcessor, Serializ
             if (subfield.getDefinition() != null && subfield.getDefinition().getFrbrFunctions() != null)
               FrbrFunctionLister.countFunctions(subfield.getDefinition().getFrbrFunctions(), recordCounter);
         } else if (schemaType.equals(SchemaType.PICA)) {
-          if (frbrFunctionLister.getFunctionByPicaPath().containsKey(dataField.getTag()))
-            FrbrFunctionLister.countFunctions(frbrFunctionLister.getFunctionByPicaPath().get(dataField.getTag()), recordCounter);
+          for (MarcSubfield subfield : dataField.getSubfields()) {
+            String key = dataField.getTag() + "$" + subfield.getCode();
+            if (frbrFunctionLister.getFunctionByPicaPath().containsKey(key))
+              FrbrFunctionLister.countFunctions(frbrFunctionLister.getFunctionByPicaPath().get(key), recordCounter);
+          }
         }
       }
     }
@@ -205,7 +208,7 @@ public class FunctionalAnalysis implements BibliographicInputProcessor, Serializ
     if (parameters.getSchemaType().equals(SchemaType.MARC21))
       functions = frbrFunctionLister.getMarcPathByFunction();
     else if (parameters.getSchemaType().equals(SchemaType.PICA))
-      functions = frbrFunctionLister.getPicaPathByFunction();
+      functions = frbrFunctionLister.getPicaPathByFunctionConcensed();
 
     var path = Paths.get(parameters.getOutputDir(), "functional-analysis-mapping" + fileExtension);
     try (var writer = Files.newBufferedWriter(path)) {

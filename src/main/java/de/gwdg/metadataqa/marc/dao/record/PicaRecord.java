@@ -88,7 +88,7 @@ public class PicaRecord extends BibliographicRecord {
     return getAuthorityFields(authorityTagsMap);
   }
 
-  public static Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap() {
+  public Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap() {
     if (shelfReadyMap == null)
       initializeShelfReadyMap();
 
@@ -152,6 +152,21 @@ public class PicaRecord extends BibliographicRecord {
 
   private static void initializeShelfReadyMap() {
     shelfReadyMap = new HashMap<>();
+    for (Map.Entry<ShelfReadyFieldsBooks, Map<String, List<String>>> entry : (new Marc21Record()).getShelfReadyMap().entrySet()) {
+      ShelfReadyFieldsBooks category = entry.getKey();
+      shelfReadyMap.put(category, new HashMap<>());
+      for (Map.Entry<String, List<String>> marcEntry : entry.getValue().entrySet()) {
+        for (String code : marcEntry.getValue()) {
+          System.err.println(marcEntry.getKey() + " $" + code);
+          for (Crosswalk crosswalk : PicaMarcCrosswalkReader.lookupMarc21(marcEntry.getKey() + " $" + code)) {
+            if (!shelfReadyMap.get(category).containsKey(crosswalk.getPica()))
+              shelfReadyMap.get(category).put(crosswalk.getPica(), new ArrayList<>());
+            shelfReadyMap.get(category).get(crosswalk.getPica()).add(crosswalk.getPicaUf().replace("$", ""));
+          }
+        }
+      }
+    }
+    /*
     for (ShelfReadyFieldsBooks category : ShelfReadyFieldsBooks.values()) {
       shelfReadyMap.put(category, new HashMap<>());
       String[] paths = category.getMarcPath().split(",");
@@ -165,5 +180,6 @@ public class PicaRecord extends BibliographicRecord {
       if (shelfReadyMap.get(category).isEmpty())
         shelfReadyMap.remove(category);
     }
+     */
   }
 }

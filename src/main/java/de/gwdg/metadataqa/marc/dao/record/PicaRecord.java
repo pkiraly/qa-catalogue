@@ -11,6 +11,7 @@ import de.gwdg.metadataqa.marc.utils.pica.crosswalk.PicaMarcCrosswalkReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -151,13 +152,12 @@ public class PicaRecord extends BibliographicRecord {
   }
 
   private static void initializeShelfReadyMap() {
-    shelfReadyMap = new HashMap<>();
+    shelfReadyMap = new LinkedHashMap<>();
     for (Map.Entry<ShelfReadyFieldsBooks, Map<String, List<String>>> entry : (new Marc21Record()).getShelfReadyMap().entrySet()) {
       ShelfReadyFieldsBooks category = entry.getKey();
       shelfReadyMap.put(category, new HashMap<>());
       for (Map.Entry<String, List<String>> marcEntry : entry.getValue().entrySet()) {
         for (String code : marcEntry.getValue()) {
-          System.err.println(marcEntry.getKey() + " $" + code);
           for (Crosswalk crosswalk : PicaMarcCrosswalkReader.lookupMarc21(marcEntry.getKey() + " $" + code)) {
             if (!shelfReadyMap.get(category).containsKey(crosswalk.getPica()))
               shelfReadyMap.get(category).put(crosswalk.getPica(), new ArrayList<>());

@@ -3,7 +3,6 @@ package de.gwdg.metadataqa.marc.analysis;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
-import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -33,7 +32,7 @@ public class ShelfReadyAnalysis {
       ShelfReadyFieldsBooks category = fieldEntry.getKey();
       boolean debug = category.equals(ShelfReadyFieldsBooks.LDR06);
 
-      var score = 0.0;
+      double score = 0.0;
       double count = (double) countSelectors(fieldEntry.getValue());
 
       for (Map.Entry<String, List<String>> selector : fieldEntry.getValue().entrySet()) {
@@ -70,7 +69,7 @@ public class ShelfReadyAnalysis {
       if (category.isOneOf()) {
         score = category.getScore();
       } else {
-        double mean = score / count;
+        double mean = count == 0.0 ? 0.0 : score / count;
         score = mean * category.getScore();
       }
       scores.add(score);

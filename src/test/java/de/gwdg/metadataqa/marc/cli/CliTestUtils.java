@@ -10,7 +10,7 @@ public class CliTestUtils {
     return Paths.get(path).toAbsolutePath().toString();
   }
 
-  protected static String getTestResource(String fileName) {
+  public static String getTestResource(String fileName) {
     return getPath("src/test/resources/" + fileName);
   }
 

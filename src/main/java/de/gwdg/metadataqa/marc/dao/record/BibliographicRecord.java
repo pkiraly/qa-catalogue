@@ -9,6 +9,7 @@ import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.Validatable;
 import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
 import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
+import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
 import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
 import de.gwdg.metadataqa.marc.dao.Control001;
 import de.gwdg.metadataqa.marc.dao.Control003;
@@ -802,6 +803,7 @@ public abstract class BibliographicRecord implements Extractable, Validatable, S
   abstract public boolean isSubjectTag(String tag);
   abstract public boolean isSkippableSubjectSubfield(String tag, String code);
   abstract public Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap();
+  abstract public Map<ThompsonTraillFields, List<String>> getThompsonTraillTagsMap();
 
   public List<DataField> getSubjects() {
     List<DataField> subjects = new ArrayList<>();

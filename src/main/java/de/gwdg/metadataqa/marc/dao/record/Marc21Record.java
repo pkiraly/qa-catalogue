@@ -23,7 +23,7 @@ public class Marc21Record extends BibliographicRecord {
   private static Map<String, Map<String, Boolean>> skippableAuthoritySubfields;
   private static Map<String, Map<String, Boolean>> skippableSubjectSubfields;
   private static Map<AuthorityCategory, List<String>> authorityTagsMap;
-  private static Map<ThompsonTraillFields, List<String>> ttTagsMap;
+  private static Map<ThompsonTraillFields, List<String>> thompsonTraillTagMap;
   private static Map<ShelfReadyFieldsBooks, Map<String, List<String>>> shelfReadyMap;
 
 
@@ -111,27 +111,34 @@ public class Marc21Record extends BibliographicRecord {
     authorityTagsMap.put(AuthorityCategory.Other, List.of("720", "753", "754"));
   }
 
-  private void initializeTTTags() {
-    ttTagsMap = new HashMap<>();
+  public Map<ThompsonTraillFields, List<String>> getThompsonTraillTagsMap() {
+    if (thompsonTraillTagMap == null)
+      initializeThompsonTraillTags();
 
-    ttTagsMap.put(ThompsonTraillFields.ISBN, Arrays.asList("020"));
-    ttTagsMap.put(ThompsonTraillFields.AUTHORS, Arrays.asList("100", "110", "111"));
-    ttTagsMap.put(ThompsonTraillFields.ALTERNATIVE_TITLES, Arrays.asList("246"));
-    ttTagsMap.put(ThompsonTraillFields.EDITION, Arrays.asList("250"));
-    ttTagsMap.put(ThompsonTraillFields.CONTRIBUTORS, Arrays.asList("700", "710", "711", "720"));
-    ttTagsMap.put(ThompsonTraillFields.SERIES, Arrays.asList("440", "490", "800", "810", "830"));
-    ttTagsMap.put(ThompsonTraillFields.TOC, Arrays.asList("505", "520"));
-    ttTagsMap.put(ThompsonTraillFields.DATE_008, Arrays.asList("008/ö7"));
-    ttTagsMap.put(ThompsonTraillFields.DATE_26X, Arrays.asList("260$c", "264$c"));
-    ttTagsMap.put(ThompsonTraillFields.LC_NLM, Arrays.asList("050", "060", "090"));
-    ttTagsMap.put(ThompsonTraillFields.LC_NLM, Arrays.asList("600", "610", "611", "630", "650", "651", "653"));
-    ttTagsMap.put(ThompsonTraillFields.MESH, Arrays.asList("600", "610", "611", "630", "650", "651", "653"));
-    ttTagsMap.put(ThompsonTraillFields.FAST, Arrays.asList("600", "610", "611", "630", "650", "651", "653"));
-    ttTagsMap.put(ThompsonTraillFields.GND, Arrays.asList("600", "610", "611", "630", "650", "651", "653"));
-    ttTagsMap.put(ThompsonTraillFields.OTHER, Arrays.asList("600", "610", "611", "630", "650", "651", "653"));
-    ttTagsMap.put(ThompsonTraillFields.ONLINE, Arrays.asList("008/23", "300$a")); // 29
-    ttTagsMap.put(ThompsonTraillFields.LANGUAGE_OF_RESOURCE, Arrays.asList("008/35"));
-    ttTagsMap.put(ThompsonTraillFields.COUNTRY_OF_PUBLICATION, Arrays.asList("008/15"));
+    return thompsonTraillTagMap;
+  }
+
+  private void initializeThompsonTraillTags() {
+    thompsonTraillTagMap = new LinkedHashMap<>();
+
+    thompsonTraillTagMap.put(ThompsonTraillFields.ISBN, Arrays.asList("020"));
+    thompsonTraillTagMap.put(ThompsonTraillFields.AUTHORS, Arrays.asList("100", "110", "111"));
+    thompsonTraillTagMap.put(ThompsonTraillFields.ALTERNATIVE_TITLES, Arrays.asList("246"));
+    thompsonTraillTagMap.put(ThompsonTraillFields.EDITION, Arrays.asList("250"));
+    thompsonTraillTagMap.put(ThompsonTraillFields.CONTRIBUTORS, Arrays.asList("700", "710", "711", "720"));
+    thompsonTraillTagMap.put(ThompsonTraillFields.SERIES, Arrays.asList("440", "490", "800", "810", "830"));
+    thompsonTraillTagMap.put(ThompsonTraillFields.TOC, Arrays.asList("505", "520"));
+    thompsonTraillTagMap.put(ThompsonTraillFields.DATE_008, Arrays.asList("008/ö7"));
+    thompsonTraillTagMap.put(ThompsonTraillFields.DATE_26X, Arrays.asList("260$c", "264$c"));
+    thompsonTraillTagMap.put(ThompsonTraillFields.LC_NLM, Arrays.asList("050", "060", "090"));
+    thompsonTraillTagMap.put(ThompsonTraillFields.LC_NLM, Arrays.asList("600", "610", "611", "630", "650", "651", "653"));
+    thompsonTraillTagMap.put(ThompsonTraillFields.MESH, Arrays.asList("600", "610", "611", "630", "650", "651", "653"));
+    thompsonTraillTagMap.put(ThompsonTraillFields.FAST, Arrays.asList("600", "610", "611", "630", "650", "651", "653"));
+    thompsonTraillTagMap.put(ThompsonTraillFields.GND, Arrays.asList("600", "610", "611", "630", "650", "651", "653"));
+    thompsonTraillTagMap.put(ThompsonTraillFields.OTHER, Arrays.asList("600", "610", "611", "630", "650", "651", "653"));
+    thompsonTraillTagMap.put(ThompsonTraillFields.ONLINE, Arrays.asList("008/23", "300$a")); // 29
+    thompsonTraillTagMap.put(ThompsonTraillFields.LANGUAGE_OF_RESOURCE, Arrays.asList("008/35"));
+    thompsonTraillTagMap.put(ThompsonTraillFields.COUNTRY_OF_PUBLICATION, Arrays.asList("008/15"));
   }
 
   public Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap() {

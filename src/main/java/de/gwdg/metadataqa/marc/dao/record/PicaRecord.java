@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.dao.record;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
 import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
+import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.utils.pica.crosswalk.Crosswalk;
@@ -24,6 +25,7 @@ public class PicaRecord extends BibliographicRecord {
   private static Map<String, Map<String, Boolean>> skippableAuthoritySubfields;
   private static Map<String, Map<String, Boolean>> skippableSubjectSubfields;
   private static Map<AuthorityCategory, List<String>> authorityTagsMap;
+  private static Map<ThompsonTraillFields, List<String>> thompsonTraillTagMap;
   private static Map<ShelfReadyFieldsBooks, Map<String, List<String>>> shelfReadyMap;
 
   public PicaRecord() {
@@ -166,20 +168,27 @@ public class PicaRecord extends BibliographicRecord {
         }
       }
     }
-    /*
-    for (ShelfReadyFieldsBooks category : ShelfReadyFieldsBooks.values()) {
-      shelfReadyMap.put(category, new HashMap<>());
-      String[] paths = category.getMarcPath().split(",");
-      for (String path : paths) {
-        for (Crosswalk crosswalk : PicaMarcCrosswalkReader.lookupMarc21(path.replace("$", " $"))) {
-          if (!shelfReadyMap.get(category).containsKey(crosswalk.getPica()))
-            shelfReadyMap.get(category).put(crosswalk.getPica(), new ArrayList<>());
-          shelfReadyMap.get(category).get(crosswalk.getPica()).add(crosswalk.getPicaUf());
+  }
+
+  public Map<ThompsonTraillFields, List<String>> getThompsonTraillTagsMap() {
+    if (thompsonTraillTagMap == null)
+      initializeThompsonTrailTags();
+
+    return thompsonTraillTagMap;
+  }
+
+  private void initializeThompsonTrailTags() {
+    thompsonTraillTagMap = new LinkedHashMap<>();
+    for (Map.Entry<ThompsonTraillFields, List<String>> entry : (new Marc21Record()).getThompsonTraillTagsMap().entrySet()) {
+      ThompsonTraillFields category = entry.getKey();
+      thompsonTraillTagMap.put(category, new ArrayList<>());
+      for (String marcEntry : entry.getValue()) {
+        for (Crosswalk crosswalk : PicaMarcCrosswalkReader.lookupMarc21Field(marcEntry)) {
+          if (!thompsonTraillTagMap.get(category).contains(crosswalk.getPica()))
+            thompsonTraillTagMap.get(category).add(crosswalk.getPica());
         }
       }
-      if (shelfReadyMap.get(category).isEmpty())
-        shelfReadyMap.remove(category);
     }
-     */
   }
+
 }

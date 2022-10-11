@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.dao.Control008;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
 
@@ -43,29 +44,39 @@ public class ThompsonTraillAnalysis {
   public static List<Integer> getScores(BibliographicRecord marcRecord) {
     var ttScores = new ThompsonTraillScores();
 
-    ttScores.set(ThompsonTraillFields.ISBN, countFields(marcRecord, Arrays.asList("020")));
-    ttScores.set(ThompsonTraillFields.AUTHORS, countFields(marcRecord, Arrays.asList("100", "110", "111")));
-    ttScores.set(ThompsonTraillFields.ALTERNATIVE_TITLES, countFields(marcRecord, Arrays.asList("246")));
-    ttScores.set(ThompsonTraillFields.EDITION, countFields(marcRecord, Arrays.asList("250")));
-    ttScores.set(ThompsonTraillFields.CONTRIBUTORS,
-      countFields(marcRecord, Arrays.asList("700", "710", "711", "720")));
-    ttScores.set(ThompsonTraillFields.SERIES,
-      countFields(marcRecord, Arrays.asList("440", "490", "800", "810", "830")));
-    ttScores.set(ThompsonTraillFields.TOC, calculateTocAndAbstract(marcRecord));
+    if (marcRecord.getSchemaType().equals(SchemaType.MARC21)) {
+      // countFields
+      ttScores.set(ThompsonTraillFields.ISBN, countFields(marcRecord, Arrays.asList("020")));
+      ttScores.set(ThompsonTraillFields.AUTHORS, countFields(marcRecord, Arrays.asList("100", "110", "111")));
+      ttScores.set(ThompsonTraillFields.ALTERNATIVE_TITLES, countFields(marcRecord, Arrays.asList("246")));
+      ttScores.set(ThompsonTraillFields.EDITION, countFields(marcRecord, Arrays.asList("250")));
+      ttScores.set(ThompsonTraillFields.CONTRIBUTORS,
+        countFields(marcRecord, Arrays.asList("700", "710", "711", "720")));
+      ttScores.set(ThompsonTraillFields.SERIES,
+        countFields(marcRecord, Arrays.asList("440", "490", "800", "810", "830")));
 
-    var control008 = marcRecord.getControl008();
-    String date008 = extractDate008(control008);
-    ttScores.set(ThompsonTraillFields.DATE_008, calculateDate008(date008));
-    ttScores.set(ThompsonTraillFields.DATE_26X, calculateDate26x(marcRecord, date008));
+      // calculateTocAndAbstract
+      ttScores.set(ThompsonTraillFields.TOC, calculateTocAndAbstract(marcRecord));
 
-    ttScores.set(ThompsonTraillFields.LC_NLM, calculateClassificationLcNlm(marcRecord));
+      var control008 = marcRecord.getControl008();
+      String date008 = extractDate008(control008);
+      ttScores.set(ThompsonTraillFields.DATE_008, calculateDate008(date008));
+      ttScores.set(ThompsonTraillFields.DATE_26X, calculateDate26x(marcRecord, date008));
 
-    calculateClassifications(marcRecord, ttScores);
+      ttScores.set(ThompsonTraillFields.LC_NLM, calculateClassificationLcNlm(marcRecord));
 
-    ttScores.set(ThompsonTraillFields.ONLINE, calculateIsOnlineResource(marcRecord, control008));
-    ttScores.set(ThompsonTraillFields.LANGUAGE_OF_RESOURCE, calculateLanguageOfResource(control008));
-    ttScores.set(ThompsonTraillFields.COUNTRY_OF_PUBLICATION, calculateCountryOfPublication(control008));
-    calculateLanguageAndRda(marcRecord, ttScores);
+      calculateClassifications(marcRecord, ttScores);
+
+      // calculateIsOnlineResource
+      ttScores.set(ThompsonTraillFields.ONLINE, calculateIsOnlineResource(marcRecord, control008));
+      ttScores.set(ThompsonTraillFields.LANGUAGE_OF_RESOURCE, calculateLanguageOfResource(control008));
+      ttScores.set(ThompsonTraillFields.COUNTRY_OF_PUBLICATION, calculateCountryOfPublication(control008));
+      calculateLanguageAndRda(marcRecord, ttScores);
+    } else if (marcRecord.getSchemaType().equals(SchemaType.PICA)) {
+      for (Map.Entry<ThompsonTraillFields, List<String>> entry : marcRecord.getThompsonTraillTagsMap().entrySet())
+        ttScores.set(entry.getKey(), countFields(marcRecord, entry.getValue()));
+    }
+
 
     ttScores.calculateTotal();
     return ttScores.asList();

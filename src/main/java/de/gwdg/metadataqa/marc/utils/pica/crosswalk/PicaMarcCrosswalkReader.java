@@ -17,6 +17,10 @@ public class PicaMarcCrosswalkReader {
   private static Map<String, List<Crosswalk>> marcIndex;
   private static Map<String, List<Crosswalk>> picaIndex;
 
+  static {
+    initialize();
+  }
+
   public static List<Crosswalk> read() {
     if (mapping == null)
       initialize();
@@ -66,5 +70,15 @@ public class PicaMarcCrosswalkReader {
         picaIndex.get(crosswalk.getPica()).add(crosswalk);
       }
     }
+  }
+
+  public static List<Crosswalk> lookupMarc21Field(String marcEntry) {
+    List<Crosswalk> crosswalks = new ArrayList<>();
+    for (Crosswalk crosswalk : mapping) {
+      if (crosswalk.getMarc21() != null && crosswalk.getMarc21().startsWith(marcEntry)) {
+        crosswalks.add(crosswalk);
+      }
+    }
+    return crosswalks;
   }
 }

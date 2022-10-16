@@ -137,7 +137,7 @@ public class Control005  extends SimpleControlField implements Extractable {
   }
 
   private boolean isValidHour() {
-    boolean valid = hour != null && hour >= 1 && hour <= 24;
+    boolean valid = hour != null && hour >= 0 && hour <= 23;
     if (!valid)
       addError(String.format("invalid hour: %d", hour));
 

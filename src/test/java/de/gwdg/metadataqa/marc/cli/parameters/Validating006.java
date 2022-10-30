@@ -2,7 +2,8 @@ package de.gwdg.metadataqa.marc.cli.parameters;
 
 import de.gwdg.metadataqa.marc.dao.Control006;
 import de.gwdg.metadataqa.marc.dao.Leader;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import org.junit.Test;
@@ -14,7 +15,7 @@ public class Validating006 {
 
   @Test
   public void test() {
-    MarcRecord marcRecord = new MarcRecord("001441164");
+    BibliographicRecord marcRecord = new Marc21Record("001441164");
     marcRecord.setLeader(new Leader("02945nam a22005657a 4500"));
     marcRecord.setControl006(new Control006("jccnn           n", Leader.Type.BOOKS));
     boolean isValid = marcRecord.validate(MarcVersion.MARC21);

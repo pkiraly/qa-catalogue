@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.dao;
 
 import de.gwdg.metadataqa.marc.Extractable;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.tags.control.Control005Definition;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
@@ -34,7 +35,7 @@ public class Control005  extends SimpleControlField implements Extractable {
     processContent();
   }
 
-  public Control005(String content, MarcRecord marcRecord) {
+  public Control005(String content, BibliographicRecord marcRecord) {
     super(Control005Definition.getInstance(), content);
     this.marcRecord = marcRecord;
     processContent();
@@ -136,7 +137,7 @@ public class Control005  extends SimpleControlField implements Extractable {
   }
 
   private boolean isValidHour() {
-    boolean valid = hour != null && hour >= 1 && hour <= 24;
+    boolean valid = hour != null && hour >= 0 && hour <= 23;
     if (!valid)
       addError(String.format("invalid hour: %d", hour));
 

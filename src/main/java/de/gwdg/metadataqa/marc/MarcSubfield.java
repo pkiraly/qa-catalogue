@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.Linkage;
 import de.gwdg.metadataqa.marc.definition.general.parser.ParserException;
@@ -23,7 +23,7 @@ public class MarcSubfield implements Validatable, Serializable {
 
   private static final Logger logger = Logger.getLogger(MarcSubfield.class.getCanonicalName());
 
-  private MarcRecord marcRecord;
+  private BibliographicRecord marcRecord;
   private DataField field;
   private SubfieldDefinition definition;
   private final String code;
@@ -32,6 +32,7 @@ public class MarcSubfield implements Validatable, Serializable {
   private ErrorsCollector errors = null;
   private Linkage linkage;
   private String referencePath;
+  private static Map<String, String> prefixCache;
 
   public MarcSubfield(SubfieldDefinition definition, String code, String value) {
     this.definition = definition;
@@ -93,11 +94,11 @@ public class MarcSubfield implements Validatable, Serializable {
     this.definition = definition;
   }
 
-  public MarcRecord getMarcRecord() {
+  public BibliographicRecord getMarcRecord() {
     return marcRecord;
   }
 
-  public void setMarcRecord(MarcRecord marcRecord) {
+  public void setMarcRecord(BibliographicRecord marcRecord) {
     this.marcRecord = marcRecord;
   }
 
@@ -127,9 +128,16 @@ public class MarcSubfield implements Validatable, Serializable {
   }
 
   public Map<String, List<String>> getKeyValuePairs(DataFieldKeyGenerator keyGenerator) {
-    Map<String, List<String>> pairs = new HashMap<>();
-    String prefix = keyGenerator.forSubfield(this);
+    if (prefixCache == null) {
+      prefixCache = new HashMap<>();
+    }
 
+    String cacheKey = String.format("%s$%s-%s-%s", this.getField().getTag(), code, keyGenerator.getType().getType(), keyGenerator.getMarcVersion());
+    if (!prefixCache.containsKey(cacheKey))
+      prefixCache.put(cacheKey, keyGenerator.forSubfield(this));
+    String prefix = prefixCache.get(cacheKey);
+
+    Map<String, List<String>> pairs = new HashMap<>();
     pairs.put(prefix, Collections.singletonList(resolve()));
     if (getDefinition() != null) {
       getKeyValuePairsForPositionalSubfields(pairs, prefix);

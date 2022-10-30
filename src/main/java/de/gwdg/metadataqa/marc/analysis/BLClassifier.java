@@ -4,7 +4,7 @@ import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.analysis.bl.UseCase;
 import de.gwdg.metadataqa.marc.analysis.bl.Element;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class BLClassifier implements Classifier {
   }
 
   @Override
-  public String classify(MarcRecord marcRecord) {
+  public String classify(BibliographicRecord marcRecord) {
     String level = DEFICIENT.name();
 
     for (UseCase useCase : basicUseCases)
@@ -55,7 +55,7 @@ public class BLClassifier implements Classifier {
     return level;
   }
 
-  private boolean satisfy(MarcRecord marcRecord, UseCase useCase) {
+  private boolean satisfy(BibliographicRecord marcRecord, UseCase useCase) {
     for (Element element : useCase.getElements()) {
       if (marcRecord.hasDatafield(element.getTag())) {
         if (element.getSubfield() == null) {

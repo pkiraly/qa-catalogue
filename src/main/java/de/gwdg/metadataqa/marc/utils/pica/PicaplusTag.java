@@ -13,6 +13,7 @@ public class PicaplusTag {
 
   private String raw;
   private String tag;
+  private String basetag;
   private String occurrence = null;
   private OccurrenceRange occurrenceRange = null;
 
@@ -45,26 +46,17 @@ public class PicaplusTag {
     return occurrenceRange;
   }
 
-  public boolean validateOccurrence(String otherOccurrence) {
-    if (!hasOccurrence()) {
-      if (otherOccurrence == null)
-        return true;
-      return false;
-    } else {
-      if (!hasOccurrenceRange()) {
-        return occurrence.equals(otherOccurrence);
-      } else {
-        return occurrenceRange.validate(otherOccurrence);
-      }
-    }
+  public String getBasetag() {
+    return basetag;
   }
 
   private void parse(String picaplus) {
     if (!picaplus.contains("/")) {
       tag = picaplus;
     } else {
+      tag = picaplus;
       String[] parts = picaplus.split("/");
-      tag = parts[0];
+      basetag = parts[0];
       occurrence = parts[1];
       if (occurrence.contains("-")) {
         parseRangePattern();

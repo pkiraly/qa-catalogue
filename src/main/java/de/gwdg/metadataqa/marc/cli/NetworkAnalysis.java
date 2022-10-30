@@ -1,12 +1,12 @@
 package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.analysis.NetworkAnalyzer;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.NetworkAction;
 import de.gwdg.metadataqa.marc.cli.parameters.NetworkParameters;
-import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
 
-public class NetworkAnalysis implements MarcFileProcessor, Serializable {
+public class NetworkAnalysis implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(NetworkAnalysis.class.getCanonicalName());
 
@@ -39,7 +39,7 @@ public class NetworkAnalysis implements MarcFileProcessor, Serializable {
   }
 
   public static void main(String[] args) {
-    MarcFileProcessor processor = null;
+    BibliographicInputProcessor processor = null;
     try {
       processor = new NetworkAnalysis(args);
     } catch (ParseException e) {
@@ -79,8 +79,8 @@ public class NetworkAnalysis implements MarcFileProcessor, Serializable {
   }
 
   @Override
-  public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
-    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber) throws IOException {
+    if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
       return;
 
     NetworkAnalyzer analyzer = new NetworkAnalyzer(marcRecord);

@@ -1,8 +1,9 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.CsvUtils;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
-import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorCategory;
@@ -35,7 +36,7 @@ import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat.TAB
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class Validator implements MarcFileProcessor, Serializable {
+public class Validator implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(Validator.class.getCanonicalName());
   private Options options;
@@ -77,7 +78,7 @@ public class Validator implements MarcFileProcessor, Serializable {
   }
 
   public static void main(String[] args) {
-    MarcFileProcessor processor = null;
+    BibliographicInputProcessor processor = null;
     try {
       processor = new Validator(args);
     } catch (ParseException e) {
@@ -164,14 +165,14 @@ public class Validator implements MarcFileProcessor, Serializable {
   }
 
   @Override
-  public void processRecord(MarcRecord marcRecord, int i) {
+  public void processRecord(BibliographicRecord marcRecord, int i) {
     if (marcRecord.getId() == null)
       logger.severe("No record number at " + i);
 
     if (i % 100000 == 0)
       logger.info("Number of error types so far: " + instanceBasedErrorCounter.size());
 
-    if (parameters.getIgnorableRecords().isIgnorable(marcRecord)) {
+    if (parameters.getRecordIgnorator().isIgnorable(marcRecord)) {
       logger.info("skip " + marcRecord.getId() + " (ignorable record)");
       return;
     }
@@ -194,7 +195,7 @@ public class Validator implements MarcFileProcessor, Serializable {
     counter++;
   }
 
-  private void processDetails(MarcRecord marcRecord) {
+  private void processDetails(BibliographicRecord marcRecord) {
     List<ValidationError> errors = marcRecord.getValidationErrors();
     if (!errors.isEmpty()) {
       String message = null;
@@ -216,7 +217,7 @@ public class Validator implements MarcFileProcessor, Serializable {
     }
   }
 
-  private void processSummary(MarcRecord marcRecord) {
+  private void processSummary(BibliographicRecord marcRecord) {
     List<ValidationError> errors = marcRecord.getValidationErrors();
     List<ValidationError> allButInvalidFieldErrors = new ArrayList<>();
     Set<Integer> uniqueErrors = new HashSet<>();
@@ -283,7 +284,7 @@ public class Validator implements MarcFileProcessor, Serializable {
 
   private void printCounter() {
     File countFile = prepareReportFile(parameters.getOutputDir(), "count.csv");
-    if (parameters.getIgnorableRecords().isEmpty()) {
+    if (parameters.getRecordIgnorator().isEmpty()) {
       printToFile(countFile, "total\n");
       printToFile(countFile, String.valueOf(numberOfprocessedRecords) + "\n");
     } else {
@@ -321,12 +322,18 @@ public class Validator implements MarcFileProcessor, Serializable {
         entry -> {
           ValidationError error = entry.getKey();
           int instanceCount = entry.getValue();
-          String formattedOutput = ValidationErrorFormatter.formatForSummary(
-            error, parameters.getFormat()
-          );
-          print(summaryFile, createRow(
-            separator, error.getId(), formattedOutput, instanceCount, recordBasedErrorCounter.get(error.getId())
-          ));
+          List<Serializable> cells = new ArrayList<>();
+          cells.add(error.getId());
+          cells.addAll(Arrays.asList(ValidationErrorFormatter.asArrayWithoutId(error)));
+          cells.addAll(Arrays.asList(instanceCount, recordBasedErrorCounter.get(error.getId())));
+          // String formattedOutput = ValidationErrorFormatter.formatForSummary(
+          //   error, parameters.getFormat()
+          // );
+          // print(summaryFile, createRow(
+          //   separator, error.getId(), formattedOutput, instanceCount, recordBasedErrorCounter.get(error.getId())
+          // ));
+          // TODO: separator
+          print(summaryFile, CsvUtils.createCsv(cells));
         }
       );
     /*

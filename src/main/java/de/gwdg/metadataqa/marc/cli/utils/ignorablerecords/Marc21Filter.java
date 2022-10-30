@@ -1,19 +1,19 @@
-package de.gwdg.metadataqa.marc.cli.utils;
+package de.gwdg.metadataqa.marc.cli.utils.ignorablerecords;
 
-import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
+import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class IgnorableRecords {
+public class Marc21Filter {
 
-  private List<DataField> conditions;
+  protected List<DataField> conditions;
 
-  public void parseInput(String input) {
+  protected void parseInput(String input) {
     if (StringUtils.isNotBlank(input)) {
       conditions = new ArrayList<>();
       for (String field : input.split(",")) {
@@ -32,7 +32,7 @@ public class IgnorableRecords {
     return conditions == null || conditions.isEmpty();
   }
 
-  private DataField parseField(String field) {
+  protected DataField parseField(String field) {
     var pattern = Pattern.compile("^(.{3})\\$(.)=(.*)$");
     var matcher = pattern.matcher(field);
     if (matcher.matches()) {
@@ -44,33 +44,31 @@ public class IgnorableRecords {
     return null;
   }
 
-  public boolean isIgnorable(MarcRecord marcRecord) {
-    if (isEmpty())
-      return false;
-
+  protected boolean met(BibliographicRecord marcRecord) {
     for (DataField condition : conditions) {
       List<DataField> recordFields = marcRecord.getDatafield(condition.getTag());
       if (recordFields == null || recordFields.isEmpty())
         continue;
-
-      for (DataField recordField : recordFields) {
-        MarcSubfield subfieldCond = condition.getSubfields().get(0);
-        String code = subfieldCond.getCode();
-        List<MarcSubfield> recordSubfields = recordField.getSubfield(code);
-
-        if (recordSubfields == null || recordSubfields.isEmpty())
-          continue;
-
-        for (MarcSubfield recordSubfield : recordSubfields)
-          if (recordSubfield.getValue().equals(subfieldCond.getValue()))
-            return true;
-      }
+      boolean passed = metCondition(condition, recordFields);
+      if (passed)
+        return true;
     }
     return false;
   }
 
-  @Override
-  public String toString() {
-    return isEmpty() ? "" : conditions.toString();
+  private boolean metCondition(DataField condition, List<DataField> recordFields) {
+    for (DataField recordField : recordFields) {
+      MarcSubfield subfieldCond = condition.getSubfields().get(0);
+      String code = subfieldCond.getCode();
+      List<MarcSubfield> recordSubfields = recordField.getSubfield(code);
+
+      if (recordSubfields == null || recordSubfields.isEmpty())
+        continue;
+
+      for (MarcSubfield recordSubfield : recordSubfields)
+        if (recordSubfield.getValue().equals(subfieldCond.getValue()))
+          return true;
+    }
+    return false;
   }
 }

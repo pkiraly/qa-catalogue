@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,12 +46,16 @@ public class Utils {
 
   public static String extractPackageName(DataFieldDefinition field) {
     return field.getClass().getPackage().getName()
-      .replace("de.gwdg.metadataqa.marc.definition.tags.", "");
+      .replace("de.gwdg.metadataqa.marc.definition.tags.", "")
+      .replace("de.gwdg.metadataqa.marc.utils.", "")
+      ;
   }
 
   public static String extractPackageName(Class<? extends DataFieldDefinition> field) {
     return field.getPackage().getName()
-      .replace("de.gwdg.metadataqa.marc.definition.tags.", "");
+      .replace("de.gwdg.metadataqa.marc.definition.tags.", "")
+      .replace("de.gwdg.metadataqa.marc.utils.", "")
+      ;
   }
 
   public static MarcVersion getVersion(DataFieldDefinition field) {
@@ -89,7 +94,9 @@ public class Utils {
 
   public static Object quote(Object value) {
     if (value instanceof String) {
-      return '"' + ((String) value).replace("\\", "\\\\") + '"';
+      return '"' + ((String) value).replace("\\", "\\\\")
+                                   .replace("\"", "\\\"")
+                                   .replace("\n", "\\n") + '"';
     }
     return value;
   }
@@ -174,5 +181,12 @@ public class Utils {
     }
     throw new StringIndexOutOfBoundsException(String.format(
       "Character position range %d-%d is not available in string '%s'", start, end, value));
+  }
+
+  public static Map<String, Boolean> listToMap(List<String> list) {
+    Map<String, Boolean> map = new HashMap<>();
+    for (String tag : list)
+      map.put(tag, true);
+    return map;
   }
 }

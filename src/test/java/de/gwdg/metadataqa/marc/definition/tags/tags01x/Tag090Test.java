@@ -2,7 +2,8 @@ package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
 import de.gwdg.metadataqa.marc.dao.Control001;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.tags.oclctags.Tag090;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
@@ -16,7 +17,7 @@ public class Tag090Test {
 
   @Test
   public void testVersionSpecificSubfield() {
-    MarcRecord marcRecord = new MarcRecord("test");
+    BibliographicRecord marcRecord = new Marc21Record("test");
 
     DataField field = new DataField(Tag090.getInstance(), " ", " ", "n", "sm");
     field.setMarcRecord(marcRecord);
@@ -27,7 +28,7 @@ public class Tag090Test {
 
   @Test
   public void testVersionSpecificSubfieldWithWrongValue() {
-    MarcRecord marcRecord = new MarcRecord();
+    BibliographicRecord marcRecord = new Marc21Record();
     marcRecord.setControl001(new Control001("test"));
 
     DataField field = new DataField(Tag090.getInstance(), " ", " ", "n", "sk");

@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.definition;
 
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.Validatable;
 import de.gwdg.metadataqa.marc.definition.general.parser.ParserException;
 import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
@@ -16,7 +16,7 @@ public class ControlValue implements Validatable, Serializable {
 
   private ControlfieldPositionDefinition definition;
   private String value;
-  private MarcRecord marcRecord;
+  private BibliographicRecord marcRecord;
   private List<ValidationError> validationErrors;
 
   public ControlValue(ControlfieldPositionDefinition definition, String value) {
@@ -24,7 +24,7 @@ public class ControlValue implements Validatable, Serializable {
     this.value = value;
   }
 
-  public void setMarcRecord(MarcRecord marcRecord) {
+  public void setMarcRecord(BibliographicRecord marcRecord) {
     this.marcRecord = marcRecord;
   }
 

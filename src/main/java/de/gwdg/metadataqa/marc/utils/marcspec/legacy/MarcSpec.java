@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.utils.marcspec.legacy;
 
+import de.gwdg.metadataqa.marc.utils.SchemaSpec;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
@@ -13,7 +14,7 @@ import java.util.regex.Pattern;
  * Java port of Carsten Klee's PHP MarcSpec class
  * https://github.com/MARCspec/php-marc-spec/blob/26f33207fbe2745c692a70a2832ca48cfc0d68e8/MarcSpec.php
  */
-public class MarcSpec implements Serializable {
+public class MarcSpec implements SchemaSpec, Serializable {
 
   private static final Pattern fieldTagPattern = Pattern.compile("[X0-9]{3,3}|LDR");
   private static final Pattern hasSpacePattern = Pattern.compile("\\s");

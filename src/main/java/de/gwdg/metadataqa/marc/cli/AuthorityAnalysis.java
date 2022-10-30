@@ -1,13 +1,13 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.analysis.AuthorithyAnalyzer;
 import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
 import de.gwdg.metadataqa.marc.analysis.AuthorityStatistics;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
-import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
 import org.apache.commons.cli.Options;
@@ -31,7 +31,7 @@ import java.util.logging.Logger;
 import static de.gwdg.metadataqa.marc.Utils.count;
 import static de.gwdg.metadataqa.marc.Utils.quote;
 
-public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
+public class AuthorityAnalysis implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(AuthorityAnalysis.class.getCanonicalName());
 
@@ -49,7 +49,7 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
   }
 
   public static void main(String[] args) {
-    MarcFileProcessor processor = null;
+    BibliographicInputProcessor processor = null;
     try {
       processor = new AuthorityAnalysis(args);
     } catch (ParseException e) {
@@ -81,8 +81,8 @@ public class AuthorityAnalysis implements MarcFileProcessor, Serializable {
   }
 
   @Override
-  public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
-    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber) throws IOException {
+    if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
       return;
 
     var analyzer = new AuthorithyAnalyzer(marcRecord, statistics);

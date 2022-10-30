@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
 import org.junit.Test;
 
@@ -18,7 +18,7 @@ public class AuthorithyAnalyzerTest {
   @Test
   public void test() throws IOException, URISyntaxException {
     List<String> lines = FileUtils.readLinesFromResource("marctxt/010000011.mrctxt");
-    MarcRecord marcRecord = MarcFactory.createFromFormattedText(lines);
+    BibliographicRecord marcRecord = MarcFactory.createFromFormattedText(lines);
     AuthorityStatistics statistics = new AuthorityStatistics();
 
     AuthorithyAnalyzer analyzer = new AuthorithyAnalyzer(marcRecord, statistics);

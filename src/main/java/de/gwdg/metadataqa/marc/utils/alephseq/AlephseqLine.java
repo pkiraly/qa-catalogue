@@ -11,6 +11,8 @@ import java.util.regex.Pattern;
 public class AlephseqLine {
   private static final Logger logger = Logger.getLogger(AlephseqLine.class.getCanonicalName());
 
+  public enum TYPE{WITH_L, WITHOUT_L}
+
   private static final String LDR = "LDR";
   private static final Pattern numericTag = Pattern.compile("^\\d\\d\\d$");
   private static final Pattern controlField = Pattern.compile("^00\\d$");
@@ -23,6 +25,8 @@ public class AlephseqLine {
   private String ind2;
   private String content;
   private boolean valid = true;
+  private TYPE type = TYPE.WITH_L;
+  private Integer contentPosition;
 
   public AlephseqLine() {
   }
@@ -31,8 +35,19 @@ public class AlephseqLine {
     parse(raw);
   }
 
+  public AlephseqLine(String raw, TYPE type) {
+    this.type = type;
+    parse(raw);
+  }
+
   public AlephseqLine(String raw, int lineNumber) {
     this.lineNumber = lineNumber;
+    parse(raw);
+  }
+
+  public AlephseqLine(String raw, int lineNumber, TYPE type) {
+    this.lineNumber = lineNumber;
+    this.type = type;
     parse(raw);
   }
 
@@ -91,16 +106,16 @@ public class AlephseqLine {
   }
 
   private void parse(String raw) {
-    // logger.info(lineNumber + ") length: " + raw.length());
     if (raw.length() < 18) {
       logger.warning(String.format("%d) short line (%d): '%s'", lineNumber, raw.length(), raw));
       valid = false;
     } else {
-      recordID = raw.substring(0, 9);
-      tag = raw.substring(10, 13);
-      ind1 = raw.substring(13, 14);
-      ind2 = raw.substring(14, 15);
-      content = raw.substring(18);
+      String[] parts = raw.split(" ", 2);
+      recordID = parts[0];
+      tag = parts[1].substring(0, 3);
+      ind1 = parts[1].substring(3, 4);
+      ind2 = parts[1].substring(4, 5);
+      content = parts[1].substring(getContentPosition());
     }
   }
 
@@ -131,5 +146,11 @@ public class AlephseqLine {
 
   public List<String[]> getSubfields() {
     return DataField.parseSubfields(getContent());
+  }
+
+  private int getContentPosition() {
+    if (contentPosition == null)
+      contentPosition = type.equals(TYPE.WITH_L) ? 8 : 6;
+    return contentPosition;
   }
 }

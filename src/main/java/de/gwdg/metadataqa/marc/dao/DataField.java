@@ -5,7 +5,9 @@ import de.gwdg.metadataqa.marc.Extractable;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.Validatable;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -48,7 +50,7 @@ public class DataField implements Extractable, Validatable, Serializable {
   private Map<String, List<MarcSubfield>> subfieldIndex = new LinkedHashMap<>();
   private ErrorsCollector errors = null;
   private List<String> unhandledSubfields = null;
-  private MarcRecord marcRecord;
+  private BibliographicRecord marcRecord;
 
   public <T extends DataFieldDefinition> DataField(T definition, String ind1, String ind2) {
     this.definition = definition;
@@ -163,11 +165,11 @@ public class DataField implements Extractable, Validatable, Serializable {
     return subfields;
   }
 
-  public MarcRecord getMarcRecord() {
+  public BibliographicRecord getMarcRecord() {
     return marcRecord;
   }
 
-  public void setMarcRecord(MarcRecord marcRecord) {
+  public void setMarcRecord(BibliographicRecord marcRecord) {
     this.marcRecord = marcRecord;
     for (MarcSubfield marcSubfield : subfields)
       marcSubfield.setMarcRecord(marcRecord);
@@ -330,23 +332,24 @@ public class DataField implements Extractable, Validatable, Serializable {
                                                     MarcVersion marcVersion) {
     Map<String, List<String>> pairs = new HashMap<>();
 
-    DataFieldKeyGenerator keyGenerator = new DataFieldKeyGenerator(
-      definition, type, getTag()
-    );
+    DataFieldKeyGenerator keyGenerator = new DataFieldKeyGenerator(definition, type, getTag());
     keyGenerator.setMarcVersion(marcVersion);
 
-    boolean hasInd1def = (definition != null && definition.getInd1().exists());
+    // ind1
+    boolean hasInd1def = (definition != null && definition.getInd1() != null && definition.getInd1().exists());
     if (hasInd1def || !getInd1().equals(" ")) {
       String value = hasInd1def ? resolveInd1() : getInd1();
       pairs.put(keyGenerator.forInd1(), Arrays.asList(value));
     }
 
-    boolean hasInd2def = (definition != null && definition.getInd2().exists());
+    // ind2
+    boolean hasInd2def = (definition != null && definition.getInd2() != null && definition.getInd2().exists());
     if (hasInd2def || !getInd2().equals(" ")) {
       String value = hasInd2def ? resolveInd2() : getInd2();
       pairs.put(keyGenerator.forInd2(), Arrays.asList(value));
     }
 
+    // subfields
     for (MarcSubfield subfield : subfields) {
       pairs.putAll(subfield.getKeyValuePairs(keyGenerator));
     }
@@ -359,6 +362,58 @@ public class DataField implements Extractable, Validatable, Serializable {
         logger.severe(String.format("%s  in record %s %s",
           e.getLocalizedMessage(), marcRecord.getId(), this.toString()));
       }
+    }
+
+    // full field indexing: name authorities
+    if (marcRecord != null && marcRecord.isAuthorityTag(this.getTag())) {
+      List<String> full = new ArrayList<>();
+      for (MarcSubfield subfield : subfields) {
+        if (!marcRecord.isSkippableAuthoritySubfield(this.getTag(), subfield.getCode())) {
+          String value = subfield.getValue();
+          if (marcRecord.getSchemaType().equals(SchemaType.PICA)) {
+            if (subfield.getCode().equals("E")) {
+              value += "-";
+              if (subfieldIndex.containsKey("M"))
+                value += subfieldIndex.get("M").get(0).getValue();
+            } else if (subfield.getCode().equals("M") && subfieldIndex.containsKey("E")) {
+              continue;
+            }
+          }
+          full.add(value);
+        }
+      }
+      String key = keyGenerator.forFull();
+      String value = StringUtils.join(full, ", ");
+      if (!pairs.containsKey(key))
+        pairs.put(key, new ArrayList<>());
+      pairs.get(key).add(value);
+    }
+
+    // classifications
+    if (marcRecord != null && marcRecord.isSubjectTag(this.getTag())) {
+      List<String> full = new ArrayList<>();
+      for (MarcSubfield subfield : subfields) {
+        if (!marcRecord.isSkippableSubjectSubfield(this.getTag(), subfield.getCode())) {
+          String value = subfield.getValue();
+          /*
+          if (marcRecord.getSchemaType().equals(SchemaType.PICA)) {
+            if (subfield.getCode().equals("E")) {
+              value += "-";
+              if (subfieldIndex.containsKey("M"))
+                value += subfieldIndex.get("M").get(0).getValue();
+            } else if (subfield.getCode().equals("M") && subfieldIndex.containsKey("E")) {
+              continue;
+            }
+          }
+           */
+          full.add(value);
+        }
+      }
+      String key = keyGenerator.forFull();
+      String value = StringUtils.join(full, ", ");
+      if (!pairs.containsKey(key))
+        pairs.put(key, new ArrayList<>());
+      pairs.get(key).add(value);
     }
 
     return pairs;

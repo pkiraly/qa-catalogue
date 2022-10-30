@@ -21,14 +21,19 @@ public class PicaTagDefinition implements BibliographicFieldDefinition {
   private final String label;
   protected String descriptionUrl;
   protected List<SubfieldDefinition> subfields;
+  private String modified;
+  private String occurrence;
+  private PicaRange range;
+  private String id;
+  private String counter;
 
   public PicaTagDefinition(String pica3, String picaplus, boolean repeatable, boolean sheet, String label) {
     this.pica3 = pica3;
+    tag = new PicaplusTag(picaplus);
     this.repeatable = repeatable;
     cardinality = repeatable ? Cardinality.Repeatable : Cardinality.Nonrepeatable;
     this.hasSheet = sheet;
     this.label = label;
-    tag = new PicaplusTag(picaplus);
   }
 
   public PicaTagDefinition(String[] input) {
@@ -78,17 +83,6 @@ public class PicaTagDefinition implements BibliographicFieldDefinition {
   }
 
   @Override
-  public String toString() {
-    return "PicaTagDefinition{" +
-      "pica3='" + pica3 + '\'' +
-      ", picaplus='" + tag.getRaw() + '\'' +
-      ", repeatable=" + repeatable +
-      ", hasSheet=" + hasSheet +
-      ", description='" + label + '\'' +
-      '}';
-  }
-
-  @Override
   public String getTag() {
     return tag.getTag();
   }
@@ -113,4 +107,56 @@ public class PicaTagDefinition implements BibliographicFieldDefinition {
   public void setDescriptionUrl(String descriptionUrl) {
     this.descriptionUrl = descriptionUrl;
   }
+
+  public String getModified() {
+    return modified;
+  }
+
+  public void setModified(String modified) {
+    this.modified = modified;
+  }
+
+  public String getOccurrence() {
+    return occurrence;
+  }
+
+  public void setCounter(String counter) {
+    this.counter = counter;
+    if (counter != null)
+      range = new PicaRange(counter);
+  }
+
+  public String getCounter() {
+    return counter;
+  }
+
+  public PicaRange getRange() {
+    return range;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public void setOccurrence(String occurrence) {
+    this.occurrence = occurrence;
+    if (occurrence != null)
+      range = new PicaRange(occurrence);
+  }
+
+  @Override
+  public String toString() {
+    return "PicaTagDefinition{" +
+      "pica3='" + pica3 + '\'' +
+      ", picaplus='" + tag.getRaw() + '\'' +
+      ", repeatable=" + repeatable +
+      ", hasSheet=" + hasSheet +
+      ", description='" + label + '\'' +
+      '}';
+  }
+
 }

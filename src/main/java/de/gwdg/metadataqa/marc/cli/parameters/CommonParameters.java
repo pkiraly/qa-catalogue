@@ -1,11 +1,16 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
+import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnorator;
+import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnoratorFactory;
+import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilter;
+import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilterFactory;
 import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
-import de.gwdg.metadataqa.marc.cli.utils.IgnorableRecords;
 import de.gwdg.metadataqa.marc.definition.DataSource;
 import de.gwdg.metadataqa.marc.definition.MarcFormat;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
+import de.gwdg.metadataqa.marc.utils.alephseq.AlephseqLine;
 import org.apache.commons.cli.*;
 import org.apache.commons.lang3.StringUtils;
 
@@ -13,6 +18,8 @@ import java.io.InputStream;
 import java.io.Serializable;
 
 public class CommonParameters implements Serializable {
+
+  private static final long serialVersionUID = -4760615880678251867L;
 
   protected String[] args;
   public static final String DEFAULT_OUTPUT_DIR = ".";
@@ -34,7 +41,8 @@ public class CommonParameters implements Serializable {
   protected boolean lineSeparated = false;
   protected boolean trimId = false;
   private String outputDir = DEFAULT_OUTPUT_DIR;
-  protected IgnorableRecords ignorableRecords = new IgnorableRecords();
+  protected RecordIgnorator recordIgnorator;
+  protected RecordFilter recordFilter;
   protected IgnorableFields ignorableFields = new IgnorableFields();
   protected InputStream stream = null;
   protected String defaultEncoding = null;
@@ -43,6 +51,12 @@ public class CommonParameters implements Serializable {
   protected static final CommandLineParser parser = new DefaultParser();
   protected CommandLine cmd;
   private boolean isOptionSet = false;
+  private AlephseqLine.TYPE alephseqLineType;
+  private String picaIdField = "003@$0";
+  private String picaSubfieldSeparator = "$";
+  private String picaSchemaFile;
+  private String picaRecordTypeField = "002@$0";
+  private SchemaType schemaType = SchemaType.MARC21;
 
   protected void setOptions() {
     if (!isOptionSet) {
@@ -66,6 +80,14 @@ public class CommonParameters implements Serializable {
       options.addOption("f", "marcFormat", true, "MARC format (like 'ISO' or 'MARCXML')");
       options.addOption("s", "dataSource", true, "data source (file of stream)");
       options.addOption("g", "defaultEncoding", true, "default character encoding");
+      options.addOption("A", "alephseqLineType", true, "Alephseq line type");
+      options.addOption("B", "picaIdField", true, "PICA id field");
+      options.addOption("D", "picaSubfieldSeparator", true, "PICA subfield separator");
+      options.addOption("E", "picaSchemaFile", true, "Avram PICA schema file");
+      options.addOption("F", "schemaType", true, "metadata schema type ('MARC21', 'UNIMARC', or 'PICA')");
+      options.addOption("G", "picaRecordType", true, "picaRecordType");
+      options.addOption("I", "allowableRecords", true, "allow records for the analysis");
+
       isOptionSet = true;
     }
   }
@@ -76,60 +98,144 @@ public class CommonParameters implements Serializable {
   public CommonParameters(String[] arguments)  throws ParseException {
     cmd = parser.parse(getOptions(), arguments);
 
-    if (cmd.hasOption("marcVersion"))
-      setMarcVersion(cmd.getOptionValue("marcVersion"));
-
-    if (cmd.hasOption("marcFormat"))
-      setMarcFormat(cmd.getOptionValue("marcFormat"));
-
-    if (cmd.hasOption("dataSource"))
-      setDataSource(cmd.getOptionValue("dataSource"));
-
+    readSchemaType();
+    readMarcVersion();
+    readMarcFormat();
+    readDataSource();
     doHelp = cmd.hasOption("help");
-
     doLog = !cmd.hasOption("nolog");
-
-    if (cmd.hasOption("limit"))
-      limit = Integer.parseInt(cmd.getOptionValue("limit"));
-
-    if (cmd.hasOption("offset"))
-      offset = Integer.parseInt(cmd.getOptionValue("offset"));
-
+    readLimit();
+    readOffset();
     if (offset > -1 && limit > -1)
       limit += offset;
-
-    if (cmd.hasOption("id"))
-      id = cmd.getOptionValue("id").trim();
-
-    if (cmd.hasOption("defaultRecordType"))
-      setDefaultRecordType(cmd.getOptionValue("defaultRecordType"));
-
+    readId();
+    readDefaultRecordType();
     setAlephseq(cmd.hasOption("alephseq"));
-
     fixAlephseq = cmd.hasOption("fixAlephseq");
-
     fixAlma = cmd.hasOption("fixAlma");
     fixKbr = cmd.hasOption("fixKbr");
-
     setMarcxml(cmd.hasOption("marcxml"));
-
     lineSeparated = cmd.hasOption("lineSeparated");
-
-    if (cmd.hasOption("outputDir"))
-      outputDir = cmd.getOptionValue("outputDir");
-
+    readOutputDir();
     trimId = cmd.hasOption("trimId");
-
-    if (cmd.hasOption("ignorableFields"))
-      setIgnorableFields(cmd.getOptionValue("ignorableFields"));
-
-    if (cmd.hasOption("ignorableRecords"))
-      setIgnorableRecords(cmd.getOptionValue("ignorableRecords"));
-
-    if (cmd.hasOption("defaultEncoding"))
-      setDefaultEncoding(cmd.getOptionValue("defaultEncoding"));
+    readIgnorableFields();
+    readIgnorableRecords();
+    readAllowableRecords();
+    readDefaultEncoding();
+    readAlephseqLineType();
+    readPicaIdField();
+    readPicaSubfieldSeparator();
+    readPicaSchemaFile();
+    readPicaRecordType();
 
     args = cmd.getArgs();
+  }
+
+  private void readPicaSchemaFile() {
+    if (cmd.hasOption("picaSchemaFile"))
+      picaSchemaFile = cmd.getOptionValue("picaSchemaFile");
+  }
+
+  private void readPicaRecordType() {
+    if (cmd.hasOption("picaRecordType"))
+      picaRecordTypeField = cmd.getOptionValue("picaRecordType");
+  }
+
+
+  private void readPicaSubfieldSeparator() {
+    if (cmd.hasOption("picaSubfieldSeparator"))
+      picaSubfieldSeparator = cmd.getOptionValue("picaSubfieldSeparator");
+  }
+
+  private void readPicaIdField() {
+    if (cmd.hasOption("picaIdField"))
+      picaIdField = cmd.getOptionValue("picaIdField");
+  }
+
+  private void readAlephseqLineType() throws ParseException {
+    if (cmd.hasOption("alephseqLineType"))
+      setAlephseqLineType(cmd.getOptionValue("alephseqLineType"));
+  }
+
+  private void readDefaultEncoding() {
+    if (cmd.hasOption("defaultEncoding"))
+      setDefaultEncoding(cmd.getOptionValue("defaultEncoding"));
+  }
+
+  private void readIgnorableRecords() {
+    String ignorableRecords = cmd.hasOption("ignorableRecords") ? cmd.getOptionValue("ignorableRecords") : "";
+    setRecordIgnorator(ignorableRecords);
+  }
+
+  private void readAllowableRecords() {
+    String allowableRecords = cmd.hasOption("allowableRecords") ? cmd.getOptionValue("allowableRecords") : "";
+    setRecordFilter(allowableRecords);
+  }
+
+  private void readIgnorableFields() {
+    if (cmd.hasOption("ignorableFields"))
+      setIgnorableFields(cmd.getOptionValue("ignorableFields"));
+  }
+
+  private void readOutputDir() {
+    if (cmd.hasOption("outputDir"))
+      outputDir = cmd.getOptionValue("outputDir");
+  }
+
+  private void readDefaultRecordType() throws ParseException {
+    if (cmd.hasOption("defaultRecordType"))
+      setDefaultRecordType(cmd.getOptionValue("defaultRecordType"));
+  }
+
+  private void readId() {
+    if (cmd.hasOption("id"))
+      id = cmd.getOptionValue("id").trim();
+  }
+
+  private void readOffset() {
+    if (cmd.hasOption("offset"))
+      offset = Integer.parseInt(cmd.getOptionValue("offset"));
+  }
+
+  private void readLimit() {
+    if (cmd.hasOption("limit"))
+      limit = Integer.parseInt(cmd.getOptionValue("limit"));
+  }
+
+  private void readDataSource() throws ParseException {
+    if (cmd.hasOption("dataSource"))
+      setDataSource(cmd.getOptionValue("dataSource"));
+  }
+
+  private void readSchemaType() throws ParseException {
+    if (cmd.hasOption("schemaType"))
+      setSchemaType(cmd.getOptionValue("schemaType"));
+  }
+
+  private void setSchemaType(String input) throws ParseException {
+    try {
+      schemaType = SchemaType.valueOf(input);
+    } catch (IllegalArgumentException e) {
+      throw new ParseException(String.format("Unrecognized schemaType parameter value: '%s'", input));
+    }
+  }
+
+  private void readMarcFormat() throws ParseException {
+    if (cmd.hasOption("marcFormat"))
+      setMarcFormat(cmd.getOptionValue("marcFormat"));
+  }
+
+  private void readMarcVersion() throws ParseException {
+    if (cmd.hasOption("marcVersion"))
+      setMarcVersion(cmd.getOptionValue("marcVersion"));
+  }
+
+  private void setAlephseqLineType(String alephseqLineTypeInput) throws ParseException {
+    try {
+      alephseqLineType = AlephseqLine.TYPE.valueOf(cmd.getOptionValue("alephseqLineType"));
+    } catch (IllegalArgumentException e) {
+      throw new ParseException(String.format("Unrecognized alephseqLineType parameter value: '%s'", alephseqLineTypeInput));
+    }
   }
 
   public Options getOptions() {
@@ -170,6 +276,8 @@ public class CommonParameters implements Serializable {
       setMarcxml(true);
     if (marcFormat.equals(MarcFormat.LINE_SEPARATED))
       setLineSeparated(true);
+    if (marcFormat.equals(MarcFormat.PICA_NORMALIZED) || marcFormat.equals(MarcFormat.PICA_PLAIN))
+      schemaType = SchemaType.PICA;
   }
 
   public DataSource getDataSource() {
@@ -333,12 +441,20 @@ public class CommonParameters implements Serializable {
     this.ignorableFields.parseFields(ignorableFields.trim());
   }
 
-  public IgnorableRecords getIgnorableRecords() {
-    return ignorableRecords;
+  public RecordIgnorator getRecordIgnorator() {
+    return recordIgnorator;
   }
 
-  public void setIgnorableRecords(String ignorableRecords) {
-    this.ignorableRecords.parseInput(ignorableRecords.trim());
+  public void setRecordIgnorator(String ignorableRecords) {
+    this.recordIgnorator = RecordIgnoratorFactory.create(schemaType, ignorableRecords.trim());
+  }
+
+  public RecordFilter getRecordFilter() {
+    return recordFilter;
+  }
+
+  public void setRecordFilter(String allowableRecords) {
+    this.recordFilter = RecordFilterFactory.create(schemaType, allowableRecords.trim());
   }
 
   public InputStream getStream() {
@@ -357,8 +473,49 @@ public class CommonParameters implements Serializable {
     this.defaultEncoding = defaultEncoding;
   }
 
+  public AlephseqLine.TYPE getAlephseqLineType() {
+    return this.alephseqLineType;
+  }
+
+  public String getPicaIdField() {
+    return picaIdField;
+  }
+
+  public void setPicaIdField(String picaIdField) {
+    this.picaIdField = picaIdField;
+  }
+
+  public String getPicaSubfieldSeparator() {
+    return picaSubfieldSeparator;
+  }
+
+  public void setPicaSubfieldSeparator(String picaSubfieldSeparator) {
+    this.picaSubfieldSeparator = picaSubfieldSeparator;
+  }
+
+  public String getPicaSchemaFile() {
+    return picaSchemaFile;
+  }
+
+  public SchemaType getSchemaType() {
+    return schemaType;
+  }
+
+  public String getPicaRecordTypeField() {
+    return picaRecordTypeField;
+  }
+
+  public boolean isMarc21() {
+    return schemaType.equals(SchemaType.MARC21);
+  }
+
+  public boolean isPica() {
+    return schemaType.equals(SchemaType.PICA);
+  }
+
   public String formatParameters() {
     String text = "";
+    text += String.format("schemaType: %s%n", schemaType);
     text += String.format("marcVersion: %s, %s%n", marcVersion.getCode(), marcVersion.getLabel());
     text += String.format("marcFormat: %s, %s%n", marcFormat.getCode(), marcFormat.getLabel());
     text += String.format("dataSource: %s, %s%n", dataSource.getCode(), dataSource.getLabel());
@@ -375,8 +532,15 @@ public class CommonParameters implements Serializable {
     text += String.format("outputDir: %s%n", outputDir);
     text += String.format("trimId: %s%n", trimId);
     text += String.format("ignorableFields: %s%n", ignorableFields);
-    text += String.format("ignorableRecords: %s%n", ignorableRecords);
+    text += String.format("allowableRecords: %s%n", recordFilter);
+    text += String.format("ignorableRecords: %s%n", recordIgnorator);
     text += String.format("defaultEncoding: %s%n", defaultEncoding);
+    text += String.format("alephseqLineType: %s%n", alephseqLineType);
+    if (isPica()) {
+      text += String.format("picaIdField: %s%n", picaIdField);
+      text += String.format("picaSubfieldSeparator: %s%n", picaSubfieldSeparator);
+      text += String.format("picaRecordType: %s%n", picaRecordTypeField);
+    }
 
     return text;
   }

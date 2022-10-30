@@ -1,7 +1,8 @@
 package de.gwdg.metadataqa.marc.definition.tags.bltags;
 
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -35,7 +36,7 @@ public class BLTagTest {
   }
 
   public void validField(DataField field) {
-    MarcRecord marcRecord = new MarcRecord("test");
+    BibliographicRecord marcRecord = new Marc21Record("test");
     field.setMarcRecord(marcRecord);
 
     MarcSubfield subfield = field.getSubfields().get(0);
@@ -59,7 +60,7 @@ public class BLTagTest {
   public void invalidField(String ind1, String subfield, String value) {
     DataField field = new DataField(tag, ind1, " ", subfield, value);
 
-    MarcRecord marcRecord = new MarcRecord("test");
+    BibliographicRecord marcRecord = new Marc21Record("test");
     field.setMarcRecord(marcRecord);
 
     assertFalse(
@@ -76,7 +77,7 @@ public class BLTagTest {
 
   public void invalidField(DataField field) {
 
-    MarcRecord marcRecord = new MarcRecord("test");
+    BibliographicRecord marcRecord = new Marc21Record("test");
     field.setMarcRecord(marcRecord);
 
     MarcSubfield subfield = field.getSubfields().get(0);
@@ -97,7 +98,7 @@ public class BLTagTest {
   public void invalidFieldInBL(String ind1, String subfield, String value) {
     DataField field = new DataField(tag, ind1, " ", subfield, value);
 
-    MarcRecord marcRecord = new MarcRecord("test");
+    BibliographicRecord marcRecord = new Marc21Record("test");
     field.setMarcRecord(marcRecord);
 
     assertTrue(

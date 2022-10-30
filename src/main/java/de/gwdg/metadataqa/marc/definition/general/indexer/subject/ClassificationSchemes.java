@@ -54,6 +54,16 @@ public class ClassificationSchemes {
     schemes.put("Chronological term", "chronological");
     schemes.put("Geographic name", "geographic");
     schemes.put("Genre/form term", "genre");
+
+    // PICA
+    schemes.put("Regensburger Verbundklassifikation", "rvk");
+    schemes.put("Regensburger Verbundklassifikation (RVK)", "rvk");
+    schemes.put("Sachgruppen der Deutschen Nationalbibliografie bis 2003", "sdnb");
+    schemes.put("Sachgruppen der Deutschen Nationalbibliografie ab 2004", "sdnb");
+    schemes.put("LCC-Notation", "lcc");
+    schemes.put("DDC-Notation", "ddc");
+    schemes.put("Notation – Beziehung", "ddc");
+    schemes.put("This mixes multiple systems used in DNB before 2004", "dnbsgr");
   }
 
   public String resolve(String key) {

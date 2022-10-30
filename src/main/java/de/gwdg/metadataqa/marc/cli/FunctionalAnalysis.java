@@ -2,13 +2,14 @@ package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.*;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
-import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcControlField;
 import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.FRBRFunction;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
@@ -32,7 +33,7 @@ import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
 
-public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
+public class FunctionalAnalysis implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(FunctionalAnalysis.class.getCanonicalName());
 
@@ -46,13 +47,13 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
     parameters = new CompletenessParameters(args);
     options = parameters.getOptions();
     readyToProcess = true;
-    frbrFunctionLister = new FrbrFunctionLister(parameters.getMarcVersion());
+    frbrFunctionLister = new FrbrFunctionLister(parameters.getSchemaType(), parameters.getMarcVersion());
 
     logger.info(frbrFunctionLister.getBaseline().toString());
   }
 
   public static void main(String[] args) {
-    MarcFileProcessor processor = null;
+    BibliographicInputProcessor processor = null;
     try {
       processor = new FunctionalAnalysis(args);
     } catch (ParseException e) {
@@ -83,8 +84,8 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
   }
 
   @Override
-  public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
-    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+  public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber) throws IOException {
+    if (parameters.getRecordIgnorator().isIgnorable(bibliographicRecord))
       return;
 
     this.recordNumber = recordNumber;
@@ -95,9 +96,11 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
 
     Map<DataFieldDefinition, Boolean> cache = new HashMap<>();
 
-    countPositionalControlField(recordCounter, marcRecord.getLeader());
-    countControlFields(recordCounter, marcRecord.getControlfields());
-    countDataFields(recordCounter, marcRecord.getDatafields(), cache);
+    if (bibliographicRecord.getSchemaType().equals(SchemaType.MARC21)) {
+      countPositionalControlField(recordCounter, bibliographicRecord.getLeader());
+      countControlFields(recordCounter, bibliographicRecord.getControlfields());
+    }
+    countDataFields(recordCounter, bibliographicRecord.getDatafields(), bibliographicRecord.getSchemaType(), cache);
 
     frbrFunctionLister.calculatePercent(recordCounter);
 
@@ -107,20 +110,25 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
 
   private void countDataFields(Map<FRBRFunction, FunctionValue> recordCounter,
                                List<DataField> dataFields,
+                               SchemaType schemaType,
                                Map<DataFieldDefinition, Boolean> cache) {
     for (DataField dataField : dataFields) {
       DataFieldDefinition definition = dataField.getDefinition();
       if (!cache.containsKey(definition)) {
         cache.put(definition, true);
-        if (definition != null) {
+        if (definition != null && schemaType.equals(SchemaType.MARC21)) {
           countIndicator(recordCounter, definition.getInd1(), dataField.getInd1());
           countIndicator(recordCounter, definition.getInd2(), dataField.getInd2());
         }
-        for (MarcSubfield subfield : dataField.getSubfields()) {
-          if (subfield.getDefinition() != null
-              && subfield.getDefinition().getFrbrFunctions() != null) {
-            FrbrFunctionLister.countFunctions(
-              subfield.getDefinition().getFrbrFunctions(), recordCounter);
+        if (schemaType.equals(SchemaType.MARC21)) {
+          for (MarcSubfield subfield : dataField.getSubfields())
+            if (subfield.getDefinition() != null && subfield.getDefinition().getFrbrFunctions() != null)
+              FrbrFunctionLister.countFunctions(subfield.getDefinition().getFrbrFunctions(), recordCounter);
+        } else if (schemaType.equals(SchemaType.PICA)) {
+          for (MarcSubfield subfield : dataField.getSubfields()) {
+            String key = dataField.getTag() + "$" + subfield.getCode();
+            if (frbrFunctionLister.getFunctionByPicaPath().containsKey(key))
+              FrbrFunctionLister.countFunctions(frbrFunctionLister.getFunctionByPicaPath().get(key), recordCounter);
           }
         }
       }
@@ -196,13 +204,18 @@ public class FunctionalAnalysis implements MarcFileProcessor, Serializable {
 
   private void saveMapping(String fileExtension,
                            char separator) {
-    Map<FRBRFunction, List<String>> functions = frbrFunctionLister.getMarcPathByfunction();
+    Map<FRBRFunction, List<String>> functions = null;
+    if (parameters.getSchemaType().equals(SchemaType.MARC21))
+      functions = frbrFunctionLister.getMarcPathByFunction();
+    else if (parameters.getSchemaType().equals(SchemaType.PICA))
+      functions = frbrFunctionLister.getPicaPathByFunctionConcensed();
+
     var path = Paths.get(parameters.getOutputDir(), "functional-analysis-mapping" + fileExtension);
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write("frbrfunction" + separator + "count" + separator + "fields\n");
       for (FRBRFunction function : FRBRFunction.values()) {
         if (function.getParent() != null) {
-          List<String> paths = functions.get(function);
+          List<String> paths = functions.getOrDefault(function, new ArrayList<>());
           List<Object> cells = new ArrayList<>();
           cells.add(function.toString());
           cells.add(paths.size());

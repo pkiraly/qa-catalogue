@@ -2,9 +2,9 @@ package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.analysis.BLClassifier;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
-import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.FileUtils;
@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
 
-public class BLClassificationAnalysis implements MarcFileProcessor, Serializable {
+public class BLClassificationAnalysis implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(
     BLClassificationAnalysis.class.getCanonicalName()
@@ -41,7 +41,7 @@ public class BLClassificationAnalysis implements MarcFileProcessor, Serializable
   }
 
   public static void main(String[] args) throws ParseException {
-    MarcFileProcessor processor = null;
+    BibliographicInputProcessor processor = null;
     try {
       processor = new BLClassificationAnalysis(args);
     } catch (ParseException e) {
@@ -74,9 +74,9 @@ public class BLClassificationAnalysis implements MarcFileProcessor, Serializable
   }
 
   @Override
-  public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber) throws IOException {
     logger.info(".");
-    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+    if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
       return;
     String blClass = classifier.classify(marcRecord);
     String id = parameters.getTrimId()

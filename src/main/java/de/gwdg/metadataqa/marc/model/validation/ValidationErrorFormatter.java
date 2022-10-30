@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.model.validation;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opencsv.CSVWriter;
+import de.gwdg.metadataqa.marc.CsvUtils;
 import de.gwdg.metadataqa.marc.Utils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -11,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 
 import static de.gwdg.metadataqa.marc.Utils.counterToList;
 
@@ -187,7 +187,7 @@ public class ValidationErrorFormatter {
     return new String[]{"errorId", "recordIds"};
   }
 
-  private static String[] asArrayWithoutId(ValidationError error) {
+  public static String[] asArrayWithoutId(ValidationError error) {
     return new String[]{
       error.getMarcPath(),
       String.valueOf(error.getType().getCategory().getId()),

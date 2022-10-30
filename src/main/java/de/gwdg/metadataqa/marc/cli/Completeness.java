@@ -3,13 +3,18 @@ package de.gwdg.metadataqa.marc.cli;
 import de.gwdg.metadataqa.marc.*;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
-import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.cli.plugin.CompletenessFactory;
+import de.gwdg.metadataqa.marc.cli.plugin.CompletenessPlugin;
+import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
+import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilter;
+import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnorator;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcControlField;
 import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.tags.TagCategory;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.utils.BasicStatistics;
@@ -38,7 +43,7 @@ import java.util.regex.Pattern;
 import static de.gwdg.metadataqa.marc.Utils.createRow;
 import static de.gwdg.metadataqa.marc.Utils.quote;
 
-public class Completeness implements MarcFileProcessor, Serializable {
+public class Completeness implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(Completeness.class.getCanonicalName());
   private static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
@@ -56,15 +61,22 @@ public class Completeness implements MarcFileProcessor, Serializable {
   // private Map<String, Integer> fieldMap = new HashMap<>();
   private Map<String, Map<Integer, Integer>> fieldHistogram = new HashMap<>();
   private boolean readyToProcess;
+  private CompletenessPlugin plugin;
+  private Map<DataFieldDefinition, String> packageNameCache = new HashMap<>();
+  private RecordFilter recordFilter;
+  private RecordIgnorator recordIgnorator;
 
   public Completeness(String[] args) throws ParseException {
     parameters = new CompletenessParameters(args);
     options = parameters.getOptions();
     readyToProcess = true;
+    plugin = CompletenessFactory.create(parameters);
+    recordFilter = parameters.getRecordFilter();
+    recordIgnorator = parameters.getRecordIgnorator();
   }
 
   public static void main(String[] args) {
-    MarcFileProcessor processor = null;
+    BibliographicInputProcessor processor = null;
     try {
       processor = new Completeness(args);
     } catch (ParseException e) {
@@ -95,15 +107,18 @@ public class Completeness implements MarcFileProcessor, Serializable {
   }
 
   @Override
-  public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
-    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber) throws IOException {
+    if (!recordFilter.isAllowable(marcRecord))
+      return;
+
+    if (recordIgnorator.isIgnorable(marcRecord))
       return;
 
     Map<String, Integer> recordFrequency = new TreeMap<>();
     Map<String, Integer> recordPackageCounter = new TreeMap<>();
     // private Map<String, Map<String, Integer>>
 
-    String documentType = marcRecord.getType().getValue();
+    String documentType = plugin.getDocumentType(marcRecord);
     elementCardinality.computeIfAbsent(documentType, s -> new TreeMap<>());
     elementFrequency.computeIfAbsent(documentType, s -> new TreeMap<>());
 
@@ -114,9 +129,11 @@ public class Completeness implements MarcFileProcessor, Serializable {
       count(library, libraryCounter);
     }
 
-    processLeader(marcRecord, recordFrequency, recordPackageCounter, documentType);
-    processSimpleControlfields(marcRecord, recordFrequency, recordPackageCounter, documentType);
-    processPositionalControlFields(marcRecord, recordFrequency, recordPackageCounter, documentType);
+    if (!parameters.isPica()) {
+      processLeader(marcRecord, recordFrequency, recordPackageCounter, documentType);
+      processSimpleControlfields(marcRecord, recordFrequency, recordPackageCounter, documentType);
+      processPositionalControlFields(marcRecord, recordFrequency, recordPackageCounter, documentType);
+    }
     processDataFields(marcRecord, recordFrequency, recordPackageCounter, documentType);
 
     for (String key : recordFrequency.keySet()) {
@@ -134,31 +151,34 @@ public class Completeness implements MarcFileProcessor, Serializable {
     }
   }
 
-  private void processLeader(MarcRecord marcRecord, Map<String, Integer> recordFrequency, Map<String, Integer> recordPackageCounter, String documentType) {
+  private void processLeader(BibliographicRecord marcRecord, Map<String, Integer> recordFrequency, Map<String, Integer> recordPackageCounter, String documentType) {
     if (marcRecord.getLeader() != null) {
       for (ControlValue position : marcRecord.getLeader().getValuesList()) {
         String marcPath = position.getDefinition().getId();
         count(marcPath, elementCardinality.get(documentType));
         count(marcPath, elementCardinality.get("all"));
         count(marcPath, recordFrequency);
-        count(TagCategory.tags00x.getPackageName(), recordPackageCounter);
+        count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
       }
     }
   }
 
-  private void processSimpleControlfields(MarcRecord marcRecord, Map<String, Integer> recordFrequency, Map<String, Integer> recordPackageCounter, String documentType) {
+  private void processSimpleControlfields(BibliographicRecord marcRecord, Map<String, Integer> recordFrequency, Map<String, Integer> recordPackageCounter, String documentType) {
     for (MarcControlField field : marcRecord.getSimpleControlfields()) {
       if (field != null) {
         String marcPath = field.getDefinition().getTag();
         count(marcPath, elementCardinality.get(documentType));
         count(marcPath, elementCardinality.get("all"));
         count(marcPath, recordFrequency);
-        count(TagCategory.tags00x.getPackageName(), recordPackageCounter);
+        count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
       }
     }
   }
 
-  private void processPositionalControlFields(MarcRecord marcRecord, Map<String, Integer> recordFrequency, Map<String, Integer> recordPackageCounter, String documentType) {
+  private void processPositionalControlFields(BibliographicRecord marcRecord,
+                                              Map<String, Integer> recordFrequency,
+                                              Map<String, Integer> recordPackageCounter,
+                                              String documentType) {
     for (MarcPositionalControlField field : marcRecord.getPositionalControlfields()) {
       if (field != null) {
         for (ControlValue position : field.getValuesList()) {
@@ -166,13 +186,16 @@ public class Completeness implements MarcFileProcessor, Serializable {
           count(marcPath, elementCardinality.get(documentType));
           count(marcPath, elementCardinality.get("all"));
           count(marcPath, recordFrequency);
-          count(TagCategory.tags00x.getPackageName(), recordPackageCounter);
+          count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
         }
       }
     }
   }
 
-  private void processDataFields(MarcRecord marcRecord, Map<String, Integer> recordFrequency, Map<String, Integer> recordPackageCounter, String documentType) {
+  private void processDataFields(BibliographicRecord marcRecord,
+                                 Map<String, Integer> recordFrequency,
+                                 Map<String, Integer> recordPackageCounter,
+                                 String documentType) {
     for (DataField field : marcRecord.getDatafields()) {
       if (parameters.getIgnorableFields().contains(field.getTag()))
         continue;
@@ -191,13 +214,15 @@ public class Completeness implements MarcFileProcessor, Serializable {
   private List<String> getMarcPaths(DataField field) {
     List<String> marcPaths = new ArrayList<>();
 
-    if (field.getInd1() != null)
-      if (field.getDefinition() != null && field.getDefinition().getInd1().exists() || !field.getInd1().equals(" "))
-        marcPaths.add(String.format("%s$!ind1", field.getTag()));
+    if (parameters.isMarc21()) {
+      if (field.getInd1() != null)
+        if (field.getDefinition() != null && field.getDefinition().getInd1().exists() || !field.getInd1().equals(" "))
+          marcPaths.add(String.format("%s$!ind1", field.getTag()));
 
-    if (field.getInd2() != null)
-      if (field.getDefinition() != null && field.getDefinition().getInd2().exists() || !field.getInd2().equals(" "))
-        marcPaths.add(String.format("%s$!ind2", field.getTag()));
+      if (field.getInd2() != null)
+        if (field.getDefinition() != null && field.getDefinition().getInd2().exists() || !field.getInd2().equals(" "))
+          marcPaths.add(String.format("%s$!ind2", field.getTag()));
+    }
 
     for (MarcSubfield subfield : field.getSubfields())
       if (numericalPattern.matcher(subfield.getCode()).matches())
@@ -211,18 +236,23 @@ public class Completeness implements MarcFileProcessor, Serializable {
   private String getPackageName(DataField field) {
     String packageName;
     if (field.getDefinition() != null) {
-      packageName = Utils.extractPackageName(field);
-      if (StringUtils.isBlank(packageName)) {
-        logger.warning(String.format("%s has no package. /%s", field, field.getDefinition().getClass()));
-        packageName = TagCategory.other.getPackageName();
+      if (packageNameCache.containsKey(field.getDefinition()))
+        packageName = packageNameCache.get(field.getDefinition());
+      else {
+        packageName = plugin.getPackageName(field);
+        if (StringUtils.isBlank(packageName)) {
+          logger.warning(String.format("%s has no package. /%s", field, field.getDefinition().getClass()));
+          packageName = TagCategory.OTHER.getPackageName();
+        }
+        packageNameCache.put(field.getDefinition(), packageName);
       }
     } else {
-      packageName = TagCategory.other.getPackageName();
+      packageName = TagCategory.OTHER.getPackageName();
     }
     return packageName;
   }
 
-  private List<String> extract(MarcRecord marcRecord, String tag, String subfield) {
+  private List<String> extract(BibliographicRecord marcRecord, String tag, String subfield) {
     List<String> values = new ArrayList<>();
     List<DataField> fields = marcRecord.getDatafield(tag);
     if (fields != null && !fields.isEmpty()) {
@@ -391,11 +421,11 @@ public class Completeness implements MarcFileProcessor, Serializable {
     }
 
     String marcPathLabel = marcPath.replace("!ind", "ind").replaceAll("\\|(\\d)$", "$1");
-    TagHierarchy tagHierarchy = TagHierarchy.createFromPath(marcPathLabel, parameters.getMarcVersion());
-    int packageId;
-    String packageLabel = "";
+    int packageId = TagCategory.OTHER.getId();
+    String packageLabel = TagCategory.OTHER.getLabel();
     String tagLabel = "";
     String subfieldLabel = "";
+    TagHierarchy tagHierarchy = plugin.getTagHierarchy(marcPathLabel);
     if (tagHierarchy != null) {
       packageId = tagHierarchy.getPackageId();
       packageLabel = tagHierarchy.getPackageLabel();
@@ -403,8 +433,6 @@ public class Completeness implements MarcFileProcessor, Serializable {
       subfieldLabel = tagHierarchy.getSubfieldLabel();
     } else {
       logger.severe("Key can not be found in the TagHierarchy: " + marcPathLabel);
-      packageId = TagCategory.other.getId();
-      packageLabel = TagCategory.other.getLabel();
     }
 
     // Integer cardinality = entry.getValue();

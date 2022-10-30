@@ -1,16 +1,16 @@
 package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 
 import java.util.*;
 
 public class NetworkAnalyzer {
 
-  private final MarcRecord marcRecord;
+  private final BibliographicRecord marcRecord;
   private final Set<DataField> collector;
 
-  public NetworkAnalyzer(MarcRecord marcRecord) {
+  public NetworkAnalyzer(BibliographicRecord marcRecord) {
     this.marcRecord = marcRecord;
     collector = new HashSet<>();
   }

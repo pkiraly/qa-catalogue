@@ -3,7 +3,7 @@ package de.gwdg.metadataqa.marc.cli.utils;
 import de.gwdg.metadataqa.api.model.pathcache.JsonPathCache;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.datastore.MarcSolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 
@@ -56,7 +56,7 @@ public class MarcJsonToSolr {
       for (String marcRecordLine : records) {
         i++;
         cache = new JsonPathCache(marcRecordLine);
-        MarcRecord marcRecord = MarcFactory.create(cache);
+        BibliographicRecord marcRecord = MarcFactory.create(cache);
         client.indexMap(marcRecord.getId(), marcRecord.getKeyValuePairs());
 
         if (i % 1000 == 0) {

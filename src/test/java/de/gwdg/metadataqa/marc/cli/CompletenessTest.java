@@ -1,46 +1,75 @@
 package de.gwdg.metadataqa.marc.cli;
 
+import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
+import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.*;
 
-public class CompletenessTest {
+public class CompletenessTest extends CliTestUtils {
 
-  @Test
-  public void test() {
-    Map<String, Map<String, Integer>> packages = new HashMap<>();
-    Map<String, Integer> general = new HashMap<>();
-    general.put("010", 1);
-    general.put("020", 2);
-    general.put("030", 3);
-    packages.put("general", general);
-    Map<String, Integer> specific = new HashMap<>();
-    specific.put("110", 1);
-    specific.put("120", 2);
-    specific.put("130", 3);
-    packages.put("specific", specific);
+  private String inputFile;
+  private String outputDir;
+  private List<String> outputFiles;
 
-
-    packages.forEach((a, b) -> {
-      System.err.println(a);
-      b.forEach((c, d) ->{
-        System.err.println(c + ": " + d);
-      });
-    });
-
+  @Before
+  public void setUp() throws Exception {
+    inputFile = getPath("src/test/resources/alephseq/alephseq-example3.txt");
+    outputDir = getPath("src/test/resources/output");
+    outputFiles = Arrays.asList(
+      "libraries.csv",
+      "libraries003.csv",
+      "marc-elements.csv",
+      "packages.csv"
+    );
   }
 
   @Test
-  public void testSimple() {
-    Map<Integer, String> namesMap = new HashMap<>();
-    namesMap.put(1, "Larry");
-    namesMap.put(2, "Steve");
-    namesMap.put(3, "James");
+  public void completeness_alephseq() throws Exception {
+    clearOutput(outputDir, outputFiles);
 
-    namesMap.forEach((key, value) -> System.out.println(key + " " + value));
+    Completeness processor = new Completeness(new String[]{
+      "--defaultRecordType", "BOOKS",
+      "--marcVersion", "GENT",
+      "--alephseq",
+      "--outputDir", outputDir,
+      inputFile
+    });
+    RecordIterator iterator = new RecordIterator(processor);
+    iterator.start();
+
+    for (String outputFile : outputFiles) {
+      File output = new File(outputDir, outputFile);
+      assertTrue(output.exists());
+      output.delete();
+      assertFalse(output.exists());
+    }
+  }
+
+  @Test
+  public void completeness_pica() throws Exception {
+    clearOutput(outputDir, outputFiles);
+
+    Completeness processor = new Completeness(new String[]{
+      "--schemaType", "PICA",
+      "--marcForma", "PICA_PLAIN",
+      "--outputDir", outputDir,
+      getPath("src/test/resources/pica/k10plus-sample.pica")
+    });
+    RecordIterator iterator = new RecordIterator(processor);
+    iterator.start();
+
+    for (String outputFile : outputFiles) {
+      File output = new File(outputDir, outputFile);
+      assertTrue(output.exists());
+      output.delete();
+      assertFalse(output.exists());
+    }
   }
 
   @Test

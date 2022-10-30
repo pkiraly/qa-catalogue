@@ -1,7 +1,8 @@
 package de.gwdg.metadataqa.marc.definition.general.validator;
 
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.ValidatorResponse;
 import de.gwdg.metadataqa.marc.definition.tags.tags6xx.Tag650;
 import org.junit.Test;
@@ -12,7 +13,7 @@ public class ClassificationReferenceValidatorTest {
 
   @Test
   public void test() {
-    MarcRecord marcRecord = new MarcRecord("test");
+    BibliographicRecord marcRecord = new Marc21Record("test");
     DataField field = new DataField(Tag650.getInstance(), " ", "7",
       "8", "3\\p",
       "0", "(DE-588)4020758-4",

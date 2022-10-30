@@ -192,14 +192,20 @@ do_pareto() {
 }
 
 do_marc_history() {
+  if [ "$SCHEMA" = "PICA" ]; then
+    SELECTOR='011@$a;001A$0|extractPicaDate'
+  else
+    SELECTOR="008~7-10;008~0-5"
+  fi
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/--emptyLargeCollectors|--with-delete//')
   printf "%s %s> [marc-history]\n" $(date +"%F %T")
-  printf "%s %s> ./formatter --selector \"008~7-10;008~0-5\" --defaultRecordType BOOKS ${PARAMS} --separator \",\" --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} &> ${PREFIX}/marc-history.log\n" $(date +"%F %T")
-  ./formatter --selector "008~7-10;008~0-5" --defaultRecordType BOOKS ${PARAMS} --separator "," \
-              --outputDir ${OUTPUT_DIR}/ --outputFile "marc-history.csv" ${MARC_DIR}/${MASK} &> ${PREFIX}/marc-history.log
+  printf "%s %s> ./formatter --selector \"$SELECTOR\" --defaultRecordType BOOKS ${PARAMS} --separator \",\" --outputDir ${OUTPUT_DIR}/ --fileName "marc-history.csv" ${MARC_DIR}/${MASK} &> ${PREFIX}/marc-history.log\n" $(date +"%F %T")
+  ./formatter --selector "$SELECTOR" --defaultRecordType BOOKS ${PARAMS} --separator "," \
+              --outputDir ${OUTPUT_DIR}/ --fileName "marc-history.csv" ${MARC_DIR}/${MASK} &> ${PREFIX}/marc-history.log
 
-  sort ${OUTPUT_DIR}/marc-history.csv \
-    | grep -v '008~7-10,008~0-5' \
+    # | grep -v '008~7-10,008~0-5' \
+  tail -n +2 ${OUTPUT_DIR}/marc-history.csv \
+    | sort \
     | uniq -c \
     | sed -r 's/([0-9]) ([0-9uc xwticrka])/\1,\2/' \
     | sed 's, ,,g' > ${OUTPUT_DIR}/marc-history-groupped.csv 

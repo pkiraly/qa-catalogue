@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc.utils;
 
-import de.gwdg.metadataqa.api.model.pathcache.JsonPathCache;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.api.model.pathcache.PathCache;
 import org.apache.commons.lang3.StringUtils;

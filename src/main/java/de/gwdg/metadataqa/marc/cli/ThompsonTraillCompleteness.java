@@ -1,12 +1,15 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
 import de.gwdg.metadataqa.marc.analysis.ThompsonTraillAnalysis;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ThompsonTraillCompletenessParameters;
-import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.PicaRecord;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import org.apache.commons.cli.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -20,10 +23,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
+import static de.gwdg.metadataqa.marc.Utils.quote;
 
 /**
  * usage:
@@ -32,7 +37,7 @@ import static de.gwdg.metadataqa.marc.Utils.createRow;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class ThompsonTraillCompleteness implements MarcFileProcessor, Serializable {
+public class ThompsonTraillCompleteness implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(
     ThompsonTraillCompleteness.class.getCanonicalName()
@@ -50,7 +55,7 @@ public class ThompsonTraillCompleteness implements MarcFileProcessor, Serializab
   }
 
   public static void main(String[] args) throws ParseException {
-    MarcFileProcessor processor = null;
+    BibliographicInputProcessor processor = null;
     try {
       processor = new ThompsonTraillCompleteness(args);
     } catch (ParseException e) {
@@ -99,8 +104,8 @@ public class ThompsonTraillCompleteness implements MarcFileProcessor, Serializab
   }
 
   @Override
-  public void processRecord(MarcRecord marcRecord, int recordNumber) {
-    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber) {
+    if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
       return;
 
     List<Integer> scores = ThompsonTraillAnalysis.getScores(marcRecord);
@@ -149,10 +154,12 @@ public class ThompsonTraillCompleteness implements MarcFileProcessor, Serializab
   private void printFields() {
     var path = Paths.get(parameters.getOutputDir(), "tt-completeness-fields.csv");
     try (var writer = Files.newBufferedWriter(path)) {
-      writer.write(createRow("name", "transformed"));
+      writer.write(createRow("name", "transformed", "fields"));
+      BibliographicRecord record = getParameters().getSchemaType().equals(SchemaType.MARC21) ? new Marc21Record() : new PicaRecord();
+      Map<ThompsonTraillFields, List<String>> map = record.getThompsonTraillTagsMap();
       for (ThompsonTraillFields field : ThompsonTraillFields.values()) {
         try {
-          writer.write(createRow(field.getLabel(), field.getMachine()));
+          writer.write(createRow(field.getLabel(), field.getMachine(), quote(StringUtils.join(map.getOrDefault(field, List.of()), ","))));
         } catch (IOException e) {
           logger.log(Level.SEVERE, "printFields", e);
         }

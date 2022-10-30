@@ -3,13 +3,18 @@ package de.gwdg.metadataqa.marc.cli.utils;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
-import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.definition.DataSource;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
-import de.gwdg.metadataqa.marc.utils.ReadMarc;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
+import de.gwdg.metadataqa.marc.utils.QAMarcReaderFactory;
+import de.gwdg.metadataqa.marc.utils.marcreader.AlephseqMarcReader;
+import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
+import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.marc4j.MarcException;
 import org.marc4j.MarcReader;
@@ -32,7 +37,7 @@ import java.util.zip.GZIPInputStream;
 public class RecordIterator {
 
   private static final Logger logger = Logger.getLogger(RecordIterator.class.getCanonicalName());
-  private final MarcFileProcessor processor;
+  private final BibliographicInputProcessor processor;
   private int i = 0;
   private String lastKnownId = "";
   private CommonParameters parameters;
@@ -40,8 +45,9 @@ public class RecordIterator {
   private MarcVersion marcVersion;
   private Leader.Type defaultRecordType;
   private DecimalFormat decimalFormat;
+  private PicaSchemaManager picaSchema;
 
-  public RecordIterator(MarcFileProcessor processor) {
+  public RecordIterator(BibliographicInputProcessor processor) {
     this.processor = processor;
   }
 
@@ -49,12 +55,19 @@ public class RecordIterator {
 
     long start = System.currentTimeMillis();
     processor.beforeIteration();
-    CommonParameters parameters = processor.getParameters();
+    parameters = processor.getParameters();
 
     marcVersion = parameters.getMarcVersion();
     defaultRecordType = parameters.getDefaultRecordType();
     replecementInControlFields = parameters.getReplecementInControlFields();
     decimalFormat = new DecimalFormat();
+    if (parameters.isPica()) {
+      String schemaFile = StringUtils.isNotEmpty(parameters.getPicaSchemaFile())
+                        ? parameters.getPicaSchemaFile()
+                        // : Paths.get("src/main/resources/pica/avram-k10plus.json").toAbsolutePath().toString();
+                        : Paths.get("src/main/resources/pica/avram-k10plus-title.json").toAbsolutePath().toString();
+      picaSchema = PicaSchemaReader.createSchema(schemaFile);
+    }
 
     if (processor.getParameters().doLog())
       logger.info("marcVersion: " + marcVersion.getCode() + ", " + marcVersion.getLabel());
@@ -152,7 +165,8 @@ public class RecordIterator {
 
       try {
         processor.processRecord(marc4jRecord, i);
-        MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, defaultRecordType, marcVersion, replecementInControlFields);
+
+        BibliographicRecord marcRecord = transformMarcRecord(marc4jRecord);
         try {
           processor.processRecord(marcRecord, i);
         } catch(Exception e) {
@@ -169,19 +183,31 @@ public class RecordIterator {
     }
   }
 
+  private BibliographicRecord transformMarcRecord(Record marc4jRecord) {
+    if (parameters.getSchemaType().equals(SchemaType.MARC21))
+      return MarcFactory.createFromMarc4j(marc4jRecord, defaultRecordType, marcVersion, replecementInControlFields);
+    else
+      return MarcFactory.createPicaFromMarc4j(marc4jRecord, picaSchema);
+  }
+
   private MarcReader getMarcFileReader(CommonParameters parameters, Path path) throws Exception {
+    MarcReader marcReader;
     if (path.toString().endsWith(".gz")) {
-      return ReadMarc.getStreamReader(
+      marcReader = QAMarcReaderFactory.getStreamReader(
         parameters.getMarcFormat(),
         new GZIPInputStream(new FileInputStream(path.toFile())),
-        parameters.getDefaultEncoding());
+        parameters);
     } else {
-      return ReadMarc.getFileReader(parameters.getMarcFormat(), path.toString(), parameters.getDefaultEncoding());
+      marcReader = QAMarcReaderFactory.getFileReader(parameters.getMarcFormat(), path.toString(), parameters);
     }
+    if (parameters.getAlephseqLineType() != null && marcReader instanceof AlephseqMarcReader) {
+      ((AlephseqMarcReader) marcReader).setLineType(parameters.getAlephseqLineType());
+    }
+    return marcReader;
   }
 
   private MarcReader getMarcStreamReader(CommonParameters parameters) throws Exception {
-    return ReadMarc.getStreamReader(parameters.getMarcFormat(), parameters.getStream(), parameters.getDefaultEncoding());
+    return QAMarcReaderFactory.getStreamReader(parameters.getMarcFormat(), parameters.getStream(), parameters);
   }
 
   private Record getNextMarc4jRecord(int i, String lastKnownId, MarcReader reader) {

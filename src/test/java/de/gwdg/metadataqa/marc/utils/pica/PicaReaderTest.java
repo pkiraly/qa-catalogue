@@ -8,8 +8,9 @@ import com.opencsv.exceptions.CsvException;
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.marc4j.MarcReader;
@@ -178,11 +179,11 @@ public class PicaReaderTest {
 
   @Test
   public void picaReader() throws IOException, URISyntaxException {
-    Map<String, PicaFieldDefinition> schema = PicaSchemaReader.create(getPath("pica/k10plus.json"));
+    PicaSchemaManager schema = PicaSchemaReader.createSchema(getPath("pica/k10plus.json"));
     String recordFile = FileUtils.getPath("pica/picaplus-sample.txt").toAbsolutePath().toString();
-    MarcReader reader = new PicaReader(recordFile);
+    MarcReader reader = new PicaReader(recordFile).setIdField("003@ƒ0").setSubfieldSeparator("ƒ");
     int i = 0;
-    MarcRecord marcRecord = null;
+    BibliographicRecord marcRecord = null;
     while (reader.hasNext()) {
       Record record = reader.next();
       marcRecord = MarcFactory.createPicaFromMarc4j(record, schema);
@@ -191,6 +192,31 @@ public class PicaReaderTest {
     }
     System.err.printf("processed %d records%n", i);
     System.err.println(marcRecord.format());
+  }
+
+  @Test
+  public void picaReader2() throws IOException, URISyntaxException {
+    PicaSchemaManager schema = PicaSchemaReader.createSchema(getPath("pica/k10plus.json"));
+    String recordFile = FileUtils.getPath("pica/k10plus-sample.pica").toAbsolutePath().toString();
+    MarcReader reader = new PicaReader(recordFile)
+      .setIdField("003@$0")
+      .setSubfieldSeparator("$");
+    int i = 0;
+    BibliographicRecord marcRecord = null;
+    List<String> ids = new ArrayList<>();
+    while (reader.hasNext()) {
+      Record record = reader.next();
+      marcRecord = MarcFactory.createPicaFromMarc4j(record, schema);
+      ids.add(marcRecord.getId());
+      i++;
+    }
+    assertEquals(6, i);
+    assertEquals(Arrays.asList("010000011", "01000002X", "010000038", "010000054", "010000062", "010000070"), ids);
+    assertEquals(6, ids.size());
+    assertEquals("010000070", marcRecord.getId());
+    assertEquals(SchemaType.PICA, marcRecord.getSchemaType());
+    assertEquals(184, marcRecord.getDatafields().size());
+    assertEquals("Herkunft und Standort", marcRecord.getDatafield("021A").get(0).getSubfield("a").get(0).getValue());
   }
 
   private boolean directoryContains(Map<String, PicaFieldDefinition> schemaDirectory, PicaLine pl) {
@@ -204,9 +230,9 @@ public class PicaReaderTest {
 
   @Test
   public void readASchema() {
-    Map<String, PicaFieldDefinition> schema = PicaSchemaReader.create(getPath("pica/k10plus.json"));
-    assertEquals(400, schema.size());
-    PicaFieldDefinition definition = schema.get("048H");
+    PicaSchemaManager schema = PicaSchemaReader.createSchema(getPath("pica/k10plus.json"));
+    assertEquals(431, schema.size());
+    PicaFieldDefinition definition = schema.lookup("048H");
     assertEquals("048H", definition.getTag());
     assertEquals("Systemvoraussetzungen für elektronische Ressourcen", definition.getLabel());
     assertEquals(Cardinality.Repeatable, definition.getCardinality());

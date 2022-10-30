@@ -2,7 +2,8 @@ package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import org.junit.Test;
@@ -19,9 +20,9 @@ public class IndexingTest {
   @Test
   public void testIndexing710() throws IOException, URISyntaxException {
     List<String> lines = FileUtils.readLinesFromResource("marctxt/010000011.mrctxt");
-    MarcRecord marcRecord = MarcFactory.createFromFormattedText(lines);
+    BibliographicRecord marcRecord = MarcFactory.createFromFormattedText(lines);
     Map<String, List<String>> index = marcRecord.getKeyValuePairs(SolrFieldType.MIXED, MarcVersion.DNB);
-    assertEquals(136, index.size());
+    assertEquals(140, index.size());
     assertEquals("(DE-576)19168161X",
       index.get("7100_AddedCorporateName_authorityRecordControlNumber")
         .get(0));
@@ -38,7 +39,7 @@ public class IndexingTest {
 
   @Test
   public void testSubfieldCode() throws IOException, URISyntaxException {
-    MarcRecord marcRecord = new MarcRecord();
+    BibliographicRecord marcRecord = new Marc21Record();
     marcRecord.setLeader("01445cem a22004454a 4500");
     marcRecord.setField("034", "0 $aa");
     assertEquals(1, marcRecord.getDatafield("034").size());
@@ -48,7 +49,7 @@ public class IndexingTest {
 
   @Test
   public void testPositions() throws IOException, URISyntaxException {
-    MarcRecord marcRecord = new MarcRecord();
+    BibliographicRecord marcRecord = new Marc21Record();
     marcRecord.setLeader("01445cem a22004454a 4500");
     marcRecord.setField("800", "0 $7aa");
     assertEquals(1, marcRecord.getDatafield("800").size());

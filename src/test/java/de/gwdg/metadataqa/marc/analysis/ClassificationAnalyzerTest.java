@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
 import de.gwdg.metadataqa.marc.model.kos.KosRegistry;
 import de.gwdg.metadataqa.marc.model.kos.KosType;
@@ -20,7 +20,7 @@ public class ClassificationAnalyzerTest {
   @Test
   public void test() throws IOException, URISyntaxException {
     List<String> lines = FileUtils.readLinesFromResource("marctxt/010000011.mrctxt");
-    MarcRecord marcRecord = MarcFactory.createFromFormattedText(lines);
+    BibliographicRecord marcRecord = MarcFactory.createFromFormattedText(lines);
     ClassificationStatistics statistics = new ClassificationStatistics();
 
     ClassificationAnalyzer analyzer = new ClassificationAnalyzer(marcRecord, statistics);
@@ -52,7 +52,7 @@ public class ClassificationAnalyzerTest {
   @Test
   public void abbreviation() throws IOException, URISyntaxException {
     List<String> lines = FileUtils.readLinesFromResource("marctxt/010000011.mrctxt");
-    MarcRecord marcRecord = MarcFactory.createFromFormattedText(lines);
+    BibliographicRecord marcRecord = MarcFactory.createFromFormattedText(lines);
     ClassificationStatistics statistics = new ClassificationStatistics();
 
     ClassificationAnalyzer analyzer = new ClassificationAnalyzer(marcRecord, statistics);

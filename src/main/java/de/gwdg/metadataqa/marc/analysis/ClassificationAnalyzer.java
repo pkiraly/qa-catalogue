@@ -2,11 +2,16 @@ package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.general.indexer.subject.ClassificationSchemes;
+import de.gwdg.metadataqa.marc.utils.pica.PicaVocabularyManager;
+import de.gwdg.metadataqa.marc.utils.pica.VocabularyEntry;
+import net.minidev.json.parser.ParseException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -29,9 +34,10 @@ public class ClassificationAnalyzer {
   private static final ClassificationSchemes classificationSchemes =
     ClassificationSchemes.getInstance();
   private static final Pattern NUMERIC = Pattern.compile("^\\d");
+  private static PicaVocabularyManager manager = null;
 
   private final ClassificationStatistics statistics;
-  private MarcRecord marcRecord;
+  private BibliographicRecord marcRecord;
   private List<Schema> schemasInRecord;
 
   private static final List<String> fieldsWithIndicator1AndSubfield2 = Arrays.asList(
@@ -71,7 +77,7 @@ public class ClassificationAnalyzer {
     "653"  // Index Term - Uncontrolled
   );
 
-  private static final List<FieldWithScheme> fieldsWithScheme = Arrays.asList(
+  private static final List<FieldWithScheme> MARC21_FIELD_WITH_SCHEMES = Arrays.asList(
     new FieldWithScheme("080", "Universal Decimal Classification"),
     new FieldWithScheme("082", "Dewey Decimal Classification"),
     new FieldWithScheme("083", "Dewey Decimal Classification"),
@@ -79,20 +85,45 @@ public class ClassificationAnalyzer {
     // new FieldWithScheme("086", "Government Document Classification");
   );
 
-  public ClassificationAnalyzer(MarcRecord marcRecord, ClassificationStatistics statistics) {
+  private static final List<FieldWithScheme> PICA_FIELDS_WITH_SCHEME = Arrays.asList(
+    new FieldWithScheme("045A", "LCC-Notation"),
+    new FieldWithScheme("045F", "DDC-Notation"),
+    new FieldWithScheme("045R", "Regensburger Verbundklassifikation (RVK)"),
+    new FieldWithScheme("045B/00", "Allgemeine Systematik für Bibliotheken (ASB)"),
+    new FieldWithScheme("045B/01", "Systematik der Stadtbibliothek Duisburg (SSD)"),
+    new FieldWithScheme("045B/02", "Systematik für Bibliotheken (SfB)"),
+    new FieldWithScheme("045B/03", "Klassifikation für Allgemeinbibliotheken (KAB)"),
+    new FieldWithScheme("045B/04", "Systematiken der ekz"),
+    new FieldWithScheme("045B/05", "Gattungsbegriffe (DNB)"),
+    new FieldWithScheme("045C", "Notation – Beziehung"),
+    new FieldWithScheme("045E", "Sachgruppen der Deutschen Nationalbibliografie bis 2003"),
+    new FieldWithScheme("045G", "Sachgruppen der Deutschen Nationalbibliografie ab 2004"),
+    new FieldWithScheme("041A", "Sachbegriff - Bevorzugte Benennung"),
+    new FieldWithScheme("144Z/00-99", "Lokale Schlagwörter"),
+    new FieldWithScheme("145S/00-99", "Lesesaalsystematik der SBB")
+  );
+
+  public ClassificationAnalyzer(BibliographicRecord marcRecord, ClassificationStatistics statistics) {
     this.marcRecord = marcRecord;
     this.statistics = statistics;
+    if (marcRecord.getSchemaType().equals(SchemaType.PICA) && manager == null) {
+      manager = PicaVocabularyManager.getInstance();
+    }
   }
 
   public int process() {
     var total = 0;
     schemasInRecord = new ArrayList<>();
 
-    total = processFieldsWithIndicator1AndSubfield2(total);
-    total = processFieldsWithIndicator2AndSubfield2(total);
-    total = processFieldsWithSubfield2(total);
-    total = processFieldsWithoutSource(total);
-    total = processFieldsWithScheme(total);
+    if (marcRecord.getSchemaType().equals(SchemaType.MARC21)) {
+      total = processFieldsWithIndicator1AndSubfield2(total);
+      total = processFieldsWithIndicator2AndSubfield2(total);
+      total = processFieldsWithSubfield2(total);
+      total = processFieldsWithoutSource(total);
+      total = processFieldsWithScheme(total, MARC21_FIELD_WITH_SCHEMES);
+    } else if (marcRecord.getSchemaType().equals(SchemaType.PICA)) {
+      total = processFieldsWithSchemePica(total, PICA_FIELDS_WITH_SCHEME);
+    }
 
     increaseCounters(total);
 
@@ -114,13 +145,49 @@ public class ClassificationAnalyzer {
       count(collocation, statistics.getCollocationHistogram());
   }
 
-  private int processFieldsWithScheme(int total) {
+  private int processFieldsWithScheme(int total, List<FieldWithScheme> fieldsWithScheme) {
     for (FieldWithScheme fieldWithScheme : fieldsWithScheme) {
       var count = processFieldWithScheme(marcRecord, fieldWithScheme);
       if (count > 0)
         total += count;
     }
     return total;
+  }
+
+  private int processFieldsWithSchemePica(int total, List<FieldWithScheme> fieldsWithScheme) {
+    int count = total;
+    for (VocabularyEntry entry : manager.getAll()) {
+      if (!marcRecord.hasDatafield(entry.getPica()))
+        continue;
+
+      String schema = entry.getLabel();
+      List<DataField> fields = marcRecord.getDatafield(entry.getPica());
+      List<Schema> schemas = new ArrayList<>();
+      for (DataField field : fields) {
+        String firstSubfield = null;
+        if (field.getSubfield("a") != null) {
+          firstSubfield = "$a";
+        } else {
+          for (MarcSubfield subfield : field.getSubfields()) {
+            String code = subfield.getCode();
+            if (!code.equals("A")) {
+              firstSubfield = "$" + code;
+              break;
+            }
+          }
+        }
+        if (firstSubfield != null) {
+          var currentSchema = new Schema(entry.getPica(), firstSubfield, entry.getVoc(), schema);
+          schemas.add(currentSchema);
+          updateSchemaSubfieldStatistics(field, currentSchema);
+          count++;
+        } else {
+          logger.severe(String.format("undetected subfield in record %s %s", marcRecord.getId(), field.toString()));
+        }
+      }
+      registerSchemas(schemas);
+    }
+    return count;
   }
 
   private int processFieldsWithoutSource(int total) {
@@ -159,7 +226,7 @@ public class ClassificationAnalyzer {
     return total;
   }
 
-  private int processFieldWithScheme(MarcRecord marcRecord,
+  private int processFieldWithScheme(BibliographicRecord marcRecord,
                                      FieldWithScheme fieldEntry) {
     var count = 0;
     final String tag = fieldEntry.getTag();
@@ -209,7 +276,7 @@ public class ClassificationAnalyzer {
     schemasInRecord.addAll(uniqSchemas);
   }
 
-  private int processFieldWithIndicator1AndSubfield2(MarcRecord marcRecord, String tag) {
+  private int processFieldWithIndicator1AndSubfield2(BibliographicRecord marcRecord, String tag) {
     var count = 0;
     if (!marcRecord.hasDatafield(tag))
       return count;
@@ -242,7 +309,7 @@ public class ClassificationAnalyzer {
     return count;
   }
 
-  private int processFieldWithIndicator2AndSubfield2(MarcRecord marcRecord, String tag) {
+  private int processFieldWithIndicator2AndSubfield2(BibliographicRecord marcRecord, String tag) {
     var count = 0;
     if (!marcRecord.hasDatafield(tag))
       return count;
@@ -273,7 +340,7 @@ public class ClassificationAnalyzer {
     return count;
   }
 
-  private int processFieldWithSubfield2(MarcRecord marcRecord, String tag) {
+  private int processFieldWithSubfield2(BibliographicRecord marcRecord, String tag) {
     var count = 0;
     if (!marcRecord.hasDatafield(tag))
       return count;
@@ -291,7 +358,7 @@ public class ClassificationAnalyzer {
     return count;
   }
 
-  private int processFieldWithoutSource(MarcRecord marcRecord, String tag) {
+  private int processFieldWithoutSource(BibliographicRecord marcRecord, String tag) {
     var count = 0;
     if (!marcRecord.hasDatafield(tag))
       return count;

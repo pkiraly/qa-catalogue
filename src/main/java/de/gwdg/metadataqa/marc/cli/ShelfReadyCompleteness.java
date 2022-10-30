@@ -1,12 +1,15 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.analysis.ShelfReadyAnalysis;
 import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ShelfReadyCompletenessParameters;
-import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.PicaRecord;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -23,6 +26,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,7 +40,7 @@ import static de.gwdg.metadataqa.marc.Utils.quote;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class ShelfReadyCompleteness implements MarcFileProcessor, Serializable {
+public class ShelfReadyCompleteness implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(
     ShelfReadyCompleteness.class.getCanonicalName()
@@ -53,7 +57,7 @@ public class ShelfReadyCompleteness implements MarcFileProcessor, Serializable {
   }
 
   public static void main(String[] args) throws ParseException {
-    MarcFileProcessor processor = null;
+    BibliographicInputProcessor processor = null;
     try {
       processor = new ShelfReadyCompleteness(args);
     } catch (ParseException e) {
@@ -110,8 +114,8 @@ public class ShelfReadyCompleteness implements MarcFileProcessor, Serializable {
   }
 
   @Override
-  public void processRecord(MarcRecord marcRecord, int recordNumber) {
-    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber) {
+    if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
       return;
 
     List<Double> scores = ShelfReadyAnalysis.getScores(marcRecord);
@@ -166,9 +170,14 @@ public class ShelfReadyCompleteness implements MarcFileProcessor, Serializable {
     var path = Paths.get(parameters.getOutputDir(), "shelf-ready-completeness-fields.csv");
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("name", "label", "marcpath", "score"));
-      for (ShelfReadyFieldsBooks field : ShelfReadyFieldsBooks.values()) {
+      Map<ShelfReadyFieldsBooks, Map<String, List<String>>> map = parameters.getSchemaType().equals(SchemaType.MARC21)
+        ? (new Marc21Record()).getShelfReadyMap()
+        : (new PicaRecord()).getShelfReadyMap();
+      for (Map.Entry<ShelfReadyFieldsBooks, Map<String, List<String>>> field : map.entrySet()) {
+        ShelfReadyFieldsBooks category = field.getKey();
+        String paths = transformPaths(field.getValue());
         try {
-          writer.write(createRow(field.name(), quote(field.getLabel()), quote(field.getMarcPath()), field.getScore()));
+          writer.write(createRow(category.name(), quote(category.getLabel()), quote(paths), category.getScore()));
         } catch (IOException e) {
           logger.log(Level.WARNING, "printFields", e);
         }
@@ -176,5 +185,19 @@ public class ShelfReadyCompleteness implements MarcFileProcessor, Serializable {
     } catch (IOException e) {
       logger.log(Level.WARNING, "printFields", e);
     }
+  }
+
+  private String transformPaths(Map<String, List<String>> value) {
+    List<String> paths = new ArrayList<>();
+    for (Map.Entry<String, List<String>> field : value.entrySet()) {
+      if (field.getValue() == null || field.getValue().isEmpty()) {
+        paths.add(field.getKey());
+      } else {
+        for (String code : field.getValue()) {
+          paths.add(field.getKey() + "$" + code);
+        }
+      }
+    }
+    return StringUtils.join(paths, ",");
   }
 }

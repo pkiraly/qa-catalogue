@@ -1,12 +1,12 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.analysis.ClassificationAnalyzer;
 import de.gwdg.metadataqa.marc.analysis.ClassificationStatistics;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
-import de.gwdg.metadataqa.marc.cli.processor.MarcFileProcessor;
+import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.Collocation;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
@@ -30,7 +30,7 @@ import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
 
-public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
+public class ClassificationAnalysis implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(ClassificationAnalysis.class.getCanonicalName());
 
@@ -49,7 +49,7 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   }
 
   public static void main(String[] args) {
-    MarcFileProcessor processor = null;
+    BibliographicInputProcessor processor = null;
     try {
       processor = new ClassificationAnalysis(args);
     } catch (ParseException e) {
@@ -81,8 +81,8 @@ public class ClassificationAnalysis implements MarcFileProcessor, Serializable {
   }
 
   @Override
-  public void processRecord(MarcRecord marcRecord, int recordNumber) throws IOException {
-    if (parameters.getIgnorableRecords().isIgnorable(marcRecord))
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber) throws IOException {
+    if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
       return;
 
     ClassificationAnalyzer analyzer = new ClassificationAnalyzer(marcRecord, statistics);

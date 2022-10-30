@@ -10,7 +10,10 @@ public enum MarcFormat {
   ALEPHSEQ("ALEPHSEQ", "ALEPHSEQ"),
   LINE_SEPARATED("LINE_SEPARATED", "Line separated binary MARC (each line contains one record)"),
   MARC_LINE("MARC_LINE", "MARC Line"),
-  MARC_MAKER("MARCMAKER", "MARCMaker");
+  MARC_MAKER("MARCMAKER", "MARCMaker"),
+  PICA_PLAIN("PICA_PLAIN", "PICA plain"),
+  PICA_NORMALIZED("PICA_NORMALIZED", "PICA normalized"),
+  ;
 
   String code;
   String label;

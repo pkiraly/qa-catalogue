@@ -2,19 +2,11 @@ package de.gwdg.metadataqa.marc.utils;
 
 import de.gwdg.metadataqa.marc.definition.FRBRFunction;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
-import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.structure.Indicator;
-import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import org.junit.Test;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
-import static de.gwdg.metadataqa.marc.Utils.createRow;
 import static org.junit.Assert.assertEquals;
 
 public class FrbrFunctionListerTest {
@@ -22,7 +14,7 @@ public class FrbrFunctionListerTest {
   @Test
   public void testGetMarcPathByfunction() {
     FrbrFunctionLister lister = new FrbrFunctionLister(MarcVersion.MARC21);
-    Map<FRBRFunction, List<String>> functions = lister.getMarcPathByfunction();
+    Map<FRBRFunction, List<String>> functions = lister.getMarcPathByFunction();
     assertEquals(12,  functions.size());
     assertEquals(454, functions.get(FRBRFunction.DiscoveryObtain).size());
     assertEquals(464, functions.get(FRBRFunction.DiscoverySearch).size());

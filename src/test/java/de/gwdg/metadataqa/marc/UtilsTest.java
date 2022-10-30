@@ -1,12 +1,16 @@
 package de.gwdg.metadataqa.marc;
 
+import java.io.IOException;
+import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.opencsv.CSVWriter;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.controlpositions.tag007.Tag007nonprojected00;
 import de.gwdg.metadataqa.marc.definition.controlpositions.tag007.Tag007nonprojected01;
@@ -124,5 +128,4 @@ public class UtilsTest {
     assertTrue(names.containsKey("Mary"));
     assertEquals(1, names.get("Mary").intValue());
   }
-
 }

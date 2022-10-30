@@ -59,6 +59,14 @@ public class IgnorableFieldsTest {
   }
 
   @Test
+  public void contains_ifMasked() {
+    fields.parseFields("200,3..");
+    assertTrue(fields.contains("200"));
+    assertTrue(fields.contains("300"));
+    assertTrue(fields.contains("311"));
+  }
+
+  @Test
   public void testToString() {
     assertEquals("", fields.toString());
   }

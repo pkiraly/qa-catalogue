@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.utils.ReadMarc;
 import org.junit.Before;
@@ -34,7 +34,8 @@ public class ClassificationAnalysisTest extends CliTestUtils {
       "classifications-by-schema.csv",
       "classifications-by-schema-subfields.csv",
       "classifications-collocations.csv",
-      "classifications-histogram.csv"
+      "classifications-histogram.csv",
+      "classifications-frequency-examples.csv"
     );
   }
 
@@ -43,7 +44,7 @@ public class ClassificationAnalysisTest extends CliTestUtils {
     Path path = FileUtils.getPath("general/0001-01.mrc");
     Record marc4jRecord = ReadMarc.read(path.toString()).get(0);
     ClassificationAnalysis analysis = new ClassificationAnalysis(new String[]{});
-    MarcRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
+    BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
     analysis.processRecord(marcRecord, 1);
   }
 

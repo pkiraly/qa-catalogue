@@ -1,7 +1,8 @@
 package de.gwdg.metadataqa.marc.definition.general.validator;
 
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.definition.ValidatorResponse;
 import de.gwdg.metadataqa.marc.definition.tags.tags01x.Tag020;
@@ -149,7 +150,7 @@ public class ISBNValidatorTest {
   }
 
   private MarcSubfield createMarcSubfield(String ISBN) {
-    MarcRecord marcRecord = new MarcRecord("test");
+    BibliographicRecord marcRecord = new Marc21Record("test");
     DataField field = new DataField(Tag020.getInstance(), " ", " ", "a", ISBN);
     field.setMarcRecord(marcRecord);
 

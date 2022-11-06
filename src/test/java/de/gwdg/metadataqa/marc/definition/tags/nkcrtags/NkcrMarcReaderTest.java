@@ -1,6 +1,8 @@
 package de.gwdg.metadataqa.marc.definition.tags.nkcrtags;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
+import de.gwdg.metadataqa.marc.analysis.validator.DataFieldValidator;
+import de.gwdg.metadataqa.marc.analysis.validator.ValidatorConfiguration;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.MarcFactory;
@@ -48,25 +50,26 @@ public class NkcrMarcReaderTest {
       List<String> nkrcFields = Arrays.asList(
         "591", "902", "903", "910", "964", "967", "975", "982", "984"
       );
+      DataFieldValidator validator = new DataFieldValidator(new ValidatorConfiguration().withMarcVersion(MarcVersion.NKCR));
       for (String nkrcField : nkrcFields) {
         if (marcRecord.hasDatafield(nkrcField)) {
           for (DataField field : marcRecord.getDatafield(nkrcField)) {
-            boolean isValid = field.validate(MarcVersion.NKCR);
+            boolean isValid = validator.validate(field);
             if (i == 5 && nkrcField.equals("910")) {
-              assertEquals(1, field.getValidationErrors().size());
-              ValidationError error = field.getValidationErrors().get(0);
+              assertEquals(1, validator.getValidationErrors().size());
+              ValidationError error = validator.getValidationErrors().get(0);
               assertEquals(ValidationErrorType.SUBFIELD_INVALID_VALUE, error.getType());
               assertEquals("910$k", error.getMarcPath());
               assertEquals("r-dod", error.getMessage());
             } else if (i == 7 && nkrcField.equals("982")) {
-              assertEquals(1, field.getValidationErrors().size());
-              ValidationError error = field.getValidationErrors().get(0);
+              assertEquals(1, validator.getValidationErrors().size());
+              ValidationError error = validator.getValidationErrors().get(0);
               assertEquals(ValidationErrorType.SUBFIELD_UNPARSABLE_CONTENT, error.getType());
               assertEquals("982$6", error.getMarcPath());
               // assertEquals("r-dod", error.getMessage());
             } else if (i == 11 && nkrcField.equals("910")) {
-              assertEquals(1, field.getValidationErrors().size());
-              ValidationError error = field.getValidationErrors().get(0);
+              assertEquals(1, validator.getValidationErrors().size());
+              ValidationError error = validator.getValidationErrors().get(0);
               assertEquals(ValidationErrorType.SUBFIELD_INVALID_VALUE, error.getType());
               assertEquals("910$k", error.getMarcPath());
               assertEquals("r-dod", error.getMessage());

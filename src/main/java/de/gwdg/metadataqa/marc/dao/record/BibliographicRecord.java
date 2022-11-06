@@ -5,8 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gwdg.metadataqa.marc.Extractable;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcSubfield;
-import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.Validatable;
 import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
 import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
@@ -23,13 +21,10 @@ import de.gwdg.metadataqa.marc.dao.MarcControlField;
 import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
 import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
-import de.gwdg.metadataqa.marc.definition.general.validator.ClassificationReferenceValidator;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
-import de.gwdg.metadataqa.marc.model.validation.ValidationError;
-import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 
 import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
@@ -42,9 +37,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static de.gwdg.metadataqa.marc.Utils.count;
-
-public abstract class BibliographicRecord implements Extractable, Validatable, Serializable {
+public abstract class BibliographicRecord implements Extractable, Serializable { // Validatable,
 
   private static final Logger logger = Logger.getLogger(BibliographicRecord.class.getCanonicalName());
   private static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
@@ -70,7 +63,7 @@ public abstract class BibliographicRecord implements Extractable, Validatable, S
   private Map<String, List<DataField>> datafieldIndex;
   private Map<String, List<MarcControlField>> controlfieldIndex;
   Map<String, List<String>> mainKeyValuePairs;
-  private List<ValidationError> validationErrors = null;
+  // private List<ValidationError> validationErrors = null;
   protected SchemaType schemaType = SchemaType.MARC21;
 
   public enum RESOLVE {
@@ -456,6 +449,7 @@ public abstract class BibliographicRecord implements Extractable, Validatable, S
     return json;
   }
 
+  /*
   @Override
   public boolean validate(MarcVersion marcVersion) {
     return validate(marcVersion, false, null);
@@ -468,21 +462,33 @@ public abstract class BibliographicRecord implements Extractable, Validatable, S
   public boolean validate(MarcVersion marcVersion,
                           boolean isSummary,
                           IgnorableFields ignorableFields) {
-    validationErrors = new ArrayList<>();
+    return validate(marcVersion, isSummary, null, null);
+  }
+
+  public boolean validate(MarcVersion marcVersion,
+                          boolean isSummary,
+                          IgnorableFields ignorableFields,
+                          List<ValidationErrorType> ignorableIssueTypes) {
+    logger.info("validate!");
+    // validationErrors = new ArrayList<>();
     boolean isValidRecord = true;
     if (!schemaType.equals(SchemaType.PICA))
-      isValidRecord = validateLeader(marcVersion, isValidRecord);
-    isValidRecord = validateUnhandledTags(isSummary, isValidRecord, ignorableFields);
-    isValidRecord = validateControlfields(marcVersion, isValidRecord);
-    isValidRecord = validateDatafields(marcVersion, isValidRecord, ignorableFields);
+      isValidRecord = validateLeader(marcVersion, isValidRecord, ignorableIssueTypes);
+    isValidRecord = validateUnhandledTags(isSummary, isValidRecord, ignorableFields, ignorableIssueTypes);
+    isValidRecord = validateControlfields(marcVersion, isValidRecord, ignorableIssueTypes);
+    isValidRecord = validateDatafields(marcVersion, isValidRecord, ignorableFields, ignorableIssueTypes);
 
     // TODO: use reflection to get all validator class
     // ValidatorResponse validatorResponse;
 
     return isValidRecord;
   }
+   */
 
-  private boolean validateLeader(MarcVersion marcVersion, boolean isValidRecord) {
+  /*
+  private boolean validateLeader(MarcVersion marcVersion,
+                                 boolean isValidRecord,
+                                 List<ValidationErrorType> ignorableIssueTypes) {
     boolean isValidComponent;
     isValidComponent = leader.validate(marcVersion);
     if (!isValidComponent) {
@@ -490,17 +496,23 @@ public abstract class BibliographicRecord implements Extractable, Validatable, S
       for (ValidationError leaderError : leaderErrors)
         if (leaderError.getRecordId() == null)
           leaderError.setRecordId(getId());
-      validationErrors.addAll(leaderErrors);
+      validationErrors.addAll(filterErrors(leaderErrors, ignorableIssueTypes));
       isValidRecord = isValidComponent;
     }
     return isValidRecord;
   }
 
-  private boolean validateUnhandledTags(boolean isSummary, boolean isValidRecord, IgnorableFields ignorableFields) {
+  private boolean validateUnhandledTags(boolean isSummary,
+                                        boolean isValidRecord,
+                                        IgnorableFields ignorableFields,
+                                        List<ValidationErrorType> ignorableIssueTypes) {
     if (!unhandledTags.isEmpty()) {
       if (isSummary) {
         for (String tag : unhandledTags) {
-          if (!isIgnorableField(tag, ignorableFields))
+          if (!isIgnorableField(tag, ignorableFields)
+              && (ignorableIssueTypes == null
+                 || ignorableIssueTypes.isEmpty()
+                 || !ignorableIssueTypes.contains(ValidationErrorType.FIELD_UNDEFINED)))
             validationErrors.add(new ValidationError(getId(), tag, ValidationErrorType.FIELD_UNDEFINED, tag, null));
         }
       } else {
@@ -517,7 +529,8 @@ public abstract class BibliographicRecord implements Extractable, Validatable, S
             unhandledTagsList.add(String.format("%s (%d*)", tag, entry.getValue()));
         }
         for (String tag : unhandledTagsList) {
-          if (!isIgnorableField(tag, ignorableFields))
+          if (!isIgnorableField(tag, ignorableFields)
+              && !ignorableIssueTypes.contains(ValidationErrorType.FIELD_UNDEFINED))
             validationErrors.add(new ValidationError(getId(), tag, ValidationErrorType.FIELD_UNDEFINED, tag, null));
         }
       }
@@ -527,13 +540,15 @@ public abstract class BibliographicRecord implements Extractable, Validatable, S
     return isValidRecord;
   }
 
-  private boolean validateControlfields(MarcVersion marcVersion, boolean isValidRecord) {
+  private boolean validateControlfields(MarcVersion marcVersion,
+                                        boolean isValidRecord,
+                                        List<ValidationErrorType> ignorableIssueTypes) {
     boolean isValidComponent;
     for (MarcControlField controlField : getControlfields()) {
       if (controlField != null) {
         isValidComponent = controlField.validate(marcVersion);
         if (!isValidComponent) {
-          validationErrors.addAll(controlField.getValidationErrors());
+          validationErrors.addAll(filterErrors(controlField.getValidationErrors(), ignorableIssueTypes));
           isValidRecord = isValidComponent;
         }
       }
@@ -543,7 +558,8 @@ public abstract class BibliographicRecord implements Extractable, Validatable, S
 
   private boolean validateDatafields(MarcVersion marcVersion,
                                      boolean isValidRecord,
-                                     IgnorableFields ignorableFields) {
+                                     IgnorableFields ignorableFields,
+                                     List<ValidationErrorType> ignorableIssueTypes) {
     ValidatorResponse validatorResponse;
     Map<DataFieldDefinition, Integer> repetitionCounter = new HashMap<>();
     for (DataField field : datafields) {
@@ -551,12 +567,12 @@ public abstract class BibliographicRecord implements Extractable, Validatable, S
         count(field.getDefinition(), repetitionCounter);
         if (!field.validate(marcVersion)) {
           isValidRecord = false;
-          validationErrors.addAll(field.getValidationErrors());
+          validationErrors.addAll(filterErrors(field.getValidationErrors(), ignorableIssueTypes));
         }
 
         validatorResponse = ClassificationReferenceValidator.validate(field);
         if (!validatorResponse.isValid()) {
-          validationErrors.addAll(validatorResponse.getValidationErrors());
+          validationErrors.addAll(filterErrors(validatorResponse.getValidationErrors(), ignorableIssueTypes));
           isValidRecord = false;
         }
       }
@@ -577,17 +593,41 @@ public abstract class BibliographicRecord implements Extractable, Validatable, S
     }
     return isValidRecord;
   }
+   */
 
-  private boolean isIgnorableField(String tag, IgnorableFields ignorableFields) {
+  /**
+   * Remove ignorable errors from the list of errors
+   *
+   * @param errors The list of error objects
+   * @param ignorableIssueTypes The list of ignorable error types
+   * @return
+   */
+  /*
+  private static List<ValidationError> filterErrors(List<ValidationError> errors,
+                                                    List<ValidationErrorType> ignorableIssueTypes) {
+    if (ignorableIssueTypes == null || ignorableIssueTypes.isEmpty())
+      return errors;
+    List<ValidationError> filtered = errors
+      .stream()
+      .filter(error -> !ignorableIssueTypes.contains(error.getType()))
+      .collect(Collectors.toList());
+    logger.info(errors.size() + " -> " + filtered.size());
+    return filtered;
+  }
+   */
+
+  public boolean isIgnorableField(String tag, IgnorableFields ignorableFields) {
     if (ignorableFields == null)
       return false;
     return ignorableFields.contains(tag);
   }
 
+  /*
   @Override
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
   }
+   */
 
   public List<String> search(String path, String query) {
     List<String> results = new ArrayList<>();

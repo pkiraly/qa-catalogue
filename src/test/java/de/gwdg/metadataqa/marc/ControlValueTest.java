@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc;
 
+import de.gwdg.metadataqa.marc.analysis.validator.ControlValueValidator;
 import de.gwdg.metadataqa.marc.dao.Control006;
 import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.definition.*;
@@ -30,8 +31,10 @@ public class ControlValueTest {
       }
     }
     ControlValue value = new ControlValue(subfield, "af  ");
-    assertTrue(value.validate(MarcVersion.MARC21));
-    assertEquals(Arrays.asList(), value.getValidationErrors());
+
+    ControlValueValidator validator = new ControlValueValidator();
+    assertTrue(validator.validate(value));
+    assertEquals(Arrays.asList(), validator.getValidationErrors());
   }
 
   @Test

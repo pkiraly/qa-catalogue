@@ -1,7 +1,6 @@
 package de.gwdg.metadataqa.marc.dao;
 
-import de.gwdg.metadataqa.marc.dao.Leader;
-import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.analysis.validator.LeaderValidator;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormatter;
@@ -267,9 +266,11 @@ public class LeaderTest {
   @Test
   public void testBadLeader() {
     Leader leader = new Leader("01136cnm a2200253ui 4500");
-    leader.validate(MarcVersion.MARC21);
-    assertNotEquals(1, leader.getValidationErrors().size());
-    ValidationError error = leader.getValidationErrors().get(0);
+    LeaderValidator validator = new LeaderValidator();
+    validator.validate(leader);
+
+    assertNotEquals(1, validator.getValidationErrors().size());
+    ValidationError error = validator.getValidationErrors().get(0);
     assertNotNull(error);
     assertEquals(ValidationErrorType.RECORD_UNDETECTABLE_TYPE, error.getType());
     assertEquals(
@@ -282,8 +283,9 @@ public class LeaderTest {
     Leader leader = new Leader("01136cnm a2200253ui 4500", Leader.Type.BOOKS);
     assertEquals("n", leader.getTypeOfRecord().resolve());
     assertEquals("Monograph/Item", leader.getBibliographicLevel().resolve());
-    assertFalse(leader.validate(MarcVersion.MARC21));
-    List<ValidationError> errors = leader.getValidationErrors();
+    LeaderValidator validator = new LeaderValidator();
+    assertFalse(validator.validate(leader));
+    List<ValidationError> errors = validator.getValidationErrors();
     assertFalse(errors.isEmpty());
     assertEquals(2, errors.size());
     assertEquals(

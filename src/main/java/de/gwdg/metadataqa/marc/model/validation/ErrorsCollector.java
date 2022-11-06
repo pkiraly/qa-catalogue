@@ -22,6 +22,10 @@ public class ErrorsCollector implements Serializable {
     errors.add(new ValidationError(recordId, marcPath, type, message, url));
   }
 
+  public boolean isEmpty() {
+    return errors.isEmpty();
+  }
+
   public List<ValidationError> getErrors() {
     return errors;
   }

@@ -79,4 +79,8 @@ public class MarcControlField implements Validatable, Extractable, Serializable 
   public void setMarcRecord(BibliographicRecord marcRecord) {
     this.marcRecord = marcRecord;
   }
+
+  public List<ValidationError> getInitializationErrors() {
+    return initializationErrors;
+  }
 }

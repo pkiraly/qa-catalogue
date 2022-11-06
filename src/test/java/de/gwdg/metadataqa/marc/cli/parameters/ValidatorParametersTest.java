@@ -4,6 +4,8 @@ import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import org.apache.commons.cli.ParseException;
 import org.junit.Test;
 
+import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorType.INDICATOR_NON_EMPTY;
+import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorType.SUBFIELD_UNDEFINED;
 import static junit.framework.TestCase.*;
 
 public class ValidatorParametersTest {
@@ -111,6 +113,45 @@ public class ValidatorParametersTest {
     try {
       ValidatorParameters parameters = new ValidatorParameters(arguments);
       assertEquals(ValidationErrorFormat.TEXT, parameters.getFormat());
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  public void getIgnorableIssueTypes_single() {
+    String[] arguments = new String[]{"--excludeIssueTypes", "undefinedSubfield", "a-marc-file.mrc"};
+    try {
+      ValidatorParameters parameters = new ValidatorParameters(arguments);
+      assertNotNull(parameters.getIgnorableIssueTypes());
+      assertEquals(1, parameters.getIgnorableIssueTypes().size());
+      assertEquals(SUBFIELD_UNDEFINED, parameters.getIgnorableIssueTypes().get(0));
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  public void getIgnorableIssueTypes_multiple() {
+    String[] arguments = new String[]{"--excludeIssueTypes", "undefinedSubfield,nonEmptyIndicator", "a-marc-file.mrc"};
+    try {
+      ValidatorParameters parameters = new ValidatorParameters(arguments);
+      assertNotNull(parameters.getIgnorableIssueTypes());
+      assertEquals(2, parameters.getIgnorableIssueTypes().size());
+      assertEquals(SUBFIELD_UNDEFINED, parameters.getIgnorableIssueTypes().get(0));
+      assertEquals(INDICATOR_NON_EMPTY, parameters.getIgnorableIssueTypes().get(1));
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  public void getIgnorableIssueTypes_invalid() {
+    String[] arguments = new String[]{"--excludeIssueTypes", "undefinedSubfield2", "a-marc-file.mrc"};
+    try {
+      ValidatorParameters parameters = new ValidatorParameters(arguments);
+      assertNotNull(parameters.getIgnorableIssueTypes());
+      assertTrue(parameters.getIgnorableIssueTypes().isEmpty());
     } catch (ParseException e) {
       e.printStackTrace();
     }

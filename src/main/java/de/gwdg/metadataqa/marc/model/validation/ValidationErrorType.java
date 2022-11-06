@@ -47,6 +47,14 @@ public enum ValidationErrorType {
     this.category = category;
   }
 
+  public static ValidationErrorType byCode(String code) {
+    for (ValidationErrorType type : values()) {
+      if (code.equals(type.getCode()))
+        return type;
+    }
+    return null;
+  }
+
   public int getId() {
     return id;
   }

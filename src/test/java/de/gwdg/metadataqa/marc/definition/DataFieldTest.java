@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.definition;
 
+import de.gwdg.metadataqa.marc.analysis.validator.DataFieldValidator;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
@@ -58,11 +59,12 @@ public class DataFieldTest {
   public void testUnhandledSubfields() {
     DataField tag040 = SubfieldParser.parseField(Tag040.getInstance(), "  $aMt$cMt$xMt");
     tag040.setMarcRecord(new Marc21Record("123"));
-    boolean valid = tag040.validate(MarcVersion.MARC21);
+    DataFieldValidator validator = new DataFieldValidator();
+    boolean valid = validator.validate(tag040);
     assertFalse(valid);
-    assertFalse(tag040.getValidationErrors().isEmpty());
-    assertEquals(1, tag040.getValidationErrors().size());
-    ValidationError error = tag040.getValidationErrors().get(0);
+    assertFalse(validator.getValidationErrors().isEmpty());
+    assertEquals(1, validator.getValidationErrors().size());
+    ValidationError error = validator.getValidationErrors().get(0);
     assertEquals(ValidationErrorType.SUBFIELD_UNDEFINED, error.getType());
     assertEquals("040", error.getMarcPath());
     assertEquals("x", error.getMessage());

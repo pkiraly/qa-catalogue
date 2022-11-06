@@ -23,8 +23,9 @@ public class CommonParameters implements Serializable {
 
   protected String[] args;
   public static final String DEFAULT_OUTPUT_DIR = ".";
+  public static final MarcVersion DEFAULT_MARC_VERSION = MarcVersion.MARC21;
 
-  protected MarcVersion marcVersion = MarcVersion.MARC21;
+  protected MarcVersion marcVersion = DEFAULT_MARC_VERSION;
   protected MarcFormat marcFormat = MarcFormat.ISO;
   protected DataSource dataSource = DataSource.FILE;
   protected boolean doHelp;

@@ -38,7 +38,7 @@ import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorType.*;
 
-public class DataField implements Extractable, Validatable, Serializable {
+public class DataField implements Extractable, Serializable { // Validatable
 
   private static final Logger logger = Logger.getLogger(DataField.class.getCanonicalName());
 
@@ -500,6 +500,7 @@ public class DataField implements Extractable, Validatable, Serializable {
     return definition;
   }
 
+  /*
   @Override
   public boolean validate(MarcVersion marcVersion) {
     var isValid = true;
@@ -628,7 +629,9 @@ public class DataField implements Extractable, Validatable, Serializable {
 
     return isValid;
   }
+   */
 
+  /*
   private boolean validateIndicator(Indicator indicatorDefinition,
                                     String value,
                                     MarcVersion marcVersion,
@@ -659,15 +662,18 @@ public class DataField implements Extractable, Validatable, Serializable {
     }
     return isValid;
   }
+   */
 
   public DataFieldKeyGenerator getKeyGenerator(SolrFieldType type) {
     return new DataFieldKeyGenerator(getDefinition(), type);
   }
 
+  /*
   @Override
   public List<ValidationError> getValidationErrors() {
     return errors.getErrors();
   }
+   */
 
   public void addUnhandledSubfields(String code) {
     if (unhandledSubfields == null)
@@ -675,6 +681,7 @@ public class DataField implements Extractable, Validatable, Serializable {
     unhandledSubfields.add(code);
   }
 
+  /*
   private void addError(ValidationErrorType type, String message) {
     addError(definition.getTag(), type, message);
   }
@@ -686,6 +693,11 @@ public class DataField implements Extractable, Validatable, Serializable {
   private void addError(String path, ValidationErrorType type, String message) {
     String url = definition.getDescriptionUrl();
     errors.add(marcRecord.getId(), path, type, message, url);
+  }
+   */
+
+  public List<String> getUnhandledSubfields() {
+    return unhandledSubfields;
   }
 
   @Override

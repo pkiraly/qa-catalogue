@@ -27,6 +27,5 @@ public class SubfieldParserTest {
     assertEquals("245", field.getTag());
     assertEquals("The white dove /", field.getSubfield("a").get(0).getValue());
     assertEquals("by William J. Locke.", field.getSubfield("c").get(0).getValue());
-    field.validate(null);
   }
 }

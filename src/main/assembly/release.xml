@@ -119,7 +119,7 @@
             <fileMode>0755</fileMode>
         </file>
         <file>
-            <source>validator</source>
+            <source>validate</source>
             <fileMode>0755</fileMode>
         </file>
         <file>
@@ -132,6 +132,10 @@
         </file>
         <file>
             <source>INSTALL.md</source>
+            <fileMode>0644</fileMode>
+        </file>
+        <file>
+            <source>CHANGELOG.md</source>
             <fileMode>0644</fileMode>
         </file>
         <file>

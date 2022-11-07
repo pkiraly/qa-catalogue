@@ -26,7 +26,7 @@ public class IgnorableFields {
   }
 
   public boolean isEmpty() {
-    return fields == null || fields.isEmpty();
+    return (fields == null || fields.isEmpty()) && (maskedFields == null || maskedFields.isEmpty());
   }
 
   public List<String> getFields() {
@@ -51,6 +51,15 @@ public class IgnorableFields {
   }
 
   public String toString() {
-    return (isEmpty() ? "" : StringUtils.join(fields, ", "));
+    if (isEmpty())
+      return "";
+    String value = "";
+    if (!fields.isEmpty())
+      value += StringUtils.join(fields, ", ");
+    if (!maskedFields.isEmpty()) {
+      value += value == "" ? "" : ", ";
+      value += "masked fields: " + StringUtils.join(maskedFields, ", ");
+    }
+    return value;
   }
 }

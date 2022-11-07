@@ -6,7 +6,7 @@ import java.util.LinkedList;
 /**
  * A top level parser which parser string such as
  *    .... AND ... AND (... OR ...)
- * It takes care of oerators and parenthesis, but does not parse the content of individual units.
+ * It takes care of operators and parenthesis, but does not parse the content of individual units.
  */
 public class BooleanParser {
 

@@ -196,5 +196,4 @@ public class Utils {
     String decoded = new String(dec.decode(raw.replaceAll("^base64:", "")));
     return decoded;
   }
-
 }

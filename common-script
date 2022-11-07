@@ -26,8 +26,8 @@ do_validate() {
   GENERAL_PARAMS="--details --trimId --summary --format csv --defaultRecordType BOOKS"
   OUTPUT_PARAMS="--outputDir ${OUTPUT_DIR} --detailsFileName issue-details.csv --summaryFileName issue-summary.csv"
 
-  printf "%s %s> [validator]\n" $(date +"%F %T")
-  printf "%s %s> ./validator -Xms8g ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${TYPE_PARAMS} ${MARC_DIR}/${MASK} 2> ${PREFIX}/validate.log\n" $(date +"%F %T")
+  printf "%s %s> [validate]\n" $(date +"%F %T")
+  printf "%s %s> ./validate -Xms8g ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${TYPE_PARAMS} ${MARC_DIR}/${MASK} 2> ${PREFIX}/validate.log\n" $(date +"%F %T")
   ./validator ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${TYPE_PARAMS} ${MARC_DIR}/$MASK 2> ${PREFIX}/validate.log
 }
 

@@ -28,7 +28,7 @@ do_validate() {
 
   printf "%s %s> [validate]\n" $(date +"%F %T")
   printf "%s %s> ./validate -Xms8g ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${TYPE_PARAMS} ${MARC_DIR}/${MASK} 2> ${PREFIX}/validate.log\n" $(date +"%F %T")
-  ./validator ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${TYPE_PARAMS} ${MARC_DIR}/$MASK 2> ${PREFIX}/validate.log
+  ./validate ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${TYPE_PARAMS} ${MARC_DIR}/$MASK 2> ${PREFIX}/validate.log
 }
 
 do_prepare_solr() {

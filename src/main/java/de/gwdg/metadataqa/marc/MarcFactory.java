@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc;
 
-import de.gwdg.metadataqa.api.json.JsonBranch;
+import de.gwdg.metadataqa.api.json.DataElement;
 import de.gwdg.metadataqa.api.model.pathcache.JsonPathCache;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.api.schema.MarcJsonSchema;
@@ -63,36 +63,36 @@ public class MarcFactory {
 
   public static BibliographicRecord create(JsonPathCache cache, MarcVersion version) {
     var marcRecord = new Marc21Record();
-    for (JsonBranch branch : schema.getPaths()) {
-      if (branch.getParent() != null)
+    for (DataElement dataElement : schema.getPaths()) {
+      if (dataElement.getParent() != null)
         continue;
-      switch (branch.getLabel()) {
+      switch (dataElement.getLabel()) {
         case "leader":
-          marcRecord.setLeader(new Leader(extractFirst(cache, branch)));
+          marcRecord.setLeader(new Leader(extractFirst(cache, dataElement)));
           break;
         case "001":
-          marcRecord.setControl001(new Control001(extractFirst(cache, branch)));
+          marcRecord.setControl001(new Control001(extractFirst(cache, dataElement)));
           break;
         case "003":
-          marcRecord.setControl003(new Control003(extractFirst(cache, branch)));
+          marcRecord.setControl003(new Control003(extractFirst(cache, dataElement)));
           break;
         case "005":
-          marcRecord.setControl005(new Control005(extractFirst(cache, branch), marcRecord));
+          marcRecord.setControl005(new Control005(extractFirst(cache, dataElement), marcRecord));
           break;
         case "006":
           marcRecord.setControl006(
-            new Control006(extractFirst(cache, branch), marcRecord));
+            new Control006(extractFirst(cache, dataElement), marcRecord));
           break;
         case "007":
           marcRecord.setControl007(
-            new Control007(extractFirst(cache, branch), marcRecord));
+            new Control007(extractFirst(cache, dataElement), marcRecord));
           break;
         case "008":
           marcRecord.setControl008(
-            new Control008(extractFirst(cache, branch), marcRecord));
+            new Control008(extractFirst(cache, dataElement), marcRecord));
           break;
         default:
-          JSONArray fieldInstances = (JSONArray) cache.getFragment(branch.getJsonPath());
+          JSONArray fieldInstances = (JSONArray) cache.getFragment(dataElement.getPath());
           for (var fieldInsanceNr = 0; fieldInsanceNr < fieldInstances.size(); fieldInsanceNr++) {
             var fieldInstance = (Map) fieldInstances.get(fieldInsanceNr);
             var field = MapToDatafield.parse(fieldInstance, version);
@@ -100,7 +100,7 @@ public class MarcFactory {
               marcRecord.addDataField(field);
               field.setMarcRecord(marcRecord);
             } else {
-              marcRecord.addUnhandledTags(branch.getLabel());
+              marcRecord.addUnhandledTags(dataElement.getLabel());
             }
           }
           break;
@@ -309,8 +309,8 @@ public class MarcFactory {
     return field;
   }
 
-  private static List<String> extractList(JsonPathCache cache, JsonBranch branch) {
-    List<XmlFieldInstance> instances = cache.get(branch.getJsonPath());
+  private static List<String> extractList(JsonPathCache cache, DataElement dataElement) {
+    List<XmlFieldInstance> instances = cache.get(dataElement.getPath());
     List<String> values = new ArrayList<>();
     if (instances != null)
       for (XmlFieldInstance instance : instances)
@@ -318,8 +318,8 @@ public class MarcFactory {
     return values;
   }
 
-  private static String extractFirst(JsonPathCache cache, JsonBranch branch) {
-    List<String> list = extractList(cache, branch);
+  private static String extractFirst(JsonPathCache cache, DataElement dataElement) {
+    List<String> list = extractList(cache, dataElement);
     if (!list.isEmpty())
       return list.get(0);
     return null;

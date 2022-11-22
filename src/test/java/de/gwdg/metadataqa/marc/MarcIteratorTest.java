@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc;
 
-import de.gwdg.metadataqa.api.json.JsonBranch;
+import de.gwdg.metadataqa.api.json.DataElement;
 import de.gwdg.metadataqa.api.model.pathcache.JsonPathCache;
 import de.gwdg.metadataqa.api.schema.MarcJsonSchema;
 import de.gwdg.metadataqa.api.schema.Schema;
@@ -49,12 +49,12 @@ public class MarcIteratorTest {
   public void testMarcSchemaIteration() {
     List<String> skippable = Arrays.asList("leader", "001", "003", "005", "006", "007", "008");
     // fixedValues
-    for (JsonBranch branch : schema.getPaths()) {
-      if (skippable.contains(branch.getLabel()) || branch.getParent() != null)
+    for (DataElement dataElement : schema.getPaths()) {
+      if (skippable.contains(dataElement.getLabel()) || dataElement.getParent() != null)
         continue;
 
       // List<Map<String, List<String>>> expectedList = fixedValues.get(branch.getLabel());
-      JSONArray fieldInstances = (JSONArray) cache.getFragment(branch.getJsonPath());
+      JSONArray fieldInstances = (JSONArray) cache.getFragment(dataElement.getPath());
       for (int fieldInsanceNr = 0; fieldInsanceNr < fieldInstances.size(); fieldInsanceNr++) {
         Map fieldInstance = (Map)fieldInstances.get(fieldInsanceNr);
         DataField field = MapToDatafield.parse(fieldInstance, MarcVersion.DNB);
@@ -65,5 +65,4 @@ public class MarcIteratorTest {
       }
     }
   }
-
 }

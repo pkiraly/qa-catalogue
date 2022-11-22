@@ -291,6 +291,10 @@ export JAR=target/metadata-qa-marc-0.5.0-jar-with-dependencies.jar
 
 Most of the analyses uses the following general parameters
 
+* `F [schema type]`, `schemaType [schema type]` metadata schema type. The supported types are:
+  * `MARC21`
+  * `PICA`
+  * `UNIMARC` (assessment of UNIMARC records are not yet supported, this parameter value is only reserved for future usage)
 * `-m [MARC version]`, `--marcVersion [MARC version]` specifies
   a MARC version. Currently, the supported versions are:
   * `MARC21`, Library of Congress MARC21
@@ -322,7 +326,12 @@ Most of the analyses uses the following general parameters
     The selector is a test MARCspec string e.g.
     `--ignorableRecords STA$a=SUPPRESSED`. It ignores the records which
     has `STA` field with an `a` subfield with the value `SUPPRESSED`.
-* `-d [record type]`, `--defaultRecordType [record type]` the default record type to be used if the record's type is undetectable. The record type is calculated from the combination of Leader/06 (Type of record) and Leader/07 (bibliographic level), however sometimes the combination doesn't fit to the standard. In this case the tool will use the given record type. Possible values of the record type argument:
+* `-d [record type]`, `--defaultRecordType [record type]` the default record
+  type to be used if the record's type is undetectable. The record type is
+  calculated from the combination of Leader/06 (Type of record) and Leader/07
+  (bibliographic level), however sometimes the combination doesn't fit to the
+  standard. In this case the tool will use the given record type. Possible 
+  values of the record type argument:
   * BOOKS
   * CONTINUING_RESOURCES
   * MUSIC
@@ -346,6 +355,8 @@ Most of the analyses uses the following general parameters
   * `MARC_LINE`: MARC Line line separated format i.e. it is a text file, where each line is a distinct field, the
     same way as MARC records are usually displayed in the MARC21 standard documentation.
   * `MARCMAKER`: MARCMaker format
+  * `PICA_PLAIN`: PICA plain (https://format.gbv.de/pica/plain) is a serialization format, that contains each fields in distinct row.
+  * `PICA_NORMALIZED`: normalized PICA (https://format.gbv.de/pica/normalized) is a serialization format where each line is a separate record (by bytecode 0A). Fields are terminated by bytecode 1E, and subfields are introduced by bytecode 1F.
 * `-t [directory]`, `--outputDir [directory]` specifies the output directory where the files will be created
 * `-r`, `--trimId` remove spaces from the end of record IDs in the output files (some library system add padding 
   spaces around field value 001 in exported files)
@@ -353,13 +364,39 @@ Most of the analyses uses the following general parameters
   * `ISO-8859-1` or `ISO8859_1` or `ISO_8859_1`
   * `UTF8` or `UTF-8`
   * `MARC-8` or `MARC8`
-* `-s [datasource]`, `--dataSource [datasource]` specify the type of data source. Possible values:
+* `-s [datasource]`, `--dataSource [datasource]` specify the type of data 
+  source. Possible values:
   * `FILE`: reading from file
-  * `STREAM`: reading from a Java data stream. It is not usable if you use the tool from the command line, only if 
+  * `STREAM`: reading from a Java data stream. It is not usable if you use the
+    tool from the command line, only if 
     you use it with its API.
+* `-I [configuration]`, `--allowableRecords [configuration]` if set, criteria
+  which allows analysis of records. If the record does not met the criteria, it
+  will be excluded. An individual criterium should be formed as a MarcSpec (for
+  MARC21 records) or PicaFilter (for PICA records). Multiple criteria might be 
+  concatenated with logical operations: `&&` for AND, `||` for OR and `!` for 
+  not. One can use parentheses to group logical expressions. An example: 
+  `'002@.0 !~ "^L" && 002@.0 !~ "^..[iktN]" && (002@.0 !~ "^.v" || 021A.a?)'`. 
+  Since the criteria might form a complex phase containing spaces, the passing
+  of which is problematic among multiple scripts, one can apply Base64 encoding.
+  In this case add `base64:` prefix to the parameters, such as
+  `base64:"$(echo '002@.0 !~ "^L" && 002@.0 !~ "^..[iktN]" && (002@.0 !~ "^.v" || 021A.a?)' | base64 -w 0)`.
 
-The last argument of the commands are a list of files. It might contain any wildcard the operating system supports 
-('*', '?', etc.).
+The last argument of the commands are a list of files. It might contain any 
+wildcard the operating system supports ('*', '?', etc.).
+
+#### PICA related general parameters
+
+These parameters areapplicable only for PICA records.
+
+* `-B [field name]`, `--picaIdField  [field name]` the record identifier 
+  subfield of PICA records. Deafult is `003@$0`.
+* `-D [char]`, `--picaSubfieldSeparator [char]` the PICA subfield separator.
+  Deafult is `$`.
+* `-E [file]`, `--picaSchemaFile [file]` an Avram schema file, which describes
+  the structure of PICA records
+* `-G`, `--picaRecordType` The PICA subfield which stores the record type
+  information. Deafult is `002@$0`.
 
 ### Validating MARC records
 

@@ -1,4 +1,4 @@
-# QA catalogue<br/>a metadata quality assessment tool for MARC records
+# QA catalogue<br/>a metadata quality assessment tool for library catalogue records (MARC, PICA)
 
 QA catalogue reads MARC (in binary MARC, MARCXML or other serialization
 formats) or PICA files, analyses different aspects of quality, and saves the
@@ -1728,8 +1728,7 @@ Feedbacks are welcome!
 
 [![Build Status](https://travis-ci.org/pkiraly/metadata-qa-marc.svg?branch=main)](https://travis-ci.org/pkiraly/metadata-qa-marc)
 [![Coverage Status](https://coveralls.io/repos/github/pkiraly/metadata-qa-marc/badge.svg?branch=main)](https://coveralls.io/github/pkiraly/metadata-qa-marc?branch=main)
-[![codecov](https://codecov.io/github/pkiraly/metadata-qa-marc/branch/main/graph/badge.svg?token=dBPIoFd0bz)]
-(https://codecov.io/github/pkiraly/metadata-qa-marc)
+[![codecov](https://codecov.io/gh/pkiraly/metadata-qa-marc/branch/main/graph/badge.svg?token=dBPIoFd0bz)](https://codecov.io/gh/pkiraly/metadata-qa-marc)
 [![javadoc](https://javadoc.io/badge2/de.gwdg.metadataqa/metadata-qa-marc/javadoc.svg)](https://javadoc.io/doc/de.gwdg.metadataqa/metadata-qa-marc)
 [![Maven Central](https://img.shields.io/maven-central/v/de.gwdg.metadataqa/metadata-qa-marc.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22de.gwdg.metadataqa%22%20AND%20a:%22metadata-qa-marc%22)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6394934.svg)](https://doi.org/10.5281/zenodo.6394934)

@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
+import de.gwdg.metadataqa.marc.analysis.validator.SubfieldValidator;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
@@ -37,13 +38,14 @@ public class Tag045Test {
     Tag045 tag = Tag045.getInstance();
     List<String> badValues = Arrays.asList("0-0-", "2209668", "a-cc---", "d1764", "n-us---", "q1", "v v");
     for (String value : values) {
-      DataField field = new DataField(Tag045.getInstance(), " ", " ", "a", value);
+      DataField field = new DataField(tag, " ", " ", "a", value);
       field.setMarcRecord(marcRecord);
       MarcSubfield subfield = field.getSubfield("a").get(0);
+      SubfieldValidator validator = new SubfieldValidator();
       if (badValues.contains(value))
-        assertFalse(value + " should be invalid", subfield.validate(null));
+        assertFalse(value + " should be invalid", validator.validate(subfield));
       else
-        assertTrue(value + " should be valid", subfield.validate(null));
+        assertTrue(value + " should be valid", validator.validate(subfield));
     }
   }
 }

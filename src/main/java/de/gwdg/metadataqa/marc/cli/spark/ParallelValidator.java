@@ -1,9 +1,11 @@
 package de.gwdg.metadataqa.marc.cli.spark;
 
 import de.gwdg.metadataqa.marc.MarcFactory;
+import de.gwdg.metadataqa.marc.analysis.validator.Validator;
+import de.gwdg.metadataqa.marc.analysis.validator.ValidatorConfiguration;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
-import de.gwdg.metadataqa.marc.cli.Validator;
+import de.gwdg.metadataqa.marc.cli.ValidatorCli;
 import de.gwdg.metadataqa.marc.definition.MarcFormat;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormatter;
 import de.gwdg.metadataqa.marc.utils.QAMarcReaderFactory;
@@ -26,17 +28,18 @@ public class ParallelValidator {
 
   public static void main(String[] args) throws ParseException {
 
-    final Validator validator = new Validator(args);
-    ValidatorParameters params = validator.getParameters();
-    validator.setDoPrintInProcessRecord(false);
+    final ValidatorCli validatorCli = new ValidatorCli(args);
+    ValidatorParameters params = validatorCli.getParameters();
+    final ValidatorConfiguration validatorConfiguration = validatorCli.getValidityConfiguration();
+    validatorCli.setDoPrintInProcessRecord(false);
 
     logger.info("Input file is " + params.getDetailsFileName());
     SparkConf conf = new SparkConf().setAppName("MarcCompletenessCount");
     JavaSparkContext context = new JavaSparkContext(conf);
 
-    System.err.println(validator.getParameters().formatParameters());
+    System.err.println(validatorCli.getParameters().formatParameters());
 
-    JavaRDD<String> inputFile = context.textFile(validator.getParameters().getArgs()[0]);
+    JavaRDD<String> inputFile = context.textFile(validatorCli.getParameters().getArgs()[0]);
 
     JavaRDD<String> baseCountsRDD = inputFile
       .flatMap(content -> {
@@ -44,13 +47,15 @@ public class ParallelValidator {
         Record marc4jRecord = reader.next();
         BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(
           marc4jRecord, params.getDefaultRecordType(), params.getMarcVersion(), params.getReplecementInControlFields());
-        validator.processRecord(marcRecord, 1);
+        validatorCli.processRecord(marcRecord, 1);
+        Validator analyzer = new Validator(validatorConfiguration);
+        analyzer.validate(marcRecord);
         return ValidationErrorFormatter
-          .formatForSummary(marcRecord.getValidationErrors(), params.getFormat())
+          .formatForSummary(analyzer.getValidationErrors(), params.getFormat())
           .iterator();
       }
     );
-    baseCountsRDD.saveAsTextFile(validator.getParameters().getDetailsFileName());
+    baseCountsRDD.saveAsTextFile(validatorCli.getParameters().getDetailsFileName());
   }
 
   private static void help() {

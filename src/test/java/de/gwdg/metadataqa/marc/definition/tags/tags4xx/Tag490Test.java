@@ -1,5 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags4xx;
 
+import de.gwdg.metadataqa.marc.analysis.validator.Validator;
+import de.gwdg.metadataqa.marc.analysis.validator.ValidatorConfiguration;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
@@ -21,9 +23,10 @@ public class Tag490Test {
     DataField field = new DataField(Tag490.getInstance(), "0", " ", "6", "880-03", "a", "ifriyat ha-Entsiḳlopedyah ha-Miḳraʼit ;", "v", "9");
     field.setMarcRecord(marcRecord);
     marcRecord.addDataField(field);
-    boolean isValid = marcRecord.validate(MarcVersion.GENT);
+    Validator validator = new Validator(new ValidatorConfiguration().withMarcVersion(MarcVersion.GENT));
+    boolean isValid = validator.validate(marcRecord);
     assertTrue(isValid);
-    assertTrue(marcRecord.getValidationErrors().isEmpty());
+    assertTrue(validator.getValidationErrors().isEmpty());
   }
 
 
@@ -35,12 +38,12 @@ public class Tag490Test {
     field.setMarcRecord(marcRecord);
     marcRecord.addDataField(field);
 
-    boolean isValid = marcRecord.validate(MarcVersion.GENT);
+    Validator validator = new Validator(new ValidatorConfiguration().withMarcVersion(MarcVersion.GENT));
+    boolean isValid = validator.validate(marcRecord);
     assertFalse(isValid);
-    assertFalse(marcRecord.getValidationErrors().isEmpty());
-    assertEquals(2, marcRecord.getValidationErrors().size());
-    assertEquals("880->490$ind1", marcRecord.getValidationErrors().get(0).getMarcPath());
-    assertEquals("880->490$ind2", marcRecord.getValidationErrors().get(1).getMarcPath());
+    assertFalse(validator.getValidationErrors().isEmpty());
+    assertEquals(2, validator.getValidationErrors().size());
+    assertEquals("880->490$ind1", validator.getValidationErrors().get(0).getMarcPath());
+    assertEquals("880->490$ind2", validator.getValidationErrors().get(1).getMarcPath());
   }
-
 }

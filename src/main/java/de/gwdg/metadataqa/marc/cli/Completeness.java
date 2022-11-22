@@ -202,6 +202,10 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
 
       count(getPackageName(field), recordPackageCounter);
 
+      count(field.getTag(), elementCardinality.get(documentType));
+      count(field.getTag(), elementCardinality.get("all"));
+      count(field.getTag(), recordFrequency);
+
       List<String> marcPaths = getMarcPaths(field);
       for (String marcPath : marcPaths) {
         count(marcPath, elementCardinality.get(documentType));

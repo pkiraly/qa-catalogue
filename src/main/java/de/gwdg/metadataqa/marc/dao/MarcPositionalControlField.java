@@ -5,7 +5,6 @@ import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.structure.ControlFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
-import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.utils.keygenerator.PositionalControlFieldKeyGenerator;
 
 import java.util.*;
@@ -85,27 +84,6 @@ public abstract class MarcPositionalControlField extends MarcControlField {
 
   public Cardinality getCardinality() {
     return definition.getCardinality();
-  }
-
-  @Override
-  public boolean validate(MarcVersion marcVersion) {
-    var isValid = true;
-    validationErrors = new ArrayList<>();
-    if (!initializationErrors.isEmpty()) {
-      validationErrors.addAll(initializationErrors);
-    }
-    for (ControlValue controlValue : valuesList) {
-      if (!controlValue.validate(marcVersion)) {
-        validationErrors.addAll(controlValue.getValidationErrors());
-        isValid = false;
-      }
-    }
-    return isValid;
-  }
-
-  @Override
-  public List<ValidationError> getValidationErrors() {
-    return validationErrors;
   }
 
   protected void registerControlValue(ControlValue controlValue) {

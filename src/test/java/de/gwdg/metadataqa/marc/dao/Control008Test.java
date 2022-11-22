@@ -1,7 +1,5 @@
 package de.gwdg.metadataqa.marc.dao;
 
-import de.gwdg.metadataqa.marc.dao.Control008;
-import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
@@ -15,7 +13,6 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 /**
  *
@@ -247,6 +244,5 @@ public class Control008Test {
     assertEquals("981123", value.getValue());
     assertEquals("008all00", value.getId());
     assertEquals("Date entered on file", value.getLabel());
-    assertNull(value.getValidationErrors());
   }
 }

@@ -1,5 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
+import de.gwdg.metadataqa.marc.analysis.validator.DataFieldValidator;
+import de.gwdg.metadataqa.marc.analysis.validator.ValidatorConfiguration;
 import de.gwdg.metadataqa.marc.dao.Control001;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
@@ -22,8 +24,11 @@ public class Tag090Test {
     DataField field = new DataField(Tag090.getInstance(), " ", " ", "n", "sm");
     field.setMarcRecord(marcRecord);
 
-    assertFalse("090$n should be invalid in normal case", field.validate(MarcVersion.MARC21));
-    assertTrue("090$n should be valid in DNB.", field.validate(MarcVersion.DNB));
+    DataFieldValidator validator = new DataFieldValidator();
+    assertFalse("090$n should be invalid in normal case", validator.validate(field));
+
+    validator = new DataFieldValidator(new ValidatorConfiguration().withMarcVersion(MarcVersion.DNB));
+    assertTrue("090$n should be valid in DNB.", validator.validate(field));
   }
 
   @Test
@@ -34,10 +39,11 @@ public class Tag090Test {
     DataField field = new DataField(Tag090.getInstance(), " ", " ", "n", "sk");
     field.setMarcRecord(marcRecord);
 
-    assertFalse("090$n value sk should be invalid in DNB.", field.validate(MarcVersion.DNB));
+    DataFieldValidator validator = new DataFieldValidator(new ValidatorConfiguration().withMarcVersion(MarcVersion.DNB));
+    assertFalse("090$n value sk should be invalid in DNB.", validator.validate(field));
     assertEquals(ValidationErrorType.SUBFIELD_INVALID_VALUE,
-      field.getValidationErrors().get(0).getType());
-    assertEquals("090$n", field.getValidationErrors().get(0).getMarcPath());
-    assertEquals("sk", field.getValidationErrors().get(0).getMessage());
+      validator.getValidationErrors().get(0).getType());
+    assertEquals("090$n", validator.getValidationErrors().get(0).getMarcPath());
+    assertEquals("sk", validator.getValidationErrors().get(0).getMessage());
   }
 }

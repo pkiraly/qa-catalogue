@@ -1,9 +1,12 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
+import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import org.apache.commons.cli.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ValidatorParameters extends CommonParameters implements Serializable {
   public static final String DEFAULT_FILE_NAME = "validation-report.txt";
@@ -17,6 +20,7 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
   private boolean isOptionSet;
   private boolean emptyLargeCollectors = false;
   private boolean collectAllErrors = false;
+  private List<ValidationErrorType> ignorableIssueTypes;
 
   protected void setOptions() {
     if (!isOptionSet) {
@@ -29,6 +33,7 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
       options.addOption("r", "format", true, "specify a format");
       options.addOption("w", "emptyLargeCollectors", false, "empty large collectors");
       options.addOption("t", "collectAllErrors", false, "collect all errors (useful only for validating small number of records)");
+      options.addOption("i", "ignorableIssueTypes", true, "comma separated list of issue types not to collect");
       isOptionSet = true;
     }
   }
@@ -67,6 +72,20 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
       emptyLargeCollectors = true;
 
     setCollectAllErrors(cmd.hasOption("collectAllErrors"));
+
+    if (cmd.hasOption("ignorableIssueTypes")) {
+      setIgnorableIssueTypes(cmd.getOptionValue("ignorableIssueTypes"));
+    }
+  }
+
+  private void setIgnorableIssueTypes(String inputParameter) {
+    ignorableIssueTypes = new ArrayList<>();
+    String[] issueTypes = inputParameter.split(",");
+    for (String code : issueTypes) {
+      ValidationErrorType type = ValidationErrorType.byCode(code);
+      if (type != null)
+        ignorableIssueTypes.add(type);
+    }
   }
 
   public String getDetailsFileName() {
@@ -133,6 +152,10 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
 
   public void setCollectAllErrors(boolean collectAllErrors) {
     this.collectAllErrors = collectAllErrors;
+  }
+
+  public List<ValidationErrorType> getIgnorableIssueTypes() {
+    return ignorableIssueTypes;
   }
 
   @Override

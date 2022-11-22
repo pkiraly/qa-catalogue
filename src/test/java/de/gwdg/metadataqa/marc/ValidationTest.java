@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
+import de.gwdg.metadataqa.marc.analysis.validator.Validator;
+import de.gwdg.metadataqa.marc.analysis.validator.ValidatorConfiguration;
 import de.gwdg.metadataqa.marc.dao.Control003;
 import de.gwdg.metadataqa.marc.dao.Control005;
 import de.gwdg.metadataqa.marc.dao.Control008;
@@ -96,9 +98,10 @@ public class ValidationTest {
       field.setMarcRecord(marcRecord);
     }
 
-    boolean isValid = marcRecord.validate(MarcVersion.MARC21, false);
+    Validator validator = new Validator(new ValidatorConfiguration().withMarcVersion(MarcVersion.GENT).withDoSummary(false));
+    boolean isValid = validator.validate(marcRecord);
     if (!isValid) {
-      String message = ValidationErrorFormatter.format(marcRecord.getValidationErrors(), ValidationErrorFormat.TEXT);
+      String message = ValidationErrorFormatter.format(validator.getValidationErrors(), ValidationErrorFormat.TEXT);
       assertTrue(message.contains("880$6: 3 - ambiguous linkage 'There are multiple $6'"));
     }
   }
@@ -107,8 +110,10 @@ public class ValidationTest {
   public void testAFile() throws URISyntaxException, IOException {
     List<String> lines = FileUtils.readLinesFromResource("marctxt/010000011.mrctxt");
     BibliographicRecord marcRecord = MarcFactory.createFromFormattedText(lines, MarcVersion.MARC21);
-    assertFalse(marcRecord.validate(MarcVersion.MARC21, true));
-    assertEquals(21, marcRecord.getValidationErrors().size());
+    Validator validator = new Validator(new ValidatorConfiguration().withMarcVersion(MarcVersion.GENT).withDoSummary(true));
+    boolean isValid = validator.validate(marcRecord);
+    assertFalse(validator.validate(marcRecord));
+    assertEquals(21, validator.getValidationErrors().size());
   }
 
   @Test

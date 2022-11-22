@@ -2,24 +2,22 @@ package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
-import de.gwdg.metadataqa.marc.definition.*;
 import de.gwdg.metadataqa.marc.definition.general.Linkage;
 import de.gwdg.metadataqa.marc.definition.general.parser.ParserException;
-import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
-import de.gwdg.metadataqa.marc.definition.general.validator.SubfieldValidator;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.model.validation.ErrorsCollector;
-import de.gwdg.metadataqa.marc.model.validation.ValidationError;
-import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorType.*;
 
-public class MarcSubfield implements Validatable, Serializable {
+public class MarcSubfield implements Serializable { // Validatable
 
   private static final Logger logger = Logger.getLogger(MarcSubfield.class.getCanonicalName());
 
@@ -168,99 +166,6 @@ public class MarcSubfield implements Validatable, Serializable {
         pairs.put(prefix + "_" + entry.getKey(), Collections.singletonList(entry.getValue()));
       }
     }
-  }
-
-  @Override
-  public boolean validate(MarcVersion marcVersion) {
-    var isValid = true;
-    errors = new ErrorsCollector();
-    if (marcVersion == null)
-      marcVersion = MarcVersion.MARC21;
-
-    if (definition == null) {
-      addError(field.getDefinition().getTag(), SUBFIELD_UNDEFINED, code);
-      return false;
-    } else {
-      if (code == null) {
-        addError(field.getDefinition().getTag(), SUBFIELD_NULL_CODE, code);
-        isValid = false;
-      } else {
-        if (definition.isDisallowedIn(marcVersion))
-          isValid = false;
-        else {
-          if (definition.hasValidator()) {
-            if (!validateWithValidator())
-              isValid = false;
-          } else if (definition.hasContentParser()) {
-            if (!validateWithParser())
-              isValid = false;
-          } else if (definition.getCodes() != null &&
-                     definition.getCode(value) == null) {
-            String message = value;
-            if (referencePath != null) {
-              message += String.format(" (the field is embedded in %s)", referencePath);
-            }
-            String path = (referencePath == null
-                        ? definition.getPath()
-                        : referencePath + "->" + definition.getPath());
-            addError(path, ValidationErrorType.SUBFIELD_INVALID_VALUE, message);
-            isValid = false;
-          /*
-          } else if (definition.getCodeList() != null &&
-                     !definition.getCodeList().isValid(value)) {
-            String message = value;
-            if (referencePath != null) {
-              message += String.format(" (the field is embedded in %s)", referencePath);
-            }
-            String path = (referencePath == null
-              ? definition.getPath()
-              : referencePath + "->" + definition.getPath());
-            addError(path, ValidationErrorType.SUBFIELD_INVALID_VALUE, message);
-            isValid = false;
-          */
-          }
-        }
-      }
-    }
-
-    return isValid;
-  }
-
-  private boolean validateWithValidator() {
-    var isValid = true;
-    SubfieldValidator validator = definition.getValidator();
-    ValidatorResponse response = validator.isValid(this);
-    if (!response.isValid()) {
-      errors.addAll(response.getValidationErrors());
-      isValid = false;
-    }
-    return isValid;
-  }
-
-  private boolean validateWithParser() {
-    var isValid = true;
-    SubfieldContentParser parser = definition.getContentParser();
-    try {
-      parser.parse(getValue());
-    } catch (ParserException e) {
-      addError(SUBFIELD_UNPARSABLE_CONTENT, e.getMessage());
-      isValid = false;
-    }
-    return isValid;
-  }
-
-  @Override
-  public List<ValidationError> getValidationErrors() {
-    return errors.getErrors();
-  }
-
-  private void addError(ValidationErrorType type, String message) {
-    addError(definition.getPath(), type, message);
-  }
-
-  private void addError(String path, ValidationErrorType type, String message) {
-    String url = definition.getParent().getDescriptionUrl();
-    errors.add(marcRecord.getId(), path, type, message, url);
   }
 
   @Override

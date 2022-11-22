@@ -1,5 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.bltags;
 
+import de.gwdg.metadataqa.marc.analysis.validator.DataFieldValidator;
+import de.gwdg.metadataqa.marc.analysis.validator.ValidatorConfiguration;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
@@ -41,15 +43,18 @@ public class BLTagTest {
 
     MarcSubfield subfield = field.getSubfields().get(0);
 
+    DataFieldValidator validator = new DataFieldValidator();
     assertFalse(
       String.format("%s$%s=%s should be invalid in normal case",
         tag.getTag(), subfield.getCode(), subfield.getValue()),
-      field.validate(MarcVersion.MARC21));
-    boolean isValid = field.validate(MarcVersion.BL);
+      validator.validate(field));
+
+    validator = new DataFieldValidator(new ValidatorConfiguration().withMarcVersion(MarcVersion.BL));
+    boolean isValid = validator.validate(field);
     assertTrue(
       String.format("%s$%s=%s should be valid in BL case (%s)",
         tag.getTag(), subfield.getCode(), subfield.getValue(),
-        field.getValidationErrors()),
+        validator.getValidationErrors()),
       isValid);
   }
 
@@ -63,15 +68,17 @@ public class BLTagTest {
     BibliographicRecord marcRecord = new Marc21Record("test");
     field.setMarcRecord(marcRecord);
 
+    DataFieldValidator validator = new DataFieldValidator();
     assertFalse(
       String.format("%s$%s=%s should be invalid in normal case",
         tag.getTag(), subfield, value),
-      field.validate(MarcVersion.MARC21));
+      validator.validate(field));
 
-    boolean isValid = field.validate(MarcVersion.BL);
+    validator = new DataFieldValidator(new ValidatorConfiguration().withMarcVersion(MarcVersion.BL));
+    boolean isValid = validator.validate(field);
     assertFalse(
       String.format("%s$%s=%s should be invalid in BL (%s)",
-        tag.getTag(), subfield, value, field.getValidationErrors()),
+        tag.getTag(), subfield, value, validator.getValidationErrors()),
       isValid);
   }
 
@@ -82,16 +89,18 @@ public class BLTagTest {
 
     MarcSubfield subfield = field.getSubfields().get(0);
 
+    DataFieldValidator validator = new DataFieldValidator();
     assertFalse(
       String.format("%s$%s=%s should be invalid in normal case",
         tag.getTag(), subfield.getCode(), subfield.getCode()),
-      field.validate(MarcVersion.MARC21));
+      validator.validate(field));
 
-    boolean isValid = field.validate(MarcVersion.BL);
+    validator = new DataFieldValidator(new ValidatorConfiguration().withMarcVersion(MarcVersion.BL));
+    boolean isValid = validator.validate(field);
     assertFalse(
       String.format("%s$%s=%s should be invalid in BL (%s)",
         tag.getTag(), subfield.getCode(), subfield.getCode(),
-        field.getValidationErrors()),
+        validator.getValidationErrors()),
       isValid);
   }
 
@@ -101,12 +110,15 @@ public class BLTagTest {
     BibliographicRecord marcRecord = new Marc21Record("test");
     field.setMarcRecord(marcRecord);
 
+    DataFieldValidator validator = new DataFieldValidator();
     assertTrue(
       String.format("%s$%s=%s should be invalid in normal case", tag.getTag(), subfield, value),
-      field.validate(MarcVersion.MARC21));
+      validator.validate(field));
+
+    validator = new DataFieldValidator(new ValidatorConfiguration().withMarcVersion(MarcVersion.BL));
     assertFalse(
       String.format("%s$%s=%s should be invalid in BL", tag.getTag(), subfield, value),
-      field.validate(MarcVersion.BL));
+      validator.validate(field));
   }
 
 }

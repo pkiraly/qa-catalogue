@@ -6,6 +6,8 @@ import de.gwdg.metadataqa.marc.utils.marcreader.AlephseqMarcReader;
 import de.gwdg.metadataqa.marc.utils.marcreader.LineSeparatedMarcReader;
 import de.gwdg.metadataqa.marc.utils.marcreader.MarcMakerReader;
 import de.gwdg.metadataqa.marc.utils.marcreader.MarclineReader;
+import de.gwdg.metadataqa.marc.utils.pica.PicaNormalizedReader;
+import de.gwdg.metadataqa.marc.utils.pica.PicaPlainReader;
 import de.gwdg.metadataqa.marc.utils.pica.PicaReader;
 import org.apache.commons.lang3.StringUtils;
 import org.marc4j.MarcReader;
@@ -68,19 +70,33 @@ public final class QAMarcReaderFactory {
 
   private MarcReader getPicaPlainFileReader(String fileName, CommonParameters parameters) {
     // String encoding = (parameters != null && StringUtils.isNotBlank(parameters.getDefaultEncoding())) ? parameters.getDefaultEncoding() : "UTF-8";
-    PicaReader reader = new PicaReader(fileName);
-    confiigurePicaReader(reader, parameters);
+    PicaReader reader = new PicaPlainReader(fileName);
+    configurePicaReader(reader, parameters);
     return reader;
   }
 
   private MarcReader getPicaPlainStreamReader(InputStream stream, CommonParameters parameters) {
     String encoding = (parameters != null && StringUtils.isNotBlank(parameters.getDefaultEncoding())) ? parameters.getDefaultEncoding() : "UTF-8";
-    PicaReader reader = new PicaReader(stream, encoding);
-    confiigurePicaReader(reader, parameters);
+    PicaReader reader = new PicaPlainReader(stream, encoding);
+    configurePicaReader(reader, parameters);
     return reader;
   }
 
-  private void confiigurePicaReader(PicaReader reader, CommonParameters parameters) {
+  private MarcReader getPicaNormalizedFileReader(String fileName, CommonParameters parameters) {
+    // String encoding = (parameters != null && StringUtils.isNotBlank(parameters.getDefaultEncoding())) ? parameters.getDefaultEncoding() : "UTF-8";
+    PicaReader reader = new PicaNormalizedReader(fileName);
+    configurePicaReader(reader, parameters);
+    return reader;
+  }
+
+  private MarcReader getPicaNormalizedStreamReader(InputStream stream, CommonParameters parameters) {
+    String encoding = (parameters != null && StringUtils.isNotBlank(parameters.getDefaultEncoding())) ? parameters.getDefaultEncoding() : "UTF-8";
+    PicaReader reader = new PicaNormalizedReader(stream, encoding);
+    configurePicaReader(reader, parameters);
+    return reader;
+  }
+
+  private void configurePicaReader(PicaReader reader, CommonParameters parameters) {
     if (parameters != null) {
       if (StringUtils.isNotEmpty(parameters.getPicaIdField()))
         reader.setIdField(parameters.getPicaIdField());
@@ -125,6 +141,8 @@ public final class QAMarcReaderFactory {
         reader = factory.getMarcMakerFileReader(fileName); break;
       case PICA_PLAIN:
         reader = factory.getPicaPlainFileReader(fileName, parameters); break;
+      case PICA_NORMALIZED:
+        reader = factory.getPicaNormalizedFileReader(fileName, parameters); break;
       case ISO:
       default:
         reader = factory.getIsoFileReader(fileName); break;
@@ -152,6 +170,8 @@ public final class QAMarcReaderFactory {
         reader = factory.getMarcMakerStreamReader(stream); break;
       case PICA_PLAIN:
         reader = factory.getPicaPlainStreamReader(stream, parameters); break;
+      case PICA_NORMALIZED:
+        reader = factory.getPicaNormalizedStreamReader(stream, parameters); break;
       case ISO:
       default:
         reader = factory.getIsoStreamReader(stream); break;

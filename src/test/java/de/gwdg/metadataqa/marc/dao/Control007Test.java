@@ -1,8 +1,7 @@
 package de.gwdg.metadataqa.marc.dao;
 
-import de.gwdg.metadataqa.marc.dao.Control007;
+import de.gwdg.metadataqa.marc.analysis.validator.ControlFieldValidator;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
-import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.controltype.Control007Category;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
@@ -72,29 +71,30 @@ public class Control007Test {
     assertEquals(" ", value.resolve());
     assertEquals(value, field.getMap07());
 
-    assertFalse(field.validate(MarcVersion.MARC21));
-    assertEquals(2, field.getValidationErrors().size());
+    ControlFieldValidator validator = new ControlFieldValidator();
+    assertFalse(validator.validate(field));
+    assertEquals(2, validator.getValidationErrors().size());
     assertEquals("007/05 (007map05)",
-      field.getValidationErrors().get(0).getMarcPath());
+      validator.getValidationErrors().get(0).getMarcPath());
     assertEquals("c",
-      field.getValidationErrors().get(0).getMessage());
+      validator.getValidationErrors().get(0).getMessage());
     assertEquals("hasInvalidValue",
-      field.getValidationErrors().get(0).getType().getCode());
+      validator.getValidationErrors().get(0).getType().getCode());
     assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
-      field.getValidationErrors().get(0).getType());
+      validator.getValidationErrors().get(0).getType());
     assertEquals("https://www.loc.gov/marc/bibliographic/bd007a.html",
-      field.getValidationErrors().get(0).getUrl());
+      validator.getValidationErrors().get(0).getUrl());
 
     assertEquals("007/07 (007map07)",
-      field.getValidationErrors().get(1).getMarcPath());
+      validator.getValidationErrors().get(1).getMarcPath());
     assertEquals(" ",
-      field.getValidationErrors().get(1).getMessage());
+      validator.getValidationErrors().get(1).getMessage());
     assertEquals("hasInvalidValue",
-      field.getValidationErrors().get(1).getType().getCode());
+      validator.getValidationErrors().get(1).getType().getCode());
     assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
-      field.getValidationErrors().get(1).getType());
+      validator.getValidationErrors().get(1).getType());
     assertEquals("https://www.loc.gov/marc/bibliographic/bd007a.html",
-      field.getValidationErrors().get(1).getUrl());
+      validator.getValidationErrors().get(1).getUrl());
   }
 
   @Test
@@ -134,8 +134,9 @@ public class Control007Test {
     assertEquals("|", value.getValue());
     assertEquals(value, field.getGlobe05());
 
-    assertTrue(field.validate(MarcVersion.MARC21));
-    assertEquals(0, field.getValidationErrors().size());
+    ControlFieldValidator validator = new ControlFieldValidator();
+    assertTrue(validator.validate(field));
+    assertEquals(0, validator.getValidationErrors().size());
   }
 
   @Test
@@ -182,8 +183,9 @@ public class Control007Test {
     assertEquals("No attempt to code", value.resolve());
     assertEquals(value, field.getTactile09());
 
-    assertTrue(field.validate(MarcVersion.MARC21));
-    assertEquals(0, field.getValidationErrors().size());
+    ControlFieldValidator validator = new ControlFieldValidator();
+    assertTrue(validator.validate(field));
+    assertEquals(0, validator.getValidationErrors().size());
   }
 
   @Test
@@ -242,8 +244,9 @@ public class Control007Test {
     assertEquals("No secondary support", value.resolve());
     assertEquals(value, field.getProjected08());
 
-    assertTrue(field.validate(MarcVersion.MARC21));
-    assertEquals(0, field.getValidationErrors().size());
+    ControlFieldValidator validator = new ControlFieldValidator();
+    assertTrue(validator.validate(field));
+    assertEquals(0, validator.getValidationErrors().size());
   }
 
   @Test
@@ -314,8 +317,9 @@ public class Control007Test {
     assertEquals("No attempt to code", value.resolve());
     assertEquals(value, field.getMicroform12());
 
-    assertTrue(field.validate(MarcVersion.MARC21));
-    assertEquals(0, field.getValidationErrors().size());
+    ControlFieldValidator validator = new ControlFieldValidator();
+    assertTrue(validator.validate(field));
+    assertEquals(0, validator.getValidationErrors().size());
   }
 
   @Test
@@ -356,8 +360,9 @@ public class Control007Test {
     assertEquals("No attempt to code", value.resolve());
     assertEquals(value, field.getNonprojected05());
 
-    assertTrue(field.validate(MarcVersion.MARC21));
-    assertEquals(0, field.getValidationErrors().size());
+    ControlFieldValidator validator = new ControlFieldValidator();
+    assertTrue(validator.validate(field));
+    assertEquals(0, validator.getValidationErrors().size());
   }
 
   @Test
@@ -470,8 +475,9 @@ public class Control007Test {
     assertEquals("||||||", value.resolve());
     assertEquals(value, field.getMotionPicture17());
 
-    assertTrue(field.validate(MarcVersion.MARC21));
-    assertEquals(0, field.getValidationErrors().size());
+    ControlFieldValidator validator = new ControlFieldValidator();
+    assertTrue(validator.validate(field));
+    assertEquals(0, validator.getValidationErrors().size());
   }
 
   @Test
@@ -494,8 +500,9 @@ public class Control007Test {
     assertEquals("Unspecified", value.resolve());
     assertEquals(value, field.getKit01());
 
-    assertTrue(field.validate(MarcVersion.MARC21));
-    assertEquals(0, field.getValidationErrors().size());
+    ControlFieldValidator validator = new ControlFieldValidator();
+    assertTrue(validator.validate(field));
+    assertEquals(0, validator.getValidationErrors().size());
   }
 
   @Test
@@ -518,8 +525,9 @@ public class Control007Test {
     assertEquals("Unspecified", value.resolve());
     assertEquals(value, field.getMusic01());
 
-    assertTrue(field.validate(MarcVersion.MARC21));
-    assertEquals(0, field.getValidationErrors().size());
+    ControlFieldValidator validator = new ControlFieldValidator();
+    assertTrue(validator.validate(field));
+    assertEquals(0, validator.getValidationErrors().size());
   }
 
   @Test
@@ -578,8 +586,9 @@ public class Control007Test {
     assertEquals("No attempt to code", value.resolve());
     assertEquals(value, field.getVideo08());
 
-    assertTrue(field.validate(MarcVersion.MARC21));
-    assertEquals(0, field.getValidationErrors().size());
+    ControlFieldValidator validator = new ControlFieldValidator();
+    assertTrue(validator.validate(field));
+    assertEquals(0, validator.getValidationErrors().size());
   }
 
   @Test
@@ -688,8 +697,9 @@ public class Control007Test {
     assertEquals("Unknown", field.resolve(subfield));
     assertEquals("Unknown", field.getElectro13().resolve());
 
-    assertTrue(field.validate(MarcVersion.MARC21));
-    assertEquals(0, field.getValidationErrors().size());
+    ControlFieldValidator validator = new ControlFieldValidator();
+    assertTrue(validator.validate(field));
+    assertEquals(0, validator.getValidationErrors().size());
   }
 
   @Test
@@ -791,40 +801,41 @@ public class Control007Test {
     assertEquals("Digital storage", field.resolve(subfield));
     assertEquals("Digital storage", field.getSoundRecording13().resolve());
 
-    assertFalse(field.validate(MarcVersion.MARC21));
-    assertEquals(3, field.getValidationErrors().size());
+    ControlFieldValidator validator = new ControlFieldValidator();
+    assertFalse(validator.validate(field));
+    assertEquals(3, validator.getValidationErrors().size());
 
     assertEquals("007/09 (007soundRecording09)",
-      field.getValidationErrors().get(0).getMarcPath());
+      validator.getValidationErrors().get(0).getMarcPath());
     assertEquals(" ",
-      field.getValidationErrors().get(0).getMessage());
+      validator.getValidationErrors().get(0).getMessage());
     assertEquals("hasInvalidValue",
-      field.getValidationErrors().get(0).getType().getCode());
+      validator.getValidationErrors().get(0).getType().getCode());
     assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
-      field.getValidationErrors().get(0).getType());
+      validator.getValidationErrors().get(0).getType());
     assertEquals("https://www.loc.gov/marc/bibliographic/bd007s.html",
-      field.getValidationErrors().get(0).getUrl());
+      validator.getValidationErrors().get(0).getUrl());
 
     assertEquals("007/10 (007soundRecording10)",
-      field.getValidationErrors().get(1).getMarcPath());
+      validator.getValidationErrors().get(1).getMarcPath());
     assertEquals(" ",
-      field.getValidationErrors().get(1).getMessage());
+      validator.getValidationErrors().get(1).getMessage());
     assertEquals("hasInvalidValue",
-      field.getValidationErrors().get(1).getType().getCode());
+      validator.getValidationErrors().get(1).getType().getCode());
     assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
-      field.getValidationErrors().get(1).getType());
+      validator.getValidationErrors().get(1).getType());
     assertEquals("https://www.loc.gov/marc/bibliographic/bd007s.html",
-      field.getValidationErrors().get(1).getUrl());
+      validator.getValidationErrors().get(1).getUrl());
 
     assertEquals("007/11 (007soundRecording11)",
-      field.getValidationErrors().get(2).getMarcPath());
+      validator.getValidationErrors().get(2).getMarcPath());
     assertEquals(" ",
-      field.getValidationErrors().get(2).getMessage());
+      validator.getValidationErrors().get(2).getMessage());
     assertEquals("hasInvalidValue",
-      field.getValidationErrors().get(2).getType().getCode());
+      validator.getValidationErrors().get(2).getType().getCode());
     assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
-      field.getValidationErrors().get(2).getType());
+      validator.getValidationErrors().get(2).getType());
     assertEquals("https://www.loc.gov/marc/bibliographic/bd007s.html",
-      field.getValidationErrors().get(2).getUrl());
+      validator.getValidationErrors().get(2).getUrl());
   }
 }

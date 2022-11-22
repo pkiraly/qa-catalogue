@@ -301,20 +301,7 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
     return map;
   }
 
-  @Override
-  public boolean validate(MarcVersion marcVersion) {
-    var isValid = true;
-    validationErrors = new ArrayList<>();
-    if (!initializationErrors.isEmpty())
-      validationErrors.addAll(initializationErrors);
-
-    for (ControlValue controlValue : valuesList) {
-      if (!controlValue.validate(marcVersion)) {
-        validationErrors.addAll(controlValue.getValidationErrors());
-        isValid = false;
-      }
-    }
-
-    return isValid;
+  public List<ValidationError> getInitializationErrors() {
+    return initializationErrors;
   }
 }

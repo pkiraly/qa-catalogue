@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -188,5 +189,11 @@ public class Utils {
     for (String tag : list)
       map.put(tag, true);
     return map;
+  }
+
+  public static String base64decode(String raw) {
+    Base64.Decoder dec = Base64.getDecoder();
+    String decoded = new String(dec.decode(raw.replaceAll("^base64:", "")));
+    return decoded;
   }
 }

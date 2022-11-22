@@ -281,7 +281,6 @@ The `./metadata-qa.sh` script has the following options:
 
 ## Detailed instructions
 
-
 We will use the same jar file in every command, so we save its path into a variable.
 
 ```bash
@@ -415,7 +414,29 @@ options:
   will be segmented, which should be handled after the process.
 * `-t`, `--collectAllErrors`: collect all errors (useful only for validating small number of records). Default is 
   turned off.
-
+* `-i`, `--ignorableIssueTypes`: comma separated list of issue types not to collect. The valid values are:
+  * `undetectableType`: undetectable type
+  * `invalidLinkage`: invalid linkage
+  * `ambiguousLinkage`: ambiguous linkage
+  * `obsoleteControlPosition`: obsolete code
+  * `controlValueContainsInvalidCode`: invalid code
+  * `hasInvalidValue`: invalid value
+  * `missingSubfield`: missing reference subfield (880$6)
+  * `nonrepeatableField`: repetition of non-repeatable field
+  * `undefinedField`: undefined field
+  * `obsoleteIndicator`: obsolete value
+  * `nonEmptyIndicator`: non-empty indicator
+  * `hasInvalidValue`: invalid value
+  * `undefinedSubfield`: undefined subfield
+  * `invalidLength`: invalid length
+  * `invalidReference`: invalid classification reference
+  * `patternMismatch`: content does not match any patterns
+  * `nonrepeatableSubfield`: repetition of non-repeatable subfield
+  * `invalidISBN`: invalid ISBN
+  * `invalidISSN`: invalid ISSN
+  * `unparsableContent`: content is not well-formatted
+  * `nullCode`: null subfield code
+  * `hasInvalidValue`: invalid value
 
 Outputs:
 * `issue-by-category.csv`: the counts of issues by categories

@@ -17,29 +17,11 @@ public abstract class PositionalControlField extends ControlField implements Ext
   protected List<ControlValue> valuesList;
   protected List<ValidationError> validationErrors;
 
-  @Override
-  public boolean validate(MarcVersion marcVersion) {
-    var isValid = true;
-    validationErrors = new ArrayList<>();
-    for (ControlValue controlValue : valuesList) {
-      if (!controlValue.validate(marcVersion)) {
-        validationErrors.addAll(controlValue.getValidationErrors());
-        isValid = false;
-      }
-    }
-    return isValid;
-  }
-
   public void setMarcRecord(BibliographicRecord marcRecord) {
     this.marcRecord = marcRecord;
     for (ControlValue value : valuesList) {
       value.setMarcRecord(marcRecord);
     }
-  }
-
-  @Override
-  public List<ValidationError> getValidationErrors() {
-    return validationErrors;
   }
 
   @Override

@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
-public class PicaReaderTest {
+public class PicaPlainReaderTest {
 
   public static final Pattern SET = Pattern.compile("^SET: ");
   public static final Pattern EINGABE = Pattern.compile("^Eingabe: ");
@@ -181,24 +181,22 @@ public class PicaReaderTest {
   public void picaReader() throws IOException, URISyntaxException {
     PicaSchemaManager schema = PicaSchemaReader.createSchema(getPath("pica/k10plus.json"));
     String recordFile = FileUtils.getPath("pica/picaplus-sample.txt").toAbsolutePath().toString();
-    MarcReader reader = new PicaReader(recordFile).setIdField("003@ƒ0").setSubfieldSeparator("ƒ");
+    MarcReader reader = new PicaPlainReader(recordFile).setIdField("003@ƒ0").setSubfieldSeparator("ƒ");
     int i = 0;
     BibliographicRecord marcRecord = null;
     while (reader.hasNext()) {
       Record record = reader.next();
       marcRecord = MarcFactory.createPicaFromMarc4j(record, schema);
-      System.err.println(marcRecord.getId());
       i++;
     }
-    System.err.printf("processed %d records%n", i);
-    System.err.println(marcRecord.format());
+    assertEquals(373, i);
   }
 
   @Test
   public void picaReader2() throws IOException, URISyntaxException {
     PicaSchemaManager schema = PicaSchemaReader.createSchema(getPath("pica/k10plus.json"));
     String recordFile = FileUtils.getPath("pica/k10plus-sample.pica").toAbsolutePath().toString();
-    MarcReader reader = new PicaReader(recordFile)
+    MarcReader reader = new PicaPlainReader(recordFile)
       .setIdField("003@$0")
       .setSubfieldSeparator("$");
     int i = 0;

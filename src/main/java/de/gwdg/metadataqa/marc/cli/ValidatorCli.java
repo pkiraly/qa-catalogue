@@ -1,6 +1,8 @@
 package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.CsvUtils;
+import de.gwdg.metadataqa.marc.analysis.validator.Validator;
+import de.gwdg.metadataqa.marc.analysis.validator.ValidatorConfiguration;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
@@ -36,9 +38,9 @@ import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat.TAB
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class Validator implements BibliographicInputProcessor, Serializable {
+public class ValidatorCli implements BibliographicInputProcessor, Serializable {
 
-  private static final Logger logger = Logger.getLogger(Validator.class.getCanonicalName());
+  private static final Logger logger = Logger.getLogger(ValidatorCli.class.getCanonicalName());
   private Options options;
 
   private final ValidatorParameters parameters;
@@ -65,22 +67,28 @@ public class Validator implements BibliographicInputProcessor, Serializable {
   private boolean hasSeparator = false;
   private int vErrorId = 1;
   private List<ValidationError> allValidationErrors;
+  private ValidatorConfiguration validatorConfiguration;
 
-  public Validator(String[] args) throws ParseException {
+  public ValidatorCli(String[] args) throws ParseException {
     this(new ValidatorParameters(args));
   }
 
-  public Validator(ValidatorParameters parameters) throws ParseException {
+  public ValidatorCli(ValidatorParameters parameters) throws ParseException {
     this.parameters = parameters;
     options = parameters.getOptions();
     readyToProcess = true;
     counter = 0;
+    validatorConfiguration = new ValidatorConfiguration()
+      .withMarcVersion(parameters.getMarcVersion())
+      .withDoSummary(parameters.doSummary())
+      .withIgnorableFields(parameters.getIgnorableFields())
+      .withIgnorableIssueTypes(parameters.getIgnorableIssueTypes());
   }
 
   public static void main(String[] args) {
     BibliographicInputProcessor processor = null;
     try {
-      processor = new Validator(args);
+      processor = new ValidatorCli(args);
     } catch (ParseException e) {
       System.err.println("ERROR. " + e.getLocalizedMessage());
       // processor.printHelp(processor.getParameters().getOptions());
@@ -177,26 +185,32 @@ public class Validator implements BibliographicInputProcessor, Serializable {
       return;
     }
 
-    boolean isValid = marcRecord.validate(
-            parameters.getMarcVersion(), parameters.doSummary(), parameters.getIgnorableFields()
+    Validator validator = new Validator(validatorConfiguration);
+    boolean isValid = validator.validate(marcRecord);
+    /*
+    boolean isValid = marcRecord.validate(parameters.getMarcVersion(),
+                                          parameters.doSummary(),
+                                          parameters.getIgnorableFields(),
+                                          parameters.getIgnorableIssueTypes()
     );
+     */
     if (!isValid && doPrintInProcessRecord) {
       if (parameters.doSummary())
-        processSummary(marcRecord);
+        processSummary(marcRecord, validator);
 
       if (parameters.doDetails())
-        processDetails(marcRecord);
+        processDetails(marcRecord, validator);
     } else {
       if (parameters.doSummary())
         count(0, totalRecordCounter);
     }
     if (parameters.collectAllErrors())
-      allValidationErrors.addAll(marcRecord.getValidationErrors());
+      allValidationErrors.addAll(validator.getValidationErrors());
     counter++;
   }
 
-  private void processDetails(BibliographicRecord marcRecord) {
-    List<ValidationError> errors = marcRecord.getValidationErrors();
+  private void processDetails(BibliographicRecord marcRecord, Validator validator) {
+    List<ValidationError> errors = validator.getValidationErrors();
     if (!errors.isEmpty()) {
       String message = null;
       if (parameters.doSummary()) {
@@ -217,8 +231,8 @@ public class Validator implements BibliographicInputProcessor, Serializable {
     }
   }
 
-  private void processSummary(BibliographicRecord marcRecord) {
-    List<ValidationError> errors = marcRecord.getValidationErrors();
+  private void processSummary(BibliographicRecord marcRecord, Validator validator) {
+    List<ValidationError> errors = validator.getValidationErrors();
     List<ValidationError> allButInvalidFieldErrors = new ArrayList<>();
     Set<Integer> uniqueErrors = new HashSet<>();
     Set<ValidationErrorType> uniqueTypes = new HashSet<>();
@@ -490,6 +504,10 @@ public class Validator implements BibliographicInputProcessor, Serializable {
 
   public int getNumberOfprocessedRecords() {
     return numberOfprocessedRecords;
+  }
+
+  public ValidatorConfiguration getValidityConfiguration() {
+    return validatorConfiguration;
   }
 
   private class Counter {

@@ -1,17 +1,28 @@
 # QA catalogue<br/>a metadata quality assessment tool for MARC records
 
-QA catalogue reads MARC files (in binary MARC, MARCXML or other serialization formats), analyses different aspects of quality, and saves the results into CSV files. These CSV files could be used in different context, we provide a lightweight, web-based [user interface](#user-interface) for that.
+QA catalogue reads MARC (in binary MARC, MARCXML or other serialization
+formats) or PICA files, analyses different aspects of quality, and saves the
+results into CSV files. These CSV files could be used in different context, we
+provide a lightweight, web-based [user interface](#user-interface) for that.
 
 ![Output sample](https://github.com/pkiraly/metadata-qa-marc-web/raw/gh-pages/img/issues-v1.gif)
 Screenshot from the web UI of the QA cataloge
 
 * For more info
-  * main project page: [Metadata Quality Assurance Framework](http://pkiraly.github.io)
-  * Validating 126 million MARC records at DATeCH 2019 [paper](https://doi.org/10.1145/3322905.3322929), [slides](http://bit.ly/qa-datech2019), [thesis chapter](https://10.13140/RG.2.2.33177.77920)
-  * Empirical evaluation of library catalogues at SWIB 2019 [slides](http://bit.ly/qa-swib2019), [paper in English](https://pro.europeana.eu/page/issue-15-swib-2019#empirical-evaluation-of-library-catalogues), [paper in Spanish](https://universoabierto.org/2020/06/01/evaluacion-empirica-de-los-catalogos-de-las-bibliotecas/)
-  * quality assessment of Gent University Library catalogue (a running instance of the dashboard): [http://gent.qa-catalogue.eu/](http://gent.qa-catalogue.eu/)
+  * main project page: [Metadata Quality Assessment Framework](http://pkiraly.github.io)
+  * Validating 126 million MARC records at DATeCH 2019 
+    [paper](https://doi.org/10.1145/3322905.3322929),
+    [slides](http://bit.ly/qa-datech2019),
+    [thesis chapter](https://10.13140/RG.2.2.33177.77920)
+  * Empirical evaluation of library catalogues at SWIB 2019 [slides](http://bit.ly/qa-swib2019),
+    [paper in English](https://pro.europeana.eu/page/issue-15-swib-2019#empirical-evaluation-of-library-catalogues),
+    [paper in Spanish](https://universoabierto.org/2020/06/01/evaluacion-empirica-de-los-catalogos-de-las-bibliotecas/)
+  * quality assessment of Gent University Library catalogue (a running instance
+    of the dashboard): [http://gent.qa-catalogue.eu/](http://gent.qa-catalogue.eu/)
   * <strong>new: QA catalogue mailing list</strong> https://listserv.gwdg.de/mailman/listinfo/qa-catalogue
-* If you would like to play with this project, but you don't have MARC21 please to download some recordsets mentioned in [Appendix I: Where can I get MARC records?](#datasources) of this document.
+* If you would like to play with this project, but you don't have MARC21 please
+  to download some recordsets mentioned in 
+  [Appendix I: Where can I get MARC records?](#datasources) of this document.
 
 ## Table of Contents
 * [Quick start quide](#quick-start-guide)
@@ -61,11 +72,12 @@ Screenshot from the web UI of the QA cataloge
   * [Appendix IV. Special build process](#appendix-iv-special-build-process)
 
 ## Quick start guide
+
 ### Installation
 
-1. `wget https://github.com/pkiraly/metadata-qa-marc/releases/download/v0.5.0/metadata-qa-marc-0.5.0-release.zip`
-2. `unzip metadata-qa-marc-0.5.0-release.zip`
-3. `cd metadata-qa-marc-0.5.0/`
+1. `wget https://github.com/pkiraly/metadata-qa-marc/releases/download/v0.6.0/metadata-qa-marc-0.6.0-release.zip`
+2. `unzip metadata-qa-marc-0.6.0-release.zip`
+3. `cd metadata-qa-marc-0.6.0/`
 
 ### Configuration
 
@@ -86,12 +98,14 @@ BASE_OUTPUT_DIR=
 
 ### With docker
 
-An experimental Docker image is publicly available in Docker Hub. This imsage contain an Ubuntu 20.04 with Java, R
-and the current software. No installation is needed (given you have a Docker running environment). You only have
-to specify the directory on your local machine where the MARC files are located. The first issue of this command
-will download the Docker image, which takes a time. Once it is downloaded you will be entered into the bash shell
-(I denoted this with the `#` symbol), where you have to change directory to `/opt/metadata-qa-marc` the location
-of the application.
+An experimental Docker image is publicly available in Docker Hub. This imsage
+contain an Ubuntu 20.04 with Java, R and the current software. No installation
+is needed (given you have a Docker running environment). You only have to
+specify the directory on your local machine where the MARC files are located.
+The first issue of this command will download the Docker image, which takes a
+time. Once it is downloaded you will be entered into the bash shell (I denoted
+this with the `#` symbol), where you have to change directory to
+`/opt/metadata-qa-marc` the location of the application.
 
 1. download Docker image and initialize the Docker container
 ```bash
@@ -115,10 +129,12 @@ docker container exec \
   all
 ```
 
-Everything else works the same way as in other environments, so follow the next sections.
+Everything else works the same way as in other environments, so follow the next
+sections.
 
-Note: at the time of writing this Docker image doesn't contain the [web user interface](#user-interface), only the
-command line interface (the content of this repository).
+Note: at the time of writing this Docker image doesn't contain the
+[web user interface](#user-interface), only the command line interface (the
+content of this repository).
 
 More details about the Docker use case: http://pkiraly.github.io/2020/05/31/running-with-docker/.
 
@@ -129,7 +145,8 @@ scripts/[abbreviation-of-your-library].sh all-analyses
 scripts/[abbreviation-of-your-library].sh all-solr
 ```
 
-For a catalogue with around 1 milion record the first command will take 5-10 minutes, the later 1-2 hours.
+For a catalogue with around 1 milion record the first command will take 5-10
+minutes, the later 1-2 hours.
 
 ## build
 
@@ -154,16 +171,19 @@ mvn clean install
 
 ### ... or download
 
-The released versions of the software is available from Maven Central repository. The stable releases (currently 0.1)
-is available from all Maven repos, the developer version (0.5.0) is avalable from the [Sonatype Maven repository]
-(https://oss.sonatype.org/content/repositories/snapshots/de/gwdg/metadataqa/metadata-qa-marc/0.5.0/). What you need
-to select is the file `metadata-qa-marc-0.5.0-jar-with-dependencies.jar`. 
+The released versions of the software is available from Maven Central
+repository. The stable releases (currently 0.1) is available from all Maven
+repos, the developer version (0.5.0) is avalable from the 
+[Sonatype Maven repository]
+(https://oss.sonatype.org/content/repositories/snapshots/de/gwdg/metadataqa/metadata-qa-marc/0.5.0/).
+What you need to select is the file `metadata-qa-marc-0.5.0-jar-with-dependencies.jar`. 
 
-Be aware that no automation exists for creating a current developer version as nightly build, so there is a chance
-that the latest features are not available in this version. If you want to use the latest version, do build it.
+Be aware that no automation exists for creating a current developer version as
+nightly build, so there is a chance that the latest features are not available
+in this version. If you want to use the latest version, do build it.
 
-Since the jar file doesn't contain the helper scripts, you might also consider downloading them from this GitHub 
-repository:
+Since the jar file doesn't contain the helper scripts, you might also consider
+downloading them from this GitHub repository:
 
 ```bash
 wget https://raw.githubusercontent.com/pkiraly/metadata-qa-marc/master/common-script
@@ -179,13 +199,14 @@ You should adjust `common-script` to point to the jar file you just downloaded.
 <a name="helper-scripts"></a>
 ### Helper scripts
 
-The tool comes with some bash helper scripts to run all these with default values. The generic scripts locate in the
-root directory and library specific configuration like scripts exist in the `catalogues` directory. You can find
-predefined scripts for several library catalogues (if you want to run it, first you have to configure it). All 
-these scrips mainly contain configuration and then it calls the central `common-script` which contains the functions.
+The tool comes with some bash helper scripts to run all these with default
+values. The generic scripts locate in the root directory and library specific
+configuration like scripts exist in the `catalogues` directory. You can find
+predefined scripts for several library catalogues (if you want to run it, first
+you have to configure it). All these scrips mainly contain configuration and
+then it calls the central `common-script` which contains the functions.
 
 If you do not want to 
-
 
 #### run
 
@@ -214,7 +235,9 @@ The following commands are supported:
 * `index` -- runs indexing with Solr
 * `sqlite` -- import tables to SQLite
 * `export-schema-files` -- export schema files
-* `all-analyses` this runs the following commands in one step: validate, completeness, classifications, authorities, tt_completeness, serial_score, functional_analysis
+* `all-analyses` this runs the following commands in one step: validate,
+  completeness, classifications, authorities, tt_completeness, serial_score,
+  functional_analysis
 * `all-solr` -- run all indexing tasks
 * `all` -- run all tasks
 
@@ -256,27 +279,34 @@ exit 0
 ```
 Three variables are important here:
 
-1. `NAME` is a name for the output directory. The analysis result will land under $BASE_OUTPUT_DIR/$NAME directory
-2. `MARC_DIR` is the location of MARC files. All the files should be in the same direcory
+1. `NAME` is a name for the output directory. The analysis result will land
+   under $BASE_OUTPUT_DIR/$NAME directory
+2. `MARC_DIR` is the location of MARC files. All the files should be in the
+   same direcory
 3. `MASK` is a file mask, such as *.mrc or *.marc
 
-You can add here any other parameters this document mentioned at the description of individual command, wrapped in 
-TYPE_PARAMS variable e.g. for the Deutche Nationalbibliothek's config file, one can find this
+You can add here any other parameters this document mentioned at the description
+of individual command, wrapped in TYPE_PARAMS variable e.g. for the Deutche
+Nationalbibliothek's config file, one can find this
 
 ```bash
 TYPE_PARAMS="--marcVersion DNB --marcxml"
 ```
 
-This line sets the DNB's MARC version (to cover fields defined within DNB's MARC version), and XML as input format.
+This line sets the DNB's MARC version (to cover fields defined within DNB's
+MARC version), and XML as input format.
 
 The `./metadata-qa.sh` script has the following options:
 * 
-* `-n`, `--name`: the name of the catalogue (default is metadata-qa, this will be the name of the output directory)
+* `-n`, `--name`: the name of the catalogue (default is metadata-qa, this will
+  be the name of the output directory)
 * `-p`, `--params`: the parameters to pass to the individual commands
 * `-m`, `--mask`: a file mask, such as '*.mrc'
-* `-c`, `--catalogue`: an extra name of the catalogue, different than the `name` parameter. Used mainly for the web UI
-* `-v`, `--version`: a version number of the MARC catalogue (typically a date string, such as YYYY-MM-DD). It is
-  useful is you would like to compare changes of metadata quality
+* `-c`, `--catalogue`: an extra name of the catalogue, different than the
+  `name` parameter. Used mainly for the web UI
+* `-v`, `--version`: a version number of the MARC catalogue (typically a date
+  string, such as YYYY-MM-DD). It is useful is you would like to compare
+  changes of metadata quality
 * `-d`, `--input-dir`: a subdirectory of BASE_INPUT_DIR where the MARC files sit
 
 ## Detailed instructions
@@ -1005,15 +1035,15 @@ Management functions
   tracing).
 
 ```bash
-java -cp $JAR de.gwdg.metadataqa.marc.cli.FunctionalAnalysis [options] [file]
+java -cp $JAR de.gwdg.metadataqa.marc.cli.FunctionalAnalysis [options] <file>
 ```
 with a bash script
 ```bash
-./functional-analysis [options] [file]
+./functional-analysis [options] <file>
 ```
 or
 ```bash
-catalogues/[catalogue].sh functional-analysis
+catalogues/<catalogue>.sh functional-analysis
 ```
 or
 ```bash
@@ -1024,24 +1054,31 @@ options:
 * [general parameters](#general-parameters)
 
 Output files:
-* `functional-analysis.csv`: the list of the 12 functions and their average count (number of support fields), and
-  average score (percentage of all supporting fields available in the record)
-* `functional-analysis-mapping.csv`: the mapping of functions and data elements
-* `functional-analysis-histogram.csv`: the histogram of scores and count of records for each functions (e.g. there
-  are _x_ number of records which has _j_ score for function _a_)
+* `functional-analysis.csv`: the list of the 12 functions and their average
+  count (number of support fields), and average score (percentage of all
+  supporting fields available in the record)
+* `functional-analysis-mapping.csv`: the mapping of functions and data
+  elements
+* `functional-analysis-histogram.csv`: the histogram of scores and count of
+  records for each functions (e.g. there are _x_ number of records which has
+  _j_ score for function _a_)
 
 ### Field frequency distribution
 
-This analysis reveals the relative importance of some fields. Pareto's distribution is a kind of power law distribution,
-and Pareto-rule of 80-20 rules states that 80% of outcomes are due to 20% of causes. In catalogue outcome is the total
-occurences of the data element, causes are individual data elements. In catalogues some data elements occurs much 
-more frequently then others. This analyses highlights the distibution of the data elements: whether it is similar to 
-Pareto's distribution or not.
+This analysis reveals the relative importance of some fields. Pareto's
+distribution is a kind of power law distribution, and Pareto-rule of 80-20
+rules states that 80% of outcomes are due to 20% of causes. In catalogue
+outcome is the total occurences of the data element, causes are individual
+data elements. In catalogues some data elements occurs much more frequently
+then others. This analyses highlights the distibution of the data elements:
+whether it is similar to Pareto's distribution or not.
 
-It produces charts for each document type and one for the whole catalogue showing the field frequency patterns.
-Each chart shows a line which is the function of field frequency: on the X-axis you can see the subfields ordered 
-by the frequency (how many times a given subfield occurred in the whole catalogue). They are ordered by frequency
-from the most frequent top 1% to the least frequent 1% subfields. The Y-axis represents the cumulative occurrence 
+It produces charts for each document type and one for the whole catalogue
+showing the field frequency patterns. Each chart shows a line which is the
+function of field frequency: on the X-axis you can see the subfields ordered
+by the frequency (how many times a given subfield occurred in the whole
+catalogue). They are ordered by frequency from the most frequent top 1% to the
+least frequent 1% subfields. The Y-axis represents the cumulative occurrence
 (from 0% to 100%).
 
 Before running it you should first run the completeness calculation.
@@ -1060,11 +1097,12 @@ options:
 
 ### Generating cataloguing history chart
 
-This analysis is based on Benjamin Schmidt's blog post [A brief visual history of MARC cataloging at the Library of 
-Congress.](http://sappingattention.blogspot.com/2017/05/a-brief-visual-history-of-marc.html) (Tuesday, May 16, 2017).
+This analysis is based on Benjamin Schmidt's blog post [A brief visual history
+of MARC cataloging at the Library of Congress.](http://sappingattention.blogspot.com/2017/05/a-brief-visual-history-of-marc.html) (Tuesday, May 16, 2017).
 
-It produces a chart where the Y-axis is based on the "date entered on file" data element that indicates the date the 
-MARC record was created (008/00-05), the X-axis is based on "Date 1" element (008/07-10).
+It produces a chart where the Y-axis is based on the "date entered on file"
+data element that indicates the date the MARC record was created (008/00-05),
+the X-axis is based on "Date 1" element (008/07-10).
 
 Usage:
 ```bash
@@ -1080,10 +1118,12 @@ options:
 
 ### Import tables to SQLite
 
-This is just a helper function which imports the results of validation into SQLite3 database.
+This is just a helper function which imports the results of validation into
+SQLite3 database.
 
-The prerequisite of this step is to run validation first, since it uses the files produced there. If you run validation 
-with catalogues/[catalogue].sh or ./metadata-qa.sh scripts, this importing step is already covered there.
+The prerequisite of this step is to run validation first, since it uses the
+files produced there. If you run validation with `catalogues/<catalogue>.sh` or
+`./metadata-qa.sh scripts`, this importing step is already covered there.
 
 Usage:
 ```bash
@@ -1098,7 +1138,8 @@ options:
 * [general parameters](#general-parameters)
 
 Output:
-* `qa_catalogue.sqlite`: the SQLite3 database with 3 tables: `issue_details`, `issue_groups`, and `issue_summary`.
+* `qa_catalogue.sqlite`: the SQLite3 database with 3 tables: `issue_details`,
+`issue_groups`, and `issue_summary`.
 
 
 ### Indexing MARC records with Solr
@@ -1116,7 +1157,8 @@ Set autocommit the following way in solrconfig.xml (inside Solr):
       <maxTime>${solr.autoSoftCommit.maxTime:-1}</maxTime>
     </autoSoftCommit>
 ```
-It needs because in the library's code there is no commit, which makes the parallel indexing faster.
+It needs because in the library's code there is no commit, which makes the
+parallel indexing faster.
 
 In schema.xml (or in Solr web interface):
 ```XML
@@ -1161,15 +1203,20 @@ or
 
 options:
 * [general parameters](#general-parameters)
-* `-s [Solr URL]`, `--solrUrl [Solr URL]`: the URL of Solr server
-* `-c`, `--doCommit`: send commits to Solr regularly (not needed if you set up Solr the above described way)
-* `-t [Solr field type]`, `--solrFieldType [Solr field type]`: a Solr field type, one of the predefined values. See 
-  examples below.
+* `-s <URL>`, `--solrUrl <URL>`: the URL of Solr server
+* `-c`, `--doCommit`: send commits to Solr regularly (not needed if you set up
+  Solr the above described way)
+* `-t <type>`, `--solrFieldType <type>`: a Solr field type, one of the
+  predefined values. See examples below.
    * `marc-tags` - the field names are MARC codes
-   * `human-readable` - the field names are [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/)
+   * `human-readable` - the field names are 
+     [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/)
    * `mixed` - the field names are mixed of the aboves (e.g. `245a_Title_mainTitle`)
 
-The Solr URL is something like this: http://localhost:8983/solr/loc. It uses the [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/), in which encoded values are decoded to human readble values (e.g. Leader/5 = "c" becames Leader_recordStatus = "Corrected or revised") so a record looks like this:
+The Solr URL is something like this: http://localhost:8983/solr/loc. It uses
+the [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/),
+in which encoded values are decoded to human readble values (e.g. Leader/5 = "c"
+becames Leader_recordStatus = "Corrected or revised") so a record looks like this:
 
 ```JSON
 {
@@ -1308,15 +1355,18 @@ The Solr URL is something like this: http://localhost:8983/solr/loc. It uses the
 "300a_PhysicalDescription_extent_ss":["141 p."],
 ```
 
-I have created a distinct project [metadata-qa-marc-web](https://github.com/pkiraly/metadata-qa-marc-web), which provised a single page web application to build a facetted search interface for this type of Solr index.
+I have created a distinct project [metadata-qa-marc-web](https://github.com/pkiraly/metadata-qa-marc-web),
+which provised a single page web application to build a facetted search
+interface for this type of Solr index.
 
 ### Indexing MARC JSON records with Solr
 
 ```bash
-java -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MarcJsonToSolr [Solr url] [MARC JSON file]
+java -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MarcJsonToSolr <Solr url> <MARC JSON file>
 ```
 
-The MARC JSON file is a JSON serialization of binary MARC file. See more the [MARC Pipeline](https://github.com/pkiraly/marc-pipeline/) project.
+The MARC JSON file is a JSON serialization of binary MARC file. See more the
+[MARC Pipeline](https://github.com/pkiraly/marc-pipeline/) project.
 
 ## Export mapping table
 
@@ -1341,9 +1391,14 @@ options:
 * [general parameters](#general-parameters)
 * `-c`, `--withSubfieldCodelists`: with subfield codelists
 * `-s`, `--withSelfDescriptiveCode`: with self-descriptive codes
-* `-t`, `--solrFieldType [type]`: type of Solr fields, could be one of `marc-tags`, `human-readable`, or `mixed`
-* `-f`, `--withFrbrFunctions`: with FRBR functions (see Tom Delsey: [Functional analysis of the MARC 21 bibliographic and holdings formats.](https://www.loc.gov/marc/marc-functional-analysis/original_source/analysis.pdf) Tech. report, 2nd revision. Library of Congress, 2003.)
-* `-l`, `--withCompilanceLevel`: with compilance levels (national, minimal) (see [National Level Full and Minimal Requirements.](https://www.loc.gov/marc/bibliographic/nlr/nlr.html) Library of Congress, 1999.)
+* `-t <type>`, `--solrFieldType <type>`: type of Solr fields, could be one of
+  `marc-tags`, `human-readable`, or `mixed`
+* `-f`, `--withFrbrFunctions`: with FRBR functions (see Tom Delsey: 
+  [Functional analysis of the MARC 21 bibliographic and holdings formats.](https://www.loc.gov/marc/marc-functional-analysis/original_source/analysis.pdf)
+  Tech. report, 2nd revision. Library of Congress, 2003.)
+* `-l`, `--withCompilanceLevel`: with compilance levels (national, minimal)
+  (see [National Level Full and Minimal Requirements.](https://www.loc.gov/marc/bibliographic/nlr/nlr.html)
+  Library of Congress, 1999.)
 
 An example output:
 ```json
@@ -1422,7 +1477,9 @@ java -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MappingToHtml > mapping.html
 
 ## Extending the functionalities
 
-The project is available from Maven Central, the central respository of open source Java projects as jar files. If you want to use it in your Java or Scala application, put this code snippet into the list of dependencies:
+The project is available from Maven Central, the central respository of open
+source Java projects as jar files. If you want to use it in your Java or Scala
+application, put this code snippet into the list of dependencies:
 
 pom.xml
 
@@ -1440,11 +1497,13 @@ build.sbt
 libraryDependencies += "de.gwdg.metadataqa" % "metadata-qa-marc" % "0.5.0"
 ```
 
-or you can directly download the jars from [http://repo1.maven.org](http://repo1.maven.org/maven2/de/gwdg/metadataqa/metadata-qa-marc/0.5.0/)
+or you can directly download the jars from
+[http://repo1.maven.org](http://repo1.maven.org/maven2/de/gwdg/metadataqa/metadata-qa-marc/0.5.0/)
 
 ## User interface
 
-There is a web application for displaying and navigation through the output of the tool (written in PHP):
+There is a web application for displaying and navigation through the output of
+the tool (written in PHP):
 
 https://github.com/pkiraly/metadata-qa-marc-web/
 
@@ -1501,7 +1560,8 @@ There are two more datasource worth mention, however they do not provide MARC re
 
 The tool provides two levels of customization: 
 
-* project specific tags can be defined in their own Java package, such as these classes for Gent data:
+* project specific tags can be defined in their own Java package, such as these
+  classes for Gent data:
 https://github.com/pkiraly/metadata-qa-marc/tree/master/src/main/java/de/gwdg/metadataqa/marc/definition/tags/genttags
 * for existing tags one can use the API described below
 
@@ -1555,7 +1615,9 @@ public class Tag024 extends DataFieldDefinition {
 DataFieldDefinition::putVersionSpecificSubfields(MarcVersion, List<SubfieldDefinition>)
 ```
 
-SubfieldDefinition contains a definition of a subfield. You can construct it with three String parameters: a code, a label and a cardinality code which denotes whether the subfield can be repeatable ("R") or not ("NR").
+SubfieldDefinition contains a definition of a subfield. You can construct it
+with three String parameters: a code, a label and a cardinality code which
+denotes whether the subfield can be repeatable ("R") or not ("NR").
 
 example:
 
@@ -1615,8 +1677,11 @@ public class Tag020 extends DataFieldDefinition {
 * [British Library](https://www.bl.uk/), United Kingdom
 * [Országgyűlési Könyvtár](https://www.ogyk.hu/en), Hungary
 * [Studijní a vědecká knihovna Plzeňského kraje](https://svkpk.cz/), Czech Repoblic
+* [Royal Library of Belgium (KBR)](https://kbr.be/), Belgium
+* [Gemeinsamer Bibliotheksverbund (GBV)](https://www.gbv.de/informationen/Verbund/), Germany
 
-If you use this tool as well, please contact me: pkiraly (at) gwdg (dot) de. I really like to hear about your use case and ideas.
+If you use this tool as well, please contact me: pkiraly (at) gwdg (dot) de. I
+really like to hear about your use case and ideas.
 
 #### Appendix IV: Special build process
 

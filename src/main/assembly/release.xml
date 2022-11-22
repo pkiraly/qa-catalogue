@@ -24,6 +24,7 @@
                 <include>pareto/frequency-range.R</include>
                 <include>pareto/frequency-range-per-types.R</include>
 
+                <include>record-patterns/record-patterns.R</include>
                 <include>record-patterns/top-fields.R</include>
 
                 <include>serial-score/serial-score-histogram.R</include>
@@ -34,6 +35,9 @@
                 <include>sqlite/modify-tables.sql</include>
                 <include>sqlite/normalize-issue-details.php</include>
                 <include>sqlite/qa_catalogue.sqlite.sql</include>
+
+                <include>timeline/timeline.R</include>
+                <include>timeline/timeline.sh</include>
 
                 <include>tt-histogram/tt-histogram.php</include>
                 <include>tt-histogram/tt-histogram.R</include>

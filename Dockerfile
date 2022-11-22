@@ -4,7 +4,7 @@ LABEL maintainer="Péter Király <pkiraly@gwdg.de>, Ákos Takács <rimelek@rimel
 
 LABEL description="QA catalogue - a metadata quality assessment tool for MARC based library catalogues."
 
-ARG QA_CATALOGUE_VERSION=0.5.0
+ARG QA_CATALOGUE_VERSION=0.6.0
 ARG DEBIAN_FRONTEND=noninteractive
 ARG SMARTY_VERSION=3.1.44
 ARG SOLR_VERSION=8.11.1
@@ -83,7 +83,6 @@ RUN cd /opt \
  && chmod a+w -R /var/www/html/metadata-qa/libs/_smarty/templates_c/ \
  && sed -i.bak 's,</VirtualHost>,        RedirectMatch ^/$ /metadata-qa/\n        <Directory /var/www/html/metadata-qa>\n                Options Indexes FollowSymLinks MultiViews\n                AllowOverride All\n                Order allow\,deny\n                allow from all\n                DirectoryIndex index.php index.html\n        </Directory>\n</VirtualHost>,' /etc/apache2/sites-available/000-default.conf \
  && echo "\nWEB_DIR=/var/www/html/metadata-qa/\n" >> /opt/metadata-qa-marc/common-variables
-
 
 # install Solr
 RUN apt-get update \

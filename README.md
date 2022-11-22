@@ -291,12 +291,13 @@ export JAR=target/metadata-qa-marc-0.6.0-jar-with-dependencies.jar
 
 Most of the analyses uses the following general parameters
 
-* `-F [schema type]`, `--schemaType [schema type]` metadata schema type. The supported types are:
+* `-F <type>`, `--schemaType <type>` metadata schema type. The supported types are:
   * `MARC21`
   * `PICA`
-  * `UNIMARC` (assessment of UNIMARC records are not yet supported, this parameter value is only reserved for future usage)
-* `-m [MARC version]`, `--marcVersion [MARC version]` specifies
-  a MARC version. Currently, the supported versions are:
+  * `UNIMARC` (assessment of UNIMARC records are not yet supported, this
+    parameter value is only reserved for future usage)
+* `-m <version>`, `--marcVersion <version>` specifies a MARC version.
+  Currently, the supported versions are:
   * `MARC21`, Library of Congress MARC21
   * `DNB`, the Deuthche Nationalbibliothek's MARC version
   * `OCLC`, the OCLCMARC
@@ -307,8 +308,8 @@ Most of the analyses uses the following general parameters
   * `BL`, fields available at the British Library
   * `MARC21NO`, fields available at the MARC21 profile for Norwegian public libraries
   * `UVA`, fields available at the University of Amsterdam Library
-  * `B3KAT`, fields available at the B3Kat union catalogue of Bibliotheksverbundes Bayern (BVB)
-     and Kooperativen Bibliotheksverbundes Berlin-Brandenburg (KOBV)
+  * `B3KAT`, fields available at the B3Kat union catalogue of Bibliotheksverbundes
+    Bayern (BVB) and Kooperativen Bibliotheksverbundes Berlin-Brandenburg (KOBV)
   * `KBR`, fields available at KBR, the national library of Belgium
 * `-n`, `--nolog` do not display log messages
 * parameters to limit the validation:
@@ -340,37 +341,48 @@ Most of the analyses uses the following general parameters
   * COMPUTER_FILES
   * MIXED_MATERIALS
 * parameters to fix known issues before any analyses:
-  * `-q`, `--fixAlephseq` sometimes ALEPH export contains '^' characters instead of spaces in control fields (006, 007, 
-    008). This flag replaces them with spaces before the validation. It might occur in any input format.
-  * `-X`, `--fixAlma` sometimes Alma export contains '#' characters instead of spaces in control fields (006, 007, 008).
-    This flag replaces them with spaces before the validation. It might occur in any input format.
-  * `-G`, `--fixKbr` KBR's export contains '#' characters instead spaces in control fields (006, 007, 008). 
-    This flag replaces them with spaces before the validation. It might occur in any input format.
-* `-f [format]`, `--marcFormat [format]` The input format. Possible values are
+  * `-q`, `--fixAlephseq` sometimes ALEPH export contains '^' characters
+    instead of spaces in control fields (006, 007, 008). This flag replaces
+    them with spaces before the validation. It might occur in any input format.
+  * `-X`, `--fixAlma` sometimes Alma export contains '#' characters instead of
+    spaces in control fields (006, 007, 008). This flag replaces them with
+    spaces before the validation. It might occur in any input format.
+  * `-G`, `--fixKbr` KBR's export contains '#' characters instead spaces in
+    control fields (006, 007, 008). This flag replaces them with spaces before
+    the validation. It might occur in any input format.
+* `-f <format>`, `--marcFormat <format>` The input format. Possible values are
   * `ISO`: Binary (ISO 2709)
   * `XML`: MARCXML (shortcuts: `-x`, `--marcxml`)
   * `ALEPHSEQ`: Alephseq (shortcuts: `-p`, `--alephseq`)
-  * `LINE_SEPARATED`: Line separated binary MARC where each line contains one record) (shortcuts: `-y`, 
-    `--lineSeparated`)
-  * `MARC_LINE`: MARC Line line separated format i.e. it is a text file, where each line is a distinct field, the
-    same way as MARC records are usually displayed in the MARC21 standard documentation.
+  * `LINE_SEPARATED`: Line separated binary MARC where each line contains one
+    record) (shortcuts: `-y`, `--lineSeparated`)
+  * `MARC_LINE`: MARC Line line separated format i.e. it is a text file, where
+    each line is a distinct field, the same way as MARC records are usually
+    displayed in the MARC21 standard documentation.
   * `MARCMAKER`: MARCMaker format
-  * `PICA_PLAIN`: PICA plain (https://format.gbv.de/pica/plain) is a serialization format, that contains each fields in distinct row.
-  * `PICA_NORMALIZED`: normalized PICA (https://format.gbv.de/pica/normalized) is a serialization format where each line is a separate record (by bytecode 0A). Fields are terminated by bytecode 1E, and subfields are introduced by bytecode 1F.
-* `-t [directory]`, `--outputDir [directory]` specifies the output directory where the files will be created
-* `-r`, `--trimId` remove spaces from the end of record IDs in the output files (some library system add padding 
+  * `PICA_PLAIN`: PICA plain (https://format.gbv.de/pica/plain) is a 
+    serialization format, that contains each fields in distinct row.
+  * `PICA_NORMALIZED`: normalized PICA (https://format.gbv.de/pica/normalized)
+    is a serialization format where each line is a separate record (by bytecode
+    `0A`). Fields are terminated by bytecode 1E, and subfields are introduced
+    by bytecode `1F`.
+* `-t <directory>`, `--outputDir <directory>` specifies the output directory
+  where the files will be created
+* `-r`, `--trimId` remove spaces from the end of record IDs in the output files
+  (some library system add padding 
   spaces around field value 001 in exported files)
-* `-g [encoding]`, `--defaultEncoding  [encoding]` specify a default encoding of the records. Possible values:
+* `-g <encoding>`, `--defaultEncoding <encoding>` specify a default encoding of
+  the records. Possible values:
   * `ISO-8859-1` or `ISO8859_1` or `ISO_8859_1`
   * `UTF8` or `UTF-8`
   * `MARC-8` or `MARC8`
-* `-s [datasource]`, `--dataSource [datasource]` specify the type of data 
+* `-s <datasource>`, `--dataSource <datasource>` specify the type of data 
   source. Possible values:
   * `FILE`: reading from file
   * `STREAM`: reading from a Java data stream. It is not usable if you use the
     tool from the command line, only if 
     you use it with its API.
-* `-I [configuration]`, `--allowableRecords [configuration]` if set, criteria
+* `-I <configuration>`, `--allowableRecords <configuration>` if set, criteria
   which allows analysis of records. If the record does not met the criteria, it
   will be excluded. An individual criterium should be formed as a MarcSpec (for
   MARC21 records) or PicaFilter (for PICA records). Multiple criteria might be 
@@ -381,50 +393,51 @@ Most of the analyses uses the following general parameters
   of which is problematic among multiple scripts, one can apply Base64 encoding.
   In this case add `base64:` prefix to the parameters, such as
   `base64:"$(echo '002@.0 !~ "^L" && 002@.0 !~ "^..[iktN]" && (002@.0 !~ "^.v" || 021A.a?)' | base64 -w 0)`.
+* PICA related parameters
+  * `-B <path>`, `--picaIdField <path>` the record identifier 
+    subfield of PICA records. Deafult is `003@$0`.
+  * `-D <char>`, `--picaSubfieldSeparator <char>` the PICA subfield separator.
+    Deafult is `$`.
+  * `-E <file>`, `--picaSchemaFile <file>` an Avram schema file, which describes
+    the structure of PICA records
+  * `-G <path>`, `--picaRecordType <path>` The PICA subfield which stores the
+    record type information. Deafult is `002@$0`.
 
 The last argument of the commands are a list of files. It might contain any 
 wildcard the operating system supports ('*', '?', etc.).
 
 #### PICA related general parameters
 
-These parameters areapplicable only for PICA records.
-
-* `-B [field name]`, `--picaIdField  [field name]` the record identifier 
-  subfield of PICA records. Deafult is `003@$0`.
-* `-D [char]`, `--picaSubfieldSeparator [char]` the PICA subfield separator.
-  Deafult is `$`.
-* `-E [file]`, `--picaSchemaFile [file]` an Avram schema file, which describes
-  the structure of PICA records
-* `-G`, `--picaRecordType` The PICA subfield which stores the record type
-  information. Deafult is `002@$0`.
 
 ### Validating MARC records
 
-It validates each records against the MARC21 standard, including those local defined field, which are selected by 
-the MARC version parameter. 
+It validates each records against the MARC21 standard, including those local
+defined field, which are selected by the MARC version parameter. 
 
-The issues are classified into the following categories: record, control field, data field, indicator, subfield and 
-their subtypes.
+The issues are classified into the following categories: record, control field,
+data field, indicator, subfield and their subtypes.
 
-There is an uncertainty in the issue detection. Almost all library catalogues have fields, which are not part of the
-MARC standard, neither that of their documentation about the locally defined fields (these documents are rarely 
-available publicly, and even if they are available sometimes they do not cover all fields). So if the tool meets 
-a field which are undefined, it is impossible to decide whether it is valid or invalid in a particular context. 
-So in some places the tool reflects this uncertainty and provides two calculations, one which handles these fields
-as error, and another which handles these as valid fields.
+There is an uncertainty in the issue detection. Almost all library catalogues
+have fields, which are not part of the MARC standard, neither that of their
+documentation about the locally defined fields (these documents are rarely
+available publicly, and even if they are available sometimes they do not cover
+all fields). So if the tool meets a field which are undefined, it is impossible
+to decide whether it is valid or invalid in a particular context. So in some
+places the tool reflects this uncertainty and provides two calculations, one
+which handles these fields as error, and another which handles these as valid fields.
 
 Usage:
 
 ```bash
-java -cp $JAR de.gwdg.metadataqa.marc.cli.Validator [options] [file]
+java -cp $JAR de.gwdg.metadataqa.marc.cli.Validator [options] <file>
 ```
 or with a bash script
 ```bash
-./validator [options] [file]
+./validator [options] <file>
 ```
 or
 ```bash
-catalogues/[catalogue].sh validate
+catalogues/<catalogue>.sh validate
 ```
 or
 ```bash
@@ -438,20 +451,24 @@ options:
   * `-s`, `--summary`: creating a summary report instead of record level reports
   * `-h`, `--details`: provides record level details of the issues
 * output parameters:
-  * `-g [file name]`, `--summaryFileName [file name]`: the name of summary report the program produces. The file 
-    provides a summary of issues,  such as the number of instance and number of records having the particular issue)
-  * `-f [file name]`, `--detailsFileName [file name]`: the name of report the program produces. Default is 
-    `validation-report.txt`. If you use "stdout", it won't create file, but put results into the standard output.
-  * `-r [format]`, `--format [format]`: format specification of the output. Possible values:
+  * `-g <file>`, `--summaryFileName <file>`: the name of summary report the
+    program produces. The file provides a summary of issues,  such as the
+    number of instance and number of records having the particular issue)
+  * `-f <file>`, `--detailsFileName <file>`: the name of report the program
+    produces. Default is `validation-report.txt`. If you use "stdout", it won't
+    create file, but put results into the standard output.
+  * `-r <format>`, `--format <format>`: format specification of the output. Possible values:
     * `text` (default), 
     * `tab-separated` or `tsv`,
     * `comma-separated` or `csv`
-* `-w`, `--emptyLargeCollectors`: the output files are created during the process and not only at the end of it. It
-  helps in memory  management if the input is large and it has lots of errors, on the other hand the output file
+* `-w`, `--emptyLargeCollectors`: the output files are created during the
+  process and not only at the end of it. It helps in memory  management if the
+  input is large and it has lots of errors, on the other hand the output file
   will be segmented, which should be handled after the process.
-* `-t`, `--collectAllErrors`: collect all errors (useful only for validating small number of records). Default is 
-  turned off.
-* `-i`, `--ignorableIssueTypes`: comma separated list of issue types not to collect. The valid values are:
+* `-t`, `--collectAllErrors`: collect all errors (useful only for validating
+  small number of records). Default is turned off.
+* `-i <types>`, `--ignorableIssueTypes <types>`: comma separated list of issue
+  types not to collect. The valid values are:
   * `undetectableType`: undetectable type
   * `invalidLinkage`: invalid linkage
   * `ambiguousLinkage`: ambiguous linkage
@@ -578,27 +595,33 @@ awk -F "\t" '{print $1}' validation-report.txt | uniq -c | wc -l
 ### Display one MARC record, or extract data elements from MARC records
 
 ```bash
-java -cp $JAR de.gwdg.metadataqa.marc.cli.Formatter [options] [file]
+java -cp $JAR de.gwdg.metadataqa.marc.cli.Formatter [options] <file>
 ```
 or with a bash script
 ```bash
-./formatter [options] [file]
+./formatter [options] <file>
 ```
 
 options:
 * [general parameters](#general-parameters)
 * `-f`, `--format`: the name of the format (at time of writing there is no any)
-* `-c [count number]`, `-countNr [count number]`: count number of the record (e.g. 1 means the first record)
-* `-s [path=query]`, `-search [path=query]`: print records matching the query. The query part is the content of the 
-  element. The path should be one of the following types:
+* `-c <number>`, `-countNr <number>`: count number of the record (e.g. 1 means
+  the first record)
+* `-s [path=query]`, `-search [path=query]`: print records matching the query.
+  The query part is the content of the element. The path should be one of the
+  following types:
   * control field tag (e.g. `001`, `002`, `003`)
   * control field position (e.g. `Leader/0`, `008/1-2`)
   * data field (`655\$2`, `655\$ind1`)
   *  named control field position (`tag006book01`)
-* `-l [selector]`, `--selector [selector]`: one or more MarcSpec selectors, separated by ';' (semicolon) character
-* `-w`, `--withId`: the generated CSV should contain record ID as first field (default is turned off)
-* `-p [separator]`, `--separator [separator]`: separator between the parts (default: TAB)
-* `-e [file name]`, `--fileName [file name]`: the name of report the program produces (default: `extracted.csv`)
+* `-l <selector>`, `--selector <selector>`: one or more MarcSpec or PICA Filter
+  selectors, separated by ';' (semicolon) character
+* `-w`, `--withId`: the generated CSV should contain record ID as first field
+  (default is turned off)
+* `-p <separator>`, `--separator <separator>`: separator between the parts
+  (default: TAB)
+* `-e <file>`, `--fileName <file>`: the name of report the program produces
+  (default: `extracted.csv`)
 
 The output of displaying a single MARC record is something like this one:
 
@@ -660,15 +683,15 @@ Counts basic statistics about the data elements available in the catalogue.
 Usage:
 
 ```bash
-java -cp $JAR de.gwdg.metadataqa.marc.cli.Completeness [options] [file]
+java -cp $JAR de.gwdg.metadataqa.marc.cli.Completeness [options] <file>
 ```
 or with a bash script
 ```bash
-./completeness [options] [file]
+./completeness [options] <file>
 ```
 or
 ```bash
-catalogues/[catalogue].sh completeness
+catalogues/<catalogue>.sh completeness
 ```
 or
 ```bash
@@ -678,31 +701,36 @@ or
 options:
 
 * [general parameters](#general-parameters)
-* `-r [format]`, `--format [format]`: format specification of the output. Possible values: 
+* `-r <format>`, `--format <format>`: format specification of the output.
+  Possible values are: 
   * `tab-separated` or `tsv`,
   * `comma-separated` or `csv`
 
 Output files:
 
-* `marc-elements.csv`: is list of MARC elements (field$subfield) and their occurrences in two ways: 
+* `marc-elements.csv`: is list of MARC elements (field$subfield) and their
+  occurrences in two ways: 
   * `number-of-record`: means how many records they are available,
-  * `number-of-instances`: means how many instances are there in total (some records might contain more than one 
-  instances, while others don't have them at all)
-* `libraries.csv`: list the content of the 852$a (it is useful only if the catalog is an aggregated catalog)
+  * `number-of-instances`: means how many instances are there in total (some
+    records might contain more than one instances, while others don't have them
+    at all)
+* `libraries.csv`: list the content of the 852$a (it is useful only if the
+  catalog is an aggregated catalog)
 
 ### Calculating Thompson-Traill completeness
 
-Kelly Thompson and Stacie Traill recently published their approach to calculate the quality of ebook records coming
-from different data sources. Their article is _Implementation of the scoring algorithm described in Leveraging Python
-to improve ebook metadata selection, ingest, and management._ In Code4Lib Journal, Issue 38, 2017-10-18.
-http://journal.code4lib.org/articles/12828
+Kelly Thompson and Stacie Traill recently published their approach to calculate
+the quality of ebook records coming from different data sources. Their article
+is _Implementation of the scoring algorithm described in Leveraging Python to
+improve ebook metadata selection, ingest, and management._ In Code4Lib Journal,
+Issue 38, 2017-10-18. http://journal.code4lib.org/articles/12828
 
 ```bash
-java -cp $JAR de.gwdg.metadataqa.marc.cli.ThompsonTraillCompleteness [options] [file]
+java -cp $JAR de.gwdg.metadataqa.marc.cli.ThompsonTraillCompleteness [options] <file>
 ```
 or with a bash script
 ```bash
-./tt-completeness [options] [file]
+./tt-completeness [options] <file>
 ```
 or
 ```bash
@@ -715,7 +743,8 @@ or
 
 options:
 * [general parameters](#general-parameters)
-* `-f [file name]`, `--fileName [file name]`: the name of report the program produces. Default is `tt-completeness.csv`.
+* `-f <file>`, `--fileName <file>`: the name of report the program produces.
+  Default is `tt-completeness.csv`.
 
 It produces a CSV file like this:
 
@@ -735,27 +764,33 @@ RDA,total
 
 This analysis is the implementation of the following paper:
 
-Emma Booth (2020) _Quality of Shelf-Ready Metadata. Analysis of survey responses and recommendations for suppliers_ 
-Pontefract (UK): National Acquisitions Group, 2020. p 31.
+Emma Booth (2020) _Quality of Shelf-Ready Metadata. Analysis of survey
+responses and recommendations for suppliers_ Pontefract (UK): National
+Acquisitions Group, 2020. p 31.
 https://nag.org.uk/wp-content/uploads/2020/06/NAG-Quality-of-Shelf-Ready-Metadata-Survey-Analysis-and-Recommendations_FINAL_June2020.pdf 
 
-The main purpose of the report is to highlight which fields of the printed and electronic book records are important
-when the records are coming from different suppliers. 50 libraries participated in the survey, each selected which
-fields are important to them. The report listed those fields which gets the highest scores.
+The main purpose of the report is to highlight which fields of the printed and
+electronic book records are important when the records are coming from
+different suppliers. 50 libraries participated in the survey, each selected
+which fields are important to them. The report listed those fields which gets
+the highest scores.
 
-The current calculation based on this list of essentian fields. If all data elements specified are available in the
-record it gets the full scrore, if only some of them, it gets a proportional score. E.g. under 250 (edition statement)
-there are two subfields. If both are available, it gets score 44. If only one of them, it gets the half of it, 22, and
-if none, it gets 0. For 1XX,, 6XX, 7XX and 8XX the record gets the full scores if at least one of those fields (with
-subfield $a) is available. The total score became the average. The theoretical maximum score would be 28.44, which
-could be accessed if all the data elements are available in the record.
+The current calculation based on this list of essentian fields. If all data
+elements specified are available in the record it gets the full scrore, if only
+some of them, it gets a proportional score. E.g. under 250 (edition statement)
+there are two subfields. If both are available, it gets score 44. If only one
+of them, it gets the half of it, 22, and if none, it gets 0. For 1XX,, 6XX, 7XX
+and 8XX the record gets the full scores if at least one of those fields (with
+subfield $a) is available. The total score became the average. The theoretical
+maximum score would be 28.44, which could be accessed if all the data elements
+are available in the record.
 
 ```bash
-java -cp $JAR de.gwdg.metadataqa.marc.cli.ShelfReadyCompleteness [options] [file]
+java -cp $JAR de.gwdg.metadataqa.marc.cli.ShelfReadyCompleteness [options] <file>
 ```
 with a bash script
 ```bash
-./shelf-ready-completeness [options] [file]
+./shelf-ready-completeness [options] <file>
 ```
 or
 ```bash
@@ -768,23 +803,28 @@ or
 
 options:
 * [general parameters](#general-parameters)
-* `-f [fileName]`, `--fileName [fileName]`: the report file name (default is "shelf-ready-completeness.csv")
+* `-f <file>`, `--fileName <file>`: the report file name (default is
+  `shelf-ready-completeness.csv`)
 
 ### Serial score analysis
 
-These scores are calculated for each continuing resources (type of record (LDR/6) is language material ('a') and bibliographic level (LDR/7) is serial component part ('b'), integrating resource ('i') or serial ('s')).
+These scores are calculated for each continuing resources (type of record
+(LDR/6) is language material ('a') and bibliographic level (LDR/7) is serial
+component part ('b'), integrating resource ('i') or serial ('s')).
 
-The calculation is based on a slightly modified version of the method published by Jamie Carlstone in the following paper:
+The calculation is based on a slightly modified version of the method published
+by Jamie Carlstone in the following paper:
 
-Jamie Carlstone (2017) _Scoring the Quality of E-Serials MARC Records Using Java_, Serials Review, 43:3-4, pp. 
-271-277, DOI: 10.1080/00987913.2017.1350525 URL: https://www.tandfonline.com/doi/full/10.1080/00987913.2017.1350525 
+Jamie Carlstone (2017) _Scoring the Quality of E-Serials MARC Records Using
+Java_, Serials Review, 43:3-4, pp. 271-277, DOI: 10.1080/00987913.2017.1350525
+URL: https://www.tandfonline.com/doi/full/10.1080/00987913.2017.1350525 
 
 ```bash
-java -cp $JAR de.gwdg.metadataqa.marc.cli.SerialScore [options] [file]
+java -cp $JAR de.gwdg.metadataqa.marc.cli.SerialScore [options] <file>
 ```
 with a bash script
 ```bash
-./serial-score [options] [file]
+./serial-score [options] <file>
 ```
 or
 ```bash
@@ -797,21 +837,23 @@ or
 
 options:
 * [general parameters](#general-parameters)
-* `-f [fileName]`, `--fileName [fileName]`: the report file name (default is "shelf-ready-completeness.csv")
+* `-f <file>`, `--fileName <file>`: the report file name. Default is
+  `shelf-ready-completeness.csv`.
 
 ### Classification analysis
 
-It analyses the coverage of subject indexing/classification in the catalogue. It checks specific fields, which might 
-have subject indexing information, and provides details about how and which subject indexing schemes have been applied.
+It analyses the coverage of subject indexing/classification in the catalogue.
+It checks specific fields, which might have subject indexing information, and
+provides details about how and which subject indexing schemes have been applied.
 
 ```bash
-java -cp $JAR de.gwdg.metadataqa.marc.cli.ClassificationAnalysis [options] [file]
-Rscript scripts/classifications/classifications-type.R [output directory]
+java -cp $JAR de.gwdg.metadataqa.marc.cli.ClassificationAnalysis [options] <file>
+Rscript scripts/classifications/classifications-type.R <output directory>
 ```
 with a bash script
 ```bash
-./classifications [options] [file]
-Rscript scripts/classifications/classifications-type.R [output directory]
+./classifications [options] <file>
+Rscript scripts/classifications/classifications-type.R <output directory>
 ```
 or
 ```bash
@@ -824,42 +866,50 @@ or
 
 options:
 * [general parameters](#general-parameters)
-* `-w`, `--emptyLargeCollectors`: empty large collectors periodically. It is a memory optimization parameter, turn it 
-  on if you run into a memory problem
+* `-w`, `--emptyLargeCollectors`: empty large collectors periodically. It is a
+  memory optimization parameter, turn it on if you run into a memory problem.
 
 The output is a set of files:
 
-* `classifications-by-records.csv`: general overview of how many records has any subject indexing
-* `classifications-by-schema.csv`: which subject indexing schemas are available in the catalogues (such as DDC, UDC,
-  MESH etc.) and where they are referred
-* `classifications-histogram.csv`: a frequency distribution of the number of subjects available in records (x records
-  have 0 subjects, y records have 1 subjects, z records have 2 subjects etc.)
-* `classifications-frequency-examples.csv`: examples for particular distributions (one record ID which has 0 subject,
-  one which has 1 subject, etc.)
-* `classifications-by-schema-subfields.csv`: the distribution of subfields of those fields, which contains subject
-  indexing information. It gives you a background that what other contextual information behind the subject term are
+* `classifications-by-records.csv`: general overview of how many records has
+  any subject indexing
+* `classifications-by-schema.csv`: which subject indexing schemas are available
+  in the catalogues (such as DDC, UDC, MESH etc.) and where they are referred
+* `classifications-histogram.csv`: a frequency distribution of the number of
+  subjects available in records (x records have 0 subjects, y records have 1
+  subjects, z records have 2 subjects etc.)
+* `classifications-frequency-examples.csv`: examples for particular
+  distributions (one record ID which has 0 subject, one which has 1 subject, etc.)
+* `classifications-by-schema-subfields.csv`: the distribution of subfields of
+  those fields, which contains subject indexing information. It gives you a
+  background that what other contextual information behind the subject term are
   available (such as the version of the subject indexing scheme)
-* `classifications-collocations.csv`: how many record has a particular set of subject indexing schemes
-* `classifications-by-type.csv`: returns the subject indexing schemes and their types in order of the number of
-  records. The types are TERM_LIST (subtypes: DICTIONARY, GLOSSARY, SYNONYM_RING), METADATA_LIKE_MODEL
-  (NAME_AUTHORITY_LIST, GAZETTEER), CLASSIFICATION (SUBJECT_HEADING, CATEGORIZATION, TAXONOMY, CLASSIFICATION_SCHEME),
-  RELATIONSHIP_MODEL (THESAURUS, SEMANTIC_NETWORK, ONTOLOGY).
+* `classifications-collocations.csv`: how many record has a particular set of
+  subject indexing schemes
+* `classifications-by-type.csv`: returns the subject indexing schemes and their
+  types in order of the number of records. The types are TERM_LIST (subtypes:
+  DICTIONARY, GLOSSARY, SYNONYM_RING), METADATA_LIKE_MODEL (NAME_AUTHORITY_LIST,
+  GAZETTEER), CLASSIFICATION (SUBJECT_HEADING, CATEGORIZATION, TAXONOMY,
+  CLASSIFICATION_SCHEME), RELATIONSHIP_MODEL (THESAURUS, SEMANTIC_NETWORK,
+  ONTOLOGY).
 
 ### Authority name analysis
 
-It analyses the coverage of authority names (persons, organisations, events, uniform titles) in the catalogue. It 
-checks specific fields, which might have authority names, and provides details about how and which schemes have been applied.
+It analyses the coverage of authority names (persons, organisations, events,
+uniform titles) in the catalogue. It checks specific fields, which might have
+authority names, and provides details about how and which schemes have been
+applied.
 
 ```bash
-java -cp $JAR de.gwdg.metadataqa.marc.cli.AuthorityAnalysis [options] [file]
+java -cp $JAR de.gwdg.metadataqa.marc.cli.AuthorityAnalysis [options] <file>
 ```
 with a bash script
 ```bash
-./authorities [options] [file]
+./authorities [options] <file>
 ```
 or
 ```bash
-catalogues/[catalogue].sh authorities
+catalogues/<catalogue>.sh authorities
 ```
 or
 ```bash
@@ -868,69 +918,91 @@ or
 
 options:
 * [general parameters](#general-parameters)
-* `-w`, `--emptyLargeCollectors`: empty large collectors periodically. It is a memory optimization parameter, turn it
-  on if you run into a memory problem
+* `-w`, `--emptyLargeCollectors`: empty large collectors periodically. It is a
+  memory optimization parameter, turn it on if you run into a memory problem
 
 The output is a set of files:
 
-* `authorities-by-records.csv`: general overview of how many records has any authority names
-* `authorities-by-schema.csv`: which authority names schemas are available in the catalogues (such as ISNI,
-  Gemeinsame Normdatei etc.) and where they are referred
-* `authorities-histogram.csv`: a frequency distribution of the number of authority names available in records (x records
-  have 0 authority names, y records have 1 authority name, z records have 2 authority names etc.)
-* `authorities-frequency-examples.csv`: examples for particular distributions (one record ID which has 0 authority name,
-  one which has 1 authority name, etc.)
-* `authorities-by-schema-subfields.csv`: the distribution of subfields of those fields, which contains authority names
-  information. It gives you a background that what other contextual information behind the authority names are
+* `authorities-by-records.csv`: general overview of how many records has any
+  authority names
+* `authorities-by-schema.csv`: which authority names schemas are available in
+  the catalogues (such as ISNI, Gemeinsame Normdatei etc.) and where they are
+  referred
+* `authorities-histogram.csv`: a frequency distribution of the number of
+  authority names available in records (x records have 0 authority names, y
+  records have 1 authority name, z records have 2 authority names etc.)
+* `authorities-frequency-examples.csv`: examples for particular distributions
+  (one record ID which has 0 authority name, one which has 1 authority name,
+  etc.)
+* `authorities-by-schema-subfields.csv`: the distribution of subfields of those
+  fields, which contains authority names information. It gives you a background
+  that what other contextual information behind the authority names are
   available (such as the version of the authority name scheme)
 
 ### FRBR functional requirement analysis
 
-The Functional Requirements for Bibliographic Records (FRBR) document's main part defines the primary and secondary 
-entities which became famous as FRBR models. Years later Tom Delsey created a mapping between the 12 functions and 
+The Functional Requirements for Bibliographic Records (FRBR) document's main
+part defines the primary and secondary entities which became famous as FRBR
+models. Years later Tom Delsey created a mapping between the 12 functions and 
 the individual MARC elements.
 
-Tom Delsey (2002) _Functional analysis of the MARC 21 bibliographic and holdings formats. Tech. report_. Library of 
-Congress, 2002. Prepared for the Network Development and MARC Standards Office Library of Congress. Second 
+Tom Delsey (2002) _Functional analysis of the MARC 21 bibliographic and
+holdings formats. Tech. report_. Library of Congress, 2002. Prepared for the
+Network Development and MARC Standards Office Library of Congress. Second 
 Revision: September 17, 2003. https://www.loc.gov/marc/marc-functional-analysis/original_source/analysis.pdf. 
 
-This analysis shows how these functions are supported by the records. Low support means that only small portion of the 
-fields support a function are available in the records, strong support on the contrary means lots of fields are 
-available. The analyses calculates the support of 12 functions for each records, and returns summary statistics.
+This analysis shows how these functions are supported by the records. Low
+support means that only small portion of the fields support a function are
+available in the records, strong support on the contrary means lots of fields
+are available. The analyses calculates the support of 12 functions for each
+records, and returns summary statistics.
 
-It is an experimental feature because it turned out, that the mapping covers about 2000 elements (fields, subfields, 
-indicatiors etc.), however on an average record there are max several hundred elements, which results that even in 
-the best record has about 10-15% of the totality of the elements supporting a given function. So the tool doesn't 
-shows you exact numbers, and the scale is not 0-100 but 0-[best score] which is different for every catalogue.
+It is an experimental feature because it turned out, that the mapping covers
+about 2000 elements (fields, subfields, indicatiors etc.), however on an
+average record there are max several hundred elements, which results that even
+in the best record has about 10-15% of the totality of the elements supporting
+a given function. So the tool doesn't shows you exact numbers, and the scale
+is not 0-100 but 0-[best score] which is different for every catalogue.
 
 The 12 functions:
 Discovery functions
-* search (DiscoverySearch): Search for a resource corresponding to stated criteria (i.e., to search either a single
-  entity or a set of entities using an attribute or relationship of the entity as the search criteria).
-* identify (DiscoveryIdentify): Identify a resource (i.e., to confirm that the entity described or located
-  corresponds to the entity sought, or to distinguish between two or more entities with similar characteristics).
-* select (DiscoverySelect): Select a resource that is appropriate to the user’s needs (i.e., to choose an entity 
-  that meets the user’s requirements with respect to content, physical format, etc., or to reject an entity as being
+* search (DiscoverySearch): Search for a resource corresponding to stated
+  criteria (i.e., to search either a single entity or a set of entities using
+  an attribute or relationship of the entity as the search criteria).
+* identify (DiscoveryIdentify): Identify a resource (i.e., to confirm that the
+  entity described or located corresponds to the entity sought, or to
+  distinguish between two or more entities with similar characteristics).
+* select (DiscoverySelect): Select a resource that is appropriate to the user’s
+  needs (i.e., to choose an entity that meets the user’s requirements with
+  respect to content, physical format, etc., or to reject an entity as being
   inappropriate to the user’s needs)
-* obtain (DiscoveryObtain): Access a resource either physically or electronically through an online connection to a 
-  remote computer, and/or acquire a resource through purchase, licence, loan, etc.
+* obtain (DiscoveryObtain): Access a resource either physically or
+  electronically through an online connection to a remote computer, and/or
+  acquire a resource through purchase, licence, loan, etc.
 
 Usage functions
-* restrict (UseRestrict): Control access to or use of a resource (i.e., to restrict access to and/or use of an entity
-  on the basis of proprietary rights, administrative policy, etc.).
-* manage (UseManage): Manage a resource in the course of acquisition, circulation, preservation, etc.
-* operate (UseOperate): Operate a resource (i.e., to open, display, play, activate, run, etc. an entity that requires
-  specialized equipment, software, etc. for its operation).
-* interpret (UseInterpret): Interpret or assess the information contained in a resource.
+* restrict (UseRestrict): Control access to or use of a resource (i.e., to
+  restrict access to and/or use of an entity on the basis of proprietary
+  rights, administrative policy, etc.).
+* manage (UseManage): Manage a resource in the course of acquisition,
+  circulation, preservation, etc.
+* operate (UseOperate): Operate a resource (i.e., to open, display, play,
+  activate, run, etc. an entity that requires specialized equipment, software,
+  etc. for its operation).
+* interpret (UseInterpret): Interpret or assess the information contained in a
+  resource.
 
 Management functions
-* identify (ManagementIdentify): Identify a record, segment, field, or data element (i.e., to differentiate one
-  logical data component from another).
-* process (ManagementProcess): Process a record, segment, field, or data element (i.e., to add, delete, replace, 
-  output, etc. a logical data component by means of an automated process).
-* sort (ManagementSort): Sort a field for purposes of alphabetic or numeric arrangement.
-* display (ManagementDisplay): Display a field or data element (i.e., to display a field or data element with the
-  appropriate print constant or as a tracing).
+* identify (ManagementIdentify): Identify a record, segment, field, or data
+  element (i.e., to differentiate one logical data component from another).
+* process (ManagementProcess): Process a record, segment, field, or data
+  element (i.e., to add, delete, replace, output, etc. a logical data component
+  by means of an automated process).
+* sort (ManagementSort): Sort a field for purposes of alphabetic or numeric
+  arrangement.
+* display (ManagementDisplay): Display a field or data element (i.e., to
+  display a field or data element with the appropriate print constant or as a
+  tracing).
 
 ```bash
 java -cp $JAR de.gwdg.metadataqa.marc.cli.FunctionalAnalysis [options] [file]

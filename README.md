@@ -284,14 +284,14 @@ The `./metadata-qa.sh` script has the following options:
 We will use the same jar file in every command, so we save its path into a variable.
 
 ```bash
-export JAR=target/metadata-qa-marc-0.5.0-jar-with-dependencies.jar
+export JAR=target/metadata-qa-marc-0.6.0-jar-with-dependencies.jar
 ```
 
 ### General parameters
 
 Most of the analyses uses the following general parameters
 
-* `F [schema type]`, `schemaType [schema type]` metadata schema type. The supported types are:
+* `-F [schema type]`, `--schemaType [schema type]` metadata schema type. The supported types are:
   * `MARC21`
   * `PICA`
   * `UNIMARC` (assessment of UNIMARC records are not yet supported, this parameter value is only reserved for future usage)

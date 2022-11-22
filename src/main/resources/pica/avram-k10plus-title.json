@@ -3272,7 +3272,7 @@
     "022A/00": {
       "label": "Werktitel und sonstige unterscheidende Merkmale des Werks",
       "modified": "2022-06-28T15:50:08",
-      "occurrence": "00",
+      "occurrence": null,
       "pica3": "3210",
       "repeatable": true,
       "subfields": {
@@ -6406,7 +6406,7 @@
     "036C/00": {
       "label": "Gesamttitel der mehrteiligen Monografie",
       "modified": "2020-06-04T11:35:31",
-      "occurrence": "00",
+      "occurrence": null,
       "pica3": "4150",
       "repeatable": true,
       "subfields": {
@@ -6676,7 +6676,7 @@
     "036F/00": {
       "label": "Verknüpfung zur fortlaufenden Ressource",
       "modified": "2020-06-04T11:35:31",
-      "occurrence": "00",
+      "occurrence": null,
       "pica3": "4180-4189",
       "repeatable": true,
       "subfields": {
@@ -10075,7 +10075,7 @@
     "045B/00": {
       "label": "Allgemeine Systematik für Bibliotheken (ASB)",
       "modified": "2018-06-05T09:30:52",
-      "occurrence": "00",
+      "occurrence": null,
       "pica3": "5020",
       "repeatable": true,
       "subfields": {
@@ -12029,7 +12029,7 @@
     "091O/00": {
       "label": "Online-Profildienst: Besitzkennzeichen zur Selektion",
       "modified": "2021-02-12T15:44:24",
-      "occurrence": "00",
+      "occurrence": null,
       "pica3": "9600",
       "repeatable": true,
       "subfields": {

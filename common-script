@@ -363,7 +363,8 @@ case "$1" in
   export-schema-files)      do_export_schema_files ;;
   all-analyses)             do_all_analyses ;;
   all-solr)                 do_all_solr ;;
-  all)                      do_all_analyses ; do_all_solr ; do_version_link ;;
+  all)                      do_all_analyses ; do_all_solr ;;
+  version-link)             do_version_link ;;
   help)                     help ;;
 esac
 

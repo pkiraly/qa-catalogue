@@ -114,7 +114,7 @@ docker run \
   -v [your-MARC-directory]:/opt/metadata-qa-marc/marc \
   -p 8983:8983 -p 80:80 \
   --name metadata-qa-marc \
-  pkiraly/metadata-qa-marc:0.5.0
+  pkiraly/metadata-qa-marc:0.6.0
 ```
 2. run analyses (this example uses parameters for Gent university library catalogue)
 
@@ -172,11 +172,11 @@ mvn clean install
 ### ... or download
 
 The released versions of the software is available from Maven Central
-repository. The stable releases (currently 0.1) is available from all Maven
-repos, the developer version (0.5.0) is avalable from the 
+repository. The stable releases (currently 0.6.0) is available from all Maven
+repos, while the developer version (*-SNAPSHOT) is avalable only from the 
 [Sonatype Maven repository]
 (https://oss.sonatype.org/content/repositories/snapshots/de/gwdg/metadataqa/metadata-qa-marc/0.5.0/).
-What you need to select is the file `metadata-qa-marc-0.5.0-jar-with-dependencies.jar`. 
+What you need to select is the file `metadata-qa-marc-0.6.0-jar-with-dependencies.jar`. 
 
 Be aware that no automation exists for creating a current developer version as
 nightly build, so there is a chance that the latest features are not available
@@ -1487,18 +1487,18 @@ pom.xml
 <dependency>
   <groupId>de.gwdg.metadataqa</groupId>
   <artifactId>metadata-qa-marc</artifactId>
-  <version>0.5.0</version>
+  <version>0.6.0</version>
 </dependency>
 ```
 
 build.sbt
 
 ```bash
-libraryDependencies += "de.gwdg.metadataqa" % "metadata-qa-marc" % "0.5.0"
+libraryDependencies += "de.gwdg.metadataqa" % "metadata-qa-marc" % "0.6.0"
 ```
 
 or you can directly download the jars from
-[http://repo1.maven.org](http://repo1.maven.org/maven2/de/gwdg/metadataqa/metadata-qa-marc/0.5.0/)
+[http://repo1.maven.org](http://repo1.maven.org/maven2/de/gwdg/metadataqa/metadata-qa-marc/0.6.0/)
 
 ## User interface
 

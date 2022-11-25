@@ -1,9 +1,7 @@
 # QA catalogue<br/>a metadata quality assessment tool for library catalogue records (MARC, PICA)
 
-QA catalogue reads MARC (in binary MARC, MARCXML or other serialization
-formats) or PICA files, analyses different aspects of quality, and saves the
-results into CSV files. These CSV files could be used in different context, we
-provide a lightweight, web-based [user interface](#user-interface) for that.
+QA catalogue is a set of software packages for bibliographical record quality assessment. It reads MARC or PICA files (in different formats), analyses some  quality dimensions, and saves the results into CSV files. These CSV files could be used in different context, we provide a lightweight, web-based [user interface](#user-interface) for that. Some of the functionalities are available as a [web service](https://github.com/pkiraly/metadata-qa-marc-ws), so the validation could be built into a cataloguing/quality assessment workflow.
+
 
 ![Output sample](https://github.com/pkiraly/metadata-qa-marc-web/raw/gh-pages/img/issues-v1.gif)
 Screenshot from the web UI of the QA cataloge

@@ -106,12 +106,8 @@ public class CompletenessTest extends CliTestUtils {
     for (String outputFile : grouppedOutputFiles) {
       File output = new File(outputDir, outputFile);
       assertTrue(outputFile + " should exist", output.exists());
-      /*
-      if (!outputFile.equals("packages.csv")) {
-        output.delete();
-        assertFalse(output.exists());
-      }
-       */
+      output.delete();
+      assertFalse(outputFile + " should not exist anymore", output.exists());
     }
   }
 }

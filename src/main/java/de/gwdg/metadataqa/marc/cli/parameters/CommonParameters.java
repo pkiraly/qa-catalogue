@@ -58,6 +58,7 @@ public class CommonParameters implements Serializable {
   private String picaSchemaFile;
   private String picaRecordTypeField = "002@$0";
   private SchemaType schemaType = SchemaType.MARC21;
+  private String groupBy;
 
   protected void setOptions() {
     if (!isOptionSet) {
@@ -88,6 +89,7 @@ public class CommonParameters implements Serializable {
       options.addOption("F", "schemaType", true, "metadata schema type ('MARC21', 'UNIMARC', or 'PICA')");
       options.addOption("G", "picaRecordType", true, "picaRecordType");
       options.addOption("I", "allowableRecords", true, "allow records for the analysis");
+      options.addOption("J", "groupBy", true, "group the results by the value of this data element (e.g. the ILN of  library)");
 
       isOptionSet = true;
     }
@@ -128,6 +130,7 @@ public class CommonParameters implements Serializable {
     readPicaSubfieldSeparator();
     readPicaSchemaFile();
     readPicaRecordType();
+    readGroupBy();
 
     args = cmd.getArgs();
   }
@@ -142,6 +145,11 @@ public class CommonParameters implements Serializable {
       picaRecordTypeField = cmd.getOptionValue("picaRecordType");
   }
 
+
+  private void readGroupBy() {
+    if (cmd.hasOption("groupBy"))
+      groupBy = cmd.getOptionValue("groupBy");
+  }
 
   private void readPicaSubfieldSeparator() {
     if (cmd.hasOption("picaSubfieldSeparator"))
@@ -514,6 +522,10 @@ public class CommonParameters implements Serializable {
     return schemaType.equals(SchemaType.PICA);
   }
 
+  public String getGroupBy() {
+    return groupBy;
+  }
+
   public String formatParameters() {
     String text = "";
     text += String.format("schemaType: %s%n", schemaType);
@@ -542,6 +554,7 @@ public class CommonParameters implements Serializable {
       text += String.format("picaSubfieldSeparator: %s%n", picaSubfieldSeparator);
       text += String.format("picaRecordType: %s%n", picaRecordTypeField);
     }
+    text += String.format("groupBy: %s%n", groupBy);
 
     return text;
   }

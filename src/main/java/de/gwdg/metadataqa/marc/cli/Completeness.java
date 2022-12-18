@@ -1,6 +1,10 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.*;
+import de.gwdg.metadataqa.marc.EncodedValue;
+import de.gwdg.metadataqa.marc.analysis.completeness.CompletenessDAO;
+import de.gwdg.metadataqa.marc.analysis.completeness.RecordCompleteness;
+import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
+import de.gwdg.metadataqa.marc.utils.BibiographicPath;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.plugin.CompletenessFactory;
@@ -9,16 +13,12 @@ import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilter;
 import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnorator;
-import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.MarcControlField;
-import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
-import de.gwdg.metadataqa.marc.definition.ControlValue;
-import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.tags.TagCategory;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.utils.BasicStatistics;
 import de.gwdg.metadataqa.marc.utils.TagHierarchy;
+import de.gwdg.metadataqa.marc.utils.pica.path.PicaPathParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -30,7 +30,6 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -47,24 +46,18 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(Completeness.class.getCanonicalName());
   private static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
-  private static final Pattern numericalPattern = Pattern.compile("^(\\d)$");
 
   private final Options options;
   private CompletenessParameters parameters;
-  private Map<String, Integer> library003Counter = new TreeMap<>();
-  private Map<String, Integer> libraryCounter = new TreeMap<>();
-  private Map<String, Map<String, Integer>> packageCounter = new TreeMap<>();
-  private Map<String, Map<String, Integer>> elementCardinality = new TreeMap<>();
-  private Map<String, Map<String, Integer>> elementFrequency = new TreeMap<>();
-  // private Map<String, String> tagCache = new HashMap<>();
-  // private Map<String, Integer> libraryMap = new HashMap<>();
-  // private Map<String, Integer> fieldMap = new HashMap<>();
+
+  private CompletenessDAO completenessDAO = new CompletenessDAO();
+
   private Map<String, Map<Integer, Integer>> fieldHistogram = new HashMap<>();
   private boolean readyToProcess;
   private CompletenessPlugin plugin;
-  private Map<DataFieldDefinition, String> packageNameCache = new HashMap<>();
   private RecordFilter recordFilter;
   private RecordIgnorator recordIgnorator;
+  private BibiographicPath groupBy = null;
 
   public Completeness(String[] args) throws ParseException {
     parameters = new CompletenessParameters(args);
@@ -73,6 +66,11 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
     plugin = CompletenessFactory.create(parameters);
     recordFilter = parameters.getRecordFilter();
     recordIgnorator = parameters.getRecordIgnorator();
+    if (parameters.getGroupBy() != null) {
+      groupBy = parameters.isPica()
+        ? PicaPathParser.parse(parameters.getGroupBy())
+        : null; // TODO: create it for MARC21
+    }
   }
 
   public static void main(String[] args) {
@@ -107,169 +105,43 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
   }
 
   @Override
-  public void processRecord(BibliographicRecord marcRecord, int recordNumber) throws IOException {
-    if (!recordFilter.isAllowable(marcRecord))
+  public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber) throws IOException {
+    if (!recordFilter.isAllowable(bibliographicRecord))
       return;
 
-    if (recordIgnorator.isIgnorable(marcRecord))
+    if (recordIgnorator.isIgnorable(bibliographicRecord))
       return;
 
-    Map<String, Integer> recordFrequency = new TreeMap<>();
-    Map<String, Integer> recordPackageCounter = new TreeMap<>();
-    // private Map<String, Map<String, Integer>>
+    RecordCompleteness recordCompleteness = new RecordCompleteness(bibliographicRecord, parameters, completenessDAO, plugin, groupBy);
+    recordCompleteness.process();
 
-    String documentType = plugin.getDocumentType(marcRecord);
-    elementCardinality.computeIfAbsent(documentType, s -> new TreeMap<>());
-    elementFrequency.computeIfAbsent(documentType, s -> new TreeMap<>());
+    if (groupBy != null)
+      for (String id : recordCompleteness.getGroupIds())
+        count(id, completenessDAO.getGroupCounter());
 
-    if (marcRecord.getControl003() != null)
-      count(marcRecord.getControl003().getContent(), library003Counter);
-
-    for (String library : extract(marcRecord, "852", "a")) {
-      count(library, libraryCounter);
-    }
-
-    if (!parameters.isPica()) {
-      processLeader(marcRecord, recordFrequency, recordPackageCounter, documentType);
-      processSimpleControlfields(marcRecord, recordFrequency, recordPackageCounter, documentType);
-      processPositionalControlFields(marcRecord, recordFrequency, recordPackageCounter, documentType);
-    }
-    processDataFields(marcRecord, recordFrequency, recordPackageCounter, documentType);
-
-    for (String key : recordFrequency.keySet()) {
-      count(key, elementFrequency.get(documentType));
-      count(key, elementFrequency.get("all"));
+    for (String key : recordCompleteness.getRecordFrequency().keySet()) {
+      count(key, completenessDAO.getElementFrequency().get(recordCompleteness.getDocumentType()));
+      count(key, completenessDAO.getElementFrequency().get("all"));
 
       fieldHistogram.computeIfAbsent(key, s -> new TreeMap<>());
-      count(recordFrequency.get(key), fieldHistogram.get(key));
+      count(recordCompleteness.getRecordFrequency().get(key), fieldHistogram.get(key));
     }
 
-    for (String key : recordPackageCounter.keySet()) {
-      packageCounter.computeIfAbsent(documentType, s -> new TreeMap<>());
-      count(key, packageCounter.get(documentType));
-      count(key, packageCounter.get("all"));
-    }
-  }
-
-  private void processLeader(BibliographicRecord marcRecord, Map<String, Integer> recordFrequency, Map<String, Integer> recordPackageCounter, String documentType) {
-    if (marcRecord.getLeader() != null) {
-      for (ControlValue position : marcRecord.getLeader().getValuesList()) {
-        String marcPath = position.getDefinition().getId();
-        count(marcPath, elementCardinality.get(documentType));
-        count(marcPath, elementCardinality.get("all"));
-        count(marcPath, recordFrequency);
-        count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
-      }
-    }
-  }
-
-  private void processSimpleControlfields(BibliographicRecord marcRecord, Map<String, Integer> recordFrequency, Map<String, Integer> recordPackageCounter, String documentType) {
-    for (MarcControlField field : marcRecord.getSimpleControlfields()) {
-      if (field != null) {
-        String marcPath = field.getDefinition().getTag();
-        count(marcPath, elementCardinality.get(documentType));
-        count(marcPath, elementCardinality.get("all"));
-        count(marcPath, recordFrequency);
-        count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
-      }
-    }
-  }
-
-  private void processPositionalControlFields(BibliographicRecord marcRecord,
-                                              Map<String, Integer> recordFrequency,
-                                              Map<String, Integer> recordPackageCounter,
-                                              String documentType) {
-    for (MarcPositionalControlField field : marcRecord.getPositionalControlfields()) {
-      if (field != null) {
-        for (ControlValue position : field.getValuesList()) {
-          String marcPath = position.getDefinition().getId();
-          count(marcPath, elementCardinality.get(documentType));
-          count(marcPath, elementCardinality.get("all"));
-          count(marcPath, recordFrequency);
-          count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
+    for (String key : recordCompleteness.getRecordPackageCounter().keySet()) {
+      if (groupBy != null) {
+        for (String groupId : recordCompleteness.getGroupIds()) {
+          completenessDAO.getGrouppedPackageCounter().computeIfAbsent(groupId, s -> new TreeMap<>());
+          completenessDAO.getGrouppedPackageCounter().get(groupId).computeIfAbsent(recordCompleteness.getDocumentType(), s -> new TreeMap<>());
+          completenessDAO.getGrouppedPackageCounter().get(groupId).computeIfAbsent("all", s -> new TreeMap<>());
+          count(key, completenessDAO.getGrouppedPackageCounter().get(groupId).get(recordCompleteness.getDocumentType()));
+          count(key, completenessDAO.getGrouppedPackageCounter().get(groupId).get("all"));
         }
+      } else {
+        completenessDAO.getPackageCounter().computeIfAbsent(recordCompleteness.getDocumentType(), s -> new TreeMap<>());
+        count(key, completenessDAO.getPackageCounter().get(recordCompleteness.getDocumentType()));
+        count(key, completenessDAO.getPackageCounter().get("all"));
       }
     }
-  }
-
-  private void processDataFields(BibliographicRecord marcRecord,
-                                 Map<String, Integer> recordFrequency,
-                                 Map<String, Integer> recordPackageCounter,
-                                 String documentType) {
-    for (DataField field : marcRecord.getDatafields()) {
-      if (parameters.getIgnorableFields().contains(field.getTag()))
-        continue;
-
-      count(getPackageName(field), recordPackageCounter);
-
-      count(field.getTag(), elementCardinality.get(documentType));
-      count(field.getTag(), elementCardinality.get("all"));
-      count(field.getTag(), recordFrequency);
-
-      List<String> marcPaths = getMarcPaths(field);
-      for (String marcPath : marcPaths) {
-        count(marcPath, elementCardinality.get(documentType));
-        count(marcPath, elementCardinality.get("all"));
-        count(marcPath, recordFrequency);
-      }
-    }
-  }
-
-  private List<String> getMarcPaths(DataField field) {
-    List<String> marcPaths = new ArrayList<>();
-
-    if (parameters.isMarc21()) {
-      if (field.getInd1() != null)
-        if (field.getDefinition() != null && field.getDefinition().getInd1().exists() || !field.getInd1().equals(" "))
-          marcPaths.add(String.format("%s$!ind1", field.getTag()));
-
-      if (field.getInd2() != null)
-        if (field.getDefinition() != null && field.getDefinition().getInd2().exists() || !field.getInd2().equals(" "))
-          marcPaths.add(String.format("%s$!ind2", field.getTag()));
-    }
-
-    for (MarcSubfield subfield : field.getSubfields())
-      if (numericalPattern.matcher(subfield.getCode()).matches())
-        marcPaths.add(String.format("%s$|%s", field.getTag(), subfield.getCode()));
-      else
-        marcPaths.add(String.format("%s$%s", field.getTag(), subfield.getCode()));
-
-    return marcPaths;
-  }
-
-  private String getPackageName(DataField field) {
-    String packageName;
-    if (field.getDefinition() != null) {
-      if (packageNameCache.containsKey(field.getDefinition()))
-        packageName = packageNameCache.get(field.getDefinition());
-      else {
-        packageName = plugin.getPackageName(field);
-        if (StringUtils.isBlank(packageName)) {
-          logger.warning(String.format("%s has no package. /%s", field, field.getDefinition().getClass()));
-          packageName = TagCategory.OTHER.getPackageName();
-        }
-        packageNameCache.put(field.getDefinition(), packageName);
-      }
-    } else {
-      packageName = TagCategory.OTHER.getPackageName();
-    }
-    return packageName;
-  }
-
-  private List<String> extract(BibliographicRecord marcRecord, String tag, String subfield) {
-    List<String> values = new ArrayList<>();
-    List<DataField> fields = marcRecord.getDatafield(tag);
-    if (fields != null && !fields.isEmpty()) {
-      for (DataField field : fields) {
-        List<MarcSubfield> subfieldInstances = field.getSubfield(subfield);
-        if (subfieldInstances != null) {
-          for (MarcSubfield subfieldInstance : subfieldInstances) {
-            values.add(subfieldInstance.getValue());
-          }
-        }
-      }
-    }
-    return values;
   }
 
   private <T extends Object> void count(T key, Map<T, Integer> counter) {
@@ -280,9 +152,7 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
   @Override
   public void beforeIteration() {
     logger.info(parameters.formatParameters());
-    elementCardinality.put("all", new TreeMap<>());
-    elementFrequency.put("all", new TreeMap<>());
-    packageCounter.put("all", new TreeMap<>());
+    completenessDAO.initialize();
   }
 
   @Override
@@ -305,25 +175,28 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
 
     saveLibraries003(fileExtension, separator);
     saveLibraries(fileExtension, separator);
-    savePackages(fileExtension, separator);
-    saveMarcElements(fileExtension, separator);
+    if (groupBy != null) {
+      saveGroups(fileExtension, separator);
+      saveGrouppedPackages(fileExtension, separator);
+      saveGrouppedMarcElements(fileExtension, separator);
+    } else {
+      savePackages(fileExtension, separator);
+      saveMarcElements(fileExtension, separator);
+    }
   }
 
   private void saveLibraries003(String fileExtension, char separator) {
-    logger.info("Saving Libraries003 file");
+    logger.info("Saving libraries003...");
     var path = Paths.get(parameters.getOutputDir(), "libraries003" + fileExtension);
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write("library" + separator + "count\n");
-      library003Counter
-        .entrySet()
-        .stream()
-        .forEach(entry -> {
-          try {
-            writer.write(String.format("\"%s\"%s%d%n", entry.getKey(), separator, entry.getValue()));
-          } catch (IOException e) {
-            logger.log(Level.SEVERE, "saveLibraries003", e);
-          }
-        });
+      completenessDAO.getLibrary003Counter().forEach((key, value) -> {
+        try {
+          writer.write(String.format("\"%s\"%s%d%n", key, separator, value));
+        } catch (IOException e) {
+          logger.log(Level.SEVERE, "saveLibraries003", e);
+        }
+      });
     } catch (IOException e) {
       logger.log(Level.SEVERE, "saveLibraries003", e);
     }
@@ -338,36 +211,86 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
         "number-of-record", "number-of-instances",
         "min", "max", "mean", "stddev", "histogram"
       ));
-      elementCardinality
-        .keySet()
-        .stream()
-        .forEach(documentType ->
-          elementCardinality
-            .get(documentType)
-            .entrySet()
-            .stream()
-            .forEach(entry -> {
-              try {
-                String marcPath = entry.getKey();
-                int cardinality = entry.getValue();
-                writer.write(formatCardinality(separator, marcPath, cardinality, documentType));
-              } catch (IOException e) {
-                logger.log(Level.SEVERE, "saveMarcElements", e);
-              }
-            })
-        );
+      completenessDAO.getElementCardinality().forEach((documentType, cardinalities) -> {
+        cardinalities.forEach((marcPath, cardinality) -> {
+          try {
+            writer.write(formatCardinality(separator, marcPath, cardinality, documentType, null));
+          } catch (IOException e) {
+            logger.log(Level.SEVERE, "saveMarcElements", e);
+          }
+        });
+      });
+    } catch (IOException e) {
+      logger.log(Level.SEVERE, "saveMarcElements", e);
+    }
+  }
+
+  private void saveGrouppedMarcElements(String fileExtension, char separator) {
+    logger.info("saving groupped MARC elements...");
+    Path path = Paths.get(parameters.getOutputDir(), "completeness-groupped-marc-elements" + fileExtension);
+    try (var writer = Files.newBufferedWriter(path)) {
+      writer.write(createRow(
+        "groupId", "documenttype", "path", "packageid", "package", "tag", "subfield",
+        "number-of-record", "number-of-instances",
+        "min", "max", "mean", "stddev", "histogram"
+      ));
+      completenessDAO.getGrouppedElementCardinality().forEach((groupId, documentTypes) -> {
+        documentTypes.forEach((documentType, cardinalities) -> {
+          cardinalities.forEach((marcPath, cardinality) -> {
+            try {
+              writer.write(formatCardinality(separator, marcPath, cardinality, documentType, groupId));
+            } catch (IOException e) {
+              logger.log(Level.SEVERE, "saveMarcElements", e);
+            }
+          });
+        });
+      });
     } catch (IOException e) {
       logger.log(Level.SEVERE, "saveMarcElements", e);
     }
   }
 
   private void savePackages(String fileExtension, char separator) {
-    logger.info("saving Packages...");
+    logger.info("saving packages...");
     var path = Paths.get(parameters.getOutputDir(), "packages" + fileExtension);
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow(separator, "documenttype", "packageid", "name", "label", "iscoretag", "count"));
-      packageCounter
-        .forEach((documentType, packages) ->
+      completenessDAO.getPackageCounter().forEach((documentType, packages) -> {
+        packages.forEach((packageName, count) -> {
+          try {
+            TagCategory tagCategory = TagCategory.getPackage(packageName);
+            String range = packageName;
+            String label = "";
+            int id = 100;
+            boolean isPartOfMarcScore = false;
+            if (tagCategory != null) {
+              id = tagCategory.getId();
+              range = tagCategory.getRange();
+              label = tagCategory.getLabel();
+              isPartOfMarcScore = tagCategory.isPartOfMarcCore();
+            } else {
+              logger.severe(packageName + " has not been found in TagCategory");
+            }
+            writer.write(createRow(
+              separator, quote(documentType), id, quote(range), quote(label), isPartOfMarcScore, count
+            ));
+          } catch (IOException e) {
+            logger.log(Level.SEVERE, "savePackages", e);
+          }
+        });
+      });
+    } catch (IOException e) {
+      logger.log(Level.SEVERE, "savePackages", e);
+    }
+  }
+
+  private void saveGrouppedPackages(String fileExtension, char separator) {
+    logger.info("saving groupped packages...");
+    var path = Paths.get(parameters.getOutputDir(), "completeness-groupped-packages" + fileExtension);
+    try (var writer = Files.newBufferedWriter(path)) {
+      writer.write(createRow(separator, "group", "documenttype", "packageid", "name", "label", "iscoretag", "count"));
+      completenessDAO.getGrouppedPackageCounter().forEach((groupId, documentTypes) -> {
+        documentTypes.forEach((documentType, packages) -> {
           packages.forEach((packageName, count) -> {
             try {
               TagCategory tagCategory = TagCategory.getPackage(packageName);
@@ -384,33 +307,50 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
                 logger.severe(packageName + " has not been found in TagCategory");
               }
               writer.write(createRow(
-                separator, quote(documentType), id, quote(range), quote(label), isPartOfMarcScore, count
+                separator, quote(groupId), quote(documentType), id, quote(range), quote(label), isPartOfMarcScore, count
               ));
             } catch (IOException e) {
               logger.log(Level.SEVERE, "savePackages", e);
             }
-          })
-        );
+          });
+        });
+      });
     } catch (IOException e) {
       logger.log(Level.SEVERE, "savePackages", e);
     }
   }
 
   private void saveLibraries(String fileExtension, char separator) {
-    logger.info("Saving Libraries");
+    logger.info("Saving libraries...");
     var path = Paths.get(parameters.getOutputDir(), "libraries" + fileExtension);
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write("library" + separator + "count\n");
-      libraryCounter
-        .entrySet()
-        .stream()
-        .forEach(entry -> {
-          try {
-            writer.write(String.format("\"%s\"%s%d%n", entry.getKey(), separator, entry.getValue()));
-          } catch (IOException e) {
-            logger.log(Level.SEVERE, "saveLibraries", e);
-          }
-        });
+      completenessDAO.getLibraryCounter().forEach((key, value) -> {
+        try {
+          writer.write(String.format("\"%s\"%s%d%n", key, separator, value));
+        } catch (IOException e) {
+          logger.log(Level.SEVERE, "saveLibraries", e);
+        }
+      });
+    } catch (IOException e) {
+      logger.log(Level.SEVERE, "saveLibraries", e);
+    }
+  }
+
+  private void saveGroups(String fileExtension, char separator) {
+    logger.info("Saving groups...");
+    OrganizationCodes org = OrganizationCodes.getInstance();
+    var path = Paths.get(parameters.getOutputDir(), "completeness-groups" + fileExtension);
+    try (var writer = Files.newBufferedWriter(path)) {
+      writer.write("group" + separator + "count\n");
+      completenessDAO.getGroupCounter().forEach((key, value) -> {
+        try {
+          EncodedValue x = org.getCode("DE-" + key);
+          writer.write(String.format("\"%s\"%s%d%n", (x == null ? key : x.getLabel()), separator, value));
+        } catch (IOException e) {
+          logger.log(Level.SEVERE, "saveLibraries", e);
+        }
+      });
     } catch (IOException e) {
       logger.log(Level.SEVERE, "saveLibraries", e);
     }
@@ -419,7 +359,8 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
   private String formatCardinality(char separator,
                                    String marcPath,
                                    int cardinality,
-                                   String documentType) {
+                                   String documentType,
+                                   String groupId) {
     if (marcPath.equals("")) {
       logger.severe("Empty key from " + marcPath);
     }
@@ -440,7 +381,7 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
     }
 
     // Integer cardinality = entry.getValue();
-    Integer frequency = elementFrequency.get(documentType).get(marcPath);
+    Integer frequency = completenessDAO.getElementFrequency().get(documentType).get(marcPath);
     BasicStatistics statistics = new BasicStatistics(fieldHistogram.get(marcPath));
     if (!fieldHistogram.containsKey(marcPath)) {
       logger.warning(String.format("Field %s is not registered in histogram", marcPath));
@@ -455,6 +396,8 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
         statistics.formatHistogram()
       )
     );
+    if (groupId != null)
+      values.add(0, groupId);
 
     return StringUtils.join(values, separator) + "\n";
   }

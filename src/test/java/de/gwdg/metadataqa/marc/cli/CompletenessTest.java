@@ -16,6 +16,7 @@ public class CompletenessTest extends CliTestUtils {
   private String inputFile;
   private String outputDir;
   private List<String> outputFiles;
+  private List<String> grouppedOutputFiles;
 
   @Before
   public void setUp() throws Exception {
@@ -26,6 +27,13 @@ public class CompletenessTest extends CliTestUtils {
       "libraries003.csv",
       "marc-elements.csv",
       "packages.csv"
+    );
+    grouppedOutputFiles = Arrays.asList(
+      "libraries.csv",
+      "libraries003.csv",
+      "completeness-groups.csv",
+      "completeness-groupped-marc-elements.csv",
+      "completeness-groupped-packages.csv"
     );
   }
 
@@ -79,5 +87,31 @@ public class CompletenessTest extends CliTestUtils {
 
     String b = "041$|0";
     assertEquals("041$0", b.replaceAll("\\|(\\d)$", "$1"));
+  }
+
+  @Test
+  public void completeness_pica_groupBy() throws Exception {
+    clearOutput(outputDir, grouppedOutputFiles);
+
+    Completeness processor = new Completeness(new String[]{
+      "--schemaType", "PICA",
+      "--groupBy", "001@$0",
+      "--marcFormat", "PICA_NORMALIZED",
+      "--outputDir", outputDir,
+      getPath("src/test/resources/pica/pica-with-holdings-info.dat")
+    });
+    RecordIterator iterator = new RecordIterator(processor);
+    iterator.start();
+
+    for (String outputFile : grouppedOutputFiles) {
+      File output = new File(outputDir, outputFile);
+      assertTrue(outputFile + " should exist", output.exists());
+      /*
+      if (!outputFile.equals("packages.csv")) {
+        output.delete();
+        assertFalse(output.exists());
+      }
+       */
+    }
   }
 }

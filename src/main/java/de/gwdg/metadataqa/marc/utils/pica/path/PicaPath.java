@@ -1,6 +1,10 @@
 package de.gwdg.metadataqa.marc.utils.pica.path;
 
-public class PicaPath {
+import de.gwdg.metadataqa.marc.utils.BibiographicPath;
+
+import java.util.List;
+
+public class PicaPath implements BibiographicPath {
 
   private String path;
   private String tag = null;
@@ -18,6 +22,11 @@ public class PicaPath {
 
   public String getPath() {
     return path;
+  }
+
+  @Override
+  public List<String> getSubfieldCodes() {
+    return subfields.getCodes();
   }
 
   public String getTag() {

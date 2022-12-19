@@ -46,9 +46,11 @@ public class RecordIterator {
   private Leader.Type defaultRecordType;
   private DecimalFormat decimalFormat;
   private PicaSchemaManager picaSchema;
+  private String status = "waits";
 
   public RecordIterator(BibliographicInputProcessor processor) {
     this.processor = processor;
+    status = "initialized";
   }
 
   public void start() {
@@ -95,6 +97,8 @@ public class RecordIterator {
     if (parameters.doLog())
       logger.info(String.format("Bye! It took: %s",
         LocalTime.MIN.plusSeconds(duration).toString()));
+
+    status = "done";
   }
 
   private void processFile(String inputFileName) {
@@ -250,5 +254,9 @@ public class RecordIterator {
     HelpFormatter formatter = new HelpFormatter();
     formatter.printHelp("java -cp metadata-qa-marc.jar de.gwdg.metadataqa.marc.cli.Validator [options] [file]",
       opions);
+  }
+
+  public String getStatus() {
+    return status;
   }
 }

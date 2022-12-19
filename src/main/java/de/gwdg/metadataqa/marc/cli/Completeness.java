@@ -47,7 +47,6 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
   private static final Logger logger = Logger.getLogger(Completeness.class.getCanonicalName());
   private static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
 
-  private final Options options;
   private CompletenessParameters parameters;
 
   private CompletenessDAO completenessDAO = new CompletenessDAO();
@@ -61,7 +60,6 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
 
   public Completeness(String[] args) throws ParseException {
     parameters = new CompletenessParameters(args);
-    options = parameters.getOptions();
     readyToProcess = true;
     plugin = CompletenessFactory.create(parameters);
     recordFilter = parameters.getRecordFilter();

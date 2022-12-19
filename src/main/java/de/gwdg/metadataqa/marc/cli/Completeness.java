@@ -42,7 +42,7 @@ import java.util.regex.Pattern;
 import static de.gwdg.metadataqa.marc.Utils.createRow;
 import static de.gwdg.metadataqa.marc.Utils.quote;
 
-public class Completeness implements BibliographicInputProcessor, Serializable {
+public class Completeness extends QACli implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(Completeness.class.getCanonicalName());
   private static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
@@ -56,7 +56,6 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
   private CompletenessPlugin plugin;
   private RecordFilter recordFilter;
   private RecordIgnorator recordIgnorator;
-  private BibiographicPath groupBy = null;
 
   public Completeness(String[] args) throws ParseException {
     parameters = new CompletenessParameters(args);
@@ -64,11 +63,7 @@ public class Completeness implements BibliographicInputProcessor, Serializable {
     plugin = CompletenessFactory.create(parameters);
     recordFilter = parameters.getRecordFilter();
     recordIgnorator = parameters.getRecordIgnorator();
-    if (parameters.getGroupBy() != null) {
-      groupBy = parameters.isPica()
-        ? PicaPathParser.parse(parameters.getGroupBy())
-        : null; // TODO: create it for MARC21
-    }
+    initializeGroups(parameters.getGroupBy(), parameters.isPica());
   }
 
   public static void main(String[] args) {

@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.cli;
 import de.gwdg.metadataqa.marc.CsvUtils;
 import de.gwdg.metadataqa.marc.analysis.validator.Validator;
 import de.gwdg.metadataqa.marc.analysis.validator.ValidatorConfiguration;
+import de.gwdg.metadataqa.marc.analysis.validator.ValidatorDAO;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
@@ -38,22 +39,13 @@ import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat.TAB
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class ValidatorCli implements BibliographicInputProcessor, Serializable {
+public class ValidatorCli extends QACli implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(ValidatorCli.class.getCanonicalName());
   private Options options;
 
   private final ValidatorParameters parameters;
-  private final Map<Integer, Integer> totalRecordCounter = new HashMap<>();
-  private final Map<Integer, Integer> totalInstanceCounter = new HashMap<>();
-  private final Map<ValidationErrorCategory, Integer> categoryRecordCounter = new EnumMap<>(ValidationErrorCategory.class);
-  private final Map<ValidationErrorCategory, Integer> categoryInstanceCounter = new EnumMap<>(ValidationErrorCategory.class);
-  private final Map<ValidationErrorType, Integer> typeRecordCounter = new EnumMap<>(ValidationErrorType.class);
-  private final Map<ValidationErrorType, Integer> typeInstanceCounter = new EnumMap<>(ValidationErrorType.class);
-  private final Map<ValidationError, Integer> instanceBasedErrorCounter = new HashMap<>();
-  private final Map<Integer, Integer> recordBasedErrorCounter = new HashMap<>();
   private final Map<Integer, Integer> hashedIndex = new HashMap<>();
-  private final Map<Integer, Set<String>> errorCollector = new TreeMap<>();
   private final Map<String, Set<String>> isbnCollector = new TreeMap<>();
   private final Map<String, Set<String>> issnCollector = new TreeMap<>();
   private File detailsFile = null;
@@ -68,6 +60,7 @@ public class ValidatorCli implements BibliographicInputProcessor, Serializable {
   private int vErrorId = 1;
   private List<ValidationError> allValidationErrors;
   private ValidatorConfiguration validatorConfiguration;
+  private ValidatorDAO validatorDAO = new ValidatorDAO();
 
   public ValidatorCli(String[] args) throws ParseException {
     this(new ValidatorParameters(args));
@@ -83,6 +76,7 @@ public class ValidatorCli implements BibliographicInputProcessor, Serializable {
       .withDoSummary(parameters.doSummary())
       .withIgnorableFields(parameters.getIgnorableFields())
       .withIgnorableIssueTypes(parameters.getIgnorableIssueTypes());
+    initializeGroups(parameters.getGroupBy(), parameters.isPica());
   }
 
   public static void main(String[] args) {
@@ -178,7 +172,7 @@ public class ValidatorCli implements BibliographicInputProcessor, Serializable {
       logger.severe("No record number at " + i);
 
     if (i % 100000 == 0)
-      logger.info("Number of error types so far: " + instanceBasedErrorCounter.size());
+      logger.info("Number of error types so far: " + validatorDAO.getInstanceBasedErrorCounter().size());
 
     if (parameters.getRecordIgnorator().isIgnorable(marcRecord)) {
       logger.info("skip " + marcRecord.getId() + " (ignorable record)");
@@ -187,13 +181,6 @@ public class ValidatorCli implements BibliographicInputProcessor, Serializable {
 
     Validator validator = new Validator(validatorConfiguration);
     boolean isValid = validator.validate(marcRecord);
-    /*
-    boolean isValid = marcRecord.validate(parameters.getMarcVersion(),
-                                          parameters.doSummary(),
-                                          parameters.getIgnorableFields(),
-                                          parameters.getIgnorableIssueTypes()
-    );
-     */
     if (!isValid && doPrintInProcessRecord) {
       if (parameters.doSummary())
         processSummary(marcRecord, validator);
@@ -202,7 +189,7 @@ public class ValidatorCli implements BibliographicInputProcessor, Serializable {
         processDetails(marcRecord, validator);
     } else {
       if (parameters.doSummary())
-        count(0, totalRecordCounter);
+        count(0, validatorDAO.getTotalRecordCounter());
     }
     if (parameters.collectAllErrors())
       allValidationErrors.addAll(validator.getValidationErrors());
@@ -238,7 +225,7 @@ public class ValidatorCli implements BibliographicInputProcessor, Serializable {
     Set<ValidationErrorType> uniqueTypes = new HashSet<>();
     Set<ValidationErrorCategory> uniqueCategories = new HashSet<>();
     for (ValidationError error : errors) {
-      if (!instanceBasedErrorCounter.containsKey(error)) {
+      if (!validatorDAO.getInstanceBasedErrorCounter().containsKey(error)) {
         error.setId(vErrorId++);
         hashedIndex.put(error.hashCode(), error.getId());
       } else {
@@ -246,14 +233,14 @@ public class ValidatorCli implements BibliographicInputProcessor, Serializable {
       }
 
       if (!error.getType().equals(ValidationErrorType.FIELD_UNDEFINED)) {
-        count(2, totalInstanceCounter);
+        count(2, validatorDAO.getTotalInstanceCounter());
         allButInvalidFieldErrors.add(error);
       }
 
-      count(error, instanceBasedErrorCounter);
-      count(error.getType(), typeInstanceCounter);
-      count(error.getType().getCategory(), categoryInstanceCounter);
-      count(1, totalInstanceCounter);
+      count(error, validatorDAO.getInstanceBasedErrorCounter());
+      count(error.getType(), validatorDAO.getTypeInstanceCounter());
+      count(error.getType().getCategory(), validatorDAO.getCategoryInstanceCounter());
+      count(1, validatorDAO.getTotalInstanceCounter());
       updateErrorCollector(marcRecord.getId(true), error.getId());
       uniqueErrors.add(error.getId());
       uniqueTypes.add(error.getType());
@@ -261,17 +248,17 @@ public class ValidatorCli implements BibliographicInputProcessor, Serializable {
     }
 
     for (Integer id : uniqueErrors) {
-      count(id, recordBasedErrorCounter);
+      count(id, validatorDAO.getRecordBasedErrorCounter());
     }
     for (ValidationErrorType id : uniqueTypes) {
-      count(id, typeRecordCounter);
+      count(id, validatorDAO.getTypeRecordCounter());
     }
     for (ValidationErrorCategory id : uniqueCategories) {
-      count(id, categoryRecordCounter);
+      count(id, validatorDAO.getCategoryRecordCounter());
     }
-    count(1, totalRecordCounter);
+    count(1, validatorDAO.getTotalRecordCounter());
     if (!allButInvalidFieldErrors.isEmpty())
-      count(2, totalRecordCounter);
+      count(2, validatorDAO.getTotalRecordCounter());
   }
 
   @Override
@@ -308,7 +295,7 @@ public class ValidatorCli implements BibliographicInputProcessor, Serializable {
   }
 
   private void printCollector() {
-    for (Map.Entry<Integer, Set<String>> entry : errorCollector.entrySet()) {
+    for (Map.Entry<Integer, Set<String>> entry : validatorDAO.getErrorCollector().entrySet()) {
       printCollectorEntry(entry.getKey(), entry.getValue());
     }
   }
@@ -318,7 +305,7 @@ public class ValidatorCli implements BibliographicInputProcessor, Serializable {
       parameters.getFormat()
     );
     print(summaryFile, header + "\n");
-    instanceBasedErrorCounter
+    validatorDAO.getInstanceBasedErrorCounter()
       .entrySet()
       .stream()
       .sorted((a,b) -> {
@@ -326,8 +313,8 @@ public class ValidatorCli implements BibliographicInputProcessor, Serializable {
         Integer typeIdB = Integer.valueOf(b.getKey().getType().getId());
         int result = typeIdA.compareTo(typeIdB);
         if (result == 0) {
-          Integer recordCountA = recordBasedErrorCounter.get(a.getKey().getId());
-          Integer recordCountB = recordBasedErrorCounter.get(b.getKey().getId());
+          Integer recordCountA = validatorDAO.getRecordBasedErrorCounter().get(a.getKey().getId());
+          Integer recordCountB = validatorDAO.getRecordBasedErrorCounter().get(b.getKey().getId());
           result = recordCountB.compareTo(recordCountA);
         }
         return result;
@@ -339,43 +326,31 @@ public class ValidatorCli implements BibliographicInputProcessor, Serializable {
           List<Serializable> cells = new ArrayList<>();
           cells.add(error.getId());
           cells.addAll(Arrays.asList(ValidationErrorFormatter.asArrayWithoutId(error)));
-          cells.addAll(Arrays.asList(instanceCount, recordBasedErrorCounter.get(error.getId())));
+          cells.addAll(Arrays.asList(instanceCount, validatorDAO.getRecordBasedErrorCounter().get(error.getId())));
           // String formattedOutput = ValidationErrorFormatter.formatForSummary(
           //   error, parameters.getFormat()
           // );
           // print(summaryFile, createRow(
-          //   separator, error.getId(), formattedOutput, instanceCount, recordBasedErrorCounter.get(error.getId())
+          //   separator, error.getId(), formattedOutput, instanceCount, validatorDAO.getRecordBasedErrorCounter().get(error.getId())
           // ));
           // TODO: separator
           print(summaryFile, CsvUtils.createCsv(cells));
         }
       );
-    /*
-    for (Map.Entry<ValidationError, Integer> entry : instanceBasedErrorCounter.entrySet()) {
-      ValidationError error = entry.getKey();
-      int count = entry.getValue();
-      String formattedOutput = ValidationErrorFormatter.formatForSummary(
-        error, parameters.getFormat()
-      );
-      print(summaryFile, createRow(
-        separator, error.getId(), formattedOutput, count, recordBasedErrorCounter.get(error.getId())
-      ));
-    }
-    */
   }
 
   private void printTypeCounts() {
     var path = Paths.get(parameters.getOutputDir(), "issue-by-type.csv");
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("id", "categoryId", "category", "type", "instances", "records"));
-      typeRecordCounter
+      validatorDAO.getTypeRecordCounter()
         .entrySet()
         .stream()
         .sorted((a, b) -> ((Integer)a.getKey().getId()).compareTo((Integer) b.getKey().getId()))
         .forEach(entry -> {
           ValidationErrorType type = entry.getKey();
           int records = entry.getValue();
-          int instances = typeInstanceCounter.get(entry.getKey());
+          int instances = validatorDAO.getTypeInstanceCounter().get(entry.getKey());
           try {
             writer.write(createRow(
               type.getId(), type.getCategory().getId(), type.getCategory().getName(), quote(type.getMessage()), instances, records
@@ -393,13 +368,12 @@ public class ValidatorCli implements BibliographicInputProcessor, Serializable {
     var path = Paths.get(parameters.getOutputDir(), "issue-total.csv");
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("type", "instances", "records"));
-      // writer.write(createRow("total", totalInstanceCounter.get(1), totalRecordCounter.get(1)));
-      totalRecordCounter
+      validatorDAO.getTotalRecordCounter()
         .entrySet()
         .stream()
         .forEach(entry -> {
           int records = entry.getValue();
-          int instances = totalInstanceCounter.getOrDefault(entry.getKey(), 0);
+          int instances = validatorDAO.getTotalInstanceCounter().getOrDefault(entry.getKey(), 0);
           try {
             writer.write(createRow(entry.getKey(), instances, records));
           } catch (IOException e) {
@@ -415,14 +389,14 @@ public class ValidatorCli implements BibliographicInputProcessor, Serializable {
     var path = Paths.get(parameters.getOutputDir(), "issue-by-category.csv");
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("id", "category", "instances", "records"));
-      categoryRecordCounter
+      validatorDAO.getCategoryRecordCounter()
         .entrySet()
         .stream()
         .sorted((a, b) -> ((Integer)a.getKey().getId()).compareTo((Integer) b.getKey().getId()))
         .forEach(entry -> {
           ValidationErrorCategory category = entry.getKey();
           int records = entry.getValue();
-          int instances = categoryInstanceCounter.getOrDefault(entry.getKey(), -1);
+          int instances = validatorDAO.getCategoryInstanceCounter().getOrDefault(entry.getKey(), -1);
           try {
             writer.write(createRow(category.getId(), category.getName(), instances, records));
           } catch (IOException e) {
@@ -470,15 +444,15 @@ public class ValidatorCli implements BibliographicInputProcessor, Serializable {
   }
 
   private void updateErrorCollector(String recordId, int errorId) {
-    if (!errorCollector.containsKey(errorId)) {
-      errorCollector.put(errorId, new HashSet<>());
+    if (!validatorDAO.getErrorCollector().containsKey(errorId)) {
+      validatorDAO.getErrorCollector().put(errorId, new HashSet<>());
     } else if (parameters.doEmptyLargeCollectors()) {
-      if (errorCollector.get(errorId).size() >= 1000) {
-        printCollectorEntry(errorId, errorCollector.get(errorId));
-        errorCollector.put(errorId, new HashSet<>());
+      if (validatorDAO.getErrorCollector().get(errorId).size() >= 1000) {
+        printCollectorEntry(errorId, validatorDAO.getErrorCollector().get(errorId));
+        validatorDAO.getErrorCollector().put(errorId, new HashSet<>());
       }
     }
-    errorCollector.get(errorId).add(recordId);
+    validatorDAO.getErrorCollector().get(errorId).add(recordId);
   }
 
   public boolean doPrintInProcessRecord() {

@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.utils.pica.path;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -78,6 +79,7 @@ public class PicaPathParserTest {
     assertEquals(Subfields.Type.ALL, path.getSubfields().getType());
     assertEquals("*", path.getSubfields().getInput());
     assertEquals(Arrays.asList("*"), path.getSubfields().getCodes());
+    assertEquals(Arrays.asList("*"), path.getSubfieldCodes());
   }
 
   @Test
@@ -90,6 +92,7 @@ public class PicaPathParserTest {
     assertEquals(Subfields.Type.SINGLE, path.getSubfields().getType());
     assertEquals("a", path.getSubfields().getInput());
     assertEquals(Arrays.asList("a"), path.getSubfields().getCodes());
+    assertEquals(Arrays.asList("a"), path.getSubfieldCodes());
   }
 
   @Test
@@ -102,6 +105,7 @@ public class PicaPathParserTest {
     assertEquals(Subfields.Type.MULTI, path.getSubfields().getType());
     assertEquals("abc", path.getSubfields().getInput());
     assertEquals(Arrays.asList("a", "b", "c"), path.getSubfields().getCodes());
+    assertEquals(List.of("a", "b", "c"), path.getSubfieldCodes());
   }
 
   @Test
@@ -114,6 +118,7 @@ public class PicaPathParserTest {
     assertEquals(Subfields.Type.MULTI, path.getSubfields().getType());
     assertEquals("aBc", path.getSubfields().getInput());
     assertEquals(Arrays.asList("a", "B", "c"), path.getSubfields().getCodes());
+    assertEquals(List.of("a", "B", "c"), path.getSubfieldCodes());
   }
 
   @Test

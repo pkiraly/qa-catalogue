@@ -2,10 +2,12 @@ package de.gwdg.metadataqa.marc.utils.pica.path;
 
 import de.gwdg.metadataqa.marc.utils.BibiographicPath;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class PicaPath implements BibiographicPath {
+public class PicaPath implements BibiographicPath, Serializable {
 
+  private static final long serialVersionUID = -3048056044853829860L;
   private String path;
   private String tag = null;
   private String xtag = null;

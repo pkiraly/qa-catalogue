@@ -79,8 +79,13 @@ public class RecordCompleteness {
     if (bibliographicRecord.getLeader() != null) {
       for (ControlValue position : bibliographicRecord.getLeader().getValuesList()) {
         String marcPath = position.getDefinition().getId();
-        count(marcPath, completenessDAO.getElementCardinality().get(documentType));
-        count(marcPath, completenessDAO.getElementCardinality().get("all"));
+        if (hasGroupBy()) {
+          for (String groupId : groupIds)
+            addGrouppedElementCardinality(marcPath, groupId);
+        } else {
+          count(marcPath, completenessDAO.getElementCardinality().get(documentType));
+          count(marcPath, completenessDAO.getElementCardinality().get("all"));
+        }
         count(marcPath, recordFrequency);
         count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
       }
@@ -91,8 +96,13 @@ public class RecordCompleteness {
     for (MarcControlField field : bibliographicRecord.getSimpleControlfields()) {
       if (field != null) {
         String marcPath = field.getDefinition().getTag();
-        count(marcPath, completenessDAO.getElementCardinality().get(documentType));
-        count(marcPath, completenessDAO.getElementCardinality().get("all"));
+        if (hasGroupBy()) {
+          for (String groupId : groupIds)
+            addGrouppedElementCardinality(marcPath, groupId);
+        } else {
+          count(marcPath, completenessDAO.getElementCardinality().get(documentType));
+          count(marcPath, completenessDAO.getElementCardinality().get("all"));
+        }
         count(marcPath, recordFrequency);
         count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
       }
@@ -104,8 +114,13 @@ public class RecordCompleteness {
       if (field != null) {
         for (ControlValue position : field.getValuesList()) {
           String marcPath = position.getDefinition().getId();
-          count(marcPath, completenessDAO.getElementCardinality().get(documentType));
-          count(marcPath, completenessDAO.getElementCardinality().get("all"));
+          if (hasGroupBy()) {
+            for (String groupId : groupIds)
+              addGrouppedElementCardinality(marcPath, groupId);
+          } else {
+            count(marcPath, completenessDAO.getElementCardinality().get(documentType));
+            count(marcPath, completenessDAO.getElementCardinality().get("all"));
+          }
           count(marcPath, recordFrequency);
           count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
         }
@@ -143,12 +158,7 @@ public class RecordCompleteness {
   }
 
   private void processGrouppedDataField(DataField field, String groupId) {
-    completenessDAO.getGrouppedElementCardinality().computeIfAbsent(groupId, s -> new TreeMap<>());
-    completenessDAO.getGrouppedElementCardinality().get(groupId).computeIfAbsent(documentType, s -> new TreeMap<>());
-    completenessDAO.getGrouppedElementCardinality().get(groupId).computeIfAbsent("all", s -> new TreeMap<>());
-    count(field.getTag(), completenessDAO.getGrouppedElementCardinality().get(groupId).get(documentType));
-    count(field.getTag(), completenessDAO.getGrouppedElementCardinality().get(groupId).get("all"));
-    count(field.getTag(), recordFrequency);
+    addGrouppedElementCardinality(field.getTag(), groupId);
 
     List<String> marcPaths = getMarcPaths(field);
     for (String marcPath : marcPaths) {
@@ -252,5 +262,13 @@ public class RecordCompleteness {
         marcPaths.add(String.format("%s$%s", field.getTag(), subfield.getCode()));
 
     return marcPaths;
+  }
+
+  private void addGrouppedElementCardinality(String marcPath, String groupId) {
+    completenessDAO.getGrouppedElementCardinality().computeIfAbsent(groupId, s -> new TreeMap<>());
+    completenessDAO.getGrouppedElementCardinality().get(groupId).computeIfAbsent(documentType, s -> new TreeMap<>());
+    completenessDAO.getGrouppedElementCardinality().get(groupId).computeIfAbsent("all", s -> new TreeMap<>());
+    count(marcPath, completenessDAO.getGrouppedElementCardinality().get(groupId).get(documentType));
+    count(marcPath, completenessDAO.getGrouppedElementCardinality().get(groupId).get("all"));
   }
 }

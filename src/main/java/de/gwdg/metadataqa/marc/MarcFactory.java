@@ -134,19 +134,19 @@ public class MarcFactory {
    * @param marc4jRecord The Marc4j record
    * @param defaultType The defauld document type
    * @param marcVersion The MARC version
-   * @param replecementInControlFields A ^ or # character which sould be replaced with space in control fields
+   * @param replacementInControlFields A ^ or # character which sould be replaced with space in control fields
    * @return
    */
   public static BibliographicRecord createFromMarc4j(Record marc4jRecord,
                                                      Leader.Type defaultType,
                                                      MarcVersion marcVersion,
-                                                     String replecementInControlFields) {
+                                                     String replacementInControlFields) {
     var marcRecord = new Marc21Record();
 
     if (marc4jRecord.getLeader() != null) {
       String data = marc4jRecord.getLeader().marshal();
-      if (replecementInControlFields != null)
-        data = data.replace(replecementInControlFields, " ");
+      if (replacementInControlFields != null)
+        data = data.replace(replacementInControlFields, " ");
       marcRecord.setLeader(new Leader(data, defaultType));
 
       if (marcRecord.getType() == null) {
@@ -159,7 +159,7 @@ public class MarcFactory {
       }
     }
 
-    importMarc4jControlFields(marc4jRecord, marcRecord, replecementInControlFields);
+    importMarc4jControlFields(marc4jRecord, marcRecord, replacementInControlFields);
 
     importMarc4jDataFields(marc4jRecord, marcRecord, marcVersion);
 
@@ -179,11 +179,11 @@ public class MarcFactory {
 
   private static void importMarc4jControlFields(Record marc4jRecord,
                                                 BibliographicRecord marcRecord,
-                                                String replecementInControlFields) {
+                                                String replacementInControlFields) {
     for (ControlField controlField : marc4jRecord.getControlFields()) {
       String data = controlField.getData();
-      if (replecementInControlFields != null && isFixable(controlField.getTag()))
-        data = data.replace(replecementInControlFields, " ");
+      if (replacementInControlFields != null && isFixable(controlField.getTag()))
+        data = data.replace(replacementInControlFields, " ");
       switch (controlField.getTag()) {
         case "001":
           marcRecord.setControl001(new Control001(data)); break;

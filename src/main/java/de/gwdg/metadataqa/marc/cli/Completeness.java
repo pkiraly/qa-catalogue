@@ -1,10 +1,14 @@
 package de.gwdg.metadataqa.marc.cli;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.analysis.completeness.CompletenessDAO;
 import de.gwdg.metadataqa.marc.analysis.completeness.RecordCompleteness;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
-import de.gwdg.metadataqa.marc.utils.BibiographicPath;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.plugin.CompletenessFactory;
@@ -18,7 +22,6 @@ import de.gwdg.metadataqa.marc.definition.tags.TagCategory;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.utils.BasicStatistics;
 import de.gwdg.metadataqa.marc.utils.TagHierarchy;
-import de.gwdg.metadataqa.marc.utils.pica.path.PicaPathParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -146,6 +149,22 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
   public void beforeIteration() {
     logger.info(parameters.formatParameters());
     completenessDAO.initialize();
+
+    ObjectMapper mapper = new ObjectMapper();
+    try {
+      FilterProvider filters = new SimpleFilterProvider()
+        .addFilter("myFilter", SimpleBeanPropertyFilter.serializeAllExcept("options"));
+
+      String json = mapper.writer(filters).writeValueAsString(parameters);
+      Path path = Paths.get(parameters.getOutputDir(), "completeness.params.json");
+      try (var writer = Files.newBufferedWriter(path)) {
+        writer.write(json);
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+    } catch (JsonProcessingException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override

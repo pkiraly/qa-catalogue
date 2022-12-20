@@ -46,7 +46,7 @@ public class ParallelValidator {
         MarcReader reader = QAMarcReaderFactory.getStringReader(MarcFormat.ISO, content);
         Record marc4jRecord = reader.next();
         BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(
-          marc4jRecord, params.getDefaultRecordType(), params.getMarcVersion(), params.getReplecementInControlFields());
+          marc4jRecord, params.getDefaultRecordType(), params.getMarcVersion(), params.getReplacementInControlFields());
         validatorCli.processRecord(marcRecord, 1);
         Validator analyzer = new Validator(validatorConfiguration);
         analyzer.validate(marcRecord);

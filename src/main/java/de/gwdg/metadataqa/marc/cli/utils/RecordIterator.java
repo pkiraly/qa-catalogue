@@ -41,7 +41,7 @@ public class RecordIterator {
   private int i = 0;
   private String lastKnownId = "";
   private CommonParameters parameters;
-  private String replecementInControlFields;
+  private String replacementInControlFields;
   private MarcVersion marcVersion;
   private Leader.Type defaultRecordType;
   private DecimalFormat decimalFormat;
@@ -61,7 +61,7 @@ public class RecordIterator {
 
     marcVersion = parameters.getMarcVersion();
     defaultRecordType = parameters.getDefaultRecordType();
-    replecementInControlFields = parameters.getReplecementInControlFields();
+    replacementInControlFields = parameters.getReplacementInControlFields();
     decimalFormat = new DecimalFormat();
     if (parameters.isPica()) {
       String schemaFile = StringUtils.isNotEmpty(parameters.getPicaSchemaFile())
@@ -189,7 +189,7 @@ public class RecordIterator {
 
   private BibliographicRecord transformMarcRecord(Record marc4jRecord) {
     if (parameters.getSchemaType().equals(SchemaType.MARC21))
-      return MarcFactory.createFromMarc4j(marc4jRecord, defaultRecordType, marcVersion, replecementInControlFields);
+      return MarcFactory.createFromMarc4j(marc4jRecord, defaultRecordType, marcVersion, replacementInControlFields);
     else
       return MarcFactory.createPicaFromMarc4j(marc4jRecord, picaSchema);
   }

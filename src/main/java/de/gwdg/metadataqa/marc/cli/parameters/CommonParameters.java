@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnorator;
 import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnoratorFactory;
 import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilter;
@@ -48,6 +49,7 @@ public class CommonParameters implements Serializable {
   protected InputStream stream = null;
   protected String defaultEncoding = null;
 
+  @JsonIgnore
   protected Options options = new Options();
   protected static final CommandLineParser parser = new DefaultParser();
   protected CommandLine cmd;
@@ -389,7 +391,7 @@ public class CommonParameters implements Serializable {
     this.fixKbr = fixKbr;
   }
 
-  public String getReplecementInControlFields() {
+  public String getReplacementInControlFields() {
     if (fixAlephseq())
       return "^";
     else if (fixAlma() || fixKbr())

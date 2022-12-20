@@ -8,7 +8,6 @@ import org.junit.Test;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
@@ -30,7 +29,8 @@ public class ValidatorCliTest extends CliTestUtils {
       "issue-by-category.csv",
       "issue-by-type.csv",
       "issue-collector.csv",
-      "issue-total.csv"
+      "issue-total.csv",
+      "validation.params.json"
     );
     grouppedOutputFiles = Arrays.asList(
       "count.csv",
@@ -39,7 +39,8 @@ public class ValidatorCliTest extends CliTestUtils {
       "issue-by-category.csv",
       "issue-by-type.csv",
       "issue-collector.csv",
-      "issue-total.csv"
+      "issue-total.csv",
+      "validation.params.json"
     );
   }
 
@@ -115,5 +116,4 @@ public class ValidatorCliTest extends CliTestUtils {
       assertFalse(outputFile + " should not exist anymore", output.exists());
     }
   }
-
 }

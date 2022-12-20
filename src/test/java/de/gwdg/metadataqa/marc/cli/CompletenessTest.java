@@ -26,14 +26,16 @@ public class CompletenessTest extends CliTestUtils {
       "libraries.csv",
       "libraries003.csv",
       "marc-elements.csv",
-      "packages.csv"
+      "packages.csv",
+      "completeness.params.json"
     );
     grouppedOutputFiles = Arrays.asList(
       "libraries.csv",
       "libraries003.csv",
       "completeness-groups.csv",
       "completeness-groupped-marc-elements.csv",
-      "completeness-groupped-packages.csv"
+      "completeness-groupped-packages.csv",
+      "completeness.params.json"
     );
   }
 

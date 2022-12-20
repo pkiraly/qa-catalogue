@@ -365,6 +365,22 @@
 				</executions>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/metadata-qa-marc.version.prop</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<excludes>
+					<exclude>**/metadata-qa-marc.version.prop</exclude>
+				</excludes>
+			</resource>
+		</resources>
 	</build>
 
 	<profiles>

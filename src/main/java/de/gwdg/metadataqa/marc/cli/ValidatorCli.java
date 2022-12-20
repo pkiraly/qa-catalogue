@@ -141,6 +141,8 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
 
     if (parameters.collectAllErrors())
       allValidationErrors = new ArrayList<>();
+
+    saveParameters("validation.params.json", parameters);
   }
 
   private File prepareReportFile(String outputDir, String fileName) {

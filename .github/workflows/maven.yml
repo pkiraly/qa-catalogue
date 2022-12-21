@@ -37,12 +37,12 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      - name: Build and analyze
+      - name: Build and analyze with Sonar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DskipGpg=true
-      # https://app.codecov.io/gh/pkiraly/metadata-qa-marc
+      # coverage report: https://app.codecov.io/gh/pkiraly/metadata-qa-marc
       - name: Pubish code coverage at codecov.io
         uses: codecov/codecov-action@v1
         with:
@@ -53,5 +53,7 @@ jobs:
 #        uses: coverallsapp/github-action@master
 #        with:
 #          github-token: ${{ secrets.GITHUB_TOKEN }}
+      # COVERALL_REPO_TOKEN is available as the TOKEN variable at https://coveralls.io/github/pkiraly/metadata-qa-marc
+      # coverage report: https://coveralls.io/github/pkiraly/metadata-qa-marc
       - name: Coveralls Coverage Report Submission
-        run: mvn coveralls:report --define repoToken=${{ secrets.COVERALL_REPO_TOKEN }}
+        run: mvn coveralls:report -DrepoToken=${{ secrets.COVERALL_REPO_TOKEN }}

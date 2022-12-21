@@ -18,6 +18,8 @@ public class CompletenessDAO {
   private Map<String, Integer> library003Counter = new TreeMap<>();
   private Map<String, Integer> libraryCounter = new TreeMap<>();
   private Map<DataFieldDefinition, String> packageNameCache = new HashMap<>();
+  private Map<String, Map<Integer, Integer>> fieldHistogram = new HashMap<>();
+  private Map<String, Map<String, Map<Integer, Integer>>> grouppedFieldHistogram = new HashMap<>();
 
   public void initialize() {
     packageCounter.put("all", new TreeMap<>());
@@ -63,5 +65,13 @@ public class CompletenessDAO {
 
   public Map<String, Map<String, Map<String, Integer>>> getGrouppedElementFrequency() {
     return grouppedElementFrequency;
+  }
+
+  public Map<String, Map<Integer, Integer>> getFieldHistogram() {
+    return fieldHistogram;
+  }
+
+  public Map<String, Map<String, Map<Integer, Integer>>> getGrouppedFieldHistogram() {
+    return grouppedFieldHistogram;
   }
 }

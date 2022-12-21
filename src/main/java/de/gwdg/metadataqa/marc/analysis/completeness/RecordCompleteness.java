@@ -134,8 +134,11 @@ public class RecordCompleteness {
         continue;
 
       count(getPackageName(field), recordPackageCounter);
+      count(field.getTag(), recordFrequency);
+      for (String marcPath : getMarcPaths(field))
+        count(marcPath, recordFrequency);
+
       if (groupBy != null) {
-        count(field.getTag(), recordFrequency);
         for (String groupId : groupIds)
           processGrouppedDataField(field, groupId);
       } else {
@@ -147,13 +150,11 @@ public class RecordCompleteness {
   private void processDataField(DataField field) {
     count(field.getTag(), completenessDAO.getElementCardinality().get(documentType));
     count(field.getTag(), completenessDAO.getElementCardinality().get("all"));
-    count(field.getTag(), recordFrequency);
 
     List<String> marcPaths = getMarcPaths(field);
     for (String marcPath : marcPaths) {
       count(marcPath, completenessDAO.getElementCardinality().get(documentType));
       count(marcPath, completenessDAO.getElementCardinality().get("all"));
-      count(marcPath, recordFrequency);
     }
   }
 
@@ -164,7 +165,6 @@ public class RecordCompleteness {
     for (String marcPath : marcPaths) {
       count(marcPath, completenessDAO.getGrouppedElementCardinality().get(groupId).get(documentType));
       count(marcPath, completenessDAO.getGrouppedElementCardinality().get(groupId).get("all"));
-      count(marcPath, recordFrequency);
     }
   }
 

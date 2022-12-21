@@ -49,7 +49,6 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
 
   private CompletenessDAO completenessDAO = new CompletenessDAO();
 
-  private Map<String, Map<Integer, Integer>> fieldHistogram = new HashMap<>();
   private boolean readyToProcess;
   private CompletenessPlugin plugin;
   private RecordFilter recordFilter;
@@ -118,13 +117,17 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
           completenessDAO.getGrouppedElementFrequency().get(groupId).computeIfAbsent("all", s -> new TreeMap<>());
           count(key, completenessDAO.getGrouppedElementFrequency().get(groupId).get(recordCompleteness.getDocumentType()));
           count(key, completenessDAO.getGrouppedElementFrequency().get(groupId).get("all"));
+
+          completenessDAO.getGrouppedFieldHistogram().computeIfAbsent(groupId, s -> new TreeMap<>());
+          completenessDAO.getGrouppedFieldHistogram().get(groupId).computeIfAbsent(key, s -> new TreeMap<>());
+          count(recordCompleteness.getRecordFrequency().get(key), completenessDAO.getGrouppedFieldHistogram().get(groupId).get(key));
         }
       } else {
         count(key, completenessDAO.getElementFrequency().get(recordCompleteness.getDocumentType()));
         count(key, completenessDAO.getElementFrequency().get("all"));
+        completenessDAO.getFieldHistogram().computeIfAbsent(key, s -> new TreeMap<>());
+        count(recordCompleteness.getRecordFrequency().get(key), completenessDAO.getFieldHistogram().get(key));
       }
-      fieldHistogram.computeIfAbsent(key, s -> new TreeMap<>());
-      count(recordCompleteness.getRecordFrequency().get(key), fieldHistogram.get(key));
     }
 
     for (String key : recordCompleteness.getRecordPackageCounter().keySet()) {
@@ -385,16 +388,26 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     Integer frequency = (groupId != null)
       ? completenessDAO.getGrouppedElementFrequency().get(groupId).get(documentType).get(marcPath)
       : completenessDAO.getElementFrequency().get(documentType).get(marcPath);
-    BasicStatistics statistics = new BasicStatistics(fieldHistogram.get(marcPath));
-    if (!fieldHistogram.containsKey(marcPath)) {
-      logger.warning(String.format("Field %s is not registered in histogram", marcPath));
+
+    Map<Integer, Integer> histogram = null;
+    if (groupId != null) {
+      histogram = completenessDAO.getGrouppedFieldHistogram().get(groupId).get(marcPath);
+      if (!completenessDAO.getGrouppedFieldHistogram().get(groupId).containsKey(marcPath)) {
+        logger.warning(String.format("Field %s is not registered in histogram", marcPath));
+      }
+    } else {
+      histogram = completenessDAO.getFieldHistogram().get(marcPath);
+      if (!completenessDAO.getFieldHistogram().containsKey(marcPath)) {
+        logger.warning(String.format("Field %s is not registered in histogram", marcPath));
+      }
     }
+    BasicStatistics statistics = new BasicStatistics(histogram);
 
     List<Object> values = quote(
       Arrays.asList(
         documentType, marcPathLabel, packageId, packageLabel, tagLabel, subfieldLabel,
-        frequency, // =number-of-record
-        cardinality, // =number-of-instances
+        frequency,   // = number-of-record
+        cardinality, // = number-of-instances
         statistics.getMin(), statistics.getMax(),
         statistics.getMean(), statistics.getStdDev(),
         statistics.formatHistogram()

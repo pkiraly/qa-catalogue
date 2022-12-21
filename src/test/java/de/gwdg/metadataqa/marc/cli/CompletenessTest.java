@@ -1,10 +1,12 @@
 package de.gwdg.metadataqa.marc.cli;
 
+import com.opencsv.CSVReader;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.FileReader;
 import java.util.Arrays;
 import java.util.List;
 
@@ -108,6 +110,25 @@ public class CompletenessTest extends CliTestUtils {
     for (String outputFile : grouppedOutputFiles) {
       File output = new File(outputDir, outputFile);
       assertTrue(outputFile + " should exist", output.exists());
+      if (outputFile.equals("completeness-groupped-marc-elements.csv")) {
+        CSVReader reader = new CSVReader(new FileReader(output));
+        String[] record = null;
+        int lineNr = 0;
+        while ((record = reader.readNext()) != null) {
+          if (lineNr > 0) {
+            int records = Integer.parseInt(record[7]);
+            int occurences = Integer.parseInt(record[8]);
+            assertTrue(records <= occurences);
+            int total = 0;
+            for (String expr : record[13].split("; ")) {
+              String[] parts = expr.split("=");
+              total += Integer.parseInt(parts[0]) * Integer.parseInt(parts[1]);
+            }
+            assertEquals(occurences, total);
+          }
+          lineNr++;
+        }
+      }
       output.delete();
       assertFalse(outputFile + " should not exist anymore", output.exists());
     }

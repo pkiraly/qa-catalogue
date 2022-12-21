@@ -1,8 +1,5 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.analysis.completeness.CompletenessDAO;
 import de.gwdg.metadataqa.marc.analysis.completeness.RecordCompleteness;
@@ -26,7 +23,6 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.Record;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
@@ -115,9 +111,18 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
         count(id, completenessDAO.getGroupCounter());
 
     for (String key : recordCompleteness.getRecordFrequency().keySet()) {
-      count(key, completenessDAO.getElementFrequency().get(recordCompleteness.getDocumentType()));
-      count(key, completenessDAO.getElementFrequency().get("all"));
-
+      if (groupBy != null) {
+        for (String groupId : recordCompleteness.getGroupIds()) {
+          completenessDAO.getGrouppedElementFrequency().computeIfAbsent(groupId, s -> new TreeMap<>());
+          completenessDAO.getGrouppedElementFrequency().get(groupId).computeIfAbsent(recordCompleteness.getDocumentType(), s -> new TreeMap<>());
+          completenessDAO.getGrouppedElementFrequency().get(groupId).computeIfAbsent("all", s -> new TreeMap<>());
+          count(key, completenessDAO.getGrouppedElementFrequency().get(groupId).get(recordCompleteness.getDocumentType()));
+          count(key, completenessDAO.getGrouppedElementFrequency().get(groupId).get("all"));
+        }
+      } else {
+        count(key, completenessDAO.getElementFrequency().get(recordCompleteness.getDocumentType()));
+        count(key, completenessDAO.getElementFrequency().get("all"));
+      }
       fieldHistogram.computeIfAbsent(key, s -> new TreeMap<>());
       count(recordCompleteness.getRecordFrequency().get(key), fieldHistogram.get(key));
     }
@@ -338,11 +343,11 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     OrganizationCodes org = OrganizationCodes.getInstance();
     var path = Paths.get(parameters.getOutputDir(), "completeness-groups" + fileExtension);
     try (var writer = Files.newBufferedWriter(path)) {
-      writer.write("group" + separator + "count\n");
+      writer.write("id" + separator + "group" + separator + "count\n");
       completenessDAO.getGroupCounter().forEach((key, value) -> {
         try {
           EncodedValue x = org.getCode("DE-" + key);
-          writer.write(String.format("\"%s\"%s%d%n", (x == null ? key : x.getLabel()), separator, value));
+          writer.write(String.format("%s%s\"%s\"%s%d%n", key, separator, (x == null ? key : x.getLabel()), separator, value));
         } catch (IOException e) {
           logger.log(Level.SEVERE, "saveLibraries", e);
         }
@@ -377,7 +382,9 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     }
 
     // Integer cardinality = entry.getValue();
-    Integer frequency = completenessDAO.getElementFrequency().get(documentType).get(marcPath);
+    Integer frequency = (groupId != null)
+      ? completenessDAO.getGrouppedElementFrequency().get(groupId).get(documentType).get(marcPath)
+      : completenessDAO.getElementFrequency().get(documentType).get(marcPath);
     BasicStatistics statistics = new BasicStatistics(fieldHistogram.get(marcPath));
     if (!fieldHistogram.containsKey(marcPath)) {
       logger.warning(String.format("Field %s is not registered in histogram", marcPath));
@@ -386,7 +393,8 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     List<Object> values = quote(
       Arrays.asList(
         documentType, marcPathLabel, packageId, packageLabel, tagLabel, subfieldLabel,
-        frequency, cardinality,
+        frequency, // =number-of-record
+        cardinality, // =number-of-instances
         statistics.getMin(), statistics.getMax(),
         statistics.getMean(), statistics.getStdDev(),
         statistics.formatHistogram()

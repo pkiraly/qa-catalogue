@@ -13,6 +13,7 @@ public class CompletenessDAO {
   private Map<String, Map<String, Integer>> elementCardinality = new TreeMap<>();
   private Map<String, Map<String, Map<String, Integer>>> grouppedElementCardinality = new TreeMap<>();
   private Map<String, Map<String, Integer>> elementFrequency = new TreeMap<>();
+  private Map<String, Map<String, Map<String, Integer>>> grouppedElementFrequency = new TreeMap<>();
   private Map<String, Integer> groupCounter = new TreeMap<>();
   private Map<String, Integer> library003Counter = new TreeMap<>();
   private Map<String, Integer> libraryCounter = new TreeMap<>();
@@ -58,5 +59,9 @@ public class CompletenessDAO {
 
   public Map<DataFieldDefinition, String> getPackageNameCache() {
     return packageNameCache;
+  }
+
+  public Map<String, Map<String, Map<String, Integer>>> getGrouppedElementFrequency() {
+    return grouppedElementFrequency;
   }
 }

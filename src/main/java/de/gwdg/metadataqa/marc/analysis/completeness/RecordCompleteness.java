@@ -135,9 +135,9 @@ public class RecordCompleteness {
 
       count(getPackageName(field), recordPackageCounter);
       if (groupBy != null) {
-        for (String groupId : groupIds) {
+        count(field.getTag(), recordFrequency);
+        for (String groupId : groupIds)
           processGrouppedDataField(field, groupId);
-        }
       } else {
         processDataField(field);
       }

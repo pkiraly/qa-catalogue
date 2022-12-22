@@ -128,6 +128,7 @@ public class CompletenessTest extends CliTestUtils {
           }
           lineNr++;
         }
+        reader.close();
       }
       output.delete();
       assertFalse(outputFile + " should not exist anymore", output.exists());

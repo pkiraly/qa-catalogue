@@ -29,7 +29,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -56,11 +55,11 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
 
   public Completeness(String[] args) throws ParseException {
     parameters = new CompletenessParameters(args);
-    readyToProcess = true;
     plugin = CompletenessFactory.create(parameters);
     recordFilter = parameters.getRecordFilter();
     recordIgnorator = parameters.getRecordIgnorator();
     initializeGroups(parameters.getGroupBy(), parameters.isPica());
+    readyToProcess = true;
   }
 
   public static void main(String[] args) {

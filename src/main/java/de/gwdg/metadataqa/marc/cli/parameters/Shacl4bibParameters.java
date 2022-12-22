@@ -10,5 +10,5 @@ public class Shacl4bibParameters extends CommonParameters {
 
   public Shacl4bibParameters(String[] arguments) throws ParseException {
     super(arguments);
-
+  }
 }

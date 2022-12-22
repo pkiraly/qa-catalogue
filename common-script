@@ -286,6 +286,13 @@ do_export_schema_files() {
   printf "%s %s> 3 files generated at 'marc-schema' directory: marc-schema.json, marc-schema-with-solr.json, marc-schema-with-solr-and-extensions.json\n" $(date +"%F %T")
 }
 
+do_shacl4bib() {
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/ --emptyLargeCollectors| --with-delete| --ignorableIssueTypes [^ ]+//g')
+  printf "%s %s> [shacl4bib]\n" $(date +"%F %T")
+  printf "%s %s> ./shacl4bib --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/shacl4bib.log\n" $(date +"%F %T")
+  ./shacl4bib --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/shacl4bib.log
+}
+
 do_all_analyses() {
   do_validate
   do_sqlite
@@ -334,6 +341,7 @@ commands:
   index                      indexing with Solr
   sqlite                     import tables to SQLite
   export-schema-files        export schema files
+  shacl4bib                  run SHACL-like validation
   all-analyses               run all analitical tasks
   all-solr                   run all indexing tasks
   all                        run all tasks

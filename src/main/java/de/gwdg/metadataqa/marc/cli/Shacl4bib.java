@@ -54,22 +54,22 @@ public class Shacl4bib implements BibliographicInputProcessor, Serializable {
   }
 
   @Override
-  public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
-
-  }
-
-  @Override
-  public void processRecord(BibliographicRecord marcRecord, int recordNumber) throws IOException {
-
-  }
-
-  @Override
   public void beforeIteration() {
 
   }
 
   @Override
   public void fileOpened(Path path) {
+
+  }
+
+  @Override
+  public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
+
+  }
+
+  @Override
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber) throws IOException {
 
   }
 

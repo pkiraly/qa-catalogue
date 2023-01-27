@@ -1,6 +1,14 @@
-from lxml import etree
 import io
+import sys
+from lxml import etree
 from sickle import Sickle
+
+print(len(sys.argv))
+if len(sys.argv) == 1:
+    print('Please give a directory name')
+    exit()
+dir = sys.argv[1]
+print(dir)
 
 namespaces = {
     'oai': 'http://www.openarchives.org/OAI/2.0/',
@@ -17,15 +25,14 @@ i = 0
 it = sickle.ListRecords(metadataPrefix='marc21', set='FULLMARC')
 for record in it:
     tree = etree.ElementTree(record.xml)
-    token = tree.xpath('/resumptionToken[0]', namespaces=namespaces)
-    print(etree.tostring(token, encoding='utf8', method='xml').decode("utf-8"))
+    token = tree.xpath('/resumptionToken', namespaces=namespaces)
     
     recs = tree.xpath('/oai:record[*]/oai:metadata/marc21:record', namespaces=namespaces)
     for rec in recs:
         core = etree.tostring(rec, encoding='utf8', method='xml').decode("utf-8")
         output.append(core.replace("<?xml version='1.0' encoding='utf8'?>\n", ''))
     if len(output) >= 1000:
-        file_name = "%06d.xml" % (i)
+        file_name = "%s/%06d.xml" % (dir, i)
         print(file_name)
         with io.open(file_name, 'w', encoding='utf8') as f:
             f.write(header)

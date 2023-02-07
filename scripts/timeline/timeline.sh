@@ -88,16 +88,16 @@ for DIR in $FILES; do
     if [[ -f ${HISTORICAL}/$DIR/issue-total.csv.gz ]]; then
       gunzip ${HISTORICAL}/$DIR/issue-total.csv.gz
     fi
-    grep -v 'type,' ${HISTORICAL}/$DIR/issue-total.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/issue-total.csv; 
+    grep -v 'type,' ${HISTORICAL}/$DIR/issue-total.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/issue-total.csv
 
     if [[ -f ${HISTORICAL}/$DIR/issue-by-category.csv.gz ]]; then
       gunzip ${HISTORICAL}/$DIR/issue-by-category.csv.gz
     fi
-    grep -v 'id,category,instances,records' ${HISTORICAL}/$DIR/issue-by-category.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/issue-by-category.csv ; 
+    grep -v 'id,category,instances,records' ${HISTORICAL}/$DIR/issue-by-category.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/issue-by-category.csv
     if [[ -f ${HISTORICAL}/$DIR/issue-by-type.csv.gz ]]; then
       gunzip ${HISTORICAL}/$DIR/issue-by-type.csv.gz
     fi
-    grep -v 'id,categoryId,category,type,instances,records' ${HISTORICAL}/$DIR/issue-by-type.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/issue-by-type.csv ; 
+    grep -v 'id,categoryId,category,type,instances,records' ${HISTORICAL}/$DIR/issue-by-type.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/issue-by-type.csv
   fi
 done
 

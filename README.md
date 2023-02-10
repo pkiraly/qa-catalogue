@@ -123,9 +123,11 @@ docker container exec \
   ./metadata-qa.sh \
   --params "--marcVersion GENT --alephseq" \
   --mask "rug01.export" \
-  --catalogue gent 
+  --catalogue gent \
   all
 ```
+
+Now you can reach the dashboard at http://localhost/metadata-qa.
 
 Everything else works the same way as in other environments, so follow the next
 sections.

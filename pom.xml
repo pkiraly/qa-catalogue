@@ -148,7 +148,7 @@
 		<dependency>
 			<artifactId>solr-solrj</artifactId>
 			<groupId>org.apache.solr</groupId>
-			<version>9.1.0</version>
+			<version>9.1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.reflections</groupId>
@@ -174,7 +174,7 @@
 		<dependency>
 			<groupId>org.apache.spark</groupId>
 			<artifactId>spark-core_2.13</artifactId>
-			<version>3.3.1</version>
+			<version>3.3.2</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>

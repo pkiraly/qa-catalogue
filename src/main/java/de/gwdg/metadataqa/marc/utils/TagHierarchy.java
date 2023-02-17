@@ -26,7 +26,8 @@ public class TagHierarchy {
   private static final Pattern leaderPattern = Pattern.compile("^leader(\\d+)$");
   private static final Pattern controlFieldPattern = Pattern.compile("^(00\\d)(/(\\d+|\\d+-\\d+))?$");
   private static final Pattern controlFieldIdPattern = Pattern.compile("^(00[6-8])([a-z][a-zA-Z]+)(\\d+)$");
-  private static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
+  private static final Pattern dataSubfieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
+  private static final Pattern dataFieldPattern = Pattern.compile("^(...)$");
 
   private TagCategory category;
   private String tagLabel;
@@ -62,88 +63,128 @@ public class TagHierarchy {
   }
 
   public static TagHierarchy createFromPath(String path, MarcVersion version) {
+    System.err.println("createFromPath");
+    TagHierarchy tagHierarchy = null;
     Matcher matcher;
     matcher = leaderPattern.matcher(path);
     if (matcher.matches()) {
-      ControlFieldDefinition definition = LeaderDefinition.getInstance();
-      ControlfieldPositionDefinition positionDefinition = definition.getPositionDefinitionById(path);
-      if (positionDefinition != null) {
-        String subfieldLabel = positionDefinition.getLabel();
-        return new TagHierarchy(TagCategory.TAGS_00X, definition.getLabel(), subfieldLabel);
-      }
+      tagHierarchy = getLeader(path);
     } else {
       matcher = controlFieldPattern.matcher(path);
       if (matcher.matches()) {
-        String tag = matcher.group(1);
-        String position = matcher.group(3);
-        var definition = getDataFieldDefinition(tag);
-
-        if (definition != null) {
-          String tagLabel = definition.getLabel();
-
-          String subfieldLabel = "";
-          if (StringUtils.isNotBlank(position)) {
-            subfieldLabel = position;
-          }
-          return new TagHierarchy(TagCategory.TAGS_00X, tagLabel, subfieldLabel);
-        }
+        tagHierarchy = getControlField(path, matcher);
       } else {
         matcher = controlFieldIdPattern.matcher(path);
         if (matcher.matches()) {
-          String tag = matcher.group(1);
-          // String type = matcher.group(2);
-          // String position = matcher.group(3);
-          var definition = getDataFieldDefinition(tag);
-
-          if (definition != null) {
-            String tagLabel = definition.getLabel();
-            if (definition instanceof ControlFieldDefinition) {
-              ControlFieldDefinition fieldDefinition = (ControlFieldDefinition)  definition;
-              ControlfieldPositionDefinition positionDefinition = fieldDefinition.getPositionDefinitionById(path);
-              if (positionDefinition != null) {
-                String subfieldLabel = positionDefinition.getLabel();
-                return new TagHierarchy(TagCategory.TAGS_00X, tagLabel, subfieldLabel);
-              }
-            }
-          }
+          tagHierarchy = getControlField2(path, matcher);
         } else {
-          matcher = dataFieldPattern.matcher(path);
+          matcher = dataSubfieldPattern.matcher(path);
           if (matcher.matches()) {
-            String tag = matcher.group(1);
-            String subfieldCode = matcher.group(2);
-
-            DataFieldDefinition definition = TagDefinitionLoader.load(tag, version);
-            if (definition != null) {
-              String tagLabel = definition.getLabel();
-
-              String subfieldLabel = "";
-              if (subfieldCode.equals("ind1")) {
-                Indicator indicator = definition.getInd1();
-                subfieldLabel = indicator.exists() ? indicator.getLabel() : "";
-              } else if (subfieldCode.equals("ind2")) {
-                Indicator indicator = definition.getInd2();
-                subfieldLabel = indicator.exists() ? indicator.getLabel() : "";
-              } else {
-                SubfieldDefinition subfield = null;
-                if (version != null && definition.getVersionSpecificSubfields() != null) {
-                  subfield = definition.getVersionSpecificSubfield(version, subfieldCode);
-                  if (subfield != null)
-                    subfieldLabel = String.format("%s (in %s version)", subfield.getLabel(), version.getCode());
-                }
-                if (subfield == null)
-                  subfield = definition.getSubfield(subfieldCode);
-                if (subfieldLabel.equals("") && subfield != null)
-                  subfieldLabel = subfield.getLabel();
-              }
-
-              String packageName = Utils.extractPackageName(definition);
-              TagCategory category = TagCategory.getPackage(packageName);
-
-              return new TagHierarchy(category, tagLabel, subfieldLabel);
+            tagHierarchy = getDataSubfield(path, version, matcher);
+          } else {
+            matcher = dataFieldPattern.matcher(path);
+            if (matcher.matches()) {
+              tagHierarchy = getDatafield(path, version, matcher);
             }
           }
         }
       }
+    }
+    return tagHierarchy;
+  }
+
+  private static TagHierarchy getDatafield(String path, MarcVersion version, Matcher matcher) {
+    System.err.println("data field: " + path);
+    String tag = matcher.group(1);
+    DataFieldDefinition definition = TagDefinitionLoader.load(tag, version);
+    if (definition != null) {
+      String packageName = Utils.extractPackageName(definition);
+      TagCategory category = TagCategory.getPackage(packageName);
+      return new TagHierarchy(category, definition.getLabel(), null);
+    }
+    return null;
+  }
+
+  private static TagHierarchy getDataSubfield(String path, MarcVersion version, Matcher matcher) {
+    System.err.println("dataFieldPattern: "  + path);
+    String tag = matcher.group(1);
+    String subfieldCode = matcher.group(2);
+
+    DataFieldDefinition definition = TagDefinitionLoader.load(tag, version);
+    if (definition != null) {
+      String tagLabel = definition.getLabel();
+
+      String subfieldLabel = "";
+      if (subfieldCode.equals("ind1")) {
+        Indicator indicator = definition.getInd1();
+        subfieldLabel = indicator.exists() ? indicator.getLabel() : "";
+      } else if (subfieldCode.equals("ind2")) {
+        Indicator indicator = definition.getInd2();
+        subfieldLabel = indicator.exists() ? indicator.getLabel() : "";
+      } else {
+        SubfieldDefinition subfield = null;
+        if (version != null && definition.getVersionSpecificSubfields() != null) {
+          subfield = definition.getVersionSpecificSubfield(version, subfieldCode);
+          if (subfield != null)
+            subfieldLabel = String.format("%s (in %s version)", subfield.getLabel(), version.getCode());
+        }
+        if (subfield == null)
+          subfield = definition.getSubfield(subfieldCode);
+        if (subfieldLabel.equals("") && subfield != null)
+          subfieldLabel = subfield.getLabel();
+      }
+
+      String packageName = Utils.extractPackageName(definition);
+      TagCategory category = TagCategory.getPackage(packageName);
+
+      return new TagHierarchy(category, tagLabel, subfieldLabel);
+    }
+    return null;
+  }
+
+  private static TagHierarchy getControlField2(String path, Matcher matcher) {
+    System.err.println("controlFieldIdPattern 2: "  + path);
+    String tag = matcher.group(1);
+    var definition = getDataFieldDefinition(tag);
+
+    if (definition != null) {
+      String tagLabel = definition.getLabel();
+      if (definition instanceof ControlFieldDefinition) {
+        ControlFieldDefinition fieldDefinition = (ControlFieldDefinition)  definition;
+        ControlfieldPositionDefinition positionDefinition = fieldDefinition.getPositionDefinitionById(path);
+        if (positionDefinition != null) {
+          String subfieldLabel = positionDefinition.getLabel();
+          return new TagHierarchy(TagCategory.TAGS_00X, tagLabel, subfieldLabel);
+        }
+      }
+    }
+    return null;
+  }
+
+  private static TagHierarchy getControlField(String path, Matcher matcher) {
+    System.err.println("controlFieldPattern 1: "  + path);
+    String tag = matcher.group(1);
+    String position = matcher.group(3);
+    var definition = getDataFieldDefinition(tag);
+
+    if (definition != null) {
+      String tagLabel = definition.getLabel();
+      String subfieldLabel = "";
+      if (StringUtils.isNotBlank(position)) {
+        subfieldLabel = position;
+      }
+      return new TagHierarchy(TagCategory.TAGS_00X, tagLabel, subfieldLabel);
+    }
+    return null;
+  }
+
+  private static TagHierarchy getLeader(String path) {
+    System.err.println("leaderPattern: "  + path);
+    ControlFieldDefinition definition = LeaderDefinition.getInstance();
+    ControlfieldPositionDefinition positionDefinition = definition.getPositionDefinitionById(path);
+    if (positionDefinition != null) {
+      String subfieldLabel = positionDefinition.getLabel();
+      return new TagHierarchy(TagCategory.TAGS_00X, definition.getLabel(), subfieldLabel);
     }
     return null;
   }

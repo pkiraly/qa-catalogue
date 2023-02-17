@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.analysis.completeness;
 
 import de.gwdg.metadataqa.marc.MarcSubfield;
+import de.gwdg.metadataqa.marc.cli.QACli;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.plugin.CompletenessPlugin;
 import de.gwdg.metadataqa.marc.dao.DataField;
@@ -52,7 +53,7 @@ public class RecordCompleteness {
 
     if (hasGroupBy) {
       List<String> idLists = parameters.isPica() ? bibliographicRecord.select((PicaPath) groupBy) : null; // TODO: MARC21
-      groupIds = extractGroupIds(idLists);
+      groupIds = QACli.extractGroupIds(idLists);
     }
   }
 
@@ -171,20 +172,6 @@ public class RecordCompleteness {
   private <T extends Object> void count(T key, Map<T, Integer> counter) {
     counter.computeIfAbsent(key, s -> 0);
     counter.put(key, counter.get(key) + 1);
-  }
-
-  private Set<String> extractGroupIds(List<String> idLists) {
-    Set<String> groupIds = new HashSet<>();
-    groupIds.add("all");
-    if (idLists != null) {
-      for (String idList : idLists) {
-        String[] ids = idList.split(",");
-        for (String id : ids) {
-          groupIds.add(id);
-        }
-      }
-    }
-    return groupIds;
   }
 
   public Set<String> getGroupIds() {

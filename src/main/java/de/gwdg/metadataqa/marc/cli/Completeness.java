@@ -216,6 +216,7 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
       ));
       completenessDAO.getElementCardinality().forEach((documentType, cardinalities) -> {
         cardinalities.forEach((marcPath, cardinality) -> {
+          System.err.println(marcPath);
           try {
             writer.write(formatCardinality(separator, marcPath, cardinality, documentType, null));
           } catch (IOException e) {

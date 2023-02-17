@@ -10,7 +10,10 @@ import de.gwdg.metadataqa.marc.utils.pica.path.PicaPathParser;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public abstract class QACli {
 
@@ -39,4 +42,19 @@ public abstract class QACli {
       throw new RuntimeException(e);
     }
   }
+
+  public static Set<String> extractGroupIds(List<String> idLists) {
+    Set<String> groupIds = new HashSet<>();
+    groupIds.add("all");
+    if (idLists != null) {
+      for (String idList : idLists) {
+        String[] ids = idList.split(",");
+        for (String id : ids) {
+          groupIds.add(id);
+        }
+      }
+    }
+    return groupIds;
+  }
+
 }

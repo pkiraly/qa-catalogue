@@ -109,7 +109,8 @@ public class ValidationErrorFormatter {
         message = createCvsRow(headerForSummary(), '\t'); break;
       case COMMA_SEPARATED:
       case TEXT:
-        message = createCvsRow(headerForSummary(), ','); break;
+        message = CsvUtils.createCsv(headerForSummary()); break;
+        // message = createCvsRow(headerForSummary(), ','); break;
       default: break;
     }
     return message;

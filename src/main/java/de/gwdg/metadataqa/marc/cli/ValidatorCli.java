@@ -12,6 +12,7 @@ import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorCategory;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormatter;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
+import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -169,26 +170,32 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
   }
 
   @Override
-  public void processRecord(BibliographicRecord marcRecord, int i) {
-    if (marcRecord.getId() == null)
+  public void processRecord(BibliographicRecord bibliographicRecord, int i) {
+    if (bibliographicRecord.getId() == null)
       logger.severe("No record number at " + i);
 
     if (i % 100000 == 0)
       logger.info("Number of error types so far: " + validatorDAO.getInstanceBasedErrorCounter().size());
 
-    if (parameters.getRecordIgnorator().isIgnorable(marcRecord)) {
-      logger.info("skip " + marcRecord.getId() + " (ignorable record)");
+    if (parameters.getRecordIgnorator().isIgnorable(bibliographicRecord)) {
+      logger.info("skip " + bibliographicRecord.getId() + " (ignorable record)");
       return;
     }
 
+    Set<String> groupIds = new HashSet<>();
+    if (groupBy != null) {
+      List<String> idLists = parameters.isPica() ? bibliographicRecord.select((PicaPath) groupBy) : null; // TODO: MARC21
+      groupIds = extractGroupIds(idLists);
+    }
+
     Validator validator = new Validator(validatorConfiguration);
-    boolean isValid = validator.validate(marcRecord);
+    boolean isValid = validator.validate(bibliographicRecord);
     if (!isValid && doPrintInProcessRecord) {
       if (parameters.doSummary())
-        processSummary(marcRecord, validator);
+        processSummary(bibliographicRecord, validator, groupIds);
 
       if (parameters.doDetails())
-        processDetails(marcRecord, validator);
+        processDetails(bibliographicRecord, validator);
     } else {
       if (parameters.doSummary())
         count(0, validatorDAO.getTotalRecordCounter());
@@ -221,12 +228,19 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
   }
 
   private void processSummary(BibliographicRecord marcRecord, Validator validator) {
+    processSummary(marcRecord, validator, null);
+  }
+
+  private void processSummary(BibliographicRecord marcRecord,
+                              Validator validator,
+                              Set<String> groupIds) {
     List<ValidationError> errors = validator.getValidationErrors();
     List<ValidationError> allButInvalidFieldErrors = new ArrayList<>();
     Set<Integer> uniqueErrors = new HashSet<>();
     Set<ValidationErrorType> uniqueTypes = new HashSet<>();
     Set<ValidationErrorCategory> uniqueCategories = new HashSet<>();
     for (ValidationError error : errors) {
+      // set error ID
       if (!validatorDAO.getInstanceBasedErrorCounter().containsKey(error)) {
         error.setId(vErrorId++);
         hashedIndex.put(error.hashCode(), error.getId());
@@ -240,6 +254,11 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
       }
 
       count(error, validatorDAO.getInstanceBasedErrorCounter());
+      for (String groupId : groupIds) {
+        validatorDAO.getGrouppedInstanceBasedErrorCounter().computeIfAbsent(groupId, s -> new HashMap<>());
+        count(error, validatorDAO.getGrouppedInstanceBasedErrorCounter().get(groupId));
+      }
+
       count(error.getType(), validatorDAO.getTypeInstanceCounter());
       count(error.getType().getCategory(), validatorDAO.getCategoryInstanceCounter());
       count(1, validatorDAO.getTotalInstanceCounter());
@@ -303,10 +322,9 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
   }
 
   private void printSummary(char separator) {
-    String header = ValidationErrorFormatter.formatHeaderForSummary(
-      parameters.getFormat()
-    );
-    print(summaryFile, header + "\n");
+    String header = ValidationErrorFormatter.formatHeaderForSummary(parameters.getFormat());
+    print(summaryFile, header);
+    System.err.println(validatorDAO.getGrouppedInstanceBasedErrorCounter());
     validatorDAO.getInstanceBasedErrorCounter()
       .entrySet()
       .stream()
@@ -320,7 +338,7 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
           result = recordCountB.compareTo(recordCountA);
         }
         return result;
-      })
+      }) // sort
       .forEach(
         entry -> {
           ValidationError error = entry.getKey();
@@ -428,17 +446,27 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
     print(collectorFile, "\n");
   }
 
-  private void print(File file, String message) {
+  /**
+   * Print to the standard output or into file
+   * @param file The output file
+   * @param content Te content to write
+   */
+  private void print(File file, String content) {
     if (parameters.useStandardOutput())
-      System.out.print(message);
+      System.out.print(content);
     else {
-      printToFile(file, message);
+      printToFile(file, content);
     }
   }
 
-  private void printToFile(File file, String message) {
+  /**
+   * Print to file
+   * @param file The output file
+   * @param content The content
+   */
+  private void printToFile(File file, String content) {
     try {
-      FileUtils.writeStringToFile(file, message, Charset.defaultCharset(), true);
+      FileUtils.writeStringToFile(file, content, Charset.defaultCharset(), true);
     } catch (IOException e) {
       if (parameters.doLog())
         logger.log(Level.SEVERE, "printToFile", e);

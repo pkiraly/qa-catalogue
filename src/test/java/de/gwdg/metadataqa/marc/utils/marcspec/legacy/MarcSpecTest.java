@@ -151,6 +151,9 @@ public class MarcSpecTest {
     assertTrue(marcSpec.validate("245ab__0"));
     assertTrue(marcSpec.validate("245ab_10"));
     assertTrue(marcSpec.validate("245ab_1_"));
+    assertTrue(marcSpec.validate("245$a"));
+    assertTrue(marcSpec.validate("LDR/0-4"));
+    assertTrue(marcSpec.validate("880_1"));
   }
 
   @Test(expected = IllegalArgumentException.class)

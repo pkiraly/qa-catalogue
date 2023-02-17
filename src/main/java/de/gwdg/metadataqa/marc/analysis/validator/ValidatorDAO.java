@@ -16,6 +16,7 @@ public class ValidatorDAO {
   private final Map<ValidationErrorType, Integer> typeRecordCounter = new EnumMap<>(ValidationErrorType.class);
   private final Map<Integer, Integer> totalRecordCounter = new HashMap<>();
   private final Map<ValidationError, Integer> instanceBasedErrorCounter = new HashMap<>();
+  private final Map<String, Map<ValidationError, Integer>> grouppedInstanceBasedErrorCounter = new HashMap<>();
   private final Map<Integer, Integer> totalInstanceCounter = new HashMap<>();
   private final Map<Integer, Integer> recordBasedErrorCounter = new HashMap<>();
   private final Map<Integer, Set<String>> errorCollector = new TreeMap<>();
@@ -36,6 +37,10 @@ public class ValidatorDAO {
 
   public Map<ValidationError, Integer> getInstanceBasedErrorCounter() {
     return instanceBasedErrorCounter;
+  }
+
+  public Map<String, Map<ValidationError, Integer>> getGrouppedInstanceBasedErrorCounter() {
+    return grouppedInstanceBasedErrorCounter;
   }
 
   public Map<Integer, Integer> getTotalInstanceCounter() {

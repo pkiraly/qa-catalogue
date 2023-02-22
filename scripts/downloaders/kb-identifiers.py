@@ -33,18 +33,17 @@ header = '<?xml version="1.0" encoding="utf8"?>' + "\n" + '<records>' + "\n"
 footer = '</records>'
 
 output = []
+prev_token = None
 i = 0
 it = sickle.ListIdentifiers(metadataPrefix='mdoall', set='GGC', ignore_deleted=True) # ignore_deleted=True, picaplus
 for record in it:
-    # print(it.resumption_token)
-    # print(record.raw)
-    tree = etree.ElementTree(record.xml)
-    id = tree.xpath('oai:header/oai:identifier', namespaces=namespaces)
-    print(id)
-    # token = tree.xpath('/ListRecords/resumptionToken[0]', namespaces=namespaces)
-    # token = tree.xpath('/ListRecords/resumptionToken[0]', namespaces=namespaces)
+    if it.resumption_token != prev_token:
+        print(it.resumption_token)
+        prev_token = it.resumption_token
 
-    output.append(record.raw)
+    tree = etree.ElementTree(record.xml)
+    id = tree.xpath('/oai:header[1]/oai:identifier[1]/text()', namespaces=namespaces)
+    output.append(id[0])
 
     #  core = etree.tostring(record, encoding='utf8', method='xml').decode("utf-8")
     #  output.append(core.replace("<?xml version='1.0' encoding='utf8'?>\n", ''))

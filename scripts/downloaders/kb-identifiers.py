@@ -35,8 +35,10 @@ footer = '</records>'
 output = []
 prev_token = None
 i = 0
+record_count = 0
 it = sickle.ListIdentifiers(metadataPrefix='mdoall', set='GGC', ignore_deleted=True) # ignore_deleted=True, picaplus
 for record in it:
+    record_count = record_count + 1
     if it.resumption_token != prev_token:
         print(it.resumption_token)
         prev_token = it.resumption_token

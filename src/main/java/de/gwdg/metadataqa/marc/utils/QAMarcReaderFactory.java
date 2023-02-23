@@ -9,6 +9,7 @@ import de.gwdg.metadataqa.marc.utils.marcreader.MarclineReader;
 import de.gwdg.metadataqa.marc.utils.pica.PicaNormalizedReader;
 import de.gwdg.metadataqa.marc.utils.pica.PicaPlainReader;
 import de.gwdg.metadataqa.marc.utils.pica.PicaReader;
+import de.gwdg.metadataqa.marc.utils.pica.PicaXmlReader;
 import org.apache.commons.lang3.StringUtils;
 import org.marc4j.MarcReader;
 import org.marc4j.MarcStreamReader;
@@ -96,6 +97,16 @@ public final class QAMarcReaderFactory {
     return reader;
   }
 
+  private MarcReader getPicaXmlFileReader(String fileName, CommonParameters parameters) throws Exception {
+    return getPicaXmlStreamReader(new FileInputStream(fileName), parameters);
+  }
+
+  private MarcReader getPicaXmlStreamReader(InputStream stream, CommonParameters parameters) throws Exception {
+    PicaXmlReader reader = new PicaXmlReader(stream);
+    configurePicaReader(reader, parameters);
+    return reader;
+  }
+
   private void configurePicaReader(PicaReader reader, CommonParameters parameters) {
     if (parameters != null) {
       if (StringUtils.isNotEmpty(parameters.getPicaIdField()))
@@ -143,6 +154,8 @@ public final class QAMarcReaderFactory {
         reader = factory.getPicaPlainFileReader(fileName, parameters); break;
       case PICA_NORMALIZED:
         reader = factory.getPicaNormalizedFileReader(fileName, parameters); break;
+      case PICA_XML:
+        reader = factory.getPicaXmlFileReader(fileName, parameters); break;
       case ISO:
       default:
         reader = factory.getIsoFileReader(fileName); break;
@@ -172,6 +185,8 @@ public final class QAMarcReaderFactory {
         reader = factory.getPicaPlainStreamReader(stream, parameters); break;
       case PICA_NORMALIZED:
         reader = factory.getPicaNormalizedStreamReader(stream, parameters); break;
+      case PICA_XML:
+        reader = factory.getPicaXmlStreamReader(stream, parameters); break;
       case ISO:
       default:
         reader = factory.getIsoStreamReader(stream); break;

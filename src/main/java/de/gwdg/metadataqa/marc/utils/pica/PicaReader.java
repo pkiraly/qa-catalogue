@@ -51,5 +51,4 @@ public abstract class PicaReader implements MarcReader {
   public String getSubfieldSeparator() {
     return subfieldSeparator;
   }
-
 }

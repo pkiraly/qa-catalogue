@@ -13,6 +13,7 @@ public enum MarcFormat {
   MARC_MAKER("MARCMAKER", "MARCMaker"),
   PICA_PLAIN("PICA_PLAIN", "PICA plain"),
   PICA_NORMALIZED("PICA_NORMALIZED", "PICA normalized"),
+  PICA_XML("PICA_XML", "PICA XML"),
   ;
 
   String code;

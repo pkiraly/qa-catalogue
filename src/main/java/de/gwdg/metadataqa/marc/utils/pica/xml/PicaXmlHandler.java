@@ -166,10 +166,6 @@ public class PicaXmlHandler implements ContentHandler {
         sb = new StringBuffer();
         break;
       case DATAFIELD_ID:
-        for (int i = 0; i < atts.getLength(); i++) {
-          if (!atts.getLocalName(i).equals(TAG_ATTR))
-            System.err.println("unhandled attr: " + atts.getLocalName(i));
-        }
         tag = atts.getValue(TAG_ATTR);
 
         if (tag == null) {
@@ -183,8 +179,12 @@ public class PicaXmlHandler implements ContentHandler {
         dataField = new PicaDataField(tag);
         String occurrence = atts.getValue("occurrence");
         if (occurrence != null) {
-          System.err.println(String.format("occurrence in %s: %s", tag, occurrence));
           dataField.setOccurrence(occurrence);
+        }
+
+        for (int i = 0; i < atts.getLength(); i++) {
+          if (!atts.getLocalName(i).equals(TAG_ATTR) && !atts.getLocalName(i).equals("occurrence"))
+            System.err.println("unhandled attr: " + atts.getLocalName(i));
         }
         break;
 

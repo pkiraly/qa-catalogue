@@ -52,4 +52,11 @@ public abstract class PicaReader implements MarcReader {
     return subfieldSeparator;
   }
 
+  public String getIdTag() {
+    return idTag;
+  }
+
+  public String getIdCode() {
+    return idCode;
+  }
 }

@@ -1,8 +1,6 @@
 package de.gwdg.metadataqa.marc.utils.pica;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
-import de.gwdg.metadataqa.marc.Utils;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.marc4j.marc.Record;
 

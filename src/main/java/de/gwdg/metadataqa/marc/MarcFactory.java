@@ -180,6 +180,9 @@ public class MarcFactory {
   private static void importMarc4jControlFields(Record marc4jRecord,
                                                 BibliographicRecord marcRecord,
                                                 String replacementInControlFields) {
+    if (marc4jRecord.getControlFields() == null)
+      return;
+
     for (ControlField controlField : marc4jRecord.getControlFields()) {
       String data = controlField.getData();
       if (replacementInControlFields != null && isFixable(controlField.getTag()))

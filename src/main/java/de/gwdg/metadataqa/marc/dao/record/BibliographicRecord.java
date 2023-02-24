@@ -855,7 +855,6 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
       default:
         tags = MARC21_SUBJECT_TAGS; break;
     }
-    logger.info("tags: " + tags);
     for (String tag : tags) {
       List<DataField> fields = getDatafield(tag);
       if (fields != null && !fields.isEmpty())

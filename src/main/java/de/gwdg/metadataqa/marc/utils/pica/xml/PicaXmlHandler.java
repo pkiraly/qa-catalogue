@@ -1,7 +1,6 @@
 package de.gwdg.metadataqa.marc.utils.pica.xml;
 
-import de.gwdg.metadataqa.marc.utils.pica.PicaLine;
-import de.gwdg.metadataqa.marc.utils.pica.PicaSubfield;
+import de.gwdg.metadataqa.marc.utils.pica.PicaDataField;
 import org.marc4j.MarcError;
 import org.marc4j.MarcException;
 import org.marc4j.RecordStack;
@@ -12,8 +11,6 @@ import org.marc4j.marc.MarcFactory;
 import org.marc4j.marc.Record;
 import org.marc4j.marc.Subfield;
 import org.marc4j.marc.impl.ControlFieldImpl;
-import org.marc4j.marc.impl.DataFieldImpl;
-import org.marc4j.marc.impl.SubfieldImpl;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
@@ -36,7 +33,7 @@ public class PicaXmlHandler implements ContentHandler {
 
   private ControlField controlField;
 
-  private DataField dataField;
+  private PicaDataField dataField;
 
   private String tag;
 
@@ -169,6 +166,10 @@ public class PicaXmlHandler implements ContentHandler {
         sb = new StringBuffer();
         break;
       case DATAFIELD_ID:
+        for (int i = 0; i < atts.getLength(); i++) {
+          if (!atts.getLocalName(i).equals(TAG_ATTR))
+            System.err.println("unhandled attr: " + atts.getLocalName(i));
+        }
         tag = atts.getValue(TAG_ATTR);
 
         if (tag == null) {
@@ -179,7 +180,12 @@ public class PicaXmlHandler implements ContentHandler {
           }
           break;
         }
-        dataField = factory.newDataField(tag, ' ', ' ');
+        dataField = new PicaDataField(tag);
+        String occurrence = atts.getValue("occurrence");
+        if (occurrence != null) {
+          System.err.println(String.format("occurrence in %s: %s", tag, occurrence));
+          dataField.setOccurrence(occurrence);
+        }
         break;
 
       case SUBFIELD_ID:

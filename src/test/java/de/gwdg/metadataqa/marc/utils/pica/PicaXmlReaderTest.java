@@ -4,17 +4,15 @@ import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.cli.CliTestUtils;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.MarcFormat;
-import de.gwdg.metadataqa.marc.definition.MarcVersion;
-import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.utils.QAMarcReaderFactory;
 import org.junit.Test;
 import org.marc4j.MarcReader;
+import org.marc4j.marc.DataField;
 import org.marc4j.marc.Record;
 
-import java.util.List;
-import java.util.Map;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class PicaXmlReaderTest {
 
@@ -31,6 +29,9 @@ public class PicaXmlReaderTest {
     assertEquals("PicaXmlReader", reader.getClass().getSimpleName());
     assertTrue(reader.hasNext());
     Record record = reader.next();
+    assertEquals("org.marc4j.marc.impl.RecordImpl", record.getClass().getCanonicalName());
+    assertEquals("de.gwdg.metadataqa.marc.utils.pica.PicaDataField", record.getDataFields().get(0).getClass().getCanonicalName());
+    assertEquals("029F/01 $a@CDA Vrouwenberaad", record.getVariableField("029F").toString());
     BibliographicRecord marcRecord = MarcFactory.createPicaFromMarc4j(record, schema);
     // Map<String, List<String>> map = marcRecord.getKeyValuePairs(SolrFieldType.HUMAN, true, MarcVersion.MARC21);
 

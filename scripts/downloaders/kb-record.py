@@ -21,11 +21,11 @@ namespaces = {
     'marc21': 'http://www.loc.gov/MARC21/slim'
 }
 sickle = Sickle('http://services.kb.nl/mdo/oai', max_retries=4)
-header = '<?xml version="1.0" encoding="utf8"?>' + "\n" + '<records>' + "\n" 
+header = '<?xml version="1.0" encoding="utf8"?>' + "\n" + '<records>' + "\n"
 footer = '</records>'
 
 def write_output(output, i, directory):
-    """Writes MARC records to file""" 
+    """Writes MARC records to file"""
     file_name = "%s/%06d.xml" % (directory, i)
     print(file_name)
     with io.open(file_name, 'w', encoding='utf8') as f:
@@ -35,7 +35,7 @@ def write_output(output, i, directory):
 
 def get_record(id):
     # 'GGC:AC:357539168', ignore_deleted=True, picaplus
-    record = sickle.GetRecord(metadataPrefix='picaplus', identifier=id) 
+    record = sickle.GetRecord(metadataPrefix='marc21', identifier=id) # picaplus
     tree = etree.ElementTree(record.xml)
     records = tree.xpath('oai:metadata/oai:record', namespaces=namespaces)
     xml = etree.tostring(records[0], encoding='utf8', method='xml').decode("utf-8")
@@ -46,4 +46,6 @@ with io.open(in_file) as infile:
     with io.open(out_file, 'w', encoding='utf8') as outfile:
         for id in infile:
             id = id.strip()
-            outfile.write(get_record(id) + "\n")
+            if id != 'GGC:AC:':
+                # print(id)
+                outfile.write(get_record(id) + "\n")

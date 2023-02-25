@@ -36,8 +36,19 @@ public class PicaSchemaManagerTest {
     assertNotNull(schema.lookup("144Z/01"));
   }
 
+  @Test
+  public void lookup_datafield_notnull() {
+    PicaDataField dataField = new PicaDataField("022A", "01");
+    assertNotNull(schema.lookup(dataField));
+  }
+
+  @Test
+  public void lookup_datafield_null() {
+    PicaDataField dataField = new PicaDataField("201A", "01");
+    assertNull(schema.lookup(dataField));
+  }
+
   private String getPath(String fileName) {
     return Paths.get("src/test/resources/" + fileName).toAbsolutePath().toString();
   }
-
 }

@@ -206,7 +206,6 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
   }
 
   private void saveMarcElements(String fileExtension, char separator) {
-    System.err.println("MARC elements");
     Path path = Paths.get(parameters.getOutputDir(), "marc-elements" + fileExtension);
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow(
@@ -216,7 +215,6 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
       ));
       completenessDAO.getElementCardinality().forEach((documentType, cardinalities) -> {
         cardinalities.forEach((marcPath, cardinality) -> {
-          System.err.println(marcPath);
           try {
             writer.write(formatCardinality(separator, marcPath, cardinality, documentType, null));
           } catch (IOException e) {

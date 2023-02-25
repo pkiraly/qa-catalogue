@@ -36,7 +36,7 @@ public class PicaPathParserTest {
   }
 
   @Test
-  public void occurenceNumber() {
+  public void occurrenceNumber() {
     PicaPath path = PicaPathParser.parse("003@/2");
     assertEquals("003@/2", path.getPath());
     assertEquals("003@", path.getTag());
@@ -48,7 +48,7 @@ public class PicaPathParserTest {
   }
 
   @Test
-  public void occurenceRange() {
+  public void occurrenceRange() {
     PicaPath path = PicaPathParser.parse("003@/2-3");
     assertEquals("003@/2-3", path.getPath());
     assertEquals("003@", path.getTag());
@@ -60,7 +60,7 @@ public class PicaPathParserTest {
   }
 
   @Test
-  public void occurenceAsteriks() {
+  public void occurrenceAsteriks() {
     PicaPath path = PicaPathParser.parse("003@/*");
     assertEquals("003@/*", path.getPath());
     assertEquals("003@", path.getTag());
@@ -70,7 +70,7 @@ public class PicaPathParserTest {
   }
 
   @Test
-  public void occurenceAsteriks_withsubfield() {
+  public void occurrenceAsteriks_withsubfield() {
     PicaPath path = PicaPathParser.parse("003@/**");
     assertEquals("003@/**", path.getPath());
     assertEquals("003@", path.getTag());

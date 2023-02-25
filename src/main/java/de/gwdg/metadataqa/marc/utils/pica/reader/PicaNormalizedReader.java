@@ -1,6 +1,7 @@
-package de.gwdg.metadataqa.marc.utils.pica;
+package de.gwdg.metadataqa.marc.utils.pica.reader;
 
 import de.gwdg.metadataqa.marc.MarcFactory;
+import de.gwdg.metadataqa.marc.utils.pica.reader.model.PicaLine;
 import org.marc4j.marc.Record;
 
 import java.io.BufferedReader;

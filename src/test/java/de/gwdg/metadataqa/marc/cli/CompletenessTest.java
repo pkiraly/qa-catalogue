@@ -117,14 +117,14 @@ public class CompletenessTest extends CliTestUtils {
         while ((record = reader.readNext()) != null) {
           if (lineNr > 0) {
             int records = Integer.parseInt(record[7]);
-            int occurences = Integer.parseInt(record[8]);
-            assertTrue(records <= occurences);
+            int occurrences = Integer.parseInt(record[8]);
+            assertTrue(records <= occurrences);
             int total = 0;
             for (String expr : record[13].split("; ")) {
               String[] parts = expr.split("=");
               total += Integer.parseInt(parts[0]) * Integer.parseInt(parts[1]);
             }
-            assertEquals(occurences, total);
+            assertEquals(occurrences, total);
           }
           lineNr++;
         }

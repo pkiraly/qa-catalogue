@@ -38,12 +38,11 @@ public class Validator extends AbstractValidator {
     this.marcRecord = marcRecord;
 
     validationErrors = new ArrayList<>();
-    boolean isValidRecord = true;
     if (!marcRecord.getSchemaType().equals(SchemaType.PICA))
-      isValidRecord = validateLeader(isValidRecord);
-    isValidRecord = validateUnhandledTags(isValidRecord);
-    isValidRecord = validateControlfields(isValidRecord);
-    isValidRecord = validateDatafields(isValidRecord);
+      validateLeader();
+    validateUnhandledTags();
+    validateControlfields();
+    validateDatafields();
 
     // TODO: use reflection to get all validator class
     // ValidatorResponse validatorResponse;
@@ -51,7 +50,7 @@ public class Validator extends AbstractValidator {
     return validationErrors.isEmpty();
   }
 
-  private boolean validateLeader(boolean isValidRecord) {
+  private boolean validateLeader() {
     boolean isValidComponent;
     LeaderValidator leaderValidator = new LeaderValidator(configuration);
     isValidComponent = leaderValidator.validate(marcRecord.getLeader());
@@ -62,12 +61,12 @@ public class Validator extends AbstractValidator {
         if (leaderError.getRecordId() == null)
           leaderError.setRecordId(marcRecord.getId());
       validationErrors.addAll(filterErrors(leaderErrors));
-      isValidRecord = isValidComponent;
     }
-    return isValidRecord;
+    return isValidComponent;
   }
 
-  private boolean validateUnhandledTags(boolean isValidRecord) {
+  private boolean validateUnhandledTags() {
+    boolean isValidRecord = true;
     if (!marcRecord.getUnhandledTags().isEmpty()) {
       if (configuration.doSummary()) {
         for (String tag : marcRecord.getUnhandledTags()) {
@@ -100,22 +99,22 @@ public class Validator extends AbstractValidator {
     return isValidRecord;
   }
 
-  private boolean validateControlfields(boolean isValidRecord) {
-    boolean isValidComponent;
+  private boolean validateControlfields() {
+    boolean isValidComponent = true;
     ControlFieldValidator controlFieldValidator = new ControlFieldValidator(configuration);
     for (MarcControlField controlField : marcRecord.getControlfields()) {
       if (controlField != null) {
         isValidComponent = controlFieldValidator.validate(controlField);
         if (!isValidComponent) {
           validationErrors.addAll(filterErrors(controlFieldValidator.getValidationErrors()));
-          isValidRecord = isValidComponent;
         }
       }
     }
-    return isValidRecord;
+    return isValidComponent;
   }
 
-  private boolean validateDatafields(boolean isValidRecord) {
+  private boolean validateDatafields() {
+    boolean isValidRecord = true;
     DataFieldValidator validator = new DataFieldValidator(configuration);
     ValidatorResponse validatorResponse;
     Map<DataFieldDefinition, Integer> repetitionCounter = new HashMap<>();

@@ -26,8 +26,9 @@ import de.gwdg.metadataqa.marc.utils.MapToDatafield;
 
 import de.gwdg.metadataqa.marc.utils.alephseq.MarcMakerLine;
 import de.gwdg.metadataqa.marc.utils.alephseq.MarclineLine;
+import de.gwdg.metadataqa.marc.utils.pica.PicaDataField;
 import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
-import de.gwdg.metadataqa.marc.utils.pica.PicaLine;
+import de.gwdg.metadataqa.marc.utils.pica.reader.model.PicaLine;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSubfield;
 import net.minidev.json.JSONArray;
@@ -168,10 +169,7 @@ public class MarcFactory {
 
   public static BibliographicRecord createPicaFromMarc4j(Record marc4jRecord, PicaSchemaManager picaSchemaManager) {
     var marcRecord = new PicaRecord();
-    // marcRecord.setSchemaType(SchemaType.PICA);
-
     importMarc4jControlFields(marc4jRecord, marcRecord, null);
-
     importMarc4jDataFields(marc4jRecord, marcRecord, picaSchemaManager);
 
     return marcRecord;
@@ -227,11 +225,15 @@ public class MarcFactory {
                                              BibliographicRecord marcRecord,
                                              PicaSchemaManager schema) {
     for (org.marc4j.marc.DataField dataField : marc4jRecord.getDataFields()) {
-      var definition = schema.lookup(dataField.getTag());
-      if (definition == null) {
-        // System.err.println("getTag: " + dataField.getTag() + " ----");
-        marcRecord.addUnhandledTags(dataField.getTag());
-      }
+      boolean isPica = dataField instanceof PicaDataField;
+      PicaDataField picadf = isPica ? (PicaDataField) dataField : null;
+      var definition = isPica
+        ? schema.lookup(picadf)
+        : schema.lookup(dataField.getTag());
+
+      if (definition == null)
+        marcRecord.addUnhandledTags(isPica ? picadf.getFullTag() : dataField.getTag());
+
       var field = extractPicaDataField(dataField, definition, MarcVersion.MARC21);
       marcRecord.addDataField(field);
     }
@@ -296,6 +298,7 @@ public class MarcFactory {
         Character.toString(dataField.getIndicator2())
       );
     }
+
     for (Subfield subfield : dataField.getSubfields()) {
       var code = Character.toString(subfield.getCode());
       SubfieldDefinition subfieldDefinition = definition == null ? null : definition.getSubfield(code);
@@ -309,6 +312,13 @@ public class MarcFactory {
       field.getSubfields().add(marcSubfield);
     }
     field.indexSubfields();
+
+    if (dataField instanceof PicaDataField) {
+      PicaDataField df = (PicaDataField)dataField;
+      if (df.getOccurrence() != null)
+        field.setOccurrence(df.getOccurrence());
+    }
+
     return field;
   }
 
@@ -470,8 +480,11 @@ public class MarcFactory {
                                             PicaSchemaManager schema) {
     Record marc4jRecord = new RecordImpl();
     String id = null;
+    boolean useOccurence = true;
     for (PicaLine line : lines) {
-      DataFieldImpl df = new DataFieldImpl(line.getQualifiedTag(), ' ', ' ');
+      org.marc4j.marc.DataField df = useOccurence
+        ? new PicaDataField(line.getTag(), line.getOccurrence())
+        : new DataFieldImpl(line.getQualifiedTag(), ' ', ' ');
       for (PicaSubfield picaSubfield : line.getSubfields()) {
         df.addSubfield(new SubfieldImpl(picaSubfield.getCode().charAt(0), picaSubfield.getValue()));
         if (line.getTag().equals(idField) && picaSubfield.getCode().equals(idCode))

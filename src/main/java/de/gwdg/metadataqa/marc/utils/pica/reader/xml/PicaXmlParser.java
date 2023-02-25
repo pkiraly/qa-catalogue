@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.utils.pica.xml;
+package de.gwdg.metadataqa.marc.utils.pica.reader.xml;
 
 import org.marc4j.MarcException;
 import org.xml.sax.ContentHandler;

@@ -6,4 +6,5 @@ public interface BibliographicFieldDefinition {
   String getTag();
   Cardinality getCardinality();
   String getLabel();
+  String getDescriptionUrl();
 }

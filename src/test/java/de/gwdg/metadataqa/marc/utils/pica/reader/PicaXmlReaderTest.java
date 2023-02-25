@@ -1,13 +1,14 @@
-package de.gwdg.metadataqa.marc.utils.pica;
+package de.gwdg.metadataqa.marc.utils.pica.reader;
 
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.cli.CliTestUtils;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.MarcFormat;
 import de.gwdg.metadataqa.marc.utils.QAMarcReaderFactory;
+import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
+import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
 import org.junit.Test;
 import org.marc4j.MarcReader;
-import org.marc4j.marc.DataField;
 import org.marc4j.marc.Record;
 
 import static org.junit.Assert.assertEquals;

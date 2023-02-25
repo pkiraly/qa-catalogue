@@ -1,6 +1,6 @@
-package de.gwdg.metadataqa.marc.utils.pica;
+package de.gwdg.metadataqa.marc.utils.pica.reader;
 
-import de.gwdg.metadataqa.marc.utils.pica.xml.PicaXmlParserThread;
+import de.gwdg.metadataqa.marc.utils.pica.reader.xml.PicaXmlParserThread;
 import org.marc4j.MarcException;
 import org.marc4j.RecordStack;
 import org.marc4j.marc.Record;

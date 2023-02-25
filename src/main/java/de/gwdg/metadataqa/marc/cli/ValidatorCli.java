@@ -76,7 +76,9 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
       .withMarcVersion(parameters.getMarcVersion())
       .withDoSummary(parameters.doSummary())
       .withIgnorableFields(parameters.getIgnorableFields())
-      .withIgnorableIssueTypes(parameters.getIgnorableIssueTypes());
+      .withIgnorableIssueTypes(parameters.getIgnorableIssueTypes())
+      .withSchemaType(parameters.getSchemaType())
+    ;
     initializeGroups(parameters.getGroupBy(), parameters.isPica());
   }
 
@@ -324,7 +326,6 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
   private void printSummary(char separator) {
     String header = ValidationErrorFormatter.formatHeaderForSummary(parameters.getFormat());
     print(summaryFile, header);
-    System.err.println(validatorDAO.getGrouppedInstanceBasedErrorCounter());
     validatorDAO.getInstanceBasedErrorCounter()
       .entrySet()
       .stream()

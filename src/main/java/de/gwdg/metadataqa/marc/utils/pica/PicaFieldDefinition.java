@@ -46,15 +46,15 @@ public class PicaFieldDefinition extends DataFieldDefinition {
     return id;
   }
 
-  public boolean inRange(String occurence) {
+  public boolean inRange(String occurrence) {
     if (range != null) {
-      if (range.getUnitLength() == occurence.length()) {
+      if (range.getUnitLength() == occurrence.length()) {
         if (range.isHasRange()) {
-          if (range.getStart().compareTo(occurence) == 1 || range.getEnd().compareTo(occurence) == -1)
+          if (range.getStart().compareTo(occurrence) == 1 || range.getEnd().compareTo(occurrence) == -1)
             return false;
           return true;
         } else {
-          return range.getStart().equals(occurence);
+          return range.getStart().equals(occurrence);
         }
       }
     }

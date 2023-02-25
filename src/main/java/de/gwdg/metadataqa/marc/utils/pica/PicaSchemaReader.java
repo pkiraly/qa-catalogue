@@ -91,8 +91,9 @@ public class PicaSchemaReader {
 
   private void processSubfield(Object o, List<SubfieldDefinition> subfieldDefinitions) {
     SubfieldDefinition definition = extractSubfield(o);
-    if (definition != null)
+    if (definition != null) {
       subfieldDefinitions.add(definition);
+    }
   }
 
   private SubfieldDefinition extractSubfield(Object o) {

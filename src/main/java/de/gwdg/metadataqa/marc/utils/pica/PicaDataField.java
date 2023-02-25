@@ -29,6 +29,18 @@ public class PicaDataField extends DataFieldImpl {
     this.occurrence = occurrence;
   }
 
+  /**
+   * Get tag with occurrence (if exists)
+   * @return tag with occurrence (if exists)
+   */
+  public String getFullTag() {
+    final StringBuilder sb = new StringBuilder();
+    sb.append(getTag());
+    if (occurrence != null)
+      sb.append("/" + getOccurrence());
+    return sb.toString();
+  }
+
   @Override
   public String toString() {
     final StringBuilder sb = new StringBuilder();

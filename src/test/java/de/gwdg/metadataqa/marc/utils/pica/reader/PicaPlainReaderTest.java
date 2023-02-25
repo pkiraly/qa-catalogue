@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.utils.pica;
+package de.gwdg.metadataqa.marc.utils.pica.reader;
 
 import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
@@ -11,6 +11,11 @@ import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
+import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
+import de.gwdg.metadataqa.marc.utils.pica.reader.model.PicaLine;
+import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
+import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
+import de.gwdg.metadataqa.marc.utils.pica.PicaTagDefinition;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.marc4j.MarcReader;

@@ -21,6 +21,16 @@ public class PicaSchemaManager {
     tagIndex.get(definition.getTag()).add(id);
   }
 
+  public PicaFieldDefinition lookup(PicaDataField dataField) {
+    String tag = dataField.getTag();
+    String occurrence = dataField.getOccurrence();
+    if (occurrence != null) {
+      return getPicaFieldDefinition(tag, occurrence);
+    } else {
+      return lookup(tag);
+    }
+  }
+
   public PicaFieldDefinition lookup(String searchTerm) {
     if (directory.containsKey(searchTerm))
       return directory.get(searchTerm);
@@ -28,14 +38,8 @@ public class PicaSchemaManager {
     if (searchTerm.contains("/")) {
       String[] parts = searchTerm.split("/");
       String tag = parts[0];
-      String occurence = parts[1];
-      if (tagIndex.containsKey(tag)) {
-        for (String id : tagIndex.get(tag)) {
-          var candidate = directory.get(id);
-          if (candidate.inRange(occurence))
-            return candidate;
-        }
-      }
+      String occurrence = parts[1];
+      return getPicaFieldDefinition(tag, occurrence);
     } else {
       if (tagIndex.containsKey(searchTerm) && tagIndex.get(searchTerm).size() == 1) {
         String id = tagIndex.get(searchTerm).get(0);
@@ -45,7 +49,19 @@ public class PicaSchemaManager {
     return null;
   }
 
+  private PicaFieldDefinition getPicaFieldDefinition(String tag, String occurrence) {
+    if (tagIndex.containsKey(tag)) {
+      for (String id : tagIndex.get(tag)) {
+        var candidate = directory.get(id);
+        if (candidate.inRange(occurrence))
+          return candidate;
+      }
+    }
+    return null;
+  }
+
   public int size() {
     return directory.size();
   }
+
 }

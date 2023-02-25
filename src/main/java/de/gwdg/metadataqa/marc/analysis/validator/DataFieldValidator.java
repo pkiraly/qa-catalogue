@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.general.Linkage;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.parser.ParserException;
@@ -57,7 +58,8 @@ public class DataFieldValidator extends AbstractValidator {
     boolean ambiguousLinkage = false;
 
     definition = field.getDefinition();
-    if (TagDefinitionLoader.load(field.getDefinition().getTag(), configuration.getMarcVersion()) == null) {
+    if (configuration.getSchemaType().equals(SchemaType.MARC21)
+        && TagDefinitionLoader.load(definition.getTag(), configuration.getMarcVersion()) == null) {
       addError(FIELD_UNDEFINED, "");
       return false;
     }
@@ -116,11 +118,13 @@ public class DataFieldValidator extends AbstractValidator {
     if (field.getUnhandledSubfields() != null)
       addError(SUBFIELD_UNDEFINED, StringUtils.join(field.getUnhandledSubfields(), ", "));
 
-    if (field.getInd1() != null)
-      validateIndicator(definition.getInd1(), field.getInd1(), configuration.getMarcVersion(), referencerDefinition);
+    if (configuration.getSchemaType().equals(SchemaType.MARC21)) {
+      if (field.getInd1() != null)
+        validateIndicator(definition.getInd1(), field.getInd1(), configuration.getMarcVersion(), referencerDefinition);
 
-    if (field.getInd2() != null)
-      validateIndicator(definition.getInd2(), field.getInd2(), configuration.getMarcVersion(), referencerDefinition);
+      if (field.getInd2() != null)
+        validateIndicator(definition.getInd2(), field.getInd2(), configuration.getMarcVersion(), referencerDefinition);
+    }
 
     if (!ambiguousLinkage) {
       Map<SubfieldDefinition, Integer> counter = new HashMap<>();
@@ -144,8 +148,9 @@ public class DataFieldValidator extends AbstractValidator {
       for (Map.Entry<SubfieldDefinition, Integer> entry : counter.entrySet()) {
         SubfieldDefinition subfieldDefinition = entry.getKey();
         Integer count = entry.getValue();
-        if (count > 1 && subfieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable))
+        if (count > 1 && subfieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
           addError(subfieldDefinition, SUBFIELD_NONREPEATABLE, String.format("there are %d instances", count));
+        }
       }
     }
 

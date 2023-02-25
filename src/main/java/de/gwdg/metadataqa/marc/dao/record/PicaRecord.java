@@ -63,7 +63,6 @@ public class PicaRecord extends BibliographicRecord {
     if (!skippableAuthoritySubfields.containsKey(tag))
       return false;
 
-    // System.err.println();
     return skippableAuthoritySubfields.get(tag).getOrDefault(code, false);
   }
 

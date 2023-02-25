@@ -3,10 +3,7 @@ package de.gwdg.metadataqa.marc.dao;
 import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.Extractable;
 import de.gwdg.metadataqa.marc.MarcSubfield;
-import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.Validatable;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
-import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
@@ -14,15 +11,10 @@ import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
-import de.gwdg.metadataqa.marc.definition.general.Linkage;
 import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
 import de.gwdg.metadataqa.marc.definition.general.indexer.subject.*;
-import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
-import de.gwdg.metadataqa.marc.definition.general.parser.ParserException;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.model.validation.ErrorsCollector;
-import de.gwdg.metadataqa.marc.model.validation.ValidationError;
-import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
 import org.apache.commons.lang3.StringUtils;
 
@@ -36,8 +28,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorType.*;
-
 public class DataField implements Extractable, Serializable { // Validatable
 
   private static final Logger logger = Logger.getLogger(DataField.class.getCanonicalName());
@@ -48,6 +38,7 @@ public class DataField implements Extractable, Serializable { // Validatable
   private String ind2;
   private List<MarcSubfield> subfields;
   private Map<String, List<MarcSubfield>> subfieldIndex = new LinkedHashMap<>();
+  private String occurrence;
   private ErrorsCollector errors = null;
   private List<String> unhandledSubfields = null;
   private BibliographicRecord marcRecord;
@@ -698,6 +689,14 @@ public class DataField implements Extractable, Serializable { // Validatable
 
   public List<String> getUnhandledSubfields() {
     return unhandledSubfields;
+  }
+
+  public String getOccurrence() {
+    return occurrence;
+  }
+
+  public void setOccurrence(String occurrence) {
+    this.occurrence = occurrence;
   }
 
   @Override

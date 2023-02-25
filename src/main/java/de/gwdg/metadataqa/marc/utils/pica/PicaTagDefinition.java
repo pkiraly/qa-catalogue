@@ -98,6 +98,8 @@ public class PicaTagDefinition implements BibliographicFieldDefinition {
 
   public void setSubfields(List<SubfieldDefinition> subfields) {
     this.subfields = subfields;
+    for (SubfieldDefinition subfield : this.subfields)
+      subfield.setParent(this);
   }
 
   public String getDescriptionUrl() {

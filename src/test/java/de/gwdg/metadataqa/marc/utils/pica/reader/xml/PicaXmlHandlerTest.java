@@ -1,11 +1,9 @@
-package de.gwdg.metadataqa.marc.utils.pica.xml;
+package de.gwdg.metadataqa.marc.utils.pica.reader.xml;
 
 import de.gwdg.metadataqa.marc.cli.CliTestUtils;
-import de.gwdg.metadataqa.marc.utils.pica.PicaReader;
-import de.gwdg.metadataqa.marc.utils.pica.xml.PicaXmlHandler;
-import de.gwdg.metadataqa.marc.utils.pica.xml.PicaXmlParser;
+import de.gwdg.metadataqa.marc.utils.pica.reader.xml.PicaXmlHandler;
+import de.gwdg.metadataqa.marc.utils.pica.reader.xml.PicaXmlParser;
 import org.junit.Test;
-import org.marc4j.MarcError;
 import org.marc4j.RecordStack;
 import org.marc4j.marc.Record;
 import org.xml.sax.InputSource;

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Zentralbibliothek Zürich
 
 . ./setdir.sh
 NAME=zb

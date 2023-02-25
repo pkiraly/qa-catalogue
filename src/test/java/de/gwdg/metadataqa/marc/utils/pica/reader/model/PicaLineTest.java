@@ -1,5 +1,7 @@
-package de.gwdg.metadataqa.marc.utils.pica;
+package de.gwdg.metadataqa.marc.utils.pica.reader.model;
 
+import de.gwdg.metadataqa.marc.utils.pica.PicaSubfield;
+import de.gwdg.metadataqa.marc.utils.pica.reader.model.PicaLine;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

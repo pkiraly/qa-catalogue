@@ -80,7 +80,6 @@ public class Marc21Record extends BibliographicRecord {
     if (!skippableSubjectSubfields.containsKey(tag))
       return false;
 
-    // System.err.println();
     return skippableSubjectSubfields.get(tag).getOrDefault(code, false);
   }
 

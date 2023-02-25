@@ -1,6 +1,8 @@
-package de.gwdg.metadataqa.marc.utils.pica;
+package de.gwdg.metadataqa.marc.utils.pica.reader;
 
 import de.gwdg.metadataqa.marc.cli.CliTestUtils;
+import de.gwdg.metadataqa.marc.utils.pica.reader.PicaReader;
+import de.gwdg.metadataqa.marc.utils.pica.reader.PicaXmlReader;
 import org.junit.Before;
 import org.junit.Test;
 

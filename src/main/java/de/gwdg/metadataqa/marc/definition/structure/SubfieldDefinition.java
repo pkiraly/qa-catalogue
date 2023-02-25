@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.CompilanceLevel;
 import de.gwdg.metadataqa.marc.definition.FRBRFunction;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.bibliographic.BibliographicFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.SubfieldValidator;
@@ -28,7 +29,7 @@ public class SubfieldDefinition implements Serializable {
   private String mqTag;
   private String cardinalityCode;
   private String label;
-  private DataFieldDefinition parent;
+  private BibliographicFieldDefinition parent;
   private SubfieldValidator validator;
   private SubfieldContentParser contentParser;
   protected CodeList codeList;
@@ -263,7 +264,7 @@ public class SubfieldDefinition implements Serializable {
     return mqTag;
   }
 
-  public DataFieldDefinition getParent() {
+  public BibliographicFieldDefinition getParent() {
     return parent;
   }
 
@@ -271,7 +272,7 @@ public class SubfieldDefinition implements Serializable {
     return functions;
   }
 
-  public SubfieldDefinition setParent(DataFieldDefinition parent) {
+  public SubfieldDefinition setParent(BibliographicFieldDefinition parent) {
     this.parent = parent;
     return this;
   }

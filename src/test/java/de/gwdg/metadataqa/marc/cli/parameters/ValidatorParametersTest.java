@@ -108,14 +108,18 @@ public class ValidatorParametersTest {
   }
 
   @Test
-  public void testInValidFormat() {
-    String[] arguments = new String[]{"--format", "comma-separated", "a-marc-file.mrc"};
+  public void testInvalidFormat() {
+    String msg = null;
+    ValidatorParameters parameters = null;
+    String[] arguments = new String[]{"--format", "iso", "a-marc-file.mrc"};
     try {
-      ValidatorParameters parameters = new ValidatorParameters(arguments);
-      assertEquals(ValidationErrorFormat.COMMA_SEPARATED, parameters.getFormat());
+      parameters = new ValidatorParameters(arguments);
     } catch (ParseException e) {
-      e.printStackTrace();
+      msg = e.getMessage();
     }
+    assertNull(parameters);
+    assertNotNull(msg);
+    assertEquals("Unrecognized ValidationErrorFormat parameter value: 'iso'", msg);
   }
 
   @Test

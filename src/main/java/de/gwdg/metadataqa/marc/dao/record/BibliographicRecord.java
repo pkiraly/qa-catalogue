@@ -430,9 +430,11 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
         }
         fieldMap.put("subfields", subfields);
 
-        String tag = field.getDefinition() != null
-          ? field.getDefinition().getTag()
-          : field.getTag();
+        String tag = field.getOccurrence() != null
+          ? field.getTag() + "/" + field.getOccurrence()
+          : (field.getDefinition() != null
+            ? field.getDefinition().getTag()
+            : field.getTag());
 
         map.computeIfAbsent(tag, s -> new ArrayList<Map<String, Object>>());
         ((ArrayList)map.get(tag)).add(fieldMap);

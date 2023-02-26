@@ -44,7 +44,8 @@ public class MarcToSolrTest {
     BibliographicRecord marcRecord = MarcFactory.createPicaFromMarc4j(record, schema);
     Map<String, List<String>> map = marcRecord.getKeyValuePairs(SolrFieldType.HUMAN, true, MarcVersion.MARC21);
     // System.err.println(map.keySet());
-    System.err.println(marcRecord.asJson());
+    assertTrue(marcRecord.asJson().contains("036E/01"));
+    assertTrue(map.containsKey("036E_01_a"));
   }
 
   @Test

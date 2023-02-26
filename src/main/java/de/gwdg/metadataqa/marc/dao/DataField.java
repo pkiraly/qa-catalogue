@@ -323,7 +323,12 @@ public class DataField implements Extractable, Serializable { // Validatable
                                                     MarcVersion marcVersion) {
     Map<String, List<String>> pairs = new HashMap<>();
 
-    DataFieldKeyGenerator keyGenerator = new DataFieldKeyGenerator(definition, type, getTag());
+    String tag = getTag();
+    if (getOccurrence() != null)
+        tag += "_" + getOccurrence();
+
+    SchemaType schemaType = marcRecord != null ? marcRecord.getSchemaType() : SchemaType.MARC21;
+    DataFieldKeyGenerator keyGenerator = new DataFieldKeyGenerator(definition, type, tag, schemaType);
     keyGenerator.setMarcVersion(marcVersion);
 
     // ind1

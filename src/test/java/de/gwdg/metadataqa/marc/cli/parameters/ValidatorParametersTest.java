@@ -160,4 +160,36 @@ public class ValidatorParametersTest {
       e.printStackTrace();
     }
   }
+
+  @Test
+  public void empty_constructor() {
+    ValidatorParameters parameters = new ValidatorParameters();
+    assertNull(parameters.getIgnorableIssueTypes());
+    assertFalse(parameters.doEmptyLargeCollectors());
+  }
+
+  @Test
+  public void emptyLargeCollectors() {
+    String[] arguments = new String[]{"--emptyLargeCollectors", "a-marc-file.mrc"};
+    try {
+      ValidatorParameters parameters = new ValidatorParameters(arguments);
+      assertTrue(parameters.doEmptyLargeCollectors());
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  public void complexConditions() {
+    String msg = null;
+    String[] arguments = new String[]{"--details", "--summary",  "a-marc-file.mrc"};
+    try {
+      ValidatorParameters parameters = new ValidatorParameters(arguments);
+      assertFalse(parameters.doEmptyLargeCollectors());
+    } catch (ParseException e) {
+      msg = e.getMessage();
+    }
+    assertNull(msg);
+  }
+
 }

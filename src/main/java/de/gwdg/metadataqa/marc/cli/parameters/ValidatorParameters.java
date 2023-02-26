@@ -47,30 +47,25 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
     super(arguments);
 
     if (cmd.hasOption("detailsFileName"))
-      detailsFileName = cmd.getOptionValue("detailsFileName");
+      setDetailsFileName(cmd.getOptionValue("detailsFileName"));
 
-    if (cmd.hasOption("summaryFileName")) {
-      summaryFileName = cmd.getOptionValue("summaryFileName");
-      doSummary = true;
-    }
+    if (cmd.hasOption("summaryFileName"))
+      setSummaryFileName(cmd.getOptionValue("summaryFileName"));
 
     if (detailsFileName.equals("stdout"))
-      useStandardOutput = true;
+      setUseStandardOutput(true);
 
     if (cmd.hasOption("format"))
       setFormat(cmd.getOptionValue("format"));
 
     if (cmd.hasOption("summary")) {
-      doSummary = true;
+      setDoSummary(true);
       if (!cmd.hasOption("details"))
-        doDetails = false;
+        setDoDetails(false);
     }
 
-    if (doDetails && doSummary && !useStandardOutput && (summaryFileName == null))
-      throw new ParseException("If the details and summary is requested, summaryFileName must be provided!");
-
     if (cmd.hasOption("emptyLargeCollectors"))
-      emptyLargeCollectors = true;
+      setEmptyLargeCollectors(true);
 
     setCollectAllErrors(cmd.hasOption("collectAllErrors"));
 
@@ -137,6 +132,7 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
 
   public void setSummaryFileName(String summaryFileName) {
     this.summaryFileName = summaryFileName;
+    doSummary = true;
   }
 
   public boolean doEmptyLargeCollectors() {

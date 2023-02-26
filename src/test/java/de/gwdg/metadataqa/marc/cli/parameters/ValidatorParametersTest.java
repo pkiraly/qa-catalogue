@@ -23,7 +23,7 @@ public class ValidatorParametersTest {
       assertFalse(parameters.doHelp());
 
       assertNotNull(parameters.getDetailsFileName());
-      assertEquals("validation-report.txt", parameters.getDetailsFileName());
+      assertEquals("issue-details.csv", parameters.getDetailsFileName());
       assertFalse(parameters.useStandardOutput());
 
       assertEquals(-1, parameters.getLimit());
@@ -109,10 +109,10 @@ public class ValidatorParametersTest {
 
   @Test
   public void testInValidFormat() {
-    String[] arguments = new String[]{"--format", "iso", "a-marc-file.mrc"};
+    String[] arguments = new String[]{"--format", "comma-separated", "a-marc-file.mrc"};
     try {
       ValidatorParameters parameters = new ValidatorParameters(arguments);
-      assertEquals(ValidationErrorFormat.TEXT, parameters.getFormat());
+      assertEquals(ValidationErrorFormat.COMMA_SEPARATED, parameters.getFormat());
     } catch (ParseException e) {
       e.printStackTrace();
     }
@@ -120,7 +120,7 @@ public class ValidatorParametersTest {
 
   @Test
   public void getIgnorableIssueTypes_single() {
-    String[] arguments = new String[]{"--excludeIssueTypes", "undefinedSubfield", "a-marc-file.mrc"};
+    String[] arguments = new String[]{"--ignorableIssueTypes", "undefinedSubfield", "a-marc-file.mrc"};
     try {
       ValidatorParameters parameters = new ValidatorParameters(arguments);
       assertNotNull(parameters.getIgnorableIssueTypes());
@@ -133,7 +133,7 @@ public class ValidatorParametersTest {
 
   @Test
   public void getIgnorableIssueTypes_multiple() {
-    String[] arguments = new String[]{"--excludeIssueTypes", "undefinedSubfield,nonEmptyIndicator", "a-marc-file.mrc"};
+    String[] arguments = new String[]{"--ignorableIssueTypes", "undefinedSubfield,nonEmptyIndicator", "a-marc-file.mrc"};
     try {
       ValidatorParameters parameters = new ValidatorParameters(arguments);
       assertNotNull(parameters.getIgnorableIssueTypes());
@@ -147,7 +147,7 @@ public class ValidatorParametersTest {
 
   @Test
   public void getIgnorableIssueTypes_invalid() {
-    String[] arguments = new String[]{"--excludeIssueTypes", "undefinedSubfield2", "a-marc-file.mrc"};
+    String[] arguments = new String[]{"--ignorableIssueTypes", "undefinedSubfield2", "a-marc-file.mrc"};
     try {
       ValidatorParameters parameters = new ValidatorParameters(arguments);
       assertNotNull(parameters.getIgnorableIssueTypes());

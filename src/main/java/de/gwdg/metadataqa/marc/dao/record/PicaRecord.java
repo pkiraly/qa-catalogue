@@ -189,5 +189,4 @@ public class PicaRecord extends BibliographicRecord {
       }
     }
   }
-
 }

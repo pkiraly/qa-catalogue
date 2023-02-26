@@ -65,10 +65,8 @@ public class ValidatorCliTest extends CliTestUtils {
     RecordIterator iterator = new RecordIterator(processor);
     iterator.start();
     assertEquals("done", iterator.getStatus());
-    System.err.println("DONENEOENEN");
 
     for (String outputFile : grouppedOutputFiles) {
-      System.err.println(outputFile);
       File output = new File(outputDir, outputFile);
       assertTrue(outputFile + " should exist", output.exists());
       List<String> lines = FileUtils.readLinesFromFile("src/test/resources/output/" + outputFile);

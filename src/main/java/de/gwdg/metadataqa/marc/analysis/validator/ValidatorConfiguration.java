@@ -62,4 +62,15 @@ public class ValidatorConfiguration {
   public List<ValidationErrorType> getIgnorableIssueTypes() {
     return ignorableIssueTypes;
   }
+
+  @Override
+  public String toString() {
+    return "ValidatorConfiguration{" +
+      "marcVersion=" + marcVersion +
+      ", schemaType=" + schemaType +
+      ", doSummary=" + doSummary +
+      ", ignorableFields=" + ignorableFields +
+      ", ignorableIssueTypes=" + ignorableIssueTypes +
+      '}';
+  }
 }

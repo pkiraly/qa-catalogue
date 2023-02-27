@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -83,9 +84,10 @@ public class ValidatorCliTest extends CliTestUtils {
         assertEquals("010000194,1:1;2:1;6:1;7:1;8:1;9:1;10:1;11:1;15:1;16:1;17:1;18:1;19:1;21:2;22:2;23:2;24:2;25:1;58:1", lines.get(10).trim());
 
       } else if (outputFile.equals("issue-summary.csv")) {
+        System.err.println(StringUtils.join(lines, "\n"));
         assertEquals(59, lines.size());
         assertEquals("id,MarcPath,categoryId,typeId,type,message,url,instances,records", lines.get(0).trim());
-        assertTrue(lines.contains("57,041A,3,8,repetition of non-repeatable field,there are 2 instances,,1,1"));
+        assertTrue(lines.contains("57,041A,3,8,repetition of non-repeatable field,there are 2 instances,https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=5100-5199,1,1"));
         assertTrue(lines.contains("1,001@,3,9,undefined field,001@,,10,10"));
         assertTrue(lines.contains("2,001U,3,9,undefined field,001U,,10,10"));
         assertTrue(lines.contains("3,036F/01,3,9,undefined field,036F/01,,1,1"));
@@ -162,7 +164,7 @@ public class ValidatorCliTest extends CliTestUtils {
       } else if (outputFile.equals("issue-summary.csv")) {
         assertEquals(59, lines.size());
         assertEquals("id,MarcPath,categoryId,typeId,type,message,url,instances,records", lines.get(0).trim());
-        assertTrue(lines.contains("57,041A,3,8,repetition of non-repeatable field,there are 2 instances,,1,1"));
+        assertTrue(lines.contains("57,041A,3,8,repetition of non-repeatable field,there are 2 instances,https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=5100-5199,1,1"));
         assertTrue(lines.contains("1,001@,3,9,undefined field,001@,,10,10"));
         assertTrue(lines.contains("2,001U,3,9,undefined field,001U,,10,10"));
         assertTrue(lines.contains("3,036F/01,3,9,undefined field,036F/01,,1,1"));

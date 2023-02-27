@@ -7,5 +7,6 @@ TIMESTAMP=$(date +"%Y-%m-%d")
 curl "https://format.k10plus.de/avram.pl?profile=k10plus-title" \
     | jq -S '(.fields[]|select(.subfields.U and .subfields.T)).repeatable=true' \
     | jq -S '(.fields[]|select(.occurrence=="00")).occurrence=null' \
+    | jq -S '.fields|=map_values(.url="https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val="+.pica3)' \
     > avram-k10plus-title-$TIMESTAMP.json
 

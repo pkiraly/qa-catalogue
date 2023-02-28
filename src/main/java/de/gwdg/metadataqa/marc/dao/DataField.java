@@ -704,6 +704,12 @@ public class DataField implements Extractable, Serializable { // Validatable
     this.occurrence = occurrence;
   }
 
+  public String getTagWithOccurrence() {
+    if (occurrence == null)
+      return getTag();
+    return getTag() + "/" + occurrence;
+  }
+
   @Override
   public String toString() {
     return "DataField{"

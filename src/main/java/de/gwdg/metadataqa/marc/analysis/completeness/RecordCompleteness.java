@@ -131,11 +131,11 @@ public class RecordCompleteness {
 
   private void processDataFields() {
     for (DataField field : bibliographicRecord.getDatafields()) {
-      if (parameters.getIgnorableFields().contains(field.getTag()))
+      if (parameters.getIgnorableFields().contains(field.getTagWithOccurrence()))
         continue;
 
       count(getPackageName(field), recordPackageCounter);
-      count(field.getTag(), recordFrequency);
+      count(field.getTagWithOccurrence(), recordFrequency);
       for (String marcPath : getMarcPaths(field))
         count(marcPath, recordFrequency);
 
@@ -149,8 +149,8 @@ public class RecordCompleteness {
   }
 
   private void processDataField(DataField field) {
-    count(field.getTag(), completenessDAO.getElementCardinality().get(documentType));
-    count(field.getTag(), completenessDAO.getElementCardinality().get("all"));
+    count(field.getTagWithOccurrence(), completenessDAO.getElementCardinality().get(documentType));
+    count(field.getTagWithOccurrence(), completenessDAO.getElementCardinality().get("all"));
 
     List<String> marcPaths = getMarcPaths(field);
     for (String marcPath : marcPaths) {
@@ -160,7 +160,7 @@ public class RecordCompleteness {
   }
 
   private void processGrouppedDataField(DataField field, String groupId) {
-    addGrouppedElementCardinality(field.getTag(), groupId);
+    addGrouppedElementCardinality(field.getTagWithOccurrence(), groupId);
 
     List<String> marcPaths = getMarcPaths(field);
     for (String marcPath : marcPaths) {
@@ -235,18 +235,18 @@ public class RecordCompleteness {
     if (parameters.isMarc21()) {
       if (field.getInd1() != null)
         if (field.getDefinition() != null && field.getDefinition().getInd1().exists() || !field.getInd1().equals(" "))
-          marcPaths.add(String.format("%s$!ind1", field.getTag()));
+          marcPaths.add(String.format("%s$!ind1", field.getTagWithOccurrence()));
 
       if (field.getInd2() != null)
         if (field.getDefinition() != null && field.getDefinition().getInd2().exists() || !field.getInd2().equals(" "))
-          marcPaths.add(String.format("%s$!ind2", field.getTag()));
+          marcPaths.add(String.format("%s$!ind2", field.getTagWithOccurrence()));
     }
 
     for (MarcSubfield subfield : field.getSubfields())
       if (numericalPattern.matcher(subfield.getCode()).matches())
-        marcPaths.add(String.format("%s$|%s", field.getTag(), subfield.getCode()));
+        marcPaths.add(String.format("%s$|%s", field.getTagWithOccurrence(), subfield.getCode()));
       else
-        marcPaths.add(String.format("%s$%s", field.getTag(), subfield.getCode()));
+        marcPaths.add(String.format("%s$%s", field.getTagWithOccurrence(), subfield.getCode()));
 
     return marcPaths;
   }

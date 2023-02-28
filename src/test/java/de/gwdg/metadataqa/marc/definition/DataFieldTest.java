@@ -71,4 +71,17 @@ public class DataFieldTest {
     assertEquals("123", error.getRecordId());
   }
 
+  @Test
+  public void pica() {
+    DataField field = new DataField("2345", "$a1$b2");
+    assertEquals("2345", field.getTagWithOccurrence());
+  }
+
+  @Test
+  public void pica2() {
+    DataField field = new DataField("2345", "$a1$b2");
+    field.setOccurrence("4");
+    assertEquals("2345/4", field.getTagWithOccurrence());
+  }
+
 }

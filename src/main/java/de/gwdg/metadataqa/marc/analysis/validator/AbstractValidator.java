@@ -1,7 +1,9 @@
 package de.gwdg.metadataqa.marc.analysis.validator;
 
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
+import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
 
 import java.util.List;
 import java.util.stream.Collectors;

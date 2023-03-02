@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.utils.pica;
 
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
+import org.apache.commons.lang3.StringUtils;
 
 public class PicaFieldDefinition extends DataFieldDefinition {
 
@@ -59,6 +60,17 @@ public class PicaFieldDefinition extends DataFieldDefinition {
       }
     }
     return false;
+  }
+
+  public String getTagWithOccurrence() {
+    if (StringUtils.isBlank(occurrence))
+      return tag;
+    return tag + "/" + occurrence;
+  }
+
+  @Override
+  public String getExtendedTag() {
+    return getTagWithOccurrence();
   }
 
   public PicaFieldDefinition copyWithChangesId() {

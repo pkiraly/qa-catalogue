@@ -87,7 +87,7 @@ public class ValidatorCliTest extends CliTestUtils {
         System.err.println(StringUtils.join(lines, "\n"));
         assertEquals(59, lines.size());
         assertEquals("id,MarcPath,categoryId,typeId,type,message,url,instances,records", lines.get(0).trim());
-        assertTrue(lines.contains("57,041A,3,8,repetition of non-repeatable field,there are 2 instances,https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=5100-5199,1,1"));
+        assertTrue(lines.contains("57,041A/00-99,3,8,repetition of non-repeatable field,there are 2 instances,https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=5100-5199,1,1"));
         assertTrue(lines.contains("1,001@,3,9,undefined field,001@,,10,10"));
         assertTrue(lines.contains("2,001U,3,9,undefined field,001U,,10,10"));
         assertTrue(lines.contains("3,036F/01,3,9,undefined field,036F/01,,1,1"));
@@ -164,7 +164,7 @@ public class ValidatorCliTest extends CliTestUtils {
       } else if (outputFile.equals("issue-summary.csv")) {
         assertEquals(59, lines.size());
         assertEquals("id,MarcPath,categoryId,typeId,type,message,url,instances,records", lines.get(0).trim());
-        assertTrue(lines.contains("57,041A,3,8,repetition of non-repeatable field,there are 2 instances,https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=5100-5199,1,1"));
+        assertTrue(lines.contains("57,041A/00-99,3,8,repetition of non-repeatable field,there are 2 instances,https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=5100-5199,1,1"));
         assertTrue(lines.contains("1,001@,3,9,undefined field,001@,,10,10"));
         assertTrue(lines.contains("2,001U,3,9,undefined field,001U,,10,10"));
         assertTrue(lines.contains("3,036F/01,3,9,undefined field,036F/01,,1,1"));

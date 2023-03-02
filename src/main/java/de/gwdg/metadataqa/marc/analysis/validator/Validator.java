@@ -11,6 +11,7 @@ import de.gwdg.metadataqa.marc.definition.general.validator.ClassificationRefere
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
+import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -140,7 +141,7 @@ public class Validator extends AbstractValidator {
         Integer count = entry.getValue();
         if (count > 1
             && fieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
-          validationErrors.add(new ValidationError(marcRecord.getId(), fieldDefinition.getTag(),
+          validationErrors.add(new ValidationError(marcRecord.getId(), fieldDefinition.getExtendedTag(),
             ValidationErrorType.FIELD_NONREPEATABLE,
             String.format("there are %d instances", count),
             fieldDefinition.getDescriptionUrl()

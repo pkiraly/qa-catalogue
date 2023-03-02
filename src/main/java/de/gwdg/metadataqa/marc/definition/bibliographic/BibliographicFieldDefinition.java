@@ -7,4 +7,8 @@ public interface BibliographicFieldDefinition {
   Cardinality getCardinality();
   String getLabel();
   String getDescriptionUrl();
+  default String getExtendedTag() {
+    return getTag();
+  }
+
 }

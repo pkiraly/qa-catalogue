@@ -190,7 +190,7 @@ public class DataFieldValidator extends AbstractValidator {
   }
 
   private void addError(ValidationErrorType type, String message) {
-    addError(definition.getTag(), type, message);
+    addError(definition.getExtendedTag(), type, message);
   }
 
   private void addError(SubfieldDefinition subfieldDefinition, ValidationErrorType type, String message) {

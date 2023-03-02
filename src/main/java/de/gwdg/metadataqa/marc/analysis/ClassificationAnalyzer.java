@@ -9,9 +9,7 @@ import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.general.indexer.subject.ClassificationSchemes;
 import de.gwdg.metadataqa.marc.utils.pica.PicaVocabularyManager;
 import de.gwdg.metadataqa.marc.utils.pica.VocabularyEntry;
-import net.minidev.json.parser.ParseException;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -177,7 +175,7 @@ public class ClassificationAnalyzer {
           }
         }
         if (firstSubfield != null) {
-          var currentSchema = new Schema(entry.getPica(), firstSubfield, entry.getVoc(), schema);
+          var currentSchema = new Schema(field.getTagWithOccurrence(), firstSubfield, entry.getVoc(), schema);
           schemas.add(currentSchema);
           updateSchemaSubfieldStatistics(field, currentSchema);
           count++;

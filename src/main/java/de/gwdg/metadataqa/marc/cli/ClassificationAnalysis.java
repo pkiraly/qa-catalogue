@@ -200,6 +200,7 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
         "abbreviation", "abbreviation4solr", "recordcount", "instancecount",
         "type"
       ));
+      System.err.println(statistics.getInstances());
       statistics.getInstances()
         .entrySet()
         .stream()
@@ -363,16 +364,6 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
       );
   }
 
-  /*
-  private static String createRow(List<String> fields) {
-    return StringUtils.join(fields, separator) + "\n";
-  }
-
-  private static String createRow(Object... fields) {
-    return StringUtils.join(fields, separator) + "\n";
-  }
-   */
-
   @Override
   public void printHelp(Options options) {
 
@@ -382,5 +373,4 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
   public boolean readyToProcess() {
     return readyToProcess;
   }
-  // private
 }

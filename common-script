@@ -38,21 +38,21 @@ do_prepare_solr() {
 }
 
 do_index() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/ --emptyLargeCollectors| --ignorableIssueTypes [^ ]+//g')
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+//g')
   printf "%s %s> [index]\n" $(date +"%F %T")
   printf "%s %s> ./index --db $NAME --file-path ${MARC_DIR} --file-mask $MASK ${PARAMS} --trimId 2> ${PREFIX}/solr.log\n" $(date +"%F %T")
   ./index --db $NAME --file-path ${MARC_DIR} --file-mask $MASK ${PARAMS} --trimId 2>> ${PREFIX}/solr.log
 }
 
 do_completeness() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/ --emptyLargeCollectors| --with-delete| --ignorableIssueTypes [^ ]+//g')
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
   printf "%s %s> [completeness]\n" $(date +"%F %T")
   printf "%s %s> ./completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/completeness.log\n" $(date +"%F %T")
   ./completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/completeness.log
 }
 
 do_classifications() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/ --emptyLargeCollectors| --with-delete| --ignorableIssueTypes [^ ]+//g')
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
   printf "%s %s> [classifications]\n" $(date +"%F %T")
   printf "%s %s> ./classifications --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/classifications.log\n" $(date +"%F %T")
   ./classifications --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/classifications.log
@@ -61,14 +61,14 @@ do_classifications() {
 }
 
 do_authorities() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/ --emptyLargeCollectors| --with-delete| --ignorableIssueTypes [^ ]+//g')
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
   printf "%s %s> [authorities]\n" $(date +"%F %T")
   printf "%s %s> ./authorities --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/authorities.log\n" $(date +"%F %T")
   ./authorities --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/authorities.log
 }
 
 do_tt_completeness() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/ --emptyLargeCollectors| --with-delete| --ignorableIssueTypes [^ ]+//g')
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
   printf "%s %s> [tt-completeness]\n" $(date +"%F %T")
   printf "%s %s> ./tt-completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/tt-completeness.log\n" $(date +"%F %T")
   ./tt-completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/tt-completeness.log
@@ -82,7 +82,7 @@ do_tt_completeness() {
 }
 
 do_shelf_ready_completeness() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/ --emptyLargeCollectors| --with-delete| --ignorableIssueTypes [^ ]+//g')
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
   printf "%s %s> [shelf-ready-completeness]\n" $(date +"%F %T")
   printf "%s %s> ./shelf-ready-completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/shelf-ready-completeness.log\n" $(date +"%F %T")
   ./shelf-ready-completeness \
@@ -100,7 +100,7 @@ do_shelf_ready_completeness() {
 }
 
 do_bl_classification() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/ --emptyLargeCollectors| --with-delete| --ignorableIssueTypes [^ ]+//g')
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
   printf "%s %s> [bl-classification]\n" $(date +"%F %T")
   printf "%s %s> ./bl-classification --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/bl-classification.log\n" $(date +"%F %T")
   ./bl-classification \
@@ -111,7 +111,7 @@ do_bl_classification() {
 }
 
 do_serial_score() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/ --emptyLargeCollectors| --with-delete| --ignorableIssueTypes [^ ]+//g')
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
   printf "%s %s> [serial-score]\n" $(date +"%F %T")
   printf "%s %s> ./serial-score --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/serial-score.log\n" $(date +"%F %T")
   ./serial-score --defaultRecordType BOOKS \
@@ -128,7 +128,7 @@ do_format() {
 }
 
 do_functional_analysis() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/ --emptyLargeCollectors| --with-delete| --ignorableIssueTypes [^ ]+//g')
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
   printf "%s %s> [functional-analysis]\n" $(date +"%F %T")
   printf "%s %s> ./functional-analysis --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/functional-analysis.log\n" $(date +"%F %T")
   ./functional-analysis --defaultRecordType BOOKS \
@@ -137,7 +137,7 @@ do_functional_analysis() {
 }
 
 do_network_analysis() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/ --emptyLargeCollectors| --with-delete| --ignorableIssueTypes [^ ]+//g')
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
   printf "%s %s> [network-analysis]\n" $(date +"%F %T")
   printf "%s %s> ./network-analysis --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/network-analysis.log\n" $(date +"%F %T")
   ./network-analysis --defaultRecordType BOOKS \
@@ -197,7 +197,7 @@ do_marc_history() {
   else
     SELECTOR="008~7-10;008~0-5"
   fi
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/ --emptyLargeCollectors| --with-delete| --ignorableIssueTypes [^ ]+//g')
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
   printf "%s %s> [marc-history]\n" $(date +"%F %T")
   printf "%s %s> ./formatter --selector \"$SELECTOR\" --defaultRecordType BOOKS ${PARAMS} --separator \",\" --outputDir ${OUTPUT_DIR}/ --fileName "marc-history.csv" ${MARC_DIR}/${MASK} &> ${PREFIX}/marc-history.log\n" $(date +"%F %T")
   ./formatter --selector "$SELECTOR" --defaultRecordType BOOKS ${PARAMS} --separator "," \
@@ -219,7 +219,7 @@ do_record_patterns() {
   printf "%s %s> Rscript scripts/top-fields.R ${OUTPUT_DIR} &>> ${PREFIX}/top-fields.log\n" $(date +"%F %T")
   Rscript scripts/record-patterns/top-fields.R ${OUTPUT_DIR} &>> ${PREFIX}/top-fields.log
 
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/ --emptyLargeCollectors| --with-delete| --ignorableIssueTypes [^ ]+//g')
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
   printf "%s %s> ./record-patterns --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} &> ${PREFIX}/record-patterns.log\n" $(date +"%F %T")
   ./record-patterns --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} &> ${PREFIX}/record-patterns.log
 
@@ -287,7 +287,7 @@ do_export_schema_files() {
 }
 
 do_shacl4bib() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/ --emptyLargeCollectors| --with-delete| --ignorableIssueTypes [^ ]+//g')
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
   printf "%s %s> [shacl4bib]\n" $(date +"%F %T")
   printf "%s %s> ./shacl4bib --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/shacl4bib.log\n" $(date +"%F %T")
   ./shacl4bib --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/shacl4bib.log

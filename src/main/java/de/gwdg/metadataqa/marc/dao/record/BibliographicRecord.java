@@ -653,11 +653,12 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
   public Map<DataField, AuthorityCategory> getAuthorityFields(Map<AuthorityCategory, List<String>> tags) {
     Map<DataField, AuthorityCategory> subjects = new LinkedHashMap<>();
     for (Map.Entry<AuthorityCategory, List<String>> entry : tags.entrySet()) {
+      AuthorityCategory category = entry.getKey();
       for (String tag : entry.getValue()) {
         List<DataField> fields = getDatafield(tag);
         if (fields != null && !fields.isEmpty()) {
           for (DataField field : fields)
-            subjects.put(field, entry.getKey());
+            subjects.put(field, category);
         }
       }
     }

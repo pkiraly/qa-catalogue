@@ -24,6 +24,9 @@ public class PicaRecord extends BibliographicRecord {
   private static Map<String, Boolean> subjectTagIndex;
   private static Map<String, Map<String, Boolean>> skippableAuthoritySubfields;
   private static Map<String, Map<String, Boolean>> skippableSubjectSubfields;
+  /**
+   * Key-value pairs of AuthorityCategory and tags
+   */
   private static Map<AuthorityCategory, List<String>> authorityTagsMap;
   private static Map<ThompsonTraillFields, List<String>> thompsonTraillTagMap;
   private static Map<ShelfReadyFieldsBooks, Map<String, List<String>>> shelfReadyMap;

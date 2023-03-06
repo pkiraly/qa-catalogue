@@ -125,6 +125,7 @@ public class AuthorityAnalysis implements BibliographicInputProcessor, Serializa
       statistics.getRecordsPerCategories()
         .entrySet()
         .stream()
+        .sorted((e1, e2) -> Integer.compare(e1.getKey().getId(), e2.getKey().getId()))
         .forEach(
           entry -> {
             AuthorityCategory category = entry.getKey();

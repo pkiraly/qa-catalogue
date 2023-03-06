@@ -8,25 +8,31 @@ import java.util.List;
 import java.util.Map;
 
 public enum AuthorityCategory {
-  Personal("Personal names", "100", "700", "800"),
-  Corporate("Corporate names", "110", "710", "810"),
-  Meeting("Meeting names", "111", "711", "811"),
-  Geographic("Geographic names", "751", "752"),
-  Titles("Titles", "130", "730", "740", "830"),
-  Other("Other", "720", "753", "754")
+  Personal("Personal names", 1, "100", "700", "800"),
+  Corporate("Corporate names", 2, "110", "710", "810"),
+  Meeting("Meeting names", 3,"111", "711", "811"),
+  Geographic("Geographic names", 4, "751", "752"),
+  Titles("Titles", 5, "130", "730", "740", "830"),
+  Other("Other", 6, "720", "753", "754")
   ;
 
-  private String label;
-  private List<String> tags;
+  private final int id;
+  private final String label;
+  private final List<String> tags;
   private static Map<String, AuthorityCategory> index = new HashMap<>();
 
-  AuthorityCategory(String label, String... tags) {
+  AuthorityCategory(String label, int id, String... tags) {
     this.label = label;
+    this.id = id;
     this.tags = Arrays.asList(tags);
   }
 
   public String getLabel() {
     return label;
+  }
+
+  public int getId() {
+    return id;
   }
 
   public List<String> getTags() {

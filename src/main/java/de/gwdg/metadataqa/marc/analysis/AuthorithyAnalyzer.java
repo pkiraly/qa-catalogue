@@ -42,22 +42,24 @@ public class AuthorithyAnalyzer {
   public int process() {
     Map<AuthorityCategory, Integer> categoryCounter = new EnumMap<>(AuthorityCategory.class);
     var count = 0;
-    for (Map.Entry<DataField, AuthorityCategory> field : marcRecord.getAuthorityFieldsMap().entrySet()) {
+    for (Map.Entry<DataField, AuthorityCategory> entry : marcRecord.getAuthorityFieldsMap().entrySet()) {
+      DataField field = entry.getKey();
+      AuthorityCategory category = entry.getValue();
       if (marcRecord.getSchemaType().equals(SchemaType.MARC21)) {
-        var type = field.getKey().getDefinition().getSourceSpecificationType();
+        var type = field.getDefinition().getSourceSpecificationType();
         if (type != null) {
           if (type.equals(SourceSpecificationType.Subfield2)) {
-            var fieldInstanceLevelCount = processFieldWithSubfield2(field.getKey());
+            var fieldInstanceLevelCount = processFieldWithSubfield2(field);
             count += fieldInstanceLevelCount;
-            add(field.getValue(), categoryCounter, fieldInstanceLevelCount);
+            add(category, categoryCounter, fieldInstanceLevelCount);
           } else {
             logger.log(Level.SEVERE, "Unhandled type: {0}", type);
           }
         }
       } else if (marcRecord.getSchemaType().equals(SchemaType.PICA)) {
-        var fieldInstanceLevelCount = processPicaField(field.getKey());
+        var fieldInstanceLevelCount = processPicaField(field);
         count += fieldInstanceLevelCount;
-        add(field.getValue(), categoryCounter, fieldInstanceLevelCount);
+        add(category, categoryCounter, fieldInstanceLevelCount);
       }
     }
     updateAuthorityCategoryStatitics(categoryCounter);
@@ -77,9 +79,9 @@ public class AuthorithyAnalyzer {
   private int processPicaField(DataField field) {
     var count = 0;
     List<Schema> schemas = new ArrayList<>();
-    var currentSchema = extractSchemaFromSubfield7(field.getTag(), schemas, field);
+    var currentSchema = extractSchemaFromSubfield7(field.getTagWithOccurrence(), schemas, field);
     if (currentSchema == null)
-      currentSchema = extractSchemaFromSubfield2(field.getTag(), schemas, field);
+      currentSchema = extractSchemaFromSubfield2(field.getTagWithOccurrence(), schemas, field);
     updateSchemaSubfieldStatistics(field, currentSchema);
     count++;
 

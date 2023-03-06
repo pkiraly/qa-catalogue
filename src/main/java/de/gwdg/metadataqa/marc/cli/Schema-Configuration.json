@@ -1,0 +1,49 @@
+{
+  "FORMAT": "MARC",
+  "Fieldtag": [
+      {
+        "path": "",
+        "rules":[{"maxLength": [3]}, {"minLength": [2]}, {"pattern": ["[X0-9]{3,3}|LDR"]}],
+        "cathegorie": "Mandatory",
+        "extractable": ["false"]
+      }
+  ],
+  "CharStar": [
+    {
+      "path": "",
+      "rules":[{"maxLength": [2]}, {"minLength": [1]}, {"pattern": ["^\\d{1,2}"]}],
+      "extractable": ["false"]
+    }
+  ],
+  "CharEnd": [
+    {
+      "path": "",
+      "rules":[{"maxLength": [2]}, {"minLength": [1]}, {"pattern": ["^\\d{1,2}"]}],
+      "extractable": ["false"]
+    }
+  ],
+  "Subfield": [
+    {
+      "path": "",
+      "parent": "Fieldtag",
+      "rules":[{"maxLength": [2]}, {"minLength": [1]}, {"pattern": ["[a-z0-9!\\\\\\\"#$%&'()*+-./:;<=>?]"]}],
+      "extractable": ["false"]
+    }
+  ],
+  "Indicator1": [
+    {
+      "path": "",
+      "rules":[{"maxLength": [1]}, {"pattern": ["^\\d{1}"]}],
+      "extractable": ["false"]
+    }
+  ],
+  "Indicator2": [
+    {
+      "path": "",
+      "rules":[{"maxLength": [1]}, {"pattern": ["^\\d{1}"]}],
+      "extractable": ["false"]
+    }
+  ]
+
+}
+

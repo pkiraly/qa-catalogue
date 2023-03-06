@@ -44,10 +44,10 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
   private static final Pattern positionalPattern = Pattern.compile("^(Leader|00[678])/(.*)$");
   private static final List<String> simpleControlTags = Arrays.asList("001", "003", "005");
   private static final List<String> MARC21_SUBJECT_TAGS = Arrays.asList(
-    "052", "055", "072", "080", "082", "083", "084", "085", "086",
-    "600", "610", "611", "630", "647", "648", "650", "651",
-    "653", "654", "655", "656", "657", "658", "662"
-    );
+          "052", "055", "072", "080", "082", "083", "084", "085", "086",
+          "600", "610", "611", "630", "647", "648", "650", "651",
+          "653", "654", "655", "656", "657", "658", "662"
+  );
   public static final List<String> PICA_SUBJECT_TAGS = Arrays.asList("045A", "045B", "045F", "045R");
 
   private static final Map<String, Boolean> undefinedTags = new HashMap<>();
@@ -222,7 +222,7 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
 
   public List<MarcControlField> getSimpleControlfields() {
     return Arrays.asList(
-      control001, control003, control005
+            control001, control003, control005
     );
   }
 
@@ -375,12 +375,12 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
           List<String> values = entry.getValue();
           if (mainKeyValuePairs.containsKey(key)) {
             mainKeyValuePairs.put(
-              key,
-              mergeValues(
-                new ArrayList<>(mainKeyValuePairs.get(key)),
-                values,
-                withDeduplication
-              )
+                    key,
+                    mergeValues(
+                            new ArrayList<>(mainKeyValuePairs.get(key)),
+                            values,
+                            withDeduplication
+                    )
             );
           } else {
             mainKeyValuePairs.put(key, values);
@@ -431,8 +431,8 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
         fieldMap.put("subfields", subfields);
 
         String tag = field.getDefinition() != null
-          ? field.getDefinition().getTag()
-          : field.getTag();
+                ? field.getDefinition().getTag()
+                : field.getTag();
 
         map.computeIfAbsent(tag, s -> new ArrayList<Map<String, Object>>());
         ((ArrayList)map.get(tag)).add(fieldMap);
@@ -598,8 +598,8 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
   /**
    * Remove ignorable errors from the list of errors
    *
-   * @param errors The list of error objects
-   * @param ignorableIssueTypes The list of ignorable error types
+   *  errors The list of error objects
+   *  ignorableIssueTypes The list of ignorable error types
    * @return
    */
   /*

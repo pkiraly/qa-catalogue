@@ -84,7 +84,7 @@ public class Shacl4bib implements BibliographicInputProcessor, Serializable {
     String fileName = "de/gwdg/metadataqa/marc/cli/Schema-Configuration.json";
     SchemaConfiguration schema = null;
     try {
-      schema = ConfigurationReader.readSchemaJson(fileName);
+      schema = ConfigurationReader.readSchemaJson(fileName); //Paths.get
     } catch (IOException exception) {
       System.err.println("ERROR. " + exception.getLocalizedMessage());
       System.exit(0);

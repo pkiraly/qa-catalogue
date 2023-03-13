@@ -155,6 +155,8 @@ public class ValidationErrorFormatter {
   }
 
   private static String createCvsRow(String[] strings, char separator) {
+    return CsvUtils.createCsv(strings);
+    /*
     StringWriter stringWriter = new StringWriter();
     CSVWriter csvWriter = new CSVWriter(stringWriter, separator, '"',
       CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);
@@ -164,6 +166,7 @@ public class ValidationErrorFormatter {
       row = row.replace("\\", "\\\\");
     }
     return row;
+     */
   }
 
   private static String formatTextWithoutId(ValidationError error) {

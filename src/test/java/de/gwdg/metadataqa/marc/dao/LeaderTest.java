@@ -289,15 +289,15 @@ public class LeaderTest {
     assertFalse(errors.isEmpty());
     assertEquals(2, errors.size());
     assertEquals(
-      "\"Leader\"\t\"1\"\t\"1\"\t\"undetectable type\"\t\"Leader/06 (typeOfRecord): 'n', Leader/07 (bibliographicLevel): 'm'\"\t\"https://www.loc.gov/marc/bibliographic/bdleader.html\"",
+      ",Leader,1,1,undetectable type,\"Leader/06 (typeOfRecord): 'n', Leader/07 (bibliographicLevel): 'm'\",https://www.loc.gov/marc/bibliographic/bdleader.html\n",
       ValidationErrorFormatter.format(
-        errors.get(0), ValidationErrorFormat.TAB_SEPARATED
+        errors.get(0), ValidationErrorFormat.COMMA_SEPARATED
       )
     );
     assertEquals(
-      "\"Leader/06 (leader06)\"\t\"2\"\t\"6\"\t\"invalid value\"\t\"n\"\t\"https://www.loc.gov/marc/bibliographic/bdleader.html\"",
+      ",Leader/06 (leader06),2,6,invalid value,n,https://www.loc.gov/marc/bibliographic/bdleader.html\n",
       ValidationErrorFormatter.format(
-        errors.get(1), ValidationErrorFormat.TAB_SEPARATED
+        errors.get(1), ValidationErrorFormat.COMMA_SEPARATED
       )
     );
   }

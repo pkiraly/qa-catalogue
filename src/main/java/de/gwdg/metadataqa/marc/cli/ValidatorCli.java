@@ -127,10 +127,8 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
         logger.info("summary output: " + summaryFile.getPath());
 
         collectorFile = prepareReportFile(parameters.getOutputDir(), "issue-collector.csv");
-        String header = ValidationErrorFormatter.formatHeaderForCollector(
-          parameters.getFormat()
-        );
-        print(collectorFile, header + "\n");
+        String header = ValidationErrorFormatter.formatHeaderForCollector(parameters.getFormat());
+        print(collectorFile, header);
 
       } else {
         if (parameters.doSummary())
@@ -139,7 +137,7 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
     }
     if (parameters.doDetails()) {
       String header = ValidationErrorFormatter.formatHeaderForDetails(parameters.getFormat());
-      print(detailsFile, header + "\n");
+      print(detailsFile, header);
     }
 
     if (parameters.collectAllErrors())
@@ -348,12 +346,6 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
           cells.add(error.getId());
           cells.addAll(Arrays.asList(ValidationErrorFormatter.asArrayWithoutId(error)));
           cells.addAll(Arrays.asList(instanceCount, validatorDAO.getRecordBasedErrorCounter().get(error.getId())));
-          // String formattedOutput = ValidationErrorFormatter.formatForSummary(
-          //   error, parameters.getFormat()
-          // );
-          // print(summaryFile, createRow(
-          //   separator, error.getId(), formattedOutput, instanceCount, validatorDAO.getRecordBasedErrorCounter().get(error.getId())
-          // ));
           // TODO: separator
           print(summaryFile, CsvUtils.createCsv(cells));
         }
@@ -363,7 +355,7 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
   private void printTypeCounts() {
     var path = Paths.get(parameters.getOutputDir(), "issue-by-type.csv");
     try (var writer = Files.newBufferedWriter(path)) {
-      writer.write(createRow("id", "categoryId", "category", "type", "instances", "records"));
+      writer.write(CsvUtils.createCsv("id", "categoryId", "category", "type", "instances", "records"));
       validatorDAO.getTypeRecordCounter()
         .entrySet()
         .stream()
@@ -373,9 +365,7 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
           int records = entry.getValue();
           int instances = validatorDAO.getTypeInstanceCounter().get(entry.getKey());
           try {
-            writer.write(createRow(
-              type.getId(), type.getCategory().getId(), type.getCategory().getName(), quote(type.getMessage()), instances, records
-            ));
+            writer.write(CsvUtils.createCsv(type.getId(), type.getCategory().getId(), type.getCategory().getName(), type.getMessage(), instances, records));
           } catch (IOException e) {
             logger.log(Level.SEVERE, "printTypeCounts", e);
           }
@@ -388,7 +378,7 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
   private void printTotalCounts() {
     var path = Paths.get(parameters.getOutputDir(), "issue-total.csv");
     try (var writer = Files.newBufferedWriter(path)) {
-      writer.write(createRow("type", "instances", "records"));
+      writer.write(CsvUtils.createCsv("type", "instances", "records"));
       validatorDAO.getTotalRecordCounter()
         .entrySet()
         .stream()
@@ -396,7 +386,7 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
           int records = entry.getValue();
           int instances = validatorDAO.getTotalInstanceCounter().getOrDefault(entry.getKey(), 0);
           try {
-            writer.write(createRow(entry.getKey(), instances, records));
+            writer.write(CsvUtils.createCsv(entry.getKey(), instances, records));
           } catch (IOException e) {
             logger.log(Level.SEVERE, "printTotalCounts", e);
           }
@@ -409,7 +399,7 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
   private void printCategoryCounts() {
     var path = Paths.get(parameters.getOutputDir(), "issue-by-category.csv");
     try (var writer = Files.newBufferedWriter(path)) {
-      writer.write(createRow("id", "category", "instances", "records"));
+      writer.write(CsvUtils.createCsv("id", "category", "instances", "records"));
       validatorDAO.getCategoryRecordCounter()
         .entrySet()
         .stream()
@@ -419,7 +409,7 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
           int records = entry.getValue();
           int instances = validatorDAO.getCategoryInstanceCounter().getOrDefault(entry.getKey(), -1);
           try {
-            writer.write(createRow(category.getId(), category.getName(), instances, records));
+            writer.write(CsvUtils.createCsv(category.getId(), category.getName(), instances, records));
           } catch (IOException e) {
             logger.log(Level.SEVERE, "printCategoryCounts", e);
           }

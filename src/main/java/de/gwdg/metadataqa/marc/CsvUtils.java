@@ -6,7 +6,10 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CsvUtils {
 
@@ -16,6 +19,10 @@ public class CsvUtils {
 
   public static String createCsvFromObjects(List<Object> values) {
     return createCsv(asArrayFromObject(values));
+  }
+
+  public static String createCsv(Object... values) {
+    return createCsv(asArrayFromObject(Stream.of(values).collect(Collectors.toList())));
   }
 
   public static String createCsv(String[] values) {

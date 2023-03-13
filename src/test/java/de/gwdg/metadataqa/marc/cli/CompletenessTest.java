@@ -124,7 +124,8 @@ public class CompletenessTest extends CliTestUtils {
             int occurrences = Integer.parseInt(record[8]);
             assertTrue(records <= occurrences);
             int total = 0;
-            for (String expr : record[13].split("; ")) {
+            String histogram = record[13].replaceAll("^\"(.*)\"$", "$1");
+            for (String expr : histogram.split("; ")) {
               String[] parts = expr.split("=");
               total += Integer.parseInt(parts[0]) * Integer.parseInt(parts[1]);
             }
@@ -167,7 +168,8 @@ public class CompletenessTest extends CliTestUtils {
             int occurrences = Integer.parseInt(record[8]);
             assertTrue(records <= occurrences);
             int total = 0;
-            for (String expr : record[13].split("; ")) {
+            String histogram = record[13].replaceAll("^\"(.*)\"$", "$1");
+            for (String expr : histogram.split("; ")) {
               String[] parts = expr.split("=");
               total += Integer.parseInt(parts[0]) * Integer.parseInt(parts[1]);
             }

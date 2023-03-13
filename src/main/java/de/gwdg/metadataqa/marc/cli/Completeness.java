@@ -193,10 +193,10 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     logger.info("Saving libraries003...");
     var path = Paths.get(parameters.getOutputDir(), "libraries003" + fileExtension);
     try (var writer = Files.newBufferedWriter(path)) {
-      writer.write("library" + separator + "count\n");
+      writer.write(CsvUtils.createCsv(List.of("library", "count")));
       completenessDAO.getLibrary003Counter().forEach((key, value) -> {
         try {
-          writer.write(String.format("\"%s\"%s%d%n", key, separator, value));
+          writer.write(CsvUtils.createCsv(List.of(key, value)));
         } catch (IOException e) {
           logger.log(Level.SEVERE, "saveLibraries003", e);
         }
@@ -209,15 +209,15 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
   private void saveMarcElements(String fileExtension, char separator) {
     Path path = Paths.get(parameters.getOutputDir(), "marc-elements" + fileExtension);
     try (var writer = Files.newBufferedWriter(path)) {
-      writer.write(createRow(
+      writer.write(CsvUtils.createCsv(List.of(
         "documenttype", "path", "packageid", "package", "tag", "subfield",
         "number-of-record", "number-of-instances",
         "min", "max", "mean", "stddev", "histogram"
-      ));
+      )));
       completenessDAO.getElementCardinality().forEach((documentType, cardinalities) -> {
         cardinalities.forEach((marcPath, cardinality) -> {
           try {
-            writer.write(formatCardinality(separator, marcPath, cardinality, documentType, null));
+            writer.write(formatCardinality(marcPath, cardinality, documentType, null));
           } catch (IOException e) {
             logger.log(Level.SEVERE, "saveMarcElements", e);
           }
@@ -241,7 +241,7 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
         documentTypes.forEach((documentType, cardinalities) -> {
           cardinalities.forEach((marcPath, cardinality) -> {
             try {
-              writer.write(formatCardinality(separator, marcPath, cardinality, documentType, groupId));
+              writer.write(formatCardinality(marcPath, cardinality, documentType, groupId));
             } catch (IOException e) {
               logger.log(Level.SEVERE, "saveMarcElements", e);
             }
@@ -257,7 +257,7 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     logger.info("saving packages...");
     var path = Paths.get(parameters.getOutputDir(), "packages" + fileExtension);
     try (var writer = Files.newBufferedWriter(path)) {
-      writer.write(createRow(separator, "documenttype", "packageid", "name", "label", "iscoretag", "count"));
+      writer.write(CsvUtils.createCsv(List.of("documenttype", "packageid", "name", "label", "iscoretag", "count")));
       completenessDAO.getPackageCounter().forEach((documentType, packages) -> {
         packages.forEach((packageName, count) -> {
           try {
@@ -274,9 +274,7 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
             } else {
               logger.severe(packageName + " has not been found in TagCategory");
             }
-            writer.write(createRow(
-              separator, quote(documentType), id, quote(range), quote(label), isPartOfMarcScore, count
-            ));
+            writer.write(CsvUtils.createCsv(List.of(documentType, id, range, label, isPartOfMarcScore, count)));
           } catch (IOException e) {
             logger.log(Level.SEVERE, "savePackages", e);
           }
@@ -291,7 +289,7 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     logger.info("saving groupped packages...");
     var path = Paths.get(parameters.getOutputDir(), "completeness-groupped-packages" + fileExtension);
     try (var writer = Files.newBufferedWriter(path)) {
-      writer.write(createRow(separator, "group", "documenttype", "packageid", "name", "label", "iscoretag", "count"));
+      writer.write(CsvUtils.createCsv(List.of("group", "documenttype", "packageid", "name", "label", "iscoretag", "count")));
       completenessDAO.getGrouppedPackageCounter().forEach((groupId, documentTypes) -> {
         documentTypes.forEach((documentType, packages) -> {
           packages.forEach((packageName, count) -> {
@@ -309,9 +307,7 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
               } else {
                 logger.severe(packageName + " has not been found in TagCategory");
               }
-              writer.write(createRow(
-                separator, quote(groupId), quote(documentType), id, quote(range), quote(label), isPartOfMarcScore, count
-              ));
+              writer.write(CsvUtils.createCsv(List.of(groupId, documentType, id, range, label, isPartOfMarcScore, count)));
             } catch (IOException e) {
               logger.log(Level.SEVERE, "savePackages", e);
             }
@@ -327,11 +323,10 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     logger.info("Saving libraries...");
     var path = Paths.get(parameters.getOutputDir(), "libraries" + fileExtension);
     try (var writer = Files.newBufferedWriter(path)) {
-      writer.write("library" + separator + "count\n");
+      writer.write(CsvUtils.createCsv(List.of("library", "count")));
       completenessDAO.getLibraryCounter().forEach((key, value) -> {
         try {
           writer.write(CsvUtils.createCsv(List.of(key, value)));
-          // writer.write(String.format("\"%s\"%s%d%n", key, separator, value));
         } catch (IOException e) {
           logger.log(Level.SEVERE, "saveLibraries", e);
         }
@@ -359,8 +354,7 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     }
   }
 
-  private String formatCardinality(char separator,
-                                   String marcPath,
+  private String formatCardinality(String marcPath,
                                    int cardinality,
                                    String documentType,
                                    String groupId) {
@@ -415,7 +409,8 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     if (groupId != null)
       values.add(0, groupId);
 
-    return StringUtils.join(values, separator) + "\n";
+    return CsvUtils.createCsvFromObjects(values);
+    // return StringUtils.join(values, separator) + "\n";
   }
 
   private char getSeparator(ValidationErrorFormat format) {

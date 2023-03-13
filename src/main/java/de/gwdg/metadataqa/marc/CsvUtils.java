@@ -14,6 +14,10 @@ public class CsvUtils {
     return createCsv(asArray(values));
   }
 
+  public static String createCsvFromObjects(List<Object> values) {
+    return createCsv(asArrayFromObject(values));
+  }
+
   public static String createCsv(String[] values) {
     String csv = null;
 
@@ -31,6 +35,20 @@ public class CsvUtils {
   private static String[] asArray(List<? extends Serializable> values) {
     List<String> strings = new ArrayList<>();
     for (Serializable value : values) {
+      if (value instanceof String) {
+        strings.add((String) value);
+      } else if (value == null) {
+        strings.add("");
+      } else {
+        strings.add(value.toString());
+      }
+    }
+    return strings.toArray(new String[strings.size()]);
+  }
+
+  private static String[] asArrayFromObject(List<Object> values) {
+    List<String> strings = new ArrayList<>();
+    for (Object value : values) {
       if (value instanceof String) {
         strings.add((String) value);
       } else if (value == null) {

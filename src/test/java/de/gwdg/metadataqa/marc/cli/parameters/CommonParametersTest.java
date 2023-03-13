@@ -244,7 +244,8 @@ public class CommonParametersTest {
         "ignorableRecords: \n" +
         "defaultEncoding: null\n" +
         "alephseqLineType: null\n" +
-        "groupBy: null\n";
+        "groupBy: null\n" +
+        "groupListFile: null\n";
       assertEquals(expected, parameters.formatParameters());
     } catch (ParseException e) {
       logger.log(Level.WARNING, "error in formatParameters()", e);

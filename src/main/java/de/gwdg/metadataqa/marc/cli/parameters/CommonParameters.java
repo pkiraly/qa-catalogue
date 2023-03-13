@@ -61,6 +61,7 @@ public class CommonParameters implements Serializable {
   private String picaRecordTypeField = "002@$0";
   private SchemaType schemaType = SchemaType.MARC21;
   private String groupBy;
+  private String groupListFile;
 
   protected void setOptions() {
     if (!isOptionSet) {
@@ -92,6 +93,7 @@ public class CommonParameters implements Serializable {
       options.addOption("G", "picaRecordType", true, "picaRecordType");
       options.addOption("I", "allowableRecords", true, "allow records for the analysis");
       options.addOption("J", "groupBy", true, "group the results by the value of this data element (e.g. the ILN of  library)");
+      options.addOption("K", "groupListFile", true, "the file which contains a list of ILN codes");
 
       isOptionSet = true;
     }
@@ -133,6 +135,7 @@ public class CommonParameters implements Serializable {
     readPicaSchemaFile();
     readPicaRecordType();
     readGroupBy();
+    readGroupListFile();
 
     args = cmd.getArgs();
   }
@@ -151,6 +154,11 @@ public class CommonParameters implements Serializable {
   private void readGroupBy() {
     if (cmd.hasOption("groupBy"))
       groupBy = cmd.getOptionValue("groupBy");
+  }
+
+  private void readGroupListFile() {
+    if (cmd.hasOption("groupListFile"))
+      groupListFile = cmd.getOptionValue("groupListFile");
   }
 
   private void readPicaSubfieldSeparator() {
@@ -528,6 +536,10 @@ public class CommonParameters implements Serializable {
     return groupBy;
   }
 
+  public String getGroupListFile() {
+    return groupListFile;
+  }
+
   public String formatParameters() {
     String text = "";
     text += String.format("schemaType: %s%n", schemaType);
@@ -557,6 +569,7 @@ public class CommonParameters implements Serializable {
       text += String.format("picaRecordType: %s%n", picaRecordTypeField);
     }
     text += String.format("groupBy: %s%n", groupBy);
+    text += String.format("groupListFile: %s%n", groupListFile);
 
     return text;
   }

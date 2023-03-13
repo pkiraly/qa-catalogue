@@ -1,9 +1,9 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.EncodedValue;
+import de.gwdg.metadataqa.marc.CsvUtils;
 import de.gwdg.metadataqa.marc.analysis.completeness.CompletenessDAO;
+import de.gwdg.metadataqa.marc.analysis.GroupSelector;
 import de.gwdg.metadataqa.marc.analysis.completeness.RecordCompleteness;
-import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.plugin.CompletenessFactory;
@@ -52,6 +52,7 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
   private CompletenessPlugin plugin;
   private RecordFilter recordFilter;
   private RecordIgnorator recordIgnorator;
+
 
   public Completeness(String[] args) throws ParseException {
     parameters = new CompletenessParameters(args);
@@ -329,7 +330,8 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
       writer.write("library" + separator + "count\n");
       completenessDAO.getLibraryCounter().forEach((key, value) -> {
         try {
-          writer.write(String.format("\"%s\"%s%d%n", key, separator, value));
+          writer.write(CsvUtils.createCsv(List.of(key, value)));
+          // writer.write(String.format("\"%s\"%s%d%n", key, separator, value));
         } catch (IOException e) {
           logger.log(Level.SEVERE, "saveLibraries", e);
         }
@@ -341,14 +343,13 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
 
   private void saveGroups(String fileExtension, char separator) {
     logger.info("Saving groups...");
-    OrganizationCodes org = OrganizationCodes.getInstance();
+    GroupSelector groupSelector = new GroupSelector(parameters.getGroupListFile());
     var path = Paths.get(parameters.getOutputDir(), "completeness-groups" + fileExtension);
     try (var writer = Files.newBufferedWriter(path)) {
-      writer.write("id" + separator + "group" + separator + "count\n");
+      writer.write(CsvUtils.createCsv(List.of("id", "group", "count")));
       completenessDAO.getGroupCounter().forEach((key, value) -> {
         try {
-          EncodedValue x = org.getCode("DE-" + key);
-          writer.write(String.format("%s%s\"%s\"%s%d%n", key, separator, (x == null ? key : x.getLabel()), separator, value));
+          writer.write(CsvUtils.createCsv(List.of(key, groupSelector.getOrgName(key), value)));
         } catch (IOException e) {
           logger.log(Level.SEVERE, "saveLibraries", e);
         }

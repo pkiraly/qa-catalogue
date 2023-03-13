@@ -216,7 +216,8 @@ public class ValidatorCliTest extends CliTestUtils {
         assertTrue(lines.get(0).contains("\"marcxml\":false,"));
         assertTrue(lines.get(0).contains("\"lineSeparated\":false,"));
         assertTrue(lines.get(0).contains("\"trimId\":true,"));
-        assertTrue(lines.get(0).contains("\"outputDir\":\"/home/kiru/git/metadata-qa-marc/src/test/resources/output\","));
+        assertTrue(lines.get(0).contains("\"outputDir\":\""));
+        assertTrue(lines.get(0).contains("metadata-qa-marc/src/test/resources/output\","));
         assertTrue(lines.get(0).contains("\"recordIgnorator\":{\"criteria\":[],\"booleanCriteria\":null,\"empty\":true},"));
         assertTrue(lines.get(0).contains("\"recordFilter\":{\"criteria\":[],\"booleanCriteria\":null,\"empty\":true},"));
         assertTrue(lines.get(0).contains("\"ignorableFields\":{\"fields\":null,\"empty\":true},"));

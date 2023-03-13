@@ -9,6 +9,8 @@ import org.junit.Test;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
@@ -164,23 +166,25 @@ public class ValidatorCliTest extends CliTestUtils {
         assertEquals("010000194,1:1;2:1;6:1;7:1;8:1;9:1;10:1;11:1;15:1;16:1;17:1;18:1;19:1;21:2;22:2;23:2;24:2;25:1;58:1", lines.get(10).trim());
 
       } else if (outputFile.equals("issue-summary.csv")) {
-        assertEquals(59, lines.size());
-        assertEquals("id,MarcPath,categoryId,typeId,type,message,url,instances,records", lines.get(0).trim());
-        assertTrue(lines.contains("57,041A/00-99,3,8,repetition of non-repeatable field,there are 2 instances,https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=5100-5199,1,1"));
-        assertTrue(lines.contains("1,001@,3,9,undefined field,001@,,10,10"));
-        assertTrue(lines.contains("2,001U,3,9,undefined field,001U,,10,10"));
-        assertTrue(lines.contains("3,036F/01,3,9,undefined field,036F/01,,1,1"));
+        String all = StringUtils.join(lines, "\n");
+        assertEquals(1058, lines.size());
+        assertEquals("groupId,id,MarcPath,categoryId,typeId,type,message,url,instances,records", lines.get(0).trim());
+        assertTrue(Pattern.compile("100,\\d,001@,3,9,undefined field,001@,,1,10").matcher(all).find());
+        assertTrue(Pattern.compile("100,\\d,001U,3,9,undefined field,001U,,1,10").matcher(all).find());
+        assertTrue(Pattern.compile("100,\\d+,044K/00-09,5,13,undefined subfield,V,https://format.k10plus.de/k10plushelp.pl\\?cmd=kat&katalog=Standard&val=5550-5559,1,7").matcher(all).find());
+        assertTrue(Pattern.compile("100,\\d+,044K/00-09,5,13,undefined subfield,3,https://format.k10plus.de/k10plushelp.pl\\?cmd=kat&katalog=Standard&val=5550-5559,1,7").matcher(all).find());
 
       } else if (outputFile.equals("issue-by-category.csv")) {
-        assertEquals(3, lines.size());
-        assertEquals("id,category,instances,records", lines.get(0).trim());
-        assertEquals("3,data field,22,10", lines.get(1).trim());
+        assertEquals(94, lines.size());
+        assertEquals("groupId,id,category,instances,records", lines.get(0).trim());
+        assertEquals("100,3,data field,22,1", lines.get(1).trim());
+        assertEquals("100,5,subfield,157,1", lines.get(2).trim());
 
       } else if (outputFile.equals("issue-by-type.csv")) {
-        assertEquals(5, lines.size());
-        assertEquals("id,categoryId,category,type,instances,records", lines.get(0).trim());
-        assertEquals("8,3,data field,repetition of non-repeatable field,1,1", lines.get(1).trim());
-        assertEquals("9,3,data field,undefined field,21,10", lines.get(2).trim());
+        assertEquals(108, lines.size());
+        assertEquals("groupId,id,categoryId,category,type,instances,records", lines.get(0).trim());
+        assertEquals("100,9,3,data field,undefined field,21,1", lines.get(1).trim());
+        assertEquals("100,13,5,subfield,undefined subfield,156,1", lines.get(2).trim());
 
       } else if (outputFile.equals("issue-collector.csv")) {
         assertEquals(59, lines.size());
@@ -191,10 +195,11 @@ public class ValidatorCliTest extends CliTestUtils {
         assertEquals("4,010000011;01000002X;010000038", lines.get(4).trim());
 
       } else if (outputFile.equals("issue-total.csv")) {
-        assertEquals(3, lines.size());
-        assertEquals("type,instances,records", lines.get(0).trim());
-        assertEquals("1,179,10", lines.get(1).trim());
-        assertEquals("2,158,9", lines.get(2).trim());
+        System.err.println(StringUtils.join(lines, "\n"));
+        assertEquals(94, lines.size());
+        assertEquals("groupId,type,instances,records", lines.get(0).trim());
+        assertEquals("100,1,179,1", lines.get(1).trim());
+        assertEquals("100,2,158,1", lines.get(2).trim());
 
       } else if (outputFile.equals("count.csv")) {
         assertEquals(2, lines.size());

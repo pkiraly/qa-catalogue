@@ -57,4 +57,8 @@ public abstract class QACli {
     return groupIds;
   }
 
+  public boolean doGroups() {
+    return groupBy != null;
+  }
+
 }

@@ -102,14 +102,14 @@ public class ValidationErrorFormatter {
     return messages;
   }
 
-  public static String formatHeaderForSummary(ValidationErrorFormat format) {
+  public static String formatHeaderForSummary(ValidationErrorFormat format, boolean withGoupId) {
     String message = "";
     switch (format) {
       case TAB_SEPARATED:
-        message = createCvsRow(headerForSummary(), '\t'); break;
+        message = createCvsRow(headerForSummary(withGoupId), '\t'); break;
       case COMMA_SEPARATED:
       case TEXT:
-        message = CsvUtils.createCsv(headerForSummary()); break;
+        message = CsvUtils.createCsv(headerForSummary(withGoupId)); break;
         // message = createCvsRow(headerForSummary(), ','); break;
       default: break;
     }
@@ -179,7 +179,9 @@ public class ValidationErrorFormatter {
     );
   }
 
-  private static String[] headerForSummary() {
+  private static String[] headerForSummary(boolean withGoupId) {
+    if (withGoupId)
+      return new String[]{"groupId", "id", "MarcPath", "categoryId", "typeId", "type", "message", "url", "instances", "records"};
     return new String[]{"id", "MarcPath", "categoryId", "typeId", "type", "message", "url", "instances", "records"};
   }
 

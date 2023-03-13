@@ -203,7 +203,8 @@ public class ValidatorCliTest extends CliTestUtils {
 
       } else if (outputFile.equals("validation.params.json")) {
         assertEquals(1, lines.size());
-        assertTrue(lines.get(0).contains("\"args\":[\"/home/kiru/git/metadata-qa-marc/src/test/resources/pica/pica-with-holdings-info.dat\"]"));
+        assertTrue(lines.get(0).contains("\"args\":[\""));
+        assertTrue(lines.get(0).contains("metadata-qa-marc/src/test/resources/pica/pica-with-holdings-info.dat\"]"));
         assertTrue(lines.get(0).contains("\"marcVersion\":\"MARC21\","));
         assertTrue(lines.get(0).contains("\"marcFormat\":\"PICA_NORMALIZED\","));
         assertTrue(lines.get(0).contains("\"dataSource\":\"FILE\","));

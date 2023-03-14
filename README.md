@@ -141,8 +141,8 @@ More details about the Docker use case: http://pkiraly.github.io/2020/05/31/runn
 ### Use
 
 ```bash
-scripts/[abbreviation-of-your-library].sh all-analyses
-scripts/[abbreviation-of-your-library].sh all-solr
+catalogues/[abbreviation-of-your-library].sh all-analyses
+catalogues/[abbreviation-of-your-library].sh all-solr
 ```
 
 For a catalogue with around 1 milion record the first command will take 5-10

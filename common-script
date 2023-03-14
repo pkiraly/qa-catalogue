@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
+set -uo pipefail
 
 SECONDS=0
 PREFIX=${BASE_INPUT_DIR}/_reports/${NAME}
 DATE=$(date +"%F")
-if [[ "$VERSION" != "" ]]; then
+if [[ "${VERSION:-}" != "" ]]; then
   OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}-${VERSION}
 else
   OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}
@@ -21,6 +22,9 @@ if [[ "$1" != "help" && "$1" != "export-schema-files" ]]; then
     mkdir -p ${OUTPUT_DIR}
   fi
 fi
+
+# die if input files don't exist
+ls "${MARC_DIR}/${MASK}" > /dev/null
 
 do_validate() {
   GENERAL_PARAMS="--details --trimId --summary --format csv --defaultRecordType BOOKS"
@@ -183,7 +187,7 @@ do_pareto() {
   Rscript scripts/pareto/frequency-range.R ${OUTPUT_DIR} &> ${PREFIX}/pareto.log
 
   . ./common-variables
-  if [[ "$WEB_DIR" != "" ]]; then
+  if [[ "${WEB_DIR:-}" != "" ]]; then
     if [[ ! -d $WEB_DIR/images ]]; then
       mkdir $WEB_DIR/images
     fi
@@ -234,7 +238,7 @@ do_record_patterns() {
 
 do_version_link() {
   printf "%s %s> [version-link]\n" $(date +"%F %T")
-  if [[ "$VERSION" != "" ]]; then
+  if [[ "${VERSION:-}" != "" ]]; then
     OUTPUT_LINK=${BASE_OUTPUT_DIR}/${NAME}
     if [[ -e ${OUTPUT_LINK} ]]; then
       rm ${OUTPUT_LINK}

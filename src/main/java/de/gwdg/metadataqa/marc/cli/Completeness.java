@@ -20,9 +20,9 @@ import de.gwdg.metadataqa.marc.utils.TagHierarchy;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.Record;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
@@ -50,7 +50,7 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
   private CompletenessPlugin plugin;
   private RecordFilter recordFilter;
   private RecordIgnorator recordIgnorator;
-
+  private File idCollectorFile;
 
   public Completeness(String[] args) throws ParseException {
     parameters = new CompletenessParameters(args);
@@ -59,6 +59,10 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     recordIgnorator = parameters.getRecordIgnorator();
     initializeGroups(parameters.getGroupBy(), parameters.isPica());
     readyToProcess = true;
+    if (doGroups()) {
+      idCollectorFile = prepareReportFile(parameters.getOutputDir(), "id-groupid.csv");
+      printToFile(idCollectorFile, CsvUtils.createCsv("id", "groupId"));
+    }
   }
 
   public static void main(String[] args) {
@@ -103,9 +107,12 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     RecordCompleteness recordCompleteness = new RecordCompleteness(bibliographicRecord, parameters, completenessDAO, plugin, groupBy);
     recordCompleteness.process();
 
-    if (groupBy != null)
-      for (String id : recordCompleteness.getGroupIds())
+    if (doGroups()) {
+      for (String id : recordCompleteness.getGroupIds()) {
         count(id, completenessDAO.getGroupCounter());
+        printToFile(idCollectorFile, CsvUtils.createCsv(bibliographicRecord.getId(true), id));
+      }
+    }
 
     for (String key : recordCompleteness.getRecordFrequency().keySet()) {
       if (groupBy != null) {

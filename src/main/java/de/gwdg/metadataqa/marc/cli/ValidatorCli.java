@@ -146,14 +146,6 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
     saveParameters("validation.params.json", parameters);
   }
 
-  private File prepareReportFile(String outputDir, String fileName) {
-    File reportFile = new File(outputDir, fileName);
-    if (reportFile.exists())
-      if (!reportFile.delete())
-        logger.log(Level.SEVERE, "File {} hasn't been deleted", reportFile.getAbsolutePath());
-    return reportFile;
-  }
-
   @Override
   public void fileOpened(Path currentFile) {
     // do nothing
@@ -585,20 +577,6 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
       System.out.print(content);
     else {
       printToFile(file, content);
-    }
-  }
-
-  /**
-   * Print to file
-   * @param file The output file
-   * @param content The content
-   */
-  private void printToFile(File file, String content) {
-    try {
-      FileUtils.writeStringToFile(file, content, Charset.defaultCharset(), true);
-    } catch (IOException e) {
-      if (parameters.doLog())
-        logger.log(Level.SEVERE, "printToFile", e);
     }
   }
 

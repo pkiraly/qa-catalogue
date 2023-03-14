@@ -16,4 +16,8 @@ CREATE TABLE IF NOT EXISTS "issue_details" (
   "errorId"    INTEGER,
   "instances"  INTEGER
 );
+CREATE TABLE IF NOT EXISTS "id_groupid" (
+  "id"         TEXT,
+  "groupId"    TEXT
+);
 COMMIT;

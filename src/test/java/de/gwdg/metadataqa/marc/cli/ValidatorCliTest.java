@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
 
 public class ValidatorCliTest extends CliTestUtils {
 
@@ -209,46 +210,47 @@ public class ValidatorCliTest extends CliTestUtils {
 
       } else if (outputFile.equals("validation.params.json")) {
         assertEquals(1, lines.size());
-        assertTrue(lines.get(0).contains("\"args\":[\""));
-        assertTrue(lines.get(0).contains("metadata-qa-marc/src/test/resources/pica/pica-with-holdings-info.dat\"]"));
-        assertTrue(lines.get(0).contains("\"marcVersion\":\"MARC21\","));
-        assertTrue(lines.get(0).contains("\"marcFormat\":\"PICA_NORMALIZED\","));
-        assertTrue(lines.get(0).contains("\"dataSource\":\"FILE\","));
-        assertTrue(lines.get(0).contains("\"limit\":-1,"));
-        assertTrue(lines.get(0).contains("\"offset\":-1,"));
-        assertTrue(lines.get(0).contains("\"id\":null,"));
-        assertTrue(lines.get(0).contains("\"defaultRecordType\":\"BOOKS\","));
-        assertTrue(lines.get(0).contains("\"alephseq\":false,"));
-        assertTrue(lines.get(0).contains("\"marcxml\":false,"));
-        assertTrue(lines.get(0).contains("\"lineSeparated\":false,"));
-        assertTrue(lines.get(0).contains("\"trimId\":true,"));
-        assertTrue(lines.get(0).contains("\"outputDir\":\""));
-        assertTrue(lines.get(0).contains("metadata-qa-marc/src/test/resources/output\","));
-        assertTrue(lines.get(0).contains("\"recordIgnorator\":{\"criteria\":[],\"booleanCriteria\":null,\"empty\":true},"));
-        assertTrue(lines.get(0).contains("\"recordFilter\":{\"criteria\":[],\"booleanCriteria\":null,\"empty\":true},"));
-        assertTrue(lines.get(0).contains("\"ignorableFields\":{\"fields\":null,\"empty\":true},"));
-        assertTrue(lines.get(0).contains("\"stream\":null,"));
-        assertTrue(lines.get(0).contains("\"defaultEncoding\":null,"));
-        assertTrue(lines.get(0).contains("\"alephseqLineType\":null,"));
-        assertTrue(lines.get(0).contains("\"picaIdField\":\"003@$0\","));
-        assertTrue(lines.get(0).contains("\"picaSubfieldSeparator\":\"$\","));
-        assertTrue(lines.get(0).contains("\"picaSchemaFile\":null,"));
-        assertTrue(lines.get(0).contains("\"picaRecordTypeField\":\"002@$0\","));
-        assertTrue(lines.get(0).contains("\"schemaType\":\"PICA\","));
-        assertTrue(lines.get(0).contains("\"groupBy\":\"001@$0\","));
-        assertTrue(lines.get(0).contains("\"groupListFile\":null,"));
-        assertTrue(lines.get(0).contains("\"detailsFileName\":\"issue-details.csv\","));
-        assertTrue(lines.get(0).contains("\"summaryFileName\":\"issue-summary.csv\","));
-        assertTrue(lines.get(0).contains("\"format\":\"COMMA_SEPARATED\","));
-        assertTrue(lines.get(0).contains("\"ignorableIssueTypes\":null,"));
-        assertTrue(lines.get(0).contains("\"pica\":true,"));
-        assertTrue(lines.get(0).contains("\"replacementInControlFields\":null,"));
-        assertTrue(lines.get(0).contains("\"marc21\":false,"));
-        assertTrue(lines.get(0).contains("\"mqaf.version\":\"0.9.0\","));
-        assertTrue(lines.get(0).contains("\"qa-catalogue.version\":\"0.7.0-SNAPSHOT\"}"));
+        String line = lines.get(0);
+        assertTrue(line.contains("\"args\":[\""));
+        assertTrue(line.contains("metadata-qa-marc/src/test/resources/pica/pica-with-holdings-info.dat\"]"));
+        assertTrue(line.contains("\"marcVersion\":\"MARC21\","));
+        assertTrue(line.contains("\"marcFormat\":\"PICA_NORMALIZED\","));
+        assertTrue(line.contains("\"dataSource\":\"FILE\","));
+        assertTrue(line.contains("\"limit\":-1,"));
+        assertTrue(line.contains("\"offset\":-1,"));
+        assertTrue(line.contains("\"id\":null,"));
+        assertTrue(line.contains("\"defaultRecordType\":\"BOOKS\","));
+        assertTrue(line.contains("\"alephseq\":false,"));
+        assertTrue(line.contains("\"marcxml\":false,"));
+        assertTrue(line.contains("\"lineSeparated\":false,"));
+        assertTrue(line.contains("\"trimId\":true,"));
+        assertTrue(line.contains("\"outputDir\":\""));
+        assertTrue(line.contains("metadata-qa-marc/src/test/resources/output\","));
+        assertTrue(line.contains("\"recordIgnorator\":{\"criteria\":[],\"booleanCriteria\":null,\"empty\":true},"));
+        assertTrue(line.contains("\"recordFilter\":{\"criteria\":[],\"booleanCriteria\":null,\"empty\":true},"));
+        assertTrue(line.contains("\"ignorableFields\":{\"fields\":null,\"empty\":true},"));
+        assertTrue(line.contains("\"stream\":null,"));
+        assertTrue(line.contains("\"defaultEncoding\":null,"));
+        assertTrue(line.contains("\"alephseqLineType\":null,"));
+        assertTrue(line.contains("\"picaIdField\":\"003@$0\","));
+        assertTrue(line.contains("\"picaSubfieldSeparator\":\"$\","));
+        assertTrue(line.contains("\"picaSchemaFile\":null,"));
+        assertTrue(line.contains("\"picaRecordTypeField\":\"002@$0\","));
+        assertTrue(line.contains("\"schemaType\":\"PICA\","));
+        assertTrue(line.contains("\"groupBy\":\"001@$0\","));
+        assertTrue(line.contains("\"groupListFile\":null,"));
+        assertTrue(line.contains("\"detailsFileName\":\"issue-details.csv\","));
+        assertTrue(line.contains("\"summaryFileName\":\"issue-summary.csv\","));
+        assertTrue(line.contains("\"format\":\"COMMA_SEPARATED\","));
+        assertTrue(line.contains("\"ignorableIssueTypes\":null,"));
+        assertTrue(line.contains("\"pica\":true,"));
+        assertTrue(line.contains("\"replacementInControlFields\":null,"));
+        assertTrue(line.contains("\"marc21\":false,"));
+        assertTrue(line.contains("\"mqaf.version\":\"0.9.0\","));
+        assertTrue(line.contains("\"qa-catalogue.version\":\"0.7.0-SNAPSHOT\"}"));
 
       } else {
-        assertTrue("Unhandlet output: " + outputFile, outputFile.equals(""));
+        fail("Untested output file: " + outputFile);
       }
 
       output.delete();

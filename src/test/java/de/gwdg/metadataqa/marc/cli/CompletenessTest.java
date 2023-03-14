@@ -41,7 +41,8 @@ public class CompletenessTest extends CliTestUtils {
       "completeness-groups.csv",
       "completeness-groupped-marc-elements.csv",
       "completeness-groupped-packages.csv",
-      "completeness.params.json"
+      "completeness.params.json",
+      "id-groupid.csv"
     );
   }
 
@@ -179,6 +180,7 @@ public class CompletenessTest extends CliTestUtils {
           lineNr++;
         }
         reader.close();
+
       } else if (outputFile.equals("completeness-groups.csv")) {
         output = new File(outputDir, outputFile);
         assertTrue(output.exists());
@@ -234,6 +236,84 @@ public class CompletenessTest extends CliTestUtils {
             "all,all,10\n",
           actual);
 
+      } else if (outputFile.equals("completeness-groupped-packages.csv")) {
+        output = new File(outputDir, outputFile);
+        assertTrue(output.exists());
+        List<String> lines = FileUtils.readLinesFromFile(output.toPath().toString());
+        assertEquals("group,documenttype,packageid,name,label,iscoretag,count", lines.get(0));
+        assertEquals("100,Druckschriften (einschließlich Bildbänden),50,0...,PICA+ bibliograhic description,false,1", lines.get(1));
+        assertEquals("100,Druckschriften (einschließlich Bildbänden),99,unknown,unknown origin,false,1", lines.get(2));
+        assertEquals("100,all,50,0...,PICA+ bibliograhic description,false,1", lines.get(3));
+        assertEquals("100,all,99,unknown,unknown origin,false,1", lines.get(4));
+
+      } else if (outputFile.equals("id-groupid.csv")) {
+        output = new File(outputDir, outputFile);
+        assertTrue(output.exists());
+        List<String> lines = FileUtils.readLinesFromFile(output.toPath().toString());
+        assertEquals(76, lines.size());
+        assertEquals("id,groupId", lines.get(0));
+        assertEquals("010000011,all", lines.get(1));
+        assertEquals("010000011,77", lines.get(2));
+        assertEquals("010000011,2035", lines.get(3));
+        assertEquals("010000011,70", lines.get(4));
+        assertEquals("010000011,20", lines.get(5));
+
+      } else if (outputFile.equals("completeness.params.json")) {
+        output = new File(outputDir, outputFile);
+        assertTrue(output.exists());
+        String line = Files.readString(output.toPath());
+        assertTrue(line.contains("{\"args\":[\""));
+        assertTrue(line.contains("metadata-qa-marc/src/test/resources/pica/pica-with-holdings-info.dat\"],"));
+        assertTrue(line.contains("\"marcVersion\":\"MARC21\","));
+        assertTrue(line.contains("\"marcFormat\":\"PICA_NORMALIZED\","));
+        assertTrue(line.contains("\"dataSource\":\"FILE\","));
+        assertTrue(line.contains("\"limit\":-1,"));
+        assertTrue(line.contains("\"offset\":-1,"));
+        assertTrue(line.contains("\"id\":null,"));
+        assertTrue(line.contains("\"defaultRecordType\":null,"));
+        assertTrue(line.contains("\"alephseq\":false,"));
+        assertTrue(line.contains("\"marcxml\":false,"));
+        assertTrue(line.contains("\"lineSeparated\":false,"));
+        assertTrue(line.contains("\"trimId\":false,"));
+        assertTrue(line.contains("\"outputDir\":\"/"));
+        assertTrue(line.contains("/metadata-qa-marc/src/test/resources/output\","));
+        assertTrue(line.contains("\"recordIgnorator\":{\"criteria\":[],\"booleanCriteria\":null,\"empty\":true},"));
+        assertTrue(line.contains("\"recordFilter\":{\"criteria\":[],\"booleanCriteria\":null,\"empty\":true},"));
+        assertTrue(line.contains("\"ignorableFields\":{\"fields\":null,\"empty\":true},"));
+        assertTrue(line.contains("\"stream\":null,"));
+        assertTrue(line.contains("\"defaultEncoding\":null,"));
+        assertTrue(line.contains("\"alephseqLineType\":null,"));
+        assertTrue(line.contains("\"picaIdField\":\"003@$0\","));
+        assertTrue(line.contains("\"picaSubfieldSeparator\":\"$\","));
+        assertTrue(line.contains("\"picaSchemaFile\":null,"));
+        assertTrue(line.contains("\"picaRecordTypeField\":\"002@$0\","));
+        assertTrue(line.contains("\"schemaType\":\"PICA\","));
+        assertTrue(line.contains("\"groupBy\":\"001@$0\","));
+        assertTrue(line.contains("\"groupListFile\":\"/"));
+        assertTrue(line.contains("metadata-qa-marc/target/test-classes/k10plus-libraries-by-unique-iln.txt\","));
+        assertTrue(line.contains("\"format\":\"COMMA_SEPARATED\","));
+        assertTrue(line.contains("\"advanced\":false,"));
+        assertTrue(line.contains("\"onlyPackages\":false,"));
+        assertTrue(line.contains("\"pica\":true,"));
+        assertTrue(line.contains("\"replacementInControlFields\":null,"));
+        assertTrue(line.contains("\"marc21\":false,"));
+        assertTrue(line.contains("\"mqaf.version\":\"0.9.0\","));
+        assertTrue(line.contains("\"qa-catalogue.version\":\"0.7.0-SNAPSHOT\"}"));
+
+      } else if (outputFile.equals("libraries.csv")) {
+        output = new File(outputDir, outputFile);
+        assertTrue(output.exists());
+        String actual = Files.readString(output.toPath());
+        assertEquals("library,count\n", actual);
+
+      } else if (outputFile.equals("libraries003.csv")) {
+        output = new File(outputDir, outputFile);
+        assertTrue(output.exists());
+        String actual = Files.readString(output.toPath());
+        assertEquals("library,count\n", actual);
+
+      } else {
+        fail("Untested file: " + outputFile);
       }
       output.delete();
       assertFalse(outputFile + " should not exist anymore", output.exists());

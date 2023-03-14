@@ -6,16 +6,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.utils.BibiographicPath;
 import de.gwdg.metadataqa.marc.utils.pica.path.PicaPathParser;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public abstract class QACli {
+  private static final Logger logger = Logger.getLogger(QACli.class.getCanonicalName());
 
   protected BibiographicPath groupBy = null;
 
@@ -59,6 +64,27 @@ public abstract class QACli {
 
   public boolean doGroups() {
     return groupBy != null;
+  }
+
+  protected File prepareReportFile(String outputDir, String fileName) {
+    File reportFile = new File(outputDir, fileName);
+    if (reportFile.exists())
+      if (!reportFile.delete())
+        logger.log(Level.SEVERE, "File {} hasn't been deleted", reportFile.getAbsolutePath());
+    return reportFile;
+  }
+
+  /**
+   * Print to file
+   * @param file The output file
+   * @param content The content
+   */
+  protected void printToFile(File file, String content) {
+    try {
+      FileUtils.writeStringToFile(file, content, Charset.defaultCharset(), true);
+    } catch (IOException e) {
+      logger.log(Level.SEVERE, "printToFile", e);
+    }
   }
 
 }

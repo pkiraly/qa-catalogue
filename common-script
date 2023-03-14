@@ -270,6 +270,9 @@ do_sqlite() {
   printf "%s %s> create importable files\n" $(date +"%F %T")
   tail -n +2 ${OUTPUT_DIR}/issue-details-normalized.csv > ${OUTPUT_DIR}/issue-details-normalized_noheader.csv
   tail -n +2 ${OUTPUT_DIR}/issue-summary.csv > ${OUTPUT_DIR}/issue-summary_noheader.csv
+  if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
+    tail -n +2 ${OUTPUT_DIR}/id-groupid.csv > ${OUTPUT_DIR}/id-groupid_noheader.csv
+  fi
 
   printf "%s %s> import issue details\n" $(date +"%F %T")
   sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
@@ -283,9 +286,21 @@ EOF
 .import ${OUTPUT_DIR}/issue-summary_noheader.csv issue_summary
 EOF
 
+  if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
+    printf "%s %s> import id_groupid\n" $(date +"%F %T")
+    sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
+.mode csv
+.import ${OUTPUT_DIR}/id-groupid_noheader.csv id_groupid
+EOF
+  fi
+
+
   printf "%s %s> delete importable files\n" $(date +"%F %T")
   rm ${OUTPUT_DIR}/issue-details-normalized_noheader.csv
   rm ${OUTPUT_DIR}/issue-summary_noheader.csv
+  if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
+    rm ${OUTPUT_DIR}/id-groupid_noheader.csv
+  fi
 
   if [[ "${HAS_GROUP_PARAM}" == "0" ]]; then
     printf "%s %s> index\n" $(date +"%F %T")

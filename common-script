@@ -253,21 +253,33 @@ do_sqlite() {
   printf "%s %s> php scripts/sqlite/normalize-issue-details.php ${OUTPUT_DIR} &> ${PREFIX}/sqlite.log\n" $(date +"%F %T")
   php scripts/sqlite/normalize-issue-details.php ${OUTPUT_DIR} &> ${PREFIX}/sqlite.log
 
-  printf "%s %s> delete\n" $(date +"%F %T")
+  printf "%s %s> delete DB\n" $(date +"%F %T")
   if [[ -e ${OUTPUT_DIR}/qa_catalogue.sqlite ]]; then
     rm ${OUTPUT_DIR}/qa_catalogue.sqlite
   fi
-  printf "%s %s> create\n" $(date +"%F %T")
-  sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/qa_catalogue.sqlite.sql
+
+  HAS_GROUP_PARAM=$(echo ${TYPE_PARAMS} | grep -c -P -e '--groupBy [^-]')
+  if [[ "${HAS_GROUP_PARAM}" == "0" ]]; then
+    printf "%s %s> create DB structure\n" $(date +"%F %T")
+    sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/qa_catalogue.sqlite.sql
+  else
+    printf "%s %s> create DB structure (groupped)\n" $(date +"%F %T")
+    sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/qa_catalogue.groupped.sqlite.sql
+  fi
 
   printf "%s %s> create importable files\n" $(date +"%F %T")
   tail -n +2 ${OUTPUT_DIR}/issue-details-normalized.csv > ${OUTPUT_DIR}/issue-details-normalized_noheader.csv
   tail -n +2 ${OUTPUT_DIR}/issue-summary.csv > ${OUTPUT_DIR}/issue-summary_noheader.csv
 
-  printf "%s %s> import\n" $(date +"%F %T")
+  printf "%s %s> import issue details\n" $(date +"%F %T")
   sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
 .mode csv
 .import ${OUTPUT_DIR}/issue-details-normalized_noheader.csv issue_details
+EOF
+
+  printf "%s %s> import issue summary\n" $(date +"%F %T")
+  sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
+.mode csv
 .import ${OUTPUT_DIR}/issue-summary_noheader.csv issue_summary
 EOF
 
@@ -275,8 +287,13 @@ EOF
   rm ${OUTPUT_DIR}/issue-details-normalized_noheader.csv
   rm ${OUTPUT_DIR}/issue-summary_noheader.csv
 
-  printf "%s %s> index\n" $(date +"%F %T")
-  sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.sql &>> ${PREFIX}/sqlite.log
+  if [[ "${HAS_GROUP_PARAM}" == "0" ]]; then
+    printf "%s %s> index\n" $(date +"%F %T")
+    sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.sql &>> ${PREFIX}/sqlite.log
+  else
+    printf "%s %s> index (groupped)\n" $(date +"%F %T")
+    sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.groupped.sql &>> ${PREFIX}/sqlite.log
+  fi
 }
 
 do_export_schema_files() {

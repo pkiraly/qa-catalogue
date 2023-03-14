@@ -198,23 +198,13 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
         processDetails(bibliographicRecord, validator);
     } else {
       if (parameters.doSummary()) {
-        updateTotalRecordCOunter(0, groupIds);
+        // TODO: use enum instead
+        updateCounters(0, groupIds, validatorDAO.getTotalRecordCounter(), validatorDAO.getTotalRecordCounterGroupped());
       }
     }
     if (parameters.collectAllErrors())
       allValidationErrors.addAll(validator.getValidationErrors());
     counter++;
-  }
-
-  private void updateTotalRecordCOunter(int key, Set<String> groupIds) {
-    if (doGroups()) {
-      for (String groupId : groupIds) {
-        validatorDAO.getTotalRecordCounterGroupped().computeIfAbsent(groupId, s -> new TreeMap<>());
-        count(key, validatorDAO.getTotalRecordCounterGroupped().get(groupId));
-      }
-    } else {
-      count(key, validatorDAO.getTotalRecordCounter());
-    }
   }
 
   private void processDetails(BibliographicRecord marcRecord, Validator validator) {
@@ -271,8 +261,9 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
         count(error, validatorDAO.getInstanceBasedErrorCounterGroupped().get(groupId));
       }
 
-      count(error.getType(), validatorDAO.getTypeInstanceCounter());
-      count(error.getType().getCategory(), validatorDAO.getCategoryInstanceCounter());
+      updateCounters(error.getType(), groupIds, validatorDAO.getTypeInstanceCounter(), validatorDAO.getTypeInstanceCounterGroupped());
+      updateCounters(error.getType().getCategory(), groupIds, validatorDAO.getCategoryInstanceCounter(), validatorDAO.getCategoryInstanceCounterGroupped());
+
       count(1, validatorDAO.getTotalInstanceCounter());
       updateErrorCollector(marcRecord.getId(true), error.getId());
       uniqueErrors.add(error.getId());
@@ -280,34 +271,19 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
       uniqueCategories.add(error.getType().getCategory());
     }
 
-    for (Integer id : uniqueErrors) {
-      count(id, validatorDAO.getRecordBasedErrorCounter());
+    for (Integer errorId : uniqueErrors) {
+      updateCounters(errorId, groupIds, validatorDAO.getRecordBasedErrorCounter(), validatorDAO.getRecordBasedErrorCounterGroupped());
     }
     for (ValidationErrorType errorType : uniqueTypes) {
-      if (this.doGroups()) {
-        for (String groupId : groupIds) {
-          validatorDAO.getTypeRecordCounterGroupped().computeIfAbsent(groupId, s -> new TreeMap<>());
-          count(errorType, validatorDAO.getTypeRecordCounterGroupped().get(groupId));
-        }
-      } else {
-        count(errorType, validatorDAO.getTypeRecordCounter());
-      }
+      updateCounters(errorType, groupIds, validatorDAO.getTypeRecordCounter(), validatorDAO.getTypeRecordCounterGroupped());
     }
     for (ValidationErrorCategory errorCategory : uniqueCategories) {
-      if (this.doGroups()) {
-        for (String groupId : groupIds) {
-          validatorDAO.getCategoryRecordCounterGroupped().computeIfAbsent(groupId, s -> new TreeMap<>());
-          count(errorCategory, validatorDAO.getCategoryRecordCounterGroupped().get(groupId));
-        }
-      } else {
-        count(errorCategory, validatorDAO.getCategoryRecordCounter());
-      }
+      updateCounters(errorCategory, groupIds, validatorDAO.getCategoryRecordCounter(), validatorDAO.getCategoryRecordCounterGroupped());
     }
-    updateTotalRecordCOunter(1, groupIds);
-    // count(1, validatorDAO.getTotalRecordCounter());
+
+    updateCounters(1, groupIds, validatorDAO.getTotalRecordCounter(), validatorDAO.getTotalRecordCounterGroupped());
     if (!allButInvalidFieldErrors.isEmpty())
-      updateTotalRecordCOunter(2, groupIds);
-      // count(2, validatorDAO.getTotalRecordCounter());
+      updateCounters(2, groupIds, validatorDAO.getTotalRecordCounter(), validatorDAO.getTotalRecordCounterGroupped());
   }
 
   @Override
@@ -318,9 +294,6 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
 
     char separator = getSeparator();
     if (parameters.doSummary()) {
-      logger.info("printSummary");
-      logger.info("printCategoryCounts");
-      logger.info("printTypeCounts");
       if (doGroups()) {
         printSummaryGroupped(separator);
         printCategoryCountsGroupped();
@@ -332,8 +305,6 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
         printTypeCounts();
         printTotalCounts();
       }
-      logger.info("printTotalCounts");
-      logger.info("printCollector");
       printCollector();
     }
     logger.info("all printing is DONE");
@@ -357,7 +328,7 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
   }
 
   private void printSummary(char separator) {
-    String header = ValidationErrorFormatter.formatHeaderForSummary(parameters.getFormat(), this.doGroups());
+    String header = ValidationErrorFormatter.formatHeaderForSummary(parameters.getFormat(), doGroups());
     print(summaryFile, header);
     validatorDAO.getInstanceBasedErrorCounter()
       .entrySet()
@@ -388,7 +359,7 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
   }
 
   private void printSummaryGroupped(char separator) {
-    String header = ValidationErrorFormatter.formatHeaderForSummary(parameters.getFormat(), this.doGroups());
+    String header = ValidationErrorFormatter.formatHeaderForSummary(parameters.getFormat(), doGroups());
     print(summaryFile, header);
     validatorDAO.getInstanceBasedErrorCounterGroupped()
       .entrySet()
@@ -405,8 +376,8 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
             Integer typeIdB = Integer.valueOf(b.getKey().getType().getId());
             int result = typeIdA.compareTo(typeIdB);
             if (result == 0) {
-              Integer recordCountA = validatorDAO.getRecordBasedErrorCounter().get(a.getKey().getId());
-              Integer recordCountB = validatorDAO.getRecordBasedErrorCounter().get(b.getKey().getId());
+              Integer recordCountA = validatorDAO.getRecordBasedErrorCounterGroupped().get(groupId).get(a.getKey().getId());
+              Integer recordCountB = validatorDAO.getRecordBasedErrorCounterGroupped().get(groupId).get(b.getKey().getId());
               result = recordCountB.compareTo(recordCountA);
             }
             return result;
@@ -419,7 +390,7 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
               cells.add(groupId);
               cells.add(error.getId());
               cells.addAll(Arrays.asList(ValidationErrorFormatter.asArrayWithoutId(error)));
-              cells.addAll(Arrays.asList(instanceCount, validatorDAO.getRecordBasedErrorCounter().get(error.getId())));
+              cells.addAll(Arrays.asList(instanceCount, validatorDAO.getRecordBasedErrorCounterGroupped().get(groupId).get(error.getId())));
               // TODO: separator
               print(summaryFile, CsvUtils.createCsv(cells));
           });
@@ -467,7 +438,7 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
             .forEach(entry -> {
               ValidationErrorType type = entry.getKey();
               int records = entry.getValue();
-              int instances = validatorDAO.getTypeInstanceCounter().get(entry.getKey());
+              int instances = validatorDAO.getTypeInstanceCounterGroupped().get(groupId).get(entry.getKey());
               try {
                 writer.write(CsvUtils.createCsv(groupId, type.getId(), type.getCategory().getId(), type.getCategory().getName(), type.getMessage(), instances, records));
               } catch (IOException e) {
@@ -573,7 +544,7 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
             .forEach(entry -> {
               ValidationErrorCategory category = entry.getKey();
               int records = entry.getValue();
-              int instances = validatorDAO.getCategoryInstanceCounter().getOrDefault(entry.getKey(), -1);
+              int instances = validatorDAO.getCategoryInstanceCounterGroupped().get(groupId).getOrDefault(entry.getKey(), -1);
               try {
                 writer.write(CsvUtils.createCsv(groupId, category.getId(), category.getName(), instances, records));
               } catch (IOException e) {
@@ -670,6 +641,17 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
 
   public ValidatorConfiguration getValidityConfiguration() {
     return validatorConfiguration;
+  }
+
+  private <T extends Object> void updateCounters(T key, Set<String> groupIds, Map<T, Integer> counterSingle, Map<String, Map<T, Integer>> counterGroupped) {
+    if (doGroups()) {
+      for (String groupId : groupIds) {
+        counterGroupped.computeIfAbsent(groupId, s -> new TreeMap<>());
+        count(key, counterGroupped.get(groupId));
+      }
+    } else {
+      count(key, counterSingle);
+    }
   }
 
   private class Counter {

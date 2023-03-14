@@ -20,11 +20,14 @@ public class ValidatorDAO {
   private final Map<String, Map<ValidationError, Integer>> instanceBasedErrorCounterGroupped = new HashMap<>();
   private final Map<Integer, Integer> totalRecordCounter = new HashMap<>();
   private final Map<String, Map<Integer, Integer>> totalRecordCounterGroupped = new HashMap<>();
-  private final Map<Integer, Integer> totalInstanceCounter = new HashMap<>();
   private final Map<Integer, Integer> recordBasedErrorCounter = new HashMap<>();
+  private final Map<String, Map<Integer, Integer>> recordBasedErrorCounterGroupped = new HashMap<>();
+  private final Map<ValidationErrorCategory, Integer> categoryInstanceCounter = new EnumMap<>(ValidationErrorCategory.class);
+  private final Map<String, Map<ValidationErrorCategory, Integer>> categoryInstanceCounterGroupped = new HashMap<>();
+  private final Map<Integer, Integer> totalInstanceCounter = new HashMap<>();
   private final Map<Integer, Set<String>> errorCollector = new TreeMap<>();
   private final Map<ValidationErrorType, Integer> typeInstanceCounter = new EnumMap<>(ValidationErrorType.class);
-  private final Map<ValidationErrorCategory, Integer> categoryInstanceCounter = new EnumMap<>(ValidationErrorCategory.class);
+  private final Map<String, Map<ValidationErrorType, Integer>> typeInstanceCounterGroupped = new HashMap<>();
 
   public Map<ValidationErrorCategory, Integer> getCategoryRecordCounter() {
     return categoryRecordCounter;
@@ -66,6 +69,10 @@ public class ValidatorDAO {
     return recordBasedErrorCounter;
   }
 
+  public Map<String, Map<Integer, Integer>> getRecordBasedErrorCounterGroupped() {
+    return recordBasedErrorCounterGroupped;
+  }
+
   public Map<Integer, Set<String>> getErrorCollector() {
     return errorCollector;
   }
@@ -74,7 +81,15 @@ public class ValidatorDAO {
     return typeInstanceCounter;
   }
 
+  public Map<String, Map<ValidationErrorType, Integer>> getTypeInstanceCounterGroupped() {
+    return typeInstanceCounterGroupped;
+  }
+
   public Map<ValidationErrorCategory, Integer> getCategoryInstanceCounter() {
     return categoryInstanceCounter;
+  }
+
+  public Map<String, Map<ValidationErrorCategory, Integer>> getCategoryInstanceCounterGroupped() {
+    return categoryInstanceCounterGroupped;
   }
 }

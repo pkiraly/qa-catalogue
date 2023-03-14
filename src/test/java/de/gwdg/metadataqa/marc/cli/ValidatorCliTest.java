@@ -167,24 +167,25 @@ public class ValidatorCliTest extends CliTestUtils {
 
       } else if (outputFile.equals("issue-summary.csv")) {
         String all = StringUtils.join(lines, "\n");
+        // System.err.println(all);
         assertEquals(1058, lines.size());
         assertEquals("groupId,id,MarcPath,categoryId,typeId,type,message,url,instances,records", lines.get(0).trim());
-        assertTrue(Pattern.compile("100,\\d,001@,3,9,undefined field,001@,,1,10").matcher(all).find());
-        assertTrue(Pattern.compile("100,\\d,001U,3,9,undefined field,001U,,1,10").matcher(all).find());
-        assertTrue(Pattern.compile("100,\\d+,044K/00-09,5,13,undefined subfield,V,https://format.k10plus.de/k10plushelp.pl\\?cmd=kat&katalog=Standard&val=5550-5559,1,7").matcher(all).find());
-        assertTrue(Pattern.compile("100,\\d+,044K/00-09,5,13,undefined subfield,3,https://format.k10plus.de/k10plushelp.pl\\?cmd=kat&katalog=Standard&val=5550-5559,1,7").matcher(all).find());
+        assertTrue(Pattern.compile("100,\\d,001@,3,9,undefined field,001@,,1,1").matcher(all).find());
+        assertTrue(Pattern.compile("100,\\d,001U,3,9,undefined field,001U,,1,1").matcher(all).find());
+        assertTrue(Pattern.compile("100,\\d+,044K/00-09,5,13,undefined subfield,V,https://format.k10plus.de/k10plushelp.pl\\?cmd=kat&katalog=Standard&val=5550-5559,1,1").matcher(all).find());
+        assertTrue(Pattern.compile("100,\\d+,044K/00-09,5,13,undefined subfield,3,https://format.k10plus.de/k10plushelp.pl\\?cmd=kat&katalog=Standard&val=5550-5559,1,1").matcher(all).find());
 
       } else if (outputFile.equals("issue-by-category.csv")) {
         assertEquals(94, lines.size());
         assertEquals("groupId,id,category,instances,records", lines.get(0).trim());
-        assertEquals("100,3,data field,22,1", lines.get(1).trim());
-        assertEquals("100,5,subfield,157,1", lines.get(2).trim());
+        assertEquals("100,3,data field,2,1", lines.get(1).trim());
+        assertEquals("100,5,subfield,20,1", lines.get(2).trim());
 
       } else if (outputFile.equals("issue-by-type.csv")) {
         assertEquals(108, lines.size());
         assertEquals("groupId,id,categoryId,category,type,instances,records", lines.get(0).trim());
-        assertEquals("100,9,3,data field,undefined field,21,1", lines.get(1).trim());
-        assertEquals("100,13,5,subfield,undefined subfield,156,1", lines.get(2).trim());
+        assertEquals("100,9,3,data field,undefined field,2,1", lines.get(1).trim());
+        assertEquals("100,13,5,subfield,undefined subfield,20,1", lines.get(2).trim());
 
       } else if (outputFile.equals("issue-collector.csv")) {
         assertEquals(59, lines.size());

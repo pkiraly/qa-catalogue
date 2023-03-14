@@ -23,6 +23,9 @@ if [[ "$1" != "help" && "$1" != "export-schema-files" ]]; then
   fi
 fi
 
+# die if input files don't exist
+ls "${MARC_DIR}/${MASK}" > /dev/null
+
 do_validate() {
   GENERAL_PARAMS="--details --trimId --summary --format csv --defaultRecordType BOOKS"
   OUTPUT_PARAMS="--outputDir ${OUTPUT_DIR} --detailsFileName issue-details.csv --summaryFileName issue-summary.csv"

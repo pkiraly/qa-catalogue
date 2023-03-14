@@ -18,6 +18,7 @@ public class K10OrganisationReader {
   public static Map<String, K10Organisation> fileToCodeList(String fileName) {
 
     // protected Map<String, EncodedValue> index = new HashMap<>();
+    boolean isTsv = fileName.endsWith(".tsv");
 
     Map<String, K10Organisation> codes = new HashMap<>();
     try {
@@ -26,10 +27,18 @@ public class K10OrganisationReader {
         String line = it.nextLine();
         if (line.equals("") || line.startsWith("#") || line.startsWith("--"))
           continue;
-        String[] parts = line.split("\t", 3);
-        if (parts.length > 1) {
-          String id = removeLeadingZeros(parts[0]);
-          codes.put(id, new K10Organisation(id, parts[1], parts[2]));
+        if (isTsv) {
+          String[] parts = line.split("\t", 3);
+          if (parts.length > 1) {
+            String id = removeLeadingZeros(parts[0]);
+            codes.put(id, new K10Organisation(id, parts[1], parts[2]));
+          }
+        } else {
+          String[] parts = line.split(": ", 2);
+          if (parts.length > 1) {
+            String id = removeLeadingZeros(parts[0]);
+            codes.put(id, new K10Organisation(id, id, parts[1]));
+          }
         }
       }
     } catch (IOException e) {

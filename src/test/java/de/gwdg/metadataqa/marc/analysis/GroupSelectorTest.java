@@ -12,11 +12,19 @@ import static org.junit.Assert.*;
 public class GroupSelectorTest {
 
   @Test
-  public void getOrgName_with_file() throws IOException, URISyntaxException {
+  public void getOrgName_with_tsv() throws IOException, URISyntaxException {
     Path path = getPath("kxp-uniq-library-names.tsv");
     GroupSelector selector = new GroupSelector(path.toAbsolutePath().toString());
     assertEquals("14", selector.getOrgName("14"));
     assertEquals("Herzog August Bibliothek (HAB) , Wolfenbüttel", selector.getOrgName("50"));
+  }
+
+  @Test
+  public void getOrgName_with_txt() throws IOException, URISyntaxException {
+    Path path = getPath("k10plus-libraries-by-unique-iln.txt");
+    GroupSelector selector = new GroupSelector(path.toAbsolutePath().toString());
+    assertEquals("14", selector.getOrgName("14"));
+    assertEquals("Herzog August Bibliothek (HAB) , Wolfenbüttel [DE-23]", selector.getOrgName("50"));
   }
 
   @Test

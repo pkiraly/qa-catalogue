@@ -147,7 +147,8 @@ public class CompletenessTest extends CliTestUtils {
     Completeness processor = new Completeness(new String[]{
       "--schemaType", "PICA",
       "--groupBy", "001@$0",
-      "--groupListFile", FileUtils.getPath("kxp-uniq-library-names.tsv").toAbsolutePath().toString(),
+      // "--groupListFile", FileUtils.getPath("kxp-uniq-library-names.tsv").toAbsolutePath().toString(),
+      "--groupListFile", FileUtils.getPath("k10plus-libraries-by-unique-iln.txt").toAbsolutePath().toString(),
       "--marcFormat", "PICA_NORMALIZED",
       "--outputDir", outputDir,
       getPath("src/test/resources/pica/pica-with-holdings-info.dat")
@@ -184,52 +185,52 @@ public class CompletenessTest extends CliTestUtils {
         String actual = Files.readString(output.toPath());
         TestCase.assertEquals(
           "id,group,count\n" +
-            "100,\"Otto-von-Guericke-Universität, Universitätsbibliothek Magdeburg\",1\n" +
-            "1016,Regionalbibliothek Neubrandenburg,1\n" +
-            "104,Schleswig-Holsteinische Landesbibliothek (LB) Kiel,1\n" +
-            "11,SBB-PK Berlin,1\n" +
-            "121,Landesbibliothek (LB) Oldenburg,1\n" +
-            "122,\"Jade Hochschule Wilhelmshaven/Oldenburg/Elsfleth, Studienort Oldenburg, Bibliothek \",1\n" +
+            "100,\"Otto-von-Guericke-Universität, Universitätsbibliothek Magdeburg [DE-Ma9]\",1\n" +
+            "1016,Regionalbibliothek Neubrandenburg [DE-198],1\n" +
+            "104,Schleswig-Holsteinische Landesbibliothek (LB) Kiel [DE-68],1\n" +
+            "11,SBB-PK Berlin [DE-1a],1\n" +
+            "121,Landesbibliothek (LB) Oldenburg [DE-45],1\n" +
+            "122,\"Jade Hochschule Wilhelmshaven/Oldenburg/Elsfleth, Studienort Oldenburg, Bibliothek [DE-897]\",1\n" +
             "15,15,1\n" +
-            "154,\"Alfred-Wegener-Institut Helmholtz-Zentrum für Polar- und Meeresforschung, (AWI), Bibliothek Bremerhaven\",1\n" +
-            "161,HS Hannover,1\n" +
-            "165,HBK Braunschweig,1\n" +
-            "183,\"Behörde für Stadtentwicklung und Wohnen / Behörde für Umwelt und Energie - Bibliothek Stadtentwicklung, Umwelt und Geologie: Sondersammlung des Geologischen Landesamtes (GLA)  Hamburg\",1\n" +
-            "20,Universitätsbibliothek Braunschweig,2\n" +
-            "2001,Universitätsbibliothek Tübingen,1\n" +
-            "2004,\"Universität Freiburg, Pathologisches Institut\",1\n" +
-            "2008,Württembergische Landesbibliothek,1\n" +
-            "2012,\"Universität Heidelberg, Archäologisches Institut\",1\n" +
-            "2035,Deutsche Universität für Verwaltungswissenschaften Speyer,1\n" +
-            "2040,Institut für Auslandsbeziehungen Stuttgart,1\n" +
-            "21,Staats- und  Universitätsbibliothek Bremen,3\n" +
-            "22,\"Staats- und Universitätsbibliothek Carl von Ossietzky , Hamburg\",3\n" +
-            "227,StB Braunschweig,2\n" +
-            "23,TUB Hamburg-Harburg,1\n" +
-            "24,UB Kiel,3\n" +
-            "2488,\"Historisches Museum, Frankfurt/Main\",1\n" +
-            "2510,\"Hochschule für Gestaltung, Bibliothek\",1\n" +
-            "26,\"ZBW - Leibniz-Informationszentrum Wirtschaft, Standort Kiel \",1\n" +
-            "264,\"Jade Hochschule Wilhelmshaven/Oldenburg/Elsfleth, Studienort Elsfleth\",1\n" +
-            "285,UB Potsdam,1\n" +
-            "31,Thüringer Universitäts- und Landesbibliothek (ThULB) Jena,2\n" +
-            "39,\"Universitätsbibliothek Erfurt / Forschungsbibliothek Gotha, Universitätsbibliothek Erfurt \",2\n" +
-            "40,Niedersächsische Staats- und Universitätsbibliothek Göttingen und Universität Göttingen,2\n" +
-            "50,\"Herzog August Bibliothek (HAB) , Wolfenbüttel\",1\n" +
-            "60,\"Helmut-Schmidt-Universität, Universität der Bundeswehr Hamburg, Universitätsbibliothek  (HSU), Hamburg\",1\n" +
-            "608,\"Kuratorium für Forschung im Küsteningenieurwesen (KFKI), Hamburg\",1\n" +
-            "61,\"Herzogin Anna Amalia Bibliothek / Klassik Stiftung Weimar (HAAB), Weimer\",1\n" +
-            "62,UB Rostock,3\n" +
-            "640,\"Commerzbibliothek der Handelskammer, Hamburg\",1\n" +
-            "65,\"Universitäts- und Landesbibliothek Sachsen-Anhalt / Zentralex, ULB Halle\",2\n" +
+            "154,\"Alfred-Wegener-Institut Helmholtz-Zentrum für Polar- und Meeresforschung, (AWI), Bibliothek Bremerhaven [DE-Bv2]\",1\n" +
+            "161,HS Hannover [DE-960],1\n" +
+            "165,HBK Braunschweig [DE-834],1\n" +
+            "183,\"Behörde für Stadtentwicklung und Wohnen / Behörde für Umwelt und Energie - Bibliothek Stadtentwicklung, Umwelt und Geologie: Sondersammlung des Geologischen Landesamtes (GLA)  Hamburg [DE-H144...]\",1\n" +
+            "20,Universitätsbibliothek Braunschweig [DE-84],2\n" +
+            "2001,Universitätsbibliothek Tübingen [DE-21],1\n" +
+            "2004,\"Universität Freiburg, Pathologisches Institut [DE-25-1...]\",1\n" +
+            "2008,Württembergische Landesbibliothek [DE-24],1\n" +
+            "2012,\"Universität Heidelberg, Archäologisches Institut [DE-16-31...]\",1\n" +
+            "2035,Deutsche Universität für Verwaltungswissenschaften Speyer [DE-Sp3],1\n" +
+            "2040,Institut für Auslandsbeziehungen Stuttgart [DE-212],1\n" +
+            "21,Staats- und  Universitätsbibliothek Bremen [DE-46],3\n" +
+            "22,\"Staats- und Universitätsbibliothek Carl von Ossietzky , Hamburg [DE-18]\",3\n" +
+            "227,StB Braunschweig [DE-56],2\n" +
+            "23,TUB Hamburg-Harburg [DE-830],1\n" +
+            "24,UB Kiel [DE-8...],3\n" +
+            "2488,\"Historisches Museum, Frankfurt/Main [DE-F207]\",1\n" +
+            "2510,\"Hochschule für Gestaltung, Bibliothek [DE-2279]\",1\n" +
+            "26,\"ZBW - Leibniz-Informationszentrum Wirtschaft, Standort Kiel [DE-206...]\",1\n" +
+            "264,\"Jade Hochschule Wilhelmshaven/Oldenburg/Elsfleth, Studienort Elsfleth [DE-897-1]\",1\n" +
+            "285,UB Potsdam [DE-517...],1\n" +
+            "31,Thüringer Universitäts- und Landesbibliothek (ThULB) Jena [DE-27],2\n" +
+            "39,\"Universitätsbibliothek Erfurt / Forschungsbibliothek Gotha, Universitätsbibliothek Erfurt [DE-547...]\",2\n" +
+            "40,Niedersächsische Staats- und Universitätsbibliothek Göttingen und Universität Göttingen [DE-7],2\n" +
+            "50,\"Herzog August Bibliothek (HAB) , Wolfenbüttel [DE-23]\",1\n" +
+            "60,\"Helmut-Schmidt-Universität, Universität der Bundeswehr Hamburg, Universitätsbibliothek  (HSU), Hamburg [DE-705]\",1\n" +
+            "608,\"Kuratorium für Forschung im Küsteningenieurwesen (KFKI), Hamburg [DE-H369]\",1\n" +
+            "61,\"Herzogin Anna Amalia Bibliothek / Klassik Stiftung Weimar (HAAB), Weimer [DE-32]\",1\n" +
+            "62,UB Rostock [DE-28...],3\n" +
+            "640,\"Commerzbibliothek der Handelskammer, Hamburg [DE-205]\",1\n" +
+            "65,\"Universitäts- und Landesbibliothek Sachsen-Anhalt / Zentralex, ULB Halle [DE-3]\",2\n" +
             "674,674,1\n" +
-            "69,UB Greifswald,1\n" +
-            "70,Technische Informationsbibliothek (TIB) / Leibniz-Informationszentrum Technik und Naturwissenschaften und Universitätsbibliothek ,3\n" +
-            "72,Gottfried Wilhelm Leibniz Bibliothek - Niedersächsische Landesbibliothek (GWLB) Hannover,2\n" +
-            "77,\"Nds. Landtag, Hannover\",3\n" +
-            "813,Diözesanbibliothek Münster,1\n" +
-            "91,\"HAWK HS für angewandte Wissenschaft und Kunst Hildesheim/Holzminden/Göttingen, Bibliothek, Elektronische Ressourcen \",1\n" +
-            "92,\"Landesbibliothek Mecklenburg-Vorpommern (LBMV), Schwerin\",1\n" +
+            "69,UB Greifswald [DE-9],1\n" +
+            "70,Technische Informationsbibliothek (TIB) / Leibniz-Informationszentrum Technik und Naturwissenschaften und Universitätsbibliothek [DE-89],3\n" +
+            "72,Gottfried Wilhelm Leibniz Bibliothek - Niedersächsische Landesbibliothek (GWLB) Hannover [DE-35],2\n" +
+            "77,\"Nds. Landtag, Hannover [DE-Hv14]\",3\n" +
+            "813,Diözesanbibliothek Münster [DE-Mue73],1\n" +
+            "91,\"HAWK HS für angewandte Wissenschaft und Kunst Hildesheim/Holzminden/Göttingen, Bibliothek, Elektronische Ressourcen [DE-Hil3]\",1\n" +
+            "92,\"Landesbibliothek Mecklenburg-Vorpommern (LBMV), Schwerin [DE-33]\",1\n" +
             "all,all,10\n",
           actual);
 

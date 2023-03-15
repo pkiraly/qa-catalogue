@@ -2,11 +2,10 @@ package de.gwdg.metadataqa.marc.definition.general.parser;
 
 import org.junit.Test;
 
-import java.text.ParseException;
-import java.time.format.DateTimeParseException;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 public class Control008All00DateParserTest {
 
@@ -18,11 +17,10 @@ public class Control008All00DateParserTest {
     assertEquals("1973-08-12", extra.get("normalized"));
   }
 
-  @Test(expected = ParserException.class)
+  @Test
   public void test88001() throws ParserException {
     SubfieldContentParser parser = new Control008All00DateParser();
-    Map<String, String> extra = parser.parse("730842");
-    assertEquals("1973-08-12", extra.get("normalized"));
+    assertThrows(ParserException.class, () -> parser.parse("730842"));
   }
 
 }

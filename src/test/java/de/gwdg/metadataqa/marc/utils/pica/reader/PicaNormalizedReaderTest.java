@@ -1,7 +1,6 @@
 package de.gwdg.metadataqa.marc.utils.pica.reader;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
-import de.gwdg.metadataqa.marc.utils.pica.reader.PicaNormalizedReader;
 import org.junit.Test;
 import org.marc4j.marc.Record;
 

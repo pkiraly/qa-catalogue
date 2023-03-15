@@ -232,7 +232,7 @@ public class MarcFactory {
         : schema.lookup(dataField.getTag());
 
       if (definition == null)
-        marcRecord.addUnhandledTags(isPica ? picadf.getFullTag() : dataField.getTag());
+        marcRecord.addUnhandledTags(isPica && picadf != null ? picadf.getFullTag() : dataField.getTag());
 
       var field = extractPicaDataField(dataField, definition, MarcVersion.MARC21);
       marcRecord.addDataField(field);
@@ -480,11 +480,8 @@ public class MarcFactory {
                                             PicaSchemaManager schema) {
     Record marc4jRecord = new RecordImpl();
     String id = null;
-    boolean useOccurence = true;
     for (PicaLine line : lines) {
-      org.marc4j.marc.DataField df = useOccurence
-        ? new PicaDataField(line.getTag(), line.getOccurrence())
-        : new DataFieldImpl(line.getQualifiedTag(), ' ', ' ');
+      org.marc4j.marc.DataField df = new PicaDataField(line.getTag(), line.getOccurrence());
       for (PicaSubfield picaSubfield : line.getSubfields()) {
         df.addSubfield(new SubfieldImpl(picaSubfield.getCode().charAt(0), picaSubfield.getValue()));
         if (line.getTag().equals(idField) && picaSubfield.getCode().equals(idCode))

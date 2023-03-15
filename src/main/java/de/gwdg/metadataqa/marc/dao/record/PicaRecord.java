@@ -11,6 +11,7 @@ import de.gwdg.metadataqa.marc.utils.pica.crosswalk.PicaMarcCrosswalkReader;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -19,7 +20,6 @@ import java.util.Map;
 public class PicaRecord extends BibliographicRecord {
 
   private static List<String> authorityTags;
-  private static List<String> subjectTags;
   private static Map<String, Boolean> authorityTagsIndex;
   private static Map<String, Boolean> subjectTagIndex;
   private static Map<String, Map<String, Boolean>> skippableAuthoritySubfields;
@@ -139,7 +139,7 @@ public class PicaRecord extends BibliographicRecord {
     skippableAuthoritySubfields.put("033H", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
     skippableAuthoritySubfields.put("033J", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
 
-    subjectTags = Arrays.asList(
+    List<String> subjectTags = Arrays.asList(
       "045A", "045B", "045F", "045R", "045C", "045E", "045G"
     );
     subjectTagIndex = Utils.listToMap(subjectTags);
@@ -147,7 +147,7 @@ public class PicaRecord extends BibliographicRecord {
     skippableSubjectSubfields.put("022A", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
     skippableSubjectSubfields.put("045R", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
 
-    authorityTagsMap = new HashMap<>();
+    authorityTagsMap = new EnumMap<>(AuthorityCategory.class);
     authorityTagsMap.put(AuthorityCategory.Titles, List.of("022A", "022A"));
     authorityTagsMap.put(AuthorityCategory.Personal, List.of("028A", "028B", "028C", "028E", "028G", "033J"));
     authorityTagsMap.put(AuthorityCategory.Corporate, List.of("029A", "029E", "029F", "029G"));

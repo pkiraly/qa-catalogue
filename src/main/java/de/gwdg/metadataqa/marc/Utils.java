@@ -203,7 +203,6 @@ public class Utils {
 
   public static String base64decode(String raw) {
     Base64.Decoder dec = Base64.getDecoder();
-    String decoded = new String(dec.decode(raw.replaceAll("^base64:", "")));
-    return decoded;
+    return new String(dec.decode(raw.replaceAll("^base64:", "")));
   }
 }

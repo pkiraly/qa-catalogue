@@ -60,8 +60,6 @@ public class MongoKeyGenerator {
         doc.append("file", fileName);
         collection.insert(doc);
       }
-    } catch (UnknownHostException ex) {
-      Logger.getLogger(MongoKeyGenerator.class.getName()).log(Level.SEVERE, null, ex);
     } catch (IOException ex) {
       Logger.getLogger(MongoKeyGenerator.class.getName()).log(Level.SEVERE, null, ex);
     }

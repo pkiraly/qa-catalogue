@@ -8,6 +8,7 @@ import de.gwdg.metadataqa.marc.dao.DataField;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -17,7 +18,6 @@ import java.util.TreeMap;
 public class Marc21Record extends BibliographicRecord {
 
   private static List<String> authorityTags;
-  private static List<String> subjectTags;
   private static Map<String, Boolean> authorityTagsIndex;
   private static Map<String, Boolean> subjectTagIndex;
   private static Map<String, Map<String, Boolean>> skippableAuthoritySubfields;
@@ -93,7 +93,7 @@ public class Marc21Record extends BibliographicRecord {
 
     skippableAuthoritySubfields = new HashMap<>();
 
-    subjectTags = Arrays.asList(
+    List<String> subjectTags = Arrays.asList(
       "052", "055", "072", "080", "082", "083", "084", "085", "086",
       "600", "610", "611", "630", "647", "648", "650", "651",
       "653", "654", "655", "656", "657", "658", "662"
@@ -101,7 +101,7 @@ public class Marc21Record extends BibliographicRecord {
     subjectTagIndex = Utils.listToMap(subjectTags);
     skippableSubjectSubfields = new HashMap<>();
 
-    authorityTagsMap = new HashMap<>();
+    authorityTagsMap = new EnumMap<>(AuthorityCategory.class);
     authorityTagsMap.put(AuthorityCategory.Personal, List.of("100", "700", "800"));
     authorityTagsMap.put(AuthorityCategory.Corporate, List.of("110", "710", "810"));
     authorityTagsMap.put(AuthorityCategory.Meeting, List.of("111", "711", "811"));

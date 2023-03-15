@@ -65,7 +65,7 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
     this(new ValidatorParameters(args));
   }
 
-  public ValidatorCli(ValidatorParameters parameters) throws ParseException {
+  public ValidatorCli(ValidatorParameters parameters) {
     this.parameters = parameters;
     options = parameters.getOptions();
     readyToProcess = true;
@@ -500,7 +500,7 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
       validatorDAO.getCategoryRecordCounter()
         .entrySet()
         .stream()
-        .sorted((a, b) -> ((Integer)a.getKey().getId()).compareTo((Integer) b.getKey().getId()))
+        .sorted((a, b) -> ((Integer)a.getKey().getId()).compareTo(b.getKey().getId()))
         .forEach(entry -> {
           ValidationErrorCategory category = entry.getKey();
           int records = entry.getValue();

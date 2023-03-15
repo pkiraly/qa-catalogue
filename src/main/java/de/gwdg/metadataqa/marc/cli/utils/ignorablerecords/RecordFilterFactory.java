@@ -3,8 +3,6 @@ package de.gwdg.metadataqa.marc.cli.utils.ignorablerecords;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 
-import java.util.Base64;
-
 public class RecordFilterFactory {
 
   private RecordFilterFactory() {}

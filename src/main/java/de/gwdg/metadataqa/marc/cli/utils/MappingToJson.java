@@ -153,10 +153,9 @@ public class MappingToJson {
   }
 
   private PositionalControlFieldKeyGenerator getPositionalControlFieldKeyGenerator(ControlFieldDefinition field) {
-    PositionalControlFieldKeyGenerator generator = exportSelfDescriptiveCodes
+    return exportSelfDescriptiveCodes
       ? new PositionalControlFieldKeyGenerator(field.getTag(), field.getMqTag(), parameters.getSolrFieldType())
       : null;
-    return generator;
   }
 
   private static Map<String, Object> controlPositionToJson(ControlfieldPositionDefinition subfield, PositionalControlFieldKeyGenerator generator) {

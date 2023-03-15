@@ -3,7 +3,6 @@ package de.gwdg.metadataqa.marc.datastore;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
-import java.net.UnknownHostException;
 
 /**
  *
@@ -14,7 +13,7 @@ public class MarcMongodbClient {
   private MongoClient mongoClient;
   private DB db;
 
-  public MarcMongodbClient(String host, int port, String database) throws UnknownHostException {
+  public MarcMongodbClient(String host, int port, String database) {
     mongoClient = new MongoClient(host, port);
     db = mongoClient.getDB(database);
   }

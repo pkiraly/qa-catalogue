@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -41,8 +42,6 @@ public abstract class QACli {
       configuration.put("qa-catalogue.version", de.gwdg.metadataqa.marc.cli.Version.getVersion());
       File configFile = Paths.get(parameters.getOutputDir(), fileName).toFile();
       mapper.writeValue(configFile, configuration);
-    } catch (JsonProcessingException e) {
-      throw new RuntimeException(e);
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
@@ -54,9 +53,7 @@ public abstract class QACli {
     if (idLists != null) {
       for (String idList : idLists) {
         String[] ids = idList.split(",");
-        for (String id : ids) {
-          groupIds.add(id);
-        }
+        groupIds.addAll(Arrays.asList(ids));
       }
     }
     return groupIds;

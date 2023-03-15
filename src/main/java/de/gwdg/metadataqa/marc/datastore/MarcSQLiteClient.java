@@ -14,7 +14,7 @@ public class MarcSQLiteClient {
 
   public void connect(String path) {
     try {
-      String url = "jdbc:sqlite:" + path;;
+      String url = "jdbc:sqlite:" + path;
       // create a connection to the database
       SQLiteConfig config = new SQLiteConfig();
       config.enforceForeignKeys(true);

@@ -10,7 +10,6 @@ import de.gwdg.metadataqa.marc.definition.bibliographic.BibliographicFieldDefini
 import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.SubfieldValidator;
-import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;

@@ -15,8 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorType.*;
-
 public class MarcSubfield implements Serializable { // Validatable
 
   private static final Logger logger = Logger.getLogger(MarcSubfield.class.getCanonicalName());

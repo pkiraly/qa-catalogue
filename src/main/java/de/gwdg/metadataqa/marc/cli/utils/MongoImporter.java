@@ -57,8 +57,6 @@ public class MongoImporter {
         doc.append("record", marcRecord);
         collection.insert(doc);
       }
-    } catch (UnknownHostException ex) {
-      Logger.getLogger(MongoImporter.class.getName()).log(Level.SEVERE, null, ex);
     } catch (IOException ex) {
       Logger.getLogger(MongoImporter.class.getName()).log(Level.SEVERE, null, ex);
     }

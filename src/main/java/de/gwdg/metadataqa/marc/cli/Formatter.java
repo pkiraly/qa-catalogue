@@ -146,14 +146,11 @@ public class Formatter implements BibliographicInputProcessor {
           PicaSpec spec = (PicaSpec) marcSpec;
           List<String> results = marcRecord.select(spec.getPath());
           if (!results.isEmpty() && spec.getFunction() != null) {
-            List<String> _results = new ArrayList<>();
-            for (String result : results) {
-              switch (spec.getFunction()) {
-                case "extractPicaDate": _results.add(extractPicaDate(result)); break;
-                default: break;
-              }
-            }
-            results = _results;
+            List<String> candidates = new ArrayList<>();
+            for (String result : results)
+              if (spec.getFunction().equals("extractPicaDate"))
+                candidates.add(extractPicaDate(result));
+            results = candidates;
           }
           values.add(results.isEmpty() ? "" : StringUtils.join(results, "||"));
         }

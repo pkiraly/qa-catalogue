@@ -15,7 +15,7 @@ public enum SolrFieldType {
 
   public static SolrFieldType byCode(String code) {
     for (SolrFieldType type : values())
-      if (type.type.toLowerCase().equals(code.toLowerCase()))
+      if (type.type.equalsIgnoreCase(code))
         return type;
     return null;
   }

@@ -11,7 +11,6 @@ import de.gwdg.metadataqa.marc.definition.general.validator.ClassificationRefere
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
-import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -13,7 +13,6 @@ public class BasicStatistics {
   private Double mean = null;
   private Double stdDev = null;
   private long count = 0;
-  private long sum = 0;
 
   public BasicStatistics(Map<Integer, Integer> histogram) {
     this.histogram = histogram;
@@ -22,7 +21,7 @@ public class BasicStatistics {
 
   private void calculate() {
     count = 0;
-    sum = 0;
+    long sum = 0;
     if (histogram == null || histogram.isEmpty()) {
       mean = 0.0;
       stdDev = 0.0;
@@ -52,11 +51,8 @@ public class BasicStatistics {
 
   private void calculateStdDevAndMedian() {
     double sum = 0.0;
-    long aggregatedSum = 0;
     for (Map.Entry<Integer, Integer> entry : histogram.entrySet()) {
       sum += Math.pow(entry.getKey() - mean, 2);
-      aggregatedSum += entry.getValue();
-      // if ()
     }
     stdDev = Math.sqrt(sum) / count;
   }

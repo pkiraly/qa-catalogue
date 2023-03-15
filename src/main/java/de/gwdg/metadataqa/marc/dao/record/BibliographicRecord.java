@@ -48,7 +48,7 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     "600", "610", "611", "630", "647", "648", "650", "651",
     "653", "654", "655", "656", "657", "658", "662"
     );
-  public static final List<String> PICA_SUBJECT_TAGS = Arrays.asList("045A", "045B", "045F", "045R");
+  protected static final List<String> PICA_SUBJECT_TAGS = Arrays.asList("045A", "045B", "045F", "045R");
 
   private static final Map<String, Boolean> undefinedTags = new HashMap<>();
 
@@ -665,14 +665,14 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return subjects;
   }
 
-  abstract public List<DataField> getAuthorityFields();
-  abstract public Map<DataField, AuthorityCategory> getAuthorityFieldsMap();
-  abstract public boolean isAuthorityTag(String tag);
-  abstract public boolean isSkippableAuthoritySubfield(String tag, String code);
-  abstract public boolean isSubjectTag(String tag);
-  abstract public boolean isSkippableSubjectSubfield(String tag, String code);
-  abstract public Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap();
-  abstract public Map<ThompsonTraillFields, List<String>> getThompsonTraillTagsMap();
+  public abstract List<DataField> getAuthorityFields();
+  public abstract Map<DataField, AuthorityCategory> getAuthorityFieldsMap();
+  public abstract boolean isAuthorityTag(String tag);
+  public abstract boolean isSkippableAuthoritySubfield(String tag, String code);
+  public abstract boolean isSubjectTag(String tag);
+  public abstract boolean isSkippableSubjectSubfield(String tag, String code);
+  public abstract Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap();
+  public abstract Map<ThompsonTraillFields, List<String>> getThompsonTraillTagsMap();
 
   public List<DataField> getSubjects() {
     List<DataField> subjects = new ArrayList<>();
@@ -763,7 +763,7 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return schemaType;
   }
 
-  public void setSchemaType(SchemaType _schemaType) {
-    schemaType = _schemaType;
+  public void setSchemaType(SchemaType schemaType) {
+    this.schemaType = schemaType;
   }
 }

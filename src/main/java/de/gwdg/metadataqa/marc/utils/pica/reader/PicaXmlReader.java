@@ -1,25 +1,27 @@
 package de.gwdg.metadataqa.marc.utils.pica.reader;
 
 import de.gwdg.metadataqa.marc.utils.pica.reader.xml.PicaXmlParserThread;
-import org.marc4j.MarcException;
+// import org.marc4j.MarcException;
 import org.marc4j.RecordStack;
 import org.marc4j.marc.Record;
 import org.xml.sax.InputSource;
 
-import javax.xml.transform.Source;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.sax.SAXTransformerFactory;
-import javax.xml.transform.sax.TransformerHandler;
-import javax.xml.transform.stream.StreamSource;
+// import javax.xml.transform.Source;
+// import javax.xml.transform.TransformerConfigurationException;
+// import javax.xml.transform.TransformerFactory;
+// import javax.xml.transform.sax.SAXTransformerFactory;
+// import javax.xml.transform.sax.TransformerHandler;
+// import javax.xml.transform.stream.StreamSource;
 import java.io.InputStream;
 
 /** This class is a variation of MarcXmlReader */
 public class PicaXmlReader extends PicaReader {
   private final RecordStack queue;
+  private boolean parsed;
 
   public PicaXmlReader(final InputStream input) {
     this(new InputSource(input));
+    this.parsed = true;
   }
 
   /**
@@ -44,9 +46,11 @@ public class PicaXmlReader extends PicaReader {
    * @param input the input stream
    * @param stylesheetUrl the stylesheet location
    */
+  /*
   public PicaXmlReader(final InputStream input, final String stylesheetUrl) {
     this(new InputSource(input), new StreamSource(stylesheetUrl));
   }
+   */
 
   /**
    * Constructs an instance with the specified input stream and stylesheet
@@ -59,14 +63,19 @@ public class PicaXmlReader extends PicaReader {
    * @param input the input stream
    * @param stylesheet the stylesheet source
    */
+  /*
   public PicaXmlReader(final InputStream input, final Source stylesheet) {
     this(new InputSource(input), stylesheet);
   }
+   */
 
+  /*
   public PicaXmlReader(final InputStream input, final TransformerHandler th) {
     this(new InputSource(input), th);
   }
+   */
 
+  /*
   public PicaXmlReader(final InputSource input, final Source stylesheet) {
     this.queue = new RecordStack();
     final PicaXmlParserThread producer = new PicaXmlParserThread(queue, input, idTag, idCode.charAt(0));
@@ -81,13 +90,16 @@ public class PicaXmlReader extends PicaReader {
     producer.setTransformerHandler(th);
     producer.start();
   }
+   */
 
+  /*
   public PicaXmlReader(final InputSource input, final TransformerHandler th) {
     this.queue = new RecordStack();
     final PicaXmlParserThread producer = new PicaXmlParserThread(queue, input, idTag, idCode.charAt(0));
     producer.setTransformerHandler(th);
     producer.start();
   }
+   */
 
   @Override
   public boolean hasNext() {

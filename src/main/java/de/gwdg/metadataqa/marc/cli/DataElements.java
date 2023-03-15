@@ -96,9 +96,8 @@ public class DataElements implements BibliographicInputProcessor, Serializable {
     packageCounter.put("all", new TreeMap<>());
     dataElementCounter = new DataElementCounter(parameters.getOutputDir(), "top-fields.txt", DataElementCounter.Basis.EXISTENCE);
     outputFile = new File(parameters.getOutputDir(), "record-patterns.csv");
-    if (outputFile.exists())
-      if (!outputFile.delete())
-        logger.severe("Deletion of " + outputFile.getAbsolutePath() + " was unsuccessful!");
+    if (outputFile.exists() && !outputFile.delete())
+      logger.severe("Deletion of " + outputFile.getAbsolutePath() + " was unsuccessful!");
     printToFile(outputFile, dataElementCounter.getHeader() + "\n");
   }
 

@@ -89,9 +89,8 @@ public class ShelfReadyCompleteness implements BibliographicInputProcessor, Seri
     printFields();
 
     output = new File(parameters.getOutputDir(), parameters.getFileName());
-    if (output.exists())
-      if (!output.delete())
-        logger.severe("Deletion of " + output.getAbsolutePath() + " was unsuccessful!");
+    if (output.exists() && !output.delete())
+      logger.severe("Deletion of " + output.getAbsolutePath() + " was unsuccessful!");
 
     print(createRow(createHeaders()));
   }

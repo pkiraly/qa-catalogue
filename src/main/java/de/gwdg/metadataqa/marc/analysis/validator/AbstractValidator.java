@@ -10,7 +10,7 @@ public abstract class AbstractValidator {
   final ValidatorConfiguration configuration;
   List<ValidationError> validationErrors = null;
 
-  public AbstractValidator(ValidatorConfiguration configuration) {
+  protected AbstractValidator(ValidatorConfiguration configuration) {
     this.configuration = configuration;
   }
 

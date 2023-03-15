@@ -32,6 +32,7 @@ public class ClassificationAnalyzer {
   private static final ClassificationSchemes classificationSchemes =
     ClassificationSchemes.getInstance();
   private static final Pattern NUMERIC = Pattern.compile("^\\d");
+  public static final String DEWEY_DECIMAL_CLASSIFICATION = "Dewey Decimal Classification";
   private static PicaVocabularyManager manager = null;
 
   private final ClassificationStatistics statistics;
@@ -77,9 +78,9 @@ public class ClassificationAnalyzer {
 
   private static final List<FieldWithScheme> MARC21_FIELD_WITH_SCHEMES = Arrays.asList(
     new FieldWithScheme("080", "Universal Decimal Classification"),
-    new FieldWithScheme("082", "Dewey Decimal Classification"),
-    new FieldWithScheme("083", "Dewey Decimal Classification"),
-    new FieldWithScheme("085", "Dewey Decimal Classification")
+    new FieldWithScheme("082", DEWEY_DECIMAL_CLASSIFICATION),
+    new FieldWithScheme("083", DEWEY_DECIMAL_CLASSIFICATION),
+    new FieldWithScheme("085", DEWEY_DECIMAL_CLASSIFICATION)
     // new FieldWithScheme("086", "Government Document Classification");
   );
 

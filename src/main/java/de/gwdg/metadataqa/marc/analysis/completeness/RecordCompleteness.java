@@ -233,13 +233,16 @@ public class RecordCompleteness {
     List<String> marcPaths = new ArrayList<>();
 
     if (parameters.isMarc21()) {
-      if (field.getInd1() != null)
-        if (field.getDefinition() != null && field.getDefinition().getInd1().exists() || !field.getInd1().equals(" "))
-          marcPaths.add(String.format("%s$!ind1", field.getTagWithOccurrence()));
+      if (field.getInd1() != null
+          && field.getDefinition() != null
+          && (field.getDefinition().getInd1().exists()
+             || !field.getInd1().equals(" ")))
+         marcPaths.add(String.format("%s$!ind1", field.getTagWithOccurrence()));
 
-      if (field.getInd2() != null)
-        if (field.getDefinition() != null && field.getDefinition().getInd2().exists() || !field.getInd2().equals(" "))
-          marcPaths.add(String.format("%s$!ind2", field.getTagWithOccurrence()));
+      if (field.getInd2() != null
+          && field.getDefinition() != null
+          && (field.getDefinition().getInd2().exists() || !field.getInd2().equals(" ")))
+         marcPaths.add(String.format("%s$!ind2", field.getTagWithOccurrence()));
     }
 
     for (MarcSubfield subfield : field.getSubfields())

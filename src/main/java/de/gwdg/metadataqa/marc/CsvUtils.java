@@ -13,6 +13,8 @@ import java.util.stream.Stream;
 
 public class CsvUtils {
 
+  private CsvUtils() {}
+
   private static final Logger logger = Logger.getLogger(CsvUtils.class.getCanonicalName());
 
   public static String createCsv(List<? extends Serializable> values) {
@@ -69,7 +71,6 @@ public class CsvUtils {
     return strings.toArray(new String[strings.size()]);
   }
 
-
   private static String[] cleanRow(String[] values) {
     List<Object> quoted = new ArrayList<>();
     for (String value : values) {
@@ -84,5 +85,4 @@ public class CsvUtils {
     }
     return value;
   }
-
 }

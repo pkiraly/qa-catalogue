@@ -580,11 +580,10 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
   private void updateErrorCollector(String recordId, int errorId) {
     if (!validatorDAO.getErrorCollector().containsKey(errorId)) {
       validatorDAO.getErrorCollector().put(errorId, new HashSet<>());
-    } else if (parameters.doEmptyLargeCollectors()) {
-      if (validatorDAO.getErrorCollector().get(errorId).size() >= 1000) {
-        printCollectorEntry(errorId, validatorDAO.getErrorCollector().get(errorId));
-        validatorDAO.getErrorCollector().put(errorId, new HashSet<>());
-      }
+    } else if (parameters.doEmptyLargeCollectors()
+               && validatorDAO.getErrorCollector().get(errorId).size() >= 1000) {
+      printCollectorEntry(errorId, validatorDAO.getErrorCollector().get(errorId));
+      validatorDAO.getErrorCollector().put(errorId, new HashSet<>());
     }
     validatorDAO.getErrorCollector().get(errorId).add(recordId);
   }

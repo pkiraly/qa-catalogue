@@ -301,16 +301,16 @@ public class MappingToJson {
       meta.put("name", codeList.getName());
       meta.put("url", codeList.getUrl());
 
-      if (exportSubfieldCodes && !codeList.getName().equals("MARC Organization Codes")) {
-        if (subfield.getCodeList() != null) {
-          Map<String, Object> codes = new LinkedHashMap<>();
-          for (EncodedValue code : subfield.getCodeList().getCodes()) {
-            Map<String, Object> codeListMap = new LinkedHashMap<>();
-            codeListMap.put("label", code.getLabel());
-            codes.put(code.getCode(), codeListMap);
-          }
-          meta.put("codes", codes);
+      if (exportSubfieldCodes
+          && !codeList.getName().equals("MARC Organization Codes")
+          && subfield.getCodeList() != null) {
+        Map<String, Object> codes = new LinkedHashMap<>();
+        for (EncodedValue code : subfield.getCodeList().getCodes()) {
+          Map<String, Object> codeListMap = new LinkedHashMap<>();
+          codeListMap.put("label", code.getLabel());
+          codes.put(code.getCode(), codeListMap);
         }
+        meta.put("codes", codes);
       }
       codeMap.put("codelist", meta);
     }

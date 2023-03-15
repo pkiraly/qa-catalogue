@@ -172,19 +172,18 @@ public class DataFieldValidator extends AbstractValidator {
       path = String.format("%s->%s", referencerDefinition.getTag(), path);
 
     if (indicatorDefinition.exists()) {
-      if (!indicatorDefinition.hasCode(value)) {
-        if (!indicatorDefinition.isVersionSpecificCode(marcVersion, value)) {
-          if (indicatorDefinition.isHistoricalCode(value)) {
-            addError(path, INDICATOR_OBSOLETE, value);
-          } else {
-            addError(path, INDICATOR_INVALID_VALUE, value);
-          }
+      if (!indicatorDefinition.hasCode(value)
+          && !indicatorDefinition.isVersionSpecificCode(marcVersion, value)) {
+        if (indicatorDefinition.isHistoricalCode(value)) {
+          addError(path, INDICATOR_OBSOLETE, value);
+        } else {
+          addError(path, INDICATOR_INVALID_VALUE, value);
         }
       }
     } else {
-      if (!value.equals(" "))
-        if (!indicatorDefinition.isVersionSpecificCode(marcVersion, value))
-          addError(path, INDICATOR_NON_EMPTY, value);
+      if (!value.equals(" ")
+          && !indicatorDefinition.isVersionSpecificCode(marcVersion, value))
+         addError(path, INDICATOR_NON_EMPTY, value);
     }
     return errors.isEmpty();
   }

@@ -48,17 +48,14 @@ public class PicaFieldDefinition extends DataFieldDefinition {
   }
 
   public boolean inRange(String occurrence) {
-    if (range != null) {
-      if (range.getUnitLength() == occurrence.length()) {
-        if (range.isHasRange()) {
-          if (range.getStart().compareTo(occurrence) > 0 || range.getEnd().compareTo(occurrence) < 0)
-            return false;
-          return true;
-        } else {
-          return range.getStart().equals(occurrence);
-        }
-      }
-    }
+    if (range != null && range.getUnitLength() == occurrence.length())
+      if (range.isHasRange()) {
+        if (range.getStart().compareTo(occurrence) > 0 || range.getEnd().compareTo(occurrence) < 0)
+          return false;
+        return true;
+      } else
+        return range.getStart().equals(occurrence);
+
     return false;
   }
 

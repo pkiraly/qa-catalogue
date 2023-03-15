@@ -25,10 +25,9 @@ import static de.gwdg.metadataqa.marc.Utils.count;
 
 public class AuthorithyAnalyzer {
 
-  private static final Logger logger = Logger.getLogger(
-    AuthorithyAnalyzer.class.getCanonicalName()
-  );
+  private static final Logger logger = Logger.getLogger(AuthorithyAnalyzer.class.getCanonicalName());
   private static final Pattern NUMERIC = Pattern.compile("^\\d");
+  public static final String UNDETECTABLE = "undetectable";
 
   private BibliographicRecord marcRecord;
   private AuthorityStatistics authoritiesStatistics;
@@ -136,7 +135,7 @@ public class AuthorithyAnalyzer {
     Schema currentSchema = null;
     List<MarcSubfield> altSchemes = field.getSubfield("2");
     if (altSchemes == null || altSchemes.isEmpty()) {
-      currentSchema = new Schema(tag, "$2", "undetectable", "undetectable");
+      currentSchema = new Schema(tag, "$2", UNDETECTABLE, UNDETECTABLE);
       schemas.add(currentSchema);
     } else {
       for (MarcSubfield altScheme : altSchemes) {
@@ -153,7 +152,7 @@ public class AuthorithyAnalyzer {
     Schema currentSchema = null;
     List<MarcSubfield> altSchemes = field.getSubfield("7");
     if (altSchemes == null || altSchemes.isEmpty()) {
-      currentSchema = new Schema(tag, "$7", "undetectable", "undetectable");
+      currentSchema = new Schema(tag, "$7", UNDETECTABLE, UNDETECTABLE);
       schemas.add(currentSchema);
     } else {
       for (MarcSubfield altScheme : altSchemes) {
@@ -163,7 +162,7 @@ public class AuthorithyAnalyzer {
           var label = code == null ? parts[0] : code.getLabel();
           currentSchema = new Schema(tag, "$7", parts[0], label);
         } else {
-          currentSchema = new Schema(tag, "$7", "undetectable", "undetectable");
+          currentSchema = new Schema(tag, "$7", UNDETECTABLE, UNDETECTABLE);
         }
         schemas.add(currentSchema);
       }

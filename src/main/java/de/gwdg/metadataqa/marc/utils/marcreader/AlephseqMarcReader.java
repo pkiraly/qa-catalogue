@@ -6,6 +6,7 @@ import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -31,7 +32,7 @@ public class AlephseqMarcReader implements MarcReader {
 
   public AlephseqMarcReader(String alephseqMarc) {
     try {
-      bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(alephseqMarc), "UTF8"));
+      bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(alephseqMarc), StandardCharsets.UTF_8));
     } catch (IOException e) {
       logger.log(Level.WARNING, "AlephseqMarcReader", e);
     }
@@ -43,11 +44,7 @@ public class AlephseqMarcReader implements MarcReader {
   }
 
   public AlephseqMarcReader(InputStream stream) {
-    try {
-      bufferedReader = new BufferedReader(new InputStreamReader(stream, "UTF8"));
-    } catch (IOException e) {
-      logger.log(Level.WARNING, "AlephseqMarcReader", e);
-    }
+    bufferedReader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
   }
 
   @Override

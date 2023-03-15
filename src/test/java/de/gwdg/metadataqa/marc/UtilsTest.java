@@ -115,9 +115,9 @@ public class UtilsTest {
     assertEquals("cd", Utils.substring("abcd", 2, 6));
   }
 
-  @Test(expected = StringIndexOutOfBoundsException.class)
+  @Test
   public void testRange_withException() {
-    assertEquals("c", Utils.substring("abcd", 4, 8));
+    assertThrows(StringIndexOutOfBoundsException.class, () -> Utils.substring("abcd", 4, 8));
   }
 
   @Test

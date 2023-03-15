@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 
 import static org.junit.Assert.assertEquals;
@@ -51,7 +52,7 @@ public class PicaNormalizedReaderTest {
       }
     }
     // byte[] byteArray = new byte[] {b};
-    String key = new String(new byte[]{-62, -123}, "UTF8");
+    String key = new String(new byte[]{-62, -123}, StandardCharsets.UTF_8);
     System.err.println(key);
   }
 }

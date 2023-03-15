@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 public class RecordControlNumberParser implements SubfieldContentParser, Serializable {
 
-  private static final Pattern REGEX = Pattern.compile("^\\((.*?)\\)(.*?)$");
+  private static final Pattern REGEX = Pattern.compile("^\\((.{1,100})\\)(.{1,100})$");
   private CodeList codeList = OrganizationCodes.getInstance();
 
   @Override

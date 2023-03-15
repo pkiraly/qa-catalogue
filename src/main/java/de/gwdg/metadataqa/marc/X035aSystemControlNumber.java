@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 public class X035aSystemControlNumber implements Serializable {
   private String code;
   private String number;
-  private static final Pattern PATTERN = Pattern.compile("^\\((.+)\\)(.+)$");
+  private static final Pattern PATTERN = Pattern.compile("^\\((.{1,10})\\)(.{1,50})$");
 
   public X035aSystemControlNumber(String code, String number) {
     this.code = code;

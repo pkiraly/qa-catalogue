@@ -68,7 +68,7 @@ public class Control005  extends SimpleControlField implements Extractable {
         if (StringUtils.isNumeric(matcher.group(6)))
           sec = Integer.parseInt(matcher.group(6));
       } else {
-        String cleanContent = content.replaceAll("[\\. ]*$", "").replaceAll("\\.", "");
+        String cleanContent = content.replaceAll("[\\. ]{1,10}$", "").replaceAll("\\.", "");
         // logger.warning(String.format("005 ('%s') does not match the expected pattern", content));
         if (cleanContent.length() >= 4) {
           year = extractRaw(cleanContent, 4, "year");

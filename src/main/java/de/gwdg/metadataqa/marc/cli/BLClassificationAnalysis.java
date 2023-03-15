@@ -100,7 +100,8 @@ public class BLClassificationAnalysis implements BibliographicInputProcessor, Se
 
     output = new File(parameters.getOutputDir(), BL_CLASSIFIER_FILE);
     if (output.exists())
-      output.delete();
+      if (!output.delete())
+        logger.severe("Deletion of " + output.getAbsolutePath() + " was unsuccessful!");
   }
 
   @Override

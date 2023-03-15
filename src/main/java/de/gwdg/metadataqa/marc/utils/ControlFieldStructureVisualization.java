@@ -14,23 +14,20 @@ public class ControlFieldStructureVisualization {
   public static void main(String[] args) {
     String undefPattern = "\\";
 
-    Map<String, List<ControlfieldPositionDefinition>> allSubfields =
-      Control008Positions.getInstance().getPositions();
-    for (String typeKey : allSubfields.keySet()) {
+    System.err.println("[008]-------------------------------------");
+    Map<String, List<ControlfieldPositionDefinition>> all008Positions = Control008Positions.getInstance().getPositions();
+    for (String typeKey : all008Positions.keySet()) {
       Control008Type type = Control008Type.byCode(typeKey);
       System.err.println(type.getValue());
-      boolean isFirst = true;
       int lastEnd = 18;
       char chr = type.equals(Control008Type.ALL_MATERIALS) ? 'a' : 'i';
       if (!type.equals(Control008Type.ALL_MATERIALS))
         for (int i = 0; i<18; i++)
           System.err.print(" ");
-      for (ControlfieldPositionDefinition subfield : allSubfields.get(type)) {
-
+      for (ControlfieldPositionDefinition subfield : all008Positions.get(typeKey)) {
         if (lastEnd != -1 && lastEnd != subfield.getPositionStart())
           for (int i = lastEnd; i<subfield.getPositionStart(); i++)
             System.err.print(undefPattern);
-
 
         for (int i = subfield.getPositionStart(); i<subfield.getPositionEnd(); i++)
           System.err.print(subfield.isRepeatableContent() ? String.valueOf(chr).toUpperCase() : chr);
@@ -45,17 +42,17 @@ public class ControlFieldStructureVisualization {
       System.err.println();
     }
 
-    Map<String, List<ControlfieldPositionDefinition>> all007Subfields =
-      Control007Positions.getInstance().getPositions();
-    for (String typeKey : all007Subfields.keySet()) {
-      Control007Category type = Control007Category.byCode(typeKey);
+    System.err.println("[007]-------------------------------------");
+    Map<String, List<ControlfieldPositionDefinition>> all007positions = Control007Positions.getInstance().getPositions();
+    for (String typeKey : all007positions.keySet()) {
+      Control007Category type = Control007Category.byLabel(typeKey);
       System.err.println(type.getLabel());
       boolean isFirst = true;
       int lastEnd = -1;
       // TODO: check what it meant
       // char chr = type.equals(Control007Category.COMMON) ? 'a' : 'a';
       char chr = 'a';
-      for (ControlfieldPositionDefinition subfield : all007Subfields.get(type)) {
+      for (ControlfieldPositionDefinition subfield : all007positions.get(typeKey)) {
 
         if (lastEnd != -1 && lastEnd != subfield.getPositionStart())
           for (int i = lastEnd; i<subfield.getPositionStart(); i++)
@@ -75,16 +72,15 @@ public class ControlFieldStructureVisualization {
       System.err.println();
     }
 
-    System.err.println("-------------------------------------");
-    Map<String, List<ControlfieldPositionDefinition>> all006Subfields =
-      Control006Positions.getInstance().getPositions();
-    for (String typeKey : all006Subfields.keySet()) {
+    System.err.println("[006]-------------------------------------");
+    Map<String, List<ControlfieldPositionDefinition>> all006positions = Control006Positions.getInstance().getPositions();
+    for (String typeKey : all006positions.keySet()) {
       Control008Type type = Control008Type.byCode(typeKey);
       System.err.println(type.getValue());
       boolean isFirst = true;
       int lastEnd = 0;
       char chr = type.equals(Control008Type.ALL_MATERIALS) ? 'a' : 'i';
-      for (ControlfieldPositionDefinition subfield : all006Subfields.get(type)) {
+      for (ControlfieldPositionDefinition subfield : all006positions.get(typeKey)) {
 
         if (lastEnd != subfield.getPositionStart())
           for (int i = lastEnd; i<subfield.getPositionStart(); i++)
@@ -104,6 +100,5 @@ public class ControlFieldStructureVisualization {
 
       System.err.println();
     }
-
   }
 }

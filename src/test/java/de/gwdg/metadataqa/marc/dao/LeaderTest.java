@@ -295,7 +295,7 @@ public class LeaderTest {
       )
     );
     assertEquals(
-      ",Leader/06 (leader06),2,6,invalid value,n,https://www.loc.gov/marc/bibliographic/bdleader.html\n",
+      ",Leader/06 (leader06),2,4,obsolete code,n,https://www.loc.gov/marc/bibliographic/bdleader.html\n",
       ValidationErrorFormatter.format(
         errors.get(1), ValidationErrorFormat.COMMA_SEPARATED
       )

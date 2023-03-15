@@ -88,7 +88,8 @@ public class ThompsonTraillCompleteness implements BibliographicInputProcessor, 
 
     output = new File(parameters.getOutputDir(), parameters.getFileName());
     if (output.exists())
-      output.delete();
+      if (!output.delete())
+        logger.severe("Deletion of " + output.getAbsolutePath() + " was unsuccessful!");
 
     print(createRow(ThompsonTraillAnalysis.getHeader()));
   }

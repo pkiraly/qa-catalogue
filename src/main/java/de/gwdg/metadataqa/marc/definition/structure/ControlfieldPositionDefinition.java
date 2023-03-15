@@ -239,9 +239,11 @@ public class ControlfieldPositionDefinition implements Serializable {
   }
 
   public boolean isHistoricalCode(String inputCode) {
-    return historicalCodes != null
-           && !historicalCodes.isEmpty()
-           && historicalCodes.contains(inputCode);
+    if (historicalCodes != null && !historicalCodes.isEmpty())
+      for (EncodedValue historicalCode : historicalCodes)
+        if (historicalCode.getCode().equals(inputCode))
+          return true;
+    return false;
   }
 
   public String getPath() {

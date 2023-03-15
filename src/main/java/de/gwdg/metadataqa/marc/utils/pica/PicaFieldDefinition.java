@@ -51,7 +51,7 @@ public class PicaFieldDefinition extends DataFieldDefinition {
     if (range != null) {
       if (range.getUnitLength() == occurrence.length()) {
         if (range.isHasRange()) {
-          if (range.getStart().compareTo(occurrence) == 1 || range.getEnd().compareTo(occurrence) == -1)
+          if (range.getStart().compareTo(occurrence) > 0 || range.getEnd().compareTo(occurrence) < 0)
             return false;
           return true;
         } else {

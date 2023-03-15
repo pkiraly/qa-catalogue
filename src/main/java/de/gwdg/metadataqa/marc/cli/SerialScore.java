@@ -88,7 +88,8 @@ public class SerialScore implements BibliographicInputProcessor, Serializable {
 
     output = new File(parameters.getOutputDir(), parameters.getFileName());
     if (output.exists())
-      output.delete();
+      if (!output.delete())
+        logger.severe("Deletion of " + output.getAbsolutePath() + " was unsuccessful!");
 
     print(createRow(Serial.getHeader()));
   }

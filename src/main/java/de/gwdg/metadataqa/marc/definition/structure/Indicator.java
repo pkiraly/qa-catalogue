@@ -188,11 +188,14 @@ public class Indicator {
   }
 
   public boolean isVersionSpecificCode(MarcVersion marcVersion, String code) {
-    return versionSpecificCodes != null
-           && !versionSpecificCodes.isEmpty()
-           && versionSpecificCodes.containsKey(marcVersion)
-           && !versionSpecificCodes.get(marcVersion).isEmpty()
-           && !versionSpecificCodes.get(marcVersion).contains(code);
+    if (versionSpecificCodes != null
+        && !versionSpecificCodes.isEmpty()
+        && versionSpecificCodes.containsKey(marcVersion)
+        && !versionSpecificCodes.get(marcVersion).isEmpty())
+      for (EncodedValue versionSpecificCode : versionSpecificCodes.get(marcVersion))
+        if (versionSpecificCode.getCode().equals(code))
+          return true;
+    return false;
   }
 
   @Override

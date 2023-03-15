@@ -60,7 +60,6 @@ public class ThompsonTraillCompleteness implements BibliographicInputProcessor, 
       processor = new ThompsonTraillCompleteness(args);
     } catch (ParseException e) {
       System.err.println("ERROR. " + e.getLocalizedMessage());
-      processor.printHelp(processor.getParameters().getOptions());
       System.exit(0);
     }
 

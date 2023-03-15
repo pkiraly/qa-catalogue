@@ -202,7 +202,8 @@ public class MARCspecParser {
 
       if (fieldMap.containsKey("index") && StringUtils.isNotBlank(fieldMap.get("index"))) {
         Positions positions = extractPositions(fieldMap.get("index"));
-        field.setIndexStartEnd(positions.getStart(), positions.getEnd());
+        if (positions != null)
+          field.setIndexStartEnd(positions.getStart(), positions.getEnd());
       }
 
       if (fieldMap.containsKey("charpos") && StringUtils.isNotBlank(fieldMap.get("charpos"))) {

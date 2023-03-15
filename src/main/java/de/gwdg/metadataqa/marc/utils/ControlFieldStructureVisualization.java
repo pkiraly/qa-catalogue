@@ -52,7 +52,9 @@ public class ControlFieldStructureVisualization {
       System.err.println(type.getLabel());
       boolean isFirst = true;
       int lastEnd = -1;
-      char chr = type.equals(Control007Category.COMMON) ? 'a' : 'a';
+      // TODO: check what it meant
+      // char chr = type.equals(Control007Category.COMMON) ? 'a' : 'a';
+      char chr = 'a';
       for (ControlfieldPositionDefinition subfield : all007Subfields.get(type)) {
 
         if (lastEnd != -1 && lastEnd != subfield.getPositionStart())

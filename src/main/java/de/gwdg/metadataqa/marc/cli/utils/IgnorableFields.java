@@ -57,7 +57,7 @@ public class IgnorableFields {
     if (!fields.isEmpty())
       value += StringUtils.join(fields, ", ");
     if (!maskedFields.isEmpty()) {
-      value += value == "" ? "" : ", ";
+      value += value.equals("") ? "" : ", ";
       value += "masked fields: " + StringUtils.join(maskedFields, ", ");
     }
     return value;

@@ -46,7 +46,6 @@ public class BLClassificationAnalysis implements BibliographicInputProcessor, Se
       processor = new BLClassificationAnalysis(args);
     } catch (ParseException e) {
       System.err.println("ERROR. " + e.getLocalizedMessage());
-      processor.printHelp(processor.getParameters().getOptions());
       System.exit(0);
     }
 

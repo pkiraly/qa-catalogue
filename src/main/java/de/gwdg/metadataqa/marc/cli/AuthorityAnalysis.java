@@ -54,7 +54,6 @@ public class AuthorityAnalysis implements BibliographicInputProcessor, Serializa
       processor = new AuthorityAnalysis(args);
     } catch (ParseException e) {
       System.err.println(createRow("ERROR. ", e.getLocalizedMessage()));
-      // processor.printHelp(processor.getParameters().getOptions());
       System.exit(0);
     }
     if (processor.getParameters().getArgs().length < 1) {

@@ -23,7 +23,6 @@ public class Shacl4bib implements BibliographicInputProcessor, Serializable {
 
   public Shacl4bib(String[] args) throws ParseException {
     parameters = new Shacl4bibParameters(args);
-    this.parameters = parameters;
     readyToProcess = true;
   }
 

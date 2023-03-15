@@ -164,12 +164,10 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
     path = Paths.get(parameters.getOutputDir(), "classifications-collocations.csv");
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write(Collocation.header());
-      var total1 = statistics.getHasClassifications().get(true);
-      if (total1 == null)
-        total1 = Integer.valueOf(0);
-      var total = statistics.recordCountWithClassification();
+      Integer total1 = statistics.getHasClassifications().getOrDefault(true, new Integer(0));
+      Integer total = statistics.recordCountWithClassification();
       logger.info("total: " + total);
-      if (total1 != total)
+      if (!total1.equals(total))
         logger.severe(String.format("total from hasClassifications (%d) != from collation (%d)",
             total1, total));
 

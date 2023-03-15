@@ -62,7 +62,6 @@ public class ShelfReadyCompleteness implements BibliographicInputProcessor, Seri
       processor = new ShelfReadyCompleteness(args);
     } catch (ParseException e) {
       System.err.println("ERROR. " + e.getLocalizedMessage());
-      processor.printHelp(processor.getParameters().getOptions());
       System.exit(0);
     }
 

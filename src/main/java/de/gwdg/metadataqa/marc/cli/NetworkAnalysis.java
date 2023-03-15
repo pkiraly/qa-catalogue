@@ -44,7 +44,6 @@ public class NetworkAnalysis implements BibliographicInputProcessor, Serializabl
       processor = new NetworkAnalysis(args);
     } catch (ParseException e) {
       System.err.println(createRow("ERROR. ", e.getLocalizedMessage()));
-      // processor.printHelp(processor.getParameters().getOptions());
       System.exit(0);
     }
     NetworkParameters params = (NetworkParameters)processor.getParameters();

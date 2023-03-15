@@ -3,7 +3,6 @@ package de.gwdg.metadataqa.marc.utils;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -16,7 +15,7 @@ public class EncodedValueFileReaderTest {
     Map<String, String> dict = null;
     try {
       dict = EncodedValueFileReader.fileToDict("general/csv-test.csv");
-    } catch (IOException | URISyntaxException e) {
+    } catch (IOException e) {
       e.printStackTrace();
     }
     assertNotNull(dict);

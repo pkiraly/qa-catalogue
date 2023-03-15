@@ -31,7 +31,7 @@ public final class QAMarcReaderFactory {
     return getIsoStreamReader(new FileInputStream(fileName));
   }
 
-  private MarcReader getIsoStreamReader(InputStream stream) throws Exception {
+  private MarcReader getIsoStreamReader(InputStream stream) {
     String encoding = parameters != null ? parameters.getDefaultEncoding() : null;
     return new MarcStreamReader(stream, encoding);
   }
@@ -40,25 +40,25 @@ public final class QAMarcReaderFactory {
     return getXmlStreamReader(new FileInputStream(fileName));
   }
 
-  private MarcReader getXmlStreamReader(InputStream stream) throws Exception {
+  private MarcReader getXmlStreamReader(InputStream stream) {
     return new MarcXmlReader(stream);
   }
 
-  private MarcReader getLineSeparatedFileReader(String fileName) throws Exception {
+  private MarcReader getLineSeparatedFileReader(String fileName) {
     return new LineSeparatedMarcReader(fileName);
   }
 
-  private MarcReader getLineSeparatedStreamReader(InputStream stream) throws Exception {
+  private MarcReader getLineSeparatedStreamReader(InputStream stream) {
     return new LineSeparatedMarcReader(stream);
   }
 
-  private MarcReader getAlephseqFileReader(String fileName) throws Exception {
+  private MarcReader getAlephseqFileReader(String fileName) {
     AlephseqMarcReader reader = new AlephseqMarcReader(fileName);
     confiigureAlephseqMarcReader(reader);
     return reader;
   }
 
-  private MarcReader getAlephseqStreamReader(InputStream stream) throws Exception {
+  private MarcReader getAlephseqStreamReader(InputStream stream) {
     AlephseqMarcReader reader = new AlephseqMarcReader(stream);
     confiigureAlephseqMarcReader(reader);
     return reader;
@@ -101,7 +101,7 @@ public final class QAMarcReaderFactory {
     return getPicaXmlStreamReader(new FileInputStream(fileName), parameters);
   }
 
-  private MarcReader getPicaXmlStreamReader(InputStream stream, CommonParameters parameters) throws Exception {
+  private MarcReader getPicaXmlStreamReader(InputStream stream, CommonParameters parameters) {
     PicaXmlReader reader = new PicaXmlReader(stream);
     configurePicaReader(reader, parameters);
     return reader;
@@ -116,19 +116,19 @@ public final class QAMarcReaderFactory {
     }
   }
 
-  private MarcReader getMarclineFileReader(String fileName) throws Exception {
+  private MarcReader getMarclineFileReader(String fileName) {
     return new MarclineReader(fileName);
   }
 
-  private MarcReader getMarclineStreamReader(InputStream stream) throws Exception {
+  private MarcReader getMarclineStreamReader(InputStream stream) {
     return new MarclineReader(stream);
   }
 
-  private MarcReader getMarcMakerFileReader(String fileName) throws Exception {
+  private MarcReader getMarcMakerFileReader(String fileName) {
     return new MarcMakerReader(fileName);
   }
 
-  private MarcReader getMarcMakerStreamReader(InputStream stream) throws Exception {
+  private MarcReader getMarcMakerStreamReader(InputStream stream) {
     return new MarcMakerReader(stream);
   }
 
@@ -167,7 +167,7 @@ public final class QAMarcReaderFactory {
     return getStreamReader(marcFormat, stream, null);
   }
 
-  public static MarcReader getStreamReader(MarcFormat marcFormat, InputStream stream, CommonParameters parameters) throws Exception {
+  public static MarcReader getStreamReader(MarcFormat marcFormat, InputStream stream, CommonParameters parameters) {
     QAMarcReaderFactory factory = new QAMarcReaderFactory(parameters);
     MarcReader reader = null;
     switch (marcFormat) {
@@ -198,7 +198,7 @@ public final class QAMarcReaderFactory {
     return getStringReader(marcFormat, content, null);
   }
 
-  public static MarcReader getStringReader(MarcFormat marcFormat, String content, CommonParameters parameters) throws Exception {
+  public static MarcReader getStringReader(MarcFormat marcFormat, String content, CommonParameters parameters) {
     InputStream stream = new ByteArrayInputStream(content.getBytes());
     return getStreamReader(marcFormat, stream, parameters);
   }

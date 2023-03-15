@@ -79,7 +79,7 @@ public class PicaVocabularyManager {
     return null;
   }
 
-  private void read(Object jsonObject) throws FileNotFoundException, ParseException {
+  private void read(Object jsonObject) {
     // Object obj = parser.parse(new FileReader(new File(filename)));
     JSONArray items = (JSONArray) jsonObject;
     for (Object item : items) {

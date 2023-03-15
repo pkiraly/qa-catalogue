@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.dao;
 import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.Extractable;
 import de.gwdg.metadataqa.marc.MarcSubfield;
+import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
@@ -42,6 +43,8 @@ public class DataField implements Extractable, Serializable { // Validatable
   private ErrorsCollector errors = null;
   private List<String> unhandledSubfields = null;
   private BibliographicRecord marcRecord;
+  private List<FieldIndexer> fieldIndexers;
+  private boolean fieldIndexerInitialized = false;
 
   public <T extends DataFieldDefinition> DataField(T definition, String ind1, String ind2) {
     this.definition = definition;
@@ -347,13 +350,15 @@ public class DataField implements Extractable, Serializable { // Validatable
 
     // subfields
     for (MarcSubfield subfield : subfields) {
-      pairs.putAll(subfield.getKeyValuePairs(keyGenerator));
+      Utils.mergeMap(pairs, subfield.getKeyValuePairs(keyGenerator));
     }
 
-    if (getFieldIndexer() != null) {
+    if (getFieldIndexers() != null && !getFieldIndexers().isEmpty()) {
       try {
-        Map<String, List<String>> extra = getFieldIndexer().index(this, keyGenerator);
-        pairs.putAll(extra);
+        for (FieldIndexer indexer : getFieldIndexers()) {
+          Map<String, List<String>> extra = indexer.index(this, keyGenerator);
+          Utils.mergeMap(pairs, extra);
+        }
       } catch (IllegalArgumentException e) {
         logger.severe(String.format("%s  in record %s %s",
           e.getLocalizedMessage(), marcRecord.getId(), this.toString()));
@@ -415,7 +420,7 @@ public class DataField implements Extractable, Serializable { // Validatable
     return pairs;
   }
 
-  public FieldIndexer getFieldIndexer() {
+  private FieldIndexer getFieldIndexer() {
     FieldIndexer fieldIndexer = null;
     if (definition != null
       && definition.getSourceSpecificationType() != null) {
@@ -442,6 +447,21 @@ public class DataField implements Extractable, Serializable { // Validatable
       }
     }
     return fieldIndexer;
+  }
+
+  public void addFieldIndexer(FieldIndexer indexer) {
+    if (fieldIndexers == null)
+      fieldIndexers = new ArrayList<>();
+    if (indexer != null)
+      fieldIndexers.add(indexer);
+  }
+
+  public List<FieldIndexer> getFieldIndexers() {
+    if (!fieldIndexerInitialized) {
+      addFieldIndexer(getFieldIndexer());
+      fieldIndexerInitialized = true;
+    }
+    return fieldIndexers;
   }
 
   public String resolveInd1() {

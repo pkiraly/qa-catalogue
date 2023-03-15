@@ -59,11 +59,11 @@ public class MarcFactoryTest {
       "GeneralInformation_conferencePublication, " +
       "GeneralInformation_originalAlphabetOrScriptOfTitle, GeneralInformation_entryConvention, " +
       "IdIntifiedByLocal_source, IdIntifiedByLocal, IdIntifiedByLocal_agency, " +
-      "Issn_levelOfInternationalInterest, Issn, SystemControlNumber_recordNumber, " +
+      "Issn_levelOfInternationalInterest, Issn, " +
       "SystemControlNumber_organizationCode, " +
-      "SystemControlNumber, SystemControlNumber_organization, " +
+      "SystemControlNumber, SystemControlNumber_recordNumber, SystemControlNumber_organization, " +
       "AdminMetadata_languageOfCataloging, " +
-      "AdminMetadata_transcribingAgency, AdminMetadata_descriptionConventions, AdminMetadata_catalogingAgency, " +
+      "AdminMetadata_descriptionConventions, AdminMetadata_transcribingAgency, AdminMetadata_catalogingAgency, " +
       "Language_translationIndication, Language, Language_sourceOfCode, Place_country, ClassificationDdc_full, " +
       "ClassificationDdc_editionType, ClassificationDdc_classificationSource, ClassificationDdc, " +
       "Classification_classificationPortion, Classification_classificationPortion_zdbs, " +
@@ -300,10 +300,10 @@ public class MarcFactoryTest {
     assertEquals("Abschluss einer RSWK-Kettenfolge, Feld enthält dann zwei $5",
       pairs.get("RSWKKette_nummerDesKettengliedes").get(3));
 
-    assertEquals(3, pairs.get("RSWKKette_0").size());
-    assertEquals("(DE-576)208896155", pairs.get("RSWKKette_0").get(0));
-    assertEquals("(DE-576)208901906", pairs.get("RSWKKette_0").get(1));
-    assertEquals("(DE-576)208865578", pairs.get("RSWKKette_0").get(2));
+    assertEquals(6, pairs.get("RSWKKette_0").size());
+    assertEquals(
+      List.of("(DE-588)4011882-4", "(DE-576)208896155", "(DE-588)4013134-8", "(DE-576)208901906", "(DE-588)4006432-3", "(DE-576)208865578"),
+      pairs.get("RSWKKette_0"));
 
     assertEquals(3, pairs.get("RSWKKette_a").size());
     assertEquals("Deutschland", pairs.get("RSWKKette_a").get(0));
@@ -331,20 +331,25 @@ public class MarcFactoryTest {
     assertEquals(1, pairs.get("AddedCorporateName").size());
     assertEquals("Deutsche Bibliothek", pairs.get("AddedCorporateName").get(0));
 
-    assertEquals(1, pairs.get("AddedCorporateName_authorityRecordControlNumber").size());
-    assertEquals("(DE-576)190187867",
-      pairs.get("AddedCorporateName_authorityRecordControlNumber").get(0));
+    assertEquals(2, pairs.get("AddedCorporateName_authorityRecordControlNumber").size());
+    assertEquals(
+      List.of("(DE-588)7674-0", "(DE-576)190187867"),
+      pairs.get("AddedCorporateName_authorityRecordControlNumber"));
 
-    assertEquals(1, pairs.get("AddedCorporateName_authorityRecordControlNumber_recordNumber").size());
-    assertEquals("190187867", pairs.get("AddedCorporateName_authorityRecordControlNumber_recordNumber").get(0));
+    assertEquals(2, pairs.get("AddedCorporateName_authorityRecordControlNumber_recordNumber").size());
+    assertEquals(
+      List.of("7674-0", "190187867"),
+      pairs.get("AddedCorporateName_authorityRecordControlNumber_recordNumber"));
 
-    assertEquals(1, pairs.get("AddedCorporateName_authorityRecordControlNumber_organization").size());
-    assertEquals("Bibliotheksservice-Zentrum Baden-Württemberg (BSZ)",
-      pairs.get("AddedCorporateName_authorityRecordControlNumber_organization").get(0));
+    assertEquals(2, pairs.get("AddedCorporateName_authorityRecordControlNumber_organization").size());
+    assertEquals(
+      List.of("Gemeinsame Normdatei", "Bibliotheksservice-Zentrum Baden-Württemberg (BSZ)"),
+      pairs.get("AddedCorporateName_authorityRecordControlNumber_organization"));
 
-    assertEquals(1, pairs.get("AddedCorporateName_authorityRecordControlNumber_organizationCode").size());
-    assertEquals("DE-576",
-      pairs.get("AddedCorporateName_authorityRecordControlNumber_organizationCode").get(0));
+    assertEquals(2, pairs.get("AddedCorporateName_authorityRecordControlNumber_organizationCode").size());
+    assertEquals(
+      List.of("DE-588", "DE-576"),
+      pairs.get("AddedCorporateName_authorityRecordControlNumber_organizationCode"));
 
     assertEquals(1, pairs.get("AddedCorporateName_entryType").size());
     assertEquals("No information provided", pairs.get("AddedCorporateName_entryType").get(0));
@@ -362,37 +367,36 @@ public class MarcFactoryTest {
     assertEquals("No display constant generated",
       pairs.get("PartOf_displayConstant").get(1));
 
-    assertEquals(2, pairs.get("PartOf_recordControlNumber").size());
-    assertEquals("(DE-600)1056339-8", pairs.get("PartOf_recordControlNumber").get(0));
-    assertEquals("(DE-600)1056366-0", pairs.get("PartOf_recordControlNumber").get(1));
+    assertEquals(4, pairs.get("PartOf_recordControlNumber").size());
+    assertEquals(
+      List.of("(DE-576)025087622", "(DE-600)1056339-8", "(DE-576)023001283", "(DE-600)1056366-0"),
+      pairs.get("PartOf_recordControlNumber"));
 
     assertEquals(2, pairs.get("PartOf_noteController").size());
     assertEquals("Display note", pairs.get("PartOf_noteController").get(0));
     assertEquals("Display note", pairs.get("PartOf_noteController").get(1));
 
-    assertEquals(2, pairs.get("PartOf_recordControlNumber_recordNumber").size());
-    assertEquals("1056339-8",
-      pairs.get("PartOf_recordControlNumber_recordNumber").get(0));
-    assertEquals("1056366-0",
-      pairs.get("PartOf_recordControlNumber_recordNumber").get(1));
+    assertEquals(4, pairs.get("PartOf_recordControlNumber_recordNumber").size());
+    assertEquals(
+      List.of("025087622", "1056339-8", "023001283", "1056366-0"),
+      pairs.get("PartOf_recordControlNumber_recordNumber"));
 
-    assertEquals(2, pairs.get("PartOf_recordControlNumber_organization").size());
-    assertEquals("Zeitschriftendatenbank (ZDB)",
-      pairs.get("PartOf_recordControlNumber_organization").get(0));
-    assertEquals("Zeitschriftendatenbank (ZDB)",
-      pairs.get("PartOf_recordControlNumber_organization").get(1));
+    assertEquals(4, pairs.get("PartOf_recordControlNumber_organization").size());
+    assertEquals(
+      List.of("Bibliotheksservice-Zentrum Baden-Württemberg (BSZ)", "Zeitschriftendatenbank (ZDB)", "Bibliotheksservice-Zentrum Baden-Württemberg (BSZ)", "Zeitschriftendatenbank (ZDB)"),
+      pairs.get("PartOf_recordControlNumber_organization"));
 
-    assertEquals(2, pairs.get("PartOf_recordControlNumber_organizationCode").size());
-    assertEquals("DE-600",
-      pairs.get("PartOf_recordControlNumber_organizationCode").get(0));
-    assertEquals("DE-600",
-      pairs.get("PartOf_recordControlNumber_organizationCode").get(1));
+    assertEquals(4, pairs.get("PartOf_recordControlNumber_organizationCode").size());
+    assertEquals(
+      List.of("DE-576", "DE-600", "DE-576", "DE-600"),
+      pairs.get("PartOf_recordControlNumber_organizationCode"));
 
     assertEquals(2, pairs.get("PartOf").size());
-    assertEquals("Deutsche Nationalbibliografie und Bibliografie der im Ausland erschienenen deutschsprachigen Veröffentlichungen / A",
-      pairs.get("PartOf").get(0));
-    assertEquals("Deutsche Nationalbibliografie und Bibliografie der im Ausland erschienenen deutschsprachigen Veröffentlichungen / B",
-      pairs.get("PartOf").get(1));
+    assertEquals(
+      List.of(
+        "Deutsche Nationalbibliografie und Bibliografie der im Ausland erschienenen deutschsprachigen Veröffentlichungen / A",
+        "Deutsche Nationalbibliografie und Bibliografie der im Ausland erschienenen deutschsprachigen Veröffentlichungen / B"),
+      pairs.get("PartOf"));
 
     assertEquals(1, pairs.get("PrecededBy").size());
     assertEquals("Deutsche Bibliographie. Wöchentliches Verzeichnis. Reihe A und Reihe B, Erscheinungen des Verlagsbuchhandels und außerhalb des Verlagsbuchhandels : Register",
@@ -401,21 +405,28 @@ public class MarcFactoryTest {
     assertEquals(1, pairs.get("PrecededBy_relation").size());
     assertEquals("Vorg.", pairs.get("PrecededBy_relation").get(0));
 
-    assertEquals(1, pairs.get("PrecededBy_recordControlNumber_organization").size());
-    assertEquals("Zeitschriftendatenbank (ZDB)",
-      pairs.get("PrecededBy_recordControlNumber_organization").get(0));
+    assertEquals(2, pairs.get("PrecededBy_recordControlNumber_organization").size());
+    assertEquals(
+      List.of("Bibliotheksservice-Zentrum Baden-Württemberg (BSZ)", "Zeitschriftendatenbank (ZDB)"),
+      pairs.get("PrecededBy_recordControlNumber_organization"));
 
-    assertEquals(1, pairs.get("PrecededBy_recordControlNumber_recordNumber").size());
-    assertEquals("1429255", pairs.get("PrecededBy_recordControlNumber_recordNumber").get(0));
+    assertEquals(2, pairs.get("PrecededBy_recordControlNumber_recordNumber").size());
+    assertEquals(
+      List.of("014643111", "1429255"),
+      pairs.get("PrecededBy_recordControlNumber_recordNumber"));
 
     assertEquals(1, pairs.get("PrecededBy_typeOfRelationship").size());
     assertEquals("Continues", pairs.get("PrecededBy_typeOfRelationship").get(0));
 
-    assertEquals(1, pairs.get("PrecededBy_recordControlNumber").size());
-    assertEquals("(DE-600)1429255", pairs.get("PrecededBy_recordControlNumber").get(0));
+    assertEquals(2, pairs.get("PrecededBy_recordControlNumber").size());
+    assertEquals(
+      List.of("(DE-576)014643111", "(DE-600)1429255"),
+      pairs.get("PrecededBy_recordControlNumber"));
 
-    assertEquals(1, pairs.get("PrecededBy_recordControlNumber_organizationCode").size());
-    assertEquals("DE-600", pairs.get("PrecededBy_recordControlNumber_organizationCode").get(0));
+    assertEquals(2, pairs.get("PrecededBy_recordControlNumber_organizationCode").size());
+    assertEquals(
+      List.of("DE-576", "DE-600"),
+      pairs.get("PrecededBy_recordControlNumber_organizationCode"));
 
     assertEquals(1, pairs.get("PrecededBy_noteController").size());
     assertEquals("Display note", pairs.get("PrecededBy_noteController").get(0));
@@ -507,8 +518,8 @@ public class MarcFactoryTest {
         "022ind1_Issn_levelOfInternationalInterest, " +
         "022a_Issn, " +
         "035a_SystemControlNumber_recordNumber, " +
-        "035a_SystemControlNumber_organizationCode, " +
         "035a_SystemControlNumber, " +
+        "035a_SystemControlNumber_organizationCode, " +
         "035a_SystemControlNumber_organization, " +
         "040e_AdminMetadata_descriptionConventions, " +
         "040a_AdminMetadata_catalogingAgency, " +

@@ -23,18 +23,18 @@ public class IndexingTest {
     BibliographicRecord marcRecord = MarcFactory.createFromFormattedText(lines);
     Map<String, List<String>> index = marcRecord.getKeyValuePairs(SolrFieldType.MIXED, MarcVersion.DNB);
     assertEquals(140, index.size());
-    assertEquals("(DE-576)19168161X",
-      index.get("7100_AddedCorporateName_authorityRecordControlNumber")
-        .get(0));
-    assertEquals("19168161X",
-      index.get("7100_AddedCorporateName_authorityRecordControlNumber_recordNumber")
-        .get(0));
-    assertEquals("Bibliotheksservice-Zentrum Baden-Württemberg (BSZ)",
-      index.get("7100_AddedCorporateName_authorityRecordControlNumber_organization")
-        .get(0));
-    assertEquals("DE-576",
-      index.get("7100_AddedCorporateName_authorityRecordControlNumber_organizationCode")
-        .get(0));
+    assertEquals(
+      List.of("(DE-588)2013822-2", "(DE-627)101809441", "(DE-576)19168161X"),
+      index.get("7100_AddedCorporateName_authorityRecordControlNumber"));
+    assertEquals(
+      List.of("2013822-2", "101809441", "19168161X"),
+      index.get("7100_AddedCorporateName_authorityRecordControlNumber_recordNumber"));
+    assertEquals(
+      List.of("Gemeinsame Normdatei", "Bibliotheksservice-Zentrum Baden-Württemberg (BSZ)"),
+      index.get("7100_AddedCorporateName_authorityRecordControlNumber_organization"));
+    assertEquals(
+      List.of("DE-588", "DE-627", "DE-576"),
+      index.get("7100_AddedCorporateName_authorityRecordControlNumber_organizationCode"));
   }
 
   @Test

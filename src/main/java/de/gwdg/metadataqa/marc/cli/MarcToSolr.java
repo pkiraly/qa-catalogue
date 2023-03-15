@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.cli;
 
+import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.MarcToSolrParameters;
@@ -7,6 +8,10 @@ import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.datastore.MarcSolrClient;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
+import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
+import de.gwdg.metadataqa.marc.utils.pica.PicaGroupIndexer;
+import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -30,7 +35,7 @@ import java.util.logging.Logger;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class MarcToSolr implements BibliographicInputProcessor, Serializable {
+public class MarcToSolr extends QACli implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(
     MarcToSolr.class.getCanonicalName()
@@ -42,6 +47,7 @@ public class MarcToSolr implements BibliographicInputProcessor, Serializable {
   private Path currentFile;
   private boolean readyToProcess;
   private DecimalFormat decimalFormat = new DecimalFormat();
+  private FieldIndexer groupIndexer;
 
   public MarcToSolr(String[] args) throws ParseException {
     parameters = new MarcToSolrParameters(args);
@@ -50,6 +56,10 @@ public class MarcToSolr implements BibliographicInputProcessor, Serializable {
     client.setTrimId(parameters.getTrimId());
     readyToProcess = true;
     version = parameters.getMarcVersion();
+    initializeGroups(parameters.getGroupBy(), parameters.isPica());
+    if (doGroups()) {
+      groupIndexer = new PicaGroupIndexer().setPicaPath((PicaPath) groupBy);
+    }
   }
 
   public static void main(String[] args) throws ParseException {
@@ -77,16 +87,20 @@ public class MarcToSolr implements BibliographicInputProcessor, Serializable {
   }
 
   @Override
-  public void processRecord(BibliographicRecord marcRecord, int recordNumber) throws IOException {
-    if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
+  public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber) throws IOException {
+    if (parameters.getRecordIgnorator().isIgnorable(bibliographicRecord))
       return;
 
+    if (bibliographicRecord.getSchemaType().equals(SchemaType.PICA) && doGroups())
+      for (DataField field : bibliographicRecord.getDatafield(((PicaPath) groupBy).getTag()))
+        field.addFieldIndexer(groupIndexer);
+
     try {
-      Map<String, List<String>> map = marcRecord.getKeyValuePairs(
+      Map<String, List<String>> map = bibliographicRecord.getKeyValuePairs(
         parameters.getSolrFieldType(), true, parameters.getMarcVersion()
       );
-      map.put("record_sni", Arrays.asList(marcRecord.asJson()));
-      client.indexMap(marcRecord.getId(), map);
+      map.put("record_sni", Arrays.asList(bibliographicRecord.asJson()));
+      client.indexMap(bibliographicRecord.getId(), map);
     } catch (SolrServerException e) {
       if (e.getMessage().contains("Server refused connection at")) {
         // end process;
@@ -102,7 +116,7 @@ public class MarcToSolr implements BibliographicInputProcessor, Serializable {
           "%s/%s (%s)",
           currentFile.getFileName().toString(),
           decimalFormat.format(recordNumber),
-          marcRecord.getId()
+          bibliographicRecord.getId()
         )
       );
     }

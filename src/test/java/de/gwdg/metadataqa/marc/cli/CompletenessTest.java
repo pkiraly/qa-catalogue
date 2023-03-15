@@ -13,7 +13,6 @@ import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
 
-import static de.gwdg.metadataqa.api.util.FileUtils.getPath;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.*;
 

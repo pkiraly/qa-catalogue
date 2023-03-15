@@ -9,7 +9,7 @@ import de.gwdg.metadataqa.marc.model.validation.ErrorsCollector;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
 
 import java.io.Serializable;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -139,7 +139,7 @@ public class MarcSubfield implements Serializable { // Validatable
     String prefix = prefixCache.get(cacheKey);
 
     Map<String, List<String>> pairs = new HashMap<>();
-    pairs.put(prefix, Collections.singletonList(resolve()));
+    pairs.put(prefix, new ArrayList<>(List.of(resolve())));
     if (getDefinition() != null) {
       getKeyValuePairsForPositionalSubfields(pairs, prefix);
       getKeyValuePairsFromContentParser(keyGenerator, pairs);
@@ -155,7 +155,7 @@ public class MarcSubfield implements Serializable { // Validatable
         for (Map.Entry<String, String> entry : extra.entrySet()) {
           pairs.put(
             keyGenerator.forSubfield(this, entry.getKey()),
-            Collections.singletonList(entry.getValue())
+            new ArrayList<>(List.of(entry.getValue()))
           );
         }
       }
@@ -166,7 +166,7 @@ public class MarcSubfield implements Serializable { // Validatable
     if (getDefinition().hasPositions()) {
       Map<String, String> extra = getDefinition().resolvePositional(getValue());
       for (Map.Entry<String, String> entry : extra.entrySet()) {
-        pairs.put(prefix + "_" + entry.getKey(), Collections.singletonList(entry.getValue()));
+        pairs.put(prefix + "_" + entry.getKey(), new ArrayList<>(List.of(entry.getValue())));
       }
     }
   }

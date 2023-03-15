@@ -86,5 +86,4 @@ public abstract class QACli {
       logger.log(Level.SEVERE, "printToFile", e);
     }
   }
-
 }

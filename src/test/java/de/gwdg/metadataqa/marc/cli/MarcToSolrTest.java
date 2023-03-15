@@ -10,8 +10,11 @@ import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.tags.tags76x.Tag787;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.utils.QAMarcReaderFactory;
+import de.gwdg.metadataqa.marc.utils.pica.PicaGroupIndexer;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
+import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
+import de.gwdg.metadataqa.marc.utils.pica.path.PicaPathParser;
 import org.junit.Test;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
@@ -46,6 +49,29 @@ public class MarcToSolrTest {
     // System.err.println(map.keySet());
     assertTrue(marcRecord.asJson().contains("036E/01"));
     assertTrue(map.containsKey("036E_01_a"));
+  }
+
+  @Test
+  public void pica_extra() throws Exception {
+    PicaSchemaManager schema = PicaSchemaReader.createSchema(CliTestUtils.getTestResource("pica/k10plus.json"));
+    MarcReader reader = QAMarcReaderFactory.getFileReader(MarcFormat.PICA_NORMALIZED, CliTestUtils.getTestResource("pica/pica-with-holdings-info.dat"), null);
+    reader.hasNext();
+    Record record = reader.next();
+    BibliographicRecord bibliographicRecord = MarcFactory.createPicaFromMarc4j(record, schema);
+
+    PicaPath groupBy = PicaPathParser.parse("001@$0");
+    PicaGroupIndexer groupIndexer = new PicaGroupIndexer().setPicaPath(groupBy);
+    for (DataField field : bibliographicRecord.getDatafield(groupBy.getTag()))
+      field.addFieldIndexer(groupIndexer);
+
+    Map<String, List<String>> map = bibliographicRecord.getKeyValuePairs(SolrFieldType.MIXED, true, MarcVersion.MARC21);
+    assertTrue(map.containsKey("001x400"));
+    assertEquals(5, map.get("001x400").size());
+    assertEquals("20,70,77,2035", map.get("001x400").get(0));
+    assertEquals("20", map.get("001x400").get(1));
+    assertEquals("70", map.get("001x400").get(2));
+    assertEquals("77", map.get("001x400").get(3));
+    assertEquals("2035", map.get("001x400").get(4));
   }
 
   @Test

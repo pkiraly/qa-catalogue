@@ -167,6 +167,16 @@ public class Utils {
     return Integer.toString(i, Character.MAX_RADIX);
   }
 
+  public static void mergeMap(Map<String, List<String>> base, Map<String, List<String>> extra) {
+    for (String key : extra.keySet()) {
+      List<String> values = extra.get(key);
+      if (base.containsKey(key)) {
+        base.get(key).addAll(values);
+      } else
+        base.put(key, values);
+    }
+  }
+
   public static int scientificNotationToInt(String scientificNotation) {
     var value = new BigDecimal(scientificNotation);
     return value.toBigInteger().intValue();

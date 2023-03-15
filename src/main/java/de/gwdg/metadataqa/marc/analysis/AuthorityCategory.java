@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 public enum AuthorityCategory {
-  Personal("Personal names", 1, "100", "700", "800"),
-  Corporate("Corporate names", 2, "110", "710", "810"),
-  Meeting("Meeting names", 3,"111", "711", "811"),
-  Geographic("Geographic names", 4, "751", "752"),
-  Titles("Titles", 5, "130", "730", "740", "830"),
-  Other("Other", 6, "720", "753", "754")
+  PERSONAL("Personal names", 1, "100", "700", "800"),
+  CORPORATE("Corporate names", 2, "110", "710", "810"),
+  MEETING("Meeting names", 3,"111", "711", "811"),
+  GEOGRAPHIC("Geographic names", 4, "751", "752"),
+  TITLES("Titles", 5, "130", "730", "740", "830"),
+  OTHER("Other", 6, "720", "753", "754")
   ;
 
   private final int id;

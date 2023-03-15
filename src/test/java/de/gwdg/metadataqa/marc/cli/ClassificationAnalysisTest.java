@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
+import de.gwdg.metadataqa.marc.analysis.ClassificationStatistics;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.utils.ReadMarc;
@@ -18,6 +19,7 @@ import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
 public class ClassificationAnalysisTest extends CliTestUtils {
 
@@ -43,9 +45,16 @@ public class ClassificationAnalysisTest extends CliTestUtils {
   public void test() throws Exception {
     Path path = FileUtils.getPath("general/0001-01.mrc");
     Record marc4jRecord = ReadMarc.read(path.toString()).get(0);
+    assertNotNull(marc4jRecord);
     ClassificationAnalysis analysis = new ClassificationAnalysis(new String[]{});
     BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
+    assertNotNull(marcRecord);
     analysis.processRecord(marcRecord, 1);
+    ClassificationStatistics statistics = analysis.getStatistics();
+    assertNotNull(statistics);
+    assertEquals(1, statistics.getInstances().size());
+    assertEquals(1, statistics.getRecords().size());
+    assertEquals(1, statistics.getSubfields().size());
   }
 
   @Test

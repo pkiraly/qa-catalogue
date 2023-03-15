@@ -371,4 +371,8 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
   public boolean readyToProcess() {
     return readyToProcess;
   }
+
+  public ClassificationStatistics getStatistics() {
+    return statistics;
+  }
 }

@@ -148,11 +148,11 @@ public class PicaRecord extends BibliographicRecord {
     skippableSubjectSubfields.put("045R", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
 
     authorityTagsMap = new EnumMap<>(AuthorityCategory.class);
-    authorityTagsMap.put(AuthorityCategory.Titles, List.of("022A", "022A"));
-    authorityTagsMap.put(AuthorityCategory.Personal, List.of("028A", "028B", "028C", "028E", "028G", "033J"));
-    authorityTagsMap.put(AuthorityCategory.Corporate, List.of("029A", "029E", "029F", "029G"));
-    authorityTagsMap.put(AuthorityCategory.Other, List.of("032V", "032W", "032X", "037Q", "037R"));
-    authorityTagsMap.put(AuthorityCategory.Geographic, List.of("033D", "033H"));
+    authorityTagsMap.put(AuthorityCategory.TITLES, List.of("022A", "022A"));
+    authorityTagsMap.put(AuthorityCategory.PERSONAL, List.of("028A", "028B", "028C", "028E", "028G", "033J"));
+    authorityTagsMap.put(AuthorityCategory.CORPORATE, List.of("029A", "029E", "029F", "029G"));
+    authorityTagsMap.put(AuthorityCategory.OTHER, List.of("032V", "032W", "032X", "037Q", "037R"));
+    authorityTagsMap.put(AuthorityCategory.GEOGRAPHIC, List.of("033D", "033H"));
   }
 
   private static void initializeShelfReadyMap() {

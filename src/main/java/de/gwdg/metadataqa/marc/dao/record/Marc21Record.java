@@ -102,12 +102,12 @@ public class Marc21Record extends BibliographicRecord {
     skippableSubjectSubfields = new HashMap<>();
 
     authorityTagsMap = new EnumMap<>(AuthorityCategory.class);
-    authorityTagsMap.put(AuthorityCategory.Personal, List.of("100", "700", "800"));
-    authorityTagsMap.put(AuthorityCategory.Corporate, List.of("110", "710", "810"));
-    authorityTagsMap.put(AuthorityCategory.Meeting, List.of("111", "711", "811"));
-    authorityTagsMap.put(AuthorityCategory.Geographic, List.of("751", "752"));
-    authorityTagsMap.put(AuthorityCategory.Titles, List.of("130", "730", "740", "830"));
-    authorityTagsMap.put(AuthorityCategory.Other, List.of("720", "753", "754"));
+    authorityTagsMap.put(AuthorityCategory.PERSONAL, List.of("100", "700", "800"));
+    authorityTagsMap.put(AuthorityCategory.CORPORATE, List.of("110", "710", "810"));
+    authorityTagsMap.put(AuthorityCategory.MEETING, List.of("111", "711", "811"));
+    authorityTagsMap.put(AuthorityCategory.GEOGRAPHIC, List.of("751", "752"));
+    authorityTagsMap.put(AuthorityCategory.TITLES, List.of("130", "730", "740", "830"));
+    authorityTagsMap.put(AuthorityCategory.OTHER, List.of("720", "753", "754"));
   }
 
   public Map<ThompsonTraillFields, List<String>> getThompsonTraillTagsMap() {

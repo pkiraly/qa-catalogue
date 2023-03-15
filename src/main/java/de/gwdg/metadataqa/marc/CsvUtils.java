@@ -7,10 +7,13 @@ import java.io.Serializable;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class CsvUtils {
+
+  private static final Logger logger = Logger.getLogger(CsvUtils.class.getCanonicalName());
 
   public static String createCsv(List<? extends Serializable> values) {
     return createCsv(asArray(values));
@@ -32,7 +35,7 @@ public class CsvUtils {
 
       csv = sw.toString();
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.severe(e.getLocalizedMessage());
     }
 
     return csv;

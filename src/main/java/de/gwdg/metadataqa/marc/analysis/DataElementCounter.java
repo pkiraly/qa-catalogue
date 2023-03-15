@@ -41,7 +41,7 @@ public class DataElementCounter {
         tags.get(element.field).add(element);
       }
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.severe(e.getLocalizedMessage());
     }
     this.header = firstLine;
   }

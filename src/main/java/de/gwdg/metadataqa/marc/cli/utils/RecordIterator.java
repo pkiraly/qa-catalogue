@@ -86,7 +86,7 @@ public class RecordIterator {
         MarcReader reader = getMarcStreamReader(processor.getParameters());
         processContent(reader, "stream");
       } catch (Exception e) {
-        e.printStackTrace();
+        logger.severe(e.getLocalizedMessage());
       }
     }
 

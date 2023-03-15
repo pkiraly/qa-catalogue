@@ -7,7 +7,6 @@ import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -15,8 +14,11 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class PicaSchemaReader {
+
+  private static final Logger logger = Logger.getLogger(PicaSchemaReader.class.getCanonicalName());
 
   private JSONParser parser = new JSONParser(JSONParser.MODE_RFC4627);
   private Map<String, PicaFieldDefinition> map = new HashMap<>();
@@ -26,7 +28,7 @@ public class PicaSchemaReader {
     try {
       readSchema(fileName);
     } catch (IOException | ParseException | URISyntaxException e) {
-      e.printStackTrace();
+      logger.severe(e.getLocalizedMessage());
     }
   }
 

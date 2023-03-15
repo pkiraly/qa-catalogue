@@ -95,7 +95,7 @@ public class ISSNValidator implements SubfieldValidator, Serializable {
       // .replaceAll(" ", "")
       // .replaceAll("[ :-]", "")
       .replaceAll(" \\(ISSN\\)$", "")
-            .replaceAll("[\\s;:-]+$", "")
+      .replaceAll("[\\s;:-]++$", "")
       .trim();
     return value;
   }

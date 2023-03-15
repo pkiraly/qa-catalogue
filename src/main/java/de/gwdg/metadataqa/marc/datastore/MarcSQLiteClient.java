@@ -35,8 +35,7 @@ public class MarcSQLiteClient {
   }
 
   public void createSchema() {
-    try {
-      final Statement stmt = conn.createStatement();
+    try (Statement stmt = conn.createStatement()){
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS course (course_id INTEGER, title TEXT, seats_available INTEGER, PRIMARY KEY(course_id))");
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS student (student_id INTEGER, name TEXT, PRIMARY KEY(student_id))");
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS take (course_id INTEGER, student_id INTEGER, enroll_date TEXT, PRIMARY KEY(student_id, course_id))");

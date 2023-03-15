@@ -35,27 +35,26 @@ public class ParallelValidator {
 
     logger.info("Input file is " + params.getDetailsFileName());
     SparkConf conf = new SparkConf().setAppName("MarcCompletenessCount");
-    JavaSparkContext context = new JavaSparkContext(conf);
+    try (JavaSparkContext context = new JavaSparkContext(conf)) {
+      System.err.println(validatorCli.getParameters().formatParameters());
 
-    System.err.println(validatorCli.getParameters().formatParameters());
-
-    JavaRDD<String> inputFile = context.textFile(validatorCli.getParameters().getArgs()[0]);
-
-    JavaRDD<String> baseCountsRDD = inputFile
-      .flatMap(content -> {
-        MarcReader reader = QAMarcReaderFactory.getStringReader(MarcFormat.ISO, content);
-        Record marc4jRecord = reader.next();
-        BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(
-          marc4jRecord, params.getDefaultRecordType(), params.getMarcVersion(), params.getReplacementInControlFields());
-        validatorCli.processRecord(marcRecord, 1);
-        Validator analyzer = new Validator(validatorConfiguration);
-        analyzer.validate(marcRecord);
-        return ValidationErrorFormatter
-          .formatForSummary(analyzer.getValidationErrors(), params.getFormat())
-          .iterator();
-      }
-    );
-    baseCountsRDD.saveAsTextFile(validatorCli.getParameters().getDetailsFileName());
+      JavaRDD<String> inputFile = context.textFile(validatorCli.getParameters().getArgs()[0]);
+      JavaRDD<String> baseCountsRDD = inputFile
+        .flatMap(content -> {
+            MarcReader reader = QAMarcReaderFactory.getStringReader(MarcFormat.ISO, content);
+            Record marc4jRecord = reader.next();
+            BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(
+              marc4jRecord, params.getDefaultRecordType(), params.getMarcVersion(), params.getReplacementInControlFields());
+            validatorCli.processRecord(marcRecord, 1);
+            Validator analyzer = new Validator(validatorConfiguration);
+            analyzer.validate(marcRecord);
+            return ValidationErrorFormatter
+              .formatForSummary(analyzer.getValidationErrors(), params.getFormat())
+              .iterator();
+          }
+        );
+      baseCountsRDD.saveAsTextFile(validatorCli.getParameters().getDetailsFileName());
+    }
   }
 
   private static void help() {

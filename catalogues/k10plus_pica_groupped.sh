@@ -11,7 +11,7 @@ TYPE_PARAMS="$TYPE_PARAMS --ignorableFields 001@,001E,001L,001U,001U,001X,001X,0
 TYPE_PARAMS="$TYPE_PARAMS --ignorableIssueTypes undefinedField"
 TYPE_PARAMS="$TYPE_PARAMS --allowableRecords base64:"$(echo '002@.0 !~ "^L" && 002@.0 !~ "^..[iktN]" && (002@.0 !~ "^.v" || 021A.a?)' | base64 -w 0)
 # MASK=sample.pica
-MASK=pica-with-holdings-info-1K.dat
+MASK=${MASK:=pica-with-holdings-info-1K.dat} # if not set in setdir.sh
 
 . ./common-script
 

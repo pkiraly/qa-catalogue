@@ -258,7 +258,7 @@ do_sqlite() {
     rm ${OUTPUT_DIR}/qa_catalogue.sqlite
   fi
 
-  HAS_GROUP_PARAM=$(echo ${TYPE_PARAMS} | grep -c -P -e '--groupBy [^-]')
+  HAS_GROUP_PARAM=$(echo ${TYPE_PARAMS} | grep -c -P -e '--groupBy [^-]' || true)
   if [[ "${HAS_GROUP_PARAM}" == "0" ]]; then
     printf "%s %s> create DB structure\n" $(date +"%F %T")
     sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/qa_catalogue.sqlite.sql

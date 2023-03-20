@@ -17,11 +17,10 @@ import java.io.InputStream;
 /** This class is a variation of MarcXmlReader */
 public class PicaXmlReader extends PicaReader {
   private final RecordStack queue;
-  private boolean parsed;
 
   public PicaXmlReader(final InputStream input) {
-    this(new InputSource(input));
-    this.parsed = true;
+    this.queue = new RecordStack();
+    createProducerFromInputSurce(new InputSource(input));
   }
 
   /**
@@ -31,6 +30,10 @@ public class PicaXmlReader extends PicaReader {
    */
   public PicaXmlReader(final InputSource input) {
     this.queue = new RecordStack();
+    createProducerFromInputSurce(input);
+  }
+
+  private void createProducerFromInputSurce(final InputSource input) {
     final PicaXmlParserThread producer = new PicaXmlParserThread(queue, input, idTag, idCode.charAt(0));
     producer.start();
   }

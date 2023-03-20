@@ -63,7 +63,6 @@ public class TagHierarchy {
   }
 
   public static TagHierarchy createFromPath(String path, MarcVersion version) {
-    System.err.println("createFromPath");
     TagHierarchy tagHierarchy = null;
     Matcher matcher;
     matcher = leaderPattern.matcher(path);
@@ -106,7 +105,6 @@ public class TagHierarchy {
   }
 
   private static TagHierarchy getDataSubfield(String path, MarcVersion version, Matcher matcher) {
-    System.err.println("dataFieldPattern: "  + path);
     String tag = matcher.group(1);
     String subfieldCode = matcher.group(2);
 

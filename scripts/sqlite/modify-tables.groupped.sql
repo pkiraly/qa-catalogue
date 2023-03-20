@@ -1,12 +1,12 @@
 --- issue_details indices
-CREATE INDEX "errorId" ON "issue_details" ("errorId");
-CREATE INDEX "recordId" ON "issue_details" ("recordId");
+CREATE INDEX IF NOT EXISTS "errorId" ON "issue_details" ("errorId");
+CREATE INDEX IF NOT EXISTS "recordId" ON "issue_details" ("recordId");
 
 --- issue_summary indices
-CREATE INDEX "groupId" ON "issue_summary" ("groupId");
-CREATE INDEX "id" ON "issue_summary" ("id");
-CREATE INDEX "categoryId" ON "issue_summary" ("categoryId");
-CREATE INDEX "typeId" ON "issue_summary" ("typeId");
+CREATE INDEX IF NOT EXISTS "groupId" ON "issue_summary" ("groupId");
+CREATE INDEX IF NOT EXISTS "id" ON "issue_summary" ("id");
+CREATE INDEX IF NOT EXISTS "categoryId" ON "issue_summary" ("categoryId");
+CREATE INDEX IF NOT EXISTS "typeId" ON "issue_summary" ("typeId");
 
 --- create issue_groups to speed up queries
 CREATE TABLE issue_groups AS
@@ -22,6 +22,6 @@ LEFT JOIN issue_details AS d ON (s.id = d.errorId)
 GROUP BY groupId, categoryId, typeId, s.MarcPath;
 
 --- issue_groups indices
-CREATE INDEX "groupId" ON "issue_groups" ("groupId");
-CREATE INDEX "categoryId" ON "issue_groups" ("categoryId");
-CREATE INDEX "typeId" ON "issue_groups" ("typeId");
+CREATE INDEX IF NOT EXISTS "groupId" ON "issue_groups" ("groupId");
+CREATE INDEX IF NOT EXISTS "categoryId" ON "issue_groups" ("categoryId");
+CREATE INDEX IF NOT EXISTS "typeId" ON "issue_groups" ("typeId");

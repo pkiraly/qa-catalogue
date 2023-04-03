@@ -16,6 +16,7 @@ import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.Record;
 
@@ -296,7 +297,23 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
       }
       printCollector();
     }
+    copySchemaFileToOutputDir();
+
     logger.info("all printing is DONE");
+  }
+
+  private void copySchemaFileToOutputDir() {
+    if (parameters.isPica()) {
+      String schemaFile = StringUtils.isNotEmpty(parameters.getPicaSchemaFile())
+        ? parameters.getPicaSchemaFile()
+        : Paths.get("src/main/resources/pica/avram-k10plus-title.json").toAbsolutePath().toString();
+      File source = new File(schemaFile);
+      try {
+        FileUtils.copyFileToDirectory(source, new File(parameters.getOutputDir()));
+      } catch (IOException e) {
+        logger.warning(e.getLocalizedMessage());
+      }
+    }
   }
 
   private void printCounter() {

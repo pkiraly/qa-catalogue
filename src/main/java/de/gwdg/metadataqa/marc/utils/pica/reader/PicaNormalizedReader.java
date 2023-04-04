@@ -37,7 +37,7 @@ public class PicaNormalizedReader extends PicaReader {
   public PicaNormalizedReader(InputStream stream, String encoding) {
     try {
       bufferedReader = new BufferedReader(new InputStreamReader(stream, encoding));
-      parseIdField();
+      // parseIdField();
     } catch (IOException e) {
       logger.log(Level.WARNING, "error in PicaReader()", e);
     }

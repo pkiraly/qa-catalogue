@@ -94,6 +94,7 @@ public final class QAMarcReaderFactory {
     String encoding = (parameters != null && StringUtils.isNotBlank(parameters.getDefaultEncoding())) ? parameters.getDefaultEncoding() : "UTF-8";
     PicaReader reader = new PicaNormalizedReader(stream, encoding);
     configurePicaReader(reader, parameters);
+    reader.parseIdField();
     return reader;
   }
 

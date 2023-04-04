@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public abstract class PicaReader implements MarcReader {
 
   protected String idField = "003@$0";
-  protected String subfieldSeparator = null; // "$";
+  protected String subfieldSeparator = "$";
   protected String idTag = "003@";
   protected String idCode = "0";
   protected boolean parsed = false;
@@ -24,7 +24,7 @@ public abstract class PicaReader implements MarcReader {
   @Override
   public abstract Record next();
 
-  protected void parseIdField() {
+  public void parseIdField() {
     String[] parts = idField.split(Pattern.quote(subfieldSeparator));
     idTag = parts[0];
     idCode = parts[1];

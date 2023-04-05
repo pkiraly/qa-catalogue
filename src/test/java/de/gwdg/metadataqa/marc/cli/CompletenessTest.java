@@ -4,6 +4,7 @@ import com.opencsv.CSVReader;
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import junit.framework.TestCase;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -116,10 +117,15 @@ public class CompletenessTest extends CliTestUtils {
       assertTrue(outputFile + " should exist", output.exists());
       if (outputFile.equals("completeness-groupped-marc-elements.csv")) {
         CSVReader reader = new CSVReader(new FileReader(output));
-        String[] record = null;
+        String[] record;
         int lineNr = 0;
         while ((record = reader.readNext()) != null) {
-          if (lineNr > 0) {
+          if (lineNr == 0)
+            assertEquals(
+              "groupId,documenttype,path,packageid,package,tag,subfield,number-of-record,number-of-instances,min,max,mean,stddev,histogram",
+              StringUtils.join(record, ",")
+            );
+          else {
             int records = Integer.parseInt(record[7]);
             int occurrences = Integer.parseInt(record[8]);
             assertTrue(records <= occurrences);
@@ -161,10 +167,15 @@ public class CompletenessTest extends CliTestUtils {
       assertTrue(outputFile + " should exist", output.exists());
       if (outputFile.equals("completeness-groupped-marc-elements.csv")) {
         CSVReader reader = new CSVReader(new FileReader(output));
-        String[] record = null;
+        String[] record;
         int lineNr = 0;
         while ((record = reader.readNext()) != null) {
-          if (lineNr > 0) {
+          if (lineNr == 0)
+            assertEquals(
+              "groupId,documenttype,path,packageid,package,tag,subfield,number-of-record,number-of-instances,min,max,mean,stddev,histogram",
+              StringUtils.join(record, ",")
+            );
+          else {
             int records = Integer.parseInt(record[7]);
             int occurrences = Integer.parseInt(record[8]);
             assertTrue(records <= occurrences);

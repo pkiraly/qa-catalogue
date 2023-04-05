@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.CsvUtils;
+import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.analysis.completeness.CompletenessDAO;
 import de.gwdg.metadataqa.marc.analysis.GroupSelector;
 import de.gwdg.metadataqa.marc.analysis.completeness.RecordCompleteness;
@@ -30,9 +31,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -41,6 +43,7 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
 
   private static final Logger logger = Logger.getLogger(Completeness.class.getCanonicalName());
   private static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
+  public static final String ALL = "all";
 
   private CompletenessParameters parameters;
 
@@ -109,7 +112,7 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
 
     if (doGroups()) {
       for (String id : recordCompleteness.getGroupIds()) {
-        count(id, completenessDAO.getGroupCounter());
+        Utils.count(id, completenessDAO.getGroupCounter());
         printToFile(idCollectorFile, CsvUtils.createCsv(bibliographicRecord.getId(true), id));
       }
     }
@@ -117,44 +120,39 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     for (String key : recordCompleteness.getRecordFrequency().keySet()) {
       if (groupBy != null) {
         for (String groupId : recordCompleteness.getGroupIds()) {
-          completenessDAO.getGrouppedElementFrequency().computeIfAbsent(groupId, s -> new TreeMap<>());
-          completenessDAO.getGrouppedElementFrequency().get(groupId).computeIfAbsent(recordCompleteness.getDocumentType(), s -> new TreeMap<>());
-          completenessDAO.getGrouppedElementFrequency().get(groupId).computeIfAbsent("all", s -> new TreeMap<>());
-          count(key, completenessDAO.getGrouppedElementFrequency().get(groupId).get(recordCompleteness.getDocumentType()));
-          count(key, completenessDAO.getGrouppedElementFrequency().get(groupId).get("all"));
+          completenessDAO.getGrouppedElementFrequency().computeIfAbsent(groupId, s -> new HashMap<>());
+          completenessDAO.getGrouppedElementFrequency().get(groupId).computeIfAbsent(recordCompleteness.getDocumentType(), s -> new HashMap<>());
+          completenessDAO.getGrouppedElementFrequency().get(groupId).computeIfAbsent(ALL, s -> new HashMap<>());
+          Utils.count(key, completenessDAO.getGrouppedElementFrequency().get(groupId).get(recordCompleteness.getDocumentType()));
+          Utils.count(key, completenessDAO.getGrouppedElementFrequency().get(groupId).get(ALL));
 
-          completenessDAO.getGrouppedFieldHistogram().computeIfAbsent(groupId, s -> new TreeMap<>());
-          completenessDAO.getGrouppedFieldHistogram().get(groupId).computeIfAbsent(key, s -> new TreeMap<>());
-          count(recordCompleteness.getRecordFrequency().get(key), completenessDAO.getGrouppedFieldHistogram().get(groupId).get(key));
+          completenessDAO.getGrouppedFieldHistogram().computeIfAbsent(groupId, s -> new HashMap<>());
+          completenessDAO.getGrouppedFieldHistogram().get(groupId).computeIfAbsent(key, s -> new HashMap<>());
+          Utils.count(recordCompleteness.getRecordFrequency().get(key), completenessDAO.getGrouppedFieldHistogram().get(groupId).get(key));
         }
       } else {
-        count(key, completenessDAO.getElementFrequency().get(recordCompleteness.getDocumentType()));
-        count(key, completenessDAO.getElementFrequency().get("all"));
-        completenessDAO.getFieldHistogram().computeIfAbsent(key, s -> new TreeMap<>());
-        count(recordCompleteness.getRecordFrequency().get(key), completenessDAO.getFieldHistogram().get(key));
+        Utils.count(key, completenessDAO.getElementFrequency().get(recordCompleteness.getDocumentType()));
+        Utils.count(key, completenessDAO.getElementFrequency().get(ALL));
+        completenessDAO.getFieldHistogram().computeIfAbsent(key, s -> new HashMap<>());
+        Utils.count(recordCompleteness.getRecordFrequency().get(key), completenessDAO.getFieldHistogram().get(key));
       }
     }
 
     for (String key : recordCompleteness.getRecordPackageCounter().keySet()) {
       if (groupBy != null) {
         for (String groupId : recordCompleteness.getGroupIds()) {
-          completenessDAO.getGrouppedPackageCounter().computeIfAbsent(groupId, s -> new TreeMap<>());
-          completenessDAO.getGrouppedPackageCounter().get(groupId).computeIfAbsent(recordCompleteness.getDocumentType(), s -> new TreeMap<>());
-          completenessDAO.getGrouppedPackageCounter().get(groupId).computeIfAbsent("all", s -> new TreeMap<>());
-          count(key, completenessDAO.getGrouppedPackageCounter().get(groupId).get(recordCompleteness.getDocumentType()));
-          count(key, completenessDAO.getGrouppedPackageCounter().get(groupId).get("all"));
+          completenessDAO.getGrouppedPackageCounter().computeIfAbsent(groupId, s -> new HashMap<>());
+          completenessDAO.getGrouppedPackageCounter().get(groupId).computeIfAbsent(recordCompleteness.getDocumentType(), s -> new HashMap<>());
+          completenessDAO.getGrouppedPackageCounter().get(groupId).computeIfAbsent(ALL, s -> new HashMap<>());
+          Utils.count(key, completenessDAO.getGrouppedPackageCounter().get(groupId).get(recordCompleteness.getDocumentType()));
+          Utils.count(key, completenessDAO.getGrouppedPackageCounter().get(groupId).get(ALL));
         }
       } else {
-        completenessDAO.getPackageCounter().computeIfAbsent(recordCompleteness.getDocumentType(), s -> new TreeMap<>());
-        count(key, completenessDAO.getPackageCounter().get(recordCompleteness.getDocumentType()));
-        count(key, completenessDAO.getPackageCounter().get("all"));
+        completenessDAO.getPackageCounter().computeIfAbsent(recordCompleteness.getDocumentType(), s -> new HashMap<>());
+        Utils.count(key, completenessDAO.getPackageCounter().get(recordCompleteness.getDocumentType()));
+        Utils.count(key, completenessDAO.getPackageCounter().get(ALL));
       }
     }
-  }
-
-  private <T extends Object> void count(T key, Map<T, Integer> counter) {
-    counter.computeIfAbsent(key, s -> 0);
-    counter.put(key, counter.get(key) + 1);
   }
 
   @Override
@@ -295,29 +293,42 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     var path = Paths.get(parameters.getOutputDir(), "completeness-groupped-packages" + fileExtension);
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write(CsvUtils.createCsv("group", "documenttype", "packageid", "name", "label", "iscoretag", "count"));
-      completenessDAO.getGrouppedPackageCounter().forEach((groupId, documentTypes) -> {
-        documentTypes.forEach((documentType, packages) -> {
-          packages.forEach((packageName, count) -> {
-            try {
-              TagCategory tagCategory = TagCategory.getPackage(packageName);
-              String range = packageName;
-              String label = "";
-              int id = 100;
-              boolean isPartOfMarcScore = false;
-              if (tagCategory != null) {
-                id = tagCategory.getId();
-                range = tagCategory.getRange();
-                label = tagCategory.getLabel();
-                isPartOfMarcScore = tagCategory.isPartOfMarcCore();
-              } else {
-                logger.severe(packageName + " has not been found in TagCategory");
-              }
-              writer.write(CsvUtils.createCsv(groupId, documentType, id, range, label, isPartOfMarcScore, count));
-            } catch (IOException e) {
-              logger.log(Level.SEVERE, "savePackages", e);
-            }
-          });
-        });
+      completenessDAO.getGrouppedPackageCounter()
+        .entrySet()
+        .stream()
+        .sorted(Map.Entry.comparingByKey())
+        .forEach(groupData -> {
+          String groupId = groupData.getKey();
+          Map<String, Map<String, Integer>> documentTypes = groupData.getValue();
+          documentTypes
+            .entrySet()
+            .stream()
+            .sorted(Map.Entry.comparingByKey())
+            .forEach(doctypeData -> {
+              String documentType = doctypeData.getKey();
+              Map<String, Integer> packages = doctypeData.getValue();
+              packages
+                .forEach((packageName, count) -> {
+                try {
+                  TagCategory tagCategory = TagCategory.getPackage(packageName);
+                  String range = packageName;
+                  String label = "";
+                  int id = 100;
+                  boolean isPartOfMarcScore = false;
+                  if (tagCategory != null) {
+                    id = tagCategory.getId();
+                    range = tagCategory.getRange();
+                    label = tagCategory.getLabel();
+                    isPartOfMarcScore = tagCategory.isPartOfMarcCore();
+                  } else {
+                    logger.severe(packageName + " has not been found in TagCategory");
+                  }
+                  writer.write(CsvUtils.createCsv(groupId, documentType, id, range, label, isPartOfMarcScore, count));
+                } catch (IOException e) {
+                  logger.log(Level.SEVERE, "savePackages", e);
+                }
+              });
+            });
       });
     } catch (IOException e) {
       logger.log(Level.SEVERE, "savePackages", e);
@@ -347,13 +358,17 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     var path = Paths.get(parameters.getOutputDir(), "completeness-groups" + fileExtension);
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write(CsvUtils.createCsv("id", "group", "count"));
-      completenessDAO.getGroupCounter().forEach((key, value) -> {
-        try {
-          writer.write(CsvUtils.createCsv(key, groupSelector.getOrgName(key), value));
-        } catch (IOException e) {
-          logger.log(Level.SEVERE, "saveLibraries", e);
-        }
-      });
+      completenessDAO.getGroupCounter()
+        .entrySet()
+        .stream()
+        .sorted((a,b) -> a.getKey().compareTo(b.getKey()))
+        .forEach(item -> {
+          try {
+            writer.write(CsvUtils.createCsv(item.getKey(), groupSelector.getOrgName(item.getKey()), item.getValue()));
+          } catch (IOException e) {
+            logger.log(Level.SEVERE, "saveLibraries", e);
+          }
+        });
     } catch (IOException e) {
       logger.log(Level.SEVERE, "saveLibraries", e);
     }

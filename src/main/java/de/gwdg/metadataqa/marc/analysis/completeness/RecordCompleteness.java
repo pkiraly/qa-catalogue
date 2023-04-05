@@ -1,6 +1,8 @@
 package de.gwdg.metadataqa.marc.analysis.completeness;
 
 import de.gwdg.metadataqa.marc.MarcSubfield;
+import de.gwdg.metadataqa.marc.Utils;
+import de.gwdg.metadataqa.marc.cli.Completeness;
 import de.gwdg.metadataqa.marc.cli.QACli;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.plugin.CompletenessPlugin;
@@ -15,11 +17,11 @@ import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
@@ -27,6 +29,11 @@ public class RecordCompleteness {
 
   private static final Logger logger = Logger.getLogger(RecordCompleteness.class.getCanonicalName());
   private static final Pattern numericalPattern = Pattern.compile("^(\\d)$");
+  public static final String IND_1 = "$!ind1";
+  public static final String IND_2 = "$!ind2";
+  public static final String NUMERICAL_SUBFIELD = "$|";
+  public static final String SUBFIELD = "$";
+  private static Map<String, Map<String, String>> keyMap = new HashMap<>();
 
   private final BibiographicPath groupBy;
   private final CompletenessParameters parameters;
@@ -35,8 +42,8 @@ public class RecordCompleteness {
   BibliographicRecord bibliographicRecord;
   String documentType;
   boolean hasGroupBy;
-  Map<String, Integer> recordFrequency = new TreeMap<>();
-  Map<String, Integer> recordPackageCounter = new TreeMap<>();
+  Map<String, Integer> recordFrequency = new HashMap<>();
+  Map<String, Integer> recordPackageCounter = new HashMap<>();
   Set<String> groupIds = new HashSet<>();
 
   public RecordCompleteness(BibliographicRecord bibliographicRecord,
@@ -59,14 +66,14 @@ public class RecordCompleteness {
 
   public void process() {
     documentType = plugin.getDocumentType(bibliographicRecord);
-    completenessDAO.getElementCardinality().computeIfAbsent(documentType, s -> new TreeMap<>());
-    completenessDAO.getElementFrequency().computeIfAbsent(documentType, s -> new TreeMap<>());
+    completenessDAO.getElementCardinality().computeIfAbsent(documentType, s -> new HashMap<>());
+    completenessDAO.getElementFrequency().computeIfAbsent(documentType, s -> new HashMap<>());
 
     if (bibliographicRecord.getControl003() != null)
-      count(bibliographicRecord.getControl003().getContent(), completenessDAO.getLibrary003Counter());
+      Utils.count(bibliographicRecord.getControl003().getContent(), completenessDAO.getLibrary003Counter());
 
     for (String library : extract(bibliographicRecord, "852", "a"))
-      count(library, completenessDAO.getLibraryCounter());
+      Utils.count(library, completenessDAO.getLibraryCounter());
 
     if (!parameters.isPica()) {
       processLeader();
@@ -84,11 +91,11 @@ public class RecordCompleteness {
           for (String groupId : groupIds)
             addGrouppedElementCardinality(marcPath, groupId);
         } else {
-          count(marcPath, completenessDAO.getElementCardinality().get(documentType));
-          count(marcPath, completenessDAO.getElementCardinality().get("all"));
+          Utils.count(marcPath, completenessDAO.getElementCardinality().get(documentType));
+          Utils.count(marcPath, completenessDAO.getElementCardinality().get(Completeness.ALL));
         }
-        count(marcPath, recordFrequency);
-        count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
+        Utils.count(marcPath, recordFrequency);
+        Utils.count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
       }
     }
   }
@@ -101,11 +108,11 @@ public class RecordCompleteness {
           for (String groupId : groupIds)
             addGrouppedElementCardinality(marcPath, groupId);
         } else {
-          count(marcPath, completenessDAO.getElementCardinality().get(documentType));
-          count(marcPath, completenessDAO.getElementCardinality().get("all"));
+          Utils.count(marcPath, completenessDAO.getElementCardinality().get(documentType));
+          Utils.count(marcPath, completenessDAO.getElementCardinality().get(Completeness.ALL));
         }
-        count(marcPath, recordFrequency);
-        count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
+        Utils.count(marcPath, recordFrequency);
+        Utils.count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
       }
     }
   }
@@ -119,11 +126,11 @@ public class RecordCompleteness {
             for (String groupId : groupIds)
               addGrouppedElementCardinality(marcPath, groupId);
           } else {
-            count(marcPath, completenessDAO.getElementCardinality().get(documentType));
-            count(marcPath, completenessDAO.getElementCardinality().get("all"));
+            Utils.count(marcPath, completenessDAO.getElementCardinality().get(documentType));
+            Utils.count(marcPath, completenessDAO.getElementCardinality().get(Completeness.ALL));
           }
-          count(marcPath, recordFrequency);
-          count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
+          Utils.count(marcPath, recordFrequency);
+          Utils.count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
         }
       }
     }
@@ -134,10 +141,10 @@ public class RecordCompleteness {
       if (parameters.getIgnorableFields().contains(field.getTagWithOccurrence()))
         continue;
 
-      count(getPackageName(field), recordPackageCounter);
-      count(field.getTagWithOccurrence(), recordFrequency);
+      Utils.count(getPackageName(field), recordPackageCounter);
+      Utils.count(field.getTagWithOccurrence(), recordFrequency);
       for (String marcPath : getMarcPaths(field))
-        count(marcPath, recordFrequency);
+        Utils.count(marcPath, recordFrequency);
 
       if (groupBy != null) {
         for (String groupId : groupIds)
@@ -149,13 +156,13 @@ public class RecordCompleteness {
   }
 
   private void processDataField(DataField field) {
-    count(field.getTagWithOccurrence(), completenessDAO.getElementCardinality().get(documentType));
-    count(field.getTagWithOccurrence(), completenessDAO.getElementCardinality().get("all"));
+    Utils.count(field.getTagWithOccurrence(), completenessDAO.getElementCardinality().get(documentType));
+    Utils.count(field.getTagWithOccurrence(), completenessDAO.getElementCardinality().get(Completeness.ALL));
 
     List<String> marcPaths = getMarcPaths(field);
     for (String marcPath : marcPaths) {
-      count(marcPath, completenessDAO.getElementCardinality().get(documentType));
-      count(marcPath, completenessDAO.getElementCardinality().get("all"));
+      Utils.count(marcPath, completenessDAO.getElementCardinality().get(documentType));
+      Utils.count(marcPath, completenessDAO.getElementCardinality().get(Completeness.ALL));
     }
   }
 
@@ -164,14 +171,9 @@ public class RecordCompleteness {
 
     List<String> marcPaths = getMarcPaths(field);
     for (String marcPath : marcPaths) {
-      count(marcPath, completenessDAO.getGrouppedElementCardinality().get(groupId).get(documentType));
-      count(marcPath, completenessDAO.getGrouppedElementCardinality().get(groupId).get("all"));
+      Utils.count(marcPath, completenessDAO.getGrouppedElementCardinality().get(groupId).get(documentType));
+      Utils.count(marcPath, completenessDAO.getGrouppedElementCardinality().get(groupId).get(Completeness.ALL));
     }
-  }
-
-  private <T extends Object> void count(T key, Map<T, Integer> counter) {
-    counter.computeIfAbsent(key, s -> 0);
-    counter.put(key, counter.get(key) + 1);
   }
 
   public Set<String> getGroupIds() {
@@ -237,28 +239,37 @@ public class RecordCompleteness {
           && field.getDefinition() != null
           && (field.getDefinition().getInd1().exists()
              || !field.getInd1().equals(" ")))
-         marcPaths.add(String.format("%s$!ind1", field.getTagWithOccurrence()));
+        marcPaths.add(field.getTagWithOccurrence() + IND_1);
+        // marcPaths.add(String.format("%s$!ind1", field.getTagWithOccurrence()));
 
       if (field.getInd2() != null
           && field.getDefinition() != null
           && (field.getDefinition().getInd2().exists() || !field.getInd2().equals(" ")))
-         marcPaths.add(String.format("%s$!ind2", field.getTagWithOccurrence()));
+         marcPaths.add(field.getTagWithOccurrence() + IND_2);
     }
 
     for (MarcSubfield subfield : field.getSubfields())
-      if (numericalPattern.matcher(subfield.getCode()).matches())
-        marcPaths.add(String.format("%s$|%s", field.getTagWithOccurrence(), subfield.getCode()));
-      else
-        marcPaths.add(String.format("%s$%s", field.getTagWithOccurrence(), subfield.getCode()));
+      marcPaths.add(getKey(field, subfield));
 
     return marcPaths;
   }
 
+  private static String getKey(DataField field, MarcSubfield subfield) {
+    String f = field.getTagWithOccurrence();
+    String c = subfield.getCode();
+    keyMap.computeIfAbsent(f, s -> new HashMap<>());
+    if (!keyMap.get(f).containsKey(c)) {
+      String key = numericalPattern.matcher(c).matches() ? f + NUMERICAL_SUBFIELD + c : f + SUBFIELD + c;
+      keyMap.get(f).put(c, key);
+    }
+    return keyMap.get(f).get(c);
+  }
+
   private void addGrouppedElementCardinality(String marcPath, String groupId) {
-    completenessDAO.getGrouppedElementCardinality().computeIfAbsent(groupId, s -> new TreeMap<>());
-    completenessDAO.getGrouppedElementCardinality().get(groupId).computeIfAbsent(documentType, s -> new TreeMap<>());
-    completenessDAO.getGrouppedElementCardinality().get(groupId).computeIfAbsent("all", s -> new TreeMap<>());
-    count(marcPath, completenessDAO.getGrouppedElementCardinality().get(groupId).get(documentType));
-    count(marcPath, completenessDAO.getGrouppedElementCardinality().get(groupId).get("all"));
+    completenessDAO.getGrouppedElementCardinality().computeIfAbsent(groupId, s -> new HashMap<>());
+    completenessDAO.getGrouppedElementCardinality().get(groupId).computeIfAbsent(documentType, s -> new HashMap<>());
+    completenessDAO.getGrouppedElementCardinality().get(groupId).computeIfAbsent(Completeness.ALL, s -> new HashMap<>());
+    Utils.count(marcPath, completenessDAO.getGrouppedElementCardinality().get(groupId).get(documentType));
+    Utils.count(marcPath, completenessDAO.getGrouppedElementCardinality().get(groupId).get(Completeness.ALL));
   }
 }

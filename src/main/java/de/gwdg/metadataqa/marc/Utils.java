@@ -12,9 +12,11 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author Péter Király <peter.kiraly at gwdg.de>
@@ -109,8 +111,11 @@ public class Utils {
    * @param <T>
    */
   public static <T extends Object> void count(T key, Map<T, Integer> counter) {
-    counter.computeIfAbsent(key, s -> 0);
-    counter.put(key, counter.get(key) + 1);
+    // counter.computeIfAbsent(key, s -> 0);
+    if (!counter.containsKey(key))
+      counter.put(key, 1);
+    else
+      counter.put(key, counter.get(key) + 1);
   }
 
   public static <T extends Object> void add(T key, Map<T, Integer> counter, int i) {
@@ -118,16 +123,15 @@ public class Utils {
     counter.put(key, counter.get(key) + i);
   }
 
-  public static <T extends Object> List<String> counterToList(Map<T, Integer> counter) {
+  public static List<String> counterToList(Map<Integer, Integer> counter) {
     return counterToList(':', counter);
   }
 
-  public static <T extends Object> List<String> counterToList(char separator, Map<T, Integer> counter) {
-    List<String> items = new ArrayList<>();
-    for (Map.Entry<T, Integer> entry : counter.entrySet()) {
-      items.add(String.format("%s%s%d", entry.getKey().toString(), separator, entry.getValue()));
-    }
-    return items;
+  public static List<String> counterToList(char separator, Map<Integer, Integer> counter) {
+    return counter.entrySet().stream()
+      .sorted(Map.Entry.comparingByKey())
+      .map(item -> item.getKey().toString() + separator + item.getValue())
+      .collect(Collectors.toList());
   }
 
   public static String solarize(String abbreviation) {

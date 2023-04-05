@@ -1,30 +1,30 @@
 package de.gwdg.metadataqa.marc.analysis.completeness;
 
+import de.gwdg.metadataqa.marc.cli.Completeness;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class CompletenessDAO {
 
-  private Map<String, Map<String, Integer>> packageCounter = new TreeMap<>();
-  private Map<String, Map<String, Map<String, Integer>>> grouppedPackageCounter = new TreeMap<>();
-  private Map<String, Map<String, Integer>> elementCardinality = new TreeMap<>();
-  private Map<String, Map<String, Map<String, Integer>>> grouppedElementCardinality = new TreeMap<>();
-  private Map<String, Map<String, Integer>> elementFrequency = new TreeMap<>();
-  private Map<String, Map<String, Map<String, Integer>>> grouppedElementFrequency = new TreeMap<>();
-  private Map<String, Integer> groupCounter = new TreeMap<>();
-  private Map<String, Integer> library003Counter = new TreeMap<>();
-  private Map<String, Integer> libraryCounter = new TreeMap<>();
+  private Map<String, Map<String, Integer>> packageCounter = new HashMap<>();
+  private Map<String, Map<String, Map<String, Integer>>> grouppedPackageCounter = new HashMap<>();
+  private Map<String, Map<String, Integer>> elementCardinality = new HashMap<>();
+  private Map<String, Map<String, Map<String, Integer>>> grouppedElementCardinality = new HashMap<>();
+  private Map<String, Map<String, Integer>> elementFrequency = new HashMap<>();
+  private Map<String, Map<String, Map<String, Integer>>> grouppedElementFrequency = new HashMap<>();
+  private Map<String, Integer> groupCounter = new HashMap<>();
+  private Map<String, Integer> library003Counter = new HashMap<>();
+  private Map<String, Integer> libraryCounter = new HashMap<>();
   private Map<DataFieldDefinition, String> packageNameCache = new HashMap<>();
   private Map<String, Map<Integer, Integer>> fieldHistogram = new HashMap<>();
   private Map<String, Map<String, Map<Integer, Integer>>> grouppedFieldHistogram = new HashMap<>();
 
   public void initialize() {
-    packageCounter.put("all", new TreeMap<>());
-    elementCardinality.put("all", new TreeMap<>());
-    elementFrequency.put("all", new TreeMap<>());
+    packageCounter.put(Completeness.ALL, new HashMap<>());
+    elementCardinality.put(Completeness.ALL, new HashMap<>());
+    elementFrequency.put(Completeness.ALL, new HashMap<>());
   }
 
   public Map<String, Map<String, Integer>> getPackageCounter() {

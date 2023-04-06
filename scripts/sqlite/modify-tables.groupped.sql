@@ -1,3 +1,6 @@
+.echo on
+.timer on
+
 --- issue_details indices
 CREATE INDEX IF NOT EXISTS "errorId" ON "issue_details" ("errorId");
 CREATE INDEX IF NOT EXISTS "recordId" ON "issue_details" ("recordId");
@@ -7,6 +10,8 @@ CREATE INDEX IF NOT EXISTS "groupId" ON "issue_summary" ("groupId");
 CREATE INDEX IF NOT EXISTS "id" ON "issue_summary" ("id");
 CREATE INDEX IF NOT EXISTS "categoryId" ON "issue_summary" ("categoryId");
 CREATE INDEX IF NOT EXISTS "typeId" ON "issue_summary" ("typeId");
+CREATE INDEX IF NOT EXISTS "MarcPath" ON "issue_summary" ("MarcPath");
+CREATE INDEX IF NOT EXISTS "idx_mix" ON "issue_summary" (groupId, categoryId, typeId, MarcPath);
 
 --- create issue_groups to speed up queries
 CREATE TABLE issue_groups AS

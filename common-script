@@ -12,15 +12,10 @@ fi
 
 if [[ "$1" != "help" && "$1" != "export-schema-files" ]]; then
   echo "OUTPUT_DIR: ${OUTPUT_DIR}"
-  if [[ ! -d $PREFIX ]]; then
-    mkdir -p $PREFIX
-  fi
+  mkdir -p $PREFIX
+  mkdir -p $OUTPUT_DIR
 
   # printf "%s %s> Logging to ${PREFIX}.log"
-
-  if [ ! -d ${OUTPUT_DIR} ]; then
-    mkdir -p ${OUTPUT_DIR}
-  fi
 fi
 
 # die if input files don't exist
@@ -188,9 +183,7 @@ do_pareto() {
 
   . ./common-variables
   if [[ "${WEB_DIR:-}" != "" ]]; then
-    if [[ ! -d $WEB_DIR/images ]]; then
-      mkdir $WEB_DIR/images
-    fi
+    mkdir -p $WEB_DIR/images
     ln -s ${OUTPUT_DIR}/img $WEB_DIR/images/${NAME}
   fi
 }
@@ -312,9 +305,7 @@ EOF
 }
 
 do_export_schema_files() {
-  if [[ ! -d marc-schema ]]; then
-    mkdir marc-schema
-  fi
+  mkdir -p marc-schema
   printf "%s %s> [avram]\n" $(date +"%F %T")
   ./export-schema --withSubfieldCodelists > marc-schema/marc-schema.json
   ./export-schema --withSubfieldCodelists --solrFieldType mixed --withSelfDescriptiveCode > marc-schema/marc-schema-with-solr.json

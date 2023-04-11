@@ -19,9 +19,7 @@ SPARK_OUTPUT: $SPARK_OUTPUT
 OUTPUT_DIR: $OUTPUT_DIR
 "
 
-if [[ ! -d $OUTPUT_DIR ]]; then
-  mkdir $OUTPUT_DIR
-fi
+mkdir -p $OUTPUT_DIR
 
 while IFS="" read -r p || [ -n "$p" ]
 do

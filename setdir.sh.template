@@ -4,10 +4,5 @@
 BASE_INPUT_DIR=your/path
 BASE_OUTPUT_DIR=your/path
 
-if [ ! -d $BASE_INPUT_DIR/_reports ]; then
-  mkdir $BASE_INPUT_DIR/_reports
-fi
-
-if [ ! -d $BASE_OUTPUT_DIR ]; then
-  mkdir $BASE_OUTPUT_DIR
-fi
+mkdir -p $BASE_INPUT_DIR/_reports
+mkdir -p $BASE_OUTPUT_DIR

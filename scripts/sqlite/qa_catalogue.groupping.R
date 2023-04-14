@@ -97,9 +97,9 @@ for (i in 1:len) {
   }
 }
 
-typesDF
-categoriesDF
-pathsDF
+# typesDF
+# categoriesDF
+# pathsDF
 
 file <- sprintf('%s/%s', OUTPUT_DIR, 'issue-groupped-types.csv')
 print(file)

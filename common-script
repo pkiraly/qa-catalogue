@@ -24,6 +24,8 @@ if [[ "$1" != "help" && "$1" != "export-schema-files" ]]; then
 fi
 
 # die if input files don't exist
+echo BASE_PICA_INPUT_DIR: ${BASE_PICA_INPUT_DIR}
+echo ${MARC_DIR}/${MASK}
 ls ${MARC_DIR}/${MASK} > /dev/null
 
 do_validate() {
@@ -307,7 +309,95 @@ EOF
     sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.sql &>> ${PREFIX}/sqlite.log
   else
     printf "%s %s> index (groupped)\n" $(date +"%F %T")
-    sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.groupped.sql &>> ${PREFIX}/sqlite.log
+    sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.groupped.sqlite.sql &>> ${PREFIX}/sqlite.log
+    Rscript scripts/classifications/classifications-type.R ${OUTPUT_DIR} &>> ${PREFIX}/sqlite.log
+  fi
+}
+
+do_mysql() {
+  printf "%s %s> [MySQL]\n" $(date +"%F %T")
+
+  printf "%s %s> php scripts/sqlite/normalize-issue-details.php ${OUTPUT_DIR} &> ${PREFIX}/mysql.log\n" $(date +"%F %T")
+  php scripts/sqlite/normalize-issue-details.php ${OUTPUT_DIR} &> ${PREFIX}/mysql.log
+
+  # printf "%s %s> delete DB\n" $(date +"%F %T")
+  # if [[ -e ${OUTPUT_DIR}/qa_catalogue.sqlite ]]; then
+  #   rm ${OUTPUT_DIR}/qa_catalogue.sqlite
+  # fi
+  mysql --defaults-extra-file=mysql.client.cnf ${NAME} -e "DROP TABLE IF EXISTS issue_details"
+  mysql --defaults-extra-file=mysql.client.cnf ${NAME} -e "DROP TABLE IF EXISTS issue_summary"
+  mysql --defaults-extra-file=mysql.client.cnf ${NAME} -e "DROP TABLE IF EXISTS issue_groups"
+  mysql --defaults-extra-file=mysql.client.cnf ${NAME} -e "DROP TABLE IF EXISTS id_groupid"
+
+  HAS_GROUP_PARAM=$(echo ${TYPE_PARAMS} | grep -c -P -e '--groupBy [^-]' || true)
+  if [[ "${HAS_GROUP_PARAM}" == "0" ]]; then
+    printf "%s %s> create DB structure\n" $(date +"%F %T")
+    mysql --defaults-extra-file=mysql.client.cnf ${NAME} < scripts/sqlite/qa_catalogue.mysql.sql
+  else
+    printf "%s %s> create DB structure (groupped)\n" $(date +"%F %T")
+    mysql --defaults-extra-file=mysql.client.cnf ${NAME} < scripts/sqlite/qa_catalogue.groupped.mysql.sql
+  fi
+
+  printf "%s %s> create importable files\n" $(date +"%F %T")
+  # tail -n +2 ${OUTPUT_DIR}/issue-details-normalized.csv > ${OUTPUT_DIR}/issue-details-normalized_noheader.csv
+  # tail -n +2 ${OUTPUT_DIR}/issue-summary.csv > ${OUTPUT_DIR}/issue-summary_noheader.csv
+  # if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
+  #   tail -n +2 ${OUTPUT_DIR}/id-groupid.csv > ${OUTPUT_DIR}/id-groupid_noheader.csv
+  # fi
+
+  printf "%s %s> import issue details\n" $(date +"%F %T")
+  MYSQL_SEC_DIR=$(mysql --defaults-extra-file=mysql.client.cnf ${NAME} -e 'SHOW VARIABLES LIKE "secure_file_priv"\G' | grep 'Value:' | sed 's,\s*Value: ,,')
+  sudo cp ${OUTPUT_DIR}/issue-details-normalized.csv ${MYSQL_SEC_DIR}
+  mysql --defaults-extra-file=mysql.client.cnf ${NAME} -f << EOF
+LOAD DATA INFILE '${MYSQL_SEC_DIR}/issue-details-normalized.csv' 
+INTO TABLE issue_details
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+EOF
+  # sudo rm ${MYSQL_SEC_DIR}/issue-details-normalized.csv
+
+  printf "%s %s> import issue summary\n" $(date +"%F %T")
+  sudo cp ${OUTPUT_DIR}/issue-summary.csv ${MYSQL_SEC_DIR}
+  mysql --defaults-extra-file=mysql.client.cnf ${NAME} -f << EOF
+LOAD DATA INFILE '${MYSQL_SEC_DIR}/issue-summary.csv' 
+INTO TABLE issue_summary
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+EOF
+  # sudo rm ${MYSQL_SEC_DIR}/issue-summary.csv
+
+  if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
+    printf "%s %s> import id_groupid\n" $(date +"%F %T")
+    sudo cp ${OUTPUT_DIR}/id-groupid.csv ${MYSQL_SEC_DIR}
+    sudo mysql --defaults-extra-file=mysql.client.cnf ${NAME} -f << EOF
+LOAD DATA INFILE '${MYSQL_SEC_DIR}/id-groupid.csv' 
+INTO TABLE id_groupid
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+EOF
+    # sudo rm ${MYSQL_SEC_DIR}/id-groupid.csv
+  fi
+
+
+  printf "%s %s> delete importable files\n" $(date +"%F %T")
+  # rm ${OUTPUT_DIR}/issue-details-normalized_noheader.csv
+  # rm ${OUTPUT_DIR}/issue-summary_noheader.csv
+  # if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
+  #   rm ${OUTPUT_DIR}/id-groupid_noheader.csv
+  # fi
+
+  if [[ "${HAS_GROUP_PARAM}" == "0" ]]; then
+    printf "%s %s> index\n" $(date +"%F %T")
+    sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.sql &>> ${PREFIX}/mysql.log
+  else
+    printf "%s %s> index (groupped)\n" $(date +"%F %T")
+    mysql --defaults-extra-file=mysql.client.cnf ${NAME} < scripts/sqlite/modify-tables.groupped.mysql.sql &>> ${PREFIX}/mysql.log
   fi
 }
 
@@ -404,6 +494,7 @@ case "$1" in
   marc-history)             do_marc_history ;;
   record-patterns)          do_record_patterns ;;
   sqlite)                   do_sqlite ;;
+  mysql)                    do_mysql ;;
   export-schema-files)      do_export_schema_files ;;
   all-analyses)             do_all_analyses ;;
   all-solr)                 do_all_solr ;;

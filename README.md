@@ -80,17 +80,10 @@ Screenshot from the web UI of the QA cataloge
 ### Configuration
 
 4. `cp setdir.sh.template setdir.sh`
-5. `nano setdir.sh`
 
-set your path to root MARC directories:
-```
-# the input directory, where your MARC dump files exist
-BASE_INPUT_DIR=
-# the input directory, where the output CSV files will land
-BASE_OUTPUT_DIR=
-```
+Change the input and output base directories in `setdir.sh`. Local directories `input/` and `output/` will be used by default. Files of each catalogue are in a subdirectory of theses base directories:
 
-6. Create configuration based on some existing config files:
+5. Create configuration based on some existing config files:
  * cp catalogues/loc.sh catalogues/[abbreviation-of-your-library].sh
  * edit catalogues/[abbreviation-of-your-library].sh according to [configuration guide](#configuration-1)
 

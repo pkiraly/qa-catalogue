@@ -27,9 +27,7 @@ while true; do
 done
 
 HISTORICAL=${BASE_OUTPUT_DIR}/_historical/${NAME}
-if [[ ! -d ${HISTORICAL} ]]; then
-  mkdir -p ${HISTORICAL}
-fi
+mkdir -p $HISTORICAL
 
 IS_INCREMENTAL=0
 if [[ -e ${HISTORICAL}/history.sqlite ]]; then

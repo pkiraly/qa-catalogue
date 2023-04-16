@@ -303,7 +303,7 @@ EOF
   else
     printf "%s %s> index (groupped)\n" $(date +"%F %T")
     sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.groupped.sqlite.sql &>> ${PREFIX}/sqlite.log
-    Rscript scripts/classifications/classifications-type.R ${OUTPUT_DIR} &>> ${PREFIX}/sqlite.log
+    Rscript scripts/sqlite/qa_catalogue.groupping.R ${OUTPUT_DIR} &>> ${PREFIX}/sqlite.log
   fi
 }
 

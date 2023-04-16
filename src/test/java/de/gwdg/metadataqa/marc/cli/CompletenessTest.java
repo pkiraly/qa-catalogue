@@ -197,6 +197,7 @@ public class CompletenessTest extends CliTestUtils {
         String actual = Files.readString(output.toPath());
         TestCase.assertEquals(
           "id,group,count\n" +
+            "0,all,10\n" +
             "100,\"Otto-von-Guericke-Universität, Universitätsbibliothek Magdeburg [DE-Ma9]\",1\n" +
             "1016,Regionalbibliothek Neubrandenburg [DE-198],1\n" +
             "104,Schleswig-Holsteinische Landesbibliothek (LB) Kiel [DE-68],1\n" +
@@ -242,8 +243,7 @@ public class CompletenessTest extends CliTestUtils {
             "77,\"Nds. Landtag, Hannover [DE-Hv14]\",3\n" +
             "813,Diözesanbibliothek Münster [DE-Mue73],1\n" +
             "91,\"HAWK HS für angewandte Wissenschaft und Kunst Hildesheim/Holzminden/Göttingen, Bibliothek, Elektronische Ressourcen [DE-Hil3]\",1\n" +
-            "92,\"Landesbibliothek Mecklenburg-Vorpommern (LBMV), Schwerin [DE-33]\",1\n" +
-            "all,all,10\n",
+            "92,\"Landesbibliothek Mecklenburg-Vorpommern (LBMV), Schwerin [DE-33]\",1\n",
           actual);
 
       } else if (outputFile.equals("completeness-groupped-packages.csv")) {
@@ -251,10 +251,12 @@ public class CompletenessTest extends CliTestUtils {
         assertTrue(output.exists());
         List<String> lines = FileUtils.readLinesFromFile(output.toPath().toString());
         assertEquals("group,documenttype,packageid,name,label,iscoretag,count", lines.get(0));
-        assertEquals("100,Druckschriften (einschließlich Bildbänden),50,0...,PICA+ bibliograhic description,false,1", lines.get(1));
-        assertEquals("100,Druckschriften (einschließlich Bildbänden),99,unknown,unknown origin,false,1", lines.get(2));
-        assertEquals("100,all,50,0...,PICA+ bibliograhic description,false,1", lines.get(3));
-        assertEquals("100,all,99,unknown,unknown origin,false,1", lines.get(4));
+        assertEquals("0,0,50,0...,PICA+ bibliograhic description,false,10", lines.get(1));
+        assertEquals("0,0,99,unknown,unknown origin,false,10", lines.get(2));
+        assertEquals("0,Druckschriften (einschließlich Bildbänden),50,0...,PICA+ bibliograhic description,false,10", lines.get(3));
+        assertEquals("0,Druckschriften (einschließlich Bildbänden),99,unknown,unknown origin,false,10", lines.get(4));
+        assertEquals("100,0,50,0...,PICA+ bibliograhic description,false,1", lines.get(5));
+        assertEquals("100,0,99,unknown,unknown origin,false,1", lines.get(6));
 
       } else if (outputFile.equals("id-groupid.csv")) {
         output = new File(outputDir, outputFile);
@@ -262,7 +264,7 @@ public class CompletenessTest extends CliTestUtils {
         List<String> lines = FileUtils.readLinesFromFile(output.toPath().toString());
         assertEquals(76, lines.size());
         assertEquals("id,groupId", lines.get(0));
-        assertEquals("010000011,all", lines.get(1));
+        assertEquals("010000011,0", lines.get(1));
         assertEquals("010000011,77", lines.get(2));
         assertEquals("010000011,2035", lines.get(3));
         assertEquals("010000011,70", lines.get(4));

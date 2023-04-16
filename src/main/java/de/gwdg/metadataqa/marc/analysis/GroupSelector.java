@@ -27,7 +27,7 @@ public class GroupSelector {
   }
 
   public String getOrgName(String key) {
-    String orgName = key;
+    String orgName = key.equals("0") ? "all" : key;
     if (organizationCodes != null) {
       EncodedValue x = organizationCodes.getCode("DE-" + key);
       orgName = x == null ? key : x.getLabel();

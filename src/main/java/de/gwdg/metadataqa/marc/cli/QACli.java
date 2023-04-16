@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
@@ -22,7 +21,7 @@ import java.util.logging.Logger;
 
 public abstract class QACli {
   private static final Logger logger = Logger.getLogger(QACli.class.getCanonicalName());
-
+  public static final String ALL = "0";
   protected BibiographicPath groupBy = null;
 
   protected void initializeGroups(String groupBy, boolean isPica) {
@@ -49,7 +48,7 @@ public abstract class QACli {
 
   public static Set<String> extractGroupIds(List<String> idLists) {
     Set<String> groupIds = new HashSet<>();
-    groupIds.add("all");
+    groupIds.add(ALL);
     if (idLists != null) {
       for (String idList : idLists) {
         String[] ids = idList.split(",");

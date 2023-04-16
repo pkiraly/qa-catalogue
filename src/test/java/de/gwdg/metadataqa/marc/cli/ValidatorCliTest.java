@@ -172,14 +172,14 @@ public class ValidatorCliTest extends CliTestUtils {
       } else if (outputFile.equals("issue-by-category.csv")) {
         assertEquals(94, lines.size());
         assertEquals("groupId,id,category,instances,records", lines.get(0).trim());
-        assertEquals("100,3,data field,2,1", lines.get(1).trim());
-        assertEquals("100,5,subfield,20,1", lines.get(2).trim());
+        assertEquals("0,3,data field,22,10", lines.get(1).trim());
+        assertEquals("0,5,subfield,157,9", lines.get(2).trim());
 
       } else if (outputFile.equals("issue-by-type.csv")) {
         assertEquals(108, lines.size());
         assertEquals("groupId,id,categoryId,category,type,instances,records", lines.get(0).trim());
-        assertEquals("100,9,3,data field,undefined field,2,1", lines.get(1).trim());
-        assertEquals("100,13,5,subfield,undefined subfield,20,1", lines.get(2).trim());
+        assertEquals("0,8,3,data field,repetition of non-repeatable field,1,1", lines.get(1).trim());
+        assertEquals("0,9,3,data field,undefined field,21,10", lines.get(2).trim());
 
       } else if (outputFile.equals("issue-collector.csv")) {
         assertEquals(59, lines.size());
@@ -192,8 +192,8 @@ public class ValidatorCliTest extends CliTestUtils {
       } else if (outputFile.equals("issue-total.csv")) {
         assertEquals(94, lines.size());
         assertEquals("groupId,type,instances,records", lines.get(0).trim());
-        assertEquals("100,1,179,1", lines.get(1).trim());
-        assertEquals("100,2,158,1", lines.get(2).trim());
+        assertEquals("0,1,179,10", lines.get(1).trim());
+        assertEquals("0,2,158,9", lines.get(2).trim());
 
       } else if (outputFile.equals("count.csv")) {
         assertEquals(2, lines.size());

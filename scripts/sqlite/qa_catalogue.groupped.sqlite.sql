@@ -1,6 +1,6 @@
 BEGIN TRANSACTION;
 CREATE TABLE IF NOT EXISTS "issue_summary" (
-  "groupId"    TEXT,
+  "groupId"    INTEGER,
   "id"         INTEGER,
   "MarcPath"   TEXT,
   "categoryId" INTEGER,
@@ -18,6 +18,25 @@ CREATE TABLE IF NOT EXISTS "issue_details" (
 );
 CREATE TABLE IF NOT EXISTS "id_groupid" (
   "id"         TEXT,
-  "groupId"    TEXT
+  "groupId"    INTEGER
+);
+CREATE TABLE IF NOT EXISTS "issue_group_types" (
+  "groupId"    INTEGER,
+  "typeId"     INTEGER,
+  "records"    INTEGER,
+  "instances"  INTEGER
+);
+CREATE TABLE IF NOT EXISTS "issue_group_categories" (
+  "groupId"    INTEGER,
+  "categoryId" INTEGER,
+  "records"    INTEGER,
+  "instances"  INTEGER
+);
+CREATE TABLE IF NOT EXISTS "issue_group_paths" (
+  "groupId"    INTEGER,
+  "typeId"     INTEGER,
+  "path"       TEXT,
+  "records"    INTEGER,
+  "instances"  INTEGER
 );
 COMMIT;

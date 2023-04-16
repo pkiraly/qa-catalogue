@@ -8,17 +8,28 @@ if (length(args) == 0) {
   OUTPUT_DIR <- args[1]
 }
 
+id_groupid <- read_csv(sprintf('%s/%s',
+                               OUTPUT_DIR, 'id-groupid.csv'),
+                       show_col_types = FALSE)
+ids <- id_groupid %>% select(id) %>% distinct() %>% 
+  mutate(intid = row_number())
+id_groupid <- id_groupid %>% left_join(ids) %>% 
+  select(groupId, intid) %>% rename(id = intid)
+
 details <- read_csv(sprintf('%s/%s',
                             OUTPUT_DIR, 'issue-details-normalized.csv'),
                     show_col_types = FALSE)
+details <- details %>% left_join(ids) %>% 
+  select(-id) %>% rename(id = intid)
+rm(ids)
+gc()
+
 summary <- read_csv(sprintf('%s/%s',
                             OUTPUT_DIR, 'issue-summary.csv'),
                     show_col_types = FALSE)
 summary <- summary %>% 
-  select(-c(type, message, url))
-id_groupid <- read_csv(sprintf('%s/%s',
-                            OUTPUT_DIR, 'id-groupid.csv'),
-                       show_col_types = FALSE)
+  select(-c(type, message, url, instances, records))
+gc()
 
 groupIds <- summary %>% select(groupId) %>% distinct() %>% 
   unlist(use.names = FALSE)

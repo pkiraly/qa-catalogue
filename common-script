@@ -1,28 +1,6 @@
 #!/usr/bin/env bash
 set -uo pipefail
 
-SECONDS=0
-PREFIX=${BASE_INPUT_DIR}/_reports/${NAME}
-DATE=$(date +"%F")
-if [[ "${VERSION:-}" != "" ]]; then
-  OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}-${VERSION}
-else
-  OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}
-fi
-
-if [[ "$1" != "help" && "$1" != "export-schema-files" ]]; then
-  echo "OUTPUT_DIR: ${OUTPUT_DIR}"
-  mkdir -p $PREFIX
-  mkdir -p $OUTPUT_DIR
-
-  # printf "%s %s> Logging to ${PREFIX}.log"
-fi
-
-# die if input files don't exist
-echo BASE_PICA_INPUT_DIR: ${BASE_PICA_INPUT_DIR}
-echo ${MARC_DIR}/${MASK}
-ls ${MARC_DIR}/${MASK} > /dev/null
-
 do_validate() {
   GENERAL_PARAMS="--details --trimId --summary --format csv --defaultRecordType BOOKS"
   OUTPUT_PARAMS="--outputDir ${OUTPUT_DIR} --detailsFileName issue-details.csv --summaryFileName issue-summary.csv"
@@ -433,11 +411,10 @@ do_all_solr() {
 }
 
 help() {
-ME=$0
 cat <<END
 QA catalogue for analysing library data
 
-usage: $ME [command]
+usage: $0 [command]
 
 commands:
   validate                   record validation
@@ -462,12 +439,51 @@ commands:
   all-analyses               run all analitical tasks
   all-solr                   run all indexing tasks
   all                        run all tasks
+  config                     show configuration
   help                       print this help message
 
 END
 }
 
-case "$1" in
+config() {
+  set +u
+  echo "NAME=$NAME"
+  echo "MARC_DIR=$MARC_DIR"
+  echo "MASK=$MASK"
+  echo "OUTPUT_DIR=$OUTPUT_DIR"
+  echo "TYPE_PARAMS: $TYPE_PARAMS"
+  echo "WEB_DIR=$WEB_DIR"
+  cat ./common-variables
+}
+
+error() {
+  echo -e '\033[1;31m'"$1"'\033[0m'
+}
+
+# initialize environment for processing commands
+if [[ ! "${1:-help}" =~ ^(help|config|export-schema-files)$ ]]; then
+  SECONDS=0
+  PREFIX=${BASE_INPUT_DIR}/_reports/${NAME}
+  DATE=$(date +"%F")
+  if [[ "${VERSION:-}" != "" ]]; then
+    OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}-${VERSION}
+  else
+    OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}
+  fi
+
+  echo "OUTPUT_DIR: ${OUTPUT_DIR}"
+  mkdir -p $PREFIX
+  mkdir -p $OUTPUT_DIR
+
+  # printf "%s %s> Logging to ${PREFIX}.log"
+
+  # dies if input files don't exist
+  echo BASE_PICA_INPUT_DIR: ${BASE_PICA_INPUT_DIR}
+  echo ${MARC_DIR}/${MASK}
+  ls ${MARC_DIR}/${MASK} > /dev/null
+fi
+
+case "${1:-help}" in
   validate)                 do_validate ; do_sqlite ;;
   prepare-solr)             do_prepare_solr ;;
   index)                    do_index ;;
@@ -491,10 +507,12 @@ case "$1" in
   all-solr)                 do_all_solr ;;
   all)                      do_all_analyses ; do_all_solr ;;
   version-link)             do_version_link ;;
+  config)                   config ;;
   help)                     help ;;
+  *)                        error "unknown command: $1"; exit 1
 esac
 
-if [[ "$1" != "help" ]]; then
+if [ -z "${SECONDS:-}" ]; then
   duration=$SECONDS
   hours=$(($duration / (60*60)))
   mins=$(($duration % (60*60) / 60))

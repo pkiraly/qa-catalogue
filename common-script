@@ -487,31 +487,34 @@ config() {
   echo "OUTPUT_DIR=$OUTPUT_DIR"
   echo "TYPE_PARAMS: $TYPE_PARAMS"
   echo "WEB_DIR=$WEB_DIR"
+  echo "PREFIX=$PREFIX"
   cat ./common-variables
 }
 
-error() {
+fatal() {
   echo -e '\033[1;31m'"$1"'\033[0m'
+  exit 1
 }
 
-# initialize environment for processing commands
-if [[ ! "${1:-help}" =~ ^(help|config|export-schema-files)$ ]]; then
-  SECONDS=0
-  PREFIX=${BASE_INPUT_DIR}/_reports/${NAME}
-  DATE=$(date +"%F")
-  if [[ "${VERSION:-}" != "" ]]; then
-    OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}-${VERSION}
-  else
-    OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}
-  fi
+# initialize environment
+SECONDS=0
+PREFIX=${BASE_INPUT_DIR}/_reports/${NAME}
+if [[ "${VERSION:-}" != "" ]]; then
+  OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}-${VERSION}
+else
+  OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}
+fi
 
+# check directories for processing commands
+if [[ ! "${1:-help}" =~ ^(help|config|export-schema-files)$ ]]; then
   mkdir -p $PREFIX
   mkdir -p $OUTPUT_DIR
 
-  echo "$1 from $MARC_DIR/$MASK to $OUTPUT_DIR logs in $PREFIX"
+  log "input:  $MARC_DIR/$MASK"
+  log "output: $OUTPUT_DIR"
+  log "logs:   $PREFIX"
 
-  # dies if input files don't exist
-  ls ${MARC_DIR}/${MASK} > /dev/null
+  ls ${MARC_DIR}/${MASK} &> /dev/null || fatal "Missing input files!"
 fi
 
 case "${1:-help}" in
@@ -540,7 +543,7 @@ case "${1:-help}" in
   version-link)             do_version_link ;;
   config)                   config ;;
   help)                     help ;;
-  *)                        error "unknown command: $1"; exit 1
+  *)                        fatal "unknown command: $1"
 esac
 
 untrace

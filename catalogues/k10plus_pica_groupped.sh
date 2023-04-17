@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 . ./setdir.sh
+
 NAME=k10plus_pica_groupped
 MARC_DIR=${BASE_PICA_INPUT_DIR}/k10plus_pica_groupped
 SCHEMA=PICA
@@ -14,9 +15,3 @@ TYPE_PARAMS="$TYPE_PARAMS --allowableRecords base64:"$(echo '002@.0 !~ "^L" && 0
 MASK=${MASK:=pica-with-holdings-info-1K.dat} # if not set in setdir.sh
 
 . ./common-script
-
-if [[ "$1" != "help" ]]; then
-  echo "DONE"
-fi
-
-exit 0

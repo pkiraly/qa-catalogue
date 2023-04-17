@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 . ./setdir.sh
+
 NAME=k10plus_pica
 # MARC_DIR=${BASE_INPUT_DIR}/k10plus_pica
 MARC_DIR=${BASE_PICA_INPUT_DIR}/k10plus_pica
@@ -15,9 +16,3 @@ MASK=${MASK:=kxp-sample-title_2022-09_30.dat} # if not set in setdir.sh
 # MASK=small.dat
 
 . ./common-script
-
-if [[ "$1" != "help" ]]; then
-  echo "DONE"
-fi
-
-exit 0

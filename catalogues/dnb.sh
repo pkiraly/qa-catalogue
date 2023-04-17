@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 . ./setdir.sh
+
 NAME=dnb
 TYPE=xml
 if [[ $TYPE == "marc" ]]; then
@@ -18,6 +19,3 @@ else
 fi
 
 . ./common-script
-
-echo "DONE"
-exit 0

@@ -29,6 +29,8 @@ sudo apt-get install sqlite3 r-cran-rsqlite
 sudo apt-get install php php-sqlite3
 ```
 
+In addition, Maven is required to build the JAR files.
+
 ### Install Apache Solr
 
 ```bash

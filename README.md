@@ -73,6 +73,8 @@ Screenshot from the web UI of the QA cataloge
 
 ### Installation
 
+See `INSTALL.md` for dependencies.
+
 1. `wget https://github.com/pkiraly/metadata-qa-marc/releases/download/v0.6.0/metadata-qa-marc-0.6.0-release.zip`
 2. `unzip metadata-qa-marc-0.6.0-release.zip`
 3. `cd metadata-qa-marc-0.6.0/`

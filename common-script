@@ -497,7 +497,6 @@ fatal() {
 }
 
 # initialize environment
-SECONDS=0
 PREFIX=${BASE_INPUT_DIR}/_reports/${NAME}
 if [[ "${VERSION:-}" != "" ]]; then
   OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}-${VERSION}
@@ -507,6 +506,8 @@ fi
 
 # check directories for processing commands
 if [[ ! "${1:-help}" =~ ^(help|config|export-schema-files)$ ]]; then
+  SECONDS=0
+
   mkdir -p $PREFIX
   mkdir -p $OUTPUT_DIR
 

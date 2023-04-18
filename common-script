@@ -506,7 +506,7 @@ fi
 
 # check directories for processing commands
 if [[ ! "${1:-help}" =~ ^(help|config|export-schema-files)$ ]]; then
-  SECONDS=0
+  cmd=$1
 
   mkdir -p $PREFIX
   mkdir -p $OUTPUT_DIR
@@ -549,7 +549,7 @@ esac
 
 untrace
 
-if [ ! -z "${SECONDS:-}" ]; then
+if [ ! -z "${cmd:-}" ]; then
   duration=$SECONDS
   hours=$(($duration / (60*60)))
   mins=$(($duration % (60*60) / 60))

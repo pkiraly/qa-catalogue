@@ -497,7 +497,12 @@ fatal() {
 }
 
 # initialize environment
-PREFIX=${BASE_INPUT_DIR}/_reports/${NAME}
+NAME=${NAME:-$(basename $0 .sh)}
+BASE_INPUT_DIR=${BASE_INPUT_DIR:-./input}
+BASE_OUTPUT_DIR=${BASE_OUTPUT_DIR:-./output}
+MARC_DIR=${MARC_DIR:-$BASE_PICA_INPUT_DIR/$NAME}
+
+PREFIX=${BASE_INPUT_DIR}/_reports/$NAME
 if [[ "${VERSION:-}" != "" ]]; then
   OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}-${VERSION}
 else
@@ -550,10 +555,6 @@ esac
 untrace
 
 if [ ! -z "${cmd:-}" ]; then
-  duration=$SECONDS
-  hours=$(($duration / (60*60)))
-  mins=$(($duration % (60*60) / 60))
-  secs=$(($duration % 60))
-
-  log "DONE in $(printf '%02d:%02d:%02d' $hours $mins $secs)"
+  sec=$SECONDS
+  log "DONE in $(printf '%02d:%02d:%02d\n' $((sec/3600)) $((sec%3600/60)) $((sec%60)))"
 fi

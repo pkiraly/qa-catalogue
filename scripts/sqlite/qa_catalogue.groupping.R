@@ -1,4 +1,18 @@
 library(tidyverse)
+library(httr)
+
+URL <- 'http://localhost:8983/solr/csv_test/select?q=%s&rows=0'
+getCount <- function(groupId, errorIds) {
+  if (length(errorIds) == 1) {
+    errors <- errorIds
+  } else {
+    errors <- sprintf('(%s)', paste(errorIds, collapse = ' OR '))
+  }
+  q <- sprintf('groupId_is:%d AND errorId_is:%s', groupId, errors)
+  r <- GET(sprintf(URL, URLencode(q)))
+  p <- content(r, "parsed", encoding="UTF-8")
+  as.integer(p$response$numFound)
+}
 
 args = commandArgs(trailingOnly=TRUE)
 if (length(args) == 0) {
@@ -8,68 +22,73 @@ if (length(args) == 0) {
   OUTPUT_DIR <- args[1]
 }
 
-id_groupid <- read_csv(sprintf('%s/%s',
-                               OUTPUT_DIR, 'id-groupid.csv'),
-                       show_col_types = FALSE)
-ids <- id_groupid %>% select(id) %>% distinct() %>% 
-  mutate(intid = row_number())
-id_groupid <- id_groupid %>% left_join(ids) %>% 
-  select(groupId, intid) %>% rename(id = intid)
+# OUTPUT_DIR <- '~/temp/validation-test'
+# print('reading id-groupid.csv')
+# id_groupid <- read_csv(sprintf('%s/%s',
+#                                OUTPUT_DIR, 'id-groupid2.csv'),
+#                        col_types = "ii")
+# gc()
+# head(id_groupid)
+# 
+# print('reading issue-details-normalized2.csv')
+# details <- read_csv(sprintf('%s/%s',
+#                             OUTPUT_DIR, 'issue-details-normalized.csv'),
+#                     col_types = "iii")
+# print('normalize details')
+# gc()
 
-details <- read_csv(sprintf('%s/%s',
-                            OUTPUT_DIR, 'issue-details-normalized.csv'),
-                    show_col_types = FALSE)
-details <- details %>% left_join(ids) %>% 
-  select(-id) %>% rename(id = intid)
-rm(ids)
-gc()
-
+print('reading issue-summary.csv')
 summary <- read_csv(sprintf('%s/%s',
                             OUTPUT_DIR, 'issue-summary.csv'),
                     show_col_types = FALSE)
 summary <- summary %>% 
-  select(-c(type, message, url, instances, records))
+  select(-c(type, message, url, records)) %>% 
+  mutate(
+    groupId = ifelse(groupId == 'all', 0, groupId),
+    groupId = as.integer(groupId))
+head(summary)
 gc()
 
 groupIds <- summary %>% select(groupId) %>% distinct() %>% 
   unlist(use.names = FALSE)
+groupIds
 
 typesDF <- NULL
-categoriesDF <- NULL
 pathsDF <- NULL
+categoriesDF <- NULL
 len <- length(groupIds)
 for (i in 1:len) {
   currentGroupId = groupIds[i]
   print(sprintf("%d/%d: %s", i, len, currentGroupId))
-  idg <- id_groupid %>% filter(groupId == currentGroupId) %>% select(id)
-  d <- idg %>% left_join(details, by = join_by(id), multiple = "all")
   s <- summary %>% filter(groupId == currentGroupId)
   types <- s %>% select(typeId) %>% distinct() %>% unlist(use.names = FALSE)
   for (currentType in types) {
-    ids <- s %>% filter(typeId == currentType) %>% select(id) %>% 
-      distinct() %>% unlist(use.names = FALSE)
-    d2 <- d %>% filter(errorId %in% ids)
-    instances <- d2 %>% summarise(n = sum(instances)) %>% 
-      unlist(use.names = FALSE)
-    records <- d2 %>% select(id) %>% distinct() %>% count() %>% 
-      unlist(use.names = FALSE)
+    instances <- s %>% filter(typeId == currentType) %>% 
+      summarise(n = sum(instances)) %>% unlist(use.names = FALSE)
+    errorIds <- s %>% filter(typeId == currentType) %>% 
+      select(id) %>% distinct() %>% unlist(use.names = FALSE)
+    records <- getCount(currentGroupId, errorIds)
     if (is.null(typesDF)) {
-      typesDF <- tibble(groupId = currentGroupId, typeId = currentType, records = records, instances = instances)
+      typesDF <- tibble(groupId = currentGroupId,
+                        typeId = currentType,
+                        record_nr = records,
+                        instance_nr = instances)
     } else {
-      typesDF <- typesDF %>% add_row(groupId = currentGroupId, typeId = currentType, records = records, instances = instances)
+      typesDF <- typesDF %>% add_row(groupId = currentGroupId,
+                                     typeId = currentType,
+                                     record_nr = records,
+                                     instance_nr = instances)
     }
 
     paths <- s %>% filter(typeId == currentType) %>% select(MarcPath) %>% 
       distinct() %>% unlist(use.names = FALSE)
     for (path in paths) {
-      ids <- s %>% filter(typeId == currentType & MarcPath == path) %>%
-        select(id) %>% 
-        distinct() %>% unlist(use.names = FALSE)
-      d2 <- d %>% filter(errorId %in% ids)
-      instances <- d2 %>% summarise(n = sum(instances)) %>% 
+      instances <- s %>% filter(typeId == currentType & MarcPath == path) %>%
+        summarise(n = sum(instances)) %>% 
         unlist(use.names = FALSE)
-      records <- d2 %>% select(id) %>% distinct() %>% count() %>% 
-        unlist(use.names = FALSE)
+      errorIds <- s %>% filter(typeId == currentType & MarcPath == path) %>%
+        select(id) %>% distinct() %>% unlist(use.names = FALSE)
+      records <- getCount(currentGroupId, errorIds)
       if (is.null(pathsDF)) {
         pathsDF <- tibble(groupId = currentGroupId, typeId = currentType,
                           path = path,
@@ -86,31 +105,29 @@ for (i in 1:len) {
   
   categories <- s %>% select(categoryId) %>% distinct() %>% unlist(use.names = FALSE)
   for (currentCategory in categories) {
-    ids <- s %>% filter(categoryId == currentCategory) %>% select(id) %>% 
+    errorIds <- s %>% filter(categoryId == currentCategory) %>% select(id) %>% 
       distinct() %>% unlist(use.names = FALSE)
-    d2 <- d %>% filter(errorId %in% ids)
-    instances <- d2 %>% summarise(n = sum(instances)) %>% 
-      unlist(use.names = FALSE)
-    records <- d2 %>% select(id) %>% distinct() %>% count() %>% 
-      unlist(use.names = FALSE)
+    instances <- s %>% filter(categoryId == currentCategory) %>% 
+      summarise(n = sum(instances)) %>% unlist(use.names = FALSE)
+    records <- getCount(currentGroupId, errorIds)
     if (is.null(categoriesDF)) {
       categoriesDF <- tibble(groupId = currentGroupId,
-                        categoryId = currentCategory,
-                        records = records,
-                        instances = instances)
+                             categoryId = currentCategory,
+                             records = records,
+                             instances = instances)
     } else {
       categoriesDF <- categoriesDF %>%
-                      add_row(groupId = currentGroupId,
-                        categoryId = currentCategory,
-                        records = records,
-                        instances = instances)
+        add_row(groupId = currentGroupId,
+                categoryId = currentCategory,
+                records = records,
+                instances = instances)
     }
   }
+  
 }
-
-# typesDF
-# categoriesDF
-# pathsDF
+typesDF
+pathsDF
+categoriesDF
 
 file <- sprintf('%s/%s', OUTPUT_DIR, 'issue-groupped-types.csv')
 print(file)

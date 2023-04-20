@@ -42,6 +42,7 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
 
   private static final Logger logger = Logger.getLogger(Completeness.class.getCanonicalName());
   private static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
+  public static final String ALL_TYPE = "all";
 
   private CompletenessParameters parameters;
 
@@ -120,9 +121,9 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
         for (String groupId : recordCompleteness.getGroupIds()) {
           completenessDAO.getGrouppedElementFrequency().computeIfAbsent(groupId, s -> new HashMap<>());
           completenessDAO.getGrouppedElementFrequency().get(groupId).computeIfAbsent(recordCompleteness.getDocumentType(), s -> new HashMap<>());
-          completenessDAO.getGrouppedElementFrequency().get(groupId).computeIfAbsent(ALL, s -> new HashMap<>());
+          completenessDAO.getGrouppedElementFrequency().get(groupId).computeIfAbsent(ALL_TYPE, s -> new HashMap<>());
           Utils.count(key, completenessDAO.getGrouppedElementFrequency().get(groupId).get(recordCompleteness.getDocumentType()));
-          Utils.count(key, completenessDAO.getGrouppedElementFrequency().get(groupId).get(ALL));
+          Utils.count(key, completenessDAO.getGrouppedElementFrequency().get(groupId).get(ALL_TYPE));
 
           completenessDAO.getGrouppedFieldHistogram().computeIfAbsent(groupId, s -> new HashMap<>());
           completenessDAO.getGrouppedFieldHistogram().get(groupId).computeIfAbsent(key, s -> new HashMap<>());
@@ -130,7 +131,7 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
         }
       } else {
         Utils.count(key, completenessDAO.getElementFrequency().get(recordCompleteness.getDocumentType()));
-        Utils.count(key, completenessDAO.getElementFrequency().get(ALL));
+        Utils.count(key, completenessDAO.getElementFrequency().get(ALL_TYPE));
         completenessDAO.getFieldHistogram().computeIfAbsent(key, s -> new HashMap<>());
         Utils.count(recordCompleteness.getRecordFrequency().get(key), completenessDAO.getFieldHistogram().get(key));
       }
@@ -141,14 +142,14 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
         for (String groupId : recordCompleteness.getGroupIds()) {
           completenessDAO.getGrouppedPackageCounter().computeIfAbsent(groupId, s -> new HashMap<>());
           completenessDAO.getGrouppedPackageCounter().get(groupId).computeIfAbsent(recordCompleteness.getDocumentType(), s -> new HashMap<>());
-          completenessDAO.getGrouppedPackageCounter().get(groupId).computeIfAbsent(ALL, s -> new HashMap<>());
+          completenessDAO.getGrouppedPackageCounter().get(groupId).computeIfAbsent(ALL_TYPE, s -> new HashMap<>());
           Utils.count(key, completenessDAO.getGrouppedPackageCounter().get(groupId).get(recordCompleteness.getDocumentType()));
-          Utils.count(key, completenessDAO.getGrouppedPackageCounter().get(groupId).get(ALL));
+          Utils.count(key, completenessDAO.getGrouppedPackageCounter().get(groupId).get(ALL_TYPE));
         }
       } else {
         completenessDAO.getPackageCounter().computeIfAbsent(recordCompleteness.getDocumentType(), s -> new HashMap<>());
         Utils.count(key, completenessDAO.getPackageCounter().get(recordCompleteness.getDocumentType()));
-        Utils.count(key, completenessDAO.getPackageCounter().get(ALL));
+        Utils.count(key, completenessDAO.getPackageCounter().get(ALL_TYPE));
       }
     }
   }

@@ -93,7 +93,6 @@ public class TagHierarchy {
   }
 
   private static TagHierarchy getDatafield(String path, MarcVersion version, Matcher matcher) {
-    System.err.println("data field: " + path);
     String tag = matcher.group(1);
     DataFieldDefinition definition = TagDefinitionLoader.load(tag, version);
     if (definition != null) {
@@ -141,7 +140,6 @@ public class TagHierarchy {
   }
 
   private static TagHierarchy getControlField2(String path, Matcher matcher) {
-    System.err.println("controlFieldIdPattern 2: "  + path);
     String tag = matcher.group(1);
     var definition = getDataFieldDefinition(tag);
 
@@ -160,7 +158,6 @@ public class TagHierarchy {
   }
 
   private static TagHierarchy getControlField(String path, Matcher matcher) {
-    System.err.println("controlFieldPattern 1: "  + path);
     String tag = matcher.group(1);
     String position = matcher.group(3);
     var definition = getDataFieldDefinition(tag);
@@ -177,7 +174,6 @@ public class TagHierarchy {
   }
 
   private static TagHierarchy getLeader(String path) {
-    System.err.println("leaderPattern: "  + path);
     ControlFieldDefinition definition = LeaderDefinition.getInstance();
     ControlfieldPositionDefinition positionDefinition = definition.getPositionDefinitionById(path);
     if (positionDefinition != null) {

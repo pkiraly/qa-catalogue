@@ -67,8 +67,9 @@ public class RecordCompleteness {
   public void process() {
     documentType = plugin.getDocumentType(bibliographicRecord);
     completenessDAO.getElementCardinality().computeIfAbsent(documentType, s -> new HashMap<>());
+    completenessDAO.getElementCardinality().computeIfAbsent(Completeness.ALL_TYPE, s -> new HashMap<>());
     completenessDAO.getElementFrequency().computeIfAbsent(documentType, s -> new HashMap<>());
-    completenessDAO.getElementFrequency().computeIfAbsent(documentType, ALL_TYPE -> new HashMap<>());
+    completenessDAO.getElementFrequency().computeIfAbsent(Completeness.ALL_TYPE, s -> new HashMap<>());
 
     if (bibliographicRecord.getControl003() != null)
       Utils.count(bibliographicRecord.getControl003().getContent(), completenessDAO.getLibrary003Counter());
@@ -93,7 +94,7 @@ public class RecordCompleteness {
             addGrouppedElementCardinality(marcPath, groupId);
         } else {
           Utils.count(marcPath, completenessDAO.getElementCardinality().get(documentType));
-          Utils.count(marcPath, completenessDAO.getElementCardinality().get(Completeness.ALL));
+          Utils.count(marcPath, completenessDAO.getElementCardinality().get(Completeness.ALL_TYPE));
         }
         Utils.count(marcPath, recordFrequency);
         Utils.count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
@@ -110,7 +111,7 @@ public class RecordCompleteness {
             addGrouppedElementCardinality(marcPath, groupId);
         } else {
           Utils.count(marcPath, completenessDAO.getElementCardinality().get(documentType));
-          Utils.count(marcPath, completenessDAO.getElementCardinality().get(Completeness.ALL));
+          Utils.count(marcPath, completenessDAO.getElementCardinality().get(Completeness.ALL_TYPE));
         }
         Utils.count(marcPath, recordFrequency);
         Utils.count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
@@ -128,7 +129,7 @@ public class RecordCompleteness {
               addGrouppedElementCardinality(marcPath, groupId);
           } else {
             Utils.count(marcPath, completenessDAO.getElementCardinality().get(documentType));
-            Utils.count(marcPath, completenessDAO.getElementCardinality().get(Completeness.ALL));
+            Utils.count(marcPath, completenessDAO.getElementCardinality().get(Completeness.ALL_TYPE));
           }
           Utils.count(marcPath, recordFrequency);
           Utils.count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
@@ -158,12 +159,12 @@ public class RecordCompleteness {
 
   private void processDataField(DataField field) {
     Utils.count(field.getTagWithOccurrence(), completenessDAO.getElementCardinality().get(documentType));
-    Utils.count(field.getTagWithOccurrence(), completenessDAO.getElementCardinality().get(Completeness.ALL));
+    Utils.count(field.getTagWithOccurrence(), completenessDAO.getElementCardinality().get(Completeness.ALL_TYPE));
 
     List<String> marcPaths = getMarcPaths(field);
     for (String marcPath : marcPaths) {
       Utils.count(marcPath, completenessDAO.getElementCardinality().get(documentType));
-      Utils.count(marcPath, completenessDAO.getElementCardinality().get(Completeness.ALL));
+      Utils.count(marcPath, completenessDAO.getElementCardinality().get(Completeness.ALL_TYPE));
     }
   }
 

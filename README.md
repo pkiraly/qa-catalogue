@@ -73,6 +73,8 @@ Screenshot from the web UI of the QA cataloge
 
 ### Installation
 
+See `INSTALL.md` for dependencies.
+
 1. `wget https://github.com/pkiraly/metadata-qa-marc/releases/download/v0.6.0/metadata-qa-marc-0.6.0-release.zip`
 2. `unzip metadata-qa-marc-0.6.0-release.zip`
 3. `cd metadata-qa-marc-0.6.0/`
@@ -261,14 +263,12 @@ Here is an example file for analysing Library of Congress' MARC records
 #!/usr/bin/env bash
 
 . ./setdir.sh
+
 NAME=loc
 MARC_DIR=${BASE_INPUT_DIR}/loc/marc
 MASK=*.mrc
 
 . ./common-script
-
-echo "DONE"
-exit 0
 ```
 Three variables are important here:
 

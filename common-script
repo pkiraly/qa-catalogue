@@ -1,87 +1,95 @@
 #!/usr/bin/env bash
 set -uo pipefail
 
+# prefix each command with timestamp in trace mode
+PS4='\033[0D\033[1;37m$(date +"%F %T")>\033[0m '
+
+# disable trace mode without echoing 'set +x'
+unalias -a
+shopt -s expand_aliases
+alias untrace='{ set +x; } 2> /dev/null'
+
+# emit message with timestamp
+log() {
+  timestamp=`date +"%F %T"`
+  echo -en "\033[0D\033[1;37m$timestamp>\033[0m "
+  echo "$1"
+}
+
+# start a named processing step and enable trace mode
+run() {
+  untrace
+  log "$(echo -e '\033[1;1m'"[$1]"'\033[0m')"
+  set -x
+}
+
+# ---- proccessing steps ----
+
 do_validate() {
   GENERAL_PARAMS="--details --trimId --summary --format csv --defaultRecordType BOOKS"
   OUTPUT_PARAMS="--outputDir ${OUTPUT_DIR} --detailsFileName issue-details.csv --summaryFileName issue-summary.csv"
-
-  printf "%s %s> [validate]\n" $(date +"%F %T")
-  printf "%s %s> ./validate -Xms8g ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${TYPE_PARAMS} ${MARC_DIR}/${MASK} 2> ${PREFIX}/validate.log\n" $(date +"%F %T")
+  run validate
   ./validate ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${TYPE_PARAMS} ${MARC_DIR}/$MASK 2> ${PREFIX}/validate.log
 }
 
 do_prepare_solr() {
-  printf "%s %s> [prepare-solr]\n" $(date +"%F %T")
-  printf "%s %s> ./prepare-solr ${NAME} 2> ${PREFIX}/solr.log\n" $(date +"%F %T")
+  run prepare-solr
   ./prepare-solr $NAME 2> ${PREFIX}/solr.log
 }
 
 do_index() {
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+//g')
-  printf "%s %s> [index]\n" $(date +"%F %T")
-  printf "%s %s> ./index --db $NAME --file-path ${MARC_DIR} --file-mask $MASK ${PARAMS} --trimId 2> ${PREFIX}/solr.log\n" $(date +"%F %T")
+  run index
   ./index --db $NAME --file-path ${MARC_DIR} --file-mask $MASK ${PARAMS} --trimId 2>> ${PREFIX}/solr.log
 }
 
 do_completeness() {
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
-  printf "%s %s> [completeness]\n" $(date +"%F %T")
-  printf "%s %s> ./completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/completeness.log\n" $(date +"%F %T")
+  run completeness
   ./completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/completeness.log
 }
 
 do_classifications() {
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
-  printf "%s %s> [classifications]\n" $(date +"%F %T")
-  printf "%s %s> ./classifications --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/classifications.log\n" $(date +"%F %T")
+  run classifications
   ./classifications --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/classifications.log
-  printf "%s %s> Rscript scripts/classifications/classifications-type.R ${OUTPUT_DIR} 2>> ${PREFIX}/classifications.log\n" $(date +"%F %T")
   Rscript scripts/classifications/classifications-type.R ${OUTPUT_DIR}
 }
 
 do_authorities() {
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
-  printf "%s %s> [authorities]\n" $(date +"%F %T")
-  printf "%s %s> ./authorities --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/authorities.log\n" $(date +"%F %T")
+  run authorities
   ./authorities --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/authorities.log
 }
 
 do_tt_completeness() {
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
-  printf "%s %s> [tt-completeness]\n" $(date +"%F %T")
-  printf "%s %s> ./tt-completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/tt-completeness.log\n" $(date +"%F %T")
+  run tt-completeness
   ./tt-completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/tt-completeness.log
-
-  printf "%s %s> Rscript scripts/tt-histogram/tt-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/tt-completeness.log\n" $(date +"%F %T")
   Rscript scripts/tt-histogram/tt-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/tt-completeness.log
 
   # for large files
-  # printf "%s %s> php scripts/tt-histogram/tt-histogram.php ${OUTPUT_DIR} &>> ${PREFIX}/tt-completeness.log\n" $(date +"%F %T")
   # php scripts/tt-histogram/tt-histogram.php ${OUTPUT_DIR} &>> ${PREFIX}/tt-completeness.log
 }
 
 do_shelf_ready_completeness() {
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
-  printf "%s %s> [shelf-ready-completeness]\n" $(date +"%F %T")
-  printf "%s %s> ./shelf-ready-completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/shelf-ready-completeness.log\n" $(date +"%F %T")
+  run shelf-ready-completeness
   ./shelf-ready-completeness \
     --defaultRecordType BOOKS \
     ${PARAMS} \
     --outputDir ${OUTPUT_DIR}/ \
     --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/shelf-ready-completeness.log
 
-  printf "%s %s> Rscript scripts/shelf-ready/shelf-ready-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/shelf-ready-completeness.log\n" $(date +"%F %T")
   Rscript scripts/shelf-ready/shelf-ready-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/shelf-ready-completeness.log
 
   # for large files
-  # printf "%s %s> php scripts/shelf-ready-histogram.php ${OUTPUT_DIR} &>> ${PREFIX}/shelf-ready-completeness.log\n" $(date +"%F %T")
   # php scripts/shelf-ready-histogram.php ${OUTPUT_DIR} &>> ${PREFIX}/shelf-ready-completeness.log
 }
 
 do_bl_classification() {
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
-  printf "%s %s> [bl-classification]\n" $(date +"%F %T")
-  printf "%s %s> ./bl-classification --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/bl-classification.log\n" $(date +"%F %T")
+  run bk-classification
   ./bl-classification \
     --defaultRecordType BOOKS \
     ${PARAMS} \
@@ -91,25 +99,23 @@ do_bl_classification() {
 
 do_serial_score() {
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
-  printf "%s %s> [serial-score]\n" $(date +"%F %T")
-  printf "%s %s> ./serial-score --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/serial-score.log\n" $(date +"%F %T")
+  run serial-score
   ./serial-score --defaultRecordType BOOKS \
                  ${PARAMS} \
                  --outputDir ${OUTPUT_DIR}/ \
                  --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/serial-score.log
 
-  printf "%s %s> Rscript scripts/serial-score/serial-score-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/serial-score.log\n" $(date +"%F %T")
   Rscript scripts/serial-score/serial-score-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/serial-score.log
 }
 
 do_format() {
+  run format
   ./formatter --defaultRecordType BOOKS ${MARC_DIR}/${MASK}
 }
 
 do_functional_analysis() {
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
-  printf "%s %s> [functional-analysis]\n" $(date +"%F %T")
-  printf "%s %s> ./functional-analysis --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/functional-analysis.log\n" $(date +"%F %T")
+  run functional-analysis
   ./functional-analysis --defaultRecordType BOOKS \
                         ${PARAMS} \
                         --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/functional-analysis.log
@@ -117,8 +123,7 @@ do_functional_analysis() {
 
 do_network_analysis() {
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
-  printf "%s %s> [network-analysis]\n" $(date +"%F %T")
-  printf "%s %s> ./network-analysis --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/network-analysis.log\n" $(date +"%F %T")
+  run network-analysis
   ./network-analysis --defaultRecordType BOOKS \
                      ${PARAMS} \
                      --outputDir ${OUTPUT_DIR}/ \
@@ -128,28 +133,27 @@ do_network_analysis() {
   #   network-by-concepts.csv (concept, count, ids)
   #   network-by-record.csv (id, count, concepts)
   #   network-statistics.csv (type, total, single, multi)
-  printf "%s %s> Rscript scripts/network-transform.R ${OUTPUT_DIR} &>> ${PREFIX}/network-analysis.log\n" $(date +"%F %T")
   Rscript scripts/network-transform.R ${OUTPUT_DIR} &>> ${PREFIX}/network-analysis.log
 
   # network-by-concepts (concept, count, ids) ->
   #   network-pairs.csv (id1 id2)
   #   network-nodes.csv (id, id)
-  printf "%s %s> ./network-analysis --outputDir ${OUTPUT_DIR} --action pairing --group-limit 2000 &>> ${PREFIX}/network-analysis.log\n" $(date +"%F %T")
   ./network-analysis --outputDir ${OUTPUT_DIR} \
                      --action pairing \
                      &>> ${PREFIX}/network-analysis.log
 
+  untrace
+
   cat network-pairs.csv | sort | uniq -c | sort -nr > network-pairs-uniq-with-count.csv
   awk '{print $2 " " $3}' network-pairs-uniq-with-count.csv > network-pairs-all.csv
 
-  printf "%s %s> ziping output\n" $(date +"%F %T")
+  log "ziping output"
   PWD=`pdw`
   cd ${OUTPUT_DIR}
   zip network-input network-nodes.csv network-nodes-???.csv network-pairs-???.csv network-by-concepts-tags.csv
   cd $PWD
 
-
-  printf "%s %s> upload output\n" $(date +"%F %T")
+  log "upload output"
   scp ${OUTPUT_DIR}/network-input.zip pkiraly@roedel.etrap.eu:/roedel/pkiraly/network/input
 
   # spark-shell -I scripts/network.scala --conf spark.driver.metadata.qa.dir="${OUTPUT_DIR}"
@@ -157,9 +161,9 @@ do_network_analysis() {
 }
 
 do_pareto() {
-  printf "%s %s> [pareto]\n" $(date +"%F %T")
-  printf "%s %s> Rscript scripts/pareto/frequency-range.R ${OUTPUT_DIR} &> ${PREFIX}/pareto.log\n" $(date +"%F %T")
+  run pareto
   Rscript scripts/pareto/frequency-range.R ${OUTPUT_DIR} &> ${PREFIX}/pareto.log
+  untrace
 
   . ./common-variables
   if [[ "${WEB_DIR:-}" != "" ]]; then
@@ -175,29 +179,28 @@ do_marc_history() {
     SELECTOR="008~7-10;008~0-5"
   fi
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
-  printf "%s %s> [marc-history]\n" $(date +"%F %T")
-  printf "%s %s> ./formatter --selector \"$SELECTOR\" --defaultRecordType BOOKS ${PARAMS} --separator \",\" --outputDir ${OUTPUT_DIR}/ --fileName "marc-history.csv" ${MARC_DIR}/${MASK} &> ${PREFIX}/marc-history.log\n" $(date +"%F %T")
+
+  run marc-history
   ./formatter --selector "$SELECTOR" --defaultRecordType BOOKS ${PARAMS} --separator "," \
               --outputDir ${OUTPUT_DIR}/ --fileName "marc-history.csv" ${MARC_DIR}/${MASK} &> ${PREFIX}/marc-history.log
-
     # | grep -v '008~7-10,008~0-5' \
+  
+  untrace
   tail -n +2 ${OUTPUT_DIR}/marc-history.csv \
     | sort \
     | uniq -c \
     | sed -r 's/([0-9]) ([0-9uc xwticrka])/\1,\2/' \
     | sed 's, ,,g' > ${OUTPUT_DIR}/marc-history-groupped.csv 
+  set -x
 
-  printf "%s %s> Rscript scripts/marc-history/marc-history-groupped.R ${OUTPUT_DIR} &>> ${PREFIX}/marc-history.log\n" $(date +"%F %T")
   Rscript scripts/marc-history/marc-history-groupped.R ${OUTPUT_DIR} &>> ${PREFIX}/marc-history.log
 }
 
 do_record_patterns() {
-  printf "%s %s> [record-patterns]\n" $(date +"%F %T")
-  printf "%s %s> Rscript scripts/top-fields.R ${OUTPUT_DIR} &>> ${PREFIX}/top-fields.log\n" $(date +"%F %T")
-  Rscript scripts/record-patterns/top-fields.R ${OUTPUT_DIR} &>> ${PREFIX}/top-fields.log
-
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
-  printf "%s %s> ./record-patterns --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} &> ${PREFIX}/record-patterns.log\n" $(date +"%F %T")
+
+  run record-patterns
+  Rscript scripts/record-patterns/top-fields.R ${OUTPUT_DIR} &>> ${PREFIX}/top-fields.log
   ./record-patterns --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} &> ${PREFIX}/record-patterns.log
 
   head -1 ${OUTPUT_DIR}/record-patterns.csv | sed -e 's/^/count,/' > ${OUTPUT_DIR}/record-patterns-groupped.csv
@@ -210,7 +213,9 @@ do_record_patterns() {
 }
 
 do_version_link() {
-  printf "%s %s> [version-link]\n" $(date +"%F %T")
+  run version-link
+
+  untrace
   if [[ "${VERSION:-}" != "" ]]; then
     OUTPUT_LINK=${BASE_OUTPUT_DIR}/${NAME}
     if [[ -e ${OUTPUT_LINK} ]]; then
@@ -221,53 +226,53 @@ do_version_link() {
 }
 
 do_sqlite() {
-  printf "%s %s> [SQLite]\n" $(date +"%F %T")
-
-  printf "%s %s> php scripts/sqlite/normalize-issue-details.php ${OUTPUT_DIR} &> ${PREFIX}/sqlite.log\n" $(date +"%F %T")
+  run sqlite
   php scripts/sqlite/normalize-issue-details.php ${OUTPUT_DIR} &> ${PREFIX}/sqlite.log
 
-  printf "%s %s> delete DB\n" $(date +"%F %T")
+  untrace
+  log "delete DB"
+
   if [[ -e ${OUTPUT_DIR}/qa_catalogue.sqlite ]]; then
     rm ${OUTPUT_DIR}/qa_catalogue.sqlite
   fi
 
   HAS_GROUP_PARAM=$(echo ${TYPE_PARAMS} | grep -c -P -e '--groupBy [^-]' || true)
   if [[ "${HAS_GROUP_PARAM}" == "0" ]]; then
-    printf "%s %s> create DB structure\n" $(date +"%F %T")
+    log "create DB structure"
     sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/qa_catalogue.sqlite.sql
   else
-    printf "%s %s> create DB structure (groupped)\n" $(date +"%F %T")
+    log "create DB structure (groupped)"
     sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/qa_catalogue.groupped.sqlite.sql
   fi
 
-  printf "%s %s> create importable files\n" $(date +"%F %T")
+  log "create importable files"
   tail -n +2 ${OUTPUT_DIR}/issue-details-normalized.csv > ${OUTPUT_DIR}/issue-details-normalized_noheader.csv
   tail -n +2 ${OUTPUT_DIR}/issue-summary.csv > ${OUTPUT_DIR}/issue-summary_noheader.csv
   if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
     tail -n +2 ${OUTPUT_DIR}/id-groupid.csv > ${OUTPUT_DIR}/id-groupid_noheader.csv
   fi
 
-  printf "%s %s> import issue details\n" $(date +"%F %T")
+  log "import issue details"
   sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
 .mode csv
 .import ${OUTPUT_DIR}/issue-details-normalized_noheader.csv issue_details
 EOF
 
-  printf "%s %s> import issue summary\n" $(date +"%F %T")
+  log "import issue summary"
   sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
 .mode csv
 .import ${OUTPUT_DIR}/issue-summary_noheader.csv issue_summary
 EOF
 
   if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
-    printf "%s %s> import id_groupid\n" $(date +"%F %T")
+    log "import id_groupid"
     sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
 .mode csv
 .import ${OUTPUT_DIR}/id-groupid_noheader.csv id_groupid
 EOF
   fi
 
-  printf "%s %s> delete importable files\n" $(date +"%F %T")
+  log "delete importable files"
   rm ${OUTPUT_DIR}/issue-details-normalized_noheader.csv
   rm ${OUTPUT_DIR}/issue-summary_noheader.csv
   if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
@@ -275,28 +280,28 @@ EOF
   fi
 
   if [[ "${HAS_GROUP_PARAM}" == "0" ]]; then
-    printf "%s %s> index\n" $(date +"%F %T")
+    log "index"
     sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.sql &>> ${PREFIX}/sqlite.log
   else
-    printf "%s %s> index (groupped)\n" $(date +"%F %T")
+    log "index (groupped)"
     sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.groupped.sqlite.sql &>> ${PREFIX}/sqlite.log
     Rscript scripts/sqlite/qa_catalogue.groupping.R ${OUTPUT_DIR} &>> ${PREFIX}/sqlite.log
 
-    printf "%s %s> import issue_group_types\n" $(date +"%F %T")
+    log "import issue_group_types"
     tail -n +2 ${OUTPUT_DIR}/issue-groupped-types.csv > ${OUTPUT_DIR}/issue-groupped-types-noheader.csv
   sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
 .mode csv
 .import ${OUTPUT_DIR}/issue-groupped-types-noheader.csv issue_group_types
 EOF
 
-    printf "%s %s> import issue_group_categories\n" $(date +"%F %T")
+    log "import issue_group_categories"
     tail -n +2 ${OUTPUT_DIR}/issue-groupped-categories.csv > ${OUTPUT_DIR}/issue-groupped-categories-noheader.csv
   sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
 .mode csv
 .import ${OUTPUT_DIR}/issue-groupped-categories-noheader.csv issue_group_categories
 EOF
 
-    printf "%s %s> import issue_group_paths\n" $(date +"%F %T")
+    log "import issue_group_paths"
     tail -n +2 ${OUTPUT_DIR}/issue-groupped-paths.csv > ${OUTPUT_DIR}/issue-groupped-paths-noheader.csv
   sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
 .mode csv
@@ -310,12 +315,13 @@ EOF
 }
 
 do_mysql() {
-  printf "%s %s> [MySQL]\n" $(date +"%F %T")
+  run mysql
 
-  printf "%s %s> php scripts/sqlite/normalize-issue-details.php ${OUTPUT_DIR} &> ${PREFIX}/mysql.log\n" $(date +"%F %T")
   php scripts/sqlite/normalize-issue-details.php ${OUTPUT_DIR} &> ${PREFIX}/mysql.log
 
-  # printf "%s %s> delete DB\n" $(date +"%F %T")
+  untrace
+
+  # log "delete DB"
   # if [[ -e ${OUTPUT_DIR}/qa_catalogue.sqlite ]]; then
   #   rm ${OUTPUT_DIR}/qa_catalogue.sqlite
   # fi
@@ -326,21 +332,21 @@ do_mysql() {
 
   HAS_GROUP_PARAM=$(echo ${TYPE_PARAMS} | grep -c -P -e '--groupBy [^-]' || true)
   if [[ "${HAS_GROUP_PARAM}" == "0" ]]; then
-    printf "%s %s> create DB structure\n" $(date +"%F %T")
+    log "create DB structure"
     mysql --defaults-extra-file=mysql.client.cnf ${NAME} < scripts/sqlite/qa_catalogue.mysql.sql
   else
-    printf "%s %s> create DB structure (groupped)\n" $(date +"%F %T")
+    log "create DB structure (groupped)"
     mysql --defaults-extra-file=mysql.client.cnf ${NAME} < scripts/sqlite/qa_catalogue.groupped.mysql.sql
   fi
 
-  printf "%s %s> create importable files\n" $(date +"%F %T")
+  log "create importable files"
   # tail -n +2 ${OUTPUT_DIR}/issue-details-normalized.csv > ${OUTPUT_DIR}/issue-details-normalized_noheader.csv
   # tail -n +2 ${OUTPUT_DIR}/issue-summary.csv > ${OUTPUT_DIR}/issue-summary_noheader.csv
   # if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
   #   tail -n +2 ${OUTPUT_DIR}/id-groupid.csv > ${OUTPUT_DIR}/id-groupid_noheader.csv
   # fi
 
-  printf "%s %s> import issue details\n" $(date +"%F %T")
+  log "import issue details"
   MYSQL_SEC_DIR=$(mysql --defaults-extra-file=mysql.client.cnf ${NAME} -e 'SHOW VARIABLES LIKE "secure_file_priv"\G' | grep 'Value:' | sed 's,\s*Value: ,,')
   sudo cp ${OUTPUT_DIR}/issue-details-normalized.csv ${MYSQL_SEC_DIR}
   mysql --defaults-extra-file=mysql.client.cnf ${NAME} -f << EOF
@@ -353,7 +359,7 @@ IGNORE 1 LINES;
 EOF
   # sudo rm ${MYSQL_SEC_DIR}/issue-details-normalized.csv
 
-  printf "%s %s> import issue summary\n" $(date +"%F %T")
+  log "import issue summary"
   sudo cp ${OUTPUT_DIR}/issue-summary.csv ${MYSQL_SEC_DIR}
   mysql --defaults-extra-file=mysql.client.cnf ${NAME} -f << EOF
 LOAD DATA INFILE '${MYSQL_SEC_DIR}/issue-summary.csv' 
@@ -366,7 +372,7 @@ EOF
   # sudo rm ${MYSQL_SEC_DIR}/issue-summary.csv
 
   if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
-    printf "%s %s> import id_groupid\n" $(date +"%F %T")
+    log "import id_groupid"
     sudo cp ${OUTPUT_DIR}/id-groupid.csv ${MYSQL_SEC_DIR}
     sudo mysql --defaults-extra-file=mysql.client.cnf ${NAME} -f << EOF
 LOAD DATA INFILE '${MYSQL_SEC_DIR}/id-groupid.csv' 
@@ -380,7 +386,7 @@ EOF
   fi
 
 
-  printf "%s %s> delete importable files\n" $(date +"%F %T")
+  log "delete importable files"
   # rm ${OUTPUT_DIR}/issue-details-normalized_noheader.csv
   # rm ${OUTPUT_DIR}/issue-summary_noheader.csv
   # if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
@@ -388,27 +394,29 @@ EOF
   # fi
 
   if [[ "${HAS_GROUP_PARAM}" == "0" ]]; then
-    printf "%s %s> index\n" $(date +"%F %T")
+    log "index"
     sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.sql &>> ${PREFIX}/mysql.log
   else
-    printf "%s %s> index (groupped)\n" $(date +"%F %T")
+    log "index (groupped)"
     mysql --defaults-extra-file=mysql.client.cnf ${NAME} < scripts/sqlite/modify-tables.groupped.mysql.sql &>> ${PREFIX}/mysql.log
   fi
 }
 
 do_export_schema_files() {
   mkdir -p marc-schema
-  printf "%s %s> [avram]\n" $(date +"%F %T")
+  run avram
+
+  untrace
   ./export-schema --withSubfieldCodelists > marc-schema/marc-schema.json
   ./export-schema --withSubfieldCodelists --solrFieldType mixed --withSelfDescriptiveCode > marc-schema/marc-schema-with-solr.json
   ./export-schema --withSubfieldCodelists --solrFieldType mixed --withSelfDescriptiveCode --withLocallyDefinedFields > marc-schema/marc-schema-with-solr-and-extensions.json
-  printf "%s %s> 3 files generated at 'marc-schema' directory: marc-schema.json, marc-schema-with-solr.json, marc-schema-with-solr-and-extensions.json\n" $(date +"%F %T")
+
+  log "files generated at 'marc-schema' directory: marc-schema.json, marc-schema-with-solr.json, marc-schema-with-solr-and-extensions.json"
 }
 
 do_shacl4bib() {
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
-  printf "%s %s> [shacl4bib]\n" $(date +"%F %T")
-  printf "%s %s> ./shacl4bib --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/shacl4bib.log\n" $(date +"%F %T")
+  run shacl4bib
   ./shacl4bib --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/shacl4bib.log
 }
 
@@ -433,6 +441,8 @@ do_all_solr() {
   do_prepare_solr
   do_index
 }
+
+# ---- usage and execution of proccessing steps ----
 
 help() {
 cat <<END
@@ -477,34 +487,40 @@ config() {
   echo "OUTPUT_DIR=$OUTPUT_DIR"
   echo "TYPE_PARAMS: $TYPE_PARAMS"
   echo "WEB_DIR=$WEB_DIR"
+  echo "PREFIX=$PREFIX"
   cat ./common-variables
 }
 
-error() {
+fatal() {
   echo -e '\033[1;31m'"$1"'\033[0m'
+  exit 1
 }
 
-# initialize environment for processing commands
-if [[ ! "${1:-help}" =~ ^(help|config|export-schema-files)$ ]]; then
-  SECONDS=0
-  PREFIX=${BASE_INPUT_DIR}/_reports/${NAME}
-  DATE=$(date +"%F")
-  if [[ "${VERSION:-}" != "" ]]; then
-    OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}-${VERSION}
-  else
-    OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}
-  fi
+# initialize environment
+NAME=${NAME:-$(basename $0 .sh)}
+BASE_INPUT_DIR=${BASE_INPUT_DIR:-./input}
+BASE_OUTPUT_DIR=${BASE_OUTPUT_DIR:-./output}
+MARC_DIR=${MARC_DIR:-$BASE_PICA_INPUT_DIR/$NAME}
 
-  echo "OUTPUT_DIR: ${OUTPUT_DIR}"
+PREFIX=${BASE_INPUT_DIR}/_reports/$NAME
+if [[ "${VERSION:-}" != "" ]]; then
+  OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}-${VERSION}
+else
+  OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}
+fi
+
+# check directories for processing commands
+if [[ ! "${1:-help}" =~ ^(help|config|export-schema-files)$ ]]; then
+  cmd=$1
+
   mkdir -p $PREFIX
   mkdir -p $OUTPUT_DIR
 
-  # printf "%s %s> Logging to ${PREFIX}.log"
+  log "input:  $MARC_DIR/$MASK"
+  log "output: $OUTPUT_DIR"
+  log "logs:   $PREFIX"
 
-  # dies if input files don't exist
-  echo BASE_PICA_INPUT_DIR: ${BASE_PICA_INPUT_DIR}
-  echo ${MARC_DIR}/${MASK}
-  ls ${MARC_DIR}/${MASK} > /dev/null
+  ls ${MARC_DIR}/${MASK} &> /dev/null || fatal "Missing input files!"
 fi
 
 case "${1:-help}" in
@@ -533,14 +549,12 @@ case "${1:-help}" in
   version-link)             do_version_link ;;
   config)                   config ;;
   help)                     help ;;
-  *)                        error "unknown command: $1"; exit 1
+  *)                        fatal "unknown command: $1"
 esac
 
-if [ ! -z "${SECONDS:-}" ]; then
-  duration=$SECONDS
-  hours=$(($duration / (60*60)))
-  mins=$(($duration % (60*60) / 60))
-  secs=$(($duration % 60))
+untrace
 
-  printf "%s %s> DONE. %02d:%02d:%02d elapsed.\n" $(date +"%F %T") $hours $mins $secs
+if [ ! -z "${cmd:-}" ]; then
+  sec=$SECONDS
+  log "DONE in $(printf '%02d:%02d:%02d\n' $((sec/3600)) $((sec%3600/60)) $((sec%60)))"
 fi

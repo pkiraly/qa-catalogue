@@ -1,7 +1,6 @@
 library(tidyverse)
 library(httr)
 
-URL <- 'http://localhost:8983/solr/csv_test/select?q=%s&rows=0'
 getCount <- function(groupId, errorIds) {
   if (length(errorIds) == 1) {
     errors <- errorIds
@@ -20,22 +19,14 @@ if (length(args) == 0) {
 } else if (length(args) == 1) {
   # default output dir
   OUTPUT_DIR <- args[1]
+  SOLR_CORE <- 'validation'
+} else if (length(args) == 2) {
+  # default output dir
+  OUTPUT_DIR <- args[1]
+  SOLR_CORE <- args[2]
 }
-
-# OUTPUT_DIR <- '~/temp/validation-test'
-# print('reading id-groupid.csv')
-# id_groupid <- read_csv(sprintf('%s/%s',
-#                                OUTPUT_DIR, 'id-groupid2.csv'),
-#                        col_types = "ii")
-# gc()
-# head(id_groupid)
-# 
-# print('reading issue-details-normalized2.csv')
-# details <- read_csv(sprintf('%s/%s',
-#                             OUTPUT_DIR, 'issue-details-normalized.csv'),
-#                     col_types = "iii")
-# print('normalize details')
-# gc()
+print(sprintf('[parameters] OUTPUT_DIR: %s, SOLR_CORE: %s', OUTPUT_DIR, SOLR_CORE))
+URL <- paste0('http://localhost:8983/solr/', SOLR_CORE, '/select?q=%s&rows=0')
 
 print('reading issue-summary.csv')
 summary <- read_csv(sprintf('%s/%s',

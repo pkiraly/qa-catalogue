@@ -26,7 +26,7 @@ sudo apt-get install r-cran-tidyverse r-cran-stringr r-cran-gridextra
 # Install sqlite3
 sudo apt-get install sqlite3 r-cran-rsqlite
 # Install PHP
-sudo apt-get install php php-sqlite3
+sudo apt-get install php php-sqlite3 php-curl
 ```
 
 In addition, Maven is required to build the JAR files.

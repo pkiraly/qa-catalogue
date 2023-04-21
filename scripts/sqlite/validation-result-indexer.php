@@ -13,9 +13,7 @@ function index($records) {
   curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
   $result = curl_exec($ch);
   curl_close($ch);
-  print_r ($result);
-  /*
-  */
+  // print_r ($result);
 }
 
 function getDetails() {
@@ -56,7 +54,7 @@ function processIdGroupid() {
   $details = false;
   $i = 0;
   while (($line = fgets($inId)) != false) {
-    if (++$i % 1000 == 0)
+    if (++$i % 100000 == 0)
       echo $i, LN;
     $values = str_getcsv($line);
     $id = $values[0];

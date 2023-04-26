@@ -4,7 +4,9 @@ import de.gwdg.metadataqa.marc.utils.pica.PicaSubfield;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,11 +15,13 @@ public class PicaLine {
   private static final Logger logger = Logger.getLogger(PicaLine.class.getCanonicalName());
 
   private static final Pattern LINE = Pattern.compile("^(SET:|Eingabe:|Warnung:|[0-2][0-9][0-9][A-Z@])(\\/([0-9][0-9]+))? (.*)$", Pattern.MULTILINE);
+  private static Map<String, String> quotedSeparatorMap = new HashMap<>();
   public static final String DEFAULT_SEPARATOR = "$";
   private static final String SET = "SET";
   private static final String EINGABE = "Eingabe";
   private static final String WARNUNG = "Warnung";
   private String subfieldSeparator = DEFAULT_SEPARATOR;
+  private String quotedSubfieldSeparator = getQuotedSeparator(subfieldSeparator);
   private static String DOLLAR_REPLACEMENT = "%26%26";
 
   private String tag;
@@ -37,7 +41,15 @@ public class PicaLine {
 
   public PicaLine(String raw, String subfieldSeparator) {
     this.subfieldSeparator = subfieldSeparator;
+    this.quotedSubfieldSeparator = getQuotedSeparator(subfieldSeparator);
     parse(raw);
+  }
+
+  private static String getQuotedSeparator(String separator) {
+    if (!quotedSeparatorMap.containsKey(separator)) {
+      quotedSeparatorMap.put(separator, Pattern.quote(separator));
+    }
+    return quotedSeparatorMap.get(separator);
   }
 
   public boolean isSET() {
@@ -113,9 +125,9 @@ public class PicaLine {
     String[] parts = null;
     if (subfieldSeparator.equals("$") && content.contains("$$")) {
       dollarReplacement = true;
-      parts = content.replace("$$", DOLLAR_REPLACEMENT).split(Pattern.quote(subfieldSeparator));
+      parts = content.replace("$$", DOLLAR_REPLACEMENT).split(quotedSubfieldSeparator); // Pattern.quote(subfieldSeparator)
     } else {
-      parts = content.split(Pattern.quote(subfieldSeparator));
+      parts = content.split(quotedSubfieldSeparator); // Pattern.quote(subfieldSeparator)
     }
     for (String part : parts) {
       if (StringUtils.isNotBlank(part)) {

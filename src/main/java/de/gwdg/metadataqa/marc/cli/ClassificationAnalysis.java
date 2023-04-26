@@ -1,11 +1,11 @@
 package de.gwdg.metadataqa.marc.cli;
 
+import de.gwdg.metadataqa.marc.cli.parameters.ClassificationParameters;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.analysis.ClassificationAnalyzer;
 import de.gwdg.metadataqa.marc.analysis.ClassificationStatistics;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
-import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.Collocation;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
@@ -35,14 +35,14 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
   private static final Logger logger = Logger.getLogger(ClassificationAnalysis.class.getCanonicalName());
 
   private final Options options;
-  private CommonParameters parameters;
+  private ClassificationParameters parameters;
   private boolean readyToProcess;
   private static char separator = ',';
   private File collectorFile;
   ClassificationStatistics statistics = new ClassificationStatistics();
 
   public ClassificationAnalysis(String[] args) throws ParseException {
-    parameters = new ValidatorParameters(args);
+    parameters = new ClassificationParameters(args);
     options = parameters.getOptions();
     readyToProcess = true;
     Schema.reset();
@@ -85,17 +85,8 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
     if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
       return;
 
-    ClassificationAnalyzer analyzer = new ClassificationAnalyzer(marcRecord, statistics);
+    ClassificationAnalyzer analyzer = new ClassificationAnalyzer(marcRecord, statistics, parameters);
     analyzer.process();
-    var total1 = statistics.getHasClassifications().get(true);
-    if (total1 == null)
-      total1 = Integer.valueOf(0);
-    var total = statistics.recordCountWithClassification();
-    if (total1.intValue() != total.intValue()) {
-      logger.severe(String.format("%s COUNT: total (%d) != schemasInRecord (%d)",
-          marcRecord.getId(true), total1, total));
-      readyToProcess = false;
-    }
 
     /*
     List<Schema> schemas = analyzer.getSchemasInRecord();
@@ -155,7 +146,8 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
     printClassificationsHistogram();
     printFrequencyExamples();
     printSchemaSubfieldsStatistics();
-    printClassificationsCollocation();
+    if (parameters.doCollectCollocations())
+      printClassificationsCollocation();
   }
 
   private void printClassificationsCollocation() {
@@ -197,7 +189,6 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
         "abbreviation", "abbreviation4solr", "recordcount", "instancecount",
         "type"
       ));
-      System.err.println(statistics.getInstances());
       statistics.getInstances()
         .entrySet()
         .stream()

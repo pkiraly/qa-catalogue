@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.marc.Utils;
+import de.gwdg.metadataqa.marc.cli.parameters.ClassificationParameters;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
@@ -36,6 +37,7 @@ public class ClassificationAnalyzer {
   private static PicaVocabularyManager manager = null;
 
   private final ClassificationStatistics statistics;
+  private ClassificationParameters parameters = null;
   private BibliographicRecord marcRecord;
   private List<Schema> schemasInRecord;
 
@@ -110,6 +112,11 @@ public class ClassificationAnalyzer {
     }
   }
 
+  public ClassificationAnalyzer(BibliographicRecord marcRecord, ClassificationStatistics statistics, ClassificationParameters parameters) {
+    this(marcRecord, statistics);
+    this.parameters = parameters;
+  }
+
   public int process() {
     var total = 0;
     schemasInRecord = new ArrayList<>();
@@ -139,9 +146,11 @@ public class ClassificationAnalyzer {
     count(total, statistics.getSchemaHistogram());
     statistics.getFrequencyExamples().computeIfAbsent(total, s -> marcRecord.getId(true));
 
-    List<String> collocation = getCollocationInRecord();
-    if (!collocation.isEmpty())
-      count(collocation, statistics.getCollocationHistogram());
+    if (parameters != null && parameters.doCollectCollocations()) {
+      List<String> collocation = getCollocationInRecord();
+      if (!collocation.isEmpty())
+        count(collocation, statistics.getCollocationHistogram());
+    }
   }
 
   private int processFieldsWithScheme(int total, List<FieldWithScheme> fieldsWithScheme) {

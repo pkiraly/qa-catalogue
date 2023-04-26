@@ -136,6 +136,7 @@ public class ValidatorCliTest extends CliTestUtils {
       "--defaultRecordType", "BOOKS",
       "--detailsFileName", "issue-details.csv",
       "--summaryFileName", "issue-summary.csv",
+      // "/home/kiru/Documents/marc21/k10plus_pica_groupped/pica-with-holdings-info-1M.dat"
       getPath("src/test/resources/pica/pica-with-holdings-info.dat")
     });
     RecordIterator iterator = new RecordIterator(processor);

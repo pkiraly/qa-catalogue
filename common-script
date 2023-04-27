@@ -49,6 +49,14 @@ do_completeness() {
   ./completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/completeness.log
 }
 
+do_completeness_sqlite() {
+  run completeness_sqlite
+  HAS_GROUP_PARAM=$(echo ${TYPE_PARAMS} | grep -c -P -e '--groupBy [^-]' || true)
+  if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
+    bash scripts/sqlite/completeness-groupped.sqlite.sh
+  fi
+}
+
 do_classifications() {
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
   run classifications
@@ -426,6 +434,7 @@ do_all_analyses() {
   do_validate
   do_sqlite
   do_completeness
+  do_completeness_sqlite
   do_classifications
   do_authorities
   do_tt_completeness
@@ -470,6 +479,7 @@ commands:
   prepare-solr               prepare indexing
   index                      indexing with Solr
   sqlite                     import tables to SQLite
+  completeness-sqlite        import groupped output of completeness to SQLite
   export-schema-files        export schema files
   shacl4bib                  run SHACL-like validation
   all-analyses               run all analitical tasks
@@ -529,7 +539,7 @@ case "${1:-help}" in
   validate)                 do_validate ; do_sqlite ;;
   prepare-solr)             do_prepare_solr ;;
   index)                    do_index ;;
-  completeness)             do_completeness ;;
+  completeness)             do_completeness ; do_completeness_sqlite ;;
   classifications)          do_classifications ;;
   authorities)              do_authorities ;;
   tt-completeness)          do_tt_completeness ;;
@@ -542,6 +552,7 @@ case "${1:-help}" in
   pareto)                   do_pareto ;;
   marc-history)             do_marc_history ;;
   record-patterns)          do_record_patterns ;;
+  completeness-sqlite)      do_completeness_sqlite ;;
   sqlite)                   do_sqlite ;;
   mysql)                    do_mysql ;;
   export-schema-files)      do_export_schema_files ;;

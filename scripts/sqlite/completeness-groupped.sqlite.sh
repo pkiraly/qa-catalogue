@@ -31,7 +31,8 @@ CREATE TABLE IF NOT EXISTS "groupped_marc_elements" (
   "stddev"              REAL,
   "histogram"           TEXT
 );
-CREATE INDEX IF NOT EXISTS "groupId" ON "groupped_marc_elements" ("groupId");
+CREATE INDEX IF NOT EXISTS "gme_groupId" ON "groupped_marc_elements" ("groupId");
+CREATE INDEX IF NOT EXISTS "gme_documenttype" ON "groupped_marc_elements" ("documenttype");
 EOF
 
 log "clean groupped_marc_elements"

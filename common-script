@@ -51,9 +51,12 @@ do_completeness() {
 
 do_completeness_sqlite() {
   run completeness_sqlite
+
+  untrace
   HAS_GROUP_PARAM=$(echo ${TYPE_PARAMS} | grep -c -P -e '--groupBy [^-]' || true)
+
   if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
-    bash scripts/sqlite/completeness-groupped.sqlite.sh
+    bash scripts/sqlite/completeness-groupped.sqlite.sh ${OUTPUT_DIR}
   fi
 }
 

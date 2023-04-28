@@ -1,25 +1,32 @@
 #!/usr/bin/env bash
 set -uo pipefail
 
-# prefix each command with timestamp in trace mode
-PS4='\033[0D\033[1;37m$(date +"%F %T")>\033[0m '
+# when run interactively via terminal
+if [ -t 1 ]; then
+    # prefix each command with timestamp in trace mode
+    PS4='\033[0D\033[1;37m$(date +"%F %T")>\033[0m '
+    function colored() { echo -en "\033[${1}m${2}\033[0m"; }
+else
+    PS4='$(date +"%F %T")> '
+    function colored() { echo -n "$2"; }
+fi
 
-# disable trace mode without echoing 'set +x'
+# emit message with timestamp
+log() {
+  colored "1;37" "$(date +'%F %T')> "
+  echo "$1"
+}
+
+# define 'untrace' command to disable trace mode
 unalias -a
 shopt -s expand_aliases
 alias untrace='{ set +x; } 2> /dev/null'
 
-# emit message with timestamp
-log() {
-  timestamp=`date +"%F %T"`
-  echo -en "\033[0D\033[1;37m$timestamp>\033[0m "
-  echo "$1"
-}
-
 # start a named processing step and enable trace mode
 run() {
   untrace
-  log "$(echo -e '\033[1;1m'"[$1]"'\033[0m')"
+  colored "1;1" "[$1]"
+  echo ""
   set -x
 }
 
@@ -500,7 +507,7 @@ config() {
 }
 
 fatal() {
-  echo -e '\033[1;31m'"$1"'\033[0m'
+  colored "1;31" "$1"
   exit 1
 }
 

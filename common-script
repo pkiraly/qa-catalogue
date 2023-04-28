@@ -515,7 +515,7 @@ fatal() {
 NAME=${NAME:-$(basename $0 .sh)}
 BASE_INPUT_DIR=${BASE_INPUT_DIR:-./input}
 BASE_OUTPUT_DIR=${BASE_OUTPUT_DIR:-./output}
-MARC_DIR=${MARC_DIR:-$BASE_PICA_INPUT_DIR/$NAME}
+MARC_DIR=${MARC_DIR:-$BASE_INPUT_DIR/$NAME}
 
 PREFIX=${BASE_INPUT_DIR}/_reports/$NAME
 if [[ "${VERSION:-}" != "" ]]; then

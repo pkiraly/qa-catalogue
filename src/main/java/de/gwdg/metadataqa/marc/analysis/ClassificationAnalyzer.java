@@ -87,21 +87,41 @@ public class ClassificationAnalyzer {
   );
 
   private static final List<FieldWithScheme> PICA_FIELDS_WITH_SCHEME = Arrays.asList(
+    new FieldWithScheme("041A", "Schlagwortfolgen (DNB und Verbünde)"),
+    new FieldWithScheme("044K", "Schlagwortfolgen (GBV, SWB, K10plus)"),
+    new FieldWithScheme("044L", "Einzelschlagwörter (Projekte)"),
+    new FieldWithScheme("044N", "Schlagwörter aus einem Thesaurus und freie Schlagwörter"),
+    new FieldWithScheme("044S", "Gattungsbegriffe bei Alten Drucken"),
+    new FieldWithScheme("044Z", "Lokale Schlagwörter auf bibliografischer Ebene"),
     new FieldWithScheme("045A", "LCC-Notation"),
-    new FieldWithScheme("045F", "DDC-Notation"),
-    new FieldWithScheme("045R", "Regensburger Verbundklassifikation (RVK)"),
     new FieldWithScheme("045B/00", "Allgemeine Systematik für Bibliotheken (ASB)"),
     new FieldWithScheme("045B/01", "Systematik der Stadtbibliothek Duisburg (SSD)"),
     new FieldWithScheme("045B/02", "Systematik für Bibliotheken (SfB)"),
     new FieldWithScheme("045B/03", "Klassifikation für Allgemeinbibliotheken (KAB)"),
     new FieldWithScheme("045B/04", "Systematiken der ekz"),
     new FieldWithScheme("045B/05", "Gattungsbegriffe (DNB)"),
-    new FieldWithScheme("045C", "Notation – Beziehung"),
+    new FieldWithScheme("045C", "Klassifikation der National Library of Medicine (NLM)"),
+    // TODO: 045D/00-29 - "STW-Schlagwörter"
+    // TODO: 045D/30-39 - "STW-Schlagwörter - automatisierte verbale Sacherschließung"
+    // TODO: 045D/40-48 - "STW-Schlagwörter - Platzhalter"
+    new FieldWithScheme("045D/49", "ZBW-Schlagwörter - Veröffentlichungsart"),
+    new FieldWithScheme("045D/50", "Vorläufige Schhlagwörter (STW)"),
+    new FieldWithScheme("045D/60", "FIV-Schlagwörter (Themen)"),
+    new FieldWithScheme("045D/70", "FIV-Schlagwörter (Aspekte)"),
     new FieldWithScheme("045E", "Sachgruppen der Deutschen Nationalbibliografie bis 2003"),
+    new FieldWithScheme("045F", "DDC-Notation"),
     new FieldWithScheme("045G", "Sachgruppen der Deutschen Nationalbibliografie ab 2004"),
-    new FieldWithScheme("041A", "Sachbegriff - Bevorzugte Benennung"),
-    new FieldWithScheme("144Z/00-99", "Lokale Schlagwörter"),
-    new FieldWithScheme("145S/00-99", "Lesesaalsystematik der SBB")
+    new FieldWithScheme("045H", "DDC-Notation: Vollständige Notation"),
+    new FieldWithScheme("045M", "Lokale Notationen auf bibliografischer Ebene"),
+    new FieldWithScheme("045N", "FIV-Regionalklassifikation"),
+    new FieldWithScheme("045Q/01", "Basisklassifikation"),
+    new FieldWithScheme("045R", "Regensburger Verbundklassifikation (RVK)"),
+    new FieldWithScheme("045S", "Deutsche Bibliotheksstatistik (DBS)"),
+    new FieldWithScheme("045T", "Nicht mehr gültige Notationen der Regensburger Verbundklassifikation (RVK)"),
+    new FieldWithScheme("045V", "SSG-Nummer/FID-Kennzeichen"),
+    new FieldWithScheme("045W", "SSG-Angabe für thematische OLC-Ausschnitte"),
+    new FieldWithScheme("045X", "Notation eines Klassifikationssystems"),
+    new FieldWithScheme("045Y", "SSG-Angabe für Fachkataloge")
   );
 
   public ClassificationAnalyzer(BibliographicRecord marcRecord, ClassificationStatistics statistics) {

@@ -230,11 +230,10 @@ The following commands are supported:
 * `index` -- runs indexing with Solr
 * `sqlite` -- import tables to SQLite
 * `export-schema-files` -- export schema files
-* `all-analyses` this runs the following commands in one step: validate,
-  completeness, classifications, authorities, tt_completeness, serial_score,
-  functional_analysis
+* `all-analyses` -- run all default analysis tasks
 * `all-solr` -- run all indexing tasks
 * `all` -- run all tasks
+* `config` -- show configuration of selected catalogue
 
 You can find information about these functionalities below this document.
 
@@ -288,6 +287,10 @@ TYPE_PARAMS="--marcVersion DNB --marcxml"
 
 This line sets the DNB's MARC version (to cover fields defined within DNB's
 MARC version), and XML as input format.
+
+The optional configuration variable `ANALYSES` can be used to specify which
+analysis tasks to run with command `all-analyses`. Call with command `config`
+to get the default analysis tasks.
 
 The `./metadata-qa.sh` script has the following options:
 * 

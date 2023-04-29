@@ -2,8 +2,6 @@
 
 . ./setdir.sh
 
-NAME=k10plus_pica_groupped
-MARC_DIR=${BASE_PICA_INPUT_DIR}/k10plus_pica_groupped
 SCHEMA=PICA
 TYPE_PARAMS="--schemaType PICA --marcFormat PICA_NORMALIZED --emptyLargeCollectors"
 TYPE_PARAMS="$TYPE_PARAMS --groupBy 001@\$0"

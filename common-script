@@ -1,25 +1,32 @@
 #!/usr/bin/env bash
 set -uo pipefail
 
-# prefix each command with timestamp in trace mode
-PS4='\033[0D\033[1;37m$(date +"%F %T")>\033[0m '
+# when run interactively via terminal
+if [ -t 1 ]; then
+    # prefix each command with timestamp in trace mode
+    PS4='\033[0D\033[1;37m$(date +"%F %T")>\033[0m '
+    function colored() { echo -en "\033[${1}m${2}\033[0m"; }
+else
+    PS4='$(date +"%F %T")> '
+    function colored() { echo -n "$2"; }
+fi
 
-# disable trace mode without echoing 'set +x'
+# emit message with timestamp
+log() {
+  colored "1;37" "$(date +'%F %T')> "
+  echo "$1"
+}
+
+# define 'untrace' command to disable trace mode
 unalias -a
 shopt -s expand_aliases
 alias untrace='{ set +x; } 2> /dev/null'
 
-# emit message with timestamp
-log() {
-  timestamp=`date +"%F %T"`
-  echo -en "\033[0D\033[1;37m$timestamp>\033[0m "
-  echo "$1"
-}
-
 # start a named processing step and enable trace mode
 run() {
   untrace
-  log "$(echo -e '\033[1;1m'"[$1]"'\033[0m')"
+  colored "1;1" "[$1]"
+  echo ""
   set -x
 }
 
@@ -434,21 +441,13 @@ do_shacl4bib() {
 }
 
 do_all_analyses() {
-  do_validate
-  do_sqlite
-  do_completeness
-  do_completeness_sqlite
-  do_classifications
-  do_authorities
-  do_tt_completeness
-  do_shelf_ready_completeness
-  do_serial_score
-  do_functional_analysis
-  # do_bl_classification
-  # do_network_analysis
-  do_pareto
-  do_marc_history
-  # do_sqlite
+  tasks=$(echo "${ANALYSES}" | tr , ' ')
+  for task in $tasks; do
+      declare -F "do_$task" > /dev/null || fatal "unknown analysis task: $task"
+  done
+  for task in $(echo "${ANALYSES}" | tr , ' '); do
+    do_$task
+  done
 }
 
 do_all_solr() {
@@ -485,7 +484,7 @@ commands:
   completeness-sqlite        import groupped output of completeness to SQLite
   export-schema-files        export schema files
   shacl4bib                  run SHACL-like validation
-  all-analyses               run all analitical tasks
+  all-analyses               run all analytical tasks (or those set via ANALYSES)
   all-solr                   run all indexing tasks
   all                        run all tasks
   config                     show configuration
@@ -500,14 +499,15 @@ config() {
   echo "MARC_DIR=$MARC_DIR"
   echo "MASK=$MASK"
   echo "OUTPUT_DIR=$OUTPUT_DIR"
-  echo "TYPE_PARAMS: $TYPE_PARAMS"
+  echo "TYPE_PARAMS=$TYPE_PARAMS"
+  echo "ANALYSES=$ANALYSES"
   echo "WEB_DIR=$WEB_DIR"
   echo "PREFIX=$PREFIX"
   cat ./common-variables
 }
 
 fatal() {
-  echo -e '\033[1;31m'"$1"'\033[0m'
+  colored "1;31" "$1"
   exit 1
 }
 
@@ -515,7 +515,7 @@ fatal() {
 NAME=${NAME:-$(basename $0 .sh)}
 BASE_INPUT_DIR=${BASE_INPUT_DIR:-./input}
 BASE_OUTPUT_DIR=${BASE_OUTPUT_DIR:-./output}
-MARC_DIR=${MARC_DIR:-$BASE_PICA_INPUT_DIR/$NAME}
+MARC_DIR=${MARC_DIR:-$BASE_INPUT_DIR/$NAME}
 
 PREFIX=${BASE_INPUT_DIR}/_reports/$NAME
 if [[ "${VERSION:-}" != "" ]]; then
@@ -523,6 +523,10 @@ if [[ "${VERSION:-}" != "" ]]; then
 else
   OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}
 fi
+
+# which tasks to run on `all-analyses`
+ALL_ANALYSES=validate,sqlite,completeness,completeness_sqlite,classifications,authorities,tt_completeness,shelf_ready_completeness,serial_score,functional_analysis,pareto,marc_history
+ANALYSES=${ANALYSES:-$ALL_ANALYSES}
 
 # check directories for processing commands
 if [[ ! "${1:-help}" =~ ^(help|config|export-schema-files)$ ]]; then

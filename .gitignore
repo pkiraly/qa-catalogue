@@ -46,3 +46,4 @@ setdir.sh
 .classpath
 .settings
 
+/target/

@@ -1,0 +1,7 @@
+format: marc
+fields:
+- name: 040$a
+  path: 040$a
+  rules:
+  - minCount: 1
+  - pattern: ^BE-KBR00

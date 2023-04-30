@@ -17,6 +17,7 @@ import de.gwdg.metadataqa.marc.definition.general.indexer.subject.*;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.model.validation.ErrorsCollector;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
+import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
@@ -29,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-public class DataField implements Extractable, Serializable { // Validatable
+public class DataField implements Extractable, Serializable {
 
   private static final Logger logger = Logger.getLogger(DataField.class.getCanonicalName());
 
@@ -46,6 +47,13 @@ public class DataField implements Extractable, Serializable { // Validatable
   private List<FieldIndexer> fieldIndexers;
   private boolean fieldIndexerInitialized = false;
 
+  /**
+   * Create data field
+   * @param definition
+   * @param ind1
+   * @param ind2
+   * @param <T>
+   */
   public <T extends DataFieldDefinition> DataField(T definition, String ind1, String ind2) {
     this.definition = definition;
     this.ind1 = ind1;
@@ -53,6 +61,14 @@ public class DataField implements Extractable, Serializable { // Validatable
     this.subfields = new ArrayList<>();
   }
 
+  /**
+   * Create data field
+   * @param definition
+   * @param ind1
+   * @param ind2
+   * @param subfields
+   * @param <T>
+   */
   public <T extends DataFieldDefinition> DataField(T definition,
                                                    String ind1,
                                                    String ind2,
@@ -78,6 +94,14 @@ public class DataField implements Extractable, Serializable { // Validatable
     }
   }
 
+  /**
+   * Create data field
+   * @param definition
+   * @param ind1
+   * @param ind2
+   * @param subfields
+   * @param <T>
+   */
   public <T extends DataFieldDefinition> DataField(T definition,
                                                    String ind1,
                                                    String ind2,
@@ -88,10 +112,21 @@ public class DataField implements Extractable, Serializable { // Validatable
     }
   }
 
+  /**
+   * Create data field
+   * @param tag
+   * @param input
+   */
   public DataField(String tag, String input) {
     this(tag, input, MarcVersion.MARC21);
   }
 
+  /**
+   * Create data field
+   * @param tag
+   * @param input
+   * @param version
+   */
   public DataField(String tag, String input, MarcVersion version) {
     definition = TagDefinitionLoader.load(tag, version);
     if (definition == null) {
@@ -104,6 +139,13 @@ public class DataField implements Extractable, Serializable { // Validatable
     parseAndAddSubfields(input.substring(2));
   }
 
+  /**
+   * Create data field
+   * @param tag
+   * @param ind1
+   * @param ind2
+   * @param marcVersion
+   */
   public DataField(String tag, String ind1, String ind2, MarcVersion marcVersion) {
     definition = TagDefinitionLoader.load(tag, marcVersion);
     if (definition == null) {
@@ -114,6 +156,14 @@ public class DataField implements Extractable, Serializable { // Validatable
     this.subfields = new ArrayList<>();
   }
 
+  /**
+   * Create data field
+   * @param tag
+   * @param ind1
+   * @param ind2
+   * @param content
+   * @param marcVersion
+   */
   public DataField(String tag, String ind1, String ind2, String content, MarcVersion marcVersion) {
     definition = TagDefinitionLoader.load(tag, marcVersion);
     if (definition == null) {
@@ -131,6 +181,11 @@ public class DataField implements Extractable, Serializable { // Validatable
       addSubfield(sf[0], sf[1]);
   }
 
+  /**
+   * Parse subfield string
+   * @param content
+   * @return
+   */
   public static List<String[]> parseSubfields(String content) {
     List<String[]> subfields = new ArrayList<>();
 

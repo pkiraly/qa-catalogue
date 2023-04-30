@@ -101,7 +101,7 @@ public class Shacl4bib implements BibliographicInputProcessor, Serializable {
 
   @Override
   public void processRecord(BibliographicRecord marcRecord, int recordNumber) throws IOException {
-    List<MetricResult> results = ruleCatalog.measure(new MarcPathCache(marcRecord));
+    List<MetricResult> results = ruleCatalog.measure(new BibPathCache(marcRecord));
     System.err.println(results);
   }
 

@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.cli.utils;
 
-import de.gwdg.metadataqa.api.model.pathcache.JsonPathCache;
+import de.gwdg.metadataqa.api.model.selector.JsonSelector;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
@@ -48,14 +48,14 @@ public class MarcJsonToSolr {
     logger.info(String.format("Solr URL: %s, file: %s (do commits: %s)", url, fileName, doCommits));
 
     MarcSolrClient client = new MarcSolrClient(url);
-    JsonPathCache<? extends XmlFieldInstance> cache;
+    JsonSelector<? extends XmlFieldInstance> cache;
     List<String> records;
     try {
       records = Files.readAllLines(path, Charset.defaultCharset());
       var i = 0;
       for (String marcRecordLine : records) {
         i++;
-        cache = new JsonPathCache(marcRecordLine);
+        cache = new JsonSelector(marcRecordLine);
         BibliographicRecord marcRecord = MarcFactory.create(cache);
         client.indexMap(marcRecord.getId(), marcRecord.getKeyValuePairs());
 

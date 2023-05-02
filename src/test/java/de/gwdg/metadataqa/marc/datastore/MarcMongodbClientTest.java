@@ -5,7 +5,7 @@ import com.jayway.jsonpath.spi.json.JsonProvider;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
-import de.gwdg.metadataqa.api.model.pathcache.JsonPathCache;
+import de.gwdg.metadataqa.api.model.selector.JsonSelector;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.api.util.FileUtils;
 import java.io.IOException;
@@ -96,10 +96,10 @@ public class MarcMongodbClientTest {
     assertEquals(0, collection.count());
     boolean insert = true;
     if (insert) {
-      JsonPathCache<? extends XmlFieldInstance> cache;
+      JsonSelector<? extends XmlFieldInstance> cache;
       List<String> records = FileUtils.readLinesFromResource("general/marc.json");
       for (String marcRecord : records) {
-        cache = new JsonPathCache<>(marcRecord);
+        cache = new JsonSelector<>(marcRecord);
         String id   = cache.get("$.controlfield.[?(@.tag == '001')].content").get(0).getValue();
         String x003 = cache.get("$.controlfield.[?(@.tag == '003')].content").get(0).getValue();
 

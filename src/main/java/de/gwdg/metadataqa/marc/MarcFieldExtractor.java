@@ -4,9 +4,9 @@ import com.jayway.jsonpath.InvalidJsonException;
 import de.gwdg.metadataqa.api.counter.FieldCounter;
 import de.gwdg.metadataqa.api.interfaces.Calculator;
 import de.gwdg.metadataqa.api.interfaces.MetricResult;
-import de.gwdg.metadataqa.api.model.pathcache.JsonPathCache;
+import de.gwdg.metadataqa.api.model.selector.JsonSelector;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
-import de.gwdg.metadataqa.api.model.pathcache.PathCache;
+import de.gwdg.metadataqa.api.model.selector.Selector;
 import de.gwdg.metadataqa.api.schema.Schema;
 import de.gwdg.metadataqa.api.util.CompressionLevel;
 import java.io.Serializable;
@@ -82,7 +82,7 @@ public class MarcFieldExtractor implements Calculator, Serializable {
     return CALCULATOR_NAME;
   }
 
-  public void measure(JsonPathCache cache)
+  public void measure(JsonSelector selector)
         throws InvalidJsonException {
     valid = true;
     resultMap = new FieldCounter<>();
@@ -107,15 +107,15 @@ public class MarcFieldExtractor implements Calculator, Serializable {
     systemControlNumbers = null;
     oclcMap = null;
 
-    recordId = ((List<XmlFieldInstance>) cache.get(getIdPath())).get(0).getValue();
-    cache.setRecordId(recordId);
+    recordId = ((List<XmlFieldInstance>) selector.get(getIdPath())).get(0).getValue();
+    selector.setRecordId(recordId);
     resultMap.put(FIELD_NAME, Arrays.asList(recordId));
     if (schema != null) {
       String path;
       for (String fieldName : schema.getExtractableFields().keySet()) {
         if (!fieldName.equals(FIELD_NAME)) {
           path = schema.getExtractableFields().get(fieldName);
-          List<XmlFieldInstance> instances = cache.get(path);
+          List<XmlFieldInstance> instances = selector.get(path);
           List<String> values = null;
           if (!isNull(instances)) {
             values = new ArrayList<>();
@@ -167,7 +167,7 @@ public class MarcFieldExtractor implements Calculator, Serializable {
   }
 
   @Override
-  public List<MetricResult> measure(PathCache pathCache) {
+  public List<MetricResult> measure(Selector selector) {
     return null;
   }
 

@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc;
 
-import de.gwdg.metadataqa.api.model.pathcache.JsonPathCache;
+import de.gwdg.metadataqa.api.model.selector.JsonSelector;
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
@@ -25,9 +25,9 @@ public class MarcFactoryTest {
 
   @Test
   public void mainTest() throws IOException, URISyntaxException {
-    JsonPathCache cache = new JsonPathCache(FileUtils.readFirstLineFromResource("general/verbund-tit.001.0000000.formatted.json"));
+    JsonSelector selector = new JsonSelector(FileUtils.readFirstLineFromResource("general/verbund-tit.001.0000000.formatted.json"));
 
-    BibliographicRecord marcRecord = MarcFactory.create(cache, MarcVersion.DNB);
+    BibliographicRecord marcRecord = MarcFactory.create(selector, MarcVersion.DNB);
     assertNotNull(marcRecord);
     assertNotNull("Leader should not be null", marcRecord.getLeader());
     // System.err.println(record.format());
@@ -434,9 +434,9 @@ public class MarcFactoryTest {
 
   @Test
   public void marc2Test() throws IOException, URISyntaxException {
-    JsonPathCache cache = new JsonPathCache(FileUtils.readFirstLineFromResource("general/marc2.json"));
+    JsonSelector selector = new JsonSelector(FileUtils.readFirstLineFromResource("general/marc2.json"));
 
-    BibliographicRecord marcRecord = MarcFactory.create(cache);
+    BibliographicRecord marcRecord = MarcFactory.create(selector);
     assertNotNull(marcRecord);
     assertNotNull("Leader should not be null", marcRecord.getLeader());
 
@@ -458,9 +458,9 @@ public class MarcFactoryTest {
 
   @Test
   public void getKeyValuePairTest() throws IOException, URISyntaxException {
-    JsonPathCache cache = new JsonPathCache(FileUtils.readFirstLineFromResource("general/verbund-tit.001.0000000.formatted.json"));
+    JsonSelector selector = new JsonSelector(FileUtils.readFirstLineFromResource("general/verbund-tit.001.0000000.formatted.json"));
 
-    BibliographicRecord marcRecord = MarcFactory.create(cache, MarcVersion.DNB);
+    BibliographicRecord marcRecord = MarcFactory.create(selector, MarcVersion.DNB);
     Map<String, List<String>> pairs = marcRecord.getKeyValuePairs(SolrFieldType.MIXED);
     assertEquals(124, pairs.size());
 

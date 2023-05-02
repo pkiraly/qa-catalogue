@@ -21,5 +21,4 @@ public class MarcMongodbClient {
   public DBCollection getCollection(String collectionName) {
     return db.getCollection(collectionName);
   }
-
 }

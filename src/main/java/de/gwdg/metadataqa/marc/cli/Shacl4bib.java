@@ -7,8 +7,14 @@ import de.gwdg.metadataqa.api.rule.RuleCatalog;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.Shacl4bibParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
+import de.gwdg.metadataqa.marc.cli.utils.BibSelector;
+import de.gwdg.metadataqa.marc.cli.utils.BibSelectorFactory;
+import de.gwdg.metadataqa.marc.cli.utils.MarcSpecSelector;
+import de.gwdg.metadataqa.marc.cli.utils.PicaPathSelector;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.PicaRecord;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.marc4j.marc.Record;
@@ -32,6 +38,7 @@ public class Shacl4bib implements BibliographicInputProcessor, Serializable {
 
   private File outPut;
   private RuleCatalog ruleCatalog;
+  private SchemaConfiguration schema;
 
   private boolean fileOpenPointer = false;
 
@@ -74,7 +81,6 @@ public class Shacl4bib implements BibliographicInputProcessor, Serializable {
     // 1- open and read the configurations file
 
     String shaclConfigurationFile = parameters.getShaclConfigurationFile(); // "shacl/Schema-Configuration.json";
-    SchemaConfiguration schema = null;
     try {
       if (shaclConfigurationFile.endsWith(".json"))
         schema = ConfigurationReader.readSchemaJson(shaclConfigurationFile);
@@ -101,8 +107,12 @@ public class Shacl4bib implements BibliographicInputProcessor, Serializable {
 
   @Override
   public void processRecord(BibliographicRecord marcRecord, int recordNumber) throws IOException {
-    List<MetricResult> results = ruleCatalog.measure(new BibPathCache(marcRecord));
-    System.err.println(results);
+    BibSelector selector = BibSelectorFactory.create(schema.getFormat(), marcRecord);
+
+    if (selector != null) {
+      List<MetricResult> results = ruleCatalog.measure(selector);
+      System.err.println(results);
+    }
   }
 
   @Override

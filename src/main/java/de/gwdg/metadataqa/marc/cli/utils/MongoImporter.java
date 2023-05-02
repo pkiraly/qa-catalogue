@@ -4,7 +4,7 @@ import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.spi.json.JsonProvider;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
-import de.gwdg.metadataqa.api.model.pathcache.JsonPathCache;
+import de.gwdg.metadataqa.api.model.selector.JsonSelector;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.marc.datastore.MarcMongodbClient;
 
@@ -43,10 +43,10 @@ public class MongoImporter {
       client = new MarcMongodbClient(host, port, DATABASE);
       DBCollection collection = client.getCollection(COLLECTION);
 
-      JsonPathCache<? extends XmlFieldInstance> cache;
+      JsonSelector<? extends XmlFieldInstance> cache;
       List<String> records = Files.readAllLines(path, Charset.defaultCharset());
       for (String marcRecord : records) {
-        cache = new JsonPathCache<>(marcRecord);
+        cache = new JsonSelector<>(marcRecord);
         String id = cache.get("$.controlfield.[?(@.tag == '001')].content").get(0).getValue();
         String x003 = cache.get("$.controlfield.[?(@.tag == '003')].content").get(0).getValue();
 

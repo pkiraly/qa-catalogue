@@ -1,27 +1,22 @@
 package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
-import de.gwdg.metadataqa.api.util.FileUtils;
-import de.gwdg.metadataqa.marc.MarcFactory;
+import de.gwdg.metadataqa.marc.cli.utils.BibSelector;
+import de.gwdg.metadataqa.marc.cli.utils.BibSelectorFactory;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.dao.record.PicaRecord;
-import de.gwdg.metadataqa.marc.definition.MarcFormat;
 import de.gwdg.metadataqa.marc.definition.tags.tags20x.Tag245;
-import de.gwdg.metadataqa.marc.utils.QAMarcReaderFactory;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
-import de.gwdg.metadataqa.marc.utils.pica.reader.PicaNormalizedReader;
 import org.junit.Before;
 import org.junit.Test;
-import org.marc4j.MarcReader;
-import org.marc4j.marc.Record;
 
 import static org.junit.Assert.*;
 import java.util.List;
 
-public class BibPathCacheTest {
+public class BibSelectorTest {
 
   BibliographicRecord marcRecord;
 
@@ -39,9 +34,10 @@ public class BibPathCacheTest {
     );
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test // (expected = IllegalArgumentException.class)
   public void testConstructorNullArgument() {
-    new BibPathCache(null);
+    BibSelector selector = BibSelectorFactory.create(null);
+    assertNull(selector);
   }
 
   @Test
@@ -49,31 +45,31 @@ public class BibPathCacheTest {
     PicaSchemaManager schema = PicaSchemaReader.createSchema(CliTestUtils.getTestResource("pica/k10plus.json"));
     BibliographicRecord marcRecord = new PicaRecord("u2407796");
     marcRecord.addDataField(new DataField(schema.lookup("001B"), null, null, "0", "1999:02-05-18"));
-    BibPathCache pathCache = new BibPathCache(marcRecord);
-    List<XmlFieldInstance> results = pathCache.get("001B$0");
+    BibSelector selector = BibSelectorFactory.create(marcRecord);
+    List<XmlFieldInstance> results = selector.get("001B$0");
     assertEquals(1, results.size());
     assertEquals("1999:02-05-18", results.get(0).getValue());
   }
 
   @Test
   public void get_existing() {
-    BibPathCache pathCache = new BibPathCache(marcRecord);
-    List<XmlFieldInstance> results = pathCache.get("245$a");
+    BibSelector selector = BibSelectorFactory.create(marcRecord);
+    List<XmlFieldInstance> results = selector.get("245$a");
     assertEquals(1, results.size());
     assertEquals("iPhone the Bible wan jia sheng jing.", results.get(0).getValue());
   }
 
   @Test
   public void get_nonexistentField() {
-    BibPathCache pathCache = new BibPathCache(marcRecord);
-    List<XmlFieldInstance> results = pathCache.get("100");
+    BibSelector selector = BibSelectorFactory.create(marcRecord);
+    List<XmlFieldInstance> results = selector.get("100");
     assertTrue(results.isEmpty());
   }
 
   @Test
   public void read() {
-    BibPathCache pathCache = new BibPathCache(marcRecord);
-    assertNull(pathCache.read("245$a", null));
+    BibSelector selector = BibSelectorFactory.create(marcRecord);
+    assertNull(selector.read("245$a", null));
   }
 
   @Test
@@ -86,44 +82,44 @@ public class BibPathCacheTest {
 
   @Test
   public void getFragment_path() {
-    BibPathCache pathCache = new BibPathCache(marcRecord);
-    assertNull(pathCache.getFragment("245$a"));
+    BibSelector selector = BibSelectorFactory.create(marcRecord);
+    assertNull(selector.getFragment("245$a"));
   }
 
   @Test
   public void getFragment_3arguments() {
-    BibPathCache pathCache = new BibPathCache(marcRecord);
-    assertNull(pathCache.getFragment("245$a", "245$a", null));
+    BibSelector selector = BibSelectorFactory.create(marcRecord);
+    assertNull(selector.getFragment("245$a", "245$a", null));
   }
 
   @Test
   public void getRecordId() {
-    BibPathCache pathCache = new BibPathCache(marcRecord);
-    assertEquals("u2407796", pathCache.getRecordId());
+    BibSelector selector = BibSelectorFactory.create(marcRecord);
+    assertEquals("u2407796", selector.getRecordId());
   }
 
   @Test
   public void setRecordId() {
-    BibPathCache pathCache = new BibPathCache(marcRecord);
-    pathCache.setRecordId("xyz");
-    assertEquals("u2407796", pathCache.getRecordId());
+    BibSelector selector = BibSelectorFactory.create(marcRecord);
+    selector.setRecordId("xyz");
+    assertEquals("u2407796", selector.getRecordId());
   }
 
   @Test
   public void getCache() {
-    BibPathCache pathCache = new BibPathCache(marcRecord);
-    assertNull(pathCache.getCache());
+    BibSelector selector = BibSelectorFactory.create(marcRecord);
+    assertNull(selector.getCache());
   }
 
   @Test
   public void getFragmentCache() {
-    BibPathCache pathCache = new BibPathCache(marcRecord);
-    assertNull(pathCache.getFragmentCache());
+    BibSelector selector = BibSelectorFactory.create(marcRecord);
+    assertNull(selector.getFragmentCache());
   }
 
   @Test
   public void getContent() {
-    BibPathCache pathCache = new BibPathCache(marcRecord);
-    assertNull(pathCache.getContent());
+    BibSelector selector = BibSelectorFactory.create(marcRecord);
+    assertNull(selector.getContent());
   }
 }

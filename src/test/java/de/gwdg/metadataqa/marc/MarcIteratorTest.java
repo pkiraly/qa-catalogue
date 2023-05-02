@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.api.json.DataElement;
-import de.gwdg.metadataqa.api.model.pathcache.JsonPathCache;
+import de.gwdg.metadataqa.api.model.selector.JsonSelector;
 import de.gwdg.metadataqa.api.schema.MarcJsonSchema;
 import de.gwdg.metadataqa.api.schema.Schema;
 import de.gwdg.metadataqa.api.util.FileUtils;
@@ -25,7 +25,7 @@ import static org.junit.Assert.assertEquals;
 
 public class MarcIteratorTest {
 
-  JsonPathCache cache;
+  JsonSelector selector;
   Schema schema = new MarcJsonSchema();
   Map<String, List<Map<String, List<String>>>> fixedValues;
 
@@ -42,7 +42,7 @@ public class MarcIteratorTest {
 
   @Before
   public void setUp() throws URISyntaxException, IOException {
-    cache = new JsonPathCache(FileUtils.readFirstLineFromResource("general/marc.json"));
+    selector = new JsonSelector(FileUtils.readFirstLineFromResource("general/marc.json"));
   }
 
   @Test
@@ -54,7 +54,7 @@ public class MarcIteratorTest {
         continue;
 
       // List<Map<String, List<String>>> expectedList = fixedValues.get(branch.getLabel());
-      JSONArray fieldInstances = (JSONArray) cache.getFragment(dataElement.getPath());
+      JSONArray fieldInstances = (JSONArray) selector.getFragment(dataElement.getPath());
       for (int fieldInsanceNr = 0; fieldInsanceNr < fieldInstances.size(); fieldInsanceNr++) {
         Map fieldInstance = (Map)fieldInstances.get(fieldInsanceNr);
         DataField field = MapToDatafield.parse(fieldInstance, MarcVersion.DNB);

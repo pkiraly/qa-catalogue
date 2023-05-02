@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.api.json.DataElement;
-import de.gwdg.metadataqa.api.model.pathcache.JsonPathCache;
+import de.gwdg.metadataqa.api.model.selector.JsonSelector;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.api.schema.MarcJsonSchema;
 import de.gwdg.metadataqa.api.schema.Schema;
@@ -45,7 +45,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 /**
- * Factory class to create MarcRecord from JsonPathCache
+ * Factory class to create MarcRecord from JsonSelector
  */
 public class MarcFactory {
 
@@ -58,42 +58,42 @@ public class MarcFactory {
     throw new IllegalStateException("This is a utility class, can not be instantiated");
   }
 
-  public static BibliographicRecord create(JsonPathCache cache) {
-    return create(cache, MarcVersion.MARC21);
+  public static BibliographicRecord create(JsonSelector selector) {
+    return create(selector, MarcVersion.MARC21);
   }
 
-  public static BibliographicRecord create(JsonPathCache cache, MarcVersion version) {
+  public static BibliographicRecord create(JsonSelector selector, MarcVersion version) {
     var marcRecord = new Marc21Record();
     for (DataElement dataElement : schema.getPaths()) {
       if (dataElement.getParent() != null)
         continue;
       switch (dataElement.getLabel()) {
         case "leader":
-          marcRecord.setLeader(new Leader(extractFirst(cache, dataElement)));
+          marcRecord.setLeader(new Leader(extractFirst(selector, dataElement)));
           break;
         case "001":
-          marcRecord.setControl001(new Control001(extractFirst(cache, dataElement)));
+          marcRecord.setControl001(new Control001(extractFirst(selector, dataElement)));
           break;
         case "003":
-          marcRecord.setControl003(new Control003(extractFirst(cache, dataElement)));
+          marcRecord.setControl003(new Control003(extractFirst(selector, dataElement)));
           break;
         case "005":
-          marcRecord.setControl005(new Control005(extractFirst(cache, dataElement), marcRecord));
+          marcRecord.setControl005(new Control005(extractFirst(selector, dataElement), marcRecord));
           break;
         case "006":
           marcRecord.setControl006(
-            new Control006(extractFirst(cache, dataElement), marcRecord));
+            new Control006(extractFirst(selector, dataElement), marcRecord));
           break;
         case "007":
           marcRecord.setControl007(
-            new Control007(extractFirst(cache, dataElement), marcRecord));
+            new Control007(extractFirst(selector, dataElement), marcRecord));
           break;
         case "008":
           marcRecord.setControl008(
-            new Control008(extractFirst(cache, dataElement), marcRecord));
+            new Control008(extractFirst(selector, dataElement), marcRecord));
           break;
         default:
-          JSONArray fieldInstances = (JSONArray) cache.getFragment(dataElement.getPath());
+          JSONArray fieldInstances = (JSONArray) selector.getFragment(dataElement.getPath());
           for (var fieldInsanceNr = 0; fieldInsanceNr < fieldInstances.size(); fieldInsanceNr++) {
             var fieldInstance = (Map) fieldInstances.get(fieldInsanceNr);
             var field = MapToDatafield.parse(fieldInstance, version);
@@ -322,8 +322,8 @@ public class MarcFactory {
     return field;
   }
 
-  private static List<String> extractList(JsonPathCache cache, DataElement dataElement) {
-    List<XmlFieldInstance> instances = cache.get(dataElement.getPath());
+  private static List<String> extractList(JsonSelector selector, DataElement dataElement) {
+    List<XmlFieldInstance> instances = selector.get(dataElement.getPath());
     List<String> values = new ArrayList<>();
     if (instances != null)
       for (XmlFieldInstance instance : instances)
@@ -331,8 +331,8 @@ public class MarcFactory {
     return values;
   }
 
-  private static String extractFirst(JsonPathCache cache, DataElement dataElement) {
-    List<String> list = extractList(cache, dataElement);
+  private static String extractFirst(JsonSelector selector, DataElement dataElement) {
+    List<String> list = extractList(selector, dataElement);
     if (!list.isEmpty())
       return list.get(0);
     return null;

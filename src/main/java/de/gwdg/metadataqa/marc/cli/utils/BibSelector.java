@@ -1,7 +1,7 @@
-package de.gwdg.metadataqa.marc.cli;
+package de.gwdg.metadataqa.marc.cli.utils;
 
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
-import de.gwdg.metadataqa.api.model.pathcache.PathCache;
+import de.gwdg.metadataqa.api.model.selector.Selector;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.dao.record.PicaRecord;
@@ -14,14 +14,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BibPathCache implements PathCache {
-  private final BibliographicRecord record;
-  private static Map<String, MarcSpec> marcSpecs = new HashMap<>();
-  private static Map<String, PicaPath> picaSpecs = new HashMap<>();
+abstract public class BibSelector implements Selector {
+  protected final BibliographicRecord record;
   private boolean isMarc21 = false;
   private boolean isPica = false;
 
-  public BibPathCache(BibliographicRecord record) {
+  public BibSelector(BibliographicRecord record) {
     if (record != null) {
       this.record = record;
       if (record instanceof Marc21Record) {
@@ -34,14 +32,7 @@ public class BibPathCache implements PathCache {
     }
   }
 
-  @Override
-  public List<XmlFieldInstance> get(String path) {
-    List<String> tags = null;
-    if (isMarc21)
-      tags = record.select(getMarcSpec(path));
-    else if (isPica) {
-      tags = record.select(getPicaSpec(path));
-    }
+  protected List<XmlFieldInstance> transformTags(List<String> tags) {
     List<XmlFieldInstance> fieldList = new ArrayList<>();
     if (tags != null) {
       for (String tag : tags) {
@@ -51,17 +42,6 @@ public class BibPathCache implements PathCache {
     return fieldList;
   }
 
-  private MarcSpec getMarcSpec(String path) {
-    if (!marcSpecs.containsKey(path))
-      marcSpecs.put(path, new MarcSpec(path));
-    return marcSpecs.get(path);
-  }
-
-  private PicaPath getPicaSpec(String path) {
-    if (!picaSpecs.containsKey(path))
-      picaSpecs.put(path, PicaPathParser.parse(path));
-    return picaSpecs.get(path);
-  }
 
   @Override
   public Object read(String path, Object jsonFragment) {

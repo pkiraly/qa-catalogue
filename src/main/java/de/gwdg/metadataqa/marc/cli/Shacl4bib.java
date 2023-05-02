@@ -94,7 +94,9 @@ public class Shacl4bib extends QACli implements BibliographicInputProcessor, Ser
       .setOnlyIdInHeader(true)
       .setOutputType(parameters.getShaclOutputType());
 
-    printToFile(outputFile, CsvUtils.createCsv(ruleCatalog.getHeader()));
+    List<String> header = ruleCatalog.getHeader();
+    header.add(0, "id");
+    printToFile(outputFile, CsvUtils.createCsv(header));
   }
 
   @Override
@@ -117,6 +119,7 @@ public class Shacl4bib extends QACli implements BibliographicInputProcessor, Ser
       MetricCollector collector = new MetricCollector();
       collector.addResult(ruleCatalog, results, CompressionLevel.NORMAL);
       List<Object> values = (List<Object>) collector.createOutput(OutputCollector.TYPE.STRING_LIST, CompressionLevel.NORMAL);
+      values.add(0, marcRecord.getId(true));
       printToFile(outputFile, CsvUtils.createCsvFromObjects(values));
     }
   }

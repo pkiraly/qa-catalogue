@@ -51,8 +51,8 @@ public class Shacl4bibTest extends CliTestUtils {
       List<String> lines = FileUtils.readLinesFromFile(output.getAbsolutePath());
       if (outputFile.equals("shacl.csv")) {
         assertEquals(2, lines.size());
-        assertEquals("040$a.1,040$a.2", lines.get(0).trim());
-        assertEquals("1,0", lines.get(1).trim());
+        assertEquals("id,040$a.1,040$a.2", lines.get(0).trim());
+        assertEquals("000000002,1,0", lines.get(1).trim());
       }
     }
   }
@@ -77,8 +77,8 @@ public class Shacl4bibTest extends CliTestUtils {
       List<String> lines = FileUtils.readLinesFromFile(output.getAbsolutePath());
       if (outputFile.equals("shacl.csv")) {
         assertEquals(2, lines.size());
-        assertEquals("040$a.1,040$a.2", lines.get(0).trim());
-        assertEquals("1,0", lines.get(1).trim());
+        assertEquals("id,040$a.1,040$a.2", lines.get(0).trim());
+        assertEquals("000000002,1,0", lines.get(1).trim());
       }
     }
   }
@@ -103,8 +103,8 @@ public class Shacl4bibTest extends CliTestUtils {
       List<String> lines = FileUtils.readLinesFromFile(output.getAbsolutePath());
       if (outputFile.equals("shacl.csv")) {
         assertEquals(2, lines.size());
-        assertEquals("040$a.1,040$a.2", lines.get(0).trim());
-        assertEquals("1,0", lines.get(1).trim());
+        assertEquals("id,040$a.1,040$a.2", lines.get(0).trim());
+        assertEquals("000000002,1,0", lines.get(1).trim());
       }
     }
   }

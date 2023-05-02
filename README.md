@@ -288,22 +288,20 @@ TYPE_PARAMS="--marcVersion DNB --marcxml"
 This line sets the DNB's MARC version (to cover fields defined within DNB's
 MARC version), and XML as input format.
 
-The optional configuration variable `ANALYSES` can be used to specify which
-analysis tasks to run with command `all-analyses`. Call with command `config`
-to get the default analysis tasks.
+The following table summarizes all configuration variables. The script
+`metadata-qa.sh` can be used to set variables and execute analysis without a
+library specific configuration file:
 
-The `./metadata-qa.sh` script has the following options:
-* 
-* `-n`, `--name`: the name of the catalogue (default is metadata-qa, this will
-  be the name of the output directory)
-* `-p`, `--params`: the parameters to pass to the individual commands
-* `-m`, `--mask`: a file mask, such as '*.mrc'
-* `-c`, `--catalogue`: an extra name of the catalogue, different than the
-  `name` parameter. Used mainly for the web UI
-* `-v`, `--version`: a version number of the MARC catalogue (typically a date
-  string, such as YYYY-MM-DD). It is useful is you would like to compare
-  changes of metadata quality
-* `-d`, `--input-dir`: a subdirectory of BASE_INPUT_DIR where the MARC files sit
+| variable      | `metadata-qa.sh`  | description  | default |
+| ------------- | ----------------- | ------------ | ------- |
+| `NAME`        | `-n`/`--name`     | name of the catalouge | metadata-qa |
+| `TYPE_PARAMS` | `-p`/`--params`   | parameters to pass to individual tasks (see below) | |
+| `MASK`        | `-m`/`--mask`     | a file mask, e.g. `*.mrc` | |
+| `VERSION`     | `-v`/`--version`  | optional version number/date of the catalogue to compare changes | |
+| `ANALYSES`    | `-a`/`--analyses` | which tasks to run with `all-analyses` | `validate,sqlite,completeness,completeness_sqlite,classifications,authorities,tt_completeness,shelf_ready_completeness,serial_score,functional_analysis,pareto,marc_history` |
+| `UPDATE`      | `-u`/`--update`   | optional date of input files | |
+|               | `-c`/`--catalogue`| display name of the catalogue | `$NAME` |
+|               | `-d`/`--input_dir`| subdirectory of input files | `$NAME` |
 
 ## Detailed instructions
 

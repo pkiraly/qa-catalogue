@@ -503,6 +503,7 @@ config() {
   echo "ANALYSES=$ANALYSES"
   echo "WEB_DIR=$WEB_DIR"
   echo "PREFIX=$PREFIX"
+  echo "UPDATE=$UPDATE"
   cat ./common-variables
 }
 
@@ -540,6 +541,11 @@ if [[ ! "${1:-help}" =~ ^(help|config|export-schema-files)$ ]]; then
   log "logs:   $PREFIX"
 
   ls ${MARC_DIR}/${MASK} &> /dev/null || fatal "Missing input files!"
+
+  if [[ ! -z "${UPDATE:-}" ]]; then
+    log "update: $UPDATE"
+    echo "${UPDATE}" > "${OUTPUT_DIR}/last-update.csv"
+  fi
 fi
 
 case "${1:-help}" in

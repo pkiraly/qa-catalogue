@@ -11,15 +11,16 @@ eval set -- "$options"
 
 MARC_DIR=${BASE_INPUT_DIR}
 NAME=metadata-qa
-VERSION=
 while true; do
     case "$1" in
+    -a|--analyses) ANALYSES=$2 ; shift;;
+    -c|--catalogue) CATALOGUE=$2 ; shift;;
+    -d|--input-dir) MARC_DIR=${BASE_INPUT_DIR}/$2 ; shift;;
+    -m|--mask) MASK=$2 ; shift;;
     -n|--name) NAME=$2 ; shift;;
     -p|--params) TYPE_PARAMS=$2 ; shift;;
-    -m|--mask) MASK=$2 ; shift;;
-    -c|--catalogue) CATALOGUE=$2 ; shift;;
+    -u|--update) UPDATE=$2 ; shift;;
     -v|--version) VERSION=$2 ; shift;;
-    -d|--input-dir) MARC_DIR=${BASE_INPUT_DIR}/$2 ; shift;;
     --)
         shift
         break

@@ -1,4 +1,4 @@
-format: marc
+format: MARC
 fields:
   - name: 040a
     path: 040$a

@@ -1,20 +1,21 @@
 package de.gwdg.metadataqa.marc.cli;
 
+import de.gwdg.metadataqa.api.calculator.output.MetricCollector;
+import de.gwdg.metadataqa.api.calculator.output.OutputCollector;
 import de.gwdg.metadataqa.api.configuration.ConfigurationReader;
 import de.gwdg.metadataqa.api.configuration.SchemaConfiguration;
 import de.gwdg.metadataqa.api.interfaces.MetricResult;
 import de.gwdg.metadataqa.api.rule.RuleCatalog;
+import de.gwdg.metadataqa.api.rule.RuleCheckingOutputType;
+import de.gwdg.metadataqa.api.util.CompressionLevel;
+import de.gwdg.metadataqa.marc.CsvUtils;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.Shacl4bibParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.BibSelector;
 import de.gwdg.metadataqa.marc.cli.utils.BibSelectorFactory;
-import de.gwdg.metadataqa.marc.cli.utils.MarcSpecSelector;
-import de.gwdg.metadataqa.marc.cli.utils.PicaPathSelector;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
-import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
-import de.gwdg.metadataqa.marc.dao.record.PicaRecord;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.marc4j.marc.Record;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class Shacl4bib implements BibliographicInputProcessor, Serializable {
+public class Shacl4bib extends QACli implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(Shacl4bib.class.getCanonicalName());
   private final boolean readyToProcess;
@@ -36,7 +37,7 @@ public class Shacl4bib implements BibliographicInputProcessor, Serializable {
 
   private List<String> tagsList = new ArrayList();
 
-  private File outPut;
+  private File outputFile;
   private RuleCatalog ruleCatalog;
   private SchemaConfiguration schema;
 
@@ -75,10 +76,8 @@ public class Shacl4bib implements BibliographicInputProcessor, Serializable {
 
   @Override
   public void beforeIteration() {
-
     logger.info(parameters.formatParameters());
-    outPut = new File(parameters.getOutputDir());
-    // 1- open and read the configurations file
+    outputFile = new File(parameters.getOutputDir(), parameters.getShaclOutputFile());
 
     String shaclConfigurationFile = parameters.getShaclConfigurationFile(); // "shacl/Schema-Configuration.json";
     try {
@@ -91,7 +90,11 @@ public class Shacl4bib implements BibliographicInputProcessor, Serializable {
       System.exit(0);
     }
     // 2- process the SHACL Rules of the configurations file
-    this.ruleCatalog = new RuleCatalog(schema.asSchema());
+    this.ruleCatalog = new RuleCatalog(schema.asSchema())
+      .setOnlyIdInHeader(true)
+      .setOutputType(RuleCheckingOutputType.STATUS);
+
+    printToFile(outputFile, CsvUtils.createCsv(ruleCatalog.getHeader()));
   }
 
   @Override
@@ -111,7 +114,10 @@ public class Shacl4bib implements BibliographicInputProcessor, Serializable {
 
     if (selector != null) {
       List<MetricResult> results = ruleCatalog.measure(selector);
-      System.err.println(results);
+      MetricCollector collector = new MetricCollector();
+      collector.addResult(ruleCatalog, results, CompressionLevel.NORMAL);
+      List<Object> values = (List<Object>) collector.createOutput(OutputCollector.TYPE.STRING_LIST, CompressionLevel.NORMAL);
+      printToFile(outputFile, CsvUtils.createCsvFromObjects(values));
     }
   }
 

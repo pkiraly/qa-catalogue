@@ -503,6 +503,7 @@ config() {
   echo "ANALYSES=$ANALYSES"
   echo "WEB_DIR=$WEB_DIR"
   echo "PREFIX=$PREFIX"
+  echo "UPDATE=$UPDATE"
   cat ./common-variables
 }
 

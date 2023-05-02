@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -172,12 +171,11 @@ public class Utils {
   }
 
   public static void mergeMap(Map<String, List<String>> base, Map<String, List<String>> extra) {
-    for (String key : extra.keySet()) {
-      List<String> values = extra.get(key);
-      if (base.containsKey(key)) {
-        base.get(key).addAll(values);
-      } else
-        base.put(key, values);
+    for (Map.Entry<String, List<String>> entry : extra.entrySet()) {
+      if (base.containsKey(entry.getKey()))
+        base.get(entry.getKey()).addAll(entry.getValue());
+      else
+        base.put(entry.getKey(), entry.getValue());
     }
   }
 

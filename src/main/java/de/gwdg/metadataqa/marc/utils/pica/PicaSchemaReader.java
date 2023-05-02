@@ -47,8 +47,9 @@ public class PicaSchemaReader {
     Object obj = parser.parse(new FileReader(fileName));
     JSONObject jsonObject = (JSONObject) obj;
     JSONObject fields = (JSONObject) jsonObject.get("fields");
-    for (String id : fields.keySet()) {
-      JSONObject field = (JSONObject) fields.get(id);
+    for (Map.Entry<String, Object> entry : fields.entrySet()) {
+      String id = entry.getKey();
+      JSONObject field = (JSONObject) entry.getValue();
       PicaTagDefinition tag = new PicaTagDefinition(
         (String) field.get("pica3"),         // pica3
         (String) field.get("tag"),           // picaplus
@@ -62,7 +63,7 @@ public class PicaSchemaReader {
       tag.setOccurrence((String) field.get("occurrence"));
       tag.setCounter((String) field.get("counter"));
       if (tag.getCounter() != null && tag.getOccurrence() != null) {
-        System.err.println(id + " has both");
+        logger.info(id + " has both counter and occurrence");
       }
       processSubfields(field, tag);
       PicaFieldDefinition definition = new PicaFieldDefinition(tag);
@@ -80,8 +81,8 @@ public class PicaSchemaReader {
     if (subfieldsRaw != null) {
       if (subfieldsRaw instanceof JSONObject) {
         JSONObject subfields = (JSONObject) subfieldsRaw;
-        for (String key : subfields.keySet())
-          processSubfield(subfields.get(key), subfieldDefinitions);
+        for (Map.Entry<String, Object> entry : subfields.entrySet())
+          processSubfield(entry.getValue(), subfieldDefinitions);
       } else if (subfieldsRaw instanceof JSONArray) {
         JSONArray subfields = (JSONArray) subfieldsRaw;
         for (var i = 0; i < subfields.size(); i++)
@@ -107,7 +108,7 @@ public class PicaSchemaReader {
       String cardinalityCode = ((boolean) subfield.get("repeatable")) ? Cardinality.Repeatable.getCode() : Cardinality.Nonrepeatable.getCode();
       definition = new SubfieldDefinition(code, label, cardinalityCode);
       for (String key : subfield.keySet()) {
-        Object value = subfield.get(key);
+        // Object value = entry.getValue();
         if (key.equals("code")) {
         } else if (key.equals("label")) {
         } else if (key.equals("repeatable")) {
@@ -118,23 +119,16 @@ public class PicaSchemaReader {
         } else if (key.equals("pica3")) {
           // skip
         } else {
-          System.err.println("code: " + key);
+          logger.warning("unhandled key in subfield: " + key);
         }
       }
     } else {
-      System.err.println(o.getClass());
+      logger.warning("the JSON node's type is not JSONObject, but " + o.getClass().getCanonicalName());
     }
     return definition;
   }
 
   private void addTag(PicaFieldDefinition definition) {
-    /*
-    String tag = definition.getTag();
-    if (map.containsKey(tag)) {
-      System.err.println("xxx Tag is already defined! " + definition.getTag() + " " + map.get(tag));
-    }
-    map.put(tag, definition);
-     */
     schema.add(definition);
   }
 

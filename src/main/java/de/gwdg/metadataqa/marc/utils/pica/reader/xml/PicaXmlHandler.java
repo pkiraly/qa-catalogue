@@ -20,9 +20,12 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 /** This class is a variation of MarcXmlHandler */
 public class PicaXmlHandler implements ContentHandler {
+
+  private static final Logger logger = Logger.getLogger(PicaXmlHandler.class.getCanonicalName());
 
   private final String idField;
   private final char idCode;
@@ -184,7 +187,7 @@ public class PicaXmlHandler implements ContentHandler {
 
         for (int i = 0; i < atts.getLength(); i++) {
           if (!atts.getLocalName(i).equals(TAG_ATTR) && !atts.getLocalName(i).equals("occurrence"))
-            System.err.println("unhandled attr: " + atts.getLocalName(i));
+            logger.warning("unhandled attr: " + atts.getLocalName(i));
         }
         break;
 

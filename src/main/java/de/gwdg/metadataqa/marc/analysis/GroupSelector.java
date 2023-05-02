@@ -18,10 +18,8 @@ public class GroupSelector {
 
   public GroupSelector(String groupListFile) {
     if (groupListFile == null) {
-      System.err.println("initialize OrganizationCodes");
       organizationCodes = OrganizationCodes.getInstance();
     } else {
-      System.err.println("initialize from file");
       orgMap = K10OrganisationReader.fileToCodeList(groupListFile);
     }
   }

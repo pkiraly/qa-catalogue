@@ -39,5 +39,4 @@ public class CodeGenerator {
         System.err.printf("defaultCode = \"%s\";%n", subfield.getDefaultCode());
     }
   }
-
 }

@@ -7,20 +7,22 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Logger;
 
 public class MarcSQLiteClient {
+
+  private static final Logger logger = Logger.getLogger(MarcSQLiteClient.class.getCanonicalName());
 
   Connection conn = null;
 
   public void connect(String path) {
     try {
       String url = "jdbc:sqlite:" + path;
-      // create a connection to the database
       SQLiteConfig config = new SQLiteConfig();
       config.enforceForeignKeys(true);
       conn = DriverManager.getConnection(url, config.toProperties());
     } catch (SQLException e) {
-      System.out.println(e.getMessage());
+      logger.warning(e.getMessage());
     } finally {
       /*
       try {
@@ -40,7 +42,7 @@ public class MarcSQLiteClient {
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS student (student_id INTEGER, name TEXT, PRIMARY KEY(student_id))");
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS take (course_id INTEGER, student_id INTEGER, enroll_date TEXT, PRIMARY KEY(student_id, course_id))");
     } catch (SQLException e) {
-      System.err.println("[ERROR] createSchema : " + e.getMessage());
+      logger.warning("[ERROR] createSchema : " + e.getMessage());
     }
   }
 
@@ -89,7 +91,7 @@ public class MarcSQLiteClient {
       }
 
     } catch (SQLException e) {
-      System.err.println("[ERROR] initSchema : " + e.getMessage());
+      logger.warning("[ERROR] initSchema : " + e.getMessage());
     }
   }
 }

@@ -82,4 +82,30 @@ public class Shacl4bibTest extends CliTestUtils {
       }
     }
   }
+
+  @Test
+  public void main_json() throws ParseException, IOException {
+    clearOutput(outputDir, outputFiles);
+
+    Shacl4bib.main(new String[]{
+      "--defaultRecordType", "BOOKS",
+      "--marcVersion", "GENT",
+      "--alephseq",
+      "--outputDir", outputDir,
+      "--shaclConfigurationFile", getPath("src/test/resources/shacl/kbr-small.json"),
+      "--shaclOutputFile", "shacl.csv",
+      inputFile
+    });
+
+    for (String outputFile : outputFiles) {
+      File output = new File(outputDir, outputFile);
+      assertTrue(outputFile + " should exist", output.exists());
+      List<String> lines = FileUtils.readLinesFromFile(output.getAbsolutePath());
+      if (outputFile.equals("shacl.csv")) {
+        assertEquals(2, lines.size());
+        assertEquals("040$a.1,040$a.2", lines.get(0).trim());
+        assertEquals("1,0", lines.get(1).trim());
+      }
+    }
+  }
 }

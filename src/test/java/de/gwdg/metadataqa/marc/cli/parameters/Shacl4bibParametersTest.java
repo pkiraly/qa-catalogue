@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
+import de.gwdg.metadataqa.api.rule.RuleCheckingOutputType;
 import org.apache.commons.cli.ParseException;
 import org.junit.Test;
 
@@ -25,6 +26,17 @@ public class Shacl4bibParametersTest {
     try {
       Shacl4bibParameters parameters = new Shacl4bibParameters(arguments);
       assertEquals("shacl.csv", parameters.getShaclOutputFile());
+    } catch (ParseException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Test
+  public void getShaclOutputType() {
+    String[] arguments = new String[]{"--shaclOutputType", "STATUS"};
+    try {
+      Shacl4bibParameters parameters = new Shacl4bibParameters(arguments);
+      assertEquals(RuleCheckingOutputType.STATUS, parameters.getShaclOutputType());
     } catch (ParseException e) {
       throw new RuntimeException(e);
     }
@@ -59,7 +71,8 @@ public class Shacl4bibParametersTest {
         "groupBy: null\n" +
         "groupListFile: null\n" +
         "shaclConfigurationFile: shacl.cnf\n" +
-        "shaclOutputFile: shacl.csv\n",
+        "shaclOutputFile: shacl.csv\n" +
+        "shaclOutputType: STATUS\n",
         parameters.formatParameters());
     } catch (ParseException e) {
       throw new RuntimeException(e);

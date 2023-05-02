@@ -89,10 +89,10 @@ public class Shacl4bib extends QACli implements BibliographicInputProcessor, Ser
       System.err.println("ERROR. " + exception.getLocalizedMessage());
       System.exit(0);
     }
-    // 2- process the SHACL Rules of the configurations file
+
     this.ruleCatalog = new RuleCatalog(schema.asSchema())
       .setOnlyIdInHeader(true)
-      .setOutputType(RuleCheckingOutputType.STATUS);
+      .setOutputType(parameters.getShaclOutputType());
 
     printToFile(outputFile, CsvUtils.createCsv(ruleCatalog.getHeader()));
   }

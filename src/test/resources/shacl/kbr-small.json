@@ -5,8 +5,8 @@
       "name": "040$a",
       "path": "040$a",
       "rules":[
-        {"minCount": 1},
-        {"pattern": "BE-KBR00"}
+        {"id": "040$a.1", "minCount": 1},
+        {"id": "040$a.2", "pattern": "BE-KBR00"}
       ]
     }
   ]

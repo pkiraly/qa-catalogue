@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -399,10 +400,8 @@ public class MarcFactory {
             if (pair.length == 2 && pair[0] != null && pair[1] != null) {
               df.addSubfield(new SubfieldImpl(pair[0].charAt(0), pair[1]));
             } else {
-              logger.warning(String.format(
-                "parse error in record #%s) tag %s: '%s'",
-                line.getRecordID(), line.getTag(), line.getRawContent()
-              ));
+              logger.log(Level.WARNING, "parse error in record #{}) tag {}: '{}'",
+                new Object[]{line.getRecordID(), line.getTag(), line.getRawContent()});
             }
           }
           marc4jRecord.addVariableField(df);

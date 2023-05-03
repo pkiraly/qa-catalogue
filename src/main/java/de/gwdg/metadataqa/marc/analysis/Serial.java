@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.marc.dao.Control006;
+import de.gwdg.metadataqa.marc.dao.Control008;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 
@@ -138,37 +139,152 @@ public class Serial {
   public List<Integer> determineRecordQualityScore() {
     var control008 = marcRecord.getControl008();
 
-    // Date 1 is totally unknown
+    detectUnknownDate1(control008);
+    detectUnknownCountry(control008);
+    detectUnkownLanguage(control008);
+    detectAuthenticationCode();
+    detectEncodingLevel();
+    detect008();
+    detectPublisher();
+    detectPublisherRDA();
+    detectPublicationFrequency();
+    detectContentTypeRDA();
+    detectDateOfPublication();
+    detectDescriptionSource();
+    detectLocSubjectHeadings();
+    detectPPC();
+    detectAutomaticDiscards(control008);
+    detectInactiveTitles(control008);
+    detectDeletion();
+    detectDateStartsWith0(control008);
+
+    scores.calculateTotal();
+    return scores.asList();
+  }
+
+  private void detectDateStartsWith0(Control008 control008) {
+    // Discard any with a first date of "0"
     if (control008 != null
         && control008.getTag008all07() != null
-        && control008.getTag008all07().getValue().equals("uuuu")) {
-      scores.set(SerialFields.DATE_1_UNKNOWN, -3);
+        && control008.getTag008all07().getValue().matches("0.+")) {
+      scores.set(SerialFields.DATE_1_STARTS_WITH_0, -100);
     }
+  }
 
-    // Country of publication is totally unknown
+  private void detectDeletion() {
+    // Discard any that are RECORD REPORTED FOR DELETION
+    List<DataField> notes = marcRecord.getDatafield("936");
+    if (!empty(notes)
+        && notes.get(0).getSubfield("0") != null
+        && notes.get(0).getSubfield("0").get(0) != null
+        && notes.get(0).getSubfield("0").get(0).getValue() != null
+        && notes.get(0).getSubfield("0").get(0).getValue().contains("DELETION")) {
+      // scores.add(new Tuple2("deletion", -100));
+      // score = score * 0 - 100;
+    }
+  }
+
+  private static void detectInactiveTitles(Control008 control008) {
+    // Discard any that are not active titles
     if (control008 != null
-        && control008.getTag008all15() != null
-        && control008.getTag008all15().getValue().matches("xx.+")) {
-      scores.set(SerialFields.COUNTRY_UNKNOWN, -1);
+       && control008.getTag008all11() != null
+       && (control008.getTag008all11().getValue().matches("[0-8].+")
+           || control008.getTag008all11().getValue().matches("u.+"))) {
+      // scores.add(new Tuple2("not-active", -100));
+      // score = score * 0 - 100;
     }
+  }
 
-    // Publication language is totally unknown
+  private static void detectAutomaticDiscards(Control008 control008) {
+    // Automatic Discards:
+    // Discard any that are not "o" for electronic
     if (control008 != null
-      && control008.getTag008all35() != null
-      && control008.getTag008all35().getValue().matches("xxx.+")) {
-      scores.set(SerialFields.LANGUAGE, -1);
+        && control008.getValueByPosition(23) != null
+        && !control008.getValueByPosition(23).equals("o")) {
+      // scores.add(new Tuple2("not-online", -100));
+      // score = score * 0 - 100;
     }
+  }
 
-    // Authentication code (from the 042) is empty (the record is not pcc or nsdp)
-    List<DataField> authenticationcode = marcRecord.getDatafield("042");
-    if (!empty(authenticationcode)
-        && authenticationcode.get(0) != null
-        && authenticationcode.get(0).getSubfield("a") != null
-        && !authenticationcode.get(0).getSubfield("a").isEmpty()
-        && !authenticationcode.get(0).getSubfield("a").get(0).getValue().equals("")) {
-      scores.set(SerialFields.AUTH, 7);
+  private void detectPPC() {
+    // Any PCC record should automatically be kept unless it is not online and/or a ceased title
+    if (!empty(marcRecord.getDatafield("042"))
+        && marcRecord.getDatafield("042").get(0) != null
+        && marcRecord.getDatafield("042").get(0).getSubfield("a") != null
+        && !marcRecord.getDatafield("042").get(0).getSubfield("a").isEmpty()
+        && marcRecord.getDatafield("042").get(0).getSubfield("a").get(0).getCode().equals("pcc")) {
+      scores.set(SerialFields.PCC, 100);
     }
+  }
 
+  private void detectLocSubjectHeadings() {
+    // Has a Library of Congress subject heading (6XX_0)
+    List<DataField> subjects = marcRecord.getSubjects();
+    if (subjects.isEmpty()) {
+      scores.set(SerialFields.HAS_NO_SUBJECT, -5);
+    } else {
+      scores.set(SerialFields.HAS_SUBJECT, subjects.size());
+    }
+  }
+
+  private void detectDescriptionSource() {
+    // Description based on/ Latest issue consulted notes (sourceOfDescription588)
+    if (!empty(marcRecord.getDatafield("588"))) {
+      scores.set(SerialFields.HAS_SOURCE_OF_DESCRIPTION_588, 1);
+    }
+  }
+
+  private void detectDateOfPublication() {
+    // Begins with... (datesOfPublication362)
+    if (!empty(marcRecord.getDatafield("362"))) {
+      scores.set(SerialFields.HAS_DATES_OF_PUBLICATION_362, 1);
+    }
+  }
+
+  private void detectContentTypeRDA() {
+    // Content Type (RDA) fields
+    if (!empty(marcRecord.getDatafield("336"))) {
+      scores.set(SerialFields.HAS_CONTENT_TYPE_336, 1);
+    }
+  }
+
+  private void detectPublicationFrequency() {
+    // Publication frequency
+    if (!empty(marcRecord.getDatafield("310"))) {
+      scores.set(SerialFields.HAS_PUBLICATION_FREQUENCY_310, 1);
+    }
+  }
+
+  private void detectPublisherRDA() {
+    // Record has publisher RDA
+    if (!empty(marcRecord.getDatafield("264"))) {
+      scores.set(SerialFields.HAS_PUBLISHER_264, 1);
+    }
+  }
+
+  private void detectPublisher() {
+    // Record has publisher AACR2
+    if (!empty(marcRecord.getDatafield("260"))) {
+      scores.set(SerialFields.HAS_PUBLISHER_260, 1);
+    }
+  }
+
+  private void detect008() {
+    // 006 is present
+    if (marcRecord.getControl006() != null && !marcRecord.getControl006().isEmpty()) {
+      boolean hasContent = false;
+      for (Control006 control006 : marcRecord.getControl006()) {
+        if (control006.getContent() != null && !control006.getContent().equals("")) {
+          hasContent = true;
+          break;
+        }
+      }
+      if (hasContent)
+        scores.set(SerialFields.HAS_006, 1);
+    }
+  }
+
+  private void detectEncodingLevel() {
     // Encoding level is blank or I (fully cataloged)
     // OCLC: https://www.oclc.org/bibformats/en/fixedfield/elvl.html
     String encodingLevel = getEncodingLevel();
@@ -188,109 +304,49 @@ public class Serial {
       scores.set(SerialFields.ENCODING_LEVEL_MINIMAL, 1);
     }
 
-    // 006 is present
-    if (marcRecord.getControl006() != null && !marcRecord.getControl006().isEmpty()) {
-      boolean hasContent = false;
-      for (Control006 control006 : marcRecord.getControl006()) {
-        if (control006.getContent() != null && !control006.getContent().equals("")) {
-          hasContent = true;
-          break;
-        }
-      }
-      if (hasContent)
-        scores.set(SerialFields.HAS_006, 1);
-    }
-
-    // Record has publisher AACR2
-    if (!empty(marcRecord.getDatafield("260"))) {
-      scores.set(SerialFields.HAS_PUBLISHER_260, 1);
-    }
-
-    // Record has publisher RDA
-    if (!empty(marcRecord.getDatafield("264"))) {
-      scores.set(SerialFields.HAS_PUBLISHER_264, 1);
-    }
-
-    // Publication frequency
-    if (!empty(marcRecord.getDatafield("310"))) {
-      scores.set(SerialFields.HAS_PUBLICATION_FREQUENCY_310, 1);
-    }
-
-    // Content Type (RDA) fields
-    if (!empty(marcRecord.getDatafield("336"))) {
-      scores.set(SerialFields.HAS_CONTENT_TYPE_336, 1);
-    }
-
-    // Begins with... (datesOfPublication362)
-    if (!empty(marcRecord.getDatafield("362"))) {
-      scores.set(SerialFields.HAS_DATES_OF_PUBLICATION_362, 1);
-    }
-
-    // Description based on/ Latest issue consulted notes (sourceOfDescription588)
-    if (!empty(marcRecord.getDatafield("588"))) {
-      scores.set(SerialFields.HAS_SOURCE_OF_DESCRIPTION_588, 1);
-    }
-
-    // Has a Library of Congress subject heading (6XX_0)
-    List<DataField> subjects = marcRecord.getSubjects();
-    if (subjects.isEmpty()) {
-      scores.set(SerialFields.HAS_NO_SUBJECT, -5);
-    } else {
-      scores.set(SerialFields.HAS_SUBJECT, subjects.size());
-    }
-
-    // Any PCC record should automatically be kept unless it is not online and/or a ceased title
-    if (!empty(marcRecord.getDatafield("042"))
-        && marcRecord.getDatafield("042").get(0) != null
-        && marcRecord.getDatafield("042").get(0).getSubfield("a") != null
-        && !marcRecord.getDatafield("042").get(0).getSubfield("a").isEmpty()
-        && marcRecord.getDatafield("042").get(0).getSubfield("a").get(0).getCode().equals("pcc")) {
-      scores.set(SerialFields.PCC, 100);
-    }
-
-    // Automatic Discards:
-    // Discard any that are not "o" for electronic
-    if (control008 != null
-        && control008.getValueByPosition(23) != null
-        && !control008.getValueByPosition(23).equals("o")) {
-      // scores.add(new Tuple2("not-online", -100));
-      // score = score * 0 - 100;
-    }
-
-    // Discard any that are not active titles
-    if (control008 != null
-       && control008.getTag008all11() != null
-       && (control008.getTag008all11().getValue().matches("[0-8].+")
-           || control008.getTag008all11().getValue().matches("u.+"))) {
-      // scores.add(new Tuple2("not-active", -100));
-      // score = score * 0 - 100;
-    }
-
-    // Discard any that are RECORD REPORTED FOR DELETION
-    List<DataField> notes = marcRecord.getDatafield("936");
-    if (!empty(notes)
-        && notes.get(0).getSubfield("0") != null
-        && notes.get(0).getSubfield("0").get(0) != null
-        && notes.get(0).getSubfield("0").get(0).getValue() != null
-        && notes.get(0).getSubfield("0").get(0).getValue().contains("DELETION")) {
-      // scores.add(new Tuple2("deletion", -100));
-      // score = score * 0 - 100;
-    }
-
-    // Discard any with a first date of "0"
-    if (control008 != null
-        && control008.getTag008all07() != null
-        && control008.getTag008all07().getValue().matches("0.+")) {
-      scores.set(SerialFields.DATE_1_STARTS_WITH_0, -100);
-    }
-
     // Discard any with an encoding level of "3"
     if (encodingLevel.equals("3")) { // Abbreviated level
       scores.set(SerialFields.ABBREVIATED, -100);
     }
+  }
 
-    scores.calculateTotal();
-    return scores.asList();
+  private void detectAuthenticationCode() {
+    // Authentication code (from the 042) is empty (the record is not pcc or nsdp)
+    List<DataField> authenticationcode = marcRecord.getDatafield("042");
+    if (!empty(authenticationcode)
+        && authenticationcode.get(0) != null
+        && authenticationcode.get(0).getSubfield("a") != null
+        && !authenticationcode.get(0).getSubfield("a").isEmpty()
+        && !authenticationcode.get(0).getSubfield("a").get(0).getValue().equals("")) {
+      scores.set(SerialFields.AUTH, 7);
+    }
+  }
+
+  private void detectUnkownLanguage(Control008 control008) {
+    // Publication language is totally unknown
+    if (control008 != null
+      && control008.getTag008all35() != null
+      && control008.getTag008all35().getValue().matches("xxx.+")) {
+      scores.set(SerialFields.LANGUAGE, -1);
+    }
+  }
+
+  private void detectUnknownCountry(Control008 control008) {
+    // Country of publication is totally unknown
+    if (control008 != null
+        && control008.getTag008all15() != null
+        && control008.getTag008all15().getValue().matches("xx.+")) {
+      scores.set(SerialFields.COUNTRY_UNKNOWN, -1);
+    }
+  }
+
+  private void detectUnknownDate1(Control008 control008) {
+    // Date 1 is totally unknown
+    if (control008 != null
+        && control008.getTag008all07() != null
+        && control008.getTag008all07().getValue().equals("uuuu")) {
+      scores.set(SerialFields.DATE_1_UNKNOWN, -3);
+    }
   }
 
   public void print() {

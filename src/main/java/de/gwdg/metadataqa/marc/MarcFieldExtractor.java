@@ -199,8 +199,7 @@ public class MarcFieldExtractor implements Calculator, Serializable {
     if (resultMap.has(LEADER_KEY))
       leader = new Leader(resultMap.get(LEADER_KEY).get(0));
     else
-      logger.severe(String.format("No leader in result map. Nr of existing vars: %s",
-          StringUtils.join(resultMap.getMap().keySet(), ", ")));
+      logger.severe("No leader in result map. Nr of existing vars: " + StringUtils.join(resultMap.getMap().keySet(), ", "));
   }
 
   public void process007() {

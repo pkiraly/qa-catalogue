@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
@@ -222,7 +223,7 @@ public class RecordCompleteness {
       else {
         packageName = plugin.getPackageName(field);
         if (StringUtils.isBlank(packageName)) {
-          logger.warning(String.format("%s has no package. /%s", field, field.getDefinition().getClass()));
+          logger.log(Level.WARNING, "{} has no package. /{}", new Object[]{field, field.getDefinition().getClass()});
           packageName = TagCategory.OTHER.getPackageName();
         }
         completenessDAO.getPackageNameCache().put(field.getDefinition(), packageName);

@@ -8,6 +8,7 @@ import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.analysis.bl.Band.BASIC;
@@ -69,7 +70,8 @@ public class BLClassifier implements Classifier {
         }
       }
     }
-    logger.info(String.format("failed for %s (%s -- %s -- %s)", useCase.name(), useCase.getUseCase(), useCase.getEncoding(), useCase.getDataElelemntsNormalized()));
+    logger.log(Level.INFO, "failed for {} ({} -- {} -- {})",
+      new Object[]{useCase.name(), useCase.getUseCase(), useCase.getEncoding(), useCase.getDataElelemntsNormalized()});
     return false;
   }
 }

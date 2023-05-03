@@ -155,8 +155,7 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
       Integer total = statistics.recordCountWithClassification();
       logger.info("total: " + total);
       if (!total1.equals(total))
-        logger.severe(String.format("total from hasClassifications (%d) != from collation (%d)",
-            total1, total));
+        logger.log(Level.SEVERE, "total from hasClassifications ({}) != from collation ({})", new Object[]{total1, total});
 
       statistics.getCollocationHistogram()
         .entrySet()

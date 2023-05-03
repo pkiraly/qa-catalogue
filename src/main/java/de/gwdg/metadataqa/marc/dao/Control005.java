@@ -9,6 +9,7 @@ import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -69,7 +70,6 @@ public class Control005  extends SimpleControlField implements Extractable {
           sec = Integer.parseInt(matcher.group(6));
       } else {
         String cleanContent = content.replaceAll("[\\. ]{1,10}$", "").replaceAll("\\.", "");
-        // logger.warning(String.format("005 ('%s') does not match the expected pattern", content));
         if (cleanContent.length() >= 4) {
           year = extractRaw(cleanContent, 4, "year");
           cleanContent = cleanContent.substring(4);
@@ -105,7 +105,7 @@ public class Control005  extends SimpleControlField implements Extractable {
       data = Integer.parseInt(text);
     } catch (NumberFormatException e) {
       String id = marcRecord != null ? String.format("#%s) ", marcRecord.getId()) : "";
-      logger.severe(String.format("%sBad input for %s: %s", id, field, text));
+      logger.log(Level.SEVERE, "{}Bad input for {}: {}", new Object[]{id, field, text});
       initializationErrors.add(createError(String.format("invalid %s: %s", field, text)));
     }
     return data;

@@ -9,6 +9,7 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
 
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
@@ -206,9 +207,7 @@ public class ThompsonTraillAnalysis {
           else if (field.getInd2().equals("7")) {
             List<MarcSubfield> subfield2 = field.getSubfield("2");
             if (subfield2 == null) {
-              logger.severe(String.format(
-                "Error in %s: ind2 = 7, but there is no $2",
-                marcRecord.getControl001().getContent()));
+              logger.log(Level.SEVERE, "Error in {}: ind2 = 7, but there is no $2", marcRecord.getControl001().getContent());
             } else
               switch (field.getSubfield("2").get(0).getValue()) {
                 case "fast": ttScores.count(ThompsonTraillFields.FAST); break;

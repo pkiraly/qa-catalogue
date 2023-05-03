@@ -95,8 +95,7 @@ public class RecordIterator {
     long end = System.currentTimeMillis();
     long duration = (end - start) / 1000;
     if (parameters.doLog())
-      logger.info(String.format("Bye! It took: %s",
-        LocalTime.MIN.plusSeconds(duration).toString()));
+      logger.log(Level.INFO, "Bye! It took: " + LocalTime.MIN.plusSeconds(duration).toString());
 
     status = "done";
   }
@@ -113,7 +112,7 @@ public class RecordIterator {
       MarcReader reader = getMarcFileReader(processor.getParameters(), path);
       processContent(reader, fileName);
       if (processor.getParameters().doLog())
-        logger.info(String.format("Finished processing file. Processed %s records.", decimalFormat.format(i)));
+        logger.log(Level.INFO, "Finished processing file. Processed {} records.", decimalFormat.format(i));
 
     } catch (SolrServerException ex) {
       if (processor.getParameters().doLog())
@@ -178,7 +177,7 @@ public class RecordIterator {
         }
 
         if (i % 100000 == 0 && processor.getParameters().doLog())
-          logger.info(String.format("%s/%s (%s)", fileName, decimalFormat.format(i), marcRecord.getId()));
+          logger.log(Level.INFO, "{}/{} ({})", new Object[]{fileName, decimalFormat.format(i), marcRecord.getId()});
       } catch (IllegalArgumentException e) {
         extracted(i, marc4jRecord, e, "Error (illegal argument) with record '%s'. %s");
       } catch (Exception e) {

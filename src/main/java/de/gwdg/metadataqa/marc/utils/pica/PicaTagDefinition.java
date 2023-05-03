@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.definition.bibliographic.BibliographicFieldDefini
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
@@ -53,7 +54,7 @@ public class PicaTagDefinition implements BibliographicFieldDefinition {
       case "":
       case "-": this.hasSheet = false; break;
       case "+": this.hasSheet = true; break;
-      default: logger.severe(String.format("unhandled 'hasSheet' value: %s (%s)", input, tag.getRaw()));
+      default: logger.log(Level.SEVERE, "unhandled 'hasSheet' value: {} ({})", new Object[]{input, tag.getRaw()});
     }
   }
 

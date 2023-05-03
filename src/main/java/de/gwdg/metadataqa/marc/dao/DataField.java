@@ -27,6 +27,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DataField implements Extractable, Serializable {
@@ -414,8 +415,7 @@ public class DataField implements Extractable, Serializable {
           Utils.mergeMap(pairs, extra);
         }
       } catch (IllegalArgumentException e) {
-        logger.severe(String.format("%s  in record %s %s",
-          e.getLocalizedMessage(), marcRecord.getId(), this.toString()));
+        logger.log(Level.SEVERE, "{} in record {} {}", new Object[]{e.getLocalizedMessage(), marcRecord.getId(), this.toString()});
       }
     }
 

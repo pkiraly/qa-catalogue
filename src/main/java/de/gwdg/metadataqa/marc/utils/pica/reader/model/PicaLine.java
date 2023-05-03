@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -114,7 +115,7 @@ public class PicaLine {
         parseSubfields();
         valid = true;
       } else {
-        logger.warning(String.format("Unable to parse line: '%s'", raw));
+        logger.log(Level.WARNING, "Unable to parse line: '{}'", raw);
       }
     }
   }

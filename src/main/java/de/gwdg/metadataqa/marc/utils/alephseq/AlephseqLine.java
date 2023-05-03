@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
@@ -107,7 +108,7 @@ public class AlephseqLine {
 
   private void parse(String raw) {
     if (raw.length() < 18) {
-      logger.warning(String.format("%d) short line (%d): '%s'", lineNumber, raw.length(), raw));
+      logger.log(Level.WARNING, "{}) short line ({}): '{}'", new Object[]{lineNumber, raw.length(), raw});
       valid = false;
     } else {
       String[] parts = raw.split(" ", 2);

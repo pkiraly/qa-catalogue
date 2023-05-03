@@ -70,7 +70,7 @@ public class AlephseqMarcReader implements MarcReader {
       AlephseqLine alephseqLine = new AlephseqLine(line, lineNumber, lineType);
       String recordID = alephseqLine.getRecordID();
       if (recordID == null) {
-        logger.warning(String.format("line %d) does not have line number: '%s'", lineNumber, line));
+        logger.log(Level.WARNING, "line {}) does not have line number: '{}'", new Object[]{lineNumber, line});
       } else {
         if (currentId != null
           && !recordID.equals(currentId)

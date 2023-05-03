@@ -406,12 +406,12 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     if (groupId != null) {
       histogram = completenessDAO.getGrouppedFieldHistogram().get(groupId).get(marcPath);
       if (!completenessDAO.getGrouppedFieldHistogram().get(groupId).containsKey(marcPath)) {
-        logger.warning(String.format("Field %s is not registered in histogram", marcPath));
+        logger.log(Level.WARNING,"Field {} is not registered in histogram", marcPath);
       }
     } else {
       histogram = completenessDAO.getFieldHistogram().get(marcPath);
       if (!completenessDAO.getFieldHistogram().containsKey(marcPath)) {
-        logger.warning(String.format("Field %s is not registered in histogram", marcPath));
+        logger.log(Level.WARNING,"Field {} is not registered in histogram", marcPath);
       }
     }
     BasicStatistics statistics = new BasicStatistics(histogram);

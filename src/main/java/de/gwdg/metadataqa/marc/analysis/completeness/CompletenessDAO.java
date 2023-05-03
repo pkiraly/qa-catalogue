@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc.analysis.completeness;
 
-import de.gwdg.metadataqa.marc.cli.Completeness;
 import de.gwdg.metadataqa.marc.cli.QACli;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 

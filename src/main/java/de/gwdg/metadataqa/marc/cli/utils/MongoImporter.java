@@ -9,7 +9,6 @@ import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.marc.datastore.MarcMongodbClient;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;

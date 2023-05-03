@@ -5,12 +5,8 @@ import de.gwdg.metadataqa.api.model.selector.Selector;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.dao.record.PicaRecord;
-import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
-import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
-import de.gwdg.metadataqa.marc.utils.pica.path.PicaPathParser;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

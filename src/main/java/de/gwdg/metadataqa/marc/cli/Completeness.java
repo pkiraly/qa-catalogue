@@ -217,15 +217,15 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
         "number-of-record", "number-of-instances",
         "min", "max", "mean", "stddev", "histogram"
       ));
-      completenessDAO.getElementCardinality().forEach((documentType, cardinalities) -> {
+      completenessDAO.getElementCardinality().forEach((documentType, cardinalities) ->
         cardinalities.forEach((marcPath, cardinality) -> {
           try {
             writer.write(formatCardinality(marcPath, cardinality, documentType, null));
           } catch (IOException e) {
             logger.log(Level.SEVERE, "saveMarcElements", e);
           }
-        });
-      });
+        })
+      );
     } catch (IOException e) {
       logger.log(Level.SEVERE, "saveMarcElements", e);
     }
@@ -240,17 +240,17 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
         "number-of-record", "number-of-instances",
         "min", "max", "mean", "stddev", "histogram"
       ));
-      completenessDAO.getGrouppedElementCardinality().forEach((groupId, documentTypes) -> {
-        documentTypes.forEach((documentType, cardinalities) -> {
+      completenessDAO.getGrouppedElementCardinality().forEach((groupId, documentTypes) ->
+        documentTypes.forEach((documentType, cardinalities) ->
           cardinalities.forEach((marcPath, cardinality) -> {
             try {
               writer.write(formatCardinality(marcPath, cardinality, documentType, groupId));
             } catch (IOException e) {
               logger.log(Level.SEVERE, "saveMarcElements", e);
             }
-          });
-        });
-      });
+          })
+        )
+      );
     } catch (IOException e) {
       logger.log(Level.SEVERE, "saveMarcElements", e);
     }

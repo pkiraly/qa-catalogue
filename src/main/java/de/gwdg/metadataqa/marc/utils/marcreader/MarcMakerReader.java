@@ -61,7 +61,6 @@ public class MarcMakerReader implements MarcReader {
   @Override
   public Record next() {
     Record marc4jRecord = null;
-    boolean deleted = false;
     boolean finished = false;
     while (line != null && !finished) {
       MarcMakerLine marcMakerLine = new MarcMakerLine(line, lineNumber);

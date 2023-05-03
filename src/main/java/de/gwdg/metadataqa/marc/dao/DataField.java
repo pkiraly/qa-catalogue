@@ -17,7 +17,6 @@ import de.gwdg.metadataqa.marc.definition.general.indexer.subject.*;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.model.validation.ErrorsCollector;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
-import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;

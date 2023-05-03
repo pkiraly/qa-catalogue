@@ -141,6 +141,14 @@ public class UtilsTest {
   @Test
   public void base36Encode() {
     assertEquals("c", Utils.base36Encode("12"));
+    assertEquals("c", Utils.base36Encode(12));
     assertEquals("7ps", Utils.base36Encode("10E+3"));
+  }
+
+  @Test
+  public void base64decode() {
+    assertEquals(
+      "002@.0 !~ \"^L\" && 002@.0 !~ \"^..[iktN]\" && (002@.0 !~ \"^.v\" || 021A.a?)\n",
+      Utils.base64decode("MDAyQC4wICF+ICJeTCIgJiYgMDAyQC4wICF+ICJeLi5baWt0Tl0iICYmICgwMDJALjAgIX4gIl4udiIgfHwgMDIxQS5hPykK"));
   }
 }

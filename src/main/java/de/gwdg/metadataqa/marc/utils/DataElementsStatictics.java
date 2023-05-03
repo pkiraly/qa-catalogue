@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DataElementsStatictics {
+public abstract class DataElementsStatictics {
 
   private static final Logger logger = Logger.getLogger(DataElementsStatictics.class.getCanonicalName());
 
@@ -33,7 +33,6 @@ public class DataElementsStatictics {
     }
 
     for (Class<? extends DataFieldDefinition> tagClass : MarcTagLister.listTags()) {
-
       MarcVersion version = Utils.getVersion(tagClass);
       Method getInstance;
       DataFieldDefinition fieldTag;

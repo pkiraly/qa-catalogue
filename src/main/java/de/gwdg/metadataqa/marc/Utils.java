@@ -80,7 +80,7 @@ public class Utils {
       case "nkcrtags":    version = MarcVersion.NKCR;    break;
       case "uvatags":     version = MarcVersion.UVA;     break;
       case "b3kattags":   version = MarcVersion.B3KAT;   break;
-      case "kbrtags":     version = MarcVersion.KBR;   break;
+      case "kbrtags":     version = MarcVersion.KBR;     break;
       default:            version = MarcVersion.MARC21;  break;
     }
     return version;
@@ -156,6 +156,11 @@ public class Utils {
     }
   }
 
+  /**
+   * Transforms a positive integer to a base36 encoded string
+   * @param id a positive integer either in normal or in scientific notation (e.g. 12 or 10E+3)
+   * @return
+   */
   public static String base36Encode(String id) {
     return Integer.toString(parseId(id), Character.MAX_RADIX);
   }

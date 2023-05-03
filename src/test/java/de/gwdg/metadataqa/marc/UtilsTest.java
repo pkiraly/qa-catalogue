@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.controlpositions.tag007.Tag007nonprojected00;
 import de.gwdg.metadataqa.marc.definition.controlpositions.tag007.Tag007nonprojected01;
@@ -123,5 +124,23 @@ public class UtilsTest {
     Utils.count("Mary", names);
     assertTrue(names.containsKey("Mary"));
     assertEquals(1, names.get("Mary").intValue());
+  }
+
+
+  @Test
+  public void package2version() {
+    assertEquals(MarcVersion.KBR, Utils.package2version("kbrtags"));
+  }
+
+  @Test
+  public void quote() {
+    assertEquals(List.of("\"a\"", "\"b\""), Utils.quote(List.of("a", "b")));
+    assertEquals(1, Utils.quote(1));
+  }
+
+  @Test
+  public void base36Encode() {
+    assertEquals("c", Utils.base36Encode("12"));
+    assertEquals("7ps", Utils.base36Encode("10E+3"));
   }
 }

@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.analysis.completeness;
 
 import de.gwdg.metadataqa.marc.cli.Completeness;
+import de.gwdg.metadataqa.marc.cli.QACli;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 
 import java.util.HashMap;
@@ -22,9 +23,9 @@ public class CompletenessDAO {
   private Map<String, Map<String, Map<Integer, Integer>>> grouppedFieldHistogram = new HashMap<>();
 
   public void initialize() {
-    packageCounter.put(Completeness.ALL, new HashMap<>());
-    elementCardinality.put(Completeness.ALL, new HashMap<>());
-    elementFrequency.put(Completeness.ALL, new HashMap<>());
+    packageCounter.put(QACli.ALL, new HashMap<>());
+    elementCardinality.put(QACli.ALL, new HashMap<>());
+    elementFrequency.put(QACli.ALL, new HashMap<>());
   }
 
   public Map<String, Map<String, Integer>> getPackageCounter() {

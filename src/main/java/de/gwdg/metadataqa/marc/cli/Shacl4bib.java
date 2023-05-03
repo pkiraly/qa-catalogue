@@ -23,8 +23,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Shacl4bib extends QACli implements BibliographicInputProcessor, Serializable {
@@ -33,14 +33,9 @@ public class Shacl4bib extends QACli implements BibliographicInputProcessor, Ser
   private final boolean readyToProcess;
 
   private Shacl4bibParameters parameters;
-
-  private List<String> tagsList = new ArrayList();
-
   private File outputFile;
   private RuleCatalog ruleCatalog;
   private SchemaConfiguration schema;
-
-  private boolean fileOpenPointer = false;
 
   public Shacl4bib(String[] args) throws ParseException {
     parameters = new Shacl4bibParameters(args);
@@ -78,14 +73,14 @@ public class Shacl4bib extends QACli implements BibliographicInputProcessor, Ser
     logger.info(parameters.formatParameters());
     outputFile = new File(parameters.getOutputDir(), parameters.getShaclOutputFile());
 
-    String shaclConfigurationFile = parameters.getShaclConfigurationFile(); // "shacl/Schema-Configuration.json";
+    String shaclConfigurationFile = parameters.getShaclConfigurationFile();
     try {
       if (shaclConfigurationFile.endsWith(".json"))
         schema = ConfigurationReader.readSchemaJson(shaclConfigurationFile);
       else
         schema = ConfigurationReader.readSchemaYaml(shaclConfigurationFile);
     } catch (IOException exception) {
-      System.err.println("ERROR. " + exception.getLocalizedMessage());
+      logger.severe("Error when the SHACL schema is initialized. " + exception.getLocalizedMessage());
       System.exit(0);
     }
 
@@ -100,8 +95,7 @@ public class Shacl4bib extends QACli implements BibliographicInputProcessor, Ser
 
   @Override
   public void fileOpened(Path path) {
-    logger.info("file opened: " + path);
-    fileOpenPointer = true;
+    logger.log(Level.INFO, "file opened: {}", path);
   }
 
   @Override

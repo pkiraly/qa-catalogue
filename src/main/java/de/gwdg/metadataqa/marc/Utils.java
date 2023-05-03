@@ -110,7 +110,6 @@ public class Utils {
    * @param <T>
    */
   public static <T extends Object> void count(T key, Map<T, Integer> counter) {
-    // counter.computeIfAbsent(key, s -> 0);
     if (!counter.containsKey(key))
       counter.put(key, 1);
     else

@@ -242,7 +242,6 @@ public class RecordCompleteness {
           && (field.getDefinition().getInd1().exists()
              || !field.getInd1().equals(" ")))
         marcPaths.add(field.getTagWithOccurrence() + IND_1);
-        // marcPaths.add(String.format("%s$!ind1", field.getTagWithOccurrence()));
 
       if (field.getInd2() != null
           && field.getDefinition() != null

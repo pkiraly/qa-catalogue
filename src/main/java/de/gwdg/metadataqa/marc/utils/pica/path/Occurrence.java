@@ -28,4 +28,13 @@ public class Occurrence {
   public Integer getEnd() {
     return end;
   }
+
+  @Override
+  public String toString() {
+    return "Occurrence{" +
+      "type=" + type +
+      ", start=" + start +
+      ", end=" + end +
+      '}';
+  }
 }

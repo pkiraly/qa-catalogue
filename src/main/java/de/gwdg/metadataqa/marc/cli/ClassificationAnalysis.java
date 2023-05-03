@@ -123,10 +123,6 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
 
   @Override
   public void beforeIteration() {
-    /*
-    collectorFile = prepareReportFile(
-      parameters.getOutputDir(), "classification-collocations.csv");
-     */
   }
 
   @Override
@@ -155,7 +151,7 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
     path = Paths.get(parameters.getOutputDir(), "classifications-collocations.csv");
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write(Collocation.header());
-      Integer total1 = statistics.getHasClassifications().getOrDefault(true, new Integer(0));
+      Integer total1 = statistics.getHasClassifications().getOrDefault(true, Integer.valueOf(0));
       Integer total = statistics.recordCountWithClassification();
       logger.info("total: " + total);
       if (!total1.equals(total))

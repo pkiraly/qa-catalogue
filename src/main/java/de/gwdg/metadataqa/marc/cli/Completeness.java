@@ -261,7 +261,7 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     var path = Paths.get(parameters.getOutputDir(), "packages" + fileExtension);
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write(CsvUtils.createCsv("documenttype", "packageid", "name", "label", "iscoretag", "count"));
-      completenessDAO.getPackageCounter().forEach((documentType, packages) -> {
+      completenessDAO.getPackageCounter().forEach((documentType, packages) ->
         packages.forEach((packageName, count) -> {
           try {
             TagCategory tagCategory = TagCategory.getPackage(packageName);
@@ -281,8 +281,8 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
           } catch (IOException e) {
             logger.log(Level.SEVERE, "savePackages", e);
           }
-        });
-      });
+        })
+      );
     } catch (IOException e) {
       logger.log(Level.SEVERE, "savePackages", e);
     }

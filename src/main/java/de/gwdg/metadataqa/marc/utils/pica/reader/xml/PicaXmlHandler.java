@@ -76,12 +76,12 @@ public class PicaXmlHandler implements ContentHandler {
 
   static {
     ELEMENTS = new HashMap<String, Integer>();
-    ELEMENTS.put("collection", new Integer(COLLECTION_ID));
-    ELEMENTS.put("leader", new Integer(LEADER_ID));
-    ELEMENTS.put("record", new Integer(RECORD_ID));
-    ELEMENTS.put("controlfield", new Integer(CONTROLFIELD_ID));
-    ELEMENTS.put("datafield", new Integer(DATAFIELD_ID));
-    ELEMENTS.put("subfield", new Integer(SUBFIELD_ID));
+    ELEMENTS.put("collection", Integer.valueOf(COLLECTION_ID));
+    ELEMENTS.put("leader", Integer.valueOf(LEADER_ID));
+    ELEMENTS.put("record", Integer.valueOf(RECORD_ID));
+    ELEMENTS.put("controlfield", Integer.valueOf(CONTROLFIELD_ID));
+    ELEMENTS.put("datafield", Integer.valueOf(DATAFIELD_ID));
+    ELEMENTS.put("subfield", Integer.valueOf(SUBFIELD_ID));
 
     RECORD_TYPES = new HashSet<String>();
     RECORD_TYPES.add("Bibliographic");

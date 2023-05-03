@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-abstract public class BibSelector implements Selector {
+public abstract class BibSelector implements Selector {
   protected final BibliographicRecord record;
   private boolean isMarc21 = false;
   private boolean isPica = false;

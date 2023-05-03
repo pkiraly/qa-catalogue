@@ -6,7 +6,6 @@ import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefiniti
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.structure.MarcDefinition;
-import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import org.apache.commons.lang3.StringUtils;
 
@@ -23,18 +22,14 @@ public class DataElementsStatictics {
   public static Counter<DataElementType> count() {
     Counter<DataElementType> counter = new Counter<>();
 
-    for (ControlfieldPositionDefinition subfield : MarcDefinition.getLeaderPositions())
-      counter.count(DataElementType.controlFieldPositions);
-
-    for (DataFieldDefinition subfield : MarcDefinition.getSimpleControlFields())
-      counter.count(DataElementType.controlFields);
+    counter.add(DataElementType.controlFieldPositions, MarcDefinition.getLeaderPositions().size());
+    counter.add(DataElementType.controlFields, MarcDefinition.getSimpleControlFields().size());
 
     for (ControlFieldDefinition controlField : MarcDefinition.getComplexControlFields()) {
       counter.count(DataElementType.controlFields);
 
       for (List<ControlfieldPositionDefinition> controlFieldPositions : controlField.getControlfieldPositions().values())
-        for (ControlfieldPositionDefinition controlFieldPosition : controlFieldPositions)
-          counter.count(DataElementType.controlFieldPositions);
+        counter.add(DataElementType.controlFieldPositions, controlFieldPositions.size());
     }
 
     for (Class<? extends DataFieldDefinition> tagClass : MarcTagLister.listTags()) {
@@ -59,17 +54,14 @@ public class DataElementsStatictics {
               counter.count(DataElementType.localIndicators);
 
         if (fieldTag.getSubfields() != null)
-          for (SubfieldDefinition subfield : fieldTag.getSubfields())
-            if (isCore)
-              counter.count(DataElementType.coreSubfields);
-            else
-              counter.count(DataElementType.localSubfields);
+          if (isCore)
+            counter.add(DataElementType.coreSubfields, fieldTag.getSubfields().size());
+          else
+            counter.add(DataElementType.localSubfields, fieldTag.getSubfields().size());
 
         if (isCore && fieldTag.getVersionSpecificSubfields() != null)
           for (MarcVersion localVersion : fieldTag.getVersionSpecificSubfields().keySet())
-            for (SubfieldDefinition subfield : fieldTag.getVersionSpecificSubfields().get(localVersion))
-              counter.count(DataElementType.localSubfields);
-
+            counter.add(DataElementType.localSubfields, fieldTag.getVersionSpecificSubfields().get(localVersion).size());
 
       } catch (NoSuchMethodException
               | IllegalAccessException

@@ -16,6 +16,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -217,8 +218,8 @@ public class FrbrFunctionLister {
   }
 
   private void initializePica() {
-    picaPathByFunction = new HashMap<>();
-    picaPathByFunctionCondensed = new HashMap<>();
+    picaPathByFunction = new EnumMap<>(FRBRFunction.class);
+    picaPathByFunctionCondensed = new EnumMap<>(FRBRFunction.class);
     functionByPicaPath = new HashMap<>();
     for (Map.Entry<FRBRFunction, List<String>> entry : marcPathByFunction.entrySet()) {
       for (String address : entry.getValue()) {

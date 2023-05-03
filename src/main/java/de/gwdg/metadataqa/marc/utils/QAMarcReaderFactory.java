@@ -164,7 +164,7 @@ public final class QAMarcReaderFactory {
     return reader;
   }
 
-  public static MarcReader getStreamReader(MarcFormat marcFormat, InputStream stream) throws Exception {
+  public static MarcReader getStreamReader(MarcFormat marcFormat, InputStream stream) {
     return getStreamReader(marcFormat, stream, null);
   }
 
@@ -195,7 +195,7 @@ public final class QAMarcReaderFactory {
     return reader;
   }
 
-  public static MarcReader getStringReader(MarcFormat marcFormat, String content) throws Exception {
+  public static MarcReader getStringReader(MarcFormat marcFormat, String content) {
     return getStringReader(marcFormat, content, null);
   }
 

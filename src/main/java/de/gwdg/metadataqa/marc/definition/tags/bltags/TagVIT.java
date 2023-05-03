@@ -77,7 +77,7 @@ public class TagVIT extends DataFieldDefinition {
       .setMqTag("fromToMonth");
     getSubfield("k")
       .setValidator(
-        new RegexValidator("^(0[1-9]|[1-2][0-9]|3[01])(/(0[1-9]|[1-2][0-9]|3[01]))?$"))
+        new RegexValidator("^(0[1-9]|[1-2]\\d|3[01])(/(0[1-9]|[1-2]\\d|3[01]))?$"))
       .setMqTag("fromToDay");
     getSubfield("o")
       .setValidator(new RegexValidator("^.*[^\\.]$"))

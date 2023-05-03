@@ -22,8 +22,7 @@ public class MapToDatafield {
     List<Map<String, String>> subfields = toMap(
       Converter.jsonObjectToList(fieldInstance.get("subfield")));
 
-    DataField df = new DataField(definition, ind1, ind2, subfields);
-    return df;
+    return new DataField(definition, ind1, ind2, subfields);
   }
 
   private static List<Map<String, String>> toMap(List<Object> objectList) {

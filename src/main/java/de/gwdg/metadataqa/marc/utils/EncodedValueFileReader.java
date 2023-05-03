@@ -4,7 +4,6 @@ import de.gwdg.metadataqa.marc.EncodedValue;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.LineIterator;
 
-import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +30,7 @@ public class EncodedValueFileReader {
     return codes;
   }
 
-  public static Map<String, String> fileToDict(String fileName) throws IOException {
+  public static Map<String, String> fileToDict(String fileName) {
     LineIterator it = getLineIterator(fileName);
 
     Map<String, String> dict = new HashMap<>();

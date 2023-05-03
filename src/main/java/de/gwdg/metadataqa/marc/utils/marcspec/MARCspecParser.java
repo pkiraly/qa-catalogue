@@ -17,21 +17,21 @@ public class MARCspecParser {
    * Regex for field tag
    */
   protected static final Pattern FIELDTAG = Pattern.compile(
-    "^(?<tag>(?:[0-9\\.]{3,3}|LDR|LEADER))?"
+    "^(?<tag>(?:[0-9\\.]{3}|LDR|LEADER))?"
   );
 
   /**
    * Regex for position or range
    */
   protected static final Pattern POSITION_OR_RANGE = Pattern.compile(
-    "(?:(?:(?:[0-9]+|#)\\-(?:[0-9]+|#))|(?:[0-9]+|#))"
+    "(?:(?:(?:\\d+|#)\\-(?:\\d+|#))|(?:\\d+|#))"
   );
 
   /**
    * Regex for named position or range
    */
   protected static final Pattern NAMED_POSITION_OR_RANGE = Pattern.compile(
-    "(?:(?:(?<start>[0-9]+|#)\\-(?<end>[0-9]+|#))|(?<single>[0-9]+|#))"
+    "(?:(?:(?<start>\\d+|#)\\-(?<end>\\d+|#))|(?<single>\\d+|#))"
   );
 
   /**
@@ -338,7 +338,7 @@ public class MARCspecParser {
       String end = rangeMatcher.group("end");
       Pattern lowerCase = Pattern.compile("[a-z]");
       Pattern upperCase = Pattern.compile("[A-Z]");
-      Pattern numeric = Pattern.compile("[0-9]");
+      Pattern numeric = Pattern.compile("\\d");
       if (lowerCase.matcher(start).matches() && !lowerCase.matcher(end).matches())
         throw new InvalidMARCspecException(InvalidMARCspecException.SF + InvalidMARCspecException.RANGE, subfieldTagRange);
 

@@ -22,7 +22,7 @@ public class MarcMakerReader implements MarcReader {
 
   private enum LEVEL {
     WARN, SEVERE
-  };
+  }
 
   private BufferedReader bufferedReader = null;
   private String line = null;

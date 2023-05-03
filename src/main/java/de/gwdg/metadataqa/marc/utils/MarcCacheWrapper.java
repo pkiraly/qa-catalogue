@@ -70,13 +70,12 @@ public class MarcCacheWrapper {
   }
 
   private String extractValues(String path) {
-    String value;List<String> values = new ArrayList<>();
+    List<String> values = new ArrayList<>();
     for (XmlFieldInstance field : cache.getCache().get(path)) {
       if (field.getValue() != null)
         values.add(field.getValue());
     }
-    value = StringUtils.join(values, "|");
-    return value;
+    return StringUtils.join(values, "|");
   }
 
   private boolean isControlField(String tag) {

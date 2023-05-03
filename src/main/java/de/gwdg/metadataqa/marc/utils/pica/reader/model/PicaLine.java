@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 public class PicaLine {
   private static final Logger logger = Logger.getLogger(PicaLine.class.getCanonicalName());
 
-  private static final Pattern LINE = Pattern.compile("^(SET:|Eingabe:|Warnung:|[0-2][0-9][0-9][A-Z@])(\\/([0-9][0-9]+))? (.*)$", Pattern.MULTILINE);
+  private static final Pattern LINE = Pattern.compile("^(SET:|Eingabe:|Warnung:|[0-2]\\d\\d[A-Z@])(\\/(\\d\\d+))? (.*)$", Pattern.MULTILINE);
   private static Map<String, String> quotedSeparatorMap = new HashMap<>();
   public static final String DEFAULT_SEPARATOR = "$";
   private static final String SET = "SET";

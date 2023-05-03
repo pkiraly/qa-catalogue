@@ -2,7 +2,6 @@ package de.gwdg.metadataqa.marc.utils;
 
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -12,12 +11,7 @@ public class EncodedValueFileReaderTest {
 
   @Test
   public void test() {
-    Map<String, String> dict = null;
-    try {
-      dict = EncodedValueFileReader.fileToDict("general/csv-test.csv");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    Map<String, String> dict = EncodedValueFileReader.fileToDict("general/csv-test.csv");
     assertNotNull(dict);
     assertEquals(3, dict.size());
     assertEquals("früher: Mödling; Theologische Hochschule St. Gabriel, Bibliothek St. Gabriel", dict.get("AT-3:BStG"));

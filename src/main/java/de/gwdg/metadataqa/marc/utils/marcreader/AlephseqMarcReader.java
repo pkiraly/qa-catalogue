@@ -5,7 +5,11 @@ import de.gwdg.metadataqa.marc.utils.alephseq.AlephseqLine;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +22,7 @@ public class AlephseqMarcReader implements MarcReader {
 
   private enum LEVEL {
     WARN, SEVERE
-  };
+  }
 
   private BufferedReader bufferedReader = null;
   private String line = null;

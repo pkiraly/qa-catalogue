@@ -23,9 +23,13 @@ import org.marc4j.marc.Record;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,8 +50,6 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
 
   private final ValidatorParameters parameters;
   private final Map<Integer, Integer> hashedIndex = new HashMap<>();
-  private final Map<String, Set<String>> isbnCollector = new TreeMap<>();
-  private final Map<String, Set<String>> issnCollector = new TreeMap<>();
   private File detailsFile = null;
   private File summaryFile = null;
   private File collectorFile = null;
@@ -79,6 +81,14 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
       .withSchemaType(parameters.getSchemaType())
     ;
     initializeGroups(parameters.getGroupBy(), parameters.isPica());
+    if (doGroups()) {
+      initializeMeta(parameters);
+      if (saveGroupIds) {
+        logger.info("saveGroupIds!");
+        idCollectorFile = prepareReportFile(parameters.getOutputDir(), "id-groupid.csv");
+        printToFile(idCollectorFile, CsvUtils.createCsv("id", "groupId"));
+      }
+    }
   }
 
   public static void main(String[] args) {
@@ -172,11 +182,9 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
       return;
     }
 
-    Set<String> groupIds = new HashSet<>();
-    if (groupBy != null) {
-      List<String> idLists = parameters.isPica() ? bibliographicRecord.select((PicaPath) groupBy) : null; // TODO: MARC21
-      groupIds = extractGroupIds(idLists);
-    }
+    Set<String> groupIds = getGroupIds(parameters, bibliographicRecord);
+    if (saveGroupIds)
+      saveGroupIds(bibliographicRecord.getId(true), groupIds);
 
     Validator validator = new Validator(validatorConfiguration);
     boolean isValid = validator.validate(bibliographicRecord);

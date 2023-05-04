@@ -206,7 +206,7 @@ public class ClassificationAnalyzer {
           updateSchemaSubfieldStatistics(field, currentSchema);
           count++;
         } else {
-          logger.log(Level.SEVERE, "undetected subfield in record {} {}", new Object[]{marcRecord.getId(), field.toString()});
+          logger.log(Level.SEVERE, "undetected subfield in record {0} {1}", new Object[]{marcRecord.getId(), field.toString()});
         }
       }
       registerSchemas(schemas);

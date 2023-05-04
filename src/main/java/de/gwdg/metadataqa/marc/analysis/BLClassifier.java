@@ -70,7 +70,7 @@ public class BLClassifier implements Classifier {
         }
       }
     }
-    logger.log(Level.INFO, "failed for {} ({} -- {} -- {})",
+    logger.log(Level.INFO, "failed for {ö} ({1} -- {2} -- {3})",
       new Object[]{useCase.name(), useCase.getUseCase(), useCase.getEncoding(), useCase.getDataElelemntsNormalized()});
     return false;
   }

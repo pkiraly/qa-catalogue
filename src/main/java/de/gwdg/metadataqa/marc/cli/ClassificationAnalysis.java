@@ -116,7 +116,7 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
   private File prepareReportFile(String outputDir, String fileName) {
     File reportFile = new File(outputDir, fileName);
     if (reportFile.exists() && !reportFile.delete())
-      logger.log(Level.SEVERE, "File {} hasn't been deleted", reportFile.getAbsolutePath());
+      logger.log(Level.SEVERE, "File {0} hasn't been deleted", reportFile.getAbsolutePath());
     return reportFile;
   }
 
@@ -155,7 +155,7 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
       Integer total = statistics.recordCountWithClassification();
       logger.info("total: " + total);
       if (!total1.equals(total))
-        logger.log(Level.SEVERE, "total from hasClassifications ({}) != from collation ({})", new Object[]{total1, total});
+        logger.log(Level.SEVERE, "total from hasClassifications ({0}) != from collation ({1})", new Object[]{total1, total});
 
       statistics.getCollocationHistogram()
         .entrySet()

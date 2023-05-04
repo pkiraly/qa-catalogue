@@ -207,7 +207,7 @@ public class ThompsonTraillAnalysis {
           else if (field.getInd2().equals("7")) {
             List<MarcSubfield> subfield2 = field.getSubfield("2");
             if (subfield2 == null) {
-              logger.log(Level.SEVERE, "Error in {}: ind2 = 7, but there is no $2", marcRecord.getControl001().getContent());
+              logger.log(Level.SEVERE, "Error in {0}: ind2 = 7, but there is no $2", marcRecord.getControl001().getContent());
             } else
               switch (field.getSubfield("2").get(0).getValue()) {
                 case "fast": ttScores.count(ThompsonTraillFields.FAST); break;

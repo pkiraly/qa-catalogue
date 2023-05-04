@@ -23,7 +23,6 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.marc4j.marc.Record;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
@@ -52,18 +51,20 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
   private CompletenessPlugin plugin;
   private RecordFilter recordFilter;
   private RecordIgnorator recordIgnorator;
-  private File idCollectorFile;
 
   public Completeness(String[] args) throws ParseException {
     parameters = new CompletenessParameters(args);
     plugin = CompletenessFactory.create(parameters);
     recordFilter = parameters.getRecordFilter();
     recordIgnorator = parameters.getRecordIgnorator();
-    initializeGroups(parameters.getGroupBy(), parameters.isPica());
     readyToProcess = true;
+    initializeGroups(parameters.getGroupBy(), parameters.isPica());
     if (doGroups()) {
-      idCollectorFile = prepareReportFile(parameters.getOutputDir(), "id-groupid.csv");
-      printToFile(idCollectorFile, CsvUtils.createCsv("id", "groupId"));
+      initializeMeta(parameters);
+      if (saveGroupIds) {
+        idCollectorFile = prepareReportFile(parameters.getOutputDir(), "id-groupid.csv");
+        printToFile(idCollectorFile, CsvUtils.createCsv("id", "groupId"));
+      }
     }
   }
 
@@ -109,12 +110,11 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     RecordCompleteness recordCompleteness = new RecordCompleteness(bibliographicRecord, parameters, completenessDAO, plugin, groupBy);
     recordCompleteness.process();
 
-    if (doGroups()) {
-      for (String id : recordCompleteness.getGroupIds()) {
+    if (saveGroupIds)
+      saveGroupIds(bibliographicRecord.getId(true), recordCompleteness.getGroupIds());
+    if (doGroups())
+      for (String id : recordCompleteness.getGroupIds())
         Utils.count(id, completenessDAO.getGroupCounter());
-        printToFile(idCollectorFile, CsvUtils.createCsv(bibliographicRecord.getId(true), id));
-      }
-    }
 
     for (String path : recordCompleteness.getRecordFrequency().keySet()) {
       if (groupBy != null) {
@@ -406,12 +406,12 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     if (groupId != null) {
       histogram = completenessDAO.getGrouppedFieldHistogram().get(groupId).get(marcPath);
       if (!completenessDAO.getGrouppedFieldHistogram().get(groupId).containsKey(marcPath)) {
-        logger.log(Level.WARNING,"Field {} is not registered in histogram", marcPath);
+        logger.log(Level.WARNING,"Field {0} is not registered in histogram", marcPath);
       }
     } else {
       histogram = completenessDAO.getFieldHistogram().get(marcPath);
       if (!completenessDAO.getFieldHistogram().containsKey(marcPath)) {
-        logger.log(Level.WARNING,"Field {} is not registered in histogram", marcPath);
+        logger.log(Level.WARNING,"Field {0} is not registered in histogram", marcPath);
       }
     }
     BasicStatistics statistics = new BasicStatistics(histogram);

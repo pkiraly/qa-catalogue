@@ -3,13 +3,11 @@ package de.gwdg.metadataqa.marc.cli;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gwdg.metadataqa.marc.CsvUtils;
-import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.utils.BibiographicPath;
 import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
 import de.gwdg.metadataqa.marc.utils.pica.path.PicaPathParser;
-import org.apache.avro.generic.GenericData;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -99,9 +97,9 @@ public abstract class QACli {
       File reportFile = new File(outputDir, fileName);
       if (!reportFile.exists())
         return true;
-      if (reportFile.isFile()) {
+      else {
         FileTime groupModifiedTime = Files.readAttributes(reportFile.toPath(), BasicFileAttributes.class).lastModifiedTime();
-        return (jarModifiedTime == null || jarModifiedTime.compareTo(groupModifiedTime) == 1);
+        return (jarModifiedTime == null || jarModifiedTime.compareTo(groupModifiedTime) > 0);
       }
     } catch (IOException e) {
       logger.severe("Error during prepareReportFile: " + e);

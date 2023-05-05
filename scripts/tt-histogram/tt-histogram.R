@@ -24,7 +24,7 @@ csv <- sprintf("%s/%s.csv", output_dir, prefix)
 if (!file.exists(csv)) {
   stop(paste("input file", csv, "does not exist!"))
 }
-df <- read_csv(csv, col_types = cols(.default = col_integer(), id = col_character()), progress = TRUE, trim_ws = FALSE)
+df <- read_csv(csv, col_types = cols(.default = col_integer(), id = col_character()), progress = TRUE, trim_ws = FALSE, show_col_types = FALSE)
 df <- df %>% 
   select(-id)
 names <- names(df)

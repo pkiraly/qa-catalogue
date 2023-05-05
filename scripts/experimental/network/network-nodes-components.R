@@ -29,7 +29,8 @@ df <- read_csv(
   col_types = cols(
     size = col_double(),
     count = col_double()
-  )
+  ),
+  show_col_types = FALSE
 )
 
 df2 <- df %>% 
@@ -94,7 +95,8 @@ df <- read_csv(
   col_types = cols(
     componentId = col_double(),
     size = col_double()
-  )
+  ),
+  show_col_types = FALSE
 )
 
 df2 <- df %>% 

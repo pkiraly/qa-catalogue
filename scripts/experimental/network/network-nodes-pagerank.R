@@ -27,7 +27,8 @@ df_stat <- read_csv(
   col_types = cols(
     statistic = col_character(),
     value = col_double()
-  )
+  ),
+  show_col_types = FALSE
 )
 
 stat <- function(name) {
@@ -43,7 +44,8 @@ df <- read_csv(
   col_types = cols(
     id = col_double(),
     score = col_double()
-  )
+  ),
+  show_col_types = FALSE
 )
 
 df

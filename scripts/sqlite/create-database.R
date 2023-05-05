@@ -16,14 +16,15 @@ con <- DBI::dbConnect(RSQLite::SQLite(), my_db_file)
 
 print('transforming issue summary')
 issue_summary <- read_csv(paste0(dir, '/issue-summary.csv'), 
-                          col_types = 'iciicccii')
+                          col_types = 'iciicccii',
+                          show_col_types = FALSE)
 copy_to(con, issue_summary, overwrite = TRUE, temporary = FALSE)
 
 #' transforming issue details
 print('transforming issue details')
-issue_details <- read_csv(paste0(dir, '/issue-details-normalized.csv'), col_types = 'cii')
+issue_details <- read_csv(paste0(dir, '/issue-details-normalized.csv'), col_types = 'cii', show_col_types = FALSE)
 
-# df <- read_csv(paste0(dir, '/issue-details.csv'), col_types = 'cc')
+# df <- read_csv(paste0(dir, '/issue-details.csv'), col_types = 'cc', show_col_types = FALSE)
 
 # issue_details <- df %>% 
 #   separate(errors, LETTERS, sep = ';', fill="right") %>% 

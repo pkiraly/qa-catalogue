@@ -25,7 +25,7 @@ if (!file.exists(csv)) {
   stop(paste("input file", csv, "does not exist!"))
 }
 print(csv)
-df <- read_csv(csv, col_types = cols(.default = col_integer(), id = col_character()), progress = TRUE, trim_ws = FALSE)
+df <- read_csv(csv, col_types = cols(.default = col_integer(), id = col_character()), progress = TRUE, trim_ws = FALSE, show_col_types = FALSE)
 print("read")
 names <- names(df)
 

@@ -31,7 +31,7 @@ for (i in 1:nr_rows) {
 names <- c('szte', 'mtak', 'gent', 'nfi')
 for (name in names) {
   print(name)
-  df <- read_csv(sprintf('%s/%s/%s', dir, name, file))
+  df <- read_csv(sprintf('%s/%s/%s', dir, name, file), show_col_types = FALSE)
   df_summary <- df %>% 
     group_by(type) %>% 
     summarise(count = n()) %>% 

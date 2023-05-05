@@ -31,7 +31,7 @@ df <- read_csv(
   ),
   progress = TRUE,
   trim_ws = FALSE,
-  
+  show_col_types = FALSE
 )
 df <- df %>% 
   select(-id)

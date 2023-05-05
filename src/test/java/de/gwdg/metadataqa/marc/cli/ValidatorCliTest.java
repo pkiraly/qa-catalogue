@@ -82,28 +82,31 @@ public class ValidatorCliTest extends CliTestUtils {
         assertEquals("010000089,1:1;2:1;50:1;51:1;52:1;53:1", lines.get(6).trim());
         assertEquals("010000127,1:1;2:1;23:1;24:1", lines.get(7).trim());
         assertEquals("010000151,1:1;2:1", lines.get(8).trim());
-        assertEquals("010000178,1:1;2:1;21:2;22:2;23:1;24:1;29:1;30:1;31:1;32:1;33:1;34:1;35:1;36:1;37:1;38:1;39:6;40:6;54:2;55:2;56:1;57:1", lines.get(9).trim());
-        assertEquals("010000194,1:1;2:1;6:1;7:1;8:1;9:1;10:1;11:1;15:1;16:1;17:1;18:1;19:1;21:2;22:2;23:2;24:2;25:1;58:1", lines.get(10).trim());
+        assertEquals("010000178,1:1;2:1;21:2;22:2;23:1;24:1;29:1;30:1;31:1;32:1;33:1;34:1;35:1;36:1;37:1;38:1;39:6;40:6;54:2;55:2;56:1", lines.get(9).trim());
+        assertEquals("010000194,1:1;2:1;6:1;7:1;8:1;9:1;10:1;11:1;15:1;16:1;17:1;18:1;19:1;21:2;22:2;23:2;24:2;25:1;57:1", lines.get(10).trim());
 
       } else if (outputFile.equals("issue-summary.csv")) {
-        assertEquals(59, lines.size());
+        assertEquals(58, lines.size());
         assertEquals("id,MarcPath,categoryId,typeId,type,message,url,instances,records", lines.get(0).trim());
-        assertTrue(lines.contains("57,041A/00-99,3,8,repetition of non-repeatable field,there are 2 instances,https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=5100-5199,1,1"));
+        assertTrue(lines.contains("20,036F$7,5,17,repetition of non-repeatable subfield,there are 2 instances,https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=4180-4189,1,1"));
         assertTrue(lines.contains("1,001@,3,9,undefined field,001@,,10,10"));
         assertTrue(lines.contains("2,001U,3,9,undefined field,001U,,10,10"));
         assertTrue(lines.contains("3,036F/01,3,9,undefined field,036F/01,,1,1"));
 
       } else if (outputFile.equals("issue-by-category.csv")) {
         assertEquals(3, lines.size());
-        assertEquals("3,data field,22,10", lines.get(1).trim());
+        assertEquals("id,category,instances,records", lines.get(0).trim());
+        assertEquals("3,data field,21,10", lines.get(1).trim());
 
       } else if (outputFile.equals("issue-by-type.csv")) {
-        assertEquals(5, lines.size());
-        assertEquals("8,3,data field,repetition of non-repeatable field,1,1", lines.get(1).trim());
-        assertEquals("9,3,data field,undefined field,21,10", lines.get(2).trim());
+        assertEquals(4, lines.size());
+        assertEquals("id,categoryId,category,type,instances,records", lines.get(0).trim());
+        assertEquals("9,3,data field,undefined field,21,10", lines.get(1).trim());
+        assertEquals("13,5,subfield,undefined subfield,156,9", lines.get(2).trim());
 
       } else if (outputFile.equals("issue-collector.csv")) {
-        assertEquals(59, lines.size());
+        assertEquals(58, lines.size());
+        assertEquals("errorId,recordIds", lines.get(0).trim());
         assertEquals("1,010000151;010000011;010000054;010000070;010000194;01000002X;010000127;010000038;010000178;010000089", lines.get(1).trim());
         assertEquals("2,010000151;010000011;010000054;010000070;010000194;01000002X;010000127;010000038;010000178;010000089", lines.get(2).trim());
         assertEquals("3,010000011", lines.get(3).trim());
@@ -111,8 +114,9 @@ public class ValidatorCliTest extends CliTestUtils {
 
       } else if (outputFile.equals("issue-total.csv")) {
         assertEquals(3, lines.size());
-        assertEquals("1,179,10", lines.get(1).trim());
-        assertEquals("2,158,9", lines.get(2).trim());
+        assertEquals("type,instances,records", lines.get(0).trim());
+        assertEquals("1,178,10", lines.get(1).trim());
+        assertEquals("2,157,9", lines.get(2).trim());
       }
 
       output.delete();
@@ -158,12 +162,12 @@ public class ValidatorCliTest extends CliTestUtils {
         assertEquals("010000089,1:1;2:1;50:1;51:1;52:1;53:1", lines.get(6).trim());
         assertEquals("010000127,1:1;2:1;23:1;24:1", lines.get(7).trim());
         assertEquals("010000151,1:1;2:1", lines.get(8).trim());
-        assertEquals("010000178,1:1;2:1;21:2;22:2;23:1;24:1;29:1;30:1;31:1;32:1;33:1;34:1;35:1;36:1;37:1;38:1;39:6;40:6;54:2;55:2;56:1;57:1", lines.get(9).trim());
-        assertEquals("010000194,1:1;2:1;6:1;7:1;8:1;9:1;10:1;11:1;15:1;16:1;17:1;18:1;19:1;21:2;22:2;23:2;24:2;25:1;58:1", lines.get(10).trim());
+        assertEquals("010000178,1:1;2:1;21:2;22:2;23:1;24:1;29:1;30:1;31:1;32:1;33:1;34:1;35:1;36:1;37:1;38:1;39:6;40:6;54:2;55:2;56:1", lines.get(9).trim());
+        assertEquals("010000194,1:1;2:1;6:1;7:1;8:1;9:1;10:1;11:1;15:1;16:1;17:1;18:1;19:1;21:2;22:2;23:2;24:2;25:1;57:1", lines.get(10).trim());
 
       } else if (outputFile.equals("issue-summary.csv")) {
         String all = StringUtils.join(lines, "\n");
-        assertEquals(1058, lines.size());
+        assertEquals(1049, lines.size());
         assertEquals("groupId,id,MarcPath,categoryId,typeId,type,message,url,instances,records", lines.get(0).trim());
         assertTrue(Pattern.compile("100,\\d,001@,3,9,undefined field,001@,,1,1").matcher(all).find());
         assertTrue(Pattern.compile("100,\\d,001U,3,9,undefined field,001U,,1,1").matcher(all).find());
@@ -173,17 +177,17 @@ public class ValidatorCliTest extends CliTestUtils {
       } else if (outputFile.equals("issue-by-category.csv")) {
         assertEquals(94, lines.size());
         assertEquals("groupId,id,category,instances,records", lines.get(0).trim());
-        assertEquals("0,3,data field,22,10", lines.get(1).trim());
+        assertEquals("0,3,data field,21,10", lines.get(1).trim());
         assertEquals("0,5,subfield,157,9", lines.get(2).trim());
 
       } else if (outputFile.equals("issue-by-type.csv")) {
-        assertEquals(108, lines.size());
+        assertEquals(99, lines.size());
         assertEquals("groupId,id,categoryId,category,type,instances,records", lines.get(0).trim());
-        assertEquals("0,8,3,data field,repetition of non-repeatable field,1,1", lines.get(1).trim());
-        assertEquals("0,9,3,data field,undefined field,21,10", lines.get(2).trim());
+        assertEquals("0,9,3,data field,undefined field,21,10", lines.get(1).trim());
+        assertEquals("0,13,5,subfield,undefined subfield,156,9", lines.get(2).trim());
 
       } else if (outputFile.equals("issue-collector.csv")) {
-        assertEquals(59, lines.size());
+        assertEquals(58, lines.size());
         assertEquals("errorId,recordIds", lines.get(0).trim());
         assertEquals("1,010000151;010000011;010000054;010000070;010000194;01000002X;010000127;010000038;010000178;010000089", lines.get(1).trim());
         assertEquals("2,010000151;010000011;010000054;010000070;010000194;01000002X;010000127;010000038;010000178;010000089", lines.get(2).trim());
@@ -193,8 +197,8 @@ public class ValidatorCliTest extends CliTestUtils {
       } else if (outputFile.equals("issue-total.csv")) {
         assertEquals(94, lines.size());
         assertEquals("groupId,type,instances,records", lines.get(0).trim());
-        assertEquals("0,1,179,10", lines.get(1).trim());
-        assertEquals("0,2,158,9", lines.get(2).trim());
+        assertEquals("0,1,178,10", lines.get(1).trim());
+        assertEquals("0,2,157,9", lines.get(2).trim());
 
       } else if (outputFile.equals("count.csv")) {
         assertEquals(2, lines.size());

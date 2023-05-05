@@ -86,4 +86,16 @@ public class PicaFieldDefinition extends DataFieldDefinition {
 
     return other;
   }
+
+  @Override
+  public String toString() {
+    return "PicaFieldDefinition{" +
+      super.toString().replace("DataFieldDefinition{", "").replaceFirst(".$", ", ") +
+      "modified='" + modified + '\'' +
+      ", pica3='" + pica3 + '\'' +
+      ", occurrence='" + occurrence + '\'' +
+      ", range=" + range +
+      ", id='" + id + '\'' +
+      '}';
+  }
 }

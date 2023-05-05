@@ -113,30 +113,42 @@ public class Validator extends AbstractValidator {
     return isValidComponent;
   }
 
-  private boolean validateDatafields() {
-    boolean isValidRecord = true;
+  private void validateDatafields() {
     DataFieldValidator validator = new DataFieldValidator(configuration);
+    Map<RepetitionDao, Integer> repetitionCounter = new HashMap<>();
+    for (DataField field : marcRecord.getDatafields())
+      validateDatafield(validator, repetitionCounter, field);
+
+    validateRepeatability(repetitionCounter);
+  }
+
+  /**
+   *
+   * @param validator
+   * @param repetitionCounter
+   * @param field
+   */
+  private void validateDatafield(DataFieldValidator validator,
+                                 Map<RepetitionDao, Integer> repetitionCounter,
+                                 DataField field) {
     ValidatorResponse validatorResponse;
-    Map<DataFieldDefinition, Integer> repetitionCounter = new HashMap<>();
-    for (DataField field : marcRecord.getDatafields()) {
-      if (field.getDefinition() != null && !marcRecord.isIgnorableField(field.getTag(), configuration.getIgnorableFields())) {
-        count(field.getDefinition(), repetitionCounter);
-        if (!validator.validate(field)) {
-          isValidRecord = false;
-          validationErrors.addAll(filterErrors(validator.getValidationErrors()));
-        }
+    if (field.getDefinition() != null && !marcRecord.isIgnorableField(field.getTag(), configuration.getIgnorableFields())) {
+      RepetitionDao dao = new RepetitionDao(field.getTagWithOccurrence(), field.getDefinition());
+      count(dao, repetitionCounter);
+      if (!validator.validate(field))
+        validationErrors.addAll(filterErrors(validator.getValidationErrors()));
 
-        validatorResponse = ClassificationReferenceValidator.validate(field);
-        if (!validatorResponse.isValid()) {
-          validationErrors.addAll(filterErrors(validatorResponse.getValidationErrors()));
-          isValidRecord = false;
-        }
-      }
+      validatorResponse = ClassificationReferenceValidator.validate(field);
+      if (!validatorResponse.isValid())
+        validationErrors.addAll(filterErrors(validatorResponse.getValidationErrors()));
     }
+  }
 
+  private void validateRepeatability(Map<RepetitionDao, Integer> repetitionCounter) {
     if (!isIgnorableType(ValidationErrorType.FIELD_NONREPEATABLE)) {
-      for (Map.Entry<DataFieldDefinition, Integer> entry : repetitionCounter.entrySet()) {
-        DataFieldDefinition fieldDefinition = entry.getKey();
+      for (Map.Entry<RepetitionDao, Integer> entry : repetitionCounter.entrySet()) {
+        RepetitionDao dao = entry.getKey();
+        DataFieldDefinition fieldDefinition = dao.getFieldDefinition();
         Integer count = entry.getValue();
         if (count > 1
             && fieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
@@ -145,10 +157,8 @@ public class Validator extends AbstractValidator {
             String.format("there are %d instances", count),
             fieldDefinition.getDescriptionUrl()
           ));
-          isValidRecord = false;
         }
       }
     }
-    return isValidRecord;
   }
 }

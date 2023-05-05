@@ -140,18 +140,20 @@ purge_core() {
   LOCAL_CORE=$1
   echo "Delete records in ${LOCAL_CORE}"
   SOLR_DB_URL="${SOLR_HOST}/solr/${LOCAL_CORE}"
-  curl $SOLR_DB_URL/update \
+  curl -s $SOLR_DB_URL/update \
        -H "Content-type: text/xml" \
-       --data-binary '<delete><query>*:*</query></delete>'
+       --data-binary '<delete><query>*:*</query></delete>' \
+       > /dev/null
 }
 
 optimize_core() {
   LOCAL_CORE=$1
   echo "Optimizing ${LOCAL_CORE}"
   SOLR_DB_URL="${SOLR_HOST}/solr/${LOCAL_CORE}"
-  curl "$SOLR_DB_URL/update?optimize=true" \
+  curl -s "$SOLR_DB_URL/update?optimize=true" \
        -H 'Content-type: text/xml' \
-       --data-binary '<commit/>'
+       --data-binary '<commit/>' \
+       > /dev/null
 }
 
 purge_and_exit() {

@@ -1,7 +1,7 @@
 # library(Rcpp)
 library(dplyr)
 library(dbplyr)
-library(tidyverse)
+suppressPackageStartupMessages(library(tidyverse))
 
 args = commandArgs(trailingOnly=TRUE)
 if (length(args) == 0) {

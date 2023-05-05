@@ -1,4 +1,4 @@
-library(tidyverse)
+suppressPackageStartupMessages(library(tidyverse))
 
 df <- read_csv('~/bin/marc/_output/szte/network.csv')
 dim(df)

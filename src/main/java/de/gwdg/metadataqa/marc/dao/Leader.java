@@ -127,7 +127,7 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
         }
         valuesMap.put(subfield, value);
       } catch (StringIndexOutOfBoundsException e) {
-        logger.log(Level.SEVERE, "Problem with processing Leader ('{}'). The content length is only {} while reading position @{}-{} (for {})",
+        logger.log(Level.SEVERE, "Problem with processing Leader ('{0}'). The content length is only {1} while reading position @{2}-{3} (for {4})",
           new Object[]{content, content.length(), subfield.getPositionStart(), subfield.getPositionEnd(), subfield.getLabel()});
       }
     }

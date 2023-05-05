@@ -223,7 +223,7 @@ public class RecordCompleteness {
       else {
         packageName = plugin.getPackageName(field);
         if (StringUtils.isBlank(packageName)) {
-          logger.log(Level.WARNING, "{} has no package. /{0}", new Object[]{field, field.getDefinition().getClass()});
+          logger.log(Level.WARNING, "{0} has no package. /{1}", new Object[]{field, field.getDefinition().getClass()});
           packageName = TagCategory.OTHER.getPackageName();
         }
         completenessDAO.getPackageNameCache().put(field.getDefinition(), packageName);

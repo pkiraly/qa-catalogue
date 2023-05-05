@@ -1,5 +1,5 @@
 options(tidyverse.quiet = TRUE)
-library(tidyverse)
+suppressPackageStartupMessages(library(tidyverse))
 
 args = commandArgs(trailingOnly=TRUE)
 if (length(args) == 0) {

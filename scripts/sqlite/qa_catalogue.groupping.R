@@ -1,4 +1,4 @@
-library(tidyverse)
+suppressPackageStartupMessages(library(tidyverse))
 library(httr)
 
 getCount <- function(groupId, errorIds) {
@@ -37,7 +37,7 @@ summary <- summary %>%
   mutate(
     groupId = ifelse(groupId == 'all', 0, groupId),
     groupId = as.integer(groupId))
-gc()
+gc(verbose = FALSE)
 
 groupIds <- summary %>% select(groupId) %>% distinct() %>% 
   unlist(use.names = FALSE)
@@ -46,9 +46,12 @@ typesDF <- NULL
 pathsDF <- NULL
 categoriesDF <- NULL
 len <- length(groupIds)
+print(sprintf("get statistics for %d greoups", len))
 for (i in 1:len) {
   currentGroupId = groupIds[i]
-  print(sprintf("%d/%d: %s", i, len, currentGroupId))
+  if (i == 1 | i == len | i %% 25 == 0) {
+    print(sprintf("%d/%d: for group id %s", i, len, currentGroupId))
+  }
   s <- summary %>% filter(groupId == currentGroupId)
   types <- s %>% select(typeId) %>% distinct() %>% unlist(use.names = FALSE)
   for (currentType in types) {
@@ -116,13 +119,13 @@ for (i in 1:len) {
 }
 
 file <- sprintf('%s/%s', OUTPUT_DIR, 'issue-groupped-types.csv')
-print(file)
+print(paste("creating", file))
 write_csv(typesDF, file)
 
 file <- sprintf('%s/%s', OUTPUT_DIR, 'issue-groupped-categories.csv')
-print(file)
+print(paste("creating", file))
 write_csv(categoriesDF, file)
 
 file <- sprintf('%s/%s', OUTPUT_DIR, 'issue-groupped-paths.csv')
-print(file)
+print(paste("creating", file))
 write_csv(pathsDF, file)

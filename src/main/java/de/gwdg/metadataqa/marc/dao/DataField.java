@@ -415,7 +415,7 @@ public class DataField implements Extractable, Serializable {
           Utils.mergeMap(pairs, extra);
         }
       } catch (IllegalArgumentException e) {
-        logger.log(Level.SEVERE, "{} in record {} {}", new Object[]{e.getLocalizedMessage(), marcRecord.getId(), this.toString()});
+        logger.log(Level.SEVERE, "{0} in record {1} {2}", new Object[]{e.getLocalizedMessage(), marcRecord.getId(), this.toString()});
       }
     }
 
@@ -450,17 +450,6 @@ public class DataField implements Extractable, Serializable {
       for (MarcSubfield subfield : subfields) {
         if (!marcRecord.isSkippableSubjectSubfield(this.getTag(), subfield.getCode())) {
           String value = subfield.getValue();
-          /*
-          if (marcRecord.getSchemaType().equals(SchemaType.PICA)) {
-            if (subfield.getCode().equals("E")) {
-              value += "-";
-              if (subfieldIndex.containsKey("M"))
-                value += subfieldIndex.get("M").get(0).getValue();
-            } else if (subfield.getCode().equals("M") && subfieldIndex.containsKey("E")) {
-              continue;
-            }
-          }
-           */
           full.add(value);
         }
       }

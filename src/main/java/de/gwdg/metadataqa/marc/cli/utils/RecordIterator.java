@@ -177,7 +177,7 @@ public class RecordIterator {
         }
 
         if (i % 100000 == 0 && processor.getParameters().doLog())
-          logger.log(Level.INFO, "{}/{} ({})", new Object[]{fileName, decimalFormat.format(i), marcRecord.getId()});
+          logger.log(Level.INFO, "{0}/{1} ({2})", new Object[]{fileName, decimalFormat.format(i), marcRecord.getId()});
       } catch (IllegalArgumentException e) {
         extracted(i, marc4jRecord, e, "Error (illegal argument) with record '%s'. %s");
       } catch (Exception e) {

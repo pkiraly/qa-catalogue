@@ -54,7 +54,7 @@ public class PicaTagDefinition implements BibliographicFieldDefinition {
       case "":
       case "-": this.hasSheet = false; break;
       case "+": this.hasSheet = true; break;
-      default: logger.log(Level.SEVERE, "unhandled 'hasSheet' value: {} ({})", new Object[]{input, tag.getRaw()});
+      default: logger.log(Level.SEVERE, "unhandled 'hasSheet' value: {0} ({1})", new Object[]{input, tag.getRaw()});
     }
   }
 

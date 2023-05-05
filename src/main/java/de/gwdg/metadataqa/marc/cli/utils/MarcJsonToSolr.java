@@ -46,7 +46,7 @@ public class MarcJsonToSolr {
         doCommits = false;
     }
 
-    logger.log(Level.INFO, "Solr URL: {}, file: {} (do commits: {})", new Object[]{url, fileName, doCommits});
+    logger.log(Level.INFO, "Solr URL: {0}, file: {1} (do commits: {2})", new Object[]{url, fileName, doCommits});
 
     MarcSolrClient client = new MarcSolrClient(url);
     JsonSelector<? extends XmlFieldInstance> cache;
@@ -63,7 +63,7 @@ public class MarcJsonToSolr {
         if (i % 1000 == 0) {
           if (doCommits)
             client.commit();
-          logger.log(Level.INFO, "{}/{}) {}", new Object[]{fileName, i, marcRecord.getId()});
+          logger.log(Level.INFO, "{0}/{1}) {2}", new Object[]{fileName, i, marcRecord.getId()});
         }
       }
       if (doCommits)
@@ -75,7 +75,7 @@ public class MarcJsonToSolr {
     }
     long end = System.currentTimeMillis();
 
-    logger.log(Level.INFO, "Bye! It took: {} s", String.format("%.1f", (float) (end - start) / 1000));
+    logger.log(Level.INFO, "Bye! It took: {0} s", String.format("%.1f", (float) (end - start) / 1000));
 
     System.exit(0);
   }

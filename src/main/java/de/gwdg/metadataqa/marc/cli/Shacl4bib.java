@@ -95,7 +95,7 @@ public class Shacl4bib extends QACli implements BibliographicInputProcessor, Ser
 
   @Override
   public void fileOpened(Path path) {
-    logger.log(Level.INFO, "file opened: {}", path);
+    logger.log(Level.INFO, "file opened: {0}", path);
   }
 
   @Override

@@ -283,7 +283,7 @@ public class ClassificationAnalyzer {
         updateSchemaSubfieldStatistics(field, currentSchema);
         count++;
       } else {
-        logger.log(Level.SEVERE, "undetected subfield in record {} {}", new Object[]{marcRecord.getId(), field.toString()});
+        logger.log(Level.SEVERE, "undetected subfield in record {0} {1}", new Object[]{marcRecord.getId(), field.toString()});
       }
     }
 
@@ -320,7 +320,7 @@ public class ClassificationAnalyzer {
         try {
           currentSchema = new Schema(tag, "ind1", classificationSchemes.resolve(scheme), scheme);
         } catch (IllegalArgumentException e) {
-          logger.log(Level.SEVERE, "Invalid scheme in ind1: {}. {}", new Object[]{e.getLocalizedMessage(), field});
+          logger.log(Level.SEVERE, "Invalid scheme in ind1: {0}. {1}", new Object[]{e.getLocalizedMessage(), field});
           currentSchema = new Schema(tag, "ind1", field.getInd1(), scheme);
         }
         schemas.add(currentSchema);
@@ -350,7 +350,7 @@ public class ClassificationAnalyzer {
         try {
           currentSchema = new Schema(tag, "ind2", classificationSchemes.resolve(scheme), scheme);
         } catch (IllegalArgumentException e) {
-          logger.log(Level.WARNING, "Invalid scheme in ind2: {}. {}", new Object[]{e.getLocalizedMessage(), field});
+          logger.log(Level.WARNING, "Invalid scheme in ind2: {0}. {1}", new Object[]{e.getLocalizedMessage(), field});
           currentSchema = new Schema(tag, "ind2", field.getInd2(), scheme);
         }
         schemas.add(currentSchema);

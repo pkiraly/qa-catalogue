@@ -1,4 +1,4 @@
-library(tidyverse)
+suppressPackageStartupMessages(library(tidyverse))
 
 #' input:
 #'   classifications-by-schema (concept, id)

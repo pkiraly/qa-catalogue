@@ -96,7 +96,7 @@ public class Control006 extends MarcPositionalControlField implements Serializab
     for (ControlfieldPositionDefinition subfield : Control006Positions.getInstance().get(Control008Type.ALL_MATERIALS)) {
       var end = Math.min(content.length(), subfield.getPositionEnd());
       if (end < 0)
-        logger.log(Level.SEVERE, "{} {}", new Object[]{content.length(), subfield.getPositionEnd()});
+        logger.log(Level.SEVERE, "{0} {1}", new Object[]{content.length(), subfield.getPositionEnd()});
 
       try {
         String value = content.substring(subfield.getPositionStart(), end);
@@ -126,7 +126,7 @@ public class Control006 extends MarcPositionalControlField implements Serializab
           value = content.substring(subfield.getPositionStart(), end);
         } catch (StringIndexOutOfBoundsException e) {
           logger.log(Level.SEVERE,
-            "Problem with processing 006 ('{}'). The content length is only {} while reading position @{}-{} (for {} '{}')",
+            "Problem with processing 006 ('{0}'). The content length is only {1} while reading position @{2}-{3} (for {4} '{5}')",
             new Object[]{content, content.length(), subfield.getPositionStart(), subfield.getPositionEnd(), subfield.getId(), subfield.getLabel()});
         }
       } else {
@@ -167,7 +167,7 @@ public class Control006 extends MarcPositionalControlField implements Serializab
       case "006book16": tag006book16 = controlValue; break;
       case "006book17": tag006book17 = controlValue; break;
       default:
-        logger.log(Level.SEVERE, "Unhandled 006 subfield (for {}): {}", new Object[]{actual.getValue(), subfield.getId()});
+        logger.log(Level.SEVERE, "Unhandled 006 subfield (for {0}): {1}", new Object[]{actual.getValue(), subfield.getId()});
         break;
     }
   }
@@ -179,7 +179,7 @@ public class Control006 extends MarcPositionalControlField implements Serializab
       case "006computer09": tag006computer09 = controlValue; break;
       case "006computer11": tag006computer11 = controlValue; break;
       default:
-        logger.log(Level.SEVERE, "Unhandled 006 subfield (for {}): {}", new Object[]{actual.getValue(), subfield.getId()});
+        logger.log(Level.SEVERE, "Unhandled 006 subfield (for {0}): {1}", new Object[]{actual.getValue(), subfield.getId()});
         break;
     }
   }
@@ -194,7 +194,7 @@ public class Control006 extends MarcPositionalControlField implements Serializab
       case "006map14": tag006map14 = controlValue; break;
       case "006map16": tag006map16 = controlValue; break;
       default:
-        logger.log(Level.SEVERE, "Unhandled 006 subfield (for {}): {}", new Object[]{actual.getValue(), subfield.getId()});
+        logger.log(Level.SEVERE, "Unhandled 006 subfield (for {0}): {1}", new Object[]{actual.getValue(), subfield.getId()});
         break;
     }
   }
@@ -210,7 +210,7 @@ public class Control006 extends MarcPositionalControlField implements Serializab
       case "006music13": tag006music13 = controlValue; break;
       case "006music16": tag006music16 = controlValue; break;
       default:
-        logger.log(Level.SEVERE, "Unhandled 006 subfield (for {}): {}", new Object[]{actual.getValue(), subfield.getId()});
+        logger.log(Level.SEVERE, "Unhandled 006 subfield (for {0}): {1}", new Object[]{actual.getValue(), subfield.getId()});
         break;
     }
   }
@@ -224,7 +224,7 @@ public class Control006 extends MarcPositionalControlField implements Serializab
       case "006visual16": tag006visual16 = controlValue; break;
       case "006visual17": tag006visual17 = controlValue; break;
       default:
-        logger.log(Level.SEVERE, "Unhandled 006 subfield (for {}): {}", new Object[]{actual.getValue(), subfield.getId()});
+        logger.log(Level.SEVERE, "Unhandled 006 subfield (for {0}): {1}", new Object[]{actual.getValue(), subfield.getId()});
         break;
     }
   }
@@ -245,7 +245,7 @@ public class Control006 extends MarcPositionalControlField implements Serializab
       case "006continuing16": tag006continuing16 = controlValue; break;
       case "006continuing17": tag006continuing17 = controlValue; break;
       default:
-        logger.log(Level.SEVERE, "Unhandled 006 subfield (for {}): {}", new Object[]{actual.getValue(), subfield.getId()});
+        logger.log(Level.SEVERE, "Unhandled 006 subfield (for {0}): {1}", new Object[]{actual.getValue(), subfield.getId()});
         break;
     }
   }
@@ -256,7 +256,7 @@ public class Control006 extends MarcPositionalControlField implements Serializab
     if (subfield.getId().equals("006mixed06"))
       tag006mixed06 = controlValue;
     else
-      logger.log(Level.SEVERE, "Unhandled 006 subfield (for {}): {}", new Object[]{actual.getValue(), subfield.getId()});
+      logger.log(Level.SEVERE, "Unhandled 006 subfield (for {0}): {1}", new Object[]{actual.getValue(), subfield.getId()});
   }
 
   public String resolve(ControlfieldPositionDefinition key) {

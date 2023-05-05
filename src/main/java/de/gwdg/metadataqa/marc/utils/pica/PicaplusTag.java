@@ -82,7 +82,7 @@ public class PicaplusTag {
         logger.severe("Error in picaplus: " + raw + ". Length of start and end are different.");
       }
     } else {
-      logger.log(Level.SEVERE, "Error in picaplus: {} (raw: {}). Does not fit to the range pattern.", new Object[]{occurrence, raw});
+      logger.log(Level.SEVERE, "Error in picaplus: {0} (raw: {1}). Does not fit to the range pattern.", new Object[]{occurrence, raw});
     }
   }
 

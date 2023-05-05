@@ -400,7 +400,7 @@ public class MarcFactory {
             if (pair.length == 2 && pair[0] != null && pair[1] != null) {
               df.addSubfield(new SubfieldImpl(pair[0].charAt(0), pair[1]));
             } else {
-              logger.log(Level.WARNING, "parse error in record #{}) tag {}: '{}'",
+              logger.log(Level.WARNING, "parse error in record #{0}) tag {1}: '{2}'",
                 new Object[]{line.getRecordID(), line.getTag(), line.getRawContent()});
             }
           }
@@ -429,7 +429,7 @@ public class MarcFactory {
             if (pair.length == 2 && pair[0] != null && pair[1] != null) {
               df.addSubfield(new SubfieldImpl(pair[0].charAt(0), pair[1]));
             } else {
-              logger.log(Level.WARNING, "parse error in record #{}) tag {}: '{}'",
+              logger.log(Level.WARNING, "parse error in record #{0}) tag {1}: '{2}'",
                 new Object[]{line.getRecordID(), line.getTag(), line.getRawContent()});
             }
           }
@@ -458,7 +458,7 @@ public class MarcFactory {
             if (pair.length == 2 && pair[0] != null && pair[1] != null) {
               df.addSubfield(new SubfieldImpl(pair[0].charAt(0), pair[1]));
             } else {
-              logger.log(Level.WARNING, "parse error in record #{}) tag {]: '{]'",
+              logger.log(Level.WARNING, "parse error in record #{0}) tag {1]: '{2]'",
                 new Object[]{line.getRecordID(), line.getTag(), line.getRawContent()});
             }
           }

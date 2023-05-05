@@ -105,7 +105,7 @@ public class Control005  extends SimpleControlField implements Extractable {
       data = Integer.parseInt(text);
     } catch (NumberFormatException e) {
       String id = marcRecord != null ? String.format("#%s) ", marcRecord.getId()) : "";
-      logger.log(Level.SEVERE, "{}Bad input for {}: {}", new Object[]{id, field, text});
+      logger.log(Level.SEVERE, "{0}Bad input for {1}: {2}", new Object[]{id, field, text});
       initializationErrors.add(createError(String.format("invalid %s: %s", field, text)));
     }
     return data;

@@ -450,9 +450,28 @@ do_all_analyses() {
   done
 }
 
+do_all_analyses_for_pica() {
+  tasks=$(echo "${PICA}" | tr , ' ')
+  for task in $tasks; do
+      declare -F "do_$task" > /dev/null || fatal "unknown analysis task: $task"
+  done
+  for task in $(echo "${PICA}" | tr , ' '); do
+    do_$task
+  done
+}
+
 do_all_solr() {
   do_prepare_solr
   do_index
+}
+
+do_all() {
+  if [ "${SCHEMA:-}" == "PICA" ]; then
+    do_all_analyses_for_pica
+  else
+    do_all_analyses
+  fi
+  do_all_solr
 }
 
 # ---- usage and execution of proccessing steps ----
@@ -485,8 +504,9 @@ commands:
   export-schema-files        export schema files
   shacl4bib                  run SHACL-like validation
   all-analyses               run all analytical tasks (or those set via ANALYSES)
+  all-analyses-pica          run all analytical tasks for PICA records (or those set via PICA_ANALYSES)
   all-solr                   run all indexing tasks
-  all                        run all tasks
+  all                        run all tasks (analyses and indexing)
   config                     show configuration
   help                       print this help message
 
@@ -528,6 +548,8 @@ fi
 # which tasks to run on `all-analyses`
 ALL_ANALYSES=validate,sqlite,completeness,completeness_sqlite,classifications,authorities,tt_completeness,shelf_ready_completeness,serial_score,functional_analysis,pareto,marc_history
 ANALYSES=${ANALYSES:-$ALL_ANALYSES}
+PICA_ANALYSES=validate,sqlite,completeness,completeness_sqlite,classifications,authorities,marc_history
+PICA=${PICA:-$PICA_ANALYSES}
 
 # check directories for processing commands
 if [[ ! "${1:-help}" =~ ^(help|config|export-schema-files)$ ]]; then
@@ -570,8 +592,9 @@ case "${1:-help}" in
   mysql)                    do_mysql ;;
   export-schema-files)      do_export_schema_files ;;
   all-analyses)             do_all_analyses ;;
+  all-analyses-pica)        do_all_analyses_for_pica ;;
   all-solr)                 do_all_solr ;;
-  all)                      do_all_analyses ; do_all_solr ;;
+  all)                      do_all ;;
   version-link)             do_version_link ;;
   config)                   config ;;
   help)                     help ;;

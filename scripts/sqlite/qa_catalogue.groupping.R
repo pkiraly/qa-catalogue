@@ -37,12 +37,10 @@ summary <- summary %>%
   mutate(
     groupId = ifelse(groupId == 'all', 0, groupId),
     groupId = as.integer(groupId))
-head(summary)
 gc()
 
 groupIds <- summary %>% select(groupId) %>% distinct() %>% 
   unlist(use.names = FALSE)
-groupIds
 
 typesDF <- NULL
 pathsDF <- NULL
@@ -116,9 +114,6 @@ for (i in 1:len) {
   }
   
 }
-typesDF
-pathsDF
-categoriesDF
 
 file <- sprintf('%s/%s', OUTPUT_DIR, 'issue-groupped-types.csv')
 print(file)

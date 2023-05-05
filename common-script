@@ -243,8 +243,8 @@ do_version_link() {
   fi
 }
 
-do_sqlite() {
-  run sqlite
+do_validate_sqlite() {
+  run "validate sqlite"
   php scripts/sqlite/normalize-issue-details.php ${OUTPUT_DIR} &> ${PREFIX}/sqlite.log
 
   untrace
@@ -465,15 +465,6 @@ do_all_solr() {
   do_index
 }
 
-do_all() {
-  if [ "${SCHEMA:-}" == "PICA" ]; then
-    do_all_analyses_for_pica
-  else
-    do_all_analyses
-  fi
-  do_all_solr
-}
-
 # ---- usage and execution of proccessing steps ----
 
 help() {
@@ -499,12 +490,11 @@ commands:
   record-patterns            record patterns
   prepare-solr               prepare indexing
   index                      indexing with Solr
-  sqlite                     import tables to SQLite
+  validate-sqlite            import result of validation to SQLite
   completeness-sqlite        import groupped output of completeness to SQLite
   export-schema-files        export schema files
   shacl4bib                  run SHACL-like validation
   all-analyses               run all analytical tasks (or those set via ANALYSES)
-  all-analyses-pica          run all analytical tasks for PICA records (or those set via PICA_ANALYSES)
   all-solr                   run all indexing tasks
   all                        run all tasks (analyses and indexing)
   config                     show configuration
@@ -546,9 +536,13 @@ else
 fi
 
 # which tasks to run on `all-analyses`
-ALL_ANALYSES=validate,sqlite,completeness,completeness_sqlite,classifications,authorities,tt_completeness,shelf_ready_completeness,serial_score,functional_analysis,pareto,marc_history
+if [ "${SCHEMA:-}" == "PICA" ]; then
+  ALL_ANALYSES=validate,validate_sqlite,completeness,completeness_sqlite,classifications,authorities,marc_history
+else
+  ALL_ANALYSES=validate,validate_sqlite,completeness,completeness_sqlite,classifications,authorities,tt_completeness,shelf_ready_completeness,serial_score,functional_analysis,pareto,marc_history
+fi
 ANALYSES=${ANALYSES:-$ALL_ANALYSES}
-PICA_ANALYSES=validate,sqlite,completeness,completeness_sqlite,classifications,authorities,marc_history
+PICA_ANALYSES=validate,validate_sqlite,completeness,completeness_sqlite,classifications,authorities,marc_history
 PICA=${PICA:-$PICA_ANALYSES}
 
 # check directories for processing commands
@@ -571,7 +565,7 @@ if [[ ! "${1:-help}" =~ ^(help|config|export-schema-files)$ ]]; then
 fi
 
 case "${1:-help}" in
-  validate)                 do_validate ; do_sqlite ;;
+  validate)                 do_validate ; do_validate_sqlite ;;
   prepare-solr)             do_prepare_solr ;;
   index)                    do_index ;;
   completeness)             do_completeness ; do_completeness_sqlite ;;
@@ -588,13 +582,12 @@ case "${1:-help}" in
   marc-history)             do_marc_history ;;
   record-patterns)          do_record_patterns ;;
   completeness-sqlite)      do_completeness_sqlite ;;
-  sqlite)                   do_sqlite ;;
+  validate-sqlite)          do_validate_sqlite ;;
   mysql)                    do_mysql ;;
   export-schema-files)      do_export_schema_files ;;
   all-analyses)             do_all_analyses ;;
-  all-analyses-pica)        do_all_analyses_for_pica ;;
   all-solr)                 do_all_solr ;;
-  all)                      do_all ;;
+  all)                      do_all_analyses ; do_all_solr ;;
   version-link)             do_version_link ;;
   config)                   config ;;
   help)                     help ;;

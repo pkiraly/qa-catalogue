@@ -6,9 +6,13 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 
+log() {
+  echo "$(date +'%F %T')> $1"
+}
+
 OUTPUT_DIR=$1
 
-echo "OUTPUT_DIR: ${OUTPUT_DIR}"
+log "OUTPUT_DIR: ${OUTPUT_DIR}"
 
 if [[ -f $(pwd)/solr-functions ]]; then
   . ./solr-functions
@@ -18,10 +22,10 @@ fi
 
 SOLR_CORE=validation
 
-echo "create Solr core"
+log "create Solr core"
 
 CORE_EXISTS=$(check_core $SOLR_CORE)
-echo "$SOLR_CORE exists: $CORE_EXISTS"
+log "$SOLR_CORE exists: $CORE_EXISTS"
 if [[ $CORE_EXISTS != 1 ]]; then
   echo "Create Solr core '$SOLR_CORE'"
   create_core $SOLR_CORE
@@ -30,7 +34,7 @@ else
   purge_core $SOLR_CORE
 fi
 
-echo "populate Solr core"
+log "populate Solr core"
 
 php scripts/sqlite/validation-result-indexer.php ${OUTPUT_DIR} $SOLR_CORE
 
@@ -41,11 +45,11 @@ optimize_core $SOLR_CORE
 # ${OUTPUT_DIR}/issue-groupped-categories.csv
 # ${OUTPUT_DIR}/issue-groupped-paths.csv
 
-echo "calculate numbers"
+log "calculate numbers"
 
 Rscript scripts/sqlite/qa_catalogue.groupping.R ${OUTPUT_DIR} $SOLR_CORE
 
-echo "create database structure"
+log "create database structure"
 
 sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
 CREATE TABLE issue_groupped_types(
@@ -71,7 +75,7 @@ CREATE TABLE issue_groupped_paths(
 );
 EOF
 
-echo "import issue_groupped_types"
+log "import issue_groupped_types"
 tail -n +2 ${OUTPUT_DIR}/issue-groupped-types.csv > ${OUTPUT_DIR}/issue-groupped-types-noheader.csv
 sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
 .mode csv
@@ -80,7 +84,7 @@ sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
 EOF
 rm ${OUTPUT_DIR}/issue-groupped-types-noheader.csv
 
-echo "import issue_groupped_categories"
+log "import issue_groupped_categories"
 tail -n +2 ${OUTPUT_DIR}/issue-groupped-categories.csv > ${OUTPUT_DIR}/issue-groupped-categories-noheader.csv
 sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
 .mode csv
@@ -89,7 +93,7 @@ EOF
 
 rm ${OUTPUT_DIR}/issue-groupped-categories-noheader.csv
 
-echo "import issue_groupped_paths"
+log "import issue_groupped_paths"
 tail -n +2 ${OUTPUT_DIR}/issue-groupped-paths.csv > ${OUTPUT_DIR}/issue-groupped-paths-noheader.csv
 sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
 .mode csv
@@ -98,7 +102,7 @@ EOF
 
 rm ${OUTPUT_DIR}/issue-groupped-paths-noheader.csv
 
-echo "index sqlite tables"
+log "index sqlite tables"
 sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
 CREATE INDEX IF NOT EXISTS "types_groupId" ON issue_groupped_types ("groupId");
 CREATE INDEX IF NOT EXISTS "types_typeId" ON issue_groupped_types ("typeId");

@@ -463,6 +463,9 @@ do_all_analyses_for_pica() {
 do_all_solr() {
   do_prepare_solr
   do_index
+  if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
+    php scripts/sqlite/solr-copy-ids-from-validation.php validation ${NAME}
+  fi
 }
 
 # ---- usage and execution of proccessing steps ----

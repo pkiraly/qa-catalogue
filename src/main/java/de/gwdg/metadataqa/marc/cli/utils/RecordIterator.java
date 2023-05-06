@@ -112,7 +112,7 @@ public class RecordIterator {
       MarcReader reader = getMarcFileReader(processor.getParameters(), path);
       processContent(reader, fileName);
       if (processor.getParameters().doLog())
-        logger.log(Level.INFO, "Finished processing file. Processed {0} records.", decimalFormat.format(i));
+        logger.log(Level.INFO, "Finished processing file. Processed {0} records.", new Object[]{decimalFormat.format(i)});
 
     } catch (SolrServerException ex) {
       if (processor.getParameters().doLog())

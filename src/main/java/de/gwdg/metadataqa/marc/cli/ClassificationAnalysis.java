@@ -116,7 +116,7 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
   private File prepareReportFile(String outputDir, String fileName) {
     File reportFile = new File(outputDir, fileName);
     if (reportFile.exists() && !reportFile.delete())
-      logger.log(Level.SEVERE, "File {0} hasn't been deleted", reportFile.getAbsolutePath());
+      logger.log(Level.SEVERE, "File {0} hasn't been deleted", new Object[]{reportFile.getAbsolutePath()});
     return reportFile;
   }
 

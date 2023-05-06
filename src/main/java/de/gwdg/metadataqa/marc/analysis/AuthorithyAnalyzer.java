@@ -52,7 +52,7 @@ public class AuthorithyAnalyzer {
             count += fieldInstanceLevelCount;
             add(category, categoryCounter, fieldInstanceLevelCount);
           } else {
-            logger.log(Level.SEVERE, "Unhandled type: {0}", type);
+            logger.log(Level.SEVERE, "Unhandled type: {0}", new Object[]{type});
           }
         }
       } else if (marcRecord.getSchemaType().equals(SchemaType.PICA)) {

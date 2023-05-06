@@ -75,7 +75,7 @@ public class MarcJsonToSolr {
     }
     long end = System.currentTimeMillis();
 
-    logger.log(Level.INFO, "Bye! It took: {0} s", String.format("%.1f", (float) (end - start) / 1000));
+    logger.log(Level.INFO, "Bye! It took: {0} s", new Object[]{String.format("%.1f", (float) (end - start) / 1000)});
 
     System.exit(0);
   }

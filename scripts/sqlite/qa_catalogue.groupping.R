@@ -46,7 +46,7 @@ typesDF <- NULL
 pathsDF <- NULL
 categoriesDF <- NULL
 len <- length(groupIds)
-print(sprintf("get statistics for %d greoups", len))
+print(sprintf("get statistics for %d groups", len))
 for (i in 1:len) {
   currentGroupId = groupIds[i]
   if (i == 1 | i == len | i %% 25 == 0) {

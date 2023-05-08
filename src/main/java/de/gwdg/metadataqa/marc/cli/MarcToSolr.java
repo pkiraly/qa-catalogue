@@ -130,6 +130,7 @@ public class MarcToSolr extends QACli implements BibliographicInputProcessor, Se
   @Override
   public void beforeIteration() {
     logger.info(parameters.formatParameters());
+    saveParameters("marctosolr.params.json", parameters);
   }
 
   @Override

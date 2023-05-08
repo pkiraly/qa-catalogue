@@ -54,6 +54,7 @@ public abstract class QACli {
       configuration.put("mqaf.version", de.gwdg.metadataqa.api.cli.Version.getVersion());
       configuration.put("qa-catalogue.version", de.gwdg.metadataqa.marc.cli.Version.getVersion());
       File configFile = Paths.get(parameters.getOutputDir(), fileName).toFile();
+      logger.log(Level.INFO, "Saving configuration to {0}.", configFile.getAbsolutePath());
       mapper.writeValue(configFile, configuration);
     } catch (IOException e) {
       throw new RuntimeException(e);

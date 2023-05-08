@@ -11,6 +11,7 @@ log() {
 }
 
 OUTPUT_DIR=$1
+NAME=$2
 
 log "OUTPUT_DIR: ${OUTPUT_DIR}"
 
@@ -20,7 +21,7 @@ else
   . ./../../solr-functions
 fi
 
-SOLR_CORE=validation
+SOLR_CORE=${NAME}_validation
 
 log "create Solr core"
 

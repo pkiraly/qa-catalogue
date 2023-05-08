@@ -8,6 +8,7 @@ public class MarcToSolrParameters extends CommonParameters {
   private String solrUrl = null;
   private boolean doCommit = false;
   private SolrFieldType solrFieldType = SolrFieldType.MARC;
+  private String validationUrl = null;
 
   private boolean isOptionSet = false;
 
@@ -18,6 +19,7 @@ public class MarcToSolrParameters extends CommonParameters {
       options.addOption("c", "doCommit", false, "send commits to Solr regularly");
       options.addOption("t", "solrFieldType", true,
         "type of Solr fields, could be one of 'marc-tags', 'human-readable', or 'mixed'");
+      options.addOption("A", "validationUrl", true, "the URL of the Solr used in validation");
       isOptionSet = true;
     }
   }
@@ -33,6 +35,9 @@ public class MarcToSolrParameters extends CommonParameters {
 
     if (cmd.hasOption("solrFieldType"))
       solrFieldType = SolrFieldType.byCode(cmd.getOptionValue("solrFieldType"));
+
+    if (cmd.hasOption("validationUrl"))
+      validationUrl = cmd.getOptionValue("validationUrl");
   }
 
   public String getSolrUrl() {
@@ -46,4 +51,19 @@ public class MarcToSolrParameters extends CommonParameters {
   public SolrFieldType getSolrFieldType() {
     return solrFieldType;
   }
+
+  public String getValidationUrl() {
+    return validationUrl;
+  }
+
+  @Override
+  public String formatParameters() {
+    String text = super.formatParameters();
+    text += String.format("solrUrl: %s%n", solrUrl);
+    text += String.format("doCommit: %s%n", doCommit);
+    text += String.format("solrFieldType: %s%n", solrFieldType);
+    text += String.format("validationUrl: %s%n", validationUrl);
+    return text;
+  }
+
 }

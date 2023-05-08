@@ -45,8 +45,14 @@ do_prepare_solr() {
 }
 
 do_index() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+//g')
   run index
+  untrace
+
+  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+//g')
+  HAS_GROUP_PARAM=$(echo ${TYPE_PARAMS} | grep -c -P -e '--groupBy [^-]' || true)
+  if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
+    PARAMS="${PARAMS} --validationCore ${NAME}_validation"
+  fi
   ./index --db $NAME --file-path ${MARC_DIR} --file-mask $MASK ${PARAMS} --trimId 2>> ${PREFIX}/solr.log
 }
 
@@ -302,7 +308,7 @@ EOF
     sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.sql &>> ${PREFIX}/sqlite.log
   else
     log "index (groupped)"
-    scripts/sqlite/calculate-aggregated-numbers.groupped.sh ${OUTPUT_DIR}
+    scripts/sqlite/calculate-aggregated-numbers.groupped.sh ${OUTPUT_DIR} ${NAME}
 
 #    sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.groupped.sqlite.sql &>> ${PREFIX}/sqlite.log
 #    Rscript scripts/sqlite/qa_catalogue.groupping.R ${OUTPUT_DIR} &>> ${PREFIX}/sqlite.log
@@ -463,9 +469,9 @@ do_all_analyses_for_pica() {
 do_all_solr() {
   do_prepare_solr
   do_index
-  if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
-    php scripts/sqlite/solr-copy-ids-from-validation.php validation ${NAME}
-  fi
+#  if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
+#    php scripts/sqlite/solr-copy-ids-from-validation.php ${NAME}_validation ${NAME} 2>> ${PREFIX}/solr.log
+#  fi
 }
 
 # ---- usage and execution of proccessing steps ----

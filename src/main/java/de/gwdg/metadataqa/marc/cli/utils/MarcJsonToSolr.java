@@ -69,7 +69,7 @@ public class MarcJsonToSolr {
       if (doCommits)
         client.commit();
       logger.info("end of cycle");
-    } catch (IOException | SolrServerException ex) {
+    } catch (IOException ex) {
       logger.severe(ex.toString());
       System.exit(0);
     }

@@ -16,7 +16,8 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.common.SolrDocument;
+import org.apache.solr.common.SolrInputDocument;
 import org.marc4j.marc.Record;
 
 import java.io.IOException;
@@ -26,7 +27,6 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -44,6 +44,7 @@ public class MarcToSolr extends QACli implements BibliographicInputProcessor, Se
   private final MarcVersion version;
   private MarcToSolrParameters parameters;
   private MarcSolrClient client;
+  private MarcSolrClient validationClient;
   private Path currentFile;
   private boolean readyToProcess;
   private DecimalFormat decimalFormat = new DecimalFormat();
@@ -54,6 +55,10 @@ public class MarcToSolr extends QACli implements BibliographicInputProcessor, Se
     options = parameters.getOptions();
     client = new MarcSolrClient(parameters.getSolrUrl());
     client.setTrimId(parameters.getTrimId());
+    if (parameters.getValidationUrl() != null) {
+      validationClient = new MarcSolrClient(parameters.getValidationUrl());
+      validationClient.setTrimId(parameters.getTrimId());
+    }
     readyToProcess = true;
     version = parameters.getMarcVersion();
     initializeGroups(parameters.getGroupBy(), parameters.isPica());
@@ -95,19 +100,19 @@ public class MarcToSolr extends QACli implements BibliographicInputProcessor, Se
       for (DataField field : bibliographicRecord.getDatafield(((PicaPath) groupBy).getTag()))
         field.addFieldIndexer(groupIndexer);
 
-    try {
-      Map<String, List<String>> map = bibliographicRecord.getKeyValuePairs(
-        parameters.getSolrFieldType(), true, parameters.getMarcVersion()
-      );
-      map.put("record_sni", Arrays.asList(bibliographicRecord.asJson()));
-      client.indexMap(bibliographicRecord.getId(), map);
-    } catch (SolrServerException e) {
-      if (e.getMessage().contains("Server refused connection at")) {
-        // end process;
-        readyToProcess = false;
-      }
-      logger.log(Level.SEVERE, "processRecord", e);
+    Map<String, List<String>> map = bibliographicRecord.getKeyValuePairs(
+      parameters.getSolrFieldType(), true, parameters.getMarcVersion()
+    );
+    map.put("record_sni", Arrays.asList(bibliographicRecord.asJson()));
+    SolrInputDocument document = client.createSolrDoc(bibliographicRecord.getId(), map);
+    if (validationClient != null) {
+      SolrDocument validationValues = validationClient.get(bibliographicRecord.getId());
+      if (validationValues != null && !validationValues.isEmpty())
+        for (String field : validationValues.getFieldNames())
+          document.addField(field, validationValues.getFieldValues(field));
     }
+    client.index(document);
+
     if (recordNumber % 5000 == 0) {
       if (parameters.doCommit())
         client.commit();

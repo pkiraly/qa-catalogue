@@ -113,7 +113,7 @@ public class MarcToSolr extends QACli implements BibliographicInputProcessor, Se
     }
     client.index(document);
 
-    if (recordNumber % 5000 == 0) {
+    if (recordNumber % 10000 == 0) {
       if (parameters.doCommit())
         client.commit();
       logger.info(

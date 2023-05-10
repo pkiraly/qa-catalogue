@@ -61,7 +61,7 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     initializeGroups(parameters.getGroupBy(), parameters.isPica());
     if (doGroups()) {
       initializeMeta(parameters);
-      if (saveGroupIds) {
+      if (doSaveGroupIds) {
         idCollectorFile = prepareReportFile(parameters.getOutputDir(), "id-groupid.csv");
         printToFile(idCollectorFile, CsvUtils.createCsv("id", "groupId"));
       }
@@ -110,7 +110,7 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     RecordCompleteness recordCompleteness = new RecordCompleteness(bibliographicRecord, parameters, completenessDAO, plugin, groupBy);
     recordCompleteness.process();
 
-    if (saveGroupIds)
+    if (doSaveGroupIds)
       saveGroupIds(bibliographicRecord.getId(true), recordCompleteness.getGroupIds());
     if (doGroups())
       for (String id : recordCompleteness.getGroupIds())

@@ -172,8 +172,4 @@ public class MarcToSolr extends QACli implements BibliographicInputProcessor, Se
   public boolean readyToProcess() {
     return readyToProcess;
   }
-
-  private String coreFromUrl(String url) {
-    return url.substring(url.lastIndexOf("/") + 1);
-  }
 }

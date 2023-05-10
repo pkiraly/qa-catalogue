@@ -78,7 +78,7 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
     initializeGroups(parameters.getGroupBy(), parameters.isPica());
     if (doGroups()) {
       initializeMeta(parameters);
-      if (saveGroupIds) {
+      if (doSaveGroupIds) {
         logger.info("saveGroupIds!");
         idCollectorFile = prepareReportFile(parameters.getOutputDir(), "id-groupid.csv");
         printToFile(idCollectorFile, CsvUtils.createCsv("id", "groupId"));
@@ -178,7 +178,7 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
     }
 
     Set<String> groupIds = getGroupIds(parameters, bibliographicRecord);
-    if (saveGroupIds)
+    if (doSaveGroupIds)
       saveGroupIds(bibliographicRecord.getId(true), groupIds);
 
     Validator validator = new Validator(validatorConfiguration);

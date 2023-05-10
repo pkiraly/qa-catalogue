@@ -474,23 +474,25 @@ public class MARCspecParserTest {
   @Test
   public void testMARCspecParser_245() {
     MARCspecParser parser = new MARCspecParser("245");
-    assertEquals("245", parser.field.get("field"));
-    assertEquals("245", parser.field.get("tag"));
-    assertEquals(null, parser.field.get("index"));
-    assertEquals(null, parser.field.get("subfields"));
-    assertEquals(null, parser.field.get("indicators"));
-    assertEquals("", parser.field.get("subspecs"));
+    Map<String, Object> parsedFieldSpec = parser.getParsedFieldSpec();
+    assertEquals("245", parsedFieldSpec.get("field"));
+    assertEquals("245", parsedFieldSpec.get("tag"));
+    assertEquals(null, parsedFieldSpec.get("index"));
+    assertEquals(null, parsedFieldSpec.get("subfields"));
+    assertEquals(null, parsedFieldSpec.get("indicators"));
+    assertEquals("", parsedFieldSpec.get("subspecs"));
   }
 
   @Test
   public void testMARCspecParser_245ac() {
     MARCspecParser parser = new MARCspecParser("245$a-c");
-    assertEquals("245$a-c", parser.field.get("field"));
-    assertEquals("245", parser.field.get("tag"));
-    assertEquals(null, parser.field.get("index"));
-    assertEquals("$a-c", parser.field.get("subfields"));
-    assertEquals(null, parser.field.get("indicators"));
-    assertEquals("", parser.field.get("subspecs"));
+    Map<String, Object> parsedFieldSpec = parser.getParsedFieldSpec();
+    assertEquals("245$a-c", parsedFieldSpec.get("field"));
+    assertEquals("245", parsedFieldSpec.get("tag"));
+    assertEquals(null, parsedFieldSpec.get("index"));
+    assertEquals("$a-c", parsedFieldSpec.get("subfields"));
+    assertEquals(null, parsedFieldSpec.get("indicators"));
+    assertEquals("", parsedFieldSpec.get("subspecs"));
   }
 
   @Test

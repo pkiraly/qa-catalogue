@@ -36,7 +36,7 @@ public abstract class QACli {
   protected File idCollectorFile;
   private FileTime jarModifiedTime;
   private boolean isJarModifiedTimeDetected = false;
-  protected boolean saveGroupIds = true;
+  protected boolean doSaveGroupIds = true;
 
   protected void initializeGroups(String groupBy, boolean isPica) {
     if (groupBy != null) {
@@ -118,7 +118,7 @@ public abstract class QACli {
       if (idCollectorMeta.exists()) {
         try {
           String storedFileList = FileUtils.readFileToString(idCollectorMeta, StandardCharsets.UTF_8).trim();
-          saveGroupIds = ! currentFileList.equals(storedFileList);
+          doSaveGroupIds = ! currentFileList.equals(storedFileList);
           if (!idCollectorMeta.delete())
             logger.severe("id-groupid.meta.txt has not been deleted.");
         } catch (IOException e) {

@@ -23,7 +23,7 @@ public class PicaNormalizedReader extends PicaReader {
   private String line = null;
   private List<PicaLine> lines = new ArrayList<>();
   private String fieldSeparator = "\u001E";
-  private String subfieldSeparator = "\u001F";
+  protected String subfieldSeparator = "\u001F";
   private String defauultSubfieldSeparator = "\u001F";
 
   public PicaNormalizedReader(String fileName) {

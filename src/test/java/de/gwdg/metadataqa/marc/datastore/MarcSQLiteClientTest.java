@@ -1,19 +1,15 @@
 package de.gwdg.metadataqa.marc.datastore;
 
 import com.opencsv.CSVIterator;
-import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderHeaderAware;
 import com.opencsv.exceptions.CsvValidationException;
 import de.gwdg.metadataqa.api.util.FileUtils;
 import org.junit.Test;
-import org.sqlite.util.StringUtils;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.Map;
 
 public class MarcSQLiteClientTest {
@@ -27,8 +23,6 @@ public class MarcSQLiteClientTest {
     //  file.delete();
 
     client.connect(file.getPath());
-    client.createSchema();
-    client.initSchema();
     System.err.println(file.lastModified());
     System.err.println(file.length());
 
@@ -42,9 +36,7 @@ public class MarcSQLiteClientTest {
     CSVIterator iterator = null;
     try {
       CSVReaderHeaderAware reader = new CSVReaderHeaderAware(new FileReader(csvFile));
-      // System.err.println(reader.);
       iterator = new CSVIterator(reader);
-      // iterator.
       Map<String, String> map;
       while((map = reader.readMap()) != null) {
         System.err.println(map);
@@ -54,6 +46,5 @@ public class MarcSQLiteClientTest {
     } catch (CsvValidationException e) {
       e.printStackTrace();
     }
-
   }
 }

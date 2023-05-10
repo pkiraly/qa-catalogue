@@ -304,4 +304,8 @@ public class FunctionalAnalysis implements BibliographicInputProcessor, Serializ
   public boolean readyToProcess() {
     return readyToProcess;
   }
+
+  public FrbrFunctionLister getFrbrFunctionLister() {
+    return frbrFunctionLister;
+  }
 }

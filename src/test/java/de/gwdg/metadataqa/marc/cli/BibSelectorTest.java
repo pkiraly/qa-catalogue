@@ -74,10 +74,16 @@ public class BibSelectorTest {
 
   @Test
   public void testGet1() {
+    BibSelector selector = BibSelectorFactory.create(marcRecord);
+    List<XmlFieldInstance> results = selector.get("100", "100", "100");
+    assertNull(results);
   }
 
   @Test
   public void testGet2() {
+    BibSelector selector = BibSelectorFactory.create(marcRecord);
+    List<XmlFieldInstance> results = selector.get("100", "100", "100", this.getClass());
+    assertNull(results);
   }
 
   @Test

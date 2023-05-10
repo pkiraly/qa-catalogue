@@ -1670,7 +1670,7 @@ public class Tag020 extends DataFieldDefinition {
 * [Deutsche Digitale Bibliothek](https://www.deutsche-digitale-bibliothek.de/), Germany
 * [British Library](https://www.bl.uk/), United Kingdom
 * [Országgyűlési Könyvtár](https://www.ogyk.hu/en), Hungary
-* [Studijní a vědecká knihovna Plzeňského kraje](https://svkpk.cz/), Czech Repoblic
+* [Studijní a vědecká knihovna Plzeňského kraje](https://svkpk.cz/), Czech Republic
 * [Royal Library of Belgium (KBR)](https://kbr.be/), Belgium
 * [Gemeinsamer Bibliotheksverbund (GBV)](https://www.gbv.de/informationen/Verbund/), Germany
 

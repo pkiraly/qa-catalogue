@@ -146,6 +146,17 @@
 			<version>2.20.0</version>
 		</dependency>
 		<dependency>
+			<artifactId>solr-core</artifactId>
+			<groupId>org.apache.solr</groupId>
+			<version>9.2.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<artifactId>solr-test-framework</artifactId>
+			<groupId>org.apache.solr</groupId>
+			<version>9.2.0</version>
+		</dependency>
+		<dependency>
 			<artifactId>solr-solrj</artifactId>
 			<groupId>org.apache.solr</groupId>
 			<version>9.2.0</version>

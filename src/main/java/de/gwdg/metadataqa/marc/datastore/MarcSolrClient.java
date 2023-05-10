@@ -37,6 +37,10 @@ public class MarcSolrClient {
     initialize(url, collection);
   }
 
+  public MarcSolrClient(SolrClient client) {
+    solrClient = client;
+  }
+
   private void initialize(String url) {
     solrClient = new HttpSolrClient.Builder(url).build();
   }

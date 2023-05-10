@@ -115,7 +115,7 @@ public class PicaLine {
         parseSubfields();
         valid = true;
       } else {
-        logger.log(Level.WARNING, "Unable to parse line: '{0}'", new Object[]{raw});
+        logger.log(Level.WARNING, "Unable to parse line: '{0}'", raw);
       }
     }
   }

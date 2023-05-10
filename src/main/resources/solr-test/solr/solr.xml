@@ -1,0 +1,6 @@
+<?xml version='1.0'?>
+<!-- This empty configuration is required to start EmbeddedSolrServer for Integration Tests (see MockSolrServer) -->
+<solr>
+  <str name="configSetBaseDir">${configSetBaseDir:../configset}</str>
+  <str name="coreRootDirectory">${coreRootDirectory:.}</str>
+</solr>

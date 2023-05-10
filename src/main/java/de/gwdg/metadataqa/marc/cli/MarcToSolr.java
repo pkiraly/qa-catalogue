@@ -40,8 +40,8 @@ public class MarcToSolr extends QACli implements BibliographicInputProcessor, Se
   private static final Logger logger = Logger.getLogger(
     MarcToSolr.class.getCanonicalName()
   );
-  private final Options options;
-  private final MarcVersion version;
+  private Options options;
+  private MarcVersion version;
   private MarcToSolrParameters parameters;
   private MarcSolrClient client;
   private MarcSolrClient validationClient;
@@ -52,11 +52,24 @@ public class MarcToSolr extends QACli implements BibliographicInputProcessor, Se
 
   public MarcToSolr(String[] args) throws ParseException {
     parameters = new MarcToSolrParameters(args);
+    initialize();
+  }
+
+  public MarcToSolr(MarcToSolrParameters parameters) throws ParseException {
+    this.parameters = parameters;
+    initialize();
+  }
+
+  private void initialize() {
     options = parameters.getOptions();
-    client = new MarcSolrClient(parameters.getSolrUrl());
+    client = parameters.useEmbedded()
+      ? new MarcSolrClient(parameters.getMainClient())
+      : new MarcSolrClient(parameters.getSolrUrl());
     client.setTrimId(parameters.getTrimId());
     if (parameters.getValidationUrl() != null) {
-      validationClient = new MarcSolrClient(parameters.getValidationUrl());
+      validationClient = parameters.useEmbedded()
+        ? new MarcSolrClient(parameters.getValidationClient())
+        : new MarcSolrClient(parameters.getValidationUrl());
       validationClient.setTrimId(parameters.getTrimId());
     }
     readyToProcess = true;
@@ -70,9 +83,7 @@ public class MarcToSolr extends QACli implements BibliographicInputProcessor, Se
   public static void main(String[] args) throws ParseException {
     MarcToSolr processor = new MarcToSolr(args);
     processor.options.toString();
-    if (StringUtils.isBlank(
-        ((MarcToSolrParameters) processor.getParameters()).getSolrUrl()
-    )) {
+    if (StringUtils.isBlank(((MarcToSolrParameters) processor.getParameters()).getSolrUrl())) {
       System.err.println("Please provide a Solr URL and file name!");
       System.exit(0);
     }
@@ -130,6 +141,8 @@ public class MarcToSolr extends QACli implements BibliographicInputProcessor, Se
   @Override
   public void beforeIteration() {
     logger.info(parameters.formatParameters());
+    parameters.setMainClient(null);
+    parameters.setValidationClient(null);
     saveParameters("marctosolr.params.json", parameters);
   }
 
@@ -158,5 +171,9 @@ public class MarcToSolr extends QACli implements BibliographicInputProcessor, Se
   @Override
   public boolean readyToProcess() {
     return readyToProcess;
+  }
+
+  private String coreFromUrl(String url) {
+    return url.substring(url.lastIndexOf("/") + 1);
   }
 }

@@ -38,7 +38,6 @@ public class MarcSolrClientTest {
 
   @Before
   public void setUp() throws Exception {
-    System.err.println(":: setUp");
     setupSolrServer();
     insertValidationData();
   }
@@ -73,7 +72,6 @@ public class MarcSolrClientTest {
   }
 
   private static void createCore(String coreName) throws SolrServerException, IOException {
-    System.err.println("getCore(" + coreName + "): " + server.getCoreContainer().getCore(coreName));
     if (server.getCoreContainer().getCore(coreName) == null) {
       CoreAdminRequest.Create createRequest = new CoreAdminRequest.Create();
       createRequest.setCoreName(coreName);
@@ -84,7 +82,6 @@ public class MarcSolrClientTest {
 
   @After
   public void tearDown() throws Exception {
-    System.err.println(":: tearDown");
     for (String coreName : cores) {
       Path corePath = server.getCoreContainer().getCore(coreName).getInstancePath();
       org.apache.commons.io.FileUtils.deleteDirectory(corePath.toFile());

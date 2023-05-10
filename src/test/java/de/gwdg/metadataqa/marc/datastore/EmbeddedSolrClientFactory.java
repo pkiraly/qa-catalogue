@@ -53,7 +53,6 @@ public class EmbeddedSolrClientFactory {
 
   private static void createCore(String coreName) throws SolrServerException, IOException {
     initializeServer();
-    System.err.println("getCore(" + coreName + "): " + server.getCoreContainer().getCore(coreName));
     if (server.getCoreContainer().getCore(coreName) == null) {
       CoreAdminRequest.Create createRequest = new CoreAdminRequest.Create();
       createRequest.setCoreName(coreName);

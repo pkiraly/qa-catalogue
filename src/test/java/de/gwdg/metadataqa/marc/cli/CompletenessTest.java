@@ -102,12 +102,15 @@ public class CompletenessTest extends CliTestUtils {
   public void completeness_pica_groupBy() throws Exception {
     clearOutput(outputDir, grouppedOutputFiles);
 
+    String inputFile = getPath("src/test/resources/pica/pica-with-holdings-info.dat");
+    assertTrue(new File(inputFile).exists());
+
     Completeness processor = new Completeness(new String[]{
       "--schemaType", "PICA",
       "--groupBy", "001@$0",
       "--marcFormat", "PICA_NORMALIZED",
       "--outputDir", outputDir,
-      getPath("src/test/resources/pica/pica-with-holdings-info.dat")
+      inputFile
     });
     RecordIterator iterator = new RecordIterator(processor);
     iterator.start();

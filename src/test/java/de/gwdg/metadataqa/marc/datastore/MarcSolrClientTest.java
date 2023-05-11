@@ -184,5 +184,10 @@ public class MarcSolrClientTest {
     up.deleteByQuery("*:*");
     up.process(client);
     up.clear();
+
+    final QueryResponse response = client.query(new MapSolrParams(Map.of("q", "*:*")));
+    final SolrDocumentList documents = response.getResults();
+    assertNotNull(documents);
+    assertEquals(0, documents.getNumFound());
   }
 }

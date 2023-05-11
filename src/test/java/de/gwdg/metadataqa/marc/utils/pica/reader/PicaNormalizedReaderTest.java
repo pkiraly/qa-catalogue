@@ -34,9 +34,10 @@ public class PicaNormalizedReaderTest {
       String line;
       System.err.println("\u0085");
       while ((line = br.readLine()) != null) {
-        // System.err.println(line);
-        System.err.println(line.contains("\uc285"));
+        System.err.println(line);
+        System.err.println(line.contains("\uC285"));
         System.err.println(line.contains("\u00C2"));
+        System.err.println(line.contains("\u0085"));
         System.err.println(line.replace("^.*\u0085", ""));
         /*
         for (Byte b : line.getBytes("UTF8")) {

@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.utils.pica.reader;
 
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.utils.pica.reader.model.PicaLine;
+import org.apache.commons.codec.binary.Hex;
 import org.marc4j.marc.Record;
 
 import java.io.BufferedReader;
@@ -9,6 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,8 +25,8 @@ public class PicaNormalizedReader extends PicaReader {
   private String line = null;
   private List<PicaLine> lines = new ArrayList<>();
   private String fieldSeparator = "\u001E";
-  protected String subfieldSeparator = "\u001F";
   private String defauultSubfieldSeparator = "\u001F";
+  private String subfieldSeparator = "\u001F";
 
   public PicaNormalizedReader(String fileName) {
     try {
@@ -37,7 +39,6 @@ public class PicaNormalizedReader extends PicaReader {
   public PicaNormalizedReader(InputStream stream, String encoding) {
     try {
       bufferedReader = new BufferedReader(new InputStreamReader(stream, encoding));
-      // parseIdField();
     } catch (IOException e) {
       logger.log(Level.WARNING, "error in PicaReader()", e);
     }

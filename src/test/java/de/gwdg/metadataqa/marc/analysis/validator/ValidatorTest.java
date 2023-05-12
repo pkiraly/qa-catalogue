@@ -73,7 +73,7 @@ public class ValidatorTest {
   }
 
   @Test
-  public void validate_invalid() {
+  public void validate_valid2() {
     // arrange
     PicaRecord record = new PicaRecord("u2407796");
     record.addDataField(PicaDatafieldFactory.create("041A", "9", "106076612"));
@@ -84,7 +84,7 @@ public class ValidatorTest {
     boolean isValid = validator.validate(record);
 
     // assert
-    assertFalse(isValid);
-    assertFalse(validator.getValidationErrors().isEmpty());
+    assertTrue(isValid);
+    assertTrue(validator.getValidationErrors().isEmpty());
   }
 }

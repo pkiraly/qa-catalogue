@@ -458,16 +458,6 @@ do_all_analyses() {
   done
 }
 
-do_all_analyses_for_pica() {
-  tasks=$(echo "${PICA}" | tr , ' ')
-  for task in $tasks; do
-      declare -F "do_$task" > /dev/null || fatal "unknown analysis task: $task"
-  done
-  for task in $(echo "${PICA}" | tr , ' '); do
-    do_$task
-  done
-}
-
 do_all_solr() {
   do_prepare_solr
   do_index
@@ -553,8 +543,6 @@ else
   ALL_ANALYSES=validate,validate_sqlite,completeness,completeness_sqlite,classifications,authorities,tt_completeness,shelf_ready_completeness,serial_score,functional_analysis,pareto,marc_history
 fi
 ANALYSES=${ANALYSES:-$ALL_ANALYSES}
-PICA_ANALYSES=validate,validate_sqlite,completeness,completeness_sqlite,classifications,authorities,marc_history
-PICA=${PICA:-$PICA_ANALYSES}
 
 # check directories for processing commands
 if [[ ! "${1:-help}" =~ ^(help|config|export-schema-files)$ ]]; then

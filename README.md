@@ -1678,7 +1678,17 @@ public class Tag020 extends DataFieldDefinition {
 If you use this tool as well, please contact me: pkiraly (at) gwdg (dot) de. I
 really like to hear about your use case and ideas.
 
-#### Appendix IV: Special build process
+### Appendix IV: Supporters and Sponsors
+
+* [Gesellschaft für wissenschaftliche Datenverarbeitung mbH Göttingen (GWDG)](https://gwdg.de): Hardware, time for 
+  research
+* [Gemeinsamer Bibliotheksverbund (GBV)](https://www.gbv.de/informationen/Verbund/): contracting for feature development
+* [Royal Library of Belgium (KBR)](https://kbr.be/): contracting for feature development
+* [JetBrains s.r.o.](https://www.jetbrains.com/idea/): [IntelliJ IDEA](https://www.jetbrains.com/idea/) 
+  development tool community 
+  licence
+
+### Appendix V: Special build process
 
 "deployment" build (when deploying artifacts to Maven Central)
 ```

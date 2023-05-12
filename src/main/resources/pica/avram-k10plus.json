@@ -12656,72 +12656,12 @@
          "tag" : "041@",
          "url" : "https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=450"
       },
-      "041A" : {
-         "description" : "Das Feld 150 ist für die Satzart Ts obligatorisch und nicht wiederholbar. ",
-         "label" : "Sachbegriff - Bevorzugte Benennung",
-         "modified" : "2022-05-17T12:56:33",
-         "pica3" : "150",
-         "repeatable" : false,
-         "subfields" : {
-            "8" : {
-               "code" : "8",
-               "label" : "Expansion",
-               "modified" : "2019-12-02T12:29:00",
-               "pica3" : "--",
-               "repeatable" : false
-            },
-            "9" : {
-               "code" : "9",
-               "label" : "PPN",
-               "modified" : "2020-03-31T08:50:40",
-               "pica3" : "!...!",
-               "repeatable" : false
-            },
-            "S" : {
-               "code" : "S",
-               "label" : "Indikator (nur in Tc*-,Td*-Sätzen)",
-               "modified" : "2022-05-06T14:06:28",
-               "pica3" : "|...|",
-               "repeatable" : false
-            },
-            "a" : {
-               "code" : "a",
-               "label" : "Sachbegriff",
-               "modified" : "2021-05-03T16:30:49",
-               "pica3" : "",
-               "repeatable" : false
-            },
-            "g" : {
-               "code" : "g",
-               "label" : "Zusatz",
-               "modified" : "2021-05-03T16:32:51",
-               "pica3" : "$g",
-               "repeatable" : true
-            },
-            "v" : {
-               "code" : "v",
-               "label" : "Bemerkungen, Regelwerk",
-               "modified" : "2021-05-03T16:33:36",
-               "pica3" : "$v",
-               "repeatable" : true
-            },
-            "x" : {
-               "code" : "x",
-               "label" : "Allgemeine Unterteilung (teilweise temporär durch Migration)",
-               "modified" : "2021-05-03T16:33:02",
-               "pica3" : "$x",
-               "repeatable" : true
-            }
-         },
-         "tag" : "041A",
-         "url" : "https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=150"
-      },
       "041A/00-99" : {
          "label" : "Schlagwortfolgen (DNB und Verbünde)",
          "modified" : "2020-03-04T13:51:56",
          "occurrence" : "00-99",
          "pica3" : "5100-5199",
-         "repeatable" : false,
+         "repeatable" : true,
          "subfields" : {
             "7" : {
                "code" : "7",

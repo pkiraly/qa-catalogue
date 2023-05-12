@@ -9182,7 +9182,7 @@
       "modified": "2020-03-04T13:51:56",
       "occurrence": "00-99",
       "pica3": "5100-5199",
-      "repeatable": false,
+      "repeatable": true,
       "subfields": {
         "7": {
           "code": "7",

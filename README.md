@@ -1665,14 +1665,15 @@ public class Tag020 extends DataFieldDefinition {
 
 ### Appendix III: Institutions which reportedly use this tool
 
-* [Universiteitsbibliotheek Gent](https://lib.ugent.be/), Belgium
-* [Biblioteksentralen](https://www.bibsent.no/), Norway
-* [Deutsche Digitale Bibliothek](https://www.deutsche-digitale-bibliothek.de/), Germany
-* [British Library](https://www.bl.uk/), United Kingdom
-* [Országgyűlési Könyvtár](https://www.ogyk.hu/en), Hungary
-* [Studijní a vědecká knihovna Plzeňského kraje](https://svkpk.cz/), Czech Republic
-* [Royal Library of Belgium (KBR)](https://kbr.be/), Belgium
-* [Gemeinsamer Bibliotheksverbund (GBV)](https://www.gbv.de/informationen/Verbund/), Germany
+* [Universiteitsbibliotheek Gent](https://lib.ugent.be/), Gent, Belgium
+* [Biblioteksentralen](https://www.bibsent.no/), Oslo, Norway
+* [Deutsche Digitale Bibliothek](https://www.deutsche-digitale-bibliothek.de/), Frankfurt am Main/Berlin, Germany
+* [British Library](https://www.bl.uk/), London/Boston Spa, United Kingdom
+* [Országgyűlési Könyvtár](https://www.ogyk.hu/en), Budapest, Hungary
+* [Studijní a vědecká knihovna Plzeňského kraje](https://svkpk.cz/), Plzeň, Czech Republic
+* [Royal Library of Belgium (KBR)](https://kbr.be/), Brussels, Belgium
+* [Gemeinsamer Bibliotheksverbund (GBV)](https://www.gbv.de/informationen/Verbund/), Göttingen, Germany
+* [Bighampton University Libraries](https://www.binghamton.edu/libraries/), Bighampton, NY, USA
 
 If you use this tool as well, please contact me: pkiraly (at) gwdg (dot) de. I
 really like to hear about your use case and ideas.

@@ -426,12 +426,13 @@ Most of the analyses uses the following general parameters
     the structure of PICA records
   * `-G <path>`, `--picaRecordType <path>` The PICA subfield which stores the
     record type information. Deafult is `002@$0`.
+* Parameters for groupping analyses
+  * `-J <path>`, `--groupBy <path>` group the results by the value of this data 
+    element (e.g. the ILN of  library)
+  * `-K <file>`, `--groupListFile <file>` the file which contains a list of ILN codes
 
 The last argument of the commands are a list of files. It might contain any 
 wildcard the operating system supports ('*', '?', etc.).
-
-#### PICA related general parameters
-
 
 ### Validating MARC records
 
@@ -1727,6 +1728,18 @@ Upload to Docker Hub:
 docker tag metadata-qa-marc:latest pkiraly/metadata-qa-marc:latest
 docker login
 docker push pkiraly/metadata-qa-marc:latest
+```
+
+Cleaning before and after:
+```bash
+# stop running container
+docker stop $(docker ps --filter name=metadata-qa-marc -q)
+# remove container
+docker rm $(docker ps -a --filter name=metadata-qa-marc -q)
+# remove image
+docker rmi $(docker images metadata-qa-marc -q)
+# clear build cache
+docker builder prune -a -f
 ```
 
 Feedbacks are welcome!

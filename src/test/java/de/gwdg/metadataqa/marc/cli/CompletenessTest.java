@@ -313,7 +313,7 @@ public class CompletenessTest extends CliTestUtils {
         assertTrue(line.contains("\"replacementInControlFields\":null,"));
         assertTrue(line.contains("\"marc21\":false,"));
         assertTrue(line.contains("\"mqaf.version\":\"1.0.0-SNAPSHOT\","));
-        assertTrue(line.contains("\"qa-catalogue.version\":\"0.7.0-SNAPSHOT\"}"));
+        assertTrue(line.contains("\"qa-catalogue.version\":\"0.7.0-rc1\"}"));
 
       } else if (outputFile.equals("libraries.csv")) {
         output = new File(outputDir, outputFile);

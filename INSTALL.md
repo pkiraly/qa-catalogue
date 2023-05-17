@@ -45,8 +45,8 @@ ln -s solr-${SOLR_VERSION} solr
 ## Download and Configure QA catalogue
 
 ```bash
-export VERSION=0.5.0
-wget https://github.com/pkiraly/metadata-qa-marc/releases/download/v${VERSION}/metadata-qa-marc-${VERSION}-release.zip
+export VERSION=0.6.0
+wget https://github.com/pkiraly/qa-catalogue/releases/download/v${VERSION}/metadata-qa-marc-${VERSION}-release.zip
 unzip metadata-qa-marc-$VERSION-release.zip
 cd metadata-qa-marc-$VERSION
 cp setdir.sh.template setdir.sh

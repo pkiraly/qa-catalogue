@@ -66,7 +66,7 @@ public class ISSNValidatorTest {
 
 
   /**
-   * See https://github.com/pkiraly/metadata-qa-marc/pull/43#issuecomment-351627027
+   * See https://github.com/pkiraly/qa-catalogue/pull/43#issuecomment-351627027
    */
   @Test
   public void testExtraText() {

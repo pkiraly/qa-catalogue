@@ -33,7 +33,7 @@ import java.util.zip.GZIPInputStream;
 
 /**
  * usage:
- * java -cp target/metadata-qa-marc-0.1-SNAPSHOT-jar-with-dependencies.jar de.gwdg.metadataqa.marc.cli.Validator [MARC21 file]
+ * java -cp target/qa-catalogue-0.1-SNAPSHOT-jar-with-dependencies.jar de.gwdg.metadataqa.marc.cli.Validator [MARC21 file]
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class RecordIterator {
@@ -254,7 +254,7 @@ public class RecordIterator {
 
   private static void printHelp(Options opions) {
     HelpFormatter formatter = new HelpFormatter();
-    formatter.printHelp("java -cp metadata-qa-marc.jar de.gwdg.metadataqa.marc.cli.Validator [options] [file]",
+    formatter.printHelp("java -cp qa-catalogue.jar de.gwdg.metadataqa.marc.cli.Validator [options] [file]",
       opions);
   }
 

@@ -31,7 +31,7 @@ import java.util.logging.Logger;
 
 /**
  * usage:
- * java -cp target/metadata-qa-marc-0.1-SNAPSHOT-jar-with-dependencies.jar de.gwdg.metadataqa.marc.cli.SolrKeyGenerator http://localhost:8983/solr/tardit 0001.0000000.formatted.json
+ * java -cp target/qa-catalogue-0.1-SNAPSHOT-jar-with-dependencies.jar de.gwdg.metadataqa.marc.cli.SolrKeyGenerator http://localhost:8983/solr/tardit 0001.0000000.formatted.json
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
@@ -164,7 +164,7 @@ public class MarcToSolr extends QACli implements BibliographicInputProcessor, Se
   @Override
   public void printHelp(Options options) {
     HelpFormatter formatter = new HelpFormatter();
-    String message = String.format("java -cp metadata-qa-marc.jar %s [options] [file]", this.getClass().getCanonicalName());
+    String message = String.format("java -cp qa-catalogue.jar %s [options] [file]", this.getClass().getCanonicalName());
     formatter.printHelp(message, options);
   }
 

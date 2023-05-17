@@ -33,7 +33,7 @@ public class Version {
   }
 
   public static String readVersionFromPropertyFile() {
-    String path = "/metadata-qa-marc.version.prop";
+    String path = "/qa-catalogue.version.prop";
     InputStream stream = de.gwdg.metadataqa.marc.cli.Version.class.getResourceAsStream(path);
     if (stream == null) {
       return "UNKNOWN";

@@ -277,8 +277,9 @@ public class CompletenessTest extends CliTestUtils {
         output = new File(outputDir, outputFile);
         assertTrue(output.exists());
         String line = Files.readString(output.toPath());
+        System.err.println(line);
         assertTrue(line.contains("{\"args\":[\""));
-        assertTrue(line.contains("metadata-qa-marc/src/test/resources/pica/pica-with-holdings-info.dat\"],"));
+        assertTrue(line.contains("qa-catalogue/src/test/resources/pica/pica-with-holdings-info.dat\"],"));
         assertTrue(line.contains("\"marcVersion\":\"MARC21\","));
         assertTrue(line.contains("\"marcFormat\":\"PICA_NORMALIZED\","));
         assertTrue(line.contains("\"dataSource\":\"FILE\","));
@@ -291,7 +292,7 @@ public class CompletenessTest extends CliTestUtils {
         assertTrue(line.contains("\"lineSeparated\":false,"));
         assertTrue(line.contains("\"trimId\":false,"));
         assertTrue(line.contains("\"outputDir\":\"/"));
-        assertTrue(line.contains("/metadata-qa-marc/src/test/resources/output\","));
+        assertTrue(line.contains("/qa-catalogue/src/test/resources/output\","));
         assertTrue(line.contains("\"recordIgnorator\":{\"criteria\":[],\"booleanCriteria\":null,\"empty\":true},"));
         assertTrue(line.contains("\"recordFilter\":{\"criteria\":[],\"booleanCriteria\":null,\"empty\":true},"));
         assertTrue(line.contains("\"ignorableFields\":{\"fields\":null,\"empty\":true},"));
@@ -305,7 +306,7 @@ public class CompletenessTest extends CliTestUtils {
         assertTrue(line.contains("\"schemaType\":\"PICA\","));
         assertTrue(line.contains("\"groupBy\":\"001@$0\","));
         assertTrue(line.contains("\"groupListFile\":\"/"));
-        assertTrue(line.contains("metadata-qa-marc/target/test-classes/k10plus-libraries-by-unique-iln.txt\","));
+        assertTrue(line.contains("qa-catalogue/target/test-classes/k10plus-libraries-by-unique-iln.txt\","));
         assertTrue(line.contains("\"format\":\"COMMA_SEPARATED\","));
         assertTrue(line.contains("\"advanced\":false,"));
         assertTrue(line.contains("\"onlyPackages\":false,"));
@@ -313,7 +314,7 @@ public class CompletenessTest extends CliTestUtils {
         assertTrue(line.contains("\"replacementInControlFields\":null,"));
         assertTrue(line.contains("\"marc21\":false,"));
         assertTrue(line.contains("\"mqaf.version\":\"0.9.1\","));
-        assertTrue(line.contains("\"qa-catalogue.version\":\"0.7.0-rc1\"}"));
+        assertTrue(line.contains("\"qa-catalogue.version\":\"0.7.0-rc2\"}"));
 
       } else if (outputFile.equals("libraries.csv")) {
         output = new File(outputDir, outputFile);

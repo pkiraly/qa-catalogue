@@ -25,6 +25,7 @@ hs_err_pid*
 target/*
 .idea/*
 metadata-qa-marc.iml
+qa-catalogue.iml
 temp
 scala/project
 scala/target

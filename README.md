@@ -1134,12 +1134,54 @@ here in a parsed format. It also contains some metadata such as the versions of 
 }
 ```
 
+For union catalogues the `marc-elements.csv` and `packages.csv` have a special version:
+
+* `completeness-groupped-marc-elements.csv` - the same as `marc-elements.csv` but with an extra element `groupId`
+  * `groupId`: the library identifier available in the data element specified by the `--groupBy` parameter. `0` has 
+    a special meaning: all libraries
+
+| groupId | documenttype | path | packageid | package | tag | subfield | number-of-record | number-of-instances | min | max | mean | stddev | histogram |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 350 | all | 044K$9 | 50 | PICA+ bibliograhic description | "Schlagwortfolgen (GBV, SWB, K10plus)" | PPN | 1 | 1 | 1 | 1 | 1.0 | 0.0 | 1=1 |
+| 350 | all | 044K$7 | 50 | PICA+ bibliograhic description | "Schlagwortfolgen (GBV, SWB, K10plus)" | Vorläufiger Link | 1 | 1 | 1 | 1 | 1.0 | 0.0 | 1=1 |
+
+* `completeness-groupped-packages.csv` - the same as `packages.csv` but with an extra element `group`
+  * `group`: the library identifier available in the data element specified by the `--groupBy` parameter. `0` has
+    a special meaning: all libraries
+
+| group | documenttype | packageid | name | label | iscoretag | count |
+| --- | --- | --- | --- | --- | --- | --- |
+| 0 | Druckschriften (einschließlich Bildbänden) | 50 | 0... | PICA+ bibliograhic description | false | 987 |
+| 0 | Druckschriften (einschließlich Bildbänden) | 99 | unknown | unknown origin | false | 3 |
+| 0 | Medienkombination | 50 | 0... | PICA+ bibliograhic description | false | 1 |
+| 0 | Mikroform | 50 | 0... | PICA+ bibliograhic description | false | 11 |
+| 0 | "Tonträger |  Videodatenträger |  Bildliche Darstellungen" | 50 | 0... | PICA+ bibliograhic description | false | 1 |
+| 0 | all | 50 | 0... | PICA+ bibliograhic description | false | 1000 |
+| 0 | all | 99 | unknown | unknown origin | false | 3 |
+| 100 | Druckschriften (einschließlich Bildbänden) | 50 | 0... | PICA+ bibliograhic description | false | 20 |
+| 100 | Medienkombination | 50 | 0... | PICA+ bibliograhic description | false | 1 |
+
+
+* `completeness-groups.csv`: this is available for union catalogues, containing the groups
+  * `id`: the group identifier
+  * `group`: the name of the library
+  * `count`: the number of records from the particular library
+
+| id | group | count |
+| --- | --- | --- |
+| 0 | all | 1000 |
+| 100 | "Otto-von-Guericke-Universität, Universitätsbibliothek Magdeburg [DE-Ma9]" | 21 |
+| 1003 | Kreisarchäologie Rotenburg [DE-MUS-125322...] | 1 |
+| 101 | "Otto-von-Guericke-Universität, Universitätsbibliothek, Medizinische Zentralbibliothek (MZB), Magdeburg [DE-Ma14...]" | 6 |
+| 1012 | Mariengymnasium Jever [DE-Je1] | 19 |
+
+* `id-groupid.csv`: this is the very same file what validation creates. Completeness creates it if it not yet available.
 
 #### post processing completeness result (completeness-sqlite) 
 
 This happens only for union catalogues (where there is a `--groupBy` parameter).
 
-`groupped_marc_elements` table
+`groupped_marc_elements` table for the `completeness-groupped-marc-elements.csv` file.
 ```
 groupId             INTEGER,
 documenttype        TEXT,

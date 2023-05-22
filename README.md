@@ -1011,10 +1011,20 @@ options:
 Output files:
 
 * `marc-elements.csv`: is list of MARC elements (field$subfield) and their occurrences in two ways: 
+  * `documenttype`: the docuemnt types found in the dataset. There is an extra document type: `all` representing all 
+    records
+  * `path`: the notation of the data element
+  * `packageid` and `package`: each path belongs to one package, such as `Control Fields`, and each package has an 
+    internal identifier.
+  * `tag`: the label of tag
+  * `subfield`: the label of subfield
   * `number-of-record`: means how many records they are available,
   * `number-of-instances`: means how many instances are there in total (some records might contain more than one 
     instances, while others don't have them at all)
-
+  * `min`, `max`, `mean`, `stddev` the minimum, maximum, mean and standard deviation of the number of instances per 
+    record (as floating point numbers)
+  * `histogram`: the histogram of the instances (`1=1; 2=1` means: a single instance is available in one record, two 
+    instances are available in one record)
 
 | documenttype | path | packageid | package | tag | subfield | number-of-record | number-of-instances | min | max | mean | stddev | histogram |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1025,7 +1035,6 @@ Output files:
 | all | 340$b | 5 | Physical Description | Physical Medium | Dimensions | 2 | 3 | 1 | 2 | 1.5 | 0.3535533905932738 | 1=1; 2=1 |
 | all | 363$a | 5 | Physical Description | Normalized Date and Sequential Designation | First level of enumeration | 1 | 1 | 1 | 1 | 1.0 | 0.0 | 1=1 |
 | all | 340$a | 5 | Physical Description | Physical Medium | Material base and configuration | 2 | 3 | 1 | 2 | 1.5 | 0.3535533905932738 | 1=1; 2=1 |
-
 
 * `libraries.csv`: list the content of the 852$a (it is useful only if the catalog is an aggregated catalog)
 

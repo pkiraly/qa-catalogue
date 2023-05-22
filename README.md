@@ -1036,13 +1036,32 @@ Output files:
 | all | 363$a | 5 | Physical Description | Normalized Date and Sequential Designation | First level of enumeration | 1 | 1 | 1 | 1 | 1.0 | 0.0 | 1=1 |
 | all | 340$a | 5 | Physical Description | Physical Medium | Material base and configuration | 2 | 3 | 1 | 2 | 1.5 | 0.3535533905932738 | 1=1; 2=1 |
 
+* `packages.csv`: the completeness of packages.
+  * `documenttype`: the document type of the record
+  * `packageid`: the identifier of the package
+  * `name`: name of the package
+  * `label`: label of the package
+  * `iscoretag`: does the package belong to the Library of Congress MARC standard
+  * `count`: the number of records having at least one data element from this package
+
+| documenttype | packageid | name | label | iscoretag | count |
+| --- | --- | --- | --- | --- | --- |
+| all | 1 | 01X-09X | Numbers and Code | true | 1099 |
+| all | 2 | 1XX | Main Entry | true | 816 |
+| all | 6 | 4XX | Series Statement | true | 358 |
+| all | 5 | 3XX | Physical Description | true | 715 |
+| all | 8 | 6XX | Subject Access | true | 514 |
+| all | 4 | 25X-28X | "Edition |  Imprint" | true | 1096 |
+| all | 7 | 5XX | Note | true | 354 |
+| all | 0 | 00X | Control Fields | true | 1099 |
+| all | 99 | unknown | unknown origin | false | 778 |
+
 * `libraries.csv`: list the content of the 852$a (it is useful only if the catalog is an aggregated catalog)
 
 
       "libraries.csv",
       "libraries003.csv",
       "marc-elements.csv",
-      "packages.csv",
       "completeness.params.json"
 
 

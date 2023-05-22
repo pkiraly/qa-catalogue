@@ -524,8 +524,45 @@ total
 ```
 
 * `issue-by-category.csv`: the counts of issues by categories
+
+```csv
+id,category,instances,records
+2,control field,994241,313960
+3,data field,12,12
+4,indicator,5990,5041
+5,subfield,571,555
+```
+ 
 * `issue-by-type.csv`: the count of issues by types (subcategories).
+
+```csv
+id,categoryId,category,type,instances,records
+5,2,control field,"invalid code",951,541
+6,2,control field,"invalid value",993290,313733
+8,3,data field,"repetition of non-repeatable field",12,12
+10,4,indicator,"obsolete value",1,1
+11,4,indicator,"non-empty indicator",33,32
+12,4,indicator,"invalid value",5956,5018
+13,5,subfield,"undefined subfield",48,48
+14,5,subfield,"invalid length",2,2
+15,5,subfield,"invalid classification reference",2,2
+16,5,subfield,"content does not match any patterns",286,275
+17,5,subfield,"repetition of non-repeatable subfield",123,120
+18,5,subfield,"invalid ISBN",5,3
+19,5,subfield,"invalid ISSN",105,105
+```
+ 
 * `issue-summary.csv`: details of individual issues including basic statistics
+
+```csv
+d,MarcPath,categoryId,typeId,type,message,url,instances,records
+53,008/33-34 (008map33),2,5,invalid code,'b' in 'b ',https://www.loc.gov/marc/bibliographic/bd008p.html,1,1
+70,008/00-05 (008all00),2,5,invalid code,Invalid content: '2023  '. Text '2023  ' could not be parsed at index 4,https://www.loc.gov/marc/bibliographic/bd008a.html,1,1
+28,008/22-23 (008map22),2,6,invalid value,| ,https://www.loc.gov/marc/bibliographic/bd008p.html,12,12
+19,008/31 (008book31),2,6,invalid value, ,https://www.loc.gov/marc/bibliographic/bd008b.html,1,1
+17,008/29 (008book29),2,6,invalid value, ,https://www.loc.gov/marc/bibliographic/bd008b.html,1,1
+```
+
 * `issue-details.csv`: list of issues by record identifiers
 * `issue-details-normalized.csv`: the normalized version of the previous file
 * `issue-total.csv`: the number of issue free records, and number of record having issues 

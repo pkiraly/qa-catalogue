@@ -311,34 +311,6 @@ EOF
   else
     log "index (groupped)"
     scripts/sqlite/calculate-aggregated-numbers.groupped.sh ${OUTPUT_DIR} ${NAME}
-
-#    sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.groupped.sqlite.sql &>> ${PREFIX}/sqlite.log
-#    Rscript scripts/sqlite/qa_catalogue.groupping.R ${OUTPUT_DIR} &>> ${PREFIX}/sqlite.log
-
-#    log "import issue_group_types"
-#    tail -n +2 ${OUTPUT_DIR}/issue-groupped-types.csv > ${OUTPUT_DIR}/issue-groupped-types-noheader.csv
-#  sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
-#.mode csv
-#.import ${OUTPUT_DIR}/issue-groupped-types-noheader.csv issue_group_types
-#EOF
-
-#    log "import issue_group_categories"
-#    tail -n +2 ${OUTPUT_DIR}/issue-groupped-categories.csv > ${OUTPUT_DIR}/issue-groupped-categories-noheader.csv
-#  sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
-#.mode csv
-#.import ${OUTPUT_DIR}/issue-groupped-categories-noheader.csv issue_group_categories
-#EOF
-
-#    log "import issue_group_paths"
-#    tail -n +2 ${OUTPUT_DIR}/issue-groupped-paths.csv > ${OUTPUT_DIR}/issue-groupped-paths-noheader.csv
-#  sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
-#.mode csv
-#.import ${OUTPUT_DIR}/issue-groupped-paths-noheader.csv issue_group_paths
-#EOF
-
-#    rm ${OUTPUT_DIR}/issue-groupped-types-noheader.csv
-#    rm ${OUTPUT_DIR}/issue-groupped-categories-noheader.csv
-#    rm ${OUTPUT_DIR}/issue-groupped-paths-noheader.csv
   fi
 }
 

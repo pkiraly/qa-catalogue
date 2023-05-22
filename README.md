@@ -427,7 +427,8 @@ Most of the analyses uses the following general parameters
     record type information. Deafult is `002@$0`.
 * Parameters for groupping analyses
   * `-J <path>`, `--groupBy <path>` group the results by the value of this data 
-    element (e.g. the ILN of  library)
+    element (e.g. the ILN of libraries holding the item). An example: `--groupBy 001@$0`
+    where `001@$0` is the subfield containing the comma separated list of library ILN codes.
   * `-K <file>`, `--groupListFile <file>` the file which contains a list of ILN codes
 
 The last argument of the commands are a list of files. It might contain any 
@@ -807,9 +808,8 @@ or
 [options] are the same as for validation
 
 ##### Catalogue for a single library
-If the data is not groupped by libraries, it creates the following SQLite3 database structure and import some of the 
-CSV 
-files into it:
+If the data is _not_ groupped by libraries (no `--groupBy <path>` parameter), it creates the following SQLite3 database 
+structure and import some of the CSV files into it:
 
 `issue_summary` table for the `issue-summary.csv`:
 ```
@@ -831,6 +831,10 @@ instances  INTEGER
 ```
 
 ##### Union catalogue for multiple libraries
+
+If the dataset is a union catalogue, and the record contains a subfield for the libraries holding the item (there is 
+`--groupBy <path>` parameter), it creates the following SQLite3 database structure and import some of the CSV files 
+into it:
 
 `issue_summary` table for the `issue-summary.csv` (it is similar to the other issue_summary table, but it has an extra
 `groupId` column)
@@ -885,10 +889,10 @@ records    INTEGER,
 instances  INTEGER
 ```
 
-It also creates an extra Solr index with the suffix `_validation`. It contains one Solr document for each 
-bibliographic record with three fields: the record identifier, the list of group identifiers and the list of error 
-identifiers (if any). This Solr index is needed for populating the `issue_group_types`, `issue_group_categories` and
-`issue_group_paths` tables.
+For union catalogues it also creates an extra Solr index with the suffix `_validation`. It contains one Solr document 
+for each  bibliographic record with three fields: the record identifier, the list of group identifiers and the list 
+of error identifiers (if any). This Solr index is needed for populating the `issue_group_types`, `issue_group_categories`
+and `issue_group_paths` tables. This index will be ingested into the main Solr index.
 
 ### Display one MARC record, or extract data elements from MARC records
 

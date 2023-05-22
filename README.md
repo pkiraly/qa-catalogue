@@ -1088,7 +1088,7 @@ here in a parsed format. It also contains some metadata such as the versions of 
 
 ```json
 {
-  "args":["/home/kiru/Documents/marc21/zb//BIBLIOGRAPHIC_22055164410005508_1.xml.gz"],
+  "args":["/path/to/input.xml.gz"],
   "marcVersion":"MARC21",
   "marcFormat":"XML",
   "dataSource":"FILE",
@@ -1100,7 +1100,7 @@ here in a parsed format. It also contains some metadata such as the versions of 
   "marcxml":true,
   "lineSeparated":false,
   "trimId":false,
-  "outputDir":"/home/kiru/Documents/marc21/_output/zb/",
+  "outputDir":"/path/to/_output/",
   "recordIgnorator":{
     "conditions":null,
     "empty":true

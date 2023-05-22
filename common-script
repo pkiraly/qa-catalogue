@@ -71,7 +71,7 @@ do_completeness_sqlite() {
   HAS_GROUP_PARAM=$(echo ${TYPE_PARAMS} | grep -c -P -e '--groupBy [^-]' || true)
 
   if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
-    bash scripts/sqlite/completeness-groupped.sqlite.sh ${OUTPUT_DIR}
+    bash scripts/sqlite/completeness-grouped.sqlite.sh ${OUTPUT_DIR}
   fi
 }
 
@@ -216,10 +216,10 @@ do_marc_history() {
     | sort \
     | uniq -c \
     | sed -r 's/([0-9]) ([0-9uc xwticrka])/\1,\2/' \
-    | sed 's, ,,g' > ${OUTPUT_DIR}/marc-history-groupped.csv 
+    | sed 's, ,,g' > ${OUTPUT_DIR}/marc-history-grouped.csv
   set -x
 
-  Rscript scripts/marc-history/marc-history-groupped.R ${OUTPUT_DIR} &>> ${PREFIX}/marc-history.log
+  Rscript scripts/marc-history/marc-history-grouped.R ${OUTPUT_DIR} &>> ${PREFIX}/marc-history.log
 }
 
 do_record_patterns() {
@@ -229,13 +229,13 @@ do_record_patterns() {
   Rscript scripts/record-patterns/top-fields.R ${OUTPUT_DIR} &>> ${PREFIX}/top-fields.log
   ./record-patterns --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} &> ${PREFIX}/record-patterns.log
 
-  head -1 ${OUTPUT_DIR}/record-patterns.csv | sed -e 's/^/count,/' > ${OUTPUT_DIR}/record-patterns-groupped.csv
+  head -1 ${OUTPUT_DIR}/record-patterns.csv | sed -e 's/^/count,/' > ${OUTPUT_DIR}/record-patterns-grouped.csv
   cat ${OUTPUT_DIR}/record-patterns.csv \
     | grep -v "\\$" \
     | sort \
     | uniq -c \
     | sort -n -r \
-    | sed -r 's/^ *([0-9]+) /\1,/' >> ${OUTPUT_DIR}/record-patterns-groupped.csv
+    | sed -r 's/^ *([0-9]+) /\1,/' >> ${OUTPUT_DIR}/record-patterns-grouped.csv
 }
 
 do_version_link() {
@@ -267,8 +267,8 @@ do_validate_sqlite() {
     log "create DB structure"
     sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/qa_catalogue.sqlite.sql
   else
-    log "create DB structure (groupped)"
-    sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/qa_catalogue.groupped.sqlite.sql
+    log "create DB structure (grouped)"
+    sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/qa_catalogue.grouped.sqlite.sql
   fi
 
   log "create importable files"
@@ -309,8 +309,8 @@ EOF
     log "index"
     sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.sql &>> ${PREFIX}/sqlite.log
   else
-    log "index (groupped)"
-    scripts/sqlite/calculate-aggregated-numbers.groupped.sh ${OUTPUT_DIR} ${NAME}
+    log "index (grouped)"
+    scripts/sqlite/calculate-aggregated-numbers.grouped.sh ${OUTPUT_DIR} ${NAME}
   fi
 }
 
@@ -335,8 +335,8 @@ do_mysql() {
     log "create DB structure"
     mysql --defaults-extra-file=mysql.client.cnf ${NAME} < scripts/sqlite/qa_catalogue.mysql.sql
   else
-    log "create DB structure (groupped)"
-    mysql --defaults-extra-file=mysql.client.cnf ${NAME} < scripts/sqlite/qa_catalogue.groupped.mysql.sql
+    log "create DB structure (grouped)"
+    mysql --defaults-extra-file=mysql.client.cnf ${NAME} < scripts/sqlite/qa_catalogue.grouped.mysql.sql
   fi
 
   log "create importable files"
@@ -397,8 +397,8 @@ EOF
     log "index"
     sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.sql &>> ${PREFIX}/mysql.log
   else
-    log "index (groupped)"
-    mysql --defaults-extra-file=mysql.client.cnf ${NAME} < scripts/sqlite/modify-tables.groupped.mysql.sql &>> ${PREFIX}/mysql.log
+    log "index (grouped)"
+    mysql --defaults-extra-file=mysql.client.cnf ${NAME} < scripts/sqlite/modify-tables.grouped.mysql.sql &>> ${PREFIX}/mysql.log
   fi
 }
 
@@ -450,7 +450,7 @@ commands:
   validate                   record validation
   validate-sqlite            import result of validation to SQLite
   completeness               completeness analysis
-  completeness-sqlite        import groupped output of completeness to SQLite
+  completeness-sqlite        import grouped output of completeness to SQLite
   classifications            classification analysis
   authorities                authority analysis
   tt-completeness            Thompson-Traill completeness analysis

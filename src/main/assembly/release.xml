@@ -19,7 +19,7 @@
             <includes>
                 <include>classifications/classifications-type.R</include>
 
-                <include>marc-history/marc-history-groupped.R</include>
+                <include>marc-history/marc-history-grouped.R</include>
 
                 <include>pareto/frequency-range.R</include>
                 <include>pareto/frequency-range-per-types.R</include>

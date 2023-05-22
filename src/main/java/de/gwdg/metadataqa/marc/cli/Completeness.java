@@ -119,15 +119,15 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     for (String path : recordCompleteness.getRecordFrequency().keySet()) {
       if (groupBy != null) {
         for (String groupId : recordCompleteness.getGroupIds()) {
-          completenessDAO.getGrouppedElementFrequency().computeIfAbsent(groupId, s -> new HashMap<>());
-          completenessDAO.getGrouppedElementFrequency().get(groupId).computeIfAbsent(recordCompleteness.getDocumentType(), s -> new HashMap<>());
-          completenessDAO.getGrouppedElementFrequency().get(groupId).computeIfAbsent(ALL_TYPE, s -> new HashMap<>());
-          Utils.count(path, completenessDAO.getGrouppedElementFrequency().get(groupId).get(recordCompleteness.getDocumentType()));
-          Utils.count(path, completenessDAO.getGrouppedElementFrequency().get(groupId).get(ALL_TYPE));
+          completenessDAO.getGroupedElementFrequency().computeIfAbsent(groupId, s -> new HashMap<>());
+          completenessDAO.getGroupedElementFrequency().get(groupId).computeIfAbsent(recordCompleteness.getDocumentType(), s -> new HashMap<>());
+          completenessDAO.getGroupedElementFrequency().get(groupId).computeIfAbsent(ALL_TYPE, s -> new HashMap<>());
+          Utils.count(path, completenessDAO.getGroupedElementFrequency().get(groupId).get(recordCompleteness.getDocumentType()));
+          Utils.count(path, completenessDAO.getGroupedElementFrequency().get(groupId).get(ALL_TYPE));
 
-          completenessDAO.getGrouppedFieldHistogram().computeIfAbsent(groupId, s -> new HashMap<>());
-          completenessDAO.getGrouppedFieldHistogram().get(groupId).computeIfAbsent(path, s -> new HashMap<>());
-          Utils.count(recordCompleteness.getRecordFrequency().get(path), completenessDAO.getGrouppedFieldHistogram().get(groupId).get(path));
+          completenessDAO.getGroupedFieldHistogram().computeIfAbsent(groupId, s -> new HashMap<>());
+          completenessDAO.getGroupedFieldHistogram().get(groupId).computeIfAbsent(path, s -> new HashMap<>());
+          Utils.count(recordCompleteness.getRecordFrequency().get(path), completenessDAO.getGroupedFieldHistogram().get(groupId).get(path));
         }
       } else {
         Utils.count(path, completenessDAO.getElementFrequency().get(recordCompleteness.getDocumentType()));
@@ -140,11 +140,11 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     for (String key : recordCompleteness.getRecordPackageCounter().keySet()) {
       if (groupBy != null) {
         for (String groupId : recordCompleteness.getGroupIds()) {
-          completenessDAO.getGrouppedPackageCounter().computeIfAbsent(groupId, s -> new HashMap<>());
-          completenessDAO.getGrouppedPackageCounter().get(groupId).computeIfAbsent(recordCompleteness.getDocumentType(), s -> new HashMap<>());
-          completenessDAO.getGrouppedPackageCounter().get(groupId).computeIfAbsent(ALL_TYPE, s -> new HashMap<>());
-          Utils.count(key, completenessDAO.getGrouppedPackageCounter().get(groupId).get(recordCompleteness.getDocumentType()));
-          Utils.count(key, completenessDAO.getGrouppedPackageCounter().get(groupId).get(ALL_TYPE));
+          completenessDAO.getGroupedPackageCounter().computeIfAbsent(groupId, s -> new HashMap<>());
+          completenessDAO.getGroupedPackageCounter().get(groupId).computeIfAbsent(recordCompleteness.getDocumentType(), s -> new HashMap<>());
+          completenessDAO.getGroupedPackageCounter().get(groupId).computeIfAbsent(ALL_TYPE, s -> new HashMap<>());
+          Utils.count(key, completenessDAO.getGroupedPackageCounter().get(groupId).get(recordCompleteness.getDocumentType()));
+          Utils.count(key, completenessDAO.getGroupedPackageCounter().get(groupId).get(ALL_TYPE));
         }
       } else {
         completenessDAO.getPackageCounter().computeIfAbsent(recordCompleteness.getDocumentType(), s -> new HashMap<>());
@@ -184,8 +184,8 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     saveLibraries(fileExtension, separator);
     if (groupBy != null) {
       saveGroups(fileExtension, separator);
-      saveGrouppedPackages(fileExtension, separator);
-      saveGrouppedMarcElements(fileExtension, separator);
+      saveGroupedPackages(fileExtension, separator);
+      saveGroupedMarcElements(fileExtension, separator);
     } else {
       savePackages(fileExtension, separator);
       saveMarcElements(fileExtension, separator);
@@ -231,16 +231,16 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     }
   }
 
-  private void saveGrouppedMarcElements(String fileExtension, char separator) {
-    logger.info("saving groupped MARC elements...");
-    Path path = Paths.get(parameters.getOutputDir(), "completeness-groupped-marc-elements" + fileExtension);
+  private void saveGroupedMarcElements(String fileExtension, char separator) {
+    logger.info("saving grouped MARC elements...");
+    Path path = Paths.get(parameters.getOutputDir(), "completeness-grouped-marc-elements" + fileExtension);
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write(CsvUtils.createCsv(
         "groupId", "documenttype", "path", "packageid", "package", "tag", "subfield",
         "number-of-record", "number-of-instances",
         "min", "max", "mean", "stddev", "histogram"
       ));
-      completenessDAO.getGrouppedElementCardinality().forEach((groupId, documentTypes) ->
+      completenessDAO.getGroupedElementCardinality().forEach((groupId, documentTypes) ->
         documentTypes.forEach((documentType, cardinalities) ->
           cardinalities.forEach((marcPath, cardinality) -> {
             try {
@@ -288,12 +288,12 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     }
   }
 
-  private void saveGrouppedPackages(String fileExtension, char separator) {
-    logger.info("saving groupped packages...");
-    var path = Paths.get(parameters.getOutputDir(), "completeness-groupped-packages" + fileExtension);
+  private void saveGroupedPackages(String fileExtension, char separator) {
+    logger.info("saving grouped packages...");
+    var path = Paths.get(parameters.getOutputDir(), "completeness-grouped-packages" + fileExtension);
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write(CsvUtils.createCsv("group", "documenttype", "packageid", "name", "label", "iscoretag", "count"));
-      completenessDAO.getGrouppedPackageCounter()
+      completenessDAO.getGroupedPackageCounter()
         .entrySet()
         .stream()
         .sorted(Map.Entry.comparingByKey())
@@ -399,13 +399,13 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
 
     // Integer cardinality = entry.getValue();
     Integer frequency = (groupId != null)
-      ? completenessDAO.getGrouppedElementFrequency().get(groupId).get(documentType).get(marcPath)
+      ? completenessDAO.getGroupedElementFrequency().get(groupId).get(documentType).get(marcPath)
       : completenessDAO.getElementFrequency().get(documentType).get(marcPath);
 
     Map<Integer, Integer> histogram = null;
     if (groupId != null) {
-      histogram = completenessDAO.getGrouppedFieldHistogram().get(groupId).get(marcPath);
-      if (!completenessDAO.getGrouppedFieldHistogram().get(groupId).containsKey(marcPath)) {
+      histogram = completenessDAO.getGroupedFieldHistogram().get(groupId).get(marcPath);
+      if (!completenessDAO.getGroupedFieldHistogram().get(groupId).containsKey(marcPath)) {
         logger.log(Level.WARNING,"Field {0} is not registered in histogram", marcPath);
       }
     } else {

@@ -109,8 +109,8 @@ public class MarcToSolrTest {
         "--outputDir", outputDir,
         "--solrFieldType", "MIXED",
         "--useEmbedded",
-        "--solrUrl", "http://localhost:8983/solr/k10plus_pica_groupped_dev",
-        "--validationUrl", "http://localhost:8983/solr/k10plus_pica_groupped_validation",
+        "--solrUrl", "http://localhost:8983/solr/k10plus_pica_grouped_dev",
+        "--validationUrl", "http://localhost:8983/solr/k10plus_pica_grouped_validation",
         getPath("src/test/resources/pica/pica-with-holdings-info.dat")
       });
       EmbeddedSolrServer mainClient = EmbeddedSolrClientFactory.getClient(coreFromUrl(params.getSolrUrl()));

@@ -3,7 +3,7 @@
 QA catalogue is a set of software packages for bibliographical record quality assessment. It reads MARC or PICA files (in different formats), analyses some  quality dimensions, and saves the results into CSV files. These CSV files could be used in different context, we provide a lightweight, web-based [user interface](#user-interface) for that. Some of the functionalities are available as a [web service](https://github.com/pkiraly/metadata-qa-marc-ws), so the validation could be built into a cataloguing/quality assessment workflow.
 
 ![Output sample](https://github.com/pkiraly/metadata-qa-marc-web/raw/gh-pages/img/issues-v1.gif)
-Screenshot from the web UI of the QA cataloge
+Screenshot from the web UI of the QA catalogue
 
 * For more info
   * main project page: [Metadata Quality Assessment Framework](http://pkiraly.github.io)
@@ -22,7 +22,7 @@ Screenshot from the web UI of the QA cataloge
   [Appendix I: Where can I get MARC records?](#datasources) of this document.
 
 ## Table of Contents
-* [Quick start quide](#quick-start-guide)
+* [Quick start guide](#quick-start-guide)
   * [Installation](#installation)
   * [Configuration](#configuration)
   * [With Docker](#with-docker)
@@ -51,7 +51,7 @@ Screenshot from the web UI of the QA cataloge
     * [Import tables to SQLite](#import-tables-to-sqlite)
     * [Indexing MARC records with Solr](#indexing-marc-records-with-solr)
       * [MARC tags format](#marc-tags-format)
-      * [Human readable format](#human-readable-format)
+      * [Human-readable format](#human-readable-format)
       * [Mixed format](#mixed-format)
     * [Indexing MARC JSON records with Solr](#indexing-marc-json-records-with-solr)
     * [Export mapping table](#export-mapping-table)
@@ -82,7 +82,8 @@ See `INSTALL.md` for dependencies.
 
 4. `cp setdir.sh.template setdir.sh`
 
-Change the input and output base directories in `setdir.sh`. Local directories `input/` and `output/` will be used by default. Files of each catalogue are in a subdirectory of theses base directories:
+Change the input and output base directories in `setdir.sh`. Local directories `input/` and `output/` will be used by
+default. Files of each catalogue are in a subdirectory of theses base directories:
 
 5. Create configuration based on some existing config files:
  * cp catalogues/loc.sh catalogues/[abbreviation-of-your-library].sh
@@ -90,7 +91,7 @@ Change the input and output base directories in `setdir.sh`. Local directories `
 
 ### With docker
 
-An experimental Docker image is publicly available in Docker Hub. This imsage
+An experimental Docker image is publicly available in Docker Hub. This image
 contain an Ubuntu 20.04 with Java, R and the current software. No installation
 is needed (given you have a Docker running environment). You only have to
 specify the directory on your local machine where the MARC files are located.
@@ -139,7 +140,7 @@ catalogues/[abbreviation-of-your-library].sh all-analyses
 catalogues/[abbreviation-of-your-library].sh all-solr
 ```
 
-For a catalogue with around 1 milion record the first command will take 5-10
+For a catalogue with around 1 million record the first command will take 5-10
 minutes, the later 1-2 hours.
 
 ## build
@@ -167,7 +168,7 @@ mvn clean install
 
 The released versions of the software is available from Maven Central
 repository. The stable releases (currently 0.6.0) is available from all Maven
-repos, while the developer version (*-SNAPSHOT) is avalable only from the 
+repos, while the developer version (*-SNAPSHOT) is available only from the 
 [Sonatype Maven repository]
 (https://oss.sonatype.org/content/repositories/snapshots/de/gwdg/metadataqa/metadata-qa-marc/0.5.0/).
 What you need to select is the file `metadata-qa-marc-0.6.0-jar-with-dependencies.jar`. 
@@ -197,7 +198,7 @@ The tool comes with some bash helper scripts to run all these with default
 values. The generic scripts locate in the root directory and library specific
 configuration like scripts exist in the `catalogues` directory. You can find
 predefined scripts for several library catalogues (if you want to run it, first
-you have to configure it). All these scrips mainly contain configuration and
+you have to configure it). All these scrips mainly contain configuration, and
 then it calls the central `common-script` which contains the functions.
 
 If you do not want to 
@@ -273,7 +274,7 @@ Three variables are important here:
 1. `NAME` is a name for the output directory. The analysis result will land
    under $BASE_OUTPUT_DIR/$NAME directory
 2. `MARC_DIR` is the location of MARC files. All the files should be in the
-   same direcory
+   same directory
 3. `MASK` is a file mask, such as *.mrc or *.marc
 
 You can add here any other parameters this document mentioned at the description
@@ -293,7 +294,7 @@ library specific configuration file:
 
 | variable      | `metadata-qa.sh`  | description  | default |
 | ------------- | ----------------- | ------------ | ------- |
-| `NAME`        | `-n`/`--name`     | name of the catalouge | metadata-qa |
+| `NAME`        | `-n`/`--name`     | name of the catalogue | metadata-qa |
 | `TYPE_PARAMS` | `-p`/`--params`   | parameters to pass to individual tasks (see below) | |
 | `MASK`        | `-m`/`--mask`     | a file mask, e.g. `*.mrc` | |
 | `VERSION`     | `-v`/`--version`  | optional version number/date of the catalogue to compare changes | |
@@ -331,8 +332,8 @@ Most of the analyses uses the following general parameters
   * `BL`, fields available at the British Library
   * `MARC21NO`, fields available at the MARC21 profile for Norwegian public libraries
   * `UVA`, fields available at the University of Amsterdam Library
-  * `B3KAT`, fields available at the B3Kat union catalogue of Bibliotheksverbundes
-    Bayern (BVB) and Kooperativen Bibliotheksverbundes Berlin-Brandenburg (KOBV)
+  * `B3KAT`, fields available at the B3Kat union catalogue of Bibliotheksverbundes Bayern (BVB)
+     and Kooperativen Bibliotheksverbundes Berlin-Brandenburg (KOBV)
   * `KBR`, fields available at KBR, the national library of Belgium
 * `-n`, `--nolog` do not display log messages
 * parameters to limit the validation:
@@ -343,10 +344,10 @@ Most of the analyses uses the following general parameters
   * `-o [number]`, `--offset [number]` starts validation at the given
     Nth record
   * `-z [list of tags]`, `--ignorableFields [list of tags]` do NOT
-    validate the selected fields. The list should contains the tags
+    validate the selected fields. The list should contain the tags
     separated by commas (`,`), e.g. `--ignorableFields A02,AQN`
   * `-v [selector]`, `--ignorableRecords [selector]` do NOT validate
-    the records which match the condition denotet by the selector.
+    the records which match the condition denoted by the selector.
     The selector is a test MARCspec string e.g.
     `--ignorableRecords STA$a=SUPPRESSED`. It ignores the records which
     has `STA` field with an `a` subfield with the value `SUPPRESSED`.
@@ -379,7 +380,7 @@ Most of the analyses uses the following general parameters
   * `ALEPHSEQ`: Alephseq (shortcuts: `-p`, `--alephseq`)
   * `LINE_SEPARATED`: Line separated binary MARC where each line contains one
     record) (shortcuts: `-y`, `--lineSeparated`)
-  * `MARC_LINE`: MARC Line line separated format i.e. it is a text file, where
+  * `MARC_LINE`: MARC Line is a line-separated format i.e. it is a text file, where
     each line is a distinct field, the same way as MARC records are usually
     displayed in the MARC21 standard documentation.
   * `MARCMAKER`: MARCMaker format
@@ -418,14 +419,14 @@ Most of the analyses uses the following general parameters
   `base64:"$(echo '002@.0 !~ "^L" && 002@.0 !~ "^..[iktN]" && (002@.0 !~ "^.v" || 021A.a?)' | base64 -w 0)`.
 * PICA related parameters
   * `-B <path>`, `--picaIdField <path>` the record identifier 
-    subfield of PICA records. Deafult is `003@$0`.
+    subfield of PICA records. Default is `003@$0`.
   * `-D <char>`, `--picaSubfieldSeparator <char>` the PICA subfield separator.
-    Deafult is `$`.
+    Default is `$`.
   * `-E <file>`, `--picaSchemaFile <file>` an Avram schema file, which describes
     the structure of PICA records
   * `-G <path>`, `--picaRecordType <path>` The PICA subfield which stores the
-    record type information. Deafult is `002@$0`.
-* Parameters for groupping analyses
+    record type information. Default is `002@$0`.
+* Parameters for grouping analyses
   * `-J <path>`, `--groupBy <path>` group the results by the value of this data 
     element (e.g. the ILN of libraries holding the item). An example: `--groupBy 001@$0`
     where `001@$0` is the subfield containing the comma separated list of library ILN codes.
@@ -477,8 +478,8 @@ options:
   * `-h`, `--details`: provides record level details of the issues
 * output parameters:
   * `-g <file>`, `--summaryFileName <file>`: the name of summary report the
-    program produces. The file provides a summary of issues,  such as the
-    number of instance and number of records having the particular issue)
+    program produces. The file provides a summary of issues, such as the
+    number of instance and number of records having the particular issue.
   * `-f <file>`, `--detailsFileName <file>`: the name of report the program
     produces. Default is `validation-report.txt`. If you use "stdout", it won't
     create file, but put results into the standard output.
@@ -488,7 +489,7 @@ options:
     * `comma-separated` or `csv`
 * `-w`, `--emptyLargeCollectors`: the output files are created during the
   process and not only at the end of it. It helps in memory  management if the
-  input is large and it has lots of errors, on the other hand the output file
+  input is large, and it has lots of errors, on the other hand the output file
   will be segmented, which should be handled after the process.
 * `-t`, `--collectAllErrors`: collect all errors (useful only for validating
   small number of records). Default is turned off.
@@ -565,7 +566,7 @@ id,MarcPath,categoryId,typeId,type,message,url,instances,records
 ```
 
 * `issue-details.csv`: list of issues by record identifiers. It has two columns, the record identifier, and a 
-  complex string, which contains the number of occurences of each indiviual isses oncatenated by semicolon.
+  complex string, which contains the number of occurrences of each individual issue concatenated by semicolon.
 
 ```csv
 recordId,errors
@@ -575,9 +576,9 @@ recordId,errors
 99117335059505508,3:1
 ```
 
-`1:2;2:1;3:1` means that 3 different types of issues are occured in the record, the firs issue which has issue ID 1 
-occured twice, issue ID 2 which occured once and issue ID 3, which occured once. The issue IDs can be resulved from the
-`issue-summary.csv` file's firs column.
+`1:2;2:1;3:1` means that 3 different types of issues are occurred in the record, the firs issue which has issue ID 1 
+occurred twice, issue ID 2 which occurred once and issue ID 3, which occurred once. The issue IDs can be resolved 
+from the `issue-summary.csv` file's firs column.
 
 * `issue-details-normalized.csv`: the normalized version of the previous file
 
@@ -808,7 +809,7 @@ or
 [options] are the same as for validation
 
 ##### Catalogue for a single library
-If the data is _not_ groupped by libraries (no `--groupBy <path>` parameter), it creates the following SQLite3 database 
+If the data is _not_ grouped by libraries (no `--groupBy <path>` parameter), it creates the following SQLite3 database 
 structure and import some of the CSV files into it:
 
 `issue_summary` table for the `issue-summary.csv`:
@@ -1011,7 +1012,7 @@ options:
 Output files:
 
 * `marc-elements.csv`: is list of MARC elements (field$subfield) and their occurrences in two ways: 
-  * `documenttype`: the docuemnt types found in the dataset. There is an extra document type: `all` representing all 
+  * `documenttype`: the document types found in the dataset. There is an extra document type: `all` representing all 
     records
   * `path`: the notation of the data element
   * `packageid` and `package`: each path belongs to one package, such as `Control Fields`, and each package has an 
@@ -1136,30 +1137,30 @@ here in a parsed format. It also contains some metadata such as the versions of 
 
 For union catalogues the `marc-elements.csv` and `packages.csv` have a special version:
 
-* `completeness-groupped-marc-elements.csv` - the same as `marc-elements.csv` but with an extra element `groupId`
+* `completeness-grouped-marc-elements.csv` - the same as `marc-elements.csv` but with an extra element `groupId`
   * `groupId`: the library identifier available in the data element specified by the `--groupBy` parameter. `0` has 
     a special meaning: all libraries
 
 | groupId | documenttype | path | packageid | package | tag | subfield | number-of-record | number-of-instances | min | max | mean | stddev | histogram |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 350 | all | 044K$9 | 50 | PICA+ bibliograhic description | "Schlagwortfolgen (GBV, SWB, K10plus)" | PPN | 1 | 1 | 1 | 1 | 1.0 | 0.0 | 1=1 |
-| 350 | all | 044K$7 | 50 | PICA+ bibliograhic description | "Schlagwortfolgen (GBV, SWB, K10plus)" | Vorläufiger Link | 1 | 1 | 1 | 1 | 1.0 | 0.0 | 1=1 |
+| 350 | all | 044K$9 | 50 | PICA+ bibliographic description | "Schlagwortfolgen (GBV, SWB, K10plus)" | PPN | 1 | 1 | 1 | 1 | 1.0 | 0.0 | 1=1 |
+| 350 | all | 044K$7 | 50 | PICA+ bibliographic description | "Schlagwortfolgen (GBV, SWB, K10plus)" | Vorläufiger Link | 1 | 1 | 1 | 1 | 1.0 | 0.0 | 1=1 |
 
-* `completeness-groupped-packages.csv` - the same as `packages.csv` but with an extra element `group`
+* `completeness-grouped-packages.csv` - the same as `packages.csv` but with an extra element `group`
   * `group`: the library identifier available in the data element specified by the `--groupBy` parameter. `0` has
     a special meaning: all libraries
 
 | group | documenttype                                         | packageid | name | label | iscoretag | count |
 | --- |------------------------------------------------------| --- | --- | --- | --- | --- |
-| 0 | Druckschriften (einschließlich Bildbänden)           | 50 | 0... | PICA+ bibliograhic description | false | 987 |
+| 0 | Druckschriften (einschließlich Bildbänden)           | 50 | 0... | PICA+ bibliographic description | false | 987 |
 | 0 | Druckschriften (einschließlich Bildbänden)           | 99 | unknown | unknown origin | false | 3 |
-| 0 | Medienkombination                                    | 50 | 0... | PICA+ bibliograhic description | false | 1 |
-| 0 | Mikroform                                            | 50 | 0... | PICA+ bibliograhic description | false | 11 |
-| 0 | Tonträger, Videodatenträger, Bildliche Darstellungen | 50 | 0... | PICA+ bibliograhic description | false | 1 |
-| 0 | all                                                  | 50 | 0... | PICA+ bibliograhic description | false | 1000 |
+| 0 | Medienkombination                                    | 50 | 0... | PICA+ bibliographic description | false | 1 |
+| 0 | Mikroform                                            | 50 | 0... | PICA+ bibliographic description | false | 11 |
+| 0 | Tonträger, Videodatenträger, Bildliche Darstellungen | 50 | 0... | PICA+ bibliographic description | false | 1 |
+| 0 | all                                                  | 50 | 0... | PICA+ bibliographic description | false | 1000 |
 | 0 | all                                                  | 99 | unknown | unknown origin | false | 3 |
-| 100 | Druckschriften (einschließlich Bildbänden)           | 50 | 0... | PICA+ bibliograhic description | false | 20 |
-| 100 | Medienkombination                                    | 50 | 0... | PICA+ bibliograhic description | false | 1 |
+| 100 | Druckschriften (einschließlich Bildbänden)           | 50 | 0... | PICA+ bibliographic description | false | 20 |
+| 100 | Medienkombination                                    | 50 | 0... | PICA+ bibliographic description | false | 1 |
 
 
 * `completeness-groups.csv`: this is available for union catalogues, containing the groups
@@ -1181,7 +1182,7 @@ For union catalogues the `marc-elements.csv` and `packages.csv` have a special v
 
 This happens only for union catalogues (where there is a `--groupBy` parameter).
 
-`groupped_marc_elements` table for the `completeness-groupped-marc-elements.csv` file.
+`grouped_marc_elements` table for the `completeness-grouped-marc-elements.csv` file.
 ```
 groupId             INTEGER,
 documenttype        TEXT,
@@ -1257,11 +1258,11 @@ different suppliers. 50 libraries participated in the survey, each selected
 which fields are important to them. The report listed those fields which gets
 the highest scores.
 
-The current calculation based on this list of essentian fields. If all data
-elements specified are available in the record it gets the full scrore, if only
+The current calculation based on this list of essential fields. If all data
+elements specified are available in the record it gets the full score, if only
 some of them, it gets a proportional score. E.g. under 250 (edition statement)
 there are two subfields. If both are available, it gets score 44. If only one
-of them, it gets the half of it, 22, and if none, it gets 0. For 1XX,, 6XX, 7XX
+of them, it gets the half of it, 22, and if none, it gets 0. For 1XX, 6XX, 7XX
 and 8XX the record gets the full scores if at least one of those fields (with
 subfield $a) is available. The total score became the average. The theoretical
 maximum score would be 28.44, which could be accessed if all the data elements
@@ -1436,14 +1437,14 @@ Revision: September 17, 2003. https://www.loc.gov/marc/marc-functional-analysis/
 This analysis shows how these functions are supported by the records. Low
 support means that only small portion of the fields support a function are
 available in the records, strong support on the contrary means lots of fields
-are available. The analyses calculates the support of 12 functions for each
-records, and returns summary statistics.
+are available. The analyses calculate the support of 12 functions for each
+record, and returns summary statistics.
 
 It is an experimental feature because it turned out, that the mapping covers
-about 2000 elements (fields, subfields, indicatiors etc.), however on an
+about 2000 elements (fields, subfields, indicators etc.), however on an
 average record there are max several hundred elements, which results that even
 in the best record has about 10-15% of the totality of the elements supporting
-a given function. So the tool doesn't shows you exact numbers, and the scale
+a given function. So the tool doesn't show you exact numbers, and the scale
 is not 0-100 but 0-[best score] which is different for every catalogue.
 
 The 12 functions:
@@ -1512,7 +1513,7 @@ Output files:
 * `functional-analysis-mapping.csv`: the mapping of functions and data
   elements
 * `functional-analysis-histogram.csv`: the histogram of scores and count of
-  records for each functions (e.g. there are _x_ number of records which has
+  records for each function (e.g. there are _x_ number of records which has
   _j_ score for function _a_)
 
 ### Field frequency distribution
@@ -1520,9 +1521,9 @@ Output files:
 This analysis reveals the relative importance of some fields. Pareto's
 distribution is a kind of power law distribution, and Pareto-rule of 80-20
 rules states that 80% of outcomes are due to 20% of causes. In catalogue
-outcome is the total occurences of the data element, causes are individual
+outcome is the total occurrences of the data element, causes are individual
 data elements. In catalogues some data elements occurs much more frequently
-then others. This analyses highlights the distibution of the data elements:
+then others. This analyses highlights the distribution of the data elements:
 whether it is similar to Pareto's distribution or not.
 
 It produces charts for each document type and one for the whole catalogue
@@ -1604,7 +1605,7 @@ Set autocommit the following way in solrconfig.xml (inside Solr):
       <maxDocs>5000</maxDocs>
       <openSearcher>true</openSearcher>
     </autoCommit>
-...
+    ...
     <autoSoftCommit>
       <maxTime>${solr.autoSoftCommit.maxTime:-1}</maxTime>
     </autoSoftCommit>
@@ -1663,12 +1664,12 @@ options:
    * `marc-tags` - the field names are MARC codes
    * `human-readable` - the field names are 
      [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/)
-   * `mixed` - the field names are mixed of the aboves (e.g. `245a_Title_mainTitle`)
+   * `mixed` - the field names are mixed of the above (e.g. `245a_Title_mainTitle`)
 
 The Solr URL is something like this: http://localhost:8983/solr/loc. It uses
 the [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/),
-in which encoded values are decoded to human readble values (e.g. Leader/5 = "c"
-becames Leader_recordStatus = "Corrected or revised") so a record looks like this:
+in which encoded values are decoded to human-readable values (e.g. Leader/5 = "c"
+becomes Leader_recordStatus = "Corrected or revised") so a record looks like this:
 
 ```JSON
 {
@@ -1808,8 +1809,7 @@ becames Leader_recordStatus = "Corrected or revised") so a record looks like thi
 ```
 
 I have created a distinct project [metadata-qa-marc-web](https://github.com/pkiraly/metadata-qa-marc-web),
-which provised a single page web application to build a facetted search
-interface for this type of Solr index.
+which provides a single page web application to build a facetted search interface for this type of Solr index.
 
 ### Indexing MARC JSON records with Solr
 
@@ -1848,7 +1848,7 @@ options:
 * `-f`, `--withFrbrFunctions`: with FRBR functions (see Tom Delsey: 
   [Functional analysis of the MARC 21 bibliographic and holdings formats.](https://www.loc.gov/marc/marc-functional-analysis/original_source/analysis.pdf)
   Tech. report, 2nd revision. Library of Congress, 2003.)
-* `-l`, `--withCompilanceLevel`: with compilance levels (national, minimal)
+* `-l`, `--withComplianceLevel`: with compliance levels (national, minimal)
   (see [National Level Full and Minimal Requirements.](https://www.loc.gov/marc/bibliographic/nlr/nlr.html)
   Library of Congress, 1999.)
 
@@ -1929,11 +1929,10 @@ java -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MappingToHtml > mapping.html
 
 ## Extending the functionalities
 
-The project is available from Maven Central, the central respository of open
-source Java projects as jar files. If you want to use it in your Java or Scala
-application, put this code snippet into the list of dependencies:
+The project is available from Maven Central, the central repository of open source Java projects as jar files. If you
+want to use it in your Java or Scala  application, put this code snippet into the list of dependencies:
 
-pom.xml
+`pom.xml`
 
 ```XML
 <dependency>
@@ -1943,7 +1942,7 @@ pom.xml
 </dependency>
 ```
 
-build.sbt
+`build.sbt`
 
 ```bash
 libraryDependencies += "de.gwdg.metadataqa" % "metadata-qa-marc" % "0.6.0"
@@ -1976,7 +1975,7 @@ Here is a list of data sources I am aware of so far:
   2. [Catalog records derived from other sources](http://ered.library.upenn.edu/data/opendata/npau.zip), 6.5M records, MARCXML format, Open Data Commons [ODC-BY](https://opendatacommons.org/licenses/by/), use in accordance with the OCLC [community norms](https://www.oclc.org/worldcat/community/record-use/policy/community-norms.en.html).
 * Yale University &mdash; https://guides.library.yale.edu/c.php?g=923429. Three datasets are available:
   1. Yale-originated records: 1.47M records, MARC21 format, [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
-  2. Worldcat-derived records: 6.16M records, MARC21 format, [ODC-BY](https://www.opendatacommons.org/licenses/by/1.0/)
+  2. WorldCat-derived records: 6.16M records, MARC21 format, [ODC-BY](https://www.opendatacommons.org/licenses/by/1.0/)
   3. Other records (MARC21), independent of Yale and WorldCat, where sharing is permitted. 404K records, MARC21 format.
 * National Library of Medicine (NLM) catalogue records &mdash; https://www.nlm.nih.gov/databases/download/catalog.html. 4.2 million records, NLMXML, MARCXML and MARC21 formats. [NLM Terms and Conditions](https://www.nlm.nih.gov/databases/download/terms_and_conditions.html)
 
@@ -1987,7 +1986,8 @@ Here is a list of data sources I am aware of so far:
 * K10plus-Verbunddatenbank (K10plus union catalogue of Bibliotheksservice-Zentrum Baden Würtemberg (BSZ) and Gemensamer Bibliotheksverbund (GBV)) &mdash; https://swblod.bsz-bw.de/od/. 87M records, MARCXML format, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/).
 
 #### Others
-* Universiteitsbibliotheek Gent &mdash; https://lib.ugent.be/info/exports. Weeky data dump in Aleph Sequential format. It contains some Aleph fields above the standard MARC21 fields. [ODC ODbL](https://opendatacommons.org/licenses/odbl/).
+* Universiteitsbibliotheek Gent &mdash; https://lib.ugent.be/info/exports. Weekly data dump in Aleph Sequential 
+  format. It contains some Aleph fields above the standard MARC21 fields. [ODC ODbL](https://opendatacommons.org/licenses/odbl/).
 * Toronto Public Library &mdash; https://opendata.tplcs.ca/. 2.5 million MARC21 records, [Open Data Policy](http://www.torontopubliclibrary.ca/terms-of-use/library-policies/open-data.jsp)
 * Répertoire International des Sources Musicales &mdash; https://opac.rism.info/index.php?id=8&id=8&L=1. 800K records, MARCXML, RDF/XML, [CC-BY](https://creativecommons.org/licenses/by/4.0/).
 * ETH-Bibliothek (Swiss Federal Institute of Technology in Zurich) &mdash; http://www.library.ethz.ch/ms/Open-Data-an-der-ETH-Bibliothek/Downloads. 2.5M records, MARCXML format.
@@ -1997,11 +1997,12 @@ Here is a list of data sources I am aware of so far:
 * Fennica &mdash; the Finnish National Bibliography provided by the Finnish National Library &mdash; http://data.nationallibrary.fi/download/. 1 million  records, MARCXML, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/).
 * Biblioteka Narodawa (Polish National Library) &mdash; https://data.bn.org.pl/databases. 6.5 million MARC21 records. 
 * Magyar Nemzeti Múzeum (Hungarian National Library) &mdash; https://mnm.hu/hu/kozponti-konyvtar/nyilt-bibliografiai-adatok, 67K records, MARC21, HUNMARC, BIBFRAME, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/)
-* University of Amsterdam Library &mdash; https://uba.uva.nl/en/support/open-data/data-sets-and-publication-channels/data-sets-and-publication-channels.html 2.7 million records, MARCXML, [PDDL](https://opendatacommons.org/licenses/pddl/)/[ODC-BY](https://opendatacommons.org/licenses/by/). Note: the record for books are not downloadable, only other document types. One should request them via the web site.
+* University of Amsterdam Library &mdash; https://uba.uva.nl/en/support/open-data/data-sets-and-publication-channels/data-sets-and-publication-channels.html 2.7 million records, MARCXML, [PDDL](https://opendatacommons.org/licenses/pddl/)/[ODC-BY](https://opendatacommons.org/licenses/by/). Note: the record for books are not downloadable, only other document types. One should request them via the website.
 * Portugal National Library &mdash; https://opendata.bnportugal.gov.pt/downloads.htm. 1.13 million UNIMARC records in MARCXML, RDF XML, JSON, TURTLE and CSV formats. [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/)
 * National Library of Latvia National bibliography (2017–2020) &mdash; https://dati.lnb.lv/. 11K MARCXML records.
 
-Thanks [Johann Rolschewski](https://github.com/jorol/), [Phú](https://twitter.com/herr_tu), and [Hugh Paterson III](https://twitter.com/thejourneyler) for their help in collecting this list! Do you know some more data sources? Please let me know.
+Thanks, [Johann Rolschewski](https://github.com/jorol/), [Phú](https://twitter.com/herr_tu), and [Hugh Paterson III]
+(https://twitter.com/thejourneyler) for their help in collecting this list! Do you know some more data sources? Please let me know.
 
 There are two more datasource worth mention, however they do not provide MARC records, but derivatives:
 
@@ -2131,7 +2132,7 @@ public class Tag020 extends DataFieldDefinition {
 * [Studijní a vědecká knihovna Plzeňského kraje](https://svkpk.cz/), Plzeň, Czech Republic
 * [Royal Library of Belgium (KBR)](https://kbr.be/), Brussels, Belgium
 * [Gemeinsamer Bibliotheksverbund (GBV)](https://www.gbv.de/informationen/Verbund/), Göttingen, Germany
-* [Bighampton University Libraries](https://www.binghamton.edu/libraries/), Bighampton, NY, USA
+* [Binghampton University Libraries](https://www.binghamton.edu/libraries/), Binghampton, NY, USA
 
 If you use this tool as well, please contact me: pkiraly (at) gwdg (dot) de. I
 really like to hear about your use case and ideas.
@@ -2163,13 +2164,13 @@ mvn clean install
 docker-compose -f docker-compose.yml build app
 # start the container
 docker run \
-  -d \                                              # run in backgroud
+  -d \                                              # run in background
   -v [local-MARC-dir]:/opt/metadata-qa-marc/marc \  # map the local directory of MARC files
   -p 8983:8983 -p 80:80 \                           # expose Solr and Apache ports (as host:container)
   --name metadata-qa-marc \                         # name of the container
   metadata-qa-marc                                  # name of the image
 # run analyses
-docker exec \                                       # execure a command
+docker exec \                                       # execute a command
   -t -i metadata-qa-marc \                          # inside the container
   ./metadata-qa.sh \                                # the name of the command to run
   --params "--marcVersion GENT --alephseq"          # the parameters used in analyses 

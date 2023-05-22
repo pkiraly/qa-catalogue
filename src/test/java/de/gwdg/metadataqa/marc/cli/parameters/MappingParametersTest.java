@@ -73,7 +73,7 @@ public class MappingParametersTest {
 
   @Test
   public void doExportCompilanceLevel() {
-    String[] arguments = new String[]{"--withCompilanceLevel", "a-marc-file.mrc"};
+    String[] arguments = new String[]{"--withComplianceLevel", "a-marc-file.mrc"};
     try {
       parameters = new MappingParameters(arguments);
     } catch (ParseException e) {

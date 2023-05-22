@@ -22,7 +22,7 @@ public class CompletenessTest extends CliTestUtils {
   private String inputFile;
   private String outputDir;
   private List<String> outputFiles;
-  private List<String> grouppedOutputFiles;
+  private List<String> groupedOutputFiles;
 
   @Before
   public void setUp() throws Exception {
@@ -35,12 +35,12 @@ public class CompletenessTest extends CliTestUtils {
       "packages.csv",
       "completeness.params.json"
     );
-    grouppedOutputFiles = Arrays.asList(
+    groupedOutputFiles = Arrays.asList(
       "libraries.csv",
       "libraries003.csv",
       "completeness-groups.csv",
-      "completeness-groupped-marc-elements.csv",
-      "completeness-groupped-packages.csv",
+      "completeness-grouped-marc-elements.csv",
+      "completeness-grouped-packages.csv",
       "completeness.params.json",
       "id-groupid.csv"
     );
@@ -100,7 +100,7 @@ public class CompletenessTest extends CliTestUtils {
 
   @Test
   public void completeness_pica_groupBy() throws Exception {
-    clearOutput(outputDir, grouppedOutputFiles);
+    clearOutput(outputDir, groupedOutputFiles);
 
     String inputFile = getPath("src/test/resources/pica/pica-with-holdings-info.dat");
     assertTrue(new File(inputFile).exists());
@@ -115,10 +115,10 @@ public class CompletenessTest extends CliTestUtils {
     RecordIterator iterator = new RecordIterator(processor);
     iterator.start();
 
-    for (String outputFile : grouppedOutputFiles) {
+    for (String outputFile : groupedOutputFiles) {
       File output = new File(outputDir, outputFile);
       assertTrue(outputFile + " should exist", output.exists());
-      if (outputFile.equals("completeness-groupped-marc-elements.csv")) {
+      if (outputFile.equals("completeness-grouped-marc-elements.csv")) {
         CSVReader reader = new CSVReader(new FileReader(output));
         String[] record;
         int lineNr = 0;
@@ -151,7 +151,7 @@ public class CompletenessTest extends CliTestUtils {
 
   @Test
   public void completeness_pica_groupBy_file() throws Exception {
-    clearOutput(outputDir, grouppedOutputFiles);
+    clearOutput(outputDir, groupedOutputFiles);
 
     Completeness processor = new Completeness(new String[]{
       "--schemaType", "PICA",
@@ -165,10 +165,10 @@ public class CompletenessTest extends CliTestUtils {
     RecordIterator iterator = new RecordIterator(processor);
     iterator.start();
 
-    for (String outputFile : grouppedOutputFiles) {
+    for (String outputFile : groupedOutputFiles) {
       File output = new File(outputDir, outputFile);
       assertTrue(outputFile + " should exist", output.exists());
-      if (outputFile.equals("completeness-groupped-marc-elements.csv")) {
+      if (outputFile.equals("completeness-grouped-marc-elements.csv")) {
         CSVReader reader = new CSVReader(new FileReader(output));
         String[] record;
         int lineNr = 0;
@@ -249,16 +249,16 @@ public class CompletenessTest extends CliTestUtils {
             "92,\"Landesbibliothek Mecklenburg-Vorpommern (LBMV), Schwerin [DE-33]\",1\n",
           actual);
 
-      } else if (outputFile.equals("completeness-groupped-packages.csv")) {
+      } else if (outputFile.equals("completeness-grouped-packages.csv")) {
         output = new File(outputDir, outputFile);
         assertTrue(output.exists());
         List<String> lines = FileUtils.readLinesFromFile(output.toPath().toString());
         assertEquals("group,documenttype,packageid,name,label,iscoretag,count", lines.get(0));
-        assertEquals("0,Druckschriften (einschließlich Bildbänden),50,0...,PICA+ bibliograhic description,false,10", lines.get(1));
+        assertEquals("0,Druckschriften (einschließlich Bildbänden),50,0...,PICA+ bibliographic description,false,10", lines.get(1));
         assertEquals("0,Druckschriften (einschließlich Bildbänden),99,unknown,unknown origin,false,10", lines.get(2));
-        assertEquals("0,all,50,0...,PICA+ bibliograhic description,false,10", lines.get(3));
+        assertEquals("0,all,50,0...,PICA+ bibliographic description,false,10", lines.get(3));
         assertEquals("0,all,99,unknown,unknown origin,false,10", lines.get(4));
-        assertEquals("100,Druckschriften (einschließlich Bildbänden),50,0...,PICA+ bibliograhic description,false,1", lines.get(5));
+        assertEquals("100,Druckschriften (einschließlich Bildbänden),50,0...,PICA+ bibliographic description,false,1", lines.get(5));
         assertEquals("100,Druckschriften (einschließlich Bildbänden),99,unknown,unknown origin,false,1", lines.get(6));
 
       } else if (outputFile.equals("id-groupid.csv")) {

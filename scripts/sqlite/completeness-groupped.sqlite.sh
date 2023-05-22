@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Strores completeness-groupped-marc-elements.csv into SQLite
+# Strores completeness-grouped-marc-elements.csv into SQLite
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 
@@ -13,9 +13,9 @@ log() {
 
 OUTPUT_DIR=$1
 
-log "create table groupped_marc_elements"
+log "create table grouped_marc_elements"
 sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
-CREATE TABLE IF NOT EXISTS "groupped_marc_elements" (
+CREATE TABLE IF NOT EXISTS "grouped_marc_elements" (
   "groupId"             INTEGER,
   "documenttype"        TEXT,
   "path"                TEXT,
@@ -31,23 +31,23 @@ CREATE TABLE IF NOT EXISTS "groupped_marc_elements" (
   "stddev"              REAL,
   "histogram"           TEXT
 );
-CREATE INDEX IF NOT EXISTS "gme_groupId" ON "groupped_marc_elements" ("groupId");
-CREATE INDEX IF NOT EXISTS "gme_documenttype" ON "groupped_marc_elements" ("documenttype");
+CREATE INDEX IF NOT EXISTS "gme_groupId" ON "grouped_marc_elements" ("groupId");
+CREATE INDEX IF NOT EXISTS "gme_documenttype" ON "grouped_marc_elements" ("documenttype");
 EOF
 
-log "clean groupped_marc_elements"
+log "clean grouped_marc_elements"
 sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
-DELETE FROM groupped_marc_elements;
+DELETE FROM grouped_marc_elements;
 EOF
 
 log "create headless CSV"
-tail -n +2 ${OUTPUT_DIR}/completeness-groupped-marc-elements.csv > ${OUTPUT_DIR}/completeness-groupped-marc-elements-noheader.csv
+tail -n +2 ${OUTPUT_DIR}/completeness-grouped-marc-elements.csv > ${OUTPUT_DIR}/completeness-grouped-marc-elements-noheader.csv
 
 log "import marc elements"
 sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
 .mode csv
-.import ${OUTPUT_DIR}/completeness-groupped-marc-elements-noheader.csv groupped_marc_elements
+.import ${OUTPUT_DIR}/completeness-grouped-marc-elements-noheader.csv grouped_marc_elements
 EOF
 
 log "drop headless CSV"
-rm ${OUTPUT_DIR}/completeness-groupped-marc-elements-noheader.csv
+rm ${OUTPUT_DIR}/completeness-grouped-marc-elements-noheader.csv

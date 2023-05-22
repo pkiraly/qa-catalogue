@@ -20,7 +20,7 @@ public class ValidatorCliTest extends CliTestUtils {
 
   private String outputDir;
   private List<String> outputFiles;
-  private List<String> grouppedOutputFiles;
+  private List<String> groupedOutputFiles;
 
   @Before
   public void setUp() throws Exception {
@@ -35,7 +35,7 @@ public class ValidatorCliTest extends CliTestUtils {
       "issue-total.csv",
       "validation.params.json"
     );
-    grouppedOutputFiles = Arrays.asList(
+    groupedOutputFiles = Arrays.asList(
       "count.csv",
       "issue-details.csv",
       "issue-summary.csv",
@@ -49,7 +49,7 @@ public class ValidatorCliTest extends CliTestUtils {
 
   @Test
   public void validate_pica_normal() throws Exception {
-    clearOutput(outputDir, grouppedOutputFiles);
+    clearOutput(outputDir, groupedOutputFiles);
 
     ValidatorCli processor = new ValidatorCli(new String[]{
       "--schemaType", "PICA",
@@ -68,7 +68,7 @@ public class ValidatorCliTest extends CliTestUtils {
     iterator.start();
     assertEquals("done", iterator.getStatus());
 
-    for (String outputFile : grouppedOutputFiles) {
+    for (String outputFile : groupedOutputFiles) {
       File output = new File(outputDir, outputFile);
       assertTrue(outputFile + " should exist", output.exists());
       List<String> lines = FileUtils.readLinesFromFile("src/test/resources/output/" + outputFile);
@@ -126,7 +126,7 @@ public class ValidatorCliTest extends CliTestUtils {
 
   @Test
   public void validate_pica_groupBy() throws Exception {
-    clearOutput(outputDir, grouppedOutputFiles);
+    clearOutput(outputDir, groupedOutputFiles);
 
     ValidatorCli processor = new ValidatorCli(new String[]{
       "--schemaType", "PICA",
@@ -140,14 +140,14 @@ public class ValidatorCliTest extends CliTestUtils {
       "--defaultRecordType", "BOOKS",
       "--detailsFileName", "issue-details.csv",
       "--summaryFileName", "issue-summary.csv",
-      // "/home/kiru/Documents/marc21/k10plus_pica_groupped/pica-with-holdings-info-1M.dat"
+      // "/home/kiru/Documents/marc21/k10plus_pica_grouped/pica-with-holdings-info-1M.dat"
       getPath("src/test/resources/pica/pica-with-holdings-info.dat")
     });
     RecordIterator iterator = new RecordIterator(processor);
     iterator.start();
     assertEquals(iterator.getStatus(), "done");
 
-    for (String outputFile : grouppedOutputFiles) {
+    for (String outputFile : groupedOutputFiles) {
       File output = new File(outputDir, outputFile);
       assertTrue(outputFile + " should exist", output.exists());
       List<String> lines = FileUtils.readLinesFromFile("src/test/resources/output/" + outputFile);

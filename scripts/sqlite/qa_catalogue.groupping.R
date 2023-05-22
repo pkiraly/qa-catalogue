@@ -118,14 +118,14 @@ for (i in 1:len) {
   
 }
 
-file <- sprintf('%s/%s', OUTPUT_DIR, 'issue-groupped-types.csv')
+file <- sprintf('%s/%s', OUTPUT_DIR, 'issue-grouped-types.csv')
 print(paste("creating", file))
 write_csv(typesDF, file)
 
-file <- sprintf('%s/%s', OUTPUT_DIR, 'issue-groupped-categories.csv')
+file <- sprintf('%s/%s', OUTPUT_DIR, 'issue-grouped-categories.csv')
 print(paste("creating", file))
 write_csv(categoriesDF, file)
 
-file <- sprintf('%s/%s', OUTPUT_DIR, 'issue-groupped-paths.csv')
+file <- sprintf('%s/%s', OUTPUT_DIR, 'issue-grouped-paths.csv')
 print(paste("creating", file))
 write_csv(pathsDF, file)

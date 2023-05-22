@@ -8,7 +8,7 @@ $source_core = $argv[1];
 $target_core = $argv[2];
 
 // $source_core = 'validation';
-// $target_core = 'k10plus_pica_groupped';
+// $target_core = 'k10plus_pica_grouped';
 
 $start = 0;
 $rows = 50;

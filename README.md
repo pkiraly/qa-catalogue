@@ -1015,7 +1015,6 @@ Output files:
   * `number-of-instances`: means how many instances are there in total (some records might contain more than one 
     instances, while others don't have them at all)
 
-```csv
 | documenttype | path | packageid | package | tag | subfield | number-of-record | number-of-instances | min | max | 
 mean | stddev | histogram |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1026,8 +1025,7 @@ mean | stddev | histogram |
 | all | 340$b | 5 | Physical Description | Physical Medium | Dimensions | 2 | 3 | 1 | 2 | 1.5 | 0.3535533905932738 | 1=1; 2=1 |
 | all | 363$a | 5 | Physical Description | Normalized Date and Sequential Designation | First level of enumeration | 1 | 1 | 1 | 1 | 1.0 | 0.0 | 1=1 |
 | all | 340$a | 5 | Physical Description | Physical Medium | Material base and configuration | 2 | 3 | 1 | 2 | 1.5 | 0.3535533905932738 | 1=1; 2=1 |
-```
-* 
+
 * `libraries.csv`: list the content of the 852$a (it is useful only if the catalog is an aggregated catalog)
 
 

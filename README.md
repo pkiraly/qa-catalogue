@@ -1051,7 +1051,7 @@ Output files:
 | all | 6 | 4XX | Series Statement | true | 358 |
 | all | 5 | 3XX | Physical Description | true | 715 |
 | all | 8 | 6XX | Subject Access | true | 514 |
-| all | 4 | 25X-28X | "Edition |  Imprint" | true | 1096 |
+| all | 4 | 25X-28X | "Edition Imprint" | true | 1096 |
 | all | 7 | 5XX | Note | true | 354 |
 | all | 0 | 00X | Control Fields | true | 1099 |
 | all | 99 | unknown | unknown origin | false | 778 |

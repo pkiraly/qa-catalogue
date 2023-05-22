@@ -685,7 +685,18 @@ here in a parsed format. It also contains some metadata such as the versions of 
 }
 ```
 
-Currently, it detects the following errors:
+* `id-groupid.csv`: the pairs of record identifiers - group identifiers.
+
+```csv
+id,groupId
+010000011,0
+010000011,77
+010000011,2035
+010000011,70
+010000011,20
+```
+
+Currently, validation detects the following errors:
 
 Leader specific errors:
 
@@ -800,7 +811,7 @@ If the data is not groupped by libraries, it creates the following SQLite3 datab
 CSV 
 files into it:
 
-issue_summary table (for the `issue-summary.csv`):
+`issue_summary` table for the `issue-summary.csv`:
 ```
 id         INTEGER,
 MarcPath   TEXT,
@@ -812,7 +823,7 @@ url        TEXT,
 instances  INTEGER,
 records    INTEGER
 ```
-issue_details table (for the `issue-details.csv`):
+`issue_details` table for the `issue-details.csv`:
 ```
 id         TEXT,
 errorId    INTEGER,
@@ -821,8 +832,8 @@ instances  INTEGER
 
 ##### Union catalogue for multiple libraries
 
-issue_summary table for the `issue-summary.csv` (it is similar to the other issue_summary table, but it adds a 
-groupId column)
+`issue_summary` table for the `issue-summary.csv` (it is similar to the other issue_summary table, but it has an extra
+`groupId` column)
 ```
 groupId    INTEGER,
 id         INTEGER,
@@ -836,20 +847,20 @@ instances  INTEGER,
 records    INTEGER
 ```
 
-issue_details table
+`issue_details` table (same as the other `issue_details` table)
 ```
 id         TEXT,
 errorId    INTEGER,
 instances  INTEGER
 ```
 
-id_groupid table
+`id_groupid` table for `id-groupid.csv`:
 ```
 id         TEXT,
 groupId    INTEGER
 ```
 
-issue_group_types table
+`issue_group_types` table contains statistics for the error types per groups.
 ```
 groupId    INTEGER,
 typeId     INTEGER,
@@ -857,14 +868,15 @@ records    INTEGER,
 instances  INTEGER
 ```
 
-issue_group_categories table
+`issue_group_categories` table contains statistics for the error categories per groups
 ```
 groupId    INTEGER,
 categoryId INTEGER,
 records    INTEGER,
 instances  INTEGER
 ```
-issue_group_paths table
+
+`issue_group_paths` table contains statistics for the error types per paths per groups
 ```
 groupId    INTEGER,
 typeId     INTEGER,
@@ -872,6 +884,11 @@ path       TEXT,
 records    INTEGER,
 instances  INTEGER
 ```
+
+It also creates an extra Solr index with the suffix `_validation`. It contains one Solr document for each 
+bibliographic record with three fields: the record identifier, the list of group identifiers and the list of error 
+identifiers (if any). This Solr index is needed for populating the `issue_group_types`, `issue_group_categories` and
+`issue_group_paths` tables.
 
 ### Display one MARC record, or extract data elements from MARC records
 

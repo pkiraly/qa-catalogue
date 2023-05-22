@@ -41,40 +41,13 @@ php scripts/sqlite/validation-result-indexer.php ${OUTPUT_DIR} $SOLR_CORE
 
 optimize_core $SOLR_CORE
 
+log "calculate numbers"
+
 # creating
 # ${OUTPUT_DIR}/issue-groupped-types.csv
 # ${OUTPUT_DIR}/issue-groupped-categories.csv
 # ${OUTPUT_DIR}/issue-groupped-paths.csv
-
-log "calculate numbers"
-
 Rscript scripts/sqlite/qa_catalogue.groupping.R ${OUTPUT_DIR} $SOLR_CORE
-
-log "create database structure"
-
-sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
-CREATE TABLE issue_groupped_types(
-  "groupId"     INTEGER,
-  "typeId"      INTEGER,
-  "record_nr"   INTEGER,
-  "instance_nr" INTEGER
-);
-
-CREATE TABLE issue_groupped_categories(
-  "groupId"     INTEGER,
-  "categoryId"  INTEGER,
-  "record_nr"   INTEGER,
-  "instance_nr" INTEGER
-);
-
-CREATE TABLE issue_groupped_paths(
-  "groupId"     INTEGER,
-  "typeId"      INTEGER,
-  "path"        VARCHAR(50),
-  "record_nr"   INTEGER,
-  "instance_nr" INTEGER
-);
-EOF
 
 log "import issue_groupped_types"
 tail -n +2 ${OUTPUT_DIR}/issue-groupped-types.csv > ${OUTPUT_DIR}/issue-groupped-types-noheader.csv

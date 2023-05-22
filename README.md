@@ -1149,17 +1149,17 @@ For union catalogues the `marc-elements.csv` and `packages.csv` have a special v
   * `group`: the library identifier available in the data element specified by the `--groupBy` parameter. `0` has
     a special meaning: all libraries
 
-| group | documenttype | packageid | name | label | iscoretag | count |
-| --- | --- | --- | --- | --- | --- | --- |
-| 0 | Druckschriften (einschließlich Bildbänden) | 50 | 0... | PICA+ bibliograhic description | false | 987 |
-| 0 | Druckschriften (einschließlich Bildbänden) | 99 | unknown | unknown origin | false | 3 |
-| 0 | Medienkombination | 50 | 0... | PICA+ bibliograhic description | false | 1 |
-| 0 | Mikroform | 50 | 0... | PICA+ bibliograhic description | false | 11 |
-| 0 | "Tonträger |  Videodatenträger |  Bildliche Darstellungen" | 50 | 0... | PICA+ bibliograhic description | false | 1 |
-| 0 | all | 50 | 0... | PICA+ bibliograhic description | false | 1000 |
-| 0 | all | 99 | unknown | unknown origin | false | 3 |
-| 100 | Druckschriften (einschließlich Bildbänden) | 50 | 0... | PICA+ bibliograhic description | false | 20 |
-| 100 | Medienkombination | 50 | 0... | PICA+ bibliograhic description | false | 1 |
+| group | documenttype                                         | packageid | name | label | iscoretag | count |
+| --- |------------------------------------------------------| --- | --- | --- | --- | --- |
+| 0 | Druckschriften (einschließlich Bildbänden)           | 50 | 0... | PICA+ bibliograhic description | false | 987 |
+| 0 | Druckschriften (einschließlich Bildbänden)           | 99 | unknown | unknown origin | false | 3 |
+| 0 | Medienkombination                                    | 50 | 0... | PICA+ bibliograhic description | false | 1 |
+| 0 | Mikroform                                            | 50 | 0... | PICA+ bibliograhic description | false | 11 |
+| 0 | Tonträger, Videodatenträger, Bildliche Darstellungen | 50 | 0... | PICA+ bibliograhic description | false | 1 |
+| 0 | all                                                  | 50 | 0... | PICA+ bibliograhic description | false | 1000 |
+| 0 | all                                                  | 99 | unknown | unknown origin | false | 3 |
+| 100 | Druckschriften (einschließlich Bildbänden)           | 50 | 0... | PICA+ bibliograhic description | false | 20 |
+| 100 | Medienkombination                                    | 50 | 0... | PICA+ bibliograhic description | false | 1 |
 
 
 * `completeness-groups.csv`: this is available for union catalogues, containing the groups
@@ -1170,9 +1170,9 @@ For union catalogues the `marc-elements.csv` and `packages.csv` have a special v
 | id | group | count |
 | --- | --- | --- |
 | 0 | all | 1000 |
-| 100 | "Otto-von-Guericke-Universität, Universitätsbibliothek Magdeburg [DE-Ma9]" | 21 |
+| 100 | Otto-von-Guericke-Universität, Universitätsbibliothek Magdeburg [DE-Ma9] | 21 |
 | 1003 | Kreisarchäologie Rotenburg [DE-MUS-125322...] | 1 |
-| 101 | "Otto-von-Guericke-Universität, Universitätsbibliothek, Medizinische Zentralbibliothek (MZB), Magdeburg [DE-Ma14...]" | 6 |
+| 101 | Otto-von-Guericke-Universität, Universitätsbibliothek, Medizinische Zentralbibliothek (MZB), Magdeburg [DE-Ma14...] | 6 |
 | 1012 | Mariengymnasium Jever [DE-Je1] | 19 |
 
 * `id-groupid.csv`: this is the very same file what validation creates. Completeness creates it if it not yet available.

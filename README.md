@@ -1057,12 +1057,82 @@ Output files:
 | all | 99 | unknown | unknown origin | false | 778 |
 
 * `libraries.csv`: list the content of the 852$a (it is useful only if the catalog is an aggregated catalog)
+  * `library`: the code of a library
+  * `count`: the number of records having a particular library code
 
+| library | count |
+| --- | --- |
+| "00Mf" | 713 |
+| "British Library" | 525 |
+| "Inserted article about the fires from the Courant after the title page." | 1 |
+| "National Library of Scotland" | 310 |
+| "StEdNL" | 1 |
+| "UkOxU" | 33 |
 
-      "libraries.csv",
-      "libraries003.csv",
-      "marc-elements.csv",
-      "completeness.params.json"
+* `libraries003.csv`: list the content of the 003 (it is useful only if the catalog is an aggregated catalog)
+  * `library`: the code of a library
+  * `count`: the number of records having a particular library code
+
+| library | count |
+| --- | --- |
+| "103861" | 1 |
+| "BA-SaUP" | 143 |
+| "BoCbLA" | 25 |
+| "CStRLIN" | 110 |
+| "DLC" | 3 |
+
+* `completeness.params.json`: the list of the actual parameters in analysis
+
+An example with parameters used for analysing a MARC dataset. When the input is a complex expression it is displayed
+here in a parsed format. It also contains some metadata such as the versions of MQFA API and QA catalogue.
+
+```json
+{
+  "args":["/home/kiru/Documents/marc21/zb//BIBLIOGRAPHIC_22055164410005508_1.xml.gz"],
+  "marcVersion":"MARC21",
+  "marcFormat":"XML",
+  "dataSource":"FILE",
+  "limit":-1,
+  "offset":-1,
+  "id":null,
+  "defaultRecordType":"BOOKS",
+  "alephseq":false,
+  "marcxml":true,
+  "lineSeparated":false,
+  "trimId":false,
+  "outputDir":"/home/kiru/Documents/marc21/_output/zb/",
+  "recordIgnorator":{
+    "conditions":null,
+    "empty":true
+  },
+  "recordFilter":{
+    "conditions":null,
+    "empty":true
+  },
+  "ignorableFields":{
+    "fields":null,
+    "empty":true
+  },
+  "stream":null,
+  "defaultEncoding":null,
+  "alephseqLineType":null,
+  "picaIdField":"003@$0",
+  "picaSubfieldSeparator":"$",
+  "picaSchemaFile":null,
+  "picaRecordTypeField":"002@$0",
+  "schemaType":"MARC21",
+  "groupBy":null,
+  "groupListFile":null,
+  "format":"COMMA_SEPARATED",
+  "advanced":false,
+  "onlyPackages":false,
+  "replacementInControlFields":"#",
+  "marc21":true,
+  "pica":false,
+  "mqaf.version":"0.9.1",
+  "qa-catalogue.version":"0.7.0-rc2"
+}
+```
 
 
 #### post processing completeness result (completeness-sqlite) 

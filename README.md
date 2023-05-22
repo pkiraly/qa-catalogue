@@ -555,7 +555,7 @@ id,categoryId,category,type,instances,records
 * `issue-summary.csv`: details of individual issues including basic statistics
 
 ```csv
-d,MarcPath,categoryId,typeId,type,message,url,instances,records
+id,MarcPath,categoryId,typeId,type,message,url,instances,records
 53,008/33-34 (008map33),2,5,invalid code,'b' in 'b ',https://www.loc.gov/marc/bibliographic/bd008p.html,1,1
 70,008/00-05 (008all00),2,5,invalid code,Invalid content: '2023  '. Text '2023  ' could not be parsed at index 4,https://www.loc.gov/marc/bibliographic/bd008a.html,1,1
 28,008/22-23 (008map22),2,6,invalid value,| ,https://www.loc.gov/marc/bibliographic/bd008p.html,12,12
@@ -563,10 +563,50 @@ d,MarcPath,categoryId,typeId,type,message,url,instances,records
 17,008/29 (008book29),2,6,invalid value, ,https://www.loc.gov/marc/bibliographic/bd008b.html,1,1
 ```
 
-* `issue-details.csv`: list of issues by record identifiers
+* `issue-details.csv`: list of issues by record identifiers. It has two columns, the record identifier, and a 
+  complex string, which contains the number of occurences of each indiviual isses oncatenated by semicolon.
+
+```csv
+recordId,errors
+99117335059205508,1:2;2:1;3:1
+99117335059305508,1:1
+99117335059405508,2:2
+99117335059505508,3:1
+```
+
+`1:2;2:1;3:1` means that 3 different types of issues are occured in the record, the firs issue which has issue ID 1 
+occured twice, issue ID 2 which occured once and issue ID 3, which occured once. The issue IDs can be resulved from the
+`issue-summary.csv` file's firs column.
+
 * `issue-details-normalized.csv`: the normalized version of the previous file
-* `issue-total.csv`: the number of issue free records, and number of record having issues 
-* `issue-collector.csv`: non normalized file of record ids per issues
+
+```csv
+id,errorId,instances
+99117335059205508,1,2
+99117335059205508,2,1
+99117335059205508,3,1
+99117335059305508,1,1
+99117335059405508,2,2
+99117335059505508,3,1
+```
+
+* `issue-total.csv`: the number of issue free records, and number of record having issues
+
+```csv
+type,instances,records
+0,0,251
+1,1711,848
+2,413,275
+```
+
+* `issue-collector.csv`: non normalized file of record ids per issues. This is the "inverse" of `issue-details.csv`, 
+  it tells you in which records a particular issue occurred. 
+
+```csv
+errorId,recordIds
+1,99117329355705508;99117328948305508;99117334968905508;99117335067705508;99117335176005508;...
+```
+
 * `validation.params.json`: the list of the actual parameters during the running of the validation
 
 An example with parameters used for analysing a PICA dataset. When the input is a complex expression it is displayed 

@@ -1010,14 +1010,55 @@ options:
 
 Output files:
 
-* `marc-elements.csv`: is list of MARC elements (field$subfield) and their
-  occurrences in two ways: 
+* `marc-elements.csv`: is list of MARC elements (field$subfield) and their occurrences in two ways: 
   * `number-of-record`: means how many records they are available,
-  * `number-of-instances`: means how many instances are there in total (some
-    records might contain more than one instances, while others don't have them
-    at all)
-* `libraries.csv`: list the content of the 852$a (it is useful only if the
-  catalog is an aggregated catalog)
+  * `number-of-instances`: means how many instances are there in total (some records might contain more than one 
+    instances, while others don't have them at all)
+
+```csv
+| documenttype | path | packageid | package | tag | subfield | number-of-record | number-of-instances | min | max | 
+mean | stddev | histogram |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| all | leader23 | 0 | Control Fields | Leader | Undefined | 1099 | 1099 | 1 | 1 | 1.0 | 0.0 | 1=1099 |
+| all | leader22 | 0 | Control Fields | Leader | Length of the implementation-defined portion | 1099 | 1099 | 1 | 1 | 1.0 | 0.0 | 1=1099 |
+| all | leader21 | 0 | Control Fields | Leader | Length of the starting-character-position portion | 1099 | 1099 | 1 | 1 | 1.0 | 0.0 | 1=1099 |
+| all | 110$a | 2 | Main Entry | Main Entry - Corporate Name | Corporate name or jurisdiction name as entry element | 4 | 4 | 1 | 1 | 1.0 | 0.0 | 1=4 |
+| all | 340$b | 5 | Physical Description | Physical Medium | Dimensions | 2 | 3 | 1 | 2 | 1.5 | 0.3535533905932738 | 1=1; 2=1 |
+| all | 363$a | 5 | Physical Description | Normalized Date and Sequential Designation | First level of enumeration | 1 | 1 | 1 | 1 | 1.0 | 0.0 | 1=1 |
+| all | 340$a | 5 | Physical Description | Physical Medium | Material base and configuration | 2 | 3 | 1 | 2 | 1.5 | 0.3535533905932738 | 1=1; 2=1 |
+```
+* 
+* `libraries.csv`: list the content of the 852$a (it is useful only if the catalog is an aggregated catalog)
+
+
+      "libraries.csv",
+      "libraries003.csv",
+      "marc-elements.csv",
+      "packages.csv",
+      "completeness.params.json"
+
+
+#### post processing completeness result (completeness-sqlite) 
+
+This happens only for union catalogues (where there is a `--groupBy` parameter).
+
+`groupped_marc_elements` table
+```
+groupId             INTEGER,
+documenttype        TEXT,
+path                TEXT,
+packageid           INTEGER,
+package             TEXT,
+tag                 TEXT,
+subfield            TEXT,
+number-of-record    INTEGER,
+number-of-instances INTEGER,
+min                 INTEGER,
+max                 INTEGER,
+mean                REAL,
+stddev              REAL,
+histogram           TEXT
+```
 
 ### Calculating Thompson-Traill completeness
 

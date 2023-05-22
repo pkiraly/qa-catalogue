@@ -450,6 +450,7 @@ commands:
   validate                   record validation
   validate-sqlite            import result of validation to SQLite
   completeness               completeness analysis
+  completeness-sqlite        import groupped output of completeness to SQLite
   classifications            classification analysis
   authorities                authority analysis
   tt-completeness            Thompson-Traill completeness analysis
@@ -464,7 +465,6 @@ commands:
   record-patterns            record patterns
   prepare-solr               prepare indexing
   index                      indexing with Solr
-  completeness-sqlite        import groupped output of completeness to SQLite
   export-schema-files        export schema files
   shacl4bib                  run SHACL-like validation
   all-analyses               run all analytical tasks (or those set via ANALYSES)
@@ -541,6 +541,7 @@ case "${1:-help}" in
   prepare-solr)             do_prepare_solr ;;
   index)                    do_index ;;
   completeness)             do_completeness ; do_completeness_sqlite ;;
+  completeness-sqlite)      do_completeness_sqlite ;;
   classifications)          do_classifications ;;
   authorities)              do_authorities ;;
   tt-completeness)          do_tt_completeness ;;
@@ -553,7 +554,6 @@ case "${1:-help}" in
   pareto)                   do_pareto ;;
   marc-history)             do_marc_history ;;
   record-patterns)          do_record_patterns ;;
-  completeness-sqlite)      do_completeness_sqlite ;;
   mysql)                    do_mysql ;;
   export-schema-files)      do_export_schema_files ;;
   all-analyses)             do_all_analyses ;;

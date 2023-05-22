@@ -518,6 +518,11 @@ options:
 
 Outputs:
 * `count.csv`: the count of bibliographic records in the source dataset
+```csv
+total
+1192536
+```
+
 * `issue-by-category.csv`: the counts of issues by categories
 * `issue-by-type.csv`: the count of issues by types (subcategories).
 * `issue-summary.csv`: details of individual issues including basic statistics
@@ -527,8 +532,80 @@ Outputs:
 * `issue-collector.csv`: non normalized file of record ids per issues
 * `validation.params.json`: the list of the actual parameters during the running of the validation
 
+An example with parameters used for analysing a PICA dataset. When the input is a complex expression it is displayed 
+here in a parsed format. It also contains some metadata such as the versions of MQFA API and QA catalogue.
+
 ```JSON
-{"args":["/home/kiru/Documents/marc21/k10plus_pica/kxp-sample-title_2022-09_30.dat"],"marcVersion":"MARC21","marcFormat":"PICA_NORMALIZED","dataSource":"FILE","limit":-1,"offset":-1,"id":null,"defaultRecordType":"BOOKS","alephseq":false,"marcxml":false,"lineSeparated":false,"trimId":true,"outputDir":"/home/kiru/Documents/marc21/_output/k10plus_pica","recordIgnorator":{"criteria":[],"booleanCriteria":null,"empty":true},"recordFilter":{"criteria":[],"booleanCriteria":{"op":"AND","children":[{"op":null,"children":[],"value":{"path":{"path":"002@.0","tag":"002@","xtag":null,"occurrence":null,"subfields":{"type":"SINGLE","input":"0","codes":["0"]},"subfieldCodes":["0"]},"operator":"NOT_MATCH","value":"^L"}},{"op":null,"children":[],"value":{"path":{"path":"002@.0","tag":"002@","xtag":null,"occurrence":null,"subfields":{"type":"SINGLE","input":"0","codes":["0"]},"subfieldCodes":["0"]},"operator":"NOT_MATCH","value":"^..[iktN]"}},{"op":"OR","children":[{"op":null,"children":[],"value":{"path":{"path":"002@.0","tag":"002@","xtag":null,"occurrence":null,"subfields":{"type":"SINGLE","input":"0","codes":["0"]},"subfieldCodes":["0"]},"operator":"NOT_MATCH","value":"^.v"}},{"op":null,"children":[],"value":{"path":{"path":"021A.a","tag":"021A","xtag":null,"occurrence":null,"subfields":{"type":"SINGLE","input":"a","codes":["a"]},"subfieldCodes":["a"]},"operator":"EXIST","value":null}}],"value":null}],"value":null},"empty":false},"ignorableFields":{"fields":["001@","001E","001L","001U","001U","001X","001X","002V","003C","003G","003Z","008G","017N","020F","027D","031B","037I","039V","042@","046G","046T","101@","101E","101U","102D","201E","201U","202D"],"empty":false},"stream":null,"defaultEncoding":null,"alephseqLineType":null,"picaIdField":"003@$0","picaSubfieldSeparator":"$","picaSchemaFile":null,"picaRecordTypeField":"002@$0","schemaType":"PICA","groupBy":null,"detailsFileName":"issue-details.csv","summaryFileName":"issue-summary.csv","format":"COMMA_SEPARATED","ignorableIssueTypes":["FIELD_UNDEFINED"],"pica":true,"replacementInControlFields":null,"marc21":false,"mqaf.version":"0.9.0","qa-catalogue.version":"0.7.0-SNAPSHOT"}
+{
+  "args":["/path/to/input.dat"],
+  "marcVersion":"MARC21",
+  "marcFormat":"PICA_NORMALIZED",
+  "dataSource":"FILE",
+  "limit":-1,
+  "offset":-1,
+  "id":null,
+  "defaultRecordType":"BOOKS",
+  "alephseq":false,
+  "marcxml":false,
+  "lineSeparated":false,
+  "trimId":true,
+  "outputDir":"/path/to/_output/k10plus_pica",
+  "recordIgnorator":{
+    "criteria":[],
+    "booleanCriteria":null,
+    "empty":true
+  },
+  "recordFilter":{
+    "criteria":[],
+    "booleanCriteria":{
+      "op":"AND",
+      "children":[
+        {
+          "op":null,
+          "children":[],
+          "value":{
+            "path":{
+              "path":"002@.0",
+              "tag":"002@",
+              "xtag":null,
+              "occurrence":null,
+              "subfields":{"type":"SINGLE","input":"0","codes":["0"]},
+              "subfieldCodes":["0"]
+            },
+            "operator":"NOT_MATCH",
+            "value":"^L"
+          }
+        },
+        {"op":null,"children":[],"value":{"path":{"path":"002@.0","tag":"002@","xtag":null,"occurrence":null,"subfields":{"type":"SINGLE","input":"0","codes":["0"]},"subfieldCodes":["0"]},"operator":"NOT_MATCH","value":"^..[iktN]"}},
+        {"op":"OR","children":[{"op":null,"children":[],"value":{"path":{"path":"002@.0","tag":"002@","xtag":null,"occurrence":null,"subfields":{"type":"SINGLE","input":"0","codes":["0"]},"subfieldCodes":["0"]},"operator":"NOT_MATCH","value":"^.v"}},{"op":null,"children":[],"value":{"path":{"path":"021A.a","tag":"021A","xtag":null,"occurrence":null,"subfields":{"type":"SINGLE","input":"a","codes":["a"]},"subfieldCodes":["a"]},"operator":"EXIST","value":null}}],"value":null}
+      ],
+      "value":null
+    },
+    "empty":false
+  },
+  "ignorableFields":{
+    "fields":["001@","001E","001L","001U","001U","001X","001X","002V","003C","003G","003Z","008G","017N","020F","027D","031B","037I","039V","042@","046G","046T","101@","101E","101U","102D","201E","201U","202D"],
+    "empty":false
+  },
+  "stream":null,
+  "defaultEncoding":null,
+  "alephseqLineType":null,
+  "picaIdField":"003@$0",
+  "picaSubfieldSeparator":"$",
+  "picaSchemaFile":null,
+  "picaRecordTypeField":"002@$0",
+  "schemaType":"PICA",
+  "groupBy":null,
+  "detailsFileName":"issue-details.csv",
+  "summaryFileName":"issue-summary.csv",
+  "format":"COMMA_SEPARATED",
+  "ignorableIssueTypes":["FIELD_UNDEFINED"],
+  "pica":true,
+  "replacementInControlFields":null,
+  "marc21":false,
+  "mqaf.version":"0.9.0",
+  "qa-catalogue.version":"0.7.0-SNAPSHOT"
+}
 ```
 
 Currently, it detects the following errors:

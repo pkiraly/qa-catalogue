@@ -759,7 +759,7 @@ Errors in '   00000571 ':
 ...
 ```
 
-
+<!--
 #### some post processing usage examples
 
 After running the validation as tab separated file `validation-report.txt`
@@ -774,6 +774,46 @@ get the number of records having errors
 
 ```bash
 awk -F "\t" '{print $1}' validation-report.txt | uniq -c | wc -l
+```
+-->
+
+#### post processing validation result (validate-sqlite)
+
+Usage:
+
+```bash
+catalogues/<catalogue>.sh validate-sqlite
+```
+or
+```bash
+./metadata-qa.sh --params="[options]" validate-sqlite
+```
+or
+```bash
+./common-script [options] validate-sqlite
+```
+
+[options] are the same as for validation
+
+If the data is not groupped by libraries, it creates the following database structure:
+
+issue_summary table:
+```
+"id"         INTEGER,
+"MarcPath"   TEXT,
+"categoryId" INTEGER,
+"typeId"     INTEGER,
+"type"       TEXT,
+"message"    TEXT,
+"url"        TEXT,
+"instances"  INTEGER,
+"records"    INTEGER
+```
+issue_details table:
+```
+"id"         TEXT,
+"errorId"    INTEGER,
+"instances"  INTEGER
 ```
 
 ### Display one MARC record, or extract data elements from MARC records

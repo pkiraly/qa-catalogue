@@ -256,11 +256,11 @@ do_validate_sqlite() {
   php scripts/sqlite/normalize-issue-details.php ${OUTPUT_DIR} &> ${PREFIX}/sqlite.log
 
   untrace
-  log "delete DB"
 
-  if [[ -e ${OUTPUT_DIR}/qa_catalogue.sqlite ]]; then
-    rm ${OUTPUT_DIR}/qa_catalogue.sqlite
-  fi
+  # log "delete DB"
+  # if [[ -e ${OUTPUT_DIR}/qa_catalogue.sqlite ]]; then
+  #   rm ${OUTPUT_DIR}/qa_catalogue.sqlite
+  # fi
 
   HAS_GROUP_PARAM=$(echo ${TYPE_PARAMS} | grep -c -P -e '--groupBy [^-]' || true)
   if [[ "${HAS_GROUP_PARAM}" == "0" ]]; then
@@ -476,6 +476,7 @@ usage: $0 [command]
 
 commands:
   validate                   record validation
+  validate-sqlite            import result of validation to SQLite
   completeness               completeness analysis
   classifications            classification analysis
   authorities                authority analysis
@@ -491,7 +492,6 @@ commands:
   record-patterns            record patterns
   prepare-solr               prepare indexing
   index                      indexing with Solr
-  validate-sqlite            import result of validation to SQLite
   completeness-sqlite        import groupped output of completeness to SQLite
   export-schema-files        export schema files
   shacl4bib                  run SHACL-like validation
@@ -565,6 +565,7 @@ fi
 
 case "${1:-help}" in
   validate)                 do_validate ; do_validate_sqlite ;;
+  validate-sqlite)          do_validate_sqlite ;;
   prepare-solr)             do_prepare_solr ;;
   index)                    do_index ;;
   completeness)             do_completeness ; do_completeness_sqlite ;;
@@ -581,7 +582,6 @@ case "${1:-help}" in
   marc-history)             do_marc_history ;;
   record-patterns)          do_record_patterns ;;
   completeness-sqlite)      do_completeness_sqlite ;;
-  validate-sqlite)          do_validate_sqlite ;;
   mysql)                    do_mysql ;;
   export-schema-files)      do_export_schema_files ;;
   all-analyses)             do_all_analyses ;;

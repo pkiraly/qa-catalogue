@@ -1044,17 +1044,17 @@ Output files:
   * `iscoretag`: does the package belong to the Library of Congress MARC standard
   * `count`: the number of records having at least one data element from this package
 
-| documenttype | packageid | name | label | iscoretag | count |
-| --- | --- | --- | --- | --- | --- |
-| all | 1 | 01X-09X | Numbers and Code | true | 1099 |
-| all | 2 | 1XX | Main Entry | true | 816 |
-| all | 6 | 4XX | Series Statement | true | 358 |
+| documenttype | packageid | name | label               | iscoretag | count |
+| --- | --- | --- |---------------------| --- | --- |
+| all | 1 | 01X-09X | Numbers and Code    | true | 1099 |
+| all | 2 | 1XX | Main Entry          | true | 816 |
+| all | 6 | 4XX | Series Statement    | true | 358 |
 | all | 5 | 3XX | Physical Description | true | 715 |
-| all | 8 | 6XX | Subject Access | true | 514 |
-| all | 4 | 25X-28X | "Edition Imprint" | true | 1096 |
-| all | 7 | 5XX | Note | true | 354 |
-| all | 0 | 00X | Control Fields | true | 1099 |
-| all | 99 | unknown | unknown origin | false | 778 |
+| all | 8 | 6XX | Subject Access      | true | 514 |
+| all | 4 | 25X-28X | Edition, Imprint  | true | 1096 |
+| all | 7 | 5XX | Note                | true | 354 |
+| all | 0 | 00X | Control Fields      | true | 1099 |
+| all | 99 | unknown | unknown origin      | false | 778 |
 
 * `libraries.csv`: list the content of the 852$a (it is useful only if the catalog is an aggregated catalog)
   * `library`: the code of a library

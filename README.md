@@ -821,58 +821,56 @@ instances  INTEGER
 
 ##### Union catalogue for multiple libraries
 
-issue_summary table
+issue_summary table for the `issue-summary.csv` (it is similar to the other issue_summary table, but it adds a 
+groupId column)
 ```
-  "groupId"    INTEGER,
-  "id"         INTEGER,
-  "MarcPath"   TEXT,
-  "categoryId" INTEGER,
-  "typeId"     INTEGER,
-  "type"       TEXT,
-  "message"    TEXT,
-  "url"        TEXT,
-  "instances"  INTEGER,
-  "records"    INTEGER
+groupId    INTEGER,
+id         INTEGER,
+MarcPath   TEXT,
+categoryId INTEGER,
+typeId     INTEGER,
+type       TEXT,
+message    TEXT,
+url        TEXT,
+instances  INTEGER,
+records    INTEGER
 ```
 
 issue_details table
 ```
-  "id"         TEXT,
-  "errorId"    INTEGER,
-  "instances"  INTEGER
+id         TEXT,
+errorId    INTEGER,
+instances  INTEGER
 ```
 
 id_groupid table
 ```
-  "id"         TEXT,
-  "groupId"    INTEGER
+id         TEXT,
+groupId    INTEGER
 ```
 
 issue_group_types table
 ```
-  "groupId"    INTEGER,
-  "typeId"     INTEGER,
-  "records"    INTEGER,
-  "instances"  INTEGER
+groupId    INTEGER,
+typeId     INTEGER,
+records    INTEGER,
+instances  INTEGER
 ```
 
 issue_group_categories table
 ```
-  "groupId"    INTEGER,
-  "categoryId" INTEGER,
-  "records"    INTEGER,
-  "instances"  INTEGER
+groupId    INTEGER,
+categoryId INTEGER,
+records    INTEGER,
+instances  INTEGER
 ```
 issue_group_paths table
 ```
-  "groupId"    INTEGER,
-  "typeId"     INTEGER,
-  "path"       TEXT,
-  "records"    INTEGER,
-  "instances"  INTEGER
-```
-);
-
+groupId    INTEGER,
+typeId     INTEGER,
+path       TEXT,
+records    INTEGER,
+instances  INTEGER
 ```
 
 ### Display one MARC record, or extract data elements from MARC records

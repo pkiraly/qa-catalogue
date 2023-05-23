@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Strores completeness-grouped-marc-elements.csv into SQLite
+# Strores marc-elements.csv into SQLite
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 
@@ -13,10 +13,9 @@ log() {
 
 OUTPUT_DIR=$1
 
-log "create table marc_elements_grouped"
+log "create table marc_elements"
 sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
-CREATE TABLE IF NOT EXISTS "marc_elements_grouped" (
-  "groupId"             INTEGER,
+CREATE TABLE IF NOT EXISTS "marc_elements" (
   "documenttype"        TEXT,
   "path"                TEXT,
   "packageid"           INTEGER,
@@ -31,23 +30,23 @@ CREATE TABLE IF NOT EXISTS "marc_elements_grouped" (
   "stddev"              REAL,
   "histogram"           TEXT
 );
-CREATE INDEX IF NOT EXISTS "meg_groupId" ON "marc_elements_grouped" ("groupId");
-CREATE INDEX IF NOT EXISTS "meg_documenttype" ON "marc_elements_grouped" ("documenttype");
+CREATE INDEX IF NOT EXISTS "gme_groupId" ON "marc_elements" ("groupId");
+CREATE INDEX IF NOT EXISTS "gme_documenttype" ON "marc_elements" ("documenttype");
 EOF
 
-log "clean marc_elements_grouped"
+log "clean marc_elements"
 sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
-DELETE FROM marc_elements_grouped;
+DELETE FROM marc_elements;
 EOF
 
 log "create headless CSV"
-tail -n +2 ${OUTPUT_DIR}/completeness-grouped-marc-elements.csv > ${OUTPUT_DIR}/completeness-grouped-marc-elements-noheader.csv
+tail -n +2 ${OUTPUT_DIR}/marc-elements.csv > ${OUTPUT_DIR}/marc-elements-noheader.csv
 
 log "import marc elements"
 sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
 .mode csv
-.import ${OUTPUT_DIR}/completeness-grouped-marc-elements-noheader.csv marc_elements_grouped
+.import ${OUTPUT_DIR}/marc-elements-noheader.csv marc_elements
 EOF
 
 log "drop headless CSV"
-rm ${OUTPUT_DIR}/completeness-grouped-marc-elements-noheader.csv
+rm ${OUTPUT_DIR}/marc-elements-noheader.csv

@@ -524,7 +524,7 @@ if [[ ! "${1:-help}" =~ ^(help|config|export-schema-files)$ ]]; then
   log "output: $OUTPUT_DIR"
   log "logs:   $PREFIX"
 
-  ls ${MARC_DIR}/${MASK} &> /dev/null || fatal "Missing input files!"
+  ls ${MARC_DIR}/${MASK} &> /dev/null || fatal "Missing input files: ${MARC_DIR}/${MASK}!"
 
   if [[ ! -z "${UPDATE:-}" ]]; then
     log "update: $UPDATE"

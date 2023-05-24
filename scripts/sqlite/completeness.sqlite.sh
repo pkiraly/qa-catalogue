@@ -12,10 +12,16 @@ log() {
 }
 
 OUTPUT_DIR=$1
+HAS_GROUP_PARAM=$2
+
+log "OUTPUT_DIR: ${OUTPUT_DIR}"
+log "HAS_GROUP_PARAM: ${HAS_GROUP_PARAM}"
 
 log "create table marc_elements"
 sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
+DROP TABLE IF EXISTS "marc_elements";
 CREATE TABLE IF NOT EXISTS "marc_elements" (
+  "groupId"             INTEGER,
   "documenttype"        TEXT,
   "path"                TEXT,
   "packageid"           INTEGER,
@@ -40,7 +46,11 @@ DELETE FROM marc_elements;
 EOF
 
 log "create headless CSV"
-tail -n +2 ${OUTPUT_DIR}/marc-elements.csv > ${OUTPUT_DIR}/marc-elements-noheader.csv
+if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
+  tail -n +2 ${OUTPUT_DIR}/completeness-grouped-marc-elements.csv > ${OUTPUT_DIR}/marc-elements-noheader.csv
+else
+  tail -n +2 ${OUTPUT_DIR}/marc-elements.csv  | sed 's;^;0,;' > ${OUTPUT_DIR}/marc-elements-noheader.csv
+fi
 
 log "import marc elements"
 sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF

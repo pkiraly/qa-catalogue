@@ -59,6 +59,7 @@ public class FormatterTest extends CliTestUtils {
   @Test
   public void formatter_pica() throws Exception {
     File file = new File(outputDir, "marc-history.csv");
+    System.err.println(file.getCanonicalPath());
     assertFalse(file.exists());
 
     Formatter processor = new Formatter(new String[]{

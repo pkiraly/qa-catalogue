@@ -125,15 +125,15 @@ public class CompletenessTest extends CliTestUtils {
         while ((record = reader.readNext()) != null) {
           if (lineNr == 0)
             assertEquals(
-              "groupId,documenttype,path,packageid,package,tag,subfield,number-of-record,number-of-instances,min,max,mean,stddev,histogram",
+              "groupId,documenttype,path,sortkey,packageid,package,tag,subfield,number-of-record,number-of-instances,min,max,mean,stddev,histogram",
               StringUtils.join(record, ",")
             );
           else {
-            int records = Integer.parseInt(record[7]);
-            int occurrences = Integer.parseInt(record[8]);
+            int records = Integer.parseInt(record[8]);
+            int occurrences = Integer.parseInt(record[9]);
             assertTrue(records <= occurrences);
             int total = 0;
-            String histogram = record[13].replaceAll("^\"(.*)\"$", "$1");
+            String histogram = record[14].replaceAll("^\"(.*)\"$", "$1");
             for (String expr : histogram.split("; ")) {
               String[] parts = expr.split("=");
               total += Integer.parseInt(parts[0]) * Integer.parseInt(parts[1]);
@@ -175,15 +175,15 @@ public class CompletenessTest extends CliTestUtils {
         while ((record = reader.readNext()) != null) {
           if (lineNr == 0)
             assertEquals(
-              "groupId,documenttype,path,packageid,package,tag,subfield,number-of-record,number-of-instances,min,max,mean,stddev,histogram",
+              "groupId,documenttype,path,sortkey,packageid,package,tag,subfield,number-of-record,number-of-instances,min,max,mean,stddev,histogram",
               StringUtils.join(record, ",")
             );
           else {
-            int records = Integer.parseInt(record[7]);
-            int occurrences = Integer.parseInt(record[8]);
+            int records = Integer.parseInt(record[8]);
+            int occurrences = Integer.parseInt(record[9]);
             assertTrue(records <= occurrences);
             int total = 0;
-            String histogram = record[13].replaceAll("^\"(.*)\"$", "$1");
+            String histogram = record[14].replaceAll("^\"(.*)\"$", "$1");
             for (String expr : histogram.split("; ")) {
               String[] parts = expr.split("=");
               total += Integer.parseInt(parts[0]) * Integer.parseInt(parts[1]);

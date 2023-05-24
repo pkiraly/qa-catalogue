@@ -213,7 +213,7 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     Path path = Paths.get(parameters.getOutputDir(), "marc-elements" + fileExtension);
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write(CsvUtils.createCsv(
-        "documenttype", "path", "packageid", "package", "tag", "subfield",
+        "groupId", "documenttype", "path", "sortkey", "packageid", "package", "tag", "subfield",
         "number-of-record", "number-of-instances",
         "min", "max", "mean", "stddev", "histogram"
       ));
@@ -236,7 +236,7 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     Path path = Paths.get(parameters.getOutputDir(), "completeness-grouped-marc-elements" + fileExtension);
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write(CsvUtils.createCsv(
-        "groupId", "documenttype", "path", "packageid", "package", "tag", "subfield",
+        "groupId", "documenttype", "path", "sortkey", "packageid", "package", "tag", "subfield",
         "number-of-record", "number-of-instances",
         "min", "max", "mean", "stddev", "histogram"
       ));
@@ -383,6 +383,7 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     }
 
     String marcPathLabel = marcPath.replace("!ind", "ind").replaceAll("\\|(\\d)$", "$1");
+    String sortkey = marcPath.replaceAll("^leader", "000");
     int packageId = TagCategory.OTHER.getId();
     String packageLabel = TagCategory.OTHER.getLabel();
     String tagLabel = "";
@@ -417,21 +418,16 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
     BasicStatistics statistics = new BasicStatistics(histogram);
 
     List<Object> values = Arrays.asList(
-        documentType, marcPathLabel, packageId, packageLabel, tagLabel, subfieldLabel,
-        frequency,   // = number-of-record
-        cardinality, // = number-of-instances
-        statistics.getMin(), statistics.getMax(),
-        statistics.getMean(), statistics.getStdDev(),
-        statistics.formatHistogram()
+      (groupId != null ? groupId : 0),
+      documentType, marcPathLabel, sortkey, packageId, packageLabel, tagLabel, subfieldLabel,
+      frequency,   // = number-of-record
+      cardinality, // = number-of-instances
+      statistics.getMin(), statistics.getMax(),
+      statistics.getMean(), statistics.getStdDev(),
+      statistics.formatHistogram()
     );
-    if (groupId != null) {
-      List<Object> merged = new ArrayList<>(List.of((Object)groupId));
-      merged.addAll(values);
-      values = merged;
-    }
 
     return CsvUtils.createCsvFromObjects(values);
-    // return StringUtils.join(values, separator) + "\n";
   }
 
   private char getSeparator(ValidationErrorFormat format) {

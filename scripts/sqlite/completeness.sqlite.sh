@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS "marc_elements" (
   "groupId"             INTEGER,
   "documenttype"        TEXT,
   "path"                TEXT,
+  "sortkey"             TEXT,
   "packageid"           INTEGER,
   "package"             TEXT,
   "tag"                 TEXT,
@@ -38,6 +39,7 @@ CREATE TABLE IF NOT EXISTS "marc_elements" (
 );
 CREATE INDEX IF NOT EXISTS "gme_groupId" ON "marc_elements" ("groupId");
 CREATE INDEX IF NOT EXISTS "gme_documenttype" ON "marc_elements" ("documenttype");
+CREATE INDEX IF NOT EXISTS "gme_sortkey" ON "marc_elements" ("sortkey");
 EOF
 
 log "clean marc_elements"
@@ -49,7 +51,7 @@ log "create headless CSV"
 if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
   tail -n +2 ${OUTPUT_DIR}/completeness-grouped-marc-elements.csv > ${OUTPUT_DIR}/marc-elements-noheader.csv
 else
-  tail -n +2 ${OUTPUT_DIR}/marc-elements.csv  | sed 's;^;0,;' > ${OUTPUT_DIR}/marc-elements-noheader.csv
+  tail -n +2 ${OUTPUT_DIR}/marc-elements.csv > ${OUTPUT_DIR}/marc-elements-noheader.csv
 fi
 
 log "import marc elements"

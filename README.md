@@ -1180,9 +1180,10 @@ For union catalogues the `marc-elements.csv` and `packages.csv` have a special v
 
 #### post processing completeness result (completeness-sqlite) 
 
-This happens only for union catalogues (where there is a `--groupBy` parameter).
 
-`grouped_marc_elements` table for the `completeness-grouped-marc-elements.csv` file.
+`marc_elements` table for the `marc-elements.csv` or `completeness-grouped-marc-elements.csv` file. For the catalogues
+without the `--groupBy` parameter the `groupId` field's value is `0`.
+
 ```
 groupId             INTEGER,
 documenttype        TEXT,

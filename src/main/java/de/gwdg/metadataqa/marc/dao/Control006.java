@@ -126,7 +126,7 @@ public class Control006 extends MarcPositionalControlField implements Serializab
           value = content.substring(subfield.getPositionStart(), end);
         } catch (StringIndexOutOfBoundsException e) {
           logger.log(Level.SEVERE,
-            "Problem with processing 006 ('{0}'). The content length is only {1} while reading position @{2}-{3} (for {4} '{5}')",
+            "Problem with processing 006 (\"{0}\"). The content length is only {1} while reading position @{2}-{3} (for {4} \"{5}\")",
             new Object[]{content, content.length(), subfield.getPositionStart(), subfield.getPositionEnd(), subfield.getId(), subfield.getLabel()});
         }
       } else {

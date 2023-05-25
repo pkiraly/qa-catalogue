@@ -108,7 +108,7 @@ public class AlephseqLine {
 
   private void parse(String raw) {
     if (raw.length() < 18) {
-      logger.log(Level.WARNING, "{0}) short line ({1}): '{2}'", new Object[]{lineNumber, raw.length(), raw});
+      logger.log(Level.WARNING, "{0}) short line ({1}): \"{2}\"", new Object[]{lineNumber, raw.length(), raw});
       valid = false;
     } else {
       String[] parts = raw.split(" ", 2);

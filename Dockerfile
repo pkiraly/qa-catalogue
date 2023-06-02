@@ -39,6 +39,7 @@ RUN apt-get update \
       r-cran-stringr \
       r-cran-gridextra \
       r-cran-rsqlite \
+      r-cran-httr \
       sqlite3 \
       less \
  && rm -rf /var/lib/apt/lists/*

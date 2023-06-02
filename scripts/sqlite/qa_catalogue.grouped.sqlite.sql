@@ -20,23 +20,28 @@ CREATE TABLE IF NOT EXISTS "id_groupid" (
   "id"         TEXT,
   "groupId"    INTEGER
 );
-CREATE TABLE IF NOT EXISTS "issue_group_types" (
-  "groupId"    INTEGER,
-  "typeId"     INTEGER,
-  "records"    INTEGER,
-  "instances"  INTEGER
+DROP TABLE IF EXISTS issue_grouped_types;
+CREATE TABLE issue_grouped_types (
+  "groupId"     INTEGER,
+  "typeId"      INTEGER,
+  "record_nr"   INTEGER,
+  "instance_nr" INTEGER
 );
-CREATE TABLE IF NOT EXISTS "issue_group_categories" (
-  "groupId"    INTEGER,
-  "categoryId" INTEGER,
-  "records"    INTEGER,
-  "instances"  INTEGER
+
+DROP TABLE IF EXISTS issue_grouped_categories;
+CREATE TABLE issue_grouped_categories (
+  "groupId"     INTEGER,
+  "categoryId"  INTEGER,
+  "record_nr"   INTEGER,
+  "instance_nr" INTEGER
 );
-CREATE TABLE IF NOT EXISTS "issue_group_paths" (
-  "groupId"    INTEGER,
-  "typeId"     INTEGER,
-  "path"       TEXT,
-  "records"    INTEGER,
-  "instances"  INTEGER
+
+DROP TABLE IF EXISTS issue_grouped_paths;
+CREATE TABLE issue_grouped_paths (
+  "groupId"     INTEGER,
+  "typeId"      INTEGER,
+  "path"        VARCHAR(50),
+  "record_nr"   INTEGER,
+  "instance_nr" INTEGER
 );
 COMMIT;

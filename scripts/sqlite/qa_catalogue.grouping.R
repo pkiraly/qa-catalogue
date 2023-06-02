@@ -115,7 +115,6 @@ for (i in 1:len) {
                 instances = instances)
     }
   }
-  
 }
 
 file <- sprintf('%s/%s', OUTPUT_DIR, 'issue-grouped-types.csv')

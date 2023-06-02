@@ -47,7 +47,7 @@ log "calculate numbers"
 # ${OUTPUT_DIR}/issue-grouped-types.csv
 # ${OUTPUT_DIR}/issue-grouped-categories.csv
 # ${OUTPUT_DIR}/issue-grouped-paths.csv
-Rscript scripts/sqlite/qa_catalogue.groupping.R ${OUTPUT_DIR} $SOLR_CORE
+Rscript scripts/sqlite/qa_catalogue.grouping.R ${OUTPUT_DIR} $SOLR_CORE
 
 log "import issue_grouped_types"
 tail -n +2 ${OUTPUT_DIR}/issue-grouped-types.csv > ${OUTPUT_DIR}/issue-grouped-types-noheader.csv

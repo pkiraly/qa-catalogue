@@ -22,7 +22,7 @@ sudo apt-get install openjdk-11-jre-headless
 # Install R
 sudo apt-get install r-base
 # Install R packages from ppa:marutter
-sudo apt-get install r-cran-tidyverse r-cran-stringr r-cran-gridextra
+sudo apt-get install r-cran-tidyverse r-cran-stringr r-cran-gridextra r-cran-httr
 # Install sqlite3
 sudo apt-get install sqlite3 r-cran-rsqlite
 # Install PHP

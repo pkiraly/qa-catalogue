@@ -1941,28 +1941,61 @@ code. SCHACL uses RDF notation to specify or "address" the data element about wh
 supports Carsten Klee's MARCspec for MARC records, and PICApath for PICA. You can find more information and full 
 definition of the implemented subset of SHACL here: https://github.com/pkiraly/metadata-qa-api#defining-schema-with-a-configuration-file
 
-Here is a simple example for setting up rules against a MARC subfield:
-```
-- name: 040$a
-  path: 040$a
-  rules:
-  - minCount: 1
-  - pattern: ^BE-KBR00
-```
-* `name` is how the data element is called within the rule set. It will also be the header of the column in the CSV file. 
-  It could be a machine or a human readable string.
-* `path` is the "address" of the metadata element. It should be expressed in an addressing language such as MARCSpec or PICAPath
-* `rules`: the parent element of the set of rules
-* `mintCount`: this specify the minimum number of instances of the data element in the record
-* `pattern`: a regular expression which should match the values of all instances of the data element
-
 Parameters:
 * `-C <file>`, `--shaclConfigurationFile <file>`: specify the SHACL like configuration file
 * `-O <file>`, `--shaclOutputFile <file>`: output file (default: `shacl4bib.csv`)
 * `-P <type>`, `--shaclOutputType <type>`: specify what the output files should contain. Possible values:
-  * `STATUS`: status only (passed or failed),
-  * `SCORE`: score only,
+  * `STATUS`: status only, where the following values appear:
+    * `1` the criteria met,
+    * `0` the criteria have not met,
+    * `NA`: the data element is not available in the record),
+  * `SCORE`: score only. Its value is calculated the following way:
+    * if the criteria met it returns the value of `successScore` property (or 0 if no such property)
+    * if the criteria have not met, it returns the value of `failureScore` property (or 0 if no such property)
   * `BOTH`: both status and score
+
+
+Here is a simple example for setting up rules against a MARC subfield:
+
+```yaml
+format: MARC
+fields:
+- name: 040$a
+  path: 040$a
+  rules:
+  - id: 040$a.minCount
+    minCount: 1
+  - id: 040$a.pattern
+    pattern: ^BE-KBR00
+```
+
+* `format` represents the format of the input data. It can be either `MARC` or `PICA`
+* `fields`: the list of fields we would like to investigate. Since it is a YAMPL example, the `-` and indentation denotes
+  child elements. Here there is only one child, so we analyse here a single subfield.
+* `name` is how the data element is called within the rule set. It could be a machine or a human readable string.
+* `path` is the "address" of the metadata element. It should be expressed in an addressing language such as MARCSpec or
+  PICAPath (040$a contains the original cataloging agency)
+* `rules`: the parent element of the set of rules. Here we have two rules.
+* `id`: the identifier of the rule. This will be the header of the column in CSV, and it could be references elsewhere in
+   the SHACL configuration file.
+* `mintCount`: this specify the minimum number of instances of the data element in the record
+* `pattern`: a regular expression which should match the values of all instances of the data element
+
+The output contains an extra column, the record identifier, so it looks like something like this:
+
+```csv
+id,040$a.minCount,040$a.pattern
+17529680,1,1
+18212975,1,1
+18216050,1,1
+18184955,1,1
+18184431,1,1
+9550740,NA,NA
+19551181,NA,NA
+118592844,1,1
+18592704,1,1
+18592557,1,1
+```
 
 ## Extending the functionalities
 

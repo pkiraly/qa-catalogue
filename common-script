@@ -414,7 +414,9 @@ do_export_schema_files() {
 do_shacl4bib() {
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
   run shacl4bib
+  echo "  ./shacl4bib --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/shacl4bib.log"
   ./shacl4bib --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/shacl4bib.log
+  Rscript scripts/shacl4bib/shacl4bib.R ${OUTPUT_DIR}
 }
 
 do_all_analyses() {
@@ -553,6 +555,7 @@ case "${1:-help}" in
   record-patterns)          do_record_patterns ;;
   mysql)                    do_mysql ;;
   export-schema-files)      do_export_schema_files ;;
+  shacl4bib)                do_shacl4bib ;;
   all-analyses)             do_all_analyses ;;
   all-solr)                 do_all_solr ;;
   all)                      do_all_analyses ; do_all_solr ;;

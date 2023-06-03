@@ -1,9 +1,9 @@
 format: MARC
 fields:
-- name: 040$a
+- name: Original cataloging agency
   path: 040$a
   rules:
-  - id: 040$a.1
+  - id: 040$a.minCount
     minCount: 1
-  - id: 040$a.2
+  - id: 040$a.pattern
     pattern: ^BE-KBR00

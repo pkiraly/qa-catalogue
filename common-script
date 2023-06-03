@@ -412,11 +412,30 @@ do_export_schema_files() {
 }
 
 do_shacl4bib() {
+  # note: SHACL specific parameters are missing here --shaclConfigurationFile, --shaclOutputType, --shaclOutputFile
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--with-delete|\s*--ignorableIssueTypes [^ ]+//g')
   run shacl4bib
   echo "  ./shacl4bib --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/shacl4bib.log"
   ./shacl4bib --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/shacl4bib.log
   Rscript scripts/shacl4bib/shacl4bib.R ${OUTPUT_DIR}
+
+  log "import issue details"
+  echo "DROP TABLE shacl;" > scripts/shacl4bib/shacl4bib.sql
+  head -1 ${OUTPUT_DIR}/shacl4bib.csv \
+    | sed 's/,/" VARCHAR(2), "/g' \
+    | sed 's/^/CREATE TABLE shacl( "/' \
+    | sed 's/id VARCHAR(2)/id VARCHAR(100)/' \
+    | sed 's/$/" VARCHAR(2)\n);/' \
+    | sed 's/,/,\n /g' >> scripts/shacl4bib/shacl4bib.sql
+  sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/shacl4bib/shacl4bib.sql
+  rm scripts/shacl4bib/shacl4bib.sql
+
+  tail -n +2 ${OUTPUT_DIR}/shacl4bib.csv > ${OUTPUT_DIR}/shacl4bib-noheader.csv
+  sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
+.mode csv
+.import ${OUTPUT_DIR}/shacl4bib-noheader.csv shacl
+EOF
+
 }
 
 do_all_analyses() {

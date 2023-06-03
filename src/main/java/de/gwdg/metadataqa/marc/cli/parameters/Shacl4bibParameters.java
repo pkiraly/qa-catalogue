@@ -5,9 +5,10 @@ import org.apache.commons.cli.*;
 
 public class Shacl4bibParameters extends CommonParameters {
 
+  private static final String DEFAULT_SHACL_OUTPUT_FILE = "shacl4bib.csv";
   private boolean isOptionSet = false;
   private String shaclConfigurationFile;
-  private String shaclOutputFile;
+  private String shaclOutputFile = DEFAULT_SHACL_OUTPUT_FILE;
   private RuleCheckingOutputType shaclOutputType = RuleCheckingOutputType.STATUS;
 
   protected void setOptions() {

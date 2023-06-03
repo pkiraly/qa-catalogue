@@ -1928,6 +1928,42 @@ To export the HTML table described at [Self Descriptive MARC code](http://pkiral
 java -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MappingToHtml > mapping.html
 ```
 
+### Shacl4Bib
+
+since v0.7.0. Note: This is an experimental feature.
+
+The Shapes Constraint Language (SHACL) is a formal language for validating Resource Description Framework (RDF) graphs 
+against a set of conditions (expressed also in RDF). Following this idea and implementing a subset of the language, 
+the Metadata Quality Assessment Framework provides a mechanism to define SHACL-like rules for data sources in non-RDF
+based formats, such as XML, CSV and JSON (SHACL validates only RDF graphs). Shacl4Bib is the extension enabling the 
+validation of bibliographic records. The rules can be defined either with YAML or JSON configuration files or with Java
+code. SCHACL uses RDF notation to specify or "address" the data element about which the constraints are set. Shacl4Bib
+supports Carsten Klee's MARCspec for MARC records, and PICApath for PICA. You can find more information and full 
+definition of the implemented subset of SHACL here: https://github.com/pkiraly/metadata-qa-api#defining-schema-with-a-configuration-file
+
+Here is a simple example for setting up rules against a MARC subfield:
+```
+- name: 040$a
+  path: 040$a
+  rules:
+  - minCount: 1
+  - pattern: ^BE-KBR00
+```
+* `name` is how the data element is called within the rule set. It will also be the header of the column in the CSV file. 
+  It could be a machine or a human readable string.
+* `path` is the "address" of the metadata element. It should be expressed in an addressing language such as MARCSpec or PICAPath
+* `rules`: the parent element of the set of rules
+* `mintCount`: this specify the minimum number of instances of the data element in the record
+* `pattern`: a regular expression which should match the values of all instances of the data element
+
+Parameters:
+* `-C <file>`, `--shaclConfigurationFile <file>`: specify the SHACL like configuration file
+* `-O <file>`, `--shaclOutputFile <file>`: output file (default: `shacl4bib.csv`)
+* `-P <type>`, `--shaclOutputType <type>`: specify what the output files should contain. Possible values:
+  * `STATUS`: status only (passed or failed),
+  * `SCORE`: score only,
+  * `BOTH`: both status and score
+
 ## Extending the functionalities
 
 The project is available from Maven Central, the central repository of open source Java projects as jar files. If you

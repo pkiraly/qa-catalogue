@@ -424,7 +424,7 @@ do_shacl4bib() {
   head -1 ${OUTPUT_DIR}/shacl4bib.csv \
     | sed 's/,/" VARCHAR(2), "/g' \
     | sed 's/^/CREATE TABLE shacl( "/' \
-    | sed 's/id" VARCHAR(2)/id VARCHAR(100)/' \
+    | sed 's/id" VARCHAR(2)/id" VARCHAR(100)/' \
     | sed 's/$/" VARCHAR(2)\n);/' \
     | sed 's/,/,\n /g' >> scripts/shacl4bib/shacl4bib.sql
   sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/shacl4bib/shacl4bib.sql

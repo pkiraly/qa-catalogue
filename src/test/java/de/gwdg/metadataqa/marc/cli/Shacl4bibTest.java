@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.*;
@@ -107,5 +109,12 @@ public class Shacl4bibTest extends CliTestUtils {
         assertEquals("000000002,1,0", lines.get(1).trim());
       }
     }
+  }
+
+  @Test
+  public void regex_1() {
+    String text = "116 p.";
+    Pattern pattern = Pattern.compile("^.*\\d+ p\\.?\\s*$");
+    assertTrue("should fit", pattern.matcher(text).matches());
   }
 }

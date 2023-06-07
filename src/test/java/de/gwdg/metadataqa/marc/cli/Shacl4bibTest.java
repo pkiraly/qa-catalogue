@@ -117,4 +117,11 @@ public class Shacl4bibTest extends CliTestUtils {
     Pattern pattern = Pattern.compile("^.*\\d+ p\\.?\\s*$");
     assertTrue("should fit", pattern.matcher(text).matches());
   }
+
+  @Test
+  public void regex_2() {
+    String text = "116 € p.";
+    Pattern pattern = Pattern.compile("^.*€.*$");
+    assertTrue("should fit", pattern.matcher(text).matches());
+  }
 }

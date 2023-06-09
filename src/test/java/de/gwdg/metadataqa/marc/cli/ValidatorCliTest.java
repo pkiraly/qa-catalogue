@@ -243,7 +243,7 @@ public class ValidatorCliTest extends CliTestUtils {
         assertTrue(line.contains("\"pica\":true,"));
         assertTrue(line.contains("\"replacementInControlFields\":null,"));
         assertTrue(line.contains("\"marc21\":false,"));
-        assertTrue(line.contains("\"mqaf.version\":\"0.9.2\","));
+        assertTrue(line.contains("\"mqaf.version\":\"0.9.3-SNAPSHOT\","));
         assertTrue(line.contains("\"qa-catalogue.version\":\"0.7.0-rc2\"}"));
 
       } else {

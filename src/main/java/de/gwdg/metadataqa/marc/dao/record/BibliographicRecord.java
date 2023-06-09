@@ -29,6 +29,7 @@ import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 
 import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
 import de.gwdg.metadataqa.marc.utils.unimarc.UnimarcConverter;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.*;
@@ -509,17 +510,20 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
           results.add(field.getContent());
         }
       }
-
     } else if (datafieldIndex.containsKey(selector.getFieldTag())) {
       for (DataField field : datafieldIndex.get(selector.getFieldTag())) {
         if (field == null)
           continue;
-        for (String subfieldCode : selector.getSubfieldsAsList()) {
-          List<MarcSubfield> subfields = field.getSubfield(subfieldCode);
-          if (subfields == null)
-            continue;
-          for (MarcSubfield subfield : subfields) {
-            results.add(subfield.getValue());
+        List<String> codes = selector.getSubfieldsAsList();
+        if (codes.isEmpty()) {
+          results.add(joinAllSubfields(field));
+        } else {
+          for (String subfieldCode : codes) {
+            List<MarcSubfield> subfields = field.getSubfield(subfieldCode);
+            if (subfields == null)
+              continue;
+            for (MarcSubfield subfield : subfields)
+              results.add(subfield.getValue());
           }
         }
       }
@@ -533,6 +537,14 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
       }
     }
     return results;
+  }
+
+  private static String joinAllSubfields(DataField field) {
+    List<String> values = new ArrayList<>();
+    for (MarcSubfield subfield : field.getSubfields()) {
+      values.add(subfield.getValue());
+    }
+    return StringUtils.join(values," ");
   }
 
   public List<String> select(PicaPath selector) {

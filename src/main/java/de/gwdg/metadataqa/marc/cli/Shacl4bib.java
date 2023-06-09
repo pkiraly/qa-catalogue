@@ -8,6 +8,7 @@ import de.gwdg.metadataqa.api.interfaces.MetricResult;
 import de.gwdg.metadataqa.api.rule.RuleCatalog;
 import de.gwdg.metadataqa.api.util.CompressionLevel;
 import de.gwdg.metadataqa.marc.CsvUtils;
+import de.gwdg.metadataqa.marc.RuleCatalogUtils;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.Shacl4bibParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
@@ -116,10 +117,7 @@ public class Shacl4bib extends QACli implements BibliographicInputProcessor, Ser
     BibSelector selector = BibSelectorFactory.create(schema.getFormat(), marcRecord);
 
     if (selector != null) {
-      List<MetricResult> results = ruleCatalog.measure(selector);
-      MetricCollector collector = new MetricCollector();
-      collector.addResult(ruleCatalog, results, CompressionLevel.NORMAL);
-      List<Object> values = (List<Object>) collector.createOutput(OutputCollector.TYPE.STRING_LIST, CompressionLevel.NORMAL);
+      List<Object> values = RuleCatalogUtils.extract(ruleCatalog, ruleCatalog.measure(selector));
       values.add(0, marcRecord.getId(true));
       printToFile(outputFile, CsvUtils.createCsvFromObjects(values));
     }

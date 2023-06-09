@@ -65,7 +65,7 @@ fields:
       - id: 245$p.pattern
         description: if used, it should only contain 880-0X with X being a digit
         pattern: 880-0X\d$
-  - name: 300a	Y	no more 'p.' but 'pages'. Also error = N. gepag. N. pag. N.p. Non pag. (so if it contains a '.' then mark as error)
+  - name: 300a
     path: 300$a
     rules:
       - id: 300$a.minCount
@@ -176,12 +176,22 @@ fields:
       - id: 700$4
         # description: unless the field is used
         maxCount: 0
+  - name: 490
+    path: 490
+    rules:
+      - id: 490
+        hidden: true
+        minCount: 1
   - name: 773t
     path: 773$t
     rules:
       - id: 773$t
-        # description: unless 490 is present (the wrong field)
-        maxCount: 0
+        description: unless 490 is present (the wrong field)
+        or:
+          - and:
+            - dependencies: [490]
+            - maxCount: 0
+          - minCount: 1
   - name: 100a
     path: 100$a
     rules:

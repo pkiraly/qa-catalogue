@@ -682,7 +682,7 @@ here in a parsed format. It also contains some metadata such as the versions of 
   "pica":true,
   "replacementInControlFields":null,
   "marc21":false,
-  "mqaf.version":"0.9.0",
+  "mqaf.version":"0.9.2",
   "qa-catalogue.version":"0.7.0-SNAPSHOT"
 }
 ```
@@ -1130,7 +1130,7 @@ here in a parsed format. It also contains some metadata such as the versions of 
   "replacementInControlFields":"#",
   "marc21":true,
   "pica":false,
-  "mqaf.version":"0.9.1",
+  "mqaf.version":"0.9.2",
   "qa-catalogue.version":"0.7.0-rc2"
 }
 ```

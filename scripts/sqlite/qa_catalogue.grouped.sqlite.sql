@@ -1,4 +1,6 @@
 BEGIN TRANSACTION;
+
+DROP TABLE IF EXISTS issue_summary;
 CREATE TABLE IF NOT EXISTS "issue_summary" (
   "groupId"    INTEGER,
   "id"         INTEGER,
@@ -11,15 +13,20 @@ CREATE TABLE IF NOT EXISTS "issue_summary" (
   "instances"  INTEGER,
   "records"    INTEGER
 );
+
+DROP TABLE IF EXISTS issue_details;
 CREATE TABLE IF NOT EXISTS "issue_details" (
   "id"         TEXT,
   "errorId"    INTEGER,
   "instances"  INTEGER
 );
+
+DROP TABLE IF EXISTS id_groupid;
 CREATE TABLE IF NOT EXISTS "id_groupid" (
   "id"         TEXT,
   "groupId"    INTEGER
 );
+
 DROP TABLE IF EXISTS issue_grouped_types;
 CREATE TABLE issue_grouped_types (
   "groupId"     INTEGER,
@@ -44,4 +51,5 @@ CREATE TABLE issue_grouped_paths (
   "record_nr"   INTEGER,
   "instance_nr" INTEGER
 );
+
 COMMIT;

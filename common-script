@@ -297,6 +297,7 @@ EOF
 
   log "delete importable files"
   rm ${OUTPUT_DIR}/issue-details-normalized_noheader.csv
+  rm ${OUTPUT_DIR}/issue-details-normalized.csv
   rm ${OUTPUT_DIR}/issue-summary_noheader.csv
   if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
     rm ${OUTPUT_DIR}/id-groupid_noheader.csv

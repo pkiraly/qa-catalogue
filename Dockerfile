@@ -62,8 +62,10 @@ RUN cd /opt \
       php \
       php-sqlite3 \
       php-curl \
+      php-yaml \
       unzip \
       composer \
+      gettext \
  && rm -rf /var/lib/apt/lists/* \
  && cd /var/www/html/ \
 # && curl -s -L https://github.com/pkiraly/qa-catalogue-web/archive/refs/heads/main.zip --output master.zip \

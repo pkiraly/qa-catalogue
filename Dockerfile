@@ -68,6 +68,8 @@ RUN cd /opt \
       unzip \
       composer \
       gettext \
+ && locale-gen en_GB.UTF-8 \
+ && locale-gen de_DE.UTF-8 \
  && rm -rf /var/lib/apt/lists/* \
  && cd /var/www/html/ \
 # && curl -s -L https://github.com/pkiraly/qa-catalogue-web/archive/refs/heads/main.zip --output master.zip \

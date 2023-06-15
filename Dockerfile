@@ -58,6 +58,7 @@ RUN cd /opt \
  # install web application
  && apt-get update \
  && apt-get install -y --no-install-recommends \
+      locales \
       apache2 \
       php \
       php-sqlite3 \

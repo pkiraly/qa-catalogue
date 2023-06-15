@@ -10,7 +10,7 @@ options=$(getopt -o n:p:m:c:v:d: --long name:,params:,mask:,catalogue:,version:,
 eval set -- "$options"
 
 MARC_DIR=${BASE_INPUT_DIR}
-NAME=metadata-qa
+NAME=qa-catalogue
 while true; do
     case "$1" in
     -a|--analyses) ANALYSES=$2 ; shift;;
@@ -29,8 +29,22 @@ while true; do
     shift
 done
 
+cat << EOF
+configuration:
+---------------------------
+ANALYSES:    ${ANALYSES}
+CATALOGUE:   ${CATALOGUE}
+MARC_DIR:    ${MARC_DIR}
+MASK:        ${MASK}
+NAME:        ${NAME}
+TYPE_PARAMS: ${TYPE_PARAMS}
+UPDATE:      ${UPDATE}
+VERSION:     ${VERSION}
+---------------------------
+EOF
+
 if [[ "$CATALOGUE" != "" ]]; then
-  FILE=/var/www/html/metadata-qa/configuration.cnf
+  FILE=/var/www/html/qa-catalogue/configuration.cnf
   if [[ -f $FILE ]]; then
     count=$(grep -c catalogue $FILE)
     if [[ $count == 1 ]]; then

@@ -2243,7 +2243,7 @@ docker run \
 docker exec \                                       # execute a command
   -t -i metadata-qa-marc \                          # inside the container
   ./metadata-qa.sh \                                # the name of the command to run
-  --params "--marcVersion GENT --alephseq"          # the parameters used in analyses 
+  --params "--marcVersion GENT --alephseq" \        # the parameters used in analyses 
   --mask 'rug01.export' \                           # file mask
   --catalogue gent \                                # the name of the catalogue
   all                                               # run all analyses

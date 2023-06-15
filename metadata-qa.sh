@@ -46,9 +46,9 @@ EOF
 if [[ "$CATALOGUE" != "" ]]; then
   FILE=/var/www/html/qa-catalogue/configuration.cnf
   if [[ -f $FILE ]]; then
-    count=$(grep -c catalogue $FILE)
+    count=$(grep -cP "^catalogue=" $FILE)
     if [[ $count == 1 ]]; then
-      grep -v catalogue $FILE > /tmp/catalogue
+      grep -vP "^catalogue=" $FILE > /tmp/catalogue
       mv /tmp/catalogue $FILE
     fi
     echo "catalogue=$CATALOGUE" >> $FILE

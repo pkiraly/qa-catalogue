@@ -63,6 +63,7 @@ RUN cd /opt \
       php-sqlite3 \
       php-curl \
       php-yaml \
+      php-intl \
       unzip \
       composer \
       gettext \

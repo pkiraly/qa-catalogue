@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ueo pipefail
 
 . ./setdir.sh
 
@@ -32,18 +33,18 @@ done
 cat << EOF
 configuration:
 ---------------------------
-ANALYSES:    ${ANALYSES}
-CATALOGUE:   ${CATALOGUE}
-MARC_DIR:    ${MARC_DIR}
-MASK:        ${MASK}
-NAME:        ${NAME}
-TYPE_PARAMS: ${TYPE_PARAMS}
-UPDATE:      ${UPDATE}
-VERSION:     ${VERSION}
+ANALYSES:    ${ANALYSES:-}
+CATALOGUE:   ${CATALOGUE:-}
+MARC_DIR:    ${MARC_DIR:-}
+MASK:        ${MASK:-}
+NAME:        ${NAME:-}
+TYPE_PARAMS: ${TYPE_PARAMS:-}
+UPDATE:      ${UPDATE:-}
+VERSION:     ${VERSION:-}
 ---------------------------
 EOF
 
-if [[ "$CATALOGUE" != "" ]]; then
+if [[ "${CATALOGUE:-}" != "" ]]; then
   FILE=/var/www/html/qa-catalogue/configuration.cnf
   if [[ -f $FILE ]]; then
     count=$(grep -cP "^catalogue=" $FILE)
@@ -55,6 +56,6 @@ if [[ "$CATALOGUE" != "" ]]; then
   fi
 fi
 
-. ./common-script $1
+. ./common-script ${1:-}
 
-exit 0;
+exit 0

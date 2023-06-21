@@ -446,7 +446,9 @@ do_all_analyses() {
   done
   for task in $(echo "${ANALYSES}" | tr , ' '); do
     do_$task
-    echo "the result is $?"
+    echo "##"
+    echo "## THE RESULT IS $?"
+    echo "##"
   done
 }
 

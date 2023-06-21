@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ueo pipefail
 
 . ./setdir.sh
 
@@ -20,6 +21,7 @@ while true; do
     -m|--mask) MASK=$2 ; shift;;
     -n|--name) NAME=$2 ; shift;;
     -p|--params) TYPE_PARAMS=$2 ; shift;;
+    -s|--schema) SCHEMA=$2 ; shift;;
     -u|--update) UPDATE=$2 ; shift;;
     -v|--version) VERSION=$2 ; shift;;
     -s|--schema) SCHEMA=$2 ; shift;;
@@ -34,18 +36,19 @@ done
 cat << EOF
 configuration:
 ---------------------------
-ANALYSES:    ${ANALYSES}
-CATALOGUE:   ${CATALOGUE}
-MARC_DIR:    ${MARC_DIR}
-MASK:        ${MASK}
-NAME:        ${NAME}
-TYPE_PARAMS: ${TYPE_PARAMS}
-UPDATE:      ${UPDATE}
-VERSION:     ${VERSION}
+ANALYSES:    ${ANALYSES:-}
+CATALOGUE:   ${CATALOGUE:-}
+MARC_DIR:    ${MARC_DIR:-}
+MASK:        ${MASK:-}
+NAME:        ${NAME:-}
+TYPE_PARAMS: ${TYPE_PARAMS:-}
+SCHEMA:      ${SCHEMA:-}
+UPDATE:      ${UPDATE:-}
+VERSION:     ${VERSION:-}
 ---------------------------
 EOF
 
-if [[ "$CATALOGUE" != "" ]]; then
+if [[ "${CATALOGUE:-}" != "" ]]; then
   FILE=/var/www/html/qa-catalogue/configuration.cnf
   if [[ -f $FILE ]]; then
     count=$(grep -cP "^catalogue=" $FILE)
@@ -57,6 +60,6 @@ if [[ "$CATALOGUE" != "" ]]; then
   fi
 fi
 
-. ./common-script $1
+. ./common-script ${1:-}
 
-exit 0;
+exit 0

@@ -6,6 +6,3 @@ BASE_OUTPUT_DIR=./output
 # internal name of the catalogue. Dump files to be processed are expected
 # in $BASE_INPUT_DIR/$NAME and CSV results will be in $BASE_OUTPUT_DIR/$NAME/
 NAME="$(basename $0 .sh)"
-
-mkdir -p $BASE_INPUT_DIR/_reports
-mkdir -p $BASE_OUTPUT_DIR

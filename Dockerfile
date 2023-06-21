@@ -5,7 +5,7 @@ LABEL maintainer="Péter Király <pkiraly@gwdg.de>, Ákos Takács <rimelek@rimel
 LABEL description="QA catalogue - a metadata quality assessment tool for MARC based library catalogues."
 
 ARG QA_CATALOGUE_VERSION=0.7.0-rc2
-ARG QA_CATALOGUE_WEB_VERSION=0.7.0-rc1
+ARG QA_CATALOGUE_WEB_VERSION=0.7.0-rc2
 ARG DEBIAN_FRONTEND=noninteractive
 ARG SMARTY_VERSION=3.1.44
 ARG SOLR_VERSION=8.11.1

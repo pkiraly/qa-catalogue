@@ -36,6 +36,9 @@
                 <include>sqlite/normalize-issue-details.php</include>
                 <include>sqlite/qa_catalogue.sqlite.sql</include>
                 <include>sqlite/completeness.sqlite.sh</include>
+                <include>sqlite/qa_catalogue.grouped.sqlite.sql</include>
+                <include>sqlite/calculate-aggregated-numbers.grouped.sh</include>
+
 
                 <include>timeline/timeline.R</include>
                 <include>timeline/timeline.sh</include>

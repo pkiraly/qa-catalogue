@@ -2,7 +2,7 @@
 
 . ./setdir.sh
 
-options=$(getopt -o n:p:m:c:v:d: --long name:,params:,mask:,catalogue:,version:,input-dir: -- "$@")
+options=$(getopt -o n:p:m:c:v:d:a:u:s: --long name:,params:,mask:,catalogue:,version:,input-dir:analyses:update:schema: -- "$@")
 [ $? -eq 0 ] || { 
     echo "Incorrect options provided"
     exit 1
@@ -11,6 +11,7 @@ eval set -- "$options"
 
 MARC_DIR=${BASE_INPUT_DIR}
 NAME=qa-catalogue
+SCHEMA=MARC
 while true; do
     case "$1" in
     -a|--analyses) ANALYSES=$2 ; shift;;
@@ -21,6 +22,7 @@ while true; do
     -p|--params) TYPE_PARAMS=$2 ; shift;;
     -u|--update) UPDATE=$2 ; shift;;
     -v|--version) VERSION=$2 ; shift;;
+    -s|--schema) SCHEMA=$2 ; shift;;
     --)
         shift
         break

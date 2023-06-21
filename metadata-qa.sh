@@ -20,6 +20,7 @@ while true; do
     -m|--mask) MASK=$2 ; shift;;
     -n|--name) NAME=$2 ; shift;;
     -p|--params) TYPE_PARAMS=$2 ; shift;;
+    -s|--schema) SCHEMA=$2 ; shift;;
     -u|--update) UPDATE=$2 ; shift;;
     -v|--version) VERSION=$2 ; shift;;
     --)
@@ -39,6 +40,7 @@ MARC_DIR:    ${MARC_DIR:-}
 MASK:        ${MASK:-}
 NAME:        ${NAME:-}
 TYPE_PARAMS: ${TYPE_PARAMS:-}
+SCHEMA:      ${SCHEMA:-}
 UPDATE:      ${UPDATE:-}
 VERSION:     ${VERSION:-}
 ---------------------------

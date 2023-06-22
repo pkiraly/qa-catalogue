@@ -15,6 +15,9 @@ ENV TZ=Etc/UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
  && echo $TZ > /etc/timezone
 
+RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc/apt/sources.list.d/cran.list
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+
 RUN apt-get update \
     # Install add-apt-repository command
  && apt-get install -y --no-install-recommends software-properties-common \
@@ -22,8 +25,6 @@ RUN apt-get update \
  && add-apt-repository -y ppa:openjdk-r/ppa \
 # && add-apt-repository -y ppa:marutter/rrutter3.5 \
 # && add-apt-repository -y ppa:marutter/c2d4u3.5 \
- && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
- && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/' \
  && apt-get install -y --no-install-recommends \
       # install basic OS tools
       apt-utils \

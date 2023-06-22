@@ -3,8 +3,8 @@ set -ueo pipefail
 
 . ./setdir.sh
 
-options=$(getopt -o n:p:m:c:v:d:a:u:s: --long name:,params:,mask:,catalogue:,version:,input-dir:analyses:update:schema: -- "$@")
-[ $? -eq 0 ] || { 
+options=$(getopt -o n:p:m:c:v:d:a:u:s: --long name:,params:,mask:,catalogue:,version:,input-dir:,analyses:,update:,schema: -- "$@")
+[ $? -eq 0 ] || {
     echo "Incorrect options provided"
     exit 1
 }

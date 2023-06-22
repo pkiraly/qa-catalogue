@@ -31,8 +31,7 @@ df <- read_csv(
   col_types = cols(
     degree = col_double(),
     count = col_double()
-  ),
-  show_col_types = FALSE
+  )
 )
 
 plot <- df %>% 
@@ -69,8 +68,7 @@ df <- read_csv(
   col_types = cols(
     id = col_double(),
     degree = col_double()
-  ),
-  show_col_types = FALSE
+  )
 )
 
 plot <- df %>% 

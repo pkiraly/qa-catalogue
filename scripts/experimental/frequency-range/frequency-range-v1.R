@@ -124,7 +124,7 @@ draw_plot <- function(cumulation, label, instance_count, pareto) {
 }
 
 create_plot <- function(name, label, count, field) {
-  df <- read_csv(sprintf('%s/%s/%s', dir, name, file), show_col_types = FALSE)
+  df <- read_csv(sprintf('%s/%s/%s', dir, name, file))
   if (field == 'number-of-record') {
     total <- count
   } else {
@@ -144,7 +144,7 @@ create_plot <- function(name, label, count, field) {
   return(current_plot)
 }
 
-df <- read_csv(sprintf('%s/%s/%s', dir, 'szte', file), show_col_types = FALSE)
+df <- read_csv(sprintf('%s/%s/%s', dir, 'szte', file))
 field <- 'number-of-record'  # number-of-instances
 count <- 1282172
 if (field == 'number-of-record') {

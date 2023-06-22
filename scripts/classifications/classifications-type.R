@@ -21,7 +21,7 @@ csv <- sprintf("%s/%s.csv", output_dir, prefix)
 if (!file.exists(csv)) {
   stop(paste("input file", csv, "does not exist!"))
 }
-df <- read_csv(csv, show_col_types = FALSE)
+df <- read_csv(csv)
 
 types <- df %>% 
   select(scheme, abbreviation, type) %>% 

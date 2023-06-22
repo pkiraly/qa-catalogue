@@ -26,7 +26,7 @@ if (!file.exists(csv)) {
   stop(paste("input file", csv, "does not exist!"))
 }
 csv
-df <- read_csv(csv, show_col_types = FALSE)
+df <- read_csv(csv)
 
 df %>% 
   group_by(concept) %>% 

@@ -17,7 +17,7 @@ if (! frequency %in% c('weekly', 'monthly')) {
 }
 
 input_file <- paste0(dir, '/timeline-by-category.csv')
-df <- read_csv(input_file, show_col_types = FALSE)
+df <- read_csv(input_file)
 .min_version <- df %>% select(version) %>% filter(version == min(version)) %>% distinct() %>% unlist(use.names = FALSE)
 
 .levels <- df %>% 
@@ -56,7 +56,7 @@ ggsave(image_file, g, device = 'png', scale = 1,
        dpi = 150) # 1300, 1500
 
 input_file <- paste0(dir, '/timeline-by-type.csv')
-df <- read_csv(input_file, show_col_types = FALSE)
+df <- read_csv(input_file)
 
 categories <- df %>% select(category) %>% distinct() %>% unlist(use.names = FALSE)
 

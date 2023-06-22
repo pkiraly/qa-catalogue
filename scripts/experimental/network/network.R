@@ -1,6 +1,6 @@
 suppressPackageStartupMessages(library(tidyverse))
 
-df <- read_csv('~/bin/marc/_output/szte/network.csv', show_col_types = FALSE)
+df <- read_csv('~/bin/marc/_output/szte/network.csv')
 dim(df)
 
 by_concepts <- df %>% 

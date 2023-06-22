@@ -51,8 +51,8 @@ EOF
 if [[ "${CATALOGUE:-}" != "" ]]; then
   FILE=/var/www/html/qa-catalogue/configuration.cnf
   if [[ -f $FILE ]]; then
-    count=$(grep -cP "^catalogue=" $FILE)
-    if [[ $count == 1 ]]; then
+    HAS_CATALOGUE=$(grep -c 'catalogue=' $FILE)
+    if [[ $HAS_CATALOGUE == 1 ]]; then
       grep -vP "^catalogue=" $FILE > /tmp/catalogue
       mv /tmp/catalogue $FILE
     fi

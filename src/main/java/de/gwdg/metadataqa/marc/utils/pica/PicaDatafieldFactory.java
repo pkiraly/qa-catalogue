@@ -15,10 +15,13 @@ public class PicaDatafieldFactory {
 
   private static void initialize(String fileName) {
     if (picaSchemaManager == null) {
+      /*
       String schemaFile = fileName != null && StringUtils.isNotEmpty(fileName) && new File(fileName).exists()
         ? fileName
         : Paths.get("src/main/resources/pica/avram-k10plus.json").toAbsolutePath().toString();
       picaSchemaManager = PicaSchemaReader.createSchema(schemaFile);
+       */
+      picaSchemaManager = PicaSchemaReader.createSchemaManager(fileName);
     }
   }
 

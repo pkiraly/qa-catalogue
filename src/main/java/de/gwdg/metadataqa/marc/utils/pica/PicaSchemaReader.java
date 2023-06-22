@@ -6,10 +6,12 @@ import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
+import org.apache.commons.lang3.StringUtils;
 
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,7 +28,15 @@ public class PicaSchemaReader {
 
   private PicaSchemaReader(String fileName) {
     try {
-      readSchema(fileName);
+      readFile(fileName);
+    } catch (IOException | ParseException | URISyntaxException e) {
+      logger.severe(e.getLocalizedMessage());
+    }
+  }
+
+  private PicaSchemaReader(InputStream inputStream) {
+    try {
+      readStream(inputStream);
     } catch (IOException | ParseException | URISyntaxException e) {
       logger.severe(e.getLocalizedMessage());
     }
@@ -42,9 +52,47 @@ public class PicaSchemaReader {
     return reader.getSchema();
   }
 
-  private void readSchema(String fileName) throws IOException, ParseException, URISyntaxException {
+  public static PicaSchemaManager createSchema(InputStream inputStream) {
+    PicaSchemaReader reader = new PicaSchemaReader(inputStream);
+    return reader.getSchema();
+  }
+
+  public static PicaSchemaManager createSchemaManager(String picaSchemaFile) {
+    logger.info("read schema");
+    PicaSchemaManager picaSchemaManager;
+    String schemaFile = null;
+    if (StringUtils.isNotEmpty(picaSchemaFile)) {
+      logger.info("getPicaSchemaFile");
+      schemaFile = picaSchemaFile;
+    } else if (new File("src/main/resources/pica/avram-k10plus-title.json").exists()) {
+      logger.info("default file");
+      schemaFile = Paths.get("src/main/resources/pica/avram-k10plus-title.json").toAbsolutePath().toString();
+    }
+
+    if (schemaFile != null && new File(schemaFile).exists()) {
+      logger.info("read from file: " + schemaFile);
+      picaSchemaManager = PicaSchemaReader.createSchema(schemaFile);
+    } else {
+      logger.info("read from resource");
+      picaSchemaManager = PicaSchemaReader.createSchema(PicaSchemaReader.class.getClassLoader().getResourceAsStream("pica/avram-k10plus-title.json"));
+    }
+    return picaSchemaManager;
+  }
+
+  private void readFile(String fileName) throws IOException, ParseException, URISyntaxException {
+    JSONObject obj = (JSONObject) parser.parse(new FileReader(fileName));
+    process(obj);
+  }
+
+  private void readStream(InputStream inputStream) throws IOException, ParseException, URISyntaxException {
+    JSONObject obj = (JSONObject) parser.parse(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+    process(obj);
+  }
+
+  private void process(JSONObject obj) throws IOException, ParseException, URISyntaxException {
     // Path tagsFile = FileUtils.getPath(fileName);
-    Object obj = parser.parse(new FileReader(fileName));
+
+    // Object obj = parser.parse(new FileReader(fileName));
     JSONObject jsonObject = (JSONObject) obj;
     JSONObject fields = (JSONObject) jsonObject.get("fields");
     for (Map.Entry<String, Object> entry : fields.entrySet()) {

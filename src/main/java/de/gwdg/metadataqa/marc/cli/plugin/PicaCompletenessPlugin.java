@@ -45,11 +45,14 @@ public class PicaCompletenessPlugin implements CompletenessPlugin, Serializable 
     FieldPath path = parse(parameters.getPicaRecordTypeField());
     field = path.getField();
     subfield = path.getSubfield();
+
+    /*
     String schemaFile = StringUtils.isNotEmpty(parameters.getPicaSchemaFile())
       ? parameters.getPicaSchemaFile()
       : Paths.get("src/main/resources/pica/avram-k10plus.json").toAbsolutePath().toString();
     picaSchema = PicaSchemaReader.createSchema(schemaFile);
-
+     */
+    picaSchema = PicaSchemaReader.createSchemaManager(parameters.getPicaSchemaFile());
   }
 
   @Override

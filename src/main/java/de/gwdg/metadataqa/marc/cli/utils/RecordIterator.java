@@ -21,6 +21,7 @@ import org.marc4j.MarcException;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -66,11 +67,7 @@ public class RecordIterator {
     replacementInControlFields = parameters.getReplacementInControlFields();
     decimalFormat = new DecimalFormat();
     if (parameters.isPica()) {
-      String schemaFile = StringUtils.isNotEmpty(parameters.getPicaSchemaFile())
-                        ? parameters.getPicaSchemaFile()
-                        // : Paths.get("src/main/resources/pica/avram-k10plus.json").toAbsolutePath().toString();
-                        : Paths.get("src/main/resources/pica/avram-k10plus-title.json").toAbsolutePath().toString();
-      picaSchema = PicaSchemaReader.createSchema(schemaFile);
+      picaSchema = PicaSchemaReader.createSchemaManager(parameters.getPicaSchemaFile());
     }
 
     if (processor.getParameters().doLog())

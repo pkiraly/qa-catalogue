@@ -29,9 +29,7 @@ print(sprintf('[parameters] OUTPUT_DIR: %s, SOLR_CORE: %s', OUTPUT_DIR, SOLR_COR
 URL <- paste0('http://localhost:8983/solr/', SOLR_CORE, '/select?q=%s&rows=0')
 
 print('reading issue-summary.csv')
-summary <- read_csv(sprintf('%s/%s',
-                            OUTPUT_DIR, 'issue-summary.csv'),
-                    show_col_types = FALSE)
+summary <- read_csv(sprintf('%s/%s', OUTPUT_DIR, 'issue-summary.csv'))
 summary <- summary %>% 
   select(-c(type, message, url, records)) %>% 
   mutate(

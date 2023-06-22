@@ -38,7 +38,8 @@
                 <include>sqlite/completeness.sqlite.sh</include>
                 <include>sqlite/qa_catalogue.grouped.sqlite.sql</include>
                 <include>sqlite/calculate-aggregated-numbers.grouped.sh</include>
-
+                <include>sqlite/qa_catalogue.grouping.R</include>
+                <include>sqlite/validation-result-indexer.php</include>
 
                 <include>timeline/timeline.R</include>
                 <include>timeline/timeline.sh</include>

@@ -6,6 +6,7 @@ import org.apache.commons.io.LineIterator;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -53,6 +54,6 @@ public class K10OrganisationReader {
   }
 
   private static LineIterator getLineIterator(String fileName) throws IOException {
-    return IOUtils.lineIterator(new FileInputStream(fileName), Charset.defaultCharset());
+    return IOUtils.lineIterator(new FileInputStream(fileName), StandardCharsets.UTF_8);
   }
 }

@@ -8,6 +8,7 @@ CREATE INDEX IF NOT EXISTS "categoryId" ON "issue_summary" ("categoryId");
 CREATE INDEX IF NOT EXISTS "typeId" ON "issue_summary" ("typeId");
 
 --- create issue_groups to speed up queries
+DROP TABLE issue_groups;
 CREATE TABLE issue_groups AS
 SELECT categoryId,
        typeId,

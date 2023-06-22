@@ -16,7 +16,6 @@ public abstract class PicaReader implements MarcReader {
   protected String idCode = "0";
   protected boolean parsed = false;
 
-  // protected PicaSchemaManager schema = PicaSchemaReader.createSchema(Paths.get("src/main/resources/pica/avram-k10plus.json").toAbsolutePath().toString());
   protected PicaSchemaManager schema = PicaSchemaReader.createSchemaManager(null);
 
   @Override

@@ -124,7 +124,7 @@ else  \
 fi
 
 RUN echo "unzip solr" \
- && /opt \
+ && cd /opt \
  && unzip -q solr-${SOLR_VERSION}.zip \
  && rm solr-${SOLR_VERSION}.zip \
  && echo "linking solr" \

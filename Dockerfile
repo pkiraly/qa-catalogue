@@ -114,13 +114,12 @@ RUN echo "install lsof" \
  && apt-get --assume-yes autoremove \
  && rm -rf /var/lib/apt/lists/*
 
-RUN if [ "$SOLR_INSTALL_SOURCE" = "remote" ]; then \
-  echo "download solr-${SOLR_VERSION}"; \
-  curl -L http://archive.apache.org/dist/lucene/solr/${SOLR_VERSION}/solr-${SOLR_VERSION}.zip --output /opt/solr-${SOLR_VERSION}.zip \
-else  \
-  echo "copy solr-${SOLR_VERSION}"; \
-  COPY ${$SOLR_INSTALL_SOURCE} /opt ; \
-fi
+COPY ${SOLR_INSTALL_SOURCE}* /opt
+
+RUN cd /opt \
+ && if [ ! -f solr-${SOLR_VERSION}.zip ]; then \
+       curl -L http://archive.apache.org/dist/lucene/solr/${SOLR_VERSION}/solr-${SOLR_VERSION}.zip --output /opt/solr-${SOLR_VERSION}.zip ; \
+    fi
 
 RUN echo "unzip solr" \
  && cd /opt \

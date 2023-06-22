@@ -9,6 +9,7 @@ ARG QA_CATALOGUE_WEB_VERSION=0.7.0-rc2
 ARG DEBIAN_FRONTEND=noninteractive
 ARG SMARTY_VERSION=3.1.44
 ARG SOLR_VERSION=8.11.1
+ARG SOLR_INSTALL_SOURCE=remote
 
 # install R
 ENV TZ=Etc/UTC
@@ -114,9 +115,16 @@ RUN echo "install lsof" \
  && rm -rf /var/lib/apt/lists/* \
  && echo "install solr" \
  && cd /opt \
- && echo "download solr-${SOLR_VERSION}" \
- && curl -L http://archive.apache.org/dist/lucene/solr/${SOLR_VERSION}/solr-${SOLR_VERSION}.zip --output solr-${SOLR_VERSION}.zip \
- && echo "unzip solr" \
+ && echo "download solr-${SOLR_VERSION}"
+
+RUN if [ "$SOLR_INSTALL_SOURCE" = "remote" ]; then \
+  curl -L http://archive.apache.org/dist/lucene/solr/${SOLR_VERSION}/solr-${SOLR_VERSION}.zip --output /opt/solr-${SOLR_VERSION}.zip \
+else  \
+  COPY data/solr-${SOLR_VERSION}.zip /opt ; \
+fi
+
+RUN echo "unzip solr" \
+ && /opt \
  && unzip -q solr-${SOLR_VERSION}.zip \
  && rm solr-${SOLR_VERSION}.zip \
  && echo "linking solr" \

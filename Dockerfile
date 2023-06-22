@@ -20,8 +20,10 @@ RUN apt-get update \
  && apt-get install -y --no-install-recommends software-properties-common \
     # add PPA with pre-compiled cran packages
  && add-apt-repository -y ppa:openjdk-r/ppa \
- && add-apt-repository -y ppa:marutter/rrutter3.5 \
+# && add-apt-repository -y ppa:marutter/rrutter3.5 \
 # && add-apt-repository -y ppa:marutter/c2d4u3.5 \
+ && sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
+ && sudo add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/' \
  && apt-get install -y --no-install-recommends \
       # install basic OS tools
       apt-utils \

@@ -464,11 +464,7 @@ do_all_solr() {
 
 help() {
 cat <<END
-QA catalogue for analysing library data
-
-usage: $0 [command]
-
-commands:
+Commands:
   validate                   record validation
   validate-sqlite            import result of validation to SQLite
   completeness               completeness analysis
@@ -493,7 +489,7 @@ commands:
   all-solr                   run all indexing tasks
   all                        run all tasks (analyses and indexing)
   config                     show configuration
-  help                       print this help message
+  help                       show this help message
 
 END
 }

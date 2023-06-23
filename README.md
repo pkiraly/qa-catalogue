@@ -80,6 +80,8 @@ See `INSTALL.md` for dependencies.
 
 ### Configuration
 
+Either use the script `metadata-qa.sh` or create configuration files:
+
 4. `cp setdir.sh.template setdir.sh`
 
 Change the input and output base directories in `setdir.sh`. Local directories `input/` and `output/` will be used by
@@ -288,7 +290,7 @@ TYPE_PARAMS="--marcVersion DNB --marcxml"
 This line sets the DNB's MARC version (to cover fields defined within DNB's
 MARC version), and XML as input format.
 
-The following table summarizes all configuration variables. The script
+The following table summarizes some of the configuration variables. The script
 `metadata-qa.sh` can be used to set variables and execute analysis without a
 library specific configuration file:
 

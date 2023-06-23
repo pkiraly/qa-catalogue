@@ -514,7 +514,7 @@ fatal() {
   exit 1
 }
 
-# initialize environment
+# initialize environment, set default values
 NAME=${NAME:-$(basename $0 .sh)}
 BASE_INPUT_DIR=${BASE_INPUT_DIR:-./input}
 BASE_OUTPUT_DIR=${BASE_OUTPUT_DIR:-./output}
@@ -531,6 +531,10 @@ fi
 # which tasks to run on `all-analyses`
 if [ "${SCHEMA}" == "PICA" ]; then
   ALL_ANALYSES=validate,validate_sqlite,completeness,completeness_sqlite,classifications,authorities,marc_history
+
+  # automatically set unless already set
+  [[ "$TYPE_PARAMS" =~ --marcFormat|-f ]] || TYPE_PARAMS="--marcFormat PICA_NORMALIZED $TYPE_PARAMS"
+  [[ "$TYPE_PARAMS" =~ --schemaType|-F ]] || TYPE_PARAMS="--schemaType PICA $TYPE_PARAMS"
 else
   ALL_ANALYSES=validate,validate_sqlite,completeness,completeness_sqlite,classifications,authorities,tt_completeness,shelf_ready_completeness,serial_score,functional_analysis,pareto,marc_history
 fi

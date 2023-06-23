@@ -16,7 +16,7 @@ Options:
   -m --mask       input filename or glob (default: *)
   -o --output     output directory. Result are put into subdirectory NAME and _reports (default: ./output)
   -p --params     additional parameters passed to analyses
-  -s --schema     record schema (default: MARC, also supported: PICA)
+  -s --schema     record schema (default: MARC21, also supported: PICA)
   -u --update     last modification time of input files (default: timestamps)
   -v --version    ???
 

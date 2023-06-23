@@ -196,7 +196,7 @@ do_pareto() {
 }
 
 do_marc_history() {
-  if [ "${SCHEMA:-}" == "PICA" ]; then
+  if [ "${SCHEMA}" == "PICA" ]; then
     SELECTOR='011@$a;001A$0|extractPicaDate'
   else
     SELECTOR="008~7-10;008~0-5"
@@ -502,6 +502,7 @@ config() {
   echo "OUTPUT_DIR=$OUTPUT_DIR"
   echo "TYPE_PARAMS=$TYPE_PARAMS"
   echo "ANALYSES=$ANALYSES"
+  echo "SCHEMA=$SCHEMA"
   echo "WEB_DIR=$WEB_DIR"
   echo "PREFIX=$PREFIX"
   echo "UPDATE=$UPDATE"
@@ -518,6 +519,7 @@ NAME=${NAME:-$(basename $0 .sh)}
 BASE_INPUT_DIR=${BASE_INPUT_DIR:-./input}
 BASE_OUTPUT_DIR=${BASE_OUTPUT_DIR:-./output}
 MARC_DIR=${MARC_DIR:-$BASE_INPUT_DIR/$NAME}
+SCHEMA=${SCHEMA:-MARC21}
 
 PREFIX=${BASE_INPUT_DIR}/_reports/$NAME
 if [[ "${VERSION:-}" != "" ]]; then
@@ -527,7 +529,7 @@ else
 fi
 
 # which tasks to run on `all-analyses`
-if [ "${SCHEMA:-}" == "PICA" ]; then
+if [ "${SCHEMA}" == "PICA" ]; then
   ALL_ANALYSES=validate,validate_sqlite,completeness,completeness_sqlite,classifications,authorities,marc_history
 else
   ALL_ANALYSES=validate,validate_sqlite,completeness,completeness_sqlite,classifications,authorities,tt_completeness,shelf_ready_completeness,serial_score,functional_analysis,pareto,marc_history

@@ -80,7 +80,7 @@ See `INSTALL.md` for dependencies.
 
 ### Configuration
 
-Either use the script `metadata-qa.sh` or create configuration files:
+Either use the script `qa-catalogue` or create configuration files:
 
 4. `cp setdir.sh.template setdir.sh`
 
@@ -117,7 +117,7 @@ docker run \
 docker container exec \
   -ti \
   metadata-qa-marc \
-  ./metadata-qa.sh \
+  ./qa-catalogue \
   --params "--marcVersion GENT --alephseq" \
   --mask "rug01.export" \
   --catalogue gent \
@@ -212,7 +212,7 @@ catalogues/[your script] [command]
 ```
 or
 ```bash
-./metadata-qa.sh --params="[options]" [command]
+./qa-catalogue --params="[options]" [command]
 ```
 
 The following commands are supported:
@@ -291,10 +291,10 @@ This line sets the DNB's MARC version (to cover fields defined within DNB's
 MARC version), and XML as input format.
 
 The following table summarizes some of the configuration variables. The script
-`metadata-qa.sh` can be used to set variables and execute analysis without a
+`qa-catalogue` can be used to set variables and execute analysis without a
 library specific configuration file:
 
-| variable      | `metadata-qa.sh`  | description  | default |
+| variable      | `qa-catalogue`  | description  | default |
 | ------------- | ----------------- | ------------ | ------- |
 | `NAME`        | `-n`/`--name`     | name of the catalogue | metadata-qa |
 | `TYPE_PARAMS` | `-p`/`--params`   | parameters to pass to individual tasks (see below) | |
@@ -469,7 +469,7 @@ catalogues/<catalogue>.sh validate
 ```
 or
 ```bash
-./metadata-qa.sh --params="[options]" validate
+./qa-catalogue --params="[options]" validate
 ```
 
 options:
@@ -801,7 +801,7 @@ catalogues/<catalogue>.sh validate-sqlite
 ```
 or
 ```bash
-./metadata-qa.sh --params="[options]" validate-sqlite
+./qa-catalogue --params="[options]" validate-sqlite
 ```
 or
 ```bash
@@ -1000,7 +1000,7 @@ catalogues/<catalogue>.sh completeness
 ```
 or
 ```bash
-./metadata-qa.sh --params="[options]" completeness
+./qa-catalogue --params="[options]" completeness
 ```
 
 options:
@@ -1224,7 +1224,7 @@ catalogues/[catalogue].sh tt-completeness
 ```
 or
 ```bash
-./metadata-qa.sh --params="[options]" tt-completeness
+./qa-catalogue --params="[options]" tt-completeness
 ```
 
 options:
@@ -1284,7 +1284,7 @@ catalogues/[catalogue].sh shelf-ready-completeness
 ```
 or
 ```bash
-./metadata-qa.sh --params="[options]" shelf-ready-completeness
+./qa-catalogue --params="[options]" shelf-ready-completeness
 ```
 
 options:
@@ -1318,7 +1318,7 @@ catalogues/[catalogue].sh serial-score
 ```
 or
 ```bash
-./metadata-qa.sh --params="[options]" serial-score
+./qa-catalogue --params="[options]" serial-score
 ```
 
 options:
@@ -1347,7 +1347,7 @@ catalogues/[catalogue].sh classifications
 ```
 or
 ```bash
-./metadata-qa.sh --params="[options]" classifications
+./qa-catalogue --params="[options]" classifications
 ```
 
 options:
@@ -1399,7 +1399,7 @@ catalogues/<catalogue>.sh authorities
 ```
 or
 ```bash
-./metadata-qa.sh --params="[options]" authorities
+./qa-catalogue --params="[options]" authorities
 ```
 
 options:
@@ -1503,7 +1503,7 @@ catalogues/<catalogue>.sh functional-analysis
 ```
 or
 ```bash
-./metadata-qa.sh --params="[options]" functional-analysis
+./qa-catalogue --params="[options]" functional-analysis
 ```
 
 options:
@@ -1545,7 +1545,7 @@ catalogues/[catalogue].sh pareto
 ```
 or
 ```bash
-./metadata-qa.sh --params="[options]" pareto
+./qa-catalogue --params="[options]" pareto
 ```
 
 options:
@@ -1566,7 +1566,7 @@ catalogues/[catalogue].sh marc-history
 ```
 or
 ```bash
-./metadata-qa.sh --params="[options]" marc-history
+./qa-catalogue --params="[options]" marc-history
 ```
 
 options:
@@ -1579,7 +1579,7 @@ SQLite3 database.
 
 The prerequisite of this step is to run validation first, since it uses the
 files produced there. If you run validation with `catalogues/<catalogue>.sh` or
-`./metadata-qa.sh scripts`, this importing step is already covered there.
+`./qa-catalogue` scripts, this importing step is already covered there.
 
 Usage:
 ```bash
@@ -1587,7 +1587,7 @@ catalogues/[catalogue].sh sqlite
 ```
 or
 ```bash
-./metadata-qa.sh --params="[options]" sqlite
+./qa-catalogue --params="[options]" sqlite
 ```
 
 options:
@@ -1654,7 +1654,7 @@ catalogues/[catalogue].sh all-solr
 ```
 or
 ```bash
-./metadata-qa.sh --params="[options]" all-solr
+./qa-catalogue --params="[options]" all-solr
 ```
 
 options:
@@ -1839,7 +1839,7 @@ catalogues/[catalogue].sh export-schema-files
 ```
 or
 ```bash
-./metadata-qa.sh --params="[options]" export-schema-files
+./qa-catalogue --params="[options]" export-schema-files
 ```
 
 options:
@@ -2244,7 +2244,7 @@ docker run \
 # run analyses
 docker exec \                                       # execute a command
   -t -i metadata-qa-marc \                          # inside the container
-  ./metadata-qa.sh \                                # the name of the command to run
+  ./qa-catalogue \                                # the name of the command to run
   --params "--marcVersion GENT --alephseq" \        # the parameters used in analyses 
   --mask 'rug01.export' \                           # file mask
   --catalogue gent \                                # the name of the catalogue

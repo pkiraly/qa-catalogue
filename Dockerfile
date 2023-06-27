@@ -75,9 +75,12 @@ RUN cd /opt \
  && locale-gen de_DE.UTF-8 \
  && rm -rf /var/lib/apt/lists/* \
  && cd /var/www/html/ \
-# && curl -s -L https://github.com/pkiraly/qa-catalogue-web/archive/refs/heads/main.zip --output master.zip \
 # && curl -s -L https://github.com/pkiraly/qa-catalogue-web/archive/${QA_CATALOGUE_VERSION}.zip --output master.zip \
- && curl -s -L https://github.com/pkiraly/qa-catalogue-web/archive/refs/tags/v${QA_CATALOGUE_WEB_VERSION}.zip --output master.zip \
+ && if [ "${QA_CATALOGUE_WEB_VERSION}" = "main" ]; then \
+      curl -s -L https://github.com/pkiraly/qa-catalogue-web/archive/refs/heads/main.zip --output master.zip ; \
+    else \
+      curl -s -L https://github.com/pkiraly/qa-catalogue-web/archive/refs/tags/v${QA_CATALOGUE_WEB_VERSION}.zip --output master.zip ; \
+    fi \
  && ls -la \
  && unzip -q master.zip \
  && rm master.zip \

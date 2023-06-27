@@ -9,7 +9,7 @@ QA catalogue for analysing library data
 
 Options:
   -a --analyses   which commands to run with command 'all-analyses'
-  -c --catalogue  ???
+  -c --catalogue  the short name of the catalogue
   -n --name       name of the analysis (default: qa-catalogue)
   -i --input      input directory (default: ./input)
   -d --input-dir  subdirectory of input directory to read files from (default: the NAME)
@@ -19,6 +19,7 @@ Options:
   -s --schema     record schema (default: MARC21, also supported: PICA)
   -u --update     last modification time of input files (default: timestamps)
   -v --version    optional version number/date of the catalogue to compare changes
+  -w --web-config update the web configuration file
 
 EOF
   . ./common-script help
@@ -32,9 +33,10 @@ EOF
 BASE_INPUT_DIR=${BASE_INPUT_DIR:-./input}
 BASE_OUTPUT_DIR=${BASE_OUTPUT_DIR:-./output}
 NAME=${NAME:-qa-catalogue}
+RUN_WEB_CONFIG=0
 
 # parse command line options
-options=$(getopt -o a:c:d:i:m:n:o:p:s:u:v --long analyses:,catalogue:,input-dir:,input:,mask:,name:,output:,params:,schema:,update:,version: -- "$@")
+options=$(getopt -o a:c:d:i:m:n:o:p:s:u:v:w --long analyses:,catalogue:,input-dir:,input:,mask:,name:,output:,params:,schema:,update:,version:,web-config -- "$@")
 
 eval set -- "$options"
 
@@ -51,6 +53,7 @@ while true; do
     -s|--schema) SCHEMA=$2 ; shift;;
     -u|--update) UPDATE=$2 ; shift;;
     -v|--version) VERSION=$2 ; shift;;
+    -w|--web-config) RUN_WEB_CONFIG=1 ; shift;;
     --)
         shift
         break
@@ -75,21 +78,24 @@ SCHEMA:                   ${SCHEMA:-}
 TYPE_PARAMS (params):     ${TYPE_PARAMS:-}
 UPDATE:                   ${UPDATE:-}
 VERSION:                  ${VERSION:-}
+RUN_WEB_CONFIG:           ${RUN_WEB_CONFIG}
 ---------------------------
 EOF
 
-if [[ "${CATALOGUE:-}" != "" ]]; then
-  FILE=/var/www/html/qa-catalogue/configuration.cnf
-  if [[ -f $FILE ]]; then
-    HAS_CATALOGUE=$(grep -c 'catalogue=' $FILE || true)
-    if [[ $HAS_CATALOGUE == 1 ]]; then
-      grep -vP "^catalogue=" $FILE > /tmp/catalogue
-      mv /tmp/catalogue $FILE
+. ./common-script ${1:-}
+
+if [[ ${RUN_WEB_CONFIG} = 1 ]]; then
+  if [[ "${CATALOGUE:-}" != "" ]]; then
+    FILE=/var/www/html/qa-catalogue/configuration.cnf
+    if [[ -f $FILE ]]; then
+      HAS_CATALOGUE=$(grep -c 'catalogue=' $FILE || true)
+      if [[ $HAS_CATALOGUE == 1 ]]; then
+        grep -vP "^catalogue=" $FILE > /tmp/catalogue
+        mv /tmp/catalogue $FILE
+      fi
+      echo "catalogue=$CATALOGUE" >> $FILE
     fi
-    echo "catalogue=$CATALOGUE" >> $FILE
   fi
 fi
-
-. ./common-script ${1:-}
 
 exit 0

@@ -53,7 +53,7 @@ while true; do
     -s|--schema) SCHEMA=$2 ; shift;;
     -u|--update) UPDATE=$2 ; shift;;
     -v|--version) VERSION=$2 ; shift;;
-    -w|--web-config) RUN_WEB_CONFIG=1 ; shift;;
+    -w|--web-config) RUN_WEB_CONFIG=1 ;;
     --)
         shift
         break

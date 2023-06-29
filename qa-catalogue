@@ -9,7 +9,7 @@ QA catalogue for analysing library data
 
 Options:
   -a --analyses   which commands to run with command 'all-analyses'
-  -c --catalogue  the short name of the catalogue
+  -c --catalogue  short name of the catalogue
   -n --name       name of the analysis (default: qa-catalogue)
   -i --input      input directory (default: ./input)
   -d --input-dir  subdirectory of input directory to read files from (default: the NAME)
@@ -19,7 +19,7 @@ Options:
   -s --schema     record schema (default: MARC21, also supported: PICA)
   -u --update     last modification time of input files (default: timestamps)
   -v --version    optional version number/date of the catalogue to compare changes
-  -w --web-config update the web configuration file
+  -w --web-config update the specified configuration file of qa-catalogue-web
 
 EOF
   . ./common-script help
@@ -32,11 +32,12 @@ EOF
 # default values, if not set
 BASE_INPUT_DIR=${BASE_INPUT_DIR:-./input}
 BASE_OUTPUT_DIR=${BASE_OUTPUT_DIR:-./output}
+MASK=${MASK:-*}
 NAME=${NAME:-qa-catalogue}
-RUN_WEB_CONFIG=0
+WEB_CONFIG=
 
 # parse command line options
-options=$(getopt -o a:c:d:i:m:n:o:p:s:u:v:w --long analyses:,catalogue:,input-dir:,input:,mask:,name:,output:,params:,schema:,update:,version:,web-config -- "$@")
+options=$(getopt -o a:c:d:i:m:n:o:p:s:u:v:w: --long analyses:,catalogue:,input-dir:,input:,mask:,name:,output:,params:,schema:,update:,version:,web-config -- "$@")
 
 eval set -- "$options"
 
@@ -53,7 +54,7 @@ while true; do
     -s|--schema) SCHEMA=$2 ; shift;;
     -u|--update) UPDATE=$2 ; shift;;
     -v|--version) VERSION=$2 ; shift;;
-    -w|--web-config) RUN_WEB_CONFIG=1 ;;
+    -w|--web-config) WEB_CONFIG=$2 ;;
     --)
         shift
         break
@@ -78,24 +79,32 @@ SCHEMA:                   ${SCHEMA:-}
 TYPE_PARAMS (params):     ${TYPE_PARAMS:-}
 UPDATE:                   ${UPDATE:-}
 VERSION:                  ${VERSION:-}
-RUN_WEB_CONFIG:           ${RUN_WEB_CONFIG}
+WEB_CONFIG:               ${WEB_CONFIG}
 ---------------------------
 EOF
 
+# don't proceed if web configuration shall be updated but cannot do so
+if [[ ! -z "$WEB_CONFIG" ]]; then
+  if [[ ! -f "$WEB_CONFIG" ]]; then
+    echo "web configuration file missing: $WEB_CONFIG" >&2
+    exit 1
+  elif [[ -z "$CATALOGUE" ]]; then
+    echo "catalogue short name not set" >&2
+    exit 1
+ fi
+fi
+
+# run actual analysis
 . ./common-script ${1:-}
 
-if [[ ${RUN_WEB_CONFIG} = 1 ]]; then
-  if [[ "${CATALOGUE:-}" != "" ]]; then
-    FILE=/var/www/html/qa-catalogue/configuration.cnf
-    if [[ -f $FILE ]]; then
-      HAS_CATALOGUE=$(grep -c 'catalogue=' $FILE || true)
-      if [[ $HAS_CATALOGUE == 1 ]]; then
-        grep -vP "^catalogue=" $FILE > /tmp/catalogue
-        mv /tmp/catalogue $FILE
-      fi
-      echo "catalogue=$CATALOGUE" >> $FILE
-    fi
+# optionally update web configuration
+if [[ ! -z "$WEB_CONFIG" ]]; then
+  HAS_CATALOGUE=$(grep -cP '^\s*catalogue\s*=' $WEB_CONFIG || true)
+  if [[ $HAS_CATALOGUE == 1 ]]; then
+    grep -vP "^\s*catalogue\s*=" $WEB_CONFIG > /tmp/catalogue
+    mv /tmp/catalogue $WEB_CONFIG
   fi
+  echo "catalogue=$CATALOGUE" >> $WEB_CONFIG
 fi
 
 exit 0

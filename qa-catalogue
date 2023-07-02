@@ -34,6 +34,8 @@ BASE_INPUT_DIR=${BASE_INPUT_DIR:-./input}
 BASE_OUTPUT_DIR=${BASE_OUTPUT_DIR:-./output}
 MASK=${MASK:-*}
 NAME=${NAME:-qa-catalogue}
+TYPE_PARAMS=
+SCHEMA=MARC21
 WEB_CONFIG=
 
 # parse command line options
@@ -72,11 +74,11 @@ ANALYSES:                 ${ANALYSES:-}
 CATALOGUE:                ${CATALOGUE:-}
 MARC_DIR (input-dir):     ${MARC_DIR:-}
 BASE_INPUT_DIR (input):   ${BASE_INPUT_DIR}
-MASK:                     ${MASK:-}
+MASK:                     ${MASK}
 NAME:                     ${NAME}
 BASE_OUTPUT_DIR (output): ${BASE_OUTPUT_DIR}
-SCHEMA:                   ${SCHEMA:-}
-TYPE_PARAMS (params):     ${TYPE_PARAMS:-}
+SCHEMA:                   ${SCHEMA}
+TYPE_PARAMS (params):     ${TYPE_PARAMS}
 UPDATE:                   ${UPDATE:-}
 VERSION:                  ${VERSION:-}
 WEB_CONFIG:               ${WEB_CONFIG}

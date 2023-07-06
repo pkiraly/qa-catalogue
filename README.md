@@ -277,7 +277,7 @@ Three variables are important here:
    under $BASE_OUTPUT_DIR/$NAME directory
 2. `MARC_DIR` is the location of MARC files. All the files should be in the
    same directory
-3. `MASK` is a file mask, such as *.mrc or *.marc
+3. `MASK` is a file mask, such as `*.mrc`, `*.marc` or `*.dat.gz`. Files ending with `.gz` are uncompressed automatically.
 
 You can add here any other parameters this document mentioned at the description
 of individual command, wrapped in TYPE_PARAMS variable e.g. for the Deutche

@@ -1,4 +1,5 @@
 {
+  "family": "pica",
   "fields": {
     "001A": {
       "label": "Kennung und Datum der Ersterfassung",
@@ -1096,7 +1097,7 @@
     },
     "006Y": {
       "label": "Identnummern (allgemein)",
-      "modified": "2018-05-08T14:43:51",
+      "modified": "2023-06-26T09:10:03",
       "pica3": "2199",
       "repeatable": true,
       "subfields": {
@@ -2081,7 +2082,7 @@
         "a": {
           "code": "a",
           "label": "Code",
-          "modified": "2023-01-23T09:29:22",
+          "modified": "2023-07-04T08:22:43",
           "pica3": "",
           "repeatable": true
         }
@@ -2178,7 +2179,7 @@
         "t": {
           "code": "t",
           "label": "Weitere Angaben zum Bezugswerk",
-          "modified": "2019-11-25T09:53:52",
+          "modified": "2023-06-22T12:45:48",
           "pica3": "$t",
           "repeatable": false
         },
@@ -2885,7 +2886,7 @@
         "z": {
           "code": "z",
           "label": "Gültigkeitszeitraum",
-          "modified": "2021-03-01T12:28:10",
+          "modified": "2023-04-05T09:18:33",
           "pica3": "$z",
           "repeatable": false
         }
@@ -3806,9 +3807,9 @@
         "p": {
           "code": "p",
           "label": "Weitere identifizierende Angaben",
-          "modified": "2019-11-28T14:55:21",
+          "modified": "2023-06-05T15:46:10",
           "pica3": "$p",
-          "repeatable": false
+          "repeatable": true
         },
         "v": {
           "code": "v",
@@ -3943,9 +3944,9 @@
         "p": {
           "code": "p",
           "label": "In RDA-Sätzen nicht zugelassen",
-          "modified": "2020-06-04T08:39:57",
+          "modified": "2023-06-05T15:46:57",
           "pica3": "$p",
-          "repeatable": false
+          "repeatable": true
         }
       },
       "tag": "028B",
@@ -4072,9 +4073,9 @@
         "p": {
           "code": "p",
           "label": "Weitere identifizierende Angaben",
-          "modified": "2020-06-04T08:39:57",
+          "modified": "2023-06-05T15:47:31",
           "pica3": "$p",
-          "repeatable": false
+          "repeatable": true
         }
       },
       "tag": "028C",
@@ -4194,9 +4195,9 @@
         "p": {
           "code": "p",
           "label": "In RDA-Sätzen nicht zugelassen",
-          "modified": "2020-06-04T08:39:57",
+          "modified": "2023-06-05T15:48:21",
           "pica3": "$p",
-          "repeatable": false
+          "repeatable": true
         }
       },
       "tag": "028E",
@@ -4330,9 +4331,9 @@
         "p": {
           "code": "p",
           "label": "Weitere identifizierende Angaben",
-          "modified": "2020-06-04T08:39:57",
+          "modified": "2023-06-05T15:48:52",
           "pica3": "$p",
-          "repeatable": false
+          "repeatable": true
         }
       },
       "tag": "028G",
@@ -7686,7 +7687,7 @@
     },
     "039B": {
       "label": "Beziehungen zur größeren Einheit",
-      "modified": "2022-10-19T12:07:49",
+      "modified": "2023-04-17T11:19:41",
       "pica3": "4241",
       "repeatable": true,
       "subfields": {
@@ -9243,17 +9244,24 @@
       "pica3": "5500",
       "repeatable": true,
       "subfields": {
+        "0": {
+          "code": "0",
+          "label": "Identifier",
+          "modified": "2023-03-13T11:47:26",
+          "pica3": "$0",
+          "repeatable": true
+        },
         "A": {
           "code": "A",
           "label": "Quelle",
-          "modified": "2019-11-29T12:58:36",
+          "modified": "2023-03-09T13:55:18",
           "pica3": "$A",
           "repeatable": true
         },
         "N": {
           "code": "N",
           "label": "MARC-Kategorie",
-          "modified": "2019-11-29T12:52:53",
+          "modified": "2023-03-09T13:55:43",
           "pica3": "<...>",
           "repeatable": false
         },
@@ -9267,168 +9275,168 @@
         "a": {
           "code": "a",
           "label": "Schlagwort bzw. Name oder Titel",
-          "modified": "2019-11-29T12:53:33",
+          "modified": "2023-03-09T14:04:14",
           "pica3": "_|a|",
           "repeatable": true
         },
         "b": {
           "code": "b",
           "label": "600 Zählung610 Abteilung650 Sachbegriff",
-          "modified": "2019-11-29T12:53:47",
+          "modified": "2023-03-09T14:05:27",
           "pica3": "_|b|",
           "repeatable": true
         },
         "c": {
           "code": "c",
           "label": "600 Titel und andere Zusätze zum Namen610, 611 Kongress-Ort650 Ort des Ereignisses",
-          "modified": "2019-11-29T12:53:56",
+          "modified": "2023-03-09T14:05:45",
           "pica3": "_|c|",
           "repeatable": true
         },
         "d": {
           "code": "d",
           "label": "Daten (Lebensdaten bzw. Kongress-Datum, Datum einer Vertragsunterzeichnung, Zeitraum)",
-          "modified": "2019-11-29T12:54:03",
+          "modified": "2023-03-09T14:06:03",
           "pica3": "_|d|",
           "repeatable": true
         },
         "e": {
           "code": "e",
           "label": "600,610 Funktionsbezeichnung611 Abteilung630, 650, 651 Beziehung",
-          "modified": "2019-11-29T12:54:10",
+          "modified": "2023-03-09T14:06:20",
           "pica3": "_|e|",
           "repeatable": true
         },
         "f": {
           "code": "f",
           "label": "Datum eines Werks",
-          "modified": "2019-11-29T12:54:17",
+          "modified": "2023-03-09T14:06:36",
           "pica3": "_|f|",
           "repeatable": false
         },
         "g": {
           "code": "g",
           "label": "Verschiedene Informationen",
-          "modified": "2019-11-29T12:54:25",
+          "modified": "2023-03-09T14:06:51",
           "pica3": "_|g|",
           "repeatable": true
         },
         "h": {
           "code": "h",
           "label": "Materialbenennung",
-          "modified": "2019-11-29T12:54:32",
+          "modified": "2023-03-09T14:07:08",
           "pica3": "_|h|",
           "repeatable": false
         },
         "j": {
           "code": "j",
           "label": "600 Zuschreibungsvermerk",
-          "modified": "2019-11-29T12:54:43",
+          "modified": "2023-03-09T14:07:32",
           "pica3": "_|j|",
           "repeatable": true
         },
         "k": {
           "code": "k",
           "label": "Unterschlagwort (Form)",
-          "modified": "2019-11-29T12:54:50",
+          "modified": "2023-03-09T14:07:48",
           "pica3": "_|k|",
           "repeatable": true
         },
         "l": {
           "code": "l",
           "label": "Sprache eines Werks",
-          "modified": "2019-11-29T12:55:01",
+          "modified": "2023-03-09T14:08:08",
           "pica3": "_|l|",
           "repeatable": false
         },
         "m": {
           "code": "m",
           "label": "Besetzungsangabe (Musik)",
-          "modified": "2019-11-29T12:55:08",
+          "modified": "2023-03-09T14:08:24",
           "pica3": "_|m|",
           "repeatable": true
         },
         "n": {
           "code": "n",
           "label": "Zählung eines Teils",
-          "modified": "2019-11-29T12:55:17",
+          "modified": "2023-03-09T14:08:41",
           "pica3": "_|n|",
           "repeatable": true
         },
         "o": {
           "code": "o",
           "label": "Arrangement (Musik)",
-          "modified": "2019-11-29T12:55:25",
+          "modified": "2023-03-09T14:08:57",
           "pica3": "_|o|",
           "repeatable": false
         },
         "p": {
           "code": "p",
           "label": "Titel eines Teils",
-          "modified": "2019-11-29T12:55:34",
+          "modified": "2023-03-09T14:09:14",
           "pica3": "_|p|",
           "repeatable": true
         },
         "q": {
           "code": "q",
           "label": "600, 611 Vollständigere Namensform",
-          "modified": "2019-11-29T12:55:42",
+          "modified": "2023-03-09T14:09:35",
           "pica3": "_|q|",
           "repeatable": false
         },
         "r": {
           "code": "r",
           "label": "Tonart",
-          "modified": "2019-11-29T12:55:50",
+          "modified": "2023-03-09T14:09:52",
           "pica3": "_|r|",
           "repeatable": false
         },
         "s": {
           "code": "s",
           "label": "Version",
-          "modified": "2019-11-29T12:55:57",
+          "modified": "2023-03-09T14:10:09",
           "pica3": "_|s|",
           "repeatable": false
         },
         "t": {
           "code": "t",
           "label": "Titel eines Werks",
-          "modified": "2019-11-29T12:56:04",
+          "modified": "2023-03-09T14:10:27",
           "pica3": "_|t|",
           "repeatable": false
         },
         "u": {
           "code": "u",
           "label": "Zugehörigkeit zu einer Institution oder Organisation",
-          "modified": "2019-11-29T12:56:12",
+          "modified": "2023-03-09T14:10:44",
           "pica3": "_|u|",
           "repeatable": false
         },
         "v": {
           "code": "v",
           "label": "Formschlagwort als Unterschlagwort",
-          "modified": "2019-11-29T12:56:20",
+          "modified": "2023-03-09T14:11:02",
           "pica3": "_|v|",
           "repeatable": true
         },
         "x": {
           "code": "x",
           "label": "Allgemeine Unterteilung",
-          "modified": "2019-11-29T12:56:27",
+          "modified": "2023-03-09T14:11:18",
           "pica3": "_|x|",
           "repeatable": true
         },
         "y": {
           "code": "y",
           "label": "Chronologische Unterteilung",
-          "modified": "2019-11-29T12:56:35",
+          "modified": "2023-03-09T14:11:34",
           "pica3": "_|y|",
           "repeatable": true
         },
         "z": {
           "code": "z",
           "label": "Geografische Unterteilung",
-          "modified": "2019-11-29T12:56:53",
+          "modified": "2023-03-09T14:11:52",
           "pica3": "_|z|",
           "repeatable": true
         }
@@ -9442,17 +9450,24 @@
       "pica3": "5510",
       "repeatable": true,
       "subfields": {
+        "0": {
+          "code": "0",
+          "label": "Identifier",
+          "modified": "2023-03-13T11:45:11",
+          "pica3": "$0",
+          "repeatable": true
+        },
         "A": {
           "code": "A",
           "label": "Quelle",
-          "modified": "2019-11-29T13:01:49",
+          "modified": "2023-03-09T14:13:20",
           "pica3": "$A",
           "repeatable": true
         },
         "N": {
           "code": "N",
           "label": "MARC-Kategorie",
-          "modified": "2019-11-29T12:58:24",
+          "modified": "2023-03-09T14:13:02",
           "pica3": "<...>",
           "repeatable": false
         },
@@ -9466,168 +9481,168 @@
         "a": {
           "code": "a",
           "label": "Schlagwort bzw. Name oder Titel",
-          "modified": "2019-11-29T12:58:52",
+          "modified": "2023-03-09T14:13:55",
           "pica3": "_|a|",
           "repeatable": true
         },
         "b": {
           "code": "b",
           "label": "600 Zählung610 Abteilung650 Sachbegriff",
-          "modified": "2019-11-29T12:58:59",
+          "modified": "2023-03-09T14:14:09",
           "pica3": "_|b|",
           "repeatable": true
         },
         "c": {
           "code": "c",
           "label": "600 Titel und andere Zusätze zum Namen610, 611 Kongress-Ort650 Ort des Ereignisses",
-          "modified": "2019-11-29T12:59:07",
+          "modified": "2023-03-09T14:14:24",
           "pica3": "_|c|",
           "repeatable": true
         },
         "d": {
           "code": "d",
           "label": "Daten (Lebensdaten bzw. Kongress-Datum, Datum einer Vertragsunterzeichnung, Zeitraum)",
-          "modified": "2019-11-29T12:59:13",
+          "modified": "2023-03-09T14:14:36",
           "pica3": "_|d|",
           "repeatable": true
         },
         "e": {
           "code": "e",
           "label": "600,610 Funktionsbezeichnung611 Abteilung630, 650, 651 Beziehung",
-          "modified": "2019-11-29T12:59:20",
+          "modified": "2023-03-09T14:14:49",
           "pica3": "_|e|",
           "repeatable": true
         },
         "f": {
           "code": "f",
           "label": "Datum eines Werks",
-          "modified": "2019-11-29T12:59:27",
+          "modified": "2023-03-09T14:15:03",
           "pica3": "_|f|",
           "repeatable": false
         },
         "g": {
           "code": "g",
           "label": "Verschiedene Informationen",
-          "modified": "2019-11-29T12:59:35",
+          "modified": "2023-03-09T14:15:17",
           "pica3": "_|g|",
           "repeatable": true
         },
         "h": {
           "code": "h",
           "label": "Materialbenennung",
-          "modified": "2019-11-29T12:59:42",
+          "modified": "2023-03-09T14:15:31",
           "pica3": "_|h|",
           "repeatable": false
         },
         "j": {
           "code": "j",
           "label": "600 Zuschreibungsvermerk",
-          "modified": "2019-11-29T12:59:49",
+          "modified": "2023-03-09T14:15:45",
           "pica3": "_|j|",
           "repeatable": true
         },
         "k": {
           "code": "k",
           "label": "Unterschlagwort (Form)",
-          "modified": "2019-11-29T12:59:55",
+          "modified": "2023-03-09T14:15:58",
           "pica3": "_|k|",
           "repeatable": true
         },
         "l": {
           "code": "l",
           "label": "Sprache eines Werks",
-          "modified": "2019-11-29T13:00:03",
+          "modified": "2023-03-09T14:16:13",
           "pica3": "_|l|",
           "repeatable": false
         },
         "m": {
           "code": "m",
           "label": "Besetzungsangabe (Musik)",
-          "modified": "2019-11-29T13:00:10",
+          "modified": "2023-03-09T14:16:25",
           "pica3": "_|m|",
           "repeatable": true
         },
         "n": {
           "code": "n",
           "label": "Zählung eines Teils",
-          "modified": "2019-11-29T13:00:18",
+          "modified": "2023-03-09T14:16:37",
           "pica3": "_|n|",
           "repeatable": true
         },
         "o": {
           "code": "o",
           "label": "Arrangement (Musik)",
-          "modified": "2019-11-29T13:00:25",
+          "modified": "2023-03-09T14:16:52",
           "pica3": "_|o|",
           "repeatable": false
         },
         "p": {
           "code": "p",
           "label": "Titel eines Teils",
-          "modified": "2019-11-29T13:00:32",
+          "modified": "2023-03-09T14:17:05",
           "pica3": "_|p|",
           "repeatable": true
         },
         "q": {
           "code": "q",
           "label": "600, 611 Vollständigere Namensform",
-          "modified": "2019-11-29T13:00:40",
+          "modified": "2023-03-09T14:17:20",
           "pica3": "_|q|",
           "repeatable": false
         },
         "r": {
           "code": "r",
           "label": "Tonart",
-          "modified": "2019-11-29T13:00:47",
+          "modified": "2023-03-09T14:17:35",
           "pica3": "_|r|",
           "repeatable": false
         },
         "s": {
           "code": "s",
           "label": "Version",
-          "modified": "2019-11-29T13:00:54",
+          "modified": "2023-03-09T14:17:46",
           "pica3": "_|s|",
           "repeatable": false
         },
         "t": {
           "code": "t",
           "label": "Titel eines Werks",
-          "modified": "2019-11-29T13:01:02",
+          "modified": "2023-03-09T14:18:02",
           "pica3": "_|t|",
           "repeatable": false
         },
         "u": {
           "code": "u",
           "label": "Zugehörigkeit zu einer Institution oder Organisation",
-          "modified": "2019-11-29T13:01:10",
+          "modified": "2023-03-09T14:18:15",
           "pica3": "_|u|",
           "repeatable": false
         },
         "v": {
           "code": "v",
           "label": "Formschlagwort als Unterschlagwort",
-          "modified": "2019-11-29T13:01:18",
+          "modified": "2023-03-09T14:18:28",
           "pica3": "_|v|",
           "repeatable": true
         },
         "x": {
           "code": "x",
           "label": "Allgemeine Unterteilung",
-          "modified": "2019-11-29T13:01:25",
+          "modified": "2023-03-09T14:18:41",
           "pica3": "_|x|",
           "repeatable": true
         },
         "y": {
           "code": "y",
           "label": "Chronologische Unterteilung",
-          "modified": "2019-11-29T13:01:32",
+          "modified": "2023-03-09T14:18:52",
           "pica3": "_|y|",
           "repeatable": true
         },
         "z": {
           "code": "z",
           "label": "Geografische Unterteilung",
-          "modified": "2019-11-29T13:01:43",
+          "modified": "2023-03-09T14:19:09",
           "pica3": "_|z|",
           "repeatable": true
         }
@@ -9867,8 +9882,8 @@
         },
         "k": {
           "code": "k",
-          "label": "Art der maschinellen Generierung und Konfidenzwert",
-          "modified": "2020-10-02T10:57:04",
+          "label": "Code des Generierungsverfahrens, Konfidenzwert",
+          "modified": "2023-03-14T08:44:49",
           "pica3": "$k",
           "repeatable": false
         },
@@ -9896,10 +9911,17 @@
       "pica3": "5520",
       "repeatable": true,
       "subfields": {
+        "0": {
+          "code": "0",
+          "label": "Identifier",
+          "modified": "2023-03-13T11:43:10",
+          "pica3": "$0",
+          "repeatable": true
+        },
         "A": {
           "code": "A",
           "label": "Quelle",
-          "modified": "2020-06-04T08:39:58",
+          "modified": "2023-03-08T13:10:06",
           "pica3": "$A",
           "repeatable": true
         },
@@ -9934,7 +9956,7 @@
         "i": {
           "code": "i",
           "label": "Thesaurus bzw. Kennzeichnung von freien Schlagwörtern",
-          "modified": "2023-01-19T09:23:32",
+          "modified": "2023-04-17T11:52:07",
           "pica3": "[...]",
           "repeatable": false
         }
@@ -10329,11 +10351,11 @@
       "tag": "045C",
       "url": "https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=5040"
     },
-    "045D/00-48": {
+    "045D/00-29": {
       "label": "STW-Schlagwörter",
-      "modified": "2019-11-08T11:05:10",
-      "occurrence": "00-48",
-      "pica3": "5200-5248",
+      "modified": "2023-03-14T13:36:47",
+      "occurrence": "00-29",
+      "pica3": "5200-5229",
       "repeatable": true,
       "subfields": {
         "7": {
@@ -10353,7 +10375,106 @@
         "9": {
           "code": "9",
           "label": "PPN",
-          "modified": "2019-11-27T09:40:19",
+          "modified": "2023-03-14T13:37:32",
+          "pica3": "!...!",
+          "repeatable": false
+        },
+        "A": {
+          "code": "A",
+          "label": "Quelle",
+          "modified": "2023-03-14T15:50:05",
+          "pica3": "$A",
+          "repeatable": true
+        },
+        "a": {
+          "code": "a",
+          "label": "Schlagwort",
+          "modified": "2019-11-27T09:39:59",
+          "pica3": "",
+          "repeatable": false
+        }
+      },
+      "tag": "045D",
+      "url": "https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=5200-5229"
+    },
+    "045D/30-39": {
+      "label": "STW-Schlagwörter - automatisierte verbale Sacherschließung",
+      "modified": "2023-03-17T16:11:17",
+      "occurrence": "30-39",
+      "pica3": "5230-5239",
+      "repeatable": true,
+      "subfields": {
+        "7": {
+          "code": "7",
+          "label": "Vorläufiger Link",
+          "modified": "2020-03-31T09:07:34",
+          "pica3": "$7",
+          "repeatable": false
+        },
+        "8": {
+          "code": "8",
+          "label": "Expansion",
+          "modified": "2023-03-17T16:12:40",
+          "pica3": "--",
+          "repeatable": false
+        },
+        "9": {
+          "code": "9",
+          "label": "PPN",
+          "modified": "2023-03-14T13:56:09",
+          "pica3": "!...!",
+          "repeatable": false
+        },
+        "A": {
+          "code": "A",
+          "label": "Quelle",
+          "modified": "2023-03-13T13:38:46",
+          "pica3": "$A",
+          "repeatable": true
+        },
+        "k": {
+          "code": "k",
+          "label": "Code des Generierungsverfahrens, Konfidenzwert",
+          "modified": "2023-03-17T16:14:19",
+          "pica3": "$k",
+          "repeatable": false
+        },
+        "v": {
+          "code": "v",
+          "label": "Datum der Generierung",
+          "modified": "2023-03-17T16:15:06",
+          "pica3": "$v",
+          "repeatable": false
+        }
+      },
+      "tag": "045D",
+      "url": "https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=5230-5239"
+    },
+    "045D/40-48": {
+      "label": "STW-Schlagwörter - Platzhalter",
+      "modified": "2023-03-14T14:03:04",
+      "occurrence": "40-48",
+      "pica3": "5240-5248",
+      "repeatable": true,
+      "subfields": {
+        "7": {
+          "code": "7",
+          "label": "Vorläufiger Link",
+          "modified": "2020-03-31T09:07:34",
+          "pica3": "$7",
+          "repeatable": false
+        },
+        "8": {
+          "code": "8",
+          "label": "Expansion",
+          "modified": "2019-11-29T12:45:28",
+          "pica3": "--",
+          "repeatable": false
+        },
+        "9": {
+          "code": "9",
+          "label": "PPN",
+          "modified": "2023-03-14T14:04:05",
           "pica3": "!...!",
           "repeatable": false
         },
@@ -10373,7 +10494,7 @@
         }
       },
       "tag": "045D",
-      "url": "https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=5200-5248"
+      "url": "https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=5240-5248"
     },
     "045D/49": {
       "label": "ZBW-Schlagwörter - Veröffentlichungsart",
@@ -10385,14 +10506,14 @@
         "b": {
           "code": "b",
           "label": "Code",
-          "modified": "2020-12-15T10:55:49",
+          "modified": "2023-03-09T14:19:55",
           "pica3": "$b",
           "repeatable": false
         },
         "c": {
           "code": "c",
           "label": "Text (deutsch)",
-          "modified": "2019-11-29T12:46:08",
+          "modified": "2023-03-09T14:20:08",
           "pica3": "$c",
           "repeatable": false
         },
@@ -10606,7 +10727,7 @@
         "u": {
           "code": "u",
           "label": "URL",
-          "modified": "2023-01-20T09:06:55",
+          "modified": "2023-03-14T08:29:57",
           "pica3": "$u",
           "repeatable": false
         },
@@ -11245,7 +11366,7 @@
         "i": {
           "code": "i",
           "label": "Code für Klassifikationen",
-          "modified": "2022-07-01T12:44:25",
+          "modified": "2023-04-24T09:16:06",
           "pica3": "[...]",
           "repeatable": false
         },

@@ -2205,6 +2205,7 @@ public class Tag020 extends DataFieldDefinition {
 * [Royal Library of Belgium (KBR)](https://kbr.be/), Brussels, Belgium
 * [Gemeinsamer Bibliotheksverbund (GBV)](https://www.gbv.de/informationen/Verbund/), Göttingen, Germany
 * [Binghampton University Libraries](https://www.binghamton.edu/libraries/), Binghampton, NY, USA
+* [Zentralbibliothek Zürich](https://www.zb.uzh.ch/de), Zürich, Switzerland
 
 If you use this tool as well, please contact me: pkiraly (at) gwdg (dot) de. I
 really like to hear about your use case and ideas.
@@ -2216,8 +2217,7 @@ really like to hear about your use case and ideas.
 * [Gemeinsamer Bibliotheksverbund (GBV)](https://www.gbv.de/informationen/Verbund/): contracting for feature development
 * [Royal Library of Belgium (KBR)](https://kbr.be/): contracting for feature development
 * [JetBrains s.r.o.](https://www.jetbrains.com/idea/): [IntelliJ IDEA](https://www.jetbrains.com/idea/) 
-  development tool community 
-  licence
+  development tool community licence
 
 ### Appendix V: Special build process
 

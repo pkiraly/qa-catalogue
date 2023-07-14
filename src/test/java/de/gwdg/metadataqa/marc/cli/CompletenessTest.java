@@ -277,7 +277,6 @@ public class CompletenessTest extends CliTestUtils {
         output = new File(outputDir, outputFile);
         assertTrue(output.exists());
         String line = Files.readString(output.toPath());
-        System.err.println(line);
         assertTrue(line.contains("{\"args\":[\""));
         assertTrue(line.contains("qa-catalogue/src/test/resources/pica/pica-with-holdings-info.dat\"],"));
         assertTrue(line.contains("\"marcVersion\":\"MARC21\","));
@@ -313,7 +312,7 @@ public class CompletenessTest extends CliTestUtils {
         assertTrue(line.contains("\"pica\":true,"));
         assertTrue(line.contains("\"replacementInControlFields\":null,"));
         assertTrue(line.contains("\"marc21\":false,"));
-        assertTrue(line.contains("\"mqaf.version\":\"0.9.3-SNAPSHOT\","));
+        assertTrue(line.contains("\"mqaf.version\":\"0.9.3\","));
         assertTrue(line.contains("\"qa-catalogue.version\":\"0.7.0-rc2\"}"));
 
       } else if (outputFile.equals("libraries.csv")) {

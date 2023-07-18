@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 public class VersionTest {
 
-  private static final String VERSION = "0.7.0-rc2";
+  private static final String VERSION = "0.7.0";
 
   @Test
   public void getVersion() {

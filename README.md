@@ -1133,7 +1133,7 @@ here in a parsed format. It also contains some metadata such as the versions of 
   "marc21":true,
   "pica":false,
   "mqaf.version":"0.9.2",
-  "qa-catalogue.version":"0.7.0-rc2"
+  "qa-catalogue.version":"0.7.0"
 }
 ```
 

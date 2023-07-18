@@ -36,7 +36,7 @@ MASK=${MASK:-*}
 NAME=${NAME:-qa-catalogue}
 TYPE_PARAMS=
 SCHEMA=MARC21
-WEB_CONFIG=/var/www/html/qa-catalogue/configuration.cnf
+WEB_CONFIG=
 
 # parse command line options
 options=$(getopt -o a:c:d:i:m:n:o:p:s:u:v:w: --long analyses:,catalogue:,input-dir:,input:,mask:,name:,output:,params:,schema:,update:,version:,web-config -- "$@")

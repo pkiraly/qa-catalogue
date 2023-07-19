@@ -5,10 +5,10 @@
 	<groupId>de.gwdg.metadataqa</groupId>
 	<artifactId>qa-catalogue</artifactId>
 	<packaging>jar</packaging>
-	<version>0.7.0</version>
-	<name>Quality assessment for bibliogaphic records</name>
+	<version>0.8.0-SNAPSHOT</version>
+	<name>Quality assessment for bibliographic records</name>
 	<description>
-		A metadata quality assessment framework for bibliogaphic (MARC21 and PICA) records.
+		A metadata quality assessment framework for bibliographic (MARC21 and PICA) records.
 		It checks some metrics of metadata records, such as completeness,
 		uniqueness, problem catalog.
 	</description>

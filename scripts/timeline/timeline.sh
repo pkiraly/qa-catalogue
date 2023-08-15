@@ -26,6 +26,8 @@ while true; do
   shift
 done
 
+echo "$0 name: ${NAME}, frequency: ${FREQUENCY}, start: ${START}, end: ${END}"
+
 HISTORICAL=${BASE_OUTPUT_DIR}/_historical/${NAME}
 if [[ ! -d ${HISTORICAL} ]]; then
   mkdir -p ${HISTORICAL}
@@ -35,14 +37,15 @@ IS_INCREMENTAL=0
 if [[ -e ${HISTORICAL}/history.sqlite ]]; then
   IS_INCREMENTAL=1
 fi
-echo $HISTORICAL
-echo $IS_INCREMENTAL
+echo "historical: ${HISTORICAL}"
+echo "is incremental: ${IS_INCREMENTAL}"
 if [[ $IS_INCREMENTAL = 0 ]]; then
   echo "IS NOT INCREMENTAL"
 else
   echo "IS INCREMENTAL"
 fi
 
+echo "deleting old CSV files"
 CSVS="count.csv issue-total.csv issue-by-category.csv issue-by-type.csv"
 for CSV_FILE in $CSVS; do
   if [[ -e ${HISTORICAL}/${CSV_FILE} ]]; then
@@ -50,6 +53,7 @@ for CSV_FILE in $CSVS; do
   fi
 done
 
+echo "initialize CSV files with header"
 if [[ $IS_INCREMENTAL = 0 ]]; then
   echo "version,total,processed" > ${HISTORICAL}/count.csv
   echo "version,type,instances,records" > ${HISTORICAL}/issue-total.csv
@@ -63,6 +67,7 @@ else
   FILES=$(ls -lt ${HISTORICAL} | grep "^l" | awk '{print $9}' | head -1)
 fi
 
+echo "files: "
 echo $FILES
 
 for DIR in $FILES; do

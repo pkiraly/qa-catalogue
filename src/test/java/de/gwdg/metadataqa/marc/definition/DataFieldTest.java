@@ -71,4 +71,23 @@ public class DataFieldTest {
     assertEquals("123", error.getRecordId());
   }
 
+  @Test
+  public void formatAsText() {
+    DataField tag040 = SubfieldParser.parseField(Tag040.getInstance(), "  $aMt$cMt$xMt");
+    assertEquals("040    $a Mt\n" + "       $c Mt\n" + "       $x Mt\n", tag040.formatAsText());
+  }
+
+  @Test
+  public void pica() {
+    DataField field = new DataField("2345", "$a1$b2");
+    assertEquals("2345", field.getTagWithOccurrence());
+  }
+
+  @Test
+  public void pica2() {
+    DataField field = new DataField("2345", "$a1$b2");
+    field.setOccurrence("4");
+    assertEquals("2345/4", field.getTagWithOccurrence());
+  }
+
 }

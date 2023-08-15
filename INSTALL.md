@@ -22,12 +22,14 @@ sudo apt-get install openjdk-11-jre-headless
 # Install R
 sudo apt-get install r-base
 # Install R packages from ppa:marutter
-sudo apt-get install r-cran-tidyverse r-cran-stringr r-cran-gridextra
+sudo apt-get install r-cran-tidyverse r-cran-stringr r-cran-gridextra r-cran-httr
 # Install sqlite3
 sudo apt-get install sqlite3 r-cran-rsqlite
 # Install PHP
-sudo apt-get install php php-sqlite3
+sudo apt-get install php php-sqlite3 php-curl
 ```
+
+In addition, Maven is required to build the JAR files.
 
 ### Install Apache Solr
 
@@ -43,8 +45,8 @@ ln -s solr-${SOLR_VERSION} solr
 ## Download and Configure QA catalogue
 
 ```bash
-export VERSION=0.5.0
-wget https://github.com/pkiraly/metadata-qa-marc/releases/download/v${VERSION}/metadata-qa-marc-${VERSION}-release.zip
+export VERSION=0.6.0
+wget https://github.com/pkiraly/qa-catalogue/releases/download/v${VERSION}/metadata-qa-marc-${VERSION}-release.zip
 unzip metadata-qa-marc-$VERSION-release.zip
 cd metadata-qa-marc-$VERSION
 cp setdir.sh.template setdir.sh

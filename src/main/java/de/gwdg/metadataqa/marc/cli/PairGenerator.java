@@ -108,9 +108,7 @@ public class PairGenerator {
           String[] ids = parts[2].split(";");
           if (ids.length > 1) {
             if (ids.length > groupLimit) {
-              logger.info(String.format(
-                "%d is greater than %d. The array will will truncated.",
-                ids.length, groupLimit));
+              logger.log(Level.INFO, "{0} is greater than {1}. The array will will truncated.", new Object[]{ids.length, groupLimit});
               ids = Arrays.copyOfRange(ids, 0, groupLimit);
             }
 

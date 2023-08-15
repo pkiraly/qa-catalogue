@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.utils.pica;
 
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
+import org.apache.commons.lang3.StringUtils;
 
 public class PicaFieldDefinition extends DataFieldDefinition {
 
@@ -46,19 +47,27 @@ public class PicaFieldDefinition extends DataFieldDefinition {
     return id;
   }
 
-  public boolean inRange(String occurence) {
-    if (range != null) {
-      if (range.getUnitLength() == occurence.length()) {
-        if (range.isHasRange()) {
-          if (range.getStart().compareTo(occurence) == 1 || range.getEnd().compareTo(occurence) == -1)
-            return false;
-          return true;
-        } else {
-          return range.getStart().equals(occurence);
-        }
-      }
-    }
+  public boolean inRange(String occurrence) {
+    if (range != null && range.getUnitLength() == occurrence.length())
+      if (range.isHasRange()) {
+        if (range.getStart().compareTo(occurrence) > 0 || range.getEnd().compareTo(occurrence) < 0)
+          return false;
+        return true;
+      } else
+        return range.getStart().equals(occurrence);
+
     return false;
+  }
+
+  public String getTagWithOccurrence() {
+    if (StringUtils.isBlank(occurrence))
+      return tag;
+    return tag + "/" + occurrence;
+  }
+
+  @Override
+  public String getExtendedTag() {
+    return getTagWithOccurrence();
   }
 
   public PicaFieldDefinition copyWithChangesId() {
@@ -76,5 +85,17 @@ public class PicaFieldDefinition extends DataFieldDefinition {
     other.indexSubfields();
 
     return other;
+  }
+
+  @Override
+  public String toString() {
+    return "PicaFieldDefinition{" +
+      super.toString().replace("DataFieldDefinition{", "").replaceFirst(".$", ", ") +
+      "modified='" + modified + '\'' +
+      ", pica3='" + pica3 + '\'' +
+      ", occurrence='" + occurrence + '\'' +
+      ", range=" + range +
+      ", id='" + id + '\'' +
+      '}';
   }
 }

@@ -30,10 +30,9 @@ public class ShelfReadyAnalysis {
     var total = 0.0;
     for (Map.Entry<ShelfReadyFieldsBooks, Map<String, List<String>>> fieldEntry : marcRecord.getShelfReadyMap().entrySet()) {
       ShelfReadyFieldsBooks category = fieldEntry.getKey();
-      boolean debug = category.equals(ShelfReadyFieldsBooks.LDR06);
 
       double score = 0.0;
-      double count = (double) countSelectors(fieldEntry.getValue());
+      double count = countSelectors(fieldEntry.getValue());
 
       for (Map.Entry<String, List<String>> selector : fieldEntry.getValue().entrySet()) {
         String tag = selector.getKey();
@@ -53,7 +52,7 @@ public class ShelfReadyAnalysis {
                 break;
             }
           }
-          score += (double) collector.size();
+          score += collector.size();
         } else {
           // no code
           count = 1;
@@ -75,28 +74,7 @@ public class ShelfReadyAnalysis {
       scores.add(score);
       total += score;
     }
-    /*
-    for (ShelfReadyFieldsBooks fieldEntry : ShelfReadyFieldsBooks.values()) {
-      var score = 0.0;
-      double count = (double) fieldEntry.getSelectors().size();
-      for (MarcSpec selector : fieldEntry.getSelectors()) {
-        List<String> values = marcRecord.select(selector);
-        if (!values.isEmpty()) {
-          score += 1.0;
-          if (fieldEntry.isOneOf())
-            break;
-        }
-      }
-      if (fieldEntry.isOneOf()) {
-        score = fieldEntry.getScore();
-      } else {
-        double mean = score / count;
-        score = mean * fieldEntry.getScore();
-      }
-      scores.add(score);
-      total += score;
-    }
-  */
+
     total = total / scores.size();
     scores.add(total);
     return scores;
@@ -119,4 +97,3 @@ public class ShelfReadyAnalysis {
     return count;
   }
 }
-

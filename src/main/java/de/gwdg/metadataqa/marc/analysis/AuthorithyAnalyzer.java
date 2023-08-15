@@ -25,10 +25,9 @@ import static de.gwdg.metadataqa.marc.Utils.count;
 
 public class AuthorithyAnalyzer {
 
-  private static final Logger logger = Logger.getLogger(
-    AuthorithyAnalyzer.class.getCanonicalName()
-  );
+  private static final Logger logger = Logger.getLogger(AuthorithyAnalyzer.class.getCanonicalName());
   private static final Pattern NUMERIC = Pattern.compile("^\\d");
+  public static final String UNDETECTABLE = "undetectable";
 
   private BibliographicRecord marcRecord;
   private AuthorityStatistics authoritiesStatistics;
@@ -42,22 +41,24 @@ public class AuthorithyAnalyzer {
   public int process() {
     Map<AuthorityCategory, Integer> categoryCounter = new EnumMap<>(AuthorityCategory.class);
     var count = 0;
-    for (Map.Entry<DataField, AuthorityCategory> field : marcRecord.getAuthorityFieldsMap().entrySet()) {
+    for (Map.Entry<DataField, AuthorityCategory> entry : marcRecord.getAuthorityFieldsMap().entrySet()) {
+      DataField field = entry.getKey();
+      AuthorityCategory category = entry.getValue();
       if (marcRecord.getSchemaType().equals(SchemaType.MARC21)) {
-        var type = field.getKey().getDefinition().getSourceSpecificationType();
+        var type = field.getDefinition().getSourceSpecificationType();
         if (type != null) {
           if (type.equals(SourceSpecificationType.Subfield2)) {
-            var fieldInstanceLevelCount = processFieldWithSubfield2(field.getKey());
+            var fieldInstanceLevelCount = processFieldWithSubfield2(field);
             count += fieldInstanceLevelCount;
-            add(field.getValue(), categoryCounter, fieldInstanceLevelCount);
+            add(category, categoryCounter, fieldInstanceLevelCount);
           } else {
-            logger.log(Level.SEVERE, "Unhandled type: {0}", type);
+            logger.log(Level.SEVERE, "Unhandled type: {0}", new Object[]{type});
           }
         }
       } else if (marcRecord.getSchemaType().equals(SchemaType.PICA)) {
-        var fieldInstanceLevelCount = processPicaField(field.getKey());
+        var fieldInstanceLevelCount = processPicaField(field);
         count += fieldInstanceLevelCount;
-        add(field.getValue(), categoryCounter, fieldInstanceLevelCount);
+        add(category, categoryCounter, fieldInstanceLevelCount);
       }
     }
     updateAuthorityCategoryStatitics(categoryCounter);
@@ -77,9 +78,9 @@ public class AuthorithyAnalyzer {
   private int processPicaField(DataField field) {
     var count = 0;
     List<Schema> schemas = new ArrayList<>();
-    var currentSchema = extractSchemaFromSubfield7(field.getTag(), schemas, field);
+    var currentSchema = extractSchemaFromSubfield7(field.getTagWithOccurrence(), schemas, field);
     if (currentSchema == null)
-      currentSchema = extractSchemaFromSubfield2(field.getTag(), schemas, field);
+      currentSchema = extractSchemaFromSubfield2(field.getTagWithOccurrence(), schemas, field);
     updateSchemaSubfieldStatistics(field, currentSchema);
     count++;
 
@@ -134,7 +135,7 @@ public class AuthorithyAnalyzer {
     Schema currentSchema = null;
     List<MarcSubfield> altSchemes = field.getSubfield("2");
     if (altSchemes == null || altSchemes.isEmpty()) {
-      currentSchema = new Schema(tag, "$2", "undetectable", "undetectable");
+      currentSchema = new Schema(tag, "$2", UNDETECTABLE, UNDETECTABLE);
       schemas.add(currentSchema);
     } else {
       for (MarcSubfield altScheme : altSchemes) {
@@ -151,7 +152,7 @@ public class AuthorithyAnalyzer {
     Schema currentSchema = null;
     List<MarcSubfield> altSchemes = field.getSubfield("7");
     if (altSchemes == null || altSchemes.isEmpty()) {
-      currentSchema = new Schema(tag, "$7", "undetectable", "undetectable");
+      currentSchema = new Schema(tag, "$7", UNDETECTABLE, UNDETECTABLE);
       schemas.add(currentSchema);
     } else {
       for (MarcSubfield altScheme : altSchemes) {
@@ -161,7 +162,7 @@ public class AuthorithyAnalyzer {
           var label = code == null ? parts[0] : code.getLabel();
           currentSchema = new Schema(tag, "$7", parts[0], label);
         } else {
-          currentSchema = new Schema(tag, "$7", "undetectable", "undetectable");
+          currentSchema = new Schema(tag, "$7", UNDETECTABLE, UNDETECTABLE);
         }
         schemas.add(currentSchema);
       }

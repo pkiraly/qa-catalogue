@@ -4,9 +4,7 @@ import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.Extractable;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.Validatable;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
-import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
@@ -14,15 +12,10 @@ import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
-import de.gwdg.metadataqa.marc.definition.general.Linkage;
 import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
 import de.gwdg.metadataqa.marc.definition.general.indexer.subject.*;
-import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
-import de.gwdg.metadataqa.marc.definition.general.parser.ParserException;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.model.validation.ErrorsCollector;
-import de.gwdg.metadataqa.marc.model.validation.ValidationError;
-import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
 import org.apache.commons.lang3.StringUtils;
 
@@ -34,11 +27,10 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorType.*;
-
-public class DataField implements Extractable, Serializable { // Validatable
+public class DataField implements Extractable, Serializable {
 
   private static final Logger logger = Logger.getLogger(DataField.class.getCanonicalName());
 
@@ -48,10 +40,20 @@ public class DataField implements Extractable, Serializable { // Validatable
   private String ind2;
   private List<MarcSubfield> subfields;
   private Map<String, List<MarcSubfield>> subfieldIndex = new LinkedHashMap<>();
+  private String occurrence;
   private ErrorsCollector errors = null;
   private List<String> unhandledSubfields = null;
   private BibliographicRecord marcRecord;
+  private List<FieldIndexer> fieldIndexers;
+  private boolean fieldIndexerInitialized = false;
 
+  /**
+   * Create data field
+   * @param definition
+   * @param ind1
+   * @param ind2
+   * @param <T>
+   */
   public <T extends DataFieldDefinition> DataField(T definition, String ind1, String ind2) {
     this.definition = definition;
     this.ind1 = ind1;
@@ -59,6 +61,14 @@ public class DataField implements Extractable, Serializable { // Validatable
     this.subfields = new ArrayList<>();
   }
 
+  /**
+   * Create data field
+   * @param definition
+   * @param ind1
+   * @param ind2
+   * @param subfields
+   * @param <T>
+   */
   public <T extends DataFieldDefinition> DataField(T definition,
                                                    String ind1,
                                                    String ind2,
@@ -84,6 +94,14 @@ public class DataField implements Extractable, Serializable { // Validatable
     }
   }
 
+  /**
+   * Create data field
+   * @param definition
+   * @param ind1
+   * @param ind2
+   * @param subfields
+   * @param <T>
+   */
   public <T extends DataFieldDefinition> DataField(T definition,
                                                    String ind1,
                                                    String ind2,
@@ -94,10 +112,21 @@ public class DataField implements Extractable, Serializable { // Validatable
     }
   }
 
+  /**
+   * Create data field
+   * @param tag
+   * @param input
+   */
   public DataField(String tag, String input) {
     this(tag, input, MarcVersion.MARC21);
   }
 
+  /**
+   * Create data field
+   * @param tag
+   * @param input
+   * @param version
+   */
   public DataField(String tag, String input, MarcVersion version) {
     definition = TagDefinitionLoader.load(tag, version);
     if (definition == null) {
@@ -110,6 +139,13 @@ public class DataField implements Extractable, Serializable { // Validatable
     parseAndAddSubfields(input.substring(2));
   }
 
+  /**
+   * Create data field
+   * @param tag
+   * @param ind1
+   * @param ind2
+   * @param marcVersion
+   */
   public DataField(String tag, String ind1, String ind2, MarcVersion marcVersion) {
     definition = TagDefinitionLoader.load(tag, marcVersion);
     if (definition == null) {
@@ -120,6 +156,14 @@ public class DataField implements Extractable, Serializable { // Validatable
     this.subfields = new ArrayList<>();
   }
 
+  /**
+   * Create data field
+   * @param tag
+   * @param ind1
+   * @param ind2
+   * @param content
+   * @param marcVersion
+   */
   public DataField(String tag, String ind1, String ind2, String content, MarcVersion marcVersion) {
     definition = TagDefinitionLoader.load(tag, marcVersion);
     if (definition == null) {
@@ -137,6 +181,11 @@ public class DataField implements Extractable, Serializable { // Validatable
       addSubfield(sf[0], sf[1]);
   }
 
+  /**
+   * Parse subfield string
+   * @param content
+   * @return
+   */
   public static List<String[]> parseSubfields(String content) {
     List<String[]> subfields = new ArrayList<>();
 
@@ -332,7 +381,12 @@ public class DataField implements Extractable, Serializable { // Validatable
                                                     MarcVersion marcVersion) {
     Map<String, List<String>> pairs = new HashMap<>();
 
-    DataFieldKeyGenerator keyGenerator = new DataFieldKeyGenerator(definition, type, getTag());
+    String tag = getTag();
+    if (getOccurrence() != null)
+        tag += "_" + getOccurrence();
+
+    SchemaType schemaType = marcRecord != null ? marcRecord.getSchemaType() : SchemaType.MARC21;
+    DataFieldKeyGenerator keyGenerator = new DataFieldKeyGenerator(definition, type, tag, schemaType);
     keyGenerator.setMarcVersion(marcVersion);
 
     // ind1
@@ -351,16 +405,17 @@ public class DataField implements Extractable, Serializable { // Validatable
 
     // subfields
     for (MarcSubfield subfield : subfields) {
-      pairs.putAll(subfield.getKeyValuePairs(keyGenerator));
+      Utils.mergeMap(pairs, subfield.getKeyValuePairs(keyGenerator));
     }
 
-    if (getFieldIndexer() != null) {
+    if (getFieldIndexers() != null && !getFieldIndexers().isEmpty()) {
       try {
-        Map<String, List<String>> extra = getFieldIndexer().index(this, keyGenerator);
-        pairs.putAll(extra);
+        for (FieldIndexer indexer : getFieldIndexers()) {
+          Map<String, List<String>> extra = indexer.index(this, keyGenerator);
+          Utils.mergeMap(pairs, extra);
+        }
       } catch (IllegalArgumentException e) {
-        logger.severe(String.format("%s  in record %s %s",
-          e.getLocalizedMessage(), marcRecord.getId(), this.toString()));
+        logger.log(Level.SEVERE, "{0} in record {1} {2}", new Object[]{e.getLocalizedMessage(), marcRecord.getId(), this.toString()});
       }
     }
 
@@ -395,17 +450,6 @@ public class DataField implements Extractable, Serializable { // Validatable
       for (MarcSubfield subfield : subfields) {
         if (!marcRecord.isSkippableSubjectSubfield(this.getTag(), subfield.getCode())) {
           String value = subfield.getValue();
-          /*
-          if (marcRecord.getSchemaType().equals(SchemaType.PICA)) {
-            if (subfield.getCode().equals("E")) {
-              value += "-";
-              if (subfieldIndex.containsKey("M"))
-                value += subfieldIndex.get("M").get(0).getValue();
-            } else if (subfield.getCode().equals("M") && subfieldIndex.containsKey("E")) {
-              continue;
-            }
-          }
-           */
           full.add(value);
         }
       }
@@ -419,7 +463,7 @@ public class DataField implements Extractable, Serializable { // Validatable
     return pairs;
   }
 
-  public FieldIndexer getFieldIndexer() {
+  private FieldIndexer getFieldIndexer() {
     FieldIndexer fieldIndexer = null;
     if (definition != null
       && definition.getSourceSpecificationType() != null) {
@@ -446,6 +490,21 @@ public class DataField implements Extractable, Serializable { // Validatable
       }
     }
     return fieldIndexer;
+  }
+
+  public void addFieldIndexer(FieldIndexer indexer) {
+    if (fieldIndexers == null)
+      fieldIndexers = new ArrayList<>();
+    if (indexer != null)
+      fieldIndexers.add(indexer);
+  }
+
+  public List<FieldIndexer> getFieldIndexers() {
+    if (!fieldIndexerInitialized) {
+      addFieldIndexer(getFieldIndexer());
+      fieldIndexerInitialized = true;
+    }
+    return fieldIndexers;
   }
 
   public String resolveInd1() {
@@ -500,180 +559,9 @@ public class DataField implements Extractable, Serializable { // Validatable
     return definition;
   }
 
-  /*
-  @Override
-  public boolean validate(MarcVersion marcVersion) {
-    var isValid = true;
-    errors = new ErrorsCollector();
-
-    DataFieldDefinition referencerDefinition = null;
-    List<MarcSubfield> linkedSubfields = null;
-    boolean ambiguousLinkage = false;
-
-    if (marcVersion == null)
-      marcVersion = MarcVersion.MARC21;
-
-    if (TagDefinitionLoader.load(definition.getTag(), marcVersion) == null) {
-      addError(FIELD_UNDEFINED, "");
-      return false;
-    }
-
-    if (getTag().equals("880")) {
-      List<MarcSubfield> subfield6s = getSubfield("6");
-      if (subfield6s == null) {
-        addError(FIELD_MISSING_REFERENCE_SUBFIELD, "$6");
-        isValid = false;
-      } else {
-        if (!subfield6s.isEmpty()) {
-          if (subfield6s.size() != 1) {
-            addError(definition.getTag() + "$6", RECORD_AMBIGUOUS_LINKAGE, "There are multiple $6");
-            isValid = false;
-            ambiguousLinkage = true;
-          } else {
-            MarcSubfield subfield6 = subfield6s.get(0);
-            Linkage linkage = null;
-            try {
-              linkage = LinkageParser.getInstance().create(subfield6.getValue());
-              if (linkage == null || linkage.getLinkingTag() == null) {
-                String message = String.format("Unparseable reference: '%s'", subfield6.getValue());
-                addError(RECORD_INVALID_LINKAGE, message);
-              } else {
-                referencerDefinition = definition;
-                definition = TagDefinitionLoader.load(linkage.getLinkingTag(), marcVersion);
-
-                if (definition == null) {
-                  definition = referencerDefinition;
-                  String message = String.format("refers to field %s, which is not defined",
-                    linkage.getLinkingTag());
-                  addError(definition.getTag() + "$6", RECORD_INVALID_LINKAGE, message);
-                  isValid = false;
-                } else {
-                  linkedSubfields = subfields;
-                  List<MarcSubfield> alternativeSubfields = new ArrayList<>();
-                  for (MarcSubfield subfield : subfields) {
-                    MarcSubfield alternativeSubfield = new MarcSubfield(
-                      definition.getSubfield(subfield.getCode()),
-                      subfield.getCode(),
-                      subfield.getValue()
-                    );
-                    alternativeSubfield.setField(this);
-                    alternativeSubfield.setMarcRecord(marcRecord);
-                    alternativeSubfield.setLinkage(linkage);
-                    alternativeSubfield.setReferencePath(referencerDefinition.getTag());
-                    alternativeSubfields.add(alternativeSubfield);
-                  }
-                  subfields = alternativeSubfields;
-                }
-              }
-            } catch (ParserException e) {
-              addError(definition.getTag() + "$6", RECORD_INVALID_LINKAGE, e.getMessage());
-            }
-          }
-        }
-      }
-    }
-
-    if (unhandledSubfields != null) {
-      addError(SUBFIELD_UNDEFINED, StringUtils.join(unhandledSubfields, ", "));
-      isValid = false;
-    }
-
-    if (ind1 != null) {
-      if (!validateIndicator(definition.getInd1(), ind1, marcVersion, referencerDefinition))
-        isValid = false;
-    }
-
-    if (ind2 != null) {
-      if (!validateIndicator(definition.getInd2(), ind2, marcVersion, referencerDefinition))
-        isValid = false;
-    }
-
-    if (!ambiguousLinkage) {
-      Map<SubfieldDefinition, Integer> counter = new HashMap<>();
-      for (MarcSubfield subfield : subfields) {
-        if (subfield.getDefinition() == null) {
-          if (definition.isVersionSpecificSubfields(marcVersion, subfield.getCode())) {
-            subfield.setDefinition(
-              definition.getVersionSpecificSubfield(
-                marcVersion, subfield.getCode()));
-          } else {
-            addError(SUBFIELD_UNDEFINED, subfield.getCode());
-            isValid = false;
-            continue;
-          }
-        }
-        Utils.count(subfield.getDefinition(), counter);
-
-        if (!subfield.validate(marcVersion)) {
-          errors.addAll(subfield.getValidationErrors());
-          isValid = false;
-        }
-      }
-
-      for (Map.Entry<SubfieldDefinition, Integer> entry : counter.entrySet()) {
-        SubfieldDefinition subfieldDefinition = entry.getKey();
-        Integer count = entry.getValue();
-        if (count > 1
-            && subfieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
-          addError(subfieldDefinition, SUBFIELD_NONREPEATABLE,
-            String.format("there are %d instances", count));
-          isValid = false;
-        }
-      }
-    }
-
-    if (referencerDefinition != null)
-      definition = referencerDefinition;
-    if (linkedSubfields != null)
-      subfields = linkedSubfields;
-
-    return isValid;
-  }
-   */
-
-  /*
-  private boolean validateIndicator(Indicator indicatorDefinition,
-                                    String value,
-                                    MarcVersion marcVersion,
-                                    DataFieldDefinition referencerDefinition) {
-    var isValid = true;
-    String path = indicatorDefinition.getPath();
-    if (referencerDefinition != null)
-      path = String.format("%s->%s", referencerDefinition.getTag(), path);
-
-    if (indicatorDefinition.exists()) {
-      if (!indicatorDefinition.hasCode(value)) {
-        if (!indicatorDefinition.isVersionSpecificCode(marcVersion, value)) {
-          isValid = false;
-          if (indicatorDefinition.isHistoricalCode(value)) {
-            addError(path, INDICATOR_OBSOLETE, value);
-          } else {
-            addError(path, INDICATOR_INVALID_VALUE, value);
-          }
-        }
-      }
-    } else {
-      if (!value.equals(" ")) {
-        if (!indicatorDefinition.isVersionSpecificCode(marcVersion, value)) {
-          addError(path, INDICATOR_NON_EMPTY, value);
-          isValid = false;
-        }
-      }
-    }
-    return isValid;
-  }
-   */
-
   public DataFieldKeyGenerator getKeyGenerator(SolrFieldType type) {
     return new DataFieldKeyGenerator(getDefinition(), type);
   }
-
-  /*
-  @Override
-  public List<ValidationError> getValidationErrors() {
-    return errors.getErrors();
-  }
-   */
 
   public void addUnhandledSubfields(String code) {
     if (unhandledSubfields == null)
@@ -681,23 +569,22 @@ public class DataField implements Extractable, Serializable { // Validatable
     unhandledSubfields.add(code);
   }
 
-  /*
-  private void addError(ValidationErrorType type, String message) {
-    addError(definition.getTag(), type, message);
-  }
-
-  private void addError(SubfieldDefinition subfieldDefinition, ValidationErrorType type, String message) {
-    addError(subfieldDefinition.getPath(), type, message);
-  }
-
-  private void addError(String path, ValidationErrorType type, String message) {
-    String url = definition.getDescriptionUrl();
-    errors.add(marcRecord.getId(), path, type, message, url);
-  }
-   */
-
   public List<String> getUnhandledSubfields() {
     return unhandledSubfields;
+  }
+
+  public String getOccurrence() {
+    return occurrence;
+  }
+
+  public void setOccurrence(String occurrence) {
+    this.occurrence = occurrence;
+  }
+
+  public String getTagWithOccurrence() {
+    if (occurrence == null)
+      return getTag();
+    return getTag() + "/" + occurrence;
   }
 
   @Override

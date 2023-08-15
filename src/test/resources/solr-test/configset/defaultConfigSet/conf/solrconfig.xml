@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+  <luceneMatchVersion>8.8.1</luceneMatchVersion>
+  <indexConfig>
+    <useCompoundFile>${useCompoundFile:false}</useCompoundFile>
+    <lockType>${solr.lock.type:single}</lockType>
+  </indexConfig>
+  <dataDir>${solr.data.dir:data}</dataDir>
+  <directoryFactory name="DirectoryFactory" class="${solr.directoryFactory:solr.RAMDirectoryFactory}"/>
+  <schemaFactory class="ClassicIndexSchemaFactory"/>
+
+  <updateHandler class="solr.DirectUpdateHandler2">
+    <updateLog>
+      <str name="dir">${solr.data.dir:}</str>
+    </updateLog>
+  </updateHandler>
+
+  <requestDispatcher>
+    <requestParsers enableRemoteStreaming="false" multipartUploadLimitInKB="-1" />
+  </requestDispatcher>
+
+  <requestHandler name="/select" class="solr.SearchHandler"/>
+
+  <initParams path="/select">
+    <lst name="defaults">
+      <str name="df">name</str>
+    </lst>
+  </initParams>
+
+</config>

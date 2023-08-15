@@ -1,0 +1,112 @@
+#!/bin/bash
+set -ueo pipefail
+
+usage() {
+  cat << EOF
+Usage: $0 [options] <command>
+
+QA catalogue for analysing library data
+
+Options:
+  -a --analyses   which commands to run with command 'all-analyses'
+  -c --catalogue  short name of the catalogue
+  -n --name       name of the analysis (default: qa-catalogue)
+  -i --input      input directory (default: ./input)
+  -d --input-dir  subdirectory of input directory to read files from (default: the NAME)
+  -m --mask       input filename or glob (default: *)
+  -o --output     output directory. Result are put into subdirectory NAME and _reports (default: ./output)
+  -p --params     additional parameters passed to analyses
+  -s --schema     record schema (default: MARC21, also supported: PICA)
+  -u --update     last modification time of input files (default: timestamps)
+  -v --version    optional version number/date of the catalogue to compare changes
+  -w --web-config update the specified configuration file of qa-catalogue-web
+
+EOF
+  . ./common-script help
+  exit
+}
+
+# optionally load default values
+[ -f ./setdir.sh ] && . ./setdir.sh
+
+# default values, if not set
+BASE_INPUT_DIR=${BASE_INPUT_DIR:-./input}
+BASE_OUTPUT_DIR=${BASE_OUTPUT_DIR:-./output}
+MASK=${MASK:-*}
+NAME=${NAME:-qa-catalogue}
+TYPE_PARAMS=
+SCHEMA=MARC21
+WEB_CONFIG=
+
+# parse command line options
+options=$(getopt -o a:c:d:i:m:n:o:p:s:u:v:w: --long analyses:,catalogue:,input-dir:,input:,mask:,name:,output:,params:,schema:,update:,version:,web-config: -- "$@")
+
+eval set -- "$options"
+
+while true; do
+    case "$1" in
+    -a|--analyses) ANALYSES=$2 ; shift ;;
+    -c|--catalogue) CATALOGUE=$2 ; shift ;;
+    -d|--input-dir) MARC_DIR=${BASE_INPUT_DIR}/$2 ; shift ;;
+    -i|--input) BASE_INPUT_DIR=$2 ; shift ;;
+    -m|--mask) MASK=$2 ; shift ;;
+    -n|--name) NAME=$2 ; shift ;;
+    -o|--output) BASE_OUTPUT_DIR=$2 ; shift ;;
+    -p|--params) TYPE_PARAMS=$2 ; shift ;;
+    -s|--schema) SCHEMA=$2 ; shift ;;
+    -u|--update) UPDATE=$2 ; shift ;;
+    -v|--version) VERSION=$2 ; shift ;;
+    -w|--web-config) WEB_CONFIG=$2 ; shift ;;
+    --)
+        shift
+        break
+        ;;
+    esac
+    shift
+done
+
+[ "${1:-help}" == "help" ] && usage
+
+cat << EOF
+configuration:
+---------------------------
+ANALYSES:                 ${ANALYSES:-}
+CATALOGUE:                ${CATALOGUE:-}
+MARC_DIR (input-dir):     ${MARC_DIR:-}
+BASE_INPUT_DIR (input):   ${BASE_INPUT_DIR}
+MASK:                     ${MASK}
+NAME:                     ${NAME}
+BASE_OUTPUT_DIR (output): ${BASE_OUTPUT_DIR}
+SCHEMA:                   ${SCHEMA}
+TYPE_PARAMS (params):     ${TYPE_PARAMS}
+UPDATE:                   ${UPDATE:-}
+VERSION:                  ${VERSION:-}
+WEB_CONFIG:               ${WEB_CONFIG}
+---------------------------
+EOF
+
+# don't proceed if web configuration shall be updated but cannot do so
+if [[ ! -z "$WEB_CONFIG" ]]; then
+  if [[ ! -f "$WEB_CONFIG" ]]; then
+    echo "web configuration file missing: $WEB_CONFIG" >&2
+    exit 1
+  elif [[ -z "$CATALOGUE" ]]; then
+    echo "catalogue short name not set" >&2
+    exit 1
+ fi
+fi
+
+# run actual analysis
+. ./common-script ${1:-}
+
+# optionally update web configuration
+if [[ ! -z "$WEB_CONFIG" ]]; then
+  HAS_CATALOGUE=$(grep -cP '^\s*catalogue\s*=' $WEB_CONFIG || true)
+  if [[ $HAS_CATALOGUE == 1 ]]; then
+    grep -vP "^\s*catalogue\s*=" $WEB_CONFIG > /tmp/catalogue
+    mv /tmp/catalogue $WEB_CONFIG
+  fi
+  echo "catalogue=$CATALOGUE" >> $WEB_CONFIG
+fi
+
+exit 0

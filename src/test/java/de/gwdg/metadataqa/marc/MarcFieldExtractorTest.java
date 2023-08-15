@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc;
 
-import de.gwdg.metadataqa.api.model.pathcache.JsonPathCache;
+import de.gwdg.metadataqa.api.model.selector.JsonSelector;
 import de.gwdg.metadataqa.api.schema.MarcJsonSchema;
 import de.gwdg.metadataqa.api.util.CompressionLevel;
 import de.gwdg.metadataqa.api.util.FileUtils;
@@ -48,7 +48,7 @@ public class MarcFieldExtractorTest {
   public void test() throws URISyntaxException, IOException {
     MarcFieldExtractor calculator = new MarcFieldExtractor(new MarcJsonSchema());
     calculator.measure(
-      new JsonPathCache(
+      new JsonSelector(
         FileUtils.readFirstLineFromResource("general/verbund-tit.001.0000000.formatted.json")
       )
     );

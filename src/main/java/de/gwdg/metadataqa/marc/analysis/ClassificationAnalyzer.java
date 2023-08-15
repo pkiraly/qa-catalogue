@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.marc.Utils;
+import de.gwdg.metadataqa.marc.cli.parameters.ClassificationParameters;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
@@ -9,9 +10,7 @@ import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.general.indexer.subject.ClassificationSchemes;
 import de.gwdg.metadataqa.marc.utils.pica.PicaVocabularyManager;
 import de.gwdg.metadataqa.marc.utils.pica.VocabularyEntry;
-import net.minidev.json.parser.ParseException;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,6 +19,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -34,9 +34,11 @@ public class ClassificationAnalyzer {
   private static final ClassificationSchemes classificationSchemes =
     ClassificationSchemes.getInstance();
   private static final Pattern NUMERIC = Pattern.compile("^\\d");
+  public static final String DEWEY_DECIMAL_CLASSIFICATION = "Dewey Decimal Classification";
   private static PicaVocabularyManager manager = null;
 
   private final ClassificationStatistics statistics;
+  private ClassificationParameters parameters = null;
   private BibliographicRecord marcRecord;
   private List<Schema> schemasInRecord;
 
@@ -79,28 +81,48 @@ public class ClassificationAnalyzer {
 
   private static final List<FieldWithScheme> MARC21_FIELD_WITH_SCHEMES = Arrays.asList(
     new FieldWithScheme("080", "Universal Decimal Classification"),
-    new FieldWithScheme("082", "Dewey Decimal Classification"),
-    new FieldWithScheme("083", "Dewey Decimal Classification"),
-    new FieldWithScheme("085", "Dewey Decimal Classification")
+    new FieldWithScheme("082", DEWEY_DECIMAL_CLASSIFICATION),
+    new FieldWithScheme("083", DEWEY_DECIMAL_CLASSIFICATION),
+    new FieldWithScheme("085", DEWEY_DECIMAL_CLASSIFICATION)
     // new FieldWithScheme("086", "Government Document Classification");
   );
 
   private static final List<FieldWithScheme> PICA_FIELDS_WITH_SCHEME = Arrays.asList(
+    new FieldWithScheme("041A", "Schlagwortfolgen (DNB und Verbünde)"),
+    new FieldWithScheme("044K", "Schlagwortfolgen (GBV, SWB, K10plus)"),
+    new FieldWithScheme("044L", "Einzelschlagwörter (Projekte)"),
+    new FieldWithScheme("044N", "Schlagwörter aus einem Thesaurus und freie Schlagwörter"),
+    new FieldWithScheme("044S", "Gattungsbegriffe bei Alten Drucken"),
+    new FieldWithScheme("044Z", "Lokale Schlagwörter auf bibliografischer Ebene"),
     new FieldWithScheme("045A", "LCC-Notation"),
-    new FieldWithScheme("045F", "DDC-Notation"),
-    new FieldWithScheme("045R", "Regensburger Verbundklassifikation (RVK)"),
     new FieldWithScheme("045B/00", "Allgemeine Systematik für Bibliotheken (ASB)"),
     new FieldWithScheme("045B/01", "Systematik der Stadtbibliothek Duisburg (SSD)"),
     new FieldWithScheme("045B/02", "Systematik für Bibliotheken (SfB)"),
     new FieldWithScheme("045B/03", "Klassifikation für Allgemeinbibliotheken (KAB)"),
     new FieldWithScheme("045B/04", "Systematiken der ekz"),
     new FieldWithScheme("045B/05", "Gattungsbegriffe (DNB)"),
-    new FieldWithScheme("045C", "Notation – Beziehung"),
+    new FieldWithScheme("045C", "Klassifikation der National Library of Medicine (NLM)"),
+    // TODO: 045D/00-29 - "STW-Schlagwörter"
+    // TODO: 045D/30-39 - "STW-Schlagwörter - automatisierte verbale Sacherschließung"
+    // TODO: 045D/40-48 - "STW-Schlagwörter - Platzhalter"
+    new FieldWithScheme("045D/49", "ZBW-Schlagwörter - Veröffentlichungsart"),
+    new FieldWithScheme("045D/50", "Vorläufige Schhlagwörter (STW)"),
+    new FieldWithScheme("045D/60", "FIV-Schlagwörter (Themen)"),
+    new FieldWithScheme("045D/70", "FIV-Schlagwörter (Aspekte)"),
     new FieldWithScheme("045E", "Sachgruppen der Deutschen Nationalbibliografie bis 2003"),
+    new FieldWithScheme("045F", "DDC-Notation"),
     new FieldWithScheme("045G", "Sachgruppen der Deutschen Nationalbibliografie ab 2004"),
-    new FieldWithScheme("041A", "Sachbegriff - Bevorzugte Benennung"),
-    new FieldWithScheme("144Z/00-99", "Lokale Schlagwörter"),
-    new FieldWithScheme("145S/00-99", "Lesesaalsystematik der SBB")
+    new FieldWithScheme("045H", "DDC-Notation: Vollständige Notation"),
+    new FieldWithScheme("045M", "Lokale Notationen auf bibliografischer Ebene"),
+    new FieldWithScheme("045N", "FIV-Regionalklassifikation"),
+    new FieldWithScheme("045Q/01", "Basisklassifikation"),
+    new FieldWithScheme("045R", "Regensburger Verbundklassifikation (RVK)"),
+    new FieldWithScheme("045S", "Deutsche Bibliotheksstatistik (DBS)"),
+    new FieldWithScheme("045T", "Nicht mehr gültige Notationen der Regensburger Verbundklassifikation (RVK)"),
+    new FieldWithScheme("045V", "SSG-Nummer/FID-Kennzeichen"),
+    new FieldWithScheme("045W", "SSG-Angabe für thematische OLC-Ausschnitte"),
+    new FieldWithScheme("045X", "Notation eines Klassifikationssystems"),
+    new FieldWithScheme("045Y", "SSG-Angabe für Fachkataloge")
   );
 
   public ClassificationAnalyzer(BibliographicRecord marcRecord, ClassificationStatistics statistics) {
@@ -109,6 +131,11 @@ public class ClassificationAnalyzer {
     if (marcRecord.getSchemaType().equals(SchemaType.PICA) && manager == null) {
       manager = PicaVocabularyManager.getInstance();
     }
+  }
+
+  public ClassificationAnalyzer(BibliographicRecord marcRecord, ClassificationStatistics statistics, ClassificationParameters parameters) {
+    this(marcRecord, statistics);
+    this.parameters = parameters;
   }
 
   public int process() {
@@ -131,18 +158,15 @@ public class ClassificationAnalyzer {
   }
 
   private void increaseCounters(int total) {
-    /*
-    if (total != schemasInRecord.size())
-      logger.severe(String.format("COUNT: total (%d) != schemasInRecord(%d)",
-        total, schemasInRecord.size()));
-     */
     count((total > 0), statistics.getHasClassifications());
     count(total, statistics.getSchemaHistogram());
     statistics.getFrequencyExamples().computeIfAbsent(total, s -> marcRecord.getId(true));
 
-    List<String> collocation = getCollocationInRecord();
-    if (!collocation.isEmpty())
-      count(collocation, statistics.getCollocationHistogram());
+    if (parameters != null && parameters.doCollectCollocations()) {
+      List<String> collocation = getCollocationInRecord();
+      if (!collocation.isEmpty())
+        count(collocation, statistics.getCollocationHistogram());
+    }
   }
 
   private int processFieldsWithScheme(int total, List<FieldWithScheme> fieldsWithScheme) {
@@ -177,12 +201,12 @@ public class ClassificationAnalyzer {
           }
         }
         if (firstSubfield != null) {
-          var currentSchema = new Schema(entry.getPica(), firstSubfield, entry.getVoc(), schema);
+          var currentSchema = new Schema(field.getTagWithOccurrence(), firstSubfield, entry.getVoc(), schema);
           schemas.add(currentSchema);
           updateSchemaSubfieldStatistics(field, currentSchema);
           count++;
         } else {
-          logger.severe(String.format("undetected subfield in record %s %s", marcRecord.getId(), field.toString()));
+          logger.log(Level.SEVERE, "undetected subfield in record {0} {1}", new Object[]{marcRecord.getId(), field.toString()});
         }
       }
       registerSchemas(schemas);
@@ -259,7 +283,7 @@ public class ClassificationAnalyzer {
         updateSchemaSubfieldStatistics(field, currentSchema);
         count++;
       } else {
-        logger.severe(String.format("undetected subfield in record %s %s", marcRecord.getId(), field.toString()));
+        logger.log(Level.SEVERE, "undetected subfield in record {0} {1}", new Object[]{marcRecord.getId(), field.toString()});
       }
     }
 
@@ -296,7 +320,7 @@ public class ClassificationAnalyzer {
         try {
           currentSchema = new Schema(tag, "ind1", classificationSchemes.resolve(scheme), scheme);
         } catch (IllegalArgumentException e) {
-          logger.severe(String.format("Invalid scheme in ind1: %s. %s", e.getLocalizedMessage(), field));
+          logger.log(Level.SEVERE, "Invalid scheme in ind1: {0}. {1}", new Object[]{e.getLocalizedMessage(), field});
           currentSchema = new Schema(tag, "ind1", field.getInd1(), scheme);
         }
         schemas.add(currentSchema);
@@ -326,7 +350,7 @@ public class ClassificationAnalyzer {
         try {
           currentSchema = new Schema(tag, "ind2", classificationSchemes.resolve(scheme), scheme);
         } catch (IllegalArgumentException e) {
-          logger.warning(String.format("Invalid scheme in ind2: %s. %s", e.getLocalizedMessage(), field));
+          logger.log(Level.WARNING, "Invalid scheme in ind2: {0}. {1}", new Object[]{e.getLocalizedMessage(), field});
           currentSchema = new Schema(tag, "ind2", field.getInd2(), scheme);
         }
         schemas.add(currentSchema);

@@ -2,12 +2,10 @@ package de.gwdg.metadataqa.marc.model.validation;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.opencsv.CSVWriter;
 import de.gwdg.metadataqa.marc.CsvUtils;
 import de.gwdg.metadataqa.marc.Utils;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -102,14 +100,15 @@ public class ValidationErrorFormatter {
     return messages;
   }
 
-  public static String formatHeaderForSummary(ValidationErrorFormat format) {
+  public static String formatHeaderForSummary(ValidationErrorFormat format, boolean withGoupId) {
     String message = "";
     switch (format) {
       case TAB_SEPARATED:
-        message = createCvsRow(headerForSummary(), '\t'); break;
+        message = createCvsRow(headerForSummary(withGoupId), '\t'); break;
       case COMMA_SEPARATED:
       case TEXT:
-        message = createCvsRow(headerForSummary(), ','); break;
+        message = CsvUtils.createCsv(headerForSummary(withGoupId)); break;
+        // message = createCvsRow(headerForSummary(), ','); break;
       default: break;
     }
     return message;
@@ -154,6 +153,8 @@ public class ValidationErrorFormatter {
   }
 
   private static String createCvsRow(String[] strings, char separator) {
+    return CsvUtils.createCsv(strings);
+    /*
     StringWriter stringWriter = new StringWriter();
     CSVWriter csvWriter = new CSVWriter(stringWriter, separator, '"',
       CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);
@@ -163,6 +164,7 @@ public class ValidationErrorFormatter {
       row = row.replace("\\", "\\\\");
     }
     return row;
+     */
   }
 
   private static String formatTextWithoutId(ValidationError error) {
@@ -175,7 +177,9 @@ public class ValidationErrorFormatter {
     );
   }
 
-  private static String[] headerForSummary() {
+  private static String[] headerForSummary(boolean withGoupId) {
+    if (withGoupId)
+      return new String[]{"groupId", "id", "MarcPath", "categoryId", "typeId", "type", "message", "url", "instances", "records"};
     return new String[]{"id", "MarcPath", "categoryId", "typeId", "type", "message", "url", "instances", "records"};
   }
 

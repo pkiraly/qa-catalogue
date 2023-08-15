@@ -175,14 +175,11 @@ public class MarcSpec implements SchemaSpec, Serializable {
     checkIfString(arg);
     for (int x = 0; x < arg.length(); x++) {
       String indicator = arg.substring(x, x+1);
-      if (0 == x) {
-        if (!"_".equals(indicator))
-          setIndicator1(indicator);
-      }
-      if (1 == x) {
-        if (!"_".equals(indicator))
-          setIndicator2(indicator);
-      }
+      if (0 == x && !"_".equals(indicator))
+        setIndicator1(indicator);
+
+      if (1 == x && !"_".equals(indicator))
+        setIndicator2(indicator);
     }
   }
 
@@ -220,11 +217,9 @@ public class MarcSpec implements SchemaSpec, Serializable {
 
     String[] _ref = dataFieldRef.split("_", 2);
 
-    if (validateSubfields(_ref[0])) {
-      if (_ref.length > 1) {
-        validateIndicators(_ref[1]);
-      }
-    }
+    if (validateSubfields(_ref[0]) && _ref.length > 1)
+      validateIndicators(_ref[1]);
+
     return _ref;
   }
 

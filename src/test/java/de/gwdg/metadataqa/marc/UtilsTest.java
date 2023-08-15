@@ -1,16 +1,13 @@
 package de.gwdg.metadataqa.marc;
 
-import java.io.IOException;
-import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.opencsv.CSVWriter;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.controlpositions.tag007.Tag007nonprojected00;
 import de.gwdg.metadataqa.marc.definition.controlpositions.tag007.Tag007nonprojected01;
@@ -115,9 +112,9 @@ public class UtilsTest {
     assertEquals("cd", Utils.substring("abcd", 2, 6));
   }
 
-  @Test(expected = StringIndexOutOfBoundsException.class)
+  @Test
   public void testRange_withException() {
-    assertEquals("c", Utils.substring("abcd", 4, 8));
+    assertThrows(StringIndexOutOfBoundsException.class, () -> Utils.substring("abcd", 4, 8));
   }
 
   @Test
@@ -127,5 +124,31 @@ public class UtilsTest {
     Utils.count("Mary", names);
     assertTrue(names.containsKey("Mary"));
     assertEquals(1, names.get("Mary").intValue());
+  }
+
+
+  @Test
+  public void package2version() {
+    assertEquals(MarcVersion.KBR, Utils.package2version("kbrtags"));
+  }
+
+  @Test
+  public void quote() {
+    assertEquals(List.of("\"a\"", "\"b\""), Utils.quote(List.of("a", "b")));
+    assertEquals(1, Utils.quote(1));
+  }
+
+  @Test
+  public void base36Encode() {
+    assertEquals("c", Utils.base36Encode("12"));
+    assertEquals("c", Utils.base36Encode(12));
+    assertEquals("7ps", Utils.base36Encode("10E+3"));
+  }
+
+  @Test
+  public void base64decode() {
+    assertEquals(
+      "002@.0 !~ \"^L\" && 002@.0 !~ \"^..[iktN]\" && (002@.0 !~ \"^.v\" || 021A.a?)\n",
+      Utils.base64decode("MDAyQC4wICF+ICJeTCIgJiYgMDAyQC4wICF+ICJeLi5baWt0Tl0iICYmICgwMDJALjAgIX4gIl4udiIgfHwgMDIxQS5hPykK"));
   }
 }

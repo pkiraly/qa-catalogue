@@ -61,9 +61,8 @@ public class ValidationError implements Serializable {
 
   @Override
   public boolean equals(Object o) {
-    if (this.hashCode() == o.hashCode())
-      return true;
-
+    if (o == null) return false;
+    if (this.hashCode() == o.hashCode()) return true;
     if (!(o instanceof ValidationError)) return false;
 
     ValidationError that = (ValidationError) o;

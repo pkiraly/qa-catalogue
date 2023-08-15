@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -21,7 +22,7 @@ public class MarcMakerReader implements MarcReader {
 
   private enum LEVEL {
     WARN, SEVERE
-  };
+  }
 
   private BufferedReader bufferedReader = null;
   private String line = null;
@@ -33,18 +34,14 @@ public class MarcMakerReader implements MarcReader {
 
   public MarcMakerReader(String content) {
     try {
-      bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(content), "UTF8"));
+      bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(content), StandardCharsets.UTF_8));
     } catch (IOException e) {
       logger.log(Level.WARNING, "MarcMakerReader", e);
     }
   }
 
   public MarcMakerReader(InputStream stream) {
-    try {
-      bufferedReader = new BufferedReader(new InputStreamReader(stream, "UTF8"));
-    } catch (IOException e) {
-      logger.log(Level.WARNING, "MarcMakerReader", e);
-    }
+    bufferedReader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
   }
 
   @Override
@@ -64,7 +61,6 @@ public class MarcMakerReader implements MarcReader {
   @Override
   public Record next() {
     Record marc4jRecord = null;
-    boolean deleted = false;
     boolean finished = false;
     while (line != null && !finished) {
       MarcMakerLine marcMakerLine = new MarcMakerLine(line, lineNumber);

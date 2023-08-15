@@ -94,9 +94,9 @@ public class TagDefinitionLoader {
   public static List<DataFieldDefinition> findPatterns(String tagPattern, MarcVersion marcVersion) {
     Matcher matcher = Pattern.compile("^" + tagPattern.replaceAll("X", ".") + "$").matcher("");
     List<DataFieldDefinition> definitions = new ArrayList<>();
-    for (String tag : versionedCache.keySet()) {
-      if (matcher.reset(tag).matches()) {
-        Map<MarcVersion, DataFieldDefinition> map = versionedCache.get(tag);
+    for (Map.Entry<String, Map<MarcVersion, DataFieldDefinition>> entry : versionedCache.entrySet()) {
+      if (matcher.reset(entry.getKey()).matches()) {
+        Map<MarcVersion, DataFieldDefinition> map = entry.getValue();
 
         if (map == null)
           continue;

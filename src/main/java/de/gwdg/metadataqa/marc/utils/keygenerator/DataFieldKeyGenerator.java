@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.utils.keygenerator;
 
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
@@ -28,15 +29,21 @@ public class DataFieldKeyGenerator {
 
   public DataFieldKeyGenerator(DataFieldDefinition definition,
                                SolrFieldType type,
-                               String tag) {
+                               String tag,
+                               SchemaType schemaType) {
     this.definition = definition;
     this.type = type;
-    if (definition != null) {
-      this.tag = definition.getTag();
-      indexTag = definition.getIndexTag();
-    } else {
+    if (schemaType.equals(SchemaType.PICA)) {
       this.tag = tag;
-      indexTag = tag;
+      this.indexTag = tag;
+    } else {
+      if (definition != null) {
+        this.tag = definition.getTag();
+        this.indexTag = definition.getIndexTag();
+      } else {
+        this.tag = tag;
+        this.indexTag = tag;
+      }
     }
   }
 
@@ -190,5 +197,9 @@ public class DataFieldKeyGenerator {
 
   public MarcVersion getMarcVersion() {
     return marcVersion;
+  }
+
+  public String getTag() {
+    return tag;
   }
 }

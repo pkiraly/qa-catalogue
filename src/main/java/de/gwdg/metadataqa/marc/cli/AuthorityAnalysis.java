@@ -54,7 +54,6 @@ public class AuthorityAnalysis implements BibliographicInputProcessor, Serializa
       processor = new AuthorityAnalysis(args);
     } catch (ParseException e) {
       System.err.println(createRow("ERROR. ", e.getLocalizedMessage()));
-      // processor.printHelp(processor.getParameters().getOptions());
       System.exit(0);
     }
     if (processor.getParameters().getArgs().length < 1) {
@@ -125,6 +124,7 @@ public class AuthorityAnalysis implements BibliographicInputProcessor, Serializa
       statistics.getRecordsPerCategories()
         .entrySet()
         .stream()
+        .sorted((e1, e2) -> Integer.compare(e1.getKey().getId(), e2.getKey().getId()))
         .forEach(
           entry -> {
             AuthorityCategory category = entry.getKey();

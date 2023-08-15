@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 
 /**
  * usage:
- * java -cp target/metadata-qa-marc-0.1-SNAPSHOT-jar-with-dependencies.jar de.gwdg.metadataqa.marc.cli.Validator [MARC21 file]
+ * java -cp target/qa-catalogue-0.1-SNAPSHOT-jar-with-dependencies.jar de.gwdg.metadataqa.marc.cli.Validator [MARC21 file]
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
@@ -61,7 +61,7 @@ public class Formatter implements BibliographicInputProcessor {
   @Override
   public void printHelp(Options options) {
     HelpFormatter formatter = new HelpFormatter();
-    String message = String.format("java -cp metadata-qa-marc.jar %s [options] [file]", this.getClass().getCanonicalName());
+    String message = String.format("java -cp qa-catalogue.jar %s [options] [file]", this.getClass().getCanonicalName());
     formatter.printHelp(message, options);
   }
 
@@ -146,14 +146,11 @@ public class Formatter implements BibliographicInputProcessor {
           PicaSpec spec = (PicaSpec) marcSpec;
           List<String> results = marcRecord.select(spec.getPath());
           if (!results.isEmpty() && spec.getFunction() != null) {
-            List<String> _results = new ArrayList<>();
-            for (String result : results) {
-              switch (spec.getFunction()) {
-                case "extractPicaDate": _results.add(extractPicaDate(result)); break;
-                default: break;
-              }
-            }
-            results = _results;
+            List<String> candidates = new ArrayList<>();
+            for (String result : results)
+              if (spec.getFunction().equals("extractPicaDate"))
+                candidates.add(extractPicaDate(result));
+            results = candidates;
           }
           values.add(results.isEmpty() ? "" : StringUtils.join(results, "||"));
         }

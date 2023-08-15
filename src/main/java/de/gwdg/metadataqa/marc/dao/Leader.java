@@ -14,6 +14,7 @@ import de.gwdg.metadataqa.marc.utils.keygenerator.PositionalControlFieldKeyGener
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -126,10 +127,8 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
         }
         valuesMap.put(subfield, value);
       } catch (StringIndexOutOfBoundsException e) {
-        logger.severe(String.format("Problem with processing Leader ('%s'). " +
-            "The content length is only %d while reading position @%d-%d (for %s)",
-          content,
-          content.length(), subfield.getPositionStart(), subfield.getPositionEnd(), subfield.getLabel()));
+        logger.log(Level.SEVERE, "Problem with processing Leader (\"{0}\"). The content length is only {1} while reading position @{2}-{3} (for {4})",
+          new Object[]{content, content.length(), subfield.getPositionStart(), subfield.getPositionEnd(), subfield.getLabel()});
       }
     }
   }

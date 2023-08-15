@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.cli.utils;
 
-import de.gwdg.metadataqa.api.model.pathcache.JsonPathCache;
+import de.gwdg.metadataqa.api.model.selector.JsonSelector;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
@@ -12,11 +12,12 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * usage:
- * java -cp target/metadata-qa-marc-0.1-SNAPSHOT-jar-with-dependencies.jar de.gwdg.metadataqa.marc.cli.SolrKeyGenerator http://localhost:8983/solr/tardit 0001.0000000.formatted.json
+ * java -cp target/qa-catalogue-0.1-SNAPSHOT-jar-with-dependencies.jar de.gwdg.metadataqa.marc.cli.SolrKeyGenerator http://localhost:8983/solr/tardit 0001.0000000.formatted.json
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
@@ -45,36 +46,36 @@ public class MarcJsonToSolr {
         doCommits = false;
     }
 
-    logger.info(String.format("Solr URL: %s, file: %s (do commits: %s)", url, fileName, doCommits));
+    logger.log(Level.INFO, "Solr URL: {0}, file: {1} (do commits: {2})", new Object[]{url, fileName, doCommits});
 
     MarcSolrClient client = new MarcSolrClient(url);
-    JsonPathCache<? extends XmlFieldInstance> cache;
+    JsonSelector<? extends XmlFieldInstance> cache;
     List<String> records;
     try {
       records = Files.readAllLines(path, Charset.defaultCharset());
       var i = 0;
       for (String marcRecordLine : records) {
         i++;
-        cache = new JsonPathCache(marcRecordLine);
+        cache = new JsonSelector(marcRecordLine);
         BibliographicRecord marcRecord = MarcFactory.create(cache);
         client.indexMap(marcRecord.getId(), marcRecord.getKeyValuePairs());
 
         if (i % 1000 == 0) {
           if (doCommits)
             client.commit();
-          logger.info(String.format("%s/%d) %s", fileName, i, marcRecord.getId()));
+          logger.log(Level.INFO, "{0}/{1}) {2}", new Object[]{fileName, i, marcRecord.getId()});
         }
       }
       if (doCommits)
         client.commit();
       logger.info("end of cycle");
-    } catch (IOException | SolrServerException ex) {
+    } catch (IOException ex) {
       logger.severe(ex.toString());
       System.exit(0);
     }
     long end = System.currentTimeMillis();
 
-    logger.info(String.format("Bye! It took: %.1f s", (float) (end - start) / 1000));
+    logger.log(Level.INFO, "Bye! It took: {0} s", new Object[]{String.format("%.1f", (float) (end - start) / 1000)});
 
     System.exit(0);
   }

@@ -17,21 +17,21 @@ public class MARCspecParser {
    * Regex for field tag
    */
   protected static final Pattern FIELDTAG = Pattern.compile(
-    "^(?<tag>(?:[0-9\\.]{3,3}|LDR|LEADER))?"
+    "^(?<tag>(?:[0-9\\.]{3}|LDR|LEADER))?"
   );
 
   /**
    * Regex for position or range
    */
   protected static final Pattern POSITION_OR_RANGE = Pattern.compile(
-    "(?:(?:(?:[0-9]+|#)\\-(?:[0-9]+|#))|(?:[0-9]+|#))"
+    "(?:(?:(?:\\d+|#)\\-(?:\\d+|#))|(?:\\d+|#))"
   );
 
   /**
    * Regex for named position or range
    */
   protected static final Pattern NAMED_POSITION_OR_RANGE = Pattern.compile(
-    "(?:(?:(?<start>[0-9]+|#)\\-(?<end>[0-9]+|#))|(?<single>[0-9]+|#))"
+    "(?:(?:(?<start>\\d+|#)\\-(?<end>\\d+|#))|(?<single>\\d+|#))"
   );
 
   /**
@@ -167,15 +167,15 @@ public class MARCspecParser {
   /**
    * The parsed MARCspec
    */
-  public Map<String, String> parsed = new HashMap<>();
+  private Map<String, String> parsed = new HashMap<>();
   /**
    * The parsed fieldspec
    */
-  public Map<String, Object> field = new HashMap<>();
+  private Map<String, Object> parsedFieldSpec = new HashMap<>();
   /**
    * The parsed subfieldspecs
    */
-  public List<Map<String, String>> subfields = new ArrayList<>();
+  private List<Map<String, String>> parsedSubfieldSpec = new ArrayList<>();
 
   public MARCspecParser() {
 
@@ -202,7 +202,8 @@ public class MARCspecParser {
 
       if (fieldMap.containsKey("index") && StringUtils.isNotBlank(fieldMap.get("index"))) {
         Positions positions = extractPositions(fieldMap.get("index"));
-        field.setIndexStartEnd(positions.getStart(), positions.getEnd());
+        if (positions != null)
+          field.setIndexStartEnd(positions.getStart(), positions.getEnd());
       }
 
       if (fieldMap.containsKey("charpos") && StringUtils.isNotBlank(fieldMap.get("charpos"))) {
@@ -337,7 +338,7 @@ public class MARCspecParser {
       String end = rangeMatcher.group("end");
       Pattern lowerCase = Pattern.compile("[a-z]");
       Pattern upperCase = Pattern.compile("[A-Z]");
-      Pattern numeric = Pattern.compile("[0-9]");
+      Pattern numeric = Pattern.compile("\\d");
       if (lowerCase.matcher(start).matches() && !lowerCase.matcher(end).matches())
         throw new InvalidMARCspecException(InvalidMARCspecException.SF + InvalidMARCspecException.RANGE, subfieldTagRange);
 
@@ -399,7 +400,7 @@ public class MARCspecParser {
     }
     fieldToArray(spec);
     if (parsed.containsKey("subfields") && StringUtils.isNotBlank(parsed.get("subfields"))) {
-      subfields = matchSubfields(parsed.get("subfields"));
+      parsedSubfieldSpec = matchSubfields(parsed.get("subfields"));
     }
   }
 
@@ -415,7 +416,7 @@ public class MARCspecParser {
       // _fieldMatches
       parsed = extractValues(matcher);
       for (Map.Entry<String, String> entry : parsed.entrySet()) {
-        field.put(entry.getKey(), (Object)entry.getValue());
+        parsedFieldSpec.put(entry.getKey(), (Object)entry.getValue());
       }
 
       if (!parsed.containsKey("field")) { // TODO: check if 'tag' is the required key
@@ -424,27 +425,27 @@ public class MARCspecParser {
       if (parsed.get("field").length() != fieldspec.length()) {
         throw new InvalidMARCspecException(InvalidMARCspecException.FS + InvalidMARCspecException.USELESS, fieldspec);
       }
-      if (field.containsKey("charpos") && field.get("charpos") != null) {
-        if (field.containsKey("indicators") && field.get("indicators") != null) {
+      if (parsedFieldSpec.containsKey("charpos") && parsedFieldSpec.get("charpos") != null) {
+        if (parsedFieldSpec.containsKey("indicators") && parsedFieldSpec.get("indicators") != null) {
           throw new InvalidMARCspecException(InvalidMARCspecException.FS + InvalidMARCspecException.CHARORIND, fieldspec);
         }
-        if (field.containsKey("subfields") && field.get("subfields") != null) {
+        if (parsedFieldSpec.containsKey("subfields") && parsedFieldSpec.get("subfields") != null) {
           throw new InvalidMARCspecException(InvalidMARCspecException.FS + InvalidMARCspecException.CHARANDSF, fieldspec);
         }
 
         if (parsed.containsKey("subspecs") && parsed.get("subspecs") != null) {
           List<List<String>>_fieldSubSpecs = matchSubSpecs(parsed.get("subspecs"));
-          field.put("subspecs", new ArrayList<Map<String, String>>());
+          parsedFieldSpec.put("subspecs", new ArrayList<Map<String, String>>());
           for (List<String> fieldSubSpec : _fieldSubSpecs) {
             if (1 < fieldSubSpec.size()) {
               List<Map<String, String>> _or = new ArrayList<>();
               for (String orSubSpec : fieldSubSpec) {
                 _or.add(matchSubTerms(orSubSpec));
               }
-              ((List<Map<String, String>>)field.get("subspecs")).addAll(_or);
+              ((List<Map<String, String>>) parsedFieldSpec.get("subspecs")).addAll(_or);
 
             } else {
-              ((List<Map<String, String>>)field.get("subspecs")).add(matchSubTerms(fieldSubSpec.get(0)));
+              ((List<Map<String, String>>) parsedFieldSpec.get("subspecs")).add(matchSubTerms(fieldSubSpec.get(0)));
             }
 
           }
@@ -599,5 +600,9 @@ public class MARCspecParser {
       values.put(field, matcher.group(field));
     }
     return values;
+  }
+
+  public Map<String, Object> getParsedFieldSpec() {
+    return parsedFieldSpec;
   }
 }

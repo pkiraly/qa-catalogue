@@ -6,11 +6,11 @@ import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import java.util.List;
 import java.util.stream.Collectors;
 
-abstract public class AbstractValidator {
+public abstract class AbstractValidator {
   final ValidatorConfiguration configuration;
   List<ValidationError> validationErrors = null;
 
-  public AbstractValidator(ValidatorConfiguration configuration) {
+  protected AbstractValidator(ValidatorConfiguration configuration) {
     this.configuration = configuration;
   }
 
@@ -23,11 +23,10 @@ abstract public class AbstractValidator {
   protected List<ValidationError> filterErrors(List<ValidationError> errors) {
     if (configuration.getIgnorableIssueTypes() == null || configuration.getIgnorableIssueTypes().isEmpty())
       return errors;
-    List<ValidationError> filtered = errors
+    return errors
       .stream()
       .filter(error -> !configuration.getIgnorableIssueTypes().contains(error.getType()))
       .collect(Collectors.toList());
-    return filtered;
   }
 
   public List<ValidationError> getValidationErrors() {

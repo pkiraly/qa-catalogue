@@ -54,4 +54,15 @@ public class DataFieldKeyGeneratorTest {
     assertEquals("245x40_Title_language_KBR", generator.forSubfield(definition.getVersionSpecificSubfield(MarcVersion.KBR, "@")));
   }
 
+  @Test
+  public void getTag() {
+    DataFieldKeyGenerator generator = new DataFieldKeyGenerator(definition, SolrFieldType.MIXED);
+    assertEquals("245", generator.getTag());
+  }
+
+  @Test
+  public void getIndexTag() {
+    DataFieldKeyGenerator generator = new DataFieldKeyGenerator(definition, SolrFieldType.MIXED);
+    assertEquals("Title", generator.getIndexTag());
+  }
 }

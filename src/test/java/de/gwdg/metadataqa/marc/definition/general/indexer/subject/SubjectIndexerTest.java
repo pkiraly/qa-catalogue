@@ -10,7 +10,7 @@ import java.util.Map;
 public class SubjectIndexerTest {
 
   protected Map<String, List<String>> getIndexEntries(DataField field) {
-    FieldIndexer indexer = field.getFieldIndexer();
+    FieldIndexer indexer = field.getFieldIndexers().get(0);
     return indexer.index(field, field.getKeyGenerator(SolrFieldType.MIXED));
   }
 

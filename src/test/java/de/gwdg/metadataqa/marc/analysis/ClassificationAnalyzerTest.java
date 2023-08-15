@@ -60,7 +60,7 @@ public class ClassificationAnalyzerTest {
     Map<Schema, Integer> recordStats = statistics.getRecords();
     Schema first = (Schema) recordStats.keySet().toArray()[0];
     assertEquals("gnd-content", first.getAbbreviation());
-    System.err.println(first.getField());
+    assertEquals("655", first.getField());
 
     Schema second = (Schema) recordStats.keySet().toArray()[1];
     assertEquals("bkl", second.getAbbreviation());

@@ -47,6 +47,13 @@ public enum Control007Category implements ControlType {
     return null;
   }
 
+  public static Control007Category byLabel(String label) {
+    for (Control007Category category : values())
+      if (category.label.equals(label))
+        return category;
+    return null;
+  }
+
   public static ControlType byAbbreviation(String abbreviation) {
     for (Control007Category category : values())
       if (category.abbreviation.equals(abbreviation))

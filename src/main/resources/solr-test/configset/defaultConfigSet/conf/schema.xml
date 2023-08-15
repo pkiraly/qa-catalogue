@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<schema name="example core ${l10n:}" version="1.1">
+  <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
+  <fieldType name="plong" class="solr.LongPointField" docValues="true"/>
+  <fieldType name="pints" class="solr.IntPointField" docValues="true" multiValued="true"/>
+  <fieldType name="strings" class="solr.StrField" sortMissingLast="true" docValues="true" multiValued="true"/>
+  <fieldType name="string_big" class="solr.TextField" omitNorms="true" positionIncrementGap="100" sortMissingLast="true">
+    <analyzer>
+      <tokenizer class="solr.KeywordTokenizerFactory"/>
+    </analyzer>
+  </fieldType>
+
+  <!-- general fields -->
+  <field name="id" type="string" indexed="true" stored="true" multiValued="false" required="true"/>
+  <field name="_version_" type="plong" indexed="false" stored="false"/>
+
+  <!-- dynamic fields -->
+  <dynamicField name="*_ss" type="strings" indexed="true" stored="true"/>
+  <dynamicField name="*_is" type="pints" indexed="true" stored="true" />
+  <dynamicField name="*_sni" type="string_big" docValues="false" multiValued="false" indexed="false" stored="true"/>
+
+  <!-- field to use to determine and enforce document uniqueness. -->
+  <uniqueKey>id</uniqueKey>
+</schema>

@@ -109,7 +109,7 @@ with_factors %>%
     )
   ) +
   ggtitle('How do catalogs support FRBR functions?',
-          subtitle = '16 catalogues, 126 million MARC21 records, groupped by functions') +
+          subtitle = '16 catalogues, 126 million MARC21 records, grouped by functions') +
   xlab('libraries') +
   ggsave(
     '/home/kiru/Pictures/functional-analysis-of-catalogs-by-catalogs.png',
@@ -128,7 +128,7 @@ with_factors %>%
     )
   ) +
   ggtitle('How do catalogs support FRBR functions?',
-          subtitle = '16 catalogues, 126 million MARC21 records, groupped by libraries') +
+          subtitle = '16 catalogues, 126 million MARC21 records, grouped by libraries') +
   xlab('FRBR functions') +
   ggsave(
     '/home/kiru/Pictures/functional-analysis-of-catalogs-by-functions.png',

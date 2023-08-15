@@ -19,7 +19,6 @@ public class ControlValueValidator extends AbstractValidator {
   }
 
   public boolean validate(ControlValue controlValue) {
-    var isValid = true;
     validationErrors = new ArrayList<>();
 
     var definition = controlValue.getDefinition();

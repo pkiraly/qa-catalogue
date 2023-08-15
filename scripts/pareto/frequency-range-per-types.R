@@ -1,4 +1,4 @@
-library(tidyverse)
+suppressPackageStartupMessages(library(tidyverse))
 library(grid)
 library(gridExtra)
 

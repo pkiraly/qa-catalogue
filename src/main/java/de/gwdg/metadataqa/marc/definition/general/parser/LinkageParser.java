@@ -11,7 +11,7 @@ public class LinkageParser implements SubfieldContentParser, Serializable {
 
   public static final Pattern INVALID_CHAR = Pattern.compile("[^0-9\\-\\/\\($BNSr]");
 
-  private static final Pattern REGEX = Pattern.compile("^(\\d{3})-(\\d{2})(?:/(.*?))?(?:/(.*?))?$");
+  private static final Pattern REGEX = Pattern.compile("^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$");
   boolean collectInvalidCharacters = false;
 
   @Override
@@ -25,16 +25,14 @@ public class LinkageParser implements SubfieldContentParser, Serializable {
   public Linkage create(String input) throws ParserException {
     checkInvalidCharacters(input);
     Matcher matcher = REGEX.matcher(input);
-    if (matcher.find()) {
-      if (matcher.group(1) != null) {
-        Linkage linkage = new Linkage(matcher.group(1), matcher.group(2));
-        if (matcher.group(3) != null) {
-          linkage.setScriptIdentificationCode(matcher.group(3));
-          if (matcher.group(4) != null)
-            linkage.setFieldOrientationCode(matcher.group(4));
-        }
-        return linkage;
+    if (matcher.find() && matcher.group(1) != null) {
+      Linkage linkage = new Linkage(matcher.group(1), matcher.group(2));
+      if (matcher.group(3) != null) {
+        linkage.setScriptIdentificationCode(matcher.group(3));
+        if (matcher.group(4) != null)
+          linkage.setFieldOrientationCode(matcher.group(4));
       }
+      return linkage;
     }
 
     return null;

@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.utils;
 
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
-import de.gwdg.metadataqa.api.model.pathcache.PathCache;
+import de.gwdg.metadataqa.api.model.selector.Selector;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -10,10 +10,10 @@ import java.util.List;
 
 public class MarcCacheWrapper {
 
-  private PathCache<? extends XmlFieldInstance> cache;
+  private Selector<? extends XmlFieldInstance> cache;
   private static final List<String> controlfields = Arrays.asList("001", "003", "005", "006", "007", "008");
 
-  public MarcCacheWrapper(PathCache<? extends XmlFieldInstance> cache) {
+  public MarcCacheWrapper(Selector<? extends XmlFieldInstance> cache) {
     this.cache = cache;
   }
 
@@ -70,13 +70,12 @@ public class MarcCacheWrapper {
   }
 
   private String extractValues(String path) {
-    String value;List<String> values = new ArrayList<>();
+    List<String> values = new ArrayList<>();
     for (XmlFieldInstance field : cache.getCache().get(path)) {
       if (field.getValue() != null)
         values.add(field.getValue());
     }
-    value = StringUtils.join(values, "|");
-    return value;
+    return StringUtils.join(values, "|");
   }
 
   private boolean isControlField(String tag) {

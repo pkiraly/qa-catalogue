@@ -3,7 +3,7 @@ package de.gwdg.metadataqa.marc;
 import de.gwdg.metadataqa.api.calculator.CompletenessCalculator;
 import de.gwdg.metadataqa.api.configuration.MeasurementConfiguration;
 import de.gwdg.metadataqa.api.interfaces.Calculator;
-import de.gwdg.metadataqa.api.model.pathcache.PathCache;
+import de.gwdg.metadataqa.api.model.selector.Selector;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.api.util.FileUtils;
 import java.io.IOException;
@@ -116,7 +116,7 @@ public class MarcJsonCalculatorTest {
         "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1";
     assertEquals("test 1", expected, calculatorFacade.measure(FileUtils.readFirstLineFromResource("general/sub-test-marc.json")));
 
-    PathCache<? extends XmlFieldInstance> cache = calculatorFacade.getCache();
+    Selector<? extends XmlFieldInstance> cache = calculatorFacade.getCache();
     MarcCacheWrapper wrapper = new MarcCacheWrapper(cache);
     assertFalse(calculatorFacade.getSchema().getCollectionPaths().isEmpty());
     for (Calculator calculator : calculatorFacade.getCalculators()) {

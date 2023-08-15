@@ -32,7 +32,7 @@ import static de.gwdg.metadataqa.marc.Utils.quote;
 
 /**
  * usage:
- * java -cp target/metadata-qa-marc-0.1-SNAPSHOT-jar-with-dependencies.jar \
+ * java -cp target/qa-catalogue-0.1-SNAPSHOT-jar-with-dependencies.jar \
  * de.gwdg.metadataqa.marc.cli.ThompsonTraillCompleteness [MARC21 file]
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
@@ -60,7 +60,6 @@ public class ThompsonTraillCompleteness implements BibliographicInputProcessor, 
       processor = new ThompsonTraillCompleteness(args);
     } catch (ParseException e) {
       System.err.println("ERROR. " + e.getLocalizedMessage());
-      processor.printHelp(processor.getParameters().getOptions());
       System.exit(0);
     }
 
@@ -88,8 +87,8 @@ public class ThompsonTraillCompleteness implements BibliographicInputProcessor, 
     printFields();
 
     output = new File(parameters.getOutputDir(), parameters.getFileName());
-    if (output.exists())
-      output.delete();
+    if (output.exists() && !output.delete())
+      logger.severe("Deletion of " + output.getAbsolutePath() + " was unsuccessful!");
 
     print(createRow(ThompsonTraillAnalysis.getHeader()));
   }
@@ -137,7 +136,7 @@ public class ThompsonTraillCompleteness implements BibliographicInputProcessor, 
   public void printHelp(Options options) {
     HelpFormatter formatter = new HelpFormatter();
     String message = String.format(
-      "java -cp metadata-qa-marc.jar %s [options] [file]",
+      "java -cp qa-catalogue.jar %s [options] [file]",
       this.getClass().getCanonicalName()
     );
     formatter.printHelp(message, options);

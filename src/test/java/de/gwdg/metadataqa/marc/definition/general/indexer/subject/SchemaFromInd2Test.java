@@ -15,14 +15,14 @@ public class SchemaFromInd2Test extends SubjectIndexerTest {
   @Test
   public void checkClass() {
     DataField field = new DataField(Tag653.getInstance(), " ", "0", "a", "value");
-    assertEquals(SchemaFromInd2.class, field.getFieldIndexer().getClass());
+    assertEquals(SchemaFromInd2.class, field.getFieldIndexers().get(0).getClass());
   }
 
   @Test
   public void index0() {
     DataField field = new DataField(Tag653.getInstance(), " ", "0", "a", "value");
 
-    Map<String, List<String>> indexEntries = field.getFieldIndexer().index(
+    Map<String, List<String>> indexEntries = field.getFieldIndexers().get(0).index(
       field, field.getKeyGenerator(SolrFieldType.MIXED));
 
     String solrField = "653a_UncontrolledIndexTerm_topical";
@@ -35,7 +35,7 @@ public class SchemaFromInd2Test extends SubjectIndexerTest {
   public void indexZero() {
     DataField field = new DataField(Tag653.getInstance(), " ", " ", "a", "value");
 
-    Map<String, List<String>> indexEntries = field.getFieldIndexer().index(
+    Map<String, List<String>> indexEntries = field.getFieldIndexers().get(0).index(
       field, field.getKeyGenerator(SolrFieldType.MIXED));
 
     String solrField = "653a_UncontrolledIndexTerm_unspec";

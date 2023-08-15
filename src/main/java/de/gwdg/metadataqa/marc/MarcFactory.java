@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.api.json.DataElement;
-import de.gwdg.metadataqa.api.model.pathcache.JsonPathCache;
+import de.gwdg.metadataqa.api.model.selector.JsonSelector;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.api.schema.MarcJsonSchema;
 import de.gwdg.metadataqa.api.schema.Schema;
@@ -26,8 +26,9 @@ import de.gwdg.metadataqa.marc.utils.MapToDatafield;
 
 import de.gwdg.metadataqa.marc.utils.alephseq.MarcMakerLine;
 import de.gwdg.metadataqa.marc.utils.alephseq.MarclineLine;
+import de.gwdg.metadataqa.marc.utils.pica.PicaDataField;
 import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
-import de.gwdg.metadataqa.marc.utils.pica.PicaLine;
+import de.gwdg.metadataqa.marc.utils.pica.reader.model.PicaLine;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSubfield;
 import net.minidev.json.JSONArray;
@@ -41,10 +42,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Factory class to create MarcRecord from JsonPathCache
+ * Factory class to create MarcRecord from JsonSelector
  */
 public class MarcFactory {
 
@@ -57,42 +59,42 @@ public class MarcFactory {
     throw new IllegalStateException("This is a utility class, can not be instantiated");
   }
 
-  public static BibliographicRecord create(JsonPathCache cache) {
-    return create(cache, MarcVersion.MARC21);
+  public static BibliographicRecord create(JsonSelector selector) {
+    return create(selector, MarcVersion.MARC21);
   }
 
-  public static BibliographicRecord create(JsonPathCache cache, MarcVersion version) {
+  public static BibliographicRecord create(JsonSelector selector, MarcVersion version) {
     var marcRecord = new Marc21Record();
     for (DataElement dataElement : schema.getPaths()) {
       if (dataElement.getParent() != null)
         continue;
       switch (dataElement.getLabel()) {
         case "leader":
-          marcRecord.setLeader(new Leader(extractFirst(cache, dataElement)));
+          marcRecord.setLeader(new Leader(extractFirst(selector, dataElement)));
           break;
         case "001":
-          marcRecord.setControl001(new Control001(extractFirst(cache, dataElement)));
+          marcRecord.setControl001(new Control001(extractFirst(selector, dataElement)));
           break;
         case "003":
-          marcRecord.setControl003(new Control003(extractFirst(cache, dataElement)));
+          marcRecord.setControl003(new Control003(extractFirst(selector, dataElement)));
           break;
         case "005":
-          marcRecord.setControl005(new Control005(extractFirst(cache, dataElement), marcRecord));
+          marcRecord.setControl005(new Control005(extractFirst(selector, dataElement), marcRecord));
           break;
         case "006":
           marcRecord.setControl006(
-            new Control006(extractFirst(cache, dataElement), marcRecord));
+            new Control006(extractFirst(selector, dataElement), marcRecord));
           break;
         case "007":
           marcRecord.setControl007(
-            new Control007(extractFirst(cache, dataElement), marcRecord));
+            new Control007(extractFirst(selector, dataElement), marcRecord));
           break;
         case "008":
           marcRecord.setControl008(
-            new Control008(extractFirst(cache, dataElement), marcRecord));
+            new Control008(extractFirst(selector, dataElement), marcRecord));
           break;
         default:
-          JSONArray fieldInstances = (JSONArray) cache.getFragment(dataElement.getPath());
+          JSONArray fieldInstances = (JSONArray) selector.getFragment(dataElement.getPath());
           for (var fieldInsanceNr = 0; fieldInsanceNr < fieldInstances.size(); fieldInsanceNr++) {
             var fieldInstance = (Map) fieldInstances.get(fieldInsanceNr);
             var field = MapToDatafield.parse(fieldInstance, version);
@@ -134,19 +136,19 @@ public class MarcFactory {
    * @param marc4jRecord The Marc4j record
    * @param defaultType The defauld document type
    * @param marcVersion The MARC version
-   * @param replecementInControlFields A ^ or # character which sould be replaced with space in control fields
+   * @param replacementInControlFields A ^ or # character which sould be replaced with space in control fields
    * @return
    */
   public static BibliographicRecord createFromMarc4j(Record marc4jRecord,
                                                      Leader.Type defaultType,
                                                      MarcVersion marcVersion,
-                                                     String replecementInControlFields) {
+                                                     String replacementInControlFields) {
     var marcRecord = new Marc21Record();
 
     if (marc4jRecord.getLeader() != null) {
       String data = marc4jRecord.getLeader().marshal();
-      if (replecementInControlFields != null)
-        data = data.replace(replecementInControlFields, " ");
+      if (replacementInControlFields != null)
+        data = data.replace(replacementInControlFields, " ");
       marcRecord.setLeader(new Leader(data, defaultType));
 
       if (marcRecord.getType() == null) {
@@ -159,7 +161,7 @@ public class MarcFactory {
       }
     }
 
-    importMarc4jControlFields(marc4jRecord, marcRecord, replecementInControlFields);
+    importMarc4jControlFields(marc4jRecord, marcRecord, replacementInControlFields);
 
     importMarc4jDataFields(marc4jRecord, marcRecord, marcVersion);
 
@@ -168,10 +170,7 @@ public class MarcFactory {
 
   public static BibliographicRecord createPicaFromMarc4j(Record marc4jRecord, PicaSchemaManager picaSchemaManager) {
     var marcRecord = new PicaRecord();
-    // marcRecord.setSchemaType(SchemaType.PICA);
-
     importMarc4jControlFields(marc4jRecord, marcRecord, null);
-
     importMarc4jDataFields(marc4jRecord, marcRecord, picaSchemaManager);
 
     return marcRecord;
@@ -179,11 +178,14 @@ public class MarcFactory {
 
   private static void importMarc4jControlFields(Record marc4jRecord,
                                                 BibliographicRecord marcRecord,
-                                                String replecementInControlFields) {
+                                                String replacementInControlFields) {
+    if (marc4jRecord.getControlFields() == null)
+      return;
+
     for (ControlField controlField : marc4jRecord.getControlFields()) {
       String data = controlField.getData();
-      if (replecementInControlFields != null && isFixable(controlField.getTag()))
-        data = data.replace(replecementInControlFields, " ");
+      if (replacementInControlFields != null && isFixable(controlField.getTag()))
+        data = data.replace(replacementInControlFields, " ");
       switch (controlField.getTag()) {
         case "001":
           marcRecord.setControl001(new Control001(data)); break;
@@ -224,11 +226,15 @@ public class MarcFactory {
                                              BibliographicRecord marcRecord,
                                              PicaSchemaManager schema) {
     for (org.marc4j.marc.DataField dataField : marc4jRecord.getDataFields()) {
-      var definition = schema.lookup(dataField.getTag());
-      if (definition == null) {
-        // System.err.println("getTag: " + dataField.getTag() + " ----");
-        marcRecord.addUnhandledTags(dataField.getTag());
-      }
+      boolean isPica = dataField instanceof PicaDataField;
+      PicaDataField picadf = isPica ? (PicaDataField) dataField : null;
+      var definition = isPica
+        ? schema.lookup(picadf)
+        : schema.lookup(dataField.getTag());
+
+      if (definition == null)
+        marcRecord.addUnhandledTags(isPica && picadf != null ? picadf.getFullTag() : dataField.getTag());
+
       var field = extractPicaDataField(dataField, definition, MarcVersion.MARC21);
       marcRecord.addDataField(field);
     }
@@ -293,6 +299,7 @@ public class MarcFactory {
         Character.toString(dataField.getIndicator2())
       );
     }
+
     for (Subfield subfield : dataField.getSubfields()) {
       var code = Character.toString(subfield.getCode());
       SubfieldDefinition subfieldDefinition = definition == null ? null : definition.getSubfield(code);
@@ -306,11 +313,18 @@ public class MarcFactory {
       field.getSubfields().add(marcSubfield);
     }
     field.indexSubfields();
+
+    if (dataField instanceof PicaDataField) {
+      PicaDataField df = (PicaDataField)dataField;
+      if (df.getOccurrence() != null)
+        field.setOccurrence(df.getOccurrence());
+    }
+
     return field;
   }
 
-  private static List<String> extractList(JsonPathCache cache, DataElement dataElement) {
-    List<XmlFieldInstance> instances = cache.get(dataElement.getPath());
+  private static List<String> extractList(JsonSelector selector, DataElement dataElement) {
+    List<XmlFieldInstance> instances = selector.get(dataElement.getPath());
     List<String> values = new ArrayList<>();
     if (instances != null)
       for (XmlFieldInstance instance : instances)
@@ -318,8 +332,8 @@ public class MarcFactory {
     return values;
   }
 
-  private static String extractFirst(JsonPathCache cache, DataElement dataElement) {
-    List<String> list = extractList(cache, dataElement);
+  private static String extractFirst(JsonSelector selector, DataElement dataElement) {
+    List<String> list = extractList(selector, dataElement);
     if (!list.isEmpty())
       return list.get(0);
     return null;
@@ -386,10 +400,8 @@ public class MarcFactory {
             if (pair.length == 2 && pair[0] != null && pair[1] != null) {
               df.addSubfield(new SubfieldImpl(pair[0].charAt(0), pair[1]));
             } else {
-              logger.warning(String.format(
-                "parse error in record #%s) tag %s: '%s'",
-                line.getRecordID(), line.getTag(), line.getRawContent()
-              ));
+              logger.log(Level.WARNING, "parse error in record #{0}) tag {1}: \"{2}\"",
+                new Object[]{line.getRecordID(), line.getTag(), line.getRawContent()});
             }
           }
           marc4jRecord.addVariableField(df);
@@ -417,10 +429,8 @@ public class MarcFactory {
             if (pair.length == 2 && pair[0] != null && pair[1] != null) {
               df.addSubfield(new SubfieldImpl(pair[0].charAt(0), pair[1]));
             } else {
-              logger.warning(String.format(
-                "parse error in record #%s) tag %s: '%s'",
-                line.getRecordID(), line.getTag(), line.getRawContent()
-              ));
+              logger.log(Level.WARNING, "parse error in record #{0}) tag {1}: \"{2}\"",
+                new Object[]{line.getRecordID(), line.getTag(), line.getRawContent()});
             }
           }
           marc4jRecord.addVariableField(df);
@@ -448,10 +458,8 @@ public class MarcFactory {
             if (pair.length == 2 && pair[0] != null && pair[1] != null) {
               df.addSubfield(new SubfieldImpl(pair[0].charAt(0), pair[1]));
             } else {
-              logger.warning(String.format(
-                "parse error in record #%s) tag %s: '%s'",
-                line.getRecordID(), line.getTag(), line.getRawContent()
-              ));
+              logger.log(Level.WARNING, "parse error in record #{0}) tag {1]: \"{2]\"",
+                new Object[]{line.getRecordID(), line.getTag(), line.getRawContent()});
             }
           }
           marc4jRecord.addVariableField(df);
@@ -468,7 +476,7 @@ public class MarcFactory {
     Record marc4jRecord = new RecordImpl();
     String id = null;
     for (PicaLine line : lines) {
-      DataFieldImpl df = new DataFieldImpl(line.getQualifiedTag(), ' ', ' ');
+      org.marc4j.marc.DataField df = new PicaDataField(line.getTag(), line.getOccurrence());
       for (PicaSubfield picaSubfield : line.getSubfields()) {
         df.addSubfield(new SubfieldImpl(picaSubfield.getCode().charAt(0), picaSubfield.getValue()));
         if (line.getTag().equals(idField) && picaSubfield.getCode().equals(idCode))

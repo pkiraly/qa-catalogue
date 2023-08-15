@@ -96,8 +96,8 @@ public class DataElements implements BibliographicInputProcessor, Serializable {
     packageCounter.put("all", new TreeMap<>());
     dataElementCounter = new DataElementCounter(parameters.getOutputDir(), "top-fields.txt", DataElementCounter.Basis.EXISTENCE);
     outputFile = new File(parameters.getOutputDir(), "record-patterns.csv");
-    if (outputFile.exists())
-      outputFile.delete();
+    if (outputFile.exists() && !outputFile.delete())
+      logger.severe("Deletion of " + outputFile.getAbsolutePath() + " was unsuccessful!");
     printToFile(outputFile, dataElementCounter.getHeader() + "\n");
   }
 
@@ -136,7 +136,7 @@ public class DataElements implements BibliographicInputProcessor, Serializable {
   @Override
   public void printHelp(Options options) {
     HelpFormatter formatter = new HelpFormatter();
-    String message = String.format("java -cp metadata-qa-marc.jar %s [options] [file]", this.getClass().getCanonicalName());
+    String message = String.format("java -cp qa-catalogue.jar %s [options] [file]", this.getClass().getCanonicalName());
     formatter.printHelp(message, options);
   }
 

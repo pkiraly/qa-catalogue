@@ -29,6 +29,7 @@ import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 
 import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
 import de.gwdg.metadataqa.marc.utils.unimarc.UnimarcConverter;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.*;
@@ -47,8 +48,8 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     "052", "055", "072", "080", "082", "083", "084", "085", "086",
     "600", "610", "611", "630", "647", "648", "650", "651",
     "653", "654", "655", "656", "657", "658", "662"
-    );
-  public static final List<String> PICA_SUBJECT_TAGS = Arrays.asList("045A", "045B", "045F", "045R");
+  );
+  protected static final List<String> PICA_SUBJECT_TAGS = Arrays.asList("045A", "045B", "045F", "045R");
 
   private static final Map<String, Boolean> undefinedTags = new HashMap<>();
 
@@ -222,7 +223,7 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
 
   public List<MarcControlField> getSimpleControlfields() {
     return Arrays.asList(
-      control001, control003, control005
+            control001, control003, control005
     );
   }
 
@@ -375,12 +376,12 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
           List<String> values = entry.getValue();
           if (mainKeyValuePairs.containsKey(key)) {
             mainKeyValuePairs.put(
-              key,
-              mergeValues(
-                new ArrayList<>(mainKeyValuePairs.get(key)),
-                values,
-                withDeduplication
-              )
+                    key,
+                    mergeValues(
+                            new ArrayList<>(mainKeyValuePairs.get(key)),
+                            values,
+                            withDeduplication
+                    )
             );
           } else {
             mainKeyValuePairs.put(key, values);
@@ -430,9 +431,11 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
         }
         fieldMap.put("subfields", subfields);
 
-        String tag = field.getDefinition() != null
-          ? field.getDefinition().getTag()
-          : field.getTag();
+        String tag = field.getOccurrence() != null
+          ? field.getTag() + "/" + field.getOccurrence()
+          : (field.getDefinition() != null
+            ? field.getDefinition().getTag()
+            : field.getTag());
 
         map.computeIfAbsent(tag, s -> new ArrayList<Map<String, Object>>());
         ((ArrayList)map.get(tag)).add(fieldMap);
@@ -449,185 +452,11 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return json;
   }
 
-  /*
-  @Override
-  public boolean validate(MarcVersion marcVersion) {
-    return validate(marcVersion, false, null);
-  }
-
-  public boolean validate(MarcVersion marcVersion, boolean isSummary) {
-    return validate(marcVersion, isSummary, null);
-  }
-
-  public boolean validate(MarcVersion marcVersion,
-                          boolean isSummary,
-                          IgnorableFields ignorableFields) {
-    return validate(marcVersion, isSummary, null, null);
-  }
-
-  public boolean validate(MarcVersion marcVersion,
-                          boolean isSummary,
-                          IgnorableFields ignorableFields,
-                          List<ValidationErrorType> ignorableIssueTypes) {
-    logger.info("validate!");
-    // validationErrors = new ArrayList<>();
-    boolean isValidRecord = true;
-    if (!schemaType.equals(SchemaType.PICA))
-      isValidRecord = validateLeader(marcVersion, isValidRecord, ignorableIssueTypes);
-    isValidRecord = validateUnhandledTags(isSummary, isValidRecord, ignorableFields, ignorableIssueTypes);
-    isValidRecord = validateControlfields(marcVersion, isValidRecord, ignorableIssueTypes);
-    isValidRecord = validateDatafields(marcVersion, isValidRecord, ignorableFields, ignorableIssueTypes);
-
-    // TODO: use reflection to get all validator class
-    // ValidatorResponse validatorResponse;
-
-    return isValidRecord;
-  }
-   */
-
-  /*
-  private boolean validateLeader(MarcVersion marcVersion,
-                                 boolean isValidRecord,
-                                 List<ValidationErrorType> ignorableIssueTypes) {
-    boolean isValidComponent;
-    isValidComponent = leader.validate(marcVersion);
-    if (!isValidComponent) {
-      List<ValidationError> leaderErrors = leader.getValidationErrors();
-      for (ValidationError leaderError : leaderErrors)
-        if (leaderError.getRecordId() == null)
-          leaderError.setRecordId(getId());
-      validationErrors.addAll(filterErrors(leaderErrors, ignorableIssueTypes));
-      isValidRecord = isValidComponent;
-    }
-    return isValidRecord;
-  }
-
-  private boolean validateUnhandledTags(boolean isSummary,
-                                        boolean isValidRecord,
-                                        IgnorableFields ignorableFields,
-                                        List<ValidationErrorType> ignorableIssueTypes) {
-    if (!unhandledTags.isEmpty()) {
-      if (isSummary) {
-        for (String tag : unhandledTags) {
-          if (!isIgnorableField(tag, ignorableFields)
-              && (ignorableIssueTypes == null
-                 || ignorableIssueTypes.isEmpty()
-                 || !ignorableIssueTypes.contains(ValidationErrorType.FIELD_UNDEFINED)))
-            validationErrors.add(new ValidationError(getId(), tag, ValidationErrorType.FIELD_UNDEFINED, tag, null));
-        }
-      } else {
-        Map<String, Integer> tags = new LinkedHashMap<>();
-        for (String tag : unhandledTags)
-          Utils.count(tag, tags);
-
-        List<String> unhandledTagsList = new ArrayList<>();
-        for (Map.Entry<String, Integer> entry : tags.entrySet()) {
-          String tag = entry.getKey();
-          if (entry.getValue() == 1)
-            unhandledTagsList.add(tag);
-          else
-            unhandledTagsList.add(String.format("%s (%d*)", tag, entry.getValue()));
-        }
-        for (String tag : unhandledTagsList) {
-          if (!isIgnorableField(tag, ignorableFields)
-              && !ignorableIssueTypes.contains(ValidationErrorType.FIELD_UNDEFINED))
-            validationErrors.add(new ValidationError(getId(), tag, ValidationErrorType.FIELD_UNDEFINED, tag, null));
-        }
-      }
-
-      isValidRecord = false;
-    }
-    return isValidRecord;
-  }
-
-  private boolean validateControlfields(MarcVersion marcVersion,
-                                        boolean isValidRecord,
-                                        List<ValidationErrorType> ignorableIssueTypes) {
-    boolean isValidComponent;
-    for (MarcControlField controlField : getControlfields()) {
-      if (controlField != null) {
-        isValidComponent = controlField.validate(marcVersion);
-        if (!isValidComponent) {
-          validationErrors.addAll(filterErrors(controlField.getValidationErrors(), ignorableIssueTypes));
-          isValidRecord = isValidComponent;
-        }
-      }
-    }
-    return isValidRecord;
-  }
-
-  private boolean validateDatafields(MarcVersion marcVersion,
-                                     boolean isValidRecord,
-                                     IgnorableFields ignorableFields,
-                                     List<ValidationErrorType> ignorableIssueTypes) {
-    ValidatorResponse validatorResponse;
-    Map<DataFieldDefinition, Integer> repetitionCounter = new HashMap<>();
-    for (DataField field : datafields) {
-      if (field.getDefinition() != null && !isIgnorableField(field.getTag(), ignorableFields)) {
-        count(field.getDefinition(), repetitionCounter);
-        if (!field.validate(marcVersion)) {
-          isValidRecord = false;
-          validationErrors.addAll(filterErrors(field.getValidationErrors(), ignorableIssueTypes));
-        }
-
-        validatorResponse = ClassificationReferenceValidator.validate(field);
-        if (!validatorResponse.isValid()) {
-          validationErrors.addAll(filterErrors(validatorResponse.getValidationErrors(), ignorableIssueTypes));
-          isValidRecord = false;
-        }
-      }
-    }
-
-    for (Map.Entry<DataFieldDefinition, Integer> entry : repetitionCounter.entrySet()) {
-      DataFieldDefinition fieldDefinition = entry.getKey();
-      Integer count = entry.getValue();
-      if (count > 1
-          && fieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
-        validationErrors.add(new ValidationError(getId(), fieldDefinition.getTag(),
-          ValidationErrorType.FIELD_NONREPEATABLE,
-          String.format("there are %d instances", count),
-          fieldDefinition.getDescriptionUrl()
-        ));
-        isValidRecord = false;
-      }
-    }
-    return isValidRecord;
-  }
-   */
-
-  /**
-   * Remove ignorable errors from the list of errors
-   *
-   * @param errors The list of error objects
-   * @param ignorableIssueTypes The list of ignorable error types
-   * @return
-   */
-  /*
-  private static List<ValidationError> filterErrors(List<ValidationError> errors,
-                                                    List<ValidationErrorType> ignorableIssueTypes) {
-    if (ignorableIssueTypes == null || ignorableIssueTypes.isEmpty())
-      return errors;
-    List<ValidationError> filtered = errors
-      .stream()
-      .filter(error -> !ignorableIssueTypes.contains(error.getType()))
-      .collect(Collectors.toList());
-    logger.info(errors.size() + " -> " + filtered.size());
-    return filtered;
-  }
-   */
-
   public boolean isIgnorableField(String tag, IgnorableFields ignorableFields) {
     if (ignorableFields == null)
       return false;
     return ignorableFields.contains(tag);
   }
-
-  /*
-  @Override
-  public List<ValidationError> getValidationErrors() {
-    return validationErrors;
-  }
-   */
 
   public List<String> search(String path, String query) {
     List<String> results = new ArrayList<>();
@@ -681,17 +510,20 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
           results.add(field.getContent());
         }
       }
-
     } else if (datafieldIndex.containsKey(selector.getFieldTag())) {
       for (DataField field : datafieldIndex.get(selector.getFieldTag())) {
         if (field == null)
           continue;
-        for (String subfieldCode : selector.getSubfieldsAsList()) {
-          List<MarcSubfield> subfields = field.getSubfield(subfieldCode);
-          if (subfields == null)
-            continue;
-          for (MarcSubfield subfield : subfields) {
-            results.add(subfield.getValue());
+        List<String> codes = selector.getSubfieldsAsList();
+        if (codes.isEmpty()) {
+          results.add(joinAllSubfields(field));
+        } else {
+          for (String subfieldCode : codes) {
+            List<MarcSubfield> subfields = field.getSubfield(subfieldCode);
+            if (subfields == null)
+              continue;
+            for (MarcSubfield subfield : subfields)
+              results.add(subfield.getValue());
           }
         }
       }
@@ -705,6 +537,14 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
       }
     }
     return results;
+  }
+
+  private static String joinAllSubfields(DataField field) {
+    List<String> values = new ArrayList<>();
+    for (MarcSubfield subfield : field.getSubfields()) {
+      values.add(subfield.getValue());
+    }
+    return StringUtils.join(values," ");
   }
 
   public List<String> select(PicaPath selector) {
@@ -825,25 +665,26 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
   public Map<DataField, AuthorityCategory> getAuthorityFields(Map<AuthorityCategory, List<String>> tags) {
     Map<DataField, AuthorityCategory> subjects = new LinkedHashMap<>();
     for (Map.Entry<AuthorityCategory, List<String>> entry : tags.entrySet()) {
+      AuthorityCategory category = entry.getKey();
       for (String tag : entry.getValue()) {
         List<DataField> fields = getDatafield(tag);
         if (fields != null && !fields.isEmpty()) {
           for (DataField field : fields)
-            subjects.put(field, entry.getKey());
+            subjects.put(field, category);
         }
       }
     }
     return subjects;
   }
 
-  abstract public List<DataField> getAuthorityFields();
-  abstract public Map<DataField, AuthorityCategory> getAuthorityFieldsMap();
-  abstract public boolean isAuthorityTag(String tag);
-  abstract public boolean isSkippableAuthoritySubfield(String tag, String code);
-  abstract public boolean isSubjectTag(String tag);
-  abstract public boolean isSkippableSubjectSubfield(String tag, String code);
-  abstract public Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap();
-  abstract public Map<ThompsonTraillFields, List<String>> getThompsonTraillTagsMap();
+  public abstract List<DataField> getAuthorityFields();
+  public abstract Map<DataField, AuthorityCategory> getAuthorityFieldsMap();
+  public abstract boolean isAuthorityTag(String tag);
+  public abstract boolean isSkippableAuthoritySubfield(String tag, String code);
+  public abstract boolean isSubjectTag(String tag);
+  public abstract boolean isSkippableSubjectSubfield(String tag, String code);
+  public abstract Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap();
+  public abstract Map<ThompsonTraillFields, List<String>> getThompsonTraillTagsMap();
 
   public List<DataField> getSubjects() {
     List<DataField> subjects = new ArrayList<>();
@@ -855,7 +696,6 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
       default:
         tags = MARC21_SUBJECT_TAGS; break;
     }
-    logger.info("tags: " + tags);
     for (String tag : tags) {
       List<DataField> fields = getDatafield(tag);
       if (fields != null && !fields.isEmpty())
@@ -935,7 +775,7 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return schemaType;
   }
 
-  public void setSchemaType(SchemaType _schemaType) {
-    schemaType = _schemaType;
+  public void setSchemaType(SchemaType schemaType) {
+    this.schemaType = schemaType;
   }
 }

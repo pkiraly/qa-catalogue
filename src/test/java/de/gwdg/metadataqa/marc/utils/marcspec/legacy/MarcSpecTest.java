@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 public class MarcSpecTest {
@@ -151,17 +152,20 @@ public class MarcSpecTest {
     assertTrue(marcSpec.validate("245ab__0"));
     assertTrue(marcSpec.validate("245ab_10"));
     assertTrue(marcSpec.validate("245ab_1_"));
+    assertTrue(marcSpec.validate("245$a"));
+    assertTrue(marcSpec.validate("LDR/0-4"));
+    assertTrue(marcSpec.validate("880_1"));
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testInValidity() {
     MarcSpec marcSpec = new MarcSpec();
-    assertTrue(marcSpec.validate("24"));
-    assertTrue(marcSpec.validate("LXR"));
-    assertTrue(marcSpec.validate("245ab_123"));
-    assertTrue(marcSpec.validate("245ab__."));
-    assertTrue(marcSpec.validate("004ab~1"));
-    assertTrue(marcSpec.validate("004~-1"));
+    assertThrows(IllegalArgumentException.class, () -> marcSpec.validate("24"));
+    assertThrows(IllegalArgumentException.class, () -> marcSpec.validate("LXR"));
+    assertThrows(IllegalArgumentException.class, () -> marcSpec.validate("245ab_123"));
+    assertThrows(IllegalArgumentException.class, () -> marcSpec.validate("245ab__."));
+    assertThrows(IllegalArgumentException.class, () -> marcSpec.validate("004ab~1"));
+    assertThrows(IllegalArgumentException.class, () -> marcSpec.validate("004~-1"));
   }
 
 

@@ -1,4 +1,4 @@
-library(tidyverse)
+suppressPackageStartupMessages(library(tidyverse))
 
 #' Reads marc-elements.csv and creates field distribution charts for all
 #' document types. The files are saved in an 'img' directory

@@ -15,23 +15,26 @@ import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.marc4j.MarcException;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
 
 /**
  * usage:
- * java -cp target/metadata-qa-marc-0.1-SNAPSHOT-jar-with-dependencies.jar de.gwdg.metadataqa.marc.cli.Validator [MARC21 file]
+ * java -cp target/qa-catalogue-0.1-SNAPSHOT-jar-with-dependencies.jar de.gwdg.metadataqa.marc.cli.Validator [MARC21 file]
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class RecordIterator {
@@ -41,14 +44,16 @@ public class RecordIterator {
   private int i = 0;
   private String lastKnownId = "";
   private CommonParameters parameters;
-  private String replecementInControlFields;
+  private String replacementInControlFields;
   private MarcVersion marcVersion;
   private Leader.Type defaultRecordType;
   private DecimalFormat decimalFormat;
   private PicaSchemaManager picaSchema;
+  private String status = "waits";
 
   public RecordIterator(BibliographicInputProcessor processor) {
     this.processor = processor;
+    status = "initialized";
   }
 
   public void start() {
@@ -59,14 +64,10 @@ public class RecordIterator {
 
     marcVersion = parameters.getMarcVersion();
     defaultRecordType = parameters.getDefaultRecordType();
-    replecementInControlFields = parameters.getReplecementInControlFields();
+    replacementInControlFields = parameters.getReplacementInControlFields();
     decimalFormat = new DecimalFormat();
     if (parameters.isPica()) {
-      String schemaFile = StringUtils.isNotEmpty(parameters.getPicaSchemaFile())
-                        ? parameters.getPicaSchemaFile()
-                        // : Paths.get("src/main/resources/pica/avram-k10plus.json").toAbsolutePath().toString();
-                        : Paths.get("src/main/resources/pica/avram-k10plus-title.json").toAbsolutePath().toString();
-      picaSchema = PicaSchemaReader.createSchema(schemaFile);
+      picaSchema = PicaSchemaReader.createSchemaManager(parameters.getPicaSchemaFile());
     }
 
     if (processor.getParameters().doLog())
@@ -84,7 +85,7 @@ public class RecordIterator {
         MarcReader reader = getMarcStreamReader(processor.getParameters());
         processContent(reader, "stream");
       } catch (Exception e) {
-        e.printStackTrace();
+        logger.severe(e.getLocalizedMessage());
       }
     }
 
@@ -93,8 +94,10 @@ public class RecordIterator {
     long end = System.currentTimeMillis();
     long duration = (end - start) / 1000;
     if (parameters.doLog())
-      logger.info(String.format("Bye! It took: %s",
-        LocalTime.MIN.plusSeconds(duration).toString()));
+      logger.log(Level.INFO, "Bye! It took: " + DurationFormatUtils.formatDuration(end - start, "d HH:mm:ss", true));
+      // logger.log(Level.INFO, "Bye! It took: " + LocalTime.MIN.plusSeconds(duration).format(DateTimeFormatter.ofPattern("d HH:mm:ss")));
+
+    status = "done";
   }
 
   private void processFile(String inputFileName) {
@@ -109,7 +112,7 @@ public class RecordIterator {
       MarcReader reader = getMarcFileReader(processor.getParameters(), path);
       processContent(reader, fileName);
       if (processor.getParameters().doLog())
-        logger.info(String.format("Finished processing file. Processed %s records.", decimalFormat.format(i)));
+        logger.log(Level.INFO, "Finished processing file. Processed {0} records.", new Object[]{decimalFormat.format(i)});
 
     } catch (SolrServerException ex) {
       if (processor.getParameters().doLog())
@@ -174,7 +177,7 @@ public class RecordIterator {
         }
 
         if (i % 100000 == 0 && processor.getParameters().doLog())
-          logger.info(String.format("%s/%s (%s)", fileName, decimalFormat.format(i), marcRecord.getId()));
+          logger.log(Level.INFO, "{0}/{1} ({2})", new Object[]{fileName, decimalFormat.format(i), marcRecord.getId()});
       } catch (IllegalArgumentException e) {
         extracted(i, marc4jRecord, e, "Error (illegal argument) with record '%s'. %s");
       } catch (Exception e) {
@@ -185,7 +188,7 @@ public class RecordIterator {
 
   private BibliographicRecord transformMarcRecord(Record marc4jRecord) {
     if (parameters.getSchemaType().equals(SchemaType.MARC21))
-      return MarcFactory.createFromMarc4j(marc4jRecord, defaultRecordType, marcVersion, replecementInControlFields);
+      return MarcFactory.createFromMarc4j(marc4jRecord, defaultRecordType, marcVersion, replacementInControlFields);
     else
       return MarcFactory.createPicaFromMarc4j(marc4jRecord, picaSchema);
   }
@@ -248,7 +251,11 @@ public class RecordIterator {
 
   private static void printHelp(Options opions) {
     HelpFormatter formatter = new HelpFormatter();
-    formatter.printHelp("java -cp metadata-qa-marc.jar de.gwdg.metadataqa.marc.cli.Validator [options] [file]",
+    formatter.printHelp("java -cp qa-catalogue.jar de.gwdg.metadataqa.marc.cli.Validator [options] [file]",
       opions);
+  }
+
+  public String getStatus() {
+    return status;
   }
 }

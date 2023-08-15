@@ -19,6 +19,7 @@ public class UnimarcConverter {
     String ind1 = content.substring(0, 1);
     String ind2 = content.substring(1, 2);
     List<String[]> subfields = DataField.parseSubfields(content.substring(2));
+    String marc21content = null;
     if (tag.equals("100")) {
       // tag = "008";
       String source = null;
@@ -28,9 +29,10 @@ public class UnimarcConverter {
           break;
         }
       }
+      if (source != null)
+        marc21content = convert100to008(source);
       System.err.println("contentFromUnimarc: '" + source + "'");
-      content = convert100to008(source);
-      System.err.println("toMarc21: '" + content + "'");
+      System.err.println("toMarc21: '" + marc21content + "'");
     }
     return content;
   }

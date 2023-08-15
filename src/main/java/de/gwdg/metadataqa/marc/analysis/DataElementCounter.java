@@ -7,6 +7,7 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -27,11 +28,11 @@ public class DataElementCounter {
   public DataElementCounter(String dir, String fileName, Basis basis) {
     this.basis = basis;
     File file = new File(dir, fileName);
-    String _header = "";
+    String firstLine = "";
     try {
-      List<String> lines = FileUtils.readLines(file, "utf-8");
-      _header = lines.get(0);
-      String[] topFields = _header.split(",");
+      List<String> lines = FileUtils.readLines(file, StandardCharsets.UTF_8);
+      firstLine = lines.get(0);
+      String[] topFields = firstLine.split(",");
       for (String field : topFields) {
         String[] parts = field.split("\\$");
         DataElement element = new DataElement(parts[0], parts[1]);
@@ -40,9 +41,9 @@ public class DataElementCounter {
         tags.get(element.field).add(element);
       }
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.severe(e.getLocalizedMessage());
     }
-    this.header = _header;
+    this.header = firstLine;
   }
 
   public List<Integer> count(BibliographicRecord marcRecord) {
@@ -50,7 +51,7 @@ public class DataElementCounter {
     for (Map.Entry<String, List<DataElement>> entry : tags.entrySet()) {
       List<DataField> instances = marcRecord.getDatafield(entry.getKey());
       if (instances == null || instances.isEmpty()) {
-        for (DataElement element : entry.getValue()) {
+        for (int i=0; i<entry.getValue().size(); i++) {
           counts.add(0);
         }
       } else {

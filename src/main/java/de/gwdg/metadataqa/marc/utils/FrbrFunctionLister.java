@@ -16,6 +16,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -162,18 +163,18 @@ public class FrbrFunctionLister {
   }
 
   public void add(Map<FRBRFunction, FunctionValue> other) {
-    for (FRBRFunction key : other.keySet()) {
-      collector.computeIfAbsent(key, s -> new FunctionValue());
-      collector.get(key).add(other.get(key));
+    for (Map.Entry<FRBRFunction, FunctionValue> entry : other.entrySet()) {
+      collector.computeIfAbsent(entry.getKey(), s -> new FunctionValue());
+      collector.get(entry.getKey()).add(entry.getValue());
     }
   }
 
   public Map<FRBRFunction, List<Double>> percentOf(int total) {
     Map<FRBRFunction, List<Double>> result = new TreeMap<>();
-    for (FRBRFunction key : collector.keySet()) {
-      double avgCount = collector.get(key).getCount() * 1.0 / total;
-      double avgPerc = collector.get(key).getPercent() * 1.0 / total;
-      result.put(key, Arrays.asList(avgCount, avgPerc));
+    for (Map.Entry<FRBRFunction, FunctionValue> entry : collector.entrySet()) {
+      double avgCount = entry.getValue().getCount() * 1.0 / total;
+      double avgPerc = entry.getValue().getPercent() * 1.0 / total;
+      result.put(entry.getKey(), Arrays.asList(avgCount, avgPerc));
     }
     return result;
   }
@@ -217,8 +218,8 @@ public class FrbrFunctionLister {
   }
 
   private void initializePica() {
-    picaPathByFunction = new HashMap<>();
-    picaPathByFunctionCondensed = new HashMap<>();
+    picaPathByFunction = new EnumMap<>(FRBRFunction.class);
+    picaPathByFunctionCondensed = new EnumMap<>(FRBRFunction.class);
     functionByPicaPath = new HashMap<>();
     for (Map.Entry<FRBRFunction, List<String>> entry : marcPathByFunction.entrySet()) {
       for (String address : entry.getValue()) {

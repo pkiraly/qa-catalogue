@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -191,7 +192,7 @@ public class Control007 extends MarcPositionalControlField implements Serializab
         String id = marcRecord != null ? String.format("#%s) ", marcRecord.getId()) : "";
         var msg = String.format("invalid category for 007: '%s'", categoryCode);
         logger.severe(id + msg);
-        initializationErrors.add(new ValidationError(marcRecord.getId(), "007",
+        initializationErrors.add(new ValidationError((marcRecord != null ? marcRecord.getId() : ""), "007",
           ValidationErrorType.CONTROL_POSITION_INVALID_VALUE, msg, URL));
         category = Control007Category.TEXT;
       }
@@ -345,7 +346,7 @@ public class Control007 extends MarcPositionalControlField implements Serializab
       case "007unspecified01": tag007unspecified01 = controlValue; break;
 
       default:
-        logger.severe(String.format("Unhandled 007 subfield: %s", subfield.getId()));
+        logger.log(Level.SEVERE, "Unhandled 007 subfield: " + subfield.getId());
         break;
     }
   }
@@ -359,12 +360,9 @@ public class Control007 extends MarcPositionalControlField implements Serializab
       try {
         value = content.substring(subfield.getPositionStart(), end);
       } catch (StringIndexOutOfBoundsException e) {
-        logger.severe(String.format("Problem with processing 007 ('%s'). " +
-            "The content length is only %d while reading position @%d-%d" +
-            " (for %s '%s')",
-          content,
-          content.length(), subfield.getPositionStart(), subfield.getPositionEnd(),
-          subfield.getId(), subfield.getLabel()));
+        logger.log(Level.SEVERE,
+          "Problem with processing 007 (\"{0}\"). The content length is only {1} while reading position @{2}-{3} (for {4} \"{5}\")",
+          new Object[]{content, content.length(), subfield.getPositionStart(), subfield.getPositionEnd(), subfield.getId(), subfield.getLabel()});
       }
     }
     return value;

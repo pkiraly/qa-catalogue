@@ -44,7 +44,7 @@ public class Tag049 extends DataFieldDefinition {
     // TODO: validator: possible ISIL numbers: https://www.bib-bvb.de/BibList/b3kat-biblist.html
     getSubfield("a")
       .setMqTag("Besitznachweis")
-      .setCodeList(B3KatIdentifiers.getInstance());
+      .setCodeList(B3KatIdentifiers.getInstance())
     ;
   }
 }

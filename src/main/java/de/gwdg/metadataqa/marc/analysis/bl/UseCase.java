@@ -217,7 +217,6 @@ public enum UseCase {
   }
 
   public List<String> getDataElelemntsNormalized() {
-    return elements.stream().map(e -> e.toString()).collect(Collectors.toList());
+    return elements.stream().map(Object::toString).collect(Collectors.toList());
   }
-
 }

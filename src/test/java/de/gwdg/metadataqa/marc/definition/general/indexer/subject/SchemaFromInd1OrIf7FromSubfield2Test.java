@@ -25,7 +25,7 @@ public class SchemaFromInd1OrIf7FromSubfield2Test extends SubjectIndexerTest {
     );
     assertEquals(
       SchemaFromInd1OrIf7FromSubfield2.class,
-      field.getFieldIndexer().getClass()
+      field.getFieldIndexers().get(0).getClass()
     );
   }
 
@@ -38,7 +38,7 @@ public class SchemaFromInd1OrIf7FromSubfield2Test extends SubjectIndexerTest {
     );
     assertEquals(
       SchemaFromInd1OrIf7FromSubfield2.class,
-      field.getFieldIndexer().getClass()
+      field.getFieldIndexers().get(0).getClass()
     );
   }
 

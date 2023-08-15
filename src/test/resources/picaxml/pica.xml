@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.loc.gov/MARC21/slim">
+<record>
+  <datafield tag="001@"><subfield code="0">192,248</subfield></datafield>
+  <datafield tag="001A"><subfield code="0">1091:12-05-09</subfield></datafield>
+  <datafield tag="001B"><subfield code="0">1003:19-01-17</subfield><subfield code="t">11:07:50.000</subfield></datafield>
+  <datafield tag="001D"><subfield code="0">1091:12-05-09</subfield></datafield>
+  <datafield tag="001U"><subfield code="0">utf8</subfield></datafield>
+  <datafield tag="001X"><subfield code="0">0</subfield></datafield>
+  <datafield tag="002@"><subfield code="0">Aar</subfield></datafield>
+  <datafield tag="002C"><subfield code="a">tekst</subfield><subfield code="b">txt</subfield><subfield code="2">rdacontent/dut</subfield></datafield>
+  <datafield tag="002D"><subfield code="a">zonder medium</subfield><subfield code="b">n</subfield><subfield code="2">rdamedia/dut</subfield></datafield>
+  <datafield tag="002E"><subfield code="a">band</subfield><subfield code="b">nc</subfield><subfield code="2">rdacarrier/dut</subfield></datafield>
+  <datafield tag="003@"><subfield code="0">318482789</subfield></datafield>
+  <datafield tag="003O"><subfield code="a">OCoLC</subfield><subfield code="0">320872241</subfield></datafield>
+  <datafield tag="010@"><subfield code="a">ned</subfield></datafield>
+  <datafield tag="011@"><subfield code="a">1991</subfield></datafield>
+  <datafield tag="019@"><subfield code="a">nl</subfield></datafield>
+  <datafield tag="021A"><subfield code="a">@Individualisering</subfield></datafield>
+  <datafield occurrence="01" tag="029F"><subfield code="a">@CDA Vrouwenberaad</subfield></datafield>
+  <datafield tag="033A"><subfield code="p">Den Haag</subfield><subfield code="n">CDA Vrouwenberaad</subfield></datafield>
+  <datafield tag="034D"><subfield code="a">28 p</subfield></datafield>
+  <datafield tag="034I"><subfield code="a">.. cm</subfield></datafield>
+</record>
+</collection>

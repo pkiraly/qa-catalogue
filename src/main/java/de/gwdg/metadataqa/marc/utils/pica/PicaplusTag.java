@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.utils.pica;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -81,9 +82,7 @@ public class PicaplusTag {
         logger.severe("Error in picaplus: " + raw + ". Length of start and end are different.");
       }
     } else {
-      logger.severe(String.format(
-        "Error in picaplus: %s (raw: %s). Does not fit to the range pattern.",
-        occurrence, raw));
+      logger.log(Level.SEVERE, "Error in picaplus: {0} (raw: {1}). Does not fit to the range pattern.", new Object[]{occurrence, raw});
     }
   }
 

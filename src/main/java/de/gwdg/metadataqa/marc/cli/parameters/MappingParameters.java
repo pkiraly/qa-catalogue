@@ -29,7 +29,7 @@ public class MappingParameters {
       options.addOption("t", "solrFieldType", true,
         "type of Solr fields, could be one of 'marc-tags', 'human-readable', or 'mixed'");
       options.addOption("f", "withFrbrFunctions", false, "with FRBR functions");
-      options.addOption("l", "withCompilanceLevel", false, "with compilance levels (national, minimal)");
+      options.addOption("l", "withComplianceLevel", false, "with compilance levels (national, minimal)");
       options.addOption("d", "withLocallyDefinedFields", false, "with locally defined fields");
       options.addOption("h", "help", false, "display help");
       isOptionSet = true;
@@ -54,7 +54,7 @@ public class MappingParameters {
     if (cmd.hasOption("withFrbrFunctions"))
       exportFrbrFunctions = true;
 
-    if (cmd.hasOption("withCompilanceLevel"))
+    if (cmd.hasOption("withComplianceLevel"))
       exportCompilanceLevel = true;
 
     if (cmd.hasOption("withLocallyDefinedFields"))

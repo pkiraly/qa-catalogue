@@ -9,10 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ValidatorParameters extends CommonParameters implements Serializable {
-  public static final String DEFAULT_FILE_NAME = "validation-report.txt";
+  public static final String DEFAULT_DETAILS_FILE_NAME = "issue-details.csv";
+  public static final String DEFAULT_SUMMARY_FILE_NAME = "issue-summary.csv";
 
-  private String detailsFileName = DEFAULT_FILE_NAME;
-  private String summaryFileName;
+  private String detailsFileName = DEFAULT_DETAILS_FILE_NAME;
+  private String summaryFileName = DEFAULT_SUMMARY_FILE_NAME;
   private boolean doDetails = true;
   private boolean doSummary = false;
   private ValidationErrorFormat format = ValidationErrorFormat.TEXT;
@@ -29,7 +30,7 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
       options.addOption("s", "summary", false, "show summary instead of record level display");
       options.addOption("h", "details", false, "show record level display");
       options.addOption("f", "detailsFileName", true,
-        String.format("the report file name (default is '%s')", ValidatorParameters.DEFAULT_FILE_NAME));
+        String.format("the report file name (default is '%s')", ValidatorParameters.DEFAULT_DETAILS_FILE_NAME));
       options.addOption("r", "format", true, "specify a format");
       options.addOption("w", "emptyLargeCollectors", false, "empty large collectors");
       options.addOption("t", "collectAllErrors", false, "collect all errors (useful only for validating small number of records)");
@@ -46,30 +47,25 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
     super(arguments);
 
     if (cmd.hasOption("detailsFileName"))
-      detailsFileName = cmd.getOptionValue("detailsFileName");
+      setDetailsFileName(cmd.getOptionValue("detailsFileName"));
 
-    if (cmd.hasOption("summaryFileName")) {
-      summaryFileName = cmd.getOptionValue("summaryFileName");
-      doSummary = true;
-    }
+    if (cmd.hasOption("summaryFileName"))
+      setSummaryFileName(cmd.getOptionValue("summaryFileName"));
 
     if (detailsFileName.equals("stdout"))
-      useStandardOutput = true;
+      setUseStandardOutput(true);
 
     if (cmd.hasOption("format"))
       setFormat(cmd.getOptionValue("format"));
 
     if (cmd.hasOption("summary")) {
-      doSummary = true;
+      setDoSummary(true);
       if (!cmd.hasOption("details"))
-        doDetails = false;
+        setDoDetails(false);
     }
 
-    if (doDetails && doSummary && !useStandardOutput && (summaryFileName == null))
-      throw new ParseException("If the details and summary is requested, summaryFileName must be provided!");
-
     if (cmd.hasOption("emptyLargeCollectors"))
-      emptyLargeCollectors = true;
+      setEmptyLargeCollectors(true);
 
     setCollectAllErrors(cmd.hasOption("collectAllErrors"));
 
@@ -136,6 +132,7 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
 
   public void setSummaryFileName(String summaryFileName) {
     this.summaryFileName = summaryFileName;
+    doSummary = true;
   }
 
   public boolean doEmptyLargeCollectors() {

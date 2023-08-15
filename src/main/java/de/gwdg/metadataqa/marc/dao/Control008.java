@@ -10,6 +10,7 @@ import de.gwdg.metadataqa.marc.definition.tags.control.Control008Definition;
 import java.io.Serializable;
 import java.security.InvalidParameterException;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -120,12 +121,9 @@ public class Control008 extends MarcPositionalControlField implements Serializab
         try {
           value = content.substring(subfield.getPositionStart(), end);
         } catch (StringIndexOutOfBoundsException e) {
-          logger.severe(String.format("Problem with processing 008 ('%s'). " +
-              "The content length is only %d while reading position @%d-%d" +
-              " (for %s '%s')",
-            content,
-            content.length(), subfield.getPositionStart(), subfield.getPositionEnd(),
-            subfield.getId(), subfield.getLabel()));
+          logger.log(Level.SEVERE,
+            "Problem with processing 008 (\"{0}\"). The content length is only {1} while reading position @{2}-{3} (for {4} \"{5}\")",
+            new Object[]{content, content.length(), subfield.getPositionStart(), subfield.getPositionEnd(), subfield.getId(), subfield.getLabel()});
         }
       } else {
         break;
@@ -144,7 +142,7 @@ public class Control008 extends MarcPositionalControlField implements Serializab
         case "008all38": tag008all38 = controlValue; break;
         case "008all39": tag008all39 = controlValue; break;
         default:
-          logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
+          logger.log(Level.SEVERE, "Unhandled 008 subfield: " + subfield.getId());
           break;
       }
 
@@ -160,12 +158,9 @@ public class Control008 extends MarcPositionalControlField implements Serializab
         try {
           value = content.substring(subfield.getPositionStart(), end);
         } catch (StringIndexOutOfBoundsException e) {
-          logger.severe(String.format("Problem with processing 008 ('%s'). " +
-              "The content length is only %d while reading position @%d-%d" +
-              " (for %s '%s')",
-            content,
-            content.length(), subfield.getPositionStart(), subfield.getPositionEnd(),
-            subfield.getId(), subfield.getLabel()));
+          logger.log(Level.SEVERE,
+            "Problem with processing 008 (\"{0}\"). The content length is only {1} while reading position @{2}-{3} (for {4} \"{5}\")",
+            new Object[]{content, content.length(), subfield.getPositionStart(), subfield.getPositionEnd(), subfield.getId(), subfield.getLabel()});
         }
       } else {
         break;
@@ -188,7 +183,7 @@ public class Control008 extends MarcPositionalControlField implements Serializab
             case "008book33": tag008book33 = controlValue; break;
             case "008book34": tag008book34 = controlValue; break;
             default:
-              logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
+              logger.log(Level.SEVERE, "Unhandled 008 subfield: " + subfield.getId());
               break;
           }
           break;
@@ -199,7 +194,7 @@ public class Control008 extends MarcPositionalControlField implements Serializab
             case "008computer26": tag008computer26 = controlValue; break;
             case "008computer28": tag008computer28 = controlValue; break;
             default:
-              logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
+              logger.log(Level.SEVERE, "Unhandled 008 subfield: " + subfield.getId());
               break;
           }
           break;
@@ -213,7 +208,7 @@ public class Control008 extends MarcPositionalControlField implements Serializab
             case "008map31": tag008map31 = controlValue; break;
             case "008map33": tag008map33 = controlValue; break;
             default:
-              logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
+              logger.log(Level.SEVERE, "Unhandled 008 subfield: " + subfield.getId());
               break;
           }
           break;
@@ -228,7 +223,7 @@ public class Control008 extends MarcPositionalControlField implements Serializab
             case "008music30": tag008music30 = controlValue; break;
             case "008music33": tag008music33 = controlValue; break;
             default:
-              logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
+              logger.log(Level.SEVERE, "Unhandled 008 subfield: " + subfield.getId());
               break;
           }
           break;
@@ -246,7 +241,7 @@ public class Control008 extends MarcPositionalControlField implements Serializab
             case "008continuing33": tag008continuing33 = controlValue; break;
             case "008continuing34": tag008continuing34 = controlValue; break;
             default:
-              logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
+              logger.log(Level.SEVERE, "Unhandled 008 subfield: " + subfield.getId());
               break;
           }
           break;
@@ -259,7 +254,7 @@ public class Control008 extends MarcPositionalControlField implements Serializab
             case "008visual33": tag008visual33 = controlValue; break;
             case "008visual34": tag008visual34 = controlValue; break;
             default:
-              logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
+              logger.log(Level.SEVERE, "Unhandled 008 subfield: " + subfield.getId());
               break;
           }
           break;
@@ -267,7 +262,7 @@ public class Control008 extends MarcPositionalControlField implements Serializab
           if ("008mixed23".equals(subfield.getId()))
             tag008mixed23 = controlValue;
           else
-            logger.severe(String.format("Unhandled 008 subfield: %s", subfield.getId()));
+            logger.log(Level.SEVERE, "Unhandled 008 subfield: " + subfield.getId());
           break;
       }
 

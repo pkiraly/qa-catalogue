@@ -18,6 +18,15 @@ public class TagHierarchyTest {
   }
 
   @Test
+  public void datafield() {
+    TagHierarchy tagHierarchy = TagHierarchy.createFromPath("245");
+    assertNotNull(tagHierarchy);
+    assertEquals("Title", tagHierarchy.getPackageLabel());
+    assertEquals("Title Statement", tagHierarchy.getTagLabel());
+    assertEquals(null, tagHierarchy.getSubfieldLabel());
+  }
+
+  @Test
   public void testTagHierarchyNonExistingSubfield() {
     TagHierarchy tagHierarchy = TagHierarchy.createFromPath("245$x");
     assertNotNull(tagHierarchy);

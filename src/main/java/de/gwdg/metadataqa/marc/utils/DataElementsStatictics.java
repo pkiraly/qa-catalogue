@@ -6,7 +6,6 @@ import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefiniti
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.structure.MarcDefinition;
-import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import org.apache.commons.lang3.StringUtils;
 
@@ -16,29 +15,24 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DataElementsStatictics {
+public abstract class DataElementsStatictics {
 
   private static final Logger logger = Logger.getLogger(DataElementsStatictics.class.getCanonicalName());
 
   public static Counter<DataElementType> count() {
     Counter<DataElementType> counter = new Counter<>();
 
-    for (ControlfieldPositionDefinition subfield : MarcDefinition.getLeaderPositions())
-      counter.count(DataElementType.controlFieldPositions);
-
-    for (DataFieldDefinition subfield : MarcDefinition.getSimpleControlFields())
-      counter.count(DataElementType.controlFields);
+    counter.add(DataElementType.controlFieldPositions, MarcDefinition.getLeaderPositions().size());
+    counter.add(DataElementType.controlFields, MarcDefinition.getSimpleControlFields().size());
 
     for (ControlFieldDefinition controlField : MarcDefinition.getComplexControlFields()) {
       counter.count(DataElementType.controlFields);
 
       for (List<ControlfieldPositionDefinition> controlFieldPositions : controlField.getControlfieldPositions().values())
-        for (ControlfieldPositionDefinition controlFieldPosition : controlFieldPositions)
-          counter.count(DataElementType.controlFieldPositions);
+        counter.add(DataElementType.controlFieldPositions, controlFieldPositions.size());
     }
 
     for (Class<? extends DataFieldDefinition> tagClass : MarcTagLister.listTags()) {
-
       MarcVersion version = Utils.getVersion(tagClass);
       Method getInstance;
       DataFieldDefinition fieldTag;
@@ -59,18 +53,14 @@ public class DataElementsStatictics {
               counter.count(DataElementType.localIndicators);
 
         if (fieldTag.getSubfields() != null)
-          for (SubfieldDefinition subfield : fieldTag.getSubfields())
-            if (isCore)
-              counter.count(DataElementType.coreSubfields);
-            else
-              counter.count(DataElementType.localSubfields);
+          if (isCore)
+            counter.add(DataElementType.coreSubfields, fieldTag.getSubfields().size());
+          else
+            counter.add(DataElementType.localSubfields, fieldTag.getSubfields().size());
 
-        if (isCore)
-          if (fieldTag.getVersionSpecificSubfields() != null)
-            for (MarcVersion localVersion : fieldTag.getVersionSpecificSubfields().keySet())
-              for (SubfieldDefinition subfield : fieldTag.getVersionSpecificSubfields().get(localVersion))
-                counter.count(DataElementType.localSubfields);
-
+        if (isCore && fieldTag.getVersionSpecificSubfields() != null)
+          for (MarcVersion localVersion : fieldTag.getVersionSpecificSubfields().keySet())
+            counter.add(DataElementType.localSubfields, fieldTag.getVersionSpecificSubfields().get(localVersion).size());
 
       } catch (NoSuchMethodException
               | IllegalAccessException

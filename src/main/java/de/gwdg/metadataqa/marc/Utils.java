@@ -15,6 +15,7 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author Péter Király <peter.kiraly at gwdg.de>
@@ -79,7 +80,7 @@ public class Utils {
       case "nkcrtags":    version = MarcVersion.NKCR;    break;
       case "uvatags":     version = MarcVersion.UVA;     break;
       case "b3kattags":   version = MarcVersion.B3KAT;   break;
-      case "kbrtags":     version = MarcVersion.KBR;   break;
+      case "kbrtags":     version = MarcVersion.KBR;     break;
       default:            version = MarcVersion.MARC21;  break;
     }
     return version;
@@ -109,8 +110,10 @@ public class Utils {
    * @param <T>
    */
   public static <T extends Object> void count(T key, Map<T, Integer> counter) {
-    counter.computeIfAbsent(key, s -> 0);
-    counter.put(key, counter.get(key) + 1);
+    if (!counter.containsKey(key))
+      counter.put(key, 1);
+    else
+      counter.put(key, counter.get(key) + 1);
   }
 
   public static <T extends Object> void add(T key, Map<T, Integer> counter, int i) {
@@ -118,16 +121,15 @@ public class Utils {
     counter.put(key, counter.get(key) + i);
   }
 
-  public static <T extends Object> List<String> counterToList(Map<T, Integer> counter) {
+  public static List<String> counterToList(Map<Integer, Integer> counter) {
     return counterToList(':', counter);
   }
 
-  public static <T extends Object> List<String> counterToList(char separator, Map<T, Integer> counter) {
-    List<String> items = new ArrayList<>();
-    for (Map.Entry<T, Integer> entry : counter.entrySet()) {
-      items.add(String.format("%s%s%d", entry.getKey().toString(), separator, entry.getValue()));
-    }
-    return items;
+  public static List<String> counterToList(char separator, Map<Integer, Integer> counter) {
+    return counter.entrySet().stream()
+      .sorted(Map.Entry.comparingByKey())
+      .map(item -> item.getKey().toString() + separator + item.getValue())
+      .collect(Collectors.toList());
   }
 
   public static String solarize(String abbreviation) {
@@ -153,6 +155,11 @@ public class Utils {
     }
   }
 
+  /**
+   * Transforms a positive integer to a base36 encoded string
+   * @param id a positive integer either in normal or in scientific notation (e.g. 12 or 10E+3)
+   * @return
+   */
   public static String base36Encode(String id) {
     return Integer.toString(parseId(id), Character.MAX_RADIX);
   }
@@ -165,6 +172,15 @@ public class Utils {
 
   public static String base36Encode(int i) {
     return Integer.toString(i, Character.MAX_RADIX);
+  }
+
+  public static void mergeMap(Map<String, List<String>> base, Map<String, List<String>> extra) {
+    for (Map.Entry<String, List<String>> entry : extra.entrySet()) {
+      if (base.containsKey(entry.getKey()))
+        base.get(entry.getKey()).addAll(entry.getValue());
+      else
+        base.put(entry.getKey(), entry.getValue());
+    }
   }
 
   public static int scientificNotationToInt(String scientificNotation) {
@@ -193,7 +209,6 @@ public class Utils {
 
   public static String base64decode(String raw) {
     Base64.Decoder dec = Base64.getDecoder();
-    String decoded = new String(dec.decode(raw.replaceAll("^base64:", "")));
-    return decoded;
+    return new String(dec.decode(raw.replaceAll("^base64:", "")));
   }
 }

@@ -1,11 +1,11 @@
 package de.gwdg.metadataqa.marc.cli;
 
+import de.gwdg.metadataqa.marc.cli.parameters.ClassificationParameters;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.analysis.ClassificationAnalyzer;
 import de.gwdg.metadataqa.marc.analysis.ClassificationStatistics;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
-import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.Collocation;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
@@ -35,14 +35,14 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
   private static final Logger logger = Logger.getLogger(ClassificationAnalysis.class.getCanonicalName());
 
   private final Options options;
-  private CommonParameters parameters;
+  private ClassificationParameters parameters;
   private boolean readyToProcess;
   private static char separator = ',';
   private File collectorFile;
   ClassificationStatistics statistics = new ClassificationStatistics();
 
   public ClassificationAnalysis(String[] args) throws ParseException {
-    parameters = new ValidatorParameters(args);
+    parameters = new ClassificationParameters(args);
     options = parameters.getOptions();
     readyToProcess = true;
     Schema.reset();
@@ -85,17 +85,8 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
     if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
       return;
 
-    ClassificationAnalyzer analyzer = new ClassificationAnalyzer(marcRecord, statistics);
+    ClassificationAnalyzer analyzer = new ClassificationAnalyzer(marcRecord, statistics, parameters);
     analyzer.process();
-    var total1 = statistics.getHasClassifications().get(true);
-    if (total1 == null)
-      total1 = Integer.valueOf(0);
-    var total = statistics.recordCountWithClassification();
-    if (total1.intValue() != total.intValue()) {
-      logger.severe(String.format("%s COUNT: total (%d) != schemasInRecord (%d)",
-          marcRecord.getId(true), total1, total));
-      readyToProcess = false;
-    }
 
     /*
     List<Schema> schemas = analyzer.getSchemasInRecord();
@@ -124,19 +115,14 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
 
   private File prepareReportFile(String outputDir, String fileName) {
     File reportFile = new File(outputDir, fileName);
-    if (reportFile.exists())
-      if (!reportFile.delete())
-        logger.log(Level.SEVERE, "File {} hasn't been deleted", reportFile.getAbsolutePath());
+    if (reportFile.exists() && !reportFile.delete())
+      logger.log(Level.SEVERE, "File {0} hasn't been deleted", new Object[]{reportFile.getAbsolutePath()});
     return reportFile;
   }
 
 
   @Override
   public void beforeIteration() {
-    /*
-    collectorFile = prepareReportFile(
-      parameters.getOutputDir(), "classification-collocations.csv");
-     */
   }
 
   @Override
@@ -156,7 +142,8 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
     printClassificationsHistogram();
     printFrequencyExamples();
     printSchemaSubfieldsStatistics();
-    printClassificationsCollocation();
+    if (parameters.doCollectCollocations())
+      printClassificationsCollocation();
   }
 
   private void printClassificationsCollocation() {
@@ -164,14 +151,11 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
     path = Paths.get(parameters.getOutputDir(), "classifications-collocations.csv");
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write(Collocation.header());
-      var total1 = statistics.getHasClassifications().get(true);
-      if (total1 == null)
-        total1 = Integer.valueOf(0);
-      var total = statistics.recordCountWithClassification();
+      Integer total1 = statistics.getHasClassifications().getOrDefault(true, Integer.valueOf(0));
+      Integer total = statistics.recordCountWithClassification();
       logger.info("total: " + total);
-      if (total1 != total)
-        logger.severe(String.format("total from hasClassifications (%d) != from collation (%d)",
-            total1, total));
+      if (!total1.equals(total))
+        logger.log(Level.SEVERE, "total from hasClassifications ({0}) != from collation ({1})", new Object[]{total1, total});
 
       statistics.getCollocationHistogram()
         .entrySet()
@@ -363,16 +347,6 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
       );
   }
 
-  /*
-  private static String createRow(List<String> fields) {
-    return StringUtils.join(fields, separator) + "\n";
-  }
-
-  private static String createRow(Object... fields) {
-    return StringUtils.join(fields, separator) + "\n";
-  }
-   */
-
   @Override
   public void printHelp(Options options) {
 
@@ -382,5 +356,8 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
   public boolean readyToProcess() {
     return readyToProcess;
   }
-  // private
+
+  public ClassificationStatistics getStatistics() {
+    return statistics;
+  }
 }

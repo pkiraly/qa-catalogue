@@ -46,7 +46,6 @@ public class BLClassificationAnalysis implements BibliographicInputProcessor, Se
       processor = new BLClassificationAnalysis(args);
     } catch (ParseException e) {
       System.err.println("ERROR. " + e.getLocalizedMessage());
-      processor.printHelp(processor.getParameters().getOptions());
       System.exit(0);
     }
 
@@ -100,8 +99,8 @@ public class BLClassificationAnalysis implements BibliographicInputProcessor, Se
     // printFields();
 
     output = new File(parameters.getOutputDir(), BL_CLASSIFIER_FILE);
-    if (output.exists())
-      output.delete();
+    if (output.exists() && !output.delete())
+      logger.severe("Deletion of " + output.getAbsolutePath() + " was unsuccessful!");
   }
 
   @Override

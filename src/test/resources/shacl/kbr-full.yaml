@@ -1,0 +1,284 @@
+format: MARC
+fields:
+  - name: 040a
+    path: 040$a
+    rules:
+      - id: 040$a.minCount
+        minCount: 1
+      - id: 040$a.pattern
+        pattern: ^BE-KBR00.*$
+  - name: 041a
+    path: 041$a
+    rules:
+      - id: 041$a
+        minCount: 1
+  - name: 041b
+    path: 041$b
+    rules:
+      - id: 041$b
+        maxCount: 0
+  - name: 041h
+    path: 041$h
+    rules:
+      - id: 041$h
+        maxCount: 0
+  - name: 044a
+    path: 044$a
+    rules:
+      - id: 044$a
+        minCount: 1
+  - name: 245a
+    path: 245$a
+    rules:
+      - id: 245$a
+        minCount: 1
+  - name: 245h
+    path: 245$h
+    rules:
+      - id: 245$h
+        maxCount: 0
+  - name: 245b
+    path: 245$b
+    rules:
+      - id: 245$b
+        maxCount: 0
+  - name: 245c
+    path: 245$c
+    rules:
+      - id: 245$c
+        maxCount: 0
+  - name: 245n
+    path: 245$n
+    rules:
+      - id: 245$n
+        maxCount: 0
+  - name: 245p
+    path: 245$p
+    rules:
+      - id: 245$p
+        maxCount: 0
+  - name: 2456
+    path: 245$6
+    rules:
+      - id: 245$p.maxCount
+        maxCount: 0
+      - id: 245$p.pattern
+        description: if used, it should only contain 880-0X with X being a digit
+        pattern: 880-0X\d$
+  - name: 300a
+    path: 300$a
+    rules:
+      - id: 300$a.minCount
+        minCount: 1
+      - id: 300$a.pattern
+        description: no more 'p.' but 'pages'. Also error = N. gepag. N. pag. N.p. Non pag.
+        and:
+         - minCount: 1
+         - not:
+           - pattern: ^.*\d+ (p|gepag|pag)\.?\s*$
+             debug: false
+  - name: 300b
+    path: 300$b
+    rules:
+      - id: 300$b.pattern
+        description: no more 'ill.' but 'illustrations"
+        not:
+          - pattern: ^.*?ill\..*?$
+  - name: 300c
+    path: 300$c
+    rules:
+      - id: 300$c
+        minCount: 1
+  - name: 300e
+    path: 300$e
+    rules:
+      - id: 300$e
+        maxCount: 0
+  - name: 264a
+    path: 264$a
+    rules:
+      - id: 264$a
+        minCount: 1
+  - name: 264b
+    path: 264$b
+    rules:
+      - id: 264$b
+        minCount: 1
+  - name: 264c
+    path: 264$c
+    rules:
+      - id: 264$c
+        minCount: 1
+  - name: 710a
+    path: 710$a
+    rules:
+      - id: 710$a
+        maxCount: 0
+  - name: 710b
+    path: 710$b
+    rules:
+      - id: 710$b
+        maxCount: 0
+  - name: 7104
+    path: 710$4
+    rules:
+      - id: 710$4
+        # description: N unless the field is used
+        maxCount: 0
+  - name: 017a
+    path: 017$a
+    rules:
+      - id: 017$a
+        # description: N but mark it anyway?
+        maxCount: 0
+  - name: 017z
+    path: 017$z
+    rules:
+      - id: 017$z
+        maxCount: 0
+  - name: 020a	N but mark it anyway?
+    path: 020$a
+    rules:
+      - id: 020$a
+        # description: N but mark it anyway?
+        maxCount: 0
+  - name: 020c
+    path: 020$c
+    rules:
+      - id: 020$c
+        description: if used, it should only contain EUR and not the symbol
+        # maxCount: 0
+        not:
+          - pattern: ^.*€.*$
+  - name: 020q
+    path: 020$q
+    rules:
+      - id: 020$q
+        maxCount: 0
+  - name: 020z
+    path: 020$z
+    rules:
+      - id: 020$z
+        maxCount: 0
+  - name: 700a
+    path: 700$a
+    rules:
+      - id: 700$a
+        maxCount: 0
+  - name: 700b
+    path: 700$b
+    rules:
+      - id: 700$b
+        maxCount: 0
+  - name: 7004
+    path: 700$4
+    rules:
+      - id: 700$4
+        # description: unless the field is used
+        maxCount: 0
+  - name: 490
+    path: 490
+    rules:
+      - id: 490
+        hidden: true
+        minCount: 1
+  - name: 773t
+    path: 773$t
+    rules:
+      - id: 773$t
+        description: unless 490 is present (the wrong field)
+        or:
+          - and:
+            - dependencies: [490]
+            - maxCount: 0
+          - minCount: 1
+  - name: 100a
+    path: 100$a
+    rules:
+      - id: 100$a
+        maxCount: 0
+  - name: 1004	N unless the field is used
+    path: 100$4
+    rules:
+      - id: 100$4
+        # description: unless the field is used
+        maxCount: 0
+  - name: 336a
+    path: 336$a
+    rules:
+      - id: 336$a
+        minCount: 1
+  - name: 337a
+    path: 337$a
+    rules:
+      - id: 337$a
+        minCount: 1
+  - name: 338a
+    path: 338$a
+    rules:
+      - id: 338$a
+        minCount: 1
+  - name: 246a
+    path: 246$a
+    rules:
+      - id: 246$a
+        maxCount: 0
+  - name: 246b
+    path: 246$b
+    rules:
+      - id: 246$b
+        maxCount: 0
+  - name: 246g
+    path: 246$g
+    rules:
+      - id: 246$g
+        # description: if it contains a language code, 041$h has to be used
+        maxCount: 0
+  - name: 246i
+    path: 246$i
+    rules:
+      - id: 246$i
+        maxCount: 0
+  - name: 246n
+    path: 246$n
+    rules:
+      - id: 246$n
+        maxCount: 0
+  - name: 246p
+    path: 246$p
+    rules:
+      - id: 246$p
+        maxCount: 0
+  - name: 2466
+    path: 246$6
+    rules:
+      - id: 246$6
+        description: if used, it should only contain 880-0X with X being a digit
+        pattern: ^880-0\d$
+  - name: 250a
+    path: 250$a
+    rules:
+      - id: 250$a
+        maxCount: 0
+  - name: 650a
+    path: 650$a
+    rules:
+      - id: 650$a
+        maxCount: 0
+  - name: 110a
+    path: 110$a
+    rules:
+      - id: 110$a
+        maxCount: 0
+  - name: 1104
+    path: 110$4
+    rules:
+      - id: 110$4
+        description: unless the field is used
+        maxCount: 0
+  - name: 385a
+    path: 385$a
+    rules:
+      - id: 385a
+        description: 521a has to be used instead
+        maxCount: 0

@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnorator;
 import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnoratorFactory;
 import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilter;
@@ -48,6 +49,7 @@ public class CommonParameters implements Serializable {
   protected InputStream stream = null;
   protected String defaultEncoding = null;
 
+  @JsonIgnore
   protected Options options = new Options();
   protected static final CommandLineParser parser = new DefaultParser();
   protected CommandLine cmd;
@@ -58,6 +60,8 @@ public class CommonParameters implements Serializable {
   private String picaSchemaFile;
   private String picaRecordTypeField = "002@$0";
   private SchemaType schemaType = SchemaType.MARC21;
+  private String groupBy;
+  private String groupListFile;
 
   protected void setOptions() {
     if (!isOptionSet) {
@@ -88,6 +92,8 @@ public class CommonParameters implements Serializable {
       options.addOption("F", "schemaType", true, "metadata schema type ('MARC21', 'UNIMARC', or 'PICA')");
       options.addOption("G", "picaRecordType", true, "picaRecordType");
       options.addOption("I", "allowableRecords", true, "allow records for the analysis");
+      options.addOption("J", "groupBy", true, "group the results by the value of this data element (e.g. the ILN of  library)");
+      options.addOption("K", "groupListFile", true, "the file which contains a list of ILN codes");
 
       isOptionSet = true;
     }
@@ -128,6 +134,8 @@ public class CommonParameters implements Serializable {
     readPicaSubfieldSeparator();
     readPicaSchemaFile();
     readPicaRecordType();
+    readGroupBy();
+    readGroupListFile();
 
     args = cmd.getArgs();
   }
@@ -142,6 +150,16 @@ public class CommonParameters implements Serializable {
       picaRecordTypeField = cmd.getOptionValue("picaRecordType");
   }
 
+
+  private void readGroupBy() {
+    if (cmd.hasOption("groupBy"))
+      groupBy = cmd.getOptionValue("groupBy");
+  }
+
+  private void readGroupListFile() {
+    if (cmd.hasOption("groupListFile"))
+      groupListFile = cmd.getOptionValue("groupListFile");
+  }
 
   private void readPicaSubfieldSeparator() {
     if (cmd.hasOption("picaSubfieldSeparator"))
@@ -381,7 +399,7 @@ public class CommonParameters implements Serializable {
     this.fixKbr = fixKbr;
   }
 
-  public String getReplecementInControlFields() {
+  public String getReplacementInControlFields() {
     if (fixAlephseq())
       return "^";
     else if (fixAlma() || fixKbr())
@@ -514,6 +532,14 @@ public class CommonParameters implements Serializable {
     return schemaType.equals(SchemaType.PICA);
   }
 
+  public String getGroupBy() {
+    return groupBy;
+  }
+
+  public String getGroupListFile() {
+    return groupListFile;
+  }
+
   public String formatParameters() {
     String text = "";
     text += String.format("schemaType: %s%n", schemaType);
@@ -542,6 +568,8 @@ public class CommonParameters implements Serializable {
       text += String.format("picaSubfieldSeparator: %s%n", picaSubfieldSeparator);
       text += String.format("picaRecordType: %s%n", picaRecordTypeField);
     }
+    text += String.format("groupBy: %s%n", groupBy);
+    text += String.format("groupListFile: %s%n", groupListFile);
 
     return text;
   }

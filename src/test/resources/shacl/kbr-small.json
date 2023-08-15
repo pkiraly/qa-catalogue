@@ -1,0 +1,13 @@
+{
+  "format": "MARC",
+  "fields": [
+    {
+      "name": "040$a",
+      "path": "040$a",
+      "rules":[
+        {"id": "040$a.1", "minCount": 1},
+        {"id": "040$a.2", "pattern": "BE-KBR00"}
+      ]
+    }
+  ]
+}

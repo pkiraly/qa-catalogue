@@ -10,6 +10,3 @@ MARC_DIR=${BASE_INPUT_DIR}/bnr
 MASK=bnr.*.mrc
 
 . ./common-script
-
-echo "DONE"
-exit 0

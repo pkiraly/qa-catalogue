@@ -28,9 +28,7 @@ public class MarcTagLister {
         && !tagClass.getCanonicalName().contains("tags.control.")
       )
       .sorted(byTag)
-      .forEach((Class tagClass) -> {
-        tags.add(tagClass);
-      });
+      .forEach(tags::add);
 
     return tags;
   }

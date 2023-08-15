@@ -25,9 +25,14 @@ hs_err_pid*
 target/*
 .idea/*
 metadata-qa-marc.iml
+qa-catalogue.iml
 temp
 scala/project
 scala/target
+
+# default input and output base directory
+input
+output
 
 # copy setdir.sh.template to setdir.sh. Do not add this into git
 setdir.sh
@@ -42,3 +47,4 @@ setdir.sh
 .classpath
 .settings
 
+/target/

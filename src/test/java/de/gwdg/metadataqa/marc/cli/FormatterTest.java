@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.cli;
 
+import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
@@ -14,6 +15,7 @@ import org.junit.Test;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
 
+import java.io.File;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -28,14 +30,12 @@ public class FormatterTest extends CliTestUtils {
   public void setUp() throws Exception {
     inputFile = getPath("src/test/resources/alephseq/alephseq-example3.txt");
     outputDir = getPath("src/test/resources/output");
-    /*
-    outputFiles = Arrays.asList(
-      "libraries.csv",
-      "libraries003.csv",
-      "marc-elements.csv",
-      "packages.csv"
-    );
-     */
+    outputFiles = List.of("marc-history.csv");
+    for (String outputFile : outputFiles) {
+      File file = new File(outputDir, "marc-history.csv");
+      if (file.exists())
+        file.delete();
+    }
   }
 
   @Test
@@ -56,6 +56,9 @@ public class FormatterTest extends CliTestUtils {
 
   @Test
   public void formatter_pica() throws Exception {
+    File file = new File(outputDir, "marc-history.csv");
+    assertFalse(file.exists());
+
     Formatter processor = new Formatter(new String[]{
       "--schemaType", "PICA",
       "--marcForma",  "PICA_PLAIN",
@@ -67,5 +70,11 @@ public class FormatterTest extends CliTestUtils {
     });
     RecordIterator iterator = new RecordIterator(processor);
     iterator.start();
+
+    assertTrue(file.exists());
+    List<String> content = FileUtils.readLinesFromFile(file.getCanonicalPath());
+    assertEquals(List.of("001A$0,011@$a", "861106,1985", "861106,1986", "861106,1986", "861106,1981", "861106,1982", "861106,1981"), content);
+    file.delete();
+    assertFalse(file.exists());
   }
 }

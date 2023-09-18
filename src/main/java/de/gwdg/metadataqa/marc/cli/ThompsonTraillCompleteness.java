@@ -54,7 +54,7 @@ public class ThompsonTraillCompleteness implements BibliographicInputProcessor, 
     readyToProcess = true;
   }
 
-  public static void main(String[] args) throws ParseException {
+  public static void main(String[] args) {
     BibliographicInputProcessor processor = null;
     try {
       processor = new ThompsonTraillCompleteness(args);

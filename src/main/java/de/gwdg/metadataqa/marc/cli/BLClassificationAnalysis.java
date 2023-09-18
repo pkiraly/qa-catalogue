@@ -40,7 +40,7 @@ public class BLClassificationAnalysis implements BibliographicInputProcessor, Se
     readyToProcess = true;
   }
 
-  public static void main(String[] args) throws ParseException {
+  public static void main(String[] args) {
     BibliographicInputProcessor processor = null;
     try {
       processor = new BLClassificationAnalysis(args);

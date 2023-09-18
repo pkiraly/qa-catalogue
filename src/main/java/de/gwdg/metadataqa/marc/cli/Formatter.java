@@ -42,20 +42,25 @@ public class Formatter implements BibliographicInputProcessor {
     readyToProcess = true;
   }
 
-  public static void main(String[] args) throws ParseException {
+  public static void main(String[] args) {
     System.err.println("'" + StringUtils.join(args, "', '") + "'");
-    BibliographicInputProcessor processor = new Formatter(args);
-    if (processor.getParameters().getArgs().length < 1) {
-      System.err.println("Please provide a MARC file name!");
+    try {
+      BibliographicInputProcessor processor = new Formatter(args);
+      if (processor.getParameters().getArgs().length < 1) {
+        System.err.println("Please provide a MARC file name!");
+        System.exit(1);
+      }
+      if (processor.getParameters().doHelp()) {
+        processor.printHelp(processor.getParameters().getOptions());
+        System.exit(0);
+      }
+      RecordIterator iterator = new RecordIterator(processor);
+      logger.info(processor.getParameters().formatParameters());
+      iterator.start();
+    } catch(Exception e) {
+      System.err.println("ERROR. " + e.getLocalizedMessage());
       System.exit(1);
     }
-    if (processor.getParameters().doHelp()) {
-      processor.printHelp(processor.getParameters().getOptions());
-      System.exit(0);
-    }
-    RecordIterator iterator = new RecordIterator(processor);
-    logger.info(processor.getParameters().formatParameters());
-    iterator.start();
   }
 
   @Override

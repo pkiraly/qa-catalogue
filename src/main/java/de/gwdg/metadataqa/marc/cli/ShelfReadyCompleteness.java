@@ -56,7 +56,7 @@ public class ShelfReadyCompleteness implements BibliographicInputProcessor, Seri
     readyToProcess = true;
   }
 
-  public static void main(String[] args) throws ParseException {
+  public static void main(String[] args) {
     BibliographicInputProcessor processor = null;
     try {
       processor = new ShelfReadyCompleteness(args);

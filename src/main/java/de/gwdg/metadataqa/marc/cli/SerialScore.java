@@ -54,7 +54,7 @@ public class SerialScore implements BibliographicInputProcessor, Serializable {
     readyToProcess = true;
   }
 
-  public static void main(String[] args) throws ParseException {
+  public static void main(String[] args) {
     BibliographicInputProcessor processor = null;
     try {
       processor = new SerialScore(args);

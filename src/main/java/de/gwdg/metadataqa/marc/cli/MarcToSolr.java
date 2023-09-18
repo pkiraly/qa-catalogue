@@ -85,7 +85,7 @@ public class MarcToSolr extends QACli implements BibliographicInputProcessor, Se
     processor.options.toString();
     if (StringUtils.isBlank(((MarcToSolrParameters) processor.getParameters()).getSolrUrl())) {
       System.err.println("Please provide a Solr URL and file name!");
-      System.exit(0);
+      System.exit(1);
     }
 
     RecordIterator iterator = new RecordIterator(processor);

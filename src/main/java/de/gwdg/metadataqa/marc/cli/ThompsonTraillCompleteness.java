@@ -60,12 +60,12 @@ public class ThompsonTraillCompleteness implements BibliographicInputProcessor, 
       processor = new ThompsonTraillCompleteness(args);
     } catch (ParseException e) {
       System.err.println("ERROR. " + e.getLocalizedMessage());
-      System.exit(0);
+      System.exit(1);
     }
 
     if (processor.getParameters().getArgs().length < 1) {
       System.err.println("Please provide a MARC file name!");
-      System.exit(0);
+      System.exit(1);
     }
     if (processor.getParameters().doHelp()) {
       processor.printHelp(processor.getParameters().getOptions());

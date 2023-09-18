@@ -117,7 +117,7 @@ public class RecordIterator {
     } catch (SolrServerException ex) {
       if (processor.getParameters().doLog())
         logger.severe(ex.toString());
-      System.exit(0);
+      System.exit(1);
     } catch (Exception ex) {
       if (processor.getParameters().doLog()) {
         logger.severe("Other exception: " + ex.toString());
@@ -135,7 +135,7 @@ public class RecordIterator {
         }
       }
       logger.log(Level.SEVERE, "start", ex);
-      System.exit(0);
+      System.exit(1);
     }
   }
 

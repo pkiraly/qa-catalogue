@@ -47,7 +47,7 @@ public class Formatter implements BibliographicInputProcessor {
     BibliographicInputProcessor processor = new Formatter(args);
     if (processor.getParameters().getArgs().length < 1) {
       System.err.println("Please provide a MARC file name!");
-      System.exit(0);
+      System.exit(1);
     }
     if (processor.getParameters().doHelp()) {
       processor.printHelp(processor.getParameters().getOptions());

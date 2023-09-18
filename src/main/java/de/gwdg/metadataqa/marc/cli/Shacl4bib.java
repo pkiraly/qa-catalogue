@@ -52,7 +52,7 @@ public class Shacl4bib extends QACli implements BibliographicInputProcessor, Ser
       processor = new Shacl4bib(args);
     } catch (ParseException e) {
       System.err.println("ERROR. " + e.getLocalizedMessage());
-      System.exit(0);
+      System.exit(1);
     }
     if (processor.getParameters().getArgs().length < 1) {
       System.err.println("Please provide a MARC file name!");

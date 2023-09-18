@@ -28,7 +28,7 @@ public class MarcJsonToSolr {
   public static void main(String[] args) {
     if (args.length < 2) {
       System.err.println("Please provide a Solr URL and file name!");
-      System.exit(0);
+      System.exit(1);
     }
     long start = System.currentTimeMillis();
 
@@ -71,12 +71,10 @@ public class MarcJsonToSolr {
       logger.info("end of cycle");
     } catch (IOException ex) {
       logger.severe(ex.toString());
-      System.exit(0);
+      System.exit(1);
     }
     long end = System.currentTimeMillis();
 
     logger.log(Level.INFO, "Bye! It took: {0} s", new Object[]{String.format("%.1f", (float) (end - start) / 1000)});
-
-    System.exit(0);
   }
 }

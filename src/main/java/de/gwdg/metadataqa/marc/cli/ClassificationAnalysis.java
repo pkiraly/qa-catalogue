@@ -54,8 +54,7 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
       processor = new ClassificationAnalysis(args);
     } catch (ParseException e) {
       System.err.println(createRow("ERROR. ", e.getLocalizedMessage()));
-      // processor.printHelp(processor.getParameters().getOptions());
-      System.exit(0);
+      System.exit(1);
     }
     if (processor.getParameters().getArgs().length < 1) {
       System.err.println("Please provide a MARC file name!");

@@ -54,13 +54,13 @@ public class SerialScore implements BibliographicInputProcessor, Serializable {
     readyToProcess = true;
   }
 
-  public static void main(String[] args) throws ParseException {
+  public static void main(String[] args) {
     BibliographicInputProcessor processor = null;
     try {
       processor = new SerialScore(args);
     } catch (ParseException e) {
       System.err.println("ERROR. " + e.getLocalizedMessage());
-      System.exit(0);
+      System.exit(1);
     }
 
     if (processor.getParameters().getArgs().length < 1) {

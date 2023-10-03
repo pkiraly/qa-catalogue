@@ -13,6 +13,7 @@ public class MarcToSolrParameters extends CommonParameters {
   private String validationUrl = null;
   private SolrClient mainClient = null;
   private SolrClient validationClient = null;
+  private boolean indexWithTokenizedField = false;
 
   private boolean isOptionSet = false;
 
@@ -23,8 +24,9 @@ public class MarcToSolrParameters extends CommonParameters {
       options.addOption("c", "doCommit", false, "send commits to Solr regularly");
       options.addOption("t", "solrFieldType", true,
         "type of Solr fields, could be one of 'marc-tags', 'human-readable', or 'mixed'");
-      options.addOption("A", "validationUrl", true, "the URL of the Solr used in validation");
+      options.addOption("A", "validationUrl", true, "the URL of the Solr server used in validation");
       options.addOption("B", "useEmbedded", false, "use embedded Solr server (used in tests only)");
+      options.addOption("C", "indexWithTokenizedField", false, "index data elements as tokenized field as well");
       isOptionSet = true;
     }
   }
@@ -46,6 +48,9 @@ public class MarcToSolrParameters extends CommonParameters {
 
     if (cmd.hasOption("useEmbedded"))
       useEmbedded = true;
+
+    if (cmd.hasOption("indexWithTokenizedField"))
+      indexWithTokenizedField = true;
   }
 
   public String getSolrUrl() {
@@ -84,6 +89,10 @@ public class MarcToSolrParameters extends CommonParameters {
     return useEmbedded;
   }
 
+  public boolean indexWithTokenizedField() {
+    return indexWithTokenizedField;
+  }
+
   @Override
   public String formatParameters() {
     String text = super.formatParameters();
@@ -91,6 +100,7 @@ public class MarcToSolrParameters extends CommonParameters {
     text += String.format("doCommit: %s%n", doCommit);
     text += String.format("solrFieldType: %s%n", solrFieldType);
     text += String.format("validationUrl: %s%n", validationUrl);
+    text += String.format("indexWithTokenizedField: %s%n", indexWithTokenizedField);
     return text;
   }
 }

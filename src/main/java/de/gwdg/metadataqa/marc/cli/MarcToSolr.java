@@ -27,6 +27,7 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -66,6 +67,7 @@ public class MarcToSolr extends QACli implements BibliographicInputProcessor, Se
       ? new MarcSolrClient(parameters.getMainClient())
       : new MarcSolrClient(parameters.getSolrUrl());
     client.setTrimId(parameters.getTrimId());
+    client.indexWithTokenizedField(parameters.indexWithTokenizedField());
     if (parameters.getValidationUrl() != null) {
       validationClient = parameters.useEmbedded()
         ? new MarcSolrClient(parameters.getValidationClient())

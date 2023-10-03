@@ -1668,6 +1668,10 @@ options:
    * `human-readable` - the field names are 
      [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/)
    * `mixed` - the field names are mixed of the above (e.g. `245a_Title_mainTitle`)
+* `-A <URL>`, `--validationUrl <URL>`: the URL of the Solr server used in validation
+* `-C`, `--indexWithTokenizedField`: index data elements as tokenized field as well (each bibliographical data elements 
+  will be indexed twice: once as a phrase (fields suffixed with `_ss`), and once as a bag of words (fields suffixed 
+  with `_txt`). \[This flag is available from v0.8.0\]
 
 The Solr URL is something like this: http://localhost:8983/solr/loc. It uses
 the [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/),
@@ -2124,12 +2128,12 @@ public class Tag024 extends DataFieldDefinition {
    ...
    ind1 = new Indicator("Type of standard number or code")
              .setCodes(...)
-              .putVersionSpecificCodes(
+             .putVersionSpecificCodes(
                  MarcVersion.SZTE,
                  Arrays.asList(
                     new Code(" ", "Not specified")
                  )
-              )
+             )
    ...
 }
 ```

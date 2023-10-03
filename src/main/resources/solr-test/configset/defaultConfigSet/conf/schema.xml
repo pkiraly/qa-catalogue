@@ -9,6 +9,16 @@
       <tokenizer class="solr.KeywordTokenizerFactory"/>
     </analyzer>
   </fieldType>
+  <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+    <analyzer type="index">
+      <tokenizer name="standard"/>
+      <filter name="lowercase"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer name="standard"/>
+      <filter name="lowercase"/>
+    </analyzer>
+  </fieldType>
 
   <!-- general fields -->
   <field name="id" type="string" indexed="true" stored="true" multiValued="false" required="true"/>
@@ -16,6 +26,8 @@
 
   <!-- dynamic fields -->
   <dynamicField name="*_ss" type="strings" indexed="true" stored="true"/>
+  <dynamicField name="*_s" type="strings" indexed="true" stored="true"/>
+  <dynamicField name="*_txt" type="text_general" indexed="true" stored="true"/>
   <dynamicField name="*_is" type="pints" indexed="true" stored="true" />
   <dynamicField name="*_sni" type="string_big" docValues="false" multiValued="false" indexed="false" stored="true"/>
 

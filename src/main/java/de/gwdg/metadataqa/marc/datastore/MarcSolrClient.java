@@ -24,6 +24,7 @@ public class MarcSolrClient {
   private SolrClient solrClient;
   private String collection;
   private boolean trimId = false;
+  private boolean indexWithTokenizedField = false;
 
   public MarcSolrClient() {
     initialize(defaultUrl);
@@ -45,13 +46,13 @@ public class MarcSolrClient {
     solrClient = new HttpSolrClient.Builder(url).build();
   }
 
+  public void indexMap(String id, Map<String, List<String>> objectMap) {
+    index(createSolrDoc(id, objectMap));
+  }
+
   private void initialize(String url, String collection) {
     solrClient = new HttpSolrClient.Builder(url).build();
     this.collection = collection;
-  }
-
-  public void indexMap(String id, Map<String, List<String>> objectMap) {
-    index(createSolrDoc(id, objectMap));
   }
 
   public void index(SolrInputDocument document) {
@@ -73,7 +74,10 @@ public class MarcSolrClient {
       if (value != null) {
         if (!key.endsWith("_sni") && !key.endsWith("_ss"))
           key += "_ss";
+
         document.addField(key, value);
+        if (indexWithTokenizedField && key.endsWith("_ss"))
+          document.addField(key.replaceAll("_ss$", "_txt"), value);
       }
     }
     return document;
@@ -141,5 +145,9 @@ public class MarcSolrClient {
 
   public void setTrimId(boolean trimId) {
     this.trimId = trimId;
+  }
+
+  public void indexWithTokenizedField(boolean indexWithTokenizedField) {
+    this.indexWithTokenizedField = indexWithTokenizedField;
   }
 }

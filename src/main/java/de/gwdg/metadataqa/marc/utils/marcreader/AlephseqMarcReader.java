@@ -131,7 +131,7 @@ public class AlephseqMarcReader implements MarcReader {
 
   private void logSkipped(LEVEL level, String message) {
     String entry = String.format(
-      "line #%d: record %s %s. Skipped.",
+      "line #%d: record id: %s %s. Skipped.",
       lineNumber, currentId, message
     );
 

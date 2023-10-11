@@ -692,6 +692,66 @@ public class MarcFactoryTest {
   }
 
   @Test
+  public void testCreateFromAlephseq_Record_with_short_leader() throws IOException, URISyntaxException {
+    Path path = FileUtils.getPath("alephseq/alephseq-example5-short-leader.txt");
+    BufferedReader reader;
+    try {
+      reader = new BufferedReader(new FileReader(path.toString()));
+      String line = reader.readLine();
+
+      Record marc4jRecord = null;
+      List<AlephseqLine> lines = new ArrayList<>();
+      while (line != null) {
+        AlephseqLine alephseqLine = new AlephseqLine(line);
+        if (alephseqLine.isValidTag()) {
+          if (alephseqLine.isLeader() && !lines.isEmpty()) {
+            marc4jRecord = MarcFactory.createRecordFromAlephseq(lines);
+            lines = new ArrayList<>();
+          }
+          lines.add(alephseqLine);
+        }
+
+        line = reader.readLine();
+      }
+      marc4jRecord = MarcFactory.createRecordFromAlephseq(lines);
+      assertNull(marc4jRecord.getLeader());
+      reader.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  public void testCreateFromAlephseq_Record_with_long_leader() throws IOException, URISyntaxException {
+    Path path = FileUtils.getPath("alephseq/alephseq-example5-long-leader.txt");
+    BufferedReader reader;
+    try {
+      reader = new BufferedReader(new FileReader(path.toString()));
+      String line = reader.readLine();
+
+      Record marc4jRecord = null;
+      List<AlephseqLine> lines = new ArrayList<>();
+      while (line != null) {
+        AlephseqLine alephseqLine = new AlephseqLine(line);
+        if (alephseqLine.isValidTag()) {
+          if (alephseqLine.isLeader() && !lines.isEmpty()) {
+            marc4jRecord = MarcFactory.createRecordFromAlephseq(lines);
+            lines = new ArrayList<>();
+          }
+          lines.add(alephseqLine);
+        }
+
+        line = reader.readLine();
+      }
+      marc4jRecord = MarcFactory.createRecordFromAlephseq(lines);
+      assertNull(marc4jRecord.getLeader());
+      reader.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
   public void createUnimarcFromFormattedText() throws IOException, URISyntaxException {
     List<String> lines = FileUtils.readLinesFromResource("unimarc/unimarc.mrctxt");
     assertEquals(58, lines.size());

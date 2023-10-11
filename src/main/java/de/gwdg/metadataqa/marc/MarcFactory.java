@@ -388,7 +388,12 @@ public class MarcFactory {
     Record marc4jRecord = new RecordImpl();
     for (AlephseqLine line : lines) {
       if (line.isLeader()) {
-        marc4jRecord.setLeader(new LeaderImpl(line.getContent()));
+        String leader = line.getContent();
+        if (leader.length() != 24)
+          logger.log(Level.WARNING, "Leader line length is not 24 char long, but {3}. Record id: {0}, tag {1}, value: \"{2}\"",
+                  new Object[]{line.getRecordID(), line.getTag(), line.getRawContent(), leader.length()});
+        else
+          marc4jRecord.setLeader(new LeaderImpl(line.getContent()));
       } else if (line.isNumericTag()) {
         if (line.isControlField()) {
           marc4jRecord.addVariableField(new ControlFieldImpl(line.getTag(), line.getContent()));

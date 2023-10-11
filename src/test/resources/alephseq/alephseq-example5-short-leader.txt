@@ -1,0 +1,18 @@
+003141912 FMT   L BK
+003141912 LDR   L 00000nam^a22^^^^^^a4500
+003141912 001   L 003141912
+003141912 003   L BE-GnUNI
+003141912 005   L 20230830132959.0
+003141912 008   L 060615q18uu^^^^xx^^^^^|r^^^^|000^||fre|d
+003141912 040   L $$aBE-GnUNI
+003141912 24500 L $$aGuillaume Ir :$$btableau exposé au palais de S. M. le Roi, à Bruxelles par M. le chev. Odevaere.
+003141912 260   L $$aS.l. :$$bs.n.,$$c[19e eeuw].
+003141912 300   L $$aP. 439-442: ill.
+003141912 7001  L $$aWillem I, prins van Oranje,$$d1533-1584$$0(viaf)261981977
+003141912 7001  L $$aOdevaere, Joseph Denis,$$d1776-1830$$0(viaf)5200190
+003141912 920   L $$aarticle
+003141912 LKR   L $$aUP$$b003141907$$lRUG01$$nDeel BIB.G.005988/1 van verzamelband BIB.G.005988/0-28$$mDeel BIB.G.005988/1: Guillaume Ir : tableau exposé au palais de S. M. le Roi, à Bruxelles par M. le chev. Odevaere.$$s02
+003141912 LKR   L $$aITM$$b003141907$$lRUG50
+003141912 CAT   L $$aPCASSIER$$b20$$c20230830$$lRUG01$$h1329
+003141912 8524  L $$bCA20$$cBIB$$jBIB.G.005988/0-28$$p900000087999$$4CA20$$5BIB
+003141912 Z30-1 L $$lRUG01$$LRUG01$$mBOOK$$1CA20$$ACA20$$2BIB$$BBIB$$3BIB.G.005988/0-28$$5900000087999$$820230830$$f03$$Fmagazijn/CONSULT

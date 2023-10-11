@@ -34,27 +34,29 @@ BASE_INPUT_DIR=${BASE_INPUT_DIR:-./input}
 BASE_OUTPUT_DIR=${BASE_OUTPUT_DIR:-./output}
 MASK=${MASK:-*}
 NAME=${NAME:-qa-catalogue}
+TYPE_PARAMS=
+SCHEMA=MARC21
 WEB_CONFIG=
 
 # parse command line options
-options=$(getopt -o a:c:d:i:m:n:o:p:s:u:v:w: --long analyses:,catalogue:,input-dir:,input:,mask:,name:,output:,params:,schema:,update:,version:,web-config -- "$@")
+options=$(getopt -o a:c:d:i:m:n:o:p:s:u:v:w: --long analyses:,catalogue:,input-dir:,input:,mask:,name:,output:,params:,schema:,update:,version:,web-config: -- "$@")
 
 eval set -- "$options"
 
 while true; do
     case "$1" in
-    -a|--analyses) ANALYSES=$2 ; shift;;
-    -c|--catalogue) CATALOGUE=$2 ; shift;;
-    -d|--input-dir) MARC_DIR=${BASE_INPUT_DIR}/$2 ; shift;;
-    -i|--input) BASE_INPUT_DIR=$2 ; shift;;
-    -m|--mask) MASK=$2 ; shift;;
-    -n|--name) NAME=$2 ; shift;;
-    -o|--output) BASE_OUTPUT_DIR=$2 ; shift;;
-    -p|--params) TYPE_PARAMS=$2 ; shift;;
-    -s|--schema) SCHEMA=$2 ; shift;;
-    -u|--update) UPDATE=$2 ; shift;;
-    -v|--version) VERSION=$2 ; shift;;
-    -w|--web-config) WEB_CONFIG=$2 ;;
+    -a|--analyses) ANALYSES=$2 ; shift ;;
+    -c|--catalogue) CATALOGUE=$2 ; shift ;;
+    -d|--input-dir) MARC_DIR=${BASE_INPUT_DIR}/$2 ; shift ;;
+    -i|--input) BASE_INPUT_DIR=$2 ; shift ;;
+    -m|--mask) MASK=$2 ; shift ;;
+    -n|--name) NAME=$2 ; shift ;;
+    -o|--output) BASE_OUTPUT_DIR=$2 ; shift ;;
+    -p|--params) TYPE_PARAMS=$2 ; shift ;;
+    -s|--schema) SCHEMA=$2 ; shift ;;
+    -u|--update) UPDATE=$2 ; shift ;;
+    -v|--version) VERSION=$2 ; shift ;;
+    -w|--web-config) WEB_CONFIG=$2 ; shift ;;
     --)
         shift
         break
@@ -72,11 +74,11 @@ ANALYSES:                 ${ANALYSES:-}
 CATALOGUE:                ${CATALOGUE:-}
 MARC_DIR (input-dir):     ${MARC_DIR:-}
 BASE_INPUT_DIR (input):   ${BASE_INPUT_DIR}
-MASK:                     ${MASK:-}
+MASK:                     ${MASK}
 NAME:                     ${NAME}
 BASE_OUTPUT_DIR (output): ${BASE_OUTPUT_DIR}
-SCHEMA:                   ${SCHEMA:-}
-TYPE_PARAMS (params):     ${TYPE_PARAMS:-}
+SCHEMA:                   ${SCHEMA}
+TYPE_PARAMS (params):     ${TYPE_PARAMS}
 UPDATE:                   ${UPDATE:-}
 VERSION:                  ${VERSION:-}
 WEB_CONFIG:               ${WEB_CONFIG}

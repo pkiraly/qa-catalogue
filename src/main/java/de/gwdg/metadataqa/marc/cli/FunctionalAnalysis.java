@@ -58,7 +58,7 @@ public class FunctionalAnalysis implements BibliographicInputProcessor, Serializ
       processor = new FunctionalAnalysis(args);
     } catch (ParseException e) {
       logger.log(Level.SEVERE, "FunctionalAnalysis", e);
-      System.exit(0);
+      System.exit(1);
     }
     if (processor.getParameters().getArgs().length < 1) {
       logger.severe("Please provide a MARC file name!");

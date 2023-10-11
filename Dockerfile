@@ -4,8 +4,8 @@ LABEL maintainer="Péter Király <pkiraly@gwdg.de>, Ákos Takács <rimelek@rimel
 
 LABEL description="QA catalogue - a metadata quality assessment tool for MARC based library catalogues."
 
-ARG QA_CATALOGUE_VERSION=0.7.0-rc2
-ARG QA_CATALOGUE_WEB_VERSION=0.7.0-rc2
+ARG QA_CATALOGUE_VERSION=0.7.0
+ARG QA_CATALOGUE_WEB_VERSION=0.7.0
 ARG DEBIAN_FRONTEND=noninteractive
 ARG SMARTY_VERSION=3.1.44
 ARG SOLR_VERSION=8.11.1
@@ -73,6 +73,7 @@ RUN cd /opt \
       gettext \
  && locale-gen en_GB.UTF-8 \
  && locale-gen de_DE.UTF-8 \
+ && locale-gen pt_BR.UTF-8 \
  && rm -rf /var/lib/apt/lists/* \
  && cd /var/www/html/ \
 # && curl -s -L https://github.com/pkiraly/qa-catalogue-web/archive/${QA_CATALOGUE_VERSION}.zip --output master.zip \

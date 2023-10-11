@@ -277,7 +277,7 @@ Three variables are important here:
    under $BASE_OUTPUT_DIR/$NAME directory
 2. `MARC_DIR` is the location of MARC files. All the files should be in the
    same directory
-3. `MASK` is a file mask, such as *.mrc or *.marc
+3. `MASK` is a file mask, such as `*.mrc`, `*.marc` or `*.dat.gz`. Files ending with `.gz` are uncompressed automatically.
 
 You can add here any other parameters this document mentioned at the description
 of individual command, wrapped in TYPE_PARAMS variable e.g. for the Deutche
@@ -1133,7 +1133,7 @@ here in a parsed format. It also contains some metadata such as the versions of 
   "marc21":true,
   "pica":false,
   "mqaf.version":"0.9.2",
-  "qa-catalogue.version":"0.7.0-rc2"
+  "qa-catalogue.version":"0.7.0"
 }
 ```
 
@@ -1668,6 +1668,10 @@ options:
    * `human-readable` - the field names are 
      [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/)
    * `mixed` - the field names are mixed of the above (e.g. `245a_Title_mainTitle`)
+* `-A <URL>`, `--validationUrl <URL>`: the URL of the Solr server used in validation
+* `-C`, `--indexWithTokenizedField`: index data elements as tokenized field as well (each bibliographical data elements 
+  will be indexed twice: once as a phrase (fields suffixed with `_ss`), and once as a bag of words (fields suffixed 
+  with `_txt`). \[This flag is available from v0.8.0\]
 
 The Solr URL is something like this: http://localhost:8983/solr/loc. It uses
 the [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/),
@@ -2124,12 +2128,12 @@ public class Tag024 extends DataFieldDefinition {
    ...
    ind1 = new Indicator("Type of standard number or code")
              .setCodes(...)
-              .putVersionSpecificCodes(
+             .putVersionSpecificCodes(
                  MarcVersion.SZTE,
                  Arrays.asList(
                     new Code(" ", "Not specified")
                  )
-              )
+             )
    ...
 }
 ```
@@ -2205,6 +2209,7 @@ public class Tag020 extends DataFieldDefinition {
 * [Royal Library of Belgium (KBR)](https://kbr.be/), Brussels, Belgium
 * [Gemeinsamer Bibliotheksverbund (GBV)](https://www.gbv.de/informationen/Verbund/), Göttingen, Germany
 * [Binghampton University Libraries](https://www.binghamton.edu/libraries/), Binghampton, NY, USA
+* [Zentralbibliothek Zürich](https://www.zb.uzh.ch/de), Zürich, Switzerland
 
 If you use this tool as well, please contact me: pkiraly (at) gwdg (dot) de. I
 really like to hear about your use case and ideas.
@@ -2216,8 +2221,7 @@ really like to hear about your use case and ideas.
 * [Gemeinsamer Bibliotheksverbund (GBV)](https://www.gbv.de/informationen/Verbund/): contracting for feature development
 * [Royal Library of Belgium (KBR)](https://kbr.be/): contracting for feature development
 * [JetBrains s.r.o.](https://www.jetbrains.com/idea/): [IntelliJ IDEA](https://www.jetbrains.com/idea/) 
-  development tool community 
-  licence
+  development tool community licence
 
 ### Appendix V: Special build process
 

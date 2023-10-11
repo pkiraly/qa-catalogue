@@ -54,7 +54,7 @@ public class AuthorityAnalysis implements BibliographicInputProcessor, Serializa
       processor = new AuthorityAnalysis(args);
     } catch (ParseException e) {
       System.err.println(createRow("ERROR. ", e.getLocalizedMessage()));
-      System.exit(0);
+      System.exit(1);
     }
     if (processor.getParameters().getArgs().length < 1) {
       System.err.println("Please provide a MARC file name!");

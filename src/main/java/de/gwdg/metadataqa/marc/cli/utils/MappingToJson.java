@@ -367,9 +367,14 @@ public class MappingToJson {
     return cardinality.getCode().equals("R");
   }
 
-  public static void main(String[] args) throws ParseException {
-    MappingToJson mapping = new MappingToJson(args);
-    mapping.build();
-    System.out.println(mapping.toJson());
+  public static void main(String[] args) {
+    try {
+      MappingToJson mapping = new MappingToJson(args);
+      mapping.build();
+      System.out.println(mapping.toJson());
+    } catch (ParseException e) {
+      System.err.println("ERROR. " + e.getLocalizedMessage());
+      System.exit(1);
+    }
   }
 }

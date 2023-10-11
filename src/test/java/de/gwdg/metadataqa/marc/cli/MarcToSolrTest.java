@@ -135,7 +135,6 @@ public class MarcToSolrTest {
       iterator.start();
       assertEquals("done", iterator.getStatus());
 
-
       final QueryResponse response = mainClient.query(new MapSolrParams(Map.of("q", "*:*")));
       final SolrDocumentList documents = response.getResults();
       assertNotNull(documents);

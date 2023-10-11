@@ -26,16 +26,18 @@ public class ParallelValidator {
     ParallelValidator.class.getCanonicalName());
   private static Options options = new Options();
 
-  public static void main(String[] args) throws ParseException {
+  public static void main(String[] args) {
 
-    final ValidatorCli validatorCli = new ValidatorCli(args);
-    ValidatorParameters params = validatorCli.getParameters();
-    final ValidatorConfiguration validatorConfiguration = validatorCli.getValidityConfiguration();
-    validatorCli.setDoPrintInProcessRecord(false);
+    try {
+      final ValidatorCli validatorCli = new ValidatorCli(args);
+      ValidatorParameters params = validatorCli.getParameters();
+      final ValidatorConfiguration validatorConfiguration = validatorCli.getValidityConfiguration();
+      validatorCli.setDoPrintInProcessRecord(false);
 
-    logger.info("Input file is " + params.getDetailsFileName());
-    SparkConf conf = new SparkConf().setAppName("MarcCompletenessCount");
-    try (JavaSparkContext context = new JavaSparkContext(conf)) {
+      logger.info("Input file is " + params.getDetailsFileName());
+      SparkConf conf = new SparkConf().setAppName("MarcCompletenessCount");
+
+      JavaSparkContext context = new JavaSparkContext(conf);
       System.err.println(validatorCli.getParameters().formatParameters());
 
       JavaRDD<String> inputFile = context.textFile(validatorCli.getParameters().getArgs()[0]);
@@ -54,6 +56,9 @@ public class ParallelValidator {
           }
         );
       baseCountsRDD.saveAsTextFile(validatorCli.getParameters().getDetailsFileName());
+    } catch(Exception e) {
+      e.printStackTrace();
+      System.exit(1);
     }
   }
 

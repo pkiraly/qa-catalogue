@@ -27,6 +27,7 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -66,6 +67,7 @@ public class MarcToSolr extends QACli implements BibliographicInputProcessor, Se
       ? new MarcSolrClient(parameters.getMainClient())
       : new MarcSolrClient(parameters.getSolrUrl());
     client.setTrimId(parameters.getTrimId());
+    client.indexWithTokenizedField(parameters.indexWithTokenizedField());
     if (parameters.getValidationUrl() != null) {
       validationClient = parameters.useEmbedded()
         ? new MarcSolrClient(parameters.getValidationClient())
@@ -80,16 +82,21 @@ public class MarcToSolr extends QACli implements BibliographicInputProcessor, Se
     }
   }
 
-  public static void main(String[] args) throws ParseException {
-    MarcToSolr processor = new MarcToSolr(args);
-    processor.options.toString();
-    if (StringUtils.isBlank(((MarcToSolrParameters) processor.getParameters()).getSolrUrl())) {
-      System.err.println("Please provide a Solr URL and file name!");
-      System.exit(0);
-    }
+  public static void main(String[] args) {
+    try {
+      MarcToSolr processor = new MarcToSolr(args);
+      processor.options.toString();
+      if (StringUtils.isBlank(((MarcToSolrParameters) processor.getParameters()).getSolrUrl())) {
+        System.err.println("Please provide a Solr URL and file name!");
+        System.exit(1);
+      }
 
-    RecordIterator iterator = new RecordIterator(processor);
-    iterator.start();
+      RecordIterator iterator = new RecordIterator(processor);
+      iterator.start();
+    } catch(Exception e) {
+      System.err.println("ERROR. " + e.getLocalizedMessage());
+      System.exit(1);
+    }
   }
 
   @Override

@@ -8,6 +8,7 @@ import de.gwdg.metadataqa.marc.cli.parameters.NetworkAction;
 import de.gwdg.metadataqa.marc.cli.parameters.NetworkParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.marc4j.marc.Record;
@@ -74,7 +75,12 @@ public class NetworkAnalysis implements BibliographicInputProcessor, Serializabl
 
   @Override
   public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
+    // do nothing
+  }
 
+  @Override
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
+    // do nothing
   }
 
   @Override

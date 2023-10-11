@@ -104,6 +104,7 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
       System.exit(0);
     }
     RecordIterator iterator = new RecordIterator(processor);
+    iterator.setProcessWithEroors(true);
     iterator.start();
   }
 
@@ -165,11 +166,16 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
   }
 
   @Override
-  public void processRecord(BibliographicRecord bibliographicRecord, int i) {
-    if (bibliographicRecord.getId() == null)
-      logger.severe("No record number at " + i);
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber) throws IOException {
+    processRecord(marcRecord, recordNumber, null);
+  }
 
-    if (i % 100000 == 0)
+  @Override
+  public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber, List<ValidationError> errors) {
+    if (bibliographicRecord.getId() == null)
+      logger.severe("No record number at " + recordNumber);
+
+    if (recordNumber % 100000 == 0)
       logger.info("Number of error types so far: " + validatorDAO.getInstanceBasedErrorCounter().size());
 
     if (parameters.getRecordIgnorator().isIgnorable(bibliographicRecord)) {

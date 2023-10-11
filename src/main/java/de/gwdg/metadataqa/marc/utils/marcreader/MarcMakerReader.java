@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MarcMakerReader implements MarcReader {
+public class MarcMakerReader extends ErrorAwareReader implements MarcReader {
 
   private static final Logger logger = Logger.getLogger(MarcMakerReader.class.getCanonicalName());
 
@@ -61,6 +61,7 @@ public class MarcMakerReader implements MarcReader {
   @Override
   public Record next() {
     Record marc4jRecord = null;
+    errors = new ArrayList<>();
     boolean finished = false;
     while (line != null && !finished) {
       MarcMakerLine marcMakerLine = new MarcMakerLine(line, lineNumber);

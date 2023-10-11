@@ -15,6 +15,7 @@ import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilter;
 import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnorator;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.tags.TagCategory;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.utils.BasicStatistics;
 import de.gwdg.metadataqa.marc.utils.TagHierarchy;
@@ -96,6 +97,11 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
 
   @Override
   public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
+    // do nothing
+  }
+
+  @Override
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
     // do nothing
   }
 

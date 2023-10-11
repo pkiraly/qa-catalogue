@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MarclineReader implements MarcReader {
+public class MarclineReader extends ErrorAwareReader implements MarcReader {
 
   private static final Logger logger = Logger.getLogger(MarclineReader.class.getCanonicalName());
 

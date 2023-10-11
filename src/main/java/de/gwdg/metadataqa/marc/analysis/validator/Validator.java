@@ -23,6 +23,7 @@ import static de.gwdg.metadataqa.marc.Utils.count;
 
 public class Validator extends AbstractValidator {
   private BibliographicRecord marcRecord;
+  private List<ValidationError> parsingErrors;
 
   private static final Logger logger = Logger.getLogger(Validator.class.getCanonicalName());
 
@@ -34,10 +35,17 @@ public class Validator extends AbstractValidator {
     super(configuration);
   }
 
+  public Validator(ValidatorConfiguration configuration, List<ValidationError> parsingErrors) {
+    super(configuration);
+    this.parsingErrors = parsingErrors;
+  }
+
   public boolean validate(BibliographicRecord marcRecord) {
     this.marcRecord = marcRecord;
 
     validationErrors = new ArrayList<>();
+    if (parsingErrors != null && !parsingErrors.isEmpty())
+      validationErrors.addAll(parsingErrors);
     if (!marcRecord.getSchemaType().equals(SchemaType.PICA))
       validateLeader();
     validateUnhandledTags();

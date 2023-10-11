@@ -10,24 +10,21 @@ import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.utils.QAMarcReaderFactory;
 import de.gwdg.metadataqa.marc.utils.marcreader.AlephseqMarcReader;
+import de.gwdg.metadataqa.marc.utils.marcreader.ErrorAwareReader;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.marc4j.MarcException;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
@@ -41,7 +38,7 @@ public class RecordIterator {
 
   private static final Logger logger = Logger.getLogger(RecordIterator.class.getCanonicalName());
   private final BibliographicInputProcessor processor;
-  private int i = 0;
+  private int recordNumber = 0;
   private String lastKnownId = "";
   private CommonParameters parameters;
   private String replacementInControlFields;
@@ -50,6 +47,7 @@ public class RecordIterator {
   private DecimalFormat decimalFormat;
   private PicaSchemaManager picaSchema;
   private String status = "waits";
+  private boolean processWithEroors = false;
 
   public RecordIterator(BibliographicInputProcessor processor) {
     this.processor = processor;
@@ -89,7 +87,7 @@ public class RecordIterator {
       }
     }
 
-    processor.afterIteration(i);
+    processor.afterIteration(recordNumber);
 
     long end = System.currentTimeMillis();
     long duration = (end - start) / 1000;
@@ -112,7 +110,7 @@ public class RecordIterator {
       MarcReader reader = getMarcFileReader(processor.getParameters(), path);
       processContent(reader, fileName);
       if (processor.getParameters().doLog())
-        logger.log(Level.INFO, "Finished processing file. Processed {0} records.", new Object[]{decimalFormat.format(i)});
+        logger.log(Level.INFO, "Finished processing file. Processed {0} records.", new Object[]{decimalFormat.format(recordNumber)});
 
     } catch (SolrServerException ex) {
       if (processor.getParameters().doLog())
@@ -144,44 +142,47 @@ public class RecordIterator {
       if (!processor.readyToProcess())
         break;
 
-      Record marc4jRecord = getNextMarc4jRecord(i, lastKnownId, reader);
-      i++;
-      if (marc4jRecord == null)
+      IteratorResponse iteratorResponse = getNextMarc4jRecord(recordNumber, lastKnownId, reader);
+      recordNumber++;
+      if (iteratorResponse.getMarc4jRecord() == null)
         continue;
 
-      if (isUnderOffset(processor.getParameters().getOffset(), i))
+      if (isUnderOffset(processor.getParameters().getOffset(), recordNumber))
         continue;
 
-      if (isOverLimit(processor.getParameters().getLimit(), i))
+      if (isOverLimit(processor.getParameters().getLimit(), recordNumber))
         break;
 
-      if (marc4jRecord.getControlNumber() == null) {
-        logger.severe("No record number at " + i + ", last known ID: " + lastKnownId);
-        System.err.println(marc4jRecord);
+      if (iteratorResponse.getMarc4jRecord().getControlNumber() == null) {
+        logger.severe("No record number at " + recordNumber + ", last known ID: " + lastKnownId);
+        System.err.println(iteratorResponse.getMarc4jRecord());
         continue;
       } else {
-        lastKnownId = marc4jRecord.getControlNumber();
+        lastKnownId = iteratorResponse.getMarc4jRecord().getControlNumber();
       }
 
-      if (skipRecord(marc4jRecord))
+      if (skipRecord(iteratorResponse.getMarc4jRecord()))
         continue;
 
       try {
-        processor.processRecord(marc4jRecord, i);
+        processor.processRecord(iteratorResponse.getMarc4jRecord(), recordNumber);
 
-        BibliographicRecord marcRecord = transformMarcRecord(marc4jRecord);
+        BibliographicRecord bibliographicRecord = transformMarcRecord(iteratorResponse.getMarc4jRecord());
         try {
-          processor.processRecord(marcRecord, i);
+          if (processWithEroors)
+            processor.processRecord(bibliographicRecord, recordNumber, iteratorResponse.getErrors());
+          else
+            processor.processRecord(bibliographicRecord, recordNumber);
         } catch(Exception e) {
           logger.log(Level.SEVERE, "start", e);
         }
 
-        if (i % 100000 == 0 && processor.getParameters().doLog())
-          logger.log(Level.INFO, "{0}/{1} ({2})", new Object[]{fileName, decimalFormat.format(i), marcRecord.getId()});
+        if (recordNumber % 100000 == 0 && processor.getParameters().doLog())
+          logger.log(Level.INFO, "{0}/{1} ({2})", new Object[]{fileName, decimalFormat.format(recordNumber), bibliographicRecord.getId()});
       } catch (IllegalArgumentException e) {
-        extracted(i, marc4jRecord, e, "Error (illegal argument) with record '%s'. %s");
+        extracted(recordNumber, iteratorResponse.getMarc4jRecord(), e, "Error (illegal argument) with record '%s'. %s");
       } catch (Exception e) {
-        extracted(i, marc4jRecord, e, "Error (general) with record '%s'. %s");
+        extracted(recordNumber, iteratorResponse.getMarc4jRecord(), e, "Error (general) with record '%s'. %s");
       }
     }
   }
@@ -213,19 +214,22 @@ public class RecordIterator {
     return QAMarcReaderFactory.getStreamReader(parameters.getMarcFormat(), parameters.getStream(), parameters);
   }
 
-  private Record getNextMarc4jRecord(int i, String lastKnownId, MarcReader reader) {
-    Record marc4jRecord = null;
+  private IteratorResponse getNextMarc4jRecord(int i, String lastKnownId, MarcReader reader) {
+    IteratorResponse response = new IteratorResponse();
     try {
-      marc4jRecord = reader.next();
+      response.setMarc4jRecord(reader.next());
+      if (reader instanceof ErrorAwareReader)
+        response.setErrors(((ErrorAwareReader)reader).getErrors());
     } catch (MarcException | NegativeArraySizeException | NumberFormatException e) {
-      logger.severe(
-        String.format(
-          "MARC record parsing problem at record #%d (last known ID: %s): %s",
-          (i + 1), lastKnownId, e.getLocalizedMessage()));
+      response.addError(lastKnownId, e.getLocalizedMessage());
+      String msg = String.format("MARC record parsing problem at record #%d (last known ID: %s): %s",
+              (i + 1), lastKnownId, e.getLocalizedMessage());
+      logger.severe(msg);
     } catch (Exception e) {
+      response.addError(lastKnownId, e.getLocalizedMessage());
       logger.log(Level.SEVERE, "start", e);
     }
-    return marc4jRecord;
+    return response;
   }
 
   private boolean skipRecord(Record marc4jRecord) {
@@ -257,5 +261,9 @@ public class RecordIterator {
 
   public String getStatus() {
     return status;
+  }
+
+  public void setProcessWithEroors(boolean processWithEroors) {
+    this.processWithEroors = processWithEroors;
   }
 }

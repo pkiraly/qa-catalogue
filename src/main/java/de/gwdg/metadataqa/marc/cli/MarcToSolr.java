@@ -10,6 +10,7 @@ import de.gwdg.metadataqa.marc.datastore.MarcSolrClient;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.utils.pica.PicaGroupIndexer;
 import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
 import org.apache.commons.cli.HelpFormatter;
@@ -106,7 +107,12 @@ public class MarcToSolr extends QACli implements BibliographicInputProcessor, Se
 
   @Override
   public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
+    // do nothing
+  }
 
+  @Override
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
+    // do nothing
   }
 
   @Override

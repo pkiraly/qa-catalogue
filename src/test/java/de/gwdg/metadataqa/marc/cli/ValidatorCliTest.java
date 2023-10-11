@@ -65,6 +65,7 @@ public class ValidatorCliTest extends CliTestUtils {
       getPath("src/test/resources/pica/pica-with-holdings-info.dat")
     });
     RecordIterator iterator = new RecordIterator(processor);
+    iterator.setProcessWithEroors(true);
     iterator.start();
     assertEquals("done", iterator.getStatus());
 
@@ -144,6 +145,7 @@ public class ValidatorCliTest extends CliTestUtils {
       getPath("src/test/resources/pica/pica-with-holdings-info.dat")
     });
     RecordIterator iterator = new RecordIterator(processor);
+    iterator.setProcessWithEroors(true);
     iterator.start();
     assertEquals(iterator.getStatus(), "done");
 

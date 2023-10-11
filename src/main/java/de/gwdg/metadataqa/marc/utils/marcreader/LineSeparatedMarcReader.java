@@ -8,7 +8,7 @@ import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class LineSeparatedMarcReader implements MarcReader {
+public class LineSeparatedMarcReader extends ErrorAwareReader implements MarcReader {
 
   private static final Logger logger = Logger.getLogger(LineSeparatedMarcReader.class.getCanonicalName());
 

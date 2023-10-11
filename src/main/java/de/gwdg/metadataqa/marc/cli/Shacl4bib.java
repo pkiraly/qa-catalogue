@@ -16,6 +16,7 @@ import de.gwdg.metadataqa.marc.cli.utils.BibSelector;
 import de.gwdg.metadataqa.marc.cli.utils.BibSelectorFactory;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.FileUtils;
@@ -109,7 +110,12 @@ public class Shacl4bib extends QACli implements BibliographicInputProcessor, Ser
 
   @Override
   public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
+    // do nothing
+  }
 
+  @Override
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
+    // do nothing
   }
 
   @Override

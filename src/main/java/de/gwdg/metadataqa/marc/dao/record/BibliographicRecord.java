@@ -130,7 +130,7 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
   }
 
   public Leader.Type getType() {
-    return leader.getType();
+    return leader != null ? leader.getType() : Leader.Type.BOOKS;
   }
 
   public MarcControlField getControl001() {
@@ -195,12 +195,12 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
   }
 
   public String getId() {
-    return control001.getContent();
+    return control001 != null ? control001.getContent() : null;
   }
 
   public String getId(boolean trim) {
     String id = getId();
-    if (trim)
+    if (trim && id != null)
       id = id.trim();
     return id;
   }

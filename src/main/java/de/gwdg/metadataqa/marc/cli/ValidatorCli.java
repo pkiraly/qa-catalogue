@@ -172,7 +172,7 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
 
   @Override
   public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber, List<ValidationError> errors) {
-    if (bibliographicRecord != null && bibliographicRecord.getId() == null)
+    if (bibliographicRecord == null || bibliographicRecord.getControl001() == null || bibliographicRecord.getId() == null)
       logger.severe("No record number at " + recordNumber);
 
     if (recordNumber % 100000 == 0)
@@ -184,7 +184,7 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
     }
 
     Set<String> groupIds = getGroupIds(parameters, bibliographicRecord);
-    if (doSaveGroupIds && bibliographicRecord != null)
+    if (doSaveGroupIds && bibliographicRecord != null && bibliographicRecord.getControl001() != null)
       saveGroupIds(bibliographicRecord.getId(true), groupIds);
 
     Validator validator = new Validator(validatorConfiguration, errors);

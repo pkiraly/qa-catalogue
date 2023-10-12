@@ -155,8 +155,10 @@ public class RecordIterator {
 
       if (iteratorResponse.getMarc4jRecord().getControlNumber() == null) {
         logger.severe("No record number at " + recordNumber + ", last known ID: " + lastKnownId);
-        System.err.println(iteratorResponse.getMarc4jRecord());
-        continue;
+        if (iteratorResponse.getMarc4jRecord().getLeader() != null)
+          System.err.println(iteratorResponse.getMarc4jRecord());
+        if (!processWithEroors)
+          continue;
       } else {
         lastKnownId = iteratorResponse.getMarc4jRecord().getControlNumber();
       }
@@ -174,7 +176,8 @@ public class RecordIterator {
           if (processWithEroors)
             processor.processRecord(bibliographicRecord, recordNumber, iteratorResponse.getErrors());
           else
-            processor.processRecord(bibliographicRecord, recordNumber);
+            if (bibliographicRecord != null)
+              processor.processRecord(bibliographicRecord, recordNumber);
         } catch(Exception e) {
           logger.log(Level.SEVERE, "start", e);
         }

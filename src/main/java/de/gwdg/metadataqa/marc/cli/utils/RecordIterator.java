@@ -167,7 +167,9 @@ public class RecordIterator {
       try {
         processor.processRecord(iteratorResponse.getMarc4jRecord(), recordNumber);
 
-        BibliographicRecord bibliographicRecord = transformMarcRecord(iteratorResponse.getMarc4jRecord());
+        BibliographicRecord bibliographicRecord = iteratorResponse.hasBlockingError()
+                                                ? null
+                                                : transformMarcRecord(iteratorResponse.getMarc4jRecord());
         try {
           if (processWithEroors)
             processor.processRecord(bibliographicRecord, recordNumber, iteratorResponse.getErrors());
@@ -182,6 +184,7 @@ public class RecordIterator {
       } catch (IllegalArgumentException e) {
         extracted(recordNumber, iteratorResponse.getMarc4jRecord(), e, "Error (illegal argument) with record '%s'. %s");
       } catch (Exception e) {
+        e.printStackTrace();
         extracted(recordNumber, iteratorResponse.getMarc4jRecord(), e, "Error (general) with record '%s'. %s");
       }
     }
@@ -218,8 +221,11 @@ public class RecordIterator {
     IteratorResponse response = new IteratorResponse();
     try {
       response.setMarc4jRecord(reader.next());
-      if (reader instanceof ErrorAwareReader)
-        response.setErrors(((ErrorAwareReader)reader).getErrors());
+      if (reader instanceof ErrorAwareReader) {
+        ErrorAwareReader errorAwareReader = (ErrorAwareReader) reader;
+        response.setErrors(errorAwareReader.getErrors());
+        response.hasBlockingError(errorAwareReader.hasBlockingError());
+      }
     } catch (MarcException | NegativeArraySizeException | NumberFormatException e) {
       response.addError(lastKnownId, e.getLocalizedMessage());
       String msg = String.format("MARC record parsing problem at record #%d (last known ID: %s): %s",

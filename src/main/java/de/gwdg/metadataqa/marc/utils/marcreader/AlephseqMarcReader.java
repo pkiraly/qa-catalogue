@@ -72,6 +72,7 @@ public class AlephseqMarcReader extends ErrorAwareReader implements MarcReader {
   public Record next() {
     Record marc4jRecord = null;
     errors = new ArrayList<>();
+    hasBlockingError = false;
     boolean deleted = false;
     boolean finished = false;
     while (line != null && !finished) {
@@ -93,12 +94,13 @@ public class AlephseqMarcReader extends ErrorAwareReader implements MarcReader {
             if (marc4jRecord.getControlNumber() == null) {
               response.addError(currentId, "001", "missing");
               logSkipped("does not have a control number field (001)");
+              // response.hasBlockingError(true);
             } else if (marc4jRecord.getLeader() == null) {
               response.addError(currentId, "leader", "missing");
               logSkipped("does not have a leader");
-            } else {
-              finished = true;
+              hasBlockingError = true;
             }
+            finished = true;
             errors.addAll(response.getErrors());
           }
           lines = new ArrayList<>();

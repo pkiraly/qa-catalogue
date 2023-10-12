@@ -172,22 +172,22 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
 
   @Override
   public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber, List<ValidationError> errors) {
-    if (bibliographicRecord.getId() == null)
+    if (bibliographicRecord != null && bibliographicRecord.getId() == null)
       logger.severe("No record number at " + recordNumber);
 
     if (recordNumber % 100000 == 0)
       logger.info("Number of error types so far: " + validatorDAO.getInstanceBasedErrorCounter().size());
 
-    if (parameters.getRecordIgnorator().isIgnorable(bibliographicRecord)) {
+    if (bibliographicRecord != null && parameters.getRecordIgnorator().isIgnorable(bibliographicRecord)) {
       logger.info("skip " + bibliographicRecord.getId() + " (ignorable record)");
       return;
     }
 
     Set<String> groupIds = getGroupIds(parameters, bibliographicRecord);
-    if (doSaveGroupIds)
+    if (doSaveGroupIds && bibliographicRecord != null)
       saveGroupIds(bibliographicRecord.getId(true), groupIds);
 
-    Validator validator = new Validator(validatorConfiguration);
+    Validator validator = new Validator(validatorConfiguration, errors);
     boolean isValid = validator.validate(bibliographicRecord);
     if (!isValid && doPrintInProcessRecord) {
       if (parameters.doSummary())
@@ -218,7 +218,7 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
           count(error.getId(), errorIds);
         }
         message = ValidationErrorFormatter.formatSimple(
-          marcRecord.getId(parameters.getTrimId()), parameters.getFormat(), errorIds
+                (marcRecord != null ? marcRecord.getId(parameters.getTrimId()) : "unknown"), parameters.getFormat(), errorIds
         );
       } else {
         message = ValidationErrorFormatter.format(errors, parameters.getFormat(), parameters.getTrimId());
@@ -264,7 +264,7 @@ public class ValidatorCli extends QACli implements BibliographicInputProcessor, 
       updateCounters(error.getType().getCategory(), groupIds, validatorDAO.getCategoryInstanceCounter(), validatorDAO.getCategoryInstanceCounterGrouped());
 
       count(1, validatorDAO.getTotalInstanceCounter());
-      updateErrorCollector(marcRecord.getId(true), error.getId());
+      updateErrorCollector(marcRecord != null ? marcRecord.getId(true) : "unknown", error.getId());
       uniqueErrors.add(error.getId());
       uniqueTypes.add(error.getType());
       uniqueCategories.add(error.getType().getCategory());

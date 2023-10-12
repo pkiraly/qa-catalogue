@@ -10,6 +10,7 @@ import java.util.List;
 public class IteratorResponse {
     private Record marc4jRecord = null;
     private List<ValidationError> errors = new ArrayList<>();
+    private boolean hasBlockingError = false;
 
     public IteratorResponse() {
     }
@@ -36,5 +37,13 @@ public class IteratorResponse {
 
     public void setErrors(List<ValidationError> errors) {
         this.errors = errors;
+    }
+
+    public boolean hasBlockingError() {
+        return hasBlockingError;
+    }
+
+    public void hasBlockingError(boolean hasBlockingError) {
+        this.hasBlockingError = hasBlockingError;
     }
 }

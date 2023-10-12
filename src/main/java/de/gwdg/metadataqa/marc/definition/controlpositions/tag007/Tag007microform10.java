@@ -1,7 +1,6 @@
 package de.gwdg.metadataqa.marc.definition.controlpositions.tag007;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.FRBRFunction;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 
 import java.util.Arrays;

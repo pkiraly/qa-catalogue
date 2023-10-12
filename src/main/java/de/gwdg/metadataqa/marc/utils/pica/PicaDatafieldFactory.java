@@ -1,10 +1,6 @@
 package de.gwdg.metadataqa.marc.utils.pica;
 
 import de.gwdg.metadataqa.marc.dao.DataField;
-import org.apache.commons.lang3.StringUtils;
-
-import java.io.File;
-import java.nio.file.Paths;
 
 public class PicaDatafieldFactory {
   private static PicaSchemaManager picaSchemaManager;

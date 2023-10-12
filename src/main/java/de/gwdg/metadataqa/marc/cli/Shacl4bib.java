@@ -1,12 +1,8 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.api.calculator.output.MetricCollector;
-import de.gwdg.metadataqa.api.calculator.output.OutputCollector;
 import de.gwdg.metadataqa.api.configuration.ConfigurationReader;
 import de.gwdg.metadataqa.api.configuration.SchemaConfiguration;
-import de.gwdg.metadataqa.api.interfaces.MetricResult;
 import de.gwdg.metadataqa.api.rule.RuleCatalog;
-import de.gwdg.metadataqa.api.util.CompressionLevel;
 import de.gwdg.metadataqa.marc.CsvUtils;
 import de.gwdg.metadataqa.marc.RuleCatalogUtils;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
@@ -20,14 +16,12 @@ import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.Record;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

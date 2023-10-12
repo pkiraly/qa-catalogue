@@ -10,10 +10,8 @@ import de.gwdg.metadataqa.marc.utils.pica.FieldPath;
 import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
-import java.nio.file.Paths;
 import java.util.Map;
 import java.util.regex.Pattern;
 

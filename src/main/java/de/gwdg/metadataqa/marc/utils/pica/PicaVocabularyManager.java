@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -62,12 +63,8 @@ public class PicaVocabularyManager {
   }
 
   private PicaVocabularyManager(InputStream inputStream) throws FileNotFoundException, ParseException {
-    try {
-      Object jsonObject = parser.parse(new InputStreamReader(inputStream, "UTF-8"));
-      read(jsonObject);
-    } catch (UnsupportedEncodingException e) {
-      throw new RuntimeException(e);
-    }
+    Object jsonObject = parser.parse(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+    read(jsonObject);
   }
 
   private VocabularyPattern parseId(String id) {

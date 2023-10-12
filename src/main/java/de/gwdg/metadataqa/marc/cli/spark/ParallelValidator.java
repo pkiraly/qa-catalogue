@@ -11,7 +11,6 @@ import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormatter;
 import de.gwdg.metadataqa.marc.utils.QAMarcReaderFactory;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;

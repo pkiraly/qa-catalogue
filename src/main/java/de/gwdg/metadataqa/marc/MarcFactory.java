@@ -36,7 +36,11 @@ import net.minidev.json.JSONArray;
 import org.marc4j.marc.ControlField;
 import org.marc4j.marc.Record;
 import org.marc4j.marc.Subfield;
-import org.marc4j.marc.impl.*;
+import org.marc4j.marc.impl.ControlFieldImpl;
+import org.marc4j.marc.impl.DataFieldImpl;
+import org.marc4j.marc.impl.LeaderImpl;
+import org.marc4j.marc.impl.SubfieldImpl;
+import org.marc4j.marc.impl.RecordImpl;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -389,6 +393,8 @@ public class MarcFactory {
     IteratorResponse response = new IteratorResponse();
     Record marc4jRecord = new RecordImpl();
     for (AlephseqLine line : lines) {
+      if (response.getRecordId() == null)
+        response.setRecordId(line.getRecordID());
       if (line.isLeader()) {
         String leader = line.getContent();
         if (leader.length() == 24)

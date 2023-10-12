@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.utils.alephseq.AlephseqLine;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
+import org.marc4j.marc.impl.ControlFieldImpl;
 
 import javax.xml.transform.ErrorListener;
 import java.io.BufferedReader;
@@ -94,6 +95,7 @@ public class AlephseqMarcReader extends ErrorAwareReader implements MarcReader {
             if (marc4jRecord.getControlNumber() == null) {
               response.addError(currentId, "001", "missing");
               logSkipped("does not have a control number field (001)");
+              marc4jRecord.addVariableField(new ControlFieldImpl("001", response.getRecordId()));
               // response.hasBlockingError(true);
             } else if (marc4jRecord.getLeader() == null) {
               response.addError(currentId, "leader", "missing");

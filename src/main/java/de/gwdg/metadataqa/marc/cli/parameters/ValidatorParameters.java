@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.cli.parameters;
 
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
-import org.apache.commons.cli.*;
+import org.apache.commons.cli.ParseException;
 
 import java.io.Serializable;
 import java.util.ArrayList;

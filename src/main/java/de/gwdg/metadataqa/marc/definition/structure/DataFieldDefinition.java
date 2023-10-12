@@ -11,7 +11,12 @@ import de.gwdg.metadataqa.marc.definition.bibliographic.BibliographicFieldDefini
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public abstract class DataFieldDefinition implements BibliographicFieldDefinition, Serializable {
   protected String tag;

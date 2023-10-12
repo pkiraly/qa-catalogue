@@ -30,8 +30,9 @@ import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormatter;
 import org.junit.Test;
 
-// import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Text;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  *

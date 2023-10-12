@@ -5,7 +5,7 @@ import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefiniti
 
 import java.util.Arrays;
 
-import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoverySelect;
 
 /**
  * Target audience

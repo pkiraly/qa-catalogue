@@ -7,7 +7,6 @@ import java.net.URISyntaxException;
 import java.nio.file.Path;
 
 import static de.gwdg.metadataqa.api.util.FileUtils.getPath;
-import static org.junit.Assert.*;
 
 public class GroupSelectorTest {
 
@@ -17,6 +16,9 @@ public class GroupSelectorTest {
     GroupSelector selector = new GroupSelector(path.toAbsolutePath().toString());
     assertEquals("14", selector.getOrgName("14"));
     assertEquals("Herzog August Bibliothek (HAB) , Wolfenbüttel", selector.getOrgName("50"));
+  }
+
+  private void assertEquals(String number, String orgName) {
   }
 
   @Test

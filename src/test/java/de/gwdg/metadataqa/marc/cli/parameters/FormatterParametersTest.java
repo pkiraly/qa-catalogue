@@ -3,7 +3,11 @@ package de.gwdg.metadataqa.marc.cli.parameters;
 import org.apache.commons.cli.ParseException;
 import org.junit.Test;
 
-import static junit.framework.TestCase.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 public class FormatterParametersTest {
 

@@ -1,10 +1,29 @@
 package de.gwdg.metadataqa.marc.definition.controlpositions;
 
+import de.gwdg.metadataqa.marc.definition.controlpositions.leader.Leader00;
+import de.gwdg.metadataqa.marc.definition.controlpositions.leader.Leader05;
+import de.gwdg.metadataqa.marc.definition.controlpositions.leader.Leader06;
+import de.gwdg.metadataqa.marc.definition.controlpositions.leader.Leader07;
+import de.gwdg.metadataqa.marc.definition.controlpositions.leader.Leader08;
+import de.gwdg.metadataqa.marc.definition.controlpositions.leader.Leader09;
+import de.gwdg.metadataqa.marc.definition.controlpositions.leader.Leader10;
+import de.gwdg.metadataqa.marc.definition.controlpositions.leader.Leader11;
+import de.gwdg.metadataqa.marc.definition.controlpositions.leader.Leader12;
+import de.gwdg.metadataqa.marc.definition.controlpositions.leader.Leader17;
+import de.gwdg.metadataqa.marc.definition.controlpositions.leader.Leader18;
+import de.gwdg.metadataqa.marc.definition.controlpositions.leader.Leader19;
+import de.gwdg.metadataqa.marc.definition.controlpositions.leader.Leader20;
+import de.gwdg.metadataqa.marc.definition.controlpositions.leader.Leader21;
+import de.gwdg.metadataqa.marc.definition.controlpositions.leader.Leader22;
+import de.gwdg.metadataqa.marc.definition.controlpositions.leader.Leader23;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
-import de.gwdg.metadataqa.marc.definition.controlpositions.leader.*;
 import de.gwdg.metadataqa.marc.definition.controltype.Control008Type;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class LeaderPositions extends ControlfieldPositionList {
 

@@ -7,7 +7,12 @@ import de.gwdg.metadataqa.marc.definition.controlpositions.LeaderPositions;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
-import de.gwdg.metadataqa.marc.definition.tags.control.*;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control001Definition;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control003Definition;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control005Definition;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control006Definition;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control007Definition;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control008Definition;
 import de.gwdg.metadataqa.marc.utils.MarcTagLister;
 
 import java.lang.reflect.InvocationTargetException;

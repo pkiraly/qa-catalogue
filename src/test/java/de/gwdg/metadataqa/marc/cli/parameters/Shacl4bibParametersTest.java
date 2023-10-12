@@ -4,7 +4,7 @@ import de.gwdg.metadataqa.api.rule.RuleCheckingOutputType;
 import org.apache.commons.cli.ParseException;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class Shacl4bibParametersTest {
 

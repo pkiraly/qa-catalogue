@@ -29,7 +29,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static de.gwdg.metadataqa.marc.Utils.*;
+import static de.gwdg.metadataqa.marc.Utils.quote;
+import static de.gwdg.metadataqa.marc.Utils.createRow;
 
 /**
  * usage:

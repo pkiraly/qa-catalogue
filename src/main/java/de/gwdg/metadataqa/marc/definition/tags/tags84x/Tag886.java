@@ -9,7 +9,8 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.FormatSourceCodes;
 
 import java.util.Arrays;
 
-import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Foreign MARC Information Field

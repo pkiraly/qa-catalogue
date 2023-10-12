@@ -183,7 +183,10 @@ public class RecordIterator {
         }
 
         if (recordNumber % 100000 == 0 && processor.getParameters().doLog())
-          logger.log(Level.INFO, "{0}/{1} ({2})", new Object[]{fileName, decimalFormat.format(recordNumber), bibliographicRecord.getId()});
+          logger.log(Level.INFO, "{0}/{1} ({2})", new Object[]{
+            fileName,
+            decimalFormat.format(recordNumber),
+            (bibliographicRecord != null ? bibliographicRecord.getId() : "unknown")});
       } catch (IllegalArgumentException e) {
         extracted(recordNumber, iteratorResponse.getMarc4jRecord(), e, "Error (illegal argument) with record '%s'. %s");
       } catch (Exception e) {

@@ -75,7 +75,7 @@ public class PicaXmlHandler implements ContentHandler {
   private MarcFactory factory = null;
 
   static {
-    ELEMENTS = new HashMap<String, Integer>();
+    ELEMENTS = new HashMap<>();
     ELEMENTS.put("collection", Integer.valueOf(COLLECTION_ID));
     ELEMENTS.put("leader", Integer.valueOf(LEADER_ID));
     ELEMENTS.put("record", Integer.valueOf(RECORD_ID));
@@ -83,7 +83,7 @@ public class PicaXmlHandler implements ContentHandler {
     ELEMENTS.put("datafield", Integer.valueOf(DATAFIELD_ID));
     ELEMENTS.put("subfield", Integer.valueOf(SUBFIELD_ID));
 
-    RECORD_TYPES = new HashSet<String>();
+    RECORD_TYPES = new HashSet<>();
     RECORD_TYPES.add("Bibliographic");
     RECORD_TYPES.add("Authority");
     RECORD_TYPES.add("Holdings");

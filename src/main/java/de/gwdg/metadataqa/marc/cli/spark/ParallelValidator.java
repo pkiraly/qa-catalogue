@@ -27,6 +27,7 @@ public class ParallelValidator {
 
   public static void main(String[] args) {
 
+    JavaSparkContext context = null;
     try {
       final ValidatorCli validatorCli = new ValidatorCli(args);
       ValidatorParameters params = validatorCli.getParameters();
@@ -36,7 +37,7 @@ public class ParallelValidator {
       logger.info("Input file is " + params.getDetailsFileName());
       SparkConf conf = new SparkConf().setAppName("MarcCompletenessCount");
 
-      JavaSparkContext context = new JavaSparkContext(conf);
+      context = new JavaSparkContext(conf);
       System.err.println(validatorCli.getParameters().formatParameters());
 
       JavaRDD<String> inputFile = context.textFile(validatorCli.getParameters().getArgs()[0]);
@@ -58,6 +59,9 @@ public class ParallelValidator {
     } catch(Exception e) {
       e.printStackTrace();
       System.exit(1);
+    } finally {
+      if (context != null)
+        context.close();
     }
   }
 

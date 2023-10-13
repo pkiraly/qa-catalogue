@@ -36,14 +36,13 @@ import java.util.logging.Logger;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class MarcToSolr extends QACli implements BibliographicInputProcessor, Serializable {
+public class MarcToSolr extends QACli<MarcToSolrParameters> implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(
     MarcToSolr.class.getCanonicalName()
   );
   private Options options;
   private MarcVersion version;
-  private MarcToSolrParameters parameters;
   private MarcSolrClient client;
   private MarcSolrClient validationClient;
   private Path currentFile;

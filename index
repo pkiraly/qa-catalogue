@@ -18,6 +18,7 @@ usage:
        [-s|--solrFieldType] [-x|--marcxml] [-a|--alephseq] [-t|--trimId]
        [-r|--defaultRecordType] [-v|--marcVersion]
        [-A|--alephseqLineType] [-B|--validationCore] [-C|--outputDir]
+       [-C|--indexWithTokenizedField]
        [-p|--purge] [-s|--status] [-h|--help]
 
  -d, --db <name>        name of the database
@@ -44,6 +45,7 @@ usage:
  -J, --groupBy          group the results by the value of this data element (e.g. the ILN of  library)
  -B, --validationCore   the Solr collection used in the validation task
  -C, --outputDir        the directory to write the file listing the parameters
+ -C, --indexWithTokenizedField
  -s, --status           status information
  -p, --purge            delete all records from a core
  -h, --help             this help
@@ -78,6 +80,7 @@ ignorableFields=""
 groupBy=""
 validationCore=""
 outputDir=""
+indexWithTokenizedField=""
 while true ; do
   case "$1" in
     -d|--db) DB=$2 ; shift 2;;
@@ -100,6 +103,7 @@ while true ; do
     -J|--groupBy) groupBy="--groupBy $2" ; shift 2;;
     -B|--validationCore) validationCore=$2 ; shift 2;;
     -C|--outputDir) outputDir="--outputDir $2" ; shift 2;;
+    -C|--indexWithTokenizedField) indexWithTokenizedField="--indexWithTokenizedField" ; shift ;;
     -S|--status) status ; shift ;;
     -p|--purge) purge_and_exit $DB ; shift ;;
     -h|--help) show_usage ; shift ;;
@@ -156,6 +160,7 @@ running the command
   $ignorableFields \
   $groupBy \
   $outputDir \
+  $indexWithTokenizedField \
   ${FILE_PATH}/${FILE_MASK}
 ---END
 EOT
@@ -166,7 +171,7 @@ EOT
   --marcVersion $marcVersion \
   ${VALIDATION_PARAMS} \
   $limit $trimId $marcxml $alephseq $ignorableRecords $defaultEncoding $alephseqLineType $schemaType \
-  $marcFormat $ignorableFields $groupBy $outputDir \
+  $marcFormat $ignorableFields $groupBy $outputDir $indexWithTokenizedField \
   ${FILE_PATH}/${FILE_MASK}
 
 # echo "Start optimizing"

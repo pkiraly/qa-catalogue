@@ -40,14 +40,13 @@ import static de.gwdg.metadataqa.marc.Utils.quote;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class ThompsonTraillCompleteness implements BibliographicInputProcessor, Serializable {
+public class ThompsonTraillCompleteness extends QACli<ThompsonTraillCompletenessParameters> implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(
     ThompsonTraillCompleteness.class.getCanonicalName()
   );
   private final Options options;
   private final boolean readyToProcess;
-  private ThompsonTraillCompletenessParameters parameters;
   private File output = null;
 
   public ThompsonTraillCompleteness(String[] args) throws ParseException {
@@ -94,6 +93,7 @@ public class ThompsonTraillCompleteness implements BibliographicInputProcessor, 
       logger.severe("Deletion of " + output.getAbsolutePath() + " was unsuccessful!");
 
     print(createRow(ThompsonTraillAnalysis.getHeader()));
+    saveParameters("tt-completeness.params.json", parameters);
   }
 
   @Override

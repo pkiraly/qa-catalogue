@@ -41,14 +41,13 @@ import static de.gwdg.metadataqa.marc.Utils.quote;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class ShelfReadyCompleteness implements BibliographicInputProcessor, Serializable {
+public class ShelfReadyCompleteness extends QACli<ShelfReadyCompletenessParameters> implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(
     ShelfReadyCompleteness.class.getCanonicalName()
   );
   private final Options options;
   private final boolean readyToProcess;
-  private ShelfReadyCompletenessParameters parameters;
   private File output = null;
 
   public ShelfReadyCompleteness(String[] args) throws ParseException {
@@ -94,6 +93,7 @@ public class ShelfReadyCompleteness implements BibliographicInputProcessor, Seri
       logger.severe("Deletion of " + output.getAbsolutePath() + " was unsuccessful!");
 
     print(createRow(createHeaders()));
+    saveParameters("shelf-ready-completeness.params.json", parameters);
   }
 
   private List<String> createHeaders() {

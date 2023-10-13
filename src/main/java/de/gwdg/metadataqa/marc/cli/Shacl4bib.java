@@ -26,12 +26,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Shacl4bib extends QACli implements BibliographicInputProcessor, Serializable {
+public class Shacl4bib extends QACli<Shacl4bibParameters> implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(Shacl4bib.class.getCanonicalName());
   private final boolean readyToProcess;
-
-  private Shacl4bibParameters parameters;
   private File outputFile;
   private RuleCatalog ruleCatalog;
   private SchemaConfiguration schema;
@@ -93,8 +91,7 @@ public class Shacl4bib extends QACli implements BibliographicInputProcessor, Ser
     List<String> header = ruleCatalog.getHeader();
     header.add(0, "id");
     printToFile(outputFile, CsvUtils.createCsv(header));
-
-    saveParameters("shacl.params.json", parameters);
+    saveParameters("shacl4bib.params.json", parameters);
   }
 
   @Override

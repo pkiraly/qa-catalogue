@@ -22,14 +22,12 @@ import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
 
-public class BLClassificationAnalysis implements BibliographicInputProcessor, Serializable {
+public class BLClassificationAnalysis extends QACli<CommonParameters> implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(
     BLClassificationAnalysis.class.getCanonicalName()
   );
   public static final String BL_CLASSIFIER_FILE = "bl-classifier.csv";
-
-  private CommonParameters parameters;
   private final Options options;
   private final boolean readyToProcess;
   private File output = null;
@@ -108,6 +106,7 @@ public class BLClassificationAnalysis implements BibliographicInputProcessor, Se
     output = new File(parameters.getOutputDir(), BL_CLASSIFIER_FILE);
     if (output.exists() && !output.delete())
       logger.severe("Deletion of " + output.getAbsolutePath() + " was unsuccessful!");
+    saveParameters("bl-classifications.params.json", parameters);
   }
 
   @Override

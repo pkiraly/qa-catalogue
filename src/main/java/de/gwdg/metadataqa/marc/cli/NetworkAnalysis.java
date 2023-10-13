@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.cli;
 
+import de.gwdg.metadataqa.marc.cli.utils.PairGenerator;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.analysis.NetworkAnalyzer;
@@ -27,11 +28,10 @@ import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
 
-public class NetworkAnalysis implements BibliographicInputProcessor, Serializable {
+public class NetworkAnalysis extends QACli<NetworkParameters> implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(NetworkAnalysis.class.getCanonicalName());
 
-  private final NetworkParameters parameters;
   private final boolean readyToProcess;
   private final List<String> orphans = new ArrayList<>();
   private BufferedWriter networkWriter;
@@ -114,6 +114,7 @@ public class NetworkAnalysis implements BibliographicInputProcessor, Serializabl
     } catch (IOException e) {
       logger.log(Level.WARNING, "document", e);
     }
+    saveParameters("network.params.json", parameters);
   }
 
   @Override

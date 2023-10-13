@@ -39,14 +39,13 @@ import static de.gwdg.metadataqa.marc.Utils.createRow;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class SerialScore implements BibliographicInputProcessor, Serializable {
+public class SerialScore extends QACli<SerialScoreParameters> implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(
     SerialScore.class.getCanonicalName()
   );
   private final Options options;
   private final boolean readyToProcess;
-  private SerialScoreParameters parameters;
   private File output = null;
   private Map<Integer, Integer> histogram = new HashMap<>();
 
@@ -93,6 +92,7 @@ public class SerialScore implements BibliographicInputProcessor, Serializable {
       logger.severe("Deletion of " + output.getAbsolutePath() + " was unsuccessful!");
 
     print(createRow(Serial.getHeader()));
+    saveParameters("serials.params.json", parameters);
   }
 
   @Override

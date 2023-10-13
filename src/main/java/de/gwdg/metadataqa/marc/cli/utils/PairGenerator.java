@@ -1,6 +1,7 @@
-package de.gwdg.metadataqa.marc.cli;
+package de.gwdg.metadataqa.marc.cli.utils;
 
 import de.gwdg.metadataqa.marc.Utils;
+import de.gwdg.metadataqa.marc.cli.NetworkAnalysis;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -36,7 +37,7 @@ public class PairGenerator {
     this.groupLimit = groupLimit;
   }
 
-  protected void generatePairs() {
+  public void generatePairs() {
     logger.info("pairIds");
 
     createPairs("");

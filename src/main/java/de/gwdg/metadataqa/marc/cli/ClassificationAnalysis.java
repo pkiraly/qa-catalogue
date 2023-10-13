@@ -33,12 +33,12 @@ import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
 
-public class ClassificationAnalysis implements BibliographicInputProcessor, Serializable {
+public class ClassificationAnalysis extends QACli<ClassificationParameters> implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(ClassificationAnalysis.class.getCanonicalName());
 
   private final Options options;
-  private ClassificationParameters parameters;
+  // private ClassificationParameters parameters;
   private boolean readyToProcess;
   private static char separator = ',';
   private File collectorFile;
@@ -111,25 +111,9 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
     */
   }
 
-  private void printToFile(File file, String message) {
-    try {
-      FileUtils.writeStringToFile(file, message, Charset.defaultCharset(), true);
-    } catch (IOException | NullPointerException e) {
-      if (parameters.doLog())
-        logger.log(Level.SEVERE, "printToFile", e);
-    }
-  }
-
-  private File prepareReportFile(String outputDir, String fileName) {
-    File reportFile = new File(outputDir, fileName);
-    if (reportFile.exists() && !reportFile.delete())
-      logger.log(Level.SEVERE, "File {0} hasn't been deleted", new Object[]{reportFile.getAbsolutePath()});
-    return reportFile;
-  }
-
-
   @Override
   public void beforeIteration() {
+    saveParameters("classifications.params.json", parameters);
   }
 
   @Override

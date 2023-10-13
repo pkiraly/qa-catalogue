@@ -37,14 +37,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
-public class Completeness extends QACli implements BibliographicInputProcessor, Serializable {
+public class Completeness extends QACli<CompletenessParameters> implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(Completeness.class.getCanonicalName());
   private static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
   public static final String ALL_TYPE = "all";
-
-  private CompletenessParameters parameters;
-
   private CompletenessDAO completenessDAO = new CompletenessDAO();
 
   private boolean readyToProcess;

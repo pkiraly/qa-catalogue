@@ -46,12 +46,11 @@ import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat.TAB
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class ValidatorCli extends QACli implements BibliographicInputProcessor, Serializable {
+public class ValidatorCli extends QACli<ValidatorParameters> implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(ValidatorCli.class.getCanonicalName());
   private Options options;
 
-  private final ValidatorParameters parameters;
   private final Map<Integer, Integer> hashedIndex = new HashMap<>();
   private File detailsFile = null;
   private File summaryFile = null;

@@ -38,13 +38,12 @@ import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
 
-public class FunctionalAnalysis implements BibliographicInputProcessor, Serializable {
+public class FunctionalAnalysis extends QACli<CompletenessParameters> implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(FunctionalAnalysis.class.getCanonicalName());
 
   private final Options options;
   private final boolean readyToProcess;
-  private final CompletenessParameters parameters;
   private FrbrFunctionLister frbrFunctionLister;
   private int recordNumber;
 
@@ -182,7 +181,7 @@ public class FunctionalAnalysis implements BibliographicInputProcessor, Serializ
 
   @Override
   public void beforeIteration() {
-    // do nothing
+    saveParameters("functions.params.json", parameters);
   }
 
   @Override

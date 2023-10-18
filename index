@@ -57,11 +57,6 @@ if [ $# -eq 0 ]; then
   show_usage
 fi
 
-GETOPT=$(getopt -o b:p:m:ws::xard:hSpv:l:i:g:A:F:f:z:J:B:t:C: \
-  --long db:,file-path:,file-mask:,no-delete,solrFieldType:,marcxml,alephseq,trimId,defaultRecordType,help,status,purge,marcVersion:,limit:,ignorableRecords:,defaultEncoding:,alephseqLineType:,schemaType:,marcFormat:,ignorableFields:,groupBy:,validationCore:,outputDir:,outputDir,indexWithTokenizedField \
-  -n ${ME} -- "$@")
-eval set -- "$GETOPT"
-
 DB=""
 solrFieldType=mixed
 defaultRecordType=BOOKS
@@ -81,6 +76,12 @@ groupBy=""
 validationCore=""
 outputDir=""
 indexWithTokenizedField=""
+
+GETOPT=$(getopt -o b:p:m:ws::xard:hSpv:l:i:g:A:F:f:z:J:B:t:C: \
+  --long db:,file-path:,file-mask:,no-delete,solrFieldType:,marcxml,alephseq,trimId,defaultRecordType,help,status,purge,marcVersion:,limit:,ignorableRecords:,defaultEncoding:,alephseqLineType:,schemaType:,marcFormat:,ignorableFields:,groupBy:,validationCore:,outputDir:,outputDir,indexWithTokenizedField \
+  -n ${ME} -- "$@")
+eval set -- "$GETOPT"
+
 while true ; do
   case "$1" in
     -b|--db) DB=$2 ; shift 2;;
@@ -88,14 +89,14 @@ while true ; do
     -m|--file-mask) FILE_MASK=$2 ; shift 2;;
     -w|--no-delete) DELETE=0 ; shift;;
     -s|--solrFieldType) solrFieldType=$2 ; shift 2;;
-    -r|--defaultRecordType) defaultRecordType=$2 ; shift 2;;
+    -d|--defaultRecordType) defaultRecordType=$2 ; shift 2;;
     -v|--marcVersion) marcVersion=$2 ; shift 2;;
     -l|--limit) limit="--limit $2"; shift 2;;
     -i|--ignorableRecords) ignorableRecords="--ignorableRecords $2"; shift 2;;
     -x|--marcxml) marcxml="--marcxml" ; shift;;
     -a|--alephseq) alephseq="--alephseq" ; shift;;
     -r|--trimId) trimId="--trimId" ; shift;;
-    -d|--defaultEncoding) defaultEncoding="--defaultEncoding $2" ; shift 2;;
+    -g|--defaultEncoding) defaultEncoding="--defaultEncoding $2" ; shift 2;;
     -A|--alephseqLineType) alephseqLineType="--alephseqLineType $2" ; shift 2;;
     -F|--schemaType) schemaType="--schemaType $2" ; shift 2;;
     -f|--marcFormat) marcFormat="--marcFormat $2" ; shift 2;;

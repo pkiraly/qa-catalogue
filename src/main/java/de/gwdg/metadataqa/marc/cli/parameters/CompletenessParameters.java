@@ -15,9 +15,9 @@ public class CompletenessParameters extends CommonParameters implements Serializ
   protected void setOptions() {
     if (!isOptionSet) {
       super.setOptions();
-      options.addOption("r", "format", true, "specify a format");
-      options.addOption("v", "advanced", false, "advanced mode");
-      options.addOption("p", "onlyPackages", false, "only packages");
+      options.addOption("R", "format", true, "specify a format");
+      options.addOption("V", "advanced", false, "advanced mode (not yet implemented)");
+      options.addOption("P", "onlyPackages", false, "only packages (not yet implemented)");
       isOptionSet = true;
     }
   }
@@ -61,6 +61,7 @@ public class CompletenessParameters extends CommonParameters implements Serializ
     String text = super.formatParameters();
     text += String.format("format: %s%n", format.getLabel());
     text += String.format("advanced: %s%n", advanced);
+    text += String.format("onlyPackages: %s%n", onlyPackages);
     return text;
   }
 }

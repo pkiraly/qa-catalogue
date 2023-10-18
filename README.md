@@ -317,7 +317,7 @@ export JAR=target/metadata-qa-marc-0.6.0-jar-with-dependencies.jar
 
 Most of the analyses uses the following general parameters
 
-* `-F <type>`, `--schemaType <type>` metadata schema type. The supported types are:
+* `-w <type>`, `--schemaType <type>` metadata schema type. The supported types are:
   * `MARC21`
   * `PICA`
   * `UNIMARC` (assessment of UNIMARC records are not yet supported, this
@@ -370,10 +370,10 @@ Most of the analyses uses the following general parameters
   * `-q`, `--fixAlephseq` sometimes ALEPH export contains '^' characters
     instead of spaces in control fields (006, 007, 008). This flag replaces
     them with spaces before the validation. It might occur in any input format.
-  * `-X`, `--fixAlma` sometimes Alma export contains '#' characters instead of
+  * `-a`, `--fixAlma` sometimes Alma export contains '#' characters instead of
     spaces in control fields (006, 007, 008). This flag replaces them with
     spaces before the validation. It might occur in any input format.
-  * `-G`, `--fixKbr` KBR's export contains '#' characters instead spaces in
+  * `-b`, `--fixKbr` KBR's export contains '#' characters instead spaces in
     control fields (006, 007, 008). This flag replaces them with spaces before
     the validation. It might occur in any input format.
 * `-f <format>`, `--marcFormat <format>` The input format. Possible values are
@@ -408,7 +408,7 @@ Most of the analyses uses the following general parameters
   * `STREAM`: reading from a Java data stream. It is not usable if you use the
     tool from the command line, only if 
     you use it with its API.
-* `-I <configuration>`, `--allowableRecords <configuration>` if set, criteria
+* `-c <configuration>`, `--allowableRecords <configuration>` if set, criteria
   which allows analysis of records. If the record does not met the criteria, it
   will be excluded. An individual criterium should be formed as a MarcSpec (for
   MARC21 records) or PicaFilter (for PICA records). Multiple criteria might be 
@@ -419,20 +419,25 @@ Most of the analyses uses the following general parameters
   of which is problematic among multiple scripts, one can apply Base64 encoding.
   In this case add `base64:` prefix to the parameters, such as
   `base64:"$(echo '002@.0 !~ "^L" && 002@.0 !~ "^..[iktN]" && (002@.0 !~ "^.v" || 021A.a?)' | base64 -w 0)`.
+* `-1 <type>`, `--alephseqLineType <type>`, true, "Alephseq line type. The `type` could be
+  * `WITH_L`: the records' AlephSeq lines contain an `L ` string
+    (e.g. `000000002 008   L 780804s1977^^^^enk||||||b||||001^0|eng||`)
+  * `WITHOUT_L`: the records' AlephSeq lines do not contai an `L ` string
+    (e.g. `000000002 008   780804s1977^^^^enk||||||b||||001^0|eng||`)
 * PICA related parameters
-  * `-B <path>`, `--picaIdField <path>` the record identifier 
+  * `-2 <path>`, `--picaIdField <path>` the record identifier
+  * `-u <char>`, `--picaSubfieldSeparator <char>` the PICA subfield separator.
     subfield of PICA records. Default is `003@$0`.
-  * `-D <char>`, `--picaSubfieldSeparator <char>` the PICA subfield separator.
     Default is `$`.
-  * `-E <file>`, `--picaSchemaFile <file>` an Avram schema file, which describes
+  * `-j <file>`, `--picaSchemaFile <file>` an Avram schema file, which describes
     the structure of PICA records
-  * `-G <path>`, `--picaRecordType <path>` The PICA subfield which stores the
+  * `-k <path>`, `--picaRecordType <path>` The PICA subfield which stores the
     record type information. Default is `002@$0`.
 * Parameters for grouping analyses
-  * `-J <path>`, `--groupBy <path>` group the results by the value of this data 
+  * `-e <path>`, `--groupBy <path>` group the results by the value of this data 
     element (e.g. the ILN of libraries holding the item). An example: `--groupBy 001@$0`
     where `001@$0` is the subfield containing the comma separated list of library ILN codes.
-  * `-K <file>`, `--groupListFile <file>` the file which contains a list of ILN codes
+  * `-3 <file>`, `--groupListFile <file>` the file which contains a list of ILN codes
 
 The last argument of the commands are a list of files. It might contain any 
 wildcard the operating system supports ('*', '?', etc.).
@@ -476,26 +481,26 @@ options:
 
 * [general parameters](#general-parameters)
 * granularity of the report
-  * `-s`, `--summary`: creating a summary report instead of record level reports
-  * `-h`, `--details`: provides record level details of the issues
+  * `-S`, `--summary`: creating a summary report instead of record level reports
+  * `-H`, `--details`: provides record level details of the issues
 * output parameters:
-  * `-g <file>`, `--summaryFileName <file>`: the name of summary report the
+  * `-G <file>`, `--summaryFileName <file>`: the name of summary report the
     program produces. The file provides a summary of issues, such as the
     number of instance and number of records having the particular issue.
-  * `-f <file>`, `--detailsFileName <file>`: the name of report the program
+  * `-F <file>`, `--detailsFileName <file>`: the name of report the program
     produces. Default is `validation-report.txt`. If you use "stdout", it won't
     create file, but put results into the standard output.
-  * `-r <format>`, `--format <format>`: format specification of the output. Possible values:
+  * `-R <format>`, `--format <format>`: format specification of the output. Possible values:
     * `text` (default), 
     * `tab-separated` or `tsv`,
     * `comma-separated` or `csv`
-* `-w`, `--emptyLargeCollectors`: the output files are created during the
+* `-W`, `--emptyLargeCollectors`: the output files are created during the
   process and not only at the end of it. It helps in memory  management if the
   input is large, and it has lots of errors, on the other hand the output file
   will be segmented, which should be handled after the process.
-* `-t`, `--collectAllErrors`: collect all errors (useful only for validating
+* `-T`, `--collectAllErrors`: collect all errors (useful only for validating
   small number of records). Default is turned off.
-* `-i <types>`, `--ignorableIssueTypes <types>`: comma separated list of issue
+* `-I <types>`, `--ignorableIssueTypes <types>`: comma separated list of issue
   types not to collect. The valid values are:
   * `undetectableType`: undetectable type
   * `invalidLinkage`: invalid linkage
@@ -1006,10 +1011,14 @@ or
 options:
 
 * [general parameters](#general-parameters)
-* `-r <format>`, `--format <format>`: format specification of the output.
+* `-R <format>`, `--format <format>`: format specification of the output.
   Possible values are: 
   * `tab-separated` or `tsv`,
-  * `comma-separated` or `csv`
+  * `comma-separated` or `csv`,
+  * `text` or `txt`
+  * `json`
+* `-V`, `--advanced`: advanced mode (not yet implemented)
+* `-P`, `--onlyPackages`: only packages (not yet implemented)
 
 Output files:
 

@@ -42,10 +42,10 @@ Screenshot from the web UI of the QA catalogue
       * [Calculating Thompson-Traill completeness](#calculating-thompson-traill-completeness)
       * [Shelf-ready completeness analysis](#shelf-ready-completeness-analysis)
       * [Serial score analysis](#serial-score-analysis)
+      * [FRBR functional requirement analysis](#fbrb-functional-requirement-analysis)
     * Contextual analyses
       * [Classification analysis](#classification-analysis)
       * [Authority name analysis](#authority-name-analysis)
-    * [FRBR functional requirement analysis](#fbrb-functional-requirement-analysis)
     * [Field frequency distribution](#field-frequency-distribution)
     * [Generating cataloguing history chart](#generating-cataloguing-history-chart)
     * [Import tables to SQLite](#import-tables-to-sqlite)
@@ -1336,6 +1336,100 @@ options:
 * `-F <file>`, `--fileName <file>`: the report file name. Default is
   `shelf-ready-completeness.csv`.
 
+### FRBR functional requirement analysis
+
+The Functional Requirements for Bibliographic Records (FRBR) document's main
+part defines the primary and secondary entities which became famous as FRBR
+models. Years later Tom Delsey created a mapping between the 12 functions and
+the individual MARC elements.
+
+Tom Delsey (2002) _Functional analysis of the MARC 21 bibliographic and
+holdings formats. Tech. report_. Library of Congress, 2002. Prepared for the
+Network Development and MARC Standards Office Library of Congress. Second
+Revision: September 17, 2003. https://www.loc.gov/marc/marc-functional-analysis/original_source/analysis.pdf.
+
+This analysis shows how these functions are supported by the records. Low
+support means that only small portion of the fields support a function are
+available in the records, strong support on the contrary means lots of fields
+are available. The analyses calculate the support of 12 functions for each
+record, and returns summary statistics.
+
+It is an experimental feature because it turned out, that the mapping covers
+about 2000 elements (fields, subfields, indicators etc.), however on an
+average record there are max several hundred elements, which results that even
+in the best record has about 10-15% of the totality of the elements supporting
+a given function. So the tool doesn't show you exact numbers, and the scale
+is not 0-100 but 0-[best score] which is different for every catalogue.
+
+The 12 functions:
+Discovery functions
+* search (DiscoverySearch): Search for a resource corresponding to stated
+  criteria (i.e., to search either a single entity or a set of entities using
+  an attribute or relationship of the entity as the search criteria).
+* identify (DiscoveryIdentify): Identify a resource (i.e., to confirm that the
+  entity described or located corresponds to the entity sought, or to
+  distinguish between two or more entities with similar characteristics).
+* select (DiscoverySelect): Select a resource that is appropriate to the user’s
+  needs (i.e., to choose an entity that meets the user’s requirements with
+  respect to content, physical format, etc., or to reject an entity as being
+  inappropriate to the user’s needs)
+* obtain (DiscoveryObtain): Access a resource either physically or
+  electronically through an online connection to a remote computer, and/or
+  acquire a resource through purchase, licence, loan, etc.
+
+Usage functions
+* restrict (UseRestrict): Control access to or use of a resource (i.e., to
+  restrict access to and/or use of an entity on the basis of proprietary
+  rights, administrative policy, etc.).
+* manage (UseManage): Manage a resource in the course of acquisition,
+  circulation, preservation, etc.
+* operate (UseOperate): Operate a resource (i.e., to open, display, play,
+  activate, run, etc. an entity that requires specialized equipment, software,
+  etc. for its operation).
+* interpret (UseInterpret): Interpret or assess the information contained in a
+  resource.
+
+Management functions
+* identify (ManagementIdentify): Identify a record, segment, field, or data
+  element (i.e., to differentiate one logical data component from another).
+* process (ManagementProcess): Process a record, segment, field, or data
+  element (i.e., to add, delete, replace, output, etc. a logical data component
+  by means of an automated process).
+* sort (ManagementSort): Sort a field for purposes of alphabetic or numeric
+  arrangement.
+* display (ManagementDisplay): Display a field or data element (i.e., to
+  display a field or data element with the appropriate print constant or as a
+  tracing).
+
+```bash
+java -cp $JAR de.gwdg.metadataqa.marc.cli.FunctionalAnalysis [options] <file>
+```
+with a bash script
+```bash
+./functional-analysis [options] <file>
+```
+or
+```bash
+catalogues/<catalogue>.sh functional-analysis
+```
+or
+```bash
+./qa-catalogue --params="[options]" functional-analysis
+```
+
+options:
+* [general parameters](#general-parameters)
+
+Output files:
+* `functional-analysis.csv`: the list of the 12 functions and their average
+  count (number of support fields), and average score (percentage of all
+  supporting fields available in the record)
+* `functional-analysis-mapping.csv`: the mapping of functions and data
+  elements
+* `functional-analysis-histogram.csv`: the histogram of scores and count of
+  records for each function (e.g. there are _x_ number of records which has
+  _j_ score for function _a_)
+
 ### Classification analysis
 
 It analyses the coverage of subject indexing/classification in the catalogue.
@@ -1434,100 +1528,6 @@ The output is a set of files:
   fields, which contains authority names information. It gives you a background
   that what other contextual information behind the authority names are
   available (such as the version of the authority name scheme)
-
-### FRBR functional requirement analysis
-
-The Functional Requirements for Bibliographic Records (FRBR) document's main
-part defines the primary and secondary entities which became famous as FRBR
-models. Years later Tom Delsey created a mapping between the 12 functions and 
-the individual MARC elements.
-
-Tom Delsey (2002) _Functional analysis of the MARC 21 bibliographic and
-holdings formats. Tech. report_. Library of Congress, 2002. Prepared for the
-Network Development and MARC Standards Office Library of Congress. Second 
-Revision: September 17, 2003. https://www.loc.gov/marc/marc-functional-analysis/original_source/analysis.pdf. 
-
-This analysis shows how these functions are supported by the records. Low
-support means that only small portion of the fields support a function are
-available in the records, strong support on the contrary means lots of fields
-are available. The analyses calculate the support of 12 functions for each
-record, and returns summary statistics.
-
-It is an experimental feature because it turned out, that the mapping covers
-about 2000 elements (fields, subfields, indicators etc.), however on an
-average record there are max several hundred elements, which results that even
-in the best record has about 10-15% of the totality of the elements supporting
-a given function. So the tool doesn't show you exact numbers, and the scale
-is not 0-100 but 0-[best score] which is different for every catalogue.
-
-The 12 functions:
-Discovery functions
-* search (DiscoverySearch): Search for a resource corresponding to stated
-  criteria (i.e., to search either a single entity or a set of entities using
-  an attribute or relationship of the entity as the search criteria).
-* identify (DiscoveryIdentify): Identify a resource (i.e., to confirm that the
-  entity described or located corresponds to the entity sought, or to
-  distinguish between two or more entities with similar characteristics).
-* select (DiscoverySelect): Select a resource that is appropriate to the user’s
-  needs (i.e., to choose an entity that meets the user’s requirements with
-  respect to content, physical format, etc., or to reject an entity as being
-  inappropriate to the user’s needs)
-* obtain (DiscoveryObtain): Access a resource either physically or
-  electronically through an online connection to a remote computer, and/or
-  acquire a resource through purchase, licence, loan, etc.
-
-Usage functions
-* restrict (UseRestrict): Control access to or use of a resource (i.e., to
-  restrict access to and/or use of an entity on the basis of proprietary
-  rights, administrative policy, etc.).
-* manage (UseManage): Manage a resource in the course of acquisition,
-  circulation, preservation, etc.
-* operate (UseOperate): Operate a resource (i.e., to open, display, play,
-  activate, run, etc. an entity that requires specialized equipment, software,
-  etc. for its operation).
-* interpret (UseInterpret): Interpret or assess the information contained in a
-  resource.
-
-Management functions
-* identify (ManagementIdentify): Identify a record, segment, field, or data
-  element (i.e., to differentiate one logical data component from another).
-* process (ManagementProcess): Process a record, segment, field, or data
-  element (i.e., to add, delete, replace, output, etc. a logical data component
-  by means of an automated process).
-* sort (ManagementSort): Sort a field for purposes of alphabetic or numeric
-  arrangement.
-* display (ManagementDisplay): Display a field or data element (i.e., to
-  display a field or data element with the appropriate print constant or as a
-  tracing).
-
-```bash
-java -cp $JAR de.gwdg.metadataqa.marc.cli.FunctionalAnalysis [options] <file>
-```
-with a bash script
-```bash
-./functional-analysis [options] <file>
-```
-or
-```bash
-catalogues/<catalogue>.sh functional-analysis
-```
-or
-```bash
-./qa-catalogue --params="[options]" functional-analysis
-```
-
-options:
-* [general parameters](#general-parameters)
-
-Output files:
-* `functional-analysis.csv`: the list of the 12 functions and their average
-  count (number of support fields), and average score (percentage of all
-  supporting fields available in the record)
-* `functional-analysis-mapping.csv`: the mapping of functions and data
-  elements
-* `functional-analysis-histogram.csv`: the histogram of scores and count of
-  records for each function (e.g. there are _x_ number of records which has
-  _j_ score for function _a_)
 
 ### Field frequency distribution
 

@@ -57,6 +57,7 @@ Screenshot from the web UI of the QA catalogue
     * [Export mapping table](#export-mapping-table)
       * [to Avram JSON](#to-avram-json)
       * [to HTML](#to-html)
+    * [Shacl4Bib](#Shacl4Bib) 
 * [Extending the functionalities](#extending-the-functionalities)
 * [User interface](#user-interface)
 * Appendices
@@ -1238,7 +1239,7 @@ or
 
 options:
 * [general parameters](#general-parameters)
-* `-f <file>`, `--fileName <file>`: the name of report the program produces.
+* `-F <file>`, `--fileName <file>`: the name of report the program produces.
   Default is `tt-completeness.csv`.
 
 It produces a CSV file like this:
@@ -1298,7 +1299,7 @@ or
 
 options:
 * [general parameters](#general-parameters)
-* `-f <file>`, `--fileName <file>`: the report file name (default is
+* `-F <file>`, `--fileName <file>`: the report file name (default is
   `shelf-ready-completeness.csv`)
 
 ### Serial score analysis
@@ -1332,7 +1333,7 @@ or
 
 options:
 * [general parameters](#general-parameters)
-* `-f <file>`, `--fileName <file>`: the report file name. Default is
+* `-F <file>`, `--fileName <file>`: the report file name. Default is
   `shelf-ready-completeness.csv`.
 
 ### Classification analysis

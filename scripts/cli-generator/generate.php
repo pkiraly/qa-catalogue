@@ -7,14 +7,40 @@ $fileName = $argv[1];
 switch ($fileName) {
   case 'validate.txt':
     $url = URL . '#validating-marc-records';
-    $title = sprintf(TITLE, 'validation');
-    break;
+    $title = sprintf(TITLE, 'validation'); break;
+
+  case 'classifications.txt':
+    $url = URL . '#classification-analysis';
+    $title = sprintf(TITLE, 'subject analysis'); break;
+
+  case 'authorities.txt':
+    $url = URL . '#authority-name-analysis';
+    $title = sprintf(TITLE, 'authority name analysis'); break;
+
+  case 'serials.txt':
+    $url = URL . '#serial-score-analysis';
+    $title = sprintf(TITLE, 'serials analysis'); break;
+
+  case 'tt-completeness.txt':
+    $url = URL . '#calculating-thompson-traill-completeness';
+    $title = sprintf(TITLE, 'Thompson—Traill completeness analysis'); break;
+
+  case 'shelf-ready-completeness.txt':
+    $url = URL . '#shelf-ready-completeness-analysis';
+    $title = sprintf(TITLE, 'shelf-ready completeness analysis'); break;
+
+  case 'functions.txt':
+    $url = URL . '#fbrb-functional-requirement-analysis';
+    $title = sprintf(TITLE, 'functional analysis'); break;
+
+  case 'shacl4bib.txt':
+    $url = URL . '#shacl4bib';
+    $title = sprintf(TITLE, 'custom validation'); break;
 
   case 'completeness.txt':
   default:
     $url = URL . '#calculating-data-element-completeness';
-    $title = sprintf(TITLE, 'completeness analysis');
-    break;
+    $title = sprintf(TITLE, 'completeness analysis'); break;
 }
 
 $maxLong = 0;
@@ -149,17 +175,17 @@ function readOptions($fileName) {
           $maxLong = strlen($matches[2]);
 
         if (in_array($matches[1], $shorts)) {
-          echo 'repeated short: ' . $matches[1] . ' -- ' . $line;
+          error_log('repeated short: ' . $matches[1] . ' -- ' . $line);
         }
         $shorts[] = $matches[1];
 
         if (in_array($matches[2], $longs)) {
-          echo 'repeated long: ' . $matches[2] . ' -- ' . $line;
+          error_log('repeated long: ' . $matches[2] . ' -- ' . $line);
         }
         $longs[] = $matches[2];
 
       } else {
-        echo 'line does not fit: ', $line;
+        error_log('line does not fit to the pattern: ', $line);
       }
     }
     fclose($handle);

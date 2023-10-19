@@ -1,4 +1,110 @@
 # Calling Shelf-Ready completeness calculator
 . ./common-variables
 
-java -cp $JAR de.gwdg.metadataqa.marc.cli.ShelfReadyCompleteness $@
+ME=$(basename $0)
+
+show_usage() { # display help message
+  cat <<EOF
+QA catalogue shelf-ready completeness analysis
+
+usage:
+ ${ME} [options] <files>
+
+options:
+ -m, --marcVersion <arg>            MARC version ('OCLC' or 'DNB')
+ -h, --help                         display help
+ -n, --nolog                        do not display log messages
+ -l, --limit <arg>                  limit the number of records to process
+ -o, --offset <arg>                 the first record to process
+ -i, --id <arg>                     the MARC identifier (content of 001)
+ -d, --defaultRecordType <arg>      the default record type if the record's type is undetectable
+ -q, --fixAlephseq                  fix the known issues of Alephseq format
+ -a, --fixAlma                      fix the known issues of Alma format
+ -b, --fixKbr                       fix the known issues of Alma format
+ -p, --alephseq                     the source is in Alephseq format
+ -x, --marcxml                      the source is in MARCXML format
+ -y, --lineSeparated                the source is in line separated MARC format
+ -t, --outputDir <arg>              output directory
+ -r, --trimId                       remove spaces from the end of record IDs
+ -z, --ignorableFields <arg>        ignore fields from the analysis
+ -v, --ignorableRecords <arg>       ignore records from the analysis
+ -f, --marcFormat <arg>             MARC format (like 'ISO' or 'MARCXML')
+ -s, --dataSource <arg>             data source (file of stream)
+ -g, --defaultEncoding <arg>        default character encoding
+ -1, --alephseqLineType <arg>       Alephseq line type
+ -2, --picaIdField <arg>            PICA id field
+ -u, --picaSubfieldSeparator <arg>  PICA subfield separator
+ -j, --picaSchemaFile <arg>         Avram PICA schema file
+ -w, --schemaType <arg>             metadata schema type ('MARC21', 'UNIMARC', or 'PICA')
+ -k, --picaRecordType <arg>         picaRecordType
+ -c, --allowableRecords <arg>       allow records for the analysis
+ -e, --groupBy <arg>                group the results by the value of this data element (e.g. the ILN of  library)
+ -3, --groupListFile <arg>          the file which contains a list of ILN codes
+ -F, --fileName <arg>               the report file name (default is shelf-ready-completeness.csv)
+
+more info: https://github.com/pkiraly/qa-catalogue#shelf-ready-completeness-analysis
+
+EOF
+  exit 1
+}
+
+if [ $# -eq 0 ]; then
+  show_usage
+fi
+
+SHORT_OPTIONS="m:hnl:o:i:d:qabpxyt:rz:v:f:s:g:1:2:u:j:w:k:c:e:3:F:"
+LONG_OPTIONS="marcVersion:,help,nolog,limit:,offset:,id:,defaultRecordType:,fixAlephseq,fixAlma,fixKbr,alephseq,marcxml,lineSeparated,outputDir:,trimId,ignorableFields:,ignorableRecords:,marcFormat:,dataSource:,defaultEncoding:,alephseqLineType:,picaIdField:,picaSubfieldSeparator:,picaSchemaFile:,schemaType:,picaRecordType:,allowableRecords:,groupBy:,groupListFile:,fileName:"
+
+GETOPT=$(getopt \
+  -o ${SHORT_OPTIONS} \
+  --long ${LONG_OPTIONS} \
+  -n ${ME} -- "$@")
+eval set -- "${GETOPT}"
+
+PARAMS=""
+HELP=0
+while true ; do
+  case "$1" in
+    -m|--marcVersion)            PARAMS="$PARAMS --marcVersion $2" ;           shift 2 ;;
+    -h|--help)                   PARAMS="$PARAMS --help" ; HELP=1;             shift   ;;
+    -n|--nolog)                  PARAMS="$PARAMS --nolog" ;                    shift   ;;
+    -l|--limit)                  PARAMS="$PARAMS --limit $2" ;                 shift 2 ;;
+    -o|--offset)                 PARAMS="$PARAMS --offset $2" ;                shift 2 ;;
+    -i|--id)                     PARAMS="$PARAMS --id $2" ;                    shift 2 ;;
+    -d|--defaultRecordType)      PARAMS="$PARAMS --defaultRecordType $2" ;     shift 2 ;;
+    -q|--fixAlephseq)            PARAMS="$PARAMS --fixAlephseq" ;              shift   ;;
+    -a|--fixAlma)                PARAMS="$PARAMS --fixAlma" ;                  shift   ;;
+    -b|--fixKbr)                 PARAMS="$PARAMS --fixKbr" ;                   shift   ;;
+    -p|--alephseq)               PARAMS="$PARAMS --alephseq" ;                 shift   ;;
+    -x|--marcxml)                PARAMS="$PARAMS --marcxml" ;                  shift   ;;
+    -y|--lineSeparated)          PARAMS="$PARAMS --lineSeparated" ;            shift   ;;
+    -t|--outputDir)              PARAMS="$PARAMS --outputDir $2" ;             shift 2 ;;
+    -r|--trimId)                 PARAMS="$PARAMS --trimId" ;                   shift   ;;
+    -z|--ignorableFields)        PARAMS="$PARAMS --ignorableFields $2" ;       shift 2 ;;
+    -v|--ignorableRecords)       PARAMS="$PARAMS --ignorableRecords $2" ;      shift 2 ;;
+    -f|--marcFormat)             PARAMS="$PARAMS --marcFormat $2" ;            shift 2 ;;
+    -s|--dataSource)             PARAMS="$PARAMS --dataSource $2" ;            shift 2 ;;
+    -g|--defaultEncoding)        PARAMS="$PARAMS --defaultEncoding $2" ;       shift 2 ;;
+    -1|--alephseqLineType)       PARAMS="$PARAMS --alephseqLineType $2" ;      shift 2 ;;
+    -2|--picaIdField)            PARAMS="$PARAMS --picaIdField $2" ;           shift 2 ;;
+    -u|--picaSubfieldSeparator)  PARAMS="$PARAMS --picaSubfieldSeparator $2" ; shift 2 ;;
+    -j|--picaSchemaFile)         PARAMS="$PARAMS --picaSchemaFile $2" ;        shift 2 ;;
+    -w|--schemaType)             PARAMS="$PARAMS --schemaType $2" ;            shift 2 ;;
+    -k|--picaRecordType)         PARAMS="$PARAMS --picaRecordType $2" ;        shift 2 ;;
+    -c|--allowableRecords)       PARAMS="$PARAMS --allowableRecords $2" ;      shift 2 ;;
+    -e|--groupBy)                PARAMS="$PARAMS --groupBy $2" ;               shift 2 ;;
+    -3|--groupListFile)          PARAMS="$PARAMS --groupListFile $2" ;         shift 2 ;;
+    -F|--fileName)               PARAMS="$PARAMS --fileName $2" ;              shift 2 ;;
+    --) shift ; break ;;
+    *) echo "Internal error!: $1" ; exit 1 ;;
+  esac
+done
+
+if [[ $HELP -eq 1 ]]; then
+  show_usage
+fi
+
+CMD="/usr/bin/java -Xmx2g -cp $JAR de.gwdg.metadataqa.marc.cli.ShelfReadyCompleteness"
+
+echo $CMD $PARAMS "$@"
+$CMD $PARAMS "$@"

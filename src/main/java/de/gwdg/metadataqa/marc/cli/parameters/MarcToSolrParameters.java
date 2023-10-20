@@ -10,7 +10,6 @@ public class MarcToSolrParameters extends CommonParameters {
   private String solrUrl = null;
   private boolean doCommit = false;
   private SolrFieldType solrFieldType = SolrFieldType.MARC;
-  private String validationUrl = null;
   private SolrClient mainClient = null;
   private SolrClient validationClient = null;
   private boolean indexWithTokenizedField = false;
@@ -24,7 +23,6 @@ public class MarcToSolrParameters extends CommonParameters {
       options.addOption("c", "doCommit", false, "send commits to Solr regularly");
       options.addOption("t", "solrFieldType", true,
         "type of Solr fields, could be one of 'marc-tags', 'human-readable', or 'mixed'");
-      options.addOption("A", "validationUrl", true, "the URL of the Solr server used in validation");
       options.addOption("B", "useEmbedded", false, "use embedded Solr server (used in tests only)");
       options.addOption("C", "indexWithTokenizedField", false, "index data elements as tokenized field as well");
       isOptionSet = true;
@@ -43,9 +41,6 @@ public class MarcToSolrParameters extends CommonParameters {
     if (cmd.hasOption("solrFieldType"))
       solrFieldType = SolrFieldType.byCode(cmd.getOptionValue("solrFieldType"));
 
-    if (cmd.hasOption("validationUrl"))
-      validationUrl = cmd.getOptionValue("validationUrl");
-
     if (cmd.hasOption("useEmbedded"))
       useEmbedded = true;
 
@@ -63,10 +58,6 @@ public class MarcToSolrParameters extends CommonParameters {
 
   public SolrFieldType getSolrFieldType() {
     return solrFieldType;
-  }
-
-  public String getValidationUrl() {
-    return validationUrl;
   }
 
   public SolrClient getMainClient() {
@@ -99,7 +90,6 @@ public class MarcToSolrParameters extends CommonParameters {
     text += String.format("solrUrl: %s%n", solrUrl);
     text += String.format("doCommit: %s%n", doCommit);
     text += String.format("solrFieldType: %s%n", solrFieldType);
-    text += String.format("validationUrl: %s%n", validationUrl);
     text += String.format("indexWithTokenizedField: %s%n", indexWithTokenizedField);
     return text;
   }

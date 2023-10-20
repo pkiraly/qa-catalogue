@@ -1,5 +1,9 @@
 # QA Catalogue Changelog
 
+## v0.8.0
+
+- [\#326](https://github.com/pkiraly/metadata-qa-marc/issues/326) Use GETOPT for the command line scripts
+
 ## v0.5.0
 
 ### New features

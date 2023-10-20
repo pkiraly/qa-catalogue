@@ -67,10 +67,10 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
       : new MarcSolrClient(parameters.getSolrUrl());
     client.setTrimId(parameters.getTrimId());
     client.indexWithTokenizedField(parameters.indexWithTokenizedField());
-    if (parameters.getValidationUrl() != null) {
+    if (parameters.getSolrForScoresUrl() != null) {
       validationClient = parameters.useEmbedded()
         ? new MarcSolrClient(parameters.getValidationClient())
-        : new MarcSolrClient(parameters.getValidationUrl());
+        : new MarcSolrClient(parameters.getSolrForScoresUrl());
       validationClient.setTrimId(parameters.getTrimId());
     }
     readyToProcess = true;

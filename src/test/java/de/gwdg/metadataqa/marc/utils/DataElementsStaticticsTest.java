@@ -12,12 +12,12 @@ public class DataElementsStaticticsTest {
     assertEquals(   8, statistics.keys().size());
     assertEquals(   6, statistics.get(DataElementType.controlFields));
     assertEquals( 212, statistics.get(DataElementType.controlFieldPositions));
-    assertEquals( 227, statistics.get(DataElementType.coreFields));
-    assertEquals( 181, statistics.get(DataElementType.coreIndicators));
-    assertEquals(2616, statistics.get(DataElementType.coreSubfields));
+    assertEquals( 229, statistics.get(DataElementType.coreFields));
+    assertEquals( 184, statistics.get(DataElementType.coreIndicators));
+    assertEquals(2667, statistics.get(DataElementType.coreSubfields));
     assertEquals( 214, statistics.get(DataElementType.localFields));
     assertEquals(  28, statistics.get(DataElementType.localIndicators));
-    assertEquals(1737, statistics.get(DataElementType.localSubfields));
-    assertEquals(5221, statistics.total());
+    assertEquals(1743, statistics.get(DataElementType.localSubfields));
+    assertEquals(5283, statistics.total());
   }
 }

@@ -102,7 +102,7 @@ public class Tag857 extends DataFieldDefinition {
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
-    getSubfield("a")
+    getSubfield("b")
       .setMqTag("archivingAgency");
 
     getSubfield("c")

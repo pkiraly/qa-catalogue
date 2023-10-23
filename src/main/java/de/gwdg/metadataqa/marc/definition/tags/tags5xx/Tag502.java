@@ -54,6 +54,7 @@ public class Tag502 extends DataFieldDefinition {
       "g", "Miscellaneous information", "R",
       "o", "Dissertation identifier", "R",
       "6", "Linkage", "NR",
+      "7", "Data provenance", "R",
       "8", "Field link and sequence number", "R"
     );
 
@@ -88,6 +89,9 @@ public class Tag502 extends DataFieldDefinition {
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("A");
+
+    getSubfield("7")
+      .setMqTag("dataProvenance");
 
     getSubfield("8")
       .setMqTag("fieldLink")

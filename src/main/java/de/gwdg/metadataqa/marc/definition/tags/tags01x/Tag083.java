@@ -56,6 +56,7 @@ public class Tag083 extends DataFieldDefinition {
       "z", "Table identification", "R",
       "2", "Edition information", "NR",
       "6", "Linkage", "NR",
+      "7", "Data provenance", "R",
       "8", "Field link and sequence number", "R"
     );
 
@@ -93,6 +94,9 @@ public class Tag083 extends DataFieldDefinition {
     getSubfield("6")
       .setBibframeTag("linkage")
       .setCompilanceLevels("A");
+
+    getSubfield("7")
+      .setMqTag("dataProvenance");
 
     getSubfield("8")
       .setMqTag("fieldLink")

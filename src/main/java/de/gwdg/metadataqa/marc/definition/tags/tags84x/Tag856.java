@@ -56,6 +56,7 @@ public class Tag856 extends DataFieldDefinition {
       )
       .setMqTag("accessMethod")
       .setFrbrFunctions(DiscoveryObtain);
+
     ind2 = new Indicator("Relationship")
       .setCodes(
         " ", "No information provided",
@@ -71,12 +72,17 @@ public class Tag856 extends DataFieldDefinition {
       "a", "Host name", "R",
       "c", "Compression information", "R",
       "d", "Path", "R",
+      "e", "Data provenance", "R",
       "f", "Electronic name", "R",
+      "l", "Standardized information governing access", "R",
       "m", "Contact for access assistance", "R",
+      "n", "Terms governing access", "R",
       "o", "Operating system", "NR",
       "p", "Port", "NR",
       "q", "Electronic format type", "NR",
+      "r", "Standardized information governing use and reproduction", "R",
       "s", "File size", "R",
+      "t", "Terms governing use and reproduction", "R",
       "u", "Uniform Resource Identifier", "R",
       "v", "Hours access method available", "R",
       "w", "Record control number", "R",
@@ -122,6 +128,9 @@ public class Tag856 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoveryObtain)
       .setCompilanceLevels("A");
 
+    getSubfield("e")
+      .setMqTag("dataProvenance");
+
     getSubfield("f")
       .setMqTag("name")
       .setFrbrFunctions(DiscoveryObtain)
@@ -153,17 +162,16 @@ public class Tag856 extends DataFieldDefinition {
       .setCompilanceLevels("A");
    */
 
+    getSubfield("l")
+      .setMqTag("access");
+
     getSubfield("m")
       .setMqTag("contact")
       .setFrbrFunctions(DiscoveryObtain)
       .setCompilanceLevels("O");
 
-    /*
     getSubfield("n")
-      .setMqTag("location")
-      .setFrbrFunctions(DiscoveryObtain)
-      .setCompilanceLevels("A");
-    */
+      .setMqTag("terms");
 
     getSubfield("o")
       .setMqTag("operatingSystem")
@@ -180,23 +188,15 @@ public class Tag856 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoveryObtain)
       .setCompilanceLevels("A");
 
-    /*
     getSubfield("r")
-      .setMqTag("settings")
-      .setFrbrFunctions(DiscoveryObtain)
-      .setCompilanceLevels("A");
-     */
+      .setMqTag("use");
 
     getSubfield("s")
       .setMqTag("fileSize")
       .setCompilanceLevels("O");
 
-    /*
     getSubfield("t")
-      .setMqTag("terminalEmulation")
-      .setFrbrFunctions(DiscoveryObtain)
-      .setCompilanceLevels("A");
-     */
+      .setMqTag("termsOfUse");
 
     getSubfield("u")
       .setMqTag("uri")

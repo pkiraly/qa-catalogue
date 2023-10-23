@@ -69,6 +69,7 @@ public class Tag653 extends DataFieldDefinition {
     setSubfieldsWithCardinality(
       "a", "Uncontrolled term", "R",
       "6", "Linkage", "NR",
+      "7", "Data provenance", "R",
       "8", "Field link and sequence number", "R"
     );
 
@@ -83,6 +84,9 @@ public class Tag653 extends DataFieldDefinition {
       .setMqTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("A");
+
+    getSubfield("7")
+      .setMqTag("dataProvenance");
 
     getSubfield("8")
       .setMqTag("fieldLink")

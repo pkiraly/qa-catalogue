@@ -56,6 +56,7 @@ public class Tag533 extends DataFieldDefinition {
       "f", "Series statement of reproduction", "R",
       "m", "Dates and/or sequential designation of issues reproduced", "R",
       "n", "Note about reproduction", "R",
+      "y", "Data provenance", "R",
       "3", "Materials specified", "NR",
       "5", "Institution to which field applies", "NR",
       "7", "Fixed-length data elements of reproduction", "NR",
@@ -113,6 +114,9 @@ public class Tag533 extends DataFieldDefinition {
     getSubfield("n")
       .setMqTag("note")
       .setCompilanceLevels("O");
+
+    getSubfield("y")
+      .setMqTag("dataProvenance");
 
     getSubfield("3")
       .setMqTag("materialsSpecified")

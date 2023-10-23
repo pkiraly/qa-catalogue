@@ -60,6 +60,7 @@ public class Tag264 extends DataFieldDefinition {
       "c", "Date of production, publication, distribution, manufacture, or copyright notice", "R",
       "3", "Materials specified", "NR",
       "6", "Linkage", "NR",
+      "7", "Data provenance", "R",
       "8", "Field link and sequence number", "R"
     );
 
@@ -79,6 +80,9 @@ public class Tag264 extends DataFieldDefinition {
 
     getSubfield("6")
       .setMqTag("linkage");
+
+    getSubfield("7")
+      .setMqTag("dataProvenance");
 
     getSubfield("8")
       .setMqTag("fieldLink");

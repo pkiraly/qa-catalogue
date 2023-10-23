@@ -54,7 +54,7 @@ public class Tag340 extends DataFieldDefinition {
       "c", "Materials applied to surface", "R",
       "d", "Information recording technique", "R",
       "e", "Support", "R",
-      "f", "Production rate/ratio", "R",
+      "f", "Reduction ratio value", "R",
       "g", "Color content", "R",
       "h", "Location within medium", "R",
       "i", "Technical specifications of medium", "R",

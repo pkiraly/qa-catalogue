@@ -80,6 +80,7 @@ public class Tag775 extends DataFieldDefinition {
       "h", "Physical description", "NR",
       "i", "Relationship information", "R",
       "k", "Series data for related item", "R",
+      "l", "Data provenance", "R",
       "m", "Material-specific details", "NR",
       "n", "Note", "R",
       "o", "Other item identifier", "R",
@@ -150,6 +151,9 @@ public class Tag775 extends DataFieldDefinition {
       .setBibframeTag("seriesStatement")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
       .setCompilanceLevels("O");
+
+    getSubfield("l")
+      .setMqTag("dataProvenance");
 
     getSubfield("m")
       .setBibframeTag("note").setMqTag("materialSpecificDetails")

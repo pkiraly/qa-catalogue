@@ -78,6 +78,7 @@ public class Tag111 extends DataFieldDefinition {
       "2", "Source of heading or term", "NR",
       "4", "Relationship", "R",
       "6", "Linkage", "NR",
+      "7", "Data provenance", "R",
       "8", "Field link and sequence number", "R"
     );
 
@@ -173,6 +174,9 @@ public class Tag111 extends DataFieldDefinition {
       .setMqTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("A", "A");
+
+    getSubfield("7")
+      .setMqTag("dataProvenance");
 
     getSubfield("8")
       .setMqTag("fieldLink")

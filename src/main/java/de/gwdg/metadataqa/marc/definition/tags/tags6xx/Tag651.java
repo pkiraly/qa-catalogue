@@ -79,6 +79,7 @@ public class Tag651 extends DataFieldDefinition {
       "2", "Source of heading or term", "NR",
       "3", "Materials specified", "NR",
       "6", "Linkage", "NR",
+      "7", "Data provenance", "R",
       "8", "Field link and sequence number", "R"
     );
 
@@ -147,6 +148,9 @@ public class Tag651 extends DataFieldDefinition {
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("A");
+
+    getSubfield("7")
+      .setMqTag("dataProvenance");
 
     getSubfield("8")
       .setMqTag("fieldLink")

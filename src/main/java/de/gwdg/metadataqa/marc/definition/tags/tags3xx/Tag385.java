@@ -50,6 +50,7 @@ public class Tag385 extends DataFieldDefinition {
       "2", "Source", "NR",
       "3", "Materials specified", "NR",
       "6", "Linkage", "NR",
+      "7", "Data provenance", "R",
       "8", "Field link and sequence number", "R"
     );
 
@@ -84,6 +85,9 @@ public class Tag385 extends DataFieldDefinition {
 
     getSubfield("6")
       .setBibframeTag("linkage");
+
+    getSubfield("7")
+      .setMqTag("dataProvenance");
 
     getSubfield("8")
       .setMqTag("fieldLink");

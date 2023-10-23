@@ -1,7 +1,9 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags5xx;
 
+import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
@@ -65,7 +67,7 @@ public class Tag533 extends DataFieldDefinition {
     );
     // TODO write parser for $7
     /*
-     /0 - Type of date/Publication status
+       /0 - Type of date/Publication status
        /1-4 - Date 1
        /5-8 - Date 2
        /9-11 - Place of publication, production, or execution
@@ -75,6 +77,46 @@ public class Tag533 extends DataFieldDefinition {
      */
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
+    getSubfield("7").setPositions(Arrays.asList(
+      new ControlfieldPositionDefinition("Type of date/Publication status", 0, 1),
+      new ControlfieldPositionDefinition("Date 1", 1, 5),
+      new ControlfieldPositionDefinition("Date 2", 5, 9),
+      new ControlfieldPositionDefinition("Place of publication, production, or execution", 9, 12),
+      new ControlfieldPositionDefinition("Frequency", 11, 13)
+        .setCodes(Utils.generateCodes(
+          " ", "No determinable frequency",
+          "a", "Annual",
+          "b", "Bimonthly",
+          "c", "Semiweekly",
+          "d", "Daily",
+          "e", "Biweekly",
+          "f", "Semiannual",
+          "g", "Biennial",
+          "h", "Triennial",
+          "i", "Three times a week",
+          "j", "Three times a month",
+          "k", "Continuously updated",
+          "n", "Not applicable",
+          "m", "Monthly",
+          "q", "Quarterly",
+          "s", "Semimonthly",
+          "t", "Three times a year",
+          "u", "Unknown",
+          "w", "Weekly",
+          "z", "Other frequencies"
+        ))
+        .setUnitLength(1)
+        .setRepeatableContent(true),
+      new ControlfieldPositionDefinition("Regularity", 13, 14)
+        .setCodes(Utils.generateCodes(
+          " ", "Not applicable",
+          "x", "Completely irregular",
+          "n", "Normalized irregular",
+          "r", "Regular",
+          "u", "Unknown"
+        )),
+      new ControlfieldPositionDefinition("Form of item", 14, 15)
+    ));
 
     getSubfield("a")
       .setMqTag("type")

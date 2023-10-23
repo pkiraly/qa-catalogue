@@ -47,6 +47,7 @@ public class Tag344 extends DataFieldDefinition {
       "f", "Tape configuration", "R",
       "g", "Configuration of playback channels", "R",
       "h", "Special playback characteristics", "R",
+      "i", "Sound content", "R",
       "0", "Authority record control number or standard number", "R",
       "1", "Real World Object URI", "R",
       "2", "Source", "NR",

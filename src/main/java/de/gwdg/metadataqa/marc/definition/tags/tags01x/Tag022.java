@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
@@ -62,6 +63,8 @@ public class Tag022 extends DataFieldDefinition {
       "m", "Canceled ISSN-L", "R",
       "y", "Incorrect ISSN", "R",
       "z", "Canceled ISSN", "R",
+      "0", "Authority record control number or standard number", "R",
+      "1", "Real World Object URI", "R",
       "2", "Source", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
@@ -96,6 +99,13 @@ public class Tag022 extends DataFieldDefinition {
       .setMqTag("canceled")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
       .setCompilanceLevels("A", "A");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance());
+
+    getSubfield("1")
+      .setMqTag("uri");
 
     getSubfield("2")
       .setMqTag("source")

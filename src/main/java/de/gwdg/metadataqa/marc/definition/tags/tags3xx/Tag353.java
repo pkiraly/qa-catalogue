@@ -1,49 +1,53 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags3xx;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.general.codelist.GenreFormCodeAndTermSourceCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
-import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
-import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 import java.util.Arrays;
 
-/**
- * Format of Notated Music
- * http://www.loc.gov/marc/bibliographic/bd348.html
- */
-public class Tag348 extends DataFieldDefinition {
-  private static Tag348 uniqueInstance;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoveryIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseInterpret;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseOperate;
 
-  private Tag348() {
+/**
+ * Supplementary Content Characteristics
+ * http://www.loc.gov/marc/bibliographic/bd353.html
+ */
+public class Tag353 extends DataFieldDefinition {
+  private static Tag353 uniqueInstance;
+
+  private Tag353() {
     initialize();
     postCreation();
   }
 
-  public static Tag348 getInstance() {
+  public static Tag353 getInstance() {
     if (uniqueInstance == null)
-      uniqueInstance = new Tag348();
+      uniqueInstance = new Tag353();
     return uniqueInstance;
   }
 
   private void initialize() {
-    tag = "348";
-    label = "Notated Music Characteristics";
-    bibframeTag = "MusicFormat";
-    mqTag = "NotatedMusicCharacteristics";
+    tag = "353";
+    label = "Supplementary Content Characteristics";
+    mqTag = "SupplementaryContentCharacteristics";
     cardinality = Cardinality.Repeatable;
-    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd348.html";
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd353.html";
 
     ind1 = new Indicator();
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "Format of notated music term", "R",
-      "b", "Format of notated music code", "R",
-      "c", "Form of musical notation term", "R",
-      "d", "Form of musical notation code", "R",
+      "a", "Supplementary content term", "R",
+      "b", "Supplementary content code", "R",
       "0", "Authority record control number or standard number", "R",
       "1", "Real World Object URI", "R",
       "2", "Source", "NR",
@@ -55,16 +59,10 @@ public class Tag348 extends DataFieldDefinition {
     getSubfield("6").setContentParser(LinkageParser.getInstance());
 
     getSubfield("a")
-      .setBibframeTag("rdfs:label").setMqTag("rdf:value");
+      .setMqTag("supplementaryContentTerm");
 
     getSubfield("b")
-      .setBibframeTag("code");
-
-    getSubfield("c")
-      .setMqTag("formOfMusicalNotationTerm");
-
-    getSubfield("d")
-      .setMqTag("formOfMusicalNotationCode");
+      .setMqTag("supplementaryContentCode");
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
@@ -74,20 +72,21 @@ public class Tag348 extends DataFieldDefinition {
       .setMqTag("uri");
 
     getSubfield("2")
-      .setBibframeTag("source");
+      .setBibframeTag("source")
+      .setCodeList(GenreFormCodeAndTermSourceCodes.getInstance());
 
     getSubfield("3")
-      .setMqTag("materialsSpecified");
+      .setBibframeTag("materialsSpecified");
 
     getSubfield("6")
-      .setBibframeTag("linkage");
+      .setBibframeTag("linkage")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("A");
 
     getSubfield("8")
-      .setMqTag("fieldLink");
-
-    putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
-      new SubfieldDefinition("7", "NKCR Authority ID", "NR")
-    ));
+      .setMqTag("fieldLink")
+      .setFrbrFunctions(ManagementIdentify, ManagementProcess)
+      .setCompilanceLevels("O");
 
     putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
       new SubfieldDefinition("*", "Link with identifier", "NR").setMqTag("link"),

@@ -3,6 +3,7 @@
 ## v0.8.0
 
 - [\#326](https://github.com/pkiraly/metadata-qa-marc/issues/326) Use GETOPT for the command line scripts
+- [\#104](https://github.com/pkiraly/qa-catalogue/issues/104) Implementing MARC Update No. 32, June 2021
 
 ## v0.5.0
 

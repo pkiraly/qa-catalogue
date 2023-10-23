@@ -1,70 +1,59 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags3xx;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.general.codelist.GenreFormCodeAndTermSourceCodes;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
-import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
-import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 import java.util.Arrays;
 
 /**
- * Format of Notated Music
- * http://www.loc.gov/marc/bibliographic/bd348.html
+ * Mode of Issuance
+ * http://www.loc.gov/marc/bibliographic/bd334.html
  */
-public class Tag348 extends DataFieldDefinition {
-  private static Tag348 uniqueInstance;
+public class Tag334 extends DataFieldDefinition {
+  private static Tag334 uniqueInstance;
 
-  private Tag348() {
+  private Tag334() {
     initialize();
     postCreation();
   }
 
-  public static Tag348 getInstance() {
+  public static Tag334 getInstance() {
     if (uniqueInstance == null)
-      uniqueInstance = new Tag348();
+      uniqueInstance = new Tag334();
     return uniqueInstance;
   }
 
   private void initialize() {
-    tag = "348";
-    label = "Notated Music Characteristics";
-    bibframeTag = "MusicFormat";
-    mqTag = "NotatedMusicCharacteristics";
+    tag = "334";
+    label = "Mode of Issuance";
+    mqTag = "ModeOfIssuance";
     cardinality = Cardinality.Repeatable;
-    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd348.html";
+    descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd334.html";
 
     ind1 = new Indicator();
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "Format of notated music term", "R",
-      "b", "Format of notated music code", "R",
-      "c", "Form of musical notation term", "R",
-      "d", "Form of musical notation code", "R",
+      "a", "Mode of issuance term", "NR",
+      "b", "Mode of issuance code", "NR",
       "0", "Authority record control number or standard number", "R",
       "1", "Real World Object URI", "R",
       "2", "Source", "NR",
-      "3", "Materials specified", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
     );
 
-    getSubfield("6").setContentParser(LinkageParser.getInstance());
-
     getSubfield("a")
-      .setBibframeTag("rdfs:label").setMqTag("rdf:value");
+      .setMqTag("modeOfIssuanceTerm");
 
     getSubfield("b")
-      .setBibframeTag("code");
-
-    getSubfield("c")
-      .setMqTag("formOfMusicalNotationTerm");
-
-    getSubfield("d")
-      .setMqTag("formOfMusicalNotationCode");
+      .setMqTag("modeOfIssuanceCode");
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
@@ -74,20 +63,15 @@ public class Tag348 extends DataFieldDefinition {
       .setMqTag("uri");
 
     getSubfield("2")
-      .setBibframeTag("source");
-
-    getSubfield("3")
-      .setMqTag("materialsSpecified");
+      .setBibframeTag("source")
+      .setCodeList(GenreFormCodeAndTermSourceCodes.getInstance());
 
     getSubfield("6")
-      .setBibframeTag("linkage");
+      .setBibframeTag("linkage")
+      .setContentParser(LinkageParser.getInstance());
 
     getSubfield("8")
       .setMqTag("fieldLink");
-
-    putVersionSpecificSubfields(MarcVersion.NKCR, Arrays.asList(
-      new SubfieldDefinition("7", "NKCR Authority ID", "NR")
-    ));
 
     putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(
       new SubfieldDefinition("*", "Link with identifier", "NR").setMqTag("link"),

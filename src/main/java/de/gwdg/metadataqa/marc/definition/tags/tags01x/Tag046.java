@@ -47,7 +47,15 @@ public class Tag046 extends DataFieldDefinition {
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd046.html";
     setCompilanceLevels("O");
 
-    ind1 = new Indicator();
+    ind1 = new Indicator("Type of entity")
+      .setCodes(
+        " ", "No information provided",
+        "1", "Work",
+        "2", "Expression",
+        "3", "Manifestation"
+      )
+      .setMqTag("typeOfEntity");
+
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
@@ -63,7 +71,10 @@ public class Tag046 extends DataFieldDefinition {
       "n", "End of date valid", "NR",
       "o", "Single or starting date for aggregated content", "NR",
       "p", "Ending date for aggregated content", "NR",
+      "x", "Nonpublic note", "R",
+      "z", "Public note", "R",
       "2", "Source of date", "NR",
+      "3", "Materials specified", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
     );
@@ -144,10 +155,19 @@ public class Tag046 extends DataFieldDefinition {
     getSubfield("p")
       .setMqTag("endingDateForAggregated");
 
+    getSubfield("x")
+      .setMqTag("nonpublicNote");
+
+    getSubfield("z")
+      .setMqTag("publicNote");
+
     getSubfield("2")
       .setMqTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("A");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified");
 
     getSubfield("6")
       .setBibframeTag("linkage")

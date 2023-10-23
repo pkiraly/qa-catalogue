@@ -63,6 +63,8 @@ public class Tag856 extends DataFieldDefinition {
         "0", "Resource",
         "1", "Version of resource",
         "2", "Related resource",
+        "3", "Component part(s) of resource",
+        "4", "Version of component part(s) of resource",
         "8", "No display constant generated"
       )
       .setMqTag("relationship")
@@ -74,12 +76,14 @@ public class Tag856 extends DataFieldDefinition {
       "d", "Path", "R",
       "e", "Data provenance", "R",
       "f", "Electronic name", "R",
+      "g", "Persistent identifier", "R",
+      "h", "Non-functioning Uniform Resource Identifier", "R",
       "l", "Standardized information governing access", "R",
       "m", "Contact for access assistance", "R",
       "n", "Terms governing access", "R",
       "o", "Operating system", "NR",
       "p", "Port", "NR",
-      "q", "Electronic format type", "NR",
+      "q", "Electronic format type", "R",
       "r", "Standardized information governing use and reproduction", "R",
       "s", "File size", "R",
       "t", "Terms governing use and reproduction", "R",
@@ -111,13 +115,6 @@ public class Tag856 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoveryObtain)
       .setCompilanceLevels("A");
 
-    /*
-    getSubfield("b")
-      .setMqTag("accessNumber")
-      .setFrbrFunctions(DiscoveryObtain)
-      .setCompilanceLevels("A");
-    */
-
     getSubfield("c")
       .setMqTag("compression")
       .setFrbrFunctions(DiscoveryObtain)
@@ -136,31 +133,11 @@ public class Tag856 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoveryObtain)
       .setCompilanceLevels("A");
 
-    /*
+    getSubfield("g")
+      .setMqTag("pid");
+
     getSubfield("h")
-      .setMqTag("processor")
-      .setCompilanceLevels("A");
-
-    getSubfield("i")
-      .setMqTag("instruction")
-      .setFrbrFunctions(DiscoveryObtain)
-      .setCompilanceLevels("O");
-
-    getSubfield("j")
-      .setMqTag("bitsPerSecond")
-      .setFrbrFunctions(DiscoveryObtain)
-      .setCompilanceLevels("A");
-
-    getSubfield("k")
-      .setMqTag("password")
-      .setFrbrFunctions(DiscoveryObtain)
-      .setCompilanceLevels("A");
-
-    getSubfield("l")
-      .setMqTag("logon")
-      .setFrbrFunctions(DiscoveryObtain)
-      .setCompilanceLevels("A");
-   */
+        .setMqTag("nonFunctioningURI");
 
     getSubfield("l")
       .setMqTag("access");

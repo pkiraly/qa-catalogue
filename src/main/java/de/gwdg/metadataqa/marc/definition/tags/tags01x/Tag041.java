@@ -80,6 +80,7 @@ public class Tag041 extends DataFieldDefinition {
       "r", "Language code of accessible visual language (non-textual)", "R",
       "t", "Language code of accompanying transcripts for audiovisual materials", "R",
       "2", "Source of code", "NR",
+      "3", "Materials specified", "NR",
       "6", "Linkage", "NR",
       "7", "Data provenance", "R",
       "8", "Field link and sequence number", "R"
@@ -170,6 +171,9 @@ public class Tag041 extends DataFieldDefinition {
     getSubfield("2")
       .setMqTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified");
 
     getSubfield("6")
       .setBibframeTag("linkage")

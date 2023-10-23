@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
@@ -68,6 +69,9 @@ public class Tag653 extends DataFieldDefinition {
 
     setSubfieldsWithCardinality(
       "a", "Uncontrolled term", "R",
+      "0", "Authority record control number or standard number", "R",
+      "1", "Real World Object URI", "R",
+      "5", "Institution to which field applies", "NR",
       "6", "Linkage", "NR",
       "7", "Data provenance", "R",
       "8", "Field link and sequence number", "R"
@@ -79,6 +83,16 @@ public class Tag653 extends DataFieldDefinition {
       .setMqTag("rdf:value")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
       .setCompilanceLevels("M");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance());
+
+    getSubfield("1")
+      .setMqTag("uri");
+
+    getSubfield("5")
+      .setMqTag("institutionToWhichFieldApplies");
 
     getSubfield("6")
       .setMqTag("linkage")

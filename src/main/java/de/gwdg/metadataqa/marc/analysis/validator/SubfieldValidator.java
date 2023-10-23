@@ -73,7 +73,7 @@ public class SubfieldValidator extends AbstractValidator {
             addError(path, ValidationErrorType.SUBFIELD_INVALID_VALUE, message);
             isValid = false;
           */
-          } else if (definition.getPositions() != null) {
+          } else if (definition.hasPositions()) {
             for (ControlfieldPositionDefinition positionDefinition : definition.getPositions()) {
               String positionValue = subfield.getValue().substring(positionDefinition.getPositionStart(), positionDefinition.getPositionEnd());
               if (!positionDefinition.validate(positionValue)) {

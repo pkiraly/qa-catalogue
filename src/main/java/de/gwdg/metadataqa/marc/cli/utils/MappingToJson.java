@@ -329,6 +329,9 @@ public class MappingToJson {
       codeMap.put("codelist", meta);
     }
 
+    if (subfield.hasPositions())
+      codeMap.put("positions", getSubfieldPositions(subfield));
+
     if (parameters.doExportFrbrFunctions())
       extractFunctions(codeMap, subfield.getFrbrFunctions());
 
@@ -336,6 +339,34 @@ public class MappingToJson {
       extractCompilanceLevel(codeMap, subfield.getNationalCompilanceLevel(), subfield.getMinimalCompilanceLevel());
 
     return codeMap;
+  }
+
+  private static Map<String, Object> getSubfieldPositions(SubfieldDefinition subfield) {
+    Map<String, Object> positionListMap = new LinkedHashMap<>();
+    for (ControlfieldPositionDefinition position : subfield.getPositions()) {
+      Map<String, Object> positionMap = new LinkedHashMap<>();
+      positionMap.put("label", position.getLabel());
+      positionMap.put("repeatable", position.isRepeatableContent());
+      positionMap.put("start", position.getPositionStart());
+      positionMap.put("end", position.getPositionEnd());
+      if (position.isRepeatableContent())
+        positionMap.put("unitLength", position.getUnitLength());
+
+      if (position.getCodes() != null && !position.getCodes().isEmpty()) {
+        List<Map<String, Object>> codes = new ArrayList<>();
+        for (EncodedValue code : position.getCodes()) {
+          Map<String, Object> codeInfo = new LinkedHashMap<>();
+          codeInfo.put("code", code.getCode());
+          codeInfo.put("label", code.getLabel());
+          if (code.getRange() != null)
+            codeInfo.put("range", code.getRange());
+          codes.add(codeInfo);
+        }
+        positionMap.put("codes", codes);
+      }
+      positionListMap.put(position.formatPositon(), positionMap);
+    }
+    return positionListMap;
   }
 
   private void extractCompilanceLevel(Map<String, Object> codeMap,

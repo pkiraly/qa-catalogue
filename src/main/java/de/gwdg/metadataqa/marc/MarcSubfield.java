@@ -101,8 +101,8 @@ public class MarcSubfield implements Serializable { // Validatable
   public String getCodeForIndex() {
     if (codeForIndex == null) {
       codeForIndex = "_" + code;
-      if (definition != null && definition.getCodeForIndex() != null) {
-        codeForIndex = definition.getCodeForIndex();
+      if (definition != null && definition.getCodeForIndex(marcRecord.getSchemaType()) != null) {
+        codeForIndex = definition.getCodeForIndex(marcRecord.getSchemaType());
       }
     }
     return codeForIndex;
@@ -128,10 +128,10 @@ public class MarcSubfield implements Serializable { // Validatable
       prefixCache = new HashMap<>();
     }
 
-    String tag = this.getField().getTag();
+    String tagForCache = this.getField().getTag();
     if (this.getField().getOccurrence() != null)
-      tag += "/" + this.getField().getOccurrence();
-    String cacheKey = String.format("%s$%s-%s-%s", tag, code, keyGenerator.getType().getType(), keyGenerator.getMarcVersion());
+      tagForCache += "/" + this.getField().getOccurrence();
+    String cacheKey = String.format("%s$%s-%s-%s", tagForCache, code, keyGenerator.getType().getType(), keyGenerator.getMarcVersion());
     if (!prefixCache.containsKey(cacheKey))
       prefixCache.put(cacheKey, keyGenerator.forSubfield(this));
     String prefix = prefixCache.get(cacheKey);

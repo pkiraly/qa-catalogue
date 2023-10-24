@@ -119,8 +119,8 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
       return;
 
     if (bibliographicRecord.getSchemaType().equals(SchemaType.PICA) && doGroups())
-      for (DataField field : bibliographicRecord.getDatafield(((PicaPath) groupBy).getTag()))
-        field.addFieldIndexer(groupIndexer);
+      for (DataField groupField : bibliographicRecord.getDatafield(((PicaPath) groupBy).getTag()))
+        groupField.addFieldIndexer(groupIndexer);
 
     Map<String, List<String>> map = bibliographicRecord.getKeyValuePairs(
       parameters.getSolrFieldType(), true, parameters.getMarcVersion()

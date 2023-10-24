@@ -12,6 +12,7 @@
 - [\#332](https://github.com/pkiraly/qa-catalogue/issues/332) Implementing MARC Update No. 35 (December 2022)
 - [\#333](https://github.com/pkiraly/qa-catalogue/issues/333) Implementing MARC Update No. 36 (June 2023)
 
+### Improvements
 
 ## v0.5.0
 

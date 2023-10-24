@@ -10,6 +10,7 @@ public class PicaFieldDefinition extends DataFieldDefinition {
   private String occurrence;
   private PicaRange range;
   private String id;
+  private String counter;
 
   private PicaFieldDefinition(){};
 
@@ -24,6 +25,7 @@ public class PicaFieldDefinition extends DataFieldDefinition {
     occurrence = picaTagDefinition.getOccurrence();
     id = picaTagDefinition.getId();
     range = picaTagDefinition.getRange();
+    counter = picaTagDefinition.getCounter();
     indexSubfields();
   }
 
@@ -37,6 +39,10 @@ public class PicaFieldDefinition extends DataFieldDefinition {
 
   public String getOccurrence() {
     return occurrence;
+  }
+
+  public String getCounter() {
+    return counter;
   }
 
   public PicaRange getRange() {
@@ -81,6 +87,7 @@ public class PicaFieldDefinition extends DataFieldDefinition {
     other.modified = getModified();
     other.pica3 = getPica3();
     other.occurrence = getOccurrence();
+    other.counter = getCounter();
     other.range = getRange();
     other.indexSubfields();
 

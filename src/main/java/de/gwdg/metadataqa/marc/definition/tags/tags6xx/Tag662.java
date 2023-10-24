@@ -10,9 +10,13 @@ import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTermSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
-import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 import java.util.Arrays;
+
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoveryIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoverySearch;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Subject Added Entry - Hierarchical Place Name

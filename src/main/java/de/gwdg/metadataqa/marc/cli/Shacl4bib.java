@@ -1,12 +1,8 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.api.calculator.output.MetricCollector;
-import de.gwdg.metadataqa.api.calculator.output.OutputCollector;
 import de.gwdg.metadataqa.api.configuration.ConfigurationReader;
 import de.gwdg.metadataqa.api.configuration.SchemaConfiguration;
-import de.gwdg.metadataqa.api.interfaces.MetricResult;
 import de.gwdg.metadataqa.api.rule.RuleCatalog;
-import de.gwdg.metadataqa.api.util.CompressionLevel;
 import de.gwdg.metadataqa.marc.CsvUtils;
 import de.gwdg.metadataqa.marc.RuleCatalogUtils;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
@@ -16,27 +12,24 @@ import de.gwdg.metadataqa.marc.cli.utils.BibSelector;
 import de.gwdg.metadataqa.marc.cli.utils.BibSelectorFactory;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.Record;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Shacl4bib extends QACli implements BibliographicInputProcessor, Serializable {
+public class Shacl4bib extends QACli<Shacl4bibParameters> implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(Shacl4bib.class.getCanonicalName());
   private final boolean readyToProcess;
-
-  private Shacl4bibParameters parameters;
   private File outputFile;
   private RuleCatalog ruleCatalog;
   private SchemaConfiguration schema;
@@ -98,8 +91,7 @@ public class Shacl4bib extends QACli implements BibliographicInputProcessor, Ser
     List<String> header = ruleCatalog.getHeader();
     header.add(0, "id");
     printToFile(outputFile, CsvUtils.createCsv(header));
-
-    saveParameters("shacl.params.json", parameters);
+    saveParameters("shacl4bib.params.json", parameters);
   }
 
   @Override
@@ -109,7 +101,12 @@ public class Shacl4bib extends QACli implements BibliographicInputProcessor, Ser
 
   @Override
   public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
+    // do nothing
+  }
 
+  @Override
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
+    // do nothing
   }
 
   @Override

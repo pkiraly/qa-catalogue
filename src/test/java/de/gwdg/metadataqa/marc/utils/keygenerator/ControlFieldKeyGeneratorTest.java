@@ -2,7 +2,24 @@ package de.gwdg.metadataqa.marc.utils.keygenerator;
 
 import de.gwdg.metadataqa.marc.dao.Control008;
 import de.gwdg.metadataqa.marc.dao.Leader;
-import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.*;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008all00;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008all06;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008all07;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008all11;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008all15;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008all35;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008all38;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008all39;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008book18;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008book22;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008book23;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008book24;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008book28;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008book29;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008book30;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008book31;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008book33;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008book34;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import org.junit.Test;
 

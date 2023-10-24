@@ -12,7 +12,11 @@ import de.gwdg.metadataqa.marc.definition.MarcFormat;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.utils.alephseq.AlephseqLine;
-import org.apache.commons.cli.*;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.InputStream;
@@ -62,6 +66,7 @@ public class CommonParameters implements Serializable {
   private SchemaType schemaType = SchemaType.MARC21;
   private String groupBy;
   private String groupListFile;
+  private String solrForScoresUrl;
 
   protected void setOptions() {
     if (!isOptionSet) {
@@ -73,8 +78,8 @@ public class CommonParameters implements Serializable {
       options.addOption("i", "id", true, "the MARC identifier (content of 001)");
       options.addOption("d", "defaultRecordType", true, "the default record type if the record's type is undetectable");
       options.addOption("q", "fixAlephseq", false, "fix the known issues of Alephseq format");
-      options.addOption("X", "fixAlma", false, "fix the known issues of Alma format");
-      options.addOption("R", "fixKbr", false, "fix the known issues of Alma format");
+      options.addOption("a", "fixAlma", false, "fix the known issues of Alma format");
+      options.addOption("b", "fixKbr", false, "fix the known issues of Alma format");
       options.addOption("p", "alephseq", false, "the source is in Alephseq format");
       options.addOption("x", "marcxml", false, "the source is in MARCXML format");
       options.addOption("y", "lineSeparated", false, "the source is in line separated MARC format");
@@ -85,15 +90,16 @@ public class CommonParameters implements Serializable {
       options.addOption("f", "marcFormat", true, "MARC format (like 'ISO' or 'MARCXML')");
       options.addOption("s", "dataSource", true, "data source (file of stream)");
       options.addOption("g", "defaultEncoding", true, "default character encoding");
-      options.addOption("A", "alephseqLineType", true, "Alephseq line type");
-      options.addOption("B", "picaIdField", true, "PICA id field");
-      options.addOption("D", "picaSubfieldSeparator", true, "PICA subfield separator");
-      options.addOption("E", "picaSchemaFile", true, "Avram PICA schema file");
-      options.addOption("F", "schemaType", true, "metadata schema type ('MARC21', 'UNIMARC', or 'PICA')");
-      options.addOption("G", "picaRecordType", true, "picaRecordType");
-      options.addOption("I", "allowableRecords", true, "allow records for the analysis");
-      options.addOption("J", "groupBy", true, "group the results by the value of this data element (e.g. the ILN of  library)");
-      options.addOption("K", "groupListFile", true, "the file which contains a list of ILN codes");
+      options.addOption("1", "alephseqLineType", true, "Alephseq line type");
+      options.addOption("2", "picaIdField", true, "PICA id field");
+      options.addOption("u", "picaSubfieldSeparator", true, "PICA subfield separator");
+      options.addOption("j", "picaSchemaFile", true, "Avram PICA schema file");
+      options.addOption("w", "schemaType", true, "metadata schema type ('MARC21', 'UNIMARC', or 'PICA')");
+      options.addOption("k", "picaRecordType", true, "picaRecordType");
+      options.addOption("c", "allowableRecords", true, "allow records for the analysis");
+      options.addOption("e", "groupBy", true, "group the results by the value of this data element (e.g. the ILN of  library)");
+      options.addOption("3", "groupListFile", true, "the file which contains a list of ILN codes");
+      options.addOption("4", "solrForScoresUrl", true, "the URL of the Solr server used to store scores");
 
       isOptionSet = true;
     }
@@ -136,6 +142,7 @@ public class CommonParameters implements Serializable {
     readPicaRecordType();
     readGroupBy();
     readGroupListFile();
+    readSolrForScoresUrl();
 
     args = cmd.getArgs();
   }
@@ -150,7 +157,6 @@ public class CommonParameters implements Serializable {
       picaRecordTypeField = cmd.getOptionValue("picaRecordType");
   }
 
-
   private void readGroupBy() {
     if (cmd.hasOption("groupBy"))
       groupBy = cmd.getOptionValue("groupBy");
@@ -159,6 +165,11 @@ public class CommonParameters implements Serializable {
   private void readGroupListFile() {
     if (cmd.hasOption("groupListFile"))
       groupListFile = cmd.getOptionValue("groupListFile");
+  }
+
+  private void readSolrForScoresUrl() {
+    if (cmd.hasOption("solrForScoresUrl"))
+      solrForScoresUrl = cmd.getOptionValue("solrForScoresUrl");
   }
 
   private void readPicaSubfieldSeparator() {
@@ -540,6 +551,10 @@ public class CommonParameters implements Serializable {
     return groupListFile;
   }
 
+  public String getSolrForScoresUrl() {
+    return solrForScoresUrl;
+  }
+
   public String formatParameters() {
     String text = "";
     text += String.format("schemaType: %s%n", schemaType);
@@ -570,6 +585,7 @@ public class CommonParameters implements Serializable {
     }
     text += String.format("groupBy: %s%n", groupBy);
     text += String.format("groupListFile: %s%n", groupListFile);
+    text += String.format("solrForScoresUrl: %s%n", solrForScoresUrl);
 
     return text;
   }

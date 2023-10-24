@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.cli;
 
+import de.gwdg.metadataqa.marc.cli.utils.PairGenerator;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.analysis.NetworkAnalyzer;
@@ -8,6 +9,7 @@ import de.gwdg.metadataqa.marc.cli.parameters.NetworkAction;
 import de.gwdg.metadataqa.marc.cli.parameters.NetworkParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.marc4j.marc.Record;
@@ -18,17 +20,18 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
 
-public class NetworkAnalysis implements BibliographicInputProcessor, Serializable {
+public class NetworkAnalysis extends QACli<NetworkParameters> implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(NetworkAnalysis.class.getCanonicalName());
 
-  private final NetworkParameters parameters;
   private final boolean readyToProcess;
   private final List<String> orphans = new ArrayList<>();
   private BufferedWriter networkWriter;
@@ -74,7 +77,12 @@ public class NetworkAnalysis implements BibliographicInputProcessor, Serializabl
 
   @Override
   public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
+    // do nothing
+  }
 
+  @Override
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
+    // do nothing
   }
 
   @Override
@@ -106,6 +114,7 @@ public class NetworkAnalysis implements BibliographicInputProcessor, Serializabl
     } catch (IOException e) {
       logger.log(Level.WARNING, "document", e);
     }
+    saveParameters("network.params.json", parameters);
   }
 
   @Override

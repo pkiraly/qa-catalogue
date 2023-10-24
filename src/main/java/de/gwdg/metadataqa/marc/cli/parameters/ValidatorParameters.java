@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.cli.parameters;
 
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
-import org.apache.commons.cli.*;
+import org.apache.commons.cli.ParseException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,15 +26,15 @@ public class ValidatorParameters extends CommonParameters implements Serializabl
   protected void setOptions() {
     if (!isOptionSet) {
       super.setOptions();
-      options.addOption("g", "summaryFileName", true, "the summary file name (provides a summary of issues, such as the number of instance and number of records having the particular issue)");
-      options.addOption("s", "summary", false, "show summary instead of record level display");
-      options.addOption("h", "details", false, "show record level display");
-      options.addOption("f", "detailsFileName", true,
+      options.addOption("G", "summaryFileName", true, "the summary file name (provides a summary of issues, such as the number of instance and number of records having the particular issue)");
+      options.addOption("S", "summary", false, "show summary instead of record level display");
+      options.addOption("H", "details", false, "show record level display");
+      options.addOption("F", "detailsFileName", true,
         String.format("the report file name (default is '%s')", ValidatorParameters.DEFAULT_DETAILS_FILE_NAME));
-      options.addOption("r", "format", true, "specify a format");
-      options.addOption("w", "emptyLargeCollectors", false, "empty large collectors");
-      options.addOption("t", "collectAllErrors", false, "collect all errors (useful only for validating small number of records)");
-      options.addOption("i", "ignorableIssueTypes", true, "comma separated list of issue types not to collect");
+      options.addOption("R", "format", true, "specify a format");
+      options.addOption("W", "emptyLargeCollectors", false, "empty large collectors");
+      options.addOption("T", "collectAllErrors", false, "collect all errors (useful only for validating small number of records)");
+      options.addOption("I", "ignorableIssueTypes", true, "comma separated list of issue types not to collect");
       isOptionSet = true;
     }
   }

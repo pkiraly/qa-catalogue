@@ -9,9 +9,13 @@ import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.general.codelist.GeographicAreaSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.GeographicAreaCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
-import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 import java.util.Arrays;
+
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoverySearch;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoverySelect;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Geographic Area Code

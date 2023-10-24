@@ -2,7 +2,15 @@ package de.gwdg.metadataqa.marc.definition.general.indexer.subject;
 
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.definition.tags.tags01x.Tag072;
-import de.gwdg.metadataqa.marc.definition.tags.tags6xx.*;
+import de.gwdg.metadataqa.marc.definition.tags.tags6xx.Tag600;
+import de.gwdg.metadataqa.marc.definition.tags.tags6xx.Tag610;
+import de.gwdg.metadataqa.marc.definition.tags.tags6xx.Tag611;
+import de.gwdg.metadataqa.marc.definition.tags.tags6xx.Tag630;
+import de.gwdg.metadataqa.marc.definition.tags.tags6xx.Tag647;
+import de.gwdg.metadataqa.marc.definition.tags.tags6xx.Tag648;
+import de.gwdg.metadataqa.marc.definition.tags.tags6xx.Tag650;
+import de.gwdg.metadataqa.marc.definition.tags.tags6xx.Tag651;
+import de.gwdg.metadataqa.marc.definition.tags.tags6xx.Tag655;
 import org.junit.Test;
 
 import java.util.List;

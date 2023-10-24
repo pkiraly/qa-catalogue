@@ -144,10 +144,12 @@ public class ControlfieldPositionDefinition implements Serializable {
   }
 
   public boolean validate(String code) {
-    if (isRepeatableContent())
-      return validateRepeatable(code);
-    else
-      return validCodes.contains(code);
+    if (validCodes != null && !validCodes.isEmpty())
+      if (isRepeatableContent())
+        return validateRepeatable(code);
+      else
+        return validCodes.contains(code);
+    return true;
   }
 
   private boolean validateRepeatable(String code) {

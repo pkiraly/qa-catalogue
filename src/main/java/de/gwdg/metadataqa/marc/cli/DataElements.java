@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
@@ -20,6 +21,7 @@ import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Level;
@@ -77,6 +79,11 @@ public class DataElements implements BibliographicInputProcessor, Serializable {
 
   @Override
   public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
+    // do nothing
+  }
+
+  @Override
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
     // do nothing
   }
 

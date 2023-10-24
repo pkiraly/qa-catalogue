@@ -40,7 +40,8 @@ public class Tag384 extends DataFieldDefinition {
       .setCodes(
         " ", "Relationship to original unknown",
         "0", "Original key",
-        "1", "Transposed key"
+        "1", "Transposed key",
+        "2", "Key of representative expression"
       )
       .setMqTag("type");
     ind2 = new Indicator();
@@ -51,6 +52,7 @@ public class Tag384 extends DataFieldDefinition {
       "1", "Real World Object URI", "R",
       "3", "Materials specified", "NR",
       "6", "Linkage", "NR",
+      "7", "Data provenance", "R",
       "8", "Field link and sequence number", "R"
     );
 
@@ -73,6 +75,9 @@ public class Tag384 extends DataFieldDefinition {
     getSubfield("6")
       .setBibframeTag("linkage")
       .setCompilanceLevels("A");
+
+    getSubfield("7")
+      .setMqTag("dataProvenance");
 
     getSubfield("8")
       .setMqTag("fieldLink")

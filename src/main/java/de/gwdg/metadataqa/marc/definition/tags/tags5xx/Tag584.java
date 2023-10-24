@@ -9,7 +9,11 @@ import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 
 import java.util.Arrays;
 
-import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoveryIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementDisplay;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseManage;
 
 /**
  * Accumulation and Frequency of Use Note

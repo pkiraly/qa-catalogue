@@ -28,7 +28,7 @@ public class Position {
 
   public int value() {
     if (positionInt != null)
-      return (int)positionInt;
+      return positionInt;
     return -1;
   }
 

@@ -1,9 +1,10 @@
 package de.gwdg.metadataqa.marc.definition.controlpositions.leader;
 
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
-import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 import java.util.Arrays;
+
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Record length

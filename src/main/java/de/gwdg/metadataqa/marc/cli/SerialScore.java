@@ -8,6 +8,7 @@ import de.gwdg.metadataqa.marc.cli.parameters.SerialScoreParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.analysis.Serial;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -28,7 +29,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static de.gwdg.metadataqa.marc.Utils.*;
+import static de.gwdg.metadataqa.marc.Utils.quote;
+import static de.gwdg.metadataqa.marc.Utils.createRow;
 
 /**
  * usage:
@@ -37,14 +39,13 @@ import static de.gwdg.metadataqa.marc.Utils.*;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class SerialScore implements BibliographicInputProcessor, Serializable {
+public class SerialScore extends QACli<SerialScoreParameters> implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(
     SerialScore.class.getCanonicalName()
   );
   private final Options options;
   private final boolean readyToProcess;
-  private SerialScoreParameters parameters;
   private File output = null;
   private Map<Integer, Integer> histogram = new HashMap<>();
 
@@ -91,6 +92,7 @@ public class SerialScore implements BibliographicInputProcessor, Serializable {
       logger.severe("Deletion of " + output.getAbsolutePath() + " was unsuccessful!");
 
     print(createRow(Serial.getHeader()));
+    saveParameters("serials.params.json", parameters);
   }
 
   @Override
@@ -99,7 +101,12 @@ public class SerialScore implements BibliographicInputProcessor, Serializable {
 
   @Override
   public void processRecord(Record marc4jRecord, int recordNumber) {
+    // do nothing
+  }
 
+  @Override
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
+    // do nothing
   }
 
   @Override

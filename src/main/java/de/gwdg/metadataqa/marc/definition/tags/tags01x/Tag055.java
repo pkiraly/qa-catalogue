@@ -9,9 +9,15 @@ import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
 import de.gwdg.metadataqa.marc.definition.general.codelist.ClassificationSchemeSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
-import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 import java.util.Arrays;
+
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoveryIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoveryObtain;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoverySearch;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoverySelect;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Classification Numbers Assigned in Canada

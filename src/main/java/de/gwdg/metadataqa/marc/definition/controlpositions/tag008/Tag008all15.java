@@ -3,9 +3,11 @@ package de.gwdg.metadataqa.marc.definition.controlpositions.tag008;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
 
-import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
-
 import java.util.Arrays;
+
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoveryIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoveryObtain;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoverySelect;
 
 /**
  * Place of publication, production, or execution

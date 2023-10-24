@@ -1,8 +1,6 @@
 package de.gwdg.metadataqa.marc.utils.pica.reader.xml;
 
 import de.gwdg.metadataqa.marc.cli.CliTestUtils;
-import de.gwdg.metadataqa.marc.utils.pica.reader.xml.PicaXmlHandler;
-import de.gwdg.metadataqa.marc.utils.pica.reader.xml.PicaXmlParser;
 import org.junit.Test;
 import org.marc4j.RecordStack;
 import org.marc4j.marc.Record;
@@ -12,7 +10,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class PicaXmlHandlerTest {
 

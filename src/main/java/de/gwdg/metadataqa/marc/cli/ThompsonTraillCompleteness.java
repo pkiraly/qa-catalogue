@@ -10,7 +10,10 @@ import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.dao.record.PicaRecord;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
-import org.apache.commons.cli.*;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.Record;
@@ -37,14 +40,13 @@ import static de.gwdg.metadataqa.marc.Utils.quote;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class ThompsonTraillCompleteness implements BibliographicInputProcessor, Serializable {
+public class ThompsonTraillCompleteness extends QACli<ThompsonTraillCompletenessParameters> implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(
     ThompsonTraillCompleteness.class.getCanonicalName()
   );
   private final Options options;
   private final boolean readyToProcess;
-  private ThompsonTraillCompletenessParameters parameters;
   private File output = null;
 
   public ThompsonTraillCompleteness(String[] args) throws ParseException {
@@ -91,6 +93,7 @@ public class ThompsonTraillCompleteness implements BibliographicInputProcessor, 
       logger.severe("Deletion of " + output.getAbsolutePath() + " was unsuccessful!");
 
     print(createRow(ThompsonTraillAnalysis.getHeader()));
+    saveParameters("tt-completeness.params.json", parameters);
   }
 
   @Override
@@ -99,7 +102,12 @@ public class ThompsonTraillCompleteness implements BibliographicInputProcessor, 
 
   @Override
   public void processRecord(Record marc4jRecord, int recordNumber) {
+    // do nothing
+  }
 
+  @Override
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
+    // do nothing
   }
 
   @Override

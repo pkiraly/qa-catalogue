@@ -11,9 +11,12 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.GenreFormCodeAndTermS
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 
-import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
-
 import java.util.Arrays;
+
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoveryIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoverySearch;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Index Term - Genre/Form
@@ -82,6 +85,7 @@ public class Tag655 extends DataFieldDefinition {
       "3", "Materials specified", "NR",
       "5", "Institution to which field applies", "NR",
       "6", "Linkage", "NR",
+      "7", "Data provenance", "R",
       "8", "Field link and sequence number", "R"
     );
 
@@ -151,6 +155,9 @@ public class Tag655 extends DataFieldDefinition {
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("A");
+
+    getSubfield("7")
+      .setMqTag("dataProvenance");
 
     getSubfield("8")
       .setMqTag("fieldLink")

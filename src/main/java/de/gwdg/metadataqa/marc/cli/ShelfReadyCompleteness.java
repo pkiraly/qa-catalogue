@@ -10,6 +10,7 @@ import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.dao.record.PicaRecord;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -40,14 +41,13 @@ import static de.gwdg.metadataqa.marc.Utils.quote;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class ShelfReadyCompleteness implements BibliographicInputProcessor, Serializable {
+public class ShelfReadyCompleteness extends QACli<ShelfReadyCompletenessParameters> implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(
     ShelfReadyCompleteness.class.getCanonicalName()
   );
   private final Options options;
   private final boolean readyToProcess;
-  private ShelfReadyCompletenessParameters parameters;
   private File output = null;
 
   public ShelfReadyCompleteness(String[] args) throws ParseException {
@@ -93,6 +93,7 @@ public class ShelfReadyCompleteness implements BibliographicInputProcessor, Seri
       logger.severe("Deletion of " + output.getAbsolutePath() + " was unsuccessful!");
 
     print(createRow(createHeaders()));
+    saveParameters("shelf-ready-completeness.params.json", parameters);
   }
 
   private List<String> createHeaders() {
@@ -109,7 +110,12 @@ public class ShelfReadyCompleteness implements BibliographicInputProcessor, Seri
 
   @Override
   public void processRecord(Record marc4jRecord, int recordNumber) {
+    // do nothing
+  }
 
+  @Override
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
+    // do nothing
   }
 
   @Override

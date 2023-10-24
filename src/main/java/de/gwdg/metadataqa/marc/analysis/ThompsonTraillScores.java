@@ -2,7 +2,11 @@ package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.marc.Utils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 
 public class ThompsonTraillScores {
   private Map<ThompsonTraillFields, Integer> scores;

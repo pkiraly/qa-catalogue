@@ -3,13 +3,13 @@ package de.gwdg.metadataqa.marc;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ValidationErrorTypeTest {
 
   @Test
   public void test() {
-    assertEquals(22, ValidationErrorType.values().length);
+    assertEquals(23, ValidationErrorType.values().length);
   }
 
   @Test

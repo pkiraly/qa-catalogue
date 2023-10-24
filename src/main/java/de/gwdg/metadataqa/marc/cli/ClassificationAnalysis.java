@@ -10,6 +10,7 @@ import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.Collocation;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.FileUtils;
@@ -24,18 +25,20 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
 
-public class ClassificationAnalysis implements BibliographicInputProcessor, Serializable {
+public class ClassificationAnalysis extends QACli<ClassificationParameters> implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(ClassificationAnalysis.class.getCanonicalName());
 
   private final Options options;
-  private ClassificationParameters parameters;
+  // private ClassificationParameters parameters;
   private boolean readyToProcess;
   private static char separator = ',';
   private File collectorFile;
@@ -76,7 +79,12 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
 
   @Override
   public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
+    // do nothing
+  }
 
+  @Override
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
+    // do nothing
   }
 
   @Override
@@ -103,25 +111,9 @@ public class ClassificationAnalysis implements BibliographicInputProcessor, Seri
     */
   }
 
-  private void printToFile(File file, String message) {
-    try {
-      FileUtils.writeStringToFile(file, message, Charset.defaultCharset(), true);
-    } catch (IOException | NullPointerException e) {
-      if (parameters.doLog())
-        logger.log(Level.SEVERE, "printToFile", e);
-    }
-  }
-
-  private File prepareReportFile(String outputDir, String fileName) {
-    File reportFile = new File(outputDir, fileName);
-    if (reportFile.exists() && !reportFile.delete())
-      logger.log(Level.SEVERE, "File {0} hasn't been deleted", new Object[]{reportFile.getAbsolutePath()});
-    return reportFile;
-  }
-
-
   @Override
   public void beforeIteration() {
+    saveParameters("classifications.params.json", parameters);
   }
 
   @Override

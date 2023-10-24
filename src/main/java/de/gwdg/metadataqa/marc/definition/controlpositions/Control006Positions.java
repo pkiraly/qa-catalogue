@@ -1,10 +1,58 @@
 package de.gwdg.metadataqa.marc.definition.controlpositions;
 
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006all00;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006book01;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006book05;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006book06;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006book07;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006book11;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006book12;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006book13;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006book14;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006book16;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006book17;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006computer05;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006computer06;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006computer09;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006computer11;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006continuing01;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006continuing02;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006continuing04;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006continuing05;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006continuing06;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006continuing07;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006continuing08;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006continuing11;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006continuing12;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006continuing16;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006continuing17;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006map01;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006map05;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006map08;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006map11;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006map12;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006map14;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006map16;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006mixed06;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006music01;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006music03;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006music04;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006music05;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006music06;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006music07;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006music13;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006music16;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006visual01;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006visual05;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006visual11;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006visual12;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006visual16;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006visual17;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
-import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.*;
 import de.gwdg.metadataqa.marc.definition.controltype.Control008Type;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
 public class Control006Positions extends ControlfieldPositionList {
 

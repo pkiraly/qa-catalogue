@@ -2,19 +2,28 @@ package de.gwdg.metadataqa.marc.cli.utils;
 
 import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.cli.parameters.MappingParameters;
-import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.CompilanceLevel;
+import de.gwdg.metadataqa.marc.definition.FRBRFunction;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.controlpositions.ControlfieldPositionList;
 import de.gwdg.metadataqa.marc.definition.structure.ControlFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
-import de.gwdg.metadataqa.marc.definition.tags.control.*;
 import de.gwdg.metadataqa.marc.definition.controlpositions.Control006Positions;
 import de.gwdg.metadataqa.marc.definition.controlpositions.Control007Positions;
 import de.gwdg.metadataqa.marc.definition.controlpositions.Control008Positions;
 import de.gwdg.metadataqa.marc.definition.controlpositions.LeaderPositions;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control001Definition;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control003Definition;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control005Definition;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control006Definition;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control007Definition;
+import de.gwdg.metadataqa.marc.definition.tags.control.Control008Definition;
+import de.gwdg.metadataqa.marc.definition.tags.control.LeaderDefinition;
 import de.gwdg.metadataqa.marc.utils.MarcTagLister;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
 import de.gwdg.metadataqa.marc.utils.keygenerator.PositionalControlFieldKeyGenerator;
@@ -24,7 +33,12 @@ import org.apache.commons.cli.ParseException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -315,6 +329,9 @@ public class MappingToJson {
       codeMap.put("codelist", meta);
     }
 
+    if (subfield.hasPositions())
+      codeMap.put("positions", getSubfieldPositions(subfield));
+
     if (parameters.doExportFrbrFunctions())
       extractFunctions(codeMap, subfield.getFrbrFunctions());
 
@@ -322,6 +339,34 @@ public class MappingToJson {
       extractCompilanceLevel(codeMap, subfield.getNationalCompilanceLevel(), subfield.getMinimalCompilanceLevel());
 
     return codeMap;
+  }
+
+  private static Map<String, Object> getSubfieldPositions(SubfieldDefinition subfield) {
+    Map<String, Object> positionListMap = new LinkedHashMap<>();
+    for (ControlfieldPositionDefinition position : subfield.getPositions()) {
+      Map<String, Object> positionMap = new LinkedHashMap<>();
+      positionMap.put("label", position.getLabel());
+      positionMap.put("repeatable", position.isRepeatableContent());
+      positionMap.put("start", position.getPositionStart());
+      positionMap.put("end", position.getPositionEnd());
+      if (position.isRepeatableContent())
+        positionMap.put("unitLength", position.getUnitLength());
+
+      if (position.getCodes() != null && !position.getCodes().isEmpty()) {
+        List<Map<String, Object>> codes = new ArrayList<>();
+        for (EncodedValue code : position.getCodes()) {
+          Map<String, Object> codeInfo = new LinkedHashMap<>();
+          codeInfo.put("code", code.getCode());
+          codeInfo.put("label", code.getLabel());
+          if (code.getRange() != null)
+            codeInfo.put("range", code.getRange());
+          codes.add(codeInfo);
+        }
+        positionMap.put("codes", codes);
+      }
+      positionListMap.put(position.formatPositon(), positionMap);
+    }
+    return positionListMap;
   }
 
   private void extractCompilanceLevel(Map<String, Object> codeMap,

@@ -2,7 +2,9 @@ package de.gwdg.metadataqa.marc.definition.tags.tags80x;
 
 import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
 import de.gwdg.metadataqa.marc.definition.general.codelist.NameAndTitleAuthoritySourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
@@ -13,9 +15,13 @@ import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 
-import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
-
 import java.util.Arrays;
+
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoveryIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoverySearch;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementSort;
 
 /**
  * Series Added Entry - Personal Name
@@ -82,6 +88,7 @@ public class Tag800 extends DataFieldDefinition {
       "v", "Volume/sequential designation", "NR",
       "w", "Bibliographic record control number", "R",
       "x", "International Standard Serial Number", "NR",
+      "y", "Data provenance", "R",
       "0", "Authority record control number or standard number", "R",
       "1", "Real World Object URI", "R",
       "2", "Source of heading or term", "NR",
@@ -239,6 +246,9 @@ public class Tag800 extends DataFieldDefinition {
     getSubfield("x")
       .setMqTag("issn")
       .setCompilanceLevels("O");
+
+    getSubfield("y")
+      .setMqTag("dataProvenance");
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")

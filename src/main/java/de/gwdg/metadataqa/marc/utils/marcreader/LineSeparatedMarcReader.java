@@ -4,11 +4,17 @@ import org.marc4j.MarcReader;
 import org.marc4j.MarcStreamReader;
 import org.marc4j.marc.Record;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class LineSeparatedMarcReader implements MarcReader {
+public class LineSeparatedMarcReader extends ErrorAwareReader implements MarcReader {
 
   private static final Logger logger = Logger.getLogger(LineSeparatedMarcReader.class.getCanonicalName());
 

@@ -10,7 +10,9 @@ import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 
 import java.util.Arrays;
 
-import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseManage;
 
 /**
  * Record Content Licensor

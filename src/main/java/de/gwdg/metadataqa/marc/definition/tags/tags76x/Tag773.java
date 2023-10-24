@@ -11,9 +11,16 @@ import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.ISBNValidator;
 import de.gwdg.metadataqa.marc.definition.general.validator.ISSNValidator;
-import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 import java.util.Arrays;
+
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoveryIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoveryObtain;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoverySearch;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoverySelect;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementDisplay;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Host Item Entry
@@ -67,6 +74,7 @@ public class Tag773 extends DataFieldDefinition {
       "h", "Physical description", "NR",
       "i", "Relationship information", "R",
       "k", "Series data for related item", "R",
+      "l", "Data provenance", "R",
       "m", "Material-specific details", "NR",
       "n", "Note", "R",
       "o", "Other item identifier", "R",
@@ -108,6 +116,7 @@ public class Tag773 extends DataFieldDefinition {
     getSubfield("d")
       .setBibframeTag("provisionActivityStatement")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain);
+
     getSubfield("g")
       .setBibframeTag("part")
       .setCompilanceLevels("A");
@@ -126,6 +135,9 @@ public class Tag773 extends DataFieldDefinition {
       .setBibframeTag("seriesStatement")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
       .setCompilanceLevels("O");
+
+    getSubfield("l")
+      .setMqTag("dataProvenance");
 
     getSubfield("m")
       .setBibframeTag("note").setMqTag("materialSpecificDetails")

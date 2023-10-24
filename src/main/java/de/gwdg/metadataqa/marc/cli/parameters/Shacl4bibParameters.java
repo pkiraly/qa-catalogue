@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputType;
-import org.apache.commons.cli.*;
+import org.apache.commons.cli.ParseException;
 
 public class Shacl4bibParameters extends CommonParameters {
 

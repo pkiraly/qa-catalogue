@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.cli;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class VersionTest {
 

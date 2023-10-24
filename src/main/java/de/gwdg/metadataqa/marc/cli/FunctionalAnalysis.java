@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.*;
+import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
@@ -13,6 +13,7 @@ import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.FRBRFunction;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.utils.Counter;
 import de.gwdg.metadataqa.marc.utils.FrbrFunctionLister;
@@ -27,19 +28,22 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
 
-public class FunctionalAnalysis implements BibliographicInputProcessor, Serializable {
+public class FunctionalAnalysis extends QACli<CompletenessParameters> implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(FunctionalAnalysis.class.getCanonicalName());
 
   private final Options options;
   private final boolean readyToProcess;
-  private final CompletenessParameters parameters;
   private FrbrFunctionLister frbrFunctionLister;
   private int recordNumber;
 
@@ -80,7 +84,12 @@ public class FunctionalAnalysis implements BibliographicInputProcessor, Serializ
 
   @Override
   public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
+    // do nothing
+  }
 
+  @Override
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
+    // do nothing
   }
 
   @Override
@@ -172,7 +181,7 @@ public class FunctionalAnalysis implements BibliographicInputProcessor, Serializ
 
   @Override
   public void beforeIteration() {
-    // do nothing
+    saveParameters("functions.params.json", parameters);
   }
 
   @Override

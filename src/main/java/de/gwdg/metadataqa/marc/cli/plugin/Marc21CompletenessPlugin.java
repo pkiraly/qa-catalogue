@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.cli.plugin;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.utils.TagHierarchy;
 
@@ -19,7 +20,7 @@ public class Marc21CompletenessPlugin implements CompletenessPlugin, Serializabl
 
   @Override
   public String getDocumentType(BibliographicRecord marcRecord) {
-    return marcRecord.getType().getValue();
+    return marcRecord != null ? marcRecord.getType().getValue() : Leader.Type.BOOKS.getValue();
   }
 
   @Override

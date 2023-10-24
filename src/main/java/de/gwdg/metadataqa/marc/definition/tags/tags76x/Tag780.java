@@ -14,7 +14,12 @@ import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 
 import java.util.Arrays;
 
-import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoveryIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoveryObtain;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoverySelect;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementDisplay;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Preceding Entry
@@ -75,6 +80,7 @@ public class Tag780 extends DataFieldDefinition {
       "h", "Physical description", "NR",
       "i", "Relationship information", "R",
       "k", "Series data for related item", "R",
+      "l", "Data provenance", "R",
       "m", "Material-specific details", "NR",
       "n", "Note", "R",
       "o", "Other item identifier", "R",
@@ -137,6 +143,9 @@ public class Tag780 extends DataFieldDefinition {
       .setBibframeTag("seriesStatement")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
       .setCompilanceLevels("O");
+
+    getSubfield("l")
+      .setMqTag("dataProvenance");
 
     getSubfield("m")
       .setBibframeTag("note").setMqTag("materialSpecificDetails")

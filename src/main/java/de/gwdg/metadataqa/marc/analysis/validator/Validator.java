@@ -22,7 +22,8 @@ import java.util.logging.Logger;
 import static de.gwdg.metadataqa.marc.Utils.count;
 
 public class Validator extends AbstractValidator {
-  private BibliographicRecord marcRecord;
+  private BibliographicRecord bibliographicRecord;
+  private List<ValidationError> parsingErrors;
 
   private static final Logger logger = Logger.getLogger(Validator.class.getCanonicalName());
 
@@ -34,15 +35,25 @@ public class Validator extends AbstractValidator {
     super(configuration);
   }
 
-  public boolean validate(BibliographicRecord marcRecord) {
-    this.marcRecord = marcRecord;
+  public Validator(ValidatorConfiguration configuration, List<ValidationError> parsingErrors) {
+    super(configuration);
+    this.parsingErrors = parsingErrors;
+  }
+
+  public boolean validate(BibliographicRecord bibliographicRecord) {
+    this.bibliographicRecord = bibliographicRecord;
 
     validationErrors = new ArrayList<>();
-    if (!marcRecord.getSchemaType().equals(SchemaType.PICA))
-      validateLeader();
-    validateUnhandledTags();
-    validateControlfields();
-    validateDatafields();
+    if (parsingErrors != null && !parsingErrors.isEmpty())
+      validationErrors.addAll(parsingErrors);
+
+    if (bibliographicRecord != null) {
+      if (!bibliographicRecord.getSchemaType().equals(SchemaType.PICA))
+        validateLeader();
+      validateUnhandledTags();
+      validateControlfields();
+      validateDatafields();
+    }
 
     // TODO: use reflection to get all validator class
     // ValidatorResponse validatorResponse;
@@ -53,13 +64,13 @@ public class Validator extends AbstractValidator {
   private boolean validateLeader() {
     boolean isValidComponent;
     LeaderValidator leaderValidator = new LeaderValidator(configuration);
-    isValidComponent = leaderValidator.validate(marcRecord.getLeader());
+    isValidComponent = leaderValidator.validate(bibliographicRecord.getLeader());
     // isValidComponent = marcRecord.getLeader().validate(configuration.getMarcVersion());
     if (!isValidComponent) {
       List<ValidationError> leaderErrors = leaderValidator.getValidationErrors();
       for (ValidationError leaderError : leaderErrors)
         if (leaderError.getRecordId() == null)
-          leaderError.setRecordId(marcRecord.getId());
+          leaderError.setRecordId(bibliographicRecord.getId());
       validationErrors.addAll(filterErrors(leaderErrors));
     }
     return isValidComponent;
@@ -67,16 +78,16 @@ public class Validator extends AbstractValidator {
 
   private boolean validateUnhandledTags() {
     boolean isValidRecord = true;
-    if (!marcRecord.getUnhandledTags().isEmpty()) {
+    if (!bibliographicRecord.getUnhandledTags().isEmpty()) {
       if (configuration.doSummary()) {
-        for (String tag : marcRecord.getUnhandledTags()) {
-          if (!marcRecord.isIgnorableField(tag, configuration.getIgnorableFields())
+        for (String tag : bibliographicRecord.getUnhandledTags()) {
+          if (!bibliographicRecord.isIgnorableField(tag, configuration.getIgnorableFields())
               && (!isIgnorableType(ValidationErrorType.FIELD_UNDEFINED)))
-            validationErrors.add(new ValidationError(marcRecord.getId(), tag, ValidationErrorType.FIELD_UNDEFINED, tag, null));
+            validationErrors.add(new ValidationError(bibliographicRecord.getId(), tag, ValidationErrorType.FIELD_UNDEFINED, tag, null));
         }
       } else {
         Map<String, Integer> tags = new LinkedHashMap<>();
-        for (String tag : marcRecord.getUnhandledTags())
+        for (String tag : bibliographicRecord.getUnhandledTags())
           Utils.count(tag, tags);
 
         List<String> unhandledTagsList = new ArrayList<>();
@@ -88,9 +99,9 @@ public class Validator extends AbstractValidator {
             unhandledTagsList.add(String.format("%s (%d*)", tag, entry.getValue()));
         }
         for (String tag : unhandledTagsList) {
-          if (!marcRecord.isIgnorableField(tag, configuration.getIgnorableFields())
+          if (!bibliographicRecord.isIgnorableField(tag, configuration.getIgnorableFields())
               && !isIgnorableType(ValidationErrorType.FIELD_UNDEFINED))
-            validationErrors.add(new ValidationError(marcRecord.getId(), tag, ValidationErrorType.FIELD_UNDEFINED, tag, null));
+            validationErrors.add(new ValidationError(bibliographicRecord.getId(), tag, ValidationErrorType.FIELD_UNDEFINED, tag, null));
         }
       }
 
@@ -102,7 +113,7 @@ public class Validator extends AbstractValidator {
   private boolean validateControlfields() {
     boolean isValidComponent = true;
     ControlFieldValidator controlFieldValidator = new ControlFieldValidator(configuration);
-    for (MarcControlField controlField : marcRecord.getControlfields()) {
+    for (MarcControlField controlField : bibliographicRecord.getControlfields()) {
       if (controlField != null) {
         isValidComponent = controlFieldValidator.validate(controlField);
         if (!isValidComponent) {
@@ -116,7 +127,7 @@ public class Validator extends AbstractValidator {
   private void validateDatafields() {
     DataFieldValidator validator = new DataFieldValidator(configuration);
     Map<RepetitionDao, Integer> repetitionCounter = new HashMap<>();
-    for (DataField field : marcRecord.getDatafields())
+    for (DataField field : bibliographicRecord.getDatafields())
       validateDatafield(validator, repetitionCounter, field);
 
     validateRepeatability(repetitionCounter);
@@ -132,7 +143,7 @@ public class Validator extends AbstractValidator {
                                  Map<RepetitionDao, Integer> repetitionCounter,
                                  DataField field) {
     ValidatorResponse validatorResponse;
-    if (field.getDefinition() != null && !marcRecord.isIgnorableField(field.getTag(), configuration.getIgnorableFields())) {
+    if (field.getDefinition() != null && !bibliographicRecord.isIgnorableField(field.getTag(), configuration.getIgnorableFields())) {
       RepetitionDao dao = new RepetitionDao(field.getTagWithOccurrence(), field.getDefinition());
       count(dao, repetitionCounter);
       if (!validator.validate(field))
@@ -152,7 +163,7 @@ public class Validator extends AbstractValidator {
         Integer count = entry.getValue();
         if (count > 1
             && fieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
-          validationErrors.add(new ValidationError(marcRecord.getId(), fieldDefinition.getExtendedTag(),
+          validationErrors.add(new ValidationError(bibliographicRecord.getId(), fieldDefinition.getExtendedTag(),
             ValidationErrorType.FIELD_NONREPEATABLE,
             String.format("there are %d instances", count),
             fieldDefinition.getDescriptionUrl()

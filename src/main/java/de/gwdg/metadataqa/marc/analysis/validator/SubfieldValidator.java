@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.definition.ValidatorResponse;
 import de.gwdg.metadataqa.marc.definition.general.parser.ParserException;
 import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.model.validation.ErrorsCollector;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
@@ -29,6 +30,7 @@ public class SubfieldValidator extends AbstractValidator {
   }
 
   public boolean validate(MarcSubfield subfield) {
+    boolean debug = subfield.getCode().equals("7");
     errors = new ErrorsCollector();
     validationErrors = new ArrayList<>();
     this.subfield = subfield;
@@ -71,6 +73,16 @@ public class SubfieldValidator extends AbstractValidator {
             addError(path, ValidationErrorType.SUBFIELD_INVALID_VALUE, message);
             isValid = false;
           */
+          } else if (definition.hasPositions()) {
+            for (ControlfieldPositionDefinition positionDefinition : definition.getPositions()) {
+              String positionValue = subfield.getValue().substring(positionDefinition.getPositionStart(), positionDefinition.getPositionEnd());
+              if (!positionDefinition.validate(positionValue)) {
+                String path = definition.getPath() + "/" + positionDefinition.formatPositon();
+                addError(path, ValidationErrorType.SUBFIELD_INVALID_VALUE,
+                  String.format("invalid code for '%s': '%s' at position %s in '%s'",
+                    positionDefinition.getLabel(), positionValue, positionDefinition.formatPositon(), subfield.getValue()));
+              }
+            }
           }
         }
       }

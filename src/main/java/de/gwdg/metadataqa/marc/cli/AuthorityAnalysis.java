@@ -10,6 +10,7 @@ import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
@@ -31,11 +32,10 @@ import java.util.logging.Logger;
 import static de.gwdg.metadataqa.marc.Utils.count;
 import static de.gwdg.metadataqa.marc.Utils.quote;
 
-public class AuthorityAnalysis implements BibliographicInputProcessor, Serializable {
+public class AuthorityAnalysis extends QACli<ValidatorParameters> implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(AuthorityAnalysis.class.getCanonicalName());
 
-  private CommonParameters parameters;
   private Map<Integer, Integer> histogram = new HashMap<>();
   private Map<Integer, String> frequencyExamples = new HashMap<>();
   private Map<Boolean, Integer> hasClassifications = new HashMap<>();
@@ -80,6 +80,11 @@ public class AuthorityAnalysis implements BibliographicInputProcessor, Serializa
   }
 
   @Override
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
+    // do nothing
+  }
+
+  @Override
   public void processRecord(BibliographicRecord marcRecord, int recordNumber) throws IOException {
     if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
       return;
@@ -94,7 +99,7 @@ public class AuthorityAnalysis implements BibliographicInputProcessor, Serializa
 
   @Override
   public void beforeIteration() {
-
+    saveParameters("authorities.params.json", parameters);
   }
 
   @Override

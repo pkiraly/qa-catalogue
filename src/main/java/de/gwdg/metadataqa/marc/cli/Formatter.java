@@ -6,10 +6,13 @@ import de.gwdg.metadataqa.marc.cli.parameters.FormatterParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.utils.SchemaSpec;
 import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 import de.gwdg.metadataqa.marc.utils.pica.path.PicaSpec;
-import org.apache.commons.cli.*;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.Record;
 
@@ -120,6 +123,11 @@ public class Formatter implements BibliographicInputProcessor {
             && parameters.getCountNr() == recordNumber)) {
       System.out.println(marc4jRecord.toString());
     }
+  }
+
+  @Override
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
+    // do nothing
   }
 
   @Override

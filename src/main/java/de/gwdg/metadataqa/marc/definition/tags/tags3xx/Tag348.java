@@ -30,8 +30,9 @@ public class Tag348 extends DataFieldDefinition {
 
   private void initialize() {
     tag = "348";
-    label = "Format of Notated Music";
+    label = "Notated Music Characteristics";
     bibframeTag = "MusicFormat";
+    mqTag = "NotatedMusicCharacteristics";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd348.html";
 
@@ -41,11 +42,14 @@ public class Tag348 extends DataFieldDefinition {
     setSubfieldsWithCardinality(
       "a", "Format of notated music term", "R",
       "b", "Format of notated music code", "R",
+      "c", "Form of musical notation term", "R",
+      "d", "Form of musical notation code", "R",
       "0", "Authority record control number or standard number", "R",
       "1", "Real World Object URI", "R",
       "2", "Source", "NR",
       "3", "Materials specified", "NR",
       "6", "Linkage", "NR",
+      "7", "Data provenance", "R",
       "8", "Field link and sequence number", "R"
     );
 
@@ -56,6 +60,12 @@ public class Tag348 extends DataFieldDefinition {
 
     getSubfield("b")
       .setBibframeTag("code");
+
+    getSubfield("c")
+      .setMqTag("formOfMusicalNotationTerm");
+
+    getSubfield("d")
+      .setMqTag("formOfMusicalNotationCode");
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")
@@ -72,6 +82,9 @@ public class Tag348 extends DataFieldDefinition {
 
     getSubfield("6")
       .setBibframeTag("linkage");
+
+    getSubfield("7")
+      .setMqTag("dataProvenance");
 
     getSubfield("8")
       .setMqTag("fieldLink");

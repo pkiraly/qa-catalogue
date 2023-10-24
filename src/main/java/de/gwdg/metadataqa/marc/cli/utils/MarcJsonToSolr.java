@@ -5,7 +5,6 @@ import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.datastore.MarcSolrClient;
-import org.apache.solr.client.solrj.SolrServerException;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

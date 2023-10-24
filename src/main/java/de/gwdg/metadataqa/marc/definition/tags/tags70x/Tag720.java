@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags70x;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
@@ -10,7 +11,10 @@ import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 
 import java.util.Arrays;
 
-import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoveryIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoverySearch;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Added Entry - Uncontrolled Name
@@ -52,8 +56,12 @@ public class Tag720 extends DataFieldDefinition {
     setSubfieldsWithCardinality(
       "a", "Name", "NR",
       "e", "Relator term", "R",
+      "0", "Authority record control number or standard number", "R",
+      "1", "Real World Object URI", "R",
       "4", "Relationship", "R",
+      "5", "Institution to which field applies", "NR",
       "6", "Linkage", "NR",
+      "7", "Data provenance", "R",
       "8", "Field link and sequence number", "R"
     );
 
@@ -69,16 +77,29 @@ public class Tag720 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoveryIdentify)
       .setCompilanceLevels("O");
 
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance());
+
+    getSubfield("1")
+      .setMqTag("uri");
+
     getSubfield("4")
       .setMqTag("relationship")
       .setCodeList(RelatorCodes.getInstance())
       .setFrbrFunctions(DiscoveryIdentify)
       .setCompilanceLevels("O");
 
+    getSubfield("5")
+      .setMqTag("institutionToWhichFieldApplies");
+
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("A");
+
+    getSubfield("7")
+      .setMqTag("dataProvenance");
 
     getSubfield("8")
       .setMqTag("fieldLink")

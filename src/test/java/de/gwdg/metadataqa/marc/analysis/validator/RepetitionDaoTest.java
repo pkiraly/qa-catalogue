@@ -4,7 +4,10 @@ import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.utils.pica.PicaDatafieldFactory;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 public class RepetitionDaoTest {
 

@@ -14,8 +14,11 @@ import org.junit.Test;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static junit.framework.TestCase.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 
 public class CommonParametersTest {
 
@@ -245,7 +248,8 @@ public class CommonParametersTest {
         "defaultEncoding: null\n" +
         "alephseqLineType: null\n" +
         "groupBy: null\n" +
-        "groupListFile: null\n";
+        "groupListFile: null\n" +
+        "solrForScoresUrl: null\n";
       assertEquals(expected, parameters.formatParameters());
     } catch (ParseException e) {
       logger.log(Level.WARNING, "error in formatParameters()", e);

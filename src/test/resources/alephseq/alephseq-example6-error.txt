@@ -1,0 +1,103 @@
+003141910 FMT   L BK
+003141910 LDR   L 00000cam^a2200385ui^4500
+003141910 001   L 003141910
+003141910 003   L BE-GnUNI
+003141910 005   L 20230911155615.0
+003141910 008   L 920115s1978^^^^gw^^^^^||^^^^|000^||ger|d
+003141910 020   L $$a3458318321
+003141910 020   L $$a9783458318323
+003141910 035   L $$a(OCoLC)83748762
+003141910 040   L $$aJPG$$beng$$cJPG$$dOCLCG$$dGBVCP$$dOCLCQ$$dOCLCA$$dOCLCO$$dOCLCQ
+003141910 1001  L $$aShakespeare, William,$$d1564-1616$$0(viaf)96994048
+003141910 24510 L $$aEinundzwanzig Sonette /$$cWilliam Shakespeare; Deutsch von Paul Celan; mit einem Nachwort von Helmut Viebrock.
+003141910 250   L $$a2. Aufl.
+003141910 260   L $$aFrankfurt am Main :$$bInsel,$$c1978.
+003141910 300   L $$a84 p.: ill.
+003141910 4900  L $$aInsel Taschenbuch ;$$v132
+003141910 500   L $$aEnglish and German on facing pages.
+003141910 500   L $$aIncludes facsimile t.p. of 1609 edition: Shake-speares Sonnets, never before imprinted. Also facsimile of first two sonnets of same edition.
+003141910 7400  L $$a21 Sonette.
+003141910 7400  L $$aShake-speares sonnets.
+003141910 7001  L $$aCelan, Paul,$$d1920-1970$$0(viaf)106122570$$gpseudoniem van Paul Antschel
+003141910 7001  L $$aViebrock, Helmut,$$d1912-1997$$0(viaf)92808711
+003141910 920   L $$abook
+003141910 SID   L $$aZ39$$bOLUCWORLDCAT
+003141910 CAT   L $$aSJMERTEN$$b20$$c20230830$$lRUG01$$h1323
+003141910 CAT   L $$aSJMERTEN$$b20$$c20230830$$lRUG01$$h1323
+003141910 CAT   L $$c20230831$$lRUG01$$h1200
+003141910 CAT   L $$c20230911$$lRUG01$$h1556
+003141910 336   L $$atext$$btxt$$2rdacontent
+003141910 337   L $$aunmediated$$bn$$2rdamedia
+003141910 338   L $$avolume$$bnc$$2rdacarrier
+003141910 8524  L $$bLW55$$cL32$$jLWBIB.L32.MOD.CELA.1978$$p910000750792$$4LW55$$5L32
+003141910 Z30-1 L $$lRUG01$$LRUG01$$mBOOK$$1LW55$$ALW55$$2L32$$BL32$$3LWBIB.L32.MOD.CELA.1978$$5910000750792$$820230830$$f01$$Fmagazijn/LOAN
+003141911 FMT   L BK
+003141911 LDR   L 00000nam^a22^^^^^^a^4500
+003141911 001   L 003141911
+003141911 003   L BE-GnUNI
+003141911 005   L 20230830132957.0
+003141911 008   L 230830|1985||||xx^||||||||||||||^||ger|d
+003141911 040   L $$aBE-GnUNI
+003141911 1001  L $$aLichtenberg, Georg Christoph,$$d1742-1799$$0(viaf)27067718
+003141911 24510 L $$aAphorismen, Essays, Briefe /$$cLichtenberg; hrsg. von Kurt Batt.
+003141911 250   L $$a4., neu durchgesehene Aufl.
+003141911 260   L $$aLeipzig :$$bDieterich'sche,$$c1985.
+003141911 300   L $$a692 p.: ill.
+003141911 4900  L $$aSammlung Dieterich$$v260
+003141911 7001  L $$aBatt, Kurt,$$d....-$$0(viaf)
+003141911 920   L $$abook
+003141911 CAT   L $$aSJMERTEN$$b20$$c20230830$$lRUG01$$h1329
+003141911 8524  L $$bLW55$$cL32$$jLWBIB.L32.18.LICH.1985$$p910000750793$$4LW55$$5L32
+003141911 Z30-1 L $$lRUG01$$LRUG01$$mBOOK$$1LW55$$ALW55$$2L32$$BL32$$3LWBIB.L32.18.LICH.1985$$5910000750793$$820230830$$f05$$Fonsite/LOAN
+003141912 FMT   L BK
+003141912 LDR   L 00000nam^a22^^^^^^a4500
+003141912 001   L 003141912
+003141912 003   L BE-GnUNI
+003141912 005   L 20230830132959.0
+003141912 008   L 060615q18uu^^^^xx^^^^^|r^^^^|000^||fre|d
+003141912 040   L $$aBE-GnUNI
+003141912 24500 L $$aGuillaume Ir :$$btableau exposé au palais de S. M. le Roi, à Bruxelles par M. le chev. Odevaere.
+003141912 260   L $$aS.l. :$$bs.n.,$$c[19e eeuw].
+003141912 300   L $$aP. 439-442: ill.
+003141912 7001  L $$aWillem I, prins van Oranje,$$d1533-1584$$0(viaf)261981977
+003141912 7001  L $$aOdevaere, Joseph Denis,$$d1776-1830$$0(viaf)5200190
+003141912 920   L $$aarticle
+003141912 LKR   L $$aUP$$b003141907$$lRUG01$$nDeel BIB.G.005988/1 van verzamelband BIB.G.005988/0-28$$mDeel BIB.G.005988/1: Guillaume Ir : tableau exposé au palais de S. M. le Roi, à Bruxelles par M. le chev. Odevaere.$$s02
+003141912 LKR   L $$aITM$$b003141907$$lRUG50
+003141912 CAT   L $$aPCASSIER$$b20$$c20230830$$lRUG01$$h1329
+003141912 8524  L $$bCA20$$cBIB$$jBIB.G.005988/0-28$$p900000087999$$4CA20$$5BIB
+003141912 Z30-1 L $$lRUG01$$LRUG01$$mBOOK$$1CA20$$ACA20$$2BIB$$BBIB$$3BIB.G.005988/0-28$$5900000087999$$820230830$$f03$$Fmagazijn/CONSULT
+003141913 FMT   L BK
+003141913 LDR   L 00000nam^a22^^^^^^a^4500
+003141913 001   L 003141913
+003141913 003   L BE-GnUNI
+003141913 005   L 20230830133351.0
+003141913 008   L 230830|1968||||xx^||||||||||||||^||ger|d
+003141913 040   L $$aBE-GnUNI
+003141913 1001  L $$aSpiel, Hilde,$$d....-$$0(viaf)
+003141913 24510 L $$aRückkehr nach Wien :$$bTagebuch 1946 /$$cHilde Spiel.
+003141913 260   L $$aMünchen :$$bNymphenburger,$$c1968.
+003141913 300   L $$a154 p.
+003141913 920   L $$abook
+003141913 CAT   L $$aSJMERTEN$$b20$$c20230830$$lRUG01$$h1333
+003141913 8524  L $$bLW55$$cL32$$jLWBIB.L32.MOD.SPIE.1968$$p910000750794$$4LW55$$5L32
+003141913 Z30-1 L $$lRUG01$$LRUG01$$mBOOK$$1LW55$$ALW55$$2L32$$BL32$$3LWBIB.L32.MOD.SPIE.1968$$5910000750794$$820230830$$f01$$Fmagazijn/LOAN
+003141914 FMT   L BK
+003141914 LDR   L 00000nam^a22^^^^^^u^4500
+003141914 001   L 003141914
+003141914 003   L BE-GnUNI
+003141914 005   L 20230830133647.0
+003141914 008   L 100203q1820^^^^xx^^^^^|r^^^^|000^||fre|d
+003141914 040   L $$aBE-GnUNI
+003141914 1001  L $$aCornelissen, Norbert,$$d1769-1849$$0(viaf)40276995
+003141914 24510 L $$aDévouement de Thémistocle et des Athéniens à la liberté de la Grèce ... tableau de 16 pieds de france sur 12 peint par J. Odevaere.
+003141914 260   L $$aS.l. :$$bs.n.,$$cca. 1820.
+003141914 300   L $$a[6] p.: ill.
+003141914 7001  L $$aOdevaere, Joseph Denis,$$d1776-1830$$0(viaf)5200190
+003141914 7001  L $$aThémistocle,$$d0524?-0459? av. J.-C$$0(viaf)268847437
+003141914 920   L $$abook
+003141914 LKR   L $$aUP$$b003141907$$lRUG01$$nDeel BIB.G.005988/2 van verzamelband BIB.G.005988/0-28$$mDeel BIB.G.005988/2: Dévouement de Thémistocle et des Athéniens à la liberté de la Grèce ... tableau de 16 pieds de france sur 12 peint par J. Odevaere$$s03
+003141914 LKR   L $$aITM$$b003141907$$lRUG50
+003141914 CAT   L $$aPCASSIER$$b20$$c20230830$$lRUG01$$h1336
+003141914 8524  L $$bCA20$$cBIB$$jBIB.G.005988/0-28$$p900000087999$$4CA20$$5BIB
+003141914 Z30-1 L $$lRUG01$$LRUG01$$mBOOK$$1CA20$$ACA20$$2BIB$$BBIB$$3BIB.G.005988/0-28$$5900000087999$$820230830$$f03$$Fmagazijn/CONSULT

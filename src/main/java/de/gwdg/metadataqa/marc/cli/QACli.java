@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gwdg.metadataqa.marc.CsvUtils;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
+import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.utils.BibiographicPath;
 import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
@@ -29,8 +30,10 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public abstract class QACli {
+public abstract class QACli<T extends CommonParameters> {
   private static final Logger logger = Logger.getLogger(QACli.class.getCanonicalName());
+  protected T parameters;
+
   public static final String ALL = "0";
   protected BibiographicPath groupBy = null;
   protected File idCollectorFile;
@@ -158,7 +161,8 @@ public abstract class QACli {
     try {
       FileUtils.writeStringToFile(file, content, Charset.defaultCharset(), true);
     } catch (IOException e) {
-      logger.log(Level.SEVERE, "printToFile", e);
+      if (parameters.doLog())
+        logger.log(Level.SEVERE, "printToFile", e);
     }
   }
 

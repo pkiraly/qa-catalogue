@@ -2,13 +2,14 @@ package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.api.model.selector.JsonSelector;
 import de.gwdg.metadataqa.api.util.FileUtils;
+import de.gwdg.metadataqa.marc.cli.utils.IteratorResponse;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.utils.alephseq.AlephseqLine;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.*;
+import org.junit.Test;
 import org.marc4j.marc.Record;
 
 import java.io.BufferedReader;
@@ -16,10 +17,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 public class MarcFactoryTest {
 
@@ -670,7 +679,8 @@ public class MarcFactoryTest {
         AlephseqLine alephseqLine = new AlephseqLine(line);
         if (alephseqLine.isValidTag()) {
           if (alephseqLine.isLeader() && !lines.isEmpty()) {
-            marc4jRecord = MarcFactory.createRecordFromAlephseq(lines);
+            IteratorResponse response = MarcFactory.createRecordFromAlephseq(lines);
+            marc4jRecord = response.getMarc4jRecord();
             lines = new ArrayList<>();
           }
           lines.add(alephseqLine);
@@ -678,7 +688,8 @@ public class MarcFactoryTest {
 
         line = reader.readLine();
       }
-      marc4jRecord = MarcFactory.createRecordFromAlephseq(lines);
+      IteratorResponse response = MarcFactory.createRecordFromAlephseq(lines);
+      marc4jRecord = response.getMarc4jRecord();
       org.marc4j.marc.DataField tag700 = (org.marc4j.marc.DataField) marc4jRecord.getVariableField("700");
       assertNotNull(tag700);
       assertNotNull(tag700.getSubfield('a'));
@@ -705,7 +716,7 @@ public class MarcFactoryTest {
         AlephseqLine alephseqLine = new AlephseqLine(line);
         if (alephseqLine.isValidTag()) {
           if (alephseqLine.isLeader() && !lines.isEmpty()) {
-            marc4jRecord = MarcFactory.createRecordFromAlephseq(lines);
+            marc4jRecord = MarcFactory.createRecordFromAlephseq(lines).getMarc4jRecord();
             lines = new ArrayList<>();
           }
           lines.add(alephseqLine);
@@ -713,7 +724,7 @@ public class MarcFactoryTest {
 
         line = reader.readLine();
       }
-      marc4jRecord = MarcFactory.createRecordFromAlephseq(lines);
+      marc4jRecord = MarcFactory.createRecordFromAlephseq(lines).getMarc4jRecord();
       assertNull(marc4jRecord.getLeader());
       reader.close();
     } catch (IOException e) {
@@ -735,7 +746,7 @@ public class MarcFactoryTest {
         AlephseqLine alephseqLine = new AlephseqLine(line);
         if (alephseqLine.isValidTag()) {
           if (alephseqLine.isLeader() && !lines.isEmpty()) {
-            marc4jRecord = MarcFactory.createRecordFromAlephseq(lines);
+            marc4jRecord = MarcFactory.createRecordFromAlephseq(lines).getMarc4jRecord();
             lines = new ArrayList<>();
           }
           lines.add(alephseqLine);
@@ -743,7 +754,7 @@ public class MarcFactoryTest {
 
         line = reader.readLine();
       }
-      marc4jRecord = MarcFactory.createRecordFromAlephseq(lines);
+      marc4jRecord = MarcFactory.createRecordFromAlephseq(lines).getMarc4jRecord();
       assertNull(marc4jRecord.getLeader());
       reader.close();
     } catch (IOException e) {

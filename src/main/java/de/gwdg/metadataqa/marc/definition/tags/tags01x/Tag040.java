@@ -9,9 +9,11 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.DescriptionConvention
 import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
-import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
 
 import java.util.Arrays;
+
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Cataloging Source

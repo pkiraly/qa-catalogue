@@ -42,10 +42,10 @@ Screenshot from the web UI of the QA catalogue
       * [Calculating Thompson-Traill completeness](#calculating-thompson-traill-completeness)
       * [Shelf-ready completeness analysis](#shelf-ready-completeness-analysis)
       * [Serial score analysis](#serial-score-analysis)
+      * [FRBR functional requirement analysis](#fbrb-functional-requirement-analysis)
     * Contextual analyses
       * [Classification analysis](#classification-analysis)
       * [Authority name analysis](#authority-name-analysis)
-    * [FRBR functional requirement analysis](#fbrb-functional-requirement-analysis)
     * [Field frequency distribution](#field-frequency-distribution)
     * [Generating cataloguing history chart](#generating-cataloguing-history-chart)
     * [Import tables to SQLite](#import-tables-to-sqlite)
@@ -57,6 +57,7 @@ Screenshot from the web UI of the QA catalogue
     * [Export mapping table](#export-mapping-table)
       * [to Avram JSON](#to-avram-json)
       * [to HTML](#to-html)
+    * [Shacl4Bib](#Shacl4Bib) 
 * [Extending the functionalities](#extending-the-functionalities)
 * [User interface](#user-interface)
 * Appendices
@@ -317,7 +318,7 @@ export JAR=target/metadata-qa-marc-0.6.0-jar-with-dependencies.jar
 
 Most of the analyses uses the following general parameters
 
-* `-F <type>`, `--schemaType <type>` metadata schema type. The supported types are:
+* `-w <type>`, `--schemaType <type>` metadata schema type. The supported types are:
   * `MARC21`
   * `PICA`
   * `UNIMARC` (assessment of UNIMARC records are not yet supported, this
@@ -370,10 +371,10 @@ Most of the analyses uses the following general parameters
   * `-q`, `--fixAlephseq` sometimes ALEPH export contains '^' characters
     instead of spaces in control fields (006, 007, 008). This flag replaces
     them with spaces before the validation. It might occur in any input format.
-  * `-X`, `--fixAlma` sometimes Alma export contains '#' characters instead of
+  * `-a`, `--fixAlma` sometimes Alma export contains '#' characters instead of
     spaces in control fields (006, 007, 008). This flag replaces them with
     spaces before the validation. It might occur in any input format.
-  * `-G`, `--fixKbr` KBR's export contains '#' characters instead spaces in
+  * `-b`, `--fixKbr` KBR's export contains '#' characters instead spaces in
     control fields (006, 007, 008). This flag replaces them with spaces before
     the validation. It might occur in any input format.
 * `-f <format>`, `--marcFormat <format>` The input format. Possible values are
@@ -408,7 +409,7 @@ Most of the analyses uses the following general parameters
   * `STREAM`: reading from a Java data stream. It is not usable if you use the
     tool from the command line, only if 
     you use it with its API.
-* `-I <configuration>`, `--allowableRecords <configuration>` if set, criteria
+* `-c <configuration>`, `--allowableRecords <configuration>` if set, criteria
   which allows analysis of records. If the record does not met the criteria, it
   will be excluded. An individual criterium should be formed as a MarcSpec (for
   MARC21 records) or PicaFilter (for PICA records). Multiple criteria might be 
@@ -419,20 +420,25 @@ Most of the analyses uses the following general parameters
   of which is problematic among multiple scripts, one can apply Base64 encoding.
   In this case add `base64:` prefix to the parameters, such as
   `base64:"$(echo '002@.0 !~ "^L" && 002@.0 !~ "^..[iktN]" && (002@.0 !~ "^.v" || 021A.a?)' | base64 -w 0)`.
+* `-1 <type>`, `--alephseqLineType <type>`, true, "Alephseq line type. The `type` could be
+  * `WITH_L`: the records' AlephSeq lines contain an `L ` string
+    (e.g. `000000002 008   L 780804s1977^^^^enk||||||b||||001^0|eng||`)
+  * `WITHOUT_L`: the records' AlephSeq lines do not contai an `L ` string
+    (e.g. `000000002 008   780804s1977^^^^enk||||||b||||001^0|eng||`)
 * PICA related parameters
-  * `-B <path>`, `--picaIdField <path>` the record identifier 
+  * `-2 <path>`, `--picaIdField <path>` the record identifier
+  * `-u <char>`, `--picaSubfieldSeparator <char>` the PICA subfield separator.
     subfield of PICA records. Default is `003@$0`.
-  * `-D <char>`, `--picaSubfieldSeparator <char>` the PICA subfield separator.
     Default is `$`.
-  * `-E <file>`, `--picaSchemaFile <file>` an Avram schema file, which describes
+  * `-j <file>`, `--picaSchemaFile <file>` an Avram schema file, which describes
     the structure of PICA records
-  * `-G <path>`, `--picaRecordType <path>` The PICA subfield which stores the
+  * `-k <path>`, `--picaRecordType <path>` The PICA subfield which stores the
     record type information. Default is `002@$0`.
 * Parameters for grouping analyses
-  * `-J <path>`, `--groupBy <path>` group the results by the value of this data 
+  * `-e <path>`, `--groupBy <path>` group the results by the value of this data 
     element (e.g. the ILN of libraries holding the item). An example: `--groupBy 001@$0`
     where `001@$0` is the subfield containing the comma separated list of library ILN codes.
-  * `-K <file>`, `--groupListFile <file>` the file which contains a list of ILN codes
+  * `-3 <file>`, `--groupListFile <file>` the file which contains a list of ILN codes
 
 The last argument of the commands are a list of files. It might contain any 
 wildcard the operating system supports ('*', '?', etc.).
@@ -476,26 +482,26 @@ options:
 
 * [general parameters](#general-parameters)
 * granularity of the report
-  * `-s`, `--summary`: creating a summary report instead of record level reports
-  * `-h`, `--details`: provides record level details of the issues
+  * `-S`, `--summary`: creating a summary report instead of record level reports
+  * `-H`, `--details`: provides record level details of the issues
 * output parameters:
-  * `-g <file>`, `--summaryFileName <file>`: the name of summary report the
+  * `-G <file>`, `--summaryFileName <file>`: the name of summary report the
     program produces. The file provides a summary of issues, such as the
     number of instance and number of records having the particular issue.
-  * `-f <file>`, `--detailsFileName <file>`: the name of report the program
+  * `-F <file>`, `--detailsFileName <file>`: the name of report the program
     produces. Default is `validation-report.txt`. If you use "stdout", it won't
     create file, but put results into the standard output.
-  * `-r <format>`, `--format <format>`: format specification of the output. Possible values:
+  * `-R <format>`, `--format <format>`: format specification of the output. Possible values:
     * `text` (default), 
     * `tab-separated` or `tsv`,
     * `comma-separated` or `csv`
-* `-w`, `--emptyLargeCollectors`: the output files are created during the
+* `-W`, `--emptyLargeCollectors`: the output files are created during the
   process and not only at the end of it. It helps in memory  management if the
   input is large, and it has lots of errors, on the other hand the output file
   will be segmented, which should be handled after the process.
-* `-t`, `--collectAllErrors`: collect all errors (useful only for validating
+* `-T`, `--collectAllErrors`: collect all errors (useful only for validating
   small number of records). Default is turned off.
-* `-i <types>`, `--ignorableIssueTypes <types>`: comma separated list of issue
+* `-I <types>`, `--ignorableIssueTypes <types>`: comma separated list of issue
   types not to collect. The valid values are:
   * `undetectableType`: undetectable type
   * `invalidLinkage`: invalid linkage
@@ -527,7 +533,11 @@ total
 1192536
 ```
 
-* `issue-by-category.csv`: the counts of issues by categories
+* `issue-by-category.csv`: the counts of issues by categories. Columns:
+ * `id` the identifier of error category
+ * `category` the name of the category
+ * `instances` the number of instances of errors within the category (one record might have multiple instances of the same error)
+ * `records` the number of records having at least one of the errors within the category
 
 ```csv
 id,category,instances,records
@@ -815,22 +825,28 @@ If the data is _not_ grouped by libraries (no `--groupBy <path>` parameter), it 
 structure and import some of the CSV files into it:
 
 `issue_summary` table for the `issue-summary.csv`:
+
+It represents a particular type of error
 ```
-id         INTEGER,
-MarcPath   TEXT,
-categoryId INTEGER,
-typeId     INTEGER,
-type       TEXT,
-message    TEXT,
-url        TEXT,
-instances  INTEGER,
-records    INTEGER
+id         INTEGER,  -- identifier of the error
+MarcPath   TEXT,     -- the location of the error in the bibliographic record
+categoryId INTEGER,  -- the identifier of the category of the error
+typeId     INTEGER,  -- the identifier of the type of the error
+type       TEXT,     -- the description of the type
+message    TEXT,     -- extra contextual information 
+url        TEXT,     -- the url of the definition of the data element
+instances  INTEGER,  -- the number of instances this error occured
+records    INTEGER   -- the number of records this error occured in
 ```
+
 `issue_details` table for the `issue-details.csv`:
+
+Each row represents how many instances of an error occur in a particular bibliographic record
+
 ```
-id         TEXT,
-errorId    INTEGER,
-instances  INTEGER
+id         TEXT,    -- the record identifier
+errorId    INTEGER, -- the error identifier (-> issue_summary.id)
+instances  INTEGER  -- the number of instances of an error in the record
 ```
 
 ##### Union catalogue for multiple libraries
@@ -1006,10 +1022,14 @@ or
 options:
 
 * [general parameters](#general-parameters)
-* `-r <format>`, `--format <format>`: format specification of the output.
+* `-R <format>`, `--format <format>`: format specification of the output.
   Possible values are: 
   * `tab-separated` or `tsv`,
-  * `comma-separated` or `csv`
+  * `comma-separated` or `csv`,
+  * `text` or `txt`
+  * `json`
+* `-V`, `--advanced`: advanced mode (not yet implemented)
+* `-P`, `--onlyPackages`: only packages (not yet implemented)
 
 Output files:
 
@@ -1229,7 +1249,7 @@ or
 
 options:
 * [general parameters](#general-parameters)
-* `-f <file>`, `--fileName <file>`: the name of report the program produces.
+* `-F <file>`, `--fileName <file>`: the name of report the program produces.
   Default is `tt-completeness.csv`.
 
 It produces a CSV file like this:
@@ -1289,7 +1309,7 @@ or
 
 options:
 * [general parameters](#general-parameters)
-* `-f <file>`, `--fileName <file>`: the report file name (default is
+* `-F <file>`, `--fileName <file>`: the report file name (default is
   `shelf-ready-completeness.csv`)
 
 ### Serial score analysis
@@ -1323,8 +1343,102 @@ or
 
 options:
 * [general parameters](#general-parameters)
-* `-f <file>`, `--fileName <file>`: the report file name. Default is
+* `-F <file>`, `--fileName <file>`: the report file name. Default is
   `shelf-ready-completeness.csv`.
+
+### FRBR functional requirement analysis
+
+The Functional Requirements for Bibliographic Records (FRBR) document's main
+part defines the primary and secondary entities which became famous as FRBR
+models. Years later Tom Delsey created a mapping between the 12 functions and
+the individual MARC elements.
+
+Tom Delsey (2002) _Functional analysis of the MARC 21 bibliographic and
+holdings formats. Tech. report_. Library of Congress, 2002. Prepared for the
+Network Development and MARC Standards Office Library of Congress. Second
+Revision: September 17, 2003. https://www.loc.gov/marc/marc-functional-analysis/original_source/analysis.pdf.
+
+This analysis shows how these functions are supported by the records. Low
+support means that only small portion of the fields support a function are
+available in the records, strong support on the contrary means lots of fields
+are available. The analyses calculate the support of 12 functions for each
+record, and returns summary statistics.
+
+It is an experimental feature because it turned out, that the mapping covers
+about 2000 elements (fields, subfields, indicators etc.), however on an
+average record there are max several hundred elements, which results that even
+in the best record has about 10-15% of the totality of the elements supporting
+a given function. So the tool doesn't show you exact numbers, and the scale
+is not 0-100 but 0-[best score] which is different for every catalogue.
+
+The 12 functions:
+Discovery functions
+* search (DiscoverySearch): Search for a resource corresponding to stated
+  criteria (i.e., to search either a single entity or a set of entities using
+  an attribute or relationship of the entity as the search criteria).
+* identify (DiscoveryIdentify): Identify a resource (i.e., to confirm that the
+  entity described or located corresponds to the entity sought, or to
+  distinguish between two or more entities with similar characteristics).
+* select (DiscoverySelect): Select a resource that is appropriate to the user’s
+  needs (i.e., to choose an entity that meets the user’s requirements with
+  respect to content, physical format, etc., or to reject an entity as being
+  inappropriate to the user’s needs)
+* obtain (DiscoveryObtain): Access a resource either physically or
+  electronically through an online connection to a remote computer, and/or
+  acquire a resource through purchase, licence, loan, etc.
+
+Usage functions
+* restrict (UseRestrict): Control access to or use of a resource (i.e., to
+  restrict access to and/or use of an entity on the basis of proprietary
+  rights, administrative policy, etc.).
+* manage (UseManage): Manage a resource in the course of acquisition,
+  circulation, preservation, etc.
+* operate (UseOperate): Operate a resource (i.e., to open, display, play,
+  activate, run, etc. an entity that requires specialized equipment, software,
+  etc. for its operation).
+* interpret (UseInterpret): Interpret or assess the information contained in a
+  resource.
+
+Management functions
+* identify (ManagementIdentify): Identify a record, segment, field, or data
+  element (i.e., to differentiate one logical data component from another).
+* process (ManagementProcess): Process a record, segment, field, or data
+  element (i.e., to add, delete, replace, output, etc. a logical data component
+  by means of an automated process).
+* sort (ManagementSort): Sort a field for purposes of alphabetic or numeric
+  arrangement.
+* display (ManagementDisplay): Display a field or data element (i.e., to
+  display a field or data element with the appropriate print constant or as a
+  tracing).
+
+```bash
+java -cp $JAR de.gwdg.metadataqa.marc.cli.FunctionalAnalysis [options] <file>
+```
+with a bash script
+```bash
+./functional-analysis [options] <file>
+```
+or
+```bash
+catalogues/<catalogue>.sh functional-analysis
+```
+or
+```bash
+./qa-catalogue --params="[options]" functional-analysis
+```
+
+options:
+* [general parameters](#general-parameters)
+
+Output files:
+* `functional-analysis.csv`: the list of the 12 functions and their average
+  count (number of support fields), and average score (percentage of all
+  supporting fields available in the record)
+* `functional-analysis-mapping.csv`: the mapping of functions and data
+  elements
+* `functional-analysis-histogram.csv`: the histogram of scores and count of
+  records for each function (e.g. there are _x_ number of records which has
+  _j_ score for function _a_)
 
 ### Classification analysis
 
@@ -1424,100 +1538,6 @@ The output is a set of files:
   fields, which contains authority names information. It gives you a background
   that what other contextual information behind the authority names are
   available (such as the version of the authority name scheme)
-
-### FRBR functional requirement analysis
-
-The Functional Requirements for Bibliographic Records (FRBR) document's main
-part defines the primary and secondary entities which became famous as FRBR
-models. Years later Tom Delsey created a mapping between the 12 functions and 
-the individual MARC elements.
-
-Tom Delsey (2002) _Functional analysis of the MARC 21 bibliographic and
-holdings formats. Tech. report_. Library of Congress, 2002. Prepared for the
-Network Development and MARC Standards Office Library of Congress. Second 
-Revision: September 17, 2003. https://www.loc.gov/marc/marc-functional-analysis/original_source/analysis.pdf. 
-
-This analysis shows how these functions are supported by the records. Low
-support means that only small portion of the fields support a function are
-available in the records, strong support on the contrary means lots of fields
-are available. The analyses calculate the support of 12 functions for each
-record, and returns summary statistics.
-
-It is an experimental feature because it turned out, that the mapping covers
-about 2000 elements (fields, subfields, indicators etc.), however on an
-average record there are max several hundred elements, which results that even
-in the best record has about 10-15% of the totality of the elements supporting
-a given function. So the tool doesn't show you exact numbers, and the scale
-is not 0-100 but 0-[best score] which is different for every catalogue.
-
-The 12 functions:
-Discovery functions
-* search (DiscoverySearch): Search for a resource corresponding to stated
-  criteria (i.e., to search either a single entity or a set of entities using
-  an attribute or relationship of the entity as the search criteria).
-* identify (DiscoveryIdentify): Identify a resource (i.e., to confirm that the
-  entity described or located corresponds to the entity sought, or to
-  distinguish between two or more entities with similar characteristics).
-* select (DiscoverySelect): Select a resource that is appropriate to the user’s
-  needs (i.e., to choose an entity that meets the user’s requirements with
-  respect to content, physical format, etc., or to reject an entity as being
-  inappropriate to the user’s needs)
-* obtain (DiscoveryObtain): Access a resource either physically or
-  electronically through an online connection to a remote computer, and/or
-  acquire a resource through purchase, licence, loan, etc.
-
-Usage functions
-* restrict (UseRestrict): Control access to or use of a resource (i.e., to
-  restrict access to and/or use of an entity on the basis of proprietary
-  rights, administrative policy, etc.).
-* manage (UseManage): Manage a resource in the course of acquisition,
-  circulation, preservation, etc.
-* operate (UseOperate): Operate a resource (i.e., to open, display, play,
-  activate, run, etc. an entity that requires specialized equipment, software,
-  etc. for its operation).
-* interpret (UseInterpret): Interpret or assess the information contained in a
-  resource.
-
-Management functions
-* identify (ManagementIdentify): Identify a record, segment, field, or data
-  element (i.e., to differentiate one logical data component from another).
-* process (ManagementProcess): Process a record, segment, field, or data
-  element (i.e., to add, delete, replace, output, etc. a logical data component
-  by means of an automated process).
-* sort (ManagementSort): Sort a field for purposes of alphabetic or numeric
-  arrangement.
-* display (ManagementDisplay): Display a field or data element (i.e., to
-  display a field or data element with the appropriate print constant or as a
-  tracing).
-
-```bash
-java -cp $JAR de.gwdg.metadataqa.marc.cli.FunctionalAnalysis [options] <file>
-```
-with a bash script
-```bash
-./functional-analysis [options] <file>
-```
-or
-```bash
-catalogues/<catalogue>.sh functional-analysis
-```
-or
-```bash
-./qa-catalogue --params="[options]" functional-analysis
-```
-
-options:
-* [general parameters](#general-parameters)
-
-Output files:
-* `functional-analysis.csv`: the list of the 12 functions and their average
-  count (number of support fields), and average score (percentage of all
-  supporting fields available in the record)
-* `functional-analysis-mapping.csv`: the mapping of functions and data
-  elements
-* `functional-analysis-histogram.csv`: the histogram of scores and count of
-  records for each function (e.g. there are _x_ number of records which has
-  _j_ score for function _a_)
 
 ### Field frequency distribution
 

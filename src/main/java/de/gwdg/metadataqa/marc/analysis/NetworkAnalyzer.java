@@ -3,7 +3,9 @@ package de.gwdg.metadataqa.marc.analysis;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+
 
 public class NetworkAnalyzer {
 

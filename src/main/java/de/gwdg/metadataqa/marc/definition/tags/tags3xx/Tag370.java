@@ -55,6 +55,7 @@ public class Tag370 extends DataFieldDefinition {
       "3", "Materials specified", "NR",
       "4", "Relationship", "R",
       "6", "Linkage", "NR",
+      "7", "Data provenance", "R",
       "8", "Field link and sequence number", "R"
     );
 
@@ -104,6 +105,9 @@ public class Tag370 extends DataFieldDefinition {
 
     getSubfield("6")
       .setBibframeTag("linkage");
+
+    getSubfield("7")
+      .setMqTag("dataProvenance");
 
     getSubfield("8")
       .setMqTag("fieldLink");

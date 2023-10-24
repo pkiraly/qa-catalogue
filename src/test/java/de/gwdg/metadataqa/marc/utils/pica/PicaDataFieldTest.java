@@ -3,7 +3,7 @@ package de.gwdg.metadataqa.marc.utils.pica;
 import org.junit.Test;
 import org.marc4j.marc.impl.SubfieldImpl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class PicaDataFieldTest {
 

@@ -1,10 +1,14 @@
 package de.gwdg.metadataqa.marc.utils.marcreader;
 
 import de.gwdg.metadataqa.marc.MarcFactory;
+import de.gwdg.metadataqa.marc.cli.utils.IteratorResponse;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.utils.alephseq.AlephseqLine;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
+import org.marc4j.marc.impl.ControlFieldImpl;
 
+import javax.xml.transform.ErrorListener;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -16,7 +20,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class AlephseqMarcReader implements MarcReader {
+public class AlephseqMarcReader extends ErrorAwareReader implements MarcReader {
 
   private static final Logger logger = Logger.getLogger(AlephseqMarcReader.class.getCanonicalName());
 
@@ -68,6 +72,8 @@ public class AlephseqMarcReader implements MarcReader {
   @Override
   public Record next() {
     Record marc4jRecord = null;
+    errors = new ArrayList<>();
+    hasBlockingError = false;
     boolean deleted = false;
     boolean finished = false;
     while (line != null && !finished) {
@@ -84,14 +90,20 @@ public class AlephseqMarcReader implements MarcReader {
             logSkipped(LEVEL.WARN, "has been deleted");
             deleted = false;
           } else {
-            marc4jRecord = MarcFactory.createRecordFromAlephseq(lines);
+            IteratorResponse response = MarcFactory.createRecordFromAlephseq(lines);
+            marc4jRecord = response.getMarc4jRecord();
             if (marc4jRecord.getControlNumber() == null) {
+              response.addError(currentId, "001", "missing");
               logSkipped("does not have a control number field (001)");
+              marc4jRecord.addVariableField(new ControlFieldImpl("001", response.getRecordId()));
+              // response.hasBlockingError(true);
             } else if (marc4jRecord.getLeader() == null) {
+              response.addError(currentId, "leader", "missing");
               logSkipped("does not have a leader");
-            } else {
-              finished = true;
+              hasBlockingError = true;
             }
+            finished = true;
+            errors.addAll(response.getErrors());
           }
           lines = new ArrayList<>();
         }
@@ -112,7 +124,8 @@ public class AlephseqMarcReader implements MarcReader {
       }
     }
     if (line == null && !lines.isEmpty()) {
-      marc4jRecord = MarcFactory.createRecordFromAlephseq(lines);
+      IteratorResponse response = MarcFactory.createRecordFromAlephseq(lines);
+      marc4jRecord = response.getMarc4jRecord();
     }
     return marc4jRecord;
   }

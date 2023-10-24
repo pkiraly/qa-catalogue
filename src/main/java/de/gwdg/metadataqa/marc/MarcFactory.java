@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.api.model.selector.JsonSelector;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.api.schema.MarcJsonSchema;
 import de.gwdg.metadataqa.api.schema.Schema;
+import de.gwdg.metadataqa.marc.cli.utils.IteratorResponse;
 import de.gwdg.metadataqa.marc.dao.Control001;
 import de.gwdg.metadataqa.marc.dao.Control003;
 import de.gwdg.metadataqa.marc.dao.Control005;
@@ -35,7 +36,11 @@ import net.minidev.json.JSONArray;
 import org.marc4j.marc.ControlField;
 import org.marc4j.marc.Record;
 import org.marc4j.marc.Subfield;
-import org.marc4j.marc.impl.*;
+import org.marc4j.marc.impl.ControlFieldImpl;
+import org.marc4j.marc.impl.DataFieldImpl;
+import org.marc4j.marc.impl.LeaderImpl;
+import org.marc4j.marc.impl.SubfieldImpl;
+import org.marc4j.marc.impl.RecordImpl;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -384,16 +389,21 @@ public class MarcFactory {
     return marcRecord;
   }
 
-  public static Record createRecordFromAlephseq(List<AlephseqLine> lines) {
+  public static IteratorResponse createRecordFromAlephseq(List<AlephseqLine> lines) {
+    IteratorResponse response = new IteratorResponse();
     Record marc4jRecord = new RecordImpl();
     for (AlephseqLine line : lines) {
+      if (response.getRecordId() == null)
+        response.setRecordId(line.getRecordID());
       if (line.isLeader()) {
         String leader = line.getContent();
-        if (leader.length() != 24)
+        if (leader.length() == 24)
+          marc4jRecord.setLeader(new LeaderImpl(line.getContent()));
+        else {
+          response.addError(line.getRecordID(), "Leader length is not 24 char long, but " + leader.length());
           logger.log(Level.WARNING, "Leader line length is not 24 char long, but {3}. Record id: {0}, tag {1}, value: \"{2}\"",
                   new Object[]{line.getRecordID(), line.getTag(), line.getRawContent(), leader.length()});
-        else
-          marc4jRecord.setLeader(new LeaderImpl(line.getContent()));
+        }
       } else if (line.isNumericTag()) {
         if (line.isControlField()) {
           marc4jRecord.addVariableField(new ControlFieldImpl(line.getTag(), line.getContent()));
@@ -405,6 +415,7 @@ public class MarcFactory {
             if (pair.length == 2 && pair[0] != null && pair[1] != null) {
               df.addSubfield(new SubfieldImpl(pair[0].charAt(0), pair[1]));
             } else {
+              response.addError(line.getRecordID(), line.getTag(), line.getRawContent());
               logger.log(Level.WARNING, "parse error in record #{0}) tag {1}: \"{2}\"",
                 new Object[]{line.getRecordID(), line.getTag(), line.getRawContent()});
             }
@@ -413,7 +424,8 @@ public class MarcFactory {
         }
       }
     }
-    return marc4jRecord;
+    response.setMarc4jRecord(marc4jRecord);
+    return response;
   }
 
   public static Record createRecordFromMarcline(List<MarclineLine> lines) {

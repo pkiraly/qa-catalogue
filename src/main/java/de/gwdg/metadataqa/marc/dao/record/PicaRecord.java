@@ -6,7 +6,6 @@ import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
-import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
 import de.gwdg.metadataqa.marc.utils.pica.crosswalk.Crosswalk;
 import de.gwdg.metadataqa.marc.utils.pica.crosswalk.PicaMarcCrosswalkReader;
 

@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags6xx;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
@@ -11,7 +12,10 @@ import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 
 import java.util.Arrays;
 
-import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoveryIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoverySearch;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Index Term - Curriculum Objective
@@ -48,6 +52,8 @@ public class Tag658 extends DataFieldDefinition {
       "b", "Subordinate curriculum objective", "R",
       "c", "Curriculum code", "NR",
       "d", "Correlation factor", "NR",
+      "0", "Authority record control number or standard number", "R",
+      "1", "Real World Object URI", "R",
       "2", "Source of term or code", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
@@ -75,6 +81,13 @@ public class Tag658 extends DataFieldDefinition {
     getSubfield("d")
       .setMqTag("correlationFactor")
       .setCompilanceLevels("A");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance());
+
+    getSubfield("1")
+      .setMqTag("uri");
 
     getSubfield("2")
       .setMqTag("source")

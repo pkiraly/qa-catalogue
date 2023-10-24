@@ -6,6 +6,7 @@ public enum ValidationErrorType {
   RECORD_UNDETECTABLE_TYPE(1, "undetectableType", "undetectable type", ValidationErrorCategory.RECORD),
   RECORD_INVALID_LINKAGE(2, "invalidLinkage", "invalid linkage", ValidationErrorCategory.RECORD),
   RECORD_AMBIGUOUS_LINKAGE(3, "ambiguousLinkage", "ambiguous linkage", ValidationErrorCategory.RECORD),
+  RECORD_PARSING(23, "parsingError", "parsing error", ValidationErrorCategory.RECORD),
 
   // control subfield
   CONTROL_POSITION_OBSOLETE_CODE(4, "obsoleteControlPosition", "obsolete code", ValidationErrorCategory.CONTROLFIELD),

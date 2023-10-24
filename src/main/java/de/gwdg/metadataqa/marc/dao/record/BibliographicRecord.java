@@ -19,7 +19,7 @@ import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.dao.MarcControlField;
 import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
-import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
@@ -32,7 +32,13 @@ import de.gwdg.metadataqa.marc.utils.unimarc.UnimarcConverter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -130,7 +136,7 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
   }
 
   public Leader.Type getType() {
-    return leader.getType();
+    return leader != null ? leader.getType() : Leader.Type.BOOKS;
   }
 
   public MarcControlField getControl001() {
@@ -195,12 +201,12 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
   }
 
   public String getId() {
-    return control001.getContent();
+    return control001 != null ? control001.getContent() : null;
   }
 
   public String getId(boolean trim) {
     String id = getId();
-    if (trim)
+    if (trim && id != null)
       id = id.trim();
     return id;
   }

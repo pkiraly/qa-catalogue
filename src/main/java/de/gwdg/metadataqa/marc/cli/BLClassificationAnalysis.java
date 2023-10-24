@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.FileUtils;
@@ -15,19 +16,18 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
 
-public class BLClassificationAnalysis implements BibliographicInputProcessor, Serializable {
+public class BLClassificationAnalysis extends QACli<CommonParameters> implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(
     BLClassificationAnalysis.class.getCanonicalName()
   );
   public static final String BL_CLASSIFIER_FILE = "bl-classifier.csv";
-
-  private CommonParameters parameters;
   private final Options options;
   private final boolean readyToProcess;
   private File output = null;
@@ -69,7 +69,12 @@ public class BLClassificationAnalysis implements BibliographicInputProcessor, Se
 
   @Override
   public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
+    // do nothing
+  }
 
+  @Override
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
+    // do nothing
   }
 
   @Override
@@ -101,6 +106,7 @@ public class BLClassificationAnalysis implements BibliographicInputProcessor, Se
     output = new File(parameters.getOutputDir(), BL_CLASSIFIER_FILE);
     if (output.exists() && !output.delete())
       logger.severe("Deletion of " + output.getAbsolutePath() + " was unsuccessful!");
+    saveParameters("bl-classifications.params.json", parameters);
   }
 
   @Override

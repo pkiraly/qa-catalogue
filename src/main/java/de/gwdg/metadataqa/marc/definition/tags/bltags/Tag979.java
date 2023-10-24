@@ -1,6 +1,8 @@
 package de.gwdg.metadataqa.marc.definition.tags.bltags;
 
-import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
 import de.gwdg.metadataqa.marc.definition.general.codelist.ClassificationSchemeSourceCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;

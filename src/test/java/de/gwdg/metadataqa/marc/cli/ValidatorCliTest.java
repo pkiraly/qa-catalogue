@@ -65,6 +65,7 @@ public class ValidatorCliTest extends CliTestUtils {
       getPath("src/test/resources/pica/pica-with-holdings-info.dat")
     });
     RecordIterator iterator = new RecordIterator(processor);
+    iterator.setProcessWithEroors(true);
     iterator.start();
     assertEquals("done", iterator.getStatus());
 
@@ -144,6 +145,7 @@ public class ValidatorCliTest extends CliTestUtils {
       getPath("src/test/resources/pica/pica-with-holdings-info.dat")
     });
     RecordIterator iterator = new RecordIterator(processor);
+    iterator.setProcessWithEroors(true);
     iterator.start();
     assertEquals(iterator.getStatus(), "done");
 
@@ -248,6 +250,93 @@ public class ValidatorCliTest extends CliTestUtils {
 
       } else {
         fail("Untested output file: " + outputFile);
+      }
+
+      output.delete();
+      assertFalse(outputFile + " should not exist anymore", output.exists());
+    }
+  }
+
+  @Test
+  public void validate_alephseq() throws Exception {
+    clearOutput(outputDir, groupedOutputFiles);
+
+    ValidatorCli processor = new ValidatorCli(new String[]{
+            "--schemaType", "MARC21",
+            "--marcFormat", "ALEPHSEQ",
+            "--marcVersion", "GENT",
+            // "--alephseq",
+            "--outputDir", outputDir,
+            "--details",
+            "--trimId",
+            "--summary",
+            "--format", "csv",
+            "--defaultRecordType", "BOOKS",
+            "--detailsFileName", "issue-details.csv",
+            "--summaryFileName", "issue-summary.csv",
+            getPath("src/test/resources/alephseq/alephseq-example6-error.txt")
+    });
+    RecordIterator iterator = new RecordIterator(processor);
+    iterator.setProcessWithEroors(true);
+    iterator.start();
+    assertEquals("done", iterator.getStatus());
+
+    for (String outputFile : outputFiles) {
+      File output = new File(outputDir, outputFile);
+      assertTrue(outputFile + " should exist", output.exists());
+      List<String> lines = FileUtils.readLinesFromFile("src/test/resources/output/" + outputFile);
+      if (outputFile.equals("issue-details.csv")) {
+        assertEquals(6, lines.size());
+        assertEquals("003141910,1:1;2:1", lines.get(1).trim());
+        assertEquals("003141911,1:1;2:1", lines.get(2).trim());
+        assertEquals("unknown,3:1;4:1", lines.get(3).trim());
+        assertEquals("003141913,1:1;2:1", lines.get(4).trim());
+        assertEquals("003141914,1:1;2:1", lines.get(5).trim());
+
+      } else if (outputFile.equals("issue-summary.csv")) {
+        assertEquals(5, lines.size());
+        assertEquals("id,MarcPath,categoryId,typeId,type,message,url,instances,records", lines.get(0).trim());
+        assertTrue(lines.contains("1,852,5,13,undefined subfield,4,https://www.loc.gov/marc/bibliographic/bd852.html,4,4"));
+        assertTrue(lines.contains("2,852,5,13,undefined subfield,5,https://www.loc.gov/marc/bibliographic/bd852.html,4,4"));
+        assertTrue(lines.contains("4,leader,1,23,parsing error,missing,,1,1"));
+        assertTrue(lines.contains("3,record,1,23,parsing error,\"Leader length is not 24 char long, but 23\",,1,1"));
+
+      } else if (outputFile.equals("issue-by-category.csv")) {
+        assertEquals(3, lines.size());
+        assertEquals("id,category,instances,records", lines.get(0).trim());
+        assertEquals("1,record,2,1", lines.get(1).trim());
+        assertEquals("5,subfield,8,4", lines.get(2).trim());
+
+      } else if (outputFile.equals("issue-by-type.csv")) {
+        assertEquals(3, lines.size());
+        assertEquals("id,categoryId,category,type,instances,records", lines.get(0).trim());
+        assertEquals("13,5,subfield,undefined subfield,8,4", lines.get(1).trim());
+        assertEquals("23,1,record,parsing error,2,1", lines.get(2).trim());
+
+      } else if (outputFile.equals("issue-collector.csv")) {
+        assertEquals(5, lines.size());
+        assertEquals("errorId,recordIds", lines.get(0).trim());
+        assertEquals("1,003141910;003141911;003141913;003141914", lines.get(1).trim());
+        assertEquals("2,003141910;003141911;003141913;003141914", lines.get(2).trim());
+        assertEquals("3,unknown", lines.get(3).trim());
+        assertEquals("4,unknown", lines.get(4).trim());
+
+      } else if (outputFile.equals("issue-total.csv")) {
+        assertEquals(3, lines.size());
+        assertEquals("type,instances,records", lines.get(0).trim());
+        assertEquals("1,10,5", lines.get(1).trim());
+        assertEquals("2,10,5", lines.get(2).trim());
+
+      } else if (outputFile.equals("count.csv")) {
+        assertEquals(2, lines.size());
+        assertEquals("total", lines.get(0).trim());
+        assertEquals("5", lines.get(1).trim());
+
+      } else if (outputFile.equals("validation.params.json")) {
+        // System.err.println(lines);
+        // assertEquals(4, lines.size());
+      } else {
+        System.err.println(outputFile + " IS NOT HANDLED");
       }
 
       output.delete();

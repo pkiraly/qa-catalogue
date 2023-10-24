@@ -5,7 +5,6 @@ import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
 
-import java.nio.file.Paths;
 import java.util.regex.Pattern;
 
 public abstract class PicaReader implements MarcReader {

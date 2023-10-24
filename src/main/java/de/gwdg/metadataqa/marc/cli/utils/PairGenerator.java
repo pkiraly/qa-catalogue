@@ -1,13 +1,18 @@
-package de.gwdg.metadataqa.marc.cli;
+package de.gwdg.metadataqa.marc.cli.utils;
 
 import de.gwdg.metadataqa.marc.Utils;
+import de.gwdg.metadataqa.marc.cli.NetworkAnalysis;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,7 +37,7 @@ public class PairGenerator {
     this.groupLimit = groupLimit;
   }
 
-  protected void generatePairs() {
+  public void generatePairs() {
     logger.info("pairIds");
 
     createPairs("");

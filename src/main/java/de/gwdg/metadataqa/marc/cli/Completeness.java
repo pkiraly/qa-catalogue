@@ -15,6 +15,7 @@ import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilter;
 import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnorator;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.tags.TagCategory;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.utils.BasicStatistics;
 import de.gwdg.metadataqa.marc.utils.TagHierarchy;
@@ -29,7 +30,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,14 +37,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
-public class Completeness extends QACli implements BibliographicInputProcessor, Serializable {
+public class Completeness extends QACli<CompletenessParameters> implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(Completeness.class.getCanonicalName());
   private static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
   public static final String ALL_TYPE = "all";
-
-  private CompletenessParameters parameters;
-
   private CompletenessDAO completenessDAO = new CompletenessDAO();
 
   private boolean readyToProcess;
@@ -96,6 +93,11 @@ public class Completeness extends QACli implements BibliographicInputProcessor, 
 
   @Override
   public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
+    // do nothing
+  }
+
+  @Override
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
     // do nothing
   }
 

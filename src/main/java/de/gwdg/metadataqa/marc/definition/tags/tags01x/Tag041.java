@@ -11,7 +11,12 @@ import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 
 import java.util.Arrays;
 
-import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoveryIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoveryObtain;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoverySelect;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseInterpret;
 
 /**
  * Language Code
@@ -75,7 +80,9 @@ public class Tag041 extends DataFieldDefinition {
       "r", "Language code of accessible visual language (non-textual)", "R",
       "t", "Language code of accompanying transcripts for audiovisual materials", "R",
       "2", "Source of code", "NR",
+      "3", "Materials specified", "NR",
       "6", "Linkage", "NR",
+      "7", "Data provenance", "R",
       "8", "Field link and sequence number", "R"
     );
 
@@ -165,10 +172,16 @@ public class Tag041 extends DataFieldDefinition {
       .setMqTag("source")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);
 
+    getSubfield("3")
+      .setMqTag("materialsSpecified");
+
     getSubfield("6")
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("A");
+
+    getSubfield("7")
+      .setMqTag("dataProvenance");
 
     getSubfield("8")
       .setMqTag("fieldLink")

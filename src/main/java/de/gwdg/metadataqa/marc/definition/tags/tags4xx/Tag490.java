@@ -10,7 +10,13 @@ import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 
 import java.util.Arrays;
 
-import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoveryIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoveryObtain;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoverySearch;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoverySelect;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementDisplay;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Series Statement
@@ -55,13 +61,17 @@ public class Tag490 extends DataFieldDefinition {
       "l", "Library of Congress call number", "NR",
       "v", "Volume/sequential designation", "R",
       "x", "International Standard Serial Number", "R",
+      "y", "Incorrect ISSN", "R",
+      "z", "Canceled ISSN", "R",
       "3", "Materials specified", "NR",
       "6", "Linkage", "NR",
+      "7", "Data provenance", "R",
       "8", "Field link and sequence number", "R"
     );
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());
     getSubfield("x").setValidator(ISSNValidator.getInstance());
+    getSubfield("z").setValidator(ISSNValidator.getInstance());
 
     getSubfield("a")
       .setBibframeTag("rdfs:label").setMqTag("rdf:value")
@@ -83,7 +93,13 @@ public class Tag490 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoverySelect, DiscoveryObtain)
       .setCompilanceLevels("A", "A");
 
-    getSubfield("3")
+    getSubfield("y")
+      .setMqTag("incorrectISSN");
+
+    getSubfield("z")
+      .setMqTag("canceledISSN");
+
+      getSubfield("3")
       .setMqTag("materialsSpecified")
       .setCompilanceLevels("O");
 
@@ -91,6 +107,9 @@ public class Tag490 extends DataFieldDefinition {
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("A", "A");
+
+    getSubfield("7")
+      .setMqTag("dataProvenance");
 
     getSubfield("8")
       .setMqTag("fieldLink")

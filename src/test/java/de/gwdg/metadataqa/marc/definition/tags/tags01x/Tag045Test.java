@@ -5,7 +5,7 @@ import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
-import org.junit.*;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;

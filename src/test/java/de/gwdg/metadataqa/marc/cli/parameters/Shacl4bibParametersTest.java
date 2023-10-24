@@ -4,7 +4,7 @@ import de.gwdg.metadataqa.api.rule.RuleCheckingOutputType;
 import org.apache.commons.cli.ParseException;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class Shacl4bibParametersTest {
 
@@ -70,6 +70,7 @@ public class Shacl4bibParametersTest {
         "alephseqLineType: null\n" +
         "groupBy: null\n" +
         "groupListFile: null\n" +
+        "solrForScoresUrl: null\n" +
         "shaclConfigurationFile: shacl.cnf\n" +
         "shaclOutputFile: shacl.csv\n" +
         "shaclOutputType: STATUS\n",

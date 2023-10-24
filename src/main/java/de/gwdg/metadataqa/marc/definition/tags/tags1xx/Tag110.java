@@ -11,9 +11,13 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 
-import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
-
 import java.util.Arrays;
+
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoveryIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoverySearch;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementSort;
 
 /**
  * Main Entry - Corporate Name
@@ -73,6 +77,7 @@ public class Tag110 extends DataFieldDefinition {
       "2", "Source of heading or term", "NR",
       "4", "Relationship", "R",
       "6", "Linkage", "NR",
+      "7", "Data provenance", "R",
       "8", "Field link and sequence number", "R"
     );
 
@@ -164,6 +169,9 @@ public class Tag110 extends DataFieldDefinition {
       .setMqTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("A", "A");
+
+    getSubfield("7")
+      .setMqTag("dataProvenance");
 
     getSubfield("8")
       .setMqTag("fieldLink")

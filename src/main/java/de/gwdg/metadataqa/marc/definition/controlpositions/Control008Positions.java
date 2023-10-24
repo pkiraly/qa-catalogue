@@ -1,10 +1,66 @@
 package de.gwdg.metadataqa.marc.definition.controlpositions;
 
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008all00;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008all06;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008all07;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008all11;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008all15;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008all35;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008all38;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008all39;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008book18;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008book22;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008book23;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008book24;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008book28;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008book29;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008book30;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008book31;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008book33;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008book34;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008computer22;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008computer23;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008computer26;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008computer28;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008continuing18;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008continuing19;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008continuing21;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008continuing22;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008continuing23;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008continuing24;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008continuing25;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008continuing28;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008continuing29;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008continuing33;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008continuing34;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008map18;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008map22;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008map25;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008map28;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008map29;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008map31;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008map33;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008mixed23;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008music18;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008music20;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008music21;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008music22;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008music23;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008music24;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008music30;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008music33;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008visual18;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008visual22;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008visual28;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008visual29;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008visual33;
+import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008visual34;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
-import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.*;
 import de.gwdg.metadataqa.marc.definition.controltype.Control008Type;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+
 
 public class Control008Positions extends ControlfieldPositionList {
 

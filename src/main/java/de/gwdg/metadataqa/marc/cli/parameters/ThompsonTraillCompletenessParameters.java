@@ -13,7 +13,7 @@ public class ThompsonTraillCompletenessParameters extends CommonParameters {
   protected void setOptions() {
     if (!isOptionSet) {
       super.setOptions();
-      options.addOption("f", "fileName", true,
+      options.addOption("F", "fileName", true,
         String.format("the report file name (default is %s)", DEFAULT_FILE_NAME));
       isOptionSet = true;
     }

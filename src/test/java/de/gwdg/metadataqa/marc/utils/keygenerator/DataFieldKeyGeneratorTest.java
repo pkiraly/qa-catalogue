@@ -9,7 +9,9 @@ import org.junit.Test;
 
 import java.util.regex.Pattern;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class DataFieldKeyGeneratorTest {
   DataFieldDefinition definition = Tag245.getInstance();

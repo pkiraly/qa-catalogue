@@ -10,6 +10,7 @@ import de.gwdg.metadataqa.marc.datastore.MarcSolrClient;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.utils.pica.PicaGroupIndexer;
 import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
 import org.apache.commons.cli.HelpFormatter;
@@ -27,7 +28,6 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -36,14 +36,13 @@ import java.util.logging.Logger;
  *
  * @author Péter Király <peter.kiraly at gwdg.de>
  */
-public class MarcToSolr extends QACli implements BibliographicInputProcessor, Serializable {
+public class MarcToSolr extends QACli<MarcToSolrParameters> implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(
     MarcToSolr.class.getCanonicalName()
   );
   private Options options;
   private MarcVersion version;
-  private MarcToSolrParameters parameters;
   private MarcSolrClient client;
   private MarcSolrClient validationClient;
   private Path currentFile;
@@ -68,10 +67,10 @@ public class MarcToSolr extends QACli implements BibliographicInputProcessor, Se
       : new MarcSolrClient(parameters.getSolrUrl());
     client.setTrimId(parameters.getTrimId());
     client.indexWithTokenizedField(parameters.indexWithTokenizedField());
-    if (parameters.getValidationUrl() != null) {
+    if (parameters.getSolrForScoresUrl() != null) {
       validationClient = parameters.useEmbedded()
         ? new MarcSolrClient(parameters.getValidationClient())
-        : new MarcSolrClient(parameters.getValidationUrl());
+        : new MarcSolrClient(parameters.getSolrForScoresUrl());
       validationClient.setTrimId(parameters.getTrimId());
     }
     readyToProcess = true;
@@ -106,7 +105,12 @@ public class MarcToSolr extends QACli implements BibliographicInputProcessor, Se
 
   @Override
   public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
+    // do nothing
+  }
 
+  @Override
+  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
+    // do nothing
   }
 
   @Override

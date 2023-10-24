@@ -3,7 +3,7 @@ package de.gwdg.metadataqa.marc.dao;
 import de.gwdg.metadataqa.marc.Extractable;
 import de.gwdg.metadataqa.marc.Validatable;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
-import de.gwdg.metadataqa.marc.definition.*;
+import de.gwdg.metadataqa.marc.definition.ControlValue;
 import de.gwdg.metadataqa.marc.definition.controlpositions.LeaderPositions;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.tags.control.LeaderDefinition;
@@ -13,7 +13,11 @@ import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import de.gwdg.metadataqa.marc.utils.keygenerator.PositionalControlFieldKeyGenerator;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

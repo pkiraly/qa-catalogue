@@ -9,10 +9,14 @@ import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 
 import java.util.Arrays;
 
-import static de.gwdg.metadataqa.marc.definition.FRBRFunction.*;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoveryIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoverySelect;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementIdentify;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseInterpret;
 
 /**
- * Scale Note for Graphic Material
+ * Scale Note for Visual Materials
  * http://www.loc.gov/marc/bibliographic/bd507.html
  */
 public class Tag507 extends DataFieldDefinition {
@@ -33,7 +37,7 @@ public class Tag507 extends DataFieldDefinition {
   private void initialize() {
 
     tag = "507";
-    label = "Scale Note for Graphic Material";
+    label = "Scale Note for Visual Materials";
     mqTag = "Scale";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd507.html";

@@ -1,11 +1,18 @@
 package de.gwdg.metadataqa.marc.utils.marcspec.parser;
 
-import de.gwdg.metadataqa.marc.utils.marcspec.*;
+import de.gwdg.metadataqa.marc.utils.marcspec.Field;
+import de.gwdg.metadataqa.marc.utils.marcspec.MARCspec;
+import de.gwdg.metadataqa.marc.utils.marcspec.MARCspecParser;
+import de.gwdg.metadataqa.marc.utils.marcspec.SubSpec;
+import de.gwdg.metadataqa.marc.utils.marcspec.Subfield;
 import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * Issues:

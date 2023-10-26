@@ -132,12 +132,16 @@ public class DataFieldKeyGenerator {
         key = String.format("%s%s", indexTag, codeForIndex);
         break;
       case MIXED:
-        if ((schemaType == null || !schemaType.equals(SchemaType.PICA)) && !tag.equals(indexTag) && !codeForIndex.equals("_" + code))
-          key = String.format("%s%s_%s%s", safeTag, code, indexTag, codeForIndex);
-        else if ((schemaType == null || !schemaType.equals(SchemaType.PICA)) && !tag.equals(indexTag) && codeForIndex.equals("_" + code))
-          key = String.format("%s%s_%s", safeTag, code, indexTag);
-        else
+        if (schemaType != null && schemaType.equals(SchemaType.PICA)) {
           key = String.format("%s%s", safeTag, code);
+        } else {
+          if (!tag.equals(indexTag) && !codeForIndex.equals("_" + code))
+            key = String.format("%s%s_%s%s", safeTag, code, indexTag, codeForIndex);
+          else if (!tag.equals(indexTag) && codeForIndex.equals("_" + code))
+            key = String.format("%s%s_%s", safeTag, code, indexTag);
+          else
+            key = String.format("%s%s", safeTag, code);
+        }
         break;
       case MARC:
       default:

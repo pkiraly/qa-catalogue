@@ -28,6 +28,7 @@
   <dynamicField name="*_ss" type="strings" indexed="true" stored="true"/>
   <dynamicField name="*_s" type="strings" indexed="true" stored="true"/>
   <dynamicField name="*_txt" type="text_general" indexed="true" stored="true"/>
+  <dynamicField name="*_tt" type="text_general" indexed="true" stored="false"/>
   <dynamicField name="*_is" type="pints" indexed="true" stored="true" />
   <dynamicField name="*_sni" type="string_big" docValues="false" multiValued="false" indexed="false" stored="true"/>
 

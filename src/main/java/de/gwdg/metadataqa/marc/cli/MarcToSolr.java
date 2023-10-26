@@ -135,7 +135,7 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
     }
     client.index(document);
 
-    if (recordNumber % 10000 == 0) {
+    if (recordNumber % parameters.getCommitAt() == 0) {
       if (parameters.doCommit())
         client.commit();
       logger.info(

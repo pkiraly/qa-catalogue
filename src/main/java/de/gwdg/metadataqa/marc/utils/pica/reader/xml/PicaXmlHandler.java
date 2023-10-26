@@ -40,7 +40,7 @@ public class PicaXmlHandler implements ContentHandler {
 
   private String tag;
 
-  private String prev_tag = "n/a";
+  private String prevTag = "n/a";
 
   private static final int COLLECTION_ID = 1;
 
@@ -147,7 +147,7 @@ public class PicaXmlHandler implements ContentHandler {
         if (typeAttr != null && RECORD_TYPES.contains(typeAttr)) {
           record.setType(typeAttr);
         }
-        prev_tag = "n/a";
+        prevTag = "n/a";
 
         break;
       case LEADER_ID:
@@ -158,7 +158,7 @@ public class PicaXmlHandler implements ContentHandler {
 
         if (tag == null) {
           if (record != null) {
-            record.addError("n/a", "n/a", MarcError.MINOR_ERROR, "Missing tag element in ControlField after tag: "+ prev_tag);
+            record.addError("n/a", "n/a", MarcError.MINOR_ERROR, "Missing tag element in ControlField after tag: "+ prevTag);
           } else {
             throw new MarcException("ControlField missing tag value, found outside a record element");
           }
@@ -173,7 +173,7 @@ public class PicaXmlHandler implements ContentHandler {
 
         if (tag == null) {
           if (record != null) {
-            record.addError("n/a", "n/a", MarcError.MINOR_ERROR, "Missing tag element in datafield after tag: "+prev_tag);
+            record.addError("n/a", "n/a", MarcError.MINOR_ERROR, "Missing tag element in datafield after tag: "+ prevTag);
           } else {
             throw new MarcException("DataField missing tag value, found outside a record element");
           }
@@ -211,7 +211,7 @@ public class PicaXmlHandler implements ContentHandler {
         sb = new StringBuffer();
         break;
     }
-    prev_tag = tag;
+    prevTag = tag;
   }
 
   @Override

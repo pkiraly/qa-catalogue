@@ -10,6 +10,7 @@ import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.common.params.MapSolrParams;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -25,6 +26,8 @@ public class MarcSolrClient {
   private String collection;
   private boolean trimId = false;
   private boolean indexWithTokenizedField = false;
+  private String termFieldSuffix = "_tt";
+  private Map<String, String> termFieldNameCache = new HashMap<>();
 
   public MarcSolrClient() {
     initialize(defaultUrl);
@@ -69,18 +72,24 @@ public class MarcSolrClient {
     SolrInputDocument document = new SolrInputDocument();
     document.addField("id", (trimId ? id.trim() : id));
     for (Map.Entry<String, List<String>> entry : objectMap.entrySet()) {
-      String key = entry.getKey();
+      String fieldName = entry.getKey();
       Object value = entry.getValue();
       if (value != null) {
-        if (!key.endsWith("_sni") && !key.endsWith("_ss"))
-          key += "_ss";
+        if (!fieldName.endsWith("_sni") && !fieldName.endsWith("_ss"))
+          fieldName += "_ss";
+        document.addField(fieldName, value);
 
-        document.addField(key, value);
-        if (indexWithTokenizedField && key.endsWith("_ss"))
-          document.addField(key.replaceAll("_ss$", "_txt"), value);
+        if (indexWithTokenizedField && fieldName.endsWith("_ss"))
+          document.addField(getTermFieldName(fieldName), value);
       }
     }
     return document;
+  }
+
+  private String getTermFieldName(String phraseField) {
+    if (!termFieldNameCache.containsKey(phraseField))
+      termFieldNameCache.put(phraseField, phraseField.replaceAll("_ss$", termFieldSuffix));
+    return termFieldNameCache.get(phraseField);
   }
 
   public void indexDuplumKey(String id, Map<String, Object> objectMap)

@@ -41,7 +41,9 @@ public class Tag382 extends DataFieldDefinition {
       .setCodes(
         " ", "No information provided",
         "0", "Medium of performance",
-        "1", "Partial medium of performance"
+        "1", "Partial medium of performance",
+        "2", "Medium of performance of musical content of representative expression",
+        "3", "Partial medium of performance of musical content of representative expression"
       )
       .setMqTag("displayConstant");
     ind2 = new Indicator("Access control")
@@ -68,6 +70,7 @@ public class Tag382 extends DataFieldDefinition {
       "2", "Source of term", "NR",
       "3", "Materials specified", "NR",
       "6", "Linkage", "NR",
+      "7", "Data provenance", "R",
       "8", "Field link and sequence number", "R"
     );
 
@@ -124,6 +127,9 @@ public class Tag382 extends DataFieldDefinition {
     getSubfield("6")
       .setBibframeTag("linkage")
       .setCompilanceLevels("A");
+
+    getSubfield("7")
+      .setMqTag("dataProvenance");
 
     getSubfield("8")
       .setMqTag("fieldLink")

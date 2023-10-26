@@ -248,7 +248,8 @@ public class CommonParametersTest {
         "defaultEncoding: null\n" +
         "alephseqLineType: null\n" +
         "groupBy: null\n" +
-        "groupListFile: null\n";
+        "groupListFile: null\n" +
+        "solrForScoresUrl: null\n";
       assertEquals(expected, parameters.formatParameters());
     } catch (ParseException e) {
       logger.log(Level.WARNING, "error in formatParameters()", e);

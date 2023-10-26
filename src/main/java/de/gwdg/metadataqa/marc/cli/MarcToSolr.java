@@ -67,10 +67,10 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
       : new MarcSolrClient(parameters.getSolrUrl());
     client.setTrimId(parameters.getTrimId());
     client.indexWithTokenizedField(parameters.indexWithTokenizedField());
-    if (parameters.getValidationUrl() != null) {
+    if (parameters.getSolrForScoresUrl() != null) {
       validationClient = parameters.useEmbedded()
         ? new MarcSolrClient(parameters.getValidationClient())
-        : new MarcSolrClient(parameters.getValidationUrl());
+        : new MarcSolrClient(parameters.getSolrForScoresUrl());
       validationClient.setTrimId(parameters.getTrimId());
     }
     readyToProcess = true;
@@ -119,8 +119,8 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
       return;
 
     if (bibliographicRecord.getSchemaType().equals(SchemaType.PICA) && doGroups())
-      for (DataField field : bibliographicRecord.getDatafield(((PicaPath) groupBy).getTag()))
-        field.addFieldIndexer(groupIndexer);
+      for (DataField groupField : bibliographicRecord.getDatafield(((PicaPath) groupBy).getTag()))
+        groupField.addFieldIndexer(groupIndexer);
 
     Map<String, List<String>> map = bibliographicRecord.getKeyValuePairs(
       parameters.getSolrFieldType(), true, parameters.getMarcVersion()
@@ -135,7 +135,7 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
     }
     client.index(document);
 
-    if (recordNumber % 10000 == 0) {
+    if (recordNumber % parameters.getCommitAt() == 0) {
       if (parameters.doCommit())
         client.commit();
       logger.info(

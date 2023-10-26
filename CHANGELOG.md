@@ -1,5 +1,19 @@
 # QA Catalogue Changelog
 
+## v0.8.0
+
+### New features
+
+- [\#326](https://github.com/pkiraly/qa-catalogue/issues/326) Use GETOPT for the command line scripts
+- [\#103](https://github.com/pkiraly/qa-catalogue/issues/103) Implementing MARC Update No. 31, December 2020
+- [\#104](https://github.com/pkiraly/qa-catalogue/issues/104) Implementing MARC Update No. 32, June 2021
+- [\#330](https://github.com/pkiraly/qa-catalogue/issues/330) Implementing MARC Update No. 33 (November 2021)
+- [\#331](https://github.com/pkiraly/qa-catalogue/issues/331) Implementing MARC Update No. 34 (July 2022)
+- [\#332](https://github.com/pkiraly/qa-catalogue/issues/332) Implementing MARC Update No. 35 (December 2022)
+- [\#333](https://github.com/pkiraly/qa-catalogue/issues/333) Implementing MARC Update No. 36 (June 2023)
+
+### Improvements
+
 ## v0.5.0
 
 ### New features

@@ -54,15 +54,18 @@ public class Tag340 extends DataFieldDefinition {
       "c", "Materials applied to surface", "R",
       "d", "Information recording technique", "R",
       "e", "Support", "R",
-      "f", "Production rate/ratio", "R",
+      "f", "Reduction ratio value", "R",
       "g", "Color content", "R",
       "h", "Location within medium", "R",
       "i", "Technical specifications of medium", "R",
       "j", "Generation", "R",
       "k", "Layout", "R",
+      "l", "Binding", "R",
       "m", "Book format", "R",
       "n", "Font size", "R",
       "o", "Polarity", "R",
+      "p", "Illustrative content", "R",
+      "q", "Reduction ratio designator", "R",
       "0", "Authority record control number or standard number", "R",
       "1", "Real World Object URI", "R",
       "2", "Source", "NR",
@@ -122,6 +125,9 @@ public class Tag340 extends DataFieldDefinition {
     getSubfield("k")
       .setMqTag("layout");
 
+    getSubfield("l")
+      .setMqTag("binding");
+
     getSubfield("m")
       .setMqTag("bookFormat");
 
@@ -130,6 +136,12 @@ public class Tag340 extends DataFieldDefinition {
 
     getSubfield("o")
       .setMqTag("polarity");
+
+    getSubfield("p")
+      .setMqTag("illustrativeContent");
+
+    getSubfield("q")
+      .setMqTag("reductionRatio");
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")

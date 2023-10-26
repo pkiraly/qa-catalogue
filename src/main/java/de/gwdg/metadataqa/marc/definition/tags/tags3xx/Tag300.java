@@ -55,6 +55,7 @@ public class Tag300 extends DataFieldDefinition {
       "g", "Size of unit", "R",
       "3", "Materials specified", "NR",
       "6", "Linkage", "NR",
+      "7", "Data provenance", "R",
       "8", "Field link and sequence number", "R"
     );
 
@@ -99,6 +100,9 @@ public class Tag300 extends DataFieldDefinition {
       .setMqTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("A", "A");
+
+    getSubfield("7")
+      .setMqTag("dataProvenance");
 
     getSubfield("8")
       .setMqTag("fieldLink")

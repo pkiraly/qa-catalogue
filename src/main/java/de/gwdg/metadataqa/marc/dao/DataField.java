@@ -22,6 +22,7 @@ import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.model.validation.ErrorsCollector;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
+import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
@@ -386,9 +387,18 @@ public class DataField implements Extractable, Serializable {
                                                     MarcVersion marcVersion) {
     Map<String, List<String>> pairs = new HashMap<>();
 
-    String tag = getTag();
-    if (getOccurrence() != null)
-        tag += "_" + getOccurrence();
+    if (marcRecord != null && marcRecord.getSchemaType().equals(SchemaType.PICA) && definition != null) {
+      PicaFieldDefinition picaDefinition = (PicaFieldDefinition) definition;
+      tag = picaDefinition.getTag();
+      if (picaDefinition.getCounter() != null)
+        tag += "_" + picaDefinition.getCounter();
+      else if (picaDefinition.getOccurrence() != null)
+        tag += "_" + picaDefinition.getOccurrence();
+    } else {
+      tag = getTag();
+      if (getOccurrence() != null)
+        tag += "/" + getOccurrence();
+    }
 
     SchemaType schemaType = marcRecord != null ? marcRecord.getSchemaType() : SchemaType.MARC21;
     DataFieldKeyGenerator keyGenerator = new DataFieldKeyGenerator(definition, type, tag, schemaType);

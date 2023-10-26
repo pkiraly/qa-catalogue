@@ -6,27 +6,28 @@ import org.apache.solr.client.solrj.SolrClient;
 
 public class MarcToSolrParameters extends CommonParameters {
 
+  private int DEFAULT_COMMIT_AT = 10000;
   private boolean useEmbedded = false;
   private String solrUrl = null;
   private boolean doCommit = false;
   private SolrFieldType solrFieldType = SolrFieldType.MARC;
-  private String validationUrl = null;
   private SolrClient mainClient = null;
   private SolrClient validationClient = null;
   private boolean indexWithTokenizedField = false;
 
   private boolean isOptionSet = false;
+  private int commitAt = DEFAULT_COMMIT_AT;
 
   protected void setOptions() {
     if (!isOptionSet) {
       super.setOptions();
       options.addOption("s", "solrUrl", true, "the URL of Solr server");
-      options.addOption("c", "doCommit", false, "send commits to Solr regularly");
+      options.addOption("c", "doCommit", false, "commits Solr index regularly");
       options.addOption("t", "solrFieldType", true,
         "type of Solr fields, could be one of 'marc-tags', 'human-readable', or 'mixed'");
-      options.addOption("A", "validationUrl", true, "the URL of the Solr server used in validation");
       options.addOption("B", "useEmbedded", false, "use embedded Solr server (used in tests only)");
       options.addOption("C", "indexWithTokenizedField", false, "index data elements as tokenized field as well");
+      options.addOption("D", "commitAt", true, "commit index after this number of records");
       isOptionSet = true;
     }
   }
@@ -43,14 +44,14 @@ public class MarcToSolrParameters extends CommonParameters {
     if (cmd.hasOption("solrFieldType"))
       solrFieldType = SolrFieldType.byCode(cmd.getOptionValue("solrFieldType"));
 
-    if (cmd.hasOption("validationUrl"))
-      validationUrl = cmd.getOptionValue("validationUrl");
-
     if (cmd.hasOption("useEmbedded"))
       useEmbedded = true;
 
     if (cmd.hasOption("indexWithTokenizedField"))
       indexWithTokenizedField = true;
+
+    if (cmd.hasOption("commitAt"))
+      commitAt = Integer.valueOf(cmd.getOptionValue("commitAt"));
   }
 
   public String getSolrUrl() {
@@ -63,10 +64,6 @@ public class MarcToSolrParameters extends CommonParameters {
 
   public SolrFieldType getSolrFieldType() {
     return solrFieldType;
-  }
-
-  public String getValidationUrl() {
-    return validationUrl;
   }
 
   public SolrClient getMainClient() {
@@ -93,13 +90,16 @@ public class MarcToSolrParameters extends CommonParameters {
     return indexWithTokenizedField;
   }
 
+  public int getCommitAt() {
+    return commitAt;
+  }
+
   @Override
   public String formatParameters() {
     String text = super.formatParameters();
     text += String.format("solrUrl: %s%n", solrUrl);
     text += String.format("doCommit: %s%n", doCommit);
     text += String.format("solrFieldType: %s%n", solrFieldType);
-    text += String.format("validationUrl: %s%n", validationUrl);
     text += String.format("indexWithTokenizedField: %s%n", indexWithTokenizedField);
     return text;
   }

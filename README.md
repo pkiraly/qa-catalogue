@@ -533,7 +533,11 @@ total
 1192536
 ```
 
-* `issue-by-category.csv`: the counts of issues by categories
+* `issue-by-category.csv`: the counts of issues by categories. Columns:
+ * `id` the identifier of error category
+ * `category` the name of the category
+ * `instances` the number of instances of errors within the category (one record might have multiple instances of the same error)
+ * `records` the number of records having at least one of the errors within the category
 
 ```csv
 id,category,instances,records
@@ -821,22 +825,28 @@ If the data is _not_ grouped by libraries (no `--groupBy <path>` parameter), it 
 structure and import some of the CSV files into it:
 
 `issue_summary` table for the `issue-summary.csv`:
+
+It represents a particular type of error
 ```
-id         INTEGER,
-MarcPath   TEXT,
-categoryId INTEGER,
-typeId     INTEGER,
-type       TEXT,
-message    TEXT,
-url        TEXT,
-instances  INTEGER,
-records    INTEGER
+id         INTEGER,  -- identifier of the error
+MarcPath   TEXT,     -- the location of the error in the bibliographic record
+categoryId INTEGER,  -- the identifier of the category of the error
+typeId     INTEGER,  -- the identifier of the type of the error
+type       TEXT,     -- the description of the type
+message    TEXT,     -- extra contextual information 
+url        TEXT,     -- the url of the definition of the data element
+instances  INTEGER,  -- the number of instances this error occured
+records    INTEGER   -- the number of records this error occured in
 ```
+
 `issue_details` table for the `issue-details.csv`:
+
+Each row represents how many instances of an error occur in a particular bibliographic record
+
 ```
-id         TEXT,
-errorId    INTEGER,
-instances  INTEGER
+id         TEXT,    -- the record identifier
+errorId    INTEGER, -- the error identifier (-> issue_summary.id)
+instances  INTEGER  -- the number of instances of an error in the record
 ```
 
 ##### Union catalogue for multiple libraries

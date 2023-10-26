@@ -460,9 +460,9 @@ public class MarcFactoryTest {
       }
     }
 
-    assertEquals(Arrays.asList("English"), marcRecord
-      .getKeyValuePairs(SolrFieldType.HUMAN)
-      .get("AdminMetadata_languageOfCataloging"));
+    Map<String, List<String>> map = marcRecord.getKeyValuePairs(SolrFieldType.HUMAN);
+    System.err.println(map);
+    assertEquals(Arrays.asList("English"), map.get("AdminMetadata_languageOfCataloging"));
   }
 
   @Test

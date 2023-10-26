@@ -80,6 +80,7 @@ public class Tag811 extends DataFieldDefinition {
       "v", "Volume/sequential designation", "NR",
       "w", "Bibliographic record control number", "R",
       "x", "International Standard Serial Number", "NR",
+      "y", "Data provenance", "R",
       "0", "Authority record control number or standard number", "R",
       "1", "Real World Object URI", "R",
       "2", "Source of heading or term", "NR",
@@ -216,6 +217,9 @@ public class Tag811 extends DataFieldDefinition {
     getSubfield("x")
       .setMqTag("issn")
       .setCompilanceLevels("O");
+
+    getSubfield("y")
+      .setMqTag("dataProvenance");
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")

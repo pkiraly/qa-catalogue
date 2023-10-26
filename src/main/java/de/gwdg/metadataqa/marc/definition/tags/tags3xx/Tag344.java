@@ -47,6 +47,8 @@ public class Tag344 extends DataFieldDefinition {
       "f", "Tape configuration", "R",
       "g", "Configuration of playback channels", "R",
       "h", "Special playback characteristics", "R",
+      "i", "Sound content", "R",
+      "j", "Original capture and storage technique", "R",
       "0", "Authority record control number or standard number", "R",
       "1", "Real World Object URI", "R",
       "2", "Source", "NR",
@@ -80,6 +82,12 @@ public class Tag344 extends DataFieldDefinition {
 
     getSubfield("h")
       .setBibframeTag("playbackCharacteristic");
+
+    getSubfield("i")
+      .setMqTag("soundContent");
+
+    getSubfield("j")
+      .setMqTag("originalCaptureAndStorageTechnique");
 
     getSubfield("0")
       .setMqTag("authorityRecordControlNumber")

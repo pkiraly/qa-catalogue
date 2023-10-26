@@ -10,7 +10,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseManage;
 import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseOperate;
 
 /**
- * Capture and storage technique
+ * Original capture and storage technique
  * https://www.loc.gov/marc/bibliographic/bd007s.html
  */
 public class Tag007soundRecording13 extends ControlfieldPositionDefinition {
@@ -28,18 +28,18 @@ public class Tag007soundRecording13 extends ControlfieldPositionDefinition {
   }
 
   private void initialize() {
-    label = "Capture and storage technique";
+    label = "Original capture and storage technique";
     id = "007soundRecording13";
     mqTag = "captureAndStorageTechnique";
     positionStart = 13;
     positionEnd = 14;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd007s.html";
     codes = Utils.generateCodes(
-      "a", "Acoustical capture, direct storage",
-      "b", "Direct storage, not acoustical",
-      "d", "Digital storage",
-      "e", "Analog electrical storage",
-      "u", "Unknown",
+      "a", "Acoustical capture, analog direct storage",
+      "b", "Electrical capture, analog direct storage",
+      "d", "Electrical capture, digital storage",
+      "e", "Electrical capture, analog electrical storage",
+      "u", "Unknown capture and storage",
       "z", "Other",
       "|", "No attempt to code"
     );

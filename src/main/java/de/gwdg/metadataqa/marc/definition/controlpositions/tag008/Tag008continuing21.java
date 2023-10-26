@@ -31,10 +31,16 @@ public class Tag008continuing21 extends ControlfieldPositionDefinition {
     codes = Utils.generateCodes(
       " ", "None of the following",
       "d", "Updating database",
+      "g", "Magazine",
+      "h", "Blog",
+      "j", "Journal",
       "l", "Updating loose-leaf",
       "m", "Monographic series",
       "n", "Newspaper",
       "p", "Periodical",
+      "r", "Repository",
+      "s", "Newsletter",
+      "t", "Directory",
       "w", "Updating Web site",
       "|", "No attempt to code"
     );

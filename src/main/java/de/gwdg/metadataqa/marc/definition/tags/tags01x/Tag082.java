@@ -74,8 +74,9 @@ public class Tag082 extends DataFieldDefinition {
       "b", "Item number", "NR",
       "m", "Standard or optional designation", "NR",
       "q", "Assigning agency", "NR",
-      "2", "Edition number", "NR",
+      "2", "Edition information", "NR",
       "6", "Linkage", "NR",
+      "7", "Data provenance", "R",
       "8", "Field link and sequence number", "R"
     );
 
@@ -110,6 +111,9 @@ public class Tag082 extends DataFieldDefinition {
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("A");
+
+    getSubfield("7")
+      .setMqTag("dataProvenance");
 
     getSubfield("8")
       .setMqTag("fieldLink")

@@ -66,6 +66,7 @@ public class CommonParameters implements Serializable {
   private SchemaType schemaType = SchemaType.MARC21;
   private String groupBy;
   private String groupListFile;
+  private String solrForScoresUrl;
 
   protected void setOptions() {
     if (!isOptionSet) {
@@ -98,6 +99,7 @@ public class CommonParameters implements Serializable {
       options.addOption("c", "allowableRecords", true, "allow records for the analysis");
       options.addOption("e", "groupBy", true, "group the results by the value of this data element (e.g. the ILN of  library)");
       options.addOption("3", "groupListFile", true, "the file which contains a list of ILN codes");
+      options.addOption("4", "solrForScoresUrl", true, "the URL of the Solr server used to store scores");
 
       isOptionSet = true;
     }
@@ -140,6 +142,7 @@ public class CommonParameters implements Serializable {
     readPicaRecordType();
     readGroupBy();
     readGroupListFile();
+    readSolrForScoresUrl();
 
     args = cmd.getArgs();
   }
@@ -154,7 +157,6 @@ public class CommonParameters implements Serializable {
       picaRecordTypeField = cmd.getOptionValue("picaRecordType");
   }
 
-
   private void readGroupBy() {
     if (cmd.hasOption("groupBy"))
       groupBy = cmd.getOptionValue("groupBy");
@@ -163,6 +165,11 @@ public class CommonParameters implements Serializable {
   private void readGroupListFile() {
     if (cmd.hasOption("groupListFile"))
       groupListFile = cmd.getOptionValue("groupListFile");
+  }
+
+  private void readSolrForScoresUrl() {
+    if (cmd.hasOption("solrForScoresUrl"))
+      solrForScoresUrl = cmd.getOptionValue("solrForScoresUrl");
   }
 
   private void readPicaSubfieldSeparator() {
@@ -544,6 +551,10 @@ public class CommonParameters implements Serializable {
     return groupListFile;
   }
 
+  public String getSolrForScoresUrl() {
+    return solrForScoresUrl;
+  }
+
   public String formatParameters() {
     String text = "";
     text += String.format("schemaType: %s%n", schemaType);
@@ -574,6 +585,7 @@ public class CommonParameters implements Serializable {
     }
     text += String.format("groupBy: %s%n", groupBy);
     text += String.format("groupListFile: %s%n", groupListFile);
+    text += String.format("solrForScoresUrl: %s%n", solrForScoresUrl);
 
     return text;
   }

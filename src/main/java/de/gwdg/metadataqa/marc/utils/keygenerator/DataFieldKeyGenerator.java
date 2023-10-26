@@ -19,6 +19,7 @@ public class DataFieldKeyGenerator {
   private String indexTag;
   public static final Pattern nonValidSubfieldCode = Pattern.compile("[^0-9a-zA-Z]");
   private MarcVersion marcVersion;
+  private SchemaType schemaType;
 
   public DataFieldKeyGenerator(DataFieldDefinition definition, SolrFieldType type) {
     this.definition = definition;
@@ -33,9 +34,10 @@ public class DataFieldKeyGenerator {
                                SchemaType schemaType) {
     this.definition = definition;
     this.type = type;
+    this.schemaType = schemaType;
     if (schemaType.equals(SchemaType.PICA)) {
       this.tag = tag;
-      this.indexTag = tag;
+      this.indexTag = escape(tag);
     } else {
       if (definition != null) {
         this.tag = definition.getTag();
@@ -101,14 +103,14 @@ public class DataFieldKeyGenerator {
     SubfieldDefinition subfieldDefinition = subfield.getDefinition();
     if (subfieldDefinition == null && definition != null)
       subfieldDefinition = definition.getVersionSpecificSubfield(marcVersion, code);
-    String codeForIndex = (subfieldDefinition != null) ? subfieldDefinition.getCodeForIndex() : code;
+    String codeForIndex = (subfieldDefinition != null) ? subfieldDefinition.getCodeForIndex(schemaType) : code;
     String key = forSubfield(code, codeForIndex);
 
     return addVersion(subfieldDefinition, key);
   }
 
   public String forSubfield(SubfieldDefinition subfield) {
-    String key = forSubfield(subfield.getCode(), subfield.getCodeForIndex());
+    String key = forSubfield(subfield.getCode(), subfield.getCodeForIndex(schemaType));
     return addVersion(subfield, key);
   }
 
@@ -120,21 +122,26 @@ public class DataFieldKeyGenerator {
 
   private String forSubfield(String code, String codeForIndex) {
     String safeTag = nonValidSubfieldCode.matcher(tag).find() ? escape(tag) : tag;
-    if (nonValidSubfieldCode.matcher(code).matches())
+    if (nonValidSubfieldCode.matcher(code).matches()) {
       code = String.format("x%x", (int) code.charAt(0));
-
+    }
 
     String key = "";
     switch (type) {
       case HUMAN:
-        key = String.format("%s%s", indexTag, codeForIndex); break;
+        key = String.format("%s%s", indexTag, codeForIndex);
+        break;
       case MIXED:
-        if (!tag.equals(indexTag) && !codeForIndex.equals("_" + code))
-          key = String.format("%s%s_%s%s", safeTag, code, indexTag, codeForIndex);
-        else if (!tag.equals(indexTag) && codeForIndex.equals("_" + code))
-          key = String.format("%s%s_%s", safeTag, code, indexTag);
-        else
+        if (schemaType != null && schemaType.equals(SchemaType.PICA)) {
           key = String.format("%s%s", safeTag, code);
+        } else {
+          if (!tag.equals(indexTag) && !codeForIndex.equals("_" + code))
+            key = String.format("%s%s_%s%s", safeTag, code, indexTag, codeForIndex);
+          else if (!tag.equals(indexTag) && codeForIndex.equals("_" + code))
+            key = String.format("%s%s_%s", safeTag, code, indexTag);
+          else
+            key = String.format("%s%s", safeTag, code);
+        }
         break;
       case MARC:
       default:
@@ -149,8 +156,9 @@ public class DataFieldKeyGenerator {
     List<String> safe = new ArrayList<>();
     for (int i = 0; i < tag.length(); i++) {
       String code = tag.substring(i, i+1);
-      if (nonValidSubfieldCode.matcher(code).matches())
-        code = String.format("x%x", (int) code.charAt(0));
+      if (nonValidSubfieldCode.matcher(code).matches()) {
+        code = "_"; // code = String.format("x%x", (int) code.charAt(0));
+      }
       safe.add(code);
     }
     return StringUtils.join(safe, "");

@@ -796,10 +796,10 @@ public class Control007Test {
     assertEquals("Digital recording", field.getSoundRecording12().resolve());
 
     subfield = field.getSubfieldByPosition(13);
-    assertEquals("Capture and storage technique", subfield.getLabel());
+    assertEquals("Original capture and storage technique", subfield.getLabel());
     assertEquals("d", field.getMap().get(subfield));
-    assertEquals("Digital storage", field.resolve(subfield));
-    assertEquals("Digital storage", field.getSoundRecording13().resolve());
+    assertEquals("Electrical capture, digital storage", field.resolve(subfield));
+    assertEquals("Electrical capture, digital storage", field.getSoundRecording13().resolve());
 
     ControlFieldValidator validator = new ControlFieldValidator();
     assertFalse(validator.validate(field));

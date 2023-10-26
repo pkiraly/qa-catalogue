@@ -51,6 +51,7 @@ public class Tag500 extends DataFieldDefinition {
       "3", "Materials specified", "NR",
       "5", "Institution to which field applies", "NR",
       "6", "Linkage", "NR",
+      "7", "Data provenance", "R",
       "8", "Field link and sequence number", "R"
     );
 
@@ -74,6 +75,9 @@ public class Tag500 extends DataFieldDefinition {
       .setBibframeTag("linkage")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess)
       .setCompilanceLevels("A");
+
+    getSubfield("7")
+      .setMqTag("dataProvenance");
 
     getSubfield("8")
       .setMqTag("fieldLink")

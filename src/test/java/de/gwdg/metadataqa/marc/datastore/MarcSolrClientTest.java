@@ -125,7 +125,7 @@ public class MarcSolrClientTest {
     assertNull(mainClient.get("123"));
 
     final SolrDocument doc = mainClient.get("124");
-    assertEquals(Set.of("title_ss", "title_txt"), doc.getFieldNames());
+    assertEquals(Set.of("title_ss"), doc.getFieldNames());
     assertEquals(List.of("Hello world"), doc.getFieldValues("title_ss"));
   }
 
@@ -135,7 +135,7 @@ public class MarcSolrClientTest {
     mainClient.indexWithTokenizedField(true);
     SolrInputDocument doc = mainClient.createSolrDoc("124", Map.of("title_ss", List.of("Hello world")));
 
-    assertEquals(Set.of("id", "title_ss", "title_txt"), doc.getFieldNames());
+    assertEquals(Set.of("id", "title_ss", "title_tt"), doc.getFieldNames());
     assertEquals(List.of("Hello world"), doc.getFieldValues("title_ss"));
   }
 
@@ -152,7 +152,7 @@ public class MarcSolrClientTest {
       for (String field : validationValues.getFieldNames())
         doc.addField(field, validationValues.getFieldValues(field));
 
-    assertEquals(Set.of("id", "title_ss", "title_txt", "groupId_is", "errorId_is"), doc.getFieldNames());
+    assertEquals(Set.of("id", "title_ss", "title_tt", "groupId_is", "errorId_is"), doc.getFieldNames());
     assertEquals(List.of("Hello world"), doc.getFieldValues("title_ss"));
     assertEquals(List.of(1, 2, 3), doc.getFieldValues("groupId_is"));
     assertEquals(List.of(11, 12, 13), doc.getFieldValues("errorId_is"));
@@ -173,7 +173,7 @@ public class MarcSolrClientTest {
     mainClient.commit();
 
     SolrDocument savedValues = mainClient.get("123");
-    assertEquals(Set.of("title_ss", "title_txt", "groupId_is", "errorId_is"), savedValues.getFieldNames());
+    assertEquals(Set.of("title_ss", "groupId_is", "errorId_is"), savedValues.getFieldNames());
     assertEquals(List.of("Hello world"), savedValues.getFieldValues("title_ss"));
     assertEquals(List.of(1, 2, 3), savedValues.getFieldValues("groupId_is"));
     assertEquals(List.of(11, 12, 13), savedValues.getFieldValues("errorId_is"));

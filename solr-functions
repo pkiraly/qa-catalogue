@@ -75,7 +75,6 @@ prepare_schema() {
       }
     }' $SCHEMA_URL
 
-
     echo "Create *_sni dynamic field definition in ${LOCAL_CORE}."
     curl -X POST -H 'Content-type:application/json' --data-binary '{
       "add-dynamic-field":{
@@ -86,7 +85,6 @@ prepare_schema() {
         "docValues":false,
         "multiValued":false,
     }}' $SCHEMA_URL
-
   fi
 
   NUMBER_OF_COPY_FIELD=$(curl -is "$SCHEMA_URL/copyfields?source.fl=*_ss" | grep -c '"source":"\*_ss"')
@@ -108,6 +106,21 @@ prepare_schema() {
       }' $SCHEMA_URL
       NUMBER_OF_COPY_FIELD=$(curl -is "$SCHEMA_URL/copyfields?source.fl=*_ss" | grep -c '"source":"\*_ss"')
     done
+  fi
+
+  HAS_PROPER_TT=$(curl -is "$SCHEMA_URL/dynamicfields/*_tt" | grep -c '"type":"text_general"')
+  echo "Does ${LOCAL_CORE} have proper *_tt field definition? Answer: ${HAS_PROPER_TT}"
+  if [[ $HAS_PROPER_TT -eq 0 ]]; then
+    # add _tt
+    # <dynamicField name="*_tt" type="text_general" indexed="true" stored="false"/>
+    echo "Create *_tt dynamic field definition in ${LOCAL_CORE}."
+    curl -X POST -H 'Content-type:application/json' --data-binary '{
+      "add-dynamic-field":{
+        "name":"*_tt",
+        "type":"text_general",
+        "stored":false,
+        "indexed":true,
+    }}' $SCHEMA_URL
   fi
 }
 

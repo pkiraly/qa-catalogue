@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.cli.utils;
 
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.controlpositions.Control006Positions;
 import de.gwdg.metadataqa.marc.definition.controlpositions.Control007Positions;
 import de.gwdg.metadataqa.marc.definition.controlpositions.Control008Positions;
@@ -135,7 +136,7 @@ public class MappingToHtml {
     for (SubfieldDefinition subfield : tag.getSubfields()) {
       text.append(row(
         String.format("%s$%s", tag.getTag(), subfield.getCode()),
-        String.format("%s%s", tag.getIndexTag(), subfield.getCodeForIndex()),
+        String.format("%s%s", tag.getIndexTag(), subfield.getCodeForIndex(SchemaType.MARC21)),
         subfield.getLabel()
       ));
     }

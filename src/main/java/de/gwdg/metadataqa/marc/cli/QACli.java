@@ -49,7 +49,7 @@ public abstract class QACli<T extends CommonParameters> {
     }
   }
 
-  protected <T extends CommonParameters> void saveParameters(String fileName, T parameters) {
+  protected void saveParameters(String fileName, T parameters) {
     ObjectMapper mapper = new ObjectMapper();
     try {
       String json = mapper.writeValueAsString(parameters);

@@ -19,9 +19,9 @@ public class UseCaseTest {
   @Test
   public void testPatternMatching() {
     List<String> definitions = UseCase.E04.getElements().stream().map(e -> e.toString()).collect(Collectors.toList());
-    assertEquals(26, definitions.size());
+    assertEquals(27, definitions.size());
     assertEquals(
-      Arrays.asList("700", "710", "711", "720", "730", "740", "751", "752", "753", "754", "758", "760", "762", "765", "767", "770", "772", "773", "774", "775", "776", "777", "780", "785", "786", "787"),
+      List.of("700", "710", "711", "720", "730", "740", "751", "752", "753", "754", "758", "760", "762", "765", "767", "770", "772", "773", "774", "775", "776", "777", "780", "785", "786", "787", "788"),
       definitions);
   }
 
@@ -29,9 +29,9 @@ public class UseCaseTest {
   public void testPatternMatchingWithSubfield() {
     assertEquals(Arrays.asList("1XX$e", "7XX$e"), UseCase.E02.getDataElelemnts());
     List<String> definitions = UseCase.E02.getDataElelemntsNormalized();
-    assertEquals(10, definitions.size());
+    assertEquals(11, definitions.size());
     assertEquals(
-      Arrays.asList("110$e", "111$e", "100$e", "700$e", "710$e", "711$e", "720$e", "751$e", "752$e", "775$e"),
+      List.of("110$e", "111$e", "100$e", "700$e", "710$e", "711$e", "720$e", "751$e", "752$e", "775$e", "788$e"),
       definitions);
   }
 

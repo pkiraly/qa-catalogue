@@ -56,12 +56,15 @@ public class Tag856 extends DataFieldDefinition {
       )
       .setMqTag("accessMethod")
       .setFrbrFunctions(DiscoveryObtain);
+
     ind2 = new Indicator("Relationship")
       .setCodes(
         " ", "No information provided",
         "0", "Resource",
         "1", "Version of resource",
         "2", "Related resource",
+        "3", "Component part(s) of resource",
+        "4", "Version of component part(s) of resource",
         "8", "No display constant generated"
       )
       .setMqTag("relationship")
@@ -71,12 +74,19 @@ public class Tag856 extends DataFieldDefinition {
       "a", "Host name", "R",
       "c", "Compression information", "R",
       "d", "Path", "R",
+      "e", "Data provenance", "R",
       "f", "Electronic name", "R",
+      "g", "Persistent identifier", "R",
+      "h", "Non-functioning Uniform Resource Identifier", "R",
+      "l", "Standardized information governing access", "R",
       "m", "Contact for access assistance", "R",
+      "n", "Terms governing access", "R",
       "o", "Operating system", "NR",
       "p", "Port", "NR",
-      "q", "Electronic format type", "NR",
+      "q", "Electronic format type", "R",
+      "r", "Standardized information governing use and reproduction", "R",
       "s", "File size", "R",
+      "t", "Terms governing use and reproduction", "R",
       "u", "Uniform Resource Identifier", "R",
       "v", "Hours access method available", "R",
       "w", "Record control number", "R",
@@ -105,13 +115,6 @@ public class Tag856 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoveryObtain)
       .setCompilanceLevels("A");
 
-    /*
-    getSubfield("b")
-      .setMqTag("accessNumber")
-      .setFrbrFunctions(DiscoveryObtain)
-      .setCompilanceLevels("A");
-    */
-
     getSubfield("c")
       .setMqTag("compression")
       .setFrbrFunctions(DiscoveryObtain)
@@ -122,48 +125,30 @@ public class Tag856 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoveryObtain)
       .setCompilanceLevels("A");
 
+    getSubfield("e")
+      .setMqTag("dataProvenance");
+
     getSubfield("f")
       .setMqTag("name")
       .setFrbrFunctions(DiscoveryObtain)
       .setCompilanceLevels("A");
 
-    /*
+    getSubfield("g")
+      .setMqTag("pid");
+
     getSubfield("h")
-      .setMqTag("processor")
-      .setCompilanceLevels("A");
-
-    getSubfield("i")
-      .setMqTag("instruction")
-      .setFrbrFunctions(DiscoveryObtain)
-      .setCompilanceLevels("O");
-
-    getSubfield("j")
-      .setMqTag("bitsPerSecond")
-      .setFrbrFunctions(DiscoveryObtain)
-      .setCompilanceLevels("A");
-
-    getSubfield("k")
-      .setMqTag("password")
-      .setFrbrFunctions(DiscoveryObtain)
-      .setCompilanceLevels("A");
+        .setMqTag("nonFunctioningURI");
 
     getSubfield("l")
-      .setMqTag("logon")
-      .setFrbrFunctions(DiscoveryObtain)
-      .setCompilanceLevels("A");
-   */
+      .setMqTag("access");
 
     getSubfield("m")
       .setMqTag("contact")
       .setFrbrFunctions(DiscoveryObtain)
       .setCompilanceLevels("O");
 
-    /*
     getSubfield("n")
-      .setMqTag("location")
-      .setFrbrFunctions(DiscoveryObtain)
-      .setCompilanceLevels("A");
-    */
+      .setMqTag("terms");
 
     getSubfield("o")
       .setMqTag("operatingSystem")
@@ -180,23 +165,15 @@ public class Tag856 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoveryObtain)
       .setCompilanceLevels("A");
 
-    /*
     getSubfield("r")
-      .setMqTag("settings")
-      .setFrbrFunctions(DiscoveryObtain)
-      .setCompilanceLevels("A");
-     */
+      .setMqTag("use");
 
     getSubfield("s")
       .setMqTag("fileSize")
       .setCompilanceLevels("O");
 
-    /*
     getSubfield("t")
-      .setMqTag("terminalEmulation")
-      .setFrbrFunctions(DiscoveryObtain)
-      .setCompilanceLevels("A");
-     */
+      .setMqTag("termsOfUse");
 
     getSubfield("u")
       .setMqTag("uri")

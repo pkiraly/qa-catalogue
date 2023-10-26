@@ -45,6 +45,7 @@ usage:
  -J, --groupBy          group the results by the value of this data element (e.g. the ILN of  library)
  -B, --validationCore   the Solr collection used in the validation task
  -t, --outputDir        the directory to write the file listing the parameters
+ -3, --groupListFile    the file which contains a list of ILN codes
  -C, --indexWithTokenizedField
  -s, --status           status information
  -p, --purge            delete all records from a core
@@ -75,36 +76,39 @@ ignorableFields=""
 groupBy=""
 validationCore=""
 outputDir=""
-indexWithTokenizedField=""
+PARAMS=""
 
-GETOPT=$(getopt -o b:p:m:ws::xard:hSpv:l:i:g:A:F:f:z:J:B:t:C: \
-  --long db:,file-path:,file-mask:,no-delete,solrFieldType:,marcxml,alephseq,trimId,defaultRecordType,help,status,purge,marcVersion:,limit:,ignorableRecords:,defaultEncoding:,alephseqLineType:,schemaType:,marcFormat:,ignorableFields:,groupBy:,validationCore:,outputDir:,outputDir,indexWithTokenizedField \
+GETOPT=$(getopt -o b:p:m:ws::xard:hSpv:l:i:g:A:F:f:z:J:B:t:C:3:c:4: \
+  --long db:,file-path:,file-mask:,no-delete,solrFieldType:,marcxml,alephseq,trimId,defaultRecordType,help,status,purge,marcVersion:,limit:,ignorableRecords:,defaultEncoding:,alephseqLineType:,schemaType:,marcFormat:,ignorableFields:,groupBy:,validationCore:,outputDir:,outputDir,indexWithTokenizedField,groupListFile:,allowableRecords:,solrForScoresUrl: \
   -n ${ME} -- "$@")
 eval set -- "$GETOPT"
 
 while true ; do
   case "$1" in
-    -b|--db) DB=$2 ; shift 2;;
-    -p|--file-path) FILE_PATH=$2 ; shift 2;;
-    -m|--file-mask) FILE_MASK=$2 ; shift 2;;
-    -w|--no-delete) DELETE=0 ; shift;;
-    -s|--solrFieldType) solrFieldType=$2 ; shift 2;;
-    -d|--defaultRecordType) defaultRecordType=$2 ; shift 2;;
-    -v|--marcVersion) marcVersion=$2 ; shift 2;;
-    -l|--limit) limit="--limit $2"; shift 2;;
-    -i|--ignorableRecords) ignorableRecords="--ignorableRecords $2"; shift 2;;
-    -x|--marcxml) marcxml="--marcxml" ; shift;;
-    -a|--alephseq) alephseq="--alephseq" ; shift;;
-    -r|--trimId) trimId="--trimId" ; shift;;
-    -g|--defaultEncoding) defaultEncoding="--defaultEncoding $2" ; shift 2;;
-    -A|--alephseqLineType) alephseqLineType="--alephseqLineType $2" ; shift 2;;
-    -F|--schemaType) schemaType="--schemaType $2" ; shift 2;;
-    -f|--marcFormat) marcFormat="--marcFormat $2" ; shift 2;;
-    -z|--ignorableFields) ignorableFields="--ignorableFields $2" ; shift 2;;
-    -J|--groupBy) groupBy="--groupBy $2" ; shift 2;;
-    -B|--validationCore) validationCore=$2 ; shift 2;;
-    -t|--outputDir) outputDir="--outputDir $2" ; shift 2;;
-    -C|--indexWithTokenizedField) indexWithTokenizedField="--indexWithTokenizedField" ; shift ;;
+    -b|--db) DB=$2 ; shift 2 ;;
+    -p|--file-path) FILE_PATH=$2 ; shift 2 ;;
+    -m|--file-mask) FILE_MASK=$2 ; shift 2 ;;
+    -w|--no-delete) DELETE=0 ; shift ;;
+    -s|--solrFieldType) solrFieldType=$2 ; shift 2 ;;
+    -d|--defaultRecordType) defaultRecordType=$2 ; shift 2 ;;
+    -v|--marcVersion) marcVersion=$2 ; shift 2 ;;
+    -l|--limit) limit="--limit $2"; shift 2 ;;
+    -i|--ignorableRecords) ignorableRecords="--ignorableRecords $2"; shift 2 ;;
+    -x|--marcxml) marcxml="--marcxml" ; shift ;;
+    -a|--alephseq) alephseq="--alephseq" ; shift ;;
+    -r|--trimId) trimId="--trimId" ; shift ;;
+    -g|--defaultEncoding) defaultEncoding="--defaultEncoding $2" ; shift 2 ;;
+    -A|--alephseqLineType) alephseqLineType="--alephseqLineType $2" ; shift 2 ;;
+    -F|--schemaType) schemaType="--schemaType $2" ; shift 2 ;;
+    -f|--marcFormat) marcFormat="--marcFormat $2" ; shift 2 ;;
+    -z|--ignorableFields) ignorableFields="--ignorableFields $2" ; shift 2 ;;
+    -J|--groupBy) groupBy="--groupBy $2" ; shift 2 ;;
+    -B|--validationCore) validationCore=$2 ; shift 2 ;;
+    -t|--outputDir) outputDir="--outputDir $2" ; shift 2 ;;
+    -3|--groupListFile) PARAMS="$PARAMS --groupListFile $2" ; shift 2 ;;
+    -c|--allowableRecords) PARAMS="$PARAMS --allowableRecords $2" ; shift 2 ;;
+    -C|--indexWithTokenizedField) PARAMS="$PARAMS --indexWithTokenizedField" ; shift ;;
+    -4|--solrForScoresUrl) PARAMS="$PARAMS --solrForScoresUrl $2" ; shift 2 ;;
     -S|--status) status ; shift ;;
     -p|--purge) purge_and_exit $DB ; shift ;;
     -h|--help) show_usage ; shift ;;
@@ -120,11 +124,11 @@ CORE=${DB}_dev
 
 SOLR_DB_URL="${SOLR_HOST}/solr/${CORE}"
 
-if [[ "${validationCore}" != "" ]]; then
-  VALIDATION_PARAMS="--validationUrl ${SOLR_HOST}/solr/${validationCore}"
-else
-  VALIDATION_PARAMS=""
-fi
+# if [[ "${validationCore}" != "" ]]; then
+#   VALIDATION_PARAMS="--validationUrl ${SOLR_HOST}/solr/${validationCore}"
+# else
+#   VALIDATION_PARAMS=""
+# fi
 
 echo "SOLR URL: $SOLR_DB_URL"
 
@@ -161,7 +165,7 @@ running the command
   $ignorableFields \
   $groupBy \
   $outputDir \
-  $indexWithTokenizedField \
+  $PARAMS \
   ${FILE_PATH}/${FILE_MASK}
 ---END
 EOT
@@ -172,7 +176,7 @@ EOT
   --marcVersion $marcVersion \
   ${VALIDATION_PARAMS} \
   $limit $trimId $marcxml $alephseq $ignorableRecords $defaultEncoding $alephseqLineType $schemaType \
-  $marcFormat $ignorableFields $groupBy $outputDir $indexWithTokenizedField \
+  $marcFormat $ignorableFields $groupBy $outputDir $PARAMS \
   ${FILE_PATH}/${FILE_MASK}
 
 # echo "Start optimizing"

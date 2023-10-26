@@ -7,6 +7,7 @@ import de.gwdg.metadataqa.marc.definition.CompilanceLevel;
 import de.gwdg.metadataqa.marc.definition.FRBRFunction;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.bibliographic.BibliographicFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.SubfieldValidator;
@@ -49,7 +50,7 @@ public class SubfieldDefinition implements Serializable {
   private List<MarcVersion> disallowedIn;
   private MarcVersion marcVersion = null;
 
-  public String getCodeForIndex() {
+  public String getCodeForIndex(SchemaType schemaType) {
     if (codeForIndex == null) {
       if (mqTag != null) {
         if (mqTag.equals("rdf:value"))
@@ -70,7 +71,7 @@ public class SubfieldDefinition implements Serializable {
         else if (code.equals("@"))
           codeForIndex = "_at";
         else
-          codeForIndex = "_" + code;
+          codeForIndex = schemaType.equals(SchemaType.PICA) ? code : "_" + code;
       }
     }
     return codeForIndex;

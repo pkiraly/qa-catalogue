@@ -17,7 +17,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Original Study Number for Computer Data Files
- * http://www.loc.gov/marc/bibliographic/bd036.html
+ * https://www.loc.gov/marc/bibliographic/bd036.html
  */
 public class Tag036 extends DataFieldDefinition {
 

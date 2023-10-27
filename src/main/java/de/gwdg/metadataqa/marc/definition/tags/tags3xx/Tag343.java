@@ -15,7 +15,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseInterpret;
 
 /**
  * Planar Coordinate Data
- * http://www.loc.gov/marc/bibliographic/bd343.html
+ * https://www.loc.gov/marc/bibliographic/bd343.html
  */
 public class Tag343 extends DataFieldDefinition {
   private static Tag343 uniqueInstance;

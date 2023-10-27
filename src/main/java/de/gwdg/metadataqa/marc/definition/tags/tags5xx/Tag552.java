@@ -17,7 +17,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseInterpret;
 
 /**
  * Entity and Attribute Information Note
- * http://www.loc.gov/marc/bibliographic/bd552.html
+ * https://www.loc.gov/marc/bibliographic/bd552.html
  */
 public class Tag552 extends DataFieldDefinition {
 

@@ -14,7 +14,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Non-MARC Information Field
- * http://www.loc.gov/marc/bibliographic/bd887.html
+ * https://www.loc.gov/marc/bibliographic/bd887.html
  */
 public class Tag887 extends DataFieldDefinition {
 

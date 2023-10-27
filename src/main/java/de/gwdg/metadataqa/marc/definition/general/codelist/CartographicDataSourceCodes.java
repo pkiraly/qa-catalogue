@@ -4,13 +4,13 @@ import de.gwdg.metadataqa.marc.Utils;
 
 /**
  * Cartographic Data Source Codes
- * https://loc.gov/standards/sourcelist/cartographic-data.html
+ * https://www.loc.gov/standards/sourcelist/cartographic-data.html
  */
 public class CartographicDataSourceCodes extends CodeList {
 
   private void initialize() {
     name = "Cartographic Data Source Codes";
-    url = "https://loc.gov/standards/sourcelist/cartographic-data.html";
+    url = "https://www.loc.gov/standards/sourcelist/cartographic-data.html";
     codes = Utils.generateCodes(
       "aadcg", "Australian Antarctic Data Centre Antarctic Gazetteer (Australian Antarctic Data Centre)",
       "acgms", "Atlas of Canada Gazetteer Map Service (Natural Resources Canada)",

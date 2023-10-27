@@ -17,7 +17,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Time Period of Content
- * http://www.loc.gov/marc/bibliographic/bd045.html
+ * https://www.loc.gov/marc/bibliographic/bd045.html
  */
 public class Tag045 extends DataFieldDefinition {
 

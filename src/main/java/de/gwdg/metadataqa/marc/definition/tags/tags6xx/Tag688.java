@@ -15,7 +15,7 @@ import java.util.Arrays;
 
 /**
  * Subject Added Entry - Type of Entity Unspecified
- * http://www.loc.gov/marc/bibliographic/bd688.html
+ * https://www.loc.gov/marc/bibliographic/bd688.html
  */
 public class Tag688 extends DataFieldDefinition {
 

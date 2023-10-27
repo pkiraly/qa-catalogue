@@ -20,7 +20,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Index Term - Genre/Form
- * http://www.loc.gov/marc/bibliographic/bd655.html
+ * https://www.loc.gov/marc/bibliographic/bd655.html
  */
 public class Tag655 extends DataFieldDefinition {
 

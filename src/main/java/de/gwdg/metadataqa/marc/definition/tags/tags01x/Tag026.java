@@ -19,7 +19,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Fingerprint Identifier
- * http://www.loc.gov/marc/bibliographic/bd026.html
+ * https://www.loc.gov/marc/bibliographic/bd026.html
  */
 public class Tag026 extends DataFieldDefinition {
 

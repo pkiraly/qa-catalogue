@@ -19,7 +19,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Index Term - Curriculum Objective
- * http://www.loc.gov/marc/bibliographic/bd658.html
+ * https://www.loc.gov/marc/bibliographic/bd658.html
  */
 public class Tag658 extends DataFieldDefinition {
 

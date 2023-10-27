@@ -17,7 +17,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseManage;
 
 /**
  * Copyright Article-Fee Code
- * http://www.loc.gov/marc/bibliographic/bd018.html
+ * https://www.loc.gov/marc/bibliographic/bd018.html
  */
 public class Tag018 extends DataFieldDefinition {
 

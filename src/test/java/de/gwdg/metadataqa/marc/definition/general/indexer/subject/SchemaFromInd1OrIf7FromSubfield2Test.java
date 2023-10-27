@@ -11,8 +11,8 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
 /**
- * 052: Geographic Classification (http://www.loc.gov/marc/bibliographic/bd052.html)
- * 852: Location (http://www.loc.gov/marc/bibliographic/bd852.html)
+ * 052: Geographic Classification (https://www.loc.gov/marc/bibliographic/bd052.html)
+ * 852: Location (https://www.loc.gov/marc/bibliographic/bd852.html)
  */
 public class SchemaFromInd1OrIf7FromSubfield2Test extends SubjectIndexerTest {
 

@@ -15,7 +15,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseInterpret;
 
 /**
  * Geospatial Reference Data
- * http://www.loc.gov/marc/bibliographic/bd342.html
+ * https://www.loc.gov/marc/bibliographic/bd342.html
  */
 public class Tag342 extends DataFieldDefinition {
   private static Tag342 uniqueInstance;

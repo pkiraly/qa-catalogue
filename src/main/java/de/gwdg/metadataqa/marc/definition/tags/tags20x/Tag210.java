@@ -20,7 +20,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementSort;
 
 /**
  * Abbreviated Title
- * http://www.loc.gov/marc/bibliographic/bd210.html
+ * https://www.loc.gov/marc/bibliographic/bd210.html
  */
 public class Tag210 extends DataFieldDefinition {
   private static Tag210 uniqueInstance;

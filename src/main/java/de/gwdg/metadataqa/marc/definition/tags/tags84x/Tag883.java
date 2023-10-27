@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 /**
  * Metadata Provenance
- * http://www.loc.gov/marc/bibliographic/bd883.html
+ * https://www.loc.gov/marc/bibliographic/bd883.html
  */
 public class Tag883 extends DataFieldDefinition {
 

@@ -20,7 +20,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Patent Control Information
- * http://www.loc.gov/marc/bibliographic/bd013.html
+ * https://www.loc.gov/marc/bibliographic/bd013.html
  */
 public class Tag013 extends DataFieldDefinition {
 

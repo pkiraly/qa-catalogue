@@ -19,7 +19,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Electronic Location and Access
- * http://www.loc.gov/marc/bibliographic/bd856.html
+ * https://www.loc.gov/marc/bibliographic/bd856.html
  */
 public class Tag856 extends DataFieldDefinition {
 

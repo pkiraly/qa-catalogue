@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 /**
  * Information Relating to Copyright Status
- * http://www.loc.gov/marc/bibliographic/bd542.html
+ * https://www.loc.gov/marc/bibliographic/bd542.html
  */
 public class Tag542 extends DataFieldDefinition {
 

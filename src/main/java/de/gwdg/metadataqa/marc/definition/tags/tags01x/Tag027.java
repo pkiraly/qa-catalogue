@@ -17,7 +17,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Standard Technical Report Number
- * http://www.loc.gov/marc/bibliographic/bd027.html
+ * https://www.loc.gov/marc/bibliographic/bd027.html
  */
 public class Tag027 extends DataFieldDefinition {
 

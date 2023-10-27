@@ -20,7 +20,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Former Title
- * http://www.loc.gov/marc/bibliographic/bd247.html
+ * https://www.loc.gov/marc/bibliographic/bd247.html
  */
 public class Tag247 extends DataFieldDefinition {
   private static Tag247 uniqueInstance;

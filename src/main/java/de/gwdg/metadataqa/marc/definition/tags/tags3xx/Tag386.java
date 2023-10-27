@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 /**
  * Creator/Contributor Characteristics
- * http://www.loc.gov/marc/bibliographic/bd386.html
+ * https://www.loc.gov/marc/bibliographic/bd386.html
  */
 public class Tag386 extends DataFieldDefinition {
 

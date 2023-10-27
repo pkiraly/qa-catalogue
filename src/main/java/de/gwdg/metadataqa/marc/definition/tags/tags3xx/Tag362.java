@@ -17,7 +17,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseManage;
 
 /**
  * Dates of Publication and/or Sequential Designation
- * http://www.loc.gov/marc/bibliographic/bd362.html
+ * https://www.loc.gov/marc/bibliographic/bd362.html
  */
 public class Tag362 extends DataFieldDefinition {
   private static Tag362 uniqueInstance;

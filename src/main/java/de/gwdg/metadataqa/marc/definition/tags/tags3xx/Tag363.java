@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 /**
  * Normalized Date and Sequential Designation
- * http://www.loc.gov/marc/bibliographic/bd363.html
+ * https://www.loc.gov/marc/bibliographic/bd363.html
  */
 public class Tag363 extends DataFieldDefinition {
   private static Tag363 uniqueInstance;

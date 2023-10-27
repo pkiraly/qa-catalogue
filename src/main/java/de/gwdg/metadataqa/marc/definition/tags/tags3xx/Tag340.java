@@ -20,7 +20,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseOperate;
 
 /**
  * Physical Medium
- * http://www.loc.gov/marc/bibliographic/bd340.html
+ * https://www.loc.gov/marc/bibliographic/bd340.html
  */
 public class Tag340 extends DataFieldDefinition {
   private static Tag340 uniqueInstance;

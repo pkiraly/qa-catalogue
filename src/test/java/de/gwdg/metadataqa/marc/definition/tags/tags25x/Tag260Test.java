@@ -17,7 +17,7 @@ import static org.junit.Assert.assertNotNull;
 
 /**
  * Examples to test:
- * http://www.loc.gov/marc/bibliographic/bd260.html
+ * https://www.loc.gov/marc/bibliographic/bd260.html
  */
 public class Tag260Test {
   @Test

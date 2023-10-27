@@ -18,7 +18,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Index Term - Uncontrolled
- * http://www.loc.gov/marc/bibliographic/bd653.html
+ * https://www.loc.gov/marc/bibliographic/bd653.html
  */
 public class Tag653 extends DataFieldDefinition {
 

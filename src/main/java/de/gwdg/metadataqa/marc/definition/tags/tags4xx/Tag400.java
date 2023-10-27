@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 /**
  * Series Statement/Added Entry-Personal Name
- * http://www.loc.gov/marc/bibliographic/bd400.html
+ * https://www.loc.gov/marc/bibliographic/bd400.html
  */
 public class Tag400 extends DataFieldDefinition {
 

@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 /**
  * Other Relationship Entry
- * http://www.loc.gov/marc/bibliographic/bd788.html
+ * https://www.loc.gov/marc/bibliographic/bd788.html
  */
 public class Tag788 extends DataFieldDefinition {
 

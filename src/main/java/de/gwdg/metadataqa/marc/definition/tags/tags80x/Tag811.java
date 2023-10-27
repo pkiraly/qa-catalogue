@@ -24,7 +24,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementSort;
 
 /**
  * Series Added Entry - Meeting Name
- * http://www.loc.gov/marc/bibliographic/bd811.html
+ * https://www.loc.gov/marc/bibliographic/bd811.html
  */
 public class Tag811 extends DataFieldDefinition {
 

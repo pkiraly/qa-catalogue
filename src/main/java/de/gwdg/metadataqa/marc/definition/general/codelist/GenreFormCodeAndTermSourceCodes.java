@@ -4,13 +4,13 @@ import de.gwdg.metadataqa.marc.Utils;
 
 /**
  * Genre/Form Code and Term Source Codes.
- * http://www.loc.gov/standards/sourcelist/genre-form.html
+ * https://www.loc.gov/standards/sourcelist/genre-form.html
  */
 public class GenreFormCodeAndTermSourceCodes extends CodeList {
 
   private void initialize() {
     name = "Genre/Form Code and Term Source Codes";
-    url = "http://www.loc.gov/standards/sourcelist/genre-form.html";
+    url = "https://www.loc.gov/standards/sourcelist/genre-form.html";
     codes = Utils.generateCodes(
       "alett", "An alphabetical list of English text types (Berlin; New York: Mouton de Gruyter)",
       "amg", "Audiovisual material glossary (Dublin, OH: Online Computer Library Center, Inc.)",

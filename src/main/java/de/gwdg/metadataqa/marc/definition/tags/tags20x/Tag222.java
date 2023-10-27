@@ -18,7 +18,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementSort;
 
 /**
  * Key Title
- * http://www.loc.gov/marc/bibliographic/bd222.html
+ * https://www.loc.gov/marc/bibliographic/bd222.html
  */
 public class Tag222 extends DataFieldDefinition {
   private static Tag222 uniqueInstance;

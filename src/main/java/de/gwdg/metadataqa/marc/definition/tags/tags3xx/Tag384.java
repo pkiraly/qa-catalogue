@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 /**
  * Key
- * http://www.loc.gov/marc/bibliographic/bd384.html
+ * https://www.loc.gov/marc/bibliographic/bd384.html
  */
 public class Tag384 extends DataFieldDefinition {
   private static Tag384 uniqueInstance;

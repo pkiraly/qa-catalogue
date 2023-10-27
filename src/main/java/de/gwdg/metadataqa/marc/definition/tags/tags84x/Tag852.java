@@ -22,7 +22,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseManage;
 
 /**
  * Location
- * http://www.loc.gov/marc/bibliographic/bd852.html
+ * https://www.loc.gov/marc/bibliographic/bd852.html
  */
 public class Tag852 extends DataFieldDefinition {
 

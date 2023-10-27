@@ -28,7 +28,6 @@ import de.gwdg.metadataqa.marc.definition.tags.control.LeaderDefinition;
 import de.gwdg.metadataqa.marc.utils.MarcTagLister;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
 import de.gwdg.metadataqa.marc.utils.keygenerator.PositionalControlFieldKeyGenerator;
-import net.minidev.json.JSONStyle;
 import net.minidev.json.JSONValue;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -53,6 +52,7 @@ public class MappingToJson {
   private Map<String, Object> mapping;
   private final Options options;
   private MappingParameters parameters;
+  private Map<String, List<EncodedValue>> referencesCodeLists;
 
   public MappingToJson(String[] args) throws ParseException {
     parameters = new MappingParameters(args);
@@ -79,6 +79,8 @@ public class MappingToJson {
   public void build() {
     Map<String, Object> fields = new LinkedHashMap<>();
 
+    referencesCodeLists = new LinkedHashMap<>();
+
     fields.put("LDR", buildLeader());
     fields.putAll(buildSimpleControlFields());
 
@@ -100,6 +102,21 @@ public class MappingToJson {
       }
     }
     mapping.put("fields", fields);
+
+    Map<String, Object> codelists = new LinkedHashMap<>();
+    for (Map.Entry<String, List<EncodedValue>> entry : referencesCodeLists.entrySet()) {
+      String url = entry.getKey();
+      Map<String, Map<String, Object>> codes = new LinkedHashMap<>();
+      for (EncodedValue code : entry.getValue()) {
+        codes.put(code.getCode(), Map.of("label", code.getLabel()));
+        if (code.getRange() != null)
+          codes.get(code.getCode()).put("range", code.getRange());
+      }
+      codelists.put(url, codes);
+    }
+    mapping.put("codelists", codelists);
+
+    // System.err.println(referencesCodeLists.keySet());
   }
 
   private Map<String, Object> buildControlField(ControlFieldDefinition field, ControlfieldPositionList positionDefinition) {
@@ -312,6 +329,10 @@ public class MappingToJson {
     if (subfield.getCodeList() != null
         && !subfield.getCodeList().getCodes().isEmpty()) {
       CodeList codeList = subfield.getCodeList();
+      referencesCodeLists.put(codeList.getUrl(), codeList.getCodes());
+      codeMap.put("codes", codeList.getUrl());
+
+      /*
       Map<String, Object> meta = new LinkedHashMap<>();
       meta.put("name", codeList.getName());
       meta.put("url", codeList.getUrl());
@@ -328,6 +349,7 @@ public class MappingToJson {
         meta.put("codes", codes);
       }
       codeMap.put("codelist", meta);
+       */
     }
 
     if (subfield.hasPositions())
@@ -342,7 +364,7 @@ public class MappingToJson {
     return codeMap;
   }
 
-  private static Map<String, Object> getSubfieldPositions(SubfieldDefinition subfield) {
+  private Map<String, Object> getSubfieldPositions(SubfieldDefinition subfield) {
     Map<String, Object> positionListMap = new LinkedHashMap<>();
     for (ControlfieldPositionDefinition position : subfield.getPositions()) {
       Map<String, Object> positionMap = new LinkedHashMap<>();
@@ -357,16 +379,21 @@ public class MappingToJson {
         if (position.getCodes() != null && !position.getCodes().isEmpty()) {
           positionMap.put("codes", extractCodes(position.getCodes()));
         } else if (position.getCodeList() != null) {
-          positionMap.put("codes", extractCodes(position.getCodeList().getCodes()));
+          referencesCodeLists.put(position.getCodeList().getUrl(), position.getCodeList().getCodes());
+          positionMap.put("codes", position.getCodeList().getUrl());
+          // positionMap.put("codes", extractCodes(position.getCodeList().getCodes()));
         } else if (position.getCodeListReference() != null) {
-          positionMap.put("codes", extractCodes(position.getCodeListReference().getCodes()));
+          String url = String.format("%s#%s", position.getCodeListReference().getDescriptionUrl(), position.getCodeListReference().getPositionStart());
+          referencesCodeLists.put(url, position.getCodeListReference().getCodes());
+          positionMap.put("codes", url);
+          // positionMap.put("codes", extractCodes(position.getCodeListReference().getCodes()));
         } else {
           logger.log(Level.WARNING, "{0}${1}/{2}: missing code list!", new Object[]{
             subfield.getParent().getTag(), subfield.getCode(), position.getPositionStart()});
         }
       } else if (position.getValidator() != null) {
         if (position.getValidator() instanceof RegexValidator)
-          positionMap.put("regex", ((RegexValidator)position.getValidator()).getPattern());
+          positionMap.put("pattern", ((RegexValidator)position.getValidator()).getPattern());
       } else {
         logger.log(Level.WARNING, "{0}${1}/{2}: missing code list and validation!", new Object[]{
           subfield.getParent().getTag(), subfield.getCode(), position.getPositionStart()});

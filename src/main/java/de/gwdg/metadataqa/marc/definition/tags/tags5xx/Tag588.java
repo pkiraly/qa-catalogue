@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 /**
  * Source of Description Note
- * http://www.loc.gov/marc/bibliographic/bd588.html
+ * https://www.loc.gov/marc/bibliographic/bd588.html
  */
 public class Tag588 extends DataFieldDefinition {
 

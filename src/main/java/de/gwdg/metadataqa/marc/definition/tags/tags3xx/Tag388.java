@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 /**
  * Time Period of Creation
- * http://www.loc.gov/marc/bibliographic/bd388.html
+ * https://www.loc.gov/marc/bibliographic/bd388.html
  */
 public class Tag388 extends DataFieldDefinition {
 

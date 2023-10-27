@@ -19,7 +19,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Trade Availability Information
- * http://www.loc.gov/marc/bibliographic/bd366.html
+ * https://www.loc.gov/marc/bibliographic/bd366.html
  */
 public class Tag366 extends DataFieldDefinition {
   private static Tag366 uniqueInstance;

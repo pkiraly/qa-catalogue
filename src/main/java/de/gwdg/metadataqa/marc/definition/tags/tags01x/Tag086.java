@@ -20,7 +20,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Government Document Classification Number
- * http://www.loc.gov/marc/bibliographic/bd086.html
+ * https://www.loc.gov/marc/bibliographic/bd086.html
  */
 public class Tag086 extends DataFieldDefinition {
 

@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 /**
  * Video Characteristics
- * http://www.loc.gov/marc/bibliographic/bd346.html
+ * https://www.loc.gov/marc/bibliographic/bd346.html
  */
 public class Tag346 extends DataFieldDefinition {
   private static Tag346 uniqueInstance;

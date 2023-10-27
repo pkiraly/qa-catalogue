@@ -4,13 +4,13 @@ import de.gwdg.metadataqa.marc.Utils;
 
 /**
  * Temporal Term Source Codes
- * http://www.loc.gov/standards/sourcelist/temporal.html
+ * https://www.loc.gov/standards/sourcelist/temporal.html
  */
 public class TemporalTermSourceCodes extends CodeList {
 
   private void initialize() {
     name = "Temporal Term Source Codes";
-    url = "http://www.loc.gov/standards/sourcelist/temporal.html";
+    url = "https://www.loc.gov/standards/sourcelist/temporal.html";
     codes = Utils.generateCodes(
     );
     indexCodes();

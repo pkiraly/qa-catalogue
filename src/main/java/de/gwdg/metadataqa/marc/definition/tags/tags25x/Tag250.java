@@ -17,7 +17,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Edition Statement
- * http://www.loc.gov/marc/bibliographic/bd250.html
+ * https://www.loc.gov/marc/bibliographic/bd250.html
  */
 public class Tag250 extends DataFieldDefinition {
   private static Tag250 uniqueInstance;

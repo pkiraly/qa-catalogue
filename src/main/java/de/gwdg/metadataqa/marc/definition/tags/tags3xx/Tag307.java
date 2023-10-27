@@ -17,7 +17,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Hours, etc.
- * http://www.loc.gov/marc/bibliographic/bd307.html
+ * https://www.loc.gov/marc/bibliographic/bd307.html
  */
 public class Tag307 extends DataFieldDefinition {
   private static Tag307 uniqueInstance;

@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 /**
  * Series Statement/Added Entry Meeting Name
- * http://www.loc.gov/marc/bibliographic/bd411.html
+ * https://www.loc.gov/marc/bibliographic/bd411.html
  */
 public class Tag411 extends DataFieldDefinition {
 

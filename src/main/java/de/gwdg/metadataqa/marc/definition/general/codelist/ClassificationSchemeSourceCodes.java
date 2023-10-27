@@ -4,7 +4,7 @@ import de.gwdg.metadataqa.marc.Utils;
 
 /**
  * Classification Scheme Source Codes
- * http://www.loc.gov/standards/sourcelist/classification.html
+ * https://www.loc.gov/standards/sourcelist/classification.html
  * used in Bibliographic records
  * 052 $2 (Geographic Classification / Source)
  * 055 $2 (Classification Numbers Assigned in Canada / Source of call/class number)
@@ -16,7 +16,7 @@ public class ClassificationSchemeSourceCodes extends CodeList {
 
   private void initialize() {
     name = "Classification Scheme Source Codes";
-    url = "http://www.loc.gov/standards/sourcelist/classification.html";
+    url = "https://www.loc.gov/standards/sourcelist/classification.html";
     codes = Utils.generateCodes(
       "accs", "Annehurst curriculum classification system (West Lafayette, IN: Kappa Delta Pi)",
       "acmccs", "ACM Computing Classification System [2008 Version]",

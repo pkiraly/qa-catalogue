@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 /**
  * Accessibility Content
- * http://www.loc.gov/marc/bibliographic/bd341.html
+ * https://www.loc.gov/marc/bibliographic/bd341.html
  */
 public class Tag341 extends DataFieldDefinition {
   private static Tag341 uniqueInstance;

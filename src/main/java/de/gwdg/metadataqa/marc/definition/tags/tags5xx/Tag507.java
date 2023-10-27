@@ -17,7 +17,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseInterpret;
 
 /**
  * Scale Note for Visual Materials
- * http://www.loc.gov/marc/bibliographic/bd507.html
+ * https://www.loc.gov/marc/bibliographic/bd507.html
  */
 public class Tag507 extends DataFieldDefinition {
 

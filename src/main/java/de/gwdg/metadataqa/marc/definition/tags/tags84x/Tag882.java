@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 /**
  * Replacement Record Information
- * http://www.loc.gov/marc/bibliographic/bd882.html
+ * https://www.loc.gov/marc/bibliographic/bd882.html
  */
 public class Tag882 extends DataFieldDefinition {
 

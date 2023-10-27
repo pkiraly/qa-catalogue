@@ -19,7 +19,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Geographic Area Code
- * http://www.loc.gov/marc/bibliographic/bd043.html
+ * https://www.loc.gov/marc/bibliographic/bd043.html
  */
 public class Tag043 extends DataFieldDefinition {
 

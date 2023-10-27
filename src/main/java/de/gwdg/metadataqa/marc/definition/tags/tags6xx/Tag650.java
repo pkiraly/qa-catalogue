@@ -21,7 +21,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Subject Added Entry - Topical Term
- * http://www.loc.gov/marc/bibliographic/bd650.html
+ * https://www.loc.gov/marc/bibliographic/bd650.html
  */
 public class Tag650 extends DataFieldDefinition {
 

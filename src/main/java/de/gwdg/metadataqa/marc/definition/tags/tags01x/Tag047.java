@@ -16,7 +16,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Form of Musical Composition Code
- * http://www.loc.gov/marc/bibliographic/bd047.html
+ * https://www.loc.gov/marc/bibliographic/bd047.html
  */
 public class Tag047 extends DataFieldDefinition {
 

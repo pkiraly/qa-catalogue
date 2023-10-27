@@ -17,7 +17,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementSort;
 
 /**
  * Biographical or Historical Data
- * http://www.loc.gov/marc/bibliographic/bd545.html
+ * https://www.loc.gov/marc/bibliographic/bd545.html
  */
 public class Tag545 extends DataFieldDefinition {
 

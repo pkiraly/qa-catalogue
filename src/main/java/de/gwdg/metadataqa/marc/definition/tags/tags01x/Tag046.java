@@ -21,7 +21,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseRestrict;
 
 /**
  * Special Coded Dates
- * http://www.loc.gov/marc/bibliographic/bd046.html
+ * https://www.loc.gov/marc/bibliographic/bd046.html
  */
 public class Tag046 extends DataFieldDefinition {
 

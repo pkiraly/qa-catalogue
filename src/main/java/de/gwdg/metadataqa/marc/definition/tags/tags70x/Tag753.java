@@ -19,7 +19,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * System Details Access to Computer Files
- * http://www.loc.gov/marc/bibliographic/bd753.html
+ * https://www.loc.gov/marc/bibliographic/bd753.html
  */
 public class Tag753 extends DataFieldDefinition {
 

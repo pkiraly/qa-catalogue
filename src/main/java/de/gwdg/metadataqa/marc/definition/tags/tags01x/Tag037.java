@@ -20,7 +20,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseOperate;
 
 /**
  * Source of Acquisition
- * http://www.loc.gov/marc/bibliographic/bd037.html
+ * https://www.loc.gov/marc/bibliographic/bd037.html
  */
 public class Tag037 extends DataFieldDefinition {
 

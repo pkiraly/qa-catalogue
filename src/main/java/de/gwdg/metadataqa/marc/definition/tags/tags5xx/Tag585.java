@@ -17,7 +17,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseManage;
 
 /**
  * Exhibitions Note
- * http://www.loc.gov/marc/bibliographic/bd585.html
+ * https://www.loc.gov/marc/bibliographic/bd585.html
  */
 public class Tag585 extends DataFieldDefinition {
 

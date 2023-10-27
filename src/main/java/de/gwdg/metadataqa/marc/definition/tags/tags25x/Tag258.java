@@ -14,7 +14,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Philatelic Issue Data
- * http://www.loc.gov/marc/bibliographic/bd258.html
+ * https://www.loc.gov/marc/bibliographic/bd258.html
  */
 public class Tag258 extends DataFieldDefinition {
   private static Tag258 uniqueInstance;

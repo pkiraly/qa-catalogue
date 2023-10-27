@@ -18,7 +18,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Added Entry - Uncontrolled Name
- * http://www.loc.gov/marc/bibliographic/bd720.html
+ * https://www.loc.gov/marc/bibliographic/bd720.html
  */
 public class Tag720 extends DataFieldDefinition {
 

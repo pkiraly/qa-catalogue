@@ -15,7 +15,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Holding Institution
- * http://www.loc.gov/marc/bibliographic/bd850.html
+ * https://www.loc.gov/marc/bibliographic/bd850.html
  */
 public class Tag850 extends DataFieldDefinition {
 

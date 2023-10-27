@@ -16,7 +16,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseInterpret;
 
 /**
  * Data Quality Note
- * http://www.loc.gov/marc/bibliographic/bd514.html
+ * https://www.loc.gov/marc/bibliographic/bd514.html
  */
 public class Tag514 extends DataFieldDefinition {
 

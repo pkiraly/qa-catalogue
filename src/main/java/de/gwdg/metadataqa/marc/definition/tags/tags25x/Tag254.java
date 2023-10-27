@@ -16,7 +16,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Musical Presentation Statement
- * http://www.loc.gov/marc/bibliographic/bd254.html
+ * https://www.loc.gov/marc/bibliographic/bd254.html
  */
 public class Tag254 extends DataFieldDefinition {
   private static Tag254 uniqueInstance;

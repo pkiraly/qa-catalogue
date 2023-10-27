@@ -17,7 +17,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Date/Time and Place of an Event
- * http://www.loc.gov/marc/bibliographic/bd033.html
+ * https://www.loc.gov/marc/bibliographic/bd033.html
  */
 public class Tag033 extends DataFieldDefinition {
 

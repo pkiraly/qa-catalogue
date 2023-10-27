@@ -19,7 +19,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Country of Producing Entity
- * http://www.loc.gov/marc/bibliographic/bd257.html
+ * https://www.loc.gov/marc/bibliographic/bd257.html
  */
 public class Tag257 extends DataFieldDefinition {
   private static Tag257 uniqueInstance;

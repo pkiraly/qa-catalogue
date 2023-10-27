@@ -22,7 +22,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Translation Entry
- * http://www.loc.gov/marc/bibliographic/bd767.html
+ * https://www.loc.gov/marc/bibliographic/bd767.html
  */
 public class Tag767 extends DataFieldDefinition {
 
@@ -191,7 +191,7 @@ public class Tag767 extends DataFieldDefinition {
     getSubfield("4")
       .setMqTag("relationship")
       // TODO: this requires position parser!
-      // see http://www.loc.gov/marc/bibliographic/bd76x78x.html
+      // see https://www.loc.gov/marc/bibliographic/bd76x78x.html
       .setCodeList(RelatorCodes.getInstance())
       .setCompilanceLevels("O");
 

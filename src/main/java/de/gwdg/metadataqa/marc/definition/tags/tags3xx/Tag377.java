@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 /**
  * Associated Language
- * http://www.loc.gov/marc/bibliographic/bd377.html
+ * https://www.loc.gov/marc/bibliographic/bd377.html
  */
 public class Tag377 extends DataFieldDefinition {
   private static Tag377 uniqueInstance;

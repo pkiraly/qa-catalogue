@@ -16,7 +16,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Playing Time
- * http://www.loc.gov/marc/bibliographic/bd306.html
+ * https://www.loc.gov/marc/bibliographic/bd306.html
  */
 public class Tag306 extends DataFieldDefinition {
   private static Tag306 uniqueInstance;

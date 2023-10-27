@@ -18,7 +18,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * CopyrightAnd or Legal Deposit Number
- * http://www.loc.gov/marc/bibliographic/bd017.html
+ * https://www.loc.gov/marc/bibliographic/bd017.html
  */
 public class Tag017 extends DataFieldDefinition {
 

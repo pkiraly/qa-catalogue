@@ -23,7 +23,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Preceding Entry
- * http://www.loc.gov/marc/bibliographic/bd780.html
+ * https://www.loc.gov/marc/bibliographic/bd780.html
  */
 public class Tag780 extends DataFieldDefinition {
 
@@ -99,7 +99,7 @@ public class Tag780 extends DataFieldDefinition {
     );
 
     // TODO: this requires position parser!
-    // see http://www.loc.gov/marc/bibliographic/bd76x78x.html
+    // see https://www.loc.gov/marc/bibliographic/bd76x78x.html
     getSubfield("7").setPositions(Tag76xSubfield7PositionsGenerator.getPositions());
 
     getSubfield("x").setValidator(ISSNValidator.getInstance());

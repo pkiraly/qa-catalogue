@@ -18,7 +18,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Universal Decimal Classification Number
- * http://www.loc.gov/marc/bibliographic/bd080.html
+ * https://www.loc.gov/marc/bibliographic/bd080.html
  */
 public class Tag080 extends DataFieldDefinition {
 

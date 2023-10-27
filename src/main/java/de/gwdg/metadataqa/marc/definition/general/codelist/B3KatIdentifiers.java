@@ -10,7 +10,7 @@ public class B3KatIdentifiers extends CodeList {
 
   private void initialize() {
     name = "MARC Organization Codes";
-    url = "http://www.loc.gov/marc/organizations/orgshome.html";
+    url = "https://www.loc.gov/marc/organizations/orgshome.html";
     codes = EncodedValueFileReader.fileToCodeList("marc/b3kat.isil.csv");
     indexCodes();
   }

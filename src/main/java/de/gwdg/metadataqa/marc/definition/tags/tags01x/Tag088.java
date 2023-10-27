@@ -17,7 +17,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Report Number
- * http://www.loc.gov/marc/bibliographic/bd088.html
+ * https://www.loc.gov/marc/bibliographic/bd088.html
  */
 public class Tag088 extends DataFieldDefinition {
 

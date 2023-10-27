@@ -4,13 +4,13 @@ import de.gwdg.metadataqa.marc.Utils;
 
 /**
  * Thematic Index Code Source Codes
- * http://www.loc.gov/standards/sourcelist/thematic-index.html
+ * https://www.loc.gov/standards/sourcelist/thematic-index.html
  */
 public class ThematicIndexCodeSourceCodes extends CodeList {
 
   private void initialize() {
     name = "Thematic Index Code Source Codes";
-    url = "http://www.loc.gov/standards/sourcelist/thematic-index.html";
+    url = "https://www.loc.gov/standards/sourcelist/thematic-index.html";
     codes = Utils.generateCodes(
       "mlati", "Thematic Indexes Used in the Library of Congress/NACO Authority File (Compiled by the Music Library Association)"
     );

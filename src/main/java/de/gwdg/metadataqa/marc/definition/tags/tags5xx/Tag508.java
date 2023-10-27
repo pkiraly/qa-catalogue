@@ -16,7 +16,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Creation/Production Credits Note
- * http://www.loc.gov/marc/bibliographic/bd508.html
+ * https://www.loc.gov/marc/bibliographic/bd508.html
  */
 public class Tag508 extends DataFieldDefinition {
 

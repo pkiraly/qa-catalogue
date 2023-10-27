@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 /**
  * Moving Image Characteristics
- * http://www.loc.gov/marc/bibliographic/bd345.html
+ * https://www.loc.gov/marc/bibliographic/bd345.html
  */
 public class Tag345 extends DataFieldDefinition {
   private static Tag345 uniqueInstance;

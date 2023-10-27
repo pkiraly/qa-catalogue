@@ -16,7 +16,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * National Library of Medicine Copy Statement
- * http://www.loc.gov/marc/bibliographic/bd061.html
+ * https://www.loc.gov/marc/bibliographic/bd061.html
  */
 public class Tag061 extends DataFieldDefinition {
 

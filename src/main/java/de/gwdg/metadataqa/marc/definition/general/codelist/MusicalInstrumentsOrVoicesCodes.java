@@ -4,13 +4,13 @@ import de.gwdg.metadataqa.marc.Utils;
 
 /**
  * Instruments or Voices Codes
- * http://www.loc.gov/marc/bibliographic/bd048.html
+ * https://www.loc.gov/marc/bibliographic/bd048.html
  */
 public class MusicalInstrumentsOrVoicesCodes extends CodeList {
 
   private void initialize() {
     name = "Instruments or Voices Codes";
-    url = "http://www.loc.gov/marc/bibliographic/bd048.html";
+    url = "https://www.loc.gov/marc/bibliographic/bd048.html";
     codes = Utils.generateCodes(
       "ba", "Brass - Horn",
       "bb", "Brass - Trumpet",

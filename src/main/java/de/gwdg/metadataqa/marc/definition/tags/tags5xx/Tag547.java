@@ -15,7 +15,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Former Title Complexity Note
- * http://www.loc.gov/marc/bibliographic/bd547.html
+ * https://www.loc.gov/marc/bibliographic/bd547.html
  */
 public class Tag547 extends DataFieldDefinition {
 

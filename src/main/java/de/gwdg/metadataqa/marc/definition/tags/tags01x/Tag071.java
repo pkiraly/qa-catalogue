@@ -16,7 +16,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * National Agricultural Library Copy Statement
- * http://www.loc.gov/marc/bibliographic/bd071.html
+ * https://www.loc.gov/marc/bibliographic/bd071.html
  */
 public class Tag071 extends DataFieldDefinition {
 

@@ -19,7 +19,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseOperate;
 
 /**
  * Physical Description
- * http://www.loc.gov/marc/bibliographic/bd300.html
+ * https://www.loc.gov/marc/bibliographic/bd300.html
  */
 public class Tag300 extends DataFieldDefinition {
   private static Tag300 uniqueInstance;

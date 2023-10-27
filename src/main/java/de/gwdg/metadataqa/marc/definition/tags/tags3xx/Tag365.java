@@ -20,7 +20,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseInterpret;
 
 /**
  * Trade Price
- * http://www.loc.gov/marc/bibliographic/bd365.html
+ * https://www.loc.gov/marc/bibliographic/bd365.html
  */
 public class Tag365 extends DataFieldDefinition {
   private static Tag365 uniqueInstance;

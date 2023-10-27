@@ -21,7 +21,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Subseries Entry
- * http://www.loc.gov/marc/bibliographic/bd762.html
+ * https://www.loc.gov/marc/bibliographic/bd762.html
  */
 public class Tag762 extends DataFieldDefinition {
 
@@ -87,7 +87,7 @@ public class Tag762 extends DataFieldDefinition {
     );
 
     // TODO: this requires position parser!
-    // see http://www.loc.gov/marc/bibliographic/bd76x78x.html
+    // see https://www.loc.gov/marc/bibliographic/bd76x78x.html
     getSubfield("7").setPositions(Tag76xSubfield7PositionsGenerator.getPositions());
 
     getSubfield("6").setContentParser(LinkageParser.getInstance());

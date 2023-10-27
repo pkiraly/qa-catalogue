@@ -13,7 +13,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Library of Congress Control Number
- * http://www.loc.gov/marc/bibliographic/bd010.html
+ * https://www.loc.gov/marc/bibliographic/bd010.html
  */
 public class Tag010 extends DataFieldDefinition {
 

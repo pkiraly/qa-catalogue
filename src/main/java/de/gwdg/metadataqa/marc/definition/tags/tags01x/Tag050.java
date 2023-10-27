@@ -19,7 +19,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Library of Congress Call Number
- * http://www.loc.gov/marc/bibliographic/bd050.html
+ * https://www.loc.gov/marc/bibliographic/bd050.html
  */
 public class Tag050 extends DataFieldDefinition {
 

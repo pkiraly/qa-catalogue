@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 /**
  * Accessibility Note
- * http://www.loc.gov/marc/bibliographic/bd532.html
+ * https://www.loc.gov/marc/bibliographic/bd532.html
  */
 public class Tag532 extends DataFieldDefinition {
 

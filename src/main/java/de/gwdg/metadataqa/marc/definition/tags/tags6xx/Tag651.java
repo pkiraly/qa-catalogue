@@ -21,7 +21,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Subject Added Entry - Geographic Name
- * http://www.loc.gov/marc/bibliographic/bd651.html
+ * https://www.loc.gov/marc/bibliographic/bd651.html
  */
 public class Tag651 extends DataFieldDefinition {
 

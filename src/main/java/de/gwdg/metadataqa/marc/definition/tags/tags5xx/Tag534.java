@@ -19,7 +19,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Original Version Note
- * http://www.loc.gov/marc/bibliographic/bd534.html
+ * https://www.loc.gov/marc/bibliographic/bd534.html
  */
 public class Tag534 extends DataFieldDefinition {
 

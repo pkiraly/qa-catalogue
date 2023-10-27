@@ -12,7 +12,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Character Sets Present
- * http://www.loc.gov/marc/bibliographic/bd066.html
+ * https://www.loc.gov/marc/bibliographic/bd066.html
  */
 public class Tag066 extends DataFieldDefinition {
 

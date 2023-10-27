@@ -22,7 +22,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementSort;
 
 /**
  * Uniform Title
- * http://www.loc.gov/marc/bibliographic/bd240.html
+ * https://www.loc.gov/marc/bibliographic/bd240.html
  */
 public class Tag240 extends DataFieldDefinition {
   private static Tag240 uniqueInstance;

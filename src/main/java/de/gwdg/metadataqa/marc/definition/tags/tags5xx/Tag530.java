@@ -16,7 +16,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Additional Physical Form available Note
- * http://www.loc.gov/marc/bibliographic/bd530.html
+ * https://www.loc.gov/marc/bibliographic/bd530.html
  */
 public class Tag530 extends DataFieldDefinition {
 

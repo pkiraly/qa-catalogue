@@ -4,13 +4,13 @@ import de.gwdg.metadataqa.marc.Utils;
 
 /**
  * Musical Instrumentation and Voice Code Source Codes
- * http://www.loc.gov/standards/sourcelist/musical-instrumentation.html
+ * https://www.loc.gov/standards/sourcelist/musical-instrumentation.html
  */
 public class MusicalInstrumentationAndVoiceSourceCodes extends CodeList {
 
   private void initialize() {
     name = "Musical Instrumentation and Voice Code Source Codes";
-    url = "http://www.loc.gov/standards/sourcelist/musical-instrumentation.html";
+    url = "https://www.loc.gov/standards/sourcelist/musical-instrumentation.html";
     codes = Utils.generateCodes(
       "emnmus", "Emneord for musikkdokument i EDB-kataloger (Norwegian Directorate for Public and School Libraries)",
       "gnd", "Gemeinsame Normdatei (Leipzig, Frankfurt: Deutsche Nationalbibliothek)",

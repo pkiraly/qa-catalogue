@@ -19,7 +19,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseRestrict;
 
 /**
  * Restrictions on Access Note
- * http://www.loc.gov/marc/bibliographic/bd506.html
+ * https://www.loc.gov/marc/bibliographic/bd506.html
  */
 public class Tag506 extends DataFieldDefinition {
 

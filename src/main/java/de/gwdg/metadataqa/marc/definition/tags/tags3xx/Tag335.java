@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 /**
  * Extension Plan
- * http://www.loc.gov/marc/bibliographic/bd335.html
+ * https://www.loc.gov/marc/bibliographic/bd335.html
  */
 public class Tag335 extends DataFieldDefinition {
   private static Tag335 uniqueInstance;

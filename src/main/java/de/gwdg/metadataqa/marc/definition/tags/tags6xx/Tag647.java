@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 /**
  * Subject Added Entry - Named Event
- * http://www.loc.gov/marc/bibliographic/bd647.html
+ * https://www.loc.gov/marc/bibliographic/bd647.html
  */
 public class Tag647 extends DataFieldDefinition {
 

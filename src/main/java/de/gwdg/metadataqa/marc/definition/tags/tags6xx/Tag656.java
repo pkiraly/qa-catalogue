@@ -19,7 +19,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Index Term - Occupation
- * http://www.loc.gov/marc/bibliographic/bd656.html
+ * https://www.loc.gov/marc/bibliographic/bd656.html
  */
 public class Tag656 extends DataFieldDefinition {
 

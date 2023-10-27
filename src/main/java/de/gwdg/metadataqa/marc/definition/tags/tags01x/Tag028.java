@@ -19,7 +19,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Publisher or Distributor Number
- * http://www.loc.gov/marc/bibliographic/bd028.html
+ * https://www.loc.gov/marc/bibliographic/bd028.html
  */
 public class Tag028 extends DataFieldDefinition {
 

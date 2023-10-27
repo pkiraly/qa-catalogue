@@ -20,7 +20,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementSort;
 
 /**
  * Added Entry - Corporate Name
- * http://www.loc.gov/marc/bibliographic/bd710.html
+ * https://www.loc.gov/marc/bibliographic/bd710.html
  */
 public class Tag982 extends DataFieldDefinition {
 

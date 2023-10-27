@@ -15,7 +15,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseRestrict;
 
 /**
  * Originator Dissemination Control
- * http://www.loc.gov/marc/bibliographic/bd357.html
+ * https://www.loc.gov/marc/bibliographic/bd357.html
  */
 public class Tag357 extends DataFieldDefinition {
   private static Tag357 uniqueInstance;

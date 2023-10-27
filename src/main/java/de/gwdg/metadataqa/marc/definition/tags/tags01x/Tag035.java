@@ -15,7 +15,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * System Control Number
- * http://www.loc.gov/marc/bibliographic/bd035.html
+ * https://www.loc.gov/marc/bibliographic/bd035.html
  */
 public class Tag035 extends DataFieldDefinition {
 

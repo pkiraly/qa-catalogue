@@ -21,7 +21,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Classification Numbers Assigned in Canada
- * http://www.loc.gov/marc/bibliographic/bd055.html
+ * https://www.loc.gov/marc/bibliographic/bd055.html
  */
 public class Tag055 extends DataFieldDefinition {
 

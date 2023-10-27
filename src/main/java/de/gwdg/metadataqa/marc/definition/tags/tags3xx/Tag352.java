@@ -17,7 +17,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseOperate;
 
 /**
  * Digital Graphic Representation
- * http://www.loc.gov/marc/bibliographic/bd352.html
+ * https://www.loc.gov/marc/bibliographic/bd352.html
  */
 public class Tag352 extends DataFieldDefinition {
   private static Tag352 uniqueInstance;

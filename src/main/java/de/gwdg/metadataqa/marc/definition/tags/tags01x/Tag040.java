@@ -17,7 +17,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Cataloging Source
- * http://www.loc.gov/marc/bibliographic/bd040.html
+ * https://www.loc.gov/marc/bibliographic/bd040.html
  */
 public class Tag040 extends DataFieldDefinition {
 

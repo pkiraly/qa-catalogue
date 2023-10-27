@@ -24,7 +24,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseManage;
 
 /**
  * Reproduction Note
- * http://www.loc.gov/marc/bibliographic/bd533.html
+ * https://www.loc.gov/marc/bibliographic/bd533.html
  */
 public class Tag533 extends DataFieldDefinition {
 

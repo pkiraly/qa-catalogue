@@ -16,7 +16,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoverySelect;
 
 /**
  * Number of Musical Instruments or Voices Codes
- * http://www.loc.gov/marc/bibliographic/bd048.html
+ * https://www.loc.gov/marc/bibliographic/bd048.html
  */
 public class Tag048 extends DataFieldDefinition {
 

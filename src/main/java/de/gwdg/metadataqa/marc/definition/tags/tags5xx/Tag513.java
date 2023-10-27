@@ -16,7 +16,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Type of Report and Period Covered Note
- * http://www.loc.gov/marc/bibliographic/bd513.html
+ * https://www.loc.gov/marc/bibliographic/bd513.html
  */
 public class Tag513 extends DataFieldDefinition {
 

@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 /**
  * Production, Publication, Distribution, Manufacture, and Copyright Notice
- * http://www.loc.gov/marc/bibliographic/bd264.html
+ * https://www.loc.gov/marc/bibliographic/bd264.html
  */
 public class Tag264 extends DataFieldDefinition {
 

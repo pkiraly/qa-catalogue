@@ -17,7 +17,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Publication, Distribution, etc. (Imprint)
- * http://www.loc.gov/marc/bibliographic/bd260.html
+ * https://www.loc.gov/marc/bibliographic/bd260.html
  */
 public class Tag260 extends DataFieldDefinition {
 

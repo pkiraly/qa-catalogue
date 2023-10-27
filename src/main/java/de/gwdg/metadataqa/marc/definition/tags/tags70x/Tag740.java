@@ -18,7 +18,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementSort;
 
 /**
  * Added Entry - Uncontrolled Related/Analytical Title
- * http://www.loc.gov/marc/bibliographic/bd740.html
+ * https://www.loc.gov/marc/bibliographic/bd740.html
  */
 public class Tag740 extends DataFieldDefinition {
 

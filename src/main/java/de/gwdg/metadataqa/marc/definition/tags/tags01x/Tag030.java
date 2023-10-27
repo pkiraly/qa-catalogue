@@ -17,7 +17,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * CODEN Designation
- * http://www.loc.gov/marc/bibliographic/bd030.html
+ * https://www.loc.gov/marc/bibliographic/bd030.html
  * <p>
  * CODEN is a unique identifier for scientific and technical periodical titles; it consists of
  * six characters. The CODEN is assigned by the International CODEN Section of Chemical Abstracts Service.

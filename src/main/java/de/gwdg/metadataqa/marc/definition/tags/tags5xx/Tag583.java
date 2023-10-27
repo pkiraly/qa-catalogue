@@ -21,7 +21,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseManage;
 
 /**
  * Action Note
- * http://www.loc.gov/marc/bibliographic/bd583.html
+ * https://www.loc.gov/marc/bibliographic/bd583.html
  */
 public class Tag583 extends DataFieldDefinition {
 

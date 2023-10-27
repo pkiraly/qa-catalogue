@@ -20,7 +20,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Added Entry - Hierarchical Place Name
- * http://www.loc.gov/marc/bibliographic/bd752.html
+ * https://www.loc.gov/marc/bibliographic/bd752.html
  */
 public class Tag752 extends DataFieldDefinition {
 

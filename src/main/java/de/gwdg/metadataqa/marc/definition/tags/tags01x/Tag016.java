@@ -14,7 +14,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * National Bibliographic Agency Control Number
- * http://www.loc.gov/marc/bibliographic/bd016.html
+ * https://www.loc.gov/marc/bibliographic/bd016.html
  */
 public class Tag016 extends DataFieldDefinition {
 

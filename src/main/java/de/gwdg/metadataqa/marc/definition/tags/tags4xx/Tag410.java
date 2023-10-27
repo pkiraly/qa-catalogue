@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 /**
  * Series Statement/Added Entry-Corporate Name
- * http://www.loc.gov/marc/bibliographic/bd410.html
+ * https://www.loc.gov/marc/bibliographic/bd410.html
  */
 public class Tag410 extends DataFieldDefinition {
 

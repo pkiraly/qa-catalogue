@@ -19,7 +19,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Subject Category Code
- * http://www.loc.gov/marc/bibliographic/bd072.html
+ * https://www.loc.gov/marc/bibliographic/bd072.html
  */
 public class Tag072 extends DataFieldDefinition {
 

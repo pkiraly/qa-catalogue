@@ -4,7 +4,7 @@ import de.gwdg.metadataqa.marc.Utils;
 
 /**
  * Curriculum Objective Term and Code Source Codes
- * http://www.loc.gov/standards/sourcelist/curriculum-objective.html
+ * https://www.loc.gov/standards/sourcelist/curriculum-objective.html
  * used in
  * Bibliographic records 658$2 (Index Term - Curriculum Objective / Source of term or code)
  * Community Information records 658$2 (Index Term - Curriculum Objective / Source of term or code)
@@ -13,7 +13,7 @@ public class CurriculumObjectiveTermAndCodeSourceCodes extends CodeList {
 
   private void initialize() {
     name = "Curriculum Objective Term and Code Source Codes";
-    url = "http://www.loc.gov/standards/sourcelist/curriculum-objective.html";
+    url = "https://www.loc.gov/standards/sourcelist/curriculum-objective.html";
     codes = Utils.generateCodes(
       "abledata", "ABLEDATA thesaurus (Silver Spring, MD: National Rehabilitation Information Center)",
       "acccp", "Australian Cross-curriculum Priorities (Australian Curriculum, Assessment and Reporting Authority (ACARA))",

@@ -20,7 +20,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Subject Added Entry - Faceted Topical Terms
- * http://www.loc.gov/marc/bibliographic/bd654.html
+ * https://www.loc.gov/marc/bibliographic/bd654.html
  */
 public class Tag654 extends DataFieldDefinition {
 

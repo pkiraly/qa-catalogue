@@ -16,7 +16,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Library of Congress Copy, Issue, Offprint Statement
- * http://www.loc.gov/marc/bibliographic/bd051.html
+ * https://www.loc.gov/marc/bibliographic/bd051.html
  */
 public class Tag051 extends DataFieldDefinition {
 

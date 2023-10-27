@@ -20,7 +20,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementSort;
 
 /**
  * Collective Uniform Title
- * http://www.loc.gov/marc/bibliographic/bd243.html
+ * https://www.loc.gov/marc/bibliographic/bd243.html
  */
 public class Tag243 extends DataFieldDefinition {
   private static Tag243 uniqueInstance;

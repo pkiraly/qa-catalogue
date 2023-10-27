@@ -18,7 +18,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseInterpret;
 
 /**
  * Cartographic Mathematical Data
- * http://www.loc.gov/marc/bibliographic/bd255.html
+ * https://www.loc.gov/marc/bibliographic/bd255.html
  */
 public class Tag255 extends DataFieldDefinition {
   private static Tag255 uniqueInstance;

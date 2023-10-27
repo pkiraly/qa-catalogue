@@ -19,7 +19,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseOperate;
 
 /**
  * Supplementary Content Characteristics
- * http://www.loc.gov/marc/bibliographic/bd353.html
+ * https://www.loc.gov/marc/bibliographic/bd353.html
  */
 public class Tag353 extends DataFieldDefinition {
   private static Tag353 uniqueInstance;

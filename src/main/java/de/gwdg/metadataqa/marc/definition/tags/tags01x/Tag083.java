@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 /**
  * Additional Dewey Decimal Classification Number
- * http://www.loc.gov/marc/bibliographic/bd083.html
+ * https://www.loc.gov/marc/bibliographic/bd083.html
  */
 public class Tag083 extends DataFieldDefinition {
 

@@ -17,7 +17,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Participant or Performer Note
- * http://www.loc.gov/marc/bibliographic/bd511.html
+ * https://www.loc.gov/marc/bibliographic/bd511.html
  */
 public class Tag511 extends DataFieldDefinition {
 

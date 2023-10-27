@@ -16,7 +16,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseManage;
 
 /**
  * Record Content Licensor
- * http://www.loc.gov/marc/bibliographic/bd038.html
+ * https://www.loc.gov/marc/bibliographic/bd038.html
  */
 public class Tag038 extends DataFieldDefinition {
 

@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 /**
  * Format of Notated Music
- * http://www.loc.gov/marc/bibliographic/bd348.html
+ * https://www.loc.gov/marc/bibliographic/bd348.html
  */
 public class Tag348 extends DataFieldDefinition {
   private static Tag348 uniqueInstance;

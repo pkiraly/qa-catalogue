@@ -20,7 +20,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Subject Added Entry - Chronological Term
- * http://www.loc.gov/marc/bibliographic/bd648.html
+ * https://www.loc.gov/marc/bibliographic/bd648.html
  */
 public class Tag648 extends DataFieldDefinition {
 

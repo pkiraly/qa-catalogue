@@ -4,14 +4,14 @@ import de.gwdg.metadataqa.marc.Utils;
 
 /**
  * MARC Code List for Geographic Areas
- * http://www.loc.gov/marc/geoareas/
- * http://www.loc.gov/marc/geoareas/gacs_code.html
+ * https://www.loc.gov/marc/geoareas/
+ * https://www.loc.gov/marc/geoareas/gacs_code.html
  */
 public class GeographicAreaCodes extends CodeList {
 
   private void initialize() {
     name = "MARC Code List for Geographic Areas";
-    url = "http://www.loc.gov/marc/geoareas/";
+    url = "https://www.loc.gov/marc/geoareas/";
     codes = Utils.generateCodes(
       "a", "Asia",
       "a-af", "Afghanistan",

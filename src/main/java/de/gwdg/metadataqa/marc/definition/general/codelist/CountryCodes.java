@@ -4,13 +4,13 @@ import de.gwdg.metadataqa.marc.Utils;
 
 /**
  * MARC Code List for Countries
- * http://www.loc.gov/marc/countries/countries_code.html
+ * https://www.loc.gov/marc/countries/countries_code.html
  */
 public class CountryCodes extends CodeList {
 
   private void initialize() {
     name = "MARC Code List for Countries";
-    url = "http://www.loc.gov/marc/countries/countries_code.html";
+    url = "https://www.loc.gov/marc/countries/countries_code.html";
     codes = Utils.generateCodes(
       "aa", "Albania",
       "abc", "Alberta",

@@ -19,7 +19,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Geographic Classification
- * http://www.loc.gov/marc/bibliographic/bd052.html
+ * https://www.loc.gov/marc/bibliographic/bd052.html
  */
 public class Tag052 extends DataFieldDefinition {
 

@@ -14,7 +14,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Linking Entry Complexity Note
- * http://www.loc.gov/marc/bibliographic/bd580.html
+ * https://www.loc.gov/marc/bibliographic/bd580.html
  */
 public class Tag580 extends DataFieldDefinition {
 

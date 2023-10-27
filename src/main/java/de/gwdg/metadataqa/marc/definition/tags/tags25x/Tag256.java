@@ -19,7 +19,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseOperate;
 
 /**
  * Computer File Characteristics
- * http://www.loc.gov/marc/bibliographic/bd256.html
+ * https://www.loc.gov/marc/bibliographic/bd256.html
  */
 public class Tag256 extends DataFieldDefinition {
   private static Tag256 uniqueInstance;

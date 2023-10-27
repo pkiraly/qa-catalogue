@@ -18,7 +18,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Information About Documentation Note
- * http://www.loc.gov/marc/bibliographic/bd556.html
+ * https://www.loc.gov/marc/bibliographic/bd556.html
  */
 public class Tag556 extends DataFieldDefinition {
 

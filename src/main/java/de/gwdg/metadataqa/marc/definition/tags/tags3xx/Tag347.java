@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 /**
  * Digital File Characteristics
- * http://www.loc.gov/marc/bibliographic/bd347.html
+ * https://www.loc.gov/marc/bibliographic/bd347.html
  */
 public class Tag347 extends DataFieldDefinition {
   private static Tag347 uniqueInstance;

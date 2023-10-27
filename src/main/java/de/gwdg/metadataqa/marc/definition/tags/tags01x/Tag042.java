@@ -14,7 +14,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Authentication Code
- * http://www.loc.gov/marc/bibliographic/bd042.html
+ * https://www.loc.gov/marc/bibliographic/bd042.html
  */
 public class Tag042 extends DataFieldDefinition {
 

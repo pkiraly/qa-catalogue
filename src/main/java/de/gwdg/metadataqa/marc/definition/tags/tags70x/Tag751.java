@@ -15,7 +15,7 @@ import java.util.Arrays;
 
 /**
  * Added Entry - Geographic Name
- * http://www.loc.gov/marc/bibliographic/bd751.html
+ * https://www.loc.gov/marc/bibliographic/bd751.html
  */
 public class Tag751 extends DataFieldDefinition {
 

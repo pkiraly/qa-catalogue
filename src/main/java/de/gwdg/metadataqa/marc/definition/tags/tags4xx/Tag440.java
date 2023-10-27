@@ -21,7 +21,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementSort;
 
 /**
  * Series Statement/Added Entry-Title
- * http://www.loc.gov/marc/bibliographic/bd440.html
+ * https://www.loc.gov/marc/bibliographic/bd440.html
  */
 public class Tag440 extends DataFieldDefinition {
 

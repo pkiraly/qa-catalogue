@@ -15,7 +15,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseManage;
 
 /**
  * Numbering Peculiarities Note
- * http://www.loc.gov/marc/bibliographic/bd515.html
+ * https://www.loc.gov/marc/bibliographic/bd515.html
  */
 public class Tag515 extends DataFieldDefinition {
 

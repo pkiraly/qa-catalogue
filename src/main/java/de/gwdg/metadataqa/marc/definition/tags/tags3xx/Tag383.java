@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 /**
  * Numeric Designation of Musical Work
- * http://www.loc.gov/marc/bibliographic/bd383.html
+ * https://www.loc.gov/marc/bibliographic/bd383.html
  */
 public class Tag383 extends DataFieldDefinition {
   private static Tag383 uniqueInstance;

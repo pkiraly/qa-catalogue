@@ -4,13 +4,13 @@ import de.gwdg.metadataqa.marc.Utils;
 
 /**
  * MARC Code List for Languages
- * http://www.loc.gov/marc/languages/language_code.html
+ * https://www.loc.gov/marc/languages/language_code.html
  */
 public class LanguageCodes extends CodeList {
 
   private void initialize() {
     name = "MARC Code List for Languages";
-    url = "http://www.loc.gov/marc/languages/language_code.html";
+    url = "https://www.loc.gov/marc/languages/language_code.html";
     codes = Utils.generateCodes(
       "aar", "Afar",
       "abk", "Abkhaz",

@@ -17,7 +17,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Address
- * http://www.loc.gov/marc/bibliographic/bd270.html
+ * https://www.loc.gov/marc/bibliographic/bd270.html
  */
 public class Tag270 extends DataFieldDefinition {
 

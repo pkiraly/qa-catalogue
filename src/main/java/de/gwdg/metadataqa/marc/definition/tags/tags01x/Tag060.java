@@ -18,7 +18,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * National Library of Medicine Call Number
- * http://www.loc.gov/marc/bibliographic/bd060.html
+ * https://www.loc.gov/marc/bibliographic/bd060.html
  */
 public class Tag060 extends DataFieldDefinition {
 

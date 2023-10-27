@@ -17,7 +17,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseManage;
 
 /**
  * Immediate Source of Acquisition Note
- * http://www.loc.gov/marc/bibliographic/bd541.html
+ * https://www.loc.gov/marc/bibliographic/bd541.html
  */
 public class Tag541 extends DataFieldDefinition {
 

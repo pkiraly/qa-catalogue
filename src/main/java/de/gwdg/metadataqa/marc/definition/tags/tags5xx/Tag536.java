@@ -15,7 +15,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Funding Information Note
- * http://www.loc.gov/marc/bibliographic/bd536.html
+ * https://www.loc.gov/marc/bibliographic/bd536.html
  */
 public class Tag536 extends DataFieldDefinition {
 

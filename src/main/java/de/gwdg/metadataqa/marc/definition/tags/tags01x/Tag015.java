@@ -15,7 +15,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * National Bibliography Number
- * http://www.loc.gov/marc/bibliographic/bd015.html
+ * https://www.loc.gov/marc/bibliographic/bd015.html
  */
 public class Tag015 extends DataFieldDefinition {
 

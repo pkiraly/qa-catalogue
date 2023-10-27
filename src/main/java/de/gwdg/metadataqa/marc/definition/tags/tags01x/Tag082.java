@@ -18,7 +18,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Dewey Decimal Classification Number
- * http://www.loc.gov/marc/bibliographic/bd082.html
+ * https://www.loc.gov/marc/bibliographic/bd082.html
  */
 public class Tag082 extends DataFieldDefinition {
 

@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 /**
  * Other Distinguishing Characteristics of Work or Expression
- * http://www.loc.gov/marc/bibliographic/bd381.html
+ * https://www.loc.gov/marc/bibliographic/bd381.html
  */
 public class Tag381 extends DataFieldDefinition {
   private static Tag381 uniqueInstance;

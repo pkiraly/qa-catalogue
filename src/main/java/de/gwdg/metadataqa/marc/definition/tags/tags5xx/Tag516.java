@@ -16,7 +16,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Type of Computer File or Data Note
- * http://www.loc.gov/marc/bibliographic/bd516.html
+ * https://www.loc.gov/marc/bibliographic/bd516.html
  */
 public class Tag516 extends DataFieldDefinition {
 

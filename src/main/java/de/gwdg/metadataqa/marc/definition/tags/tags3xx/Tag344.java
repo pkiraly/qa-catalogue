@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 /**
  * Sound Characteristics
- * http://www.loc.gov/marc/bibliographic/bd344.html
+ * https://www.loc.gov/marc/bibliographic/bd344.html
  */
 public class Tag344 extends DataFieldDefinition {
   private static Tag344 uniqueInstance;

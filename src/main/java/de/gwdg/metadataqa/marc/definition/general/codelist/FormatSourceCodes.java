@@ -4,13 +4,13 @@ import de.gwdg.metadataqa.marc.Utils;
 
 /**
  * Format Source Codes
- * http://www.loc.gov/standards/sourcelist/format.html
+ * https://www.loc.gov/standards/sourcelist/format.html
  */
 public class FormatSourceCodes extends CodeList {
 
   private void initialize() {
     name = "Format Source Codes";
-    url = "http://www.loc.gov/standards/sourcelist/format.html";
+    url = "https://www.loc.gov/standards/sourcelist/format.html";
     codes = Utils.generateCodes(
       "annamarc", "ANNAMARC: specifiche relative ai nastri magnetici contententi i record della Biblioteca Nazionale Italiana nel formato ANNAMARC ([Roma]: Istituto Centrale per il Catalogo Unico delle Biblioteche Italiane e per le Informazioni Bibliografiche)",
       "ausmarc", "AUSMARC bibliographic format (Canberra: National Library of Australia",

@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 /**
  * Form of Work
- * http://www.loc.gov/marc/bibliographic/bd380.html
+ * https://www.loc.gov/marc/bibliographic/bd380.html
  */
 public class Tag380 extends DataFieldDefinition {
   private static Tag380 uniqueInstance;

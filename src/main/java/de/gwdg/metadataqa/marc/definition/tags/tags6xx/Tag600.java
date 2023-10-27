@@ -24,8 +24,8 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementSort;
 
 /**
  * Subject Added Entry - Personal Name
- * http://www.loc.gov/marc/bibliographic/bd600.html,
- * http://www.loc.gov/marc/bibliographic/bdx00.html
+ * https://www.loc.gov/marc/bibliographic/bd600.html,
+ * https://www.loc.gov/marc/bibliographic/bdx00.html
  */
 public class Tag600 extends DataFieldDefinition {
 

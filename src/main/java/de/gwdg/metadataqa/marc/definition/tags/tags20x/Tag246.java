@@ -22,7 +22,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementSort;
 
 /**
  * Varying Form of Title
- * http://www.loc.gov/marc/bibliographic/bd246.html
+ * https://www.loc.gov/marc/bibliographic/bd246.html
  */
 public class Tag246 extends DataFieldDefinition {
   private static Tag246 uniqueInstance;

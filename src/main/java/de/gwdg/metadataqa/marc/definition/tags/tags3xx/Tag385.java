@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 /**
  * Audience Characteristics
- * http://www.loc.gov/marc/bibliographic/bd385.html
+ * https://www.loc.gov/marc/bibliographic/bd385.html
  */
 public class Tag385 extends DataFieldDefinition {
   private static Tag385 uniqueInstance;

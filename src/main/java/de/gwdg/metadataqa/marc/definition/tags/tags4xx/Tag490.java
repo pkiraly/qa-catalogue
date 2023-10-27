@@ -20,7 +20,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Series Statement
- * http://www.loc.gov/marc/bibliographic/bd490.html
+ * https://www.loc.gov/marc/bibliographic/bd490.html
  */
 public class Tag490 extends DataFieldDefinition {
 

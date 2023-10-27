@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 /**
  * Medium of Performance
- * http://www.loc.gov/marc/bibliographic/bd382.html
+ * https://www.loc.gov/marc/bibliographic/bd382.html
  */
 public class Tag382 extends DataFieldDefinition {
   private static Tag382 uniqueInstance;

@@ -20,7 +20,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * International Standard Serial Number
- * http://www.loc.gov/marc/bibliographic/bd022.html
+ * https://www.loc.gov/marc/bibliographic/bd022.html
  */
 public class Tag022 extends DataFieldDefinition {
 

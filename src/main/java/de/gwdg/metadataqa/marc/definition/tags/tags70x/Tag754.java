@@ -19,7 +19,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Added Entry - Taxonomic Identification
- * http://www.loc.gov/marc/bibliographic/bd754.html
+ * https://www.loc.gov/marc/bibliographic/bd754.html
  */
 public class Tag754 extends DataFieldDefinition {
 

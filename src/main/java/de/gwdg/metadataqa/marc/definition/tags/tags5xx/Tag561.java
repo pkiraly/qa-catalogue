@@ -16,7 +16,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Ownership and Custodial History
- * http://www.loc.gov/marc/bibliographic/bd561.html
+ * https://www.loc.gov/marc/bibliographic/bd561.html
  */
 public class Tag561 extends DataFieldDefinition {
 

@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 /**
  * Carrier Type
- * http://www.loc.gov/marc/bibliographic/bd338.html
+ * https://www.loc.gov/marc/bibliographic/bd338.html
  */
 public class Tag338 extends DataFieldDefinition {
   private static Tag338 uniqueInstance;

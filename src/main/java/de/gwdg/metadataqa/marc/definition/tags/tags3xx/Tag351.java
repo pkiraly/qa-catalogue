@@ -16,7 +16,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseInterpret;
 
 /**
  * Organization and Arrangement of Materials
- * http://www.loc.gov/marc/bibliographic/bd351.html
+ * https://www.loc.gov/marc/bibliographic/bd351.html
  */
 public class Tag351 extends DataFieldDefinition {
   private static Tag351 uniqueInstance;

@@ -16,7 +16,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Geographic Coverage Note
- * http://www.loc.gov/marc/bibliographic/bd522.html
+ * https://www.loc.gov/marc/bibliographic/bd522.html
  */
 public class Tag522 extends DataFieldDefinition {
 

@@ -18,7 +18,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseRestrict;
 
 /**
  * Security Classification Control
- * http://www.loc.gov/marc/bibliographic/bd355.html
+ * https://www.loc.gov/marc/bibliographic/bd355.html
  */
 public class Tag355 extends DataFieldDefinition {
   private static Tag355 uniqueInstance;

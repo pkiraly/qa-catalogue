@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 /**
  * Manifestation Statements
- * http://www.loc.gov/marc/bibliographic/bd881.html
+ * https://www.loc.gov/marc/bibliographic/bd881.html
  */
 public class Tag881 extends DataFieldDefinition {
 

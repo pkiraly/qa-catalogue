@@ -17,7 +17,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseInterpret;
 
 /**
  * Case File Characteristics Note
- * http://www.loc.gov/marc/bibliographic/bd565.html
+ * https://www.loc.gov/marc/bibliographic/bd565.html
  */
 public class Tag565 extends DataFieldDefinition {
 

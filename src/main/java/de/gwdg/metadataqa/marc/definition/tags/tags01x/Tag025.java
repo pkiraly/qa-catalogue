@@ -16,7 +16,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseManage;
 
 /**
  * Overseas Acquisition Number
- * http://www.loc.gov/marc/bibliographic/bd025.html
+ * https://www.loc.gov/marc/bibliographic/bd025.html
  */
 public class Tag025 extends DataFieldDefinition {
 

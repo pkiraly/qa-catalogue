@@ -20,7 +20,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseInterpret;
 
 /**
  * Language Code
- * http://www.loc.gov/marc/bibliographic/bd041.html
+ * https://www.loc.gov/marc/bibliographic/bd041.html
  */
 public class Tag041 extends DataFieldDefinition {
 

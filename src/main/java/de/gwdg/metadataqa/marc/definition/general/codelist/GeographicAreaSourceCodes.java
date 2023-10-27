@@ -4,13 +4,13 @@ import de.gwdg.metadataqa.marc.Utils;
 
 /**
  * Geographic Area Code and Term Source Codes
- * http://www.loc.gov/standards/sourcelist/geographic-area.html
+ * https://www.loc.gov/standards/sourcelist/geographic-area.html
  */
 public class GeographicAreaSourceCodes extends CodeList {
 
   private void initialize() {
     name = "Geographic Area Code and Term Source Codes";
-    url = "http://www.loc.gov/standards/sourcelist/geographic-area.html";
+    url = "https://www.loc.gov/standards/sourcelist/geographic-area.html";
     codes = Utils.generateCodes(
       "ccga", "Cadre de classement geographique actuel (Paris: Bibliothèque Nationale)",
       "marcgac", "MARC Code List for Geographic Areas"

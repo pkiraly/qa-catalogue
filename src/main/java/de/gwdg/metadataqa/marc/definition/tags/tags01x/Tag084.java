@@ -21,7 +21,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Other Classificaton Number
- * http://www.loc.gov/marc/bibliographic/bd084.html
+ * https://www.loc.gov/marc/bibliographic/bd084.html
  */
 public class Tag084 extends DataFieldDefinition {
 

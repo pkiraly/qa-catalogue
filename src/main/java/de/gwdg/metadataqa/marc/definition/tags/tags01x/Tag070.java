@@ -18,7 +18,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * National Agricultural Library Call Number
- * http://www.loc.gov/marc/bibliographic/bd070.html
+ * https://www.loc.gov/marc/bibliographic/bd070.html
  */
 public class Tag070 extends DataFieldDefinition {
 

@@ -25,7 +25,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementSort;
 
 /**
  * Added Entry - Personal Name
- * http://www.loc.gov/marc/bibliographic/bd700.html
+ * https://www.loc.gov/marc/bibliographic/bd700.html
  */
 public class Tag700 extends DataFieldDefinition {
 

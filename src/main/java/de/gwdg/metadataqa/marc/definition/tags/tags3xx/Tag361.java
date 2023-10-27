@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 /**
  * Structured Ownership and Custodial History
- * http://www.loc.gov/marc/bibliographic/bd361.html
+ * https://www.loc.gov/marc/bibliographic/bd361.html
  */
 public class Tag361 extends DataFieldDefinition {
   private static Tag361 uniqueInstance;

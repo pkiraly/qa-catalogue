@@ -19,7 +19,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseRestrict;
 
 /**
  * Terms Governing Use and Reproduction Note
- * http://www.loc.gov/marc/bibliographic/bd540.html
+ * https://www.loc.gov/marc/bibliographic/bd540.html
  */
 public class Tag540 extends DataFieldDefinition {
 

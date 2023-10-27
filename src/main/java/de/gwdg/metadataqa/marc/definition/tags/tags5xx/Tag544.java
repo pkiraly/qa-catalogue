@@ -16,7 +16,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Location of Other Archival Materials Note
- * http://www.loc.gov/marc/bibliographic/bd544.html
+ * https://www.loc.gov/marc/bibliographic/bd544.html
  */
 public class Tag544 extends DataFieldDefinition {
 

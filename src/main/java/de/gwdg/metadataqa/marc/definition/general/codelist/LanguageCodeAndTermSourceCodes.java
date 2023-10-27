@@ -4,13 +4,13 @@ import de.gwdg.metadataqa.marc.Utils;
 
 /**
  * Language Code and Term Source Codes
- * http://www.loc.gov/standards/sourcelist/language.html
+ * https://www.loc.gov/standards/sourcelist/language.html
  */
 public class LanguageCodeAndTermSourceCodes extends CodeList {
 
   private void initialize() {
     name = "Language Code and Term Source Codes";
-    url = "http://www.loc.gov/standards/sourcelist/language.html";
+    url = "https://www.loc.gov/standards/sourcelist/language.html";
     codes = Utils.generateCodes(
       "din2335", "Sprachenzeichen: DIN 2335 (Berlin: Beuth)",
       "glotto", "Glottolog",

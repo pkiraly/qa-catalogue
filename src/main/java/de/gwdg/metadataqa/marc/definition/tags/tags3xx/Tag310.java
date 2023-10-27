@@ -19,7 +19,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseManage;
 
 /**
  * Current Publication Frequency
- * http://www.loc.gov/marc/bibliographic/bd310.html
+ * https://www.loc.gov/marc/bibliographic/bd310.html
  */
 public class Tag310 extends DataFieldDefinition {
   private static Tag310 uniqueInstance;

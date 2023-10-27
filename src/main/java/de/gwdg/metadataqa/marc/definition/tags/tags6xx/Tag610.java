@@ -22,8 +22,8 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementSort;
 
 /**
  * Subject Added Entry - Corporate Name
- * http://www.loc.gov/marc/bibliographic/bd610.html,
- * http://www.loc.gov/marc/bibliographic/bdx10.html
+ * https://www.loc.gov/marc/bibliographic/bd610.html,
+ * https://www.loc.gov/marc/bibliographic/bdx10.html
  */
 public class Tag610 extends DataFieldDefinition {
 

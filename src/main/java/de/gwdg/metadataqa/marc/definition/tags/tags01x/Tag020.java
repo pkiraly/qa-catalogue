@@ -19,7 +19,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * International Standard Book Number
- * http://www.loc.gov/marc/bibliographic/bd020.html
+ * https://www.loc.gov/marc/bibliographic/bd020.html
  */
 public class Tag020 extends DataFieldDefinition {
 

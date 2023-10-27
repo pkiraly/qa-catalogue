@@ -19,7 +19,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Musical Incipits Information
- * http://www.loc.gov/marc/bibliographic/bd031.html
+ * https://www.loc.gov/marc/bibliographic/bd031.html
  */
 public class Tag031 extends DataFieldDefinition {
 

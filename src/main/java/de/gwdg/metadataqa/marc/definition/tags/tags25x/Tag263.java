@@ -16,7 +16,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Projected Publication Date
- * http://www.loc.gov/marc/bibliographic/bd263.html
+ * https://www.loc.gov/marc/bibliographic/bd263.html
  */
 public class Tag263 extends DataFieldDefinition {
 

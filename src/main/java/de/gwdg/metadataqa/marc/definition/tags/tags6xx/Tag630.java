@@ -21,7 +21,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementSort;
 
 /**
  * Subject Added Entry - Uniform Title
- * http://www.loc.gov/marc/bibliographic/bd630.html
+ * https://www.loc.gov/marc/bibliographic/bd630.html
  */
 public class Tag630 extends DataFieldDefinition {
 

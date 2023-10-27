@@ -17,7 +17,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseManage;
 
 /**
  * Accumulation and Frequency of Use Note
- * http://www.loc.gov/marc/bibliographic/bd584.html
+ * https://www.loc.gov/marc/bibliographic/bd584.html
  */
 public class Tag584 extends DataFieldDefinition {
 

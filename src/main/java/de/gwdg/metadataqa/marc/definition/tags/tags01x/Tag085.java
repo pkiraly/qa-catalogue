@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 /**
  * Synthesized Classification Number Components
- * http://www.loc.gov/marc/bibliographic/bd085.html
+ * https://www.loc.gov/marc/bibliographic/bd085.html
  */
 public class Tag085 extends DataFieldDefinition {
 

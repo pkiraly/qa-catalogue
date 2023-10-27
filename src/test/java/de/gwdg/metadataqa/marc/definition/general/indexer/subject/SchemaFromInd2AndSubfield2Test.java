@@ -19,17 +19,17 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
 /**
- * // 055: Classification Numbers Assigned in Canada (http://www.loc.gov/marc/bibliographic/bd055.html
- * 072: Subject Category Code (http://www.loc.gov/marc/bibliographic/bd072.html)
- * 600: Subject Added Entry - Personal Name (http://www.loc.gov/marc/bibliographic/bd600.html)
- * 610: Subject Added Entry - Corporate Name (http://www.loc.gov/marc/bibliographic/bd610.html)
- * 611: Subject Added Entry - Meeting Name (http://www.loc.gov/marc/bibliographic/bd611.html)
- * 630: Subject Added Entry - Uniform Title (http://www.loc.gov/marc/bibliographic/bd630.html)
- * 647: Subject Added Entry - Named Event (http://www.loc.gov/marc/bibliographic/bd647.html)
- * 648: Subject Added Entry - Chronological Term (http://www.loc.gov/marc/bibliographic/bd648.html)
- * 650: Subject Added Entry - Topical Term (http://www.loc.gov/marc/bibliographic/bd650.html)
- * 651: Subject Added Entry - Geographic Name (http://www.loc.gov/marc/bibliographic/bd651.html)
- * 655: Index Term - Genre/Form (http://www.loc.gov/marc/bibliographic/bd655.html)
+ * // 055: Classification Numbers Assigned in Canada (https://www.loc.gov/marc/bibliographic/bd055.html
+ * 072: Subject Category Code (https://www.loc.gov/marc/bibliographic/bd072.html)
+ * 600: Subject Added Entry - Personal Name (https://www.loc.gov/marc/bibliographic/bd600.html)
+ * 610: Subject Added Entry - Corporate Name (https://www.loc.gov/marc/bibliographic/bd610.html)
+ * 611: Subject Added Entry - Meeting Name (https://www.loc.gov/marc/bibliographic/bd611.html)
+ * 630: Subject Added Entry - Uniform Title (https://www.loc.gov/marc/bibliographic/bd630.html)
+ * 647: Subject Added Entry - Named Event (https://www.loc.gov/marc/bibliographic/bd647.html)
+ * 648: Subject Added Entry - Chronological Term (https://www.loc.gov/marc/bibliographic/bd648.html)
+ * 650: Subject Added Entry - Topical Term (https://www.loc.gov/marc/bibliographic/bd650.html)
+ * 651: Subject Added Entry - Geographic Name (https://www.loc.gov/marc/bibliographic/bd651.html)
+ * 655: Index Term - Genre/Form (https://www.loc.gov/marc/bibliographic/bd655.html)
  */
 public class SchemaFromInd2AndSubfield2Test extends SubjectIndexerTest {
 

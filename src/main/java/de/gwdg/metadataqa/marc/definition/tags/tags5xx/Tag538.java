@@ -17,7 +17,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.UseOperate;
 
 /**
  * System Details Note
- * http://www.loc.gov/marc/bibliographic/bd538.html
+ * https://www.loc.gov/marc/bibliographic/bd538.html
  */
 public class Tag538 extends DataFieldDefinition {
 

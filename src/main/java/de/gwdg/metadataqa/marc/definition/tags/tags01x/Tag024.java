@@ -21,7 +21,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * Other Standard Identifier
- * http://www.loc.gov/marc/bibliographic/bd024.html
+ * https://www.loc.gov/marc/bibliographic/bd024.html
  */
 public class Tag024 extends DataFieldDefinition {
 

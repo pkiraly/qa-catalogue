@@ -16,7 +16,7 @@ import static de.gwdg.metadataqa.marc.definition.FRBRFunction.ManagementProcess;
 
 /**
  * General Note
- * http://www.loc.gov/marc/bibliographic/bd500.html
+ * https://www.loc.gov/marc/bibliographic/bd500.html
  */
 public class Tag500 extends DataFieldDefinition {
 

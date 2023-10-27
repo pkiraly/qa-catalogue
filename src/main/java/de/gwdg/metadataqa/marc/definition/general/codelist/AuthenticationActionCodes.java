@@ -4,13 +4,13 @@ import de.gwdg.metadataqa.marc.Utils;
 
 /**
  * MARC Authentication Action Code List
- * http://www.loc.gov/standards/valuelist/marcauthen.html
+ * https://www.loc.gov/standards/valuelist/marcauthen.html
  */
 public class AuthenticationActionCodes extends CodeList {
 
   private void initialize() {
     name = "MARC Authentication Action Code List";
-    url = "http://www.loc.gov/standards/valuelist/marcauthen.html";
+    url = "https://www.loc.gov/standards/valuelist/marcauthen.html";
     codes = Utils.generateCodes(
       "anuc", "Australian National Union Catalog",
       "croatica", "Croatian National Bibliography",

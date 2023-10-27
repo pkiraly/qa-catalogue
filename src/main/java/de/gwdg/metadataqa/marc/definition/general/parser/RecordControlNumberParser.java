@@ -30,6 +30,10 @@ public class RecordControlNumberParser implements SubfieldContentParser, Seriali
 
   private static RecordControlNumberParser uniqueInstance;
 
+  public String getPattern() {
+    return REGEX.toString();
+  }
+
   private RecordControlNumberParser() {}
 
   public static RecordControlNumberParser getInstance() {

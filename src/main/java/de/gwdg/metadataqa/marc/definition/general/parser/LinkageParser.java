@@ -59,6 +59,10 @@ public class LinkageParser implements SubfieldContentParser, Serializable {
       throw new ParserException("Linkage does not fit the pattern 'nnn-nn[/..][/..]'.");
   }
 
+  public String getPattern() {
+    return REGEX.toString();
+  }
+
   private static LinkageParser uniqueInstance;
 
   private LinkageParser() {}

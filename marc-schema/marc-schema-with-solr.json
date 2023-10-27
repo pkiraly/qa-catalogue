@@ -9689,7 +9689,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0136_PatentControl_linkage"
+          "solr": "0136_PatentControl_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -9731,7 +9732,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0156_IdentifiedByNbn_linkage"
+          "solr": "0156_IdentifiedByNbn_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -9835,7 +9837,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0176_CopyrightNumber_linkage"
+          "solr": "0176_CopyrightNumber_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -9861,7 +9864,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0186_CopyrightArticleFee_linkage"
+          "solr": "0186_CopyrightArticleFee_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -9902,7 +9906,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0206_Isbn_linkage"
+          "solr": "0206_Isbn_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -9966,7 +9971,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "0220_Issn_authorityRecordControlNumber"
+          "solr": "0220_Issn_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -9981,7 +9987,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0226_Issn_linkage"
+          "solr": "0226_Issn_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10079,7 +10086,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0246_OtherStandardIdentifier_linkage"
+          "solr": "0246_OtherStandardIdentifier_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10163,7 +10171,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0266_Fingerprint_linkage"
+          "solr": "0266_Fingerprint_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10199,7 +10208,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0276_Strn_linkage"
+          "solr": "0276_Strn_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10276,7 +10286,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0286_PublisherNumber_linkage"
+          "solr": "0286_PublisherNumber_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10307,7 +10318,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0306_Coden_linkage"
+          "solr": "0306_Coden_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10419,7 +10431,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0316_MusicalIncipits_linkage"
+          "solr": "0316_MusicalIncipits_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10450,7 +10463,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0326_PostalRegistration_linkage"
+          "solr": "0326_PostalRegistration_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10523,7 +10537,8 @@
         "0": {
           "label": "Authority record control number",
           "repeatable": true,
-          "solr": "0330_EventDateTimeAndPlace_authorityRecordControlNumber"
+          "solr": "0330_EventDateTimeAndPlace_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -10544,7 +10559,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0336_EventDateTimeAndPlace_linkage"
+          "solr": "0336_EventDateTimeAndPlace_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10691,7 +10707,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "0340_Scale_authorityRecordControlNumber"
+          "solr": "0340_Scale_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -10712,7 +10729,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0346_Scale_linkage"
+          "solr": "0346_Scale_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10733,7 +10751,8 @@
         "a": {
           "label": "System control number",
           "repeatable": false,
-          "solr": "035a_SystemControlNumber"
+          "solr": "035a_SystemControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "z": {
           "label": "Canceled/invalid control number",
@@ -10743,7 +10762,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0356_SystemControlNumber_linkage"
+          "solr": "0356_SystemControlNumber_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10774,7 +10794,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0366_StudyNumber_linkage"
+          "solr": "0366_StudyNumber_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10848,7 +10869,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0376_AcquisitionSource_linkage"
+          "solr": "0376_AcquisitionSource_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10875,7 +10897,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0386_MetadataLicensor_linkage"
+          "solr": "0386_MetadataLicensor_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10926,7 +10949,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0406_AdminMetadata_linkage"
+          "solr": "0406_AdminMetadata_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -11076,7 +11100,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0416_Language_linkage"
+          "solr": "0416_Language_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -11140,7 +11165,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "0430_GeographicCoverage_authorityRecordControlNumber"
+          "solr": "0430_GeographicCoverage_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -11156,7 +11182,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0436_GeographicCoverage_linkage"
+          "solr": "0436_GeographicCoverage_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -11199,7 +11226,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0446_Place_linkage"
+          "solr": "0446_Place_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -11251,7 +11279,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0456_TemporalCoverage_linkage"
+          "solr": "0456_TemporalCoverage_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -11369,7 +11398,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0466_SpecialCodedDates_linkage"
+          "solr": "0466_SpecialCodedDates_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -11521,7 +11551,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "0500_ClassificationLcc_authorityRecordControlNumber"
+          "solr": "0500_ClassificationLcc_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -11536,7 +11567,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0506_ClassificationLcc_linkage"
+          "solr": "0506_ClassificationLcc_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -11626,7 +11658,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "0520_GeographicClassification_authorityRecordControlNumber"
+          "solr": "0520_GeographicClassification_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -11642,7 +11675,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0526_GeographicClassification_linkage"
+          "solr": "0526_GeographicClassification_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -11725,7 +11759,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "0550_ClassificationLcc_authorityRecordControlNumber"
+          "solr": "0550_ClassificationLcc_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -11741,7 +11776,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0556_ClassificationLcc_linkage"
+          "solr": "0556_ClassificationLcc_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -11812,7 +11848,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "0600_ClassificationNlm_authorityRecordControlNumber"
+          "solr": "0600_ClassificationNlm_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -11918,7 +11955,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "0700_NalCallNumber_authorityRecordControlNumber"
+          "solr": "0700_NalCallNumber_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -12006,7 +12044,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0726_SubjectCategoryCode_linkage"
+          "solr": "0726_SubjectCategoryCode_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -12081,7 +12120,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "0800_Udc_authorityRecordControlNumber"
+          "solr": "0800_Udc_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -12096,7 +12136,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0806_Udc_linkage"
+          "solr": "0806_Udc_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -12182,7 +12223,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0826_ClassificationDdc_linkage"
+          "solr": "0826_ClassificationDdc_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -12262,7 +12304,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0836_ClassificationAdditionalDdc_linkage"
+          "solr": "0836_ClassificationAdditionalDdc_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -12304,7 +12347,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "0840_Classification_authorityRecordControlNumber"
+          "solr": "0840_Classification_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -12320,7 +12364,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0846_Classification_linkage"
+          "solr": "0846_Classification_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -12406,7 +12451,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "0850_SynthesizedClassificationNumber_authorityRecordControlNumber"
+          "solr": "0850_SynthesizedClassificationNumber_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -12416,7 +12462,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0856_SynthesizedClassificationNumber_linkage"
+          "solr": "0856_SynthesizedClassificationNumber_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -12471,7 +12518,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "0860_GovernmentDocumentClassification_authorityRecordControlNumber"
+          "solr": "0860_GovernmentDocumentClassification_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -12487,7 +12535,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0866_GovernmentDocumentClassification_linkage"
+          "solr": "0866_GovernmentDocumentClassification_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -12518,7 +12567,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "0886_ReportNumber_linkage"
+          "solr": "0886_ReportNumber_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -12627,7 +12677,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "1000_MainPersonalName_authorityRecordControlNumber"
+          "solr": "1000_MainPersonalName_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -12649,7 +12700,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "1006_MainPersonalName_linkage"
+          "solr": "1006_MainPersonalName_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -12753,7 +12805,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "1100_MainCorporateName_authorityRecordControlNumber"
+          "solr": "1100_MainCorporateName_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -12775,7 +12828,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "1106_MainCorporateName_linkage"
+          "solr": "1106_MainCorporateName_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -12884,7 +12938,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "1110_MainMeetingName_authorityRecordControlNumber"
+          "solr": "1110_MainMeetingName_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -12906,7 +12961,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "1116_MainMeetingName_linkage"
+          "solr": "1116_MainMeetingName_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -13009,7 +13065,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "1300_MainUniformTitle_authorityRecordControlNumber"
+          "solr": "1300_MainUniformTitle_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -13025,7 +13082,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "1306_MainUniformTitle_linkage"
+          "solr": "1306_MainUniformTitle_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -13087,7 +13145,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "2106_AbbreviatedTitle_linkage"
+          "solr": "2106_AbbreviatedTitle_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -13147,7 +13206,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "2226_KeyTitle_linkage"
+          "solr": "2226_KeyTitle_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -13258,7 +13318,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "2400_UniformTitle_authorityRecordControlNumber"
+          "solr": "2400_UniformTitle_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -13274,7 +13335,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "2406_UniformTitle_linkage"
+          "solr": "2406_UniformTitle_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -13356,7 +13418,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "2426_TitleTranslation_linkage"
+          "solr": "2426_TitleTranslation_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -13475,7 +13538,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "2436_CollectiveTitle_linkage"
+          "solr": "2436_CollectiveTitle_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -13566,7 +13630,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "2456_Title_linkage"
+          "solr": "2456_Title_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -13696,7 +13761,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "2466_ParallelTitle_linkage"
+          "solr": "2466_ParallelTitle_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -13793,7 +13859,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "2476_VariantTitle_linkage"
+          "solr": "2476_VariantTitle_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -13845,7 +13912,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "2506_Edition_linkage"
+          "solr": "2506_Edition_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -13876,7 +13944,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "2510_Version_authorityRecordControlNumber"
+          "solr": "2510_Version_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -13896,7 +13965,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "2516_Version_linkage"
+          "solr": "2516_Version_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -13922,7 +13992,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "2546_MusicalPresentation_linkage"
+          "solr": "2546_MusicalPresentation_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -13978,7 +14049,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "2556_Cartographic_linkage"
+          "solr": "2556_Cartographic_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -14009,7 +14081,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "2566_ComputerFile_linkage"
+          "solr": "2566_ComputerFile_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -14040,7 +14113,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "2570_Country_authorityRecordControlNumber"
+          "solr": "2570_Country_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -14056,7 +14130,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "2576_Country_linkage"
+          "solr": "2576_Country_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14087,7 +14162,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "2586_PhilatelicIssue_linkage"
+          "solr": "2586_PhilatelicIssue_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14164,7 +14240,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "2606_Publication_linkage"
+          "solr": "2606_Publication_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14201,7 +14278,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "2636_ProjectedPublicationDate_linkage"
+          "solr": "2636_ProjectedPublicationDate_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14274,7 +14352,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "2646_ProvisionActivity_linkage"
+          "solr": "2646_ProvisionActivity_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -14422,7 +14501,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "2706_Address_linkage"
+          "solr": "2706_Address_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14478,7 +14558,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3006_PhysicalDescription_linkage"
+          "solr": "3006_PhysicalDescription_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -14520,7 +14601,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3066_Duration_linkage"
+          "solr": "3066_Duration_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14561,7 +14643,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3076_Hours_linkage"
+          "solr": "3076_Hours_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14592,7 +14675,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": false,
-          "solr": "3100_Frequency_authorityRecordControlNumber"
+          "solr": "3100_Frequency_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -14608,7 +14692,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3106_Frequency_linkage"
+          "solr": "3106_Frequency_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14639,7 +14724,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": false,
-          "solr": "3210_Frequency_authorityRecordControlNumber"
+          "solr": "3210_Frequency_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -14655,7 +14741,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3216_Frequency_linkage"
+          "solr": "3216_Frequency_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14686,7 +14773,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "3340_ModeOfIssuance_authorityRecordControlNumber"
+          "solr": "3340_ModeOfIssuance_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -14702,7 +14790,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3346_ModeOfIssuance_linkage"
+          "solr": "3346_ModeOfIssuance_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14733,7 +14822,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "3350_ExtensionPlan_authorityRecordControlNumber"
+          "solr": "3350_ExtensionPlan_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -14754,7 +14844,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3356_ExtensionPlan_linkage"
+          "solr": "3356_ExtensionPlan_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -14790,7 +14881,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "3360_ContentType_authorityRecordControlNumber"
+          "solr": "3360_ContentType_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -14811,7 +14903,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3366_ContentType_linkage"
+          "solr": "3366_ContentType_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -14847,7 +14940,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "3370_MediaType_authorityRecordControlNumber"
+          "solr": "3370_MediaType_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -14868,7 +14962,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3376_MediaType_linkage"
+          "solr": "3376_MediaType_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14899,7 +14994,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "3380_CarrierType_authorityRecordControlNumber"
+          "solr": "3380_CarrierType_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -14920,7 +15016,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3386_CarrierType_linkage"
+          "solr": "3386_CarrierType_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -15026,7 +15123,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "3400_PhysicalMedium_authorityRecordControlNumber"
+          "solr": "3400_PhysicalMedium_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -15046,7 +15144,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3406_PhysicalMedium_linkage"
+          "solr": "3406_PhysicalMedium_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -15115,7 +15214,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3416_AccessibilityContent_linkage"
+          "solr": "3416_AccessibilityContent_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -15297,7 +15397,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3426_GeospatialReferenceData_linkage"
+          "solr": "3426_GeospatialReferenceData_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -15363,7 +15464,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3436"
+          "solr": "3436",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -15434,7 +15536,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "3440_SoundCharacteristic_authorityRecordControlNumber"
+          "solr": "3440_SoundCharacteristic_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -15454,7 +15557,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3446_SoundCharacteristic_linkage"
+          "solr": "3446_SoundCharacteristic_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -15495,7 +15599,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "3450_MovingImageCharacteristics_authorityRecordControlNumber"
+          "solr": "3450_MovingImageCharacteristics_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -15515,7 +15620,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3456_MovingImageCharacteristics_linkage"
+          "solr": "3456_MovingImageCharacteristics_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -15546,7 +15652,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "3460_VideoCharacteristic_authorityRecordControlNumber"
+          "solr": "3460_VideoCharacteristic_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -15566,7 +15673,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3466_VideoCharacteristic_linkage"
+          "solr": "3466_VideoCharacteristic_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -15617,7 +15725,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "3470_DigitalCharacteristic_authorityRecordControlNumber"
+          "solr": "3470_DigitalCharacteristic_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -15637,7 +15746,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3476_DigitalCharacteristic_linkage"
+          "solr": "3476_DigitalCharacteristic_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -15678,7 +15788,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "3480_NotatedMusicCharacteristics_authorityRecordControlNumber"
+          "solr": "3480_NotatedMusicCharacteristics_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -15698,7 +15809,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3486_NotatedMusicCharacteristics_linkage"
+          "solr": "3486_NotatedMusicCharacteristics_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -15744,7 +15856,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3516_Arrangement_linkage"
+          "solr": "3516_Arrangement_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -15810,7 +15923,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3526_DigitalGraphicRepresentation_linkage"
+          "solr": "3526_DigitalGraphicRepresentation_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -15841,7 +15955,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "3530_SupplementaryContentCharacteristics_authorityRecordControlNumber"
+          "solr": "3530_SupplementaryContentCharacteristics_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -15862,7 +15977,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3536_SupplementaryContentCharacteristics_linkage"
+          "solr": "3536_SupplementaryContentCharacteristics_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -15955,7 +16071,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3556_SecurityClassificationControl_linkage"
+          "solr": "3556_SecurityClassificationControl_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -15996,7 +16113,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3576_OriginatorDisseminationControl_linkage"
+          "solr": "3576_OriginatorDisseminationControl_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -16080,7 +16198,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "3610_StructuredOwnershipAndCustodialHistory_authorityRecordControlNumber"
+          "solr": "3610_StructuredOwnershipAndCustodialHistory_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -16100,7 +16219,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3616_StructuredOwnershipAndCustodialHistory_linkage"
+          "solr": "3616_StructuredOwnershipAndCustodialHistory_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -16146,7 +16266,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3626_DatesOfPublication_linkage"
+          "solr": "3626_DatesOfPublication_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -16278,7 +16399,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3636_NormalizedDateAndSequentialDesignation_linkage"
+          "solr": "3636_NormalizedDateAndSequentialDesignation_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -16392,7 +16514,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3656"
+          "solr": "3656",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -16470,7 +16593,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3666"
+          "solr": "3666",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -16531,7 +16655,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "3700_AssociatedPlace_authorityRecordControlNumber"
+          "solr": "3700_AssociatedPlace_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -16557,7 +16682,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3706_AssociatedPlace_linkage"
+          "solr": "3706_AssociatedPlace_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -16603,7 +16729,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "3770_AssociatedLanguage_authorityRecordControlNumber"
+          "solr": "3770_AssociatedLanguage_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -16624,7 +16751,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3776_AssociatedLanguage_linkage"
+          "solr": "3776_AssociatedLanguage_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -16655,7 +16783,8 @@
         "0": {
           "label": "Record control number",
           "repeatable": true,
-          "solr": "3800_FormOfWork_authorityRecordControlNumber"
+          "solr": "3800_FormOfWork_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -16676,7 +16805,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3806_FormOfWork_linkage"
+          "solr": "3806_FormOfWork_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -16717,7 +16847,8 @@
         "0": {
           "label": "Record control number",
           "repeatable": true,
-          "solr": "3810_OtherDistinguishingCharacteristics_authorityRecordControlNumber"
+          "solr": "3810_OtherDistinguishingCharacteristics_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -16738,7 +16869,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3816_OtherDistinguishingCharacteristics_linkage"
+          "solr": "3816_OtherDistinguishingCharacteristics_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -16846,7 +16978,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "3820_MusicMedium_authorityRecordControlNumber"
+          "solr": "3820_MusicMedium_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -16867,7 +17000,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3826_MusicMedium_linkage"
+          "solr": "3826_MusicMedium_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -16929,7 +17063,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3836"
+          "solr": "3836",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -16976,7 +17111,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "3840_Key_authorityRecordControlNumber"
+          "solr": "3840_Key_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -16991,7 +17127,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3846_Key_linkage"
+          "solr": "3846_Key_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -17037,7 +17174,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "3850_IntendedAudience_authorityRecordControlNumber"
+          "solr": "3850_IntendedAudience_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -17058,7 +17196,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3856_IntendedAudience_linkage"
+          "solr": "3856_IntendedAudience_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -17109,7 +17248,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "3860_CreatorCharacteristic_authorityRecordControlNumber"
+          "solr": "3860_CreatorCharacteristic_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -17135,7 +17275,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3866_CreatorCharacteristic_linkage"
+          "solr": "3866_CreatorCharacteristic_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -17226,7 +17367,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "3870_RepresentativeExpressionCharacteristics_authorityRecordControlNumber"
+          "solr": "3870_RepresentativeExpressionCharacteristics_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -17247,7 +17389,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3876_RepresentativeExpressionCharacteristics_linkage"
+          "solr": "3876_RepresentativeExpressionCharacteristics_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -17291,7 +17434,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "3880_TimePeriodOfCreation_authorityRecordControlNumber"
+          "solr": "3880_TimePeriodOfCreation_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -17311,7 +17455,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "3886_TimePeriodOfCreation_linkage"
+          "solr": "3886_TimePeriodOfCreation_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -17441,7 +17586,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "4006_SeriesStatementAddedEntryPersonalName_linkage"
+          "solr": "4006_SeriesStatementAddedEntryPersonalName_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -17566,7 +17712,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "4106_SeriesStatementAddedEntryCorporateName_linkage"
+          "solr": "4106_SeriesStatementAddedEntryCorporateName_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -17691,7 +17838,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "4116_SeriesStatementAddedEntryMeetingName_linkage"
+          "solr": "4116_SeriesStatementAddedEntryMeetingName_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -17752,12 +17900,14 @@
         "0": {
           "label": "Authority record control number",
           "repeatable": true,
-          "solr": "4400_SeriesStatementAddedEntryTitle_authorityRecordControlNumber"
+          "solr": "4400_SeriesStatementAddedEntryTitle_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "4406_SeriesStatementAddedEntryTitle_linkage"
+          "solr": "4406_SeriesStatementAddedEntryTitle_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -17828,7 +17978,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "4906_SeriesStatement_linkage"
+          "solr": "4906_SeriesStatement_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -17869,7 +18020,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5006_GeneralNote_linkage"
+          "solr": "5006_GeneralNote_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -17916,7 +18068,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5016_WithNote_linkage"
+          "solr": "5016_WithNote_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -17972,7 +18125,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5026_Dissertation_linkage"
+          "solr": "5026_Dissertation_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -18008,7 +18162,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5046_Bibliography_linkage"
+          "solr": "5046_Bibliography_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18080,7 +18235,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5056_TableOfContents_linkage"
+          "solr": "5056_TableOfContents_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -18180,7 +18336,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5066_UsageAndAccessPolicy_linkage"
+          "solr": "5066_UsageAndAccessPolicy_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18211,7 +18368,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5076_Scale_linkage"
+          "solr": "5076_Scale_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18237,7 +18395,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5086_Credits_linkage"
+          "solr": "5086_Credits_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -18312,7 +18471,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5106_Citation_linkage"
+          "solr": "5106_Citation_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -18361,7 +18521,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5116_ParticipantOrPerformer_linkage"
+          "solr": "5116_ParticipantOrPerformer_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18392,7 +18553,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5136_TypeOfReport_linkage"
+          "solr": "5136_TypeOfReport_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18483,7 +18645,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5146_DataQuality_linkage"
+          "solr": "5146_DataQuality_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18509,7 +18672,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5156_NumberingPeculiarities_linkage"
+          "solr": "5156_NumberingPeculiarities_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -18555,7 +18719,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5166_TypeOfComputerFileOrData_linkage"
+          "solr": "5166_TypeOfComputerFileOrData_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18596,7 +18761,8 @@
         "0": {
           "label": "Record control number",
           "repeatable": true,
-          "solr": "5180_DateTimeAndPlaceOfAnEventNote_authorityRecordControlNumber"
+          "solr": "5180_DateTimeAndPlaceOfAnEventNote_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -18617,7 +18783,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5186_DateTimeAndPlaceOfAnEventNote_linkage"
+          "solr": "5186_DateTimeAndPlaceOfAnEventNote_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -18699,7 +18866,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5206_Summary_linkage"
+          "solr": "5206_Summary_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -18770,7 +18938,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5216_IntendedAudience_linkage"
+          "solr": "5216_IntendedAudience_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18806,7 +18975,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5226_GeographicCoverage_linkage"
+          "solr": "5226_GeographicCoverage_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18853,7 +19023,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5246_PreferredCitation_linkage"
+          "solr": "5246_PreferredCitation_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18879,7 +19050,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5256_SupplementaryContent_linkage"
+          "solr": "5256_SupplementaryContent_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18956,7 +19128,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5266_StudyProgram_linkage"
+          "solr": "5266_StudyProgram_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -19007,7 +19180,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5306_AdditionalPhysicalFormAvailable_linkage"
+          "solr": "5306_AdditionalPhysicalFormAvailable_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -19054,7 +19228,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5326_AccessibilityNote_linkage"
+          "solr": "5326_AccessibilityNote_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -19269,7 +19444,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5336_Reproduction_linkage"
+          "solr": "5336_Reproduction_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -19365,7 +19541,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5346_OriginalVersion_linkage"
+          "solr": "5346_OriginalVersion_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -19435,7 +19612,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5356_LocationOfOriginalsOrDuplicates_linkage"
+          "solr": "5356_LocationOfOriginalsOrDuplicates_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -19496,7 +19674,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5366_FundingInformation_linkage"
+          "solr": "5366_FundingInformation_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -19542,7 +19721,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5386_SystemRequirement_linkage"
+          "solr": "5386_SystemRequirement_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -19619,7 +19799,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5406_UsePolicy_linkage"
+          "solr": "5406_UsePolicy_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -19708,7 +19889,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5416_ImmediateAcquisition_linkage"
+          "solr": "5416_ImmediateAcquisition_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -19847,7 +20029,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5426_CopyrightStatus_linkage"
+          "solr": "5426_CopyrightStatus_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -19916,7 +20099,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5446_LocationOfOtherArchivalMaterials_linkage"
+          "solr": "5446_LocationOfOtherArchivalMaterials_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -19965,7 +20149,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5456_BiographicalOrHistoricalData_linkage"
+          "solr": "5456_BiographicalOrHistoricalData_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -20001,7 +20186,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5466_Language_linkage"
+          "solr": "5466_Language_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -20037,7 +20223,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5476_FormerTitleComplexity_linkage"
+          "solr": "5476_FormerTitleComplexity_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -20068,7 +20255,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5506_IssuingBody_linkage"
+          "solr": "5506_IssuingBody_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -20189,7 +20377,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5526_EntityAndAttributeInformation_linkage"
+          "solr": "5526_EntityAndAttributeInformation_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -20253,7 +20442,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5556_CumulativeIndexOrFindingAids_linkage"
+          "solr": "5556_CumulativeIndexOrFindingAids_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -20299,7 +20489,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5566_Documentation_linkage"
+          "solr": "5566_Documentation_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -20353,7 +20544,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5616_CustodialHistory_linkage"
+          "solr": "5616_CustodialHistory_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -20414,7 +20606,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5626_CopyAndVersionIdentification_linkage"
+          "solr": "5626_CopyAndVersionIdentification_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -20455,7 +20648,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5636_Binding_linkage"
+          "solr": "5636_Binding_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -20519,7 +20713,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5656_CaseFileCharacteristics_linkage"
+          "solr": "5656_CaseFileCharacteristics_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -20560,7 +20755,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "5670_Methodology_authorityRecordControlNumber"
+          "solr": "5670_Methodology_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -20575,7 +20771,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5676_Methodology_linkage"
+          "solr": "5676_Methodology_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -20601,7 +20798,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5806_LinkingEntryComplexity_linkage"
+          "solr": "5806_LinkingEntryComplexity_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -20652,7 +20850,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5816_PublicationsAboutDescribedMaterials_linkage"
+          "solr": "5816_PublicationsAboutDescribedMaterials_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -20782,7 +20981,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5836_Action_linkage"
+          "solr": "5836_Action_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -20828,7 +21028,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5846_AccumulationAndFrequencyOfUse_linkage"
+          "solr": "5846_AccumulationAndFrequencyOfUse_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -20864,7 +21065,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5856_Exhibitions_linkage"
+          "solr": "5856_Exhibitions_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -20905,7 +21107,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5866_Awards_linkage"
+          "solr": "5866_Awards_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -20949,7 +21152,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "5886_SourceOfDescription_linkage"
+          "solr": "5886_SourceOfDescription_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -21136,7 +21340,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "6000_PersonalNameSubject_authorityRecordControlNumber"
+          "solr": "6000_PersonalNameSubject_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -21163,7 +21368,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "6006_PersonalNameSubject_linkage"
+          "solr": "6006_PersonalNameSubject_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -21340,7 +21546,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "6100_CorporateNameSubject_authorityRecordControlNumber"
+          "solr": "6100_CorporateNameSubject_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -21367,7 +21574,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "6106_CorporateNameSubject_linkage"
+          "solr": "6106_CorporateNameSubject_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -21534,7 +21742,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "6110_SubjectAddedMeetingName_authorityRecordControlNumber"
+          "solr": "6110_SubjectAddedMeetingName_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -21561,7 +21770,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "6116_SubjectAddedMeetingName_linkage"
+          "solr": "6116_SubjectAddedMeetingName_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -21717,7 +21927,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "6300_SubjectAddedUniformTitle_authorityRecordControlNumber"
+          "solr": "6300_SubjectAddedUniformTitle_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -21744,7 +21955,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "6306_SubjectAddedUniformTitle_linkage"
+          "solr": "6306_SubjectAddedUniformTitle_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -21838,7 +22050,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "6470_NamedEvent_authorityRecordControlNumber"
+          "solr": "6470_NamedEvent_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -21858,7 +22071,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "6476_NamedEvent_linkage"
+          "solr": "6476_NamedEvent_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -21932,7 +22146,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "6480_ChronologicalSubject_authorityRecordControlNumber"
+          "solr": "6480_ChronologicalSubject_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -21953,7 +22168,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "6486_ChronologicalSubject_linkage"
+          "solr": "6486_ChronologicalSubject_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -22073,7 +22289,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "6500_Topic_authorityRecordControlNumber"
+          "solr": "6500_Topic_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -22100,7 +22317,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "6506_Topic_linkage"
+          "solr": "6506_Topic_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -22200,7 +22418,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "6510_Geographic_authorityRecordControlNumber"
+          "solr": "6510_Geographic_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -22221,7 +22440,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "6516_Geographic_linkage"
+          "solr": "6516_Geographic_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -22301,7 +22521,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "6530_UncontrolledIndexTerm_authorityRecordControlNumber"
+          "solr": "6530_UncontrolledIndexTerm_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -22316,7 +22537,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "6536_UncontrolledIndexTerm_linkage"
+          "solr": "6536_UncontrolledIndexTerm_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -22393,7 +22615,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "6540_FacetedTopicalTerms_authorityRecordControlNumber"
+          "solr": "6540_FacetedTopicalTerms_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -22420,7 +22643,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "6546_FacetedTopicalTerms_linkage"
+          "solr": "6546_FacetedTopicalTerms_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -22514,7 +22738,8 @@
         "0": {
           "label": "Authority record control number",
           "repeatable": true,
-          "solr": "6550_GenreForm_authorityRecordControlNumber"
+          "solr": "6550_GenreForm_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -22540,7 +22765,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "6556_GenreForm_linkage"
+          "solr": "6556_GenreForm_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -22603,7 +22829,8 @@
         "0": {
           "label": "Authority record control number",
           "repeatable": true,
-          "solr": "6560_Occupation_authorityRecordControlNumber"
+          "solr": "6560_Occupation_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -22624,7 +22851,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "6566_Occupation_linkage"
+          "solr": "6566_Occupation_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -22677,7 +22905,8 @@
         "0": {
           "label": "Authority record control number",
           "repeatable": true,
-          "solr": "6570_Function_authorityRecordControlNumber"
+          "solr": "6570_Function_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -22698,7 +22927,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "6576_Function_linkage"
+          "solr": "6576_Function_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -22739,7 +22969,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "6580_CurriculumObjective_authorityRecordControlNumber"
+          "solr": "6580_CurriculumObjective_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -22755,7 +22986,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "6586_CurriculumObjective_linkage"
+          "solr": "6586_CurriculumObjective_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -22816,7 +23048,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "6620_HierarchicalGeographic_authorityRecordControlNumber"
+          "solr": "6620_HierarchicalGeographic_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -22838,7 +23071,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "6626_HierarchicalGeographic_linkage"
+          "solr": "6626_HierarchicalGeographic_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -22884,7 +23118,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "6880_TypeOfEntityUnspecified_authorityRecordControlNumber"
+          "solr": "6880_TypeOfEntityUnspecified_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -22911,7 +23146,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "6886_TypeOfEntityUnspecified_linkage"
+          "solr": "6886_TypeOfEntityUnspecified_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -23065,7 +23301,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "7000_AddedPersonalName_authorityRecordControlNumber"
+          "solr": "7000_AddedPersonalName_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -23097,7 +23334,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7006_AddedPersonalName_linkage"
+          "solr": "7006_AddedPersonalName_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -23246,7 +23484,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "7100_AddedCorporateName_authorityRecordControlNumber"
+          "solr": "7100_AddedCorporateName_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -23278,7 +23517,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7106_AddedCorporateName_linkage"
+          "solr": "7106_AddedCorporateName_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -23417,7 +23657,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "7110_AddedMeetingName_authorityRecordControlNumber"
+          "solr": "7110_AddedMeetingName_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -23449,7 +23690,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7116_AddedMeetingName_linkage"
+          "solr": "7116_AddedMeetingName_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -23498,7 +23740,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "7200_UncontrolledName_authorityRecordControlNumber"
+          "solr": "7200_UncontrolledName_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -23519,7 +23762,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7206_UncontrolledName_linkage"
+          "solr": "7206_UncontrolledName_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -23642,7 +23886,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "7300_AddedUniformTitle_authorityRecordControlNumber"
+          "solr": "7300_AddedUniformTitle_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -23674,7 +23919,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7306_AddedUniformTitle_linkage"
+          "solr": "7306_AddedUniformTitle_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -23756,7 +24002,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7406_AddedUncontrolledRelatedOrAnalyticalTitle_linkage"
+          "solr": "7406_AddedUncontrolledRelatedOrAnalyticalTitle_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -23792,7 +24039,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "7510_AddedGeographicName_authorityRecordControlNumber"
+          "solr": "7510_AddedGeographicName_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -23819,7 +24067,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7516_AddedGeographicName_linkage"
+          "solr": "7516_AddedGeographicName_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -23885,7 +24134,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "7520_HierarchicalGeographic_authorityRecordControlNumber"
+          "solr": "7520_HierarchicalGeographic_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -23907,7 +24157,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7526_HierarchicalGeographic_linkage"
+          "solr": "7526_HierarchicalGeographic_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -23943,7 +24194,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "7530_SystemRequirement_authorityRecordControlNumber"
+          "solr": "7530_SystemRequirement_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -23959,7 +24211,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7536_SystemRequirement_linkage"
+          "solr": "7536_SystemRequirement_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -24005,7 +24258,8 @@
         "0": {
           "label": "Authority record control number",
           "repeatable": true,
-          "solr": "7540_TaxonomicIdentification_authorityRecordControlNumber"
+          "solr": "7540_TaxonomicIdentification_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -24021,7 +24275,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7546_TaxonomicIdentification_linkage"
+          "solr": "7546_TaxonomicIdentification_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -24052,7 +24307,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "7580_ResourceIdentifier_authorityRecordControlNumber"
+          "solr": "7580_ResourceIdentifier_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -24084,7 +24340,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7586_ResourceIdentifier_linkage"
+          "solr": "7586_ResourceIdentifier_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -24211,7 +24468,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7606_Series_linkage"
+          "solr": "7606_Series_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -24470,7 +24728,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7626_Subseries_linkage"
+          "solr": "7626_Subseries_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -24749,7 +25008,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7656_TranslationOf_linkage"
+          "solr": "7656_TranslationOf_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -25028,7 +25288,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7676_Translation_linkage"
+          "solr": "7676_Translation_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -25307,7 +25568,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7706_Supplement_linkage"
+          "solr": "7706_Supplement_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -25594,7 +25856,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7726_SupplementTo_linkage"
+          "solr": "7726_SupplementTo_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -25852,7 +26115,8 @@
         "w": {
           "label": "Record control number",
           "repeatable": true,
-          "solr": "773w_PartOf_recordControlNumber"
+          "solr": "773w_PartOf_recordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "x": {
           "label": "International Standard Serial Number",
@@ -25883,7 +26147,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7736_PartOf_linkage"
+          "solr": "7736_PartOf_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -26167,7 +26432,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7746_HasPart_linkage"
+          "solr": "7746_HasPart_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -26467,7 +26733,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7756_OtherEdition_linkage"
+          "solr": "7756_OtherEdition_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -26746,7 +27013,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7766_OtherPhysicalFormat_linkage"
+          "solr": "7766_OtherPhysicalFormat_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -27036,7 +27304,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7776_IssuedWith_linkage"
+          "solr": "7776_IssuedWith_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -27307,7 +27576,8 @@
         "w": {
           "label": "Record control number",
           "repeatable": true,
-          "solr": "780w_PrecededBy_recordControlNumber"
+          "solr": "780w_PrecededBy_recordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "x": {
           "label": "International Standard Serial Number",
@@ -27333,7 +27603,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7806_PrecededBy_linkage"
+          "solr": "7806_PrecededBy_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -27633,7 +27904,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7856_SucceededBy_linkage"
+          "solr": "7856_SucceededBy_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -27927,7 +28199,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7866_DataSource_linkage"
+          "solr": "7866_DataSource_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -28206,7 +28479,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7876_RelatedTo_linkage"
+          "solr": "7876_RelatedTo_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -28445,7 +28719,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "7886_ParallelDescriptionInAnotherLanguage_linkage"
+          "solr": "7886_ParallelDescriptionInAnotherLanguage_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -28599,7 +28874,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "8000_SeriesAddedPersonalName_authorityRecordControlNumber"
+          "solr": "8000_SeriesAddedPersonalName_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -28631,7 +28907,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "8006_SeriesAddedPersonalName_linkage"
+          "solr": "8006_SeriesAddedPersonalName_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -28861,7 +29138,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "8100_SeriesAddedCorporateName_authorityRecordControlNumber"
+          "solr": "8100_SeriesAddedCorporateName_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -28893,7 +29171,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "8106_SeriesAddedCorporateName_linkage"
+          "solr": "8106_SeriesAddedCorporateName_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -29113,7 +29392,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "8110_SeriesAddedMeetingName_authorityRecordControlNumber"
+          "solr": "8110_SeriesAddedMeetingName_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -29145,7 +29425,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "8116_SeriesAddedMeetingName_linkage"
+          "solr": "8116_SeriesAddedMeetingName_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -29352,7 +29633,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "8300_SeriesAddedUniformTitle_authorityRecordControlNumber"
+          "solr": "8300_SeriesAddedUniformTitle_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -29378,7 +29660,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "8306_SeriesAddedUniformTitle_linkage"
+          "solr": "8306_SeriesAddedUniformTitle_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -29751,7 +30034,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "8526_Location_linkage"
+          "solr": "8526_Location_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -29944,7 +30228,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "8566_ElectronicLocationAndAccess_linkage"
+          "solr": "8566_ElectronicLocationAndAccess_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Access status",
@@ -30149,7 +30434,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "8576_ElectronicArchiveLocationAndAccess_linkage"
+          "solr": "8576_ElectronicArchiveLocationAndAccess_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Access status",
@@ -30228,7 +30514,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "8666_TextualHoldingsBasicBibliographicUnit_linkage"
+          "solr": "8666_TextualHoldingsBasicBibliographicUnit_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -30515,7 +30802,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "8816_ManifestationStatements_linkage"
+          "solr": "8816_ManifestationStatements_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -30552,7 +30840,8 @@
         "6": {
           "label": "Linkage",
           "repeatable": false,
-          "solr": "8826"
+          "solr": "8826",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -30625,7 +30914,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "8830_MetadataProvenance_authorityRecordControlNumber"
+          "solr": "8830_MetadataProvenance_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -30723,7 +31013,8 @@
         "0": {
           "label": "Authority record control number or standard number",
           "repeatable": true,
-          "solr": "8850"
+          "solr": "8850",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",

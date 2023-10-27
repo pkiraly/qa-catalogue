@@ -7,6 +7,8 @@ import de.gwdg.metadataqa.marc.definition.CompilanceLevel;
 import de.gwdg.metadataqa.marc.definition.FRBRFunction;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.controlpositions.ControlfieldPositionList;
+import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.RegexValidator;
 import de.gwdg.metadataqa.marc.definition.structure.ControlFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
@@ -325,6 +327,15 @@ public class MappingToJson {
 
     if (exportSelfDescriptiveCodes)
       codeMap.put("solr", keyGenerator.forSubfield(subfield));
+
+    if (subfield.getContentParser() != null && subfield.getContentParser() instanceof LinkageParser)
+      codeMap.put("pattern", ((LinkageParser)subfield.getContentParser()).getPattern());
+
+    if (subfield.getContentParser() != null && subfield.getContentParser() instanceof RecordControlNumberParser)
+      codeMap.put("pattern", ((RecordControlNumberParser)subfield.getContentParser()).getPattern());
+
+    if (subfield.getValidator() != null && subfield.getValidator() instanceof RegexValidator)
+      codeMap.put("pattern", ((RegexValidator)subfield.getValidator()).getPattern());
 
     if (subfield.getCodeList() != null
         && !subfield.getCodeList().getCodes().isEmpty()) {

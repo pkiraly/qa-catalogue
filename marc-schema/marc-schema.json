@@ -9461,7 +9461,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -9496,7 +9497,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -9586,7 +9588,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -9608,7 +9611,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -9642,7 +9646,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -9698,7 +9703,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -9710,7 +9716,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -9799,7 +9806,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -9870,7 +9878,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -9900,7 +9909,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -9971,7 +9981,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -9997,7 +10008,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10088,7 +10100,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10114,7 +10127,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10180,7 +10194,8 @@
         },
         "0": {
           "label": "Authority record control number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -10197,7 +10212,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10322,7 +10338,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -10339,7 +10356,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10357,7 +10375,8 @@
       "subfields": {
         "a": {
           "label": "System control number",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "z": {
           "label": "Canceled/invalid control number",
@@ -10365,7 +10384,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10391,7 +10411,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10454,7 +10475,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10477,7 +10499,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10520,7 +10543,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10649,7 +10673,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -10704,7 +10729,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -10717,7 +10743,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10753,7 +10780,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10799,7 +10827,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -10898,7 +10927,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -11036,7 +11066,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -11048,7 +11079,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -11127,7 +11159,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -11140,7 +11173,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -11218,7 +11252,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -11231,7 +11266,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -11297,7 +11333,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -11388,7 +11425,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -11464,7 +11502,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -11529,7 +11568,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -11541,7 +11581,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -11619,7 +11660,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -11688,7 +11730,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -11723,7 +11766,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -11736,7 +11780,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -11806,7 +11851,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -11814,7 +11860,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -11864,7 +11911,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -11877,7 +11925,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -11903,7 +11952,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -11994,7 +12044,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -12012,7 +12063,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -12099,7 +12151,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -12117,7 +12170,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -12208,7 +12262,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -12226,7 +12281,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -12311,7 +12367,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -12324,7 +12381,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -12379,7 +12437,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -12433,7 +12492,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -12528,7 +12588,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -12541,7 +12602,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -12612,7 +12674,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -12715,7 +12778,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -12793,7 +12857,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -12910,7 +12975,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -12995,7 +13061,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -13040,7 +13107,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -13066,7 +13134,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -13082,7 +13151,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -13104,7 +13174,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -13150,7 +13221,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -13176,7 +13248,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -13202,7 +13275,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -13215,7 +13289,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -13241,7 +13316,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -13308,7 +13384,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -13341,7 +13418,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -13407,7 +13485,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -13532,7 +13611,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -13578,7 +13658,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -13615,7 +13696,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -13651,7 +13733,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -13677,7 +13760,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -13690,7 +13774,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -13716,7 +13801,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -13729,7 +13815,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -13755,7 +13842,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -13768,7 +13856,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -13794,7 +13883,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -13811,7 +13901,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -13841,7 +13932,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -13858,7 +13950,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -13888,7 +13981,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -13905,7 +13999,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -13931,7 +14026,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -13948,7 +14044,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14034,7 +14131,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -14050,7 +14148,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14109,7 +14208,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14264,7 +14364,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14318,7 +14419,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14376,7 +14478,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -14392,7 +14495,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14426,7 +14530,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -14442,7 +14547,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14468,7 +14574,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -14484,7 +14591,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14526,7 +14634,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -14542,7 +14651,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14576,7 +14686,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -14592,7 +14703,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -14630,7 +14742,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14684,7 +14797,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14710,7 +14824,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -14727,7 +14842,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14808,7 +14924,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14842,7 +14959,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -14913,7 +15031,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -14929,7 +15048,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -14969,7 +15089,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -15081,7 +15202,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -15179,7 +15301,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -15243,7 +15366,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -15293,7 +15417,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -15314,7 +15439,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -15354,7 +15480,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -15371,7 +15498,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -15397,7 +15525,8 @@
         },
         "0": {
           "label": "Record control number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -15414,7 +15543,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -15448,7 +15578,8 @@
         },
         "0": {
           "label": "Record control number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -15465,7 +15596,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -15559,7 +15691,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -15576,7 +15709,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -15627,7 +15761,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -15669,7 +15804,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -15681,7 +15817,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -15719,7 +15856,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -15736,7 +15874,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -15778,7 +15917,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -15799,7 +15939,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -15873,7 +16014,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -15890,7 +16032,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -15929,7 +16072,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -15945,7 +16089,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -16055,7 +16200,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -16161,7 +16307,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -16267,7 +16414,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -16319,11 +16467,13 @@
         },
         "0": {
           "label": "Authority record control number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -16384,7 +16534,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -16418,7 +16569,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -16459,7 +16611,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -16505,7 +16658,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -16535,7 +16689,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -16599,7 +16754,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -16683,7 +16839,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -16709,7 +16866,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -16731,7 +16889,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -16796,7 +16955,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -16840,7 +17000,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -16866,7 +17027,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -16940,7 +17102,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -16962,7 +17125,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -17003,7 +17167,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -17037,7 +17202,8 @@
         },
         "0": {
           "label": "Record control number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -17054,7 +17220,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -17126,7 +17293,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -17190,7 +17358,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -17222,7 +17391,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -17263,7 +17433,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -17285,7 +17456,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -17351,7 +17523,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -17393,7 +17566,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -17436,7 +17610,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -17636,7 +17811,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -17714,7 +17890,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -17775,7 +17952,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -17825,7 +18003,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -17863,7 +18042,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -17926,7 +18106,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18001,7 +18182,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18116,7 +18298,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18175,7 +18358,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18218,7 +18402,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18248,7 +18433,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -18279,7 +18465,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18306,7 +18493,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -18405,7 +18593,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18460,7 +18649,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -18500,7 +18690,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18547,7 +18738,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18598,7 +18790,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18632,7 +18825,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18687,7 +18881,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18723,7 +18918,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -18735,7 +18931,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18757,7 +18954,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18802,7 +19000,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18910,7 +19109,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -18948,7 +19148,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -18978,7 +19179,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -19014,7 +19216,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -19053,7 +19256,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -19213,7 +19417,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -19235,7 +19440,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -19386,7 +19592,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -19408,7 +19615,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -19551,7 +19759,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -19573,7 +19782,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -19706,7 +19916,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -19728,7 +19939,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -19810,7 +20022,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -19826,7 +20039,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -19892,7 +20106,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -19909,7 +20124,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -20015,7 +20231,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -20037,7 +20254,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -20125,7 +20343,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -20142,7 +20361,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -20217,7 +20437,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -20229,7 +20450,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -20295,7 +20517,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -20317,7 +20540,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -20401,7 +20625,8 @@
         },
         "0": {
           "label": "Authority record control number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -20422,7 +20647,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -20475,7 +20701,8 @@
         },
         "0": {
           "label": "Authority record control number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -20492,7 +20719,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -20537,7 +20765,8 @@
         },
         "0": {
           "label": "Authority record control number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -20554,7 +20783,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -20588,7 +20818,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -20601,7 +20832,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -20651,7 +20883,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -20669,7 +20902,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -20709,7 +20943,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -20731,7 +20966,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -20860,7 +21096,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -20886,7 +21123,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -21011,7 +21249,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -21037,7 +21276,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -21154,7 +21394,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -21180,7 +21421,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -21223,7 +21465,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -21240,7 +21483,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -21343,7 +21587,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -21369,7 +21614,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -21443,7 +21689,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -21473,7 +21720,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -21495,7 +21743,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Data provenance",
@@ -21549,7 +21798,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -21567,7 +21817,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -21597,7 +21848,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -21610,7 +21862,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -21648,7 +21901,8 @@
         },
         "0": {
           "label": "Authority record control number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -21661,7 +21915,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -21687,7 +21942,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -21713,7 +21969,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -21820,7 +22077,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -22058,7 +22316,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -22312,7 +22571,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -22566,7 +22826,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -22820,7 +23081,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -23082,7 +23344,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -23319,7 +23582,8 @@
         },
         "w": {
           "label": "Record control number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "x": {
           "label": "International Standard Serial Number",
@@ -23344,7 +23608,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -23603,7 +23868,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -23876,7 +24142,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -24130,7 +24397,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -24395,7 +24663,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -24646,7 +24915,8 @@
         },
         "w": {
           "label": "Record control number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "x": {
           "label": "International Standard Serial Number",
@@ -24667,7 +24937,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -24942,7 +25213,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -25208,7 +25480,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -25462,7 +25735,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -25684,7 +25958,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -25811,7 +26086,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -25837,7 +26113,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -26041,7 +26318,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -26067,7 +26345,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -26263,7 +26542,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -26289,7 +26569,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -26474,7 +26755,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -26495,7 +26777,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Control subfield",
@@ -26834,7 +27117,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -27000,7 +27284,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Access status",
@@ -27180,7 +27465,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "7": {
           "label": "Access status",
@@ -27251,7 +27537,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -27483,7 +27770,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -27514,7 +27802,8 @@
         },
         "6": {
           "label": "Linkage",
-          "repeatable": false
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
         },
         "8": {
           "label": "Field link and sequence number",
@@ -27577,7 +27866,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",
@@ -27658,7 +27948,8 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
           "label": "Real World Object URI",

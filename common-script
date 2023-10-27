@@ -406,9 +406,9 @@ do_export_schema_files() {
   run avram
 
   untrace
-  ./export-schema --withSubfieldCodelists > marc-schema/marc-schema.json
-  ./export-schema --withSubfieldCodelists --solrFieldType mixed --withSelfDescriptiveCode > marc-schema/marc-schema-with-solr.json
-  ./export-schema --withSubfieldCodelists --solrFieldType mixed --withSelfDescriptiveCode --withLocallyDefinedFields > marc-schema/marc-schema-with-solr-and-extensions.json
+  ./export-schema --withSubfieldCodelists | jq . > marc-schema/marc-schema.json
+  ./export-schema --withSubfieldCodelists --solrFieldType mixed --withSelfDescriptiveCode | jq .  > marc-schema/marc-schema-with-solr.json
+  ./export-schema --withSubfieldCodelists --solrFieldType mixed --withSelfDescriptiveCode --withLocallyDefinedFields | jq . > marc-schema/marc-schema-with-solr-and-extensions.json
 
   log "files generated at 'marc-schema' directory: marc-schema.json, marc-schema-with-solr.json, marc-schema-with-solr-and-extensions.json"
 }

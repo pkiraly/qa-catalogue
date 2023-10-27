@@ -38,6 +38,7 @@ public class SubfieldDefinition implements Serializable {
   private BibliographicFieldDefinition parent;
   private SubfieldValidator validator;
   private SubfieldContentParser contentParser;
+  private boolean hasCodeList = true;
   protected CodeList codeList;
   private List<EncodedValue> codes;
   private Map<MarcVersion, List<EncodedValue>> localCodes;
@@ -71,7 +72,7 @@ public class SubfieldDefinition implements Serializable {
         else if (code.equals("@"))
           codeForIndex = "_at";
         else
-          codeForIndex = schemaType.equals(SchemaType.PICA) ? code : "_" + code;
+          codeForIndex = (schemaType != null && schemaType.equals(SchemaType.PICA)) ? code : "_" + code;
       }
     }
     return codeForIndex;
@@ -366,6 +367,14 @@ public class SubfieldDefinition implements Serializable {
 
   public void setMarcVersion(MarcVersion marcVersion) {
     this.marcVersion = marcVersion;
+  }
+
+  public boolean hasCodeList() {
+    return hasCodeList;
+  }
+
+  public void hasCodeList(boolean hasCodeList) {
+    this.hasCodeList = hasCodeList;
   }
 
   @Override

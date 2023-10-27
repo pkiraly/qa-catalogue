@@ -7,6 +7,7 @@ import de.gwdg.metadataqa.marc.definition.CompilanceLevel;
 import de.gwdg.metadataqa.marc.definition.FRBRFunction;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.controlpositions.ControlfieldPositionList;
+import de.gwdg.metadataqa.marc.definition.general.validator.RegexValidator;
 import de.gwdg.metadataqa.marc.definition.structure.ControlFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
@@ -27,6 +28,7 @@ import de.gwdg.metadataqa.marc.definition.tags.control.LeaderDefinition;
 import de.gwdg.metadataqa.marc.utils.MarcTagLister;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
 import de.gwdg.metadataqa.marc.utils.keygenerator.PositionalControlFieldKeyGenerator;
+import net.minidev.json.JSONStyle;
 import net.minidev.json.JSONValue;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -178,7 +180,7 @@ public class MappingToJson {
     values.put("label", subfield.getLabel());
     values.put("url", subfield.getDescriptionUrl());
     values.put("start", subfield.getPositionStart());
-    values.put("end", subfield.getPositionEnd());
+    values.put("end", subfield.getPositionEnd() - 1);
     values.put("repeatableContent", subfield.isRepeatableContent());
     if (subfield.isRepeatableContent()) {
       values.put("unitLength", subfield.getUnitLength());
@@ -186,7 +188,6 @@ public class MappingToJson {
 
     if (generator != null)
       values.put("solr", generator.forSubfield(subfield));
-
 
     if (subfield.getCodes() != null) {
       LinkedHashMap<String, Object> codes = new LinkedHashMap<>();
@@ -346,27 +347,45 @@ public class MappingToJson {
     for (ControlfieldPositionDefinition position : subfield.getPositions()) {
       Map<String, Object> positionMap = new LinkedHashMap<>();
       positionMap.put("label", position.getLabel());
-      positionMap.put("repeatable", position.isRepeatableContent());
       positionMap.put("start", position.getPositionStart());
-      positionMap.put("end", position.getPositionEnd());
+      positionMap.put("end", position.getPositionEnd() - 1);
+      positionMap.put("repeatableContent", position.isRepeatableContent());
       if (position.isRepeatableContent())
         positionMap.put("unitLength", position.getUnitLength());
 
-      if (position.getCodes() != null && !position.getCodes().isEmpty()) {
-        List<Map<String, Object>> codes = new ArrayList<>();
-        for (EncodedValue code : position.getCodes()) {
-          Map<String, Object> codeInfo = new LinkedHashMap<>();
-          codeInfo.put("code", code.getCode());
-          codeInfo.put("label", code.getLabel());
-          if (code.getRange() != null)
-            codeInfo.put("range", code.getRange());
-          codes.add(codeInfo);
+      if (position.hasCodelist()) {
+        if (position.getCodes() != null && !position.getCodes().isEmpty()) {
+          positionMap.put("codes", extractCodes(position.getCodes()));
+        } else if (position.getCodeList() != null) {
+          positionMap.put("codes", extractCodes(position.getCodeList().getCodes()));
+        } else if (position.getCodeListReference() != null) {
+          positionMap.put("codes", extractCodes(position.getCodeListReference().getCodes()));
+        } else {
+          logger.log(Level.WARNING, "{0}${1}/{2}: missing code list!", new Object[]{
+            subfield.getParent().getTag(), subfield.getCode(), position.getPositionStart()});
         }
-        positionMap.put("codes", codes);
+      } else if (position.getValidator() != null) {
+        if (position.getValidator() instanceof RegexValidator)
+          positionMap.put("regex", ((RegexValidator)position.getValidator()).getPattern());
+      } else {
+        logger.log(Level.WARNING, "{0}${1}/{2}: missing code list and validation!", new Object[]{
+          subfield.getParent().getTag(), subfield.getCode(), position.getPositionStart()});
       }
       positionListMap.put(position.formatPositon(), positionMap);
     }
     return positionListMap;
+  }
+
+  private static Map<String, Map<String, Object>> extractCodes(List<EncodedValue> codeList) {
+    Map<String, Map<String, Object>> codes = new HashMap<>();
+    for (EncodedValue code : codeList) {
+      Map<String, Object> codeInfo = new LinkedHashMap<>();
+      codeInfo.put("label", code.getLabel());
+      if (code.getRange() != null)
+        codeInfo.put("range", code.getRange());
+      codes.put(code.getCode(), codeInfo);
+    }
+    return codes;
   }
 
   private void extractCompilanceLevel(Map<String, Object> codeMap,

@@ -1,6 +1,8 @@
 package de.gwdg.metadataqa.marc.definition.tags.holdings;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.controlpositions.leader.Leader06;
+import de.gwdg.metadataqa.marc.definition.controlpositions.leader.Leader17;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
@@ -44,24 +46,26 @@ public class Tag841 extends DataFieldDefinition {
     );
 
     getSubfield("a")
-      .setMqTag("typeOfRecord");
-
-    getSubfield("a").setPositions(Arrays.asList(
-        new ControlfieldPositionDefinition("Type of record", 0, 1),
-        new ControlfieldPositionDefinition("Undefined", 1, 3),
+      .setMqTag("typeOfRecord")
+      .setPositions(Arrays.asList(
+        new ControlfieldPositionDefinition("Type of record", 0, 1)
+          .setCodeListReference(Leader06.getInstance()),
+        new ControlfieldPositionDefinition("Undefined", 1, 3)
+          .hasCodelist(false),
         new ControlfieldPositionDefinition("Character coding scheme", 3, 4)
+          .setCodeListReference(Leader17.getInstance())
       ));
 
     getSubfield("b")
-      .setMqTag("fixedLengthDataElements");
-
-    getSubfield("b").setPositions(Arrays.asList(
-      new ControlfieldPositionDefinition("Holdings 008 values", 0, 32)));
+      .setMqTag("fixedLengthDataElements")
+      // TODO: this should be the same as the whole 008
+      .setPositions(Arrays.asList(
+        new ControlfieldPositionDefinition("Holdings 008 values", 0, 32)));
 
     getSubfield("e")
-      .setMqTag("encodingLevel");
-
-    getSubfield("e").setPositions(Arrays.asList(
-      new ControlfieldPositionDefinition("Encoding level", 0, 1)));
+      .setMqTag("encodingLevel")
+      .setPositions(Arrays.asList(
+        new ControlfieldPositionDefinition("Encoding level", 0, 1)
+          .setCodeListReference(Leader17.getInstance())));
   }
 }

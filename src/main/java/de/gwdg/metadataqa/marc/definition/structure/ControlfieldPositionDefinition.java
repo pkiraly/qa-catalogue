@@ -9,6 +9,7 @@ import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.FRBRFunction;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
+import de.gwdg.metadataqa.marc.definition.general.validator.SubfieldValidator;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -25,9 +26,11 @@ public class ControlfieldPositionDefinition implements Serializable {
   protected String mqTag;
   protected int positionStart;
   protected int positionEnd;
+  protected boolean hasCodelist = true;
   protected List<EncodedValue> codes;
   protected List<EncodedValue> historicalCodes;
   protected CodeList codeList;
+  protected ControlfieldPositionDefinition codeListReference;
 
   protected List<String> validCodes = new ArrayList<>();
   protected int unitLength = -1;
@@ -36,6 +39,7 @@ public class ControlfieldPositionDefinition implements Serializable {
   protected String descriptionUrl;
   protected SubfieldContentParser parser;
   protected List<FRBRFunction> functions;
+  private SubfieldValidator validator;
 
   public ControlfieldPositionDefinition() {}
 
@@ -273,6 +277,33 @@ public class ControlfieldPositionDefinition implements Serializable {
 
   public List<FRBRFunction> getFrbrFunctions() {
     return functions;
+  }
+
+  public SubfieldValidator getValidator() {
+    return validator;
+  }
+
+  public ControlfieldPositionDefinition setValidator(SubfieldValidator validator) {
+    this.validator = validator;
+    return this;
+  }
+
+  public boolean hasCodelist() {
+    return hasCodelist;
+  }
+
+  public ControlfieldPositionDefinition hasCodelist(boolean hasCodelist) {
+    this.hasCodelist = hasCodelist;
+    return this;
+  }
+
+  public ControlfieldPositionDefinition getCodeListReference() {
+    return codeListReference;
+  }
+
+  public ControlfieldPositionDefinition setCodeListReference(ControlfieldPositionDefinition codeListReference) {
+    this.codeListReference = codeListReference;
+    return this;
   }
 
   @Override

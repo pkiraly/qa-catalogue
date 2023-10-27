@@ -43,4 +43,8 @@ public class RegexValidator implements SubfieldValidator, Serializable {
     }
     return response;
   }
+
+  public String getPattern() {
+    return pattern.toString();
+  }
 }

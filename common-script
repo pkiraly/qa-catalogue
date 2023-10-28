@@ -59,6 +59,11 @@ do_index() {
   ./index --db $NAME --file-path ${MARC_DIR} --file-mask $MASK ${PARAMS} --trimId 2>> ${PREFIX}/solr.log
 }
 
+do_postprocess_solr() {
+  run postprocess-solr
+  ./postprocess-solr $NAME 2>> ${PREFIX}/solr.log
+}
+
 do_completeness() {
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+|\s*--indexWithTokenizedField//g')
   run completeness
@@ -456,6 +461,7 @@ do_all_analyses() {
 do_all_solr() {
   do_prepare_solr
   do_index
+  do_postprocess_solr
 #  if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
 #    php scripts/sqlite/solr-copy-ids-from-validation.php ${NAME}_validation ${NAME} 2>> ${PREFIX}/solr.log
 #  fi
@@ -464,7 +470,13 @@ do_all_solr() {
 # ---- usage and execution of proccessing steps ----
 
 help() {
+ME=$0
+
 cat <<END
+Run QA catalogue analyses
+
+ ${ME} [VARIABLES] <COMMAND>
+
 Commands:
   validate                   record validation
   validate-sqlite            import result of validation to SQLite
@@ -484,6 +496,7 @@ Commands:
   record-patterns            record patterns
   prepare-solr               prepare indexing
   index                      indexing with Solr
+  postprocess-solr           postprocess indexing (swap NAME and NAME_dev indexes)
   export-schema-files        export schema files
   shacl4bib                  run SHACL-like validation
   all-analyses               run all analytical tasks (or those set via ANALYSES)
@@ -492,7 +505,33 @@ Commands:
   config                     show configuration
   help                       show this help message
 
+Variable of the setdir.sh script:
+  BASE_INPUT_DIR             the base input directory (default: -./input)
+  BASE_OUTPUT_DIR            the base input directory (default: -./output)
+
+Environmental variables:
+  NAME                       the machine readable name of the dataset. Usually same as the MARC_DIR variable
+  MARC_DIR                   the name of the subdirectory where bibliographical data stored. If not set it will
+                             be set to BASE_INPUT_DIR/NAME.
+  MASK                       the mask of the bibliographical data files (e.g. marc*.mrc.gz)
+  OUTPUT_DIR                 the name of subdirectory where the output of the analysis will be stored. If not
+                             set it will be set to BASE_OUTPUT_DIR/NAME or if VERSION is set then it will be
+                             set to BASE_OUTPUT_DIR/NAME-VERSION.
+  TYPE_PARAMS                all parameters of analyses which are described in the documentation
+  ANALYSES                   a comma separated list of analyses (commands) to execute
+  SCHEMA                     the metadata schema (MARC21 (default) or PICA)
+  WEB_DIR                    the directory of the qa-catalogue-web
+  PREFIX                     the directory where log files are written (default: BASE_INPUT_DIR/_reports/NAME)
+  UPDATE                     the date time string (in YYYY-mm-dd H:M:s format) of the last data update.
+                             It will be stored into OUTPUT_DIR/last-update.csv
+  VERSION                    a version number for the source data (e.g. the date of the update). If set, the actual
+                             OUTPUT_DIR path will contain it, and there will symbolic link created to the latest one
+                             (from BASE_OUTPUT_DIR/NAME to BASE_OUTPUT_DIR/NAME-VERSION).
+
+more info: https://github.com/pkiraly/qa-catalogue
+
 END
+  exit 1
 }
 
 config() {
@@ -565,6 +604,7 @@ case "${1:-help}" in
   validate-sqlite)          do_validate_sqlite ;;
   prepare-solr)             do_prepare_solr ;;
   index)                    do_index ;;
+  postprocess_solr)         do_postprocess_solr ;;
   completeness)             do_completeness ; do_completeness_sqlite ;;
   completeness-sqlite)      do_completeness_sqlite ;;
   classifications)          do_classifications ;;

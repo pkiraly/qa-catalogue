@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# swap the two Solr cores <name> and <name>_dev
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+
+. ./solr-functions
+
+CORE=$1
+CORE_DEV=${CORE}_dev
+
+# dev -> production
+echo "Swap ${CORE_DEV} to ${CORE}"
+swap_cores ${CORE_DEV} ${CORE}
+
+echo "Solr preparation DONE"

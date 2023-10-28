@@ -183,8 +183,4 @@ EOT
 # curl "$SOLR_DB_URL/update?optimize=true" -H 'Content-type: text/xml' --data-binary '<commit/>'
 optimize_core $CORE
 
-# dev -> production
-echo "Swap ${CORE} to ${DB}"
-swap_cores ${CORE} ${DB}
-
 echo "indexing DONE"

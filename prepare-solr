@@ -35,4 +35,7 @@ if [[ $DEV_EXISTS != 1 ]]; then
   rename_core $CORE2 $CORE_DEV
 fi
 
+echo "Prepare schema"
+prepare_schema $CORE_DEV
+
 echo "Solr preparation DONE"

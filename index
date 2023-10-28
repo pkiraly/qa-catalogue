@@ -120,7 +120,8 @@ done
 # echo "limit: $limit"
 # echo "defaultEncoding: $defaultEncoding"
 
-CORE=${DB}_dev
+# CORE=${DB}_dev
+CORE=${DB}
 
 SOLR_DB_URL="${SOLR_HOST}/solr/${CORE}"
 
@@ -137,9 +138,6 @@ if [ "${DELETE}" == "1" ]; then
   # echo "Delete records in ${CORE}"
   # curl $SOLR_DB_URL/update -H "Content-type: text/xml" --data-binary '<delete><query>*:*</query></delete>'
 fi
-
-echo "Prepare schema"
-prepare_schema $CORE
 
 echo "Start indexing"
 curl -s $SOLR_DB_URL/update -H "Content-type: text/xml" --data-binary '<commit/>'

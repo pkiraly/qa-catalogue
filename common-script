@@ -56,7 +56,13 @@ do_index() {
   fi
   PARAMS="${PARAMS} --outputDir ${OUTPUT_DIR}"
 
-  ./index --db $NAME --file-path ${MARC_DIR} --file-mask $MASK ${PARAMS} --trimId 2>> ${PREFIX}/solr.log
+  ONLY_INDEX=$(echo ${TYPE_PARAMS} | grep -c -P -e '--onlyIndex' || true)
+  if [[ "${ONLY_INDEX}" == "0" ]]; then
+    CORE=${NAME}_dev
+  else
+    CORE=${NAME}
+  fi
+  ./index --db ${CORE} --file-path ${MARC_DIR} --file-mask $MASK ${PARAMS} --trimId 2>> ${PREFIX}/solr.log
 }
 
 do_postprocess_solr() {

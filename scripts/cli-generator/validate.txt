@@ -27,6 +27,7 @@
       options.addOption("c", "allowableRecords", true, "allow records for the analysis");
       options.addOption("e", "groupBy", true, "group the results by the value of this data element (e.g. the ILN of  library)");
       options.addOption("3", "groupListFile", true, "the file which contains a list of ILN codes");
+      options.addOption("4", "solrForScoresUrl", true, "the URL of the Solr server used to store scores");
       options.addOption("G", "summaryFileName", true, "the summary file name (provides a summary of issues, such as the number of instance and number of records having the particular issue)");
       options.addOption("S", "summary", false, "show summary instead of record level display");
       options.addOption("H", "details", false, "show record level display");

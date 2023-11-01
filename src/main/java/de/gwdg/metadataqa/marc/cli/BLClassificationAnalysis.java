@@ -106,7 +106,6 @@ public class BLClassificationAnalysis extends QACli<CommonParameters> implements
     output = new File(parameters.getOutputDir(), BL_CLASSIFIER_FILE);
     if (output.exists() && !output.delete())
       logger.severe("Deletion of " + output.getAbsolutePath() + " was unsuccessful!");
-    saveParameters("bl-classifications.params.json", parameters);
   }
 
   @Override
@@ -121,6 +120,7 @@ public class BLClassificationAnalysis extends QACli<CommonParameters> implements
 
   @Override
   public void afterIteration(int numberOfprocessedRecords) {
+    saveParameters("bl-classifications.params.json", parameters);
     logger.info("after iteration: " + numberOfprocessedRecords);
   }
 

@@ -153,8 +153,6 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
 
     if (parameters.collectAllErrors())
       allValidationErrors = new ArrayList<>();
-
-    saveParameters("validation.params.json", parameters);
   }
 
   @Override
@@ -316,6 +314,7 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
     copySchemaFileToOutputDir();
 
     logger.info("all printing is DONE");
+    saveParameters("validation.params.json", parameters);
   }
 
   private void copySchemaFileToOutputDir() {

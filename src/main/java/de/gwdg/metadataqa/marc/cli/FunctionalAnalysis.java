@@ -181,7 +181,6 @@ public class FunctionalAnalysis extends QACli<CompletenessParameters> implements
 
   @Override
   public void beforeIteration() {
-    saveParameters("functions.params.json", parameters);
   }
 
   @Override
@@ -209,6 +208,7 @@ public class FunctionalAnalysis extends QACli<CompletenessParameters> implements
     saveHistogram(percentHistogram, fileExtension, separator);
 
     saveMapping(fileExtension, separator);
+    saveParameters("functions.params.json", parameters);
   }
 
   private void saveMapping(String fileExtension,

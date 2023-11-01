@@ -161,7 +161,6 @@ public class Completeness extends QACli<CompletenessParameters> implements Bibli
   public void beforeIteration() {
     logger.info(parameters.formatParameters());
     completenessDAO.initialize();
-    saveParameters("completeness.params.json", parameters);
   }
 
   @Override
@@ -192,6 +191,7 @@ public class Completeness extends QACli<CompletenessParameters> implements Bibli
       savePackages(fileExtension, separator);
       saveMarcElements(fileExtension, separator);
     }
+    saveParameters("completeness.params.json", parameters);
   }
 
   private void saveLibraries003(String fileExtension, char separator) {

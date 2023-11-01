@@ -113,7 +113,6 @@ public class ClassificationAnalysis extends QACli<ClassificationParameters> impl
 
   @Override
   public void beforeIteration() {
-    saveParameters("classifications.params.json", parameters);
   }
 
   @Override
@@ -135,6 +134,7 @@ public class ClassificationAnalysis extends QACli<ClassificationParameters> impl
     printSchemaSubfieldsStatistics();
     if (parameters.doCollectCollocations())
       printClassificationsCollocation();
+    saveParameters("classifications.params.json", parameters);
   }
 
   private void printClassificationsCollocation() {

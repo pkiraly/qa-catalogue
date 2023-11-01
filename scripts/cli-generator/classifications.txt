@@ -27,4 +27,5 @@
       options.addOption("c", "allowableRecords", true, "allow records for the analysis");
       options.addOption("e", "groupBy", true, "group the results by the value of this data element (e.g. the ILN of  library)");
       options.addOption("3", "groupListFile", true, "the file which contains a list of ILN codes");
+      options.addOption("4", "solrForScoresUrl", true, "the URL of the Solr server used to store scores");
       options.addOption("A", "collectCollocations", false, "collect collocatiion of schemas");

@@ -92,7 +92,6 @@ public class SerialScore extends QACli<SerialScoreParameters> implements Bibliog
       logger.severe("Deletion of " + output.getAbsolutePath() + " was unsuccessful!");
 
     print(createRow(Serial.getHeader()));
-    saveParameters("serials.params.json", parameters);
   }
 
   @Override
@@ -132,6 +131,7 @@ public class SerialScore extends QACli<SerialScoreParameters> implements Bibliog
   @Override
   public void afterIteration(int numberOfprocessedRecords) {
     printHistogram();
+    saveParameters("serials.params.json", parameters);
   }
 
   private void printHistogram() {

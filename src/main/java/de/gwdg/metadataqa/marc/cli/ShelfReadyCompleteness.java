@@ -93,7 +93,6 @@ public class ShelfReadyCompleteness extends QACli<ShelfReadyCompletenessParamete
       logger.severe("Deletion of " + output.getAbsolutePath() + " was unsuccessful!");
 
     print(createRow(createHeaders()));
-    saveParameters("shelf-ready-completeness.params.json", parameters);
   }
 
   private List<String> createHeaders() {
@@ -146,7 +145,7 @@ public class ShelfReadyCompleteness extends QACli<ShelfReadyCompletenessParamete
 
   @Override
   public void afterIteration(int numberOfprocessedRecords) {
-
+    saveParameters("shelf-ready-completeness.params.json", parameters);
   }
 
   @Override

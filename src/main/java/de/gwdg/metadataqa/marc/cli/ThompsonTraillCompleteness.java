@@ -93,7 +93,6 @@ public class ThompsonTraillCompleteness extends QACli<ThompsonTraillCompleteness
       logger.severe("Deletion of " + output.getAbsolutePath() + " was unsuccessful!");
 
     print(createRow(ThompsonTraillAnalysis.getHeader()));
-    saveParameters("tt-completeness.params.json", parameters);
   }
 
   @Override
@@ -133,7 +132,7 @@ public class ThompsonTraillCompleteness extends QACli<ThompsonTraillCompleteness
 
   @Override
   public void afterIteration(int numberOfprocessedRecords) {
-
+    saveParameters("tt-completeness.params.json", parameters);
   }
 
   @Override

@@ -40,6 +40,7 @@ options:
  -c, --allowableRecords <arg>       allow records for the analysis
  -e, --groupBy <arg>                group the results by the value of this data element (e.g. the ILN of  library)
  -3, --groupListFile <arg>          the file which contains a list of ILN codes
+ -4, --solrForScoresUrl <arg>       the URL of the Solr server used to store scores
  -G, --summaryFileName <arg>        the summary file name (provides a summary of issues, such as the number of instance and number of records having the particular issue)
  -S, --summary                      show summary instead of record level display
  -H, --details                      show record level display
@@ -59,8 +60,8 @@ if [ $# -eq 0 ]; then
   show_usage
 fi
 
-SHORT_OPTIONS="m:hnl:o:i:d:qabpxyt:rz:v:f:s:g:1:2:u:j:w:k:c:e:3:G:SHF:R:WTI:"
-LONG_OPTIONS="marcVersion:,help,nolog,limit:,offset:,id:,defaultRecordType:,fixAlephseq,fixAlma,fixKbr,alephseq,marcxml,lineSeparated,outputDir:,trimId,ignorableFields:,ignorableRecords:,marcFormat:,dataSource:,defaultEncoding:,alephseqLineType:,picaIdField:,picaSubfieldSeparator:,picaSchemaFile:,schemaType:,picaRecordType:,allowableRecords:,groupBy:,groupListFile:,summaryFileName:,summary,details,detailsFileName:,format:,emptyLargeCollectors,collectAllErrors,ignorableIssueTypes:"
+SHORT_OPTIONS="m:hnl:o:i:d:qabpxyt:rz:v:f:s:g:1:2:u:j:w:k:c:e:3:4:G:SHF:R:WTI:"
+LONG_OPTIONS="marcVersion:,help,nolog,limit:,offset:,id:,defaultRecordType:,fixAlephseq,fixAlma,fixKbr,alephseq,marcxml,lineSeparated,outputDir:,trimId,ignorableFields:,ignorableRecords:,marcFormat:,dataSource:,defaultEncoding:,alephseqLineType:,picaIdField:,picaSubfieldSeparator:,picaSchemaFile:,schemaType:,picaRecordType:,allowableRecords:,groupBy:,groupListFile:,solrForScoresUrl:,summaryFileName:,summary,details,detailsFileName:,format:,emptyLargeCollectors,collectAllErrors,ignorableIssueTypes:"
 
 GETOPT=$(getopt \
   -o ${SHORT_OPTIONS} \
@@ -101,6 +102,7 @@ while true ; do
     -c|--allowableRecords)       PARAMS="$PARAMS --allowableRecords $2" ;      shift 2 ;;
     -e|--groupBy)                PARAMS="$PARAMS --groupBy $2" ;               shift 2 ;;
     -3|--groupListFile)          PARAMS="$PARAMS --groupListFile $2" ;         shift 2 ;;
+    -4|--solrForScoresUrl)       PARAMS="$PARAMS --solrForScoresUrl $2" ;      shift 2 ;;
     -G|--summaryFileName)        PARAMS="$PARAMS --summaryFileName $2" ;       shift 2 ;;
     -S|--summary)                PARAMS="$PARAMS --summary" ;                  shift   ;;
     -H|--details)                PARAMS="$PARAMS --details" ;                  shift   ;;

@@ -154,7 +154,6 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
     logger.info(parameters.formatParameters());
     parameters.setMainClient(null);
     parameters.setValidationClient(null);
-    saveParameters("marctosolr.params.json", parameters);
   }
 
   @Override
@@ -170,6 +169,7 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
   @Override
   public void afterIteration(int numberOfprocessedRecords) {
     client.commit();
+    saveParameters("marctosolr.params.json", parameters);
   }
 
   @Override

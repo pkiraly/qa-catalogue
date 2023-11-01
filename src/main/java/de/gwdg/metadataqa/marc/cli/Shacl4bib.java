@@ -91,7 +91,6 @@ public class Shacl4bib extends QACli<Shacl4bibParameters> implements Bibliograph
     List<String> header = ruleCatalog.getHeader();
     header.add(0, "id");
     printToFile(outputFile, CsvUtils.createCsv(header));
-    saveParameters("shacl4bib.params.json", parameters);
   }
 
   @Override
@@ -128,6 +127,7 @@ public class Shacl4bib extends QACli<Shacl4bibParameters> implements Bibliograph
   @Override
   public void afterIteration(int numberOfprocessedRecords) {
     copySchaclFileToOutputDir();
+    saveParameters("shacl4bib.params.json", parameters);
   }
 
   private void copySchaclFileToOutputDir() {

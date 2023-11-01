@@ -114,7 +114,6 @@ public class NetworkAnalysis extends QACli<NetworkParameters> implements Bibliog
     } catch (IOException e) {
       logger.log(Level.WARNING, "document", e);
     }
-    saveParameters("network.params.json", parameters);
   }
 
   @Override
@@ -135,6 +134,7 @@ public class NetworkAnalysis extends QACli<NetworkParameters> implements Bibliog
       logger.severe("Failed to close networkWriter. " + e.getLocalizedMessage());
       logger.log(Level.SEVERE, "afterIteration", e);
     }
+    saveParameters("network.params.json", parameters);
   }
 
   @Override

@@ -99,7 +99,6 @@ public class AuthorityAnalysis extends QACli<ValidatorParameters> implements Bib
 
   @Override
   public void beforeIteration() {
-    saveParameters("authorities.params.json", parameters);
   }
 
   @Override
@@ -120,6 +119,7 @@ public class AuthorityAnalysis extends QACli<ValidatorParameters> implements Bib
     printAuthoritiesHistogram();
     printFrequencyExamples();
     printAuthoritiesSubfieldsStatistics();
+    saveParameters("authorities.params.json", parameters);
   }
 
   private void printAuthoritiesByCategories() {

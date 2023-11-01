@@ -44,7 +44,9 @@ switch ($fileName) {
 }
 
 $maxLong = 0;
-$options = readOptions($fileName);
+$index = (object)['longs' => [], 'shorts' => []];
+$options = readOptions('common.txt', $index);
+$options = readOptions($fileName, $index);
 
 createHelp($options);
 echo LN;
@@ -157,11 +159,10 @@ eval set -- "\${GETOPT}"
 END;
 }
 
-function readOptions($fileName) {
+function readOptions($fileName, $index) {
   global $maxLong;
   $data = [];
   $handle = fopen($fileName, "r");
-  $shorts = $longs = [];
   if ($handle) {
     while (($line = fgets($handle)) !== false) {
       if (preg_match('/\s*options.addOption\("(.)", "([^"]+)", (true|false), "([^"]+)"\);$/', $line, $matches)) { //
@@ -174,15 +175,15 @@ function readOptions($fileName) {
         if ($maxLong < strlen($matches[2]))
           $maxLong = strlen($matches[2]);
 
-        if (in_array($matches[1], $shorts)) {
+        if (in_array($matches[1], $index->shorts)) {
           error_log('repeated short: ' . $matches[1] . ' -- ' . $line);
         }
-        $shorts[] = $matches[1];
+        $index->shorts[] = $matches[1];
 
-        if (in_array($matches[2], $longs)) {
+        if (in_array($matches[2], $index->longs)) {
           error_log('repeated long: ' . $matches[2] . ' -- ' . $line);
         }
-        $longs[] = $matches[2];
+        $index->longs[] = $matches[2];
 
       } else {
         error_log('line does not fit to the pattern: ', $line);
@@ -192,4 +193,3 @@ function readOptions($fileName) {
   }
   return $data;
 }
-

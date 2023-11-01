@@ -452,8 +452,8 @@ EOF
 }
 
 do_all_analyses() {
-  tasks=$(echo "${ANALYSES}" | tr , ' ')
-  for task in $tasks; do
+  analysis_tasks=$(echo "${ANALYSES}" | tr , ' ')
+  for task in $analysis_tasks; do
       declare -F "do_$task" > /dev/null || fatal "unknown analysis task: $task"
   done
   for task in $(echo "${ANALYSES}" | tr , ' '); do
@@ -481,7 +481,7 @@ ME=$0
 cat <<END
 Run QA catalogue analyses
 
- ${ME} [VARIABLES] <COMMAND>
+ ${ME} [VARIABLES] <COMMAND[,COMMAND...]>
 
 Commands:
   validate                   record validation
@@ -537,7 +537,6 @@ Environmental variables:
 more info: https://github.com/pkiraly/qa-catalogue
 
 END
-  exit 1
 }
 
 config() {
@@ -586,10 +585,18 @@ else
 fi
 ANALYSES=${ANALYSES:-$ALL_ANALYSES}
 
-# check directories for processing commands
-if [[ ! "${1:-help}" =~ ^(help|config|export-schema-files)$ ]]; then
-  cmd=$1
+tasks="${1:-help}"
+datatask=
 
+# Check whether data is going to be processed
+for task in ${tasks//,/ }; do
+  if [[ ! "$task" =~ ^(help|config|export-schema-files)$ ]]; then
+    datatask=true
+  fi
+done
+
+# check directories for processing commands
+if [[ "$datatask" = true ]]; then
   mkdir -p $PREFIX
   mkdir -p $OUTPUT_DIR
 
@@ -605,41 +612,43 @@ if [[ ! "${1:-help}" =~ ^(help|config|export-schema-files)$ ]]; then
   fi
 fi
 
-case "${1:-help}" in
-  validate)                 do_validate ; do_validate_sqlite ;;
-  validate-sqlite)          do_validate_sqlite ;;
-  prepare-solr)             do_prepare_solr ;;
-  index)                    do_index ;;
-  postprocess_solr)         do_postprocess_solr ;;
-  completeness)             do_completeness ; do_completeness_sqlite ;;
-  completeness-sqlite)      do_completeness_sqlite ;;
-  classifications)          do_classifications ;;
-  authorities)              do_authorities ;;
-  tt-completeness)          do_tt_completeness ;;
-  shelf-ready-completeness) do_shelf_ready_completeness ;;
-  bl-classification)        do_bl_classification ;;
-  serial-score)             do_serial_score ;;
-  format)                   do_format ;;
-  functional-analysis)      do_functional_analysis ;;
-  network-analysis)         do_network_analysis ;;
-  pareto)                   do_pareto ;;
-  marc-history)             do_marc_history ;;
-  record-patterns)          do_record_patterns ;;
-  mysql)                    do_mysql ;;
-  export-schema-files)      do_export_schema_files ;;
-  shacl4bib)                do_shacl4bib ;;
-  all-analyses)             do_all_analyses ;;
-  all-solr)                 do_all_solr ;;
-  all)                      do_all_analyses ; do_all_solr ;;
-  version-link)             do_version_link ;;
-  config)                   config ;;
-  help)                     help ;;
-  *)                        fatal "unknown command: $1"
-esac
+for task in ${tasks//,/ }; do
+  case $task in
+    validate)                 do_validate ; do_validate_sqlite ;;
+    validate-sqlite)          do_validate_sqlite ;;
+    prepare-solr)             do_prepare_solr ;;
+    index)                    do_index ;;
+    postprocess_solr)         do_postprocess_solr ;;
+    completeness)             do_completeness ; do_completeness_sqlite ;;
+    completeness-sqlite)      do_completeness_sqlite ;;
+    classifications)          do_classifications ;;
+    authorities)              do_authorities ;;
+    tt-completeness)          do_tt_completeness ;;
+    shelf-ready-completeness) do_shelf_ready_completeness ;;
+    bl-classification)        do_bl_classification ;;
+    serial-score)             do_serial_score ;;
+    format)                   do_format ;;
+    functional-analysis)      do_functional_analysis ;;
+    network-analysis)         do_network_analysis ;;
+    pareto)                   do_pareto ;;
+    marc-history)             do_marc_history ;;
+    record-patterns)          do_record_patterns ;;
+    mysql)                    do_mysql ;;
+    export-schema-files)      do_export_schema_files ;;
+    shacl4bib)                do_shacl4bib ;;
+    all-analyses)             do_all_analyses ;;
+    all-solr)                 do_all_solr ;;
+    all)                      do_all_analyses ; do_all_solr ;;
+    version-link)             do_version_link ;;
+    config)                   config ;;
+    help)                     help ;;
+    *)                        fatal "unknown command: $1"
+  esac
+done
 
 untrace
 
-if [ ! -z "${cmd:-}" ]; then
+if [[ "$datatask" = true ]]; then
   sec=$SECONDS
   log "DONE in $(printf '%02d:%02d:%02d\n' $((sec/3600)) $((sec%3600/60)) $((sec%60)))"
 fi

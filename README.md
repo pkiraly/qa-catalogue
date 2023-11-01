@@ -212,11 +212,11 @@ If you do not want to
 #### run
 
 ```bash
-catalogues/[your script] [command]
+catalogues/[your script] [command(s)]
 ```
 or
 ```bash
-./qa-catalogue --params="[options]" [command]
+./qa-catalogue --params="[options]" [command(s)]
 ```
 
 The following commands are supported:

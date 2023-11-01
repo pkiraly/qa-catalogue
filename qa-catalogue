@@ -3,7 +3,7 @@ set -ueo pipefail
 
 usage() {
   cat << EOF
-Usage: $0 [options] <command>
+Usage: $0 [options] <command[,command...]>
 
 QA catalogue for analysing library data
 

@@ -29,6 +29,7 @@ qa-catalogue.iml
 temp
 scala/project
 scala/target
+scripts/cli-generator/*.sh.txt
 
 # default input and output base directory
 input

@@ -1,0 +1,9 @@
+php generate.php validate.txt > validate.sh.txt
+php generate.php completeness.txt > completeness.sh.txt
+php generate.php classifications.txt > classifications.sh.txt
+php generate.php authorities.txt > authorities.sh.txt
+php generate.php serials.txt > serials.sh.txt
+php generate.php tt-completeness.txt > tt-completeness.sh.txt
+php generate.php shelf-ready-completeness.txt > shelf-ready-completeness.sh.txt
+php generate.php functions.txt > functions.sh.txt
+php generate.php shacl4bib.txt > shacl4bib.sh.txt

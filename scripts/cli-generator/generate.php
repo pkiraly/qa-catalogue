@@ -46,7 +46,7 @@ switch ($fileName) {
 $maxLong = 0;
 $index = (object)['longs' => [], 'shorts' => []];
 $options = readOptions('common.txt', $index);
-$options = readOptions($fileName, $index);
+$options = array_merge($options, readOptions($fileName, $index));
 
 createHelp($options);
 echo LN;

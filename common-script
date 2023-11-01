@@ -179,11 +179,11 @@ do_network_analysis() {
 
   untrace
 
-  cat network-pairs.csv | sort | uniq -c | sort -nr > network-pairs-uniq-with-count.csv
+  sort network-pairs.csv | uniq -c | sort -nr > network-pairs-uniq-with-count.csv
   awk '{print $2 " " $3}' network-pairs-uniq-with-count.csv > network-pairs-all.csv
 
   log "ziping output"
-  PWD=`pdw`
+  PWD=$(pdw)
   cd ${OUTPUT_DIR}
   zip network-input network-nodes.csv network-nodes-???.csv network-pairs-???.csv network-by-concepts-tags.csv
   cd $PWD
@@ -606,7 +606,7 @@ if [[ "$datatask" = true ]]; then
 
   ls ${MARC_DIR}/${MASK} &> /dev/null || fatal "Missing input files: ${MARC_DIR}/${MASK}!\n"
 
-  if [[ ! -z "${UPDATE:-}" ]]; then
+  if [[ -n "${UPDATE:-}" ]]; then
     log "update: $UPDATE"
     echo "${UPDATE}" > "${OUTPUT_DIR}/last-update.csv"
   fi

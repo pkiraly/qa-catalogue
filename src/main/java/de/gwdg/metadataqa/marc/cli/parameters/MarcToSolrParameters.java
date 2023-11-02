@@ -17,6 +17,7 @@ public class MarcToSolrParameters extends CommonParameters {
 
   private boolean isOptionSet = false;
   private int commitAt = DEFAULT_COMMIT_AT;
+  private boolean indexFieldCounts = false;
 
   protected void setOptions() {
     if (!isOptionSet) {
@@ -28,6 +29,7 @@ public class MarcToSolrParameters extends CommonParameters {
       options.addOption("B", "useEmbedded", false, "use embedded Solr server (used in tests only)");
       options.addOption("C", "indexWithTokenizedField", false, "index data elements as tokenized field as well");
       options.addOption("D", "commitAt", true, "commit index after this number of records");
+      options.addOption("E", "indexFieldCounts", false, "index the count of field instances");
       isOptionSet = true;
     }
   }
@@ -52,6 +54,9 @@ public class MarcToSolrParameters extends CommonParameters {
 
     if (cmd.hasOption("commitAt"))
       commitAt = Integer.valueOf(cmd.getOptionValue("commitAt"));
+
+    if (cmd.hasOption("indexFieldCounts"))
+      indexFieldCounts = true;
   }
 
   public String getSolrUrl() {
@@ -94,6 +99,10 @@ public class MarcToSolrParameters extends CommonParameters {
     return commitAt;
   }
 
+  public boolean indexFieldCounts() {
+    return indexFieldCounts;
+  }
+
   @Override
   public String formatParameters() {
     String text = super.formatParameters();
@@ -101,6 +110,8 @@ public class MarcToSolrParameters extends CommonParameters {
     text += String.format("doCommit: %s%n", doCommit);
     text += String.format("solrFieldType: %s%n", solrFieldType);
     text += String.format("indexWithTokenizedField: %s%n", indexWithTokenizedField);
+    text += String.format("indexFieldCounts: %s%n", indexFieldCounts);
     return text;
   }
+
 }

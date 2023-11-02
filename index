@@ -19,6 +19,8 @@ usage:
        [-d|--defaultRecordType] [-v|--marcVersion]
        [-A|--alephseqLineType] [-B|--validationCore] [-C|--outputDir]
        [-C|--indexWithTokenizedField]
+       [-D|--commitAt]
+       [-E|--indexFieldCounts]
        [-p|--purge] [-s|--status] [-h|--help]
 
  -b, --db <name>        name of the database
@@ -46,7 +48,9 @@ usage:
  -B, --validationCore   the Solr collection used in the validation task
  -t, --outputDir        the directory to write the file listing the parameters
  -3, --groupListFile    the file which contains a list of ILN codes
- -C, --indexWithTokenizedField
+ -C, --indexWithTokenizedField index data elements as tokenized field as well
+ -D, --commitAt         commit index after this number of records
+ -E, --indexFieldCounts index the count of field instances
  -s, --status           status information
  -p, --purge            delete all records from a core
  -h, --help             this help
@@ -78,8 +82,8 @@ validationCore=""
 outputDir=""
 PARAMS=""
 
-GETOPT=$(getopt -o b:p:m:ws::xard:hSpv:l:i:g:A:F:f:z:J:B:t:C:3:c:4: \
-  --long db:,file-path:,file-mask:,no-delete,solrFieldType:,marcxml,alephseq,trimId,defaultRecordType,help,status,purge,marcVersion:,limit:,ignorableRecords:,defaultEncoding:,alephseqLineType:,schemaType:,marcFormat:,ignorableFields:,groupBy:,validationCore:,outputDir:,outputDir,indexWithTokenizedField,groupListFile:,allowableRecords:,solrForScoresUrl: \
+GETOPT=$(getopt -o b:p:m:ws::xard:hSpv:l:i:g:A:F:f:z:J:B:t:C:3:c:4:D:E \
+  --long db:,file-path:,file-mask:,no-delete,solrFieldType:,marcxml,alephseq,trimId,defaultRecordType,help,status,purge,marcVersion:,limit:,ignorableRecords:,defaultEncoding:,alephseqLineType:,schemaType:,marcFormat:,ignorableFields:,groupBy:,validationCore:,outputDir:,outputDir,indexWithTokenizedField,groupListFile:,allowableRecords:,solrForScoresUrl:,commitAt:,indexFieldCounts \
   -n ${ME} -- "$@")
 eval set -- "$GETOPT"
 
@@ -109,6 +113,8 @@ while true ; do
     -c|--allowableRecords) PARAMS="$PARAMS --allowableRecords $2" ; shift 2 ;;
     -C|--indexWithTokenizedField) PARAMS="$PARAMS --indexWithTokenizedField" ; shift ;;
     -4|--solrForScoresUrl) PARAMS="$PARAMS --solrForScoresUrl $2" ; shift 2 ;;
+    -D|--commitAt) PARAMS="$PARAMS --commitAt $2" ; shift 2 ;;
+    -E|--indexFieldCounts) PARAMS="$PARAMS --indexFieldCounts" ; shift ;;
     -S|--status) status ; shift ;;
     -p|--purge) purge_and_exit $DB ; shift ;;
     -h|--help) show_usage ; shift ;;

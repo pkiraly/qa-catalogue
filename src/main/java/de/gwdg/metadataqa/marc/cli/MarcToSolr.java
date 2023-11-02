@@ -11,6 +11,8 @@ import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
+import de.gwdg.metadataqa.marc.utils.Counter;
+import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
 import de.gwdg.metadataqa.marc.utils.pica.PicaGroupIndexer;
 import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
 import org.apache.commons.cli.HelpFormatter;
@@ -126,14 +128,14 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
       parameters.getSolrFieldType(), true, parameters.getMarcVersion()
     );
     map.put("record_sni", Arrays.asList(bibliographicRecord.asJson()));
-    SolrInputDocument document = client.createSolrDoc(bibliographicRecord.getId(), map);
+    SolrInputDocument solrDocument = client.createSolrDoc(bibliographicRecord.getId(), map);
     if (validationClient != null) {
-      SolrDocument validationValues = validationClient.get(bibliographicRecord.getId());
-      if (validationValues != null && !validationValues.isEmpty())
-        for (String field : validationValues.getFieldNames())
-          document.addField(field, validationValues.getFieldValues(field));
+      indexValidationResults(bibliographicRecord, solrDocument);
     }
-    client.index(document);
+    if (parameters.indexFieldCounts()) {
+      indexFieldCounts(bibliographicRecord, solrDocument);
+    }
+    client.index(solrDocument);
 
     if (recordNumber % parameters.getCommitAt() == 0) {
       if (parameters.doCommit())
@@ -146,6 +148,31 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
           bibliographicRecord.getId()
         )
       );
+    }
+  }
+
+  private void indexValidationResults(BibliographicRecord bibliographicRecord, SolrInputDocument document) {
+    SolrDocument validationValues = validationClient.get(bibliographicRecord.getId());
+    if (validationValues != null && !validationValues.isEmpty())
+      for (String field : validationValues.getFieldNames())
+        document.addField(field, validationValues.getFieldValues(field));
+  }
+
+  private static void indexFieldCounts(BibliographicRecord bibliographicRecord, SolrInputDocument document) {
+    Counter<String> fieldCOunter = new Counter<>();
+    for (DataField field : bibliographicRecord.getDatafields()) {
+      String tag = null;
+      if (field.getDefinition() != null) {
+        tag = bibliographicRecord.getSchemaType().equals(SchemaType.PICA)
+          ? ((PicaFieldDefinition)field.getDefinition()).getId()
+          : field.getDefinition().getTag();
+      } else {
+        tag = field.getTag();
+      }
+      fieldCOunter.count(tag);
+    }
+    for (Map.Entry<String, Integer> entry : fieldCOunter.entrySet()) {
+      document.addField(String.format("%s_count_i", entry.getKey()), entry.getValue());
     }
   }
 

@@ -291,7 +291,7 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
   }
 
   @Override
-  public void afterIteration(int numberOfprocessedRecords) {
+  public void afterIteration(int numberOfprocessedRecords, long duration) {
     logger.info("printCounter");
     this.numberOfprocessedRecords = numberOfprocessedRecords;
     printCounter();
@@ -314,7 +314,7 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
     copySchemaFileToOutputDir();
 
     logger.info("all printing is DONE");
-    saveParameters("validation.params.json", parameters);
+    saveParameters("validation.params.json", parameters, Map.of("numberOfprocessedRecords", numberOfprocessedRecords, "duration", duration));
   }
 
   private void copySchemaFileToOutputDir() {

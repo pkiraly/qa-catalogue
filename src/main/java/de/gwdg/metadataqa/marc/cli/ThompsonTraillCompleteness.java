@@ -131,8 +131,8 @@ public class ThompsonTraillCompleteness extends QACli<ThompsonTraillCompleteness
   }
 
   @Override
-  public void afterIteration(int numberOfprocessedRecords) {
-    saveParameters("tt-completeness.params.json", parameters);
+  public void afterIteration(int numberOfprocessedRecords, long duration) {
+    saveParameters("tt-completeness.params.json", parameters, Map.of("numberOfprocessedRecords", numberOfprocessedRecords, "duration", duration));
   }
 
   @Override

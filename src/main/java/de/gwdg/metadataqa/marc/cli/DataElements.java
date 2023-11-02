@@ -119,7 +119,7 @@ public class DataElements implements BibliographicInputProcessor, Serializable {
   }
 
   @Override
-  public void afterIteration(int numberOfprocessedRecords) {
+  public void afterIteration(int numberOfprocessedRecords, long duration) {
     // do nothing
   }
 

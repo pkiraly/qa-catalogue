@@ -6,9 +6,11 @@ import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DurationFormatUtils;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -210,5 +212,16 @@ public class Utils {
   public static String base64decode(String raw) {
     Base64.Decoder dec = Base64.getDecoder();
     return new String(dec.decode(raw.replaceAll("^base64:", "")));
+  }
+
+  /**
+   * Create a human readable duration string, such as '03:24:12' or '1d 12:34:56'
+   * @param duration Duration in milliseconds
+   * @return a human readable duration string
+   */
+  public static String formatDuration(long duration) {
+    return Duration.ofMillis(duration).toDays() > 0
+      ? DurationFormatUtils.formatDuration(duration, "d'd' HH:mm:ss", true)
+      : DurationFormatUtils.formatDuration(duration, "HH:mm:ss", true);
   }
 }

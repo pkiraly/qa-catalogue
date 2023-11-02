@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.cli.utils;
 
+import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.MarcFactory;
@@ -48,6 +49,7 @@ public class RecordIterator {
   private PicaSchemaManager picaSchema;
   private String status = "waits";
   private boolean processWithEroors = false;
+  private long start;
 
   public RecordIterator(BibliographicInputProcessor processor) {
     this.processor = processor;
@@ -56,7 +58,7 @@ public class RecordIterator {
 
   public void start() {
 
-    long start = System.currentTimeMillis();
+    start = System.currentTimeMillis();
     processor.beforeIteration();
     parameters = processor.getParameters();
 
@@ -87,12 +89,12 @@ public class RecordIterator {
       }
     }
 
-    processor.afterIteration(recordNumber);
-
     long end = System.currentTimeMillis();
+    processor.afterIteration(recordNumber, (end - start));
+
     long duration = (end - start) / 1000;
     if (parameters.doLog())
-      logger.log(Level.INFO, "Bye! It took: " + DurationFormatUtils.formatDuration(end - start, "d HH:mm:ss", true));
+      logger.log(Level.INFO, "Bye! It took: " + Utils.formatDuration(end - start));
       // logger.log(Level.INFO, "Bye! It took: " + LocalTime.MIN.plusSeconds(duration).format(DateTimeFormatter.ofPattern("d HH:mm:ss")));
 
     status = "done";
@@ -277,5 +279,9 @@ public class RecordIterator {
 
   public void setProcessWithEroors(boolean processWithEroors) {
     this.processWithEroors = processWithEroors;
+  }
+
+  public long getStart() {
+    return start;
   }
 }

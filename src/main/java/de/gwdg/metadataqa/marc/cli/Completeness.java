@@ -174,7 +174,7 @@ public class Completeness extends QACli<CompletenessParameters> implements Bibli
   }
 
   @Override
-  public void afterIteration(int numberOfprocessedRecords) {
+  public void afterIteration(int numberOfprocessedRecords, long duration) {
     String fileExtension = ".csv";
     final char separator = getSeparator(parameters.getFormat());
     if (parameters.getFormat().equals(ValidationErrorFormat.TAB_SEPARATED)) {
@@ -191,7 +191,7 @@ public class Completeness extends QACli<CompletenessParameters> implements Bibli
       savePackages(fileExtension, separator);
       saveMarcElements(fileExtension, separator);
     }
-    saveParameters("completeness.params.json", parameters);
+    saveParameters("completeness.params.json", parameters, Map.of("numberOfprocessedRecords", numberOfprocessedRecords, "duration", duration));
   }
 
   private void saveLibraries003(String fileExtension, char separator) {

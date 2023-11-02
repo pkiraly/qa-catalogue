@@ -19,7 +19,7 @@ public interface BibliographicInputProcessor {
   void beforeIteration();
   void fileOpened(Path path);
   void fileProcessed();
-  void afterIteration(int numberOfprocessedRecords);
+  void afterIteration(int numberOfprocessedRecords, long duration);
   void printHelp(Options options);
   boolean readyToProcess();
 }

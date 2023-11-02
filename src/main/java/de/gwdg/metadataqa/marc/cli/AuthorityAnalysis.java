@@ -112,14 +112,14 @@ public class AuthorityAnalysis extends QACli<ValidatorParameters> implements Bib
   }
 
   @Override
-  public void afterIteration(int numberOfprocessedRecords) {
+  public void afterIteration(int numberOfprocessedRecords, long duration) {
     printAuthoritiesByCategories();
     printAuthoritiesBySchema();
     printAuthoritiesByRecords();
     printAuthoritiesHistogram();
     printFrequencyExamples();
     printAuthoritiesSubfieldsStatistics();
-    saveParameters("authorities.params.json", parameters);
+    saveParameters("authorities.params.json", parameters, Map.of("numberOfprocessedRecords", numberOfprocessedRecords, "duration", duration));
   }
 
   private void printAuthoritiesByCategories() {

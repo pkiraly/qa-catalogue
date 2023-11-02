@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.cli;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gwdg.metadataqa.marc.CsvUtils;
+import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
@@ -11,6 +12,7 @@ import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
 import de.gwdg.metadataqa.marc.utils.pica.path.PicaPathParser;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DurationFormatUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,9 +23,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -50,12 +54,26 @@ public abstract class QACli<T extends CommonParameters> {
   }
 
   protected void saveParameters(String fileName, T parameters) {
+    saveParameters(fileName, parameters, null);
+  }
+
+  protected void saveParameters(String fileName, T parameters, Map<String, Object> results) {
+    // Map<String, Object> responseDao = Map.of("parameters", parameters, "results", results);
     ObjectMapper mapper = new ObjectMapper();
     try {
       String json = mapper.writeValueAsString(parameters);
       Map<String, Object> configuration = mapper.readValue(json, new TypeReference<>(){});
       configuration.put("mqaf.version", de.gwdg.metadataqa.api.cli.Version.getVersion());
       configuration.put("qa-catalogue.version", de.gwdg.metadataqa.marc.cli.Version.getVersion());
+      if (results != null)
+        for (Map.Entry<String, Object> entry : results.entrySet()) {
+          Object value = entry.getValue();
+          if (entry.getKey().equals("duration")) {
+            value = Utils.formatDuration((long) value);
+          }
+          configuration.put(entry.getKey(), value);
+        }
+
       File configFile = Paths.get(parameters.getOutputDir(), fileName).toFile();
       logger.log(Level.INFO, "Saving configuration to {0}.", configFile.getAbsolutePath());
       mapper.writeValue(configFile, configuration);

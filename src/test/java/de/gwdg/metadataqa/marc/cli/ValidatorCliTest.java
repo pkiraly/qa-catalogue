@@ -246,7 +246,9 @@ public class ValidatorCliTest extends CliTestUtils {
         assertTrue(line.contains("\"replacementInControlFields\":null,"));
         assertTrue(line.contains("\"marc21\":false,"));
         assertTrue(line.contains("\"mqaf.version\":\"0.9.3\","));
-        assertTrue(line.contains("\"qa-catalogue.version\":\"0.8.0-SNAPSHOT\"}"));
+        assertTrue(line.contains("\"qa-catalogue.version\":\"0.8.0-SNAPSHOT\""));
+        assertTrue(line.contains("\"duration\":\"00:00:00\""));
+        assertTrue(line.contains("\"numberOfprocessedRecords\":10"));
 
       } else {
         fail("Untested output file: " + outputFile);

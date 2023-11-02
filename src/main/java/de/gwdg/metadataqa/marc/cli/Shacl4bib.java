@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -125,9 +126,9 @@ public class Shacl4bib extends QACli<Shacl4bibParameters> implements Bibliograph
   }
 
   @Override
-  public void afterIteration(int numberOfprocessedRecords) {
+  public void afterIteration(int numberOfprocessedRecords, long duration) {
     copySchaclFileToOutputDir();
-    saveParameters("shacl4bib.params.json", parameters);
+    saveParameters("shacl4bib.params.json", parameters, Map.of("numberOfprocessedRecords", numberOfprocessedRecords, "duration", duration));
   }
 
   private void copySchaclFileToOutputDir() {

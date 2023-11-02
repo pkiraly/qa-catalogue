@@ -155,4 +155,11 @@ public class UtilsTest {
       "002@.0 !~ \"^L\" && 002@.0 !~ \"^..[iktN]\" && (002@.0 !~ \"^.v\" || 021A.a?)\n",
       Utils.base64decode("MDAyQC4wICF+ICJeTCIgJiYgMDAyQC4wICF+ICJeLi5baWt0Tl0iICYmICgwMDJALjAgIX4gIl4udiIgfHwgMDIxQS5hPykK"));
   }
+
+  @Test
+  public void formatDuration() {
+    assertEquals("00:00:00", Utils.formatDuration(0));
+    assertEquals("1d 00:00:00", Utils.formatDuration((24 * 60 * 60 * 1000)));
+    assertEquals("1d 00:00:01", Utils.formatDuration((24 * 60 * 60 * 1000) + 1000));
+  }
 }

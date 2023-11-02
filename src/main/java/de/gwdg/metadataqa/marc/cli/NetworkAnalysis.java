@@ -22,6 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -127,14 +128,14 @@ public class NetworkAnalysis extends QACli<NetworkParameters> implements Bibliog
   }
 
   @Override
-  public void afterIteration(int numberOfprocessedRecords) {
+  public void afterIteration(int numberOfprocessedRecords, long duration) {
     try {
       networkWriter.close();
     } catch (IOException e) {
       logger.severe("Failed to close networkWriter. " + e.getLocalizedMessage());
       logger.log(Level.SEVERE, "afterIteration", e);
     }
-    saveParameters("network.params.json", parameters);
+    saveParameters("network.params.json", parameters, Map.of("numberOfprocessedRecords", numberOfprocessedRecords, "duration", duration));
   }
 
   @Override

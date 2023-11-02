@@ -126,7 +126,7 @@ public class ClassificationAnalysis extends QACli<ClassificationParameters> impl
   }
 
   @Override
-  public void afterIteration(int numberOfprocessedRecords) {
+  public void afterIteration(int numberOfprocessedRecords, long duration) {
     printClassificationsBySchema();
     printClassificationsByRecords();
     printClassificationsHistogram();
@@ -134,7 +134,7 @@ public class ClassificationAnalysis extends QACli<ClassificationParameters> impl
     printSchemaSubfieldsStatistics();
     if (parameters.doCollectCollocations())
       printClassificationsCollocation();
-    saveParameters("classifications.params.json", parameters);
+    saveParameters("classifications.params.json", parameters, Map.of("numberOfprocessedRecords", numberOfprocessedRecords, "duration", duration));
   }
 
   private void printClassificationsCollocation() {

@@ -144,8 +144,8 @@ public class ShelfReadyCompleteness extends QACli<ShelfReadyCompletenessParamete
   }
 
   @Override
-  public void afterIteration(int numberOfprocessedRecords) {
-    saveParameters("shelf-ready-completeness.params.json", parameters);
+  public void afterIteration(int numberOfprocessedRecords, long duration) {
+    saveParameters("shelf-ready-completeness.params.json", parameters, Map.of("numberOfprocessedRecords", numberOfprocessedRecords, "duration", duration));
   }
 
   @Override

@@ -183,7 +183,7 @@ public class Formatter implements BibliographicInputProcessor {
   }
 
   @Override
-  public void afterIteration(int numberOfprocessedRecords) {
+  public void afterIteration(int numberOfprocessedRecords, long duration) {
     if (writer != null) {
       try {
         writer.close();

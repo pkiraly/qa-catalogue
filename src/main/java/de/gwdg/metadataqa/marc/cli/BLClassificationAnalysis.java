@@ -17,6 +17,7 @@ import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -119,8 +120,8 @@ public class BLClassificationAnalysis extends QACli<CommonParameters> implements
   }
 
   @Override
-  public void afterIteration(int numberOfprocessedRecords) {
-    saveParameters("bl-classifications.params.json", parameters);
+  public void afterIteration(int numberOfprocessedRecords, long duration) {
+    saveParameters("bl-classifications.params.json", parameters, Map.of("numberOfprocessedRecords", numberOfprocessedRecords, "duration", duration));
     logger.info("after iteration: " + numberOfprocessedRecords);
   }
 

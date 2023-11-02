@@ -129,9 +129,9 @@ public class SerialScore extends QACli<SerialScoreParameters> implements Bibliog
   }
 
   @Override
-  public void afterIteration(int numberOfprocessedRecords) {
+  public void afterIteration(int numberOfprocessedRecords, long duration) {
     printHistogram();
-    saveParameters("serials.params.json", parameters);
+    saveParameters("serials.params.json", parameters, Map.of("numberOfprocessedRecords", numberOfprocessedRecords, "duration", duration));
   }
 
   private void printHistogram() {

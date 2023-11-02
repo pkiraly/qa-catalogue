@@ -167,9 +167,9 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
   }
 
   @Override
-  public void afterIteration(int numberOfprocessedRecords) {
+  public void afterIteration(int numberOfprocessedRecords, long duration) {
     client.commit();
-    saveParameters("marctosolr.params.json", parameters);
+    saveParameters("marctosolr.params.json", parameters, Map.of("numberOfprocessedRecords", numberOfprocessedRecords, "duration", duration));
   }
 
   @Override

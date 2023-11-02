@@ -194,7 +194,7 @@ public class FunctionalAnalysis extends QACli<CompletenessParameters> implements
   }
 
   @Override
-  public void afterIteration(int numberOfprocessedRecords) {
+  public void afterIteration(int numberOfprocessedRecords, long duration) {
     String fileExtension = ".csv";
     final char separator = getSeparator(parameters.getFormat());
     if (parameters.getFormat().equals(ValidationErrorFormat.TAB_SEPARATED)) {
@@ -208,7 +208,7 @@ public class FunctionalAnalysis extends QACli<CompletenessParameters> implements
     saveHistogram(percentHistogram, fileExtension, separator);
 
     saveMapping(fileExtension, separator);
-    saveParameters("functions.params.json", parameters);
+    saveParameters("functions.params.json", parameters, Map.of("numberOfprocessedRecords", numberOfprocessedRecords, "duration", duration));
   }
 
   private void saveMapping(String fileExtension,

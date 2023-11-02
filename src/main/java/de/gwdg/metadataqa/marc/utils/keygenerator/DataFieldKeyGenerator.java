@@ -152,7 +152,7 @@ public class DataFieldKeyGenerator {
     return key;
   }
 
-  private String escape(String tag) {
+  public static String escape(String tag) {
     List<String> safe = new ArrayList<>();
     for (int i = 0; i < tag.length(); i++) {
       String code = tag.substring(i, i+1);

@@ -12,6 +12,7 @@ import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.utils.Counter;
+import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
 import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
 import de.gwdg.metadataqa.marc.utils.pica.PicaGroupIndexer;
 import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
@@ -28,6 +29,7 @@ import java.io.Serializable;
 import java.nio.file.Path;
 import java.text.DecimalFormat;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -51,6 +53,7 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
   private boolean readyToProcess;
   private DecimalFormat decimalFormat = new DecimalFormat();
   private FieldIndexer groupIndexer;
+  private Map<String, String> escapedTagCache = new HashMap<>();
 
   public MarcToSolr(String[] args) throws ParseException {
     parameters = new MarcToSolrParameters(args);
@@ -158,22 +161,29 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
         document.addField(field, validationValues.getFieldValues(field));
   }
 
-  private static void indexFieldCounts(BibliographicRecord bibliographicRecord, SolrInputDocument document) {
-    Counter<String> fieldCOunter = new Counter<>();
+  private void indexFieldCounts(BibliographicRecord bibliographicRecord, SolrInputDocument document) {
+    Counter<String> fieldCounter = new Counter<>();
+    boolean isPica = bibliographicRecord.getSchemaType().equals(SchemaType.PICA);
     for (DataField field : bibliographicRecord.getDatafields()) {
       String tag = null;
       if (field.getDefinition() != null) {
-        tag = bibliographicRecord.getSchemaType().equals(SchemaType.PICA)
+        tag = isPica
           ? ((PicaFieldDefinition)field.getDefinition()).getId()
           : field.getDefinition().getTag();
       } else {
         tag = field.getTag();
       }
-      fieldCOunter.count(tag);
+      fieldCounter.count(escape(tag));
     }
-    for (Map.Entry<String, Integer> entry : fieldCOunter.entrySet()) {
+    for (Map.Entry<String, Integer> entry : fieldCounter.entrySet())
       document.addField(String.format("%s_count_i", entry.getKey()), entry.getValue());
-    }
+  }
+
+  private String escape(String tag) {
+    if (!escapedTagCache.containsKey(tag))
+      escapedTagCache.put(tag, DataFieldKeyGenerator.escape(tag));
+
+    return escapedTagCache.get(tag);
   }
 
   @Override

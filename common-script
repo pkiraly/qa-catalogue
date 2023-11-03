@@ -50,10 +50,10 @@ do_index() {
   untrace
 
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+//g')
-  HAS_GROUP_PARAM=$(echo ${TYPE_PARAMS} | grep -c -P -e '--groupBy [^-]' || true)
-  if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
-    PARAMS="${PARAMS} --validationCore ${NAME}_validation"
-  fi
+  # HAS_GROUP_PARAM=$(echo ${TYPE_PARAMS} | grep -c -P -e '--groupBy [^-]' || true)
+  # if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
+  #   PARAMS="${PARAMS} --solrForScoresUrl ${NAME}_validation"
+  # fi
   PARAMS="${PARAMS} --outputDir ${OUTPUT_DIR}"
 
   ONLY_INDEX=$(echo ${PARAMS} | grep -c -P -e '--onlyIndex' || true)
@@ -63,7 +63,7 @@ do_index() {
     PARAMS=$(echo ${PARAMS} | sed -r 's/\s*--onlyIndex//')
     CORE=${NAME}
   fi
-  ./index --db ${CORE} --file-path ${MARC_DIR} --file-mask $MASK ${PARAMS} --trimId 2>> ${PREFIX}/solr.log
+  ./index --core ${CORE} --file-path ${MARC_DIR} --file-mask $MASK ${PARAMS} --trimId 2>> ${PREFIX}/solr.log
 }
 
 do_postprocess_solr() {

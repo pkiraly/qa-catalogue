@@ -22,9 +22,9 @@ public class MarcToSolrParameters extends CommonParameters {
   protected void setOptions() {
     if (!isOptionSet) {
       super.setOptions();
-      options.addOption("s", "solrUrl", true, "the URL of Solr server");
-      options.addOption("c", "doCommit", false, "commits Solr index regularly");
-      options.addOption("t", "solrFieldType", true,
+      options.addOption("S", "solrUrl", true, "the URL of Solr server including the core (e.g. http://localhost:8983/solr/loc)");
+      options.addOption("A", "doCommit", false, "commits Solr index regularly");
+      options.addOption("T", "solrFieldType", true,
         "type of Solr fields, could be one of 'marc-tags', 'human-readable', or 'mixed'");
       options.addOption("B", "useEmbedded", false, "use embedded Solr server (used in tests only)");
       options.addOption("C", "indexWithTokenizedField", false, "index data elements as tokenized field as well");
@@ -110,6 +110,7 @@ public class MarcToSolrParameters extends CommonParameters {
     text += String.format("doCommit: %s%n", doCommit);
     text += String.format("solrFieldType: %s%n", solrFieldType);
     text += String.format("indexWithTokenizedField: %s%n", indexWithTokenizedField);
+    text += String.format("commitAt: %s%n", commitAt);
     text += String.format("indexFieldCounts: %s%n", indexFieldCounts);
     return text;
   }

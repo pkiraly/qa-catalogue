@@ -4,6 +4,8 @@ define('URL', 'https://github.com/pkiraly/qa-catalogue');
 define('TITLE', 'QA catalogue %s');
 
 $fileName = $argv[1];
+$extraOptions = [];
+$existentialFlags = [];
 switch ($fileName) {
   case 'validate.txt':
     $url = URL . '#validating-marc-records';
@@ -37,6 +39,20 @@ switch ($fileName) {
     $url = URL . '#shacl4bib';
     $title = sprintf(TITLE, 'custom validation'); break;
 
+  case 'index.txt':
+    $url = URL . '#indexing-marc-records-with-solr';
+    $title = sprintf(TITLE, 'Indexing MARC records with Solr');
+    $extraOptions = [
+      (object)['short' => 'Z', 'long' => 'core',      'hasArg' => true,  'help' => 'The index name (core)',                        'var' => 'CORE'],
+      (object)['short' => 'Y', 'long' => 'file-path', 'hasArg' => true,  'help' => 'File path',                                    'var' => 'FILE_PATH'],
+      (object)['short' => 'X', 'long' => 'file-mask', 'hasArg' => true,  'help' => 'File mask',                                    'var' => 'FILE_MASK'],
+      (object)['short' => 'W', 'long' => 'purge',     'hasArg' => false, 'help' => 'Purge index',                                  'var' => 'DO_PURGE'],
+      (object)['short' => 'V', 'long' => 'status',    'hasArg' => false, 'help' => 'Show the status of index(es)',                 'var' => 'DO_STATUS'],
+      (object)['short' => 'U', 'long' => 'no-delete', 'hasArg' => false, 'help' => 'Do not delete index before starting indexing', 'var' => 'SKIP_DELETE']
+    ];
+    $existentialFlags = ['solrUrl'];
+    break;
+
   case 'completeness.txt':
   default:
     $url = URL . '#calculating-data-element-completeness';
@@ -47,6 +63,8 @@ $maxLong = 0;
 $index = (object)['longs' => [], 'shorts' => []];
 $options = readOptions('common.txt', $index);
 $options = array_merge($options, readOptions($fileName, $index));
+if (!empty($extraOptions))
+  $options = array_merge($options, $extraOptions);
 
 createHelp($options);
 echo LN;
@@ -99,25 +117,40 @@ function createCommandArguments($options) {
 function createParser($options) {
   global $maxLong;
 
+  $variables = [];
   $lines = [];
   foreach ($options as $option) {
     $line = sprintf('    -%s|--%s) ', $option->short, $option->long);
     $line .= str_pad(' ', $maxLong + 1 - strlen($option->long));
     if ($option->hasArg) {
-      $line .= sprintf('PARAMS="$PARAMS --%s $2" ;%sshift 2 ;;', $option->long, str_pad(' ', $maxLong + 1 - strlen($option->long)));
+      if (isset($option->var)) {
+        $variables[] = sprintf('%s=0', $option->var);
+        $line .= sprintf('%s="$2" ;%sshift 2 ;;', $option->var, str_pad(' ', $maxLong + 18 - strlen($option->var)));
+      } else {
+        $line .= sprintf('PARAMS="$PARAMS --%s $2" ;%sshift 2 ;;', $option->long, str_pad(' ', $maxLong + 1 - strlen($option->long)));
+      }
     } else {
-      $line .= sprintf(
-        'PARAMS="$PARAMS --%s" ;%s%s shift   ;;',
-        $option->long,
-        ($option->long == 'help' ? ' HELP=1; ' : ''),
-        str_pad(' ', $maxLong + ($option->long == 'help' ? -6 : 3) - strlen($option->long))
-      );
+      if (isset($option->var)) {
+        $variables[] = sprintf('%s=0', $option->var);
+        $line .= sprintf('%s=1 ;%sshift   ;;', $option->var,
+          str_pad(' ', $maxLong + 21 - strlen($option->var))
+        );
+      } else {
+        $line .= sprintf(
+          'PARAMS="$PARAMS --%s" ;%s%s shift   ;;',
+          $option->long,
+          ($option->long == 'help' ? ' HELP=1; ' : ''),
+          str_pad(' ', $maxLong + ($option->long == 'help' ? -6 : 3) - strlen($option->long))
+        );
+      }
     }
     $lines[] = $line;
   }
+  $allVariables = join(LN, $variables);
   $cases = join(LN, $lines);
 
   print <<<END
+$allVariables
 PARAMS=""
 HELP=0
 while true ; do

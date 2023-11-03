@@ -1682,19 +1682,28 @@ or
 
 options:
 * [general parameters](#general-parameters)
-* `-s <URL>`, `--solrUrl <URL>`: the URL of Solr server
-* `-c`, `--doCommit`: send commits to Solr regularly (not needed if you set up
+* `-S <URL>`, `--solrUrl <URL>`: the URL of Solr server including the core (e.g. http://localhost:8983/solr/loc)
+* `-A`, `--doCommit`: send commits to Solr regularly (not needed if you set up
   Solr the above described way)
-* `-t <type>`, `--solrFieldType <type>`: a Solr field type, one of the
+* `-T <type>`, `--solrFieldType <type>`: a Solr field type, one of the
   predefined values. See examples below.
    * `marc-tags` - the field names are MARC codes
    * `human-readable` - the field names are 
      [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/)
    * `mixed` - the field names are mixed of the above (e.g. `245a_Title_mainTitle`)
-* `-A <URL>`, `--validationUrl <URL>`: the URL of the Solr server used in validation
 * `-C`, `--indexWithTokenizedField`: index data elements as tokenized field as well (each bibliographical data elements 
   will be indexed twice: once as a phrase (fields suffixed with `_ss`), and once as a bag of words (fields suffixed 
-  with `_txt`). \[This flag is available from v0.8.0\]
+  with `_txt`). \[This parameter is available from v0.8.0\]
+* `-D <int>`, `--commitAt <int>`: commit index after this number of records \[This parameter is available from v0.8.0\]
+* `-E`, `--indexFieldCounts`: index the count of field instances \[This parameter is available from v0.8.0\]
+
+The `./index` file (which is used by `catalogues/[catalogue].sh` and `./qa-catalogue` scripts) has additional parameters:
+* `-Z <core>`, `--core <core>`: The index name (core). If not set it will be extracted from the `solrUrl` parameter
+* `-Y <path>`, `--file-path <path>`: File path
+* `-X <mask>`, `--file-mask <mask>`: File mask
+* `-W`, `--purge`: Purge index and exit
+* `-V`, `--status`: Show the status of index(es) and exit
+* `-U`, `--no-delete`: Do not delete documents in index before starting indexing (be default the script clears the index)
 
 The Solr URL is something like this: http://localhost:8983/solr/loc. It uses
 the [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/),

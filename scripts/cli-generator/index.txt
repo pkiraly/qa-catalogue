@@ -1,0 +1,7 @@
+      options.addOption("S", "solrUrl", true, "the URL of Solr server including the core (e.g. http://localhost:8983/solr/loc)");
+      options.addOption("A", "doCommit", false, "commits Solr index regularly");
+      options.addOption("T", "solrFieldType", true, "type of Solr fields, could be one of 'marc-tags', 'human-readable', or 'mixed'");
+      options.addOption("B", "useEmbedded", false, "use embedded Solr server (used in tests only)");
+      options.addOption("C", "indexWithTokenizedField", false, "index data elements as tokenized field as well");
+      options.addOption("D", "commitAt", true, "commit index after this number of records");
+      options.addOption("E", "indexFieldCounts", false, "index the count of field instances");

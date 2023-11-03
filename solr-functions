@@ -151,8 +151,8 @@ status() {
 
 purge_core() {
   LOCAL_CORE=$1
-  echo "Delete records in ${LOCAL_CORE}"
   SOLR_DB_URL="${SOLR_HOST}/solr/${LOCAL_CORE}"
+  echo "Delete records in ${SOLR_DB_URL}"
   curl -s $SOLR_DB_URL/update \
        -H "Content-type: text/xml" \
        --data-binary '<delete><query>*:*</query></delete>' \
@@ -161,8 +161,8 @@ purge_core() {
 
 optimize_core() {
   LOCAL_CORE=$1
-  echo "Optimizing ${LOCAL_CORE}"
   SOLR_DB_URL="${SOLR_HOST}/solr/${LOCAL_CORE}"
+  echo "Optimizing ${SOLR_DB_URL}"
   curl -s "$SOLR_DB_URL/update?optimize=true" \
        -H 'Content-type: text/xml' \
        --data-binary '<commit/>' \
@@ -175,7 +175,7 @@ purge_and_exit() {
     purge_core $LOCAL_CORE
     optimize_core $LOCAL_CORE
   else
-    echo "You should give the name with --db parameter"
+    echo "You should give the name with --core parameter"
   fi
   exit 1
 }

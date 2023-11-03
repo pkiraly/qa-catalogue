@@ -30,6 +30,7 @@ temp
 scala/project
 scala/target
 scripts/cli-generator/*.sh.txt
+metadata-qa-api/
 
 # default input and output base directory
 input

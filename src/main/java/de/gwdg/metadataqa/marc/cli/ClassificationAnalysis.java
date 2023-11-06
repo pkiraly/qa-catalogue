@@ -11,6 +11,7 @@ import de.gwdg.metadataqa.marc.cli.utils.Collocation;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
+import de.gwdg.metadataqa.marc.utils.pica.PicaSubjectManager;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.FileUtils;
@@ -21,7 +22,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -134,7 +134,19 @@ public class ClassificationAnalysis extends QACli<ClassificationParameters> impl
     printSchemaSubfieldsStatistics();
     if (parameters.doCollectCollocations())
       printClassificationsCollocation();
+    copySchemaFileToOutputDir();
     saveParameters("classifications.params.json", parameters, Map.of("numberOfprocessedRecords", numberOfprocessedRecords, "duration", duration));
+  }
+
+  private void copySchemaFileToOutputDir() {
+    if (parameters.isPica()) {
+      File source = new File(PicaSubjectManager.getSchemaFile());
+      try {
+        FileUtils.copyFileToDirectory(source, new File(parameters.getOutputDir()));
+      } catch (IOException e) {
+        logger.warning(e.getLocalizedMessage());
+      }
+    }
   }
 
   private void printClassificationsCollocation() {

@@ -8,6 +8,7 @@ import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.general.indexer.subject.ClassificationSchemes;
+import de.gwdg.metadataqa.marc.utils.pica.PicaSubjectManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaVocabularyManager;
 import de.gwdg.metadataqa.marc.utils.pica.VocabularyEntry;
 
@@ -41,6 +42,7 @@ public class ClassificationAnalyzer {
   private ClassificationParameters parameters = null;
   private BibliographicRecord marcRecord;
   private List<Schema> schemasInRecord;
+  private static List<FieldWithScheme> picaFieldsWithScheme = PicaSubjectManager.readFieldsWithScheme();
 
   private static final List<String> fieldsWithIndicator1AndSubfield2 = Arrays.asList(
     "052", // Geographic Classification
@@ -149,7 +151,7 @@ public class ClassificationAnalyzer {
       total = processFieldsWithoutSource(total);
       total = processFieldsWithScheme(total, MARC21_FIELD_WITH_SCHEMES);
     } else if (marcRecord.getSchemaType().equals(SchemaType.PICA)) {
-      total = processFieldsWithSchemePica(total, PICA_FIELDS_WITH_SCHEME);
+      total = processFieldsWithSchemePica(total, picaFieldsWithScheme);
     }
 
     increaseCounters(total);
@@ -180,12 +182,25 @@ public class ClassificationAnalyzer {
 
   private int processFieldsWithSchemePica(int total, List<FieldWithScheme> fieldsWithScheme) {
     int count = total;
-    for (VocabularyEntry entry : manager.getAll()) {
-      if (!marcRecord.hasDatafield(entry.getPica()))
+    // for (VocabularyEntry entry : manager.getAll()) {
+    for (FieldWithScheme entry : fieldsWithScheme) {
+      /*
+      String tag = entry.getPica();
+      String schema = entry.getLabel();
+      String voc = entry.getVoc();
+       */
+      String tag = entry.getTag();
+      String schema = entry.getSchemaName();
+      String voc = tag;
+      try {
+        voc = classificationSchemes.resolve(schema);
+      } catch (IllegalArgumentException e) {
+
+      }
+      if (!marcRecord.hasDatafield(tag))
         continue;
 
-      String schema = entry.getLabel();
-      List<DataField> fields = marcRecord.getDatafield(entry.getPica());
+      List<DataField> fields = marcRecord.getDatafield(tag);
       List<Schema> schemas = new ArrayList<>();
       for (DataField field : fields) {
         String firstSubfield = null;
@@ -201,7 +216,7 @@ public class ClassificationAnalyzer {
           }
         }
         if (firstSubfield != null) {
-          var currentSchema = new Schema(field.getTagWithOccurrence(), firstSubfield, entry.getVoc(), schema);
+          var currentSchema = new Schema(field.getTagWithOccurrence(), firstSubfield, voc, schema);
           schemas.add(currentSchema);
           updateSchemaSubfieldStatistics(field, currentSchema);
           count++;

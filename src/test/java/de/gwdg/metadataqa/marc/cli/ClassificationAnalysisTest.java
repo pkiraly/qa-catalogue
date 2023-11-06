@@ -228,6 +228,7 @@ public class ClassificationAnalysisTest extends CliTestUtils {
     output = new File(outputDir, "classifications-by-schema.csv");
     assertTrue(output.exists());
     actual = Files.readString(output.toPath());
+    /*
     assertEquals(
       "id,field,location,scheme,abbreviation,abbreviation4solr,recordcount,instancecount,type\n" +
         "4,045A,$a,\"Library of Congress Classification\",\"lcc\",lcc,1,1,CLASSIFICATION_SCHEME\n" +
@@ -235,41 +236,82 @@ public class ClassificationAnalysisTest extends CliTestUtils {
         "3,045F,$a,\"Dewey-Dezimalklassifikation\",\"ddc\",ddc,1,1,CLASSIFICATION_SCHEME\n" +
         "2,045R,$a,\"Regensburger Verbundklassifikation\",\"rvk\",rvk,1,1,CLASSIFICATION_SCHEME\n",
       actual);
+     */
+    assertEquals(
+      "id,field,location,scheme,abbreviation,abbreviation4solr,recordcount,instancecount,type\n" +
+      "4,044A,$a,\"LoC Subject Headings\",\"lcsh0\",lcsh0,1,2,SUBJECT_HEADING\n" +
+      "5,045A,$a,\"LCC-Notation\",\"lcc\",lcc,1,1,CLASSIFICATION_SCHEME\n" +
+      "1,045E,$a,\"Sachgruppen der Deutschen Nationalbibliografie bis 2003\",\"sdnb\",sdnb,2,2,UNKNOWN\n" +
+      "6,045F,$a,\"DDC-Notation\",\"ddc\",ddc,1,1,CLASSIFICATION_SCHEME\n" +
+      "2,045R,$a,\"Regensburger Verbundklassifikation (RVK)\",\"rvk\",rvk,1,1,CLASSIFICATION_SCHEME\n" +
+      "3,045V,$a,\"SSG-Nummer/FID-Kennzeichen\",\"045V\",045v,1,1,UNKNOWN\n",
+      actual);
 
     output = new File(outputDir, "classifications-by-schema-subfields.csv");
     assertTrue(output.exists());
     actual = Files.readString(output.toPath());
+    /*
     assertEquals(
       "id,subfields,count\n" +
         "4,a,1\n" +
         "1,a+,2\n" +
         "3,a+,1\n" +
         "2,V;a;j;k+;3;7;9,1\n", actual);
+     */
+
+    assertEquals(
+      "id,subfields,count\n" +
+    "4,a,1\n" +
+      "4,a+,1\n" +
+      "5,a,1\n" +
+      "1,a+,2\n" +
+      "6,a+,1\n" +
+      "2,V;a;j;k+;3;7;9,1\n" +
+      "3,a,1\n", actual);
 
     output = new File(outputDir, "classifications-collocations.csv");
     assertTrue(output.exists());
     actual = Files.readString(output.toPath());
+    /*
     assertEquals("abbreviations,recordcount,percent\n" +
       "dnbsgr;rvk,1,50.00%\n" +
       "ddc;dnbsgr;lcc,1,50.00%\n", actual);
+     */
+    assertEquals("abbreviations,recordcount,percent\n" +
+      "ddc;lcc;lcsh0;sdnb,1,50.00%\n" +
+      "045V;rvk;sdnb,1,50.00%\n", actual);
 
     output = new File(outputDir, "classifications-histogram.csv");
     assertTrue(output.exists());
     actual = Files.readString(output.toPath());
+    /*
     assertEquals(
       "count,frequency\n" +
         "0,4\n" +
         "2,1\n" +
         "3,1\n", actual);
+     */
+    assertEquals(
+     "count,frequency\n" +
+      "0,4\n" +
+      "3,1\n" +
+      "5,1\n", actual);
 
     output = new File(outputDir, "classifications-frequency-examples.csv");
     assertTrue(output.exists());
     actual = Files.readString(output.toPath());
+    /*
     assertEquals(
       "count,id\n" +
         "0,010000011\n" +
         "2,010000054\n" +
         "3,010000070\n", actual);
+    */
+    assertEquals(
+      "count,id\n" +
+      "0,010000011\n" +
+      "3,010000054\n" +
+      "5,010000070\n", actual);
 
     clearOutput(outputDir, outputFiles);
   }

@@ -64,6 +64,10 @@ public class ClassificationSchemes {
     schemes.put("DDC-Notation", "ddc");
     schemes.put("Notation – Beziehung", "ddc");
     schemes.put("This mixes multiple systems used in DNB before 2004", "dnbsgr");
+
+    schemes.put("LoC Subject Headings", "lcsh0");
+    schemes.put("Regensburger Verbundklassifikation (RVK)", "rvk");
+    schemes.put("Medical Subject Headings (MeSH)", "mesh");
   }
 
   public String resolve(String key) {

@@ -11,7 +11,7 @@
   },
   {
     "ID": "^a(.+)",
-    "PICA": "045B",
+    "PICA": "045B/00",
     "SRC": "^A(.+)",
     "VOC": "asb",
     "namespace": "http://uri.gbv.de/terminology/asb/",

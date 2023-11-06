@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
+import de.gwdg.metadataqa.marc.utils.pica.PicaSubjectManager;
 import de.gwdg.metadataqa.marc.utils.pica.crosswalk.Crosswalk;
 import de.gwdg.metadataqa.marc.utils.pica.crosswalk.PicaMarcCrosswalkReader;
 
@@ -139,9 +140,12 @@ public class PicaRecord extends BibliographicRecord {
     skippableAuthoritySubfields.put("033H", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
     skippableAuthoritySubfields.put("033J", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
 
+    /*
     List<String> subjectTags = Arrays.asList(
       "045A", "045B", "045F", "045R", "045C", "045E", "045G"
     );
+     */
+    List<String> subjectTags = PicaSubjectManager.getTags();
     subjectTagIndex = Utils.listToMap(subjectTags);
     skippableSubjectSubfields = new HashMap<>();
     skippableSubjectSubfields.put("022A", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));

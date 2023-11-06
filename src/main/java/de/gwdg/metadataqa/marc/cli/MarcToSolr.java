@@ -132,12 +132,12 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
     );
     map.put("record_sni", Arrays.asList(bibliographicRecord.asJson()));
     SolrInputDocument solrDocument = client.createSolrDoc(bibliographicRecord.getId(), map);
-    if (validationClient != null) {
+    if (validationClient != null)
       indexValidationResults(bibliographicRecord, solrDocument);
-    }
-    if (parameters.indexFieldCounts()) {
+
+    if (parameters.indexFieldCounts())
       indexFieldCounts(bibliographicRecord, solrDocument);
-    }
+
     client.index(solrDocument);
 
     if (recordNumber % parameters.getCommitAt() == 0) {

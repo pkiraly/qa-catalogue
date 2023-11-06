@@ -45,7 +45,7 @@ public class BibSelectorTest {
 
   @Test
   public void get_pica() throws Exception {
-    PicaSchemaManager schema = PicaSchemaReader.createSchema(CliTestUtils.getTestResource("pica/k10plus.json"));
+    PicaSchemaManager schema = PicaSchemaReader.createSchema(CliTestUtils.getTestResource("pica/schema/k10plus.json"));
     BibliographicRecord marcRecord = new PicaRecord("u2407796");
     marcRecord.addDataField(new DataField(schema.lookup("001B"), null, null, "0", "1999:02-05-18"));
     BibSelector selector = BibSelectorFactory.create(marcRecord);

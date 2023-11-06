@@ -42,7 +42,7 @@ public class FormatterTest extends CliTestUtils {
 
   @Test
   public void pica() throws Exception {
-    PicaSchemaManager schema = PicaSchemaReader.createSchema(CliTestUtils.getTestResource("pica/k10plus.json"));
+    PicaSchemaManager schema = PicaSchemaReader.createSchema(CliTestUtils.getTestResource("pica/schema/k10plus.json"));
     MarcReader reader = QAMarcReaderFactory.getFileReader(MarcFormat.PICA_PLAIN, CliTestUtils.getTestResource("pica/k10plus-sample.pica"), null);
     reader.hasNext();
     Record record = reader.next();

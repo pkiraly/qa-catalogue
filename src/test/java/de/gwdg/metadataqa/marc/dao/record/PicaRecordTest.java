@@ -11,7 +11,7 @@ import static org.junit.Assert.assertNotNull;
 
 public class PicaRecordTest {
 
-  private PicaSchemaManager schema = PicaSchemaReader.createSchema(CliTestUtils.getTestResource("pica/k10plus.json"));
+  private PicaSchemaManager schema = PicaSchemaReader.createSchema(CliTestUtils.getTestResource("pica/schema/k10plus.json"));
 
   @Test
   public void addDataField() {

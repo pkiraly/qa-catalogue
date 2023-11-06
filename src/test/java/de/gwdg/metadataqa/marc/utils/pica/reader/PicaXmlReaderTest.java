@@ -19,7 +19,7 @@ public class PicaXmlReaderTest {
 
   @Test
   public void xml()  {
-    PicaSchemaManager schema = PicaSchemaReader.createSchema(CliTestUtils.getTestResource("pica/k10plus.json"));
+    PicaSchemaManager schema = PicaSchemaReader.createSchema(CliTestUtils.getTestResource("pica/schema/k10plus.json"));
     MarcReader reader = null;
     try {
       reader = QAMarcReaderFactory.getFileReader(MarcFormat.PICA_XML, CliTestUtils.getTestResource("picaxml/pica.xml"), null);

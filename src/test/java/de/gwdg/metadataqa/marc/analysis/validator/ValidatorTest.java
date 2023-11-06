@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 public class ValidatorTest {
 
-  PicaSchemaManager schema = PicaSchemaReader.createSchema(CliTestUtils.getTestResource("pica/k10plus.json"));
+  PicaSchemaManager schema = PicaSchemaReader.createSchema(CliTestUtils.getTestResource("pica/schema/k10plus.json"));
   Validator validator = new Validator(new ValidatorConfiguration().withSchemaType(SchemaType.PICA));
   MarcReader reader;
 

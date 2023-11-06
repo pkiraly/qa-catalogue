@@ -14,7 +14,7 @@ public class PicaSchemaManagerTest {
 
   @Before
   public void setUp() throws Exception {
-    schema = PicaSchemaReader.createSchema(getPath("pica/k10plus.json"));
+    schema = PicaSchemaReader.createSchema(getPath("pica/schema/k10plus.json"));
   }
 
   @Test

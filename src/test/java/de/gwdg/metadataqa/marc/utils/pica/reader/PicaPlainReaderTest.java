@@ -119,8 +119,8 @@ public class PicaPlainReaderTest {
   public void readAvramSchema() {
     try {
       Map<String, PicaFieldDefinition> schemaDirectory = new HashMap<>();
-      schemaDirectory.putAll(PicaSchemaReader.create(getPath("pica/pica-schema.json")));
-      schemaDirectory.putAll(PicaSchemaReader.create(getPath("pica/pica-schema-extra.json")));
+      schemaDirectory.putAll(PicaSchemaReader.create(getPath("pica/schema/pica-schema.json")));
+      schemaDirectory.putAll(PicaSchemaReader.create(getPath("pica/schema/pica-schema-extra.json")));
 
       Map<String, Integer> counter = new HashMap<>();
       Map<String, List<String>> ppns = new HashMap<>();
@@ -192,7 +192,7 @@ public class PicaPlainReaderTest {
 
   @Test
   public void picaReader() throws IOException, URISyntaxException {
-    PicaSchemaManager schema = PicaSchemaReader.createSchema(getPath("pica/k10plus.json"));
+    PicaSchemaManager schema = PicaSchemaReader.createSchema(getPath("pica/schema/k10plus.json"));
     String recordFile = FileUtils.getPath("pica/picaplus-sample.txt").toAbsolutePath().toString();
     MarcReader reader = new PicaPlainReader(recordFile).setIdField("003@ƒ0").setSubfieldSeparator("ƒ");
     int i = 0;
@@ -207,7 +207,7 @@ public class PicaPlainReaderTest {
 
   @Test
   public void picaReader2() throws IOException, URISyntaxException {
-    PicaSchemaManager schema = PicaSchemaReader.createSchema(getPath("pica/k10plus.json"));
+    PicaSchemaManager schema = PicaSchemaReader.createSchema(getPath("pica/schema/k10plus.json"));
     String recordFile = FileUtils.getPath("pica/k10plus-sample.pica").toAbsolutePath().toString();
     MarcReader reader = new PicaPlainReader(recordFile)
       .setIdField("003@$0")
@@ -241,7 +241,7 @@ public class PicaPlainReaderTest {
 
   @Test
   public void readASchema() {
-    PicaSchemaManager schema = PicaSchemaReader.createSchema(getPath("pica/k10plus.json"));
+    PicaSchemaManager schema = PicaSchemaReader.createSchema(getPath("pica/schema/k10plus.json"));
     assertEquals(431, schema.size());
     PicaFieldDefinition definition = schema.lookup("048H");
     assertEquals("048H", definition.getTag());

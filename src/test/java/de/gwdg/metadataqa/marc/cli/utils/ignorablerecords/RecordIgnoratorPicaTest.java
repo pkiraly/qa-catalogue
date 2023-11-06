@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 
 public class RecordIgnoratorPicaTest {
 
-  PicaSchemaManager schema = PicaSchemaReader.createSchema(getPath("pica/avram-k10plus.json"));
+  PicaSchemaManager schema = PicaSchemaReader.createSchema(getPathFromMain("pica/avram-k10plus.json"));
 
   @Test
   public void parse_ex1() {
@@ -147,6 +147,10 @@ public class RecordIgnoratorPicaTest {
 
   private String getPath(String fileName) {
     return Paths.get("src/test/resources/" + fileName).toAbsolutePath().toString();
+  }
+
+  private String getPathFromMain(String fileName) {
+    return Paths.get("src/main/resources/" + fileName).toAbsolutePath().toString();
   }
 
   private void testParsing(String ignorableRecordsInput, int size, String path, Operator op, String value) {

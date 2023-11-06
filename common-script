@@ -580,7 +580,7 @@ if [ "${SCHEMA}" == "PICA" ]; then
 
   # automatically set unless already set
   [[ "$TYPE_PARAMS" =~ --marcFormat|-f ]] || TYPE_PARAMS="--marcFormat PICA_NORMALIZED $TYPE_PARAMS"
-  [[ "$TYPE_PARAMS" =~ --schemaType|-F ]] || TYPE_PARAMS="--schemaType PICA $TYPE_PARAMS"
+  [[ "$TYPE_PARAMS" =~ --schemaType|-w ]] || TYPE_PARAMS="--schemaType PICA $TYPE_PARAMS"
 else
   ALL_ANALYSES=validate,validate_sqlite,completeness,completeness_sqlite,classifications,authorities,tt_completeness,shelf_ready_completeness,serial_score,functional_analysis,pareto,marc_history
 fi

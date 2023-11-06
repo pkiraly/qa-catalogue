@@ -145,6 +145,11 @@ if [[ $HELP -eq 1 ]]; then
   show_usage
 fi
 
+if [[ $DO_STATUS -eq 1 ]]; then
+  status
+  exit 0;
+fi
+
 if [[ "${SOLR_URL}" == "" ]]; then
   SOLR_URL="${SOLR_HOST}/solr/${CORE}"
   PARAMS="${PARAMS} --solrUrl ${SOLR_URL}"

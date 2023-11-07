@@ -68,6 +68,7 @@ public class ClassificationSchemes {
     schemes.put("LoC Subject Headings", "lcsh0");
     schemes.put("Regensburger Verbundklassifikation (RVK)", "rvk");
     schemes.put("Medical Subject Headings (MeSH)", "mesh");
+    schemes.put("Klassifikation der National Library of Medicine (NLM)", "mesh");
   }
 
   public String resolve(String key) {

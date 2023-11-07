@@ -149,7 +149,15 @@ public class PicaRecord extends BibliographicRecord {
     subjectTagIndex = Utils.listToMap(subjectTags);
     skippableSubjectSubfields = new HashMap<>();
     skippableSubjectSubfields.put("022A", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    skippableSubjectSubfields.put("044H", Utils.listToMap(Arrays.asList("A"))); // A = Quelle
+    skippableSubjectSubfields.put("044S", Utils.listToMap(Arrays.asList("9", "A", "V", "7", "3", "w")));
+    skippableSubjectSubfields.put("045F", Utils.listToMap(Arrays.asList("A")));
+    skippableSubjectSubfields.put("045G", Utils.listToMap(Arrays.asList("A")));
+    skippableSubjectSubfields.put("045X", Utils.listToMap(Arrays.asList("A")));
+    skippableSubjectSubfields.put("045Y", Utils.listToMap(Arrays.asList("A")));
+    skippableSubjectSubfields.put("045N", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
     skippableSubjectSubfields.put("045R", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    skippableSubjectSubfields.put("045T", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
 
     authorityTagsMap = new EnumMap<>(AuthorityCategory.class);
     authorityTagsMap.put(AuthorityCategory.TITLES, List.of("022A", "022A"));

@@ -36,7 +36,7 @@ public class ClassificationAnalyzer {
     ClassificationSchemes.getInstance();
   private static final Pattern NUMERIC = Pattern.compile("^\\d");
   public static final String DEWEY_DECIMAL_CLASSIFICATION = "Dewey Decimal Classification";
-  private static PicaVocabularyManager manager = null;
+  private static PicaVocabularyManager picaVocabularyManager = null;
 
   private final ClassificationStatistics statistics;
   private ClassificationParameters parameters = null;
@@ -130,8 +130,8 @@ public class ClassificationAnalyzer {
   public ClassificationAnalyzer(BibliographicRecord marcRecord, ClassificationStatistics statistics) {
     this.marcRecord = marcRecord;
     this.statistics = statistics;
-    if (marcRecord.getSchemaType().equals(SchemaType.PICA) && manager == null) {
-      manager = PicaVocabularyManager.getInstance();
+    if (marcRecord.getSchemaType().equals(SchemaType.PICA) && picaVocabularyManager == null) {
+      picaVocabularyManager = PicaVocabularyManager.getInstance();
     }
   }
 
@@ -182,24 +182,29 @@ public class ClassificationAnalyzer {
 
   private int processFieldsWithSchemePica(int total, List<FieldWithScheme> fieldsWithScheme) {
     int count = total;
-    // for (VocabularyEntry entry : manager.getAll()) {
-    for (FieldWithScheme entry : fieldsWithScheme) {
-      /*
-      String tag = entry.getPica();
-      String schema = entry.getLabel();
-      String voc = entry.getVoc();
-       */
-      String tag = entry.getTag();
-      String schema = entry.getSchemaName();
-      String voc = tag;
-      try {
-        voc = classificationSchemes.resolve(schema);
-      } catch (IllegalArgumentException e) {
-
+    boolean processFromTSV = true;
+    if (processFromTSV) {
+      for (FieldWithScheme entry : fieldsWithScheme) {
+        String tag = entry.getTag();
+        String schema = entry.getSchemaName();
+        String voc = tag;
+        try {
+          voc = classificationSchemes.resolve(schema);
+        } catch (IllegalArgumentException e) {
+        }
+        count += processPicaSubject(tag, voc, schema);
       }
-      if (!marcRecord.hasDatafield(tag))
-        continue;
+    } else {
+      for (VocabularyEntry entry : picaVocabularyManager.getAll()) {
+        count += processPicaSubject(entry.getPica(), entry.getVoc(), entry.getLabel());
+      }
+    }
+    return count;
+  }
 
+  private int processPicaSubject(String tag, String voc, String schema) {
+    int count = 0;
+    if (marcRecord.hasDatafield(tag)) {
       List<DataField> fields = marcRecord.getDatafield(tag);
       List<Schema> schemas = new ArrayList<>();
       for (DataField field : fields) {

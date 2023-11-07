@@ -1,8 +1,17 @@
 package de.gwdg.metadataqa.marc.utils.pica.reader;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gwdg.metadataqa.api.util.FileUtils;
+import de.gwdg.metadataqa.marc.MarcFactory;
+import de.gwdg.metadataqa.marc.cli.CliTestUtils;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
+import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
 import org.junit.Test;
+import org.marc4j.marc.DataField;
 import org.marc4j.marc.Record;
+import org.marc4j.marc.VariableField;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,8 +19,14 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class PicaNormalizedReaderTest {
 
@@ -54,5 +69,62 @@ public class PicaNormalizedReaderTest {
     // byte[] byteArray = new byte[] {b};
     String key = new String(new byte[]{-62, -123}, StandardCharsets.UTF_8);
     System.err.println(key);
+  }
+
+  @Test
+  public void test045T_mar4j() throws IOException, URISyntaxException {
+    PicaNormalizedReader reader = new PicaNormalizedReader(FileUtils.getPath("pica/045T.pica").toString());
+    Record record = null;
+    if (reader.hasNext())
+      record = reader.next();
+    assertEquals("010705201", record.getControlNumber());
+    for (DataField dataField : record.getDataFields()) {
+      if (dataField.getTag().equals("045T")) {
+        assertEquals(2, dataField.getSubfields('k').size());
+        assertEquals("Psychologie", dataField.getSubfields('k').get(0).getData());
+        assertEquals("Sozialpsychologie", dataField.getSubfields('k').get(1).getData());
+      }
+    }
+  }
+
+  @Test
+  public void test045T_picaRecord() throws IOException, URISyntaxException {
+    PicaSchemaManager schema = PicaSchemaReader.createSchema(CliTestUtils.getTestResource("pica/schema/k10plus.json"));
+    PicaNormalizedReader reader = new PicaNormalizedReader(FileUtils.getPath("pica/045T.pica").toString());
+    Record record = null;
+    if (reader.hasNext())
+      record = reader.next();
+    BibliographicRecord bibRecord = MarcFactory.createPicaFromMarc4j(record, schema);
+
+    assertEquals("010705201", bibRecord.getId());
+    List<de.gwdg.metadataqa.marc.dao.DataField> tags = bibRecord.getDatafield("045T");
+    assertEquals(1, tags.size());
+    de.gwdg.metadataqa.marc.dao.DataField tag = tags.get(0);
+    assertEquals(2, tag.getSubfield("k").size());
+    assertEquals("Psychologie", tag.getSubfield("k").get(0).getValue());
+    assertEquals("Sozialpsychologie", tag.getSubfield("k").get(1).getValue());
+  }
+
+  @Test
+  public void test045T_asJson() throws IOException, URISyntaxException {
+    PicaSchemaManager schema = PicaSchemaReader.createSchema(CliTestUtils.getTestResource("pica/schema/k10plus.json"));
+    PicaNormalizedReader reader = new PicaNormalizedReader(FileUtils.getPath("pica/045T.pica").toString());
+    Record record = null;
+    if (reader.hasNext())
+      record = reader.next();
+    BibliographicRecord bibRecord = MarcFactory.createPicaFromMarc4j(record, schema);
+
+    String json = bibRecord.asJson();
+    ObjectMapper mapper = new ObjectMapper();
+    Map<String, Object> configuration = mapper.readValue(json, new TypeReference<>(){});
+    assertNotNull(configuration.get("045T"));
+    assertTrue(configuration.get("045T") instanceof ArrayList);
+    assertEquals(1, ((List) configuration.get("045T")).size());
+    assertTrue(((List)configuration.get("045T")).get(0) instanceof Map);
+    Map<String, Object> tag = (Map) ((List) configuration.get("045T")).get(0);
+    Map<String, Object> subfields = (Map) tag.get("subfields");
+    assertTrue(subfields.get("k") instanceof List);
+    assertEquals("Psychologie", ((List<?>) subfields.get("k")).get(0));
+    assertEquals("Sozialpsychologie", ((List<?>) subfields.get("k")).get(1));
   }
 }

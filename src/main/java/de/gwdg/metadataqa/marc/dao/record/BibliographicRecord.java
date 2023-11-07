@@ -428,14 +428,13 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     for (DataField field : datafields) {
       if (field != null) {
         Map<String, Object> fieldMap = new LinkedHashMap<>();
-        fieldMap.put("ind1", field.getInd1());
-        fieldMap.put("ind2", field.getInd2());
 
-        Map<String, String> subfields = new LinkedHashMap<>();
-        for (MarcSubfield subfield : field.getSubfields()) {
-          subfields.put(subfield.getCode(), subfield.getValue());
+        if (!schemaType.equals(SchemaType.PICA)) {
+          fieldMap.put("ind1", field.getInd1());
+          fieldMap.put("ind2", field.getInd2());
         }
-        fieldMap.put("subfields", subfields);
+
+        fieldMap.put("subfields", exportSubfieldsToJson(field));
 
         String tag = field.getOccurrence() != null
           ? field.getTag() + "/" + field.getOccurrence()
@@ -456,6 +455,24 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     }
 
     return json;
+  }
+
+  private static Map<String, Object> exportSubfieldsToJson(DataField field) {
+    Map<String, Object> subfields = new LinkedHashMap<>();
+    for (MarcSubfield subfield : field.getSubfields()) {
+      if (!subfields.containsKey(subfield.getCode()))
+        subfields.put(subfield.getCode(), subfield.getValue());
+      else {
+        if (subfields.get(subfield.getCode()) instanceof String) {
+          String storedValue = (String) subfields.get(subfield.getCode());
+          List<String> list = new ArrayList<>();
+          list.add(storedValue);
+          subfields.put(subfield.getCode(), list);
+        }
+        ((List)subfields.get(subfield.getCode())).add(subfield.getValue());
+      }
+    }
+    return subfields;
   }
 
   public boolean isIgnorableField(String tag, IgnorableFields ignorableFields) {

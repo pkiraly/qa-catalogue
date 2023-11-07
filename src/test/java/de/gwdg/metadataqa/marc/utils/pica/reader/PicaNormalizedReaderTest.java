@@ -127,4 +127,41 @@ public class PicaNormalizedReaderTest {
     assertEquals("Psychologie", ((List<?>) subfields.get("k")).get(0));
     assertEquals("Sozialpsychologie", ((List<?>) subfields.get("k")).get(1));
   }
+
+  @Test
+  public void test045R_asJson() throws IOException, URISyntaxException {
+    PicaSchemaManager schema = PicaSchemaReader.createSchema(CliTestUtils.getTestResource("pica/schema/k10plus.json"));
+    PicaNormalizedReader reader = new PicaNormalizedReader(FileUtils.getPath("pica/045R.pica").toString());
+    Record record = null;
+    if (reader.hasNext())
+      record = reader.next();
+    BibliographicRecord bibRecord = MarcFactory.createPicaFromMarc4j(record, schema);
+
+    for (de.gwdg.metadataqa.marc.dao.DataField field : bibRecord.getDatafields()) {
+      System.err.println(field.getTagWithOccurrence());
+    }
+
+
+    /*
+    List<de.gwdg.metadataqa.marc.dao.DataField> tags = bibRecord.getDatafield("045R");
+    assertEquals(1, tags.size());
+    de.gwdg.metadataqa.marc.dao.DataField tag = tags.get(0);
+    assertEquals(2, tag.getSubfield("k").size());
+    assertEquals("Psychologie", tag.getSubfield("k").get(0).getValue());
+    assertEquals("Sozialpsychologie", tag.getSubfield("k").get(1).getValue());
+
+    String json = bibRecord.asJson();
+    ObjectMapper mapper = new ObjectMapper();
+    Map<String, Object> configuration = mapper.readValue(json, new TypeReference<>(){});
+    assertNotNull(configuration.get("045T"));
+    assertTrue(configuration.get("045T") instanceof ArrayList);
+    assertEquals(1, ((List) configuration.get("045T")).size());
+    assertTrue(((List)configuration.get("045T")).get(0) instanceof Map);
+    Map<String, Object> tag = (Map) ((List) configuration.get("045T")).get(0);
+    Map<String, Object> subfields = (Map) tag.get("subfields");
+    assertTrue(subfields.get("k") instanceof List);
+    assertEquals("Psychologie", ((List<?>) subfields.get("k")).get(0));
+    assertEquals("Sozialpsychologie", ((List<?>) subfields.get("k")).get(1));
+    */
+  }
 }

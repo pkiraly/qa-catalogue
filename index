@@ -90,6 +90,7 @@ DO_STATUS=0
 SKIP_DELETE=0
 SOLR_URL=""
 PARAMS=""
+OUTPUT_DIR=""
 HELP=0
 while true ; do
   case "$1" in
@@ -106,7 +107,7 @@ while true ; do
     -p|--alephseq)                 PARAMS="$PARAMS --alephseq" ;                   shift   ;;
     -x|--marcxml)                  PARAMS="$PARAMS --marcxml" ;                    shift   ;;
     -y|--lineSeparated)            PARAMS="$PARAMS --lineSeparated" ;              shift   ;;
-    -t|--outputDir)                PARAMS="$PARAMS --outputDir $2" ;               shift 2 ;;
+    -t|--outputDir)                PARAMS="$PARAMS --outputDir $2" ; OUTPUT_DIR="$2" ; shift 2 ;;
     -r|--trimId)                   PARAMS="$PARAMS --trimId" ;                     shift   ;;
     -z|--ignorableFields)          PARAMS="$PARAMS --ignorableFields $2" ;         shift 2 ;;
     -v|--ignorableRecords)         PARAMS="$PARAMS --ignorableRecords $2" ;        shift 2 ;;
@@ -218,5 +219,8 @@ $CMD $PARAMS ${FILE_PATH}/${FILE_MASK}
 # echo "Start optimizing"
 # curl "$SOLR_DB_URL/update?optimize=true" -H 'Content-type: text/xml' --data-binary '<commit/>'
 optimize_core $CORE
+
+# store field list to JSON file
+store_fields ${SOLR_DB_URL} ${OUTPUT_DIR}
 
 echo "indexing DONE"

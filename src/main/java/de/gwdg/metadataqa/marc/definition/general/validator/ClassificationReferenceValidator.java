@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.definition.ValidatorResponse;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 
@@ -47,8 +48,11 @@ public class ClassificationReferenceValidator implements RecordValidator, FieldV
   }
 
   public static ValidatorResponse validate(DataField field) {
+
     ValidatorResponse response = new ValidatorResponse();
-    if (fields.contains(field.getTag()) && field.getInd2().equals("7")) {
+    if (field.getMarcRecord().getSchemaType().equals(SchemaType.MARC21)
+        && fields.contains(field.getTag())
+        && field.getInd2().equals("7")) {
       List<MarcSubfield> subfield2 = field.getSubfield("2");
       if (subfield2 == null) {
         response.setValid(false);

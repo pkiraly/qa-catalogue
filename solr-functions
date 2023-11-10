@@ -181,10 +181,11 @@ purge_and_exit() {
 }
 
 store_fields() {
-  SOLR_DB_URL=$1
+  SOLR_URL=$1
   OUTPUT_DIR=$2
   echo "Store fields into ${OUTPUT_DIR}/solr-fields.json"
-  curl -s "${SOLR_DB_URL}/admin/luke?wt=json" \
+  echo "curl -s \"${SOLR_URL}/admin/luke?wt=json\" | jq '.fields | keys_unsorted'"
+  curl -s "${SOLR_URL}/admin/luke?wt=json" \
     | jq '.fields | keys_unsorted' \
     > $OUTPUT_DIR/solr-fields.json
 }

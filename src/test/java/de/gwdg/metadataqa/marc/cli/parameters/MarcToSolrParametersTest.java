@@ -27,7 +27,7 @@ public class MarcToSolrParametersTest {
       assertNull(parameters.getSolrUrl());
       assertFalse(parameters.doCommit());
       assertNotNull(parameters.getSolrFieldType());
-      assertEquals(SolrFieldType.MARC, parameters.getSolrFieldType());
+      assertEquals(SolrFieldType.MIXED, parameters.getSolrFieldType());
     } catch (ParseException e) {
       e.printStackTrace();
     }

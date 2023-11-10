@@ -10,7 +10,7 @@ public class MarcToSolrParameters extends CommonParameters {
   private boolean useEmbedded = false;
   private String solrUrl = null;
   private boolean doCommit = false;
-  private SolrFieldType solrFieldType = SolrFieldType.MARC;
+  private SolrFieldType solrFieldType = SolrFieldType.MIXED;
   private SolrClient mainClient = null;
   private SolrClient validationClient = null;
   private boolean indexWithTokenizedField = false;

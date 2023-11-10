@@ -6669,10 +6669,10 @@
       "tag": "036E",
       "url": "https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=4170-4179"
     },
-    "036F/00": {
+    "036F/00-09": {
       "label": "Verknüpfung zur fortlaufenden Ressource",
-      "modified": "2020-06-04T11:35:31",
-      "occurrence": null,
+      "modified": "2023-07-04T14:42:39",
+      "occurrence": "00-09",
       "pica3": "4180-4189",
       "repeatable": true,
       "subfields": {

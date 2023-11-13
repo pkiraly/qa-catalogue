@@ -92,15 +92,23 @@ RUN cd /opt \
  && echo dir=/opt/qa-catalogue/marc/_output > /var/www/html/qa-catalogue/configuration.cnf \
  # && cp /var/www/html/qa-catalogue/configuration.js.template /var/www/html/qa-catalogue/configuration.js \
  && touch /var/www/html/qa-catalogue/selected-facets.js \
- && mkdir /var/www/html/qa-catalogue/cache \
+ && if [ ! -d /var/www/html/qa-catalogue/cache ]; then \
+      mkdir /var/www/html/qa-catalogue/cache \
+    fi \
  && chown www-data:www-data -R /var/www/html/qa-catalogue/cache \
  && chmod g+w -R /var/www/html/qa-catalogue/cache \
  && touch cache/selected-facets.js \
- && mkdir _smarty \
+ && if [ ! -d _smarty ]; then \
+      mkdir _smarty \
+    fi \
  && chgrp www-data -R _smarty \
  && chmod g+w -R _smarty \
- && mkdir /var/www/html/qa-catalogue/libs \
- && mkdir /var/www/html/qa-catalogue/images \
+ && if [ ! -d /var/www/html/qa-catalogue/libs ]; then \
+      mkdir /var/www/html/qa-catalogue/libs \
+    fi \
+ && if [ ! -d /var/www/html/qa-catalogue/images ]; then \
+        mkdir /var/www/html/qa-catalogue/images \
+    fi \
 # && cd /var/www/html/qa-catalogue/libs/ \
 # && curl -s -L https://github.com/smarty-php/smarty/archive/v${SMARTY_VERSION}.zip --output v$SMARTY_VERSION.zip \
 # && unzip -q v${SMARTY_VERSION}.zip \

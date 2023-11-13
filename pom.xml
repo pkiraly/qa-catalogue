@@ -146,13 +146,6 @@
 			<groupId>org.apache.solr</groupId>
 			<version>9.4.0</version>
 		</dependency>
-		<!--
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-client</artifactId>
-			<version>12.0.3</version>
-		</dependency>
-		-->
 		<dependency>
 			<groupId>org.reflections</groupId>
 			<artifactId>reflections</artifactId>

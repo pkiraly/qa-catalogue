@@ -21,7 +21,20 @@ csv <- sprintf("%s/%s.csv", output_dir, prefix)
 if (!file.exists(csv)) {
   stop(paste("input file", csv, "does not exist!"))
 }
-df <- read_csv(csv)
+df <- read_csv(
+        csv,
+        col_types=list(
+          id = col_double(),
+          field = col_character(),
+          location = col_character(),
+          scheme = col_character(),
+          abbreviation = col_character(),
+          abbreviation4solr = col_character(),
+          recordcount = col_double(),
+          instancecount = col_double(),
+          type = col_character()
+        )
+      )
 
 types <- df %>% 
   select(scheme, abbreviation, type) %>% 

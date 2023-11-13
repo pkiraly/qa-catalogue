@@ -108,6 +108,10 @@
             <fileMode>0755</fileMode>
         </file>
         <file>
+            <source>postprocess-solr</source>
+            <fileMode>0755</fileMode>
+        </file>
+        <file>
             <source>record-patterns</source>
             <fileMode>0755</fileMode>
         </file>

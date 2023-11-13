@@ -177,7 +177,7 @@ public abstract class QACli<T extends CommonParameters> {
    */
   protected void printToFile(File file, String content) {
     try {
-      FileUtils.writeStringToFile(file, content, Charset.defaultCharset(), true);
+      FileUtils.writeStringToFile(file, content, StandardCharsets.UTF_8, true);
     } catch (IOException e) {
       if (parameters.doLog())
         logger.log(Level.SEVERE, "printToFile", e);

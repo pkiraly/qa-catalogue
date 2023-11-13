@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -151,7 +152,7 @@ public class ThompsonTraillCompleteness extends QACli<ThompsonTraillCompleteness
 
   private void print(String message) {
     try {
-      FileUtils.writeStringToFile(output, message, Charset.defaultCharset(), true);
+      FileUtils.writeStringToFile(output, message, StandardCharsets.UTF_8, true);
     } catch (IOException e) {
       logger.log(Level.SEVERE, "print", e);
     }

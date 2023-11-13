@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
@@ -125,7 +126,7 @@ public class DataElements implements BibliographicInputProcessor, Serializable {
 
   private void printToFile(File file, String message) {
     try {
-      FileUtils.writeStringToFile(file, message, Charset.defaultCharset(), true);
+      FileUtils.writeStringToFile(file, message, StandardCharsets.UTF_8, true);
     } catch (IOException e) {
       if (parameters.doLog())
         logger.log(Level.SEVERE, "printToFile", e);

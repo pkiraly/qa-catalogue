@@ -261,7 +261,7 @@ public class ClassificationAnalysisTest extends CliTestUtils {
 
     assertEquals(
       "id,subfields,count\n" +
-    "4,a,1\n" +
+      "4,a,1\n" +
       "4,a+,1\n" +
       "5,a,1\n" +
       "1,a+,2\n" +

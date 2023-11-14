@@ -287,7 +287,7 @@ public class CompletenessTest extends CliTestUtils {
         assertTrue(line.contains("\"limit\":-1,"));
         assertTrue(line.contains("\"offset\":-1,"));
         assertTrue(line.contains("\"id\":null,"));
-        assertTrue(line.contains("\"defaultRecordType\":null,"));
+        assertTrue(line.contains("\"defaultRecordType\":\"BOOKS\","));
         assertTrue(line.contains("\"alephseq\":false,"));
         assertTrue(line.contains("\"marcxml\":false,"));
         assertTrue(line.contains("\"lineSeparated\":false,"));
@@ -337,5 +337,10 @@ public class CompletenessTest extends CliTestUtils {
       output.delete();
       assertFalse(outputFile + " should not exist anymore", output.exists());
     }
+  }
+
+  @Test
+  public void dummy() {
+    System.err.println(Math.min(3, 8));
   }
 }

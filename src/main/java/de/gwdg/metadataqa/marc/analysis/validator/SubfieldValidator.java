@@ -75,12 +75,16 @@ public class SubfieldValidator extends AbstractValidator {
           */
           } else if (definition.hasPositions()) {
             for (ControlfieldPositionDefinition positionDefinition : definition.getPositions()) {
-              String positionValue = subfield.getValue().substring(positionDefinition.getPositionStart(), positionDefinition.getPositionEnd());
-              if (!positionDefinition.validate(positionValue)) {
-                String path = definition.getPath() + "/" + positionDefinition.formatPositon();
-                addError(path, ValidationErrorType.SUBFIELD_INVALID_VALUE,
-                  String.format("invalid code for '%s': '%s' at position %s in '%s'",
-                    positionDefinition.getLabel(), positionValue, positionDefinition.formatPositon(), subfield.getValue()));
+              if (subfield.getValue().length() >= positionDefinition.getPositionStart()) {
+                String positionValue = subfield.getValue().substring(
+                  positionDefinition.getPositionStart(),
+                  Math.min(subfield.getValue().length(), positionDefinition.getPositionEnd()));
+                if (!positionDefinition.validate(positionValue)) {
+                  String path = definition.getPath() + "/" + positionDefinition.formatPositon();
+                  addError(path, ValidationErrorType.SUBFIELD_INVALID_VALUE,
+                    String.format("invalid code for '%s': '%s' at position %s in '%s'",
+                      positionDefinition.getLabel(), positionValue, positionDefinition.formatPositon(), subfield.getValue()));
+                }
               }
             }
           }

@@ -55,7 +55,7 @@ public class Shacl4bibParametersTest {
         "offset: -1\n" +
         "MARC files: \n" +
         "id: null\n" +
-        "defaultRecordType: null\n" +
+        "defaultRecordType: BOOKS\n" +
         "fixAlephseq: false\n" +
         "fixAlma: false\n" +
         "alephseq: false\n" +

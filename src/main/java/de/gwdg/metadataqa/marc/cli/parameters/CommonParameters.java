@@ -38,7 +38,7 @@ public class CommonParameters implements Serializable {
   protected int limit = -1;
   protected int offset = -1;
   protected String id = null;
-  protected Leader.Type defaultRecordType = null;
+  protected Leader.Type defaultRecordType = Leader.Type.BOOKS;
   protected boolean fixAlephseq = false;
   protected boolean fixAlma = false;
   protected boolean fixKbr = false;

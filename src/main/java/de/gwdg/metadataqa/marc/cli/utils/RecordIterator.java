@@ -181,7 +181,8 @@ public class RecordIterator {
             if (bibliographicRecord != null)
               processor.processRecord(bibliographicRecord, recordNumber);
         } catch(Exception e) {
-          logger.log(Level.SEVERE, "start", e);
+          logger.log(Level.SEVERE, "Problem occured at processor.processRecord()", e);
+          e.printStackTrace();
         }
 
         if (recordNumber % 100000 == 0 && processor.getParameters().doLog())

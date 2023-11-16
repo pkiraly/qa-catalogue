@@ -514,7 +514,7 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
 
   public List<String> select(MarcSpec selector) {
     List<String> results = new ArrayList<>();
-    if (selector.getFieldTag().equals("LDR")) {
+    if (selector.getFieldTag().equals("LDR") && leader != null && StringUtils.isNotEmpty(leader.getContent())) {
       if (selector.hasRangeSelector()) {
         results.add(selector.selectRange(leader.getContent()));
       } else {

@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.cli;
 
 import com.opencsv.CSVReader;
 import de.gwdg.metadataqa.api.util.FileUtils;
+import de.gwdg.metadataqa.marc.TestUtils;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import junit.framework.TestCase;
 import org.apache.commons.lang3.StringUtils;
@@ -28,8 +29,8 @@ public class CompletenessTest extends CliTestUtils {
 
   @Before
   public void setUp() throws Exception {
-    inputFile = getPath("src/test/resources/alephseq/alephseq-example3.txt");
-    outputDir = getPath("src/test/resources/output");
+    inputFile = TestUtils.getPath("alephseq/alephseq-example3.txt");
+    outputDir = TestUtils.getPath("output");
     outputFiles = Arrays.asList(
       "libraries.csv",
       "libraries003.csv",
@@ -78,7 +79,7 @@ public class CompletenessTest extends CliTestUtils {
       "--schemaType", "PICA",
       "--marcForma", "PICA_PLAIN",
       "--outputDir", outputDir,
-      getPath("src/test/resources/pica/k10plus-sample.pica")
+      TestUtils.getPath("pica/k10plus-sample.pica")
     });
     RecordIterator iterator = new RecordIterator(processor);
     iterator.start();
@@ -104,7 +105,7 @@ public class CompletenessTest extends CliTestUtils {
   public void completeness_pica_groupBy() throws Exception {
     clearOutput(outputDir, groupedOutputFiles);
 
-    String inputFile = getPath("src/test/resources/pica/pica-with-holdings-info.dat");
+    String inputFile = TestUtils.getPath("pica/pica-with-holdings-info.dat");
     assertTrue(new File(inputFile).exists());
 
     Completeness processor = new Completeness(new String[]{
@@ -162,7 +163,7 @@ public class CompletenessTest extends CliTestUtils {
       "--groupListFile", FileUtils.getPath("k10plus-libraries-by-unique-iln.txt").toAbsolutePath().toString(),
       "--marcFormat", "PICA_NORMALIZED",
       "--outputDir", outputDir,
-      getPath("src/test/resources/pica/pica-with-holdings-info.dat")
+      TestUtils.getPath("pica/pica-with-holdings-info.dat")
     });
     RecordIterator iterator = new RecordIterator(processor);
     iterator.start();
@@ -337,10 +338,5 @@ public class CompletenessTest extends CliTestUtils {
       output.delete();
       assertFalse(outputFile + " should not exist anymore", output.exists());
     }
-  }
-
-  @Test
-  public void dummy() {
-    System.err.println(Math.min(3, 8));
   }
 }

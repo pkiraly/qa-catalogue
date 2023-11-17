@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
+import de.gwdg.metadataqa.marc.TestUtils;
 import de.gwdg.metadataqa.marc.analysis.ClassificationStatistics;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
@@ -30,8 +31,8 @@ public class ClassificationAnalysisTest extends CliTestUtils {
 
   @Before
   public void setUp() throws Exception {
-    inputFile = getPath("src/test/resources/alephseq/alephseq-example3.txt");
-    outputDir = getPath("src/test/resources/output");
+    inputFile = TestUtils.getPath("alephseq/alephseq-example3.txt");
+    outputDir = TestUtils.getPath("output");
     outputFiles = Arrays.asList(
       "classifications-by-records.csv",
       "classifications-by-schema.csv",
@@ -157,7 +158,7 @@ public class ClassificationAnalysisTest extends CliTestUtils {
       "--collectCollocations",
       "--marcxml",
       "--outputDir", outputDir,
-      inputFile = getPath("src/test/resources/marcxml/marcxml.xml")
+      inputFile = TestUtils.getPath("marcxml/marcxml.xml")
     };
     ClassificationAnalysis.main(args);
 
@@ -212,7 +213,7 @@ public class ClassificationAnalysisTest extends CliTestUtils {
       "--marcForma", "PICA_PLAIN",
       "--collectCollocations",
       "--outputDir", outputDir,
-      getPath("src/test/resources/pica/k10plus-sample.pica")
+      TestUtils.getPath("pica/k10plus-sample.pica")
     };
     ClassificationAnalysis.main(args);
 

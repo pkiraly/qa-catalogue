@@ -1,19 +1,17 @@
 package de.gwdg.metadataqa.marc.analysis;
 
+import de.gwdg.metadataqa.marc.TestUtils;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Path;
-
-import static de.gwdg.metadataqa.api.util.FileUtils.getPath;
 
 public class GroupSelectorTest {
 
   @Test
   public void getOrgName_with_tsv() throws IOException, URISyntaxException {
-    Path path = getPath("kxp-uniq-library-names.tsv");
-    GroupSelector selector = new GroupSelector(path.toAbsolutePath().toString());
+    String path = TestUtils.getPath("kxp-uniq-library-names.tsv");
+    GroupSelector selector = new GroupSelector(path);
     assertEquals("14", selector.getOrgName("14"));
     assertEquals("Herzog August Bibliothek (HAB) , Wolfenbüttel", selector.getOrgName("50"));
   }
@@ -23,8 +21,8 @@ public class GroupSelectorTest {
 
   @Test
   public void getOrgName_with_txt() throws IOException, URISyntaxException {
-    Path path = getPath("k10plus-libraries-by-unique-iln.txt");
-    GroupSelector selector = new GroupSelector(path.toAbsolutePath().toString());
+    String path = TestUtils.getPath("k10plus-libraries-by-unique-iln.txt");
+    GroupSelector selector = new GroupSelector(path);
     assertEquals("14", selector.getOrgName("14"));
     assertEquals("Herzog August Bibliothek (HAB) , Wolfenbüttel [DE-23]", selector.getOrgName("50"));
   }

@@ -1,21 +1,14 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.api.calculator.output.MetricCollector;
-import de.gwdg.metadataqa.api.calculator.output.OutputCollector;
-import de.gwdg.metadataqa.api.configuration.ConfigurationReader;
-import de.gwdg.metadataqa.api.configuration.SchemaConfiguration;
 import de.gwdg.metadataqa.api.configuration.schema.Rule;
-import de.gwdg.metadataqa.api.interfaces.MetricResult;
 import de.gwdg.metadataqa.api.json.DataElement;
 import de.gwdg.metadataqa.api.rule.RuleCatalog;
-import de.gwdg.metadataqa.api.rule.RuleCheckingOutputType;
 import de.gwdg.metadataqa.api.schema.BaseSchema;
 import de.gwdg.metadataqa.api.schema.Schema;
-import de.gwdg.metadataqa.api.util.CompressionLevel;
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.CsvUtils;
 import de.gwdg.metadataqa.marc.RuleCatalogUtils;
-import de.gwdg.metadataqa.marc.cli.utils.BibSelector;
+import de.gwdg.metadataqa.marc.TestUtils;
 import de.gwdg.metadataqa.marc.cli.utils.MarcSpecSelector;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.dao.DataField;
@@ -43,8 +36,8 @@ public class Shacl4bibTest extends CliTestUtils {
 
   @Before
   public void setUp() throws Exception {
-    inputFile = getPath("src/test/resources/alephseq/alephseq-example3.txt");
-    outputDir = getPath("src/test/resources/output");
+    inputFile = TestUtils.getPath("alephseq/alephseq-example3.txt");
+    outputDir = TestUtils.getPath("output");
     outputFiles = Arrays.asList(
       "shacl.csv"
     );
@@ -59,7 +52,7 @@ public class Shacl4bibTest extends CliTestUtils {
       "--marcVersion", "GENT",
       "--alephseq",
       "--outputDir", outputDir,
-      "--shaclConfigurationFile", getPath("src/test/resources/shacl/kbr-small.yaml"),
+      "--shaclConfigurationFile", TestUtils.getPath("shacl/kbr-small.yaml"),
       "--shaclOutputFile", "shacl.csv",
       inputFile
     });
@@ -87,7 +80,7 @@ public class Shacl4bibTest extends CliTestUtils {
       "--marcVersion", "GENT",
       "--alephseq",
       "--outputDir", outputDir,
-      "--shaclConfigurationFile", getPath("src/test/resources/shacl/kbr-small.yaml"),
+      "--shaclConfigurationFile", TestUtils.getPath("shacl/kbr-small.yaml"),
       "--shaclOutputFile", "shacl.csv",
       inputFile
     });
@@ -113,7 +106,7 @@ public class Shacl4bibTest extends CliTestUtils {
       "--marcVersion", "GENT",
       "--alephseq",
       "--outputDir", outputDir,
-      "--shaclConfigurationFile", getPath("src/test/resources/shacl/kbr-small.json"),
+      "--shaclConfigurationFile", TestUtils.getPath("shacl/kbr-small.json"),
       "--shaclOutputFile", "shacl.csv",
       inputFile
     });

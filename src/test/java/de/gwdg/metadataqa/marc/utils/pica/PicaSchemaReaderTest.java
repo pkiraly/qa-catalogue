@@ -1,9 +1,8 @@
 package de.gwdg.metadataqa.marc.utils.pica;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.TestUtils;
 import org.junit.Test;
-
-import java.nio.file.Paths;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -12,7 +11,7 @@ public class PicaSchemaReaderTest {
 
   @Test
   public void testFirst() {
-    PicaSchemaManager schema = PicaSchemaReader.createSchema(getPathFromMain("pica/avram-k10plus.json"));
+    PicaSchemaManager schema = PicaSchemaReader.createSchema(TestUtils.getPathFromMain("pica/avram-k10plus.json"));
     assertEquals(437, schema.size());
     PicaFieldDefinition field = schema.lookup("001A");
     assertEquals("001A", field.getTag());
@@ -35,7 +34,7 @@ public class PicaSchemaReaderTest {
 
   @Test
   public void testOneWithPercent() {
-    PicaSchemaManager schema = PicaSchemaReader.createSchema(getPathFromMain("pica/avram-k10plus.json"));
+    PicaSchemaManager schema = PicaSchemaReader.createSchema(TestUtils.getPathFromMain("pica/avram-k10plus.json"));
     assertEquals(437, schema.size());
     PicaFieldDefinition field = schema.lookup("022A/00");
     assertEquals("022A", field.getTag());
@@ -60,18 +59,10 @@ public class PicaSchemaReaderTest {
 
   @Test
   public void testCloning() {
-    PicaSchemaManager schema = PicaSchemaReader.createSchema(getPathFromMain("pica/avram-k10plus-title.json"));
+    PicaSchemaManager schema = PicaSchemaReader.createSchema(TestUtils.getPathFromMain("pica/avram-k10plus-title.json"));
     PicaFieldDefinition tag = schema.lookup("045B");
     assertNotNull(tag);
     assertEquals("045B", tag.getId());
     assertEquals("Allgemeine Systematik für Bibliotheken (ASB)", tag.getLabel());
-  }
-
-  private String getPath(String fileName) {
-    return Paths.get("src/test/resources/" + fileName).toAbsolutePath().toString();
-  }
-
-  private String getPathFromMain(String fileName) {
-    return Paths.get("src/main/resources/" + fileName).toAbsolutePath().toString();
   }
 }

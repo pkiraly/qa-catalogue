@@ -119,6 +119,12 @@ public class SubfieldDefinition implements Serializable {
     return this;
   }
 
+  /**
+   * Local codes are defined by a particular library, not in the LoC MARC21 definition
+   * @param version
+   * @param input
+   * @return
+   */
   public SubfieldDefinition setLocalCodes(MarcVersion version, String... input) {
     if (localCodes == null)
       localCodes = new EnumMap<>(MarcVersion.class);

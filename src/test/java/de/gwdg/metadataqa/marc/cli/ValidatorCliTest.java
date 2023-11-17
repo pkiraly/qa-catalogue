@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
+import de.gwdg.metadataqa.marc.TestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +25,7 @@ public class ValidatorCliTest extends CliTestUtils {
 
   @Before
   public void setUp() throws Exception {
-    outputDir = getPath("src/test/resources/output");
+    outputDir = TestUtils.getPath("output");
     outputFiles = Arrays.asList(
       "count.csv",
       "issue-details.csv",
@@ -62,7 +63,7 @@ public class ValidatorCliTest extends CliTestUtils {
       "--defaultRecordType", "BOOKS",
       "--detailsFileName", "issue-details.csv",
       "--summaryFileName", "issue-summary.csv",
-      getPath("src/test/resources/pica/pica-with-holdings-info.dat")
+      TestUtils.getPath("pica/pica-with-holdings-info.dat")
     });
     RecordIterator iterator = new RecordIterator(processor);
     iterator.setProcessWithEroors(true);
@@ -72,7 +73,7 @@ public class ValidatorCliTest extends CliTestUtils {
     for (String outputFile : groupedOutputFiles) {
       File output = new File(outputDir, outputFile);
       assertTrue(outputFile + " should exist", output.exists());
-      List<String> lines = FileUtils.readLinesFromFile("src/test/resources/output/" + outputFile);
+      List<String> lines = FileUtils.readLinesFromFile(TestUtils.getPath("output/" + outputFile));
       if (outputFile.equals("issue-details.csv")) {
         assertEquals(11, lines.size());
         assertEquals("010000011,1:1;2:1;3:1;4:1;5:1;6:1;7:1;8:1;9:1;10:1;11:1;12:1;13:1;14:1;15:1;16:1;17:1;18:1;19:1;20:1;21:2;22:2;23:1;24:1", lines.get(1).trim());
@@ -142,7 +143,7 @@ public class ValidatorCliTest extends CliTestUtils {
       "--detailsFileName", "issue-details.csv",
       "--summaryFileName", "issue-summary.csv",
       // "/home/kiru/Documents/marc21/k10plus_pica_grouped/pica-with-holdings-info-1M.dat"
-      getPath("src/test/resources/pica/pica-with-holdings-info.dat")
+      TestUtils.getPath("pica/pica-with-holdings-info.dat")
     });
     RecordIterator iterator = new RecordIterator(processor);
     iterator.setProcessWithEroors(true);
@@ -152,7 +153,7 @@ public class ValidatorCliTest extends CliTestUtils {
     for (String outputFile : groupedOutputFiles) {
       File output = new File(outputDir, outputFile);
       assertTrue(outputFile + " should exist", output.exists());
-      List<String> lines = FileUtils.readLinesFromFile("src/test/resources/output/" + outputFile);
+      List<String> lines = FileUtils.readLinesFromFile(TestUtils.getPath("output/" + outputFile));
       if (outputFile.equals("issue-details.csv")) {
         assertEquals(11, lines.size());
         assertEquals("recordId,errors", lines.get(0).trim());
@@ -276,7 +277,7 @@ public class ValidatorCliTest extends CliTestUtils {
             "--defaultRecordType", "BOOKS",
             "--detailsFileName", "issue-details.csv",
             "--summaryFileName", "issue-summary.csv",
-            getPath("src/test/resources/alephseq/alephseq-example6-error.txt")
+      TestUtils.getPath("alephseq/alephseq-example6-error.txt")
     });
     RecordIterator iterator = new RecordIterator(processor);
     iterator.setProcessWithEroors(true);
@@ -286,7 +287,7 @@ public class ValidatorCliTest extends CliTestUtils {
     for (String outputFile : outputFiles) {
       File output = new File(outputDir, outputFile);
       assertTrue(outputFile + " should exist", output.exists());
-      List<String> lines = FileUtils.readLinesFromFile("src/test/resources/output/" + outputFile);
+      List<String> lines = FileUtils.readLinesFromFile(TestUtils.getPath("output/" + outputFile));
       if (outputFile.equals("issue-details.csv")) {
         assertEquals(6, lines.size());
         assertEquals("003141910,1:1;2:1", lines.get(1).trim());

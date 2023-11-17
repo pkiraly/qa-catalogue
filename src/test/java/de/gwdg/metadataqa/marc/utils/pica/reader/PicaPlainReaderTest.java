@@ -7,6 +7,7 @@ import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
+import de.gwdg.metadataqa.marc.TestUtils;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
@@ -119,8 +120,8 @@ public class PicaPlainReaderTest {
   public void readAvramSchema() {
     try {
       Map<String, PicaFieldDefinition> schemaDirectory = new HashMap<>();
-      schemaDirectory.putAll(PicaSchemaReader.create(getPath("pica/schema/pica-schema.json")));
-      schemaDirectory.putAll(PicaSchemaReader.create(getPath("pica/schema/pica-schema-extra.json")));
+      schemaDirectory.putAll(PicaSchemaReader.create(TestUtils.getPath("pica/schema/pica-schema.json")));
+      schemaDirectory.putAll(PicaSchemaReader.create(TestUtils.getPath("pica/schema/pica-schema-extra.json")));
 
       Map<String, Integer> counter = new HashMap<>();
       Map<String, List<String>> ppns = new HashMap<>();
@@ -192,8 +193,8 @@ public class PicaPlainReaderTest {
 
   @Test
   public void picaReader() throws IOException, URISyntaxException {
-    PicaSchemaManager schema = PicaSchemaReader.createSchema(getPath("pica/schema/k10plus.json"));
-    String recordFile = FileUtils.getPath("pica/picaplus-sample.txt").toAbsolutePath().toString();
+    PicaSchemaManager schema = PicaSchemaReader.createSchema(TestUtils.getPath("pica/schema/k10plus.json"));
+    String recordFile = TestUtils.getPath("pica/picaplus-sample.txt");
     MarcReader reader = new PicaPlainReader(recordFile).setIdField("003@ƒ0").setSubfieldSeparator("ƒ");
     int i = 0;
     BibliographicRecord marcRecord = null;
@@ -207,8 +208,8 @@ public class PicaPlainReaderTest {
 
   @Test
   public void picaReader2() throws IOException, URISyntaxException {
-    PicaSchemaManager schema = PicaSchemaReader.createSchema(getPath("pica/schema/k10plus.json"));
-    String recordFile = FileUtils.getPath("pica/k10plus-sample.pica").toAbsolutePath().toString();
+    PicaSchemaManager schema = PicaSchemaReader.createSchema(TestUtils.getPath("pica/schema/k10plus.json"));
+    String recordFile = TestUtils.getPath("pica/k10plus-sample.pica");
     MarcReader reader = new PicaPlainReader(recordFile)
       .setIdField("003@$0")
       .setSubfieldSeparator("$");
@@ -241,7 +242,7 @@ public class PicaPlainReaderTest {
 
   @Test
   public void readASchema() {
-    PicaSchemaManager schema = PicaSchemaReader.createSchema(getPath("pica/schema/k10plus.json"));
+    PicaSchemaManager schema = PicaSchemaReader.createSchema(TestUtils.getPath("pica/schema/k10plus.json"));
     assertEquals(431, schema.size());
     PicaFieldDefinition definition = schema.lookup("048H");
     assertEquals("048H", definition.getTag());
@@ -262,9 +263,5 @@ public class PicaPlainReaderTest {
         + map.get(tag).stream().map(a -> a.getPicaplusTag().getRaw()).collect(Collectors.toSet()));
     }
     map.get(tag).add(definition);
-  }
-
-  private String getPath(String fileName) {
-    return Paths.get("src/test/resources/" + fileName).toAbsolutePath().toString();
   }
 }

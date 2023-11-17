@@ -150,7 +150,7 @@ public class Indicator {
     return ranges;
   }
 
-  private void indexCodes() {
+  public void indexCodes() {
     codeIndex = new LinkedHashMap<>();
     for (EncodedValue code : codes) {
       codeIndex.put(code.getCode(), code);

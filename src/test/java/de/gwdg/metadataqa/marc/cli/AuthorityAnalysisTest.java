@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcSubfield;
+import de.gwdg.metadataqa.marc.TestUtils;
 import de.gwdg.metadataqa.marc.analysis.AuthorithyAnalyzer;
 import de.gwdg.metadataqa.marc.analysis.AuthorityStatistics;
 import de.gwdg.metadataqa.marc.dao.DataField;
@@ -33,8 +34,8 @@ public class AuthorityAnalysisTest extends CliTestUtils {
 
   @Before
   public void setUp() throws Exception {
-    // inputFile = getPath("src/test/resources/alephseq/alephseq-example3.txt");
-    outputDir = getPath("src/test/resources/output");
+    // inputFile = TestUtils.getPath("alephseq/alephseq-example3.txt");
+    outputDir = TestUtils.getPath("output");
     outputFiles = Arrays.asList(
       "authorities-by-categories.csv",
       "authorities-by-records.csv",
@@ -86,7 +87,7 @@ public class AuthorityAnalysisTest extends CliTestUtils {
       "--schemaType", "PICA",
       "--marcForma", "PICA_PLAIN",
       "--outputDir", outputDir,
-      getPath("src/test/resources/pica/k10plus-sample.pica")
+      TestUtils.getPath("pica/k10plus-sample.pica")
     };
     AuthorityAnalysis.main(args);
 

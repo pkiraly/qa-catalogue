@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
+import de.gwdg.metadataqa.marc.TestUtils;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.MarcFormat;
@@ -30,8 +31,8 @@ public class FormatterTest extends CliTestUtils {
 
   @Before
   public void setUp() throws Exception {
-    inputFile = getPath("src/test/resources/alephseq/alephseq-example3.txt");
-    outputDir = getPath("src/test/resources/output");
+    inputFile = TestUtils.getPath("alephseq/alephseq-example3.txt");
+    outputDir = TestUtils.getPath("output");
     outputFiles = List.of("marc-history.csv");
     for (String outputFile : outputFiles) {
       File file = new File(outputDir, "marc-history.csv");
@@ -68,7 +69,7 @@ public class FormatterTest extends CliTestUtils {
       "--selector",   "001A$0|extractPicaDate;011@$a",
       "--separator",  ",",
       "--fileName",   "marc-history.csv",
-      getPath("src/test/resources/pica/k10plus-sample.pica")
+      TestUtils.getPath("pica/k10plus-sample.pica")
     });
     RecordIterator iterator = new RecordIterator(processor);
     iterator.start();

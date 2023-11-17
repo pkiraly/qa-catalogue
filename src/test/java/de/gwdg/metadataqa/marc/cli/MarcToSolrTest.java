@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.MarcFactory;
+import de.gwdg.metadataqa.marc.TestUtils;
 import de.gwdg.metadataqa.marc.cli.parameters.MarcToSolrParameters;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.dao.DataField;
@@ -38,7 +39,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static de.gwdg.metadataqa.marc.cli.CliTestUtils.getPath;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -103,7 +103,7 @@ public class MarcToSolrTest {
   @Test
   public void run0() {
     try {
-      String outputDir = getPath("src/test/resources/output");
+      String outputDir = TestUtils.getPath("output");
       MarcToSolrParameters params = new MarcToSolrParameters(new String[]{
         "--schemaType", "PICA",
         "--marcFormat", "PICA_NORMALIZED",
@@ -112,7 +112,7 @@ public class MarcToSolrTest {
         "--useEmbedded",
         "--solrUrl", "http://localhost:8983/solr/k10plus_pica_grouped_dev",
         "--solrForScoresUrl", "http://localhost:8983/solr/k10plus_pica_grouped_scores",
-        getPath("src/test/resources/pica/pica-with-holdings-info.dat")
+        TestUtils.getPath("pica/pica-with-holdings-info.dat")
       });
       EmbeddedSolrServer mainClient = EmbeddedSolrClientFactory.getClient(coreFromUrl(params.getSolrUrl()));
       EmbeddedSolrServer validationClient = EmbeddedSolrClientFactory.getClient(coreFromUrl(params.getSolrForScoresUrl()));

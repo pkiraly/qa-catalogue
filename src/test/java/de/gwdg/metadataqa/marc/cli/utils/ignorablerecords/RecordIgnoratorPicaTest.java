@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.cli.utils.ignorablerecords;
 
+import de.gwdg.metadataqa.marc.TestUtils;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
@@ -8,15 +9,13 @@ import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
 import org.junit.Test;
 
-import java.nio.file.Paths;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class RecordIgnoratorPicaTest {
 
-  PicaSchemaManager schema = PicaSchemaReader.createSchema(getPathFromMain("pica/avram-k10plus.json"));
+  PicaSchemaManager schema = PicaSchemaReader.createSchema(TestUtils.getPathFromMain("pica/avram-k10plus.json"));
 
   @Test
   public void parse_ex1() {
@@ -143,14 +142,6 @@ public class RecordIgnoratorPicaTest {
     assertEquals(4, ((RecordIgnoratorPica)ignorator).getBooleanCriteria().size());
     assertEquals(BooleanContainer.Op.AND, ((RecordIgnoratorPica)ignorator).getBooleanCriteria().getOp());
     assertEquals("CriteriumPica{path=002@.0, operator=NOT_MATCH, value='^L'}", ((RecordIgnoratorPica)ignorator).getBooleanCriteria().getChildren().get(0).getValue().toString());
-  }
-
-  private String getPath(String fileName) {
-    return Paths.get("src/test/resources/" + fileName).toAbsolutePath().toString();
-  }
-
-  private String getPathFromMain(String fileName) {
-    return Paths.get("src/main/resources/" + fileName).toAbsolutePath().toString();
   }
 
   private void testParsing(String ignorableRecordsInput, int size, String path, Operator op, String value) {

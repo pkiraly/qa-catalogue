@@ -3,8 +3,8 @@ package de.gwdg.metadataqa.marc.cli.parameters;
 import de.gwdg.metadataqa.marc.analysis.validator.Validator;
 import de.gwdg.metadataqa.marc.dao.Control006;
 import de.gwdg.metadataqa.marc.dao.Leader;
+import de.gwdg.metadataqa.marc.dao.Marc21Leader;
 import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
-import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 import org.junit.Test;
@@ -17,7 +17,7 @@ public class Validating006 {
   @Test
   public void test() {
     Marc21Record marcRecord = new Marc21BibliographicRecord("001441164");
-    marcRecord.setLeader(new Leader("02945nam a22005657a 4500"));
+    marcRecord.setLeader(new Marc21Leader("02945nam a22005657a 4500"));
     marcRecord.setControl006(new Control006("jccnn           n", Leader.Type.BOOKS));
     Validator validator = new Validator();
     boolean isValid = validator.validate(marcRecord);

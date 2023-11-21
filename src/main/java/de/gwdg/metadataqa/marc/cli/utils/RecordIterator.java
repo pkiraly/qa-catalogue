@@ -2,10 +2,9 @@ package de.gwdg.metadataqa.marc.cli.utils;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
-import de.gwdg.metadataqa.marc.dao.Leader;
-import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
+import de.gwdg.metadataqa.marc.dao.MarcLeader;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.DataSource;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
@@ -43,7 +42,7 @@ public class RecordIterator {
   private CommonParameters parameters;
   private String replacementInControlFields;
   private MarcVersion marcVersion;
-  private Leader.Type defaultRecordType;
+  private MarcLeader.Type defaultRecordType;
   private DecimalFormat decimalFormat;
   private PicaSchemaManager picaSchema;
   private String status = "waits";

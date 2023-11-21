@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.analysis.validator.ControlValueValidator;
 import de.gwdg.metadataqa.marc.dao.Control006;
-import de.gwdg.metadataqa.marc.dao.Leader;
+import de.gwdg.metadataqa.marc.dao.MarcLeader;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
 import de.gwdg.metadataqa.marc.definition.controlpositions.Control008Positions;
 import de.gwdg.metadataqa.marc.definition.controlpositions.LeaderPositions;
@@ -92,14 +92,14 @@ public class ControlValueTest {
 
   @Test
   public void testGetLabel() {
-    Control006 field = new Control006("e|||||||a|||||||||", Leader.Type.MAPS);
+    Control006 field = new Control006("e|||||||a|||||||||", MarcLeader.Type.MAPS);
     ControlValue value = field.getTag006all00();
     assertEquals("Form of material", value.getLabel());
   }
 
   @Test
   public void testId() {
-    Control006 field = new Control006("e|||||||a|||||||||", Leader.Type.MAPS);
+    Control006 field = new Control006("e|||||||a|||||||||", MarcLeader.Type.MAPS);
     ControlValue value = field.getTag006all00();
     assertEquals("006all00", value.getId());
   }

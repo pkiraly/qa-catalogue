@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.DefaultControlFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.structure.Marc21DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
@@ -69,22 +70,25 @@ public class Marc21SchemaReader {
       //   continue;
 
       JSONObject field = (JSONObject) entry.getValue();
-      Marc21DataFieldDefinition tag = new Marc21DataFieldDefinition(
+      DataFieldDefinition tag = new Marc21DataFieldDefinition(
         id,
         (String) field.get("name"),
         (boolean) field.get("repeatable"),
         (boolean) field.get("fixed")
       );
       if (field.containsKey("indicators"))
-        processIndicators((JSONObject) field.get("indicators"), tag);
+        processIndicators((JSONObject) field.get("indicators"), (Marc21DataFieldDefinition) tag);
       if (field.containsKey("subfields"))
-        processSubfields((JSONObject) field.get("subfields"), tag);
+        processSubfields((JSONObject) field.get("subfields"), (Marc21DataFieldDefinition) tag);
       if (field.containsKey("positions"))
-        processPositions((JSONArray) field.get("positions"), tag);
+        processPositions((JSONArray) field.get("positions"), (Marc21DataFieldDefinition) tag);
       for (String property : field.keySet()) {
         if (!knownFieldProperties.containsKey(property))
           logger.warning("unhandled field property: " + property);
       }
+      if (id.equals("008") || id.equals("leader"))
+         tag = new DefaultControlFieldDefinition((Marc21DataFieldDefinition) tag);
+
       if (!map.containsKey(id))
         map.put(id, tag);
       else
@@ -107,8 +111,17 @@ public class Marc21SchemaReader {
       int start = (int) position.getAsNumber("start");
       int end = (int) position.getAsNumber("stop") + 1;
       ControlfieldPositionDefinition definition = new ControlfieldPositionDefinition(label, start, end);
-      if (position.containsKey("values"))
+      if (position.containsKey("values")) {
         definition.setCodes(extractEncodedValues(position));
+        int lenght = (end - start);
+        if (lenght > 1
+            && !definition.getCodes().isEmpty()
+            && !definition.getCodes().get(0).getCode().equals("[number]")
+            && definition.getCodes().get(0).getCode().length() < lenght) {
+          definition.setRepeatableContent(true);
+          definition.setUnitLength(definition.getCodes().get(0).getCode().length());
+        }
+      }
       return definition;
     } else {
       logger.warning("the positions node's type is not JSONObject, but " + positionNode.getClass().getCanonicalName());

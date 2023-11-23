@@ -12126,5 +12126,290 @@
     "fixed":true,
     "name":"Date and Time of Latest Transaction",
     "repeatable":false
+  },
+  "008":{
+    "fixed":true,
+    "name":"Fixed-Length Data Elements",
+    "positions":[
+      {
+        "name":"Date entered on file",
+        "start":0,
+        "stop":5,
+        "values":{
+
+        }
+      },
+      {
+        "name":"Direct or indirect geographic subdivision",
+        "start":6,
+        "stop":6,
+        "values":{
+          "#":"Not subdivided geographically",
+          "d":"Subdivided geographically-direct",
+          "i":"Subdivided geographically-indirect",
+          "n":"Not applicable",
+          "|":"No attempt to code"
+        }
+      },
+      {
+        "name":"Romanization scheme",
+        "start":7,
+        "stop":7,
+        "values":{
+          "a":"International standard",
+          "b":"National standard",
+          "c":"National library association standard",
+          "d":"National library or bibliographic agency standard",
+          "e":"Local standard",
+          "f":"Standard of unknown origin",
+          "g":"Conventional romanization or conventional form of name in language of cataloging agency",
+          "n":"Not applicable",
+          "|":"No attempt to code"
+        }
+      },
+      {
+        "name":"Language of catalog",
+        "start":8,
+        "stop":8,
+        "values":{
+          "#":"No information provided",
+          "b":"English and French",
+          "e":"English only",
+          "f":"French only",
+          "|":"No attempt to code"
+        }
+      },
+      {
+        "name":"Kind of record",
+        "start":9,
+        "stop":9,
+        "values":{
+          "a":"Established heading",
+          "b":"Untraced reference",
+          "c":"Traced reference",
+          "d":"Subdivision",
+          "e":"Node label",
+          "f":"Established heading and subdivision",
+          "g":"Reference and subdivision",
+          "|":"No attempt to code"
+        }
+      },
+      {
+        "name":"Descriptive cataloging rules",
+        "start":10,
+        "stop":10,
+        "values":{
+          "a":"Earlier rules",
+          "b":"AACR 1",
+          "c":"AACR 2",
+          "d":"AACR 2 compatible heading",
+          "z":"Other",
+          "n":"Not applicable",
+          "|":"No attempt to code"
+        }
+      },
+      {
+        "name":"Subject heading system/thesaurus",
+        "start":11,
+        "stop":11,
+        "values":{
+          "a":"Library of Congress Subject Headings",
+          "b":"Library of Congress Children's and Young Adults' Subject Headings",
+          "c":"Medical Subject Headings",
+          "d":"National Agricultural Library subject authority file",
+          "k":"Canadian Subject Headings",
+          "n":"Not applicable",
+          "r":"Art and Architecture Thesaurus",
+          "s":"Sears List of Subject Heading",
+          "v":"Répertoire de vedettes-matière",
+          "z":"Other",
+          "|":"No attempt to code"
+        }
+      },
+      {
+        "name":"Type of series",
+        "start":12,
+        "stop":12,
+        "values":{
+          "a":"Monographic series",
+          "b":"Multipart item",
+          "c":"Series-like phrase",
+          "n":"Not applicable",
+          "z":"Other",
+          "|":"No attempt to code"
+        }
+      },
+      {
+        "name":"Numbered or unnumbered series",
+        "start":13,
+        "stop":13,
+        "values":{
+          "a":"Numbered",
+          "b":"Unnumbered",
+          "c":"Numbering varies",
+          "n":"Not applicable",
+          "|":"No attempt to code"
+        }
+      },
+      {
+        "name":"Heading use-main or added entry",
+        "start":14,
+        "stop":14,
+        "values":{
+          "a":"Appropriate",
+          "b":"Not appropriate",
+          "|":"No attempt to code"
+        }
+      },
+      {
+        "name":"Heading use-subject added entry",
+        "start":15,
+        "stop":15,
+        "values":{
+          "a":"Appropriate",
+          "b":"Not appropriate",
+          "|":"No attempt to code"
+        }
+      },
+      {
+        "name":"Heading use-series added entry",
+        "start":16,
+        "stop":16,
+        "values":{
+          "a":"Appropriate",
+          "b":"Not appropriate",
+          "|":"No attempt to code"
+        }
+      },
+      {
+        "name":"Type of subject subdivision",
+        "start":17,
+        "stop":17,
+        "values":{
+          "a":"Topical",
+          "b":"Form",
+          "c":"Chronological",
+          "d":"Geographic",
+          "e":"Language",
+          "n":"Not applicable",
+          "|":"No attempt to code"
+        }
+      },
+      {
+        "name":"Undefined character positions",
+        "start":18,
+        "stop":27,
+        "values":{
+          "#":"Undefined",
+          "|":"No attempt to code"
+        }
+      },
+      {
+        "name":"Type of government agency",
+        "start":28,
+        "stop":28,
+        "values":{
+          "#":"Not a government agency",
+          "a":"Autonomous or semi-autonomous component",
+          "c":"Multilocal",
+          "f":"Federal/national",
+          "i":"International intergovernmental",
+          "l":"Local",
+          "m":"Multistate",
+          "o":"Government agency-type undetermined",
+          "s":"State, provincial, territorial, dependent, etc.",
+          "u":"Unknown if heading is government agency",
+          "z":"Other",
+          "|":"No attempt to code"
+        }
+      },
+      {
+        "name":"Reference evaluation",
+        "start":29,
+        "stop":29,
+        "values":{
+          "a":"Tracings are consistent with the heading",
+          "b":"Tracings are not necessarily consistent with the heading",
+          "n":"Not applicable",
+          "|":"No attempt to code"
+        }
+      },
+      {
+        "name":"Undefined character position",
+        "start":30,
+        "stop":30,
+        "values":{
+          "#":"Undefined",
+          "|":"No attempt to code"
+        }
+      },
+      {
+        "name":"Record update in process",
+        "start":31,
+        "stop":31,
+        "values":{
+          "a":"Record can be used",
+          "b":"Record is being updated",
+          "|":"No attempt to code"
+        }
+      },
+      {
+        "name":"Undifferentiated personal name",
+        "start":32,
+        "stop":32,
+        "values":{
+          "a":"Differentiated personal name",
+          "b":"Undifferentiated personal name",
+          "n":"Not applicable",
+          "|":"No attempt to code"
+        }
+      },
+      {
+        "name":"Level of establishment",
+        "start":33,
+        "stop":33,
+        "values":{
+          "a":"Fully established",
+          "b":"Memorandum",
+          "c":"Provisional",
+          "d":"Preliminary",
+          "n":"Not applicable",
+          "|":"No attempt to code"
+        }
+      },
+      {
+        "name":"Undefined character positions",
+        "start":34,
+        "stop":37,
+        "values":{
+          "#":"Undefined",
+          "|":"No attempt to code"
+        }
+      },
+      {
+        "name":"Modified record",
+        "start":38,
+        "stop":38,
+        "values":{
+          "#":"Not modified",
+          "s":"Shortened",
+          "x":"Missing characters",
+          "|":"No attempt to code"
+        }
+      },
+      {
+        "name":"Cataloging source",
+        "start":39,
+        "stop":39,
+        "values":{
+          "#":"National bibliographic agency",
+          "c":"Cooperative cataloging program",
+          "d":"Other",
+          "u":"Unknown",
+          "|":"No attempt to code"
+        }
+      }
+    ],
+    "repeatable":false
   }
 }

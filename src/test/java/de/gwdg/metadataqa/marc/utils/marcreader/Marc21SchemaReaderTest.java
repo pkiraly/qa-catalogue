@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.utils.marcreader;
 
 import de.gwdg.metadataqa.marc.TestUtils;
+import de.gwdg.metadataqa.marc.definition.structure.DefaultControlFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Marc21DataFieldDefinition;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,7 +58,7 @@ public class Marc21SchemaReaderTest {
     assertNotNull("883/ind1 should not be null", authorityManager.lookup("leader"));
     assertNull("Leader does not have subfields", authorityManager.lookup("leader").getSubfields());
 
-    Marc21DataFieldDefinition leader = (Marc21DataFieldDefinition) authorityManager.lookup("leader");
+    DefaultControlFieldDefinition leader = (DefaultControlFieldDefinition) authorityManager.lookup("leader");
 
     assertNotNull("710$w should not be null", leader.getPositions());
     assertEquals(15, leader.getPositions().size());

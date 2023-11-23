@@ -8,6 +8,7 @@ import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorCategory;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormatter;
@@ -177,7 +178,7 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
 
   @Override
   public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber, List<ValidationError> errors) {
-    if (bibliographicRecord == null || bibliographicRecord.getControl001() == null || bibliographicRecord.getId() == null)
+    if (bibliographicRecord == null || bibliographicRecord.getId() == null || hasNoControl001(bibliographicRecord))
       logger.severe("No record number at " + recordNumber);
 
     if (recordNumber % 100000 == 0)
@@ -189,7 +190,7 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
     }
 
     Set<String> groupIds = getGroupIds(parameters, bibliographicRecord);
-    if (doSaveGroupIds && bibliographicRecord != null && bibliographicRecord.getControl001() != null)
+    if (doSaveGroupIds && bibliographicRecord != null && bibliographicRecord.getId() != null)
       saveGroupIds(bibliographicRecord.getId(true), groupIds);
 
     Validator validator = new Validator(validatorConfiguration, errors);
@@ -209,6 +210,10 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
     if (parameters.collectAllErrors())
       allValidationErrors.addAll(validator.getValidationErrors());
     counter++;
+  }
+
+  private static boolean hasNoControl001(BibliographicRecord bibliographicRecord) {
+    return bibliographicRecord instanceof Marc21Record && ((Marc21Record) bibliographicRecord).getControl001() == null;
   }
 
   private void processDetails(BibliographicRecord marcRecord, Validator validator) {

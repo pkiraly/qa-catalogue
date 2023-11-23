@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcControlField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.ValidatorResponse;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
@@ -62,16 +63,18 @@ public class Validator extends AbstractValidator {
   }
 
   private boolean validateLeader() {
-    boolean isValidComponent;
-    LeaderValidator leaderValidator = new LeaderValidator(configuration);
-    isValidComponent = leaderValidator.validate(bibliographicRecord.getLeader());
-    // isValidComponent = marcRecord.getLeader().validate(configuration.getMarcVersion());
-    if (!isValidComponent) {
-      List<ValidationError> leaderErrors = leaderValidator.getValidationErrors();
-      for (ValidationError leaderError : leaderErrors)
-        if (leaderError.getRecordId() == null)
-          leaderError.setRecordId(bibliographicRecord.getId());
-      validationErrors.addAll(filterErrors(leaderErrors));
+    boolean isValidComponent = true;
+    if (bibliographicRecord instanceof Marc21Record) {
+      LeaderValidator leaderValidator = new LeaderValidator(configuration);
+      isValidComponent = leaderValidator.validate(((Marc21Record) bibliographicRecord).getLeader());
+      // isValidComponent = marcRecord.getLeader().validate(configuration.getMarcVersion());
+      if (!isValidComponent) {
+        List<ValidationError> leaderErrors = leaderValidator.getValidationErrors();
+        for (ValidationError leaderError : leaderErrors)
+          if (leaderError.getRecordId() == null)
+            leaderError.setRecordId(bibliographicRecord.getId());
+        validationErrors.addAll(filterErrors(leaderErrors));
+      }
     }
     return isValidComponent;
   }
@@ -112,12 +115,14 @@ public class Validator extends AbstractValidator {
 
   private boolean validateControlfields() {
     boolean isValidComponent = true;
-    ControlFieldValidator controlFieldValidator = new ControlFieldValidator(configuration);
-    for (MarcControlField controlField : bibliographicRecord.getControlfields()) {
-      if (controlField != null) {
-        isValidComponent = controlFieldValidator.validate(controlField);
-        if (!isValidComponent) {
-          validationErrors.addAll(filterErrors(controlFieldValidator.getValidationErrors()));
+    if (bibliographicRecord instanceof Marc21Record) {
+      ControlFieldValidator controlFieldValidator = new ControlFieldValidator(configuration);
+      for (MarcControlField controlField : ((Marc21Record) bibliographicRecord).getControlfields()) {
+        if (controlField != null) {
+          isValidComponent = controlFieldValidator.validate(controlField);
+          if (!isValidComponent) {
+            validationErrors.addAll(filterErrors(controlFieldValidator.getValidationErrors()));
+          }
         }
       }
     }

@@ -99,4 +99,6 @@ public abstract class MarcPositionalControlField extends MarcControlField {
   public ControlValue getControlValueByPosition(int position) {
     return valuesByPosition.get(position);
   }
+
+  public abstract ControlfieldPositionDefinition getSubfieldByPosition(Integer charStart);
 }

@@ -223,6 +223,11 @@ public class Control007 extends MarcPositionalControlField implements Serializab
     }
   }
 
+  @Override
+  public ControlfieldPositionDefinition getSubfieldByPosition(Integer charStart) {
+    return null;
+  }
+
   private void assignToProperty(ControlfieldPositionDefinition subfield, ControlValue controlValue) {
     switch (subfield.getId()) {
       case "007map00": tag007map00 = controlValue; break;

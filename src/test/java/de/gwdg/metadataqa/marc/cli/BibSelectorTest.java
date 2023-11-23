@@ -5,7 +5,7 @@ import de.gwdg.metadataqa.marc.cli.utils.BibSelector;
 import de.gwdg.metadataqa.marc.cli.utils.BibSelectorFactory;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
-import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.PicaRecord;
 import de.gwdg.metadataqa.marc.definition.tags.tags20x.Tag245;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
@@ -25,7 +25,7 @@ public class BibSelectorTest {
 
   @Before
   public void setUp() throws Exception {
-    marcRecord = new Marc21Record("u2407796");
+    marcRecord = new Marc21BibliographicRecord("u2407796");
 
     marcRecord.addDataField(
       new DataField(

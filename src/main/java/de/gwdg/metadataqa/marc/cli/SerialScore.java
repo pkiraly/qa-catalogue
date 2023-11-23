@@ -8,6 +8,7 @@ import de.gwdg.metadataqa.marc.cli.parameters.SerialScoreParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.analysis.Serial;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
+import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
@@ -111,11 +112,12 @@ public class SerialScore extends QACli<SerialScoreParameters> implements Bibliog
 
   @Override
   public void processRecord(BibliographicRecord marcRecord, int recordNumber) {
-    if (marcRecord.getType().equals(Leader.Type.CONTINUING_RESOURCES)) {
+    if (marcRecord instanceof Marc21BibliographicRecord
+        && ((Marc21BibliographicRecord) marcRecord).getType().equals(Leader.Type.CONTINUING_RESOURCES)) {
       if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
         return;
 
-      Serial serial = new Serial(marcRecord);
+      Serial serial = new Serial((Marc21BibliographicRecord) marcRecord);
       List<Integer> scores = serial.determineRecordQualityScore();
       String message = createRow(
         quote(marcRecord.getId().trim()), StringUtils.join(scores, ",")

@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
 import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
 import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSubjectManager;
 import de.gwdg.metadataqa.marc.utils.pica.crosswalk.Crosswalk;
@@ -169,7 +170,7 @@ public class PicaRecord extends BibliographicRecord {
 
   private static void initializeShelfReadyMap() {
     shelfReadyMap = new LinkedHashMap<>();
-    for (Map.Entry<ShelfReadyFieldsBooks, Map<String, List<String>>> entry : (new Marc21Record()).getShelfReadyMap().entrySet()) {
+    for (Map.Entry<ShelfReadyFieldsBooks, Map<String, List<String>>> entry : (new Marc21BibliographicRecord()).getShelfReadyMap().entrySet()) {
       ShelfReadyFieldsBooks category = entry.getKey();
       shelfReadyMap.put(category, new HashMap<>());
       for (Map.Entry<String, List<String>> marcEntry : entry.getValue().entrySet()) {
@@ -193,7 +194,7 @@ public class PicaRecord extends BibliographicRecord {
 
   private void initializeThompsonTrailTags() {
     thompsonTraillTagMap = new LinkedHashMap<>();
-    for (Map.Entry<ThompsonTraillFields, List<String>> entry : (new Marc21Record()).getThompsonTraillTagsMap().entrySet()) {
+    for (Map.Entry<ThompsonTraillFields, List<String>> entry : (new Marc21BibliographicRecord()).getThompsonTraillTagsMap().entrySet()) {
       ThompsonTraillFields category = entry.getKey();
       thompsonTraillTagMap.put(category, new ArrayList<>());
       for (String marcEntry : entry.getValue()) {

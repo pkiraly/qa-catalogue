@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.dao;
 
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
 import de.gwdg.metadataqa.marc.definition.controlpositions.Control008Positions;
 import de.gwdg.metadataqa.marc.definition.controltype.Control008Type;
@@ -98,7 +99,7 @@ public class Control008 extends MarcPositionalControlField implements Serializab
     initialize();
   }
 
-  public Control008(String content, BibliographicRecord marcRecord) {
+  public Control008(String content, Marc21Record marcRecord) {
     super(Control008Definition.getInstance(), content, marcRecord.getType());
     this.marcRecord = marcRecord;
     initialize();
@@ -273,6 +274,11 @@ public class Control008 extends MarcPositionalControlField implements Serializab
       valuesMap.put(subfield, value);
       byPosition.put(subfield.getPositionStart(), subfield);
     }
+  }
+
+  @Override
+  public ControlfieldPositionDefinition getSubfieldByPosition(Integer charStart) {
+    return null;
   }
 
   public String resolve(ControlfieldPositionDefinition key) {

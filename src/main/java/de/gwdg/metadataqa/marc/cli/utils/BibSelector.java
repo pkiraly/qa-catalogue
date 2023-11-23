@@ -3,7 +3,7 @@ package de.gwdg.metadataqa.marc.cli.utils;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.api.model.selector.Selector;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
-import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.PicaRecord;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public abstract class BibSelector implements Selector {
   public BibSelector(BibliographicRecord record) {
     if (record != null) {
       this.record = record;
-      if (record instanceof Marc21Record) {
+      if (record instanceof Marc21BibliographicRecord) {
         isMarc21 = true;
       } else if (record instanceof PicaRecord) {
         isPica = true;

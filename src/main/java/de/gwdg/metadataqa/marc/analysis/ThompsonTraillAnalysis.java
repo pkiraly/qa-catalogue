@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.dao.Control008;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
 import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
@@ -62,8 +63,8 @@ public class ThompsonTraillAnalysis {
       // calculateTocAndAbstract
       ttScores.set(ThompsonTraillFields.TOC, calculateTocAndAbstract(marcRecord));
 
-      var control008 = marcRecord.getControl008();
-      String date008 = extractDate008(control008);
+      var control008 = marcRecord instanceof Marc21Record ? ((Marc21Record) marcRecord).getControl008() : null;
+      String date008 = extractDate008((Control008) control008);
       ttScores.set(ThompsonTraillFields.DATE_008, calculateDate008(date008));
       ttScores.set(ThompsonTraillFields.DATE_26X, calculateDate26x(marcRecord, date008));
 
@@ -72,9 +73,9 @@ public class ThompsonTraillAnalysis {
       calculateClassifications(marcRecord, ttScores);
 
       // calculateIsOnlineResource
-      ttScores.set(ThompsonTraillFields.ONLINE, calculateIsOnlineResource(marcRecord, control008));
-      ttScores.set(ThompsonTraillFields.LANGUAGE_OF_RESOURCE, calculateLanguageOfResource(control008));
-      ttScores.set(ThompsonTraillFields.COUNTRY_OF_PUBLICATION, calculateCountryOfPublication(control008));
+      ttScores.set(ThompsonTraillFields.ONLINE, calculateIsOnlineResource(marcRecord, (Control008) control008));
+      ttScores.set(ThompsonTraillFields.LANGUAGE_OF_RESOURCE, calculateLanguageOfResource((Control008) control008));
+      ttScores.set(ThompsonTraillFields.COUNTRY_OF_PUBLICATION, calculateCountryOfPublication((Control008) control008));
       calculateLanguageAndRda(marcRecord, ttScores);
     } else if (marcRecord.getSchemaType().equals(SchemaType.PICA)) {
       for (Map.Entry<ThompsonTraillFields, List<String>> entry : marcRecord.getThompsonTraillTagsMap().entrySet())
@@ -210,7 +211,7 @@ public class ThompsonTraillAnalysis {
           else if (field.getInd2().equals("7")) {
             List<MarcSubfield> subfield2 = field.getSubfield("2");
             if (subfield2 == null) {
-              logger.log(Level.SEVERE, "Error in {0}: ind2 = 7, but there is no $2", new Object[]{marcRecord.getControl001().getContent()});
+              logger.log(Level.SEVERE, "Error in {0}: ind2 = 7, but there is no $2", new Object[]{((Marc21Record) marcRecord).getControl001().getContent()});
             } else
               switch (field.getSubfield("2").get(0).getValue()) {
                 case "fast": ttScores.count(ThompsonTraillFields.FAST); break;
@@ -251,7 +252,7 @@ public class ThompsonTraillAnalysis {
     // Description  008/23=o and 300$a “online resource”  2 points if both elements exist; 1 point if either exists
     String formOfItem = null;
     if (control008 != null) {
-      switch (marcRecord.getType()) {
+      switch (((Marc21Record) marcRecord).getType()) {
         case BOOKS:
           if (control008.getTag008book23() != null)
             formOfItem = control008.getTag008book23().getValue();

@@ -4,8 +4,9 @@ import de.gwdg.metadataqa.marc.analysis.validator.Validator;
 import de.gwdg.metadataqa.marc.analysis.validator.ValidatorConfiguration;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.Leader;
-import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.tags.tags84x.Tag880;
 import org.junit.Test;
@@ -18,7 +19,7 @@ public class Tag490Test {
 
   @Test
   public void test() {
-    BibliographicRecord marcRecord = new Marc21Record("000714573");
+    Marc21Record marcRecord = new Marc21BibliographicRecord("000714573");
     marcRecord.setLeader(new Leader("01168cam a2200325 a 4500"));
     DataField field = new DataField(Tag490.getInstance(), "0", " ", "6", "880-03", "a", "ifriyat ha-Entsiḳlopedyah ha-Miḳraʼit ;", "v", "9");
     field.setMarcRecord(marcRecord);
@@ -32,7 +33,7 @@ public class Tag490Test {
 
   @Test
   public void test880() {
-    BibliographicRecord marcRecord = new Marc21Record("000714573");
+    Marc21Record marcRecord = new Marc21BibliographicRecord("000714573");
     marcRecord.setLeader(new Leader("01168cam a2200325 a 4500"));
     DataField field = new DataField(Tag880.getInstance(), " ", "0", "6", "490-03/(2/r", "a", "ספריית האנציקלופדיה המקראית ;", "v", "9");
     field.setMarcRecord(marcRecord);

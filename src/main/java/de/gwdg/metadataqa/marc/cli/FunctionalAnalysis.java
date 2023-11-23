@@ -8,6 +8,7 @@ import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcControlField;
 import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
@@ -105,9 +106,9 @@ public class FunctionalAnalysis extends QACli<CompletenessParameters> implements
 
     Map<DataFieldDefinition, Boolean> cache = new HashMap<>();
 
-    if (bibliographicRecord.getSchemaType().equals(SchemaType.MARC21)) {
-      countPositionalControlField(recordCounter, bibliographicRecord.getLeader());
-      countControlFields(recordCounter, bibliographicRecord.getControlfields());
+    if (bibliographicRecord instanceof Marc21Record && bibliographicRecord.getSchemaType().equals(SchemaType.MARC21)) {
+      countPositionalControlField(recordCounter, ((Marc21Record) bibliographicRecord).getLeader());
+      countControlFields(recordCounter, ((Marc21Record) bibliographicRecord).getControlfields());
     }
     countDataFields(recordCounter, bibliographicRecord.getDatafields(), bibliographicRecord.getSchemaType(), cache);
 

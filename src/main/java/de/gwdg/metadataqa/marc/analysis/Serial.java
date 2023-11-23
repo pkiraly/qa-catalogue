@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.dao.Control006;
 import de.gwdg.metadataqa.marc.dao.Control008;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
  * https://www.tandfonline.com/doi/full/10.1080/00987913.2017.1350525
  */
 public class Serial {
-  private BibliographicRecord marcRecord;
+  private Marc21Record marcRecord;
   private SerialScores scores;
 
   private static List<String> headers = new LinkedList<>();
@@ -25,7 +26,7 @@ public class Serial {
     }
   }
 
-  public Serial(BibliographicRecord marcRecord) {
+  public Serial(Marc21Record marcRecord) {
     this.marcRecord = marcRecord;
     scores = new SerialScores();
   }
@@ -139,9 +140,14 @@ public class Serial {
   public List<Integer> determineRecordQualityScore() {
     var control008 = marcRecord.getControl008();
 
-    detectUnknownDate1(control008);
-    detectUnknownCountry(control008);
-    detectUnkownLanguage(control008);
+    if (control008 instanceof Control008) {
+      detectUnknownDate1((Control008) control008);
+      detectUnknownCountry((Control008) control008);
+      detectUnkownLanguage((Control008) control008);
+      detectAutomaticDiscards((Control008) control008);
+      detectInactiveTitles((Control008) control008);
+      detectDateStartsWith0((Control008) control008);
+    }
     detectAuthenticationCode();
     detectEncodingLevel();
     detect008();
@@ -153,10 +159,7 @@ public class Serial {
     detectDescriptionSource();
     detectLocSubjectHeadings();
     detectPPC();
-    detectAutomaticDiscards(control008);
-    detectInactiveTitles(control008);
     detectDeletion();
-    detectDateStartsWith0(control008);
 
     scores.calculateTotal();
     return scores.asList();
@@ -352,10 +355,10 @@ public class Serial {
   public void print() {
     System.out.print(
       marcRecord.getId()
-        + ", form of item: " + marcRecord.getControl008().getValueByPosition(23) // record.getControl008().getControlValueByPosition(23).resolve()
+        + ", form of item: " + ((Control008)marcRecord.getControl008()).getValueByPosition(23) // record.getControl008().getControlValueByPosition(23).resolve()
         + ", issn: " + marcRecord.getDatafield("022").get(0).getSubfield("a").get(0).getValue()
-        + ", date1: " + marcRecord.getControl008().getTag008all07().getValue()
-        + ", date2: " + marcRecord.getControl008().getTag008all11().getValue()
+        + ", date1: " + ((Control008)marcRecord.getControl008()).getTag008all07().getValue()
+        + ", date2: " + ((Control008)marcRecord.getControl008()).getTag008all11().getValue()
         + ", encodingLevel: " + getEncodingLevel()
         // + ", title: " + record.getDatafield("245").get(0).toString()
         + ", " + scores.get(SerialFields.TOTAL)

@@ -14,8 +14,9 @@ import de.gwdg.metadataqa.marc.dao.Control005;
 import de.gwdg.metadataqa.marc.dao.Control008;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.Leader;
-import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.tags.oclctags.Tag090;
 import de.gwdg.metadataqa.marc.definition.tags.sztetags.Tag596;
@@ -56,7 +57,7 @@ public class ValidationTest {
 
   @Test
   public void test246_6() throws URISyntaxException, IOException {
-    BibliographicRecord marcRecord = new Marc21Record("u2407796");
+    Marc21Record marcRecord = new Marc21BibliographicRecord("u2407796");
     marcRecord.setLeader(new Leader("00860cam a22002774a 45 0"));
     marcRecord.setControl003(new Control003("SIRSI"));
     marcRecord.setControl005(new Control005("20080331162830.0"));

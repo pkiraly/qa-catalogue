@@ -3,7 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags.oclctags;
 import de.gwdg.metadataqa.marc.analysis.validator.DataFieldValidator;
 import de.gwdg.metadataqa.marc.analysis.validator.ValidatorConfiguration;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import org.junit.Test;
@@ -15,7 +15,7 @@ public class Tag029Test {
 
   @Test
   public void test() {
-    BibliographicRecord marcRecord = new Marc21Record("test");
+    BibliographicRecord marcRecord = new Marc21BibliographicRecord("test");
     DataField field = new DataField(Tag029.getInstance(), "a", "a", "a", "0170-1967");
     field.setMarcRecord(marcRecord);
 

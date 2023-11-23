@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.dao;
 
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
 import de.gwdg.metadataqa.marc.definition.controlpositions.Control006Positions;
 import de.gwdg.metadataqa.marc.definition.controltype.Control008Type;
@@ -86,7 +87,7 @@ public class Control006 extends MarcPositionalControlField implements Serializab
       processContent();
   }
 
-  public Control006(String content, BibliographicRecord marcRecord) {
+  public Control006(String content, Marc21Record marcRecord) {
     super(Control006Definition.getInstance(), content, marcRecord.getType());
     this.marcRecord = marcRecord;
     if (content != null)
@@ -154,6 +155,11 @@ public class Control006 extends MarcPositionalControlField implements Serializab
       valuesMap.put(subfield, value);
       byPosition.put(subfield.getPositionStart(), subfield);
     }
+  }
+
+  @Override
+  public ControlfieldPositionDefinition getSubfieldByPosition(Integer charStart) {
+    return null;
   }
 
   private void extractBooks(Control008Type actual, ControlfieldPositionDefinition subfield, ControlValue controlValue) {

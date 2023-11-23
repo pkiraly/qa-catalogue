@@ -184,6 +184,11 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
     return valuesMap;
   }
 
+  @Override
+  public ControlfieldPositionDefinition getSubfieldByPosition(Integer charStart) {
+    return null;
+  }
+
   public String get(ControlfieldPositionDefinition key) {
     return valuesMap.get(key);
   }

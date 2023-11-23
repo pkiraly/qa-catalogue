@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.marc.dao.Leader;
-import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -14,7 +14,7 @@ public class SerialTest {
 
   @Test
   public void test() {
-    BibliographicRecord marcRecord = new Marc21Record("ocn655855524");
+    Marc21BibliographicRecord marcRecord = new Marc21BibliographicRecord("ocn655855524");
     marcRecord.setLeader("02157cas a2200517Ka 4500");
     marcRecord.setField("008", "100812c19359999ne.qx.p.o.....0...a0eng.d");
     marcRecord.setField("006", "m.....o..d........");

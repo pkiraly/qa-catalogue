@@ -10,6 +10,7 @@ import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcControlField;
 import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
 import de.gwdg.metadataqa.marc.definition.tags.TagCategory;
 import de.gwdg.metadataqa.marc.utils.BibiographicPath;
@@ -72,8 +73,8 @@ public class RecordCompleteness {
     completenessDAO.getElementFrequency().computeIfAbsent(documentType, s -> new HashMap<>());
     completenessDAO.getElementFrequency().computeIfAbsent(Completeness.ALL_TYPE, s -> new HashMap<>());
 
-    if (bibliographicRecord.getControl003() != null)
-      Utils.count(bibliographicRecord.getControl003().getContent(), completenessDAO.getLibrary003Counter());
+    if (bibliographicRecord instanceof Marc21Record && ((Marc21Record) bibliographicRecord).getControl003() != null)
+      Utils.count(((Marc21Record) bibliographicRecord).getControl003().getContent(), completenessDAO.getLibrary003Counter());
 
     for (String library : extract(bibliographicRecord, "852", "a"))
       Utils.count(library, completenessDAO.getLibraryCounter());
@@ -87,8 +88,8 @@ public class RecordCompleteness {
   }
 
   private void processLeader() {
-    if (bibliographicRecord.getLeader() != null) {
-      for (ControlValue position : bibliographicRecord.getLeader().getValuesList()) {
+    if (bibliographicRecord instanceof Marc21Record && ((Marc21Record) bibliographicRecord).getLeader() != null) {
+      for (ControlValue position : ((Marc21Record) bibliographicRecord).getLeader().getValuesList()) {
         String marcPath = position.getDefinition().getId();
         if (hasGroupBy()) {
           for (String groupId : groupIds)
@@ -104,7 +105,7 @@ public class RecordCompleteness {
   }
 
   private void processSimpleControlfields() {
-    for (MarcControlField field : bibliographicRecord.getSimpleControlfields()) {
+    for (MarcControlField field : ((Marc21Record) bibliographicRecord).getSimpleControlfields()) {
       if (field != null) {
         String marcPath = field.getDefinition().getTag();
         if (hasGroupBy()) {
@@ -121,7 +122,7 @@ public class RecordCompleteness {
   }
 
   private void processPositionalControlFields() {
-    for (MarcPositionalControlField field : bibliographicRecord.getPositionalControlfields()) {
+    for (MarcPositionalControlField field : ((Marc21Record) bibliographicRecord).getPositionalControlfields()) {
       if (field != null) {
         for (ControlValue position : field.getValuesList()) {
           String marcPath = position.getDefinition().getId();

@@ -30,7 +30,6 @@ public class LeaderPositions extends ControlfieldPositionList {
   private static List<ControlfieldPositionDefinition> positionList = new ArrayList<>();
 
   private static final Map<String, ControlfieldPositionDefinition> positionLabelMap = new HashMap<>();
-  // private static final Map<String, ControlfieldPositionDefinition> positionIdMap = new HashMap<>();
 
   private static LeaderPositions uniqueInstance;
 
@@ -46,9 +45,6 @@ public class LeaderPositions extends ControlfieldPositionList {
   }
 
   private void initialize() {
-
-    // subfieldList.put(Control008Type.ALL_MATERIALS, Arrays.asList());
-
     positionList = Arrays.asList(
       Leader00.getInstance(),
       Leader05.getInstance(),
@@ -87,8 +83,4 @@ public class LeaderPositions extends ControlfieldPositionList {
   public static ControlfieldPositionDefinition getByLabel(String key) {
     return positionLabelMap.get(key);
   }
-
-  // public static ControlfieldPositionDefinition getById(String key) {
-    //return positionIdMap.get(key);
-  //}
 }

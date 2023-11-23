@@ -13,12 +13,17 @@ import de.gwdg.metadataqa.marc.dao.Control006;
 import de.gwdg.metadataqa.marc.dao.Control007;
 import de.gwdg.metadataqa.marc.dao.Control008;
 import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.DefaultMarcPositionalControlField;
 import de.gwdg.metadataqa.marc.dao.Leader;
-import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.SimpleControlField;
+import de.gwdg.metadataqa.marc.dao.record.Marc21AuthorityRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.dao.record.PicaRecord;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.structure.DefaultControlFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
 
@@ -27,6 +32,7 @@ import de.gwdg.metadataqa.marc.utils.MapToDatafield;
 
 import de.gwdg.metadataqa.marc.utils.alephseq.MarcMakerLine;
 import de.gwdg.metadataqa.marc.utils.alephseq.MarclineLine;
+import de.gwdg.metadataqa.marc.utils.marcreader.Marc21SchemaManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaDataField;
 import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
 import de.gwdg.metadataqa.marc.utils.pica.reader.model.PicaLine;
@@ -36,6 +42,7 @@ import net.minidev.json.JSONArray;
 import org.marc4j.marc.ControlField;
 import org.marc4j.marc.Record;
 import org.marc4j.marc.Subfield;
+import org.marc4j.marc.VariableField;
 import org.marc4j.marc.impl.ControlFieldImpl;
 import org.marc4j.marc.impl.DataFieldImpl;
 import org.marc4j.marc.impl.LeaderImpl;
@@ -69,7 +76,7 @@ public class MarcFactory {
   }
 
   public static BibliographicRecord create(JsonSelector selector, MarcVersion version) {
-    var marcRecord = new Marc21Record();
+    var marcRecord = new Marc21BibliographicRecord();
     for (DataElement dataElement : schema.getPaths()) {
       if (dataElement.getParent() != null)
         continue;
@@ -148,7 +155,7 @@ public class MarcFactory {
                                                      Leader.Type defaultType,
                                                      MarcVersion marcVersion,
                                                      String replacementInControlFields) {
-    var marcRecord = new Marc21Record();
+    var marcRecord = new Marc21BibliographicRecord();
 
     if (marc4jRecord.getLeader() != null) {
       String data = marc4jRecord.getLeader().marshal();
@@ -173,9 +180,56 @@ public class MarcFactory {
     return marcRecord;
   }
 
+  public static BibliographicRecord createAuthorityFromMarc4j(Record mar4jRecord,
+                                                              Marc21SchemaManager authorityManager,
+                                                              String replacementInControlFields) {
+    Marc21AuthorityRecord authorityRecord = new Marc21AuthorityRecord(mar4jRecord.getControlNumber());
+    String leader = mar4jRecord.getLeader().marshal();
+    if (replacementInControlFields != null)
+      leader = leader.replace(replacementInControlFields, " ");
+
+    authorityRecord.setLeader(
+      new DefaultMarcPositionalControlField(
+        (DefaultControlFieldDefinition) authorityManager.lookup("leader"),
+        leader
+      )
+    );
+
+    for (VariableField field : mar4jRecord.getVariableFields()) {
+      DataFieldDefinition definition = authorityManager.lookup(field.getTag());
+      if (definition == null) {
+        authorityRecord.addUnhandledTags(field.getTag());
+      } else {
+        if (field instanceof org.marc4j.marc.ControlField) {
+          org.marc4j.marc.ControlField ctr = (org.marc4j.marc.ControlField) field;
+
+          switch (field.getTag()) {
+            case "001": authorityRecord.setControl001(new SimpleControlField(definition, ctr.getData())); break;
+            case "003": authorityRecord.setControl003(new SimpleControlField(definition, ctr.getData())); break;
+            case "005": authorityRecord.setControl005(new SimpleControlField(definition, ctr.getData())); break;
+            case "008":
+              authorityRecord.setControl008(
+                new DefaultMarcPositionalControlField((DefaultControlFieldDefinition) definition, ctr.getData()));
+              break;
+            default:
+              logger.warning("unhandled element in authority record: " + ctr.getTag()); break;
+
+            // case "006": authorityRecord.setControl006(new SimpleControlField(definition, ctr.getData())); break;
+            // case "007": authorityRecord.setControl007(new SimpleControlField(definition, ctr.getData())); break;
+            // case "008": authorityRecord.setControl008(new SimpleControlField(definition, ctr.getData())); break;
+          }
+        } else if (field instanceof org.marc4j.marc.DataField) {
+          var bibField = extractDataField((org.marc4j.marc.DataField) field, definition, MarcVersion.MARC21);
+          authorityRecord.addDataField(bibField);
+        }
+      }
+    }
+    return authorityRecord;
+  }
+
   public static BibliographicRecord createPicaFromMarc4j(Record marc4jRecord, PicaSchemaManager picaSchemaManager) {
-    var marcRecord = new PicaRecord();
-    importMarc4jControlFields(marc4jRecord, marcRecord, null);
+    var marcRecord = new PicaRecord(marc4jRecord.getControlNumber());
+    // importMarc4jControlFields(marc4jRecord, marcRecord, null);
     importMarc4jDataFields(marc4jRecord, marcRecord, picaSchemaManager);
 
     return marcRecord;
@@ -193,17 +247,17 @@ public class MarcFactory {
         data = data.replace(replacementInControlFields, " ");
       switch (controlField.getTag()) {
         case "001":
-          marcRecord.setControl001(new Control001(data)); break;
+          ((Marc21Record) marcRecord).setControl001(new Control001(data)); break;
         case "003":
-          marcRecord.setControl003(new Control003(data)); break;
+          ((Marc21Record) marcRecord).setControl003(new Control003(data)); break;
         case "005":
-          marcRecord.setControl005(new Control005(data, marcRecord)); break;
+          ((Marc21Record) marcRecord).setControl005(new Control005(data, marcRecord)); break;
         case "006":
-          marcRecord.setControl006(new Control006(data, marcRecord)); break;
+          ((Marc21Record) marcRecord).setControl006(new Control006(data, (Marc21Record) marcRecord)); break;
         case "007":
-          marcRecord.setControl007(new Control007(data, marcRecord)); break;
+          ((Marc21Record) marcRecord).setControl007(new Control007(data, marcRecord)); break;
         case "008":
-          marcRecord.setControl008(new Control008(data, marcRecord)); break;
+          ((Marc21Record) marcRecord).setControl008(new Control008(data, (Marc21Record) marcRecord)); break;
         default:
           break;
       }
@@ -360,7 +414,7 @@ public class MarcFactory {
     if (marcVersion == null)
       marcVersion = MarcVersion.MARC21;
 
-    var marcRecord = new Marc21Record();
+    var marcRecord = new Marc21BibliographicRecord();
     for (String line : lines) {
       if (line.startsWith("LEADER ")) {
         marcRecord.setLeader(line.replace("LEADER ", ""), marcVersion);
@@ -378,7 +432,7 @@ public class MarcFactory {
     if (marcVersion == null)
       marcVersion = MarcVersion.MARC21;
 
-    var marcRecord = new Marc21Record();
+    var marcRecord = new Marc21BibliographicRecord();
     for (AlephseqLine line : lines) {
       if (line.isLeader()) {
         marcRecord.setLeader(line.getContent());
@@ -505,4 +559,5 @@ public class MarcFactory {
       marc4jRecord.addVariableField(new ControlFieldImpl("001", id));
     return marc4jRecord;
   }
+
 }

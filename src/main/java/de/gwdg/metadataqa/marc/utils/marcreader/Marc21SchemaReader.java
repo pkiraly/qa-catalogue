@@ -29,13 +29,13 @@ import java.util.logging.Logger;
 public class Marc21SchemaReader {
   private static final Logger logger = Logger.getLogger(Marc21SchemaReader.class.getCanonicalName());
   private static final Map<String, Integer> knownFieldProperties = Map.of(
-    "name", 1, "repeatable", 1, "fixed", 1, "indicators", 1, "subfields", 1, "positions", 1);
+    "label", 1, "repeatable", 1, "indicators", 1, "subfields", 1, "positions", 1);
   private static final Map<String, Integer> knownSubfieldProperties = Map.of(
-    "name", 1, "repeatable", 1, "static", 1, "staticValues", 1);
+    "label", 1, "repeatable", 1, "static", 1, "codes", 1);
   private static final Map<String, Integer> knownSubfieldCodeProperties = Map.of(
-    "name", 1, "value",1);
+    "label", 1, "value",1);
   private static final Map<String, Integer> knownIndicatorProperties = Map.of(
-    "name", 1, "values",1);
+    "label", 1, "codes",1);
   private JSONParser parser = new JSONParser(JSONParser.MODE_RFC4627);
   private Map<String, DataFieldDefinition> map = new HashMap<>();
 
@@ -64,7 +64,8 @@ public class Marc21SchemaReader {
   }
 
   private void process(JSONObject jsonObject) throws IOException, ParseException, URISyntaxException {
-    for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
+    JSONObject fields = (JSONObject) jsonObject.get("fields");
+    for (Map.Entry<String, Object> entry : fields.entrySet()) {
       String id = entry.getKey();
       // if (id.equals("leader"))
       //   continue;
@@ -72,9 +73,9 @@ public class Marc21SchemaReader {
       JSONObject field = (JSONObject) entry.getValue();
       DataFieldDefinition tag = new Marc21DataFieldDefinition(
         id,
-        (String) field.get("name"),
+        (String) field.get("label"),
         (boolean) field.get("repeatable"),
-        (boolean) field.get("fixed")
+        !field.containsKey("subfields")
       );
       if (field.containsKey("indicators"))
         processIndicators((JSONObject) field.get("indicators"), (Marc21DataFieldDefinition) tag);
@@ -107,11 +108,11 @@ public class Marc21SchemaReader {
   private ControlfieldPositionDefinition processPosition(Object positionNode, Marc21DataFieldDefinition tag) {
     if (positionNode instanceof JSONObject) {
       JSONObject position = (JSONObject) positionNode;
-      String label = position.getAsString("name");
+      String label = position.getAsString("label");
       int start = (int) position.getAsNumber("start");
       int end = (int) position.getAsNumber("stop") + 1;
       ControlfieldPositionDefinition definition = new ControlfieldPositionDefinition(label, start, end);
-      if (position.containsKey("values")) {
+      if (position.containsKey("codes")) {
         definition.setCodes(extractEncodedValues(position));
         int lenght = (end - start);
         if (lenght > 1
@@ -145,8 +146,8 @@ public class Marc21SchemaReader {
   private Indicator processIndicator(Object indicatorNode, String tag) {
     if (indicatorNode instanceof JSONObject) {
       JSONObject indicator = (JSONObject) indicatorNode;
-      Indicator definition = new Indicator((String)indicator.get("name"));
-      if (indicator.containsKey("values")) {
+      Indicator definition = new Indicator((String)indicator.get("label"));
+      if (indicator.containsKey("codes")) {
         definition.setCodes(extractEncodedValues(indicator));
       }
       for (String key : indicator.keySet())
@@ -162,7 +163,7 @@ public class Marc21SchemaReader {
 
   private static List<EncodedValue> extractEncodedValues(JSONObject valueContainer) {
     List<EncodedValue> codes = new LinkedList<>();
-    for (Map.Entry<String, Object> value : ((JSONObject) valueContainer.get("values")).entrySet()) {
+    for (Map.Entry<String, Object> value : ((JSONObject) valueContainer.get("codes")).entrySet()) {
       String code = value.getKey().equals("#") ? " " : value.getKey();
       codes.add(new EncodedValue(code, (String) value.getValue()));
     }
@@ -189,12 +190,12 @@ public class Marc21SchemaReader {
     SubfieldDefinition definition = null;
     if (o instanceof JSONObject) {
       JSONObject subfield = (JSONObject) o;
-      String label = (String) subfield.get("name");
+      String label = (String) subfield.get("label");
       boolean repeatable = (boolean) subfield.get("repeatable");
       String cardinalityCode = repeatable ? Cardinality.Repeatable.getCode() : Cardinality.Nonrepeatable.getCode();
       definition = new SubfieldDefinition(code, label, cardinalityCode);
-      if (subfield.containsKey("staticValues"))
-        definition.setCodes(processStaticValues(subfield.get("staticValues")));
+      if (subfield.containsKey("codes"))
+        definition.setCodes(processStaticValues(subfield.get("codes")));
       for (String key : subfield.keySet()) {
         if (!knownSubfieldProperties.containsKey(key))
           logger.warning("unhandled subfield property: " + key);
@@ -215,7 +216,7 @@ public class Marc21SchemaReader {
           if (!code.equals(property.get("value")))
             logger.warning(String.format("code is different to code value: %s vs %s", code, (String)property.get("value")));
           else
-            list.add(new EncodedValue(code, (String) property.get("name")));
+            list.add(new EncodedValue(code, (String) property.get("label")));
           for (String key : property.keySet()) {
             if (!knownSubfieldCodeProperties.containsKey(key))
               logger.warning("unhandled subfield code property: " + key);

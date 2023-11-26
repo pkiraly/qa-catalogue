@@ -13,7 +13,8 @@ log() {
 OUTPUT_DIR=$1
 NAME=$2
 HAS_GROUP_PARAM=$3
-SOLR_FOR_SCORES_URL=$4
+ONLY_INDEX=$4
+SOLR_FOR_SCORES_URL=$5
 
 log "OUTPUT_DIR: ${OUTPUT_DIR}"
 
@@ -34,7 +35,7 @@ log "create Solr core"
 
 CORE_EXISTS=$(check_core $SOLR_CORE)
 log "$SOLR_CORE exists: $CORE_EXISTS"
-if [[ $CORE_EXISTS != 1 ]]; then
+if [[ $CORE_EXISTS != 1 && "${ONLY_INDEX}" == "0" ]]; then
   echo "Create Solr core '$SOLR_CORE'"
   create_core $SOLR_CORE
   prepare_schema $SOLR_CORE

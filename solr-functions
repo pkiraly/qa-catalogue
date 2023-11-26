@@ -190,3 +190,14 @@ store_fields() {
     > $OUTPUT_DIR/solr-fields.json
 }
 
+extract_host() {
+  URL=$1
+  HOST=$(echo ${URL} | grep -oP "^https?://[^/]+" || true)
+  echo ${HOST}
+}
+
+extract_core() {
+  URL=$1
+  CORE=$(echo ${URL} | grep -oP "[^/]+$" || true)
+  echo ${CORE};
+}

@@ -66,8 +66,6 @@ public class Marc21SchemaReader {
   private void process(JSONObject jsonObject) throws IOException, ParseException, URISyntaxException {
     for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
       String id = entry.getKey();
-      // if (id.equals("leader"))
-      //   continue;
 
       JSONObject field = (JSONObject) entry.getValue();
       DataFieldDefinition tag = new Marc21DataFieldDefinition(

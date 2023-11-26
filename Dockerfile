@@ -68,6 +68,7 @@ RUN cd /opt \
       php-curl \
       php-yaml \
       php-intl \
+      php-dom \
       unzip \
       composer \
       gettext \

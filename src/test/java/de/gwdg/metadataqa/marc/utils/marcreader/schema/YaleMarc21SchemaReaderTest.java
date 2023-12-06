@@ -1,20 +1,19 @@
-package de.gwdg.metadataqa.marc.utils.marcreader;
+package de.gwdg.metadataqa.marc.utils.marcreader.schema;
 
 import de.gwdg.metadataqa.marc.TestUtils;
 import de.gwdg.metadataqa.marc.definition.structure.DefaultControlFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.structure.Marc21DataFieldDefinition;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class Marc21SchemaReaderTest {
+public class YaleMarc21SchemaReaderTest {
 
   Marc21SchemaManager authorityManager;
 
   @Before
   public void setUp() throws Exception {
-    Marc21SchemaReader schemaReader = new Marc21SchemaReader(TestUtils.getPathFromMain("marc/authority-schema.json"));
+    YaleMarc21SchemaReader schemaReader = new YaleMarc21SchemaReader(TestUtils.getPathFromMain("marc/authority-schema.yale.json"));
     assertNotNull(schemaReader);
     assertNotNull(schemaReader.getMap());
     assertTrue(schemaReader.getMap().containsKey("001"));

@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.utils.marcreader;
+package de.gwdg.metadataqa.marc.utils.marcreader.schema;
 
 import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
@@ -26,8 +26,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-public class Marc21SchemaReader {
-  private static final Logger logger = Logger.getLogger(Marc21SchemaReader.class.getCanonicalName());
+public class YaleMarc21SchemaReader {
+  private static final Logger logger = Logger.getLogger(YaleMarc21SchemaReader.class.getCanonicalName());
   private static final Map<String, Integer> knownFieldProperties = Map.of(
     "name", 1, "repeatable", 1, "fixed", 1, "indicators", 1, "subfields", 1, "positions", 1);
   private static final Map<String, Integer> knownSubfieldProperties = Map.of(
@@ -39,7 +39,7 @@ public class Marc21SchemaReader {
   private JSONParser parser = new JSONParser(JSONParser.MODE_RFC4627);
   private Map<String, DataFieldDefinition> map = new HashMap<>();
 
-  public Marc21SchemaReader(String fileName) {
+  public YaleMarc21SchemaReader(String fileName) {
     try {
       readFile(fileName);
     } catch (IOException | ParseException | URISyntaxException e) {
@@ -47,7 +47,7 @@ public class Marc21SchemaReader {
     }
   }
 
-  public Marc21SchemaReader(InputStream inputStream) {
+  public YaleMarc21SchemaReader(InputStream inputStream) {
     try {
       readStream(inputStream);
     } catch (IOException | ParseException | URISyntaxException e) {

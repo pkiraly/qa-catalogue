@@ -380,6 +380,7 @@ public class Control007 extends MarcPositionalControlField implements Serializab
     return key.resolve(value);
   }
 
+  @Override
   public String getContent() {
     return content;
   }

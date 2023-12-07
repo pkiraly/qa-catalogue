@@ -13,6 +13,7 @@ public class Marc21DataFieldDefinition extends DataFieldDefinition {
     this.label = label;
     this.fixed = fixed;
     cardinality = repeatable ? Cardinality.Repeatable : Cardinality.Nonrepeatable;
+    this.descriptionUrl = String.format("https://www.loc.gov/marc/authority/ad%s.html", tag);
   }
 
   public void setInd1(Indicator indicator) {

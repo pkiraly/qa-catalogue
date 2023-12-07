@@ -32,7 +32,7 @@ import de.gwdg.metadataqa.marc.utils.MapToDatafield;
 
 import de.gwdg.metadataqa.marc.utils.alephseq.MarcMakerLine;
 import de.gwdg.metadataqa.marc.utils.alephseq.MarclineLine;
-import de.gwdg.metadataqa.marc.utils.marcreader.Marc21SchemaManager;
+import de.gwdg.metadataqa.marc.utils.marcreader.schema.Marc21SchemaManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaDataField;
 import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
 import de.gwdg.metadataqa.marc.utils.pica.reader.model.PicaLine;

@@ -316,12 +316,21 @@ EOF
     rm ${OUTPUT_DIR}/id-groupid_noheader.csv
   fi
 
+  SOLR_FOR_SCORES_URL=$(echo $TYPE_PARAMS | grep -P -o --regexp='--solrForScoresUrl \K([^ ]+)' || true)
+  ONLY_INDEX=$(echo ${PARAMS} | grep -c -P -e '--onlyIndex' || true)
+
   if [[ "${HAS_GROUP_PARAM}" == "0" ]]; then
     log "index"
     sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.sql &>> ${PREFIX}/sqlite.log
+    if [[ "${SOLR_FOR_SCORES_URL}" != "" ]]; then
+      echo "index at ${SOLR_FOR_SCORES_URL}"
+      # index id-groupid.csv and issue-details.csv
+      scripts/sqlite/index-issue-details.sh ${OUTPUT_DIR} ${NAME} ${HAS_GROUP_PARAM} ${ONLY_INDEX} ${SOLR_FOR_SCORES_URL}
+    fi
   else
     log "index (grouped)"
-    scripts/sqlite/calculate-aggregated-numbers.grouped.sh ${OUTPUT_DIR} ${NAME}
+    scripts/sqlite/index-issue-details.sh ${OUTPUT_DIR} ${NAME} ${HAS_GROUP_PARAM} ${ONLY_INDEX} ${SOLR_FOR_SCORES_URL}
+    scripts/sqlite/calculate-aggregated-numbers.grouped.sh ${OUTPUT_DIR} ${NAME} ${HAS_GROUP_PARAM} ${SOLR_FOR_SCORES_URL}
   fi
 }
 

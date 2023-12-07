@@ -1,12 +1,14 @@
-package de.gwdg.metadataqa.marc.utils.marcreader;
+package de.gwdg.metadataqa.marc.utils.marcreader.schema;
 
 import de.gwdg.metadataqa.marc.TestUtils;
 import de.gwdg.metadataqa.marc.definition.structure.DefaultControlFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.structure.Marc21DataFieldDefinition;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 public class AvramMarc21SchemaReaderTest {
 

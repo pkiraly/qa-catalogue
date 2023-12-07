@@ -1,6 +1,7 @@
-package de.gwdg.metadataqa.marc.utils.marcreader;
+package de.gwdg.metadataqa.marc.utils.marcreader.schema;
 
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.utils.marcreader.SchemaManager;
 
 import java.util.Map;
 

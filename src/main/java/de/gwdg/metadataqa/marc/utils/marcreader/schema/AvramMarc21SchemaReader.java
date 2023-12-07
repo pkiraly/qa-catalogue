@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.utils.marcreader;
+package de.gwdg.metadataqa.marc.utils.marcreader.schema;
 
 import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
@@ -67,8 +67,6 @@ public class AvramMarc21SchemaReader {
     JSONObject fields = (JSONObject) jsonObject.get("fields");
     for (Map.Entry<String, Object> entry : fields.entrySet()) {
       String id = entry.getKey();
-      // if (id.equals("leader"))
-      //   continue;
 
       JSONObject field = (JSONObject) entry.getValue();
       DataFieldDefinition tag = new Marc21DataFieldDefinition(

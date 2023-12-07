@@ -11,7 +11,8 @@ log() {
 }
 
 OUTPUT_DIR=$1
-NAME=$2
+NAME=$1
+SOLR_FOR_SCORES_URL=$3
 
 log "OUTPUT_DIR: ${OUTPUT_DIR}"
 
@@ -21,25 +22,13 @@ else
   . ./../../solr-functions
 fi
 
-SOLR_CORE=${NAME}_validation
-
-log "create Solr core"
-
-CORE_EXISTS=$(check_core $SOLR_CORE)
-log "$SOLR_CORE exists: $CORE_EXISTS"
-if [[ $CORE_EXISTS != 1 ]]; then
-  echo "Create Solr core '$SOLR_CORE'"
-  create_core $SOLR_CORE
-  prepare_schema $SOLR_CORE
+if [[ "${SOLR_FOR_SCORES_URL}" != "" ]]; then
+  SOLR_HOST=$(extract_host $SOLR_FOR_SCORES_URL)
+  SOLR_CORE=$(extract_core $SOLR_FOR_SCORES_URL)
 else
-  purge_core $SOLR_CORE
+  SOLR_CORE=${NAME}_validation
 fi
-
-log "populate Solr core"
-
-php scripts/sqlite/validation-result-indexer.php ${OUTPUT_DIR} $SOLR_CORE
-
-optimize_core $SOLR_CORE
+log "using Solr at ${SOLR_HOST} with core: ${SOLR_CORE}"
 
 log "calculate numbers"
 
@@ -47,7 +36,7 @@ log "calculate numbers"
 # ${OUTPUT_DIR}/issue-grouped-types.csv
 # ${OUTPUT_DIR}/issue-grouped-categories.csv
 # ${OUTPUT_DIR}/issue-grouped-paths.csv
-Rscript scripts/sqlite/qa_catalogue.grouping.R ${OUTPUT_DIR} $SOLR_CORE
+Rscript scripts/sqlite/qa_catalogue.grouping.R ${OUTPUT_DIR} ${SOLR_HOST} $SOLR_CORE
 
 log "import issue_grouped_types"
 tail -n +2 ${OUTPUT_DIR}/issue-grouped-types.csv > ${OUTPUT_DIR}/issue-grouped-types-noheader.csv

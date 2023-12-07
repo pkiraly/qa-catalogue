@@ -2,7 +2,6 @@ package de.gwdg.metadataqa.marc.dao.record;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
 import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
@@ -56,6 +55,7 @@ public class Marc21Record extends BibliographicRecord {
     super();
   }
 
+  @Override
   public String getId() {
     if (id != null)
       return id;
@@ -188,6 +188,7 @@ public class Marc21Record extends BibliographicRecord {
     controlfieldIndex.put(control008.getDefinition().getTag(), Arrays.asList(control008));
   }
 
+  @Override
   public Map<String, List<String>> getKeyValuePairs(SolrFieldType type,
                                                     boolean withDeduplication,
                                                     MarcVersion marcVersion) {
@@ -209,6 +210,7 @@ public class Marc21Record extends BibliographicRecord {
     return mainKeyValuePairs;
   }
 
+  @Override
   public String asJson() {
     ObjectMapper mapper = new ObjectMapper();
 
@@ -224,6 +226,7 @@ public class Marc21Record extends BibliographicRecord {
     return transformMapToJson(mapper, map);
   }
 
+  @Override
   public List<String> search(String path, String query) {
     List<String> results = new ArrayList<>();
     if (path.equals("001") || path.equals("003") || path.equals("005")) {
@@ -315,6 +318,7 @@ public class Marc21Record extends BibliographicRecord {
     }
   }
 
+  @Override
   public List<String> select(MarcSpec selector) {
     List<String> results = new ArrayList<>();
     if (selector.getFieldTag().equals("LDR") && leader != null && StringUtils.isNotEmpty(leader.getContent())) {
@@ -390,6 +394,7 @@ public class Marc21Record extends BibliographicRecord {
     return null;
   }
 
+  @Override
   public void setField(String tag, String content, MarcVersion marcVersion) {
     if (marcVersion.equals(MarcVersion.UNIMARC)) {
       content = UnimarcConverter.contentFromUnimarc(tag, content);
@@ -419,6 +424,7 @@ public class Marc21Record extends BibliographicRecord {
     }
   }
 
+  @Override
   public void setField(String tag, String ind1, String ind2, String content, MarcVersion marcVersion) {
 
     if (tag.equals("001")) {

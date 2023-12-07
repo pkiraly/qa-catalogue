@@ -19,6 +19,7 @@ public class MarcToSolrParameters extends CommonParameters {
   private int commitAt = DEFAULT_COMMIT_AT;
   private boolean indexFieldCounts = false;
 
+  @Override
   protected void setOptions() {
     if (!isOptionSet) {
       super.setOptions();

@@ -25,6 +25,7 @@ public class FormatterParameters extends CommonParameters {
 
   private boolean isOptionSet = false;
 
+  @Override
   protected void setOptions() {
     if (!isOptionSet) {
       super.setOptions();

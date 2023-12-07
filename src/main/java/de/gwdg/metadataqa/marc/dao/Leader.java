@@ -180,6 +180,7 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
     return resolve(LeaderPositions.getByLabel(key));
   }
 
+  @Override
   public Map<ControlfieldPositionDefinition, String> getMap() {
     return valuesMap;
   }
@@ -277,6 +278,7 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
     return lengthOfTheImplementationDefinedPortion;
   }
 
+  @Override
   public void setMarcRecord(BibliographicRecord marcRecord) {
     this.marcRecord = marcRecord;
     for (ControlValue value : valuesList)
@@ -296,6 +298,7 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
     return getKeyValuePairs(SolrFieldType.MARC);
   }
 
+  @Override
   public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
     Map<String, List<String>> map = new LinkedHashMap<>();
     PositionalControlFieldKeyGenerator keyGenerator = new PositionalControlFieldKeyGenerator(
@@ -309,6 +312,7 @@ public class Leader extends MarcPositionalControlField implements Extractable, V
     return map;
   }
 
+  @Override
   public List<ValidationError> getInitializationErrors() {
     return initializationErrors;
   }

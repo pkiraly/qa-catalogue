@@ -1,15 +1,12 @@
 package de.gwdg.metadataqa.marc.dao;
 
 import de.gwdg.metadataqa.marc.definition.ControlValue;
-import de.gwdg.metadataqa.marc.definition.controlpositions.LeaderPositions;
 import de.gwdg.metadataqa.marc.definition.structure.ControlFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.DefaultControlFieldDefinition;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static de.gwdg.metadataqa.marc.definition.controlpositions.LeaderPositions.getPositionList;
 
 public class DefaultMarcPositionalControlField extends MarcPositionalControlField {
   private static final Logger logger = Logger.getLogger(DefaultMarcPositionalControlField.class.getCanonicalName());

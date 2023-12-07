@@ -16,7 +16,6 @@ import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
-import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.marc4j.MarcException;
 import org.marc4j.MarcReader;

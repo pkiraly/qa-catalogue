@@ -36,10 +36,12 @@ public class Marc21BibliographicRecord extends Marc21Record {
     super(id);
   }
 
+  @Override
   public Control008 getControl008() {
     return (Control008) this.control008;
   }
 
+  @Override
   public void setControl008(MarcPositionalControlField control008) {
     this.control008 = control008;
     control008.setMarcRecord(this);
@@ -47,6 +49,7 @@ public class Marc21BibliographicRecord extends Marc21Record {
   }
 
 
+  @Override
   public List<DataField> getAuthorityFields() {
     if (authorityTags == null) {
       initializeAuthorityTags();
@@ -54,6 +57,7 @@ public class Marc21BibliographicRecord extends Marc21Record {
     return getAuthorityFields(authorityTags);
   }
 
+  @Override
   public Map<DataField, AuthorityCategory> getAuthorityFieldsMap() {
     if (authorityTags == null) {
       initializeAuthorityTags();
@@ -61,6 +65,7 @@ public class Marc21BibliographicRecord extends Marc21Record {
     return getAuthorityFields(authorityTagsMap);
   }
 
+  @Override
   public boolean isAuthorityTag(String tag) {
     if (authorityTagsIndex == null) {
       initializeAuthorityTags();
@@ -68,6 +73,7 @@ public class Marc21BibliographicRecord extends Marc21Record {
     return authorityTagsIndex.getOrDefault(tag, false);
   }
 
+  @Override
   public boolean isSkippableAuthoritySubfield(String tag, String code) {
     if (authorityTagsIndex == null)
       initializeAuthorityTags();
@@ -78,6 +84,7 @@ public class Marc21BibliographicRecord extends Marc21Record {
     return skippableAuthoritySubfields.get(tag).getOrDefault(tag, false);
   }
 
+  @Override
   public boolean isSubjectTag(String tag) {
     if (subjectTagIndex == null) {
       initializeAuthorityTags();
@@ -85,6 +92,7 @@ public class Marc21BibliographicRecord extends Marc21Record {
     return subjectTagIndex.getOrDefault(tag, false);
   }
 
+  @Override
   public boolean isSkippableSubjectSubfield(String tag, String code) {
     if (subjectTagIndex == null)
       initializeAuthorityTags();
@@ -122,6 +130,7 @@ public class Marc21BibliographicRecord extends Marc21Record {
     authorityTagsMap.put(AuthorityCategory.OTHER, List.of("720", "753", "754"));
   }
 
+  @Override
   public Map<ThompsonTraillFields, List<String>> getThompsonTraillTagsMap() {
     if (thompsonTraillTagMap == null)
       initializeThompsonTraillTags();
@@ -152,6 +161,7 @@ public class Marc21BibliographicRecord extends Marc21Record {
     thompsonTraillTagMap.put(ThompsonTraillFields.COUNTRY_OF_PUBLICATION, Arrays.asList("008/15"));
   }
 
+  @Override
   public Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap() {
     if (shelfReadyMap == null)
       initializeShelfReadyMap();

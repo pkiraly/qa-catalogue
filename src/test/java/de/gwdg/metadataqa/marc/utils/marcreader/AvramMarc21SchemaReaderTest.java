@@ -8,13 +8,13 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class Marc21SchemaReaderTest {
+public class AvramMarc21SchemaReaderTest {
 
   Marc21SchemaManager authorityManager;
 
   @Before
   public void setUp() throws Exception {
-    Marc21SchemaReader schemaReader = new Marc21SchemaReader(TestUtils.getPathFromMain("marc/authority-schema.json"));
+    AvramMarc21SchemaReader schemaReader = new AvramMarc21SchemaReader(TestUtils.getPathFromMain("marc/authority-schema.avram.json"));
     assertNotNull(schemaReader);
     assertNotNull(schemaReader.getMap());
     assertTrue(schemaReader.getMap().containsKey("001"));

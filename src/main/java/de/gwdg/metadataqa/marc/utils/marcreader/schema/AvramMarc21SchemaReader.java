@@ -33,7 +33,7 @@ public class AvramMarc21SchemaReader {
   private static final Map<String, Integer> knownSubfieldProperties = Map.of(
     "label", 1, "repeatable", 1, "codes", 1);
   private static final Map<String, Integer> knownSubfieldCodeProperties = Map.of(
-    "label", 1, "value",1);
+    "label", 1, "code",1);
   private static final Map<String, Integer> knownIndicatorProperties = Map.of(
     "label", 1, "codes",1);
   private JSONParser parser = new JSONParser(JSONParser.MODE_RFC4627);
@@ -214,8 +214,8 @@ public class AvramMarc21SchemaReader {
         String code = codeEntry.getKey();
         if (codeEntry.getValue() instanceof JSONObject) {
           JSONObject property = (JSONObject) codeEntry.getValue();
-          if (!code.equals(property.get("value")))
-            logger.warning(String.format("code is different to code value: %s vs %s", code, (String)property.get("value")));
+          if (!code.equals(property.get("code")))
+            logger.warning(String.format("code is different to code value: %s vs %s", code, (String)property.get("coden")));
           else
             list.add(new EncodedValue(code, (String) property.get("label")));
           for (String key : property.keySet()) {

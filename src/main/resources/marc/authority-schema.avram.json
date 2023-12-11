@@ -4274,19 +4274,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -4426,19 +4426,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -4570,19 +4570,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -4708,19 +4708,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -4806,19 +4806,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -4892,19 +4892,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -4986,19 +4986,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -5076,19 +5076,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -5162,19 +5162,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -5244,19 +5244,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -5314,19 +5314,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -5396,19 +5396,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -5478,19 +5478,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -5560,19 +5560,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -5720,19 +5720,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -5880,19 +5880,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -6032,19 +6032,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -6178,19 +6178,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -6284,19 +6284,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -6378,19 +6378,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -6480,19 +6480,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -6578,19 +6578,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -6672,19 +6672,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -6762,19 +6762,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -6840,19 +6840,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -6930,19 +6930,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -7020,19 +7020,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -7110,19 +7110,19 @@
           "codes":{
             "0":{
               "label":"Special relationship",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Tracing use restriction",
-              "value":"1"
+              "code":"1"
             },
             "2":{
               "label":"Earlier form of heading",
-              "value":"2"
+              "code":"2"
             },
             "3":{
               "label":"Reference display",
-              "value":"3"
+              "code":"3"
             }
           }
         },
@@ -8186,11 +8186,11 @@
           "codes":{
             "0":{
               "label":"Link display",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Replacement complexity",
-              "value":"1"
+              "code":"1"
             }
           }
         },
@@ -8349,11 +8349,11 @@
           "codes":{
             "0":{
               "label":"Link display",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Replacement complexity",
-              "value":"1"
+              "code":"1"
             }
           }
         },
@@ -8504,11 +8504,11 @@
           "codes":{
             "0":{
               "label":"Link display",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Replacement complexity",
-              "value":"1"
+              "code":"1"
             }
           }
         },
@@ -8653,11 +8653,11 @@
           "codes":{
             "0":{
               "label":"Link display",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Replacement complexity",
-              "value":"1"
+              "code":"1"
             }
           }
         },
@@ -8762,11 +8762,11 @@
           "codes":{
             "0":{
               "label":"Link display",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Replacement complexity",
-              "value":"1"
+              "code":"1"
             }
           }
         },
@@ -8859,11 +8859,11 @@
           "codes":{
             "0":{
               "label":"Link display",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Replacement complexity",
-              "value":"1"
+              "code":"1"
             }
           }
         },
@@ -8964,11 +8964,11 @@
           "codes":{
             "0":{
               "label":"Link display",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Replacement complexity",
-              "value":"1"
+              "code":"1"
             }
           }
         },
@@ -9065,11 +9065,11 @@
           "codes":{
             "0":{
               "label":"Link display",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Replacement complexity",
-              "value":"1"
+              "code":"1"
             }
           }
         },
@@ -9162,11 +9162,11 @@
           "codes":{
             "0":{
               "label":"Link display",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Replacement complexity",
-              "value":"1"
+              "code":"1"
             }
           }
         },
@@ -9255,11 +9255,11 @@
           "codes":{
             "0":{
               "label":"Link display",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Replacement complexity",
-              "value":"1"
+              "code":"1"
             }
           }
         },
@@ -9336,11 +9336,11 @@
           "codes":{
             "0":{
               "label":"Link display",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Replacement complexity",
-              "value":"1"
+              "code":"1"
             }
           }
         },
@@ -9429,11 +9429,11 @@
           "codes":{
             "0":{
               "label":"Link display",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Replacement complexity",
-              "value":"1"
+              "code":"1"
             }
           }
         },
@@ -9522,11 +9522,11 @@
           "codes":{
             "0":{
               "label":"Link display",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Replacement complexity",
-              "value":"1"
+              "code":"1"
             }
           }
         },
@@ -9615,11 +9615,11 @@
           "codes":{
             "0":{
               "label":"Link display",
-              "value":"0"
+              "code":"0"
             },
             "1":{
               "label":"Replacement complexity",
-              "value":"1"
+              "code":"1"
             }
           }
         },

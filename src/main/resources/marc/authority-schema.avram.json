@@ -11836,7 +11836,7 @@
       },
       "repeatable":true
     },
-    "leader":{
+    "LDR":{
       "label":"Leader",
       "positions":[
         {

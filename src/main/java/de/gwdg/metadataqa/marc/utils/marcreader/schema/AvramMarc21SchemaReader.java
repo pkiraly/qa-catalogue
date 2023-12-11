@@ -85,8 +85,11 @@ public class AvramMarc21SchemaReader {
         if (!knownFieldProperties.containsKey(property))
           logger.warning("unhandled field property: " + property);
       }
-      if (id.equals("008") || id.equals("leader"))
+      if (id.equals("008") || id.equals("LDR")) {
          tag = new DefaultControlFieldDefinition((Marc21DataFieldDefinition) tag);
+         if (id.equals("LDR"))
+           id = "leader";
+      }
 
       if (!map.containsKey(id))
         map.put(id, tag);

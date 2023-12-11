@@ -31,7 +31,7 @@ public class AvramMarc21SchemaReader {
   private static final Map<String, Integer> knownFieldProperties = Map.of(
     "label", 1, "repeatable", 1, "indicators", 1, "subfields", 1, "positions", 1);
   private static final Map<String, Integer> knownSubfieldProperties = Map.of(
-    "label", 1, "repeatable", 1, "static", 1, "codes", 1);
+    "label", 1, "repeatable", 1, "codes", 1);
   private static final Map<String, Integer> knownSubfieldCodeProperties = Map.of(
     "label", 1, "value",1);
   private static final Map<String, Integer> knownIndicatorProperties = Map.of(

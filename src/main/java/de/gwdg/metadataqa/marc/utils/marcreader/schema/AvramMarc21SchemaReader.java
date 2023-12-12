@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 import java.util.logging.Logger;
 
 public class AvramMarc21SchemaReader {
@@ -83,7 +84,7 @@ public class AvramMarc21SchemaReader {
       if (field.containsKey("subfields"))
         processSubfields((JSONObject) field.get("subfields"), (Marc21DataFieldDefinition) tag);
       if (field.containsKey("positions"))
-        processPositions((JSONArray) field.get("positions"), (Marc21DataFieldDefinition) tag);
+        processPositions((JSONObject) field.get("positions"), (Marc21DataFieldDefinition) tag);
       for (String property : field.keySet()) {
         if (!knownFieldProperties.containsKey(property))
           logger.warning("unhandled field property: " + property);
@@ -101,20 +102,36 @@ public class AvramMarc21SchemaReader {
     }
   }
 
-  private void processPositions(JSONArray positions, Marc21DataFieldDefinition tag) {
-    List<ControlfieldPositionDefinition> positionDefinitions = new LinkedList<>();
-    for (Object position : positions) {
-      positionDefinitions.add(processPosition(position, tag));
+  private void processPositions(JSONObject positions, Marc21DataFieldDefinition tag) {
+    TreeSet<ControlfieldPositionDefinition> sortedPositions = new TreeSet<>((a,b) -> a.getPositionStart() - b.getPositionStart());
+
+    for (String key : positions.keySet()) {
+      sortedPositions.add(processPosition(key, positions.get(key), tag));
     }
-    tag.setPositions(positionDefinitions);
+
+    tag.setPositions(new LinkedList<ControlfieldPositionDefinition>(sortedPositions));
   }
 
-  private ControlfieldPositionDefinition processPosition(Object positionNode, Marc21DataFieldDefinition tag) {
+  private ControlfieldPositionDefinition processPosition(String positionKey, Object positionNode, Marc21DataFieldDefinition tag) {
     if (positionNode instanceof JSONObject) {
       JSONObject position = (JSONObject) positionNode;
       String label = position.getAsString("label");
-      int start = (int) position.getAsNumber("start");
-      int end = (int) position.getAsNumber("stop") + 1;
+
+      String[] charPos = positionKey.split("-");     
+      int start = Integer.parseInt(charPos[0]);
+      int end = charPos.length > 1 ? Integer.parseInt(charPos[1]) : start;
+      if (position.containsKey("start")) {
+        int startKey = (int) position.getAsNumber("start");
+        if (startKey != start)
+          logger.warning("position start " + start + "does not match character positions: " + positionKey);
+      }
+      if (position.containsKey("end")) {
+        int endKey = (int) position.getAsNumber("end");
+        if (endKey != end)
+          logger.warning("position end " + end + "does not match character positions: " + positionKey);
+      }
+      end++;
+
       ControlfieldPositionDefinition definition = new ControlfieldPositionDefinition(label, start, end);
       if (position.containsKey("codes")) {
         definition.setCodes(extractEncodedValues(position));

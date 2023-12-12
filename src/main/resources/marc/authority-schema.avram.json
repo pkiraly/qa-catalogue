@@ -9915,17 +9915,17 @@
     },
     "LDR": {
       "label": "Leader",
-      "positions": [
-        {
+      "positions": {
+        "00-04": {
           "label": "Record length",
           "start": 0,
-          "stop": 4,
+          "end": 4,
           "codes": {}
         },
-        {
+        "05": {
           "label": "Record status",
           "start": 5,
-          "stop": 5,
+          "end": 5,
           "codes": {
             "a": "Increase in encoding level",
             "c": "Corrected or revised",
@@ -9936,68 +9936,68 @@
             "x": "Deleted; heading replaced by another heading"
           }
         },
-        {
+        "06": {
           "label": "Type of record",
           "start": 6,
-          "stop": 6,
+          "end": 6,
           "codes": {
             "z": "Authority data"
           }
         },
-        {
+        "07-08": {
           "label": "Undefined character positions",
           "start": 7,
-          "stop": 8,
+          "end": 8,
           "codes": {
             "#": "Undefined"
           }
         },
-        {
+        "09": {
           "label": "Character coding scheme",
           "start": 9,
-          "stop": 9,
+          "end": 9,
           "codes": {
             "#": "MARC-8",
             "a": "UCS/Unicode"
           }
         },
-        {
+        "10": {
           "label": "Indicator count",
           "start": 10,
-          "stop": 10,
+          "end": 10,
           "codes": {
             "2": "Number of character positions used for indicators"
           }
         },
-        {
+        "11": {
           "label": "Subfield code length",
           "start": 11,
-          "stop": 11,
+          "end": 11,
           "codes": {
             "2": "Number of character positions used for a subfield code"
           }
         },
-        {
+        "12-16": {
           "label": "Base address of data",
           "start": 12,
-          "stop": 16,
+          "end": 16,
           "codes": {
             "[number]": "Length of Leader and Directory"
           }
         },
-        {
+        "17": {
           "label": "Encoding level",
           "start": 17,
-          "stop": 17,
+          "end": 17,
           "codes": {
             "n": "Complete authority record",
             "o": "Incomplete authority record"
           }
         },
-        {
+        "18": {
           "label": "Punctuation policy",
           "start": 18,
-          "stop": 18,
+          "end": 18,
           "codes": {
             "#": "No information provided",
             "c": "Punctuation omitted",
@@ -10005,47 +10005,47 @@
             "u": "Unknown"
           }
         },
-        {
+        "19": {
           "label": "Undefined",
           "start": 19,
-          "stop": 19,
+          "end": 19,
           "codes": {
             "#": "Undefined"
           }
         },
-        {
+        "20": {
           "label": "Length of the length-of-field portion",
           "start": 20,
-          "stop": 20,
+          "end": 20,
           "codes": {
             "4": "Number of characters in the length-of-field portion of a Directory entry"
           }
         },
-        {
+        "21": {
           "label": "Length of the starting-character-position portion",
           "start": 21,
-          "stop": 21,
+          "end": 21,
           "codes": {
             "5": "Number of characters in the starting-character-position portion of a Directory entry"
           }
         },
-        {
+        "22": {
           "label": "Length of the implementation-defined portion",
           "start": 22,
-          "stop": 22,
+          "end": 22,
           "codes": {
             "0": "Number of characters in the implementation-defined portion of a Directory entry"
           }
         },
-        {
+        "23": {
           "label": "Undefined",
           "start": 23,
-          "stop": 23,
+          "end": 23,
           "codes": {
             "0": "Undefined"
           }
         }
-      ],
+      },
       "repeatable": false
     },
     "001": {
@@ -10062,17 +10062,17 @@
     },
     "008": {
       "label": "Fixed-Length Data Elements",
-      "positions": [
-        {
+      "positions": {
+        "00-05": {
           "label": "Date entered on file",
           "start": 0,
-          "stop": 5,
+          "end": 5,
           "codes": {}
         },
-        {
+        "06": {
           "label": "Direct or indirect geographic subdivision",
           "start": 6,
-          "stop": 6,
+          "end": 6,
           "codes": {
             "#": "Not subdivided geographically",
             "d": "Subdivided geographically-direct",
@@ -10081,10 +10081,10 @@
             "|": "No attempt to code"
           }
         },
-        {
+        "07": {
           "label": "Romanization scheme",
           "start": 7,
-          "stop": 7,
+          "end": 7,
           "codes": {
             "a": "International standard",
             "b": "National standard",
@@ -10097,10 +10097,10 @@
             "|": "No attempt to code"
           }
         },
-        {
+        "08": {
           "label": "Language of catalog",
           "start": 8,
-          "stop": 8,
+          "end": 8,
           "codes": {
             "#": "No information provided",
             "b": "English and French",
@@ -10109,10 +10109,10 @@
             "|": "No attempt to code"
           }
         },
-        {
+        "09": {
           "label": "Kind of record",
           "start": 9,
-          "stop": 9,
+          "end": 9,
           "codes": {
             "a": "Established heading",
             "b": "Untraced reference",
@@ -10124,10 +10124,10 @@
             "|": "No attempt to code"
           }
         },
-        {
+        "10": {
           "label": "Descriptive cataloging rules",
           "start": 10,
-          "stop": 10,
+          "end": 10,
           "codes": {
             "a": "Earlier rules",
             "b": "AACR 1",
@@ -10138,10 +10138,10 @@
             "|": "No attempt to code"
           }
         },
-        {
+        "11": {
           "label": "Subject heading system/thesaurus",
           "start": 11,
-          "stop": 11,
+          "end": 11,
           "codes": {
             "a": "Library of Congress Subject Headings",
             "b": "Library of Congress Children's and Young Adults' Subject Headings",
@@ -10156,10 +10156,10 @@
             "|": "No attempt to code"
           }
         },
-        {
+        "12": {
           "label": "Type of series",
           "start": 12,
-          "stop": 12,
+          "end": 12,
           "codes": {
             "a": "Monographic series",
             "b": "Multipart item",
@@ -10169,10 +10169,10 @@
             "|": "No attempt to code"
           }
         },
-        {
+        "13": {
           "label": "Numbered or unnumbered series",
           "start": 13,
-          "stop": 13,
+          "end": 13,
           "codes": {
             "a": "Numbered",
             "b": "Unnumbered",
@@ -10181,40 +10181,40 @@
             "|": "No attempt to code"
           }
         },
-        {
+        "14": {
           "label": "Heading use-main or added entry",
           "start": 14,
-          "stop": 14,
+          "end": 14,
           "codes": {
             "a": "Appropriate",
             "b": "Not appropriate",
             "|": "No attempt to code"
           }
         },
-        {
+        "15": {
           "label": "Heading use-subject added entry",
           "start": 15,
-          "stop": 15,
+          "end": 15,
           "codes": {
             "a": "Appropriate",
             "b": "Not appropriate",
             "|": "No attempt to code"
           }
         },
-        {
+        "16": {
           "label": "Heading use-series added entry",
           "start": 16,
-          "stop": 16,
+          "end": 16,
           "codes": {
             "a": "Appropriate",
             "b": "Not appropriate",
             "|": "No attempt to code"
           }
         },
-        {
+        "17": {
           "label": "Type of subject subdivision",
           "start": 17,
-          "stop": 17,
+          "end": 17,
           "codes": {
             "a": "Topical",
             "b": "Form",
@@ -10225,19 +10225,19 @@
             "|": "No attempt to code"
           }
         },
-        {
+        "18-27": {
           "label": "Undefined character positions",
           "start": 18,
-          "stop": 27,
+          "end": 27,
           "codes": {
             "#": "Undefined",
             "|": "No attempt to code"
           }
         },
-        {
+        "28": {
           "label": "Type of government agency",
           "start": 28,
-          "stop": 28,
+          "end": 28,
           "codes": {
             "#": "Not a government agency",
             "a": "Autonomous or semi-autonomous component",
@@ -10253,10 +10253,10 @@
             "|": "No attempt to code"
           }
         },
-        {
+        "29": {
           "label": "Reference evaluation",
           "start": 29,
-          "stop": 29,
+          "end": 29,
           "codes": {
             "a": "Tracings are consistent with the heading",
             "b": "Tracings are not necessarily consistent with the heading",
@@ -10264,29 +10264,29 @@
             "|": "No attempt to code"
           }
         },
-        {
+        "30": {
           "label": "Undefined character position",
           "start": 30,
-          "stop": 30,
+          "end": 30,
           "codes": {
             "#": "Undefined",
             "|": "No attempt to code"
           }
         },
-        {
+        "31": {
           "label": "Record update in process",
           "start": 31,
-          "stop": 31,
+          "end": 31,
           "codes": {
             "a": "Record can be used",
             "b": "Record is being updated",
             "|": "No attempt to code"
           }
         },
-        {
+        "32": {
           "label": "Undifferentiated personal name",
           "start": 32,
-          "stop": 32,
+          "end": 32,
           "codes": {
             "a": "Differentiated personal name",
             "b": "Undifferentiated personal name",
@@ -10294,10 +10294,10 @@
             "|": "No attempt to code"
           }
         },
-        {
+        "33": {
           "label": "Level of establishment",
           "start": 33,
-          "stop": 33,
+          "end": 33,
           "codes": {
             "a": "Fully established",
             "b": "Memorandum",
@@ -10307,19 +10307,19 @@
             "|": "No attempt to code"
           }
         },
-        {
+        "34-37": {
           "label": "Undefined character positions",
           "start": 34,
-          "stop": 37,
+          "end": 37,
           "codes": {
             "#": "Undefined",
             "|": "No attempt to code"
           }
         },
-        {
+        "38": {
           "label": "Modified record",
           "start": 38,
-          "stop": 38,
+          "end": 38,
           "codes": {
             "#": "Not modified",
             "s": "Shortened",
@@ -10327,10 +10327,10 @@
             "|": "No attempt to code"
           }
         },
-        {
+        "39": {
           "label": "Cataloging source",
           "start": 39,
-          "stop": 39,
+          "end": 39,
           "codes": {
             "#": "National bibliographic agency",
             "c": "Cooperative cataloging program",
@@ -10339,7 +10339,7 @@
             "|": "No attempt to code"
           }
         }
-      ],
+      },
       "repeatable": false
     }
   }

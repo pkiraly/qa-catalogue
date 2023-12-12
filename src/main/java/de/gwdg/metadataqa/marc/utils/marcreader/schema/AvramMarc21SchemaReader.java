@@ -29,7 +29,7 @@ import java.util.logging.Logger;
 public class AvramMarc21SchemaReader {
   private static final Logger logger = Logger.getLogger(AvramMarc21SchemaReader.class.getCanonicalName());
   private static final Map<String, Integer> knownFieldProperties = Map.of(
-    "label", 1, "repeatable", 1, "indicators", 1, "subfields", 1, "positions", 1);
+    "label", 1, "repeatable", 1, "indicator1", 1, "indicator2", 1, "subfields", 1, "positions", 1);
   private static final Map<String, Integer> knownSubfieldProperties = Map.of(
     "label", 1, "repeatable", 1, "codes", 1);
   private static final Map<String, Integer> knownSubfieldCodeProperties = Map.of(
@@ -75,8 +75,11 @@ public class AvramMarc21SchemaReader {
         (boolean) field.get("repeatable"),
         !field.containsKey("subfields")
       );
-      if (field.containsKey("indicators"))
-        processIndicators((JSONObject) field.get("indicators"), (Marc21DataFieldDefinition) tag);
+      Marc21DataFieldDefinition tagDef = (Marc21DataFieldDefinition)tag;
+      if (field.containsKey("indicator1") && !field.get("indicator1").equals(null))
+        tagDef.setInd1(processIndicator(field.get("indicator1"), tag.getTag()));
+      if (field.containsKey("indicator2") && !field.get("indicator2").equals(null))
+        tagDef.setInd2(processIndicator(field.get("indicator2"), tag.getTag()));
       if (field.containsKey("subfields"))
         processSubfields((JSONObject) field.get("subfields"), (Marc21DataFieldDefinition) tag);
       if (field.containsKey("positions"))
@@ -129,19 +132,6 @@ public class AvramMarc21SchemaReader {
       logger.warning("the positions node's type is not JSONObject, but " + positionNode.getClass().getCanonicalName());
     }
     return null;
-  }
-
-  private void processIndicators(JSONObject indicators, Marc21DataFieldDefinition tag) {
-    for (Map.Entry<String, Object> indicator : indicators.entrySet()) {
-      String key = indicator.getKey();
-      Indicator indicatorDef = processIndicator(indicator.getValue(), tag.getTag());
-      if (key.equals("1"))
-        tag.setInd1(indicatorDef);
-      else if (key.equals("2"))
-        tag.setInd2(indicatorDef);
-      else
-        logger.warning("Wrong indicator number: " + key);
-    }
   }
 
   private Indicator processIndicator(Object indicatorNode, String tag) {

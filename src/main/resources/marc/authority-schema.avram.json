@@ -3,20 +3,6 @@
   "fields": {
     "010": {
       "label": "Library of Congress Control Number",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "LC control number",
@@ -31,24 +17,22 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "014": {
       "label": "Link to Bibliographic Record for Serial or Multipart Item",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Control number of related bibliographic record",
@@ -63,25 +47,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "016": {
       "label": "National Bibliographic Agency Control Number",
-      "indicators": {
-        "1": {
-          "label": "National bibliographic agency",
-          "codes": {
-            "#": "Library and Archives Canada",
-            "7": "Source specified in subfield $2"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Record control number",
@@ -100,24 +81,23 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "National bibliographic agency",
+        "codes": {
+          "#": "Library and Archives Canada",
+          "7": "Source specified in subfield $2"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "020": {
       "label": "International Standard Book Number",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "International Standard Book Number",
@@ -144,24 +124,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "022": {
       "label": "International Standard Serial Number",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "International Standard Serial Number",
@@ -200,25 +178,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "024": {
       "label": "Other Standard Identifier",
-      "indicators": {
-        "1": {
-          "label": "Type of standard number or code",
-          "codes": {
-            "7": "Source specified in subfield $2",
-            "8": "Unspecified type of standard number or code"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Standard number or code",
@@ -265,24 +240,23 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Type of standard number or code",
+        "codes": {
+          "7": "Source specified in subfield $2",
+          "8": "Unspecified type of standard number or code"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "031": {
       "label": "Musical Incipits Information",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Number of work",
@@ -365,26 +339,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "034": {
       "label": "Coded Cartographic Mathematical Data",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Type of ring",
-          "codes": {
-            "#": "Not applicable",
-            "0": "Outer ring",
-            "1": "Exclusion ring"
-          }
-        }
-      },
       "subfields": {
         "d": {
           "label": "Coordinates",
@@ -475,24 +445,24 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Type of ring",
+        "codes": {
+          "#": "Not applicable",
+          "0": "Outer ring",
+          "1": "Exclusion ring"
+        }
+      }
     },
     "035": {
       "label": "System Control Number",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "System control number",
@@ -511,24 +481,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "040": {
       "label": "Cataloging Source",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Original cataloging agency",
@@ -563,42 +531,38 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "042": {
       "label": "Authentication Code",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
+      "repeatable": false,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
         }
       },
-      "repeatable": false
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "043": {
       "label": "Geographic Area Code",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Geographic area code",
@@ -637,27 +601,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "045": {
       "label": "Time Period of Heading",
-      "indicators": {
-        "1": {
-          "label": "Type of time period in subfield $b or $c",
-          "codes": {
-            "#": "Subfield $b or $c not present",
-            "0": "Single date/time",
-            "1": "Multiple single dates/times",
-            "2": "Range of dates/times"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Time period code",
@@ -680,24 +639,25 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Type of time period in subfield $b or $c",
+        "codes": {
+          "#": "Subfield $b or $c not present",
+          "0": "Single date/time",
+          "1": "Multiple single dates/times",
+          "2": "Range of dates/times"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "046": {
       "label": "Special Coded Dates",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "f": {
           "label": "Birth date",
@@ -772,25 +732,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "050": {
       "label": "Library of Congress Call Number",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Source of call number",
-          "codes": {
-            "0": "Assigned by LC",
-            "4": "Assigned by agency other than LC"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Classification number",
@@ -825,26 +782,23 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Source of call number",
+        "codes": {
+          "0": "Assigned by LC",
+          "4": "Assigned by agency other than LC"
+        }
+      }
     },
     "052": {
       "label": "Geographic Classification",
-      "indicators": {
-        "1": {
-          "label": "Code source",
-          "codes": {
-            "#": "Library of Congress Classification",
-            "1": "U.S. Dept. of Defense Classification",
-            "7": "Source specified in subfield $2"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Geographic classification area code",
@@ -879,25 +833,24 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Code source",
+        "codes": {
+          "#": "Library of Congress Classification",
+          "1": "U.S. Dept. of Defense Classification",
+          "7": "Source specified in subfield $2"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "053": {
       "label": "LC Classification Number",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Source of classification number",
-          "codes": {
-            "0": "Assigned by LC",
-            "4": "Assigned by agency other than LC"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Classification number element-single number or beginning number of span",
@@ -932,25 +885,23 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Source of classification number",
+        "codes": {
+          "0": "Assigned by LC",
+          "4": "Assigned by agency other than LC"
+        }
+      }
     },
     "055": {
       "label": "Library and Archives Canada Call Number",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Source of call number",
-          "codes": {
-            "0": "Assigned by LAC",
-            "4": "Assigned by agency other than LAC"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Classification number",
@@ -989,25 +940,23 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Source of call number",
+        "codes": {
+          "0": "Assigned by LAC",
+          "4": "Assigned by agency other than LAC"
+        }
+      }
     },
     "060": {
       "label": "National Library of Medicine Call Number",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Source of call number",
-          "codes": {
-            "0": "Assigned by NLM",
-            "4": "Assigned by agency other than NLM"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Classification number",
@@ -1042,24 +991,23 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Source of call number",
+        "codes": {
+          "0": "Assigned by NLM",
+          "4": "Assigned by agency other than NLM"
+        }
+      }
     },
     "065": {
       "label": "Other Classification Number",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Classification number element-single number or beginning of span",
@@ -1102,24 +1050,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "066": {
       "label": "Character Sets Present",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Primary G0 character set",
@@ -1134,24 +1080,22 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "070": {
       "label": "National Agricultural Library Call Number",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Classification number",
@@ -1182,26 +1126,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "072": {
       "label": "Subject Category Code",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Code source",
-          "codes": {
-            "#": "No information provided",
-            "0": "NAL subject category code list",
-            "7": "Source specified in subfield $2"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Subject category code",
@@ -1224,24 +1164,24 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Code source",
+        "codes": {
+          "#": "No information provided",
+          "0": "NAL subject category code list",
+          "7": "Source specified in subfield $2"
+        }
+      }
     },
     "073": {
       "label": "Subdivision Usage",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Subdivision usage",
@@ -1260,24 +1200,22 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "075": {
       "label": "Type of Entity",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Type of entity term",
@@ -1300,26 +1238,22 @@
           "repeatable": false
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "080": {
       "label": "Universal Decimal Classification Number",
-      "indicators": {
-        "1": {
-          "label": "Type of edition",
-          "codes": {
-            "#": "No information provided",
-            "0": "Full",
-            "1": "Abridged"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Universal Decimal Classification number",
@@ -1354,28 +1288,24 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Type of edition",
+        "codes": {
+          "#": "No information provided",
+          "0": "Full",
+          "1": "Abridged"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "082": {
       "label": "Dewey Decimal Call Number",
-      "indicators": {
-        "1": {
-          "label": "Type of edition",
-          "codes": {
-            "0": "Full",
-            "1": "Abridged",
-            "7": "Other edition specified in subfield $2"
-          }
-        },
-        "2": {
-          "label": "Source of call number",
-          "codes": {
-            "#": "No information provided",
-            "0": "Assigned by LC",
-            "4": "Assigned by agency other than LC"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Classification number",
@@ -1406,27 +1336,26 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Type of edition",
+        "codes": {
+          "0": "Full",
+          "1": "Abridged",
+          "7": "Other edition specified in subfield $2"
+        }
+      },
+      "indicator2": {
+        "label": "Source of call number",
+        "codes": {
+          "#": "No information provided",
+          "0": "Assigned by LC",
+          "4": "Assigned by agency other than LC"
+        }
+      }
     },
     "083": {
       "label": "Dewey Decimal Classification Number",
-      "indicators": {
-        "1": {
-          "label": "Type of edition",
-          "codes": {
-            "0": "Full",
-            "1": "Abridged",
-            "7": "Other edition specified in subfield $2"
-          }
-        },
-        "2": {
-          "label": "Source of classification number",
-          "codes": {
-            "0": "Assigned by LC",
-            "4": "Assigned by agency other than LC"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Classification number element-single number or beginning number of span",
@@ -1465,26 +1394,25 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Type of edition",
+        "codes": {
+          "0": "Full",
+          "1": "Abridged",
+          "7": "Other edition specified in subfield $2"
+        }
+      },
+      "indicator2": {
+        "label": "Source of classification number",
+        "codes": {
+          "0": "Assigned by LC",
+          "4": "Assigned by agency other than LC"
+        }
+      }
     },
     "086": {
       "label": "Government Document Call Number",
-      "indicators": {
-        "1": {
-          "label": "Number source",
-          "codes": {
-            "#": "Source specified in subfield $2",
-            "0": "Superintendent of Documents Classification System",
-            "1": "Government of Canada Publications: Outline of Classification"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Call number",
@@ -1515,26 +1443,24 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Number source",
+        "codes": {
+          "#": "Source specified in subfield $2",
+          "0": "Superintendent of Documents Classification System",
+          "1": "Government of Canada Publications: Outline of Classification"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "087": {
       "label": "Government Document Classification Number",
-      "indicators": {
-        "1": {
-          "label": "Number source",
-          "codes": {
-            "#": "Source specified in subfield $2",
-            "0": "Superintendent of Documents Classification System",
-            "1": "Government of Canada Publications: Outline of Classification"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Classification number element-Single number of beginning number of span",
@@ -1569,26 +1495,24 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Number source",
+        "codes": {
+          "#": "Source specified in subfield $2",
+          "0": "Superintendent of Documents Classification System",
+          "1": "Government of Canada Publications: Outline of Classification"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "100": {
       "label": "Heading-Personal Name",
-      "indicators": {
-        "1": {
-          "label": "Type of personal name entry element",
-          "codes": {
-            "0": "Forename",
-            "1": "Surname",
-            "3": "Family name"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Personal name",
@@ -1695,26 +1619,24 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Type of personal name entry element",
+        "codes": {
+          "0": "Forename",
+          "1": "Surname",
+          "3": "Family name"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "110": {
       "label": "Heading-Corporate Name",
-      "indicators": {
-        "1": {
-          "label": "Type of corporate name entry element",
-          "codes": {
-            "0": "Inverted name",
-            "1": "Jurisdiction name",
-            "2": "Name in direct order"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Corporate name or jurisdiction name as entry element",
@@ -1813,26 +1735,24 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Type of corporate name entry element",
+        "codes": {
+          "0": "Inverted name",
+          "1": "Jurisdiction name",
+          "2": "Name in direct order"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "111": {
       "label": "Heading-Meeting Name",
-      "indicators": {
-        "1": {
-          "label": "Type of meeting name entry element",
-          "codes": {
-            "0": "Inverted name",
-            "1": "Jurisdiction name",
-            "2": "Name in direct order"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Meeting name or jurisdiction name as entry element",
@@ -1923,24 +1843,24 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Type of meeting name entry element",
+        "codes": {
+          "0": "Inverted name",
+          "1": "Jurisdiction name",
+          "2": "Name in direct order"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "130": {
       "label": "Heading-Uniform Title",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Nonfiling characters",
-          "codes": {
-            "0-9": "Number of nonfiling characters"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Uniform title",
@@ -2027,24 +1947,22 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Nonfiling characters",
+        "codes": {
+          "0-9": "Number of nonfiling characters"
+        }
+      }
     },
     "147": {
       "label": "Heading-Named Event",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Named event",
@@ -2091,24 +2009,22 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "148": {
       "label": "Heading-Chronological Term",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Chronological term",
@@ -2143,24 +2059,22 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "150": {
       "label": "Heading-Topical Term",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Topical term or geographic name entry element",
@@ -2203,24 +2117,22 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "151": {
       "label": "Heading-Geographic Name",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Geographic name",
@@ -2259,24 +2171,22 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "155": {
       "label": "Heading-Genre/Form Term",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Genre/form term",
@@ -2311,24 +2221,22 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "162": {
       "label": "Heading-Medium of Performance Term",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Medium of performance term",
@@ -2347,24 +2255,22 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "180": {
       "label": "Heading-General Subdivision",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "v": {
           "label": "Form subdivision",
@@ -2395,24 +2301,22 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "181": {
       "label": "Heading-Geographic Subdivision",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "v": {
           "label": "Form subdivision",
@@ -2443,24 +2347,22 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "182": {
       "label": "Heading-Chronological Subdivision",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "v": {
           "label": "Form subdivision",
@@ -2491,24 +2393,22 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "185": {
       "label": "Heading-Form Subdivision",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "v": {
           "label": "Form subdivision",
@@ -2539,24 +2439,22 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "260": {
       "label": "Complex See Reference-Subject",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Heading referred to",
@@ -2587,24 +2485,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "335": {
       "label": "Extension Plan",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Extension plan term",
@@ -2643,24 +2539,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "336": {
       "label": "Content Type",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Content type term",
@@ -2699,24 +2593,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "348": {
       "label": "Format of Notated Music",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Format of notated music term",
@@ -2755,24 +2647,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "360": {
       "label": "Complex See Also Reference-Subject",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Heading referred to",
@@ -2803,26 +2693,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "361": {
       "label": "Structured Ownership and Custodial History",
-      "indicators": {
-        "1": {
-          "label": "Privacy",
-          "codes": {
-            "#": "No information provided",
-            "0": "Private",
-            "1": "Not private"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Name",
@@ -2893,24 +2779,24 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Privacy",
+        "codes": {
+          "#": "No information provided",
+          "0": "Private",
+          "1": "Not private"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "368": {
       "label": "Other Attributes of Person or Corporate Body",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Type of corporate body",
@@ -2969,24 +2855,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "370": {
       "label": "Associated Place",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Place of birth",
@@ -3065,24 +2949,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "371": {
       "label": "Address",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Address",
@@ -3145,24 +3027,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "372": {
       "label": "Field of Activity",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Field of activity",
@@ -3209,24 +3089,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "373": {
       "label": "Associated Group",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Associated group",
@@ -3281,24 +3159,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "374": {
       "label": "Occupation",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Occupation",
@@ -3345,24 +3221,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "375": {
       "label": "Gender",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Gender",
@@ -3409,24 +3283,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "376": {
       "label": "Family Information",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Type of family",
@@ -3481,25 +3353,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "377": {
       "label": "Associated Language",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Source of code",
-          "codes": {
-            "#": "MARC language code",
-            "7": "Source specified in $2"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Language code",
@@ -3534,24 +3403,23 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Source of code",
+        "codes": {
+          "#": "MARC language code",
+          "7": "Source specified in $2"
+        }
+      }
     },
     "378": {
       "label": "Fuller Form of Personal Name",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "q": {
           "label": "Fuller form of personal name",
@@ -3578,24 +3446,22 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "380": {
       "label": "Form of Work",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Form of work",
@@ -3626,24 +3492,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "381": {
       "label": "Other Distinguishing Characteristics of Work or Expression",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Other distinguishing characteristic",
@@ -3682,28 +3546,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "382": {
       "label": "Medium of Performance",
-      "indicators": {
-        "1": {
-          "label": "Display constant controller",
-          "codes": {
-            "#": "No information provided",
-            "0": "Medium of performance",
-            "1": "Partial medium of performance",
-            "2": "Medium of performance of musical content of representative expression",
-            "3": "Partial medium of performance of musical content of representative expression"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Medium of performance",
@@ -3770,24 +3628,26 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Display constant controller",
+        "codes": {
+          "#": "No information provided",
+          "0": "Medium of performance",
+          "1": "Partial medium of performance",
+          "2": "Medium of performance of musical content of representative expression",
+          "3": "Partial medium of performance of musical content of representative expression"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "383": {
       "label": "Numeric Designation of Musical Work",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Serial number",
@@ -3826,27 +3686,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "384": {
       "label": "Key",
-      "indicators": {
-        "1": {
-          "label": "Key type",
-          "codes": {
-            "#": "Relationship to original unknown",
-            "0": "Original key",
-            "1": "Transposed key",
-            "2": "Key of representative expression"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Key",
@@ -3873,24 +3728,25 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Key type",
+        "codes": {
+          "#": "Relationship to original unknown",
+          "0": "Original key",
+          "1": "Transposed key",
+          "2": "Key of representative expression"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "385": {
       "label": "Audience Characteristics",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Audience term",
@@ -3937,24 +3793,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "386": {
       "label": "Creator/Contributor Characteristics",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Creator/contributor term",
@@ -4009,24 +3863,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "387": {
       "label": "Representative Expression Characteristics",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Aspect ratio of representative expression",
@@ -4109,26 +3961,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "388": {
       "label": "Time Period of Creation",
-      "indicators": {
-        "1": {
-          "label": "Type of time period",
-          "codes": {
-            "#": "No information provided",
-            "1": "Creation of work",
-            "2": "Creation of aggregate work"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Time period of creation term",
@@ -4163,26 +4011,24 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Type of time period",
+        "codes": {
+          "#": "No information provided",
+          "1": "Creation of work",
+          "2": "Creation of aggregate work"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "400": {
       "label": "See From Tracing-Personal Name",
-      "indicators": {
-        "1": {
-          "label": "Type of personal name element",
-          "codes": {
-            "0": "Forename",
-            "1": "Surname",
-            "3": "Family name"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Personal name",
@@ -4323,26 +4169,24 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Type of personal name element",
+        "codes": {
+          "0": "Forename",
+          "1": "Surname",
+          "3": "Family name"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "410": {
       "label": "See From Tracing-Corporate Name",
-      "indicators": {
-        "1": {
-          "label": "Type of corporate name entry element",
-          "codes": {
-            "0": "Inverted name",
-            "1": "Jurisdiction name",
-            "2": "Name in direct order"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Corporate name or jurisdiction name as entry element",
@@ -4475,26 +4319,24 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Type of corporate name entry element",
+        "codes": {
+          "0": "Inverted name",
+          "1": "Jurisdiction name",
+          "2": "Name in direct order"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "411": {
       "label": "See From Tracing-Meeting Name",
-      "indicators": {
-        "1": {
-          "label": "Type of meeting name entry element",
-          "codes": {
-            "0": "Inverted name",
-            "1": "Jurisdiction name",
-            "2": "Name in direct order"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Meeting name or jurisdiction name as entry element",
@@ -4619,24 +4461,24 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Type of meeting name entry element",
+        "codes": {
+          "0": "Inverted name",
+          "1": "Jurisdiction name",
+          "2": "Name in direct order"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "430": {
       "label": "See From Tracing-Uniform Title",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Nonfiling characters",
-          "codes": {
-            "0-9": "Number of nonfiling characters"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Uniform title",
@@ -4757,24 +4599,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Nonfiling characters",
+        "codes": {
+          "0-9": "Number of nonfiling characters"
+        }
+      }
     },
     "447": {
       "label": "See From Tracing-Named Event",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Named event",
@@ -4855,24 +4695,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "448": {
       "label": "See From Tracing-Chronological Term",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Chronological term",
@@ -4941,24 +4779,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "450": {
       "label": "See From Tracing-Topical Term",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Topical term or geographic name entry element",
@@ -5035,24 +4871,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "451": {
       "label": "See From Tracing-Geographic Name",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Geographic name",
@@ -5125,24 +4959,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "455": {
       "label": "See From Tracing-Genre/Form Term",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Genre/form term",
@@ -5211,24 +5043,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "462": {
       "label": "See From Tracing-Medium of Performance Term",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Medium of performance term",
@@ -5281,24 +5111,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "480": {
       "label": "See From Tracing-General Subdivision",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "i": {
           "label": "Relationship information",
@@ -5363,24 +5191,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "481": {
       "label": "See From Tracing-Geographic Subdivision",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "i": {
           "label": "Relationship information",
@@ -5445,24 +5271,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "482": {
       "label": "See From Tracing-Chronological Subdivision",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "i": {
           "label": "Relationship information",
@@ -5527,24 +5351,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "485": {
       "label": "See From Tracing-Form Subdivision",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "i": {
           "label": "Relationship information",
@@ -5609,26 +5431,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "500": {
       "label": "See Also From Tracing-Personal Name",
-      "indicators": {
-        "1": {
-          "label": "Type of personal name entry element",
-          "codes": {
-            "0": "Forename",
-            "1": "Surname",
-            "3": "Family name"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Personal name",
@@ -5777,26 +5595,24 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Type of personal name entry element",
+        "codes": {
+          "0": "Forename",
+          "1": "Surname",
+          "3": "Family name"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "510": {
       "label": "See Also From Tracing-Corporate Name",
-      "indicators": {
-        "1": {
-          "label": "Type of corporate name entry element",
-          "codes": {
-            "0": "Inverted name",
-            "1": "Jurisdiction name",
-            "2": "Name in direct order"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Corporate name or jurisdiction name as entry element",
@@ -5937,26 +5753,24 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Type of corporate name entry element",
+        "codes": {
+          "0": "Inverted name",
+          "1": "Jurisdiction name",
+          "2": "Name in direct order"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "511": {
       "label": "See Also From Tracing-Meeting Name",
-      "indicators": {
-        "1": {
-          "label": "Type of meeting name entry element",
-          "codes": {
-            "0": "Inverted name",
-            "1": "Jurisdiction name",
-            "2": "Name in direct order"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Meeting name or jurisdiction name as entry element",
@@ -6089,24 +5903,24 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Type of meeting name entry element",
+        "codes": {
+          "0": "Inverted name",
+          "1": "Jurisdiction name",
+          "2": "Name in direct order"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "530": {
       "label": "See Also From Tracing-Uniform Title",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Nonfiling characters",
-          "codes": {
-            "0-9": "Number of nonfiling characters"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Uniform title",
@@ -6235,24 +6049,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Nonfiling characters",
+        "codes": {
+          "0-9": "Number of nonfiling characters"
+        }
+      }
     },
     "547": {
       "label": "See Also From Tracing-Named Event",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Named event",
@@ -6341,24 +6153,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "548": {
       "label": "See Also From Tracing-Chronological Term",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Chronological term",
@@ -6435,24 +6245,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "550": {
       "label": "See Also From Tracing-Topical Term",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Topical term or geographic name entry element",
@@ -6537,24 +6345,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "551": {
       "label": "See Also From Tracing-Geographic Name",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Geographic name",
@@ -6635,24 +6441,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "555": {
       "label": "See Also From Tracing-Genre/Form Term",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Genre/form term",
@@ -6729,24 +6533,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "562": {
       "label": "See Also From Tracing-Medium of Performance Term",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Medium of performance term",
@@ -6807,24 +6609,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "580": {
       "label": "See Also From Tracing-General Subdivision",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "i": {
           "label": "Relationship information",
@@ -6897,24 +6697,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "581": {
       "label": "See Also From Tracing-Geographic Subdivision",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "i": {
           "label": "Relationship information",
@@ -6987,24 +6785,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "582": {
       "label": "See Also From Tracing-Chronological Subdivision",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "i": {
           "label": "Relationship information",
@@ -7077,24 +6873,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "585": {
       "label": "See Also From Tracing-Form Subdivision",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "i": {
           "label": "Relationship information",
@@ -7167,25 +6961,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "640": {
       "label": "Series Dates of Publication and/or Sequential Designation",
-      "indicators": {
-        "1": {
-          "label": "Note format style",
-          "codes": {
-            "0": "Formatted style",
-            "1": "Unformatted style"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Dates of publication and/or sequential designation",
@@ -7204,24 +6995,23 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Note format style",
+        "codes": {
+          "0": "Formatted style",
+          "1": "Unformatted style"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "641": {
       "label": "Series Numbering Peculiarities",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Numbering peculiarities note",
@@ -7240,24 +7030,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "642": {
       "label": "Series Numbering Example",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Series numbering example",
@@ -7280,24 +7068,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "643": {
       "label": "Series Place and Publisher/Issuing Body",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Place",
@@ -7320,24 +7106,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "644": {
       "label": "Series Analysis Practice",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Series analysis practice",
@@ -7364,24 +7148,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "645": {
       "label": "Series Tracing Practice",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Series tracing practice",
@@ -7404,24 +7186,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "646": {
       "label": "Series Classification Practice",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Series classification practice",
@@ -7444,24 +7224,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "663": {
       "label": "Complex See Also Reference-Name",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Explanatory text",
@@ -7484,24 +7262,22 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "664": {
       "label": "Complex See Reference-Name",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Explanatory text",
@@ -7524,24 +7300,22 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "665": {
       "label": "History Reference",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "History reference",
@@ -7556,24 +7330,22 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "666": {
       "label": "General Explanatory Reference-Name",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "General explanatory reference",
@@ -7588,24 +7360,22 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "667": {
       "label": "Nonpublic General Note",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Nonpublic general note",
@@ -7624,24 +7394,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "670": {
       "label": "Source Data Found",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Source citation",
@@ -7672,25 +7440,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "672": {
       "label": "Title Related to the Entity",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Nonfiling characters",
-          "codes": {
-            "0": "No nonfiling characters",
-            "1-9": "Number of nonfiling characters"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Title",
@@ -7737,25 +7502,23 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Nonfiling characters",
+        "codes": {
+          "0": "No nonfiling characters",
+          "1-9": "Number of nonfiling characters"
+        }
+      }
     },
     "673": {
       "label": "Title Not Related to the Entity",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Nonfiling characters",
-          "codes": {
-            "0": "No nonfiling characters",
-            "1-9": "Number of nonfiling characters"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Title",
@@ -7790,24 +7553,23 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Nonfiling characters",
+        "codes": {
+          "0": "No nonfiling characters",
+          "1-9": "Number of nonfiling characters"
+        }
+      }
     },
     "675": {
       "label": "Source Data Not Found",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Source citation",
@@ -7826,24 +7588,22 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "677": {
       "label": "Definition",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Definition",
@@ -7866,26 +7626,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "678": {
       "label": "Biographical or Historical Data",
-      "indicators": {
-        "1": {
-          "label": "Type of data",
-          "codes": {
-            "#": "No information provided",
-            "0": "Biographical sketch",
-            "1": "Administrative history"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Biographical or historical data",
@@ -7912,24 +7668,24 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Type of data",
+        "codes": {
+          "#": "No information provided",
+          "0": "Biographical sketch",
+          "1": "Administrative history"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "680": {
       "label": "Public General Note",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Heading or subdivision term",
@@ -7956,24 +7712,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "681": {
       "label": "Subject Example Tracing Note",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Subject heading or subdivision term",
@@ -7992,24 +7746,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "682": {
       "label": "Deleted Heading Information",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Replacement heading",
@@ -8032,24 +7784,22 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "688": {
       "label": "Application History Note",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Application history note",
@@ -8068,33 +7818,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "700": {
       "label": "Established Heading Linking Entry-Personal Name",
-      "indicators": {
-        "1": {
-          "label": "Type of personal name entry element",
-          "codes": {
-            "0": "Forename",
-            "1": "Surname",
-            "3": "Family name"
-          }
-        },
-        "2": {
-          "label": "Thesaurus",
-          "codes": {
-            "0": "Library of Congress Subject Headings",
-            "1": "Library of Congress Children's and Young Adults' Subject Headings",
-            "2": "Medical Subject Headings",
-            "3": "National Agricultural Library subject authority file",
-            "4": "Source not specified",
-            "5": "Canadian Subject Headings",
-            "6": "Répertoire de vedettes-matière",
-            "7": "Source specified in subfield $2"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Personal name",
@@ -8239,33 +7978,31 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Type of personal name entry element",
+        "codes": {
+          "0": "Forename",
+          "1": "Surname",
+          "3": "Family name"
+        }
+      },
+      "indicator2": {
+        "label": "Thesaurus",
+        "codes": {
+          "0": "Library of Congress Subject Headings",
+          "1": "Library of Congress Children's and Young Adults' Subject Headings",
+          "2": "Medical Subject Headings",
+          "3": "National Agricultural Library subject authority file",
+          "4": "Source not specified",
+          "5": "Canadian Subject Headings",
+          "6": "Répertoire de vedettes-matière",
+          "7": "Source specified in subfield $2"
+        }
+      }
     },
     "710": {
       "label": "Established Heading Linking Entry-Corporate Name",
-      "indicators": {
-        "1": {
-          "label": "Type of corporate name entry element",
-          "codes": {
-            "0": "Inverted name",
-            "1": "Jurisdiction name",
-            "2": "Name in direct order"
-          }
-        },
-        "2": {
-          "label": "Thesaurus",
-          "codes": {
-            "0": "Library of Congress Subject Headings",
-            "1": "Library of Congress Children's and Young Adults' Subject Headings",
-            "2": "Medical Subject Headings",
-            "3": "National Agricultural Library subject authority file",
-            "4": "Source not specified",
-            "5": "Canadian Subject Headings",
-            "6": "Répertoire de vedettes-matière",
-            "7": "Source specified in subfield $2"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Corporate name or jurisdiction name as entry element",
@@ -8402,33 +8139,31 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Type of corporate name entry element",
+        "codes": {
+          "0": "Inverted name",
+          "1": "Jurisdiction name",
+          "2": "Name in direct order"
+        }
+      },
+      "indicator2": {
+        "label": "Thesaurus",
+        "codes": {
+          "0": "Library of Congress Subject Headings",
+          "1": "Library of Congress Children's and Young Adults' Subject Headings",
+          "2": "Medical Subject Headings",
+          "3": "National Agricultural Library subject authority file",
+          "4": "Source not specified",
+          "5": "Canadian Subject Headings",
+          "6": "Répertoire de vedettes-matière",
+          "7": "Source specified in subfield $2"
+        }
+      }
     },
     "711": {
       "label": "Established Heading Linking Entry-Meeting Name",
-      "indicators": {
-        "1": {
-          "label": "Type of meeting name entry element",
-          "codes": {
-            "0": "Inverted name",
-            "1": "Jurisdiction name",
-            "2": "Name in direct order"
-          }
-        },
-        "2": {
-          "label": "Thesaurus",
-          "codes": {
-            "0": "Library of Congress Subject Headings",
-            "1": "Library of Congress Children's and Young Adults' Subject Headings",
-            "2": "Medical Subject Headings",
-            "3": "National Agricultural Library subject authority file",
-            "4": "Source not specified",
-            "5": "Canadian Subject Headings",
-            "6": "Répertoire de vedettes-matière",
-            "7": "Source specified in subfield $2"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Meeting name or jurisdiction name as entry element",
@@ -8557,31 +8292,31 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Type of meeting name entry element",
+        "codes": {
+          "0": "Inverted name",
+          "1": "Jurisdiction name",
+          "2": "Name in direct order"
+        }
+      },
+      "indicator2": {
+        "label": "Thesaurus",
+        "codes": {
+          "0": "Library of Congress Subject Headings",
+          "1": "Library of Congress Children's and Young Adults' Subject Headings",
+          "2": "Medical Subject Headings",
+          "3": "National Agricultural Library subject authority file",
+          "4": "Source not specified",
+          "5": "Canadian Subject Headings",
+          "6": "Répertoire de vedettes-matière",
+          "7": "Source specified in subfield $2"
+        }
+      }
     },
     "730": {
       "label": "Established Heading Linking Entry-Uniform Title",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Thesaurus",
-          "codes": {
-            "0": "Library of Congress Subject Headings",
-            "1": "Library of Congress Children's and Young Adults' Subject Headings",
-            "2": "Medical Subject Headings",
-            "3": "National Agricultural Library subject authority file",
-            "4": "Source not specified",
-            "5": "Canadian Subject Headings",
-            "6": "Répertoire de vedettes-matière",
-            "7": "Source specified in subfield $2"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Uniform title",
@@ -8706,31 +8441,29 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Thesaurus",
+        "codes": {
+          "0": "Library of Congress Subject Headings",
+          "1": "Library of Congress Children's and Young Adults' Subject Headings",
+          "2": "Medical Subject Headings",
+          "3": "National Agricultural Library subject authority file",
+          "4": "Source not specified",
+          "5": "Canadian Subject Headings",
+          "6": "Répertoire de vedettes-matière",
+          "7": "Source specified in subfield $2"
+        }
+      }
     },
     "747": {
       "label": "Established Heading Linking Entry-Named Event",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Thesaurus",
-          "codes": {
-            "0": "Library of Congress Subject Headings",
-            "1": "Library of Congress Children's and Young Adults' Subject Headings",
-            "2": "Medical Subject Headings",
-            "3": "National Agricultural Library subject authority file",
-            "4": "Source not specified",
-            "5": "Canadian Subject Headings",
-            "6": "Répertoire de vedettes-matière",
-            "7": "Source specified in subfield $2"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Named event",
@@ -8815,31 +8548,29 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Thesaurus",
+        "codes": {
+          "0": "Library of Congress Subject Headings",
+          "1": "Library of Congress Children's and Young Adults' Subject Headings",
+          "2": "Medical Subject Headings",
+          "3": "National Agricultural Library subject authority file",
+          "4": "Source not specified",
+          "5": "Canadian Subject Headings",
+          "6": "Répertoire de vedettes-matière",
+          "7": "Source specified in subfield $2"
+        }
+      }
     },
     "748": {
       "label": "Established Heading Linking Entry-Chronological Term",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Thesaurus",
-          "codes": {
-            "0": "Library of Congress Subject Headings",
-            "1": "Library of Congress Children's and Young Adults' Subject Headings",
-            "2": "Medical Subject Headings",
-            "3": "National Agricultural Library subject authority file",
-            "4": "Source not specified",
-            "5": "Canadian Subject Headings",
-            "6": "Répertoire de vedettes-matière",
-            "7": "Source specified in subfield $2"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Chronological term",
@@ -8912,31 +8643,29 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Thesaurus",
+        "codes": {
+          "0": "Library of Congress Subject Headings",
+          "1": "Library of Congress Children's and Young Adults' Subject Headings",
+          "2": "Medical Subject Headings",
+          "3": "National Agricultural Library subject authority file",
+          "4": "Source not specified",
+          "5": "Canadian Subject Headings",
+          "6": "Répertoire de vedettes-matière",
+          "7": "Source specified in subfield $2"
+        }
+      }
     },
     "750": {
       "label": "Established Heading Linking Entry-Topical Term",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Thesaurus",
-          "codes": {
-            "0": "Library of Congress Subject Headings",
-            "1": "Library of Congress Children's and Young Adults' Subject Headings",
-            "2": "Medical Subject Headings",
-            "3": "National Agricultural Library subject authority file",
-            "4": "Source not specified",
-            "5": "Canadian Subject Headings",
-            "6": "Répertoire de vedettes-matière",
-            "7": "Source specified in subfield $2"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Topical term or geographic name entry element",
@@ -9017,31 +8746,29 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Thesaurus",
+        "codes": {
+          "0": "Library of Congress Subject Headings",
+          "1": "Library of Congress Children's and Young Adults' Subject Headings",
+          "2": "Medical Subject Headings",
+          "3": "National Agricultural Library subject authority file",
+          "4": "Source not specified",
+          "5": "Canadian Subject Headings",
+          "6": "Répertoire de vedettes-matière",
+          "7": "Source specified in subfield $2"
+        }
+      }
     },
     "751": {
       "label": "Established Heading Linking Entry-Geographic Name",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Thesaurus",
-          "codes": {
-            "0": "Library of Congress Subject Headings",
-            "1": "Library of Congress Children's and Young Adults' Subject Headings",
-            "2": "Medical Subject Headings",
-            "3": "National Agricultural Library subject authority file",
-            "4": "Source not specified",
-            "5": "Canadian Subject Headings",
-            "6": "Répertoire de vedettes-matière",
-            "7": "Source specified in subfield $2"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Geographic name",
@@ -9118,31 +8845,29 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Thesaurus",
+        "codes": {
+          "0": "Library of Congress Subject Headings",
+          "1": "Library of Congress Children's and Young Adults' Subject Headings",
+          "2": "Medical Subject Headings",
+          "3": "National Agricultural Library subject authority file",
+          "4": "Source not specified",
+          "5": "Canadian Subject Headings",
+          "6": "Répertoire de vedettes-matière",
+          "7": "Source specified in subfield $2"
+        }
+      }
     },
     "755": {
       "label": "Established Heading Linking Entry-Genre/Form Term",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Thesaurus",
-          "codes": {
-            "0": "Library of Congress Subject Headings",
-            "1": "Library of Congress Children's and Young Adults' Subject Headings",
-            "2": "Medical Subject Headings",
-            "3": "National Agricultural Library subject authority file",
-            "4": "Source not specified",
-            "5": "Canadian Subject Headings",
-            "6": "Répertoire de vedettes-matière",
-            "7": "Source specified in subfield $2"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Genre/form term as entry element",
@@ -9215,31 +8940,29 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Thesaurus",
+        "codes": {
+          "0": "Library of Congress Subject Headings",
+          "1": "Library of Congress Children's and Young Adults' Subject Headings",
+          "2": "Medical Subject Headings",
+          "3": "National Agricultural Library subject authority file",
+          "4": "Source not specified",
+          "5": "Canadian Subject Headings",
+          "6": "Répertoire de vedettes-matière",
+          "7": "Source specified in subfield $2"
+        }
+      }
     },
     "762": {
       "label": "Established Heading Linking Entry-Medium of Performance Term",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Thesaurus",
-          "codes": {
-            "0": "Library of Congress Subject Headings",
-            "1": "Library of Congress Children's and Young Adults' Subject Headings",
-            "2": "Medical Subject Headings",
-            "3": "National Agricultural Library subject authority file",
-            "4": "Source not specified",
-            "5": "Canadian Subject Headings",
-            "6": "Répertoire de vedettes-matière",
-            "7": "Source specified in subfield $2"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Medium of performance term as entry element",
@@ -9296,31 +9019,29 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Thesaurus",
+        "codes": {
+          "0": "Library of Congress Subject Headings",
+          "1": "Library of Congress Children's and Young Adults' Subject Headings",
+          "2": "Medical Subject Headings",
+          "3": "National Agricultural Library subject authority file",
+          "4": "Source not specified",
+          "5": "Canadian Subject Headings",
+          "6": "Répertoire de vedettes-matière",
+          "7": "Source specified in subfield $2"
+        }
+      }
     },
     "780": {
       "label": "Subdivision Linking Entry-General Subdivision",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Thesaurus",
-          "codes": {
-            "0": "Library of Congress Subject Headings",
-            "1": "Library of Congress Children's and Young Adults' Subject Headings",
-            "2": "Medical Subject Headings",
-            "3": "National Agricultural Library subject authority file",
-            "4": "Source not specified",
-            "5": "Canadian Subject Headings",
-            "6": "Répertoire de vedettes-matière",
-            "7": "Source specified in subfield $2"
-          }
-        }
-      },
       "subfields": {
         "i": {
           "label": "Relationship information",
@@ -9389,31 +9110,29 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Thesaurus",
+        "codes": {
+          "0": "Library of Congress Subject Headings",
+          "1": "Library of Congress Children's and Young Adults' Subject Headings",
+          "2": "Medical Subject Headings",
+          "3": "National Agricultural Library subject authority file",
+          "4": "Source not specified",
+          "5": "Canadian Subject Headings",
+          "6": "Répertoire de vedettes-matière",
+          "7": "Source specified in subfield $2"
+        }
+      }
     },
     "781": {
       "label": "Subdivision Linking Entry-Geographic Subdivision",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Thesaurus",
-          "codes": {
-            "0": "Library of Congress Subject Headings",
-            "1": "Library of Congress Children's and Young Adults' Subject Headings",
-            "2": "Medical Subject Headings",
-            "3": "National Agricultural Library subject authority file",
-            "4": "Source not specified",
-            "5": "Canadian Subject Headings",
-            "6": "Répertoire de vedettes-matière",
-            "7": "Source specified in subfield $2"
-          }
-        }
-      },
       "subfields": {
         "i": {
           "label": "Relationship information",
@@ -9482,31 +9201,29 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Thesaurus",
+        "codes": {
+          "0": "Library of Congress Subject Headings",
+          "1": "Library of Congress Children's and Young Adults' Subject Headings",
+          "2": "Medical Subject Headings",
+          "3": "National Agricultural Library subject authority file",
+          "4": "Source not specified",
+          "5": "Canadian Subject Headings",
+          "6": "Répertoire de vedettes-matière",
+          "7": "Source specified in subfield $2"
+        }
+      }
     },
     "782": {
       "label": "Subdivision Linking Entry-Chronological Subdivision",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Thesaurus",
-          "codes": {
-            "0": "Library of Congress Subject Headings",
-            "1": "Library of Congress Children's and Young Adults' Subject Headings",
-            "2": "Medical Subject Headings",
-            "3": "National Agricultural Library subject authority file",
-            "4": "Source not specified",
-            "5": "Canadian Subject Headings",
-            "6": "Répertoire de vedettes-matière",
-            "7": "Source specified in subfield $2"
-          }
-        }
-      },
       "subfields": {
         "i": {
           "label": "Relationship information",
@@ -9575,31 +9292,29 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Thesaurus",
+        "codes": {
+          "0": "Library of Congress Subject Headings",
+          "1": "Library of Congress Children's and Young Adults' Subject Headings",
+          "2": "Medical Subject Headings",
+          "3": "National Agricultural Library subject authority file",
+          "4": "Source not specified",
+          "5": "Canadian Subject Headings",
+          "6": "Répertoire de vedettes-matière",
+          "7": "Source specified in subfield $2"
+        }
+      }
     },
     "785": {
       "label": "Subdivision Linking Entry-Form Subdivision",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Thesaurus",
-          "codes": {
-            "0": "Library of Congress Subject Headings",
-            "1": "Library of Congress Children's and Young Adults' Subject Headings",
-            "2": "Medical Subject Headings",
-            "3": "National Agricultural Library subject authority file",
-            "4": "Source not specified",
-            "5": "Canadian Subject Headings",
-            "6": "Répertoire de vedettes-matière",
-            "7": "Source specified in subfield $2"
-          }
-        }
-      },
       "subfields": {
         "i": {
           "label": "Relationship information",
@@ -9668,31 +9383,29 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Thesaurus",
+        "codes": {
+          "0": "Library of Congress Subject Headings",
+          "1": "Library of Congress Children's and Young Adults' Subject Headings",
+          "2": "Medical Subject Headings",
+          "3": "National Agricultural Library subject authority file",
+          "4": "Source not specified",
+          "5": "Canadian Subject Headings",
+          "6": "Répertoire de vedettes-matière",
+          "7": "Source specified in subfield $2"
+        }
+      }
     },
     "788": {
       "label": "Complex Linking Entry Data",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Thesaurus",
-          "codes": {
-            "0": "Library of Congress Subject Headings",
-            "1": "Library of Congress Children's and Young Adults' Subject Headings",
-            "2": "Medical Subject Headings",
-            "3": "National Agricultural Library subject authority file",
-            "4": "Source not specified",
-            "5": "Canadian Subject Headings",
-            "6": "Répertoire de vedettes-matière",
-            "7": "Source specified in subfield $2"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Heading referred to",
@@ -9727,36 +9440,29 @@
           "repeatable": true
         }
       },
-      "repeatable": false
+      "repeatable": false,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Thesaurus",
+        "codes": {
+          "0": "Library of Congress Subject Headings",
+          "1": "Library of Congress Children's and Young Adults' Subject Headings",
+          "2": "Medical Subject Headings",
+          "3": "National Agricultural Library subject authority file",
+          "4": "Source not specified",
+          "5": "Canadian Subject Headings",
+          "6": "Répertoire de vedettes-matière",
+          "7": "Source specified in subfield $2"
+        }
+      }
     },
     "856": {
       "label": "Electronic Location and Access",
-      "indicators": {
-        "1": {
-          "label": "Access method",
-          "codes": {
-            "#": "No information provided",
-            "0": "Email",
-            "1": "FTP",
-            "2": "Remote login (Telnet)",
-            "3": "Dial-up",
-            "4": "HTTP",
-            "7": "Method specified in subfield $2"
-          }
-        },
-        "2": {
-          "label": "Relationship",
-          "codes": {
-            "#": "No information provided",
-            "0": "Resource",
-            "1": "Version of resource",
-            "2": "Related resource",
-            "3": "Component part(s) of resource",
-            "4": "Version of component part(s) of resource",
-            "8": "No display constant generated"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Host name",
@@ -9867,33 +9573,34 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Access method",
+        "codes": {
+          "#": "No information provided",
+          "0": "Email",
+          "1": "FTP",
+          "2": "Remote login (Telnet)",
+          "3": "Dial-up",
+          "4": "HTTP",
+          "7": "Method specified in subfield $2"
+        }
+      },
+      "indicator2": {
+        "label": "Relationship",
+        "codes": {
+          "#": "No information provided",
+          "0": "Resource",
+          "1": "Version of resource",
+          "2": "Related resource",
+          "3": "Component part(s) of resource",
+          "4": "Version of component part(s) of resource",
+          "8": "No display constant generated"
+        }
+      }
     },
     "857": {
       "label": "Electronic Archive Location and Access",
-      "indicators": {
-        "1": {
-          "label": "Access method",
-          "codes": {
-            "#": "No information provided",
-            "1": "FTP",
-            "4": "HTTP",
-            "7": "Method specified in subfield $2"
-          }
-        },
-        "2": {
-          "label": "Relationship",
-          "codes": {
-            "#": "No information provided",
-            "0": "Resource",
-            "1": "Version of resource",
-            "2": "Related resource",
-            "3": "Component part(s) of resource",
-            "4": "Version of component part(s) of resource",
-            "8": "No display constant generated"
-          }
-        }
-      },
       "subfields": {
         "b": {
           "label": "Name of archiving agency",
@@ -9992,20 +9699,31 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Access method",
+        "codes": {
+          "#": "No information provided",
+          "1": "FTP",
+          "4": "HTTP",
+          "7": "Method specified in subfield $2"
+        }
+      },
+      "indicator2": {
+        "label": "Relationship",
+        "codes": {
+          "#": "No information provided",
+          "0": "Resource",
+          "1": "Version of resource",
+          "2": "Related resource",
+          "3": "Component part(s) of resource",
+          "4": "Version of component part(s) of resource",
+          "8": "No display constant generated"
+        }
+      }
     },
     "880": {
       "label": "Alternate Graphic Representation",
-      "indicators": {
-        "1": {
-          "label": "Same as associated field",
-          "codes": {}
-        },
-        "2": {
-          "label": "Same as associated field",
-          "codes": {}
-        }
-      },
       "subfields": {
         "a-z": {
           "label": "",
@@ -10024,27 +9742,18 @@
           "repeatable": false
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Same as associated field",
+        "codes": {}
+      },
+      "indicator2": {
+        "label": "Same as associated field",
+        "codes": {}
+      }
     },
     "883": {
       "label": "Metadata Provenance",
-      "indicators": {
-        "1": {
-          "label": "Method of assignment",
-          "codes": {
-            "#": "No information provided/not applicable",
-            "0": "Fully machine-generated",
-            "1": "Partially machine-generated",
-            "2": "Not machine-generated"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Creation process",
@@ -10087,24 +9796,25 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Method of assignment",
+        "codes": {
+          "#": "No information provided/not applicable",
+          "0": "Fully machine-generated",
+          "1": "Partially machine-generated",
+          "2": "Not machine-generated"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "884": {
       "label": "Description Conversion Information",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Conversion process",
@@ -10127,24 +9837,22 @@
           "repeatable": true
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "885": {
       "label": "Matching Information",
-      "indicators": {
-        "1": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        },
-        "2": {
-          "label": "Undefined",
-          "codes": {
-            "#": "Undefined"
-          }
-        }
-      },
       "subfields": {
         "a": {
           "label": "Matching information",
@@ -10191,7 +9899,19 @@
           "repeatable": false
         }
       },
-      "repeatable": true
+      "repeatable": true,
+      "indicator1": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      },
+      "indicator2": {
+        "label": "Undefined",
+        "codes": {
+          "#": "Undefined"
+        }
+      }
     },
     "LDR": {
       "label": "Leader",

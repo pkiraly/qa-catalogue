@@ -1,5 +1,149 @@
 {
   "fields": {
+    "LEADER": {
+      "repeatable": false,
+      "positions": {
+        "00-04": {
+          "label": "Record length",
+          "start": 0,
+          "end": 4
+        },
+        "05": {
+          "label": "Record status",
+          "start": 5,
+          "codes": {
+            "c": "Corrected record",
+            "d": "Deleted record",
+            "n": "New record",
+            "o": "Previously issued higher level record",
+            "p": "Previously issued as an incomplete, pre-publication record"
+          }
+        },
+        "06": {
+          "label": "Type of record",
+          "start": 6,
+          "codes": {
+            "a": "Language materials, except manuscript",
+            "b": "Language materials, manuscript",
+            "c": "Notated music, except manuscript",
+            "d": "Notated music, manuscript",
+            "e": "Cartographic resources, except manuscript",
+            "f": "Cartographic resources, manuscript",
+            "g": "Projected and video resources",
+            "i": "Sound recordings, non-musical",
+            "j": "Sound recordings, musical",
+            "k": "Two-dimensional graphics",
+            "l": "Electronic resource",
+            "m": "Multimedia",
+            "r": "Three-dimensional artefacts"
+          }
+        },
+        "07": {
+          "label": "Bibliographic level",
+          "start": 7,
+          "codes": {
+             "a": "Analytic component part",
+             "i": "Integrating resource",
+             "m": "Monographic",
+             "s": "Serial",
+             "c": "Collection"
+          }
+        },
+        "08": {
+          "label": "Hierarchical level code",
+          "start": 8,
+          "codes": {
+             "#": "Hierarchical relationship undefined",
+             "0": "No hierarchical relationship",
+             "1": "Highest level record",
+             "2": "Record below highest level (all levels below)"
+          }
+        },
+        "09": {
+          "label": "Type of control",
+          "start": 9,
+          "codes": {
+             "#": "No specified type",
+             "a": "Archival",
+             "m": "Museum"
+          }
+        },
+        "10": {
+          "label": "Indicator length",
+          "start": 10,
+          "codes": {
+            "2": "Number of character positions used for indicators"
+          }
+        },
+        "11": {
+          "label": "Subfield identifier length",
+          "start": 11,
+          "codes": {
+            "2": "Number of character positions used for a subfield identifier"
+          }
+        },
+        "12-16": {
+          "label": "Base address of data",
+          "start": 12,
+          "end": 16
+        },
+        "17": {
+          "label": "Encoding level",
+          "start": 17,
+          "codes": {
+             "#": "Full level",
+             "1": "Sublevel 1",
+             "2": "Sublevel 2",
+             "3": "Sublevel 3"
+          }
+        },
+        "18": {
+          "label": "Descriptive Cataloguing Form",
+          "start": 18,
+          "codes": {
+            "#": "(Blank) record is in full ISBD form",
+            "i": "Record is in partial or incomplete ISBD form",
+            "n": "Record is in non-ISBD form",
+            "x": "ISBD provisions are not applicable to the type of resource (e.g., unpublished resources)"
+          }
+        },
+        "19": {
+          "label": "Undefined",
+          "start": 19,
+          "codes": {
+            "#": "Blank"
+          }
+        },
+        "20": {
+          "label": "Length of 'Length of Field'",
+          "start": 20,
+          "codes": {
+            "4": "Number of characters in the length-of-field portion of a Directory entry"
+          }
+        },
+        "21": {
+          "label": "Length of 'Starting Character Position'",
+          "start": 21,
+          "codes": {
+            "5": "Number of characters in the starting-character-position portion of a Directory entry"
+          }
+        },
+        "22": {
+          "label": "Length of Implementation-Defined Portion",
+          "start": 22,
+          "codes": {
+            "0": "Number of characters in the implementation-defined portion of a Directory entry"
+          }
+        },
+        "23": {
+          "label": "Undefined",
+          "start": 23,
+          "codes": {
+            "#": "Blank"
+          }
+        }
+      }
+    },
     "001": {
       "tag": "001",
       "label": "RECORD IDENTIFIER",
@@ -263,6 +407,10 @@
           "repeatable": false
         }
       }
+    },
+    "018": {
+      "tag": "018",
+      "label": "[RESERVED]"
     },
     "020": {
       "tag": "020",
@@ -1079,6 +1227,24 @@
         },
         "z": {
           "label": "Erroneous Number",
+          "repeatable": true
+        }
+      }
+    },
+    "033": {
+      "tag": "033",
+      "label": "OTHER SYSTEM PERSISTENT RECORD IDENTIFIER",
+      "required": false,
+      "repeatable": true,
+      "indicator1": null,
+      "indicator2": null,
+      "subfields": {
+        "a": {
+          "label": "Persistent Record Identifier",
+          "repeatable": false
+        },
+        "z": {
+          "label": "Cancelled or Invalid Persistent Record Identifier",
           "repeatable": true
         }
       }
@@ -7804,7 +7970,7 @@
                 "i": "coats of arms",
                 "j": "genealogical tables",
                 "k": "forms",
-                "1": "samples",
+                 "l": "samples",
                 "m": "sound recordings",
                 "n": "transparencies",
                 "o": "illuminations",
@@ -7828,7 +7994,7 @@
                 "i": "statistics",
                 "j": "programmed text book",
                 "k": "patent",
-                "1": "standard",
+                 "l": "standard",
                 "m": "dissertation or thesis (original)",
                 "n": "laws and legislation",
                 "o": "numeric table",
@@ -7947,7 +8113,7 @@
       "indicator2": null,
       "subfields": {
         "a": {
-          "label": "Continuing resource Coded Data",
+          "label": "Continuing Resource Coded Data",
           "repeatable": false,
           "positions": {
             "00": {
@@ -7980,7 +8146,7 @@
                 "i": "three times a year",
                 "j": "semiannual (twice a year)",
                 "k": "annual",
-                "1": "biennial (every two years)",
+                "l": "biennial (every two years)",
                 "m": "triennial (every three years)",
                 "n": "three times a week",
                 "o": "three times a month",
@@ -8017,7 +8183,7 @@
                 "i": "statistics",
                 "j": "programmed texts",
                 "k": "reviews",
-                "1": "laws and legislation",
+                "l": "laws and legislation",
                 "m": "law reports and digests",
                 "n": "legal articles",
                 "o": "legal cases and case notes",
@@ -8044,7 +8210,7 @@
                 "i": "statistics",
                 "j": "programmed texts",
                 "k": "reviews",
-                "1": "laws and legislation",
+                "l": "laws and legislation",
                 "m": "law reports and digests",
                 "n": "legal articles",
                 "o": "legal cases and case notes",
@@ -8112,12 +8278,16 @@
               "end": null,
               "codes": {
                 "0": "no cumulative index or table of contents",
-                "l": "cumulative index or table of contents available 111 CODED DATA FIELDS \u2013 SERIALS: PHYSICAL ATTRIBUTES [Obsolete]"
+                "l": "cumulative index or table of contents available 111 CODED DATA FIELDS - SERIALS: PHYSICAL ATTRIBUTES [Obsolete]"
               }
             }
           }
         }
       }
+    },
+    "111": {
+      "tag": "111",
+      "label": "CODED DATA FIELD: SERIALS – PHYSICAL ATTRIBUTES [OBSOLETE]"
     },
     "115": {
       "tag": "115",
@@ -8231,7 +8401,7 @@
                 "i": "other filmstrip type",
                 "j": "film strip roll",
                 "k": "slide, slide set, stereograph",
-                "1": "transparency",
+                 "l": "transparency",
                 "u": "unknown",
                 "x": "not a motion picture or visual projection",
                 "z": "other forms of release"
@@ -9140,6 +9310,7 @@
               "end": 3,
               "codes": {
                 "// remark": "01-99 = number of bands",
+                "01-99": "number of bands",
                 "xx": "not applicable"
               }
             },
@@ -9181,6 +9352,7 @@
               "codes": {
                 "-": "less than 1 centimeter",
                 "// remark": "1-9 numeric value",
+                "1-9": "numeric value",
                 "+": "greater than 9 kilometers",
                 "x": "not applicable"
               }
@@ -10762,9 +10934,9 @@
               "end": null,
               "codes": {
                 "a": "low reduction",
-                "b": "normal (16x \u2013 30x)",
-                "c": "high (31x \u2013 60x)",
-                "d": "very high (61x \u2013 90x)",
+                "b": "normal (16x - 30x)",
+                "c": "high (31x - 60x)",
+                "d": "very high (61x - 90x)",
                 "e": "ultrahigh (9lx - )",
                 "u": "unknown",
                 "v": "varies"
@@ -12712,6 +12884,7 @@
               "end": 7,
               "codes": {
                 "// remark": "001-999 = Exact bit depth",
+                "001-999": "Exact bit depth",
                 "mmm": "Multiple (more than one image type)",
                 "nnn": "Not applicable",
                 "---": "Unknown"
@@ -13394,7 +13567,7 @@
     },
     "145": {
       "tag": "145",
-      "label": "CODED DATA FIELD: MEDIUM OF PERFORMANCE",
+      "label": "CODED DATA FIELD: MEDIUM OF PERFORMANCE [OBSOLETE]",
       "required": false,
       "repeatable": true,
       "indicator1": {
@@ -14064,6 +14237,1784 @@
                 "s": "bowed string instruments",
                 "t": "plucked string instrument",
                 "v": "voices (not specified)",
+                "w": "woodwind instruments",
+                "x": "choral voices",
+                "y": "ensemble instruments",
+                "z": "devices, other performers"
+              }
+            }
+          }
+        }
+      }
+    },
+    "146": {
+      "tag": "146",
+      "label": "CODED DATA FIELD: MEDIUM OF PERFORMANCE",
+      "required": false,
+      "repeatable": true,
+      "indicator1": {
+        "label": "Arrangement indicator",
+        "codes": {
+          "0": "Original composition",
+          "1": "Arranged composition"
+        }
+      },
+      "indicator2": {
+        "label": "Alternative medium indicator",
+        "codes": {
+          "#": "Not applicable",
+          "1": "Alternative medium of performance"
+        }
+      },
+      "subfields": {
+        "a": {
+          "label": "Type of performance medium",
+          "repeatable": false,
+          "codelist": {
+            "a": "vocal a capella music",
+            "b": "instrumental music",
+            "c": "vocal and instrumental music",
+            "d": "electroacoustic music",
+            "e": "mixed media music",
+            "u": "undefined, variable",
+            "z": "other"
+          }
+        },
+        "b": {
+          "label": "Instrument or Voice Soloist",
+          "repeatable": true,
+          "positions": {
+            "00-01": {
+              "label": "No. of instruments or voices",
+              "start": 0,
+              "end": 1
+            },
+            "02-04": {
+              "label": "Category of instrument or voice",
+              "start": 2,
+              "end": 4,
+              "codes": {
+                "// remark": "to be updated from http://www.urfm.braidense.it/risorse/searchmedium_en.php",
+                "val": "alto",
+                "vbr": "baritone",
+                "vbs": "bass",
+                "vca": "child alto",
+                "vcl": "contratenor altus",
+                "vcs": "child soprano",
+                "vct": "countertenor",
+                "vcv": "child voice",
+                "vma": "man’s voice",
+                "vms": "mezzosoprano",
+                "vrc": "reciting child’s voice",
+                "vre": "reciting voice",
+                "vrm": "reciting man’s voice",
+                "vrw": "reciting woman’s voice",
+                "vso": "soprano",
+                "vte": "tenor",
+                "vun": "voiceunspecified",
+                "vvg": "vagans",
+                "vwo": "woman’s voice",
+                "vzz": "voice - other",
+                "wau": "aulos",
+                "wba": "bassoon",
+                "wbh": "basset-horn",
+                "wbn": "bassanello",
+                "wbp": "bagpipe",
+                "wch": "chalumeau",
+                "wcl": "clarinet",
+                "wcm": "ciaramella",
+                "wcr": "cromorne",
+                "wdb": "double bassoon",
+                "wdp": "doppione",
+                "wdu": "dulcian",
+                "wdv": "dvojnice",
+                "weh": "english horn",
+                "wfa": "flauto d'amore",
+                "wfg": "flageolet",
+                "wfi": "fife",
+                "wfl": "flute",
+                "wga": "tabor pipe",
+                "wge": "cor de chamois",
+                "whp": "pibgorn",
+                "wmo": "mouth organ",
+                "wmu": "musette",
+                "wna": "ney",
+                "woa": "oboe d'amore",
+                "wob": "oboe",
+                "woh": "oboe da caccia",
+                "wpi": "piccolo",
+                "wpo": "pommer",
+                "wpp": "panpipes",
+                "wra": "racket",
+                "wre": "recorder",
+                "wro": "rothophone",
+                "wsa": "saxophone",
+                "wsh": "shakuhashi",
+                "wsr": "sarrusophone",
+                "wsu": "sordun",
+                "wvu": "voce umana",
+                "wun": "woodwind - unspecified",
+                "wzz": "woodwind - other",
+                "bah": "alphorn",
+                "bbb": "bombardino",
+                "bbd": "bombardon",
+                "bbh": "bersag horn",
+                "bbu": "bugle",
+                "bca": "carnyx",
+                "bcb": "cimbasso",
+                "bch": "corno di toro",
+                "bcl": "clarion",
+                "bco": "cornet",
+                "bct": "cornett",
+                "bcu": "cornu",
+                "bdx": "duplex",
+                "beu": "euphonium",
+                "bhh": "hunting horn",
+                "bho": "horn",
+                "bht": "herald's trumpet",
+                "bkb": "keyed bugle",
+                "blu": "lur",
+                "bol": "oliphant",
+                "bop": "ophicleide",
+                "bph": "post horn",
+                "brh": "russian horn",
+                "bse": "serpent",
+                "bsh": "shofar",
+                "bsx": "salpinx",
+                "bta": "tuba (antique)",
+                "btb": "trombone",
+                "btr": "trumpet",
+                "btu": "tuba",
+                "bvb": "valved bugle",
+                "bwt": "Wagner tuba",
+                "bun": "brass - unspecified",
+                "bzz": "brass - others",
+                "sar": "arpeggione",
+                "sba": "baryton",
+                "sbt": "bassett",
+                "sbu": "bumbass",
+                "scr": "crwth",
+                "sdb": "double bass",
+                "sfi": "fiddle, viol",
+                "sgu": "gusle",
+                "sli": "lira da braccio",
+                "sln": "lirone",
+                "sny": "keyed fiddle",
+                "sob": "octobass",
+                "spo": "kit",
+                "spv": "quinton",
+                "sre": "rebec",
+                "stm": "trumpet marine",
+                "sva": "viola",
+                "svc": "cello",
+                "svd": "viola d’amore",
+                "sve": "violone",
+                "svg": "viola da gamba",
+                "svl": "violin",
+                "svp": "viola pomposa",
+                "sun": "string - unspecified",
+                "szz": "string - other",
+                "tal": "archlute",
+                "tat": "harp-psaltery",
+                "tbb": "barbitos",
+                "tbi": "biwa",
+                "tbj": "banjo",
+                "tbl": "balalaika",
+                "tbo": "bouzouki",
+                "tch": "chitarrone",
+                "tci": "cittern",
+                "tcs": "colascione",
+                "tct": "citole",
+                "tcz": "cobza",
+                "tgu": "guitar",
+                "tha": "harp",
+                "thg": "chitarra hawaiana",
+                "tkh": "kithara",
+                "tko": "kora",
+                "tlf": "lute (family)",
+                "tlg": "lyre-guitar",
+                "tlu": "lute",
+                "tma": "mandolin",
+                "tmd": "mandore",
+                "tps": "psaltery (plucked)",
+                "tpx": "phorminx",
+                "tqa": "qanum",
+                "tth": "theorbo",
+                "ttn": "tanbur",
+                "tud": "'ud",
+                "tuk": "ukulele",
+                "tvi": "vihuela",
+                "tzi": "zither",
+                "tun": "plucked - unspecified",
+                "tzz": "plucked - other",
+                "kab": "archicembalo",
+                "kac": "accordion",
+                "kba": "bandoneon",
+                "kca": "carillon (with keyboard)",
+                "kce": "celesta",
+                "kch": "chordette",
+                "kcl": "clavichord",
+                "kco": "claviorgan",
+                "kcy": "clavicytherium",
+                "kfp": "fortepiano",
+                "kgl": "glockenspiel (with keyboard)",
+                "khm": "harmonium",
+                "khp": "harpsichord",
+                "kmp": "melopiano",
+                "kor": "organ",
+                "kpf": "piano",
+                "kps": "plucked string keyboard",
+                "kre": "regals",
+                "ksi": "sirenion",
+                "ksp": "sostenente piano",
+                "kst": "spinet",
+                "kvg": "virginal",
+                "kun": "keyboard - unspecified",
+                "kxx": "keyboard - other",
+                "pab": "aeolian bells",
+                "pad": "arabian drum",
+                "pag": "agogo",
+                "pan": "anvil",
+                "pbb": "boobams",
+                "pbd": "bass drum",
+                "pbe": "tambourin de Bearn",
+                "pbl": "bells",
+                "pbo": "bongos",
+                "pbp": "metal bells plate",
+                "pbr": "bronte",
+                "pca": "castanets",
+                "pcb": "cabaca",
+                "pcc": "chinese cymbals",
+                "pcg": "conga",
+                "pch": "chains",
+                "pci": "cimbalom",
+                "pco": "chocalho",
+                "pcr": "crash cymbal",
+                "pct": "crotales",
+                "pcu": "cuica",
+                "pcv": "claves",
+                "pcw": "cowbell",
+                "pcy": "cymbals",
+                "pdr": "drum",
+                "pds": "drums",
+                "pfc": "finger cymbals",
+                "pfd": "friction drum",
+                "pfl": "flexatone",
+                "pgl": "glockenspiel",
+                "pgn": "canon",
+                "pgo": "gong",
+                "pgu": "guiro",
+                "pha": "hammer",
+                "phb": "handbell",
+                "phh": "hi-hat",
+                "pir": "intonarumori",
+                "pje": "jembe",
+                "pji": "jingles",
+                "pli": "lithophone",
+                "plj": "lujon",
+                "pmb": "marimba",
+                "pmc": "maracas",
+                "pmd": "military drum",
+                "pme": "metallophone",
+                "pnv": "nail violin",
+                "pra": "ratchett",
+                "prs": "rain stick",
+                "prt": "roto-toms",
+                "psc": "sizzle cymbals",
+                "pse": "sound-effect instrument",
+                "psl": "slit-drum",
+                "psm": "sistrum",
+                "psn": "sirene",
+                "psp": "sandpaper",
+                "pss": "sound sculpture",
+                "pst": "steel drum",
+                "psw": "switch whip",
+                "pta": "tablas",
+                "ptb": "tabor",
+                "ptc": "turkish crescent",
+                "pte": "temple block",
+                "ptg": "tuned gong",
+                "pti": "timpani",
+                "ptl": "triangle",
+                "ptm": "thunder machine",
+                "pto": "tarol",
+                "ptr": "tambourine",
+                "ptt": "tom-tom",
+                "pvi": "vibraphone",
+                "pvs": "vibra-slap",
+                "pwh": "whip",
+                "pwm": "wind machine",
+                "pwo": "woodblocks",
+                "pxr": "xylorimba",
+                "pxy": "xylophone",
+                "pza": "zarb",
+                "pun": "percussion - unspecified",
+                "pzz": "percussion - other",
+                "eco": "computer",
+                "ecs": "computerized musical station",
+                "ect": "computerized tape",
+                "eds": "digital space device",
+                "eea": "electro-acoustic device",
+                "eli": "live electronic",
+                "ely": "lyricon",
+                "ema": "ondes Martenot",
+                "eme": "meta-instrument",
+                "emu": "multimedial device",
+                "eos": "oscillator",
+                "esp": "space device",
+                "esy": "synthesizer",
+                "eta": "tape",
+                "eth": "theremin",
+                "eun": "electronic - non specirfied",
+                "ezz": "electronic - other",
+                "mah": "aeolian harp",
+                "mbo": "barrel organ",
+                "mbr": "bullroarer",
+                "mbs": "bass (Instrument)",
+                "mbw": "musical bow",
+                "mbx": "musical box",
+                "mck": "chekker",
+                "mcl": "musical clock",
+                "mco": "continuo",
+                "mgh": "glassharmonika",
+                "mha": "harmonica",
+                "mhg": "hurdy-gurdy",
+                "mjh": "jew's harp",
+                "mla": "lamellophone",
+                "mmc": "monochord",
+                "mme": "melodica",
+                "mmi": "mirliton",
+                "mml": "melodic instrument",
+                "mms": "musical saw",
+                "moc": "ocarina",
+                "mpo": "polyphonic instrument",
+                "mpp": "player piano",
+                "mra": "rabab",
+                "msw": "swanee whistle",
+                "mtf": "tuning-fork",
+                "mui": "instrument - non specified",
+                "mwd": "wind instrument",
+                "mwh": "whistle",
+                "mun": "instrument or voice, non specified",
+                "mzz": "other",
+                "qch": "choir conductor, chorus master",
+                "qco": "conductor",
+                "qce": "live electronic conductor",
+                "qlc": "light conductor",
+                "qzz": "conductor - other",
+                "zab": "acrobat",
+                "zat": "actor",
+                "zaw": "actress",
+                "zac": "child actor",
+                "zda": "dancer",
+                "zel": "light engineer",
+                "zmi": "mime",
+                "zas": "attore muto",
+                "zes": "sound engineer",
+                "zju": "juggler",
+                "zwp": "walk-on part",
+                "zzz": "performer - other"
+              }
+            },
+            "05": {
+              "label": "Other details - Tessitura, prepared",
+              "start": 5,
+              "codes": {
+                "#": "not specified - position not required",
+                "a": "sopranino",
+                "b": "soprano ",
+                "c": "alto",
+                "d": "tenor",
+                "e": "baritone",
+                "f": "bass",
+                "g": "contrabass",
+                "h": "sub-contrabass",
+                "i": "sopracute",
+                "j": "high",
+                "k": "medium",
+                "l": "low",
+                "m": "prepared"
+              }
+            },
+            "06": {
+              "label": "Other details - Number of hands / players; Keys of pitched instruments",
+              "start": 6,
+              "codes": {
+                "#": "not specified - position not required",
+                "1": "one hand",
+                "2": "two players on one instrument",
+                "3": "three hands",
+                "4": "four hands",
+                "6": "six hands",
+                "8": "eight hands",
+                "a": "A",
+                "b": "B",
+                "c": "C",
+                "d": "D",
+                "e": "E",
+                "f": "F",
+                "g": "G",
+                "h": "B",
+                "i": "E",
+                "j": "A",
+                "k": "D",
+                "l": "F",
+                "n": "instrument played in non standard way",
+                "s": "non standard string number"
+              }
+            },
+            "07": {
+              "label": "Other details - Other",
+              "start": 7,
+              "codes": {
+                "#": "not specified - position not required",
+                "r": "electric",
+                "s": "electronic",
+                "t": "midi",
+                "v": "amplified",
+                "w": "recorded",
+                "q": "antiquity",
+                "y": "ethnic, traditional"
+              }
+            },
+            "08": {
+              "label": "Other details - Position 8",
+              "start": 8,
+              "codes": {
+                "#": "not specified – position not required",
+                "b": "ad libitum",
+                "c": "may take place of the preceding code / alternative",
+                "d": "used by the same player as the preceding code"
+              }
+            }
+          }
+        },
+        "c": {
+          "label": "Instrument or Voice Non-soloist, Conductor, Other Performer or Device, not Included in an Ensemble Recorded in Subfield $d",
+          "repeatable": true,
+          "positions": {
+            "00-01": {
+              "label": "No. of instruments or voices",
+              "start": 0,
+              "end": 1
+            },
+            "02-04": {
+              "label": "Category of instrument or voice",
+              "start": 2,
+              "end": 4,
+              "codes": {
+                "// remark": "to be updated from http://www.urfm.braidense.it/risorse/searchmedium_en.php",
+                "val": "alto",
+                "vbr": "baritone",
+                "vbs": "bass",
+                "vca": "child alto",
+                "vcl": "contratenor altus",
+                "vcs": "child soprano",
+                "vct": "countertenor",
+                "vcv": "child voice",
+                "vma": "man’s voice",
+                "vms": "mezzosoprano",
+                "vrc": "reciting child’s voice",
+                "vre": "reciting voice",
+                "vrm": "reciting man’s voice",
+                "vrw": "reciting woman’s voice",
+                "vso": "soprano",
+                "vte": "tenor",
+                "vun": "voiceunspecified",
+                "vvg": "vagans",
+                "vwo": "woman’s voice",
+                "vzz": "voice - other",
+                "wau": "aulos",
+                "wba": "bassoon",
+                "wbh": "basset-horn",
+                "wbn": "bassanello",
+                "wbp": "bagpipe",
+                "wch": "chalumeau",
+                "wcl": "clarinet",
+                "wcm": "ciaramella",
+                "wcr": "cromorne",
+                "wdb": "double bassoon",
+                "wdp": "doppione",
+                "wdu": "dulcian",
+                "wdv": "dvojnice",
+                "weh": "english horn",
+                "wfa": "flauto d'amore",
+                "wfg": "flageolet",
+                "wfi": "fife",
+                "wfl": "flute",
+                "wga": "tabor pipe",
+                "wge": "cor de chamois",
+                "whp": "pibgorn",
+                "wmo": "mouth organ",
+                "wmu": "musette",
+                "wna": "ney",
+                "woa": "oboe d'amore",
+                "wob": "oboe",
+                "woh": "oboe da caccia",
+                "wpi": "piccolo",
+                "wpo": "pommer",
+                "wpp": "panpipes",
+                "wra": "racket",
+                "wre": "recorder",
+                "wro": "rothophone",
+                "wsa": "saxophone",
+                "wsh": "shakuhashi",
+                "wsr": "sarrusophone",
+                "wsu": "sordun",
+                "wvu": "voce umana",
+                "wun": "woodwind - unspecified",
+                "wzz": "woodwind - other",
+                "bah": "alphorn",
+                "bbb": "bombardino",
+                "bbd": "bombardon",
+                "bbh": "bersag horn",
+                "bbu": "bugle",
+                "bca": "carnyx",
+                "bcb": "cimbasso",
+                "bch": "corno di toro",
+                "bcl": "clarion",
+                "bco": "cornet",
+                "bct": "cornett",
+                "bcu": "cornu",
+                "bdx": "duplex",
+                "beu": "euphonium",
+                "bhh": "hunting horn",
+                "bho": "horn",
+                "bht": "herald's trumpet",
+                "bkb": "keyed bugle",
+                "blu": "lur",
+                "bol": "oliphant",
+                "bop": "ophicleide",
+                "bph": "post horn",
+                "brh": "russian horn",
+                "bse": "serpent",
+                "bsh": "shofar",
+                "bsx": "salpinx",
+                "bta": "tuba (antique)",
+                "btb": "trombone",
+                "btr": "trumpet",
+                "btu": "tuba",
+                "bvb": "valved bugle",
+                "bwt": "Wagner tuba",
+                "bun": "brass - unspecified",
+                "bzz": "brass - others",
+                "sar": "arpeggione",
+                "sba": "baryton",
+                "sbt": "bassett",
+                "sbu": "bumbass",
+                "scr": "crwth",
+                "sdb": "double bass",
+                "sfi": "fiddle, viol",
+                "sgu": "gusle",
+                "sli": "lira da braccio",
+                "sln": "lirone",
+                "sny": "keyed fiddle",
+                "sob": "octobass",
+                "spo": "kit",
+                "spv": "quinton",
+                "sre": "rebec",
+                "stm": "trumpet marine",
+                "sva": "viola",
+                "svc": "cello",
+                "svd": "viola d’amore",
+                "sve": "violone",
+                "svg": "viola da gamba",
+                "svl": "violin",
+                "svp": "viola pomposa",
+                "sun": "string - unspecified",
+                "szz": "string - other",
+                "tal": "archlute",
+                "tat": "harp-psaltery",
+                "tbb": "barbitos",
+                "tbi": "biwa",
+                "tbj": "banjo",
+                "tbl": "balalaika",
+                "tbo": "bouzouki",
+                "tch": "chitarrone",
+                "tci": "cittern",
+                "tcs": "colascione",
+                "tct": "citole",
+                "tcz": "cobza",
+                "tgu": "guitar",
+                "tha": "harp",
+                "thg": "chitarra hawaiana",
+                "tkh": "kithara",
+                "tko": "kora",
+                "tlf": "lute (family)",
+                "tlg": "lyre-guitar",
+                "tlu": "lute",
+                "tma": "mandolin",
+                "tmd": "mandore",
+                "tps": "psaltery (plucked)",
+                "tpx": "phorminx",
+                "tqa": "qanum",
+                "tth": "theorbo",
+                "ttn": "tanbur",
+                "tud": "'ud",
+                "tuk": "ukulele",
+                "tvi": "vihuela",
+                "tzi": "zither",
+                "tun": "plucked - unspecified",
+                "tzz": "plucked - other",
+                "kab": "archicembalo",
+                "kac": "accordion",
+                "kba": "bandoneon",
+                "kca": "carillon (with keyboard)",
+                "kce": "celesta",
+                "kch": "chordette",
+                "kcl": "clavichord",
+                "kco": "claviorgan",
+                "kcy": "clavicytherium",
+                "kfp": "fortepiano",
+                "kgl": "glockenspiel (with keyboard)",
+                "khm": "harmonium",
+                "khp": "harpsichord",
+                "kmp": "melopiano",
+                "kor": "organ",
+                "kpf": "piano",
+                "kps": "plucked string keyboard",
+                "kre": "regals",
+                "ksi": "sirenion",
+                "ksp": "sostenente piano",
+                "kst": "spinet",
+                "kvg": "virginal",
+                "kun": "keyboard - unspecified",
+                "kxx": "keyboard - other",
+                "pab": "aeolian bells",
+                "pad": "arabian drum",
+                "pag": "agogo",
+                "pan": "anvil",
+                "pbb": "boobams",
+                "pbd": "bass drum",
+                "pbe": "tambourin de Bearn",
+                "pbl": "bells",
+                "pbo": "bongos",
+                "pbp": "metal bells plate",
+                "pbr": "bronte",
+                "pca": "castanets",
+                "pcb": "cabaca",
+                "pcc": "chinese cymbals",
+                "pcg": "conga",
+                "pch": "chains",
+                "pci": "cimbalom",
+                "pco": "chocalho",
+                "pcr": "crash cymbal",
+                "pct": "crotales",
+                "pcu": "cuica",
+                "pcv": "claves",
+                "pcw": "cowbell",
+                "pcy": "cymbals",
+                "pdr": "drum",
+                "pds": "drums",
+                "pfc": "finger cymbals",
+                "pfd": "friction drum",
+                "pfl": "flexatone",
+                "pgl": "glockenspiel",
+                "pgn": "canon",
+                "pgo": "gong",
+                "pgu": "guiro",
+                "pha": "hammer",
+                "phb": "handbell",
+                "phh": "hi-hat",
+                "pir": "intonarumori",
+                "pje": "jembe",
+                "pji": "jingles",
+                "pli": "lithophone",
+                "plj": "lujon",
+                "pmb": "marimba",
+                "pmc": "maracas",
+                "pmd": "military drum",
+                "pme": "metallophone",
+                "pnv": "nail violin",
+                "pra": "ratchett",
+                "prs": "rain stick",
+                "prt": "roto-toms",
+                "psc": "sizzle cymbals",
+                "pse": "sound-effect instrument",
+                "psl": "slit-drum",
+                "psm": "sistrum",
+                "psn": "sirene",
+                "psp": "sandpaper",
+                "pss": "sound sculpture",
+                "pst": "steel drum",
+                "psw": "switch whip",
+                "pta": "tablas",
+                "ptb": "tabor",
+                "ptc": "turkish crescent",
+                "pte": "temple block",
+                "ptg": "tuned gong",
+                "pti": "timpani",
+                "ptl": "triangle",
+                "ptm": "thunder machine",
+                "pto": "tarol",
+                "ptr": "tambourine",
+                "ptt": "tom-tom",
+                "pvi": "vibraphone",
+                "pvs": "vibra-slap",
+                "pwh": "whip",
+                "pwm": "wind machine",
+                "pwo": "woodblocks",
+                "pxr": "xylorimba",
+                "pxy": "xylophone",
+                "pza": "zarb",
+                "pun": "percussion - unspecified",
+                "pzz": "percussion - other",
+                "eco": "computer",
+                "ecs": "computerized musical station",
+                "ect": "computerized tape",
+                "eds": "digital space device",
+                "eea": "electro-acoustic device",
+                "eli": "live electronic",
+                "ely": "lyricon",
+                "ema": "ondes Martenot",
+                "eme": "meta-instrument",
+                "emu": "multimedial device",
+                "eos": "oscillator",
+                "esp": "space device",
+                "esy": "synthesizer",
+                "eta": "tape",
+                "eth": "theremin",
+                "eun": "electronic - non specirfied",
+                "ezz": "electronic - other",
+                "mah": "aeolian harp",
+                "mbo": "barrel organ",
+                "mbr": "bullroarer",
+                "mbs": "bass (Instrument)",
+                "mbw": "musical bow",
+                "mbx": "musical box",
+                "mck": "chekker",
+                "mcl": "musical clock",
+                "mco": "continuo",
+                "mgh": "glassharmonika",
+                "mha": "harmonica",
+                "mhg": "hurdy-gurdy",
+                "mjh": "jew's harp",
+                "mla": "lamellophone",
+                "mmc": "monochord",
+                "mme": "melodica",
+                "mmi": "mirliton",
+                "mml": "melodic instrument",
+                "mms": "musical saw",
+                "moc": "ocarina",
+                "mpo": "polyphonic instrument",
+                "mpp": "player piano",
+                "mra": "rabab",
+                "msw": "swanee whistle",
+                "mtf": "tuning-fork",
+                "mui": "instrument - non specified",
+                "mwd": "wind instrument",
+                "mwh": "whistle",
+                "mun": "instrument or voice, non specified",
+                "mzz": "other",
+                "qch": "choir conductor, chorus master",
+                "qco": "conductor",
+                "qce": "live electronic conductor",
+                "qlc": "light conductor",
+                "qzz": "conductor - other",
+                "zab": "acrobat",
+                "zat": "actor",
+                "zaw": "actress",
+                "zac": "child actor",
+                "zda": "dancer",
+                "zel": "light engineer",
+                "zmi": "mime",
+                "zas": "attore muto",
+                "zes": "sound engineer",
+                "zju": "juggler",
+                "zwp": "walk-on part",
+                "zzz": "performer - other"
+              }
+            },
+            "05": {
+              "label": "Other details - Tessitura, prepared",
+              "start": 5,
+              "codes": {
+                "#": "not specified - position not required",
+                "a": "sopranino",
+                "b": "soprano ",
+                "c": "alto",
+                "d": "tenor",
+                "e": "baritone",
+                "f": "bass",
+                "g": "contrabass",
+                "h": "sub-contrabass",
+                "i": "sopracute",
+                "j": "high",
+                "k": "medium",
+                "l": "low",
+                "m": "prepared"
+              }
+            },
+            "06": {
+              "label": "Other details - Number of hands / players; Keys of pitched instruments",
+              "start": 6,
+              "codes": {
+                "#": "not specified - position not required",
+                "1": "one hand",
+                "2": "two players on one instrument",
+                "3": "three hands",
+                "4": "four hands",
+                "6": "six hands",
+                "8": "eight hands",
+                "a": "A",
+                "b": "B",
+                "c": "C",
+                "d": "D",
+                "e": "E",
+                "f": "F",
+                "g": "G",
+                "h": "B",
+                "i": "E",
+                "j": "A",
+                "k": "D",
+                "l": "F",
+                "n": "instrument played in non standard way",
+                "s": "non standard string number"
+              }
+            },
+            "07": {
+              "label": "Other details - Other",
+              "start": 7,
+              "codes": {
+                "#": "not specified - position not required",
+                "r": "electric",
+                "s": "electronic",
+                "t": "midi",
+                "v": "amplified",
+                "w": "recorded",
+                "q": "antiquity",
+                "y": "ethnic, traditional"
+              }
+            },
+            "08": {
+              "label": "Other details - Position 8",
+              "start": 8,
+              "codes": {
+                "#": "not specified – position not required",
+                "b": "ad libitum",
+                "c": "may take place of the preceding code / alternative",
+                "d": "used by the same player as the preceding code"
+              }
+            }
+          }
+        },
+        "d": {
+          "label": "Vocal or Instrumental Ensemble",
+          "repeatable": true,
+          "positions": {
+            "00-01": {
+              "label": "Numbers of ensembles",
+              "start": 0,
+              "end": 1
+            },
+            "02-04": {
+              "label": "Category of ensemble",
+              "start": 2,
+              "end": 4,
+              "codes": {
+                "cch": "children’s choir",
+                "cme": "men’s choir",
+                "cmi": "mixed choir",
+                "cre": "reciting choir",
+                "cve": "vocal ensemble",
+                "cwo": "women’ s choir",
+                "cun": "choir",
+                "czz": "choir - other",
+                "oba": "band",
+                "obi": "big band",
+                "obr": "brass band",
+                "och": "chamber orchestra",
+                "oco": "combo",
+                "odo": "dance orchestra",
+                "ofu": "full orchestra",
+                "oga": "gamelan",
+                "oie": "instrumental ensemble",
+                "oja": "jazz band",
+                "ope": "percussion orchestra",
+                "orb": "ragtime band",
+                "osb": "steel band",
+                "ost": "string orchestra",
+                "owi": "wind orchestra",
+                "oun": "orchestra - unspecified",
+                "ozz": "orchestra - other"
+              }
+            },
+            "05-06": {
+              "label": "Number of real parts",
+              "start": 5,
+              "end": 6
+            },
+            "07": {
+              "label": "Other details - Other",
+              "start": 7,
+              "codes": {
+                "#": "not specified - position not required",
+                "r": "electric",
+                "s": "electronic",
+                "t": "midi",
+                "v": "amplified",
+                "w": "recorded",
+                "q": "antiquity",
+                "y": "ethnic, traditional"
+              }
+            },
+            "08": {
+              "label": "Other details - Position 8",
+              "start": 8,
+              "codes": {
+                "#": "not specified – position not required",
+                "b": "ad libitum",
+                "c": "may take place of the preceding code / alternative",
+                "d": "used by the same player as the preceding code"
+              }
+            }
+          }
+        },
+        "e": {
+          "label": "Instrument or Voice Non-soloist, Conductor, Other Performer or Device, Included in an Ensemble Recorded in Preceding Subfield $d",
+          "repeatable": true,
+          "positions": {
+            "00-01": {
+              "label": "No. of instruments or voices",
+              "start": 0,
+              "end": 1
+            },
+            "02-04": {
+              "label": "Category of Instrument or Voice",
+              "start": 2,
+              "end": 4,
+              "codes": {
+                "// remark": "to be updated from http://www.urfm.braidense.it/risorse/searchmedium_en.php",
+                "val": "alto",
+                "vbr": "baritone",
+                "vbs": "bass",
+                "vca": "child alto",
+                "vcl": "contratenor altus",
+                "vcs": "child soprano",
+                "vct": "countertenor",
+                "vcv": "child voice",
+                "vma": "man’s voice",
+                "vms": "mezzosoprano",
+                "vrc": "reciting child’s voice",
+                "vre": "reciting voice",
+                "vrm": "reciting man’s voice",
+                "vrw": "reciting woman’s voice",
+                "vso": "soprano",
+                "vte": "tenor",
+                "vun": "voiceunspecified",
+                "vvg": "vagans",
+                "vwo": "woman’s voice",
+                "vzz": "voice - other",
+                "wau": "aulos",
+                "wba": "bassoon",
+                "wbh": "basset-horn",
+                "wbn": "bassanello",
+                "wbp": "bagpipe",
+                "wch": "chalumeau",
+                "wcl": "clarinet",
+                "wcm": "ciaramella",
+                "wcr": "cromorne",
+                "wdb": "double bassoon",
+                "wdp": "doppione",
+                "wdu": "dulcian",
+                "wdv": "dvojnice",
+                "weh": "english horn",
+                "wfa": "flauto d'amore",
+                "wfg": "flageolet",
+                "wfi": "fife",
+                "wfl": "flute",
+                "wga": "tabor pipe",
+                "wge": "cor de chamois",
+                "whp": "pibgorn",
+                "wmo": "mouth organ",
+                "wmu": "musette",
+                "wna": "ney",
+                "woa": "oboe d'amore",
+                "wob": "oboe",
+                "woh": "oboe da caccia",
+                "wpi": "piccolo",
+                "wpo": "pommer",
+                "wpp": "panpipes",
+                "wra": "racket",
+                "wre": "recorder",
+                "wro": "rothophone",
+                "wsa": "saxophone",
+                "wsh": "shakuhashi",
+                "wsr": "sarrusophone",
+                "wsu": "sordun",
+                "wvu": "voce umana",
+                "wun": "woodwind - unspecified",
+                "wzz": "woodwind - other",
+                "bah": "alphorn",
+                "bbb": "bombardino",
+                "bbd": "bombardon",
+                "bbh": "bersag horn",
+                "bbu": "bugle",
+                "bca": "carnyx",
+                "bcb": "cimbasso",
+                "bch": "corno di toro",
+                "bcl": "clarion",
+                "bco": "cornet",
+                "bct": "cornett",
+                "bcu": "cornu",
+                "bdx": "duplex",
+                "beu": "euphonium",
+                "bhh": "hunting horn",
+                "bho": "horn",
+                "bht": "herald's trumpet",
+                "bkb": "keyed bugle",
+                "blu": "lur",
+                "bol": "oliphant",
+                "bop": "ophicleide",
+                "bph": "post horn",
+                "brh": "russian horn",
+                "bse": "serpent",
+                "bsh": "shofar",
+                "bsx": "salpinx",
+                "bta": "tuba (antique)",
+                "btb": "trombone",
+                "btr": "trumpet",
+                "btu": "tuba",
+                "bvb": "valved bugle",
+                "bwt": "Wagner tuba",
+                "bun": "brass - unspecified",
+                "bzz": "brass - others",
+                "sar": "arpeggione",
+                "sba": "baryton",
+                "sbt": "bassett",
+                "sbu": "bumbass",
+                "scr": "crwth",
+                "sdb": "double bass",
+                "sfi": "fiddle, viol",
+                "sgu": "gusle",
+                "sli": "lira da braccio",
+                "sln": "lirone",
+                "sny": "keyed fiddle",
+                "sob": "octobass",
+                "spo": "kit",
+                "spv": "quinton",
+                "sre": "rebec",
+                "stm": "trumpet marine",
+                "sva": "viola",
+                "svc": "cello",
+                "svd": "viola d’amore",
+                "sve": "violone",
+                "svg": "viola da gamba",
+                "svl": "violin",
+                "svp": "viola pomposa",
+                "sun": "string - unspecified",
+                "szz": "string - other",
+                "tal": "archlute",
+                "tat": "harp-psaltery",
+                "tbb": "barbitos",
+                "tbi": "biwa",
+                "tbj": "banjo",
+                "tbl": "balalaika",
+                "tbo": "bouzouki",
+                "tch": "chitarrone",
+                "tci": "cittern",
+                "tcs": "colascione",
+                "tct": "citole",
+                "tcz": "cobza",
+                "tgu": "guitar",
+                "tha": "harp",
+                "thg": "chitarra hawaiana",
+                "tkh": "kithara",
+                "tko": "kora",
+                "tlf": "lute (family)",
+                "tlg": "lyre-guitar",
+                "tlu": "lute",
+                "tma": "mandolin",
+                "tmd": "mandore",
+                "tps": "psaltery (plucked)",
+                "tpx": "phorminx",
+                "tqa": "qanum",
+                "tth": "theorbo",
+                "ttn": "tanbur",
+                "tud": "'ud",
+                "tuk": "ukulele",
+                "tvi": "vihuela",
+                "tzi": "zither",
+                "tun": "plucked - unspecified",
+                "tzz": "plucked - other",
+                "kab": "archicembalo",
+                "kac": "accordion",
+                "kba": "bandoneon",
+                "kca": "carillon (with keyboard)",
+                "kce": "celesta",
+                "kch": "chordette",
+                "kcl": "clavichord",
+                "kco": "claviorgan",
+                "kcy": "clavicytherium",
+                "kfp": "fortepiano",
+                "kgl": "glockenspiel (with keyboard)",
+                "khm": "harmonium",
+                "khp": "harpsichord",
+                "kmp": "melopiano",
+                "kor": "organ",
+                "kpf": "piano",
+                "kps": "plucked string keyboard",
+                "kre": "regals",
+                "ksi": "sirenion",
+                "ksp": "sostenente piano",
+                "kst": "spinet",
+                "kvg": "virginal",
+                "kun": "keyboard - unspecified",
+                "kxx": "keyboard - other",
+                "pab": "aeolian bells",
+                "pad": "arabian drum",
+                "pag": "agogo",
+                "pan": "anvil",
+                "pbb": "boobams",
+                "pbd": "bass drum",
+                "pbe": "tambourin de Bearn",
+                "pbl": "bells",
+                "pbo": "bongos",
+                "pbp": "metal bells plate",
+                "pbr": "bronte",
+                "pca": "castanets",
+                "pcb": "cabaca",
+                "pcc": "chinese cymbals",
+                "pcg": "conga",
+                "pch": "chains",
+                "pci": "cimbalom",
+                "pco": "chocalho",
+                "pcr": "crash cymbal",
+                "pct": "crotales",
+                "pcu": "cuica",
+                "pcv": "claves",
+                "pcw": "cowbell",
+                "pcy": "cymbals",
+                "pdr": "drum",
+                "pds": "drums",
+                "pfc": "finger cymbals",
+                "pfd": "friction drum",
+                "pfl": "flexatone",
+                "pgl": "glockenspiel",
+                "pgn": "canon",
+                "pgo": "gong",
+                "pgu": "guiro",
+                "pha": "hammer",
+                "phb": "handbell",
+                "phh": "hi-hat",
+                "pir": "intonarumori",
+                "pje": "jembe",
+                "pji": "jingles",
+                "pli": "lithophone",
+                "plj": "lujon",
+                "pmb": "marimba",
+                "pmc": "maracas",
+                "pmd": "military drum",
+                "pme": "metallophone",
+                "pnv": "nail violin",
+                "pra": "ratchett",
+                "prs": "rain stick",
+                "prt": "roto-toms",
+                "psc": "sizzle cymbals",
+                "pse": "sound-effect instrument",
+                "psl": "slit-drum",
+                "psm": "sistrum",
+                "psn": "sirene",
+                "psp": "sandpaper",
+                "pss": "sound sculpture",
+                "pst": "steel drum",
+                "psw": "switch whip",
+                "pta": "tablas",
+                "ptb": "tabor",
+                "ptc": "turkish crescent",
+                "pte": "temple block",
+                "ptg": "tuned gong",
+                "pti": "timpani",
+                "ptl": "triangle",
+                "ptm": "thunder machine",
+                "pto": "tarol",
+                "ptr": "tambourine",
+                "ptt": "tom-tom",
+                "pvi": "vibraphone",
+                "pvs": "vibra-slap",
+                "pwh": "whip",
+                "pwm": "wind machine",
+                "pwo": "woodblocks",
+                "pxr": "xylorimba",
+                "pxy": "xylophone",
+                "pza": "zarb",
+                "pun": "percussion - unspecified",
+                "pzz": "percussion - other",
+                "eco": "computer",
+                "ecs": "computerized musical station",
+                "ect": "computerized tape",
+                "eds": "digital space device",
+                "eea": "electro-acoustic device",
+                "eli": "live electronic",
+                "ely": "lyricon",
+                "ema": "ondes Martenot",
+                "eme": "meta-instrument",
+                "emu": "multimedial device",
+                "eos": "oscillator",
+                "esp": "space device",
+                "esy": "synthesizer",
+                "eta": "tape",
+                "eth": "theremin",
+                "eun": "electronic - non specirfied",
+                "ezz": "electronic - other",
+                "mah": "aeolian harp",
+                "mbo": "barrel organ",
+                "mbr": "bullroarer",
+                "mbs": "bass (Instrument)",
+                "mbw": "musical bow",
+                "mbx": "musical box",
+                "mck": "chekker",
+                "mcl": "musical clock",
+                "mco": "continuo",
+                "mgh": "glassharmonika",
+                "mha": "harmonica",
+                "mhg": "hurdy-gurdy",
+                "mjh": "jew's harp",
+                "mla": "lamellophone",
+                "mmc": "monochord",
+                "mme": "melodica",
+                "mmi": "mirliton",
+                "mml": "melodic instrument",
+                "mms": "musical saw",
+                "moc": "ocarina",
+                "mpo": "polyphonic instrument",
+                "mpp": "player piano",
+                "mra": "rabab",
+                "msw": "swanee whistle",
+                "mtf": "tuning-fork",
+                "mui": "instrument - non specified",
+                "mwd": "wind instrument",
+                "mwh": "whistle",
+                "mun": "instrument or voice, non specified",
+                "mzz": "other",
+                "qch": "choir conductor, chorus master",
+                "qco": "conductor",
+                "qce": "live electronic conductor",
+                "qlc": "light conductor",
+                "qzz": "conductor - other",
+                "zab": "acrobat",
+                "zat": "actor",
+                "zaw": "actress",
+                "zac": "child actor",
+                "zda": "dancer",
+                "zel": "light engineer",
+                "zmi": "mime",
+                "zas": "attore muto",
+                "zes": "sound engineer",
+                "zju": "juggler",
+                "zwp": "walk-on part",
+                "zzz": "performer - other"
+              }
+            },
+            "05": {
+              "label": "Other details - Tessitura, prepared",
+              "start": 5,
+              "codes": {
+                "#": "not specified - position not required",
+                "a": "sopranino",
+                "b": "soprano ",
+                "c": "alto",
+                "d": "tenor",
+                "e": "baritone",
+                "f": "bass",
+                "g": "contrabass",
+                "h": "sub-contrabass",
+                "i": "sopracute",
+                "j": "high",
+                "k": "medium",
+                "l": "low",
+                "m": "prepared"
+              }
+            },
+            "06": {
+              "label": "Other details - Number of hands / players; Keys of pitched instruments",
+              "start": 6,
+              "codes": {
+                "#": "not specified - position not required",
+                "1": "one hand",
+                "2": "two players on one instrument",
+                "3": "three hands",
+                "4": "four hands",
+                "6": "six hands",
+                "8": "eight hands",
+                "a": "A",
+                "b": "B",
+                "c": "C",
+                "d": "D",
+                "e": "E",
+                "f": "F",
+                "g": "G",
+                "h": "B",
+                "i": "E",
+                "j": "A",
+                "k": "D",
+                "l": "F",
+                "n": "instrument played in non standard way",
+                "s": "non standard string number"
+              }
+            },
+            "07": {
+              "label": "Other details - Other",
+              "start": 7,
+              "codes": {
+                "#": "not specified - position not required",
+                "r": "electric",
+                "s": "electronic",
+                "t": "midi",
+                "v": "amplified",
+                "w": "recorded",
+                "q": "antiquity",
+                "y": "ethnic, traditional"
+              }
+            },
+            "08": {
+              "label": "Other details - Position 8",
+              "start": 8,
+              "codes": {
+                "#": "not specified – position not required",
+                "b": "ad libitum",
+                "c": "may take place of the preceding code / alternative",
+                "d": "used by the same player as the preceding code"
+              }
+            }
+          }
+        },
+        "f": {
+          "label": "Specific Instrument Related to the Generic one Recorded in Preceding Subfield $c or $e",
+          "repeatable": true,
+          "positions": {
+            "00-01": {
+              "label": "No. of instruments",
+              "start": 0,
+              "end": 1
+            },
+            "02-04": {
+              "label": "Category of Instrument",
+              "start": 2,
+              "end": 4,
+              "codes": {
+                "// remark": "to be updated from http://www.urfm.braidense.it/risorse/searchmedium_en.php",
+                "wau": "aulos",
+                "wba": "bassoon",
+                "wbh": "basset-horn",
+                "wbn": "bassanello",
+                "wbp": "bagpipe",
+                "wch": "chalumeau",
+                "wcl": "clarinet",
+                "wcm": "ciaramella",
+                "wcr": "cromorne",
+                "wdb": "double bassoon",
+                "wdp": "doppione",
+                "wdu": "dulcian",
+                "wdv": "dvojnice",
+                "weh": "english horn",
+                "wfa": "flauto d'amore",
+                "wfg": "flageolet",
+                "wfi": "fife",
+                "wfl": "flute",
+                "wga": "tabor pipe",
+                "wge": "cor de chamois",
+                "whp": "pibgorn",
+                "wmo": "mouth organ",
+                "wmu": "musette",
+                "wna": "ney",
+                "woa": "oboe d'amore",
+                "wob": "oboe",
+                "woh": "oboe da caccia",
+                "wpi": "piccolo",
+                "wpo": "pommer",
+                "wpp": "panpipes",
+                "wra": "racket",
+                "wre": "recorder",
+                "wro": "rothophone",
+                "wsa": "saxophone",
+                "wsh": "shakuhashi",
+                "wsr": "sarrusophone",
+                "wsu": "sordun",
+                "wvu": "voce umana",
+                "wun": "woodwind - unspecified",
+                "wzz": "woodwind - other",
+                "bah": "alphorn",
+                "bbb": "bombardino",
+                "bbd": "bombardon",
+                "bbh": "bersag horn",
+                "bbu": "bugle",
+                "bca": "carnyx",
+                "bcb": "cimbasso",
+                "bch": "corno di toro",
+                "bcl": "clarion",
+                "bco": "cornet",
+                "bct": "cornett",
+                "bcu": "cornu",
+                "bdx": "duplex",
+                "beu": "euphonium",
+                "bhh": "hunting horn",
+                "bho": "horn",
+                "bht": "herald's trumpet",
+                "bkb": "keyed bugle",
+                "blu": "lur",
+                "bol": "oliphant",
+                "bop": "ophicleide",
+                "bph": "post horn",
+                "brh": "russian horn",
+                "bse": "serpent",
+                "bsh": "shofar",
+                "bsx": "salpinx",
+                "bta": "tuba (antique)",
+                "btb": "trombone",
+                "btr": "trumpet",
+                "btu": "tuba",
+                "bvb": "valved bugle",
+                "bwt": "Wagner tuba",
+                "bun": "brass - unspecified",
+                "bzz": "brass - others",
+                "sar": "arpeggione",
+                "sba": "baryton",
+                "sbt": "bassett",
+                "sbu": "bumbass",
+                "scr": "crwth",
+                "sdb": "double bass",
+                "sfi": "fiddle, viol",
+                "sgu": "gusle",
+                "sli": "lira da braccio",
+                "sln": "lirone",
+                "sny": "keyed fiddle",
+                "sob": "octobass",
+                "spo": "kit",
+                "spv": "quinton",
+                "sre": "rebec",
+                "stm": "trumpet marine",
+                "sva": "viola",
+                "svc": "cello",
+                "svd": "viola d’amore",
+                "sve": "violone",
+                "svg": "viola da gamba",
+                "svl": "violin",
+                "svp": "viola pomposa",
+                "sun": "string - unspecified",
+                "szz": "string - other",
+                "tal": "archlute",
+                "tat": "harp-psaltery",
+                "tbb": "barbitos",
+                "tbi": "biwa",
+                "tbj": "banjo",
+                "tbl": "balalaika",
+                "tbo": "bouzouki",
+                "tch": "chitarrone",
+                "tci": "cittern",
+                "tcs": "colascione",
+                "tct": "citole",
+                "tcz": "cobza",
+                "tgu": "guitar",
+                "tha": "harp",
+                "thg": "chitarra hawaiana",
+                "tkh": "kithara",
+                "tko": "kora",
+                "tlf": "lute (family)",
+                "tlg": "lyre-guitar",
+                "tlu": "lute",
+                "tma": "mandolin",
+                "tmd": "mandore",
+                "tps": "psaltery (plucked)",
+                "tpx": "phorminx",
+                "tqa": "qanum",
+                "tth": "theorbo",
+                "ttn": "tanbur",
+                "tud": "'ud",
+                "tuk": "ukulele",
+                "tvi": "vihuela",
+                "tzi": "zither",
+                "tun": "plucked - unspecified",
+                "tzz": "plucked - other",
+                "kab": "archicembalo",
+                "kac": "accordion",
+                "kba": "bandoneon",
+                "kca": "carillon (with keyboard)",
+                "kce": "celesta",
+                "kch": "chordette",
+                "kcl": "clavichord",
+                "kco": "claviorgan",
+                "kcy": "clavicytherium",
+                "kfp": "fortepiano",
+                "kgl": "glockenspiel (with keyboard)",
+                "khm": "harmonium",
+                "khp": "harpsichord",
+                "kmp": "melopiano",
+                "kor": "organ",
+                "kpf": "piano",
+                "kps": "plucked string keyboard",
+                "kre": "regals",
+                "ksi": "sirenion",
+                "ksp": "sostenente piano",
+                "kst": "spinet",
+                "kvg": "virginal",
+                "kun": "keyboard - unspecified",
+                "kxx": "keyboard - other",
+                "pab": "aeolian bells",
+                "pad": "arabian drum",
+                "pag": "agogo",
+                "pan": "anvil",
+                "pbb": "boobams",
+                "pbd": "bass drum",
+                "pbe": "tambourin de Bearn",
+                "pbl": "bells",
+                "pbo": "bongos",
+                "pbp": "metal bells plate",
+                "pbr": "bronte",
+                "pca": "castanets",
+                "pcb": "cabaca",
+                "pcc": "chinese cymbals",
+                "pcg": "conga",
+                "pch": "chains",
+                "pci": "cimbalom",
+                "pco": "chocalho",
+                "pcr": "crash cymbal",
+                "pct": "crotales",
+                "pcu": "cuica",
+                "pcv": "claves",
+                "pcw": "cowbell",
+                "pcy": "cymbals",
+                "pdr": "drum",
+                "pds": "drums",
+                "pfc": "finger cymbals",
+                "pfd": "friction drum",
+                "pfl": "flexatone",
+                "pgl": "glockenspiel",
+                "pgn": "canon",
+                "pgo": "gong",
+                "pgu": "guiro",
+                "pha": "hammer",
+                "phb": "handbell",
+                "phh": "hi-hat",
+                "pir": "intonarumori",
+                "pje": "jembe",
+                "pji": "jingles",
+                "pli": "lithophone",
+                "plj": "lujon",
+                "pmb": "marimba",
+                "pmc": "maracas",
+                "pmd": "military drum",
+                "pme": "metallophone",
+                "pnv": "nail violin",
+                "pra": "ratchett",
+                "prs": "rain stick",
+                "prt": "roto-toms",
+                "psc": "sizzle cymbals",
+                "pse": "sound-effect instrument",
+                "psl": "slit-drum",
+                "psm": "sistrum",
+                "psn": "sirene",
+                "psp": "sandpaper",
+                "pss": "sound sculpture",
+                "pst": "steel drum",
+                "psw": "switch whip",
+                "pta": "tablas",
+                "ptb": "tabor",
+                "ptc": "turkish crescent",
+                "pte": "temple block",
+                "ptg": "tuned gong",
+                "pti": "timpani",
+                "ptl": "triangle",
+                "ptm": "thunder machine",
+                "pto": "tarol",
+                "ptr": "tambourine",
+                "ptt": "tom-tom",
+                "pvi": "vibraphone",
+                "pvs": "vibra-slap",
+                "pwh": "whip",
+                "pwm": "wind machine",
+                "pwo": "woodblocks",
+                "pxr": "xylorimba",
+                "pxy": "xylophone",
+                "pza": "zarb",
+                "pun": "percussion - unspecified",
+                "pzz": "percussion - other",
+                "eco": "computer",
+                "ecs": "computerized musical station",
+                "ect": "computerized tape",
+                "eds": "digital space device",
+                "eea": "electro-acoustic device",
+                "eli": "live electronic",
+                "ely": "lyricon",
+                "ema": "ondes Martenot",
+                "eme": "meta-instrument",
+                "emu": "multimedial device",
+                "eos": "oscillator",
+                "esp": "space device",
+                "esy": "synthesizer",
+                "eta": "tape",
+                "eth": "theremin",
+                "eun": "electronic - non specirfied",
+                "ezz": "electronic - other",
+                "mah": "aeolian harp",
+                "mbo": "barrel organ",
+                "mbr": "bullroarer",
+                "mbs": "bass (Instrument)",
+                "mbw": "musical bow",
+                "mbx": "musical box",
+                "mck": "chekker",
+                "mcl": "musical clock",
+                "mco": "continuo",
+                "mgh": "glassharmonika",
+                "mha": "harmonica",
+                "mhg": "hurdy-gurdy",
+                "mjh": "jew's harp",
+                "mla": "lamellophone",
+                "mmc": "monochord",
+                "mme": "melodica",
+                "mmi": "mirliton",
+                "mml": "melodic instrument",
+                "mms": "musical saw",
+                "moc": "ocarina",
+                "mpo": "polyphonic instrument",
+                "mpp": "player piano",
+                "mra": "rabab",
+                "msw": "swanee whistle",
+                "mtf": "tuning-fork",
+                "mui": "instrument - non specified",
+                "mwd": "wind instrument",
+                "mwh": "whistle",
+                "mun": "instrument or voice, non specified",
+                "mzz": "other"
+              }
+            },
+            "05": {
+              "label": "Other details - Tessitura, prepared",
+              "start": 5,
+              "codes": {
+                "#": "not specified - position not required",
+                "a": "sopranino",
+                "b": "soprano ",
+                "c": "alto",
+                "d": "tenor",
+                "e": "baritone",
+                "f": "bass",
+                "g": "contrabass",
+                "h": "sub-contrabass",
+                "i": "sopracute",
+                "j": "high",
+                "k": "medium",
+                "l": "low",
+                "m": "prepared"
+              }
+            },
+            "06": {
+              "label": "Other details - Number of hands / players; Keys of pitched instruments",
+              "start": 6,
+              "codes": {
+                "#": "not specified - position not required",
+                "1": "one hand",
+                "2": "two players on one instrument",
+                "3": "three hands",
+                "4": "four hands",
+                "6": "six hands",
+                "8": "eight hands",
+                "a": "A",
+                "b": "B",
+                "c": "C",
+                "d": "D",
+                "e": "E",
+                "f": "F",
+                "g": "G",
+                "h": "B",
+                "i": "E",
+                "j": "A",
+                "k": "D",
+                "l": "F",
+                "n": "instrument played in non standard way",
+                "s": "non standard string number"
+              }
+            },
+            "07": {
+              "label": "Other details - Other",
+              "start": 7,
+              "codes": {
+                "#": "not specified - position not required",
+                "r": "electric",
+                "s": "electronic",
+                "t": "midi",
+                "v": "amplified",
+                "w": "recorded",
+                "q": "antiquity",
+                "y": "ethnic, traditional"
+              }
+            },
+            "08": {
+              "label": "Other details - Position 8",
+              "start": 8,
+              "codes": {
+                "#": "not specified – position not required",
+                "b": "ad libitum",
+                "c": "may take place of the preceding code / alternative",
+                "d": "used by the same player as the preceding code"
+              }
+            }
+          }
+        },
+        "h": {
+          "label": "Number of Parts",
+          "repeatable": true,
+          "positions": {
+            "00-02": {
+              "label": "Number of Parts",
+              "start": 0,
+              "end": 1
+            },
+            "03": {
+              "label": "Category",
+              "codes": {
+                "a": "performers total",
+                "b": "brass instruments",
+                "c": "choirs",
+                "d": "wind instruments",
+                "e": "electro-acoustic instruments",
+                "i": "instruments total",
+                "j": "solo instruments",
+                "k": "keyboard instruments",
+                "l": "solo voices",
+                "m": "miscellaneous, other instruments",
+                "o": "orchestras",
+                "p": "percussion instruments",
+                "q": "conductors",
+                "s": "bowed string instruments",
+                "t": "plucked string instruments",
+                "v": "voices total",
+                "w": "woodwind instruments",
+                "x": "choral voices",
+                "y": "ensemble instruments",
+                "z": "devices, other performers"
+              }
+            }
+          }
+        },
+        "i": {
+          "label": "Number of Players",
+          "repeatable": true,
+          "positions": {
+            "00-02": {
+              "label": "Number of Players",
+              "start": 0,
+              "end": 1
+            },
+            "03": {
+              "label": "Category",
+              "codes": {
+                "a": "performers total",
+                "b": "brass instruments",
+                "c": "choirs",
+                "d": "wind instruments",
+                "e": "electro-acoustic instruments",
+                "i": "instruments total",
+                "j": "solo instruments",
+                "k": "keyboard instruments",
+                "l": "solo voices",
+                "m": "miscellaneous, other instruments",
+                "o": "orchestras",
+                "p": "percussion instruments",
+                "q": "conductors",
+                "s": "bowed string instruments",
+                "t": "plucked string instruments",
+                "v": "voices total",
                 "w": "woodwind instruments",
                 "x": "choral voices",
                 "y": "ensemble instruments",
@@ -14845,6 +16796,63 @@
           "repeatable": false
         }
       }
+    },
+    "203": {
+      "tag": "203",
+      "label": "CONTENT FORM AND MEDIA TYPE",
+      "required": false,
+      "repeatable": true,
+      "indicator1": null,
+      "indicator2": null,
+      "subfields": {
+        "a": {
+          "// remark": "Terms defined for ISBD Content Form element must be used.",
+          "label": "Content form",
+          "repeatable": true,
+          "codelist": {
+            "a": "dataset",
+            "b": "image",
+            "c": "movement",
+            "d": "music",
+            "e": "object",
+            "f": "program",
+            "g": "sounds",
+            "h": "spoken word",
+            "i": "text",
+            "m": "multiple content forms",
+            "z": "other content form"
+          }
+        },
+        "b": {
+          "// remark": "Terms defined for ISBD Content Qualification sub-element must be used.",
+          "label": "Contentqualification",
+          "repeatable": true,
+          "codelist": {
+            "a": "notated",
+            "b": "performed",
+            "c": "cartographic"
+          }
+
+        },
+        "c": {
+          "// remark": "Terms defined for ISBD Media Type element must be used.",
+          "label": "Media type",
+          "repeatable": false,
+          "codelist": {
+            "a": "audio",
+            "b": "electronic",
+            "c": "microform",
+            "d": "microscopic",
+            "e": "projected",
+            "f": "stereographic",
+            "g": "video",
+            "m": "multiple media",
+            "n": "unmediated",
+            "z": "other media"
+          }
+        }
+      }
+
     },
     "204": {
       "tag": "204",
@@ -15662,7 +17670,7 @@
     "230": {
       "tag": "230",
       "label": "MATERIAL SPECIFIC AREA: ELECTRONIC RESOURCE CHARACTERISTICS",
-      "required": true,
+      "required": false,
       "repeatable": true,
       "indicator1": null,
       "indicator2": null,
@@ -15670,6 +17678,177 @@
         "a": {
           "label": "Designation and extent of file",
           "repeatable": false
+        }
+      }
+    },
+    "231": {
+      "tag": "231",
+      "label": "DIGITAL FILE CHARACTERISTICS [PROVISIONAL]",
+      "required": false,
+      "repeatable": true,
+      "indicator1": null,
+      "indicator2": null,
+      "subfields": {
+        "a": {
+          "label": "File Type",
+          "repeatable": true
+        },
+        "b": {
+          "label": "Encoding Standard",
+          "repeatable": true
+        },
+        "c": {
+          "label": "Version of Encoding Standard",
+          "repeatable": true
+        },
+        "d": {
+          "label": "Details of Encoding Standard",
+          "repeatable": true
+        },
+        "e": {
+          "label": "File Size",
+          "repeatable": true
+        },
+        "f": {
+          "label": "Resolution",
+          "repeatable": true
+        },
+        "g": {
+          "label": "Regional Encoding",
+          "repeatable": true
+        },
+        "h": {
+          "label": "Encoded Bitrate",
+          "repeatable": true
+        },
+        "i": {
+          "label": "Accessibility Information",
+          "repeatable": true
+        },
+        "2": {
+          "label": "Source",
+          "repeatable": false
+        },
+        "6": {
+          "label": "Interfield Linking Data",
+          "repeatable": true
+        }
+      }
+    },
+    "251": {
+      "tag": "251",
+      "label": "ORGANIZATION AND ARRANGEMENT OF MATERIALS",
+      "required": false,
+      "repeatable": true,
+      "indicator1": null,
+      "indicator2": null,
+      "subfields": {
+        "a": {
+          "label": "Organization",
+          "repeatable": true
+        },
+        "b": {
+          "label": "Arrangement",
+          "repeatable": true
+        },
+        "c": {
+          "label": "Level",
+          "repeatable": false
+        }
+      }
+    },
+    "260": {
+      "tag": "260",
+      "label": "MATERIAL SPECIFIC AREA: NUMISMATIC RESOURCES",
+      "required": false,
+      "repeatable": true,
+      "indicator1": {
+        "label": "Description Level",
+        "codes": {
+          "#": "Unspecified",
+          "0": "Numismatic type",
+          "1": "Numismatic item"
+        }
+      },
+      "indicator2": {
+        "label": "Part of the Numismatic Resource",
+        "codes": {
+          "#": "Unspecified/other",
+          "1": "Obverse",
+          "2": "Reverse",
+          "3": "Edge"
+        }
+      },
+      "subfields": {
+        "a": {
+          "label": "Denomination",
+          "repeatable": false
+        },
+        "b": {
+          "label": "Weight Standard or Theoretical Weight",
+          "repeatable": false
+        },
+        "c": {
+          "label": "Issue",
+          "repeatable": false
+        },
+        "d": {
+          "label": "Other Appellation",
+          "repeatable": true
+        },
+        "e": {
+          "label": "Type Name or Reference",
+          "repeatable": true
+        },
+        "f": {
+          "label": "Legend",
+          "repeatable": false
+        },
+        "g": {
+          "label": "Other Inscription",
+          "repeatable": true
+        },
+        "h": {
+          "label": "Type Description",
+          "repeatable": false
+        },
+        "i": {
+          "label": "Shape",
+          "repeatable": false
+        },
+        "j": {
+          "label": "Axis",
+          "repeatable": false
+        },
+        "u": {
+          "label": "Uniform Resource Identifier (URI)",
+          "repeatable": false
+        }
+      }
+    },
+    "283": {
+      "tag": "283",
+      "label": "CARRIER TYPE",
+      "required": false,
+      "repeatable": true,
+      "indicator1": null,
+      "indicator2": null,
+      "subfields": {
+        "a": {
+          "label": "Carrier Type Designation",
+          "repeatable": true
+        },
+        "2": {
+          "label": "Source",
+          "repeatable": false
+        },
+        "6": {
+          "label": "Interfield Linking Data",
+          "repeatable": true
+        },
+        "8": {
+          "label": "Materials Specified",
+          "repeatable": true
         }
       }
     },
@@ -16621,6 +18800,50 @@
         }
       }
     },
+    "338": {
+      "tag": "338",
+      "label": "FUNDING INFORMATION NOTE",
+      "required": false,
+      "repeatable": true,
+      "indicator1": null,
+      "indicator2": {
+        "label": "Structure indicator",
+        "codes": {
+          "#": "Unstructured note",
+          "1": "Structured note"
+        }
+      },
+      "subfields": {
+        "a": {
+          "label": "Text of Unstructured Note",
+          "repeatable": false
+        },
+        "b": {
+          "label": "Funding Organization",
+          "repeatable": true
+        },
+        "c": {
+          "label": "Program",
+          "repeatable": true
+        },
+        "d": {
+          "label": "Project Number",
+          "repeatable": false
+        },
+        "e": {
+          "label": "Jurisdiction",
+          "repeatable": true
+        },
+        "f": {
+          "label": "Project Name",
+          "repeatable": false
+        },
+        "g": {
+          "label": "Project Acronym",
+          "repeatable": false
+        }
+      }
+    },
     "345": {
       "tag": "345",
       "label": "ACQUISITION INFORMATION NOTE",
@@ -16651,11 +18874,114 @@
         }
       }
     },
+    "346": {
+      "tag": "346",
+      "label": "NOTE ON ACCRUALS AND FREQUENCY OF USE",
+      "required": false,
+      "repeatable": true,
+      "indicator1": null,
+      "indicator2": null,
+      "subfields": {
+        "a": {
+          "label": "Accruals",
+          "repeatable": true
+        },
+        "b": {
+          "label": "Frequency of Use",
+          "repeatable": true
+        },
+        "5": {
+          "label": "Institution to which the Field Applies",
+          "repeatable": false
+        },
+        "8": {
+          "label": "Materials Specified",
+          "repeatable": false
+        }
+      }
+    },
+    "360": {
+      "tag": "360",
+      "label": "NOTE ON SPECIFIC ELEMENTS OF NUMISMATIC DESCRIPTION",
+      "required": false,
+      "repeatable": true,
+      "indicator1": {
+        "label": "Element",
+        "codes": {
+          "#": "Not specified / other",
+          "0": "Monogram",
+          "1": "Die",
+          "2": "Punch",
+          "3": "Control mark"
+        }
+      },
+      "indicator2": {
+        "label": "Part of the Numismatic Resource Described",
+        "codes": {
+          "#": "Not specified / other",
+          "1": "Obverse",
+          "2": "Reverse",
+          "3": "Edge"
+        }
+      },
+      "subfields": {
+        "a": {
+          "label": "Text of Note",
+          "repeatable": false
+        },
+        "b": {
+          "label": "Citation",
+          "repeatable": true
+        },
+        "u": {
+          "label": "Uniform Resource Identifier (URI)",
+          "repeatable": true
+        }
+      }
+    },
+    "371": {
+      "tag": "371",
+      "label": "NOTES ON INFORMATION SERVICE POLICY",
+      "required": false,
+      "repeatable": true,
+      "indicator1": {
+        "label": "Type of note",
+        "codes": {
+          "#": "Information not provided",
+          "0": "Access note",
+          "1": "Use and reproduction note",
+          "3": "Control mark"
+        }
+      },
+      "indicator2": null,
+      "subfields": {
+        "a": {
+          "label": "Terms Governing Access, Use and Reproduction",
+          "repeatable": false
+        },
+        "b": {
+          "label": "Jurisdiction",
+          "repeatable": false
+        },
+        "c": {
+          "label": "Authorization",
+          "repeatable": false
+        },
+        "d": {
+          "label": "Authorized Users",
+          "repeatable": false
+        },
+        "8": {
+          "label": "Materials Specified",
+          "repeatable": false
+        }
+      }
+    },
     "410": {
       "tag": "410",
       "label": "Series",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -16758,7 +19084,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -16770,8 +19096,8 @@
     "411": {
       "tag": "411",
       "label": "Subseries",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -16874,7 +19200,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -16886,8 +19212,8 @@
     "412": {
       "tag": "412",
       "label": "Source of excerpt or offprint",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -16990,7 +19316,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -17002,8 +19328,8 @@
     "413": {
       "tag": "413",
       "label": "Excerpt or offprint",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -17106,7 +19432,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -17118,8 +19444,8 @@
     "421": {
       "tag": "421",
       "label": "Supplement",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -17222,7 +19548,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -17234,8 +19560,8 @@
     "422": {
       "tag": "422",
       "label": "Parent of Supplement",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -17338,7 +19664,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -17350,8 +19676,8 @@
     "423": {
       "tag": "423",
       "label": "Issued with",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -17454,7 +19780,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -17466,8 +19792,8 @@
     "424": {
       "tag": "424",
       "label": "Is updated by",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -17570,7 +19896,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -17582,8 +19908,8 @@
     "425": {
       "tag": "425",
       "label": "Updates",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -17686,7 +20012,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -17698,8 +20024,8 @@
     "430": {
       "tag": "430",
       "label": "Continues",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -17802,7 +20128,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -17814,8 +20140,8 @@
     "431": {
       "tag": "431",
       "label": "Continues in Part",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -17918,7 +20244,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -17930,8 +20256,8 @@
     "432": {
       "tag": "432",
       "label": "Supersedes",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -18034,7 +20360,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -18046,8 +20372,8 @@
     "433": {
       "tag": "433",
       "label": "Supersedes in Part",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -18150,7 +20476,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -18162,8 +20488,8 @@
     "434": {
       "tag": "434",
       "label": "Absorbed",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -18266,7 +20592,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -18278,8 +20604,8 @@
     "435": {
       "tag": "435",
       "label": "Absorbed in Part",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -18382,7 +20708,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -18394,8 +20720,8 @@
     "436": {
       "tag": "436",
       "label": "Formed by Merger of",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -18498,7 +20824,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -18510,8 +20836,8 @@
     "437": {
       "tag": "437",
       "label": "Separated from",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -18614,7 +20940,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -18626,8 +20952,8 @@
     "440": {
       "tag": "440",
       "label": "Continued by",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -18730,7 +21056,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -18742,8 +21068,8 @@
     "441": {
       "tag": "441",
       "label": "Continued in Part by",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -18846,7 +21172,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -18858,8 +21184,8 @@
     "442": {
       "tag": "442",
       "label": "Superseded by",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -18962,7 +21288,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -18974,8 +21300,8 @@
     "443": {
       "tag": "443",
       "label": "Superseded in Part by",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -19078,7 +21404,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -19090,8 +21416,8 @@
     "444": {
       "tag": "444",
       "label": "Absorbed by",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -19194,7 +21520,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -19206,8 +21532,8 @@
     "445": {
       "tag": "445",
       "label": "Absorbed in Part by",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -19310,7 +21636,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -19322,8 +21648,8 @@
     "446": {
       "tag": "446",
       "label": "Split into",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -19426,7 +21752,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -19438,8 +21764,8 @@
     "447": {
       "tag": "447",
       "label": "Merged with xxx to Form",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -19542,7 +21868,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -19554,8 +21880,8 @@
     "448": {
       "tag": "448",
       "label": "Changed Back to",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -19658,7 +21984,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -19670,8 +21996,8 @@
     "451": {
       "tag": "451",
       "label": "Other Edition in the Same Medium",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -19774,7 +22100,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -19786,8 +22112,8 @@
     "452": {
       "tag": "452",
       "label": "Other Edition in Another Medium",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -19890,7 +22216,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -19902,8 +22228,8 @@
     "453": {
       "tag": "453",
       "label": "Translated as",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -20006,7 +22332,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -20018,8 +22344,8 @@
     "454": {
       "tag": "454",
       "label": "Translation of",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -20122,7 +22448,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -20134,8 +22460,8 @@
     "455": {
       "tag": "455",
       "label": "Other Edition, State or Impression in the Same Medium",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -20238,7 +22564,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -20250,8 +22576,8 @@
     "456": {
       "tag": "456",
       "label": "Reproduced as",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -20354,7 +22680,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -20366,8 +22692,8 @@
     "461": {
       "tag": "461",
       "label": "Set",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -20470,7 +22796,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -20482,8 +22808,8 @@
     "462": {
       "tag": "462",
       "label": "Subset",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -20586,7 +22912,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -20598,8 +22924,8 @@
     "463": {
       "tag": "463",
       "label": "Piece",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -20702,7 +23028,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -20714,8 +23040,8 @@
     "464": {
       "tag": "464",
       "label": "Piece-Analytic",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -20818,7 +23144,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -20830,8 +23156,8 @@
     "470": {
       "tag": "470",
       "label": "Item Reviewed",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -20934,7 +23260,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -20946,8 +23272,8 @@
     "481": {
       "tag": "481",
       "label": "Also Bound With This Volume",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -21050,7 +23376,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -21062,8 +23388,8 @@
     "482": {
       "tag": "482",
       "label": "Bound With",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -21166,7 +23492,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -21178,8 +23504,8 @@
     "488": {
       "tag": "488",
       "label": "Other Related Works",
-      "required": true,
-      "repeatable": false,
+      "required": false,
+      "repeatable": true,
       "indicator1": null,
       "indicator2": {
         "label": "Note indicator",
@@ -21282,7 +23608,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -21388,7 +23714,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": false
         }
       }
@@ -21465,7 +23791,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": false
         }
       }
@@ -21491,15 +23817,15 @@
           "repeatable": true
         },
         "e": {
-          "label": "Personal Name \u2013 Entry Element of Person",
+          "label": "Personal Name - Entry Element of Person",
           "repeatable": false
         },
         "f": {
-          "label": "Personal Name \u2013 Part of Name Other than Entry Element - Forename",
+          "label": "Personal Name - Part of Name Other than Entry Element - Forename",
           "repeatable": false
         },
         "g": {
-          "label": "Personal Name \u2013 Dates",
+          "label": "Personal Name - Dates",
           "repeatable": false
         },
         "h": {
@@ -21532,6 +23858,158 @@
         },
         "o": {
           "label": "Place in Locality",
+          "repeatable": false
+        }
+      }
+    },
+    "506": {
+      "tag": "506",
+      "label": "PREFERRED ACCESS POINT - IDENTIFICATION OF A WORK",
+      "required": false,
+      "repeatable": true,
+      "indicator1": {
+        "label": "Primary Entry Indicator",
+        "codes": {
+          "0": "Title is not primary entry",
+          "1": "Title is primary entry"
+        }
+      },
+      "indicator2": null,
+      "subfields": {
+        "a": {
+          "label": "Title",
+          "repeatable": false
+        },
+        "h": {
+          "label": "Number of Section or Part",
+          "repeatable": true
+        },
+        "i": {
+          "label": "Name of Section or Part",
+          "repeatable": true
+        },
+        "c": {
+          "label": "Form of Work",
+          "repeatable": false
+        },
+        "d": {
+          "label": "Date of Work",
+          "repeatable": false
+        },
+        "e": {
+          "label": "Place of Origin of Work",
+          "repeatable": false
+        },
+        "f": {
+          "label": "Original Language of the Work",
+          "repeatable": false
+        },
+        "k": {
+          "label": "Other Distinguishing Characteristics of a Work",
+          "repeatable": true
+        },
+        "r": {
+          "label": "Medium of Performance (for Music)",
+          "repeatable": true
+        },
+        "s": {
+          "label": "Numeric Designation (for Music)",
+          "repeatable": true
+        },
+        "u": {
+          "label": "Key (for Music)",
+          "repeatable": false
+        },
+        "3": {
+          "label": "Authority Record Identifier",
+          "repeatable": false
+        }
+      }
+    },
+    "507": {
+      "tag": "507",
+      "label": "PREFERRED ACCESS POINT – IDENTIFICATION OF AN EXPRESSION (PROVISIONAL)",
+      "required": false,
+      "repeatable": true,
+      "indicator1": {
+        "label": "Primary Entry Indicator",
+        "codes": {
+          "0": "Title is not primary entry",
+          "1": "Title is primary entry"
+        }
+      },
+      "indicator2": null,
+      "subfields": {
+        "a": {
+          "label": "Title [Work]",
+          "repeatable": false
+        },
+        "h": {
+          "label": "Number of Section or Part [Work]",
+          "repeatable": true
+        },
+        "i": {
+          "label": "Name of Section or Part [Work]",
+          "repeatable": true
+        },
+        "c": {
+          "label": "Form of Work [Work]",
+          "repeatable": false
+        },
+        "d": {
+          "label": "Date of Work [Work]",
+          "repeatable": false
+        },
+        "e": {
+          "label": "Place of Origin of Work [Work]",
+          "repeatable": false
+        },
+        "f": {
+          "label": "Original Language of the Work [Work]",
+          "repeatable": false
+        },
+        "k": {
+          "label": "Other Distinguishing Characteristics of a Work [Work]",
+          "repeatable": true
+        },
+        "r": {
+          "label": "Medium of Performance (for Music) [Work]",
+          "repeatable": true
+        },
+        "s": {
+          "label": "Numeric Designation (for Music) [Work]",
+          "repeatable": true
+        },
+        "u": {
+          "label": "Key (for Music) [Work]",
+          "repeatable": false
+        },
+        "l": {
+          "label": "Form of the Expression [Expression]",
+          "repeatable": false
+        },
+        "m": {
+          "label": "Language of the Expression [Expression]",
+          "repeatable": false
+        },
+        "n": {
+          "label": "Content Type [Expression]",
+          "repeatable": false
+        },
+        "o": {
+          "label": "Date of Expression [Expression]",
+          "repeatable": false
+        },
+        "v": {
+          "label": "Medium of Performance (for Music) [Expression]",
+          "repeatable": true
+        },
+        "w": {
+          "label": "Other Characteristics of Expression [Expression]",
+          "repeatable": true
+        },
+        "3": {
+          "label": "Authority Record Identifier",
           "repeatable": false
         }
       }
@@ -23944,8 +26422,11 @@
       "required": false,
       "repeatable": true,
       "indicator1": {
-        "label": "Significance of title",
-        "codes": {}
+        "label": "Title Significance Indicator",
+        "codes": {
+          "0": "Title is not significant",
+          "1": "Title is significant"
+        }
       },
       "indicator2": null,
       "subfields": {
@@ -23959,6 +26440,216 @@
         },
         "5": {
           "label": "Institution and Copy to which the Field Applies",
+          "repeatable": false
+        }
+      }
+    },
+    "576": {
+      "tag": "576",
+      "label": "NAME / ACCESS POINT - IDENTIFICATION OF A WORK",
+      "required": false,
+      "repeatable": true,
+      "indicator1": {
+        "label": "Primary Entry Indicator",
+        "codes": {
+          "0": "Title is not primary entry",
+          "1": "Title is primary entry"
+        }
+      },
+      "indicator2": {
+        "label": "Structure Indicator",
+        "codes": {
+          "#": "Not applicable (embedded fields technique) or No information available (standard subfields technique)",
+          "0": "Unstructured title (standard subfields technique)",
+          "1": "Structured title (standard subfields technique)"
+        }
+      },
+      "subfields": {
+        "1": {
+          "label": "Linking Data",
+          "repeatable": true
+        },
+        "a": {
+          "label": "Name",
+          "repeatable": false
+        },
+        "t": {
+          "label": "Title",
+          "repeatable": false
+        },
+        "h": {
+          "label": "Number of Section or Part",
+          "repeatable": true
+        },
+        "i": {
+          "label": "Name of Section or Part",
+          "repeatable": true
+        },
+        "c": {
+          "label": "Form of Work",
+          "repeatable": false
+        },
+        "d": {
+          "label": "Date of Work",
+          "repeatable": false
+        },
+        "e": {
+          "label": "Place of Origin of Work",
+          "repeatable": false
+        },
+        "f": {
+          "label": "Original Language of the Work",
+          "repeatable": false
+        },
+        "k": {
+          "label": "Other Distinguishing Characteristics of a Work",
+          "repeatable": true
+        },
+        "r": {
+          "label": "Medium of Performance (for Music)",
+          "repeatable": true
+        },
+        "s": {
+          "label": "Numeric Designation (for Music)",
+          "repeatable": true
+        },
+        "u": {
+          "label": "Key (for Music)",
+          "repeatable": false
+        },
+        "j": {
+          "label": "Form Subdivision",
+          "repeatable": true
+        },
+        "x": {
+          "label": "Topical Subdivision",
+          "repeatable": true
+        },
+        "y": {
+          "label": "Geographical Subdivision",
+          "repeatable": true
+        },
+        "z": {
+          "label": "Chronological Subdivision",
+          "repeatable": true
+        },
+        "3": {
+          "label": "Authority Record Identifier",
+          "repeatable": false
+        }
+      }
+    },
+    "577": {
+      "tag": "577",
+      "label": "NAME / ACCESS POINT – IDENTIFICATION OF AN EXPRESSION (PROVISIONAL)",
+      "required": false,
+      "repeatable": true,
+      "indicator1": {
+        "label": "Primary Entry Indicator",
+        "codes": {
+          "0": "Title is not primary entry",
+          "1": "Title is primary entry"
+        }
+      },
+      "indicator2": {
+        "label": "Structure Indicator",
+        "codes": {
+          "#": "Not applicable (embedded fields technique) or No information available (standard subfields technique)",
+          "0": "Unstructured title (standard subfields technique)",
+          "1": "Structured title (standard subfields technique)"
+        }
+      },
+      "subfields": {
+        "a": {
+          "label": "Name [Work]",
+          "repeatable": false
+        },
+        "t": {
+          "label": "Title [Work]",
+          "repeatable": false
+        },
+        "h": {
+          "label": "Number of Section or Part [Work]",
+          "repeatable": true
+        },
+        "i": {
+          "label": "Name of Section or Part [Work]",
+          "repeatable": true
+        },
+        "c": {
+          "label": "Form of Work [Work]",
+          "repeatable": false
+        },
+        "d": {
+          "label": "Date of Work [Work]",
+          "repeatable": false
+        },
+        "e": {
+          "label": "Place of Origin of Work [Work]",
+          "repeatable": false
+        },
+        "f": {
+          "label": "Original Language of the Work [Work]",
+          "repeatable": false
+        },
+        "k": {
+          "label": "Other Distinguishing Characteristics of a Work [Work]",
+          "repeatable": true
+        },
+        "r": {
+          "label": "Medium of Performance (for Music) [Work]",
+          "repeatable": true
+        },
+        "s": {
+          "label": "Numeric Designation (for Music) [Work]",
+          "repeatable": false
+        },
+        "u": {
+          "label": "Key (for Music) [Work]",
+          "repeatable": false
+        },
+        "l": {
+          "label": "Form of the Expression [Expression]",
+          "repeatable": false
+        },
+        "m": {
+          "label": "Language of the Expression [Expression]",
+          "repeatable": false
+        },
+        "n": {
+          "label": "Content Type [Expression]",
+          "repeatable": false
+        },
+        "o": {
+          "label": "Date of Expression [Expression]",
+          "repeatable": false
+        },
+        "v": {
+          "label": "Medium of Performance (for Music) [Expression]",
+          "repeatable": true
+        },
+        "w": {
+          "label": "Other Characteristics of Expression [Expression]",
+          "repeatable": true
+        },
+        "j": {
+          "label": "Form Subdivision",
+          "repeatable": true
+        },
+        "x": {
+          "label": "Topical Subdivision",
+          "repeatable": true
+        },
+        "y": {
+          "label": "Geographical Subdivision",
+          "repeatable": true
+        },
+        "z": {
+          "label": "Chronological Subdivision",
+          "repeatable": true
+        },
+        "3": {
+          "label": "Authority Record Identifier",
           "repeatable": false
         }
       }
@@ -24076,7 +26767,7 @@
           }
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -24209,7 +26900,7 @@
           }
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -24305,7 +26996,7 @@
           }
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -24352,7 +27043,7 @@
           "repeatable": true
         },
         "3": {
-          "label": "Authority record number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         }
       }
@@ -24484,7 +27175,7 @@
           }
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         }
       }
@@ -24572,7 +27263,7 @@
           }
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         }
       }
@@ -24660,7 +27351,7 @@
           }
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         }
       }
@@ -24748,7 +27439,7 @@
           }
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         },
         "5": {
@@ -24861,7 +27552,7 @@
           }
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": true
         }
       }
@@ -24907,7 +27598,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": false
         }
       }
@@ -24977,7 +27668,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": false
         }
       }
@@ -25065,7 +27756,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": false
         }
       }
@@ -25153,12 +27844,42 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": false
         },
         "5": {
           "label": "Institution and Copy to which the field applies",
           "repeatable": false
+        }
+      }
+    },
+    "623": {
+      "tag": "623",
+      "label": "CHARACTER",
+      "required": false,
+      "repeatable": true,
+      "indicator1": null,
+      "indicator2": null,
+      "subfields": {
+        "a": {
+          "label": "Entry Element",
+          "repeatable": false
+        },
+        "b": {
+          "label": "Part of Name Other than Entry Element",
+          "repeatable": false
+        },
+        "c": {
+          "label": "Additions to Name of the Character",
+          "repeatable": true
+        },
+        "3": {
+          "label": "Authority Record Identifier",
+          "repeatable": false
+        },
+        "6": {
+          "label": "Interfield Linking Data",
+          "repeatable": true
         }
       }
     },
@@ -25180,6 +27901,94 @@
         },
         "c": {
           "label": "Operating System",
+          "repeatable": false
+        }
+      }
+    },
+    "631": {
+      "tag": "631",
+      "label": "OCCUPATION",
+      "required": false,
+      "repeatable": true,
+      "indicator1": null,
+      "indicator2": null,
+      "subfields": {
+        "a": {
+          "label": "Occupation",
+          "repeatable": false
+        },
+        "b": {
+          "label": "Form",
+          "repeatable": false
+        },
+        "j": {
+          "label": "Form Subdivision",
+          "repeatable": true
+        },
+        "x": {
+          "label": "Topical Subdivision",
+          "repeatable": true
+        },
+        "y": {
+          "label": "Geographical Subdivision",
+          "repeatable": true
+        },
+        "z": {
+          "label": "Chronological Subdivision",
+          "repeatable": true
+        },
+        "2": {
+          "label": "Source",
+          "repeatable": false
+        },
+        "3": {
+          "label": "Authority Record Identifier",
+          "repeatable": true
+        },
+        "8": {
+          "label": "Materials Specified",
+          "repeatable": false
+        }
+      }
+    },
+    "632": {
+      "tag": "632",
+      "label": "FUNCTION",
+      "required": false,
+      "repeatable": true,
+      "indicator1": null,
+      "indicator2": null,
+      "subfields": {
+        "a": {
+          "label": "Function",
+          "repeatable": false
+        },
+        "j": {
+          "label": "Form Subdivision",
+          "repeatable": true
+        },
+        "x": {
+          "label": "Topical Subdivision",
+          "repeatable": true
+        },
+        "y": {
+          "label": "Geographical Subdivision",
+          "repeatable": true
+        },
+        "z": {
+          "label": "Chronological Subdivision",
+          "repeatable": true
+        },
+        "2": {
+          "label": "Source",
+          "repeatable": false
+        },
+        "3": {
+          "label": "Authority Record Identifier",
+          "repeatable": true
+        },
+        "8": {
+          "label": "Materials Specified",
           "repeatable": false
         }
       }
@@ -27525,7 +30334,7 @@
         },
         "c": {
           "label": "Additions to Names Other than Dates",
-          "repeatable": true
+          "repeatable": false
         },
         "d": {
           "label": "Roman Numerals",
@@ -27539,12 +30348,24 @@
           "label": "Expansion of Initials of Forename",
           "repeatable": false
         },
+        "k": {
+          "label": "Attribution Qualifier",
+          "repeatable": true
+        },
+        "o": {
+          "label": "International Standard Identifier for the Name",
+          "repeatable": true
+        },
         "p": {
           "label": "Affiliation/address",
           "repeatable": false
         },
+        "2": {
+          "label": "Source",
+          "repeatable": false
+        },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": false
         },
         "4": {
@@ -27685,9 +30506,9 @@
             "770": "Writer of accompanying material"
           }
         },
-        "5": {
-          "label": "Institution and Copy to Which Field Applies (Mandatory)",
-          "repeatable": false
+        "8": {
+          "label": "Materials specified",
+          "repeatable": true
         }
       }
     },
@@ -27715,7 +30536,7 @@
         },
         "c": {
           "label": "Additions to Names Other than Dates",
-          "repeatable": true
+          "repeatable": false
         },
         "d": {
           "label": "Roman Numerals",
@@ -27729,12 +30550,24 @@
           "label": "Expansion of Initials of Forename",
           "repeatable": false
         },
+        "k": {
+          "label": "Attribution Qualifier",
+          "repeatable": true
+        },
+        "o": {
+          "label": "International Standard Identifier for the Name",
+          "repeatable": true
+        },
         "p": {
           "label": "Affiliation/address",
           "repeatable": false
         },
+        "2": {
+          "label": "Source",
+          "repeatable": false
+        },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": false
         },
         "4": {
@@ -27875,9 +30708,9 @@
             "770": "Writer of accompanying material"
           }
         },
-        "5": {
-          "label": "Institution and Copy to Which Field Applies (Mandatory)",
-          "repeatable": false
+        "8": {
+          "label": "Materials specified",
+          "repeatable": true
         }
       }
     },
@@ -27905,7 +30738,7 @@
         },
         "c": {
           "label": "Additions to Names Other than Dates",
-          "repeatable": true
+          "repeatable": false
         },
         "d": {
           "label": "Roman Numerals",
@@ -27919,12 +30752,28 @@
           "label": "Expansion of Initials of Forename",
           "repeatable": false
         },
+        "k": {
+          "label": "Attribution Qualifier",
+          "repeatable": true
+        },
+        "o": {
+          "label": "International Standard Identifier for the Name",
+          "repeatable": true
+        },
         "p": {
           "label": "Affiliation/address",
           "repeatable": false
         },
+        "r": {
+          "label": "Part or role played",
+          "repeatable": true
+        },
+        "2": {
+          "label": "Source",
+          "repeatable": false
+        },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": false
         },
         "4": {
@@ -28065,8 +30914,223 @@
             "770": "Writer of accompanying material"
           }
         },
+        "8": {
+          "label": "Materials specified",
+          "repeatable": true
+        },
         "5": {
-          "label": "Institution and Copy to Which Field Applies (Mandatory)",
+          "label": "Institution to which the Field Applies",
+          "repeatable": false
+        },
+        "6": {
+          "label": "Interfield Linking Data",
+          "repeatable": true
+        }
+      }
+    },
+    "703": {
+      "tag": "703",
+      "label": "PERSONAL NAME – PROVENANCE OR OWNERSHIP",
+      "required": false,
+      "repeatable": true,
+      "indicator1": null,
+      "indicator2": {
+        "label": "Form of Name Indicator",
+        "codes": {
+          "0": "Name in inverted form",
+          "1": "Name entered under place or jurisdiction",
+          "2": "Name entered under name in direct order"
+        }
+      },
+      "subfields": {
+        "a": {
+          "label": "Entry Element",
+          "repeatable": false
+        },
+        "b": {
+          "label": "Part of Name Other than Entry Element",
+          "repeatable": false
+        },
+        "c": {
+          "label": "Additions to Names Other than Dates",
+          "repeatable": false
+        },
+        "d": {
+          "label": "Roman Numerals",
+          "repeatable": false
+        },
+        "f": {
+          "label": "Dates",
+          "repeatable": false
+        },
+        "g": {
+          "label": "Expansion of Initials of Forename",
+          "repeatable": false
+        },
+        "k": {
+          "label": "Attribution Qualifier",
+          "repeatable": true
+        },
+        "o": {
+          "label": "International Standard Identifier for the Name",
+          "repeatable": true
+        },
+        "p": {
+          "label": "Affiliation/address",
+          "repeatable": false
+        },
+        "2": {
+          "label": "Source",
+          "repeatable": false
+        },
+        "3": {
+          "label": "Authority Record Identifier",
+          "repeatable": false
+        },
+        "4": {
+          "label": "Relator Code",
+          "repeatable": true,
+          "codelist": {
+            "000": "Undetermined function",
+            "005": "Actor",
+            "010": "Adapter",
+            "018": "Animator",
+            "020": "Annotator",
+            "030": "Arranger",
+            "040": "Artist",
+            "050": "Assignee",
+            "060": "Associated name",
+            "065": "Auctioneer",
+            "070": "Author",
+            "072": "Author in quotations or text extracts",
+            "075": "Author of afterword, postface, colophon, etc.",
+            "080": "Author of introduction, etc.",
+            "090": "Author of dialogue",
+            "100": "Bibliographic antecedent",
+            "110": "Binder",
+            "120": "Binding designer",
+            "130": "Book designer",
+            "140": "Bookjacket designer",
+            "150": "Bookplate designer",
+            "160": "Bookseller",
+            "170": "Calligrapher",
+            "180": "Cartographer",
+            "190": "Censor",
+            "195": "Choral director",
+            "200": "Choreographer",
+            "202": "Circus performer",
+            "205": "Collaborator",
+            "206": "Collector of field material",
+            "207": "Comedian",
+            "210": "Commentator",
+            "212": "Commentator for written text",
+            "220": "Compiler",
+            "230": "Composer",
+            "233": "Composer of adapted work",
+            "236": "Composer of main musical work",
+            "240": "Compositor",
+            "245": "Conceptor",
+            "250": "Conductor",
+            "255": "Consultant to a project.",
+            "257": "Continuator",
+            "260": "Copyright holder",
+            "270": "Corrector",
+            "273": "Curator of an exhibition",
+            "275": "Dancer",
+            "280": "Dedicatee",
+            "290": "Dedicator",
+            "295": "Degree-grantor",
+            "300": "Director",
+            "303": "Disc jockey",
+            "305": "Dissertant",
+            "310": "Distributor",
+            "320": "Donor",
+            "330": "Dubious author",
+            "340": "Editor",
+            "350": "Engraver",
+            "360": "Etcher",
+            "365": "Expert",
+            "370": "Film editor",
+            "380": "Forger",
+            "390": "Former owner",
+            "395": "Founder",
+            "400": "Funder [Obsolete]",
+            "410": "Graphic technician",
+            "420": "Honoree",
+            "430": "Illuminator",
+            "440": "Illustrator",
+            "445": "Impresario",
+            "450": "Inscriber",
+            "460": "Interviewee",
+            "470": "Interviewer",
+            "475": "Issuing body",
+            "480": "Librettist",
+            "490": "Licensee",
+            "500": "Licensor",
+            "510": "Lithographer",
+            "520": "Lyricist",
+            "530": "Metal-engraver",
+            "535": "Mime artist",
+            "540": "Monitor",
+            "545": "Musician",
+            "550": "Narrator",
+            "555": "Opponent",
+            "557": "Organiser of meeting",
+            "560": "Originator",
+            "570": "Other",
+            "580": "Papermaker",
+            "582": "Patent applicant",
+            "584": "Patent inventor",
+            "587": "Patentee",
+            "590": "Performer",
+            "595": "Performer of research",
+            "600": "Photographer",
+            "605": "Presenter",
+            "610": "Printer",
+            "620": "Printer of plates",
+            "630": "Producer",
+            "632": "Production designer",
+            "633": "Production personnel",
+            "635": "Programmer",
+            "637": "Project manager",
+            "640": "Proof-reader",
+            "650": "Publisher",
+            "651": "Publishing director",
+            "655": "Puppeteer",
+            "660": "Recipient of letters",
+            "665": "Record producer",
+            "670": "Recording engineer",
+            "672": "Remixer",
+            "673": "Research team head",
+            "677": "Research team member",
+            "675": "Reviewer",
+            "680": "Rubricator",
+            "690": "Scenarist",
+            "695": "Scientific advisor",
+            "700": "Scribe",
+            "705": "Sculptor",
+            "710": "Secretary",
+            "720": "Signer",
+            "721": "Singer",
+            "723": "Sponsor",
+            "725": "Standards body",
+            "726": "Stunt performer",
+            "727": "Thesis advisor",
+            "730": "Translator",
+            "740": "Type designer",
+            "750": "Typographer",
+            "753": "Vendor",
+            "755": "Vocalist",
+            "760": "Wood-engraver",
+            "770": "Writer of accompanying material"
+          }
+        },
+        "8": {
+          "label": "Materials specified",
+          "repeatable": true
+        },
+        "5": {
+          "label": "Institution to which the Field Applies",
           "repeatable": false
         }
       }
@@ -28128,8 +31192,12 @@
           "label": "Affiliation/address",
           "repeatable": false
         },
+        "2": {
+          "label": "Source",
+          "repeatable": false
+        },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": false
         },
         "4": {
@@ -28270,9 +31338,9 @@
             "770": "Writer of accompanying material"
           }
         },
-        "5": {
-          "label": "Institution and Copy to Which Field Applies (Mandatory)",
-          "repeatable": false
+        "8": {
+          "label": "Materials specified",
+          "repeatable": true
         }
       }
     },
@@ -28333,8 +31401,12 @@
           "label": "Affiliation/address",
           "repeatable": false
         },
+        "2": {
+          "label": "Source",
+          "repeatable": false
+        },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": false
         },
         "4": {
@@ -28475,9 +31547,9 @@
             "770": "Writer of accompanying material"
           }
         },
-        "5": {
-          "label": "Institution and Copy to Which Field Applies (Mandatory)",
-          "repeatable": false
+        "8": {
+          "label": "Materials specified",
+          "repeatable": true
         }
       }
     },
@@ -28538,8 +31610,16 @@
           "label": "Affiliation/address",
           "repeatable": false
         },
+        "r": {
+          "label": "Part or Role Played",
+          "repeatable": true
+        },
+        "2": {
+          "label": "Source",
+          "repeatable": false
+        },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": false
         },
         "4": {
@@ -28681,9 +31761,226 @@
           }
         },
         "5": {
-          "label": "Institution and Copy to Which Field Applies (Mandatory)",
+          "label": "Institution to which the Field Applies",
           "repeatable": false
+        },
+        "8": {
+          "label": "Materials specified",
+          "repeatable": true
+        },
+      }
+    },
+    "713": {
+      "tag": "713",
+      "label": "CORPORATE BODY NAME – PROVENANCE OR OWNERSHIP",
+      "required": false,
+      "repeatable": true,
+      "indicator1": {
+        "label": "Specifies the Kind of Name of a Body",
+        "codes": {
+          "0": "Corporate name",
+          "1": "Meeting name"
         }
+      },
+      "indicator2": {
+        "label": "Form of Name Indicator",
+        "codes": {
+          "0": "Name in inverted form",
+          "1": "Name entered under place or jurisdiction",
+          "2": "Name entered under name in direct order"
+        }
+      },
+      "subfields": {
+        "a": {
+          "label": "Entry Element",
+          "repeatable": false
+        },
+        "b": {
+          "label": "Subdivision",
+          "repeatable": true
+        },
+        "c": {
+          "label": "Addition to Name or Qualifier",
+          "repeatable": true
+        },
+        "d": {
+          "label": "Number of Meeting and/or Number of Part of Meeting",
+          "repeatable": false
+        },
+        "e": {
+          "label": "Location of Meeting",
+          "repeatable": false
+        },
+        "f": {
+          "label": "Date of Meeting",
+          "repeatable": false
+        },
+        "g": {
+          "label": "Inverted Element",
+          "repeatable": false
+        },
+        "h": {
+          "label": "Part of Name Other than Entry Element and Inverted Element",
+          "repeatable": false
+        },
+        "p": {
+          "label": "Affiliation/address",
+          "repeatable": false
+        },
+        "2": {
+          "label": "Source",
+          "repeatable": false
+        },
+        "3": {
+          "label": "Authority Record Identifier",
+          "repeatable": false
+        },
+        "4": {
+          "label": "Relator Code",
+          "repeatable": true,
+          "codelist": {
+            "000": "Undetermined function",
+            "005": "Actor",
+            "010": "Adapter",
+            "018": "Animator",
+            "020": "Annotator",
+            "030": "Arranger",
+            "040": "Artist",
+            "050": "Assignee",
+            "060": "Associated name",
+            "065": "Auctioneer",
+            "070": "Author",
+            "072": "Author in quotations or text extracts",
+            "075": "Author of afterword, postface, colophon, etc.",
+            "080": "Author of introduction, etc.",
+            "090": "Author of dialogue",
+            "100": "Bibliographic antecedent",
+            "110": "Binder",
+            "120": "Binding designer",
+            "130": "Book designer",
+            "140": "Bookjacket designer",
+            "150": "Bookplate designer",
+            "160": "Bookseller",
+            "170": "Calligrapher",
+            "180": "Cartographer",
+            "190": "Censor",
+            "195": "Choral director",
+            "200": "Choreographer",
+            "202": "Circus performer",
+            "205": "Collaborator",
+            "206": "Collector of field material",
+            "207": "Comedian",
+            "210": "Commentator",
+            "212": "Commentator for written text",
+            "220": "Compiler",
+            "230": "Composer",
+            "233": "Composer of adapted work",
+            "236": "Composer of main musical work",
+            "240": "Compositor",
+            "245": "Conceptor",
+            "250": "Conductor",
+            "255": "Consultant to a project.",
+            "257": "Continuator",
+            "260": "Copyright holder",
+            "270": "Corrector",
+            "273": "Curator of an exhibition",
+            "275": "Dancer",
+            "280": "Dedicatee",
+            "290": "Dedicator",
+            "295": "Degree-grantor",
+            "300": "Director",
+            "303": "Disc jockey",
+            "305": "Dissertant",
+            "310": "Distributor",
+            "320": "Donor",
+            "330": "Dubious author",
+            "340": "Editor",
+            "350": "Engraver",
+            "360": "Etcher",
+            "365": "Expert",
+            "370": "Film editor",
+            "380": "Forger",
+            "390": "Former owner",
+            "395": "Founder",
+            "400": "Funder [Obsolete]",
+            "410": "Graphic technician",
+            "420": "Honoree",
+            "430": "Illuminator",
+            "440": "Illustrator",
+            "445": "Impresario",
+            "450": "Inscriber",
+            "460": "Interviewee",
+            "470": "Interviewer",
+            "475": "Issuing body",
+            "480": "Librettist",
+            "490": "Licensee",
+            "500": "Licensor",
+            "510": "Lithographer",
+            "520": "Lyricist",
+            "530": "Metal-engraver",
+            "535": "Mime artist",
+            "540": "Monitor",
+            "545": "Musician",
+            "550": "Narrator",
+            "555": "Opponent",
+            "557": "Organiser of meeting",
+            "560": "Originator",
+            "570": "Other",
+            "580": "Papermaker",
+            "582": "Patent applicant",
+            "584": "Patent inventor",
+            "587": "Patentee",
+            "590": "Performer",
+            "595": "Performer of research",
+            "600": "Photographer",
+            "605": "Presenter",
+            "610": "Printer",
+            "620": "Printer of plates",
+            "630": "Producer",
+            "632": "Production designer",
+            "633": "Production personnel",
+            "635": "Programmer",
+            "637": "Project manager",
+            "640": "Proof-reader",
+            "650": "Publisher",
+            "651": "Publishing director",
+            "655": "Puppeteer",
+            "660": "Recipient of letters",
+            "665": "Record producer",
+            "670": "Recording engineer",
+            "672": "Remixer",
+            "673": "Research team head",
+            "677": "Research team member",
+            "675": "Reviewer",
+            "680": "Rubricator",
+            "690": "Scenarist",
+            "695": "Scientific advisor",
+            "700": "Scribe",
+            "705": "Sculptor",
+            "710": "Secretary",
+            "720": "Signer",
+            "721": "Singer",
+            "723": "Sponsor",
+            "725": "Standards body",
+            "726": "Stunt performer",
+            "727": "Thesis advisor",
+            "730": "Translator",
+            "740": "Type designer",
+            "750": "Typographer",
+            "753": "Vendor",
+            "755": "Vocalist",
+            "760": "Wood-engraver",
+            "770": "Writer of accompanying material"
+          }
+        },
+        "5": {
+          "label": "Institution to which the Field Applies",
+          "repeatable": false
+        },
+        "8": {
+          "label": "Materials specified",
+          "repeatable": true
+        },
       }
     },
     "716": {
@@ -28707,7 +32004,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": false
         }
       }
@@ -28724,12 +32021,28 @@
           "label": "Entry Element",
           "repeatable": false
         },
+        "c": {
+          "label": "Type of Family",
+          "repeatable": false
+        },
+        "d": {
+          "label": "Places Associated with the Family ",
+          "repeatable": true
+        },
         "f": {
           "label": "Dates",
           "repeatable": false
         },
+        "o": {
+          "label": "International Standard Identifier for the Name",
+          "repeatable": true
+        },
+        "2": {
+          "label": "Source",
+          "repeatable": false
+        },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": false
         },
         "4": {
@@ -28870,9 +32183,9 @@
             "770": "Writer of accompanying material"
           }
         },
-        "5": {
-          "label": "Institution and Copy to Which Field Applies (Mandatory)",
-          "repeatable": false
+        "8": {
+          "label": "Materials specified",
+          "repeatable": true
         }
       }
     },
@@ -28888,12 +32201,28 @@
           "label": "Entry Element",
           "repeatable": false
         },
+        "c": {
+          "label": "Type of Family",
+          "repeatable": false
+        },
+        "d": {
+          "label": "Places Associated with the Family ",
+          "repeatable": true
+        },
         "f": {
           "label": "Dates",
           "repeatable": false
         },
+        "o": {
+          "label": "International Standard Identifier for the Name",
+          "repeatable": true
+        },
+        "2": {
+          "label": "Source",
+          "repeatable": false
+        },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": false
         },
         "4": {
@@ -29034,9 +32363,9 @@
             "770": "Writer of accompanying material"
           }
         },
-        "5": {
-          "label": "Institution and Copy to Which Field Applies (Mandatory)",
-          "repeatable": false
+        "8": {
+          "label": "Materials specified",
+          "repeatable": true
         }
       }
     },
@@ -29052,12 +32381,32 @@
           "label": "Entry Element",
           "repeatable": false
         },
+        "c": {
+          "label": "Type of Family",
+          "repeatable": false
+        },
+        "d": {
+          "label": "Places Associated with the Family ",
+          "repeatable": true
+        },
         "f": {
           "label": "Dates",
           "repeatable": false
         },
+        "o": {
+          "label": "International Standard Identifier for the Name",
+          "repeatable": true
+        },
+        "r": {
+          "label": "Part or Role Played ",
+          "repeatable": true
+        },
+        "2": {
+          "label": "Source",
+          "repeatable": false
+        },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": false
         },
         "4": {
@@ -29199,8 +32548,196 @@
           }
         },
         "5": {
-          "label": "Institution and Copy to Which Field Applies (Mandatory)",
+          "label": "Institution to which the Field Applies",
           "repeatable": false
+        },
+        "8": {
+          "label": "Materials specified",
+          "repeatable": true
+        }
+      }
+    },
+    "723": {
+      "tag": "723",
+      "label": "FAMILY NAME - PROVENANCE OR OWNERSHIP",
+      "required": false,
+      "repeatable": true,
+      "indicator1": null,
+      "indicator2": null,
+      "subfields": {
+        "a": {
+          "label": "Entry Element",
+          "repeatable": false
+        },
+        "c": {
+          "label": "Type of Family",
+          "repeatable": false
+        },
+        "d": {
+          "label": "Places Associated with the Family ",
+          "repeatable": true
+        },
+        "f": {
+          "label": "Dates",
+          "repeatable": false
+        },
+        "o": {
+          "label": "International Standard Identifier for the Name",
+          "repeatable": true
+        },
+        "2": {
+          "label": "Source",
+          "repeatable": false
+        },
+        "3": {
+          "label": "Authority Record Identifier",
+          "repeatable": false
+        },
+        "4": {
+          "label": "Relator Code",
+          "repeatable": true,
+          "codelist": {
+            "000": "Undetermined function",
+            "005": "Actor",
+            "010": "Adapter",
+            "018": "Animator",
+            "020": "Annotator",
+            "030": "Arranger",
+            "040": "Artist",
+            "050": "Assignee",
+            "060": "Associated name",
+            "065": "Auctioneer",
+            "070": "Author",
+            "072": "Author in quotations or text extracts",
+            "075": "Author of afterword, postface, colophon, etc.",
+            "080": "Author of introduction, etc.",
+            "090": "Author of dialogue",
+            "100": "Bibliographic antecedent",
+            "110": "Binder",
+            "120": "Binding designer",
+            "130": "Book designer",
+            "140": "Bookjacket designer",
+            "150": "Bookplate designer",
+            "160": "Bookseller",
+            "170": "Calligrapher",
+            "180": "Cartographer",
+            "190": "Censor",
+            "195": "Choral director",
+            "200": "Choreographer",
+            "202": "Circus performer",
+            "205": "Collaborator",
+            "206": "Collector of field material",
+            "207": "Comedian",
+            "210": "Commentator",
+            "212": "Commentator for written text",
+            "220": "Compiler",
+            "230": "Composer",
+            "233": "Composer of adapted work",
+            "236": "Composer of main musical work",
+            "240": "Compositor",
+            "245": "Conceptor",
+            "250": "Conductor",
+            "255": "Consultant to a project.",
+            "257": "Continuator",
+            "260": "Copyright holder",
+            "270": "Corrector",
+            "273": "Curator of an exhibition",
+            "275": "Dancer",
+            "280": "Dedicatee",
+            "290": "Dedicator",
+            "295": "Degree-grantor",
+            "300": "Director",
+            "303": "Disc jockey",
+            "305": "Dissertant",
+            "310": "Distributor",
+            "320": "Donor",
+            "330": "Dubious author",
+            "340": "Editor",
+            "350": "Engraver",
+            "360": "Etcher",
+            "365": "Expert",
+            "370": "Film editor",
+            "380": "Forger",
+            "390": "Former owner",
+            "395": "Founder",
+            "400": "Funder [Obsolete]",
+            "410": "Graphic technician",
+            "420": "Honoree",
+            "430": "Illuminator",
+            "440": "Illustrator",
+            "445": "Impresario",
+            "450": "Inscriber",
+            "460": "Interviewee",
+            "470": "Interviewer",
+            "475": "Issuing body",
+            "480": "Librettist",
+            "490": "Licensee",
+            "500": "Licensor",
+            "510": "Lithographer",
+            "520": "Lyricist",
+            "530": "Metal-engraver",
+            "535": "Mime artist",
+            "540": "Monitor",
+            "545": "Musician",
+            "550": "Narrator",
+            "555": "Opponent",
+            "557": "Organiser of meeting",
+            "560": "Originator",
+            "570": "Other",
+            "580": "Papermaker",
+            "582": "Patent applicant",
+            "584": "Patent inventor",
+            "587": "Patentee",
+            "590": "Performer",
+            "595": "Performer of research",
+            "600": "Photographer",
+            "605": "Presenter",
+            "610": "Printer",
+            "620": "Printer of plates",
+            "630": "Producer",
+            "632": "Production designer",
+            "633": "Production personnel",
+            "635": "Programmer",
+            "637": "Project manager",
+            "640": "Proof-reader",
+            "650": "Publisher",
+            "651": "Publishing director",
+            "655": "Puppeteer",
+            "660": "Recipient of letters",
+            "665": "Record producer",
+            "670": "Recording engineer",
+            "672": "Remixer",
+            "673": "Research team head",
+            "677": "Research team member",
+            "675": "Reviewer",
+            "680": "Rubricator",
+            "690": "Scenarist",
+            "695": "Scientific advisor",
+            "700": "Scribe",
+            "705": "Sculptor",
+            "710": "Secretary",
+            "720": "Signer",
+            "721": "Singer",
+            "723": "Sponsor",
+            "725": "Standards body",
+            "726": "Stunt performer",
+            "727": "Thesis advisor",
+            "730": "Translator",
+            "740": "Type designer",
+            "750": "Typographer",
+            "753": "Vendor",
+            "755": "Vocalist",
+            "760": "Wood-engraver",
+            "770": "Writer of accompanying material"
+          }
+        },
+        "5": {
+          "label": "Institution to which the Field Applies",
+          "repeatable": false
+        },
+        "8": {
+          "label": "Materials specified",
+          "repeatable": true
         }
       }
     },
@@ -29414,7 +32951,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": false
         }
       }
@@ -29470,7 +33007,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": false
         }
       }
@@ -29526,7 +33063,7 @@
           "repeatable": false
         },
         "3": {
-          "label": "Authority Record Number",
+          "label": "Authority Record Identifier",
           "repeatable": false
         }
       }

@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
 import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
 import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.UnimarcLeader;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.utils.pica.crosswalk.Crosswalk;
 import de.gwdg.metadataqa.marc.utils.pica.crosswalk.PicaMarcCrosswalkReader;
@@ -17,7 +18,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UnimarcRecord extends BibliographicRecord {
+public class UnimarcRecord extends MarcRecord {
 
 
   // TODO for now I essentially have no idea what to do with these attributes
@@ -32,6 +33,7 @@ public class UnimarcRecord extends BibliographicRecord {
   private static Map<AuthorityCategory, List<String>> authorityTagsMap;
   private static Map<ThompsonTraillFields, List<String>> thompsonTraillTagMap;
   private static Map<ShelfReadyFieldsBooks, Map<String, List<String>>> shelfReadyMap;
+  private UnimarcLeader leader;
 
   public UnimarcRecord() {
     super();
@@ -99,8 +101,6 @@ public class UnimarcRecord extends BibliographicRecord {
   }
 
   private static void initializeAuthorityTags() {
-    // This will be initialized as per the observed similarities between Marc21 and Unimarc
-    // TODO discuss this. it feels like it shouldn't be hardcoded, but that might be due to my lack of understanding
     authorityTags = Arrays.asList(
     );
     authorityTagsIndex = Utils.listToMap(authorityTags);

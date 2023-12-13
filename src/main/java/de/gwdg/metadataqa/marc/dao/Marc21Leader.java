@@ -162,14 +162,6 @@ public class Marc21Leader extends MarcLeader implements Extractable, Validatable
     return get(LeaderPositions.getInstance().getById(key));
   }
 
-  public MarcLeader.Type getType() {
-    return type;
-  }
-
-  public String getLeaderString() {
-    return content;
-  }
-
   public ControlValue getCharacterCodingScheme() {
     return characterCodingScheme;
   }

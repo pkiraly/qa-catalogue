@@ -14,6 +14,7 @@ import de.gwdg.metadataqa.marc.dao.Control007;
 import de.gwdg.metadataqa.marc.dao.Control008;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.DefaultMarcPositionalControlField;
+import de.gwdg.metadataqa.marc.dao.Marc21Leader;
 import de.gwdg.metadataqa.marc.dao.MarcLeader;
 import de.gwdg.metadataqa.marc.dao.SimpleControlField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;

@@ -262,6 +262,7 @@ public class MarclineReaderTest {
       "2: 77\n" +
       "1: 01\n" +
       "a: 86.539\n";
+    expected = expected.replace("\n", System.lineSeparator());
     assertEquals(expected, formatted);
 
     formatted = marcRecord.formatAsMarc();
@@ -401,6 +402,7 @@ public class MarclineReaderTest {
       "985_2: 77\n" +
       "985_1: 01\n" +
       "985_a: 86.539\n";
+    expected = expected.replace("\n", System.lineSeparator());
     assertEquals(expected, formatted);
 
     Map<String, List<String>> pairs = marcRecord.getKeyValuePairs();

@@ -41,7 +41,7 @@ public class AlephseqMarcReaderTest {
     if (reader.hasNext())
       marc4jRecord = reader.next();
     assertNotNull(marc4jRecord);
-    BibliographicRecord marcRecord = (Marc21Record) MarcFactory.createFromMarc4j(marc4jRecord, MarcLeader.Type.BOOKS, MarcVersion.GENT, "^");
+    Marc21Record marcRecord = (Marc21Record) MarcFactory.createFromMarc4j(marc4jRecord, MarcLeader.Type.BOOKS, MarcVersion.GENT, "^");
     assertNotNull(marcRecord);
 
     assertEquals("000000002", marcRecord.getId());
@@ -210,6 +210,7 @@ public class AlephseqMarcReaderTest {
       "Piece designation: 000010184913\n" +
       "[920: Used in the union catalog of Belgium]\n" +
       "Value: book\n";
+    expected = expected.replaceAll("\n", System.lineSeparator());
     assertEquals(expected, formatted);
 
     formatted = marcRecord.formatAsMarc();
@@ -293,6 +294,7 @@ public class AlephseqMarcReaderTest {
       "852_j: LWBIB.L33.D01.006.0063\n" +
       "852_p: 000010184913\n" +
       "920_a: book\n";
+    expected = expected.replaceAll("\n", System.lineSeparator());
     assertEquals(expected, formatted);
 
     Map<String, List<String>> pairs = marcRecord.getKeyValuePairs();

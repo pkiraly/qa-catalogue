@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.analysis.validator;
 
-import de.gwdg.metadataqa.marc.dao.Marc21Leader;
+import de.gwdg.metadataqa.marc.dao.MarcLeader;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class LeaderValidator extends AbstractValidator {
     super(configuration);
   }
 
-  public boolean validate(Marc21Leader leader) {
+  public boolean validate(MarcLeader leader) {
     var isValid = true;
     ControlValueValidator controlValueValidator = new ControlValueValidator(configuration);
     validationErrors = new ArrayList<>();

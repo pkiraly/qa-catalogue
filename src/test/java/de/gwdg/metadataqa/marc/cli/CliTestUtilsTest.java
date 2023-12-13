@@ -14,8 +14,9 @@ public class CliTestUtilsTest {
 
   @Test
   public void testGetPath() {
+    String expectedPath = "/src/test/resources/output".replace("/", File.separator);
     assertTrue(CliTestUtils.getPath("src/test/resources/output")
-                           .contains("/src/test/resources/output"));
+                           .contains(expectedPath));
   }
 
   @Test

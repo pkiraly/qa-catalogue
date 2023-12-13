@@ -142,7 +142,7 @@ public class BibliographicRecordTest {
     List<Record> records = ReadMarc.read(path.toString(), "MARC8");
     Marc21Record marcRecord = (Marc21Record) MarcFactory.createFromMarc4j(records.get(0));
     assertEquals(' ', records.get(0).getLeader().getCharCodingScheme());
-    assertEquals(" ", marcRecord.getLeader().getCharacterCodingScheme().getValue());
+    assertEquals(" ", ((Marc21Leader) marcRecord.getLeader()).getCharacterCodingScheme().getValue());
     assertEquals("Az ítélet :", marcRecord.getDatafield("245").get(0).getSubfield("a").get(0).getValue());
   }
 
@@ -154,7 +154,7 @@ public class BibliographicRecordTest {
     assertEquals(' ', record.getLeader().getCharCodingScheme());
 
     Marc21Record marcRecord = (Marc21Record) MarcFactory.createFromMarc4j(record);
-    assertEquals(" ", marcRecord.getLeader().getCharacterCodingScheme().getValue());
+    assertEquals(" ", ((Marc21Leader) marcRecord.getLeader()).getCharacterCodingScheme().getValue());
     assertEquals("Az ítélet :", marcRecord.getDatafield("245").get(0).getSubfield("a").get(0).getValue());
     assertEquals("[Följegyzések és dokumentumok néhány magyarországi református egyházi döntésről 1948 és 1998 között] :", marcRecord.getDatafield("245").get(0).getSubfield("b").get(0).getValue());
   }

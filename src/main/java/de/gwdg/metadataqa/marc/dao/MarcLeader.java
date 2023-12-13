@@ -3,10 +3,17 @@ package de.gwdg.metadataqa.marc.dao;
 import de.gwdg.metadataqa.marc.Extractable;
 import de.gwdg.metadataqa.marc.Validatable;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
+import de.gwdg.metadataqa.marc.definition.controlpositions.LeaderPositions;
 import de.gwdg.metadataqa.marc.definition.structure.ControlFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 
 import java.io.Serializable;
+import java.util.Map;
 
+/**
+ * This represents the Leader field of a MARC record. Its definition is in the LeaderDefinition class for the MARC21,
+ * and for UNIMARC, there's an avram-style definition which gets read directly into the ControlFieldDefinition class.
+ */
 public abstract class MarcLeader extends MarcPositionalControlField implements Extractable, Validatable, Serializable {
   public enum Type {
     // This could be separated into a separate enum class because it is essentially a record type.
@@ -18,7 +25,7 @@ public abstract class MarcLeader extends MarcPositionalControlField implements E
     COMPUTER_FILES("Computer Files"),
     MIXED_MATERIALS("Mixed Materials");
 
-    String value;
+    final String value;
     Type(String value) {
       this.value = value;
     }
@@ -52,6 +59,24 @@ public abstract class MarcLeader extends MarcPositionalControlField implements E
   protected MarcLeader(ControlFieldDefinition definition, String content, MarcLeader.Type defaultType) {
     super(definition, content);
     this.defaultType = defaultType;
+  }
+
+  public String resolve(ControlfieldPositionDefinition key) {
+    String value = valuesMap.get(key);
+    return key.resolve(value);
+  }
+
+  public String resolve(String key) {
+    return resolve(LeaderPositions.getByLabel(key));
+  }
+
+  @Override
+  public Map<ControlfieldPositionDefinition, String> getMap() {
+    return valuesMap;
+  }
+
+  public String get(ControlfieldPositionDefinition key) {
+    return valuesMap.get(key);
   }
 
   public ControlValue getRecordLength() {
@@ -108,5 +133,18 @@ public abstract class MarcLeader extends MarcPositionalControlField implements E
   public ControlValue getLengthOfTheImplementationDefinedPortion() {
     return lengthOfTheImplementationDefinedPortion;
   }
+
+  public MarcLeader.Type getType() {
+    return type;
+  }
+
+  public String getLeaderString() {
+    return content;
+  }
+  @Override
+  public ControlfieldPositionDefinition getSubfieldByPosition(Integer charStart) {
+    return null;
+  }
+
 
 }

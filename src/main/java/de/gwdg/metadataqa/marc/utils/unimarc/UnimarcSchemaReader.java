@@ -74,24 +74,47 @@ public class UnimarcSchemaReader {
       String tag = entry.getKey();
       JSONObject jsonField = (JSONObject) fields.get(tag);
 
-      // In this situation, it isn't necessary to access the JSON value of 'tag' directly,
-      // as it is already available as the key of the UNIMARC field.
-      UnimarcFieldDefinition fieldDefinition = new UnimarcFieldDefinition(
-          tag,
-          (String) jsonField.get(LABEL),
-          (boolean) jsonField.get(REPEATABLE),
-          (boolean) jsonField.get(REQUIRED)
-      );
+      // If the tag is 'LEADER', then create a special field definition for the leader which is essentially a
+      // ControlfieldDefinition. If the tag is not 'LEADER', then create a normal field definition.
 
-      Indicator indicator1 = getIndicator(1, jsonField);
-      fieldDefinition.setInd1(indicator1);
-      Indicator indicator2 = getIndicator(2, jsonField);
-      fieldDefinition.setInd2(indicator2);
-      List<SubfieldDefinition> subfieldDefinitions = getSubfields(jsonField);
-      fieldDefinition.setSubfieldDefinitions(subfieldDefinitions);
+      if (tag.equals("LEADER")) {
+        UnimarcLeaderDefinition leaderDefinition = createLeaderDefinition(jsonField);
+        schema.setLeaderDefinition(leaderDefinition);
+        continue;
+      }
+
+      UnimarcFieldDefinition fieldDefinition = createFieldDefinition(tag, jsonField);
 
       schema.add(fieldDefinition);
     }
+  }
+
+  private UnimarcLeaderDefinition createLeaderDefinition(JSONObject jsonField) {
+    UnimarcLeaderDefinition leaderDefinition = new UnimarcLeaderDefinition();
+    // Set position definitions
+    List<ControlfieldPositionDefinition> positions = getPositions(jsonField, "leader");
+    leaderDefinition.setControlfieldPositions(positions);
+    return leaderDefinition;
+  }
+
+  private UnimarcFieldDefinition createFieldDefinition(String tag, JSONObject jsonField) {
+    // In this situation, it isn't necessary to access the JSON value of 'tag' directly,
+    // as it is already available as the key of the UNIMARC field.
+    UnimarcFieldDefinition fieldDefinition = new UnimarcFieldDefinition(
+        tag,
+        (String) jsonField.get(LABEL),
+        jsonField.get(REPEATABLE) != null && (boolean) jsonField.get(REPEATABLE),
+        jsonField.get(REQUIRED) != null && (boolean) jsonField.get(REQUIRED)
+    );
+
+    Indicator indicator1 = getIndicator(1, jsonField);
+    fieldDefinition.setInd1(indicator1);
+    Indicator indicator2 = getIndicator(2, jsonField);
+    fieldDefinition.setInd2(indicator2);
+    List<SubfieldDefinition> subfieldDefinitions = getSubfields(jsonField, tag);
+    fieldDefinition.setSubfieldDefinitions(subfieldDefinitions);
+
+    return fieldDefinition;
   }
 
   /**
@@ -112,7 +135,7 @@ public class UnimarcSchemaReader {
     return indicator;
   }
 
-  private List<SubfieldDefinition> getSubfields(JSONObject jsonField) {
+  private List<SubfieldDefinition> getSubfields(JSONObject jsonField, String parentTag) {
     // Subfields are a JSON object in our schema
     JSONObject subfields = (JSONObject) jsonField.get("subfields");
     if (subfields == null) {
@@ -144,7 +167,9 @@ public class UnimarcSchemaReader {
       codeList.setCodes(codes);
       subfieldDefinition.setCodeList(codeList);
 
-      List<ControlfieldPositionDefinition> positions = getPositions(jsonSubfield);
+      String subfieldTag = String.format("%s$%s", parentTag, code);
+
+      List<ControlfieldPositionDefinition> positions = getPositions(jsonSubfield, subfieldTag);
       subfieldDefinition.setPositions(positions);
 
       subfieldDefinitions.add(subfieldDefinition);
@@ -152,8 +177,8 @@ public class UnimarcSchemaReader {
     return subfieldDefinitions;
   }
 
-  private List<ControlfieldPositionDefinition> getPositions(JSONObject jsonSubfield) {
-    JSONObject positions = (JSONObject) jsonSubfield.get("positions");
+  private List<ControlfieldPositionDefinition> getPositions(JSONObject positionParent, String parentTag) {
+    JSONObject positions = (JSONObject) positionParent.get("positions");
     if (positions == null) {
       return List.of();
     }
@@ -178,6 +203,10 @@ public class UnimarcSchemaReader {
           positionStart,
           positionEnd
       );
+
+      String positionId = String.format("%s/%s", parentTag, positionEntry.getKey());
+      positionDefinition.setId(positionId);
+
       List<EncodedValue> codes = getCodes(position, "codes");
       positionDefinition.setCodes(codes);
 

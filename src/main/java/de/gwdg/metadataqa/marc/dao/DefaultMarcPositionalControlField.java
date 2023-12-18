@@ -16,7 +16,7 @@ public class DefaultMarcPositionalControlField extends MarcPositionalControlFiel
     processContent();
   }
 
-  public DefaultMarcPositionalControlField(ControlFieldDefinition definition, String content, Leader.Type recordType) {
+  public DefaultMarcPositionalControlField(ControlFieldDefinition definition, String content, MarcLeader.Type recordType) {
     super(definition, content, recordType);
   }
 

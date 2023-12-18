@@ -1,11 +1,11 @@
 package de.gwdg.metadataqa.marc.definition.tags.nkcrtags;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
+import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.analysis.validator.DataFieldValidator;
 import de.gwdg.metadataqa.marc.analysis.validator.ValidatorConfiguration;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.Leader;
-import de.gwdg.metadataqa.marc.MarcFactory;
+import de.gwdg.metadataqa.marc.dao.MarcLeader;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
@@ -45,7 +45,7 @@ public class NkcrMarcReaderTest {
       marc4jRecord = reader.next();
       assertNotNull(marc4jRecord);
       BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(
-        marc4jRecord, Leader.Type.BOOKS, MarcVersion.NKCR, "^"
+        marc4jRecord, MarcLeader.Type.BOOKS, MarcVersion.NKCR, "^"
       );
       assertNotNull(marcRecord);
 

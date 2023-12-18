@@ -80,7 +80,7 @@ public class Control006 extends MarcPositionalControlField implements Serializab
 
   private final Map<Integer, ControlfieldPositionDefinition> byPosition = new LinkedHashMap<>();
 
-  public Control006(String content, Leader.Type recordType) {
+  public Control006(String content, MarcLeader.Type recordType) {
     super(Control006Definition.getInstance(), content, recordType);
     if (content != null)
       processContent();
@@ -287,7 +287,7 @@ public class Control006 extends MarcPositionalControlField implements Serializab
     return byPosition.keySet();
   }
 
-  public Leader.Type getRecordType() {
+  public MarcLeader.Type getRecordType() {
     return recordType;
   }
 

@@ -1,8 +1,8 @@
 package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.api.json.DataElement;
-import de.gwdg.metadataqa.api.model.selector.JsonSelector;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
+import de.gwdg.metadataqa.api.model.selector.JsonSelector;
 import de.gwdg.metadataqa.api.schema.MarcJsonSchema;
 import de.gwdg.metadataqa.api.schema.Schema;
 import de.gwdg.metadataqa.marc.cli.utils.IteratorResponse;
@@ -14,30 +14,29 @@ import de.gwdg.metadataqa.marc.dao.Control007;
 import de.gwdg.metadataqa.marc.dao.Control008;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.DefaultMarcPositionalControlField;
-import de.gwdg.metadataqa.marc.dao.Leader;
+import de.gwdg.metadataqa.marc.dao.Marc21Leader;
+import de.gwdg.metadataqa.marc.dao.MarcLeader;
 import de.gwdg.metadataqa.marc.dao.SimpleControlField;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.Marc21AuthorityRecord;
 import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
-import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.dao.record.PicaRecord;
-import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.DefaultControlFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
-import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
-
-import de.gwdg.metadataqa.marc.utils.alephseq.AlephseqLine;
 import de.gwdg.metadataqa.marc.utils.MapToDatafield;
-
+import de.gwdg.metadataqa.marc.utils.alephseq.AlephseqLine;
 import de.gwdg.metadataqa.marc.utils.alephseq.MarcMakerLine;
 import de.gwdg.metadataqa.marc.utils.alephseq.MarclineLine;
 import de.gwdg.metadataqa.marc.utils.marcreader.schema.Marc21SchemaManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaDataField;
 import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
-import de.gwdg.metadataqa.marc.utils.pica.reader.model.PicaLine;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSubfield;
+import de.gwdg.metadataqa.marc.utils.pica.reader.model.PicaLine;
 import net.minidev.json.JSONArray;
 import org.marc4j.marc.ControlField;
 import org.marc4j.marc.Record;
@@ -46,8 +45,8 @@ import org.marc4j.marc.VariableField;
 import org.marc4j.marc.impl.ControlFieldImpl;
 import org.marc4j.marc.impl.DataFieldImpl;
 import org.marc4j.marc.impl.LeaderImpl;
-import org.marc4j.marc.impl.SubfieldImpl;
 import org.marc4j.marc.impl.RecordImpl;
+import org.marc4j.marc.impl.SubfieldImpl;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -82,7 +81,7 @@ public class MarcFactory {
         continue;
       switch (dataElement.getLabel()) {
         case "leader":
-          marcRecord.setLeader(new Leader(extractFirst(selector, dataElement)));
+          marcRecord.setLeader(new Marc21Leader(extractFirst(selector, dataElement)));
           break;
         case "001":
           marcRecord.setControl001(new Control001(extractFirst(selector, dataElement)));
@@ -128,7 +127,7 @@ public class MarcFactory {
   }
 
   public static BibliographicRecord createFromMarc4j(Record marc4jRecord,
-                                                     Leader.Type defaultType) {
+                                                     MarcLeader.Type defaultType) {
     return createFromMarc4j(marc4jRecord, defaultType, MarcVersion.MARC21);
   }
 
@@ -138,7 +137,7 @@ public class MarcFactory {
   }
 
   public static BibliographicRecord createFromMarc4j(Record marc4jRecord,
-                                                     Leader.Type defaultType,
+                                                     MarcLeader.Type defaultType,
                                                      MarcVersion marcVersion) {
     return createFromMarc4j(marc4jRecord, defaultType, marcVersion, null);
   }
@@ -152,7 +151,7 @@ public class MarcFactory {
    * @return
    */
   public static BibliographicRecord createFromMarc4j(Record marc4jRecord,
-                                                     Leader.Type defaultType,
+                                                     MarcLeader.Type defaultType,
                                                      MarcVersion marcVersion,
                                                      String replacementInControlFields) {
     var marcRecord = new Marc21BibliographicRecord();
@@ -161,7 +160,7 @@ public class MarcFactory {
       String data = marc4jRecord.getLeader().marshal();
       if (replacementInControlFields != null)
         data = data.replace(replacementInControlFields, " ");
-      marcRecord.setLeader(new Leader(data, defaultType));
+      marcRecord.setLeader(new Marc21Leader(data, defaultType));
 
       if (marcRecord.getType() == null) {
         throw new InvalidParameterException(

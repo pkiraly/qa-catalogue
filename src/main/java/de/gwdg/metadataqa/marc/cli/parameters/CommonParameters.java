@@ -1,12 +1,12 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnorator;
-import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnoratorFactory;
+import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
 import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilter;
 import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilterFactory;
-import de.gwdg.metadataqa.marc.dao.Leader;
-import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
+import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnorator;
+import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnoratorFactory;
+import de.gwdg.metadataqa.marc.dao.MarcLeader;
 import de.gwdg.metadataqa.marc.definition.DataSource;
 import de.gwdg.metadataqa.marc.definition.MarcFormat;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -38,7 +38,7 @@ public class CommonParameters implements Serializable {
   protected int limit = -1;
   protected int offset = -1;
   protected String id = null;
-  protected Leader.Type defaultRecordType = Leader.Type.BOOKS;
+  protected MarcLeader.Type defaultRecordType = MarcLeader.Type.BOOKS;
   protected boolean fixAlephseq = false;
   protected boolean fixAlma = false;
   protected boolean fixKbr = false;
@@ -372,16 +372,16 @@ public class CommonParameters implements Serializable {
     this.id = id;
   }
 
-  public Leader.Type getDefaultRecordType() {
+  public MarcLeader.Type getDefaultRecordType() {
     return defaultRecordType;
   }
 
-  public void setDefaultRecordType(Leader.Type defaultRecordType) {
+  public void setDefaultRecordType(MarcLeader.Type defaultRecordType) {
     this.defaultRecordType = defaultRecordType;
   }
 
   public void setDefaultRecordType(String defaultRecordType) throws ParseException {
-    this.defaultRecordType = Leader.Type.valueOf(defaultRecordType);
+    this.defaultRecordType = MarcLeader.Type.valueOf(defaultRecordType);
     if (this.defaultRecordType == null)
       throw new ParseException(String.format("Unrecognized defaultRecordType parameter value: '%s'", defaultRecordType));
   }

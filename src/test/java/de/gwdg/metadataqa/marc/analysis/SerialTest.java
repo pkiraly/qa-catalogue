@@ -1,8 +1,7 @@
 package de.gwdg.metadataqa.marc.analysis;
 
-import de.gwdg.metadataqa.marc.dao.Leader;
+import de.gwdg.metadataqa.marc.dao.MarcLeader;
 import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
-import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
@@ -37,7 +36,7 @@ public class SerialTest {
     marcRecord.setField("650", "17$aTheorievorming.$2gtt");
     assertEquals("text", marcRecord.getDatafield("336").get(0).getSubfield("a").get(0).getValue());
 
-    assertEquals(Leader.Type.CONTINUING_RESOURCES, marcRecord.getType());
+    assertEquals(MarcLeader.Type.CONTINUING_RESOURCES, marcRecord.getType());
 
     Serial serial = new Serial(marcRecord);
     List<Integer> scores = serial.determineRecordQualityScore();

@@ -12,7 +12,6 @@ import de.gwdg.metadataqa.marc.dao.Control006;
 import de.gwdg.metadataqa.marc.dao.Control007;
 import de.gwdg.metadataqa.marc.dao.Control008;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.dao.MarcControlField;
 import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -32,23 +31,18 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Marc21Record extends BibliographicRecord {
+public class Marc21Record extends MarcRecord {
 
   private static final Pattern positionalPattern = Pattern.compile("^(Leader|00[678])/(.*)$");
   private static final List<String> simpleControlTags = Arrays.asList("001", "003", "005");
 
-  private Leader leader;
-  private MarcControlField control001;
-  private MarcControlField control003;
-  private MarcControlField control005;
   private List<Control006> control006 = new ArrayList<>();
   private List<Control007> control007 = new ArrayList<>();
-  // private Control008 control008;
+
   protected MarcPositionalControlField control008;
 
   public Marc21Record(String id) {
     super(id);
-    control001 = new Control001(id);
   }
 
   public Marc21Record() {
@@ -63,12 +57,7 @@ public class Marc21Record extends BibliographicRecord {
   }
 
   public List<MarcControlField> getControlfields() {
-    List<MarcControlField> list = new ArrayList<>();
-    list.add(control001);
-    if (control003 != null)
-      list.add(control003);
-    if (control005 != null)
-      list.add(control005);
+    List<MarcControlField> list = super.getControlfields();
     if (control006 != null && !control006.isEmpty())
       list.addAll(control006);
     if (control007 != null && !control007.isEmpty())
@@ -76,12 +65,6 @@ public class Marc21Record extends BibliographicRecord {
     if (control008 != null)
       list.add(control008);
     return list;
-  }
-
-  public List<MarcControlField> getSimpleControlfields() {
-    return Arrays.asList(
-      control001, control003, control005
-    );
   }
 
   public List<MarcPositionalControlField> getPositionalControlfields() {
@@ -95,63 +78,6 @@ public class Marc21Record extends BibliographicRecord {
     return list;
   }
 
-  public void setLeader(Leader leader) {
-    this.leader = leader;
-    leader.setMarcRecord(this);
-  }
-
-  public void setLeader(String leader) {
-    this.leader = new Leader(leader);
-    this.leader.setMarcRecord(this);
-  }
-
-  public void setLeader(String leader, MarcVersion marcVersion) {
-    if (marcVersion.equals(MarcVersion.UNIMARC)) {
-      leader = UnimarcConverter.leaderFromUnimarc(leader);
-    }
-
-    this.leader = new Leader(leader);
-    this.leader.setMarcRecord(this);
-  }
-
-  public Leader getLeader() {
-    return leader;
-  }
-
-  public Leader.Type getType() {
-    return leader != null ? leader.getType() : Leader.Type.BOOKS;
-  }
-
-  public MarcControlField getControl001() {
-    return control001;
-  }
-
-  public BibliographicRecord setControl001(MarcControlField control001) {
-    this.control001 = control001;
-    control001.setMarcRecord(this);
-    controlfieldIndex.put(control001.getDefinition().getTag(), Arrays.asList(control001));
-    return this;
-  }
-
-  public MarcControlField getControl003() {
-    return control003;
-  }
-
-  public void setControl003(MarcControlField control003) {
-    this.control003 = control003;
-    control003.setMarcRecord(this);
-    controlfieldIndex.put(control003.getDefinition().getTag(), Arrays.asList(control003));
-  }
-
-  public MarcControlField getControl005() {
-    return control005;
-  }
-
-  public void setControl005(MarcControlField control005) {
-    this.control005 = control005;
-    control005.setMarcRecord(this);
-    controlfieldIndex.put(control005.getDefinition().getTag(), Arrays.asList(control005));
-  }
 
   public List<Control006> getControl006() {
     return control006;
@@ -173,11 +99,6 @@ public class Marc21Record extends BibliographicRecord {
     controlfieldIndex.put(control007.getDefinition().getTag(), (List) this.control007);
   }
 
-  /*
-  public MarcPositionalControlField getControl008() {
-    return control008;
-  }
-   */
   public MarcPositionalControlField getControl008() {
     return control008;
   }

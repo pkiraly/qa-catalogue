@@ -14,21 +14,23 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Represents a field for which the content is defined by the position of the characters in the field.
+ * One such example is the Leader field in MARC21, as well as in UNIMARC.
+ */
 public abstract class MarcPositionalControlField extends MarcControlField {
-
-  protected ControlFieldDefinition definition;
   protected Map<ControlfieldPositionDefinition, String> valuesMap;
   protected List<ControlValue> valuesList;
   private Map<Integer, ControlValue> valuesByPosition = new LinkedHashMap<>();
-  protected Leader.Type recordType;
+  protected MarcLeader.Type recordType;
 
-  public MarcPositionalControlField(ControlFieldDefinition definition, String content) {
+  protected MarcPositionalControlField(ControlFieldDefinition definition, String content) {
     this(definition, content, null);
   }
 
-  public MarcPositionalControlField(ControlFieldDefinition definition,
+  protected MarcPositionalControlField(ControlFieldDefinition definition,
                                     String content,
-                                    Leader.Type recordType) {
+                                    MarcLeader.Type recordType) {
     super(definition, content);
     this.definition = definition;
     this.recordType = recordType;

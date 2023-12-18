@@ -4,11 +4,19 @@ import com.jayway.jsonpath.InvalidJsonException;
 import de.gwdg.metadataqa.api.counter.FieldCounter;
 import de.gwdg.metadataqa.api.interfaces.Calculator;
 import de.gwdg.metadataqa.api.interfaces.MetricResult;
-import de.gwdg.metadataqa.api.model.selector.JsonSelector;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
+import de.gwdg.metadataqa.api.model.selector.JsonSelector;
 import de.gwdg.metadataqa.api.model.selector.Selector;
 import de.gwdg.metadataqa.api.schema.Schema;
 import de.gwdg.metadataqa.api.util.CompressionLevel;
+import de.gwdg.metadataqa.marc.dao.Control007;
+import de.gwdg.metadataqa.marc.dao.Control008;
+import de.gwdg.metadataqa.marc.dao.Marc21Leader;
+import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
+import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
+import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,14 +26,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
-
-import de.gwdg.metadataqa.marc.dao.Control007;
-import de.gwdg.metadataqa.marc.dao.Control008;
-import de.gwdg.metadataqa.marc.dao.Leader;
-import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
-import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
-import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -44,7 +44,7 @@ public class MarcFieldExtractor implements Calculator, Serializable {
   protected FieldCounter<List<String>> resultMap;
   protected Schema schema;
   private String recordId;
-  private Leader leader;
+  private Marc21Leader leader;
   private Control007 x007;
   private Control008 x008;
   private Map<String, Object> duplumKeyMap;
@@ -123,7 +123,7 @@ public class MarcFieldExtractor implements Calculator, Serializable {
               values.add(instance.getValue());
             }
             if (fieldName.equals(LEADER_KEY)) {
-              leader = new Leader(values.get(0));
+              leader = new Marc21Leader(values.get(0));
             }
           }
           resultMap.put(fieldName, values);
@@ -197,7 +197,7 @@ public class MarcFieldExtractor implements Calculator, Serializable {
 
   public void processLeader() {
     if (resultMap.has(LEADER_KEY))
-      leader = new Leader(resultMap.get(LEADER_KEY).get(0));
+      leader = new Marc21Leader(resultMap.get(LEADER_KEY).get(0));
     else
       logger.severe("No leader in result map. Nr of existing vars: " + StringUtils.join(resultMap.getMap().keySet(), ", "));
   }
@@ -251,7 +251,7 @@ public class MarcFieldExtractor implements Calculator, Serializable {
     return recordId;
   }
 
-  public Leader getLeader() {
+  public Marc21Leader getLeader() {
     return leader;
   }
 

@@ -47,34 +47,36 @@ public class Shacl4bibParametersTest {
     String[] arguments = new String[]{"--shaclConfigurationFile", "shacl.cnf", "--shaclOutputFile", "shacl.csv"};
     try {
       Shacl4bibParameters parameters = new Shacl4bibParameters(arguments);
-      assertEquals("schemaType: MARC21\n" +
-        "marcVersion: MARC21, MARC21\n" +
-        "marcFormat: ISO, Binary (ISO 2709)\n" +
-        "dataSource: FILE, from file\n" +
-        "limit: -1\n" +
-        "offset: -1\n" +
-        "MARC files: \n" +
-        "id: null\n" +
-        "defaultRecordType: BOOKS\n" +
-        "fixAlephseq: false\n" +
-        "fixAlma: false\n" +
-        "alephseq: false\n" +
-        "marcxml: false\n" +
-        "lineSeparated: false\n" +
-        "outputDir: .\n" +
-        "trimId: false\n" +
-        "ignorableFields: \n" +
-        "allowableRecords: \n" +
-        "ignorableRecords: \n" +
-        "defaultEncoding: null\n" +
-        "alephseqLineType: null\n" +
-        "groupBy: null\n" +
-        "groupListFile: null\n" +
-        "solrForScoresUrl: null\n" +
-        "shaclConfigurationFile: shacl.cnf\n" +
-        "shaclOutputFile: shacl.csv\n" +
-        "shaclOutputType: STATUS\n",
-        parameters.formatParameters());
+      String expected = "schemaType: MARC21\n" +
+          "marcVersion: MARC21, MARC21\n" +
+          "marcFormat: ISO, Binary (ISO 2709)\n" +
+          "dataSource: FILE, from file\n" +
+          "limit: -1\n" +
+          "offset: -1\n" +
+          "MARC files: \n" +
+          "id: null\n" +
+          "defaultRecordType: BOOKS\n" +
+          "fixAlephseq: false\n" +
+          "fixAlma: false\n" +
+          "alephseq: false\n" +
+          "marcxml: false\n" +
+          "lineSeparated: false\n" +
+          "outputDir: .\n" +
+          "trimId: false\n" +
+          "ignorableFields: \n" +
+          "allowableRecords: \n" +
+          "ignorableRecords: \n" +
+          "defaultEncoding: null\n" +
+          "alephseqLineType: null\n" +
+          "groupBy: null\n" +
+          "groupListFile: null\n" +
+          "solrForScoresUrl: null\n" +
+          "shaclConfigurationFile: shacl.cnf\n" +
+          "shaclOutputFile: shacl.csv\n" +
+          "shaclOutputType: STATUS\n";
+
+      expected = expected.replaceAll("\n", System.lineSeparator());
+      assertEquals(expected, parameters.formatParameters());
     } catch (ParseException e) {
       throw new RuntimeException(e);
     }

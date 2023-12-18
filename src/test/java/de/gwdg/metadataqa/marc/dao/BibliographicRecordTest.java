@@ -106,7 +106,7 @@ public class BibliographicRecordTest {
   @Test
   public void testMultiple007() throws Exception {
     Marc21Record marcRecord = new Marc21BibliographicRecord("010000011");
-    marcRecord.setLeader(new Leader("00860cam a22002774a 45 0"));
+    marcRecord.setLeader(new Marc21Leader("00860cam a22002774a 45 0"));
     marcRecord.setControl003(new Control003("DE-627"));
     marcRecord.setControl005(new Control005("20180502143346.0"));
     marcRecord.setControl008(new Control008("861106s1985    xx |||||      10| ||ger c", marcRecord.getType()));
@@ -142,7 +142,7 @@ public class BibliographicRecordTest {
     List<Record> records = ReadMarc.read(path.toString(), "MARC8");
     Marc21Record marcRecord = (Marc21Record) MarcFactory.createFromMarc4j(records.get(0));
     assertEquals(' ', records.get(0).getLeader().getCharCodingScheme());
-    assertEquals(" ", marcRecord.getLeader().getCharacterCodingScheme().getValue());
+    assertEquals(" ", ((Marc21Leader) marcRecord.getLeader()).getCharacterCodingScheme().getValue());
     assertEquals("Az ítélet :", marcRecord.getDatafield("245").get(0).getSubfield("a").get(0).getValue());
   }
 
@@ -154,7 +154,7 @@ public class BibliographicRecordTest {
     assertEquals(' ', record.getLeader().getCharCodingScheme());
 
     Marc21Record marcRecord = (Marc21Record) MarcFactory.createFromMarc4j(record);
-    assertEquals(" ", marcRecord.getLeader().getCharacterCodingScheme().getValue());
+    assertEquals(" ", ((Marc21Leader) marcRecord.getLeader()).getCharacterCodingScheme().getValue());
     assertEquals("Az ítélet :", marcRecord.getDatafield("245").get(0).getSubfield("a").get(0).getValue());
     assertEquals("[Följegyzések és dokumentumok néhány magyarországi református egyházi döntésről 1948 és 1998 között] :", marcRecord.getDatafield("245").get(0).getSubfield("b").get(0).getValue());
   }

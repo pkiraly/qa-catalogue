@@ -2,7 +2,6 @@ package de.gwdg.metadataqa.marc.dao.record;
 
 import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
 import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
-import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
 
@@ -66,11 +65,6 @@ public class Marc21AuthorityRecord extends Marc21Record {
 
   @Override
   public Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap() {
-    return null;
-  }
-
-  @Override
-  public Map<ThompsonTraillFields, List<String>> getThompsonTraillTagsMap() {
     return null;
   }
 }

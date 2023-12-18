@@ -2,7 +2,6 @@ package de.gwdg.metadataqa.marc.utils;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import org.junit.Test;
 import org.marc4j.marc.Record;
@@ -70,6 +69,7 @@ public class ReadMarcTest {
       "Topic_ind2: Library of Congress Subject Headings\n" +
       "Topic_topicalTerm: Homeopathy\n" +
       "Topic_generalSubdivision: Materia medica and therapeutics.\n";
+    expected = expected.replaceAll("\n", System.lineSeparator());
     assertEquals(expected, marcRecord.formatForIndex());
   }
 
@@ -113,6 +113,7 @@ public class ReadMarcTest {
       "Topic_ind2: Library of Congress Subject Headings\n" +
       "Topic_topicalTerm: Domestic relations\n" +
       "Topic_geographicSubdivision: United States.\n";
+    expected = expected.replaceAll("\n", System.lineSeparator());
     assertEquals(expected, marcRecord.formatForIndex());
   }
 
@@ -141,6 +142,7 @@ public class ReadMarcTest {
       "Publication_date: 1899.\n" +
       "PhysicalDescription_extent: 300 p.\n" +
       "PhysicalDescription_dimensions: 19 cm.\n";
+    expected = expected.replaceAll("\n", System.lineSeparator());
     assertEquals(expected, marcRecord.formatForIndex());
   }
 
@@ -174,6 +176,7 @@ public class ReadMarcTest {
       "Publication_date: 1899.\n" +
       "PhysicalDescription_extent: vi, 81, [1] p.\n" +
       "PhysicalDescription_dimensions: 19 cm.\n";
+    expected = expected.replaceAll("\n", System.lineSeparator());
     assertEquals(expected, marcRecord.formatForIndex());
   }
 
@@ -203,6 +206,7 @@ public class ReadMarcTest {
       "PhysicalDescription_extent: 2 v. :\n" +
       "PhysicalDescription_otherPhysicalDetails: ill. ;\n" +
       "PhysicalDescription_dimensions: 21 cm.\n";
+    expected = expected.replaceAll("\n", System.lineSeparator());
     assertEquals(expected, marcRecord.formatForIndex());
   }
 

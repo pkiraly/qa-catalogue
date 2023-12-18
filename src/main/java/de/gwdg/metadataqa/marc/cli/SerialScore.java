@@ -1,13 +1,13 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.dao.Leader;
-import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.analysis.Serial;
 import de.gwdg.metadataqa.marc.analysis.SerialFields;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.SerialScoreParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
-import de.gwdg.metadataqa.marc.analysis.Serial;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
+import de.gwdg.metadataqa.marc.dao.MarcLeader;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import org.apache.commons.cli.HelpFormatter;
@@ -30,8 +30,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static de.gwdg.metadataqa.marc.Utils.quote;
 import static de.gwdg.metadataqa.marc.Utils.createRow;
+import static de.gwdg.metadataqa.marc.Utils.quote;
 
 /**
  * usage:
@@ -112,7 +112,7 @@ public class SerialScore extends QACli<SerialScoreParameters> implements Bibliog
   @Override
   public void processRecord(BibliographicRecord marcRecord, int recordNumber) {
     if (marcRecord instanceof Marc21BibliographicRecord
-        && ((Marc21BibliographicRecord) marcRecord).getType().equals(Leader.Type.CONTINUING_RESOURCES)) {
+        && ((Marc21BibliographicRecord) marcRecord).getType().equals(MarcLeader.Type.CONTINUING_RESOURCES)) {
       if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
         return;
 

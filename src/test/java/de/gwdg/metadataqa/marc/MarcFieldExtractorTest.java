@@ -4,19 +4,19 @@ import de.gwdg.metadataqa.api.model.selector.JsonSelector;
 import de.gwdg.metadataqa.api.schema.MarcJsonSchema;
 import de.gwdg.metadataqa.api.util.CompressionLevel;
 import de.gwdg.metadataqa.api.util.FileUtils;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.Arrays;
-import java.util.Map;
-
 import de.gwdg.metadataqa.marc.dao.Control007;
 import de.gwdg.metadataqa.marc.dao.Control008;
-import de.gwdg.metadataqa.marc.dao.Leader;
+import de.gwdg.metadataqa.marc.dao.MarcLeader;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -139,7 +139,7 @@ public class MarcFieldExtractorTest {
     assertEquals("ger", x008.getTag008all35().resolve());
     assertEquals(" ", x008.getTag008all38().getValue());
     assertEquals("Not modified", x008.getTag008all38().resolve());
-    assertEquals(Leader.Type.CONTINUING_RESOURCES, x008.getRecordType());
+    assertEquals(MarcLeader.Type.CONTINUING_RESOURCES, x008.getRecordType());
     assertEquals("No determinable frequency", x008.getTag008continuing18().resolve());
     assertEquals(" ", x008.getTag008continuing19().resolve());
     assertEquals("Periodical", x008.getTag008continuing21().resolve());
@@ -155,7 +155,7 @@ public class MarcFieldExtractorTest {
 
   @Test
   public void test008() {
-    Control008 x008 = new Control008("850101d19912003xx    p   b   0    0ger c", Leader.Type.BOOKS);
+    Control008 x008 = new Control008("850101d19912003xx    p   b   0    0ger c", MarcLeader.Type.BOOKS);
     assertEquals("ger", x008.getTag008all35().getValue());
     assertEquals("German", x008.getTag008all35().resolve());
   }

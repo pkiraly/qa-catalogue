@@ -250,6 +250,7 @@ public class CommonParametersTest {
         "groupBy: null\n" +
         "groupListFile: null\n" +
         "solrForScoresUrl: null\n";
+      expected = expected.replaceAll("\n", System.lineSeparator());
       assertEquals(expected, parameters.formatParameters());
     } catch (ParseException e) {
       logger.log(Level.WARNING, "error in formatParameters()", e);

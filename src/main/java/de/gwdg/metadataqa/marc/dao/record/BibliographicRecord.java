@@ -17,7 +17,6 @@ import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
-
 import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
 import de.gwdg.metadataqa.marc.utils.unimarc.UnimarcConverter;
 import org.apache.commons.lang3.StringUtils;

@@ -2031,7 +2031,6 @@
                 "m": "adult, general",
                 "u": "unknown",
                 "x": "not applicable",
-                "// remark": "Blank has to exist, at least for now, in order to indicate that some positions can be blank. What has to be covered is that the codes have to be consecutive from left to right, and when 'x' is specified, then it has to be the first and only code.",
                 "#": "blank"
               }
             },
@@ -2563,7 +2562,6 @@
                 "y": "no transliteration scheme used"
               }
             },
-            "// remark": "26-29 is to be split in 26-27 and 28-29 which isn't the case in the manual. This is a better approach to due some differences",
             "26-27": {
               "label": "Character Sets G0 set",
               "start": 26,
@@ -2600,11 +2598,9 @@
                 "10": "[Reserved]",
                 "11": "ISO 5426-2 (Latin characters used in minor European languages and obsolete typography)",
                 "50": "ISO 10646 Level 3 (Unicode, UTF-8)",
-                "// remark": "see the first previous comment. This is because this set of positions can be partially left blank",
                 "##": "blank"
               }
             },
-            "// remark": "30-33 is to be split in 30-31 and 32-33 which isn't the case in the manual. This is a better approach to due some differences",
             "30-31": {
               "label": "Additional Character Sets G2",
               "start": 30,
@@ -2622,7 +2618,6 @@
                 "10": "[Reserved]",
                 "11": "ISO 5426-2 (Latin characters used in minor European languages and obsolete typography)",
                 "50": "ISO 10646 Level 3 (Unicode, UTF-8)",
-                "// remark": "see the first previous comment. This is because this set of positions can be partially left blank",
                 "##": "blank"
               }
             },
@@ -2643,7 +2638,6 @@
                 "10": "[Reserved]",
                 "11": "ISO 5426-2 (Latin characters used in minor European languages and obsolete typography)",
                 "50": "ISO 10646 Level 3 (Unicode, UTF-8)",
-                "// remark": "see the comment before the 30-31 position. This is because this set of positions can be partially left blank",
                 "##": "blank"
               }
             },
@@ -8640,7 +8634,6 @@
                 "x": "not applicable (when it is impossible or inapplicable to determine completeness, e.g. home movies, unedited footage, outtakes, unidentified material)"
               }
             },
-            "// remark": "this below needs to be clarified",
             "09-14": {
               "label": "Film inspection date",
               "start": 9,
@@ -9254,7 +9247,6 @@
               "start": 2,
               "end": 3,
               "codes": {
-                "// remark": "01-99 = number of bands",
                 "01-99": "number of bands",
                 "xx": "not applicable"
               }
@@ -9283,17 +9275,11 @@
                 "8": "completely covered by clouds"
               }
             },
-            "// remark 06-07": {
-              "label": "Mean value of ground resolution",
-              "start": 6,
-              "end": 7
-            },
             "06": {
               "label": "Mean ground resolution values",
               "start": 6,
               "codes": {
                 "-": "less than 1 centimeter",
-                "// remark": "1-9 numeric value",
                 "1-9": "numeric value",
                 "+": "greater than 9 kilometers",
                 "x": "not applicable"
@@ -10863,7 +10849,6 @@
             },
             "04-06": {
               "label": "Specific reduction ratio",
-              "// remark": "If a value is given, right justify with zero fill. If a single digit is missing, replace by 'u'. If the ratio is unknown, fill with blanks.",
               "start": 4,
               "end": 6
             },
@@ -12793,7 +12778,6 @@
               "start": 5,
               "end": 7,
               "codes": {
-                "// remark": "001-999 = Exact bit depth",
                 "001-999": "Exact bit depth",
                 "mmm": "Multiple (more than one image type)",
                 "nnn": "Not applicable",
@@ -13175,7 +13159,6 @@
               "start": 0,
               "end": 1,
               "codes": {
-                "// remark": " If the code in subfield $a/0-2 is “a” or “b”more specific codes below could be used.",
                 "aa": "Parchment",
                 "ab": "Vellum",
                 "ac": "Calfskin",
@@ -13230,7 +13213,6 @@
               "start": 2,
               "end": 3,
               "codes": {
-                "// remark": " If the code in subfield $a/0-2 is “a” or “b”more specific codes below could be used.",
                 "aa": "Parchment",
                 "ab": "Vellum",
                 "ac": "Calfskin",
@@ -13828,7 +13810,6 @@
               "start": 5,
               "end": 7,
               "codes": {
-                "// remark": "these repeated keys will have to be addressed",
                 "0": "tenth",
                 "1": "eleventh",
                 "2": "twelfth",
@@ -13920,7 +13901,6 @@
               "start": 5,
               "end": 7,
               "codes": {
-                "// remark": "these repeated keys will have to be addressed",
                 "0": "tenth",
                 "1": "eleventh",
                 "2": "twelfth",
@@ -14012,7 +13992,6 @@
               "start": 5,
               "end": 7,
               "codes": {
-                "// remark": "these repeated keys will have to be addressed",
                 "0": "tenth",
                 "1": "eleventh",
                 "2": "twelfth",
@@ -14183,7 +14162,6 @@
               "start": 2,
               "end": 4,
               "codes": {
-                "// remark": "to be updated from http://www.urfm.braidense.it/risorse/searchmedium_en.php",
                 "val": "alto",
                 "vbr": "baritone",
                 "vbs": "bass",
@@ -14592,7 +14570,6 @@
               "start": 2,
               "end": 4,
               "codes": {
-                "// remark": "to be updated from http://www.urfm.braidense.it/risorse/searchmedium_en.php",
                 "val": "alto",
                 "vbr": "baritone",
                 "vbs": "bass",
@@ -15073,7 +15050,6 @@
               "start": 2,
               "end": 4,
               "codes": {
-                "// remark": "to be updated from http://www.urfm.braidense.it/risorse/searchmedium_en.php",
                 "val": "alto",
                 "vbr": "baritone",
                 "vbs": "bass",
@@ -15482,7 +15458,6 @@
               "start": 2,
               "end": 4,
               "codes": {
-                "// remark": "to be updated from http://www.urfm.braidense.it/risorse/searchmedium_en.php",
                 "wau": "aulos",
                 "wba": "bassoon",
                 "wbh": "basset-horn",
@@ -16697,7 +16672,6 @@
       "indicator2": null,
       "subfields": {
         "a": {
-          "// remark": "Terms defined for ISBD Content Form element must be used.",
           "label": "Content form",
           "repeatable": true,
           "codelist": {
@@ -16715,7 +16689,6 @@
           }
         },
         "b": {
-          "// remark": "Terms defined for ISBD Content Qualification sub-element must be used.",
           "label": "Contentqualification",
           "repeatable": true,
           "codelist": {
@@ -16725,7 +16698,6 @@
           }
         },
         "c": {
-          "// remark": "Terms defined for ISBD Media Type element must be used.",
           "label": "Media type",
           "repeatable": false,
           "codelist": {
@@ -26894,7 +26866,6 @@
           "label": "Linking data",
           "repeatable": true
         },
-        "// remark": "the previous and the following subfields are MUTUALLY EXCLUSIVE",
         "a": {
           "label": "Entry Element Name",
           "repeatable": false

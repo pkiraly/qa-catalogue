@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.nio.file.Paths;
@@ -16,12 +17,18 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class UnimarcSchemaReaderTest {
-    @Test
-    public void createSchema_createsAllFields() {
+
+    private UnimarcSchemaManager schema;
+
+    @Before
+    public void setUp() throws Exception {
         UnimarcSchemaReader unimarcReader = new UnimarcSchemaReader();
         String path = getPath("unimarc/avram-unimarc.json");
-        UnimarcSchemaManager schema = unimarcReader.createSchema(path);
+        schema = unimarcReader.createSchema(path);
+    }
 
+    @Test
+    public void createSchema_createsAllFields() {
         assertEquals(192, schema.size());
     }
 
@@ -31,10 +38,6 @@ public class UnimarcSchemaReaderTest {
      */
     @Test
     public void createSchema_fieldStructureIsCorrect() {
-        UnimarcSchemaReader unimarcReader = new UnimarcSchemaReader();
-        String path = getPath("unimarc/avram-unimarc.json");
-        UnimarcSchemaManager schema = unimarcReader.createSchema(path);
-
         // Assert that there are fields with tag 001 and 886 in the schema, as well as
         // their respective data.
         UnimarcFieldDefinition field001 = schema.lookup("001");
@@ -68,10 +71,6 @@ public class UnimarcSchemaReaderTest {
      */
     @Test
     public void createSchema_indicatorStructureIsCorrect() {
-        UnimarcSchemaReader unimarcReader = new UnimarcSchemaReader();
-        String path = getPath("unimarc/avram-unimarc.json");
-        UnimarcSchemaManager schema = unimarcReader.createSchema(path);
-
         String expectedIndicator1Label = "Type of field";
         int expectedCodesSize = 3;
 
@@ -94,10 +93,6 @@ public class UnimarcSchemaReaderTest {
      */
     @Test
     public void createSchema_subfieldStructureIsCorrect() {
-        UnimarcSchemaReader unimarcReader = new UnimarcSchemaReader();
-        String path = getPath("unimarc/avram-unimarc.json");
-        UnimarcSchemaManager schema = unimarcReader.createSchema(path);
-
         int expectedSubfieldCount = 3;
         int expectedSubfield2CodeListSize = 56;
         int expected100aPositionCount = 12;

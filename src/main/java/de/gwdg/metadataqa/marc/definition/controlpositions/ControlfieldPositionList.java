@@ -34,14 +34,7 @@ public class ControlfieldPositionList {
   }
 
   public void setPositions(List<ControlfieldPositionDefinition> positions) {
-    if (!this.positions.containsKey("ALL_MATERIALS")) {
-      this.positions.put("ALL_MATERIALS", new ArrayList<>());
-    }
-
-    for (ControlfieldPositionDefinition position : positions) {
-      this.positions.get("ALL_MATERIALS").add(position);
-    }
-
+    this.positions.computeIfAbsent("ALL_MATERIALS", k -> new ArrayList<>()).addAll(positions);
     index();
   }
 }

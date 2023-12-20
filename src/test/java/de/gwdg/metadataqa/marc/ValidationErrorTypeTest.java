@@ -37,7 +37,7 @@ public class ValidationErrorTypeTest {
     ValidationErrorType errorType = ValidationErrorType.SUBFIELD_INVALID_VALUE;
     assertEquals("SUBFIELD_INVALID_VALUE", errorType.name());
     assertEquals("SUBFIELD_INVALID_VALUE", errorType.toString());
-    assertEquals("hasInvalidValue", errorType.getCode());
+    assertEquals("invalidValue", errorType.getCode());
     assertEquals("invalid value", errorType.getMessage());
     assertEquals("subfield", errorType.getCategory().getName());
   }

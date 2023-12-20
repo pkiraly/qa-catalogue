@@ -511,13 +511,13 @@ options:
   * `ambiguousLinkage`: ambiguous linkage
   * `obsoleteControlPosition`: obsolete code
   * `controlValueContainsInvalidCode`: invalid code
-  * `hasInvalidValue`: invalid value
+  * `invalidValue`: invalid value
   * `missingSubfield`: missing reference subfield (880$6)
   * `nonrepeatableField`: repetition of non-repeatable field
   * `undefinedField`: undefined field
   * `obsoleteIndicator`: obsolete value
   * `nonEmptyIndicator`: non-empty indicator
-  * `hasInvalidValue`: invalid value
+  * `invalidValue`: invalid value
   * `undefinedSubfield`: undefined subfield
   * `invalidLength`: invalid length
   * `invalidReference`: invalid classification reference
@@ -527,7 +527,7 @@ options:
   * `invalidISSN`: invalid ISSN
   * `unparsableContent`: content is not well-formatted
   * `nullCode`: null subfield code
-  * `hasInvalidValue`: invalid value
+  * `invalidValue`: invalid value
 
 Outputs:
 * `count.csv`: the count of bibliographic records in the source dataset

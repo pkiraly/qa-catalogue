@@ -19,15 +19,17 @@ public class LeaderValidator extends AbstractValidator {
     var isValid = true;
     ControlValueValidator controlValueValidator = new ControlValueValidator(configuration);
     validationErrors = new ArrayList<>();
-    if (leader != null) {
+    if (leader == null) {
+      return true;
+    }
 
-    if (!leader.getInitializationErrors().isEmpty())
+    if (!leader.getInitializationErrors().isEmpty()) {
       validationErrors.addAll(filterErrors(leader.getInitializationErrors()));
-      for (ControlValue controlValue : leader.getValuesList()) {
-        if (!controlValueValidator.validate(controlValue)) {
-          validationErrors.addAll(filterErrors(controlValueValidator.getValidationErrors()));
-          isValid = false;
-        }
+    }
+    for (ControlValue controlValue : leader.getValuesList()) {
+      if (!controlValueValidator.validate(controlValue)) {
+        validationErrors.addAll(filterErrors(controlValueValidator.getValidationErrors()));
+        isValid = false;
       }
     }
 

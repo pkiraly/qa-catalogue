@@ -107,15 +107,18 @@ public abstract class DataFieldDefinition implements BibliographicFieldDefinitio
     subfields = new LinkedList<>();
     for (int i = 0; i < input.length; i += 3) {
       String code = input[i];
-      String label = input[i + 1];
-      String cardinality = input[i + 2];
-      SubfieldDefinition definition = new SubfieldDefinition(code, label, cardinality);
+      String subfieldLabel = input[i + 1];
+      String subfieldCardinality = input[i + 2];
+      SubfieldDefinition definition = new SubfieldDefinition(code, subfieldLabel, subfieldCardinality);
       definition.setParent(this);
       subfields.add(definition);
     }
     indexSubfields();
   }
 
+  /**
+   * Populates the subfield index hash map. The key is the subfield code.
+   */
   protected void indexSubfields() {
     for (SubfieldDefinition subfield : subfields) {
       subfieldIndex.put(subfield.getCode(), subfield);

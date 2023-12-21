@@ -22,6 +22,7 @@ import de.gwdg.metadataqa.marc.dao.record.Marc21AuthorityRecord;
 import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.dao.record.PicaRecord;
+import de.gwdg.metadataqa.marc.dao.record.UnimarcRecord;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
@@ -33,10 +34,10 @@ import de.gwdg.metadataqa.marc.utils.alephseq.MarcMakerLine;
 import de.gwdg.metadataqa.marc.utils.alephseq.MarclineLine;
 import de.gwdg.metadataqa.marc.utils.marcreader.schema.Marc21SchemaManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaDataField;
-import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSubfield;
 import de.gwdg.metadataqa.marc.utils.pica.reader.model.PicaLine;
+import de.gwdg.metadataqa.marc.utils.unimarc.UnimarcSchemaManager;
 import net.minidev.json.JSONArray;
 import org.marc4j.marc.ControlField;
 import org.marc4j.marc.Record;
@@ -234,6 +235,22 @@ public class MarcFactory {
     return marcRecord;
   }
 
+  public static BibliographicRecord createUnimarcFromMarc4j(Record marc4jRecord, UnimarcSchemaManager unimarcSchemaManager) {
+    var marcRecord = new UnimarcRecord();
+    importMarc4jControlFields(marc4jRecord, marcRecord, null);
+    importMarc4jDataFields(marc4jRecord, marcRecord, unimarcSchemaManager);
+
+    return marcRecord;
+  }
+
+  /**
+   * As a part of transformation of the marc4jRecord into marcRecord, imports control fields from the marc4j
+   * representation to the marcRecord. In other words, copies the control fields parsed with marc4j library and
+   * adapts them to the inner representation of the custom BibliographicRecord.
+   * @param marc4jRecord The Marc4j record being transformed into BibliographicRecord
+   * @param marcRecord Can be Marc21Record, PicaRecord or UnimarcRecord
+   * @param replacementInControlFields Usually a ^ or # character which should be replaced with space in control fields' data
+   */
   private static void importMarc4jControlFields(Record marc4jRecord,
                                                 BibliographicRecord marcRecord,
                                                 String replacementInControlFields) {
@@ -284,16 +301,35 @@ public class MarcFactory {
                                              BibliographicRecord marcRecord,
                                              PicaSchemaManager schema) {
     for (org.marc4j.marc.DataField dataField : marc4jRecord.getDataFields()) {
+      // This seems to never be an instance of a PicaDataField
       boolean isPica = dataField instanceof PicaDataField;
       PicaDataField picadf = isPica ? (PicaDataField) dataField : null;
       var definition = isPica
         ? schema.lookup(picadf)
         : schema.lookup(dataField.getTag());
 
+      // && picadf != null seems to be wrong here because of the:
+      // picadf is assigned to (PicaDataField) dataField if we have isPica, so picadf is not a null whenever isPica is true
       if (definition == null)
         marcRecord.addUnhandledTags(isPica && picadf != null ? picadf.getFullTag() : dataField.getTag());
 
-      var field = extractPicaDataField(dataField, definition, MarcVersion.MARC21);
+      var field = extractDataField(dataField, definition, MarcVersion.MARC21);
+      marcRecord.addDataField(field);
+    }
+  }
+
+  // This method could probably be merged with the respective Pica method
+  private static void importMarc4jDataFields(Record marc4jRecord,
+                                             BibliographicRecord marcRecord,
+                                             UnimarcSchemaManager schema) {
+    for (org.marc4j.marc.DataField dataField : marc4jRecord.getDataFields()) {
+      var definition = schema.lookup(dataField.getTag());
+
+      if (definition == null) {
+        marcRecord.addUnhandledTags(dataField.getTag());
+      }
+
+      var field = extractDataField(dataField, definition, MarcVersion.MARC21);
       marcRecord.addDataField(field);
     }
   }
@@ -327,41 +363,7 @@ public class MarcFactory {
     for (Subfield subfield : dataField.getSubfields()) {
       var code = Character.toString(subfield.getCode());
       SubfieldDefinition subfieldDefinition = definition == null ? null : definition.getSubfield(code);
-      MarcSubfield marcSubfield = null;
-      if (subfieldDefinition == null) {
-        marcSubfield = new MarcSubfield(null, code, subfield.getData());
-      } else {
-        marcSubfield = new MarcSubfield(subfieldDefinition, code, subfield.getData());
-      }
-      marcSubfield.setField(field);
-      field.getSubfields().add(marcSubfield);
-    }
-    field.indexSubfields();
-    return field;
-  }
-
-  private static DataField extractPicaDataField(org.marc4j.marc.DataField dataField,
-                                                PicaFieldDefinition definition,
-                                                MarcVersion marcVersion) {
-    DataField field = null;
-    if (definition == null) {
-      field = new DataField(dataField.getTag(),
-        Character.toString(dataField.getIndicator1()),
-        Character.toString(dataField.getIndicator2()),
-        marcVersion
-      );
-    } else {
-      field = new DataField(
-        definition,
-        Character.toString(dataField.getIndicator1()),
-        Character.toString(dataField.getIndicator2())
-      );
-    }
-
-    for (Subfield subfield : dataField.getSubfields()) {
-      var code = Character.toString(subfield.getCode());
-      SubfieldDefinition subfieldDefinition = definition == null ? null : definition.getSubfield(code);
-      MarcSubfield marcSubfield = null;
+      MarcSubfield marcSubfield;
       if (subfieldDefinition == null) {
         marcSubfield = new MarcSubfield(null, code, subfield.getData());
       } else {
@@ -558,5 +560,4 @@ public class MarcFactory {
       marc4jRecord.addVariableField(new ControlFieldImpl("001", id));
     return marc4jRecord;
   }
-
 }

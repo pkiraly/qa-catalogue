@@ -4,10 +4,10 @@ import de.gwdg.metadataqa.marc.CsvUtils;
 import de.gwdg.metadataqa.marc.analysis.validator.Validator;
 import de.gwdg.metadataqa.marc.analysis.validator.ValidatorConfiguration;
 import de.gwdg.metadataqa.marc.analysis.validator.ValidatorDAO;
-import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorCategory;
@@ -27,13 +27,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashSet;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -323,10 +323,14 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
   }
 
   private void copySchemaFileToOutputDir() {
-    if (parameters.isPica()) {
+    if (parameters.isPica() || parameters.isUnimarc()) {
+      // TODO define constants somewhere
+      String defaultSchemaFile = parameters.isPica()
+        ? "src/main/resources/pica/avram-k10plus-title.json"
+        : "src/main/resources/unimarc/avram-unimarc.json";
       String schemaFile = StringUtils.isNotEmpty(parameters.getPicaSchemaFile())
         ? parameters.getPicaSchemaFile()
-        : Paths.get("src/main/resources/pica/avram-k10plus-title.json").toAbsolutePath().toString();
+        : Paths.get(defaultSchemaFile).toAbsolutePath().toString();
       File source = new File(schemaFile);
       try {
         FileUtils.copyFileToDirectory(source, new File(parameters.getOutputDir()));

@@ -5,22 +5,21 @@ import de.gwdg.metadataqa.marc.Extractable;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
+import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
+import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
 import de.gwdg.metadataqa.marc.definition.general.indexer.subject.SchemaFromInd1OrIf7FromSubfield2;
 import de.gwdg.metadataqa.marc.definition.general.indexer.subject.SchemaFromInd1OrIfEmptyFromSubfield2;
+import de.gwdg.metadataqa.marc.definition.general.indexer.subject.SchemaFromInd2;
 import de.gwdg.metadataqa.marc.definition.general.indexer.subject.SchemaFromInd2AndSubfield2;
 import de.gwdg.metadataqa.marc.definition.general.indexer.subject.SchemaFromInd2For055OrIf7FromSubfield2;
 import de.gwdg.metadataqa.marc.definition.general.indexer.subject.SchemaFromSubfield2;
-import de.gwdg.metadataqa.marc.definition.general.indexer.subject.SchemaFromInd2;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
-import de.gwdg.metadataqa.marc.definition.MarcVersion;
-import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
-import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
-import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
-import de.gwdg.metadataqa.marc.model.validation.ErrorsCollector;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
 import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
 import org.apache.commons.lang3.StringUtils;
@@ -28,6 +27,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -47,7 +47,6 @@ public class DataField implements Extractable, Serializable {
   private List<MarcSubfield> subfields;
   private Map<String, List<MarcSubfield>> subfieldIndex = new LinkedHashMap<>();
   private String occurrence;
-  private ErrorsCollector errors = null;
   private List<String> unhandledSubfields = null;
   private BibliographicRecord marcRecord;
   private List<FieldIndexer> fieldIndexers;
@@ -197,7 +196,7 @@ public class DataField implements Extractable, Serializable {
 
     boolean codeFlag = false;
     String code = null;
-    StringBuffer value = new StringBuffer();
+    StringBuilder value = new StringBuilder();
     for (int i = 0; i < content.length(); i++) {
       String c = Character.toString(content.charAt(i));
       if (c.equals("$")) {
@@ -205,7 +204,7 @@ public class DataField implements Extractable, Serializable {
         if (code != null)
           subfields.add(new String[]{code, value.toString()});
         code = null;
-        value = new StringBuffer();
+        value = new StringBuilder();
       } else {
         if (codeFlag) {
           code = c;
@@ -272,7 +271,7 @@ public class DataField implements Extractable, Serializable {
   }
 
   public String simpleFormat() {
-    StringBuffer output = new StringBuffer();
+    StringBuilder output = new StringBuilder();
 
     output.append(ind1);
     output.append(ind2);
@@ -289,7 +288,7 @@ public class DataField implements Extractable, Serializable {
   }
 
   public String format() {
-    StringBuffer output = new StringBuffer();
+    StringBuilder output = new StringBuilder();
     if (definition != null)
       output.append(String.format("[%s: %s]%n", definition.getTag(), definition.getLabel()));
     else
@@ -313,7 +312,7 @@ public class DataField implements Extractable, Serializable {
   }
 
   public String formatAsText() {
-    StringBuffer output = new StringBuffer();
+    StringBuilder output = new StringBuilder();
     output.append(getTag());
     output.append(" ").append(ind1).append(ind2).append(" ");
 
@@ -329,7 +328,7 @@ public class DataField implements Extractable, Serializable {
   }
 
   public String formatAsMarc() {
-    StringBuffer output = new StringBuffer();
+    StringBuilder output = new StringBuilder();
 
     if (definition != null && definition.getInd1().exists())
       output.append(String.format("%s_ind1: %s%n", getTag(), resolveInd1()));
@@ -345,7 +344,7 @@ public class DataField implements Extractable, Serializable {
   }
 
   public String formatForIndex() {
-    StringBuffer output = new StringBuffer();
+    StringBuilder output = new StringBuilder();
 
     if (definition.getInd1().exists())
       output.append(String.format("%s_ind1: %s%n", definition.getIndexTag(), resolveInd1()));
@@ -408,7 +407,7 @@ public class DataField implements Extractable, Serializable {
     boolean hasInd1def = (definition != null && definition.getInd1() != null && definition.getInd1().exists());
     if (hasInd1def || !getInd1().equals(" ")) {
       String value = hasInd1def ? resolveInd1() : getInd1();
-      pairs.put(keyGenerator.forInd1(), Arrays.asList(value));
+      pairs.put(keyGenerator.forInd1(), Collections.singletonList(value));
     }
 
     // ind2
@@ -430,7 +429,7 @@ public class DataField implements Extractable, Serializable {
           Utils.mergeMap(pairs, extra);
         }
       } catch (IllegalArgumentException e) {
-        logger.log(Level.SEVERE, "{0} in record {1} {2}", new Object[]{e.getLocalizedMessage(), marcRecord.getId(), this.toString()});
+        logger.log(Level.SEVERE, "{0} in record {1} {2}", new Object[]{e.getLocalizedMessage(), marcRecord.getId(), this});
       }
     }
 
@@ -570,6 +569,14 @@ public class DataField implements Extractable, Serializable {
     return subfields;
   }
 
+  /**
+   * Sets subfields without indexing them
+   * @param subfields Subfields to set
+   */
+  public void setSubfields(List<MarcSubfield> subfields) {
+    this.subfields = subfields;
+  }
+
   public DataFieldDefinition getDefinition() {
     return definition;
   }
@@ -604,13 +611,19 @@ public class DataField implements Extractable, Serializable {
 
   @Override
   public String toString() {
+
+    String dataFieldTag;
+
+    if (StringUtils.isNotBlank(tag)) {
+      dataFieldTag = tag;
+    } else if (definition != null) {
+      dataFieldTag = definition.getTag();
+    } else {
+      dataFieldTag = "unknown";
+    }
+
     return "DataField{"
-      + (
-          StringUtils.isNotBlank(tag)
-            ? tag
-            : (definition != null
-              ? definition.getTag()
-              : "unknown"))
+      + dataFieldTag
       + ", ind1='" + ind1 + '\''
       + ", ind2='" + ind2 + '\''
       + ", subfields=" + subfields

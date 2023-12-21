@@ -69,16 +69,8 @@ public class RecordIterator {
     defaultRecordType = parameters.getDefaultRecordType();
     replacementInControlFields = parameters.getReplacementInControlFields();
     decimalFormat = new DecimalFormat();
-    if (parameters.isPica()) {
-      picaSchema = PicaSchemaReader.createSchemaManager(parameters.getPicaSchemaFile());
-    } else if (parameters.isUnimarc()) {
-      UnimarcSchemaReader unimarcSchemaReader = new UnimarcSchemaReader();
-      String schemaFilePath = parameters.getPicaSchemaFile();
-      if (schemaFilePath == null) {
-        schemaFilePath = "src/main/resources/unimarc/avram-unimarc.json";
-      }
-      unimarcSchema = unimarcSchemaReader.createSchema(schemaFilePath);
-    }
+
+    setupSchema();
 
     if (processor.getParameters().doLog())
       logger.info("marcVersion: " + marcVersion.getCode() + ", " + marcVersion.getLabel());
@@ -236,7 +228,7 @@ public class RecordIterator {
     return marcReader;
   }
 
-  private MarcReader getMarcStreamReader(CommonParameters parameters) throws Exception {
+  private MarcReader getMarcStreamReader(CommonParameters parameters) {
     return QAMarcReaderFactory.getStreamReader(parameters.getMarcFormat(), parameters.getStream(), parameters);
   }
 
@@ -286,6 +278,22 @@ public class RecordIterator {
     HelpFormatter formatter = new HelpFormatter();
     formatter.printHelp("java -cp qa-catalogue.jar de.gwdg.metadataqa.marc.cli.Validator [options] [file]",
       opions);
+  }
+
+  private void setupSchema() {
+    // This should probably be moved to a factory of some sort if the schema managers, field definitions and field
+    // implementations get refactored in a way that they inherit from common interfaces.
+    // That's a bit of a long shot though, so for now we'll just keep it here.
+    if (parameters.isPica()) {
+      picaSchema = PicaSchemaReader.createSchemaManager(parameters.getPicaSchemaFile());
+    } else if (parameters.isUnimarc()) {
+      UnimarcSchemaReader unimarcSchemaReader = new UnimarcSchemaReader();
+      String schemaFilePath = parameters.getPicaSchemaFile();
+      if (schemaFilePath == null) {
+        schemaFilePath = "src/main/resources/unimarc/avram-unimarc.json";
+      }
+      unimarcSchema = unimarcSchemaReader.createSchema(schemaFilePath);
+    }
   }
 
   public String getStatus() {

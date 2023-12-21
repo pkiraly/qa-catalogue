@@ -7,9 +7,6 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.TagDefinitionLoader;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
-import de.gwdg.metadataqa.marc.definition.general.Linkage;
-import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
-import de.gwdg.metadataqa.marc.definition.general.parser.ParserException;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
@@ -22,13 +19,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorType.FIELD_MISSING_REFERENCE_SUBFIELD;
-import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorType.FIELD_UNDEFINED;
 import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorType.INDICATOR_INVALID_VALUE;
 import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorType.INDICATOR_NON_EMPTY;
 import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorType.INDICATOR_OBSOLETE;
-import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorType.RECORD_AMBIGUOUS_LINKAGE;
-import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorType.RECORD_INVALID_LINKAGE;
 import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorType.SUBFIELD_NONREPEATABLE;
 import static de.gwdg.metadataqa.marc.model.validation.ValidationErrorType.SUBFIELD_UNDEFINED;
 
@@ -48,119 +41,67 @@ public class DataFieldValidator extends AbstractValidator {
 
   public boolean validate(DataField field) {
     this.field = field;
+    definition = field.getDefinition();
     validationErrors = new ArrayList<>();
     errors = new ErrorsCollector();
-    List<MarcSubfield> subfields = field.getSubfields();
-    SubfieldValidator subfieldValidator = new SubfieldValidator(configuration);
 
-    DataFieldDefinition referencerDefinition = null;
-    List<MarcSubfield> linkedSubfields = null;
-    boolean ambiguousLinkage = false;
-
-    definition = field.getDefinition();
-    if (configuration.getSchemaType().equals(SchemaType.MARC21)
-        && TagDefinitionLoader.load(definition.getTag(), configuration.getMarcVersion()) == null) {
-      addError(FIELD_UNDEFINED, "");
+    // Check if the tag is defined only in case it is a MARC21 tag
+    // I'm not sure how this is different to validating unhandled tags. However, it will be kept until further notice.
+    boolean isMarc21TagDefined = isMarc21TagDefined();
+    if (!isMarc21TagDefined) {
+      addError(ValidationErrorType.FIELD_UNDEFINED, "");
       return false;
     }
 
-    if (field.getTag().equals("880")) {
-      List<MarcSubfield> subfield6s = field.getSubfield("6");
-      if (subfield6s == null) {
-        addError(FIELD_MISSING_REFERENCE_SUBFIELD, "$6");
-      } else {
-        if (!subfield6s.isEmpty()) {
-          if (subfield6s.size() != 1) {
-            addError(definition.getTag() + "$6", RECORD_AMBIGUOUS_LINKAGE, "There are multiple $6");
-            ambiguousLinkage = true;
-          } else {
-            MarcSubfield subfield6 = subfield6s.get(0);
-            Linkage linkage = null;
-            try {
-              linkage = LinkageParser.getInstance().create(subfield6.getValue());
-              if (linkage == null || linkage.getLinkingTag() == null) {
-                String message = String.format("Unparseable reference: '%s'", subfield6.getValue());
-                addError(RECORD_INVALID_LINKAGE, message);
-              } else {
-                referencerDefinition = definition;
-                definition = TagDefinitionLoader.load(linkage.getLinkingTag(), configuration.getMarcVersion());
+    // From here on, we know the tag is either MARC21 and defined, or not MARC21
+    // This LinkageHandler can later be further abstracted into an abstract LinkageHandler for UNIMARC in case that's needed
+    Marc21LinkageHandler linkageHandler = new Marc21LinkageHandler(configuration, errors);
+    DataField associatedField = linkageHandler.handleLinkage(field, definition);
+    errors.addAll(linkageHandler.getErrors());
 
-                if (definition == null) {
-                  definition = referencerDefinition;
-                  String message = String.format("refers to field %s, which is not defined", linkage.getLinkingTag());
-                  addError(definition.getTag() + "$6", RECORD_INVALID_LINKAGE, message);
-                } else {
-                  linkedSubfields = field.getSubfields();
-                  List<MarcSubfield> alternativeSubfields = new ArrayList<>();
-                  for (MarcSubfield subfield : field.getSubfields()) {
-                    MarcSubfield alternativeSubfield = new MarcSubfield(
-                      definition.getSubfield(subfield.getCode()),
-                      subfield.getCode(),
-                      subfield.getValue()
-                    );
-                    alternativeSubfield.setField(field);
-                    alternativeSubfield.setMarcRecord(field.getMarcRecord());
-                    alternativeSubfield.setLinkage(linkage);
-                    alternativeSubfield.setReferencePath(referencerDefinition.getTag());
-                    alternativeSubfields.add(alternativeSubfield);
-                  }
-                  subfields = alternativeSubfields;
-                }
-              }
-            } catch (ParserException e) {
-              addError(definition.getTag() + "$6", RECORD_INVALID_LINKAGE, e.getMessage());
-            }
-          }
-        }
-      }
+    // In case the associated field is not null, and due to compatibility with the rest of this class,
+    // assign the referencer definition and the subfields of the associated field to the local variables
+    // This assignment makes sure that the methods which use the attribute definition, use the definition
+    // of the referencer field if needed
+    DataFieldDefinition referencerDefinition = null;
+    List<MarcSubfield> subfields = field.getSubfields();
+    if (associatedField != null) {
+      referencerDefinition = definition;
+      definition = associatedField.getDefinition();
+      subfields = associatedField.getSubfields();
     }
 
-    if (field.getUnhandledSubfields() != null)
+    validateIndicators(referencerDefinition);
+
+    if (field.getUnhandledSubfields() != null) {
       addError(SUBFIELD_UNDEFINED, StringUtils.join(field.getUnhandledSubfields(), ", "));
-
-    if (configuration.getSchemaType().equals(SchemaType.MARC21)) {
-      if (field.getInd1() != null)
-        validateIndicator(definition.getInd1(), field.getInd1(), configuration.getMarcVersion(), referencerDefinition);
-
-      if (field.getInd2() != null)
-        validateIndicator(definition.getInd2(), field.getInd2(), configuration.getMarcVersion(), referencerDefinition);
     }
 
-    if (!ambiguousLinkage) {
-      Map<SubfieldDefinition, Integer> counter = new HashMap<>();
-      for (MarcSubfield subfield : subfields) {
-        if (subfield.getDefinition() == null) {
-          if (definition.isVersionSpecificSubfields(configuration.getMarcVersion(), subfield.getCode())) {
-            subfield.setDefinition(
-              definition.getVersionSpecificSubfield(
-                configuration.getMarcVersion(), subfield.getCode()));
-          } else {
-            addError(SUBFIELD_UNDEFINED, subfield.getCode());
-            continue;
-          }
-        }
-        Utils.count(subfield.getDefinition(), counter);
+    boolean isAmbiguousLinkage = linkageHandler.isAmbiguousLinkage();
 
-        if (!subfieldValidator.validate(subfield))
-          errors.addAll(subfieldValidator.getValidationErrors());
-      }
-
-      for (Map.Entry<SubfieldDefinition, Integer> entry : counter.entrySet()) {
-        SubfieldDefinition subfieldDefinition = entry.getKey();
-        Integer count = entry.getValue();
-        if (count > 1 && subfieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
-          addError(subfieldDefinition, SUBFIELD_NONREPEATABLE, String.format("there are %d instances", count));
-        }
-      }
+    if (!isAmbiguousLinkage) {
+      validateSubfields(subfields);
     }
 
-    if (referencerDefinition != null)
+    if (associatedField != null) {
       definition = referencerDefinition;
-    if (linkedSubfields != null)
-      subfields = linkedSubfields;
+    }
 
     validationErrors.addAll(errors.getErrors());
     return errors.isEmpty();
+  }
+
+  private void validateIndicators(DataFieldDefinition referencerDefinition) {
+    if (configuration.getSchemaType().equals(SchemaType.PICA)) {
+      return;
+    }
+
+    if (field.getInd1() != null) {
+      validateIndicator(definition.getInd1(), field.getInd1(), configuration.getMarcVersion(), referencerDefinition);
+    }
+    if (field.getInd2() != null) {
+      validateIndicator(definition.getInd2(), field.getInd2(), configuration.getMarcVersion(), referencerDefinition);
+    }
   }
 
   private boolean validateIndicator(Indicator indicatorDefinition,
@@ -168,24 +109,68 @@ public class DataFieldValidator extends AbstractValidator {
                                     MarcVersion marcVersion,
                                     DataFieldDefinition referencerDefinition) {
     String path = indicatorDefinition.getPath();
-    if (referencerDefinition != null)
-      path = String.format("%s->%s", referencerDefinition.getTag(), path);
 
-    if (indicatorDefinition.exists()) {
-      if (!indicatorDefinition.hasCode(value)
-          && !indicatorDefinition.isVersionSpecificCode(marcVersion, value)) {
+    if (referencerDefinition != null) {
+      path = String.format("%s->%s", referencerDefinition.getTag(), path);
+    }
+
+    boolean isVersionSpecific = indicatorDefinition.isVersionSpecificCode(marcVersion, value);
+    boolean indicatorExists = indicatorDefinition.exists();
+
+    // The first invalid case is:
+    // Indicator undefined but the value is not empty (and also it doesn't depend on the marc version used)
+    if (!indicatorExists && !value.equals(" ") && !isVersionSpecific) {
+        addError(path, INDICATOR_NON_EMPTY, value);
+        return false;
+    }
+
+    // The second invalid case is when the indicator is defined, but the value isn't a valid code (and also it
+    // doesn't depend on the marc version used).
+    // In case the code used is some old (historical) code, then that's an obsolete code error, and if it is
+    // just plainly a wrong code, then it is an invalid value error.
+    if (indicatorExists && !indicatorDefinition.hasCode(value) && !isVersionSpecific) {
         if (indicatorDefinition.isHistoricalCode(value)) {
           addError(path, INDICATOR_OBSOLETE, value);
         } else {
           addError(path, INDICATOR_INVALID_VALUE, value);
         }
-      }
-    } else {
-      if (!value.equals(" ")
-          && !indicatorDefinition.isVersionSpecificCode(marcVersion, value))
-         addError(path, INDICATOR_NON_EMPTY, value);
+        return false;
     }
-    return errors.isEmpty();
+
+    // All other cases are valid: either the indicator is defined and the value is a valid code, or the indicator
+    // is undefined and the value is empty (or it is a version specific code).
+    return true;
+  }
+
+  private void validateSubfields(List<MarcSubfield> subfields) {
+    SubfieldValidator subfieldValidator = new SubfieldValidator(configuration);
+
+    Map<SubfieldDefinition, Integer> counter = new HashMap<>();
+    for (MarcSubfield subfield : subfields) {
+      if (subfield.getDefinition() == null) {
+        if (definition.isVersionSpecificSubfields(configuration.getMarcVersion(), subfield.getCode())) {
+          subfield.setDefinition(
+              definition.getVersionSpecificSubfield(
+                  configuration.getMarcVersion(), subfield.getCode()));
+        } else {
+          addError(SUBFIELD_UNDEFINED, subfield.getCode());
+          continue;
+        }
+      }
+      Utils.count(subfield.getDefinition(), counter);
+
+      if (!subfieldValidator.validate(subfield))
+        errors.addAll(subfieldValidator.getValidationErrors());
+    }
+
+    for (Map.Entry<SubfieldDefinition, Integer> entry : counter.entrySet()) {
+      SubfieldDefinition subfieldDefinition = entry.getKey();
+      Integer count = entry.getValue();
+      if (count > 1 && subfieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
+        addError(subfieldDefinition, SUBFIELD_NONREPEATABLE, String.format("there are %d instances", count));
+      }
+    }
+
   }
 
   private void addError(ValidationErrorType type, String message) {
@@ -202,5 +187,20 @@ public class DataFieldValidator extends AbstractValidator {
       String url = definition.getDescriptionUrl();
       errors.add(id, path, type, message, url);
     }
+  }
+
+  /**
+   * @return True if the tag isn't MARC21 or if it's MARC21 and is defined. Otherwise, false.
+   */
+  private boolean isMarc21TagDefined() {
+    boolean isMarc21 = configuration.getSchemaType().equals(SchemaType.MARC21);
+
+    // If it is not MARC21, we don't need to check if the tag is defined
+    if (!isMarc21) {
+      return true;
+    }
+
+    // If tag definition could have been loaded, it is defined
+    return TagDefinitionLoader.load(definition.getTag(), configuration.getMarcVersion()) != null;
   }
 }

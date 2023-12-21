@@ -3,7 +3,7 @@ package de.gwdg.metadataqa.marc.analysis.validator;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcControlField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
-import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.MarcRecord;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.ValidatorResponse;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
@@ -69,12 +69,15 @@ public class Validator extends AbstractValidator {
 
   private boolean validateLeader() {
 
-    if (!(bibliographicRecord instanceof Marc21Record)) {
+    // If it isn't a MARC record with a leader, it's valid
+    if (!(bibliographicRecord instanceof MarcRecord)) {
       return true;
     }
 
+    MarcRecord marcRecord = (MarcRecord) bibliographicRecord;
+
     LeaderValidator leaderValidator = new LeaderValidator(configuration);
-    boolean isValidComponent = leaderValidator.validate(((Marc21Record) bibliographicRecord).getLeader());
+    boolean isValidComponent = leaderValidator.validate(marcRecord.getLeader());
     if (isValidComponent) {
       return true;
     }
@@ -82,9 +85,10 @@ public class Validator extends AbstractValidator {
 
     for (ValidationError leaderError : leaderErrors) {
       if (leaderError.getRecordId() == null) {
-        leaderError.setRecordId(bibliographicRecord.getId());
+        leaderError.setRecordId(marcRecord.getId());
       }
     }
+
 
     validationErrors.addAll(filterErrors(leaderErrors));
     return false;
@@ -112,14 +116,17 @@ public class Validator extends AbstractValidator {
   }
 
   private boolean validateControlfields() {
-    if (!(bibliographicRecord instanceof Marc21Record)) {
+
+    if (!(bibliographicRecord instanceof MarcRecord)) {
       return true;
     }
+
+    MarcRecord marcRecord = (MarcRecord) bibliographicRecord;
 
     boolean isValidComponent = true;
 
     ControlFieldValidator controlFieldValidator = new ControlFieldValidator(configuration);
-    for (MarcControlField controlField : ((Marc21Record) bibliographicRecord).getControlfields()) {
+    for (MarcControlField controlField : marcRecord.getControlfields()) {
       if (controlField == null) {
         continue;
       }

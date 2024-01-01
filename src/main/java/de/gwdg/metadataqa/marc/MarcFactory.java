@@ -17,10 +17,12 @@ import de.gwdg.metadataqa.marc.dao.DefaultMarcPositionalControlField;
 import de.gwdg.metadataqa.marc.dao.Marc21Leader;
 import de.gwdg.metadataqa.marc.dao.MarcLeader;
 import de.gwdg.metadataqa.marc.dao.SimpleControlField;
+import de.gwdg.metadataqa.marc.dao.UnimarcLeader;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.Marc21AuthorityRecord;
 import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.MarcRecord;
 import de.gwdg.metadataqa.marc.dao.record.PicaRecord;
 import de.gwdg.metadataqa.marc.dao.record.UnimarcRecord;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -144,7 +146,7 @@ public class MarcFactory {
   }
 
   /**
-   * Create a MarcRecord object from Marc4j object
+   * Create a MarcRecord object from Marc4j object by setting the leader, control fields and data fields.
    * @param marc4jRecord The Marc4j record
    * @param defaultType The defauld document type
    * @param marcVersion The MARC version
@@ -235,8 +237,18 @@ public class MarcFactory {
     return marcRecord;
   }
 
-  public static BibliographicRecord createUnimarcFromMarc4j(Record marc4jRecord, UnimarcSchemaManager unimarcSchemaManager) {
+  public static BibliographicRecord createUnimarcFromMarc4j(Record marc4jRecord,
+                                                            MarcLeader.Type defaultType,
+                                                            UnimarcSchemaManager unimarcSchemaManager) {
     var marcRecord = new UnimarcRecord();
+
+    if (marc4jRecord.getLeader() != null) {
+      String data = marc4jRecord.getLeader().marshal();
+      UnimarcLeader leader = new UnimarcLeader(unimarcSchemaManager.getLeaderDefinition(), data, defaultType);
+      leader.initialize();
+      marcRecord.setLeader(leader);
+    }
+
     importMarc4jControlFields(marc4jRecord, marcRecord, null);
     importMarc4jDataFields(marc4jRecord, marcRecord, unimarcSchemaManager);
 
@@ -258,26 +270,39 @@ public class MarcFactory {
       return;
 
     for (ControlField controlField : marc4jRecord.getControlFields()) {
-      String data = controlField.getData();
-      if (replacementInControlFields != null && isFixable(controlField.getTag()))
-        data = data.replace(replacementInControlFields, " ");
-      switch (controlField.getTag()) {
-        case "001":
-          ((Marc21Record) marcRecord).setControl001(new Control001(data)); break;
-        case "003":
-          ((Marc21Record) marcRecord).setControl003(new Control003(data)); break;
-        case "005":
-          ((Marc21Record) marcRecord).setControl005(new Control005(data, marcRecord)); break;
-        case "006":
-          ((Marc21Record) marcRecord).setControl006(new Control006(data, (Marc21Record) marcRecord)); break;
-        case "007":
-          ((Marc21Record) marcRecord).setControl007(new Control007(data, marcRecord)); break;
-        case "008":
-          ((Marc21Record) marcRecord).setControl008(new Control008(data, (Marc21Record) marcRecord)); break;
-        default:
-          break;
+      // If the tag isn't allowed, then avoid adding this control field. This should probably be an initialization error,
+      // but discuss that later.
+      if (!marcRecord.getAllowedControlFieldTags().contains(controlField.getTag())) {
+        String errorMessage = String.format("Control field %s is not allowed in %s record", controlField.getTag(), marcRecord.getSchemaType());
+        logger.severe(errorMessage);
+        continue;
       }
+      setMarcControlField(controlField, replacementInControlFields, (MarcRecord) marcRecord);
     }
+  }
+
+  private static void setMarcControlField(ControlField controlField, String replacementInControlFields, MarcRecord marcRecord) {
+    String data = controlField.getData();
+    if (replacementInControlFields != null && isFixable(controlField.getTag())) {
+      data = data.replace(replacementInControlFields, " ");
+    }
+    switch (controlField.getTag()) {
+      case "001":
+        marcRecord.setControl001(new Control001(data)); break;
+      case "003":
+        marcRecord.setControl003(new Control003(data)); break;
+      case "005":
+        marcRecord.setControl005(new Control005(data, marcRecord)); break;
+      case "006":
+        ((Marc21Record) marcRecord).setControl006(new Control006(data, (Marc21Record) marcRecord)); break;
+      case "007":
+        ((Marc21Record) marcRecord).setControl007(new Control007(data, marcRecord)); break;
+      case "008":
+        ((Marc21Record) marcRecord).setControl008(new Control008(data, (Marc21Record) marcRecord)); break;
+      default:
+        break;
+    }
+
   }
 
   private static boolean isFixable(String tag) {
@@ -362,6 +387,7 @@ public class MarcFactory {
     }
     for (Subfield subfield : dataField.getSubfields()) {
       var code = Character.toString(subfield.getCode());
+      // Maybe try to handle case insensitively?
       SubfieldDefinition subfieldDefinition = definition == null ? null : definition.getSubfield(code);
       MarcSubfield marcSubfield;
       if (subfieldDefinition == null) {
@@ -486,28 +512,7 @@ public class MarcFactory {
   public static Record createRecordFromMarcline(List<MarclineLine> lines) {
     Record marc4jRecord = new RecordImpl();
     for (MarclineLine line : lines) {
-      if (line.isLeader()) {
-        try {
-          marc4jRecord.setLeader(new LeaderImpl(line.getContent()));
-        } catch (StringIndexOutOfBoundsException e) {
-          logger.severe("Error at creating leader: " + e.getMessage());
-        }
-      } else if (line.isNumericTag()) {
-        if (line.isControlField()) {
-          marc4jRecord.addVariableField(new ControlFieldImpl(line.getTag(), line.getContent()));
-        } else {
-          var df = new DataFieldImpl(line.getTag(), line.getInd1().charAt(0), line.getInd2().charAt(0));
-          for (String[] pair : line.parseSubfields()) {
-            if (pair.length == 2 && pair[0] != null && pair[1] != null) {
-              df.addSubfield(new SubfieldImpl(pair[0].charAt(0), pair[1]));
-            } else {
-              logger.log(Level.WARNING, "parse error in record #{0}) tag {1}: \"{2}\"",
-                new Object[]{line.getRecordID(), line.getTag(), line.getRawContent()});
-            }
-          }
-          marc4jRecord.addVariableField(df);
-        }
-      }
+      processMarclineLine(marc4jRecord, line);
     }
     return marc4jRecord;
   }
@@ -559,5 +564,44 @@ public class MarcFactory {
     if (id != null)
       marc4jRecord.addVariableField(new ControlFieldImpl("001", id));
     return marc4jRecord;
+  }
+
+  /**
+   * Process a single line of a MARC record and makes the appropriate changes in the marc4jRecord
+   * @param marc4jRecord The marc4j record being created
+   * @param line The MarcLine line being processed
+   */
+  private static void processMarclineLine(Record marc4jRecord, MarclineLine line) {
+    if (line.isLeader()) {
+      try {
+        marc4jRecord.setLeader(new LeaderImpl(line.getContent()));
+      } catch (StringIndexOutOfBoundsException e) {
+        logger.severe("Error at creating leader: " + e.getMessage());
+      }
+      return;
+    }
+
+    // If the line is not a leader, then it's either a control field or a data field, so it has to have a numeric tag
+    if (!line.isNumericTag()) {
+      return;
+    }
+
+    if (line.isControlField()) {
+      ControlFieldImpl controlField = new ControlFieldImpl(line.getTag(), line.getContent());
+      marc4jRecord.addVariableField(controlField);
+      return;
+    }
+
+    var df = new DataFieldImpl(line.getTag(), line.getInd1().charAt(0), line.getInd2().charAt(0));
+
+    for (String[] pair : line.parseSubfields()) {
+      if (pair.length == 2 && pair[0] != null && pair[1] != null) {
+        df.addSubfield(new SubfieldImpl(pair[0].charAt(0), pair[1]));
+      } else {
+        logger.log(Level.WARNING, "parse error in record #{0}) tag {1}: \"{2}\"",
+            new Object[]{line.getRecordID(), line.getTag(), line.getRawContent()});
+      }
+    }
+    marc4jRecord.addVariableField(df);
   }
 }

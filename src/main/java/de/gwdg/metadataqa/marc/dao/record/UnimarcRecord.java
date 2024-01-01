@@ -20,8 +20,9 @@ import java.util.Map;
 
 public class UnimarcRecord extends MarcRecord {
 
+  protected static final List<String> allowedControlFieldTags = Arrays.asList("001", "003", "005");
 
-  // TODO for now I essentially have no idea what to do with these attributes
+  // TODO for now I essentially have no idea what to do with these attributes such as authority tags, subjectTags etc.
   private static List<String> authorityTags;
   private static Map<String, Boolean> authorityTagsIndex;
   private static Map<String, Boolean> subjectTagIndex;
@@ -33,6 +34,7 @@ public class UnimarcRecord extends MarcRecord {
   private static Map<AuthorityCategory, List<String>> authorityTagsMap;
   private static Map<ThompsonTraillFields, List<String>> thompsonTraillTagMap;
   private static Map<ShelfReadyFieldsBooks, Map<String, List<String>>> shelfReadyMap;
+
   private UnimarcLeader leader;
 
   public UnimarcRecord() {
@@ -50,6 +52,11 @@ public class UnimarcRecord extends MarcRecord {
       initializeAuthorityTags();
     }
     return getAuthorityFields(authorityTags);
+  }
+
+  @Override
+  public List<String> getAllowedControlFieldTags() {
+    return allowedControlFieldTags;
   }
 
   public boolean isAuthorityTag(String tag) {

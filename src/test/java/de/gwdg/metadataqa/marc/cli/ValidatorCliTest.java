@@ -1,13 +1,14 @@
 package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
-import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.TestUtils;
+import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -345,5 +346,82 @@ public class ValidatorCliTest extends CliTestUtils {
       output.delete();
       assertFalse(outputFile + " should not exist anymore", output.exists());
     }
+  }
+
+  @Test
+  public void validate_whenUnimarc() throws Exception {
+    clearOutput(outputDir, groupedOutputFiles);
+
+    ValidatorCli processor = new ValidatorCli(new String[]{
+        "--schemaType", "UNIMARC",
+        "--marcFormat", "MARC_LINE",
+        "--outputDir", outputDir,
+        "--details",
+        "--trimId",
+        "--summary",
+        "--format", "csv",
+        "--defaultRecordType", "BOOKS",
+        "--detailsFileName", "issue-details.csv",
+        "--summaryFileName", "issue-summary.csv",
+        TestUtils.getPath("unimarc/unimarc.mrctxt")
+    });
+
+    RecordIterator iterator = new RecordIterator(processor);
+    iterator.setProcessWithEroors(true);
+    iterator.start();
+
+    assertEquals("done", iterator.getStatus());
+
+    List<String> lines = getFileLines("issue-details.csv");
+    assertEquals("recordId,errors", lines.get(0).trim());
+    assertEquals(",1:1;2:1;3:3;4:1;5:6", lines.get(1).trim());
+
+    lines = getFileLines("issue-summary.csv");
+    // Print all lines
+    for (String line : lines) {
+      System.out.println(line);
+    }
+
+    assertEquals("id,MarcPath,categoryId,typeId,type,message,url,instances,records", lines.get(0).trim());
+    assertEquals("2,005,2,6,invalid value,The field value does not match the expected pattern in '20191011224100.000',https://www.loc.gov/marc/bibliographic/bd005.html,1,1", lines.get(1).trim());
+    assertEquals("1,359,3,9,undefined field,359,,1,1", lines.get(2).trim());
+    assertEquals("4,410$ind2,4,12,invalid value,|,,1,1", lines.get(3).trim());
+    assertEquals("5,606$ind1,4,12,invalid value, ,,6,1", lines.get(4).trim());
+    assertEquals("3,035,5,13,undefined subfield,9,,3,1", lines.get(5).trim());
+
+    lines = getFileLines("issue-by-category.csv");
+    assertEquals(5, lines.size());
+    assertEquals("id,category,instances,records", lines.get(0).trim());
+    assertEquals("2,control field,1,1", lines.get(1).trim());
+    assertEquals("3,data field,1,1", lines.get(2).trim());
+    assertEquals("4,indicator,7,1", lines.get(3).trim());
+    assertEquals("5,subfield,3,1", lines.get(4).trim());
+
+    lines = getFileLines("issue-by-type.csv");
+    assertEquals(5, lines.size());
+    assertEquals("id,categoryId,category,type,instances,records", lines.get(0).trim());
+    assertEquals("6,2,control field,invalid value,1,1", lines.get(1).trim());
+    assertEquals("9,3,data field,undefined field,1,1", lines.get(2).trim());
+    assertEquals("12,4,indicator,invalid value,7,1", lines.get(3).trim());
+    assertEquals("13,5,subfield,undefined subfield,3,1", lines.get(4).trim());
+
+    // Won't check issue-collector.csv as it there are no record ids
+
+    lines = getFileLines("issue-total.csv");
+    assertEquals(3, lines.size());
+    assertEquals("type,instances,records", lines.get(0).trim());
+    assertEquals("1,12,1", lines.get(1).trim());
+    assertEquals("2,11,1", lines.get(2).trim());
+
+    lines = getFileLines("count.csv");
+    assertEquals(2, lines.size());
+    assertEquals("total", lines.get(0).trim());
+    assertEquals("1", lines.get(1).trim());
+  }
+
+  private List<String> getFileLines(String outputFile) throws IOException {
+    File output = new File(outputDir, outputFile);
+    assertTrue(outputFile + " should exist", output.exists());
+    return FileUtils.readLinesFromFile(TestUtils.getPath("output/" + outputFile));
   }
 }

@@ -35,6 +35,7 @@ public class Marc21Record extends MarcRecord {
 
   private static final Pattern positionalPattern = Pattern.compile("^(Leader|00[678])/(.*)$");
   private static final List<String> simpleControlTags = Arrays.asList("001", "003", "005");
+  protected static final List<String> allowedControlFieldTags = Arrays.asList("001", "003", "005", "006", "007", "008");
 
   private List<Control006> control006 = new ArrayList<>();
   private List<Control007> control007 = new ArrayList<>();
@@ -278,6 +279,11 @@ public class Marc21Record extends MarcRecord {
   @Override
   public List<DataField> getAuthorityFields() {
     return null;
+  }
+
+  @Override
+  public List<String> getAllowedControlFieldTags() {
+    return allowedControlFieldTags;
   }
 
   @Override

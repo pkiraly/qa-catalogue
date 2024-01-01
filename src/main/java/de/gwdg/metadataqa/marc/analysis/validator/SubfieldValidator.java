@@ -93,35 +93,33 @@ public class SubfieldValidator extends AbstractValidator {
   }
 
   private void validatePositions() {
-    /* TODO recheck after rebase
-                for (ControlfieldPositionDefinition positionDefinition : definition.getPositions()) {
-              if (subfield.getValue().length() >= positionDefinition.getPositionStart()) {
-                String positionValue = subfield.getValue().substring(
-                  positionDefinition.getPositionStart(),
-                  Math.min(subfield.getValue().length(), positionDefinition.getPositionEnd()));
-                if (!positionDefinition.validate(positionValue)) {
-                  String path = definition.getPath() + "/" + positionDefinition.formatPositon();
-                  addError(path, ValidationErrorType.SUBFIELD_INVALID_VALUE,
-                    String.format("invalid code for '%s': '%s' at position %s in '%s'",
-                      positionDefinition.getLabel(), positionValue, positionDefinition.formatPositon(), subfield.getValue()));
-                }
-              }
-            }
-
-     */
     for (ControlfieldPositionDefinition positionDefinition : definition.getPositions()) {
-      String positionValue = subfield.getValue().substring(positionDefinition.getPositionStart(), positionDefinition.getPositionEnd());
-      boolean isPositionDefinitionValid = positionDefinition.validate(positionValue);
-      if (isPositionDefinitionValid) {
-        continue;
-      }
+      validatePosition(positionDefinition);
+    }
+  }
 
+  private void validatePosition(ControlfieldPositionDefinition positionDefinition) {
+    String subfieldValue = subfield.getValue();
+    // If the subfield value is shorter than the position definition, then it is invalid
+    if (subfieldValue.length() < positionDefinition.getPositionEnd()) {
       String path = String.format("%s/%s", definition.getPath(), positionDefinition.formatPositon());
-      String errorMessage = String.format("invalid code for '%s': '%s' at position %s in '%s'",
-          positionDefinition.getLabel(), positionValue, positionDefinition.formatPositon(), subfield.getValue());
+      String errorMessage = String.format("invalid code for '%s': '%s' position %s out of range",
+          positionDefinition.getLabel(), subfieldValue, positionDefinition.formatPositon());
 
       addError(path, ValidationErrorType.SUBFIELD_INVALID_VALUE, errorMessage);
+      return;
     }
+    String positionValue = subfield.getValue().substring(positionDefinition.getPositionStart(), positionDefinition.getPositionEnd());
+    boolean isPositionDefinitionValid = positionDefinition.validate(positionValue);
+    if (isPositionDefinitionValid) {
+      return;
+    }
+
+    String path = String.format("%s/%s", definition.getPath(), positionDefinition.formatPositon());
+    String errorMessage = String.format("invalid code for '%s': '%s' at position %s in '%s'",
+        positionDefinition.getLabel(), positionValue, positionDefinition.formatPositon(), subfield.getValue());
+
+    addError(path, ValidationErrorType.SUBFIELD_INVALID_VALUE, errorMessage);
   }
 
   /**

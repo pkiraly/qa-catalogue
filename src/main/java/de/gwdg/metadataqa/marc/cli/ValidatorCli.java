@@ -386,20 +386,15 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
   private void printSummary() {
     String header = ValidationErrorFormatter.formatHeaderForSummary(parameters.getFormat(), doGroups());
     print(summaryFile, header);
+
+    Comparator<Map.Entry<ValidationError, Integer>> comparator = Comparator.comparing(a -> a.getKey().getType().getId());
+    comparator = comparator.thenComparing(a -> validatorDAO.getRecordBasedErrorCounter().get(a.getKey().getId()));
+    comparator = comparator.thenComparing(a -> a.getKey().getId());
+
     validatorDAO.getInstanceBasedErrorCounter()
       .entrySet()
       .stream()
-      .sorted((a,b) -> {
-        Integer typeIdA = Integer.valueOf(a.getKey().getType().getId());
-        Integer typeIdB = Integer.valueOf(b.getKey().getType().getId());
-        int result = typeIdA.compareTo(typeIdB);
-        if (result == 0) {
-          Integer recordCountA = validatorDAO.getRecordBasedErrorCounter().get(a.getKey().getId());
-          Integer recordCountB = validatorDAO.getRecordBasedErrorCounter().get(b.getKey().getId());
-          result = recordCountB.compareTo(recordCountA);
-        }
-        return result;
-      }) // sort
+      .sorted(comparator)
       .forEach(
         entry -> {
           ValidationError error = entry.getKey();

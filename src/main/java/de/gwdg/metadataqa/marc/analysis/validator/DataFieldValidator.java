@@ -72,6 +72,7 @@ public class DataFieldValidator extends AbstractValidator {
 
     validateIndicators(referencerDefinition);
 
+    // This seems to never be executed because the addUnhandledSubfield method is never called
     if (field.getUnhandledSubfields() != null) {
       addError(SUBFIELD_UNDEFINED, StringUtils.join(field.getUnhandledSubfields(), ", "));
     }
@@ -128,12 +129,13 @@ public class DataFieldValidator extends AbstractValidator {
     // In case the code used is some old (historical) code, then that's an obsolete code error, and if it is
     // just plainly a wrong code, then it is an invalid value error.
     if (indicatorExists && !indicatorDefinition.hasCode(value) && !isVersionSpecific) {
-        if (indicatorDefinition.isHistoricalCode(value)) {
-          addError(path, INDICATOR_OBSOLETE, value);
-        } else {
-          addError(path, INDICATOR_INVALID_VALUE, value);
-        }
-        return false;
+      // Maybe if the value is a space, it should be clarified in the error message a little differently
+      if (indicatorDefinition.isHistoricalCode(value)) {
+        addError(path, INDICATOR_OBSOLETE, value);
+      } else {
+        addError(path, INDICATOR_INVALID_VALUE, value);
+      }
+      return false;
     }
 
     // All other cases are valid: either the indicator is defined and the value is a valid code, or the indicator

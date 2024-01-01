@@ -459,6 +459,7 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
   }
 
   public abstract List<DataField> getAuthorityFields();
+  public abstract List<String> getAllowedControlFieldTags();
   public abstract Map<DataField, AuthorityCategory> getAuthorityFieldsMap();
   public abstract boolean isAuthorityTag(String tag);
   public abstract boolean isSkippableAuthoritySubfield(String tag, String code);

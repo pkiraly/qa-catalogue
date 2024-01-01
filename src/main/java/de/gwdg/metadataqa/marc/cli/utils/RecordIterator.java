@@ -208,7 +208,7 @@ public class RecordIterator {
     } else if (parameters.getSchemaType().equals(SchemaType.PICA)) {
       return MarcFactory.createPicaFromMarc4j(marc4jRecord, picaSchema);
     } else {
-      return MarcFactory.createUnimarcFromMarc4j(marc4jRecord, unimarcSchema);
+      return MarcFactory.createUnimarcFromMarc4j(marc4jRecord, defaultRecordType, unimarcSchema);
     }
   }
 

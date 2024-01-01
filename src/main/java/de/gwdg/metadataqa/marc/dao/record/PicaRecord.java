@@ -53,6 +53,11 @@ public class PicaRecord extends BibliographicRecord {
     return getAuthorityFields(authorityTags);
   }
 
+  @Override
+  public List<String> getAllowedControlFieldTags() {
+    return List.of();
+  }
+
   public boolean isAuthorityTag(String tag) {
     if (authorityTagsIndex == null) {
       initializeAuthorityTags();

@@ -46,6 +46,7 @@ public class MarclineReader extends ErrorAwareReader implements MarcReader {
 
   @Override
   public boolean hasNext() {
+    // It's a little confusing that hasNext() changes the internal state of the reader.
     if (lineNumber == 0 || nextIsConsumed) {
       try {
         line = bufferedReader.readLine();
@@ -62,8 +63,11 @@ public class MarclineReader extends ErrorAwareReader implements MarcReader {
   public Record next() {
     Record marc4jRecord = null;
     boolean finished = false;
+
     while (line != null && !finished) {
       MarclineLine marclineLine = new MarclineLine(line, lineNumber);
+
+      // If the line is a leader, then we have a new record
       if (marclineLine.isLeader() && !lines.isEmpty()) {
         marc4jRecord = MarcFactory.createRecordFromMarcline(lines);
         if (marc4jRecord.getControlNumber() == null) {

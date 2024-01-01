@@ -15993,7 +15993,7 @@
             },
             "02": {
               "label": "Specification of Dimensionality",
-              "start": 1,
+              "start": 2,
               "codes": {
                 "2": "two-dimensional",
                 "3": "three-dimensional",
@@ -17001,6 +17001,10 @@
           "label": "Specific Material Designation and Extent of Item",
           "repeatable": true
         },
+        "b": {
+          "label": "Materials and Technique Display",
+          "repeatable": false
+        },
         "c": {
           "label": "Other Physical Details",
           "repeatable": false
@@ -17012,6 +17016,10 @@
         "e": {
           "label": "Accompanying Material",
           "repeatable": true
+        },
+        "f": {
+          "label": "Weight",
+          "repeatable": false
         }
       }
     },
@@ -23690,7 +23698,13 @@
       "label": "UNIFORM CONVENTIONAL HEADING",
       "required": false,
       "repeatable": true,
-      "indicator1": null,
+      "indicator1": {
+        "label": "Title Significance Indicator",
+        "codes": {
+          "0": "Access point is not significant",
+          "1": "Access point is significant"
+        }
+      },
       "indicator2": null,
       "subfields": {
         "a": {
@@ -25099,6 +25113,30 @@
         },
         "e": {
           "label": "Other Title Information",
+          "repeatable": true
+        },
+        "h": {
+          "label": "Number of part",
+          "repeatable": true
+        },
+        "i": {
+          "label": "Name of part",
+          "repeatable": true
+        },
+        "j": {
+          "label": "Volume or Dates Associated with Title",
+          "repeatable": true
+        },
+        "n": {
+          "label": "Miscellaneous Information",
+          "repeatable": true
+        },
+        "z": {
+          "label": "Language of Title",
+          "repeatable": true
+        },
+        "2": {
+          "label": "Source",
           "repeatable": true
         }
       }
@@ -27062,7 +27100,14 @@
       "label": "TOPICAL NAME USED AS SUBJECT",
       "required": false,
       "repeatable": true,
-      "indicator1": null,
+      "indicator1": {
+        "label": "Level of the Subject Resource",
+        "codes": {
+          "0": "No level specified",
+          "1": "Primary term",
+          "2": "Secondary term"
+        }
+      },
       "indicator2": null,
       "subfields": {
         "a": {
@@ -31061,6 +31106,10 @@
           "label": "Part of Name Other than Entry Element and Inverted Element",
           "repeatable": false
         },
+        "o": {
+          "label": "International Standard Identifier for the Name",
+          "repeatable": true
+        },
         "p": {
           "label": "Affiliation/address",
           "repeatable": false
@@ -31270,6 +31319,10 @@
           "label": "Part of Name Other than Entry Element and Inverted Element",
           "repeatable": false
         },
+        "o": {
+          "label": "International Standard Identifier for the Name",
+          "repeatable": true
+        },
         "p": {
           "label": "Affiliation/address",
           "repeatable": false
@@ -31478,6 +31531,10 @@
         "h": {
           "label": "Part of Name Other than Entry Element and Inverted Element",
           "repeatable": false
+        },
+        "o": {
+          "label": "International Standard Identifier for the Name",
+          "repeatable": true
         },
         "p": {
           "label": "Affiliation/address",

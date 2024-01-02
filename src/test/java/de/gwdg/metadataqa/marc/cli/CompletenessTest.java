@@ -339,4 +339,26 @@ public class CompletenessTest extends CliTestUtils {
       assertFalse(outputFile + " should not exist anymore", output.exists());
     }
   }
+
+  @Test
+  public void completeness_whenUnimarc() throws Exception {
+    clearOutput(outputDir, outputFiles);
+
+    Completeness processor = new Completeness(new String[]{
+        "--schemaType", "UNIMARC",
+        "--marcFormat", "MARC_LINE",
+        "--outputDir", outputDir,
+        TestUtils.getPath("unimarc/unimarc.mrctxt")
+    });
+    RecordIterator iterator = new RecordIterator(processor);
+    iterator.start();
+
+    for (String outputFile : outputFiles) {
+      File output = new File(outputDir, outputFile);
+      assertTrue(output.exists());
+      output.delete();
+      assertFalse(output.exists());
+    }
+  }
+
 }

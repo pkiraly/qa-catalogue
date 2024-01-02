@@ -48,6 +48,8 @@ public class RecordCompleteness {
   private final CompletenessDAO completenessDAO;
   private final CompletenessPlugin plugin;
   BibliographicRecord bibliographicRecord;
+
+  // TODO Ask why the documentType is relevant. Why is it a String and not a MarcLeader.Type?
   String documentType;
   boolean hasGroupBy;
   Map<String, Integer> recordFrequency = new HashMap<>();
@@ -124,7 +126,6 @@ public class RecordCompleteness {
   }
 
   private void processPositionalControlFields(Marc21Record marcRecord) {
-    // Casting again :/
     for (MarcPositionalControlField field : marcRecord.getPositionalControlfields()) {
       if (field == null) {
         continue;
@@ -228,6 +229,12 @@ public class RecordCompleteness {
     return values;
   }
 
+  /**
+   * Returns the package name of a given field. Tries to get the package name from the cache first, and if it is not
+   * present, it will be retrieved from the plugin which was supplied to the constructor.
+   * @param field The field to get the package name for
+   * @return The package name of the given field
+   */
   private String getPackageName(DataField field) {
     String packageName;
     DataFieldDefinition fieldDefinition = field.getDefinition();
@@ -256,7 +263,7 @@ public class RecordCompleteness {
     List<String> marcPaths = new ArrayList<>();
     DataFieldDefinition fieldDefinition = field.getDefinition();
 
-    if (parameters.isMarc21() && fieldDefinition != null) {
+    if (!parameters.isPica() && fieldDefinition != null) {
       if (field.getInd1() != null && (fieldDefinition.getInd1().exists() || !field.getInd1().equals(" "))) {
         marcPaths.add(field.getTagWithOccurrence() + IND_1);
       }

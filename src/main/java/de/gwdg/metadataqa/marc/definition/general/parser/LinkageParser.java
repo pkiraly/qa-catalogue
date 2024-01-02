@@ -27,17 +27,22 @@ public class LinkageParser implements SubfieldContentParser, Serializable {
   public Linkage create(String input) throws ParserException {
     checkInvalidCharacters(input);
     Matcher matcher = REGEX.matcher(input);
-    if (matcher.find() && matcher.group(1) != null) {
-      Linkage linkage = new Linkage(matcher.group(1), matcher.group(2));
-      if (matcher.group(3) != null) {
-        linkage.setScriptIdentificationCode(matcher.group(3));
-        if (matcher.group(4) != null)
-          linkage.setFieldOrientationCode(matcher.group(4));
-      }
+    if (!matcher.find() || matcher.group(1) == null) {
+      return null;
+    }
+
+    Linkage linkage = new Linkage(matcher.group(1), matcher.group(2));
+    if (matcher.group(3) == null) {
       return linkage;
     }
 
-    return null;
+    linkage.setScriptIdentificationCode(matcher.group(3));
+
+    if (matcher.group(4) != null) {
+      linkage.setFieldOrientationCode(matcher.group(4));
+    }
+
+    return linkage;
   }
 
   private void checkInvalidCharacters(String input) throws ParserException {

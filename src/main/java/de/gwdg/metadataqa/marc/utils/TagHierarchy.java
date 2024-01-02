@@ -157,18 +157,24 @@ public class TagHierarchy {
     String tag = matcher.group(1);
     var definition = getDataFieldDefinition(tag);
 
-    if (definition != null) {
-      String tagLabel = definition.getLabel();
-      if (definition instanceof ControlFieldDefinition) {
-        ControlFieldDefinition fieldDefinition = (ControlFieldDefinition)  definition;
-        ControlfieldPositionDefinition positionDefinition = fieldDefinition.getPositionDefinitionById(path);
-        if (positionDefinition != null) {
-          String subfieldLabel = positionDefinition.getLabel();
-          return new TagHierarchy(TagCategory.TAGS_00X, tagLabel, subfieldLabel);
-        }
-      }
+    if (definition == null) {
+      return null;
     }
-    return null;
+
+    String tagLabel = definition.getLabel();
+    if (!(definition instanceof ControlFieldDefinition)) {
+      return null;
+    }
+
+    ControlFieldDefinition fieldDefinition = (ControlFieldDefinition)  definition;
+    ControlfieldPositionDefinition positionDefinition = fieldDefinition.getPositionDefinitionById(path);
+
+    if (positionDefinition == null) {
+      return null;
+    }
+
+    String subfieldLabel = positionDefinition.getLabel();
+    return new TagHierarchy(TagCategory.TAGS_00X, tagLabel, subfieldLabel);
   }
 
   private static TagHierarchy getControlField(Matcher matcher) {

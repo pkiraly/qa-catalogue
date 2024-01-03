@@ -92,7 +92,7 @@ public class Tag533 extends DataFieldDefinition {
         .setValidator(new RegexValidator("^\\d{4}$")),
       new ControlfieldPositionDefinition("Place of publication, production, or execution", 9, 12)
         .setCodeList(CountryCodes.getInstance()),
-      new ControlfieldPositionDefinition("Frequency", 11, 13)
+      new ControlfieldPositionDefinition("Frequency", 12, 13)
         .setCodes(Utils.generateCodes(
           " ", "No determinable frequency",
           "a", "Annual",

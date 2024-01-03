@@ -19340,9 +19340,9 @@
               "repeatableContent": false,
               "codes": "https://www.loc.gov/marc/countries/countries_code.html"
             },
-            "11-12": {
+            "12": {
               "label": "Frequency",
-              "start": 11,
+              "start": 12,
               "end": 12,
               "repeatableContent": true,
               "unitLength": 1,

@@ -43,6 +43,7 @@ public enum TagCategory {
   UNIMARC_6(66, null, "6--", "Subject analysis and bibliographic history block", false),
   UNIMARC_7(67, null, "7--", "Responsibility block", false),
   UNIMARC_8(68, null, "8--", "International use block", false),
+  UNIMARC_9(68, null, "9--", "National use block", false),
   OTHER(99, "unknown", "unknown", "unknown origin", false);
 
 

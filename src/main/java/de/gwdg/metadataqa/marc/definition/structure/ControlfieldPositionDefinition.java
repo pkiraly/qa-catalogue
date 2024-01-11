@@ -149,7 +149,7 @@ public class ControlfieldPositionDefinition implements Serializable {
 
   public boolean validate(String code) {
     // Blanks should probably be identified somehow differently
-    // In the avram-unimarc schema, they are represented as a # character, but in the records they can also be ' ' or
+    // In the avram-unimarc schema, they are represented as a ' ' character, but in the records they can also be '#' or
     // '-', or even '^' OR EVEN '|' for some reason
 
     // The codes could also be validated case insensitively

@@ -53,7 +53,7 @@
           "label": "Hierarchical level code",
           "start": 8,
           "codes": {
-            "#": "Hierarchical relationship undefined",
+            " ": "Hierarchical relationship undefined",
             "0": "No hierarchical relationship",
             "1": "Highest level record",
             "2": "Record below highest level (all levels below)"
@@ -63,7 +63,7 @@
           "label": "Type of control",
           "start": 9,
           "codes": {
-            "#": "No specified type",
+            " ": "No specified type",
             "a": "Archival",
             "m": "Museum"
           }
@@ -91,7 +91,7 @@
           "label": "Encoding level",
           "start": 17,
           "codes": {
-            "#": "Full level",
+            " ": "Full level",
             "1": "Sublevel 1",
             "2": "Sublevel 2",
             "3": "Sublevel 3"
@@ -101,7 +101,7 @@
           "label": "Descriptive Cataloguing Form",
           "start": 18,
           "codes": {
-            "#": "(Blank) record is in full ISBD form",
+            " ": "(Blank) record is in full ISBD form",
             "i": "Record is in partial or incomplete ISBD form",
             "n": "Record is in non-ISBD form",
             "x": "ISBD provisions are not applicable to the type of resource (e.g., unpublished resources)"
@@ -111,7 +111,7 @@
           "label": "Undefined",
           "start": 19,
           "codes": {
-            "#": "Blank"
+            " ": "Blank"
           }
         },
         "20": {
@@ -139,7 +139,7 @@
           "label": "Undefined",
           "start": 23,
           "codes": {
-            "#": "Blank"
+            " ": "Blank"
           }
         }
       }
@@ -206,7 +206,7 @@
       "indicator1": {
         "label": "Level of Interest Indicator",
         "codes": {
-          "#": "Level not specified / Not applicable",
+          " ": "Level not specified / Not applicable",
           "0": "Continuing resource of international or national interest",
           "1": "Continuing resource of local interest"
         }
@@ -2018,7 +2018,7 @@
               "end": 16
             },
             "17-19": {
-              "label": "Target Audience Code",
+              "label": "Target Audience Code // comment Blank has to exist, at least for now, in order to indicate that some positions can be blank. What has to be covered is that the codes have to be consecutive from left to right, and when 'x' is specified, then it has to be the first and only code.",
               "start": 17,
               "end": 19,
               "codes": {
@@ -2031,8 +2031,7 @@
                 "m": "adult, general",
                 "u": "unknown",
                 "x": "not applicable",
-                "// remark": "Blank has to exist, at least for now, in order to indicate that some positions can be blank. What has to be covered is that the codes have to be consecutive from left to right, and when 'x' is specified, then it has to be the first and only code.",
-                "#": "blank"
+                " ": "blank"
               }
             },
             "20": {
@@ -2563,7 +2562,6 @@
                 "y": "no transliteration scheme used"
               }
             },
-            "// remark": "26-29 is to be split in 26-27 and 28-29 which isn't the case in the manual. This is a better approach to due some differences",
             "26-27": {
               "label": "Character Sets G0 set",
               "start": 26,
@@ -2600,11 +2598,9 @@
                 "10": "[Reserved]",
                 "11": "ISO 5426-2 (Latin characters used in minor European languages and obsolete typography)",
                 "50": "ISO 10646 Level 3 (Unicode, UTF-8)",
-                "// remark": "see the first previous comment. This is because this set of positions can be partially left blank",
-                "##": "blank"
+                "  ": "blank"
               }
             },
-            "// remark": "30-33 is to be split in 30-31 and 32-33 which isn't the case in the manual. This is a better approach to due some differences",
             "30-31": {
               "label": "Additional Character Sets G2",
               "start": 30,
@@ -2622,8 +2618,7 @@
                 "10": "[Reserved]",
                 "11": "ISO 5426-2 (Latin characters used in minor European languages and obsolete typography)",
                 "50": "ISO 10646 Level 3 (Unicode, UTF-8)",
-                "// remark": "see the first previous comment. This is because this set of positions can be partially left blank",
-                "##": "blank"
+                "  ": "blank"
               }
             },
             "32-33": {
@@ -2643,8 +2638,7 @@
                 "10": "[Reserved]",
                 "11": "ISO 5426-2 (Latin characters used in minor European languages and obsolete typography)",
                 "50": "ISO 10646 Level 3 (Unicode, UTF-8)",
-                "// remark": "see the comment before the 30-31 position. This is because this set of positions can be partially left blank",
-                "##": "blank"
+                "  ": "blank"
               }
             },
             "34-35": {
@@ -7971,7 +7965,7 @@
                 "n": "transparencies",
                 "o": "illuminations",
                 "y": "no illustrations",
-                "#": "(blank) - value position not needed"
+                " ": "(blank) - value position not needed"
               }
             },
             "04-07": {
@@ -8002,7 +7996,7 @@
                 "v": "dissertation or thesis (revised)",
                 "w": "religious text",
                 "z": "other",
-                "#": "(blank) - value position not needed."
+                " ": "(blank) - value position not needed."
               }
             },
             "08": {
@@ -8177,7 +8171,7 @@
                 "r": "literature surveys/reviews",
                 "t": "cartoons or comic strips",
                 "z": "other kinds of contents",
-                "#": "(blank) - position value not needed"
+                " ": "(blank) - position value not needed"
               }
             },
             "04-06": {
@@ -8204,7 +8198,7 @@
                 "r": "literature surveys/reviews",
                 "t": "cartoons or comic strips",
                 "z": "other kinds of contents",
-                "#": "(blank) - position value not needed"
+                " ": "(blank) - position value not needed"
               }
             },
             "07": {
@@ -8497,7 +8491,7 @@
                 "c": "625 PAL",
                 "d": "625 SECAM",
                 "g": "1125",
-                "#": "Not a videorecording"
+                " ": "Not a videorecording"
               }
             }
           }
@@ -8639,12 +8633,6 @@
                 "u": "unknown",
                 "x": "not applicable (when it is impossible or inapplicable to determine completeness, e.g. home movies, unedited footage, outtakes, unidentified material)"
               }
-            },
-            "// remark": "this below needs to be clarified",
-            "09-14": {
-              "label": "Film inspection date",
-              "start": 9,
-              "end": 14
             },
             "09-12": {
               "label": "Year. Four numeric characters",
@@ -9254,7 +9242,6 @@
               "start": 2,
               "end": 3,
               "codes": {
-                "// remark": "01-99 = number of bands",
                 "01-99": "number of bands",
                 "xx": "not applicable"
               }
@@ -9283,17 +9270,11 @@
                 "8": "completely covered by clouds"
               }
             },
-            "// remark 06-07": {
-              "label": "Mean value of ground resolution",
-              "start": 6,
-              "end": 7
-            },
             "06": {
               "label": "Mean ground resolution values",
               "start": 6,
               "codes": {
                 "-": "less than 1 centimeter",
-                "// remark": "1-9 numeric value",
                 "1-9": "numeric value",
                 "+": "greater than 9 kilometers",
                 "x": "not applicable"
@@ -9880,7 +9861,7 @@
             "u": "unknown",
             "x": "not applicable",
             "z": "other",
-            "#": "not used"
+            " ": "not used"
           }
         }
       }
@@ -10166,7 +10147,7 @@
             "acl": "acclamatioe",
             "acm": "actus musicus",
             "agn": "agnus dei",
-            "ai#": "air",
+            "ai ": "air",
             "ain": "air, instrumental",
             "aka": "akathistos hymnos",
             "ala": "alba",
@@ -10174,12 +10155,12 @@
             "all": "alleluia",
             "alm": "allemanda",
             "ame": "amener",
-            "an#": "anthem",
+            "an ": "anthem",
             "ana": "anagramma",
             "ane": "ante evangelium",
             "ant": "antiphon",
             "app": "applauso",
-            "ar#": "aria",
+            "ar ": "aria",
             "ara": "arabesque",
             "ari": "ariette",
             "ark": "aurresku",
@@ -10198,21 +10179,21 @@
             "bat": "battaglia",
             "bbp": "bebop",
             "bcs": "berceuse",
-            "bd#": "ballad",
+            "bd ": "ballad",
             "bde": "ballade, vocal",
             "bdi": "ballade, instrumental",
             "bea": "beat",
             "beg": "beguine",
             "ben": "benedictus",
             "bfm": "barform",
-            "bg#": "bluegrass",
+            "bg ": "bluegrass",
             "bgk": "bugaku",
             "bhn": "bergreichen",
             "bic": "bicinium",
             "bkb": "black bottom",
             "bkg": "bankelgesang",
             "bkm": "black music",
-            "bl#": "blues",
+            "bl ": "blues",
             "blc": "cuban bolero",
             "bll": "ballata",
             "blo": "ballad opera",
@@ -10226,7 +10207,7 @@
             "bru": "brunette",
             "bsd": "basse danse",
             "bst": "boston",
-            "bt#": "ballet",
+            "bt ": "ballet",
             "btd": "boutade",
             "bto": "baletto",
             "btq": "batuque",
@@ -10239,8 +10220,8 @@
             "cal": "calata",
             "can": "can-can",
             "cav": "cavatina",
-            "cb#": "chant, non-Christian",
-            "cc#": "chant, Christian",
+            "cb ": "chant, non-Christian",
+            "cc ": "chant, Christian",
             "cch": "catch",
             "ccl": "canticle",
             "ccn": "cancion",
@@ -10248,9 +10229,9 @@
             "cdo": "children opera",
             "cdt": "chanson de toile",
             "cfr": "confractorium",
-            "cg#": "concerto grosso",
+            "cg ": "concerto grosso",
             "cga": "conga",
-            "ch#": "choral",
+            "ch ": "choral",
             "cha": "cha-cha-cha",
             "chc": "chaconne",
             "chh": "cachucha",
@@ -10262,7 +10243,7 @@
             "cht": "chanson sentencieuse",
             "chz": "chiarenzana",
             "ckw": "cakewalk",
-            "cl#": "choral prelude",
+            "cl ": "choral prelude",
             "cld": "colinda",
             "cli": "choral, instrumental",
             "cll": "carosello",
@@ -10272,27 +10253,27 @@
             "cmm": "communion",
             "cmn": "carmen",
             "cmp": "completorium",
-            "cn#": "canon",
+            "cn ": "canon",
             "cnd": "conductus",
             "cnl": "cantilena",
             "cnr": "canario",
             "cns": "canso",
-            "co#": "concerto",
+            "co ": "concerto",
             "cob": "comedie-ballet",
             "cop": "concert piece",
             "cou": "couplet",
             "cow": "competition / examination work",
-            "cp#": "chanson, polyphonic",
+            "cp ": "chanson, polyphonic",
             "cpl": "copla",
             "cpm": "commedia per musica",
             "cpr": "caprice",
-            "cr#": "carol",
+            "cr ": "carol",
             "cra": "carola",
             "cre": "credo",
             "cri": "carioca",
             "crr": "corrido",
             "crt": "corant",
-            "cs#": "chance composition, aleatoric music",
+            "cs ": "chance composition, aleatoric music",
             "csa": "csardas",
             "cse": "chasse",
             "csg": "carnival song",
@@ -10300,7 +10281,7 @@
             "css": "chanson spirituelle",
             "cst": "cassation",
             "csy": "chamber symphony",
-            "ct#": "cantata",
+            "ct ": "cantata",
             "ctc": "contacio",
             "ctd": "contredance",
             "ctf": "contrafactum",
@@ -10310,9 +10291,9 @@
             "cto": "cento",
             "ctp": "counterpoint",
             "cue": "cueca",
-            "cy#": "country music",
+            "cy ": "country music",
             "cyd": "country dance",
-            "cz#": "canzona",
+            "cz ": "canzona",
             "czn": "canzone",
             "czp": "canzone, polyphonic",
             "czs": "canzonetta spirituale",
@@ -10321,7 +10302,7 @@
             "dec": "decimino",
             "des": "descort",
             "dev": "devozione",
-            "df#": "dance form",
+            "df ": "dance form",
             "dia": "dialogue",
             "dim": "disco music",
             "din": "dramatic introduction",
@@ -10335,7 +10316,7 @@
             "dtr": "dithyramb",
             "due": "duet",
             "dui": "duo",
-            "dv#": "divertimento",
+            "dv ": "divertimento",
             "eco": "ecossaise",
             "egl": "egloga",
             "ele": "elevatio",
@@ -10352,11 +10333,11 @@
             "far": "farce",
             "fax": "fauxbordon",
             "fea": "feast",
-            "fg#": "fuga",
+            "fg ": "fuga",
             "fin": "finale",
             "fla": "flamenco",
             "fls": "flagellat song",
-            "fm#": "folk music",
+            "fm ": "folk music",
             "fmm": "masonic music",
             "fnd": "fandango",
             "fnk": "funk",
@@ -10369,7 +10350,7 @@
             "fro": "frottola",
             "frs": "fricassee",
             "fso": "folk song",
-            "ft#": "fantasia",
+            "ft ": "fantasia",
             "fum": "funeral march",
             "fur": "furiant",
             "fus": "fusion",
@@ -10382,7 +10363,7 @@
             "gig": "gigue",
             "gle": "glee",
             "glo": "gloria",
-            "gm#": "gospel song",
+            "gm ": "gospel song",
             "gop": "gopak",
             "gos": "goliard song",
             "gra": "gradual",
@@ -10400,12 +10381,12 @@
             "hpp": "hornpipe",
             "hrk": "hard rock",
             "hum": "humoresque",
-            "hy#": "hymn",
+            "hy ": "hymn",
             "hym": "hymenaios",
             "idy": "idyll",
             "imp": "imploratio",
             "imu": "impromptu",
-            "in#": "intermezzo",
+            "in ": "intermezzo",
             "inc": "invocatio",
             "ind": "intrada",
             "ing": "ingressa",
@@ -10425,7 +10406,7 @@
             "jot": "jota",
             "jub": "jubilee",
             "jus": "justiniane",
-            "jz#": "jazz",
+            "jz ": "jazz",
             "kld": "koleda",
             "kol": "kolo",
             "kra": "krakowiak",
@@ -10440,7 +10421,7 @@
             "lec": "lectio",
             "les": "leise",
             "lgu": "langaus",
-            "li#": "lied",
+            "li ": "lied",
             "lic": "licenza",
             "lid": "liturgical drama",
             "lir": "lirica",
@@ -10454,16 +10435,16 @@
             "mat": "matin",
             "maz": "mazur",
             "mmb": "mambo",
-            "mc#": "musical revue and comedy",
+            "mc ": "musical revue and comedy",
             "mcc": "macchietta",
-            "md#": "madrigale",
+            "md ": "madrigale",
             "mda": "melodrama",
             "mdc": "madrigal comedy",
             "mds": "morceau de salon",
             "mdy": "melody",
             "mgg": "maggiolata",
             "mgs": "madrigale spirituale",
-            "mi#": "minuet",
+            "mi ": "minuet",
             "mim": "military march",
             "mld": "melodie",
             "mlg": "malaguena",
@@ -10474,15 +10455,15 @@
             "mmo": "multimedia opera",
             "mng": "milonga",
             "mnh": "modinha",
-            "mo#": "motet",
+            "mo ": "motet",
             "mod": "morris dance",
             "mon": "monferrina",
             "mor": "morality",
-            "mp#": "moving picture music",
+            "mp ": "moving picture music",
             "mph": "metamorphosis",
             "mqu": "masque",
-            "mr#": "march",
-            "ms#": "mass",
+            "mr ": "march",
+            "ms ": "mass",
             "msc": "moresca",
             "msq": "masquerade",
             "mst": "mistery",
@@ -10490,16 +10471,16 @@
             "mth": "method",
             "mtp": "moto perpetuo",
             "mtz": "mutanza",
-            "mu#": "multiple forms",
+            "mu ": "multiple forms",
             "mum": "musical moment",
             "mun": "muneira",
             "mus": "musette",
             "mxx": "maxixe",
             "mym": "military music",
-            "mz#": "mazurka",
+            "mz ": "mazurka",
             "nat": "national anthem",
             "nau": "nauba",
-            "nc#": "nocturne",
+            "nc ": "nocturne",
             "nen": "nenia",
             "noe": "noel",
             "nom": "nomos",
@@ -10516,7 +10497,7 @@
             "off": "offertorium",
             "ogm": "organum",
             "ons": "onestep",
-            "op#": "opera",
+            "op ": "opera",
             "opb": "opera-ballet",
             "opc": "opera comique",
             "opf": "opera bouffe",
@@ -10524,10 +10505,10 @@
             "ops": "opera seria",
             "opt": "operetta",
             "opu": "opera buffa, comic opera",
-            "or#": "oratorio",
+            "or ": "oratorio",
             "ora": "oratio",
             "orm": "organ mass",
-            "ov#": "overture",
+            "ov ": "overture",
             "pad": "pastoral drama",
             "pae": "paean",
             "pbr": "pibroch",
@@ -10537,8 +10518,8 @@
             "pdv": "padovana",
             "pdy": "parody",
             "pev": "post evangelium",
-            "pf#": "prelude and fugue",
-            "pg#": "programme music",
+            "pf ": "prelude and fugue",
+            "pg ": "programme music",
             "pgl": "pavaniglia",
             "phy": "patriotic hymn",
             "piv": "piva",
@@ -10551,14 +10532,14 @@
             "pls": "plantation song",
             "plt": "plainte",
             "plu": "postlude",
-            "pm#": "passion music",
+            "pm ": "passion music",
             "pmk": "polka mazurka",
             "pmm": "pantomime",
             "pnk": "punk",
-            "po#": "polpnaise",
+            "po ": "polpnaise",
             "pol": "polo",
             "pot": "potpourri",
-            "pp#": "popular music",
+            "pp ": "popular music",
             "pph": "paraphrase",
             "ppo": "puppet opera",
             "prd": "prelude",
@@ -10570,16 +10551,16 @@
             "pro": "prooemium",
             "prt": "partimento",
             "prz": "prophecie",
-            "ps#": "passacaglia",
+            "ps ": "passacaglia",
             "psa": "psalm",
             "psd": "paso doble",
             "psl": "pastourelle",
             "psr": "pas redouble",
             "pst": "pastoral",
-            "pt#": "part-songs",
+            "pt ": "part-songs",
             "ptn": "pater noster",
             "ptt": "partita",
-            "pv#": "pavana",
+            "pv ": "pavana",
             "pzz": "passamezzo",
             "qdl": "quadrille",
             "qua": "quartet",
@@ -10588,9 +10569,9 @@
             "rad": "rada",
             "rao": "radio opera",
             "rap": "rap",
-            "rc#": "rock music",
+            "rc ": "rock music",
             "rct": "recit",
-            "rd#": "rondo",
+            "rd ": "rondo",
             "rde": "rondeau",
             "rdv": "ranz des vaches",
             "rdw": "redowa",
@@ -10601,13 +10582,13 @@
             "rer": "reverie",
             "res": "responsorium",
             "rev": "revue",
-            "rg#": "ragtime",
+            "rg ": "ragtime",
             "rgg": "reggae",
             "rgl": "reigenlied",
             "rgr": "ruggiero",
             "rhb": "rhythm and blues",
             "rhl": "rheinlander",
-            "ri#": "ricercare",
+            "ri ": "ricercare",
             "rig": "rigaudon",
             "ris": "rispetto",
             "rit": "ritornello",
@@ -10616,8 +10597,8 @@
             "rmy": "religious melody",
             "rmz": "romanza",
             "rot": "rota",
-            "rp#": "rapsodia",
-            "rq#": "requiem mass",
+            "rp ": "rapsodia",
+            "rq ": "requiem mass",
             "rsc": "romanesca",
             "rsp": "raspa",
             "rtg": "rotruenge",
@@ -10644,11 +10625,11 @@
             "sev": "sevillana",
             "sex": "sextet",
             "sft": "sinfonietta",
-            "sg#": "song",
+            "sg ": "song",
             "sgl": "seguidilla",
             "sha": "shanty",
             "shm": "shimmy",
-            "si#": "sinfonia",
+            "si ": "sinfonia",
             "sic": "siciliana",
             "ska": "ska",
             "skt": "sketch",
@@ -10658,38 +10639,38 @@
             "slt": "saltarello",
             "smb": "samba",
             "sml": "psalmellus",
-            "sn#": "sonata",
+            "sn ": "sonata",
             "snd": "serenade",
             "snt": "serenata",
             "sol": "solfeggio",
-            "sp#": "symponic poem",
+            "sp ": "symponic poem",
             "spi": "spirituals",
             "sps": "social and political song, prison song, emigrant song, work song",
             "spt": "septet",
-            "sq#": "square dance",
+            "sq ": "square dance",
             "srb": "sarabande",
             "srd": "sardana",
             "srm": "sarum",
             "srv": "sirventes",
             "ssp": "singspiel",
             "sss": "seises",
-            "st#": "study / exercise",
+            "st ": "study / exercise",
             "ste": "schottiche",
             "sth": "schottisch",
             "sto": "stornello",
             "str": "strambotto",
             "sts": "strathspey",
             "stt": "saltarello tedesco",
-            "su#": "suite",
+            "su ": "suite",
             "swi": "swing",
             "sww": "song without words",
-            "sy#": "symphony",
+            "sy ": "symphony",
             "syc": "sinfonia concertante",
             "syd": "sinfonia dramatique",
             "sym": "symbolum",
             "syo": "syomyo",
             "tar": "tarantella",
-            "tc#": "toccata",
+            "tc ": "toccata",
             "tcn": "trecanum",
             "tct": "tricotet",
             "tdn": "triodion",
@@ -10719,7 +10700,7 @@
             "trs": "treatise",
             "trt": "transitorium",
             "trz": "trezza",
-            "ts#": "trio",
+            "ts ": "trio",
             "ttt": "tattoo",
             "tum": "tumba",
             "tvo": "television opera",
@@ -10733,7 +10714,7 @@
             "vnz": "veneziana",
             "voc": "vocalise",
             "vol": "volta",
-            "vr#": "variation",
+            "vr ": "variation",
             "vra": "verse, alleluia",
             "vrg": "verse, gradual",
             "vri": "verse, introit",
@@ -10745,7 +10726,7 @@
             "wem": "wedding march",
             "wom": "world music",
             "wsg": "war song",
-            "wz#": "waltz",
+            "wz ": "waltz",
             "yar": "yaravi",
             "zam": "zamacueca",
             "zap": "zapateado",
@@ -10754,7 +10735,7 @@
             "zop": "zoppa",
             "zor": "zortziko",
             "zwi": "zwiefacher",
-            "zz#": "other form"
+            "zz ": "other form"
           }
         },
         "b": {
@@ -10862,8 +10843,7 @@
               }
             },
             "04-06": {
-              "label": "Specific reduction ratio",
-              "// remark": "If a value is given, right justify with zero fill. If a single digit is missing, replace by 'u'. If the ratio is unknown, fill with blanks.",
+              "label": "Specific reduction ratio // comment If a value is given, right justify with zero fill. If a single digit is missing, replace by 'u'. If the ratio is unknown, fill with blanks.",
               "start": 4,
               "end": 6
             },
@@ -12783,7 +12763,7 @@
               "label": "Sound",
               "start": 4,
               "codes": {
-                "#": "No sound (silent)",
+                " ": "No sound (silent)",
                 "a": "Sound on medium",
                 "u": "Unknown"
               }
@@ -12793,7 +12773,6 @@
               "start": 5,
               "end": 7,
               "codes": {
-                "// remark": "001-999 = Exact bit depth",
                 "001-999": "Exact bit depth",
                 "mmm": "Multiple (more than one image type)",
                 "nnn": "Not applicable",
@@ -12892,7 +12871,7 @@
                 "o": "genealogical tables",
                 "y": "no illustrations",
                 "z": "other",
-                "#": "(blank) - value position not needed"
+                " ": "(blank) - value position not needed"
               }
             },
             "04-07": {
@@ -12912,7 +12891,7 @@
                 "o": "genealogical tables",
                 "y": "no illustrations",
                 "z": "other",
-                "#": "(blank) - value position not needed"
+                " ": "(blank) - value position not needed"
               }
             },
             "08": {
@@ -12927,7 +12906,7 @@
                 "u": "unknown",
                 "v": "mixed",
                 "z": "other",
-                "#": "(blank) - value position not needed"
+                " ": "(blank) - value position not needed"
               }
             },
             "09-16": {
@@ -12964,7 +12943,7 @@
                 "ma": "recreations",
                 "na": "version of a work",
                 "zz": "other",
-                "##": "(blanks) - value positions not needed"
+                "  ": "(blanks) - value positions not needed"
               }
             },
             "17-18": {
@@ -13039,7 +13018,7 @@
                 "d": "wood-pulp paper",
                 "e": "parchment, vellum",
                 "z": "other",
-                "#": "(blank) - value position not needed"
+                " ": "(blank) - value position not needed"
               }
             },
             "22": {
@@ -13102,7 +13081,7 @@
                 "h": "unbound",
                 "u": "unknown",
                 "z": "other",
-                "#": "(blank) - information not required"
+                " ": "(blank) - information not required"
               }
             },
             "03": {
@@ -13121,7 +13100,7 @@
                 "l": "restored non-original",
                 "u": "unknown",
                 "z": "other",
-                "#": "information not required"
+                " ": "information not required"
               }
             },
             "04": {
@@ -13145,7 +13124,7 @@
                 "g": "restored",
                 "u": "unknown",
                 "z": "other",
-                "#": "information not required"
+                " ": "information not required"
               }
             },
             "06-07": {
@@ -13161,7 +13140,7 @@
                 "g": "restored",
                 "u": "unknown",
                 "z": "other",
-                "#": "(blank) - information not required"
+                " ": "(blank) - information not required"
               }
             }
           }
@@ -13171,11 +13150,10 @@
           "repeatable": false,
           "positions": {
             "00-01": {
-              "label": "Primary binding material",
+              "label": "Primary binding material // comment  If the code in subfield $a/0-2 is “a” or “b”more specific codes below could be used.",
               "start": 0,
               "end": 1,
               "codes": {
-                "// remark": " If the code in subfield $a/0-2 is “a” or “b”more specific codes below could be used.",
                 "aa": "Parchment",
                 "ab": "Vellum",
                 "ac": "Calfskin",
@@ -13226,11 +13204,10 @@
               }
             },
             "02-03": {
-              "label": "Secondary binding material",
+              "label": "Secondary binding material // comment  If the code in subfield $a/0-2 is “a” or “b”more specific codes below could be used.",
               "start": 2,
               "end": 3,
               "codes": {
-                "// remark": " If the code in subfield $a/0-2 is “a” or “b”more specific codes below could be used.",
                 "aa": "Parchment",
                 "ab": "Vellum",
                 "ac": "Calfskin",
@@ -13284,7 +13261,7 @@
               "label": "Binding decoration",
               "start": 4,
               "codes": {
-                "#": "Information not available",
+                " ": "Information not available",
                 "a": "Gold tooling",
                 "b": "Silver tooling",
                 "c": "Blind tooling",
@@ -13297,7 +13274,7 @@
               "label": "Decoration motifs",
               "start": 5,
               "codes": {
-                "#": "Information not available",
+                " ": "Information not available",
                 "a": "geometric",
                 "b": "anthropomorphic",
                 "c": "floral",
@@ -13314,7 +13291,7 @@
               "label": "Binding pieces",
               "start": 6,
               "codes": {
-                "#": "Information not available",
+                " ": "Information not available",
                 "a": "Toggles or ties",
                 "b": "Buckles",
                 "c": "Fastenings",
@@ -13330,7 +13307,7 @@
               "label": "Boards",
               "start": 7,
               "codes": {
-                "#": "Information not available",
+                " ": "Information not available",
                 "a": "Wood",
                 "b": "Paper",
                 "c": "Pasteboard",
@@ -13345,7 +13322,7 @@
           "label": "Age",
           "repeatable": false,
           "codelist": {
-            "#": "Information not available",
+            " ": "Information not available",
             "a": "earlier then 10th Century",
             "b": "10th-14th Century",
             "c": "15th Century",
@@ -13381,7 +13358,7 @@
                 "k": "deformation",
                 "l": "torn leaf/leaves",
                 "u": "unknown",
-                "#": "information not required"
+                " ": "information not required"
               }
             }
           }
@@ -13401,7 +13378,7 @@
                 "d": "pencil or pen made ornamental drawing",
                 "e": "paint-brush made illustrations",
                 "u": "unknown",
-                "#": "information not required"
+                " ": "information not required"
               }
             },
             "03-05": {
@@ -13418,7 +13395,7 @@
                 "g": "hand written indications of data",
                 "h": "non-ornamental sketches or drawing",
                 "u": "unknown",
-                "#": "information not required"
+                " ": "information not required"
               }
             }
           }
@@ -13445,7 +13422,7 @@
                 "k": "deformation",
                 "l": "torn leaf/leaves",
                 "u": "unknown",
-                "#": "information not required"
+                " ": "information not required"
               }
             }
           }
@@ -13471,7 +13448,7 @@
       "indicator2": {
         "label": "Alternative medium indicator",
         "codes": {
-          "#": "not applicable",
+          " ": "not applicable",
           "1": "alternative medium of performance"
         }
       },
@@ -13823,12 +13800,11 @@
                 "zzz": "performer - other"
               }
             },
-            "05-07": {
+            "05-06": {
               "label": "Suffix",
               "start": 5,
-              "end": 7,
+              "end": 6,
               "codes": {
-                "// remark": "these repeated keys will have to be addressed",
                 "0": "tenth",
                 "1": "eleventh",
                 "2": "twelfth",
@@ -13862,14 +13838,20 @@
                 "w": "two players on one instrument",
                 "x": "electronic ",
                 "y": "ethinc, traditional",
-                "z": "prepared",
-                "#": "not specified – position not required",
+                "z": "prepared"
+              }
+            },
+            "07": {
+              "label": "Suffix",
+              "start": 7,
+              "codes": {
                 "1-9": "internal group identifier",
-                "//0": "internal group indicator (order of group notspecified)",
-                "//a": "solo (as opposite to non-soloinstruments/voices)",
-                "//b": "ad libitum",
-                "//c": "may take pace of the preceding code / alternative",
-                "//d": "used by the same player as the preceding code"
+                "0": "internal group indicator (order of group notspecified)",
+                "a": "solo (as opposite to non-soloinstruments/voices)",
+                "b": "ad libitum",
+                "c": "may take pace of the preceding code / alternative",
+                "d": "used by the same player as the preceding code",
+                " ": "not specified – position not required"
               }
             }
           }
@@ -13915,12 +13897,11 @@
                 "ozz": "orchestra - other"
               }
             },
-            "05-07": {
+            "05-06": {
               "label": "Suffix",
               "start": 5,
-              "end": 7,
+              "end": 6,
               "codes": {
-                "// remark": "these repeated keys will have to be addressed",
                 "0": "tenth",
                 "1": "eleventh",
                 "2": "twelfth",
@@ -13954,14 +13935,20 @@
                 "w": "two players on one instrument",
                 "x": "electronic ",
                 "y": "ethinc, traditional",
-                "z": "prepared",
-                "#": "not specified – position not required",
+                "z": "prepared"
+              }
+            },
+            "07": {
+              "label": "Suffix",
+              "start": 7,
+              "codes": {
                 "1-9": "internal group identifier",
-                "//0": "internal group indicator (order of group notspecified)",
-                "//a": "solo (as opposite to non-soloinstruments/voices)",
-                "//b": "ad libitum",
-                "//c": "may take pace of the preceding code / alternative",
-                "//d": "used by the same player as the preceding code"
+                "0": "internal group indicator (order of group notspecified)",
+                "a": "solo (as opposite to non-soloinstruments/voices)",
+                "b": "ad libitum",
+                "c": "may take pace of the preceding code / alternative",
+                "d": "used by the same player as the preceding code",
+                " ": "not specified – position not required"
               }
             }
           }
@@ -14007,12 +13994,11 @@
                 "ozz": "orchestra - other"
               }
             },
-            "05-07": {
+            "05-06": {
               "label": "Suffix",
               "start": 5,
-              "end": 7,
+              "end": 6,
               "codes": {
-                "// remark": "these repeated keys will have to be addressed",
                 "0": "tenth",
                 "1": "eleventh",
                 "2": "twelfth",
@@ -14046,14 +14032,20 @@
                 "w": "two players on one instrument",
                 "x": "electronic ",
                 "y": "ethinc, traditional",
-                "z": "prepared",
-                "#": "not specified – position not required",
+                "z": "prepared"
+              }
+            },
+            "07": {
+              "label": "Suffix",
+              "start": 7,
+              "codes": {
                 "1-9": "internal group identifier",
-                "//0": "internal group indicator (order of group notspecified)",
-                "//a": "solo (as opposite to non-soloinstruments/voices)",
-                "//b": "ad libitum",
-                "//c": "may take pace of the preceding code / alternative",
-                "//d": "used by the same player as the preceding code"
+                "0": "internal group indicator (order of group notspecified)",
+                "a": "solo (as opposite to non-soloinstruments/voices)",
+                "b": "ad libitum",
+                "c": "may take pace of the preceding code / alternative",
+                "d": "used by the same player as the preceding code",
+                " ": "not specified – position not required"
               }
             }
           }
@@ -14151,7 +14143,7 @@
       "indicator2": {
         "label": "Alternative medium indicator",
         "codes": {
-          "#": "Not applicable",
+          " ": "Not applicable",
           "1": "Alternative medium of performance"
         }
       },
@@ -14183,7 +14175,6 @@
               "start": 2,
               "end": 4,
               "codes": {
-                "// remark": "to be updated from http://www.urfm.braidense.it/risorse/searchmedium_en.php",
                 "val": "alto",
                 "vbr": "baritone",
                 "vbs": "bass",
@@ -14509,7 +14500,7 @@
               "label": "Other details - Tessitura, prepared",
               "start": 5,
               "codes": {
-                "#": "not specified - position not required",
+                " ": "not specified - position not required",
                 "a": "sopranino",
                 "b": "soprano ",
                 "c": "alto",
@@ -14529,7 +14520,7 @@
               "label": "Other details - Number of hands / players; Keys of pitched instruments",
               "start": 6,
               "codes": {
-                "#": "not specified - position not required",
+                " ": "not specified - position not required",
                 "1": "one hand",
                 "2": "two players on one instrument",
                 "3": "three hands",
@@ -14556,7 +14547,7 @@
               "label": "Other details - Other",
               "start": 7,
               "codes": {
-                "#": "not specified - position not required",
+                " ": "not specified - position not required",
                 "r": "electric",
                 "s": "electronic",
                 "t": "midi",
@@ -14570,7 +14561,7 @@
               "label": "Other details - Position 8",
               "start": 8,
               "codes": {
-                "#": "not specified – position not required",
+                " ": "not specified – position not required",
                 "b": "ad libitum",
                 "c": "may take place of the preceding code / alternative",
                 "d": "used by the same player as the preceding code"
@@ -14592,7 +14583,6 @@
               "start": 2,
               "end": 4,
               "codes": {
-                "// remark": "to be updated from http://www.urfm.braidense.it/risorse/searchmedium_en.php",
                 "val": "alto",
                 "vbr": "baritone",
                 "vbs": "bass",
@@ -14918,7 +14908,7 @@
               "label": "Other details - Tessitura, prepared",
               "start": 5,
               "codes": {
-                "#": "not specified - position not required",
+                " ": "not specified - position not required",
                 "a": "sopranino",
                 "b": "soprano ",
                 "c": "alto",
@@ -14938,7 +14928,7 @@
               "label": "Other details - Number of hands / players; Keys of pitched instruments",
               "start": 6,
               "codes": {
-                "#": "not specified - position not required",
+                " ": "not specified - position not required",
                 "1": "one hand",
                 "2": "two players on one instrument",
                 "3": "three hands",
@@ -14965,7 +14955,7 @@
               "label": "Other details - Other",
               "start": 7,
               "codes": {
-                "#": "not specified - position not required",
+                " ": "not specified - position not required",
                 "r": "electric",
                 "s": "electronic",
                 "t": "midi",
@@ -14979,7 +14969,7 @@
               "label": "Other details - Position 8",
               "start": 8,
               "codes": {
-                "#": "not specified – position not required",
+                " ": "not specified – position not required",
                 "b": "ad libitum",
                 "c": "may take place of the preceding code / alternative",
                 "d": "used by the same player as the preceding code"
@@ -15037,7 +15027,7 @@
               "label": "Other details - Other",
               "start": 7,
               "codes": {
-                "#": "not specified - position not required",
+                " ": "not specified - position not required",
                 "r": "electric",
                 "s": "electronic",
                 "t": "midi",
@@ -15051,7 +15041,7 @@
               "label": "Other details - Position 8",
               "start": 8,
               "codes": {
-                "#": "not specified – position not required",
+                " ": "not specified – position not required",
                 "b": "ad libitum",
                 "c": "may take place of the preceding code / alternative",
                 "d": "used by the same player as the preceding code"
@@ -15073,7 +15063,6 @@
               "start": 2,
               "end": 4,
               "codes": {
-                "// remark": "to be updated from http://www.urfm.braidense.it/risorse/searchmedium_en.php",
                 "val": "alto",
                 "vbr": "baritone",
                 "vbs": "bass",
@@ -15399,7 +15388,7 @@
               "label": "Other details - Tessitura, prepared",
               "start": 5,
               "codes": {
-                "#": "not specified - position not required",
+                " ": "not specified - position not required",
                 "a": "sopranino",
                 "b": "soprano ",
                 "c": "alto",
@@ -15419,7 +15408,7 @@
               "label": "Other details - Number of hands / players; Keys of pitched instruments",
               "start": 6,
               "codes": {
-                "#": "not specified - position not required",
+                " ": "not specified - position not required",
                 "1": "one hand",
                 "2": "two players on one instrument",
                 "3": "three hands",
@@ -15446,7 +15435,7 @@
               "label": "Other details - Other",
               "start": 7,
               "codes": {
-                "#": "not specified - position not required",
+                " ": "not specified - position not required",
                 "r": "electric",
                 "s": "electronic",
                 "t": "midi",
@@ -15460,7 +15449,7 @@
               "label": "Other details - Position 8",
               "start": 8,
               "codes": {
-                "#": "not specified – position not required",
+                " ": "not specified – position not required",
                 "b": "ad libitum",
                 "c": "may take place of the preceding code / alternative",
                 "d": "used by the same player as the preceding code"
@@ -15482,7 +15471,6 @@
               "start": 2,
               "end": 4,
               "codes": {
-                "// remark": "to be updated from http://www.urfm.braidense.it/risorse/searchmedium_en.php",
                 "wau": "aulos",
                 "wba": "bassoon",
                 "wbh": "basset-horn",
@@ -15771,7 +15759,7 @@
               "label": "Other details - Tessitura, prepared",
               "start": 5,
               "codes": {
-                "#": "not specified - position not required",
+                " ": "not specified - position not required",
                 "a": "sopranino",
                 "b": "soprano ",
                 "c": "alto",
@@ -15791,7 +15779,7 @@
               "label": "Other details - Number of hands / players; Keys of pitched instruments",
               "start": 6,
               "codes": {
-                "#": "not specified - position not required",
+                " ": "not specified - position not required",
                 "1": "one hand",
                 "2": "two players on one instrument",
                 "3": "three hands",
@@ -15818,7 +15806,7 @@
               "label": "Other details - Other",
               "start": 7,
               "codes": {
-                "#": "not specified - position not required",
+                " ": "not specified - position not required",
                 "r": "electric",
                 "s": "electronic",
                 "t": "midi",
@@ -15832,7 +15820,7 @@
               "label": "Other details - Position 8",
               "start": 8,
               "codes": {
-                "#": "not specified – position not required",
+                " ": "not specified – position not required",
                 "b": "ad libitum",
                 "c": "may take place of the preceding code / alternative",
                 "d": "used by the same player as the preceding code"
@@ -15847,7 +15835,7 @@
             "00-02": {
               "label": "Number of Parts",
               "start": 0,
-              "end": 1
+              "end": 2
             },
             "03": {
               "label": "Category",
@@ -15884,7 +15872,7 @@
             "00-02": {
               "label": "Number of Players",
               "start": 0,
-              "end": 1
+              "end": 2
             },
             "03": {
               "label": "Category",
@@ -15925,7 +15913,7 @@
       "indicator2": {
         "label": "ISBD Display Indicator",
         "codes": {
-          "#": "Information not provided, use when the field contains $c.",
+          " ": "Information not provided, use when the field contains $c.",
           "0": "Not used to generate displays",
           "1": "Used to generate displays"
         }
@@ -15961,7 +15949,7 @@
                 "2": "substantial",
                 "3": "predominate",
                 "4": "full",
-                "#": "position not used"
+                " ": "position not used"
               }
             }
           }
@@ -15978,7 +15966,7 @@
                 "b": "performed",
                 "c": "cartographic",
                 "x": "not applicable",
-                "#": "position not used"
+                " ": "position not used"
               }
             },
             "01": {
@@ -15988,7 +15976,7 @@
                 "a": "moving",
                 "b": "still",
                 "x": "not applicable",
-                "#": "position not used"
+                " ": "position not used"
               }
             },
             "02": {
@@ -15998,7 +15986,7 @@
                 "2": "two-dimensional",
                 "3": "three-dimensional",
                 "x": "not applicable Resource is not an image.",
-                "#": "position not used"
+                " ": "position not used"
               }
             },
             "03-05": {
@@ -16011,7 +15999,7 @@
                 "c": "olfactory",
                 "d": "tactile",
                 "e": "visual",
-                "#": "position not used"
+                " ": "position not used"
               }
             }
           }
@@ -16039,7 +16027,7 @@
       "indicator2": {
         "label": "ISBD Display Indicator",
         "codes": {
-          "#": "Information not provided, use when the field contains $c.",
+          " ": "Information not provided, use when the field contains $c.",
           "0": "Not used to generate displays",
           "1": "Used to generate displays"
         }
@@ -16090,7 +16078,7 @@
       "indicator2": {
         "label": "Display Indicator",
         "codes": {
-          "#": "Information not provided, use when the field contains $c.",
+          " ": "Information not provided, use when the field contains $c.",
           "0": "Not used to generate displays",
           "1": "Used to generate displays"
         }
@@ -16697,8 +16685,7 @@
       "indicator2": null,
       "subfields": {
         "a": {
-          "// remark": "Terms defined for ISBD Content Form element must be used.",
-          "label": "Content form",
+          "label": "Content form // comment Terms defined for ISBD Content Form element must be used.",
           "repeatable": true,
           "codelist": {
             "a": "dataset",
@@ -16715,8 +16702,7 @@
           }
         },
         "b": {
-          "// remark": "Terms defined for ISBD Content Qualification sub-element must be used.",
-          "label": "Contentqualification",
+          "label": "Content qualification // comment Terms defined for ISBD Content Qualification sub-element must be used.",
           "repeatable": true,
           "codelist": {
             "a": "notated",
@@ -16725,8 +16711,7 @@
           }
         },
         "c": {
-          "// remark": "Terms defined for ISBD Media Type element must be used.",
-          "label": "Media type",
+          "label": "Media type // comment Terms defined for ISBD Media Type element must be used.",
           "repeatable": false,
           "codelist": {
             "a": "audio",
@@ -16795,7 +16780,7 @@
       "indicator1": {
         "label": "Formatting Indicator",
         "codes": {
-          "#": "Unstructured",
+          " ": "Unstructured",
           "0": "Structured"
         }
       },
@@ -16877,7 +16862,7 @@
       "indicator1": {
         "label": "Sequence of publication data",
         "codes": {
-          "#": "Not applicable / Earliest available publisher",
+          " ": "Not applicable / Earliest available publisher",
           "0": "Intervening publisher",
           "1": "Current or latest publisher"
         }
@@ -16885,7 +16870,7 @@
       "indicator2": {
         "label": "Type of release",
         "codes": {
-          "#": "Produced in multiple copies, usually published or publically distributed",
+          " ": "Produced in multiple copies, usually published or publically distributed",
           "1": "Not published or publically distributed"
         }
       },
@@ -16946,7 +16931,7 @@
       "indicator1": {
         "label": "Sequence of publication data",
         "codes": {
-          "#": "Not applicable/No information provided/Earliest available",
+          " ": "Not applicable/No information provided/Earliest available",
           "0": "Intervening",
           "1": "Current or latest"
         }
@@ -16954,7 +16939,7 @@
       "indicator2": {
         "label": "Type of statement",
         "codes": {
-          "#": "blank (not defined)",
+          " ": "blank (not defined)",
           "0": "Publication",
           "1": "Production",
           "2": "Distribution",
@@ -17662,7 +17647,7 @@
       "indicator1": {
         "label": "Description Level",
         "codes": {
-          "#": "Unspecified",
+          " ": "Unspecified",
           "0": "Numismatic type",
           "1": "Numismatic item"
         }
@@ -17670,7 +17655,7 @@
       "indicator2": {
         "label": "Part of the Numismatic Resource",
         "codes": {
-          "#": "Unspecified/other",
+          " ": "Unspecified/other",
           "1": "Obverse",
           "2": "Reverse",
           "3": "Edge"
@@ -18195,7 +18180,7 @@
       "indicator1": {
         "label": "Original / Reproduction indicator",
         "codes": {
-          "#": "The item in hand is a reproduction; the note describes that reproduction",
+          " ": "The item in hand is a reproduction; the note describes that reproduction",
           "1": "The item in hand is an original; the note describes an available reproduction"
         }
       },
@@ -18233,7 +18218,7 @@
       "indicator1": {
         "label": "Completeness indicator",
         "codes": {
-          "#": "Undetermined",
+          " ": "Undetermined",
           "0": "Contents note is not complete",
           "1": "Contents note is complete",
           "2": "Contents note is parcial"
@@ -18242,7 +18227,7 @@
       "indicator2": {
         "label": "Structure indicator",
         "codes": {
-          "#": "Unstructured note",
+          " ": "Unstructured note",
           "1": "Structured note"
         }
       },
@@ -18306,7 +18291,7 @@
       "indicator2": {
         "label": "Structure indicator",
         "codes": {
-          "#": "No information available",
+          " ": "No information available",
           "0": "Structured",
           "1": "Not structured"
         }
@@ -18706,7 +18691,7 @@
       "indicator2": {
         "label": "Structure indicator",
         "codes": {
-          "#": "Unstructured note",
+          " ": "Unstructured note",
           "1": "Structured note"
         }
       },
@@ -18805,7 +18790,7 @@
       "indicator1": {
         "label": "Element",
         "codes": {
-          "#": "Not specified / other",
+          " ": "Not specified / other",
           "0": "Monogram",
           "1": "Die",
           "2": "Punch",
@@ -18815,7 +18800,7 @@
       "indicator2": {
         "label": "Part of the Numismatic Resource Described",
         "codes": {
-          "#": "Not specified / other",
+          " ": "Not specified / other",
           "1": "Obverse",
           "2": "Reverse",
           "3": "Edge"
@@ -18844,7 +18829,7 @@
       "indicator1": {
         "label": "Type of note",
         "codes": {
-          "#": "Information not provided",
+          " ": "Information not provided",
           "0": "Access note",
           "1": "Use and reproduction note",
           "3": "Control mark"
@@ -26386,7 +26371,7 @@
       "indicator2": {
         "label": "Structure Indicator",
         "codes": {
-          "#": "Not applicable (embedded fields technique) or No information available (standard subfields technique)",
+          " ": "Not applicable (embedded fields technique) or No information available (standard subfields technique)",
           "0": "Unstructured title (standard subfields technique)",
           "1": "Structured title (standard subfields technique)"
         }
@@ -26481,7 +26466,7 @@
       "indicator2": {
         "label": "Structure Indicator",
         "codes": {
-          "#": "Not applicable (embedded fields technique) or No information available (standard subfields technique)",
+          " ": "Not applicable (embedded fields technique) or No information available (standard subfields technique)",
           "0": "Unstructured title (standard subfields technique)",
           "1": "Structured title (standard subfields technique)"
         }
@@ -26929,10 +26914,9 @@
       "indicator2": null,
       "subfields": {
         "1": {
-          "label": "Linking data",
+          "label": "Linking data // comment This subfield and the following subfields are MUTUALLY EXCLUSIVE",
           "repeatable": true
         },
-        "// remark": "the previous and the following subfields are MUTUALLY EXCLUSIVE",
         "a": {
           "label": "Entry Element Name",
           "repeatable": false
@@ -27599,7 +27583,7 @@
       "indicator1": {
         "label": "Type of data",
         "codes": {
-          "#": "Publication or production",
+          " ": "Publication or production",
           "1": "Performance",
           "2": "First performance",
           "3": "Recording",
@@ -27611,7 +27595,7 @@
       "indicator2": {
         "label": "Presence of data on source",
         "codes": {
-          "#": "Not applicable / unknown",
+          " ": "Not applicable / unknown",
           "0": "Data not present on source",
           "1": "Data present on source"
         }
@@ -27687,7 +27671,7 @@
       "indicator1": {
         "label": "Type of data",
         "codes": {
-          "#": "Publication or production",
+          " ": "Publication or production",
           "1": "Performance",
           "2": "First performance",
           "3": "Recording",
@@ -27699,7 +27683,7 @@
       "indicator2": {
         "label": "Presence of data on source",
         "codes": {
-          "#": "Not applicable / unknown",
+          " ": "Not applicable / unknown",
           "0": "Data not present on source",
           "1": "Data present on source"
         }
@@ -33457,7 +33441,7 @@
       "indicator1": {
         "label": "Shelving scheme",
         "codes": {
-          "#": "No information available",
+          " ": "No information available",
           "0": "Classification scheme (specified in subfield $2)",
           "1": "Fixed location",
           "2": "Sequential number",
@@ -33469,7 +33453,7 @@
       "indicator2": {
         "label": "Shelving order",
         "codes": {
-          "#": "No information available",
+          " ": "No information available",
           "0": "No enumeration",
           "1": "Primary enumeration",
           "2": "Alternative enumeration"
@@ -33809,7 +33793,7 @@
       "indicator1": {
         "label": "Access Method",
         "codes": {
-          "#": "No information provided",
+          " ": "No information provided",
           "0": "Email",
           "1": "FTP",
           "2": "Remote login (Telnet)",

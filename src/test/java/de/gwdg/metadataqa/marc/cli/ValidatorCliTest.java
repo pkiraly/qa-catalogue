@@ -374,20 +374,19 @@ public class ValidatorCliTest extends CliTestUtils {
 
     List<String> lines = getFileLines("issue-details.csv");
     assertEquals("recordId,errors", lines.get(0).trim());
-    assertEquals(",1:1;2:1;3:3;4:1;5:6", lines.get(1).trim());
+    assertEquals(",1:1;2:1;3:3;4:1;5:1;6:1;7:6", lines.get(1).trim());
 
     lines = getFileLines("issue-summary.csv");
-    // Print all lines
-    for (String line : lines) {
-      System.out.println(line);
-    }
+    assertEquals(8, lines.size());
 
     assertEquals("id,MarcPath,categoryId,typeId,type,message,url,instances,records", lines.get(0).trim());
     assertEquals("2,005,2,6,invalid value,The field value does not match the expected pattern in '20191011224100.000',https://www.loc.gov/marc/bibliographic/bd005.html,1,1", lines.get(1).trim());
     assertEquals("1,359,3,9,undefined field,359,,1,1", lines.get(2).trim());
-    assertEquals("4,410$ind2,4,12,invalid value,|,,1,1", lines.get(3).trim());
-    assertEquals("5,606$ind1,4,12,invalid value, ,,6,1", lines.get(4).trim());
+    assertEquals("6,410$ind2,4,12,invalid value,|,,1,1", lines.get(3).trim());
+    assertEquals("7,606$ind1,4,12,invalid value, ,,6,1", lines.get(4).trim());
     assertEquals("3,035,5,13,undefined subfield,9,,3,1", lines.get(5).trim());
+    assertEquals("4,181$a/01,5,22,invalid value,invalid code for 'Extent of Applicability': '#' at position 01 in 'i#',,1,1", lines.get(6).trim());
+    assertEquals("5,181$b/03-05,5,22,invalid value,invalid code for 'Sensory Specification': 'e##' at position 03-05 in 'xxxe##',,1,1", lines.get(7).trim());
 
     lines = getFileLines("issue-by-category.csv");
     assertEquals(5, lines.size());
@@ -395,23 +394,24 @@ public class ValidatorCliTest extends CliTestUtils {
     assertEquals("2,control field,1,1", lines.get(1).trim());
     assertEquals("3,data field,1,1", lines.get(2).trim());
     assertEquals("4,indicator,7,1", lines.get(3).trim());
-    assertEquals("5,subfield,3,1", lines.get(4).trim());
+    assertEquals("5,subfield,5,1", lines.get(4).trim());
 
     lines = getFileLines("issue-by-type.csv");
-    assertEquals(5, lines.size());
+    assertEquals(6, lines.size());
     assertEquals("id,categoryId,category,type,instances,records", lines.get(0).trim());
     assertEquals("6,2,control field,invalid value,1,1", lines.get(1).trim());
     assertEquals("9,3,data field,undefined field,1,1", lines.get(2).trim());
     assertEquals("12,4,indicator,invalid value,7,1", lines.get(3).trim());
     assertEquals("13,5,subfield,undefined subfield,3,1", lines.get(4).trim());
+    assertEquals("22,5,subfield,invalid value,2,1", lines.get(5).trim());
 
     // Won't check issue-collector.csv as it there are no record ids
 
     lines = getFileLines("issue-total.csv");
     assertEquals(3, lines.size());
     assertEquals("type,instances,records", lines.get(0).trim());
-    assertEquals("1,12,1", lines.get(1).trim());
-    assertEquals("2,11,1", lines.get(2).trim());
+    assertEquals("1,14,1", lines.get(1).trim());
+    assertEquals("2,13,1", lines.get(2).trim());
 
     lines = getFileLines("count.csv");
     assertEquals(2, lines.size());

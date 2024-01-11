@@ -2,8 +2,11 @@ package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
+import de.gwdg.metadataqa.marc.analysis.thompsontraill.Marc21ThompsonTraillAnalysis;
+import de.gwdg.metadataqa.marc.analysis.thompsontraill.PicaThompsonTraillAnalysis;
+import de.gwdg.metadataqa.marc.analysis.thompsontraill.ThompsonTraillAnalysis;
+import de.gwdg.metadataqa.marc.analysis.thompsontraill.ThompsonTraillFields;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
-import de.gwdg.metadataqa.marc.dao.record.PicaRecord;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,11 +23,15 @@ import static org.junit.Assert.assertNotNull;
 public class ThompsonTraillAnalysisTest {
 
   BibliographicRecord marcRecord;
+  ThompsonTraillAnalysis thompsonTraillAnalysis;
 
   @Before
   public void setup() throws IOException, URISyntaxException {
     List<String> lines = FileUtils.readLinesFromResource("marctxt/010000011.mrctxt");
     marcRecord = MarcFactory.createFromFormattedText(lines);
+
+    // Default thompsonTraillAnalysis is Marc21ThompsonTraillAnalysis
+    thompsonTraillAnalysis = new Marc21ThompsonTraillAnalysis();
   }
 
   @Test
@@ -37,7 +44,7 @@ public class ThompsonTraillAnalysisTest {
         "classification-gnd", "classification-other", "online", "language-of-resource",
         "country-of-publication", "no-language-or-english", "rda", "total"
       ),
-      ThompsonTraillAnalysis.getHeader()
+        thompsonTraillAnalysis.getHeader()
     );
   }
 
@@ -48,16 +55,16 @@ public class ThompsonTraillAnalysisTest {
       + "date-008,date-26x,classification-lc-nlm,classification-loc,classification-mesh,"
       + "classification-fast,classification-gnd,classification-other,online,"
       + "language-of-resource,country-of-publication,no-language-or-english,rda,total\n",
-      createRow(ThompsonTraillAnalysis.getHeader()))
+      createRow(thompsonTraillAnalysis.getHeader()))
     ;
-    createRow(ThompsonTraillAnalysis.getHeader());
+    createRow(thompsonTraillAnalysis.getHeader());
   }
 
   @Test
   public void getScores() {
     assertEquals(
       Arrays.asList(0, 0, 0, 0, 1, 4, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 9),
-      ThompsonTraillAnalysis.getScores(marcRecord)
+        thompsonTraillAnalysis.getScores(marcRecord)
     );
   }
 
@@ -68,7 +75,7 @@ public class ThompsonTraillAnalysisTest {
 
   @Test
   public void pica() {
-    Map<ThompsonTraillFields, List<String>> map = (new PicaRecord()).getThompsonTraillTagsMap();
+    Map<ThompsonTraillFields, List<String>> map = (new PicaThompsonTraillAnalysis()).getThompsonTraillTagsMap();
     assertNotNull(map);
     assertEquals(17, map.size());
     assertEquals(List.of("004A", "004D"), map.get(ThompsonTraillFields.ISBN));

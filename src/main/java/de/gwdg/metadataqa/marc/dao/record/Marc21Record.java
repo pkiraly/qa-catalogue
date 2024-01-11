@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
 import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
-import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
 import de.gwdg.metadataqa.marc.dao.Control001;
 import de.gwdg.metadataqa.marc.dao.Control003;
 import de.gwdg.metadataqa.marc.dao.Control005;
@@ -315,13 +314,6 @@ public class Marc21Record extends MarcRecord {
   public Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap() {
     return null;
   }
-
-  @Override
-  public Map<ThompsonTraillFields, List<String>> getThompsonTraillTagsMap() {
-    return null;
-  }
-
-  @Override
   public void setField(String tag, String content, MarcVersion marcVersion) {
     if (marcVersion.equals(MarcVersion.UNIMARC)) {
       content = UnimarcConverter.contentFromUnimarc(tag, content);

@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.analysis;
+package de.gwdg.metadataqa.marc.analysis.thompsontraill;
 
 public enum ThompsonTraillFields {
   ID("id", "id"),

@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.analysis.validator;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
 import de.gwdg.metadataqa.marc.definition.general.parser.ParserException;
 import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
 
@@ -23,23 +24,14 @@ public class ControlValueValidator extends AbstractValidator {
 
     var definition = controlValue.getDefinition();
     var value = controlValue.getValue();
-    if (!definition.getValidCodes().isEmpty()
-      && (!definition.getValidCodes().contains(value)
-      && definition.getCode(value) == null)) {
+
+    boolean isAmongValidCodes = isValueAmongValidCodes(definition, value);
+
+    if (!isAmongValidCodes) {
       if (definition.isHistoricalCode(value)) {
         addError(controlValue, ValidationErrorType.CONTROL_POSITION_OBSOLETE_CODE, value);
       } else {
-        if (definition.isRepeatableContent()) {
-          int unitLength = definition.getUnitLength();
-          for (int i = 0; i < value.length(); i += unitLength) {
-            String unit = value.substring(i, i + unitLength);
-            if (!definition.getValidCodes().contains(unit)) {
-              addError(controlValue, ValidationErrorType.CONTROL_POSITION_INVALID_CODE, String.format("'%s' in '%s'", unit, value));
-            }
-          }
-        } else {
-          addError(controlValue, ValidationErrorType.CONTROL_POSITION_INVALID_VALUE, value);
-        }
+        fallbackValidateRepeatableCode(definition, controlValue, value);
       }
     }
 
@@ -55,18 +47,46 @@ public class ControlValueValidator extends AbstractValidator {
     return validationErrors.isEmpty();
   }
 
-  private void addError(ControlValue controlValue, ValidationErrorType type, String message) {
-    if (!isIgnorableType(type)) {
-      var definition = controlValue.getDefinition();
-      validationErrors.add(
-        new ValidationError(
-          ((controlValue.getMarcRecord() == null) ? null : controlValue.getMarcRecord().getId()),
-          definition.getPath(),
-          type,
-          message,
-          definition.getDescriptionUrl()
-        )
-      );
+  private boolean isValueAmongValidCodes(ControlfieldPositionDefinition definition, String value) {
+    return definition.getValidCodes().isEmpty()
+        || definition.getValidCodes().contains(value)
+        || (definition.getCode(value) != null);
+  }
+
+  /**
+   * In case the control value is repeatable, the value is split into units of the length of the unit and then each unit is validated.
+   */
+  private void fallbackValidateRepeatableCode(ControlfieldPositionDefinition definition,
+                                              ControlValue controlValue,
+                                              String value) {
+    if (!definition.isRepeatableContent()) {
+      addError(controlValue, ValidationErrorType.CONTROL_POSITION_INVALID_VALUE, value);
+      return;
     }
+
+    int unitLength = definition.getUnitLength();
+    for (int i = 0; i < value.length(); i += unitLength) {
+      String unit = value.substring(i, i + unitLength);
+      if (!definition.getValidCodes().contains(unit)) {
+        addError(controlValue, ValidationErrorType.CONTROL_POSITION_INVALID_CODE, String.format("'%s' in '%s'", unit, value));
+      }
+    }
+  }
+
+  private void addError(ControlValue controlValue, ValidationErrorType type, String message) {
+    if (isIgnorableType(type)) {
+      return;
+    }
+
+    var definition = controlValue.getDefinition();
+    validationErrors.add(
+      new ValidationError(
+        ((controlValue.getMarcRecord() == null) ? null : controlValue.getMarcRecord().getId()),
+        definition.getPath(),
+        type,
+        message,
+        definition.getDescriptionUrl()
+      )
+    );
   }
 }

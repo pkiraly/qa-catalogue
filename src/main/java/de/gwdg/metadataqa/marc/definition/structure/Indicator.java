@@ -63,6 +63,7 @@ public class Indicator {
 
   public Indicator setCodes(List<EncodedValue> codes) {
     this.codes = codes;
+    indexCodes();
     return this;
   }
 

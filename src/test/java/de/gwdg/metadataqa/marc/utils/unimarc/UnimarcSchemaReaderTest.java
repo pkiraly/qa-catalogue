@@ -29,7 +29,7 @@ public class UnimarcSchemaReaderTest {
 
     @Test
     public void createSchema_createsAllFields() {
-        assertEquals(192, schema.size());
+        assertEquals(219, schema.size());
     }
 
     /**
@@ -95,7 +95,7 @@ public class UnimarcSchemaReaderTest {
     public void createSchema_subfieldStructureIsCorrect() {
         int expectedSubfieldCount = 3;
         int expectedSubfield2CodeListSize = 56;
-        int expected100aPositionCount = 12;
+        int expected100aPositionCount = 14;
         int expected100aPosition1CodeCount = 12;
 
         UnimarcFieldDefinition lastField = schema.lookup("886");
@@ -118,8 +118,7 @@ public class UnimarcSchemaReaderTest {
         CodeList codeList = subfield2.getCodeList();
         assertNotNull(codeList);
         assertEquals(expectedSubfield2CodeListSize, codeList.getCodes().size());
-
-
+        
         UnimarcFieldDefinition field100 = schema.lookup("100");
         Map<String, SubfieldDefinition> subfieldDefinitions100 = field100.getSubfieldDefinitions();
         SubfieldDefinition subfield100a = subfieldDefinitions100.get("a");

@@ -57,8 +57,6 @@ public class UnimarcSchemaReader {
       LABEL, 1,
       CODES,1);
 
-  private static final String UNIMARC_EMPTY_CODE = "#";
-
   private final JSONParser parser = new JSONParser(JSONParser.MODE_RFC4627);
   private final UnimarcSchemaManager schema = new UnimarcSchemaManager();
 
@@ -364,17 +362,6 @@ public class UnimarcSchemaReader {
   private void addCode(List<EncodedValue> encodedValues, String code, String codeLabel) {
     EncodedValue encodedValue = new EncodedValue(code, codeLabel);
     encodedValues.add(encodedValue);
-
-    // In case of an empty code, and the empty code isn't only a whitespace, then add whitespace as well
-    // This could potentially be done within one single EncodedValue
-    // check if code marches UNIMARC_EMPTY_CODE multiple times using regex
-    boolean isUnimarcEmptyCode = code.matches("^" + UNIMARC_EMPTY_CODE + "+$");
-    if (isUnimarcEmptyCode && !code.isBlank()) {
-      // Create a whitespace of that many spaces as the empty code has characters
-      String whitespace = " ".repeat(code.length());
-      EncodedValue emptyCode = new EncodedValue(whitespace, codeLabel);
-      encodedValues.add(emptyCode);
-    }
   }
 
   /**

@@ -68,6 +68,14 @@ public class TagDefinitionLoader {
     return load(tag, MarcVersion.MARC21);
   }
 
+  /**
+   * Load tag definition for the given tag and MARC version. This is due to all MARC21 tags being
+   * defined in code, instead of being loaded from a file.
+   * @param tag Tag to load, e.g. 245
+   * @param marcVersion MARC version for which to load the tag definition, since some tags are
+   *                    defined differently in different MARC versions.
+   * @return Tag definition, or null if not found.
+   */
   public static DataFieldDefinition load(String tag, MarcVersion marcVersion) {
     Map<MarcVersion, DataFieldDefinition> map = versionedCache.get(tag);
 

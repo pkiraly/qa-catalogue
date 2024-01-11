@@ -5,8 +5,10 @@ import de.gwdg.metadataqa.marc.dao.MarcControlField;
 import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
 import de.gwdg.metadataqa.marc.dao.SimpleControlField;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
+import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ControlFieldValidator extends AbstractValidator {
 
@@ -19,19 +21,26 @@ public class ControlFieldValidator extends AbstractValidator {
   }
 
   public boolean validate(MarcControlField controlField) {
+    // Reset the validation errors on every validation
     validationErrors = new ArrayList<>();
+
     if (controlField instanceof SimpleControlField) {
       return validateSimpleControlField((SimpleControlField) controlField);
-    } else if (controlField instanceof MarcPositionalControlField) {
+    }
+    if (controlField instanceof MarcPositionalControlField) {
       return validateMarcPositionalControlField((MarcPositionalControlField) controlField);
     }
-    return validationErrors.isEmpty();
+    return true;
   }
 
   private boolean validateMarcPositionalControlField(MarcPositionalControlField controlField) {
     if (!controlField.getInitializationErrors().isEmpty()) {
-      validationErrors.addAll(filterErrors(controlField.getInitializationErrors()));
+      // Add all initialization errors which aren't ignored
+      List<ValidationError> initializationErrors = controlField.getInitializationErrors();
+      initializationErrors = filterErrors(initializationErrors);
+      validationErrors.addAll(initializationErrors);
     }
+
     ControlValueValidator validator = new ControlValueValidator(configuration);
     for (ControlValue controlValue : controlField.getValuesList()) {
       if (!validator.validate(controlValue)) {

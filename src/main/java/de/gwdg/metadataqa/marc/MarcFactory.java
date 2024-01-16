@@ -240,7 +240,7 @@ public class MarcFactory {
   public static BibliographicRecord createUnimarcFromMarc4j(Record marc4jRecord,
                                                             MarcLeader.Type defaultType,
                                                             UnimarcSchemaManager unimarcSchemaManager) {
-    var marcRecord = new UnimarcRecord();
+    var marcRecord = new UnimarcRecord(marc4jRecord.getControlNumber());
 
     if (marc4jRecord.getLeader() != null) {
       String data = marc4jRecord.getLeader().marshal();

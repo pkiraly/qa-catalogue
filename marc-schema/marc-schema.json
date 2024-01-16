@@ -11,15 +11,13 @@
           "label": "Record length",
           "url": "https://www.loc.gov/marc/bibliographic/bdleader.html",
           "start": 0,
-          "end": 4,
-          "repeatableContent": false
+          "end": 4
         },
         "05": {
           "label": "Record status",
           "url": "https://www.loc.gov/marc/bibliographic/bdleader.html",
           "start": 5,
           "end": 5,
-          "repeatableContent": false,
           "codes": {
             "a": {
               "code": "a",
@@ -48,7 +46,6 @@
           "url": "https://www.loc.gov/marc/bibliographic/bdleader.html",
           "start": 6,
           "end": 6,
-          "repeatableContent": false,
           "codes": {
             "a": {
               "code": "a",
@@ -128,7 +125,6 @@
           "url": "https://www.loc.gov/marc/bibliographic/bdleader.html",
           "start": 7,
           "end": 7,
-          "repeatableContent": false,
           "codes": {
             "a": {
               "code": "a",
@@ -170,7 +166,6 @@
           "url": "https://www.loc.gov/marc/bibliographic/bdleader.html",
           "start": 8,
           "end": 8,
-          "repeatableContent": false,
           "codes": {
             " ": {
               "code": " ",
@@ -187,7 +182,6 @@
           "url": "https://www.loc.gov/marc/bibliographic/bdleader.html",
           "start": 9,
           "end": 9,
-          "repeatableContent": false,
           "codes": {
             " ": {
               "code": " ",
@@ -204,7 +198,6 @@
           "url": "https://www.loc.gov/marc/bibliographic/bdleader.html",
           "start": 10,
           "end": 10,
-          "repeatableContent": false,
           "codes": {
             "2": {
               "code": "2",
@@ -217,7 +210,6 @@
           "url": "https://www.loc.gov/marc/bibliographic/bdleader.html",
           "start": 11,
           "end": 11,
-          "repeatableContent": false,
           "codes": {
             "2": {
               "code": "2",
@@ -229,15 +221,13 @@
           "label": "Base address of data",
           "url": "https://www.loc.gov/marc/bibliographic/bdleader.html",
           "start": 12,
-          "end": 16,
-          "repeatableContent": false
+          "end": 16
         },
         "17": {
           "label": "Encoding level",
           "url": "https://www.loc.gov/marc/bibliographic/bdleader.html",
           "start": 17,
           "end": 17,
-          "repeatableContent": false,
           "codes": {
             " ": {
               "code": " ",
@@ -296,7 +286,6 @@
           "url": "https://www.loc.gov/marc/bibliographic/bdleader.html",
           "start": 18,
           "end": 18,
-          "repeatableContent": false,
           "codes": {
             " ": {
               "code": " ",
@@ -339,7 +328,6 @@
           "url": "https://www.loc.gov/marc/bibliographic/bdleader.html",
           "start": 19,
           "end": 19,
-          "repeatableContent": false,
           "codes": {
             " ": {
               "code": " ",
@@ -374,7 +362,6 @@
           "url": "https://www.loc.gov/marc/bibliographic/bdleader.html",
           "start": 20,
           "end": 20,
-          "repeatableContent": false,
           "codes": {
             "4": {
               "code": "4",
@@ -387,7 +374,6 @@
           "url": "https://www.loc.gov/marc/bibliographic/bdleader.html",
           "start": 21,
           "end": 21,
-          "repeatableContent": false,
           "codes": {
             "5": {
               "code": "5",
@@ -400,7 +386,6 @@
           "url": "https://www.loc.gov/marc/bibliographic/bdleader.html",
           "start": 22,
           "end": 22,
-          "repeatableContent": false,
           "codes": {
             "0": {
               "code": "0",
@@ -413,7 +398,6 @@
           "url": "https://www.loc.gov/marc/bibliographic/bdleader.html",
           "start": 23,
           "end": 23,
-          "repeatableContent": false,
           "codes": {
             "0": {
               "code": "0",
@@ -450,7 +434,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 0,
               "end": 0,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -522,85 +505,13 @@
               "label": "Illustrations",
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 1,
-              "end": 4,
-              "repeatableContent": true,
-              "codes": {
-                " ": {
-                  "code": " ",
-                  "label": "No illustrations"
-                },
-                "a": {
-                  "code": "a",
-                  "label": "Illustrations"
-                },
-                "b": {
-                  "code": "b",
-                  "label": "Maps"
-                },
-                "c": {
-                  "code": "c",
-                  "label": "Portraits"
-                },
-                "d": {
-                  "code": "d",
-                  "label": "Charts"
-                },
-                "e": {
-                  "code": "e",
-                  "label": "Plans"
-                },
-                "f": {
-                  "code": "f",
-                  "label": "Plates"
-                },
-                "g": {
-                  "code": "g",
-                  "label": "Music"
-                },
-                "h": {
-                  "code": "h",
-                  "label": "Facsimiles"
-                },
-                "i": {
-                  "code": "i",
-                  "label": "Coats of arms"
-                },
-                "j": {
-                  "code": "j",
-                  "label": "Genealogical tables"
-                },
-                "k": {
-                  "code": "k",
-                  "label": "Forms"
-                },
-                "l": {
-                  "code": "l",
-                  "label": "Samples"
-                },
-                "m": {
-                  "code": "m",
-                  "label": "Phonodisc, phonowire, etc."
-                },
-                "o": {
-                  "code": "o",
-                  "label": "Photographs"
-                },
-                "p": {
-                  "code": "p",
-                  "label": "Illuminations"
-                },
-                "|": {
-                  "code": "|",
-                  "label": "No attempt to code"
-                }
-              }
+              "end": 4
             },
             "05": {
               "label": "Target audience",
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 5,
               "end": 5,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -649,7 +560,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 6,
               "end": 6,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -701,133 +611,13 @@
               "label": "Nature of contents",
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 7,
-              "end": 10,
-              "repeatableContent": true,
-              "codes": {
-                " ": {
-                  "code": " ",
-                  "label": "No specified nature of contents"
-                },
-                "a": {
-                  "code": "a",
-                  "label": "Abstracts/summaries"
-                },
-                "b": {
-                  "code": "b",
-                  "label": "Bibliographies"
-                },
-                "c": {
-                  "code": "c",
-                  "label": "Catalogs"
-                },
-                "d": {
-                  "code": "d",
-                  "label": "Dictionaries"
-                },
-                "e": {
-                  "code": "e",
-                  "label": "Encyclopedias"
-                },
-                "f": {
-                  "code": "f",
-                  "label": "Handbooks"
-                },
-                "g": {
-                  "code": "g",
-                  "label": "Legal articles"
-                },
-                "i": {
-                  "code": "i",
-                  "label": "Indexes"
-                },
-                "j": {
-                  "code": "j",
-                  "label": "Patent document"
-                },
-                "k": {
-                  "code": "k",
-                  "label": "Discographies"
-                },
-                "l": {
-                  "code": "l",
-                  "label": "Legislation"
-                },
-                "m": {
-                  "code": "m",
-                  "label": "Theses"
-                },
-                "n": {
-                  "code": "n",
-                  "label": "Surveys of literature in a subject area"
-                },
-                "o": {
-                  "code": "o",
-                  "label": "Reviews"
-                },
-                "p": {
-                  "code": "p",
-                  "label": "Programmed texts"
-                },
-                "q": {
-                  "code": "q",
-                  "label": "Filmographies"
-                },
-                "r": {
-                  "code": "r",
-                  "label": "Directories"
-                },
-                "s": {
-                  "code": "s",
-                  "label": "Statistics"
-                },
-                "t": {
-                  "code": "t",
-                  "label": "Technical reports"
-                },
-                "u": {
-                  "code": "u",
-                  "label": "Standards/specifications"
-                },
-                "v": {
-                  "code": "v",
-                  "label": "Legal cases and case notes"
-                },
-                "w": {
-                  "code": "w",
-                  "label": "Law reports and digests"
-                },
-                "y": {
-                  "code": "y",
-                  "label": "Yearbooks"
-                },
-                "z": {
-                  "code": "z",
-                  "label": "Treaties"
-                },
-                "2": {
-                  "code": "2",
-                  "label": "Offprints"
-                },
-                "5": {
-                  "code": "5",
-                  "label": "Calendars"
-                },
-                "6": {
-                  "code": "6",
-                  "label": "Comics/graphic novels"
-                },
-                "|": {
-                  "code": "|",
-                  "label": "No attempt to code"
-                }
-              }
+              "end": 10
             },
             "11": {
               "label": "Government publication",
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 11,
               "end": 11,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -884,7 +674,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 12,
               "end": 12,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "code": "0",
@@ -905,7 +694,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 13,
               "end": 13,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "code": "0",
@@ -926,7 +714,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 14,
               "end": 14,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "code": "0",
@@ -947,7 +734,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 16,
               "end": 16,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "code": "0",
@@ -1008,7 +794,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 17,
               "end": 17,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -1045,7 +830,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 5,
               "end": 5,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -1094,7 +878,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 6,
               "end": 6,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -1119,7 +902,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 9,
               "end": 9,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -1184,7 +966,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 11,
               "end": 11,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -1245,7 +1026,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -1334,7 +1114,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 2,
               "end": 2,
-              "repeatableContent": false,
               "codes": {
                 "n": {
                   "code": "n",
@@ -1363,7 +1142,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 4,
               "end": 4,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -1404,7 +1182,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 5,
               "end": 5,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -1457,7 +1234,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 6,
               "end": 6,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -1510,7 +1286,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 7,
               "end": 7,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -1630,129 +1405,13 @@
               "label": "Nature of contents",
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 8,
-              "end": 10,
-              "repeatableContent": true,
-              "codes": {
-                " ": {
-                  "code": " ",
-                  "label": "Not specified"
-                },
-                "a": {
-                  "code": "a",
-                  "label": "Abstracts/summaries"
-                },
-                "b": {
-                  "code": "b",
-                  "label": "Bibliographies"
-                },
-                "c": {
-                  "code": "c",
-                  "label": "Catalogs"
-                },
-                "d": {
-                  "code": "d",
-                  "label": "Dictionaries"
-                },
-                "e": {
-                  "code": "e",
-                  "label": "Encyclopedias"
-                },
-                "f": {
-                  "code": "f",
-                  "label": "Handbooks"
-                },
-                "g": {
-                  "code": "g",
-                  "label": "Legal articles"
-                },
-                "h": {
-                  "code": "h",
-                  "label": "Biography"
-                },
-                "i": {
-                  "code": "i",
-                  "label": "Indexes"
-                },
-                "k": {
-                  "code": "k",
-                  "label": "Discographies"
-                },
-                "l": {
-                  "code": "l",
-                  "label": "Legislation"
-                },
-                "m": {
-                  "code": "m",
-                  "label": "Theses"
-                },
-                "n": {
-                  "code": "n",
-                  "label": "Surveys of literature in a subject area"
-                },
-                "o": {
-                  "code": "o",
-                  "label": "Reviews"
-                },
-                "p": {
-                  "code": "p",
-                  "label": "Programmed texts"
-                },
-                "q": {
-                  "code": "q",
-                  "label": "Filmographies"
-                },
-                "r": {
-                  "code": "r",
-                  "label": "Directories"
-                },
-                "s": {
-                  "code": "s",
-                  "label": "Statistics"
-                },
-                "t": {
-                  "code": "t",
-                  "label": "Technical reports"
-                },
-                "u": {
-                  "code": "u",
-                  "label": "Standards/specifications"
-                },
-                "v": {
-                  "code": "v",
-                  "label": "Legal cases and case notes"
-                },
-                "w": {
-                  "code": "w",
-                  "label": "Law reports and digests"
-                },
-                "y": {
-                  "code": "y",
-                  "label": "Yearbooks"
-                },
-                "z": {
-                  "code": "z",
-                  "label": "Treaties"
-                },
-                "5": {
-                  "code": "5",
-                  "label": "Calendars"
-                },
-                "6": {
-                  "code": "6",
-                  "label": "Comics/graphic novels"
-                },
-                "|": {
-                  "code": "|",
-                  "label": "No attempt to code"
-                }
-              }
+              "end": 10
             },
             "11": {
               "label": "Government publication",
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 11,
               "end": 11,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -1809,7 +1468,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 12,
               "end": 12,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "code": "0",
@@ -1830,7 +1488,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 16,
               "end": 16,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -1903,7 +1560,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 17,
               "end": 17,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "code": "0",
@@ -1931,73 +1587,13 @@
               "label": "Relief",
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 1,
-              "end": 4,
-              "repeatableContent": true,
-              "codes": {
-                " ": {
-                  "code": " ",
-                  "label": "No relief shown"
-                },
-                "a": {
-                  "code": "a",
-                  "label": "Contours"
-                },
-                "b": {
-                  "code": "b",
-                  "label": "Shading"
-                },
-                "c": {
-                  "code": "c",
-                  "label": "Gradient and bathymetric tints"
-                },
-                "d": {
-                  "code": "d",
-                  "label": "Hachures"
-                },
-                "e": {
-                  "code": "e",
-                  "label": "Bathymetry/soundings"
-                },
-                "f": {
-                  "code": "f",
-                  "label": "Form lines"
-                },
-                "g": {
-                  "code": "g",
-                  "label": "Spot heights"
-                },
-                "i": {
-                  "code": "i",
-                  "label": "Pictorially"
-                },
-                "j": {
-                  "code": "j",
-                  "label": "Land forms"
-                },
-                "k": {
-                  "code": "k",
-                  "label": "Bathymetry/isolines"
-                },
-                "m": {
-                  "code": "m",
-                  "label": "Rock drawings"
-                },
-                "z": {
-                  "code": "z",
-                  "label": "Other"
-                },
-                "|": {
-                  "code": "|",
-                  "label": "No attempt to code"
-                }
-              }
+              "end": 4
             },
             "05-06": {
               "label": "Projection",
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 5,
               "end": 6,
-              "repeatableContent": false,
               "codes": {
                 "  ": {
                   "code": "  ",
@@ -2198,7 +1794,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 8,
               "end": 8,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -2247,7 +1842,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 11,
               "end": 11,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -2304,7 +1898,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 12,
               "end": 12,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -2357,7 +1950,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 14,
               "end": 14,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "code": "0",
@@ -2377,54 +1969,7 @@
               "label": "Special format characteristics",
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 16,
-              "end": 17,
-              "repeatableContent": true,
-              "codes": {
-                " ": {
-                  "code": " ",
-                  "label": "No specified special format characteristics"
-                },
-                "e": {
-                  "code": "e",
-                  "label": "Manuscript"
-                },
-                "j": {
-                  "code": "j",
-                  "label": "Picture card, post card"
-                },
-                "k": {
-                  "code": "k",
-                  "label": "Calendar"
-                },
-                "l": {
-                  "code": "l",
-                  "label": "Puzzle"
-                },
-                "n": {
-                  "code": "n",
-                  "label": "Game"
-                },
-                "o": {
-                  "code": "o",
-                  "label": "Wall map"
-                },
-                "p": {
-                  "code": "p",
-                  "label": "Playing cards"
-                },
-                "r": {
-                  "code": "r",
-                  "label": "Loose-leaf"
-                },
-                "z": {
-                  "code": "z",
-                  "label": "Other"
-                },
-                "|": {
-                  "code": "|",
-                  "label": "No attempt to code"
-                }
-              }
+              "end": 17
             }
           }
         },
@@ -2435,7 +1980,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 6,
               "end": 6,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -2492,7 +2036,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 1,
               "end": 2,
-              "repeatableContent": false,
               "codes": {
                 "an": {
                   "code": "an",
@@ -2793,7 +2336,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -2870,7 +2412,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 4,
               "end": 4,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -2907,7 +2448,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 5,
               "end": 5,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -2956,7 +2496,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 6,
               "end": 6,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -3008,174 +2547,19 @@
               "label": "Accompanying matter",
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 7,
-              "end": 12,
-              "repeatableContent": true,
-              "codes": {
-                " ": {
-                  "code": " ",
-                  "label": "No accompanying matter"
-                },
-                "a": {
-                  "code": "a",
-                  "label": "Discography"
-                },
-                "b": {
-                  "code": "b",
-                  "label": "Bibliography"
-                },
-                "c": {
-                  "code": "c",
-                  "label": "Thematic index"
-                },
-                "d": {
-                  "code": "d",
-                  "label": "Libretto or text"
-                },
-                "e": {
-                  "code": "e",
-                  "label": "Biography of composer or author"
-                },
-                "f": {
-                  "code": "f",
-                  "label": "Biography of performer or history of ensemble"
-                },
-                "g": {
-                  "code": "g",
-                  "label": "Technical and/or historical information on instruments"
-                },
-                "h": {
-                  "code": "h",
-                  "label": "Technical information on music"
-                },
-                "i": {
-                  "code": "i",
-                  "label": "Historical information"
-                },
-                "k": {
-                  "code": "k",
-                  "label": "Ethnological information"
-                },
-                "r": {
-                  "code": "r",
-                  "label": "Instructional materials"
-                },
-                "s": {
-                  "code": "s",
-                  "label": "Music"
-                },
-                "z": {
-                  "code": "z",
-                  "label": "Other"
-                },
-                "|": {
-                  "code": "|",
-                  "label": "No attempt to code"
-                }
-              }
+              "end": 12
             },
             "13-14": {
               "label": "Literary text for sound recordings",
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 13,
-              "end": 14,
-              "repeatableContent": true,
-              "codes": {
-                " ": {
-                  "code": " ",
-                  "label": "Item is a music sound recording"
-                },
-                "a": {
-                  "code": "a",
-                  "label": "Autobiography"
-                },
-                "b": {
-                  "code": "b",
-                  "label": "Biography"
-                },
-                "c": {
-                  "code": "c",
-                  "label": "Conference proceedings"
-                },
-                "d": {
-                  "code": "d",
-                  "label": "Drama"
-                },
-                "e": {
-                  "code": "e",
-                  "label": "Essays"
-                },
-                "f": {
-                  "code": "f",
-                  "label": "Fiction"
-                },
-                "g": {
-                  "code": "g",
-                  "label": "Reporting"
-                },
-                "h": {
-                  "code": "h",
-                  "label": "History"
-                },
-                "i": {
-                  "code": "i",
-                  "label": "Instruction"
-                },
-                "j": {
-                  "code": "j",
-                  "label": "Language instruction"
-                },
-                "k": {
-                  "code": "k",
-                  "label": "Comedy"
-                },
-                "l": {
-                  "code": "l",
-                  "label": "Lectures, speeches"
-                },
-                "m": {
-                  "code": "m",
-                  "label": "Memoirs"
-                },
-                "n": {
-                  "code": "n",
-                  "label": "Not applicable"
-                },
-                "o": {
-                  "code": "o",
-                  "label": "Folktales"
-                },
-                "p": {
-                  "code": "p",
-                  "label": "Poetry"
-                },
-                "r": {
-                  "code": "r",
-                  "label": "Rehearsals"
-                },
-                "s": {
-                  "code": "s",
-                  "label": "Sounds"
-                },
-                "t": {
-                  "code": "t",
-                  "label": "Interviews"
-                },
-                "z": {
-                  "code": "z",
-                  "label": "Other"
-                },
-                "|": {
-                  "code": "|",
-                  "label": "No attempt to code"
-                }
-              }
+              "end": 14
             },
             "16": {
               "label": "Transposition and arrangement",
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 16,
               "end": 16,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -3216,7 +2600,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 1,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "000": {
                   "code": "000",
@@ -3245,7 +2628,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 5,
               "end": 5,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -3294,7 +2676,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 11,
               "end": 11,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -3351,7 +2732,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 12,
               "end": 12,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -3404,7 +2784,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 16,
               "end": 16,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -3497,7 +2876,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd006.html",
               "start": 17,
               "end": 17,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -3545,7 +2923,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007.html",
               "start": 0,
               "end": 0,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -3618,7 +2995,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007c.html",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -3691,7 +3067,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007c.html",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -3741,7 +3116,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007c.html",
               "start": 4,
               "end": 4,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -3794,7 +3168,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007c.html",
               "start": 5,
               "end": 5,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -3819,7 +3192,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007c.html",
               "start": 6,
               "end": 8,
-              "repeatableContent": false,
               "codes": {
                 "001-999": {
                   "code": "001-999",
@@ -3848,7 +3220,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007c.html",
               "start": 9,
               "end": 9,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -3873,7 +3244,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007c.html",
               "start": 10,
               "end": 10,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -3902,7 +3272,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007c.html",
               "start": 11,
               "end": 11,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -3943,7 +3312,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007c.html",
               "start": 12,
               "end": 12,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -3976,7 +3344,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007c.html",
               "start": 13,
               "end": 13,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -4013,7 +3380,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007d.html",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -4055,7 +3421,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007d.html",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -4081,7 +3446,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007d.html",
               "start": 4,
               "end": 4,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -4154,7 +3518,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007d.html",
               "start": 5,
               "end": 5,
-              "repeatableContent": false,
               "codes": {
                 "f": {
                   "code": "f",
@@ -4187,7 +3550,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007o.html",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "u": {
                   "code": "u",
@@ -4208,7 +3570,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007a.html",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "d": {
                   "code": "d",
@@ -4337,7 +3698,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007a.html",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -4363,7 +3723,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007a.html",
               "start": 4,
               "end": 4,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -4464,7 +3823,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007a.html",
               "start": 5,
               "end": 5,
-              "repeatableContent": false,
               "codes": {
                 "f": {
                   "code": "f",
@@ -4493,7 +3851,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007a.html",
               "start": 6,
               "end": 6,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -4530,7 +3887,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007a.html",
               "start": 7,
               "end": 7,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -4568,7 +3924,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007h.html",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -4625,7 +3980,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007h.html",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -4654,7 +4008,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007h.html",
               "start": 4,
               "end": 4,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -4711,7 +4064,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007h.html",
               "start": 5,
               "end": 5,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -4751,15 +4103,13 @@
               "label": "Reduction ratio",
               "url": "https://www.loc.gov/marc/bibliographic/bd007h.html",
               "start": 6,
-              "end": 8,
-              "repeatableContent": false
+              "end": 8
             },
             "09": {
               "label": "Color",
               "url": "https://www.loc.gov/marc/bibliographic/bd007h.html",
               "start": 9,
               "end": 9,
-              "repeatableContent": false,
               "codes": {
                 "b": {
                   "code": "b",
@@ -4792,7 +4142,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007h.html",
               "start": 10,
               "end": 10,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -4833,7 +4182,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007h.html",
               "start": 11,
               "end": 11,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -4866,7 +4214,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007h.html",
               "start": 12,
               "end": 12,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -4932,7 +4279,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007m.html",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "c": {
                   "code": "c",
@@ -4969,7 +4315,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007m.html",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "b": {
                   "code": "b",
@@ -5010,7 +4355,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007m.html",
               "start": 4,
               "end": 4,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -5060,7 +4404,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007m.html",
               "start": 5,
               "end": 5,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -5089,7 +4432,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007m.html",
               "start": 6,
               "end": 6,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -5150,7 +4492,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007m.html",
               "start": 7,
               "end": 7,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -5199,7 +4540,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007m.html",
               "start": 8,
               "end": 8,
-              "repeatableContent": false,
               "codes": {
                 "k": {
                   "code": "k",
@@ -5240,7 +4580,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007m.html",
               "start": 9,
               "end": 9,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -5294,7 +4633,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007m.html",
               "start": 10,
               "end": 10,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -5327,7 +4665,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007m.html",
               "start": 11,
               "end": 11,
-              "repeatableContent": false,
               "codes": {
                 "d": {
                   "code": "d",
@@ -5364,7 +4701,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007m.html",
               "start": 12,
               "end": 12,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -5421,7 +4757,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007m.html",
               "start": 13,
               "end": 13,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -5522,7 +4857,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007m.html",
               "start": 14,
               "end": 14,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -5563,7 +4897,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007m.html",
               "start": 15,
               "end": 15,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -5620,7 +4953,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007m.html",
               "start": 16,
               "end": 16,
-              "repeatableContent": false,
               "codes": {
                 "c": {
                   "code": "c",
@@ -5648,8 +4980,7 @@
               "label": "Film inspection date",
               "url": "https://www.loc.gov/marc/bibliographic/bd007m.html",
               "start": 17,
-              "end": 22,
-              "repeatableContent": false
+              "end": 22
             }
           }
         },
@@ -5660,7 +4991,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007k.html",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -5753,7 +5083,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007k.html",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -5794,7 +5123,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007k.html",
               "start": 4,
               "end": 4,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -5895,7 +5223,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007k.html",
               "start": 5,
               "end": 5,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -6004,7 +5331,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007q.html",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "u": {
                   "code": "u",
@@ -6025,7 +5351,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007g.html",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "c": {
                   "code": "c",
@@ -6080,7 +5405,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007g.html",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -6125,7 +5449,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007g.html",
               "start": 4,
               "end": 4,
-              "repeatableContent": false,
               "codes": {
                 "d": {
                   "code": "d",
@@ -6180,7 +5503,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007g.html",
               "start": 5,
               "end": 5,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -6209,7 +5531,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007g.html",
               "start": 6,
               "end": 6,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -6271,7 +5592,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007g.html",
               "start": 7,
               "end": 7,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -6354,7 +5674,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007g.html",
               "start": 8,
               "end": 8,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -6411,7 +5730,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007r.html",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "u": {
                   "code": "u",
@@ -6433,7 +5751,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007r.html",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -6470,7 +5787,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007r.html",
               "start": 4,
               "end": 4,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -6503,7 +5819,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007r.html",
               "start": 5,
               "end": 5,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "code": "0",
@@ -6564,7 +5879,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007r.html",
               "start": 6,
               "end": 6,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -6625,7 +5939,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007r.html",
               "start": 7,
               "end": 7,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -6666,7 +5979,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007r.html",
               "start": 8,
               "end": 8,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -6695,7 +6007,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007r.html",
               "start": 9,
               "end": 10,
-              "repeatableContent": false,
               "codes": {
                 "aa": {
                   "code": "aa",
@@ -6876,7 +6187,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007s.html",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "b": {
                   "code": "b",
@@ -6948,7 +6258,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007s.html",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -7029,7 +6338,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007s.html",
               "start": 4,
               "end": 4,
-              "repeatableContent": false,
               "codes": {
                 "m": {
                   "code": "m",
@@ -7092,7 +6400,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007s.html",
               "start": 5,
               "end": 5,
-              "repeatableContent": false,
               "codes": {
                 "m": {
                   "code": "m",
@@ -7125,7 +6432,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007s.html",
               "start": 6,
               "end": 6,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -7190,7 +6496,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007s.html",
               "start": 7,
               "end": 7,
-              "repeatableContent": false,
               "codes": {
                 "l": {
                   "code": "l",
@@ -7246,7 +6551,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007s.html",
               "start": 8,
               "end": 8,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -7295,7 +6599,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007s.html",
               "start": 9,
               "end": 9,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -7352,7 +6655,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007s.html",
               "start": 10,
               "end": 10,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -7421,7 +6723,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007s.html",
               "start": 11,
               "end": 11,
-              "repeatableContent": false,
               "codes": {
                 "h": {
                   "code": "h",
@@ -7450,7 +6751,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007s.html",
               "start": 12,
               "end": 12,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -7507,7 +6807,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007s.html",
               "start": 13,
               "end": 13,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -7548,7 +6847,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007f.html",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -7584,61 +6882,13 @@
               "label": "Class of braille writing",
               "url": "https://www.loc.gov/marc/bibliographic/bd007f.html",
               "start": 3,
-              "end": 4,
-              "repeatableContent": true,
-              "codes": {
-                " ": {
-                  "code": " ",
-                  "label": "No specified class of braille writing"
-                },
-                "a": {
-                  "code": "a",
-                  "label": "Literary braille"
-                },
-                "b": {
-                  "code": "b",
-                  "label": "Format code braille"
-                },
-                "c": {
-                  "code": "c",
-                  "label": "Mathematics and scientific braille"
-                },
-                "d": {
-                  "code": "d",
-                  "label": "Computer braille"
-                },
-                "e": {
-                  "code": "e",
-                  "label": "Music braille"
-                },
-                "m": {
-                  "code": "m",
-                  "label": "Multiple braille types"
-                },
-                "n": {
-                  "code": "n",
-                  "label": "Not applicable"
-                },
-                "u": {
-                  "code": "u",
-                  "label": "Unknown"
-                },
-                "z": {
-                  "code": "z",
-                  "label": "Other"
-                },
-                "|": {
-                  "code": "|",
-                  "label": "No attempt to code"
-                }
-              }
+              "end": 4
             },
             "05": {
               "label": "Level of contraction",
               "url": "https://www.loc.gov/marc/bibliographic/bd007f.html",
               "start": 5,
               "end": 5,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -7674,85 +6924,13 @@
               "label": "Braille music format",
               "url": "https://www.loc.gov/marc/bibliographic/bd007f.html",
               "start": 6,
-              "end": 8,
-              "repeatableContent": true,
-              "codes": {
-                " ": {
-                  "code": " ",
-                  "label": "No specified braille music format"
-                },
-                "a": {
-                  "code": "a",
-                  "label": "Bar over bar"
-                },
-                "b": {
-                  "code": "b",
-                  "label": "Bar by bar"
-                },
-                "c": {
-                  "code": "c",
-                  "label": "Line over line"
-                },
-                "d": {
-                  "code": "d",
-                  "label": "Paragraph"
-                },
-                "e": {
-                  "code": "e",
-                  "label": "Single line"
-                },
-                "f": {
-                  "code": "f",
-                  "label": "Section by section"
-                },
-                "g": {
-                  "code": "g",
-                  "label": "Line by line"
-                },
-                "h": {
-                  "code": "h",
-                  "label": "Open score"
-                },
-                "i": {
-                  "code": "i",
-                  "label": "Spanner short form scoring"
-                },
-                "j": {
-                  "code": "j",
-                  "label": "Short form scoring"
-                },
-                "k": {
-                  "code": "k",
-                  "label": "Outline"
-                },
-                "l": {
-                  "code": "l",
-                  "label": "Vertical score"
-                },
-                "n": {
-                  "code": "n",
-                  "label": "Not applicable"
-                },
-                "u": {
-                  "code": "u",
-                  "label": "Unknown"
-                },
-                "z": {
-                  "code": "z",
-                  "label": "Other"
-                },
-                "|": {
-                  "code": "|",
-                  "label": "No attempt to code"
-                }
-              }
+              "end": 8
             },
             "09": {
               "label": "Special physical characteristics",
               "url": "https://www.loc.gov/marc/bibliographic/bd007f.html",
               "start": 9,
               "end": 9,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -7789,7 +6967,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007t.html",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -7830,7 +7007,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007z.html",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "m": {
                   "code": "m",
@@ -7859,7 +7035,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007v.html",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "c": {
                   "code": "c",
@@ -7906,7 +7081,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007v.html",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -7947,7 +7121,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007v.html",
               "start": 4,
               "end": 4,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -8046,7 +7219,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007v.html",
               "start": 5,
               "end": 5,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -8075,7 +7247,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007v.html",
               "start": 6,
               "end": 6,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -8137,7 +7308,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007v.html",
               "start": 7,
               "end": 7,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -8187,7 +7357,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd007v.html",
               "start": 8,
               "end": 8,
-              "repeatableContent": false,
               "codes": {
                 "k": {
                   "code": "k",
@@ -8238,15 +7407,13 @@
               "label": "Date entered on file",
               "url": "https://www.loc.gov/marc/bibliographic/bd008a.html",
               "start": 0,
-              "end": 5,
-              "repeatableContent": false
+              "end": 5
             },
             "06": {
               "label": "Type of date/Publication status",
               "url": "https://www.loc.gov/marc/bibliographic/bd008a.html",
               "start": 6,
               "end": 6,
-              "repeatableContent": false,
               "codes": {
                 "b": {
                   "code": "b",
@@ -8314,36 +7481,31 @@
               "label": "Date 1",
               "url": "https://www.loc.gov/marc/bibliographic/bd008a.html",
               "start": 7,
-              "end": 10,
-              "repeatableContent": false
+              "end": 10
             },
             "11-14": {
               "label": "Date 2",
               "url": "https://www.loc.gov/marc/bibliographic/bd008a.html",
               "start": 11,
-              "end": 14,
-              "repeatableContent": false
+              "end": 14
             },
             "15-17": {
               "label": "Place of publication, production, or execution",
               "url": "https://www.loc.gov/marc/bibliographic/bd008a.html",
               "start": 15,
-              "end": 17,
-              "repeatableContent": false
+              "end": 17
             },
             "35-37": {
               "label": "Language",
               "url": "https://www.loc.gov/marc/bibliographic/bd008a.html",
               "start": 35,
-              "end": 37,
-              "repeatableContent": false
+              "end": 37
             },
             "38": {
               "label": "Modified record",
               "url": "https://www.loc.gov/marc/bibliographic/bd008a.html",
               "start": 38,
               "end": 38,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -8385,7 +7547,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008a.html",
               "start": 39,
               "end": 39,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -8447,85 +7608,13 @@
               "label": "Illustrations",
               "url": "https://www.loc.gov/marc/bibliographic/bd008b.html",
               "start": 18,
-              "end": 21,
-              "repeatableContent": true,
-              "codes": {
-                " ": {
-                  "code": " ",
-                  "label": "No illustrations"
-                },
-                "a": {
-                  "code": "a",
-                  "label": "Illustrations"
-                },
-                "b": {
-                  "code": "b",
-                  "label": "Maps"
-                },
-                "c": {
-                  "code": "c",
-                  "label": "Portraits"
-                },
-                "d": {
-                  "code": "d",
-                  "label": "Charts"
-                },
-                "e": {
-                  "code": "e",
-                  "label": "Plans"
-                },
-                "f": {
-                  "code": "f",
-                  "label": "Plates"
-                },
-                "g": {
-                  "code": "g",
-                  "label": "Music"
-                },
-                "h": {
-                  "code": "h",
-                  "label": "Facsimiles"
-                },
-                "i": {
-                  "code": "i",
-                  "label": "Coats of arms"
-                },
-                "j": {
-                  "code": "j",
-                  "label": "Genealogical tables"
-                },
-                "k": {
-                  "code": "k",
-                  "label": "Forms"
-                },
-                "l": {
-                  "code": "l",
-                  "label": "Samples"
-                },
-                "m": {
-                  "code": "m",
-                  "label": "Phonodisc, phonowire, etc."
-                },
-                "o": {
-                  "code": "o",
-                  "label": "Photographs"
-                },
-                "p": {
-                  "code": "p",
-                  "label": "Illuminations"
-                },
-                "|": {
-                  "code": "|",
-                  "label": "No attempt to code"
-                }
-              }
+              "end": 21
             },
             "22": {
               "label": "Target audience",
               "url": "https://www.loc.gov/marc/bibliographic/bd008b.html",
               "start": 22,
               "end": 22,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -8584,7 +7673,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008b.html",
               "start": 23,
               "end": 23,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -8656,153 +7744,13 @@
               "label": "Nature of contents",
               "url": "https://www.loc.gov/marc/bibliographic/bd008b.html",
               "start": 24,
-              "end": 27,
-              "repeatableContent": true,
-              "codes": {
-                " ": {
-                  "code": " ",
-                  "label": "No specified nature of contents"
-                },
-                "a": {
-                  "code": "a",
-                  "label": "Abstracts/summaries"
-                },
-                "b": {
-                  "code": "b",
-                  "label": "Bibliographies"
-                },
-                "c": {
-                  "code": "c",
-                  "label": "Catalogs"
-                },
-                "d": {
-                  "code": "d",
-                  "label": "Dictionaries"
-                },
-                "e": {
-                  "code": "e",
-                  "label": "Encyclopedias"
-                },
-                "f": {
-                  "code": "f",
-                  "label": "Handbooks"
-                },
-                "g": {
-                  "code": "g",
-                  "label": "Legal articles"
-                },
-                "i": {
-                  "code": "i",
-                  "label": "Indexes"
-                },
-                "j": {
-                  "code": "j",
-                  "label": "Patent document"
-                },
-                "k": {
-                  "code": "k",
-                  "label": "Discographies"
-                },
-                "l": {
-                  "code": "l",
-                  "label": "Legislation"
-                },
-                "m": {
-                  "code": "m",
-                  "label": "Theses"
-                },
-                "n": {
-                  "code": "n",
-                  "label": "Surveys of literature in a subject area"
-                },
-                "o": {
-                  "code": "o",
-                  "label": "Reviews"
-                },
-                "p": {
-                  "code": "p",
-                  "label": "Programmed texts"
-                },
-                "q": {
-                  "code": "q",
-                  "label": "Filmographies"
-                },
-                "r": {
-                  "code": "r",
-                  "label": "Directories"
-                },
-                "s": {
-                  "code": "s",
-                  "label": "Statistics"
-                },
-                "t": {
-                  "code": "t",
-                  "label": "Technical reports"
-                },
-                "u": {
-                  "code": "u",
-                  "label": "Standards/specifications"
-                },
-                "v": {
-                  "code": "v",
-                  "label": "Legal cases and case notes"
-                },
-                "w": {
-                  "code": "w",
-                  "label": "Law reports and digests"
-                },
-                "y": {
-                  "code": "y",
-                  "label": "Yearbooks"
-                },
-                "z": {
-                  "code": "z",
-                  "label": "Treaties"
-                },
-                "2": {
-                  "code": "2",
-                  "label": "Offprints"
-                },
-                "5": {
-                  "code": "5",
-                  "label": "Calendars"
-                },
-                "6": {
-                  "code": "6",
-                  "label": "Comics/graphic novels"
-                },
-                "|": {
-                  "code": "|",
-                  "label": "No attempt to code"
-                },
-                "h": {
-                  "code": "h",
-                  "label": "Handbooks [OBSOLETE]",
-                  "deprecated": true
-                },
-                "x": {
-                  "code": "x",
-                  "label": "Technical reports [OBSOLETE, 1997]",
-                  "deprecated": true
-                },
-                "3": {
-                  "code": "3",
-                  "label": "Discographies [OBSOLETE, 1997]",
-                  "deprecated": true
-                },
-                "4": {
-                  "code": "4",
-                  "label": "Filmographies [OBSOLETE, 1997]",
-                  "deprecated": true
-                }
-              }
+              "end": 27
             },
             "28": {
               "label": "Government publication",
               "url": "https://www.loc.gov/marc/bibliographic/bd008b.html",
               "start": 28,
               "end": 28,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -8864,7 +7812,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008b.html",
               "start": 29,
               "end": 29,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "code": "0",
@@ -8885,7 +7832,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008b.html",
               "start": 30,
               "end": 30,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "code": "0",
@@ -8906,7 +7852,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008b.html",
               "start": 31,
               "end": 31,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "code": "0",
@@ -8927,7 +7872,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008b.html",
               "start": 33,
               "end": 33,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "code": "0",
@@ -8998,7 +7942,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008b.html",
               "start": 34,
               "end": 34,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -9035,7 +7978,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008c.html",
               "start": 22,
               "end": 22,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -9084,7 +8026,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008c.html",
               "start": 23,
               "end": 23,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -9109,7 +8050,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008c.html",
               "start": 26,
               "end": 26,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -9174,7 +8114,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008c.html",
               "start": 28,
               "end": 28,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -9235,7 +8174,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008s.html",
               "start": 18,
               "end": 18,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -9324,7 +8262,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008s.html",
               "start": 19,
               "end": 19,
-              "repeatableContent": false,
               "codes": {
                 "n": {
                   "code": "n",
@@ -9353,7 +8290,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008s.html",
               "start": 21,
               "end": 21,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -9418,7 +8354,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008s.html",
               "start": 22,
               "end": 22,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -9471,7 +8406,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008s.html",
               "start": 23,
               "end": 23,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -9544,7 +8478,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008s.html",
               "start": 24,
               "end": 24,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -9674,139 +8607,13 @@
               "label": "Nature of contents",
               "url": "https://www.loc.gov/marc/bibliographic/bd008s.html",
               "start": 25,
-              "end": 27,
-              "repeatableContent": true,
-              "codes": {
-                " ": {
-                  "code": " ",
-                  "label": "Not specified"
-                },
-                "a": {
-                  "code": "a",
-                  "label": "Abstracts/summaries"
-                },
-                "b": {
-                  "code": "b",
-                  "label": "Bibliographies"
-                },
-                "c": {
-                  "code": "c",
-                  "label": "Catalogs"
-                },
-                "d": {
-                  "code": "d",
-                  "label": "Dictionaries"
-                },
-                "e": {
-                  "code": "e",
-                  "label": "Encyclopedias"
-                },
-                "f": {
-                  "code": "f",
-                  "label": "Handbooks"
-                },
-                "g": {
-                  "code": "g",
-                  "label": "Legal articles"
-                },
-                "h": {
-                  "code": "h",
-                  "label": "Biography"
-                },
-                "i": {
-                  "code": "i",
-                  "label": "Indexes"
-                },
-                "k": {
-                  "code": "k",
-                  "label": "Discographies"
-                },
-                "l": {
-                  "code": "l",
-                  "label": "Legislation"
-                },
-                "m": {
-                  "code": "m",
-                  "label": "Theses"
-                },
-                "n": {
-                  "code": "n",
-                  "label": "Surveys of literature in a subject area"
-                },
-                "o": {
-                  "code": "o",
-                  "label": "Reviews"
-                },
-                "p": {
-                  "code": "p",
-                  "label": "Programmed texts"
-                },
-                "q": {
-                  "code": "q",
-                  "label": "Filmographies"
-                },
-                "r": {
-                  "code": "r",
-                  "label": "Directories"
-                },
-                "s": {
-                  "code": "s",
-                  "label": "Statistics"
-                },
-                "t": {
-                  "code": "t",
-                  "label": "Technical reports"
-                },
-                "u": {
-                  "code": "u",
-                  "label": "Standards/specifications"
-                },
-                "v": {
-                  "code": "v",
-                  "label": "Legal cases and case notes"
-                },
-                "w": {
-                  "code": "w",
-                  "label": "Law reports and digests"
-                },
-                "y": {
-                  "code": "y",
-                  "label": "Yearbooks"
-                },
-                "z": {
-                  "code": "z",
-                  "label": "Treaties"
-                },
-                "5": {
-                  "code": "5",
-                  "label": "Calendars"
-                },
-                "6": {
-                  "code": "6",
-                  "label": "Comics/graphic novels"
-                },
-                "|": {
-                  "code": "|",
-                  "label": "No attempt to code"
-                },
-                "3": {
-                  "code": "3",
-                  "label": "Discographies [OBSOLETE, 1997]",
-                  "deprecated": true
-                },
-                "4": {
-                  "code": "4",
-                  "label": "Filmographies [OBSOLETE, 1997]",
-                  "deprecated": true
-                }
-              }
+              "end": 27
             },
             "28": {
               "label": "Government publication",
               "url": "https://www.loc.gov/marc/bibliographic/bd008s.html",
               "start": 28,
               "end": 28,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -9868,7 +8675,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008s.html",
               "start": 29,
               "end": 29,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "code": "0",
@@ -9889,7 +8695,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008s.html",
               "start": 33,
               "end": 33,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -9962,7 +8767,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008s.html",
               "start": 34,
               "end": 34,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "code": "0",
@@ -9990,78 +8794,13 @@
               "label": "Relief",
               "url": "https://www.loc.gov/marc/bibliographic/bd008p.html",
               "start": 18,
-              "end": 21,
-              "repeatableContent": true,
-              "codes": {
-                " ": {
-                  "code": " ",
-                  "label": "No relief shown"
-                },
-                "a": {
-                  "code": "a",
-                  "label": "Contours"
-                },
-                "b": {
-                  "code": "b",
-                  "label": "Shading"
-                },
-                "c": {
-                  "code": "c",
-                  "label": "Gradient and bathymetric tints"
-                },
-                "d": {
-                  "code": "d",
-                  "label": "Hachures"
-                },
-                "e": {
-                  "code": "e",
-                  "label": "Bathymetry/soundings"
-                },
-                "f": {
-                  "code": "f",
-                  "label": "Form lines"
-                },
-                "g": {
-                  "code": "g",
-                  "label": "Spot heights"
-                },
-                "i": {
-                  "code": "i",
-                  "label": "Pictorially"
-                },
-                "j": {
-                  "code": "j",
-                  "label": "Land forms"
-                },
-                "k": {
-                  "code": "k",
-                  "label": "Bathymetry/isolines"
-                },
-                "m": {
-                  "code": "m",
-                  "label": "Rock drawings"
-                },
-                "z": {
-                  "code": "z",
-                  "label": "Other"
-                },
-                "|": {
-                  "code": "|",
-                  "label": "No attempt to code"
-                },
-                "h": {
-                  "code": "h",
-                  "label": "Color [OBSOLETE, 1980]",
-                  "deprecated": true
-                }
-              }
+              "end": 21
             },
             "22-23": {
               "label": "Projection",
               "url": "https://www.loc.gov/marc/bibliographic/bd008p.html",
               "start": 22,
               "end": 23,
-              "repeatableContent": false,
               "codes": {
                 "  ": {
                   "code": "  ",
@@ -10262,7 +9001,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008p.html",
               "start": 25,
               "end": 25,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -10311,7 +9049,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008p.html",
               "start": 28,
               "end": 28,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -10368,7 +9105,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008p.html",
               "start": 29,
               "end": 29,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -10421,7 +9157,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008p.html",
               "start": 31,
               "end": 31,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "code": "0",
@@ -10441,99 +9176,7 @@
               "label": "Special format characteristics",
               "url": "https://www.loc.gov/marc/bibliographic/bd008p.html",
               "start": 33,
-              "end": 34,
-              "repeatableContent": true,
-              "codes": {
-                " ": {
-                  "code": " ",
-                  "label": "No specified special format characteristics"
-                },
-                "e": {
-                  "code": "e",
-                  "label": "Manuscript"
-                },
-                "j": {
-                  "code": "j",
-                  "label": "Picture card, post card"
-                },
-                "k": {
-                  "code": "k",
-                  "label": "Calendar"
-                },
-                "l": {
-                  "code": "l",
-                  "label": "Puzzle"
-                },
-                "n": {
-                  "code": "n",
-                  "label": "Game"
-                },
-                "o": {
-                  "code": "o",
-                  "label": "Wall map"
-                },
-                "p": {
-                  "code": "p",
-                  "label": "Playing cards"
-                },
-                "r": {
-                  "code": "r",
-                  "label": "Loose-leaf"
-                },
-                "z": {
-                  "code": "z",
-                  "label": "Other"
-                },
-                "||": {
-                  "code": "||",
-                  "label": "No attempt to code"
-                },
-                "a": {
-                  "code": "a",
-                  "label": "Photocopy, blue line print [OBSOLETE, 1982]",
-                  "deprecated": true
-                },
-                "b": {
-                  "code": "b",
-                  "label": "Photocopy [OBSOLETE, 1982]",
-                  "deprecated": true
-                },
-                "c": {
-                  "code": "c",
-                  "label": "Negative photocopy [OBSOLETE, 1982]",
-                  "deprecated": true
-                },
-                "d": {
-                  "code": "d",
-                  "label": "Film negative [OBSOLETE, 1982]",
-                  "deprecated": true
-                },
-                "f": {
-                  "code": "f",
-                  "label": "Facsimile [OBSOLETE, 1982]",
-                  "deprecated": true
-                },
-                "g": {
-                  "code": "g",
-                  "label": "Relief model [OBSOLETE, 1982]",
-                  "deprecated": true
-                },
-                "h": {
-                  "code": "h",
-                  "label": "Rare [OBSOLETE, 1982]",
-                  "deprecated": true
-                },
-                "m": {
-                  "code": "m",
-                  "label": "Braille [OBSOLETE, 1998]",
-                  "deprecated": true
-                },
-                "q": {
-                  "code": "q",
-                  "label": "Large print [OBSOLETE, 1998]",
-                  "deprecated": true
-                }
-              }
+              "end": 34
             }
           }
         },
@@ -10544,7 +9187,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008x.html",
               "start": 23,
               "end": 23,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -10636,7 +9278,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008m.html",
               "start": 18,
               "end": 19,
-              "repeatableContent": false,
               "codes": {
                 "an": {
                   "code": "an",
@@ -10937,7 +9578,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008m.html",
               "start": 20,
               "end": 20,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -11014,7 +9654,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008m.html",
               "start": 21,
               "end": 21,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -11056,7 +9695,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008m.html",
               "start": 22,
               "end": 22,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -11115,7 +9753,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008m.html",
               "start": 23,
               "end": 23,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -11192,190 +9829,19 @@
               "label": "Accompanying matter",
               "url": "https://www.loc.gov/marc/bibliographic/bd008m.html",
               "start": 24,
-              "end": 29,
-              "repeatableContent": true,
-              "codes": {
-                " ": {
-                  "code": " ",
-                  "label": "No accompanying matter"
-                },
-                "a": {
-                  "code": "a",
-                  "label": "Discography"
-                },
-                "b": {
-                  "code": "b",
-                  "label": "Bibliography"
-                },
-                "c": {
-                  "code": "c",
-                  "label": "Thematic index"
-                },
-                "d": {
-                  "code": "d",
-                  "label": "Libretto or text"
-                },
-                "e": {
-                  "code": "e",
-                  "label": "Biography of composer or author"
-                },
-                "f": {
-                  "code": "f",
-                  "label": "Biography of performer or history of ensemble"
-                },
-                "g": {
-                  "code": "g",
-                  "label": "Punched paper tape [OBSOLETE, 1987]",
-                  "deprecated": true
-                },
-                "h": {
-                  "code": "h",
-                  "label": "Technical information on music"
-                },
-                "i": {
-                  "code": "i",
-                  "label": "Historical information"
-                },
-                "k": {
-                  "code": "k",
-                  "label": "Ethnological information"
-                },
-                "r": {
-                  "code": "r",
-                  "label": "Instructional materials"
-                },
-                "s": {
-                  "code": "s",
-                  "label": "Music"
-                },
-                "z": {
-                  "code": "z",
-                  "label": "Other"
-                },
-                "|": {
-                  "code": "|",
-                  "label": "No attempt to code"
-                },
-                "n": {
-                  "code": "n",
-                  "label": "Not applicable [OBSOLETE, 1980]",
-                  "deprecated": true
-                },
-                "j": {
-                  "code": "j",
-                  "label": "Historical information other than music [OBSOLETE, 1980]",
-                  "deprecated": true
-                },
-                "l": {
-                  "code": "l",
-                  "label": "Biography of arranger or transcriber [OBSOLETE, 1997]",
-                  "deprecated": true
-                }
-              }
+              "end": 29
             },
             "30-31": {
               "label": "Literary text for sound recordings",
               "url": "https://www.loc.gov/marc/bibliographic/bd008m.html",
               "start": 30,
-              "end": 31,
-              "repeatableContent": true,
-              "codes": {
-                " ": {
-                  "code": " ",
-                  "label": "Item is a music sound recording"
-                },
-                "a": {
-                  "code": "a",
-                  "label": "Autobiography"
-                },
-                "b": {
-                  "code": "b",
-                  "label": "Biography"
-                },
-                "c": {
-                  "code": "c",
-                  "label": "Conference proceedings"
-                },
-                "d": {
-                  "code": "d",
-                  "label": "Drama"
-                },
-                "e": {
-                  "code": "e",
-                  "label": "Essays"
-                },
-                "f": {
-                  "code": "f",
-                  "label": "Fiction"
-                },
-                "g": {
-                  "code": "g",
-                  "label": "Reporting"
-                },
-                "h": {
-                  "code": "h",
-                  "label": "History"
-                },
-                "i": {
-                  "code": "i",
-                  "label": "Instruction"
-                },
-                "j": {
-                  "code": "j",
-                  "label": "Language instruction"
-                },
-                "k": {
-                  "code": "k",
-                  "label": "Comedy"
-                },
-                "l": {
-                  "code": "l",
-                  "label": "Lectures, speeches"
-                },
-                "m": {
-                  "code": "m",
-                  "label": "Memoirs"
-                },
-                "n": {
-                  "code": "n",
-                  "label": "Not applicable"
-                },
-                "o": {
-                  "code": "o",
-                  "label": "Folktales"
-                },
-                "p": {
-                  "code": "p",
-                  "label": "Poetry"
-                },
-                "r": {
-                  "code": "r",
-                  "label": "Rehearsals"
-                },
-                "s": {
-                  "code": "s",
-                  "label": "Sounds"
-                },
-                "t": {
-                  "code": "t",
-                  "label": "Interviews"
-                },
-                "z": {
-                  "code": "z",
-                  "label": "Other"
-                },
-                "|": {
-                  "code": "|",
-                  "label": "No attempt to code"
-                }
-              }
+              "end": 31
             },
             "33": {
               "label": "Transposition and arrangement",
               "url": "https://www.loc.gov/marc/bibliographic/bd008m.html",
               "start": 33,
               "end": 33,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -11416,7 +9882,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008v.html",
               "start": 18,
               "end": 20,
-              "repeatableContent": false,
               "codes": {
                 "000": {
                   "code": "000",
@@ -11445,7 +9910,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008v.html",
               "start": 22,
               "end": 22,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -11536,7 +10000,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008v.html",
               "start": 28,
               "end": 28,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -11598,7 +10061,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008v.html",
               "start": 29,
               "end": 29,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "code": " ",
@@ -11651,7 +10113,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008v.html",
               "start": 33,
               "end": 33,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -11749,7 +10210,6 @@
               "url": "https://www.loc.gov/marc/bibliographic/bd008v.html",
               "start": 34,
               "end": 34,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "code": "a",
@@ -20367,103 +18827,35 @@
               "label": "Type of date/Publication status",
               "start": 0,
               "end": 0,
-              "repeatableContent": false,
               "codes": "https://www.loc.gov/marc/bibliographic/bd008a.html#6"
             },
             "01-04": {
               "label": "Date 1",
               "start": 1,
               "end": 4,
-              "repeatableContent": false,
               "pattern": "^\\d{4}$"
             },
             "05-08": {
               "label": "Date 2",
               "start": 5,
               "end": 8,
-              "repeatableContent": false,
               "pattern": "^\\d{4}$"
             },
             "09-11": {
               "label": "Place of publication, production, or execution",
               "start": 9,
               "end": 11,
-              "repeatableContent": false,
               "codes": "https://www.loc.gov/marc/countries/countries_code.html"
             },
             "12": {
               "label": "Frequency",
               "start": 12,
-              "end": 12,
-              "repeatableContent": true,
-              "codes": {
-                " ": {
-                  "label": "No determinable frequency"
-                },
-                "a": {
-                  "label": "Annual"
-                },
-                "b": {
-                  "label": "Bimonthly"
-                },
-                "c": {
-                  "label": "Semiweekly"
-                },
-                "d": {
-                  "label": "Daily"
-                },
-                "e": {
-                  "label": "Biweekly"
-                },
-                "f": {
-                  "label": "Semiannual"
-                },
-                "g": {
-                  "label": "Biennial"
-                },
-                "h": {
-                  "label": "Triennial"
-                },
-                "i": {
-                  "label": "Three times a week"
-                },
-                "j": {
-                  "label": "Three times a month"
-                },
-                "k": {
-                  "label": "Continuously updated"
-                },
-                "m": {
-                  "label": "Monthly"
-                },
-                "n": {
-                  "label": "Not applicable"
-                },
-                "q": {
-                  "label": "Quarterly"
-                },
-                "s": {
-                  "label": "Semimonthly"
-                },
-                "t": {
-                  "label": "Three times a year"
-                },
-                "u": {
-                  "label": "Unknown"
-                },
-                "w": {
-                  "label": "Weekly"
-                },
-                "z": {
-                  "label": "Other frequencies"
-                }
-              }
+              "end": 12
             },
             "13": {
               "label": "Regularity",
               "start": 13,
               "end": 13,
-              "repeatableContent": false,
               "codes": {
                 " ": {
                   "label": "Not applicable"
@@ -20486,7 +18878,6 @@
               "label": "Form of item",
               "start": 14,
               "end": 14,
-              "repeatableContent": false,
               "codes": "https://www.loc.gov/marc/bibliographic/bd008b.html#23"
             }
           }
@@ -24939,7 +23330,6 @@
               "label": "Type of main entry heading",
               "start": 0,
               "end": 0,
-              "repeatableContent": false,
               "codes": {
                 "p": {
                   "label": "Personal name"
@@ -24962,7 +23352,6 @@
               "label": "Form of name",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "label": "Inverted name"
@@ -24985,7 +23374,6 @@
               "label": "Type of record",
               "start": 2,
               "end": 2,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Language material"
@@ -25035,7 +23423,6 @@
               "label": "Bibliographic level",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Monographic component part"
@@ -25182,7 +23569,6 @@
               "label": "Type of main entry heading",
               "start": 0,
               "end": 0,
-              "repeatableContent": false,
               "codes": {
                 "p": {
                   "label": "Personal name"
@@ -25205,7 +23591,6 @@
               "label": "Form of name",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "label": "Inverted name"
@@ -25228,7 +23613,6 @@
               "label": "Type of record",
               "start": 2,
               "end": 2,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Language material"
@@ -25278,7 +23662,6 @@
               "label": "Bibliographic level",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Monographic component part"
@@ -25441,7 +23824,6 @@
               "label": "Type of main entry heading",
               "start": 0,
               "end": 0,
-              "repeatableContent": false,
               "codes": {
                 "p": {
                   "label": "Personal name"
@@ -25464,7 +23846,6 @@
               "label": "Form of name",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "label": "Inverted name"
@@ -25487,7 +23868,6 @@
               "label": "Type of record",
               "start": 2,
               "end": 2,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Language material"
@@ -25537,7 +23917,6 @@
               "label": "Bibliographic level",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Monographic component part"
@@ -25700,7 +24079,6 @@
               "label": "Type of main entry heading",
               "start": 0,
               "end": 0,
-              "repeatableContent": false,
               "codes": {
                 "p": {
                   "label": "Personal name"
@@ -25723,7 +24101,6 @@
               "label": "Form of name",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "label": "Inverted name"
@@ -25746,7 +24123,6 @@
               "label": "Type of record",
               "start": 2,
               "end": 2,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Language material"
@@ -25796,7 +24172,6 @@
               "label": "Bibliographic level",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Monographic component part"
@@ -25959,7 +24334,6 @@
               "label": "Type of main entry heading",
               "start": 0,
               "end": 0,
-              "repeatableContent": false,
               "codes": {
                 "p": {
                   "label": "Personal name"
@@ -25982,7 +24356,6 @@
               "label": "Form of name",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "label": "Inverted name"
@@ -26005,7 +24378,6 @@
               "label": "Type of record",
               "start": 2,
               "end": 2,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Language material"
@@ -26055,7 +24427,6 @@
               "label": "Bibliographic level",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Monographic component part"
@@ -26227,7 +24598,6 @@
               "label": "Type of main entry heading",
               "start": 0,
               "end": 0,
-              "repeatableContent": false,
               "codes": {
                 "p": {
                   "label": "Personal name"
@@ -26250,7 +24620,6 @@
               "label": "Form of name",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "label": "Inverted name"
@@ -26273,7 +24642,6 @@
               "label": "Type of record",
               "start": 2,
               "end": 2,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Language material"
@@ -26323,7 +24691,6 @@
               "label": "Bibliographic level",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Monographic component part"
@@ -26495,7 +24862,6 @@
               "label": "Type of main entry heading",
               "start": 0,
               "end": 0,
-              "repeatableContent": false,
               "codes": {
                 "p": {
                   "label": "Personal name"
@@ -26518,7 +24884,6 @@
               "label": "Form of name",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "label": "Inverted name"
@@ -26541,7 +24906,6 @@
               "label": "Type of record",
               "start": 2,
               "end": 2,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Language material"
@@ -26591,7 +24955,6 @@
               "label": "Bibliographic level",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Monographic component part"
@@ -26759,7 +25122,6 @@
               "label": "Type of main entry heading",
               "start": 0,
               "end": 0,
-              "repeatableContent": false,
               "codes": {
                 "p": {
                   "label": "Personal name"
@@ -26782,7 +25144,6 @@
               "label": "Form of name",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "label": "Inverted name"
@@ -26805,7 +25166,6 @@
               "label": "Type of record",
               "start": 2,
               "end": 2,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Language material"
@@ -26855,7 +25215,6 @@
               "label": "Bibliographic level",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Monographic component part"
@@ -27041,7 +25400,6 @@
               "label": "Type of main entry heading",
               "start": 0,
               "end": 0,
-              "repeatableContent": false,
               "codes": {
                 "p": {
                   "label": "Personal name"
@@ -27064,7 +25422,6 @@
               "label": "Form of name",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "label": "Inverted name"
@@ -27087,7 +25444,6 @@
               "label": "Type of record",
               "start": 2,
               "end": 2,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Language material"
@@ -27137,7 +25493,6 @@
               "label": "Bibliographic level",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Monographic component part"
@@ -27300,7 +25655,6 @@
               "label": "Type of main entry heading",
               "start": 0,
               "end": 0,
-              "repeatableContent": false,
               "codes": {
                 "p": {
                   "label": "Personal name"
@@ -27323,7 +25677,6 @@
               "label": "Form of name",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "label": "Inverted name"
@@ -27346,7 +25699,6 @@
               "label": "Type of record",
               "start": 2,
               "end": 2,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Language material"
@@ -27396,7 +25748,6 @@
               "label": "Bibliographic level",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Monographic component part"
@@ -27574,7 +25925,6 @@
               "label": "Type of main entry heading",
               "start": 0,
               "end": 0,
-              "repeatableContent": false,
               "codes": {
                 "p": {
                   "label": "Personal name"
@@ -27597,7 +25947,6 @@
               "label": "Form of name",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "label": "Inverted name"
@@ -27620,7 +25969,6 @@
               "label": "Type of record",
               "start": 2,
               "end": 2,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Language material"
@@ -27670,7 +26018,6 @@
               "label": "Bibliographic level",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Monographic component part"
@@ -27858,7 +26205,6 @@
               "label": "Type of main entry heading",
               "start": 0,
               "end": 0,
-              "repeatableContent": false,
               "codes": {
                 "p": {
                   "label": "Personal name"
@@ -27881,7 +26227,6 @@
               "label": "Form of name",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "label": "Inverted name"
@@ -27904,7 +26249,6 @@
               "label": "Type of record",
               "start": 2,
               "end": 2,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Language material"
@@ -27954,7 +26298,6 @@
               "label": "Bibliographic level",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Monographic component part"
@@ -28145,7 +26488,6 @@
               "label": "Type of main entry heading",
               "start": 0,
               "end": 0,
-              "repeatableContent": false,
               "codes": {
                 "p": {
                   "label": "Personal name"
@@ -28168,7 +26510,6 @@
               "label": "Form of name",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "label": "Inverted name"
@@ -28191,7 +26532,6 @@
               "label": "Type of record",
               "start": 2,
               "end": 2,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Language material"
@@ -28241,7 +26581,6 @@
               "label": "Bibliographic level",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Monographic component part"
@@ -28416,7 +26755,6 @@
               "label": "Type of main entry heading",
               "start": 0,
               "end": 0,
-              "repeatableContent": false,
               "codes": {
                 "p": {
                   "label": "Personal name"
@@ -28439,7 +26777,6 @@
               "label": "Form of name",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "label": "Inverted name"
@@ -28462,7 +26799,6 @@
               "label": "Type of record",
               "start": 2,
               "end": 2,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Language material"
@@ -28512,7 +26848,6 @@
               "label": "Bibliographic level",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Monographic component part"
@@ -28675,7 +27010,6 @@
               "label": "Type of main entry heading",
               "start": 0,
               "end": 0,
-              "repeatableContent": false,
               "codes": {
                 "p": {
                   "label": "Personal name"
@@ -28698,7 +27032,6 @@
               "label": "Form of name",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "0": {
                   "label": "Inverted name"
@@ -28721,7 +27054,6 @@
               "label": "Type of record",
               "start": 2,
               "end": 2,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Language material"
@@ -28771,7 +27103,6 @@
               "label": "Bibliographic level",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Monographic component part"
@@ -29060,7 +27391,6 @@
               "label": "Type of record",
               "start": 0,
               "end": 0,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Language material"
@@ -29110,7 +27440,6 @@
               "label": "Bibliographic level",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Monographic component part"
@@ -29295,7 +27624,6 @@
               "label": "Type of record",
               "start": 0,
               "end": 0,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Language material"
@@ -29345,7 +27673,6 @@
               "label": "Bibliographic level",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Monographic component part"
@@ -29522,7 +27849,6 @@
               "label": "Type of record",
               "start": 0,
               "end": 0,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Language material"
@@ -29572,7 +27898,6 @@
               "label": "Bibliographic level",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Monographic component part"
@@ -29732,7 +28057,6 @@
               "label": "Type of record",
               "start": 0,
               "end": 0,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Language material"
@@ -29782,7 +28106,6 @@
               "label": "Bibliographic level",
               "start": 1,
               "end": 1,
-              "repeatableContent": false,
               "codes": {
                 "a": {
                   "label": "Monographic component part"
@@ -29831,20 +28154,17 @@
               "label": "Type of record",
               "start": 0,
               "end": 0,
-              "repeatableContent": false,
               "codes": "https://www.loc.gov/marc/bibliographic/bdleader.html#6"
             },
             "01-02": {
               "label": "Undefined",
               "start": 1,
-              "end": 2,
-              "repeatableContent": false
+              "end": 2
             },
             "03": {
               "label": "Character coding scheme",
               "start": 3,
               "end": 3,
-              "repeatableContent": false,
               "codes": "https://www.loc.gov/marc/bibliographic/bdleader.html#17"
             }
           }
@@ -29856,8 +28176,7 @@
             "00-31": {
               "label": "Holdings 008 values",
               "start": 0,
-              "end": 31,
-              "repeatableContent": false
+              "end": 31
             }
           }
         },
@@ -29869,7 +28188,6 @@
               "label": "Encoding level",
               "start": 0,
               "end": 0,
-              "repeatableContent": false,
               "codes": "https://www.loc.gov/marc/bibliographic/bdleader.html#17"
             }
           }

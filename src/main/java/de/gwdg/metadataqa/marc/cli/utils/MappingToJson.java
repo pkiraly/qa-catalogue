@@ -200,7 +200,6 @@ public class MappingToJson {
     values.put("url", subfield.getDescriptionUrl());
     values.put("start", subfield.getPositionStart());
     values.put("end", subfield.getPositionEnd() - 1);
-    values.put("repeatableContent", subfield.isRepeatableContent());
 
     if (generator != null)
       values.put("solr", generator.forSubfield(subfield));
@@ -223,7 +222,10 @@ public class MappingToJson {
         codes.put(code.getCode(), codeMap);
       }
     }
-    if (codes.size() > 0) {
+
+    if (subfield.isRepeatableContent()) {
+      // TODO: use positions and reference codelist (#45)
+    } else if (codes.size() > 0) {
       values.put("codes", codes);
     }
     return values;
@@ -380,9 +382,10 @@ public class MappingToJson {
       positionMap.put("label", position.getLabel());
       positionMap.put("start", position.getPositionStart());
       positionMap.put("end", position.getPositionEnd() - 1);
-      positionMap.put("repeatableContent", position.isRepeatableContent());
 
-      if (position.hasCodelist()) {
+      if (position.isRepeatableContent()) {
+        // TODO: emit codelist at root element and reference for each position (#45)
+      } else if (position.hasCodelist()) {
         if (position.getCodes() != null && !position.getCodes().isEmpty()) {
           positionMap.put("codes", extractCodes(position.getCodes()));
         } else if (position.getCodeList() != null) {

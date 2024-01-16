@@ -28,6 +28,7 @@ public enum TagCategory {
   BL(20, "bltags", "BL", "Locally defined tags of the British Library", false),
   UVA(21, "uvatags", "UvA", "Locally defined tags of University of Amsterdam", false),
   B3KAT(22, "b3kattags", "B3Kat", "Locally defined tags of a German union cataogue B3Kat", false),
+  KBR(23, "kbrtags", "KBR", "Locally defined tags of the Royal Library of Belgium", false),
   PICA_0(50, "pica0", "0...", "PICA+ bibliographic description", false),
   PICA_1(51, "pica1", "1...", "PICA+ holding", false),
   PICA_2(52, "pica2", "2...", "PICA+ item", false),

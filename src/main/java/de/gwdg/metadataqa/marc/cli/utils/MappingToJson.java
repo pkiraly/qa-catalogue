@@ -445,7 +445,7 @@ public class MappingToJson {
     if (!indicator.exists()) {
       return null;
     }
-    Map<String, Object> value = new LinkedHashMap<>();    
+    Map<String, Object> value = new LinkedHashMap<>();
     value.put("label", indicator.getLabel());
 
     Map<String, Object> codes = new LinkedHashMap<>();

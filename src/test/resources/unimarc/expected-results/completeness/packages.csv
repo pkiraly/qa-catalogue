@@ -1,0 +1,7 @@
+documenttype,packageid,name,label,iscoretag,count
+all,0,00X,Control Fields,true,1
+all,100,unimarc,,false,1
+all,99,unknown,unknown origin,false,1
+Books,0,00X,Control Fields,true,1
+Books,100,unimarc,,false,1
+Books,99,unknown,unknown origin,false,1

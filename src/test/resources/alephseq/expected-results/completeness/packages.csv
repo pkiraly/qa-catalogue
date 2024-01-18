@@ -1,0 +1,23 @@
+documenttype,packageid,name,label,iscoretag,count
+all,2,1XX,Main Entry,true,1
+all,17,Gent,Locally defined tags of Gent,false,1
+all,6,4XX,Series Statement,true,1
+all,5,3XX,Physical Description,true,1
+all,8,6XX,Subject Access,true,1
+all,4,25X-28X,"Edition, Imprint",true,1
+all,7,5XX,Note,true,1
+all,0,00X,Control Fields,true,1
+all,1,01X-09X,Numbers and Code,true,1
+all,3,20X-24X,Title,true,1
+all,12,841-88X,"Holdings, Location, Alternate Graphics",true,1
+Books,2,1XX,Main Entry,true,1
+Books,17,Gent,Locally defined tags of Gent,false,1
+Books,6,4XX,Series Statement,true,1
+Books,5,3XX,Physical Description,true,1
+Books,8,6XX,Subject Access,true,1
+Books,4,25X-28X,"Edition, Imprint",true,1
+Books,7,5XX,Note,true,1
+Books,0,00X,Control Fields,true,1
+Books,1,01X-09X,Numbers and Code,true,1
+Books,3,20X-24X,Title,true,1
+Books,12,841-88X,"Holdings, Location, Alternate Graphics",true,1

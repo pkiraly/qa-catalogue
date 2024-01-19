@@ -2021,7 +2021,7 @@
               "label": "Target Audience Code // comment Blank has to exist, at least for now, in order to indicate that some positions can be blank. What has to be covered is that the codes have to be consecutive from left to right, and when 'x' is specified, then it has to be the first and only code.",
               "start": 17,
               "end": 19,
-              "codes": {
+              "flags": {
                 "a": "juvenile, general",
                 "b": "pre-primary, ages 0-5",
                 "c": "primary, ages 5-10",
@@ -5008,7 +5008,7 @@
             "pol": "Polish",
             "por": "Portuguese",
             "pra": "Prakrit languages",
-            "Provençal, Old (to 1500)": "ppro",
+            "pro": "Provençal, Old (to 1500)",
             "pus": "Pushto; Pashto",
             "que": "Quechua",
             "raj": "Rajasthani",
@@ -5500,7 +5500,7 @@
             "pol": "Polish",
             "por": "Portuguese",
             "pra": "Prakrit languages",
-            "Provençal, Old (to 1500)": "ppro",
+            "pro": "Provençal, Old (to 1500)",
             "pus": "Pushto; Pashto",
             "que": "Quechua",
             "raj": "Rajasthani",
@@ -5992,7 +5992,7 @@
             "pol": "Polish",
             "por": "Portuguese",
             "pra": "Prakrit languages",
-            "Provençal, Old (to 1500)": "ppro",
+            "pro": "Provençal, Old (to 1500)",
             "pus": "Pushto; Pashto",
             "que": "Quechua",
             "raj": "Rajasthani",
@@ -7948,7 +7948,7 @@
               "label": "Illustration codes",
               "start": 0,
               "end": 3,
-              "codes": {
+              "flags": {
                 "a": "illustrations",
                 "b": "maps",
                 "c": "portraits",
@@ -7972,7 +7972,7 @@
               "label": "Form of contents codes",
               "start": 4,
               "end": 7,
-              "codes": {
+              "flags": {
                 "a": "bibliography",
                 "b": "catalogue",
                 "c": "index",
@@ -8178,7 +8178,7 @@
               "label": "Nature of contents code",
               "start": 4,
               "end": 6,
-              "codes": {
+              "flags": {
                 "a": "bibliography",
                 "b": "catalogue",
                 "c": "index",
@@ -8408,7 +8408,7 @@
               "label": "Accompanying material",
               "start": 11,
               "end": 14,
-              "codes": {
+              "flags": {
                 "a": "stills",
                 "b": "script material",
                 "c": "posters",
@@ -8417,7 +8417,8 @@
                 "f": "instructional materials",
                 "g": "score or other music format",
                 "h": "set or costume designs",
-                "z": "other accompanying material"
+                "z": "other accompanying material",
+                "  ": "blank"
               }
             },
             "15": {
@@ -8742,7 +8743,7 @@
               "label": "Techniques (Drawings, Paintings)",
               "start": 4,
               "end": 9,
-              "codes": {
+              "flags": {
                 "aa": "pencil",
                 "ab": "graphite",
                 "ac": "colour pencil",
@@ -8772,14 +8773,15 @@
                 "uu": "unknown",
                 "vv": "mixed",
                 "xx": "not applicable",
-                "zz": "other"
+                "zz": "other",
+                "  ": "unused"
               }
             },
             "10-15": {
               "label": "Technique (Prints)",
               "start": 10,
               "end": 15,
-              "codes": {
+              "flags": {
                 "ba": "woodcut",
                 "bb": "chiaroscuro woodcut",
                 "bc": "white-line woodcut",
@@ -8808,7 +8810,8 @@
                 "uu": "unknown",
                 "vv": "mixed",
                 "xx": "not applicable",
-                "zz": "other"
+                "zz": "other",
+                "  ": "unused"
               }
             },
             "16-17": {
@@ -8896,7 +8899,7 @@
               "label": "Material",
               "start": 2,
               "end": 7,
-              "codes": {
+              "flags": {
                 "aa": "terra-cotta",
                 "ab": "wax",
                 "ac": "clay",
@@ -8924,7 +8927,8 @@
                 "ia": "plastic",
                 "uu": "unknown",
                 "vv": "mixed",
-                "zz": "other"
+                "zz": "other",
+                "  ": "unused"
               }
             },
             "08": {
@@ -8988,7 +8992,7 @@
               "label": "Relief codes",
               "start": 3,
               "end": 6,
-              "codes": {
+              "flags": {
                 "a": "contours",
                 "b": "continuous tone shaded relief",
                 "c": "hypsometric tints - layer method",
@@ -9001,7 +9005,8 @@
                 "j": "landforms (e.g. in the style of Lobeck, Raisz, Fenneman)",
                 "k": "bathymetry - isolines",
                 "x": "not applicable",
-                "z": "other methods of relief representation"
+                "z": "other methods of relief representation",
+                " ": "blank"
               }
             },
             "07-08": {
@@ -9062,7 +9067,7 @@
               "label": "Prime meridian",
               "start": 9,
               "end": 12,
-              "codes": {
+              "flags": {
                 "aa": "Greenwich, United Kingdom (International prime meridian)",
                 "ab": "Amsterdam, Netherlands",
                 "ac": "Athens, Greece",
@@ -9102,7 +9107,8 @@
                 "bq": "Tokyo, Japan",
                 "br": "Washington, DC, USA",
                 "uu": "unknown",
-                "zz": "other"
+                "zz": "other",
+                "  ": "unused"
               }
             }
           }
@@ -9133,12 +9139,13 @@
               "label": "Primary cartographic image",
               "start": 1,
               "end": 2,
-              "codes": {
+              "flags": {
                 "a": "manually and plotted",
                 "b": "photographically",
                 "c": "by computer",
                 "d": "by active remote sensing techniques",
-                "e": "by passive remote sensing techniques"
+                "e": "by passive remote sensing techniques",
+                "  ": "blank"
               }
             },
             "03-04": {
@@ -9241,9 +9248,10 @@
               "label": "Spectral bands",
               "start": 2,
               "end": 3,
-              "codes": {
-                "01-99": "number of bands",
-                "xx": "not applicable"
+              "pattern": "^(0[1-9]|[1-9][0-9])$|^(xx)$",
+              "groups": {
+                "1": "number of bands",
+                "2": "not applicable"
               }
             },
             "04": {
@@ -9273,9 +9281,17 @@
             "06": {
               "label": "Mean ground resolution values",
               "start": 6,
-              "codes": {
+              "flags": {
                 "-": "less than 1 centimeter",
-                "1-9": "numeric value",
+                "1": "numeric value 1",
+                "2": "numeric value 2",
+                "3": "numeric value 3",
+                "4": "numeric value 4",
+                "5": "numeric value 5",
+                "6": "numeric value 6",
+                "7": "numeric value 7",
+                "8": "numeric value 8",
+                "9": "numeric value 9",
                 "+": "greater than 9 kilometers",
                 "x": "not applicable"
               }
@@ -9996,7 +10012,7 @@
               "label": "Accompanying textual material",
               "start": 7,
               "end": 12,
-              "codes": {
+              "flags": {
                 "a": "discography",
                 "b": "bibliography",
                 "c": "thematic index",
@@ -10011,7 +10027,8 @@
                 "l": "biography of arranger or transcriber",
                 "r": "instructional material",
                 "s": "score",
-                "z": "other accompanying textual material"
+                "z": "other accompanying textual material",
+                " ": "blank"
               }
             },
             "13": {
@@ -12772,11 +12789,12 @@
               "label": "Image Bit Depth",
               "start": 5,
               "end": 7,
-              "codes": {
-                "001-999": "Exact bit depth",
-                "mmm": "Multiple (more than one image type)",
-                "nnn": "Not applicable",
-                "---": "Unknown"
+              "pattern": "^((00[1-9]|0[1-9][0-9]|[1-9][0-9][0-9])|mmm|nnn|---)$",
+              "groups": {
+                "2": "Exact bit depth",
+                "3": "Multiple (more than one image type)",
+                "4": "Not applicable",
+                "5": "Unknown"
               }
             },
             "08": {
@@ -12853,7 +12871,7 @@
               "label": "Illustration Codes - Book",
               "start": 0,
               "end": 3,
-              "codes": {
+              "flags": {
                 "a": "illustrations (use for types of illustrations which are not covered below, or when types of illustrations are not being specifically coded)",
                 "b": "illuminations",
                 "c": "ornamental letter",
@@ -12878,7 +12896,7 @@
               "label": "Illustration Codes - Full Page Plates",
               "start": 4,
               "end": 7,
-              "codes": {
+              "flags": {
                 "a": "illustrations",
                 "g": "frontispiece",
                 "h": "portraits",
@@ -12913,7 +12931,7 @@
               "label": "Form of Contents Code",
               "start": 9,
               "end": 16,
-              "codes": {
+              "flags": {
                 "aa": "religious work",
                 "ab": "catechism",
                 "ac": "devotional literature",
@@ -13070,7 +13088,7 @@
               "label": "Binding Material Code - General",
               "start": 0,
               "end": 2,
-              "codes": {
+              "flags": {
                 "a": "parchment, vellum",
                 "b": "leather",
                 "c": "wood",
@@ -13131,7 +13149,7 @@
               "label": "State of Preservation Code - Body of the Book - General",
               "start": 6,
               "end": 7,
-              "codes": {
+              "flags": {
                 "a": "excellent",
                 "b": "good",
                 "c": "worn",
@@ -13140,7 +13158,7 @@
                 "g": "restored",
                 "u": "unknown",
                 "z": "other",
-                " ": "(blank) - information not required"
+                " ": "information not required"
               }
             }
           }
@@ -13344,7 +13362,7 @@
               "label": "Binding State of Preservation Code - specific",
               "start": 0,
               "end": 2,
-              "codes": {
+              "flags": {
                 "a": "chemical damage",
                 "b": "acidification",
                 "c": "foxing",
@@ -13371,7 +13389,7 @@
               "label": "Hand-made Illustration Code",
               "start": 0,
               "end": 2,
-              "codes": {
+              "flags": {
                 "a": "illustrations",
                 "b": "hand-coloured illustrations",
                 "c": "illuminations",
@@ -13385,7 +13403,7 @@
               "label": "Marks in Book Code",
               "start": 3,
               "end": 5,
-              "codes": {
+              "flags": {
                 "a": "annotated copy",
                 "b": "glosses, marginal notes",
                 "c": "manunculae",
@@ -13408,7 +13426,7 @@
               "label": "Body of the Book State of Preservation Code - specific",
               "start": 0,
               "end": 2,
-              "codes": {
+              "flags": {
                 "a": "chemical damage",
                 "b": "acidification",
                 "c": "foxing",
@@ -13804,7 +13822,7 @@
               "label": "Suffix",
               "start": 5,
               "end": 6,
-              "codes": {
+              "flags": {
                 "0": "tenth",
                 "1": "eleventh",
                 "2": "twelfth",
@@ -13838,15 +13856,24 @@
                 "w": "two players on one instrument",
                 "x": "electronic ",
                 "y": "ethinc, traditional",
-                "z": "prepared"
+                "z": "prepared",
+                " ": "not specified – position not required"
               }
             },
             "07": {
               "label": "Suffix",
               "start": 7,
               "codes": {
-                "1-9": "internal group identifier",
                 "0": "internal group indicator (order of group notspecified)",
+                "1": "internal group identifier",
+                "2": "internal group identifier",
+                "3": "internal group identifier",
+                "4": "internal group identifier",
+                "5": "internal group identifier",
+                "6": "internal group identifier",
+                "7": "internal group identifier",
+                "8": "internal group identifier",
+                "9": "internal group identifier",
                 "a": "solo (as opposite to non-soloinstruments/voices)",
                 "b": "ad libitum",
                 "c": "may take pace of the preceding code / alternative",
@@ -13901,7 +13928,7 @@
               "label": "Suffix",
               "start": 5,
               "end": 6,
-              "codes": {
+              "flags": {
                 "0": "tenth",
                 "1": "eleventh",
                 "2": "twelfth",
@@ -13935,15 +13962,24 @@
                 "w": "two players on one instrument",
                 "x": "electronic ",
                 "y": "ethinc, traditional",
-                "z": "prepared"
+                "z": "prepared",
+                " ": "not specified – position not required"
               }
             },
             "07": {
               "label": "Suffix",
               "start": 7,
               "codes": {
-                "1-9": "internal group identifier",
                 "0": "internal group indicator (order of group notspecified)",
+                "1": "internal group identifier",
+                "2": "internal group identifier",
+                "3": "internal group identifier",
+                "4": "internal group identifier",
+                "5": "internal group identifier",
+                "6": "internal group identifier",
+                "7": "internal group identifier",
+                "8": "internal group identifier",
+                "9": "internal group identifier",
                 "a": "solo (as opposite to non-soloinstruments/voices)",
                 "b": "ad libitum",
                 "c": "may take pace of the preceding code / alternative",
@@ -13998,7 +14034,7 @@
               "label": "Suffix",
               "start": 5,
               "end": 6,
-              "codes": {
+              "flags": {
                 "0": "tenth",
                 "1": "eleventh",
                 "2": "twelfth",
@@ -14032,14 +14068,24 @@
                 "w": "two players on one instrument",
                 "x": "electronic ",
                 "y": "ethinc, traditional",
-                "z": "prepared"
+                "z": "prepared",
+                " ": "not specified – position not required"
               }
             },
             "07": {
               "label": "Suffix",
               "start": 7,
               "codes": {
-                "1-9": "internal group identifier",
+                "0": "internal group indicator (order of group notspecified)",
+                "1": "internal group identifier",
+                "2": "internal group identifier",
+                "3": "internal group identifier",
+                "4": "internal group identifier",
+                "5": "internal group identifier",
+                "6": "internal group identifier",
+                "7": "internal group identifier",
+                "8": "internal group identifier",
+                "9": "internal group identifier",
                 "0": "internal group indicator (order of group notspecified)",
                 "a": "solo (as opposite to non-soloinstruments/voices)",
                 "b": "ad libitum",
@@ -15993,7 +16039,7 @@
               "label": "Sensory Specification",
               "start": 3,
               "end": 5,
-              "codes": {
+              "flags": {
                 "a": "aural",
                 "b": "gustatory",
                 "c": "olfactory",
@@ -16182,8 +16228,9 @@
           "label": "Language of Parallel Title Proper",
           "repeatable": true,
           "codelist": {
-            "Abk": "Abkhazian",
-            "Ace": "Achinese",
+            "qaa-qtz": "Reserved for local use",
+            "abk": "Abkhazian",
+            "ace": "Achinese",
             "ach": "Acoli",
             "ada": "Adangme",
             "ady": "Adyghe; Adygei",
@@ -16535,13 +16582,12 @@
             "pol": "Polish",
             "por": "Portuguese",
             "pra": "Prakrit languages",
-            "Provençal, Old (to 1500)": "ppro",
+            "pro": "Provençal, Old (to 1500)",
             "pus": "Pushto; Pashto",
             "que": "Quechua",
             "raj": "Rajasthani",
             "rap": "Rapanui",
             "rar": "Rarotongan; Cook Islands Maori",
-            "qaa-qtz": "Reserved for local use",
             "roa": "Romance (Other)",
             "rum": "Romanian",
             "roh": "Romansh",
@@ -16665,9 +16711,9 @@
             "zap": "Zapotec",
             "zza": "Zaza; Dimili; Dimli; Kirdki; Kirmanjki; Zazaki",
             "zen": "Zenaga",
-            "Zha": "Zhuang; Chuang",
-            "Zul": "Zulu",
-            "Zun": "Zuni"
+            "zha": "Zhuang; Chuang",
+            "zul": "Zulu",
+            "zun": "Zuni"
           }
         },
         "5": {
@@ -17412,7 +17458,7 @@
             "pol": "Polish",
             "por": "Portuguese",
             "pra": "Prakrit languages",
-            "Provençal, Old (to 1500)": "ppro",
+            "pro": "Provençal, Old (to 1500)",
             "pus": "Pushto; Pashto",
             "que": "Quechua",
             "raj": "Rajasthani",
@@ -28941,7 +28987,7 @@
             "pol": "Polish",
             "por": "Portuguese",
             "pra": "Prakrit languages",
-            "Provençal, Old (to 1500)": "ppro",
+            "pro": "Provençal, Old (to 1500)",
             "pus": "Pushto; Pashto",
             "que": "Quechua",
             "raj": "Rajasthani",

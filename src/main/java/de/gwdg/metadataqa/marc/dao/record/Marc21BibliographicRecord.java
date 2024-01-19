@@ -24,6 +24,10 @@ public class Marc21BibliographicRecord extends Marc21Record {
   private static Map<String, Map<String, Boolean>> skippableAuthoritySubfields;
   private static Map<String, Map<String, Boolean>> skippableSubjectSubfields;
   private static Map<AuthorityCategory, List<String>> authorityTagsMap;
+
+  /**
+   * Key-value pairs of ShelfReadyFieldsBooks (the category) and a map of tags and its subfields.
+   */
   private static Map<ShelfReadyFieldsBooks, Map<String, List<String>>> shelfReadyMap;
 
   public Marc21BibliographicRecord() {
@@ -130,8 +134,9 @@ public class Marc21BibliographicRecord extends Marc21Record {
 
   @Override
   public Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap() {
-    if (shelfReadyMap == null)
+    if (shelfReadyMap == null) {
       initializeShelfReadyMap();
+    }
 
     return shelfReadyMap;
   }
@@ -141,16 +146,26 @@ public class Marc21BibliographicRecord extends Marc21Record {
 
     for (Map.Entry<ShelfReadyFieldsBooks, String> entry : getRawShelfReadyMap().entrySet()) {
       shelfReadyMap.put(entry.getKey(), new TreeMap<>());
+
+      // Split the raw path comma-separated list into individual paths
       String[] paths = entry.getValue().split(",");
+
       for (String path : paths) {
-        if (path.contains("$")) {
-          String[] parts = path.split("\\$");
-          if (!shelfReadyMap.get(entry.getKey()).containsKey(parts[0]))
-            shelfReadyMap.get(entry.getKey()).put(parts[0], new ArrayList<>());
-          shelfReadyMap.get(entry.getKey()).get(parts[0]).add(parts[1]);
-        } else {
+        if (!path.contains("$")) {
           shelfReadyMap.get(entry.getKey()).put(path, new ArrayList<>());
+          continue;
         }
+
+        // If the path contains a $ (has a subfield specified), split it into the tag and subfield
+        String[] parts = path.split("\\$");
+
+        // If the map doesn't contain the tag, add it, with an empty list of subfields
+        if (!shelfReadyMap.get(entry.getKey()).containsKey(parts[0])) {
+          shelfReadyMap.get(entry.getKey()).put(parts[0], new ArrayList<>());
+        }
+
+        // Add the subfield to the list of subfields for the tag
+        shelfReadyMap.get(entry.getKey()).get(parts[0]).add(parts[1]);
       }
     }
   }

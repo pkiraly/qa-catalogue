@@ -39,11 +39,6 @@ public class MarclineLine {
 
   public boolean isLeader() {
     return isLeader;
-    /*
-    if (tag == null)
-      return false;
-    return tag.equals(LDR);
-    */
   }
 
   public boolean isNumericTag() {
@@ -95,26 +90,32 @@ public class MarclineLine {
   }
 
   private void parse(String raw) {
-    if (!raw.substring(3, 4).equals(" ")) {
+    // Check if the tag is longer than 3 characters
+    if (raw.charAt(3) != ' ') {
       isLeader = true;
       content = raw.replaceAll("^(LEADER|LDR) ", "");
-    } else {
-      tag = raw.substring(0, 3);
-      //  marcRecord.setField(tag, content, marcVersion);
-      if (tag.equals("LDR")) {
-        isLeader = true;
-        content = raw.replaceAll("^LDR ", "");
-        tag = null;
-      } else {
-        if (isControlField())
-          content = raw.substring(4);
-        else {
-          ind1 = raw.substring(4, 5);
-          ind2 = raw.substring(5, 6);
-          content = raw.substring(6);
-        }
-      }
+      return;
     }
+
+    // If it's not longer than 3 characters, it's either an LDR field a regular data/control field with a 3-digit tag
+    tag = raw.substring(0, 3);
+    if (tag.equals(LDR)) {
+      isLeader = true;
+      content = raw.replaceAll("^LDR ", "");
+      tag = null;
+      return;
+    }
+
+    // If it's not a control field, then it's a data field
+    if (!isControlField())
+    {
+      ind1 = raw.substring(4, 5);
+      ind2 = raw.substring(5, 6);
+      content = raw.substring(6);
+      return;
+    }
+
+    content = raw.substring(4);
   }
 
   public List<String[]> parseSubfields() {
@@ -133,7 +134,7 @@ public class MarclineLine {
 
   @Override
   public String toString() {
-    return "AlephseqLine{" +
+    return "MarclineLine{" +
       "recordID='" + recordID + '\'' +
       ", tag='" + tag + '\'' +
       ", ind1='" + ind1 + '\'' +

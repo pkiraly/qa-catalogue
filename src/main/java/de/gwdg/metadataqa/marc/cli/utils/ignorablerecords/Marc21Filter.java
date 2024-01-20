@@ -17,7 +17,7 @@ public class Marc21Filter {
     if (StringUtils.isNotBlank(input)) {
       conditions = new ArrayList<>();
       for (String field : input.split(",")) {
-        DataField f = parseField(field);
+        DataField f = parseFieldCondition(field);
         if (f != null)
           conditions.add(f);
       }
@@ -32,7 +32,12 @@ public class Marc21Filter {
     return conditions == null || conditions.isEmpty();
   }
 
-  protected DataField parseField(String field) {
+  /**
+   * Parses the given string field condition which is in a format of "tag$subfield=value" (e.g. "001$0=123456").
+   * @param field The field condition to parse
+   * @return The parsed field condition, which is essentially a new DataField object
+   */
+  protected DataField parseFieldCondition(String field) {
     var pattern = Pattern.compile("^(.{3})\\$(.)=(.*)$");
     var matcher = pattern.matcher(field);
     if (matcher.matches()) {
@@ -44,6 +49,12 @@ public class Marc21Filter {
     return null;
   }
 
+  /**
+   * Checks if the given record meets the set of criteria. If only one of the criteria is met, the method returns
+   * true. If none of the criteria is met, the method returns false.
+   * @param marcRecord The record to check
+   * @return True if the record meets the criteria, false otherwise
+   */
   protected boolean met(BibliographicRecord marcRecord) {
     for (DataField condition : conditions) {
       List<DataField> recordFields = marcRecord.getDatafield(condition.getTag());
@@ -56,6 +67,12 @@ public class Marc21Filter {
     return false;
   }
 
+  /**
+   * Checks if the given fields meet the given condition. If the condition is met, the method returns true.
+   * @param condition Condition to check the record for, for now in the form of a DataField object
+   * @param recordFields Fields of the record to check
+   * @return True if the fields meet the condition, false otherwise
+   */
   private boolean metCondition(DataField condition, List<DataField> recordFields) {
     for (DataField recordField : recordFields) {
       MarcSubfield subfieldCond = condition.getSubfields().get(0);

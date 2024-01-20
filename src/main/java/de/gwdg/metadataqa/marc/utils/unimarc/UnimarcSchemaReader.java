@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -35,6 +36,7 @@ public class UnimarcSchemaReader {
   private static final String SUBFIELDS = "subfields";
   private static final String POSITIONS = "positions";
   private static final String CODES = "codes";
+  private static final String FLAGS = "flags";
   private static final String CODELIST = "codelist";
   private static final String START = "start";
   private static final String END = "end";
@@ -52,18 +54,21 @@ public class UnimarcSchemaReader {
       LABEL, 1,
       REPEATABLE, 1,
       CODELIST, 1,
-      POSITIONS, 1);
+      POSITIONS, 1,
+      CODES, 1);
   private static final Map<String, Integer> knownIndicatorProperties = Map.of(
       LABEL, 1,
       CODES,1);
 
   private final JSONParser parser = new JSONParser(JSONParser.MODE_RFC4627);
   private final UnimarcSchemaManager schema = new UnimarcSchemaManager();
+  private Map<String, List<EncodedValue>> codeLists = new HashMap<>();
 
   public UnimarcSchemaManager createSchema(InputStream inputStream) {
     try {
-      JSONObject obj = readFile(inputStream);
-      processFields(obj);
+      JSONObject jsonObject = readStream(inputStream);
+      processCodeLists(jsonObject);
+      processFields(jsonObject);
     } catch (ParseException e) {
       logger.severe(e.getLocalizedMessage());
     }
@@ -73,8 +78,9 @@ public class UnimarcSchemaReader {
 
   public UnimarcSchemaManager createSchema(String filename) {
     try {
-      JSONObject obj = readFile(filename);
-      processFields(obj);
+      JSONObject jsonObject = readFile(filename);
+      processCodeLists(jsonObject);
+      processFields(jsonObject);
     } catch (FileNotFoundException | ParseException e) {
       logger.severe(e.getLocalizedMessage());
     }
@@ -82,12 +88,22 @@ public class UnimarcSchemaReader {
     return schema;
   }
 
+  private void processCodeLists(JSONObject jsonObject) {
+    JSONObject fields = (JSONObject) jsonObject.get("codelists");
+    for (Map.Entry<String, Object> entry : fields.entrySet()) {
+      String codeListName = entry.getKey();
+      JSONObject properties = (JSONObject) entry.getValue();
+      List<EncodedValue> codeList = processCodes((JSONObject) properties.get("codes"));
+      codeLists.put(codeListName, codeList);
+    }
+  }
+
   private JSONObject readFile(String filename) throws FileNotFoundException, ParseException {
     FileReader reader = new FileReader(filename);
     return (JSONObject) parser.parse(reader);
   }
 
-  private JSONObject readFile(InputStream stream) throws ParseException {
+  private JSONObject readStream(InputStream stream) throws ParseException {
     InputStreamReader streamReader = new InputStreamReader(stream, StandardCharsets.UTF_8);
     return (JSONObject) parser.parse(streamReader);
   }
@@ -210,6 +226,10 @@ public class UnimarcSchemaReader {
       codeList.setCodes(codes);
       subfieldDefinition.setCodeList(codeList);
 
+      codes = getCodes(jsonSubfield, CODES);
+      if (!codes.isEmpty())
+        subfieldDefinition.setCodes(codes);
+
       String subfieldTag = String.format("%s$%s", parentTag, code);
 
       List<ControlfieldPositionDefinition> positions = getPositions(jsonSubfield, subfieldTag);
@@ -224,7 +244,7 @@ public class UnimarcSchemaReader {
       // Log all unhandled subfield properties
       for (String property : jsonSubfield.keySet()) {
         if (!knownSubfieldProperties.containsKey(property)) {
-          logger.warning(() -> "unhandled subfield property: " + property);
+          logger.warning(() -> String.format("%s$%s unhandled subfield property: %s", parentTag, code, property));
         }
       }
     }
@@ -262,7 +282,12 @@ public class UnimarcSchemaReader {
       positionDefinition.setId(positionId);
 
       List<EncodedValue> codes = getCodes(position, CODES);
-      positionDefinition.setCodes(codes);
+      if (!codes.isEmpty())
+        positionDefinition.setCodes(codes);
+
+      codes = getCodes(position, FLAGS);
+      if (!codes.isEmpty())
+        positionDefinition.setCodes(codes);
 
       // Get first length of the codes
       int codeLength = codes.stream().findFirst().map(EncodedValue::getCode).map(String::length).orElse(0);
@@ -327,14 +352,23 @@ public class UnimarcSchemaReader {
    * @return The list of codes for the respective codesHolder
    */
   private List<EncodedValue> getCodes(JSONObject codesHolder, String objectKey) {
-    JSONObject codes = (JSONObject) codesHolder.get(objectKey);
+    Object listValue = codesHolder.get(objectKey);
+    if (listValue instanceof String) {
+      return codeLists.computeIfAbsent((String) listValue, s -> List.of());
+    }
+
+    JSONObject codes = (JSONObject) listValue;
     if (codes == null) {
       return List.of();
     }
+    return processCodes(codes);
+  }
+
+  private List<EncodedValue> processCodes(JSONObject codes) {
     List<EncodedValue> encodedValues = new ArrayList<>();
     for (Map.Entry<String, Object> codeEntry : codes.entrySet()) {
       String code = codeEntry.getKey();
-      String codeLabel = (String) codes.get(code);
+      String codeLabel = (String) codeEntry.getValue();
 
       if (code.startsWith("//")) {
         continue;

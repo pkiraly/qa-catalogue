@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.utils.unimarc;
 
 import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import org.junit.Before;
@@ -94,7 +95,6 @@ public class UnimarcSchemaReaderTest {
     @Test
     public void createSchema_subfieldStructureIsCorrect() {
         int expectedSubfieldCount = 3;
-        int expectedSubfield2CodeListSize = 56;
         int expected100aPositionCount = 14;
         int expected100aPosition1CodeCount = 12;
 
@@ -111,14 +111,6 @@ public class UnimarcSchemaReaderTest {
         assertNotNull(subfieldB);
         assertTrue(subfieldA.isRepeatable());
 
-        SubfieldDefinition subfield2 = subfieldDefinitions.get("2");
-        assertNotNull(subfield2);
-        assertFalse(subfield2.isRepeatable());
-
-        CodeList codeList = subfield2.getCodeList();
-        assertNotNull(codeList);
-        assertEquals(expectedSubfield2CodeListSize, codeList.getCodes().size());
-        
         UnimarcFieldDefinition field100 = schema.lookup("100");
         Map<String, SubfieldDefinition> subfieldDefinitions100 = field100.getSubfieldDefinitions();
         SubfieldDefinition subfield100a = subfieldDefinitions100.get("a");
@@ -129,6 +121,42 @@ public class UnimarcSchemaReaderTest {
         List<EncodedValue> codes = subfield100a.getPosition(8, 9).getCodes();
         assertEquals(expected100aPosition1CodeCount, codes.size());
     }
+
+    @Test
+    public void createSchema_subfieldStructureIsCorrect_886_2() {
+        UnimarcFieldDefinition lastField = schema.lookup("886");
+        Map<String, SubfieldDefinition> subfieldDefinitions = lastField.getSubfieldDefinitions();
+
+        SubfieldDefinition subfield2 = subfieldDefinitions.get("2");
+        assertNotNull(subfield2);
+        assertFalse(subfield2.isRepeatable());
+
+        List<EncodedValue> codeList = subfield2.getCodes();
+        assertNotNull(codeList);
+        assertEquals(56, codeList.size());
+    }
+
+    @Test
+    public void createSchema_subfieldStructureIsCorrect_100a() {
+        UnimarcFieldDefinition lastField = schema.lookup("100");
+        Map<String, SubfieldDefinition> subfieldDefinitions = lastField.getSubfieldDefinitions();
+
+        SubfieldDefinition subfield = subfieldDefinitions.get("a");
+        assertNotNull(subfield);
+        assertFalse(subfield.isRepeatable());
+
+        List<ControlfieldPositionDefinition> positions = subfield.getPositions();
+        assertNotNull(positions);
+        assertEquals(14, positions.size());
+
+        ControlfieldPositionDefinition position = subfield.getPosition(17, 20);
+        assertNotNull(position);
+        System.err.println(position);
+        assertEquals(1, position.getUnitLength());
+        assertTrue(position.isRepeatableContent());
+        assertNotNull(position.getCodes());
+    }
+
     private String getPath(String filename) {
         return Paths.get("src/test/resources/" + filename).toAbsolutePath().toString();
     }

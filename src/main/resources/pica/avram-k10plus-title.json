@@ -3288,10 +3288,9 @@
       "tag": "021N",
       "url": "https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=4011"
     },
-    "022A/00": {
+    "022A": {
       "label": "Werktitel und sonstige unterscheidende Merkmale des Werks",
       "modified": "2022-06-28T15:50:08",
-      "occurrence": null,
       "pica3": "3210",
       "repeatable": true,
       "subfields": {
@@ -6395,10 +6394,9 @@
       "tag": "035H",
       "url": "https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=4029"
     },
-    "036C/00": {
+    "036C": {
       "label": "Gesamttitel der mehrteiligen Monografie",
       "modified": "2020-06-04T11:35:31",
-      "occurrence": null,
       "pica3": "4150",
       "repeatable": true,
       "subfields": {
@@ -6669,10 +6667,9 @@
       "tag": "036E",
       "url": "https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=4170-4179"
     },
-    "036F/00": {
+    "036F": {
       "label": "Verknüpfung zur fortlaufenden Ressource",
       "modified": "2020-06-04T11:35:31",
-      "occurrence": null,
       "pica3": "4180-4189",
       "repeatable": true,
       "subfields": {
@@ -10128,10 +10125,9 @@
       "tag": "045A",
       "url": "https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=5030"
     },
-    "045B/00": {
+    "045B": {
       "label": "Allgemeine Systematik für Bibliotheken (ASB)",
       "modified": "2018-06-05T09:30:52",
-      "occurrence": null,
       "pica3": "5020",
       "repeatable": true,
       "subfields": {
@@ -12240,10 +12236,9 @@
       "tag": "089C",
       "url": "https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=8902"
     },
-    "091O/00": {
+    "091O": {
       "label": "Online-Profildienst: Besitzkennzeichen zur Selektion",
       "modified": "2021-02-12T15:44:24",
-      "occurrence": null,
       "pica3": "9600",
       "repeatable": true,
       "subfields": {

@@ -29,7 +29,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "Kennung und Datum der Ersterfassung",
                     "repeatable": false,
                     "modified": "2017-05-29 08:57:51",
@@ -65,7 +64,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "Kennung und Datum",
                     "repeatable": false,
                     "modified": "2017-09-28 10:47:22",
@@ -101,7 +99,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "MRM: UTC-Zeitstempel der letzten \u00c4nderung",
                     "repeatable": false,
                     "modified": "2017-05-29 08:57:51",
@@ -137,7 +134,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "Unicode-Kennzeichen",
                     "repeatable": false,
                     "modified": "2017-05-29 08:57:51",
@@ -155,7 +151,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "Title owner",
                     "repeatable": false,
                     "modified": "2017-05-29 08:57:51",
@@ -173,7 +168,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "Bibliografische Gattung und Status",
                     "repeatable": false,
                     "modified": "2017-09-21 16:04:25",
@@ -245,7 +239,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "MRM: Datum\/Uhrzeit der Master-TA",
                     "repeatable": false,
                     "modified": "2017-05-29 08:57:51",
@@ -263,7 +256,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "Pica-Produktionsnummer",
                     "repeatable": false,
                     "modified": "2018-01-17 14:09:33",
@@ -281,7 +273,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "MRM: PPN der Slave-TA",
                     "repeatable": false,
                     "modified": "2017-05-29 08:57:51",
@@ -299,7 +290,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "PPN",
                     "repeatable": false,
                     "modified": "2017-05-29 08:57:51",
@@ -335,7 +325,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "SWB-Pica-Produktionsnummer",
                     "repeatable": false,
                     "modified": "2017-05-29 08:57:51",
@@ -407,7 +396,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "UPC",
                     "repeatable": false,
                     "modified": "2017-06-29 10:07:47",
@@ -479,7 +467,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "EAN",
                     "repeatable": false,
                     "modified": "2017-06-29 10:05:32",
@@ -497,7 +484,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "ISRN",
                     "repeatable": false,
                     "modified": "2017-08-03 14:30:15",
@@ -533,7 +519,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "Handle",
                     "repeatable": false,
                     "modified": "2017-05-29 08:57:51",
@@ -551,7 +536,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "URN",
                     "repeatable": false,
                     "modified": "2017-05-29 08:57:51",
@@ -569,7 +553,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "DOI",
                     "repeatable": false,
                     "modified": "2017-05-29 08:57:51",
@@ -587,7 +570,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "DOI",
                     "repeatable": false,
                     "modified": "2017-05-29 08:57:51",
@@ -677,7 +659,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "LoC-Nummer",
                     "repeatable": false,
                     "modified": "2017-06-28 15:48:51",
@@ -695,7 +676,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "BNB-Nummer",
                     "repeatable": false,
                     "modified": "2017-06-28 15:41:04",
@@ -713,7 +693,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "DNB-Nummer",
                     "repeatable": false,
                     "modified": "2017-06-29 09:02:51",
@@ -731,7 +710,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "Nummer",
                     "repeatable": false,
                     "modified": "2017-09-27 10:31:51",
@@ -749,7 +727,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "PPN",
                     "repeatable": false,
                     "modified": "2017-05-29 08:57:51",
@@ -767,7 +744,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "CIP-Nummer",
                     "repeatable": false,
                     "modified": "2017-06-29 09:30:34",
@@ -785,7 +761,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "WV-Nummer",
                     "repeatable": false,
                     "modified": "2017-06-29 09:39:13",
@@ -803,7 +778,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Nummer",
                     "repeatable": false,
                     "modified": "2017-05-29 08:57:51",
@@ -821,7 +795,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "Nummer",
                     "repeatable": false,
                     "modified": "2017-12-18 10:38:47",
@@ -839,7 +812,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "ZDB-Nummer",
                     "repeatable": false,
                     "modified": "2017-05-29 08:57:51",
@@ -857,7 +829,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "CODEN",
                     "repeatable": false,
                     "modified": "2017-06-29 10:02:14",
@@ -893,7 +864,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "Identnummer",
                     "repeatable": false,
                     "modified": "2017-09-27 14:19:07",
@@ -911,7 +881,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "Nummer",
                     "repeatable": false,
                     "modified": "2017-11-24 12:21:13",
@@ -947,7 +916,6 @@
             "subfields": {
                 "b": {
                     "code": "b",
-                    "pica3": null,
                     "label": "Code",
                     "repeatable": false,
                     "modified": "2018-01-17 15:50:52",
@@ -1127,7 +1095,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "Materialspezifische Codes f\u00fcr elektronische Ressourcen",
                     "repeatable": false,
                     "modified": "2018-01-10 10:06:30",
@@ -1163,7 +1130,6 @@
             "subfields": {
                 "0": {
                     "code": "0",
-                    "pica3": null,
                     "label": "Materialspezifische Codes f\u00fcr Mikroformen",
                     "repeatable": false,
                     "modified": "2018-01-10 10:18:34",
@@ -1251,7 +1217,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Code f\u00fcr Erscheinungsfrequenz",
                     "repeatable": true,
                     "modified": "2018-01-10 10:32:53",
@@ -1359,7 +1324,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Titelzus\u00e4tze und Verantwortlichkeitsangabe zur gesamten Vorlage",
                     "repeatable": false,
                     "modified": "2017-10-25 09:24:06",
@@ -1415,7 +1379,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Abweichender Titel",
                     "repeatable": false,
                     "modified": "2017-05-02 10:39:16",
@@ -1505,7 +1468,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Z\u00e4hlung von fortlaufenden Ressourcen",
                     "repeatable": false,
                     "modified": "2017-10-05 11:25:33",
@@ -1775,7 +1737,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Umfangsangabe bzw. Anzahl der physischen Einheiten",
                     "repeatable": false,
                     "modified": "2017-09-14 13:08:59",
@@ -1793,7 +1754,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Format, Ma\u00dfangaben bzw. physikalische Gr\u00f6\u00dfe des Datentr\u00e4gers",
                     "repeatable": false,
                     "modified": "2017-09-28 14:51:53",
@@ -1811,7 +1771,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Begleitmaterial",
                     "repeatable": false,
                     "modified": "2017-08-09 07:20:11",
@@ -1829,7 +1788,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Illustrationsangabe bzw. sonstige physische und technische Angaben",
                     "repeatable": false,
                     "modified": "2017-08-09 07:20:11",
@@ -1865,7 +1823,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Projektion",
                     "repeatable": false,
                     "modified": "2017-07-10 11:00:41",
@@ -1901,7 +1858,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "\u00c4quinoktium",
                     "repeatable": false,
                     "modified": "2017-07-10 11:36:53",
@@ -1937,7 +1893,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Aufzeichnungsort und Aufzeichnungsdatum",
                     "repeatable": false,
                     "modified": "2017-08-04 08:16:54",
@@ -1991,7 +1946,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Technische Angabe zum elektronischen Dokument",
                     "repeatable": false,
                     "modified": "2017-09-14 13:08:59",
@@ -2009,7 +1963,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Copyrightvermerk",
                     "repeatable": false,
                     "modified": "2017-09-14 13:08:59",
@@ -2135,7 +2088,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Gattungsbegriff (nur in Importdaten)",
                     "repeatable": false,
                     "modified": "2018-01-11 16:12:38",
@@ -2153,7 +2105,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Notation",
                     "repeatable": false,
                     "modified": "2017-07-06 08:12:03",
@@ -2285,7 +2236,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Notation",
                     "repeatable": true,
                     "modified": "2017-07-06 08:12:03",
@@ -2447,7 +2397,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Abweichender Titel",
                     "repeatable": false,
                     "modified": "2017-08-09 07:20:11",
@@ -2501,7 +2450,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Voraussichtlicher Erscheinungstermin",
                     "repeatable": false,
                     "modified": "2017-07-10 15:58:48",
@@ -2519,7 +2467,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Angaben \u00fcber Sprache und Schrift der Expression",
                     "repeatable": false,
                     "modified": "2017-07-07 12:06:16",
@@ -2537,7 +2484,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Anmerkungen zu Interpreten, Ausf\u00fchrenden, Erz\u00e4hlern und\/oder Pr\u00e4sentatorenAnmerk",
                     "repeatable": false,
                     "modified": "2017-10-19 11:14:53",
@@ -2555,7 +2501,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Erl\u00e4uterung zur Z\u00e4hlung",
                     "repeatable": false,
                     "modified": "2017-08-09 07:20:11",
@@ -2591,7 +2536,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "K\u00fcnstlerische und\/oder technische Angabe",
                     "repeatable": false,
                     "modified": "2017-11-17 13:04:31",
@@ -2609,7 +2553,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Kommentarfeld",
                     "repeatable": false,
                     "modified": "2017-05-29 08:57:51",
@@ -2645,7 +2588,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Allgemeiner Bearbeitungshinweis",
                     "repeatable": false,
                     "modified": "2017-07-07 12:06:16",
@@ -2699,7 +2641,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Zusammenfassende Register",
                     "repeatable": false,
                     "modified": "2017-05-02 10:39:16",
@@ -2753,7 +2694,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Systemvoraussetzungen f\u00fcr elektronische Ressourcen",
                     "repeatable": false,
                     "modified": "2018-01-12 11:16:49",
@@ -2807,7 +2747,6 @@
             "subfields": {
                 "a": {
                     "code": "a",
-                    "pica3": null,
                     "label": "Mitteilungstext",
                     "repeatable": false,
                     "modified": "2017-07-26 15:43:57",

@@ -6,10 +6,7 @@ import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.UnimarcLeader;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
-import de.gwdg.metadataqa.marc.utils.pica.crosswalk.Crosswalk;
-import de.gwdg.metadataqa.marc.utils.pica.crosswalk.PicaMarcCrosswalkReader;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -124,18 +121,40 @@ public class UnimarcRecord extends MarcRecord {
 
   private static void initializeShelfReadyMap() {
     shelfReadyMap = new LinkedHashMap<>();
-    for (Map.Entry<ShelfReadyFieldsBooks, Map<String, List<String>>> entry : (new Marc21Record()).getShelfReadyMap().entrySet()) {
-      ShelfReadyFieldsBooks category = entry.getKey();
-      shelfReadyMap.put(category, new HashMap<>());
-      for (Map.Entry<String, List<String>> marcEntry : entry.getValue().entrySet()) {
-        for (String code : marcEntry.getValue()) {
-          for (Crosswalk crosswalk : PicaMarcCrosswalkReader.lookupMarc21(marcEntry.getKey() + " $" + code)) {
-            if (!shelfReadyMap.get(category).containsKey(crosswalk.getPica()))
-              shelfReadyMap.get(category).put(crosswalk.getPica(), new ArrayList<>());
-            shelfReadyMap.get(category).get(crosswalk.getPica()).add(crosswalk.getPicaUf().replace("$", ""));
-          }
-        }
-      }
-    }
+    Map<ShelfReadyFieldsBooks, String> raw = new LinkedHashMap<>();
+    raw.put(ShelfReadyFieldsBooks.LDR06, "LDR~06");
+    raw.put(ShelfReadyFieldsBooks.LDR07, "LDR~07");
+    raw.put(ShelfReadyFieldsBooks.LDR1718, "LDR~17-18");
+    raw.put(ShelfReadyFieldsBooks.TAG00600, "006~00");
+    raw.put(ShelfReadyFieldsBooks.TAG010, "010$a");
+    raw.put(ShelfReadyFieldsBooks.TAG015, "015$a,015$2");
+    raw.put(ShelfReadyFieldsBooks.TAG020, "020$a,020$z,020$q");
+    raw.put(ShelfReadyFieldsBooks.TAG035, "035$a,035$z");
+    raw.put(ShelfReadyFieldsBooks.TAG040, "040$a,040$b,040$c,040$d,040$e");
+    raw.put(ShelfReadyFieldsBooks.TAG041, "041$a,041$b,041$h");
+    raw.put(ShelfReadyFieldsBooks.TAG050, "050$a,050$b");
+    raw.put(ShelfReadyFieldsBooks.TAG082, "082$a,082$2");
+    raw.put(ShelfReadyFieldsBooks.TAG1XX, "100$a,110$a,111$a,130$a");
+    raw.put(ShelfReadyFieldsBooks.TAG240, "240$a,240$l,240$n,240$p");
+    raw.put(ShelfReadyFieldsBooks.TAG245, "245$a,245$b,245$n,245$p,245$c");
+    raw.put(ShelfReadyFieldsBooks.TAG246, "246$a,246$b,246$n,246$p");
+    raw.put(ShelfReadyFieldsBooks.TAG250, "250$a,250$b");
+    raw.put(ShelfReadyFieldsBooks.TAG264, "264$a,264$b,264$c");
+    raw.put(ShelfReadyFieldsBooks.TAG300, "300$a,300$b,300$c");
+    raw.put(ShelfReadyFieldsBooks.TAG336, "336$a,336$b,336$2");
+    raw.put(ShelfReadyFieldsBooks.TAG337, "337$a,337$b,337$2");
+    raw.put(ShelfReadyFieldsBooks.TAG338, "338$a,338$b,338$2");
+    raw.put(ShelfReadyFieldsBooks.TAG490, "490$a,490$v");
+    raw.put(ShelfReadyFieldsBooks.TAG500, "500$a");
+    raw.put(ShelfReadyFieldsBooks.TAG504, "504$a");
+    raw.put(ShelfReadyFieldsBooks.TAG505, "505$a,505$t,505$r");
+    raw.put(ShelfReadyFieldsBooks.TAG520, "520$a");
+    raw.put(ShelfReadyFieldsBooks.TAG546, "546$a");
+    raw.put(ShelfReadyFieldsBooks.TAG588, "588$a");
+    raw.put(ShelfReadyFieldsBooks.TAG6XX, "600$a,610$a,611$a,630$a,647$a,648$a,650$a,651$a,653$a,654$a,655$a,656$a,657$a,658$a,662$a");
+    raw.put(ShelfReadyFieldsBooks.TAG7XX, "700$a,710$a,711$a,720$a,730$a,740$a,751$a,752$a,753$a,754$a");
+    raw.put(ShelfReadyFieldsBooks.TAG776, "776$a");
+    raw.put(ShelfReadyFieldsBooks.TAG856, "856$u");
+    raw.put(ShelfReadyFieldsBooks.TAG8XX, "800$a,810$a,811$a,830$a");
   }
 }

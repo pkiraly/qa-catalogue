@@ -141,6 +141,14 @@ public class Marc21BibliographicRecord extends Marc21Record {
     return shelfReadyMap;
   }
 
+  /**
+   * Initialize the shelf ready map. This is a map of ShelfReadyFieldsBooks (the category) and a map of tags and its
+   * subfields.
+   * In case the field path doesn't have a subfield specified, the subfield list is empty.
+   * E.g. "LDR~06" = "LDR~06" -> []
+   * Otherwise, the subfield list contains the subfield codes.
+   * E.g. "600$a"  "600" -> ["a"]
+   */
   private static void initializeShelfReadyMap() {
     shelfReadyMap = new LinkedHashMap<>();
 

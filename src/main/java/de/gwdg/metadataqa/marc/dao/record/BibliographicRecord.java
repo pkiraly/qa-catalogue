@@ -382,7 +382,7 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
    * @param selector The selector that lists subfields to select
    * @return The final result of the selection
    */
-  private List<String> selectDatafield(DataField field, MarcSpec selector) {
+  protected List<String> selectDatafield(DataField field, MarcSpec selector) {
     List<String> selectedResults = new ArrayList<>();
     if (field == null) {
       return selectedResults;

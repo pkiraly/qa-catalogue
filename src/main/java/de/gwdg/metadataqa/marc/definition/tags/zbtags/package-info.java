@@ -1,9 +1,9 @@
 /**
- * This package contains the tags specifics at Zentralbibliothek Zürich
+ * This package contains the tags specifics at Zentralbibliothek ZÃ¼rich
  *
  * The source of the classes is this document:
  *
- * Feldbeschreibung der Titeldaten der Zentralbibliothek Z�rich 
+ * Feldbeschreibung der Titeldaten der Zentralbibliothek Zürich 
  *
  * Version 0.5
  * Stand: 18.8.2022

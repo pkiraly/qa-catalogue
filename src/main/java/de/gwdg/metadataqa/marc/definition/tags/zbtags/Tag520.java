@@ -2,7 +2,6 @@ package de.gwdg.metadataqa.marc.definition.tags.zbtags;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 /**
  * Ausgabebezeichnung in normierter Form

@@ -2,8 +2,6 @@ package de.gwdg.metadataqa.marc.definition.tags.zbtags;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.structure.Indicator;
-
 
 public class Tag035 extends DataFieldDefinition {
 

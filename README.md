@@ -2230,6 +2230,33 @@ public class Tag020 extends DataFieldDefinition {
 }
 ```
 
+If you create new a package for the new MArc version, you should register it to several places:
+
+a. add a case into `src/main/java/de/gwdg/metadataqa/marc/Utils.java`:
+
+```Java
+case "zbtags":      version = MarcVersion.ZB;      break;
+```
+
+b. add an item into enumeration at `src/main/java/de/gwdg/metadataqa/marc/definition/tags/TagCategory.java`:
+
+```Java
+ZB(23, "zbtags", "ZB", "Locally defined tags of the Zentralbibliothek Zürich", false),
+```
+
+c. modify the expected number of data elements at `src/test/java/de/gwdg/metadataqa/marc/utils/DataElementsStaticticsTest.java`:
+
+```Java
+assertEquals( 215, statistics.get(DataElementType.localFields));
+```
+
+d. ... and a `src/test/java/de/gwdg/metadataqa/marc/utils/MarcTagListerTest.java`:
+
+```Java
+assertEquals( 2, (int) versionCounter2.get(MarcVersion.ZB));
+assertEquals( 2, (int) versionCounter.get("zbtags"));
+```
+
 ### Appendix III: Institutions which reportedly use this tool
 
 * [Universiteitsbibliotheek Gent](https://lib.ugent.be/), Gent, Belgium

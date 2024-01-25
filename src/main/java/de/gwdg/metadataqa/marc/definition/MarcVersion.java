@@ -14,6 +14,7 @@ public enum MarcVersion {
   UVA(     "UVA",      "University of Amsterdam"),
   B3KAT(   "B3KAT",    "B3Kat union catalogue of Bibliotheksverbundes Bayern (BVB) and Kooperativen Bibliotheksverbundes Berlin-Brandenburg (KOBV)"),
   KBR(     "KBR",      "KBR"),
+  ZB(       "ZB",       "Zentralbibliothek Zürich")
   ;
 
   String code;

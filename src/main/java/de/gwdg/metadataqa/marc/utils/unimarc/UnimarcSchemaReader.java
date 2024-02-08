@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -38,6 +37,7 @@ public class UnimarcSchemaReader {
   private static final String CODES = "codes";
   private static final String FLAGS = "flags";
   private static final String CODELIST = "codelist";
+  private static final String PATTERN = "pattern";
   private static final String START = "start";
   private static final String END = "end";
 
@@ -62,7 +62,7 @@ public class UnimarcSchemaReader {
 
   private final JSONParser parser = new JSONParser(JSONParser.MODE_RFC4627);
   private final UnimarcSchemaManager schema = new UnimarcSchemaManager();
-  private Map<String, List<EncodedValue>> codeLists = new HashMap<>();
+  private final Map<String, List<EncodedValue>> codeLists = new HashMap<>();
 
   public UnimarcSchemaManager createSchema(InputStream inputStream) {
     try {
@@ -88,12 +88,17 @@ public class UnimarcSchemaReader {
     return schema;
   }
 
+  /**
+   * Used to load all code lists from the JSON object and store them in the codeLists map. The code lists are going to
+   * be used to resolve the codes in subfields or positions.
+   * @param jsonObject The JSON object of the schema which is assumed to contain the codelists object.
+   */
   private void processCodeLists(JSONObject jsonObject) {
     JSONObject fields = (JSONObject) jsonObject.get("codelists");
     for (Map.Entry<String, Object> entry : fields.entrySet()) {
       String codeListName = entry.getKey();
       JSONObject properties = (JSONObject) entry.getValue();
-      List<EncodedValue> codeList = processCodes((JSONObject) properties.get("codes"));
+      List<EncodedValue> codeList = processCodes((JSONObject) properties.get(CODES));
       codeLists.put(codeListName, codeList);
     }
   }
@@ -169,6 +174,7 @@ public class UnimarcSchemaReader {
   }
 
   /**
+   * Retrieves the indicator from the JSON object. An in
    * @param indicatorNumber Either 1 or 2
    * @param jsonField The JSON object of the field
    */
@@ -181,7 +187,7 @@ public class UnimarcSchemaReader {
     }
 
     Indicator indicator = new Indicator((String) jsonIndicator.get(LABEL));
-    List<EncodedValue> codes = getCodes(jsonIndicator, CODES);
+    List<EncodedValue> codes = getValueExpressions(jsonIndicator);
     indicator.setCodes(codes);
 
     // Log all unhandled indicator properties
@@ -221,14 +227,8 @@ public class UnimarcSchemaReader {
           repeatable != null && (boolean) repeatable
       );
 
-      List<EncodedValue> codes = getCodes(jsonSubfield, CODELIST);
-      UnimarcCodeList codeList = new UnimarcCodeList();
-      codeList.setCodes(codes);
-      subfieldDefinition.setCodeList(codeList);
-
-      codes = getCodes(jsonSubfield, CODES);
-      if (!codes.isEmpty())
-        subfieldDefinition.setCodes(codes);
+      List<EncodedValue> valueExpressions = getValueExpressions(jsonSubfield);
+      subfieldDefinition.setCodes(valueExpressions);
 
       String subfieldTag = String.format("%s$%s", parentTag, code);
 
@@ -277,35 +277,75 @@ public class UnimarcSchemaReader {
           positionStart,
           positionEnd
       );
-
+      String positionKey = positionEntry.getKey();
+      // Check position places. This doesn't produce any side effects except for log warnings.
+      checkPositionPlaces(positionKey, positionStart, positionEndObject);
       String positionId = String.format("%s/%s", parentTag, positionEntry.getKey());
       positionDefinition.setId(positionId);
 
-      List<EncodedValue> codes = getCodes(position, CODES);
-      if (!codes.isEmpty())
-        positionDefinition.setCodes(codes);
+      assignPositionValueExpressions(position, positionDefinition);
 
-      codes = getCodes(position, FLAGS);
-      if (!codes.isEmpty())
-        positionDefinition.setCodes(codes);
-
-      // Get first length of the codes
-      int codeLength = codes.stream().findFirst().map(EncodedValue::getCode).map(String::length).orElse(0);
-      if (codeLength != 0) {
-        // If the length is smaller than the position length, then the position is repeatable
-        boolean isRepeatable = codeLength < positionEnd - positionStart;
-        positionDefinition.setRepeatableContent(isRepeatable);
-
-        // The unit length is the maximal length of the codes
-        positionDefinition.setUnitLength(codeLength);
-      }
       positionDefinitions.add(positionDefinition);
-
-      // Check position places in the end. This doesn't produce any side effects except for log warnings.
-      String positionKey = positionEntry.getKey();
-      checkPositionPlaces(positionKey, positionStart, positionEndObject);
     }
     return positionDefinitions;
+  }
+
+  private void assignPositionValueExpressions(JSONObject position, ControlfieldPositionDefinition positionDefinition) {
+    List<EncodedValue> codes = getCodes(position, CODES);
+    if (!codes.isEmpty()) {
+      positionDefinition.setCodes(codes);
+
+      positionDefinition.setRepeatableContent(false);
+      // In case there are codes, don't check for any other value-defining properties such as flags or patterns
+      return;
+    }
+
+    // In case there are no codes, check for flags and a pattern
+    // Flags make the position repeatable
+    // Patterns are used to validate the content of the position
+    // Both flags and the pattern are represented as EncodedValues
+    codes = getCodes(position, FLAGS);
+    if (!codes.isEmpty()) {
+      positionDefinition.setCodes(codes);
+      positionDefinition.setRepeatableContent(true);
+
+      int unitLength = codes.get(0).getCode().length();
+      positionDefinition.setUnitLength(unitLength);
+    }
+
+    EncodedValue pattern = getPattern(position);
+
+    // The pattern can also contain groups, which are used to extract the value from the position
+    // For example: ^(0[1-9]|[1-9][0-9])$|^(xx)$
+    // Semantics of the first and the second group are defined in the schema in a "groups" object
+    if (pattern != null) {
+      assignGroupsToPattern(position, pattern);
+      codes.add(pattern);
+    }
+
+    positionDefinition.setCodes(codes);
+  }
+
+  private List<EncodedValue> getValueExpressions(JSONObject subfield) {
+    List<EncodedValue> codes = getCodes(subfield, CODES);
+    if (!codes.isEmpty()) {
+      // In case there are codes, don't check for any other value-defining properties such as flags or patterns
+      return codes;
+    }
+
+    // In case there are no codes, check for a pattern
+    // Patterns are used to validate the content of the position
+    EncodedValue pattern = getPattern(subfield);
+
+    // The pattern can also contain groups, which are used to extract the value from the position
+    // For example: ^(0[1-9]|[1-9][0-9])$|^(xx)$
+    // Semantics of the first and the second group are defined in the schema in a "groups" object
+    if (pattern != null) {
+      assignGroupsToPattern(subfield, pattern);
+      codes.add(pattern);
+    }
+
+    return codes;
   }
 
   private void checkPositionPlaces(String key, int positionStart, Object positionEndObject) {
@@ -347,6 +387,8 @@ public class UnimarcSchemaReader {
   /**
    * Retrieves the codes from the JSON object.
    * Codes are in format of am object "key": "value", where the key is the code and the value is the label.
+   * Codes can also be in form of a codelist, which is a reference to a list of codes loaded from the codelists object
+   * of the same schema.
    * @param codesHolder Meant to be either an indicator, a subfield or a position
    * @param objectKey The key of the codes object, "codes" or "codelist"
    * @return The list of codes for the respective codesHolder
@@ -354,14 +396,57 @@ public class UnimarcSchemaReader {
   private List<EncodedValue> getCodes(JSONObject codesHolder, String objectKey) {
     Object listValue = codesHolder.get(objectKey);
     if (listValue instanceof String) {
-      return codeLists.computeIfAbsent((String) listValue, s -> List.of());
+      return codeLists.computeIfAbsent((String) listValue, s -> new ArrayList<>());
     }
 
     JSONObject codes = (JSONObject) listValue;
     if (codes == null) {
-      return List.of();
+      return new ArrayList<>();
     }
     return processCodes(codes);
+  }
+
+  private EncodedValue getPattern(JSONObject position) {
+    String pattern = (String) position.get(PATTERN);
+    if (pattern == null) {
+      return null;
+    }
+
+    // Pattern is a regular expression, so we need to check if it is valid
+    try {
+      Pattern.compile(pattern);
+    } catch (Exception e) {
+      logger.warning(() -> "invalid pattern: " + pattern);
+      return null;
+    }
+
+    EncodedValue codePattern = new EncodedValue(pattern, PATTERN);
+    codePattern.setRegex(true);
+
+    return codePattern;
+  }
+
+  private void assignGroupsToPattern(JSONObject position, EncodedValue codePattern) {
+    JSONObject groups = (JSONObject) position.get("groups");
+    if (groups == null) {
+      return;
+    }
+
+    Map<Integer, String> regexGroups = new HashMap<>();
+    for (Map.Entry<String, Object> groupEntry : groups.entrySet()) {
+      try {
+        int groupNumber = Integer.parseInt(groupEntry.getKey());
+        // groupEntry.getValue() is an object containing the label of the group
+        JSONObject groupBody = (JSONObject) groupEntry.getValue();
+        String groupLabel = (String) groupBody.get(LABEL);
+        regexGroups.put(groupNumber, groupLabel);
+      } catch (NumberFormatException e) {
+        // If the group number is not a number, then it is invalid and no group is added
+        logger.warning(() -> "invalid group number: " + groupEntry.getKey());
+        return;
+      }
+    }
+    codePattern.setRegexGroups(regexGroups);
   }
 
   private List<EncodedValue> processCodes(JSONObject codes) {
@@ -374,20 +459,9 @@ public class UnimarcSchemaReader {
         continue;
       }
 
-      // If the code is in form of a range, then try to split it into the start and end
-      // and generate codes for everything within the range
+      addCode(encodedValues, code, codeLabel);
 
-      List<Long> codeRange = getCodeRange(code);
-
-      if (codeRange.isEmpty()) {
-        addCode(encodedValues, code, codeLabel);
-      }
-
-      // Essentially, this for loop is only executed when codeRange.isEmpty() is false, so no need for else
-      for (long codeFromRange : codeRange) {
-        EncodedValue encodedValue = new EncodedValue(String.valueOf(codeFromRange), codeLabel);
-        encodedValues.add(encodedValue);
-      }
+      // Code ranges were abolished in favor of patterns
     }
 
     return encodedValues;
@@ -396,38 +470,5 @@ public class UnimarcSchemaReader {
   private void addCode(List<EncodedValue> encodedValues, String code, String codeLabel) {
     EncodedValue encodedValue = new EncodedValue(code, codeLabel);
     encodedValues.add(encodedValue);
-  }
-
-  /**
-   * Checks whether the code is in form of a range, and if so, generates a list of codes from the start to the end.
-   * If the code isn't in form of a range, then an empty list is returned.
-   * @param code The code to check
-   * @return A list of codes, or an empty list
-   */
-  private List<Long> getCodeRange(String code) {
-
-    // What's checked in here is whether the code is in form of a range, but only for digits
-    Pattern rangePattern = Pattern.compile("^(\\d)+-(\\d+)$");
-
-    // Get the start and end of the range and check that the start is smaller than the end.
-    // If the start is smaller than the end, then generate a list of codes from the start to the end
-    Matcher rangeMatcher = rangePattern.matcher(code);
-
-    if (!rangeMatcher.matches()) {
-      return List.of();
-    }
-
-    long start = Long.parseLong(rangeMatcher.group(1));
-    long end = Long.parseLong(rangeMatcher.group(2));
-
-    if (start >= end) {
-      return List.of();
-    }
-
-    List<Long> range = new ArrayList<>();
-    for (long i = start; i <= end; i++) {
-      range.add(i);
-    }
-    return range;
   }
 }

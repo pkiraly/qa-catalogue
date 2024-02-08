@@ -12,8 +12,8 @@ public class Tag008book34 extends ControlfieldPositionDefinition {
 
   private Tag008book34() {
     initialize();
-    extractValidCodes();
   }
+
 
   public static Tag008book34 getInstance() {
     if (uniqueInstance == null)

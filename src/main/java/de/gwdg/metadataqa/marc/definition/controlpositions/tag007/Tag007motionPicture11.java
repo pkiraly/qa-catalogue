@@ -18,8 +18,8 @@ public class Tag007motionPicture11 extends ControlfieldPositionDefinition {
 
   private Tag007motionPicture11() {
     initialize();
-    extractValidCodes();
   }
+
 
   public static Tag007motionPicture11 getInstance() {
     if (uniqueInstance == null)

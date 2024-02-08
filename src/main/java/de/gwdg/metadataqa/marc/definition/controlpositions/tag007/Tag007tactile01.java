@@ -16,7 +16,7 @@ public class Tag007tactile01 extends ControlfieldPositionDefinition {
 
   private Tag007tactile01() {
     initialize();
-    extractValidCodes();
+
   }
 
   public static Tag007tactile01 getInstance() {

@@ -20,7 +20,7 @@ public class Tag006mixed06 extends ControlfieldPositionDefinition {
 
   private Tag006mixed06() {
     initialize();
-    extractValidCodes();
+
   }
 
   public static Tag006mixed06 getInstance() {

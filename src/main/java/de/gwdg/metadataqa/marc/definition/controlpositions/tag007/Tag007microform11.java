@@ -18,8 +18,8 @@ public class Tag007microform11 extends ControlfieldPositionDefinition {
 
   private Tag007microform11() {
     initialize();
-    extractValidCodes();
   }
+
 
   public static Tag007microform11 getInstance() {
     if (uniqueInstance == null)

@@ -19,8 +19,8 @@ public class Tag007projected08 extends ControlfieldPositionDefinition {
 
   private Tag007projected08() {
     initialize();
-    extractValidCodes();
   }
+
 
   public static Tag007projected08 getInstance() {
     if (uniqueInstance == null)

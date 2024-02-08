@@ -17,7 +17,7 @@ public class Tag006music01 extends ControlfieldPositionDefinition {
 
   private Tag006music01() {
     initialize();
-    extractValidCodes();
+
   }
 
   public static Tag006music01 getInstance() {

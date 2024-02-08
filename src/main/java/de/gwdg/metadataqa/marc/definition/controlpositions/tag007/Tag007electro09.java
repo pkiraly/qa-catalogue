@@ -12,8 +12,8 @@ public class Tag007electro09 extends ControlfieldPositionDefinition {
 
   private Tag007electro09() {
     initialize();
-    extractValidCodes();
   }
+
 
   public static Tag007electro09 getInstance() {
     if (uniqueInstance == null)

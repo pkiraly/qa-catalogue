@@ -12,7 +12,7 @@ public class Tag007unspecified01 extends ControlfieldPositionDefinition {
 
   private Tag007unspecified01() {
     initialize();
-    extractValidCodes();
+
   }
 
   public static Tag007unspecified01 getInstance() {

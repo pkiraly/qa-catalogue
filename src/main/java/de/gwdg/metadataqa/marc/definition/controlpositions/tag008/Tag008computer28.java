@@ -12,8 +12,8 @@ public class Tag008computer28 extends ControlfieldPositionDefinition {
 
   private Tag008computer28() {
     initialize();
-    extractValidCodes();
   }
+
 
   public static Tag008computer28 getInstance() {
     if (uniqueInstance == null)

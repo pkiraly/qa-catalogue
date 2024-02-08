@@ -20,7 +20,7 @@ public class Tag007common00 extends ControlfieldPositionDefinition {
 
   private Tag007common00() {
     initialize();
-    extractValidCodes();
+
   }
 
   public static Tag007common00 getInstance() {

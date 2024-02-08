@@ -16,8 +16,8 @@ public class Tag007remoteSensing08 extends ControlfieldPositionDefinition {
 
   private Tag007remoteSensing08() {
     initialize();
-    extractValidCodes();
   }
+
 
   public static Tag007remoteSensing08 getInstance() {
     if (uniqueInstance == null)

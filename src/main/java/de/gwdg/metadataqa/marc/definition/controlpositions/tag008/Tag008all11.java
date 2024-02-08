@@ -17,8 +17,8 @@ public class Tag008all11 extends ControlfieldPositionDefinition {
 
   private Tag008all11() {
     initialize();
-    extractValidCodes();
   }
+
 
   public static Tag008all11 getInstance() {
     if (uniqueInstance == null)

@@ -18,8 +18,8 @@ public class Tag007video05 extends ControlfieldPositionDefinition {
 
   private Tag007video05() {
     initialize();
-    extractValidCodes();
   }
+
 
   public static Tag007video05 getInstance() {
     if (uniqueInstance == null)

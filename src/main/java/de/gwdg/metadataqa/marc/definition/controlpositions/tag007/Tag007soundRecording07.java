@@ -19,7 +19,7 @@ public class Tag007soundRecording07 extends ControlfieldPositionDefinition {
 
   private Tag007soundRecording07() {
     initialize();
-    extractValidCodes();
+
   }
 
   public static Tag007soundRecording07 getInstance() {

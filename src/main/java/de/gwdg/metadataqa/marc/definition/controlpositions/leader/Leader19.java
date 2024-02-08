@@ -16,8 +16,8 @@ public class Leader19 extends ControlfieldPositionDefinition {
 
   private Leader19() {
     initialize();
-    extractValidCodes();
   }
+
 
   public static Leader19 getInstance() {
     if (uniqueInstance == null)

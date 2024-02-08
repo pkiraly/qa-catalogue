@@ -12,7 +12,7 @@ public class Tag008continuing25 extends ControlfieldPositionDefinition {
 
   private Tag008continuing25() {
     initialize();
-    extractValidCodes();
+
   }
 
   public static Tag008continuing25 getInstance() {

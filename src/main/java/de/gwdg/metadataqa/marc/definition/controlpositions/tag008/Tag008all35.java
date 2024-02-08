@@ -1,8 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.controlpositions.tag008;
 
-import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
-
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 
 import java.util.Arrays;
 
@@ -20,8 +19,8 @@ public class Tag008all35 extends ControlfieldPositionDefinition {
 
   private Tag008all35() {
     initialize();
-    extractValidCodes();
   }
+
 
   public static Tag008all35 getInstance() {
     if (uniqueInstance == null)

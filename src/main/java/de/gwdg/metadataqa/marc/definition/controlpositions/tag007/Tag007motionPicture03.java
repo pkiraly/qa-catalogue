@@ -16,7 +16,6 @@ public class Tag007motionPicture03 extends ControlfieldPositionDefinition {
 
   private Tag007motionPicture03() {
     initialize();
-
   }
 
   public static Tag007motionPicture03 getInstance() {

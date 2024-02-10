@@ -21,7 +21,6 @@ public class Tag007motionPicture14 extends ControlfieldPositionDefinition {
     initialize();
   }
 
-
   public static Tag007motionPicture14 getInstance() {
     if (uniqueInstance == null)
       uniqueInstance = new Tag007motionPicture14();

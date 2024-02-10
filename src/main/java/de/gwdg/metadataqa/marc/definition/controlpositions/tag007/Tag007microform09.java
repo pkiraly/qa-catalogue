@@ -16,7 +16,6 @@ public class Tag007microform09 extends ControlfieldPositionDefinition {
 
   private Tag007microform09() {
     initialize();
-
   }
 
   public static Tag007microform09 getInstance() {

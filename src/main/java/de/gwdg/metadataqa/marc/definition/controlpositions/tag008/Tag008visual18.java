@@ -12,7 +12,6 @@ public class Tag008visual18 extends ControlfieldPositionDefinition {
 
   private Tag008visual18() {
     initialize();
-
   }
 
   public static Tag008visual18 getInstance() {

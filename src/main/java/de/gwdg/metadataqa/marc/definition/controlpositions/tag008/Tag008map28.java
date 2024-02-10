@@ -12,7 +12,6 @@ public class Tag008map28 extends ControlfieldPositionDefinition {
 
   private Tag008map28() {
     initialize();
-
   }
 
   public static Tag008map28 getInstance() {

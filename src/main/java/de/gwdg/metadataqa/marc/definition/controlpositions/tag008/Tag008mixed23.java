@@ -12,7 +12,6 @@ public class Tag008mixed23 extends ControlfieldPositionDefinition {
 
   private Tag008mixed23() {
     initialize();
-
   }
 
   public static Tag008mixed23 getInstance() {

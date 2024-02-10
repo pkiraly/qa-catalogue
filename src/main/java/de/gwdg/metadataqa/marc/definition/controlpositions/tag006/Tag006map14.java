@@ -16,7 +16,6 @@ public class Tag006map14 extends ControlfieldPositionDefinition {
 
   private Tag006map14() {
     initialize();
-
   }
 
   public static Tag006map14 getInstance() {

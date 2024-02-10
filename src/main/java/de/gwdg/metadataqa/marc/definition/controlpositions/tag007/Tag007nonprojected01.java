@@ -19,7 +19,6 @@ public class Tag007nonprojected01 extends ControlfieldPositionDefinition {
 
   private Tag007nonprojected01() {
     initialize();
-
   }
 
   public static Tag007nonprojected01 getInstance() {

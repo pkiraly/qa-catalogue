@@ -21,7 +21,6 @@ public class Tag007projected07 extends ControlfieldPositionDefinition {
     initialize();
   }
 
-
   public static Tag007projected07 getInstance() {
     if (uniqueInstance == null)
       uniqueInstance = new Tag007projected07();

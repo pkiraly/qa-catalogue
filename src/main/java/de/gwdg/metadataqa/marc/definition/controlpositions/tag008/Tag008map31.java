@@ -14,7 +14,6 @@ public class Tag008map31 extends ControlfieldPositionDefinition {
     initialize();
   }
 
-
   public static Tag008map31 getInstance() {
     if (uniqueInstance == null)
       uniqueInstance = new Tag008map31();

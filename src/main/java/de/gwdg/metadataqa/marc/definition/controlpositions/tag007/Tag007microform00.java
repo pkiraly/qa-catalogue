@@ -22,7 +22,6 @@ public class Tag007microform00 extends ControlfieldPositionDefinition {
     initialize();
   }
 
-
   public static Tag007microform00 getInstance() {
     if (uniqueInstance == null)
       uniqueInstance = new Tag007microform00();

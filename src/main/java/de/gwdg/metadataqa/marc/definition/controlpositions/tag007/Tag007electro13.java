@@ -19,7 +19,6 @@ public class Tag007electro13 extends ControlfieldPositionDefinition {
     initialize();
   }
 
-
   public static Tag007electro13 getInstance() {
     if (uniqueInstance == null)
       uniqueInstance = new Tag007electro13();

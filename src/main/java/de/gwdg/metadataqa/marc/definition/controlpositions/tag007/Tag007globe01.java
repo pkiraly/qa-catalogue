@@ -20,7 +20,6 @@ public class Tag007globe01 extends ControlfieldPositionDefinition {
 
   private Tag007globe01() {
     initialize();
-
   }
 
   public static Tag007globe01 getInstance() {

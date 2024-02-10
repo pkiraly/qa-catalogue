@@ -20,7 +20,6 @@ public class Tag007electro00 extends ControlfieldPositionDefinition {
 
   private Tag007electro00() {
     initialize();
-
   }
 
   public static Tag007electro00 getInstance() {

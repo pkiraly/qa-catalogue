@@ -12,7 +12,6 @@ public class Tag008book22 extends ControlfieldPositionDefinition {
 
   private Tag008book22() {
     initialize();
-
   }
 
   public static Tag008book22 getInstance() {

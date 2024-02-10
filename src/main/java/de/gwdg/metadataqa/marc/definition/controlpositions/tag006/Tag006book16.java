@@ -21,7 +21,6 @@ public class Tag006book16 extends ControlfieldPositionDefinition {
     initialize();
   }
 
-
   public static Tag006book16 getInstance() {
     if (uniqueInstance == null)
       uniqueInstance = new Tag006book16();

@@ -96,8 +96,6 @@ public class ThompsonTraillCompleteness extends QACli<ThompsonTraillCompleteness
     output = new File(parameters.getOutputDir(), parameters.getFileName());
     if (output.exists() && !output.delete())
       logger.severe("Deletion of " + output.getAbsolutePath() + " was unsuccessful!");
-    // TODO CHECK AFTER REBASE
-//    print(createRow(ThompsonTraillAnalysis.getHeader()));
     print(createRow(thompsonTraillAnalysis.getHeader()));
   }
 
@@ -169,9 +167,6 @@ public class ThompsonTraillCompleteness extends QACli<ThompsonTraillCompleteness
     var path = Paths.get(parameters.getOutputDir(), "tt-completeness-fields.csv");
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("name", "transformed", "fields"));
-//      BibliographicRecord record = getParameters().getSchemaType().equals(SchemaType.MARC21) ? new Marc21BibliographicRecord() : new PicaRecord();
-//      Map<ThompsonTraillFields, List<String>> map = record.getThompsonTraillTagsMap();
-// TODO CHECK AFTER REBASE
       Map<ThompsonTraillFields, List<String>> map = thompsonTraillAnalysis.getThompsonTraillTagsMap();
       for (ThompsonTraillFields field : ThompsonTraillFields.values()) {
         writeFieldRow(writer, field, map);

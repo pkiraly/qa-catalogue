@@ -16,7 +16,6 @@ public class Leader20 extends ControlfieldPositionDefinition {
 
   private Leader20() {
     initialize();
-
   }
 
   public static Leader20 getInstance() {

@@ -19,7 +19,6 @@ public class Tag007video04 extends ControlfieldPositionDefinition {
 
   private Tag007video04() {
     initialize();
-
   }
 
   public static Tag007video04 getInstance() {

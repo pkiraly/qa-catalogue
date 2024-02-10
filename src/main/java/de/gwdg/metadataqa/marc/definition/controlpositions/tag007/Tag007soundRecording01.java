@@ -22,7 +22,6 @@ public class Tag007soundRecording01 extends ControlfieldPositionDefinition {
     initialize();
   }
 
-
   public static Tag007soundRecording01 getInstance() {
     if (uniqueInstance == null)
       uniqueInstance = new Tag007soundRecording01();

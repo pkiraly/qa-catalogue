@@ -14,7 +14,6 @@ public class Tag006music16 extends ControlfieldPositionDefinition {
     initialize();
   }
 
-
   public static Tag006music16 getInstance() {
     if (uniqueInstance == null)
       uniqueInstance = new Tag006music16();

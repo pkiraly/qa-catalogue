@@ -21,7 +21,6 @@ public class Tag007globe04 extends ControlfieldPositionDefinition {
     initialize();
   }
 
-
   public static Tag007globe04 getInstance() {
     if (uniqueInstance == null)
       uniqueInstance = new Tag007globe04();

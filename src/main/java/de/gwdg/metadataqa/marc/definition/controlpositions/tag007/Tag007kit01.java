@@ -14,7 +14,6 @@ public class Tag007kit01 extends ControlfieldPositionDefinition {
     initialize();
   }
 
-
   public static Tag007kit01 getInstance() {
     if (uniqueInstance == null)
       uniqueInstance = new Tag007kit01();

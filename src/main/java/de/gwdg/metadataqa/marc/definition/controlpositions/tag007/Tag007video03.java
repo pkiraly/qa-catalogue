@@ -18,7 +18,6 @@ public class Tag007video03 extends ControlfieldPositionDefinition {
     initialize();
   }
 
-
   public static Tag007video03 getInstance() {
     if (uniqueInstance == null)
       uniqueInstance = new Tag007video03();

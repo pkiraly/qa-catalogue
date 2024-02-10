@@ -12,7 +12,6 @@ public class Tag006continuing17 extends ControlfieldPositionDefinition {
 
   private Tag006continuing17() {
     initialize();
-
   }
 
   public static Tag006continuing17 getInstance() {

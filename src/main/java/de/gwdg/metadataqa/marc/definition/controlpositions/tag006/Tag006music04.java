@@ -12,7 +12,6 @@ public class Tag006music04 extends ControlfieldPositionDefinition {
 
   private Tag006music04() {
     initialize();
-
   }
 
   public static Tag006music04 getInstance() {

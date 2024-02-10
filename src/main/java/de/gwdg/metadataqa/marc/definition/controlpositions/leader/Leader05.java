@@ -18,7 +18,6 @@ public class Leader05 extends ControlfieldPositionDefinition {
     initialize();
   }
 
-
   public static Leader05 getInstance() {
     if (uniqueInstance == null)
       uniqueInstance = new Leader05();

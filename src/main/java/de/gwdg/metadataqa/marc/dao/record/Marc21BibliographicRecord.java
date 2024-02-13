@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.dao.record;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
-import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
+import de.gwdg.metadataqa.marc.analysis.shelfready.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.dao.Control008;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;

@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.TestUtils;
-import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
+import de.gwdg.metadataqa.marc.analysis.shelfready.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.dao.record.PicaRecord;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
@@ -117,6 +117,33 @@ public class ShelfReadyCompletenessTest {
     Assert.assertEquals(expected, actual);
 
     expectedFile = new File(getTestResource("pica/expected-results/shelf-ready-completeness/shelf-ready-completeness-fields.csv"));
+    actualFile = new File(outputDir, "shelf-ready-completeness-fields.csv");
+
+    expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    actual = FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    Assert.assertEquals(expected, actual);
+  }
+
+  @Test
+  public void shelfReadyCompleteness_whenUnimarcRecord_runsSuccessfully() throws IOException {
+    String[] args = {
+      "--schemaType", "UNIMARC",
+      "--outputDir", outputDir,
+      TestUtils.getPath("unimarc/bnr.1993.mrc")
+    };
+
+    ShelfReadyCompleteness.main(args);
+
+    // Now compare the output files with the expected ones
+    File expectedFile = new File(getTestResource("unimarc/expected-results/shelf-ready-completeness/shelf-ready-completeness.csv"));
+    File actualFile = new File(outputDir, "shelf-ready-completeness.csv");
+    String expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    String actual = FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    Assert.assertEquals(expected, actual);
+
+    expectedFile = new File(getTestResource("unimarc/expected-results/shelf-ready-completeness/shelf-ready-completeness-fields.csv"));
     actualFile = new File(outputDir, "shelf-ready-completeness-fields.csv");
 
     expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");

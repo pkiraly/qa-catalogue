@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.analysis;
+package de.gwdg.metadataqa.marc.analysis.shelfready;
 
 import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 

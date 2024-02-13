@@ -6,7 +6,7 @@ import de.gwdg.metadataqa.marc.Extractable;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
-import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
+import de.gwdg.metadataqa.marc.analysis.shelfready.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcControlField;

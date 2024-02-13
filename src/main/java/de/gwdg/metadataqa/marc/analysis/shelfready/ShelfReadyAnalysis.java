@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.analysis;
+package de.gwdg.metadataqa.marc.analysis.shelfready;
 
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.dao.DataField;
@@ -60,7 +60,12 @@ public class ShelfReadyAnalysis {
     ShelfReadyFieldsBooks category = fieldEntry.getKey();
     Map<String, List<String>> fieldSelectors = fieldEntry.getValue();
 
-    // TODO This implementation was copied from the old code. If a category is a "one of" category, then the record isn't analyzed at all.
+    // FIXME This implementation was copied from the old code and heavily refactored, but the logic is still completely the same.
+    // If a category is a "one of" category, then the record isn't analyzed at all.
+    // In the old code, the record was analyzed, but in the end the score was simply set to the score of the category
+    // regardless of analysis results. That can be observed in the fact that the score is set to category.getScore() in the
+    // original implementation, but the old score calculated in the for loop is never used.
+
     if (category.isOneOf()) {
       return category.getScore();
     }
@@ -73,6 +78,9 @@ public class ShelfReadyAnalysis {
     }
 
     for (Map.Entry<String, List<String>> selector : fieldSelectors.entrySet()) {
+      // It seems to me that if a certain category has multiple selector with no subfield codes, then the score is
+      // calculated multiple times for the same category. This is because the score is calculated for each selector.
+      // That can be observed in the old code in else branch of the inner for loop that iterates over selectors.
       score += calculateSelectorScore(marcRecord, category, selector);
     }
 
@@ -81,6 +89,15 @@ public class ShelfReadyAnalysis {
     return score;
   }
 
+
+  /**
+   * Calculates the score for a given selector (tag and subfield codes) in the given category.
+   * If the selector has no subfield codes, then the score is calculated as the number of selectors present in the record.
+    * @param marcRecord The record to be analyzed
+   * @param category The category to which the selector belongs. Used in case the selector has no subfield codes.
+   * @param fieldSelector A map entry of the form "tag -> subfield codes"
+   * @return The score for the given selector
+   */
   public static double calculateSelectorScore(BibliographicRecord marcRecord,
                                               ShelfReadyFieldsBooks category,
                                               Map.Entry<String, List<String>> fieldSelector) {
@@ -103,7 +120,9 @@ public class ShelfReadyAnalysis {
 
     List<DataField> dataFields = marcRecord.getDatafield(tag);
 
-    // For all datafields with the given tag, check if they have the given subfield and add it to the collector if so
+    // For all datafields with the given tag, check if they have the given subfield and add it to the collector if they do.
+    // This doesn't seem to be checking for the values of the subfields, only for their presence. That would be beneficial
+    // In TA00600 for example.
     for (DataField dataField : dataFields) {
       for (String code : subfieldCodes) {
         List<MarcSubfield> subfield = dataField.getSubfield(code);
@@ -118,6 +137,13 @@ public class ShelfReadyAnalysis {
     return score;
   }
 
+  /**
+   * Calculates the score for a given category when no subfield codes are specified.
+   * The score is calculated as the number of selectors of the given category present in the record.
+   * @param marcRecord The record to be analyzed
+   * @param category The category to which the selectors belong
+   * @return The score for the given category. The total score is the number of selectors present in the record.
+   */
   private static double getScoreWhenNoCodes(BibliographicRecord marcRecord, ShelfReadyFieldsBooks category) {
     double score = 0.0;
     for (MarcSpec selector : category.getSelectors()) {

@@ -3,7 +3,7 @@ package de.gwdg.metadataqa.marc.dao.record;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
-import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
+import de.gwdg.metadataqa.marc.analysis.shelfready.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.dao.Control001;
 import de.gwdg.metadataqa.marc.dao.Control003;
 import de.gwdg.metadataqa.marc.dao.Control005;

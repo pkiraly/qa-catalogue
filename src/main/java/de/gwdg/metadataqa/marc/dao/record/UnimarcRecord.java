@@ -17,10 +17,13 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class UnimarcRecord extends MarcRecord {
+  protected static final List<String> UNIMARC_SUBJECT_TAGS = Arrays.asList("600", "601", "602", "604", "605", "606",
+    "607", "608", "610", "615", "616", "617", "620", "621", "623", "626", "631", "632", "660", "661", "670", "675",
+    "676", "680", "686");
 
   protected static final List<String> allowedControlFieldTags = Arrays.asList("001", "003", "005");
 
-  // TODO for now I essentially have no idea what to do with these attributes such as authority tags, subjectTags etc.
+  // TODO for now I essentially have no idea what to do with these attributes such as authority tags etc.
   private static List<String> authorityTags;
   private static Map<String, Boolean> authorityTagsIndex;
   private static Map<String, Boolean> subjectTagIndex;
@@ -102,6 +105,10 @@ public class UnimarcRecord extends MarcRecord {
       initializeShelfReadyMap();
 
     return shelfReadyMap;
+  }
+
+  protected List<String> getSubjectTags() {
+    return UNIMARC_SUBJECT_TAGS;
   }
 
   private static void initializeAuthorityTags() {

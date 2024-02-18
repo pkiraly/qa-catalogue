@@ -97,7 +97,6 @@ public class Marc21Leader extends MarcLeader implements Extractable, Validatable
   }
 
   private void setType() {
-    // This seems to be partially applicable to Unimarc as well
     if (typeOfRecord.getValue().equals("a")
         && bibliographicLevel.getValue().matches("^[acdm]$")) {
       type = MarcLeader.Type.BOOKS;
@@ -131,11 +130,13 @@ public class Marc21Leader extends MarcLeader implements Extractable, Validatable
     }
   }
 
+  @Override
   public String resolve(ControlfieldPositionDefinition key) {
     String value = valuesMap.get(key);
     return key.resolve(value);
   }
 
+  @Override
   public String resolve(String key) {
     return resolve(LeaderPositions.getByLabel(key));
   }
@@ -150,6 +151,7 @@ public class Marc21Leader extends MarcLeader implements Extractable, Validatable
     return null;
   }
 
+  @Override
   public String get(ControlfieldPositionDefinition key) {
     return valuesMap.get(key);
   }

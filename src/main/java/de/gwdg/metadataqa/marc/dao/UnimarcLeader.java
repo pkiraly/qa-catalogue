@@ -98,33 +98,28 @@ public class UnimarcLeader extends MarcLeader implements Extractable, Validatabl
     }
   }
 
-  /**
-   * Sets the type of the record based on the values of the leader. For now, it
-   * sets the type as for MARC21.
-   */
   private void setType() {
-    // TODO Discuss this and how it should be approached in UNIMARC
+    // As this is quite similar to Marc21 except for some position values, types will be determined for UNIMARC as well.
     if (typeOfRecord.getValue().equals("a")
-        && bibliographicLevel.getValue().matches("^[acdm]$")) {
+        && bibliographicLevel.getValue().matches("^[acm]$")) {
       type = Type.BOOKS;
     } else if (typeOfRecord.getValue().equals("a")
-        && bibliographicLevel.getValue().matches("^[bis]$")) {
+        && bibliographicLevel.getValue().matches("^[is]$")) {
       type = Type.CONTINUING_RESOURCES;
-    } else if (typeOfRecord.getValue().equals("t")) {
+    } else if (typeOfRecord.getValue().equals("b")) {
       type = Type.BOOKS;
     } else if (typeOfRecord.getValue().matches("^[cdij]$")) {
       type = Type.MUSIC;
     } else if (typeOfRecord.getValue().matches("^[ef]$")) {
       type = Type.MAPS;
-    } else if (typeOfRecord.getValue().matches("^[gkor]$")) {
+    } else if (typeOfRecord.getValue().matches("^[gkmr]$")) {
       type = Type.VISUAL_MATERIALS;
-    } else if (typeOfRecord.getValue().equals("m")) {
+    } else if (typeOfRecord.getValue().equals("l")) {
       type = Type.COMPUTER_FILES;
-    } else if (typeOfRecord.getValue().equals("p")) {
-      type = Type.MIXED_MATERIALS;
     } else {
-      if (defaultType != null)
+      if (defaultType != null) {
         type = defaultType;
+      }
       throw new IllegalArgumentException(
         String.format(
           "Leader/%s (%s): '%s', Leader/%s (%s): '%s'",

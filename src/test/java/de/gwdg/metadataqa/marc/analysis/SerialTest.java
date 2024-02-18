@@ -1,5 +1,7 @@
 package de.gwdg.metadataqa.marc.analysis;
 
+import de.gwdg.metadataqa.marc.analysis.serial.Marc21Serial;
+import de.gwdg.metadataqa.marc.analysis.serial.SerialFields;
 import de.gwdg.metadataqa.marc.dao.MarcLeader;
 import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import org.apache.commons.lang3.StringUtils;
@@ -38,12 +40,12 @@ public class SerialTest {
 
     assertEquals(MarcLeader.Type.CONTINUING_RESOURCES, marcRecord.getType());
 
-    Serial serial = new Serial(marcRecord);
+    Marc21Serial serial = new Marc21Serial(marcRecord);
     List<Integer> scores = serial.determineRecordQualityScore();
-    assertEquals(19, scores.size());
-    assertEquals(19, serial.getScores().getScores().size());
+    assertEquals(20, scores.size());
+    assertEquals(20, serial.getScores().getScores().size());
 
-    assertEquals("0,0,0,0,0,1,1,1,0,1,1,1,1,0,7,0,0,0,14", StringUtils.join(scores, ','));
+    assertEquals("0,0,0,0,0,1,1,1,0,1,1,1,1,0,7,0,0,0,0,14", StringUtils.join(scores, ','));
     assertEquals(0, serial.getScores().get(SerialFields.ENCODING_LEVEL_FULL));
     assertEquals(1, serial.getScores().get(SerialFields.ENCODING_LEVEL_MINIMAL));
     assertEquals(1, serial.getScores().get(SerialFields.HAS_006));

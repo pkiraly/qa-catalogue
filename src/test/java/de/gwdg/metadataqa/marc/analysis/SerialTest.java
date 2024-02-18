@@ -1,17 +1,32 @@
 package de.gwdg.metadataqa.marc.analysis;
 
+import de.gwdg.metadataqa.marc.TestUtils;
 import de.gwdg.metadataqa.marc.analysis.serial.Marc21Serial;
 import de.gwdg.metadataqa.marc.analysis.serial.SerialFields;
+import de.gwdg.metadataqa.marc.cli.SerialScore;
 import de.gwdg.metadataqa.marc.dao.MarcLeader;
 import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import static de.gwdg.metadataqa.marc.cli.CliTestUtils.getTestResource;
 import static org.junit.Assert.assertEquals;
 
 public class SerialTest {
+
+  private String outputDir;
+
+  @Before
+  public void setUp() throws Exception {
+    outputDir = TestUtils.getPath("output");
+  }
 
   @Test
   public void test() {
@@ -58,5 +73,26 @@ public class SerialTest {
     assertEquals(14, serial.getScores().get(SerialFields.TOTAL));
     // assertEquals("[(enc-2,1), (006,1), (260,1), (310,1), (336,1), (332,1), (588,1), (subject,7)]", serial.getScores().toString());
 
+  }
+
+  @Test
+  public void marc21Serial_whenAlephSeq_RunsSuccessfully() throws IOException {
+    String[] args = {
+      "--schemaType", "MARC21",
+      "--marcFormat", "ALEPHSEQ",
+      "--marcVersion", "GENT",
+      "--outputDir", outputDir,
+      TestUtils.getPath("alephseq/alephseq-example2-continuing-resources.txt")
+    };
+
+    SerialScore.main(args);
+
+    // Now compare the output files with the expected ones
+    File expectedFile = new File(getTestResource("alephseq/expected-results/serial-score/serial-score.csv"));
+    File actualFile = new File(outputDir, "serial-score.csv");
+    String expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    String actual = FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    Assert.assertEquals(expected, actual);
   }
 }

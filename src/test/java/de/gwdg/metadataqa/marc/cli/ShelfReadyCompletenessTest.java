@@ -129,8 +129,9 @@ public class ShelfReadyCompletenessTest {
   public void shelfReadyCompleteness_whenUnimarcRecord_runsSuccessfully() throws IOException {
     String[] args = {
       "--schemaType", "UNIMARC",
+      "--marcFormat", "MARC_LINE",
       "--outputDir", outputDir,
-      TestUtils.getPath("unimarc/bnr.1993.mrc")
+      TestUtils.getPath("unimarc/unimarc.mrctxt")
     };
 
     ShelfReadyCompleteness.main(args);

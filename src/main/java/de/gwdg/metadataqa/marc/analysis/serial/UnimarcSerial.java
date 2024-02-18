@@ -97,7 +97,7 @@ public class UnimarcSerial extends MarcSerial {
   private void detectPublisher() {
     List<DataField> publisherFields = marcRecord.getDatafield("210");
     // Not repeatable, so we can use the first one
-    DataField publisherField = publisherFields.isEmpty() ? null : publisherFields.get(0);
+    DataField publisherField = publisherFields == null || publisherFields.isEmpty() ? null : publisherFields.get(0);
 
     if (isFieldEmpty(publisherField)) {
       scores.set(SerialFields.HAS_PUBLISHER_260, 1);
@@ -107,7 +107,7 @@ public class UnimarcSerial extends MarcSerial {
   private void detectPublisherRDA() {
     List<DataField> publisherFields = marcRecord.getDatafield("214");
     // Not repeatable, so we can use the first one
-    DataField publisherField = publisherFields.isEmpty() ? null : publisherFields.get(0);
+    DataField publisherField = publisherFields == null || publisherFields.isEmpty() ? null : publisherFields.get(0);
 
     if (isFieldEmpty(publisherField)) {
       scores.set(SerialFields.HAS_PUBLISHER_264, 1);
@@ -140,7 +140,7 @@ public class UnimarcSerial extends MarcSerial {
 
     List<DataField> numberingFields = marcRecord.getDatafield("207");
     // Not repeatable, so we can use the first one
-    DataField numberingField = numberingFields.isEmpty() ? null : numberingFields.get(0);
+    DataField numberingField = numberingFields == null || numberingFields.isEmpty() ? null : numberingFields.get(0);
 
     if (isFieldEmpty(numberingField)) {
       scores.set(SerialFields.HAS_PUBLISHER_264, 1);

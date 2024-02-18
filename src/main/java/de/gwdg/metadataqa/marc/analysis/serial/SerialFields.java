@@ -19,7 +19,7 @@ public enum SerialFields {
   HAS_SUBJECT("Subject is present", "has-subject"),
   PCC("Authentication Code is pcc", "pcc"),
   DATE_1_STARTS_WITH_0("First date (008/07) startes with 0", "date1-0"),
-  INACTIVE_TITLE("Title is inactive - no date2", "date2-empty"), // TODO check the machine field. Not sure what it is
+  INACTIVE_TITLE("Title is inactive - no date2", "date2-present"), // TODO check the machine field. Not sure what it is
   ABBREVIATED("Encoding level is abbreviated", "abbreviated"),
   TOTAL("total", "total");
 

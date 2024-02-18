@@ -76,7 +76,7 @@ public class SerialTest {
   }
 
   @Test
-  public void marc21Serial_whenAlephSeq_RunsSuccessfully() throws IOException {
+  public void marcSerial_whenAlephSeq_RunsSuccessfully() throws IOException {
     String[] args = {
       "--schemaType", "MARC21",
       "--marcFormat", "ALEPHSEQ",
@@ -89,6 +89,25 @@ public class SerialTest {
 
     // Now compare the output files with the expected ones
     File expectedFile = new File(getTestResource("alephseq/expected-results/serial-score/serial-score.csv"));
+    File actualFile = new File(outputDir, "serial-score.csv");
+    String expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    String actual = FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    Assert.assertEquals(expected, actual);
+  }
+
+  @Test
+  public void marcSerial_whenUnimarc_RunsSuccessfully() throws IOException {
+    String[] args = {
+      "--schemaType", "UNIMARC",
+      "--outputDir", outputDir,
+      TestUtils.getPath("unimarc/serial.bnr.1993.mrc")
+    };
+
+    SerialScore.main(args);
+
+    // Now compare the output files with the expected ones
+    File expectedFile = new File(getTestResource("unimarc/expected-results/serial-score/serial-score.csv"));
     File actualFile = new File(outputDir, "serial-score.csv");
     String expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
     String actual = FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");

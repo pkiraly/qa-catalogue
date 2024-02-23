@@ -4,6 +4,7 @@ import de.gwdg.metadataqa.marc.analysis.functional.FrbrFunctionLister;
 import de.gwdg.metadataqa.marc.analysis.functional.FunctionalAnalyzer;
 import de.gwdg.metadataqa.marc.analysis.functional.Marc21FrbrFunctionLister;
 import de.gwdg.metadataqa.marc.analysis.functional.Marc21FunctionalAnalyzer;
+import de.gwdg.metadataqa.marc.analysis.functional.PicaFrbrFunctionLister;
 import de.gwdg.metadataqa.marc.analysis.functional.PicaFunctionalAnalyzer;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
@@ -45,7 +46,7 @@ public class FunctionalAnalysis extends QACli<CompletenessParameters> implements
     parameters = new CompletenessParameters(args);
     options = parameters.getOptions();
     readyToProcess = true;
-//    logger.info(() -> frbrFunctionLister.getBaseline().toString()); TODO: first check what it was doing
+//    logger.info(() -> analyzer.getFrbrFunctionLister().getBaseline().toString());
   }
 
   public static void main(String[] args) {
@@ -103,7 +104,7 @@ public class FunctionalAnalysis extends QACli<CompletenessParameters> implements
       FrbrFunctionLister marc21FrbrFunctionLister = new Marc21FrbrFunctionLister(parameters.getMarcVersion());
       analyzer = new Marc21FunctionalAnalyzer(marc21FrbrFunctionLister);
     } else {
-      FrbrFunctionLister picaFrbrFunctionLister = new Marc21FrbrFunctionLister(parameters.getMarcVersion());
+      FrbrFunctionLister picaFrbrFunctionLister = new PicaFrbrFunctionLister();
       analyzer = new PicaFunctionalAnalyzer(picaFrbrFunctionLister);
     }
   }

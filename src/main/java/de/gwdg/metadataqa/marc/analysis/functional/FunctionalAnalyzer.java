@@ -130,10 +130,10 @@ public abstract class FunctionalAnalyzer {
    * @see FrbrFunctionLister
    */
   public void calculatePercentage(Map<FRBRFunction, FunctionValue> recordCounter) {
-    Counter<FRBRFunction> baselineCounter = frbrFunctionLister.getBaselineCounter();
+    Map<FRBRFunction, Integer> baselineCounterMap = frbrFunctionLister.getBaselineCounterMap();
     for (Map.Entry<FRBRFunction, FunctionValue> functionCountEntry : recordCounter.entrySet()) {
       FRBRFunction function = functionCountEntry.getKey();
-      int totalCount = baselineCounter.get(function);
+      int totalCount = baselineCounterMap.getOrDefault(function, 0);
       recordCounter.get(function).calculatePercentage(totalCount);
     }
   }

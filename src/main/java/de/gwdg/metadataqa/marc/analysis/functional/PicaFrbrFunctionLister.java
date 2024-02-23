@@ -23,7 +23,6 @@ public class PicaFrbrFunctionLister extends FrbrFunctionLister {
     Marc21FrbrFunctionLister marc21FrbrFunctionLister = new Marc21FrbrFunctionLister(MarcVersion.MARC21);
     marc21FrbrFunctionLister.prepareBaseline();
 
-
     Map<FRBRFunction, List<String>> marcPathByFunction = marc21FrbrFunctionLister.getPathByFunction();
 
     pathByFunctionExtended = new EnumMap<>(FRBRFunction.class);

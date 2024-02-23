@@ -96,9 +96,6 @@ public class Marc21FrbrFunctionLister extends FrbrFunctionLister {
     for (FRBRFunction function : functions) {
       pathByFunction.putIfAbsent(function, new ArrayList<>());
       pathByFunction.get(function).add(marcPath);
-
-      // Add function to the baseline counter
-      baselineCounter.count(function);
     }
   }
 }

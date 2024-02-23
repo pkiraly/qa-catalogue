@@ -58,7 +58,6 @@ public class Marc21FunctionalAnalyzer extends FunctionalAnalyzer {
 
     // Count functions for the data fields
     countDataFields(recordCounter, marc21Record.getDatafields(), cache);
-
   }
 
 

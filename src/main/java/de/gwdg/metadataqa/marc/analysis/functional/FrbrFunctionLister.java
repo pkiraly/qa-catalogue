@@ -5,13 +5,18 @@ import de.gwdg.metadataqa.marc.utils.Counter;
 
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 public abstract class FrbrFunctionLister {
-
-  private static final Logger logger = Logger.getLogger(FrbrFunctionLister.class.getCanonicalName());
   protected Map<String, List<FRBRFunction>> functionByPath;
   protected Map<FRBRFunction, List<String>> pathByFunction;
+
+  protected FrbrFunctionLister() {
+    prepareBaseline();
+  }
+
+  /**
+   * Used to store the count of each function in the baseline (i.e. the total count of each function of a given schema)
+   */
   protected Counter<FRBRFunction> baselineCounter = new Counter<>();
 
 

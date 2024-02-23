@@ -31,6 +31,7 @@ public abstract class FunctionalAnalyzer {
 
   protected FunctionalAnalyzer(FrbrFunctionLister frbrFunctionLister) {
     this.frbrFunctionLister = frbrFunctionLister;
+
     collector = initializeCounter();
     prepareHistogram();
   }
@@ -48,10 +49,10 @@ public abstract class FunctionalAnalyzer {
     }
 
     analyzeRecord(bibliographicRecord);
+
+    calculatePercentage(recordCounter);
     addRecordCounterToCollector(recordCounter);
     addRecordCounterToHistogram(recordCounter);
-    calculatePercentage(recordCounter);
-
   }
 
   /**
@@ -122,10 +123,17 @@ public abstract class FunctionalAnalyzer {
     }
   }
 
+  /**
+   * Calculates the percentage of each function in the recordCounter map compared to the total count of
+   * functions possible in the schema, represented by the baselineCounter of the frbrFunctionLister.
+   * @param recordCounter The map with the counts of the FRBR functions of the current record.
+   * @see FrbrFunctionLister
+   */
   public void calculatePercentage(Map<FRBRFunction, FunctionValue> recordCounter) {
+    Counter<FRBRFunction> baselineCounter = frbrFunctionLister.getBaselineCounter();
     for (Map.Entry<FRBRFunction, FunctionValue> functionCountEntry : recordCounter.entrySet()) {
       FRBRFunction function = functionCountEntry.getKey();
-      int totalCount = collector.get(function).getCount();
+      int totalCount = baselineCounter.get(function);
       recordCounter.get(function).calculatePercentage(totalCount);
     }
   }

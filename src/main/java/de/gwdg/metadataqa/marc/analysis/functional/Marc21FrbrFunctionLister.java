@@ -25,10 +25,9 @@ public class Marc21FrbrFunctionLister extends FrbrFunctionLister {
   private final MarcVersion marcVersion;
 
   public Marc21FrbrFunctionLister(MarcVersion marcVersion) {
+    super();
 
     this.marcVersion = marcVersion == null ? MarcVersion.MARC21 : marcVersion;
-
-    prepareBaseline();
   }
 
   public void prepareBaseline() {
@@ -97,6 +96,9 @@ public class Marc21FrbrFunctionLister extends FrbrFunctionLister {
     for (FRBRFunction function : functions) {
       pathByFunction.putIfAbsent(function, new ArrayList<>());
       pathByFunction.get(function).add(marcPath);
+
+      // Add function to the baseline counter
+      baselineCounter.count(function);
     }
   }
 }

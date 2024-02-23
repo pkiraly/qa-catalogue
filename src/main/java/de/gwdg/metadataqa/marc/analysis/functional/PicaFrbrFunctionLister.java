@@ -14,6 +14,10 @@ import java.util.Map;
 public class PicaFrbrFunctionLister extends FrbrFunctionLister {
   private Map<FRBRFunction, Map<String, List<String>>> pathByFunctionExtended;
 
+  public PicaFrbrFunctionLister() {
+    super();
+  }
+
   public void prepareBaseline() {
     // First get the MARC21 paths for each function
     Marc21FrbrFunctionLister marc21FrbrFunctionLister = new Marc21FrbrFunctionLister(MarcVersion.MARC21);

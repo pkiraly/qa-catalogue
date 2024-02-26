@@ -52,7 +52,7 @@ Screenshot from the web UI of the QA catalogue
     * [Field frequency distribution](#field-frequency-distribution)
     * [Generating cataloguing history chart](#generating-cataloguing-history-chart)
     * [Import tables to SQLite](#import-tables-to-sqlite)
-    * [Indexing MARC records with Solr](#indexing-bibliographic-records-with-solr)
+    * [Indexing bibliographic records with Solr](#indexing-bibliographic-records-with-solr)
       * [Solr field names](#solr-field-names)
         * [Fixed fields](#fixed-fields)
         * [Mapped fields](#mapped-fields)
@@ -1790,15 +1790,15 @@ a minimal viable schema among the
 You can set autocommit the following way in `solrconfig.xml` (inside Solr):
 
 ```XML
-    <autoCommit>
-      <maxTime>${solr.autoCommit.maxTime:15000}</maxTime>
-      <maxDocs>5000</maxDocs>
-      <openSearcher>true</openSearcher>
-    </autoCommit>
-    ...
-    <autoSoftCommit>
-      <maxTime>${solr.autoSoftCommit.maxTime:-1}</maxTime>
-    </autoSoftCommit>
+<autoCommit>
+  <maxTime>${solr.autoCommit.maxTime:15000}</maxTime>
+  <maxDocs>5000</maxDocs>
+  <openSearcher>true</openSearcher>
+</autoCommit>
+...
+<autoSoftCommit>
+  <maxTime>${solr.autoSoftCommit.maxTime:-1}</maxTime>
+</autoSoftCommit>
 ```
 
 It needs if you choose to disable QA catalogue to issue commit messages (see `--commitAt` parameter), which makes
@@ -1808,8 +1808,6 @@ In schema.xml (or in Solr web interface) you should be sure that you have the fo
 
 ```XML
 <dynamicField name="*_ss" type="strings" indexed="true" stored="true"/>
-<dynamicField name="*_s" type="strings" indexed="true" stored="true"/>
-<dynamicField name="*_txt" type="text_general" indexed="true" stored="true"/>
 <dynamicField name="*_tt" type="text_general" indexed="true" stored="false"/>
 <dynamicField name="*_is" type="pints" indexed="true" stored="true" />
 <dynamicField name="*_sni" type="string_big" docValues="false" multiValued="false" indexed="false" stored="true"/>

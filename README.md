@@ -1828,9 +1828,10 @@ curl -X POST -H 'Content-type:application/json' --data-binary '{
      "source":"*_ss",
      "dest":["_text_"]}
 }' $SOLR
+...
 ```
 
-See [solr functions](https://github.com/pkiraly/qa-catalogue/blob/main/solr-functions) for full code.
+See the [solr-functions](https://github.com/pkiraly/qa-catalogue/blob/main/solr-functions) file for full code.
 
 ### Indexing MARC JSON records with Solr
 

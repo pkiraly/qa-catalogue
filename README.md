@@ -108,12 +108,13 @@ this with the `#` symbol), where you have to change directory to
 
 1. download Docker image and initialize the Docker container
 ```bash
+BIBL_RECORD_DIRECTORY=<the directory where bibliographic files take place>
 docker run \
   -d \
-  -v [your-MARC-directory]:/opt/metadata-qa-marc/marc \
+  -v [your-MARC-directory]:/opt/qa-catalogue/marc \
   -p 8983:8983 -p 80:80 \
   --name metadata-qa-marc \
-  pkiraly/metadata-qa-marc:0.6.0
+  pkiraly/metadata-qa-marc:0.7.0
 ```
 2. run analyses (this example uses parameters for Gent university library catalogue)
 
@@ -128,14 +129,12 @@ docker container exec \
   all
 ```
 
-Now you can reach the dashboard at http://localhost/metadata-qa.
+Now you can reach the dashboard at http://localhost/metadata-qa. 
 
-Everything else works the same way as in other environments, so follow the next
-sections.
+This example works under Linux. Windows users should consult the 
+[Docker on Windows](https://github.com/pkiraly/qa-catalogue/wiki/Docker-on-Windows) wiki page.
 
-Note: at the time of writing this Docker image doesn't contain the
-[web user interface](#user-interface), only the command line interface (the
-content of this repository).
+Everything else works the same way as in other environments, so follow the next  sections.
 
 More details about the Docker use case: http://pkiraly.github.io/2020/05/31/running-with-docker/.
 

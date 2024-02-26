@@ -151,13 +151,13 @@
 		<dependency>
 			<artifactId>solr-core</artifactId>
 			<groupId>org.apache.solr</groupId>
-			<version>9.4.0</version>
+			<version>9.4.1</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<artifactId>solr-solrj</artifactId>
 			<groupId>org.apache.solr</groupId>
-			<version>9.4.0</version>
+			<version>9.4.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.reflections</groupId>
@@ -201,7 +201,7 @@
 		<dependency>
 			<groupId>org.xerial</groupId>
 			<artifactId>sqlite-jdbc</artifactId>
-			<version>3.44.1.0</version>
+			<version>3.45.1.0</version>
 		</dependency>
 	</dependencies>
 

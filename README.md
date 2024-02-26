@@ -1766,7 +1766,16 @@ create it from scratch. During the proess `loc` is available and searchable. Whe
 finished these two indices will be swaped, so the previous `loc` will become `loc_dev`, and the new index will be `loc`.
 The web user interface will always use the latest version (not the dev).
 
-In order to make the automatisation easier and still flexible there are some an auxilary commands:
+Besides these two indices there is a third index that contains different kind of results of the analyses. At the time of
+writing it contains only the results of validation, but later it will cover other information as well. It can be set by 
+the following parameter:
+
+* `-4`, `--solrForScoresUrl <arg>`: the URL of the Solr server used to store scores
+
+During the indexing process the content of this index is meged into the `_dev` index, so after a successfull end of the 
+process this index is not needed anymore.
+
+In order to make the automation easier and still flexible there are some an auxilary commands:
 
 * `./qa-catalogue prepare-solr`: created these two indices, makes sure that their schemas contain the necessary fields
 * `./qa-catalogue index`: runs the indexing process

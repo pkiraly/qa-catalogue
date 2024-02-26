@@ -27,6 +27,7 @@ public class MarcSolrClient {
   private boolean trimId = false;
   private boolean indexWithTokenizedField = false;
   private String termFieldSuffix = "_tt";
+  private String fieldPrefix = "";
   private Map<String, String> termFieldNameCache = new HashMap<>();
 
   public MarcSolrClient() {
@@ -75,8 +76,10 @@ public class MarcSolrClient {
       String fieldName = entry.getKey();
       Object value = entry.getValue();
       if (value != null) {
-        if (!fieldName.endsWith("_sni") && !fieldName.endsWith("_ss"))
+        if (!fieldName.endsWith("_sni") && !fieldName.endsWith("_ss")) {
+          fieldName = fieldPrefix + fieldName;
           fieldName += "_ss";
+        }
         document.addField(fieldName, value);
 
         if (indexWithTokenizedField && fieldName.endsWith("_ss"))
@@ -98,10 +101,13 @@ public class MarcSolrClient {
     document.addField("id", id);
     for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
       String key = entry.getKey();
+      System.err.println("key: " + key);
       Object value = entry.getValue();
       if (value != null) {
-        if (!key.endsWith("_sni") && !key.endsWith("_ss"))
+        if (!key.endsWith("_sni") && !key.endsWith("_ss")) {
+          key = fieldPrefix + key;
           key += "_ss";
+        }
         document.addField(key, value);
       }
     }
@@ -158,5 +164,13 @@ public class MarcSolrClient {
 
   public void indexWithTokenizedField(boolean indexWithTokenizedField) {
     this.indexWithTokenizedField = indexWithTokenizedField;
+  }
+
+  public String getFieldPrefix() {
+    return fieldPrefix;
+  }
+
+  public void setFieldPrefix(String fieldPrefix) {
+    this.fieldPrefix = fieldPrefix;
   }
 }

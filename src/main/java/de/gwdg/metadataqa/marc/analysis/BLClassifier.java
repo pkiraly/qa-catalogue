@@ -71,7 +71,7 @@ public class BLClassifier implements Classifier, Serializable {
         }
       }
     }
-    logger.log(Level.INFO, "failed for {ö} ({1} -- {2} -- {3})",
+    logger.log(Level.INFO, "failed for {0} ({1} -- {2} -- {3})",
       new Object[]{useCase.name(), useCase.getUseCase(), useCase.getEncoding(), useCase.getDataElelemntsNormalized()});
     return false;
   }

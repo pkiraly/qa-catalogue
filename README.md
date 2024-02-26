@@ -1620,7 +1620,8 @@ Output:
 `issue_groups`, and `issue_summary`.
 
 
-### Indexing MARC records with Solr
+### Indexing bibliographic records with Solr
+
 
 Set autocommit the following way in solrconfig.xml (inside Solr):
 
@@ -1695,6 +1696,7 @@ options:
   with `_txt`). \[This parameter is available from v0.8.0\]
 * `-D <int>`, `--commitAt <int>`: commit index after this number of records \[This parameter is available from v0.8.0\]
 * `-E`, `--indexFieldCounts`: index the count of field instances \[This parameter is available from v0.8.0\]
+* `-F`, `--fieldPrefix <arg>`: field prefix
 
 The `./index` file (which is used by `catalogues/[catalogue].sh` and `./qa-catalogue` scripts) has additional parameters:
 * `-Z <core>`, `--core <core>`: The index name (core). If not set it will be extracted from the `solrUrl` parameter
@@ -1704,104 +1706,52 @@ The `./index` file (which is used by `catalogues/[catalogue].sh` and `./qa-catal
 * `-V`, `--status`: Show the status of index(es) and exit
 * `-U`, `--no-delete`: Do not delete documents in index before starting indexing (be default the script clears the index)
 
-The Solr URL is something like this: http://localhost:8983/solr/loc. It uses
-the [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/),
-in which encoded values are decoded to human-readable values (e.g. Leader/5 = "c"
-becomes Leader_recordStatus = "Corrected or revised") so a record looks like this:
+#### Solr field names
 
-```JSON
-{
-  "id":"   00004081 ",
-  "type_ss":["Books"],
-  "Leader_ss":["00928cam a22002531  4500"],
-  "Leader_recordLength_ss":["00928"],
-  "Leader_recordStatus_ss":["Corrected or revised"],
-  "Leader_typeOfRecord_ss":["Language material"],
-  "Leader_bibliographicLevel_ss":["Monograph/Item"],
-  "Leader_typeOfControl_ss":["No specified type"],
-  "Leader_characterCodingScheme_ss":["UCS/Unicode"],
-  "Leader_indicatorCount_ss":["2"],
-  "Leader_subfieldCodeCount_ss":["2"],
-  "Leader_baseAddressOfData_ss":["0025"],
-  "Leader_encodingLevel_ss":["Full level, material not examined"],
-  "Leader_descriptiveCatalogingForm_ss":["Non-ISBD"],
-  "Leader_multipartResourceRecordLevel_ss":["Not specified or not applicable"],
-  "Leader_lengthOfTheLengthOfFieldPortion_ss":["4"],
-  "Leader_lengthOfTheStartingCharacterPositionPortion_ss":["5"],
-  "Leader_lengthOfTheImplementationDefinedPortion_ss":["0"],
-  "ControlNumber_ss":["   00004081 "],
-  "ControlNumberIdentifier_ss":["DLC"],
-  "LatestTransactionTime_ss":["20070911080437.0"],
-  "PhysicalDescription_ss":["cr||||"],
-  "PhysicalDescription_categoryOfMaterial_ss":["Electronic resource"],
-  "PhysicalDescription_specificMaterialDesignation_ss":["Remote"],
-  "PhysicalDescription_color_ss":["No attempt to code"],
-  "PhysicalDescription_dimensions_ss":["22 cm."],
-  "PhysicalDescription_sound_ss":["No attempt to code"],
-  "PhysicalDescription_fileFormats_ss":["No attempt to code"],
-  "PhysicalDescription_qualityAssuranceTargets_ss":["No attempt to code"],
-  "PhysicalDescription_antecedentOrSource_ss":["No attempt to code"],
-  "PhysicalDescription_levelOfCompression_ss":["No attempt to code"],
-  "PhysicalDescription_reformattingQuality_ss":["No attempt to code"],
-  "GeneralInformation_ss":["870303s1900    iauc          000 0 eng  "],
-  "GeneralInformation_dateEnteredOnFile_ss":["870303"],
-  "GeneralInformation_typeOfDateOrPublicationStatus_ss":["Single known date/probable date"],
-  "GeneralInformation_date1_ss":["1900"],
-  "GeneralInformation_date2_ss":["    "],
-  "GeneralInformation_placeOfPublicationProductionOrExecution_ss":["iau"],
-  "GeneralInformation_language_ss":["eng"],
-  "GeneralInformation_modifiedRecord_ss":["Not modified"],
-  "GeneralInformation_catalogingSource_ss":["National bibliographic agency"],
-  "GeneralInformation_illustrations_ss":["Portraits, No illustrations"],
-  "GeneralInformation_targetAudience_ss":["Unknown or not specified"],
-  "GeneralInformation_formOfItem_ss":["None of the following"],
-  "GeneralInformation_natureOfContents_ss":["No specified nature of contents"],
-  "GeneralInformation_governmentPublication_ss":["Not a government publication"],
-  "GeneralInformation_conferencePublication_ss":["Not a conference publication"],
-  "GeneralInformation_festschrift_ss":["Not a festschrift"],
-  "GeneralInformation_index_ss":["No index"],
-  "GeneralInformation_literaryForm_ss":["Not fiction (not further specified)"],
-  "GeneralInformation_biography_ss":["No biographical material"],
-  "IdentifiedByLccn_ss":["   00004081 "],
-  "SystemControlNumber_organizationCode_ss":["OCoLC"],
-  "SystemControlNumber_ss":["(OCoLC)15259056"],
-  "SystemControlNumber_recordNumber_ss":["15259056"],
-  "AdminMetadata_transcribingAgency_ss":["GU"],
-  "AdminMetadata_catalogingAgency_ss":["United States, Library of Congress"],
-  "AdminMetadata_modifyingAgency_ss":["United States, Library of Congress"],
-  "ClassificationLcc_ind1_ss":["Item is in LC"],
-  "ClassificationLcc_itemPortion_ss":["M6"],
-  "ClassificationLcc_ss":["E612.A5"],
-  "ClassificationLcc_ind2_ss":["Assigned by LC"],
-  "MainPersonalName_personalName_ss":["Miller, James N."],
-  "MainPersonalName_ind1_ss":["Surname"],
-  "MainPersonalName_fullerForm_ss":["(James Newton)"],
-  "Title_ind1_ss":["No added entry"],
-  "Title_ind2_ss":["4"],
-  "Title_responsibilityStatement_ss":["by James N. Miller ..."],
-  "Title_mainTitle_ss":["The story of Andersonville and Florence,"],
-  "Publication_agent_ss":["Welch, the Printer,"],
-  "Publication_ind1_ss":["Not applicable/No information provided/Earliest available publisher"],
-  "Publication_place_ss":["Des Moines, Ia.,"],
-  "Publication_date_ss":["1900."],
-  "PhysicalDescription_extent_ss":["47 p. incl. front. (port.)"],
-  "AdditionalPhysicalFormAvailable_ss":["Also available in digital form on the Library of Congress Web site."],
-  "CorporateNameSubject_ind2_ss":["Library of Congress Subject Headings"],
-  "CorporateNameSubject_ss":["Florence Prison (S.C.)"],
-  "CorporateNameSubject_ind1_ss":["Name in direct order"],
-  "Geographic_ss":["United States"],
-  "Geographic_generalSubdivision_ss":["Prisoners and prisons."],
-  "Geographic_chronologicalSubdivision_ss":["Civil War, 1861-1865"],
-  "Geographic_ind2_ss":["Library of Congress Subject Headings"],
-  "ElectronicLocationAndAccess_materialsSpecified_ss":["Page view"],
-  "ElectronicLocationAndAccess_ind2_ss":["Version of resource"],
-  "ElectronicLocationAndAccess_uri_ss":["http://hdl.loc.gov/loc.gdc/scd0001.20000719001an.2"],
-  "ElectronicLocationAndAccess_ind1_ss":["HTTP"],
-  "_version_":1580884716765052928
-}
-```
+QA catalogue builds a Solr index which contains a) a set of fixed Solr fields that are the same for all bibliographic
+input, and b) Solr fields that depend on the field names of the metadata schema (MARC, PICA, UNIMARC etc.) - these fields
+should be mapped from metadata schema to dynamic Solr fields by an algorithm.
 
-#### "marc-tags" format
+##### Fixed fields
+
+* `id`: the record ID. This comes from the identifier of the bibliographic record, so 001 for MARC21
+* `record_sni`: the JSON representation of the bibliographic record
+* `groupId_is`: the list of group IDs. The content comes from the data element specified by the `--groupBy` parameter
+  split by commas (',').
+* `errorId_is`: the list of error IDs that come from the result of the validation.
+
+##### Mapped fields
+
+The mapped fields are Solr fields that depend on the field names of the metadata schema. The final Solr field follows
+the pattern:
+
+  <field-prefix><mapped-value><field-suffix>
+
+Field prefix:
+
+With `--fieldPrefix` parameter you can set a prefix that is applied to the variable fields. This might be needed because
+Solr has a limitation: field names start with a number can not be used in some Solr parameter, such as `fl` (field list 
+selected to be retrieved from the index). Unfortunately bibliographic schemas use field names start with numbers. You can 
+change a mapping parameter that produces a mapped value that resembles the BIBFRAME mapping of the MARC21 field, but 
+not all field has such a human readable association.
+
+Field suffixes:
+
+* `*_sni`: not indexed, stored string fields -- good for storing fields used for displaying information
+* `*_ss`: not parsed, stored, indexed string fields -- good for display and facets
+* `*_tt`: parsed, not stored, indexed string fields -- good for term searches
+* `*_is`: parsed, not stored, indexed integer fields -- good for searching for numbers, such as error or group identifiers
+
+The mapped value
+
+With `--solrFieldType` you can select the algorithm that generates the mapped value. Right now there are three formats: 
+* `marc-tags` - the field names are MARC codes (`245$a` → `245a`)
+* `human-readable` - the field names are [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/)
+   (`245$a` → `Title_mainTitle`)
+* `mixed` - the field names are mixed of the above (e.g. `245a_Title_mainTitle`)
+
+
+###### "marc-tags" format
 ```
 "100a_ss":["Jung-Baek, Myong Ja"],
 "100ind1_ss":["Surname"],
@@ -1816,7 +1766,7 @@ becomes Leader_recordStatus = "Corrected or revised") so a record looks like thi
 "300a_ss":["141 p."],
 ```
 
-#### "human-readable" format
+###### "human-readable" format
 ```
 "MainPersonalName_type_ss":["Surname"],
 "MainPersonalName_personalName_ss":["Jung-Baek, Myong Ja"],
@@ -1831,7 +1781,7 @@ becomes Leader_recordStatus = "Corrected or revised") so a record looks like thi
 "PhysicalDescription_extent_ss":["141 p."],
 ```
 
-#### "mixed" format
+###### "mixed" format
 ```
 "100a_MainPersonalName_personalName_ss":["Jung-Baek, Myong Ja"],
 "100ind1_MainPersonalName_type_ss":["Surname"],
@@ -1846,8 +1796,9 @@ becomes Leader_recordStatus = "Corrected or revised") so a record looks like thi
 "300a_PhysicalDescription_extent_ss":["141 p."],
 ```
 
-I have created a distinct project [metadata-qa-marc-web](https://github.com/pkiraly/metadata-qa-marc-web),
-which provides a single page web application to build a facetted search interface for this type of Solr index.
+A distinct project [metadata-qa-marc-web](https://github.com/pkiraly/qa-catalogue-web), provides a web application that
+utilizes to build this type of Solr index in number of ways (a facetted search interface,  term lists, search for 
+validation errors etc.)
 
 ### Indexing MARC JSON records with Solr
 

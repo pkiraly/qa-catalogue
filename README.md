@@ -52,10 +52,14 @@ Screenshot from the web UI of the QA catalogue
     * [Field frequency distribution](#field-frequency-distribution)
     * [Generating cataloguing history chart](#generating-cataloguing-history-chart)
     * [Import tables to SQLite](#import-tables-to-sqlite)
-    * [Indexing MARC records with Solr](#indexing-marc-records-with-solr)
-      * [MARC tags format](#marc-tags-format)
-      * [Human-readable format](#human-readable-format)
-      * [Mixed format](#mixed-format)
+    * [Indexing MARC records with Solr](#indexing-bibliographic-records-with-solr)
+      * [Solr field names](#solr-field-names)
+        * [Fixed fields](#fixed-fields)
+        * [Mapped fields](#mapped-fields)
+          * [MARC tags format](#marc-tags-format)
+          * [Human-readable format](#human-readable-format)
+          * [Mixed format](#mixed-format)
+      * [Index preparation](#index-preparation)
     * [Indexing MARC JSON records with Solr](#indexing-marc-json-records-with-solr)
     * [Export mapping table](#export-mapping-table)
       * [to Avram JSON](#to-avram-json)
@@ -1622,51 +1626,6 @@ Output:
 
 ### Indexing bibliographic records with Solr
 
-
-Set autocommit the following way in solrconfig.xml (inside Solr):
-
-```XML
-    <autoCommit>
-      <maxTime>${solr.autoCommit.maxTime:15000}</maxTime>
-      <maxDocs>5000</maxDocs>
-      <openSearcher>true</openSearcher>
-    </autoCommit>
-    ...
-    <autoSoftCommit>
-      <maxTime>${solr.autoSoftCommit.maxTime:-1}</maxTime>
-    </autoSoftCommit>
-```
-It needs because in the library's code there is no commit, which makes the
-parallel indexing faster.
-
-In schema.xml (or in Solr web interface):
-```XML
-<dynamicField name="*_sni" type="string" indexed="false" stored="true"/>
-<copyField source="*_ss" dest="_text_"/>
-```
-
-or use Solr API:
-
-```bash
-NAME=dnb
-SOLR=http://localhost:8983/solr/$NAME/schema
-
-// add copy field
-curl -X POST -H 'Content-type:application/json' --data-binary '{
-  "add-dynamic-field":{
-     "name":"*_sni",
-     "type":"string",
-     "indexed":false,
-     "stored":true}
-}' $SOLR
-
-curl -X POST -H 'Content-type:application/json' --data-binary '{
-  "add-copy-field":{
-     "source":"*_ss",
-     "dest":["_text_"]}
-}' $SOLR
-```
-
 Run indexer:
 ```bash
 java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr [options] [file]
@@ -1683,8 +1642,7 @@ or
 options:
 * [general parameters](#general-parameters)
 * `-S <URL>`, `--solrUrl <URL>`: the URL of Solr server including the core (e.g. http://localhost:8983/solr/loc)
-* `-A`, `--doCommit`: send commits to Solr regularly (not needed if you set up
-  Solr the above described way)
+* `-A`, `--doCommit`: send commits to Solr regularly (not needed if you set up Solr as described below)
 * `-T <type>`, `--solrFieldType <type>`: a Solr field type, one of the
   predefined values. See examples below.
    * `marc-tags` - the field names are MARC codes
@@ -1799,6 +1757,80 @@ With `--solrFieldType` you can select the algorithm that generates the mapped va
 A distinct project [metadata-qa-marc-web](https://github.com/pkiraly/qa-catalogue-web), provides a web application that
 utilizes to build this type of Solr index in number of ways (a facetted search interface,  term lists, search for 
 validation errors etc.)
+
+#### Index preparation
+
+The tool uses different Solr indices (aka cores) to store information. In the following example we use `loc` as the name
+of our catalogue. There are two main indices: `loc` and `loc_dev`. `loc_dev` is the target of the index process, it will
+create it from scratch. During the proess `loc` is available and searchable. When the indexing has been successfully
+finished these two indices will be swaped, so the previous `loc` will become `loc_dev`, and the new index will be `loc`.
+The web user interface will always use the latest version (not the dev).
+
+In order to make the automatisation easier and still flexible there are some an auxilary commands:
+
+* `./qa-catalogue prepare-solr`: created these two indices, makes sure that their schemas contain the necessary fields
+* `./qa-catalogue index`: runs the indexing process
+* `./qa-catalogue postprocess-solr`: swap the two Solr cores (<name> and <name>_dev)
+* `./qa-catalogue all-solr`: runs all the three steps
+
+If you would like to maintain the Solr index yourself (e.g. because the Solr instance wuns in a cloud environment), 
+you should skip `prepare-solr` and `postprocess-solr`, and run only `index`. For maintaining the schema you can find
+a minimal viable schema among the 
+[test resources](https://github.com/pkiraly/qa-catalogue/blob/main/src/test/resources/solr-test/configset/defaultConfigSet/conf/schema.xml)
+
+You can set autocommit the following way in `solrconfig.xml` (inside Solr):
+
+```XML
+    <autoCommit>
+      <maxTime>${solr.autoCommit.maxTime:15000}</maxTime>
+      <maxDocs>5000</maxDocs>
+      <openSearcher>true</openSearcher>
+    </autoCommit>
+    ...
+    <autoSoftCommit>
+      <maxTime>${solr.autoSoftCommit.maxTime:-1}</maxTime>
+    </autoSoftCommit>
+```
+
+It needs if you choose to disable QA catalogue to issue commit messages (see `--commitAt` parameter), which makes
+indexing faster.
+
+In schema.xml (or in Solr web interface) you should be sure that you have the following dynamic fields:
+
+```XML
+<dynamicField name="*_ss" type="strings" indexed="true" stored="true"/>
+<dynamicField name="*_s" type="strings" indexed="true" stored="true"/>
+<dynamicField name="*_txt" type="text_general" indexed="true" stored="true"/>
+<dynamicField name="*_tt" type="text_general" indexed="true" stored="false"/>
+<dynamicField name="*_is" type="pints" indexed="true" stored="true" />
+<dynamicField name="*_sni" type="string_big" docValues="false" multiValued="false" indexed="false" stored="true"/>
+
+<copyField source="*_ss" dest="_text_"/>
+```
+
+or use Solr API:
+
+```bash
+NAME=dnb
+SOLR=http://localhost:8983/solr/$NAME/schema
+
+// add copy field
+curl -X POST -H 'Content-type:application/json' --data-binary '{
+  "add-dynamic-field":{
+     "name":"*_sni",
+     "type":"string",
+     "indexed":false,
+     "stored":true}
+}' $SOLR
+
+curl -X POST -H 'Content-type:application/json' --data-binary '{
+  "add-copy-field":{
+     "source":"*_ss",
+     "dest":["_text_"]}
+}' $SOLR
+```
+
+See [solr functions](https://github.com/pkiraly/qa-catalogue/blob/main/solr-functions) for full code.
 
 ### Indexing MARC JSON records with Solr
 

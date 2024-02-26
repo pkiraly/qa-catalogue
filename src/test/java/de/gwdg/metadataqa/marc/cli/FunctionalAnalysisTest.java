@@ -102,7 +102,7 @@ public class FunctionalAnalysisTest {
 
     Assert.assertEquals(expected, actual);
 
-    expectedFile = new File(getTestResource("alephseq/expected-results/functional-analysis/functional-analysis-mapping.csv"));
+    expectedFile = new File(getTestResource("pica/expected-results/functional-analysis/functional-analysis-mapping.csv"));
     actualFile = new File(outputDir, "functional-analysis-mapping.csv");
 
     expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");

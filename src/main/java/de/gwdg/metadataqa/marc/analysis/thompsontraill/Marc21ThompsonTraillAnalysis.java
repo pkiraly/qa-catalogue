@@ -388,7 +388,7 @@ public class Marc21ThompsonTraillAnalysis extends ThompsonTraillAnalysis {
     thompsonTraillTagMap.put(ThompsonTraillFields.CONTRIBUTORS, Arrays.asList("700", "710", "711", "720"));
     thompsonTraillTagMap.put(ThompsonTraillFields.SERIES, Arrays.asList("440", "490", "800", "810", "830"));
     thompsonTraillTagMap.put(ThompsonTraillFields.TOC, Arrays.asList("505", "520"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.DATE_008, Arrays.asList("008/ö7"));
+    thompsonTraillTagMap.put(ThompsonTraillFields.DATE_008, Arrays.asList("008/07"));
     thompsonTraillTagMap.put(ThompsonTraillFields.DATE_26X, Arrays.asList("260$c", "264$c"));
     thompsonTraillTagMap.put(ThompsonTraillFields.LC_NLM, Arrays.asList("050", "060", "090"));
     thompsonTraillTagMap.put(ThompsonTraillFields.LC_NLM, Arrays.asList("600", "610", "611", "630", "650", "651", "653"));

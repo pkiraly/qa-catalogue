@@ -18,6 +18,7 @@ public class Tag007microform06 extends ControlfieldPositionDefinition {
 
   private Tag007microform06() {
     initialize();
+    extractValidCodes();
   }
 
   public static Tag007microform06 getInstance() {

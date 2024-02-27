@@ -12,6 +12,7 @@ public class Tag007kit01 extends ControlfieldPositionDefinition {
 
   private Tag007kit01() {
     initialize();
+    extractValidCodes();
   }
 
   public static Tag007kit01 getInstance() {

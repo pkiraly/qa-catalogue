@@ -16,6 +16,7 @@ public class Tag006computer05 extends ControlfieldPositionDefinition {
 
   private Tag006computer05() {
     initialize();
+    extractValidCodes();
   }
 
   public static Tag006computer05 getInstance() {

@@ -12,6 +12,7 @@ public class Tag007nonprojected02 extends ControlfieldPositionDefinition {
 
   private Tag007nonprojected02() {
     initialize();
+    extractValidCodes();
   }
 
   public static Tag007nonprojected02 getInstance() {

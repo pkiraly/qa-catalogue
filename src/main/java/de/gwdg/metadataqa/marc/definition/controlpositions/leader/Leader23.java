@@ -16,6 +16,7 @@ public class Leader23 extends ControlfieldPositionDefinition {
 
   private Leader23() {
     initialize();
+    extractValidCodes();
   }
 
   public static Leader23 getInstance() {

@@ -17,6 +17,7 @@ public class Tag006visual01 extends ControlfieldPositionDefinition {
 
   private Tag006visual01() {
     initialize();
+    extractValidCodes();
   }
 
   public static Tag006visual01 getInstance() {

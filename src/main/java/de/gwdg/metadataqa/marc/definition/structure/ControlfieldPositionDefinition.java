@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -31,6 +30,11 @@ public class ControlfieldPositionDefinition implements Serializable {
   protected boolean hasCodelist = true;
   protected List<EncodedValue> codes = new ArrayList<>();
   protected List<EncodedValue> historicalCodes;
+  /**
+   * Represents a list of valid codes extracted from the codes list. It serves as a cache for the list of valid codes
+   * which aren't regex patterns, but simple string codes.
+   */
+  protected List<String> validCodes = new ArrayList<>();
   /**
    * Used in case the codes are separately defined in some code list. Used mostly if the list of codes would otherwise
    * be frequently repeated in the definition.
@@ -58,10 +62,12 @@ public class ControlfieldPositionDefinition implements Serializable {
                                         List<EncodedValue> codes) {
     this(label, positionStart, positionEnd);
     this.codes = codes;
+    extractValidCodes();
   }
 
   public ControlfieldPositionDefinition setCodes(List<EncodedValue> codes) {
     this.codes = codes;
+    extractValidCodes();
     return this;
   }
 
@@ -205,14 +211,9 @@ public class ControlfieldPositionDefinition implements Serializable {
    * @return True if the code is valid, false otherwise
    */
   private boolean validateRepeatableCode(String code) {
-    List<String> nonPatternCodes = codes.stream()
-      .filter(e -> !e.isRegex())
-      .map(EncodedValue::getCode)
-      .collect(Collectors.toList());
-
     for (int i = 0; i < code.length(); i += unitLength) {
       String unit = code.substring(i, i + unitLength);
-      if (!nonPatternCodes.contains(unit)) {
+      if (!validCodes.contains(unit)) {
         return false;
       }
     }
@@ -220,9 +221,7 @@ public class ControlfieldPositionDefinition implements Serializable {
   }
 
   private boolean validateNonRepeatableCode(String code) {
-    return codes.stream()
-      .filter(e -> !e.isRegex())
-      .map(EncodedValue::getCode)
+    return validCodes.stream()
       .anyMatch(e -> e.equals(code));
   }
 
@@ -275,8 +274,19 @@ public class ControlfieldPositionDefinition implements Serializable {
     return inputCode;
   }
 
+  protected void extractValidCodes() {
+    if (codes == null) {
+      return;
+    }
+    for (EncodedValue code : codes) {
+      if (!code.isRegex()) {
+        validCodes.add(code.getCode());
+      }
+    }
+  }
+
   public List<String> getValidCodes() {
-    return codes.stream().filter(e -> !e.isRegex()).map(EncodedValue::getCode).collect(Collectors.toList());
+    return validCodes;
   }
 
   public String formatPositon() {

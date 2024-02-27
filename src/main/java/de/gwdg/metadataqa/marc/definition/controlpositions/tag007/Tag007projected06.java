@@ -20,6 +20,7 @@ public class Tag007projected06 extends ControlfieldPositionDefinition {
 
   private Tag007projected06() {
     initialize();
+    extractValidCodes();
   }
 
   public static Tag007projected06 getInstance() {

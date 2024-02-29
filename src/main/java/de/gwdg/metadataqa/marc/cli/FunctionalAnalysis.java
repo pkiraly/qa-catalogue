@@ -6,6 +6,8 @@ import de.gwdg.metadataqa.marc.analysis.functional.Marc21FrbrFunctionLister;
 import de.gwdg.metadataqa.marc.analysis.functional.Marc21FunctionalAnalyzer;
 import de.gwdg.metadataqa.marc.analysis.functional.PicaFrbrFunctionLister;
 import de.gwdg.metadataqa.marc.analysis.functional.PicaFunctionalAnalyzer;
+import de.gwdg.metadataqa.marc.analysis.functional.UnimarcFrbrFunctionLister;
+import de.gwdg.metadataqa.marc.analysis.functional.UnimarcFunctionalAnalyzer;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
@@ -39,6 +41,8 @@ public class FunctionalAnalysis extends QACli<CompletenessParameters> implements
 
   private final Options options;
   private final boolean readyToProcess;
+
+
   private FunctionalAnalyzer analyzer;
   private int recordNumber;
 
@@ -46,7 +50,6 @@ public class FunctionalAnalysis extends QACli<CompletenessParameters> implements
     parameters = new CompletenessParameters(args);
     options = parameters.getOptions();
     readyToProcess = true;
-//    logger.info(() -> analyzer.getFrbrFunctionLister().getBaseline().toString());
   }
 
   public static void main(String[] args) {
@@ -103,10 +106,17 @@ public class FunctionalAnalysis extends QACli<CompletenessParameters> implements
     if (parameters.isMarc21()) {
       FrbrFunctionLister marc21FrbrFunctionLister = new Marc21FrbrFunctionLister(parameters.getMarcVersion());
       analyzer = new Marc21FunctionalAnalyzer(marc21FrbrFunctionLister);
-    } else {
+    } else if (parameters.isPica()) {
       FrbrFunctionLister picaFrbrFunctionLister = new PicaFrbrFunctionLister();
       analyzer = new PicaFunctionalAnalyzer(picaFrbrFunctionLister);
+    } else if (parameters.isUnimarc()) {
+      FrbrFunctionLister unimarcFrbrFunctionLister = new UnimarcFrbrFunctionLister();
+      analyzer = new UnimarcFunctionalAnalyzer(unimarcFrbrFunctionLister);
+    } else {
+      throw new IllegalArgumentException("Unknown MARC format");
     }
+
+    logger.info(() -> analyzer.getFrbrFunctionLister().getBaselineCounterMap().toString());
   }
 
   @Override
@@ -236,4 +246,9 @@ public class FunctionalAnalysis extends QACli<CompletenessParameters> implements
   public boolean readyToProcess() {
     return readyToProcess;
   }
+
+  public FunctionalAnalyzer getAnalyzer() {
+    return analyzer;
+  }
+
 }

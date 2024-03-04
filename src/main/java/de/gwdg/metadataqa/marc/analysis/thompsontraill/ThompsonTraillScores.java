@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.analysis;
+package de.gwdg.metadataqa.marc.analysis.thompsontraill;
 
 import de.gwdg.metadataqa.marc.Utils;
 

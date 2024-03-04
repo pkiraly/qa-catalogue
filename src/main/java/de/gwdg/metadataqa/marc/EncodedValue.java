@@ -1,6 +1,8 @@
 package de.gwdg.metadataqa.marc;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -13,6 +15,7 @@ public class EncodedValue implements Serializable {
   private boolean isRegex = false;
   private String bibframeTag = null;
   private Range range = null;
+  private Map<Integer, String> regexGroups = null;
 
   public EncodedValue(String code, String label) {
     this.code = code;
@@ -48,6 +51,15 @@ public class EncodedValue implements Serializable {
 
   public void setRegex(boolean regex) {
     isRegex = regex;
+    regexGroups = new HashMap<>();
+  }
+
+  public Map<Integer, String> getRegexGroups() {
+    return regexGroups;
+  }
+
+  public void setRegexGroups(Map<Integer, String> regexGroups) {
+    this.regexGroups = regexGroups;
   }
 
   public String getBibframeTag() {

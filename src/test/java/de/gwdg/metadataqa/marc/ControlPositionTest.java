@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -43,7 +42,7 @@ public class ControlPositionTest {
     assertEquals(0, position.getPositionStart());
     assertEquals(1, position.getPositionEnd());
     assertEquals("Category of material", position.getLabel());
-    assertNull(position.getCodes());
+    assertTrue(position.getCodes().isEmpty());
     /*
     map.put("Specific material designation", content.substring(1, 2));
     map.put("Undefined", content.substring(2, 3));

@@ -15,7 +15,6 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class ControlValueTest {
@@ -111,7 +110,7 @@ public class ControlValueTest {
     assertEquals(0, subfield.getPositionStart());
     assertEquals(5, subfield.getPositionEnd());
     assertEquals("https://www.loc.gov/marc/bibliographic/bdleader.html", subfield.getDescriptionUrl());
-    assertNull(subfield.getCodes());
+    assertTrue(subfield.getCodes().isEmpty());
   }
 
   private void testLeader05(ControlfieldPositionDefinition subfield) {
@@ -197,7 +196,7 @@ public class ControlValueTest {
     assertEquals(12, subfield.getPositionStart());
     assertEquals(17, subfield.getPositionEnd());
     assertEquals("https://www.loc.gov/marc/bibliographic/bdleader.html", subfield.getDescriptionUrl());
-    assertNull(subfield.getCodes());
+    assertTrue(subfield.getCodes().isEmpty());
   }
 
   private void testLeader17(ControlfieldPositionDefinition subfield) {

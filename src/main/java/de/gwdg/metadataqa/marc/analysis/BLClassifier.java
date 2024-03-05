@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.analysis.bl.Element;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -16,9 +17,9 @@ import static de.gwdg.metadataqa.marc.analysis.bl.Band.DEFICIENT;
 import static de.gwdg.metadataqa.marc.analysis.bl.Band.SATISFACTORY;
 import static de.gwdg.metadataqa.marc.analysis.bl.Band.EFFECTIVE;
 
-public class BLClassifier implements Classifier {
-
+public class BLClassifier implements Classifier, Serializable {
   private static final Logger logger = Logger.getLogger(BLClassifier.class.getCanonicalName());
+  private static final long serialVersionUID = -2857198788418059494L;
 
   private List<UseCase> basicUseCases = new ArrayList<>();
   private List<UseCase> satisfactoryUseCases = new ArrayList<>();
@@ -70,7 +71,7 @@ public class BLClassifier implements Classifier {
         }
       }
     }
-    logger.log(Level.INFO, "failed for {ö} ({1} -- {2} -- {3})",
+    logger.log(Level.INFO, "failed for {0} ({1} -- {2} -- {3})",
       new Object[]{useCase.name(), useCase.getUseCase(), useCase.getEncoding(), useCase.getDataElelemntsNormalized()});
     return false;
   }

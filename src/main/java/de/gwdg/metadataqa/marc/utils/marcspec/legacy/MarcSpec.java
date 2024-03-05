@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
  */
 public class MarcSpec implements SchemaSpec, Serializable {
 
-  private static final Pattern fieldTagPattern = Pattern.compile("[X0-9]{3,3}|LDR");
+  private static final Pattern fieldTagPattern = Pattern.compile("[X0-9]{3}|LDR");
   private static final Pattern hasSpacePattern = Pattern.compile("\\s");
   private static final Pattern indicatorPattern = Pattern.compile("[a-z0-9_]");
   private static final Pattern subfieldsPattern = Pattern.compile("[a-z0-9!\\\"#$%&'()*+-./:;<=>?]");

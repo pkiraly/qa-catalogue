@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# K10plus-Verbundkatalog (MARC records)
+# https://opac.k10plus.de
 
 . ./setdir.sh
 

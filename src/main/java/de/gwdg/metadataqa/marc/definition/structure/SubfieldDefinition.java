@@ -98,6 +98,14 @@ public class SubfieldDefinition implements Serializable {
     }
   }
 
+  public SubfieldDefinition(String code, String label, boolean repeatable) {
+    this.code = code;
+    this.label = label;
+
+    // this could probably be changed to a Cardinality object
+    this.cardinalityCode = repeatable ? Cardinality.Repeatable.getCode() : Cardinality.Nonrepeatable.getCode();
+  }
+
   public String getCode() {
     return code;
   }
@@ -119,6 +127,12 @@ public class SubfieldDefinition implements Serializable {
     return this;
   }
 
+  /**
+   * Local codes are defined by a particular library, not in the LoC MARC21 definition
+   * @param version
+   * @param input
+   * @return
+   */
   public SubfieldDefinition setLocalCodes(MarcVersion version, String... input) {
     if (localCodes == null)
       localCodes = new EnumMap<>(MarcVersion.class);
@@ -301,6 +315,15 @@ public class SubfieldDefinition implements Serializable {
     return positions != null;
   }
 
+  public ControlfieldPositionDefinition getPosition(int start, int end) {
+    for (ControlfieldPositionDefinition def : positions) {
+      if (def.getPositionStart() == start && def.getPositionEnd() == end) {
+        return def;
+      }
+    }
+    return null;
+  }
+
   public SubfieldDefinition setCompilanceLevels(String national) {
     setNationalCompilanceLevel(national);
     return this;
@@ -367,6 +390,10 @@ public class SubfieldDefinition implements Serializable {
 
   public void setMarcVersion(MarcVersion marcVersion) {
     this.marcVersion = marcVersion;
+  }
+
+  public boolean isRepeatable() {
+    return getCardinality().equals(Cardinality.Repeatable);
   }
 
   public boolean hasCodeList() {

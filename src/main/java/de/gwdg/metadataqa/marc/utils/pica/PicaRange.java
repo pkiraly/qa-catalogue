@@ -1,6 +1,9 @@
 package de.gwdg.metadataqa.marc.utils.pica;
 
-public class PicaRange {
+import java.io.Serializable;
+
+public class PicaRange implements Serializable {
+  private static final long serialVersionUID = -6398191971175762735L;
   private String raw;
   private String start;
   private String end;

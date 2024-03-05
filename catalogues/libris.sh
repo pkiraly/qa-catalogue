@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Libris, the Swedish national union catalogue
+# https://libris.kb.se/
 
 . ./setdir.sh
 

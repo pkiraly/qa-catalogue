@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# A Szegedi Tudományegyetem Klebelsberg Kuno Könyvtára
+# http://www.ek.szte.hu/
 
 . ./setdir.sh
 

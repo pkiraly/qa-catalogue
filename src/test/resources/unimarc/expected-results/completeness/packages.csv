@@ -1,0 +1,21 @@
+documenttype,packageid,name,label,iscoretag,count
+all,62,2--,Descriptive information block,false,1
+all,61,1--,Coded information block,false,1
+all,64,4--,Linking entry block,false,1
+all,63,3--,Notes block,false,1
+all,66,6--,Subject analysis and bibliographic history block,false,1
+all,0,00X,Control Fields,true,1
+all,68,8--,International use block,false,1
+all,67,7--,Responsibility block,false,1
+all,60,0--,Identification block,false,1
+all,99,unknown,unknown origin,false,1
+Books,62,2--,Descriptive information block,false,1
+Books,61,1--,Coded information block,false,1
+Books,64,4--,Linking entry block,false,1
+Books,63,3--,Notes block,false,1
+Books,66,6--,Subject analysis and bibliographic history block,false,1
+Books,0,00X,Control Fields,true,1
+Books,68,8--,International use block,false,1
+Books,67,7--,Responsibility block,false,1
+Books,60,0--,Identification block,false,1
+Books,99,unknown,unknown origin,false,1

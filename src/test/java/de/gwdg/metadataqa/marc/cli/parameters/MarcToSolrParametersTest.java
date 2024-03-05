@@ -99,4 +99,18 @@ public class MarcToSolrParametersTest {
       e.printStackTrace();
     }
   }
+
+  @Test
+  public void testFieldPrefix() {
+    String[] arguments = new String[]{"--fieldPrefix", "q", "a-marc-file.mrc"};
+    try {
+      MarcToSolrParameters parameters = new MarcToSolrParameters(arguments);
+      assertEquals("q", parameters.getFieldPrefix());
+      assertEquals(SolrFieldType.MIXED, parameters.getSolrFieldType());
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+  }
+
+
 }

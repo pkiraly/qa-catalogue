@@ -1,11 +1,11 @@
 package de.gwdg.metadataqa.marc.cli.utils;
 
+import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
-import de.gwdg.metadataqa.marc.dao.Leader;
-import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
+import de.gwdg.metadataqa.marc.dao.MarcLeader;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.DataSource;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
@@ -14,9 +14,10 @@ import de.gwdg.metadataqa.marc.utils.marcreader.AlephseqMarcReader;
 import de.gwdg.metadataqa.marc.utils.marcreader.ErrorAwareReader;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
+import de.gwdg.metadataqa.marc.utils.unimarc.UnimarcSchemaManager;
+import de.gwdg.metadataqa.marc.utils.unimarc.UnimarcSchemaReader;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
-import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.marc4j.MarcException;
 import org.marc4j.MarcReader;
@@ -44,9 +45,11 @@ public class RecordIterator {
   private CommonParameters parameters;
   private String replacementInControlFields;
   private MarcVersion marcVersion;
-  private Leader.Type defaultRecordType;
+  private MarcLeader.Type defaultRecordType;
   private DecimalFormat decimalFormat;
+  // this schema attribute could be merged with the UNIMARC one
   private PicaSchemaManager picaSchema;
+  private UnimarcSchemaManager unimarcSchema;
   private String status = "waits";
   private boolean processWithEroors = false;
   private long start;
@@ -66,9 +69,8 @@ public class RecordIterator {
     defaultRecordType = parameters.getDefaultRecordType();
     replacementInControlFields = parameters.getReplacementInControlFields();
     decimalFormat = new DecimalFormat();
-    if (parameters.isPica()) {
-      picaSchema = PicaSchemaReader.createSchemaManager(parameters.getPicaSchemaFile());
-    }
+
+    setupSchema();
 
     if (processor.getParameters().doLog())
       logger.info("marcVersion: " + marcVersion.getCode() + ", " + marcVersion.getLabel());
@@ -171,6 +173,7 @@ public class RecordIterator {
       try {
         processor.processRecord(iteratorResponse.getMarc4jRecord(), recordNumber);
 
+        // Transform the marc4j record to a bibliographic record
         BibliographicRecord bibliographicRecord = iteratorResponse.hasBlockingError()
                                                 ? null
                                                 : transformMarcRecord(iteratorResponse.getMarc4jRecord());
@@ -181,7 +184,8 @@ public class RecordIterator {
             if (bibliographicRecord != null)
               processor.processRecord(bibliographicRecord, recordNumber);
         } catch(Exception e) {
-          logger.log(Level.SEVERE, "start", e);
+          logger.log(Level.SEVERE, "Problem occured at processor.processRecord()", e);
+          e.printStackTrace();
         }
 
         if (recordNumber % 100000 == 0 && processor.getParameters().doLog())
@@ -199,10 +203,13 @@ public class RecordIterator {
   }
 
   private BibliographicRecord transformMarcRecord(Record marc4jRecord) {
-    if (parameters.getSchemaType().equals(SchemaType.MARC21))
+    if (parameters.getSchemaType().equals(SchemaType.MARC21)) {
       return MarcFactory.createFromMarc4j(marc4jRecord, defaultRecordType, marcVersion, replacementInControlFields);
-    else
+    } else if (parameters.getSchemaType().equals(SchemaType.PICA)) {
       return MarcFactory.createPicaFromMarc4j(marc4jRecord, picaSchema);
+    } else {
+      return MarcFactory.createUnimarcFromMarc4j(marc4jRecord, defaultRecordType, unimarcSchema);
+    }
   }
 
   private MarcReader getMarcFileReader(CommonParameters parameters, Path path) throws Exception {
@@ -221,7 +228,7 @@ public class RecordIterator {
     return marcReader;
   }
 
-  private MarcReader getMarcStreamReader(CommonParameters parameters) throws Exception {
+  private MarcReader getMarcStreamReader(CommonParameters parameters) {
     return QAMarcReaderFactory.getStreamReader(parameters.getMarcFormat(), parameters.getStream(), parameters);
   }
 
@@ -271,6 +278,22 @@ public class RecordIterator {
     HelpFormatter formatter = new HelpFormatter();
     formatter.printHelp("java -cp qa-catalogue.jar de.gwdg.metadataqa.marc.cli.Validator [options] [file]",
       opions);
+  }
+
+  private void setupSchema() {
+    // This should probably be moved to a factory of some sort if the schema managers, field definitions and field
+    // implementations get refactored in a way that they inherit from common interfaces.
+    // That's a bit of a long shot though, so for now we'll just keep it here.
+    if (parameters.isPica()) {
+      picaSchema = PicaSchemaReader.createSchemaManager(parameters.getPicaSchemaFile());
+    } else if (parameters.isUnimarc()) {
+      UnimarcSchemaReader unimarcSchemaReader = new UnimarcSchemaReader();
+      String schemaFilePath = parameters.getPicaSchemaFile();
+      if (schemaFilePath == null) {
+        schemaFilePath = "src/main/resources/unimarc/avram-unimarc.json";
+      }
+      unimarcSchema = unimarcSchemaReader.createSchema(schemaFilePath);
+    }
   }
 
   public String getStatus() {

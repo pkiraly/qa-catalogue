@@ -1,6 +1,6 @@
 package de.gwdg.metadataqa.marc.dao;
 
-import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
 import de.gwdg.metadataqa.marc.definition.controlpositions.Control008Positions;
 import de.gwdg.metadataqa.marc.definition.controltype.Control008Type;
@@ -93,12 +93,12 @@ public class Control008 extends MarcPositionalControlField implements Serializab
   private final Map<Integer, ControlfieldPositionDefinition> byPosition = new LinkedHashMap<>();
   private Control008Type actual008Type;
 
-  public Control008(String content, Leader.Type recordType) {
+  public Control008(String content, MarcLeader.Type recordType) {
     super(Control008Definition.getInstance(), content, recordType);
     initialize();
   }
 
-  public Control008(String content, BibliographicRecord marcRecord) {
+  public Control008(String content, Marc21Record marcRecord) {
     super(Control008Definition.getInstance(), content, marcRecord.getType());
     this.marcRecord = marcRecord;
     initialize();
@@ -275,6 +275,11 @@ public class Control008 extends MarcPositionalControlField implements Serializab
     }
   }
 
+  @Override
+  public ControlfieldPositionDefinition getSubfieldByPosition(Integer charStart) {
+    return null;
+  }
+
   public String resolve(ControlfieldPositionDefinition key) {
     String value = valuesMap.get(key);
     return key.resolve(value);
@@ -296,7 +301,7 @@ public class Control008 extends MarcPositionalControlField implements Serializab
     return valuesMap;
   }
 
-  public Leader.Type getRecordType() {
+  public MarcLeader.Type getRecordType() {
     return recordType;
   }
 

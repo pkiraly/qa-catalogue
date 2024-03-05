@@ -4,10 +4,11 @@ import de.gwdg.metadataqa.marc.CsvUtils;
 import de.gwdg.metadataqa.marc.analysis.validator.Validator;
 import de.gwdg.metadataqa.marc.analysis.validator.ValidatorConfiguration;
 import de.gwdg.metadataqa.marc.analysis.validator.ValidatorDAO;
-import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorCategory;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormatter;
@@ -26,13 +27,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashSet;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,10 +58,9 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
   private File collectorFile = null;
   private boolean doPrintInProcessRecord = true;
   private boolean readyToProcess;
-  private int counter;
+  private int recordCounter;
   private int numberOfprocessedRecords;
   private char separator;
-  private boolean hasSeparator = false;
   private int vErrorId = 1;
   private List<ValidationError> allValidationErrors;
   private ValidatorConfiguration validatorConfiguration;
@@ -74,14 +74,14 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
     this.parameters = parameters;
     options = parameters.getOptions();
     readyToProcess = true;
-    counter = 0;
+    recordCounter = 0;
     validatorConfiguration = new ValidatorConfiguration()
       .withMarcVersion(parameters.getMarcVersion())
       .withDoSummary(parameters.doSummary())
       .withIgnorableFields(parameters.getIgnorableFields())
       .withIgnorableIssueTypes(parameters.getIgnorableIssueTypes())
-      .withSchemaType(parameters.getSchemaType())
-    ;
+      .withSchemaType(parameters.getSchemaType());
+
     initializeGroups(parameters.getGroupBy(), parameters.isPica());
     if (doGroups()) {
       initializeMeta(parameters);
@@ -91,6 +91,7 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
         printToFile(idCollectorFile, CsvUtils.createCsv("id", "groupId"));
       }
     }
+    separator = parameters.getFormat().equals(TAB_SEPARATED) ? '\t' : ',';
   }
 
   public static void main(String[] args) {
@@ -129,7 +130,7 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
 
   @Override
   public void beforeIteration() {
-    logger.info(parameters.formatParameters());
+    logger.info(() -> parameters.formatParameters());
     if (!parameters.useStandardOutput()) {
       detailsFile = prepareReportFile(parameters.getOutputDir(), parameters.getDetailsFileName());
       logger.info("details output: " + detailsFile.getPath());
@@ -177,11 +178,7 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
 
   @Override
   public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber, List<ValidationError> errors) {
-    if (bibliographicRecord == null || bibliographicRecord.getControl001() == null || bibliographicRecord.getId() == null)
-      logger.severe("No record number at " + recordNumber);
-
-    if (recordNumber % 100000 == 0)
-      logger.info("Number of error types so far: " + validatorDAO.getInstanceBasedErrorCounter().size());
+    logRecordIssuesIfPresent(bibliographicRecord, recordNumber);
 
     if (bibliographicRecord != null && parameters.getRecordIgnorator().isIgnorable(bibliographicRecord)) {
       logger.info("skip " + bibliographicRecord.getId() + " (ignorable record)");
@@ -189,48 +186,84 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
     }
 
     Set<String> groupIds = getGroupIds(parameters, bibliographicRecord);
-    if (doSaveGroupIds && bibliographicRecord != null && bibliographicRecord.getControl001() != null)
+    if (doSaveGroupIds && bibliographicRecord != null && bibliographicRecord.getId() != null)
       saveGroupIds(bibliographicRecord.getId(true), groupIds);
 
     Validator validator = new Validator(validatorConfiguration, errors);
     boolean isValid = validator.validate(bibliographicRecord);
-    if (!isValid && doPrintInProcessRecord) {
-      if (parameters.doSummary())
-        processSummary(bibliographicRecord, validator, groupIds);
 
-      if (parameters.doDetails())
-        processDetails(bibliographicRecord, validator);
-    } else {
-      if (parameters.doSummary()) {
-        // TODO: use enum instead
-        updateCounters(0, groupIds, validatorDAO.getTotalRecordCounter(), validatorDAO.getTotalRecordCounterGrouped());
-      }
+    if (!isValid) {
+      processInvalidRecord(bibliographicRecord, validator, groupIds);
+    } else if (parameters.doSummary()) {
+      // TODO: use enum instead
+      updateCounters(0, groupIds, validatorDAO.getTotalRecordCounter(), validatorDAO.getTotalRecordCounterGrouped());
     }
+
     if (parameters.collectAllErrors())
       allValidationErrors.addAll(validator.getValidationErrors());
-    counter++;
+
+    recordCounter++;
+  }
+
+  private void logRecordIssuesIfPresent(BibliographicRecord bibliographicRecord, int recordNumber) {
+    if (bibliographicRecord == null) {
+      logger.severe(() -> "bibliographicRecord is null at " + recordNumber);
+    } else if (bibliographicRecord.getId() == null || hasNoControl001(bibliographicRecord)) {
+      logger.severe(() -> "No record identifier at " + recordNumber);
+    }
+    if (recordNumber % 100000 == 0) {
+      logger.info(() -> "Number of error types so far: " + validatorDAO.getInstanceBasedErrorCounter().size());
+    }
+  }
+
+  /**
+   * Creates the summary and the details for the invalid record in case of printing being enabled.
+   * @param bibliographicRecord The record to process
+   * @param validator The validator object containing the validation errors
+   * @param groupIds The group IDs of the record
+   */
+  private void processInvalidRecord(BibliographicRecord bibliographicRecord, Validator validator, Set<String> groupIds) {
+    if (!doPrintInProcessRecord) {
+      return;
+    }
+
+    if (parameters.doSummary()) {
+      processSummary(bibliographicRecord, validator, groupIds);
+    }
+    if (parameters.doDetails()) {
+      processDetails(bibliographicRecord, validator);
+    }
+  }
+
+  private static boolean hasNoControl001(BibliographicRecord bibliographicRecord) {
+    return bibliographicRecord instanceof Marc21Record && ((Marc21Record) bibliographicRecord).getControl001() == null;
   }
 
   private void processDetails(BibliographicRecord marcRecord, Validator validator) {
     List<ValidationError> errors = validator.getValidationErrors();
-    if (!errors.isEmpty()) {
-      String message = null;
-      if (parameters.doSummary()) {
-        Map<Integer, Integer> errorIds = new HashMap<>();
-        for (ValidationError error : errors) {
-          if (error.getId() == null)
-            error.setId(hashedIndex.get(error.hashCode()));
-          count(error.getId(), errorIds);
-        }
-        message = ValidationErrorFormatter.formatSimple(
-                (marcRecord != null ? marcRecord.getId(parameters.getTrimId()) : "unknown"), parameters.getFormat(), errorIds
-        );
-      } else {
-        message = ValidationErrorFormatter.format(errors, parameters.getFormat(), parameters.getTrimId());
-      }
-      if (message != null)
-        print(detailsFile, message);
+    if (errors.isEmpty()) {
+      return;
     }
+    String message;
+
+    if (!parameters.doSummary()) {
+      message = ValidationErrorFormatter.format(errors, parameters.getFormat(), parameters.getTrimId());
+      print(detailsFile, message);
+      return;
+    }
+
+    Map<Integer, Integer> errorIds = new HashMap<>();
+    for (ValidationError error : errors) {
+      if (error.getId() == null) {
+        error.setId(hashedIndex.get(error.hashCode()));
+      }
+      count(error.getId(), errorIds);
+    }
+
+    String recordId = marcRecord != null ? marcRecord.getId(parameters.getTrimId()) : "unknown";
+    message = ValidationErrorFormatter.formatSimple(recordId, parameters.getFormat(), errorIds);
+
+    print(detailsFile, message);
   }
 
   private void processSummary(BibliographicRecord marcRecord, Validator validator) {
@@ -296,15 +329,14 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
     this.numberOfprocessedRecords = numberOfprocessedRecords;
     printCounter();
 
-    char separator = getSeparator();
     if (parameters.doSummary()) {
       if (doGroups()) {
-        printSummaryGrouped(separator);
+        printSummaryGrouped();
         printCategoryCountsGrouped();
         printTypeCountsGrouped();
         printTotalCountsGrouped();
       } else {
-        printSummary(separator);
+        printSummary();
         printCategoryCounts();
         printTypeCounts();
         printTotalCounts();
@@ -318,10 +350,14 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
   }
 
   private void copySchemaFileToOutputDir() {
-    if (parameters.isPica()) {
+    if (parameters.isPica() || parameters.isUnimarc()) {
+      // TODO define constants somewhere
+      String defaultSchemaFile = parameters.isPica()
+        ? "src/main/resources/pica/avram-k10plus-title.json"
+        : "src/main/resources/unimarc/avram-unimarc.json";
       String schemaFile = StringUtils.isNotEmpty(parameters.getPicaSchemaFile())
         ? parameters.getPicaSchemaFile()
-        : Paths.get("src/main/resources/pica/avram-k10plus-title.json").toAbsolutePath().toString();
+        : Paths.get(defaultSchemaFile).toAbsolutePath().toString();
       File source = new File(schemaFile);
       try {
         FileUtils.copyFileToDirectory(source, new File(parameters.getOutputDir()));
@@ -338,7 +374,7 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
       printToFile(countFile, String.valueOf(numberOfprocessedRecords) + "\n");
     } else {
       printToFile(countFile, StringUtils.join(Arrays.asList("total", "processed"), ",") + "\n");
-      printToFile(countFile, StringUtils.join(Arrays.asList(numberOfprocessedRecords, counter), ",") + "\n");
+      printToFile(countFile, StringUtils.join(Arrays.asList(numberOfprocessedRecords, recordCounter), ",") + "\n");
     }
   }
 
@@ -348,23 +384,18 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
     }
   }
 
-  private void printSummary(char separator) {
+  private void printSummary() {
     String header = ValidationErrorFormatter.formatHeaderForSummary(parameters.getFormat(), doGroups());
     print(summaryFile, header);
+
+    Comparator<Map.Entry<ValidationError, Integer>> comparator = Comparator.comparing(a -> a.getKey().getType().getId());
+    comparator = comparator.thenComparing(a -> validatorDAO.getRecordBasedErrorCounter().get(a.getKey().getId()));
+    comparator = comparator.thenComparing(a -> a.getKey().getId());
+
     validatorDAO.getInstanceBasedErrorCounter()
       .entrySet()
       .stream()
-      .sorted((a,b) -> {
-        Integer typeIdA = Integer.valueOf(a.getKey().getType().getId());
-        Integer typeIdB = Integer.valueOf(b.getKey().getType().getId());
-        int result = typeIdA.compareTo(typeIdB);
-        if (result == 0) {
-          Integer recordCountA = validatorDAO.getRecordBasedErrorCounter().get(a.getKey().getId());
-          Integer recordCountB = validatorDAO.getRecordBasedErrorCounter().get(b.getKey().getId());
-          result = recordCountB.compareTo(recordCountA);
-        }
-        return result;
-      }) // sort
+      .sorted(comparator)
       .forEach(
         entry -> {
           ValidationError error = entry.getKey();
@@ -379,7 +410,7 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
       );
   }
 
-  private void printSummaryGrouped(char separator) {
+  private void printSummaryGrouped() {
     String header = ValidationErrorFormatter.formatHeaderForSummary(parameters.getFormat(), doGroups());
     print(summaryFile, header);
     validatorDAO.getInstanceBasedErrorCounterGrouped()
@@ -578,13 +609,6 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
     }
   }
 
-  private char getSeparator() {
-    if (!hasSeparator) {
-      separator = parameters.getFormat().equals(TAB_SEPARATED) ? '\t' : ',';
-    }
-    return separator;
-  }
-
   private void printCollectorEntry(Integer errorId, Set<String> recordIds) {
     print(collectorFile, String.valueOf(errorId) + separator);
     boolean isFirst = true;
@@ -637,8 +661,8 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
     return allValidationErrors;
   }
 
-  public int getCounter() {
-    return counter;
+  public int getRecordCounter() {
+    return recordCounter;
   }
 
   public int getNumberOfprocessedRecords() {
@@ -657,16 +681,6 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
       }
     } else {
       count(key, counterSingle);
-    }
-  }
-
-  private class Counter {
-    int id;
-    int count;
-
-    public Counter(int count, int id) {
-      this.count = count;
-      this.id = id;
     }
   }
 }

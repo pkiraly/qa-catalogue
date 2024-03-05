@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Országos Széchényi Könyvtár (Hungarian National Library)
+# https://www.oszk.hu/
 
 . ./setdir.sh
 NAME=oszk

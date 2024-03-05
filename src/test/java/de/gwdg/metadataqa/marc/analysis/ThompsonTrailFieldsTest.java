@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.analysis;
 
+import de.gwdg.metadataqa.marc.analysis.thompsontraill.ThompsonTraillFields;
 import org.junit.Test;
 
 import java.util.Arrays;

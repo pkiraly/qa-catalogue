@@ -11,7 +11,7 @@ public enum ValidationErrorType {
   // control subfield
   CONTROL_POSITION_OBSOLETE_CODE(4, "obsoleteControlPosition", "obsolete code", ValidationErrorCategory.CONTROLFIELD),
   CONTROL_POSITION_INVALID_CODE(5, "controlValueContainsInvalidCode", "invalid code", ValidationErrorCategory.CONTROLFIELD),
-  CONTROL_POSITION_INVALID_VALUE(6, "hasInvalidValue", "invalid value", ValidationErrorCategory.CONTROLFIELD),
+  CONTROL_POSITION_INVALID_VALUE(6, "invalidValue", "invalid value", ValidationErrorCategory.CONTROLFIELD),
 
   // field
   FIELD_MISSING_REFERENCE_SUBFIELD(7, "missingSubfield", "missing reference subfield (880$6)", ValidationErrorCategory.DATAFIELD),
@@ -21,7 +21,7 @@ public enum ValidationErrorType {
   // indicator
   INDICATOR_OBSOLETE(10, "obsoleteIndicator", "obsolete value", ValidationErrorCategory.INDICATOR),
   INDICATOR_NON_EMPTY(11, "nonEmptyIndicator", "non-empty indicator", ValidationErrorCategory.INDICATOR),
-  INDICATOR_INVALID_VALUE(12, "hasInvalidValue", "invalid value", ValidationErrorCategory.INDICATOR),
+  INDICATOR_INVALID_VALUE(12, "invalidValue", "invalid value", ValidationErrorCategory.INDICATOR),
 
   // subfield
   SUBFIELD_UNDEFINED(13, "undefinedSubfield", "undefined subfield", ValidationErrorCategory.SUBFIELD),
@@ -33,7 +33,7 @@ public enum ValidationErrorType {
   SUBFIELD_ISSN(19, "invalidISSN", "invalid ISSN", ValidationErrorCategory.SUBFIELD),
   SUBFIELD_UNPARSABLE_CONTENT(20, "unparsableContent", "content is not well-formatted", ValidationErrorCategory.SUBFIELD),
   SUBFIELD_NULL_CODE(21, "nullCode", "null subfield code", ValidationErrorCategory.SUBFIELD),
-  SUBFIELD_INVALID_VALUE(22, "hasInvalidValue", "invalid value", ValidationErrorCategory.SUBFIELD),
+  SUBFIELD_INVALID_VALUE(22, "invalidValue", "invalid value", ValidationErrorCategory.SUBFIELD),
   ;
 
   private final int id;

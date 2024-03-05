@@ -8,6 +8,7 @@ public class ClassificationParameters extends CommonParameters implements Serial
   private boolean isOptionSet;
   private boolean collectCollocations = false;
 
+  @Override
   protected void setOptions() {
     if (!isOptionSet) {
       super.setOptions();

@@ -1,7 +1,7 @@
 <?php
 
-define('LN', "\n");
-define('CMD', "curl -X POST -H 'Content-Type: application/json' 'http://localhost:8983/solr/%s/update' --data-binary '%s'");
+const LN = "\n";
+const CMD = "curl -X POST -H 'Content-Type: application/json' 'http://localhost:8983/solr/%s/update' --data-binary '%s'";
 
 function index($records) {
   global $solrUrl;
@@ -95,13 +95,14 @@ function processIdGroupid() {
 }
 
 $dir = $argv[1];
+$host = $argv[2];
+$core = $argv[3];
 if (preg_match('/[^\/]$/', $dir))
   $dir .= '/';
 
-$core = $argv[2];
-$solrUrl = sprintf('http://localhost:8983/solr/%s/update', $core);
-$inDeFirst = true;
+$solrUrl = sprintf('%s/solr/%s/update', $host, $core);
 
+$inDeFirst = true;
 $fileDetails  = $dir . 'issue-details.csv';
 echo 'fileDetails: ', $fileDetails, "\n";
 $inDe = fopen($fileDetails, "r");

@@ -7,7 +7,7 @@ import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ShelfReadyCompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
-import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.PicaRecord;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
@@ -21,7 +21,6 @@ import org.marc4j.marc.Record;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -176,7 +175,7 @@ public class ShelfReadyCompleteness extends QACli<ShelfReadyCompletenessParamete
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("name", "label", "marcpath", "score"));
       Map<ShelfReadyFieldsBooks, Map<String, List<String>>> map = parameters.getSchemaType().equals(SchemaType.MARC21)
-        ? (new Marc21Record()).getShelfReadyMap()
+        ? (new Marc21BibliographicRecord()).getShelfReadyMap()
         : (new PicaRecord()).getShelfReadyMap();
       for (Map.Entry<ShelfReadyFieldsBooks, Map<String, List<String>>> field : map.entrySet()) {
         ShelfReadyFieldsBooks category = field.getKey();

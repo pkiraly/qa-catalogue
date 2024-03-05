@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Česká literární bibliografie
+# https://clb.ucl.cas.cz/
 
 . ./setdir.sh
 

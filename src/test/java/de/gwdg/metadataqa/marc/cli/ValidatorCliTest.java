@@ -1,12 +1,14 @@
 package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
+import de.gwdg.metadataqa.marc.TestUtils;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -24,7 +26,7 @@ public class ValidatorCliTest extends CliTestUtils {
 
   @Before
   public void setUp() throws Exception {
-    outputDir = getPath("src/test/resources/output");
+    outputDir = TestUtils.getPath("output");
     outputFiles = Arrays.asList(
       "count.csv",
       "issue-details.csv",
@@ -62,7 +64,7 @@ public class ValidatorCliTest extends CliTestUtils {
       "--defaultRecordType", "BOOKS",
       "--detailsFileName", "issue-details.csv",
       "--summaryFileName", "issue-summary.csv",
-      getPath("src/test/resources/pica/pica-with-holdings-info.dat")
+      TestUtils.getPath("pica/pica-with-holdings-info.dat")
     });
     RecordIterator iterator = new RecordIterator(processor);
     iterator.setProcessWithEroors(true);
@@ -72,7 +74,7 @@ public class ValidatorCliTest extends CliTestUtils {
     for (String outputFile : groupedOutputFiles) {
       File output = new File(outputDir, outputFile);
       assertTrue(outputFile + " should exist", output.exists());
-      List<String> lines = FileUtils.readLinesFromFile("src/test/resources/output/" + outputFile);
+      List<String> lines = FileUtils.readLinesFromFile(TestUtils.getPath("output/" + outputFile));
       if (outputFile.equals("issue-details.csv")) {
         assertEquals(11, lines.size());
         assertEquals("010000011,1:1;2:1;3:1;4:1;5:1;6:1;7:1;8:1;9:1;10:1;11:1;12:1;13:1;14:1;15:1;16:1;17:1;18:1;19:1;20:1;21:2;22:2;23:1;24:1", lines.get(1).trim());
@@ -142,7 +144,7 @@ public class ValidatorCliTest extends CliTestUtils {
       "--detailsFileName", "issue-details.csv",
       "--summaryFileName", "issue-summary.csv",
       // "/home/kiru/Documents/marc21/k10plus_pica_grouped/pica-with-holdings-info-1M.dat"
-      getPath("src/test/resources/pica/pica-with-holdings-info.dat")
+      TestUtils.getPath("pica/pica-with-holdings-info.dat")
     });
     RecordIterator iterator = new RecordIterator(processor);
     iterator.setProcessWithEroors(true);
@@ -152,7 +154,7 @@ public class ValidatorCliTest extends CliTestUtils {
     for (String outputFile : groupedOutputFiles) {
       File output = new File(outputDir, outputFile);
       assertTrue(outputFile + " should exist", output.exists());
-      List<String> lines = FileUtils.readLinesFromFile("src/test/resources/output/" + outputFile);
+      List<String> lines = FileUtils.readLinesFromFile(TestUtils.getPath("output/" + outputFile));
       if (outputFile.equals("issue-details.csv")) {
         assertEquals(11, lines.size());
         assertEquals("recordId,errors", lines.get(0).trim());
@@ -276,7 +278,7 @@ public class ValidatorCliTest extends CliTestUtils {
             "--defaultRecordType", "BOOKS",
             "--detailsFileName", "issue-details.csv",
             "--summaryFileName", "issue-summary.csv",
-            getPath("src/test/resources/alephseq/alephseq-example6-error.txt")
+      TestUtils.getPath("alephseq/alephseq-example6-error.txt")
     });
     RecordIterator iterator = new RecordIterator(processor);
     iterator.setProcessWithEroors(true);
@@ -286,7 +288,7 @@ public class ValidatorCliTest extends CliTestUtils {
     for (String outputFile : outputFiles) {
       File output = new File(outputDir, outputFile);
       assertTrue(outputFile + " should exist", output.exists());
-      List<String> lines = FileUtils.readLinesFromFile("src/test/resources/output/" + outputFile);
+      List<String> lines = FileUtils.readLinesFromFile(TestUtils.getPath("output/" + outputFile));
       if (outputFile.equals("issue-details.csv")) {
         assertEquals(6, lines.size());
         assertEquals("003141910,1:1;2:1", lines.get(1).trim());
@@ -344,5 +346,82 @@ public class ValidatorCliTest extends CliTestUtils {
       output.delete();
       assertFalse(outputFile + " should not exist anymore", output.exists());
     }
+  }
+
+  @Test
+  public void validate_whenUnimarc() throws Exception {
+    clearOutput(outputDir, groupedOutputFiles);
+
+    ValidatorCli processor = new ValidatorCli(new String[]{
+        "--schemaType", "UNIMARC",
+        "--marcFormat", "MARC_LINE",
+        "--outputDir", outputDir,
+        "--details",
+        "--trimId",
+        "--summary",
+        "--format", "csv",
+        "--defaultRecordType", "BOOKS",
+        "--detailsFileName", "issue-details.csv",
+        "--summaryFileName", "issue-summary.csv",
+        TestUtils.getPath("unimarc/unimarc.mrctxt")
+    });
+
+    RecordIterator iterator = new RecordIterator(processor);
+    iterator.setProcessWithEroors(true);
+    iterator.start();
+
+    assertEquals("done", iterator.getStatus());
+
+    List<String> lines = getFileLines("issue-details.csv");
+    assertEquals("recordId,errors", lines.get(0).trim());
+    assertEquals("000000124,1:1;2:1;3:3;4:1;5:1;6:1;7:6", lines.get(1).trim());
+
+    lines = getFileLines("issue-summary.csv");
+    assertEquals(8, lines.size());
+
+    assertEquals("id,MarcPath,categoryId,typeId,type,message,url,instances,records", lines.get(0).trim());
+    assertEquals("2,005,2,6,invalid value,The field value does not match the expected pattern in '20191011224100.000',https://www.loc.gov/marc/bibliographic/bd005.html,1,1", lines.get(1).trim());
+    assertEquals("1,359,3,9,undefined field,359,,1,1", lines.get(2).trim());
+    assertEquals("6,410$ind2,4,12,invalid value,|,,1,1", lines.get(3).trim());
+    assertEquals("7,606$ind1,4,12,invalid value, ,,6,1", lines.get(4).trim());
+    assertEquals("3,035,5,13,undefined subfield,9,,3,1", lines.get(5).trim());
+    assertEquals("4,181$a/01,5,22,invalid value,invalid code for 'Extent of Applicability': '#' at position 01 in 'i#',,1,1", lines.get(6).trim());
+    assertEquals("5,181$b/03-05,5,22,invalid value,invalid code for 'Sensory Specification': 'e##' at position 03-05 in 'xxxe##',,1,1", lines.get(7).trim());
+
+    lines = getFileLines("issue-by-category.csv");
+    assertEquals(5, lines.size());
+    assertEquals("id,category,instances,records", lines.get(0).trim());
+    assertEquals("2,control field,1,1", lines.get(1).trim());
+    assertEquals("3,data field,1,1", lines.get(2).trim());
+    assertEquals("4,indicator,7,1", lines.get(3).trim());
+    assertEquals("5,subfield,5,1", lines.get(4).trim());
+
+    lines = getFileLines("issue-by-type.csv");
+    assertEquals(6, lines.size());
+    assertEquals("id,categoryId,category,type,instances,records", lines.get(0).trim());
+    assertEquals("6,2,control field,invalid value,1,1", lines.get(1).trim());
+    assertEquals("9,3,data field,undefined field,1,1", lines.get(2).trim());
+    assertEquals("12,4,indicator,invalid value,7,1", lines.get(3).trim());
+    assertEquals("13,5,subfield,undefined subfield,3,1", lines.get(4).trim());
+    assertEquals("22,5,subfield,invalid value,2,1", lines.get(5).trim());
+
+    // Won't check issue-collector.csv as it there are no record ids
+
+    lines = getFileLines("issue-total.csv");
+    assertEquals(3, lines.size());
+    assertEquals("type,instances,records", lines.get(0).trim());
+    assertEquals("1,14,1", lines.get(1).trim());
+    assertEquals("2,13,1", lines.get(2).trim());
+
+    lines = getFileLines("count.csv");
+    assertEquals(2, lines.size());
+    assertEquals("total", lines.get(0).trim());
+    assertEquals("1", lines.get(1).trim());
+  }
+
+  private List<String> getFileLines(String outputFile) throws IOException {
+    File output = new File(outputDir, outputFile);
+    assertTrue(outputFile + " should exist", output.exists());
+    return FileUtils.readLinesFromFile(TestUtils.getPath("output/" + outputFile));
   }
 }

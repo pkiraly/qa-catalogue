@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Biblioteca Nazionale Centrale di Firenze
+# https://www.bncf.firenze.sbn.it/
 
 . ./setdir.sh
 

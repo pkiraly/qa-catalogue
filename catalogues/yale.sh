@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Yale Library
+# https://library.yale.edu/
 
 . ./setdir.sh
 

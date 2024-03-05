@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Deutsche Digitale Bibliothek
+# https://www.deutsche-digitale-bibliothek.de/
 
 . ./setdir.sh
 

@@ -12,7 +12,7 @@ public class PicaFieldDefinition extends DataFieldDefinition {
   private String id;
   private String counter;
 
-  private PicaFieldDefinition(){};
+  private PicaFieldDefinition() {}
 
   public PicaFieldDefinition(PicaTagDefinition picaTagDefinition) {
     tag = picaTagDefinition.getTag();
@@ -56,11 +56,10 @@ public class PicaFieldDefinition extends DataFieldDefinition {
   public boolean inRange(String occurrence) {
     if (range != null && range.getUnitLength() == occurrence.length())
       if (range.isHasRange()) {
-        if (range.getStart().compareTo(occurrence) > 0 || range.getEnd().compareTo(occurrence) < 0)
-          return false;
-        return true;
-      } else
+        return range.getStart().compareTo(occurrence) <= 0 && range.getEnd().compareTo(occurrence) >= 0;
+      } else {
         return range.getStart().equals(occurrence);
+      }
 
     return false;
   }

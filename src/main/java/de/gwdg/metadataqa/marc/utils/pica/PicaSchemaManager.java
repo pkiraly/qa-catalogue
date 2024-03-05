@@ -1,11 +1,13 @@
 package de.gwdg.metadataqa.marc.utils.pica;
 
+import de.gwdg.metadataqa.marc.utils.marcreader.SchemaManager;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PicaSchemaManager {
+public class PicaSchemaManager implements SchemaManager {
   Map<String, PicaFieldDefinition> directory = new HashMap<>();
   Map<String, List<String>> tagIndex = new HashMap<>();
 
@@ -31,6 +33,7 @@ public class PicaSchemaManager {
     }
   }
 
+  @Override
   public PicaFieldDefinition lookup(String searchTerm) {
     if (directory.containsKey(searchTerm))
       return directory.get(searchTerm);
@@ -60,6 +63,7 @@ public class PicaSchemaManager {
     return null;
   }
 
+  @Override
   public int size() {
     return directory.size();
   }

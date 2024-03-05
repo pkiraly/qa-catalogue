@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.definition;
 
 import de.gwdg.metadataqa.marc.analysis.validator.DataFieldValidator;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.tags.tags01x.Tag040;
 import de.gwdg.metadataqa.marc.definition.tags.tags20x.Tag245;
@@ -58,7 +58,7 @@ public class DataFieldTest {
   @Test
   public void testUnhandledSubfields() {
     DataField tag040 = SubfieldParser.parseField(Tag040.getInstance(), "  $aMt$cMt$xMt");
-    tag040.setMarcRecord(new Marc21Record("123"));
+    tag040.setMarcRecord(new Marc21BibliographicRecord("123"));
     DataFieldValidator validator = new DataFieldValidator();
     boolean valid = validator.validate(tag040);
     assertFalse(valid);

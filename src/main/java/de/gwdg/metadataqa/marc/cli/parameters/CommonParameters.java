@@ -1,12 +1,12 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnorator;
-import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnoratorFactory;
+import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
 import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilter;
 import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilterFactory;
-import de.gwdg.metadataqa.marc.dao.Leader;
-import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
+import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnorator;
+import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnoratorFactory;
+import de.gwdg.metadataqa.marc.dao.MarcLeader;
 import de.gwdg.metadataqa.marc.definition.DataSource;
 import de.gwdg.metadataqa.marc.definition.MarcFormat;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -38,7 +38,7 @@ public class CommonParameters implements Serializable {
   protected int limit = -1;
   protected int offset = -1;
   protected String id = null;
-  protected Leader.Type defaultRecordType = Leader.Type.BOOKS;
+  protected MarcLeader.Type defaultRecordType = MarcLeader.Type.BOOKS;
   protected boolean fixAlephseq = false;
   protected boolean fixAlma = false;
   protected boolean fixKbr = false;
@@ -94,6 +94,7 @@ public class CommonParameters implements Serializable {
       options.addOption("2", "picaIdField", true, "PICA id field");
       options.addOption("u", "picaSubfieldSeparator", true, "PICA subfield separator");
       options.addOption("j", "picaSchemaFile", true, "Avram PICA schema file");
+      // For now, I'll be using picaSchemaFile for both PICA and UNIMARC. The option could be renamed later or a separate option could be added
       options.addOption("w", "schemaType", true, "metadata schema type ('MARC21', 'UNIMARC', or 'PICA')");
       options.addOption("k", "picaRecordType", true, "picaRecordType");
       options.addOption("c", "allowableRecords", true, "allow records for the analysis");
@@ -372,16 +373,16 @@ public class CommonParameters implements Serializable {
     this.id = id;
   }
 
-  public Leader.Type getDefaultRecordType() {
+  public MarcLeader.Type getDefaultRecordType() {
     return defaultRecordType;
   }
 
-  public void setDefaultRecordType(Leader.Type defaultRecordType) {
+  public void setDefaultRecordType(MarcLeader.Type defaultRecordType) {
     this.defaultRecordType = defaultRecordType;
   }
 
   public void setDefaultRecordType(String defaultRecordType) throws ParseException {
-    this.defaultRecordType = Leader.Type.valueOf(defaultRecordType);
+    this.defaultRecordType = MarcLeader.Type.valueOf(defaultRecordType);
     if (this.defaultRecordType == null)
       throw new ParseException(String.format("Unrecognized defaultRecordType parameter value: '%s'", defaultRecordType));
   }
@@ -541,6 +542,10 @@ public class CommonParameters implements Serializable {
 
   public boolean isPica() {
     return schemaType.equals(SchemaType.PICA);
+  }
+
+  public boolean isUnimarc() {
+    return schemaType.equals(SchemaType.UNIMARC);
   }
 
   public String getGroupBy() {

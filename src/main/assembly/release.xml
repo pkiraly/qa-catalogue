@@ -39,7 +39,9 @@
                 <include>sqlite/qa_catalogue.grouped.sqlite.sql</include>
                 <include>sqlite/calculate-aggregated-numbers.grouped.sh</include>
                 <include>sqlite/qa_catalogue.grouping.R</include>
-                <include>sqlite/validation-result-indexer.php</include>
+                <include>sqlite/validation-result-indexer-grouped.php</include>
+                <include>sqlite/validation-result-indexer-simple.php</include>
+                <include>sqlite/index-issue-details.sh</include>
 
                 <include>timeline/timeline.R</include>
                 <include>timeline/timeline.sh</include>

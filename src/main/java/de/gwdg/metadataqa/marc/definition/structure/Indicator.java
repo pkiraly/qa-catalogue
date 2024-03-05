@@ -63,6 +63,7 @@ public class Indicator {
 
   public Indicator setCodes(List<EncodedValue> codes) {
     this.codes = codes;
+    indexCodes();
     return this;
   }
 
@@ -150,7 +151,7 @@ public class Indicator {
     return ranges;
   }
 
-  private void indexCodes() {
+  public void indexCodes() {
     codeIndex = new LinkedHashMap<>();
     for (EncodedValue code : codes) {
       codeIndex.put(code.getCode(), code);

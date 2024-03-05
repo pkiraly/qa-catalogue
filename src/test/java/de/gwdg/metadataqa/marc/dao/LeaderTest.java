@@ -22,9 +22,9 @@ public class LeaderTest {
 
   @Test
   public void test00928nama2200265c4500() {
-    Leader leader = new Leader("00928nam a2200265 c 4500");
+    Marc21Leader leader = new Marc21Leader("00928nam a2200265 c 4500");
     assertNotNull(leader);
-    assertEquals(Leader.Type.BOOKS, leader.getType());
+    assertEquals(MarcLeader.Type.BOOKS, leader.getType());
 
     assertEquals("00928", leader.getById("leader00"));
     assertEquals("00928", leader.getByLabel("Record length"));
@@ -103,9 +103,9 @@ public class LeaderTest {
 
   @Test
   public void test03960cama22007814500() {
-    Leader leader = new Leader("03960cam a2200781   4500");
+    Marc21Leader leader = new Marc21Leader("03960cam a2200781   4500");
     assertNotNull(leader);
-    assertEquals(Leader.Type.BOOKS, leader.getType());
+    assertEquals(MarcLeader.Type.BOOKS, leader.getType());
 
     assertEquals("03960", leader.getById("leader00"));
     assertEquals("03960", leader.getByLabel("Record length"));
@@ -187,9 +187,9 @@ public class LeaderTest {
 
   @Test
   public void test01645nam2200481ir4500() {
-    Leader leader = new Leader("01645nam  2200481 ir4500");
+    Marc21Leader leader = new Marc21Leader("01645nam  2200481 ir4500");
     assertNotNull(leader);
-    assertEquals(Leader.Type.BOOKS, leader.getType());
+    assertEquals(MarcLeader.Type.BOOKS, leader.getType());
 
     assertEquals("01645", leader.getById("leader00"));
     assertEquals("01645", leader.getByLabel("Record length"));
@@ -268,7 +268,7 @@ public class LeaderTest {
 
   @Test
   public void testBadLeader() {
-    Leader leader = new Leader("01136cnm a2200253ui 4500");
+    Marc21Leader leader = new Marc21Leader("01136cnm a2200253ui 4500");
     LeaderValidator validator = new LeaderValidator();
     validator.validate(leader);
 
@@ -283,7 +283,7 @@ public class LeaderTest {
 
   @Test
   public void testBadLeaderWithDefaultType() {
-    Leader leader = new Leader("01136cnm a2200253ui 4500", Leader.Type.BOOKS);
+    Marc21Leader leader = new Marc21Leader("01136cnm a2200253ui 4500", MarcLeader.Type.BOOKS);
     assertEquals("n", leader.getTypeOfRecord().resolve());
     assertEquals("Monograph/Item", leader.getBibliographicLevel().resolve());
     LeaderValidator validator = new LeaderValidator();

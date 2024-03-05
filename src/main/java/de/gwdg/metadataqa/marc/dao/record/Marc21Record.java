@@ -1,208 +1,370 @@
 package de.gwdg.metadataqa.marc.dao.record;
 
-import de.gwdg.metadataqa.marc.Utils;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
 import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
-import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
+import de.gwdg.metadataqa.marc.dao.Control001;
+import de.gwdg.metadataqa.marc.dao.Control003;
+import de.gwdg.metadataqa.marc.dao.Control005;
+import de.gwdg.metadataqa.marc.dao.Control006;
+import de.gwdg.metadataqa.marc.dao.Control007;
+import de.gwdg.metadataqa.marc.dao.Control008;
 import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.MarcControlField;
+import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.model.SolrFieldType;
+import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
+import de.gwdg.metadataqa.marc.utils.unimarc.UnimarcConverter;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class Marc21Record extends BibliographicRecord {
+public class Marc21Record extends MarcRecord {
 
-  private static List<String> authorityTags;
-  private static Map<String, Boolean> authorityTagsIndex;
-  private static Map<String, Boolean> subjectTagIndex;
-  private static Map<String, Map<String, Boolean>> skippableAuthoritySubfields;
-  private static Map<String, Map<String, Boolean>> skippableSubjectSubfields;
-  private static Map<AuthorityCategory, List<String>> authorityTagsMap;
-  private static Map<ThompsonTraillFields, List<String>> thompsonTraillTagMap;
-  private static Map<ShelfReadyFieldsBooks, Map<String, List<String>>> shelfReadyMap;
+  private static final Pattern positionalPattern = Pattern.compile("^(Leader|00[678])/(.*)$");
+  private static final List<String> simpleControlTags = Arrays.asList("001", "003", "005");
+  protected static final List<String> allowedControlFieldTags = Arrays.asList("001", "003", "005", "006", "007", "008");
 
+  private List<Control006> control006 = new ArrayList<>();
+  private List<Control007> control007 = new ArrayList<>();
 
-  public Marc21Record() {
-    super();
-  }
+  protected MarcPositionalControlField control008;
 
   public Marc21Record(String id) {
     super(id);
   }
 
-  public List<DataField> getAuthorityFields() {
-    if (authorityTags == null) {
-      initializeAuthorityTags();
+  public Marc21Record() {
+    super();
+  }
+
+  @Override
+  public String getId() {
+    if (id != null)
+      return id;
+    return control001 != null ? control001.getContent() : null;
+  }
+
+  public List<MarcControlField> getControlfields() {
+    List<MarcControlField> list = super.getControlfields();
+    if (control006 != null && !control006.isEmpty())
+      list.addAll(control006);
+    if (control007 != null && !control007.isEmpty())
+      list.addAll(control007);
+    if (control008 != null)
+      list.add(control008);
+    return list;
+  }
+
+  public List<MarcPositionalControlField> getPositionalControlfields() {
+    List<MarcPositionalControlField> list = new ArrayList<>();
+    if (control006 != null && !control006.isEmpty())
+      list.addAll(control006);
+    if (control007 != null && !control007.isEmpty())
+      list.addAll(control007);
+    if (control008 != null)
+      list.add(control008);
+    return list;
+  }
+
+
+  public List<Control006> getControl006() {
+    return control006;
+  }
+
+  public void setControl006(Control006 control006) {
+    this.control006.add(control006);
+    control006.setMarcRecord(this);
+    controlfieldIndex.put(control006.getDefinition().getTag(), (List) this.control006);
+  }
+
+  public List<Control007> getControl007() {
+    return control007;
+  }
+
+  public void setControl007(Control007 control007) {
+    this.control007.add(control007);
+    control007.setMarcRecord(this);
+    controlfieldIndex.put(control007.getDefinition().getTag(), (List) this.control007);
+  }
+
+  public MarcPositionalControlField getControl008() {
+    return control008;
+  }
+
+  public void setControl008(MarcPositionalControlField control008) {
+    this.control008 = control008;
+    control008.setMarcRecord(this);
+    controlfieldIndex.put(control008.getDefinition().getTag(), Arrays.asList(control008));
+  }
+
+  @Override
+  public Map<String, List<String>> getKeyValuePairs(SolrFieldType type,
+                                                    boolean withDeduplication,
+                                                    MarcVersion marcVersion) {
+    if (mainKeyValuePairs == null) {
+      mainKeyValuePairs = new LinkedHashMap<>();
+
+      if (!schemaType.equals(SchemaType.PICA)) {
+        mainKeyValuePairs.put("type", Arrays.asList(getType().getValue()));
+        mainKeyValuePairs.putAll(leader.getKeyValuePairs(type));
+      }
+
+      for (MarcControlField controlField : getControlfields())
+        if (controlField != null)
+          mainKeyValuePairs.putAll(controlField.getKeyValuePairs(type));
+
+      getKeyValuePairsForDatafields(type, withDeduplication, marcVersion);
     }
-    return getAuthorityFields(authorityTags);
+
+    return mainKeyValuePairs;
   }
 
-  public Map<DataField, AuthorityCategory> getAuthorityFieldsMap() {
-    if (authorityTags == null) {
-      initializeAuthorityTags();
+  @Override
+  public String asJson() {
+    ObjectMapper mapper = new ObjectMapper();
+
+    Map<String, Object> map = new LinkedHashMap<>();
+    if (!schemaType.equals(SchemaType.PICA))
+      map.put("leader", leader.getContent());
+
+    for (MarcControlField field : getControlfields())
+      if (field != null)
+        map.put(field.getDefinition().getTag(), field.getContent());
+
+    datafieldsAsJson(map);
+    return transformMapToJson(mapper, map);
+  }
+
+  @Override
+  public List<String> search(String path, String query) {
+    List<String> results = new ArrayList<>();
+    if (path.equals("001") || path.equals("003") || path.equals("005")) {
+      searchControlField(path, query, results);
+    } else if (path.startsWith("006")) {
+      for (Control006 instance : control006)
+        searchPositionalControlField(instance, path, query, results);
+    } else if (path.startsWith("007")) {
+      for (Control007 instance : control007)
+        searchPositionalControlField(instance, path, query, results);
+    } else if (path.startsWith("008")) {
+      searchPositionalControlField(control008, path, query, results);
+    } else {
+      Matcher matcher = dataFieldPattern.matcher(path);
+      if (matcher.matches()) {
+        String tag = matcher.group(1);
+        String subfieldCode = matcher.group(2);
+        if (datafieldIndex.containsKey(tag)) {
+          for (DataField field : datafieldIndex.get(tag)) {
+            if (searchDatafield(query, results, subfieldCode, field)) break;
+          }
+        }
+      }
+      matcher = positionalPattern.matcher(path);
+      if (matcher.matches()) {
+        searchByPosition(query, results, matcher);
+      }
     }
-    return getAuthorityFields(authorityTagsMap);
+    return results;
   }
 
-  public boolean isAuthorityTag(String tag) {
-    if (authorityTagsIndex == null) {
-      initializeAuthorityTags();
+  private void searchControlField(String path, String query, List<String> results) {
+    MarcControlField controlField = null;
+    switch (path) {
+      case "001": controlField = control001; break;
+      case "003": controlField = control003; break;
+      case "005": controlField = control005; break;
+      default: break;
     }
-    return authorityTagsIndex.getOrDefault(tag, false);
+    if (controlField != null && controlField.getContent().equals(query))
+      results.add(controlField.getContent());
   }
 
-  public boolean isSkippableAuthoritySubfield(String tag, String code) {
-    if (authorityTagsIndex == null)
-      initializeAuthorityTags();
-
-    if (!skippableAuthoritySubfields.containsKey(tag))
-      return false;
-
-    return skippableAuthoritySubfields.get(tag).getOrDefault(tag, false);
-  }
-
-  public boolean isSubjectTag(String tag) {
-    if (subjectTagIndex == null) {
-      initializeAuthorityTags();
-    }
-    return subjectTagIndex.getOrDefault(tag, false);
-  }
-
-  public boolean isSkippableSubjectSubfield(String tag, String code) {
-    if (subjectTagIndex == null)
-      initializeAuthorityTags();
-
-    if (!skippableSubjectSubfields.containsKey(tag))
-      return false;
-
-    return skippableSubjectSubfields.get(tag).getOrDefault(code, false);
-  }
-
-  private void initializeAuthorityTags() {
-    authorityTags = Arrays.asList(
-      "100", "110", "111", "130",
-      "700", "710", "711", "730",   "720", "740", "751", "752", "753", "754",
-      "800", "810", "811", "830"
-    );
-    authorityTagsIndex = Utils.listToMap(authorityTags);
-
-    skippableAuthoritySubfields = new HashMap<>();
-
-    List<String> subjectTags = Arrays.asList(
-      "052", "055", "072", "080", "082", "083", "084", "085", "086",
-      "600", "610", "611", "630", "647", "648", "650", "651",
-      "653", "654", "655", "656", "657", "658", "662"
-    );
-    subjectTagIndex = Utils.listToMap(subjectTags);
-    skippableSubjectSubfields = new HashMap<>();
-
-    authorityTagsMap = new EnumMap<>(AuthorityCategory.class);
-    authorityTagsMap.put(AuthorityCategory.PERSONAL, List.of("100", "700", "800"));
-    authorityTagsMap.put(AuthorityCategory.CORPORATE, List.of("110", "710", "810"));
-    authorityTagsMap.put(AuthorityCategory.MEETING, List.of("111", "711", "811"));
-    authorityTagsMap.put(AuthorityCategory.GEOGRAPHIC, List.of("751", "752"));
-    authorityTagsMap.put(AuthorityCategory.TITLES, List.of("130", "730", "740", "830"));
-    authorityTagsMap.put(AuthorityCategory.OTHER, List.of("720", "753", "754"));
-  }
-
-  public Map<ThompsonTraillFields, List<String>> getThompsonTraillTagsMap() {
-    if (thompsonTraillTagMap == null)
-      initializeThompsonTraillTags();
-
-    return thompsonTraillTagMap;
-  }
-
-  private void initializeThompsonTraillTags() {
-    thompsonTraillTagMap = new LinkedHashMap<>();
-
-    thompsonTraillTagMap.put(ThompsonTraillFields.ISBN, Arrays.asList("020"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.AUTHORS, Arrays.asList("100", "110", "111"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.ALTERNATIVE_TITLES, Arrays.asList("246"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.EDITION, Arrays.asList("250"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.CONTRIBUTORS, Arrays.asList("700", "710", "711", "720"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.SERIES, Arrays.asList("440", "490", "800", "810", "830"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.TOC, Arrays.asList("505", "520"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.DATE_008, Arrays.asList("008/ö7"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.DATE_26X, Arrays.asList("260$c", "264$c"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.LC_NLM, Arrays.asList("050", "060", "090"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.LC_NLM, Arrays.asList("600", "610", "611", "630", "650", "651", "653"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.MESH, Arrays.asList("600", "610", "611", "630", "650", "651", "653"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.FAST, Arrays.asList("600", "610", "611", "630", "650", "651", "653"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.GND, Arrays.asList("600", "610", "611", "630", "650", "651", "653"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.OTHER, Arrays.asList("600", "610", "611", "630", "650", "651", "653"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.ONLINE, Arrays.asList("008/23", "300$a")); // 29
-    thompsonTraillTagMap.put(ThompsonTraillFields.LANGUAGE_OF_RESOURCE, Arrays.asList("008/35"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.COUNTRY_OF_PUBLICATION, Arrays.asList("008/15"));
-  }
-
-  public Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap() {
-    if (shelfReadyMap == null)
-      initializeShelfReadyMap();
-
-    return shelfReadyMap;
-  }
-
-  private static void initializeShelfReadyMap() {
-    shelfReadyMap = new LinkedHashMap<>();
-
-    for (Map.Entry<ShelfReadyFieldsBooks, String> entry : getRawShelfReadyMap().entrySet()) {
-      shelfReadyMap.put(entry.getKey(), new TreeMap<>());
-      String[] paths = entry.getValue().split(",");
-      for (String path : paths) {
-        if (path.contains("$")) {
-          String[] parts = path.split("\\$");
-          if (!shelfReadyMap.get(entry.getKey()).containsKey(parts[0]))
-            shelfReadyMap.get(entry.getKey()).put(parts[0], new ArrayList<>());
-          shelfReadyMap.get(entry.getKey()).get(parts[0]).add(parts[1]);
-        } else {
-          shelfReadyMap.get(entry.getKey()).put(path, new ArrayList<>());
+  private void searchPositionalControlField(MarcPositionalControlField controlField,
+                                            String path, String query, List<String> results) {
+    if (controlField != null) {
+      Map<ControlfieldPositionDefinition, String> map = controlField.getMap();
+      for (ControlfieldPositionDefinition subfield : controlField.getMap().keySet()) {
+        if (subfield.getId().equals(path)) {
+          if (map.get(subfield).equals(query))
+            results.add(map.get(subfield));
+          break;
         }
       }
     }
   }
 
-  public static Map<ShelfReadyFieldsBooks, String> getRawShelfReadyMap() {
-    Map<ShelfReadyFieldsBooks, String> raw = new LinkedHashMap<>();
-    raw.put(ShelfReadyFieldsBooks.LDR06, "LDR~06");
-    raw.put(ShelfReadyFieldsBooks.LDR07, "LDR~07");
-    raw.put(ShelfReadyFieldsBooks.LDR1718, "LDR~17-18");
-    raw.put(ShelfReadyFieldsBooks.TAG00600, "006~00");
-    raw.put(ShelfReadyFieldsBooks.TAG010, "010$a");
-    raw.put(ShelfReadyFieldsBooks.TAG015, "015$a,015$2");
-    raw.put(ShelfReadyFieldsBooks.TAG020, "020$a,020$z,020$q");
-    raw.put(ShelfReadyFieldsBooks.TAG035, "035$a,035$z");
-    raw.put(ShelfReadyFieldsBooks.TAG040, "040$a,040$b,040$c,040$d,040$e");
-    raw.put(ShelfReadyFieldsBooks.TAG041, "041$a,041$b,041$h");
-    raw.put(ShelfReadyFieldsBooks.TAG050, "050$a,050$b");
-    raw.put(ShelfReadyFieldsBooks.TAG082, "082$a,082$2");
-    raw.put(ShelfReadyFieldsBooks.TAG1XX, "100$a,110$a,111$a,130$a");
-    raw.put(ShelfReadyFieldsBooks.TAG240, "240$a,240$l,240$n,240$p");
-    raw.put(ShelfReadyFieldsBooks.TAG245, "245$a,245$b,245$n,245$p,245$c");
-    raw.put(ShelfReadyFieldsBooks.TAG246, "246$a,246$b,246$n,246$p");
-    raw.put(ShelfReadyFieldsBooks.TAG250, "250$a,250$b");
-    raw.put(ShelfReadyFieldsBooks.TAG264, "264$a,264$b,264$c");
-    raw.put(ShelfReadyFieldsBooks.TAG300, "300$a,300$b,300$c");
-    raw.put(ShelfReadyFieldsBooks.TAG336, "336$a,336$b,336$2");
-    raw.put(ShelfReadyFieldsBooks.TAG337, "337$a,337$b,337$2");
-    raw.put(ShelfReadyFieldsBooks.TAG338, "338$a,338$b,338$2");
-    raw.put(ShelfReadyFieldsBooks.TAG490, "490$a,490$v");
-    raw.put(ShelfReadyFieldsBooks.TAG500, "500$a");
-    raw.put(ShelfReadyFieldsBooks.TAG504, "504$a");
-    raw.put(ShelfReadyFieldsBooks.TAG505, "505$a,505$t,505$r");
-    raw.put(ShelfReadyFieldsBooks.TAG520, "520$a");
-    raw.put(ShelfReadyFieldsBooks.TAG546, "546$a");
-    raw.put(ShelfReadyFieldsBooks.TAG588, "588$a");
-    raw.put(ShelfReadyFieldsBooks.TAG6XX, "600$a,610$a,611$a,630$a,647$a,648$a,650$a,651$a,653$a,654$a,655$a,656$a,657$a,658$a,662$a");
-    raw.put(ShelfReadyFieldsBooks.TAG7XX, "700$a,710$a,711$a,720$a,730$a,740$a,751$a,752$a,753$a,754$a");
-    raw.put(ShelfReadyFieldsBooks.TAG776, "776$a");
-    raw.put(ShelfReadyFieldsBooks.TAG856, "856$u");
-    raw.put(ShelfReadyFieldsBooks.TAG8XX, "800$a,810$a,811$a,830$a");
+  private void searchByPosition(String query, List<String> results, Matcher matcher) {
+    String tag = matcher.group(1);
+    String position = matcher.group(2);
+    int start;
+    int end;
+    if (position.contains("-")) {
+      String[] parts = position.split("-", 2);
+      start = Integer.parseInt(parts[0]);
+      end = Integer.parseInt(parts[1]);
+    } else {
+      start = Integer.parseInt(position);
+      end = start + 1;
+    }
+    String content = null;
+    if (tag.equals("Leader")) {
+      content = leader.getLeaderString();
+    } else {
+      MarcControlField controlField = null;
+      // TODO: fix it!
+      switch (tag) {
+        case "006": controlField = control006.get(0); break;
+        case "007": controlField = control007.get(0); break;
+        case "008": controlField = control008; break;
+        default: break;
+      }
+      if (controlField != null)
+        content = controlField.getContent();
+    }
 
-    return raw;
+    if (content != null && content.substring(start, end).equals(query)) {
+      results.add(content.substring(start, end));
+    }
   }
+
+  @Override
+  public List<String> select(MarcSpec selector) {
+    List<String> results = new ArrayList<>();
+    if (selector.getFieldTag().equals("LDR") && leader != null && StringUtils.isNotEmpty(leader.getContent())) {
+      if (selector.hasRangeSelector()) {
+        results.add(selector.selectRange(leader.getContent()));
+      } else {
+        results.add(leader.getContent());
+      }
+    } else if (controlfieldIndex.containsKey(selector.getFieldTag())) {
+      for (MarcControlField field : controlfieldIndex.get(selector.getFieldTag())) {
+        if (field == null)
+          continue;
+        if (!simpleControlTags.contains(field.getDefinition().getTag())) {
+          // TODO: check control subfields
+        }
+        if (selector.hasRangeSelector()) {
+          results.add(selector.selectRange(field.getContent()));
+        } else {
+          results.add(field.getContent());
+        }
+      }
+    } else if (datafieldIndex.containsKey(selector.getFieldTag())) {
+      selectDatafields(selector, results);
+    }
+    else if (selector.getFieldTag().equals("008") && control008 != null) {
+      if (selector.getCharStart() != null) {
+        ControlfieldPositionDefinition definition = control008.getSubfieldByPosition(selector.getCharStart());
+        results.add(control008.getMap().get(definition));
+      } else {
+        results.add(control008.getContent());
+      }
+    }
+    return results;
+  }
+
+  @Override
+  public List<DataField> getAuthorityFields() {
+    return null;
+  }
+
+  @Override
+  public List<String> getAllowedControlFieldTags() {
+    return allowedControlFieldTags;
+  }
+
+  @Override
+  public Map<DataField, AuthorityCategory> getAuthorityFieldsMap() {
+    return null;
+  }
+
+  @Override
+  public boolean isAuthorityTag(String tag) {
+    return false;
+  }
+
+  @Override
+  public boolean isSkippableAuthoritySubfield(String tag, String code) {
+    return false;
+  }
+
+  @Override
+  public boolean isSubjectTag(String tag) {
+    return false;
+  }
+
+  @Override
+  public boolean isSkippableSubjectSubfield(String tag, String code) {
+    return false;
+  }
+
+  @Override
+  public Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap() {
+    return null;
+  }
+  public void setField(String tag, String content, MarcVersion marcVersion) {
+    if (marcVersion.equals(MarcVersion.UNIMARC)) {
+      content = UnimarcConverter.contentFromUnimarc(tag, content);
+      tag = UnimarcConverter.tagFromUnimarc(tag);
+    }
+
+    if (tag.equals("001")) {
+      setControl001(new Control001(content));
+    } else if (tag.equals("003")) {
+      setControl003(new Control003(content));
+    } else if (tag.equals("005")) {
+      setControl005(new Control005(content, this));
+    } else if (tag.equals("006")) {
+      setControl006(new Control006(content, this));
+    } else if (tag.equals("007")) {
+      setControl007(new Control007(content, this));
+    } else if (tag.equals("008")) {
+      setControl008(new Control008(content, this));
+    } else {
+      DataFieldDefinition definition = MarcFactory.getDataFieldDefinition(tag, marcVersion);
+      if (definition == null) {
+        addUnhandledTags(tag);
+      }
+
+      DataField dataField = new DataField(tag, content, marcVersion);
+      addDataField(dataField);
+    }
+  }
+
+  @Override
+  public void setField(String tag, String ind1, String ind2, String content, MarcVersion marcVersion) {
+
+    if (tag.equals("001")) {
+      setControl001(new Control001(content));
+    } else if (tag.equals("003")) {
+      setControl003(new Control003(content));
+    } else if (tag.equals("005")) {
+      setControl005(new Control005(content, this));
+    } else if (tag.equals("006")) {
+      setControl006(new Control006(content, this));
+    } else if (tag.equals("007")) {
+      setControl007(new Control007(content, this));
+    } else if (tag.equals("008")) {
+      setControl008(new Control008(content, this));
+    } else {
+      DataFieldDefinition definition = MarcFactory.getDataFieldDefinition(tag, marcVersion);
+      if (definition == null) {
+        addUnhandledTags(tag);
+      }
+      addDataField(new DataField(tag, ind1, ind2, content, marcVersion));
+    }
+  }
+
 }

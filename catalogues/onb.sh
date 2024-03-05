@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Österreichische Nationalbibliothek (Austrian National Library)
+# https://www.onb.ac.at/
 
 . ./setdir.sh
 

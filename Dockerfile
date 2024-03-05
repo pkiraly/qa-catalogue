@@ -68,6 +68,7 @@ RUN cd /opt \
       php-curl \
       php-yaml \
       php-intl \
+      php-dom \
       unzip \
       composer \
       gettext \
@@ -79,6 +80,8 @@ RUN cd /opt \
 # && curl -s -L https://github.com/pkiraly/qa-catalogue-web/archive/${QA_CATALOGUE_VERSION}.zip --output master.zip \
  && if [ "${QA_CATALOGUE_WEB_VERSION}" = "main" ]; then \
       curl -s -L https://github.com/pkiraly/qa-catalogue-web/archive/refs/heads/main.zip --output master.zip ; \
+    elif [ "${QA_CATALOGUE_WEB_VERSION}" = "develop" ]; then \
+      curl -s -L https://github.com/pkiraly/qa-catalogue-web/archive/refs/heads/develop.zip --output master.zip ; \
     else \
       curl -s -L https://github.com/pkiraly/qa-catalogue-web/archive/refs/tags/v${QA_CATALOGUE_WEB_VERSION}.zip --output master.zip ; \
     fi \

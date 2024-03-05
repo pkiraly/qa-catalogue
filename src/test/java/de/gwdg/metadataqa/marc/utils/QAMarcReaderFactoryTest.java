@@ -1,31 +1,27 @@
 package de.gwdg.metadataqa.marc.utils;
 
-import de.gwdg.metadataqa.api.util.FileUtils;
+import de.gwdg.metadataqa.marc.TestUtils;
 import de.gwdg.metadataqa.marc.definition.MarcFormat;
 import org.junit.Test;
 import org.marc4j.MarcReader;
 
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URISyntaxException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class QAMarcReaderFactoryTest {
 
-  // ISO
-
   @Test
   public void getFileReader_iso() throws Exception {
-    MarcReader reader = QAMarcReaderFactory.getFileReader(MarcFormat.ISO, getFile("general/000-line-seperated.mrc"));
+    MarcReader reader = QAMarcReaderFactory.getFileReader(MarcFormat.ISO, TestUtils.getPath("general/000-line-seperated.mrc"));
     assertTrue(reader.hasNext());
     assertEquals("010000178", reader.next().getControlNumber());
   }
 
   @Test
   public void getStreamReader_iso() throws Exception {
-    MarcReader reader = QAMarcReaderFactory.getStreamReader(MarcFormat.ISO, new FileInputStream(getFile("general/000-line-seperated.mrc")));
+    MarcReader reader = QAMarcReaderFactory.getStreamReader(MarcFormat.ISO, new FileInputStream(TestUtils.getPath("general/000-line-seperated.mrc")));
     assertTrue(reader.hasNext());
     assertEquals("010000178", reader.next().getControlNumber());
   }
@@ -34,14 +30,14 @@ public class QAMarcReaderFactoryTest {
 
   @Test
   public void getFileReader_xml() throws Exception {
-    MarcReader reader = QAMarcReaderFactory.getFileReader(MarcFormat.XML, getFile("marcxml/marcxml.xml"));
+    MarcReader reader = QAMarcReaderFactory.getFileReader(MarcFormat.XML, TestUtils.getPath("marcxml/marcxml.xml"));
     assertTrue(reader.hasNext());
     assertEquals("987874829", reader.next().getControlNumber());
   }
 
   @Test
   public void getStreamReader_xml() throws Exception {
-    MarcReader reader = QAMarcReaderFactory.getStreamReader(MarcFormat.XML, new FileInputStream(getFile("marcxml/marcxml.xml")));
+    MarcReader reader = QAMarcReaderFactory.getStreamReader(MarcFormat.XML, new FileInputStream(TestUtils.getPath("marcxml/marcxml.xml")));
     assertTrue(reader.hasNext());
     assertEquals("987874829", reader.next().getControlNumber());
   }
@@ -50,14 +46,14 @@ public class QAMarcReaderFactoryTest {
 
   @Test
   public void getFileReader_line_separated() throws Exception {
-    MarcReader reader = QAMarcReaderFactory.getFileReader(MarcFormat.LINE_SEPARATED, getFile("general/000-line-seperated.mrc"));
+    MarcReader reader = QAMarcReaderFactory.getFileReader(MarcFormat.LINE_SEPARATED, TestUtils.getPath("general/000-line-seperated.mrc"));
     assertTrue(reader.hasNext());
     assertEquals("010000178", reader.next().getControlNumber());
   }
 
   @Test
   public void getStreamReader_line_separated() throws Exception {
-    MarcReader reader = QAMarcReaderFactory.getStreamReader(MarcFormat.LINE_SEPARATED, new FileInputStream(getFile("general/000-line-seperated.mrc")));
+    MarcReader reader = QAMarcReaderFactory.getStreamReader(MarcFormat.LINE_SEPARATED, new FileInputStream(TestUtils.getPath("general/000-line-seperated.mrc")));
     assertTrue(reader.hasNext());
     assertEquals("010000178", reader.next().getControlNumber());
   }
@@ -76,14 +72,14 @@ public class QAMarcReaderFactoryTest {
 
   @Test
   public void getFileReader_alephseq() throws Exception {
-    MarcReader reader = QAMarcReaderFactory.getFileReader(MarcFormat.ALEPHSEQ, getFile("alephseq/alephseq-example1.txt"));
+    MarcReader reader = QAMarcReaderFactory.getFileReader(MarcFormat.ALEPHSEQ, TestUtils.getPath("alephseq/alephseq-example1.txt"));
     assertTrue(reader.hasNext());
     assertEquals("000000002", reader.next().getControlNumber());
   }
 
   @Test
   public void getStreamReader_alephseq() throws Exception {
-    MarcReader reader = QAMarcReaderFactory.getStreamReader(MarcFormat.ALEPHSEQ, new FileInputStream(getFile("alephseq/alephseq-example1.txt")));
+    MarcReader reader = QAMarcReaderFactory.getStreamReader(MarcFormat.ALEPHSEQ, new FileInputStream(TestUtils.getPath("alephseq/alephseq-example1.txt")));
     assertTrue(reader.hasNext());
     assertEquals("000000002", reader.next().getControlNumber());
   }
@@ -92,14 +88,14 @@ public class QAMarcReaderFactoryTest {
 
   @Test
   public void getFileReader_marcline() throws Exception {
-    MarcReader reader = QAMarcReaderFactory.getFileReader(MarcFormat.MARC_LINE, getFile("marctxt/010000011.mrctxt"));
+    MarcReader reader = QAMarcReaderFactory.getFileReader(MarcFormat.MARC_LINE, TestUtils.getPath("marctxt/010000011.mrctxt"));
     assertTrue(reader.hasNext());
     assertEquals("010000011", reader.next().getControlNumber());
   }
 
   @Test
   public void getStreamReader_marcline() throws Exception {
-    MarcReader reader = QAMarcReaderFactory.getStreamReader(MarcFormat.MARC_LINE, new FileInputStream(getFile("marctxt/010000011.mrctxt")));
+    MarcReader reader = QAMarcReaderFactory.getStreamReader(MarcFormat.MARC_LINE, new FileInputStream(TestUtils.getPath("marctxt/010000011.mrctxt")));
     assertTrue(reader.hasNext());
     assertEquals("010000011", reader.next().getControlNumber());
   }
@@ -108,14 +104,14 @@ public class QAMarcReaderFactoryTest {
 
   @Test
   public void getFileReader_marcmaker() throws Exception {
-    MarcReader reader = QAMarcReaderFactory.getFileReader(MarcFormat.MARC_MAKER, getFile("marcmaker/01.marcmaker"));
+    MarcReader reader = QAMarcReaderFactory.getFileReader(MarcFormat.MARC_MAKER, TestUtils.getPath("marcmaker/01.marcmaker"));
     assertTrue(reader.hasNext());
     assertEquals("987874829", reader.next().getControlNumber());
   }
 
   @Test
   public void getStreamReader_marcmaker() throws Exception {
-    MarcReader reader = QAMarcReaderFactory.getStreamReader(MarcFormat.MARC_MAKER, new FileInputStream(getFile("marcmaker/01.marcmaker")));
+    MarcReader reader = QAMarcReaderFactory.getStreamReader(MarcFormat.MARC_MAKER, new FileInputStream(TestUtils.getPath("marcmaker/01.marcmaker")));
     assertTrue(reader.hasNext());
     assertEquals("987874829", reader.next().getControlNumber());
   }
@@ -124,26 +120,15 @@ public class QAMarcReaderFactoryTest {
 
   @Test
   public void getFileReader_pica_plain() throws Exception {
-    MarcReader reader = QAMarcReaderFactory.getFileReader(MarcFormat.PICA_PLAIN, getFile("pica/k10plus-sample.pica"), null);
+    MarcReader reader = QAMarcReaderFactory.getFileReader(MarcFormat.PICA_PLAIN, TestUtils.getPath("pica/k10plus-sample.pica"), null);
     assertTrue(reader.hasNext());
     assertEquals("010000011", reader.next().getControlNumber());
   }
 
   @Test
   public void getStreamReader_pica_plain() throws Exception {
-    MarcReader reader = QAMarcReaderFactory.getStreamReader(MarcFormat.PICA_PLAIN, new FileInputStream(getFile("pica/k10plus-sample.pica")), null);
+    MarcReader reader = QAMarcReaderFactory.getStreamReader(MarcFormat.PICA_PLAIN, new FileInputStream(TestUtils.getPath("pica/k10plus-sample.pica")), null);
     assertTrue(reader.hasNext());
     assertEquals("010000011", reader.next().getControlNumber());
-  }
-
-  private String getFile(String relativePath) {
-    try {
-      return FileUtils.getPath(relativePath).toFile().getAbsolutePath();
-    } catch (IOException e) {
-      // throw new RuntimeException(e);
-    } catch (URISyntaxException e) {
-      // throw new RuntimeException(e);
-    }
-    return "";
   }
 }

@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# The Heritage of the Printed Book Database
+# https://www.cerl.org/resources/hpb/main/
 
 . ./setdir.sh
 

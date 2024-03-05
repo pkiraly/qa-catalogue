@@ -316,12 +316,21 @@ EOF
     rm ${OUTPUT_DIR}/id-groupid_noheader.csv
   fi
 
+  SOLR_FOR_SCORES_URL=$(echo $TYPE_PARAMS | grep -P -o --regexp='--solrForScoresUrl \K([^ ]+)' || true)
+  ONLY_INDEX=$(echo ${PARAMS} | grep -c -P -e '--onlyIndex' || true)
+
   if [[ "${HAS_GROUP_PARAM}" == "0" ]]; then
     log "index"
     sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.sql &>> ${PREFIX}/sqlite.log
+    if [[ "${SOLR_FOR_SCORES_URL}" != "" ]]; then
+      echo "index at ${SOLR_FOR_SCORES_URL}"
+      # index id-groupid.csv and issue-details.csv
+      scripts/sqlite/index-issue-details.sh ${OUTPUT_DIR} ${NAME} ${HAS_GROUP_PARAM} ${ONLY_INDEX} ${SOLR_FOR_SCORES_URL}
+    fi
   else
     log "index (grouped)"
-    scripts/sqlite/calculate-aggregated-numbers.grouped.sh ${OUTPUT_DIR} ${NAME}
+    scripts/sqlite/index-issue-details.sh ${OUTPUT_DIR} ${NAME} ${HAS_GROUP_PARAM} ${ONLY_INDEX} ${SOLR_FOR_SCORES_URL}
+    scripts/sqlite/calculate-aggregated-numbers.grouped.sh ${OUTPUT_DIR} ${NAME} ${HAS_GROUP_PARAM} ${SOLR_FOR_SCORES_URL}
   fi
 }
 
@@ -619,7 +628,7 @@ for task in ${tasks//,/ }; do
     validate-sqlite)          do_validate_sqlite ;;
     prepare-solr)             do_prepare_solr ;;
     index)                    do_index ;;
-    postprocess_solr)         do_postprocess_solr ;;
+    postprocess-solr)         do_postprocess_solr ;;
     completeness)             do_completeness ; do_completeness_sqlite ;;
     completeness-sqlite)      do_completeness_sqlite ;;
     classifications)          do_classifications ;;

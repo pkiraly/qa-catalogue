@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Latvijas Nacionālā bibliotēka
+# https://lnb.lv/
 
 . ./setdir.sh
 

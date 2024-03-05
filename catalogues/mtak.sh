@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# A Magyar Tudományos Akadémia Könyvtára
+# https://mtak.hu/
 
 . ./setdir.sh
 

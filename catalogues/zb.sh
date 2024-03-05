@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Zentralbibliothek Zürich
+# https://www.zb.uzh.ch/
 
 . ./setdir.sh
 

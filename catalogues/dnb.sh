@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Deutsche Nationalbibliothek
+# https://www.dnb.de/
 
 . ./setdir.sh
 

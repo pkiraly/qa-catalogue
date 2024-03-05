@@ -1,25 +1,18 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.api.calculator.output.MetricCollector;
-import de.gwdg.metadataqa.api.calculator.output.OutputCollector;
-import de.gwdg.metadataqa.api.configuration.ConfigurationReader;
-import de.gwdg.metadataqa.api.configuration.SchemaConfiguration;
 import de.gwdg.metadataqa.api.configuration.schema.Rule;
-import de.gwdg.metadataqa.api.interfaces.MetricResult;
 import de.gwdg.metadataqa.api.json.DataElement;
 import de.gwdg.metadataqa.api.rule.RuleCatalog;
-import de.gwdg.metadataqa.api.rule.RuleCheckingOutputType;
 import de.gwdg.metadataqa.api.schema.BaseSchema;
 import de.gwdg.metadataqa.api.schema.Schema;
-import de.gwdg.metadataqa.api.util.CompressionLevel;
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.CsvUtils;
 import de.gwdg.metadataqa.marc.RuleCatalogUtils;
-import de.gwdg.metadataqa.marc.cli.utils.BibSelector;
+import de.gwdg.metadataqa.marc.TestUtils;
 import de.gwdg.metadataqa.marc.cli.utils.MarcSpecSelector;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.tags.tags20x.Tag245;
 import de.gwdg.metadataqa.marc.definition.tags.tags3xx.Tag300;
 import org.apache.commons.cli.ParseException;
@@ -43,8 +36,8 @@ public class Shacl4bibTest extends CliTestUtils {
 
   @Before
   public void setUp() throws Exception {
-    inputFile = getPath("src/test/resources/alephseq/alephseq-example3.txt");
-    outputDir = getPath("src/test/resources/output");
+    inputFile = TestUtils.getPath("alephseq/alephseq-example3.txt");
+    outputDir = TestUtils.getPath("output");
     outputFiles = Arrays.asList(
       "shacl.csv"
     );
@@ -59,7 +52,7 @@ public class Shacl4bibTest extends CliTestUtils {
       "--marcVersion", "GENT",
       "--alephseq",
       "--outputDir", outputDir,
-      "--shaclConfigurationFile", getPath("src/test/resources/shacl/kbr-small.yaml"),
+      "--shaclConfigurationFile", TestUtils.getPath("shacl/kbr-small.yaml"),
       "--shaclOutputFile", "shacl.csv",
       inputFile
     });
@@ -87,7 +80,7 @@ public class Shacl4bibTest extends CliTestUtils {
       "--marcVersion", "GENT",
       "--alephseq",
       "--outputDir", outputDir,
-      "--shaclConfigurationFile", getPath("src/test/resources/shacl/kbr-small.yaml"),
+      "--shaclConfigurationFile", TestUtils.getPath("shacl/kbr-small.yaml"),
       "--shaclOutputFile", "shacl.csv",
       inputFile
     });
@@ -113,7 +106,7 @@ public class Shacl4bibTest extends CliTestUtils {
       "--marcVersion", "GENT",
       "--alephseq",
       "--outputDir", outputDir,
-      "--shaclConfigurationFile", getPath("src/test/resources/shacl/kbr-small.json"),
+      "--shaclConfigurationFile", TestUtils.getPath("shacl/kbr-small.json"),
       "--shaclOutputFile", "shacl.csv",
       inputFile
     });
@@ -146,7 +139,7 @@ public class Shacl4bibTest extends CliTestUtils {
 
   @Test
   public void testField_without_subfield() {
-    Marc21Record marcRecord = new Marc21Record("u2407796");
+    Marc21BibliographicRecord marcRecord = new Marc21BibliographicRecord("u2407796");
     marcRecord.addDataField(new DataField(Tag245.getInstance(),"0", "0",
       "6", "880-01",
       "a", "iPhone the Bible wan jia sheng jing."
@@ -164,7 +157,7 @@ public class Shacl4bibTest extends CliTestUtils {
 
   @Test
   public void testField_depends_on_existing_fiels() {
-    Marc21Record marcRecord = new Marc21Record("u2407796");
+    Marc21BibliographicRecord marcRecord = new Marc21BibliographicRecord("u2407796");
     marcRecord.addDataField(new DataField(Tag245.getInstance(),"0", "0",
             "6", "880-01",
             "a", "iPhone the Bible wan jia sheng jing."
@@ -191,7 +184,7 @@ public class Shacl4bibTest extends CliTestUtils {
 
   @Test
   public void testField_fail_if_depends_on_nonexisting_field() {
-    Marc21Record marcRecord = new Marc21Record("u2407796");
+    Marc21BibliographicRecord marcRecord = new Marc21BibliographicRecord("u2407796");
     marcRecord.addDataField(new DataField(Tag245.getInstance(),"0", "0", "6", "880-01", "a", "iPhone the Bible wan jia sheng jing."));
     marcRecord.addDataField(new DataField(Tag300.getInstance()," ", " ", "a", "tIII, 83 Bl.", "b", "graph. Darst."));
 

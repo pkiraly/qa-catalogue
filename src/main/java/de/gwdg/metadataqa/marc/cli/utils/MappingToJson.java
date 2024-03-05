@@ -208,25 +208,26 @@ public class MappingToJson {
     if (generator != null)
       values.put("solr", generator.forSubfield(subfield));
 
+    LinkedHashMap<String, Object> codes = new LinkedHashMap<>();
     if (subfield.getCodes() != null) {
-      LinkedHashMap<String, Object> codes = new LinkedHashMap<>();
       for (EncodedValue code : subfield.getCodes()) {
         Map<String, Object> codeMap = new LinkedHashMap<>();
-        // codeMap.put("code", code.getCode());
+        codeMap.put("code", code.getCode());
         codeMap.put("label", code.getLabel());
         codes.put(code.getCode(), codeMap);
       }
-      values.put("codes", codes);
     }
     if (subfield.getHistoricalCodes() != null) {
-      LinkedHashMap<String, Object> codes = new LinkedHashMap<>();
       for (EncodedValue code : subfield.getHistoricalCodes()) {
         Map<String, Object> codeMap = new LinkedHashMap<>();
-        // codeMap.put("code", code.getCode());
+        codeMap.put("code", code.getCode());
         codeMap.put("label", code.getLabel());
+        codeMap.put("deprecated", true);
         codes.put(code.getCode(), codeMap);
       }
-      values.put("historical-codes", codes);
+    }
+    if (codes.size() > 0) {
+      values.put("codes", codes);
     }
     return values;
   }
@@ -262,6 +263,16 @@ public class MappingToJson {
     } else {
       logger.info(tag + " does not have subfields");
     }
+
+    if (tag.getHistoricalSubfields() != null) {
+      for (EncodedValue code : tag.getHistoricalSubfields()) {
+        Map<String, Object> subfieldDefinition = new LinkedHashMap<>();
+        subfieldDefinition.put("label", code.getLabel());
+        subfieldDefinition.put("deprecated", true);
+        subfields.put(code.getCode(), subfieldDefinition);
+      }
+    }
+
     tagMap.put("subfields", subfields);
 
     if (parameters.isWithLocallyDefinedFields()) {
@@ -279,16 +290,6 @@ public class MappingToJson {
         if (!versionSpecificSubfieldsMap.isEmpty())
           tagMap.put("versionSpecificSubfields", versionSpecificSubfieldsMap);
       }
-    }
-
-    if (tag.getHistoricalSubfields() != null) {
-      subfields = new LinkedHashMap<>();
-      for (EncodedValue code : tag.getHistoricalSubfields()) {
-        Map<String, Object> labelMap = new LinkedHashMap<>();
-        labelMap.put("label", code.getLabel());
-        subfields.put(code.getCode(), labelMap);
-      }
-      tagMap.put("historical-subfields", subfields);
     }
 
     if (fields.containsKey(tag.getTag())) {
@@ -446,22 +447,29 @@ public class MappingToJson {
     }
     Map<String, Object> value = new LinkedHashMap<>();
     value.put("label", indicator.getLabel());
+
     Map<String, Object> codes = new LinkedHashMap<>();
-    for (EncodedValue code : indicator.getCodes()) {
-      Map<String, Object> map = new LinkedHashMap<>();
-      map.put("label", code.getLabel());
-      codes.put(code.getCode(), map);
-    }
-    value.put("codes", codes);
-    if (indicator.getHistoricalCodes() != null) {
-      codes = new LinkedHashMap<>();
-      for (EncodedValue code : indicator.getHistoricalCodes()) {
+    if (indicator.getCodes() != null) {
+      for (EncodedValue code : indicator.getCodes()) {
         Map<String, Object> map = new LinkedHashMap<>();
+        map.put("code", code.getCode());
         map.put("label", code.getLabel());
         codes.put(code.getCode(), map);
       }
-      value.put("historical-codes", codes);
     }
+    if (indicator.getHistoricalCodes() != null) {
+      for (EncodedValue code : indicator.getHistoricalCodes()) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put("code", code.getCode());
+        map.put("label", code.getLabel());
+        map.put("deprecated", true);
+        codes.put(code.getCode(), map);
+      }
+    }
+    if (codes.size() > 0) { 
+      value.put("codes", codes);
+    }
+
     return value;
   }
 

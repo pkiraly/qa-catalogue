@@ -11,6 +11,7 @@ public class NetworkParameters extends CommonParameters implements Serializable 
   private int groupLimit = 1000;
   private boolean isOptionSet;
 
+  @Override
   protected void setOptions() {
     if (!isOptionSet) {
       super.setOptions();

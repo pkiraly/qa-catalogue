@@ -1,13 +1,11 @@
 package de.gwdg.metadataqa.marc.dao;
 
-import de.gwdg.metadataqa.marc.dao.Control006;
-import de.gwdg.metadataqa.marc.dao.Leader;
-import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
 import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006all00;
 import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006continuing01;
 import de.gwdg.metadataqa.marc.definition.controlpositions.tag006.Tag006visual16;
 import de.gwdg.metadataqa.marc.definition.controltype.Control008Type;
+import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.tags.control.Control006Definition;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -21,13 +19,13 @@ public class Control006Test {
 
   @Test
   public void testSa() {
-    Control006 field = new Control006("sa", Leader.Type.CONTINUING_RESOURCES);
+    Control006 field = new Control006("sa", MarcLeader.Type.CONTINUING_RESOURCES);
     Control006Definition definition = (Control006Definition)field.getDefinition();
 
     assertNotNull("not null", definition.getControlfieldPositions());
     assertEquals(8, definition.getControlfieldPositions().size());
 
-    assertEquals(Leader.Type.CONTINUING_RESOURCES, field.getRecordType());
+    assertEquals(MarcLeader.Type.CONTINUING_RESOURCES, field.getRecordType());
 
     List<ControlfieldPositionDefinition> subfields =
       definition.getControlfieldPositions()
@@ -55,7 +53,7 @@ public class Control006Test {
 
   @Test
   public void testAp() {
-    Control006 field = new Control006("a|||||||||||||||p|", Leader.Type.BOOKS);
+    Control006 field = new Control006("a|||||||||||||||p|", MarcLeader.Type.BOOKS);
     assertEquals(11, field.getValuesList().size());
     assertEquals("Form of material", field.getValuesList().get(0).getDefinition().getLabel());
     assertEquals("Language material", field.getValuesList().get(0).resolve());
@@ -83,7 +81,7 @@ public class Control006Test {
 
   @Test
   public void testSrw() {
-    Control006 field = new Control006("swr n|      0   b0", Leader.Type.CONTINUING_RESOURCES);
+    Control006 field = new Control006("swr n|      0   b0", MarcLeader.Type.CONTINUING_RESOURCES);
     assertEquals(12, field.getValuesList().size());
     assertEquals("Form of material", field.getValuesList().get(0).getDefinition().getLabel());
     assertEquals("Serial/Integrating resource", field.getValuesList().get(0).resolve());
@@ -113,7 +111,7 @@ public class Control006Test {
 
   @Test
   public void testIjf() {
-    Control006 field = new Control006("i||||j ||||||f| | ", Leader.Type.MUSIC);
+    Control006 field = new Control006("i||||j ||||||f| | ", MarcLeader.Type.MUSIC);
     assertEquals(9, field.getValuesList().size());
     assertEquals("Form of material", field.getValuesList().get(0).getDefinition().getLabel());
     assertEquals("Nonmusical sound recording", field.getValuesList().get(0).resolve());
@@ -137,7 +135,7 @@ public class Control006Test {
 
   @Test
   public void testCsgg() {
-    Control006 field = new Control006("csgg         nn   ", Leader.Type.MUSIC);
+    Control006 field = new Control006("csgg         nn   ", MarcLeader.Type.MUSIC);
     assertEquals(9, field.getValuesList().size());
     assertEquals("Form of material", field.getValuesList().get(0).getDefinition().getLabel());
     assertEquals("Notated music", field.getValuesList().get(0).resolve());
@@ -161,7 +159,7 @@ public class Control006Test {
 
   @Test
   public void testD() {
-    Control006 field = new Control006("d|||||||||||||||||", Leader.Type.MUSIC);
+    Control006 field = new Control006("d|||||||||||||||||", MarcLeader.Type.MUSIC);
     assertEquals(9, field.getValuesList().size());
     assertEquals("Form of material", field.getValuesList().get(0).getDefinition().getLabel());
     assertEquals("Manuscript notated music", field.getValuesList().get(0).resolve());
@@ -185,7 +183,7 @@ public class Control006Test {
 
   @Test
   public void testEa() {
-    Control006 field = new Control006("e|||||||a|||||||||", Leader.Type.MAPS);
+    Control006 field = new Control006("e|||||||a|||||||||", MarcLeader.Type.MAPS);
     assertEquals(8, field.getValuesList().size());
     assertEquals("Form of material", field.getValuesList().get(0).getDefinition().getLabel());
     assertEquals("Cartographic material", field.getValuesList().get(0).resolve());
@@ -207,7 +205,7 @@ public class Control006Test {
 
   @Test
   public void testGqv() {
-    Control006 field = new Control006("g|||       |q   v|", Leader.Type.VISUAL_MATERIALS);
+    Control006 field = new Control006("g|||       |q   v|", MarcLeader.Type.VISUAL_MATERIALS);
     assertEquals(7, field.getValuesList().size());
     assertEquals("Form of material", field.getValuesList().get(0).getDefinition().getLabel());
     assertEquals("Projected medium", field.getValuesList().get(0).resolve());
@@ -227,7 +225,7 @@ public class Control006Test {
 
   @Test
   public void testJfmnnnn() {
-    Control006 field = new Control006("jfmnn        nn | ", Leader.Type.MUSIC);
+    Control006 field = new Control006("jfmnn        nn | ", MarcLeader.Type.MUSIC);
     assertEquals(9, field.getValuesList().size());
     assertEquals("Form of material", field.getValuesList().get(0).getDefinition().getLabel());
     assertEquals("Musical sound recording", field.getValuesList().get(0).resolve());
@@ -251,7 +249,7 @@ public class Control006Test {
 
   @Test
   public void testKr() {
-    Control006 field = new Control006("k|||||||||||||||r|", Leader.Type.VISUAL_MATERIALS);
+    Control006 field = new Control006("k|||||||||||||||r|", MarcLeader.Type.VISUAL_MATERIALS);
     assertEquals(7, field.getValuesList().size());
     assertEquals("Form of material", field.getValuesList().get(0).getDefinition().getLabel());
     assertEquals("Two-dimensional nonprojectable graphic", field.getValuesList().get(0).resolve());
@@ -271,7 +269,7 @@ public class Control006Test {
 
   @Test
   public void testMbqi() {
-    Control006 field = new Control006("m    bq  i |      ", Leader.Type.COMPUTER_FILES);
+    Control006 field = new Control006("m    bq  i |      ", MarcLeader.Type.COMPUTER_FILES);
     assertEquals(5, field.getValuesList().size());
     assertEquals("Form of material", field.getValuesList().get(0).getDefinition().getLabel());
     assertEquals("Computer file", field.getValuesList().get(0).resolve());
@@ -287,7 +285,7 @@ public class Control006Test {
 
   @Test
   public void testRou() {
-    Control006 field = new Control006("r|||            ou", Leader.Type.VISUAL_MATERIALS);
+    Control006 field = new Control006("r|||            ou", MarcLeader.Type.VISUAL_MATERIALS);
     assertEquals(7, field.getValuesList().size());
     assertEquals("Form of material", field.getValuesList().get(0).getDefinition().getLabel());
     assertEquals("Three-dimensional artifact or naturally occurring object", field.getValuesList().get(0).resolve());
@@ -307,7 +305,7 @@ public class Control006Test {
 
   @Test
   public void testPr() {
-    Control006 field = new Control006("p     r           ", Leader.Type.MIXED_MATERIALS);
+    Control006 field = new Control006("p     r           ", MarcLeader.Type.MIXED_MATERIALS);
 
     assertEquals(2, field.getValuesList().size());
     assertEquals("Form of material", field.getValuesList().get(0).getDefinition().getLabel());
@@ -318,32 +316,32 @@ public class Control006Test {
 
   @Test
   public void testResolveWithDefinition() {
-    Control006 field = new Control006("r|||            ou", Leader.Type.VISUAL_MATERIALS);
+    Control006 field = new Control006("r|||            ou", MarcLeader.Type.VISUAL_MATERIALS);
     assertEquals("Flash card", field.resolve(Tag006visual16.getInstance()));
   }
 
   @Test
   public void testMap() {
-    Control006 field = new Control006("r|||            ou", Leader.Type.VISUAL_MATERIALS);
+    Control006 field = new Control006("r|||            ou", MarcLeader.Type.VISUAL_MATERIALS);
     assertEquals(field.getValueMap(), field.getMap());
   }
 
   @Test
   public void testGetValueByPosition() {
-    Control006 field = new Control006("r|||            ou", Leader.Type.VISUAL_MATERIALS);
+    Control006 field = new Control006("r|||            ou", MarcLeader.Type.VISUAL_MATERIALS);
     assertEquals("o", field.getValueByPosition(16));
   }
 
   @Test
   public void testGetSubfieldByPosition() {
-    Control006 field = new Control006("r|||            ou", Leader.Type.VISUAL_MATERIALS);
+    Control006 field = new Control006("r|||            ou", MarcLeader.Type.VISUAL_MATERIALS);
     assertEquals("006visual16", field.getSubfieldByPosition(16).getId());
     assertEquals("Type of visual material", field.getSubfieldByPosition(16).getLabel());
   }
 
   @Test
   public void testBookGetters() {
-    Control006 field = new Control006("a|||||||||||||||p|", Leader.Type.BOOKS);
+    Control006 field = new Control006("a|||||||||||||||p|", MarcLeader.Type.BOOKS);
     assertEquals("ControlValue", field.getTag006book01().getClass().getSimpleName());
 
     // assertEquals("Form of material", field.getValuesList().get(0).getDefinition().getLabel());
@@ -404,7 +402,7 @@ public class Control006Test {
 
   @Test
   public void testComputerFilesGetters() {
-    Control006 field = new Control006("m    bq  i |      ", Leader.Type.COMPUTER_FILES);
+    Control006 field = new Control006("m    bq  i |      ", MarcLeader.Type.COMPUTER_FILES);
 
     ControlValue value = field.getTag006all00();
     assertEquals("Form of material", value.getDefinition().getLabel());
@@ -434,7 +432,7 @@ public class Control006Test {
 
   @Test
   public void testMapGetters() {
-    Control006 field = new Control006("e|||||||a|||||||||", Leader.Type.MAPS);
+    Control006 field = new Control006("e|||||||a|||||||||", MarcLeader.Type.MAPS);
 
     ControlValue value = field.getTag006all00();
     assertEquals("Form of material", value.getDefinition().getLabel());
@@ -479,7 +477,7 @@ public class Control006Test {
 
   @Test
   public void testMusicGetters() {
-    Control006 field = new Control006("jfmnn        nn | ", Leader.Type.MUSIC);
+    Control006 field = new Control006("jfmnn        nn | ", MarcLeader.Type.MUSIC);
 
     ControlValue value = field.getTag006all00();
     assertEquals("Form of material", value.getDefinition().getLabel());
@@ -529,7 +527,7 @@ public class Control006Test {
 
   @Test
   public void testContinuingResourcesGetters() {
-    Control006 field = new Control006("swr n|      0   b0", Leader.Type.CONTINUING_RESOURCES);
+    Control006 field = new Control006("swr n|      0   b0", MarcLeader.Type.CONTINUING_RESOURCES);
     ControlValue value = field.getTag006all00();
     assertEquals("Form of material", value.getDefinition().getLabel());
     assertEquals("s", value.getValue());
@@ -593,7 +591,7 @@ public class Control006Test {
 
   @Test
   public void testVisualMaterialsGetters() {
-    Control006 field = new Control006("r|||            ou", Leader.Type.VISUAL_MATERIALS);
+    Control006 field = new Control006("r|||            ou", MarcLeader.Type.VISUAL_MATERIALS);
 
     ControlValue value = field.getTag006all00();
     assertEquals("Form of material", value.getDefinition().getLabel());
@@ -633,7 +631,7 @@ public class Control006Test {
 
   @Test
   public void testMixedMaterialsGetters() {
-    Control006 field = new Control006("p     r           ", Leader.Type.MIXED_MATERIALS);
+    Control006 field = new Control006("p     r           ", MarcLeader.Type.MIXED_MATERIALS);
 
     ControlValue value = field.getTag006all00();
     assertEquals("Form of material", value.getDefinition().getLabel());

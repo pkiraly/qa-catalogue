@@ -73,9 +73,8 @@ public class UnimarcCompletenessPlugin implements CompletenessPlugin, Serializab
     String subfieldCode = paths[1];
 
     // This subfield code is either indicator or subfield code. E.g. "ind1" or "a"
+    // This is an indicator
     if (subfieldCode.startsWith("ind")) {
-
-      // This is an indicator
       String indicatorNumber = subfieldCode.substring(3);
       int indicatorIndex = Integer.parseInt(indicatorNumber) - 1;
 
@@ -96,6 +95,7 @@ public class UnimarcCompletenessPlugin implements CompletenessPlugin, Serializab
 
   @Override
   public String getPackageName(DataField field) {
-    return Utils.extractPackageName(field);
+    TagCategory category = TagCategory.valueOf("UNIMARC_" + field.getTag().charAt(0));
+    return category.getPackageName();
   }
 }

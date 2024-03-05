@@ -1697,8 +1697,10 @@ Field suffixes:
 
 * `*_sni`: not indexed, stored string fields -- good for storing fields used for displaying information
 * `*_ss`: not parsed, stored, indexed string fields -- good for display and facets
-* `*_tt`: parsed, not stored, indexed string fields -- good for term searches
+* `*_tt`: parsed, not stored, indexed string fields -- good for term searches (these fields will be availabe if
+          `--indexWithTokenizedField` parameter is applied)
 * `*_is`: parsed, not stored, indexed integer fields -- good for searching for numbers, such as error or group identifiers
+          (these fields will be availabe if `--indexFieldCounts` parameter is applied)
 
 The mapped value
 
@@ -1770,7 +1772,8 @@ Besides these two indices there is a third index that contains different kind of
 writing it contains only the results of validation, but later it will cover other information as well. It can be set by 
 the following parameter:
 
-* `-4`, `--solrForScoresUrl <arg>`: the URL of the Solr server used to store scores
+* `-4`, `--solrForScoresUrl <arg>`: the URL of the Solr server used to store scores (it is populated in the 
+                                    `validate-sqlite` process which runs after validation)
 
 During the indexing process the content of this index is meged into the `_dev` index, so after a successfull end of the 
 process this index is not needed anymore.
@@ -1839,6 +1842,24 @@ curl -X POST -H 'Content-type:application/json' --data-binary '{
 ```
 
 See the [solr-functions](https://github.com/pkiraly/qa-catalogue/blob/main/solr-functions) file for full code.
+
+QA catalogue has a helper scipt to get information about the status of Solr index (Solr URL, location, the list of cores,
+number of documents, size in the disk, and last modification):
+
+```bash
+$ ./index --status
+Solr index status at http://localhost:8983
+Solr directory: /opt/solr-9.3.0/server/solr
+
+core                 | location        | nr of docs |       size |       last modified
+.................... | ............... | .......... | .......... | ...................
+nls                  | nls_1           |     403946 | 1002.22 MB | 2023-11-25 21:59:39
+nls_dev              | nls_2           |     403943 |  987.22 MB | 2023-11-11 15:59:49
+nls_validation       | nls_validation  |     403946 |   17.89 MB | 2023-11-25 21:35:44
+yale                 | yale_2          |    2346976 |    9.51 GB | 2023-11-11 13:12:35
+yale_dev             | yale_1          |    2346976 |    9.27 GB | 2023-11-11 10:58:08
+```
+
 
 ### Indexing MARC JSON records with Solr
 

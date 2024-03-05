@@ -35,16 +35,16 @@ public enum TagCategory {
   PICA_2(52, "pica2", "2...", "PICA+ item", false),
 
   // UNIMARC
-  UNIMARC_0(60, null, "0--", "Identification block", false),
-  UNIMARC_1(61, null, "1--", "Coded information block", false),
-  UNIMARC_2(62, null, "2--", "Descriptive information block", false),
-  UNIMARC_3(63, null, "3--", "Notes block", false),
-  UNIMARC_4(64, null, "4--", "Linking entry block", false),
-  UNIMARC_5(65, null, "5--", "Related title block", false),
-  UNIMARC_6(66, null, "6--", "Subject analysis and bibliographic history block", false),
-  UNIMARC_7(67, null, "7--", "Responsibility block", false),
-  UNIMARC_8(68, null, "8--", "International use block", false),
-  UNIMARC_9(68, null, "9--", "National use block", false),
+  UNIMARC_0(60, "tags0--", "0--", "Identification block", false),
+  UNIMARC_1(61, "tags1--", "1--", "Coded information block", false),
+  UNIMARC_2(62, "tags2--", "2--", "Descriptive information block", false),
+  UNIMARC_3(63, "tags3--", "3--", "Notes block", false),
+  UNIMARC_4(64, "tags4--", "4--", "Linking entry block", false),
+  UNIMARC_5(65, "tags5--", "5--", "Related title block", false),
+  UNIMARC_6(66, "tags6--", "6--", "Subject analysis and bibliographic history block", false),
+  UNIMARC_7(67, "tags7--", "7--", "Responsibility block", false),
+  UNIMARC_8(68, "tags8--", "8--", "International use block", false),
+  UNIMARC_9(68, "tags9--", "9--", "National use block", false),
   OTHER(99, "unknown", "unknown", "unknown origin", false);
 
 

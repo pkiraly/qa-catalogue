@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Verbundzentrale des Gemeinsamen Bibliotheksverbundes
+# http://www.gbv.de/
 
 . ./setdir.sh
 

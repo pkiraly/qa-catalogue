@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# KB (Koninklijke Bibliotheek van Nederland)
+# https://www.kb.nl
 
 . ./setdir.sh
 NAME=kb

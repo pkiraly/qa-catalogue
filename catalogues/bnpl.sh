@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Biblioteka Narodowa (Polish National Library)
+# https://bn.org.pl/
 
 . ./setdir.sh
 

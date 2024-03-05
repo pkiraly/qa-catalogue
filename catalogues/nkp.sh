@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Národní knihovna České republiky - National Library of the Czech Republic
+# https://nkp.cz/
 
 . ./setdir.sh
 

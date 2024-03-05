@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# K10plus-Verbundkatalog (PICA records with library holdings)
+# https://opac.k10plus.de
 
 . ./setdir.sh
 

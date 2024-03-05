@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Bibliotheek Universiteit van Amsterdam/Hogeschool van Amsterdam
+# https://uba.uva.nl/home
 
 . ./setdir.sh
 

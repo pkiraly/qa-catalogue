@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Knihoveda
+# https://www.zb.uzh.ch/
 
 . ./setdir.sh
 

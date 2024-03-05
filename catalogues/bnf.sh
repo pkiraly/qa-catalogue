@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Bibliothèque nationale de France
+# https://www.bnf.fr
 
 . ./setdir.sh
 

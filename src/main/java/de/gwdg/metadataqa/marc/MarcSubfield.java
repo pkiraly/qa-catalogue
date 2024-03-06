@@ -10,6 +10,7 @@ import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -120,7 +121,7 @@ public class MarcSubfield implements Serializable { // Validatable
         logger.severe(msg);
       }
 
-    return null;
+    return Collections.emptyMap();
   }
 
   public Map<String, List<String>> getKeyValuePairs(DataFieldKeyGenerator keyGenerator) {

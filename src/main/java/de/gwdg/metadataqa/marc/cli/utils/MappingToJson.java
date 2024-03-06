@@ -38,6 +38,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -443,7 +444,7 @@ public class MappingToJson {
 
   private static Map<String, Object> indicatorToJson(Indicator indicator) {
     if (!indicator.exists()) {
-      return null;
+      return Collections.emptyMap();
     }
     Map<String, Object> value = new LinkedHashMap<>();
     value.put("label", indicator.getLabel());

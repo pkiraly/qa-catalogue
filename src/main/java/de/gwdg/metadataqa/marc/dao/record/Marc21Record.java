@@ -24,6 +24,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -277,7 +278,7 @@ public class Marc21Record extends MarcRecord {
 
   @Override
   public List<DataField> getAuthorityFields() {
-    return null;
+    return Collections.emptyList();
   }
 
   @Override
@@ -287,7 +288,7 @@ public class Marc21Record extends MarcRecord {
 
   @Override
   public Map<DataField, AuthorityCategory> getAuthorityFieldsMap() {
-    return null;
+    return Collections.emptyMap();
   }
 
   @Override
@@ -312,7 +313,7 @@ public class Marc21Record extends MarcRecord {
 
   @Override
   public Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap() {
-    return null;
+    return Collections.emptyMap();
   }
   public void setField(String tag, String content, MarcVersion marcVersion) {
     if (marcVersion.equals(MarcVersion.UNIMARC)) {

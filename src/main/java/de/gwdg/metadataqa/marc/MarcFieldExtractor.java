@@ -20,6 +20,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -168,7 +169,7 @@ public class MarcFieldExtractor implements Calculator, Serializable {
 
   @Override
   public List<MetricResult> measure(Selector selector) {
-    return null;
+    return Collections.emptyList();
   }
 
   // @Override

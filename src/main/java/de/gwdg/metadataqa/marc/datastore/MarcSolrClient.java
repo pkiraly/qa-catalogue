@@ -23,7 +23,6 @@ public class MarcSolrClient {
 
   private String defaultUrl = "http://localhost:8983/solr";
   private SolrClient solrClient;
-  private String collection;
   private boolean trimId = false;
   private boolean indexWithTokenizedField = false;
   private String termFieldSuffix = "_tt";
@@ -38,10 +37,6 @@ public class MarcSolrClient {
     initialize(url);
   }
 
-  public MarcSolrClient(String url, String collection) {
-    initialize(url, collection);
-  }
-
   public MarcSolrClient(SolrClient client) {
     solrClient = client;
   }
@@ -52,11 +47,6 @@ public class MarcSolrClient {
 
   public void indexMap(String id, Map<String, List<String>> objectMap) {
     index(createSolrDoc(id, objectMap));
-  }
-
-  private void initialize(String url, String collection) {
-    solrClient = new HttpSolrClient.Builder(url).build();
-    this.collection = collection;
   }
 
   public void index(SolrInputDocument document) {

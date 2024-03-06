@@ -20,4 +20,8 @@ public enum Cardinality {
         return cardinality;
     return null;
   }
+
+  public static Cardinality get(boolean repeatable) {
+    return repeatable ? Repeatable : Nonrepeatable;
+  }
 }

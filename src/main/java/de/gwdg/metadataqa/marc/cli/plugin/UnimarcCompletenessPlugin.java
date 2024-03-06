@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc.cli.plugin;
 
-import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcLeader;

@@ -93,11 +93,7 @@ public class PicaSchemaReader {
     process(obj);
   }
 
-  private void process(JSONObject obj) throws IOException, ParseException, URISyntaxException {
-    // Path tagsFile = FileUtils.getPath(fileName);
-
-    // Object obj = parser.parse(new FileReader(fileName));
-    JSONObject jsonObject = (JSONObject) obj;
+  private void process(JSONObject jsonObject) throws IOException, ParseException, URISyntaxException {
     JSONObject fields = (JSONObject) jsonObject.get("fields");
     for (Map.Entry<String, Object> entry : fields.entrySet()) {
       String id = entry.getKey();

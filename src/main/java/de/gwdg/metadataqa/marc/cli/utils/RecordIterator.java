@@ -91,13 +91,11 @@ public class RecordIterator {
       }
     }
 
-    long end = System.currentTimeMillis();
-    processor.afterIteration(recordNumber, (end - start));
+    long duration = System.currentTimeMillis() - start;
+    processor.afterIteration(recordNumber, duration);
 
-    long duration = (end - start) / 1000;
     if (parameters.doLog())
-      logger.log(Level.INFO, "Bye! It took: " + Utils.formatDuration(end - start));
-      // logger.log(Level.INFO, "Bye! It took: " + LocalTime.MIN.plusSeconds(duration).format(DateTimeFormatter.ofPattern("d HH:mm:ss")));
+      logger.log(Level.INFO, "Bye! It took: " + Utils.formatDuration(duration));
 
     status = "done";
   }

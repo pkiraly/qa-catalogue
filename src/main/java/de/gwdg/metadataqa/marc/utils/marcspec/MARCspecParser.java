@@ -421,7 +421,7 @@ public class MARCspecParser {
       // _fieldMatches
       parsed = extractValues(matcher);
       for (Map.Entry<String, String> entry : parsed.entrySet()) {
-        parsedFieldSpec.put(entry.getKey(), (Object)entry.getValue());
+        parsedFieldSpec.put(entry.getKey(), entry.getValue());
       }
 
       if (!parsed.containsKey("field")) { // TODO: check if 'tag' is the required key

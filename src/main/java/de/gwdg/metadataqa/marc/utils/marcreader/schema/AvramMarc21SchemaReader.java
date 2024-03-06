@@ -221,7 +221,7 @@ public class AvramMarc21SchemaReader {
         if (codeEntry.getValue() instanceof JSONObject) {
           JSONObject property = (JSONObject) codeEntry.getValue();
           if (!code.equals(property.get("code")))
-            logger.warning(String.format("code is different to code value: %s vs %s", code, (String)property.get("coden")));
+            logger.warning(String.format("code is different to code value: %s vs %s", code, property.get("coden")));
           else
             list.add(new EncodedValue(code, (String) property.get("label")));
           for (String key : property.keySet()) {

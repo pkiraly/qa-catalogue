@@ -17,6 +17,7 @@ import java.util.Map;
 
 public class MarcControlField implements Validatable, Extractable, Serializable {
 
+  private static final long serialVersionUID = -2860608188307996601L;
   protected BibliographicRecord marcRecord;
   protected DataFieldDefinition definition;
   protected String content;

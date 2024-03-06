@@ -12,7 +12,7 @@ import java.util.Map;
 public class Control008All00DateParser implements SubfieldContentParser, Serializable {
 
   private String dateFormat = "yyMMdd";
-  private DateTimeFormatter marc;
+  private DateTimeFormatter dateTimeFormatter;
   DateTimeFormatter iso = DateTimeFormatter.ISO_DATE;
 
   public Control008All00DateParser() {
@@ -27,7 +27,7 @@ public class Control008All00DateParser implements SubfieldContentParser, Seriali
   private void initialize() {
     // marc = DateTimeFormatter.ofPattern(dateFormat, Locale.getDefault());
 
-    marc = new DateTimeFormatterBuilder()
+    dateTimeFormatter = new DateTimeFormatterBuilder()
       .appendValueReduced(ChronoField.YEAR_OF_ERA, 2, 2,
         LocalDate.now().minusYears(80))
       .appendPattern("MMdd")
@@ -39,7 +39,7 @@ public class Control008All00DateParser implements SubfieldContentParser, Seriali
     Map<String, String> extra = new HashMap<>();
 
     try {
-      LocalDate date = LocalDate.parse(content, marc);
+      LocalDate date = LocalDate.parse(content, dateTimeFormatter);
       extra.put("normalized", date.format(iso));
     } catch(DateTimeParseException e) {
       throw new ParserException(String.format(

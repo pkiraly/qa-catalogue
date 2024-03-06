@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 public class ControlfieldPositionDefinition implements Serializable {
 
   protected static final Pattern TRIMMABLE = Pattern.compile("^[^ ]+ +$");
+  private static final long serialVersionUID = 1094865179514850215L;
 
   protected String id;
   protected String label;

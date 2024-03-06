@@ -5,7 +5,8 @@ import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefiniti
 
 import java.io.Serializable;
 
-public class ControlValue implements Serializable { // Validatable
+public class ControlValue implements Serializable {
+  private static final long serialVersionUID = 5359828688351437413L; // Validatable
 
   private ControlfieldPositionDefinition definition;
   private String value;

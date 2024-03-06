@@ -2,14 +2,16 @@ package de.gwdg.metadataqa.marc.definition.controlpositions;
 
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class ControlfieldPositionList {
+public class ControlfieldPositionList implements Serializable {
 
+  private static final long serialVersionUID = -3368938324766612439L;
   protected Map<String, List<ControlfieldPositionDefinition>> positions = new TreeMap<>();
   protected Map<String, ControlfieldPositionDefinition> positionIdMap = new HashMap<>();
 

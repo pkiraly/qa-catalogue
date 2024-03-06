@@ -2,12 +2,15 @@ package de.gwdg.metadataqa.marc.utils.pica;
 
 import de.gwdg.metadataqa.marc.utils.marcreader.SchemaManager;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PicaSchemaManager implements SchemaManager {
+public class PicaSchemaManager implements SchemaManager, Serializable {
+
+  private static final long serialVersionUID = -2944103213221378653L;
   Map<String, PicaFieldDefinition> directory = new HashMap<>();
   Map<String, List<String>> tagIndex = new HashMap<>();
 

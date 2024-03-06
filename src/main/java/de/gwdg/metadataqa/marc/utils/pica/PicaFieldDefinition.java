@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public class PicaFieldDefinition extends DataFieldDefinition {
 
+  private static final long serialVersionUID = -3948232120690668303L;
   private String modified;
   private String pica3;
   private String occurrence;

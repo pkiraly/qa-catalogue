@@ -95,7 +95,7 @@ public class RecordIterator {
     processor.afterIteration(recordNumber, duration);
 
     if (parameters.doLog())
-      logger.log(Level.INFO, "Bye! It took: " + Utils.formatDuration(duration));
+      logger.log(Level.INFO, "Bye! It took: {0}", Utils.formatDuration(duration));
 
     status = "done";
   }
@@ -105,7 +105,7 @@ public class RecordIterator {
     String fileName = path.getFileName().toString();
 
     if (processor.getParameters().doLog())
-      logger.info("processing: " + fileName);
+      logger.log(Level.INFO, "processing: {0}", fileName);
 
     try {
       processor.fileOpened(path);
@@ -156,7 +156,7 @@ public class RecordIterator {
         break;
 
       if (iteratorResponse.getMarc4jRecord().getControlNumber() == null) {
-        logger.severe("No record number at " + recordNumber + ", last known ID: " + lastKnownId);
+        logger.log(Level.SEVERE, "No record number at {0}, last known ID: {1}", new Object[]{recordNumber, lastKnownId});
         if (iteratorResponse.getMarc4jRecord().getLeader() != null)
           System.err.println(iteratorResponse.getMarc4jRecord());
         if (!processWithEroors)
@@ -258,9 +258,9 @@ public class RecordIterator {
 
   private void extracted(int i, Record marc4jRecord, Exception e, String message) {
     if (marc4jRecord.getControlNumber() == null)
-      logger.severe("No record number at " + i);
+      logger.log(Level.SEVERE, "No record number at {0}", i);
     if (processor.getParameters().doLog())
-      logger.severe(String.format(message, marc4jRecord.getControlNumber(), e.getMessage()));
+      logger.log(Level.SEVERE, String.format(message, marc4jRecord.getControlNumber(), e.getMessage()));
     logger.log(Level.SEVERE, "start", e);
   }
 

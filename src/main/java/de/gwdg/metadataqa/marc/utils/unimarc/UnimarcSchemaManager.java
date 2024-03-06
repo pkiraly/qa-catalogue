@@ -1,10 +1,13 @@
 package de.gwdg.metadataqa.marc.utils.unimarc;
 
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UnimarcSchemaManager {
+public class UnimarcSchemaManager implements Serializable {
+
+    private static final long serialVersionUID = 8993916778277534476L;
     private UnimarcLeaderDefinition leaderDefinition;
     private final Map<String, UnimarcFieldDefinition> fieldDirectory = new HashMap<>();
 

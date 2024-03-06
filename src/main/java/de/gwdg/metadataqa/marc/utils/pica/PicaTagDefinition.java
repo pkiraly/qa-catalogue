@@ -62,7 +62,7 @@ public class PicaTagDefinition implements BibliographicFieldDefinition {
     switch (input) {
       case "": this.repeatable = false; break;
       case "*": this.repeatable = true; break;
-      default: logger.severe("unhandled 'repeatable' value: " + input);
+      default: logger.log(Level.SEVERE, "unhandled 'repeatable' value: {0}", input);
     }
     cardinality = Cardinality.get(repeatable);
   }

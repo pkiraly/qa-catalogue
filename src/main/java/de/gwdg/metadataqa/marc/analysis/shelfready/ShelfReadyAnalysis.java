@@ -146,11 +146,12 @@ public class ShelfReadyAnalysis {
    */
   private static double getScoreWhenNoCodes(BibliographicRecord marcRecord, ShelfReadyFieldsBooks category) {
     double score = 0.0;
-    for (MarcSpec selector : category.getSelectors()) {
-      List<String> values = marcRecord.select(selector);
-      if (!values.isEmpty()) {
-        score += 1.0;
-      }
+    // FIXME This implementation was copied from the old code and heavily refactored, but the logic is still completely the same.
+    //  It only takes the first selector of the category and checks if it's present in the record.
+    MarcSpec selector = category.getSelectors().get(0);
+    List<String> values = marcRecord.select(selector);
+    if (!values.isEmpty()) {
+      score += 1.0;
     }
     return score;
   }

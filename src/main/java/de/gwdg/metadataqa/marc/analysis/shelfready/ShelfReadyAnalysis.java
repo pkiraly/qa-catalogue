@@ -78,9 +78,9 @@ public class ShelfReadyAnalysis {
     }
 
     for (Map.Entry<String, List<String>> selector : fieldSelectors.entrySet()) {
-      // It seems to me that if a certain category has multiple selector with no subfield codes, then the score is
-      // calculated multiple times for the same category. This is because the score is calculated for each selector.
-      // That can be observed in the old code in else branch of the inner for loop that iterates over selectors.
+      // It seems to me that if a certain category has some selectors with no subfield codes, then the score for that
+      // selector without a subfield code is calculated by only taking the first selector of the category and checking if
+      // it's present in the record. This is done in the getScoreWhenNoCodes method.
       score += calculateSelectorScore(marcRecord, category, selector);
     }
 

@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.analysis;
+package de.gwdg.metadataqa.marc.analysis.shelfready;
 
 import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 
@@ -103,6 +103,11 @@ public enum ShelfReadyFieldsBooks {
     return selectors;
   }
 
+  /**
+   * Determines if it's sufficient for there to be at least one of the selectors present.
+   * If the value is false, then the scores are calculated proportionally to the number of selectors present.
+   * If the value is true, then the score is set to the maximum score for the category if at least one selector is present.
+   */
   public boolean isOneOf() {
     return oneOf;
   }

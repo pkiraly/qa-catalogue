@@ -1,0 +1,35 @@
+name,label,marcpath,score
+LDR06,"Type of record","",38
+LDR07,"Bibliographic level","",40
+LDR1718,"Encoding level and Descriptive cataloguing form","",29
+TAG00600,"Additional characteristics","",9
+TAG010,"Library of Congress Control Number","006A$0",6
+TAG015,"National Bibliography Number","",5
+TAG020,"International Standard Book Number","",45
+TAG035,"System Control Number","006L$0,006X$0",19
+TAG040,"Cataloguing source data","010E$b,010E$e",29
+TAG041,"Language code","010@$d,010@$c",31
+TAG050,"Library of Congress Call Number","045A$a",13
+TAG082,"Dewey Decimal Classification Number","045G$a,045F$a,045F$e",28
+TAG1XX,"Subject Headings","022A/00$a,029A$a,028A$P,028A$a,028A$d,028A$c",44
+TAG240,"Uniform Title","",34
+TAG245,"Title Statement","021C$l,021C$d,021C$e,021C$f,021C$h,021C$a,036C/00$a,036C/00$d,036C/00$f,036C/00$l,036C/00$l,036C/00$h,036E/00$a,036E/00$l,036E/00$m,036E/00$p,036E/00$h,036E/00$h,036F/00$l,036C/01$m,036C/01$l,036C/01$a,036C/01$e,036C/01$d,036C/01$f,036C/01$h",44
+TAG246,"Varying Form of Title","047C$a,046C$a,046A$a,027A$a",39
+TAG250,"Edition Statement","032@$a,032@$h",44
+TAG264,"Publication, Copyright etc.","033F$p,033F$n,033F$h,011F$n,011F$o,033E$p,033E$n,033E$h,033C$p,033C$n,033C$h,011@$n,033A$p,033A$n,033A$h,033B/05$p,033B/05$n,033B/05$h",45
+TAG300,"Physical Description","034D$a,031A$g,034M$a,034I$a",43
+TAG336,"Content term(s) e.g. text, still image","",35
+TAG337,"Media term e.g. unmediated or computer","",35
+TAG338,"Carrier term e.g. volume or online resource","",34
+TAG490,"Series Statement(s)","",40
+TAG500,"General note(s)","046H$a,046G$a,037F$l,037F$p,037F$a,046T$a,046E$a,037A$a",30
+TAG504,"Bibliography note","",19
+TAG505,"Contents note","031C$a,031C$y",14
+TAG520,"Summary note(s)","047I$a",11
+TAG546,"Language note(s)","046L$a",19
+TAG588,"Source of descriptive metadata","",4
+TAG6XX,"Subject Headings","044S$a,045D/00$a",44
+TAG7XX,"Added Entity Name/Title Heading(s) APP(s)","072A$c,072A$a,072A$P,073B$a,074C$a,071A$c,071A$a,071A$P,072B$a,073C$a,074A$c,074A$a,074A$P,075B$a,033D$p,073A$c,073A$a,073A$P,074B$a,075C$a,075A$c,075A$a,075A$P,029G$a,028G$P,028G$a,028G$d,028G$c,033J$P,033J$a,033J$d,033J$c,033J$u,071B$a,072C$a,071C$a,028B/01$P,028B/01$a,028B/01$d,028B/01$c,029E$a,028E$P,028E$a,028E$d,028E$c,029F$a,028C$P,028C$a,028C$d,028C$c",44
+TAG776,"Additional Physical format(s)","039I$a,039I$l,039D$a,039D$l",12
+TAG856,"Electronic access URL","017H$u,017H$u,017G$u,017D$u,017D$u,017C$u",9
+TAG8XX,"Series Heading(s) (traced) AAP(s) (if applicable)","",32

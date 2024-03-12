@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
+import de.gwdg.metadataqa.marc.analysis.shelfready.ShelfReadyAnalysis;
 import de.gwdg.metadataqa.marc.cli.CliTestUtils;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.MarcFormat;

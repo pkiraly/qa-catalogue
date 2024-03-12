@@ -1,9 +1,8 @@
 package de.gwdg.metadataqa.marc.analysis;
 
+import de.gwdg.metadataqa.marc.analysis.shelfready.ShelfReadyFieldsBooks;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;

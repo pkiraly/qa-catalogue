@@ -209,7 +209,14 @@ public class MarcSpec implements SchemaSpec, Serializable {
   }
 
   public String selectRange(String input) {
-    return input.substring(charStart, charEnd + 1);
+    if (input.length() >= charStart) {
+      if (input.length() >= charEnd + 1) {
+        return input.substring(charStart, charEnd + 1);
+      } else {
+        return input.substring(charStart);
+      }
+    }
+    return "";
   }
 
   private String[] validateDataRef(String dataFieldRef) {

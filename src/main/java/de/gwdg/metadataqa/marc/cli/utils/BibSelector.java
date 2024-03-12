@@ -7,6 +7,7 @@ import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.PicaRecord;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -46,12 +47,12 @@ public abstract class BibSelector implements Selector {
 
   @Override
   public List get(String address, String path, Object jsonFragment) {
-    return null;
+    return Collections.emptyList();
   }
 
   @Override
   public List get(String address, String path, Object jsonFragment, Class clazz) {
-    return null;
+    return Collections.emptyList();
   }
 
   @Override
@@ -76,12 +77,12 @@ public abstract class BibSelector implements Selector {
 
   @Override
   public Map<String, List> getCache() {
-    return null;
+    return Collections.emptyMap();
   }
 
   @Override
   public Map<String, Object> getFragmentCache() {
-    return null;
+    return Collections.emptyMap();
   }
 
   @Override

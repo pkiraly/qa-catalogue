@@ -2,8 +2,7 @@ package de.gwdg.metadataqa.marc.dao.record;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
-import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
-import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
+import de.gwdg.metadataqa.marc.analysis.shelfready.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.dao.Control008;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
@@ -25,7 +24,10 @@ public class Marc21BibliographicRecord extends Marc21Record {
   private static Map<String, Map<String, Boolean>> skippableAuthoritySubfields;
   private static Map<String, Map<String, Boolean>> skippableSubjectSubfields;
   private static Map<AuthorityCategory, List<String>> authorityTagsMap;
-  private static Map<ThompsonTraillFields, List<String>> thompsonTraillTagMap;
+
+  /**
+   * Key-value pairs of ShelfReadyFieldsBooks (the category) and a map of tags and its subfields.
+   */
   private static Map<ShelfReadyFieldsBooks, Map<String, List<String>>> shelfReadyMap;
 
   public Marc21BibliographicRecord() {
@@ -131,59 +133,47 @@ public class Marc21BibliographicRecord extends Marc21Record {
   }
 
   @Override
-  public Map<ThompsonTraillFields, List<String>> getThompsonTraillTagsMap() {
-    if (thompsonTraillTagMap == null)
-      initializeThompsonTraillTags();
-
-    return thompsonTraillTagMap;
-  }
-
-  private void initializeThompsonTraillTags() {
-    thompsonTraillTagMap = new LinkedHashMap<>();
-
-    thompsonTraillTagMap.put(ThompsonTraillFields.ISBN, Arrays.asList("020"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.AUTHORS, Arrays.asList("100", "110", "111"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.ALTERNATIVE_TITLES, Arrays.asList("246"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.EDITION, Arrays.asList("250"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.CONTRIBUTORS, Arrays.asList("700", "710", "711", "720"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.SERIES, Arrays.asList("440", "490", "800", "810", "830"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.TOC, Arrays.asList("505", "520"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.DATE_008, Arrays.asList("008/ö7"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.DATE_26X, Arrays.asList("260$c", "264$c"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.LC_NLM, Arrays.asList("050", "060", "090"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.LC_NLM, Arrays.asList("600", "610", "611", "630", "650", "651", "653"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.MESH, Arrays.asList("600", "610", "611", "630", "650", "651", "653"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.FAST, Arrays.asList("600", "610", "611", "630", "650", "651", "653"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.GND, Arrays.asList("600", "610", "611", "630", "650", "651", "653"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.OTHER, Arrays.asList("600", "610", "611", "630", "650", "651", "653"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.ONLINE, Arrays.asList("008/23", "300$a")); // 29
-    thompsonTraillTagMap.put(ThompsonTraillFields.LANGUAGE_OF_RESOURCE, Arrays.asList("008/35"));
-    thompsonTraillTagMap.put(ThompsonTraillFields.COUNTRY_OF_PUBLICATION, Arrays.asList("008/15"));
-  }
-
-  @Override
   public Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap() {
-    if (shelfReadyMap == null)
+    if (shelfReadyMap == null) {
       initializeShelfReadyMap();
+    }
 
     return shelfReadyMap;
   }
 
+  /**
+   * Initialize the shelf ready map. This is a map of ShelfReadyFieldsBooks (the category) and a map of tags and its
+   * subfields.
+   * In case the field path doesn't have a subfield specified, the subfield list is empty.
+   * E.g. "LDR~06" = "LDR~06" -> []
+   * Otherwise, the subfield list contains the subfield codes.
+   * E.g. "600$a"  "600" -> ["a"]
+   */
   private static void initializeShelfReadyMap() {
     shelfReadyMap = new LinkedHashMap<>();
 
     for (Map.Entry<ShelfReadyFieldsBooks, String> entry : getRawShelfReadyMap().entrySet()) {
       shelfReadyMap.put(entry.getKey(), new TreeMap<>());
+
+      // Split the raw path comma-separated list into individual paths
       String[] paths = entry.getValue().split(",");
+
       for (String path : paths) {
-        if (path.contains("$")) {
-          String[] parts = path.split("\\$");
-          if (!shelfReadyMap.get(entry.getKey()).containsKey(parts[0]))
-            shelfReadyMap.get(entry.getKey()).put(parts[0], new ArrayList<>());
-          shelfReadyMap.get(entry.getKey()).get(parts[0]).add(parts[1]);
-        } else {
+        if (!path.contains("$")) {
           shelfReadyMap.get(entry.getKey()).put(path, new ArrayList<>());
+          continue;
         }
+
+        // If the path contains a $ (has a subfield specified), split it into the tag and subfield
+        String[] parts = path.split("\\$");
+
+        // If the map doesn't contain the tag, add it, with an empty list of subfields
+        if (!shelfReadyMap.get(entry.getKey()).containsKey(parts[0])) {
+          shelfReadyMap.get(entry.getKey()).put(parts[0], new ArrayList<>());
+        }
+
+        // Add the subfield to the list of subfields for the tag
+        shelfReadyMap.get(entry.getKey()).get(parts[0]).add(parts[1]);
       }
     }
   }

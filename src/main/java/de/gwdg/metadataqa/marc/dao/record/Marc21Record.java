@@ -3,8 +3,7 @@ package de.gwdg.metadataqa.marc.dao.record;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
-import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
-import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
+import de.gwdg.metadataqa.marc.analysis.shelfready.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.dao.Control001;
 import de.gwdg.metadataqa.marc.dao.Control003;
 import de.gwdg.metadataqa.marc.dao.Control005;
@@ -25,6 +24,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -244,41 +244,82 @@ public class Marc21Record extends MarcRecord {
   public List<String> select(MarcSpec selector) {
     List<String> results = new ArrayList<>();
     if (selector.getFieldTag().equals("LDR") && leader != null && StringUtils.isNotEmpty(leader.getContent())) {
-      if (selector.hasRangeSelector()) {
-        results.add(selector.selectRange(leader.getContent()));
-      } else {
-        results.add(leader.getContent());
-      }
-    } else if (controlfieldIndex.containsKey(selector.getFieldTag())) {
-      for (MarcControlField field : controlfieldIndex.get(selector.getFieldTag())) {
-        if (field == null)
-          continue;
-        if (!simpleControlTags.contains(field.getDefinition().getTag())) {
-          // TODO: check control subfields
-        }
-        if (selector.hasRangeSelector()) {
-          results.add(selector.selectRange(field.getContent()));
-        } else {
-          results.add(field.getContent());
-        }
-      }
-    } else if (datafieldIndex.containsKey(selector.getFieldTag())) {
-      selectDatafields(selector, results);
+      return selectLeader(selector);
     }
-    else if (selector.getFieldTag().equals("008") && control008 != null) {
-      if (selector.getCharStart() != null) {
-        ControlfieldPositionDefinition definition = control008.getSubfieldByPosition(selector.getCharStart());
-        results.add(control008.getMap().get(definition));
-      } else {
-        results.add(control008.getContent());
-      }
+
+    if (controlfieldIndex.containsKey(selector.getFieldTag())) {
+      return selectControlFields(selector);
+    }
+
+    if (datafieldIndex.containsKey(selector.getFieldTag())) {
+      return selectDatafields(selector);
+    }
+
+    if (selector.getFieldTag().equals("008") && control008 != null) {
+      return selectControl008(selector);
     }
     return results;
   }
 
+  private List<String> selectLeader(MarcSpec selector) {
+    List<String> selectedResults = new ArrayList<>();
+    if (selector.hasRangeSelector()) {
+      selectedResults.add(selector.selectRange(leader.getContent()));
+    } else {
+      selectedResults.add(leader.getContent());
+    }
+    return selectedResults;
+  }
+
+  private List<String> selectControlFields(MarcSpec selector) {
+    List<String> selectedResults = new ArrayList<>();
+    for (MarcControlField controlField : controlfieldIndex.get(selector.getFieldTag())) {
+      if (controlField == null) {
+        continue;
+      }
+      if (!simpleControlTags.contains(controlField.getDefinition().getTag())) {
+        // TODO: check control subfields
+      }
+      if (selector.hasRangeSelector()) {
+        selectedResults.add(selector.selectRange(controlField.getContent()));
+      } else {
+        selectedResults.add(controlField.getContent());
+      }
+    }
+    return selectedResults;
+  }
+
+  private List<String> selectDatafields(MarcSpec selector) {
+    List<String> selectedResults = new ArrayList<>();
+
+    List<DataField> selectedDatafields = datafieldIndex.get(selector.getFieldTag());
+
+    for (DataField field : selectedDatafields) {
+      List<String> selectedFromDatafield = selectDatafield(field, selector);
+      selectedResults.addAll(selectedFromDatafield);
+    }
+
+    return selectedResults;
+  }
+
+  private List<String> selectControl008(MarcSpec selector) {
+    // I don't understand why this method is separate from selectControlFields as it feels like it should be covered
+    // by that method.
+    List<String> selectedResults = new ArrayList<>();
+
+    if (selector.getCharStart() != null) {
+      ControlfieldPositionDefinition definition = control008.getSubfieldByPosition(selector.getCharStart());
+      selectedResults.add(control008.getMap().get(definition));
+    } else {
+      selectedResults.add(control008.getContent());
+    }
+
+    return selectedResults;
+  }
+
   @Override
   public List<DataField> getAuthorityFields() {
-    return null;
+    return Collections.emptyList();
   }
 
   @Override
@@ -288,7 +329,7 @@ public class Marc21Record extends MarcRecord {
 
   @Override
   public Map<DataField, AuthorityCategory> getAuthorityFieldsMap() {
-    return null;
+    return Collections.emptyMap();
   }
 
   @Override
@@ -313,15 +354,8 @@ public class Marc21Record extends MarcRecord {
 
   @Override
   public Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap() {
-    return null;
+    return Collections.emptyMap();
   }
-
-  @Override
-  public Map<ThompsonTraillFields, List<String>> getThompsonTraillTagsMap() {
-    return null;
-  }
-
-  @Override
   public void setField(String tag, String content, MarcVersion marcVersion) {
     if (marcVersion.equals(MarcVersion.UNIMARC)) {
       content = UnimarcConverter.contentFromUnimarc(tag, content);

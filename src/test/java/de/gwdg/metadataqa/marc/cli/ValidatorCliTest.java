@@ -374,7 +374,7 @@ public class ValidatorCliTest extends CliTestUtils {
 
     List<String> lines = getFileLines("issue-details.csv");
     assertEquals("recordId,errors", lines.get(0).trim());
-    assertEquals(",1:1;2:1;3:3;4:1;5:1;6:1;7:6", lines.get(1).trim());
+    assertEquals("000000124,1:1;2:1;3:3;4:1;5:1;6:1;7:6", lines.get(1).trim());
 
     lines = getFileLines("issue-summary.csv");
     assertEquals(8, lines.size());

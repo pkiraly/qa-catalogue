@@ -178,7 +178,6 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
 
   @Override
   public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber, List<ValidationError> errors) {
-
     logRecordIssuesIfPresent(bibliographicRecord, recordNumber);
 
     if (bibliographicRecord != null && parameters.getRecordIgnorator().isIgnorable(bibliographicRecord)) {
@@ -207,8 +206,10 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
   }
 
   private void logRecordIssuesIfPresent(BibliographicRecord bibliographicRecord, int recordNumber) {
-    if (bibliographicRecord == null || bibliographicRecord.getId() == null || hasNoControl001(bibliographicRecord)) {
-      logger.severe(() -> "No record number at " + recordNumber);
+    if (bibliographicRecord == null) {
+      logger.severe(() -> "bibliographicRecord is null at " + recordNumber);
+    } else if (bibliographicRecord.getId() == null || hasNoControl001(bibliographicRecord)) {
+      logger.severe(() -> "No record identifier at " + recordNumber);
     }
     if (recordNumber % 100000 == 0) {
       logger.info(() -> "Number of error types so far: " + validatorDAO.getInstanceBasedErrorCounter().size());

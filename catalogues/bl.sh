@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# British Library
+# https://www.bl.uk/
 
 . ./setdir.sh
 

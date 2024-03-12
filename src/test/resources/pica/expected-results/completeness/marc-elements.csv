@@ -1,0 +1,753 @@
+groupId,documenttype,path,sortkey,packageid,package,tag,subfield,number-of-record,number-of-instances,min,max,mean,stddev,histogram
+0,all,044K$9,044K$|9,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",PPN,5,8,1,2,1.6,0.1442220510185596,1=2; 2=3
+0,all,245Z/01$a,245Z/01$a,99,unknown origin,,,2,4,1,3,2.0,0.7071067811865476,1=1; 3=1
+0,all,044K$7,044K$|7,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",Vorläufiger Link,5,8,1,2,1.6,0.1442220510185596,1=2; 2=3
+0,all,036E,036E,50,PICA+ bibliographic description,Gesamttitel der fortlaufenden Ressource,,2,2,1,1,1.0,0.0,1=2
+0,all,209C/03$x,209C/03$x,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,036F,036F,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,,2,2,1,1,1.0,0.0,1=2
+0,all,044K$3,044K$|3,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",,5,8,1,2,1.6,0.1442220510185596,1=2; 2=3
+0,all,011@$n,011@$n,50,PICA+ bibliographic description,Erscheinungsdatum/Entstehungsdatum,Datum in Vorlageform,1,1,1,1,1.0,0.0,1=1
+0,all,245Z/01$j,245Z/01$j,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,045R$7,045R$|7,50,PICA+ bibliographic description,Regensburger Verbundklassifikation (RVK),Vorläufiger Link,1,1,1,1,1.0,0.0,1=1
+0,all,220B/02$a,220B/02$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,045R$3,045R$|3,50,PICA+ bibliographic description,Regensburger Verbundklassifikation (RVK),,1,1,1,1,1.0,0.0,1=1
+0,all,209A/04$x,209A/04$x,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,044K/01,044K/01,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",,1,1,1,1,1.0,0.0,1=1
+0,all,144Z/01,144Z/01,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,144Z$a,144Z$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,203@/03$0,203@/03$|0,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,245Z/01$x,245Z/01$x,99,unknown origin,,,2,4,1,3,2.0,0.7071067811865476,1=1; 3=1
+0,all,209C/03$a,209C/03$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,144Z,144Z,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,011@$a,011@$a,50,PICA+ bibliographic description,Erscheinungsdatum/Entstehungsdatum,Jahr (Anfang) in Sortierform,6,6,1,1,1.0,0.0,1=6
+0,all,036F$5,036F$|5,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,,2,2,1,1,1.0,0.0,1=2
+0,all,036F$3,036F$|3,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,,1,1,1,1,1.0,0.0,1=1
+0,all,013D,013D,50,PICA+ bibliographic description,Art des Inhalts,,3,3,1,1,1.0,0.0,1=3
+0,all,202D/04$a,202D/04$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,036F$9,036F$|9,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,PPN,2,2,1,1,1.0,0.0,1=2
+0,all,202D/04$b,202D/04$b,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,001A,001A,50,PICA+ bibliographic description,Kennung und Datum der Ersterfassung,,6,6,1,1,1.0,0.0,1=6
+0,all,001B,001B,50,PICA+ bibliographic description,Kennung und Datum der letzten Änderung,,6,6,1,1,1.0,0.0,1=6
+0,all,036F$7,036F$|7,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,Vorläufiger Link,2,3,1,2,1.5,0.3535533905932738,1=1; 2=1
+0,all,002D$a,002D$a,50,PICA+ bibliographic description,Medientyp,Medientyp in ausgeschriebener Form,6,6,1,1,1.0,0.0,1=6
+0,all,209G/02$a,209G/02$a,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,all,036F$1,036F$|1,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,,2,2,1,1,1.0,0.0,1=2
+0,all,002D$b,002D$b,50,PICA+ bibliographic description,Medientyp,Medientyp in codierter Form,6,6,1,1,1.0,0.0,1=6
+0,all,036F/01,036F/01,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,037A,037A,50,PICA+ bibliographic description,Sonstige Anmerkungen,,2,2,1,1,1.0,0.0,1=2
+0,all,209A/04$a,209A/04$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,203S/01$0,203S/01$|0,99,unknown origin,,,1,3,3,3,3.0,0.0,3=1
+0,all,209A/04$d,209A/04$d,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,209A/04$f,209A/04$f,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,003T$0,003T$|0,50,PICA+ bibliographic description,SWB-OCLC-Nummer,Identnummer,1,1,1,1,1.0,0.0,1=1
+0,all,145Z,145Z,99,unknown origin,,,4,9,1,5,2.25,0.7577722283113838,1=2; 2=1; 5=1
+0,all,028A$3,028A$|3,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,,2,2,1,1,1.0,0.0,1=2
+0,all,245Z/01,245Z/01,99,unknown origin,,,2,4,1,3,2.0,0.7071067811865476,1=1; 3=1
+0,all,028A$4,028A$|4,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,Beziehungskennzeichnung (Code),3,3,1,1,1.0,0.0,1=3
+0,all,045Q/01$V,045Q/01$V,50,PICA+ bibliographic description,Basisklassifikation,,5,5,1,1,1.0,0.0,1=5
+0,all,245Z/03,245Z/03,99,unknown origin,,,1,3,3,3,3.0,0.0,3=1
+0,all,002D,002D,50,PICA+ bibliographic description,Medientyp,,6,6,1,1,1.0,0.0,1=6
+0,all,028A$7,028A$|7,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,Vorläufiger Link,2,2,1,1,1.0,0.0,1=2
+0,all,145Z/31,145Z/31,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,002E,002E,50,PICA+ bibliographic description,Datenträgertyp,,6,6,1,1,1.0,0.0,1=6
+0,all,034I$a,034I$a,50,PICA+ bibliographic description,"Format, Maße","Format, Maßangaben bzw. physikalische Größe des Datenträgers",2,2,1,1,1.0,0.0,1=2
+0,all,145Z/30,145Z/30,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,028A$9,028A$|9,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,PPN,2,2,1,1,1.0,0.0,1=2
+0,all,002C,002C,50,PICA+ bibliographic description,Inhaltstyp,,6,6,1,1,1.0,0.0,1=6
+0,all,045Q/01,045Q/01,50,PICA+ bibliographic description,Basisklassifikation,,5,5,1,1,1.0,0.0,1=5
+0,all,028A$d,028A$d,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,In RDA-Sätzen nicht zugelassen ,1,1,1,1,1.0,0.0,1=1
+0,all,145Z$V,145Z$V,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,245Z/03$9,245Z/03$|9,99,unknown origin,,,1,3,3,3,3.0,0.0,3=1
+0,all,028A$a,028A$a,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,In RDA-Sätzen nicht zugelassen ,1,1,1,1,1.0,0.0,1=1
+0,all,045Q/01$a,045Q/01$a,50,PICA+ bibliographic description,Basisklassifikation,Notation (unverknüpft),5,5,1,1,1.0,0.0,1=5
+0,all,001U,001U,99,unknown origin,,,6,6,1,1,1.0,0.0,1=6
+0,all,036E/01,036E/01,50,PICA+ bibliographic description,Gesamttitel der fortlaufenden Ressource,,1,1,1,1,1.0,0.0,1=1
+0,all,045Q/01$j,045Q/01$j,50,PICA+ bibliographic description,Basisklassifikation,,5,5,1,1,1.0,0.0,1=5
+0,all,002@,002@,50,PICA+ bibliographic description,Bibliografische Gattung und Status,,6,6,1,1,1.0,0.0,1=6
+0,all,003O$0,003O$|0,50,PICA+ bibliographic description,OCLC-Nummer,Identnummer,6,6,1,1,1.0,0.0,1=6
+0,all,003T$a,003T$a,50,PICA+ bibliographic description,SWB-OCLC-Nummer,Codierung für folgende ID,1,1,1,1,1.0,0.0,1=1
+0,all,028A$w,028A$w,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,,2,2,1,1,1.0,0.0,1=2
+0,all,036F/01$h,036F/01$h,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,036F/01$j,036F/01$j,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,036F/01$l,036F/01$l,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,001B$t,001B$t,50,PICA+ bibliographic description,Kennung und Datum der letzten Änderung,Uhrzeit der letzten Änderung,6,6,1,1,1.0,0.0,1=6
+0,all,144Z$7,144Z$|7,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,036F/01$p,036F/01$p,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,202D/02$0,202D/02$|0,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,all,002C$a,002C$a,50,PICA+ bibliographic description,Inhaltstyp,Inhaltstyp in ausgeschriebener Form,6,6,1,1,1.0,0.0,1=6
+0,all,003O,003O,50,PICA+ bibliographic description,OCLC-Nummer,,6,6,1,1,1.0,0.0,1=6
+0,all,002C$b,002C$b,50,PICA+ bibliographic description,Inhaltstyp,Inhaltstyp in codierter Form,6,6,1,1,1.0,0.0,1=6
+0,all,144Z$9,144Z$|9,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,209G/01$a,209G/01$a,99,unknown origin,,,6,23,2,8,3.8333333333333335,0.7718024438583225,2=2; 3=1; 4=2; 8=1
+0,all,206W/01,206W/01,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,145Z$a,145Z$a,99,unknown origin,,,4,9,1,5,2.25,0.7577722283113838,1=2; 2=1; 5=1
+0,all,203@/04$0,203@/04$|0,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,001U$0,001U$|0,99,unknown origin,,,6,6,1,1,1.0,0.0,1=6
+0,all,003@,003@,50,PICA+ bibliographic description,Pica-Produktionsnummer,,6,6,1,1,1.0,0.0,1=6
+0,all,145Z$j,145Z$j,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,044K/01$7,044K/01$|7,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",Vorläufiger Link,1,1,1,1,1.0,0.0,1=1
+0,all,237A/01,237A/01,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,009@$b,009@$b,50,PICA+ bibliographic description,Code zur Selektion und maschinellen Bearbeitung,Code,1,1,1,1,1.0,0.0,1=1
+0,all,245Z/01$9,245Z/01$|9,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,206X/03$0,206X/03$|0,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,209F/01,209F/01,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,044K/01$9,044K/01$|9,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",PPN,1,1,1,1,1.0,0.0,1=1
+0,all,202D/03$0,202D/03$|0,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,036E$l,036E$l,50,PICA+ bibliographic description,Gesamttitel der fortlaufenden Ressource,Zählung in der Hauptreihe,2,2,1,1,1.0,0.0,1=2
+0,all,029F$3,029F$|3,50,PICA+ bibliographic description,"Körperschaft als 2. und weiterer geistiger Schöpfer, sonstige Körperschaften, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,3,3,1,1,1.0,0.0,1=3
+0,all,044K/01$3,044K/01$|3,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",,1,1,1,1,1.0,0.0,1=1
+0,all,029F$7,029F$|7,50,PICA+ bibliographic description,"Körperschaft als 2. und weiterer geistiger Schöpfer, sonstige Körperschaften, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",Vorläufiger Link,3,3,1,1,1.0,0.0,1=3
+0,all,029F$9,029F$|9,50,PICA+ bibliographic description,"Körperschaft als 2. und weiterer geistiger Schöpfer, sonstige Körperschaften, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",PPN,3,3,1,1,1.0,0.0,1=3
+0,all,003S,003S,50,PICA+ bibliographic description,SWB-Pica-Produktionsnummer,,3,3,1,1,1.0,0.0,1=3
+0,all,045R$k,045R$k,50,PICA+ bibliographic description,Regensburger Verbundklassifikation (RVK),"Code des Generierungsverfahrens, Konfidenzwert",1,5,5,5,5.0,0.0,5=1
+0,all,003T,003T,50,PICA+ bibliographic description,SWB-OCLC-Nummer,,1,1,1,1,1.0,0.0,1=1
+0,all,101@,101@,99,unknown origin,,,6,40,3,14,6.666666666666667,1.4550889837454217,3=1; 4=2; 7=1; 8=1; 14=1
+0,all,209A/01$B,209A/01$B,99,unknown origin,,,2,4,1,3,2.0,0.7071067811865476,1=1; 3=1
+0,all,045R$j,045R$j,50,PICA+ bibliographic description,Regensburger Verbundklassifikation (RVK),,1,1,1,1,1.0,0.0,1=1
+0,all,202D/02$a,202D/02$a,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,all,209A/01$D,209A/01$D,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,202D/02$b,202D/02$b,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,all,004A,004A,50,PICA+ bibliographic description,ISBN,,1,1,1,1,1.0,0.0,1=1
+0,all,016B,016B,50,PICA+ bibliographic description,Code für Sammlungen,,1,1,1,1,1.0,0.0,1=1
+0,all,028C,028C,50,PICA+ bibliographic description,"Person/Familie als 2. und weiterer geistiger Schöpfer, sonstige Personen/Familien, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,1,1,1,1,1.0,0.0,1=1
+0,all,003O$a,003O$a,50,PICA+ bibliographic description,OCLC-Nummer,Codierung für folgende ID,6,6,1,1,1.0,0.0,1=6
+0,all,028A,028A,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,,3,3,1,1,1.0,0.0,1=3
+0,all,036E$a,036E$a,50,PICA+ bibliographic description,Gesamttitel der fortlaufenden Ressource,Gesamttitel,2,2,1,1,1.0,0.0,1=2
+0,all,017L,017L,50,PICA+ bibliographic description,"Produktsigel, Arbeitsfeld für sonstige Produktsigel",,6,58,5,18,9.666666666666666,1.7941950291061273,18=1; 5=1; 6=2; 10=1; 13=1
+0,all,045Q/01$9,045Q/01$|9,50,PICA+ bibliographic description,Basisklassifikation,PPN,5,5,1,1,1.0,0.0,1=5
+0,all,202D/01,202D/01,99,unknown origin,,,6,28,2,12,4.666666666666667,1.3356461422412564,2=2; 3=1; 4=1; 5=1; 12=1
+0,all,006Y$0,006Y$|0,50,PICA+ bibliographic description,Identnummern (allgemein),Nummer/Code,2,2,1,1,1.0,0.0,1=2
+0,all,209A/02$j,209A/02$j,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,202D/02,202D/02,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,all,202D/03,202D/03,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,202D/04,202D/04,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,022A/01$a,022A/01$a,50,PICA+ bibliographic description,Weiterer Werktitel und sonstige unterscheidende Merkmale,Werktitel des Teilwerks,1,1,1,1,1.0,0.0,1=1
+0,all,203@/04,203@/04,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,004A$0,004A$|0,50,PICA+ bibliographic description,ISBN,ISBN,1,1,1,1,1.0,0.0,1=1
+0,all,102D,102D,99,unknown origin,,,5,11,1,5,2.2,0.6105735008989499,1=2; 2=2; 5=1
+0,all,144Z/01$9,144Z/01$|9,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,145Z/02,145Z/02,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,028A$D,028A$D,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,,2,2,1,1,1.0,0.0,1=2
+0,all,203@/01,203@/01,99,unknown origin,,,6,38,3,13,6.333333333333333,1.332175423142422,3=1; 4=2; 6=1; 8=1; 13=1
+0,all,145Z/01,145Z/01,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,203@/02,203@/02,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,all,028A$B,028A$B,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,Beziehungskennzeichnung (Text),3,3,1,1,1.0,0.0,1=3
+0,all,203@/03,203@/03,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,028A$A,028A$A,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,,2,2,1,1,1.0,0.0,1=2
+0,all,145Z/03,145Z/03,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,209A/02$x,209A/02$x,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,all,028A$E,028A$E,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,,2,2,1,1,1.0,0.0,1=2
+0,all,045A$a,045A$a,50,PICA+ bibliographic description,LCC-Notation,Notation,1,1,1,1,1.0,0.0,1=1
+0,all,203@/02$0,203@/02$|0,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,all,028A$M,028A$M,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,,2,2,1,1,1.0,0.0,1=2
+0,all,209A/02$b,209A/02$b,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,029F,029F,50,PICA+ bibliographic description,"Körperschaft als 2. und weiterer geistiger Schöpfer, sonstige Körperschaften, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,3,3,1,1,1.0,0.0,1=3
+0,all,209A/02$a,209A/02$a,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,all,209A/02$d,209A/02$d,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,all,002@$0,002@$|0,50,PICA+ bibliographic description,Bibliografische Gattung und Status,Bibliografische Gattung und Status,6,6,1,1,1.0,0.0,1=6
+0,all,209A/02$f,209A/02$f,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,all,006L$i,006L$i,50,PICA+ bibliographic description,Weitere Verbundidentnummern,Einleitende Wendung,1,1,1,1,1.0,0.0,1=1
+0,all,016B$a,016B$a,50,PICA+ bibliographic description,Code für Sammlungen,Code,1,1,1,1,1.0,0.0,1=1
+0,all,028A$V,028A$V,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,,2,2,1,1,1.0,0.0,1=2
+0,all,036F$a,036F$a,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,,2,2,1,1,1.0,0.0,1=2
+0,all,032@$a,032@$a,50,PICA+ bibliographic description,Ausgabevermerk,Ausgabebezeichnung (Vorlageform),2,2,1,1,1.0,0.0,1=2
+0,all,006L,006L,50,PICA+ bibliographic description,Weitere Verbundidentnummern,,1,1,1,1,1.0,0.0,1=1
+0,all,145Z/01$a,145Z/01$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,036F$h,036F$h,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,,2,2,1,1,1.0,0.0,1=2
+0,all,006G,006G,50,PICA+ bibliographic description,DNB-Nummer,,2,2,1,1,1.0,0.0,1=2
+0,all,036F$j,036F$j,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,,2,2,1,1,1.0,0.0,1=2
+0,all,006U,006U,50,PICA+ bibliographic description,WV-Nummer,,2,2,1,1,1.0,0.0,1=2
+0,all,003@$0,003@$|0,50,PICA+ bibliographic description,Pica-Produktionsnummer,Pica-Produktionsnummer,6,6,1,1,1.0,0.0,1=6
+0,all,036F$l,036F$l,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,Zählung innerhalb der Reihe (Vorlageform),2,2,1,1,1.0,0.0,1=2
+0,all,036F$n,036F$n,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,,1,1,1,1,1.0,0.0,1=1
+0,all,036F$p,036F$p,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,,2,2,1,1,1.0,0.0,1=2
+0,all,044A$a,044A$a,50,PICA+ bibliographic description,LoC Subject Headings,Schlagwort bzw. Name oder Titel,1,4,4,4,4.0,0.0,4=1
+0,all,036F$R,036F$R,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,,2,2,1,1,1.0,0.0,1=2
+0,all,209A/03$x,209A/03$x,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,206X/01,206X/01,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,206X/03,206X/03,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,036F$V,036F$V,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,,1,1,1,1,1.0,0.0,1=1
+0,all,013D$V,013D$V,50,PICA+ bibliographic description,Art des Inhalts,,3,3,1,1,1.0,0.0,1=3
+0,all,036F$X,036F$X,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,Zählung in Sortierform (manuell),2,2,1,1,1.0,0.0,1=2
+0,all,145Z$9,145Z$|9,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,202D/03$a,202D/03$a,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,209F/01$a,209F/01$a,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,013D$a,013D$a,50,PICA+ bibliographic description,Art des Inhalts,Angabe zum Inhalt (Text),3,3,1,1,1.0,0.0,1=3
+0,all,102D$0,102D$|0,99,unknown origin,,,5,11,1,5,2.2,0.6105735008989499,1=2; 2=2; 5=1
+0,all,045R$a,045R$a,50,PICA+ bibliographic description,Regensburger Verbundklassifikation (RVK),Notation (unverknüpft),1,1,1,1,1.0,0.0,1=1
+0,all,028C$w,028C$w,50,PICA+ bibliographic description,"Person/Familie als 2. und weiterer geistiger Schöpfer, sonstige Personen/Familien, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,1,1,1,1,1.0,0.0,1=1
+0,all,202D/03$b,202D/03$b,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,007G,007G,50,PICA+ bibliographic description,Identnummer der erstkatalogisierenden Institution,,6,6,1,1,1.0,0.0,1=6
+0,all,144Z$V,144Z$V,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,209A/02,209A/02,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,all,003O$v,003O$v,50,PICA+ bibliographic description,OCLC-Nummer,Datum,5,5,1,1,1.0,0.0,1=5
+0,all,209A/01,209A/01,99,unknown origin,,,6,41,4,15,6.833333333333333,1.440968038815882,4=3; 7=2; 15=1
+0,all,209A/04,209A/04,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,209A/03,209A/03,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,209G/03$a,209G/03$a,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,045R$V,045R$V,50,PICA+ bibliographic description,Regensburger Verbundklassifikation (RVK),,1,1,1,1,1.0,0.0,1=1
+0,all,208@/01$a,208@/01$a,99,unknown origin,,,6,38,3,13,6.333333333333333,1.332175423142422,3=1; 4=2; 6=1; 8=1; 13=1
+0,all,033A$p,033A$p,50,PICA+ bibliographic description,Veröffentlichungsangabe,Erscheinungsort,6,6,1,1,1.0,0.0,1=6
+0,all,002E$a,002E$a,50,PICA+ bibliographic description,Datenträgertyp,Datenträgertyp in ausgeschriebener Form,6,6,1,1,1.0,0.0,1=6
+0,all,033A$n,033A$n,50,PICA+ bibliographic description,Veröffentlichungsangabe,Verlagsname,4,4,1,1,1.0,0.0,1=4
+0,all,002E$b,002E$b,50,PICA+ bibliographic description,Datenträgertyp,Datenträgertyp in codierter Form,6,6,1,1,1.0,0.0,1=6
+0,all,006Y,006Y,50,PICA+ bibliographic description,Identnummern (allgemein),,2,2,1,1,1.0,0.0,1=2
+0,all,209A/03$a,209A/03$a,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,208@/02,208@/02,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,all,208@/01,208@/01,99,unknown origin,,,6,38,3,13,6.333333333333333,1.332175423142422,3=1; 4=2; 6=1; 8=1; 13=1
+0,all,209A/03$b,209A/03$b,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,201A/01$0,201A/01$|0,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,all,209A/03$d,209A/03$d,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,019@,019@,50,PICA+ bibliographic description,Code für Erscheinungsland,,6,6,1,1,1.0,0.0,1=6
+0,all,208@/01$b,208@/01$b,99,unknown origin,,,6,38,3,13,6.333333333333333,1.332175423142422,3=1; 4=2; 6=1; 8=1; 13=1
+0,all,208@/04,208@/04,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,010@$a,010@$a,50,PICA+ bibliographic description,Sprachcodes,Sprache des Textes,6,6,1,1,1.0,0.0,1=6
+0,all,208@/03,208@/03,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,209A/03$f,209A/03$f,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,028C$7,028C$|7,50,PICA+ bibliographic description,"Person/Familie als 2. und weiterer geistiger Schöpfer, sonstige Personen/Familien, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",Vorläufiger Link,1,1,1,1,1.0,0.0,1=1
+0,all,028C$9,028C$|9,50,PICA+ bibliographic description,"Person/Familie als 2. und weiterer geistiger Schöpfer, sonstige Personen/Familien, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",PPN,1,1,1,1,1.0,0.0,1=1
+0,all,029F$w,029F$w,50,PICA+ bibliographic description,"Körperschaft als 2. und weiterer geistiger Schöpfer, sonstige Körperschaften, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,2,2,1,1,1.0,0.0,1=2
+0,all,209O/03$x,209O/03$x,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,145Z/02$a,145Z/02$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,036F/01$7,036F/01$|7,99,unknown origin,,,1,2,2,2,2.0,0.0,2=1
+0,all,036F/01$5,036F/01$|5,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,209B/01,209B/01,99,unknown origin,,,2,4,1,3,2.0,0.7071067811865476,1=1; 3=1
+0,all,144Z/91,144Z/91,99,unknown origin,,,1,4,4,4,4.0,0.0,4=1
+0,all,036F/01$9,036F/01$|9,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,019@$a,019@$a,50,PICA+ bibliographic description,Code für Erscheinungsland,Code für Erscheinungsland,6,6,1,1,1.0,0.0,1=6
+0,all,007G$i,007G$i,50,PICA+ bibliographic description,Identnummer der erstkatalogisierenden Institution,Einleitende Wendung,6,6,1,1,1.0,0.0,1=6
+0,all,030F$a,030F$a,50,PICA+ bibliographic description,Konferenz,Konferenz,1,1,1,1,1.0,0.0,1=1
+0,all,034D$a,034D$a,50,PICA+ bibliographic description,Umfang,Umfangsangabe bzw. Anzahl der physischen Einheiten,6,6,1,1,1.0,0.0,1=6
+0,all,144Z/01$a,144Z/01$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,028C$3,028C$|3,50,PICA+ bibliographic description,"Person/Familie als 2. und weiterer geistiger Schöpfer, sonstige Personen/Familien, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,1,1,1,1,1.0,0.0,1=1
+0,all,036F$A,036F$A,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,,1,1,1,1,1.0,0.0,1=1
+0,all,209G/01,209G/01,99,unknown origin,,,6,23,2,8,3.8333333333333335,0.7718024438583225,2=2; 3=1; 4=2; 8=1
+0,all,209G/02,209G/02,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,all,022S$a,022S$a,50,PICA+ bibliographic description,Sammlungsvermerk,In RDA-Sätzen nicht zugelassen,1,1,1,1,1.0,0.0,1=1
+0,all,209G/03,209G/03,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,028C$A,028C$A,50,PICA+ bibliographic description,"Person/Familie als 2. und weiterer geistiger Schöpfer, sonstige Personen/Familien, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,1,1,1,1,1.0,0.0,1=1
+0,all,202D/04$0,202D/04$|0,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,006U$0,006U$|0,50,PICA+ bibliographic description,WV-Nummer,WV-Nummer,2,2,1,1,1.0,0.0,1=2
+0,all,030F$p,030F$p,50,PICA+ bibliographic description,Konferenz,"Konferenzbeginn, -ende",1,1,1,1,1.0,0.0,1=1
+0,all,028C$E,028C$E,50,PICA+ bibliographic description,"Person/Familie als 2. und weiterer geistiger Schöpfer, sonstige Personen/Familien, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,1,1,1,1,1.0,0.0,1=1
+0,all,030F$k,030F$k,50,PICA+ bibliographic description,Konferenz,Konferenzort,1,1,1,1,1.0,0.0,1=1
+0,all,028C$D,028C$D,50,PICA+ bibliographic description,"Person/Familie als 2. und weiterer geistiger Schöpfer, sonstige Personen/Familien, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,1,1,1,1,1.0,0.0,1=1
+0,all,021A$a,021A$a,50,PICA+ bibliographic description,"Haupttitel, Titelzusatz, Verantwortlichkeitsangabe",Haupttitel,6,6,1,1,1.0,0.0,1=6
+0,all,009@,009@,50,PICA+ bibliographic description,Code zur Selektion und maschinellen Bearbeitung,,1,1,1,1,1.0,0.0,1=1
+0,all,021A$d,021A$d,50,PICA+ bibliographic description,"Haupttitel, Titelzusatz, Verantwortlichkeitsangabe",Titelzusatz,4,4,1,1,1.0,0.0,1=4
+0,all,021A$h,021A$h,50,PICA+ bibliographic description,"Haupttitel, Titelzusatz, Verantwortlichkeitsangabe","Verantwortlichkeitsangabe, die sich auf den Haupttitel bezieht",5,5,1,1,1.0,0.0,1=5
+0,all,206X/01$0,206X/01$|0,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,028C$V,028C$V,50,PICA+ bibliographic description,"Person/Familie als 2. und weiterer geistiger Schöpfer, sonstige Personen/Familien, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,1,1,1,1,1.0,0.0,1=1
+0,all,208@/02$a,208@/02$a,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,all,208@/02$b,208@/02$b,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,all,244Z/03$x,244Z/03$x,99,unknown origin,,,1,3,3,3,3.0,0.0,3=1
+0,all,017L$a,017L$a,50,PICA+ bibliographic description,"Produktsigel, Arbeitsfeld für sonstige Produktsigel",Code,6,58,5,18,9.666666666666666,1.7941950291061273,18=1; 5=1; 6=2; 10=1; 13=1
+0,all,044K$a,044K$a,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",Schlagwort,3,4,1,2,1.3333333333333333,0.24845199749997662,1=2; 2=1
+0,all,145Z/03$a,145Z/03$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,029F$A,029F$A,50,PICA+ bibliographic description,"Körperschaft als 2. und weiterer geistiger Schöpfer, sonstige Körperschaften, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,3,3,1,1,1.0,0.0,1=3
+0,all,034M$a,034M$a,50,PICA+ bibliographic description,Illustrationsangabe bzw. sonstige physische und technische Angaben,Illustrationsangabe bzw. sonstige physische und technische Angaben,3,3,1,1,1.0,0.0,1=3
+0,all,030F,030F,50,PICA+ bibliographic description,Konferenz,,1,1,1,1,1.0,0.0,1=1
+0,all,145Z/03$j,145Z/03$j,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,007G$0,007G$|0,50,PICA+ bibliographic description,Identnummer der erstkatalogisierenden Institution,Identnummer,6,6,1,1,1.0,0.0,1=6
+0,all,044K$V,044K$V,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",,5,8,1,2,1.6,0.1442220510185596,1=2; 2=3
+0,all,203@/01$0,203@/01$|0,99,unknown origin,,,6,38,3,13,6.333333333333333,1.332175423142422,3=1; 4=2; 6=1; 8=1; 13=1
+0,all,029F$F,029F$F,50,PICA+ bibliographic description,"Körperschaft als 2. und weiterer geistiger Schöpfer, sonstige Körperschaften, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,2,3,1,2,1.5,0.3535533905932738,1=1; 2=1
+0,all,029F$G,029F$G,50,PICA+ bibliographic description,"Körperschaft als 2. und weiterer geistiger Schöpfer, sonstige Körperschaften, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,1,1,1,1,1.0,0.0,1=1
+0,all,244Z/03$a,244Z/03$a,99,unknown origin,,,1,3,3,3,3.0,0.0,3=1
+0,all,013D$9,013D$|9,50,PICA+ bibliographic description,Art des Inhalts,PPN,3,3,1,1,1.0,0.0,1=3
+0,all,107F,107F,99,unknown origin,,,5,5,1,1,1.0,0.0,1=5
+0,all,202D/01$a,202D/01$a,99,unknown origin,,,6,28,2,12,4.666666666666667,1.3356461422412564,2=2; 3=1; 4=1; 5=1; 12=1
+0,all,202D/01$b,202D/01$b,99,unknown origin,,,6,28,2,12,4.666666666666667,1.3356461422412564,2=2; 3=1; 4=1; 5=1; 12=1
+0,all,044K$M,044K$M,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",,1,1,1,1,1.0,0.0,1=1
+0,all,013D$7,013D$|7,50,PICA+ bibliographic description,Art des Inhalts,Vorläufiger Link,3,3,1,1,1.0,0.0,1=3
+0,all,013D$3,013D$|3,50,PICA+ bibliographic description,Art des Inhalts,,3,3,1,1,1.0,0.0,1=3
+0,all,209A/01$j,209A/01$j,99,unknown origin,,,2,4,2,2,2.0,0.0,2=2
+0,all,144Z/01$V,144Z/01$V,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,001B$0,001B$|0,50,PICA+ bibliographic description,Kennung und Datum der letzten Änderung," Quelle und Datum der letzten Änderung (getrennt durch "":"")",6,6,1,1,1.0,0.0,1=6
+0,all,029F$V,029F$V,50,PICA+ bibliographic description,"Körperschaft als 2. und weiterer geistiger Schöpfer, sonstige Körperschaften, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,3,3,1,1,1.0,0.0,1=3
+0,all,237A/01$a,237A/01$a,99,unknown origin,,,2,3,1,2,1.5,0.3535533905932738,1=1; 2=1
+0,all,107F$0,107F$|0,99,unknown origin,,,5,5,1,1,1.0,0.0,1=5
+0,all,209O/03$a,209O/03$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,209A/01$x,209A/01$x,99,unknown origin,,,6,41,4,15,6.833333333333333,1.440968038815882,4=3; 7=2; 15=1
+0,all,201A/01,201A/01,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,all,036F/01$3,036F/01$|3,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,209A/01$a,209A/01$a,99,unknown origin,,,6,41,4,15,6.833333333333333,1.440968038815882,4=3; 7=2; 15=1
+0,all,102D$b,102D$b,99,unknown origin,,,5,11,1,5,2.2,0.6105735008989499,1=2; 2=2; 5=1
+0,all,102D$a,102D$a,99,unknown origin,,,5,11,1,5,2.2,0.6105735008989499,1=2; 2=2; 5=1
+0,all,209A/01$b,209A/01$b,99,unknown origin,,,2,5,2,3,2.5,0.3535533905932738,2=1; 3=1
+0,all,209A/01$d,209A/01$d,99,unknown origin,,,6,28,2,13,4.666666666666667,1.4635488747021654,2=3; 4=1; 5=1; 13=1
+0,all,037A$a,037A$a,50,PICA+ bibliographic description,Sonstige Anmerkungen,Anmerkungstext,2,2,1,1,1.0,0.0,1=2
+0,all,245Z/03$V,245Z/03$V,99,unknown origin,,,1,3,3,3,3.0,0.0,3=1
+0,all,208@/03$b,208@/03$b,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,209A/01$f,209A/01$f,99,unknown origin,,,6,24,1,10,4.0,1.2247448713915892,1=1; 2=2; 3=1; 6=1; 10=1
+0,all,208@/03$a,208@/03$a,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,209B/01$a,209B/01$a,99,unknown origin,,,2,5,1,4,2.5,1.0606601717798212,1=1; 4=1
+0,all,244Z/02$x,244Z/02$x,99,unknown origin,,,1,4,4,4,4.0,0.0,4=1
+0,all,209O/01$x,209O/01$x,99,unknown origin,,,3,3,1,1,1.0,0.0,1=3
+0,all,209C/01$x,209C/01$x,99,unknown origin,,,5,19,1,8,3.8,1.1099549540409286,1=1; 2=1; 3=1; 5=1; 8=1
+0,all,145Z/99,145Z/99,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,032@,032@,50,PICA+ bibliographic description,Ausgabevermerk,,2,2,1,1,1.0,0.0,1=2
+0,all,044A,044A,50,PICA+ bibliographic description,LoC Subject Headings,,1,2,2,2,2.0,0.0,2=1
+0,all,101@$f,101@$f,99,unknown origin,,,2,4,1,3,2.0,0.7071067811865476,1=1; 3=1
+0,all,036F/01$R,036F/01$R,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,044K/01$a,044K/01$a,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",Schlagwort,1,1,1,1,1.0,0.0,1=1
+0,all,044K,044K,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",,5,8,1,2,1.6,0.1442220510185596,1=2; 2=3
+0,all,036F/01$V,036F/01$V,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,245Z/03$a,245Z/03$a,99,unknown origin,,,1,3,3,3,3.0,0.0,3=1
+0,all,036F/01$X,036F/01$X,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,101@$a,101@$a,99,unknown origin,,,6,40,3,14,6.666666666666667,1.4550889837454217,3=1; 4=2; 7=1; 8=1; 14=1
+0,all,101@$c,101@$c,99,unknown origin,,,6,37,2,14,6.166666666666667,1.6170866197586538,2=1; 3=1; 4=1; 7=2; 14=1
+0,all,101@$b,101@$b,99,unknown origin,,,6,37,2,14,6.166666666666667,1.6170866197586538,2=1; 3=1; 4=1; 7=2; 14=1
+0,all,101@$d,101@$d,99,unknown origin,,,6,40,3,14,6.666666666666667,1.4550889837454217,3=1; 4=2; 7=1; 8=1; 14=1
+0,all,245Z/03$j,245Z/03$j,99,unknown origin,,,1,5,5,5,5.0,0.0,5=1
+0,all,245Z/03$x,245Z/03$x,99,unknown origin,,,1,3,3,3,3.0,0.0,3=1
+0,all,044K/01$V,044K/01$V,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",,1,1,1,1,1.0,0.0,1=1
+0,all,244Z/02$a,244Z/02$a,99,unknown origin,,,1,4,4,4,4.0,0.0,4=1
+0,all,036F/01$a,036F/01$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,209B/01$x,209B/01$x,99,unknown origin,,,2,4,1,3,2.0,0.7071067811865476,1=1; 3=1
+0,all,045V$a,045V$a,50,PICA+ bibliographic description,SSG-Nummer/FID-Kennzeichen,Notation,1,1,1,1,1.0,0.0,1=1
+0,all,206W/01$0,206W/01$|0,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,209C/01$a,209C/01$a,99,unknown origin,,,5,19,1,8,3.8,1.1099549540409286,1=1; 2=1; 3=1; 5=1; 8=1
+0,all,044K$G,044K$G,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",,1,2,2,2,2.0,0.0,2=1
+0,all,145Z/99$a,145Z/99$a,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,045E,045E,50,PICA+ bibliographic description,Sachgruppen der Deutschen Nationalbibliografie bis 2003,,2,2,1,1,1.0,0.0,1=2
+0,all,145Z/30$a,145Z/30$a,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,044K$E,044K$E,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",,1,1,1,1,1.0,0.0,1=1
+0,all,022A/01,022A/01,50,PICA+ bibliographic description,Weiterer Werktitel und sonstige unterscheidende Merkmale,,1,1,1,1,1.0,0.0,1=1
+0,all,145Z/03$9,145Z/03$|9,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,045F,045F,50,PICA+ bibliographic description,DDC-Notation,,1,1,1,1,1.0,0.0,1=1
+0,all,021A,021A,50,PICA+ bibliographic description,"Haupttitel, Titelzusatz, Verantwortlichkeitsangabe",,6,6,1,1,1.0,0.0,1=6
+0,all,044K$D,044K$D,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",,1,1,1,1,1.0,0.0,1=1
+0,all,044K$A,044K$A,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",Quelle,3,4,1,2,1.3333333333333333,0.24845199749997662,1=2; 2=1
+0,all,045A,045A,50,PICA+ bibliographic description,LCC-Notation,,1,1,1,1,1.0,0.0,1=1
+0,all,033A,033A,50,PICA+ bibliographic description,Veröffentlichungsangabe,,6,6,1,1,1.0,0.0,1=6
+0,all,203S/01,203S/01,99,unknown origin,,,1,3,3,3,3.0,0.0,3=1
+0,all,045M/10,045M/10,50,PICA+ bibliographic description,Lokale Notationen auf bibliografischer Ebene,,1,1,1,1,1.0,0.0,1=1
+0,all,209C/03,209C/03,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,209C/01,209C/01,99,unknown origin,,,5,19,1,8,3.8,1.1099549540409286,1=1; 2=1; 3=1; 5=1; 8=1
+0,all,209C/02,209C/02,99,unknown origin,,,2,3,1,2,1.5,0.3535533905932738,1=1; 2=1
+0,all,045E$a,045E$a,50,PICA+ bibliographic description,Sachgruppen der Deutschen Nationalbibliografie bis 2003,Sachgruppe,2,5,2,3,2.5,0.3535533905932738,2=1; 3=1
+0,all,244Z/02,244Z/02,99,unknown origin,,,1,4,4,4,4.0,0.0,4=1
+0,all,244Z/01,244Z/01,99,unknown origin,,,1,5,5,5,5.0,0.0,5=1
+0,all,244Z/03,244Z/03,99,unknown origin,,,1,3,3,3,3.0,0.0,3=1
+0,all,036F/01$A,036F/01$A,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,208@/04$a,208@/04$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,046W$a,046W$a,50,PICA+ bibliographic description,Kommentarfeld,Kommentarfeld,6,6,1,1,1.0,0.0,1=6
+0,all,208@/04$b,208@/04$b,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,145Z/03$V,145Z/03$V,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,045M/10$a,045M/10$a,50,PICA+ bibliographic description,Lokale Notationen auf bibliografischer Ebene,Notation,1,1,1,1,1.0,0.0,1=1
+0,all,244Z/01$x,244Z/01$x,99,unknown origin,,,1,5,5,5,5.0,0.0,5=1
+0,all,144Z/91$a,144Z/91$a,99,unknown origin,,,1,4,4,4,4.0,0.0,4=1
+0,all,034D,034D,50,PICA+ bibliographic description,Umfang,,6,6,1,1,1.0,0.0,1=6
+0,all,202D/01$0,202D/01$|0,99,unknown origin,,,6,28,2,12,4.666666666666667,1.3356461422412564,2=2; 3=1; 4=1; 5=1; 12=1
+0,all,010@,010@,50,PICA+ bibliographic description,Sprachcodes,,6,6,1,1,1.0,0.0,1=6
+0,all,209C/02$x,209C/02$x,99,unknown origin,,,2,3,1,2,1.5,0.3535533905932738,1=1; 2=1
+0,all,036E/01$l,036E/01$l,50,PICA+ bibliographic description,Gesamttitel der fortlaufenden Ressource,Zählung in der Hauptreihe,1,1,1,1,1.0,0.0,1=1
+0,all,034M,034M,50,PICA+ bibliographic description,Illustrationsangabe bzw. sonstige physische und technische Angaben,,3,3,1,1,1.0,0.0,1=3
+0,all,006G$0,006G$|0,50,PICA+ bibliographic description,DNB-Nummer,DNB-Nummer,2,2,1,1,1.0,0.0,1=2
+0,all,220B/01$a,220B/01$a,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,001A$0,001A$|0,50,PICA+ bibliographic description,Kennung und Datum der Ersterfassung,"Quelle und Datum (getrennt durch "":"")",6,6,1,1,1.0,0.0,1=6
+0,all,034I,034I,50,PICA+ bibliographic description,"Format, Maße",,2,2,1,1,1.0,0.0,1=2
+0,all,003S$0,003S$|0,50,PICA+ bibliographic description,SWB-Pica-Produktionsnummer,SWB-Pica-Produktionsnummer,3,3,1,1,1.0,0.0,1=3
+0,all,220B/02,220B/02,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,220B/01,220B/01,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,all,045V,045V,50,PICA+ bibliographic description,SSG-Nummer/FID-Kennzeichen,,1,1,1,1,1.0,0.0,1=1
+0,all,209O/01,209O/01,99,unknown origin,,,3,3,1,1,1.0,0.0,1=3
+0,all,209O/03,209O/03,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,045R,045R,50,PICA+ bibliographic description,Regensburger Verbundklassifikation (RVK),,1,1,1,1,1.0,0.0,1=1
+0,all,045M/10$i,045M/10$i,50,PICA+ bibliographic description,Lokale Notationen auf bibliografischer Ebene,Angabe der Klassifikation,1,1,1,1,1.0,0.0,1=1
+0,all,244Z/01$a,244Z/01$a,99,unknown origin,,,1,5,5,5,5.0,0.0,5=1
+0,all,209C/02$a,209C/02$a,99,unknown origin,,,2,3,1,2,1.5,0.3535533905932738,1=1; 2=1
+0,all,145Z/31$a,145Z/31$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,all,046X$z,046X$z,50,PICA+ bibliographic description,Bestandsschutzmaßnahmen und (Langzeit-)Archivierung,Anmerkung,1,1,1,1,1.0,0.0,1=1
+0,all,011@,011@,50,PICA+ bibliographic description,Erscheinungsdatum/Entstehungsdatum,,6,6,1,1,1.0,0.0,1=6
+0,all,209O/01$a,209O/01$a,99,unknown origin,,,3,3,1,1,1.0,0.0,1=3
+0,all,045F$a,045F$a,50,PICA+ bibliographic description,DDC-Notation,Notation,1,2,2,2,2.0,0.0,2=1
+0,all,006L$0,006L$|0,50,PICA+ bibliographic description,Weitere Verbundidentnummern,Nummer,1,1,1,1,1.0,0.0,1=1
+0,all,046X,046X,50,PICA+ bibliographic description,Bestandsschutzmaßnahmen und (Langzeit-)Archivierung,,1,1,1,1,1.0,0.0,1=1
+0,all,046W,046W,50,PICA+ bibliographic description,Kommentarfeld,,6,6,1,1,1.0,0.0,1=6
+0,all,047A$a,047A$a,50,PICA+ bibliographic description,Allgemeiner Bearbeitungshinweis,Allgemeiner Bearbeitungshinweis,1,1,1,1,1.0,0.0,1=1
+0,all,022S,022S,50,PICA+ bibliographic description,Sammlungsvermerk,,1,1,1,1,1.0,0.0,1=1
+0,all,036E/01$a,036E/01$a,50,PICA+ bibliographic description,Gesamttitel der fortlaufenden Ressource,Gesamttitel,1,1,1,1,1.0,0.0,1=1
+0,all,045R$9,045R$|9,50,PICA+ bibliographic description,Regensburger Verbundklassifikation (RVK),PPN,1,1,1,1,1.0,0.0,1=1
+0,all,046X$f,046X$f,50,PICA+ bibliographic description,Bestandsschutzmaßnahmen und (Langzeit-)Archivierung,Kontext / Rechtsgrundlage,1,1,1,1,1.0,0.0,1=1
+0,all,047A,047A,50,PICA+ bibliographic description,Allgemeiner Bearbeitungshinweis,,1,1,1,1,1.0,0.0,1=1
+0,all,046X$c,046X$c,50,PICA+ bibliographic description,Bestandsschutzmaßnahmen und (Langzeit-)Archivierung,(geplantes) Datum der Aktion,1,1,1,1,1.0,0.0,1=1
+0,all,046X$a,046X$a,50,PICA+ bibliographic description,Bestandsschutzmaßnahmen und (Langzeit-)Archivierung,Codierung für die Aktion,1,1,1,1,1.0,0.0,1=1
+0,all,245Z/01$V,245Z/01$V,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),044K$9,044K$|9,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",PPN,5,8,1,2,1.6,0.1442220510185596,1=2; 2=3
+0,Druckschriften (einschließlich Bildbänden),245Z/01$a,245Z/01$a,99,unknown origin,,,2,4,1,3,2.0,0.7071067811865476,1=1; 3=1
+0,Druckschriften (einschließlich Bildbänden),044K$7,044K$|7,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",Vorläufiger Link,5,8,1,2,1.6,0.1442220510185596,1=2; 2=3
+0,Druckschriften (einschließlich Bildbänden),036E,036E,50,PICA+ bibliographic description,Gesamttitel der fortlaufenden Ressource,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),209C/03$x,209C/03$x,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),036F,036F,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),044K$3,044K$|3,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",,5,8,1,2,1.6,0.1442220510185596,1=2; 2=3
+0,Druckschriften (einschließlich Bildbänden),011@$n,011@$n,50,PICA+ bibliographic description,Erscheinungsdatum/Entstehungsdatum,Datum in Vorlageform,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),245Z/01$j,245Z/01$j,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),045R$7,045R$|7,50,PICA+ bibliographic description,Regensburger Verbundklassifikation (RVK),Vorläufiger Link,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),220B/02$a,220B/02$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),045R$3,045R$|3,50,PICA+ bibliographic description,Regensburger Verbundklassifikation (RVK),,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),209A/04$x,209A/04$x,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),044K/01,044K/01,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),144Z/01,144Z/01,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),144Z$a,144Z$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),203@/03$0,203@/03$|0,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),245Z/01$x,245Z/01$x,99,unknown origin,,,2,4,1,3,2.0,0.7071067811865476,1=1; 3=1
+0,Druckschriften (einschließlich Bildbänden),209C/03$a,209C/03$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),144Z,144Z,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),011@$a,011@$a,50,PICA+ bibliographic description,Erscheinungsdatum/Entstehungsdatum,Jahr (Anfang) in Sortierform,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),036F$5,036F$|5,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),036F$3,036F$|3,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),013D,013D,50,PICA+ bibliographic description,Art des Inhalts,,3,3,1,1,1.0,0.0,1=3
+0,Druckschriften (einschließlich Bildbänden),202D/04$a,202D/04$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),036F$9,036F$|9,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,PPN,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),202D/04$b,202D/04$b,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),001A,001A,50,PICA+ bibliographic description,Kennung und Datum der Ersterfassung,,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),001B,001B,50,PICA+ bibliographic description,Kennung und Datum der letzten Änderung,,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),036F$7,036F$|7,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,Vorläufiger Link,2,3,1,2,1.5,0.3535533905932738,1=1; 2=1
+0,Druckschriften (einschließlich Bildbänden),002D$a,002D$a,50,PICA+ bibliographic description,Medientyp,Medientyp in ausgeschriebener Form,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),209G/02$a,209G/02$a,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,Druckschriften (einschließlich Bildbänden),036F$1,036F$|1,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),002D$b,002D$b,50,PICA+ bibliographic description,Medientyp,Medientyp in codierter Form,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),036F/01,036F/01,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),037A,037A,50,PICA+ bibliographic description,Sonstige Anmerkungen,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),209A/04$a,209A/04$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),203S/01$0,203S/01$|0,99,unknown origin,,,1,3,3,3,3.0,0.0,3=1
+0,Druckschriften (einschließlich Bildbänden),209A/04$d,209A/04$d,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),209A/04$f,209A/04$f,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),003T$0,003T$|0,50,PICA+ bibliographic description,SWB-OCLC-Nummer,Identnummer,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),145Z,145Z,99,unknown origin,,,4,9,1,5,2.25,0.7577722283113838,1=2; 2=1; 5=1
+0,Druckschriften (einschließlich Bildbänden),028A$3,028A$|3,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),245Z/01,245Z/01,99,unknown origin,,,2,4,1,3,2.0,0.7071067811865476,1=1; 3=1
+0,Druckschriften (einschließlich Bildbänden),028A$4,028A$|4,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,Beziehungskennzeichnung (Code),3,3,1,1,1.0,0.0,1=3
+0,Druckschriften (einschließlich Bildbänden),045Q/01$V,045Q/01$V,50,PICA+ bibliographic description,Basisklassifikation,,5,5,1,1,1.0,0.0,1=5
+0,Druckschriften (einschließlich Bildbänden),245Z/03,245Z/03,99,unknown origin,,,1,3,3,3,3.0,0.0,3=1
+0,Druckschriften (einschließlich Bildbänden),002D,002D,50,PICA+ bibliographic description,Medientyp,,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),028A$7,028A$|7,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,Vorläufiger Link,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),145Z/31,145Z/31,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),002E,002E,50,PICA+ bibliographic description,Datenträgertyp,,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),034I$a,034I$a,50,PICA+ bibliographic description,"Format, Maße","Format, Maßangaben bzw. physikalische Größe des Datenträgers",2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),145Z/30,145Z/30,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),028A$9,028A$|9,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,PPN,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),002C,002C,50,PICA+ bibliographic description,Inhaltstyp,,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),045Q/01,045Q/01,50,PICA+ bibliographic description,Basisklassifikation,,5,5,1,1,1.0,0.0,1=5
+0,Druckschriften (einschließlich Bildbänden),028A$d,028A$d,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,In RDA-Sätzen nicht zugelassen ,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),145Z$V,145Z$V,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),245Z/03$9,245Z/03$|9,99,unknown origin,,,1,3,3,3,3.0,0.0,3=1
+0,Druckschriften (einschließlich Bildbänden),028A$a,028A$a,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,In RDA-Sätzen nicht zugelassen ,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),045Q/01$a,045Q/01$a,50,PICA+ bibliographic description,Basisklassifikation,Notation (unverknüpft),5,5,1,1,1.0,0.0,1=5
+0,Druckschriften (einschließlich Bildbänden),001U,001U,99,unknown origin,,,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),036E/01,036E/01,50,PICA+ bibliographic description,Gesamttitel der fortlaufenden Ressource,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),045Q/01$j,045Q/01$j,50,PICA+ bibliographic description,Basisklassifikation,,5,5,1,1,1.0,0.0,1=5
+0,Druckschriften (einschließlich Bildbänden),002@,002@,50,PICA+ bibliographic description,Bibliografische Gattung und Status,,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),003O$0,003O$|0,50,PICA+ bibliographic description,OCLC-Nummer,Identnummer,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),003T$a,003T$a,50,PICA+ bibliographic description,SWB-OCLC-Nummer,Codierung für folgende ID,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),028A$w,028A$w,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),036F/01$h,036F/01$h,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),036F/01$j,036F/01$j,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),036F/01$l,036F/01$l,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),001B$t,001B$t,50,PICA+ bibliographic description,Kennung und Datum der letzten Änderung,Uhrzeit der letzten Änderung,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),144Z$7,144Z$|7,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),036F/01$p,036F/01$p,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),202D/02$0,202D/02$|0,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,Druckschriften (einschließlich Bildbänden),002C$a,002C$a,50,PICA+ bibliographic description,Inhaltstyp,Inhaltstyp in ausgeschriebener Form,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),003O,003O,50,PICA+ bibliographic description,OCLC-Nummer,,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),002C$b,002C$b,50,PICA+ bibliographic description,Inhaltstyp,Inhaltstyp in codierter Form,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),144Z$9,144Z$|9,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),209G/01$a,209G/01$a,99,unknown origin,,,6,23,2,8,3.8333333333333335,0.7718024438583225,2=2; 3=1; 4=2; 8=1
+0,Druckschriften (einschließlich Bildbänden),206W/01,206W/01,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),145Z$a,145Z$a,99,unknown origin,,,4,9,1,5,2.25,0.7577722283113838,1=2; 2=1; 5=1
+0,Druckschriften (einschließlich Bildbänden),203@/04$0,203@/04$|0,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),001U$0,001U$|0,99,unknown origin,,,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),003@,003@,50,PICA+ bibliographic description,Pica-Produktionsnummer,,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),145Z$j,145Z$j,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),044K/01$7,044K/01$|7,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",Vorläufiger Link,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),237A/01,237A/01,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),009@$b,009@$b,50,PICA+ bibliographic description,Code zur Selektion und maschinellen Bearbeitung,Code,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),245Z/01$9,245Z/01$|9,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),206X/03$0,206X/03$|0,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),209F/01,209F/01,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),044K/01$9,044K/01$|9,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",PPN,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),202D/03$0,202D/03$|0,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),036E$l,036E$l,50,PICA+ bibliographic description,Gesamttitel der fortlaufenden Ressource,Zählung in der Hauptreihe,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),029F$3,029F$|3,50,PICA+ bibliographic description,"Körperschaft als 2. und weiterer geistiger Schöpfer, sonstige Körperschaften, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,3,3,1,1,1.0,0.0,1=3
+0,Druckschriften (einschließlich Bildbänden),044K/01$3,044K/01$|3,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),029F$7,029F$|7,50,PICA+ bibliographic description,"Körperschaft als 2. und weiterer geistiger Schöpfer, sonstige Körperschaften, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",Vorläufiger Link,3,3,1,1,1.0,0.0,1=3
+0,Druckschriften (einschließlich Bildbänden),029F$9,029F$|9,50,PICA+ bibliographic description,"Körperschaft als 2. und weiterer geistiger Schöpfer, sonstige Körperschaften, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",PPN,3,3,1,1,1.0,0.0,1=3
+0,Druckschriften (einschließlich Bildbänden),003S,003S,50,PICA+ bibliographic description,SWB-Pica-Produktionsnummer,,3,3,1,1,1.0,0.0,1=3
+0,Druckschriften (einschließlich Bildbänden),045R$k,045R$k,50,PICA+ bibliographic description,Regensburger Verbundklassifikation (RVK),"Code des Generierungsverfahrens, Konfidenzwert",1,5,5,5,5.0,0.0,5=1
+0,Druckschriften (einschließlich Bildbänden),003T,003T,50,PICA+ bibliographic description,SWB-OCLC-Nummer,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),101@,101@,99,unknown origin,,,6,40,3,14,6.666666666666667,1.4550889837454217,3=1; 4=2; 7=1; 8=1; 14=1
+0,Druckschriften (einschließlich Bildbänden),209A/01$B,209A/01$B,99,unknown origin,,,2,4,1,3,2.0,0.7071067811865476,1=1; 3=1
+0,Druckschriften (einschließlich Bildbänden),045R$j,045R$j,50,PICA+ bibliographic description,Regensburger Verbundklassifikation (RVK),,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),202D/02$a,202D/02$a,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,Druckschriften (einschließlich Bildbänden),209A/01$D,209A/01$D,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),202D/02$b,202D/02$b,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,Druckschriften (einschließlich Bildbänden),004A,004A,50,PICA+ bibliographic description,ISBN,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),016B,016B,50,PICA+ bibliographic description,Code für Sammlungen,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),028C,028C,50,PICA+ bibliographic description,"Person/Familie als 2. und weiterer geistiger Schöpfer, sonstige Personen/Familien, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),003O$a,003O$a,50,PICA+ bibliographic description,OCLC-Nummer,Codierung für folgende ID,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),028A,028A,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,,3,3,1,1,1.0,0.0,1=3
+0,Druckschriften (einschließlich Bildbänden),036E$a,036E$a,50,PICA+ bibliographic description,Gesamttitel der fortlaufenden Ressource,Gesamttitel,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),017L,017L,50,PICA+ bibliographic description,"Produktsigel, Arbeitsfeld für sonstige Produktsigel",,6,58,5,18,9.666666666666666,1.7941950291061273,18=1; 5=1; 6=2; 10=1; 13=1
+0,Druckschriften (einschließlich Bildbänden),045Q/01$9,045Q/01$|9,50,PICA+ bibliographic description,Basisklassifikation,PPN,5,5,1,1,1.0,0.0,1=5
+0,Druckschriften (einschließlich Bildbänden),202D/01,202D/01,99,unknown origin,,,6,28,2,12,4.666666666666667,1.3356461422412564,2=2; 3=1; 4=1; 5=1; 12=1
+0,Druckschriften (einschließlich Bildbänden),006Y$0,006Y$|0,50,PICA+ bibliographic description,Identnummern (allgemein),Nummer/Code,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),209A/02$j,209A/02$j,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),202D/02,202D/02,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,Druckschriften (einschließlich Bildbänden),202D/03,202D/03,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),202D/04,202D/04,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),022A/01$a,022A/01$a,50,PICA+ bibliographic description,Weiterer Werktitel und sonstige unterscheidende Merkmale,Werktitel des Teilwerks,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),203@/04,203@/04,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),004A$0,004A$|0,50,PICA+ bibliographic description,ISBN,ISBN,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),102D,102D,99,unknown origin,,,5,11,1,5,2.2,0.6105735008989499,1=2; 2=2; 5=1
+0,Druckschriften (einschließlich Bildbänden),144Z/01$9,144Z/01$|9,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),145Z/02,145Z/02,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),028A$D,028A$D,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),203@/01,203@/01,99,unknown origin,,,6,38,3,13,6.333333333333333,1.332175423142422,3=1; 4=2; 6=1; 8=1; 13=1
+0,Druckschriften (einschließlich Bildbänden),145Z/01,145Z/01,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),203@/02,203@/02,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,Druckschriften (einschließlich Bildbänden),028A$B,028A$B,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,Beziehungskennzeichnung (Text),3,3,1,1,1.0,0.0,1=3
+0,Druckschriften (einschließlich Bildbänden),203@/03,203@/03,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),028A$A,028A$A,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),145Z/03,145Z/03,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),209A/02$x,209A/02$x,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,Druckschriften (einschließlich Bildbänden),028A$E,028A$E,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),045A$a,045A$a,50,PICA+ bibliographic description,LCC-Notation,Notation,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),203@/02$0,203@/02$|0,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,Druckschriften (einschließlich Bildbänden),028A$M,028A$M,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),209A/02$b,209A/02$b,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),029F,029F,50,PICA+ bibliographic description,"Körperschaft als 2. und weiterer geistiger Schöpfer, sonstige Körperschaften, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,3,3,1,1,1.0,0.0,1=3
+0,Druckschriften (einschließlich Bildbänden),209A/02$a,209A/02$a,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,Druckschriften (einschließlich Bildbänden),209A/02$d,209A/02$d,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,Druckschriften (einschließlich Bildbänden),002@$0,002@$|0,50,PICA+ bibliographic description,Bibliografische Gattung und Status,Bibliografische Gattung und Status,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),209A/02$f,209A/02$f,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,Druckschriften (einschließlich Bildbänden),006L$i,006L$i,50,PICA+ bibliographic description,Weitere Verbundidentnummern,Einleitende Wendung,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),016B$a,016B$a,50,PICA+ bibliographic description,Code für Sammlungen,Code,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),028A$V,028A$V,50,PICA+ bibliographic description,Person/Familie als 1. geistiger Schöpfer,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),036F$a,036F$a,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),032@$a,032@$a,50,PICA+ bibliographic description,Ausgabevermerk,Ausgabebezeichnung (Vorlageform),2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),006L,006L,50,PICA+ bibliographic description,Weitere Verbundidentnummern,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),145Z/01$a,145Z/01$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),036F$h,036F$h,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),006G,006G,50,PICA+ bibliographic description,DNB-Nummer,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),036F$j,036F$j,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),006U,006U,50,PICA+ bibliographic description,WV-Nummer,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),003@$0,003@$|0,50,PICA+ bibliographic description,Pica-Produktionsnummer,Pica-Produktionsnummer,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),036F$l,036F$l,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,Zählung innerhalb der Reihe (Vorlageform),2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),036F$n,036F$n,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),036F$p,036F$p,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),044A$a,044A$a,50,PICA+ bibliographic description,LoC Subject Headings,Schlagwort bzw. Name oder Titel,1,4,4,4,4.0,0.0,4=1
+0,Druckschriften (einschließlich Bildbänden),036F$R,036F$R,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),209A/03$x,209A/03$x,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),206X/01,206X/01,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),206X/03,206X/03,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),036F$V,036F$V,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),013D$V,013D$V,50,PICA+ bibliographic description,Art des Inhalts,,3,3,1,1,1.0,0.0,1=3
+0,Druckschriften (einschließlich Bildbänden),036F$X,036F$X,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,Zählung in Sortierform (manuell),2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),145Z$9,145Z$|9,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),202D/03$a,202D/03$a,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),209F/01$a,209F/01$a,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),013D$a,013D$a,50,PICA+ bibliographic description,Art des Inhalts,Angabe zum Inhalt (Text),3,3,1,1,1.0,0.0,1=3
+0,Druckschriften (einschließlich Bildbänden),102D$0,102D$|0,99,unknown origin,,,5,11,1,5,2.2,0.6105735008989499,1=2; 2=2; 5=1
+0,Druckschriften (einschließlich Bildbänden),045R$a,045R$a,50,PICA+ bibliographic description,Regensburger Verbundklassifikation (RVK),Notation (unverknüpft),1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),028C$w,028C$w,50,PICA+ bibliographic description,"Person/Familie als 2. und weiterer geistiger Schöpfer, sonstige Personen/Familien, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),202D/03$b,202D/03$b,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),007G,007G,50,PICA+ bibliographic description,Identnummer der erstkatalogisierenden Institution,,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),144Z$V,144Z$V,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),209A/02,209A/02,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,Druckschriften (einschließlich Bildbänden),003O$v,003O$v,50,PICA+ bibliographic description,OCLC-Nummer,Datum,5,5,1,1,1.0,0.0,1=5
+0,Druckschriften (einschließlich Bildbänden),209A/01,209A/01,99,unknown origin,,,6,41,4,15,6.833333333333333,1.440968038815882,4=3; 7=2; 15=1
+0,Druckschriften (einschließlich Bildbänden),209A/04,209A/04,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),209A/03,209A/03,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),209G/03$a,209G/03$a,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),045R$V,045R$V,50,PICA+ bibliographic description,Regensburger Verbundklassifikation (RVK),,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),208@/01$a,208@/01$a,99,unknown origin,,,6,38,3,13,6.333333333333333,1.332175423142422,3=1; 4=2; 6=1; 8=1; 13=1
+0,Druckschriften (einschließlich Bildbänden),033A$p,033A$p,50,PICA+ bibliographic description,Veröffentlichungsangabe,Erscheinungsort,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),002E$a,002E$a,50,PICA+ bibliographic description,Datenträgertyp,Datenträgertyp in ausgeschriebener Form,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),033A$n,033A$n,50,PICA+ bibliographic description,Veröffentlichungsangabe,Verlagsname,4,4,1,1,1.0,0.0,1=4
+0,Druckschriften (einschließlich Bildbänden),002E$b,002E$b,50,PICA+ bibliographic description,Datenträgertyp,Datenträgertyp in codierter Form,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),006Y,006Y,50,PICA+ bibliographic description,Identnummern (allgemein),,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),209A/03$a,209A/03$a,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),208@/02,208@/02,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,Druckschriften (einschließlich Bildbänden),208@/01,208@/01,99,unknown origin,,,6,38,3,13,6.333333333333333,1.332175423142422,3=1; 4=2; 6=1; 8=1; 13=1
+0,Druckschriften (einschließlich Bildbänden),209A/03$b,209A/03$b,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),201A/01$0,201A/01$|0,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,Druckschriften (einschließlich Bildbänden),209A/03$d,209A/03$d,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),019@,019@,50,PICA+ bibliographic description,Code für Erscheinungsland,,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),208@/01$b,208@/01$b,99,unknown origin,,,6,38,3,13,6.333333333333333,1.332175423142422,3=1; 4=2; 6=1; 8=1; 13=1
+0,Druckschriften (einschließlich Bildbänden),208@/04,208@/04,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),010@$a,010@$a,50,PICA+ bibliographic description,Sprachcodes,Sprache des Textes,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),208@/03,208@/03,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),209A/03$f,209A/03$f,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),028C$7,028C$|7,50,PICA+ bibliographic description,"Person/Familie als 2. und weiterer geistiger Schöpfer, sonstige Personen/Familien, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",Vorläufiger Link,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),028C$9,028C$|9,50,PICA+ bibliographic description,"Person/Familie als 2. und weiterer geistiger Schöpfer, sonstige Personen/Familien, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",PPN,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),029F$w,029F$w,50,PICA+ bibliographic description,"Körperschaft als 2. und weiterer geistiger Schöpfer, sonstige Körperschaften, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),209O/03$x,209O/03$x,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),145Z/02$a,145Z/02$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),036F/01$7,036F/01$|7,99,unknown origin,,,1,2,2,2,2.0,0.0,2=1
+0,Druckschriften (einschließlich Bildbänden),036F/01$5,036F/01$|5,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),209B/01,209B/01,99,unknown origin,,,2,4,1,3,2.0,0.7071067811865476,1=1; 3=1
+0,Druckschriften (einschließlich Bildbänden),144Z/91,144Z/91,99,unknown origin,,,1,4,4,4,4.0,0.0,4=1
+0,Druckschriften (einschließlich Bildbänden),036F/01$9,036F/01$|9,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),019@$a,019@$a,50,PICA+ bibliographic description,Code für Erscheinungsland,Code für Erscheinungsland,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),007G$i,007G$i,50,PICA+ bibliographic description,Identnummer der erstkatalogisierenden Institution,Einleitende Wendung,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),030F$a,030F$a,50,PICA+ bibliographic description,Konferenz,Konferenz,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),034D$a,034D$a,50,PICA+ bibliographic description,Umfang,Umfangsangabe bzw. Anzahl der physischen Einheiten,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),144Z/01$a,144Z/01$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),028C$3,028C$|3,50,PICA+ bibliographic description,"Person/Familie als 2. und weiterer geistiger Schöpfer, sonstige Personen/Familien, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),036F$A,036F$A,50,PICA+ bibliographic description,Verknüpfung zur fortlaufenden Ressource,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),209G/01,209G/01,99,unknown origin,,,6,23,2,8,3.8333333333333335,0.7718024438583225,2=2; 3=1; 4=2; 8=1
+0,Druckschriften (einschließlich Bildbänden),209G/02,209G/02,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,Druckschriften (einschließlich Bildbänden),022S$a,022S$a,50,PICA+ bibliographic description,Sammlungsvermerk,In RDA-Sätzen nicht zugelassen,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),209G/03,209G/03,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),028C$A,028C$A,50,PICA+ bibliographic description,"Person/Familie als 2. und weiterer geistiger Schöpfer, sonstige Personen/Familien, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),202D/04$0,202D/04$|0,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),006U$0,006U$|0,50,PICA+ bibliographic description,WV-Nummer,WV-Nummer,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),030F$p,030F$p,50,PICA+ bibliographic description,Konferenz,"Konferenzbeginn, -ende",1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),028C$E,028C$E,50,PICA+ bibliographic description,"Person/Familie als 2. und weiterer geistiger Schöpfer, sonstige Personen/Familien, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),030F$k,030F$k,50,PICA+ bibliographic description,Konferenz,Konferenzort,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),028C$D,028C$D,50,PICA+ bibliographic description,"Person/Familie als 2. und weiterer geistiger Schöpfer, sonstige Personen/Familien, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),021A$a,021A$a,50,PICA+ bibliographic description,"Haupttitel, Titelzusatz, Verantwortlichkeitsangabe",Haupttitel,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),009@,009@,50,PICA+ bibliographic description,Code zur Selektion und maschinellen Bearbeitung,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),021A$d,021A$d,50,PICA+ bibliographic description,"Haupttitel, Titelzusatz, Verantwortlichkeitsangabe",Titelzusatz,4,4,1,1,1.0,0.0,1=4
+0,Druckschriften (einschließlich Bildbänden),021A$h,021A$h,50,PICA+ bibliographic description,"Haupttitel, Titelzusatz, Verantwortlichkeitsangabe","Verantwortlichkeitsangabe, die sich auf den Haupttitel bezieht",5,5,1,1,1.0,0.0,1=5
+0,Druckschriften (einschließlich Bildbänden),206X/01$0,206X/01$|0,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),028C$V,028C$V,50,PICA+ bibliographic description,"Person/Familie als 2. und weiterer geistiger Schöpfer, sonstige Personen/Familien, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),208@/02$a,208@/02$a,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,Druckschriften (einschließlich Bildbänden),208@/02$b,208@/02$b,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,Druckschriften (einschließlich Bildbänden),244Z/03$x,244Z/03$x,99,unknown origin,,,1,3,3,3,3.0,0.0,3=1
+0,Druckschriften (einschließlich Bildbänden),017L$a,017L$a,50,PICA+ bibliographic description,"Produktsigel, Arbeitsfeld für sonstige Produktsigel",Code,6,58,5,18,9.666666666666666,1.7941950291061273,18=1; 5=1; 6=2; 10=1; 13=1
+0,Druckschriften (einschließlich Bildbänden),044K$a,044K$a,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",Schlagwort,3,4,1,2,1.3333333333333333,0.24845199749997662,1=2; 2=1
+0,Druckschriften (einschließlich Bildbänden),145Z/03$a,145Z/03$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),029F$A,029F$A,50,PICA+ bibliographic description,"Körperschaft als 2. und weiterer geistiger Schöpfer, sonstige Körperschaften, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,3,3,1,1,1.0,0.0,1=3
+0,Druckschriften (einschließlich Bildbänden),034M$a,034M$a,50,PICA+ bibliographic description,Illustrationsangabe bzw. sonstige physische und technische Angaben,Illustrationsangabe bzw. sonstige physische und technische Angaben,3,3,1,1,1.0,0.0,1=3
+0,Druckschriften (einschließlich Bildbänden),030F,030F,50,PICA+ bibliographic description,Konferenz,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),145Z/03$j,145Z/03$j,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),007G$0,007G$|0,50,PICA+ bibliographic description,Identnummer der erstkatalogisierenden Institution,Identnummer,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),044K$V,044K$V,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",,5,8,1,2,1.6,0.1442220510185596,1=2; 2=3
+0,Druckschriften (einschließlich Bildbänden),203@/01$0,203@/01$|0,99,unknown origin,,,6,38,3,13,6.333333333333333,1.332175423142422,3=1; 4=2; 6=1; 8=1; 13=1
+0,Druckschriften (einschließlich Bildbänden),029F$F,029F$F,50,PICA+ bibliographic description,"Körperschaft als 2. und weiterer geistiger Schöpfer, sonstige Körperschaften, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,2,3,1,2,1.5,0.3535533905932738,1=1; 2=1
+0,Druckschriften (einschließlich Bildbänden),029F$G,029F$G,50,PICA+ bibliographic description,"Körperschaft als 2. und weiterer geistiger Schöpfer, sonstige Körperschaften, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),244Z/03$a,244Z/03$a,99,unknown origin,,,1,3,3,3,3.0,0.0,3=1
+0,Druckschriften (einschließlich Bildbänden),013D$9,013D$|9,50,PICA+ bibliographic description,Art des Inhalts,PPN,3,3,1,1,1.0,0.0,1=3
+0,Druckschriften (einschließlich Bildbänden),107F,107F,99,unknown origin,,,5,5,1,1,1.0,0.0,1=5
+0,Druckschriften (einschließlich Bildbänden),202D/01$a,202D/01$a,99,unknown origin,,,6,28,2,12,4.666666666666667,1.3356461422412564,2=2; 3=1; 4=1; 5=1; 12=1
+0,Druckschriften (einschließlich Bildbänden),202D/01$b,202D/01$b,99,unknown origin,,,6,28,2,12,4.666666666666667,1.3356461422412564,2=2; 3=1; 4=1; 5=1; 12=1
+0,Druckschriften (einschließlich Bildbänden),044K$M,044K$M,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),013D$7,013D$|7,50,PICA+ bibliographic description,Art des Inhalts,Vorläufiger Link,3,3,1,1,1.0,0.0,1=3
+0,Druckschriften (einschließlich Bildbänden),013D$3,013D$|3,50,PICA+ bibliographic description,Art des Inhalts,,3,3,1,1,1.0,0.0,1=3
+0,Druckschriften (einschließlich Bildbänden),209A/01$j,209A/01$j,99,unknown origin,,,2,4,2,2,2.0,0.0,2=2
+0,Druckschriften (einschließlich Bildbänden),144Z/01$V,144Z/01$V,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),001B$0,001B$|0,50,PICA+ bibliographic description,Kennung und Datum der letzten Änderung," Quelle und Datum der letzten Änderung (getrennt durch "":"")",6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),029F$V,029F$V,50,PICA+ bibliographic description,"Körperschaft als 2. und weiterer geistiger Schöpfer, sonstige Körperschaften, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",,3,3,1,1,1.0,0.0,1=3
+0,Druckschriften (einschließlich Bildbänden),237A/01$a,237A/01$a,99,unknown origin,,,2,3,1,2,1.5,0.3535533905932738,1=1; 2=1
+0,Druckschriften (einschließlich Bildbänden),107F$0,107F$|0,99,unknown origin,,,5,5,1,1,1.0,0.0,1=5
+0,Druckschriften (einschließlich Bildbänden),209O/03$a,209O/03$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),209A/01$x,209A/01$x,99,unknown origin,,,6,41,4,15,6.833333333333333,1.440968038815882,4=3; 7=2; 15=1
+0,Druckschriften (einschließlich Bildbänden),201A/01,201A/01,99,unknown origin,,,3,5,1,3,1.6666666666666667,0.49690399499995325,1=2; 3=1
+0,Druckschriften (einschließlich Bildbänden),036F/01$3,036F/01$|3,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),209A/01$a,209A/01$a,99,unknown origin,,,6,41,4,15,6.833333333333333,1.440968038815882,4=3; 7=2; 15=1
+0,Druckschriften (einschließlich Bildbänden),102D$b,102D$b,99,unknown origin,,,5,11,1,5,2.2,0.6105735008989499,1=2; 2=2; 5=1
+0,Druckschriften (einschließlich Bildbänden),102D$a,102D$a,99,unknown origin,,,5,11,1,5,2.2,0.6105735008989499,1=2; 2=2; 5=1
+0,Druckschriften (einschließlich Bildbänden),209A/01$b,209A/01$b,99,unknown origin,,,2,5,2,3,2.5,0.3535533905932738,2=1; 3=1
+0,Druckschriften (einschließlich Bildbänden),209A/01$d,209A/01$d,99,unknown origin,,,6,28,2,13,4.666666666666667,1.4635488747021654,2=3; 4=1; 5=1; 13=1
+0,Druckschriften (einschließlich Bildbänden),037A$a,037A$a,50,PICA+ bibliographic description,Sonstige Anmerkungen,Anmerkungstext,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),245Z/03$V,245Z/03$V,99,unknown origin,,,1,3,3,3,3.0,0.0,3=1
+0,Druckschriften (einschließlich Bildbänden),208@/03$b,208@/03$b,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),209A/01$f,209A/01$f,99,unknown origin,,,6,24,1,10,4.0,1.2247448713915892,1=1; 2=2; 3=1; 6=1; 10=1
+0,Druckschriften (einschließlich Bildbänden),208@/03$a,208@/03$a,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),209B/01$a,209B/01$a,99,unknown origin,,,2,5,1,4,2.5,1.0606601717798212,1=1; 4=1
+0,Druckschriften (einschließlich Bildbänden),244Z/02$x,244Z/02$x,99,unknown origin,,,1,4,4,4,4.0,0.0,4=1
+0,Druckschriften (einschließlich Bildbänden),209O/01$x,209O/01$x,99,unknown origin,,,3,3,1,1,1.0,0.0,1=3
+0,Druckschriften (einschließlich Bildbänden),209C/01$x,209C/01$x,99,unknown origin,,,5,19,1,8,3.8,1.1099549540409286,1=1; 2=1; 3=1; 5=1; 8=1
+0,Druckschriften (einschließlich Bildbänden),145Z/99,145Z/99,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),032@,032@,50,PICA+ bibliographic description,Ausgabevermerk,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),044A,044A,50,PICA+ bibliographic description,LoC Subject Headings,,1,2,2,2,2.0,0.0,2=1
+0,Druckschriften (einschließlich Bildbänden),101@$f,101@$f,99,unknown origin,,,2,4,1,3,2.0,0.7071067811865476,1=1; 3=1
+0,Druckschriften (einschließlich Bildbänden),036F/01$R,036F/01$R,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),044K/01$a,044K/01$a,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",Schlagwort,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),044K,044K,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",,5,8,1,2,1.6,0.1442220510185596,1=2; 2=3
+0,Druckschriften (einschließlich Bildbänden),036F/01$V,036F/01$V,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),245Z/03$a,245Z/03$a,99,unknown origin,,,1,3,3,3,3.0,0.0,3=1
+0,Druckschriften (einschließlich Bildbänden),036F/01$X,036F/01$X,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),101@$a,101@$a,99,unknown origin,,,6,40,3,14,6.666666666666667,1.4550889837454217,3=1; 4=2; 7=1; 8=1; 14=1
+0,Druckschriften (einschließlich Bildbänden),101@$c,101@$c,99,unknown origin,,,6,37,2,14,6.166666666666667,1.6170866197586538,2=1; 3=1; 4=1; 7=2; 14=1
+0,Druckschriften (einschließlich Bildbänden),101@$b,101@$b,99,unknown origin,,,6,37,2,14,6.166666666666667,1.6170866197586538,2=1; 3=1; 4=1; 7=2; 14=1
+0,Druckschriften (einschließlich Bildbänden),101@$d,101@$d,99,unknown origin,,,6,40,3,14,6.666666666666667,1.4550889837454217,3=1; 4=2; 7=1; 8=1; 14=1
+0,Druckschriften (einschließlich Bildbänden),245Z/03$j,245Z/03$j,99,unknown origin,,,1,5,5,5,5.0,0.0,5=1
+0,Druckschriften (einschließlich Bildbänden),245Z/03$x,245Z/03$x,99,unknown origin,,,1,3,3,3,3.0,0.0,3=1
+0,Druckschriften (einschließlich Bildbänden),044K/01$V,044K/01$V,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),244Z/02$a,244Z/02$a,99,unknown origin,,,1,4,4,4,4.0,0.0,4=1
+0,Druckschriften (einschließlich Bildbänden),036F/01$a,036F/01$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),209B/01$x,209B/01$x,99,unknown origin,,,2,4,1,3,2.0,0.7071067811865476,1=1; 3=1
+0,Druckschriften (einschließlich Bildbänden),045V$a,045V$a,50,PICA+ bibliographic description,SSG-Nummer/FID-Kennzeichen,Notation,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),206W/01$0,206W/01$|0,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),209C/01$a,209C/01$a,99,unknown origin,,,5,19,1,8,3.8,1.1099549540409286,1=1; 2=1; 3=1; 5=1; 8=1
+0,Druckschriften (einschließlich Bildbänden),044K$G,044K$G,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",,1,2,2,2,2.0,0.0,2=1
+0,Druckschriften (einschließlich Bildbänden),145Z/99$a,145Z/99$a,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),045E,045E,50,PICA+ bibliographic description,Sachgruppen der Deutschen Nationalbibliografie bis 2003,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),145Z/30$a,145Z/30$a,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),044K$E,044K$E,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),022A/01,022A/01,50,PICA+ bibliographic description,Weiterer Werktitel und sonstige unterscheidende Merkmale,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),145Z/03$9,145Z/03$|9,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),045F,045F,50,PICA+ bibliographic description,DDC-Notation,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),021A,021A,50,PICA+ bibliographic description,"Haupttitel, Titelzusatz, Verantwortlichkeitsangabe",,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),044K$D,044K$D,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),044K$A,044K$A,50,PICA+ bibliographic description,"Schlagwortfolgen (GBV, SWB, K10plus)",Quelle,3,4,1,2,1.3333333333333333,0.24845199749997662,1=2; 2=1
+0,Druckschriften (einschließlich Bildbänden),045A,045A,50,PICA+ bibliographic description,LCC-Notation,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),033A,033A,50,PICA+ bibliographic description,Veröffentlichungsangabe,,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),203S/01,203S/01,99,unknown origin,,,1,3,3,3,3.0,0.0,3=1
+0,Druckschriften (einschließlich Bildbänden),045M/10,045M/10,50,PICA+ bibliographic description,Lokale Notationen auf bibliografischer Ebene,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),209C/03,209C/03,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),209C/01,209C/01,99,unknown origin,,,5,19,1,8,3.8,1.1099549540409286,1=1; 2=1; 3=1; 5=1; 8=1
+0,Druckschriften (einschließlich Bildbänden),209C/02,209C/02,99,unknown origin,,,2,3,1,2,1.5,0.3535533905932738,1=1; 2=1
+0,Druckschriften (einschließlich Bildbänden),045E$a,045E$a,50,PICA+ bibliographic description,Sachgruppen der Deutschen Nationalbibliografie bis 2003,Sachgruppe,2,5,2,3,2.5,0.3535533905932738,2=1; 3=1
+0,Druckschriften (einschließlich Bildbänden),244Z/02,244Z/02,99,unknown origin,,,1,4,4,4,4.0,0.0,4=1
+0,Druckschriften (einschließlich Bildbänden),244Z/01,244Z/01,99,unknown origin,,,1,5,5,5,5.0,0.0,5=1
+0,Druckschriften (einschließlich Bildbänden),244Z/03,244Z/03,99,unknown origin,,,1,3,3,3,3.0,0.0,3=1
+0,Druckschriften (einschließlich Bildbänden),036F/01$A,036F/01$A,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),208@/04$a,208@/04$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),046W$a,046W$a,50,PICA+ bibliographic description,Kommentarfeld,Kommentarfeld,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),208@/04$b,208@/04$b,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),145Z/03$V,145Z/03$V,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),045M/10$a,045M/10$a,50,PICA+ bibliographic description,Lokale Notationen auf bibliografischer Ebene,Notation,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),244Z/01$x,244Z/01$x,99,unknown origin,,,1,5,5,5,5.0,0.0,5=1
+0,Druckschriften (einschließlich Bildbänden),144Z/91$a,144Z/91$a,99,unknown origin,,,1,4,4,4,4.0,0.0,4=1
+0,Druckschriften (einschließlich Bildbänden),034D,034D,50,PICA+ bibliographic description,Umfang,,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),202D/01$0,202D/01$|0,99,unknown origin,,,6,28,2,12,4.666666666666667,1.3356461422412564,2=2; 3=1; 4=1; 5=1; 12=1
+0,Druckschriften (einschließlich Bildbänden),010@,010@,50,PICA+ bibliographic description,Sprachcodes,,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),209C/02$x,209C/02$x,99,unknown origin,,,2,3,1,2,1.5,0.3535533905932738,1=1; 2=1
+0,Druckschriften (einschließlich Bildbänden),036E/01$l,036E/01$l,50,PICA+ bibliographic description,Gesamttitel der fortlaufenden Ressource,Zählung in der Hauptreihe,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),034M,034M,50,PICA+ bibliographic description,Illustrationsangabe bzw. sonstige physische und technische Angaben,,3,3,1,1,1.0,0.0,1=3
+0,Druckschriften (einschließlich Bildbänden),006G$0,006G$|0,50,PICA+ bibliographic description,DNB-Nummer,DNB-Nummer,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),220B/01$a,220B/01$a,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),001A$0,001A$|0,50,PICA+ bibliographic description,Kennung und Datum der Ersterfassung,"Quelle und Datum (getrennt durch "":"")",6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),034I,034I,50,PICA+ bibliographic description,"Format, Maße",,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),003S$0,003S$|0,50,PICA+ bibliographic description,SWB-Pica-Produktionsnummer,SWB-Pica-Produktionsnummer,3,3,1,1,1.0,0.0,1=3
+0,Druckschriften (einschließlich Bildbänden),220B/02,220B/02,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),220B/01,220B/01,99,unknown origin,,,2,2,1,1,1.0,0.0,1=2
+0,Druckschriften (einschließlich Bildbänden),045V,045V,50,PICA+ bibliographic description,SSG-Nummer/FID-Kennzeichen,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),209O/01,209O/01,99,unknown origin,,,3,3,1,1,1.0,0.0,1=3
+0,Druckschriften (einschließlich Bildbänden),209O/03,209O/03,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),045R,045R,50,PICA+ bibliographic description,Regensburger Verbundklassifikation (RVK),,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),045M/10$i,045M/10$i,50,PICA+ bibliographic description,Lokale Notationen auf bibliografischer Ebene,Angabe der Klassifikation,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),244Z/01$a,244Z/01$a,99,unknown origin,,,1,5,5,5,5.0,0.0,5=1
+0,Druckschriften (einschließlich Bildbänden),209C/02$a,209C/02$a,99,unknown origin,,,2,3,1,2,1.5,0.3535533905932738,1=1; 2=1
+0,Druckschriften (einschließlich Bildbänden),145Z/31$a,145Z/31$a,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),046X$z,046X$z,50,PICA+ bibliographic description,Bestandsschutzmaßnahmen und (Langzeit-)Archivierung,Anmerkung,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),011@,011@,50,PICA+ bibliographic description,Erscheinungsdatum/Entstehungsdatum,,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),209O/01$a,209O/01$a,99,unknown origin,,,3,3,1,1,1.0,0.0,1=3
+0,Druckschriften (einschließlich Bildbänden),045F$a,045F$a,50,PICA+ bibliographic description,DDC-Notation,Notation,1,2,2,2,2.0,0.0,2=1
+0,Druckschriften (einschließlich Bildbänden),006L$0,006L$|0,50,PICA+ bibliographic description,Weitere Verbundidentnummern,Nummer,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),046X,046X,50,PICA+ bibliographic description,Bestandsschutzmaßnahmen und (Langzeit-)Archivierung,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),046W,046W,50,PICA+ bibliographic description,Kommentarfeld,,6,6,1,1,1.0,0.0,1=6
+0,Druckschriften (einschließlich Bildbänden),047A$a,047A$a,50,PICA+ bibliographic description,Allgemeiner Bearbeitungshinweis,Allgemeiner Bearbeitungshinweis,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),022S,022S,50,PICA+ bibliographic description,Sammlungsvermerk,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),036E/01$a,036E/01$a,50,PICA+ bibliographic description,Gesamttitel der fortlaufenden Ressource,Gesamttitel,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),045R$9,045R$|9,50,PICA+ bibliographic description,Regensburger Verbundklassifikation (RVK),PPN,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),046X$f,046X$f,50,PICA+ bibliographic description,Bestandsschutzmaßnahmen und (Langzeit-)Archivierung,Kontext / Rechtsgrundlage,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),047A,047A,50,PICA+ bibliographic description,Allgemeiner Bearbeitungshinweis,,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),046X$c,046X$c,50,PICA+ bibliographic description,Bestandsschutzmaßnahmen und (Langzeit-)Archivierung,(geplantes) Datum der Aktion,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),046X$a,046X$a,50,PICA+ bibliographic description,Bestandsschutzmaßnahmen und (Langzeit-)Archivierung,Codierung für die Aktion,1,1,1,1,1.0,0.0,1=1
+0,Druckschriften (einschließlich Bildbänden),245Z/01$V,245Z/01$V,99,unknown origin,,,1,1,1,1,1.0,0.0,1=1

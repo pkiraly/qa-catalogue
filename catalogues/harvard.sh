@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Harvard Library
+# https://library.harvard.edu/
 
 . ./setdir.sh
 

@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# KBR (Koninklijke Bibliotheek van België/Bibliothèque royale de Belgique)
+# https://www.kbr.be/
 
 . ./setdir.sh
 

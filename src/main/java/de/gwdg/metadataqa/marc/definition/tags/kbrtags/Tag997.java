@@ -3,7 +3,6 @@ package de.gwdg.metadataqa.marc.definition.tags.kbrtags;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
-import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 
 /**
  * Item information

@@ -39,6 +39,7 @@ import java.util.logging.Logger;
 public class DataField implements Extractable, Serializable {
 
   private static final Logger logger = Logger.getLogger(DataField.class.getCanonicalName());
+  private static final long serialVersionUID = -2283988601945108192L;
 
   private DataFieldDefinition definition;
   private String tag;

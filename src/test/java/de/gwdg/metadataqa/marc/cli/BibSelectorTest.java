@@ -79,14 +79,14 @@ public class BibSelectorTest {
   public void testGet1() {
     BibSelector selector = BibSelectorFactory.create(marcRecord);
     List<XmlFieldInstance> results = selector.get("100", "100", "100");
-    assertNull(results);
+    assertTrue(results.isEmpty());
   }
 
   @Test
   public void testGet2() {
     BibSelector selector = BibSelectorFactory.create(marcRecord);
     List<XmlFieldInstance> results = selector.get("100", "100", "100", this.getClass());
-    assertNull(results);
+    assertTrue(results.isEmpty());
   }
 
   @Test
@@ -117,13 +117,13 @@ public class BibSelectorTest {
   @Test
   public void getCache() {
     BibSelector selector = BibSelectorFactory.create(marcRecord);
-    assertNull(selector.getCache());
+    assertTrue(selector.getCache().isEmpty());
   }
 
   @Test
   public void getFragmentCache() {
     BibSelector selector = BibSelectorFactory.create(marcRecord);
-    assertNull(selector.getFragmentCache());
+    assertTrue(selector.getFragmentCache().isEmpty());
   }
 
   @Test

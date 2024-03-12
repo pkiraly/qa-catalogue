@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.definition.Validator;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +49,6 @@ public class CodeList implements Validator, Serializable {
 
   @Override
   public List<ValidationError> getValidationErrors() {
-    return null;
+    return Collections.emptyList();
   }
 }

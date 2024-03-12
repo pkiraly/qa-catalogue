@@ -54,7 +54,6 @@ public class Validator extends AbstractValidator {
       return validationErrors.isEmpty();
     }
 
-    // logger.info("Validating record " + bibliographicRecord.getId());
     if (!bibliographicRecord.getSchemaType().equals(SchemaType.PICA)) {
       validateLeader();
     }

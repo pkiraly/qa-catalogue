@@ -6,6 +6,7 @@ import de.gwdg.metadataqa.marc.TestUtils;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import junit.framework.TestCase;
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -66,9 +67,22 @@ public class CompletenessTest extends CliTestUtils {
     for (String outputFile : outputFiles) {
       File output = new File(outputDir, outputFile);
       assertTrue(output.exists());
-      output.delete();
-      assertFalse(output.exists());
     }
+
+    // Now compare the output files with the expected ones
+    File expectedFile = new File(getTestResource("alephseq/expected-results/completeness/marc-elements.csv"));
+    File actualFile = new File(outputDir, "marc-elements.csv");
+    String expected = org.apache.commons.io.FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    String actual = org.apache.commons.io.FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    Assert.assertEquals(expected, actual);
+
+    expectedFile = new File(getTestResource("alephseq/expected-results/completeness/packages.csv"));
+    actualFile = new File(outputDir, "packages.csv");
+    expected = org.apache.commons.io.FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    actual = org.apache.commons.io.FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    Assert.assertEquals(expected, actual);
   }
 
   @Test
@@ -87,9 +101,22 @@ public class CompletenessTest extends CliTestUtils {
     for (String outputFile : outputFiles) {
       File output = new File(outputDir, outputFile);
       assertTrue(output.exists());
-      output.delete();
-      assertFalse(output.exists());
     }
+
+    // Now compare the output files with the expected ones
+    File expectedFile = new File(getTestResource("pica/expected-results/completeness/marc-elements.csv"));
+    File actualFile = new File(outputDir, "marc-elements.csv");
+    String expected = org.apache.commons.io.FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    String actual = org.apache.commons.io.FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    Assert.assertEquals(expected, actual);
+
+    expectedFile = new File(getTestResource("pica/expected-results/completeness/packages.csv"));
+    actualFile = new File(outputDir, "packages.csv");
+    expected = org.apache.commons.io.FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    actual = org.apache.commons.io.FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    Assert.assertEquals(expected, actual);
   }
 
   @Test
@@ -339,4 +366,39 @@ public class CompletenessTest extends CliTestUtils {
       assertFalse(outputFile + " should not exist anymore", output.exists());
     }
   }
+
+  @Test
+  public void completeness_whenUnimarc() throws Exception {
+    clearOutput(outputDir, outputFiles);
+
+    Completeness processor = new Completeness(new String[]{
+        "--schemaType", "UNIMARC",
+        "--marcFormat", "MARC_LINE",
+        "--outputDir", outputDir,
+        TestUtils.getPath("unimarc/unimarc.mrctxt")
+    });
+    RecordIterator iterator = new RecordIterator(processor);
+    iterator.start();
+
+    for (String outputFile : outputFiles) {
+      File output = new File(outputDir, outputFile);
+      assertTrue(output.exists());
+    }
+
+    // Now compare the output files with the expected ones
+    File expectedFile = new File(getTestResource("unimarc/expected-results/completeness/marc-elements.csv"));
+    File actualFile = new File(outputDir, "marc-elements.csv");
+    String expected = org.apache.commons.io.FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    String actual = org.apache.commons.io.FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    Assert.assertEquals(expected, actual);
+
+    expectedFile = new File(getTestResource("unimarc/expected-results/completeness/packages.csv"));
+    actualFile = new File(outputDir, "packages.csv");
+    expected = org.apache.commons.io.FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    actual = org.apache.commons.io.FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    Assert.assertEquals(expected, actual);
+  }
+
 }

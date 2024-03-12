@@ -211,7 +211,7 @@ public class YaleMarc21SchemaReader {
         if (codeEntry.getValue() instanceof JSONObject) {
           JSONObject property = (JSONObject) codeEntry.getValue();
           if (!code.equals(property.get("value")))
-            logger.warning(String.format("code is different to code value: %s vs %s", code, (String)property.get("value")));
+            logger.warning(String.format("code is different to code value: %s vs %s", code, property.get("value")));
           else
             list.add(new EncodedValue(code, (String) property.get("name")));
           for (String key : property.keySet()) {

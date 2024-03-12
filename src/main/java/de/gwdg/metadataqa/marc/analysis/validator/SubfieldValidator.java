@@ -61,7 +61,7 @@ public class SubfieldValidator extends AbstractValidator {
       validateWithValidator();
     } else if (definition.hasContentParser()) {
       validateWithParser();
-    } else if (definition.getCodes() != null && definition.getCode(subfield.getValue()) == null) {
+    } else if (definition.getCodes() != null && !definition.getCodes().isEmpty() && definition.getCode(subfield.getValue()) == null) {
       // If a subfield has a list of codes defined, and the value is not in the codelist, then it is invalid
       String message = subfield.getValue();
       if (subfield.getReferencePath() != null) {

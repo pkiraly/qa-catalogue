@@ -78,6 +78,7 @@ public class MarcSpecTest {
     assertEquals(0, (int)marcSpec.getCharStart());
     assertEquals(3, (int)marcSpec.getCharEnd());
     assertEquals(4, (int)marcSpec.getCharLength());
+    assertTrue(marcSpec.hasRangeSelector());
   }
 
   @Test(expected=IllegalArgumentException.class)
@@ -237,5 +238,24 @@ public class MarcSpecTest {
     assertEquals("008~0-5", marcSpec.encode());
   }
 
+  @Test
+  public void range_correct() {
+    MarcSpec selector = new MarcSpec("LDR~0-3");
+    assertTrue(selector.hasRangeSelector());
+    assertEquals("abcd", selector.selectRange("abcdef"));
+  }
 
+  @Test
+  public void range_shorter() {
+    MarcSpec selector = new MarcSpec("LDR~0-3");
+    assertTrue(selector.hasRangeSelector());
+    assertEquals("abc", selector.selectRange("abc"));
+  }
+
+  @Test
+  public void range_outOfRange() {
+    MarcSpec selector = new MarcSpec("LDR~8-9");
+    assertTrue(selector.hasRangeSelector());
+    assertEquals("", selector.selectRange("abc"));
+  }
 }

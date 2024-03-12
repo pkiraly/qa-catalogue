@@ -2,8 +2,7 @@ package de.gwdg.metadataqa.marc.dao.record;
 
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
-import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
-import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
+import de.gwdg.metadataqa.marc.analysis.shelfready.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSubjectManager;
@@ -29,7 +28,6 @@ public class PicaRecord extends BibliographicRecord {
    * Key-value pairs of AuthorityCategory and tags
    */
   private static Map<AuthorityCategory, List<String>> authorityTagsMap;
-  private static Map<ThompsonTraillFields, List<String>> thompsonTraillTagMap;
   private static Map<ShelfReadyFieldsBooks, Map<String, List<String>>> shelfReadyMap;
 
   public PicaRecord() {
@@ -184,27 +182,6 @@ public class PicaRecord extends BibliographicRecord {
               shelfReadyMap.get(category).put(crosswalk.getPica(), new ArrayList<>());
             shelfReadyMap.get(category).get(crosswalk.getPica()).add(crosswalk.getPicaUf().replace("$", ""));
           }
-        }
-      }
-    }
-  }
-
-  public Map<ThompsonTraillFields, List<String>> getThompsonTraillTagsMap() {
-    if (thompsonTraillTagMap == null)
-      initializeThompsonTrailTags();
-
-    return thompsonTraillTagMap;
-  }
-
-  private void initializeThompsonTrailTags() {
-    thompsonTraillTagMap = new LinkedHashMap<>();
-    for (Map.Entry<ThompsonTraillFields, List<String>> entry : (new Marc21BibliographicRecord()).getThompsonTraillTagsMap().entrySet()) {
-      ThompsonTraillFields category = entry.getKey();
-      thompsonTraillTagMap.put(category, new ArrayList<>());
-      for (String marcEntry : entry.getValue()) {
-        for (Crosswalk crosswalk : PicaMarcCrosswalkReader.lookupMarc21Field(marcEntry)) {
-          if (!thompsonTraillTagMap.get(category).contains(crosswalk.getPica()))
-            thompsonTraillTagMap.get(category).add(crosswalk.getPica());
         }
       }
     }

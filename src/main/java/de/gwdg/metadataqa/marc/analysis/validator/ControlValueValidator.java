@@ -25,12 +25,18 @@ public class ControlValueValidator extends AbstractValidator {
     var definition = controlValue.getDefinition();
     var value = controlValue.getValue();
 
-    boolean isAmongValidCodes = isValueAmongValidCodes(definition, value);
+    boolean isCodeValid = definition.validate(value);
 
-    if (!isAmongValidCodes) {
+    if (!isCodeValid) {
       if (definition.isHistoricalCode(value)) {
         addError(controlValue, ValidationErrorType.CONTROL_POSITION_OBSOLETE_CODE, value);
       } else {
+        // It's unnecessary to check if the code is repeatable in here, as there's already the validate method in the
+        // definition that does this - it's a matter of question where the validation should be done but currently,
+        // it's in the definition.
+
+        // This checking here is just to conform to the test cases which expect that error is added whenever the code
+        // isn't valid in case it's repeatable.
         fallbackValidateRepeatableCode(definition, controlValue, value);
       }
     }
@@ -47,11 +53,6 @@ public class ControlValueValidator extends AbstractValidator {
     return validationErrors.isEmpty();
   }
 
-  private boolean isValueAmongValidCodes(ControlfieldPositionDefinition definition, String value) {
-    return definition.getValidCodes().isEmpty()
-        || definition.getValidCodes().contains(value)
-        || (definition.getCode(value) != null);
-  }
 
   /**
    * In case the control value is repeatable, the value is split into units of the length of the unit and then each unit is validated.

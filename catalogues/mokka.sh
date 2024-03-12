@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Magyar Országos Közös Katalógus
+# http://mokka.hu/
 
 . ./setdir.sh
 

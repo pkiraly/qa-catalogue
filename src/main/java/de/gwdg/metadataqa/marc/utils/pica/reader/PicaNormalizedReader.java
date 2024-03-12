@@ -21,7 +21,6 @@ public class PicaNormalizedReader extends PicaReader {
 
   private BufferedReader bufferedReader = null;
   private String line = null;
-  private List<PicaLine> lines = new ArrayList<>();
   private String fieldSeparator = "\u001E";
   private String defauultSubfieldSeparator = "\u001F";
   private String subfieldSeparator = "\u001F";
@@ -58,7 +57,7 @@ public class PicaNormalizedReader extends PicaReader {
   public Record next() {
     Record marc4jRecord = null;
     String[] fields = line.split(Pattern.quote(fieldSeparator));
-    lines = new ArrayList<>();
+    List<PicaLine> lines = new ArrayList<>();
     for (String field : fields) {
       PicaLine picaLine = new PicaLine(field, subfieldSeparator);
       if (picaLine.isValidTag())

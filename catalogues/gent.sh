@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Universiteitsbibliotheek Gent
+# https://lib.ugent.be/
 
 . ./setdir.sh
 

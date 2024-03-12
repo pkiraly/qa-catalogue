@@ -46,7 +46,6 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
     MarcToSolr.class.getCanonicalName()
   );
   private Options options;
-  private MarcVersion version;
   private MarcSolrClient client;
   private MarcSolrClient validationClient;
   private Path currentFile;
@@ -72,14 +71,17 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
       : new MarcSolrClient(parameters.getSolrUrl());
     client.setTrimId(parameters.getTrimId());
     client.indexWithTokenizedField(parameters.indexWithTokenizedField());
+    if (parameters.getFieldPrefix() != null)
+      client.setFieldPrefix(parameters.getFieldPrefix());
     if (parameters.getSolrForScoresUrl() != null) {
       validationClient = parameters.useEmbedded()
         ? new MarcSolrClient(parameters.getValidationClient())
         : new MarcSolrClient(parameters.getSolrForScoresUrl());
       validationClient.setTrimId(parameters.getTrimId());
+      if (parameters.getFieldPrefix() != null)
+        validationClient.setFieldPrefix(parameters.getFieldPrefix());
     }
     readyToProcess = true;
-    version = parameters.getMarcVersion();
     initializeGroups(parameters.getGroupBy(), parameters.isPica());
     if (doGroups()) {
       groupIndexer = new PicaGroupIndexer().setPicaPath((PicaPath) groupBy);

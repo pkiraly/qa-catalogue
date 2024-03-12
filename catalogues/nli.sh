@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# National Library of Israel
+# https://www.nli.org.il/en
 
 . ./setdir.sh
 

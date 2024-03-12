@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 
 public class RecordIgnoratorPicaTest {
 
-  PicaSchemaManager schema = PicaSchemaReader.createSchema(TestUtils.getPathFromMain("pica/avram-k10plus.json"));
+  PicaSchemaManager schema = PicaSchemaReader.createSchema(TestUtils.getPathFromMain("pica/avram-k10plus-title.json"));
 
   @Test
   public void parse_ex1() {

@@ -67,17 +67,17 @@ public class MarcFactory {
   private static final Logger logger = Logger.getLogger(MarcFactory.class.getCanonicalName());
   private static final List<String> fixableControlFields = Arrays.asList("006", "007", "008");
 
-  private static Schema schema = new MarcJsonSchema();
+  private static final Schema schema = new MarcJsonSchema();
 
   private MarcFactory() {
     throw new IllegalStateException("This is a utility class, can not be instantiated");
   }
 
-  public static BibliographicRecord create(JsonSelector selector) {
+  public static <T extends XmlFieldInstance> BibliographicRecord create(JsonSelector<T> selector) {
     return create(selector, MarcVersion.MARC21);
   }
 
-  public static BibliographicRecord create(JsonSelector selector, MarcVersion version) {
+  public static <T extends XmlFieldInstance> BibliographicRecord create(JsonSelector<T> selector, MarcVersion version) {
     var marcRecord = new Marc21BibliographicRecord();
     for (DataElement dataElement : schema.getPaths()) {
       if (dataElement.getParent() != null)
@@ -109,8 +109,8 @@ public class MarcFactory {
           break;
         default:
           JSONArray fieldInstances = (JSONArray) selector.getFragment(dataElement.getPath());
-          for (var fieldInsanceNr = 0; fieldInsanceNr < fieldInstances.size(); fieldInsanceNr++) {
-            var fieldInstance = (Map) fieldInstances.get(fieldInsanceNr);
+          for (Object instance : fieldInstances) {
+            var fieldInstance = (Map) instance;
             var field = MapToDatafield.parse(fieldInstance, version);
             if (field != null) {
               marcRecord.addDataField(field);
@@ -148,10 +148,10 @@ public class MarcFactory {
   /**
    * Create a MarcRecord object from Marc4j object by setting the leader, control fields and data fields.
    * @param marc4jRecord The Marc4j record
-   * @param defaultType The defauld document type
+   * @param defaultType The default document type
    * @param marcVersion The MARC version
-   * @param replacementInControlFields A ^ or # character which sould be replaced with space in control fields
-   * @return
+   * @param replacementInControlFields A ^ or # character which should be replaced with space in control fields
+   * @return The bibliographic record
    */
   public static BibliographicRecord createFromMarc4j(Record marc4jRecord,
                                                      MarcLeader.Type defaultType,
@@ -240,7 +240,7 @@ public class MarcFactory {
   public static BibliographicRecord createUnimarcFromMarc4j(Record marc4jRecord,
                                                             MarcLeader.Type defaultType,
                                                             UnimarcSchemaManager unimarcSchemaManager) {
-    var marcRecord = new UnimarcRecord();
+    var marcRecord = new UnimarcRecord(marc4jRecord.getControlNumber());
 
     if (marc4jRecord.getLeader() != null) {
       String data = marc4jRecord.getLeader().marshal();
@@ -409,8 +409,8 @@ public class MarcFactory {
     return field;
   }
 
-  private static List<String> extractList(JsonSelector selector, DataElement dataElement) {
-    List<XmlFieldInstance> instances = selector.get(dataElement.getPath());
+  private static <T extends XmlFieldInstance> List<String> extractList(JsonSelector<T> selector, DataElement dataElement) {
+    List<T> instances = selector.get(dataElement.getPath());
     List<String> values = new ArrayList<>();
     if (instances != null)
       for (XmlFieldInstance instance : instances)
@@ -418,7 +418,7 @@ public class MarcFactory {
     return values;
   }
 
-  private static String extractFirst(JsonSelector selector, DataElement dataElement) {
+  private static <T extends XmlFieldInstance> String extractFirst(JsonSelector<T> selector, DataElement dataElement) {
     List<String> list = extractList(selector, dataElement);
     if (!list.isEmpty())
       return list.get(0);

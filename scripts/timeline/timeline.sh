@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+# Creates a timeline
+# There are two ways of operation
+# - incremental: it checks only the most recently created directory
+# - overall: it checks all directories
+# the mode is decided automatically based on whether or not `history.sqlite` file exists
+# If you would like to start over, delete this file.
 
 . $(dirname $0)/../../setdir.sh
 
@@ -79,28 +85,30 @@ for DIR in $FILES; do
   echo "processing $DIR"
 
   if [[ -d ${HISTORICAL}/$DIR ]]; then
-    if [[ -f ${HISTORICAL}/$DIR/count.csv.gz ]]; then
-      gunzip ${HISTORICAL}/$DIR/count.csv.gz
-    fi
-    if [[ $(head -1 ${HISTORICAL}/$DIR/count.csv) == "total" ]]; then
-      tail -n +2 ${HISTORICAL}/$DIR/count.csv | awk '{print $1","$1}' | sed "s;^;$DIR,;" >> ${HISTORICAL}/count.csv
-    else
-      tail -n +2 ${HISTORICAL}/$DIR/count.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/count.csv
-    fi
+    if [[ -f ${HISTORICAL}/$DIR/count.csv.gz || -f ${HISTORICAL}/$DIR/count.csv ]]; then
+      if [[ -f ${HISTORICAL}/$DIR/count.csv.gz ]]; then
+        gunzip ${HISTORICAL}/$DIR/count.csv.gz
+      fi
+      if [[ $(head -1 ${HISTORICAL}/$DIR/count.csv) == "total" ]]; then
+        tail -n +2 ${HISTORICAL}/$DIR/count.csv | awk '{print $1","$1}' | sed "s;^;$DIR,;" >> ${HISTORICAL}/count.csv
+      else
+        tail -n +2 ${HISTORICAL}/$DIR/count.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/count.csv
+      fi
 
-    if [[ -f ${HISTORICAL}/$DIR/issue-total.csv.gz ]]; then
-      gunzip ${HISTORICAL}/$DIR/issue-total.csv.gz
-    fi
-    grep -v 'type,' ${HISTORICAL}/$DIR/issue-total.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/issue-total.csv
+      if [[ -f ${HISTORICAL}/$DIR/issue-total.csv.gz ]]; then
+        gunzip ${HISTORICAL}/$DIR/issue-total.csv.gz
+      fi
+      grep -v 'type,' ${HISTORICAL}/$DIR/issue-total.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/issue-total.csv
 
-    if [[ -f ${HISTORICAL}/$DIR/issue-by-category.csv.gz ]]; then
-      gunzip ${HISTORICAL}/$DIR/issue-by-category.csv.gz
+      if [[ -f ${HISTORICAL}/$DIR/issue-by-category.csv.gz ]]; then
+        gunzip ${HISTORICAL}/$DIR/issue-by-category.csv.gz
+      fi
+      grep -v 'id,category,instances,records' ${HISTORICAL}/$DIR/issue-by-category.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/issue-by-category.csv
+      if [[ -f ${HISTORICAL}/$DIR/issue-by-type.csv.gz ]]; then
+        gunzip ${HISTORICAL}/$DIR/issue-by-type.csv.gz
+      fi
+      grep -v 'id,categoryId,category,type,instances,records' ${HISTORICAL}/$DIR/issue-by-type.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/issue-by-type.csv
     fi
-    grep -v 'id,category,instances,records' ${HISTORICAL}/$DIR/issue-by-category.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/issue-by-category.csv
-    if [[ -f ${HISTORICAL}/$DIR/issue-by-type.csv.gz ]]; then
-      gunzip ${HISTORICAL}/$DIR/issue-by-type.csv.gz
-    fi
-    grep -v 'id,categoryId,category,type,instances,records' ${HISTORICAL}/$DIR/issue-by-type.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/issue-by-type.csv
   fi
 done
 

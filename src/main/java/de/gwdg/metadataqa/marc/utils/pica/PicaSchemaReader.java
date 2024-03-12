@@ -20,15 +20,16 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PicaSchemaReader {
 
   private static final Logger logger = Logger.getLogger(PicaSchemaReader.class.getCanonicalName());
 
-  private JSONParser parser = new JSONParser(JSONParser.MODE_RFC4627);
-  private Map<String, PicaFieldDefinition> map = new HashMap<>();
-  private PicaSchemaManager schema = new PicaSchemaManager();
+  private final JSONParser parser = new JSONParser(JSONParser.MODE_RFC4627);
+  private final Map<String, PicaFieldDefinition> map = new HashMap<>();
+  private final PicaSchemaManager schema = new PicaSchemaManager();
 
   private PicaSchemaReader(String fileName) {
     try {
@@ -74,7 +75,7 @@ public class PicaSchemaReader {
     }
 
     if (schemaFile != null && new File(schemaFile).exists()) {
-      logger.info("read from file: " + schemaFile);
+      logger.log(Level.INFO, "read from file: {0}", schemaFile);
       picaSchemaManager = PicaSchemaReader.createSchema(schemaFile);
     } else {
       logger.info("read from resource");
@@ -93,11 +94,7 @@ public class PicaSchemaReader {
     process(obj);
   }
 
-  private void process(JSONObject obj) throws IOException, ParseException, URISyntaxException {
-    // Path tagsFile = FileUtils.getPath(fileName);
-
-    // Object obj = parser.parse(new FileReader(fileName));
-    JSONObject jsonObject = (JSONObject) obj;
+  private void process(JSONObject jsonObject) throws IOException, ParseException, URISyntaxException {
     JSONObject fields = (JSONObject) jsonObject.get("fields");
     for (Map.Entry<String, Object> entry : fields.entrySet()) {
       String id = entry.getKey();
@@ -115,7 +112,7 @@ public class PicaSchemaReader {
       tag.setOccurrence((String) field.get("occurrence"));
       tag.setCounter((String) field.get("counter"));
       if (tag.getCounter() != null && tag.getOccurrence() != null) {
-        logger.info(id + " has both counter and occurrence");
+        logger.log(Level.INFO, "{0} has both counter and occurrence", id);
       }
       processSubfields(field, tag);
       PicaFieldDefinition definition = new PicaFieldDefinition(tag);
@@ -171,11 +168,11 @@ public class PicaSchemaReader {
         } else if (key.equals("pica3")) {
           // skip
         } else {
-          logger.warning("unhandled key in subfield: " + key);
+          logger.log(Level.WARNING, "unhandled key in subfield: {0}", key);
         }
       }
     } else {
-      logger.warning("the JSON node's type is not JSONObject, but " + o.getClass().getCanonicalName());
+      logger.log(Level.WARNING, "the JSON node's type is not JSONObject, but {0}", o.getClass().getCanonicalName());
     }
     return definition;
   }

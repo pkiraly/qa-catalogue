@@ -56,6 +56,7 @@ options:
  -C, --indexWithTokenizedField        index data elements as tokenized field as well
  -D, --commitAt <arg>                 commit index after this number of records
  -E, --indexFieldCounts               index the count of field instances
+ -F, --fieldPrefix <arg>              field prefix
  -Z, --core <arg>                     The index name (core)
  -Y, --file-path <arg>                File path
  -X, --file-mask <arg>                File mask
@@ -73,8 +74,8 @@ if [ $# -eq 0 ]; then
   show_usage
 fi
 
-SHORT_OPTIONS="m:hnl:o:i:d:qabpxyt:rz:v:f:s:g:1:2:u:j:w:k:c:e:3:4:S:AT:BCD:EZ:Y:X:WVU"
-LONG_OPTIONS="marcVersion:,help,nolog,limit:,offset:,id:,defaultRecordType:,fixAlephseq,fixAlma,fixKbr,alephseq,marcxml,lineSeparated,outputDir:,trimId,ignorableFields:,ignorableRecords:,marcFormat:,dataSource:,defaultEncoding:,alephseqLineType:,picaIdField:,picaSubfieldSeparator:,picaSchemaFile:,schemaType:,picaRecordType:,allowableRecords:,groupBy:,groupListFile:,solrForScoresUrl:,solrUrl:,doCommit,solrFieldType:,useEmbedded,indexWithTokenizedField,commitAt:,indexFieldCounts,core:,file-path:,file-mask:,purge,status,no-delete"
+SHORT_OPTIONS="m:hnl:o:i:d:qabpxyt:rz:v:f:s:g:1:2:u:j:w:k:c:e:3:4:S:AT:BCD:EF:Z:Y:X:WVU"
+LONG_OPTIONS="marcVersion:,help,nolog,limit:,offset:,id:,defaultRecordType:,fixAlephseq,fixAlma,fixKbr,alephseq,marcxml,lineSeparated,outputDir:,trimId,ignorableFields:,ignorableRecords:,marcFormat:,dataSource:,defaultEncoding:,alephseqLineType:,picaIdField:,picaSubfieldSeparator:,picaSchemaFile:,schemaType:,picaRecordType:,allowableRecords:,groupBy:,groupListFile:,solrForScoresUrl:,solrUrl:,doCommit,solrFieldType:,useEmbedded,indexWithTokenizedField,commitAt:,indexFieldCounts,fieldPrefix:,core:,file-path:,file-mask:,purge,status,no-delete"
 
 GETOPT=$(getopt \
   -o ${SHORT_OPTIONS} \
@@ -131,6 +132,7 @@ while true ; do
     -C|--indexWithTokenizedField)  PARAMS="$PARAMS --indexWithTokenizedField" ;    shift   ;;
     -D|--commitAt)                 PARAMS="$PARAMS --commitAt $2" ;                shift 2 ;;
     -E|--indexFieldCounts)         PARAMS="$PARAMS --indexFieldCounts" ;           shift   ;;
+    -F|--fieldPrefix)              PARAMS="$PARAMS --fieldPrefix $2" ;             shift 2 ;;
     -Z|--core)                     CORE="$2" ;                                     shift 2 ;;
     -Y|--file-path)                FILE_PATH="$2" ;                                shift 2 ;;
     -X|--file-mask)                FILE_MASK="$2" ;                                shift 2 ;;

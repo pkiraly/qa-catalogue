@@ -1,10 +1,11 @@
 package de.gwdg.metadataqa.marc.dao.record;
 
 import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
-import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
+import de.gwdg.metadataqa.marc.analysis.shelfready.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -35,12 +36,12 @@ public class Marc21AuthorityRecord extends Marc21Record {
 
   @Override
   public List<DataField> getAuthorityFields() {
-    return null;
+    return Collections.emptyList();
   }
 
   @Override
   public Map<DataField, AuthorityCategory> getAuthorityFieldsMap() {
-    return null;
+    return Collections.emptyMap();
   }
 
   @Override
@@ -65,6 +66,6 @@ public class Marc21AuthorityRecord extends Marc21Record {
 
   @Override
   public Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap() {
-    return null;
+    return Collections.emptyMap();
   }
 }

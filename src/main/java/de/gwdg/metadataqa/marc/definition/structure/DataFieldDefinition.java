@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class DataFieldDefinition implements BibliographicFieldDefinition, Serializable {
+
+  private static final long serialVersionUID = 4422093591547118076L;
   protected String tag;
   protected String bibframeTag;
   protected String mqTag;

@@ -19,7 +19,7 @@ public class UnimarcFieldDefinition extends DataFieldDefinition {
     public UnimarcFieldDefinition(String tag, String label, boolean repeatable, boolean required) {
         this.tag = tag;
         this.label = label;
-        this.cardinality = repeatable ? Cardinality.Repeatable : Cardinality.Nonrepeatable;
+        this.cardinality = Cardinality.get(repeatable);
         this.required = required;
     }
 

@@ -9,7 +9,6 @@ import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.structure.Marc21DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
-import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
@@ -222,7 +221,7 @@ public class AvramMarc21SchemaReader {
         if (codeEntry.getValue() instanceof JSONObject) {
           JSONObject property = (JSONObject) codeEntry.getValue();
           if (!code.equals(property.get("code")))
-            logger.warning(String.format("code is different to code value: %s vs %s", code, (String)property.get("coden")));
+            logger.warning(String.format("code is different to code value: %s vs %s", code, property.get("coden")));
           else
             list.add(new EncodedValue(code, (String) property.get("label")));
           for (String key : property.keySet()) {

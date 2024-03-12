@@ -39,6 +39,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -102,7 +103,7 @@ public class MarcToSolrTest {
   }
 
   @Test
-  public void run0() {
+  public void runEmbeddedSolr() {
     try {
       String outputDir = TestUtils.getPath("output");
       MarcToSolrParameters params = new MarcToSolrParameters(new String[]{
@@ -144,6 +145,66 @@ public class MarcToSolrTest {
       for (SolrDocument doc : documents) {
         SolrInputDocument intention = validation.get(doc.get("id"));
         assertEquals(intention.getFieldValues("groupId_is"), doc.getFieldValues("groupId_is"));
+      }
+    } catch (ParseException | SolrServerException | IOException e) {
+      throw new RuntimeException(e);
+    }
+
+    EmbeddedSolrClientFactory.shutDown();
+  }
+
+  @Test
+  public void runEmbeddedSolr_with_fieldPrefix() {
+    try {
+      String outputDir = TestUtils.getPath("output");
+      MarcToSolrParameters params = new MarcToSolrParameters(new String[]{
+        "--schemaType", "PICA",
+        "--marcFormat", "PICA_NORMALIZED",
+        "--outputDir", outputDir,
+        "--solrFieldType", "MIXED",
+        "--fieldPrefix", "q",
+        "--useEmbedded",
+        "--solrUrl", "http://localhost:8983/solr/k10plus_pica_grouped_dev",
+        "--solrForScoresUrl", "http://localhost:8983/solr/k10plus_pica_grouped_scores",
+        TestUtils.getPath("pica/pica-with-holdings-info.dat")
+      });
+      EmbeddedSolrServer mainClient = EmbeddedSolrClientFactory.getClient(coreFromUrl(params.getSolrUrl()));
+      EmbeddedSolrServer validationClient = EmbeddedSolrClientFactory.getClient(coreFromUrl(params.getSolrForScoresUrl()));
+      params.setMainClient(mainClient);
+      params.setValidationClient(validationClient);
+
+      Map<String, SolrInputDocument> validation = new HashMap<>();
+      List<String> ids = List.of("010000011", "01000002X", "010000038", "010000054", "010000070", "010000089", "010000127", "010000151", "010000178", "010000194");
+      for (String id : ids) {
+        SolrInputDocument document = new SolrInputDocument();
+        document.addField("id", id);
+        document.addField("groupId_is", getNRandomNumbers(5, 1, 10));
+        document.addField("errorId_is", getNRandomNumbers(5, 10, 20));
+        validation.put(id, document);
+        validationClient.add(document);
+      }
+      validationClient.commit();
+
+      MarcToSolr processor = new MarcToSolr(params);
+      RecordIterator iterator = new RecordIterator(processor);
+      iterator.start();
+      assertEquals("done", iterator.getStatus());
+
+      final QueryResponse response = mainClient.query(new MapSolrParams(Map.of("q", "*:*")));
+      final SolrDocumentList documents = response.getResults();
+      assertNotNull(documents);
+      assertEquals(10, documents.getNumFound());
+      for (SolrDocument doc : documents) {
+        SolrInputDocument intention = validation.get(doc.get("id"));
+        assertEquals(intention.getFieldValues("groupId_is"), doc.getFieldValues("groupId_is"));
+        for (String fieldName : doc.getFieldNames()) {
+          if (!fieldName.equals("id") && !fieldName.endsWith("_sni") && !fieldName.endsWith("_is")) {
+            assertTrue(
+              String.format("fieldName '%s' should start with '%s'", fieldName, params.getFieldPrefix()),
+              fieldName.startsWith(params.getFieldPrefix())
+            );
+          }
+        }
       }
     } catch (ParseException | SolrServerException | IOException e) {
       throw new RuntimeException(e);

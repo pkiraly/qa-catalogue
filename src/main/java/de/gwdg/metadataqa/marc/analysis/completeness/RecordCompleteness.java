@@ -11,7 +11,9 @@ import de.gwdg.metadataqa.marc.dao.MarcControlField;
 import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.MarcRecord;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
+import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.tags.TagCategory;
 import de.gwdg.metadataqa.marc.utils.BibiographicPath;
 import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
@@ -30,18 +32,24 @@ import java.util.regex.Pattern;
 public class RecordCompleteness {
 
   private static final Logger logger = Logger.getLogger(RecordCompleteness.class.getCanonicalName());
+
+  /**
+   * Pattern to match one single digit.
+   */
   private static final Pattern numericalPattern = Pattern.compile("^(\\d)$");
   public static final String IND_1 = "$!ind1";
   public static final String IND_2 = "$!ind2";
   public static final String NUMERICAL_SUBFIELD = "$|";
   public static final String SUBFIELD = "$";
-  private static Map<String, Map<String, String>> keyMap = new HashMap<>();
+  private static Map<String, Map<String, String>> sortKeyMap = new HashMap<>();
 
   private final BibiographicPath groupBy;
   private final CompletenessParameters parameters;
   private final CompletenessDAO completenessDAO;
   private final CompletenessPlugin plugin;
   BibliographicRecord bibliographicRecord;
+
+  // TODO Ask why the documentType is relevant. Why is it a String and not a MarcLeader.Type?
   String documentType;
   boolean hasGroupBy;
   Map<String, Integer> recordFrequency = new HashMap<>();
@@ -61,7 +69,8 @@ public class RecordCompleteness {
     this.hasGroupBy = (groupBy != null);
 
     if (hasGroupBy) {
-      List<String> idLists = parameters.isPica() ? bibliographicRecord.select((PicaPath) groupBy) : null; // TODO: MARC21
+      // TODO: MARC21 and UNIMARC
+      List<String> idLists = parameters.isPica() ? bibliographicRecord.select((PicaPath) groupBy) : null;
       groupIds = QACli.extractGroupIds(idLists);
     }
   }
@@ -79,63 +88,51 @@ public class RecordCompleteness {
     for (String library : extract(bibliographicRecord, "852", "a"))
       Utils.count(library, completenessDAO.getLibraryCounter());
 
+    // If it's UNIMARC or MARC21
     if (!parameters.isPica()) {
-      processLeader();
-      processSimpleControlfields();
-      processPositionalControlFields();
+      MarcRecord marcRecord = (MarcRecord) bibliographicRecord;
+      processLeader(marcRecord);
+      processSimpleControlfields(marcRecord);
+    }
+    // If it's only MARC21
+    if (parameters.isMarc21()) {
+      Marc21Record marcRecord = (Marc21Record) bibliographicRecord;
+      processPositionalControlFields(marcRecord);
     }
     processDataFields();
   }
 
-  private void processLeader() {
-    if (bibliographicRecord instanceof Marc21Record && ((Marc21Record) bibliographicRecord).getLeader() != null) {
-      for (ControlValue position : ((Marc21Record) bibliographicRecord).getLeader().getValuesList()) {
+  private void processLeader(MarcRecord marcRecord) {
+    if (marcRecord.getLeader() == null) {
+      return;
+    }
+
+    for (ControlValue position : marcRecord.getLeader().getValuesList()) {
+      // For each value of the leader, we count the cardinality of the element
+      String marcPath = position.getDefinition().getId();
+      countByMarcPath(marcPath);
+    }
+  }
+
+  private void processSimpleControlfields(MarcRecord marcRecord) {
+    for (MarcControlField field : marcRecord.getSimpleControlfields()) {
+      if (field == null) {
+        continue;
+      }
+
+      String marcPath = field.getDefinition().getTag();
+      countByMarcPath(marcPath);
+    }
+  }
+
+  private void processPositionalControlFields(Marc21Record marcRecord) {
+    for (MarcPositionalControlField field : marcRecord.getPositionalControlfields()) {
+      if (field == null) {
+        continue;
+      }
+      for (ControlValue position : field.getValuesList()) {
         String marcPath = position.getDefinition().getId();
-        if (hasGroupBy()) {
-          for (String groupId : groupIds)
-            addGroupedElementCardinality(marcPath, groupId);
-        } else {
-          Utils.count(marcPath, completenessDAO.getElementCardinality().get(documentType));
-          Utils.count(marcPath, completenessDAO.getElementCardinality().get(Completeness.ALL_TYPE));
-        }
-        Utils.count(marcPath, recordFrequency);
-        Utils.count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
-      }
-    }
-  }
-
-  private void processSimpleControlfields() {
-    for (MarcControlField field : ((Marc21Record) bibliographicRecord).getSimpleControlfields()) {
-      if (field != null) {
-        String marcPath = field.getDefinition().getTag();
-        if (hasGroupBy()) {
-          for (String groupId : groupIds)
-            addGroupedElementCardinality(marcPath, groupId);
-        } else {
-          Utils.count(marcPath, completenessDAO.getElementCardinality().get(documentType));
-          Utils.count(marcPath, completenessDAO.getElementCardinality().get(Completeness.ALL_TYPE));
-        }
-        Utils.count(marcPath, recordFrequency);
-        Utils.count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
-      }
-    }
-  }
-
-  private void processPositionalControlFields() {
-    for (MarcPositionalControlField field : ((Marc21Record) bibliographicRecord).getPositionalControlfields()) {
-      if (field != null) {
-        for (ControlValue position : field.getValuesList()) {
-          String marcPath = position.getDefinition().getId();
-          if (hasGroupBy()) {
-            for (String groupId : groupIds)
-              addGroupedElementCardinality(marcPath, groupId);
-          } else {
-            Utils.count(marcPath, completenessDAO.getElementCardinality().get(documentType));
-            Utils.count(marcPath, completenessDAO.getElementCardinality().get(Completeness.ALL_TYPE));
-          }
-          Utils.count(marcPath, recordFrequency);
-          Utils.count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
-        }
+        countByMarcPath(marcPath);
       }
     }
   }
@@ -147,6 +144,7 @@ public class RecordCompleteness {
 
       Utils.count(getPackageName(field), recordPackageCounter);
       Utils.count(field.getTagWithOccurrence(), recordFrequency);
+
       for (String marcPath : getMarcPaths(field))
         Utils.count(marcPath, recordFrequency);
 
@@ -180,6 +178,18 @@ public class RecordCompleteness {
     }
   }
 
+  private void countByMarcPath(String marcPath) {
+    if (hasGroupBy()) {
+      for (String groupId : groupIds)
+        addGroupedElementCardinality(marcPath, groupId);
+    } else {
+      Utils.count(marcPath, completenessDAO.getElementCardinality().get(documentType));
+      Utils.count(marcPath, completenessDAO.getElementCardinality().get(Completeness.ALL_TYPE));
+    }
+    Utils.count(marcPath, recordFrequency);
+    Utils.count(TagCategory.TAGS_00X.getPackageName(), recordPackageCounter);
+  }
+
   public Set<String> getGroupIds() {
     return groupIds;
   }
@@ -203,69 +213,95 @@ public class RecordCompleteness {
   private List<String> extract(BibliographicRecord marcRecord, String tag, String subfield) {
     List<String> values = new ArrayList<>();
     List<DataField> fields = marcRecord.getDatafield(tag);
-    if (fields != null && !fields.isEmpty()) {
-      for (DataField field : fields) {
-        List<MarcSubfield> subfieldInstances = field.getSubfield(subfield);
-        if (subfieldInstances != null) {
-          for (MarcSubfield subfieldInstance : subfieldInstances) {
-            values.add(subfieldInstance.getValue());
-          }
-        }
+    if (fields == null || fields.isEmpty()) {
+      return values;
+    }
+
+    for (DataField field : fields) {
+      List<MarcSubfield> subfieldInstances = field.getSubfield(subfield);
+      if (subfieldInstances == null) {
+        continue;
+      }
+      for (MarcSubfield subfieldInstance : subfieldInstances) {
+        values.add(subfieldInstance.getValue());
       }
     }
     return values;
   }
 
+  /**
+   * Returns the package name of a given field. Tries to get the package name from the cache first, and if it is not
+   * present, it will be retrieved from the plugin which was supplied to the constructor.
+   * @param field The field to get the package name for
+   * @return The package name of the given field
+   */
   private String getPackageName(DataField field) {
     String packageName;
-    if (field.getDefinition() != null) {
-      if (completenessDAO.getPackageNameCache().containsKey(field.getDefinition()))
-        packageName = completenessDAO.getPackageNameCache().get(field.getDefinition());
-      else {
-        packageName = plugin.getPackageName(field);
-        if (StringUtils.isBlank(packageName)) {
-          logger.log(Level.WARNING, "{0} has no package. /{1}", new Object[]{field, field.getDefinition().getClass()});
-          packageName = TagCategory.OTHER.getPackageName();
-        }
-        completenessDAO.getPackageNameCache().put(field.getDefinition(), packageName);
-      }
-    } else {
+    DataFieldDefinition fieldDefinition = field.getDefinition();
+
+    if (fieldDefinition == null) {
+      packageName = TagCategory.OTHER.getPackageName();
+      return packageName;
+    }
+
+    Map<DataFieldDefinition, String> packageNameCache = completenessDAO.getPackageNameCache();
+    if (packageNameCache.containsKey(fieldDefinition)) {
+      packageName = packageNameCache.get(fieldDefinition);
+      return packageName;
+    }
+
+    packageName = plugin.getPackageName(field);
+    if (StringUtils.isBlank(packageName)) {
+      logger.log(Level.WARNING, "{0} has no package. /{1}", new Object[]{field, fieldDefinition.getClass()});
       packageName = TagCategory.OTHER.getPackageName();
     }
+    packageNameCache.put(fieldDefinition, packageName);
     return packageName;
   }
 
   private List<String> getMarcPaths(DataField field) {
     List<String> marcPaths = new ArrayList<>();
+    DataFieldDefinition fieldDefinition = field.getDefinition();
 
-    if (parameters.isMarc21()) {
-      if (field.getInd1() != null
-          && field.getDefinition() != null
-          && (field.getDefinition().getInd1().exists()
-             || !field.getInd1().equals(" ")))
+    if (!parameters.isPica() && fieldDefinition != null) {
+      if (field.getInd1() != null && (fieldDefinition.getInd1().exists() || !field.getInd1().equals(" "))) {
         marcPaths.add(field.getTagWithOccurrence() + IND_1);
+      }
 
-      if (field.getInd2() != null
-          && field.getDefinition() != null
-          && (field.getDefinition().getInd2().exists() || !field.getInd2().equals(" ")))
-         marcPaths.add(field.getTagWithOccurrence() + IND_2);
+      if (field.getInd2() != null && (fieldDefinition.getInd2().exists() || !field.getInd2().equals(" "))) {
+        marcPaths.add(field.getTagWithOccurrence() + IND_2);
+      }
     }
 
-    for (MarcSubfield subfield : field.getSubfields())
-      marcPaths.add(getKey(field, subfield));
-
+    for (MarcSubfield subfield : field.getSubfields()) {
+      marcPaths.add(getSubfieldMarcPath(field, subfield));
+    }
     return marcPaths;
   }
 
-  private static String getKey(DataField field, MarcSubfield subfield) {
-    String f = field.getTagWithOccurrence();
-    String c = subfield.getCode();
-    keyMap.computeIfAbsent(f, s -> new HashMap<>());
-    if (!keyMap.get(f).containsKey(c)) {
-      String key = numericalPattern.matcher(c).matches() ? f + NUMERICAL_SUBFIELD + c : f + SUBFIELD + c;
-      keyMap.get(f).put(c, key);
+  /**
+   * Returns the MARC path for a given subfield in such a format that it can be used as a sorting key, so that
+   * the subfields are sorted by having the numerical subfields after the letter subfields.
+   * @param field The data field that contains the subfield
+   * @param subfield The subfield to get the MARC path for
+   * @return The MARC path for the given subfield
+   */
+  private static String getSubfieldMarcPath(DataField field, MarcSubfield subfield) {
+    String fieldTag = field.getTagWithOccurrence();
+    String subfieldCode = subfield.getCode();
+
+    sortKeyMap.computeIfAbsent(fieldTag, s -> new HashMap<>());
+
+    Map<String, String> fieldMap = sortKeyMap.get(fieldTag);
+
+    boolean isSubfieldCodePresent = fieldMap.containsKey(subfieldCode);
+    if (!isSubfieldCodePresent) {
+      boolean isDigit = numericalPattern.matcher(subfieldCode).matches();
+
+      String key = isDigit ? fieldTag + NUMERICAL_SUBFIELD + subfieldCode : fieldTag + SUBFIELD + subfieldCode;
+      fieldMap.put(subfieldCode, key);
     }
-    return keyMap.get(f).get(c);
+    return fieldMap.get(subfieldCode);
   }
 
   private void addGroupedElementCardinality(String marcPath, String groupId) {

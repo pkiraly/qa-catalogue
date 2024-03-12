@@ -6,8 +6,7 @@ import de.gwdg.metadataqa.marc.Extractable;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
-import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
-import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
+import de.gwdg.metadataqa.marc.analysis.shelfready.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcControlField;
@@ -48,6 +47,10 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
   private static final Map<String, Boolean> undefinedTags = new HashMap<>();
 
   protected List<DataField> datafields;
+
+  /**
+   * Key-value pairs of tag and list of datafields that have the tag
+   */
   protected Map<String, List<DataField>> datafieldIndex;
   protected Map<String, List<MarcControlField>> controlfieldIndex;
   Map<String, List<String>> mainKeyValuePairs;
@@ -351,31 +354,60 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return results;
   }
 
+  /**
+   * Selects the datafields of the record that match the selector. The selected datafields are added to the list of
+   * selected results and returned.
+   * @param selector The selector that lists the field and its subfields to select
+   * @return The final result of the selection
+   */
   public List<String> select(MarcSpec selector) {
     List<String> results = new ArrayList<>();
-    if (datafieldIndex.containsKey(selector.getFieldTag())) {
-      selectDatafields(selector, results);
+    if (!datafieldIndex.containsKey(selector.getFieldTag())) {
+      return results;
+    }
+
+    List<DataField> selectedDatafields = datafieldIndex.get(selector.getFieldTag());
+
+    for (DataField field : selectedDatafields) {
+      List<String> selectedFromDatafield = selectDatafield(field, selector);
+      results.addAll(selectedFromDatafield);
     }
     return results;
   }
 
-  protected void selectDatafields(MarcSpec selector, List<String> results) {
-    for (DataField field : datafieldIndex.get(selector.getFieldTag())) {
-      if (field == null)
+  /**
+   * Selects the datafield's subfields that are listed in the selector. If no subfields are listed in the selector,
+   * then all subfields of the field are selected. The selected subfields are added to the list of selected results.
+   * @param field The datafield to select from
+   * @param selector The selector that lists subfields to select
+   * @return The final result of the selection
+   */
+  protected List<String> selectDatafield(DataField field, MarcSpec selector) {
+    List<String> selectedResults = new ArrayList<>();
+    if (field == null) {
+      return selectedResults;
+    }
+
+    List<String> selectorSubfieldCodes = selector.getSubfieldsAsList();
+
+    // If the subfield list of the selector is empty, then we want to select all subfields of the field
+    if (selectorSubfieldCodes.isEmpty()) {
+      selectedResults.add(joinAllSubfields(field));
+      return selectedResults;
+    }
+
+    // Otherwise, we select the field's subfields that are listed in the selector
+    for (String subfieldCode : selectorSubfieldCodes) {
+      List<MarcSubfield> subfields = field.getSubfield(subfieldCode);
+      if (subfields == null) {
         continue;
-      List<String> codes = selector.getSubfieldsAsList();
-      if (codes.isEmpty()) {
-        results.add(joinAllSubfields(field));
-      } else {
-        for (String subfieldCode : codes) {
-          List<MarcSubfield> subfields = field.getSubfield(subfieldCode);
-          if (subfields == null)
-            continue;
-          for (MarcSubfield subfield : subfields)
-            results.add(subfield.getValue());
-        }
+      }
+      for (MarcSubfield subfield : subfields) {
+        selectedResults.add(subfield.getValue());
       }
     }
+
+    return selectedResults;
   }
 
   protected static String joinAllSubfields(DataField field) {
@@ -466,7 +498,6 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
   public abstract boolean isSubjectTag(String tag);
   public abstract boolean isSkippableSubjectSubfield(String tag, String code);
   public abstract Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap();
-  public abstract Map<ThompsonTraillFields, List<String>> getThompsonTraillTagsMap();
 
   public List<DataField> getSubjects() {
     List<DataField> subjects = new ArrayList<>();

@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Verbundkatalog B3Kat des Bibliotheksverbundes Bayern (BVB) und des Kooperativen Bibliotheksverbundes Berlin-Brandenburg (KOBV)
+# https://www.bib-bvb.de/
 
 . ./setdir.sh
 

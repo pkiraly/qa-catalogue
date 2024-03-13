@@ -11,6 +11,7 @@ import de.gwdg.metadataqa.marc.definition.general.indexer.subject.Classification
 import de.gwdg.metadataqa.marc.utils.pica.PicaSubjectManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaVocabularyManager;
 import de.gwdg.metadataqa.marc.utils.pica.VocabularyEntry;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,7 +41,7 @@ public class ClassificationAnalyzer {
 
   private final ClassificationStatistics statistics;
   private ClassificationParameters parameters = null;
-  private BibliographicRecord marcRecord;
+  private BibliographicRecord bibliographicRecord;
   private List<Schema> schemasInRecord;
   private static List<FieldWithScheme> picaFieldsWithScheme = PicaSubjectManager.readFieldsWithScheme();
 
@@ -127,16 +128,18 @@ public class ClassificationAnalyzer {
     new FieldWithScheme("045Y", "SSG-Angabe für Fachkataloge")
   );
 
-  public ClassificationAnalyzer(BibliographicRecord marcRecord, ClassificationStatistics statistics) {
-    this.marcRecord = marcRecord;
+  public ClassificationAnalyzer(BibliographicRecord bibliographicRecord, ClassificationStatistics statistics) {
+    this.bibliographicRecord = bibliographicRecord;
     this.statistics = statistics;
-    if (marcRecord.getSchemaType().equals(SchemaType.PICA) && picaVocabularyManager == null) {
+    if (bibliographicRecord.getSchemaType().equals(SchemaType.PICA) && picaVocabularyManager == null) {
       picaVocabularyManager = PicaVocabularyManager.getInstance();
     }
   }
 
-  public ClassificationAnalyzer(BibliographicRecord marcRecord, ClassificationStatistics statistics, ClassificationParameters parameters) {
-    this(marcRecord, statistics);
+  public ClassificationAnalyzer(BibliographicRecord bibliographicRecord,
+                                ClassificationStatistics statistics,
+                                ClassificationParameters parameters) {
+    this(bibliographicRecord, statistics);
     this.parameters = parameters;
   }
 
@@ -144,13 +147,13 @@ public class ClassificationAnalyzer {
     var total = 0;
     schemasInRecord = new ArrayList<>();
 
-    if (marcRecord.getSchemaType().equals(SchemaType.MARC21)) {
+    if (bibliographicRecord.getSchemaType().equals(SchemaType.MARC21)) {
       total = processFieldsWithIndicator1AndSubfield2(total);
       total = processFieldsWithIndicator2AndSubfield2(total);
       total = processFieldsWithSubfield2(total);
       total = processFieldsWithoutSource(total);
       total = processFieldsWithScheme(total, MARC21_FIELD_WITH_SCHEMES);
-    } else if (marcRecord.getSchemaType().equals(SchemaType.PICA)) {
+    } else if (bibliographicRecord.getSchemaType().equals(SchemaType.PICA)) {
       total = processFieldsWithSchemePica(total, picaFieldsWithScheme);
     }
 
@@ -162,7 +165,7 @@ public class ClassificationAnalyzer {
   private void increaseCounters(int total) {
     count((total > 0), statistics.getHasClassifications());
     count(total, statistics.getSchemaHistogram());
-    statistics.getFrequencyExamples().computeIfAbsent(total, s -> marcRecord.getId(true));
+    statistics.getFrequencyExamples().computeIfAbsent(total, s -> bibliographicRecord.getId(true));
 
     if (parameters != null && parameters.doCollectCollocations()) {
       List<String> collocation = getCollocationInRecord();
@@ -173,7 +176,7 @@ public class ClassificationAnalyzer {
 
   private int processFieldsWithScheme(int total, List<FieldWithScheme> fieldsWithScheme) {
     for (FieldWithScheme fieldWithScheme : fieldsWithScheme) {
-      var count = processFieldWithScheme(marcRecord, fieldWithScheme);
+      var count = processFieldWithScheme(bibliographicRecord, fieldWithScheme);
       if (count > 0)
         total += count;
     }
@@ -204,8 +207,10 @@ public class ClassificationAnalyzer {
 
   private int processPicaSubject(String tag, String voc, String schema) {
     int count = 0;
-    if (marcRecord.hasDatafield(tag)) {
-      List<DataField> fields = marcRecord.getDatafield(tag);
+    boolean debug = tag.equals("045Q/01");
+
+    if (bibliographicRecord.hasDatafield(tag)) {
+      List<DataField> fields = bibliographicRecord.getDatafield(tag);
       List<Schema> schemas = new ArrayList<>();
       for (DataField field : fields) {
         String firstSubfield = null;
@@ -226,7 +231,7 @@ public class ClassificationAnalyzer {
           updateSchemaSubfieldStatistics(field, currentSchema);
           count++;
         } else {
-          logger.log(Level.SEVERE, "undetected subfield in record {0} {1}", new Object[]{marcRecord.getId(), field.toString()});
+          logger.log(Level.SEVERE, "undetected subfield in record {0} {1}", new Object[]{bibliographicRecord.getId(), field.toString()});
         }
       }
       registerSchemas(schemas);
@@ -236,7 +241,7 @@ public class ClassificationAnalyzer {
 
   private int processFieldsWithoutSource(int total) {
     for (String tag : fieldsWithoutSource) {
-      var count = processFieldWithoutSource(marcRecord, tag);
+      var count = processFieldWithoutSource(bibliographicRecord, tag);
       if (count > 0)
         total += count;
     }
@@ -245,7 +250,7 @@ public class ClassificationAnalyzer {
 
   private int processFieldsWithSubfield2(int total) {
     for (String tag : fieldsWithSubfield2) {
-      var count = processFieldWithSubfield2(marcRecord, tag);
+      var count = processFieldWithSubfield2(bibliographicRecord, tag);
       if (count > 0)
         total += count;
     }
@@ -254,7 +259,7 @@ public class ClassificationAnalyzer {
 
   private int processFieldsWithIndicator2AndSubfield2(int total) {
     for (String tag : fieldsWithIndicator2AndSubfield2) {
-      var count = processFieldWithIndicator2AndSubfield2(marcRecord, tag);
+      var count = processFieldWithIndicator2AndSubfield2(bibliographicRecord, tag);
       if (count > 0)
         total += count;
     }
@@ -263,7 +268,7 @@ public class ClassificationAnalyzer {
 
   private int processFieldsWithIndicator1AndSubfield2(int total) {
     for (String tag : fieldsWithIndicator1AndSubfield2) {
-      var count = processFieldWithIndicator1AndSubfield2(marcRecord, tag);
+      var count = processFieldWithIndicator1AndSubfield2(bibliographicRecord, tag);
       if (count > 0)
         total += count;
     }

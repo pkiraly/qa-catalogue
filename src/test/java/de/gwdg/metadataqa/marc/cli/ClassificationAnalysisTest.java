@@ -222,8 +222,7 @@ public class ClassificationAnalysisTest extends CliTestUtils {
     String actual = Files.readString(output.toPath());
     assertEquals(
       "records-with-classification,count\n" +
-      "false,4\n" +
-      "true,2\n",
+      "true,6\n",
       actual);
 
     output = new File(outputDir, "classifications-by-schema.csv");
@@ -240,12 +239,13 @@ public class ClassificationAnalysisTest extends CliTestUtils {
      */
     assertEquals(
       "id,field,location,scheme,abbreviation,abbreviation4solr,recordcount,instancecount,type\n" +
-      "4,044A,$a,\"LoC Subject Headings\",\"lcsh0\",lcsh0,1,2,SUBJECT_HEADING\n" +
-      "5,045A,$a,\"LCC-Notation\",\"lcc\",lcc,1,1,CLASSIFICATION_SCHEME\n" +
-      "1,045E,$a,\"Sachgruppen der Deutschen Nationalbibliografie bis 2003\",\"sdnb\",sdnb,2,2,UNKNOWN\n" +
-      "6,045F,$a,\"DDC-Notation\",\"ddc\",ddc,1,1,CLASSIFICATION_SCHEME\n" +
-      "2,045R,$a,\"Regensburger Verbundklassifikation (RVK)\",\"rvk\",rvk,1,1,CLASSIFICATION_SCHEME\n" +
-      "3,045V,$a,\"SSG-Nummer/FID-Kennzeichen\",\"045V\",045v,1,1,UNKNOWN\n",
+        "5,044A,$a,\"LoC Subject Headings\",\"lcsh0\",lcsh0,1,2,SUBJECT_HEADING\n" +
+        "6,045A,$a,\"LCC-Notation\",\"lcc\",lcc,1,1,CLASSIFICATION_SCHEME\n" +
+        "2,045E,$a,\"Sachgruppen der Deutschen Nationalbibliografie bis 2003\",\"sdnb\",sdnb,2,2,UNKNOWN\n" +
+        "7,045F,$a,\"DDC-Notation\",\"ddc\",ddc,1,1,CLASSIFICATION_SCHEME\n" +
+        "1,045Q/01,$a,\"Basisklassifikation\",\"045Q/01\",045q_01,5,5,UNKNOWN\n" +
+        "3,045R,$a,\"Regensburger Verbundklassifikation (RVK)\",\"rvk\",rvk,1,1,CLASSIFICATION_SCHEME\n" +
+        "4,045V,$a,\"SSG-Nummer/FID-Kennzeichen\",\"045V\",045v,1,1,UNKNOWN\n",
       actual);
 
     output = new File(outputDir, "classifications-by-schema-subfields.csv");
@@ -262,13 +262,14 @@ public class ClassificationAnalysisTest extends CliTestUtils {
 
     assertEquals(
       "id,subfields,count\n" +
-      "4,a,1\n" +
-      "4,a+,1\n" +
-      "5,a,1\n" +
-      "1,a+,2\n" +
-      "6,a+,1\n" +
-      "2,V;a;j;k+;3;7;9,1\n" +
-      "3,a,1\n", actual);
+        "5,a,1\n" +
+        "5,a+,1\n" +
+        "6,a,1\n" +
+        "2,a+,2\n" +
+        "7,a+,1\n" +
+        "1,V;a;j;9,5\n" +
+        "3,V;a;j;k+;3;7;9,1\n" +
+        "4,a,1\n", actual);
 
     output = new File(outputDir, "classifications-collocations.csv");
     assertTrue(output.exists());
@@ -279,8 +280,9 @@ public class ClassificationAnalysisTest extends CliTestUtils {
       "ddc;dnbsgr;lcc,1,50.00%\n", actual);
      */
     assertEquals("abbreviations,recordcount,percent\n" +
-      "ddc;lcc;lcsh0;sdnb,1,50.00%\n" +
-      "045V;rvk;sdnb,1,50.00%\n", actual);
+      "045Q/01,4,66.67%\n" +
+      "045V;rvk;sdnb,1,16.67%\n" +
+      "045Q/01;ddc;lcc;lcsh0;sdnb,1,16.67%\n", actual);
 
     output = new File(outputDir, "classifications-histogram.csv");
     assertTrue(output.exists());
@@ -294,9 +296,9 @@ public class ClassificationAnalysisTest extends CliTestUtils {
      */
     assertEquals(
      "count,frequency\n" +
-      "0,4\n" +
-      "3,1\n" +
-      "5,1\n", actual);
+       "1,4\n" +
+       "3,1\n" +
+       "6,1\n", actual);
 
     output = new File(outputDir, "classifications-frequency-examples.csv");
     assertTrue(output.exists());
@@ -310,9 +312,9 @@ public class ClassificationAnalysisTest extends CliTestUtils {
     */
     assertEquals(
       "count,id\n" +
-      "0,010000011\n" +
-      "3,010000054\n" +
-      "5,010000070\n", actual);
+        "1,010000011\n" +
+        "3,010000054\n" +
+        "6,010000070\n", actual);
 
     clearOutput(outputDir, outputFiles);
   }

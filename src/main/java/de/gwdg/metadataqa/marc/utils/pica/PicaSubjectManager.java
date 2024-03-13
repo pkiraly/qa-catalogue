@@ -12,7 +12,8 @@ import java.util.List;
 public class PicaSubjectManager {
   private static List<FieldWithScheme> fields;
   private static List<String> tags;
-  private static final String schemaFile = Paths.get("src/main/resources/pica/k10plus-subjects.tsv").toAbsolutePath().toString();
+  private static final String schemaFile = Paths.get("src/main/resources/pica/k10plus-subjects.tsv")
+                                                .toAbsolutePath().toString();
 
   public static List<FieldWithScheme> readFieldsWithScheme() {
     if (fields == null)

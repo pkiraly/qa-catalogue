@@ -29,22 +29,22 @@ public class AuthorithyAnalyzer {
   private static final Pattern NUMERIC = Pattern.compile("^\\d");
   public static final String UNDETECTABLE = "undetectable";
 
-  private BibliographicRecord marcRecord;
+  private BibliographicRecord bibliographicRecord;
   private AuthorityStatistics authoritiesStatistics;
 
-  public AuthorithyAnalyzer(BibliographicRecord marcRecord,
+  public AuthorithyAnalyzer(BibliographicRecord bibliographicRecord,
                             AuthorityStatistics authoritiesStatistics) {
-    this.marcRecord = marcRecord;
+    this.bibliographicRecord = bibliographicRecord;
     this.authoritiesStatistics = authoritiesStatistics;
   }
 
   public int process() {
     Map<AuthorityCategory, Integer> categoryCounter = new EnumMap<>(AuthorityCategory.class);
     var count = 0;
-    for (Map.Entry<DataField, AuthorityCategory> entry : marcRecord.getAuthorityFieldsMap().entrySet()) {
+    for (Map.Entry<DataField, AuthorityCategory> entry : bibliographicRecord.getAuthorityFieldsMap().entrySet()) {
       DataField field = entry.getKey();
       AuthorityCategory category = entry.getValue();
-      if (marcRecord.getSchemaType().equals(SchemaType.MARC21)) {
+      if (bibliographicRecord.getSchemaType().equals(SchemaType.MARC21)) {
         var type = field.getDefinition().getSourceSpecificationType();
         if (type != null) {
           if (type.equals(SourceSpecificationType.Subfield2)) {
@@ -55,7 +55,7 @@ public class AuthorithyAnalyzer {
             logger.log(Level.SEVERE, "Unhandled type: {0}", new Object[]{type});
           }
         }
-      } else if (marcRecord.getSchemaType().equals(SchemaType.PICA)) {
+      } else if (bibliographicRecord.getSchemaType().equals(SchemaType.PICA)) {
         var fieldInstanceLevelCount = processPicaField(field);
         count += fieldInstanceLevelCount;
         add(category, categoryCounter, fieldInstanceLevelCount);

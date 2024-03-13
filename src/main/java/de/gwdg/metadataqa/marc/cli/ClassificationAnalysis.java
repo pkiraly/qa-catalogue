@@ -35,6 +35,7 @@ import static de.gwdg.metadataqa.marc.Utils.createRow;
 
 public class ClassificationAnalysis extends QACli<ClassificationParameters> implements BibliographicInputProcessor, Serializable {
 
+  private static final long serialVersionUID = 2641903541058693794L;
   private static final Logger logger = Logger.getLogger(ClassificationAnalysis.class.getCanonicalName());
 
   private final Options options;
@@ -88,11 +89,11 @@ public class ClassificationAnalysis extends QACli<ClassificationParameters> impl
   }
 
   @Override
-  public void processRecord(BibliographicRecord marcRecord, int recordNumber) throws IOException {
-    if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
+  public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber) throws IOException {
+    if (parameters.getRecordIgnorator().isIgnorable(bibliographicRecord))
       return;
 
-    ClassificationAnalyzer analyzer = new ClassificationAnalyzer(marcRecord, statistics, parameters);
+    ClassificationAnalyzer analyzer = new ClassificationAnalyzer(bibliographicRecord, statistics, parameters);
     analyzer.process();
 
     /*

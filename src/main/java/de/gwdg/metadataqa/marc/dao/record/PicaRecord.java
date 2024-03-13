@@ -16,8 +16,12 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class PicaRecord extends BibliographicRecord {
+  private static final Logger logger = Logger.getLogger(
+    PicaRecord.class.getCanonicalName()
+  );
 
   private static List<String> authorityTags;
   private static Map<String, Boolean> authorityTagsIndex;
@@ -106,8 +110,8 @@ public class PicaRecord extends BibliographicRecord {
 
   private static void initializeAuthorityTags() {
     authorityTags = Arrays.asList(
-      "022A", // Werktitel und sonstige unterscheidende Merkmale des Werks
-      "022A", // Weiterer Werktitel und sonstige unterscheidende Merkmale
+      "022A/00", // Werktitel und sonstige unterscheidende Merkmale des Werks
+      "022A/01", // Weiterer Werktitel und sonstige unterscheidende Merkmale
       "028A", // Person/Familie als 1. geistiger Schöpfer
       "028B", // 2. und weitere Verfasser
       "028C", // Person/Familie als 2. und weiterer geistiger Schöpfer, sonstige Personen/Familien, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe
@@ -129,7 +133,8 @@ public class PicaRecord extends BibliographicRecord {
     authorityTagsIndex = Utils.listToMap(authorityTags);
 
     skippableAuthoritySubfields = new HashMap<>();
-    skippableAuthoritySubfields.put("022A", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    skippableAuthoritySubfields.put("022A/00", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    skippableAuthoritySubfields.put("022A/01", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
     skippableAuthoritySubfields.put("028A", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
     skippableAuthoritySubfields.put("028B", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
     skippableAuthoritySubfields.put("028C", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
@@ -151,7 +156,8 @@ public class PicaRecord extends BibliographicRecord {
     List<String> subjectTags = PicaSubjectManager.getTags();
     subjectTagIndex = Utils.listToMap(subjectTags);
     skippableSubjectSubfields = new HashMap<>();
-    skippableSubjectSubfields.put("022A", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    skippableSubjectSubfields.put("022A/00", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
+    skippableSubjectSubfields.put("022A/01", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
     skippableSubjectSubfields.put("044H", Utils.listToMap(Arrays.asList("A"))); // A = Quelle
     skippableSubjectSubfields.put("044S", Utils.listToMap(Arrays.asList("9", "A", "V", "7", "3", "w")));
     skippableSubjectSubfields.put("045F", Utils.listToMap(Arrays.asList("A")));
@@ -163,7 +169,7 @@ public class PicaRecord extends BibliographicRecord {
     skippableSubjectSubfields.put("045T", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
 
     authorityTagsMap = new EnumMap<>(AuthorityCategory.class);
-    authorityTagsMap.put(AuthorityCategory.TITLES, List.of("022A", "022A"));
+    authorityTagsMap.put(AuthorityCategory.TITLES, List.of("022A/00", "022A/01"));
     authorityTagsMap.put(AuthorityCategory.PERSONAL, List.of("028A", "028B", "028C", "028E", "028G", "033J"));
     authorityTagsMap.put(AuthorityCategory.CORPORATE, List.of("029A", "029E", "029F", "029G"));
     authorityTagsMap.put(AuthorityCategory.OTHER, List.of("032V", "032W", "032X", "037Q", "037R"));
@@ -186,4 +192,21 @@ public class PicaRecord extends BibliographicRecord {
       }
     }
   }
+
+  protected void indexField(DataField dataField) {
+
+    String tag = dataField.getTagWithOccurrence();
+    if (tag == null)
+      logger.warning("null tag in indexField() " + dataField);
+
+    datafieldIndex.computeIfAbsent(tag, s -> new ArrayList<>());
+    datafieldIndex.get(tag).add(dataField);
+
+    if (dataField.getTag() != null && !tag.equals(dataField.getTag())) {
+      tag = dataField.getTag();
+      datafieldIndex.computeIfAbsent(tag, s -> new ArrayList<>());
+      datafieldIndex.get(tag).add(dataField);
+    }
+  }
+
 }

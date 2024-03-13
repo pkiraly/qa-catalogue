@@ -34,19 +34,20 @@ public class DataFieldValidatorTest {
     PicaSchemaManager schema = PicaSchemaReader.createSchema(CliTestUtils.getTestResource("pica/schema/k10plus.json"));
     MarcReader reader;
     try {
-      reader = QAMarcReaderFactory.getFileReader(MarcFormat.PICA_NORMALIZED, CliTestUtils.getTestResource("pica/pica-with-holdings-info.dat"), null);
+      reader = QAMarcReaderFactory.getFileReader(MarcFormat.PICA_NORMALIZED,
+        CliTestUtils.getTestResource("pica/pica-with-holdings-info.dat"), null);
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
     assertTrue(reader.hasNext());
     Record record = reader.next();
-    BibliographicRecord marcRecord = MarcFactory.createPicaFromMarc4j(record, schema);
+    BibliographicRecord bibliographicRecord = MarcFactory.createPicaFromMarc4j(record, schema);
 
-    assertNotNull(marcRecord.getDatafield("036F").get(0).getDefinition());
-    assertNull(marcRecord.getDatafield("036F").get(1).getDefinition());
+    assertNotNull(bibliographicRecord.getDatafield("036F").get(0).getDefinition());
+    assertNull(bibliographicRecord.getDatafield("036F/01").get(0).getDefinition());
 
     DataField selected = null;
-    for (DataField field : marcRecord.getDatafield("036E")) {
+    for (DataField field : bibliographicRecord.getDatafield("036E/01")) {
       if (field.getOccurrence() != null) {
         selected = field;
         break;

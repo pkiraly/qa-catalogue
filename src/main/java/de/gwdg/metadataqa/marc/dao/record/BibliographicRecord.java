@@ -85,8 +85,10 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     datafields.add(dataField);
   }
 
-  private void indexField(DataField dataField) {
+  protected void indexField(DataField dataField) {
+
     String tag = dataField.getTag();
+    // dataField.getTagWithOccurrence();
     if (tag == null)
       logger.warning("null tag in indexField() " + dataField);
 

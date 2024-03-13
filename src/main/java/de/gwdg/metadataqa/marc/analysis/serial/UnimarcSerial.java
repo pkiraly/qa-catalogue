@@ -143,7 +143,7 @@ public class UnimarcSerial extends MarcSerial {
     DataField numberingField = numberingFields == null || numberingFields.isEmpty() ? null : numberingFields.get(0);
 
     if (isFieldEmpty(numberingField)) {
-      scores.set(SerialFields.HAS_PUBLISHER_264, 1);
+      scores.set(SerialFields.HAS_DATES_OF_PUBLICATION_362, 1);
     }
   }
 

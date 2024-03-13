@@ -97,7 +97,7 @@ public class SerialTest {
   }
 
   @Test
-  public void marcSerial_whenUnimarc_RunsSuccessfully() throws IOException {
+  public void serial_whenUnimarc_RunsSuccessfully() throws IOException {
     String[] args = {
       "--schemaType", "UNIMARC",
       "--outputDir", outputDir,

@@ -80,7 +80,7 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
   }
 
   public void addDataField(DataField dataField) {
-    dataField.setMarcRecord(this);
+    dataField.setBibliographicRecord(this);
     indexField(dataField);
     datafields.add(dataField);
   }

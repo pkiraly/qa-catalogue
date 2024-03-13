@@ -207,8 +207,6 @@ public class ClassificationAnalyzer {
 
   private int processPicaSubject(String tag, String voc, String schema) {
     int count = 0;
-    boolean debug = tag.equals("045Q/01");
-
     if (bibliographicRecord.hasDatafield(tag)) {
       List<DataField> fields = bibliographicRecord.getDatafield(tag);
       List<Schema> schemas = new ArrayList<>();
@@ -231,7 +229,8 @@ public class ClassificationAnalyzer {
           updateSchemaSubfieldStatistics(field, currentSchema);
           count++;
         } else {
-          logger.log(Level.SEVERE, "undetected subfield in record {0} {1}", new Object[]{bibliographicRecord.getId(), field.toString()});
+          logger.log(Level.SEVERE, "undetected subfield in record {0} {1}",
+            new Object[]{bibliographicRecord.getId(), field.toString()});
         }
       }
       registerSchemas(schemas);

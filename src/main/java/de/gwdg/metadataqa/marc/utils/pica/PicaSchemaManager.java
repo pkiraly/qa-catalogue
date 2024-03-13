@@ -59,6 +59,8 @@ public class PicaSchemaManager implements SchemaManager, Serializable {
     if (tagIndex.containsKey(tag)) {
       for (String id : tagIndex.get(tag)) {
         var candidate = directory.get(id);
+        if (occurrence.equals("00"))
+          return candidate;
         if (candidate.inRange(occurrence))
           return candidate;
       }

@@ -63,7 +63,7 @@ public class ClassificationReferenceValidator implements RecordValidator, FieldV
     ValidatorResponse response = new ValidatorResponse();
 
     // If it's not a MARC21 record, then skip this.
-    if (!field.getMarcRecord().getSchemaType().equals(SchemaType.MARC21)) {
+    if (!field.getBibliographicRecord().getSchemaType().equals(SchemaType.MARC21)) {
       return response;
     }
     
@@ -83,7 +83,7 @@ public class ClassificationReferenceValidator implements RecordValidator, FieldV
   private static void addError(ValidatorResponse response, DataField field) {
     response.addValidationError(
         new ValidationError(
-            field.getMarcRecord().getId(),
+            field.getBibliographicRecord().getId(),
             field.getTag() + "$ind2",
             ValidationErrorType.SUBFIELD_INVALID_CLASSIFICATION_REFERENCE,
             "ind2 is '7' which means that the value should be found in subfield $2, but it is missing",

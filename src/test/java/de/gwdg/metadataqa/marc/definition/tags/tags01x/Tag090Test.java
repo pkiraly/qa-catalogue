@@ -23,7 +23,7 @@ public class Tag090Test {
     BibliographicRecord marcRecord = new Marc21BibliographicRecord("test");
 
     DataField field = new DataField(Tag090.getInstance(), " ", " ", "n", "sm");
-    field.setMarcRecord(marcRecord);
+    field.setBibliographicRecord(marcRecord);
 
     DataFieldValidator validator = new DataFieldValidator();
     assertFalse("090$n should be invalid in normal case", validator.validate(field));
@@ -38,7 +38,7 @@ public class Tag090Test {
     marcRecord.setControl001(new Control001("test"));
 
     DataField field = new DataField(Tag090.getInstance(), " ", " ", "n", "sk");
-    field.setMarcRecord(marcRecord);
+    field.setBibliographicRecord(marcRecord);
 
     DataFieldValidator validator = new DataFieldValidator(new ValidatorConfiguration().withMarcVersion(MarcVersion.DNB));
     assertFalse("090$n value sk should be invalid in DNB.", validator.validate(field));

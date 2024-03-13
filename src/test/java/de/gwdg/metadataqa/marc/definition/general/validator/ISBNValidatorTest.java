@@ -154,7 +154,7 @@ public class ISBNValidatorTest {
   private MarcSubfield createMarcSubfield(String ISBN) {
     BibliographicRecord marcRecord = new Marc21BibliographicRecord("test");
     DataField field = new DataField(Tag020.getInstance(), " ", " ", "a", ISBN);
-    field.setMarcRecord(marcRecord);
+    field.setBibliographicRecord(marcRecord);
 
     return field.getSubfield("a").get(0);
   }

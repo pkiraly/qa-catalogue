@@ -27,7 +27,7 @@ public class Tag533Test {
       "e", "1 microfilm reel ; 35 mm.",
       "7", "s1990    dcun a"
     );
-    field.setMarcRecord(marcRecord);
+    field.setBibliographicRecord(marcRecord);
     marcRecord.addDataField(field);
     Validator validator = new Validator(new ValidatorConfiguration().withMarcVersion(MarcVersion.MARC21));
     boolean isValid = validator.validate(marcRecord);
@@ -47,7 +47,7 @@ public class Tag533Test {
       "e", "1 microfilm reel ; 35 mm.",
       "7", "s1990    dcunaa"
     );
-    field.setMarcRecord(marcRecord);
+    field.setBibliographicRecord(marcRecord);
     marcRecord.addDataField(field);
     Validator validator = new Validator(new ValidatorConfiguration().withMarcVersion(MarcVersion.MARC21));
     boolean isValid = validator.validate(marcRecord);

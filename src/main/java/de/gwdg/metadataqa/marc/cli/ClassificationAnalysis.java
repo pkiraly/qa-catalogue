@@ -136,7 +136,11 @@ public class ClassificationAnalysis extends QACli<ClassificationParameters> impl
     if (parameters.doCollectCollocations())
       printClassificationsCollocation();
     copySchemaFileToOutputDir();
-    saveParameters("classifications.params.json", parameters, Map.of("numberOfprocessedRecords", numberOfprocessedRecords, "duration", duration));
+    saveParameters("classifications.params.json", parameters, Map.of(
+      "numberOfprocessedRecords", numberOfprocessedRecords,
+      "duration", duration,
+      "schemaFile", parameters.isPica() ? new File(PicaSubjectManager.getSchemaFile()).getName() : ""
+    ));
   }
 
   private void copySchemaFileToOutputDir() {

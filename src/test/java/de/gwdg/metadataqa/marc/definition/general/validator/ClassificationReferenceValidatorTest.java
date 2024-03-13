@@ -20,7 +20,7 @@ public class ClassificationReferenceValidatorTest {
       "0", "http://d-nb.info/gnd/4020758-4",
       "0", "(DE-101)040207587",
       "a", "Gesundheitsberatung");
-    field.setMarcRecord(marcRecord);
+    field.setBibliographicRecord(marcRecord);
 
     ValidatorResponse response = ClassificationReferenceValidator.validate(field);
     assertFalse(response.isValid());

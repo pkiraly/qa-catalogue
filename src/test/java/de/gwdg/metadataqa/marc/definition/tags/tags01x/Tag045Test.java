@@ -39,7 +39,7 @@ public class Tag045Test {
     List<String> badValues = Arrays.asList("0-0-", "2209668", "a-cc---", "d1764", "n-us---", "q1", "v v");
     for (String value : values) {
       DataField field = new DataField(tag, " ", " ", "a", value);
-      field.setMarcRecord(marcRecord);
+      field.setBibliographicRecord(marcRecord);
       MarcSubfield subfield = field.getSubfield("a").get(0);
       SubfieldValidator validator = new SubfieldValidator();
       if (badValues.contains(value))

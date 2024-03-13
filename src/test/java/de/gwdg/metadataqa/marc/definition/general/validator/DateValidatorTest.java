@@ -29,7 +29,7 @@ public class DateValidatorTest {
   private MarcSubfield createMarcSubfield(String value) {
     BibliographicRecord marcRecord = new Marc21BibliographicRecord("test");
     DataField field = new DataField(Tag020.getInstance(), " ", " ", "a", value);
-    field.setMarcRecord(marcRecord);
+    field.setBibliographicRecord(marcRecord);
 
     return field.getSubfield("a").get(0);
   }

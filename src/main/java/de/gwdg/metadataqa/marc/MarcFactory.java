@@ -114,7 +114,7 @@ public class MarcFactory {
             var field = MapToDatafield.parse(fieldInstance, version);
             if (field != null) {
               marcRecord.addDataField(field);
-              field.setMarcRecord(marcRecord);
+              field.setBibliographicRecord(marcRecord);
             } else {
               marcRecord.addUnhandledTags(dataElement.getLabel());
             }

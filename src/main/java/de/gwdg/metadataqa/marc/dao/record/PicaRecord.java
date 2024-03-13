@@ -155,6 +155,7 @@ public class PicaRecord extends BibliographicRecord {
      */
     List<String> subjectTags = PicaSubjectManager.getTags();
     subjectTagIndex = Utils.listToMap(subjectTags);
+
     skippableSubjectSubfields = new HashMap<>();
     skippableSubjectSubfields.put("022A/00", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));
     skippableSubjectSubfields.put("022A/01", Utils.listToMap(Arrays.asList("9", "V", "7", "3", "w")));

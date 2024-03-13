@@ -48,5 +48,4 @@ public class PicaSubjectManager {
       e.getLocalizedMessage();
     }
   }
-
 }

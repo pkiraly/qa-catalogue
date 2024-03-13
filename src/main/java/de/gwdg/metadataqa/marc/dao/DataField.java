@@ -49,7 +49,7 @@ public class DataField implements Extractable, Serializable {
   private Map<String, List<MarcSubfield>> subfieldIndex = new LinkedHashMap<>();
   private String occurrence;
   private List<String> unhandledSubfields = null;
-  private BibliographicRecord marcRecord;
+  private BibliographicRecord bibliographicRecord;
   private List<FieldIndexer> fieldIndexers;
   private boolean fieldIndexerInitialized = false;
 
@@ -220,14 +220,14 @@ public class DataField implements Extractable, Serializable {
     return subfields;
   }
 
-  public BibliographicRecord getMarcRecord() {
-    return marcRecord;
+  public BibliographicRecord getBibliographicRecord() {
+    return bibliographicRecord;
   }
 
-  public void setMarcRecord(BibliographicRecord marcRecord) {
-    this.marcRecord = marcRecord;
+  public void setBibliographicRecord(BibliographicRecord bibliographicRecord) {
+    this.bibliographicRecord = bibliographicRecord;
     for (MarcSubfield marcSubfield : subfields)
-      marcSubfield.setMarcRecord(marcRecord);
+      marcSubfield.setMarcRecord(bibliographicRecord);
   }
 
   public void indexSubfields() {
@@ -387,7 +387,7 @@ public class DataField implements Extractable, Serializable {
                                                     MarcVersion marcVersion) {
     Map<String, List<String>> pairs = new HashMap<>();
 
-    if (marcRecord != null && marcRecord.getSchemaType().equals(SchemaType.PICA) && definition != null) {
+    if (bibliographicRecord != null && bibliographicRecord.getSchemaType().equals(SchemaType.PICA) && definition != null) {
       PicaFieldDefinition picaDefinition = (PicaFieldDefinition) definition;
       tag = picaDefinition.getTag();
       if (picaDefinition.getCounter() != null)
@@ -400,7 +400,7 @@ public class DataField implements Extractable, Serializable {
         tag += "/" + getOccurrence();
     }
 
-    SchemaType schemaType = marcRecord != null ? marcRecord.getSchemaType() : SchemaType.MARC21;
+    SchemaType schemaType = bibliographicRecord != null ? bibliographicRecord.getSchemaType() : SchemaType.MARC21;
     DataFieldKeyGenerator keyGenerator = new DataFieldKeyGenerator(definition, type, tag, schemaType);
     keyGenerator.setMarcVersion(marcVersion);
 
@@ -430,17 +430,17 @@ public class DataField implements Extractable, Serializable {
           Utils.mergeMap(pairs, extra);
         }
       } catch (IllegalArgumentException e) {
-        logger.log(Level.SEVERE, "{0} in record {1} {2}", new Object[]{e.getLocalizedMessage(), marcRecord.getId(), this});
+        logger.log(Level.SEVERE, "{0} in record {1} {2}", new Object[]{e.getLocalizedMessage(), bibliographicRecord.getId(), this});
       }
     }
 
     // full field indexing: name authorities
-    if (marcRecord != null && marcRecord.isAuthorityTag(this.getTag())) {
+    if (bibliographicRecord != null && bibliographicRecord.isAuthorityTag(this.getTag())) {
       List<String> full = new ArrayList<>();
       for (MarcSubfield subfield : subfields) {
-        if (!marcRecord.isSkippableAuthoritySubfield(this.getTag(), subfield.getCode())) {
+        if (!bibliographicRecord.isSkippableAuthoritySubfield(this.getTag(), subfield.getCode())) {
           String value = subfield.getValue();
-          if (marcRecord.getSchemaType().equals(SchemaType.PICA)) {
+          if (bibliographicRecord.getSchemaType().equals(SchemaType.PICA)) {
             if (subfield.getCode().equals("E")) {
               value += "-";
               if (subfieldIndex.containsKey("M"))
@@ -460,10 +460,11 @@ public class DataField implements Extractable, Serializable {
     }
 
     // classifications
-    if (marcRecord != null && marcRecord.isSubjectTag(this.getTag())) {
+    String tag = schemaType.equals(SchemaType.PICA) ? this.getTagWithOccurrence() : this.getTag();
+    if (bibliographicRecord != null && bibliographicRecord.isSubjectTag(tag)) {
       List<String> full = new ArrayList<>();
       for (MarcSubfield subfield : subfields) {
-        if (!marcRecord.isSkippableSubjectSubfield(this.getTag(), subfield.getCode())) {
+        if (!bibliographicRecord.isSkippableSubjectSubfield(tag, subfield.getCode())) {
           String value = subfield.getValue();
           full.add(value);
         }

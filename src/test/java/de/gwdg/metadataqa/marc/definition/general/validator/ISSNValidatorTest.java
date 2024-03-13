@@ -81,7 +81,7 @@ public class ISSNValidatorTest {
   private MarcSubfield createMarcSubfield(String s) {
     BibliographicRecord marcRecord = new Marc21BibliographicRecord("test");
     DataField field = new DataField(Tag411.getInstance(), " ", " ", "x", s);
-    field.setMarcRecord(marcRecord);
+    field.setBibliographicRecord(marcRecord);
 
     return field.getSubfield("x").get(0);
   }

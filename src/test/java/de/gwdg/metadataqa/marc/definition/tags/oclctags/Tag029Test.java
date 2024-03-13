@@ -17,7 +17,7 @@ public class Tag029Test {
   public void test() {
     BibliographicRecord marcRecord = new Marc21BibliographicRecord("test");
     DataField field = new DataField(Tag029.getInstance(), "a", "a", "a", "0170-1967");
-    field.setMarcRecord(marcRecord);
+    field.setBibliographicRecord(marcRecord);
 
     DataFieldValidator validator = new DataFieldValidator();
     assertFalse("029$ind=a should be invalid in normal case", validator.validate(field));

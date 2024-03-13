@@ -2,7 +2,8 @@ package de.gwdg.metadataqa.marc.datastore;
 
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.impl.BaseHttpSolrClient;
+import org.apache.solr.client.solrj.impl.Http2SolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
@@ -42,7 +43,7 @@ public class MarcSolrClient {
   }
 
   private void initialize(String url) {
-    solrClient = new HttpSolrClient.Builder(url).build();
+    solrClient = new Http2SolrClient.Builder(url).build();
   }
 
   public void indexMap(String id, Map<String, List<String>> objectMap) {
@@ -52,7 +53,7 @@ public class MarcSolrClient {
   public void index(SolrInputDocument document) {
     try {
       solrClient.add(document);
-    } catch (HttpSolrClient.RemoteSolrException | SolrServerException | IOException ex) {
+    } catch (BaseHttpSolrClient.RemoteSolrException | SolrServerException | IOException ex) {
       logger.log(Level.WARNING, "document", document);
       logger.log(Level.WARNING, "Commit exception", ex);
       throw new RuntimeException(ex);
@@ -91,7 +92,6 @@ public class MarcSolrClient {
     document.addField("id", id);
     for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
       String key = entry.getKey();
-      System.err.println("key: " + key);
       Object value = entry.getValue();
       if (value != null) {
         if (!key.endsWith("_sni") && !key.endsWith("_ss")) {
@@ -104,7 +104,7 @@ public class MarcSolrClient {
 
     try {
       solrClient.add(document);
-    } catch (HttpSolrClient.RemoteSolrException ex) {
+    } catch (BaseHttpSolrClient.RemoteSolrException ex) {
       logger.log(Level.WARNING, "document", document);
       logger.log(Level.WARNING, "Commit exception", ex);
     }
@@ -136,9 +136,7 @@ public class MarcSolrClient {
         doc.removeFields("_version_");
         return doc;
       }
-    } catch (SolrServerException e) {
-      throw new RuntimeException(e);
-    } catch (IOException e) {
+    } catch (SolrServerException | IOException e) {
       throw new RuntimeException(e);
     }
     return null;

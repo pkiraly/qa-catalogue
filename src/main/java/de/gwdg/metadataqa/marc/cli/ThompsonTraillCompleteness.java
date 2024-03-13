@@ -94,8 +94,13 @@ public class ThompsonTraillCompleteness extends QACli<ThompsonTraillCompleteness
     printFields();
 
     output = new File(parameters.getOutputDir(), parameters.getFileName());
-    if (output.exists() && !output.delete())
-      logger.severe("Deletion of " + output.getAbsolutePath() + " was unsuccessful!");
+    if (output.exists()) {
+      try {
+        Files.delete(output.toPath());
+      } catch (IOException e) {
+        logger.log(Level.SEVERE, "The output file ({}) has not been deleted", output.getAbsolutePath());
+      }
+    }
     print(createRow(thompsonTraillAnalysis.getHeader()));
   }
 

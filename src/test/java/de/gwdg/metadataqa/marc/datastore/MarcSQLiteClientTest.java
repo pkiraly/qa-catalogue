@@ -10,7 +10,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.util.Map;
+
+import static org.junit.Assert.assertTrue;
 
 public class MarcSQLiteClientTest {
 
@@ -18,16 +21,14 @@ public class MarcSQLiteClientTest {
   public void connect() throws IOException, URISyntaxException {
     MarcSQLiteClient client = new MarcSQLiteClient();
     File file = new File(FileUtils.getPath("sqlite").toFile(), "test.db");
-    System.err.println(file.getAbsolutePath());
-    // if (file.exists())
-    //  file.delete();
+    assertTrue(file.getCanonicalPath().endsWith("test-classes/sqlite/test.db"));
+    assertTrue(file.exists());
 
     client.connect(file.getPath());
-    System.err.println(file.lastModified());
-    System.err.println(file.length());
+    client.close();
 
-    // if (file.exists())
-    //  file.delete();
+    if (file.exists())
+      Files.delete(file.toPath());
   }
 
   @Test

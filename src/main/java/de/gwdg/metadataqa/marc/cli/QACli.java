@@ -128,15 +128,21 @@ public abstract class QACli<T extends CommonParameters> {
     File idCollectorMeta = new File(parameters.getOutputDir(), "id-groupid.meta.txt");
     String currentFileList = getFilesWithDate(parameters.getArgs());
     if (isJarNewerThan(parameters.getOutputDir(), "id-groupid.csv")) {
-      if (!idCollectorMeta.delete())
-        logger.severe("id-groupid.meta.txt has not been deleted.");
+      try {
+        Files.delete(idCollectorMeta.toPath());
+      } catch (IOException e) {
+        logger.severe("Deletion of " + idCollectorMeta.getAbsolutePath() + " was unsuccessful!");
+      }
     } else {
       if (idCollectorMeta.exists()) {
         try {
           String storedFileList = FileUtils.readFileToString(idCollectorMeta, StandardCharsets.UTF_8).trim();
           doSaveGroupIds = ! currentFileList.equals(storedFileList);
-          if (!idCollectorMeta.delete())
-            logger.severe("id-groupid.meta.txt has not been deleted.");
+          try {
+            Files.delete(idCollectorMeta.toPath());
+          } catch (IOException e) {
+            logger.log(Level.SEVERE, "The output file ({}) has not been deleted", idCollectorMeta.getAbsolutePath());
+          }
         } catch (IOException e) {
           logger.severe(e.getLocalizedMessage());
         }
@@ -160,8 +166,13 @@ public abstract class QACli<T extends CommonParameters> {
 
   protected File prepareReportFile(String outputDir, String fileName) {
     File reportFile = new File(outputDir, fileName);
-    if (reportFile.exists() && !reportFile.delete())
-      logger.log(Level.SEVERE, "File {0} hasn't been deleted", new Object[]{reportFile.getAbsolutePath()});
+    if (reportFile.exists()) {
+      try {
+        Files.delete(reportFile.toPath());
+      } catch (IOException e) {
+        logger.log(Level.SEVERE, "The output file ({}) has not been deleted", reportFile.getAbsolutePath());
+      }
+    }
     return reportFile;
   }
 

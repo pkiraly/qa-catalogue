@@ -22,6 +22,8 @@ public class MarcSQLiteClientTest {
     MarcSQLiteClient client = new MarcSQLiteClient();
     File file = new File(FileUtils.getPath("sqlite").toFile(), "test.db");
     assertTrue(file.getCanonicalPath().endsWith("test-classes/sqlite/test.db"));
+    if (!file.exists())
+      file.createNewFile();
     assertTrue(file.exists());
 
     client.connect(file.getPath());

@@ -243,9 +243,9 @@ public class ClassificationAnalysisTest extends CliTestUtils {
         "6,045A,$a,\"LCC-Notation\",\"lcc\",lcc,1,1,CLASSIFICATION_SCHEME\n" +
         "2,045E,$a,\"Sachgruppen der Deutschen Nationalbibliografie bis 2003\",\"sdnb\",sdnb,2,2,UNKNOWN\n" +
         "7,045F,$a,\"DDC-Notation\",\"ddc\",ddc,1,1,CLASSIFICATION_SCHEME\n" +
-        "1,045Q/01,$a,\"Basisklassifikation\",\"045Q/01\",045q_01,5,5,UNKNOWN\n" +
+        "1,045Q/01,$a,\"Basisklassifikation\",\"basis\",basis,5,5,UNKNOWN\n" +
         "3,045R,$a,\"Regensburger Verbundklassifikation (RVK)\",\"rvk\",rvk,1,1,CLASSIFICATION_SCHEME\n" +
-        "4,045V,$a,\"SSG-Nummer/FID-Kennzeichen\",\"045V\",045v,1,1,UNKNOWN\n",
+        "4,045V,$a,\"SSG-Nummer/FID-Kennzeichen\",\"ssg-nr\",ssg_nr,1,1,UNKNOWN\n",
       actual);
 
     output = new File(outputDir, "classifications-by-schema-subfields.csv");
@@ -280,9 +280,9 @@ public class ClassificationAnalysisTest extends CliTestUtils {
       "ddc;dnbsgr;lcc,1,50.00%\n", actual);
      */
     assertEquals("abbreviations,recordcount,percent\n" +
-      "045Q/01,4,66.67%\n" +
-      "045V;rvk;sdnb,1,16.67%\n" +
-      "045Q/01;ddc;lcc;lcsh0;sdnb,1,16.67%\n", actual);
+      "basis,4,66.67%\n" +
+      "rvk;sdnb;ssg-nr,1,16.67%\n" +
+      "basis;ddc;lcc;lcsh0;sdnb,1,16.67%\n", actual);
 
     output = new File(outputDir, "classifications-histogram.csv");
     assertTrue(output.exists());

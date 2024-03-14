@@ -70,6 +70,38 @@ public class ClassificationSchemes {
     schemes.put("Medical Subject Headings (MeSH)", "mesh");
     schemes.put("Klassifikation der National Library of Medicine (NLM)", "mesh");
     schemes.put("Schlagwortfolgen (DNB und Verbünde)", "dnb");
+    schemes.put("FIV-Regionalklassifikation", "fiv");
+    schemes.put("FIV-Schlagwörter (Aspekte)", "fiv-asp");
+    schemes.put("FIV-Schlagwörter (Themen)", "fiv-them");
+    schemes.put("FIV-Sachklassifikation", "fiv-sach");
+    schemes.put("Sonstige Notation des FIV", "fiv-sons");
+    schemes.put("Erschließung von Musikalien nach Besetzung und Form/Gattung", "mus");
+    schemes.put("Schlagwortfolgen (GBV, SWB, K10plus)", "gbv");
+    schemes.put("Einzelschlagwörter (Projekte)", "ein");
+    schemes.put("Schlagwörter aus einem Thesaurus und freie Schlagwörter", "schl");
+    schemes.put("Gattungsbegriffe bei Alten Drucken", "gat");
+    schemes.put("Lokale Schlagwörter auf bibliografischer Ebene", "lok-sch");
+    schemes.put("Lokale Notationen auf bibliografischer Ebene", "lok-not");
+    schemes.put("Allgemeine Systematik für Bibliotheken (ASB)", "asb");
+    schemes.put("Systematik der Stadtbibliothek Duisburg (SSD)", "ssd");
+    schemes.put("Systematik für Bibliotheken (SfB)", "sfb");
+    schemes.put("Klassifikation für Allgemeinbibliotheken (KAB)", "kab");
+    schemes.put("Gattungsbegriffe (DNB)", "dnbgat");
+    schemes.put("Systematiken der ekz", "ekz");
+    schemes.put("STW-Schlagwörter", "stw");
+    schemes.put("STW-Schlagwörter - Platzhalter", "stw-platz");
+    schemes.put("STW-Schlagwörter - automatisierte verbale Sacherschließung", "stw-sach");
+    schemes.put("ZBW-Schlagwörter - Veröffentlichungsart", "zbw");
+    schemes.put("SSG-Angabe für Fachkataloge", "ssg");
+    schemes.put("DDC-Notation: Vollständige Notation", "ddc-not");
+    schemes.put("Basisklassifikation", "basis");
+    schemes.put("Deutsche Bibliotheksstatistik (DBS)", "dbs");
+    schemes.put("SSG-Nummer/FID-Kennzeichen", "ssg-nr");
+    schemes.put("SSG-Angabe für thematische OLC-Ausschnitte", "ssg-olc");
+    schemes.put("STW-Schlagwörter - automatisierte verbale Sacherschließung", "stw");
+    schemes.put("Vorläufige Schlagwörter (STW)", "stw-vor");
+    schemes.put("Notation eines Klassifikationssystems", "klas");
+    schemes.put("Nicht mehr gültige Notationen der Regensburger Verbundklassifikation (RVK)", "rvk");
   }
 
   public String resolve(String key) {

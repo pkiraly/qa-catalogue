@@ -155,7 +155,7 @@ public class ClassificationAnalyzer {
         try {
           voc = classificationSchemes.resolve(schema);
         } catch (IllegalArgumentException e) {
-          logger.log(Level.WARNING, "error during resolving a classification scheme {0}: {1}",
+          logger.log(Level.WARNING, "error during resolving a classification scheme '{0}': {1}",
             new Object[]{schema, e.getLocalizedMessage()});
         }
         count += processPicaSubject(tag, voc, schema);

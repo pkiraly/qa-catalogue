@@ -69,6 +69,7 @@ public class ClassificationSchemes {
     schemes.put("Regensburger Verbundklassifikation (RVK)", "rvk");
     schemes.put("Medical Subject Headings (MeSH)", "mesh");
     schemes.put("Klassifikation der National Library of Medicine (NLM)", "mesh");
+    schemes.put("Schlagwortfolgen (DNB und Verbünde)", "dnb");
   }
 
   public String resolve(String key) {

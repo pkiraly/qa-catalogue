@@ -139,7 +139,7 @@ public class ClassificationAnalysis extends QACli<ClassificationParameters> impl
     saveParameters("classifications.params.json", parameters, Map.of(
       "numberOfprocessedRecords", numberOfprocessedRecords,
       "duration", duration,
-      "schemaFile", parameters.isPica() ? new File(PicaSubjectManager.getSchemaFile()).getName() : ""
+      "classificationSchemaFile", parameters.isPica() ? new File(PicaSubjectManager.getSchemaFile()).getName() : ""
     ));
   }
 

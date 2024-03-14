@@ -186,7 +186,6 @@ public class CompletenessTest extends CliTestUtils {
     Completeness processor = new Completeness(new String[]{
       "--schemaType", "PICA",
       "--groupBy", "001@$0",
-      // "--groupListFile", FileUtils.getPath("kxp-uniq-library-names.tsv").toAbsolutePath().toString(),
       "--groupListFile", FileUtils.getPath("k10plus-libraries-by-unique-iln.txt").toAbsolutePath().toString(),
       "--marcFormat", "PICA_NORMALIZED",
       "--outputDir", outputDir,

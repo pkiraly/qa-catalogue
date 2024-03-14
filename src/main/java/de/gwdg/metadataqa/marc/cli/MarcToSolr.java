@@ -7,7 +7,6 @@ import de.gwdg.metadataqa.marc.cli.parameters.MarcToSolrParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.datastore.MarcSolrClient;
-import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
@@ -99,6 +98,7 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
 
       RecordIterator iterator = new RecordIterator(processor);
       iterator.start();
+      System.exit(0);
     } catch(Exception e) {
       System.err.println("ERROR. " + e.getLocalizedMessage());
       System.exit(1);
@@ -202,7 +202,6 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
 
   @Override
   public void fileProcessed() {
-
   }
 
   @Override

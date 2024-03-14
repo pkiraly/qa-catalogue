@@ -28,7 +28,7 @@ public class MarcTagListerTest {
     List<Class<? extends DataFieldDefinition>> tags = MarcTagLister.listTags();
     assertNotNull(tags);
     assertNotEquals(0, tags.size());
-    assertEquals(446, tags.size());
+    assertEquals(445, tags.size());
     assertEquals("Tag010", tags.get(0).getSimpleName());
     Map<String, Integer> versionCounter = new HashMap<>();
     Map<MarcVersion, Integer> versionCounter2 = new HashMap<>();
@@ -100,8 +100,8 @@ public class MarcTagListerTest {
     assertEquals( 1, (int) versionCounter2.get(MarcVersion.KBR));
     assertEquals( 1, (int) versionCounter.get("kbrtags"));
 
-    assertEquals( 2, (int) versionCounter2.get(MarcVersion.ZB));
-    assertEquals( 2, (int) versionCounter.get("zbtags"));
+    assertEquals( 1, (int) versionCounter2.get(MarcVersion.ZB));
+    assertEquals( 1, (int) versionCounter.get("zbtags"));
 
     assertEquals( 76, (int) versionCounter2.get(MarcVersion.BL));
     assertEquals( 76, (int) versionCounter.get("bltags"));

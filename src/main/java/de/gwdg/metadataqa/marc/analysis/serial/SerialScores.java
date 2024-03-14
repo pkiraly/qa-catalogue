@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.analysis;
+package de.gwdg.metadataqa.marc.analysis.serial;
 
 import de.gwdg.metadataqa.marc.Utils;
 
@@ -35,11 +35,14 @@ public class SerialScores {
     var total = 0;
     for (Map.Entry<SerialFields, Integer> entry : scores.entrySet()) {
       var field = entry.getKey();
-      if (!field.equals(SerialFields.TOTAL)) {
-        if (field.isClassification())
-          total += Math.min(entry.getValue(), 10);
-        else
-          total += entry.getValue();
+      if (field.equals(SerialFields.TOTAL)) {
+        continue;
+      }
+
+      if (field.isClassification()) {
+        total += Math.min(entry.getValue(), 10);
+      } else {
+        total += entry.getValue();
       }
     }
     set(SerialFields.TOTAL, total);
@@ -49,12 +52,25 @@ public class SerialScores {
     List<Integer> list = new ArrayList<>();
     for (Map.Entry<SerialFields, Integer> entry : scores.entrySet()) {
       SerialFields field = entry.getKey();
-      if (field.isClassification())
+      if (field.isClassification()) {
         list.add(Math.min(entry.getValue(), 10));
-      else
+      }
+      else {
         list.add(entry.getValue());
+      }
     }
     return list;
+  }
+
+  /**
+   * Reset all scores to 0. Used to discard all previous scores in case all other scores become irrelevant.
+   */
+  public void resetAll() {
+    for (SerialFields field : SerialFields.values()) {
+      if (!field.equals(SerialFields.ID)) {
+        scores.put(field, 0);
+      }
+    }
   }
 
   public Map<SerialFields, Integer> getScores() {

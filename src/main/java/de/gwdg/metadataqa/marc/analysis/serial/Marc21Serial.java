@@ -1,11 +1,10 @@
-package de.gwdg.metadataqa.marc.analysis;
+package de.gwdg.metadataqa.marc.analysis.serial;
 
 import de.gwdg.metadataqa.marc.dao.Control006;
 import de.gwdg.metadataqa.marc.dao.Control008;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -14,94 +13,10 @@ import java.util.List;
  * Serials Review, 43:3-4, pp. 271-277, DOI: 10.1080/00987913.2017.1350525
  * https://www.tandfonline.com/doi/full/10.1080/00987913.2017.1350525
  */
-public class Serial {
-  private Marc21Record marcRecord;
-  private SerialScores scores;
+public class Marc21Serial extends MarcSerial {
 
-  private static List<String> headers = new LinkedList<>();
-  static {
-    for (SerialFields field : SerialFields.values()) {
-      headers.add(field.getMachine());
-    }
-  }
-
-  public Serial(Marc21Record marcRecord) {
-    this.marcRecord = marcRecord;
-    scores = new SerialScores();
-  }
-
-  public static List<String> getHeader() {
-    return headers;
-  }
-
-  @Override
-  public int hashCode() {
-    final var prime = 31;
-    int result = super.hashCode();
-
-    // datesOfPublication
-    result = prime * result + ((marcRecord.getDatafield("362") == null)
-      ? 0
-      : marcRecord.getDatafield("362").hashCode());
-
-    // frequency
-    result = prime * result + ((marcRecord.getDatafield("310") == null)
-      ? 0
-      : marcRecord.getDatafield("310").hashCode());
-
-    // issn
-    result = prime * result + ((marcRecord.getDatafield("022") == null)
-      ? 0
-      : marcRecord.getDatafield("022").hashCode());
-
-    // sourceOfDescription
-    result = prime * result + ((marcRecord.getDatafield("588") == null)
-      ? 0
-      : marcRecord.getDatafield("588").hashCode());
-    return result;
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (!super.equals(obj))
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    Serial other = (Serial) obj;
-    if (getDatesOfPublication362() == null) {
-      if (other.getDatesOfPublication362() != null)
-        return false;
-    } else if (!getDatesOfPublication362().equals(other.getDatesOfPublication362()))
-      return false;
-    if (getFrequency310() == null) {
-      if (other.getFrequency310() != null)
-        return false;
-    } else if (!getFrequency310().equals(other.getFrequency310()))
-      return false;
-
-    if (getIssn022() == null) {
-      if (other.getIssn022() != null)
-        return false;
-    } else if (!getIssn022().equals(other.getIssn022()))
-      return false;
-
-    if (getSourceOfDescription588() == null) {
-      if (other.getSourceOfDescription588() != null)
-        return false;
-    } else if (!getSourceOfDescription588().equals(other.getSourceOfDescription588()))
-      return false;
-    return true;
-  }
-
-  @Override
-  public String toString() {
-    return "Serial [issn022=" + getIssn022()
-      + ", frequency310=" + getFrequency310()
-      + ", datesOfPublication362=" + getDatesOfPublication362()
-      + ", sourceOfDescription588=" + getSourceOfDescription588()
-      + "]";
+  public Marc21Serial(Marc21Record marc21Record) {
+    super(marc21Record);
   }
 
   private boolean empty(List<DataField> list) {
@@ -137,7 +52,9 @@ public class Serial {
   }
 
   public List<Integer> determineRecordQualityScore() {
-    var control008 = marcRecord.getControl008();
+
+    Marc21Record marc21Record = (Marc21Record) marcRecord;
+    var control008 = marc21Record.getControl008();
 
     if (control008 instanceof Control008) {
       detectUnknownDate1((Control008) control008);
@@ -273,10 +190,14 @@ public class Serial {
 
   private void detect008() {
     // 006 is present
-    if (marcRecord.getControl006() != null && !marcRecord.getControl006().isEmpty()) {
+
+    Marc21Record marc21Record = (Marc21Record) marcRecord;
+    var control006fields = marc21Record.getControl006();
+
+    if (control006fields != null && !control006fields.isEmpty()) {
       boolean hasContent = false;
-      for (Control006 control006 : marcRecord.getControl006()) {
-        if (control006.getContent() != null && !control006.getContent().equals("")) {
+      for (Control006 control006 : control006fields) {
+        if (control006.getContent() != null && !control006.getContent().isEmpty()) {
           hasContent = true;
           break;
         }
@@ -349,22 +270,5 @@ public class Serial {
         && control008.getTag008all07().getValue().equals("uuuu")) {
       scores.set(SerialFields.DATE_1_UNKNOWN, -3);
     }
-  }
-
-  public void print() {
-    System.out.print(
-      marcRecord.getId()
-        + ", form of item: " + ((Control008)marcRecord.getControl008()).getValueByPosition(23) // record.getControl008().getControlValueByPosition(23).resolve()
-        + ", issn: " + marcRecord.getDatafield("022").get(0).getSubfield("a").get(0).getValue()
-        + ", date1: " + ((Control008)marcRecord.getControl008()).getTag008all07().getValue()
-        + ", date2: " + ((Control008)marcRecord.getControl008()).getTag008all11().getValue()
-        + ", encodingLevel: " + getEncodingLevel()
-        // + ", title: " + record.getDatafield("245").get(0).toString()
-        + ", " + scores.get(SerialFields.TOTAL)
-    );
-  }
-
-  public SerialScores getScores() {
-    return scores;
   }
 }

@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.analysis;
+package de.gwdg.metadataqa.marc.analysis.serial;
 
 public enum SerialFields {
   ID("id", "id"),
@@ -19,13 +19,17 @@ public enum SerialFields {
   HAS_SUBJECT("Subject is present", "has-subject"),
   PCC("Authentication Code is pcc", "pcc"),
   DATE_1_STARTS_WITH_0("First date (008/07) startes with 0", "date1-0"),
+  INACTIVE_TITLE("Title is inactive - no date2", "date2-present"), // TODO check the machine field. Not sure what it is
   ABBREVIATED("Encoding level is abbreviated", "abbreviated"),
-  TOTAL("total", "total")
-  ;
+  TOTAL("total", "total");
 
-  private String label;
-  private String machine;
-  private boolean isClassification = false;
+  private final String label;
+
+  // FIXME The name "machine" isn't very descriptive. It's not clear what it means.
+  private final String machine;
+
+  // FIXME This field is not set anywhere. It's always false.
+  private final boolean isClassification = false;
 
   SerialFields(String label, String machine) {
     this.label = label;

@@ -1,15 +1,32 @@
 package de.gwdg.metadataqa.marc.analysis;
 
+import de.gwdg.metadataqa.marc.TestUtils;
+import de.gwdg.metadataqa.marc.analysis.serial.Marc21Serial;
+import de.gwdg.metadataqa.marc.analysis.serial.SerialFields;
+import de.gwdg.metadataqa.marc.cli.SerialScore;
 import de.gwdg.metadataqa.marc.dao.MarcLeader;
 import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import static de.gwdg.metadataqa.marc.cli.CliTestUtils.getTestResource;
 import static org.junit.Assert.assertEquals;
 
 public class SerialTest {
+
+  private String outputDir;
+
+  @Before
+  public void setUp() throws Exception {
+    outputDir = TestUtils.getPath("output");
+  }
 
   @Test
   public void test() {
@@ -38,12 +55,12 @@ public class SerialTest {
 
     assertEquals(MarcLeader.Type.CONTINUING_RESOURCES, marcRecord.getType());
 
-    Serial serial = new Serial(marcRecord);
+    Marc21Serial serial = new Marc21Serial(marcRecord);
     List<Integer> scores = serial.determineRecordQualityScore();
-    assertEquals(19, scores.size());
-    assertEquals(19, serial.getScores().getScores().size());
+    assertEquals(20, scores.size());
+    assertEquals(20, serial.getScores().getScores().size());
 
-    assertEquals("0,0,0,0,0,1,1,1,0,1,1,1,1,0,7,0,0,0,14", StringUtils.join(scores, ','));
+    assertEquals("0,0,0,0,0,1,1,1,0,1,1,1,1,0,7,0,0,0,0,14", StringUtils.join(scores, ','));
     assertEquals(0, serial.getScores().get(SerialFields.ENCODING_LEVEL_FULL));
     assertEquals(1, serial.getScores().get(SerialFields.ENCODING_LEVEL_MINIMAL));
     assertEquals(1, serial.getScores().get(SerialFields.HAS_006));
@@ -56,5 +73,45 @@ public class SerialTest {
     assertEquals(14, serial.getScores().get(SerialFields.TOTAL));
     // assertEquals("[(enc-2,1), (006,1), (260,1), (310,1), (336,1), (332,1), (588,1), (subject,7)]", serial.getScores().toString());
 
+  }
+
+  @Test
+  public void marcSerial_whenAlephSeq_RunsSuccessfully() throws IOException {
+    String[] args = {
+      "--schemaType", "MARC21",
+      "--marcFormat", "ALEPHSEQ",
+      "--marcVersion", "GENT",
+      "--outputDir", outputDir,
+      TestUtils.getPath("alephseq/alephseq-example2-continuing-resources.txt")
+    };
+
+    SerialScore.main(args);
+
+    // Now compare the output files with the expected ones
+    File expectedFile = new File(getTestResource("alephseq/expected-results/serial-score/serial-score.csv"));
+    File actualFile = new File(outputDir, "serial-score.csv");
+    String expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    String actual = FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    Assert.assertEquals(expected, actual);
+  }
+
+  @Test
+  public void serial_whenUnimarc_RunsSuccessfully() throws IOException {
+    String[] args = {
+      "--schemaType", "UNIMARC",
+      "--outputDir", outputDir,
+      TestUtils.getPath("unimarc/serial.bnr.1993.mrc")
+    };
+
+    SerialScore.main(args);
+
+    // Now compare the output files with the expected ones
+    File expectedFile = new File(getTestResource("unimarc/expected-results/serial-score/serial-score.csv"));
+    File actualFile = new File(outputDir, "serial-score.csv");
+    String expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    String actual = FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    Assert.assertEquals(expected, actual);
   }
 }

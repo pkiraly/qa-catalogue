@@ -37,13 +37,6 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
 
   private static final Logger logger = Logger.getLogger(BibliographicRecord.class.getCanonicalName());
   protected static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
-  private static final List<String> MARC21_SUBJECT_TAGS = Arrays.asList(
-    "052", "055", "072", "080", "082", "083", "084", "085", "086",
-    "600", "610", "611", "630", "647", "648", "650", "651",
-    "653", "654", "655", "656", "657", "658", "662"
-  );
-  protected static final List<String> PICA_SUBJECT_TAGS = Arrays.asList("045A", "045B", "045F", "045R");
-
   private static final Map<String, Boolean> undefinedTags = new HashMap<>();
 
   protected List<DataField> datafields;
@@ -136,49 +129,32 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
   }
 
   /**
-   * Extact field value
-   * @param tag
-   * @param subfield
-   * @param doResolve
-   * @return
+   * Extracts the values of a specified subfield from all data fields with a specified tag.
+   * If the subfield path is "ind1" or "ind2", the method will extract the indicator value.
+   * Otherwise, it will extract the subfield value.
+   *
+   * @param tag The tag of the data fields to extract from.
+   * @param subfieldPath The path of the subfield to extract.
+   * @param doResolve The resolve option to use when extracting subfield values.
+   * @return A list of extracted values.
    */
-  public List<String> extract(String tag, String subfield, RESOLVE doResolve) {
-    List<String> values = new ArrayList<>();
+  public List<String> extract(String tag, String subfieldPath, RESOLVE doResolve) {
+    List<String> extractedValues = new ArrayList<>();
     List<DataField> fields = getDatafield(tag);
-    if (fields != null && !fields.isEmpty()) {
-      for (DataField field : fields) {
-        if (subfield.equals("ind1") || subfield.equals("ind2")) {
-          String value;
-          Indicator indicator;
-          if (subfield.equals("ind1")) {
-            value = field.getInd1();
-            indicator = field.getDefinition().getInd1();
-          } else {
-            value = field.getInd2();
-            indicator = field.getDefinition().getInd2();
-          }
-          if (indicator.getCode(value) == null) {
-            values.add(value);
-          } else {
-            values.add(indicator.getCode(value).getLabel());
-          }
-        } else {
-          List<MarcSubfield> subfieldInstances = field.getSubfield(subfield);
-          if (subfieldInstances != null) {
-            for (MarcSubfield subfieldInstance : subfieldInstances) {
-              String value = null;
-              switch (doResolve) {
-                case RESOLVE: value = subfieldInstance.resolve(); break;
-                case NONE: value = subfieldInstance.getValue(); break;
-                case BOTH: value = subfieldInstance.resolve() + "##" + subfieldInstance.getValue(); break;
-              }
-              values.add(value);
-            }
-          }
-        }
+    if (fields == null || fields.isEmpty()) {
+      return extractedValues;
+    }
+
+    for (DataField field : fields) {
+      if (subfieldPath.equals("ind1") || subfieldPath.equals("ind2")) {
+        String extractedIndicator = extractIndicator(field, subfieldPath);
+        extractedValues.add(extractedIndicator);
+      } else {
+        List<String> extractedSubfields = extractSubfield(field, subfieldPath, doResolve);
+        extractedValues.addAll(extractedSubfields);
       }
     }
-    return values;
+    return extractedValues;
   }
 
   public List<String> getUnhandledTags() {
@@ -356,6 +332,7 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return results;
   }
 
+
   /**
    * Selects the datafields of the record that match the selector. The selected datafields are added to the list of
    * selected results and returned.
@@ -500,21 +477,17 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
   public abstract boolean isSubjectTag(String tag);
   public abstract boolean isSkippableSubjectSubfield(String tag, String code);
   public abstract Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap();
+  protected abstract List<String> getSubjectTags();
 
   public List<DataField> getSubjects() {
     List<DataField> subjects = new ArrayList<>();
-    List<String> tags;
-    switch (schemaType) {
-      case PICA:
-        tags = PICA_SUBJECT_TAGS; break;
-      case MARC21:
-      default:
-        tags = MARC21_SUBJECT_TAGS; break;
-    }
+    List<String> tags = getSubjectTags();
+
     for (String tag : tags) {
       List<DataField> fields = getDatafield(tag);
-      if (fields != null && !fields.isEmpty())
+      if (fields != null && !fields.isEmpty()) {
         subjects.addAll(fields);
+      }
     }
     return subjects;
   }
@@ -564,5 +537,46 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
 
   public void setSchemaType(SchemaType schemaType) {
     this.schemaType = schemaType;
+  }
+
+  private String extractIndicator(DataField field, String subfieldPath) {
+    String value;
+    Indicator indicator;
+
+    // Check which indicator to extract
+    if (subfieldPath.equals("ind1")) {
+      value = field.getInd1();
+      indicator = field.getDefinition().getInd1();
+    } else {
+      value = field.getInd2();
+      indicator = field.getDefinition().getInd2();
+    }
+
+    if (indicator.getCode(value) == null) {
+      return value;
+    } else {
+      return indicator.getCode(value).getLabel();
+    }
+  }
+
+  private List<String> extractSubfield(DataField field, String subfieldPath, RESOLVE doResolve) {
+    List<MarcSubfield> subfieldInstances = field.getSubfield(subfieldPath);
+    if (subfieldInstances == null) {
+      return new ArrayList<>();
+    }
+
+    List<String> extractedValues = new ArrayList<>();
+
+    for (MarcSubfield subfieldInstance : subfieldInstances) {
+      String value = null;
+      switch (doResolve) {
+        case RESOLVE: value = subfieldInstance.resolve(); break;
+        case NONE: value = subfieldInstance.getValue(); break;
+        case BOTH: value = subfieldInstance.resolve() + "##" + subfieldInstance.getValue(); break;
+      }
+      extractedValues.add(value);
+    }
+
+    return extractedValues;
   }
 }

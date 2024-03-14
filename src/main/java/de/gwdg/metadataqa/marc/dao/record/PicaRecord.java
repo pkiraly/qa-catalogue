@@ -17,12 +17,14 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
+import java.util.logging.Logger;
 
 public class PicaRecord extends BibliographicRecord {
   private static final Logger logger = Logger.getLogger(
     PicaRecord.class.getCanonicalName()
   );
 
+  protected static final List<String> PICA_SUBJECT_TAGS = Arrays.asList("045A", "045B", "045F", "045R");
   private static List<String> authorityTags;
   private static Map<String, Boolean> authorityTagsIndex;
   private static Map<String, Boolean> subjectTagIndex;
@@ -107,6 +109,11 @@ public class PicaRecord extends BibliographicRecord {
 
     return shelfReadyMap;
   }
+
+  protected List<String> getSubjectTags() {
+    return PICA_SUBJECT_TAGS;
+  }
+
 
   private static void initializeAuthorityTags() {
     authorityTags = Arrays.asList(

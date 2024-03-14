@@ -1,14 +1,18 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.analysis.Serial;
-import de.gwdg.metadataqa.marc.analysis.SerialFields;
+import de.gwdg.metadataqa.marc.analysis.serial.Marc21Serial;
+import de.gwdg.metadataqa.marc.analysis.serial.MarcSerial;
+import de.gwdg.metadataqa.marc.analysis.serial.SerialFields;
+import de.gwdg.metadataqa.marc.analysis.serial.UnimarcSerial;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.SerialScoreParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.dao.MarcLeader;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
-import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.MarcRecord;
+import de.gwdg.metadataqa.marc.dao.record.UnimarcRecord;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
@@ -61,12 +65,12 @@ public class SerialScore extends QACli<SerialScoreParameters> implements Bibliog
     try {
       processor = new SerialScore(args);
     } catch (ParseException e) {
-      System.err.println("ERROR. " + e.getLocalizedMessage());
+      logger.severe("ERROR. " + e.getLocalizedMessage());
       System.exit(1);
     }
 
     if (processor.getParameters().getArgs().length < 1) {
-      System.err.println("Please provide a MARC file name!");
+      logger.severe("Please provide a MARC file name!");
       System.exit(0);
     }
     if (processor.getParameters().doHelp()) {
@@ -85,7 +89,7 @@ public class SerialScore extends QACli<SerialScoreParameters> implements Bibliog
 
   @Override
   public void beforeIteration() {
-    logger.info(parameters.formatParameters());
+    logger.info(() -> parameters.formatParameters());
     printFields();
 
     output = new File(parameters.getOutputDir(), parameters.getFileName());
@@ -97,11 +101,12 @@ public class SerialScore extends QACli<SerialScoreParameters> implements Bibliog
       }
     }
 
-    print(createRow(Serial.getHeader()));
+    print(createRow(MarcSerial.getHeaders()));
   }
 
   @Override
   public void fileOpened(Path path) {
+    // do nothing
   }
 
   @Override
@@ -115,24 +120,43 @@ public class SerialScore extends QACli<SerialScoreParameters> implements Bibliog
   }
 
   @Override
-  public void processRecord(BibliographicRecord marcRecord, int recordNumber) {
-    if (marcRecord instanceof Marc21BibliographicRecord
-        && ((Marc21BibliographicRecord) marcRecord).getType().equals(MarcLeader.Type.CONTINUING_RESOURCES)) {
-      if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
-        return;
-
-      Serial serial = new Serial((Marc21BibliographicRecord) marcRecord);
-      List<Integer> scores = serial.determineRecordQualityScore();
-      String message = createRow(
-        quote(marcRecord.getId().trim()), StringUtils.join(scores, ",")
-      );
-      print(message);
+  public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber) {
+    if (!(bibliographicRecord instanceof MarcRecord)) {
+      return;
     }
+
+    MarcRecord marcRecord = (MarcRecord) bibliographicRecord;
+    if (!marcRecord.getType().equals(MarcLeader.Type.CONTINUING_RESOURCES)) {
+      logger.info("Skipping non-serial record: " + marcRecord.getId());
+      return;
+    }
+
+    if (parameters.getRecordIgnorator().isIgnorable(marcRecord)) {
+      return;
+    }
+
+    MarcSerial serial;
+    if (marcRecord instanceof Marc21Record) {
+      logger.info("Processing MARC21 serial record: " + marcRecord.getId());
+      serial = new Marc21Serial((Marc21Record) marcRecord);
+    } else {
+      logger.info("Processing UNIMARC serial record: " + marcRecord.getId());
+      serial = new UnimarcSerial((UnimarcRecord) marcRecord);
+    }
+
+    // Count the scores
+    List<Integer> scores = serial.determineRecordQualityScore();
+
+    // Create the histogram message
+    String message = createRow(
+      quote(marcRecord.getId().trim()), StringUtils.join(scores, ",")
+    );
+    print(message);
   }
 
   @Override
   public void fileProcessed() {
-
+    // do nothing
   }
 
   @Override
@@ -142,6 +166,7 @@ public class SerialScore extends QACli<SerialScoreParameters> implements Bibliog
   }
 
   private void printHistogram() {
+    // FIXME histogram is never updated
     Path path;
     path = Paths.get(parameters.getOutputDir(), "serial-histogram.csv");
     try (var writer = Files.newBufferedWriter(path)) {
@@ -149,7 +174,7 @@ public class SerialScore extends QACli<SerialScoreParameters> implements Bibliog
       histogram
         .entrySet()
         .stream()
-        .sorted((e1, e2) -> e1.getKey().compareTo(e2.getKey()))
+        .sorted(Map.Entry.comparingByKey())
         .forEach(
           entry -> {
             try {

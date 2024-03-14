@@ -32,6 +32,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Marc21Record extends MarcRecord {
+  private static final List<String> MARC21_SUBJECT_TAGS = Arrays.asList(
+    "052", "055", "072", "080", "082", "083", "084", "085", "086",
+    "600", "610", "611", "630", "647", "648", "650", "651",
+    "653", "654", "655", "656", "657", "658", "662"
+  );
 
   private static final Pattern positionalPattern = Pattern.compile("^(Leader|00[678])/(.*)$");
   private static final List<String> simpleControlTags = Arrays.asList("001", "003", "005");
@@ -178,6 +183,10 @@ public class Marc21Record extends MarcRecord {
       }
     }
     return results;
+  }
+
+  protected List<String> getSubjectTags() {
+    return MARC21_SUBJECT_TAGS;
   }
 
   private void searchControlField(String path, String query, List<String> results) {

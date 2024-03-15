@@ -108,7 +108,8 @@ public class Marc21BibliographicRecord extends Marc21Record {
   private void initializeAuthorityTags() {
     authorityTags = Arrays.asList(
       "100", "110", "111", "130",
-      "700", "710", "711", "730",   "720", "740", "751", "752", "753", "754",
+      "240",
+      "700", "710", "711", "730", "720", "740", "751", "752", "753", "754",
       "800", "810", "811", "830"
     );
     authorityTagsIndex = Utils.listToMap(authorityTags);
@@ -128,7 +129,7 @@ public class Marc21BibliographicRecord extends Marc21Record {
     authorityTagsMap.put(AuthorityCategory.CORPORATE, List.of("110", "710", "810"));
     authorityTagsMap.put(AuthorityCategory.MEETING, List.of("111", "711", "811"));
     authorityTagsMap.put(AuthorityCategory.GEOGRAPHIC, List.of("751", "752"));
-    authorityTagsMap.put(AuthorityCategory.TITLES, List.of("130", "730", "740", "830"));
+    authorityTagsMap.put(AuthorityCategory.TITLES, List.of("130", "240", "730", "740", "830"));
     authorityTagsMap.put(AuthorityCategory.OTHER, List.of("720", "753", "754"));
   }
 

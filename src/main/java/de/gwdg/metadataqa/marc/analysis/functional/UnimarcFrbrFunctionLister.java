@@ -24,7 +24,11 @@ public class UnimarcFrbrFunctionLister extends FrbrFunctionLister {
   }
 
   public void prepareBaseline() {
-    // There's a file which for each FRBR function (task) lists the fields and subfields that support it. Since there are
+    // Source: Arastoopoor, Sholeh & Fattahi, Rahmatollah. (2013).
+    // Mapping Unimarc Fields to FRBR Entities and User Tasks.
+    // International Journal of Information Science and Management. 11. 43-56.
+
+    // There's a file which for each user task lists the fields and subfields that support it. Since there are
     // no flat fields in UNIMARC, it's only in the format of "field$subfield" (e.g. "100$a"). In addition, the source
     // paper doesn't list control fields, leader or indicators, so they are not included here.
     // Also, the paper defines only four user tasks which are part of the Discovery group, namely: Search (Find),

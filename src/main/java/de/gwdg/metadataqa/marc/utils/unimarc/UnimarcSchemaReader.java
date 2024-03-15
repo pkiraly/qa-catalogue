@@ -4,7 +4,6 @@ import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
-import de.gwdg.metadataqa.marc.utils.marcreader.schema.AvramMarc21SchemaReader;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
@@ -25,7 +24,7 @@ import java.util.regex.Pattern;
  * Reads a UNIMARC schema from a JSON file, so that it can be used to process UNIMARC records.
  */
 public class UnimarcSchemaReader {
-  private static final Logger logger = Logger.getLogger(AvramMarc21SchemaReader.class.getCanonicalName());
+  private static final Logger logger = Logger.getLogger(UnimarcSchemaReader.class.getCanonicalName());
   private static final String LABEL = "label";
   private static final String TAG = "tag";
   private static final String REQUIRED = "required";

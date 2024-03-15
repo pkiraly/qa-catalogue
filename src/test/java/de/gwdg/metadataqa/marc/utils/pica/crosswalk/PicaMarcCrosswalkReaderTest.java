@@ -1,8 +1,8 @@
 package de.gwdg.metadataqa.marc.utils.pica.crosswalk;
 
+import de.gwdg.metadataqa.marc.analysis.functional.FrbrFunctionLister;
+import de.gwdg.metadataqa.marc.analysis.functional.PicaFrbrFunctionLister;
 import de.gwdg.metadataqa.marc.definition.FRBRFunction;
-import de.gwdg.metadataqa.marc.definition.MarcVersion;
-import de.gwdg.metadataqa.marc.utils.FrbrFunctionLister;
 import org.junit.Test;
 
 import java.util.List;
@@ -20,8 +20,8 @@ public class PicaMarcCrosswalkReaderTest {
 
   @Test
   public void testLoad() {
-    FrbrFunctionLister lister = new FrbrFunctionLister(MarcVersion.MARC21);
-    Map<FRBRFunction, List<String>> picaFunctions = lister.getPicaPathByFunctionConcensed();
+    FrbrFunctionLister lister = new PicaFrbrFunctionLister();
+    Map<FRBRFunction, List<String>> picaFunctions = lister.getPathByFunction();
     assertEquals(11, picaFunctions.size());
     assertEquals(167, picaFunctions.get(FRBRFunction.DiscoveryObtain).size());
     assertEquals(178, picaFunctions.get(FRBRFunction.DiscoverySearch).size());

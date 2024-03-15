@@ -1,0 +1,13 @@
+frbrfunction,functioncount,score,count
+DiscoverySearch,7,0.05555555555555555,1
+DiscoveryIdentify,18,0.04918032786885246,1
+DiscoverySelect,10,0.04504504504504504,1
+DiscoveryObtain,12,0.04428044280442804,1
+UseRestrict,0,NaN,1
+UseManage,0,NaN,1
+UseOperate,0,NaN,1
+UseInterpret,0,NaN,1
+ManagementIdentify,0,NaN,1
+ManagementProcess,0,NaN,1
+ManagementSort,0,NaN,1
+ManagementDisplay,0,NaN,1

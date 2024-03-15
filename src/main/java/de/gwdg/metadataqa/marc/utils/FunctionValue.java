@@ -4,11 +4,11 @@ import java.util.Objects;
 
 public class FunctionValue {
   private int count = 0;
-  private double percent = 0.0;
+  private double percentage = 0.0;
 
   public FunctionValue(int count, double percent) {
     this.count = count;
-    this.percent = percent;
+    this.percentage = percent;
   }
 
   public FunctionValue() {}
@@ -17,21 +17,21 @@ public class FunctionValue {
     this.count += 1;
   }
 
-  public void calculatePercent(int total) {
-    percent = count * 1.0 / total;
+  public void calculatePercentage(int total) {
+    percentage = count * 1.0 / total;
   }
 
   public void add(FunctionValue other) {
     this.count += other.count;
-    this.percent += other.percent;
+    this.percentage += other.percentage;
   }
 
   public int getCount() {
     return count;
   }
 
-  public double getPercent() {
-    return percent;
+  public double getPercentage() {
+    return percentage;
   }
 
   @Override
@@ -39,11 +39,11 @@ public class FunctionValue {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     FunctionValue that = (FunctionValue) o;
-    return count == that.count && Double.compare(that.percent, percent) == 0;
+    return count == that.count && Double.compare(that.percentage, percentage) == 0;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(count, percent);
+    return Objects.hash(count, percentage);
   }
 }

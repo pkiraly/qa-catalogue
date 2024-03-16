@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc.analysis.classification;
 
-import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.analysis.ClassificationStatistics;
 import de.gwdg.metadataqa.marc.analysis.FieldWithScheme;
 import de.gwdg.metadataqa.marc.cli.parameters.ClassificationParameters;
@@ -13,9 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
-public class Marc21ClassificationAnalyzer extends ClassificationAnalyzer {
+public class Marc21ClassificationAnalyzer extends MarcClassificationAnalyzer {
 
   private static final Logger logger = Logger.getLogger(
     Marc21ClassificationAnalyzer.class.getCanonicalName()
@@ -23,7 +21,7 @@ public class Marc21ClassificationAnalyzer extends ClassificationAnalyzer {
   public static final String DEWEY_DECIMAL_CLASSIFICATION = "Dewey Decimal Classification";
 
   /**
-   * Consists of fields which have the first indicator which states the classification source (scheme). The first
+   * Consists of fields which have the first indicator which states the classification source (schema). The first
    * indicator can also indicate that the source is specified in the subfield 2.
    */
   private static final List<String> fieldsWithIndicator1AndSubfield2 = Arrays.asList(
@@ -37,7 +35,7 @@ public class Marc21ClassificationAnalyzer extends ClassificationAnalyzer {
   // 8 (Other call number assigned by the contributing library),
   // 9 (Other class number assigned by the contributing library).
   /**
-   * Consists of fields which have the second indicator which states the classification source (scheme). The second
+   * Consists of fields which have the second indicator which states the classification source (schema). The second
    * indicator can also indicate that the source is specified in the subfield 2.
    */
   private static final List<String> fieldsWithIndicator2AndSubfield2 = Arrays.asList(
@@ -57,7 +55,7 @@ public class Marc21ClassificationAnalyzer extends ClassificationAnalyzer {
   );
 
   /**
-   * Consists of fields which have the subfield 2 which states the classification source (scheme).
+   * Consists of fields which have the subfield 2 which states the classification source (schema).
    */
   private static final List<String> fieldsWithSubfield2 = Arrays.asList(
     "084", // Other Classificaton Number
@@ -71,14 +69,13 @@ public class Marc21ClassificationAnalyzer extends ClassificationAnalyzer {
   );
 
   /**
-   * Fields which directly specify the classification scheme in the field.
+   * Fields which directly specify the classification schema in the field.
    */
   private static final List<FieldWithScheme> MARC21_FIELD_WITH_SCHEMES = Arrays.asList(
     new FieldWithScheme("080", "Universal Decimal Classification"),
     new FieldWithScheme("082", DEWEY_DECIMAL_CLASSIFICATION),
     new FieldWithScheme("083", DEWEY_DECIMAL_CLASSIFICATION),
     new FieldWithScheme("085", DEWEY_DECIMAL_CLASSIFICATION)
-    // new FieldWithScheme("086", "Government Document Classification");
   );
 
   public Marc21ClassificationAnalyzer(BibliographicRecord marcRecord, ClassificationStatistics statistics) {
@@ -92,6 +89,7 @@ public class Marc21ClassificationAnalyzer extends ClassificationAnalyzer {
 
   @Override
   public int process() {
+    logger.log(Level.INFO, "Processing Marc21ClassificationAnalyzer");
     var total = 0;
     schemasInRecord = new ArrayList<>();
 
@@ -109,7 +107,7 @@ public class Marc21ClassificationAnalyzer extends ClassificationAnalyzer {
   private int processFieldsWithIndicator1AndSubfield2() {
     int totalCount = 0;
     for (String tag : fieldsWithIndicator1AndSubfield2) {
-      var count = processFieldWithIndicator1AndSubfield2(marcRecord, tag);
+      var count = processFieldWithIndicatorAndSubfield2(bibliographicRecord, tag, true);
       totalCount += count;
     }
     return totalCount;
@@ -118,7 +116,7 @@ public class Marc21ClassificationAnalyzer extends ClassificationAnalyzer {
   private int processFieldsWithIndicator2AndSubfield2() {
     int total = 0;
     for (String tag : fieldsWithIndicator2AndSubfield2) {
-      var count = processFieldWithIndicator2AndSubfield2(marcRecord, tag);
+      var count = processFieldWithIndicatorAndSubfield2(bibliographicRecord, tag, false);
       total += count;
     }
     return total;
@@ -127,16 +125,16 @@ public class Marc21ClassificationAnalyzer extends ClassificationAnalyzer {
   private int processFieldsWithSubfield2() {
     int total = 0;
     for (String tag : fieldsWithSubfield2) {
-      var count = processFieldWithSubfield2(marcRecord, tag);
+      var count = processFieldWithSubfield2(bibliographicRecord, tag);
       total += count;
     }
     return total;
   }
 
-  private int processFieldsWithScheme(List<FieldWithScheme> fieldsWithScheme) {
+  private int processFieldsWithScheme(List<FieldWithScheme> fieldsWithSchema) {
     int total = 0;
-    for (FieldWithScheme fieldWithScheme : fieldsWithScheme) {
-      var count = processFieldWithScheme(marcRecord, fieldWithScheme);
+    for (FieldWithScheme fieldWithScheme : fieldsWithSchema) {
+      var count = processFieldWithSchema(bibliographicRecord, fieldWithScheme);
       total += count;
     }
     return total;
@@ -145,48 +143,36 @@ public class Marc21ClassificationAnalyzer extends ClassificationAnalyzer {
   private int processFieldsWithoutSource() {
     int total = 0;
     for (String tag : fieldsWithoutSource) {
-      var count = processFieldWithoutSource(marcRecord, tag);
+      var count = processFieldWithoutSource(bibliographicRecord, tag);
       total += count;
     }
     return total;
   }
 
-  private int processFieldWithScheme(BibliographicRecord marcRecord,
-                                     FieldWithScheme fieldEntry) {
-    final String tag = fieldEntry.getTag();
+  /**
+   * Process the given field (usually from the lists fieldsWithIndicatorXAndSubfield2) and extract the schema.
+   * If the given indicator has a reference to subfield 2, extract the schema from the subfield 2.
+   * Otherwise, extract the schema from that indicator of the field.
+   * @param marcRecord The current record to extract schemas from
+   * @param tag The tag of the current field where the schema is extracted from
+   * @param isInd1 True if the indicator is the first indicator, false if it's the second indicator
+   * @return The number of schemas extracted from the current field
+   */
+  private int processFieldWithIndicatorAndSubfield2(BibliographicRecord marcRecord, String tag, boolean isInd1) {
     if (!marcRecord.hasDatafield(tag)) {
       return 0;
     }
 
-    // Get the fields with the fieldEntry tag from the current record
-    List<DataField> fields = marcRecord.getDatafield(tag);
     List<Schema> schemas = new ArrayList<>();
-    // For each field that corresponds to the fieldEntry tag, extract the scheme
+    List<DataField> fields = marcRecord.getDatafield(tag);
+
     for (DataField field : fields) {
-      String firstSubfield = null;
+      List<Schema> extractedSchemas = extractSchemas(field, tag, isInd1);
 
-      // For each subfield in the current field, extract the first subfield that is not 1, 2, 6, or 8
-      // Not sure why it's accessed this way instead of just getting the subfield $a?
-      for (MarcSubfield subfield : field.getSubfields()) {
-        String code = subfield.getCode();
-        if (!code.equals("1")
-          && !code.equals("2")
-          && !code.equals("6")
-          && !code.equals("8")) {
-          firstSubfield = "$" + code;
-          break;
-        }
+      schemas.addAll(extractedSchemas);
+      for (Schema extractedSchema : extractedSchemas) {
+        updateSchemaSubfieldStatistics(field, extractedSchema);
       }
-
-      if (firstSubfield == null) {
-        logger.log(Level.SEVERE, "undetected subfield in record {0} {1}", new Object[]{marcRecord.getId(), field});
-        continue;
-      }
-
-      var scheme = fieldEntry.getSchemaName();
-      var currentSchema = new Schema(tag, firstSubfield, classificationSchemes.resolve(scheme), scheme);
-      schemas.add(currentSchema);
-      updateSchemaSubfieldStatistics(field, currentSchema);
     }
 
     registerSchemas(schemas);
@@ -195,129 +181,53 @@ public class Marc21ClassificationAnalyzer extends ClassificationAnalyzer {
   }
 
   /**
-   * For all fields defined in fieldsWithIndicator1AndSubfield2, process the field and update the statistics.
-   * If the first indicator has a reference to subfield 2, extract the scheme from the subfield 2.
-   * Otherwise, extract the scheme from the first indicator of the field.
-   * @param marcRecord The current record to extract schemes from
-   * @param tag The tag of the current field where the scheme is extracted from
-   * @return The number of schemes extracted from the current field
+   * Extracts the schemas from the given field. If the schema source is a reference to subfield 2, extract the schemas
+   * from the subfield 2. Otherwise, extract the schema from the specified indicator of the field.
+   * @param field The current field to extract the schemas from
+   * @param tag The tag of the current field
+   * @param isInd1 True if the indicator is the first indicator, false if it's the second indicator
+   * @return The schemas extracted from the current field
    */
-  private int processFieldWithIndicator1AndSubfield2(BibliographicRecord marcRecord, String tag) {
-    var count = 0;
-    if (!marcRecord.hasDatafield(tag)) {
-      return count;
+  private List<Schema> extractSchemas(DataField field, String tag, boolean isInd1) {
+    String schema;
+
+    if (isInd1) {
+      schema = field.resolveInd1();
+    } else {
+      schema = field.resolveInd2();
     }
 
-    List<Schema> schemas = new ArrayList<>();
-    List<DataField> fields = marcRecord.getDatafield(tag);
-    for (DataField field : fields) {
-      // Get the scheme from the first indicator of the current field
-      String scheme = field.resolveInd1();
-      if (scheme.equals("No information provided")) {
-        continue;
-      }
-
-      count++;
-
-      if (isaReferenceToSubfield2(tag, scheme)) {
-        List<Schema> extractedSchemas = extractSchemasFromSubfield2(tag, field);
-        schemas.addAll(extractedSchemas);
-
-        // For each schema extracted from the subfield 2, update the statistics
-        for (Schema extractedSchema : extractedSchemas) {
-          updateSchemaSubfieldStatistics(field, extractedSchema);
-        }
-        continue;
-      }
-      Schema currentSchema;
-      try {
-        currentSchema = new Schema(tag, "ind1", classificationSchemes.resolve(scheme), scheme);
-      } catch (IllegalArgumentException e) {
-        logger.log(Level.SEVERE, "Invalid scheme in ind1: {0}. {1}", new Object[]{e.getLocalizedMessage(), field});
-        currentSchema = new Schema(tag, "ind1", field.getInd1(), scheme);
-      }
-
-      schemas.add(currentSchema);
-      updateSchemaSubfieldStatistics(field, currentSchema);
+    if (schema.equals("No information provided")) {
+      return List.of();
     }
 
-    registerSchemas(schemas);
+    String indicatorLabel = isInd1 ? "ind1" : "ind2";
 
-    return count;
-  }
-
-  private int processFieldWithIndicator2AndSubfield2(BibliographicRecord marcRecord, String tag) {
-    var count = 0;
-    if (!marcRecord.hasDatafield(tag)) {
-      return count;
+    if (isaReferenceToSubfield2(tag, schema)) {
+      return extractSchemasFromSubfield2(tag, field);
     }
 
-    List<Schema> schemas = new ArrayList<>();
-    List<DataField> fields = marcRecord.getDatafield(tag);
-    for (DataField field : fields) {
-      String scheme = field.resolveInd2();
-      if (scheme.equals("No information provided")) {
-        continue;
-      }
+    Schema currentSchema;
+    try {
+      String schemaLabel = classificationSchemes.resolve(schema);
+      currentSchema = new Schema(tag, indicatorLabel, schemaLabel, schema);
+    } catch (IllegalArgumentException e) {
+      logger.log(Level.SEVERE, "Invalid schema in {0}: {1}. {2}",
+        new Object[]{indicatorLabel, e.getLocalizedMessage(), field});
 
-      count++;
-
-      if (isaReferenceToSubfield2(tag, scheme)) {
-        List<Schema> extractedSchemas = extractSchemasFromSubfield2(tag, field);
-        schemas.addAll(extractedSchemas);
-
-        // For each schema extracted from the subfield 2, update the statistics
-        for (Schema extractedSchema : extractedSchemas) {
-          updateSchemaSubfieldStatistics(field, extractedSchema);
-        }
-        continue;
-      }
-
-      Schema currentSchema;
-      try {
-        currentSchema = new Schema(tag, "ind2", classificationSchemes.resolve(scheme), scheme);
-      } catch (IllegalArgumentException e) {
-        logger.log(Level.WARNING, "Invalid scheme in ind2: {0}. {1}", new Object[]{e.getLocalizedMessage(), field});
-        currentSchema = new Schema(tag, "ind2", field.getInd2(), scheme);
-      }
-      schemas.add(currentSchema);
-
-      updateSchemaSubfieldStatistics(field, currentSchema);
-    }
-    registerSchemas(schemas);
-
-    return count;
-  }
-
-  private int processFieldWithSubfield2(BibliographicRecord marcRecord, String tag) {
-    var count = 0;
-    if (!marcRecord.hasDatafield(tag)) {
-      return count;
+      String indicatorValue = isInd1 ? field.getInd1() : field.getInd2();
+      currentSchema = new Schema(tag, indicatorLabel, indicatorValue, schema);
     }
 
-    List<DataField> fields = marcRecord.getDatafield(tag);
-    List<Schema> schemas = new ArrayList<>();
-    for (DataField field : fields) {
-      List<Schema> extractedSchemas = extractSchemasFromSubfield2(tag, field);
-      schemas.addAll(extractedSchemas);
-
-      for (Schema extractedSchema : extractedSchemas) {
-        updateSchemaSubfieldStatistics(field, extractedSchema);
-      }
-      count++;
-    }
-
-    registerSchemas(schemas);
-
-    return count;
+    return List.of(currentSchema);
   }
 
   /**
-   * For the specified field, update the statistics so that the scheme is labeled as uncontrolled along with the
+   * For the specified field, update the statistics so that the schema is labeled as uncontrolled along with the
    * abbreviation (or the name of the classification provided) from the second indicator.
-   * @param marcRecord The current record to extract schemes from
-   * @param tag The tag of the current field where the scheme is extracted from
-   * @return The number of schemes extracted from the current field
+   * @param marcRecord The current record to extract schemas from
+   * @param tag The tag of the current field where the schema is extracted from
+   * @return The number of schemas extracted from the current field
    */
   private int processFieldWithoutSource(BibliographicRecord marcRecord, String tag) {
     if (!marcRecord.hasDatafield(tag)) {
@@ -344,51 +254,23 @@ public class Marc21ClassificationAnalyzer extends ClassificationAnalyzer {
   }
 
   /**
-   * Extracts the scheme from the subfield 2 of the current field.
-   * If the subfield 2 is not present, a new schema is created with the value "undetectable".
-   * Otherwise, a new schema is created for each subfield 2 found.
-   * @param tag The tag of the current field
-   * @param field The current field from which the subfield 2 is extracted
-   * @return The schemas extracted from the subfield 2
-   */
-  private List<Schema> extractSchemasFromSubfield2(String tag,
-                                                   DataField field) {
-
-    List<Schema> extractedSchemas = new ArrayList<>();
-    List<MarcSubfield> altSchemes = field.getSubfield("2");
-
-    // If the subfield 2 is not present, we cannot extract the scheme
-    if (altSchemes == null || altSchemes.isEmpty()) {
-      Schema newSchema = new Schema(tag, "$2", "undetectable", "undetectable");
-      extractedSchemas.add(newSchema);
-      return extractedSchemas;
-    }
-
-    for (MarcSubfield altScheme : altSchemes) {
-      Schema newSchema = new Schema(tag, "$2", altScheme.getValue(), altScheme.resolve());
-      extractedSchemas.add(newSchema);
-    }
-    return extractedSchemas;
-  }
-
-  /**
-   * Checks for the current field if the scheme source is a reference to subfield 2. In other words,
+   * Checks for the current field if the schema source is a reference to subfield 2. In other words,
    * if the source is specified in subfield $2.
    * @param field The current field to check
-   * @param scheme Name of the scheme or reference to subfield 2. For 055: LC-based call number assigned by LAC,
+   * @param schema Name of the schema or reference to subfield 2. For 055: LC-based call number assigned by LAC,
    *               Complete LC class number assigned by LAC, Incomplete LC class number assigned by LAC, etc.
-   * @return True if the scheme source is a reference to subfield 2, false otherwise.
+   * @return True if the schema source is a reference to subfield 2, false otherwise.
    */
-  private boolean isaReferenceToSubfield2(String field, String scheme) {
+  private boolean isaReferenceToSubfield2(String field, String schema) {
     return (
-         (field.equals("055") && isAReferenceFrom055(scheme))
-      || scheme.equals("Source specified in subfield $2"));
+         (field.equals("055") && isAReferenceFrom055(schema))
+      || schema.equals("Source specified in subfield $2"));
   }
 
-  private boolean isAReferenceFrom055(String scheme) {
-    return (scheme.equals("Other call number assigned by LAC")
-      || scheme.equals("Other class number assigned by LAC")
-      || scheme.equals("Other call number assigned by the contributing library")
-      || scheme.equals("Other class number assigned by the contributing library"));
+  private boolean isAReferenceFrom055(String schema) {
+    return (schema.equals("Other call number assigned by LAC")
+      || schema.equals("Other class number assigned by LAC")
+      || schema.equals("Other call number assigned by the contributing library")
+      || schema.equals("Other class number assigned by the contributing library"));
   }
 }

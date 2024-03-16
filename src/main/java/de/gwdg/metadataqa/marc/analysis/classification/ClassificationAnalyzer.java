@@ -16,31 +16,28 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static de.gwdg.metadataqa.marc.Utils.count;
 
 public abstract class ClassificationAnalyzer {
-  private static final Logger logger = Logger.getLogger(
-    ClassificationAnalyzer.class.getCanonicalName()
-  );
+
   protected static final ClassificationSchemes classificationSchemes =
     ClassificationSchemes.getInstance();
   protected static final Pattern NUMERIC_REGEX = Pattern.compile("^\\d");
   protected final ClassificationStatistics statistics;
   protected ClassificationParameters parameters = null;
-  protected BibliographicRecord marcRecord;
+  protected BibliographicRecord bibliographicRecord;
   protected List<Schema> schemasInRecord;
 
-  protected ClassificationAnalyzer(BibliographicRecord marcRecord, ClassificationStatistics statistics) {
-    this.marcRecord = marcRecord;
+  protected ClassificationAnalyzer(BibliographicRecord bibliographicRecord, ClassificationStatistics statistics) {
+    this.bibliographicRecord = bibliographicRecord;
     this.statistics = statistics;
   }
 
-  protected ClassificationAnalyzer(BibliographicRecord marcRecord, ClassificationStatistics statistics, ClassificationParameters parameters) {
-    this(marcRecord, statistics);
+  protected ClassificationAnalyzer(BibliographicRecord bibliographicRecord, ClassificationStatistics statistics, ClassificationParameters parameters) {
+    this(bibliographicRecord, statistics);
     this.parameters = parameters;
   }
 
@@ -114,7 +111,7 @@ public abstract class ClassificationAnalyzer {
   protected void increaseCounters(int total) {
     count((total > 0), statistics.getHasClassifications());
     count(total, statistics.getSchemaHistogram());
-    statistics.getFrequencyExamples().computeIfAbsent(total, s -> marcRecord.getId(true));
+    statistics.getFrequencyExamples().computeIfAbsent(total, s -> bibliographicRecord.getId(true));
 
     if (parameters != null && parameters.doCollectCollocations()) {
       List<String> collocation = getCollocationInRecord();

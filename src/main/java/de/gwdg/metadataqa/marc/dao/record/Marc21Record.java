@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.dao.record;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
+import de.gwdg.metadataqa.marc.analysis.contextual.authority.AuthorityCategory;
 import de.gwdg.metadataqa.marc.analysis.shelfready.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.dao.Control001;
 import de.gwdg.metadataqa.marc.dao.Control003;
@@ -32,7 +32,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Marc21Record extends MarcRecord {
-  private static final List<String> MARC21_SUBJECT_TAGS = Arrays.asList(
+  protected static final List<String> MARC21_SUBJECT_TAGS = Arrays.asList(
     "052", "055", "072", "080", "082", "083", "084", "085", "086",
     "600", "610", "611", "630", "647", "648", "650", "651",
     "653", "654", "655", "656", "657", "658", "662"
@@ -42,8 +42,8 @@ public class Marc21Record extends MarcRecord {
   private static final List<String> simpleControlTags = Arrays.asList("001", "003", "005");
   protected static final List<String> allowedControlFieldTags = Arrays.asList("001", "003", "005", "006", "007", "008");
 
-  private List<Control006> control006 = new ArrayList<>();
-  private List<Control007> control007 = new ArrayList<>();
+  private final List<Control006> control006 = new ArrayList<>();
+  private final List<Control007> control007 = new ArrayList<>();
 
   protected MarcPositionalControlField control008;
 
@@ -62,6 +62,7 @@ public class Marc21Record extends MarcRecord {
     return control001 != null ? control001.getContent() : null;
   }
 
+  @Override
   public List<MarcControlField> getControlfields() {
     List<MarcControlField> list = super.getControlfields();
     if (control006 != null && !control006.isEmpty())
@@ -145,9 +146,11 @@ public class Marc21Record extends MarcRecord {
     if (!schemaType.equals(SchemaType.PICA))
       map.put("leader", leader.getContent());
 
-    for (MarcControlField field : getControlfields())
-      if (field != null)
+    for (MarcControlField field : getControlfields()) {
+      if (field != null) {
         map.put(field.getDefinition().getTag(), field.getContent());
+      }
+    }
 
     datafieldsAsJson(map);
     return transformMapToJson(mapper, map);
@@ -158,29 +161,39 @@ public class Marc21Record extends MarcRecord {
     List<String> results = new ArrayList<>();
     if (path.equals("001") || path.equals("003") || path.equals("005")) {
       searchControlField(path, query, results);
-    } else if (path.startsWith("006")) {
+      return results;
+    }
+    if (path.startsWith("006")) {
       for (Control006 instance : control006)
         searchPositionalControlField(instance, path, query, results);
-    } else if (path.startsWith("007")) {
+      return results;
+    }
+
+    if (path.startsWith("007")) {
       for (Control007 instance : control007)
         searchPositionalControlField(instance, path, query, results);
-    } else if (path.startsWith("008")) {
+      return results;
+    }
+
+    if (path.startsWith("008")) {
       searchPositionalControlField(control008, path, query, results);
-    } else {
-      Matcher matcher = dataFieldPattern.matcher(path);
-      if (matcher.matches()) {
-        String tag = matcher.group(1);
-        String subfieldCode = matcher.group(2);
-        if (datafieldIndex.containsKey(tag)) {
-          for (DataField field : datafieldIndex.get(tag)) {
-            if (searchDatafield(query, results, subfieldCode, field)) break;
-          }
+      return results;
+    }
+
+    Matcher matcher = dataFieldPattern.matcher(path);
+    if (matcher.matches()) {
+      String tag = matcher.group(1);
+      String subfieldCode = matcher.group(2);
+      if (datafieldIndex.containsKey(tag)) {
+        for (DataField field : datafieldIndex.get(tag)) {
+          if (searchDatafield(query, results, subfieldCode, field)) break;
         }
       }
-      matcher = positionalPattern.matcher(path);
-      if (matcher.matches()) {
-        searchByPosition(query, results, matcher);
-      }
+    }
+
+    matcher = positionalPattern.matcher(path);
+    if (matcher.matches()) {
+      searchByPosition(query, results, matcher);
     }
     return results;
   }
@@ -365,56 +378,75 @@ public class Marc21Record extends MarcRecord {
   public Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap() {
     return Collections.emptyMap();
   }
+
+  @Override
   public void setField(String tag, String content, MarcVersion marcVersion) {
     if (marcVersion.equals(MarcVersion.UNIMARC)) {
       content = UnimarcConverter.contentFromUnimarc(tag, content);
       tag = UnimarcConverter.tagFromUnimarc(tag);
     }
 
-    if (tag.equals("001")) {
-      setControl001(new Control001(content));
-    } else if (tag.equals("003")) {
-      setControl003(new Control003(content));
-    } else if (tag.equals("005")) {
-      setControl005(new Control005(content, this));
-    } else if (tag.equals("006")) {
-      setControl006(new Control006(content, this));
-    } else if (tag.equals("007")) {
-      setControl007(new Control007(content, this));
-    } else if (tag.equals("008")) {
-      setControl008(new Control008(content, this));
-    } else {
-      DataFieldDefinition definition = MarcFactory.getDataFieldDefinition(tag, marcVersion);
-      if (definition == null) {
-        addUnhandledTags(tag);
-      }
+    switch (tag) {
+      case "001":
+        setControl001(new Control001(content));
+        break;
+      case "003":
+        setControl003(new Control003(content));
+        break;
+      case "005":
+        setControl005(new Control005(content, this));
+        break;
+      case "006":
+        setControl006(new Control006(content, this));
+        break;
+      case "007":
+        setControl007(new Control007(content, this));
+        break;
+      case "008":
+        setControl008(new Control008(content, this));
+        break;
+      default:
+        DataFieldDefinition definition = MarcFactory.getDataFieldDefinition(tag, marcVersion);
+        if (definition == null) {
+          addUnhandledTags(tag);
+        }
 
-      DataField dataField = new DataField(tag, content, marcVersion);
-      addDataField(dataField);
+        DataField dataField = new DataField(tag, content, marcVersion);
+        addDataField(dataField);
+        break;
     }
+
   }
 
   @Override
   public void setField(String tag, String ind1, String ind2, String content, MarcVersion marcVersion) {
 
-    if (tag.equals("001")) {
-      setControl001(new Control001(content));
-    } else if (tag.equals("003")) {
-      setControl003(new Control003(content));
-    } else if (tag.equals("005")) {
-      setControl005(new Control005(content, this));
-    } else if (tag.equals("006")) {
-      setControl006(new Control006(content, this));
-    } else if (tag.equals("007")) {
-      setControl007(new Control007(content, this));
-    } else if (tag.equals("008")) {
-      setControl008(new Control008(content, this));
-    } else {
-      DataFieldDefinition definition = MarcFactory.getDataFieldDefinition(tag, marcVersion);
-      if (definition == null) {
-        addUnhandledTags(tag);
-      }
-      addDataField(new DataField(tag, ind1, ind2, content, marcVersion));
+    switch (tag) {
+      case "001":
+        setControl001(new Control001(content));
+        break;
+      case "003":
+        setControl003(new Control003(content));
+        break;
+      case "005":
+        setControl005(new Control005(content, this));
+        break;
+      case "006":
+        setControl006(new Control006(content, this));
+        break;
+      case "007":
+        setControl007(new Control007(content, this));
+        break;
+      case "008":
+        setControl008(new Control008(content, this));
+        break;
+      default:
+        DataFieldDefinition definition = MarcFactory.getDataFieldDefinition(tag, marcVersion);
+        if (definition == null) {
+          addUnhandledTags(tag);
+        }
+        addDataField(new DataField(tag, ind1, ind2, content, marcVersion));
+        break;
     }
   }
 

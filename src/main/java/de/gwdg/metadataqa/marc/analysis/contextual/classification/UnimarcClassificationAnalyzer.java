@@ -1,6 +1,5 @@
-package de.gwdg.metadataqa.marc.analysis.classification;
+package de.gwdg.metadataqa.marc.analysis.contextual.classification;
 
-import de.gwdg.metadataqa.marc.analysis.ClassificationStatistics;
 import de.gwdg.metadataqa.marc.analysis.FieldWithScheme;
 import de.gwdg.metadataqa.marc.cli.parameters.ClassificationParameters;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
@@ -47,12 +46,12 @@ public class UnimarcClassificationAnalyzer extends MarcClassificationAnalyzer {
     "610"  // Uncontrolled subject terms
   );
 
-  public UnimarcClassificationAnalyzer(BibliographicRecord marcRecord, ClassificationStatistics statistics) {
-    super(marcRecord, statistics);
+  public UnimarcClassificationAnalyzer(BibliographicRecord bibliographicRecord, ClassificationStatistics statistics) {
+    super(bibliographicRecord, statistics);
   }
 
-  public UnimarcClassificationAnalyzer(BibliographicRecord marcRecord, ClassificationStatistics statistics, ClassificationParameters parameters) {
-    this(marcRecord, statistics);
+  public UnimarcClassificationAnalyzer(BibliographicRecord bibliographicRecord, ClassificationStatistics statistics, ClassificationParameters parameters) {
+    this(bibliographicRecord, statistics);
     this.parameters = parameters;
   }
 

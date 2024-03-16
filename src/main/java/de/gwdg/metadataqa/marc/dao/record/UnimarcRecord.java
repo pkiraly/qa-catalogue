@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.dao.record;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
+import de.gwdg.metadataqa.marc.analysis.contextual.authority.AuthorityCategory;
 import de.gwdg.metadataqa.marc.analysis.shelfready.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.UnimarcLeader;
@@ -22,8 +22,6 @@ public class UnimarcRecord extends MarcRecord {
     "676", "680", "686");
 
   protected static final List<String> allowedControlFieldTags = Arrays.asList("001", "003", "005");
-
-  // TODO for now I essentially have no idea what to do with these attributes such as authority tags etc.
   private static List<String> authorityTags;
   private static Map<String, Boolean> authorityTagsIndex;
   private static Map<String, Boolean> subjectTagIndex;
@@ -51,7 +49,7 @@ public class UnimarcRecord extends MarcRecord {
     if (authorityTags == null) {
       initializeAuthorityTags();
     }
-    return getAuthorityFields(authorityTags);
+    return getFieldsFromTags(authorityTags);
   }
 
   @Override
@@ -111,21 +109,32 @@ public class UnimarcRecord extends MarcRecord {
     return UNIMARC_SUBJECT_TAGS;
   }
 
-  private static void initializeAuthorityTags() {
+  private void initializeAuthorityTags() {
     authorityTags = Arrays.asList(
+      "700", "710", "711", "500", // Names and uniform title
+      "701", "702", "721", "722", "711", "712", // Added entry names
+      "730", "620", // Other
+      "800", "810", "811", "830" // Series added entry names
     );
     authorityTagsIndex = Utils.listToMap(authorityTags);
 
     skippableAuthoritySubfields = new HashMap<>();
 
     List<String> subjectTags = Arrays.asList(
-      "045A", "045B", "045F", "045R", "045C", "045E", "045G"
+      "052", "055", "072", "080", "082", "083", "084", "085", "086",
+      "600", "610", "611", "630", "647", "648", "650", "651",
+      "653", "654", "655", "656", "657", "658", "662"
     );
     subjectTagIndex = Utils.listToMap(subjectTags);
     skippableSubjectSubfields = new HashMap<>();
 
     authorityTagsMap = new EnumMap<>(AuthorityCategory.class);
-
+    authorityTagsMap.put(AuthorityCategory.PERSONAL, List.of("700", "701", "702"));
+    authorityTagsMap.put(AuthorityCategory.CORPORATE, List.of("710", "711", "712"));
+    authorityTagsMap.put(AuthorityCategory.MEETING, List.of("710", "711", "712"));
+    authorityTagsMap.put(AuthorityCategory.GEOGRAPHIC, List.of("620"));
+    authorityTagsMap.put(AuthorityCategory.TITLES, List.of("500", "730", "740", "830"));
+    authorityTagsMap.put(AuthorityCategory.OTHER, List.of("730.", "753", "754"));
   }
 
   private static void initializeShelfReadyMap() {

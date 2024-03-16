@@ -2,6 +2,9 @@ package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
+import de.gwdg.metadataqa.marc.analysis.contextual.authority.AuthorityAnalyzer;
+import de.gwdg.metadataqa.marc.analysis.contextual.authority.AuthorityStatistics;
+import de.gwdg.metadataqa.marc.analysis.contextual.authority.Marc21AuthorityAnalyzer;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
 import org.junit.Test;
@@ -13,7 +16,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public class AuthorithyAnalyzerTest {
+public class AuthorityAnalyzerTest {
 
   @Test
   public void test() throws IOException, URISyntaxException {
@@ -21,7 +24,7 @@ public class AuthorithyAnalyzerTest {
     BibliographicRecord marcRecord = MarcFactory.createFromFormattedText(lines);
     AuthorityStatistics statistics = new AuthorityStatistics();
 
-    AuthorithyAnalyzer analyzer = new AuthorithyAnalyzer(marcRecord, statistics);
+    AuthorityAnalyzer analyzer = new Marc21AuthorityAnalyzer(marcRecord, statistics);
     int count = analyzer.process();
     assertEquals(3, count);
     Map<Schema, Integer> recordStats = statistics.getRecords();

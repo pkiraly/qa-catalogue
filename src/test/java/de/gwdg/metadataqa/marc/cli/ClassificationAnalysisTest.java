@@ -2,12 +2,11 @@ package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.TestUtils;
-import de.gwdg.metadataqa.marc.analysis.ClassificationStatistics;
+import de.gwdg.metadataqa.marc.analysis.contextual.classification.ClassificationStatistics;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.utils.ReadMarc;
 import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.marc4j.marc.Record;
@@ -15,7 +14,6 @@ import org.marc4j.marc.Record;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
@@ -103,7 +101,7 @@ public class ClassificationAnalysisTest extends CliTestUtils {
     String actual = Files.readString(output.toPath());
     assertEquals(
       "records-with-classification,count\n" +
-      "true,1\n",
+        "true,1\n",
       actual);
 
     output = new File(outputDir, "classifications-by-schema.csv");

@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.dao.record;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
+import de.gwdg.metadataqa.marc.analysis.contextual.authority.AuthorityCategory;
 import de.gwdg.metadataqa.marc.analysis.shelfready.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
@@ -20,11 +20,12 @@ import java.util.logging.Logger;
 import java.util.logging.Logger;
 
 public class PicaRecord extends BibliographicRecord {
+  protected static final List<String> PICA_SUBJECT_TAGS = Arrays.asList("045A", "045B", "045F", "045R");
+
   private static final Logger logger = Logger.getLogger(
     PicaRecord.class.getCanonicalName()
   );
 
-  protected static final List<String> PICA_SUBJECT_TAGS = Arrays.asList("045A", "045B", "045F", "045R");
   private static List<String> authorityTags;
   private static Map<String, Boolean> authorityTagsIndex;
   private static Map<String, Boolean> subjectTagIndex;
@@ -54,7 +55,7 @@ public class PicaRecord extends BibliographicRecord {
     if (authorityTags == null) {
       initializeAuthorityTags();
     }
-    return getAuthorityFields(authorityTags);
+    return getFieldsFromTags(authorityTags);
   }
 
   @Override

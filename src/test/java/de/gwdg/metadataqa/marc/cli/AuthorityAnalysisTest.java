@@ -3,8 +3,9 @@ package de.gwdg.metadataqa.marc.cli;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.TestUtils;
-import de.gwdg.metadataqa.marc.analysis.AuthorithyAnalyzer;
-import de.gwdg.metadataqa.marc.analysis.AuthorityStatistics;
+import de.gwdg.metadataqa.marc.analysis.contextual.authority.AuthorityAnalyzer;
+import de.gwdg.metadataqa.marc.analysis.contextual.authority.AuthorityStatistics;
+import de.gwdg.metadataqa.marc.analysis.contextual.authority.PicaAuthorityAnalyzer;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.MarcFormat;
@@ -62,7 +63,7 @@ public class AuthorityAnalysisTest extends CliTestUtils {
       System.err.println(subfield);
     }
     AuthorityStatistics statistics = new AuthorityStatistics();
-    var analyzer = new AuthorithyAnalyzer(marcRecord, statistics);
+    var analyzer = new PicaAuthorityAnalyzer(marcRecord, statistics);
     int count = analyzer.process();
     System.err.println(count);
     System.err.println(statistics.getSubfields());

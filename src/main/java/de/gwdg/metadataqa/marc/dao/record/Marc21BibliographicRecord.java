@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.dao.record;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
+import de.gwdg.metadataqa.marc.analysis.contextual.authority.AuthorityCategory;
 import de.gwdg.metadataqa.marc.analysis.shelfready.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.dao.Control008;
 import de.gwdg.metadataqa.marc.dao.DataField;
@@ -18,12 +18,12 @@ import java.util.TreeMap;
 
 public class Marc21BibliographicRecord extends Marc21Record {
 
-  private static List<String> authorityTags;
-  private static Map<String, Boolean> authorityTagsIndex;
-  private static Map<String, Boolean> subjectTagIndex;
-  private static Map<String, Map<String, Boolean>> skippableAuthoritySubfields;
-  private static Map<String, Map<String, Boolean>> skippableSubjectSubfields;
-  private static Map<AuthorityCategory, List<String>> authorityTagsMap;
+  private List<String> authorityTags;
+  private Map<String, Boolean> authorityTagsIndex;
+  private Map<String, Boolean> subjectTagIndex;
+  private Map<String, Map<String, Boolean>> skippableAuthoritySubfields;
+  private Map<String, Map<String, Boolean>> skippableSubjectSubfields;
+  private Map<AuthorityCategory, List<String>> authorityTagsMap;
 
   /**
    * Key-value pairs of ShelfReadyFieldsBooks (the category) and a map of tags and its subfields.
@@ -50,15 +50,18 @@ public class Marc21BibliographicRecord extends Marc21Record {
     controlfieldIndex.put(control008.getDefinition().getTag(), Arrays.asList(control008));
   }
 
-
   @Override
   public List<DataField> getAuthorityFields() {
     if (authorityTags == null) {
       initializeAuthorityTags();
     }
-    return getAuthorityFields(authorityTags);
+    return getFieldsFromTags(authorityTags);
   }
 
+  /**
+   * Returns a map of a datafield of the record and the authority category of the field. That map is produced from the
+   * previously defined authorityTagsMap which maps authority categories to tags.
+   */
   @Override
   public Map<DataField, AuthorityCategory> getAuthorityFieldsMap() {
     if (authorityTags == null) {
@@ -106,22 +109,18 @@ public class Marc21BibliographicRecord extends Marc21Record {
   }
 
   private void initializeAuthorityTags() {
+    // At lease something from here seems a bit redundant
     authorityTags = Arrays.asList(
-      "100", "110", "111", "130",
-      "240",
-      "700", "710", "711", "730", "720", "740", "751", "752", "753", "754",
-      "800", "810", "811", "830"
+      "100", "110", "111", "130", // Names and uniform title
+      "700", "710", "711", "730", // Added entry names and uniform title
+      "720", "740", "751", "752", "753", "754", // Other
+      "800", "810", "811", "830" // Series added entry names
     );
     authorityTagsIndex = Utils.listToMap(authorityTags);
 
     skippableAuthoritySubfields = new HashMap<>();
 
-    List<String> subjectTags = Arrays.asList(
-      "052", "055", "072", "080", "082", "083", "084", "085", "086",
-      "600", "610", "611", "630", "647", "648", "650", "651",
-      "653", "654", "655", "656", "657", "658", "662"
-    );
-    subjectTagIndex = Utils.listToMap(subjectTags);
+    subjectTagIndex = Utils.listToMap(MARC21_SUBJECT_TAGS);
     skippableSubjectSubfields = new HashMap<>();
 
     authorityTagsMap = new EnumMap<>(AuthorityCategory.class);
@@ -129,7 +128,7 @@ public class Marc21BibliographicRecord extends Marc21Record {
     authorityTagsMap.put(AuthorityCategory.CORPORATE, List.of("110", "710", "810"));
     authorityTagsMap.put(AuthorityCategory.MEETING, List.of("111", "711", "811"));
     authorityTagsMap.put(AuthorityCategory.GEOGRAPHIC, List.of("751", "752"));
-    authorityTagsMap.put(AuthorityCategory.TITLES, List.of("130", "240", "730", "740", "830"));
+    authorityTagsMap.put(AuthorityCategory.TITLES, List.of("130", "730", "740", "830"));
     authorityTagsMap.put(AuthorityCategory.OTHER, List.of("720", "753", "754"));
   }
 

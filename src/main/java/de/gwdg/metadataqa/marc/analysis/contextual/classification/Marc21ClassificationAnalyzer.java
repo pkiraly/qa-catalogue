@@ -1,6 +1,5 @@
-package de.gwdg.metadataqa.marc.analysis.classification;
+package de.gwdg.metadataqa.marc.analysis.contextual.classification;
 
-import de.gwdg.metadataqa.marc.analysis.ClassificationStatistics;
 import de.gwdg.metadataqa.marc.analysis.FieldWithScheme;
 import de.gwdg.metadataqa.marc.cli.parameters.ClassificationParameters;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
@@ -21,8 +20,8 @@ public class Marc21ClassificationAnalyzer extends MarcClassificationAnalyzer {
   public static final String DEWEY_DECIMAL_CLASSIFICATION = "Dewey Decimal Classification";
 
   /**
-   * Consists of fields which have the first indicator which states the classification source (schema). The first
-   * indicator can also indicate that the source is specified in the subfield 2.
+   * Consists of tags of fields which have the first indicator which states the classification source (schema).
+   * The first indicator can also indicate that the source is specified in the subfield 2.
    */
   private static final List<String> fieldsWithIndicator1AndSubfield2 = Arrays.asList(
     "052", // Geographic Classification
@@ -35,8 +34,8 @@ public class Marc21ClassificationAnalyzer extends MarcClassificationAnalyzer {
   // 8 (Other call number assigned by the contributing library),
   // 9 (Other class number assigned by the contributing library).
   /**
-   * Consists of fields which have the second indicator which states the classification source (schema). The second
-   * indicator can also indicate that the source is specified in the subfield 2.
+   * Consists of tags of fields which have the second indicator which states the classification source (schema).
+   * The second indicator can also indicate that the source is specified in the subfield 2.
    */
   private static final List<String> fieldsWithIndicator2AndSubfield2 = Arrays.asList(
     "055", // Classification Numbers Assigned in Canada
@@ -55,7 +54,7 @@ public class Marc21ClassificationAnalyzer extends MarcClassificationAnalyzer {
   );
 
   /**
-   * Consists of fields which have the subfield 2 which states the classification source (schema).
+   * Consists of tags of  fields which have the subfield 2 which states the classification source (schema).
    */
   private static final List<String> fieldsWithSubfield2 = Arrays.asList(
     "084", // Other Classificaton Number
@@ -89,7 +88,7 @@ public class Marc21ClassificationAnalyzer extends MarcClassificationAnalyzer {
 
   @Override
   public int process() {
-    logger.log(Level.INFO, "Processing Marc21ClassificationAnalyzer");
+    logger.log(Level.INFO, "Classifying MARC21 record");
     var total = 0;
     schemasInRecord = new ArrayList<>();
 

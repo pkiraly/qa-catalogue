@@ -1,7 +1,6 @@
-package de.gwdg.metadataqa.marc.analysis.classification;
+package de.gwdg.metadataqa.marc.analysis.contextual.classification;
 
 import de.gwdg.metadataqa.marc.MarcSubfield;
-import de.gwdg.metadataqa.marc.analysis.ClassificationStatistics;
 import de.gwdg.metadataqa.marc.analysis.FieldWithScheme;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
 import de.gwdg.metadataqa.marc.dao.DataField;

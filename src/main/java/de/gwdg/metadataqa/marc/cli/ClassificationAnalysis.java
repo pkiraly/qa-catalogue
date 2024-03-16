@@ -1,13 +1,13 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.analysis.classification.Marc21ClassificationAnalyzer;
-import de.gwdg.metadataqa.marc.analysis.classification.PicaClassificationAnalyzer;
-import de.gwdg.metadataqa.marc.analysis.classification.UnimarcClassificationAnalyzer;
+import de.gwdg.metadataqa.marc.analysis.contextual.classification.Marc21ClassificationAnalyzer;
+import de.gwdg.metadataqa.marc.analysis.contextual.classification.PicaClassificationAnalyzer;
+import de.gwdg.metadataqa.marc.analysis.contextual.classification.UnimarcClassificationAnalyzer;
 import de.gwdg.metadataqa.marc.cli.parameters.ClassificationParameters;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.analysis.classification.ClassificationAnalyzer;
-import de.gwdg.metadataqa.marc.analysis.ClassificationStatistics;
+import de.gwdg.metadataqa.marc.analysis.contextual.classification.ClassificationAnalyzer;
+import de.gwdg.metadataqa.marc.analysis.contextual.classification.ClassificationStatistics;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.Collocation;
@@ -38,7 +38,6 @@ import static de.gwdg.metadataqa.marc.Utils.createRow;
 
 public class ClassificationAnalysis extends QACli<ClassificationParameters> implements BibliographicInputProcessor, Serializable {
 
-  private static final long serialVersionUID = 2641903541058693794L;
   private static final Logger logger = Logger.getLogger(ClassificationAnalysis.class.getCanonicalName());
 
   private final Options options;
@@ -101,7 +100,7 @@ public class ClassificationAnalysis extends QACli<ClassificationParameters> impl
     } else if (parameters.isUnimarc()) {
       analyzer = new UnimarcClassificationAnalyzer(bibliographicRecord, statistics, parameters);
     } else {
-      analyzer = new Marc21ClassificationAnalyzer(bibliographicRecord, statistics);
+      analyzer = new Marc21ClassificationAnalyzer(bibliographicRecord, statistics, parameters);
     }
 
     analyzer.process();
@@ -147,11 +146,7 @@ public class ClassificationAnalysis extends QACli<ClassificationParameters> impl
     if (parameters.doCollectCollocations())
       printClassificationsCollocation();
     copySchemaFileToOutputDir();
-    saveParameters("classifications.params.json", parameters, Map.of(
-      "numberOfprocessedRecords", numberOfprocessedRecords,
-      "duration", duration,
-      "classificationSchemaFile", parameters.isPica() ? new File(PicaSubjectManager.getSchemaFile()).getName() : ""
-    ));
+    saveParameters("classifications.params.json", parameters, Map.of("numberOfprocessedRecords", numberOfprocessedRecords, "duration", duration));
   }
 
   private void copySchemaFileToOutputDir() {

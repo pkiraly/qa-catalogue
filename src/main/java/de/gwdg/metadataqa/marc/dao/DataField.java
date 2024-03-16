@@ -80,22 +80,24 @@ public class DataField implements Extractable, Serializable {
                                                    String ind2,
                                                    List<Map<String, String>> subfields) {
     this(definition, ind1, ind2);
-    if (subfields != null) {
-      for (Map<String, String> subfield : subfields) {
-        String code = subfield.get("code");
-        String value = subfield.get("content");
-        SubfieldDefinition subfieldDefinition = definition.getSubfield(code);
-        if (subfieldDefinition == null) {
-          if (!(definition.getTag().equals("886") && code.equals("k")) && !definition.getTag().equals("936"))
-            System.err.printf("no definition for %s$%s (value: '%s') %s %s%n",
-              definition.getTag(), code, value, definition.getTag().equals("886"),
-              code.equals("k"));
-        } else {
-          MarcSubfield marcSubfield = new MarcSubfield(subfieldDefinition, code, value);
-          marcSubfield.setField(this);
-          this.subfields.add(marcSubfield);
-          indexSubfield(code, marcSubfield);
-        }
+    if (subfields == null) {
+      return;
+    }
+
+    for (Map<String, String> subfield : subfields) {
+      String code = subfield.get("code");
+      String value = subfield.get("content");
+      SubfieldDefinition subfieldDefinition = definition.getSubfield(code);
+      if (subfieldDefinition == null) {
+        if (!(definition.getTag().equals("886") && code.equals("k")) && !definition.getTag().equals("936"))
+          System.err.printf("no definition for %s$%s (value: '%s') %s %s%n",
+            definition.getTag(), code, value, definition.getTag().equals("886"),
+            code.equals("k"));
+      } else {
+        MarcSubfield marcSubfield = new MarcSubfield(subfieldDefinition, code, value);
+        marcSubfield.setField(this);
+        this.subfields.add(marcSubfield);
+        indexSubfield(code, marcSubfield);
       }
     }
   }

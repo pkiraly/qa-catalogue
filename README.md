@@ -13,7 +13,7 @@ Screenshot from the web UI of the QA catalogue
   * Validating 126 million MARC records at DATeCH 2019 
     [paper](https://doi.org/10.1145/3322905.3322929),
     [slides](http://bit.ly/qa-datech2019),
-    [thesis chapter](https://10.13140/RG.2.2.33177.77920)
+    [thesis chapter](https://doi.org/10.13140/RG.2.2.33177.77920)
   * Empirical evaluation of library catalogues at SWIB 2019 [slides](http://bit.ly/qa-swib2019),
     [paper in English](https://pro.europeana.eu/page/issue-15-swib-2019#empirical-evaluation-of-library-catalogues),
     [paper in Spanish](https://universoabierto.org/2020/06/01/evaluacion-empirica-de-los-catalogos-de-las-bibliotecas/)
@@ -104,23 +104,27 @@ default. Files of each catalogue are in a subdirectory of theses base directorie
 An experimental Docker image is publicly available in Docker Hub. This image
 contain an Ubuntu 20.04 with Java, R and the current software. No installation
 is needed (given you have a Docker running environment). You only have to
-specify the directory on your local machine where the MARC files are located.
-The first issue of this command will download the Docker image, which takes a
-time. Once it is downloaded you will be entered into the bash shell (I denoted
-this with the `#` symbol), where you have to change directory to
-`/opt/metadata-qa-marc` the location of the application.
+specify the directory on your local machine where the bibliographic record
+files are located (set to `INPUT`). The name of subdirectory in there must be
+`qa-catalogue`, so actual files are in `$INPUT/qa-catalogue`.
 
-1. download Docker image and initialize the Docker container
+First download the Docker image, which takes a time, and specify how
+directories (`/opt/qa-catalogue/marc`) and ports (`:8983` for Solr, `:80` for
+web interface) from the container should be mapped to directories and ports in
+your machine:
+
 ```bash
-BIBL_RECORD_DIRECTORY=<the directory where bibliographic files take place>
+INPUT=<absolute path to the directory of bibliographic files>
+HTTP=80
 docker run \
   -d \
-  -v [your-MARC-directory]:/opt/qa-catalogue/marc \
+  -v $INPUT:/opt/qa-catalogue/marc \
   -p 8983:8983 -p 80:80 \
   --name metadata-qa-marc \
   pkiraly/metadata-qa-marc:0.7.0
 ```
-2. run analyses (this example uses parameters for Gent university library catalogue)
+
+Then run analyses (this example uses parameters for Gent university library catalogue):
 
 ```bash
 docker container exec \
@@ -133,12 +137,13 @@ docker container exec \
   all
 ```
 
-Now you can reach the dashboard at http://localhost/metadata-qa. 
+Now you can reach the web interface ([qa-catalogue-web](https://github.com/pkiraly/qa-catalogue-web))
+at <http://localhost:80/metadata-qa>.
 
 This example works under Linux. Windows users should consult the 
 [Docker on Windows](https://github.com/pkiraly/qa-catalogue/wiki/Docker-on-Windows) wiki page.
 
-Everything else works the same way as in other environments, so follow the next  sections.
+Everything else should work the same way as in other environments, so follow the next sections.
 
 More details about the Docker use case: http://pkiraly.github.io/2020/05/31/running-with-docker/.
 

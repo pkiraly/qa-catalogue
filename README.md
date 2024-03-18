@@ -112,10 +112,11 @@ this with the `#` symbol), where you have to change directory to
 
 1. download Docker image and initialize the Docker container
 ```bash
-BIBL_RECORD_DIRECTORY=<the directory where bibliographic files take place>
+# set the directory where bibliographic files take place
+BIBL_RECORD_DIRECTORY=<path/to/bib/directory>
 docker run \
   -d \
-  -v [your-MARC-directory]:/opt/qa-catalogue/marc \
+  -v $BIBL_RECORD_DIRECTORY:/opt/qa-catalogue/marc \
   -p 8983:8983 -p 80:80 \
   --name metadata-qa-marc \
   pkiraly/metadata-qa-marc:0.7.0
@@ -137,6 +138,8 @@ Now you can reach the dashboard at http://localhost/metadata-qa.
 
 This example works under Linux. Windows users should consult the 
 [Docker on Windows](https://github.com/pkiraly/qa-catalogue/wiki/Docker-on-Windows) wiki page.
+Other useful [Docker commands](https://github.com/pkiraly/qa-catalogue/wiki/Docker-commands)
+at QA catalogue's wiki.
 
 Everything else works the same way as in other environments, so follow the next  sections.
 

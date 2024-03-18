@@ -99,11 +99,11 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
     try {
       processor = new ValidatorCli(args);
     } catch (ParseException e) {
-      System.err.println("ERROR. " + e.getLocalizedMessage());
+      logger.severe("ERROR. " + e.getLocalizedMessage());
       System.exit(1);
     }
     if (processor.getParameters().getArgs().length < 1) {
-      System.err.println("Please provide a MARC file name!");
+      logger.severe("Please provide a MARC file name!");
       processor.printHelp(processor.getParameters().getOptions());
       System.exit(0);
     }
@@ -331,11 +331,13 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
 
     if (parameters.doSummary()) {
       if (doGroups()) {
+        logger.info("Saving grouped summary");
         printSummaryGrouped();
         printCategoryCountsGrouped();
         printTypeCountsGrouped();
         printTotalCountsGrouped();
       } else {
+        logger.info("Saving summary");
         printSummary();
         printCategoryCounts();
         printTypeCounts();

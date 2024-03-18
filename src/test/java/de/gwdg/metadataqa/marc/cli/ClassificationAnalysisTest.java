@@ -1,12 +1,13 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.TestUtils;
 import de.gwdg.metadataqa.marc.analysis.ClassificationStatistics;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.utils.ReadMarc;
+import org.apache.commons.io.FileUtils;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.marc4j.marc.Record;
@@ -45,8 +46,9 @@ public class ClassificationAnalysisTest extends CliTestUtils {
 
   @Test
   public void test() throws Exception {
-    Path path = FileUtils.getPath("general/0001-01.mrc");
-    Record marc4jRecord = ReadMarc.read(path.toString()).get(0);
+    String path = getTestResource("general/0001-01.mrc");
+
+    Record marc4jRecord = ReadMarc.read(path).get(0);
     assertNotNull(marc4jRecord);
     ClassificationAnalysis analysis = new ClassificationAnalysis(new String[]{});
     BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
@@ -315,6 +317,56 @@ public class ClassificationAnalysisTest extends CliTestUtils {
         "1,010000011\n" +
         "3,010000054\n" +
         "6,010000070\n", actual);
+
+    clearOutput(outputDir, outputFiles);
+  }
+
+  @Test
+  public void classificationAnalysis_whenUnimarc_runsSuccessfully() throws IOException {
+    clearOutput(outputDir, outputFiles);
+
+    String[] args = {
+      "--schemaType", "UNIMARC",
+      "--marcFormat", "MARC_LINE",
+      "--outputDir", outputDir,
+      TestUtils.getPath("unimarc/unimarc.mrctxt")
+    };
+    ClassificationAnalysis.main(args);
+
+    File expectedFile = new File(getTestResource("unimarc/expected-results/classification/classifications-by-records.csv"));
+    File actualFile = new File(outputDir, "classifications-by-records.csv");
+    String expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    String actual = FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    assertEquals(expected, actual);
+
+    expectedFile = new File(getTestResource("unimarc/expected-results/classification/classifications-by-schema.csv"));
+    actualFile = new File(outputDir, "classifications-by-schema.csv");
+    expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    actual = FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    assertEquals(expected, actual);
+
+    expectedFile = new File(getTestResource("unimarc/expected-results/classification/classifications-by-schema-subfields.csv"));
+    actualFile = new File(outputDir, "classifications-by-schema-subfields.csv");
+    expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    actual = FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    assertEquals(expected, actual);
+
+    expectedFile = new File(getTestResource("unimarc/expected-results/classification/classifications-frequency-examples.csv"));
+    actualFile = new File(outputDir, "classifications-frequency-examples.csv");
+    expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    actual = FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    assertEquals(expected, actual);
+
+    expectedFile = new File(getTestResource("unimarc/expected-results/classification/classifications-histogram.csv"));
+    actualFile = new File(outputDir, "classifications-histogram.csv");
+    expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    actual = FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    assertEquals(expected, actual);
 
     clearOutput(outputDir, outputFiles);
   }

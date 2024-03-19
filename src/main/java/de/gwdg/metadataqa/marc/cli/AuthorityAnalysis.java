@@ -1,17 +1,18 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.analysis.contextual.authority.Marc21AuthorityAnalyzer;
-import de.gwdg.metadataqa.marc.analysis.contextual.authority.PicaAuthorityAnalyzer;
-import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.analysis.contextual.authority.AuthorityAnalyzer;
 import de.gwdg.metadataqa.marc.analysis.contextual.authority.AuthorityCategory;
 import de.gwdg.metadataqa.marc.analysis.contextual.authority.AuthorityStatistics;
+import de.gwdg.metadataqa.marc.analysis.contextual.authority.Marc21AuthorityAnalyzer;
+import de.gwdg.metadataqa.marc.analysis.contextual.authority.PicaAuthorityAnalyzer;
+import de.gwdg.metadataqa.marc.analysis.contextual.authority.UnimarcAuthorityAnalyzer;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -97,6 +98,8 @@ public class AuthorityAnalysis extends QACli<ValidatorParameters> implements Bib
       analyzer = new Marc21AuthorityAnalyzer(marcRecord, statistics);
     } else if (parameters.isPica()) {
       analyzer = new PicaAuthorityAnalyzer(marcRecord, statistics);
+    } else if (parameters.isUnimarc()) {
+      analyzer = new UnimarcAuthorityAnalyzer(marcRecord, statistics);
     } else {
       logger.log(Level.SEVERE, "Unhandled schema type: {0}", new Object[]{parameters.getSchemaType()});
       return;

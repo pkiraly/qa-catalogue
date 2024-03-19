@@ -111,7 +111,7 @@ public class UnimarcClassificationAnalyzer extends MarcClassificationAnalyzer {
     }
 
     // Get all fields that correspond to the tag
-    List<DataField> fields = marcRecord.getDatafield(tag);
+    List<DataField> fields = marcRecord.getDatafieldsByTag(tag);
     List<Schema> schemas = new ArrayList<>();
 
     // For each corresponding field, state that the schema is uncontrolled along with the abbreviation (or the name

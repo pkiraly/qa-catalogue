@@ -22,16 +22,18 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public abstract class BibliographicRecord implements Extractable, Serializable { // Validatable,
 
@@ -47,7 +49,21 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
   protected transient Map<String, List<String>> mainKeyValuePairs;
   protected SchemaType schemaType = SchemaType.MARC21;
   protected String id;
+  protected List<String> authorityTags;
+  /**
+   * Key-value pairs of tags and a boolean value indicating if the tag is an authority tag.
+   * <br/>
+   * I personally don't see the value of using this map if we could've maybe used a set for authorityTags.
+   */
+  protected Map<String, Boolean> authorityTagsIndex;
+  /**
+   * Key-value pairs of AuthorityCategory and tags
+   */
+  protected Map<AuthorityCategory, List<String>> authorityTagsMap;
+  protected Map<String, Map<String, Boolean>> skippableAuthoritySubfields;
 
+  protected Map<String, Map<String, Boolean>> skippableSubjectSubfields;
+  protected Map<String, Boolean> subjectTagIndex;
   protected BibliographicRecord() {
     datafields = new ArrayList<>();
     datafieldIndex = new TreeMap<>();
@@ -134,10 +150,47 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
   /**
    * Returns a list of data fields that have the specified tag.
    * @param tag The tag of the data fields to return.
+   *            The tag can also contain a subfield value test, e.g. "600$a=Test".
    * @return A list of data fields with the specified tag.
    */
-  public List<DataField> getDatafield(String tag) {
-    return datafieldIndex.getOrDefault(tag, null);
+  public List<DataField> getDatafieldsByTag(String tag) {
+    // For performance reasons, just check if there's a $ sign first
+    if (!tag.contains("$")) {
+      return datafieldIndex.getOrDefault(tag, null);
+    }
+
+    String[] parts = tag.split("[=$]");
+    String fieldTag = parts[0];
+    String subfieldCode = parts.length > 1 ? parts[1] : null;
+    String subfieldValue = parts.length > 2 ? parts[2] : null;
+
+    List<DataField> fields = datafieldIndex.getOrDefault(fieldTag, null);
+
+    if (subfieldCode == null) {
+      return fields;
+    }
+
+    Predicate<DataField> filterPredicate = getDataFieldPredicate(subfieldCode, subfieldValue);
+
+    if (fields != null) {
+      fields = fields.stream().filter(filterPredicate).collect(Collectors.toList());
+    }
+
+    return fields;
+  }
+
+  private static Predicate<DataField> getDataFieldPredicate(String subfieldCode, String subfieldValue) {
+    Predicate<DataField> filterPredicate;
+    // ind1 and ind2 should also be considered as subfield codes
+    if (subfieldCode.equals("ind1")) {
+      filterPredicate = dataField -> dataField.getInd1().equals(subfieldValue);
+    } else if (subfieldCode.equals("ind2")) {
+      filterPredicate = dataField -> dataField.getInd2().equals(subfieldValue);
+    } else {
+      filterPredicate = dataField -> dataField.getSubfield(subfieldCode).stream()
+        .anyMatch(subfield -> subfield.getValue().equals(subfieldValue));
+    }
+    return filterPredicate;
   }
 
   public List<DataField> getDatafields() {
@@ -145,7 +198,7 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
   }
 
   public boolean exists(String tag) {
-    List<DataField> fields = getDatafield(tag);
+    List<DataField> fields = getDatafieldsByTag(tag);
     return (fields != null && !fields.isEmpty());
   }
 
@@ -157,15 +210,18 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
    * Extracts the values of a specified subfield from all data fields with a specified tag.
    * If the subfield path is "ind1" or "ind2", the method will extract the indicator value.
    * Otherwise, it will extract the subfield value.
-   *
+   * <br/>
+   * If doResolve is set to RESOLVE, the method will resolve the subfield value. In other words, it will return the label
+   * that corresponds to the subfield value. If doResolve is set to NONE, the method will return the subfield value as is.
+   * If doResolve is set to BOTH, the method will return both the resolved label and the subfield value.
    * @param tag The tag of the data fields to extract from.
    * @param subfieldPath The path of the subfield to extract.
-   * @param doResolve The resolve option to use when extracting subfield values.
+   * @param doResolve The resolve option to use when extracting subfield values. Can be set to RESOLVE, NONE, or BOTH.
    * @return A list of extracted values.
    */
   public List<String> extract(String tag, String subfieldPath, RESOLVE doResolve) {
     List<String> extractedValues = new ArrayList<>();
-    List<DataField> fields = getDatafield(tag);
+    List<DataField> fields = getDatafieldsByTag(tag);
     if (fields == null || fields.isEmpty()) {
       return extractedValues;
     }
@@ -403,7 +459,7 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     }
 
     List<String> results = new ArrayList<>();
-    List<DataField> dataFields = getDatafield(selector.getTag());
+    List<DataField> dataFields = getDatafieldsByTag(selector.getTag());
     if (dataFields == null) {
       return results;
     }
@@ -456,7 +512,7 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
   public List<DataField> getFieldsFromTags(List<String> tags) {
     List<DataField> allFields = new ArrayList<>();
     for (String tag : tags) {
-      List<DataField> fields = getDatafield(tag);
+      List<DataField> fields = getDatafieldsByTag(tag);
       if (fields != null && !fields.isEmpty())
         allFields.addAll(fields);
     }
@@ -480,7 +536,7 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
       AuthorityCategory category = entry.getKey();
       List<String> tags = entry.getValue();
       for (String tag : tags) {
-        List<DataField> fields = getDatafield(tag);
+        List<DataField> fields = getDatafieldsByTag(tag);
         if (fields == null || fields.isEmpty()) {
           continue;
         }
@@ -492,19 +548,71 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return subjects;
   }
 
-  public abstract List<DataField> getAuthorityFields();
+  public List<DataField> getAuthorityFields() {
+    if (authorityTags == null) {
+      initializeAuthorityTags();
+    }
+    return getFieldsFromTags(authorityTags);
+  }
+
+  public boolean isAuthorityTag(String tag) {
+    if (authorityTagsIndex == null) {
+      initializeAuthorityTags();
+    }
+    return authorityTagsIndex.getOrDefault(tag, false);
+  }
+
+  /**
+   * Returns a map of a datafield of the record and the authority category of the field. That map is produced from the
+   * previously defined authorityTagsMap which maps authority categories to tags.
+   */
+  public Map<DataField, AuthorityCategory> getAuthorityFieldsMap() {
+    if (authorityTags == null) {
+      initializeAuthorityTags();
+    }
+    return getAuthorityFields(authorityTagsMap);
+  }
+
+  protected void initializeAuthorityTags() {
+    authorityTags = new ArrayList<>();
+    authorityTagsIndex = new HashMap<>();
+    skippableAuthoritySubfields = new HashMap<>();
+    authorityTagsMap = new EnumMap<>(AuthorityCategory.class);
+    subjectTagIndex = new HashMap<>();
+    skippableSubjectSubfields = new HashMap<>();
+  }
+
+  public boolean isSkippableSubjectSubfield(String tag, String code) {
+    if (subjectTagIndex == null) {
+      initializeAuthorityTags();
+    }
+
+    if (!skippableSubjectSubfields.containsKey(tag)) {
+      return false;
+    }
+
+    return skippableSubjectSubfields.get(tag).getOrDefault(code, false);
+  }
+
+  public boolean isSkippableAuthoritySubfield(String tag, String code) {
+    if (authorityTagsIndex == null)
+      initializeAuthorityTags();
+
+    if (!skippableAuthoritySubfields.containsKey(tag))
+      return false;
+
+    return skippableAuthoritySubfields.get(tag).getOrDefault(code, false);
+  }
+
+  public boolean isSubjectTag(String tag) {
+    if (subjectTagIndex == null) {
+      initializeAuthorityTags();
+    }
+    return subjectTagIndex.getOrDefault(tag, false);
+  }
 
   public abstract List<String> getAllowedControlFieldTags();
 
-  public abstract Map<DataField, AuthorityCategory> getAuthorityFieldsMap();
-
-  public abstract boolean isAuthorityTag(String tag);
-
-  public abstract boolean isSkippableAuthoritySubfield(String tag, String code);
-
-  public abstract boolean isSubjectTag(String tag);
-
-  public abstract boolean isSkippableSubjectSubfield(String tag, String code);
 
   public abstract Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap();
 
@@ -515,7 +623,7 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     List<String> tags = getSubjectTags();
 
     for (String tag : tags) {
-      List<DataField> fields = getDatafield(tag);
+      List<DataField> fields = getDatafieldsByTag(tag);
       if (fields != null && !fields.isEmpty()) {
         subjects.addAll(fields);
       }
@@ -579,6 +687,19 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     }
   }
 
+  /**
+   * Extracts the values of a specified subfield from a data field of the record. If doResolve is set to RESOLVE,
+   * the method will resolve the subfield value. In other words, it will return the label that corresponds to the
+   * subfield value.
+   * <br/>
+   * If doResolve is set to NONE, the method will return the subfield value as is.
+   * <br/>
+   * If doResolve is set to BOTH, the method will return both the resolved label and the subfield value.
+   * @param field The data field to extract from
+   * @param subfieldPath The path of the subfield to extract
+   * @param doResolve The resolve option to use when extracting subfield values. Can be set to RESOLVE, NONE, or BOTH.
+   * @return A list of extracted values or labels.
+   */
   private List<String> extractSubfield(DataField field, String subfieldPath, RESOLVE doResolve) {
     List<MarcSubfield> subfieldInstances = field.getSubfield(subfieldPath);
     if (subfieldInstances == null) {

@@ -4,7 +4,6 @@ import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.analysis.contextual.authority.AuthorityCategory;
 import de.gwdg.metadataqa.marc.analysis.shelfready.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.dao.Control008;
-import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
 
 import java.util.ArrayList;
@@ -15,15 +14,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 public class Marc21BibliographicRecord extends Marc21Record {
-
-  private List<String> authorityTags;
-  private Map<String, Boolean> authorityTagsIndex;
-  private Map<String, Boolean> subjectTagIndex;
-  private Map<String, Map<String, Boolean>> skippableAuthoritySubfields;
-  private Map<String, Map<String, Boolean>> skippableSubjectSubfields;
-  private Map<AuthorityCategory, List<String>> authorityTagsMap;
 
   /**
    * Key-value pairs of ShelfReadyFieldsBooks (the category) and a map of tags and its subfields.
@@ -50,76 +43,7 @@ public class Marc21BibliographicRecord extends Marc21Record {
     controlfieldIndex.put(control008.getDefinition().getTag(), Arrays.asList(control008));
   }
 
-  @Override
-  public List<DataField> getAuthorityFields() {
-    if (authorityTags == null) {
-      initializeAuthorityTags();
-    }
-    return getFieldsFromTags(authorityTags);
-  }
-
-  /**
-   * Returns a map of a datafield of the record and the authority category of the field. That map is produced from the
-   * previously defined authorityTagsMap which maps authority categories to tags.
-   */
-  @Override
-  public Map<DataField, AuthorityCategory> getAuthorityFieldsMap() {
-    if (authorityTags == null) {
-      initializeAuthorityTags();
-    }
-    return getAuthorityFields(authorityTagsMap);
-  }
-
-  @Override
-  public boolean isAuthorityTag(String tag) {
-    if (authorityTagsIndex == null) {
-      initializeAuthorityTags();
-    }
-    return authorityTagsIndex.getOrDefault(tag, false);
-  }
-
-  @Override
-  public boolean isSkippableAuthoritySubfield(String tag, String code) {
-    if (authorityTagsIndex == null)
-      initializeAuthorityTags();
-
-    if (!skippableAuthoritySubfields.containsKey(tag))
-      return false;
-
-    return skippableAuthoritySubfields.get(tag).getOrDefault(tag, false);
-  }
-
-  @Override
-  public boolean isSubjectTag(String tag) {
-    if (subjectTagIndex == null) {
-      initializeAuthorityTags();
-    }
-    return subjectTagIndex.getOrDefault(tag, false);
-  }
-
-  @Override
-  public boolean isSkippableSubjectSubfield(String tag, String code) {
-    if (subjectTagIndex == null)
-      initializeAuthorityTags();
-
-    if (!skippableSubjectSubfields.containsKey(tag))
-      return false;
-
-    return skippableSubjectSubfields.get(tag).getOrDefault(code, false);
-  }
-
-  private void initializeAuthorityTags() {
-    // At lease something from here seems a bit redundant
-    authorityTags = Arrays.asList(
-      "100", "110", "111", "130", // Names and uniform title
-      "700", "710", "711", "730", // Added entry names and uniform title
-      "720", "740", "751", "752", "753", "754", // Other
-      "800", "810", "811", "830" // Series added entry names
-    );
-    authorityTagsIndex = Utils.listToMap(authorityTags);
-
-    skippableAuthoritySubfields = new HashMap<>();
-
+  protected void initializeAuthorityTags() {
     subjectTagIndex = Utils.listToMap(MARC21_SUBJECT_TAGS);
     skippableSubjectSubfields = new HashMap<>();
 
@@ -130,6 +54,10 @@ public class Marc21BibliographicRecord extends Marc21Record {
     authorityTagsMap.put(AuthorityCategory.GEOGRAPHIC, List.of("751", "752"));
     authorityTagsMap.put(AuthorityCategory.TITLES, List.of("130", "730", "740", "830"));
     authorityTagsMap.put(AuthorityCategory.OTHER, List.of("720", "753", "754"));
+
+    authorityTags = authorityTagsMap.values().stream().flatMap(List::stream).collect(Collectors.toList());
+    authorityTagsIndex = Utils.listToMap(authorityTags);
+    skippableAuthoritySubfields = new HashMap<>();
   }
 
   @Override

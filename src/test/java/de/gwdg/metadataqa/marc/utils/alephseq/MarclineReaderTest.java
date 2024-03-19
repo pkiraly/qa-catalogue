@@ -45,7 +45,7 @@ public class MarclineReaderTest {
     assertNotNull(marcRecord);
 
     assertEquals("010000011", marcRecord.getId());
-    List<DataField> fields = marcRecord.getDatafield("035");
+    List<DataField> fields = marcRecord.getDatafieldsByTag("035");
     assertNotNull(fields);
     assertEquals(3, fields.size());
     DataField field = fields.get(0);

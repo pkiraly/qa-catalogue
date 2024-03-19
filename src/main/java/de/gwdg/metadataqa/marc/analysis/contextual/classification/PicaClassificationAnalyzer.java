@@ -76,7 +76,7 @@ public class PicaClassificationAnalyzer extends ClassificationAnalyzer {
       return 0;
     }
 
-    List<DataField> fields = bibliographicRecord.getDatafield(tag);
+    List<DataField> fields = bibliographicRecord.getDatafieldsByTag(tag);
     List<Schema> schemas = new ArrayList<>();
     for (DataField field : fields) {
       String firstSubfield = getFirstSubfield(field);

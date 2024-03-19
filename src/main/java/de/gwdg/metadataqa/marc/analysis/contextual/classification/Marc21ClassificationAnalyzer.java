@@ -163,7 +163,7 @@ public class Marc21ClassificationAnalyzer extends MarcClassificationAnalyzer {
     }
 
     List<Schema> schemas = new ArrayList<>();
-    List<DataField> fields = marcRecord.getDatafield(tag);
+    List<DataField> fields = marcRecord.getDatafieldsByTag(tag);
 
     for (DataField field : fields) {
       List<Schema> extractedSchemas = extractSchemas(field, tag, isInd1);
@@ -234,7 +234,7 @@ public class Marc21ClassificationAnalyzer extends MarcClassificationAnalyzer {
     }
 
     // Get all fields that correspond to the tag
-    List<DataField> fields = marcRecord.getDatafield(tag);
+    List<DataField> fields = marcRecord.getDatafieldsByTag(tag);
     List<Schema> schemas = new ArrayList<>();
 
     // For each corresponding field, state that the schema is uncontrolled along with the abbreviation (or the name

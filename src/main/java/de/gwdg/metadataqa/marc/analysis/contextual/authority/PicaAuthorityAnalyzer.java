@@ -10,7 +10,6 @@ import de.gwdg.metadataqa.marc.definition.general.codelist.SubjectHeadingAndTerm
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 public class PicaAuthorityAnalyzer extends AuthorityAnalyzer {
 
@@ -20,12 +19,6 @@ public class PicaAuthorityAnalyzer extends AuthorityAnalyzer {
 
   @Override
   protected int processField(DataField field, AuthorityCategory category, Map<AuthorityCategory, Integer> categoryCounter) {
-    var fieldInstanceLevelCount = processPicaField(field);
-    Utils.addToCounter(category, categoryCounter, fieldInstanceLevelCount);
-    return fieldInstanceLevelCount;
-  }
-
-  private int processPicaField(DataField field) {
     List<Schema> schemas;
     schemas = extractSchemasFromSubfield7(field.getTagWithOccurrence(), field);
     if (schemas.isEmpty()) {
@@ -37,11 +30,12 @@ public class PicaAuthorityAnalyzer extends AuthorityAnalyzer {
     }
 
     registerSchemas(schemas);
+    Utils.addToCounter(category, categoryCounter, schemas.size());
     return schemas.size();
   }
 
   private List<Schema> extractSchemasFromSubfield7(String tag,
-                                            DataField field) {
+                                                   DataField field) {
     List<Schema> schemas = new ArrayList<>();
     List<MarcSubfield> altSchemes = field.getSubfield("7");
     if (altSchemes == null || altSchemes.isEmpty()) {

@@ -53,13 +53,6 @@ public class DataField implements Extractable, Serializable {
   private List<FieldIndexer> fieldIndexers;
   private boolean fieldIndexerInitialized = false;
 
-  /**
-   * Create data field
-   * @param definition
-   * @param ind1
-   * @param ind2
-   * @param <T>
-   */
   public <T extends DataFieldDefinition> DataField(T definition, String ind1, String ind2) {
     this.definition = definition;
     this.ind1 = ind1;
@@ -67,14 +60,6 @@ public class DataField implements Extractable, Serializable {
     this.subfields = new ArrayList<>();
   }
 
-  /**
-   * Create data field
-   * @param definition
-   * @param ind1
-   * @param ind2
-   * @param subfields
-   * @param <T>
-   */
   public <T extends DataFieldDefinition> DataField(T definition,
                                                    String ind1,
                                                    String ind2,
@@ -88,28 +73,24 @@ public class DataField implements Extractable, Serializable {
       String code = subfield.get("code");
       String value = subfield.get("content");
       SubfieldDefinition subfieldDefinition = definition.getSubfield(code);
-      if (subfieldDefinition == null) {
-        if (!(definition.getTag().equals("886") && code.equals("k")) && !definition.getTag().equals("936"))
-          System.err.printf("no definition for %s$%s (value: '%s') %s %s%n",
-            definition.getTag(), code, value, definition.getTag().equals("886"),
-            code.equals("k"));
-      } else {
+
+      if (subfieldDefinition != null) {
         MarcSubfield marcSubfield = new MarcSubfield(subfieldDefinition, code, value);
         marcSubfield.setField(this);
         this.subfields.add(marcSubfield);
         indexSubfield(code, marcSubfield);
+        continue;
       }
+
+      if (!(definition.getTag().equals("886") && code.equals("k")) && !definition.getTag().equals("936")) {
+        System.err.printf("no definition for %s$%s (value: '%s') %s %s%n",
+          definition.getTag(), code, value, definition.getTag().equals("886"),
+          code.equals("k"));
+      }
+
     }
   }
 
-  /**
-   * Create data field
-   * @param definition
-   * @param ind1
-   * @param ind2
-   * @param subfields
-   * @param <T>
-   */
   public <T extends DataFieldDefinition> DataField(T definition,
                                                    String ind1,
                                                    String ind2,
@@ -120,21 +101,10 @@ public class DataField implements Extractable, Serializable {
     }
   }
 
-  /**
-   * Create data field
-   * @param tag
-   * @param input
-   */
   public DataField(String tag, String input) {
     this(tag, input, MarcVersion.MARC21);
   }
 
-  /**
-   * Create data field
-   * @param tag
-   * @param input
-   * @param version
-   */
   public DataField(String tag, String input, MarcVersion version) {
     definition = TagDefinitionLoader.load(tag, version);
     if (definition == null) {
@@ -147,13 +117,6 @@ public class DataField implements Extractable, Serializable {
     parseAndAddSubfields(input.substring(2));
   }
 
-  /**
-   * Create data field
-   * @param tag
-   * @param ind1
-   * @param ind2
-   * @param marcVersion
-   */
   public DataField(String tag, String ind1, String ind2, MarcVersion marcVersion) {
     definition = TagDefinitionLoader.load(tag, marcVersion);
     if (definition == null) {
@@ -164,14 +127,6 @@ public class DataField implements Extractable, Serializable {
     this.subfields = new ArrayList<>();
   }
 
-  /**
-   * Create data field
-   * @param tag
-   * @param ind1
-   * @param ind2
-   * @param content
-   * @param marcVersion
-   */
   public DataField(String tag, String ind1, String ind2, String content, MarcVersion marcVersion) {
     definition = TagDefinitionLoader.load(tag, marcVersion);
     if (definition == null) {
@@ -189,11 +144,6 @@ public class DataField implements Extractable, Serializable {
       addSubfield(sf[0], sf[1]);
   }
 
-  /**
-   * Parse subfield string
-   * @param content
-   * @return
-   */
   public static List<String[]> parseSubfields(String content) {
     List<String[]> subfields = new ArrayList<>();
 

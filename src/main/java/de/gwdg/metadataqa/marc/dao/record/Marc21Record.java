@@ -2,7 +2,6 @@ package de.gwdg.metadataqa.marc.dao.record;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.analysis.contextual.authority.AuthorityCategory;
 import de.gwdg.metadataqa.marc.analysis.shelfready.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.dao.Control001;
 import de.gwdg.metadataqa.marc.dao.Control003;
@@ -340,38 +339,8 @@ public class Marc21Record extends MarcRecord {
   }
 
   @Override
-  public List<DataField> getAuthorityFields() {
-    return Collections.emptyList();
-  }
-
-  @Override
   public List<String> getAllowedControlFieldTags() {
     return allowedControlFieldTags;
-  }
-
-  @Override
-  public Map<DataField, AuthorityCategory> getAuthorityFieldsMap() {
-    return Collections.emptyMap();
-  }
-
-  @Override
-  public boolean isAuthorityTag(String tag) {
-    return false;
-  }
-
-  @Override
-  public boolean isSkippableAuthoritySubfield(String tag, String code) {
-    return false;
-  }
-
-  @Override
-  public boolean isSubjectTag(String tag) {
-    return false;
-  }
-
-  @Override
-  public boolean isSkippableSubjectSubfield(String tag, String code) {
-    return false;
   }
 
   @Override

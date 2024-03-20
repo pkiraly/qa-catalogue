@@ -99,7 +99,7 @@ default. Files of each catalogue are in a subdirectory of theses base directorie
  * cp catalogues/loc.sh catalogues/[abbreviation-of-your-library].sh
  * edit catalogues/[abbreviation-of-your-library].sh according to [configuration guide](#configuration-1)
 
-### With docker
+### With Docker
 
 An experimental Docker image is publicly available in Docker Hub. This image
 contain an Ubuntu 20.04 with Java, R and the current software. No installation
@@ -2318,24 +2318,11 @@ Build and test
 mvn clean install
 # create the docker images
 docker-compose -f docker-compose.yml build app
-# start the container
-docker run \
-  -d \                                              # run in background
-  -v [local-MARC-dir]:/opt/metadata-qa-marc/marc \  # map the local directory of MARC files
-  -p 8983:8983 -p 80:80 \                           # expose Solr and Apache ports (as host:container)
-  --name metadata-qa-marc \                         # name of the container
-  metadata-qa-marc                                  # name of the image
-# run analyses
-docker exec \                                       # execute a command
-  -t -i metadata-qa-marc \                          # inside the container
-  ./qa-catalogue \                                # the name of the command to run
-  --params "--marcVersion GENT --alephseq" \        # the parameters used in analyses 
-  --mask 'rug01.export' \                           # file mask
-  --catalogue gent \                                # the name of the catalogue
-  all                                               # run all analyses
 ```
 
-You will see some log messages, and it is done, you can check the output at http://localhost/metadata-qa.
+Then start the container and run analyses [as described above](#with-docker).
+
+For maintainers only:
 
 Upload to Docker Hub:
 ```bash

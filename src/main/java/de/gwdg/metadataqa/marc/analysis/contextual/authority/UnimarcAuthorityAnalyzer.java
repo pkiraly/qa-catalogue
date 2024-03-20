@@ -7,10 +7,8 @@ import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 public class UnimarcAuthorityAnalyzer extends AuthorityAnalyzer {
-  private static final Logger logger = Logger.getLogger(UnimarcAuthorityAnalyzer.class.getCanonicalName());
 
   public UnimarcAuthorityAnalyzer(BibliographicRecord marcRecord, AuthorityStatistics authoritiesStatistics) {
     super(marcRecord, authoritiesStatistics);
@@ -18,15 +16,15 @@ public class UnimarcAuthorityAnalyzer extends AuthorityAnalyzer {
 
   @Override
   protected int processField(DataField field, AuthorityCategory category, Map<AuthorityCategory, Integer> categoryCounter) {
-    int fieldInstanceLevelCount = processFieldWithSubfield2(field);
+    int fieldInstanceLevelCount = processFieldSchema(field);
     Utils.addToCounter(category, categoryCounter, fieldInstanceLevelCount);
     return fieldInstanceLevelCount;
   }
 
-  private int processFieldWithSubfield2(DataField field) {
+  private int processFieldSchema(DataField field) {
     // TODO: Implement the extraction of schemas in the specified fields. I'm however not sure if that's even included
     //  in the UNIMARC format.
-    Schema unhandledSchema = new Schema(field.getTag(), "$2", "UNHANDLED", "UNHANDLED");
+    Schema unhandledSchema = new Schema(field.getTag(), "$2", "UNSPECIFIED", "UNSPECIFIED");
 
     updateSchemaSubfieldStatistics(field, unhandledSchema);
 

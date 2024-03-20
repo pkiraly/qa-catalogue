@@ -143,7 +143,7 @@ public class UnimarcRecord extends MarcRecord {
     authorityTagsMap.put(AuthorityCategory.MEETING, List.of("710$ind1=1", "711$ind1=1", "712$ind1=1"));
     authorityTagsMap.put(AuthorityCategory.GEOGRAPHIC, List.of("620"));
     authorityTagsMap.put(AuthorityCategory.TITLES, List.of("500", "501", "506", "507", "576", "577"));
-    authorityTagsMap.put(AuthorityCategory.OTHER, List.of("730", "753", "754"));
+    authorityTagsMap.put(AuthorityCategory.OTHER, List.of("730"));
     authorityTags = authorityTagsMap.values().stream().flatMap(List::stream).collect(Collectors.toList());
     authorityTagsIndex = Utils.listToMap(authorityTags);
     skippableAuthoritySubfields = new HashMap<>();

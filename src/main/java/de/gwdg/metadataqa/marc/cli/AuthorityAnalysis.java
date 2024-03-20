@@ -49,6 +49,7 @@ public class AuthorityAnalysis extends QACli<ValidatorParameters> implements Bib
   public AuthorityAnalysis(String[] args) throws ParseException {
     parameters = new ValidatorParameters(args);
     readyToProcess = true;
+    Schema.resetIdCounter();
   }
 
   public static void main(String[] args) {

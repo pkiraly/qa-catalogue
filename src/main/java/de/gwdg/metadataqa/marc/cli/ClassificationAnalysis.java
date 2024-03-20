@@ -1,18 +1,18 @@
 package de.gwdg.metadataqa.marc.cli;
 
+import de.gwdg.metadataqa.marc.Utils;
+import de.gwdg.metadataqa.marc.analysis.contextual.classification.ClassificationAnalyzer;
+import de.gwdg.metadataqa.marc.analysis.contextual.classification.ClassificationStatistics;
 import de.gwdg.metadataqa.marc.analysis.contextual.classification.Marc21ClassificationAnalyzer;
 import de.gwdg.metadataqa.marc.analysis.contextual.classification.PicaClassificationAnalyzer;
 import de.gwdg.metadataqa.marc.analysis.contextual.classification.UnimarcClassificationAnalyzer;
 import de.gwdg.metadataqa.marc.cli.parameters.ClassificationParameters;
-import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
-import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.analysis.contextual.classification.ClassificationAnalyzer;
-import de.gwdg.metadataqa.marc.analysis.contextual.classification.ClassificationStatistics;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.Collocation;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSubjectManager;
 import org.apache.commons.cli.Options;
@@ -50,7 +50,7 @@ public class ClassificationAnalysis extends QACli<ClassificationParameters> impl
     parameters = new ClassificationParameters(args);
     options = parameters.getOptions();
     readyToProcess = true;
-    Schema.reset();
+    Schema.resetIdCounter();
   }
 
   public static void main(String[] args) {

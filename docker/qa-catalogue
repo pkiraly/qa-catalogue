@@ -13,5 +13,5 @@ else
     -ti \
     "$QA_CONTAINER" \
     ./qa-catalogue \
-    $@
+    "$@"
 fi

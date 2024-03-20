@@ -105,8 +105,9 @@ An experimental Docker image is publicly available in Docker Hub. This image
 contain an Ubuntu 20.04 with Java, R and the current software. No installation
 is needed (given you have a Docker running environment). You only have to
 specify the directory on your local machine where the bibliographic record
-files are located (set to `INPUT`). The name of subdirectory in there must be
-`qa-catalogue`, so actual files are in `$INPUT/qa-catalogue`.
+files are located (set to `BASE_INPUT_DIR`, using `./input` by default). The
+name of subdirectory in there must be `qa-catalogue`, so actual files are in
+`$BASE_INPUT_DIR/qa-catalogue`.
 
 First download the Docker image, which takes a time, and specify how
 directories (`/opt/qa-catalogue/marc`) and ports (`:8983` for Solr, `:80` for
@@ -115,30 +116,18 @@ your machine:
 
 ```bash
 # set the directory where bibliographic files take place
-INPUT=<absolute path to the directory of bibliographic files>
+BASE_INPUT_DIR=<absolute path to the directory of bibliographic files>
 docker run \
   -d \
-  -v $INPUT:/opt/qa-catalogue/marc \
+  -v $BASE_INPUT_DIR:/opt/qa-catalogue/marc \
   -p 8983:8983 -p 80:80 \
   --name metadata-qa-marc \
   pkiraly/metadata-qa-marc:0.7.0
 ```
 
-Then run analyses (this example uses parameters for Gent university library catalogue):
-
-```bash
-docker container exec \
-  -ti \
-  metadata-qa-marc \
-  ./qa-catalogue \
-  --params "--marcVersion GENT --alephseq" \
-  --mask "rug01.export" \
-  --catalogue gent \
-  all
-```
-
-As shortcut you can also use use script `./docker/qa-catalogue` as replacement
-for script `./qa-catalogue`:
+To run analyses call script `./docker/qa-catalogue` the same ways as script `./qa-catalogue`
+is called when not using Docker (see [usage](#usage) for details). The following example
+uses parameters for Gent university library catalogue:
 
 ```bash
 ./docker/qa-catalogue
@@ -315,34 +304,37 @@ TYPE_PARAMS="--marcVersion DNB --marcxml"
 This line sets the DNB's MARC version (to cover fields defined within DNB's
 MARC version), and XML as input format.
 
-The following table summarizes some of the configuration variables. The script
+The following table summarizes the configuration variables. The script
 `qa-catalogue` can be used to set variables and execute analysis without a
 library specific configuration file:
 
-| variable      | `qa-catalogue`  | description  | default |
-| ------------- | ----------------- | ------------ | ------- |
-| `NAME`        | `-n`/`--name`     | name of the catalogue | metadata-qa |
-| `TYPE_PARAMS` | `-p`/`--params`   | parameters to pass to individual tasks (see below) | |
-| `MASK`        | `-m`/`--mask`     | a file mask, e.g. `*.mrc` | |
-| `VERSION`     | `-v`/`--version`  | optional version number/date of the catalogue to compare changes | |
-| `ANALYSES`    | `-a`/`--analyses` | which tasks to run with `all-analyses` | `validate,sqlite,completeness,completeness_sqlite,classifications,authorities,tt_completeness,shelf_ready_completeness,serial_score,functional_analysis,pareto,marc_history` |
-| `UPDATE`      | `-u`/`--update`   | optional date of input files | |
-|               | `-c`/`--catalogue`| display name of the catalogue | `$NAME` |
-|               | `-d`/`--input_dir`| subdirectory of input files | `$NAME` |
+| variable          | `qa-catalogue`  | description  | default |
+| ----------------- | ----------------- | ------------ | ------- |
+| `ANALYSES`        | `-a`/`--analyses` | which tasks to run with `all-analyses` | `validate,sqlite,completeness,completeness_sqlite,classifications,authorities,tt_completeness,shelf_ready_completeness,serial_score,functional_analysis,pareto,marc_history` |
+|                   | `-c`/`--catalogue`| display name of the catalogue | `$NAME` |
+| `NAME`            | `-n`/`--name`     | name of the catalogue | qa-catalogue |
+| `BASE_INPUT_DIR`  | `-d`/`--input`    | parent directory of input file directories | `./input` |
+| `BASE_OUTPUT_DIR` | `-o`/--input`     | parent output directory | `./output` |
+| `MASK`            | `-m`/`--mask`     | a file mask which input files to process, e.g. `*.mrc` | `*` |
+| `TYPE_PARAMS`     | `-p`/`--params`   | parameters to pass to individual tasks (see below) | |
+| `SCHEMA`          | `-s`/`--schema`   | record schema | `MARC21` |
+| `UPDATE`          | `-u`/`--update`   | optional date of input files | |
+| `VERSION`         | `-v`/`--version`  | optional version number/date of the catalogue to compare changes | |
+| `WEB_CONFIG`      | `-w`/`--web-config` | update the specified configuration file of qa-catalogue-web | |
 
 ## Detailed instructions
 
 We will use the same jar file in every command, so we save its path into a variable.
 
 ```bash
-export JAR=target/metadata-qa-marc-0.6.0-jar-with-dependencies.jar
+export JAR=target/metadata-qa-marc-0.7.0-jar-with-dependencies.jar
 ```
 
 ### General parameters
 
 Most of the analyses uses the following general parameters
 
-* `-w <type>`, `--schemaType <type>` metadata schema type. The supported types are:
+* `--schemaType <type>` metadata schema type. The supported types are:
   * `MARC21`
   * `PICA`
   * `UNIMARC` (assessment of UNIMARC records are not yet supported, this

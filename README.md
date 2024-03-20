@@ -103,31 +103,25 @@ default. Files of each catalogue are in a subdirectory of theses base directorie
 
 An experimental Docker image is publicly available in Docker Hub. This image
 contain an Ubuntu 20.04 with Java, R and the current software. No installation
-is needed (given you have a Docker running environment). You only have to
-specify the directory on your local machine where the bibliographic record
-files are located (set to `BASE_INPUT_DIR`, using `./input` by default). The
-name of subdirectory in there must be `qa-catalogue`, so actual files are in
-`$BASE_INPUT_DIR/qa-catalogue`.
-
-First download the Docker image, which takes a time, and specify how
-directories (`/opt/qa-catalogue/marc`) and ports (`:8983` for Solr, `:80` for
-web interface) from the container should be mapped to directories and ports in
-your machine:
+is needed (given you have a Docker running environment). You only have to put
+your bibliographic record files in subdirectory `input/qa-catalogue` and run:
 
 ```bash
-# set the directory where bibliographic files take place
-BASE_INPUT_DIR=<absolute path to the directory of bibliographic files>
-docker run \
-  -d \
-  -v $BASE_INPUT_DIR:/opt/qa-catalogue/marc \
-  -p 8983:8983 -p 80:80 \
-  --name metadata-qa-marc \
-  pkiraly/metadata-qa-marc:0.7.0
+docker compose up -d
 ```
 
-To run analyses call script `./docker/qa-catalogue` the same ways as script `./qa-catalogue`
-is called when not using Docker (see [usage](#usage) for details). The following example
-uses parameters for Gent university library catalogue:
+First download will take some time. To change the location of record files and
+ports of web application and Solr copy file `docker-compose.yml` to
+`docker-local.yml`, adjust settings in this file and run:
+
+```bash
+docker compose up -f docker-local.yml -d
+```
+
+When the application has been started this way, run analyses with script
+`./docker/qa-catalogue` the same ways as script `./qa-catalogue` is called when
+not using Docker (see [usage](#usage) for details). The following example uses
+parameters for Gent university library catalogue:
 
 ```bash
 ./docker/qa-catalogue
@@ -138,7 +132,7 @@ uses parameters for Gent university library catalogue:
 ```
 
 Now you can reach the web interface ([qa-catalogue-web](https://github.com/pkiraly/qa-catalogue-web))
-at <http://localhost:80/metadata-qa>.
+at <http://localhost:80/metadata-qa> (or at another port if configured in `docker-local.yml`).
 
 This example works under Linux. Windows users should consult the 
 [Docker on Windows](https://github.com/pkiraly/qa-catalogue/wiki/Docker-on-Windows) wiki page.
@@ -2316,11 +2310,12 @@ Build and test
 ```bash
 # create the Java library
 mvn clean install
-# create the docker images
-docker-compose -f docker-compose.yml build app
+# create the docker base image
+docker compose -f docker/base.yml build app
 ```
 
-Then start the container and run analyses [as described above](#with-docker).
+Then start the container with local `docker-local.yml` where the `image` is set
+to `metadata-qa-marc` and run analyses [as described above](#with-docker).
 
 For maintainers only:
 

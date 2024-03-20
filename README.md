@@ -68,13 +68,15 @@ Screenshot from the web UI of the QA catalogue
 * [Extending the functionalities](#extending-the-functionalities)
 * [User interface](#user-interface)
 * Appendices
-  * [Appendix I. Where can I get MARC records](#appendix-i-where-can-i-get-marc-records)
+  * [Appendix I: Where can I get MARC records](#appendix-i-where-can-i-get-marc-records)
     * [United States of America](#united-states-of-america)
     * [Germany](#germany)
     * [Elsewhere](#others)
-  * [Appendix II. Handling MARC versions](#appendix-ii-handling-marc-versions)
-  * [Appendix III. Institutions which reportedly use this tool](#appendix-iii-institutions-which-reportedly-use-this-tool)
-  * [Appendix IV. Special build process](#appendix-iv-special-build-process)
+  * [Appendix II: Handling MARC versions](#appendix-ii-handling-marc-versions)
+  * [Appendix III: Institutions which reportedly use this tool](#appendix-iii-institutions-which-reportedly-use-this-tool)
+  * [Appendix IV: Supporters and Sponsors](#appendix-iv-supporters-and-sponsors)
+  * [Appendix V: Special build process](#appendix-v-special-build-process)
+  * [Appendix VI: Build Docker image](#appendix-vi-build-docker-image)
 
 ## Quick start guide
 
@@ -133,6 +135,8 @@ parameters for Gent university library catalogue:
 
 Now you can reach the web interface ([qa-catalogue-web](https://github.com/pkiraly/qa-catalogue-web))
 at <http://localhost:80/metadata-qa> (or at another port if configured in `docker-local.yml`).
+If experienced with Docker, you can also [build the Docker image](#appendix-vi-build-docker-image)
+from current sources.
 
 This example works under Linux. Windows users should consult the 
 [Docker on Windows](https://github.com/pkiraly/qa-catalogue/wiki/Docker-on-Windows) wiki page.
@@ -2304,7 +2308,7 @@ really like to hear about your use case and ideas.
 mvn clean deploy -Pdeploy
 ```
 
-### Docker image
+### Appendix VI: Build Docker image
 
 Build and test
 ```bash

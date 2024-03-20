@@ -116,11 +116,11 @@ your machine:
 ```bash
 # set the directory where bibliographic files take place
 INPUT=<absolute path to the directory of bibliographic files>
-HTTP=80
+LOCAL_HTTP_PORT=80
 docker run \
   -d \
   -v $INPUT:/opt/qa-catalogue/marc \
-  -p 8983:8983 -p 80:80 \
+  -p 8983:8983 -p $LOCAL_HTTP_PORT:80 \
   --name metadata-qa-marc \
   pkiraly/metadata-qa-marc:0.7.0
 ```
@@ -2315,12 +2315,14 @@ Build and test
 # create the Java library
 mvn clean install
 # create the docker images
-docker-compose -f docker-compose.yml build app
+docker compose -f docker-compose.yml build app
 # start the container
+INPUT=<absolute path to the directory of bibliographic files>
+LOCAL_HTTP_PORT=80
 docker run \
   -d \                                              # run in background
-  -v [local-MARC-dir]:/opt/metadata-qa-marc/marc \  # map the local directory of MARC files
-  -p 8983:8983 -p 80:80 \                           # expose Solr and Apache ports (as host:container)
+  -v $INPUT:/opt/qa-catalogue/marc \                # map the local directory of MARC files
+  -p 8983:8983 -p $LOCAL_HTTP_PORT:80 \             # expose Solr and Apache ports (as host:container)
   --name metadata-qa-marc \                         # name of the container
   metadata-qa-marc                                  # name of the image
 # run analyses
@@ -2352,6 +2354,45 @@ docker rm $(docker ps -a --filter name=metadata-qa-marc -q)
 docker rmi $(docker images metadata-qa-marc -q)
 # clear build cache
 docker builder prune -a -f
+```
+
+The `docker compose` command might have multipl `--build-arg` argument, where your van override the default Docker 
+arguments, which are:
+* `QA_CATALOGUE_VERSION`: the QA catalogue version (default: `0.7.0`, current development version is `0.8.0-SNAPSHOT`)
+* `QA_CATALOGUE_WEB_VERSION`: it might be a released version such as `0.7.0` (current default), or `main` to use the
+   main branch, or `develop` to use the develop branch.
+* `SOLR_VERSION`: the Apache Solr version you would like to use (default: `8.11.1`)
+* `SOLR_INSTALL_SOURCE`: if its value is `remote` docker will download it from http://archive.apache.org/. 
+  If its value is a local path points to a previously downloaded package (named as `solr-${SOLR_VERSION}.zip`
+  up to version 8.x.x or `solr-${SOLR_VERSION}.tgz` from version 9.x.x) the process will copy it from the
+  host to the image file. Depending on the internet connection, download might take a long time, using a
+  previously downloaded package speeds the building process. 
+  (Note: it is not possible to specify files outside the current directory, not using symbolic links, but
+  you can create hard links - see an example below.)
+
+Using the current developer version:
+
+```bash
+docker compose -f docker-compose.yml build app \
+  --build-arg QA_CATALOGUE_VERSION=0.8.0-SNAPSHOT \
+  --build-arg QA_CATALOGUE_WEB_VERSION=develop \
+  --build-arg SOLR_VERSION=8.11.3
+```
+
+Using a downloaded Solr package:
+
+```bash
+# create link temporary
+mkdir download
+ln ~/Downloads/solr/solr-8.11.3.zip download/solr-8.11.3.zip
+# run docker
+docker compose -f docker-compose.yml build app \
+  --build-arg QA_CATALOGUE_VERSION=0.8.0-SNAPSHOT \
+  --build-arg QA_CATALOGUE_WEB_VERSION=develop \
+  --build-arg SOLR_VERSION=8.11.3 \
+  --build-arg SOLR_INSTALL_SOURCE=download/solr-8.11.3.zip
+# delete the temporary link
+rm -rf download
 ```
 
 Feedbacks are welcome!

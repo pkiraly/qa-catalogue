@@ -4,10 +4,9 @@ LABEL maintainer="Péter Király <pkiraly@gwdg.de>, Ákos Takács <rimelek@rimel
 
 LABEL description="QA catalogue - a metadata quality assessment tool for MARC based library catalogues."
 
+ARG DEBIAN_FRONTEND=noninteractive
 ARG QA_CATALOGUE_VERSION=0.7.0
 ARG QA_CATALOGUE_WEB_VERSION=0.7.0
-ARG DEBIAN_FRONTEND=noninteractive
-ARG SMARTY_VERSION=3.1.44
 ARG SOLR_VERSION=8.11.1
 ARG SOLR_INSTALL_SOURCE=remote
 
@@ -33,6 +32,7 @@ RUN apt-get update \
       curl \
       wget \
       openssl \
+      git \
       # install Java
       openjdk-11-jre-headless \
       # Install R
@@ -45,6 +45,9 @@ RUN apt-get update \
       r-cran-httr \
       sqlite3 \
       less \
+      # for Apache Solr
+      lsof \
+ && apt-get --assume-yes autoremove \
  && rm -rf /var/lib/apt/lists/*
 
 # install qa-catalogue
@@ -75,6 +78,7 @@ RUN cd /opt \
  && locale-gen en_GB.UTF-8 \
  && locale-gen de_DE.UTF-8 \
  && locale-gen pt_BR.UTF-8 \
+ && apt-get --assume-yes autoremove \
  && rm -rf /var/lib/apt/lists/* \
  && cd /var/www/html/ \
 # && curl -s -L https://github.com/pkiraly/qa-catalogue-web/archive/${QA_CATALOGUE_VERSION}.zip --output master.zip \
@@ -112,35 +116,41 @@ RUN cd /opt \
  && if [ ! -d /var/www/html/qa-catalogue/images ]; then \
         mkdir /var/www/html/qa-catalogue/images ; \
     fi \
-# && cd /var/www/html/qa-catalogue/libs/ \
-# && curl -s -L https://github.com/smarty-php/smarty/archive/v${SMARTY_VERSION}.zip --output v$SMARTY_VERSION.zip \
-# && unzip -q v${SMARTY_VERSION}.zip \
-# && rm v${SMARTY_VERSION}.zip \
-# && mkdir -p /var/www/html/qa-catalogue/libs/_smarty/templates_c \
-# && chmod a+w -R /var/www/html/qa-catalogue/libs/_smarty/templates_c/ \
  && sed -i.bak 's,</VirtualHost>,        RedirectMatch ^/$ /qa-catalogue/\n        <Directory /var/www/html/qa-catalogue>\n                Options Indexes FollowSymLinks MultiViews\n                AllowOverride All\n                Order allow\,deny\n                allow from all\n                DirectoryIndex index.php index.html\n        </Directory>\n</VirtualHost>,' /etc/apache2/sites-available/000-default.conf \
  && echo "\nWEB_DIR=/var/www/html/qa-catalogue/\n" >> /opt/qa-catalogue/common-variables
 
 # install Solr
+COPY ${SOLR_INSTALL_SOURCE}* /opt
+
 RUN echo "install lsof" \
  && apt-get update \
  && apt-get install -y --no-install-recommends \
       lsof \
  && apt-get --assume-yes autoremove \
- && rm -rf /var/lib/apt/lists/*
-
-COPY ${SOLR_INSTALL_SOURCE}* /opt
-
-RUN cd /opt \
- && if [ ! -f solr-${SOLR_VERSION}.zip ]; then \
-       curl -L http://archive.apache.org/dist/lucene/solr/${SOLR_VERSION}/solr-${SOLR_VERSION}.zip --output /opt/solr-${SOLR_VERSION}.zip ; \
-    fi
-
-RUN echo "unzip solr" \
+ && rm -rf /var/lib/apt/lists/* \
  && cd /opt \
- && unzip -q solr-${SOLR_VERSION}.zip \
- && rm solr-${SOLR_VERSION}.zip \
- && echo "linking solr" \
+ && MAJOR_VERSION=$(echo $SOLR_VERSION | sed 's/^\([0-9]*\)\..*/\1/') \
+ && if [ ${MAJOR_VERSION} -gt 8 ]; then \
+      SOLR_PACKAGE="solr-${SOLR_VERSION}.tgz" ; \
+      SOLR_DOWNLOAD_PATH="solr/solr" ; \
+      SOLR_EXTRACT_METHOD="tgz" ; \
+    else \
+      SOLR_PACKAGE="solr-${SOLR_VERSION}.zip" ; \
+      SOLR_DOWNLOAD_PATH="lucene/solr" ; \
+      SOLR_EXTRACT_METHOD="zip" ; \
+    fi \
+ && if [ ! -f solr-${SOLR_PACKAGE} ]; then \
+      DOWNLOAD_URL=https://archive.apache.org/dist/${SOLR_DOWNLOAD_PATH}/${SOLR_VERSION}/${SOLR_PACKAGE} ; \
+      curl -L ${DOWNLOAD_URL} --output /opt/${SOLR_PACKAGE} ; \
+    fi \
+ && if [ "${SOLR_EXTRACT_METHOD}" = "zip" ]; then \
+      echo "unzip -q ${SOLR_PACKAGE}" ; \
+      unzip -q solr-${SOLR_PACKAGE} ; \
+    elif [ "${SOLR_EXTRACT_METHOD}" = "tgz" ]; then \
+      echo "tar -xvzf ${SOLR_PACKAGE}" ; \
+      tar -xzf ${SOLR_PACKAGE} ; \
+    fi \
+ && rm ${SOLR_PACKAGE} \
  && ln -s solr-${SOLR_VERSION} solr
 
 # init process supervisor

@@ -116,7 +116,6 @@ your machine:
 ```bash
 # set the directory where bibliographic files take place
 INPUT=<absolute path to the directory of bibliographic files>
-HTTP=80
 docker run \
   -d \
   -v $INPUT:/opt/qa-catalogue/marc \
@@ -132,6 +131,17 @@ docker container exec \
   -ti \
   metadata-qa-marc \
   ./qa-catalogue \
+  --params "--marcVersion GENT --alephseq" \
+  --mask "rug01.export" \
+  --catalogue gent \
+  all
+```
+
+As shortcut you can also use use script `./docker/qa-catalogue` as replacement
+for script `./qa-catalogue`:
+
+```bash
+./docker/qa-catalogue
   --params "--marcVersion GENT --alephseq" \
   --mask "rug01.export" \
   --catalogue gent \

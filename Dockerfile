@@ -5,8 +5,8 @@ LABEL maintainer="Péter Király <pkiraly@gwdg.de>, Ákos Takács <rimelek@rimel
 LABEL description="QA catalogue - a metadata quality assessment tool for MARC based library catalogues."
 
 ARG DEBIAN_FRONTEND=noninteractive
-ARG QA_CATALOGUE_VERSION=0.7.0
-ARG QA_CATALOGUE_WEB_VERSION=0.7.0
+ARG QA_CATALOGUE_VERSION=0.8.0-SNAPSHOT
+ARG QA_CATALOGUE_WEB_VERSION=main
 ARG SOLR_VERSION=8.11.1
 ARG SOLR_INSTALL_SOURCE=remote
 
@@ -16,12 +16,10 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
  && echo $TZ > /etc/timezone
 
 RUN apt-get update \
-    # Install add-apt-repository command
+ # Install add-apt-repository command
  && apt-get install -y --no-install-recommends software-properties-common gnupg2 \
-    # add PPA with pre-compiled cran packages
+ # add PPA with pre-compiled cran packages
  && add-apt-repository -y ppa:openjdk-r/ppa \
-# && add-apt-repository -y ppa:marutter/rrutter3.5 \
-# && add-apt-repository -y ppa:marutter/c2d4u3.5 \
  && echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc/apt/sources.list.d/cran.list \
  && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
  && apt-get install -y --no-install-recommends \
@@ -96,7 +94,9 @@ RUN cd /opt \
  && mv qa-catalogue-web-${QA_CATALOGUE_WEB_VERSION} qa-catalogue \
  && cd qa-catalogue \
  && composer install \
- && echo dir=/opt/qa-catalogue/marc/_output > /var/www/html/qa-catalogue/configuration.cnf \
+ && mkdir config \
+ && echo dir=/opt/qa-catalogue/marc/_output > /var/www/html/qa-catalogue/config/configuration.cnf \
+ && ln -s config/configuration.cnf configuration.cnf \
  # && cp /var/www/html/qa-catalogue/configuration.js.template /var/www/html/qa-catalogue/configuration.js \
  && touch /var/www/html/qa-catalogue/selected-facets.js \
  && if [ ! -d /var/www/html/qa-catalogue/cache ]; then \

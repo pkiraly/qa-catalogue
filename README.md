@@ -68,13 +68,15 @@ Screenshot from the web UI of the QA catalogue
 * [Extending the functionalities](#extending-the-functionalities)
 * [User interface](#user-interface)
 * Appendices
-  * [Appendix I. Where can I get MARC records](#appendix-i-where-can-i-get-marc-records)
+  * [Appendix I: Where can I get MARC records](#appendix-i-where-can-i-get-marc-records)
     * [United States of America](#united-states-of-america)
     * [Germany](#germany)
     * [Elsewhere](#others)
-  * [Appendix II. Handling MARC versions](#appendix-ii-handling-marc-versions)
-  * [Appendix III. Institutions which reportedly use this tool](#appendix-iii-institutions-which-reportedly-use-this-tool)
-  * [Appendix IV. Special build process](#appendix-iv-special-build-process)
+  * [Appendix II: Handling MARC versions](#appendix-ii-handling-marc-versions)
+  * [Appendix III: Institutions which reportedly use this tool](#appendix-iii-institutions-which-reportedly-use-this-tool)
+  * [Appendix IV: Supporters and Sponsors](#appendix-iv-supporters-and-sponsors)
+  * [Appendix V: Special build process](#appendix-v-special-build-process)
+  * [Appendix VI: Build Docker image](#appendix-vi-build-docker-image)
 
 ## Quick start guide
 
@@ -99,39 +101,32 @@ default. Files of each catalogue are in a subdirectory of theses base directorie
  * cp catalogues/loc.sh catalogues/[abbreviation-of-your-library].sh
  * edit catalogues/[abbreviation-of-your-library].sh according to [configuration guide](#configuration-1)
 
-### With docker
+### With Docker
 
 An experimental Docker image is publicly available in Docker Hub. This image
 contain an Ubuntu 20.04 with Java, R and the current software. No installation
-is needed (given you have a Docker running environment). You only have to
-specify the directory on your local machine where the bibliographic record
-files are located (set to `INPUT`). The name of subdirectory in there must be
-`qa-catalogue`, so actual files are in `$INPUT/qa-catalogue`.
-
-First download the Docker image, which takes a time, and specify how
-directories (`/opt/qa-catalogue/marc`) and ports (`:8983` for Solr, `:80` for
-web interface) from the container should be mapped to directories and ports in
-your machine:
+is needed (given you have a Docker running environment). You only have to put
+your bibliographic record files in subdirectory `input/qa-catalogue` and run:
 
 ```bash
-# set the directory where bibliographic files take place
-INPUT=<absolute path to the directory of bibliographic files>
-LOCAL_HTTP_PORT=80
-docker run \
-  -d \
-  -v $INPUT:/opt/qa-catalogue/marc \
-  -p 8983:8983 -p $LOCAL_HTTP_PORT:80 \
-  --name metadata-qa-marc \
-  pkiraly/metadata-qa-marc:0.7.0
+docker compose up -d
 ```
 
-Then run analyses (this example uses parameters for Gent university library catalogue):
+First download will take some time. To change the location of record files and
+ports of web application and Solr copy file `docker-compose.yml` to
+`docker-local.yml`, adjust settings in this file and run:
 
 ```bash
-docker container exec \
-  -ti \
-  metadata-qa-marc \
-  ./qa-catalogue \
+docker compose up -f docker-local.yml -d
+```
+
+When the application has been started this way, run analyses with script
+`./docker/qa-catalogue` the same ways as script `./qa-catalogue` is called when
+not using Docker (see [usage](#usage) for details). The following example uses
+parameters for Gent university library catalogue:
+
+```bash
+./docker/qa-catalogue
   --params "--marcVersion GENT --alephseq" \
   --mask "rug01.export" \
   --catalogue gent \
@@ -139,7 +134,9 @@ docker container exec \
 ```
 
 Now you can reach the web interface ([qa-catalogue-web](https://github.com/pkiraly/qa-catalogue-web))
-at <http://localhost:80/metadata-qa>.
+at <http://localhost:80/metadata-qa> (or at another port if configured in `docker-local.yml`).
+If experienced with Docker, you can also [build the Docker image](#appendix-vi-build-docker-image)
+from current sources.
 
 This example works under Linux. Windows users should consult the 
 [Docker on Windows](https://github.com/pkiraly/qa-catalogue/wiki/Docker-on-Windows) wiki page.
@@ -305,34 +302,37 @@ TYPE_PARAMS="--marcVersion DNB --marcxml"
 This line sets the DNB's MARC version (to cover fields defined within DNB's
 MARC version), and XML as input format.
 
-The following table summarizes some of the configuration variables. The script
+The following table summarizes the configuration variables. The script
 `qa-catalogue` can be used to set variables and execute analysis without a
 library specific configuration file:
 
-| variable      | `qa-catalogue`  | description  | default |
-| ------------- | ----------------- | ------------ | ------- |
-| `NAME`        | `-n`/`--name`     | name of the catalogue | metadata-qa |
-| `TYPE_PARAMS` | `-p`/`--params`   | parameters to pass to individual tasks (see below) | |
-| `MASK`        | `-m`/`--mask`     | a file mask, e.g. `*.mrc` | |
-| `VERSION`     | `-v`/`--version`  | optional version number/date of the catalogue to compare changes | |
-| `ANALYSES`    | `-a`/`--analyses` | which tasks to run with `all-analyses` | `validate,sqlite,completeness,completeness_sqlite,classifications,authorities,tt_completeness,shelf_ready_completeness,serial_score,functional_analysis,pareto,marc_history` |
-| `UPDATE`      | `-u`/`--update`   | optional date of input files | |
-|               | `-c`/`--catalogue`| display name of the catalogue | `$NAME` |
-|               | `-d`/`--input_dir`| subdirectory of input files | `$NAME` |
+| variable          | `qa-catalogue`  | description  | default |
+| ----------------- | ----------------- | ------------ | ------- |
+| `ANALYSES`        | `-a`/`--analyses` | which tasks to run with `all-analyses` | `validate,sqlite,completeness,completeness_sqlite,classifications,authorities,tt_completeness,shelf_ready_completeness,serial_score,functional_analysis,pareto,marc_history` |
+|                   | `-c`/`--catalogue`| display name of the catalogue | `$NAME` |
+| `NAME`            | `-n`/`--name`     | name of the catalogue | qa-catalogue |
+| `BASE_INPUT_DIR`  | `-d`/`--input`    | parent directory of input file directories | `./input` |
+| `BASE_OUTPUT_DIR` | `-o`/--input`     | parent output directory | `./output` |
+| `MASK`            | `-m`/`--mask`     | a file mask which input files to process, e.g. `*.mrc` | `*` |
+| `TYPE_PARAMS`     | `-p`/`--params`   | parameters to pass to individual tasks (see below) | |
+| `SCHEMA`          | `-s`/`--schema`   | record schema | `MARC21` |
+| `UPDATE`          | `-u`/`--update`   | optional date of input files | |
+| `VERSION`         | `-v`/`--version`  | optional version number/date of the catalogue to compare changes | |
+| `WEB_CONFIG`      | `-w`/`--web-config` | update the specified configuration file of qa-catalogue-web | |
 
 ## Detailed instructions
 
 We will use the same jar file in every command, so we save its path into a variable.
 
 ```bash
-export JAR=target/metadata-qa-marc-0.6.0-jar-with-dependencies.jar
+export JAR=target/metadata-qa-marc-0.7.0-jar-with-dependencies.jar
 ```
 
 ### General parameters
 
 Most of the analyses uses the following general parameters
 
-* `-w <type>`, `--schemaType <type>` metadata schema type. The supported types are:
+* `--schemaType <type>` metadata schema type. The supported types are:
   * `MARC21`
   * `PICA`
   * `UNIMARC` (assessment of UNIMARC records are not yet supported, this
@@ -2308,34 +2308,20 @@ really like to hear about your use case and ideas.
 mvn clean deploy -Pdeploy
 ```
 
-### Docker image
+### Appendix VI: Build Docker image
 
 Build and test
 ```bash
 # create the Java library
 mvn clean install
-# create the docker images
-docker compose -f docker-compose.yml build app
-# start the container
-INPUT=<absolute path to the directory of bibliographic files>
-LOCAL_HTTP_PORT=80
-docker run \
-  -d \                                              # run in background
-  -v $INPUT:/opt/qa-catalogue/marc \                # map the local directory of MARC files
-  -p 8983:8983 -p $LOCAL_HTTP_PORT:80 \             # expose Solr and Apache ports (as host:container)
-  --name metadata-qa-marc \                         # name of the container
-  metadata-qa-marc                                  # name of the image
-# run analyses
-docker exec \                                       # execute a command
-  -t -i metadata-qa-marc \                          # inside the container
-  ./qa-catalogue \                                # the name of the command to run
-  --params "--marcVersion GENT --alephseq" \        # the parameters used in analyses 
-  --mask 'rug01.export' \                           # file mask
-  --catalogue gent \                                # the name of the catalogue
-  all                                               # run all analyses
+# create the docker base image
+docker compose -f docker/base.yml build app
 ```
 
-You will see some log messages, and it is done, you can check the output at http://localhost/metadata-qa.
+Then start the container with local `docker-local.yml` where the `image` is set
+to `metadata-qa-marc` and run analyses [as described above](#with-docker).
+
+For maintainers only:
 
 Upload to Docker Hub:
 ```bash

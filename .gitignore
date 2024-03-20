@@ -50,3 +50,6 @@ setdir.sh
 .settings
 
 /target/
+
+# local docker compose file
+docker-local.yml

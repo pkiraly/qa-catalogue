@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  app:
+    build:
+      context: ..             # create from the working directory
+      dockerfile: Dockerfile
+    image: metadata-qa-marc   # the name of the image

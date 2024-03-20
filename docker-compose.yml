@@ -1,8 +1,10 @@
+# Start with `docker compose up -d`
 version: '2'
-
 services:
   app:
-    build:
-      context: .             # create from the working directory
-      dockerfile: Dockerfile
-    image: metadata-qa-marc  # the name of the image
+    image: pkiraly/metadata-qa-marc:0.7.0
+    volumes:
+      - ./input:/opt/qa-catalogue/marc
+    ports:
+      - "80:80"     # Web application
+      - "8983:8983" # Solr

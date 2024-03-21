@@ -145,7 +145,7 @@ RUN echo "install lsof" \
     fi \
  && if [ "${SOLR_EXTRACT_METHOD}" = "zip" ]; then \
       echo "unzip -q ${SOLR_PACKAGE}" ; \
-      unzip -q solr-${SOLR_PACKAGE} ; \
+      unzip -q ${SOLR_PACKAGE} ; \
     elif [ "${SOLR_EXTRACT_METHOD}" = "tgz" ]; then \
       echo "tar -xvzf ${SOLR_PACKAGE}" ; \
       tar -xzf ${SOLR_PACKAGE} ; \

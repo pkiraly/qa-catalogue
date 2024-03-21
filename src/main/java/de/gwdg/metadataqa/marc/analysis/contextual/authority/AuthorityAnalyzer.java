@@ -72,6 +72,4 @@ public abstract class AuthorityAnalyzer extends ContextualAnalyzer<AuthorityStat
     }
     return extractedSchemas;
   }
-
-
 }

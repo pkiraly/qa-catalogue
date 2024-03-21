@@ -57,6 +57,7 @@ public class PicaRecord extends BibliographicRecord {
     return PICA_SUBJECT_TAGS;
   }
 
+  @Override
   protected void initializeAuthorityTags() {
     authorityTags = Arrays.asList(
       "022A/00", // Werktitel und sonstige unterscheidende Merkmale des Werks
@@ -147,17 +148,22 @@ public class PicaRecord extends BibliographicRecord {
   protected void indexField(DataField dataField) {
 
     String tag = dataField.getTagWithOccurrence();
-    if (tag == null)
-      logger.warning(() -> "null tag in indexField() " + dataField);
 
     datafieldIndex.computeIfAbsent(tag, s -> new ArrayList<>());
     datafieldIndex.get(tag).add(dataField);
 
-    if (dataField.getTag() != null && !tag.equals(dataField.getTag())) {
-      tag = dataField.getTag();
-      datafieldIndex.computeIfAbsent(tag, s -> new ArrayList<>());
-      datafieldIndex.get(tag).add(dataField);
+    if (tag == null) {
+      logger.warning(() -> "null tag in indexField() " + dataField);
+      return;
     }
+
+    if (dataField.getTag() == null || tag.equals(dataField.getTag())) {
+      return;
+    }
+
+    tag = dataField.getTag();
+    datafieldIndex.computeIfAbsent(tag, s -> new ArrayList<>());
+    datafieldIndex.get(tag).add(dataField);
   }
 
 }

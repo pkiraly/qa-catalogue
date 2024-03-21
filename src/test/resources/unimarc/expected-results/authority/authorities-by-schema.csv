@@ -1,4 +1,4 @@
 id,field,location,scheme,abbreviation,abbreviation4solr,recordcount,instancecount
-1,700,$2,"UNSPECIFIED",UNSPECIFIED,unspecified,8,8
-2,701,$2,"UNSPECIFIED",UNSPECIFIED,unspecified,1,1
-3,702,$2,"UNSPECIFIED",UNSPECIFIED,unspecified,6,6
+1,700,$2,"undetectable",undetectable,undetectable,8,8
+2,701,$2,"undetectable",undetectable,undetectable,1,1
+3,702,$2,"undetectable",undetectable,undetectable,6,6

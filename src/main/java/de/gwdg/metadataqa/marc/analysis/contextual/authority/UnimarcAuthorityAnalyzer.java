@@ -16,19 +16,20 @@ public class UnimarcAuthorityAnalyzer extends AuthorityAnalyzer {
 
   @Override
   protected int processField(DataField field, AuthorityCategory category, Map<AuthorityCategory, Integer> categoryCounter) {
-    int fieldInstanceLevelCount = processFieldSchema(field);
+    int fieldInstanceLevelCount = processFieldWithSubfield2(field);
     Utils.addToCounter(category, categoryCounter, fieldInstanceLevelCount);
     return fieldInstanceLevelCount;
   }
 
-  private int processFieldSchema(DataField field) {
-    // TODO: Implement the extraction of schemas in the specified fields. I'm however not sure if that's even included
-    //  in the UNIMARC format.
-    Schema unhandledSchema = new Schema(field.getTag(), "$2", "UNSPECIFIED", "UNSPECIFIED");
+  private int processFieldWithSubfield2(DataField field) {
+    // Even though the subfield $2 in UNIMARC authority fields usually doesn't contain schema information,
+    // for now, the same logic as in the MARC21 analyzer is used to extract schemas from subfield $2.
+    List<Schema> schemas = extractSchemasFromSubfield2(field.getTag(), field);
+    for (Schema schema : schemas) {
+      updateSchemaSubfieldStatistics(field, schema);
+    }
 
-    updateSchemaSubfieldStatistics(field, unhandledSchema);
-
-    registerSchemas(List.of(unhandledSchema));
-    return 1;
+    registerSchemas(schemas);
+    return schemas.size();
   }
 }

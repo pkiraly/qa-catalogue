@@ -103,21 +103,36 @@ default. Files of each catalogue are in a subdirectory of theses base directorie
 
 ### With Docker
 
-An experimental Docker image is publicly available in Docker Hub. This image
-contain an Ubuntu 20.04 with Java, R and the current software. No installation
-is needed (given you have a Docker running environment). You only have to put
-your bibliographic record files in subdirectory `input/qa-catalogue` and run:
+An Docker image bundling qa-catalogue with all of its dependencies and the web
+interface [qa-catalogue-web] is made available in Docker Hub. To use
+qa-catalogue via Docker first run the image in a new container (download may
+take some time):
 
 ```bash
 docker compose up -d
 ```
 
-First download will take some time. To change the location of record files and
-ports of web application and Solr copy file `docker-compose.yml` to
-`docker-local.yml`, adjust settings in this file and run:
+You can configure the container *before* running this command with the
+following environment variables:
+
+- `INPUT`: Base directory to put your bibliographic record files in subdirectory
+  `qa-catalogue`. Set to `./input` by default, so record files are expected to
+   be in `input/qa-catalogue`.
+
+- `IMAGE`: which Docker image to download and run. By default the most recent
+   image from Docker Hub is used. For instance if you have locally 
+   [build the Docker image](#appendix-vi-build-docker-image), then set
+   `IMAGE=metadata-qa-marc`.
+
+- `WEBPORT`: port to expose the web interface. For instance `WEBPORT=9000` will
+   make it available at <http://localhost:9000/> instead of <http://localhost/>.
+
+- `SOLRPORT`: port to expose Solr to. Default: `8983`.
+
+Environment variables can be set on command line or be put in local file `.env`, e.g.: 
 
 ```bash
-docker compose up -f docker-local.yml -d
+WEBPORT=9000 docker compose up -d
 ```
 
 When the application has been started this way, run analyses with script
@@ -133,10 +148,12 @@ parameters for Gent university library catalogue:
   all
 ```
 
-Now you can reach the web interface ([qa-catalogue-web](https://github.com/pkiraly/qa-catalogue-web))
-at <http://localhost:80/metadata-qa> (or at another port if configured in `docker-local.yml`).
-If experienced with Docker, you can also [build the Docker image](#appendix-vi-build-docker-image)
-from current sources.
+[qa-catalogue-web]: https://github.com/pkiraly/qa-catalogue-web
+
+Now you can reach the web interface ([qa-catalogue-web]) at
+<http://localhost:80/metadata-qa> (or at another port as configured with
+environment variables).
+
 
 This example works under Linux. Windows users should consult the 
 [Docker on Windows](https://github.com/pkiraly/qa-catalogue/wiki/Docker-on-Windows) wiki page.
@@ -2357,8 +2374,8 @@ docker compose -f docker/build.yml build app \
 rm -rf download
 ```
 
-Then start the container with local `docker-local.yml` where the `image` is set
-to `metadata-qa-marc` and run analyses [as described above](#with-docker).
+Then start the container with environment variable `IMAGE` set to
+`metadata-qa-marc` and run analyses [as described above](#with-docker).
 
 For maintainers only:
 

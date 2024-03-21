@@ -51,5 +51,5 @@ setdir.sh
 
 /target/
 
-# local docker compose file
-docker-local.yml
+# environment variables
+.env

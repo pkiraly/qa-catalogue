@@ -4,9 +4,9 @@ version: '2'
 
 services:
   app:
-    image: pkiraly/metadata-qa-marc:0.7.0
+    image: ${IMAGE:-pkiraly/metadata-qa-marc:0.7.0}
     volumes:
-      - ./input:/opt/qa-catalogue/marc
+      - ./${INPUT:-input}:/opt/qa-catalogue/marc
     ports:
-      - "80:80"       # Web application
-      - "8983:8983"   # Solr
+      - "${WEBPORT:-80}:80"       # qa-catalogue-web
+      - "${SOLRPORT:-8983}:8983"  # Solr

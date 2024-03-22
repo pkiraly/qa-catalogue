@@ -124,6 +124,11 @@ following environment variables:
    [build the Docker image](#appendix-vi-build-docker-image), then set
    `IMAGE=metadata-qa-marc`.
 
+- `WEBCONFIG`: directory to expose configuration of [qa-catalogue-web]. Set to
+  `./web-config` by default. If using non-default configuration for data analysis
+  (for instance PICA instead of MARC) then you likely need to adjust configuration
+  of the web interface as well.
+
 - `WEBPORT`: port to expose the web interface. For instance `WEBPORT=9000` will
    make it available at <http://localhost:9000/> instead of <http://localhost/>.
 

@@ -53,3 +53,6 @@ setdir.sh
 
 # environment variables
 .env
+
+# used as Docker volume
+web-config

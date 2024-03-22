@@ -7,6 +7,7 @@ services:
     image: ${IMAGE:-pkiraly/metadata-qa-marc:0.7.0}
     volumes:
       - ./${INPUT:-input}:/opt/qa-catalogue/marc
+      - ./${WEBBCONFIG:-web-config}:/var/www/html/qa-catalogue/config
     ports:
       - "${WEBPORT:-80}:80"       # qa-catalogue-web
       - "${SOLRPORT:-8983}:8983"  # Solr

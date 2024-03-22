@@ -146,7 +146,7 @@ not using Docker (see [usage](#usage) for details). The following example uses
 parameters for Gent university library catalogue:
 
 ```bash
-./docker/qa-catalogue
+./docker/qa-catalogue \
   --params "--marcVersion GENT --alephseq" \
   --mask "rug01.export" \
   --catalogue gent \
@@ -157,8 +157,10 @@ parameters for Gent university library catalogue:
 
 Now you can reach the web interface ([qa-catalogue-web]) at
 <http://localhost:80/metadata-qa> (or at another port as configured with
-environment variables).
-
+environment variables). To further modify appearance of the interface,
+create [templates](https://github.com/pkiraly/qa-catalogue-web/?tab=readme-ov-file#customization)
+in your `WEBCONFIG` directory and/or create a file `configuration.cnf` in
+this directory to extend [UI configuration](https://github.com/pkiraly/qa-catalogue-web/?tab=readme-ov-file#configuration) without having to restart the Docker container. 
 
 This example works under Linux. Windows users should consult the 
 [Docker on Windows](https://github.com/pkiraly/qa-catalogue/wiki/Docker-on-Windows) wiki page.

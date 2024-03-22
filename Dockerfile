@@ -95,8 +95,8 @@ RUN cd /opt \
  && cd qa-catalogue \
  && composer install \
  && mkdir config \
- && echo dir=/opt/qa-catalogue/marc/_output > /var/www/html/qa-catalogue/config/configuration.cnf \
- && ln -s config/configuration.cnf configuration.cnf \
+ && echo dir=/opt/qa-catalogue/marc/_output > /var/www/html/qa-catalogue/configuration.cnf \
+ && echo include=config/configuration.cnf >> /var/www/html/qa-catalogue/configuration.cnf \
  # && cp /var/www/html/qa-catalogue/configuration.js.template /var/www/html/qa-catalogue/configuration.js \
  && touch /var/www/html/qa-catalogue/selected-facets.js \
  && if [ ! -d /var/www/html/qa-catalogue/cache ]; then \
